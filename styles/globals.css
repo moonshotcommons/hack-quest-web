@@ -1,8 +1,32 @@
+
+
+@font-face {
+  font-family: "Neue Machina";
+  src: url("../fonts/neuemachina/neuemachina-regular.otf");
+}
+@font-face {
+  font-family: "NEXT Poster";
+  src: url("../fonts/Next/NEXT-Poster-Regular.otf");
+}
+@font-face {
+  font-family: "NEXT Book";
+  src: url("../fonts/Next/NEXT-Book-Regular.otf");
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
+@layer components {
+  .title {
+    @apply font-next-book text-base font-bold text-white;
+  }
+
+  .bottom-line {
+    @apply after:absolute after:h-[1px] after:scale-y-[0.25] after:w-full after:bg-white after:-bottom-1;
+  }
+}
+/* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
@@ -24,4 +48,4 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
-}
+} */
