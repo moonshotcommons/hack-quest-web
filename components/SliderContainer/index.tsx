@@ -33,21 +33,6 @@ export const SliderContainer: React.FC<SliderContainerProps> = ({ width = 'inher
 
   useLayoutEffect(() => {
     setListWidth((listRef.current as HTMLDivElement).clientWidth)
-    if (containerRef.current) {
-      containerRef.current.style.width = containerRef.current?.offsetWidth + 4 + 'px'
-    }
-
-    // const resizeHandle = () => {
-    //   if (containerRef.current) {
-    //     console.log(containerRef.current?.offsetWidth)
-    //     containerRef.current.style.width = containerRef.current?.offsetWidth + 4 + 'px'
-    //   }
-    // }
-
-    // addEventListener('resize', resizeHandle)
-    // return () => {
-    //   removeEventListener('resize', resizeHandle)
-    // }
   }, [children])
 
   const [leftArrowVisible, rightArrowVisible] = useMemo(() => {
@@ -86,7 +71,7 @@ export const SliderContainer: React.FC<SliderContainerProps> = ({ width = 'inher
   }
 
   return (
-    <div ref={containerRef} className={`flex overflow-hidden relative h-full`}>
+    <div ref={containerRef} className={`flex overflow-hidden relative w-auto h-auto`}>
       {leftArrowVisible && (
         <>
           <div className="absolute left-0 top-1/2 -translate-y-1/2 arrow z-50" onClick={() => handleArrowClick(LEFT)}>

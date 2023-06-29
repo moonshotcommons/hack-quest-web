@@ -99,7 +99,7 @@ export default function Home() {
         <NavBar></NavBar>
         <Title>{'</Trending Now>'}</Title>
         <SliderContainer>
-          <div className="flex gap-[3.25rem] items-end h-[17.625rem]">
+          <div className="flex w-[114rem] h-[17.625rem] gap-[3.25rem] items-end">
             {defaultCards.map((card, index) => {
               return <div key={index}>{renderCard(card)}</div>
             })}
