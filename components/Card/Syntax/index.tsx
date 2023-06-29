@@ -1,4 +1,10 @@
+import Button from '@/components/Button'
+import ClockIcon from '@/components/Icon/Clock'
+import CompletedIcon from '@/components/Icon/Completed'
+import CourseIcon from '@/components/Icon/Course'
+import Label from '@/components/Label'
 import Tag from '@/components/Tag'
+import { computeTime } from '@/helper/utils'
 import React from 'react'
 
 export interface SyntaxCardProps {
@@ -11,11 +17,11 @@ export interface SyntaxCardProps {
 }
 
 const SyntaxCard: React.FC<SyntaxCardProps> = props => {
-  const { title, tags = [], description } = props
+  const { title, tags = [], description, totalTime, courseCount, completed } = props
   return (
     <div className={`h-[17.375rem] w-[26rem] bg-[url('/assets/card/Syntax/color-bg.svg')] relative flex-shrink-0`}>
       <div className={`w-full h-full bg-[url('/assets/card/Syntax/bg.svg')] scale-[1.01] absolute top-0 left-0 hover:-top-1 hover:left-1`}>
-        <div className="px-10 pt-9">
+        <div className="pl-10 pr-4 pt-9">
           <div className="w-[2.875rem] h-1 rounded-xl bg-gradient-to-t from-[#0891D5] to-[#38C1A5]"></div>
           <h2 className="title mt-7">{title}</h2>
           <div className="mt-4">
@@ -23,7 +29,15 @@ const SyntaxCard: React.FC<SyntaxCardProps> = props => {
               return <Tag key={tag}>{tag}</Tag>
             })}
           </div>
-          <div>{description}</div>
+          <div className="mt-4 description">{description}</div>
+
+          <div className="flex mt-10 justify-between items-center">
+            <div className="flex gap-8">
+              <Label icon={<ClockIcon color="#f2f2f2" />}>{computeTime(totalTime, 'Hour')} Hour</Label>
+              <Label icon={<CourseIcon color="#f2f2f2" />}>{courseCount} Course</Label>
+            </div>
+            <div className="">{completed > 0 ? <Button icon={<CompletedIcon />}>{(completed / totalTime) * 100}% COMPLETED</Button> : null}</div>
+          </div>
         </div>
       </div>
     </div>

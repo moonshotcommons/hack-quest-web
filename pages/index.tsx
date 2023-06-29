@@ -1,4 +1,4 @@
-import ConceptLearningCard from '@/components/Card/ConceptLearning'
+import ConceptLearningCard, { ConceptLearningCardProps } from '@/components/Card/ConceptLearning'
 import HackathonCard, { HackathonCardProps } from '@/components/Card/Hackathon'
 import LearningTracksCard from '@/components/Card/LearningTracks'
 import SyntaxCard, { SyntaxCardProps } from '@/components/Card/Syntax'
@@ -8,7 +8,10 @@ import { CardType } from '@/constants'
 import Cover from '@/public/assets/cover.svg'
 import Image from 'next/image'
 
-type Cards = { type: CardType } & (HackathonCardProps | SyntaxCardProps)
+import { Inter } from 'next/font/google'
+import { SliderContainer } from '@/components/SliderContainer'
+
+const inter = Inter({ subsets: ['latin'] })
 
 const defaultCards = [
   {
@@ -32,28 +35,76 @@ const defaultCards = [
   },
   {
     type: CardType.LEARNING_TRACKS,
-    title: 'What is Bitcoin',
+    title: 'Web 3.0 Programming Advanced',
+    tags: ['Advanced'],
+    description: 'Basic concepts in programming of Solidity. Topics include: variables, functions, flow control, error handling, data structure.',
     totalTime: 129600,
-    cover: import.meta.url,
+    courseCount: 5,
+    completed: 0,
+  },
+  {
+    type: CardType.CONCEPT_LEARNING,
+    title: 'What is Bitcoin',
+    description: 'Basic concepts in programming of Solidity. Topics include: variables, functions, flow control, error handling, data structure.',
+    totalTime: 129600,
+    completed: 0,
+    cover: '/assets/cover.svg',
   },
 ]
 
 export default function Home() {
+  const renderCard = (card: (typeof defaultCards)[number]) => {
+    switch (card.type) {
+      case CardType.CONCEPT_LEARNING:
+        return (
+          <ConceptLearningCard
+            title={card.title}
+            tags={card.tags || []}
+            description={card.description || ''}
+            totalTime={card.totalTime || 0}
+            courseCount={card.courseCount || 0}
+            completed={card.completed || 0}
+            cover={card.cover || ''}
+          ></ConceptLearningCard>
+        )
+      case CardType.HACKATHON:
+        return <HackathonCard title={card.title} tags={card.tags || []}></HackathonCard>
+      case CardType.SYNTAX:
+        return (
+          <SyntaxCard
+            title={card.title}
+            tags={card.tags || []}
+            description={card.description || ''}
+            totalTime={card.totalTime || 0}
+            courseCount={card.courseCount || 0}
+            completed={card.completed || 0}
+          ></SyntaxCard>
+        )
+      case CardType.LEARNING_TRACKS:
+        return (
+          <LearningTracksCard
+            title={card.title}
+            tags={card.tags || []}
+            description={card.description || ''}
+            totalTime={card.totalTime || 0}
+            courseCount={card.courseCount || 0}
+            completed={card.completed || 0}
+          ></LearningTracksCard>
+        )
+    }
+  }
   return (
-    <main className="w-full min-h-screen bg-black">
+    <main className={`w-full min-h-screen bg-black ${inter.className}`}>
       <main className="container m-auto">
         <NavBar></NavBar>
         <Title>{'</Trending Now>'}</Title>
-        <div className="flex gap-[3.25rem] w-full h-auto">
-          {/* <SyntaxCard title="Introduction to programming" tags={['Beginner']} description="This course covers the most basic concepts in programming using Solidity as an example."></SyntaxCard> */}
-          <HackathonCard title="Moonshot 2023 Summer Hackathon" tags={['All Tracks', 'Solidity', 'ZK']}></HackathonCard>
-          <LearningTracksCard></LearningTracksCard>
-          <ConceptLearningCard></ConceptLearningCard>
-        </div>
-        <svg width="382" height="240" viewBox="0 0 382 240" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="-48" y="-31.9995" width="524" height="399" fill="#B6E1D8" />
-        </svg>
-        <Image src={Cover} alt="cover"></Image>
+        <SliderContainer>
+          <div className="flex gap-[3.25rem] items-end h-[17.625rem]">
+            {defaultCards.map((card, index) => {
+              return <div key={index}>{renderCard(card)}</div>
+            })}
+          </div>
+        </SliderContainer>
       </main>
     </main>
   )
