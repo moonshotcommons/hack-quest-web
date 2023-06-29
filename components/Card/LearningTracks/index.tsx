@@ -20,7 +20,7 @@ const LearningTracksCard: React.FC<LearningTracksCardProps> = props => {
   const { title, tags = [], description, totalTime, courseCount, completed } = props
   return (
     <div className={`h-[17.375rem] w-[26rem] bg-[url('/assets/card/LearningTracks/color-bg.svg')] relative flex-shrink-0`}>
-      <div className={`w-full h-full bg-[url('/assets/card/LearningTracks/bg.svg')] scale-[1.01] absolute top-0 left-0 hover:-top-1 hover:left-1`}>
+      <div className={`w-full h-full bg-[url('/assets/card/LearningTracks/bg.svg')] scale-[1.01] absolute top-0 left-0 hover:-top-1 hover:left-1 hover:transition-all duration-700`}>
         <div className="pl-10 pr-4 pt-9">
           <div className="w-[2.875rem] h-1 rounded-xl bg-gradient-to-t from-[#3CBC34] to-[#D9E313]"></div>
           <h2 className="title mt-7">{title}</h2>
