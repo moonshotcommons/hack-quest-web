@@ -8,8 +8,12 @@ module.exports = {
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
       fontFamily: {
+        'next-book-bold': ['NEXT Book Bold'],
         'next-book': ['NEXT Book'],
+        'next-book-Thin': ['NEXT Book Thin'],
+        'next-poster-Bold': ['NEXT Poster Bold'],
         'next-poster': ['NEXT Poster'],
+        'next-poster-Thin': ['NEXT Poster Thin'],
         neuemachina: ['Neue Machina'],
       },
       screens: {

@@ -23,7 +23,7 @@ const ConceptLearningCard: React.FC<ConceptLearningCardProps> = props => {
         <div className="pl-10 pr-4 pt-9">
           <div className="w-[2.875rem] h-1 rounded-xl bg-gradient-to-t from-[#EB3E1C] to-[#E0AD38]"></div>
           <h2 className="title mt-36">{title}</h2>
-          <Label icon={<ClockIcon color="#f2f2f2" />} className="ml-56 mt-10">
+          <Label icon={<ClockIcon color="#f2f2f2" />} className="ml-56 mt-10 font-neuemachina">
             {computeTime(totalTime, 'Hour')} Hour
           </Label>
         </div>

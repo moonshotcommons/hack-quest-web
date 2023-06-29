@@ -33,8 +33,12 @@ const SyntaxCard: React.FC<SyntaxCardProps> = props => {
 
           <div className="flex mt-10 justify-between items-center">
             <div className="flex gap-8">
-              <Label icon={<ClockIcon color="#f2f2f2" />}>{computeTime(totalTime, 'Hour')} Hour</Label>
-              <Label icon={<CourseIcon color="#f2f2f2" />}>{courseCount} Course</Label>
+              <Label icon={<ClockIcon color="#f2f2f2" />} className="font-neuemachina">
+                {computeTime(totalTime, 'Hour')} Hour
+              </Label>
+              <Label icon={<CourseIcon color="#f2f2f2" />} className="font-neuemachina">
+                {courseCount} Course
+              </Label>
             </div>
             <div className="">{completed > 0 ? <Button icon={<CompletedIcon />}>{(completed / totalTime) * 100}% COMPLETED</Button> : null}</div>
           </div>
