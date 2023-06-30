@@ -10,7 +10,7 @@ const Footer = () => {
     <div className="w-full gap-[6.25rem] pt-[12rem] mt-[3rem] pb-[3.5rem] bg-black flex justify-between flex-col">
       <div className="h-full flex justify-between">
         <h2 className="font-next-poster-Bold w-[18rem] text-[#EDEDED] text-[2rem]">WEB3 programming for Everyone</h2>
-        <div className="flex gap-[120px]  text-[#B2B2B2] text-sm font-next-book-Thin">
+        <div className="flex gap-[7.5rem]  text-[#B2B2B2] text-sm font-next-book-Thin">
           <ul className="flex flex-col gap-[1.75rem]">
             <li>All Courses</li>
             <li>Learning Dashboard</li>
