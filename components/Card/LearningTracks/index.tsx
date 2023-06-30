@@ -40,7 +40,7 @@ const LearningTracksCard: React.FC<LearningTracksCardProps> = props => {
                 {courseCount} Course
               </Label>
             </div>
-            <div className="">{completed > 0 ? <Button icon={<CompletedIcon />}>{(completed / totalTime) * 100}% COMPLETED</Button> : null}</div>
+            <div className="">{completed > 0 ? <Button icon={<CompletedIcon />}>{((completed / totalTime) * 100).toFixed(0)}% COMPLETED</Button> : null}</div>
           </div>
         </div>
       </div>

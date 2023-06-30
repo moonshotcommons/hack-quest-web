@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import React from 'react'
-import Logo from '@/public/logo.svg'
+import Logo from '@/public/text-Logo.svg'
 import Avatar from '@/public/assets/avatar.svg'
 const NavBar = () => {
   return (
