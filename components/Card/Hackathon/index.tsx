@@ -21,16 +21,16 @@ const HackathonCard: React.FC<HackathonCardProps> = props => {
           </div>
           <div className="mt-12">
             <div className="flex relative justify-between mt-4 bottom-line leading-[110%]">
-              <span className="text-[#676767] text-xs font-next-book">SignUp</span>
-              <span className="text-[#EDEDED] text-sm font-neuemachina">4/15 - 6/15</span>
+              <span className="text-[#676767] text-xs font-next-book-thin">SignUp</span>
+              <span className="text-[#EDEDED] text-sm font-neuemachina-light">4/15 - 6/15</span>
             </div>
             <div className="flex relative justify-between mt-4 bottom-line leading-[110%]">
               <span className="text-[#676767] text-xs font-next-book">Event</span>
-              <span className="text-[#EDEDED] text-sm font-neuemachina">6/15 - 7/15</span>
+              <span className="text-[#EDEDED] text-sm font-neuemachina-light">6/15 - 7/15</span>
             </div>
             <div className="flex relative justify-between mt-4 bottom-line leading-[110%]">
               <span className="text-[#676767] text-xs font-next-book">Grant size</span>
-              <span className="text-[#EDEDED] text-sm font-neuemachina">200K</span>
+              <span className="text-[#EDEDED] text-sm font-neuemachina-light">200K</span>
             </div>
           </div>
         </div>

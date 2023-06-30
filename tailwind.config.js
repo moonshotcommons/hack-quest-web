@@ -14,6 +14,7 @@ module.exports = {
         'next-poster-Bold': ['NEXT Poster Bold'],
         'next-poster': ['NEXT Poster'],
         'next-poster-Thin': ['NEXT Poster Thin'],
+        'neuemachina-light': ['Neue Machina Light'],
         neuemachina: ['Neue Machina'],
       },
       screens: {

@@ -1,6 +1,10 @@
 
 
 @font-face {
+  font-family: "Neue Machina Light";
+  src: url("../fonts/neuemachina/neuemachina-light.otf");
+}
+@font-face {
   font-family: "Neue Machina";
   src: url("../fonts/neuemachina/neuemachina-regular.otf");
 }
