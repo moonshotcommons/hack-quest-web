@@ -156,7 +156,7 @@ export default function Home() {
   }
 
   return (
-    <main className={`w-full min-h-screen bg-black ${inter.className}`}>
+    <main className={`w-full min-h-screen bg-black ${inter.className} overflow-scroll`}>
       <main className="container m-auto">
         <NavBar></NavBar>
         <Title className="font-bold">{'</Trending Now>'}</Title>
