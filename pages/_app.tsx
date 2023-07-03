@@ -1,36 +1,33 @@
 import Layout, { LayoutProps } from '@/components/Layout';
-import ThemeContextProvider from '@/store/theme';
+import ThemeContextProvider from '@/store/context/theme';
 import '@/styles/globals.css';
 import type { AppContext, AppProps } from 'next/app';
 import App from 'next/app';
 
-import { Inter } from 'next/font/google';
-const inter = Inter({ subsets: ['latin'] });
+import { Provider } from 'react-redux';
+import wrapper from '@/store/redux';
 function MyApp(appProps: AppProps & LayoutProps) {
-  const { pageProps, Component, router, navbarData } = appProps;
+  const { pageProps, Component, router, navbarData, ...rest } = appProps;
   const { pathname } = router;
 
   if (typeof window === 'object') {
-    console.log('client');
-    console.log(process.env.NEXT_PUBLIC_BASE_URL);
+    // client
   } else {
-    console.log('server');
-    console.log(process.env.NAME);
-    console.log(process.env.PORT);
-    console.log(process.env.HOST);
-    console.log(process.env.NEXT_PUBLIC_BASE_URL);
+    // server
   }
+
+  const { store } = wrapper.useWrappedStore(rest);
 
   switch (pathname) {
     default:
       return (
-        <div className={`w-full min-h-screen bg-black ${inter.className}`}>
+        <Provider store={store}>
           <ThemeContextProvider>
             <Layout {...pageProps} navbarData={navbarData}>
               <Component {...pageProps} />
             </Layout>
           </ThemeContextProvider>
-        </div>
+        </Provider>
       );
   }
 }
@@ -102,10 +99,6 @@ MyApp.getInitialProps = async (
     //       list: [{ label: '微信' }, { label: 'QQ' }],
     //     },
     //   ],
-    //   qrCode: {
-    //     image: '',
-    //     text: '祯民讲前端微信公众号',
-    //   },
     //   copyRight: 'Copyright © 2022 xxx. 保留所有权利',
     //   siteNumber: '粤ICP备XXXXXXXX号-X',
     //   publicNumber: '粤公网安备 xxxxxxxxxxxxxx号',
