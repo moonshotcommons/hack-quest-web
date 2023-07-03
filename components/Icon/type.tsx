@@ -1,4 +1,4 @@
-import { tuple } from '../../helper/utils'
+import { tuple } from '../../helper/utils';
 
 const IconKeys = tuple(
   'Clock',
@@ -9,10 +9,10 @@ const IconKeys = tuple(
   'LeftArrow',
   'RightArrow',
   'Twitter'
-)
+);
 
-export type IconKey = typeof IconKeys[number]
+export type IconKey = (typeof IconKeys)[number];
 
 export type IconsType = {
-  [key in IconKey]: React.ReactNode
-}
+  [key in IconKey]: React.ReactNode;
+};

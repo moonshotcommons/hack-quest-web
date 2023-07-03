@@ -1,15 +1,15 @@
-import React from 'react'
+import React from 'react';
 
-import ClockIcon from './Clock'
-import CompletedIcon from './Completed'
-import CourseIcon from './Course'
-import DiscordIcon from './Discord'
-import InstagramIcon from './Instagram'
-import LeftArrowIcon from './LeftArrow'
-import RightArrowIcon from './RightArrow'
-import TwitterIcon from './Twitter'
+import ClockIcon from './Clock';
+import CompletedIcon from './Completed';
+import CourseIcon from './Course';
+import DiscordIcon from './Discord';
+import InstagramIcon from './Instagram';
+import LeftArrowIcon from './LeftArrow';
+import RightArrowIcon from './RightArrow';
+import TwitterIcon from './Twitter';
 
-import { IconsType } from './type'
+import { IconsType } from './type';
 
 const Icons: IconsType = {
   Clock: <ClockIcon />,
@@ -20,6 +20,6 @@ const Icons: IconsType = {
   LeftArrow: <LeftArrowIcon />,
   RightArrow: <RightArrowIcon />,
   Twitter: <TwitterIcon />
-}
+};
 
-export default Icons
+export default Icons;
