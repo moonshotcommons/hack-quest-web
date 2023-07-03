@@ -1,6 +1,6 @@
 import React from 'react';
-import NavBar, { NavBarProps } from '../Navbar';
-import Footer from '../Footer';
+import NavBar, { NavBarProps } from './Navbar';
+import Footer from './Footer';
 
 import { Inter } from 'next/font/google';
 const inter = Inter({ subsets: ['latin'] });

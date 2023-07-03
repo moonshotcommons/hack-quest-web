@@ -1,4 +1,4 @@
-import Tag from '@/components/Tag';
+import Tag from '@/components/Common/Tag';
 import React from 'react';
 
 export interface HackathonCardProps {

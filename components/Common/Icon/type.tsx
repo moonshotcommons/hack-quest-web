@@ -1,4 +1,4 @@
-import { tuple } from '../../helper/utils';
+import { tuple } from '@/helper/utils';
 
 const IconKeys = tuple(
   'Clock',

@@ -1,9 +1,9 @@
-import Button from '@/components/Button';
-import ClockIcon from '@/components/Icon/Clock';
-import CompletedIcon from '@/components/Icon/Completed';
-import CourseIcon from '@/components/Icon/Course';
-import Label from '@/components/Label';
-import Tag from '@/components/Tag';
+import Button from '@/components/Common/Button';
+import ClockIcon from '@/components/Common/Icon/Clock';
+import CompletedIcon from '@/components/Common/Icon/Completed';
+import CourseIcon from '@/components/Common/Icon/Course';
+import Label from '@/components/Common/Label';
+import Tag from '@/components/Common/Tag';
 import { computeTime } from '@/helper/utils';
 import React from 'react';
 

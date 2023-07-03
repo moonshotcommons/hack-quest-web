@@ -3,10 +3,10 @@ import HackathonCard from '@/components/Card/Hackathon';
 import LearningTracksCard from '@/components/Card/LearningTracks';
 import SyntaxCard from '@/components/Card/Syntax';
 
-import Title from '@/components/Title';
+import Title from '@/components/Common/Title';
 import { CardType } from '@/constants/enum';
 
-import { SliderContainer } from '@/components/SliderContainer';
+import { SliderContainer } from '@/components/Common/SliderContainer';
 import { NextPage } from 'next';
 
 interface CourseType {
