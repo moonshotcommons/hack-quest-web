@@ -5,19 +5,19 @@ interface IProps {
   courseId: number;
 }
 
-const Syntax: NextPage<IProps> = ({ courseId }) => {
+const learningTrack: NextPage<IProps> = ({ courseId }) => {
   return (
     <div>
-      <h1 className="text-white">syntax{courseId}</h1>
+      <h1 className="text-white">课程{courseId}</h1>
     </div>
   );
 };
 
-Syntax.getInitialProps = (context) => {
+learningTrack.getInitialProps = (context) => {
   const { courseId } = context.query;
   return {
     courseId: Number(courseId)
   };
 };
 
-export default Syntax;
+export default learningTrack;

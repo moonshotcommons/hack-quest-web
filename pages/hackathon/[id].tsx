@@ -2,21 +2,21 @@
 import type { NextPage } from 'next';
 
 interface IProps {
-  courseId: number;
+  id: number;
 }
 
-const Syntax: NextPage<IProps> = ({ courseId }) => {
+const Syntax: NextPage<IProps> = ({ id }) => {
   return (
     <div>
-      <h1 className="text-white">syntax{courseId}</h1>
+      <h1 className="text-white">hackathon{id}</h1>
     </div>
   );
 };
 
 Syntax.getInitialProps = (context) => {
-  const { courseId } = context.query;
+  const { id } = context.query;
   return {
-    courseId: Number(courseId)
+    id: Number(id)
   };
 };
 

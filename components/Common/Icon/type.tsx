@@ -5,6 +5,7 @@ const IconKeys = tuple(
   'Completed',
   'Course',
   'Discord',
+  'FlightSideWay',
   'Instagram',
   'LeftArrow',
   'RightArrow',

@@ -29,7 +29,7 @@ interface CoursesProps {
 const Landing: NextPage<CoursesProps> = (props) => {
   // const { nowCards, syntaxCards, tracksCards } = props;
 
-  return <></>;
+  return <>Landing</>;
 };
 
 Landing.displayName = 'Courses';

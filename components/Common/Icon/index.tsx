@@ -4,6 +4,7 @@ import ClockIcon from './Clock';
 import CompletedIcon from './Completed';
 import CourseIcon from './Course';
 import DiscordIcon from './Discord';
+import FlightSideWayIcon from './FlightSideWay';
 import InstagramIcon from './Instagram';
 import LeftArrowIcon from './LeftArrow';
 import RightArrowIcon from './RightArrow';
@@ -16,6 +17,7 @@ const Icons: IconsType = {
   Completed: <CompletedIcon />,
   Course: <CourseIcon />,
   Discord: <DiscordIcon />,
+  FlightSideWay: <FlightSideWayIcon />,
   Instagram: <InstagramIcon />,
   LeftArrow: <LeftArrowIcon />,
   RightArrow: <RightArrowIcon />,

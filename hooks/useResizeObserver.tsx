@@ -8,7 +8,7 @@ const useResizeObserver = (ref: React.RefObject<HTMLElement>) => {
   useEffect(() => {
     // 使用ResizeObserver来监听DOM的变化
     const resizeObserver = new ResizeObserver(() => {
-      setWidth((ref.current as HTMLElement).clientWidth);
+      setWidth((ref.current as HTMLElement)?.clientWidth);
     });
     resizeObserver.observe(ref.current as HTMLElement);
     return () => {

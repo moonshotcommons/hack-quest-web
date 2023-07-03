@@ -4,15 +4,22 @@ import LearningTracksCard from '@/components/Card/LearningTracks';
 import SyntaxCard from '@/components/Card/Syntax';
 
 import Title from '@/components/Common/Title';
-import { CardType } from '@/constants/enum';
+import { CardType, TabType } from '@/constants/enum';
 
 import { SliderContainer } from '@/components/Common/SliderContainer';
 import { NextPage } from 'next';
-
+import Link from 'next/link';
+import uuid from 'uuid';
+import Tab, { TabItem } from '@/components/Common/Tab';
+import { useEffect, useMemo, useState } from 'react';
+import TeaserCard from '@/components/Card/Teaser';
+import GuidedProjectCard from '@/components/Card/GuidedProject';
 interface CourseType {
+  id: string;
   type: CardType;
   title: string;
   tags?: string[];
+  label?: string;
   description?: string;
   totalTime?: number;
   courseCount?: number;
@@ -24,15 +31,16 @@ interface CoursesProps {
   nowCards: CourseType[];
   syntaxCards: CourseType[];
   tracksCards: CourseType[];
+  teaserCards: CourseType[];
+  guidedProjectCards: CourseType[];
+  conceptCards: CourseType[];
 }
 
-const Courses: NextPage<CoursesProps> = (props) => {
-  const { nowCards, syntaxCards, tracksCards } = props;
-
-  const renderCard = (card: CourseType) => {
-    switch (card.type) {
-      case CardType.CONCEPT_LEARNING:
-        return (
+const renderCard = (card: CourseType) => {
+  switch (card.type) {
+    case CardType.CONCEPT_LEARNING:
+      return (
+        <Link href={`/concept/${card.id}`}>
           <ConceptLearningCard
             title={card.title}
             tags={card.tags || []}
@@ -42,16 +50,20 @@ const Courses: NextPage<CoursesProps> = (props) => {
             completed={card.completed || 0}
             cover={card.cover || ''}
           ></ConceptLearningCard>
-        );
-      case CardType.HACKATHON:
-        return (
+        </Link>
+      );
+    case CardType.HACKATHON:
+      return (
+        <Link href={`/hackathon/${card.id}`}>
           <HackathonCard
             title={card.title}
             tags={card.tags || []}
           ></HackathonCard>
-        );
-      case CardType.SYNTAX:
-        return (
+        </Link>
+      );
+    case CardType.SYNTAX:
+      return (
+        <Link href={`/syntax/${card.id}`}>
           <SyntaxCard
             title={card.title}
             tags={card.tags || []}
@@ -60,9 +72,11 @@ const Courses: NextPage<CoursesProps> = (props) => {
             courseCount={card.courseCount || 0}
             completed={card.completed || 0}
           ></SyntaxCard>
-        );
-      case CardType.LEARNING_TRACKS:
-        return (
+        </Link>
+      );
+    case CardType.LEARNING_TRACKS:
+      return (
+        <Link href={`/learning-track/${card.id}`}>
           <LearningTracksCard
             title={card.title}
             tags={card.tags || []}
@@ -71,9 +85,92 @@ const Courses: NextPage<CoursesProps> = (props) => {
             courseCount={card.courseCount || 0}
             completed={card.completed || 0}
           ></LearningTracksCard>
-        );
+        </Link>
+      );
+    case CardType.TEASER:
+      return (
+        <Link href={`/teaser/${card.id}`}>
+          <TeaserCard
+            title={card.title}
+            label={card.label || ''}
+            description={card.description || ''}
+            totalTime={card.totalTime || 0}
+            courseCount={card.courseCount || 0}
+            completed={card.completed || 0}
+          ></TeaserCard>
+        </Link>
+      );
+    case CardType.GUIDED_PROJECT:
+      return (
+        <Link href={`/guided-project/${card.id}`}>
+          <GuidedProjectCard
+            title={card.title}
+            tags={card.tags || []}
+            description={card.description || ''}
+            totalTime={card.totalTime || 0}
+            courseCount={card.courseCount || 0}
+            completed={card.completed || 0}
+          ></GuidedProjectCard>
+        </Link>
+      );
+  }
+};
+
+const Courses: NextPage<CoursesProps> = (props) => {
+  const {
+    nowCards,
+    syntaxCards,
+    tracksCards,
+    teaserCards,
+    guidedProjectCards,
+    conceptCards
+  } = props;
+  const tabs: TabItem[] = [
+    {
+      title: '</ Syntax >',
+      type: TabType.SYNTAX
+    },
+    {
+      title: 'Guided Project',
+      type: TabType.GUIDED_PROJECT
+    },
+    {
+      title: 'Concept Learning',
+      type: TabType.CONCEPT_LEARNING
+    },
+    {
+      title: 'Teaser',
+      type: TabType.TEASER
     }
+  ];
+
+  const [selectTab, setSelectTab] = useState<TabType>(tabs[0].type);
+  const [selectCards, setSelectCards] = useState<CourseType[]>([]);
+
+  const onSelect = (item: TabItem) => {
+    setSelectTab(item.type);
   };
+
+  const renderCards = useMemo(() => {
+    switch (selectTab) {
+      case TabType.SYNTAX:
+        return syntaxCards?.map((card, index) => {
+          return <div key={index}>{renderCard(card)}</div>;
+        });
+      case TabType.GUIDED_PROJECT:
+        return guidedProjectCards?.map((card, index) => {
+          return <div key={index}>{renderCard(card)}</div>;
+        });
+      case TabType.CONCEPT_LEARNING:
+        return conceptCards?.map((card, index) => {
+          return <div key={index}>{renderCard(card)}</div>;
+        });
+      case TabType.TEASER:
+        return teaserCards?.map((card, index) => {
+          return <div key={index}>{renderCard(card)}</div>;
+        });
+    }
+  }, [selectTab, syntaxCards, conceptCards, guidedProjectCards, teaserCards]);
 
   return (
     <>
@@ -93,32 +190,11 @@ const Courses: NextPage<CoursesProps> = (props) => {
           })}
         </div>
       </SliderContainer>
-      <div className="relative flex gap-[5rem] items-center h-16 top-line bottom-line mt-[2.875rem]">
-        <div className="absolute -top-2 left-0 h-1 w-[4.8125rem] rounded-xl bg-gradient-to-t from-[#0891D5] to-[#38C1A5]"></div>
-        <h2 className={`text-[#F1F1F1] font-next-poster-Bold text-base`}>
-          {'</ Syntax >'}
-        </h2>
-        <h2
-          className={`text-[#F1F1F1] font-next-poster-Thin font-thin text-base`}
-        >
-          {'Guided Project'}
-        </h2>
-        <h2
-          className={`text-[#F1F1F1] font-next-poster-Thin font-thin text-base`}
-        >
-          {'Concept Learning'}
-        </h2>
-        <h2
-          className={`text-[#F1F1F1] font-next-poster-Thin font-thin text-base`}
-        >
-          {'Teaser'}
-        </h2>
+      <div className="mt-[2.875rem]">
+        <Tab tabs={tabs} onSelect={onSelect} defaultSelect={selectTab}></Tab>
       </div>
-      <div className="flex flex-wrap gap-[3.25rem] mt-10">
-        {syntaxCards?.map((card, index) => {
-          return <div key={index}>{renderCard(card)}</div>;
-        })}
-      </div>
+
+      <div className="flex flex-wrap gap-[3.25rem] mt-10">{renderCards}</div>
     </>
   );
 };
@@ -129,6 +205,7 @@ Courses.getInitialProps = (context) => {
   return {
     nowCards: [
       {
+        id: uuid?.v4() || '0',
         type: CardType.SYNTAX,
         title: 'Introduction to programming',
         tags: ['Beginner'],
@@ -139,6 +216,7 @@ Courses.getInitialProps = (context) => {
         completed: 58320
       },
       {
+        id: uuid?.v4() || '0',
         type: CardType.HACKATHON,
         title: 'Moonshot 2023 Summer Hackathon',
         tags: ['All Tracks', 'Solidity', 'ZK'],
@@ -149,6 +227,7 @@ Courses.getInitialProps = (context) => {
         grantSize: '200K'
       },
       {
+        id: uuid?.v4() || '0',
         type: CardType.LEARNING_TRACKS,
         title: 'Web 3.0 Programming Advanced',
         tags: ['Advanced'],
@@ -159,6 +238,7 @@ Courses.getInitialProps = (context) => {
         completed: 0
       },
       {
+        id: uuid?.v4() || '0',
         type: CardType.CONCEPT_LEARNING,
         title: 'What is Bitcoin',
         description:
@@ -170,6 +250,7 @@ Courses.getInitialProps = (context) => {
     ],
     syntaxCards: [
       {
+        id: uuid?.v4() || '0',
         type: CardType.SYNTAX,
         title: 'Introduction to programming',
         tags: ['Beginner'],
@@ -180,6 +261,7 @@ Courses.getInitialProps = (context) => {
         completed: 0
       },
       {
+        id: uuid?.v4() || '0',
         type: CardType.SYNTAX,
         title: 'Introduction to programming',
         tags: ['Beginner'],
@@ -190,6 +272,7 @@ Courses.getInitialProps = (context) => {
         completed: 94165
       },
       {
+        id: uuid?.v4() || '0',
         type: CardType.SYNTAX,
         title: 'Introduction to programming',
         tags: ['Beginner'],
@@ -200,6 +283,7 @@ Courses.getInitialProps = (context) => {
         completed: 0
       },
       {
+        id: uuid?.v4() || '0',
         type: CardType.SYNTAX,
         title: 'Introduction to programming',
         tags: ['Beginner'],
@@ -212,6 +296,7 @@ Courses.getInitialProps = (context) => {
     ],
     tracksCards: [
       {
+        id: uuid?.v4() || '0',
         type: CardType.LEARNING_TRACKS,
         title: 'Web 3.0 Programming Advanced',
         tags: ['Advanced'],
@@ -222,6 +307,7 @@ Courses.getInitialProps = (context) => {
         completed: 0
       },
       {
+        id: uuid?.v4() || '0',
         type: CardType.LEARNING_TRACKS,
         title: 'Web 3.0 Programming Advanced',
         tags: ['Advanced'],
@@ -230,6 +316,94 @@ Courses.getInitialProps = (context) => {
         totalTime: 129600,
         courseCount: 5,
         completed: 999
+      }
+    ],
+    teaserCards: [
+      {
+        id: uuid?.v4() || '0',
+        type: CardType.TEASER,
+        title: 'Deploy Coin',
+        label: 'Free teaser course',
+        description: 'Create your own token in just 10 mins! ',
+        totalTime: 129600,
+        courseCount: 5,
+        completed: 0
+      },
+      {
+        id: uuid?.v4() || '0',
+        type: CardType.TEASER,
+        title: 'Deploy Coin',
+        label: 'Free teaser course',
+        description: 'Create your own token in just 10 mins! ',
+        totalTime: 129600,
+        courseCount: 5,
+        completed: 0
+      },
+      {
+        id: uuid?.v4() || '0',
+        type: CardType.TEASER,
+        title: 'Deploy Coin',
+        label: 'Free teaser course',
+        description: 'Create your own token in just 10 mins! ',
+        totalTime: 129600,
+        courseCount: 5,
+        completed: 0
+      },
+      {
+        id: uuid?.v4() || '0',
+        type: CardType.TEASER,
+        title: 'Deploy Coin',
+        label: 'Free teaser course',
+        description: 'Create your own token in just 10 mins! ',
+        totalTime: 129600,
+        courseCount: 5,
+        completed: 0
+      }
+    ],
+    guidedProjectCards: [
+      {
+        id: uuid?.v4() || '0',
+        type: CardType.GUIDED_PROJECT,
+        title: 'Web 3.0 Programming Advanced',
+        tags: ['Advanced'],
+        description:
+          'Basic concepts in programming of Solidity. Topics include: variables, functions, flow control, error handling, data structure.',
+        totalTime: 129600,
+        courseCount: 5,
+        completed: 0
+      },
+      {
+        id: uuid?.v4() || '0',
+        type: CardType.GUIDED_PROJECT,
+        title: 'Web 3.0 Programming Advanced',
+        tags: ['Advanced'],
+        description:
+          'Basic concepts in programming of Solidity. Topics include: variables, functions, flow control, error handling, data structure.',
+        totalTime: 129600,
+        courseCount: 5,
+        completed: 999
+      }
+    ],
+    conceptCards: [
+      {
+        id: uuid?.v4() || '0',
+        type: CardType.CONCEPT_LEARNING,
+        title: 'What is Bitcoin',
+        description:
+          'Basic concepts in programming of Solidity. Topics include: variables, functions, flow control, error handling, data structure.',
+        totalTime: 129600,
+        completed: 0,
+        cover: '/images/card/ConceptLearning/cover.svg'
+      },
+      {
+        id: uuid?.v4() || '0',
+        type: CardType.CONCEPT_LEARNING,
+        title: 'What is Bitcoin',
+        description:
+          'Basic concepts in programming of Solidity. Topics include: variables, functions, flow control, error handling, data structure.',
+        totalTime: 129600,
+        completed: 0,
+        cover: '/images/card/ConceptLearning/cover.svg'
       }
     ]
   };

@@ -8,7 +8,7 @@ interface IProps {
 const Syntax: NextPage<IProps> = ({ courseId }) => {
   return (
     <div>
-      <h1 className="text-white">syntax{courseId}</h1>
+      <h1 className="text-white">concept{courseId}</h1>
     </div>
   );
 };

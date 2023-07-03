@@ -44,7 +44,10 @@ const renderComponent = () => {
     path.resolve(__dirname, 'template/icon/iconTemplate.ejs'),
     'utf8'
   );
-  const filePath = path.resolve(__dirname, `../components/Icon/${IconName}`);
+  const filePath = path.resolve(
+    __dirname,
+    `../components/Common/Icon/${IconName}`
+  );
 
   checkExists(filePath);
 
@@ -58,7 +61,10 @@ const renderType = (renderData) => {
     path.resolve(__dirname, 'template/icon/type.ejs'),
     'utf8'
   );
-  const typeFilePath = path.resolve(__dirname, `../components/Icon/type.tsx`);
+  const typeFilePath = path.resolve(
+    __dirname,
+    `../components/Common/Icon/type.tsx`
+  );
   render(typeTemplate, typeFilePath, { type: renderData.type });
 };
 
@@ -67,7 +73,10 @@ const renderIconImport = (renderData) => {
     path.resolve(__dirname, 'template/icon/index.ejs'),
     'utf8'
   );
-  const indexFilePath = path.resolve(__dirname, `../components/Icon/index.tsx`);
+  const indexFilePath = path.resolve(
+    __dirname,
+    `../components/Common/Icon/index.tsx`
+  );
   render(indexTemplate, indexFilePath, {
     icons: renderData.icons,
     iconsImport: renderData.iconImport
@@ -75,7 +84,7 @@ const renderIconImport = (renderData) => {
 };
 
 (function () {
-  const iconPath = path.resolve(__dirname, `../components/Icon`);
+  const iconPath = path.resolve(__dirname, `../components/Common/Icon`);
   // 渲染Icon组件
   renderComponent();
   const renderData = generateTypeRenderData(iconPath);
