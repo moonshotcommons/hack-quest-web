@@ -1,23 +1,13 @@
-import ConceptLearningCard, {
-  ConceptLearningCardProps
-} from '@/components/Card/ConceptLearning';
-import HackathonCard, { HackathonCardProps } from '@/components/Card/Hackathon';
+import ConceptLearningCard from '@/components/Card/ConceptLearning';
+import HackathonCard from '@/components/Card/Hackathon';
 import LearningTracksCard from '@/components/Card/LearningTracks';
-import SyntaxCard, { SyntaxCardProps } from '@/components/Card/Syntax';
-import NavBar from '@/components/Navbar';
+import SyntaxCard from '@/components/Card/Syntax';
+
 import Title from '@/components/Title';
-import { CardType } from '@/constants';
-import Cover from '@/public/images/card/ConceptLearning/cover.svg';
-import Image from 'next/image';
+import { CardType } from '@/constants/enum';
 
-import { Inter } from 'next/font/google';
 import { SliderContainer } from '@/components/SliderContainer';
-import Footer from '@/components/Footer';
-import { FC } from 'react';
-import { AppContext } from 'next/app';
 import { NextPage } from 'next';
-
-const inter = Inter({ subsets: ['latin'] });
 
 interface CourseType {
   type: CardType;

@@ -1,4 +1,5 @@
 import Layout, { LayoutProps } from '@/components/Layout';
+import ThemeContextProvider from '@/store/theme';
 import '@/styles/globals.css';
 import type { AppContext, AppProps } from 'next/app';
 import App from 'next/app';
@@ -24,9 +25,11 @@ function MyApp(appProps: AppProps & LayoutProps) {
     default:
       return (
         <div className={`w-full min-h-screen bg-black ${inter.className}`}>
-          <Layout {...pageProps} navbarData={navbarData}>
-            <Component {...pageProps} />
-          </Layout>
+          <ThemeContextProvider>
+            <Layout {...pageProps} navbarData={navbarData}>
+              <Component {...pageProps} />
+            </Layout>
+          </ThemeContextProvider>
         </div>
       );
   }
