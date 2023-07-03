@@ -1,0 +1,9 @@
+import { tuple } from '@/helper/utils'
+
+const IconKeys = tuple(<%- type %>)
+
+export type IconKey = typeof IconKeys[number]
+
+export type IconsType = {
+  [key in IconKey]: React.ReactNode
+}

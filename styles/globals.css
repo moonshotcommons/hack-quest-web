@@ -1,0 +1,81 @@
+@font-face {
+  font-family: 'Neue Machina Light';
+  src: url('../fonts/neuemachina/neuemachina-light.otf');
+}
+@font-face {
+  font-family: 'Neue Machina';
+  src: url('../fonts/neuemachina/neuemachina-regular.otf');
+}
+@font-face {
+  font-family: 'NEXT Poster';
+  src: url('../fonts/Next/NEXT-Poster-Regular.otf');
+}
+@font-face {
+  font-family: 'NEXT Poster Thin';
+  src: url('../fonts/Next/NEXT-Poster-Thin.otf');
+}
+@font-face {
+  font-family: 'NEXT Poster Bold';
+  src: url('../fonts/Next/NEXT-Poster-Bold.otf');
+}
+@font-face {
+  font-family: 'NEXT Book';
+  src: url('../fonts/Next/NEXT-Book-Regular.otf');
+}
+@font-face {
+  font-family: 'NEXT Book Thin';
+  src: url('../fonts/Next/NEXT-Book-Thin.otf');
+}
+@font-face {
+  font-family: 'NEXT Book Bold';
+  src: url('../fonts/Next/NEXT-Book-Bold.otf');
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .title {
+    @apply font-next-book text-base font-bold text-white;
+  }
+
+  .top-line {
+    @apply after:absolute after:h-[1px] after:scale-y-[0.25] after:w-full after:bg-[#525252] after:-top-1;
+  }
+
+  .bottom-line {
+    @apply before:absolute before:h-[1px] before:scale-y-[0.25] before:w-full before:bg-[#525252] before:-bottom-1;
+  }
+
+  .description {
+    @apply text-[#676767] w-[21.5rem] text-xs font-normal not-italic;
+  }
+
+  .arrow {
+    @apply flex items-center justify-center p-2 rounded-full bg-[#000] border border-solid border-[#303030] hover:bg-[#303030] cursor-pointer;
+  }
+}
+/* :root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+} */

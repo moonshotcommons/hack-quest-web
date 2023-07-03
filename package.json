@@ -1,0 +1,65 @@
+{
+  "name": "hack-quest-web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "npm run lint:script ",
+    "add:icon": "node ./scripts/addIcon.js",
+    "lint:script": "eslint --ext .js,.jsx,.ts,.tsx --fix --quiet ./",
+    "prepare": "husky install",
+    "pre-commit": "lint-staged",
+    "postinstallmac": "git config core.hooksPath .husky && chmod 700 .husky/*",
+    "commit": "git add . && git-cz"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.9.5",
+    "@types/node": "20.3.2",
+    "@types/react": "18.2.14",
+    "@types/react-dom": "18.2.6",
+    "autoprefixer": "10.4.14",
+    "axios": "^1.4.0",
+    "classnames": "^2.3.2",
+    "eslint": "8.43.0",
+    "eslint-config-next": "13.4.7",
+    "next": "13.4.7",
+    "next-redux-wrapper": "^8.1.0",
+    "postcss": "8.4.24",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-redux": "^8.1.1",
+    "tailwindcss": "3.3.2",
+    "typescript": "5.1.5"
+  },
+  "devDependencies": {
+    "@babel/eslint-parser": "7.22.5",
+    "@commitlint/cli": "17.6.6",
+    "@commitlint/config-conventional": "17.6.6",
+    "@commitlint/cz-commitlint": "17.5.0",
+    "commitizen": "4.3.0",
+    "ejs": "^3.1.9",
+    "eslint": "8.44.0",
+    "eslint-config-next": "13.4.7",
+    "eslint-config-prettier": "8.8.0",
+    "eslint-formatter-pretty": "5.0.0",
+    "eslint-plugin-json": "3.1.0",
+    "eslint-plugin-prettier": "4.2.1",
+    "husky": "8.0.3",
+    "lint-staged": "13.2.3",
+    "prettier": "2.8.8",
+    "typescript-plugin-css-modules": "^5.0.1"
+  },
+  "lint-staged": {
+    "*.{js,ts,vue,jsx,tsx}": [
+      "npm run lint"
+    ],
+    "*.{js,jsx,ts,tsx,md,html,css,lees,scss,sass}": "prettier --write"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/@commitlint/cz-commitlint"
+    }
+  }
+}
