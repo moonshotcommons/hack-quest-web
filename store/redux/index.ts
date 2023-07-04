@@ -1,9 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { createWrapper } from 'next-redux-wrapper';
 import userReducer from './modules/user';
+import courseReducer from './modules/course';
+
 const store = configureStore({
   reducer: {
-    user: userReducer
+    user: userReducer,
+    course: courseReducer
   }
 });
 

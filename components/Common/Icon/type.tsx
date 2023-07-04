@@ -2,9 +2,10 @@ import { tuple } from '@/helper/utils';
 
 const IconKeys = tuple(
   'Clock',
-  'Completed',
+  'progress',
   'Course',
   'Discord',
+  'FlightSideWay',
   'Instagram',
   'LeftArrow',
   'RightArrow',

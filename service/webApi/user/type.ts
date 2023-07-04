@@ -1,3 +1,3 @@
-export interface UserType {
-  username: string;
+export interface Response {
+  id: string;
 }

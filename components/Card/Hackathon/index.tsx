@@ -2,12 +2,12 @@ import Tag from '@/components/Common/Tag';
 import React from 'react';
 
 export interface HackathonCardProps {
-  title: string;
-  tags: string[];
+  name: string;
+  tags: string | string[];
 }
 
 const HackathonCard: React.FC<HackathonCardProps> = (props) => {
-  const { title, tags = [] } = props;
+  const { name, tags = [] } = props;
 
   return (
     <div
@@ -17,9 +17,9 @@ const HackathonCard: React.FC<HackathonCardProps> = (props) => {
         className={`w-full h-full bg-[url('/images/card/Hackathon/bg.svg')] scale-[1.01] absolute top-0 left-0 hover:-top-[0.25rem] hover:left-1 hover:transition-all duration-700`}
       >
         <div className="px-10 pt-9">
-          <h2 className="title">{title}</h2>
+          <h2 className="title">{name}</h2>
           <div className="flex gap-4 mt-4">
-            {tags.map((tag) => {
+            {(Array.isArray(tags) ? tags : [tags]).map((tag) => {
               return <Tag key={tag}>{tag}</Tag>;
             })}
           </div>

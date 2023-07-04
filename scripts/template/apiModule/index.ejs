@@ -1,0 +1,27 @@
+import WebService from './webService/webService';
+<%- importStr %>
+
+class WebApi {
+  protected baseURL: string;
+  protected service: WebService;
+  protected timeout = 10000;
+
+<%= registerStr %>
+
+  constructor(baseURL: string) {
+    this.baseURL = baseURL;
+    this.service = new WebService({
+      baseURL
+    });
+
+<%= assignStr %>
+  }
+}
+
+let webApi = null;
+
+if (!webApi) {
+  webApi = new WebApi(process.env.BASE_URL || 'http://localhost:3000/');
+}
+
+export default webApi;

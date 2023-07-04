@@ -11,7 +11,6 @@ export interface LayoutProps {
 }
 
 const Layout: React.FC<LayoutProps> = ({ navbarData, children }) => {
-  console.log(navbarData, 'navBarData');
   return (
     <div className={`w-full min-h-screen bg-black ${inter.className}`}>
       <div className="container m-auto">

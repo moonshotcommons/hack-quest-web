@@ -7,7 +7,8 @@ import App from 'next/app';
 import { Provider } from 'react-redux';
 import wrapper from '@/store/redux';
 function MyApp(appProps: AppProps & LayoutProps) {
-  const { pageProps, Component, router, navbarData, ...rest } = appProps;
+  const { Component, router, navbarData, ...rest } = appProps;
+  const { store, props } = wrapper.useWrappedStore(rest);
   const { pathname } = router;
 
   if (typeof window === 'object') {
@@ -16,15 +17,13 @@ function MyApp(appProps: AppProps & LayoutProps) {
     // server
   }
 
-  const { store } = wrapper.useWrappedStore(rest);
-
   switch (pathname) {
     default:
       return (
         <Provider store={store}>
           <ThemeContextProvider>
-            <Layout {...pageProps} navbarData={navbarData}>
-              <Component {...pageProps} />
+            <Layout {...props.pageProps} navbarData={navbarData}>
+              <Component {...props.pageProps} />
             </Layout>
           </ThemeContextProvider>
         </Provider>

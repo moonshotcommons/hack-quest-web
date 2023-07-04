@@ -14,9 +14,9 @@ interface CourseType {
   title: string;
   tags?: string[];
   description?: string;
-  totalTime?: number;
-  courseCount?: number;
-  completed?: number;
+  duration?: number;
+  unitCount?: number;
+  progress?: number;
   cover?: string;
 }
 
@@ -29,7 +29,7 @@ interface CoursesProps {
 const Landing: NextPage<CoursesProps> = (props) => {
   // const { nowCards, syntaxCards, tracksCards } = props;
 
-  return <></>;
+  return <>Landing</>;
 };
 
 Landing.displayName = 'Courses';

@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';
-import { apiUserLogin } from '@/service/webApi/user';
+import webApi from '@/service';
 
 export interface UserStateType {
   username: string;
@@ -34,7 +34,7 @@ const userSlice = createSlice({
 export const userLogin = createAsyncThunk(
   'userLogin',
   async (params: object) => {
-    const res = await apiUserLogin(params);
+    const res = await webApi.userApi.login(params);
     return res;
   }
 );

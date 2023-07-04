@@ -4,6 +4,7 @@ import Logo from '@/public/images/logo/logo_hack_quest.svg';
 import TwitterIcon from '@/components/Common/Icon/Twitter';
 import DiscordIcon from '@/components/Common/Icon/Discord';
 import InstagramIcon from '@/components/Common/Icon/Instagram';
+import Link from 'next/link';
 
 const Footer = () => {
   return (
@@ -13,17 +14,35 @@ const Footer = () => {
           WEB3 programming for Everyone
         </h2>
         <div className="flex gap-[7.5rem]  text-[#B2B2B2] text-sm font-next-book-Thin">
-          <ul className="flex flex-col gap-[1.75rem]">
-            <li>All Courses</li>
-            <li>Learning Dashboard</li>
-            <li>Resources Station</li>
+          <ul className="w-[8.375rem] flex flex-col gap-[1.75rem]">
+            <Link
+              href={'/courses'}
+              className="hover:font-next-book-bold text-white cursor-pointer"
+            >
+              All Courses
+            </Link>
+            <Link
+              href={'/dashboard'}
+              className="hover:font-next-book-bold text-white cursor-pointer"
+            >
+              Learning Dashboard
+            </Link>
+            <li className="hover:font-next-book-bold text-white cursor-pointer">
+              Resources Station
+            </li>
           </ul>
           <div className="flex flex-col gap-[1.25rem]">
             <p>Contact us:</p>
             <ul className="flex gap-[20px]">
-              <TwitterIcon></TwitterIcon>
-              <DiscordIcon></DiscordIcon>
-              <InstagramIcon></InstagramIcon>
+              <span className="hover:scale-[1.1] cursor-pointer">
+                <TwitterIcon />
+              </span>
+              <span className="hover:scale-[1.1] cursor-pointer">
+                <DiscordIcon />
+              </span>
+              <span className="hover:scale-[1.1] cursor-pointer">
+                <InstagramIcon />
+              </span>
             </ul>
           </div>
         </div>
