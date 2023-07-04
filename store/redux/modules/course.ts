@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';
 import webApi from '@/service';
 import { CourseResponse } from '@/service/webApi/course/type';
+import { message } from 'antd';
 
 export interface CourseStateType {
   courseList: CourseResponse[];
@@ -36,8 +37,13 @@ const courseSlice = createSlice({
 
 // 异步的action
 export const getCourseList = createAsyncThunk('getCourseList', async () => {
-  const res = (await webApi.courseApi.getCourseList()) || [];
-  return res;
+  try {
+    const res = (await webApi.courseApi.getCourseList()) || [];
+    return res;
+  } catch (err: any) {
+    message.error(`Course ${err.msg}`);
+    return [];
+  }
 });
 
 // 同步的action
