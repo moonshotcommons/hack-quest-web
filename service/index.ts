@@ -13,7 +13,8 @@ class WebApi {
   constructor(baseURL: string) {
     this.baseURL = baseURL;
     this.service = new WebService({
-      baseURL
+      baseURL,
+      timeout: this.timeout
     });
 
     this.courseApi = new CourseApi(this.service);
@@ -24,7 +25,7 @@ class WebApi {
 let webApi = null;
 
 if (!webApi) {
-  webApi = new WebApi(process.env.BASE_URL || 'http://localhost:3000/');
+  webApi = new WebApi(process.env.BASE_URL || 'http://api-dev.hackquest.io/');
 }
 
 export default webApi as WebApi;

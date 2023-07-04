@@ -35,15 +35,12 @@ class UserApi {
 
   /** 检索邮箱是否注册 */
   checkEmail(email: string) {
-    return this.service.get<any>({
-      url: `${UserApiType.CheckEmail}/?email=${email}`
-    });
+    return this.service.get<any>(`${UserApiType.CheckEmail}/?email=${email}`);
   }
 
   /** 用户登录 */
   login(loginParams: object) {
-    return this.service.post<{ username: string }>({
-      url: UserApiType.Login,
+    return this.service.post<{ username: string }>(UserApiType.Login, {
       data: loginParams
     });
   }

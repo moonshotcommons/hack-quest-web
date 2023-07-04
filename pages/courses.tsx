@@ -11,105 +11,97 @@ import { NextPage } from 'next';
 import Link from 'next/link';
 import uuid from 'uuid';
 import Tab, { TabItem } from '@/components/Common/Tab';
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import TeaserCard from '@/components/Card/Teaser';
 import GuidedProjectCard from '@/components/Card/GuidedProject';
-interface CourseType {
-  id: string;
-  type: CardType;
-  title: string;
-  tags?: string[];
-  label?: string;
-  description?: string;
-  totalTime?: number;
-  courseCount?: number;
-  completed?: number;
-  cover?: string;
-}
+import type { GetServerSideProps } from 'next';
+import wrapper, { AppDispatch, AppRootState } from '@/store/redux';
+import { getCourseList, increment } from '@/store/redux/modules/course';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
+import { CourseResponse, CourseType } from '@/service/webApi/course/type';
 
 interface CoursesProps {
-  nowCards: CourseType[];
-  syntaxCards: CourseType[];
-  tracksCards: CourseType[];
-  teaserCards: CourseType[];
-  guidedProjectCards: CourseType[];
-  conceptCards: CourseType[];
+  nowCards: CourseResponse[];
+  syntaxCards: CourseResponse[];
+  tracksCards: CourseResponse[];
+  teaserCards: CourseResponse[];
+  guidedProjectCards: CourseResponse[];
+  conceptCards: CourseResponse[];
 }
 
-const renderCard = (card: CourseType) => {
+const renderCard = (card: CourseResponse) => {
   switch (card.type) {
-    case CardType.CONCEPT_LEARNING:
+    case CourseType.CONCEPT_LEARNING:
       return (
         <Link href={`/concept/${card.id}`}>
           <ConceptLearningCard
-            title={card.title}
-            tags={card.tags || []}
+            title={card.name}
+            tags={card.level || []}
             description={card.description || ''}
-            totalTime={card.totalTime || 0}
-            courseCount={card.courseCount || 0}
-            completed={card.completed || 0}
-            cover={card.cover || ''}
+            duration={card.duration || 0}
+            unitCount={card.unitCount || 0}
+            progress={card.progress || 0}
+            cover={'/images/card/ConceptLearning/cover.svg'}
           ></ConceptLearningCard>
         </Link>
       );
-    case CardType.HACKATHON:
+    case CourseType.HACKATHON:
       return (
         <Link href={`/hackathon/${card.id}`}>
           <HackathonCard
-            title={card.title}
-            tags={card.tags || []}
+            name={card.name}
+            tags={card.level || []}
           ></HackathonCard>
         </Link>
       );
-    case CardType.SYNTAX:
+    case CourseType.SYNTAX:
       return (
         <Link href={`/syntax/${card.id}`}>
           <SyntaxCard
-            title={card.title}
-            tags={card.tags || []}
+            name={card.name}
+            tags={card.level || []}
             description={card.description || ''}
-            totalTime={card.totalTime || 0}
-            courseCount={card.courseCount || 0}
-            completed={card.completed || 0}
+            duration={card.duration || 0}
+            unitCount={card.unitCount || 0}
+            progress={card.progress || 0}
           ></SyntaxCard>
         </Link>
       );
-    case CardType.LEARNING_TRACKS:
+    case CourseType.LEARNING_TRACKS:
       return (
         <Link href={`/learning-track/${card.id}`}>
           <LearningTracksCard
-            title={card.title}
-            tags={card.tags || []}
+            name={card.name}
+            tags={card.level || []}
             description={card.description || ''}
-            totalTime={card.totalTime || 0}
-            courseCount={card.courseCount || 0}
-            completed={card.completed || 0}
+            duration={card.duration || 0}
+            unitCount={card.unitCount || 0}
+            progress={card.progress || 0}
           ></LearningTracksCard>
         </Link>
       );
-    case CardType.TEASER:
+    case CourseType.TEASER:
       return (
         <Link href={`/teaser/${card.id}`}>
           <TeaserCard
-            title={card.title}
-            label={card.label || ''}
+            name={card.name}
             description={card.description || ''}
-            totalTime={card.totalTime || 0}
-            courseCount={card.courseCount || 0}
-            completed={card.completed || 0}
+            duration={card.duration || 0}
+            unitCount={card.unitCount || 0}
+            progress={card.progress || 0}
           ></TeaserCard>
         </Link>
       );
-    case CardType.GUIDED_PROJECT:
+    case CourseType.GUIDED_PROJECT:
       return (
         <Link href={`/guided-project/${card.id}`}>
           <GuidedProjectCard
-            title={card.title}
-            tags={card.tags || []}
+            name={card.name}
+            tags={card.level || []}
             description={card.description || ''}
-            totalTime={card.totalTime || 0}
-            courseCount={card.courseCount || 0}
-            completed={card.completed || 0}
+            duration={card.duration || 0}
+            unitCount={card.unitCount || 0}
+            progress={card.progress || 0}
           ></GuidedProjectCard>
         </Link>
       );
@@ -128,23 +120,30 @@ const Courses: NextPage<CoursesProps> = (props) => {
   const tabs: TabItem[] = [
     {
       title: '</ Syntax >',
-      type: TabType.SYNTAX
+      type: CourseType.SYNTAX
     },
     {
       title: 'Guided Project',
-      type: TabType.GUIDED_PROJECT
+      type: CourseType.GUIDED_PROJECT
     },
     {
       title: 'Concept Learning',
-      type: TabType.CONCEPT_LEARNING
+      type: CourseType.CONCEPT_LEARNING
     },
     {
       title: 'Teaser',
-      type: TabType.TEASER
+      type: CourseType.TEASER
     }
   ];
 
-  const [selectTab, setSelectTab] = useState<TabType>(tabs[0].type);
+  const { courseList, count } = useSelector((rootState: AppRootState) => {
+    return {
+      courseList: rootState.course.courseList,
+      count: rootState.course.count
+    };
+  }, shallowEqual);
+  const dispatch: AppDispatch = useDispatch();
+  const [selectTab, setSelectTab] = useState<CourseType>(tabs[0].type);
   const [selectCards, setSelectCards] = useState<CourseType[]>([]);
 
   const onSelect = (item: TabItem) => {
@@ -152,25 +151,55 @@ const Courses: NextPage<CoursesProps> = (props) => {
   };
 
   const renderCards = useMemo(() => {
-    switch (selectTab) {
-      case TabType.SYNTAX:
-        return syntaxCards?.map((card, index) => {
+    const filterCourseList = courseList?.filter(
+      (course) => course.type === selectTab
+    );
+
+    return (
+      <>
+        {filterCourseList.map((card, index) => {
           return <div key={index}>{renderCard(card)}</div>;
-        });
-      case TabType.GUIDED_PROJECT:
-        return guidedProjectCards?.map((card, index) => {
-          return <div key={index}>{renderCard(card)}</div>;
-        });
-      case TabType.CONCEPT_LEARNING:
-        return conceptCards?.map((card, index) => {
-          return <div key={index}>{renderCard(card)}</div>;
-        });
-      case TabType.TEASER:
-        return teaserCards?.map((card, index) => {
-          return <div key={index}>{renderCard(card)}</div>;
-        });
-    }
-  }, [selectTab, syntaxCards, conceptCards, guidedProjectCards, teaserCards]);
+        })}
+      </>
+    );
+
+    // switch (selectTab) {
+    //   case CourseType.SYNTAX:
+    //     return (
+    //       <>
+    //         {courseList
+    //           ?.filter((course) => course.type === CourseType.SYNTAX)
+    //           .map((card, index) => {
+    //             return <div key={index}>{renderCard(card)}</div>;
+    //           })}
+    //       </>
+    //     );
+    //   case CourseType.GUIDED_PROJECT:
+    //     return (
+    //       <>
+    //         {guidedProjectCards?.map((card, index) => {
+    //           return <div key={index}>{renderCard(card)}</div>;
+    //         })}
+    //       </>
+    //     );
+    //   case CourseType.CONCEPT_LEARNING:
+    //     return (
+    //       <>
+    //         {conceptCards?.map((card, index) => {
+    //           return <div key={index}>{renderCard(card)}</div>;
+    //         })}
+    //       </>
+    //     );
+    //   case CourseType.TEASER:
+    //     return (
+    //       <>
+    //         {teaserCards?.map((card, index) => {
+    //           return <div key={index}>{renderCard(card)}</div>;
+    //         })}
+    //       </>
+    //     );
+    // }
+  }, [selectTab, courseList]);
 
   return (
     <>
@@ -201,212 +230,215 @@ const Courses: NextPage<CoursesProps> = (props) => {
 
 Courses.displayName = 'Courses';
 
-Courses.getInitialProps = (context) => {
-  return {
-    nowCards: [
-      {
-        id: uuid?.v4() || '0',
-        type: CardType.SYNTAX,
-        title: 'Introduction to programming',
-        tags: ['Beginner'],
-        description:
-          'This course covers the most basic concepts in programming using Solidity as an example.',
-        totalTime: 129600,
-        courseCount: 5,
-        completed: 58320
-      },
-      {
-        id: uuid?.v4() || '0',
-        type: CardType.HACKATHON,
-        title: 'Moonshot 2023 Summer Hackathon',
-        tags: ['All Tracks', 'Solidity', 'ZK'],
-        signUpStart: Date.now(),
-        signUpEnd: Date.now() * 60 * 60 * 60,
-        eventStart: Date.now(),
-        eventEnd: Date.now() * 60 * 60 * 60,
-        grantSize: '200K'
-      },
-      {
-        id: uuid?.v4() || '0',
-        type: CardType.LEARNING_TRACKS,
-        title: 'Web 3.0 Programming Advanced',
-        tags: ['Advanced'],
-        description:
-          'Basic concepts in programming of Solidity. Topics include: variables, functions, flow control, error handling, data structure.',
-        totalTime: 129600,
-        courseCount: 5,
-        completed: 0
-      },
-      {
-        id: uuid?.v4() || '0',
-        type: CardType.CONCEPT_LEARNING,
-        title: 'What is Bitcoin',
-        description:
-          'Basic concepts in programming of Solidity. Topics include: variables, functions, flow control, error handling, data structure.',
-        totalTime: 129600,
-        completed: 0,
-        cover: '/images/card/ConceptLearning/cover.svg'
-      }
-    ],
-    syntaxCards: [
-      {
-        id: uuid?.v4() || '0',
-        type: CardType.SYNTAX,
-        title: 'Introduction to programming',
-        tags: ['Beginner'],
-        description:
-          'This course covers the most basic concepts in programming using Solidity as an example.',
-        totalTime: 129600,
-        courseCount: 5,
-        completed: 0
-      },
-      {
-        id: uuid?.v4() || '0',
-        type: CardType.SYNTAX,
-        title: 'Introduction to programming',
-        tags: ['Beginner'],
-        description:
-          'This course covers the most basic concepts in programming using Solidity as an example.',
-        totalTime: 129600,
-        courseCount: 5,
-        completed: 94165
-      },
-      {
-        id: uuid?.v4() || '0',
-        type: CardType.SYNTAX,
-        title: 'Introduction to programming',
-        tags: ['Beginner'],
-        description:
-          'This course covers the most basic concepts in programming using Solidity as an example.',
-        totalTime: 129600,
-        courseCount: 5,
-        completed: 0
-      },
-      {
-        id: uuid?.v4() || '0',
-        type: CardType.SYNTAX,
-        title: 'Introduction to programming',
-        tags: ['Beginner'],
-        description:
-          'This course covers the most basic concepts in programming using Solidity as an example.',
-        totalTime: 129600,
-        courseCount: 5,
-        completed: 58320
-      }
-    ],
-    tracksCards: [
-      {
-        id: uuid?.v4() || '0',
-        type: CardType.LEARNING_TRACKS,
-        title: 'Web 3.0 Programming Advanced',
-        tags: ['Advanced'],
-        description:
-          'Basic concepts in programming of Solidity. Topics include: variables, functions, flow control, error handling, data structure.',
-        totalTime: 129600,
-        courseCount: 5,
-        completed: 0
-      },
-      {
-        id: uuid?.v4() || '0',
-        type: CardType.LEARNING_TRACKS,
-        title: 'Web 3.0 Programming Advanced',
-        tags: ['Advanced'],
-        description:
-          'Basic concepts in programming of Solidity. Topics include: variables, functions, flow control, error handling, data structure.',
-        totalTime: 129600,
-        courseCount: 5,
-        completed: 999
-      }
-    ],
-    teaserCards: [
-      {
-        id: uuid?.v4() || '0',
-        type: CardType.TEASER,
-        title: 'Deploy Coin',
-        label: 'Free teaser course',
-        description: 'Create your own token in just 10 mins! ',
-        totalTime: 129600,
-        courseCount: 5,
-        completed: 0
-      },
-      {
-        id: uuid?.v4() || '0',
-        type: CardType.TEASER,
-        title: 'Deploy Coin',
-        label: 'Free teaser course',
-        description: 'Create your own token in just 10 mins! ',
-        totalTime: 129600,
-        courseCount: 5,
-        completed: 0
-      },
-      {
-        id: uuid?.v4() || '0',
-        type: CardType.TEASER,
-        title: 'Deploy Coin',
-        label: 'Free teaser course',
-        description: 'Create your own token in just 10 mins! ',
-        totalTime: 129600,
-        courseCount: 5,
-        completed: 0
-      },
-      {
-        id: uuid?.v4() || '0',
-        type: CardType.TEASER,
-        title: 'Deploy Coin',
-        label: 'Free teaser course',
-        description: 'Create your own token in just 10 mins! ',
-        totalTime: 129600,
-        courseCount: 5,
-        completed: 0
-      }
-    ],
-    guidedProjectCards: [
-      {
-        id: uuid?.v4() || '0',
-        type: CardType.GUIDED_PROJECT,
-        title: 'Web 3.0 Programming Advanced',
-        tags: ['Advanced'],
-        description:
-          'Basic concepts in programming of Solidity. Topics include: variables, functions, flow control, error handling, data structure.',
-        totalTime: 129600,
-        courseCount: 5,
-        completed: 0
-      },
-      {
-        id: uuid?.v4() || '0',
-        type: CardType.GUIDED_PROJECT,
-        title: 'Web 3.0 Programming Advanced',
-        tags: ['Advanced'],
-        description:
-          'Basic concepts in programming of Solidity. Topics include: variables, functions, flow control, error handling, data structure.',
-        totalTime: 129600,
-        courseCount: 5,
-        completed: 999
-      }
-    ],
-    conceptCards: [
-      {
-        id: uuid?.v4() || '0',
-        type: CardType.CONCEPT_LEARNING,
-        title: 'What is Bitcoin',
-        description:
-          'Basic concepts in programming of Solidity. Topics include: variables, functions, flow control, error handling, data structure.',
-        totalTime: 129600,
-        completed: 0,
-        cover: '/images/card/ConceptLearning/cover.svg'
-      },
-      {
-        id: uuid?.v4() || '0',
-        type: CardType.CONCEPT_LEARNING,
-        title: 'What is Bitcoin',
-        description:
-          'Basic concepts in programming of Solidity. Topics include: variables, functions, flow control, error handling, data structure.',
-        totalTime: 129600,
-        completed: 0,
-        cover: '/images/card/ConceptLearning/cover.svg'
-      }
-    ]
-  };
-};
+export const getServerSideProps: GetServerSideProps =
+  wrapper.getServerSideProps(function (store) {
+    return async (context) => {
+      // 1.触发一个异步的action来发起网络请求, 拿到搜索建议并存到redex中
+      await store.dispatch(getCourseList());
+      // 2.发起网络请求获取其他数据，通过返回props传递
+      return {
+        props: {
+          nowCards: [
+            {
+              id: uuid?.v4() || '0',
+              type: CourseType.SYNTAX,
+              name: 'Introduction to programming',
+              level: ['Beginner'],
+              description:
+                'This course covers the most basic concepts in programming using Solidity as an example.',
+              duration: 234,
+              unitCount: 5,
+              progress: 0.6866
+            },
+            {
+              id: uuid?.v4() || '0',
+              type: CourseType.HACKATHON,
+              name: 'Moonshot 2023 Summer Hackathon',
+              level: ['All Tracks', 'Solidity', 'ZK']
+              // signUpStart: Date.now(),
+              // signUpEnd: Date.now() * 60 * 60 * 60,
+              // eventStart: Date.now(),
+              // eventEnd: Date.now() * 60 * 60 * 60,
+              // grantSize: '200K'
+            },
+            {
+              id: uuid?.v4() || '0',
+              type: CourseType.LEARNING_TRACKS,
+              name: 'Web 3.0 Programming Advanced',
+              level: ['Advanced'],
+              description:
+                'Basic concepts in programming of Solidity. Topics include: variables, functions, flow control, error handling, data structure.',
+              duration: 6464,
+              unitCount: 5,
+              progress: 0
+            },
+            {
+              id: uuid?.v4() || '0',
+              type: CourseType.CONCEPT_LEARNING,
+              name: 'What is Bitcoin',
+              description:
+                'Basic concepts in programming of Solidity. Topics include: variables, functions, flow control, error handling, data structure.',
+              duration: 600,
+              progress: 0
+            }
+          ],
+          syntaxCards: [
+            {
+              id: uuid?.v4() || '0',
+              type: CourseType.SYNTAX,
+              name: 'Introduction to programming',
+              level: ['Beginner'],
+              description:
+                'This course covers the most basic concepts in programming using Solidity as an example.',
+              duration: 600,
+              unitCount: 5,
+              progress: 0
+            },
+            {
+              id: uuid?.v4() || '0',
+              type: CourseType.SYNTAX,
+              name: 'Introduction to programming',
+              level: ['Beginner'],
+              description:
+                'This course covers the most basic concepts in programming using Solidity as an example.',
+              duration: 600,
+              unitCount: 5,
+              progress: 0.94165
+            },
+            {
+              id: uuid?.v4() || '0',
+              type: CourseType.SYNTAX,
+              name: 'Introduction to programming',
+              level: ['Beginner'],
+              description:
+                'This course covers the most basic concepts in programming using Solidity as an example.',
+              duration: 600,
+              unitCount: 5,
+              progress: 0
+            },
+            {
+              id: uuid?.v4() || '0',
+              type: CourseType.SYNTAX,
+              name: 'Introduction to programming',
+              level: ['Beginner'],
+              description:
+                'This course covers the most basic concepts in programming using Solidity as an example.',
+              duration: 600,
+              unitCount: 5,
+              progress: 0.68
+            }
+          ],
+          tracksCards: [
+            {
+              id: uuid?.v4() || '0',
+              type: CourseType.LEARNING_TRACKS,
+              name: 'Web 3.0 Programming Advanced',
+              level: ['Advanced'],
+              description:
+                'Basic concepts in programming of Solidity. Topics include: variables, functions, flow control, error handling, data structure.',
+              duration: 6700,
+              unitCount: 5,
+              progress: 0
+            },
+            {
+              id: uuid?.v4() || '0',
+              type: CourseType.LEARNING_TRACKS,
+              name: 'Web 3.0 Programming Advanced',
+              level: ['Advanced'],
+              description:
+                'Basic concepts in programming of Solidity. Topics include: variables, functions, flow control, error handling, data structure.',
+              duration: 600,
+              unitCount: 5,
+              progress: 0.999
+            }
+          ],
+          teaserCards: [
+            {
+              id: uuid?.v4() || '0',
+              type: CourseType.TEASER,
+              name: 'Deploy Coin',
+              description: 'Create your own token in just 10 mins! ',
+              duration: 6700,
+              unitCount: 5,
+              progress: 0
+            },
+            {
+              id: uuid?.v4() || '0',
+              type: CourseType.TEASER,
+              name: 'Deploy Coin',
+              description: 'Create your own token in just 10 mins! ',
+              duration: 600,
+              unitCount: 5,
+              progress: 0
+            },
+            {
+              id: uuid?.v4() || '0',
+              type: CourseType.TEASER,
+              name: 'Deploy Coin',
+              description: 'Create your own token in just 10 mins! ',
+              duration: 600,
+              unitCount: 5,
+              progress: 0
+            },
+            {
+              id: uuid?.v4() || '0',
+              type: CourseType.TEASER,
+              name: 'Deploy Coin',
+              description: 'Create your own token in just 10 mins! ',
+              duration: 600,
+              unitCount: 5,
+              progress: 0
+            }
+          ],
+          guidedProjectCards: [
+            {
+              id: uuid?.v4() || '0',
+              type: CourseType.GUIDED_PROJECT,
+              name: 'Web 3.0 Programming Advanced',
+              level: ['Advanced'],
+              description:
+                'Basic concepts in programming of Solidity. Topics include: variables, functions, flow control, error handling, data structure.',
+              duration: 600,
+              unitCount: 5,
+              progress: 0
+            },
+            {
+              id: uuid?.v4() || '0',
+              type: CourseType.GUIDED_PROJECT,
+              name: 'Web 3.0 Programming Advanced',
+              level: ['Advanced'],
+              description:
+                'Basic concepts in programming of Solidity. Topics include: variables, functions, flow control, error handling, data structure.',
+              duration: 600,
+              unitCount: 5,
+              progress: 999
+            }
+          ],
+          conceptCards: [
+            {
+              id: uuid?.v4() || '0',
+              type: CourseType.CONCEPT_LEARNING,
+              name: 'What is Bitcoin',
+              description:
+                'Basic concepts in programming of Solidity. Topics include: variables, functions, flow control, error handling, data structure.',
+              duration: 600,
+              progress: 0,
+              cover: '/images/card/ConceptLearning/cover.svg'
+            },
+            {
+              id: uuid?.v4() || '0',
+              type: CourseType.CONCEPT_LEARNING,
+              name: 'What is Bitcoin',
+              description:
+                'Basic concepts in programming of Solidity. Topics include: variables, functions, flow control, error handling, data structure.',
+              duration: 600,
+              progress: 0,
+              cover: '/images/card/ConceptLearning/cover.svg'
+            }
+          ]
+        }
+      };
+    };
+  });
 
 export default Courses;

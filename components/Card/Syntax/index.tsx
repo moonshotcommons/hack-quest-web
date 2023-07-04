@@ -1,30 +1,23 @@
 import Button from '@/components/Common/Button';
 import ClockIcon from '@/components/Common/Icon/Clock';
-import CompletedIcon from '@/components/Common/Icon/Completed';
+import ProgressIcon from '@/components/Common/Icon/Progress';
 import CourseIcon from '@/components/Common/Icon/Course';
 import Label from '@/components/Common/Label';
 import Tag from '@/components/Common/Tag';
-import { computeTime } from '@/helper/utils';
+import { computeProgress, computeTime } from '@/helper/utils';
 import React from 'react';
 
 export interface SyntaxCardProps {
-  title: string;
-  tags: string[];
+  name: string;
+  tags: string | string[];
   description: string;
-  totalTime: number;
-  courseCount: number;
-  completed: number;
+  duration: number;
+  unitCount: number;
+  progress: number;
 }
 
 const SyntaxCard: React.FC<SyntaxCardProps> = (props) => {
-  const {
-    title,
-    tags = [],
-    description,
-    totalTime,
-    courseCount,
-    completed
-  } = props;
+  const { name, tags = [], description, duration, unitCount, progress } = props;
   return (
     <div
       className={`h-[17.375rem] w-[26rem] bg-[url('/images/card/Syntax/color-bg.svg')] relative flex-shrink-0`}
@@ -34,9 +27,9 @@ const SyntaxCard: React.FC<SyntaxCardProps> = (props) => {
       >
         <div className="pl-10 pr-4 pt-9">
           <div className="w-[2.875rem] h-1 rounded-xl bg-gradient-to-t from-[#0891D5] to-[#38C1A5]"></div>
-          <h2 className="title mt-7">{title}</h2>
+          <h2 className="title mt-7">{name}</h2>
           <div className="mt-4">
-            {tags.map((tag) => {
+            {(Array.isArray(tags) ? tags : [tags]).map((tag) => {
               return <Tag key={tag}>{tag}</Tag>;
             })}
           </div>
@@ -48,19 +41,19 @@ const SyntaxCard: React.FC<SyntaxCardProps> = (props) => {
                 icon={<ClockIcon color="#f2f2f2" />}
                 className="font-neuemachina"
               >
-                {computeTime(totalTime, 'Hour')} Hour
+                {computeTime(duration, 'Hour')} Hour
               </Label>
               <Label
                 icon={<CourseIcon color="#f2f2f2" />}
                 className="font-neuemachina"
               >
-                {courseCount} Course
+                {unitCount} Course
               </Label>
             </div>
             <div className="">
-              {completed > 0 ? (
-                <Button icon={<CompletedIcon />}>
-                  {((completed / totalTime) * 100).toFixed(0)}% COMPLETED
+              {progress > 0 ? (
+                <Button icon={<ProgressIcon />}>
+                  {computeProgress(progress)}% COMPLETED
                 </Button>
               ) : null}
             </div>

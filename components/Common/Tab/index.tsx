@@ -1,9 +1,10 @@
 import { TabType } from '@/constants/enum';
+import { CourseType } from '@/service/webApi/course/type';
 import { FC, ReactNode, useState } from 'react';
 
 export interface TabItem {
   title: ReactNode;
-  type: TabType;
+  type: CourseType;
 }
 
 interface TabProps {
@@ -11,24 +12,24 @@ interface TabProps {
   onSelect?: (item: any) => void;
   selectField?: keyof TabItem;
   tabs: TabItem[];
-  defaultSelect?: TabType;
+  defaultSelect?: CourseType;
 }
 
-const renderSelectState = (type: TabType) => {
+const renderSelectState = (type: CourseType) => {
   switch (type) {
-    case TabType.SYNTAX:
+    case CourseType.SYNTAX:
       return (
         <div className="absolute w-full -top-2 left-0 h-1 rounded-xl bg-gradient-to-t from-[#0891D5] to-[#38C1A5]"></div>
       );
-    case TabType.GUIDED_PROJECT:
+    case CourseType.GUIDED_PROJECT:
       return (
         <div className="absolute w-full -top-2 left-0 h-1 rounded-xl bg-gradient-to-t from-[#5C1DE6] to-[#1B7DEC]"></div>
       );
-    case TabType.CONCEPT_LEARNING:
+    case CourseType.CONCEPT_LEARNING:
       return (
         <div className="absolute w-full -top-2 left-0 h-1 rounded-xl bg-gradient-to-t from-[#EB3E1C] to-[#E0AD38]"></div>
       );
-    case TabType.TEASER:
+    case CourseType.TEASER:
       return (
         <div className="absolute w-full -top-2 left-0 h-1 rounded-xl bg-gradient-to-t from-[#8E8E8E] to-[#FFF]"></div>
       );
@@ -37,7 +38,7 @@ const renderSelectState = (type: TabType) => {
 
 const Tab: FC<TabProps> = (props) => {
   const { onSelect, tabs, selectField, defaultSelect } = props;
-  const [selectTab, setSelectTab] = useState<TabType>(
+  const [selectTab, setSelectTab] = useState<CourseType>(
     defaultSelect || tabs[0].type
   );
 

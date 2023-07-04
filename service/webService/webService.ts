@@ -12,6 +12,7 @@ class WebService {
   instance: AxiosInstance;
   interceptors?: RequestInterceptors;
   constructor(config: CreateAxiosDefaults) {
+    console.log(config, '---------------');
     this.instance = axios.create(config);
     // this.interceptors = config.interceptors
     this.addInterceptors();
@@ -57,8 +58,8 @@ class WebService {
 
   responseInterceptor<T>(res: AxiosResponse<T, T>): Promise<T> {
     // console.log('全局响应拦截器')
-    if (res.data) {
-      // 处理响应
+    if (res.status === 200) {
+      return Promise.resolve(res.data);
     }
 
     return Promise.resolve(res.data);
@@ -69,25 +70,26 @@ class WebService {
     return err.response?.data;
   }
 
-  get<T>(config: RequestConfig<T>): Promise<T> {
+  get<T>(url: string, config?: Omit<RequestConfig<T>, 'url'>): Promise<T> {
     // console.log('config.baseURL', config.baseURL)
-    return this.request<T>({ ...config, method: 'GET' });
+    console.log(url);
+    return this.request<T>({ url, ...config, method: 'GET' });
   }
 
-  post<T>(config: RequestConfig<T>): Promise<T> {
-    return this.request({ ...config, method: 'POST' });
+  post<T>(url: string, config?: Omit<RequestConfig<T>, 'url'>): Promise<T> {
+    return this.request({ url, ...config, method: 'POST' });
   }
 
-  put<T>(config: RequestConfig<T>): Promise<T> {
-    return this.request({ ...config, method: 'PUT' });
+  put<T>(url: string, config?: Omit<RequestConfig<T>, 'url'>): Promise<T> {
+    return this.request({ url, ...config, method: 'PUT' });
   }
 
-  delete<T>(config: RequestConfig<T>): Promise<T> {
-    return this.request({ ...config, method: 'DELETE' });
+  delete<T>(url: string, config?: Omit<RequestConfig<T>, 'url'>): Promise<T> {
+    return this.request({ url, ...config, method: 'DELETE' });
   }
 
-  patch<T>(config: RequestConfig<T>): Promise<T> {
-    return this.request({ ...config, method: 'PATCH' });
+  patch<T>(url: string, config?: Omit<RequestConfig<T>, 'url'>): Promise<T> {
+    return this.request({ url, ...config, method: 'PATCH' });
   }
 }
 

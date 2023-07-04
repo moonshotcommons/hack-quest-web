@@ -1,13 +1,18 @@
 import WebService from '@/service/webService/webService';
+import { CourseResponse } from './type';
 
 export enum CourseApiType {
-  Test = '/v1/test'
+  Course_List = '/api/course'
 }
 
 class CourseApi {
   protected service: WebService;
   constructor(service: WebService) {
     this.service = service;
+  }
+
+  getCourseList() {
+    return this.service.get<CourseResponse[]>(CourseApiType.Course_List);
   }
 }
 

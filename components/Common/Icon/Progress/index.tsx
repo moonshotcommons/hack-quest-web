@@ -9,7 +9,7 @@ interface BaseIconProps {
 
 type IconProps = BaseIconProps & React.HTMLAttributes<unknown>;
 
-const CompletedIcon: React.FC<IconProps> = (props) => {
+const ProgressIcon: React.FC<IconProps> = (props) => {
   const { size = 24, color = '#9EFA13' } = props;
 
   return (
@@ -31,4 +31,4 @@ const CompletedIcon: React.FC<IconProps> = (props) => {
     </svg>
   );
 };
-export default CompletedIcon;
+export default ProgressIcon;

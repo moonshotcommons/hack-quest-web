@@ -2,8 +2,8 @@ export const tuple = <T extends string[]>(...args: T) => args;
 
 type TimeType = 'Hour' | 'Minute' | 'Day';
 
-export const computeTime = (seconds: number, type: TimeType) => {
-  const minutes = Math.floor(seconds / 60);
+export const computeTime = (minutes: number, type: TimeType) => {
+  // const minutes = Math.floor(time / 60);
   const hours = Math.floor(minutes / 60);
   const days = Math.floor(hours / 24);
 
@@ -15,4 +15,8 @@ export const computeTime = (seconds: number, type: TimeType) => {
     case 'Day':
       return days;
   }
+};
+
+export const computeProgress = (n: number) => {
+  return Math.floor(n * 100 * 100) / 100;
 };

@@ -5,11 +5,11 @@ import { computeTime } from '@/helper/utils';
 import React from 'react';
 export interface ConceptLearningCardProps {
   title: string;
-  tags: string[];
+  tags: string | string[];
   description: string;
-  totalTime: number;
-  courseCount: number;
-  completed: number;
+  duration: number;
+  unitCount: number;
+  progress: number;
   cover: string;
 }
 
@@ -18,9 +18,9 @@ const ConceptLearningCard: React.FC<ConceptLearningCardProps> = (props) => {
     title,
     tags = [],
     description,
-    totalTime,
-    courseCount,
-    completed,
+    duration,
+    unitCount,
+    progress,
     cover
   } = props;
 
@@ -42,7 +42,7 @@ const ConceptLearningCard: React.FC<ConceptLearningCardProps> = (props) => {
             icon={<ClockIcon color="#f2f2f2" />}
             className="ml-56 mt-10 font-neuemachina"
           >
-            {computeTime(totalTime, 'Hour')} Hour
+            {computeTime(duration, 'Hour')} Hour
           </Label>
         </div>
       </div>

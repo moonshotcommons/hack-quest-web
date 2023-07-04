@@ -5,17 +5,15 @@ import Label from '@/components/Common/Label';
 import { computeTime } from '@/helper/utils';
 import React from 'react';
 export interface TeaserCardProps {
-  title: string;
+  name: string;
   description: string;
-  label: string;
-  totalTime: number;
-  courseCount: number;
-  completed: number;
+  duration: number;
+  unitCount: number;
+  progress: number;
 }
 
 const TeaserCard: React.FC<TeaserCardProps> = (props) => {
-  const { title, description, totalTime, courseCount, completed, label } =
-    props;
+  const { name, description, duration, unitCount, progress } = props;
 
   return (
     <div
@@ -31,13 +29,13 @@ const TeaserCard: React.FC<TeaserCardProps> = (props) => {
       >
         <div className="pl-[5.81rem] pt-[5.44rem]">
           {/* <div className="w-[2.875rem] h-1 rounded-xl bg-gradient-to-t from-[#EB3E1C] to-[#E0AD38]"></div> */}
-          <h2 className="text-base font-bold text-white">{title}</h2>
+          <h2 className="text-base font-bold text-white">{name}</h2>
           <p className="w-44 text-[#F2F2F2] font-normal text-sm mt-6">
             {description}
           </p>
         </div>
         <span className="justify-center absolute right-[0.78rem] bottom-0 text-base text-[#676767]">
-          {label}
+          Free teaser course
         </span>
       </div>
     </div>

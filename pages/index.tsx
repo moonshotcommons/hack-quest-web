@@ -14,9 +14,9 @@ interface CourseType {
   title: string;
   tags?: string[];
   description?: string;
-  totalTime?: number;
-  courseCount?: number;
-  completed?: number;
+  duration?: number;
+  unitCount?: number;
+  progress?: number;
   cover?: string;
 }
 
