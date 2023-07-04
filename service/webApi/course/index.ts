@@ -2,7 +2,7 @@ import WebService from '@/service/webService/webService';
 import { CourseResponse } from './type';
 
 export enum CourseApiType {
-  Course_List = '/api/course'
+  Course_List = '/api/courses'
 }
 
 class CourseApi {

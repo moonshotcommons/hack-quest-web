@@ -39,6 +39,7 @@ const courseSlice = createSlice({
 export const getCourseList = createAsyncThunk('getCourseList', async () => {
   try {
     const res = (await webApi.courseApi.getCourseList()) || [];
+    console.log(res);
     return res;
   } catch (err: any) {
     message.error(`Course ${err.msg}`);
