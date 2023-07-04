@@ -67,7 +67,7 @@ class WebService {
 
   responseInterceptorCatch(err: AxiosError) {
     // console.log('全局响应失败拦截器')
-    return err.response?.data;
+    return Promise.reject(err.response?.data);
   }
 
   get<T>(url: string, config?: Omit<RequestConfig<T>, 'url'>): Promise<T> {

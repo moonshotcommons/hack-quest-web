@@ -34,8 +34,8 @@ const Landing: NextPage<CoursesProps> = (props) => {
 
 Landing.displayName = 'Courses';
 
-Landing.getInitialProps = (context) => {
-  return {};
-};
+// Landing.getInitialProps = (context) => {
+//   return {};
+// };
 
 export default Landing;
