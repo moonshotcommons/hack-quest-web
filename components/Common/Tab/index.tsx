@@ -1,5 +1,6 @@
 import { TabType } from '@/constants/enum';
 import { CourseType } from '@/service/webApi/course/type';
+import classNames from 'classnames';
 import { FC, ReactNode, useState } from 'react';
 
 export interface TabItem {
@@ -43,12 +44,18 @@ const Tab: FC<TabProps> = (props) => {
   );
 
   return (
-    <div className="relative flex gap-[5rem] items-center h-16 top-line bottom-line">
+    <div className="relative w-[102%] flex gap-[5rem] items-center h-16 top-line bottom-line test-wrap">
       {tabs.map((item) => {
+        const classes = classNames({
+          // 'left-0': item.type === CourseType.SYNTAX,
+          // 'left-[8.875rem]': item.type === CourseType.GUIDED_PROJECT,
+          // 'left-[21.0625rem]': item.type === CourseType.CONCEPT_LEARNING,
+          // 'left-[33.5rem]': item.type === CourseType.TEASER
+        });
         return (
           <div
             key={item.type}
-            className={`relative h-full flex items-center cursor-pointer text-[#F1F1F1] ${
+            className={`relative ${classes} h-full flex items-center cursor-pointer text-[#F1F1F1] test-wrap-item ${
               selectTab === item.type
                 ? 'font-next-poster-Bold text-base'
                 : 'font-next-poster-Thin font-thin text-base'
@@ -58,7 +65,9 @@ const Tab: FC<TabProps> = (props) => {
               onSelect?.(selectField ? item[`${selectField}`] : item);
             }}
           >
-            <h2>{item.title}</h2>
+            <h2>
+              {selectTab === item.type ? `</ ${item.title} >` : item.title}
+            </h2>
             {selectTab === item.type ? renderSelectState(selectTab) : null}
           </div>
         );

@@ -40,7 +40,7 @@ const ConceptLearningCard: React.FC<ConceptLearningCardProps> = (props) => {
           <h2 className="title mt-36">{title}</h2>
           <Label
             icon={<ClockIcon color="#f2f2f2" />}
-            className="ml-56 mt-10 font-neuemachina"
+            className="ml-56 mt-10 font-neuemachina-light"
           >
             {computeTime(duration, 'Hour')} Hour
           </Label>

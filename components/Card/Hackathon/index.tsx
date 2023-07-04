@@ -1,4 +1,5 @@
 import Tag from '@/components/Common/Tag';
+import { tagFormate } from '@/helper/utils';
 import React from 'react';
 
 export interface HackathonCardProps {
@@ -20,7 +21,7 @@ const HackathonCard: React.FC<HackathonCardProps> = (props) => {
           <h2 className="title">{name}</h2>
           <div className="flex gap-4 mt-4">
             {(Array.isArray(tags) ? tags : [tags]).map((tag) => {
-              return <Tag key={tag}>{tag}</Tag>;
+              return <Tag key={tag}>{tagFormate(tag)}</Tag>;
             })}
           </div>
           <div className="mt-12">

@@ -3,6 +3,7 @@ import CourseIcon from '@/components/Common/Icon/Course';
 import FlightSideWayIcon from '@/components/Common/Icon/FlightSideWay';
 import Label from '@/components/Common/Label';
 import { computeTime } from '@/helper/utils';
+import { Typography } from 'antd';
 import React from 'react';
 export interface TeaserCardProps {
   name: string;
@@ -31,7 +32,14 @@ const TeaserCard: React.FC<TeaserCardProps> = (props) => {
           {/* <div className="w-[2.875rem] h-1 rounded-xl bg-gradient-to-t from-[#EB3E1C] to-[#E0AD38]"></div> */}
           <h2 className="text-base font-bold text-white">{name}</h2>
           <p className="w-44 text-[#F2F2F2] font-normal text-sm mt-6">
-            {description}
+            <Typography.Paragraph
+              className="text-[#F2F2F2] font-normal text-sm"
+              ellipsis={{
+                rows: 3
+              }}
+            >
+              {description}
+            </Typography.Paragraph>
           </p>
         </div>
         <span className="justify-center absolute right-[0.78rem] bottom-0 text-base text-[#676767]">

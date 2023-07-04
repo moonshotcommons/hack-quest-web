@@ -4,7 +4,7 @@ import ProgressIcon from '@/components/Common/Icon/Progress';
 import CourseIcon from '@/components/Common/Icon/Course';
 import Label from '@/components/Common/Label';
 import Tag from '@/components/Common/Tag';
-import { computeProgress, computeTime } from '@/helper/utils';
+import { computeProgress, computeTime, tagFormate } from '@/helper/utils';
 import React from 'react';
 
 export interface GuidedProjectCardProps {
@@ -30,22 +30,22 @@ const GuidedProjectCard: React.FC<GuidedProjectCardProps> = (props) => {
           <h2 className="title mt-7">{name}</h2>
           <div className="mt-4">
             {(Array.isArray(tags) ? tags : [tags]).map((tag) => {
-              return <Tag key={tag}>{tag}</Tag>;
+              return <Tag key={tag}>{tagFormate(tag)}</Tag>;
             })}
           </div>
-          <div className="mt-4 description">{description}</div>
+          <div className="mt-4 description"></div>
 
           <div className="flex mt-8  justify-between items-center">
             <div className="flex gap-8">
               <Label
                 icon={<ClockIcon color="#f2f2f2" />}
-                className="font-neuemachina"
+                className="font-neuemachina-light"
               >
                 {computeTime(duration, 'Hour')} Hour
               </Label>
               <Label
                 icon={<CourseIcon color="#f2f2f2" />}
-                className="font-neuemachina"
+                className="font-neuemachina-light"
               >
                 {unitCount} Course
               </Label>
