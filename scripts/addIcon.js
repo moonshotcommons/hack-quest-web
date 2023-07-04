@@ -32,8 +32,8 @@ const generateTypeRenderData = (iconPath) => {
   });
 
   return {
-    type: `\n  ${typeString.join(',\n  ')}\n`,
     iconImport: importString.join('\n'),
+    type: `\n  ${typeString.join(',\n  ')}\n`,
     icons: `{\n${iconsMapString.join(',\n')}\n}`
   };
 };

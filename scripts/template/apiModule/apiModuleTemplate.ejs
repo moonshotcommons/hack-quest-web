@@ -1,0 +1,14 @@
+import WebService from '@/service/webService/webService';
+
+export enum <%= name %>ApiType {
+  Test = '/v1/test'
+}
+
+class <%= name %>Api {
+  protected service: WebService;
+  constructor(service: WebService) {
+    this.service = service;
+  }
+}
+
+export default <%= name %>Api;

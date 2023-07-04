@@ -36,6 +36,14 @@
 @tailwind utilities;
 
 @layer components {
+  .button-hover {
+    @apply font-next-book text-base font-bold text-white;
+  }
+
+  .button-disable {
+    @apply font-next-book text-base font-bold text-white;
+  }
+
   .title {
     @apply font-next-book text-base font-bold text-white;
   }

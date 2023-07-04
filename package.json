@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "npm run lint:script ",
     "add:icon": "node ./scripts/addIcon.js",
+    "add:api": "node ./scripts/addApi.js",
     "lint:script": "eslint --ext .js,.jsx,.ts,.tsx --fix --quiet ./",
     "prepare": "husky install",
     "pre-commit": "lint-staged",

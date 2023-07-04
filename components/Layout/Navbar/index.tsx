@@ -25,7 +25,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
         {navList.map((nav) => {
           return (
             <Link
-              className={`text-sm h-full flex items-center ${
+              className={`text-sm h-full flex items-center hover:font-next-book-bold hover:text-white hover:font-bold ${
                 pathname === nav.path
                   ? 'font-next-book-bold text-white font-bold'
                   : 'font-next-book text-[#B2B2B2] font-normal'
