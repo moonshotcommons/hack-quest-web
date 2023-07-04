@@ -4,8 +4,9 @@ import ProgressIcon from '@/components/Common/Icon/Progress';
 import CourseIcon from '@/components/Common/Icon/Course';
 import Label from '@/components/Common/Label';
 import Tag from '@/components/Common/Tag';
-import { computeProgress, computeTime } from '@/helper/utils';
+import { computeProgress, computeTime, tagFormate } from '@/helper/utils';
 import React from 'react';
+import { Typography } from 'antd';
 
 export interface SyntaxCardProps {
   name: string;
@@ -25,27 +26,36 @@ const SyntaxCard: React.FC<SyntaxCardProps> = (props) => {
       <div
         className={`w-full h-full bg-[url('/images/card/Syntax/bg.svg')] scale-[1.01] absolute top-0 left-0 hover:-top-1 hover:left-1 hover:transition-all duration-700`}
       >
-        <div className="pl-10 pr-4 pt-9">
+        <div className="h-full flex flex-col justify-start pl-10 pr-4 pt-9">
           <div className="w-[2.875rem] h-1 rounded-xl bg-gradient-to-t from-[#0891D5] to-[#38C1A5]"></div>
           <h2 className="title mt-7">{name}</h2>
           <div className="mt-4">
             {(Array.isArray(tags) ? tags : [tags]).map((tag) => {
-              return <Tag key={tag}>{tag}</Tag>;
+              return <Tag key={tag}>{tagFormate(tag)}</Tag>;
             })}
           </div>
-          <div className="mt-4 description">{description}</div>
+          <div className="mt-4 flex-1">
+            <Typography.Paragraph
+              className="description text-xs leading-[128%]"
+              ellipsis={{
+                rows: 3
+              }}
+            >
+              {description}
+            </Typography.Paragraph>
+          </div>
 
-          <div className="flex mt-10 justify-between items-center">
+          <div className="flex h-[2.25rem] mb-4 justify-between">
             <div className="flex gap-8">
               <Label
                 icon={<ClockIcon color="#f2f2f2" />}
-                className="font-neuemachina"
+                className="font-neuemachina-light"
               >
                 {computeTime(duration, 'Hour')} Hour
               </Label>
               <Label
                 icon={<CourseIcon color="#f2f2f2" />}
-                className="font-neuemachina"
+                className="font-neuemachina-light"
               >
                 {unitCount} Course
               </Label>

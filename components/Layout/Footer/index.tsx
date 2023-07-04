@@ -27,22 +27,31 @@ const Footer = () => {
             >
               Learning Dashboard
             </Link>
-            <li className="hover:font-next-book-bold text-white cursor-pointer">
+            {/* <li className="hover:font-next-book-bold text-white cursor-pointer">
               Resources Station
-            </li>
+            </li> */}
           </ul>
           <div className="flex flex-col gap-[1.25rem]">
             <p>Contact us:</p>
             <ul className="flex gap-[20px]">
-              <span className="hover:scale-[1.1] cursor-pointer">
+              <Link
+                href={'https://twitter.com/_hackquest'}
+                className="hover:scale-[1.1] cursor-pointer"
+              >
                 <TwitterIcon />
-              </span>
-              <span className="hover:scale-[1.1] cursor-pointer">
+              </Link>
+              <Link
+                href={'https://discord.gg/KkAJHPqywn'}
+                className="hover:scale-[1.1] cursor-pointer"
+              >
                 <DiscordIcon />
-              </span>
-              <span className="hover:scale-[1.1] cursor-pointer">
+              </Link>
+              <Link
+                href={'https://www.instagram.com/_hackquest/'}
+                className="hover:scale-[1.1] cursor-pointer"
+              >
                 <InstagramIcon />
-              </span>
+              </Link>
             </ul>
           </div>
         </div>

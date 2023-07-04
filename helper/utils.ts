@@ -20,3 +20,22 @@ export const computeTime = (minutes: number, type: TimeType) => {
 export const computeProgress = (n: number) => {
   return Math.floor(n * 100 * 100) / 100;
 };
+
+export const tagFormate = (tag: string) => {
+  if (tag.includes('_')) {
+    return tag
+      .split('_')
+      .map((s) => {
+        return s.toLowerCase().replace(/^./, s[0].toUpperCase());
+      })
+      .join(' ');
+  }
+
+  if (tag.includes(' ')) {
+    return tag
+      .split(' ')
+      .map((s) => s.toLowerCase().replace(/^./, s[0].toUpperCase()))
+      .join(' ');
+  }
+  return tag.toLowerCase().replace(/^./, tag[0].toUpperCase());
+};

@@ -119,7 +119,7 @@ const Courses: NextPage<CoursesProps> = (props) => {
   } = props;
   const tabs: TabItem[] = [
     {
-      title: '</ Syntax >',
+      title: 'Syntax',
       type: CourseType.SYNTAX
     },
     {
