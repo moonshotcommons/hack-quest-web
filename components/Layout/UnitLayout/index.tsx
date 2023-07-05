@@ -1,28 +1,23 @@
 import React from 'react';
-import NavBar, { NavBarProps } from './Navbar';
-import Footer from './Footer';
 
 import { Inter } from 'next/font/google';
 const inter = Inter({ subsets: ['latin'] });
-export interface LayoutProps {
-  navbarData: NavBarProps;
+export interface UnitLayoutProps {
   // footerData: IFooterProps;
   children: JSX.Element;
 }
 
-const Layout: React.FC<LayoutProps> = ({ navbarData, children }) => {
+const UnitLayout: React.FC<UnitLayoutProps> = ({ children }) => {
   return (
     <div
       className={`w-full min-h-screen bg-black ${inter.className} overflow-x-scroll`}
     >
-      <div className="container m-auto">
-        <NavBar {...navbarData} />
+      <div className="w-[91rem] m-auto">
         <main>{children}</main>
         {/* <Footer {...footerData} /> */}
-        <Footer></Footer>
       </div>
     </div>
   );
 };
 
-export default Layout;
+export default UnitLayout;

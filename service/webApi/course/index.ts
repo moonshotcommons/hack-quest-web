@@ -1,8 +1,16 @@
 import WebService from '@/service/webService/webService';
-import { CourseDetailType, CourseResponse } from './type';
+import {
+  CourseDetailType,
+  CourseLessonStateType,
+  CourseLessonType,
+  CourseResponse,
+  CourseUnitStateType,
+  CourseUnitType
+} from './type';
 
 export enum CourseApiType {
-  Course_List = '/api/courses'
+  Course_List = '/api/courses',
+  LessonDetail = '/api/pages'
 }
 
 class CourseApi {
@@ -23,15 +31,32 @@ class CourseApi {
     );
   }
 
-  getCourseUnitPages(
-    courseId: string,
-    unitId: string,
-    isIncludePages: boolean = false
-  ) {
-    const url = `${CourseApiType.Course_List}/${courseId}/units/${unitId}${
-      isIncludePages ? '?include=pages' : ''
-    }`;
+  getCourseUnits(courseId: string) {
+    const url = `${CourseApiType.Course_List}/${courseId}/units`;
+    return this.service.get<CourseUnitType[]>(url);
+  }
 
+  getCourseUnitsPages(courseId: string) {
+    const url = `${CourseApiType.Course_List}/${courseId}/units?include=pages`;
+    return this.service.get<(CourseUnitType & { pages: CourseLessonType[] })[]>(
+      url
+    );
+  }
+
+  getCourseUnit(courseId: string, unitId: string) {
+    const url = `${CourseApiType.Course_List}/${courseId}/units/${unitId}`;
+    return this.service.get<CourseUnitStateType>(url);
+  }
+
+  getCourseUnitLessons(courseId: string, unitId: string) {
+    const url = `${CourseApiType.Course_List}/${courseId}/units/${unitId}?include=pages`;
+    return this.service.get<
+      CourseUnitStateType & { pages: CourseLessonStateType[] }[]
+    >(url);
+  }
+
+  getLessonContent(lessonId: string) {
+    const url = `${CourseApiType.LessonDetail}/`;
     return this.service.get<CourseResponse[]>(url);
   }
 }

@@ -12,6 +12,18 @@ export enum CourseType {
   LEARNING_TRACKS = 'LEARNING_TRACKS'
 }
 
+export enum LessonStyleType {
+  A = 'A',
+  B = 'B',
+  C = 'C'
+}
+
+export enum UnitStateType {
+  NOT_STARTED = 0,
+  LEARNING = 1,
+  COMPLETED = 2
+}
+
 /** 课程列表的返回值 */
 export interface CourseResponse {
   id: string;
@@ -47,4 +59,30 @@ export interface CourseUnitType {
   courseId: string;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface CourseUnitStateType {
+  id: string;
+  name: string;
+  description: string;
+  state: UnitStateType;
+  progress: number;
+}
+
+export interface CourseLessonType {
+  id: string;
+  name: string;
+  style: LessonStyleType;
+  sequence: number;
+  unitId: string;
+  courseId: string;
+}
+
+export interface CourseLessonStateType {
+  name: string;
+  id: string;
+  style: LessonStyleType;
+  sequence: number;
+  unitId: string;
+  courseId: string;
 }

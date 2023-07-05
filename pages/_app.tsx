@@ -6,6 +6,7 @@ import App from 'next/app';
 
 import { Provider } from 'react-redux';
 import wrapper from '@/store/redux';
+import UnitLayout from '@/components/Layout/UnitLayout';
 function MyApp(appProps: AppProps & LayoutProps) {
   const { Component, router, navbarData, ...rest } = appProps;
   const { store, props } = wrapper.useWrappedStore(rest);
@@ -17,7 +18,19 @@ function MyApp(appProps: AppProps & LayoutProps) {
     // server
   }
 
-  switch (pathname) {
+  const regex = /\/[^/]+\/unit\/\[unitId\]/;
+  console.log(regex.test(pathname));
+  switch (true) {
+    case regex.test(pathname):
+      return (
+        <Provider store={store}>
+          <ThemeContextProvider>
+            <UnitLayout>
+              <Component {...props.pageProps} />
+            </UnitLayout>
+          </ThemeContextProvider>
+        </Provider>
+      );
     default:
       return (
         <Provider store={store}>

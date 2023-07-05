@@ -3,6 +3,7 @@ import CourseDescription from '@/components/Course/CourseDetail/CourseDescriptio
 import CourseDetailBanner from '@/components/Course/CourseDetail/CourseDetailBranner';
 import CourseDetailInfo from '@/components/Course/CourseDetail/CouseDetailInfo';
 import UnitList from '@/components/Course/UnitList';
+import GuidePage from '@/components/Lesson/GuidePage';
 import { tagFormate } from '@/helper/formate';
 import webApi from '@/service';
 import { CourseDetailType } from '@/service/webApi/course/type';
@@ -33,7 +34,10 @@ const SyntaxUnit: NextPage<IProps> = (props) => {
     //     <UnitList units={courseDetail?.units || []}></UnitList>
     //   </div>
     // </div>
-    <h1 className="text-white text-5xl">{`当前正在浏览 syntax unit ${unitId}`}</h1>
+    // <h1 className="text-white text-5xl">{`当前正在浏览 syntax unit ${unitId}`}</h1>
+    <div>
+      <GuidePage></GuidePage>
+    </div>
   );
 };
 
