@@ -1,5 +1,5 @@
 import Tag from '@/components/Common/Tag';
-import { tagFormate } from '@/helper/utils';
+import { tagFormate } from '@/helper/formate';
 import React from 'react';
 
 export interface HackathonCardProps {

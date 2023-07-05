@@ -19,6 +19,7 @@ import wrapper, { AppDispatch, AppRootState } from '@/store/redux';
 import { getCourseList, increment } from '@/store/redux/modules/course';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { CourseResponse, CourseType } from '@/service/webApi/course/type';
+import { getCourseLink } from '@/helper/utils';
 
 interface CoursesProps {
   nowCards: CourseResponse[];
@@ -33,7 +34,11 @@ const renderCard = (card: CourseResponse) => {
   switch (card.type) {
     case CourseType.CONCEPT_LEARNING:
       return (
-        <Link href={`/concept/${card.id}`}>
+        <Link
+          href={`${getCourseLink(CourseType.CONCEPT_LEARNING, 'detail')}/${
+            card.id
+          }`}
+        >
           <ConceptLearningCard
             title={card.name}
             tags={card.level || []}
@@ -47,7 +52,9 @@ const renderCard = (card: CourseResponse) => {
       );
     case CourseType.HACKATHON:
       return (
-        <Link href={`/hackathon/${card.id}`}>
+        <Link
+          href={`${getCourseLink(CourseType.HACKATHON, 'detail')}/${card.id}`}
+        >
           <HackathonCard
             name={card.name}
             tags={card.level || []}
@@ -56,7 +63,7 @@ const renderCard = (card: CourseResponse) => {
       );
     case CourseType.SYNTAX:
       return (
-        <Link href={`/syntax/${card.id}`}>
+        <Link href={`${getCourseLink(CourseType.SYNTAX, 'detail')}/${card.id}`}>
           <SyntaxCard
             name={card.name}
             tags={card.level || []}
@@ -69,7 +76,11 @@ const renderCard = (card: CourseResponse) => {
       );
     case CourseType.LEARNING_TRACKS:
       return (
-        <Link href={`/learning-track/${card.id}`}>
+        <Link
+          href={`${getCourseLink(CourseType.LEARNING_TRACKS, 'detail')}/${
+            card.id
+          }`}
+        >
           <LearningTracksCard
             name={card.name}
             tags={card.level || []}
@@ -82,7 +93,7 @@ const renderCard = (card: CourseResponse) => {
       );
     case CourseType.TEASER:
       return (
-        <Link href={`/teaser/${card.id}`}>
+        <Link href={`${getCourseLink(CourseType.TEASER, 'detail')}/${card.id}`}>
           <TeaserCard
             name={card.name}
             description={card.description || ''}
@@ -94,7 +105,11 @@ const renderCard = (card: CourseResponse) => {
       );
     case CourseType.GUIDED_PROJECT:
       return (
-        <Link href={`/guided-project/${card.id}`}>
+        <Link
+          href={`${getCourseLink(CourseType.GUIDED_PROJECT, 'detail')}/${
+            card.id
+          }`}
+        >
           <GuidedProjectCard
             name={card.name}
             tags={card.level || []}
@@ -162,43 +177,6 @@ const Courses: NextPage<CoursesProps> = (props) => {
         })}
       </>
     );
-
-    // switch (selectTab) {
-    //   case CourseType.SYNTAX:
-    //     return (
-    //       <>
-    //         {courseList
-    //           ?.filter((course) => course.type === CourseType.SYNTAX)
-    //           .map((card, index) => {
-    //             return <div key={index}>{renderCard(card)}</div>;
-    //           })}
-    //       </>
-    //     );
-    //   case CourseType.GUIDED_PROJECT:
-    //     return (
-    //       <>
-    //         {guidedProjectCards?.map((card, index) => {
-    //           return <div key={index}>{renderCard(card)}</div>;
-    //         })}
-    //       </>
-    //     );
-    //   case CourseType.CONCEPT_LEARNING:
-    //     return (
-    //       <>
-    //         {conceptCards?.map((card, index) => {
-    //           return <div key={index}>{renderCard(card)}</div>;
-    //         })}
-    //       </>
-    //     );
-    //   case CourseType.TEASER:
-    //     return (
-    //       <>
-    //         {teaserCards?.map((card, index) => {
-    //           return <div key={index}>{renderCard(card)}</div>;
-    //         })}
-    //       </>
-    //     );
-    // }
   }, [selectTab, courseList]);
 
   return (

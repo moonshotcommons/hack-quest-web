@@ -33,7 +33,7 @@ const Footer = () => {
           </ul>
           <div className="flex flex-col gap-[1.25rem]">
             <p>Contact us:</p>
-            <ul className="flex gap-[20px]">
+            <ul className="flex gap-[1.25rem]">
               <Link
                 href={'https://twitter.com/_hackquest'}
                 className="hover:scale-[1.1] cursor-pointer"

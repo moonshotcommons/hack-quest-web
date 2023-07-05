@@ -1,41 +1,22 @@
-export const tuple = <T extends string[]>(...args: T) => args;
+import { CourseType } from '@/service/webApi/course/type';
 
-type TimeType = 'Hour' | 'Minute' | 'Day';
-
-export const computeTime = (minutes: number, type: TimeType) => {
-  // const minutes = Math.floor(time / 60);
-  const hours = Math.floor(minutes / 60);
-  const days = Math.floor(hours / 24);
-
-  switch (type) {
-    case 'Minute':
-      return minutes;
-    case 'Hour':
-      return hours;
-    case 'Day':
-      return days;
+export const getCourseLink = (
+  courseType?: CourseType,
+  type?: 'detail' | 'unit' | 'lesson'
+) => {
+  if (!courseType || !type) return '/404';
+  switch (courseType) {
+    case CourseType.SYNTAX:
+      return `/syntax/${type}`;
+    case CourseType.CONCEPT_LEARNING:
+      return `/concept/${type}`;
+    case CourseType.GUIDED_PROJECT:
+      return `/guided-project/${type}`;
+    case CourseType.LEARNING_TRACKS:
+      return `/learning-track/${type}`;
+    case CourseType.HACKATHON:
+      return `/hackathon/${type}`;
+    case CourseType.TEASER:
+      return `/teaser/${type}`;
   }
-};
-
-export const computeProgress = (n: number) => {
-  return Math.floor(n * 100 * 100) / 100;
-};
-
-export const tagFormate = (tag: string) => {
-  if (tag.includes('_')) {
-    return tag
-      .split('_')
-      .map((s) => {
-        return s.toLowerCase().replace(/^./, s[0].toUpperCase());
-      })
-      .join(' ');
-  }
-
-  if (tag.includes(' ')) {
-    return tag
-      .split(' ')
-      .map((s) => s.toLowerCase().replace(/^./, s[0].toUpperCase()))
-      .join(' ');
-  }
-  return tag.toLowerCase().replace(/^./, tag[0].toUpperCase());
 };

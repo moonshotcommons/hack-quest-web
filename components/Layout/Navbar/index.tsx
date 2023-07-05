@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
 import Logo from '@/public/images/logo/text-Logo.svg';
-import Avatar from '@/public/images/avatar.svg';
+import Avatar from '@/public/images/user/login_avatar.svg';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 

@@ -63,6 +63,10 @@
   .arrow {
     @apply flex items-center justify-center p-2 rounded-full bg-[#000] border border-solid border-[#303030] hover:bg-[#303030] cursor-pointer;
   }
+
+  .primary-button-hover {
+    @apply hover:bg-white hover:text-black;
+  }
 }
 /* :root {
   --foreground-rgb: 0, 0, 0;
