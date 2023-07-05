@@ -72,7 +72,6 @@ class WebService {
 
   get<T>(url: string, config?: Omit<RequestConfig<T>, 'url'>): Promise<T> {
     // console.log('config.baseURL', config.baseURL)
-    console.log(url);
     return this.request<T>({ url, ...config, method: 'GET' });
   }
 

@@ -50,7 +50,7 @@ const CourseDetailInfo: FC<CourseDetailInfoProps> = (props) => {
         <div className="flex h-full items-center gap-3">
           <PeopleJoined avatars={getRandomAvatars(4)}></PeopleJoined>
           <div className="text-[#F2F2F2] font-next-book">
-            <span className="">{courseDetail?.peopleJoined} </span>
+            <span className="">{courseDetail?.peopleJoined ?? 4} </span>
             <span className="text-[#676767] ml-1">People joined</span>
           </div>
         </div>

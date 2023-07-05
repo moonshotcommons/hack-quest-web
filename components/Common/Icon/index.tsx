@@ -6,6 +6,7 @@ import DiscordIcon from './Discord';
 import FlightSideWayIcon from './FlightSideWay';
 import InstagramIcon from './Instagram';
 import LeftArrowIcon from './LeftArrow';
+import LockIcon from './Lock';
 import ProgressIcon from './Progress';
 import RightArrowIcon from './RightArrow';
 import TwitterIcon from './Twitter';
@@ -20,6 +21,7 @@ const Icons: IconsType = {
   FlightSideWay: <FlightSideWayIcon />,
   Instagram: <InstagramIcon />,
   LeftArrow: <LeftArrowIcon />,
+  Lock: <LockIcon />,
   Progress: <ProgressIcon />,
   RightArrow: <RightArrowIcon />,
   Twitter: <TwitterIcon />,
