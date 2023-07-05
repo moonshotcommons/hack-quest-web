@@ -18,7 +18,7 @@ class CourseApi {
   getCourseDetail(courseId: string, isIncludeUnits: boolean = false) {
     return this.service.get<CourseDetailType>(
       `${CourseApiType.Course_List}/${courseId}${
-        isIncludeUnits ? '?include=unit' : ''
+        isIncludeUnits ? '?include=units' : ''
       }`
     );
   }
