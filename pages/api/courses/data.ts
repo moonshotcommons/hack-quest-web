@@ -1,4 +1,8 @@
-import { CourseResponse, CourseType } from '@/service/webApi/course/type';
+import {
+  CourseResponse,
+  CourseType,
+  CourseUnitType
+} from '@/service/webApi/course/type';
 import uuid from 'uuid';
 
 export const syntaxCourse: CourseResponse[] = [
@@ -150,3 +154,5 @@ export const teaserCourse: CourseResponse[] = [
     progress: 0
   }
 ];
+
+export const syntaxCourseUnits: CourseUnitType[] = [];

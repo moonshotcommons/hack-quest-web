@@ -1,12 +1,12 @@
 import UserIcon from '@/components/Common/Icon/User';
 import PeopleJoined from '@/components/Common/PeopleJoined';
-import { tagFormate } from '@/helper/formate';
+import { computeTime, tagFormate } from '@/helper/formate';
 import { getRandomAvatars } from '@/helper/random';
-import { CourseResponse } from '@/service/webApi/course/type';
+import { CourseDetailType, CourseResponse } from '@/service/webApi/course/type';
 import { FC, ReactNode, useMemo } from 'react';
 
 interface CourseDetailInfoProps {
-  courseDetail?: CourseResponse;
+  courseDetail?: CourseDetailType;
 }
 
 const CourseDetailInfo: FC<CourseDetailInfoProps> = (props) => {
@@ -28,7 +28,9 @@ const CourseDetailInfo: FC<CourseDetailInfoProps> = (props) => {
           >
             <UserIcon size={18}></UserIcon>
           </span>
-          <span className="text-[#F2F2F2] font-next-book">{level}</span>
+          <span className="text-[#F2F2F2] font-next-book">
+            {tagFormate(level)}
+          </span>
         </div>
 
         {/* 课程预计时间 */}
@@ -36,7 +38,7 @@ const CourseDetailInfo: FC<CourseDetailInfoProps> = (props) => {
           <span
             className={`w-12 h-12 border flex justify-center items-center border-solid border-[#676767] font-next-book text-white rounded-full`}
           >
-            {courseDetail?.duration}
+            {computeTime(courseDetail?.duration || 0, 'Hour')} h
           </span>
           <span className="text-[#F2F2F2] font-next-book">
             <span className="text-[#676767]">Estimate </span>
@@ -48,8 +50,8 @@ const CourseDetailInfo: FC<CourseDetailInfoProps> = (props) => {
         <div className="flex h-full items-center gap-3">
           <PeopleJoined avatars={getRandomAvatars(4)}></PeopleJoined>
           <div className="text-[#F2F2F2] font-next-book">
-            <span className="">2341 </span>
-            <span className="text-[#676767]">People joined</span>
+            <span className="">{courseDetail?.peopleJoined} </span>
+            <span className="text-[#676767] ml-1">People joined</span>
           </div>
         </div>
       </div>

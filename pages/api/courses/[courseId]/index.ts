@@ -1,12 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { CourseResponse } from '@/service/webApi/course/type';
+import { CourseDetailType, CourseResponse } from '@/service/webApi/course/type';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import {
-  conceptCourse,
-  syntaxCourse,
-  guidedProjectCourse,
-  teaserCourse
-} from './data';
+import { courseDetail } from './data';
 type Data = {
   name: string;
 };
@@ -24,20 +19,11 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
 const getMethodHandler = (
   req: NextApiRequest,
-  res: NextApiResponse<CourseResponse[]>
+  res: NextApiResponse<CourseDetailType>
 ) => {
-  console.log('req');
-  if (req) {
-  }
+  const { id, include } = req.query;
 
-  res
-    .status(200)
-    .json([
-      ...syntaxCourse,
-      ...conceptCourse,
-      ...guidedProjectCourse,
-      ...teaserCourse
-    ]);
+  res.status(200).json(courseDetail);
 };
 
 const postMethodHandler = (req: NextApiRequest, res: NextApiResponse<Data>) => {

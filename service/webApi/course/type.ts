@@ -24,3 +24,27 @@ export interface CourseResponse {
   unitCount: number;
   progress: number;
 }
+
+export interface CourseDetailType {
+  id: string;
+  name: string;
+  description: string;
+  type: CourseType;
+  level?: string | string[];
+  duration: number;
+  aboutDesc: string;
+  progress: number;
+  peopleJoined: number;
+  units?: CourseUnitType[];
+}
+
+export interface CourseUnitType {
+  id: string;
+  name: string;
+  description: string;
+  sequence: number;
+  progress: number;
+  courseId: string;
+  createdAt: string;
+  updatedAt: string;
+}

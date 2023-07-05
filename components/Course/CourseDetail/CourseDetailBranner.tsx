@@ -1,10 +1,10 @@
 import { tagFormate } from '@/helper/formate';
-import { CourseResponse } from '@/service/webApi/course/type';
+import { CourseDetailType, CourseResponse } from '@/service/webApi/course/type';
 import { Typography } from 'antd';
 import { FC, ReactNode } from 'react';
 
 interface CourseDetailBannerProps {
-  courseDetail?: CourseResponse;
+  courseDetail?: CourseDetailType;
 }
 
 const CourseDetailBanner: FC<CourseDetailBannerProps> = (props) => {

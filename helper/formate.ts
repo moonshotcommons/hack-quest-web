@@ -4,8 +4,9 @@ type TimeType = 'Hour' | 'Minute' | 'Day';
 
 export const computeTime = (minutes: number, type: TimeType) => {
   // const minutes = Math.floor(time / 60);
-  const hours = Math.floor(minutes / 60);
-  const days = Math.floor(hours / 24);
+
+  const hours = Number((minutes / 60).toFixed(2));
+  const days = Number((hours / 60).toFixed(2));
 
   switch (type) {
     case 'Minute':
