@@ -2,7 +2,7 @@
 import type { NextPage } from 'next';
 
 interface IProps {
-  courseId: number;
+  courseId: string;
 }
 
 const learningTrack: NextPage<IProps> = ({ courseId }) => {
@@ -16,7 +16,7 @@ const learningTrack: NextPage<IProps> = ({ courseId }) => {
 learningTrack.getInitialProps = (context) => {
   const { courseId } = context.query;
   return {
-    courseId: Number(courseId)
+    courseId: courseId as string
   };
 };
 

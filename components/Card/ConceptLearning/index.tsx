@@ -1,7 +1,7 @@
 import ClockIcon from '@/components/Common/Icon/Clock';
 import CourseIcon from '@/components/Common/Icon/Course';
 import Label from '@/components/Common/Label';
-import { computeTime } from '@/helper/utils';
+import { computeTime } from '@/helper/formate';
 import React from 'react';
 export interface ConceptLearningCardProps {
   title: string;

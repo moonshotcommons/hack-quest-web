@@ -2,7 +2,7 @@
 import type { NextPage } from 'next';
 
 interface IProps {
-  id: number;
+  id: string;
 }
 
 const Syntax: NextPage<IProps> = ({ id }) => {
@@ -16,7 +16,7 @@ const Syntax: NextPage<IProps> = ({ id }) => {
 Syntax.getInitialProps = (context) => {
   const { id } = context.query;
   return {
-    id: Number(id)
+    id: id as string
   };
 };
 

@@ -14,6 +14,12 @@ class CourseApi {
   getCourseList() {
     return this.service.get<CourseResponse[]>(CourseApiType.Course_List);
   }
+
+  getCourseDetail(courseId: string) {
+    return this.service.get<CourseResponse[]>(
+      `${CourseApiType.Course_List}/${courseId}/units`
+    );
+  }
 }
 
 export default CourseApi;
