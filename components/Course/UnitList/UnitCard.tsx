@@ -35,7 +35,7 @@ const UnitButton: FC<UnitCardProps> = (props) => {
   if (unit.progress === 0) {
     return (
       <button className="px-8 py-4 border border-solid border-[#F2F2F2] rounded-[2.5rem] whitespace-nowrap text-sm text-[#F2F2F2] primary-button-hover">
-        Start Building
+        Start Learning
       </button>
     );
   }

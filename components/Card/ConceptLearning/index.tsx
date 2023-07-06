@@ -42,7 +42,7 @@ const ConceptLearningCard: React.FC<ConceptLearningCardProps> = (props) => {
             icon={<ClockIcon color="#f2f2f2" />}
             className="ml-56 mt-10 font-neuemachina-light"
           >
-            {computeTime(duration, 'Hour')} Hour
+            {computeTime(duration, 'Hour')}
           </Label>
         </div>
       </div>
