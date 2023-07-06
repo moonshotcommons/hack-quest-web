@@ -15,15 +15,15 @@ import TextRenderer from './TextRenderer';
 //   </ul>,
 // }
 
-export const Block: React.FC<{
-  block: any;
-  darkMode?: boolean;
-  renderChildren?: boolean;
-}> = ({ block, darkMode = true, renderChildren = false }) => {
+export const Block: React.FC<any> = ({
+  block,
+  darkMode = true,
+  renderChildren = false
+}: any) => {
   console.log(`block: `, block);
   // // debugger;
   const type = block?.type; // 标签类型
-  if (!type) return;
+  if (!type) return <div></div>;
   // 2023.5.11 添加，针对`teaser`业务新增 type=`column_list` 做业务处理
   // if (type === `column_list`) {
   //   console.log(`here column_list: `,);
@@ -51,7 +51,7 @@ export const Block: React.FC<{
   if (type === 'toggle') {
     // debugger;
     return (
-      <ul id={block.id} className={`toggle`} type={`${type}`} as="ul">
+      <ul id={block.id} className={`toggle`} type={`${type}`}>
         <li>
           <details open>
             <summary>

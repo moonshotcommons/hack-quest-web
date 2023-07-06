@@ -3,11 +3,14 @@ import { getCourseLink } from '@/helper/utils';
 import {
   CourseDetailType,
   CourseResponse,
+  CourseType,
   CourseUnitType
 } from '@/service/webApi/course/type';
 import { Typography } from 'antd';
+import Image from 'next/image';
 import Link from 'next/link';
 import { FC, ReactNode } from 'react';
+import styled from 'styled-components';
 
 interface CourseDetailBannerProps {
   courseDetail?: CourseDetailType;
@@ -21,16 +24,17 @@ const CourseDetailBanner: FC<CourseDetailBannerProps> = (props) => {
   });
   return (
     <div className="h-[30.875rem] flex justify-between">
-      <div className="flex flex-col mt-[7.7656rem]">
+      <div className="flex flex-col mt-[7.7656rem] course-detail-banner">
         <span className="text-[#676767] font-next-book text-base">
           {tagFormate(courseDetail?.type || '')}
         </span>
-        <div className="font-next-book-bold text-[5rem] mt-[1.25rem] text-white">
+        <div className="font-next-book-bold text-[5rem] mt-[1.25rem] leading-[100%] text-white">
           {courseDetail?.name}
         </div>
         <Typography.Paragraph
           ellipsis={{ rows: 3 }}
-          className="w-[29.25rem] text-[#676767] font-next-book mt-[1.125rem] leading-[120%]"
+          className="w-[29.25rem] text-[#676767] font-next-book mt-[1.125rem] leading-[120%] text-base"
+          style={{ marginBottom: 0 }}
         >
           {courseDetail?.description}
         </Typography.Paragraph>
@@ -44,7 +48,15 @@ const CourseDetailBanner: FC<CourseDetailBannerProps> = (props) => {
           </button>
         </Link>
       </div>
-      <div className="w-[18.5rem] h-[18.5rem] mt-[6.25rem] bg-[url('/images/course/syntax_cover.svg')] relative after:absolute after:left-0 after:bottom-0 after:w-[4.1875rem] after:h-[.75rem] after:bg-black after:z-50"></div>
+      <div
+        className={`w-[18.5rem] h-[18.5rem] mt-[6.25rem] relative after:absolute after:left-0 after:bottom-0 after:w-[4.1875rem] after:h-[.75rem] after:bg-black after:z-50`}
+      >
+        <Image
+          src={`/images/course/course_cover/${courseDetail?.type}.png`}
+          alt="cover"
+          fill
+        />
+      </div>
     </div>
   );
 };

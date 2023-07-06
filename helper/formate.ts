@@ -29,7 +29,7 @@ export const computeTime = (
 };
 
 export const computeProgress = (n: number) => {
-  return Math.floor(n * 100 * 100) / 100;
+  return Math.floor(n * 100);
 };
 
 export const tagFormate = (tag: string) => {
