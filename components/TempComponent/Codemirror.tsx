@@ -61,8 +61,8 @@ function CMEditor({
         classnameExt,
         basicSetup({
           indentOnInput: true,
-          lineWrapping: true,
-          showCursorWhenSelecting: true,
+          // lineWrapping: true,
+          // showCursorWhenSelecting: true,
           autocompletion: true,
           closeBracketsKeymap: true,
           completionKeymap: true

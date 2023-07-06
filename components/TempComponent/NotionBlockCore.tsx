@@ -9,15 +9,7 @@ import VideoRenderer from './VideoRenderer';
 // import {BlockProps} from "@/types/props";
 import TableOfContentsRenderer from './TableOfContentsRenderer';
 
-const NotionBlockCore: ({
-  block,
-  blocks,
-  darkMode
-}: {
-  block: any;
-  blocks?: any;
-  darkMode: any;
-}) => JSX.Element | string = ({ block, blocks, darkMode }) => {
+const NotionBlockCore: React.FC<any> = ({ block, blocks, darkMode }) => {
   const { prefix, blockPrefix } = useContext(Context);
   // // debugger;
   switch (block.type) {
@@ -179,7 +171,7 @@ const NotionBlockCore: ({
     case 'divider':
       return <hr />;
     case 'unsupported':
-      return '';
+      return <div></div>;
 
       // case "column":
       //   // console.log(`blocks: `, blocks);
@@ -307,6 +299,6 @@ const NotionBlockCore: ({
         `This block type ${block.type} not yet configured in ${PACKAGE_NAME}`
       );
   }
-  return <></>;
+  return <div></div>;
 };
 export default NotionBlockCore;
