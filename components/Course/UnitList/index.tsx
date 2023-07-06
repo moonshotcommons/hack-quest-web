@@ -20,6 +20,7 @@ const UnitList: FC<UnitListProps> = (props) => {
                 unit={unit}
                 isLock={false}
                 courseType={courseType}
+                index={index}
               ></UnitCard>
             </li>
           );
@@ -30,6 +31,7 @@ const UnitList: FC<UnitListProps> = (props) => {
               unit={unit}
               isLock={units[index - 1].progress < 1 && unit.progress === 0}
               courseType={courseType}
+              index={index}
             ></UnitCard>
           </li>
         );

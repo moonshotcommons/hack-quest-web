@@ -3,9 +3,11 @@ import { getCourseLink } from '@/helper/utils';
 import {
   CourseDetailType,
   CourseResponse,
+  CourseType,
   CourseUnitType
 } from '@/service/webApi/course/type';
 import { Typography } from 'antd';
+import Image from 'next/image';
 import Link from 'next/link';
 import { FC, ReactNode } from 'react';
 import styled from 'styled-components';
@@ -46,7 +48,15 @@ const CourseDetailBanner: FC<CourseDetailBannerProps> = (props) => {
           </button>
         </Link>
       </div>
-      <div className="w-[18.5rem] h-[18.5rem] mt-[6.25rem] bg-[url('/images/course/syntax_cover.svg')] relative after:absolute after:left-0 after:bottom-0 after:w-[4.1875rem] after:h-[.75rem] after:bg-black after:z-50"></div>
+      <div
+        className={`w-[18.5rem] h-[18.5rem] mt-[6.25rem] relative after:absolute after:left-0 after:bottom-0 after:w-[4.1875rem] after:h-[.75rem] after:bg-black after:z-50`}
+      >
+        <Image
+          src={`/images/course/course_cover/${courseDetail?.type}.png`}
+          alt="cover"
+          fill
+        />
+      </div>
     </div>
   );
 };
