@@ -57,7 +57,7 @@ const SyntaxCard: React.FC<SyntaxCardProps> = (props) => {
                 icon={<CourseIcon color="#f2f2f2" />}
                 className="font-neuemachina-light"
               >
-                {unitCount} Units
+                {unitCount + ' ' + `${unitCount > 1 ? 'Units' : 'Unit'}`}
               </Label>
             </div>
             <div className="">

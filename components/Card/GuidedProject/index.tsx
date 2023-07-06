@@ -47,7 +47,7 @@ const GuidedProjectCard: React.FC<GuidedProjectCardProps> = (props) => {
                 icon={<CourseIcon color="#f2f2f2" />}
                 className="font-neuemachina-light"
               >
-                {unitCount} Course
+                {unitCount + ' ' + `${unitCount > 1 ? 'Units' : 'Unit'}`}
               </Label>
             </div>
             <div className="">
