@@ -57,7 +57,7 @@ const LearningTracksCard: React.FC<LearningTracksCardProps> = (props) => {
                 icon={<CourseIcon color="#f2f2f2" />}
                 className="font-neuemachina-light"
               >
-                {unitCount + ' ' + `${unitCount > 1 ? 'Units' : 'Unit'}`}
+                {unitCount + ' ' + `${unitCount > 1 ? 'Courses' : 'Course'}`}
               </Label>
             </div>
             <div className="">

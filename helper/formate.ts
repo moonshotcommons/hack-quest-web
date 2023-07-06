@@ -9,8 +9,8 @@ export const computeTime = (
 ) => {
   // const minutes = Math.floor(time / 60);
 
-  const hours = Number((minutes / 60).toFixed(2));
-  const days = Number((hours / 60).toFixed(2));
+  const hours = Number((minutes / 60).toFixed(1));
+  const days = Number((hours / 60).toFixed(1));
 
   switch (type) {
     case 'Minute':
