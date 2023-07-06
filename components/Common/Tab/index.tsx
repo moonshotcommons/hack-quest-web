@@ -26,7 +26,7 @@ const renderSelectState = (type: CourseType) => {
       return (
         <div className="absolute w-full -top-2 left-0 h-1 rounded-xl bg-gradient-to-t from-[#5C1DE6] to-[#1B7DEC]"></div>
       );
-    case CourseType.CONCEPT_LEARNING:
+    case CourseType.CONCEPT:
       return (
         <div className="absolute w-full -top-2 left-0 h-1 rounded-xl bg-gradient-to-t from-[#EB3E1C] to-[#E0AD38]"></div>
       );
@@ -49,7 +49,7 @@ const Tab: FC<TabProps> = (props) => {
         const classes = classNames({
           // 'left-0': item.type === CourseType.SYNTAX,
           // 'left-[8.875rem]': item.type === CourseType.GUIDED_PROJECT,
-          // 'left-[21.0625rem]': item.type === CourseType.CONCEPT_LEARNING,
+          // 'left-[21.0625rem]': item.type === CourseType.CONCEPT,
           // 'left-[33.5rem]': item.type === CourseType.TEASER
         });
         return (

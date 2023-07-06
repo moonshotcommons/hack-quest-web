@@ -63,7 +63,7 @@ export const syntaxCourse: CourseResponse[] = [
 export const conceptCourse: CourseResponse[] = [
   {
     id: uuid?.v4() || '0',
-    type: CourseType.CONCEPT_LEARNING,
+    type: CourseType.CONCEPT,
     name: 'What is Bitcoin',
     description:
       'Basic concepts in programming of Solidity. Topics include: variables, functions, flow control, error handling, data structure.',
@@ -74,7 +74,7 @@ export const conceptCourse: CourseResponse[] = [
   },
   {
     id: uuid?.v4() || '0',
-    type: CourseType.CONCEPT_LEARNING,
+    type: CourseType.CONCEPT,
     name: 'What is Bitcoin',
     aboutDesc: '',
     unitCount: 0,
