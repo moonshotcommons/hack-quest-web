@@ -28,7 +28,8 @@ module.exports = {
   rules: {
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
+    'react/jsx-no-undef': 'warn',
     '@typescript-eslint/no-var-requires': 'off',
-    semi: 'off' //语句强制分号结尾
+    semi: 'off' //语句强制分号结尾,
   }
 };
