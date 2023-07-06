@@ -10,7 +10,7 @@ export interface UnitLayoutProps {
 const UnitLayout: React.FC<UnitLayoutProps> = ({ children }) => {
   return (
     <div className={`w-full min-h-screen bg-black ${inter.className}`}>
-      <div className="w-[91rem] m-auto">
+      <div className="px-[4.5rem] m-auto">
         <main>{children}</main>
         {/* <Footer {...footerData} /> */}
       </div>

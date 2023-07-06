@@ -25,8 +25,15 @@ interface IProps {
 
 const SyntaxUnit: NextPage<IProps> = (props) => {
   const { unitId, unitDetail } = props;
-  const [lessonContent, setLessonContent] = useState(lessonData);
+  const [lessonContent, setLessonContent] = useState([]);
+  const [quizes, setQuizes] = useState([]);
   const [isProgressing, setIsProgressing] = useState(false);
+
+  useEffect(() => {
+    setLessonContent((lessonData[0] as any).children);
+    setQuizes((lessonData[1] as any).children);
+  }, []);
+
   return (
     // <div className="px-[5.5rem]">
     //   <CourseDetailBanner courseDetail={courseDetail}></CourseDetailBanner>
@@ -53,19 +60,19 @@ const SyntaxUnit: NextPage<IProps> = (props) => {
             Mini Coin
           </div>
         </div>
-        <div className="flex justify-between gap-[4.5rem] mt-[1.25rem]">
-          <div className="text-white w-[45.3125rem] h-[42rem] px-[3rem] py-[2.5rem] rounded-[2.5rem] bg-[#101010] overflow-y-scroll notion-render-block no-scrollbar">
+        <div className="w-full h-[80vh] flex justify-between gap-[4.5rem] mt-[1.25rem]">
+          <div className="text-white h-full w-full px-[3rem] py-[2.5rem] rounded-[2.5rem] bg-[#101010] overflow-y-scroll notion-render-block no-scrollbar">
             {lessonContent &&
-              lessonContent?.map((block) => (
+              lessonContent?.map((block: any) => (
                 <Block block={block} key={block.id} darkMode={true} />
               ))}
           </div>
-          <div className="text-[#E2E2E2] bg-[#111] notion-render-block w-[41.1875rem] h-[42rem] py-[2.5rem] rounded-[2.5rem] overflow-y-scroll no-scrollbar">
+          <div className="text-[#E2E2E2] h-full bg-[#111] notion-render-block w-full py-[2.5rem] rounded-[2.5rem] overflow-y-scroll no-scrollbar">
             <Quest
               source={`syntax`}
               lessonID={unitId}
               isLastUnit={false}
-              content={lessonContent[1] as any}
+              content={quizes}
               onPass={() => console.log('object')}
               darkMode={true}
               setIsProgressing={setIsProgressing}
