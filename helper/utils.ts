@@ -8,7 +8,7 @@ export const getCourseLink = (
   switch (courseType) {
     case CourseType.SYNTAX:
       return `/syntax/${type}`;
-    case CourseType.CONCEPT_LEARNING:
+    case CourseType.CONCEPT:
       return `/concept/${type}`;
     case CourseType.GUIDED_PROJECT:
       return `/guided-project/${type}`;
