@@ -51,13 +51,13 @@ const SyntaxCard: React.FC<SyntaxCardProps> = (props) => {
                 icon={<ClockIcon color="#f2f2f2" />}
                 className="font-neuemachina-light"
               >
-                {computeTime(duration, 'Hour')} Hour
+                {computeTime(duration, 'Hour')}
               </Label>
               <Label
                 icon={<CourseIcon color="#f2f2f2" />}
                 className="font-neuemachina-light"
               >
-                {unitCount} Course
+                {unitCount} Units
               </Label>
             </div>
             <div className="">

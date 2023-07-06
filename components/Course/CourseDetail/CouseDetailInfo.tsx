@@ -38,7 +38,7 @@ const CourseDetailInfo: FC<CourseDetailInfoProps> = (props) => {
           <span
             className={`w-12 h-12 border flex justify-center items-center border-solid border-[#676767] font-next-book text-white rounded-full`}
           >
-            {computeTime(courseDetail?.duration || 0, 'Hour')} h
+            {computeTime(courseDetail?.duration || 0, 'Hour', false)} h
           </span>
           <span className="text-[#F2F2F2] font-next-book">
             <span className="text-[#676767]">Estimate </span>
