@@ -15,14 +15,16 @@ export const computeTime = (
   switch (type) {
     case 'Minute':
       return includeSuffix
-        ? minutes + `${minutes > 1 ? 'Minutes' : 'Minute'}`
+        ? minutes + ' ' + `${minutes > 1 ? 'Minutes' : 'Minute'}`
         : minutes;
 
     case 'Hour':
-      return includeSuffix ? hours + `${hours > 1 ? 'Hours' : 'Hour'}` : hours;
+      return includeSuffix
+        ? hours + ' ' + `${hours > 1 ? 'Hours' : 'Hour'}`
+        : hours;
 
     case 'Day':
-      return includeSuffix ? days + `${days > 1 ? 'Days' : 'Day'}` : days;
+      return includeSuffix ? days + ' ' + `${days > 1 ? 'Days' : 'Day'}` : days;
   }
 };
 
