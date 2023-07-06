@@ -32,12 +32,10 @@ interface CoursesProps {
 
 const renderCard = (card: CourseResponse) => {
   switch (card.type) {
-    case CourseType.CONCEPT_LEARNING:
+    case CourseType.CONCEPT:
       return (
         <Link
-          href={`${getCourseLink(CourseType.CONCEPT_LEARNING, 'detail')}/${
-            card.id
-          }`}
+          href={`${getCourseLink(CourseType.CONCEPT, 'detail')}/${card.id}`}
         >
           <ConceptLearningCard
             title={card.name}
@@ -142,8 +140,8 @@ const Courses: NextPage<CoursesProps> = (props) => {
       type: CourseType.GUIDED_PROJECT
     },
     {
-      title: 'Concept Learning',
-      type: CourseType.CONCEPT_LEARNING
+      title: 'Concept',
+      type: CourseType.CONCEPT
     },
     {
       title: 'Teaser',
@@ -252,7 +250,7 @@ export const getServerSideProps: GetServerSideProps =
             },
             {
               id: uuid?.v4() || '0',
-              type: CourseType.CONCEPT_LEARNING,
+              type: CourseType.CONCEPT,
               name: 'What is Bitcoin',
               description:
                 'Basic concepts in programming of Solidity. Topics include: variables, functions, flow control, error handling, data structure.',
@@ -395,7 +393,7 @@ export const getServerSideProps: GetServerSideProps =
           conceptCards: [
             {
               id: uuid?.v4() || '0',
-              type: CourseType.CONCEPT_LEARNING,
+              type: CourseType.CONCEPT,
               name: 'What is Bitcoin',
               description:
                 'Basic concepts in programming of Solidity. Topics include: variables, functions, flow control, error handling, data structure.',
@@ -405,7 +403,7 @@ export const getServerSideProps: GetServerSideProps =
             },
             {
               id: uuid?.v4() || '0',
-              type: CourseType.CONCEPT_LEARNING,
+              type: CourseType.CONCEPT,
               name: 'What is Bitcoin',
               description:
                 'Basic concepts in programming of Solidity. Topics include: variables, functions, flow control, error handling, data structure.',
