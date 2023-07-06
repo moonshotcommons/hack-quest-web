@@ -2,7 +2,7 @@ import LockIcon from '@/components/Common/Icon/Lock';
 import { computeProgress } from '@/helper/formate';
 import { getCourseLink } from '@/helper/utils';
 import { CourseType, CourseUnitType } from '@/service/webApi/course/type';
-import { Progress } from 'antd';
+import { Progress, Typography } from 'antd';
 import Link from 'next/link';
 import { FC, ReactNode } from 'react';
 import styled from 'styled-components';
@@ -52,12 +52,17 @@ const UnitCard: FC<UnitCardProps> = (props) => {
   return (
     <div className="py-[1.5rem] flex  items-center">
       <div className="w-[23.25rem] h-[9.8125rem] bg-[#151515] rounded-[1.25rem]"></div>
-      <div className="ml-[3.69rem] flex-1">
-        <h2 className="font-next-book-bold font-bold text-[1.5rem] text-[#F2F2F2]">
+      <div className="ml-[3.69rem] h-[9.8125rem] w-[22.4375rem]">
+        <h2 className="font-next-book-bold font-bold text-[1.5rem] mt-[1.72rem] text-[#F2F2F2] leading-[120%]">
           {unit.name}
         </h2>
-        <div className="text-[#676767] font-next-book leading-[120%]">
-          {unit.description}
+        <div>
+          <Typography.Paragraph
+            ellipsis={{ rows: 3 }}
+            className="text-[#676767] font-next-book leading-[120%] text-base mt-4 "
+          >
+            {unit.description}
+          </Typography.Paragraph>
         </div>
       </div>
       <div className="text-white flex-1 flex items-center justify-center">
