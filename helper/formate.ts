@@ -2,7 +2,11 @@ export const tuple = <T extends string[]>(...args: T) => args;
 
 type TimeType = 'Hour' | 'Minute' | 'Day';
 
-export const computeTime = (minutes: number, type: TimeType) => {
+export const computeTime = (
+  minutes: number,
+  type: TimeType,
+  includeSuffix = true
+) => {
   // const minutes = Math.floor(time / 60);
 
   const hours = Number((minutes / 60).toFixed(2));
@@ -10,11 +14,17 @@ export const computeTime = (minutes: number, type: TimeType) => {
 
   switch (type) {
     case 'Minute':
-      return minutes;
+      return includeSuffix
+        ? minutes + ' ' + `${minutes > 1 ? 'Minutes' : 'Minute'}`
+        : minutes;
+
     case 'Hour':
-      return hours;
+      return includeSuffix
+        ? hours + ' ' + `${hours > 1 ? 'Hours' : 'Hour'}`
+        : hours;
+
     case 'Day':
-      return days;
+      return includeSuffix ? days + ' ' + `${days > 1 ? 'Days' : 'Day'}` : days;
   }
 };
 
