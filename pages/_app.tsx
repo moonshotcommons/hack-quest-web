@@ -1,6 +1,12 @@
 import Layout, { LayoutProps } from '@/components/Layout';
 import ThemeContextProvider from '@/store/context/theme';
+import '@/styles/Lesson.scss';
 import '@/styles/globals.css';
+import '@/styles/main.scss';
+import '@/styles/button.scss';
+import '@/styles/codemirror.scss';
+import '@/styles/Quest.scss';
+
 import type { AppContext, AppProps } from 'next/app';
 import App from 'next/app';
 

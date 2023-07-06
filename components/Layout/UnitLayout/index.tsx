@@ -9,9 +9,7 @@ export interface UnitLayoutProps {
 
 const UnitLayout: React.FC<UnitLayoutProps> = ({ children }) => {
   return (
-    <div
-      className={`w-full min-h-screen bg-black ${inter.className} overflow-x-scroll`}
-    >
+    <div className={`w-full min-h-screen bg-black ${inter.className}`}>
       <div className="w-[91rem] m-auto">
         <main>{children}</main>
         {/* <Footer {...footerData} /> */}
