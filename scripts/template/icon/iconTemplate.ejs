@@ -10,13 +10,13 @@ interface BaseIconProps {
 type IconProps = BaseIconProps & React.HTMLAttributes<unknown>
 
 const <%= name %>Icon: React.FC<IconProps> = (props) => {
-  const { size = 24, color = '#333' } = props
+  const { size = 24, width = 24, height = 24, color = '#333' } = props;
 
   return (
     <svg
-      width={size}
-      height={size}
-      viewBox="0 0 48 48"
+      width={width ?? size}
+      height={height ?? size}
+      viewBox={`0 0 ${width ?? size} ${height ?? size}`}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >

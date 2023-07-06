@@ -26,10 +26,6 @@ const getMethodHandler = (
   req: NextApiRequest,
   res: NextApiResponse<CourseResponse[]>
 ) => {
-  console.log('req');
-  if (req) {
-  }
-
   res
     .status(200)
     .json([
