@@ -1,0 +1,59 @@
+%flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+%flex-start {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+%flex-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+%flex-space-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin font($family: '', $weight: '', $sizi: '') {
+  font-weight: $weight;
+  font-size: $sizi;
+  font-family: $family;
+  font-style: normal;
+}
+
+.global-title {
+  @include font($family: 'Neue Machina', $weight: 800, $sizi: 0.4rem);
+
+  color: #f2f2f2;
+  letter-spacing: 0.02em;
+  text-align: center;
+}
+
+@mixin show-line($line: 2) {
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $line;
+}
+
+// @media screen and (min-width: 1600px) {
+//   .screen-fix{
+//      width: 100px
+//   }
+// }
+// @media screen and (min-width: 1300px) {
+//   .screen-fix{
+//     top:200px;
+//     font-size: 12px;
+//     width: 100%;
+//  }
+// }

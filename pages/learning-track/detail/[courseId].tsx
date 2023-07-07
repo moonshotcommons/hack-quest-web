@@ -17,11 +17,13 @@ interface IProps {
   courseDetail?: CourseDetailType;
 }
 
-const SyntaxDetail: NextPage<IProps> = (props) => {
+const LearningTrackDetail: NextPage<IProps> = (props) => {
   const { courseId, courseDetail } = props;
   return (
     <div className="px-[5.5rem]">
-      <CourseDetailBanner courseDetail={courseDetail}></CourseDetailBanner>
+      <div className="mt-[6.25rem] mb-[6.25rem]">
+        <CourseDetailBanner courseDetail={courseDetail}></CourseDetailBanner>
+      </div>
       <CourseDetailInfo courseDetail={courseDetail}></CourseDetailInfo>
       <div className="mt-[4rem]">
         <CourseDescription>{courseDetail?.aboutDesc}</CourseDescription>
@@ -39,7 +41,7 @@ const SyntaxDetail: NextPage<IProps> = (props) => {
   );
 };
 
-// Syntax.getInitialProps = (context) => {
+// LearningTrack.getInitialProps = (context) => {
 //   const { courseId } = context.query;
 //   return {
 //     courseId: courseId as string
@@ -69,4 +71,4 @@ export const getServerSideProps: GetServerSideProps =
     };
   });
 
-export default SyntaxDetail;
+export default LearningTrackDetail;
