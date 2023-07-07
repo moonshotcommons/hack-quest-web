@@ -17,7 +17,7 @@ interface IProps {
   courseDetail?: CourseDetailType;
 }
 
-const SyntaxDetail: NextPage<IProps> = (props) => {
+const HackathonDetail: NextPage<IProps> = (props) => {
   const { courseId, courseDetail } = props;
   return (
     <div className="px-[5.5rem]">
@@ -39,7 +39,7 @@ const SyntaxDetail: NextPage<IProps> = (props) => {
   );
 };
 
-// Syntax.getInitialProps = (context) => {
+// Hackathon.getInitialProps = (context) => {
 //   const { courseId } = context.query;
 //   return {
 //     courseId: courseId as string
@@ -69,4 +69,4 @@ export const getServerSideProps: GetServerSideProps =
     };
   });
 
-export default SyntaxDetail;
+export default HackathonDetail;

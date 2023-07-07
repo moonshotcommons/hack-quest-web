@@ -23,8 +23,8 @@ const CourseDetailBanner: FC<CourseDetailBannerProps> = (props) => {
     if (unit.progress !== 1) return unit;
   });
   return (
-    <div className="h-[30.875rem] flex justify-between">
-      <div className="flex flex-col mt-[7.7656rem] course-detail-banner">
+    <div className="flex justify-between">
+      <div className="flex flex-col course-detail-banner">
         <span className="text-[#676767] font-next-book text-base">
           {tagFormate(courseDetail?.type || '')}
         </span>
@@ -49,12 +49,13 @@ const CourseDetailBanner: FC<CourseDetailBannerProps> = (props) => {
         </Link>
       </div>
       <div
-        className={`w-[18.5rem] h-[18.5rem] mt-[6.25rem] relative after:absolute after:left-0 after:bottom-0 after:w-[4.1875rem] after:h-[.75rem] after:bg-black after:z-50`}
+        className={`relative after:absolute after:left-0 after:bottom-0 after:w-[4.1875rem] after:h-[.75rem] after:bg-black after:z-50`}
       >
         <Image
           src={`/images/course/course_cover/${courseDetail?.type}.png`}
           alt="cover"
-          fill
+          width={456}
+          height={296}
         />
       </div>
     </div>
