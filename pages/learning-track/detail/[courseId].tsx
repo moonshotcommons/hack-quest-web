@@ -21,7 +21,9 @@ const LearningTrackDetail: NextPage<IProps> = (props) => {
   const { courseId, courseDetail } = props;
   return (
     <div className="px-[5.5rem]">
-      <CourseDetailBanner courseDetail={courseDetail}></CourseDetailBanner>
+      <div className="mt-[6.25rem] mb-[6.25rem]">
+        <CourseDetailBanner courseDetail={courseDetail}></CourseDetailBanner>
+      </div>
       <CourseDetailInfo courseDetail={courseDetail}></CourseDetailInfo>
       <div className="mt-[4rem]">
         <CourseDescription>{courseDetail?.aboutDesc}</CourseDescription>
