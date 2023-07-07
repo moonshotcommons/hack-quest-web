@@ -1,13 +1,28 @@
-import { FC, useState, useEffect } from 'react';
+import { FC, useState, useEffect, ReactNode } from 'react';
 import CMEditor from './Codemirror';
 import { Block } from './Block';
-// import { Button } from '@/component/Button';
 // import API from '@/service/api/';
 
 import correct from './plane-correct.png';
 import Celebrate from './CelebrateCard';
-import { Button } from './Button';
+import Button, { ButtonProps } from '../Common/Button';
+
 // https://github.com/replit/codemirror-lang-solidity/issues/2 solidity language's problem
+
+const CustomButton: FC<ButtonProps> = (props) => {
+  const { children } = props;
+  return (
+    <Button
+      padding="px-[1.875rem] py-[1.25rem]"
+      fontStyle="Inter font-normal"
+      textStyle="text-[.875rem] text-white leading-[1.25rem]"
+      {...props}
+    >
+      {children}
+    </Button>
+  );
+};
+
 const Quest: FC<{
   content: any[];
   darkMode?: boolean;
@@ -343,33 +358,18 @@ const Quest: FC<{
         )}
         {codeWrong ? (
           <div className="lesson-btns">
-            <Button
-              type={0}
-              width="100%"
-              darkMode={darkMode}
-              click={handleTryAgain}
-            >
+            <CustomButton type={0} block onClick={handleTryAgain}>
               Try Again
-            </Button>
-            <Button
-              type={0}
-              width="100%"
-              darkMode={darkMode}
-              click={showAnswer}
-            >
+            </CustomButton>
+            <CustomButton type={0} block onClick={showAnswer}>
               {toggleAnswer ? 'Hide the answer' : 'Show me the answer'}
-            </Button>
+            </CustomButton>
           </div>
         ) : (
           !passed && (
-            <Button
-              type={2}
-              width="100%"
-              darkMode={darkMode}
-              click={handleSubmit}
-            >
+            <CustomButton type={2} block onClick={handleSubmit}>
               {shouldRenderCodeEditor ? 'Check Answer' : 'Next'}
-            </Button>
+            </CustomButton>
           )
         )}
       </div>

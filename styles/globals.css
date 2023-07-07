@@ -40,6 +40,45 @@
     @apply font-next-book text-base font-bold text-white;
   }
 
+  .gray-1 {
+    @apply text-[#F2F2F2];
+  }
+  .gray-2 {
+    @apply text-[#B2B2B2];
+  }
+
+  .gray-3 {
+    @apply text-[#676767];
+  }
+
+  .gray-4 {
+    @apply text-[#282828];
+  }
+
+  .card-bg {
+    @apply bg-[#131313];
+  }
+
+  .text-h1 {
+    @apply text-[#EDEDED] font-next-book-bold text-[5rem] font-bold leading-[100%];
+  }
+
+  .text-title {
+    @apply text-[#EDEDED]  font-next-book-bold font-bold leading-[100%] text-[1.125rem];
+  }
+
+  .text-des-lg {
+    @apply w-[29.25rem] text-[#EDEDED] font-next-book font-normal text-[1rem] leading-[120%];
+  }
+
+  .text-des-sm {
+    @apply w-[16.625rem] text-[#EDEDED] font-next-book font-normal text-[.875rem] leading-[128%];
+  }
+
+  .text-des-sx {
+    @apply w-[29.25rem] text-[#EDEDED] font-next-book-Thin text-[.75rem] leading-[120%];
+  }
+
   .button-disable {
     @apply font-next-book text-base font-bold text-white;
   }

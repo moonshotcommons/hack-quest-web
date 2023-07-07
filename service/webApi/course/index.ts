@@ -43,7 +43,7 @@ class CourseApi {
     );
   }
 
-  getCourseUnit(courseId: string, unitId: string) {
+  getCourseUnitsAndPages(courseId: string, unitId: string) {
     const url = `${CourseApiType.Course_List}/${courseId}/units/${unitId}`;
     return this.service.get<CourseUnitStateType>(url);
   }
