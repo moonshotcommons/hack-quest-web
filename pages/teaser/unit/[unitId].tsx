@@ -17,7 +17,7 @@ interface IProps {
   unitDetail?: CourseDetailType;
 }
 
-const SyntaxUnit: NextPage<IProps> = (props) => {
+const TeaserUnit: NextPage<IProps> = (props) => {
   const { unitId, unitDetail } = props;
   return (
     // <div className="px-[5.5rem]">
@@ -33,11 +33,11 @@ const SyntaxUnit: NextPage<IProps> = (props) => {
     //     <UnitList units={courseDetail?.units || []}></UnitList>
     //   </div>
     // </div>
-    <h1 className="text-white text-5xl">{`当前正在浏览 syntax unit ${unitId}`}</h1>
+    <h1 className="text-white text-5xl">{`当前正在浏览 Teaser unit ${unitId}`}</h1>
   );
 };
 
-// Syntax.getInitialProps = (context) => {
+// Teaser.getInitialProps = (context) => {
 //   const { courseId } = context.query;
 //   return {
 //     courseId: courseId as string
@@ -67,4 +67,4 @@ export const getServerSideProps: GetServerSideProps =
     };
   });
 
-export default SyntaxUnit;
+export default TeaserUnit;
