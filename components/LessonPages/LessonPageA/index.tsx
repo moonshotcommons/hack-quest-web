@@ -25,8 +25,6 @@ const LessonPageA: FC<LessonPageAProps> = (props) => {
     };
   }, shallowEqual);
 
-  console.log('unitsLessonsList', unitsLessonsList);
-
   useEffect(() => {
     if (lesson) {
       setLessonContent((lesson.content?.[0] as any).children);
@@ -51,11 +49,19 @@ const LessonPageA: FC<LessonPageAProps> = (props) => {
           content={quizes}
           onPass={() => {
             const { courseId } = router.query;
-            // const nextLesson =
-            // console.log(`/${getCourseLink(courseType)}/${courseId}/learn/${}`);
-            // router.push(
-            //   '/syntax/Solidity%20101/learn/44e4c9ac-0e6c-4650-95e9-0ae4f3c5b278'
-            // );
+
+            const currentUnit = unitsLessonsList?.find(
+              (unit) => unit.id === lesson.unitId
+            );
+            const currentLessonIndex =
+              currentUnit?.pages.findIndex((page) => page.id === lesson.id) ||
+              0;
+
+            router.push(
+              `${getCourseLink(courseType)}/${courseId}/learn/${
+                currentUnit?.pages[currentLessonIndex + 1].id
+              }`
+            );
           }}
           darkMode={true}
           setIsProgressing={setIsProgressing}

@@ -20,15 +20,20 @@ interface IProps {
 const SyntaxUnit: NextPage<IProps> = (props) => {
   const { lesson } = props;
 
-  const renderLessonPage = (style: LessonStyleType) => {
+  const LessonPage = (props: { style: LessonStyleType }) => {
+    const { style } = props;
     switch (style) {
       case LessonStyleType.A:
         return (
-          <LessonPageA
-            lesson={lesson}
-            courseType={CourseType.SYNTAX}
-          ></LessonPageA>
+          <>
+            <LessonPageA
+              lesson={lesson}
+              courseType={CourseType.SYNTAX}
+            ></LessonPageA>
+          </>
         );
+      default:
+        return <></>;
     }
   };
 
@@ -36,7 +41,7 @@ const SyntaxUnit: NextPage<IProps> = (props) => {
     <>
       <div className="w-full h-full flex flex-col">
         <LessonHeader lesson={lesson}></LessonHeader>
-        {renderLessonPage(lesson.style)}
+        <LessonPage style={lesson.style}></LessonPage>
       </div>
     </>
   );
