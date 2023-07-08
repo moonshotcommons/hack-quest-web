@@ -27,20 +27,22 @@ interface IProps {
   unitId: string;
   unitDetail?: CourseDetailType;
   lesson: CourseLessonType;
+  data: any;
 }
 
 const SyntaxUnit: NextPage<IProps> = (props) => {
-  const { unitId, unitDetail, lesson } = props;
+  const { unitId, unitDetail, lesson, data } = props;
   const [lessonContent, setLessonContent] = useState([]);
   const [quizes, setQuizes] = useState([]);
   const [isProgressing, setIsProgressing] = useState(false);
   const router = useRouter();
+  console.log(data, 'debug-----------------------');
   useEffect(() => {
     if (lesson) {
       setLessonContent((lesson.content?.[0] as any).children);
       setQuizes((lesson.content?.[1] as any).children);
     } else {
-      router.push('/404');
+      // router.push('/404');
     }
   }, [lesson, router]);
 
@@ -108,21 +110,22 @@ const SyntaxUnit: NextPage<IProps> = (props) => {
 export const getServerSideProps: GetServerSideProps =
   wrapper.getServerSideProps(function (store) {
     return async (context) => {
-      const { course } = context.query;
+      // const { course } = context.query;
 
-      let lesson = null;
-      try {
-        let lessonId = course?.[(course?.length || 0) - 1] || '-1';
-        console.log(lessonId);
-        lesson = await webApi.courseApi.getLessonContent(lessonId);
-      } catch (e: any) {
-        // message.error(`Course detail ${e.message}`);
-        console.log(e);
-        lesson = {};
-      }
+      // let lesson = null;
+      // try {
+      //   let lessonId = course?.[(course?.length || 0) - 1] || '-1';
+      //   console.log(lessonId);
+      //   lesson = await webApi.courseApi.getLessonContent(lessonId);
+      // } catch (e: any) {
+      //   // message.error(`Course detail ${e.message}`);
+      //   console.log(e);
+      //   lesson = {};
+      // }
       return {
         props: {
-          lesson: lesson,
+          // lesson: lesson,
+          data: context.query,
           notFound: false
         }
       };
