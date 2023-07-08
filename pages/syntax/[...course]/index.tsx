@@ -109,9 +109,11 @@ export const getServerSideProps: GetServerSideProps =
   wrapper.getServerSideProps(function (store) {
     return async (context) => {
       const { course } = context.query;
-      let lessonId = course?.[(course?.length || 0) - 1] || '-1';
+
       let lesson = null;
       try {
+        let lessonId = course?.[(course?.length || 0) - 1] || '-1';
+        console.log(lessonId);
         lesson = await webApi.courseApi.getLessonContent(lessonId);
       } catch (e: any) {
         // message.error(`Course detail ${e.message}`);
@@ -119,7 +121,7 @@ export const getServerSideProps: GetServerSideProps =
       }
       return {
         props: {
-          lesson
+          lesson: {}
         }
       };
     };
