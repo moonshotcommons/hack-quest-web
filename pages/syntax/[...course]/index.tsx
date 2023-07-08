@@ -122,7 +122,8 @@ export const getServerSideProps: GetServerSideProps =
       }
       return {
         props: {
-          lesson: lesson
+          lesson: lesson,
+          notFound: false
         }
       };
     };
