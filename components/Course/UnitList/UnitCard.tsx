@@ -109,7 +109,9 @@ const UnitCard: FC<UnitCardProps> = (props) => {
       </div>
       <Link
         className="flex-1 flex justify-end"
-        href={`${getCourseLink(courseType)}/learn/${learningLessonId}`}
+        href={`${getCourseLink(courseType)}/${
+          courseDetail.name
+        }/learn/${learningLessonId}`}
       >
         <UnitButton
           unit={unit}
