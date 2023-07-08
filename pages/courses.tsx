@@ -34,9 +34,7 @@ const renderCard = (card: CourseResponse) => {
   switch (card.type) {
     case CourseType.CONCEPT:
       return (
-        <Link
-          href={`${getCourseLink(CourseType.CONCEPT, 'detail')}/${card.id}`}
-        >
+        <Link href={`${getCourseLink(CourseType.CONCEPT)}/${card.id}`}>
           <ConceptLearningCard
             title={card.name}
             tags={card.level || []}
@@ -50,9 +48,7 @@ const renderCard = (card: CourseResponse) => {
       );
     case CourseType.HACKATHON:
       return (
-        <Link
-          href={`${getCourseLink(CourseType.HACKATHON, 'detail')}/${card.id}`}
-        >
+        <Link href={`${getCourseLink(CourseType.HACKATHON)}/${card.id}`}>
           <HackathonCard
             name={card.name}
             tags={card.level || []}
@@ -61,7 +57,7 @@ const renderCard = (card: CourseResponse) => {
       );
     case CourseType.SYNTAX:
       return (
-        <Link href={`${getCourseLink(CourseType.SYNTAX, 'detail')}/${card.id}`}>
+        <Link href={`${getCourseLink(CourseType.SYNTAX)}/${card.id}`}>
           <SyntaxCard
             name={card.name}
             tags={card.level || []}
@@ -74,11 +70,7 @@ const renderCard = (card: CourseResponse) => {
       );
     case CourseType.LEARNING_TRACKS:
       return (
-        <Link
-          href={`${getCourseLink(CourseType.LEARNING_TRACKS, 'detail')}/${
-            card.id
-          }`}
-        >
+        <Link href={`${getCourseLink(CourseType.LEARNING_TRACKS)}/${card.id}`}>
           <LearningTracksCard
             name={card.name}
             tags={card.level || []}
@@ -91,7 +83,7 @@ const renderCard = (card: CourseResponse) => {
       );
     case CourseType.TEASER:
       return (
-        <Link href={`${getCourseLink(CourseType.TEASER, 'detail')}/${card.id}`}>
+        <Link href={`${getCourseLink(CourseType.TEASER)}/${card.id}`}>
           <TeaserCard
             name={card.name}
             description={card.description || ''}
@@ -103,11 +95,7 @@ const renderCard = (card: CourseResponse) => {
       );
     case CourseType.GUIDED_PROJECT:
       return (
-        <Link
-          href={`${getCourseLink(CourseType.GUIDED_PROJECT, 'detail')}/${
-            card.id
-          }`}
-        >
+        <Link href={`${getCourseLink(CourseType.GUIDED_PROJECT)}/${card.id}`}>
           <GuidedProjectCard
             name={card.name}
             tags={card.level || []}

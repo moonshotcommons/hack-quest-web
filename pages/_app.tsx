@@ -24,7 +24,7 @@ function MyApp(appProps: AppProps & LayoutProps) {
     // server
   }
 
-  const regex = /\/[^/]+\/unit\/\[unitId\]/;
+  const regex = /\/[^/]+\/\[...course\]/;
   console.log(regex.test(pathname));
   switch (true) {
     case regex.test(pathname):

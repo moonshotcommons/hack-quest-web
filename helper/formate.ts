@@ -32,22 +32,15 @@ export const computeProgress = (n: number) => {
   return Math.floor(n * 100);
 };
 
-export const tagFormate = (tag: string) => {
-  if (!tag) return tag;
-  if (tag.includes('_')) {
-    return tag
-      .split('_')
-      .map((s) => {
-        return s.toLowerCase().replace(/^./, s[0].toUpperCase());
-      })
-      .join(' ');
-  }
+export const tagFormate = (input: string) => {
+  if (!input) return input;
+  // 利用正则表达式将字符串分割成单词数组
+  const words = input.split(/[_\- ]+/);
 
-  if (tag.includes(' ')) {
-    return tag
-      .split(' ')
-      .map((s) => s.toLowerCase().replace(/^./, s[0].toUpperCase()))
-      .join(' ');
-  }
-  return tag.toLowerCase().replace(/^./, tag[0].toUpperCase());
+  // 将每个单词的首字母大写，并拼接成新的字符串
+  const formatted = words
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+
+  return formatted;
 };

@@ -15,14 +15,18 @@ import { shallowEqual, useSelector } from 'react-redux';
 interface IProps {
   courseId: string;
   courseDetail?: CourseDetailType;
+  lessonId: string;
 }
 
 const SyntaxDetail: NextPage<IProps> = (props) => {
-  const { courseId, courseDetail } = props;
+  const { courseId, courseDetail, lessonId } = props;
   return (
     <div className="px-[5.5rem]">
       <div className="mt-[6.25rem] mb-[6.25rem]">
-        <CourseDetailBanner courseDetail={courseDetail}></CourseDetailBanner>
+        <CourseDetailBanner
+          courseDetail={courseDetail}
+          learningLessonId={lessonId}
+        ></CourseDetailBanner>
       </div>
       <CourseDetailInfo courseDetail={courseDetail}></CourseDetailInfo>
       <div className="mt-[4rem]">
@@ -35,6 +39,7 @@ const SyntaxDetail: NextPage<IProps> = (props) => {
         <UnitList
           units={courseDetail?.units || []}
           courseType={courseDetail?.type}
+          learningLessonId={lessonId}
         ></UnitList>
       </div>
     </div>
@@ -53,10 +58,14 @@ export const getServerSideProps: GetServerSideProps =
     return async (context) => {
       const { courseId } = context.query;
       let courseDetail = null;
+      let lessonId;
       try {
         courseDetail = await webApi.courseApi.getCourseDetail(
           courseId as string,
           true
+        );
+        lessonId = await webApi.courseApi.getLearningLessonId(
+          courseId as string
         );
       } catch (e: any) {
         // message.error(`Course detail ${e.message}`);
@@ -65,7 +74,8 @@ export const getServerSideProps: GetServerSideProps =
       return {
         props: {
           courseId,
-          courseDetail: courseDetail
+          courseDetail: courseDetail,
+          lessonId: lessonId?.pageId
         }
       };
     };
