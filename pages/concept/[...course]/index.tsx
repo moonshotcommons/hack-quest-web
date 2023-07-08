@@ -119,7 +119,7 @@ export const getServerSideProps: GetServerSideProps =
       }
       return {
         props: {
-          lesson
+          lesson: lesson || {}
         }
       };
     };
