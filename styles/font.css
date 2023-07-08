@@ -1,0 +1,46 @@
+@font-face {
+  font-family: 'Neue Machina Light';
+  src: url('../fonts/neuemachina/neuemachina-light.otf');
+}
+@font-face {
+  font-family: 'Neue Machina';
+  src: url('../fonts/neuemachina/neuemachina-regular.otf');
+}
+@font-face {
+  font-family: 'NEXT Poster';
+  src: url('../fonts/Next/NEXT-Poster-Regular.otf');
+}
+@font-face {
+  font-family: 'NEXT Poster Thin';
+  src: url('../fonts/Next/NEXT-Poster-Thin.otf');
+}
+@font-face {
+  font-family: 'NEXT Poster Bold';
+  src: url('../fonts/Next/NEXT-Poster-Bold.otf');
+}
+@font-face {
+  font-family: 'NEXT Book';
+  src: url('../fonts/Next/NEXT-Book-Regular.otf');
+}
+@font-face {
+  font-family: 'NEXT Book Thin';
+  src: url('../fonts/Next/NEXT-Book-Thin.otf');
+}
+@font-face {
+  font-family: 'NEXT Book Bold';
+  src: url('../fonts/Next/NEXT-Book-Bold.otf');
+}
+
+@font-face {
+  font-weight: normal;
+  font-family: 'Futura Bold';
+  font-style: normal;
+  src: url('../fonts/Futura/Futura\ Bold.otf');
+}
+
+@font-face {
+  font-weight: normal;
+  font-family: 'Futura Book';
+  font-style: normal;
+  src: url('../fonts/Futura/Futura\ Book.ttf');
+}

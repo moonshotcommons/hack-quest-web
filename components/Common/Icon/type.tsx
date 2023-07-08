@@ -4,6 +4,7 @@ const IconKeys = tuple(
   'Clock',
   'Course',
   'Discord',
+  'DropDown',
   'FlightSideWay',
   'Instagram',
   'LeftArrow',
