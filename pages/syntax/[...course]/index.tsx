@@ -118,10 +118,11 @@ export const getServerSideProps: GetServerSideProps =
       } catch (e: any) {
         // message.error(`Course detail ${e.message}`);
         console.log(e);
+        lesson = {};
       }
       return {
         props: {
-          lesson: {}
+          lesson: lesson
         }
       };
     };
