@@ -6,7 +6,11 @@ import UnitList from '@/components/Course/UnitList';
 import GuidePage from '@/components/Lesson/GuidePage';
 import { tagFormate } from '@/helper/formate';
 import webApi from '@/service';
-import { CourseDetailType } from '@/service/webApi/course/type';
+import {
+  CourseDetailType,
+  CourseLessonType,
+  CourseType
+} from '@/service/webApi/course/type';
 import wrapper, { AppRootState } from '@/store/redux';
 import { Typography, message } from 'antd';
 import type { GetServerSideProps, NextPage } from 'next';
@@ -17,22 +21,28 @@ import { useEffect, useState } from 'react';
 import { Block } from '@/components/TempComponent/Block';
 import Quest from '@/components/TempComponent/Quest';
 import LeftArrowIcon from '@/components/Common/Icon/LeftArrow';
+import { useRouter } from 'next/router';
 
 interface IProps {
   unitId: string;
   unitDetail?: CourseDetailType;
+  lesson: CourseLessonType;
 }
 
 const SyntaxUnit: NextPage<IProps> = (props) => {
-  const { unitId, unitDetail } = props;
+  const { unitId, unitDetail, lesson } = props;
   const [lessonContent, setLessonContent] = useState([]);
   const [quizes, setQuizes] = useState([]);
   const [isProgressing, setIsProgressing] = useState(false);
-
+  const router = useRouter();
   useEffect(() => {
-    setLessonContent((lessonData[0] as any).children);
-    setQuizes((lessonData[1] as any).children);
-  }, []);
+    if (lesson) {
+      setLessonContent((lesson.content?.[0] as any).children);
+      setQuizes((lesson.content?.[1] as any).children);
+    } else {
+      router.push('/404');
+    }
+  }, [lesson, router]);
 
   return (
     // <div className="px-[5.5rem]">
@@ -53,12 +63,16 @@ const SyntaxUnit: NextPage<IProps> = (props) => {
       <div>{/* <GuidePage></GuidePage> */}</div>
       <div className="w-full h-full flex flex-col">
         <div className="flex items-center gap-[.75rem] mt-[3.375rem]">
-          <div className="max-w-fit flex items-center justify-center p-2 rounded-full bg-[#000] border border-solid border-[#303030] hover:bg-[#303030] cursor-pointer">
+          <div
+            className="max-w-fit flex items-center justify-center p-2 rounded-full bg-[#000] border border-solid border-[#303030] hover:bg-[#303030] cursor-pointer"
+            onClick={() => router.back()}
+          >
             <LeftArrowIcon></LeftArrowIcon>
           </div>
           <div className="text-[#F2F2F2F2] font-next-poster-Bold text-2xl">
-            Mini Coin
+            {lesson?.name}
           </div>
+          <div>dropdown</div>
         </div>
         <div className="w-full h-[80vh] flex justify-between gap-[4.5rem] mt-[1.25rem]">
           <div className="text-white h-full w-full px-[3rem] py-[2.5rem] rounded-[2.5rem] bg-[#101010] overflow-y-scroll notion-render-block no-scrollbar">
@@ -69,7 +83,7 @@ const SyntaxUnit: NextPage<IProps> = (props) => {
           </div>
           <div className="text-[#E2E2E2] h-full bg-[#111] notion-render-block w-full py-[2.5rem] rounded-[2.5rem] overflow-y-scroll no-scrollbar">
             <Quest
-              source={`syntax`}
+              courseType={CourseType.SYNTAX}
               lessonID={unitId}
               isLastUnit={false}
               content={quizes}
@@ -94,21 +108,18 @@ const SyntaxUnit: NextPage<IProps> = (props) => {
 export const getServerSideProps: GetServerSideProps =
   wrapper.getServerSideProps(function (store) {
     return async (context) => {
-      const { unitId } = context.query;
-      // let courseDetail = null;
-      // try {
-      //   courseDetail = await webApi.courseApi.getCourseDetail(
-      //     unitId as string,
-      //     true
-      //   );
-      // } catch (e: any) {
-      //   // message.error(`Course detail ${e.message}`);
-      //   console.log(e);
-      // }
+      const { course } = context.query;
+      let lessonId = course?.[(course?.length || 0) - 1] || '-1';
+      let lesson = null;
+      try {
+        lesson = await webApi.courseApi.getLessonContent(lessonId);
+      } catch (e: any) {
+        // message.error(`Course detail ${e.message}`);
+        console.log(e);
+      }
       return {
         props: {
-          unitId
-          // courseDetail: courseDetail
+          lesson
         }
       };
     };

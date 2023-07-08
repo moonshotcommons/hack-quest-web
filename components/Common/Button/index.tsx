@@ -39,7 +39,7 @@ const getClassNames = (props: Partial<ButtonProps>) => {
   } = props;
   let className = rest.className ?? '' + ' ';
   className += classnames(
-    block ? 'w-full' : '',
+    block ? 'w-full' : 'w-fit',
     icon ? 'gap-2' : '',
     rounded ? rounded : defaultConfig.rounded,
     bgColor ? bgColor : defaultConfig.bgColor,
