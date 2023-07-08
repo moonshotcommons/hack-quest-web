@@ -3,6 +3,7 @@ import React from 'react';
 import ClockIcon from './Clock';
 import CourseIcon from './Course';
 import DiscordIcon from './Discord';
+import DropDownIcon from './DropDown';
 import FlightSideWayIcon from './FlightSideWay';
 import InstagramIcon from './Instagram';
 import LeftArrowIcon from './LeftArrow';
@@ -18,6 +19,7 @@ const Icons: IconsType = {
   Clock: <ClockIcon />,
   Course: <CourseIcon />,
   Discord: <DiscordIcon />,
+  DropDown: <DropDownIcon />,
   FlightSideWay: <FlightSideWayIcon />,
   Instagram: <InstagramIcon />,
   LeftArrow: <LeftArrowIcon />,

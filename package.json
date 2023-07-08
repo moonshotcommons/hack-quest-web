@@ -27,6 +27,7 @@
     "@uiw/codemirror-extensions-classname": "^4.21.7",
     "@uiw/codemirror-theme-xcode": "^4.21.7",
     "@uiw/react-codemirror": "^4.21.7",
+    "ahooks": "^3.7.8",
     "antd": "^5.6.4",
     "autoprefixer": "10.4.14",
     "axios": "^1.4.0",

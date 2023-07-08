@@ -24,12 +24,12 @@ const CourseDetailBanner: FC<CourseDetailBannerProps> = (props) => {
     if (unit.progress !== 1) return unit;
   });
   return (
-    <div className="flex justify-between">
-      <div className="flex flex-col course-detail-banner">
+    <div className="flex justify-end relative">
+      <div className="absolute top-[7.77rem] left-0 flex flex-col course-detail-banner z-[9999]">
         <span className="text-[#676767] font-next-book text-base">
           {tagFormate(courseDetail?.type || '')}
         </span>
-        <div className="font-next-book-bold text-[5rem] mt-[1.25rem] leading-[100%] text-white">
+        <div className="font-next-book-bold text-[5rem] mt-[1.25rem] leading-[100%] text-white whitespace-nowrap">
           {courseDetail?.name}
         </div>
         <Typography.Paragraph
@@ -49,14 +49,17 @@ const CourseDetailBanner: FC<CourseDetailBannerProps> = (props) => {
           </button>
         </Link>
       </div>
-      <div
-        className={`relative after:absolute after:left-0 after:bottom-0 after:w-[4.1875rem] after:h-[.75rem] after:bg-black after:z-50`}
-      >
+      <div>
+        {/* <Image
+          src={`/images/course/course_cover/${courseDetail?.type}.png`}
+          alt="cover"
+
+        /> */}
         <Image
           src={`/images/course/course_cover/${courseDetail?.type}.png`}
           alt="cover"
-          width={456}
-          height={296}
+          width={560}
+          height={497}
         />
       </div>
     </div>
