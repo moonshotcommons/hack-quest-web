@@ -20,7 +20,6 @@ export const Block: React.FC<any> = ({
   darkMode = true,
   renderChildren = false
 }: any) => {
-  console.log(`block: `, block);
   // // debugger;
   const type = block?.type; // 标签类型
   if (!type) return <div></div>;

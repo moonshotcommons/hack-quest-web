@@ -83,7 +83,7 @@ const CMEditor: FC<Props> = (props) => {
 
   const codeEditRef = useRef<any>();
 
-  console.log(codeText, 'CODEtEXT');
+  // console.log(codeText, 'CODEtEXT');
 
   useLayoutEffect(() => {
     // 隐藏滚动条

@@ -33,7 +33,7 @@ const DropDownIcon: React.FC<IconProps> = (props) => {
           d="M11.5879 1.25L6.29377 8.75L0.999656 1.25"
           stroke="white"
           strokeWidth="1.76471"
-          stroke-linejoin="bevel"
+          strokeLinejoin="bevel"
         />
       </svg>
     </svg>

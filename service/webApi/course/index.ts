@@ -5,7 +5,8 @@ import {
   CourseLessonType,
   CourseResponse,
   CourseUnitStateType,
-  CourseUnitType
+  CourseUnitType,
+  UnitPagesListType
 } from './type';
 
 export enum CourseApiType {
@@ -38,9 +39,7 @@ class CourseApi {
   /** 获取所有unit及其下面的pages，主要用来获取Teaser的课程数据 */
   getCourseUnitsAndPages(courseId: string) {
     const url = `${CourseApiType.Course_List}/${courseId}/units?include=pages`;
-    return this.service.get<(CourseUnitType & { pages: CourseLessonType[] })[]>(
-      url
-    );
+    return this.service.get<UnitPagesListType[]>(url);
   }
 
   /** 获取单个unit及其下面的pages */

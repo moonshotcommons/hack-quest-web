@@ -2,18 +2,22 @@ import Dropdown, { ChildrenDropDown } from '@/components/Common/DropDown';
 import { DropData } from '@/components/Common/DropDown/type';
 import LeftArrowIcon from '@/components/Common/Icon/LeftArrow';
 import webApi from '@/service';
-import { CourseLessonType, CourseUnitType } from '@/service/webApi/course/type';
+import {
+  CourseLessonType,
+  CourseUnitType,
+  UnitPagesListType
+} from '@/service/webApi/course/type';
+import { setUnitsLessonsList } from '@/store/redux/modules/course';
 import { useRequest } from 'ahooks';
 import { NextRouter, useRouter } from 'next/router';
 import { FC, ReactNode, useEffect, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 interface LessonHeaderProps {
   lesson: CourseLessonType;
 }
 const formateDropdownData = (
-  data: (CourseUnitType & {
-    pages: CourseLessonType[];
-  })[],
+  data: UnitPagesListType[],
   lesson: CourseLessonType
 ) => {
   let currentUnitIndex = data.findIndex((unit) => unit.id === lesson.unitId);
@@ -21,49 +25,57 @@ const formateDropdownData = (
     (page) => page.id === lesson.id
   );
 
-  return data.map((unit, index) => {
-    return {
-      key: unit.id,
-      data: unit,
-      title: unit.name,
-      disable: index > currentUnitIndex,
-      type: 'unit',
-      children: unit.pages.map((page, pageIndex) => {
-        return {
-          key: page.id,
-          title: page.name,
-          data: page,
-          disable: pageIndex > currentLessonIndex,
-          type: 'page',
-          render(itemData: any) {
-            return currentLessonIndex === pageIndex ? (
-              <div className="px-[0.8rem] border rounded-full border-[#D9D9D9] -ml-3">
-                {itemData.title}
-              </div>
-            ) : (
-              <div>{itemData.title}</div>
-            );
-          }
-        };
-      })
-    };
-  });
+  const newData: DropData<UnitPagesListType, CourseLessonType>[] = data.map(
+    (unit, index) => {
+      return {
+        key: unit.id,
+        data: unit,
+        title: unit.name,
+        disable: index > currentUnitIndex,
+        type: 'unit',
+        children: unit.pages.map((page, pageIndex) => {
+          return {
+            key: page.id,
+            title: page.name,
+            data: page,
+            disable: pageIndex > currentLessonIndex,
+            type: 'page',
+            render(itemData) {
+              return currentLessonIndex === pageIndex ? (
+                <div className="px-[0.8rem] border rounded-full w-fit border-[#D9D9D9] -ml-3">
+                  {itemData.title}
+                </div>
+              ) : (
+                <div>{itemData.title}</div>
+              );
+            }
+          };
+        })
+      };
+    }
+  );
+
+  return newData;
 };
 
 const LessonHeader: FC<LessonHeaderProps> = (props) => {
   const { lesson } = props;
   const router = useRouter();
-  const dropdownRef = useRef<any>();
 
-  const [dropData, setDropData] = useState<any[]>([]);
+  const [dropData, setDropData] = useState<
+    DropData<UnitPagesListType, CourseLessonType>[]
+  >([]);
+
+  const dispatch = useDispatch();
+
   const { run } = useRequest(
     async () => {
       const data = await webApi.courseApi.getCourseUnitsAndPages(
         lesson.courseId
       );
       if (data) {
-        console.log(data);
         const newData = formateDropdownData(data, lesson);
+        dispatch(setUnitsLessonsList(data));
         setDropData(newData);
       }
     },
@@ -89,15 +101,14 @@ const LessonHeader: FC<LessonHeaderProps> = (props) => {
           </div>
         </div>
 
-        <Dropdown
+        <Dropdown<UnitPagesListType, CourseLessonType>
           defaultSelectKey={
-            dropData.find((unit) => unit.key === lesson.unitId).key
+            dropData.find((unit) => unit.key === lesson.unitId)?.key || ''
           }
           dropData={dropData}
           onSelect={(value) => {
             console.log(value.type, value);
           }}
-          ref={dropdownRef}
         ></Dropdown>
       </div>
       <div className="w-full h-full bg-red-500"></div>

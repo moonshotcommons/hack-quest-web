@@ -11,19 +11,20 @@ import {
   useState
 } from 'react';
 import DropDownIcon from '../Icon/DropDown';
-import { DropData } from './type';
+import { DropData, DropDataChildrenType } from './type';
 import { useClickAway } from 'ahooks';
 
-interface DropdownProps {
+interface DropdownProps<P, T> {
   // children: ReactNode;
   autoOpen?: boolean;
-  dropData: DropData<any>[];
+  dropData: DropData<P, T>[];
   onSelect?: (item: any) => void;
   defaultSelectKey: string;
+  minWidth?: string;
 }
 
-export const ChildrenDropDown = (props: {
-  childrenData: DropData<any>[];
+export const ChildrenDropDown = <T,>(props: {
+  childrenData: DropDataChildrenType<T>[];
   onSelect?: (item: any) => void;
 }) => {
   const { childrenData, onSelect } = props;
@@ -50,11 +51,14 @@ export const ChildrenDropDown = (props: {
   );
 };
 
-const Dropdown: ForwardRefRenderFunction<unknown, DropdownProps> = (
-  props,
-  ref
-) => {
-  const { autoOpen = false, dropData, onSelect, defaultSelectKey } = props;
+const Dropdown = <P, T>(props: DropdownProps<P, T>) => {
+  const {
+    autoOpen = false,
+    dropData,
+    onSelect,
+    defaultSelectKey,
+    minWidth
+  } = props;
   const [open, setOpen] = useState(() => (autoOpen ? true : false));
   const containerRef = useRef<HTMLElement>(null);
 
@@ -66,16 +70,6 @@ const Dropdown: ForwardRefRenderFunction<unknown, DropdownProps> = (
     setOpen(false);
   }, containerRef);
 
-  useImperativeHandle(
-    ref,
-    () => {
-      return {
-        openDispatch: (value: boolean) => setOpen(value)
-      };
-    },
-    []
-  );
-
   return (
     <div className="w-fit relative cursor-pointer" ref={containerRef as any}>
       <div
@@ -85,7 +79,9 @@ const Dropdown: ForwardRefRenderFunction<unknown, DropdownProps> = (
         }}
       >
         <div className="relative w-[8rem] h-full flex justify-center items-center border border-solid border-[#505050] rounded-full">
-          <span className="text-[0.75rem] font-futura-bold">mint</span>
+          <span className="text-[0.75rem] font-futura-bold">
+            {dropData.find((item) => item.key === defaultSelectKey)?.title}
+          </span>
         </div>
         <div className="h-full flex items-center justify-center mr-[1.5rem]">
           <DropDownIcon width={13} height={11}></DropDownIcon>
@@ -93,7 +89,11 @@ const Dropdown: ForwardRefRenderFunction<unknown, DropdownProps> = (
       </div>
 
       {open ? (
-        <ul className="w-fit whitespace-nowrap absolute right-0 top-[3rem] pt-8 pl-8 pb-[1rem] pr-[3rem] rounded-[2rem] bg-[#171717] text-[#D9D9D9] transition ease-in-out z-[99]">
+        <ul
+          className={`w-fit whitespace-nowrap absolute right-0 top-[3rem] pt-8 pl-8 pb-[1rem] pr-[3rem] rounded-[2rem] bg-[#171717] text-[#D9D9D9] transition ease-in-out z-[99] ${
+            minWidth ? `min-w-[${minWidth}]` : ''
+          }`}
+        >
           {dropData.map((data) => {
             return (
               <li
@@ -132,4 +132,4 @@ const Dropdown: ForwardRefRenderFunction<unknown, DropdownProps> = (
   );
 };
 
-export default forwardRef(Dropdown);
+export default Dropdown;

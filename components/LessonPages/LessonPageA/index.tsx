@@ -1,7 +1,11 @@
 import { Block } from '@/components/TempComponent/Block';
 import Quest from '@/components/TempComponent/Quest';
+import { getCourseLink } from '@/helper/utils';
 import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
+import { AppRootState } from '@/store/redux';
+import { useRouter } from 'next/router';
 import { FC, ReactNode, useEffect, useState } from 'react';
+import { shallowEqual, useSelector } from 'react-redux';
 
 interface LessonPageAProps {
   lesson: CourseLessonType;
@@ -13,6 +17,16 @@ const LessonPageA: FC<LessonPageAProps> = (props) => {
   const [lessonContent, setLessonContent] = useState([]);
   const [quizes, setQuizes] = useState([]);
   const [isProgressing, setIsProgressing] = useState(false);
+  const router = useRouter();
+
+  const { unitsLessonsList } = useSelector((state: AppRootState) => {
+    return {
+      unitsLessonsList: state.course.unitsLessonsList
+    };
+  }, shallowEqual);
+
+  console.log('unitsLessonsList', unitsLessonsList);
+
   useEffect(() => {
     if (lesson) {
       setLessonContent((lesson.content?.[0] as any).children);
@@ -35,7 +49,14 @@ const LessonPageA: FC<LessonPageAProps> = (props) => {
           lessonID={lesson.id}
           isLastUnit={false}
           content={quizes}
-          onPass={() => console.log('object')}
+          onPass={() => {
+            const { courseId } = router.query;
+            // const nextLesson =
+            // console.log(`/${getCourseLink(courseType)}/${courseId}/learn/${}`);
+            // router.push(
+            //   '/syntax/Solidity%20101/learn/44e4c9ac-0e6c-4650-95e9-0ae4f3c5b278'
+            // );
+          }}
           darkMode={true}
           setIsProgressing={setIsProgressing}
         />
