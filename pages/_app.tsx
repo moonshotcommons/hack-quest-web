@@ -24,10 +24,11 @@ function MyApp(appProps: AppProps & LayoutProps) {
     // server
   }
 
-  const regex = /\/[^/]+\/\[...course\]/;
-  console.log(regex.test(pathname));
+  // const regex = /\/[^/]+\/\[...course\]/;
+  // console.log(regex.test(pathname));
+
   switch (true) {
-    case regex.test(pathname):
+    case pathname.includes('/syntax/learn'):
       return (
         <Provider store={store}>
           <ThemeContextProvider>
