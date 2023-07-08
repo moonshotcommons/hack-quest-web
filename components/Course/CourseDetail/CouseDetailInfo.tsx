@@ -29,7 +29,7 @@ const CourseDetailInfo: FC<CourseDetailInfoProps> = (props) => {
             <UserIcon size={18}></UserIcon>
           </span>
           <span className="text-[#F2F2F2] font-next-book">
-            {tagFormate(level)}
+            {tagFormate(level)} Level
           </span>
         </div>
 

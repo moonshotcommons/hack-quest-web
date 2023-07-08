@@ -22,12 +22,11 @@ const SyntaxDetail: NextPage<IProps> = (props) => {
   const { courseId, courseDetail, lessonId } = props;
   return (
     <div className="px-[5.5rem]">
-      <div className="mt-[6.25rem] mb-[6.25rem]">
-        <CourseDetailBanner
-          courseDetail={courseDetail}
-          learningLessonId={lessonId}
-        ></CourseDetailBanner>
-      </div>
+      <CourseDetailBanner
+        courseDetail={courseDetail}
+        learningLessonId={lessonId}
+      ></CourseDetailBanner>
+
       <CourseDetailInfo courseDetail={courseDetail}></CourseDetailInfo>
       <div className="mt-[4rem]">
         <CourseDescription>{courseDetail?.aboutDesc}</CourseDescription>
