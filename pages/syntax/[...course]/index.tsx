@@ -110,13 +110,15 @@ const SyntaxUnit: NextPage<IProps> = (props) => {
 export const getServerSideProps: GetServerSideProps =
   wrapper.getServerSideProps(function (store) {
     return async (context) => {
-      const { course } = context.query;
+      // const { course } = context.query;
 
       let lesson = null;
       try {
-        let lessonId = course?.[(course?.length || 0) - 1] || '-1';
-        console.log(lessonId);
-        lesson = await webApi.courseApi.getLessonContent(lessonId);
+        // let lessonId = course?.[(course?.length || 0) - 1] || '-1';
+        // console.log(lessonId);
+        lesson = await webApi.courseApi.getLessonContent(
+          '44e4c9ac-0e6c-4650-95e9-0ae4f3c5b278'
+        );
       } catch (e: any) {
         // message.error(`Course detail ${e.message}`);
         console.log(e);
