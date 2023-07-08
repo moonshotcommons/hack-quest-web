@@ -18,7 +18,7 @@ export enum LessonStyleType {
   C = 'C'
 }
 
-export enum UnitStateType {
+export enum CompleteStateType {
   NOT_STARTED = 0,
   LEARNING = 1,
   COMPLETED = 2
@@ -65,7 +65,7 @@ export interface CourseUnitStateType {
   id: string;
   name: string;
   description: string;
-  state: UnitStateType;
+  state: CompleteStateType;
   progress: number;
 }
 
@@ -76,13 +76,12 @@ export interface CourseLessonType {
   sequence: number;
   unitId: string;
   courseId: string;
+  content?: any[];
 }
 
 export interface CourseLessonStateType {
-  name: string;
   id: string;
-  style: LessonStyleType;
-  sequence: number;
+  name: string;
   unitId: string;
-  courseId: string;
+  state: CompleteStateType;
 }

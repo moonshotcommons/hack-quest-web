@@ -14,10 +14,11 @@ import styled from 'styled-components';
 
 interface CourseDetailBannerProps {
   courseDetail?: CourseDetailType;
+  learningLessonId?: string;
 }
 
 const CourseDetailBanner: FC<CourseDetailBannerProps> = (props) => {
-  const { courseDetail } = props;
+  const { courseDetail, learningLessonId } = props;
   const currentLeaningUnit = courseDetail?.units?.find((unit, index) => {
     if (index === 0 && unit.progress === 0) return unit;
     if (unit.progress !== 1) return unit;
@@ -39,9 +40,9 @@ const CourseDetailBanner: FC<CourseDetailBannerProps> = (props) => {
           {courseDetail?.description}
         </Typography.Paragraph>
         <Link
-          href={`${getCourseLink(courseDetail?.type, 'unit')}/${
-            currentLeaningUnit?.id
-          }`}
+          href={`${getCourseLink(courseDetail?.type)}/${
+            courseDetail?.name
+          }/learn/${learningLessonId}`}
         >
           <button className="w-fit px-8 py-4 mt-[1.875rem] border border-solid border-[#F2F2F2] rounded-[2.5rem] text-sm text-[#F2F2F2] primary-button-hover">
             Start Learning

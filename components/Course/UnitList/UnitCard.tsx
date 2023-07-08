@@ -1,7 +1,12 @@
 import LockIcon from '@/components/Common/Icon/Lock';
 import { computeProgress } from '@/helper/formate';
 import { getCourseLink } from '@/helper/utils';
-import { CourseType, CourseUnitType } from '@/service/webApi/course/type';
+import { courseDetail } from '@/pages/api/courses/[courseId]/data';
+import {
+  CourseDetailType,
+  CourseType,
+  CourseUnitType
+} from '@/service/webApi/course/type';
 import { Progress, Typography } from 'antd';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -23,10 +28,12 @@ interface UnitCardProps {
   isLock?: boolean;
   courseType?: CourseType;
   index: number;
+  courseDetail?: CourseDetailType;
+  learningLessonId: string;
 }
 
 const UnitButton: FC<UnitCardProps> = (props) => {
-  const { unit, isLock } = props;
+  const { unit, isLock, learningLessonId } = props;
   if (isLock) {
     return null;
   }
@@ -51,7 +58,7 @@ const UnitButton: FC<UnitCardProps> = (props) => {
 };
 
 const UnitCard: FC<UnitCardProps> = (props) => {
-  const { unit, isLock = true, courseType, index } = props;
+  const { unit, isLock = true, courseType, index, learningLessonId } = props;
   const router = useRouter();
   return (
     <div className="py-[1.5rem] flex  items-center">
@@ -61,7 +68,7 @@ const UnitCard: FC<UnitCardProps> = (props) => {
         }`}
         onClick={(e) => {
           if (unit.progress === 1) {
-            router.replace(`/syntax/unit/${unit.id}`);
+            router.replace(`/${getCourseLink(courseType)}/${unit.id}`);
           }
         }}
       >
@@ -102,9 +109,16 @@ const UnitCard: FC<UnitCardProps> = (props) => {
       </div>
       <Link
         className="flex-1 flex justify-end"
-        href={`${getCourseLink(courseType, 'unit')}/${unit.id}`}
+        href={`${getCourseLink(courseType)}/${
+          courseDetail.name
+        }/learn/${learningLessonId}`}
       >
-        <UnitButton unit={unit} isLock={isLock} index={index}></UnitButton>
+        <UnitButton
+          unit={unit}
+          isLock={isLock}
+          index={index}
+          learningLessonId={learningLessonId}
+        ></UnitButton>
       </Link>
     </div>
   );

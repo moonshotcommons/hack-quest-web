@@ -24,9 +24,24 @@ function MyApp(appProps: AppProps & LayoutProps) {
     // server
   }
 
-  const regex = /\/[^/]+\/unit\/\[unitId\]/;
-  console.log(regex.test(pathname));
+  // const regex = /\/[^/]+\/\[...course\]/;
+  // console.log(regex.test(pathname));
+
+  // console.log(pathname, '测试', regex.test(pathname));
+
+  const regex = /\/[^/]+\/\[courseId\]\/learn\/\[lessonId\]/;
+
   switch (true) {
+    case regex.test(pathname):
+      return (
+        <Provider store={store}>
+          <ThemeContextProvider>
+            <UnitLayout>
+              <Component {...props.pageProps} />
+            </UnitLayout>
+          </ThemeContextProvider>
+        </Provider>
+      );
     case regex.test(pathname):
       return (
         <Provider store={store}>
