@@ -85,3 +85,7 @@ export interface CourseLessonStateType {
   unitId: string;
   state: CompleteStateType;
 }
+
+export type UnitPagesListType = CourseUnitStateType & {
+  pages: CourseLessonType[];
+};

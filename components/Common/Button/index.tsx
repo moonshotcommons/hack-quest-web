@@ -58,7 +58,7 @@ const Button: React.FC<ButtonProps> = (props) => {
   const { children, ...rest } = props;
 
   const className = getClassNames(rest);
-  console.log(className);
+
   return (
     <button
       className={`flex items-center justify-center whitespace-nowrap ${className}`}

@@ -34,6 +34,9 @@ export const computeProgress = (n: number) => {
 
 export const tagFormate = (input: string) => {
   if (!input) return input;
+  if (input.toUpperCase() === input) {
+    return input[0].toUpperCase() + input.substring(1).toLowerCase();
+  }
   // 利用正则表达式将字符串分割成单词数组
   const words = input.split(/[_\- ]+/);
 
