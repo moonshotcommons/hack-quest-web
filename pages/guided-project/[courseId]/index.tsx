@@ -14,7 +14,7 @@ import { shallowEqual, useSelector } from 'react-redux';
 
 interface IProps {
   courseId: string;
-  courseDetail?: CourseDetailType;
+  courseDetail: CourseDetailType;
   lessonId: string;
 }
 
@@ -36,8 +36,7 @@ const SyntaxDetail: NextPage<IProps> = (props) => {
       </h2>
       <div className="mt-[2.5rem]">
         <UnitList
-          units={courseDetail?.units || []}
-          courseType={courseDetail?.type}
+          courseDetail={courseDetail}
           learningLessonId={lessonId}
         ></UnitList>
       </div>

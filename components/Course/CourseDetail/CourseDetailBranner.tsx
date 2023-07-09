@@ -49,7 +49,7 @@ const CourseDetailBanner: FC<CourseDetailBannerProps> = (props) => {
           </button>
         </Link>
       </div>
-      <div>
+      <div className="-mr-[5.5625rem]">
         {/* <Image
           src={`/images/course/course_cover/${courseDetail?.type}.png`}
           alt="cover"

@@ -203,6 +203,7 @@ export type BlockProps = {
     [key: string]: React.CSSProperties;
   };
   darkMode?: boolean;
+  children?: any;
 };
 
 export type BlocksProps = Omit<BlockProps, 'block'> & {

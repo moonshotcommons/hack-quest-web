@@ -47,10 +47,10 @@ const baseTheme = EditorView.baseTheme({
 
 interface Props {
   codeText: string;
-  errorLine?: number;
+  errorLines?: number[];
   darkMode?: boolean;
   setCodeText?: Function;
-  setErrorLine?: Function;
+  setErrorLines?: Function;
   correctLines?: number[];
   codeLine: number;
 }
@@ -59,19 +59,19 @@ const CMEditor: FC<Props> = (props) => {
   const {
     codeText,
     setCodeText,
-    errorLine,
+    errorLines,
     correctLines,
-    setErrorLine,
+    setErrorLines,
     codeLine,
     darkMode = true
   } = props;
   const onChange = useCallback((value: string, viewUpdate: ViewUpdate) => {
     setCodeText && setCodeText(value);
-    setErrorLine && setErrorLine(undefined);
+    setErrorLines && setErrorLines(undefined);
   }, []);
   const classnameExt = classname({
     add: (lineNumber) => {
-      if (lineNumber === errorLine) {
+      if (errorLines && errorLines?.length && errorLines.includes(lineNumber)) {
         return 'cm-error-line';
       }
       if (correctLines?.length && correctLines.includes(lineNumber)) {

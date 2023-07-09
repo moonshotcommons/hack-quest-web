@@ -15,39 +15,13 @@ import LessonPageA from '@/components/LessonPages/LessonPageA';
 import { useMemo } from 'react';
 
 interface IProps {
-  lesson: CourseLessonType;
+  // lesson: CourseLessonType;
 }
 
 const SyntaxUnit: NextPage<IProps> = (props) => {
-  const { lesson } = props;
-
-  // const LessonPage = (props: { style: LessonStyleType }) => {
-  //   const { style } = props;
-
-  // };
-
-  const LessonPage = useMemo(() => {
-    switch (lesson.style) {
-      case LessonStyleType.A:
-        return (
-          <>
-            <LessonPageA
-              lesson={lesson}
-              courseType={CourseType.SYNTAX}
-            ></LessonPageA>
-          </>
-        );
-      default:
-        return <></>;
-    }
-  }, [lesson]);
-
   return (
     <>
-      <div className="w-full h-full flex flex-col">
-        <LessonHeader lesson={lesson}></LessonHeader>
-        {LessonPage}
-      </div>
+      <div className="w-full h-full flex flex-col"></div>
     </>
   );
 };
