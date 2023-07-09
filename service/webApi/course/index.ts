@@ -67,6 +67,17 @@ class CourseApi {
     const url = `${CourseApiType.Course_List}/${courseId}/learning-page`;
     return this.service.get<{ pageId: string }>(url);
   }
+
+  /** 开始一个lesson */
+  startLesson(lessonId: string) {
+    const url = `${CourseApiType.LessonDetail}/${lessonId}/start`;
+    return this.service.get(url);
+  }
+
+  completeLesson(lessonId: string) {
+    const url = `${CourseApiType.LessonDetail}/${lessonId}/complete`;
+    return this.service.get(url);
+  }
 }
 
 export default CourseApi;

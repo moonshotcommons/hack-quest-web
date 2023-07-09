@@ -4,8 +4,17 @@ import { getCourseLink } from '@/helper/utils';
 import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
 import { AppRootState } from '@/store/redux';
 import { useRouter } from 'next/router';
-import { FC, ReactNode, useEffect, useState } from 'react';
+import {
+  FC,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState
+} from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
+import LessonPassPage from '../LessonPassPage';
+import webApi from '@/service';
 
 interface LessonPageAProps {
   lesson: CourseLessonType;
@@ -17,20 +26,47 @@ const LessonPageA: FC<LessonPageAProps> = (props) => {
   const [lessonContent, setLessonContent] = useState([]);
   const [quizes, setQuizes] = useState([]);
   const [isProgressing, setIsProgressing] = useState(false);
-  const router = useRouter();
+  const [pass, setPass] = useState<boolean>(false);
 
-  const { unitsLessonsList } = useSelector((state: AppRootState) => {
-    return {
-      unitsLessonsList: state.course.unitsLessonsList
-    };
-  }, shallowEqual);
+  const onPass = useCallback(async () => {
+    setPass(true);
+    try {
+      await webApi.courseApi.completeLesson(lesson.id);
+    } catch (e) {
+      console.log('完成状态发生错误', e);
+    }
+  }, [lesson]);
+
+  const RightComponent = useMemo(() => {
+    if (pass) {
+      return (
+        <LessonPassPage
+          lesson={lesson}
+          courseType={courseType}
+        ></LessonPassPage>
+      );
+    }
+    return (
+      <Quest
+        courseType={courseType}
+        lessonID={lesson.id}
+        isLastUnit={false}
+        content={quizes}
+        onPass={onPass}
+        darkMode={true}
+        setIsProgressing={setIsProgressing}
+      />
+    );
+  }, [pass, courseType, lesson, quizes, onPass]);
 
   useEffect(() => {
     if (lesson) {
       setLessonContent((lesson.content?.[0] as any).children);
       setQuizes((lesson.content?.[1] as any).children);
-    } else {
-      // router.push('/404');
+      setPass(false);
+      webApi.courseApi.startLesson(lesson.id).catch((e) => {
+        console.log('开始学习失败', e);
+      });
     }
   }, [lesson]);
   return (
@@ -42,30 +78,7 @@ const LessonPageA: FC<LessonPageAProps> = (props) => {
           ))}
       </div>
       <div className="text-[#E2E2E2] h-full bg-[#111] notion-render-block w-full py-[2.5rem] rounded-[2.5rem] overflow-y-scroll no-scrollbar">
-        <Quest
-          courseType={courseType}
-          lessonID={lesson.id}
-          isLastUnit={false}
-          content={quizes}
-          onPass={() => {
-            const { courseId } = router.query;
-
-            const currentUnit = unitsLessonsList?.find(
-              (unit) => unit.id === lesson.unitId
-            );
-            const currentLessonIndex =
-              currentUnit?.pages.findIndex((page) => page.id === lesson.id) ||
-              0;
-
-            router.push(
-              `${getCourseLink(courseType)}/${courseId}/learn/${
-                currentUnit?.pages[currentLessonIndex + 1].id
-              }`
-            );
-          }}
-          darkMode={true}
-          setIsProgressing={setIsProgressing}
-        />
+        {RightComponent}
       </div>
     </div>
   );
