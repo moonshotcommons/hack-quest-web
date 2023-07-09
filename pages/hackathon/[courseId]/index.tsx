@@ -29,7 +29,14 @@ const SyntaxDetail: NextPage<IProps> = (props) => {
 
       <CourseDetailInfo courseDetail={courseDetail}></CourseDetailInfo>
       <div className="mt-[4rem]">
-        <CourseDescription>{courseDetail?.aboutDesc}</CourseDescription>
+        <CourseDescription>
+          In this course, we will learn about the most basic programing concepts
+          in Solidity, like contract, variable, and function. We will also cover
+          some fundamental data types and structures. By the end of this course,
+          you’ve learnt all syntax needed to write a simple token using
+          Solidity. You may proceed to our Fungible Token guided project to
+          complete the project using everything you learn in this course.
+        </CourseDescription>
       </div>
       <h2 className="text-[#F2F2F2] font-next-book text-[1.75rem] mt-[4rem]">
         Course structure
