@@ -1,6 +1,7 @@
 import React from 'react';
 
 import ClockIcon from './Clock';
+
 import CourseIcon from './Course';
 import DiscordIcon from './Discord';
 import DropDownIcon from './DropDown';

@@ -59,7 +59,10 @@ const Quest: FC<{
     answerReg,
     answerCode,
     answerLineNumber
-  } = useParseQuiz({ content, courseType });
+  } = useParseQuiz({
+    content,
+    courseType
+  });
 
   const [codeLine, setCodeLine] = useState(
     () => 32 - codeText?.split('\n').length

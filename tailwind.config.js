@@ -25,7 +25,8 @@ module.exports = {
         'neuemachina-light': ['Neue Machina Light'],
         neuemachina: ['Neue Machina'],
         'futura-bold': ['Futura Bold'],
-        'futura-book': ['Futura Book']
+        'futura-book': ['Futura Book'],
+        'Sofia-Pro-Light-Az': ['Sofia Pro;']
       },
       screens: {
         xs: '480px',
