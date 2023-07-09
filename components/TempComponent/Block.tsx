@@ -41,7 +41,12 @@ export const Block: React.FC<any> = ({
         {block.has_children &&
           renderChildren &&
           block.children.map((child: any) => (
-            <Block block={child} key={child.id} darkMode={darkMode} />
+            <Block
+              block={child}
+              key={child.id}
+              darkMode={darkMode}
+              renderChildren={renderChildren}
+            />
           ))}
       </>
     );
@@ -58,7 +63,12 @@ export const Block: React.FC<any> = ({
             </summary>
             {block.has_children &&
               block.children.map((child: any) => (
-                <Block block={child} key={child.id} darkMode={darkMode} />
+                <Block
+                  block={child}
+                  key={child.id}
+                  darkMode={darkMode}
+                  renderChildren={renderChildren}
+                />
               ))}
           </details>
         </li>
@@ -83,7 +93,12 @@ export const Block: React.FC<any> = ({
       <div className="indented">
         {block.has_children &&
           block.children.map((child: any) => (
-            <Block block={child} key={child.id} darkMode={darkMode} />
+            <Block
+              block={child}
+              key={child.id}
+              darkMode={darkMode}
+              renderChildren={renderChildren}
+            />
           ))}
       </div>
     </details>

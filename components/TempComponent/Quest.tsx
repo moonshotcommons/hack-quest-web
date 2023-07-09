@@ -42,7 +42,7 @@ const Quest: FC<{
   lessonID,
   isLastUnit
 }) => {
-  const [errorLine, setErrorLine] = useState<number>();
+  const [errorLines, setErrorLines] = useState<number[]>([]);
   const [correctLines, setCorrectLines] = useState<number[]>([]);
   const [codeWrong, setCodeWrong] = useState<boolean>();
   const [passed, setPassed] = useState(false);
@@ -101,10 +101,26 @@ const Quest: FC<{
       setPassed(true);
       return;
     }
-    const lines = codeText.split('\n');
+    let lines = codeText.split('\n');
     let isCodingBlock = false,
       isWrong = false,
       ai = 0;
+
+    // let startIndex = 0;
+    // let endIndex = lines.length - 1;
+    // lines.forEach((line, index) => {
+    //   if (line === '//code starts here') {
+    //     startIndex = index;
+    //   }
+    //   if (line === '//code ends here') {
+    //     endIndex = index;
+    //   }
+    // });
+
+    // lines = lines.slice(startIndex, endIndex);
+
+    const newLine = [];
+    const newErrorLines = [];
     for (let i = 0; i < lines.length; i++) {
       let line = lines[i];
       if (/^\s*\/\/code starts here/.test(line)) {
@@ -116,21 +132,31 @@ const Quest: FC<{
           isCodingBlock = false;
           continue;
         }
-
+        newErrorLines.push(i + 1);
+        newLine.push(line);
         // check answer
-        if (answerReg[ai]) {
-          if (!answerReg[ai].test(line.trim())) {
-            isWrong = true;
-            setErrorLine(i + 1);
-            break;
-          }
-          ai++;
-        }
+        // if (answerReg[ai]) {
+        //   if (!answerReg[ai].test(line.trim())) {
+        //     isWrong = true;
+        //     setErrorLine(i + 1);
+        //     break;
+        //   }
+        //   ai++;
+        // }
       }
     }
+
+    if (answerReg[ai]) {
+      if (!answerReg[ai].test(newLine.join('').trim())) {
+        isWrong = true;
+        setErrorLines(newErrorLines);
+      }
+      // ai++;
+    }
+
     setCodeWrong(isWrong);
     if (!isWrong) {
-      setErrorLine(undefined); // remove error line
+      setErrorLines([]); // remove error line
       setPassed(true);
 
       console.log(`lessonID: `, lessonID);
@@ -154,7 +180,7 @@ const Quest: FC<{
   };
 
   const showAnswer = () => {
-    setErrorLine(undefined);
+    setErrorLines([]);
     if (!toggleAnswer) {
       setTempCode(codeText);
       codeTextDispatch(answerCode);
@@ -169,7 +195,7 @@ const Quest: FC<{
   };
 
   const handleTryAgain = () => {
-    setErrorLine(undefined);
+    setErrorLines([]);
     setCorrectLines([]);
     setCodeWrong(false);
     setToggleAnswer(false);
@@ -180,7 +206,7 @@ const Quest: FC<{
   };
 
   const goNext = () => {
-    setErrorLine(undefined);
+    setErrorLines([]);
     setCorrectLines([]);
     setCodeWrong(false);
     setPassed(false);
@@ -213,7 +239,9 @@ const Quest: FC<{
                 Quest
               </div>
               <div className="py-[1.5rem]">
-                {shouldRenderBlock && quiz && <Block block={quiz} />}
+                {shouldRenderBlock && quiz && (
+                  <Block block={quiz} renderChildren={false} />
+                )}
               </div>
             </div>
             {shouldRenderCodeEditor && (
@@ -226,8 +254,8 @@ const Quest: FC<{
                     setCodeText={codeTextDispatch}
                     codeText={codeText}
                     codeLine={codeLine}
-                    errorLine={errorLine}
-                    setErrorLine={setErrorLine}
+                    errorLines={errorLines}
+                    setErrorLines={setErrorLines}
                     correctLines={correctLines}
                     darkMode={darkMode}
                   />

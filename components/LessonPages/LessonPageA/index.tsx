@@ -74,7 +74,12 @@ const LessonPageA: FC<LessonPageAProps> = (props) => {
       <div className="text-white h-full w-full px-[3rem] py-[2.5rem] rounded-[2.5rem] bg-[#101010] overflow-y-scroll notion-render-block no-scrollbar">
         {lessonContent &&
           lessonContent?.map((block: any) => (
-            <Block block={block} key={block.id} darkMode={true} />
+            <Block
+              block={block}
+              key={block.id}
+              darkMode={true}
+              renderChildren={true}
+            />
           ))}
       </div>
       <div className="text-[#E2E2E2] h-full bg-[#111] notion-render-block w-full py-[2.5rem] rounded-[2.5rem] overflow-y-scroll no-scrollbar">
