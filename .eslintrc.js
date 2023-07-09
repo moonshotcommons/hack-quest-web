@@ -31,5 +31,6 @@ module.exports = {
     'react/jsx-no-undef': 'warn',
     '@typescript-eslint/no-var-requires': 'off',
     semi: 'off' //语句强制分号结尾,
+    // 'prettier/prettier': ['error', { printWidth: 160 }]
   }
 };

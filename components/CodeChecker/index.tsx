@@ -21,7 +21,10 @@ const CodeChecker: FC<CodeCheckerProps> = (props) => {
     answerReg,
     answerCode,
     answerLineNumber
-  } = useParseQuiz({ content, courseType });
+  } = useParseQuiz({
+    content,
+    courseType
+  });
   return (
     <div className="w-full h-full relative">
       <div>

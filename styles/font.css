@@ -44,3 +44,10 @@
   font-style: normal;
   src: url('../fonts/Futura/Futura\ Book.ttf');
 }
+
+@font-face {
+  font-weight: normal;
+  font-family: 'Sofia Pro';
+  font-style: normal;
+  src: url('../fonts/Sofia-Pro/Sofia-Pro-Light-Az.otf');
+}
