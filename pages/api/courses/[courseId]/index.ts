@@ -23,7 +23,7 @@ const getMethodHandler = (
 ) => {
   const { id, include } = req.query;
 
-  res.status(200).json(courseDetail);
+  res.status(200).json(courseDetail as any);
 };
 
 const postMethodHandler = (req: NextApiRequest, res: NextApiResponse<Data>) => {

@@ -7,14 +7,14 @@ import { FC, ReactNode } from 'react';
 import UnitCard from './UnitCard';
 
 interface UnitListProps {
-  units: CourseUnitType[];
-  courseType?: CourseType;
-  courseDetail?: CourseDetailType;
+  courseDetail: CourseDetailType;
   learningLessonId: string;
 }
 
 const UnitList: FC<UnitListProps> = (props) => {
-  const { units = [], courseType, courseDetail, learningLessonId } = props;
+  const { courseDetail, learningLessonId } = props;
+
+  const { units = [], type: courseType } = courseDetail;
 
   return (
     <ul className="w-full">

@@ -1,7 +1,6 @@
 import LockIcon from '@/components/Common/Icon/Lock';
 import { computeProgress } from '@/helper/formate';
 import { getCourseLink } from '@/helper/utils';
-import { courseDetail } from '@/pages/api/courses/[courseId]/data';
 import {
   CourseDetailType,
   CourseType,
@@ -58,8 +57,16 @@ const UnitButton: FC<UnitCardProps> = (props) => {
 };
 
 const UnitCard: FC<UnitCardProps> = (props) => {
-  const { unit, isLock = true, courseType, index, learningLessonId } = props;
+  const {
+    unit,
+    isLock = true,
+    courseDetail,
+    courseType,
+    index,
+    learningLessonId
+  } = props;
   const router = useRouter();
+  // console.log(CardStyle);
   return (
     <div className="py-[1.5rem] flex  items-center">
       <div
@@ -110,7 +117,7 @@ const UnitCard: FC<UnitCardProps> = (props) => {
       <Link
         className="flex-1 flex justify-end"
         href={`${getCourseLink(courseType)}/${
-          courseDetail.name
+          courseDetail?.name
         }/learn/${learningLessonId}`}
       >
         <UnitButton

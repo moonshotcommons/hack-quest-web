@@ -9,7 +9,12 @@ import VideoRenderer from './VideoRenderer';
 // import {BlockProps} from "@/types/props";
 import TableOfContentsRenderer from './TableOfContentsRenderer';
 
-const NotionBlockCore: React.FC<any> = ({ block, blocks, darkMode }) => {
+const NotionBlockCore: React.FC<any> = ({
+  block,
+  blocks,
+  darkMode,
+  children
+}) => {
   const { prefix, blockPrefix } = useContext(Context);
   // // debugger;
   switch (block.type) {
@@ -299,6 +304,6 @@ const NotionBlockCore: React.FC<any> = ({ block, blocks, darkMode }) => {
         `This block type ${block.type} not yet configured in ${PACKAGE_NAME}`
       );
   }
-  return <div></div>;
+  return <div>{children}</div>;
 };
 export default NotionBlockCore;

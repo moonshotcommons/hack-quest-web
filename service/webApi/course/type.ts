@@ -44,7 +44,7 @@ export interface CourseDetailType {
   type: CourseType;
   level?: string | string[];
   duration: number;
-  aboutDesc: string;
+  aboutDesc: any[];
   progress: number;
   peopleJoined: number;
   units?: CourseUnitType[];
@@ -87,5 +87,5 @@ export interface CourseLessonStateType {
 }
 
 export type UnitPagesListType = CourseUnitStateType & {
-  pages: CourseLessonType[];
+  pages: CourseLessonStateType[];
 };

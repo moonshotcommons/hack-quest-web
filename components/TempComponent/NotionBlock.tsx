@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { Children, FC } from 'react';
 import { BlockProps } from './type';
 import {
   BLOCKS_PREFIX,
@@ -19,7 +19,8 @@ export const NotionBlock: FC<BlockProps> = ({
   // isNextJS,
   isCodeHighlighter,
   syntaxHighlighterCSS,
-  darkMode = true
+  darkMode = true,
+  children
 }) => {
   return (
     <Context.Provider
@@ -39,7 +40,9 @@ export const NotionBlock: FC<BlockProps> = ({
             : SYNTAX_HIGHLIGHTER_CSS
       }}
     >
-      <NotionBlockCore block={block} darkMode={darkMode} />
+      <NotionBlockCore block={block} darkMode={darkMode}>
+        {children}
+      </NotionBlockCore>
     </Context.Provider>
   );
 };

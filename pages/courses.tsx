@@ -143,9 +143,8 @@ const Courses: NextPage<CoursesProps> = (props) => {
       count: rootState.course.count
     };
   }, shallowEqual);
-  const dispatch: AppDispatch = useDispatch();
+
   const [selectTab, setSelectTab] = useState<CourseType>(tabs[0].type);
-  const [selectCards, setSelectCards] = useState<CourseType[]>([]);
 
   const onSelect = (item: TabItem) => {
     setSelectTab(item.type);
