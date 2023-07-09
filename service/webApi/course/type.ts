@@ -87,5 +87,5 @@ export interface CourseLessonStateType {
 }
 
 export type UnitPagesListType = CourseUnitStateType & {
-  pages: CourseLessonType[];
+  pages: CourseLessonStateType[];
 };

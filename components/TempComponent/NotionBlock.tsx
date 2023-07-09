@@ -22,7 +22,6 @@ export const NotionBlock: FC<BlockProps> = ({
   darkMode = true,
   children
 }) => {
-  console.log(children);
   return (
     <Context.Provider
       key={block.id}

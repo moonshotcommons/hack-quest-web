@@ -18,7 +18,7 @@ interface DropdownProps<P, T> {
   // children: ReactNode;
   autoOpen?: boolean;
   dropData: DropData<P, T>[];
-  onSelect?: (item: any) => void;
+  onSelect?: (item: DropData<P, T> | DropDataChildrenType<T>) => void;
   defaultSelectKey: string;
   minWidth?: string;
 }
