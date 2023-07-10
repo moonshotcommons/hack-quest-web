@@ -1,5 +1,12 @@
 import { CourseType } from '@/service/webApi/course/type';
 
+import { clsx, type ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+
 export const getCourseLink = (courseType?: CourseType) => {
   if (!courseType) return '/404';
   switch (courseType) {

@@ -299,7 +299,7 @@ const NotionBlockCore: React.FC<any> = ({
     //     </div>
     //   );
     default:
-      console.log(block);
+      // console.log(block);
       console.log(
         `This block type ${block.type} not yet configured in ${PACKAGE_NAME}`
       );

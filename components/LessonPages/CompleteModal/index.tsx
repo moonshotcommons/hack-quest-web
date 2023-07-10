@@ -1,15 +1,15 @@
 import Button, { ButtonProps } from '@/components/Common/Button';
-import Dropdown, { ChildrenDropDown } from '@/components/Common/DropDown';
 import Modal from '@/components/Common/Modal';
-import { render } from '@testing-library/react';
 import { NextPage } from 'next';
 import Image from 'next/image';
 import { FC, useState } from 'react';
 import Congrats from '@/public/images/course/congrats.svg';
 import MoonLeft from '@/public/images/other/moon_left.svg';
 import MoonRight from '@/public/images/other/moon_right.png';
-interface HomeProps {
-  children: React.ReactNode;
+import Link from 'next/link';
+interface CompleteModalProps {
+  open: boolean;
+  onClose: () => void;
 }
 
 const CustomButton: FC<ButtonProps> = (props) => {
@@ -26,12 +26,10 @@ const CustomButton: FC<ButtonProps> = (props) => {
   );
 };
 
-const Home: NextPage<HomeProps> = (props) => {
-  const [open, setOpen] = useState(false);
+const CompleteModal: NextPage<CompleteModalProps> = ({ open, onClose }) => {
   return (
     <div>
-      {/* <Button onClick={() => setOpen(true)}>测试打开</Button>
-      <Modal open={open} onClose={() => setOpen(false)}>
+      <Modal open={open} onClose={onClose}>
         <div className="w-[74.0625rem] h-[35.6875rem] bg-[#141414] rounded-[2.5rem] m-auto flex flex-col items-center relative overflow-hidden">
           <div className="absolute left-0 top-0">
             <Image src={MoonLeft} alt="bg"></Image>
@@ -59,17 +57,22 @@ const Home: NextPage<HomeProps> = (props) => {
           </h1>
           <p className="font-next-book text-[1.25rem] text-[#F2F2F2] mt-[2.375rem] leading-[128%]">{`By this point, you've completed the guided project!`}</p>
           <div className="flex gap-[1.25rem] mt-[3.75rem]">
-            <CustomButton className="border solid border-[#2A2A2A]">
+            <CustomButton
+              className="border solid border-[#2A2A2A] hover:bg-white hover:text-black"
+              onClick={onClose}
+            >
               Close
             </CustomButton>
-            <CustomButton className="border solid border-white">
-              All Course
-            </CustomButton>
+            <Link href={'/courses'} onClick={onClose}>
+              <CustomButton className="border solid border-white hover:bg-white hover:text-black">
+                All Course
+              </CustomButton>
+            </Link>
           </div>
         </div>
-      </Modal> */}
+      </Modal>
     </div>
   );
 };
 
-export default Home;
+export default CompleteModal;
