@@ -19,7 +19,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
 const getMethodHandler = (req: NextApiRequest, res: NextApiResponse<any>) => {
   const { id, include } = req.query;
-  console.log(req.query);
+  // console.log(req.query);
 
   res.status(200).json({
     id: 'cde65f94-9417-4e2c-b722-e041f078b1c4',

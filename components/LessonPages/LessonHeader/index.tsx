@@ -88,7 +88,10 @@ const LessonHeader: FC<LessonHeaderProps> = (props) => {
   );
 
   useEffect(() => {
-    if (lesson) run();
+    if (lesson) {
+      run();
+      console.log('请求下拉列表数据');
+    }
   }, [lesson, run]);
 
   return (

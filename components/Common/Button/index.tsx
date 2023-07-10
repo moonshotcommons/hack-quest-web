@@ -37,7 +37,7 @@ const getClassNames = (props: Partial<ButtonProps>) => {
     fontStyle,
     ...rest
   } = props;
-  let className = rest.className ?? '' + ' ';
+  let className = (rest.className ?? '') + ' ';
   className += classnames(
     block ? 'w-full' : 'w-fit',
     icon ? 'gap-2' : '',
@@ -58,7 +58,6 @@ const Button: React.FC<ButtonProps> = (props) => {
   const { children, ...rest } = props;
 
   const className = getClassNames(rest);
-
   return (
     <button
       className={`flex items-center justify-center whitespace-nowrap ${className}`}
@@ -69,7 +68,8 @@ const Button: React.FC<ButtonProps> = (props) => {
         'bgColor',
         'padding',
         'textStyle',
-        'fontStyle'
+        'fontStyle',
+        'className'
       ])}
     >
       {rest.icon}

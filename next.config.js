@@ -7,7 +7,7 @@ const nextConfig = (phase) => {
     reactStrictMode: true,
     // 配置环境变量
     env: {
-      BASE_URL: process.env.BASE_URL || 'http://api-dev.hackquest.io/',
+      BASE_URL: process.env.BASE_URL || 'https://api-dev.hackquest.io/',
       IS_DEV: isDev
     },
     modifyVars: {

@@ -1,3 +1,4 @@
+'use client';
 import { FC, ReactNode, useCallback, useEffect } from 'react';
 import LessonPassLogo from '@/public/images/lesson/lesson_pass_logo.png';
 import Image from 'next/image';
@@ -86,7 +87,7 @@ const LessonPassPage: FC<LessonPassPageProps> = (props) => {
           <Image src={LessonPassLogo} alt="pass-logo" width={269}></Image>
         </div>
       </div>
-      <div className="mt-[10.33rem]">
+      <div className="-mb-[1.25rem]">
         <CustomButton
           block
           onClick={() => {

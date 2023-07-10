@@ -1,20 +1,15 @@
 import { Block } from '@/components/TempComponent/Block';
 import Quest from '@/components/TempComponent/Quest';
-import { getCourseLink } from '@/helper/utils';
+
 import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
-import { AppRootState } from '@/store/redux';
-import { useRouter } from 'next/router';
-import {
-  FC,
-  ReactNode,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState
-} from 'react';
-import { shallowEqual, useSelector } from 'react-redux';
+
+import { FC, useCallback, useEffect, useMemo, useState } from 'react';
+
 import LessonPassPage from '../LessonPassPage';
 import webApi from '@/service';
+import CompleteModal from '../CompleteModal';
+import { shallowEqual, useSelector } from 'react-redux';
+import { AppRootState } from '@/store/redux';
 
 interface LessonPageAProps {
   lesson: CourseLessonType;
@@ -28,14 +23,36 @@ const LessonPageA: FC<LessonPageAProps> = (props) => {
   const [isProgressing, setIsProgressing] = useState(false);
   const [pass, setPass] = useState<boolean>(false);
 
+  const [completeModalOpen, setCompleteModalOpen] = useState(false);
+
+  const { unitsLessonsList } = useSelector((state: AppRootState) => {
+    return {
+      unitsLessonsList: state.course.unitsLessonsList
+    };
+  }, shallowEqual);
+
   const onPass = useCallback(async () => {
-    setPass(true);
     try {
       await webApi.courseApi.completeLesson(lesson.id);
+      let currentUnitIndex = unitsLessonsList.findIndex((unit) => {
+        return unit.id === lesson.unitId;
+      });
+      const currentUnit = unitsLessonsList[currentUnitIndex];
+      const currentLessonIndex =
+        currentUnit?.pages.findIndex((page) => page.id === lesson.id) || 0;
+      const isLastUnit =
+        currentUnitIndex === (unitsLessonsList.length || 1) - 1;
+      const isLastLesson =
+        currentLessonIndex === (currentUnit?.pages.length || 1) - 1;
+      if (isLastUnit && isLastLesson) {
+        setCompleteModalOpen(true);
+        return;
+      }
+      setPass(true);
     } catch (e) {
       console.log('完成状态发生错误', e);
     }
-  }, [lesson]);
+  }, [lesson, unitsLessonsList]);
 
   const RightComponent = useMemo(() => {
     if (pass) {
@@ -69,6 +86,7 @@ const LessonPageA: FC<LessonPageAProps> = (props) => {
       });
     }
   }, [lesson]);
+
   return (
     <div className="w-full h-[80vh] flex justify-between gap-[4.5rem] mt-[1.25rem]">
       <div className="text-white h-full w-full px-[3rem] py-[2.5rem] rounded-[2.5rem] bg-[#101010] overflow-y-scroll notion-render-block no-scrollbar">
@@ -85,6 +103,10 @@ const LessonPageA: FC<LessonPageAProps> = (props) => {
       <div className="text-[#E2E2E2] h-full bg-[#111] notion-render-block w-full py-[2.5rem] rounded-[2.5rem] overflow-y-scroll no-scrollbar">
         {RightComponent}
       </div>
+      <CompleteModal
+        open={completeModalOpen}
+        onClose={() => setCompleteModalOpen(false)}
+      ></CompleteModal>
     </div>
   );
 };
