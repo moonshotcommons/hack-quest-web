@@ -21,7 +21,7 @@ interface IProps {
 
 const SyntaxDetail: NextPage<IProps> = (props) => {
   const { courseId, courseDetail, lessonId } = props;
-  console.log(courseDetail);
+  // console.log(courseDetail);
   return (
     <div className="px-[5.5rem]">
       <CourseDetailBanner

@@ -159,7 +159,7 @@ const Quest: FC<{
       setErrorLines([]); // remove error line
       setPassed(true);
 
-      console.log(`lessonID: `, lessonID);
+      // console.log(`lessonID: `, lessonID);
       // debugger;
       // 请求接口
       // API.progressFinish(

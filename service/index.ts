@@ -5,7 +5,7 @@ import UserApi from './webApi/user';
 class WebApi {
   protected baseURL: string;
   protected service: WebService;
-  protected timeout = 10000;
+  protected timeout = 30000;
 
   courseApi: CourseApi;
   userApi: UserApi;
@@ -25,7 +25,7 @@ class WebApi {
 let webApi = null;
 
 if (!webApi) {
-  webApi = new WebApi(process.env.BASE_URL || 'http://api-dev.hackquest.io/');
+  webApi = new WebApi(process.env.BASE_URL || 'https://api-dev.hackquest.io/');
 }
 
 export default webApi as WebApi;
