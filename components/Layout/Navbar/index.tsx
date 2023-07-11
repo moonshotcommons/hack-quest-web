@@ -1,7 +1,7 @@
 import Image from 'next/image';
-import React from 'react';
+import React, { ReactNode } from 'react';
 import Logo from '@/public/images/logo/text-Logo.svg';
-import Avatar from '@/public/images/user/login_avatar.svg';
+
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -10,17 +10,19 @@ export interface NavBarProps {
     name: string;
     path: string;
   }[];
+  children?: ReactNode;
+  logo?: ReactNode;
 }
 
 const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
-  const { navList } = NavBarProps;
+  const { navList, children, logo } = NavBarProps;
   const { pathname } = useRouter();
   console.log(pathname, 'pathname');
   return (
     <div className="h-[4.75rem] flex items-center justify-between">
       <nav className="gap-[4rem] h-full flex items-center">
         <Link href="/" className="h-full flex items-center">
-          <Image src={Logo} alt="logo"></Image>
+          {logo ?? <Image src={Logo} alt="logo"></Image>}
         </Link>
         {navList.map((nav) => {
           return (
@@ -38,7 +40,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
           );
         })}
       </nav>
-      <Image src={Avatar} alt="avatar"></Image>
+      {children}
     </div>
   );
 };

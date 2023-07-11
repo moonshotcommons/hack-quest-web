@@ -2,18 +2,18 @@ import ConceptLearningCard from '@/components/Card/ConceptLearning';
 import HackathonCard from '@/components/Card/Hackathon';
 import LearningTracksCard from '@/components/Card/LearningTracks';
 import SyntaxCard from '@/components/Card/Syntax';
+import GuidedProjectCard from '@/components/Card/GuidedProject';
+import TeaserCard from '@/components/Card/Teaser';
 
 import Title from '@/components/Common/Title';
 import { CardType, TabType } from '@/constants/enum';
-
 import { SliderContainer } from '@/components/Common/SliderContainer';
 import { NextPage } from 'next';
 import Link from 'next/link';
 import uuid from 'uuid';
 import Tab, { TabItem } from '@/components/Common/Tab';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import TeaserCard from '@/components/Card/Teaser';
-import GuidedProjectCard from '@/components/Card/GuidedProject';
+
 import type { GetServerSideProps } from 'next';
 import wrapper, { AppDispatch, AppRootState } from '@/store/redux';
 import { getCourseList, increment } from '@/store/redux/modules/course';

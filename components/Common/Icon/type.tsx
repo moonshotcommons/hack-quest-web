@@ -1,6 +1,7 @@
 import { tuple } from '@/helper/formate';
 
 const IconKeys = tuple(
+  'Bottom',
   'Clock',
   'Course',
   'Discord',
@@ -10,7 +11,10 @@ const IconKeys = tuple(
   'LeftArrow',
   'Lock',
   'Progress',
+  'Right',
   'RightArrow',
+  'RightBottom',
+  'Skip',
   'Twitter',
   'User'
 );
