@@ -71,14 +71,17 @@ const Dropdown = <P, T>(props: DropdownProps<P, T>) => {
   }, containerRef);
 
   return (
-    <div className="w-fit relative cursor-pointer" ref={containerRef as any}>
+    <div
+      className="w-fit relative whitespace-nowrap cursor-pointer"
+      ref={containerRef as any}
+    >
       <div
-        className="w-[11.125rem] h-[2.25rem] text-white rounded-full border border-solid border-[#505050] flex justify-between items-center "
+        className="h-[2.25rem] text-white rounded-full border border-solid border-[#505050] flex justify-between items-center "
         onClick={() => {
           setOpen(!open);
         }}
       >
-        <div className="relative w-[8rem] h-full flex justify-center items-center border border-solid border-[#505050] rounded-full">
+        <div className="relative w-[72%] px-[3.125rem] h-full flex justify-center items-center border border-solid border-[#505050] rounded-full">
           <span className="text-[0.75rem] font-futura-bold">
             {dropData.find((item) => item.key === defaultSelectKey)?.title}
           </span>
