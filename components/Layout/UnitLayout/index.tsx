@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 import { Inter } from 'next/font/google';
 const inter = Inter({ subsets: ['latin'] });
 export interface UnitLayoutProps {
   // footerData: IFooterProps;
-  children: JSX.Element;
+  children: ReactNode;
 }
 
 const UnitLayout: React.FC<UnitLayoutProps> = ({ children }) => {
