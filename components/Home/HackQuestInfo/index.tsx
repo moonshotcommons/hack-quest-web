@@ -45,24 +45,35 @@ export const CenterInfo: FC = () => {
   const infoList = [
     {
       title: 'Easy to follow, quick to test',
-      description: `Each course is broken into 3-5 minute sessions with a quest to test understanding. Short lesson + quick action = retention!`
+      description: `Each course is broken into 3-5 minute sessions with a quest to test understanding. Short lesson + quick action = retention!`,
+      image: '/images/home/hackquest_info1.png'
     },
     {
       title: 'Earn rewards, in addition to skills',
       description: `Complete quests and unlock exciting rewards: tokens, NFT learning certificates, and even airdrop qualification!`
     },
     {
-      title: 'Easy to follow, quick to test',
-      description: `HackQuest generates a gamified developer profile to highlight your Web3 reputation scores, interests and skill proficiency levels based on your in-app activities and GitHub histories. Build your Web3 reputation and unlock new possibilities!`
+      title: 'Build Web3 reputation',
+      description: `HackQuest generates a gamified developer profile to highlight your Web3 reputation scores, interests and skill proficiency levels based on your in-app activities and GitHub histories. Build your Web3 reputation and unlock new possibilities!`,
+      image: '/images/home/hackquest_info2.png'
     },
     {
       title: 'Easy to follow, quick to test',
-      description: `Learn Solidity syntax and start revealing all the decentralized magic on the Ethereum`
+      description: `Learn Solidity syntax and start revealing all the decentralized magic on the Ethereum`,
+      image: '/images/home/hackquest_info3.png'
     },
     {
       title: 'Easy to follow, quick to test',
-      description: `Learn Solidity syntax and start revealing all the decentralized magic on the Ethereum`
+      description: `Learn Solidity syntax and start revealing all the decentralized magic on the Ethereum`,
+      image: '/images/home/hackquest_info4.png'
     }
+  ];
+
+  const infoImages = [
+    '/images/home/hackquest_info1.png',
+    '/images/home/hackquest_info2.png',
+    '/images/home/hackquest_info3.png',
+    '/images/home/hackquest_info4.png'
   ];
 
   return (
@@ -70,30 +81,66 @@ export const CenterInfo: FC = () => {
       <h1 className="text-[#F5F5F5] text-center font-next-poster-Bold text-[2.5rem] mt-[9.06rem]">
         What is HackQuest?
       </h1>
-      <div className="flex flex-col gap-[12.5rem]">
-        {infoList.map((item, index) => {
-          return (
-            <div key={index} className="flex justify-between">
-              <div className="text-[#F5F5F5]">图片</div>
-              <div className="relative flex flex-col gap-[1.25rem]">
-                <div className="relative w-[20rem] top-line"></div>
-                <div>
-                  <RightBottomIcon
-                    width={17}
-                    height={16}
-                    color="#F5F5F5"
-                  ></RightBottomIcon>
-                </div>
-                <h1 className="w-[18rem] text-[#F5F5F5] text-[2rem] font-next-book-bold tracking-[0.02rem]">
-                  {item.title}
-                </h1>
-                <div className="w-[18.375rem] text-[#F5F5F5] text-[1rem] font-normal tracking-[0.01rem]">
-                  {item.description}
+      <div className="flex justify-between">
+        <div>
+          <div className="mt-[2.5625rem]">
+            <Image
+              src={infoImages[0]}
+              alt="hackquest"
+              width={550}
+              height={418}
+            ></Image>
+          </div>
+          <div className="mt-[35rem]">
+            <Image
+              src={infoImages[2]}
+              alt="hackquest"
+              width={677}
+              height={366}
+            ></Image>
+          </div>
+          <div className="mt-[12rem]">
+            <Image
+              src={infoImages[1]}
+              alt="hackquest"
+              width={677}
+              height={341.5}
+            ></Image>
+          </div>
+
+          <div className="mt-[12rem]">
+            <Image
+              src={infoImages[3]}
+              alt="hackquest"
+              width={547}
+              height={324}
+            ></Image>
+          </div>
+        </div>
+        <div className="flex flex-col gap-[12.5rem] mt-[9.75rem]">
+          {infoList.map((item, index) => {
+            return (
+              <div key={index} className="flex justify-between">
+                <div className="relative flex flex-col gap-[1.25rem]">
+                  <div className="relative w-[20rem] top-line"></div>
+                  <div>
+                    <RightBottomIcon
+                      width={17}
+                      height={16}
+                      color="#F5F5F5"
+                    ></RightBottomIcon>
+                  </div>
+                  <h1 className="w-[18rem] text-[#F5F5F5] text-[2rem] font-next-book-bold tracking-[0.02rem]">
+                    {item.title}
+                  </h1>
+                  <div className="w-[18.375rem] text-[#F5F5F5] text-[1rem] font-normal tracking-[0.01rem]">
+                    {item.description}
+                  </div>
                 </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </div>
   );

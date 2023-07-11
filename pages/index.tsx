@@ -21,7 +21,7 @@ const Landing: NextPage<any> = (props) => {
       <HomeBanner></HomeBanner>
       <HomeCourseTab></HomeCourseTab>
       <HackQuestInfo></HackQuestInfo>
-      <div className="mt-[21.81rem]">
+      <div className="mt-[6.25rem]">
         <JoinUs></JoinUs>
       </div>
     </div>
