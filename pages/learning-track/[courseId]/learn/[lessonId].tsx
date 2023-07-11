@@ -62,7 +62,7 @@ export const getServerSideProps: GetServerSideProps =
 
       let lesson = null;
       try {
-        lesson = await webApi.courseApi.getLessonContent(lessonId as any);
+        lesson = await webApi.courseApi.getLessonContent(lessonId as string);
       } catch (e: any) {
         // message.error(`Course detail ${e.message}`);
         console.log(e);
