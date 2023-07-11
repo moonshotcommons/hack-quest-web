@@ -1,9 +1,15 @@
 import LockIcon from '@/components/Common/Icon/Lock';
 import { computeProgress } from '@/helper/formate';
 import { getCourseLink } from '@/helper/utils';
-import { CourseType, CourseUnitType } from '@/service/webApi/course/type';
-import { Progress } from 'antd';
+import {
+  CourseDetailType,
+  CourseType,
+  CourseUnitType
+} from '@/service/webApi/course/type';
+import { Progress, Typography } from 'antd';
+import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { FC, ReactNode } from 'react';
 import styled from 'styled-components';
 
@@ -20,10 +26,13 @@ interface UnitCardProps {
   unit: CourseUnitType;
   isLock?: boolean;
   courseType?: CourseType;
+  index: number;
+  courseDetail?: CourseDetailType;
+  learningLessonId: string;
 }
 
 const UnitButton: FC<UnitCardProps> = (props) => {
-  const { unit, isLock } = props;
+  const { unit, isLock, learningLessonId } = props;
   if (isLock) {
     return null;
   }
@@ -48,16 +57,46 @@ const UnitButton: FC<UnitCardProps> = (props) => {
 };
 
 const UnitCard: FC<UnitCardProps> = (props) => {
-  const { unit, isLock = true, courseType } = props;
+  const {
+    unit,
+    isLock = true,
+    courseDetail,
+    courseType,
+    index,
+    learningLessonId
+  } = props;
+  const router = useRouter();
+  // console.log(CardStyle);
   return (
     <div className="py-[1.5rem] flex  items-center">
-      <div className="w-[23.25rem] h-[9.8125rem] bg-[#151515] rounded-[1.25rem]"></div>
-      <div className="ml-[3.69rem] flex-1">
-        <h2 className="font-next-book-bold font-bold text-[1.5rem] text-[#F2F2F2]">
+      <div
+        className={`w-[23.25rem] h-[9.8125rem] bg-[#151515] rounded-[1.25rem] overflow-hidden ${
+          unit.progress === 1 ? 'cursor-pointer' : ''
+        }`}
+        onClick={(e) => {
+          if (unit.progress === 1) {
+            router.replace(`/${getCourseLink(courseType)}/${unit.id}`);
+          }
+        }}
+      >
+        <Image
+          src={`/images/unit/unit_cover/${index + 1}.png`}
+          alt="cover"
+          width={372}
+          height={157}
+        ></Image>
+      </div>
+      <div className="ml-[3.69rem] h-[9.8125rem] w-[22.4375rem]">
+        <h2 className="font-next-book-bold font-bold text-[1.5rem] mt-[1.72rem] text-[#F2F2F2] leading-[120%]">
           {unit.name}
         </h2>
-        <div className="text-[#676767] font-next-book leading-[120%]">
-          {unit.description}
+        <div>
+          <Typography.Paragraph
+            ellipsis={{ rows: 3 }}
+            className="text-[#676767] font-next-book leading-[120%] text-base mt-4 "
+          >
+            {unit.description}
+          </Typography.Paragraph>
         </div>
       </div>
       <div className="text-white flex-1 flex items-center justify-center">
@@ -77,9 +116,16 @@ const UnitCard: FC<UnitCardProps> = (props) => {
       </div>
       <Link
         className="flex-1 flex justify-end"
-        href={`${getCourseLink(courseType, 'unit')}/${unit.id}`}
+        href={`${getCourseLink(courseType)}/${
+          courseDetail?.name
+        }/learn/${learningLessonId}`}
       >
-        <UnitButton unit={unit} isLock={isLock}></UnitButton>
+        <UnitButton
+          unit={unit}
+          isLock={isLock}
+          index={index}
+          learningLessonId={learningLessonId}
+        ></UnitButton>
       </Link>
     </div>
   );

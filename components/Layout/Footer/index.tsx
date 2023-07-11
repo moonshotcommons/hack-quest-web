@@ -5,6 +5,7 @@ import TwitterIcon from '@/components/Common/Icon/Twitter';
 import DiscordIcon from '@/components/Common/Icon/Discord';
 import InstagramIcon from '@/components/Common/Icon/Instagram';
 import Link from 'next/link';
+import ContractUs from '@/components/Home/ContractUs';
 
 const Footer = () => {
   return (
@@ -33,26 +34,7 @@ const Footer = () => {
           </ul>
           <div className="flex flex-col gap-[1.25rem]">
             <p>Contact us:</p>
-            <ul className="flex gap-[1.25rem]">
-              <Link
-                href={'https://twitter.com/_hackquest'}
-                className="hover:scale-[1.1] cursor-pointer"
-              >
-                <TwitterIcon />
-              </Link>
-              <Link
-                href={'https://discord.gg/KkAJHPqywn'}
-                className="hover:scale-[1.1] cursor-pointer"
-              >
-                <DiscordIcon />
-              </Link>
-              <Link
-                href={'https://www.instagram.com/_hackquest/'}
-                className="hover:scale-[1.1] cursor-pointer"
-              >
-                <InstagramIcon />
-              </Link>
-            </ul>
+            <ContractUs></ContractUs>
           </div>
         </div>
       </div>

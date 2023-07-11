@@ -23,10 +23,14 @@ module.exports = {
         'next-poster': ['NEXT Poster'],
         'next-poster-Thin': ['NEXT Poster Thin'],
         'neuemachina-light': ['Neue Machina Light'],
-        neuemachina: ['Neue Machina']
+        neuemachina: ['Neue Machina'],
+        'futura-bold': ['Futura Bold'],
+        'futura-book': ['Futura Book'],
+        'Sofia-Pro-Light-Az': ['Sofia Pro;']
       },
       screens: {
         xs: '480px',
+
         sm: '640px',
         // => @media (min-width: 640px) { ... }
 

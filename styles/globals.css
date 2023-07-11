@@ -1,35 +1,4 @@
-@font-face {
-  font-family: 'Neue Machina Light';
-  src: url('../fonts/neuemachina/neuemachina-light.otf');
-}
-@font-face {
-  font-family: 'Neue Machina';
-  src: url('../fonts/neuemachina/neuemachina-regular.otf');
-}
-@font-face {
-  font-family: 'NEXT Poster';
-  src: url('../fonts/Next/NEXT-Poster-Regular.otf');
-}
-@font-face {
-  font-family: 'NEXT Poster Thin';
-  src: url('../fonts/Next/NEXT-Poster-Thin.otf');
-}
-@font-face {
-  font-family: 'NEXT Poster Bold';
-  src: url('../fonts/Next/NEXT-Poster-Bold.otf');
-}
-@font-face {
-  font-family: 'NEXT Book';
-  src: url('../fonts/Next/NEXT-Book-Regular.otf');
-}
-@font-face {
-  font-family: 'NEXT Book Thin';
-  src: url('../fonts/Next/NEXT-Book-Thin.otf');
-}
-@font-face {
-  font-family: 'NEXT Book Bold';
-  src: url('../fonts/Next/NEXT-Book-Bold.otf');
-}
+@import url('./font.css');
 
 @tailwind base;
 @tailwind components;
@@ -38,6 +7,45 @@
 @layer components {
   .button-hover {
     @apply font-next-book text-base font-bold text-white;
+  }
+
+  .gray-1 {
+    @apply text-[#F2F2F2];
+  }
+  .gray-2 {
+    @apply text-[#B2B2B2];
+  }
+
+  .gray-3 {
+    @apply text-[#676767];
+  }
+
+  .gray-4 {
+    @apply text-[#282828];
+  }
+
+  .card-bg {
+    @apply bg-[#131313];
+  }
+
+  .text-h1 {
+    @apply text-[#EDEDED] font-next-book-bold text-[5rem] font-bold leading-[100%];
+  }
+
+  .text-title {
+    @apply text-[#EDEDED]  font-next-book-bold font-bold leading-[100%] text-[1.125rem];
+  }
+
+  .text-des-lg {
+    @apply w-[29.25rem] text-[#EDEDED] font-next-book font-normal text-[1rem] leading-[120%];
+  }
+
+  .text-des-sm {
+    @apply w-[16.625rem] text-[#EDEDED] font-next-book font-normal text-[.875rem] leading-[128%];
+  }
+
+  .text-des-sx {
+    @apply w-[29.25rem] text-[#EDEDED] font-next-book-Thin text-[.75rem] leading-[120%];
   }
 
   .button-disable {
@@ -49,11 +57,11 @@
   }
 
   .top-line {
-    @apply after:absolute after:h-[1px] after:scale-y-[0.25] after:w-full after:bg-[#525252] after:-top-1;
+    @apply after:absolute after:h-[1px] after:scale-y-[1] after:w-full after:bg-[#282828] after:-top-1;
   }
 
   .bottom-line {
-    @apply before:absolute before:h-[1px] before:scale-y-[0.25] before:w-full before:bg-[#525252] before:-bottom-1;
+    @apply before:absolute before:h-[1px] before:scale-y-[1] before:w-full before:bg-[#282828] before:-bottom-1;
   }
 
   .description {
@@ -68,6 +76,22 @@
     @apply hover:bg-white hover:text-black;
   }
 }
+
+@layer utilities {
+  @variants responsive {
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .no-scrollbar {
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+    }
+  }
+}
+
 /* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -91,3 +115,7 @@ body {
     )
     rgb(var(--background-start-rgb));
 } */
+* {
+  margin: 0;
+  padding: 0;
+}

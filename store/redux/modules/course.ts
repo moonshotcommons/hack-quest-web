@@ -1,23 +1,34 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';
 import webApi from '@/service';
-import { CourseResponse } from '@/service/webApi/course/type';
+import {
+  CourseLessonType,
+  CourseResponse,
+  UnitPagesListType
+} from '@/service/webApi/course/type';
 import { message } from 'antd';
+import { DropData } from '@/components/Common/DropDown/type';
 
 export interface CourseStateType {
   courseList: CourseResponse[];
   count: number;
+  unitsLessonsList: UnitPagesListType[];
 }
 
 const courseSlice = createSlice({
   name: 'course',
   initialState: {
     courseList: [],
-    count: 0
+    count: 0,
+    unitsLessonsList: []
   } as CourseStateType,
   reducers: {
     increment(state, { type, payload }) {
       state.count = payload;
+    },
+
+    setUnitsLessonsList(state, { type, payload }) {
+      state.unitsLessonsList = payload;
     }
   },
   extraReducers: (builder) => {
@@ -48,5 +59,5 @@ export const getCourseList = createAsyncThunk('getCourseList', async () => {
 });
 
 // 同步的action
-export const { increment } = courseSlice.actions;
+export const { increment, setUnitsLessonsList } = courseSlice.actions;
 export default courseSlice.reducer;

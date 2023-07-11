@@ -1,11 +1,38 @@
-import Layout, { LayoutProps } from '@/components/Layout';
+import BaseLayout, { LayoutProps } from '@/components/Layout';
 import ThemeContextProvider from '@/store/context/theme';
+import '@/styles/Lesson.scss';
 import '@/styles/globals.css';
+import '@/styles/main.scss';
+import '@/styles/button.scss';
+import '@/styles/codemirror.scss';
+import '@/styles/Quest.scss';
+
 import type { AppContext, AppProps } from 'next/app';
 import App from 'next/app';
 
 import { Provider } from 'react-redux';
 import wrapper from '@/store/redux';
+import UnitLayout from '@/components/Layout/UnitLayout';
+import { ReactNode } from 'react';
+import HomeLayout from '@/components/Layout/HomeLayout';
+
+const Layout = (props: {
+  pathname: string;
+  children: ReactNode;
+  navbarData: any;
+}) => {
+  const { pathname, children, navbarData } = props;
+  const regex = /\/[^/]+\/\[courseId\]\/learn\/\[lessonId\]/;
+  switch (true) {
+    case regex.test(pathname):
+      return <UnitLayout>{children}</UnitLayout>;
+    case pathname === '/':
+      return <HomeLayout>{children}</HomeLayout>;
+    default:
+      return <BaseLayout navbarData={navbarData}>{children}</BaseLayout>;
+  }
+};
+
 function MyApp(appProps: AppProps & LayoutProps) {
   const { Component, router, navbarData, ...rest } = appProps;
   const { store, props } = wrapper.useWrappedStore(rest);
@@ -17,18 +44,57 @@ function MyApp(appProps: AppProps & LayoutProps) {
     // server
   }
 
-  switch (pathname) {
-    default:
-      return (
-        <Provider store={store}>
-          <ThemeContextProvider>
-            <Layout {...props.pageProps} navbarData={navbarData}>
-              <Component {...props.pageProps} />
-            </Layout>
-          </ThemeContextProvider>
-        </Provider>
-      );
-  }
+  // const regex = /\/[^/]+\/\[...course\]/;
+  // console.log(regex.test(pathname));
+
+  // console.log(pathname, '测试', regex.test(pathname));
+  const regex = /\/[^/]+\/\[courseId\]\/learn\/\[lessonId\]/;
+  // switch (true) {
+  //   case regex.test(pathname):
+  //     return (
+  //       <Provider store={store}>
+  //         <ThemeContextProvider>
+  //           <UnitLayout>
+  //             <Component {...props.pageProps} />
+  //           </UnitLayout>
+  //         </ThemeContextProvider>
+  //       </Provider>
+  //     );
+  //   case regex.test(pathname):
+  //     return (
+  //       <Provider store={store}>
+  //         <ThemeContextProvider>
+  //           <UnitLayout>
+  //             <Component {...props.pageProps} />
+  //           </UnitLayout>
+  //         </ThemeContextProvider>
+  //       </Provider>
+  //     );
+  //   default:
+  //     return (
+  //       <Provider store={store}>
+  //         <ThemeContextProvider>
+  //           <BaseLayout {...props.pageProps} navbarData={navbarData}>
+  //             <Component {...props.pageProps} />
+  //           </BaseLayout>
+  //         </ThemeContextProvider>
+  //       </Provider>
+  //     );
+  // }
+
+  return (
+    <Provider store={store}>
+      <ThemeContextProvider>
+        <Layout
+          {...props.pageProps}
+          navbarData={navbarData}
+          pathname={pathname}
+        >
+          <Component {...props.pageProps} />
+        </Layout>
+      </ThemeContextProvider>
+    </Provider>
+  );
 }
 
 MyApp.getInitialProps = async (
