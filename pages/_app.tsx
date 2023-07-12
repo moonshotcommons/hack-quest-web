@@ -1,8 +1,8 @@
 import BaseLayout, { LayoutProps } from '@/components/Layout';
 import ThemeContextProvider from '@/store/context/theme';
-import '@/styles/Lesson.scss';
 import '@/styles/globals.css';
 import '@/styles/main.scss';
+import '@/styles/Lesson.scss';
 import '@/styles/button.scss';
 import '@/styles/codemirror.scss';
 import '@/styles/Quest.scss';
@@ -15,6 +15,7 @@ import wrapper from '@/store/redux';
 import UnitLayout from '@/components/Layout/UnitLayout';
 import { ReactNode } from 'react';
 import HomeLayout from '@/components/Layout/HomeLayout';
+import LoginLayout from '@/components/Layout/LoginLayout';
 
 const Layout = (props: {
   pathname: string;
@@ -23,11 +24,19 @@ const Layout = (props: {
 }) => {
   const { pathname, children, navbarData } = props;
   const regex = /\/[^/]+\/\[courseId\]\/learn\/\[lessonId\]/;
+  console.log(pathname);
   switch (true) {
     case regex.test(pathname):
       return <UnitLayout>{children}</UnitLayout>;
     case pathname === '/':
       return <HomeLayout>{children}</HomeLayout>;
+    case [
+      '/register',
+      '/login',
+      '/users/email-confirmed',
+      '/users/email-verify'
+    ].includes(pathname):
+      return <LoginLayout>{children}</LoginLayout>;
     default:
       return <BaseLayout navbarData={navbarData}>{children}</BaseLayout>;
   }
@@ -43,44 +52,6 @@ function MyApp(appProps: AppProps & LayoutProps) {
   } else {
     // server
   }
-
-  // const regex = /\/[^/]+\/\[...course\]/;
-  // console.log(regex.test(pathname));
-
-  // console.log(pathname, '测试', regex.test(pathname));
-  const regex = /\/[^/]+\/\[courseId\]\/learn\/\[lessonId\]/;
-  // switch (true) {
-  //   case regex.test(pathname):
-  //     return (
-  //       <Provider store={store}>
-  //         <ThemeContextProvider>
-  //           <UnitLayout>
-  //             <Component {...props.pageProps} />
-  //           </UnitLayout>
-  //         </ThemeContextProvider>
-  //       </Provider>
-  //     );
-  //   case regex.test(pathname):
-  //     return (
-  //       <Provider store={store}>
-  //         <ThemeContextProvider>
-  //           <UnitLayout>
-  //             <Component {...props.pageProps} />
-  //           </UnitLayout>
-  //         </ThemeContextProvider>
-  //       </Provider>
-  //     );
-  //   default:
-  //     return (
-  //       <Provider store={store}>
-  //         <ThemeContextProvider>
-  //           <BaseLayout {...props.pageProps} navbarData={navbarData}>
-  //             <Component {...props.pageProps} />
-  //           </BaseLayout>
-  //         </ThemeContextProvider>
-  //       </Provider>
-  //     );
-  // }
 
   return (
     <Provider store={store}>

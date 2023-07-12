@@ -1,31 +1,17 @@
 import WebService from '@/service/webService/webService';
+import {
+  LoginParamsType,
+  LoginResponse,
+  RegisterParamsType,
+  RegisterResponse
+} from './type';
 
 export enum UserApiType {
-  VerifyUser = '/auth/verify',
-  CheckEmail = '/users/search',
-  Login = '/auth/signin'
+  CheckEmail = '/api/users/verify',
+  UserRegister = '/api/users',
+  UserLogin = '/api/users/signin',
+  TokenVerify = '/api/users/token'
 }
-
-// /** verify token是否有效 */
-// export const apiUserVerify = () => {
-//   return request.get<{ username: string }>({
-//     url: UserApiType.VerifyUser
-//   });
-// };
-
-// /** 检索邮箱是否注册 */
-// export const apiUserSearch = (email: string) => {
-//   return request.get({
-//     url: `${UserApiType.CheckEmail}/?email=${email}`
-//   });
-// };
-
-// export const apiUserLogin = (loginParams: object) => {
-//   return request.post<{ username: string }>({
-//     url: UserApiType.Login,
-//     data: loginParams
-//   });
-// };
 
 class UserApi {
   protected service: WebService;
@@ -33,15 +19,31 @@ class UserApi {
     this.service = service;
   }
 
-  /** 检索邮箱是否注册 */
-  checkEmail(email: string) {
-    return this.service.get<any>(`${UserApiType.CheckEmail}/?email=${email}`);
+  /** 检查邮箱是否存在 */
+  checkEmailExists(email: string) {
+    const url = `${UserApiType.CheckEmail}?email=${email}`;
+    return this.service.get(url);
+  }
+
+  /** 用户注册 */
+  userRegister(params: RegisterParamsType) {
+    const url = `${UserApiType.UserRegister}`;
+    return this.service.post<RegisterResponse>(url, {
+      data: params
+    });
   }
 
   /** 用户登录 */
-  login(loginParams: object) {
-    return this.service.post<{ username: string }>(UserApiType.Login, {
-      data: loginParams
+  userLogin(params: LoginParamsType) {
+    const url = `${UserApiType.UserLogin}`;
+    return this.service.post<LoginResponse>(url, {
+      data: params
+    });
+  }
+
+  tokenVerify(token: { token: string }) {
+    return this.service.post<LoginResponse>(UserApiType.TokenVerify, {
+      data: token
     });
   }
 }
