@@ -10,6 +10,7 @@ const IconKeys = tuple(
   'Instagram',
   'LeftArrow',
   'Lock',
+  'Pass',
   'Progress',
   'Right',
   'RightArrow',
