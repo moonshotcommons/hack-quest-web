@@ -27,7 +27,7 @@ class UserApi {
 
   /** 用户注册 */
   userRegister(params: RegisterParamsType) {
-    const url = `${UserApiType.UserLogin}`;
+    const url = `${UserApiType.UserRegister}`;
     return this.service.post<RegisterResponse>(url, {
       data: params
     });
