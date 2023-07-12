@@ -10,6 +10,7 @@ import { useLoginValidator } from '@/hooks/useLoginValidator';
 import { Radio } from 'antd';
 import { NextPage } from 'next';
 import Link from 'next/link';
+import webApi from '@/service';
 
 const CustomButton: FC<ButtonProps> = (props) => {
   const { children } = props;
@@ -26,16 +27,24 @@ const CustomButton: FC<ButtonProps> = (props) => {
 };
 
 interface VerifyEmailProps {
-  // children: ReactNode;
+  onStatusChange: (status: boolean) => void;
+  onNext: (email: string) => void;
 }
 
 const VerifyEmail: FC<VerifyEmailProps> = (props) => {
+  const { onStatusChange, onNext } = props;
+
   const [formData, setFormData] = useState<{
     email: string;
   }>({
     email: ''
   });
-  const { validator } = useLoginValidator(formData);
+
+  const [status, setStatus] = useState<any>('default');
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const { validator } = useLoginValidator(['email']);
+
   return (
     <div className="px-[6.875rem] py-[17.0625rem] h-full flex flex-col justify-center items-center">
       {/* <ThirdPartyLogin></ThirdPartyLogin> */}
@@ -49,24 +58,21 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
           type="email"
           placeholder="Email"
           name="email"
-          // state={formData.email.state}
-          // errorMessage={formData.email.error}
+          state={status}
+          errorMessage={errorMessage}
           delay={500}
-          rules={[
-            {
-              type: 'string',
-              required: true,
-              pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-              message: 'illegal email'
-            },
-            {
-              // message
-              asyncValidator(rule, value, callback, source, options) {
-                // 验证邮箱是否存在
-              }
-            }
-          ]}
           onChange={(e) => {
+            validator.validate({ email: e.target.value }, (errors, fields) => {
+              if (errors?.[0]) {
+                setStatus('error');
+                setErrorMessage(errors?.[0].message || '');
+                onStatusChange(false);
+              } else {
+                setStatus('success');
+                setErrorMessage('');
+                onStatusChange(true);
+              }
+            });
             setFormData({
               ...formData,
               email: e.target.value
@@ -76,7 +82,14 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
         <CustomButton
           onClick={() => {
             validator.validate(formData, (errors, fields) => {
-              console.log(errors, fields);
+              if (errors?.[0]) {
+                setStatus('error');
+                setErrorMessage(errors?.[0].message || '');
+              } else {
+                setStatus('success');
+                setErrorMessage('');
+                onNext(formData.email);
+              }
             });
           }}
           block

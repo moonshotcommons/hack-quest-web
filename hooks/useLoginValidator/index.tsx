@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import Schema, { type Rules } from 'async-validator';
+import Schema, { Rule, type Rules } from 'async-validator';
+import webApi from '@/service';
 
 export type FormStatusType = 'default' | 'error' | 'success';
 export type FormErrorType = string | null | undefined;
@@ -11,52 +12,104 @@ export type FormDataItemType = {
 export interface FormDataType {
   email: FormDataItemType;
   password: FormDataItemType;
-  verifyPassword: FormDataItemType;
+  reenterPassword: FormDataItemType;
 }
 
-export const useLoginValidator = (formData: any) => {
-  const [formStateData, setFormStateData] = useState<FormDataType>({
-    email: {
-      value: '',
-      error: null,
-      state: 'default'
-    },
-    password: {
-      value: '',
-      error: null,
-      state: 'default'
-    },
-    verifyPassword: {
-      value: '',
-      error: null,
-      state: 'default'
+const checkEmailRules: Rule = [
+  {
+    type: 'string',
+    required: true,
+    pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+    message: 'illegal email'
+  },
+  {
+    async asyncValidator(rule, value, callback, source, options) {
+      // 验证邮箱是否存在
+      return new Promise((resolve, reject) => {
+        webApi.userApi
+          .checkEmailExists(value)
+          .then((res) => {
+            // onStatusChange(false);
+
+            resolve();
+          })
+          .catch((e) => {
+            // onStatusChange(true);
+            reject('email does not exist.');
+            // 'Email already exists, please register with another email, or'
+          });
+      });
+    }
+  }
+];
+
+const checkRegisterEmailRules: Rule = [
+  {
+    type: 'string',
+    required: true,
+    pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+    message: 'illegal email'
+  },
+  {
+    async asyncValidator(rule, value, callback, source, options) {
+      // 验证邮箱是否存在
+      return new Promise((resolve, reject) => {
+        webApi.userApi
+          .checkEmailExists(value)
+          .then((res) => {
+            // onStatusChange(false);
+            reject(
+              'Email already exists, please register with another email, or.'
+            );
+          })
+          .catch((e) => {
+            // onStatusChange(true);
+            resolve();
+            // 'Email already exists, please register with another email, or'
+          });
+      });
+    }
+  }
+];
+
+const checkPasswordRules: Rule = {
+  type: 'string',
+  required: true,
+  pattern: /^(?=.*\d)(?=.*[a-zA-Z]).{8,16}$/,
+  message: 'illegal password'
+};
+
+const checkReenterPasswordRules: Rule = {
+  type: 'string',
+  required: true,
+  pattern: /^(?=.*\d)(?=.*[a-zA-Z]).{8,16}$/,
+  message: 'illegal password'
+};
+
+export const useLoginValidator = (
+  types: ('email' | 'password' | 'reenterPassword' | 'registerEmail')[]
+) => {
+  const [status, setStatus] = useState<FormStatusType>('default');
+  const [errorMessage, setErrorMessage] = useState('');
+  let descriptor: Record<string, Rule> = {};
+  types.forEach((type) => {
+    switch (type) {
+      case 'email':
+        descriptor[type] = checkEmailRules;
+        break;
+      case 'registerEmail':
+        descriptor[type] = checkRegisterEmailRules;
+        break;
+      case 'password':
+        descriptor[type] = checkPasswordRules;
+        break;
+      case 'reenterPassword':
+        descriptor[type] = checkReenterPasswordRules;
+        break;
     }
   });
 
-  const descriptor: Rules = {
-    email: {
-      type: 'string',
-      required: true,
-      pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-      message: 'illegal email'
-    },
-    password: {
-      type: 'string',
-      required: true,
-      pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$/,
-      message: 'illegal password'
-    },
-    verifyPassword: {
-      type: 'string',
-      required: true,
-      pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$/,
-      message: 'illegal password',
-      validator(rule, value, callback, source, options) {
-        return formData.password === formData.verifyPassword;
-      }
-    }
-  };
   const validator = new Schema(descriptor);
 
-  return { formStateData, validator, setFormStateData };
+  return { validator, status, errorMessage, setStatus, setErrorMessage };
 };

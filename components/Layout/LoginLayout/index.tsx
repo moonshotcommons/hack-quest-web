@@ -31,7 +31,7 @@ const LoginLayout: React.FC<LoginLayoutProps> = ({ children }) => {
         ></Image>
         <h1 className="absolute text-[4.6985rem] text-[#EDEDED] left-[5.31rem] top-[13.19rem] font-neuemachina-light w-[23.375rem] leading-[102%]">{`Let's Begin the </Quest>!`}</h1>
       </div>
-      <main className="w-full h-full relative">{children}</main>
+      <main className="relative w-full h-full min-h-screen">{children}</main>
       {/* <Footer {...footerData} /> */}
     </div>
   );

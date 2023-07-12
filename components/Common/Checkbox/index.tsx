@@ -7,7 +7,7 @@ interface CheckboxProps {
 }
 
 const Checkbox: FC<CheckboxProps> = (props) => {
-  const { checked: propsChecked = false } = props;
+  const { checked: propsChecked = false, onChange } = props;
 
   const [checked, setChecked] = useState(propsChecked);
 
@@ -19,13 +19,14 @@ const Checkbox: FC<CheckboxProps> = (props) => {
     <div
       onClick={() => {
         setChecked(!checked);
+        onChange?.(!checked);
       }}
       className="cursor-pointer"
     >
       <input type="checkbox" className="hidden" checked={checked} />
       <span className="w-[1.5rem] h-[1.5rem] border border-solid rounded-full border-[#EDEDED] block">
         {checked ? (
-          <span className="rounded-full w-full h-full bg-[#9EFA13] block scale-50"></span>
+          <span className="rounded-full w-full h-full bg-[#9EFA13] block scale-50 hover:bg-[#ededed]"></span>
         ) : null}
       </span>
     </div>

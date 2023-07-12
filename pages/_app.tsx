@@ -30,7 +30,12 @@ const Layout = (props: {
       return <UnitLayout>{children}</UnitLayout>;
     case pathname === '/':
       return <HomeLayout>{children}</HomeLayout>;
-    case ['/register', '/login'].includes(pathname):
+    case [
+      '/register',
+      '/login',
+      '/users/email-confirmed',
+      '/users/email-verify'
+    ].includes(pathname):
       return <LoginLayout>{children}</LoginLayout>;
     default:
       return <BaseLayout navbarData={navbarData}>{children}</BaseLayout>;

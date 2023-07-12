@@ -25,6 +25,7 @@ interface InputProps {
   errorMessage?: string | null | undefined;
   rules?: Rule;
   delay?: number;
+  defaultValue?: string;
 }
 
 export interface InputRef {
@@ -45,12 +46,29 @@ const Input = forwardRef<
     state: propsState,
     errorMessage: propsErrorMessage,
     name,
-    rules = {},
+    rules,
     delay = 0,
     onChange,
+    defaultValue = '',
     ...rest
   } = props;
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const [status, setStatus] = useState(propsState);
+  const [errorMessage, setErrorMessage] = useState('');
+  const descriptor: Rules = {
+    [name]: rules || {}
+  };
+  const validator = new Schema(descriptor);
+  const [value, setValue] = useState(defaultValue);
+
+  useEffect(() => {
+    setStatus(propsState);
+  }, [propsState]);
+
+  useEffect(() => {
+    setErrorMessage(propsErrorMessage || '');
+  }, [propsErrorMessage]);
 
   useImperativeHandle(ref, () => {
     return {
@@ -59,31 +77,29 @@ const Input = forwardRef<
       },
       blur: () => {
         inputRef.current?.blur();
+      },
+      setStatus(value: any) {
+        setStatus(value);
+      },
+      setErrorMessage(value: any) {
+        setErrorMessage(value);
       }
     };
   });
-  const [status, setStatus] = useState(propsState);
-  const [errorMessage, setErrorMessage] = useState('');
-  const descriptor: Rules = {
-    [name]: rules
-  };
-  const validator = new Schema(descriptor);
-
-  useEffect(() => {
-    setStatus(propsState);
-  }, [propsState]);
 
   const { run } = useDebounceFn(
     (e) => {
-      validator.validate({ [name]: e.target.value }, (errors, fields) => {
-        if (errors && errors[0]) {
-          setStatus('error');
-          setErrorMessage(errors[0].message || '');
-        } else {
-          setStatus('success');
-          setErrorMessage('');
-        }
-      });
+      if (rules) {
+        validator.validate({ [name]: e.target.value }, (errors, fields) => {
+          if (errors && errors[0]) {
+            setStatus('error');
+            setErrorMessage(errors[0].message || '');
+          } else {
+            setStatus('success');
+            setErrorMessage('');
+          }
+        });
+      }
 
       onChange?.(e);
     },
@@ -99,6 +115,7 @@ const Input = forwardRef<
         <input
           ref={inputRef}
           type={type}
+          value={value}
           placeholder={placeholder}
           className={cn(
             `w-[33.0625rem] border border-solid border-[#5B5B5B] outline-none bg-transparent px-[1.5rem] py-[1.12rem] rounded-[2.5rem] text-[#5B5B5B] text-[1.25rem] font-next-book leading-[118.5%] caret-[#5B5B5B] hover:border-white focus:border-white focus:text-white`,
@@ -107,7 +124,10 @@ const Input = forwardRef<
               : '',
             status === 'error' ? 'border-[#FF4747] focus:border-[#FF4747]' : ''
           )}
-          onChange={(e) => run(e)}
+          onChange={(e) => {
+            setValue(e.target.value);
+            run(e);
+          }}
           {...rest}
         />
         <span className="absolute right-[1.4375rem] top-[50%] -translate-y-[50%]">

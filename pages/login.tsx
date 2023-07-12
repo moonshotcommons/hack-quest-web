@@ -32,12 +32,26 @@ const RegisterPage: NextPage<any> = () => {
   }>({
     email: ''
   });
-  const { validator } = useLoginValidator(formData);
+  // const { validator } = useLoginValidator(formData);
 
+  const [emailCheckStatus, setEmailCheckStatus] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
+  const [email, setEmail] = useState('');
   return (
     <div className="w-full h-full flex justify-end items-center">
-      <VerifyEmail></VerifyEmail>
-      {/* <UserLogin></UserLogin> */}
+      {!showLogin ? (
+        <VerifyEmail
+          onStatusChange={(status) => setEmailCheckStatus(status)}
+          onNext={(email: string) => {
+            if (emailCheckStatus) {
+              setShowLogin(true);
+              setEmail(email);
+            }
+          }}
+        ></VerifyEmail>
+      ) : (
+        <UserLogin email={email}></UserLogin>
+      )}
     </div>
   );
 };
