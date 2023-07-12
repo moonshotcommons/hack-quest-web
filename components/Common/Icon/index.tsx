@@ -9,6 +9,7 @@ import FlightSideWayIcon from './FlightSideWay';
 import InstagramIcon from './Instagram';
 import LeftArrowIcon from './LeftArrow';
 import LockIcon from './Lock';
+import PassIcon from './Pass';
 import ProgressIcon from './Progress';
 import RightIcon from './Right';
 import RightArrowIcon from './RightArrow';
@@ -29,6 +30,7 @@ const Icons: IconsType = {
   Instagram: <InstagramIcon />,
   LeftArrow: <LeftArrowIcon />,
   Lock: <LockIcon />,
+  Pass: <PassIcon />,
   Progress: <ProgressIcon />,
   Right: <RightIcon />,
   RightArrow: <RightArrowIcon />,

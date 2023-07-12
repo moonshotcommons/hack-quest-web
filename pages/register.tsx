@@ -1,32 +1,15 @@
 import Button from '@/components/Common/Button';
 import { ButtonProps } from '@/components/Common/Button';
 import Checkbox from '@/components/Common/Checkbox';
+import RightIcon from '@/components/Common/Icon/Right';
+import RightArrowIcon from '@/components/Common/Icon/RightArrow';
 import Input from '@/components/Common/Input';
 import { cn } from '@/helper/utils';
+import { useLoginValidator } from '@/hooks/useLoginValidator';
 import { Radio } from 'antd';
 import { NextPage } from 'next';
 import Link from 'next/link';
 import { FC, useState } from 'react';
-import Schema, { type Rules } from 'async-validator';
-import { useForm } from 'react-hook-form';
-
-interface FormState {
-  email: {
-    value: string;
-    error: string | null;
-    state: 'default' | 'error' | 'success';
-  };
-  password: {
-    value: string;
-    error: string | null;
-    state: 'default' | 'error' | 'success';
-  };
-  verifyPassword: {
-    value: string;
-    error: string | null;
-    state: 'default' | 'error' | 'success';
-  };
-}
 
 const CustomButton: FC<ButtonProps> = (props) => {
   const { children } = props;
@@ -42,83 +25,18 @@ const CustomButton: FC<ButtonProps> = (props) => {
   );
 };
 
-const RegisterPage: NextPage<any> = (props) => {
-  // const { nowCards, syntaxCards, tracksCards } = props;
-  const [formState, setFormState] = useState<FormState>({
-    email: {
-      value: '',
-      error: null,
-      state: 'default'
-    },
-    password: {
-      value: '',
-      error: null,
-      state: 'default'
-    },
-    verifyPassword: {
-      value: '',
-      error: null,
-      state: 'default'
-    }
+const RegisterPage: NextPage<any> = () => {
+  const [formData, setFormData] = useState<{
+    email: string;
+    password: string;
+    verifyPassword: string;
+  }>({
+    email: '',
+    password: '',
+    verifyPassword: ''
   });
+  const { validator } = useLoginValidator(formData);
 
-  const onSubmit = (data: any) => {
-    console.log('执行');
-    console.log(data);
-  };
-
-  const descriptor: Rules = {
-    email: {
-      type: 'string',
-      required: true,
-      pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-      message: 'illegal email'
-    },
-    password: {
-      type: 'string',
-      required: true,
-      pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$/,
-      message: 'illegal password'
-    },
-    verifyPassword: {
-      type: 'string',
-      required: true,
-      pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$/,
-      message: 'illegal password',
-      validator(rule, value, callback, source, options) {
-        let values: {
-          value: string;
-          error: string | null | undefined;
-          state: 'error' | 'success' | 'default';
-        } = {
-          value: value,
-          error: null,
-          state: 'default'
-        };
-        if (value && (rule.pattern as RegExp).test(value)) {
-          values = {
-            value: value,
-            error: null,
-            state: 'success'
-          };
-        } else {
-          values = {
-            value: value,
-            error:
-              typeof rule.message === 'string'
-                ? rule.message
-                : rule.message?.(''),
-            state: 'error'
-          };
-        }
-        setFormState({
-          ...formState,
-          [rule.field as string]: values
-        });
-      }
-    }
-  };
-  const validator = new Schema(descriptor);
   return (
     <div className="relative">
       <div className="w-full flex justify-end">
@@ -129,56 +47,120 @@ const RegisterPage: NextPage<any> = (props) => {
               Register
             </p>
 
-            <Input label="Email" type="email" placeholder="Email"></Input>
+            <Input
+              label="Email"
+              type="email"
+              placeholder="Email"
+              name="email"
+              // state={formData.email.state}
+              // errorMessage={formData.email.error}
+              delay={500}
+              rules={[
+                {
+                  type: 'string',
+                  required: true,
+                  pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                  message: 'illegal email'
+                },
+                {
+                  asyncValidator(rule, value, callback, source, options) {
+                    // 验证邮箱
+                  }
+                }
+              ]}
+              onChange={(e) => {
+                setFormData({
+                  ...formData,
+                  email: e.target.value
+                });
+              }}
+            ></Input>
             <Input
               label="Password"
               type="password"
+              name="password"
               placeholder="Password"
               description="Use 8 or more characters with a mix of letters & numbers"
-              // rules={}
+              // state={formData.password.state}
+              // errorMessage={formData.password.error}
+              delay={500}
+              rules={{
+                type: 'string',
+                required: true,
+                pattern: /^(?=.*\d)(?=.*[a-zA-Z]).{8,16}$/,
+                message: 'illegal password'
+              }}
+              onChange={(e) => {
+                setFormData({
+                  ...formData,
+                  password: e.target.value
+                });
+              }}
             ></Input>
             <Input
               label="Re-enter password"
               type="password"
               placeholder="Password"
-              state={formState.verifyPassword.state}
-              errorMessage={formState.verifyPassword.error}
-              onChange={(e) => {
-                validator.validate(
-                  { verifyPassword: e.target.value },
-                  (errors, fields) => {
-                    // setFormState({
-                    //   ...formState,
-                    //   verifyPassword: {
-                    //     value:
-                    //   }
-                    // });
-                    console.log(errors, fields);
+              name="verifyPassword"
+              // state={formData.verifyPassword.state}
+              // errorMessage={formData.verifyPassword.error}
+              delay={500}
+              rules={[
+                {
+                  type: 'string',
+                  required: true,
+                  pattern: /^(?=.*\d)(?=.*[a-zA-Z]).{8,16}$/,
+                  message:
+                    'Use 8 or more characters with a mix of letters & numbers'
+                },
+                {
+                  type: 'string',
+                  message: 'Those passwords didn’t match. Try again.',
+                  validator(rule, value) {
+                    return value === formData.password;
                   }
-                );
+                }
+              ]}
+              onChange={(e) => {
+                setFormData({
+                  ...formData,
+                  verifyPassword: e.target.value
+                });
               }}
             ></Input>
-            <Input label="Email" type="email" placeholder="Email"></Input>
-            <input type="email" />
-            <input type="submit" className="text-white"></input>
-
-            <div className="flex gap-[0.5rem] text-[#ACACAC] font-Sofia-Pro-Light-Az font-light leading-[150%] tracking-[-0.011rem]">
-              <span>See our</span>
-              <Link href={'/'}>
-                <span className="text-[#F8F8F8] font-semibold">
-                  Privacy Policy
-                </span>
-              </Link>
-              <span>for more details</span>
+            <div className="flex flex-col gap-[.5rem]">
+              <div className="flex gap-[0.5rem] text-[#ACACAC] font-Sofia-Pro-Light-Az font-light leading-[150%] tracking-[-0.011rem]">
+                <span>See our</span>
+                <Link href={'/'}>
+                  <span className="text-[#F8F8F8] font-semibold">
+                    Privacy Policy
+                  </span>
+                </Link>
+                <span>for more details</span>
+              </div>
+              <div className="flex gap-[.75rem]">
+                <Checkbox></Checkbox>
+                <p className="text-[#676767] text-[1rem] font-Sofia-Pro-Light-Az tracking-[-0.011rem]">
+                  I have red and accept the Terms and Conditions
+                </p>
+              </div>
             </div>
-            {/* <Checkbox></Checkbox> */}
             <CustomButton
               onClick={() => {
-                console.log('提交');
-                // handleSubmit(onSubmit);
+                validator.validate(formData, (errors, fields) => {
+                  console.log(errors, fields);
+                });
               }}
+              block
             >
-              提交
+              <div className="flex items-center gap-[1.25rem]">
+                <span className="text-[1.25rem] font-next-book text-white leading-[118.5%]">
+                  Create Account
+                </span>
+                <span>
+                  <RightArrowIcon></RightArrowIcon>
+                </span>
+              </div>
             </CustomButton>
           </div>
         </div>
