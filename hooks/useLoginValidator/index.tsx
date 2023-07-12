@@ -98,7 +98,7 @@ export const useLoginValidator = (
         descriptor[type] = checkEmailRules;
         break;
       case 'registerEmail':
-        descriptor[type] = checkRegisterEmailRules;
+        descriptor['email'] = checkRegisterEmailRules;
         break;
       case 'password':
         descriptor[type] = checkPasswordRules;
