@@ -7,7 +7,7 @@ interface JoinUsProps {}
 const JoinUs: FC<JoinUsProps> = (props) => {
   return (
     <div className="text-white flex justify-between">
-      <div>
+      <div className="-ml-[3.4rem]">
         <Image
           src={'/images/home/join_us.png'}
           alt="join_us"

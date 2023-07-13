@@ -12,7 +12,7 @@ import { NextPage } from 'next';
 import Link from 'next/link';
 import uuid from 'uuid';
 import Tab, { TabItem } from '@/components/Common/Tab';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import type { GetServerSideProps } from 'next';
 import wrapper, { AppDispatch, AppRootState } from '@/store/redux';
@@ -20,6 +20,7 @@ import { getCourseList, increment } from '@/store/redux/modules/course';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { CourseResponse, CourseType } from '@/service/webApi/course/type';
 import { getCourseLink } from '@/helper/utils';
+import { useRouter } from 'next/router';
 
 interface CoursesProps {
   nowCards: CourseResponse[];
@@ -118,6 +119,25 @@ const Courses: NextPage<CoursesProps> = (props) => {
     guidedProjectCards,
     conceptCards
   } = props;
+
+  const router = useRouter();
+
+  const { courseType } = router.query;
+  const hashCourseTypeRef = useRef<HTMLElement>();
+
+  const courseHashHandler = () => {};
+
+  useEffect(() => {
+    if (courseType) {
+      if (hashCourseTypeRef.current) {
+        document.documentElement.scrollTo({
+          top: hashCourseTypeRef.current.offsetTop,
+          behavior: 'smooth'
+        });
+      }
+    }
+  }, [courseType]);
+
   const tabs: TabItem[] = [
     {
       title: 'Syntax',
@@ -144,7 +164,9 @@ const Courses: NextPage<CoursesProps> = (props) => {
     };
   }, shallowEqual);
 
-  const [selectTab, setSelectTab] = useState<CourseType>(tabs[0].type);
+  const [selectTab, setSelectTab] = useState<CourseType>(
+    (courseType as CourseType) || tabs[0].type
+  );
 
   const onSelect = (item: TabItem) => {
     setSelectTab(item.type);
@@ -182,11 +204,13 @@ const Courses: NextPage<CoursesProps> = (props) => {
           })}
         </div>
       </SliderContainer>
-      <div className="mt-[2.875rem]">
-        <Tab tabs={tabs} onSelect={onSelect} defaultSelect={selectTab}></Tab>
-      </div>
+      <div ref={hashCourseTypeRef as any}>
+        <div className="mt-[2.875rem]">
+          <Tab tabs={tabs} onSelect={onSelect} defaultSelect={selectTab}></Tab>
+        </div>
 
-      <div className="flex flex-wrap gap-[3.25rem] mt-10">{renderCards}</div>
+        <div className="flex flex-wrap gap-[3.25rem] mt-10">{renderCards}</div>
+      </div>
     </>
   );
 };
