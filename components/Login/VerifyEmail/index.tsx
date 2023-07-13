@@ -11,6 +11,7 @@ import { Radio } from 'antd';
 import { NextPage } from 'next';
 import Link from 'next/link';
 import webApi from '@/service';
+import { useDebounce, useDebounceFn } from 'ahooks';
 
 const CustomButton: FC<ButtonProps> = (props) => {
   const { children } = props;
@@ -44,6 +45,22 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
   const [errorMessage, setErrorMessage] = useState('');
 
   const { validator } = useLoginValidator(['email']);
+
+  const { run: verifyEmail } = useDebounceFn(
+    () => {
+      validator.validate(formData, (errors, fields) => {
+        if (errors?.[0]) {
+          setStatus('error');
+          setErrorMessage(errors?.[0].message || '');
+        } else {
+          setStatus('success');
+          setErrorMessage('');
+          onNext(formData.email);
+        }
+      });
+    },
+    { wait: 500 }
+  );
 
   return (
     <div className="px-[6.875rem] py-[17.0625rem] h-full flex flex-col justify-center items-center">
@@ -79,21 +96,7 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
             });
           }}
         ></Input>
-        <CustomButton
-          onClick={() => {
-            validator.validate(formData, (errors, fields) => {
-              if (errors?.[0]) {
-                setStatus('error');
-                setErrorMessage(errors?.[0].message || '');
-              } else {
-                setStatus('success');
-                setErrorMessage('');
-                onNext(formData.email);
-              }
-            });
-          }}
-          block
-        >
+        <CustomButton onClick={verifyEmail} block>
           <div className="flex items-center gap-[1.25rem]">
             <span className="text-[1.25rem] font-next-book text-white leading-[118.5%]">
               Next

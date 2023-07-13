@@ -25,7 +25,9 @@ class WebApi {
 let webApi = null;
 
 if (!webApi) {
-  webApi = new WebApi(process.env.BASE_URL || 'https://api-dev.hackquest.io/');
+  webApi = new WebApi(
+    process.env.BACKEND_BASE_URL || 'https://api-dev.hackquest.io/'
+  );
 }
 
 export default webApi as WebApi;

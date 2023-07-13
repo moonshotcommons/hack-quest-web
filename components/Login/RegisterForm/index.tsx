@@ -7,6 +7,7 @@ import Input from '@/components/Common/Input';
 import { cn } from '@/helper/utils';
 import { useLoginValidator } from '@/hooks/useLoginValidator';
 import webApi from '@/service';
+import { useDebounce, useDebounceFn } from 'ahooks';
 import { Radio, message } from 'antd';
 import { NextPage } from 'next';
 import Link from 'next/link';
@@ -66,6 +67,39 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
   const [acceptErrorMessage, setAcceptErrorMessage] = useState('');
 
   const router = useRouter();
+
+  const { run: onRegister } = useDebounceFn(
+    () => {
+      if (!acceptConditions) {
+        setAcceptErrorMessage('');
+        return;
+      }
+      validator.validate(formData, async (errors, fields) => {
+        if (!errors) {
+          const status: any = { ...formState };
+          for (let key in status) {
+            status[key] = { status: 'success', errorMessage: '' };
+          }
+          try {
+            const res = await webApi.userApi.userRegister(formData);
+            router.push('/users/email-verify');
+          } catch (e: any) {
+            message.error(e.msg);
+          }
+        } else {
+          const status: any = { ...formState };
+          errors.map((error) => {
+            status[error.field as string] = {
+              status: 'error',
+              errorMessage: error.message
+            };
+          });
+          setFormState(status);
+        }
+      });
+    },
+    { wait: 500 }
+  );
 
   return (
     <div className="w-[48.8125rem] h-full flex justify-center">
@@ -202,38 +236,7 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
             </p>
           </div>
         </div>
-        <CustomButton
-          onClick={() => {
-            if (!acceptConditions) {
-              setAcceptErrorMessage('');
-              return;
-            }
-            validator.validate(formData, async (errors, fields) => {
-              if (!errors) {
-                const status: any = { ...formState };
-                for (let key in status) {
-                  status[key] = { status: 'success', errorMessage: '' };
-                }
-                try {
-                  const res = await webApi.userApi.userRegister(formData);
-                  router.push('/users/email-verify');
-                } catch (e: any) {
-                  message.error(e.msg);
-                }
-              } else {
-                const status: any = { ...formState };
-                errors.map((error) => {
-                  status[error.field as string] = {
-                    status: 'error',
-                    errorMessage: error.message
-                  };
-                });
-                setFormState(status);
-              }
-            });
-          }}
-          block
-        >
+        <CustomButton onClick={onRegister} block>
           <div className="flex items-center gap-[1.25rem]">
             <span className="text-[1.25rem] font-next-book text-white leading-[118.5%]">
               Create Account

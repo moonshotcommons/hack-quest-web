@@ -15,6 +15,7 @@ import { LoginParamsType } from '@/service/webApi/user/type';
 import { useDispatch } from 'react-redux';
 import { setUserInfo } from '@/store/redux/modules/user';
 import { useRouter } from 'next/router';
+import { useDebounceFn } from 'ahooks';
 
 const CustomButton: FC<ButtonProps> = (props) => {
   const { children } = props;
@@ -60,6 +61,42 @@ const UserLogin: FC<UserLoginProps> = (props) => {
   const { validator } = useLoginValidator(['email', 'password']);
   const router = useRouter();
   const passwordInputRef = useRef<any>(null);
+
+  const { run: onLogin } = useDebounceFn(
+    () => {
+      validator.validate(formData, async (errors, fields) => {
+        if (!errors) {
+          try {
+            const res = await webApi.userApi.userLogin(formData);
+            const status: any = { ...formState };
+            for (let key in status) {
+              status[key] = { status: 'success', errorMessage: '' };
+            }
+            dispatch(setUserInfo(res));
+            router.push('/courses');
+          } catch (e: any) {
+            passwordInputRef.current?.setStatus?.('error');
+            passwordInputRef.current?.setErrorMessage?.(e.msg);
+            if (e.code === 400) {
+              setTimeout(() => {
+                router.push('/users/email-verify');
+              }, 1000);
+            }
+          }
+        } else {
+          const status: any = { ...formState };
+          errors.map((error) => {
+            status[error.field as string] = {
+              status: 'error',
+              errorMessage: error.message
+            };
+          });
+          setFormState(status);
+        }
+      });
+    },
+    { wait: 500 }
+  );
 
   return (
     <div className="px-[6.875rem] py-[11.3125rem] h-full flex flex-col justify-center items-center">
@@ -126,41 +163,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
             Keep me logged in
           </p>
         </div>
-        <CustomButton
-          onClick={() => {
-            validator.validate(formData, async (errors, fields) => {
-              if (!errors) {
-                const status: any = { ...formState };
-                for (let key in status) {
-                  status[key] = { status: 'success', errorMessage: '' };
-                }
-                try {
-                  const res = await webApi.userApi.userLogin(formData);
-                  dispatch(setUserInfo(res));
-                  router.push('/courses');
-                } catch (e: any) {
-                  passwordInputRef.current?.setStatus?.('error');
-                  passwordInputRef.current?.setErrorMessage?.(e.msg);
-                  if (e.code === 400) {
-                    setTimeout(() => {
-                      router.push('/users/email-verify');
-                    }, 1000);
-                  }
-                }
-              } else {
-                const status: any = { ...formState };
-                errors.map((error) => {
-                  status[error.field as string] = {
-                    status: 'error',
-                    errorMessage: error.message
-                  };
-                });
-                setFormState(status);
-              }
-            });
-          }}
-          block
-        >
+        <CustomButton onClick={onLogin} block>
           <div className="flex items-center gap-[1.25rem]">
             <span className="text-[1.25rem] font-next-book text-white leading-[118.5%]">
               Next
