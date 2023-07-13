@@ -12,7 +12,6 @@ class WebService {
   instance: AxiosInstance;
   interceptors?: RequestInterceptors;
   constructor(config: CreateAxiosDefaults) {
-    console.log(config, '---------------');
     this.instance = axios.create(config);
     // this.interceptors = config.interceptors
     this.addInterceptors();
@@ -33,6 +32,10 @@ class WebService {
 
   addInterceptors() {
     if (!this.interceptors) {
+      this.instance.interceptors.request.use(
+        this.requestInterceptor,
+        this.requestInterceptorCatch
+      );
       this.instance.interceptors.response.use(
         this.responseInterceptor,
         this.responseInterceptorCatch
@@ -43,7 +46,6 @@ class WebService {
   requestInterceptor(
     config: InternalAxiosRequestConfig
   ): InternalAxiosRequestConfig {
-    console.log('拦截请求');
     const token = getToken();
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;
@@ -52,8 +54,6 @@ class WebService {
   }
 
   requestInterceptorCatch(err: AxiosError): Promise<AxiosError> {
-    // console.log('全局请求失败拦截器')
-
     return Promise.reject(err);
   }
 

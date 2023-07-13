@@ -99,7 +99,7 @@ const LessonHeader: FC<LessonHeaderProps> = (props) => {
       <div className="w-full flex items-center justify-between">
         <div className="flex items-center gap-[.75rem]">
           <Link
-            href={`${getCourseLink(courseType)}/${lesson.courseId}`}
+            href={`${getCourseLink(courseType)}/${lesson?.courseId}`}
             className="max-w-fit flex items-center justify-center p-2 rounded-full bg-[#000] border border-solid border-[#303030] hover:bg-[#303030] cursor-pointer"
           >
             <LeftArrowIcon></LeftArrowIcon>

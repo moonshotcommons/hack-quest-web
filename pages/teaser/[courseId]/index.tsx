@@ -28,7 +28,7 @@ const SyntaxDetail: NextPage<IProps> = (props) => {
       <CourseDetailInfo courseDetail={courseDetail}></CourseDetailInfo>
       <div className="mt-[4rem]">
         <CourseDescription>
-          {courseDetail.aboutDesc?.map((item) => {
+          {courseDetail?.aboutDesc?.map((item) => {
             return <Block key={item.id} block={item}></Block>;
           })}
         </CourseDescription>
