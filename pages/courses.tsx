@@ -17,10 +17,11 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { GetServerSideProps } from 'next';
 import wrapper, { AppDispatch, AppRootState } from '@/store/redux';
 import { getCourseList, increment } from '@/store/redux/modules/course';
-import { useDispatch, useSelector, shallowEqual } from 'react-redux';
+import { useDispatch, useSelector, shallowEqual, useStore } from 'react-redux';
 import { CourseResponse, CourseType } from '@/service/webApi/course/type';
 import { getCourseLink } from '@/helper/utils';
 import { useRouter } from 'next/router';
+import { useScrollToElement } from '@/hooks/useScrollToElement';
 
 interface CoursesProps {
   nowCards: CourseResponse[];
@@ -114,18 +115,11 @@ const Courses: NextPage<CoursesProps> = (props) => {
   const { nowCards, tracksCards } = props;
 
   const router = useRouter();
-
+  const dispatch = useDispatch<AppDispatch>();
   const { courseType } = router.query;
   const hashCourseTypeRef = useRef<HTMLElement>();
 
-  useEffect(() => {
-    if (courseType && hashCourseTypeRef.current) {
-      document.documentElement.scrollTo({
-        top: hashCourseTypeRef.current.offsetTop,
-        behavior: 'smooth'
-      });
-    }
-  }, [courseType]);
+  useScrollToElement(hashCourseTypeRef.current, courseType as CourseType);
 
   const tabs: TabItem[] = [
     {
@@ -175,6 +169,10 @@ const Courses: NextPage<CoursesProps> = (props) => {
     );
   }, [selectTab, courseList]);
 
+  useEffect(() => {
+    dispatch(getCourseList());
+  }, [dispatch]);
+
   return (
     <>
       <Title className="font-bold">{'</Trending Now>'}</Title>
@@ -197,7 +195,6 @@ const Courses: NextPage<CoursesProps> = (props) => {
         <div className="mt-[2.875rem]">
           <Tab tabs={tabs} onSelect={onSelect} defaultSelect={selectTab}></Tab>
         </div>
-
         <div className="flex flex-wrap gap-[3.25rem] mt-10">{renderCards}</div>
       </div>
     </>
@@ -210,7 +207,7 @@ export const getServerSideProps: GetServerSideProps =
   wrapper.getServerSideProps(function (store) {
     return async (context) => {
       // 1.触发一个异步的action来发起网络请求, 拿到搜索建议并存到redex中
-      await store.dispatch(getCourseList());
+      // await store.dispatch(getCourseList());
       // 2.发起网络请求获取其他数据，通过返回props传递
       return {
         props: {

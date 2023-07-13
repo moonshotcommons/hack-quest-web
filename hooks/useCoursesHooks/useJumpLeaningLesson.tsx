@@ -15,11 +15,11 @@ export const useJumpLeaningLesson = (courseDetail: CourseDetailType) => {
     },
     {
       manual: true,
-      onSuccess(res) {
+      onSuccess(pageId) {
         router.push(
           `${getCourseLink(courseDetail?.type)}/${
             courseDetail?.name
-          }/learn/${res}`
+          }/learn/${pageId}`
         );
       },
       onError(err: any) {

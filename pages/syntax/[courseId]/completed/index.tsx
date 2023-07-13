@@ -13,14 +13,9 @@ import Image from 'next/image';
 import { shallowEqual, useSelector } from 'react-redux';
 import Congrats from '@/public/images/course/congrats.svg';
 
-interface IProps {
-  courseId: string;
-  courseDetail?: CourseDetailType;
-  lessonId: string;
-}
+interface IProps {}
 
 const SyntaxDetail: NextPage<IProps> = (props) => {
-  const { courseId, courseDetail, lessonId } = props;
   return (
     <div className="w-[59.125rem] h-[22.6875rem] bg-[#141414] rounded-[2.5rem] m-auto mt-[10.5rem] flex flex-col items-center">
       <div className="mt-[5rem]">
@@ -33,40 +28,5 @@ const SyntaxDetail: NextPage<IProps> = (props) => {
     </div>
   );
 };
-
-// Syntax.getInitialProps = (context) => {
-//   const { courseId } = context.query;
-//   return {
-//     courseId: courseId as string
-//   };
-// };
-
-export const getServerSideProps: GetServerSideProps =
-  wrapper.getServerSideProps(function (store) {
-    return async (context) => {
-      const { courseId } = context.query;
-      // let courseDetail = null;
-      // let lessonId;
-      // try {
-      //   courseDetail = await webApi.courseApi.getCourseDetail(
-      //     courseId as string,
-      //     true
-      //   );
-      //   lessonId = await webApi.courseApi.getLearningLessonId(
-      //     courseId as string
-      //   );
-      // } catch (e: any) {
-      //   // message.error(`Course detail ${e.message}`);
-      //   console.log(e);
-      // }
-      return {
-        props: {
-          courseId
-          // courseDetail: courseDetail,
-          // lessonId: lessonId?.pageId
-        }
-      };
-    };
-  });
 
 export default SyntaxDetail;

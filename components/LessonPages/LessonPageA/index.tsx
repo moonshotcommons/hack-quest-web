@@ -32,6 +32,7 @@ const LessonPageA: FC<LessonPageAProps> = (props) => {
   }, shallowEqual);
 
   const onPass = useCallback(async () => {
+    setPass(true);
     try {
       await webApi.courseApi.completeLesson(lesson.id);
       let currentUnitIndex = unitsLessonsList.findIndex((unit) => {
@@ -48,7 +49,6 @@ const LessonPageA: FC<LessonPageAProps> = (props) => {
         setCompleteModalOpen(true);
         return;
       }
-      setPass(true);
     } catch (e) {
       console.log('完成状态发生错误', e);
     }

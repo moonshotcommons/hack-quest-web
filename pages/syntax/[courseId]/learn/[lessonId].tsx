@@ -14,27 +14,15 @@ import LessonHeader from '@/components/LessonPages/LessonHeader';
 import LessonPageA from '@/components/LessonPages/LessonPageA';
 import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
+import { useGetLessonContent } from '@/hooks/useCoursesHooks/useGetLessenContent';
 
 interface IProps {}
 
 const SyntaxUnit: NextPage<IProps> = (props) => {
-  const [lesson, setLesson] = useState<any>(null);
   const router = useRouter();
   const { lessonId } = router.query;
-  useEffect(() => {
-    webApi.courseApi
-      .getLessonContent(lessonId as string)
-      .then((res) => {
-        setLesson(res);
-      })
-      .catch((error) => {
-        if (error.code === 401) {
-          router.push('/login');
-        } else {
-          router.push('/404');
-        }
-      });
-  }, [lessonId, router]);
+
+  const { lesson } = useGetLessonContent(lessonId as string);
 
   const LessonPage = useMemo(() => {
     if (lesson) {

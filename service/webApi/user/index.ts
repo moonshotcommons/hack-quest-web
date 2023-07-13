@@ -36,9 +36,12 @@ class UserApi {
   /** 用户登录 */
   userLogin(params: LoginParamsType) {
     const url = `${UserApiType.UserLogin}`;
-    return this.service.post<LoginResponse>(url, {
-      data: params
-    });
+    return this.service.post<LoginResponse | { isFail: boolean; msg: string }>(
+      url,
+      {
+        data: params
+      }
+    );
   }
 
   tokenVerify(token: { token: string }) {

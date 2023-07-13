@@ -8,19 +8,30 @@ import { tagFormate } from '@/helper/formate';
 import webApi from '@/service';
 import { CourseDetailType } from '@/service/webApi/course/type';
 import wrapper, { AppRootState } from '@/store/redux';
+import { useRequest } from 'ahooks';
 import { Typography, message } from 'antd';
 import type { GetServerSideProps, NextPage } from 'next';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 
 interface IProps {
-  courseId: string;
-  courseDetail: CourseDetailType;
-  lessonId: string;
+  //   courseId: string;
+  //   courseDetail: CourseDetailType;
 }
 
 const SyntaxDetail: NextPage<IProps> = (props) => {
-  const { courseId, courseDetail, lessonId } = props;
+  const router = useRouter();
+  const { courseId } = router.query;
+  const [courseDetail, setCourseDetail] = useState<CourseDetailType>();
+
+  useEffect(() => {
+    webApi.courseApi.getCourseDetail(courseId as string, true).then((res) => {
+      setCourseDetail(res);
+    });
+  }, [courseId, router, setCourseDetail]);
+
   return (
     <div className="px-[5.5rem]">
       <CourseDetailBanner courseDetail={courseDetail}></CourseDetailBanner>
@@ -42,40 +53,5 @@ const SyntaxDetail: NextPage<IProps> = (props) => {
     </div>
   );
 };
-
-// Syntax.getInitialProps = (context) => {
-//   const { courseId } = context.query;
-//   return {
-//     courseId: courseId as string
-//   };
-// };
-
-export const getServerSideProps: GetServerSideProps =
-  wrapper.getServerSideProps(function (store) {
-    return async (context) => {
-      const { courseId } = context.query;
-      let courseDetail = null;
-      let lessonId;
-      try {
-        courseDetail = await webApi.courseApi.getCourseDetail(
-          courseId as string,
-          true
-        );
-        lessonId = await webApi.courseApi.getLearningLessonId(
-          courseId as string
-        );
-      } catch (e: any) {
-        // message.error(`Course detail ${e.message}`);
-        console.log(e);
-      }
-      return {
-        props: {
-          courseId,
-          courseDetail: courseDetail,
-          lessonId: lessonId?.pageId
-        }
-      };
-    };
-  });
 
 export default SyntaxDetail;

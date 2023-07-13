@@ -7,7 +7,7 @@ import { FC, ReactNode, useEffect, useState } from 'react';
 import UnitCard from './UnitCard';
 
 interface UnitListProps {
-  courseDetail: CourseDetailType;
+  courseDetail?: CourseDetailType;
 }
 
 const UnitList: FC<UnitListProps> = (props) => {
@@ -17,7 +17,6 @@ const UnitList: FC<UnitListProps> = (props) => {
   const [units, setUnits] = useState(courseDetail?.units || []);
 
   useEffect(() => {
-    console.log(courseDetail);
     if (courseDetail?.units?.length) {
       setUnits(courseDetail.units);
     }
@@ -43,7 +42,7 @@ const UnitList: FC<UnitListProps> = (props) => {
           <li key={unit.id} className="w-full relative bottom-line">
             <UnitCard
               unit={unit}
-              isLock={units[index - 1].progress < 1 && !unit.progress}
+              isLock={units[index - 1].progress < 1 || !unit.progress}
               courseType={courseType}
               index={index}
               courseDetail={courseDetail}

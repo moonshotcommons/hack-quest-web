@@ -44,14 +44,16 @@ const CourseDetailBanner: FC<CourseDetailBannerProps> = (props) => {
           {courseDetail?.description}
         </Typography.Paragraph>
 
-        <button
-          className="w-fit px-8 py-4 mt-[1.875rem] border border-solid border-[#F2F2F2] rounded-[2.5rem] text-sm text-[#F2F2F2] primary-button-hover cursor-pointer"
-          onClick={jumpLearningLesson}
-        >
-          {courseDetail?.progress || 0 > 0
-            ? 'Resume Learning'
-            : 'Start Learning'}
-        </button>
+        {courseDetail && (
+          <button
+            className="w-fit px-8 py-4 mt-[1.875rem] border border-solid border-[#F2F2F2] rounded-[2.5rem] text-sm text-[#F2F2F2] primary-button-hover cursor-pointer"
+            onClick={jumpLearningLesson}
+          >
+            {courseDetail?.progress || 0 > 0
+              ? 'Resume Learning'
+              : 'Start Learning'}
+          </button>
+        )}
       </div>
       <div className="-mr-[5.5625rem]">
         {/* <Image
