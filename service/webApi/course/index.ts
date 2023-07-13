@@ -8,6 +8,7 @@ import {
   CourseUnitType,
   UnitPagesListType
 } from './type';
+import { LessonContentType } from '@/constants/lesson';
 
 export enum CourseApiType {
   Course_List = '/api/courses',
@@ -59,7 +60,7 @@ class CourseApi {
   /** 获取单个lesson的内容 */
   getLessonContent(lessonId: string) {
     const url = `${CourseApiType.LessonDetail}/${lessonId}`;
-    return this.service.get<CourseResponse[]>(url);
+    return this.service.get<any>(url);
   }
 
   /** 获取单个lesson的内容 */

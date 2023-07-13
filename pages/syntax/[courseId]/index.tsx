@@ -31,7 +31,7 @@ const SyntaxDetail: NextPage<IProps> = (props) => {
       <CourseDetailInfo courseDetail={courseDetail}></CourseDetailInfo>
       <div className="mt-[4rem]">
         <CourseDescription>
-          {courseDetail.aboutDesc?.map((item) => {
+          {courseDetail?.aboutDesc?.map((item) => {
             return <Block key={item.id} block={item}></Block>;
           })}
         </CourseDescription>
@@ -64,7 +64,7 @@ export const getServerSideProps: GetServerSideProps =
           courseId as string,
           true
         );
-        console.log(courseDetail);
+        // console.log(courseDetail);
       } catch (e: any) {
         // message.error(`Course detail ${e.message}`);
         console.log(e);
