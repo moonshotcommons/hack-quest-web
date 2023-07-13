@@ -24,7 +24,7 @@ interface IProps {
 const SyntaxDetail: NextPage<IProps> = (props) => {
   const router = useRouter();
   const { courseId } = router.query;
-  const [courseDetail, setCourseDetail] = useState<any>(null);
+  const [courseDetail, setCourseDetail] = useState<CourseDetailType>();
 
   useEffect(() => {
     webApi.courseApi.getCourseDetail(courseId as string, true).then((res) => {
@@ -39,7 +39,7 @@ const SyntaxDetail: NextPage<IProps> = (props) => {
       <CourseDetailInfo courseDetail={courseDetail}></CourseDetailInfo>
       <div className="mt-[4rem]">
         <CourseDescription>
-          {courseDetail?.aboutDesc?.map((item: any) => {
+          {courseDetail?.aboutDesc?.map((item) => {
             return <Block key={item.id} block={item}></Block>;
           })}
         </CourseDescription>

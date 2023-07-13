@@ -44,7 +44,9 @@ const formateDropdownData = (
             key: page.id,
             title: page.name,
             data: page,
-            disable: page.state === CompleteStateType.NOT_STARTED,
+            disable:
+              page.state === CompleteStateType.NOT_STARTED &&
+              currentLessonIndex !== pageIndex,
             type: 'page',
             render(itemData) {
               return currentLessonIndex === pageIndex ? (
@@ -73,7 +75,7 @@ const LessonHeader: FC<LessonHeaderProps> = (props) => {
 
   const dispatch = useDispatch();
 
-  const { run } = useRequest(
+  const { run, refresh } = useRequest(
     async () => {
       const data = await webApi.courseApi.getCourseUnitsAndPages(
         lesson.courseId

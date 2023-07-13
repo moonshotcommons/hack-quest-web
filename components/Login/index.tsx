@@ -67,7 +67,13 @@ const UserLogin: FC<UserLoginProps> = (props) => {
       validator.validate(formData, async (errors, fields) => {
         if (!errors) {
           try {
-            const res = await webApi.userApi.userLogin(formData);
+            const res = (await webApi.userApi.userLogin(formData)) as any;
+            if (res.isFail) {
+              setTimeout(() => {
+                router.push('/users/email-verify');
+              }, 200);
+              return;
+            }
             const status: any = { ...formState };
             for (let key in status) {
               status[key] = { status: 'success', errorMessage: '' };

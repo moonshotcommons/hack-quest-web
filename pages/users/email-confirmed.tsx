@@ -40,7 +40,7 @@ const EmailConfirmed: NextPage<EmailConfirmedProps> = (props) => {
     if (jump) {
       if (countDown > 0) {
         const timer = setInterval(() => {
-          setCountDown((prevCount) => prevCount - 1);
+          setCountDown(countDown - 1);
         }, 1000);
         return () => {
           clearInterval(timer);
@@ -61,7 +61,7 @@ const EmailConfirmed: NextPage<EmailConfirmedProps> = (props) => {
         <div className="text-[#676767] font-next-book w-[31.8125rem] leading-[150%] -tracking-[0.011rem]">
           <span>
             Thank you for confirming your email address. You will be redirected
-            to the All Courses page in 3 second.
+            to the All Courses page in {countDown} second.
           </span>
         </div>
       </div>
