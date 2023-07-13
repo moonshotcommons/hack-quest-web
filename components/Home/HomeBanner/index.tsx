@@ -27,13 +27,13 @@ const HomeBanner: FC<HomeBannerProps> = (props) => {
         </div>
         <div className="flex items-center gap-8 mt-[3.62rem]">
           <Link href={'/login'}>
-            <div className="flex items-center w-fit px-[2.5rem] py-[1.25rem] font-next-book text-[#F5F5F5] text-[1rem] rounded-[5rem] border border-solid border-[#F5F5F5] gap-[0.62rem] hover:text-black hover:bg-[#D9D9D9] cursor-pointer ">
+            <div className="flex items-center w-fit px-[2.5rem] py-[1.25rem] font-next-book text-[#F5F5F5] text-[1rem] rounded-[5rem] border border-solid border-[#F5F5F5] gap-[0.62rem] hover:text-black hover:bg-[#D9D9D9] cursor-pointer">
               <div>Sign Up</div>
               <RightIcon></RightIcon>
             </div>
           </Link>
           <Link href={'/courses'}>
-            <div className="flex w-fit text-[#F5F5F5] font-next-book text-[1.25rem] items-center gap-[0.31rem] mt-8">
+            <div className="flex w-fit text-[#F5F5F5] font-next-book text-[1.25rem] items-center gap-[0.31rem]">
               <div>
                 <span>Explore All Course</span>
                 <span className="block h-[.0625rem] w-full bg-[#595959]"></span>

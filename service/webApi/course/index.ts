@@ -43,14 +43,14 @@ class CourseApi {
   }
 
   /** 获取单个unit及其下面的pages */
-  getCourseUnitAndPages(courseId: string, unitId: string) {
-    const url = `${CourseApiType.Course_List}/units/${unitId}`;
+  getCourseUnit(courseId: string, unitId: string) {
+    const url = `${CourseApiType.Course_List}/${courseId}/units/${unitId}`;
     return this.service.get<CourseUnitStateType>(url);
   }
 
   /** 获取每个unit下的所有lesson */
-  getCourseUnitLessons(unitId: string) {
-    const url = `${CourseApiType.Course_List}/units/${unitId}?include=pages`;
+  getCourseUnitLessons(courseId: string, unitId: string) {
+    const url = `${CourseApiType.Course_List}/${courseId}/units/${unitId}?include=pages`;
     return this.service.get<
       CourseUnitStateType & { pages: CourseLessonStateType[] }
     >(url);
