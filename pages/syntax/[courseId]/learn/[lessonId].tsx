@@ -67,26 +67,4 @@ const SyntaxUnit: NextPage<IProps> = (props) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps =
-  wrapper.getServerSideProps(function (store) {
-    return async (context) => {
-      const { lessonId } = context.query;
-
-      // let lesson = null;
-      // try {
-      //   lesson = await webApi.courseApi.getLessonContent(lessonId as string);
-      //   // console.log(lesson);
-      // } catch (e: any) {
-      //   // message.error(`Course detail ${e.message}`);
-      //   console.log(e);
-      //   lesson = {};
-      // }
-      return {
-        props: {
-          // lesson: lesson
-        }
-      };
-    };
-  });
-
 export default SyntaxUnit;

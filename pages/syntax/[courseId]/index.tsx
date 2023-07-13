@@ -17,12 +17,20 @@ import { useEffect, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 
 interface IProps {
-  courseId: string;
-  courseDetail: CourseDetailType;
+  //   courseId: string;
+  //   courseDetail: CourseDetailType;
 }
 
 const SyntaxDetail: NextPage<IProps> = (props) => {
-  const { courseId, courseDetail } = props;
+  const router = useRouter();
+  const { courseId } = router.query;
+  const [courseDetail, setCourseDetail] = useState<any>(null);
+
+  useEffect(() => {
+    webApi.courseApi.getCourseDetail(courseId as string, true).then((res) => {
+      setCourseDetail(res);
+    });
+  }, [courseId, router, setCourseDetail]);
 
   return (
     <div className="px-[5.5rem]">
@@ -31,7 +39,7 @@ const SyntaxDetail: NextPage<IProps> = (props) => {
       <CourseDetailInfo courseDetail={courseDetail}></CourseDetailInfo>
       <div className="mt-[4rem]">
         <CourseDescription>
-          {courseDetail?.aboutDesc?.map((item) => {
+          {courseDetail?.aboutDesc?.map((item: any) => {
             return <Block key={item.id} block={item}></Block>;
           })}
         </CourseDescription>
@@ -45,37 +53,5 @@ const SyntaxDetail: NextPage<IProps> = (props) => {
     </div>
   );
 };
-
-// Syntax.getInitialProps = (context) => {
-//   const { courseId } = context.query;
-//   return {
-//     courseId: courseId as string
-//   };
-// };
-
-export const getServerSideProps: GetServerSideProps =
-  wrapper.getServerSideProps(function (store) {
-    return async (context) => {
-      const { courseId } = context.query;
-      let courseDetail = null;
-      let lessonId;
-      try {
-        courseDetail = await webApi.courseApi.getCourseDetail(
-          courseId as string,
-          true
-        );
-        // console.log(courseDetail);
-      } catch (e: any) {
-        // message.error(`Course detail ${e.message}`);
-        console.log(e);
-      }
-      return {
-        props: {
-          courseId,
-          courseDetail: courseDetail
-        }
-      };
-    };
-  });
 
 export default SyntaxDetail;

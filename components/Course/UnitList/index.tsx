@@ -3,7 +3,7 @@ import {
   CourseType,
   CourseUnitType
 } from '@/service/webApi/course/type';
-import { FC, ReactNode } from 'react';
+import { FC, ReactNode, useEffect, useState } from 'react';
 import UnitCard from './UnitCard';
 
 interface UnitListProps {
@@ -13,7 +13,15 @@ interface UnitListProps {
 const UnitList: FC<UnitListProps> = (props) => {
   const { courseDetail } = props;
 
-  const { units = [], type: courseType } = courseDetail;
+  const { type: courseType } = courseDetail || {};
+  const [units, setUnits] = useState(courseDetail?.units || []);
+
+  useEffect(() => {
+    console.log(courseDetail);
+    if (courseDetail?.units?.length) {
+      setUnits(courseDetail.units);
+    }
+  }, [courseDetail]);
 
   return (
     <ul className="w-full">
