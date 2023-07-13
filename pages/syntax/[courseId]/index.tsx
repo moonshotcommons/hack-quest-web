@@ -79,7 +79,7 @@ export const getServerSideProps: GetServerSideProps =
         props: {
           courseId,
           courseDetail: courseDetail,
-          lessonId: lessonId?.pageId
+          lessonId: lessonId?.pageId || ''
         }
       };
     };

@@ -1,6 +1,7 @@
 import LockIcon from '@/components/Common/Icon/Lock';
 import { computeProgress } from '@/helper/formate';
 import { getCourseLink } from '@/helper/utils';
+import webApi from '@/service';
 import {
   CourseDetailType,
   CourseType,
@@ -66,16 +67,25 @@ const UnitCard: FC<UnitCardProps> = (props) => {
     learningLessonId
   } = props;
   const router = useRouter();
-  // console.log(CardStyle);
+
   return (
     <div className="py-[1.5rem] flex  items-center">
       <div
         className={`w-[23.25rem] h-[9.8125rem] bg-[#151515] rounded-[1.25rem] overflow-hidden ${
           unit.progress === 1 ? 'cursor-pointer' : ''
         }`}
-        onClick={(e) => {
+        onClick={async (e) => {
           if (unit.progress === 1) {
-            router.replace(`/${getCourseLink(courseType)}/${unit.id}`);
+            const unitPages = await webApi.courseApi.getCourseUnitLessons(
+              courseDetail?.id || '',
+              unit.id
+            );
+            const lessonId = unitPages.pages[0]?.id;
+            router.replace(
+              `${getCourseLink(courseType)}/${
+                courseDetail?.name
+              }/learn/${lessonId}`
+            );
           }
         }}
       >
