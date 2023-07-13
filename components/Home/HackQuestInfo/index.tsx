@@ -187,9 +187,9 @@ export const BottomInfo: FC = () => {
           }}
         ></div>
       </div>
-      <div className="gap-[2.5rem] w-full flex justify-center mt-[2.64rem]">
+      <div className="gap-[2.5rem] items-center w-full flex justify-center mt-[2.64rem]">
         <Link href={'/courses'}>
-          <div className="flex w-fit text-[#F5F5F5] font-next-book text-[1.25rem] items-center gap-[0.31rem] mt-8">
+          <div className="flex w-fit text-[#F5F5F5] font-next-book text-[1.25rem] items-center gap-[0.31rem]">
             <div>
               <span>Explore All Course</span>
               <span className="block h-[.0625rem] w-full bg-[#595959]"></span>
