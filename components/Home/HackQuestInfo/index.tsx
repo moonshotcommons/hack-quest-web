@@ -7,6 +7,10 @@ import TeaserInfo from '@/public/images/home/teaser_info.svg';
 import { FC, ReactNode } from 'react';
 import RightBottomIcon from '@/components/Common/Icon/RightBottom';
 import { CourseType } from '@/service/webApi/course/type';
+import Hackquest_info1 from '@/public/images/home/hackquest_info1.png';
+import Hackquest_info3 from '@/public/images/home/hackquest_info3.png';
+import Hackquest_info4 from '@/public/images/home/hackquest_info4.png';
+import Hackquest_info5 from '@/public/images/home/hackquest_info5.png';
 
 interface HackQuestInfoProps {
   // children: ReactNode;
@@ -26,9 +30,9 @@ export const TopInfo: FC = () => {
       <div className="w-full mx-auto flex justify-center mt-[3rem]">
         <Image src={ButtonDeg} alt="hackquset"></Image>
       </div>
-      <div className="gap-[2.5rem] w-full flex justify-center mt-[2.64rem]">
+      <div className="gap-[2.5rem] w-full flex justify-center items-center mt-[2.64rem]">
         <Link href={'/courses'}>
-          <div className="flex w-fit text-[#F5F5F5] font-next-book text-[1.25rem] items-center gap-[0.31rem] mt-8">
+          <div className="flex w-fit text-[#F5F5F5] font-next-book text-[1.25rem] items-center gap-[0.31rem]">
             <div>
               <span>Explore All Course</span>
               <span className="block h-[.0625rem] w-full bg-[#595959]"></span>
@@ -36,6 +40,7 @@ export const TopInfo: FC = () => {
             <SkipIcon></SkipIcon>
           </div>
         </Link>
+
         <Link href={'/login'}>
           <div className="flex items-center w-fit px-[2.5rem] py-[1.25rem] font-next-book text-[#F5F5F5] text-[1rem] rounded-[5rem] border border-solid border-[#F5F5F5] gap-[0.62rem] hover:text-black hover:bg-[#D9D9D9] cursor-pointer">
             <div>Sign Up</div>
@@ -52,26 +57,27 @@ export const CenterInfo: FC = () => {
     {
       title: 'Easy to follow, quick to test',
       description: `Each course is broken into 3-5 minute sessions with a quest to test understanding. Short lesson + quick action = retention!`,
-      image: '/images/home/hackquest_info1.png'
+      image: Hackquest_info1
     },
     {
       title: 'Earn rewards, in addition to skills',
-      description: `Complete quests and unlock exciting rewards: tokens, NFT learning certificates, and even airdrop qualification!`
+      description: `Complete quests and unlock exciting rewards: tokens, NFT learning certificates, and even airdrop qualification!`,
+      image: ''
     },
     {
       title: 'Build Web3 reputation',
       description: `HackQuest generates a gamified developer profile to highlight your Web3 reputation scores, interests and skill proficiency levels based on your in-app activities and GitHub histories. Build your Web3 reputation and unlock new possibilities!`,
-      image: '/images/home/hackquest_info2.png'
+      image: Hackquest_info3
     },
     {
       title: 'Easy to follow, quick to test',
       description: `Learn Solidity syntax and start revealing all the decentralized magic on the Ethereum`,
-      image: '/images/home/hackquest_info3.png'
+      image: Hackquest_info4
     },
     {
       title: 'Easy to follow, quick to test',
       description: `Learn Solidity syntax and start revealing all the decentralized magic on the Ethereum`,
-      image: '/images/home/hackquest_info4.png'
+      image: Hackquest_info5
     }
   ];
 
@@ -87,8 +93,8 @@ export const CenterInfo: FC = () => {
       <h1 className="text-[#F5F5F5] text-center font-next-poster-Bold text-[2.5rem] mt-[9.06rem]">
         What is HackQuest?
       </h1>
-      <div className="flex justify-between">
-        <div>
+      {/* <div className="flex justify-between"> */}
+      {/* <div>
           <div className="mt-[2.5625rem]">
             <Image
               src={infoImages[0]}
@@ -122,33 +128,46 @@ export const CenterInfo: FC = () => {
               height={324}
             ></Image>
           </div>
-        </div>
-        <div className="flex flex-col gap-[12.5rem] mt-[9.75rem]">
-          {infoList.map((item, index) => {
-            return (
-              <div key={index} className="flex justify-between">
-                <div className="relative flex flex-col gap-[1.25rem]">
-                  <div className="relative w-[20rem] top-line"></div>
-                  <div>
-                    <RightBottomIcon
-                      width={17}
-                      height={16}
-                      color="#F5F5F5"
-                    ></RightBottomIcon>
-                  </div>
-                  <h1 className="w-[18rem] text-[#F5F5F5] text-[2rem] font-next-book-bold tracking-[0.02rem]">
-                    {item.title}
-                  </h1>
-                  <div className="w-[18.375rem] text-[#F5F5F5] text-[1rem] font-normal tracking-[0.01rem]">
-                    {item.description}
-                  </div>
+        </div> */}
+      <div className="flex flex-col gap-[2.5rem]">
+        {infoList.map((item, index) => {
+          return (
+            <div
+              key={index}
+              className="flex w-[79.8125rem] h-[26.8125rem] justify-between items-center"
+            >
+              <div
+                className={`w-[41.4375rem] h-[22.0625rem] ${
+                  index === 0 ? '-mt-32' : ''
+                }`}
+              >
+                {item.image ? (
+                  <Image src={item.image} alt="info"></Image>
+                ) : // <div className="w-[42.3125rem] h-[20.0625rem] bg-[#202020]"></div>
+                null}
+              </div>
+              <div className="relative flex flex-col gap-[1.25rem]">
+                <div className="relative w-[20rem] top-line"></div>
+                <div>
+                  <RightBottomIcon
+                    width={17}
+                    height={16}
+                    color="#F5F5F5"
+                  ></RightBottomIcon>
+                </div>
+                <h1 className="w-[18rem] text-[#F5F5F5] text-[2rem] font-next-book-bold tracking-[0.02rem]">
+                  {item.title}
+                </h1>
+                <div className="w-[18.375rem] text-[#F5F5F5] text-[1rem] font-normal tracking-[0.01rem]">
+                  {item.description}
                 </div>
               </div>
-            );
-          })}
-        </div>
+            </div>
+          );
+        })}
       </div>
     </div>
+    // </div>
   );
 };
 
