@@ -111,14 +111,7 @@ const renderCard = (card: CourseResponse) => {
 };
 
 const Courses: NextPage<CoursesProps> = (props) => {
-  const {
-    nowCards,
-    syntaxCards,
-    tracksCards,
-    teaserCards,
-    guidedProjectCards,
-    conceptCards
-  } = props;
+  const { nowCards, tracksCards } = props;
 
   const router = useRouter();
 
