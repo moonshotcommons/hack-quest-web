@@ -8,26 +8,25 @@ import { tagFormate } from '@/helper/formate';
 import webApi from '@/service';
 import { CourseDetailType } from '@/service/webApi/course/type';
 import wrapper, { AppRootState } from '@/store/redux';
+import { useRequest } from 'ahooks';
 import { Typography, message } from 'antd';
 import type { GetServerSideProps, NextPage } from 'next';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 
 interface IProps {
   courseId: string;
   courseDetail: CourseDetailType;
-  lessonId: string;
 }
 
 const SyntaxDetail: NextPage<IProps> = (props) => {
-  const { courseId, courseDetail, lessonId } = props;
-  // console.log(courseDetail);
+  const { courseId, courseDetail } = props;
+
   return (
     <div className="px-[5.5rem]">
-      <CourseDetailBanner
-        courseDetail={courseDetail}
-        learningLessonId={lessonId}
-      ></CourseDetailBanner>
+      <CourseDetailBanner courseDetail={courseDetail}></CourseDetailBanner>
 
       <CourseDetailInfo courseDetail={courseDetail}></CourseDetailInfo>
       <div className="mt-[4rem]">
@@ -41,10 +40,7 @@ const SyntaxDetail: NextPage<IProps> = (props) => {
         Course structure
       </h2>
       <div className="mt-[2.5rem]">
-        <UnitList
-          courseDetail={courseDetail}
-          learningLessonId={lessonId}
-        ></UnitList>
+        <UnitList courseDetail={courseDetail}></UnitList>
       </div>
     </div>
   );
@@ -68,9 +64,7 @@ export const getServerSideProps: GetServerSideProps =
           courseId as string,
           true
         );
-        lessonId = await webApi.courseApi.getLearningLessonId(
-          courseId as string
-        );
+        console.log(courseDetail);
       } catch (e: any) {
         // message.error(`Course detail ${e.message}`);
         console.log(e);
@@ -78,8 +72,7 @@ export const getServerSideProps: GetServerSideProps =
       return {
         props: {
           courseId,
-          courseDetail: courseDetail,
-          lessonId: lessonId?.pageId || ''
+          courseDetail: courseDetail
         }
       };
     };

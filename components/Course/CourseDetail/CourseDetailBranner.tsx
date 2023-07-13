@@ -1,28 +1,32 @@
 import { tagFormate } from '@/helper/formate';
 import { getCourseLink } from '@/helper/utils';
+import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
+import webApi from '@/service';
 import {
   CourseDetailType,
   CourseResponse,
   CourseType,
   CourseUnitType
 } from '@/service/webApi/course/type';
+import { useRequest } from 'ahooks';
 import { Typography } from 'antd';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FC, ReactNode } from 'react';
+import { useRouter } from 'next/router';
+import { FC, ReactNode, useState } from 'react';
 import styled from 'styled-components';
 
 interface CourseDetailBannerProps {
   courseDetail?: CourseDetailType;
-  learningLessonId?: string;
 }
 
 const CourseDetailBanner: FC<CourseDetailBannerProps> = (props) => {
-  const { courseDetail, learningLessonId } = props;
-  const currentLeaningUnit = courseDetail?.units?.find((unit, index) => {
-    if (index === 0 && unit.progress === 0) return unit;
-    if (unit.progress !== 1) return unit;
-  });
+  const { courseDetail } = props;
+
+  const jumpLearningLesson = useJumpLeaningLesson(
+    courseDetail as CourseDetailType
+  );
+
   return (
     <div className="flex justify-end relative">
       <div className="absolute top-[7.77rem] left-0 flex flex-col course-detail-banner z-[9999]">
@@ -39,15 +43,15 @@ const CourseDetailBanner: FC<CourseDetailBannerProps> = (props) => {
         >
           {courseDetail?.description}
         </Typography.Paragraph>
-        <Link
-          href={`${getCourseLink(courseDetail?.type)}/${
-            courseDetail?.name
-          }/learn/${learningLessonId}`}
+
+        <button
+          className="w-fit px-8 py-4 mt-[1.875rem] border border-solid border-[#F2F2F2] rounded-[2.5rem] text-sm text-[#F2F2F2] primary-button-hover cursor-pointer"
+          onClick={jumpLearningLesson}
         >
-          <button className="w-fit px-8 py-4 mt-[1.875rem] border border-solid border-[#F2F2F2] rounded-[2.5rem] text-sm text-[#F2F2F2] primary-button-hover">
-            Start Learning
-          </button>
-        </Link>
+          {courseDetail?.progress || 0 > 0
+            ? 'Resume Learning'
+            : 'Start Learning'}
+        </button>
       </div>
       <div className="-mr-[5.5625rem]">
         {/* <Image

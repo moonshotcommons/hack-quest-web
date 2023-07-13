@@ -8,11 +8,10 @@ import UnitCard from './UnitCard';
 
 interface UnitListProps {
   courseDetail: CourseDetailType;
-  learningLessonId: string;
 }
 
 const UnitList: FC<UnitListProps> = (props) => {
-  const { courseDetail, learningLessonId } = props;
+  const { courseDetail } = props;
 
   const { units = [], type: courseType } = courseDetail;
 
@@ -28,7 +27,6 @@ const UnitList: FC<UnitListProps> = (props) => {
                 courseType={courseType}
                 index={index}
                 courseDetail={courseDetail}
-                learningLessonId={learningLessonId}
               ></UnitCard>
             </li>
           );
@@ -37,11 +35,10 @@ const UnitList: FC<UnitListProps> = (props) => {
           <li key={unit.id} className="w-full relative bottom-line">
             <UnitCard
               unit={unit}
-              isLock={units[index - 1].progress < 1 && unit.progress === 0}
+              isLock={!unit.progress}
               courseType={courseType}
               index={index}
               courseDetail={courseDetail}
-              learningLessonId={learningLessonId}
             ></UnitCard>
           </li>
         );
