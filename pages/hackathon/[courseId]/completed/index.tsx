@@ -34,39 +34,4 @@ const SyntaxDetail: NextPage<IProps> = (props) => {
   );
 };
 
-// Syntax.getInitialProps = (context) => {
-//   const { courseId } = context.query;
-//   return {
-//     courseId: courseId as string
-//   };
-// };
-
-export const getServerSideProps: GetServerSideProps =
-  wrapper.getServerSideProps(function (store) {
-    return async (context) => {
-      const { courseId } = context.query;
-      // let courseDetail = null;
-      // let lessonId;
-      // try {
-      //   courseDetail = await webApi.courseApi.getCourseDetail(
-      //     courseId as string,
-      //     true
-      //   );
-      //   lessonId = await webApi.courseApi.getLearningLessonId(
-      //     courseId as string
-      //   );
-      // } catch (e: any) {
-      //   // message.error(`Course detail ${e.message}`);
-      //   console.log(e);
-      // }
-      return {
-        props: {
-          courseId
-          // courseDetail: courseDetail,
-          // lessonId: lessonId?.pageId
-        }
-      };
-    };
-  });
-
 export default SyntaxDetail;

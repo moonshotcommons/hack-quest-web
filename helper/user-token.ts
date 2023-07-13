@@ -2,16 +2,23 @@
  * @description 存储/获取 user token
  */
 
-const KEY = 'hack_quest_token';
+const KEY = 'token';
 
 export function setToken(token: string) {
-  localStorage.setItem(KEY, token);
+  if (typeof window === 'object') {
+    localStorage.setItem(KEY, token);
+  }
 }
 
 export function getToken() {
-  return localStorage.getItem(KEY) || '';
+  if (typeof window === 'object') {
+    return localStorage.getItem(KEY) || '';
+  }
+  return '';
 }
 
 export function removeToken() {
-  localStorage.removeItem(KEY);
+  if (typeof window === 'object') {
+    localStorage.removeItem(KEY);
+  }
 }

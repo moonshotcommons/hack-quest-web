@@ -64,14 +64,14 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
   ]);
 
   const [acceptConditions, setAcceptCondition] = useState(false);
-  const [acceptErrorMessage, setAcceptErrorMessage] = useState('');
+  const [acceptErrorMessage, setAcceptErrorMessage] = useState(false);
 
   const router = useRouter();
 
   const { run: onRegister } = useDebounceFn(
     () => {
       if (!acceptConditions) {
-        setAcceptErrorMessage('');
+        setAcceptErrorMessage(true);
         return;
       }
       validator.validate(formData, async (errors, fields) => {
@@ -227,11 +227,19 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
           <div className="flex gap-[.75rem]">
             <Checkbox
               onChange={(value) => {
-                console.log(value);
+                if (value) {
+                  setAcceptErrorMessage(false);
+                }
                 setAcceptCondition(value);
               }}
             ></Checkbox>
-            <p className="text-[#676767] text-[1rem] font-Sofia-Pro-Light-Az tracking-[-0.011rem]">
+
+            <p
+              className={cn(
+                `text-[#676767] text-[1rem] font-Sofia-Pro-Light-Az tracking-[-0.011rem]`,
+                acceptErrorMessage ? 'text-[#FF4747]' : ''
+              )}
+            >
               I have red and accept the Terms and Conditions
             </p>
           </div>
