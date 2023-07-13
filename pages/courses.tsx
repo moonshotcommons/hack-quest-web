@@ -125,16 +125,12 @@ const Courses: NextPage<CoursesProps> = (props) => {
   const { courseType } = router.query;
   const hashCourseTypeRef = useRef<HTMLElement>();
 
-  const courseHashHandler = () => {};
-
   useEffect(() => {
-    if (courseType) {
-      if (hashCourseTypeRef.current) {
-        document.documentElement.scrollTo({
-          top: hashCourseTypeRef.current.offsetTop,
-          behavior: 'smooth'
-        });
-      }
+    if (courseType && hashCourseTypeRef.current) {
+      document.documentElement.scrollTo({
+        top: hashCourseTypeRef.current.offsetTop,
+        behavior: 'smooth'
+      });
     }
   }, [courseType]);
 

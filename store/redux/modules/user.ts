@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';
 import webApi from '@/service';
 import { LoginResponse } from '@/service/webApi/user/type';
-
+import { omit } from 'lodash-es';
 export interface UserStateType {
   userInfo: LoginResponse | null;
 }
@@ -10,7 +10,9 @@ export interface UserStateType {
 const userSlice = createSlice({
   name: 'user',
   initialState: {
-    userInfo: null
+    userInfo:
+      null ||
+      (typeof window === 'object' && window.localStorage.getItem('user_info'))
   } as UserStateType,
   reducers: {
     // loginReducer(state, { type, payload }) {
@@ -19,6 +21,11 @@ const userSlice = createSlice({
 
     setUserInfo(state, { type, payload }) {
       state.userInfo = payload;
+      window?.localStorage.setItem(
+        'user_info',
+        JSON.stringify(omit(payload, 'token'))
+      );
+      window.localStorage.setItem('token', payload.token);
     }
   }
   // extraReducers: (builder) => {

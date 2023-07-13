@@ -10,7 +10,7 @@ import { useLoginValidator } from '@/hooks/useLoginValidator';
 import { Radio } from 'antd';
 import { NextPage } from 'next';
 import Link from 'next/link';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 const CustomButton: FC<ButtonProps> = (props) => {
   const { children } = props;
@@ -33,6 +33,8 @@ const RegisterPage: NextPage<any> = () => {
     email: ''
   });
   // const { validator } = useLoginValidator(formData);
+
+  // useEffect(() => {});
 
   const [emailCheckStatus, setEmailCheckStatus] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
