@@ -45,7 +45,9 @@ const CourseDetailBanner: FC<CourseDetailBannerProps> = (props) => {
           }/learn/${learningLessonId}`}
         >
           <button className="w-fit px-8 py-4 mt-[1.875rem] border border-solid border-[#F2F2F2] rounded-[2.5rem] text-sm text-[#F2F2F2] primary-button-hover">
-            Start Learning
+            {courseDetail?.progress || 0 > 0
+              ? 'Resume Learning'
+              : 'Start Learning'}
           </button>
         </Link>
       </div>
