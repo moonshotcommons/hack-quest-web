@@ -2,7 +2,7 @@
  * @description 存储/获取 user token
  */
 
-const KEY = 'hack_quest_token';
+const KEY = 'token';
 
 export function setToken(token: string) {
   localStorage.setItem(KEY, token);

@@ -23,10 +23,7 @@ const SyntaxDetail: NextPage<IProps> = (props) => {
   const { courseId, courseDetail, lessonId } = props;
   return (
     <div className="px-[5.5rem]">
-      <CourseDetailBanner
-        courseDetail={courseDetail}
-        learningLessonId={lessonId}
-      ></CourseDetailBanner>
+      <CourseDetailBanner courseDetail={courseDetail}></CourseDetailBanner>
 
       <CourseDetailInfo courseDetail={courseDetail}></CourseDetailInfo>
       <div className="mt-[4rem]">
@@ -40,10 +37,7 @@ const SyntaxDetail: NextPage<IProps> = (props) => {
         Course structure
       </h2>
       <div className="mt-[2.5rem]">
-        <UnitList
-          courseDetail={courseDetail}
-          learningLessonId={lessonId}
-        ></UnitList>
+        <UnitList courseDetail={courseDetail}></UnitList>
       </div>
     </div>
   );

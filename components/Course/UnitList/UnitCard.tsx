@@ -1,6 +1,7 @@
 import LockIcon from '@/components/Common/Icon/Lock';
 import { computeProgress } from '@/helper/formate';
 import { getCourseLink } from '@/helper/utils';
+import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
 import webApi from '@/service';
 import {
   CourseDetailType,
@@ -11,7 +12,7 @@ import { Progress, Typography } from 'antd';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { FC, ReactNode } from 'react';
+import { ButtonHTMLAttributes, FC, ReactNode } from 'react';
 import styled from 'styled-components';
 
 const CustomProgress = styled(Progress)`
@@ -29,11 +30,12 @@ interface UnitCardProps {
   courseType?: CourseType;
   index: number;
   courseDetail?: CourseDetailType;
-  learningLessonId: string;
 }
 
-const UnitButton: FC<UnitCardProps> = (props) => {
-  const { unit, isLock, learningLessonId } = props;
+const UnitButton: FC<
+  UnitCardProps & ButtonHTMLAttributes<HTMLButtonElement>
+> = (props) => {
+  const { unit, isLock, ...rest } = props;
   if (isLock) {
     return null;
   }
@@ -42,32 +44,33 @@ const UnitButton: FC<UnitCardProps> = (props) => {
     return null;
   }
 
-  if (unit.progress === 0) {
+  if (!unit.progress) {
     return (
-      <button className="px-8 py-4 border border-solid border-[#F2F2F2] rounded-[2.5rem] whitespace-nowrap text-sm text-[#F2F2F2] primary-button-hover">
+      <button
+        className="px-8 py-4 border border-solid border-[#F2F2F2] rounded-[2.5rem] whitespace-nowrap text-sm text-[#F2F2F2] primary-button-hover cursor-pointer"
+        {...rest}
+      >
         Start Learning
       </button>
     );
   }
 
   return (
-    <button className="px-8 py-4 border border-solid border-[#F2F2F2] rounded-[2.5rem] whitespace-nowrap text-sm text-[#F2F2F2] primary-button-hover">
+    <button
+      className="px-8 py-4 border border-solid border-[#F2F2F2] rounded-[2.5rem] whitespace-nowrap text-sm text-[#F2F2F2] primary-button-hover cursor-pointer"
+      {...rest}
+    >
       Resume Learning
     </button>
   );
 };
 
 const UnitCard: FC<UnitCardProps> = (props) => {
-  const {
-    unit,
-    isLock = true,
-    courseDetail,
-    courseType,
-    index,
-    learningLessonId
-  } = props;
+  const { unit, isLock = true, courseDetail, courseType, index } = props;
   const router = useRouter();
-
+  const jumpLearningLesson = useJumpLeaningLesson(
+    courseDetail as CourseDetailType
+  );
   return (
     <div className="py-[1.5rem] flex  items-center">
       <div
@@ -124,19 +127,15 @@ const UnitCard: FC<UnitCardProps> = (props) => {
           ></CustomProgress>
         )}
       </div>
-      <Link
-        className="flex-1 flex justify-end"
-        href={`${getCourseLink(courseType)}/${
-          courseDetail?.name
-        }/learn/${learningLessonId}`}
-      >
+
+      <div className="flex-1">
         <UnitButton
           unit={unit}
           isLock={isLock}
           index={index}
-          learningLessonId={learningLessonId}
+          onClick={jumpLearningLesson}
         ></UnitButton>
-      </Link>
+      </div>
     </div>
   );
 };

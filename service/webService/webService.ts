@@ -43,6 +43,7 @@ class WebService {
   requestInterceptor(
     config: InternalAxiosRequestConfig
   ): InternalAxiosRequestConfig {
+    console.log('拦截请求');
     const token = getToken();
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;
