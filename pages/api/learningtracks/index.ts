@@ -21,10 +21,11 @@ export default function handler(
 }
 
 const getMethodHandler = (req: NextApiRequest, res: NextApiResponse<any>) => {
+  console.log(req);
   res.status(200).json([
     {
       id: uuid?.v4() || '0',
-      type: CourseType.LEARNING_TRACKS,
+      type: CourseType.LEARNING_TRACK,
       name: 'Web 3.0 Programming Advanced',
       level: ['Advanced'],
       description:
@@ -35,7 +36,7 @@ const getMethodHandler = (req: NextApiRequest, res: NextApiResponse<any>) => {
     },
     {
       id: uuid?.v4() || '0',
-      type: CourseType.LEARNING_TRACKS,
+      type: CourseType.LEARNING_TRACK,
       name: 'Web 3.0 Programming Advanced',
       level: ['Advanced'],
       description:

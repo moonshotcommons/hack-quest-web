@@ -39,20 +39,17 @@ const TrackList: FC<TrackListProps> = (props) => {
   return (
     <div>
       <ul className="w-full">
-        {courseList.map((unit, index) => {
+        {courseList.map((course, index) => {
           if (index === 0) {
             return (
-              <li
-                key={index}
-                // key={unit.id}
-                className="w-full relative top-line bottom-line"
-              >
+              <li key={index} className="w-full relative top-line bottom-line">
                 <TrackCard
-                // unit={unit}
-                // isLock={false}
-                // courseType={courseType}
-                // index={index}
-                // courseDetail={courseDetail}
+                  // unit={unit}
+                  course={course}
+                  // isLock={false}
+                  // courseType={courseType}
+                  // index={index}
+                  // courseDetail={courseDetail}
                 ></TrackCard>
               </li>
             );
@@ -64,13 +61,14 @@ const TrackList: FC<TrackListProps> = (props) => {
               className="w-full relative bottom-line"
             >
               <TrackCard
-              // unit={unit}
-              // isLock={
-              //   units[index - 1].progress < 1 || unit.progress === undefined
-              // }
-              // courseType={courseType}
-              // index={index}
-              // courseDetail={courseDetail}
+                course={course}
+                // unit={unit}
+                // isLock={
+                //   units[index - 1].progress < 1 || unit.progress === undefined
+                // }
+                // courseType={courseType}
+                // index={index}
+                // courseDetail={courseDetail}
               ></TrackCard>
             </li>
           );

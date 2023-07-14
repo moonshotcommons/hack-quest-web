@@ -15,18 +15,18 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FC, ReactNode, useState } from 'react';
+import { routeros } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import styled from 'styled-components';
 
 interface CourseDetailBannerProps {
-  courseDetail?: CourseDetailType | LearningTrackDetailType;
+  courseDetail?: CourseDetailType;
+  jumpRef?: any;
 }
 
 const CourseDetailBanner: FC<CourseDetailBannerProps> = (props) => {
-  const { courseDetail } = props;
-
-  const jumpLearningLesson = useJumpLeaningLesson(
-    courseDetail as CourseDetailType
-  );
+  const { courseDetail, jumpRef } = props;
+  const router = useRouter();
+  const jumpLearningLesson = useJumpLeaningLesson();
 
   return (
     <div className="flex justify-end relative">
@@ -47,8 +47,21 @@ const CourseDetailBanner: FC<CourseDetailBannerProps> = (props) => {
 
         {courseDetail && (
           <button
-            className="w-fit px-8 py-4 mt-[1.875rem] border border-solid border-[#F2F2F2] rounded-[2.5rem] text-sm text-[#F2F2F2] primary-button-hover cursor-pointer"
-            onClick={jumpLearningLesson}
+            className="px-8 w-fit py-4 mt-[1.875rem] border border-solid border-[#F2F2F2] rounded-[2.5rem] text-sm text-[#F2F2F2] primary-button-hover cursor-pointer"
+            onClick={() => {
+              if (courseDetail) {
+                if (courseDetail.type !== CourseType.LEARNING_TRACK) {
+                  jumpLearningLesson(courseDetail);
+                } else {
+                  if (jumpRef?.current) {
+                    document.documentElement.scrollTo({
+                      top: jumpRef?.current.offsetTop,
+                      behavior: 'smooth'
+                    });
+                  }
+                }
+              }
+            }}
           >
             {courseDetail?.progress || 0 > 0
               ? 'Resume Learning'

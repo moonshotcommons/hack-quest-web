@@ -34,9 +34,9 @@ export const renderCourseCard = (card: CourseResponse) => {
           ></HackathonCard>
         </Link>
       );
-    case CourseType.LEARNING_TRACKS:
+    case CourseType.LEARNING_TRACK:
       return (
-        <Link href={`${getCourseLink(CourseType.LEARNING_TRACKS)}/${card.id}`}>
+        <Link href={`${getCourseLink(CourseType.LEARNING_TRACK)}/${card.id}`}>
           <LearningTracksCard
             name={card.name}
             tags={card.level || []}
@@ -91,7 +91,7 @@ export const renderCourseCard = (card: CourseResponse) => {
 export const renderLearningTrackCard = (learningTrack: LearningTrackType) => {
   return (
     <Link
-      href={`${getCourseLink(CourseType.LEARNING_TRACKS)}/${learningTrack.id}`}
+      href={`${getCourseLink(CourseType.LEARNING_TRACK)}/${learningTrack.id}`}
     >
       <LearningTracksCard
         name={learningTrack.name}

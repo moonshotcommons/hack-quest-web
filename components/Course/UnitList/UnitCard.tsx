@@ -68,9 +68,7 @@ const UnitButton: FC<
 const UnitCard: FC<UnitCardProps> = (props) => {
   const { unit, isLock = true, courseDetail, courseType, index } = props;
   const router = useRouter();
-  const jumpLearningLesson = useJumpLeaningLesson(
-    courseDetail as CourseDetailType
-  );
+  const jumpLearningLesson = useJumpLeaningLesson();
   return (
     <div className="py-[1.5rem] flex  items-center">
       <div
@@ -133,7 +131,7 @@ const UnitCard: FC<UnitCardProps> = (props) => {
           unit={unit}
           isLock={isLock}
           index={index}
-          onClick={jumpLearningLesson}
+          onClick={() => courseDetail && jumpLearningLesson(courseDetail)}
         ></UnitButton>
       </div>
     </div>

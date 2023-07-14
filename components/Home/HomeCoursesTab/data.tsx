@@ -92,13 +92,13 @@ export const tabData = [
   },
   {
     title: 'Learning Track',
-    type: CourseType.LEARNING_TRACKS,
+    type: CourseType.LEARNING_TRACK,
     description:
       'Dive deep into your favorite ecosystem through an official end-to-end learning journey. Mint a learning certificate, claim tokens, and qualify for airdrops!',
     cards: [
       {
         id: '0',
-        type: CourseType.LEARNING_TRACKS,
+        type: CourseType.LEARNING_TRACK,
         name: 'Web 3.0 Programming Advanced',
         level: ['Advanced'],
         description:
@@ -108,7 +108,7 @@ export const tabData = [
       },
       {
         id: '1',
-        type: CourseType.LEARNING_TRACKS,
+        type: CourseType.LEARNING_TRACK,
         name: 'Web 3.0 Programming Advanced',
         level: ['Advanced'],
         description:
@@ -167,7 +167,7 @@ export const renderCard = (card: any) => {
           progress={0}
         ></SyntaxCard>
       );
-    case CourseType.LEARNING_TRACKS:
+    case CourseType.LEARNING_TRACK:
       return (
         <LearningTracksCard
           name={card.name}

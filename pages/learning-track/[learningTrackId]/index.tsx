@@ -15,7 +15,7 @@ import { Typography, message } from 'antd';
 import type { GetServerSideProps, NextPage } from 'next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 
 interface IProps {
@@ -27,13 +27,14 @@ const LearningTrackDetail: NextPage<IProps> = (props) => {
   const router = useRouter();
   const { courseId } = router.query;
   const [courseDetail, setCourseDetail] = useState<CourseDetailType>();
-
+  const ref = useRef();
   const { learningTrackDetail } = useGetLearningTrackDetail();
 
   return (
     <div className="px-[5.5rem]">
       <CourseDetailBanner
-        courseDetail={learningTrackDetail}
+        courseDetail={learningTrackDetail as any}
+        jumpRef={ref}
       ></CourseDetailBanner>
 
       <CourseDetailInfo courseDetail={learningTrackDetail}></CourseDetailInfo>
@@ -45,7 +46,10 @@ const LearningTrackDetail: NextPage<IProps> = (props) => {
             })}
         </CourseDescription>
       </div>
-      <h2 className="text-[#F2F2F2] font-next-book text-[1.75rem] mt-[4rem]">
+      <h2
+        className="text-[#F2F2F2] font-next-book text-[1.75rem] mt-[4rem]"
+        ref={ref as any}
+      >
         Track Details
       </h2>
       <div className="mt-[2.5rem]">

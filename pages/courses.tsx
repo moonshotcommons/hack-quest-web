@@ -151,7 +151,7 @@ export const getServerSideProps: GetServerSideProps =
             },
             {
               id: uuid?.v4() || '0',
-              type: CourseType.LEARNING_TRACKS,
+              type: CourseType.LEARNING_TRACK,
               name: 'Web 3.0 Programming Advanced',
               level: ['Advanced'],
               description:

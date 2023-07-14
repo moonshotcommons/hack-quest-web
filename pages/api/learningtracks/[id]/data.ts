@@ -6,7 +6,7 @@ export const learningTrackDetail = {
   description:
     'This is the first intro-level course on Solidity programming. We assume limited CS background and no web3 experience of students. ',
   aboutDesc: [],
-  type: CourseType.LEARNING_TRACKS,
+  type: CourseType.LEARNING_TRACK,
   level: 'BEGINNER',
   duration: 90,
   progress: 0,

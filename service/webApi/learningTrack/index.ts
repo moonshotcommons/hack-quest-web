@@ -3,7 +3,7 @@ import { LearningTrackDetailType, LearningTrackType } from './type';
 import { CourseResponse } from '../course/type';
 
 export enum LearningTrackApiType {
-  GetLearningTrack = '/api/learningtracks'
+  GetLearningTrack = '/api/learning-tracks'
 }
 
 class LearningTrackApi {

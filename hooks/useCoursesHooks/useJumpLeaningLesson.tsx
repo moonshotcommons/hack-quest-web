@@ -4,18 +4,21 @@ import { CourseDetailType, CourseResponse } from '@/service/webApi/course/type';
 import { useRequest } from 'ahooks';
 import { useRouter } from 'next/router';
 
-export const useJumpLeaningLesson = (courseDetail: CourseDetailType) => {
+export const useJumpLeaningLesson = () => {
   const router = useRouter();
   const { run } = useRequest(
-    async () => {
+    async (courseDetail: CourseDetailType) => {
       const lesson = await webApi.courseApi.getLearningLessonId(
         courseDetail?.id as string
       );
-      return lesson?.pageId;
+      return {
+        courseDetail,
+        pageId: lesson?.pageId
+      };
     },
     {
       manual: true,
-      onSuccess(pageId) {
+      onSuccess({ courseDetail, pageId }) {
         router.push(
           `${getCourseLink(courseDetail?.type)}/${
             courseDetail?.name
