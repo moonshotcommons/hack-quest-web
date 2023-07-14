@@ -122,7 +122,7 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
               type: 'string',
               required: true,
               pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-              message: 'illegal email'
+              message: 'Incorrect Email'
             },
             {
               asyncValidator(rule, value, callback, source, options) {
@@ -174,7 +174,7 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
             type: 'string',
             required: true,
             pattern: /^(?=.*\d)(?=.*[a-zA-Z]).{8,16}$/,
-            message: 'illegal password'
+            message: 'Incorrect Password'
           }}
           onChange={(e) => {
             setFormData({
