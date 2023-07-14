@@ -1,5 +1,5 @@
 import LockIcon from '@/components/Common/Icon/Lock';
-import { computeProgress } from '@/helper/formate';
+import { computeProgress, tagFormate } from '@/helper/formate';
 import { cn, getCourseLink } from '@/helper/utils';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
 import webApi from '@/service';
@@ -116,7 +116,7 @@ const TrackCard: FC<TrackCardProps> = (props) => {
               <div className="relative flex w-[30.57%]">
                 {renderColorTag(item.type)}
                 <span className="text-[0.875rem] text-[#B2B2B2] font-next-book leading-[120%] ml-[1.38rem]">
-                  {item.type}
+                  {tagFormate(item.type)}
                 </span>
               </div>
               <div className="text-[#EDEDED] font-next-book-bold leading-[120%] w-[36%]">

@@ -26,8 +26,8 @@ export const useGetLearningTrackDetail = () => {
     },
     {
       manual: true,
+      debounceWait: 500,
       onSuccess(res) {
-        setLearningTracks(res);
         setLearningTracks(res);
       },
       onError(error: any) {
