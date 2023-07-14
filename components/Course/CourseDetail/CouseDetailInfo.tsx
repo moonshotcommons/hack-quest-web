@@ -3,10 +3,11 @@ import PeopleJoined from '@/components/Common/PeopleJoined';
 import { computeTime, tagFormate } from '@/helper/formate';
 import { getRandomAvatars } from '@/helper/random';
 import { CourseDetailType, CourseResponse } from '@/service/webApi/course/type';
+import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import { FC, ReactNode, useMemo } from 'react';
 
 interface CourseDetailInfoProps {
-  courseDetail?: CourseDetailType;
+  courseDetail?: CourseDetailType | LearningTrackDetailType;
 }
 
 const CourseDetailInfo: FC<CourseDetailInfoProps> = (props) => {

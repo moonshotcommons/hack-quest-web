@@ -174,7 +174,7 @@ export const renderCard = (card: any) => {
           tags={card.level || []}
           description={card.description || ''}
           duration={card.duration || 0}
-          unitCount={card.unitCount || 0}
+          courseCount={card.unitCount || 0}
           progress={0}
         ></LearningTracksCard>
       );

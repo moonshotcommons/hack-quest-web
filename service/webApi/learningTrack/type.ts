@@ -1,10 +1,12 @@
+import { CourseResponse, CourseType } from '../course/type';
+
 /** 学习路线卡片信息 */
 export interface LearningTrackType {
   id: string;
   name: string;
   description: string;
   level: string;
-  aboutDesc: string;
+  aboutDesc: any;
   courseCount: number;
   duration: number;
 }
@@ -12,11 +14,14 @@ export interface LearningTrackType {
 /** 学习路线详情 */
 export interface LearningTrackDetailType {
   id: string;
+  type: CourseType;
   name: string;
   description: string;
   level: string;
-  aboutDesc: string;
+  aboutDesc: any;
   courseCount: number;
+  progress?: number;
   duration: number;
   peopleJoined: number;
+  courses: (CourseResponse & { group: string })[];
 }

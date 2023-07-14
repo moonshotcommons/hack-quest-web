@@ -8,6 +8,7 @@ import {
   CourseType,
   CourseUnitType
 } from '@/service/webApi/course/type';
+import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import { useRequest } from 'ahooks';
 import { Typography } from 'antd';
 import Image from 'next/image';
@@ -17,7 +18,7 @@ import { FC, ReactNode, useState } from 'react';
 import styled from 'styled-components';
 
 interface CourseDetailBannerProps {
-  courseDetail?: CourseDetailType;
+  courseDetail?: CourseDetailType | LearningTrackDetailType;
 }
 
 const CourseDetailBanner: FC<CourseDetailBannerProps> = (props) => {

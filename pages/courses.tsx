@@ -23,7 +23,9 @@ import { getCourseLink } from '@/helper/utils';
 import { useRouter } from 'next/router';
 import { useScrollToElement } from '@/hooks/useScrollToElement';
 import { coursesTabs } from '@/constants';
-import { renderCard } from '@/helper/renderCard';
+import { renderCourseCard, renderLearningTrackCard } from '@/helper/renderCard';
+import webApi from '@/service';
+import { useGetLearningTracks } from '@/hooks/useLearningTrackHooks/useLearningTracks';
 
 interface CoursesProps {
   nowCards: CourseResponse[];
@@ -35,7 +37,7 @@ interface CoursesProps {
 }
 
 const Courses: NextPage<CoursesProps> = (props) => {
-  const { nowCards, tracksCards } = props;
+  const { nowCards } = props;
 
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
@@ -50,6 +52,8 @@ const Courses: NextPage<CoursesProps> = (props) => {
     };
   }, shallowEqual);
 
+  const { learningTracks } = useGetLearningTracks();
+
   const [selectTab, setSelectTab] = useState<CourseType>(
     (courseType as CourseType) || coursesTabs[0].type
   );
@@ -58,7 +62,7 @@ const Courses: NextPage<CoursesProps> = (props) => {
     setSelectTab(item.type);
   };
 
-  const renderCards = useMemo(() => {
+  const SelectCourseCards = useMemo(() => {
     const filterCourseList = courseList?.filter(
       (course) => course.type === selectTab
     );
@@ -66,7 +70,7 @@ const Courses: NextPage<CoursesProps> = (props) => {
     return (
       <>
         {filterCourseList.map((card, index) => {
-          return <div key={index}>{renderCard(card)}</div>;
+          return <div key={index}>{renderCourseCard(card)}</div>;
         })}
       </>
     );
@@ -81,16 +85,18 @@ const Courses: NextPage<CoursesProps> = (props) => {
       <Title className="font-bold">{'</Trending Now>'}</Title>
       <SliderContainer>
         <div className="flex w-[114rem] h-[17.625rem] gap-[3.25rem] items-end">
-          {nowCards?.map((card, index) => {
-            return <div key={index}>{renderCard(card)}</div>;
+          {nowCards?.map((course, index) => {
+            return <div key={index}>{renderCourseCard(course)}</div>;
           })}
         </div>
       </SliderContainer>
       <Title className="font-bold">{'</Learning Tracks>'}</Title>
       <SliderContainer>
         <div className="flex h-[17.625rem] gap-[3.25rem] items-end">
-          {tracksCards?.map((card, index) => {
-            return <div key={index}>{renderCard(card)}</div>;
+          {learningTracks?.map((learningTrack, index) => {
+            return (
+              <div key={index}>{renderLearningTrackCard(learningTrack)}</div>
+            );
           })}
         </div>
       </SliderContainer>
@@ -102,7 +108,9 @@ const Courses: NextPage<CoursesProps> = (props) => {
             defaultSelect={selectTab}
           ></Tab>
         </div>
-        <div className="flex flex-wrap gap-[3.25rem] mt-10">{renderCards}</div>
+        <div className="flex flex-wrap gap-[3.25rem] mt-10">
+          {SelectCourseCards}
+        </div>
       </div>
     </>
   );
@@ -206,30 +214,6 @@ export const getServerSideProps: GetServerSideProps =
               duration: 600,
               unitCount: 5,
               progress: 0.68
-            }
-          ],
-          tracksCards: [
-            {
-              id: uuid?.v4() || '0',
-              type: CourseType.LEARNING_TRACKS,
-              name: 'Web 3.0 Programming Advanced',
-              level: ['Advanced'],
-              description:
-                'Basic concepts in programming of Solidity. Topics include: variables, functions, flow control, error handling, data structure.',
-              duration: 6700,
-              unitCount: 5,
-              progress: 0
-            },
-            {
-              id: uuid?.v4() || '0',
-              type: CourseType.LEARNING_TRACKS,
-              name: 'Web 3.0 Programming Advanced',
-              level: ['Advanced'],
-              description:
-                'Basic concepts in programming of Solidity. Topics include: variables, functions, flow control, error handling, data structure.',
-              duration: 600,
-              unitCount: 5,
-              progress: 0.999
             }
           ],
           teaserCards: [

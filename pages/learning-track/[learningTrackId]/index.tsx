@@ -6,6 +6,7 @@ import TrackList from '@/components/Course/TrackList';
 import UnitList from '@/components/Course/UnitList';
 import { Block } from '@/components/TempComponent/Block';
 import { tagFormate } from '@/helper/formate';
+import { useGetLearningTrackDetail } from '@/hooks/useLearningTrackHooks/useLearningTrackDetail';
 import webApi from '@/service';
 import { CourseDetailType } from '@/service/webApi/course/type';
 import wrapper, { AppRootState } from '@/store/redux';
@@ -27,29 +28,28 @@ const LearningTrackDetail: NextPage<IProps> = (props) => {
   const { courseId } = router.query;
   const [courseDetail, setCourseDetail] = useState<CourseDetailType>();
 
-  useEffect(() => {
-    webApi.courseApi.getCourseDetail(courseId as string, true).then((res) => {
-      setCourseDetail(res);
-    });
-  }, [courseId, router, setCourseDetail]);
+  const { learningTrackDetail } = useGetLearningTrackDetail();
 
   return (
     <div className="px-[5.5rem]">
-      <CourseDetailBanner courseDetail={courseDetail}></CourseDetailBanner>
+      <CourseDetailBanner
+        courseDetail={learningTrackDetail}
+      ></CourseDetailBanner>
 
-      <CourseDetailInfo courseDetail={courseDetail}></CourseDetailInfo>
+      <CourseDetailInfo courseDetail={learningTrackDetail}></CourseDetailInfo>
       <div className="mt-[4rem]">
         <CourseDescription>
-          {courseDetail?.aboutDesc?.map((item) => {
-            return <Block key={item.id} block={item}></Block>;
-          })}
+          {learningTrackDetail?.aboutDesc &&
+            learningTrackDetail?.aboutDesc?.map((item: any) => {
+              return <Block key={item.id} block={item}></Block>;
+            })}
         </CourseDescription>
       </div>
       <h2 className="text-[#F2F2F2] font-next-book text-[1.75rem] mt-[4rem]">
         Track Details
       </h2>
       <div className="mt-[2.5rem]">
-        <TrackList trackDetail={courseDetail}></TrackList>
+        <TrackList trackDetail={learningTrackDetail as any}></TrackList>
       </div>
     </div>
   );

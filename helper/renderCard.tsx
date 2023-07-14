@@ -7,8 +7,9 @@ import HackathonCard from '@/components/Card/Hackathon';
 import TeaserCard from '@/components/Card/Teaser';
 import GuidedProjectCard from '@/components/Card/GuidedProject';
 import ConceptLearningCard from '@/components/Card/ConceptLearning';
+import { LearningTrackType } from '@/service/webApi/learningTrack/type';
 
-export const renderCard = (card: CourseResponse) => {
+export const renderCourseCard = (card: CourseResponse) => {
   switch (card.type) {
     case CourseType.CONCEPT:
       return (
@@ -33,6 +34,19 @@ export const renderCard = (card: CourseResponse) => {
           ></HackathonCard>
         </Link>
       );
+    case CourseType.LEARNING_TRACKS:
+      return (
+        <Link href={`${getCourseLink(CourseType.LEARNING_TRACKS)}/${card.id}`}>
+          <LearningTracksCard
+            name={card.name}
+            tags={card.level || []}
+            description={card.description || ''}
+            duration={card.duration || 0}
+            courseCount={card.unitCount || 0}
+            progress={0}
+          ></LearningTracksCard>
+        </Link>
+      );
     case CourseType.SYNTAX:
       return (
         <Link href={`${getCourseLink(CourseType.SYNTAX)}/${card.id}`}>
@@ -44,19 +58,6 @@ export const renderCard = (card: CourseResponse) => {
             unitCount={card.unitCount || 0}
             progress={card.progress || 0}
           ></SyntaxCard>
-        </Link>
-      );
-    case CourseType.LEARNING_TRACKS:
-      return (
-        <Link href={`${getCourseLink(CourseType.LEARNING_TRACKS)}/${card.id}`}>
-          <LearningTracksCard
-            name={card.name}
-            tags={card.level || []}
-            description={card.description || ''}
-            duration={card.duration || 0}
-            unitCount={card.unitCount || 0}
-            progress={card.progress || 0}
-          ></LearningTracksCard>
         </Link>
       );
     case CourseType.TEASER:
@@ -85,4 +86,21 @@ export const renderCard = (card: CourseResponse) => {
         </Link>
       );
   }
+};
+
+export const renderLearningTrackCard = (learningTrack: LearningTrackType) => {
+  return (
+    <Link
+      href={`${getCourseLink(CourseType.LEARNING_TRACKS)}/${learningTrack.id}`}
+    >
+      <LearningTracksCard
+        name={learningTrack.name}
+        tags={learningTrack.level || []}
+        description={learningTrack.description || ''}
+        duration={learningTrack.duration || 0}
+        courseCount={learningTrack.courseCount || 0}
+        progress={0}
+      ></LearningTracksCard>
+    </Link>
+  );
 };
