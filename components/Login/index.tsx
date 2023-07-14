@@ -125,7 +125,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
             type: 'string',
             required: true,
             pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-            message: 'illegal email'
+            message: 'Incorrect Email'
           }}
           onChange={(e) => {
             setFormData({
@@ -147,7 +147,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
             type: 'string',
             required: true,
             pattern: /^(?=.*\d)(?=.*[a-zA-Z]).{8,16}$/,
-            message: 'illegal password'
+            message: 'Incorrect Password'
           }}
           onChange={(e) => {
             setFormData({
