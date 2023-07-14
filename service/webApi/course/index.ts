@@ -21,10 +21,12 @@ class CourseApi {
     this.service = service;
   }
 
+  /** 获取课程列表信息 */
   getCourseList() {
     return this.service.get<CourseResponse[]>(CourseApiType.Course_List);
   }
 
+  /** 获取单个课程的详情信息 */
   getCourseDetail(courseId: string, isIncludeUnits: boolean = false) {
     return this.service.get<CourseDetailType>(
       `${CourseApiType.Course_List}/${courseId}${
@@ -33,10 +35,12 @@ class CourseApi {
     );
   }
 
+  /** 获取单个课程下的所有units */
   getCourseUnits(courseId: string) {
     const url = `${CourseApiType.Course_List}/${courseId}/units`;
     return this.service.get<CourseUnitType[]>(url);
   }
+
   /** 获取所有unit及其下面的pages，主要用来获取Teaser的课程数据 */
   getCourseUnitsAndPages(courseId: string) {
     const url = `${CourseApiType.Course_List}/${courseId}/units?include=pages`;
@@ -75,6 +79,7 @@ class CourseApi {
     return this.service.get(url);
   }
 
+  /** 完成一个lesson */
   completeLesson(lessonId: string) {
     const url = `${CourseApiType.LessonDetail}/${lessonId}/complete`;
     return this.service.get(url);
