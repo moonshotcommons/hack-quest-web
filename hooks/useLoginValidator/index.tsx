@@ -20,7 +20,7 @@ const checkEmailRules: Rule = [
     type: 'string',
     required: true,
     pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-    message: 'illegal email'
+    message: 'Incorrect Email'
   },
   {
     async asyncValidator(rule, value, callback, source, options) {
@@ -35,7 +35,7 @@ const checkEmailRules: Rule = [
           })
           .catch((e) => {
             // onStatusChange(true);
-            reject('email does not exist.');
+            reject('Email does not exist.');
             // 'Email already exists, please register with another email, or'
           });
       });
@@ -48,7 +48,7 @@ const checkRegisterEmailRules: Rule = [
     type: 'string',
     required: true,
     pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-    message: 'illegal email'
+    message: 'Incorrect Email'
   },
   {
     async asyncValidator(rule, value, callback, source, options) {
@@ -76,14 +76,14 @@ const checkPasswordRules: Rule = {
   type: 'string',
   required: true,
   pattern: /^(?=.*\d)(?=.*[a-zA-Z]).{8,16}$/,
-  message: 'illegal password'
+  message: 'Incorrect Password'
 };
 
 const checkReenterPasswordRules: Rule = {
   type: 'string',
   required: true,
   pattern: /^(?=.*\d)(?=.*[a-zA-Z]).{8,16}$/,
-  message: 'illegal password'
+  message: 'Incorrect Password'
 };
 
 export const useLoginValidator = (
