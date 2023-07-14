@@ -44,6 +44,7 @@ class UserApi {
     );
   }
 
+  /** 邮箱链接点击以后验证token */
   tokenVerify(token: { token: string }) {
     return this.service.post<LoginResponse>(UserApiType.TokenVerify, {
       data: token

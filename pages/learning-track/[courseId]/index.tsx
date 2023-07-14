@@ -2,6 +2,7 @@
 import CourseDescription from '@/components/Course/CourseDetail/CourseDescription';
 import CourseDetailBanner from '@/components/Course/CourseDetail/CourseDetailBranner';
 import CourseDetailInfo from '@/components/Course/CourseDetail/CouseDetailInfo';
+import TrackList from '@/components/Course/TrackList';
 import UnitList from '@/components/Course/UnitList';
 import { Block } from '@/components/TempComponent/Block';
 import { tagFormate } from '@/helper/formate';
@@ -21,7 +22,7 @@ interface IProps {
   //   courseDetail: CourseDetailType;
 }
 
-const SyntaxDetail: NextPage<IProps> = (props) => {
+const LearningTrackDetail: NextPage<IProps> = (props) => {
   const router = useRouter();
   const { courseId } = router.query;
   const [courseDetail, setCourseDetail] = useState<CourseDetailType>();
@@ -45,13 +46,13 @@ const SyntaxDetail: NextPage<IProps> = (props) => {
         </CourseDescription>
       </div>
       <h2 className="text-[#F2F2F2] font-next-book text-[1.75rem] mt-[4rem]">
-        Course structure
+        Track Details
       </h2>
       <div className="mt-[2.5rem]">
-        <UnitList courseDetail={courseDetail}></UnitList>
+        <TrackList trackDetail={courseDetail}></TrackList>
       </div>
     </div>
   );
 };
 
-export default SyntaxDetail;
+export default LearningTrackDetail;

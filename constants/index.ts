@@ -1,3 +1,5 @@
+import { TabItem } from '@/components/Common/Tab';
+import { CourseType } from '@/service/webApi/course/type';
 import {
   tomorrowNightBright,
   monokaiSublime,
@@ -29,3 +31,22 @@ export const BLOCKS_PREFIX = 'blocks';
 export const IS_NEXTJS = false;
 export const IS_CODE_HIGHLIGHTER = false;
 export const SYNTAX_HIGHLIGHTER_CSS = tomorrowNightBright;
+
+export const coursesTabs: TabItem[] = [
+  {
+    title: 'Syntax',
+    type: CourseType.SYNTAX
+  },
+  {
+    title: 'Guided Project',
+    type: CourseType.GUIDED_PROJECT
+  },
+  {
+    title: 'Concept',
+    type: CourseType.CONCEPT
+  },
+  {
+    title: 'Teaser',
+    type: CourseType.TEASER
+  }
+];

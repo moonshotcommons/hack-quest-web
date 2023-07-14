@@ -22,6 +22,8 @@ import { CourseResponse, CourseType } from '@/service/webApi/course/type';
 import { getCourseLink } from '@/helper/utils';
 import { useRouter } from 'next/router';
 import { useScrollToElement } from '@/hooks/useScrollToElement';
+import { coursesTabs } from '@/constants';
+import { renderCard } from '@/helper/renderCard';
 
 interface CoursesProps {
   nowCards: CourseResponse[];
@@ -31,85 +33,6 @@ interface CoursesProps {
   guidedProjectCards: CourseResponse[];
   conceptCards: CourseResponse[];
 }
-
-const renderCard = (card: CourseResponse) => {
-  switch (card.type) {
-    case CourseType.CONCEPT:
-      return (
-        <Link href={`${getCourseLink(CourseType.CONCEPT)}/${card.id}`}>
-          <ConceptLearningCard
-            title={card.name}
-            tags={card.level || []}
-            description={card.description || ''}
-            duration={card.duration || 0}
-            unitCount={card.unitCount || 0}
-            progress={card.progress || 0}
-            cover={'/images/card/ConceptLearning/cover.svg'}
-          ></ConceptLearningCard>
-        </Link>
-      );
-    case CourseType.HACKATHON:
-      return (
-        <Link href={`${getCourseLink(CourseType.HACKATHON)}/${card.id}`}>
-          <HackathonCard
-            name={card.name}
-            tags={card.level || []}
-          ></HackathonCard>
-        </Link>
-      );
-    case CourseType.SYNTAX:
-      return (
-        <Link href={`${getCourseLink(CourseType.SYNTAX)}/${card.id}`}>
-          <SyntaxCard
-            name={card.name}
-            tags={card.level || []}
-            description={card.description || ''}
-            duration={card.duration || 0}
-            unitCount={card.unitCount || 0}
-            progress={card.progress || 0}
-          ></SyntaxCard>
-        </Link>
-      );
-    case CourseType.LEARNING_TRACKS:
-      return (
-        <Link href={`${getCourseLink(CourseType.LEARNING_TRACKS)}/${card.id}`}>
-          <LearningTracksCard
-            name={card.name}
-            tags={card.level || []}
-            description={card.description || ''}
-            duration={card.duration || 0}
-            unitCount={card.unitCount || 0}
-            progress={card.progress || 0}
-          ></LearningTracksCard>
-        </Link>
-      );
-    case CourseType.TEASER:
-      return (
-        <Link href={`${getCourseLink(CourseType.TEASER)}/${card.id}`}>
-          <TeaserCard
-            name={card.name}
-            description={card.description || ''}
-            duration={card.duration || 0}
-            unitCount={card.unitCount || 0}
-            progress={card.progress || 0}
-          ></TeaserCard>
-        </Link>
-      );
-    case CourseType.GUIDED_PROJECT:
-      return (
-        <Link href={`${getCourseLink(CourseType.GUIDED_PROJECT)}/${card.id}`}>
-          <GuidedProjectCard
-            name={card.name}
-            tags={card.level || []}
-            description={card.description || ''}
-            duration={card.duration || 0}
-            unitCount={card.unitCount || 0}
-            progress={card.progress || 0}
-          ></GuidedProjectCard>
-        </Link>
-      );
-  }
-};
 
 const Courses: NextPage<CoursesProps> = (props) => {
   const { nowCards, tracksCards } = props;
@@ -121,34 +44,14 @@ const Courses: NextPage<CoursesProps> = (props) => {
 
   useScrollToElement(hashCourseTypeRef.current, courseType as CourseType);
 
-  const tabs: TabItem[] = [
-    {
-      title: 'Syntax',
-      type: CourseType.SYNTAX
-    },
-    {
-      title: 'Guided Project',
-      type: CourseType.GUIDED_PROJECT
-    },
-    {
-      title: 'Concept',
-      type: CourseType.CONCEPT
-    },
-    {
-      title: 'Teaser',
-      type: CourseType.TEASER
-    }
-  ];
-
-  const { courseList, count } = useSelector((rootState: AppRootState) => {
+  const { courseList } = useSelector((rootState: AppRootState) => {
     return {
-      courseList: rootState.course.courseList,
-      count: rootState.course.count
+      courseList: rootState.course.courseList
     };
   }, shallowEqual);
 
   const [selectTab, setSelectTab] = useState<CourseType>(
-    (courseType as CourseType) || tabs[0].type
+    (courseType as CourseType) || coursesTabs[0].type
   );
 
   const onSelect = (item: TabItem) => {
@@ -193,7 +96,11 @@ const Courses: NextPage<CoursesProps> = (props) => {
       </SliderContainer>
       <div ref={hashCourseTypeRef as any}>
         <div className="mt-[2.875rem]">
-          <Tab tabs={tabs} onSelect={onSelect} defaultSelect={selectTab}></Tab>
+          <Tab
+            tabs={coursesTabs}
+            onSelect={onSelect}
+            defaultSelect={selectTab}
+          ></Tab>
         </div>
         <div className="flex flex-wrap gap-[3.25rem] mt-10">{renderCards}</div>
       </div>
