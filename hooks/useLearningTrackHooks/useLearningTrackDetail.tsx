@@ -25,6 +25,7 @@ export const useGetLearningTrackDetail = () => {
       return res;
     },
     {
+      cacheKey: 'learning-track-detail',
       manual: true,
       debounceWait: 500,
       onSuccess(res) {

@@ -15,6 +15,8 @@ const IconKeys = tuple(
   'Right',
   'RightArrow',
   'RightBottom',
+  'Setting',
+  'SignOut',
   'Skip',
   'Twitter',
   'User'

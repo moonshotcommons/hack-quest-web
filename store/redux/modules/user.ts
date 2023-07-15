@@ -3,6 +3,13 @@ import { HYDRATE } from 'next-redux-wrapper';
 import webApi from '@/service';
 import { LoginResponse } from '@/service/webApi/user/type';
 import { omit } from 'lodash-es';
+import {
+  getUser,
+  removeToken,
+  removeUser,
+  setToken,
+  setUser
+} from '@/helper/user-token';
 export interface UserStateType {
   userInfo: LoginResponse | null;
 }
@@ -10,9 +17,7 @@ export interface UserStateType {
 const userSlice = createSlice({
   name: 'user',
   initialState: {
-    userInfo:
-      null ||
-      (typeof window === 'object' && window.localStorage.getItem('user_info'))
+    userInfo: null || getUser()
   } as UserStateType,
   reducers: {
     // loginReducer(state, { type, payload }) {
@@ -21,11 +26,14 @@ const userSlice = createSlice({
 
     setUserInfo(state, { type, payload }) {
       state.userInfo = payload;
-      window?.localStorage.setItem(
-        'user_info',
-        JSON.stringify(omit(payload, 'token'))
-      );
-      window.localStorage.setItem('token', payload.token);
+      setUser(payload);
+      setToken(payload.token);
+    },
+
+    userSignOut(state) {
+      state.userInfo = null;
+      removeUser();
+      removeToken();
     }
   }
   // extraReducers: (builder) => {
@@ -52,5 +60,5 @@ const userSlice = createSlice({
 // );
 
 // 同步的action
-export const { setUserInfo } = userSlice.actions;
+export const { setUserInfo, userSignOut } = userSlice.actions;
 export default userSlice.reducer;

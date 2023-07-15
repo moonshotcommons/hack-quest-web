@@ -14,6 +14,8 @@ import ProgressIcon from './Progress';
 import RightIcon from './Right';
 import RightArrowIcon from './RightArrow';
 import RightBottomIcon from './RightBottom';
+import SettingIcon from './Setting';
+import SignOutIcon from './SignOut';
 import SkipIcon from './Skip';
 import TwitterIcon from './Twitter';
 import UserIcon from './User';
@@ -35,6 +37,8 @@ const Icons: IconsType = {
   Right: <RightIcon />,
   RightArrow: <RightArrowIcon />,
   RightBottom: <RightBottomIcon />,
+  Setting: <SettingIcon />,
+  SignOut: <SignOutIcon />,
   Skip: <SkipIcon />,
   Twitter: <TwitterIcon />,
   User: <UserIcon />
