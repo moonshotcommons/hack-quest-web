@@ -14,7 +14,7 @@ const LoginLayout: React.FC<LoginLayoutProps> = ({ children }) => {
     <div
       className={`w-full min-h-screen bg-black ${inter.className} bg-[url("/images/login/login-back-show.png")] bg-cover bg-no-repeat`}
     >
-      <div className="absolute w-full h-full bottom-0 left-0">
+      <div className="fixed w-full h-full bottom-0 left-0">
         <Image
           src={LoginMoon}
           alt="bg"

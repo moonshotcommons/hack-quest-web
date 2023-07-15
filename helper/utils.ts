@@ -16,7 +16,7 @@ export const getCourseLink = (courseType?: CourseType) => {
       return `/concept`;
     case CourseType.GUIDED_PROJECT:
       return `/guided-project`;
-    case CourseType.LEARNING_TRACKS:
+    case CourseType.LEARNING_TRACK:
       return `/learning-track`;
     case CourseType.HACKATHON:
       return `/hackathon`;
