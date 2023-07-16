@@ -27,7 +27,7 @@ export const useJumpLeaningLesson = () => {
       },
       onError(err: any) {
         if (err.code === 401) {
-          router.push('/login');
+          router.push('/auth/login');
         }
       }
     }

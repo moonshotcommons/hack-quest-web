@@ -38,7 +38,7 @@ const TeaserCard: React.FC<TeaserCardProps> = (props) => {
             {name}
           </Typography.Paragraph>
 
-          <div className="w-44 text-[#F2F2F2] font-normal text-sm mt-6">
+          <div className="w-[16.4375rem] text-[#F2F2F2] font-normal text-sm mt-6">
             <Typography.Paragraph
               className="text-[#F2F2F2] font-normal text-sm"
               ellipsis={{

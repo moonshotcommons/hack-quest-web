@@ -5,7 +5,7 @@ import RightIcon from '@/components/Common/Icon/Right';
 import RightArrowIcon from '@/components/Common/Icon/RightArrow';
 import Input from '@/components/Common/Input';
 import { cn } from '@/helper/utils';
-import { useLoginValidator } from '@/hooks/useLoginValidator';
+import { useValidator } from '@/hooks/useValidator';
 import webApi from '@/service';
 import { useDebounce, useDebounceFn } from 'ahooks';
 import { Radio, message } from 'antd';
@@ -57,7 +57,7 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
     }
   });
 
-  const { validator } = useLoginValidator([
+  const { validator } = useValidator([
     'registerEmail',
     'password',
     'reenterPassword'
@@ -82,7 +82,7 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
           }
           try {
             const res = await webApi.userApi.userRegister(formData);
-            router.push('/users/email-verify');
+            router.push('/auth/email-verify');
           } catch (e: any) {
             message.error(e.msg);
           }
@@ -139,7 +139,7 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
                             email, or
                           </p>
                           <p>
-                            <Link href="/login">
+                            <Link href="/auth/login">
                               <span className="text-white">Login now</span>
                             </Link>
                           </p>

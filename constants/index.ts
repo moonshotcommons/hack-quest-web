@@ -8,8 +8,8 @@ import {
 } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 
 export const HOME_PATHNAME = '/';
-export const LOGIN_PATHNAME = '/login';
-export const REGISTER_PATHNAME = '/register';
+export const LOGIN_PATHNAME = '/auth/login';
+export const REGISTER_PATHNAME = '/auth/register';
 
 export const NoNeedUserInfo = [
   HOME_PATHNAME,

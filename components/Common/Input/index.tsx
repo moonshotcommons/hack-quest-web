@@ -48,6 +48,7 @@ const Input = forwardRef<
     name,
     rules,
     delay = 0,
+    className,
     onChange,
     defaultValue = '',
     ...rest
@@ -111,7 +112,7 @@ const Input = forwardRef<
       <p className="text-[#ACACAC] text-[1rem] font-Sofia-Pro-Light-Az leading-[150%] tracking-[-0.011rem]">
         {label}
       </p>
-      <div className="w-fit h-fit relative">
+      <div className="relative">
         <input
           ref={inputRef}
           type={type}
@@ -122,7 +123,8 @@ const Input = forwardRef<
             status === 'success'
               ? 'border-[#9EFA13] focus:border-[#9EFA13]'
               : '',
-            status === 'error' ? 'border-[#FF4747] focus:border-[#FF4747]' : ''
+            status === 'error' ? 'border-[#FF4747] focus:border-[#FF4747]' : '',
+            className
           )}
           onChange={(e) => {
             setValue(e.target.value);

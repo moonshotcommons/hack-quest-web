@@ -30,6 +30,9 @@ const nextConfig = (phase) => {
       '@border-radius-base': '10px',
       '@border-color-base': '#e6e6e6',
       '@font-size-base': '13px'
+    },
+    images: {
+      domains: ['hack-quest-s3-dev.s3.amazonaws.com', 's3.amazonaws.com']
     }
   });
 };

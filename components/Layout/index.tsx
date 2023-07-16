@@ -1,9 +1,9 @@
 import React, { ReactNode } from 'react';
 import NavBar, { NavBarProps } from './Navbar';
 import Footer from './Footer';
-import Avatar from '@/public/images/user/login_avatar.svg';
 import { Inter } from 'next/font/google';
 import Image from 'next/image';
+import User from '@/components/User';
 const inter = Inter({ subsets: ['latin'] });
 export interface LayoutProps {
   navbarData: NavBarProps;
@@ -18,7 +18,7 @@ const Layout: React.FC<LayoutProps> = ({ navbarData, children }) => {
     >
       <div className="container m-auto">
         <NavBar {...navbarData}>
-          <Image src={Avatar} alt="avatar"></Image>
+          <User></User>
         </NavBar>
         <main>{children}</main>
         {/* <Footer {...footerData} /> */}

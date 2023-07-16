@@ -33,3 +33,10 @@ export interface LoginResponse {
   status: string;
   registerType: string;
 }
+
+export enum ForgetPasswordErrorStatusType {
+  /** 发送邮件失败 */
+  SEND_EMAIL_ERROR = 400,
+  /** 邮箱不存在 */
+  EMAIL_NOT_EXIST = 404
+}

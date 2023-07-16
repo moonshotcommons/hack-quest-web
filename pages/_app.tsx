@@ -31,10 +31,11 @@ const Layout = (props: {
     case pathname === '/':
       return <HomeLayout>{children}</HomeLayout>;
     case [
-      '/register',
-      '/login',
+      '/auth/register',
+      '/auth/login',
       '/users/email-confirmed',
-      '/users/email-verify'
+      '/auth/email-verify',
+      '/auth/forget-password'
     ].includes(pathname):
       return <LoginLayout>{children}</LoginLayout>;
     default:
