@@ -10,7 +10,9 @@ export enum UserApiType {
   CheckEmail = '/api/users/verify',
   UserRegister = '/api/users',
   UserLogin = '/api/users/signin',
-  TokenVerify = '/api/users/token'
+  TokenVerify = '/api/users/token',
+  UpdatePassword = '/api/users/update-password',
+  ForgetPassword = '/api/users/forgot-password'
 }
 
 class UserApi {
@@ -49,6 +51,23 @@ class UserApi {
     return this.service.post<LoginResponse>(UserApiType.TokenVerify, {
       data: token
     });
+  }
+
+  /** 更新密码 */
+  updatePassword(params: {
+    currentPassword: string;
+    newPassword: string;
+    reenterPassword: string;
+    isForgot?: boolean;
+  }) {
+    return this.service.post(UserApiType.UpdatePassword, {
+      data: params
+    });
+  }
+
+  forgetPassword(email: string) {
+    const url = `${UserApiType.ForgetPassword}?email=${email}`;
+    return this.service.get(url);
   }
 }
 

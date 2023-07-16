@@ -12,12 +12,14 @@ import {
 } from '@/helper/user-token';
 export interface UserStateType {
   userInfo: LoginResponse | null;
+  settingsOpen: boolean;
 }
 
 const userSlice = createSlice({
   name: 'user',
   initialState: {
-    userInfo: null || getUser()
+    userInfo: null || getUser(),
+    settingsOpen: false
   } as UserStateType,
   reducers: {
     // loginReducer(state, { type, payload }) {
@@ -34,6 +36,10 @@ const userSlice = createSlice({
       state.userInfo = null;
       removeUser();
       removeToken();
+    },
+
+    setSettingsOpen(state, { type, payload }) {
+      state.settingsOpen = payload;
     }
   }
   // extraReducers: (builder) => {
@@ -60,5 +66,5 @@ const userSlice = createSlice({
 // );
 
 // 同步的action
-export const { setUserInfo, userSignOut } = userSlice.actions;
+export const { setUserInfo, userSignOut, setSettingsOpen } = userSlice.actions;
 export default userSlice.reducer;

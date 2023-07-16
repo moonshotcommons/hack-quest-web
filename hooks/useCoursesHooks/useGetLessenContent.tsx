@@ -19,7 +19,7 @@ export const useGetLessonContent = (lessonId: string) => {
       },
       onError(error: any) {
         if (error.code === 401) {
-          router.push('/login');
+          router.push('/auth/login');
         } else {
           router.push('/404');
         }

@@ -2,9 +2,11 @@ import React from 'react';
 
 import BottomIcon from './Bottom';
 import ClockIcon from './Clock';
+import CloseIcon from './Close';
 import CourseIcon from './Course';
 import DiscordIcon from './Discord';
 import DropDownIcon from './DropDown';
+import EmailFillIcon from './EmailFill';
 import FlightSideWayIcon from './FlightSideWay';
 import InstagramIcon from './Instagram';
 import LeftArrowIcon from './LeftArrow';
@@ -19,15 +21,18 @@ import SignOutIcon from './SignOut';
 import SkipIcon from './Skip';
 import TwitterIcon from './Twitter';
 import UserIcon from './User';
+import UserFillIcon from './UserFill';
 
 import { IconsType } from './type';
 
 const Icons: IconsType = {
   Bottom: <BottomIcon />,
   Clock: <ClockIcon />,
+  Close: <CloseIcon />,
   Course: <CourseIcon />,
   Discord: <DiscordIcon />,
   DropDown: <DropDownIcon />,
+  EmailFill: <EmailFillIcon />,
   FlightSideWay: <FlightSideWayIcon />,
   Instagram: <InstagramIcon />,
   LeftArrow: <LeftArrowIcon />,
@@ -41,7 +46,8 @@ const Icons: IconsType = {
   SignOut: <SignOutIcon />,
   Skip: <SkipIcon />,
   Twitter: <TwitterIcon />,
-  User: <UserIcon />
+  User: <UserIcon />,
+  UserFill: <UserFillIcon />
 };
 
 export default Icons;

@@ -41,7 +41,7 @@ export const TopInfo: FC = () => {
           </div>
         </Link>
 
-        <Link href={'/login'}>
+        <Link href={'/auth/login'}>
           <div className="flex items-center w-fit px-[2.5rem] py-[1.25rem] font-next-book text-[#F5F5F5] text-[1rem] rounded-[5rem] border border-solid border-[#F5F5F5] gap-[0.62rem] hover:text-black hover:bg-[#D9D9D9] cursor-pointer">
             <div>Sign Up</div>
             <RightIcon></RightIcon>

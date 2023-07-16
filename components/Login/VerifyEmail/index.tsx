@@ -6,7 +6,7 @@ import Checkbox from '@/components/Common/Checkbox';
 import RightArrowIcon from '@/components/Common/Icon/RightArrow';
 import Input from '@/components/Common/Input';
 import { cn } from '@/helper/utils';
-import { useLoginValidator } from '@/hooks/useLoginValidator';
+import { useValidator } from '@/hooks/useValidator';
 import { Radio } from 'antd';
 import { NextPage } from 'next';
 import Link from 'next/link';
@@ -44,7 +44,7 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
   const [status, setStatus] = useState<any>('default');
   const [errorMessage, setErrorMessage] = useState('');
 
-  const { validator } = useLoginValidator(['email']);
+  const { validator } = useValidator(['email']);
 
   const { run: verifyEmail } = useDebounceFn(
     () => {
@@ -108,7 +108,7 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
         </CustomButton>
         <div className="flex gap-[0.5rem] justify-end text-[#ACACAC] font-Sofia-Pro-Light-Az font-light leading-[150%] tracking-[-0.011rem]">
           <span>Not a member yet? </span>
-          <Link href={'/register'}>
+          <Link href={'/auth/register'}>
             <span className="text-[#F8F8F8] font-semibold">Register now</span>
           </Link>
         </div>
