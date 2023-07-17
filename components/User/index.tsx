@@ -1,0 +1,73 @@
+import { FC, ReactNode, RefObject, useEffect, useRef, useState } from 'react';
+import Avatar from '@/public/images/user/login_avatar.svg';
+import Image from 'next/image';
+import UserDropCard from './UserDropCard';
+import { useClickAway } from 'ahooks';
+import { shallowEqual, useSelector } from 'react-redux';
+import { AppRootState } from '@/store/redux';
+import Link from 'next/link';
+import Settings from './Settings';
+import RightIcon from '../Common/Icon/Right';
+interface UserProps {
+  // children: ReactNode;
+}
+
+const User: FC<UserProps> = (props) => {
+  const [showUserDropCard, setShowUserDropCard] = useState(false);
+  const userDropCardRef = useRef();
+  const [isLogin, setIsLogin] = useState(false);
+  const userInfo = useSelector((state: AppRootState) => {
+    return state.user.userInfo;
+  }, shallowEqual);
+  // useClickAway(() => {
+  //   if (showUserDropCard) {
+  //     setShowUserDropCard(false);
+  //   }
+  // }, userDropCardRef);
+  useEffect(() => {
+    if (userInfo) setIsLogin(true);
+  }, []);
+
+  return (
+    <div className="relative h-full">
+      <div
+        className="h-full flex items-center"
+        ref={userDropCardRef as any}
+        onMouseEnter={(e) => setShowUserDropCard(true)}
+        onMouseLeave={(e) => setShowUserDropCard(false)}
+      >
+        <div className="cursor-pointer h-full flex items-center w-[4rem] justify-end">
+          {isLogin && (
+            <div className="w-[2.5rem] h-[40px] overflow-hidden rounded-full">
+              <Image
+                src={userInfo?.avatar as string}
+                alt="avatar"
+                width={40}
+                height={40}
+              ></Image>
+            </div>
+          )}
+          {!isLogin && (
+            <Link href={'/auth/login'}>
+              <div className="w-fit whitespace-nowrap flex items-center  px-8 py-3 font-next-book leading-[128%] text-[#F5F5F5] text-[.875rem] rounded-[5rem] border border-solid hover:bg-white hover:text-black border-[#F5F5F5] gap-[0.62rem]">
+                <div>Sign Up To Learn Now</div>
+                <RightIcon></RightIcon>
+              </div>
+            </Link>
+          )}
+        </div>
+        {userInfo && showUserDropCard ? (
+          <div className="absolute z-[999] -right-[0.75rem] top-[4.75rem]">
+            <UserDropCard
+              userInfo={userInfo || ({} as any)}
+              onClose={() => setShowUserDropCard(false)}
+            ></UserDropCard>
+          </div>
+        ) : null}
+      </div>
+      <Settings></Settings>
+    </div>
+  );
+};
+
+export default User;

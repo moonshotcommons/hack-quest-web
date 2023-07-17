@@ -13,8 +13,8 @@ export const useGetLearningTracks = () => {
       return res;
     },
     {
+      cacheKey: 'learning-tracks ',
       onSuccess(res) {
-        setLearningTracks(res);
         setLearningTracks(res);
       },
       onError(error: any) {

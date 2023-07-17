@@ -2,20 +2,34 @@
 
 import { Dialog, Transition } from '@headlessui/react';
 
-import { Fragment } from 'react';
+import { FC, Fragment, ReactNode } from 'react';
+import CloseIcon from '../Icon/Close';
 
 interface ModalProps {
   open: boolean;
   onClose: () => void;
   children: React.ReactNode;
   showCloseIcon?: boolean;
+  icon?: ReactNode;
 }
 
+const IconClose: FC<{ icon?: ReactNode }> = (props) => {
+  const { icon, ...rest } = props;
+  return icon ? (
+    icon
+  ) : (
+    <div className="absolute right-[2.25rem] top-[2.5rem] z-[999] cursor-pointer rounded-full p-[0.66rem] border border-solid border-[#5B5B5B]">
+      <CloseIcon width={20} height={19} color={'#F2F2F2'} />
+    </div>
+  );
+};
+
 const Modal: React.FC<ModalProps> = (props) => {
-  const { open, onClose, children, showCloseIcon = false } = props;
+  const { open, onClose, children, showCloseIcon = false, icon } = props;
+  // const closeIcon =
   return (
     <Transition show={open} appear as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={onClose}>
+      <Dialog as="div" className="relative z-50" onClose={onClose}>
         <div className="fixed inset-0 bg-black bg-opacity-50" />
         <div className="fixed inset-0 overflow-y-auto">
           <div className="flex min-h-full items-center justify-center p-4 text-center">
@@ -28,12 +42,13 @@ const Modal: React.FC<ModalProps> = (props) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-[74.0625rem] overflow-hidden rounded-[2.5rem] text-left align-middle">
-                <div className="relative flex w-full items-center overflow-hidden shadow-2xl">
-                  {/* <div className="absolute right-4 top-4"> */}
-                  {/* <IconButton onClick={onClose} icon={<X size={15} />} /> */}
-                  {/* <div onClick={onClose}>测试关闭</div> */}
-                  {/* </div> */}
+              <Dialog.Panel className="w-full max-w-[74.0625rem] overflow-hidden text-left align-middle">
+                <div className="relative flex w-full items-center overflow-y-scroll no-scrollbar shadow-2xl">
+                  {showCloseIcon ? (
+                    <div onClick={onClose}>
+                      <IconClose icon={icon}></IconClose>
+                    </div>
+                  ) : null}
                   {children}
                 </div>
               </Dialog.Panel>

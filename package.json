@@ -13,7 +13,7 @@
     "prepare": "husky install",
     "pre-commit": "lint-staged",
     "postinstallmac": "git config core.hooksPath .husky && chmod 700 .husky/*",
-    "commit": "git add . && git-cz",
+    "commit": "git-cz",
     "test": "jest"
   },
   "dependencies": {

@@ -6,7 +6,7 @@ import Checkbox from '@/components/Common/Checkbox';
 import RightArrowIcon from '@/components/Common/Icon/RightArrow';
 import Input from '@/components/Common/Input';
 import { cn } from '@/helper/utils';
-import { useLoginValidator } from '@/hooks/useLoginValidator';
+import { useValidator } from '@/hooks/useValidator';
 import { Radio, message } from 'antd';
 import { NextPage } from 'next';
 import Link from 'next/link';
@@ -58,7 +58,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
     }
   });
 
-  const { validator } = useLoginValidator(['email', 'password']);
+  const { validator } = useValidator(['email', 'password']);
   const router = useRouter();
   const passwordInputRef = useRef<any>(null);
 
@@ -70,7 +70,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
             const res = (await webApi.userApi.userLogin(formData)) as any;
             if (res.isFail) {
               setTimeout(() => {
-                router.push('/users/email-verify');
+                router.push('/auth/email-verify');
               }, 200);
               return;
             }
@@ -81,12 +81,12 @@ const UserLogin: FC<UserLoginProps> = (props) => {
             dispatch(setUserInfo(res));
             router.push('/courses');
           } catch (e: any) {
-            passwordInputRef.current?.setStatus?.('error');
-            passwordInputRef.current?.setErrorMessage?.(e.msg);
             if (e.code === 400) {
-              setTimeout(() => {
-                router.push('/users/email-verify');
-              }, 1000);
+              // setTimeout(() => {
+              //   router.push('/auth/email-verify');
+              // }, 1000);
+              passwordInputRef.current?.setStatus?.('error');
+              passwordInputRef.current?.setErrorMessage?.(e.msg);
             }
           }
         } else {
@@ -109,7 +109,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
       {/* <ThirdPartyLogin></ThirdPartyLogin> */}
       <div className="flex flex-col gap-[2rem]">
         <p className="text-[#F8F8F8] text-[1.75rem] font-Sofia-Pro-Light-Az font-semibold leading-[150%]">
-          Log in
+          Welcome
         </p>
 
         <Input
@@ -172,7 +172,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
         <CustomButton onClick={onLogin} block>
           <div className="flex items-center gap-[1.25rem]">
             <span className="text-[1.25rem] font-next-book text-white leading-[118.5%]">
-              Next
+              Log in now
             </span>
             <span>
               <RightArrowIcon></RightArrowIcon>
@@ -180,7 +180,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
           </div>
         </CustomButton>
 
-        <Link href={'/'} className="w-full text-right">
+        <Link href={'/auth/forget-password'} className="w-full text-right">
           <span className="text-[#676767] font-Sofia-Pro-Light-Az text-[1rem] leading-[150%] tracking-[-0.011rem] text-right">
             Forgot your password？
           </span>

@@ -8,7 +8,7 @@ const nextConfig = (phase) => {
     // 配置环境变量
     env: {
       BACKEND_BASE_URL:
-        process.env.BACKEND_BASE_URL || 'https://api-dev.hackquest.io/',
+        process.env.BACKEND_BASE_URL || 'https://api.dev.hackquest.io/',
       IS_DEV: isDev
     },
     modifyVars: {
@@ -30,6 +30,9 @@ const nextConfig = (phase) => {
       '@border-radius-base': '10px',
       '@border-color-base': '#e6e6e6',
       '@font-size-base': '13px'
+    },
+    images: {
+      domains: ['hack-quest-s3-dev.s3.amazonaws.com', 's3.amazonaws.com']
     }
   });
 };
