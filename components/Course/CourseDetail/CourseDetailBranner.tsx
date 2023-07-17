@@ -30,7 +30,7 @@ const CourseDetailBanner: FC<CourseDetailBannerProps> = (props) => {
 
   return (
     <div className="flex justify-end relative">
-      <div className="absolute top-[7.77rem] left-0 flex flex-col course-detail-banner z-[9999]">
+      <div className="absolute top-[7.77rem] left-0 flex flex-col course-detail-banner z-[50]">
         <span className="text-[#676767] font-next-book text-base">
           {tagFormate(courseDetail?.type || '')}
         </span>

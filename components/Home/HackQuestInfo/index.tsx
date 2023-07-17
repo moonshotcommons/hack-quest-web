@@ -174,7 +174,7 @@ export const CenterInfo: FC = () => {
 export const BottomInfo: FC = () => {
   return (
     <div className="w-[100rem] h-[49.125rem] flex flex-col  justify-center bg-[#0D0D0D] -translate-x-[50%] ml-[50%] mt-[13.69rem] rounded-[5rem]">
-      <h1 className="text-[#F5F5F5] w-[43.5rem] mx-auto text-center font-next-poster-Bold text-[2.5rem] mt-[5rem] leading-[110%]">
+      <h1 className="text-[#F5F5F5] w-[43.5rem] mx-auto text-center font-next-poster-Bold text-[2.5rem] mt-[5rem] leading-[110%] tracking-wider">
         Still not sure? Create your own token in 10 minutes and decide.
       </h1>
       <div className="relative mx-auto flex justify-center mt-[2.5rem] ">
