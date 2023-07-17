@@ -35,7 +35,8 @@ const Layout = (props: {
       '/auth/login',
       '/users/email-confirmed',
       '/auth/email-verify',
-      '/auth/forget-password'
+      '/auth/forget-password',
+      '/auth/update-password'
     ].includes(pathname):
       return <LoginLayout>{children}</LoginLayout>;
     default:
