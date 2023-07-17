@@ -64,6 +64,8 @@ const ForgetPassword: NextPage<ForgetPasswordProps> = (props) => {
   const { run: onUpdate } = useDebounceFn(
     () => {
       validator.validate(formData, async (errors, fields) => {
+        console.log('开始更新');
+        debugger;
         if (!errors) {
           const status: any = { ...formState };
           for (let key in status) {
@@ -77,6 +79,7 @@ const ForgetPassword: NextPage<ForgetPasswordProps> = (props) => {
             message.error(e.msg);
           }
         } else {
+          console.log('产生错误');
           const status: any = { ...formState };
           errors.map((error) => {
             status[error.field as string] = {
