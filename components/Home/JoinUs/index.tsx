@@ -6,8 +6,8 @@ interface JoinUsProps {}
 
 const JoinUs: FC<JoinUsProps> = (props) => {
   return (
-    <div className="text-white flex justify-between">
-      <div className="-ml-[3.4rem]">
+    <div className="text-white flex -ml-20">
+      <div>
         <Image
           src={'/images/home/join_us.png'}
           alt="join_us"
@@ -15,7 +15,7 @@ const JoinUs: FC<JoinUsProps> = (props) => {
           height={684}
         ></Image>
       </div>
-      <div className="flex flex-col justify-center text-center">
+      <div className="flex flex-col justify-center text-center items-center ml-8">
         <div className="w-[17.3125rem] text-[2rem] font-next-poster-Bold leading-[120%] tracking-[0.08rem]">
           Join our Web3 hacker community
         </div>
