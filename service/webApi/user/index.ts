@@ -76,7 +76,7 @@ class UserApi {
   }
 
   uploadAvatar(file: FormData) {
-    return this.service.post(UserApiType.UploadAvatar, {
+    return this.service.post<{ avatar: string }>(UserApiType.UploadAvatar, {
       data: file,
       headers: {
         'Content-Type': 'multipart/form-data'

@@ -76,7 +76,7 @@ const AvatarUpload: FC<AvatarUploadProps> = (props) => {
             formData.append('fileName', fileName);
             try {
               const res = await webApi.userApi.uploadAvatar(formData);
-              dispatch(setUserInfo(res));
+              dispatch(setUserInfo({ ...userInfo, avatar: res.avatar || '' }));
               message.success('Updated avatar successfully');
             } catch (e: any) {
               message.error(e.msg);
