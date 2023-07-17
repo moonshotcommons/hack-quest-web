@@ -59,7 +59,7 @@ const ForgetPassword: NextPage<ForgetPasswordProps> = (props) => {
     }
   });
 
-  const { validator } = useValidator(['password', 'reenterPassword']);
+  const { validator } = useValidator(['newPassword', 'reenterPassword']);
 
   const { run: onUpdate } = useDebounceFn(
     () => {
@@ -79,7 +79,7 @@ const ForgetPassword: NextPage<ForgetPasswordProps> = (props) => {
             message.error(e.msg);
           }
         } else {
-          console.log('产生错误');
+          console.log('产生错误', errors, fields);
           const status: any = { ...formState };
           errors.map((error) => {
             status[error.field as string] = {
