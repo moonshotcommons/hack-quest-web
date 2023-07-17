@@ -51,7 +51,7 @@ const ForgetPassword: NextPage<ForgetPasswordProps> = (props) => {
           try {
             setStatus('success');
             setErrorMessage('');
-            // const res = await webApi.userApi.forgetPassword(formData.email);
+            const res = await webApi.userApi.forgetPassword(formData.email);
             router.push('/auth/email-verify');
           } catch (e: any) {
             setStatus('error');
