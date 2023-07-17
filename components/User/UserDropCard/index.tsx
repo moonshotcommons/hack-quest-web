@@ -17,12 +17,14 @@ const UserInfo: FC<Omit<UserDropCardProps, 'onClose'>> = ({ userInfo }) => {
   return (
     <div className="w-full flex flex-col items-center">
       {/* <div className="w-[7.5rem] h-[7.5rem] rounded-full bg-white"> */}
-      <Image
-        src={userInfo?.avatar}
-        alt="avatar"
-        width={120}
-        height={120}
-      ></Image>
+      <div className="w-[7.5rem] h-[7.5rem] overflow-hidden rounded-full">
+        <Image
+          src={userInfo?.avatar}
+          alt="avatar"
+          width={120}
+          height={120}
+        ></Image>
+      </div>
       {/* </div> */}
       <div className="font-next-poster-Bold text-[1.5rem] font-bold leading-[110%] tracking-[0.03rem] mt-[0.75rem] text-white">
         {userInfo?.name}
