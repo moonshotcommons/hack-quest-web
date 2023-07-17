@@ -53,7 +53,7 @@ const AvatarUpload: FC<AvatarUploadProps> = (props) => {
   const dispatch = useDispatch();
   return (
     <div className="flex flex-row gap-[1.5rem] items-center">
-      <div className="w-[5rem] h-[5rem] bg-[#D9D9D9] rounded-full ">
+      <div className="w-[5rem] h-[5rem] bg-[#D9D9D9] rounded-full overflow-hidden">
         <Image
           src={userInfo?.avatar || ''}
           alt="avatar"
@@ -79,7 +79,8 @@ const AvatarUpload: FC<AvatarUploadProps> = (props) => {
               dispatch(setUserInfo({ ...userInfo, avatar: res.avatar || '' }));
               message.success('Updated avatar successfully');
             } catch (e: any) {
-              message.error(e.msg);
+              console.log(e);
+              message.error(e?.msg);
             }
           }}
         >

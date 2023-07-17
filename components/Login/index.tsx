@@ -81,12 +81,12 @@ const UserLogin: FC<UserLoginProps> = (props) => {
             dispatch(setUserInfo(res));
             router.push('/courses');
           } catch (e: any) {
-            passwordInputRef.current?.setStatus?.('error');
-            passwordInputRef.current?.setErrorMessage?.(e.msg);
             if (e.code === 400) {
-              setTimeout(() => {
-                router.push('/auth/email-verify');
-              }, 1000);
+              // setTimeout(() => {
+              //   router.push('/auth/email-verify');
+              // }, 1000);
+              passwordInputRef.current?.setStatus?.('error');
+              passwordInputRef.current?.setErrorMessage?.(e.msg);
             }
           }
         } else {

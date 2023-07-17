@@ -38,12 +38,14 @@ const User: FC<UserProps> = (props) => {
       >
         <div className="cursor-pointer h-full flex items-center w-[4rem] justify-end">
           {isLogin && (
-            <Image
-              src={userInfo?.avatar as string}
-              alt="avatar"
-              width={40}
-              height={40}
-            ></Image>
+            <div className="w-[2.5rem] h-[40px] overflow-hidden rounded-full">
+              <Image
+                src={userInfo?.avatar as string}
+                alt="avatar"
+                width={40}
+                height={40}
+              ></Image>
+            </div>
           )}
           {!isLogin && (
             <Link href={'/auth/login'}>
