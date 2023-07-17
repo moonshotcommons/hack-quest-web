@@ -87,7 +87,13 @@ const checkReenterPasswordRules: Rule = {
 };
 
 export const useValidator = (
-  types: ('email' | 'password' | 'reenterPassword' | 'registerEmail')[]
+  types: (
+    | 'email'
+    | 'password'
+    | 'newPassword'
+    | 'reenterPassword'
+    | 'registerEmail'
+  )[]
 ) => {
   const [status, setStatus] = useState<FormStatusType>('default');
   const [errorMessage, setErrorMessage] = useState('');
@@ -101,6 +107,9 @@ export const useValidator = (
         descriptor['email'] = checkRegisterEmailRules;
         break;
       case 'password':
+        descriptor[type] = checkPasswordRules;
+        break;
+      case 'newPassword':
         descriptor[type] = checkPasswordRules;
         break;
       case 'reenterPassword':
