@@ -7,6 +7,7 @@ import { shallowEqual, useSelector } from 'react-redux';
 import { AppRootState } from '@/store/redux';
 import Link from 'next/link';
 import Settings from './Settings';
+import RightIcon from '../Common/Icon/Right';
 interface UserProps {
   // children: ReactNode;
 }
@@ -45,11 +46,11 @@ const User: FC<UserProps> = (props) => {
             ></Image>
           )}
           {!isLogin && (
-            <Link
-              href={'/auth/login'}
-              className="text-[#F2F2F2] font-next-book-bold"
-            >
-              Login
+            <Link href={'/auth/login'}>
+              <div className="w-fit whitespace-nowrap flex items-center  px-8 py-3 font-next-book leading-[128%] text-[#F5F5F5] text-[.875rem] rounded-[5rem] border border-solid hover:bg-white hover:text-black border-[#F5F5F5] gap-[0.62rem]">
+                <div>Sign Up To Learn Now</div>
+                <RightIcon></RightIcon>
+              </div>
             </Link>
           )}
         </div>

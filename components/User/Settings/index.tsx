@@ -10,6 +10,7 @@ import Image from 'next/image';
 import { FC, ReactNode, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import ChangePassword from './ChangePassword';
+import AvatarUpload from './AvatarUpload';
 
 interface SettingsProps {
   // children: ReactNode;
@@ -40,26 +41,7 @@ const Settings: FC<SettingsProps> = (props) => {
               Settings
             </h1>
             <div className="mt-[4rem] flex flex-col gap-[1.5rem] ">
-              <div className="flex flex-row gap-[1.5rem] items-center">
-                <div className="w-[5rem] h-[5rem] bg-[#D9D9D9] rounded-full ">
-                  <Image
-                    src={userInfo?.avatar || ''}
-                    alt="avatar"
-                    width={80}
-                    height={80}
-                  ></Image>
-                </div>
-                <div>
-                  <Upload>
-                    <div
-                      type="file"
-                      className="text-[0.875rem] font-next-book leading-[120%] text-[#F2F2F2] border border-solid border-white px-[2.5rem] py-[1rem] rounded-[2.5rem]"
-                    >
-                      Upload
-                    </div>
-                  </Upload>
-                </div>
-              </div>
+              <AvatarUpload userInfo={userInfo}></AvatarUpload>
               <div className="w-full relative flex flex-col gap-[0.25rem] bottom-line">
                 <span className="text-[#676767] text-[0.875rem] font-next-book leading-[110%]">
                   ID

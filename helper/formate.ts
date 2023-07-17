@@ -56,3 +56,11 @@ export const tagFormate = (input: string) => {
 
   return convertedStr;
 };
+
+export const transformQueryString = (params: Record<string, any>) => {
+  return Object.keys(params)
+    .map(
+      (key) => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`
+    )
+    .join('&');
+};

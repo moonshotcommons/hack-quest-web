@@ -128,6 +128,8 @@ const Input = forwardRef<
           )}
           onChange={(e) => {
             setValue(e.target.value);
+            setStatus('default');
+            setErrorMessage('');
             run(e);
           }}
           {...rest}

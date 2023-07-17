@@ -15,6 +15,7 @@ import webApi from '@/service';
 import Image from 'next/image';
 import OkIcon from '@/public/images/other/ok.svg';
 import { Transition } from '@headlessui/react';
+import { message } from 'antd';
 interface ChangePasswordProps {
   // children: ReactNode;
 }
@@ -33,7 +34,7 @@ const PasswordInput: FC<{ onChange: VoidFunction }> = (props) => {
           </span>
           <input
             type="password"
-            value={'******'}
+            value={'********'}
             className="bg-transparent h-full text-[#EDEDED] text-[1rem] font-next-book leading-[120%]"
           />
         </div>
@@ -56,17 +57,17 @@ const ChangePasswordInput: FC<{
   const { changeVisible } = props;
   const [changeSuccessVisible, setChangeSuccessVisible] = useState(false);
   const [formData, setFormData] = useState<{
-    currentPassword: string;
+    password: string;
     newPassword: string;
     reenterPassword: string;
   }>({
-    currentPassword: '',
+    password: '',
     newPassword: '',
     reenterPassword: ''
   });
 
   const [formState, setFormState] = useState({
-    currentPassword: {
+    password: {
       status: 'default',
       errorMessage: ''
     },
@@ -81,9 +82,7 @@ const ChangePasswordInput: FC<{
   });
 
   const updateDisable =
-    !formData.currentPassword ||
-    !formData.newPassword ||
-    !formData.reenterPassword;
+    !formData.password || !formData.newPassword || !formData.reenterPassword;
 
   let descriptor: Record<string, Rule> = {
     newPassword: {
@@ -117,19 +116,12 @@ const ChangePasswordInput: FC<{
         if (!errors) {
           try {
             const res = (await webApi.userApi.updatePassword(formData)) as any;
-            // if (res.isFail) {
-            //   setTimeout(() => {
-            //     router.push('/auth/email-verify');
-            //   }, 200);
-            //   return;
-            // }
             const status: any = { ...formState };
             for (let key in status) {
               status[key] = { status: 'success', errorMessage: '' };
             }
             setChangeSuccessVisible(true);
-            // dispatch(setUserInfo(res));
-            // router.push('/courses');
+            message.success('Updated password successfully');
           } catch (e: any) {
             currentPasswordRef.current?.setStatus?.('error');
             currentPasswordRef.current?.setErrorMessage?.(e.msg);
@@ -172,11 +164,11 @@ const ChangePasswordInput: FC<{
           <Input
             label="Current password"
             type="password"
-            name="currentPassword"
+            name="password"
             placeholder="Password"
             // description="Use 8 or more characters with a mix of letters & numbers"
-            state={formState.currentPassword.status as any}
-            errorMessage={formState.currentPassword.errorMessage}
+            state={formState.password.status as any}
+            errorMessage={formState.password.errorMessage}
             // delay={500}
             // rules={{
             //   type: 'string',
@@ -188,7 +180,7 @@ const ChangePasswordInput: FC<{
             onChange={(e) => {
               setFormData({
                 ...formData,
-                currentPassword: e.target.value
+                password: e.target.value
               });
             }}
           ></Input>

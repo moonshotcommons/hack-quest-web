@@ -5,6 +5,7 @@ import {
   RegisterParamsType,
   RegisterResponse
 } from './type';
+import { transformQueryString } from '@/helper/formate';
 
 export enum UserApiType {
   CheckEmail = '/api/users/verify',
@@ -12,7 +13,8 @@ export enum UserApiType {
   UserLogin = '/api/users/signin',
   TokenVerify = '/api/users/token',
   UpdatePassword = '/api/users/update-password',
-  ForgetPassword = '/api/users/forgot-password'
+  ForgetPassword = '/api/users/forgot-password',
+  UploadAvatar = '/api/users/upload-avatar'
 }
 
 class UserApi {
@@ -23,7 +25,8 @@ class UserApi {
 
   /** 检查邮箱是否存在 */
   checkEmailExists(email: string) {
-    const url = `${UserApiType.CheckEmail}?email=${email}`;
+    const queryString = transformQueryString({ email });
+    const url = `${UserApiType.CheckEmail}?${queryString}`;
     return this.service.get(url);
   }
 
@@ -55,7 +58,7 @@ class UserApi {
 
   /** 更新密码 */
   updatePassword(params: {
-    currentPassword: string;
+    password: string;
     newPassword: string;
     reenterPassword: string;
     isForgot?: boolean;
@@ -66,8 +69,18 @@ class UserApi {
   }
 
   forgetPassword(email: string) {
-    const url = `${UserApiType.ForgetPassword}?email=${email}`;
+    const queryString = transformQueryString({ email });
+    const url = `${UserApiType.ForgetPassword}?${queryString}`;
     return this.service.get(url);
+  }
+
+  uploadAvatar(file: FormData) {
+    return this.service.post(UserApiType.UploadAvatar, {
+      data: file,
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
   }
 }
 
