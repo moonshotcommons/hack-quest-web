@@ -68,7 +68,7 @@ const UserDropCard: FC<UserDropCardProps> = (props) => {
         }}
       >
         <span>
-          <SignOutIcon color="#1D1D1D" size={24}></SignOutIcon>
+          <SignOutIcon color="white" size={24}></SignOutIcon>
         </span>
         <span className="text-[#676767] font-next-book text-[1rem] leading-[120%]">
           Sign out
