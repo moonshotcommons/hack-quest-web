@@ -58,7 +58,8 @@ class UserApi {
 
   /** 更新密码 */
   updatePassword(params: {
-    password: string;
+    token?: string;
+    password?: string;
     newPassword: string;
     reenterPassword: string;
     isForgot?: boolean;

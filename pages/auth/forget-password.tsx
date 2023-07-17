@@ -10,6 +10,7 @@ import RightArrowIcon from '@/components/Common/Icon/RightArrow';
 import webApi from '@/service';
 import { useRouter } from 'next/router';
 import { ForgetPasswordErrorStatusType } from '@/service/webApi/user/type';
+import Link from 'next/link';
 interface ForgetPasswordProps {
   children: React.ReactNode;
 }
@@ -40,7 +41,7 @@ const ForgetPassword: NextPage<ForgetPasswordProps> = (props) => {
   const router = useRouter();
   const { validator } = useValidator(['email']);
 
-  const { run: verifyEmail } = useDebounceFn(
+  const { run: sendEmail } = useDebounceFn(
     () => {
       validator.validate(formData, async (errors, fields) => {
         if (errors?.[0]) {
@@ -48,10 +49,10 @@ const ForgetPassword: NextPage<ForgetPasswordProps> = (props) => {
           setErrorMessage(errors?.[0].message || '');
         } else {
           try {
-            const res = await webApi.userApi.forgetPassword(formData.email);
-            router.push('/auth/update-password');
             setStatus('success');
             setErrorMessage('');
+            // const res = await webApi.userApi.forgetPassword(formData.email);
+            router.push('/auth/email-verify');
           } catch (e: any) {
             setStatus('error');
             setErrorMessage(e.msg || '');
@@ -105,7 +106,7 @@ const ForgetPassword: NextPage<ForgetPasswordProps> = (props) => {
             }}
           ></Input>
           <div className="mt-[2rem] flex flex-col gap-[0.75rem]">
-            <CustomButton block>
+            <CustomButton block onClick={sendEmail}>
               <div className="flex items-center gap-[1.25rem]">
                 <span className="text-[1.25rem] font-next-book text-white leading-[118.5%] font-normal">
                   Send me link
@@ -115,13 +116,15 @@ const ForgetPassword: NextPage<ForgetPasswordProps> = (props) => {
                 </span>
               </div>
             </CustomButton>
-            <Button className="py-[1.25rem] w-full border border-[#EDEDED] bg-transparent">
-              <div className="flex items-center gap-[1.25rem]">
-                <span className="text-[1rem] font-Sofia-Pro-Light-Az text-white leading-[1.25rem]">
-                  Back
-                </span>
-              </div>
-            </Button>
+            <Link href={'/login'}>
+              <Button className="py-[1.25rem] w-full border border-[#EDEDED] bg-transparent">
+                <div className="flex items-center gap-[1.25rem]">
+                  <span className="text-[1rem] font-Sofia-Pro-Light-Az text-white leading-[1.25rem]">
+                    Back
+                  </span>
+                </div>
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
