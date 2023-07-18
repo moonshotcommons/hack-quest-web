@@ -16,6 +16,8 @@ import { useDispatch } from 'react-redux';
 import { setUserInfo } from '@/store/redux/modules/user';
 import { useRouter } from 'next/router';
 import { useDebounceFn } from 'ahooks';
+import { setToken } from '@/helper/user-token';
+import { omit } from 'lodash-es';
 
 const CustomButton: FC<ButtonProps> = (props) => {
   const { children } = props;
@@ -78,7 +80,8 @@ const UserLogin: FC<UserLoginProps> = (props) => {
             for (let key in status) {
               status[key] = { status: 'success', errorMessage: '' };
             }
-            dispatch(setUserInfo(res));
+            dispatch(setUserInfo(omit(res, 'token')));
+            setToken(res.token);
             router.push('/courses');
           } catch (e: any) {
             if (e.code === 400) {

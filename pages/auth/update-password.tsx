@@ -14,6 +14,8 @@ import Link from 'next/link';
 import { message } from 'antd';
 import { useDispatch } from 'react-redux';
 import { setUserInfo } from '@/store/redux/modules/user';
+import { setToken } from '@/helper/user-token';
+import { omit } from 'lodash-es';
 interface ForgetPasswordProps {
   children: React.ReactNode;
 }
@@ -72,8 +74,9 @@ const ForgetPassword: NextPage<ForgetPasswordProps> = (props) => {
             status[key] = { status: 'success', errorMessage: '' };
           }
           try {
-            const res = await webApi.userApi.updatePassword(formData);
-            dispatch(setUserInfo(res));
+            const res = (await webApi.userApi.updatePassword(formData)) as any;
+            dispatch(setUserInfo(omit(res, 'token')));
+            setToken(res.token);
             router.push('/courses');
           } catch (e: any) {
             message.error(e.msg);

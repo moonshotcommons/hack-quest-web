@@ -1,10 +1,3 @@
-import ConceptLearningCard from '@/components/Card/ConceptLearning';
-import HackathonCard from '@/components/Card/Hackathon';
-import LearningTracksCard from '@/components/Card/LearningTracks';
-import SyntaxCard from '@/components/Card/Syntax';
-import GuidedProjectCard from '@/components/Card/GuidedProject';
-import TeaserCard from '@/components/Card/Teaser';
-
 import Title from '@/components/Common/Title';
 import { CardType, TabType } from '@/constants/enum';
 import { SliderContainer } from '@/components/Common/SliderContainer';

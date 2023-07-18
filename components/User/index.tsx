@@ -8,6 +8,7 @@ import { AppRootState } from '@/store/redux';
 import Link from 'next/link';
 import Settings from './Settings';
 import RightIcon from '../Common/Icon/Right';
+import { useGetUserInfo } from '@/hooks/useGetUserInfo';
 interface UserProps {
   // children: ReactNode;
 }
@@ -16,17 +17,10 @@ const User: FC<UserProps> = (props) => {
   const [showUserDropCard, setShowUserDropCard] = useState(false);
   const userDropCardRef = useRef();
   const [isLogin, setIsLogin] = useState(false);
-  const userInfo = useSelector((state: AppRootState) => {
-    return state.user.userInfo;
-  }, shallowEqual);
-  // useClickAway(() => {
-  //   if (showUserDropCard) {
-  //     setShowUserDropCard(false);
-  //   }
-  // }, userDropCardRef);
+  const userInfo = useGetUserInfo();
   useEffect(() => {
     if (userInfo) setIsLogin(true);
-  }, []);
+  }, [userInfo]);
 
   return (
     <div className="relative h-full">

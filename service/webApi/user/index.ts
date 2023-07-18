@@ -14,7 +14,8 @@ export enum UserApiType {
   TokenVerify = '/api/users/token',
   UpdatePassword = '/api/users/update-password',
   ForgetPassword = '/api/users/forgot-password',
-  UploadAvatar = '/api/users/upload-avatar'
+  UploadAvatar = '/api/users/upload-avatar',
+  UserInfo = '/api/users/info '
 }
 
 class UserApi {
@@ -75,6 +76,7 @@ class UserApi {
     return this.service.get(url);
   }
 
+  /** 上传头像 */
   uploadAvatar(file: FormData) {
     return this.service.post<{ avatar: string }>(UserApiType.UploadAvatar, {
       data: file,
@@ -82,6 +84,11 @@ class UserApi {
         'Content-Type': 'multipart/form-data'
       }
     });
+  }
+
+  /** 获取用户信息 */
+  getUserInfo() {
+    return this.service.get(UserApiType.UserInfo);
   }
 }
 
