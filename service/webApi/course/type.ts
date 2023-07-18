@@ -15,7 +15,9 @@ export enum CourseType {
 export enum LessonStyleType {
   A = 'A',
   B = 'B',
-  C = 'C'
+  C = 'C',
+  D = 'D',
+  E = 'E'
 }
 
 export enum CompleteStateType {
