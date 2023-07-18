@@ -96,7 +96,7 @@ export const SliderContainer: React.FC<SliderContainerProps> = ({
           >
             <LeftArrowIcon></LeftArrowIcon>
           </div>
-          <div className="absolute w-20 h-full top-0 -left-4 bg-gradient-to-l from-transparent to-black  z-40 select-none"></div>
+          <div className="absolute w-20 h-full top-0 -left-4 bg-gradient-to-l from-transparent to-black  z-[18] select-none"></div>
         </>
       )}
       <div

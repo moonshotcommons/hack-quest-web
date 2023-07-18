@@ -7,6 +7,8 @@ import webApi from '@/service';
 import { useDispatch } from 'react-redux';
 import { setUserInfo } from '@/store/redux/modules/user';
 import { useState } from 'react';
+import { setToken } from '@/helper/user-token';
+import { omit } from 'lodash-es';
 interface EmailConfirmedProps {
   children: React.ReactNode;
 }
@@ -23,8 +25,9 @@ const EmailConfirmed: NextPage<EmailConfirmedProps> = (props) => {
     if (token) {
       webApi.userApi
         .tokenVerify({ token: token as string })
-        .then((res) => {
-          dispatch(setUserInfo(res));
+        .then((res: any) => {
+          dispatch(setUserInfo(omit(res, 'token')));
+          setToken(res.token || token);
           setJump(true);
         })
         .catch((err) => {

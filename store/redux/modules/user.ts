@@ -18,7 +18,7 @@ export interface UserStateType {
 const userSlice = createSlice({
   name: 'user',
   initialState: {
-    userInfo: null || getUser(),
+    userInfo: null,
     settingsOpen: false
   } as UserStateType,
   reducers: {
@@ -28,13 +28,10 @@ const userSlice = createSlice({
 
     setUserInfo(state, { type, payload }) {
       state.userInfo = payload;
-      setUser(payload);
-      setToken(payload.token);
     },
 
     userSignOut(state) {
       state.userInfo = null;
-      removeUser();
       removeToken();
     },
 
