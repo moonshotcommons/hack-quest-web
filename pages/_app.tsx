@@ -16,6 +16,8 @@ import UnitLayout from '@/components/Layout/UnitLayout';
 import { ReactNode } from 'react';
 import HomeLayout from '@/components/Layout/HomeLayout';
 import LoginLayout from '@/components/Layout/LoginLayout';
+import { useLoadUserInfo } from '@/hooks/useGetUserInfo';
+import useNavAuth from '@/hooks/useNavPage/userNavAuth';
 
 const Layout = (props: {
   pathname: string;
@@ -23,6 +25,8 @@ const Layout = (props: {
   navbarData: any;
 }) => {
   const { pathname, children, navbarData } = props;
+  const { waitingLoadUserInfo } = useLoadUserInfo();
+  useNavAuth(waitingLoadUserInfo);
   const regex = /\/[^/]+\/\[courseId\]\/learn\/\[lessonId\]/;
   console.log(pathname);
   switch (true) {

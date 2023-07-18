@@ -11,6 +11,7 @@ import { FC, ReactNode, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import ChangePassword from './ChangePassword';
 import AvatarUpload from './AvatarUpload';
+import { useGetUserInfo } from '@/hooks/useGetUserInfo';
 
 interface SettingsProps {
   // children: ReactNode;
@@ -28,9 +29,7 @@ const Settings: FC<SettingsProps> = (props) => {
     dispatch(setSettingsOpen(false));
   };
 
-  const userInfo = useSelector((state: AppRootState) => {
-    return state.user.userInfo;
-  }, shallowEqual);
+  const userInfo = useGetUserInfo();
 
   return (
     <div>
