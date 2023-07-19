@@ -32,7 +32,12 @@ const nextConfig = (phase) => {
       '@font-size-base': '13px'
     },
     images: {
-      domains: ['hack-quest-s3-dev.s3.amazonaws.com', 's3.amazonaws.com']
+      domains: [
+        'hack-quest-s3-dev.s3.amazonaws.com',
+        's3.amazonaws.com',
+        'hack-quest-s3-prod.s3.amazonaws.com',
+        'hack-quest-s3-staging.s3.amazonaws.com'
+      ]
     }
   });
 };
