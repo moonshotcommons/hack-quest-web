@@ -28,7 +28,6 @@ const Layout = (props: {
   const { waitingLoadUserInfo } = useLoadUserInfo();
   useNavAuth(waitingLoadUserInfo);
   const regex = /\/[^/]+\/\[courseId\]\/learn\/\[lessonId\]/;
-  console.log(pathname);
   switch (true) {
     case regex.test(pathname):
       return <UnitLayout>{children}</UnitLayout>;
