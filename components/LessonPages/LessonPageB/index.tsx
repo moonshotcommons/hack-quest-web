@@ -1,5 +1,13 @@
+import { Renderer } from '@/components/NotionRender';
+import ImageRenderer from '@/components/NotionRender/ImageRenderer';
+import TextRenderer from '@/components/NotionRender/TextRenderer';
+import { Block } from '@/components/TempComponent/Block';
 import { useParseLessonBSection } from '@/hooks/useParseLesson/useParseLessonBSection';
-import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
+import {
+  CourseLessonType,
+  CourseType,
+  LessonStyleType
+} from '@/service/webApi/course/type';
 import { FC, ReactNode, useState } from 'react';
 
 interface LessonPageBProps {
@@ -12,21 +20,24 @@ const LessonPageB: FC<LessonPageBProps> = (props) => {
   const sections = useParseLessonBSection(lesson.content);
   console.log(sections);
   return (
-    <div className="w-full h-[80vh] flex-col gap-[4.5rem] mt-[1.25rem] text-white rounded-[2.5rem] bg-[#111] px-[3rem] py-[2.5rem]">
-      {sections?.map((section: any) => {
+    <div className="w-full h-[80vh] flex-col gap-[4.5rem] mt-[1.25rem] text-white px-[3rem] py-[2.5rem] overflow-y-scroll">
+      {lesson.content?.map((section: any, index) => {
         return (
           <div key={section.id}>
-            <h1>{section[section.type].rich_text[0].text.content}</h1>
-            <div className="flex">
-              <div>
-                children数组，type是numbered_list_item，需要渲染成step的块
-                <div>每一个step下面有其他的内容，代码块，引述等等</div>
-              </div>
-              <div>图片 type 是image，从image下的type的url取图片链接</div>
-            </div>
+            <Renderer type="section" source={section}></Renderer>
           </div>
         );
       })}
+      {/* {lesson.content &&
+        lesson.content?.map((block: any) => (
+          <Block
+            styleType={LessonStyleType.B}
+            block={block}
+            key={block.id}
+            darkMode={true}
+            renderChildren={true}
+          />
+        ))} */}
     </div>
   );
 };

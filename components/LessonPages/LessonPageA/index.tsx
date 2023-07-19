@@ -1,7 +1,11 @@
 import { Block } from '@/components/TempComponent/Block';
 import Quest from '@/components/TempComponent/Quest';
 
-import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
+import {
+  CourseLessonType,
+  CourseType,
+  LessonStyleType
+} from '@/service/webApi/course/type';
 
 import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 
