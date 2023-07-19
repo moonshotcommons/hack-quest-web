@@ -30,7 +30,6 @@ export const Block: React.FC<any> = ({
 
   // 针对 `syntax` heading_3 展开内容逻辑
   if (type !== 'toggle' && !block[type].is_toggleable) {
-    // // debugger;
     return (
       <>
         <NotionBlock
@@ -38,7 +37,7 @@ export const Block: React.FC<any> = ({
           isCodeHighlighter={true}
           darkMode={darkMode}
         />
-        {block.has_children &&
+        {block.children?.length &&
           renderChildren &&
           block.children.map((child: any) => (
             <Block
