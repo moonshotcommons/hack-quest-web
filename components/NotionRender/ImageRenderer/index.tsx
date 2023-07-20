@@ -4,6 +4,7 @@ import { FC, ReactNode } from 'react';
 interface ImageRendererProps {
   source: any;
   type: string;
+  parent: any;
 }
 
 const ImageRenderer: FC<ImageRendererProps> = (props) => {

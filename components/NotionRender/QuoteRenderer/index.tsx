@@ -4,6 +4,7 @@ import TextRenderer from '../TextRenderer';
 interface QuoteRendererProps {
   source: any;
   type: string;
+  parent: any;
 }
 
 const QuoteRenderer: FC<QuoteRendererProps> = (props) => {

@@ -5,6 +5,14 @@ import { HeaderLevel } from './HeaderRenderer/type';
 import SectionRenderer from './SectionRenderer';
 import ImageRenderer from './ImageRenderer';
 import StepRenderer from './StepRenderer';
+import QuoteRenderer from './QuoteRenderer';
+import CodeRenderer from './CodeRenderer';
+import ToggleRenderer from './ToggleRenderer';
+import { CustomRenderType, NotionRenderType } from './type';
+import ParagraphRenderer from './ParagraphRenderer';
+import NumberListItemRenderer from './NumberListItemRenderer';
+import BulletedListItemRenderer from './BulletedListItem';
+import VideoRenderer from './VideoRenderer';
 
 export interface NotionRendererContextType {
   styleType: LessonStyleType;
@@ -15,20 +23,21 @@ export const NotionRendererContext = createContext<NotionRendererContextType>(
 );
 
 interface NotionRendererProps {
-  source: any;
+  // source: any;
   styleType: LessonStyleType;
+  children: ReactNode;
 }
 
 const NotionRenderer: FC<NotionRendererProps> = (props) => {
-  const { source, styleType } = props;
-  const type = source.type;
+  const { styleType, children } = props;
+
   return (
     <NotionRendererContext.Provider
       value={{
         styleType
       }}
     >
-      <Renderer type={type} source={source[type]}></Renderer>
+      {children}
     </NotionRendererContext.Provider>
   );
 };
@@ -37,30 +46,111 @@ interface RendererPropsType {
   type: string;
   source: any;
   isRenderChildren?: boolean;
+  index?: number;
+  parent: any;
 }
 
 export const Renderer: FC<RendererPropsType> = (props) => {
-  const { type, source, isRenderChildren = true } = props;
+  const { type, source, isRenderChildren = true, index, parent } = props;
   switch (type) {
-    case 'section':
-      return <SectionRenderer type={type} source={source}></SectionRenderer>;
-    case 'image':
-      return <ImageRenderer type={type} source={source}></ImageRenderer>;
-    case 'step':
-      return <StepRenderer type={type} source={source}></StepRenderer>;
-    case 'quote':
-      return <StepRenderer type={type} source={source}></StepRenderer>;
-    case 'heading_1':
-    case 'heading_2':
-    case 'heading_3':
-    case 'heading_4':
-    case 'heading_5':
-    case 'heading_6':
+    case CustomRenderType.SECTION:
+      return (
+        <SectionRenderer
+          type={type}
+          source={source}
+          parent={parent}
+        ></SectionRenderer>
+      );
+
+    case NotionRenderType.PARAGRAPH:
+      return (
+        <ParagraphRenderer
+          type={type}
+          source={source}
+          parent={parent}
+        ></ParagraphRenderer>
+      );
+
+    case NotionRenderType.NUMBERED_LIST_ITEM:
+      return (
+        <NumberListItemRenderer
+          type={type}
+          source={source}
+          parent={parent}
+        ></NumberListItemRenderer>
+      );
+    case NotionRenderType.BULLETED_LIST_ITEM:
+      return (
+        <BulletedListItemRenderer
+          type={type}
+          source={source}
+          parent={parent}
+        ></BulletedListItemRenderer>
+      );
+
+    case NotionRenderType.IMAGE:
+      return (
+        <ImageRenderer
+          type={type}
+          source={source}
+          parent={parent}
+        ></ImageRenderer>
+      );
+
+    case NotionRenderType.VIDEO:
+      return (
+        <VideoRenderer
+          type={type}
+          source={source}
+          parent={parent}
+        ></VideoRenderer>
+      );
+
+    case CustomRenderType.STEP:
+      return (
+        <StepRenderer
+          type={type}
+          source={source}
+          parent={parent}
+        ></StepRenderer>
+      );
+
+    case NotionRenderType.QUOTE:
+      return (
+        <QuoteRenderer
+          type={type}
+          source={source}
+          parent={parent}
+        ></QuoteRenderer>
+      );
+
+    case NotionRenderType.TOGGLE:
+      return (
+        <ToggleRenderer
+          type={type}
+          source={source}
+          parent={parent}
+        ></ToggleRenderer>
+      );
+
+    case NotionRenderType.CODE:
+      return (
+        <CodeRenderer
+          type={type}
+          source={source}
+          parent={parent}
+        ></CodeRenderer>
+      );
+
+    case NotionRenderType.H1:
+    case NotionRenderType.H2:
+    case NotionRenderType.H3:
       return (
         <HeaderRenderer
-          type={type as HeaderLevel}
+          type={type}
           source={source}
           isRenderChildren={isRenderChildren}
+          parent={parent}
         ></HeaderRenderer>
       );
   }

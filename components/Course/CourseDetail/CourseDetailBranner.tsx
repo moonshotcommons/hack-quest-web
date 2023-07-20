@@ -14,8 +14,7 @@ import { Typography } from 'antd';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { FC, ReactNode, useState } from 'react';
-import { routeros } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import { FC } from 'react';
 import styled from 'styled-components';
 
 interface CourseDetailBannerProps {
@@ -75,12 +74,14 @@ const CourseDetailBanner: FC<CourseDetailBannerProps> = (props) => {
           alt="cover"
 
         /> */}
-        <Image
-          src={`/images/course/course_cover/${courseDetail?.type}.png`}
-          alt="cover"
-          width={560}
-          height={497}
-        />
+        {courseDetail?.type && (
+          <Image
+            src={`/images/course/course_cover/${courseDetail?.type}.png`}
+            alt="cover"
+            width={560}
+            height={497}
+          />
+        )}
       </div>
     </div>
   );

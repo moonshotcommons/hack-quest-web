@@ -32,10 +32,7 @@ export const useParseQuiz = (options: Options) => {
     setShouldRenderCodeEditor(true);
     let quizCode: any = null;
     if (courseType !== CourseType.GUIDED_PROJECT) {
-      if (
-        (quiz?.has_children && quiz?.children?.[0]?.type === 'code') ||
-        quiz?.type === 'code'
-      ) {
+      if (quiz?.children?.[0]?.type === 'code' || quiz?.type === 'code') {
         quizCode = String.raw`${quiz?.children?.[0]?.code.rich_text
           ?.map((v: any) => v.plain_text)
           .join('')}`;
