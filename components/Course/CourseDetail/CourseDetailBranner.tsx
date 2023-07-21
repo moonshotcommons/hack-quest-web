@@ -14,16 +14,17 @@ import { Typography } from 'antd';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { FC } from 'react';
+import { FC, ReactNode, useMemo } from 'react';
 import styled from 'styled-components';
 
 interface CourseDetailBannerProps {
   courseDetail?: CourseDetailType;
   jumpRef?: any;
+  children?: ReactNode;
 }
 
 const CourseDetailBanner: FC<CourseDetailBannerProps> = (props) => {
-  const { courseDetail, jumpRef } = props;
+  const { courseDetail, jumpRef, children } = props;
   const router = useRouter();
   const jumpLearningLesson = useJumpLeaningLesson();
 
@@ -43,30 +44,21 @@ const CourseDetailBanner: FC<CourseDetailBannerProps> = (props) => {
         >
           {courseDetail?.description}
         </Typography.Paragraph>
-
-        {courseDetail && (
-          <button
-            className="px-8 w-fit py-4 mt-[1.875rem] border border-solid border-[#F2F2F2] rounded-[2.5rem] text-sm text-[#F2F2F2] primary-button-hover cursor-pointer"
-            onClick={() => {
-              if (courseDetail) {
-                if (courseDetail.type !== CourseType.LEARNING_TRACK) {
+        {children ||
+          (courseDetail && (
+            <button
+              className="px-8 w-fit py-4 mt-[1.875rem] border border-solid border-[#F2F2F2] rounded-[2.5rem] text-sm text-[#F2F2F2] primary-button-hover cursor-pointer"
+              onClick={() => {
+                if (courseDetail) {
                   jumpLearningLesson(courseDetail);
-                } else {
-                  if (jumpRef?.current) {
-                    document.documentElement.scrollTo({
-                      top: jumpRef?.current.offsetTop,
-                      behavior: 'smooth'
-                    });
-                  }
                 }
-              }
-            }}
-          >
-            {courseDetail?.progress || 0 > 0
-              ? 'Resume Learning'
-              : 'Start Learning'}
-          </button>
-        )}
+              }}
+            >
+              {courseDetail?.progress || 0 > 0
+                ? 'Resume Learning'
+                : 'Start Learning'}
+            </button>
+          ))}
       </div>
       <div className="-mr-[5.5625rem]">
         {/* <Image
