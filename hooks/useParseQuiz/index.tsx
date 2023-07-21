@@ -21,38 +21,47 @@ export const useParseQuiz = (options: Options) => {
   const [answerCode, setAnswerCode] = useState('');
   const [answerLineNumber, setAnswerLineNumber] = useState<number[]>([]);
   useEffect(() => {
-    const quiz = content?.[0];
+    let quiz = content?.[0];
     if (!quiz) return;
+
+    let codeBlock: any;
+
+    quiz.children = quiz.children.filter((item: any, index: number) => {
+      if (item.type === 'code') codeBlock = item;
+      return item.type !== 'code';
+    });
+
     setQuiz(quiz);
 
-    if (quiz[quiz.type]?.rich_text?.[0]?.plain_text?.trim() === 'IDE') {
-      setShouldRenderBlock(false);
-    }
+    // if (quiz[quiz.type]?.rich_text?.[0]?.plain_text?.trim() === 'IDE') {
+    //   setShouldRenderBlock(false);
+    // }
 
     setShouldRenderCodeEditor(true);
     let quizCode: any = null;
-    if (courseType !== CourseType.GUIDED_PROJECT) {
-      if (quiz?.children?.[0]?.type === 'code' || quiz?.type === 'code') {
-        quizCode = String.raw`${quiz?.children?.[0]?.code.rich_text
-          ?.map((v: any) => v.plain_text)
-          .join('')}`;
-      }
-    } else {
-      if (quiz?.type === 'code') {
-        quizCode = String.raw`${quiz?.code.rich_text
-          ?.map((v: any) => v.plain_text)
-          .join('')}`;
-      }
-    }
-    if (
-      (quizCode &&
-        quiz?.has_children &&
-        quiz?.children?.[0]?.type === 'code') ||
-      quiz?.type === 'code'
-    ) {
+    // if (courseType !== CourseType.GUIDED_PROJECT) {
+    //   if (quiz?.children?.[0]?.type === 'code' || quiz?.type === 'code') {
+    //     quizCode = String.raw`${quiz?.children?.[0]?.code.rich_text
+    //       ?.map((v: any) => v.plain_text)
+    //       .join('')}`;
+    //   }
+    // } else {
+    //   if (quiz?.type === 'code') {
+    //     quizCode = String.raw`${quiz?.code.rich_text
+    //       ?.map((v: any) => v.plain_text)
+    //       .join('')}`;
+    //   }
+    // }
+    if (!codeBlock) return;
+
+    quizCode = String.raw`${codeBlock.code.rich_text
+      ?.map((v: any) => v.plain_text)
+      .join('')}`;
+
+    if (quizCode) {
       const m = [
         ...quizCode!.matchAll(
-          /\/\/regex starts here\s+(((.|\n)*?))\s+\/\/regex ends here/gim
+          /\/\/\s?regex starts here\s+(((.|\n)*?))\s+\/\/\s?regex ends here/gim
         )
       ];
       if (m.length) {
@@ -61,7 +70,7 @@ export const useParseQuiz = (options: Options) => {
 
       // remove regex part
       quizCode = quizCode!.replace(
-        /^\s*\/\/regex starts here(((.|\n)*?))\/\/regex ends here\s*$/gim,
+        /^\s*\/\/\s?regex starts here(((.|\n)*?))\/\/\s?regex ends here\s*$/gim,
         ''
       );
       setAnswerCode(quizCode);
@@ -71,12 +80,12 @@ export const useParseQuiz = (options: Options) => {
       let lineNumbers = [];
       for (let i = 0; i < tempLines.length; i++) {
         const line = tempLines[i];
-        if (/^\s*\/\/code starts here/.test(line)) {
+        if (/^\s*\/\/\s?code starts here/.test(line)) {
           isCodingBlock = true;
           continue;
         }
         if (isCodingBlock) {
-          if (/^\s*\/\/code ends here/.test(line)) {
+          if (/^\s*\/\/\s?code ends here/.test(line)) {
             isCodingBlock = false;
             continue;
           }
@@ -85,7 +94,7 @@ export const useParseQuiz = (options: Options) => {
       }
       setAnswerLineNumber([...lineNumbers]);
       quizCode = quizCode.replace(
-        /(?<=\/\/code starts here\s+)(((.|\n)*?))(?=\s+\/\/code ends here)/gim,
+        /(?<=\/\/\s?code starts here\s+)(((.|\n)*?))(?=\s+\/\/\s?code ends here)/gim,
         ''
       );
       setCodeText(quizCode);

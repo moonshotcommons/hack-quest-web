@@ -13,7 +13,7 @@ const VideoRenderer: FC<VideoRendererProps> = (props) => {
     <div>
       <video controls className="fixed w-[44%]">
         {/* width="400px" */}
-        <source src={source[type].file.url} />
+        {<source src={source[type][source[type].type].url} />}
       </video>
     </div>
   );
