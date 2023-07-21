@@ -120,15 +120,15 @@ const Quest: FC<{
     // lines = lines.slice(startIndex, endIndex);
 
     const newLine = [];
-    const newErrorLines = [];
+    const newErrorLines: any[] = [];
     for (let i = 0; i < lines.length; i++) {
       let line = lines[i];
-      if (/^\s*\/\/code starts here/.test(line)) {
+      if (/^\s*\/\/\s?code starts here/.test(line)) {
         isCodingBlock = true;
         continue;
       }
       if (isCodingBlock) {
-        if (/^\s*\/\/code ends here/.test(line)) {
+        if (/^\s*\/\/\s?code ends here/.test(line)) {
           isCodingBlock = false;
           continue;
         }
@@ -146,12 +146,29 @@ const Quest: FC<{
       }
     }
 
-    if (answerReg[ai]) {
-      if (!answerReg[ai].test(newLine.join('').trim())) {
-        isWrong = true;
-        setErrorLines(newErrorLines);
+    // if (answerReg[ai]) {
+    //   if (!answerReg[ai].test(newLine.join('').trim())) {
+    //     isWrong = true;
+    //     setErrorLines(newErrorLines);
+    //   }
+    //   // ai++;
+    // }
+
+    // answerReg.forEach((item) => {});
+    let tempAnswerReg = [...answerReg];
+    newLine.forEach((line) => {
+      const regIndex = tempAnswerReg.findIndex((reg) => reg.test(line.trim()));
+      if (regIndex === -1) {
+        // isWrong = true;
+        // setErrorLines(newErrorLines);
+      } else {
+        answerReg.splice(regIndex, 1);
       }
-      // ai++;
+    });
+
+    if (answerReg.length) {
+      isWrong = true;
+      setErrorLines(newErrorLines);
     }
 
     setCodeWrong(isWrong);
@@ -239,9 +256,13 @@ const Quest: FC<{
                 Quest
               </div>
               <div className="py-[1.5rem]">
-                {shouldRenderBlock && quiz && (
-                  <Block block={quiz} renderChildren={false} />
-                )}
+                {shouldRenderBlock &&
+                  quiz &&
+                  quiz.children?.map((child, index: number) => {
+                    return (
+                      <Block key={index} block={child} renderChildren={true} />
+                    );
+                  })}
               </div>
             </div>
             {shouldRenderCodeEditor && (

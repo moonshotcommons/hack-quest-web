@@ -15,6 +15,9 @@ import LessonPageA from '@/components/LessonPages/LessonPageA';
 import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useGetLessonContent } from '@/hooks/useCoursesHooks/useGetLessenContent';
+import LessonPageB from '@/components/LessonPages/LessonPageB';
+import LessonPageD from '@/components/LessonPages/LessonPageD';
+import LessonPageE from '@/components/LessonPages/LessonPageE';
 
 interface IProps {}
 
@@ -31,8 +34,32 @@ const SyntaxUnit: NextPage<IProps> = (props) => {
             <>
               <LessonPageA
                 lesson={lesson}
-                courseType={CourseType.SYNTAX}
+                courseType={CourseType.TEASER}
               ></LessonPageA>
+            </>
+          );
+        case LessonStyleType.B:
+          return (
+            <LessonPageB
+              lesson={lesson}
+              courseType={CourseType.TEASER}
+            ></LessonPageB>
+          );
+        case LessonStyleType.C:
+        case LessonStyleType.D:
+          return (
+            <LessonPageD
+              lesson={lesson}
+              courseType={CourseType.TEASER}
+            ></LessonPageD>
+          );
+        case LessonStyleType.E:
+          return (
+            <>
+              <LessonPageE
+                lesson={lesson}
+                courseType={CourseType.TEASER}
+              ></LessonPageE>
             </>
           );
         default:
@@ -46,7 +73,7 @@ const SyntaxUnit: NextPage<IProps> = (props) => {
       <div className="w-full h-full flex flex-col">
         <LessonHeader
           lesson={lesson}
-          courseType={CourseType.SYNTAX}
+          courseType={CourseType.TEASER}
         ></LessonHeader>
         {LessonPage}
       </div>

@@ -4,7 +4,9 @@ import { CourseResponse, CourseType } from '../course/type';
 export interface LearningTrackType {
   id: string;
   name: string;
+  type: CourseType;
   description: string;
+  enrolled?: boolean;
   level: string;
   aboutDesc: any;
   courseCount: number;
@@ -18,6 +20,7 @@ export interface LearningTrackDetailType {
   name: string;
   description: string;
   level: string;
+  enrolled?: boolean;
   aboutDesc: any;
   courseCount: number;
   progress?: number;

@@ -1,7 +1,11 @@
 import { Block } from '@/components/TempComponent/Block';
 import Quest from '@/components/TempComponent/Quest';
 
-import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
+import {
+  CourseLessonType,
+  CourseType,
+  LessonStyleType
+} from '@/service/webApi/course/type';
 
 import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 
@@ -10,6 +14,7 @@ import webApi from '@/service';
 import CompleteModal from '../CompleteModal';
 import { shallowEqual, useSelector } from 'react-redux';
 import { AppRootState } from '@/store/redux';
+import { useRouter } from 'next/router';
 
 interface LessonPageAProps {
   lesson: CourseLessonType;
@@ -22,7 +27,8 @@ const LessonPageA: FC<LessonPageAProps> = (props) => {
   const [quizes, setQuizes] = useState([]);
   const [isProgressing, setIsProgressing] = useState(false);
   const [pass, setPass] = useState<boolean>(false);
-
+  const router = useRouter();
+  const { courseId: courseName } = router.query;
   const [completeModalOpen, setCompleteModalOpen] = useState(false);
 
   const { unitsLessonsList } = useSelector((state: AppRootState) => {
@@ -104,6 +110,7 @@ const LessonPageA: FC<LessonPageAProps> = (props) => {
         {RightComponent}
       </div>
       <CompleteModal
+        title={courseName as string}
         open={completeModalOpen}
         onClose={() => setCompleteModalOpen(false)}
       ></CompleteModal>

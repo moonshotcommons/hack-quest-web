@@ -9,7 +9,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import type { GetServerSideProps } from 'next';
 import wrapper, { AppDispatch, AppRootState } from '@/store/redux';
-import { getCourseList, increment } from '@/store/redux/modules/course';
+import { increment } from '@/store/redux/modules/course';
 import { useDispatch, useSelector, shallowEqual, useStore } from 'react-redux';
 import { CourseResponse, CourseType } from '@/service/webApi/course/type';
 import { getCourseLink } from '@/helper/utils';
@@ -19,6 +19,10 @@ import { coursesTabs } from '@/constants';
 import { renderCourseCard, renderLearningTrackCard } from '@/helper/renderCard';
 import webApi from '@/service';
 import { useGetLearningTracks } from '@/hooks/useLearningTrackHooks/useLearningTracks';
+import {
+  useGetCourses,
+  useLoadCourseList
+} from '@/hooks/useCoursesHooks/useGetCourses';
 
 interface CoursesProps {
   nowCards: CourseResponse[];
@@ -33,17 +37,13 @@ const Courses: NextPage<CoursesProps> = (props) => {
   const { nowCards } = props;
 
   const router = useRouter();
-  const dispatch = useDispatch<AppDispatch>();
   const { courseType } = router.query;
   const hashCourseTypeRef = useRef<HTMLElement>();
 
+  useLoadCourseList();
   useScrollToElement(hashCourseTypeRef.current, courseType as CourseType);
 
-  const { courseList } = useSelector((rootState: AppRootState) => {
-    return {
-      courseList: rootState.course.courseList
-    };
-  }, shallowEqual);
+  const courseList = useGetCourses();
 
   const { learningTracks } = useGetLearningTracks();
 
@@ -69,9 +69,9 @@ const Courses: NextPage<CoursesProps> = (props) => {
     );
   }, [selectTab, courseList]);
 
-  useEffect(() => {
-    dispatch(getCourseList());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getCourseList());
+  // }, [dispatch]);
 
   return (
     <>

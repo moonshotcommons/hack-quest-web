@@ -242,10 +242,10 @@
 
   &.dark {
     .nbr-inline-code {
-      background: rgba(135, 131, 120, 0.15);
+      background: rgba(54, 54, 54, 0.15);
     }
     .nbr-block-callout {
-      background: #303033;
+      background: #929292;
       color: #fff;
     }
     .nbr-block-code .syntax-highlighter-pre {
@@ -292,6 +292,7 @@
     color: #eb5757;
     font-family: 'Space Mono', 'Fira Code', 'SFMono-Regular', Menlo, Consolas,
       'PT Mono', 'Liberation Mono', Courier, monospace !important;
+    background: rgb(56, 56, 56);
   }
 
   .nbr-bold {

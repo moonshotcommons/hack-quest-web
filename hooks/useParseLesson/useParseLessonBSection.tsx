@@ -6,8 +6,9 @@ const omitFields = [
   'created_time',
   'last_edited_by',
   'last_edited_time',
-  'object',
-  'has_children'
+  'object'
+  // 'type'
+  // 'has_children'
 ];
 
 const parseContent = (item: any) => {
@@ -15,12 +16,19 @@ const parseContent = (item: any) => {
     return omit(
       {
         ...item,
+        content: item[item.type],
         children: item.children.map((child: any) => parseContent(child))
       },
-      omitFields
+      [...omitFields, item.type]
     );
   } else {
-    return omit(item, omitFields);
+    return omit(
+      {
+        ...item,
+        content: item[item.type]
+      },
+      [...omitFields, item.type]
+    );
   }
 };
 

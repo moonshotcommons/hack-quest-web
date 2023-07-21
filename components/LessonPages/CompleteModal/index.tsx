@@ -10,6 +10,7 @@ import Link from 'next/link';
 interface CompleteModalProps {
   open: boolean;
   onClose: () => void;
+  title: string;
 }
 
 const CustomButton: FC<ButtonProps> = (props) => {
@@ -26,7 +27,11 @@ const CustomButton: FC<ButtonProps> = (props) => {
   );
 };
 
-const CompleteModal: NextPage<CompleteModalProps> = ({ open, onClose }) => {
+const CompleteModal: NextPage<CompleteModalProps> = ({
+  open,
+  onClose,
+  title
+}) => {
   return (
     <div>
       <Modal open={open} onClose={onClose}>
@@ -55,7 +60,9 @@ const CompleteModal: NextPage<CompleteModalProps> = ({ open, onClose }) => {
           >
             Congrats!
           </h1>
-          <p className="font-next-book text-[1.25rem] text-[#F2F2F2] mt-[2.375rem] leading-[128%]">{`By this point, you've completed the guided project!`}</p>
+          <p className="font-next-book text-[1.25rem] text-[#F2F2F2] mt-[2.375rem] leading-[128%]">
+            {title}
+          </p>
           <div className="flex gap-[1.25rem] mt-[3.75rem]">
             <CustomButton
               className="border solid border-[#2A2A2A] hover:bg-white hover:text-black"
