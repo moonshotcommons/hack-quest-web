@@ -31,25 +31,27 @@ const LearningTrackDetail: NextPage<IProps> = (props) => {
         courseDetail={learningTrackDetail as any}
         jumpRef={ref}
       >
-        <>
-          {learningTrackDetail?.enrolled && (
-            <div className="text-[#676767] text-[1rem] leading-[120%] font-next-book mt-[1.875rem]">
-              <span>{`You have enrolled this course, click to `}</span>
-              <span className="underline cursor-pointer" onClick={unEnroll}>
-                cancel enrollment
-              </span>
-            </div>
-          )}
+        {learningTrackDetail && (
+          <>
+            {learningTrackDetail?.enrolled && (
+              <div className="text-[#676767] text-[1rem] leading-[120%] font-next-book mt-[1.875rem]">
+                <span>{`You have enrolled this course, click to `}</span>
+                <span className="underline cursor-pointer" onClick={unEnroll}>
+                  cancel enrollment
+                </span>
+              </div>
+            )}
 
-          {!learningTrackDetail?.enrolled && (
-            <button
-              className="px-8 w-fit py-4 mt-[1.875rem] border border-solid border-[#F2F2F2] rounded-[2.5rem] text-sm text-[#F2F2F2] primary-button-hover cursor-pointer"
-              onClick={enroll}
-            >
-              Enroll
-            </button>
-          )}
-        </>
+            {!learningTrackDetail?.enrolled && (
+              <button
+                className="px-8 w-fit py-4 mt-[1.875rem] border border-solid border-[#F2F2F2] rounded-[2.5rem] text-sm text-[#F2F2F2] primary-button-hover cursor-pointer"
+                onClick={enroll}
+              >
+                Enroll
+              </button>
+            )}
+          </>
+        )}
       </CourseDetailBanner>
 
       <CourseDetailInfo courseDetail={learningTrackDetail}></CourseDetailInfo>

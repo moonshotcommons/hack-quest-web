@@ -4,7 +4,9 @@ import { CourseResponse, CourseType } from '../course/type';
 export interface LearningTrackType {
   id: string;
   name: string;
+  type: CourseType;
   description: string;
+  enrolled?: boolean;
   level: string;
   aboutDesc: any;
   courseCount: number;
