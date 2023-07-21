@@ -1,6 +1,7 @@
 import React, { HTMLAttributes } from 'react';
 import classnames from 'classnames';
 import { omit } from 'lodash-es';
+import { cn } from '@/helper/utils';
 type ButtonType = 'default' | 'primary' | 'secondary' | 'text';
 
 interface BaseButtonProps {
@@ -60,7 +61,9 @@ const Button: React.FC<ButtonProps> = (props) => {
   const className = getClassNames(rest);
   return (
     <button
-      className={`flex items-center justify-center whitespace-nowrap ${className}`}
+      className={cn(
+        `flex items-center justify-center whitespace-nowrap ${className}`
+      )}
       {...omit(rest, [
         'icon',
         'rounded',

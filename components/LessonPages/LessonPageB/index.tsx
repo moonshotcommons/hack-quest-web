@@ -1,6 +1,36 @@
+import Button, { ButtonProps } from '@/components/Common/Button';
+import NotionRenderer, { Renderer } from '@/components/NotionRender';
+import ImageRenderer from '@/components/NotionRender/ImageRenderer';
+import TextRenderer from '@/components/NotionRender/TextRenderer';
+import { Block } from '@/components/TempComponent/Block';
+import {
+  useBackToPrevLesson,
+  useGotoNextLesson
+} from '@/hooks/useCoursesHooks/useGotoNextLesson';
 import { useParseLessonBSection } from '@/hooks/useParseLesson/useParseLessonBSection';
-import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
-import { FC, ReactNode, useState } from 'react';
+import webApi from '@/service';
+import {
+  CourseLessonType,
+  CourseType,
+  LessonStyleType
+} from '@/service/webApi/course/type';
+import { useRouter } from 'next/router';
+import { FC, ReactNode, useEffect, useState } from 'react';
+import CompleteModal from '../CompleteModal';
+
+const CustomButton: FC<ButtonProps> = (props) => {
+  const { children } = props;
+  return (
+    <Button
+      padding="px-[3rem] py-[1.25rem]"
+      fontStyle="Inter font-normal"
+      textStyle="text-[.875rem] text-white leading-[1.25rem]"
+      {...props}
+    >
+      {children}
+    </Button>
+  );
+};
 
 interface LessonPageBProps {
   lesson: CourseLessonType;
@@ -8,25 +38,50 @@ interface LessonPageBProps {
 }
 
 const LessonPageB: FC<LessonPageBProps> = (props) => {
-  const { lesson } = props;
+  const { lesson, courseType } = props;
+  const router = useRouter();
+  const { courseId: courseName } = router.query;
   const sections = useParseLessonBSection(lesson.content);
   console.log(sections);
+
+  const { onNextClick, completeModalOpen, setCompleteModalOpen } =
+    useGotoNextLesson(lesson, courseType, true);
+  const { onBackClick } = useBackToPrevLesson(lesson, courseType);
+  useEffect(() => {
+    if (lesson) {
+      webApi.courseApi.startLesson(lesson.id).catch((e) => {
+        console.log('开始学习失败', e);
+      });
+    }
+  }, [lesson]);
   return (
-    <div className="w-full h-[80vh] flex-col gap-[4.5rem] mt-[1.25rem] text-white rounded-[2.5rem] bg-[#111] px-[3rem] py-[2.5rem]">
-      {sections?.map((section: any) => {
-        return (
-          <div key={section.id}>
-            <h1>{section[section.type].rich_text[0].text.content}</h1>
-            <div className="flex">
-              <div>
-                children数组，type是numbered_list_item，需要渲染成step的块
-                <div>每一个step下面有其他的内容，代码块，引述等等</div>
-              </div>
-              <div>图片 type 是image，从image下的type的url取图片链接</div>
+    <div className="relative w-full h-[80vh] flex-col gap-[4.5rem] mt-[1.25rem] text-white px-[3rem] py-[2.5rem]">
+      <div className=" w-full h-full scroll-wrap-y">
+        {lesson.content?.map((section: any, index) => {
+          return (
+            <div key={section.id} className="relative bottom-line mb-8">
+              <NotionRenderer styleType={LessonStyleType.B}>
+                <Renderer
+                  type="section"
+                  source={section}
+                  parent={{ ...lesson, isRoot: true }}
+                ></Renderer>
+              </NotionRenderer>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
+      <div className="h-[3rem] flex gap-4 self-end absolute right-[4rem] bottom-[2.5rem]">
+        <CustomButton onClick={onBackClick}>Back</CustomButton>
+        <CustomButton className="border" onClick={onNextClick}>
+          Next
+        </CustomButton>
+      </div>
+      <CompleteModal
+        title={courseName as string}
+        open={completeModalOpen}
+        onClose={() => setCompleteModalOpen(false)}
+      ></CompleteModal>
     </div>
   );
 };

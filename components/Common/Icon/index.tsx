@@ -3,6 +3,7 @@ import React from 'react';
 import BottomIcon from './Bottom';
 import ClockIcon from './Clock';
 import CloseIcon from './Close';
+import CopyIcon from './Copy';
 import CourseIcon from './Course';
 import DiscordIcon from './Discord';
 import DropDownIcon from './DropDown';
@@ -29,6 +30,7 @@ const Icons: IconsType = {
   Bottom: <BottomIcon />,
   Clock: <ClockIcon />,
   Close: <CloseIcon />,
+  Copy: <CopyIcon />,
   Course: <CourseIcon />,
   Discord: <DiscordIcon />,
   DropDown: <DropDownIcon />,

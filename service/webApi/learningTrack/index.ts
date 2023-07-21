@@ -32,6 +32,19 @@ class LearningTrackApi {
       LearningTrackDetailType & { courses: CourseResponse[] }
     >(url);
   }
+
+  /** 订阅课程路线 */
+
+  enrollLearningTrack(learningTrackId: string) {
+    const url = `${LearningTrackApiType.GetLearningTrack}/${learningTrackId}/enroll`;
+    return this.service.get(url);
+  }
+
+  /** 取消订阅 */
+  unenrollLearningTrack(learningTrackId: string) {
+    const url = `${LearningTrackApiType.GetLearningTrack}/${learningTrackId}/unenroll`;
+    return this.service.get(url);
+  }
 }
 
 export default LearningTrackApi;
