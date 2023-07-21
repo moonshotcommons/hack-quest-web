@@ -6,11 +6,12 @@ import TrackList from '@/components/Course/TrackList';
 import UnitList from '@/components/Course/UnitList';
 import { Block } from '@/components/TempComponent/Block';
 import { tagFormate } from '@/helper/formate';
+import { useEnrollUnEnroll } from '@/hooks/useLearningTrackHooks/useEnrollUnEnroll';
 import { useGetLearningTrackDetail } from '@/hooks/useLearningTrackHooks/useLearningTrackDetail';
 import webApi from '@/service';
 import { CourseDetailType } from '@/service/webApi/course/type';
 import wrapper, { AppRootState } from '@/store/redux';
-import { useRequest } from 'ahooks';
+import { useDebounceFn, useRequest } from 'ahooks';
 import { Typography, message } from 'antd';
 import type { GetServerSideProps, NextPage } from 'next';
 import Image from 'next/image';
@@ -18,24 +19,38 @@ import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 
-interface IProps {
-  //   courseId: string;
-  //   courseDetail: CourseDetailType;
-}
+interface IProps {}
 
 const LearningTrackDetail: NextPage<IProps> = (props) => {
-  const router = useRouter();
-  const { courseId } = router.query;
-  const [courseDetail, setCourseDetail] = useState<CourseDetailType>();
   const ref = useRef();
-  const { learningTrackDetail } = useGetLearningTrackDetail();
-
+  const { learningTrackDetail, refresh } = useGetLearningTrackDetail();
+  const { enroll, unEnroll } = useEnrollUnEnroll(learningTrackDetail, refresh);
   return (
     <div className="px-[5.5rem]">
       <CourseDetailBanner
         courseDetail={learningTrackDetail as any}
         jumpRef={ref}
-      ></CourseDetailBanner>
+      >
+        <>
+          {learningTrackDetail?.enrolled && (
+            <div className="text-[#676767] text-[1rem] leading-[120%] font-next-book mt-[1.875rem]">
+              <span>{`You have enrolled this course, click to `}</span>
+              <span className="underline cursor-pointer" onClick={unEnroll}>
+                cancel enrollment
+              </span>
+            </div>
+          )}
+
+          {!learningTrackDetail?.enrolled && (
+            <button
+              className="px-8 w-fit py-4 mt-[1.875rem] border border-solid border-[#F2F2F2] rounded-[2.5rem] text-sm text-[#F2F2F2] primary-button-hover cursor-pointer"
+              onClick={enroll}
+            >
+              Enroll
+            </button>
+          )}
+        </>
+      </CourseDetailBanner>
 
       <CourseDetailInfo courseDetail={learningTrackDetail}></CourseDetailInfo>
       <div className="mt-[4rem]">

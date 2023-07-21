@@ -18,6 +18,7 @@ export interface LearningTrackDetailType {
   name: string;
   description: string;
   level: string;
+  enrolled?: boolean;
   aboutDesc: any;
   courseCount: number;
   progress?: number;
