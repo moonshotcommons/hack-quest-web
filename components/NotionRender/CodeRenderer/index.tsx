@@ -22,8 +22,12 @@ const CodeRenderer: FC<CodeRendererProps> = (props) => {
   console.log(source);
   const language = source[type].language;
   return (
-    <div>
-      <SyntaxHighlighter style={oneDark} language={language}>
+    <div className="py-4">
+      <SyntaxHighlighter
+        style={oneDark}
+        language={language}
+        className="scroll-wrap-x"
+      >
         {source[type].rich_text
           .map((richText: any) => richText.plain_text)
           .join('')}

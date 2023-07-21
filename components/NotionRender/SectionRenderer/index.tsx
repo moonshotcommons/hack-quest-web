@@ -13,7 +13,7 @@ const SectionRenderer: FC<SectionRendererProps> = (props) => {
   const imageSource = source.children[0];
   const contentSource = source.children[1];
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col pb-8">
       {/* 渲染header */}
       <Renderer
         type={type}

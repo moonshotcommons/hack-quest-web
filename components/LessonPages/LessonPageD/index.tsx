@@ -17,8 +17,12 @@ import { useDebounceFn } from 'ahooks';
 import { shallowEqual, useSelector } from 'react-redux';
 import { AppRootState } from '@/store/redux';
 import { getCourseLink } from '@/helper/utils';
-import { useGotoNextLesson } from '@/hooks/useCoursesHooks/useGotoNextLesson';
+import {
+  useBackToPrevLesson,
+  useGotoNextLesson
+} from '@/hooks/useCoursesHooks/useGotoNextLesson';
 import webApi from '@/service';
+import CompleteModal from '../CompleteModal';
 interface LessonPageDProps {
   lesson: CourseLessonType;
   courseType: CourseType;
@@ -40,12 +44,12 @@ const CustomButton: FC<ButtonProps> = (props) => {
 
 const LessonPageD: FC<LessonPageDProps> = (props) => {
   const { lesson, courseType } = props;
-  console.log(lesson);
+  const router = useRouter();
+  const { courseId: courseName } = router.query;
   const sections = useParseLessonBSection(lesson.content);
-  console.log(sections);
-
-  const { onNextClick } = useGotoNextLesson(lesson, courseType, true);
-
+  const { onNextClick, completeModalOpen, setCompleteModalOpen } =
+    useGotoNextLesson(lesson, courseType, true);
+  const { onBackClick } = useBackToPrevLesson(lesson, courseType);
   useEffect(() => {
     if (lesson) {
       webApi.courseApi.startLesson(lesson.id).catch((e) => {
@@ -56,7 +60,7 @@ const LessonPageD: FC<LessonPageDProps> = (props) => {
 
   return (
     <div className="w-full h-[80vh] flex gap-[4.5rem] mt-[1.25rem] text-white px-[3rem] py-[2.5rem]  bg-[#111] rounded-[2.5rem]">
-      <div className="flex-1 overflow-y-scroll">
+      <div className="flex-1 scroll-wrap-y">
         <h1 className="mb-[2rem] font-next-poster-Bold leading-[110%] tracking-[0.03rem] text-[1.5rem] text-[#F2F2F2]">
           {lesson.name}
         </h1>
@@ -82,12 +86,17 @@ const LessonPageD: FC<LessonPageDProps> = (props) => {
           ></img>
         </div>
         <div className="h-[3rem] flex gap-4 self-end">
-          <CustomButton>Back</CustomButton>
+          <CustomButton onClick={onBackClick}>Back</CustomButton>
           <CustomButton className="border" onClick={onNextClick}>
             Next
           </CustomButton>
         </div>
       </div>
+      <CompleteModal
+        title={courseName as string}
+        open={completeModalOpen}
+        onClose={() => setCompleteModalOpen(false)}
+      ></CompleteModal>
     </div>
   );
 };
