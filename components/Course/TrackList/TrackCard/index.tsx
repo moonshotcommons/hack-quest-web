@@ -19,7 +19,10 @@ const CustomProgress = styled(Progress)`
   .ant-progress-inner {
     .ant-progress-text {
       color: white;
-      font-size: 1rem;
+      font-size: 0.625rem;
+      .anticon-check {
+        font-size: 1rem;
+      }
     }
   }
 `;
@@ -127,11 +130,10 @@ const TrackCard: FC<TrackCardProps> = (props) => {
                   <CustomProgress
                     type="circle"
                     percent={Math.floor(computeProgress(item.progress))}
-                    strokeWidth={2}
+                    strokeWidth={4}
                     strokeColor="#EDEDED"
-                    trailColor="#C2C2C2"
+                    trailColor="#494949"
                     size={40}
-                    // format={(percent: any) => p}
                   ></CustomProgress>
                 ) : null}
               </div>

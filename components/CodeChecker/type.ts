@@ -8,7 +8,7 @@ export interface Quiz {
   children: Children[];
   created_by: CreatedBy2;
   created_time: string;
-  has_children: boolean;
+  // has_children: boolean;
   last_edited_by: LastEditedBy2;
   parent_block_id: string;
   last_edited_time: string;
@@ -23,7 +23,7 @@ export interface Children {
   archived: boolean;
   created_by: CreatedBy;
   created_time: string;
-  has_children: boolean;
+  // has_children: boolean;
   last_edited_by: LastEditedBy;
   parent_block_id: string;
   last_edited_time: string;

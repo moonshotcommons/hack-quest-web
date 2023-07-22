@@ -4,6 +4,7 @@ import CourseDetailBanner from '@/components/Course/CourseDetail/CourseDetailBra
 import CourseDetailInfo from '@/components/Course/CourseDetail/CouseDetailInfo';
 import TrackList from '@/components/Course/TrackList';
 import UnitList from '@/components/Course/UnitList';
+import { Renderer } from '@/components/NotionRender';
 import { Block } from '@/components/TempComponent/Block';
 import { tagFormate } from '@/helper/formate';
 import { useEnrollUnEnroll } from '@/hooks/useLearningTrackHooks/useEnrollUnEnroll';
@@ -57,10 +58,13 @@ const LearningTrackDetail: NextPage<IProps> = (props) => {
       <CourseDetailInfo courseDetail={learningTrackDetail}></CourseDetailInfo>
       <div className="mt-[4rem]">
         <CourseDescription>
-          {learningTrackDetail?.aboutDesc &&
-            learningTrackDetail?.aboutDesc?.map((item: any) => {
-              return <Block key={item.id} block={item}></Block>;
-            })}
+          {learningTrackDetail?.aboutDesc && (
+            <Renderer
+              source={learningTrackDetail?.aboutDesc}
+              type="description"
+              parent={{ ...learningTrackDetail, isRoot: true }}
+            ></Renderer>
+          )}
         </CourseDescription>
       </div>
       <h2

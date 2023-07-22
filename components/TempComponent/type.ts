@@ -132,7 +132,7 @@ type BaseBlock = {
   last_edited_time: any;
   created_by: any;
   last_edited_by: any;
-  has_children: boolean;
+  // has_children: boolean;
   archived: boolean;
 };
 

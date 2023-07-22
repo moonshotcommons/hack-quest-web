@@ -17,7 +17,7 @@ const ParagraphRenderer: FC<ParagraphRendererProps> = (props) => {
   const { styleType } = useContext(NotionRendererContext);
 
   return (
-    <div className="text-white py-2">
+    <div className="py-2">
       <TextRenderer richTextArr={source[type].rich_text}></TextRenderer>
     </div>
   );

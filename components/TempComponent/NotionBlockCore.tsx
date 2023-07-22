@@ -101,23 +101,22 @@ const NotionBlockCore: React.FC<any> = ({
           {/*    )*/}
           {/*  })*/}
           {/*}*/}
-          {block?.has_children &&
-            block?.children?.map((items: any, i: number) => {
-              return (
-                <div className={`mt-[.2rem] pl-[.2rem]`} key={items.id}>
-                  <NotionBlockCore block={items} darkMode={darkMode} />
-                  {items?.children
-                    ? items?.children?.map((item: any) => {
-                        return (
-                          <div key={item.id}>
-                            <NotionBlockCore block={item} darkMode={darkMode} />
-                          </div>
-                        );
-                      })
-                    : ''}
-                </div>
-              );
-            })}
+          {block?.children?.map((items: any, i: number) => {
+            return (
+              <div className={`mt-[.2rem] pl-[.2rem]`} key={items.id}>
+                <NotionBlockCore block={items} darkMode={darkMode} />
+                {items?.children
+                  ? items?.children?.map((item: any) => {
+                      return (
+                        <div key={item.id}>
+                          <NotionBlockCore block={item} darkMode={darkMode} />
+                        </div>
+                      );
+                    })
+                  : ''}
+              </div>
+            );
+          })}
         </li>
       );
     case 'quote':

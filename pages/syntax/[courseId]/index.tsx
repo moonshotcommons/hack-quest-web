@@ -3,6 +3,7 @@ import CourseDescription from '@/components/Course/CourseDetail/CourseDescriptio
 import CourseDetailBanner from '@/components/Course/CourseDetail/CourseDetailBranner';
 import CourseDetailInfo from '@/components/Course/CourseDetail/CouseDetailInfo';
 import UnitList from '@/components/Course/UnitList';
+import { Renderer } from '@/components/NotionRender';
 import { Block } from '@/components/TempComponent/Block';
 import { tagFormate } from '@/helper/formate';
 import webApi from '@/service';
@@ -39,9 +40,13 @@ const SyntaxDetail: NextPage<IProps> = (props) => {
       <CourseDetailInfo courseDetail={courseDetail}></CourseDetailInfo>
       <div className="mt-[4rem]">
         <CourseDescription>
-          {courseDetail?.aboutDesc?.map((item) => {
-            return <Block key={item.id} block={item}></Block>;
-          })}
+          {courseDetail?.aboutDesc && (
+            <Renderer
+              source={courseDetail?.aboutDesc}
+              type="description"
+              parent={{ ...courseDetail, isRoot: true }}
+            ></Renderer>
+          )}
         </CourseDescription>
       </div>
       <h2 className="text-[#F2F2F2] font-next-book text-[1.75rem] mt-[4rem]">

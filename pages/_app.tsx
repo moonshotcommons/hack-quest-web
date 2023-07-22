@@ -16,7 +16,7 @@ import UnitLayout from '@/components/Layout/UnitLayout';
 import { ReactNode } from 'react';
 import HomeLayout from '@/components/Layout/HomeLayout';
 import LoginLayout from '@/components/Layout/LoginLayout';
-import { useLoadUserInfo } from '@/hooks/useGetUserInfo';
+import { useGetUserInfo, useLoadUserInfo } from '@/hooks/useGetUserInfo';
 import useNavAuth from '@/hooks/useNavPage/userNavAuth';
 
 const Layout = (props: {
@@ -27,6 +27,7 @@ const Layout = (props: {
   const { pathname, children, navbarData } = props;
   const { waitingLoadUserInfo } = useLoadUserInfo();
   useNavAuth(waitingLoadUserInfo);
+  const userInfo = useGetUserInfo();
   const regex = /\/[^/]+\/\[courseId\]\/learn\/\[lessonId\]/;
   switch (true) {
     case regex.test(pathname):
@@ -43,6 +44,26 @@ const Layout = (props: {
     ].includes(pathname):
       return <LoginLayout>{children}</LoginLayout>;
     default:
+      navbarData.navList = [
+        {
+          name: 'All Courses',
+          path: '/courses'
+        }
+      ];
+
+      if (userInfo) {
+        navbarData.navList = [
+          {
+            name: 'All Courses',
+            path: '/courses'
+          },
+          {
+            name: 'Learning Dashboard',
+            path: '/dashboard'
+          }
+        ];
+      }
+
       return <BaseLayout navbarData={navbarData}>{children}</BaseLayout>;
   }
 };
@@ -81,14 +102,6 @@ MyApp.getInitialProps = async (
     ...pageProps,
     navbarData: {
       navList: [
-        {
-          name: 'All Courses',
-          path: '/courses'
-        },
-        {
-          name: 'Learning Dashboard',
-          path: '/dashboard'
-        }
         // {
         //   name: 'Mission Center',
         //   path: '/courses',

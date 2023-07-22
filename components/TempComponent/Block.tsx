@@ -90,15 +90,14 @@ export const Block: React.FC<any> = ({
         </HeadingTag>
       </summary>
       <div className="indented">
-        {block.has_children &&
-          block.children.map((child: any) => (
-            <Block
-              block={child}
-              key={child.id}
-              darkMode={darkMode}
-              renderChildren={renderChildren}
-            />
-          ))}
+        {block?.children?.map((child: any) => (
+          <Block
+            block={child}
+            key={child.id}
+            darkMode={darkMode}
+            renderChildren={renderChildren}
+          />
+        ))}
       </div>
     </details>
   );

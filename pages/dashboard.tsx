@@ -13,7 +13,10 @@ import { CourseType } from '@/service/webApi/course/type';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useMemo, useRef, useState } from 'react';
-
+import Reflect from '@/public/images/course/reflect.svg';
+import Image from 'next/image';
+import { tagFormate } from '@/helper/formate';
+import Link from 'next/link';
 interface DashboardProps {
   children: React.ReactNode;
 }
@@ -41,9 +44,23 @@ const Dashboard: NextPage<DashboardProps> = (props) => {
 
     return (
       <>
-        {filterCourseList.map((card, index) => {
-          return <div key={index}>{renderCourseCard(card)}</div>;
-        })}
+        {filterCourseList.length > 0 &&
+          filterCourseList.map((card, index) => {
+            return <div key={index}>{renderCourseCard(card)}</div>;
+          })}
+        {!filterCourseList.length && (
+          <div className="w-full border h-[15.5rem] rounded-[1.25rem] border-[#282828] flex flex-col items-center justify-center gap-[1.5rem]">
+            <Image src={Reflect} alt="reflect"></Image>
+            <p className="text-[#676767] font-next-book leading-[120%] tracking-[0.01rem] text-[1rem]">
+              You haven’t started any {tagFormate(selectTab)} yet.
+            </p>
+            <Link href={`/courses?courseType=${selectTab}`}>
+              <button className="border border-solid border-[#F2F2F2] py-4 px-8 rounded-[2.5rem] text-sm text-[#F2F2F2] leading-[120%]">
+                View All {tagFormate(selectTab)}
+              </button>
+            </Link>
+          </div>
+        )}
       </>
     );
   }, [selectTab, courseList]);
