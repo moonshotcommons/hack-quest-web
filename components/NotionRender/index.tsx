@@ -13,6 +13,7 @@ import ParagraphRenderer from './ParagraphRenderer';
 import NumberListItemRenderer from './NumberListItemRenderer';
 import BulletedListItemRenderer from './BulletedListItem';
 import VideoRenderer from './VideoRenderer';
+import DescriptionRenderer from './DescriptionRenderer';
 
 export interface NotionRendererContextType {
   styleType: LessonStyleType;
@@ -60,6 +61,15 @@ export const Renderer: FC<RendererPropsType> = (props) => {
           source={source}
           parent={parent}
         ></SectionRenderer>
+      );
+
+    case CustomRenderType.DESCRIPTION:
+      return (
+        <DescriptionRenderer
+          type={type}
+          source={source}
+          parent={parent}
+        ></DescriptionRenderer>
       );
 
     case NotionRenderType.PARAGRAPH:
