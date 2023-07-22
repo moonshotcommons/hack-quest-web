@@ -39,7 +39,7 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
   const { richTextArr } = props;
 
   return (
-    <div className="font-next-book text-[0.875rem] leading-[120%]">
+    <div className="">
       {richTextArr.map((richText: any, index: number) => {
         const annotations = richText.annotations;
         const className = getTextClassNames(annotations);
@@ -49,6 +49,7 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
               key={index}
               href={richText.href}
               className={`${className} bg-slate-800`}
+              style={{ color: '#676767' }}
             >
               {richText.plain_text}
             </a>

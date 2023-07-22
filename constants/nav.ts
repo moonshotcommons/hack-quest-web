@@ -13,6 +13,7 @@ export const EMAIL_CONFIRMED_PATHNAME = '/users/email-confirmed';
 
 export const HOME_PATHNAME = '/';
 export const ALL_COURSES_PATHNAME = '/courses';
+export const DASHBOARD_PATHNAME = '/dashboard';
 
 export function isLoginOrRegister(pathname: string) {
   if (
@@ -36,9 +37,12 @@ export function isNoNeedUserInfo(pathname: string) {
       LOGIN_PATHNAME,
       REGISTER_PATHNAME,
       ALL_COURSES_PATHNAME
-    ].includes(pathname) ||
-    !/\/[^/]+\/\[courseId\]\/learn\/\[lessonId\]/.test(pathname)
+    ].includes(pathname)
   )
     return true;
-  return false;
+
+  if (/\/[^/]+\/\[courseId\]\/learn\/\[lessonId\]/.test(pathname)) return false;
+  if (pathname === DASHBOARD_PATHNAME) return false;
+
+  return true;
 }

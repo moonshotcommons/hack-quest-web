@@ -5,6 +5,7 @@ import { CourseType } from '@/service/webApi/course/type';
 import { FC, ReactNode, useState } from 'react';
 import { tabData, renderCard } from './data';
 import Link from 'next/link';
+import { renderCourseCard } from '@/helper/renderCard';
 interface HomeCourseTabProps {
   // children: ReactNode;
 }
@@ -62,7 +63,7 @@ const HomeCourseTab: FC<HomeCourseTabProps> = (props) => {
         </div>
         <div className="flex gap-[2.5rem]">
           {selectTabItem?.cards.map((item) => {
-            return <div key={item.id}>{renderCard(item)}</div>;
+            return <div key={item.id}>{renderCourseCard(item as any)}</div>;
           })}
         </div>
       </div>

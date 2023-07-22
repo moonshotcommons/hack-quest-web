@@ -20,7 +20,8 @@ export enum CustomRenderType {
   /** 自定义类型，两栏布局 */
   SECTION = 'section',
   /** 自定义类型，步骤框 */
-  STEP = 'step'
+  STEP = 'step',
+  DESCRIPTION = 'description'
 }
 
 export interface AnnotationsType {
