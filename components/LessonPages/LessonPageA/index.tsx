@@ -106,14 +106,16 @@ const LessonPageA: FC<LessonPageAProps> = (props) => {
             />
           ))}
       </div>
-      <div className="text-[#E2E2E2] h-full bg-[#111] notion-render-block w-full py-[2.5rem] rounded-[2.5rem] overflow-y-scroll no-scrollbar">
+      <div className="w-full text-[#E2E2E2] h-full bg-[#111] notion-render-block py-[2.5rem] rounded-[2.5rem] overflow-y-scroll no-scrollbar">
         {RightComponent}
       </div>
-      <CompleteModal
-        title={courseName as string}
-        open={completeModalOpen}
-        onClose={() => setCompleteModalOpen(false)}
-      ></CompleteModal>
+      <>
+        <CompleteModal
+          title={courseName as string}
+          open={completeModalOpen}
+          onClose={() => setCompleteModalOpen(false)}
+        ></CompleteModal>
+      </>
     </div>
   );
 };

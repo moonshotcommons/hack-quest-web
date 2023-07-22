@@ -97,7 +97,7 @@ const LessonHeader: FC<LessonHeaderProps> = (props) => {
   }, [lesson, run]);
 
   return (
-    <div className="w-full h-full flex items-center justify-between mt-[3.375rem] gap-[4.5rem]">
+    <div className="w-full h-full flex justify-between items-center mt-[3.375rem] gap-[4.5rem]">
       <div className="w-full flex items-center justify-between">
         <div className="flex items-center gap-[.75rem]">
           <Link
@@ -128,7 +128,7 @@ const LessonHeader: FC<LessonHeaderProps> = (props) => {
           }}
         ></Dropdown>
       </div>
-      <div className="w-full h-full bg-red-500"></div>
+      <div className="w-full h-full"></div>
     </div>
   );
 };
