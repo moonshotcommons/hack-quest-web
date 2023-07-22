@@ -95,7 +95,7 @@ const LessonPageA: FC<LessonPageAProps> = (props) => {
 
   return (
     <div className="w-full h-[80vh] flex justify-between gap-[4.5rem] mt-[1.25rem]">
-      <div className="text-white h-full w-full px-[3rem] py-[2.5rem] rounded-[2.5rem] bg-[#101010] overflow-y-scroll notion-render-block no-scrollbar">
+      <div className="text-[#F2F2F2] h-full w-full px-[3rem] py-[2.5rem] rounded-[2.5rem] bg-[#101010] overflow-y-scroll notion-render-block no-scrollbar">
         {lessonContent &&
           lessonContent?.map((block: any) => (
             <Block

@@ -19,6 +19,7 @@ const CustomButton: FC<ButtonProps> = (props) => {
       fontStyle="Inter font-normal"
       textStyle="text-[.875rem] text-white leading-[1.25rem]"
       {...props}
+      className="border"
     >
       {children}
     </Button>
@@ -290,9 +291,12 @@ const Quest: FC<{
             <CustomButton type={0} onClick={handleTryAgain}>
               Try Again
             </CustomButton>
-            <CustomButton type={0} onClick={showAnswer}>
-              {toggleAnswer ? 'Hide the answer' : 'Show me the answer'}
-            </CustomButton>
+            {!toggleAnswer && (
+              <CustomButton type={0} onClick={showAnswer}>
+                {/* {toggleAnswer ? 'Hide the answer' : 'Show me the answer'} */}
+                {'Show me the answer'}
+              </CustomButton>
+            )}
           </div>
         ) : (
           !passed && (
