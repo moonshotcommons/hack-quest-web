@@ -84,7 +84,8 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
             const res = await webApi.userApi.userRegister(formData);
             router.push('/auth/email-verify');
           } catch (e: any) {
-            message.error(e.msg);
+            console.log(e);
+            // message.error(e.msg);
           }
         } else {
           const status: any = { ...formState };

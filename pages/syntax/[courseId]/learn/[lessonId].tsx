@@ -15,6 +15,9 @@ import LessonPageA from '@/components/LessonPages/LessonPageA';
 import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useGetLessonContent } from '@/hooks/useCoursesHooks/useGetLessenContent';
+import LessonPageB from '@/components/LessonPages/LessonPageB';
+import LessonPageD from '@/components/LessonPages/LessonPageD';
+import LessonPageE from '@/components/LessonPages/LessonPageE';
 
 interface IProps {}
 
@@ -34,6 +37,30 @@ const SyntaxUnit: NextPage<IProps> = (props) => {
                 lesson={lesson}
                 courseType={CourseType.SYNTAX}
               ></LessonPageA>
+            </>
+          );
+        case LessonStyleType.B:
+          return (
+            <LessonPageB
+              lesson={lesson}
+              courseType={CourseType.SYNTAX}
+            ></LessonPageB>
+          );
+        case LessonStyleType.C:
+        case LessonStyleType.D:
+          return (
+            <LessonPageD
+              lesson={lesson}
+              courseType={CourseType.SYNTAX}
+            ></LessonPageD>
+          );
+        case LessonStyleType.E:
+          return (
+            <>
+              <LessonPageE
+                lesson={lesson}
+                courseType={CourseType.SYNTAX}
+              ></LessonPageE>
             </>
           );
         default:
