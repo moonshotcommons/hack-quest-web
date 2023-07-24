@@ -37,7 +37,8 @@ const nextConfig = (phase) => {
         's3.amazonaws.com',
         'hack-quest-s3-prod.s3.amazonaws.com',
         'hack-quest-s3-staging.s3.amazonaws.com',
-        'hackquest-s3-dev.s3.ap-northeast-1.amazonaws.com'
+        'hackquest-s3-dev.s3.ap-northeast-1.amazonaws.com',
+        'hackquest-s3-staging.s3.ap-northeast-1.amazonaws.com'
       ]
     }
   });
