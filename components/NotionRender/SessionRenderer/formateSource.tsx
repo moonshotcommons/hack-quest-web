@@ -94,15 +94,6 @@ export const formatSource = (source: any[]) => {
               type: 'right',
               content: text,
               source: child
-              // render(sourceObject: any, setSourceList: Function) {
-              //   return (
-              //     <DialogBox
-              //       direction={sourceObject.type}
-              //       // onClick={}
-              //       content={sourceObject.content}
-              //     ></DialogBox>
-              //   );
-              // }
             };
             return childRes;
           }

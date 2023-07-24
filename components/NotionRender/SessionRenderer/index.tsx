@@ -17,29 +17,41 @@ interface SessionRendererProps {
   type: any;
   source: any;
   parent: any;
+  onCompleteStateChange: (v: boolean) => void;
 }
 
 const SessionRenderer: FC<SessionRendererProps> = (props) => {
-  const { source, parent } = props;
+  const { source, parent, onCompleteStateChange } = props;
   const [currentSessionIndex, setCurrentSessionIndex] = useState(0);
   const [sessionList, setSessionList] = useState<any[]>([]);
+
   const originList = useMemo(() => {
     return formatSource(source);
   }, [source]);
-  console.log(source);
+
   useEffect(() => {
-    console.log(currentSessionIndex);
+    setSessionList([]);
+    setCurrentSessionIndex(0);
+  }, [source]);
+
+  useEffect(() => {
     if (originList && currentSessionIndex < originList.length) {
       const newItem = originList[currentSessionIndex];
       setSessionList(sessionList.concat(newItem));
+      return;
+    }
+
+    if (currentSessionIndex >= originList.length) {
+      onCompleteStateChange(true);
     }
   }, [currentSessionIndex]);
 
   useEffect(() => {
-    if (source) {
-      formatSource(source);
+    if (!sessionList.length && !currentSessionIndex) {
+      const newItem = originList[currentSessionIndex];
+      setSessionList(sessionList.concat(newItem));
     }
-  }, [source]);
+  }, [sessionList]);
 
   return (
     <SessionRendererContext.Provider

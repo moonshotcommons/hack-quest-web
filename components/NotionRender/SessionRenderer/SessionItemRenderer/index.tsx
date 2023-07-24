@@ -1,7 +1,15 @@
-import { FC, ReactNode, useContext, useLayoutEffect, useState } from 'react';
+import {
+  FC,
+  ReactNode,
+  useContext,
+  useLayoutEffect,
+  useRef,
+  useState
+} from 'react';
 import { SessionRendererContext } from '..';
 import { DialogBox } from '../formateSource';
 import SessionSelectRenderer from '../SessionSelectRenderer';
+import { useDebounceFn } from 'ahooks';
 
 interface SessionItemRendererProps {
   // children: ReactNode;
@@ -13,13 +21,18 @@ const SessionItemRenderer: FC<SessionItemRendererProps> = (props) => {
   const [children, setChildren] = useState(() =>
     item.type === 'left' ? '...' : ''
   );
+
+  const timeIds = useRef<NodeJS.Timer[]>([]);
+
   const { sessionList, currentSessionIndex, setCurrentSessionIndex } =
     useContext(SessionRendererContext)!;
   const writing = (prev: string, index: number) => {
+    let timer: NodeJS.Timer;
     if (index < item.content.length) {
       let newString = prev + item.content[index];
       setChildren(newString);
-      setTimeout(writing, 200, newString, ++index);
+      timer = setTimeout(writing, 200, newString, ++index);
+      timeIds.current = timeIds.current.concat(timer);
     } else {
       item.isAuto && setCurrentSessionIndex(currentSessionIndex + 1);
     }
@@ -35,8 +48,27 @@ const SessionItemRenderer: FC<SessionItemRendererProps> = (props) => {
       setChildren(item.content);
     }
 
-    return () => timer && clearTimeout(timer);
-  }, []);
+    return () => {
+      timer && clearTimeout(timer);
+      timeIds.current.forEach((timeId) => {
+        clearTimeout(timeId);
+      });
+      timeIds.current = [];
+    };
+  }, [item]);
+
+  const { run: onNext } = useDebounceFn(
+    () => {
+      const currentIndex = sessionList.findIndex((session) => {
+        return session.source.id === item.source.id;
+      });
+      if (currentIndex !== sessionList.length - 1) {
+        return;
+      }
+      setCurrentSessionIndex(currentSessionIndex + 1);
+    },
+    { wait: 500 }
+  );
 
   if (['left'].includes(item.type)) {
     return (
@@ -50,22 +82,14 @@ const SessionItemRenderer: FC<SessionItemRendererProps> = (props) => {
 
   if (['right'].includes(item.type)) {
     return (
-      <div className="w-full flex justify-end items-center">
+      <div className="w-full flex justify-end items-center gap-4">
         <span className="text-[#676767] text-[0.875rem] leading-[121% ]">
           click here
         </span>
         <DialogBox
           direction={item.type}
           className="max-w-[74%] cursor-pointer"
-          onClick={() => {
-            const currentIndex = sessionList.findIndex((session) => {
-              return session.source.id === item.source.id;
-            });
-            if (currentSessionIndex > currentIndex) {
-              return;
-            }
-            setCurrentSessionIndex(currentSessionIndex + 1);
-          }}
+          onClick={onNext}
         >
           {children}
         </DialogBox>

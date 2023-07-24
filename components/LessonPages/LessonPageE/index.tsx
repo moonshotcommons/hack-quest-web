@@ -47,37 +47,44 @@ const LessonPageD: FC<LessonPageDProps> = (props) => {
   const { lesson, courseType } = props;
   const router = useRouter();
   const { courseId: courseName } = router.query;
+  const [isCompleted, setIsCompleted] = useState<boolean>(false);
   // const sections = useParseLessonBSection(lesson.content);
-  // const { onNextClick, completeModalOpen, setCompleteModalOpen } =
-  //   useGotoNextLesson(lesson, courseType, true);
-  // const { onBackClick } = useBackToPrevLesson(lesson, courseType);
-  console.log(lesson);
+  const { onNextClick, completeModalOpen, setCompleteModalOpen } =
+    useGotoNextLesson(lesson, courseType, true);
+  const { onBackClick } = useBackToPrevLesson(lesson, courseType);
   useEffect(() => {
+    setIsCompleted(false);
     if (lesson) {
       webApi.courseApi.startLesson(lesson.id).catch((e) => {
         console.log('开始学习失败', e);
       });
     }
   }, [lesson]);
-  const [sessionList, setSessionList] = useState([]);
-
-  useEffect(() => {}, []);
 
   return (
-    <div className="w-full h-[80vh] flex mt-[1.25rem] text-white  bg-[#111] rounded-[2.5rem]">
+    <div className="w-full h-[80vh] relative flex mt-[1.25rem] text-white  bg-[#111] rounded-[2.5rem]">
       <div className="w-[47rem] h-full rounded-[2.5rem] bg-[url('/images/lesson/lesson_type_e_cover.svg')] bg-no-repeat bg-cover bg-center"></div>
       <div className="flex-1 px-[3rem] py-[2.5rem]">
         <SessionRenderer
           type={'session'}
           source={lesson.content}
           parent={{ ...lesson, isRoot: true }}
+          onCompleteStateChange={(value: boolean) => setIsCompleted(value)}
         ></SessionRenderer>
       </div>
-      {/* <CompleteModal
+      <div className="absolute bottom-10 right-10">
+        {/* <CustomButton onClick={onBackClick}>Back</CustomButton> */}
+        {isCompleted && (
+          <CustomButton className="border" onClick={onNextClick}>
+            Next
+          </CustomButton>
+        )}
+      </div>
+      <CompleteModal
         title={courseName as string}
         open={completeModalOpen}
         onClose={() => setCompleteModalOpen(false)}
-      ></CompleteModal> */}
+      ></CompleteModal>
     </div>
   );
 };
