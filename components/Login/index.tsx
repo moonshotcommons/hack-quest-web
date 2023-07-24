@@ -70,12 +70,6 @@ const UserLogin: FC<UserLoginProps> = (props) => {
         if (!errors) {
           try {
             const res = (await webApi.userApi.userLogin(formData)) as any;
-            if (res.isFail) {
-              setTimeout(() => {
-                router.push('/auth/email-verify');
-              }, 200);
-              return;
-            }
             const status: any = { ...formState };
             for (let key in status) {
               status[key] = { status: 'success', errorMessage: '' };
@@ -88,6 +82,11 @@ const UserLogin: FC<UserLoginProps> = (props) => {
               // setTimeout(() => {
               //   router.push('/auth/email-verify');
               // }, 1000);
+              if (e.status === 'UNACTIVATED') {
+                setTimeout(() => {
+                  router.push('/auth/email-verify');
+                }, 200);
+              }
               passwordInputRef.current?.setStatus?.('error');
               passwordInputRef.current?.setErrorMessage?.(e.msg);
             }

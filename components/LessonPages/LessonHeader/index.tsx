@@ -21,6 +21,7 @@ import { useDispatch } from 'react-redux';
 interface LessonHeaderProps {
   lesson: CourseLessonType;
   courseType: CourseType;
+  isBetween?: boolean;
 }
 const formateDropdownData = (
   data: UnitPagesListType[],
@@ -66,7 +67,7 @@ const formateDropdownData = (
 };
 
 const LessonHeader: FC<LessonHeaderProps> = (props) => {
-  const { lesson, courseType } = props;
+  const { lesson, courseType, isBetween = false } = props;
   const router = useRouter();
 
   const [dropData, setDropData] = useState<
@@ -128,7 +129,7 @@ const LessonHeader: FC<LessonHeaderProps> = (props) => {
           }}
         ></Dropdown>
       </div>
-      <div className="w-full h-full"></div>
+      {!isBetween && <div className="w-full h-full"></div>}
     </div>
   );
 };
