@@ -81,7 +81,7 @@ const SessionSelectRenderer: FC<SessionSelectRendererProps> = (props) => {
           return (
             <div
               key={index}
-              className="flex justify-end"
+              className="flex justify-end cursor-pointer"
               onClick={() => {
                 setSelectItem(child);
                 if (child?.source?.children?.length) {
@@ -97,7 +97,24 @@ const SessionSelectRenderer: FC<SessionSelectRendererProps> = (props) => {
         })}
       {selectItem && (
         <div className="flex justify-end">
-          <DialogBox direction={selectItem.type}>
+          <DialogBox
+            direction={selectItem.type}
+            onClick={() => {
+              const endIndex = sessionList.findIndex((item) => {
+                return item.source.id === selectItem.source.parent_block_id;
+              });
+              let newSessionList;
+              if (endIndex === currentSessionIndex) {
+                newSessionList = sessionList.slice(0, endIndex + 1);
+              } else {
+                newSessionList = sessionList.slice(0, endIndex);
+              }
+
+              setSelectItem(null);
+              setCurrentSessionIndex(endIndex);
+              setSessionList(newSessionList);
+            }}
+          >
             {selectItem.content}
           </DialogBox>
         </div>

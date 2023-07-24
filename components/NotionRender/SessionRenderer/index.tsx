@@ -28,6 +28,7 @@ const SessionRenderer: FC<SessionRendererProps> = (props) => {
   }, [source]);
   console.log(source);
   useEffect(() => {
+    console.log(currentSessionIndex);
     if (originList && currentSessionIndex < originList.length) {
       const newItem = originList[currentSessionIndex];
       setSessionList(sessionList.concat(newItem));

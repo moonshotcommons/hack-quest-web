@@ -13,9 +13,8 @@ const SessionItemRenderer: FC<SessionItemRendererProps> = (props) => {
   const [children, setChildren] = useState(() =>
     item.type === 'left' ? '...' : ''
   );
-  const { currentSessionIndex, setCurrentSessionIndex } = useContext(
-    SessionRendererContext
-  )!;
+  const { sessionList, currentSessionIndex, setCurrentSessionIndex } =
+    useContext(SessionRendererContext)!;
   const writing = (prev: string, index: number) => {
     if (index < item.content.length) {
       let newString = prev + item.content[index];
@@ -52,11 +51,21 @@ const SessionItemRenderer: FC<SessionItemRendererProps> = (props) => {
   if (['right'].includes(item.type)) {
     return (
       <div className="w-full flex justify-end items-center">
-        <span></span>
+        <span className="text-[#676767] text-[0.875rem] leading-[121% ]">
+          click here
+        </span>
         <DialogBox
           direction={item.type}
-          className="max-w-[74%]"
-          onClick={() => setCurrentSessionIndex(currentSessionIndex + 1)}
+          className="max-w-[74%] cursor-pointer"
+          onClick={() => {
+            const currentIndex = sessionList.findIndex((session) => {
+              return session.source.id === item.source.id;
+            });
+            if (currentSessionIndex > currentIndex) {
+              return;
+            }
+            setCurrentSessionIndex(currentSessionIndex + 1);
+          }}
         >
           {children}
         </DialogBox>
