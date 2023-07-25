@@ -5,7 +5,7 @@ import { AppRootState } from '@/store/redux';
 import { useDebounceFn } from 'ahooks';
 import { message } from 'antd';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 
 export const useGotoNextLesson = (
@@ -64,11 +64,17 @@ export const useBackToPrevLesson = (
   courseType: CourseType
 ) => {
   const router = useRouter();
+
   const { unitsLessonsList } = useSelector((state: AppRootState) => {
     return {
       unitsLessonsList: state.course.unitsLessonsList
     };
   }, shallowEqual);
+
+  const isFirst = useMemo(() => {
+    return lesson.id === unitsLessonsList[0]?.pages[0]?.id;
+  }, [lesson, unitsLessonsList]);
+
   const { run: onBackClick } = useDebounceFn(async () => {
     const { courseId } = router.query;
     let prevLesson;
@@ -91,12 +97,13 @@ export const useBackToPrevLesson = (
     if (currentLessonIndex > 0) {
       prevLesson = currentUnit?.pages[currentLessonIndex - 1];
     } else {
-      prevLesson = unitsLessonsList[currentUnitIndex - 1].pages[0];
+      const prevUnit = unitsLessonsList[currentUnitIndex - 1];
+      prevLesson = prevUnit.pages.at(-1);
     }
     router.push(
       `${getCourseLink(courseType)}/${courseId}/learn/${prevLesson?.id}`
     );
   });
 
-  return { onBackClick };
+  return { onBackClick, isFirst };
 };

@@ -99,6 +99,7 @@ export const SliderContainer: React.FC<SliderContainerProps> = ({
           <div className="absolute w-20 h-full top-0 -left-4 bg-gradient-to-l from-transparent to-black  z-[18] select-none"></div>
         </>
       )}
+
       <div
         ref={listRef}
         className="flex items-center transition-transform"
@@ -108,9 +109,9 @@ export const SliderContainer: React.FC<SliderContainerProps> = ({
       >
         {children}
       </div>
+      <div className="absolute w-20 h-full top-0 -right-[1.25rem] bg-gradient-to-r from-transparent to-black"></div>
       {rightArrowVisible && (
         <>
-          <div className="absolute w-20 h-full top-0 -right-4 bg-gradient-to-r from-transparent to-black"></div>
           <div
             className="absolute right-0 top-1/2 -translate-y-1/2 arrow z-20"
             onClick={() => handleArrowClick(RIGHT)}

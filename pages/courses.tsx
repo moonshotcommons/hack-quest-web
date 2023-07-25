@@ -24,6 +24,14 @@ import {
   useLoadCourseList
 } from '@/hooks/useCoursesHooks/useGetCourses';
 
+const trendingNowIds = [
+  '2e2f1305-a5a2-4f24-8ae7-d6b46228824a',
+  '12714c18-cf3f-4946-9cf7-e6ec49e59e26',
+  'e3703f91-a445-400e-a84b-c053d280d0c7',
+  '7cb64544-9a0e-4b2a-839c-58a915cfb4d9',
+  '48515515-7471-4bdc-95d8-cffdf0c54895'
+];
+
 interface CoursesProps {
   nowCards: CourseResponse[];
   syntaxCards: CourseResponse[];
@@ -34,7 +42,7 @@ interface CoursesProps {
 }
 
 const Courses: NextPage<CoursesProps> = (props) => {
-  const { nowCards } = props;
+  // const { nowCards } = props;
 
   const router = useRouter();
   const { courseType } = router.query;
@@ -54,6 +62,13 @@ const Courses: NextPage<CoursesProps> = (props) => {
   const onSelect = (item: TabItem) => {
     setSelectTab(item.type);
   };
+
+  const nowCards = useMemo(() => {
+    return courseList.filter((course) => {
+      console.log(course.name);
+      return trendingNowIds.includes(course.id);
+    });
+  }, [courseList]);
 
   const SelectCourseCards = useMemo(() => {
     const filterCourseList = courseList?.filter(
@@ -77,7 +92,7 @@ const Courses: NextPage<CoursesProps> = (props) => {
     <>
       <Title className="font-bold">{'</Trending Now>'}</Title>
       <SliderContainer>
-        <div className="flex w-[114rem] h-[17.625rem] gap-[3.25rem] items-end">
+        <div className="flex h-[17.625rem] gap-[3.25rem] items-end">
           {nowCards?.map((course, index) => {
             return <div key={index}>{renderCourseCard(course)}</div>;
           })}
