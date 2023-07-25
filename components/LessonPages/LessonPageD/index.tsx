@@ -49,7 +49,7 @@ const LessonPageD: FC<LessonPageDProps> = (props) => {
   const sections = useParseLessonBSection(lesson.content);
   const { onNextClick, completeModalOpen, setCompleteModalOpen } =
     useGotoNextLesson(lesson, courseType, true);
-  const { onBackClick } = useBackToPrevLesson(lesson, courseType);
+  const { onBackClick, isFirst } = useBackToPrevLesson(lesson, courseType);
   useEffect(() => {
     if (lesson) {
       webApi.courseApi.startLesson(lesson.id).catch((e) => {
@@ -86,7 +86,7 @@ const LessonPageD: FC<LessonPageDProps> = (props) => {
           ></img>
         </div>
         <div className="h-[3rem] flex gap-4 self-end">
-          <CustomButton onClick={onBackClick}>Back</CustomButton>
+          {!isFirst && <CustomButton onClick={onBackClick}>Back</CustomButton>}
           <CustomButton className="border" onClick={onNextClick}>
             Next
           </CustomButton>

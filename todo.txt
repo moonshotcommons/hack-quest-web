@@ -1,0 +1,6 @@
+1. styleB和styleD中back按钮返回问题，第一个unit的第一课不显示back按钮
+2. check Anwser按钮位置
+3. 连续的多行答案check不通过
+4. 添加trending now真实课程数据
+5. teaser视频课程视频无法撑开容器高度
+6.
