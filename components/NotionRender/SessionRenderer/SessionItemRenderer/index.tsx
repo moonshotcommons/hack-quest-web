@@ -94,9 +94,11 @@ const SessionItemRenderer: FC<SessionItemRendererProps> = (props) => {
   if (['right'].includes(item.type)) {
     return (
       <div className="w-full flex justify-end items-center gap-4">
-        <span className="text-[#676767] text-[0.875rem] leading-[121%]">
-          click here
-        </span>
+        {!isDisable && (
+          <span className="text-[#676767] text-[0.875rem] leading-[121%]">
+            click here
+          </span>
+        )}
         <DialogBox
           direction={item.type}
           className={`max-w-[74%] ${

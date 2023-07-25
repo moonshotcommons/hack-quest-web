@@ -11,12 +11,14 @@ import Hackquest_info1 from '@/public/images/home/hackquest_info1.png';
 import Hackquest_info3 from '@/public/images/home/hackquest_info3.png';
 import Hackquest_info4 from '@/public/images/home/hackquest_info4.png';
 import Hackquest_info5 from '@/public/images/home/hackquest_info5.png';
+import { useGetUserInfo } from '@/hooks/useGetUserInfo';
 
 interface HackQuestInfoProps {
   // children: ReactNode;
 }
 
 export const TopInfo: FC = () => {
+  const userInfo = useGetUserInfo();
   return (
     <div className="w-[100rem] h-[36.5625rem] bg-[#0D0D0D] -translate-x-[50%] ml-[50%] mt-[13.69rem] rounded-[5rem]">
       <h1 className="text-[#F5F5F5] text-center font-next-poster-Bold text-[2.5rem] mt-[5.31rem]">
@@ -41,12 +43,22 @@ export const TopInfo: FC = () => {
           </div>
         </Link>
 
-        <Link href={'/auth/login'}>
-          <div className="flex items-center w-fit px-[2.5rem] py-[1.25rem] font-next-book text-[#F5F5F5] text-[1rem] rounded-[5rem] border border-solid border-[#F5F5F5] gap-[0.62rem] hover:text-black hover:bg-[#D9D9D9] cursor-pointer">
-            <div>Sign Up</div>
-            <RightIcon></RightIcon>
-          </div>
-        </Link>
+        {!userInfo && (
+          <Link href={'/auth/login'}>
+            <div className="flex items-center w-fit px-[2.5rem] py-[1.25rem] font-next-book text-[#F5F5F5] text-[1rem] rounded-[5rem] border border-solid border-[#F5F5F5] gap-[0.62rem] hover:text-black hover:bg-[#D9D9D9] cursor-pointer">
+              <div>Log in</div>
+              <RightIcon></RightIcon>
+            </div>
+          </Link>
+        )}
+        {userInfo && (
+          <Link href={'/dashboard'}>
+            <div className="flex items-center w-fit px-[2.5rem] py-[1.25rem] font-next-book text-[#F5F5F5] text-[1rem] rounded-[5rem] border border-solid border-[#F5F5F5] gap-[0.62rem] hover:text-black hover:bg-[#D9D9D9] cursor-pointer">
+              <div>Dashboard</div>
+              <RightIcon></RightIcon>
+            </div>
+          </Link>
+        )}
       </div>
     </div>
   );
