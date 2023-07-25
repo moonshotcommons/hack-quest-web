@@ -11,6 +11,7 @@ export const SessionRendererContext = createContext<{
   setCurrentSessionIndex: (value: number) => void;
   sessionList: any[];
   setSessionList: (value: any) => void;
+  originList: any[];
 } | null>(null);
 
 interface SessionRendererProps {
@@ -59,7 +60,8 @@ const SessionRenderer: FC<SessionRendererProps> = (props) => {
         currentSessionIndex,
         setCurrentSessionIndex: (value) => setCurrentSessionIndex(value),
         sessionList,
-        setSessionList: (value) => setSessionList(value)
+        setSessionList: (value) => setSessionList(value),
+        originList
       }}
     >
       <div className="w-full h-full flex flex-col gap-6 overflow-y-scroll scroll-wrap-y">

@@ -44,7 +44,7 @@ const User: FC<UserProps> = (props) => {
           {!isLogin && (
             <Link href={'/auth/login'}>
               <div className="w-fit whitespace-nowrap flex items-center  px-8 py-3 font-next-book leading-[128%] text-[#F5F5F5] text-[.875rem] rounded-[5rem] border border-solid hover:bg-white hover:text-black border-[#F5F5F5] gap-[0.62rem]">
-                <div>Sign Up To Learn Now</div>
+                <div>Log in To Learn Now</div>
                 <RightIcon></RightIcon>
               </div>
             </Link>

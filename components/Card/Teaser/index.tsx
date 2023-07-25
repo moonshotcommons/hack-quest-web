@@ -18,7 +18,7 @@ const TeaserCard: React.FC<TeaserCardProps> = (props) => {
 
   return (
     <div
-      className={`h-[16.24rem] w-[25.71875rem] bg-[url('/images/card/Teaser/color-bg.svg')] relative flex-shrink-0 bg-no-repeat`}
+      className={`h-[17.375rem] w-[25.71875rem] bg-[url('/images/card/Teaser/color-bg.svg')] relative flex-shrink-0 bg-no-repeat`}
     >
       <div className="absolute w-16 h-16 top-0 left-0 bg-[url('/images/card/Teaser/badge-wrap.svg')] p-4 bg-no-repeat">
         <span className="absolute top-[0.63rem] left-[0.63rem]">

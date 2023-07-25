@@ -3,6 +3,7 @@ import {
   ReactNode,
   useContext,
   useLayoutEffect,
+  useMemo,
   useRef,
   useState
 } from 'react';
@@ -31,7 +32,7 @@ const SessionItemRenderer: FC<SessionItemRendererProps> = (props) => {
     if (index < item.content.length) {
       let newString = prev + item.content[index];
       setChildren(newString);
-      timer = setTimeout(writing, 200, newString, ++index);
+      timer = setTimeout(writing, 50, newString, ++index);
       timeIds.current = timeIds.current.concat(timer);
     } else {
       item.isAuto && setCurrentSessionIndex(currentSessionIndex + 1);
@@ -43,7 +44,7 @@ const SessionItemRenderer: FC<SessionItemRendererProps> = (props) => {
     if (item.content && item.type === 'left') {
       timer = setTimeout(() => {
         writing('', 0);
-      }, item.content.length * 100);
+      }, item.content.length * 25);
     } else {
       setChildren(item.content);
     }
@@ -56,6 +57,16 @@ const SessionItemRenderer: FC<SessionItemRendererProps> = (props) => {
       timeIds.current = [];
     };
   }, [item]);
+
+  const isDisable = useMemo(() => {
+    const currentIndex = sessionList.findIndex((session) => {
+      return session.source.id === item.source.id;
+    });
+    if (currentIndex !== sessionList.length - 1) {
+      return true;
+    }
+    return false;
+  }, [sessionList, item]);
 
   const { run: onNext } = useDebounceFn(
     () => {
@@ -83,12 +94,18 @@ const SessionItemRenderer: FC<SessionItemRendererProps> = (props) => {
   if (['right'].includes(item.type)) {
     return (
       <div className="w-full flex justify-end items-center gap-4">
-        <span className="text-[#676767] text-[0.875rem] leading-[121% ]">
-          click here
-        </span>
+        {!isDisable && (
+          <span className="text-[#676767] text-[0.875rem] leading-[121%]">
+            click here
+          </span>
+        )}
         <DialogBox
           direction={item.type}
-          className="max-w-[74%] cursor-pointer"
+          className={`max-w-[74%] ${
+            isDisable
+              ? 'cursor-not-allowed'
+              : 'cursor-pointer hover:bg-[#EDEDED] hover:text-[#000]'
+          }`}
           onClick={onNext}
         >
           {children}
