@@ -46,7 +46,7 @@ const LessonPageB: FC<LessonPageBProps> = (props) => {
 
   const { onNextClick, completeModalOpen, setCompleteModalOpen } =
     useGotoNextLesson(lesson, courseType, true);
-  const { onBackClick } = useBackToPrevLesson(lesson, courseType);
+  const { onBackClick, isFirst } = useBackToPrevLesson(lesson, courseType);
   useEffect(() => {
     if (lesson) {
       webApi.courseApi.startLesson(lesson.id).catch((e) => {
@@ -72,7 +72,7 @@ const LessonPageB: FC<LessonPageBProps> = (props) => {
         })}
       </div>
       <div className="h-[3rem] flex gap-4 self-end absolute right-[4rem] bottom-[2.5rem]">
-        <CustomButton onClick={onBackClick}>Back</CustomButton>
+        {!isFirst && <CustomButton onClick={onBackClick}>Back</CustomButton>}
         <CustomButton className="border" onClick={onNextClick}>
           Next
         </CustomButton>

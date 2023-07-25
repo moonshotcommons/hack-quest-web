@@ -122,19 +122,23 @@ const Quest: FC<{
 
     const newLine = [];
     const newErrorLines: any[] = [];
+    let tempLine = [];
     for (let i = 0; i < lines.length; i++) {
       let line = lines[i];
       if (/^\s*\/\/\s?code starts here/.test(line)) {
         isCodingBlock = true;
+        tempLine = [];
         continue;
       }
       if (isCodingBlock) {
         if (/^\s*\/\/\s?code ends here/.test(line)) {
           isCodingBlock = false;
+          newLine.push(tempLine);
+          tempLine = [];
           continue;
         }
         newErrorLines.push(i + 1);
-        newLine.push(line);
+        tempLine.push(line);
         // check answer
         // if (answerReg[ai]) {
         //   if (!answerReg[ai].test(line.trim())) {
@@ -158,7 +162,9 @@ const Quest: FC<{
     // answerReg.forEach((item) => {});
     let tempAnswerReg = [...answerReg];
     newLine.forEach((line) => {
-      const regIndex = tempAnswerReg.findIndex((reg) => reg.test(line.trim()));
+      const regIndex = tempAnswerReg.findIndex((reg) =>
+        reg.test(line.join('').trim())
+      );
       if (regIndex === -1) {
         // isWrong = true;
         // setErrorLines(newErrorLines);
@@ -237,7 +243,7 @@ const Quest: FC<{
 
   return (
     <>
-      <div className="lesson-quiz h-full w-full relative">
+      <div className="h-full w-full">
         {/*<div className='passed-container !hidden'>*/}
         {/*  <div className='passed-title'>Good Job! </div>*/}
         {/*  <div className='passed-subtitle'>Your answer are all correct.</div>*/}
@@ -251,7 +257,7 @@ const Quest: FC<{
             <img className="passed-img" src={correct as any} alt={``} />
           </div>
         ) : (
-          <div className="lesson-quiz-content h-[84%]">
+          <div className="lesson-quiz-content h-[100%]">
             <div className="">
               <div className="text-[#F2F2F2] font-next-book-bold text-[1rem]">
                 Quest
@@ -287,7 +293,7 @@ const Quest: FC<{
           </div>
         )}
         {codeWrong ? (
-          <div className="absolute bottom-0 right-0 w-full flex gap-[1.25rem] justify-end z-[99999] ">
+          <div className="absolute bottom-[6.5rem] right-[7.5rem] flex gap-[1.25rem] justify-end z-[99999] ">
             <CustomButton type={0} onClick={handleTryAgain}>
               Try Again
             </CustomButton>
@@ -300,7 +306,7 @@ const Quest: FC<{
           </div>
         ) : (
           !passed && (
-            <div className="absolute bottom-0 right-0 w-full flex gap-[1.25rem] justify-end z-[99999]">
+            <div className="absolute bottom-[7.5rem] right-[7.5rem] flex gap-[1.25rem] justify-end z-[99999]">
               <CustomButton type={2} onClick={handleSubmit}>
                 {shouldRenderCodeEditor ? 'Check Answer' : 'Next'}
               </CustomButton>
