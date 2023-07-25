@@ -122,19 +122,23 @@ const Quest: FC<{
 
     const newLine = [];
     const newErrorLines: any[] = [];
+    let tempLine = [];
     for (let i = 0; i < lines.length; i++) {
       let line = lines[i];
       if (/^\s*\/\/\s?code starts here/.test(line)) {
         isCodingBlock = true;
+        tempLine = [];
         continue;
       }
       if (isCodingBlock) {
         if (/^\s*\/\/\s?code ends here/.test(line)) {
           isCodingBlock = false;
+          newLine.push(tempLine);
+          tempLine = [];
           continue;
         }
         newErrorLines.push(i + 1);
-        newLine.push(line);
+        tempLine.push(line);
         // check answer
         // if (answerReg[ai]) {
         //   if (!answerReg[ai].test(line.trim())) {
@@ -158,7 +162,9 @@ const Quest: FC<{
     // answerReg.forEach((item) => {});
     let tempAnswerReg = [...answerReg];
     newLine.forEach((line) => {
-      const regIndex = tempAnswerReg.findIndex((reg) => reg.test(line.trim()));
+      const regIndex = tempAnswerReg.findIndex((reg) =>
+        reg.test(line.join('').trim())
+      );
       if (regIndex === -1) {
         // isWrong = true;
         // setErrorLines(newErrorLines);
