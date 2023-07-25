@@ -63,7 +63,7 @@ const LessonPageD: FC<LessonPageDProps> = (props) => {
 
   return (
     <div className="w-full h-[80vh] relative flex mt-[1.25rem] text-white  bg-[#111] rounded-[2.5rem]">
-      <div className="w-[47rem] h-full rounded-[2.5rem] bg-[url('/images/lesson/lesson_type_e_cover.svg')] bg-no-repeat bg-cover bg-center"></div>
+      <div className="w-[47rem] h-full rounded-[2.5rem] bg-[url('/images/lesson/lesson_type_e_cover.jpg')] bg-no-repeat bg-cover bg-center"></div>
       <div className="flex-1 px-[3rem] py-[2.5rem]">
         <SessionRenderer
           type={'session'}

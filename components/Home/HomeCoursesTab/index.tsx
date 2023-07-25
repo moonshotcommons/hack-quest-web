@@ -20,7 +20,7 @@ const HomeCourseTab: FC<HomeCourseTabProps> = (props) => {
       <div className="text-[#F5F5F5] mt-[18.37rem] relative font-next-poster-Bold font-bold text-[2.5rem] text-center z-[99]">
         What we offer...
       </div>
-      <div className="flex justify-center mt-[4.25rem] relative z-[99] items-center gap-[1.25rem]">
+      <div className="flex justify-center mt-[5.25rem] relative z-[99] items-center gap-[1.25rem]">
         {tabData.map((item) => {
           return (
             <div

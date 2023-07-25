@@ -14,7 +14,7 @@ const CourseDescription: FC<CourseDescriptionProps> = (props) => {
       <h1 className="font-[1.75rem] text-[#F2F2F2] font-next-book-bold text-center">
         {title}
       </h1>
-      <div className="text-[#676767] font-next-book leading-[120%] text-center mt-[1.875rem] whitespace-pre-line">
+      <div className="text-[#676767] font-next-book leading-[120%] text-left mt-[1.875rem] whitespace-pre-line">
         {children}
       </div>
     </div>

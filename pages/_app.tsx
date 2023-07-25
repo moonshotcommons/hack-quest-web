@@ -32,8 +32,7 @@ const Layout = (props: {
   switch (true) {
     case regex.test(pathname):
       return <UnitLayout>{children}</UnitLayout>;
-    case pathname === '/':
-      return <HomeLayout>{children}</HomeLayout>;
+
     case [
       '/auth/register',
       '/auth/login',
@@ -43,6 +42,8 @@ const Layout = (props: {
       '/auth/update-password'
     ].includes(pathname):
       return <LoginLayout>{children}</LoginLayout>;
+    case pathname === '/':
+    // return <HomeLayout>{children}</HomeLayout>;
     default:
       navbarData.navList = [
         {

@@ -24,7 +24,8 @@ const SessionSelectRenderer: FC<SessionSelectRendererProps> = (props) => {
     setSessionList,
     sessionList,
     currentSessionIndex,
-    setCurrentSessionIndex
+    setCurrentSessionIndex,
+    originList
   } = useContext(SessionRendererContext)!;
 
   useEffect(() => {
@@ -47,7 +48,7 @@ const SessionSelectRenderer: FC<SessionSelectRendererProps> = (props) => {
     const type = target.type;
     const text = getJoinedRichText(target[type].rich_text);
     if (!text) return;
-    const waitTime = text.length * 100 + text.length * 200;
+    const waitTime = text.length * 25 + text.length * 50;
     if (text.trim().startsWith('V：')) {
       const nextObj = {
         type: 'left',
@@ -82,6 +83,16 @@ const SessionSelectRenderer: FC<SessionSelectRendererProps> = (props) => {
         waiting(child?.source?.children, { index: 0, waitTime: 0 });
       } else {
         setCurrentSessionIndex(currentSessionIndex + 1);
+        const nextSession = originList[currentSessionIndex + 1];
+        const text = nextSession.content;
+        if (!text) {
+          setWait({ ...wait, isEnd: true });
+          return;
+        }
+        const waitTime = text.length * 25 + text.length * 50;
+        setTimeout(() => {
+          setWait({ ...wait, isEnd: true });
+        }, waitTime);
       }
     },
     { wait: 500 }
@@ -106,7 +117,7 @@ const SessionSelectRenderer: FC<SessionSelectRendererProps> = (props) => {
     },
     { wait: 500 }
   );
-
+  console.log(wait);
   return (
     <div className="w-fit max-w-[74%] flex flex-col gap-3 self-end">
       <span className="text-[#676767] text-[0.875rem] leading-[121% ]">
@@ -120,7 +131,12 @@ const SessionSelectRenderer: FC<SessionSelectRendererProps> = (props) => {
               className="flex justify-end cursor-pointer"
               onClick={() => onNext(child)}
             >
-              <DialogBox direction={child.type}>{child.content}</DialogBox>
+              <DialogBox
+                direction={child.type}
+                className="hover:bg-[#EDEDED] hover:text-[#000]"
+              >
+                {child.content}
+              </DialogBox>
             </div>
           );
         })}
@@ -130,7 +146,13 @@ const SessionSelectRenderer: FC<SessionSelectRendererProps> = (props) => {
             !wait.isEnd ? 'cursor-not-allowed' : 'cursor-pointer'
           }`}
         >
-          <DialogBox direction={selectItem.type} onClick={onBack}>
+          <DialogBox
+            direction={selectItem.type}
+            onClick={onBack}
+            className={
+              !wait.isEnd ? '' : 'hover:bg-[#EDEDED] hover:text-[#000]'
+            }
+          >
             {selectItem.content}
           </DialogBox>
         </div>
