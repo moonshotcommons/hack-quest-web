@@ -11,7 +11,7 @@ import { Radio } from 'antd';
 import { NextPage } from 'next';
 import Link from 'next/link';
 import webApi from '@/service';
-import { useDebounce, useDebounceFn } from 'ahooks';
+import { useDebounce, useDebounceFn, useKeyPress } from 'ahooks';
 
 const CustomButton: FC<ButtonProps> = (props) => {
   const { children } = props;
@@ -61,6 +61,8 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
     },
     { wait: 500 }
   );
+
+  useKeyPress('enter', verifyEmail);
 
   return (
     <div className="px-[6.875rem] py-[17.0625rem] h-full flex flex-col justify-center items-center">
