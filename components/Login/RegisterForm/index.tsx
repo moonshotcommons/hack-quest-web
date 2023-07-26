@@ -13,6 +13,7 @@ import { NextPage } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FC, useState } from 'react';
+import WhiteListModal from '../WhiteListModal';
 
 const CustomButton: FC<ButtonProps> = (props) => {
   const { children } = props;
@@ -65,7 +66,7 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
 
   const [acceptConditions, setAcceptCondition] = useState(false);
   const [acceptErrorMessage, setAcceptErrorMessage] = useState(false);
-
+  const [showWhiteListModal, setShowWhiteListModal] = useState(false);
   const router = useRouter();
 
   const { run: onRegister } = useDebounceFn(
@@ -84,8 +85,8 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
             const res = await webApi.userApi.userRegister(formData);
             router.push('/auth/email-verify');
           } catch (e: any) {
-            console.log(e);
-            // message.error(e.msg);
+            if (e?.code === 400) setShowWhiteListModal(true);
+            else message.error(e?.msg);
           }
         } else {
           const status: any = { ...formState };
@@ -218,7 +219,7 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
         <div className="flex flex-col gap-[.5rem]">
           <div className="flex gap-[0.5rem] text-[#ACACAC] font-Sofia-Pro-Light-Az font-light leading-[150%] tracking-[-0.011rem]">
             <span>See our</span>
-            <Link href={'/'}>
+            <Link href={'/hackquest/privacy_policy.pdf'} target="_blank">
               <span className="text-[#F8F8F8] font-semibold">
                 Privacy Policy
               </span>
@@ -256,6 +257,10 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
           </div>
         </CustomButton>
       </div>
+      <WhiteListModal
+        open={showWhiteListModal}
+        onClose={() => setShowWhiteListModal(false)}
+      ></WhiteListModal>
     </div>
   );
 };

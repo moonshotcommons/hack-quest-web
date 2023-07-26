@@ -15,7 +15,7 @@ import { LoginParamsType } from '@/service/webApi/user/type';
 import { useDispatch } from 'react-redux';
 import { setUserInfo } from '@/store/redux/modules/user';
 import { useRouter } from 'next/router';
-import { useDebounceFn } from 'ahooks';
+import { useDebounceFn, useKeyPress } from 'ahooks';
 import { setToken } from '@/helper/user-token';
 import { omit } from 'lodash-es';
 
@@ -105,6 +105,8 @@ const UserLogin: FC<UserLoginProps> = (props) => {
     },
     { wait: 500 }
   );
+
+  useKeyPress('enter', onLogin);
 
   return (
     <div className="px-[6.875rem] py-[11.3125rem] h-full flex flex-col justify-center items-center">
