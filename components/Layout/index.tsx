@@ -16,7 +16,7 @@ const Layout: React.FC<LayoutProps> = ({ navbarData, children }) => {
     <div
       className={`w-full min-h-screen bg-black ${inter.className} overflow-x-scroll`}
     >
-      <div className="m-auto">
+      <div className="container m-auto">
         <NavBar {...navbarData}>
           <User></User>
         </NavBar>

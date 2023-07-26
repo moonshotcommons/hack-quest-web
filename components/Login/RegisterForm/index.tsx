@@ -219,7 +219,7 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
         <div className="flex flex-col gap-[.5rem]">
           <div className="flex gap-[0.5rem] text-[#ACACAC] font-Sofia-Pro-Light-Az font-light leading-[150%] tracking-[-0.011rem]">
             <span>See our</span>
-            <Link href={'/'}>
+            <Link href={'/hackquest/privacy_policy.pdf'} target="_blank">
               <span className="text-[#F8F8F8] font-semibold">
                 Privacy Policy
               </span>
