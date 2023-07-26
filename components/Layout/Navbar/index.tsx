@@ -20,7 +20,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
   const { pathname } = useRouter();
 
   return (
-    <div className="h-[4.75rem] flex items-center justify-between">
+    <div className="container m-auto h-[4.75rem] flex items-center justify-between">
       <nav className="gap-[4rem] h-full flex items-center">
         <Link href="/" className="h-full flex items-center">
           {Logo && pathname !== '/' && <Image src={Logo} alt="logo"></Image>}
