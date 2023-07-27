@@ -93,7 +93,7 @@ const UnitCard: FC<UnitCardProps> = (props) => {
         <img
           src={`/images/unit/unit_cover/${index + 1}.png`}
           alt="cover"
-          className="h-full scale-[3]"
+          className="h-full scale-[0.65]"
         ></img>
         {/* <Image
           src={`/images/unit/unit_cover/${index + 1}.png`}

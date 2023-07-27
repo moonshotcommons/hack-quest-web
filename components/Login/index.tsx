@@ -176,7 +176,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
         <CustomButton onClick={onLogin} block>
           <div className="flex items-center gap-[1.25rem]">
             <span className="text-[1.25rem] font-next-book text-white leading-[118.5%]">
-              Log in now
+              Login now
             </span>
             <span>
               <RightArrowIcon></RightArrowIcon>
