@@ -8,6 +8,7 @@ import { FC, ReactNode } from 'react';
 import RightBottomIcon from '@/components/Common/Icon/RightBottom';
 import { CourseType } from '@/service/webApi/course/type';
 import Hackquest_info1 from '@/public/images/home/hackquest_info1.png';
+import Hackquest_info2 from '@/public/images/home/hackquest_info2.png';
 import Hackquest_info3 from '@/public/images/home/hackquest_info3.png';
 import Hackquest_info4 from '@/public/images/home/hackquest_info4.png';
 import Hackquest_info5 from '@/public/images/home/hackquest_info5.png';
@@ -46,7 +47,7 @@ export const TopInfo: FC = () => {
         {!userInfo && (
           <Link href={'/auth/login'}>
             <div className="flex items-center w-fit px-[2.5rem] py-[1.25rem] font-next-book text-[#F5F5F5] text-[1rem] rounded-[5rem] border border-solid border-[#F5F5F5] gap-[0.62rem] hover:text-black hover:bg-[#D9D9D9] cursor-pointer">
-              <div>Log in</div>
+              <div>Login</div>
               <RightIcon></RightIcon>
             </div>
           </Link>
@@ -74,7 +75,7 @@ export const CenterInfo: FC = () => {
     {
       title: 'Earn rewards, in addition to skills',
       description: `Complete quests and unlock exciting rewards: tokens, NFT learning certificates, and even airdrop qualification!`,
-      image: ''
+      image: Hackquest_info2
     },
     {
       title: 'Build Web3 reputation',

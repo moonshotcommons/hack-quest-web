@@ -69,7 +69,7 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
       {/* <ThirdPartyLogin></ThirdPartyLogin> */}
       <div className="flex flex-col gap-[2rem]">
         <p className="text-[#F8F8F8] text-[1.75rem] font-Sofia-Pro-Light-Az font-semibold leading-[150%]">
-          Log in
+          Login
         </p>
 
         <Input

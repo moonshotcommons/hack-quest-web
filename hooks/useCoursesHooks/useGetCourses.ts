@@ -32,12 +32,8 @@ export const useLoadCourseList = () => {
   const courseList = useGetCourses();
 
   useEffect(() => {
-    if (courseList.length) {
-      setWaitingLoadCourseList(false);
-      return;
-    }
     run();
-  }, [courseList, run]);
+  }, [run]);
 
   return { waitingLoadCourseList };
 };

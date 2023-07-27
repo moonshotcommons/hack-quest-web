@@ -117,13 +117,9 @@ const ForgetPassword: NextPage<ForgetPasswordProps> = (props) => {
               </div>
             </CustomButton>
             <Link href={'/login'}>
-              <Button className="py-[1.25rem] w-full border border-[#EDEDED] bg-transparent">
-                <div className="flex items-center gap-[1.25rem]">
-                  <span className="text-[1rem] font-Sofia-Pro-Light-Az text-white leading-[1.25rem]">
-                    Back
-                  </span>
-                </div>
-              </Button>
+              <button className="py-[20px] w-full rounded-[2.52rem] border border-[#EDEDED] text-[1rem] font-Sofia-Pro-Light-Az text-white leading-[1.25rem]">
+                Back
+              </button>
             </Link>
           </div>
         </div>

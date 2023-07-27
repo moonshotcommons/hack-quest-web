@@ -56,6 +56,7 @@ const WhiteListModal: NextPage<CompleteModalProps> = ({ open, onClose }) => {
           <a
             href="mailto:founder@hackquest.io"
             className="ml-2 cursor-pointer underline"
+            target="_blank"
           >
             founder@hackquest.io.
           </a>
