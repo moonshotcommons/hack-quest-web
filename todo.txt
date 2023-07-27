@@ -17,3 +17,5 @@
 3. unit封面图片更新
 4. 修改Log in为Login
 5. 增加landing page缺少的描述图片
+6. 白名单邮件新标签页打开
+7. 修复all courses页面的课程进度没有实时更新的问题
