@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import Verifying from '@/public/images/login/verifying.svg';
+import Congrats from '@/public/images/course/congrats.svg';
 import Image from 'next/image';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
@@ -15,39 +15,35 @@ interface EmailConfirmedProps {
 
 const EmailConfirmed: NextPage<EmailConfirmedProps> = (props) => {
   const router = useRouter();
-  const dispatch = useDispatch();
 
   const [jump, setJump] = useState(false);
   const [countDown, setCountDown] = useState(3);
 
   useEffect(() => {
-    const { token } = router.query;
-    if (token) {
-      webApi.userApi
-        .tokenVerify({ token: token as string })
-        .then((res: any) => {
-          dispatch(setUserInfo(omit(res, 'token')));
-          setToken(res.token || token);
-          router.push('/auth/email-success');
-        })
-        .catch((err) => {
-          console.log(err);
-          router.push('/auth/email-fail');
-        });
+    if (countDown > 0) {
+      const timer = setInterval(() => {
+        setCountDown(countDown - 1);
+      }, 1000);
+      return () => {
+        clearInterval(timer);
+      };
     } else {
-      router.push('/auth/email-fail');
+      router.push('/courses');
     }
-  }, [router, dispatch]);
+  }, [countDown, router]);
 
   return (
     <div className="w-full h-full min-h-screen flex justify-end items-center">
       <div className="py-[19.78rem] px-[7.5rem] text-center flex flex-col justify-center items-center gap-8">
-        <Image src={Verifying} alt="Congrats"></Image>
+        <Image src={Congrats} alt="Congrats"></Image>
         <h1 className="text-[#F8F8F8] text-[1.75rem] font-next-book-bold font-bold leading-[150%] -tracking-[0.01924rem]">
-          Verifying...
+          Email Confirmed
         </h1>
         <div className="text-[#676767] font-next-book w-[31.8125rem] leading-[150%] -tracking-[0.011rem]">
-          <span>Please wait... We are verifying your email...</span>
+          <span>
+            Thank you for confirming your email address. You will be redirected
+            to the All Courses page in {countDown} second.
+          </span>
         </div>
       </div>
     </div>

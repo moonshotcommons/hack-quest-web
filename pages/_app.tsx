@@ -39,7 +39,9 @@ const Layout = (props: {
       '/users/email-confirmed',
       '/auth/email-verify',
       '/auth/forget-password',
-      '/auth/update-password'
+      '/auth/update-password',
+      '/auth/email-fail',
+      '/auth/email-success'
     ].includes(pathname):
       return <LoginLayout>{children}</LoginLayout>;
     case pathname === '/':
