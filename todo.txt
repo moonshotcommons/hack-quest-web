@@ -19,3 +19,8 @@
 5. 增加landing page缺少的描述图片
 6. 白名单邮件新标签页打开
 7. 修复all courses页面的课程进度没有实时更新的问题
+
+7月28日更新
+1. teasr Deploy Your NFT中的Connect to Mumbai TestNet渲染内容缺失
+2. landing page learning track卡片点击报错
+3. 完成course的Ui逻辑优化，展示good job后不显示next，1秒后显示弹窗
