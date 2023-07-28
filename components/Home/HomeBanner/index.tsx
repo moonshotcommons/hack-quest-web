@@ -6,9 +6,12 @@ import Image from 'next/image';
 import { FC, ReactNode } from 'react';
 import BannerBg from '@/public/images/home/landing-back.png';
 import Link from 'next/link';
+import { useGetUserInfo } from '@/hooks/useGetUserInfo';
 interface HomeBannerProps {}
 
 const HomeBanner: FC<HomeBannerProps> = (props) => {
+  const userInfo = useGetUserInfo();
+
   return (
     <div className="relative z-10">
       <div className="absolute -right-[10.25rem] top-0 z-[1]">
@@ -26,16 +29,31 @@ const HomeBanner: FC<HomeBannerProps> = (props) => {
           </div>
         </div>
         <div className="flex items-center gap-8 mt-[3.62rem]">
-          <div className="flex items-center w-fit px-[2.5rem] py-[1.25rem] font-next-book text-[#F5F5F5] text-[1rem] rounded-[5rem] border border-solid border-[#F5F5F5] gap-[0.62rem] hover:text-black hover:bg-[#D9D9D9] cursor-pointer ">
-            <div>Sign Up</div>
-            <RightIcon></RightIcon>
-          </div>
-          <div className="flex text-[#F5F5F5] font-next-book text-[1.25rem] items-center gap-[0.31rem]">
-            <Link href={'/courses'}>
-              <span className="underline">Explore All Course</span>
+          {!userInfo && (
+            <Link href={'/auth/login'}>
+              <div className="flex items-center w-fit px-[2.5rem] py-[1.25rem] font-next-book text-[#F5F5F5] text-[1rem] rounded-[5rem] border border-solid border-[#F5F5F5] gap-[0.62rem] hover:text-black hover:bg-[#D9D9D9] cursor-pointer">
+                <div>Login</div>
+                <RightIcon></RightIcon>
+              </div>
             </Link>
-            <SkipIcon></SkipIcon>
-          </div>
+          )}
+          {userInfo && (
+            <Link href={'/dashboard'}>
+              <div className="flex items-center w-fit px-[2.5rem] py-[1.25rem] font-next-book text-[#F5F5F5] text-[1rem] rounded-[5rem] border border-solid border-[#F5F5F5] gap-[0.62rem] hover:text-black hover:bg-[#D9D9D9] cursor-pointer">
+                <div>Dashboard</div>
+                <RightIcon></RightIcon>
+              </div>
+            </Link>
+          )}
+          <Link href={'/courses'}>
+            <div className="flex w-fit text-[#F5F5F5] font-next-book text-[1.25rem] items-center gap-[0.31rem]">
+              <div>
+                <span>Explore All Course</span>
+                <span className="block h-[.0625rem] w-full bg-[#595959]"></span>
+              </div>
+              <SkipIcon></SkipIcon>
+            </div>
+          </Link>
         </div>
       </div>
     </div>

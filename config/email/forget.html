@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      @font-face {
+        font-family: 'NEXT Book';
+        src: url('/public/NEXT-Book-Bold.otf') format('otf');
+      }
+
+      .container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .container .main {
+        box-sizing: border-box;
+        width: 50rem;
+        height: auto;
+        padding: 5rem 7rem;
+        background: white;
+        border-radius: 0.75rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+      }
+
+      .main > .wellcome {
+        margin-top: 0.75rem;
+        color: #000;
+        text-align: center;
+        font-size: 2.5rem;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 150%; /* 3.75rem */
+        letter-spacing: -0.0275rem;
+        font-family: 'NEXT Book' !important;
+      }
+      .main > .content {
+        margin-top: 0.75rem;
+        color: #000;
+        text-align: center;
+        font-size: 1.5rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 150%; /* 2.25rem */
+        letter-spacing: -0.0165rem;
+        font-family: 'NEXT Book' !important;
+      }
+      .main > .verify-btn {
+        display: flex;
+        margin-top: 2.25rem;
+        padding: 1.25rem 1.875rem;
+        justify-content: center;
+        align-items: center;
+        width: 33.0625rem;
+        box-sizing: border-box;
+        color: var(--color-white, #fff);
+        font-family: 'NEXT Book' !important;
+        font-size: 1.25rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 118.5%;
+        gap: 1.25rem;
+        border-radius: 2.5rem;
+        border: 1px solid #2a2a2a;
+        background: #2a2a2a;
+        cursor: pointer;
+        text-decoration-line: none;
+      }
+      .main > .footer {
+        margin-top: 2.25rem;
+        color: #676767;
+        text-align: center;
+        font-family: NEXT Book;
+        font-size: 1.25rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 150%; /* 1.875rem */
+        letter-spacing: -0.01375rem;
+      }
+      .link {
+        color: var(--color-text-purple, #6b6bff);
+        text-align: center;
+        font-family: NEXT Book;
+        font-size: 1.25rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 150%; /* 1.875rem */
+        letter-spacing: -0.01375rem;
+        text-decoration-line: none;
+      }
+
+      .link:hover {
+        text-decoration-line: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="main">
+        <div class="logo">
+          <svg
+            width="356"
+            height="43"
+            viewBox="0 0 356 43"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g clip-path="url(#clip0_8684_166758)">
+              <path
+                d="M37.4567 6.23849L37.4496 6.24551C41.3004 10.1007 43.6821 15.4205 43.6821 21.2774L42.7458 41.6212L22.4046 42.5549C17.9927 42.5549 13.8943 41.2123 10.496 38.913C9.38903 38.1641 8.35636 37.3137 7.41132 36.3751L7.41834 36.3681C3.53246 32.5085 1.12616 27.1641 1.12616 21.2774L2.06253 0.933582L22.4046 -0.000152842C26.1625 -0.000152797 29.6925 0.973854 32.7564 2.68335C34.4863 3.64854 36.0676 4.84819 37.4575 6.23936L37.4567 6.23849Z"
+                fill="#131313"
+              />
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M35.0529 21.2278C35.0529 28.7042 29.6568 33.9138 22.5079 33.9138C15.3589 33.9138 9.96289 28.7042 9.96289 21.2278C9.96289 13.7514 15.3589 8.54175 22.5079 8.54175C29.6568 8.54175 35.0529 13.7514 35.0529 21.2278Z"
+                fill="white"
+              />
+            </g>
+            <path
+              d="M91.1787 6.41504V36.1409H81.0325V25.1837H68.8478V36.1409H58.7017V6.41504H68.8478V17.3294H81.0325V6.41504H91.1787Z"
+              fill="#131313"
+            />
+            <path
+              d="M114.407 33.1262H109.854C107.975 33.1262 106.327 34.3638 105.844 36.1409H95.3062L104.153 6.41504H120.108L128.954 36.1409H118.417C117.93 34.3613 116.286 33.1262 114.407 33.1262ZM115.426 25.1862L112.479 14.2719H111.784L108.837 25.1862H115.426Z"
+              fill="#131313"
+            />
+            <path
+              d="M129.632 21.2555C129.632 12.5317 136.882 5.47559 145.79 5.47559C150.4 5.47559 154.518 7.35929 157.472 10.341L150.176 17.574C149.103 16.3459 147.536 15.6018 145.79 15.6018C142.613 15.6018 140.017 18.1437 140.017 21.2555C140.017 24.3672 142.613 26.9534 145.79 26.9534C147.49 26.9534 149.058 26.2093 150.086 25.0255L157.472 32.2143C154.518 35.1959 150.354 37.0797 145.79 37.0797C136.885 37.0797 129.632 30.0236 129.632 21.2555Z"
+              fill="#131313"
+            />
+            <path
+              d="M174.306 27.5157L172.57 29.5988V36.1407H162.418V6.39941H172.57V16.0862H172.874L180.249 6.39941H191.66L180.813 19.6119L192.353 36.1382H180.378L174.522 27.5132H174.306V27.5157Z"
+              fill="#131313"
+            />
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M207.986 37.0796C208.595 37.0796 209.194 37.0499 209.782 36.9916L223.322 36.382L224.029 21.3089C224.029 18.6472 223.357 16.1409 222.168 13.9424C219.636 8.7323 214.365 5.47559 207.986 5.47559C198.981 5.47559 192.184 11.9648 192.184 21.2776C192.184 30.5904 198.981 37.0796 207.986 37.0796ZM208.067 29.2604C212.548 29.2604 215.93 25.9951 215.93 21.3089C215.93 16.6227 212.548 13.3573 208.067 13.3573C203.586 13.3573 200.204 16.6227 200.204 21.3089C200.204 25.9951 203.586 29.2604 208.067 29.2604Z"
+              fill="#131313"
+            />
+            <path
+              d="M228.445 23.4924V6.4209H238.435V23.3261C238.435 27.0064 240.399 28.9297 243.429 28.9297C246.46 28.9297 248.295 27.0064 248.295 23.3261V6.4209H258.284V23.4924C258.284 33.3595 251.199 37.0795 243.214 37.0795C235.229 37.0795 228.443 33.3595 228.443 23.4924H228.445Z"
+              fill="#131313"
+            />
+            <path
+              d="M273.69 14.2195V17.3164H290.322V25.1619H273.69V28.3016H290.322V36.1068H263.556V6.41431H290.322V14.2195H273.69Z"
+              fill="#131313"
+            />
+            <path
+              d="M295.768 28.329H311.626C312.972 28.329 313.625 27.7329 313.625 26.753C313.625 25.7731 312.975 25.22 311.582 25.22H304.369C299.286 25.22 295.16 21.8155 295.16 15.8172C295.16 8.92478 299.982 6.41431 304.849 6.41431H322.837V14.2866H307.327C306.154 14.2866 305.328 14.7109 305.328 15.7742C305.328 16.8375 306.154 17.3502 307.327 17.3502H314.105C319.928 17.3502 323.794 20.7118 323.794 26.7101C323.794 32.37 319.451 36.1988 313.8 36.1988H295.639L295.771 28.329H295.768Z"
+              fill="#131313"
+            />
+            <path
+              d="M335.708 14.2713H326.689V6.41431H354.874V14.2713H345.855V36.1409H335.708V14.2713Z"
+              fill="#131313"
+            />
+            <defs>
+              <clipPath id="clip0_8684_166758">
+                <rect
+                  width="42.5551"
+                  height="42.556"
+                  fill="white"
+                  transform="matrix(1.19249e-08 -1 -1 -1.19249e-08 43.6821 42.5549)"
+                />
+              </clipPath>
+            </defs>
+          </svg>
+        </div>
+        <h1 class="wellcome">Forgot your password?</h1>
+        <p class="content">
+          To reset your password, click the button below. The link will
+          self-destruct after three days.
+        </p>
+        <a href="链接地址" class="verify-btn">
+          <span> Reset my password </span>
+          <svg
+            width="14"
+            height="20"
+            viewBox="0 0 14 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M12.0581 9.87813L2.14218 17.1244C1.761 17.4029 1.29646 16.907 1.59933 16.5448L7.22986 9.81178C7.35406 9.66325 7.35406 9.4471 7.22986 9.29857L1.59933 2.56556C1.29646 2.20339 1.761 1.70745 2.14218 1.986L12.0581 9.23222C12.2767 9.39201 12.2767 9.71834 12.0581 9.87813Z"
+              fill="white"
+            />
+          </svg>
+        </a>
+        <div class="footer">
+          Can’t click the button above? Copy and paste this link into your
+          browser:
+        </div>
+        <a href="链接地址" class="link">链接地址</a>
+      </div>
+    </div>
+  </body>
+</html>

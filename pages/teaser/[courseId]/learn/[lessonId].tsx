@@ -12,33 +12,59 @@ import type { GetServerSideProps, NextPage } from 'next';
 
 import LessonHeader from '@/components/LessonPages/LessonHeader';
 import LessonPageA from '@/components/LessonPages/LessonPageA';
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { useRouter } from 'next/router';
+import { useGetLessonContent } from '@/hooks/useCoursesHooks/useGetLessenContent';
+import LessonPageB from '@/components/LessonPages/LessonPageB';
+import LessonPageD from '@/components/LessonPages/LessonPageD';
+import LessonPageE from '@/components/LessonPages/LessonPageE';
 
-interface IProps {
-  lesson: CourseLessonType;
-}
+interface IProps {}
 
 const SyntaxUnit: NextPage<IProps> = (props) => {
-  const { lesson } = props;
-
-  // const LessonPage = (props: { style: LessonStyleType }) => {
-  //   const { style } = props;
-
-  // };
+  const router = useRouter();
+  const { lessonId } = router.query;
+  const { lesson } = useGetLessonContent(lessonId as string);
 
   const LessonPage = useMemo(() => {
-    switch (lesson.style) {
-      case LessonStyleType.A:
-        return (
-          <>
-            <LessonPageA
+    if (lesson) {
+      switch (lesson.style) {
+        case LessonStyleType.A:
+          return (
+            <>
+              <LessonPageA
+                lesson={lesson}
+                courseType={CourseType.TEASER}
+              ></LessonPageA>
+            </>
+          );
+        case LessonStyleType.B:
+          return (
+            <LessonPageB
               lesson={lesson}
-              courseType={CourseType.SYNTAX}
-            ></LessonPageA>
-          </>
-        );
-      default:
-        return <></>;
+              courseType={CourseType.TEASER}
+            ></LessonPageB>
+          );
+        case LessonStyleType.C:
+        case LessonStyleType.D:
+          return (
+            <LessonPageD
+              lesson={lesson}
+              courseType={CourseType.TEASER}
+            ></LessonPageD>
+          );
+        case LessonStyleType.E:
+          return (
+            <>
+              <LessonPageE
+                lesson={lesson}
+                courseType={CourseType.TEASER}
+              ></LessonPageE>
+            </>
+          );
+        default:
+          return <></>;
+      }
     }
   }, [lesson]);
 
@@ -54,26 +80,5 @@ const SyntaxUnit: NextPage<IProps> = (props) => {
     </>
   );
 };
-
-export const getServerSideProps: GetServerSideProps =
-  wrapper.getServerSideProps(function (store) {
-    return async (context) => {
-      const { lessonId } = context.query;
-
-      let lesson = null;
-      try {
-        lesson = await webApi.courseApi.getLessonContent(lessonId as any);
-      } catch (e: any) {
-        // message.error(`Course detail ${e.message}`);
-        console.log(e);
-        lesson = {};
-      }
-      return {
-        props: {
-          lesson: lesson
-        }
-      };
-    };
-  });
 
 export default SyntaxUnit;

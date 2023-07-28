@@ -10,3 +10,8 @@ declare namespace React {
     is_toggleable?: string;
   }
 }
+
+declare module 'react-mathjax' {
+  const a: any;
+  export default a;
+}

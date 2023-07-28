@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import React, { ReactNode } from 'react';
 import Logo from '@/public/images/logo/text-Logo.svg';
+import LogoActive from '@/public/images/logo/text-Logo-active.svg';
 
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -17,12 +18,15 @@ export interface NavBarProps {
 const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
   const { navList, children, logo } = NavBarProps;
   const { pathname } = useRouter();
-  console.log(pathname, 'pathname');
+
   return (
-    <div className="h-[4.75rem] flex items-center justify-between">
+    <div className="container m-auto h-[4.75rem] flex items-center justify-between">
       <nav className="gap-[4rem] h-full flex items-center">
         <Link href="/" className="h-full flex items-center">
-          {logo ?? <Image src={Logo} alt="logo"></Image>}
+          {Logo && pathname !== '/' && <Image src={Logo} alt="logo"></Image>}
+          {LogoActive && pathname === '/' && (
+            <Image src={LogoActive} alt="logo"></Image>
+          )}
         </Link>
         {navList.map((nav) => {
           return (

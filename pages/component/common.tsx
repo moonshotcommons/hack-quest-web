@@ -30,7 +30,7 @@ const Home: NextPage<HomeProps> = (props) => {
   const [open, setOpen] = useState(false);
   return (
     <div>
-      {/* <Button onClick={() => setOpen(true)}>测试打开</Button>
+      <Button onClick={() => setOpen(true)}>测试打开</Button>
       <Modal open={open} onClose={() => setOpen(false)}>
         <div className="w-[74.0625rem] h-[35.6875rem] bg-[#141414] rounded-[2.5rem] m-auto flex flex-col items-center relative overflow-hidden">
           <div className="absolute left-0 top-0">
@@ -67,7 +67,7 @@ const Home: NextPage<HomeProps> = (props) => {
             </CustomButton>
           </div>
         </div>
-      </Modal> */}
+      </Modal>
     </div>
   );
 };

@@ -1,31 +1,36 @@
 import { tagFormate } from '@/helper/formate';
 import { getCourseLink } from '@/helper/utils';
+import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
+import webApi from '@/service';
 import {
   CourseDetailType,
   CourseResponse,
   CourseType,
   CourseUnitType
 } from '@/service/webApi/course/type';
+import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
+import { useRequest } from 'ahooks';
 import { Typography } from 'antd';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FC, ReactNode } from 'react';
+import { useRouter } from 'next/router';
+import { FC, ReactNode, useMemo } from 'react';
 import styled from 'styled-components';
 
 interface CourseDetailBannerProps {
   courseDetail?: CourseDetailType;
-  learningLessonId?: string;
+  jumpRef?: any;
+  children?: ReactNode;
 }
 
 const CourseDetailBanner: FC<CourseDetailBannerProps> = (props) => {
-  const { courseDetail, learningLessonId } = props;
-  const currentLeaningUnit = courseDetail?.units?.find((unit, index) => {
-    if (index === 0 && unit.progress === 0) return unit;
-    if (unit.progress !== 1) return unit;
-  });
+  const { courseDetail, jumpRef, children } = props;
+  const router = useRouter();
+  const jumpLearningLesson = useJumpLeaningLesson();
+
   return (
     <div className="flex justify-end relative">
-      <div className="absolute top-[7.77rem] left-0 flex flex-col course-detail-banner z-[9999]">
+      <div className="absolute top-[7.77rem] left-0 flex flex-col course-detail-banner z-[50]">
         <span className="text-[#676767] font-next-book text-base">
           {tagFormate(courseDetail?.type || '')}
         </span>
@@ -39,15 +44,21 @@ const CourseDetailBanner: FC<CourseDetailBannerProps> = (props) => {
         >
           {courseDetail?.description}
         </Typography.Paragraph>
-        <Link
-          href={`${getCourseLink(courseDetail?.type)}/${
-            courseDetail?.name
-          }/learn/${learningLessonId}`}
-        >
-          <button className="w-fit px-8 py-4 mt-[1.875rem] border border-solid border-[#F2F2F2] rounded-[2.5rem] text-sm text-[#F2F2F2] primary-button-hover">
-            Start Learning
-          </button>
-        </Link>
+        {children ||
+          (courseDetail && (
+            <button
+              className="px-8 w-fit py-4 mt-[1.875rem] border border-solid border-[#F2F2F2] rounded-[2.5rem] text-sm text-[#F2F2F2] primary-button-hover cursor-pointer"
+              onClick={() => {
+                if (courseDetail) {
+                  jumpLearningLesson(courseDetail);
+                }
+              }}
+            >
+              {courseDetail?.progress || 0 > 0
+                ? 'Resume Learning'
+                : 'Start Learning'}
+            </button>
+          ))}
       </div>
       <div className="-mr-[5.5625rem]">
         {/* <Image
@@ -55,12 +66,14 @@ const CourseDetailBanner: FC<CourseDetailBannerProps> = (props) => {
           alt="cover"
 
         /> */}
-        <Image
-          src={`/images/course/course_cover/${courseDetail?.type}.png`}
-          alt="cover"
-          width={560}
-          height={497}
-        />
+        {courseDetail?.type && (
+          <Image
+            src={`/images/course/course_cover/${courseDetail?.type}.png`}
+            alt="cover"
+            width={560}
+            height={497}
+          />
+        )}
       </div>
     </div>
   );

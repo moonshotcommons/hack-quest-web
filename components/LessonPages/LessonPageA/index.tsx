@@ -1,7 +1,11 @@
 import { Block } from '@/components/TempComponent/Block';
 import Quest from '@/components/TempComponent/Quest';
 
-import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
+import {
+  CourseLessonType,
+  CourseType,
+  LessonStyleType
+} from '@/service/webApi/course/type';
 
 import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 
@@ -10,6 +14,7 @@ import webApi from '@/service';
 import CompleteModal from '../CompleteModal';
 import { shallowEqual, useSelector } from 'react-redux';
 import { AppRootState } from '@/store/redux';
+import { useRouter } from 'next/router';
 
 interface LessonPageAProps {
   lesson: CourseLessonType;
@@ -22,7 +27,8 @@ const LessonPageA: FC<LessonPageAProps> = (props) => {
   const [quizes, setQuizes] = useState([]);
   const [isProgressing, setIsProgressing] = useState(false);
   const [pass, setPass] = useState<boolean>(false);
-
+  const router = useRouter();
+  const { courseId: courseName } = router.query;
   const [completeModalOpen, setCompleteModalOpen] = useState(false);
 
   const { unitsLessonsList } = useSelector((state: AppRootState) => {
@@ -32,6 +38,7 @@ const LessonPageA: FC<LessonPageAProps> = (props) => {
   }, shallowEqual);
 
   const onPass = useCallback(async () => {
+    setPass(true);
     try {
       await webApi.courseApi.completeLesson(lesson.id);
       let currentUnitIndex = unitsLessonsList.findIndex((unit) => {
@@ -48,7 +55,6 @@ const LessonPageA: FC<LessonPageAProps> = (props) => {
         setCompleteModalOpen(true);
         return;
       }
-      setPass(true);
     } catch (e) {
       console.log('完成状态发生错误', e);
     }
@@ -89,7 +95,7 @@ const LessonPageA: FC<LessonPageAProps> = (props) => {
 
   return (
     <div className="w-full h-[80vh] flex justify-between gap-[4.5rem] mt-[1.25rem]">
-      <div className="text-white h-full w-full px-[3rem] py-[2.5rem] rounded-[2.5rem] bg-[#101010] overflow-y-scroll notion-render-block no-scrollbar">
+      <div className="text-[#F2F2F2] h-full w-full px-[3rem] py-[2.5rem] rounded-[2.5rem] bg-[#101010] overflow-y-scroll notion-render-block no-scrollbar">
         {lessonContent &&
           lessonContent?.map((block: any) => (
             <Block
@@ -100,13 +106,16 @@ const LessonPageA: FC<LessonPageAProps> = (props) => {
             />
           ))}
       </div>
-      <div className="text-[#E2E2E2] h-full bg-[#111] notion-render-block w-full py-[2.5rem] rounded-[2.5rem] overflow-y-scroll no-scrollbar">
+      <div className="w-full text-[#E2E2E2] h-full bg-[#111] notion-render-block py-[2.5rem] rounded-[2.5rem] overflow-y-scroll no-scrollbar">
         {RightComponent}
       </div>
-      <CompleteModal
-        open={completeModalOpen}
-        onClose={() => setCompleteModalOpen(false)}
-      ></CompleteModal>
+      <>
+        <CompleteModal
+          title={courseName as string}
+          open={completeModalOpen}
+          onClose={() => setCompleteModalOpen(false)}
+        ></CompleteModal>
+      </>
     </div>
   );
 };

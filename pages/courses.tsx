@@ -1,10 +1,3 @@
-import ConceptLearningCard from '@/components/Card/ConceptLearning';
-import HackathonCard from '@/components/Card/Hackathon';
-import LearningTracksCard from '@/components/Card/LearningTracks';
-import SyntaxCard from '@/components/Card/Syntax';
-import GuidedProjectCard from '@/components/Card/GuidedProject';
-import TeaserCard from '@/components/Card/Teaser';
-
 import Title from '@/components/Common/Title';
 import { CardType, TabType } from '@/constants/enum';
 import { SliderContainer } from '@/components/Common/SliderContainer';
@@ -12,14 +5,32 @@ import { NextPage } from 'next';
 import Link from 'next/link';
 import uuid from 'uuid';
 import Tab, { TabItem } from '@/components/Common/Tab';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import type { GetServerSideProps } from 'next';
 import wrapper, { AppDispatch, AppRootState } from '@/store/redux';
-import { getCourseList, increment } from '@/store/redux/modules/course';
-import { useDispatch, useSelector, shallowEqual } from 'react-redux';
+import { increment } from '@/store/redux/modules/course';
+import { useDispatch, useSelector, shallowEqual, useStore } from 'react-redux';
 import { CourseResponse, CourseType } from '@/service/webApi/course/type';
 import { getCourseLink } from '@/helper/utils';
+import { useRouter } from 'next/router';
+import { useScrollToElement } from '@/hooks/useScrollToElement';
+import { coursesTabs } from '@/constants';
+import { renderCourseCard, renderLearningTrackCard } from '@/helper/renderCard';
+import webApi from '@/service';
+import { useGetLearningTracks } from '@/hooks/useLearningTrackHooks/useLearningTracks';
+import {
+  useGetCourses,
+  useLoadCourseList
+} from '@/hooks/useCoursesHooks/useGetCourses';
+
+const trendingNowIds = [
+  '2e2f1305-a5a2-4f24-8ae7-d6b46228824a',
+  '12714c18-cf3f-4946-9cf7-e6ec49e59e26',
+  'e3703f91-a445-400e-a84b-c053d280d0c7',
+  '7cb64544-9a0e-4b2a-839c-58a915cfb4d9',
+  '48515515-7471-4bdc-95d8-cffdf0c54895'
+];
 
 interface CoursesProps {
   nowCards: CourseResponse[];
@@ -30,127 +41,36 @@ interface CoursesProps {
   conceptCards: CourseResponse[];
 }
 
-const renderCard = (card: CourseResponse) => {
-  switch (card.type) {
-    case CourseType.CONCEPT:
-      return (
-        <Link href={`${getCourseLink(CourseType.CONCEPT)}/${card.id}`}>
-          <ConceptLearningCard
-            title={card.name}
-            tags={card.level || []}
-            description={card.description || ''}
-            duration={card.duration || 0}
-            unitCount={card.unitCount || 0}
-            progress={card.progress || 0}
-            cover={'/images/card/ConceptLearning/cover.svg'}
-          ></ConceptLearningCard>
-        </Link>
-      );
-    case CourseType.HACKATHON:
-      return (
-        <Link href={`${getCourseLink(CourseType.HACKATHON)}/${card.id}`}>
-          <HackathonCard
-            name={card.name}
-            tags={card.level || []}
-          ></HackathonCard>
-        </Link>
-      );
-    case CourseType.SYNTAX:
-      return (
-        <Link href={`${getCourseLink(CourseType.SYNTAX)}/${card.id}`}>
-          <SyntaxCard
-            name={card.name}
-            tags={card.level || []}
-            description={card.description || ''}
-            duration={card.duration || 0}
-            unitCount={card.unitCount || 0}
-            progress={card.progress || 0}
-          ></SyntaxCard>
-        </Link>
-      );
-    case CourseType.LEARNING_TRACKS:
-      return (
-        <Link href={`${getCourseLink(CourseType.LEARNING_TRACKS)}/${card.id}`}>
-          <LearningTracksCard
-            name={card.name}
-            tags={card.level || []}
-            description={card.description || ''}
-            duration={card.duration || 0}
-            unitCount={card.unitCount || 0}
-            progress={card.progress || 0}
-          ></LearningTracksCard>
-        </Link>
-      );
-    case CourseType.TEASER:
-      return (
-        <Link href={`${getCourseLink(CourseType.TEASER)}/${card.id}`}>
-          <TeaserCard
-            name={card.name}
-            description={card.description || ''}
-            duration={card.duration || 0}
-            unitCount={card.unitCount || 0}
-            progress={card.progress || 0}
-          ></TeaserCard>
-        </Link>
-      );
-    case CourseType.GUIDED_PROJECT:
-      return (
-        <Link href={`${getCourseLink(CourseType.GUIDED_PROJECT)}/${card.id}`}>
-          <GuidedProjectCard
-            name={card.name}
-            tags={card.level || []}
-            description={card.description || ''}
-            duration={card.duration || 0}
-            unitCount={card.unitCount || 0}
-            progress={card.progress || 0}
-          ></GuidedProjectCard>
-        </Link>
-      );
-  }
-};
-
 const Courses: NextPage<CoursesProps> = (props) => {
-  const {
-    nowCards,
-    syntaxCards,
-    tracksCards,
-    teaserCards,
-    guidedProjectCards,
-    conceptCards
-  } = props;
-  const tabs: TabItem[] = [
-    {
-      title: 'Syntax',
-      type: CourseType.SYNTAX
-    },
-    {
-      title: 'Guided Project',
-      type: CourseType.GUIDED_PROJECT
-    },
-    {
-      title: 'Concept',
-      type: CourseType.CONCEPT
-    },
-    {
-      title: 'Teaser',
-      type: CourseType.TEASER
-    }
-  ];
+  // const { nowCards } = props;
 
-  const { courseList, count } = useSelector((rootState: AppRootState) => {
-    return {
-      courseList: rootState.course.courseList,
-      count: rootState.course.count
-    };
-  }, shallowEqual);
+  const router = useRouter();
+  const { courseType } = router.query;
+  const hashCourseTypeRef = useRef<HTMLElement>();
 
-  const [selectTab, setSelectTab] = useState<CourseType>(tabs[0].type);
+  useLoadCourseList();
+  useScrollToElement(hashCourseTypeRef.current, courseType as CourseType);
+
+  const courseList = useGetCourses();
+
+  const { learningTracks } = useGetLearningTracks();
+
+  const [selectTab, setSelectTab] = useState<CourseType>(
+    (courseType as CourseType) || coursesTabs[0].type
+  );
 
   const onSelect = (item: TabItem) => {
     setSelectTab(item.type);
   };
 
-  const renderCards = useMemo(() => {
+  const nowCards = useMemo(() => {
+    return courseList.filter((course) => {
+      console.log(course.name);
+      return trendingNowIds.includes(course.id);
+    });
+  }, [courseList]);
+
+  const SelectCourseCards = useMemo(() => {
     const filterCourseList = courseList?.filter(
       (course) => course.type === selectTab
     );
@@ -158,35 +78,48 @@ const Courses: NextPage<CoursesProps> = (props) => {
     return (
       <>
         {filterCourseList.map((card, index) => {
-          return <div key={index}>{renderCard(card)}</div>;
+          return <div key={index}>{renderCourseCard(card)}</div>;
         })}
       </>
     );
   }, [selectTab, courseList]);
 
+  // useEffect(() => {
+  //   dispatch(getCourseList());
+  // }, [dispatch]);
+
   return (
     <>
       <Title className="font-bold">{'</Trending Now>'}</Title>
       <SliderContainer>
-        <div className="flex w-[114rem] h-[17.625rem] gap-[3.25rem] items-end">
-          {nowCards?.map((card, index) => {
-            return <div key={index}>{renderCard(card)}</div>;
+        <div className="flex h-[17.625rem] gap-[3.25rem] items-end">
+          {nowCards?.map((course, index) => {
+            return <div key={index}>{renderCourseCard(course)}</div>;
           })}
         </div>
       </SliderContainer>
       <Title className="font-bold">{'</Learning Tracks>'}</Title>
       <SliderContainer>
         <div className="flex h-[17.625rem] gap-[3.25rem] items-end">
-          {tracksCards?.map((card, index) => {
-            return <div key={index}>{renderCard(card)}</div>;
+          {learningTracks?.map((learningTrack, index) => {
+            return (
+              <div key={index}>{renderLearningTrackCard(learningTrack)}</div>
+            );
           })}
         </div>
       </SliderContainer>
-      <div className="mt-[2.875rem]">
-        <Tab tabs={tabs} onSelect={onSelect} defaultSelect={selectTab}></Tab>
+      <div ref={hashCourseTypeRef as any}>
+        <div className="mt-[2.875rem]">
+          <Tab
+            tabs={coursesTabs}
+            onSelect={onSelect}
+            defaultSelect={selectTab}
+          ></Tab>
+        </div>
+        <div className="flex flex-wrap gap-[3.25rem] mt-10">
+          {SelectCourseCards}
+        </div>
       </div>
-
-      <div className="flex flex-wrap gap-[3.25rem] mt-10">{renderCards}</div>
     </>
   );
 };
@@ -197,7 +130,7 @@ export const getServerSideProps: GetServerSideProps =
   wrapper.getServerSideProps(function (store) {
     return async (context) => {
       // 1.触发一个异步的action来发起网络请求, 拿到搜索建议并存到redex中
-      await store.dispatch(getCourseList());
+      // await store.dispatch(getCourseList());
       // 2.发起网络请求获取其他数据，通过返回props传递
       return {
         props: {
@@ -226,7 +159,7 @@ export const getServerSideProps: GetServerSideProps =
             },
             {
               id: uuid?.v4() || '0',
-              type: CourseType.LEARNING_TRACKS,
+              type: CourseType.LEARNING_TRACK,
               name: 'Web 3.0 Programming Advanced',
               level: ['Advanced'],
               description:
@@ -289,30 +222,6 @@ export const getServerSideProps: GetServerSideProps =
               duration: 600,
               unitCount: 5,
               progress: 0.68
-            }
-          ],
-          tracksCards: [
-            {
-              id: uuid?.v4() || '0',
-              type: CourseType.LEARNING_TRACKS,
-              name: 'Web 3.0 Programming Advanced',
-              level: ['Advanced'],
-              description:
-                'Basic concepts in programming of Solidity. Topics include: variables, functions, flow control, error handling, data structure.',
-              duration: 6700,
-              unitCount: 5,
-              progress: 0
-            },
-            {
-              id: uuid?.v4() || '0',
-              type: CourseType.LEARNING_TRACKS,
-              name: 'Web 3.0 Programming Advanced',
-              level: ['Advanced'],
-              description:
-                'Basic concepts in programming of Solidity. Topics include: variables, functions, flow control, error handling, data structure.',
-              duration: 600,
-              unitCount: 5,
-              progress: 0.999
             }
           ],
           teaserCards: [

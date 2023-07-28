@@ -21,6 +21,7 @@ import { useDispatch } from 'react-redux';
 interface LessonHeaderProps {
   lesson: CourseLessonType;
   courseType: CourseType;
+  isBetween?: boolean;
 }
 const formateDropdownData = (
   data: UnitPagesListType[],
@@ -44,7 +45,9 @@ const formateDropdownData = (
             key: page.id,
             title: page.name,
             data: page,
-            disable: page.state === CompleteStateType.NOT_STARTED,
+            disable:
+              page.state === CompleteStateType.NOT_STARTED &&
+              currentLessonIndex !== pageIndex,
             type: 'page',
             render(itemData) {
               return currentLessonIndex === pageIndex ? (
@@ -64,7 +67,7 @@ const formateDropdownData = (
 };
 
 const LessonHeader: FC<LessonHeaderProps> = (props) => {
-  const { lesson, courseType } = props;
+  const { lesson, courseType, isBetween = false } = props;
   const router = useRouter();
 
   const [dropData, setDropData] = useState<
@@ -73,7 +76,7 @@ const LessonHeader: FC<LessonHeaderProps> = (props) => {
 
   const dispatch = useDispatch();
 
-  const { run } = useRequest(
+  const { run, refresh } = useRequest(
     async () => {
       const data = await webApi.courseApi.getCourseUnitsAndPages(
         lesson.courseId
@@ -95,11 +98,11 @@ const LessonHeader: FC<LessonHeaderProps> = (props) => {
   }, [lesson, run]);
 
   return (
-    <div className="w-full h-full flex items-center justify-between mt-[3.375rem] gap-[4.5rem]">
+    <div className="w-full h-full flex justify-between items-center mt-[3.375rem] gap-[4.5rem]">
       <div className="w-full flex items-center justify-between">
         <div className="flex items-center gap-[.75rem]">
           <Link
-            href={`${getCourseLink(courseType)}/${lesson.courseId}`}
+            href={`${getCourseLink(courseType)}/${lesson?.courseId}`}
             className="max-w-fit flex items-center justify-center p-2 rounded-full bg-[#000] border border-solid border-[#303030] hover:bg-[#303030] cursor-pointer"
           >
             <LeftArrowIcon></LeftArrowIcon>
@@ -126,7 +129,7 @@ const LessonHeader: FC<LessonHeaderProps> = (props) => {
           }}
         ></Dropdown>
       </div>
-      <div className="w-full h-full bg-red-500"></div>
+      {!isBetween && <div className="w-full h-full"></div>}
     </div>
   );
 };

@@ -3,18 +3,24 @@ import {
   CourseType,
   CourseUnitType
 } from '@/service/webApi/course/type';
-import { FC, ReactNode } from 'react';
+import { FC, ReactNode, useEffect, useState } from 'react';
 import UnitCard from './UnitCard';
 
 interface UnitListProps {
-  courseDetail: CourseDetailType;
-  learningLessonId: string;
+  courseDetail?: CourseDetailType;
 }
 
 const UnitList: FC<UnitListProps> = (props) => {
-  const { courseDetail, learningLessonId } = props;
+  const { courseDetail } = props;
 
-  const { units = [], type: courseType } = courseDetail;
+  const { type: courseType } = courseDetail || {};
+  const [units, setUnits] = useState(courseDetail?.units || []);
+
+  useEffect(() => {
+    if (courseDetail?.units?.length) {
+      setUnits(courseDetail.units);
+    }
+  }, [courseDetail]);
 
   return (
     <ul className="w-full">
@@ -28,7 +34,6 @@ const UnitList: FC<UnitListProps> = (props) => {
                 courseType={courseType}
                 index={index}
                 courseDetail={courseDetail}
-                learningLessonId={learningLessonId}
               ></UnitCard>
             </li>
           );
@@ -37,11 +42,12 @@ const UnitList: FC<UnitListProps> = (props) => {
           <li key={unit.id} className="w-full relative bottom-line">
             <UnitCard
               unit={unit}
-              isLock={units[index - 1].progress < 1 && unit.progress === 0}
+              isLock={
+                units[index - 1].progress < 1 || unit.progress === undefined
+              }
               courseType={courseType}
               index={index}
               courseDetail={courseDetail}
-              learningLessonId={learningLessonId}
             ></UnitCard>
           </li>
         );

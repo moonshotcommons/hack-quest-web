@@ -19,6 +19,7 @@ const CustomButton: FC<ButtonProps> = (props) => {
       fontStyle="Inter font-normal"
       textStyle="text-[.875rem] text-white leading-[1.25rem]"
       {...props}
+      className="border"
     >
       {children}
     </Button>
@@ -120,20 +121,24 @@ const Quest: FC<{
     // lines = lines.slice(startIndex, endIndex);
 
     const newLine = [];
-    const newErrorLines = [];
+    const newErrorLines: any[] = [];
+    let tempLine = [];
     for (let i = 0; i < lines.length; i++) {
       let line = lines[i];
-      if (/^\s*\/\/code starts here/.test(line)) {
+      if (/^\s*\/\/\s?code starts here/.test(line)) {
         isCodingBlock = true;
+        tempLine = [];
         continue;
       }
       if (isCodingBlock) {
-        if (/^\s*\/\/code ends here/.test(line)) {
+        if (/^\s*\/\/\s?code ends here/.test(line)) {
           isCodingBlock = false;
+          newLine.push(tempLine);
+          tempLine = [];
           continue;
         }
         newErrorLines.push(i + 1);
-        newLine.push(line);
+        tempLine.push(line);
         // check answer
         // if (answerReg[ai]) {
         //   if (!answerReg[ai].test(line.trim())) {
@@ -146,12 +151,31 @@ const Quest: FC<{
       }
     }
 
-    if (answerReg[ai]) {
-      if (!answerReg[ai].test(newLine.join('').trim())) {
-        isWrong = true;
-        setErrorLines(newErrorLines);
+    // if (answerReg[ai]) {
+    //   if (!answerReg[ai].test(newLine.join('').trim())) {
+    //     isWrong = true;
+    //     setErrorLines(newErrorLines);
+    //   }
+    //   // ai++;
+    // }
+
+    // answerReg.forEach((item) => {});
+    let tempAnswerReg = [...answerReg];
+    newLine.forEach((line) => {
+      const regIndex = tempAnswerReg.findIndex((reg) =>
+        reg.test(line.join('').trim())
+      );
+      if (regIndex === -1) {
+        // isWrong = true;
+        // setErrorLines(newErrorLines);
+      } else {
+        answerReg.splice(regIndex, 1);
       }
-      // ai++;
+    });
+
+    if (answerReg.length) {
+      isWrong = true;
+      setErrorLines(newErrorLines);
     }
 
     setCodeWrong(isWrong);
@@ -219,7 +243,7 @@ const Quest: FC<{
 
   return (
     <>
-      <div className="lesson-quiz h-full w-full relative">
+      <div className="h-full w-full">
         {/*<div className='passed-container !hidden'>*/}
         {/*  <div className='passed-title'>Good Job! </div>*/}
         {/*  <div className='passed-subtitle'>Your answer are all correct.</div>*/}
@@ -233,15 +257,19 @@ const Quest: FC<{
             <img className="passed-img" src={correct as any} alt={``} />
           </div>
         ) : (
-          <div className="lesson-quiz-content h-[84%]">
+          <div className="lesson-quiz-content h-[100%]">
             <div className="">
               <div className="text-[#F2F2F2] font-next-book-bold text-[1rem]">
                 Quest
               </div>
               <div className="py-[1.5rem]">
-                {shouldRenderBlock && quiz && (
-                  <Block block={quiz} renderChildren={false} />
-                )}
+                {shouldRenderBlock &&
+                  quiz &&
+                  quiz.children?.map((child, index: number) => {
+                    return (
+                      <Block key={index} block={child} renderChildren={true} />
+                    );
+                  })}
               </div>
             </div>
             {shouldRenderCodeEditor && (
@@ -265,17 +293,20 @@ const Quest: FC<{
           </div>
         )}
         {codeWrong ? (
-          <div className="absolute bottom-0 right-0 w-full flex gap-[1.25rem] justify-end z-[99999] ">
+          <div className="absolute bottom-[6.5rem] right-[7.5rem] flex gap-[1.25rem] justify-end z-[99999] ">
             <CustomButton type={0} onClick={handleTryAgain}>
               Try Again
             </CustomButton>
-            <CustomButton type={0} onClick={showAnswer}>
-              {toggleAnswer ? 'Hide the answer' : 'Show me the answer'}
-            </CustomButton>
+            {!toggleAnswer && (
+              <CustomButton type={0} onClick={showAnswer}>
+                {/* {toggleAnswer ? 'Hide the answer' : 'Show me the answer'} */}
+                {'Show me the answer'}
+              </CustomButton>
+            )}
           </div>
         ) : (
           !passed && (
-            <div className="absolute bottom-0 right-0 w-full flex gap-[1.25rem] justify-end z-[99999]">
+            <div className="absolute bottom-[7.5rem] right-[7.5rem] flex gap-[1.25rem] justify-end z-[99999]">
               <CustomButton type={2} onClick={handleSubmit}>
                 {shouldRenderCodeEditor ? 'Check Answer' : 'Next'}
               </CustomButton>

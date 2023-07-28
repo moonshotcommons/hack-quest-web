@@ -13,12 +13,19 @@ export interface LearningTracksCardProps {
   tags: string | string[];
   description: string;
   duration: number;
-  unitCount: number;
+  courseCount: number;
   progress: number;
 }
 
 const LearningTracksCard: React.FC<LearningTracksCardProps> = (props) => {
-  const { name, tags = [], description, duration, unitCount, progress } = props;
+  const {
+    name,
+    tags = [],
+    description,
+    duration,
+    courseCount,
+    progress
+  } = props;
   return (
     <div
       className={`h-[17.375rem] w-[26rem] bg-[url('/images/card/LearningTracks/color-bg.svg')] relative flex-shrink-0`}
@@ -57,7 +64,9 @@ const LearningTracksCard: React.FC<LearningTracksCardProps> = (props) => {
                 icon={<CourseIcon color="#f2f2f2" />}
                 className="font-neuemachina-light"
               >
-                {unitCount + ' ' + `${unitCount > 1 ? 'Courses' : 'Course'}`}
+                {courseCount +
+                  ' ' +
+                  `${courseCount > 1 ? 'Courses' : 'Course'}`}
               </Label>
             </div>
             <div className="">

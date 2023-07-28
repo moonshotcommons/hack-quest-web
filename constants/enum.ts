@@ -7,7 +7,7 @@ export enum Theme {
 /** 卡片类型 */
 export enum CardType {
   HACKATHON = 'HACKATHON',
-  LEARNING_TRACKS = 'LEARNING_TRACKS',
+  LEARNING_TRACK = 'LEARNING_TRACK',
   SYNTAX = 'SYNTAX',
   TEASER = 'TEASER',
   CONCEPT = 'CONCEPT',

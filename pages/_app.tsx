@@ -1,8 +1,8 @@
 import BaseLayout, { LayoutProps } from '@/components/Layout';
 import ThemeContextProvider from '@/store/context/theme';
-import '@/styles/Lesson.scss';
 import '@/styles/globals.css';
 import '@/styles/main.scss';
+import '@/styles/Lesson.scss';
 import '@/styles/button.scss';
 import '@/styles/codemirror.scss';
 import '@/styles/Quest.scss';
@@ -15,6 +15,9 @@ import wrapper from '@/store/redux';
 import UnitLayout from '@/components/Layout/UnitLayout';
 import { ReactNode } from 'react';
 import HomeLayout from '@/components/Layout/HomeLayout';
+import LoginLayout from '@/components/Layout/LoginLayout';
+import { useGetUserInfo, useLoadUserInfo } from '@/hooks/useGetUserInfo';
+import useNavAuth from '@/hooks/useNavPage/userNavAuth';
 
 const Layout = (props: {
   pathname: string;
@@ -22,13 +25,46 @@ const Layout = (props: {
   navbarData: any;
 }) => {
   const { pathname, children, navbarData } = props;
+  const { waitingLoadUserInfo } = useLoadUserInfo();
+  useNavAuth(waitingLoadUserInfo);
+  const userInfo = useGetUserInfo();
   const regex = /\/[^/]+\/\[courseId\]\/learn\/\[lessonId\]/;
   switch (true) {
     case regex.test(pathname):
       return <UnitLayout>{children}</UnitLayout>;
+
+    case [
+      '/auth/register',
+      '/auth/login',
+      '/users/email-confirmed',
+      '/auth/email-verify',
+      '/auth/forget-password',
+      '/auth/update-password'
+    ].includes(pathname):
+      return <LoginLayout>{children}</LoginLayout>;
     case pathname === '/':
-      return <HomeLayout>{children}</HomeLayout>;
+    // return <HomeLayout>{children}</HomeLayout>;
     default:
+      navbarData.navList = [
+        {
+          name: 'All Courses',
+          path: '/courses'
+        }
+      ];
+
+      if (userInfo) {
+        navbarData.navList = [
+          {
+            name: 'All Courses',
+            path: '/courses'
+          },
+          {
+            name: 'Learning Dashboard',
+            path: '/dashboard'
+          }
+        ];
+      }
+
       return <BaseLayout navbarData={navbarData}>{children}</BaseLayout>;
   }
 };
@@ -43,44 +79,6 @@ function MyApp(appProps: AppProps & LayoutProps) {
   } else {
     // server
   }
-
-  // const regex = /\/[^/]+\/\[...course\]/;
-  // console.log(regex.test(pathname));
-
-  // console.log(pathname, '测试', regex.test(pathname));
-  const regex = /\/[^/]+\/\[courseId\]\/learn\/\[lessonId\]/;
-  // switch (true) {
-  //   case regex.test(pathname):
-  //     return (
-  //       <Provider store={store}>
-  //         <ThemeContextProvider>
-  //           <UnitLayout>
-  //             <Component {...props.pageProps} />
-  //           </UnitLayout>
-  //         </ThemeContextProvider>
-  //       </Provider>
-  //     );
-  //   case regex.test(pathname):
-  //     return (
-  //       <Provider store={store}>
-  //         <ThemeContextProvider>
-  //           <UnitLayout>
-  //             <Component {...props.pageProps} />
-  //           </UnitLayout>
-  //         </ThemeContextProvider>
-  //       </Provider>
-  //     );
-  //   default:
-  //     return (
-  //       <Provider store={store}>
-  //         <ThemeContextProvider>
-  //           <BaseLayout {...props.pageProps} navbarData={navbarData}>
-  //             <Component {...props.pageProps} />
-  //           </BaseLayout>
-  //         </ThemeContextProvider>
-  //       </Provider>
-  //     );
-  // }
 
   return (
     <Provider store={store}>
@@ -105,14 +103,6 @@ MyApp.getInitialProps = async (
     ...pageProps,
     navbarData: {
       navList: [
-        {
-          name: 'All Courses',
-          path: '/courses'
-        },
-        {
-          name: 'Learning Dashboard',
-          path: '/dashboard'
-        }
         // {
         //   name: 'Mission Center',
         //   path: '/courses',

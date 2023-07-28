@@ -9,13 +9,15 @@ export enum CourseType {
   CONCEPT = 'CONCEPT',
   TEASER = 'TEASER',
   HACKATHON = 'HACKATHON',
-  LEARNING_TRACKS = 'LEARNING_TRACKS'
+  LEARNING_TRACK = 'LEARNING_TRACK'
 }
 
 export enum LessonStyleType {
   A = 'A',
   B = 'B',
-  C = 'C'
+  C = 'C',
+  D = 'D',
+  E = 'E'
 }
 
 export enum CompleteStateType {

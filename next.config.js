@@ -7,7 +7,8 @@ const nextConfig = (phase) => {
     reactStrictMode: true,
     // 配置环境变量
     env: {
-      BASE_URL: process.env.BASE_URL || 'https://api-dev.hackquest.io/',
+      BACKEND_BASE_URL:
+        process.env.BACKEND_BASE_URL || 'https://api.dev.hackquest.io/',
       IS_DEV: isDev
     },
     modifyVars: {
@@ -29,6 +30,19 @@ const nextConfig = (phase) => {
       '@border-radius-base': '10px',
       '@border-color-base': '#e6e6e6',
       '@font-size-base': '13px'
+    },
+    images: {
+      domains: [
+        'hack-quest-s3-dev.s3.amazonaws.com',
+        'hackquest-s3-dev.s3.ap-northeast-1.amazonaws.com',
+        's3.ap-northeast-1.amazonaws.com',
+        's3.amazonaws.com',
+        'hack-quest-s3-prod.s3.amazonaws.com',
+        'hack-quest-s3-staging.s3.amazonaws.com',
+        'hackquest-s3-dev.s3.ap-northeast-1.amazonaws.com',
+        'hackquest-s3-staging.s3.ap-northeast-1.amazonaws.com',
+        'hackquest-s3-prod.s3.ap-northeast-1.amazonaws.com'
+      ]
     }
   });
 };

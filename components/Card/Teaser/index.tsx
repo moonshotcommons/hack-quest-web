@@ -18,7 +18,7 @@ const TeaserCard: React.FC<TeaserCardProps> = (props) => {
 
   return (
     <div
-      className={`h-[16.24rem] w-[25.71875rem] bg-[url('/images/card/Teaser/color-bg.svg')] relative flex-shrink-0 bg-no-repeat`}
+      className={`h-[17.375rem] w-[25.71875rem] bg-[url('/images/card/Teaser/color-bg.svg')] relative flex-shrink-0 bg-no-repeat`}
     >
       <div className="absolute w-16 h-16 top-0 left-0 bg-[url('/images/card/Teaser/badge-wrap.svg')] p-4 bg-no-repeat">
         <span className="absolute top-[0.63rem] left-[0.63rem]">
@@ -28,17 +28,17 @@ const TeaserCard: React.FC<TeaserCardProps> = (props) => {
       <div
         className={`w-full h-full bg-[url('/images/card/Teaser/bg.svg')] scale-[1.01] absolute top-0 left-0 hover:-top-1 hover:left-1 hover:transition-all duration-700`}
       >
-        <div className="pl-[5.81rem] pt-[5.44rem]">
+        <div className="pl-[5.81rem] pt-[4.38rem]">
           {/* <div className="w-[2.875rem] h-1 rounded-xl bg-gradient-to-t from-[#EB3E1C] to-[#E0AD38]"></div> */}
 
           <Typography.Paragraph
             className="text-base font-bold text-white w-[13.25rem]"
-            ellipsis={{ rows: 2 }}
+            ellipsis={{ rows: 1 }}
           >
             {name}
           </Typography.Paragraph>
 
-          <div className="w-44 text-[#F2F2F2] font-normal text-sm mt-6">
+          <div className="w-[16.4375rem] text-[#F2F2F2] font-normal text-sm mt-[1.5rem]">
             <Typography.Paragraph
               className="text-[#F2F2F2] font-normal text-sm"
               ellipsis={{

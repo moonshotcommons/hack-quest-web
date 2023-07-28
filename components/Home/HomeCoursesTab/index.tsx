@@ -4,6 +4,8 @@ import SkipIcon from '@/components/Common/Icon/Skip';
 import { CourseType } from '@/service/webApi/course/type';
 import { FC, ReactNode, useState } from 'react';
 import { tabData, renderCard } from './data';
+import Link from 'next/link';
+import { renderCourseCard } from '@/helper/renderCard';
 interface HomeCourseTabProps {
   // children: ReactNode;
 }
@@ -18,14 +20,14 @@ const HomeCourseTab: FC<HomeCourseTabProps> = (props) => {
       <div className="text-[#F5F5F5] mt-[18.37rem] relative font-next-poster-Bold font-bold text-[2.5rem] text-center z-[99]">
         What we offer...
       </div>
-      <div className="flex justify-center mt-[4.25rem] relative z-[99] items-center gap-[1.25rem]">
+      <div className="flex justify-center mt-[5.25rem] relative z-[99] items-center gap-[1.25rem]">
         {tabData.map((item) => {
           return (
             <div
               key={item.title}
-              className={`flex items-center w-fit px-[2rem] py-[1.25rem]  font-next-book-Thin text-[#F5F5F5] text-[1rem] rounded-[2.25rem] border border-solid border-[#F5F5F5] gap-[0.62rem] hover:bg-[#D9D9D9] hover:text-black cursor-pointer ${
+              className={`flex items-center w-fit px-[2rem] py-[1.25rem]  font-next-book-Thin text-[#F5F5F5] text-[1rem] rounded-[2.25rem] border border-solid border-[#F5F5F5] gap-[0.62rem] hover:bg-[#D9D9D9] hover:text-black hover:border-none cursor-pointer ${
                 item.type === selectTabItem?.type
-                  ? 'text-black bg-[#D9D9D9]'
+                  ? 'text-black bg-[#D9D9D9] border-none'
                   : ''
               }`}
               onClick={() => setSelectTabItem(item)}
@@ -49,14 +51,19 @@ const HomeCourseTab: FC<HomeCourseTabProps> = (props) => {
           <div className="w-[19.625rem] mt-[1.25rem] font-next-book text-[1rem] text-[#F5F5F5]">
             {selectTabItem.description}
           </div>
-          <div className="flex text-[#F5F5F5] font-next-book text-[1.25rem] items-center gap-[0.31rem] mt-8">
-            <span className="underline">Explore All Course</span>
-            <SkipIcon></SkipIcon>
-          </div>
+          <Link href={'/courses'}>
+            <div className="flex w-fit text-[#F5F5F5] font-next-book text-[1.25rem] items-center gap-[0.31rem] mt-8">
+              <div>
+                <span>Explore All Course</span>
+                <span className="block h-[.0625rem] w-full bg-[#595959]"></span>
+              </div>
+              <SkipIcon></SkipIcon>
+            </div>
+          </Link>
         </div>
         <div className="flex gap-[2.5rem]">
           {selectTabItem?.cards.map((item) => {
-            return <div key={item.id}>{renderCard(item)}</div>;
+            return <div key={item.id}>{renderCourseCard(item as any)}</div>;
           })}
         </div>
       </div>
