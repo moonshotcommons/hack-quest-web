@@ -24,3 +24,6 @@
 1. teasr Deploy Your NFT中的Connect to Mumbai TestNet渲染内容缺失
 2. landing page learning track卡片点击报错
 3. 完成course的Ui逻辑优化，展示good job后不显示next，1秒后显示弹窗
+4. 修复teaser部分lesson渲染内容缺失
+5. 增加邮件验证loading页面和邮件验证失败页面
+6. 白名单邮箱按钮新标签页打开
