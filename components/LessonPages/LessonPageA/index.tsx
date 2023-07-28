@@ -30,7 +30,7 @@ const LessonPageA: FC<LessonPageAProps> = (props) => {
   const router = useRouter();
   const { courseId: courseName } = router.query;
   const [completeModalOpen, setCompleteModalOpen] = useState(false);
-
+  const [isLastLesson, setIsLastLesson] = useState(false);
   const { unitsLessonsList } = useSelector((state: AppRootState) => {
     return {
       unitsLessonsList: state.course.unitsLessonsList
@@ -40,7 +40,6 @@ const LessonPageA: FC<LessonPageAProps> = (props) => {
   const onPass = useCallback(async () => {
     setPass(true);
     try {
-      await webApi.courseApi.completeLesson(lesson.id);
       let currentUnitIndex = unitsLessonsList.findIndex((unit) => {
         return unit.id === lesson.unitId;
       });
@@ -51,8 +50,12 @@ const LessonPageA: FC<LessonPageAProps> = (props) => {
         currentUnitIndex === (unitsLessonsList.length || 1) - 1;
       const isLastLesson =
         currentLessonIndex === (currentUnit?.pages.length || 1) - 1;
+      if (isLastUnit && isLastLesson) setIsLastLesson(true);
+      await webApi.courseApi.completeLesson(lesson.id);
       if (isLastUnit && isLastLesson) {
-        setCompleteModalOpen(true);
+        setTimeout(() => {
+          setCompleteModalOpen(true);
+        }, 1000);
         return;
       }
     } catch (e) {
@@ -64,6 +67,7 @@ const LessonPageA: FC<LessonPageAProps> = (props) => {
     if (pass) {
       return (
         <LessonPassPage
+          isLastLesson={isLastLesson}
           lesson={lesson}
           courseType={courseType}
         ></LessonPassPage>
@@ -80,7 +84,7 @@ const LessonPageA: FC<LessonPageAProps> = (props) => {
         setIsProgressing={setIsProgressing}
       />
     );
-  }, [pass, courseType, lesson, quizes, onPass]);
+  }, [pass, courseType, lesson, quizes, onPass, isLastLesson]);
 
   useEffect(() => {
     if (lesson) {
