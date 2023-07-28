@@ -68,7 +68,11 @@ const WhiteListModal: NextPage<CompleteModalProps> = ({ open, onClose }) => {
           >
             Close
           </CustomButton>
-          <Link href={'mailto:founder@hackquest.io'} onClick={onClose}>
+          <Link
+            href={'mailto:founder@hackquest.io'}
+            onClick={onClose}
+            target="_blank"
+          >
             <CustomButton className="border solid border-white hover:bg-white hover:text-black">
               Email Us
             </CustomButton>
