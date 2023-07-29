@@ -13,7 +13,7 @@ export function annotationToClassName(
   prefix?: string
 ) {
   const classNames = [];
-  if (annotations.bold) classNames.push(`${prefix}-bold`);
+  if (annotations.bold) classNames.push(`${prefix}-bold font-black`);
   if (annotations.code) classNames.push(`${prefix}-inline-code`);
   if (annotations.italic) classNames.push(`${prefix}-italic`);
   if (annotations.strikethrough) classNames.push(`${prefix}-trikethrough`);

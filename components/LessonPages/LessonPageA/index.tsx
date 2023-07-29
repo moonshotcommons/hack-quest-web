@@ -110,7 +110,7 @@ const LessonPageA: FC<LessonPageAProps> = (props) => {
             />
           ))}
       </div>
-      <div className="w-full text-[#E2E2E2] h-full bg-[#111] notion-render-block py-[2.5rem] rounded-[2.5rem] overflow-y-scroll no-scrollbar">
+      <div className="w-full text-[#E2E2E2] h-full bg-[#111] notion-render-block py-[2.5rem] rounded-[2.5rem]">
         {RightComponent}
       </div>
       <>
