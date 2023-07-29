@@ -169,7 +169,10 @@ const Quest: FC<{
         // isWrong = true;
         // setErrorLines(newErrorLines);
       } else {
-        answerReg.splice(regIndex, 1);
+        answerReg.splice(
+          answerReg.findIndex((reg) => reg.test(line.join('').trim())),
+          1
+        );
       }
     });
 
