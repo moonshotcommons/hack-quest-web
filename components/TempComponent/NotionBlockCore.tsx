@@ -104,7 +104,7 @@ const NotionBlockCore: React.FC<any> = ({
           {block?.children?.map((items: any, i: number) => {
             return (
               <div className={`mt-[.2rem] pl-[.2rem]`} key={items.id}>
-                <NotionBlockCore block={items} darkMode={darkMode} />
+                {/* <NotionBlockCore block={items} darkMode={darkMode} /> */}
                 {items?.children
                   ? items?.children?.map((item: any) => {
                       return (
