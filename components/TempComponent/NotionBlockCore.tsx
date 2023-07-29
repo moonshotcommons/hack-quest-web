@@ -13,7 +13,8 @@ const NotionBlockCore: React.FC<any> = ({
   block,
   blocks,
   darkMode,
-  children
+  children,
+  parent
 }) => {
   const { prefix, blockPrefix } = useContext(Context);
   // // debugger;
@@ -90,7 +91,9 @@ const NotionBlockCore: React.FC<any> = ({
 
       // data={JSON.stringify(block)}
       return (
-        <li className={`${prefix}-${blockPrefix}-numbered_list_item`}>
+        <li
+          className={`${prefix}-${blockPrefix}-numbered_list_item list-decimal`}
+        >
           <TextRenderer richTextArr={block[block.type].rich_text} />
           {/*{*/}
           {/*  block?.children?.map(item => {*/}
@@ -121,7 +124,9 @@ const NotionBlockCore: React.FC<any> = ({
       );
     case 'quote':
       return (
-        <div className={`${prefix}-${blockPrefix}-quote`}>
+        <div
+          className={`${prefix}-${blockPrefix}-quote border-l-2 border-solid border-[#676767] pl-[1.25rem]`}
+        >
           <div>
             <TextRenderer richTextArr={block[block.type].rich_text} />
           </div>
