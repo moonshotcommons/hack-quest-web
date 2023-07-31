@@ -25,7 +25,7 @@ export const useGetLessonContent = (lessonId: string) => {
           return;
         }
 
-        if (error?.code === 400) {
+        if (error?.code === 403) {
           message.error(error?.msg);
           router.push('/courses');
           return;
