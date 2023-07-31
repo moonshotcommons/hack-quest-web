@@ -104,7 +104,7 @@ export const CenterInfo: FC = () => {
   return (
     <div>
       <h1 className="text-[#F5F5F5] text-center font-next-poster-Bold text-[2.5rem] mt-[9.06rem]">
-        What is HackQuest?
+        Why HackQuest?
       </h1>
       {/* <div className="flex justify-between"> */}
       {/* <div>
