@@ -1,6 +1,7 @@
 import webApi from '@/service';
 import { RequestError } from '@/service/types';
 import { useRequest } from 'ahooks';
+import { message } from 'antd';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
@@ -19,10 +20,18 @@ export const useGetLessonContent = (lessonId: string) => {
       },
       onError(error: any) {
         if (error.code === 401) {
+          message.error(error?.msg);
           router.push('/auth/login');
-        } else {
-          router.push('/404');
+          return;
         }
+
+        if (error?.code === 400) {
+          message.error(error?.msg);
+          router.push('/courses');
+          return;
+        }
+        message.error('404 Not Found');
+        router.push('/404');
       }
     }
   );
