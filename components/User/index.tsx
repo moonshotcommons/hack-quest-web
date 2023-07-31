@@ -32,12 +32,12 @@ const User: FC<UserProps> = (props) => {
       >
         <div className="cursor-pointer h-full flex items-center w-[4rem] justify-end">
           {isLogin && (
-            <div className="w-[2.5rem] h-[40px] overflow-hidden rounded-full">
+            <div className="relative w-[2.5rem] h-[40px] overflow-hidden rounded-full flex justify-center items-center">
               <Image
                 src={userInfo?.avatar as string}
                 alt="avatar"
-                width={40}
-                height={40}
+                fill
+                className="object-cover"
               ></Image>
             </div>
           )}
