@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 import type { ReactElement } from 'react';
 
-import useResizeObserver from '@/hooks/useResizeObserver';
+import useResizeObserver from '@/hooks/useDomHooks/useResizeObserver';
 import LeftArrowIcon from '../Icon/LeftArrow';
 import RightArrowIcon from '../Icon/RightArrow';
 

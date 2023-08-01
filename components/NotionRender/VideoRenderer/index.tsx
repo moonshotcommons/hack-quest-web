@@ -8,7 +8,7 @@ interface VideoRendererProps {
 
 const VideoRenderer: FC<VideoRendererProps> = (props) => {
   const { source, type, parent } = props;
-  console.log(source, type);
+
   return (
     <div>
       <video controls className="w-[80%]">

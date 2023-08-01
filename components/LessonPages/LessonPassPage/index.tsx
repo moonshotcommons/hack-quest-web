@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import { shallowEqual, useSelector } from 'react-redux';
 import { AppRootState } from '@/store/redux';
 import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
-import { getCourseLink } from '@/helper/utils';
+import { getCourseLink, getLessonLink } from '@/helper/utils';
 import { useDebounceEffect, useDebounceFn } from 'ahooks';
 interface LessonPassPageProps {
   lesson: CourseLessonType;
@@ -61,9 +61,10 @@ const LessonPassPage: FC<LessonPassPageProps> = (props) => {
     } else {
       nextLesson = unitsLessonsList[currentUnitIndex + 1].pages[0];
     }
-    router.push(
-      `${getCourseLink(courseType)}/${courseId}/learn/${nextLesson?.id}`
-    );
+    // router.push(
+    //   `${getCourseLink(courseType)}/${courseId}/learn/${nextLesson?.id}`
+    // );
+    router.push(getLessonLink(courseType, courseId as string, nextLesson?.id!));
   });
 
   return (

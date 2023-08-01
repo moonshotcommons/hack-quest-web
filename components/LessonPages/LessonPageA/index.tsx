@@ -7,7 +7,7 @@ import {
   LessonStyleType
 } from '@/service/webApi/course/type';
 
-import { FC, useCallback, useEffect, useMemo, useState } from 'react';
+import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import LessonPassPage from '../LessonPassPage';
 import webApi from '@/service';
@@ -97,9 +97,20 @@ const LessonPageA: FC<LessonPageAProps> = (props) => {
     }
   }, [lesson]);
 
+  const lessonContentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (lessonContentRef.current) {
+      lessonContentRef.current.scrollTo(0, 0);
+    }
+  }, [lesson]);
+
   return (
     <div className="w-full h-[80vh] flex justify-between gap-[4.5rem] mt-[1.25rem]">
-      <div className="text-[#F2F2F2] h-full w-full px-[3rem] py-[2.5rem] rounded-[2.5rem] bg-[#101010] overflow-y-scroll notion-render-block no-scrollbar">
+      <div
+        ref={lessonContentRef}
+        className="text-[#F2F2F2] h-full w-full px-[3rem] py-[2.5rem] rounded-[2.5rem] bg-[#101010] overflow-y-scroll notion-render-block no-scrollbar"
+      >
         {lessonContent &&
           lessonContent?.map((block: any) => (
             <Block
