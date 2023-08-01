@@ -91,6 +91,7 @@ const LessonPageA: FC<LessonPageAProps> = (props) => {
       setLessonContent((lesson.content?.[0] as any).children);
       setQuizes((lesson.content?.[1] as any).children);
       setPass(false);
+      setIsLastLesson(false);
       webApi.courseApi.startLesson(lesson.id).catch((e) => {
         console.log('开始学习失败', e);
       });
