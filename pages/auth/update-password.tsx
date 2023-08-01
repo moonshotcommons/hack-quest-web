@@ -66,8 +66,6 @@ const ForgetPassword: NextPage<ForgetPasswordProps> = (props) => {
   const { run: onUpdate } = useDebounceFn(
     () => {
       validator.validate(formData, async (errors, fields) => {
-        console.log('开始更新');
-        debugger;
         if (!errors) {
           const status: any = { ...formState };
           for (let key in status) {
@@ -75,9 +73,9 @@ const ForgetPassword: NextPage<ForgetPasswordProps> = (props) => {
           }
           try {
             const res = (await webApi.userApi.updatePassword(formData)) as any;
-            dispatch(setUserInfo(omit(res, 'token')));
-            setToken(res.token);
-            router.push('/courses');
+            // dispatch(setUserInfo(omit(res, 'token')));
+            // setToken(res.token);
+            router.push('/auth/login');
           } catch (e: any) {
             message.error(e.msg);
           }
