@@ -15,11 +15,12 @@ const CustomButton: FC<ButtonProps> = (props) => {
   const { children } = props;
   return (
     <Button
-      padding="px-[3rem] py-[1.25rem]"
+      padding="px-[3rem] py-[1rem]"
       fontStyle="Inter font-normal"
       textStyle="text-[.875rem] text-white leading-[1.25rem]"
+      bgColor="bg-transparent"
       {...props}
-      className="border"
+      className="border bg-transparent"
     >
       {children}
     </Button>
@@ -69,12 +70,18 @@ const Quest: FC<{
     () => 32 - codeText?.split('\n').length
   );
 
-  // useLayoutEffect(() => {
-  //   let codeLen = codeText?.split('\n').length;
-  //   if (codeLen < 32) {
-  //     setCodeLine(32 - codeLen);
-  //   }
-  // }, [codeText]);
+  const reset = () => {
+    setErrorLines([]);
+    setCorrectLines([]);
+    setCodeWrong(false);
+    setToggleAnswer(false);
+    setTempCode('');
+    setCelebrate(false);
+  };
+
+  useEffect(() => {
+    reset();
+  }, [content]);
 
   useEffect(() => {
     if (passed && !isLastUnit) {
@@ -169,7 +176,10 @@ const Quest: FC<{
         // isWrong = true;
         // setErrorLines(newErrorLines);
       } else {
-        answerReg.splice(regIndex, 1);
+        answerReg.splice(
+          answerReg.findIndex((reg) => reg.test(line.join('').trim())),
+          1
+        );
       }
     });
 
@@ -243,76 +253,86 @@ const Quest: FC<{
 
   return (
     <>
-      <div className="h-full w-full">
+      <div className="h-full w-full overflow-hidden flex flex-col">
         {/*<div className='passed-container !hidden'>*/}
         {/*  <div className='passed-title'>Good Job! </div>*/}
         {/*  <div className='passed-subtitle'>Your answer are all correct.</div>*/}
         {/*  <img className='passed-img' src={correct} alt={``} />*/}
         {/*</div>*/}
 
-        {passed ? (
-          <div className={`passed-container passed-container-main opacity-0 `}>
-            <div className="passed-title">Good Job!</div>
-            <div className="passed-subtitle">Your answer are all correct.</div>
-            <img className="passed-img" src={correct as any} alt={``} />
-          </div>
-        ) : (
-          <div className="lesson-quiz-content h-[100%]">
-            <div className="">
-              <div className="text-[#F2F2F2] font-next-book-bold text-[1rem]">
-                Quest
+        <div className="overflow-y-scroll flex-1 scroll-wrap-y">
+          {passed ? (
+            <div className={`passed-container passed-container-main opacity-0`}>
+              <div className="passed-title">Good Job!</div>
+              <div className="passed-subtitle">
+                Your answer are all correct.
               </div>
-              <div className="py-[1.5rem]">
-                {shouldRenderBlock &&
-                  quiz &&
-                  quiz.children?.map((child, index: number) => {
-                    return (
-                      <Block key={index} block={child} renderChildren={true} />
-                    );
-                  })}
-              </div>
+              <img className="passed-img" src={correct as any} alt={``} />
             </div>
-            {shouldRenderCodeEditor && (
-              <div>
+          ) : (
+            <div className="lesson-quiz-content h-[100%] flex flex-col relative">
+              <div className="">
                 <div className="text-[#F2F2F2] font-next-book-bold text-[1rem]">
-                  Try answers below
+                  Quest
                 </div>
-                <div className="mt-[1.5rem]">
-                  <CMEditor
-                    setCodeText={codeTextDispatch}
-                    codeText={codeText}
-                    codeLine={codeLine}
-                    errorLines={errorLines}
-                    setErrorLines={setErrorLines}
-                    correctLines={correctLines}
-                    darkMode={darkMode}
-                  />
+                <div className="py-[1.5rem]">
+                  {shouldRenderBlock &&
+                    quiz &&
+                    quiz.children?.map((child, index: number) => {
+                      return (
+                        <Block
+                          key={index}
+                          block={child}
+                          renderChildren={true}
+                        />
+                      );
+                    })}
                 </div>
               </div>
-            )}
-          </div>
-        )}
-        {codeWrong ? (
-          <div className="absolute bottom-[6.5rem] right-[7.5rem] flex gap-[1.25rem] justify-end z-[99999] ">
-            <CustomButton type={0} onClick={handleTryAgain}>
-              Try Again
-            </CustomButton>
-            {!toggleAnswer && (
-              <CustomButton type={0} onClick={showAnswer}>
-                {/* {toggleAnswer ? 'Hide the answer' : 'Show me the answer'} */}
-                {'Show me the answer'}
-              </CustomButton>
-            )}
-          </div>
-        ) : (
-          !passed && (
-            <div className="absolute bottom-[7.5rem] right-[7.5rem] flex gap-[1.25rem] justify-end z-[99999]">
-              <CustomButton type={2} onClick={handleSubmit}>
-                {shouldRenderCodeEditor ? 'Check Answer' : 'Next'}
-              </CustomButton>
+              {shouldRenderCodeEditor && (
+                <div className="">
+                  <div className="text-[#F2F2F2] font-next-book-bold text-[1rem]">
+                    Try answers below
+                  </div>
+                  <div className="mt-[1.5rem]">
+                    <CMEditor
+                      setCodeText={codeTextDispatch}
+                      codeText={codeText}
+                      codeLine={codeLine}
+                      errorLines={errorLines}
+                      setErrorLines={setErrorLines}
+                      correctLines={correctLines}
+                      darkMode={darkMode}
+                    />
+                  </div>
+                </div>
+              )}
             </div>
-          )
-        )}
+          )}
+        </div>
+        <div className="mt-[30px] flex items-center justify-end">
+          {codeWrong ? (
+            <div className="flex gap-[1.25rem] justify-end z-[99999]">
+              <CustomButton type={0} onClick={handleTryAgain}>
+                Try Again
+              </CustomButton>
+              {!toggleAnswer && (
+                <CustomButton type={0} onClick={showAnswer}>
+                  {/* {toggleAnswer ? 'Hide the answer' : 'Show me the answer'} */}
+                  {'Show me the answer'}
+                </CustomButton>
+              )}
+            </div>
+          ) : (
+            !passed && (
+              <div className="">
+                <CustomButton type={2} onClick={handleSubmit}>
+                  {shouldRenderCodeEditor ? 'Check Answer' : 'Next'}
+                </CustomButton>
+              </div>
+            )
+          )}
+        </div>
       </div>
       {celebrate && (
         <>

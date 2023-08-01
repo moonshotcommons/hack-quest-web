@@ -9,7 +9,7 @@ class WebApi {
   protected timeout = 10000;
 
   courseApi: CourseApi;
-  LearningTrackApi: LearningTrackApi;
+  learningTrackApi: LearningTrackApi;
   userApi: UserApi;
 
   constructor(baseURL: string) {
@@ -19,7 +19,7 @@ class WebApi {
     });
 
     this.courseApi = new CourseApi(this.service);
-    this.LearningTrackApi = new LearningTrackApi(this.service);
+    this.learningTrackApi = new LearningTrackApi(this.service);
     this.userApi = new UserApi(this.service);
   }
 }

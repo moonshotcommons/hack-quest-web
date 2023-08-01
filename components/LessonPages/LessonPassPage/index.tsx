@@ -1,5 +1,5 @@
 'use client';
-import { FC, ReactNode, useCallback, useEffect } from 'react';
+import { FC, ReactNode, useCallback, useEffect, useState } from 'react';
 import LessonPassLogo from '@/public/images/lesson/lesson_pass_logo.png';
 import Image from 'next/image';
 import Button, { ButtonProps } from '@/components/Common/Button';
@@ -7,11 +7,12 @@ import { useRouter } from 'next/router';
 import { shallowEqual, useSelector } from 'react-redux';
 import { AppRootState } from '@/store/redux';
 import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
-import { getCourseLink } from '@/helper/utils';
+import { getCourseLink, getLessonLink } from '@/helper/utils';
 import { useDebounceEffect, useDebounceFn } from 'ahooks';
 interface LessonPassPageProps {
   lesson: CourseLessonType;
   courseType: CourseType;
+  isLastLesson: boolean;
 }
 
 const CustomButton: FC<ButtonProps> = (props) => {
@@ -29,9 +30,8 @@ const CustomButton: FC<ButtonProps> = (props) => {
 };
 
 const LessonPassPage: FC<LessonPassPageProps> = (props) => {
-  const { lesson, courseType } = props;
+  const { lesson, courseType, isLastLesson } = props;
   const router = useRouter();
-
   const { unitsLessonsList } = useSelector((state: AppRootState) => {
     return {
       unitsLessonsList: state.course.unitsLessonsList
@@ -53,7 +53,6 @@ const LessonPassPage: FC<LessonPassPageProps> = (props) => {
       currentLessonIndex === (currentUnit?.pages.length || 1) - 1;
 
     if (isLastUnit && isLastLesson) {
-      router.push(`${getCourseLink(courseType)}/${lesson.courseId}/completed`);
       return;
     }
 
@@ -62,17 +61,11 @@ const LessonPassPage: FC<LessonPassPageProps> = (props) => {
     } else {
       nextLesson = unitsLessonsList[currentUnitIndex + 1].pages[0];
     }
-    router.push(
-      `${getCourseLink(courseType)}/${courseId}/learn/${nextLesson?.id}`
-    );
+    // router.push(
+    //   `${getCourseLink(courseType)}/${courseId}/learn/${nextLesson?.id}`
+    // );
+    router.push(getLessonLink(courseType, courseId as string, nextLesson?.id!));
   });
-
-  // useEffect(() => {
-  // let timer = setTimeout(() => {
-  //   onNextClick();
-  // }, 3000);
-  // return () => clearTimeout(timer);
-  // }, [onNextClick]);
 
   return (
     <div className={`w-full h-full flex justify-between flex-col text-center`}>
@@ -88,14 +81,16 @@ const LessonPassPage: FC<LessonPassPageProps> = (props) => {
         </div>
       </div>
       <div className="-mb-[1.25rem]">
-        <CustomButton
-          block
-          onClick={() => {
-            onNextClick();
-          }}
-        >
-          Next
-        </CustomButton>
+        {!isLastLesson && (
+          <CustomButton
+            block
+            onClick={() => {
+              onNextClick();
+            }}
+          >
+            Next
+          </CustomButton>
+        )}
       </div>
     </div>
   );

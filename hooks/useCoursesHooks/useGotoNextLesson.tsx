@@ -1,4 +1,4 @@
-import { getCourseLink } from '@/helper/utils';
+import { getCourseLink, getLessonLink } from '@/helper/utils';
 import webApi from '@/service';
 import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
 import { AppRootState } from '@/store/redux';
@@ -51,9 +51,10 @@ export const useGotoNextLesson = (
     } else {
       nextLesson = unitsLessonsList[currentUnitIndex + 1].pages[0];
     }
-    router.push(
-      `${getCourseLink(courseType)}/${courseId}/learn/${nextLesson?.id}`
-    );
+    // router.push(
+    //   `${getCourseLink(courseType)}/${courseId}/learn/${nextLesson?.id}`
+    // );
+    router.push(getLessonLink(courseType, courseId as string, nextLesson?.id!));
   });
 
   return { onNextClick, completeModalOpen, setCompleteModalOpen };
@@ -100,9 +101,7 @@ export const useBackToPrevLesson = (
       const prevUnit = unitsLessonsList[currentUnitIndex - 1];
       prevLesson = prevUnit.pages.at(-1);
     }
-    router.push(
-      `${getCourseLink(courseType)}/${courseId}/learn/${prevLesson?.id}`
-    );
+    router.push(getLessonLink(courseType, courseId as string, prevLesson?.id!));
   });
 
   return { onBackClick, isFirst };

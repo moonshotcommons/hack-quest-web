@@ -14,7 +14,7 @@ import { useDispatch, useSelector, shallowEqual, useStore } from 'react-redux';
 import { CourseResponse, CourseType } from '@/service/webApi/course/type';
 import { getCourseLink } from '@/helper/utils';
 import { useRouter } from 'next/router';
-import { useScrollToElement } from '@/hooks/useScrollToElement';
+import { useScrollToElement } from '@/hooks/useDomHooks/useScrollToElement';
 import { coursesTabs } from '@/constants';
 import { renderCourseCard, renderLearningTrackCard } from '@/helper/renderCard';
 import webApi from '@/service';
@@ -65,7 +65,6 @@ const Courses: NextPage<CoursesProps> = (props) => {
 
   const nowCards = useMemo(() => {
     return courseList.filter((course) => {
-      console.log(course.name);
       return trendingNowIds.includes(course.id);
     });
   }, [courseList]);

@@ -19,7 +19,7 @@ export const useGetLearningTrackDetail = () => {
   const { run, loading, refresh } = useRequest(
     async (id) => {
       const res =
-        await webApi.LearningTrackApi.getLearningTrackDetailAndCourses(
+        await webApi.learningTrackApi.getLearningTrackDetailAndCourses(
           id as string
         );
       return res;

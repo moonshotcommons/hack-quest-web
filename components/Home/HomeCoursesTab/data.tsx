@@ -97,24 +97,14 @@ export const tabData = [
       'Dive deep into your favorite ecosystem through an official end-to-end learning journey. Mint a learning certificate, claim tokens, and qualify for airdrops!',
     cards: [
       {
-        id: '0',
+        id: 'e9c51f15-e2b1-4b3e-874c-db272d31d17e',
         type: CourseType.LEARNING_TRACK,
-        name: 'Web 3.0 Programming Advanced',
+        name: 'Solidity Learning Track',
         level: ['Advanced'],
         description:
-          'Basic concepts in programming of Solidity. Topics include: variables, functions, flow control, error handling, data structure.',
-        duration: 6700,
-        unitCount: 5
-      },
-      {
-        id: '1',
-        type: CourseType.LEARNING_TRACK,
-        name: 'Web 3.0 Programming Advanced',
-        level: ['Advanced'],
-        description:
-          'Basic concepts in programming of Solidity. Topics include: variables, functions, flow control, error handling, data structure.',
-        duration: 600,
-        unitCount: 5
+          'In this section, we will learn Solidity step by step from the most basic syntax to advanced guided projects.',
+        duration: 957,
+        courseCount: 13
       }
     ]
   },

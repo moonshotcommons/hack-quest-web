@@ -83,13 +83,13 @@ export const CenterInfo: FC = () => {
       image: Hackquest_info3
     },
     {
-      title: 'Easy to follow, quick to test',
-      description: `Learn Solidity syntax and start revealing all the decentralized magic on the Ethereum`,
+      title: 'Personalized Learning Experience',
+      description: `Customize your Web3 learning experience by choosing among extended, standard, or concise modes for each learning quest based on your skill level. HackQuest is built for learners of all levels!`,
       image: Hackquest_info4
     },
     {
-      title: 'Easy to follow, quick to test',
-      description: `Learn Solidity syntax and start revealing all the decentralized magic on the Ethereum`,
+      title: 'Concept learning made interactive',
+      description: `Reimagine lengthy and jargon-packed blog posts with HackQuest concept learning. Chat with Vitalik and explore Blockchain concepts like ledger, hash, and node in a fun, interactive, and quirky way.`,
       image: Hackquest_info5
     }
   ];
@@ -104,7 +104,7 @@ export const CenterInfo: FC = () => {
   return (
     <div>
       <h1 className="text-[#F5F5F5] text-center font-next-poster-Bold text-[2.5rem] mt-[9.06rem]">
-        What is HackQuest?
+        Why HackQuest?
       </h1>
       {/* <div className="flex justify-between"> */}
       {/* <div>

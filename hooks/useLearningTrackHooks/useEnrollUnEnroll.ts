@@ -10,7 +10,7 @@ export const useEnrollUnEnroll = (
   const { run: unEnroll } = useRequest(
     async () => {
       if (learningTrackDetail) {
-        const res = await webApi.LearningTrackApi.unenrollLearningTrack(
+        const res = await webApi.learningTrackApi.unenrollLearningTrack(
           learningTrackDetail?.id
         );
         return res;
@@ -32,7 +32,7 @@ export const useEnrollUnEnroll = (
   const { run: enroll } = useRequest(
     async () => {
       if (learningTrackDetail) {
-        await webApi.LearningTrackApi.enrollLearningTrack(
+        await webApi.learningTrackApi.enrollLearningTrack(
           learningTrackDetail?.id
         );
         refreshCallback();

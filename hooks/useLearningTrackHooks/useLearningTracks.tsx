@@ -9,7 +9,7 @@ export const useGetLearningTracks = (showAll = true) => {
 
   const { loading, refresh } = useRequest(
     async () => {
-      let res = await webApi.LearningTrackApi.getLearningTracks();
+      let res = await webApi.learningTrackApi.getLearningTracks();
       if (!showAll) res = res.filter((item) => item.enrolled);
       return res;
     },

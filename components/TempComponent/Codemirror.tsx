@@ -93,7 +93,7 @@ const CMEditor: FC<Props> = (props) => {
           codeEditRef.current.editor.querySelector(
             '.cm-scroller'
           ) as HTMLElement
-        )?.classList?.add('no-scrollbar');
+        )?.classList?.add('scroll-wrap-y');
       }
     }
   }, [codeEditRef]);
@@ -122,7 +122,7 @@ const CMEditor: FC<Props> = (props) => {
           highlightSelectionMatches: true
         })
       ]}
-      maxHeight="56vh"
+      // maxHeight="56vh"
       minHeight="56vh"
       onChange={onChange}
       theme={
@@ -130,7 +130,9 @@ const CMEditor: FC<Props> = (props) => {
           ? xcodeDarkInit({
               settings: {
                 background: '#111',
-                gutterBackground: '#111'
+                gutterBackground: '#111',
+                selection: '#0400ff !important',
+                caret: 'white'
               }
             })
           : xcodeLight

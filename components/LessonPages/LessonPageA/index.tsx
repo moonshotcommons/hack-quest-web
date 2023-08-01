@@ -7,7 +7,7 @@ import {
   LessonStyleType
 } from '@/service/webApi/course/type';
 
-import { FC, useCallback, useEffect, useMemo, useState } from 'react';
+import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import LessonPassPage from '../LessonPassPage';
 import webApi from '@/service';
@@ -30,7 +30,7 @@ const LessonPageA: FC<LessonPageAProps> = (props) => {
   const router = useRouter();
   const { courseId: courseName } = router.query;
   const [completeModalOpen, setCompleteModalOpen] = useState(false);
-
+  const [isLastLesson, setIsLastLesson] = useState(false);
   const { unitsLessonsList } = useSelector((state: AppRootState) => {
     return {
       unitsLessonsList: state.course.unitsLessonsList
@@ -40,7 +40,6 @@ const LessonPageA: FC<LessonPageAProps> = (props) => {
   const onPass = useCallback(async () => {
     setPass(true);
     try {
-      await webApi.courseApi.completeLesson(lesson.id);
       let currentUnitIndex = unitsLessonsList.findIndex((unit) => {
         return unit.id === lesson.unitId;
       });
@@ -51,8 +50,12 @@ const LessonPageA: FC<LessonPageAProps> = (props) => {
         currentUnitIndex === (unitsLessonsList.length || 1) - 1;
       const isLastLesson =
         currentLessonIndex === (currentUnit?.pages.length || 1) - 1;
+      if (isLastUnit && isLastLesson) setIsLastLesson(true);
+      await webApi.courseApi.completeLesson(lesson.id);
       if (isLastUnit && isLastLesson) {
-        setCompleteModalOpen(true);
+        setTimeout(() => {
+          setCompleteModalOpen(true);
+        }, 1000);
         return;
       }
     } catch (e) {
@@ -64,6 +67,7 @@ const LessonPageA: FC<LessonPageAProps> = (props) => {
     if (pass) {
       return (
         <LessonPassPage
+          isLastLesson={isLastLesson}
           lesson={lesson}
           courseType={courseType}
         ></LessonPassPage>
@@ -80,22 +84,34 @@ const LessonPageA: FC<LessonPageAProps> = (props) => {
         setIsProgressing={setIsProgressing}
       />
     );
-  }, [pass, courseType, lesson, quizes, onPass]);
+  }, [pass, courseType, lesson, quizes, onPass, isLastLesson]);
 
   useEffect(() => {
     if (lesson) {
       setLessonContent((lesson.content?.[0] as any).children);
       setQuizes((lesson.content?.[1] as any).children);
       setPass(false);
+      setIsLastLesson(false);
       webApi.courseApi.startLesson(lesson.id).catch((e) => {
         console.log('开始学习失败', e);
       });
     }
   }, [lesson]);
 
+  const lessonContentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (lessonContentRef.current) {
+      lessonContentRef.current.scrollTo(0, 0);
+    }
+  }, [lesson]);
+
   return (
     <div className="w-full h-[80vh] flex justify-between gap-[4.5rem] mt-[1.25rem]">
-      <div className="text-[#F2F2F2] h-full w-full px-[3rem] py-[2.5rem] rounded-[2.5rem] bg-[#101010] overflow-y-scroll notion-render-block no-scrollbar">
+      <div
+        ref={lessonContentRef}
+        className="text-[#F2F2F2] h-full w-full px-[3rem] py-[2.5rem] rounded-[2.5rem] bg-[#101010] overflow-y-scroll notion-render-block no-scrollbar"
+      >
         {lessonContent &&
           lessonContent?.map((block: any) => (
             <Block
@@ -106,7 +122,7 @@ const LessonPageA: FC<LessonPageAProps> = (props) => {
             />
           ))}
       </div>
-      <div className="w-full text-[#E2E2E2] h-full bg-[#111] notion-render-block py-[2.5rem] rounded-[2.5rem] overflow-y-scroll no-scrollbar">
+      <div className="w-full text-[#E2E2E2] h-full bg-[#111] notion-render-block py-[2.5rem] rounded-[2.5rem]">
         {RightComponent}
       </div>
       <>
