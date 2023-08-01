@@ -117,7 +117,7 @@ const SessionSelectRenderer: FC<SessionSelectRendererProps> = (props) => {
     },
     { wait: 500 }
   );
-  console.log(wait);
+
   return (
     <div className="w-fit max-w-[74%] flex flex-col gap-3 self-end">
       <span className="text-[#676767] text-[0.875rem] leading-[121% ]">

@@ -70,12 +70,18 @@ const Quest: FC<{
     () => 32 - codeText?.split('\n').length
   );
 
-  // useLayoutEffect(() => {
-  //   let codeLen = codeText?.split('\n').length;
-  //   if (codeLen < 32) {
-  //     setCodeLine(32 - codeLen);
-  //   }
-  // }, [codeText]);
+  const reset = () => {
+    setErrorLines([]);
+    setCorrectLines([]);
+    setCodeWrong(false);
+    setToggleAnswer(false);
+    setTempCode('');
+    setCelebrate(false);
+  };
+
+  useEffect(() => {
+    reset();
+  }, [content]);
 
   useEffect(() => {
     if (passed && !isLastUnit) {

@@ -1,4 +1,4 @@
-import { getCourseLink } from '@/helper/utils';
+import { getCourseLink, getLessonLink } from '@/helper/utils';
 import webApi from '@/service';
 import { CourseDetailType, CourseResponse } from '@/service/webApi/course/type';
 import { useRequest } from 'ahooks';
@@ -19,10 +19,13 @@ export const useJumpLeaningLesson = () => {
     {
       manual: true,
       onSuccess({ courseDetail, pageId }) {
+        // router.push(
+        //   `${getCourseLink(courseDetail?.type)}/${
+        //     courseDetail?.name
+        //   }/learn/${pageId}`
+        // );
         router.push(
-          `${getCourseLink(courseDetail?.type)}/${
-            courseDetail?.name
-          }/learn/${pageId}`
+          getLessonLink(courseDetail?.type, courseDetail?.name, pageId)
         );
       },
       onError(err: any) {

@@ -13,7 +13,7 @@ import App from 'next/app';
 import { Provider } from 'react-redux';
 import wrapper from '@/store/redux';
 import UnitLayout from '@/components/Layout/UnitLayout';
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 import HomeLayout from '@/components/Layout/HomeLayout';
 import LoginLayout from '@/components/Layout/LoginLayout';
 import { useGetUserInfo, useLoadUserInfo } from '@/hooks/useGetUserInfo';
@@ -29,6 +29,7 @@ const Layout = (props: {
   useNavAuth(waitingLoadUserInfo);
   const userInfo = useGetUserInfo();
   const regex = /\/[^/]+\/\[courseId\]\/learn\/\[lessonId\]/;
+
   switch (true) {
     case regex.test(pathname):
       return <UnitLayout>{children}</UnitLayout>;
