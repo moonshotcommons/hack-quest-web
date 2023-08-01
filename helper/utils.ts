@@ -24,3 +24,12 @@ export const getCourseLink = (courseType?: CourseType) => {
       return `/teaser`;
   }
 };
+
+export const getLessonLink = (
+  courseType: CourseType,
+  courseName: string,
+  lessonId: string
+) => {
+  if (!courseType || !courseName || !lessonId) return '/404';
+  return `${getCourseLink(courseType)}/${courseName}/learn/${lessonId}`;
+};

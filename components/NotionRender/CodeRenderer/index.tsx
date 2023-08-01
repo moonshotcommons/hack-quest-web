@@ -21,7 +21,6 @@ interface CodeRendererProps {
 
 const CodeRenderer: FC<CodeRendererProps> = (props) => {
   const { type, source } = props;
-  console.log(source);
   const language = source[type].language;
 
   const codeRef = useRef<HTMLTextAreaElement>(null);
