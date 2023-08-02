@@ -1,30 +1,3 @@
-html {
-  --neutral-dark-gray: #212121;
-  --neutral-off-white: #f4f4f4;
-  --neutral-white: #fff;
-  --neutral-light-gray: #dadada;
-  --neutral-medium-gray: #8c8c8c;
-  --neutral-black: #0b0b0b;
-}
-
-html[data-theme='dark'] {
-  --primary-green-yellow: #fcc409;
-
-  /* mission center */
-  --mission-center-bg: #101010;
-  --mission-card-bg: #1f1f1f;
-  --mission-button-primary-bg: var(--neutral-white);
-  --mission-button-second-bg: linear-gradient(180deg, #353535 0%, #2e2e2e 100%);
-  --mission-text-color: #ededed;
-}
-
-html[data-theme='light'] {
-  --primary-green-yellow: #ffd850;
-
-  /* mission center */
-  --mission-bg: var(--neutral-white);
-  --mission-card-bg: var(--neutral-off-white);
-  --mission-button-primary-bg: var(--primary-green-yellow);
-  --mission-button-second-bg: linear-gradient(180deg, #353535 0%, #2e2e2e 100%);
-  --mission-text-color: var(--neutral-black);
-}
+@import url('./base-variable.css');
+@import url('./dark-variable.css');
+@import url('./light-variable.css');

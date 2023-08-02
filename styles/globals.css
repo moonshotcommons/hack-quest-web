@@ -54,7 +54,7 @@
   }
 
   .title {
-    @apply font-next-book text-base font-bold text-white;
+    @apply font-next-book text-base font-bold;
   }
 
   .top-line {
@@ -66,11 +66,11 @@
   }
 
   .description {
-    @apply text-[#676767] w-[21.5rem] text-xs font-normal not-italic;
+    @apply w-[21.5rem] text-xs font-normal not-italic;
   }
 
   .arrow {
-    @apply flex items-center justify-center p-2 rounded-full bg-[#000] border border-solid border-[#303030] hover:bg-[#303030] cursor-pointer;
+    @apply flex items-center justify-center p-2 rounded-full border border-solid border-[#303030] hover:bg-[#303030] cursor-pointer;
   }
 
   .primary-button-hover {

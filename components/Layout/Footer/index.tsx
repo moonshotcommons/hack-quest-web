@@ -9,7 +9,7 @@ import ContractUs from '@/components/Home/ContractUs';
 
 const Footer = () => {
   return (
-    <div className="w-full gap-[6.25rem] pt-[12rem] mt-[3rem] pb-[3.5rem] bg-black flex justify-between flex-col">
+    <div className="w-full gap-[6.25rem] pt-[12rem] mt-[3rem] pb-[3.5rem] flex justify-between flex-col">
       <div className="h-full flex justify-between">
         <h2 className="font-next-poster-Bold w-[18rem] text-[#EDEDED] text-[2rem]">
           WEB3 programming for Everyone

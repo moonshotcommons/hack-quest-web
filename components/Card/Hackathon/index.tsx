@@ -15,13 +15,20 @@ const HackathonCard: React.FC<HackathonCardProps> = (props) => {
       className={`h-[17.375rem] w-[26rem] bg-[url('/images/card/Hackathon/color-bg.svg')] relative flex-shrink-0`}
     >
       <div
-        className={`w-full h-full bg-[url('/images/card/Hackathon/bg.svg')] scale-[1.01] absolute top-0 left-0 hover:-top-[0.25rem] hover:left-1 hover:transition-all duration-700`}
+        className={`w-full h-full bg-hackathon-card-bg scale-[1.01] absolute top-0 left-0 hover:-top-[0.25rem] hover:left-1 hover:transition-all duration-700`}
       >
         <div className="px-10 pt-9">
-          <h2 className="title">{name}</h2>
+          <h2 className="title text-card-title-text-color">{name}</h2>
           <div className="flex gap-4 mt-4">
             {(Array.isArray(tags) ? tags : [tags]).map((tag) => {
-              return <Tag key={tag}>{tagFormate(tag)}</Tag>;
+              return (
+                <Tag
+                  key={tag}
+                  className="text-text-default-color border-tag-border-color"
+                >
+                  {tagFormate(tag)}
+                </Tag>
+              );
             })}
           </div>
           <div className="mt-12">

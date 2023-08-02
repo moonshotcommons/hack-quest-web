@@ -91,12 +91,12 @@ export const SliderContainer: React.FC<SliderContainerProps> = ({
       {leftArrowVisible && (
         <>
           <div
-            className="absolute left-0 top-1/2 -translate-y-1/2 arrow z-20"
+            className="absolute left-0 top-1/2 -translate-y-1/2 arrow z-20 bg-banner-arrow-bg  text-banner-arrow-color"
             onClick={() => handleArrowClick(LEFT)}
           >
             <LeftArrowIcon></LeftArrowIcon>
           </div>
-          <div className="absolute w-20 h-full top-0 -left-4 bg-gradient-to-l from-transparent to-black  z-[18] select-none"></div>
+          <div className="absolute w-20 h-full top-0 -left-4 bg-gradient-to-l from-transparent to-global-bg  z-[18] select-none"></div>
         </>
       )}
 
@@ -109,11 +109,11 @@ export const SliderContainer: React.FC<SliderContainerProps> = ({
       >
         {children}
       </div>
-      <div className="absolute w-20 h-full top-0 -right-[1.25rem] bg-gradient-to-r from-transparent to-black"></div>
+      <div className="absolute w-20 h-full top-0 -right-[1.25rem] bg-gradient-to-r from-transparent to-global-bg"></div>
       {rightArrowVisible && (
         <>
           <div
-            className="absolute right-0 top-1/2 -translate-y-1/2 arrow z-20"
+            className="absolute right-0 top-1/2 -translate-y-1/2 arrow z-20 bg-banner-arrow-bg  text-banner-arrow-color"
             onClick={() => handleArrowClick(RIGHT)}
           >
             <RightArrowIcon></RightArrowIcon>

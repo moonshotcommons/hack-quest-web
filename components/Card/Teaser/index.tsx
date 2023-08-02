@@ -32,15 +32,15 @@ const TeaserCard: React.FC<TeaserCardProps> = (props) => {
           {/* <div className="w-[2.875rem] h-1 rounded-xl bg-gradient-to-t from-[#EB3E1C] to-[#E0AD38]"></div> */}
 
           <Typography.Paragraph
-            className="text-base font-bold text-white w-[13.25rem]"
+            className="text-base text-card-title-text-color font-bold text-white w-[13.25rem]"
             ellipsis={{ rows: 1 }}
           >
             {name}
           </Typography.Paragraph>
 
-          <div className="w-[16.4375rem] text-[#F2F2F2] font-normal text-sm mt-[1.5rem]">
+          <div className="w-[16.4375rem] font-normal text-sm mt-[1.5rem]">
             <Typography.Paragraph
-              className="text-[#F2F2F2] font-normal text-sm"
+              className="text-card-description-text-color font-normal text-sm"
               ellipsis={{
                 rows: 3
               }}

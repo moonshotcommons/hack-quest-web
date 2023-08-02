@@ -1,0 +1,36 @@
+html[data-theme='light'] {
+  --primary-green-yellow: #ffd850;
+  --global-bg: var(--neutral-off-white);
+  --text-default-color: var(--neutral-black);
+
+  /* course */
+  --concept-card-bg: url('/images/card/ConceptLearning/light-bg.svg');
+  --guided-card-bg: url('/images/card/GuidedProject/light-bg.svg');
+  --hackathon-card-bg: url('/images/card/Hackathon/light-bg.svg');
+  --learning-track-card-bg: url('/images/card/LearningTracks/light-bg.svg');
+  --syntax-card-bg: url('/images/card/Syntax/light-bg.svg');
+  --teaser-card-bg: url('/images/card/Teaser/light-bg.svg');
+  --tag-border-color: var(--neutral-medium-gray);
+  --tag-learning-track-border-color: var(--code-dark-green);
+  --tag-learning-track-text-color: var(--code-dark-green);
+  --card-title-text-color: var(--neutral-black);
+  --card-description-text-color: var(--neutral-off-black);
+  --banner-arrow-bg: var(--primary-green-yellow);
+  --banner-arrow-color: var(--neutral-black);
+  --text-default-color: var(--neutral-black);
+  --line-color: ;
+
+  --syntax-primary-color: var(--code-purple);
+  --learning-track-primary-color: var(--code-dark-green);
+  --concept-primary-color: ;
+  --guided-primary-color: ;
+  --teaser-primary-color: ;
+  --hackathon-primary-color: ;
+
+  /* mission center */
+  --mission-bg: var(--neutral-white);
+  --mission-card-bg: var(--neutral-off-white);
+  --mission-button-primary-bg: var(--primary-green-yellow);
+  --mission-button-second-bg: linear-gradient(180deg, #353535 0%, #2e2e2e 100%);
+  --mission-text-color: var(--neutral-black);
+}

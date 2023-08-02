@@ -14,7 +14,7 @@ export interface LayoutProps {
 const Layout: React.FC<LayoutProps> = ({ navbarData, children }) => {
   return (
     <div
-      className={`w-full min-h-screen bg-[#F4F4F4]  dark:bg-[#0B0B0B]   ${inter.className} overflow-x-scroll`}
+      className={`w-full min-h-screen bg-global-bg  ${inter.className} overflow-x-scroll`}
     >
       <div className="container m-auto">
         <NavBar {...navbarData}>
