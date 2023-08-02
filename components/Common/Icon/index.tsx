@@ -20,6 +20,7 @@ import RightBottomIcon from './RightBottom';
 import SettingIcon from './Setting';
 import SignOutIcon from './SignOut';
 import SkipIcon from './Skip';
+import ThemeIcon from './Theme';
 import TwitterIcon from './Twitter';
 import UserIcon from './User';
 import UserFillIcon from './UserFill';
@@ -47,6 +48,7 @@ const Icons: IconsType = {
   Setting: <SettingIcon />,
   SignOut: <SignOutIcon />,
   Skip: <SkipIcon />,
+  Theme: <ThemeIcon />,
   Twitter: <TwitterIcon />,
   User: <UserIcon />,
   UserFill: <UserFillIcon />

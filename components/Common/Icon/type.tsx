@@ -21,6 +21,7 @@ const IconKeys = tuple(
   'Setting',
   'SignOut',
   'Skip',
+  'Theme',
   'Twitter',
   'User',
   'UserFill'

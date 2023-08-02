@@ -20,6 +20,7 @@
     "@codemirror/view": "^6.14.1",
     "@emotion/is-prop-valid": "^1.2.1",
     "@headlessui/react": "^1.7.15",
+    "@lottiefiles/react-lottie-player": "^3.5.3",
     "@reduxjs/toolkit": "^1.9.5",
     "@replit/codemirror-lang-solidity": "^6.0.1",
     "@types/node": "20.3.2",

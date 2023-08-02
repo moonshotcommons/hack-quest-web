@@ -4,9 +4,13 @@ import { LoginResponse } from '@/service/webApi/user/type';
 import { setSettingsOpen, userSignOut } from '@/store/redux/modules/user';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { FC, ReactNode } from 'react';
+import { FC, ReactNode, useContext } from 'react';
 import { useDispatch } from 'react-redux';
 import Avatar from '@/public/images/user/login_avatar.svg';
+import { ThemeContext } from '@/store/context/theme';
+import { Theme } from '@/constants/enum';
+import ThemeIcon from '@/components/Common/Icon/Theme';
+import Switch from '@/components/Common/Switch';
 interface UserDropCardProps {
   // children: ReactNode;
   userInfo: LoginResponse;
@@ -40,16 +44,17 @@ const UserDropCard: FC<UserDropCardProps> = (props) => {
   const { userInfo, onClose } = props;
   const dispatch = useDispatch();
   const router = useRouter();
+  const { setTheme, theme } = useContext(ThemeContext);
   const signOut = () => {
     dispatch(userSignOut());
     router.reload();
   };
 
   return (
-    <div className="w-[25.875rem] h-[27.5625rem] p-[2.5rem] bg-[#131313] border border-solid border-[#5B5B5B] rounded-[2.5rem]">
+    <div className="w-[25.875rem] p-[2.5rem] pb-0 bg-[#131313] border border-solid border-[#5B5B5B] rounded-[2.5rem]">
       <UserInfo userInfo={userInfo}></UserInfo>
       <div
-        className="relative mt-[2rem] w-full py-[2rem] top-line flex justify-start gap-[1.25rem] cursor-pointer"
+        className="relative mt-[2rem] w-full py-[2rem] top-line flex justify-start items-center gap-[1.25rem] cursor-pointer"
         onClick={() => {
           onClose();
           dispatch(setSettingsOpen(true));
@@ -63,7 +68,7 @@ const UserDropCard: FC<UserDropCardProps> = (props) => {
         </span>
       </div>
       <div
-        className="relative w-full py-[2rem] top-line flex justify-start gap-[1.25rem] cursor-pointer"
+        className="relative w-full py-[2rem] top-line flex justify-start items-center gap-[1.25rem] cursor-pointer"
         onClick={() => {
           signOut();
           onClose();
@@ -75,6 +80,25 @@ const UserDropCard: FC<UserDropCardProps> = (props) => {
         <span className="text-[#676767] font-next-book text-[1rem] leading-[120%]">
           Sign out
         </span>
+      </div>
+      <div className="relative w-full py-[2rem] top-line flex justify-start gap-[1.25rem] items-center cursor-pointer">
+        <span>
+          <ThemeIcon size={24}></ThemeIcon>
+        </span>
+        <span className="text-[#676767] font-next-book text-[1rem] leading-[120%]">
+          Dark theme
+        </span>
+        <div className="flex-1 flex justify-end mr-2">
+          <span>
+            <Switch
+              defaultValue={theme === Theme.Dark}
+              onChange={(v) => {
+                if (v) setTheme(Theme.Dark);
+                else setTheme(Theme.Light);
+              }}
+            ></Switch>
+          </span>
+        </div>
       </div>
     </div>
   );

@@ -16,7 +16,12 @@ export default function Document() {
         <Script id="theme-script" strategy="beforeInteractive">
           {`const item = localStorage.getItem('theme') || 'light';
           localStorage.setItem('theme', item);
-          document.getElementsByTagName('html')[0].dataset.theme = item;`}
+          document.getElementsByTagName('html')[0].dataset.theme = item;
+          document.documentElement.classList.add(item);
+          document.documentElement.classList.remove(
+            item === 'dark' ? 'light' : 'dark'
+          );
+          `}
         </Script>
       </body>
     </Html>

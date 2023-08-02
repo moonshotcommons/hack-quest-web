@@ -1,4 +1,4 @@
-import React, { HTMLAttributes } from 'react';
+import React, { FC, HTMLAttributes, ReactNode } from 'react';
 import classnames from 'classnames';
 import { omit } from 'lodash-es';
 import { cn } from '@/helper/utils';
@@ -79,6 +79,25 @@ const Button: React.FC<ButtonProps> = (props) => {
       <span>{children}</span>
     </button>
   );
+};
+
+interface NewButtonProps {
+  type?: ButtonType;
+  icon?: ReactNode;
+  iconPosition?: 'left' | 'right' | 'top' | 'bottom';
+  children?: React.ReactNode;
+  className?: string;
+  block?: boolean;
+  rounded?: 'full' | 'medium' | 'small' | 'large';
+  ghost?: boolean;
+}
+
+const NewButton: FC<NewButtonProps> = (props) => {
+  const { type, icon, iconPosition, children, className, block, rounded } =
+    props;
+  const classnames = cn(``);
+
+  return <button></button>;
 };
 
 export default Button;
