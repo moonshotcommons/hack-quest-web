@@ -17,7 +17,7 @@ export interface HomeLayoutProps {
 const HomeLayout: React.FC<HomeLayoutProps> = ({ children }) => {
   return (
     <div
-      className={`w-full min-h-screen bg-black ${inter.className} overflow-x-scroll`}
+      className={`w-full min-h-screen bg-global-bg ${inter.className} overflow-x-scroll`}
     >
       <div className="container m-auto">
         <NavBar

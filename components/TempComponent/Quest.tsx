@@ -11,21 +11,21 @@ import { CourseType } from '@/service/webApi/course/type';
 
 // https://github.com/replit/codemirror-lang-solidity/issues/2 solidity language's problem
 
-const CustomButton: FC<ButtonProps> = (props) => {
-  const { children } = props;
-  return (
-    <Button
-      padding="px-[3rem] py-[1rem]"
-      fontStyle="Inter font-normal"
-      textStyle="text-[.875rem] text-white leading-[1.25rem]"
-      bgColor="bg-transparent"
-      {...props}
-      className="border bg-transparent"
-    >
-      {children}
-    </Button>
-  );
-};
+// const CustomButton: FC<ButtonProps> = (props) => {
+//   const { children } = props;
+//   return (
+//     <Button
+//       padding="px-[3rem] py-[1rem]"
+//       fontStyle="Inter font-normal"
+//       textStyle="text-[.875rem] text-white leading-[1.25rem]"
+//       bgColor="bg-transparent"
+//       {...props}
+//       className="border bg-transparent"
+//     >
+//       {children}
+//     </Button>
+//   );
+// };
 
 const Quest: FC<{
   content: any[];
@@ -313,22 +313,20 @@ const Quest: FC<{
         <div className="mt-[30px] flex items-center justify-end">
           {codeWrong ? (
             <div className="flex gap-[1.25rem] justify-end z-[99999]">
-              <CustomButton type={0} onClick={handleTryAgain}>
-                Try Again
-              </CustomButton>
+              <Button onClick={handleTryAgain}>Try Again</Button>
               {!toggleAnswer && (
-                <CustomButton type={0} onClick={showAnswer}>
+                <Button onClick={showAnswer}>
                   {/* {toggleAnswer ? 'Hide the answer' : 'Show me the answer'} */}
                   {'Show me the answer'}
-                </CustomButton>
+                </Button>
               )}
             </div>
           ) : (
             !passed && (
               <div className="">
-                <CustomButton type={2} onClick={handleSubmit}>
+                <Button onClick={handleSubmit}>
                   {shouldRenderCodeEditor ? 'Check Answer' : 'Next'}
-                </CustomButton>
+                </Button>
               </div>
             )
           )}

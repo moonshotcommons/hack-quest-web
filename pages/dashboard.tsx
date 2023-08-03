@@ -68,9 +68,9 @@ const Dashboard: NextPage<DashboardProps> = (props) => {
   return (
     <div className="w-full">
       {userInfo && (
-        <h1 className="text-[#FFF] font-neuemachina font-bold text-[1.25rem] leading-[110%] mt-[2.8125rem]">{`( “Welcome, ${userInfo.name}” )`}</h1>
+        <h1 className="text-text-default-color font-neuemachina font-bold text-[1.25rem] leading-[110%] mt-[2.8125rem]">{`( “Welcome, ${userInfo.name}” )`}</h1>
       )}
-      {learningTracks.length && (
+      {!!learningTracks.length && (
         <div>
           <Title className="font-bold">{'</Learning Tracks>'}</Title>
           <SliderContainer>

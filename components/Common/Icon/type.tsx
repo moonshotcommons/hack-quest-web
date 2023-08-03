@@ -6,12 +6,13 @@ const IconKeys = tuple(
   'Close',
   'Copy',
   'Course',
+  'DarkInstagram',
   'Discord',
   'DropDown',
   'EmailFill',
   'FlightSideWay',
-  'Instagram',
   'LeftArrow',
+  'LightInstagram',
   'Lock',
   'Pass',
   'Progress',
@@ -24,7 +25,8 @@ const IconKeys = tuple(
   'Theme',
   'Twitter',
   'User',
-  'UserFill'
+  'UserFill',
+  'Warning'
 );
 
 export type IconKey = (typeof IconKeys)[number];

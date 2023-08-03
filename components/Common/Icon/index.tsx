@@ -5,12 +5,13 @@ import ClockIcon from './Clock';
 import CloseIcon from './Close';
 import CopyIcon from './Copy';
 import CourseIcon from './Course';
+import DarkInstagramIcon from './DarkInstagram';
 import DiscordIcon from './Discord';
 import DropDownIcon from './DropDown';
 import EmailFillIcon from './EmailFill';
 import FlightSideWayIcon from './FlightSideWay';
-import InstagramIcon from './Instagram';
 import LeftArrowIcon from './LeftArrow';
+import LightInstagramIcon from './LightInstagram';
 import LockIcon from './Lock';
 import PassIcon from './Pass';
 import ProgressIcon from './Progress';
@@ -24,6 +25,7 @@ import ThemeIcon from './Theme';
 import TwitterIcon from './Twitter';
 import UserIcon from './User';
 import UserFillIcon from './UserFill';
+import WarningIcon from './Warning';
 
 import { IconsType } from './type';
 
@@ -33,12 +35,13 @@ const Icons: IconsType = {
   Close: <CloseIcon />,
   Copy: <CopyIcon />,
   Course: <CourseIcon />,
+  DarkInstagram: <DarkInstagramIcon />,
   Discord: <DiscordIcon />,
   DropDown: <DropDownIcon />,
   EmailFill: <EmailFillIcon />,
   FlightSideWay: <FlightSideWayIcon />,
-  Instagram: <InstagramIcon />,
   LeftArrow: <LeftArrowIcon />,
+  LightInstagram: <LightInstagramIcon />,
   Lock: <LockIcon />,
   Pass: <PassIcon />,
   Progress: <ProgressIcon />,
@@ -51,7 +54,8 @@ const Icons: IconsType = {
   Theme: <ThemeIcon />,
   Twitter: <TwitterIcon />,
   User: <UserIcon />,
-  UserFill: <UserFillIcon />
+  UserFill: <UserFillIcon />,
+  Warning: <WarningIcon />
 };
 
 export default Icons;

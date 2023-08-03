@@ -3,101 +3,74 @@ import classnames from 'classnames';
 import { omit } from 'lodash-es';
 import { cn } from '@/helper/utils';
 type ButtonType = 'default' | 'primary' | 'secondary' | 'text';
-
+type SizeType = 'default' | 'large' | 'medium-x' | 'medium-y' | 'small';
 interface BaseButtonProps {
-  type?: any;
-  icon?: React.ReactNode;
-  children?: React.ReactNode;
-  className?: string;
-  // type?: ButtonType;
-  block?: boolean;
-  rounded?: string;
-  bgColor?: string;
-  textStyle?: string;
-  padding?: string;
-  fontStyle?: string;
-}
-
-const defaultConfig = {
-  rounded: 'rounded-[2.5rem]',
-  bgColor: 'bg-[#2A2A2A]',
-  textStyle: 'text-[0.625rem] text-[#9EFA13]',
-  padding: 'px-4 py-2',
-  fontStyle: 'not-italic font-normal font-next-book-Thin'
-};
-
-const getClassNames = (props: Partial<ButtonProps>) => {
-  const {
-    // type,
-    icon,
-    rounded,
-    block,
-    bgColor,
-    padding,
-    textStyle,
-    fontStyle,
-    ...rest
-  } = props;
-  let className = (rest.className ?? '') + ' ';
-  className += classnames(
-    block ? 'w-full' : 'w-fit',
-    icon ? 'gap-2' : '',
-    rounded ? rounded : defaultConfig.rounded,
-    bgColor ? bgColor : defaultConfig.bgColor,
-    textStyle ? textStyle : defaultConfig.textStyle,
-    padding ? padding : defaultConfig.padding,
-    fontStyle ? fontStyle : defaultConfig.fontStyle
-  );
-
-  return className;
-};
-
-export type ButtonProps = BaseButtonProps &
-  Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'className' | 'type'>;
-
-const Button: React.FC<ButtonProps> = (props) => {
-  const { children, ...rest } = props;
-
-  const className = getClassNames(rest);
-  return (
-    <button
-      className={cn(
-        `flex items-center justify-center whitespace-nowrap ${className}`
-      )}
-      {...omit(rest, [
-        'icon',
-        'rounded',
-        'block',
-        'bgColor',
-        'padding',
-        'textStyle',
-        'fontStyle',
-        'className'
-      ])}
-    >
-      {rest.icon}
-      <span>{children}</span>
-    </button>
-  );
-};
-
-interface NewButtonProps {
   type?: ButtonType;
   icon?: ReactNode;
-  iconPosition?: 'left' | 'right' | 'top' | 'bottom';
+  iconPosition?: 'left' | 'right';
   children?: React.ReactNode;
   className?: string;
   block?: boolean;
   rounded?: 'full' | 'medium' | 'small' | 'large';
   ghost?: boolean;
+  size?: SizeType;
 }
 
-const NewButton: FC<NewButtonProps> = (props) => {
-  const { type, icon, iconPosition, children, className, block, rounded } =
-    props;
-  const classnames = cn(``);
+export type ButtonProps = BaseButtonProps &
+  Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'className' | 'type'>;
 
-  return <button></button>;
+const Button: FC<ButtonProps> = (props) => {
+  const {
+    type,
+    icon,
+    iconPosition = 'left',
+    children,
+    className,
+    block,
+    rounded,
+    ghost,
+    size,
+    ...rest
+  } = props;
+  // const classNames = ;
+
+  const mergeSize = () => {
+    switch (size) {
+      case 'large':
+        return 'px-[2.5rem] py-[1.25rem]';
+      case 'medium-x':
+        return 'px-[2rem] py-[1rem]';
+      case 'medium-y':
+        return 'px-[1.875rem] py-[1.25rem]';
+      case 'small':
+        return 'px-[1rem] py-[.5rem] font-next-book-Thin text-[.625rem]';
+      default:
+        return 'px-[2rem] py-[1rem]';
+    }
+  };
+
+  const mergeRounded = () => {
+    if (!rounded) return 'rounded-[2.5rem]';
+  };
+
+  return (
+    <button
+      className={cn(
+        `text-text-default-color flex gap-[.625rem] items-center justify-center h-fit w-fit`,
+        type === 'primary' ? 'bg-primary-color' : '',
+        block && 'w-full',
+        ghost && 'bg-transparent border-primary-color',
+        mergeSize(),
+        mergeRounded(),
+        className
+      )}
+      {...rest}
+    >
+      {iconPosition === 'left' && <span>{icon}</span>}
+      <span>{children}</span>
+      {iconPosition === 'right' && <span>{icon}</span>}
+    </button>
+  );
 };
 
 export default Button;

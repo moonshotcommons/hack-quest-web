@@ -28,19 +28,19 @@ interface LessonPageDProps {
   courseType: CourseType;
 }
 
-const CustomButton: FC<ButtonProps> = (props) => {
-  const { children } = props;
-  return (
-    <Button
-      padding="px-[3rem] py-[1.25rem]"
-      fontStyle="Inter font-normal"
-      textStyle="text-[.875rem] text-white leading-[1.25rem]"
-      {...props}
-    >
-      {children}
-    </Button>
-  );
-};
+// const CustomButton: FC<ButtonProps> = (props) => {
+//   const { children } = props;
+//   return (
+//     <Button
+//       padding="px-[3rem] py-[1.25rem]"
+//       fontStyle="Inter font-normal"
+//       textStyle="text-[.875rem] text-white leading-[1.25rem]"
+//       {...props}
+//     >
+//       {children}
+//     </Button>
+//   );
+// };
 
 const LessonPageD: FC<LessonPageDProps> = (props) => {
   const { lesson, courseType } = props;
@@ -86,10 +86,10 @@ const LessonPageD: FC<LessonPageDProps> = (props) => {
           ></img>
         </div>
         <div className="h-[3rem] flex gap-4 self-end">
-          {!isFirst && <CustomButton onClick={onBackClick}>Back</CustomButton>}
-          <CustomButton className="border" onClick={onNextClick}>
+          {!isFirst && <Button onClick={onBackClick}>Back</Button>}
+          <Button className="border" onClick={onNextClick}>
             Next
-          </CustomButton>
+          </Button>
         </div>
       </div>
       <CompleteModal

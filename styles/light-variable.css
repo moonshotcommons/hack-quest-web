@@ -1,33 +1,53 @@
 html[data-theme='light'] {
   --primary-green-yellow: #ffd850;
   --global-bg: var(--neutral-off-white);
+  /* 默认文字颜色 */
   --text-default-color: var(--neutral-black);
+  --text-second-color: var(--neutral-off-black);
+  /* 默认文字hover颜色 */
+  --text-default-hover-color: var(--neutral-white);
+  /* 上下伪类下划线的颜色 */
+  --line-color: var(--neutral-medium-gray);
 
-  /* course */
-  --concept-card-bg: url('/images/card/ConceptLearning/light-bg.svg');
-  --guided-card-bg: url('/images/card/GuidedProject/light-bg.svg');
-  --hackathon-card-bg: url('/images/card/Hackathon/light-bg.svg');
-  --learning-track-card-bg: url('/images/card/LearningTracks/light-bg.svg');
-  --syntax-card-bg: url('/images/card/Syntax/light-bg.svg');
-  --teaser-card-bg: url('/images/card/Teaser/light-bg.svg');
-  --tag-border-color: var(--neutral-medium-gray);
-  --tag-learning-track-border-color: var(--code-dark-green);
-  --tag-learning-track-text-color: var(--code-dark-green);
-  --card-title-text-color: var(--neutral-black);
-  --card-description-text-color: var(--neutral-off-black);
-  --banner-arrow-bg: var(--primary-green-yellow);
-  --banner-arrow-color: var(--neutral-black);
-  --text-default-color: var(--neutral-black);
-  --line-color: ;
+  /* --------------------------- course --------------------------- */
+  --course-concept-card-bg: url('/images/card/ConceptLearning/light-bg.svg');
+  --course-guided-card-bg: url('/images/card/GuidedProject/light-bg.svg');
+  --course-hackathon-card-bg: url('/images/card/Hackathon/light-bg.svg');
+  --course-learning-track-card-bg: url('/images/card/LearningTracks/light-bg.svg');
+  --course-syntax-card-bg: url('/images/card/Syntax/light-bg.svg');
+  --course-teaser-card-bg: url('/images/card/Teaser/light-bg.svg');
+  /* 课程卡片标题文字颜色 */
+  --course-card-title-text-color: var(--neutral-black);
+  /* 课程卡片描述字体颜色 */
+  --course-card-description-text-color: var(--neutral-off-black);
+  /* 课程tag边框颜色 */
+  --course-tag-border-color: var(--neutral-medium-gray);
+  /* 课程进度button背景色 */
+  --course-progress-button-bg: var(--primary-green-yellow);
+  /* 课程进度icon颜色 */
+  --course-progress-icon-color: var(--neutral-black);
+  /* 课程进度文字颜色 */
+  --course-progress-text-color: var(--neutral-black);
+  --course-tag-learning-track-border-color: var(--code-dark-green);
+  /* learning track 主题色*/
+  --course-tag-learning-track-text-color: var(--code-dark-green);
+  /* Trending Now 箭头背景色 */
+  --course-banner-arrow-bg: var(--primary-green-yellow);
+  /* Trending Now 箭头icon */
+  --course-banner-arrow-color: var(--neutral-black);
+  /* syntax 主题色 */
+  --course-syntax-primary-color: var(--code-purple);
+  --course-learning-track-primary-color: var(--code-dark-green);
+  /* concept 主题色 */
+  --course-concept-primary-color: ;
+  /* guided project 主题色 */
+  --course-guided-primary-color: ;
+  /* teaser 主题色 */
+  --course-teaser-primary-color: ;
+  /* hackathon 主题色 */
+  --course-hackathon-primary-color: ;
 
-  --syntax-primary-color: var(--code-purple);
-  --learning-track-primary-color: var(--code-dark-green);
-  --concept-primary-color: ;
-  --guided-primary-color: ;
-  --teaser-primary-color: ;
-  --hackathon-primary-color: ;
-
-  /* mission center */
+  /* --------------------------- mission center --------------------------- */
   --mission-bg: var(--neutral-white);
   --mission-card-bg: var(--neutral-off-white);
   --mission-button-primary-bg: var(--primary-green-yellow);

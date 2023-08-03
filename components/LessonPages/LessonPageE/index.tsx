@@ -29,19 +29,19 @@ interface LessonPageDProps {
   courseType: CourseType;
 }
 
-const CustomButton: FC<ButtonProps> = (props) => {
-  const { children } = props;
-  return (
-    <Button
-      padding="px-[3rem] py-[1.25rem]"
-      fontStyle="Inter font-normal"
-      textStyle="text-[.875rem] text-white leading-[1.25rem]"
-      {...props}
-    >
-      {children}
-    </Button>
-  );
-};
+// const CustomButton: FC<ButtonProps> = (props) => {
+//   const { children } = props;
+//   return (
+//     <Button
+//       padding="px-[3rem] py-[1.25rem]"
+//       fontStyle="Inter font-normal"
+//       textStyle="text-[.875rem] text-white leading-[1.25rem]"
+//       {...props}
+//     >
+//       {children}
+//     </Button>
+//   );
+// };
 
 const LessonPageD: FC<LessonPageDProps> = (props) => {
   const { lesson, courseType } = props;
@@ -75,9 +75,9 @@ const LessonPageD: FC<LessonPageDProps> = (props) => {
       <div className="absolute bottom-10 right-10">
         {/* <CustomButton onClick={onBackClick}>Back</CustomButton> */}
         {isCompleted && (
-          <CustomButton className="border" onClick={onNextClick}>
+          <Button className="border" onClick={onNextClick}>
             Next
-          </CustomButton>
+          </Button>
         )}
       </div>
       <CompleteModal

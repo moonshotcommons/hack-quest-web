@@ -58,11 +58,11 @@
   }
 
   .top-line {
-    @apply after:absolute after:h-[1px] after:scale-y-[1] after:w-full after:bg-[#282828] after:-top-1;
+    @apply before:absolute before:h-[1px] before:scale-y-[1] before:w-full before:bg-line-color before:-top-1;
   }
 
   .bottom-line {
-    @apply before:absolute before:h-[1px] before:scale-y-[1] before:w-full before:bg-[#282828] before:-bottom-1;
+    @apply after:absolute after:h-[1px] after:scale-y-[1] after:w-full after:bg-line-color after:-bottom-1;
   }
 
   .description {

@@ -11,6 +11,7 @@ const themeColors = {
   'neutral-medium-gray': 'var(--neutral-medium-gray)',
   'neutral-black': 'var(--neutral-black)',
   'text-default-color': 'var(--text-default-color)',
+  'text-second-color': 'var(--text-second-color)',
   ...missionCenterColors,
   ...courseThemeColors
 };

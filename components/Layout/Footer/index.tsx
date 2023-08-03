@@ -3,28 +3,27 @@ import React from 'react';
 import Logo from '@/public/images/logo/logo_hack_quest.svg';
 import TwitterIcon from '@/components/Common/Icon/Twitter';
 import DiscordIcon from '@/components/Common/Icon/Discord';
-import InstagramIcon from '@/components/Common/Icon/Instagram';
 import Link from 'next/link';
 import ContractUs from '@/components/Home/ContractUs';
 
 const Footer = () => {
   return (
-    <div className="w-full gap-[6.25rem] pt-[12rem] mt-[3rem] pb-[3.5rem] flex justify-between flex-col">
+    <div className="w-full gap-[6.25rem] pt-[12rem] bg-global-bg mt-[3rem] pb-[3.5rem] flex justify-between flex-col">
       <div className="h-full flex justify-between">
-        <h2 className="font-next-poster-Bold w-[18rem] text-[#EDEDED] text-[2rem]">
+        <h2 className="font-next-poster-Bold w-[18rem] text-text-default-color text-[2rem]">
           WEB3 programming for Everyone
         </h2>
-        <div className="flex gap-[7.5rem]  text-[#B2B2B2] text-sm font-next-book-Thin">
+        <div className="flex gap-[7.5rem] text-sm font-next-book">
           <ul className="w-[8.375rem] flex flex-col gap-[1.75rem]">
             <Link
               href={'/courses'}
-              className="hover:font-next-book-bold text-white cursor-pointer"
+              className="hover:font-next-book-bold text-text-second-color cursor-pointer"
             >
               All Courses
             </Link>
             <Link
               href={'/dashboard'}
-              className="hover:font-next-book-bold text-white cursor-pointer"
+              className="hover:font-next-book-bold text-text-second-color  cursor-pointer"
             >
               Learning Dashboard
             </Link>
@@ -33,14 +32,14 @@ const Footer = () => {
             </li> */}
           </ul>
           <div className="flex flex-col gap-[1.25rem]">
-            <p>Contact us:</p>
+            <p className="text-text-second-color">Contact us:</p>
             <ContractUs></ContractUs>
           </div>
         </div>
       </div>
       <div className="w-full relative flex justify-between items-end pb-[2.625rem] bottom-line">
         <Image src={Logo} alt="logo"></Image>
-        <p className="text-[#676767] text-sm font-next-book-Thin">
+        <p className="text-text-default-color text-sm font-next-book-Thin">
           © 2023 HackQuests. All Rights Reserved.
         </p>
       </div>

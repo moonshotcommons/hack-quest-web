@@ -15,19 +15,19 @@ interface LessonPassPageProps {
   isLastLesson: boolean;
 }
 
-const CustomButton: FC<ButtonProps> = (props) => {
-  const { children } = props;
-  return (
-    <Button
-      padding="px-[3rem] py-[1.25rem]"
-      fontStyle="Inter font-normal font-next-book"
-      textStyle="text-[.875rem] text-white leading-[1.25rem]"
-      {...props}
-    >
-      {children}
-    </Button>
-  );
-};
+// const CustomButton: FC<ButtonProps> = (props) => {
+//   const { children } = props;
+//   return (
+//     <Button
+//       padding="px-[3rem] py-[1.25rem]"
+//       fontStyle="Inter font-normal font-next-book"
+//       textStyle="text-[.875rem] text-white leading-[1.25rem]"
+//       {...props}
+//     >
+//       {children}
+//     </Button>
+//   );
+// };
 
 const LessonPassPage: FC<LessonPassPageProps> = (props) => {
   const { lesson, courseType, isLastLesson } = props;
@@ -82,14 +82,14 @@ const LessonPassPage: FC<LessonPassPageProps> = (props) => {
       </div>
       <div className="-mb-[1.25rem]">
         {!isLastLesson && (
-          <CustomButton
+          <Button
             block
             onClick={() => {
               onNextClick();
             }}
           >
             Next
-          </CustomButton>
+          </Button>
         )}
       </div>
     </div>

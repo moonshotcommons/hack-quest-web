@@ -20,19 +20,19 @@ interface ForgetPasswordProps {
   children: React.ReactNode;
 }
 
-const CustomButton: FC<ButtonProps> = (props) => {
-  const { children } = props;
-  return (
-    <Button
-      padding="px-[3rem] py-[1.25rem]"
-      fontStyle="Inter font-normal font-next-book"
-      textStyle="text-[.875rem] text-white leading-[1.25rem]"
-      {...props}
-    >
-      {children}
-    </Button>
-  );
-};
+// const CustomButton: FC<ButtonProps> = (props) => {
+//   const { children } = props;
+//   return (
+//     <Button
+//       padding="px-[3rem] py-[1.25rem]"
+//       fontStyle="Inter font-normal font-next-book"
+//       textStyle="text-[.875rem] text-white leading-[1.25rem]"
+//       {...props}
+//     >
+//       {children}
+//     </Button>
+//   );
+// };
 
 const ForgetPassword: NextPage<ForgetPasswordProps> = (props) => {
   const router = useRouter();
@@ -160,7 +160,7 @@ const ForgetPassword: NextPage<ForgetPasswordProps> = (props) => {
             }}
           ></Input>
           <div className="mt-[2rem] flex flex-col gap-[0.75rem]">
-            <CustomButton block onClick={onUpdate}>
+            <Button block onClick={onUpdate}>
               <div className="flex items-center gap-[1.25rem]">
                 <span className="text-[1.25rem] font-next-book text-white leading-[118.5%] font-normal">
                   Save changes
@@ -169,7 +169,7 @@ const ForgetPassword: NextPage<ForgetPasswordProps> = (props) => {
                   <RightArrowIcon></RightArrowIcon>
                 </span>
               </div>
-            </CustomButton>
+            </Button>
           </div>
         </div>
       </div>

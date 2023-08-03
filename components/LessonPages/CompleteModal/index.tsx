@@ -13,19 +13,19 @@ interface CompleteModalProps {
   title: string;
 }
 
-const CustomButton: FC<ButtonProps> = (props) => {
-  const { children } = props;
-  return (
-    <Button
-      padding="px-[2.5rem] py-[1.25rem]"
-      fontStyle="font-Sofia-Pro-Light-Az font-normal"
-      textStyle="text-[1rem] text-white leading-[1.25rem]"
-      {...props}
-    >
-      {children}
-    </Button>
-  );
-};
+// const CustomButton: FC<ButtonProps> = (props) => {
+//   const { children } = props;
+//   return (
+//     <Button
+//       padding="px-[2.5rem] py-[1.25rem]"
+//       fontStyle="font-Sofia-Pro-Light-Az font-normal"
+//       textStyle="text-[1rem] text-white leading-[1.25rem]"
+//       {...props}
+//     >
+//       {children}
+//     </Button>
+//   );
+// };
 
 const CompleteModal: NextPage<CompleteModalProps> = ({
   open,
@@ -58,16 +58,16 @@ const CompleteModal: NextPage<CompleteModalProps> = ({
           {title}
         </p>
         <div className="flex gap-[1.25rem] mt-[3.75rem]">
-          <CustomButton
+          <Button
             className="border solid border-[#2A2A2A] hover:bg-white hover:text-black"
             onClick={onClose}
           >
             Close
-          </CustomButton>
+          </Button>
           <Link href={'/courses'} onClick={onClose}>
-            <CustomButton className="border solid border-white hover:bg-white hover:text-black">
+            <Button className="border solid border-white hover:bg-white hover:text-black">
               All Course
-            </CustomButton>
+            </Button>
           </Link>
         </div>
       </div>
