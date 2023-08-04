@@ -19,7 +19,7 @@ const getTextClassNames = (annotations: AnnotationType) => {
     ``,
     annotations.bold ? 'font-bold' : '',
     annotations.code
-      ? 'inline-block px-[0.2rem] py-[0.4rem] text-[85%] text-[#eb5757] bg-slate-800 mx-[0.25rem]'
+      ? 'inline-block px-[0.2rem] py-[0.4rem] text-[85%] text-[#eb5757] bg-renderer-code-bg mx-[0.25rem]'
       : '',
     annotations.italic ? 'italic' : '',
     annotations.strikethrough ? '' : '',

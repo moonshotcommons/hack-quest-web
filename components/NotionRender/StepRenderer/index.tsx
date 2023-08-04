@@ -19,10 +19,10 @@ const StepRenderer: FC<StepRendererProps> = (props) => {
 
   return (
     <div className="w-full relative mt-[.625rem]">
-      <div className="absolute top-0 left-[1.5rem] -translate-y-[50%] px-[.5rem] pt-[.1875rem] pb-[.3125rem] bg-[#111] rounded-[.25rem] text-[#9EFA13] text-[.75rem] font-next-book leading-[110%]">
+      <div className="absolute top-0 left-[1.5rem] -translate-y-[50%] px-[.5rem] pt-[.1875rem] pb-[.3125rem] bg-renderer-step-label-bg rounded-[.25rem] text-renderer-step-label-text-color text-[.75rem] font-next-book leading-[110%]">
         Step {index + 1}
       </div>
-      <div className="w-full py-5 px-6 rounded-[1.25rem] bg-[#1E1E1E] mb-[1.25rem] flex items-center">
+      <div className="w-full py-5 px-6 rounded-[1.25rem] bg-renderer-step-box-bg  text-renderer-step-box-text-color mb-[1.25rem] flex items-center">
         <TextRenderer richTextArr={source[type].rich_text}></TextRenderer>
       </div>
       {source.children?.map((child: any, index: number) => {

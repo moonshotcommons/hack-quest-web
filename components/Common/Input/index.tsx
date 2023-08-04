@@ -12,6 +12,8 @@ import {
   useState
 } from 'react';
 import PassIcon from '../Icon/Pass';
+import CloseIcon from '../Icon/Close';
+import WarningIcon from '../Icon/Warning';
 
 interface InputProps {
   name: string;
@@ -26,6 +28,8 @@ interface InputProps {
   rules?: Rule;
   delay?: number;
   defaultValue?: string;
+  clear?: boolean;
+  showVisibleIcon?: boolean;
 }
 
 export interface InputRef {
@@ -51,6 +55,8 @@ const Input = forwardRef<
     className,
     onChange,
     defaultValue = '',
+    clear = false,
+    showVisibleIcon = type === 'password' ? true : false,
     ...rest
   } = props;
   const inputRef = useRef<HTMLInputElement>(null);
@@ -109,7 +115,7 @@ const Input = forwardRef<
 
   return (
     <div className="flex flex-col gap-[0.75rem]">
-      <p className="text-[#ACACAC] text-[1rem] font-Sofia-Pro-Light-Az leading-[150%] tracking-[-0.011rem]">
+      <p className="text-text-default-color text-[1rem] font-next-book leading-[125%] tracking-[-0.011rem]">
         {label}
       </p>
       <div className="relative">
@@ -119,7 +125,7 @@ const Input = forwardRef<
           value={value}
           placeholder={placeholder}
           className={cn(
-            `w-[33.0625rem] border border-solid border-[#5B5B5B] outline-none bg-transparent px-[1.5rem] py-[1.12rem] rounded-[2.5rem] text-[#5B5B5B] text-[1.25rem] font-next-book leading-[118.5%] caret-[#5B5B5B] hover:border-white focus:border-white focus:text-white`,
+            `w-[33.0625rem] border border-solid border-[#5B5B5B] outline-none bg-transparent px-[1.5rem] py-[1.12rem] rounded-[2.5rem] text-[#5B5B5B] text-[1.25rem] font-next-book leading-[118.5%] caret-[#5B5B5B] hover:border-white focus:border-white focus:text-text-default-color`,
             status === 'success'
               ? 'border-[#9EFA13] focus:border-[#9EFA13]'
               : '',
@@ -132,7 +138,16 @@ const Input = forwardRef<
           }}
           {...rest}
         />
+
         <span className="absolute right-[1.4375rem] top-[50%] -translate-y-[50%]">
+          {clear && value && (
+            <span
+              className="text-red-500 flex justify-center items-center cursor-pointer"
+              onClick={() => setValue('')}
+            >
+              <CloseIcon size={20}></CloseIcon>
+            </span>
+          )}
           {status === 'success' ? (
             <PassIcon width={19} height={15}></PassIcon>
           ) : null}
@@ -144,7 +159,8 @@ const Input = forwardRef<
         </p>
       )}
       {errorMessage && (
-        <p className="ml-[1.5rem] text-[#FF4747] text-[1rem] leading-[150%] tracking-[-0.011rem] font-Sofia-Pro-Light-Az">
+        <p className="text-[#FF4747] text-[1rem] leading-[150%] tracking-[-0.011rem] font-Sofia-Pro-Light-Az flex flex-row items-center gap-2">
+          <WarningIcon width={17} height={16}></WarningIcon>
           {errorMessage}
         </p>
       )}

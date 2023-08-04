@@ -55,7 +55,7 @@ const Tab: FC<TabProps> = (props) => {
         return (
           <div
             key={item.type}
-            className={`relative ${classes} h-full flex items-center cursor-pointer text-[#F1F1F1] test-wrap-item ${
+            className={`relative ${classes} h-full flex items-center cursor-pointer text-course-card-title-text-color test-wrap-item ${
               selectTab === item.type
                 ? 'font-next-poster-Bold text-base'
                 : 'font-next-poster-Thin font-thin text-base'

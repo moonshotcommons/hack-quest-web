@@ -13,10 +13,10 @@ const Label: React.FC<
 
   return (
     <span
-      className={`flex gap-2 items-center text-[#F2F2F2] text-xs not-italic font-normal ${className} whitespace-nowrap`}
+      className={`flex gap-2 items-center text-text-default-color text-xs not-italic font-normal ${className} whitespace-nowrap`}
       {...rest}
     >
-      {icon}
+      <span className="text-course-card-title-text-color">{icon}</span>
       <span>{children}</span>
     </span>
   );

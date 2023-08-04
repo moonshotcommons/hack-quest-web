@@ -15,21 +15,22 @@ import { useRouter } from 'next/router';
 import { FC, useState } from 'react';
 import WhiteListModal from '../WhiteListModal';
 
-const CustomButton: FC<ButtonProps> = (props) => {
-  const { children } = props;
-  return (
-    <Button
-      padding="px-[3rem] py-[1.25rem]"
-      fontStyle="Inter font-normal font-next-book"
-      textStyle="text-[.875rem] text-white leading-[1.25rem]"
-      {...props}
-    >
-      {children}
-    </Button>
-  );
-};
+// const CustomButton: FC<ButtonProps> = (props) => {
+//   const { children } = props;
+//   return (
+//     <Button
+//       padding="px-[3rem] py-[1.25rem]"
+//       fontStyle="Inter font-normal font-next-book"
+//       textStyle="text-[.875rem] text-white leading-[1.25rem]"
+//       {...props}
+//     >
+//       {children}
+//     </Button>
+//   );
+// };
 interface RegisterFormProps {
   // children: ReactNode;
+  email: string;
 }
 
 const RegisterForm: FC<RegisterFormProps> = (props) => {
@@ -38,16 +39,16 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
     password: string;
     reenterPassword: string;
   }>({
-    email: '',
+    email: props.email,
     password: '',
     reenterPassword: ''
   });
 
   const [formState, setFormState] = useState({
-    email: {
-      status: 'default',
-      errorMessage: ''
-    },
+    // email: {
+    //   status: 'default',
+    //   errorMessage: ''
+    // },
     password: {
       status: 'default',
       errorMessage: ''
@@ -59,7 +60,7 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
   });
 
   const { validator } = useValidator([
-    'registerEmail',
+    // 'registerEmail',
     'password',
     'reenterPassword'
   ]);
@@ -111,7 +112,7 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
           Register
         </p>
 
-        <Input
+        {/* <Input
           label="Email"
           type="email"
           placeholder="Email"
@@ -162,12 +163,12 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
               email: e.target.value
             });
           }}
-        ></Input>
+        ></Input> */}
         <Input
           label="Password"
           type="password"
           name="password"
-          placeholder="Password"
+          placeholder="8+characters with a mix of letters & numbers"
           description="Use 8 or more characters with a mix of letters & numbers"
           state={formState.password.status as any}
           errorMessage={formState.password.errorMessage}
@@ -246,16 +247,15 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
             </p>
           </div>
         </div>
-        <CustomButton onClick={onRegister} block>
-          <div className="flex items-center gap-[1.25rem]">
-            <span className="text-[1.25rem] font-next-book text-white leading-[118.5%]">
-              Create Account
-            </span>
-            <span>
-              <RightArrowIcon></RightArrowIcon>
-            </span>
-          </div>
-        </CustomButton>
+        <Button
+          onClick={onRegister}
+          block
+          icon={<RightArrowIcon></RightArrowIcon>}
+          iconPosition="right"
+          type="primary"
+        >
+          Create Account
+        </Button>
       </div>
       <WhiteListModal
         open={showWhiteListModal}

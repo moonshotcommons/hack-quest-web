@@ -1,4 +1,11 @@
-import { FC, useState, useEffect, ReactNode, useLayoutEffect } from 'react';
+import {
+  FC,
+  useState,
+  useEffect,
+  ReactNode,
+  useLayoutEffect,
+  useContext
+} from 'react';
 import CMEditor from './Codemirror';
 import { Block } from './Block';
 // import API from '@/service/api/';
@@ -8,24 +15,26 @@ import Celebrate from './CelebrateCard';
 import Button, { ButtonProps } from '../Common/Button';
 import { useParseQuiz } from '@/hooks/useParseQuiz';
 import { CourseType } from '@/service/webApi/course/type';
+import { ThemeContext } from '@/store/context/theme';
+import { Theme } from '@/constants/enum';
 
 // https://github.com/replit/codemirror-lang-solidity/issues/2 solidity language's problem
 
-const CustomButton: FC<ButtonProps> = (props) => {
-  const { children } = props;
-  return (
-    <Button
-      padding="px-[3rem] py-[1rem]"
-      fontStyle="Inter font-normal"
-      textStyle="text-[.875rem] text-white leading-[1.25rem]"
-      bgColor="bg-transparent"
-      {...props}
-      className="border bg-transparent"
-    >
-      {children}
-    </Button>
-  );
-};
+// const CustomButton: FC<ButtonProps> = (props) => {
+//   const { children } = props;
+//   return (
+//     <Button
+//       padding="px-[3rem] py-[1rem]"
+//       fontStyle="Inter font-normal"
+//       textStyle="text-[.875rem] text-white leading-[1.25rem]"
+//       bgColor="bg-transparent"
+//       {...props}
+//       className="border bg-transparent"
+//     >
+//       {children}
+//     </Button>
+//   );
+// };
 
 const Quest: FC<{
   content: any[];
@@ -251,6 +260,8 @@ const Quest: FC<{
     codeTextDispatch('//code starts here\n\n//code ends here');
   };
 
+  const { theme } = useContext(ThemeContext);
+
   return (
     <>
       <div className="h-full w-full overflow-hidden flex flex-col">
@@ -260,7 +271,7 @@ const Quest: FC<{
         {/*  <img className='passed-img' src={correct} alt={``} />*/}
         {/*</div>*/}
 
-        <div className="overflow-y-scroll flex-1 scroll-wrap-y">
+        <div className="overflow-y-scroll flex-1 scroll-wrap-y no-scrollbar">
           {passed ? (
             <div className={`passed-container passed-container-main opacity-0`}>
               <div className="passed-title">Good Job!</div>
@@ -272,7 +283,7 @@ const Quest: FC<{
           ) : (
             <div className="lesson-quiz-content h-[100%] flex flex-col relative">
               <div className="">
-                <div className="text-[#F2F2F2] font-next-book-bold text-[1rem]">
+                <div className="text-text-default-color font-next-book-bold text-[1rem]">
                   Quest
                 </div>
                 <div className="py-[1.5rem]">
@@ -302,7 +313,7 @@ const Quest: FC<{
                       errorLines={errorLines}
                       setErrorLines={setErrorLines}
                       correctLines={correctLines}
-                      darkMode={darkMode}
+                      darkMode={theme === Theme.Dark}
                     />
                   </div>
                 </div>
@@ -313,22 +324,31 @@ const Quest: FC<{
         <div className="mt-[30px] flex items-center justify-end">
           {codeWrong ? (
             <div className="flex gap-[1.25rem] justify-end z-[99999]">
-              <CustomButton type={0} onClick={handleTryAgain}>
-                Try Again
-              </CustomButton>
               {!toggleAnswer && (
-                <CustomButton type={0} onClick={showAnswer}>
+                <Button
+                  onClick={showAnswer}
+                  className="bg-lesson-ghost-button-bg text-lesson-ghost-button-text-color border border-lesson-ghost-border-color px-[3rem] py-[1rem]"
+                >
                   {/* {toggleAnswer ? 'Hide the answer' : 'Show me the answer'} */}
                   {'Show me the answer'}
-                </CustomButton>
+                </Button>
               )}
+              <Button
+                onClick={handleTryAgain}
+                className="bg-lesson-primary-button-bg text-lesson-primary-button-text-color border border-lesson-primary-button-border-color font-next-book px-[3rem] py-[1rem]"
+              >
+                Try Again
+              </Button>
             </div>
           ) : (
             !passed && (
               <div className="">
-                <CustomButton type={2} onClick={handleSubmit}>
+                <Button
+                  onClick={handleSubmit}
+                  className="bg-lesson-primary-button-bg text-lesson-primary-button-text-color border border-lesson-primary-button-border-color font-next-book px-[3rem] py-[1rem]"
+                >
                   {shouldRenderCodeEditor ? 'Check Answer' : 'Next'}
-                </CustomButton>
+                </Button>
               </div>
             )
           )}

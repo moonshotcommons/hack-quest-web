@@ -84,7 +84,10 @@ const SessionItemRenderer: FC<SessionItemRendererProps> = (props) => {
   if (['left'].includes(item.type)) {
     return (
       <div className="w-full">
-        <DialogBox direction={item.type} className="max-w-[74%]">
+        <DialogBox
+          direction={item.type}
+          className="max-w-[74%] bg-lesson-left-session-bg text-lesson-left-session-text-color"
+        >
           {children}
         </DialogBox>
       </div>
@@ -95,16 +98,16 @@ const SessionItemRenderer: FC<SessionItemRendererProps> = (props) => {
     return (
       <div className="w-full flex justify-end items-center gap-4">
         {!isDisable && (
-          <span className="text-[#676767] text-[0.875rem] leading-[121%]">
+          <span className="text-lesson-right-session-text-color text-[0.875rem] leading-[121%]">
             click here
           </span>
         )}
         <DialogBox
           direction={item.type}
-          className={`max-w-[74%] ${
+          className={`max-w-[74%] bg-lesson-right-session-bg border border-lesson-right-session-border-color text-lesson-right-session-text-color  ${
             isDisable
               ? 'cursor-not-allowed'
-              : 'cursor-pointer hover:bg-[#EDEDED] hover:text-[#000]'
+              : 'cursor-pointer hover:bg-lesson-right-session-hover-bg hover:text-lesson-right-session-hover-text-color hover:border-lesson-right-session-hover-border-color'
           }`}
           onClick={onNext}
         >

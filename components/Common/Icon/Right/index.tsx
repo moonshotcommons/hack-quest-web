@@ -12,13 +12,7 @@ interface BaseIconProps {
 type IconProps = BaseIconProps & React.HTMLAttributes<unknown>;
 
 const RightIcon: React.FC<IconProps> = (props) => {
-  const {
-    size = 24,
-    width = 20,
-    height = 11,
-    color = 'white',
-    hoverColor = 'black'
-  } = props;
+  const { size = 24, width = 20, height = 11, color = 'currentColor' } = props;
 
   return (
     <svg

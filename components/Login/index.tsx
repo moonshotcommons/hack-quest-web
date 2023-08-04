@@ -19,19 +19,19 @@ import { useDebounceFn, useKeyPress } from 'ahooks';
 import { setToken } from '@/helper/user-token';
 import { omit } from 'lodash-es';
 
-const CustomButton: FC<ButtonProps> = (props) => {
-  const { children } = props;
-  return (
-    <Button
-      padding="px-[3rem] py-[1.25rem]"
-      fontStyle="Inter font-normal font-next-book"
-      textStyle="text-[.875rem] text-white leading-[1.25rem]"
-      {...props}
-    >
-      {children}
-    </Button>
-  );
-};
+// const CustomButton: FC<ButtonProps> = (props) => {
+//   const { children } = props;
+//   return (
+//     <Button
+//       padding="px-[3rem] py-[1.25rem]"
+//       fontStyle="Inter font-normal font-next-book"
+//       textStyle="text-[.875rem] text-white leading-[1.25rem]"
+//       {...props}
+//     >
+//       {children}
+//     </Button>
+//   );
+// };
 
 interface UserLoginProps {
   // children: ReactNode;
@@ -109,11 +109,11 @@ const UserLogin: FC<UserLoginProps> = (props) => {
   useKeyPress('enter', onLogin);
 
   return (
-    <div className="px-[6.875rem] py-[11.3125rem] h-full flex flex-col justify-center items-center">
+    <div className="py-[11.3125rem] h-full flex flex-col justify-center items-center">
       {/* <ThirdPartyLogin></ThirdPartyLogin> */}
       <div className="flex flex-col gap-[2rem]">
-        <p className="text-[#F8F8F8] text-[1.75rem] font-Sofia-Pro-Light-Az font-semibold leading-[150%]">
-          Welcome
+        <p className="text-text-default-color text-[1.75rem] font-Sofia-Pro-Light-Az font-semibold leading-[150%]">
+          Welcome to HACKQUEST, Register to begin the Journey.
         </p>
 
         <Input
@@ -173,16 +173,15 @@ const UserLogin: FC<UserLoginProps> = (props) => {
             Keep me logged in
           </p>
         </div>
-        <CustomButton onClick={onLogin} block>
-          <div className="flex items-center gap-[1.25rem]">
-            <span className="text-[1.25rem] font-next-book text-white leading-[118.5%]">
-              Login now
-            </span>
-            <span>
-              <RightArrowIcon></RightArrowIcon>
-            </span>
-          </div>
-        </CustomButton>
+        <Button
+          onClick={onLogin}
+          block
+          icon={<RightArrowIcon></RightArrowIcon>}
+          iconPosition="right"
+          type="primary"
+        >
+          Login now
+        </Button>
 
         <Link href={'/auth/forget-password'} className="w-full text-right">
           <span className="text-[#676767] font-Sofia-Pro-Light-Az text-[1rem] leading-[150%] tracking-[-0.011rem] text-right">

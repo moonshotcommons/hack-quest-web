@@ -12,19 +12,19 @@ import { NextPage } from 'next';
 import Link from 'next/link';
 import { FC, useEffect, useState } from 'react';
 
-const CustomButton: FC<ButtonProps> = (props) => {
-  const { children } = props;
-  return (
-    <Button
-      padding="px-[3rem] py-[1.25rem]"
-      fontStyle="Inter font-normal font-next-book"
-      textStyle="text-[.875rem] text-white leading-[1.25rem]"
-      {...props}
-    >
-      {children}
-    </Button>
-  );
-};
+// const CustomButton: FC<ButtonProps> = (props) => {
+//   const { children } = props;
+//   return (
+//     <Button
+//       padding="px-[3rem] py-[1.25rem]"
+//       fontStyle="Inter font-normal font-next-book"
+//       textStyle="text-[.875rem] text-white leading-[1.25rem]"
+//       {...props}
+//     >
+//       {children}
+//     </Button>
+//   );
+// };
 
 const LoginPage: NextPage<any> = () => {
   const [emailCheckStatus, setEmailCheckStatus] = useState(false);
@@ -34,6 +34,7 @@ const LoginPage: NextPage<any> = () => {
     <div className="w-full h-full flex justify-end items-center">
       {!showLogin ? (
         <VerifyEmail
+          actionType="login"
           onStatusChange={(status) => setEmailCheckStatus(status)}
           onNext={(email: string) => {
             if (emailCheckStatus) {
