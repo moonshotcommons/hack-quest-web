@@ -96,7 +96,7 @@ const Input = forwardRef<
             setStatus('error');
             setErrorMessage(errors[0].message || '');
           } else {
-            setStatus('success');
+            setStatus('default');
             setErrorMessage('');
           }
         });
@@ -119,7 +119,7 @@ const Input = forwardRef<
           value={value}
           placeholder={placeholder}
           className={cn(
-            `w-full h-[3.75rem] px-[1.5rem] bg-transparent border border-solid border-[#5B5B5B] rounded-[2.5rem] outline-none text-[#5B5B5B] text-[1.25rem] font-Sofia-Pro-Light-Az -leading-[0.01375rem] caret-[#5B5B5B] hover:border-white focus:border-white focus:text-white`,
+            `w-full h-[3.75rem] px-[1.5rem] bg-transparent border border-solid border-setting-input-line-color rounded-[2.5rem] outline-none text-setting-input-text-color text-[1.25rem] font-Sofia-Pro-Light-Az -leading-[0.01375rem] caret-[#5B5B5B] hover:border-setting-input--border-hover-color focus:border-setting-input--border-hover-color focus:text-setting-input-text-color`,
             status === 'success'
               ? 'border-[#9EFA13] focus:border-[#9EFA13]'
               : '',

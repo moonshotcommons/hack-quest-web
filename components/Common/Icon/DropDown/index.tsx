@@ -31,7 +31,7 @@ const DropDownIcon: React.FC<IconProps> = (props) => {
       >
         <path
           d="M11.5879 1.25L6.29377 8.75L0.999656 1.25"
-          stroke="white"
+          stroke={color}
           strokeWidth="1.76471"
           strokeLinejoin="bevel"
         />

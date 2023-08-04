@@ -53,7 +53,7 @@ const AvatarUpload: FC<AvatarUploadProps> = (props) => {
   const dispatch = useDispatch();
   return (
     <div className="flex flex-row gap-[1.5rem] items-center">
-      <div className="relative w-[5rem] h-[5rem] bg-[#D9D9D9] rounded-full overflow-hidden flex justify-center items-center">
+      <div className="relative w-[5rem] h-[5rem] bg-[#8d8d8d] rounded-full overflow-hidden flex justify-center items-center">
         <Image
           src={userInfo?.avatar || ''}
           alt="avatar"
@@ -86,7 +86,7 @@ const AvatarUpload: FC<AvatarUploadProps> = (props) => {
         >
           <div
             type="file"
-            className="text-[0.875rem] font-next-book leading-[120%] text-[#F2F2F2] border border-solid border-white px-[2.5rem] py-[1rem] rounded-[2.5rem]"
+            className="text-[0.875rem] font-next-book leading-[120%] text-setting-upload-button-text-color bg-setting-upload-button-bg border border-solid border-setting-upload-button-border-color px-[2.5rem] py-[1rem] rounded-[2.5rem]"
           >
             Upload
           </div>

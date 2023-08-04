@@ -1,14 +1,20 @@
 import Image from 'next/image';
-import React from 'react';
-import Logo from '@/public/images/logo/logo_hack_quest.svg';
+import React, { useContext } from 'react';
+// import Logo from '@/public/images/logo/logo_hack_quest.svg';
+import LightLogo from '@/public/images/logo/light-footer-logo.svg';
+import DarkLogo from '@/public/images/logo/dark-footer-logo.svg';
+
 import TwitterIcon from '@/components/Common/Icon/Twitter';
 import DiscordIcon from '@/components/Common/Icon/Discord';
 import Link from 'next/link';
 import ContractUs from '@/components/Home/ContractUs';
+import { ThemeContext } from '@/store/context/theme';
+import { Theme } from '@/constants/enum';
 
 const Footer = () => {
+  const { theme } = useContext(ThemeContext);
   return (
-    <div className="w-full gap-[6.25rem] pt-[12rem] bg-global-bg mt-[3rem] pb-[3.5rem] flex justify-between flex-col">
+    <div className="w-full gap-[6.25rem] pt-[12rem] bg-default-global-bg mt-[3rem] pb-[3.5rem] flex justify-between flex-col">
       <div className="h-full flex justify-between">
         <h2 className="font-next-poster-Bold w-[18rem] text-text-default-color text-[2rem]">
           WEB3 programming for Everyone
@@ -38,7 +44,8 @@ const Footer = () => {
         </div>
       </div>
       <div className="w-full relative flex justify-between items-end pb-[2.625rem] bottom-line">
-        <Image src={Logo} alt="logo"></Image>
+        {theme === Theme.Light && <Image src={LightLogo} alt="logo"></Image>}
+        {theme === Theme.Dark && <Image src={DarkLogo} alt="logo"></Image>}
         <p className="text-text-default-color text-sm font-next-book-Thin">
           © 2023 HackQuests. All Rights Reserved.
         </p>

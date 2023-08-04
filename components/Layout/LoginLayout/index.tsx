@@ -13,7 +13,7 @@ export interface LoginLayoutProps {
 const LoginLayout: React.FC<LoginLayoutProps> = ({ children }) => {
   return (
     <div
-      className={`w-full relative min-h-screen bg-global-bg ${inter.className} bg-cover bg-no-repeat`}
+      className={`w-full relative min-h-screen bg-default-global-bg ${inter.className} bg-cover bg-no-repeat`}
     >
       <div className="fixed w-full bottom-0 left-0">
         <Image

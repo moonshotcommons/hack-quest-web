@@ -22,25 +22,26 @@ interface ChangePasswordProps {
 
 const PasswordInput: FC<{ onChange: VoidFunction }> = (props) => {
   const { onChange } = props;
+
   return (
     <div className="w-full relative flex flex-col gap-[0.25rem] bottom-line">
-      <span className="text-[#676767] text-[0.875rem] font-next-book leading-[110%]">
+      <span className="text-setting-input-title-color text-[0.875rem] font-next-book leading-[110%]">
         Password
       </span>
       <div className="h-[3.5rem] flex justify-between items-center">
         <div className="flex gap-[1.25rem]">
-          <span>
-            <LockIcon color="#676767" size={24}></LockIcon>
+          <span className="text-setting-input-icon-color">
+            <LockIcon color="currentColor" size={24}></LockIcon>
           </span>
           <input
             type="password"
             value={'********'}
-            className="bg-transparent h-full text-[#EDEDED] text-[1rem] font-next-book leading-[120%]"
+            className="bg-transparent h-full text-setting-input-text-color text-[1rem] font-next-book leading-[120%]"
           />
         </div>
 
         <div
-          className="text-[0.875rem] font-next-book leading-[120%] text-[#F2F2F2] border border-solid border-white px-[2.5rem] py-[1rem] rounded-[2.5rem] cursor-pointer"
+          className="text-[0.875rem] font-next-book leading-[120%] text-setting-transparent-button-text-color border border-solid border-setting-transparent-button-border-color bg-setting-transparent-button-bg px-[2.5rem] py-[1rem] rounded-[2.5rem] cursor-pointer"
           onClick={onChange}
         >
           Change password
@@ -156,7 +157,7 @@ const ChangePasswordInput: FC<{
 
   return (
     <div className="w-full flex flex-col gap-[1.5rem] mt-[1.5rem]">
-      <h1 className="text-white text-[1.5rem] font-bold font-next-poster-Bold leading-[110%] tracking-[0.03rem]">
+      <h1 className="text-text-default-color text-[1.5rem] font-bold font-next-poster-Bold leading-[110%] tracking-[0.03rem]">
         Change password
       </h1>
       {!changeSuccessVisible && (
@@ -240,14 +241,14 @@ const ChangePasswordInput: FC<{
           ></Input>
           <div className="flex gap-[0.5rem] self-end">
             <button
-              className="px-[2.5rem] py-[1rem] border border-solid border-[#676767] rounded-[2.5rem] text-[0.875rem] font-next-book leading-[120%] text-[#F2F2F2] hover:bg-[#F2F2F2] hover:text-[#676767]"
+              className="px-[2.5rem] py-[1rem] border border-solid border-[#676767] rounded-[2.5rem] text-[0.875rem] font-next-book leading-[120%] text-setting-transparent-button-text-color hover:bg-[#F2F2F2] hover:text-[#676767]"
               onClick={(e) => changeVisible(false)}
             >
               Cancel
             </button>
             <button
               disabled={updateDisable}
-              className={`px-[2.5rem] py-[1rem] border border-solid border-[#676767] rounded-[2.5rem] text-[0.875rem] font-next-book leading-[120%] text-[#F2F2F2] disabled:text-[#676767] hover:bg-[#F2F2F2] disabled:bg-transparent hover:text-[#676767] ${
+              className={`px-[2.5rem] py-[1rem] border border-solid bg-setting-upload-button-bg border-setting-upload-button-border-color rounded-[2.5rem] text-[0.875rem] font-next-book leading-[120%] text-setting-upload-button-text-color disabled:text-[#676767] hover:bg-[#F2F2F2] disabled:bg-transparent hover:text-[#676767] ${
                 updateDisable ? 'cursor-not-allowed' : ''
               }`}
               onClick={onUpdate}
@@ -273,7 +274,7 @@ const ChangePasswordInput: FC<{
             You have changed your password successfully.
           </p>
           <button
-            className="px-[2rem] py-[1rem] w-fit text-[#F2F2F2] text-[0.875rem] leading-[120%] border border-solid rounded-[2.5rem] border-[#5B5B5B]"
+            className="px-[2rem] py-[1rem] w-fit text-text-default-color text-[0.875rem] leading-[120%] border border-solid rounded-[2.5rem] border-[#5B5B5B]"
             onClick={(e) => {
               changeVisible(false);
               setChangeSuccessVisible(false);

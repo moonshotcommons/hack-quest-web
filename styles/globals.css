@@ -70,7 +70,7 @@
   }
 
   .arrow {
-    @apply flex items-center justify-center p-2 rounded-full border border-solid border-[#303030] hover:bg-[#303030] cursor-pointer;
+    @apply flex items-center justify-center p-2 rounded-full border border-solid border-course-banner-arrow-border-color hover:bg-course-banner-arrow-hover-bg cursor-pointer;
   }
 
   .primary-button-hover {
@@ -139,4 +139,8 @@
   -webkit-box-shadow: inset 0 0 5px rgba(95, 95, 95, 0.2);
   border-radius: 16px;
   background: rgba(150, 150, 150, 0.1);
+}
+
+body {
+  transition: all ease-in-out 0.5;
 }

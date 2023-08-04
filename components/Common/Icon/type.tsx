@@ -2,6 +2,7 @@ import { tuple } from '@/helper/formate';
 
 const IconKeys = tuple(
   'Bottom',
+  'Check',
   'Clock',
   'Close',
   'Copy',

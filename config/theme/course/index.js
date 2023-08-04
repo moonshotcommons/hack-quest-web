@@ -20,8 +20,34 @@ const courseThemeColors = {
   'course-banner-arrow-color': 'var(--course-banner-arrow-color)',
   'line-color': 'var(--line-color)',
   'course-progress-button-bg': 'var(--course-progress-button-bg)',
-  'course-progress-icon-bg': 'var(--course-progress-icon-color)',
-  'course-progress-text-bg': 'var(--course-progress-text-color)'
+  'course-progress-button-icon-bg': 'var(--course-progress-button-icon-color)',
+  'course-progress-button-text-bg': 'var(--course-progress-button-text-color)',
+  'course-learning-button-bg': 'var(--course-learning-button-bg)',
+  'course-learning-button-text-color':
+    'var(--course-learning-button-text-color)',
+  'course-learning-button-border-color':
+    'var(--course-learning-button-border-color)',
+  'course-progress-border-color': 'var(--course-progress-border-color)',
+  'course-progress-text-color': 'var(--course-progress-text-color)',
+  'course-detail-desc-text-color': 'var(--course-detail-desc-text-color)',
+  'course-unit-desc-text-color': 'var(--course-unit-desc-text-color)',
+  'course-unit-lock-icon-color': 'var(--course-unit-lock-icon-color)',
+  'course-detail-type-text-color': 'var(--course-detail-type-text-color)',
+  'course-detail-desc-border-color': 'var(--course-detail-desc-border-color)',
+  'course-progress-icon-color': 'var(--course-progress-icon-color)',
+  'earning-track-progress-border-color':
+    'var(--earning-track-progress-border-color)',
+  'learning-track-progress-text-color':
+    'var(--learning-track-progress-text-color)',
+  'learning-track-course-hover-bg': 'var(--learning-track-course-hover-bg)',
+  'learning-track-course-title-color':
+    'var(--learning-track-course-title-color)',
+  'learning-track-course-type-color': 'var(--learning-track-course-type-color)',
+  'course-banner-arrow-hover-bg': 'var(--course-banner-arrow-hover-bg)',
+  'course-banner-arrow-border-color': 'var(--course-banner-arrow-border-color)',
+  'course-banner-arrow-border-hover-color':
+    'var(--course-banner-arrow-border-hover-color)',
+  'course-banner-arrow-hover-color': 'var(--course-banner-arrow-hover-color)'
 };
 
 module.exports = {

@@ -72,13 +72,13 @@ const LearningTracksCard: React.FC<LearningTracksCardProps> = (props) => {
                   `${courseCount > 1 ? 'Courses' : 'Course'}`}
               </Label>
             </div>
-            <div className="">
+            {/* <div className="">
               {progress > 0 ? (
                 <Button icon={<ProgressIcon />}>
                   {computeProgress(progress)}% COMPLETED
                 </Button>
               ) : null}
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

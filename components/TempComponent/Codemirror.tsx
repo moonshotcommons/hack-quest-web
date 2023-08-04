@@ -93,10 +93,10 @@ const CMEditor: FC<Props> = (props) => {
           codeEditRef.current.editor.querySelector(
             '.cm-scroller'
           ) as HTMLElement
-        )?.classList?.add('scroll-wrap-y');
+        )?.classList?.add('no-scrollbar');
       }
     }
-  }, [codeEditRef]);
+  });
 
   return (
     <CodeMirror

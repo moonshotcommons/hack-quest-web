@@ -67,7 +67,7 @@ const SyntaxCard: React.FC<SyntaxCardProps> = (props) => {
               {progress > 0 ? (
                 <Button
                   type="primary"
-                  className="bg-course-progress-button-bg text-course-progress-text-bg"
+                  className="bg-course-progress-button-bg text-course-progress-button-text-bg"
                   size="small"
                   icon={
                     <i className="text-course-progress-icon-bg">

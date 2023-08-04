@@ -66,7 +66,7 @@ const GuidedProjectCard: React.FC<GuidedProjectCardProps> = (props) => {
             <div className="">
               {progress > 0 ? (
                 <Button
-                  className="bg-course-progress-button-bg text-course-progress-text-bg"
+                  className="bg-course-progress-button-bg text-course-progress-button-text-bg"
                   size="small"
                   icon={
                     <i className="text-course-progress-icon-bg">

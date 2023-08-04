@@ -120,7 +120,7 @@ const SessionSelectRenderer: FC<SessionSelectRendererProps> = (props) => {
 
   return (
     <div className="w-fit max-w-[74%] flex flex-col gap-3 self-end">
-      <span className="text-[#676767] text-[0.875rem] leading-[121% ]">
+      <span className="text-lesson-right-session-text-color text-[0.875rem] leading-[121% ]">
         Select response
       </span>
       {!selectItem &&
@@ -133,7 +133,7 @@ const SessionSelectRenderer: FC<SessionSelectRendererProps> = (props) => {
             >
               <DialogBox
                 direction={child.type}
-                className="hover:bg-[#EDEDED] hover:text-[#000]"
+                className="hover:bg-lesson-right-session-hover-bg hover:border-lesson-right-session-hover-border-color hover:text-lesson-right-session-hover-text-color bg-lesson-right-session-bg text-lesson-right-session-text-color border border-lesson-right-session-border-color"
               >
                 {child.content}
               </DialogBox>
@@ -149,9 +149,11 @@ const SessionSelectRenderer: FC<SessionSelectRendererProps> = (props) => {
           <DialogBox
             direction={selectItem.type}
             onClick={onBack}
-            className={
-              !wait.isEnd ? '' : 'hover:bg-[#EDEDED] hover:text-[#000]'
-            }
+            className={`bg-lesson-right-session-bg border border-lesson-right-session-border-color text-lesson-right-session-text-color ${
+              !wait.isEnd
+                ? ''
+                : 'hover:bg-lesson-right-session-hover-bg hover:text-lesson-right-session-hover-text-color hover:border-lesson-right-session-hover-border-color'
+            }`}
           >
             {selectItem.content}
           </DialogBox>

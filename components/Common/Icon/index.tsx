@@ -1,6 +1,7 @@
 import React from 'react';
 
 import BottomIcon from './Bottom';
+import CheckIcon from './Check';
 import ClockIcon from './Clock';
 import CloseIcon from './Close';
 import CopyIcon from './Copy';
@@ -31,6 +32,7 @@ import { IconsType } from './type';
 
 const Icons: IconsType = {
   Bottom: <BottomIcon />,
+  Check: <CheckIcon />,
   Clock: <ClockIcon />,
   Close: <CloseIcon />,
   Copy: <CopyIcon />,

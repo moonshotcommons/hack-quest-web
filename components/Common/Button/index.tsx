@@ -56,7 +56,7 @@ const Button: FC<ButtonProps> = (props) => {
   return (
     <button
       className={cn(
-        `text-text-default-color flex gap-[.625rem] items-center justify-center h-fit w-fit`,
+        `text-text-default-color flex gap-[.625rem] items-center justify-center h-fit w-fit cursor-pointer`,
         type === 'primary' ? 'bg-primary-color' : '',
         block && 'w-full',
         ghost && 'bg-transparent border-primary-color',
@@ -66,9 +66,9 @@ const Button: FC<ButtonProps> = (props) => {
       )}
       {...rest}
     >
-      {iconPosition === 'left' && <span>{icon}</span>}
+      {icon && iconPosition === 'left' && <span>{icon}</span>}
       <span>{children}</span>
-      {iconPosition === 'right' && <span>{icon}</span>}
+      {icon && iconPosition === 'right' && <span>{icon}</span>}
     </button>
   );
 };
