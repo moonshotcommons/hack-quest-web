@@ -10,7 +10,7 @@ interface BaseIconProps {
 type IconProps = BaseIconProps & React.HTMLAttributes<unknown>;
 
 const RightArrowIcon: React.FC<IconProps> = (props) => {
-  const { size = 24, color = '#fff' } = props;
+  const { size = 24, color = 'currentColor' } = props;
 
   return (
     <svg

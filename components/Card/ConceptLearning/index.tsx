@@ -30,7 +30,7 @@ const ConceptLearningCard: React.FC<ConceptLearningCardProps> = (props) => {
       className={`h-[17.375rem] w-[26rem] bg-[url('/images/card/ConceptLearning/color-bg.svg')] relative flex-shrink-0`}
     >
       <div
-        className={`w-full h-full bg-[url('/images/card/ConceptLearning/bg.svg')] scale-[1.01] absolute top-0 left-0 hover:-top-1 hover:left-1 relative hover:transition-all duration-700`}
+        className={`w-full h-full bg-course-concept-card-bg scale-[1.01] absolute top-0 left-0 hover:-top-1 hover:left-1 hover:transition-all duration-700`}
       >
         <div
           className="absolute top-6 left-4 w-full h-full p-4 bg-no-repeat"
@@ -41,7 +41,7 @@ const ConceptLearningCard: React.FC<ConceptLearningCardProps> = (props) => {
           <div className="flex justify-between h-full">
             <h2 className="title mt-36">
               <Typography.Paragraph
-                className="text-[#EDEDED] font-next-book-bold font-bold text-base w-[9.125rem]"
+                className="text-course-card-title-text-color font-next-book-bold font-bold text-base w-[9.125rem]"
                 ellipsis={{ rows: 3 }}
                 style={{ marginBottom: 0 }}
               >
@@ -49,7 +49,7 @@ const ConceptLearningCard: React.FC<ConceptLearningCardProps> = (props) => {
               </Typography.Paragraph>
             </h2>
             <Label
-              icon={<ClockIcon color="#f2f2f2" />}
+              icon={<ClockIcon />}
               className="mt-10 font-neuemachina-light self-end mb-4 mr-16"
             >
               {computeTime(duration, 'Hour')}

@@ -110,7 +110,7 @@ const LessonPageA: FC<LessonPageAProps> = (props) => {
     <div className="w-full h-[80vh] flex justify-between gap-[4.5rem] mt-[1.25rem]">
       <div
         ref={lessonContentRef}
-        className="text-[#F2F2F2] h-full w-full px-[3rem] py-[2.5rem] rounded-[2.5rem] bg-[#101010] overflow-y-scroll notion-render-block no-scrollbar"
+        className="text-text-default-color h-full w-full px-[3rem] py-[2.5rem] rounded-[2.5rem] bg-lesson-content-global-bg overflow-y-scroll notion-render-block no-scrollbar"
       >
         {lessonContent &&
           lessonContent?.map((block: any) => (
@@ -122,7 +122,7 @@ const LessonPageA: FC<LessonPageAProps> = (props) => {
             />
           ))}
       </div>
-      <div className="w-full text-[#E2E2E2] h-full bg-[#111] notion-render-block py-[2.5rem] rounded-[2.5rem]">
+      <div className="w-full text-text-default-color h-full bg-lesson-content-global-bg notion-render-block py-[2.5rem] rounded-[2.5rem]">
         {RightComponent}
       </div>
       <>

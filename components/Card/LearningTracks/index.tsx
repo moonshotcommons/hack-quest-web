@@ -31,19 +31,28 @@ const LearningTracksCard: React.FC<LearningTracksCardProps> = (props) => {
       className={`h-[17.375rem] w-[26rem] bg-[url('/images/card/LearningTracks/color-bg.svg')] relative flex-shrink-0`}
     >
       <div
-        className={`w-full h-full bg-[url('/images/card/LearningTracks/bg.svg')] scale-[1.01] absolute top-0 left-0 hover:-top-1 hover:left-1 hover:transition-all duration-700`}
+        className={`w-full h-full bg-course-learning-track-card-bg scale-[1.01] absolute top-0 left-0 hover:-top-1 hover:left-1 hover:transition-all duration-700`}
       >
         <div className="h-full pl-10 pr-4 pt-9 flex flex-col justify-start">
           <div className="w-[2.875rem] h-1 rounded-xl bg-gradient-to-t from-[#3CBC34] to-[#D9E313]"></div>
-          <h2 className="title mt-7">{name}</h2>
+          <h2 className="title text-course-card-title-text-color mt-7">
+            {name}
+          </h2>
           <div className="mt-4">
             {(Array.isArray(tags) ? tags : [tags]).map((tag) => {
-              return <Tag key={tag}>{tagFormate(tag)}</Tag>;
+              return (
+                <Tag
+                  key={tag}
+                  className="text-course-tag-learning-track-text-color border-course-tag-learning-track-border-color"
+                >
+                  {tagFormate(tag)}
+                </Tag>
+              );
             })}
           </div>
           <div className="mt-4 description flex-1 text-xs leading-[128%]">
             <Typography.Paragraph
-              className="description text-xs leading-[128%]"
+              className="description text-course-card-description-text-color text-xs leading-[128%]"
               ellipsis={{
                 rows: 3
               }}
@@ -54,28 +63,22 @@ const LearningTracksCard: React.FC<LearningTracksCardProps> = (props) => {
 
           <div className="flex h-[2.25rem] mb-[1.81rem] justify-between">
             <div className="flex gap-8">
-              <Label
-                icon={<ClockIcon color="#f2f2f2" />}
-                className="font-neuemachina-light"
-              >
+              <Label icon={<ClockIcon />} className="font-neuemachina-light">
                 {computeTime(duration, 'Hour')}
               </Label>
-              <Label
-                icon={<CourseIcon color="#f2f2f2" />}
-                className="font-neuemachina-light"
-              >
+              <Label icon={<CourseIcon />} className="font-neuemachina-light">
                 {courseCount +
                   ' ' +
                   `${courseCount > 1 ? 'Courses' : 'Course'}`}
               </Label>
             </div>
-            <div className="">
+            {/* <div className="">
               {progress > 0 ? (
                 <Button icon={<ProgressIcon />}>
                   {computeProgress(progress)}% COMPLETED
                 </Button>
               ) : null}
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

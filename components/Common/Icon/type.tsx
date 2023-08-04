@@ -2,16 +2,18 @@ import { tuple } from '@/helper/formate';
 
 const IconKeys = tuple(
   'Bottom',
+  'Check',
   'Clock',
   'Close',
   'Copy',
   'Course',
+  'DarkInstagram',
   'Discord',
   'DropDown',
   'EmailFill',
   'FlightSideWay',
-  'Instagram',
   'LeftArrow',
+  'LightInstagram',
   'Lock',
   'Pass',
   'Progress',
@@ -21,9 +23,11 @@ const IconKeys = tuple(
   'Setting',
   'SignOut',
   'Skip',
+  'Theme',
   'Twitter',
   'User',
-  'UserFill'
+  'UserFill',
+  'Warning'
 );
 
 export type IconKey = (typeof IconKeys)[number];

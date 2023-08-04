@@ -55,7 +55,7 @@ const Dashboard: NextPage<DashboardProps> = (props) => {
               You haven’t started any {tagFormate(selectTab)} yet.
             </p>
             <Link href={`/courses?courseType=${selectTab}`}>
-              <button className="border border-solid border-[#F2F2F2] py-4 px-8 rounded-[2.5rem] text-sm text-[#F2F2F2] leading-[120%]">
+              <button className="border border-solid border-text-default-color py-4 px-8 rounded-[2.5rem] text-sm text-text-default-color leading-[120%]">
                 View All {tagFormate(selectTab)}
               </button>
             </Link>
@@ -68,9 +68,9 @@ const Dashboard: NextPage<DashboardProps> = (props) => {
   return (
     <div className="w-full">
       {userInfo && (
-        <h1 className="text-[#FFF] font-neuemachina font-bold text-[1.25rem] leading-[110%] mt-[2.8125rem]">{`( “Welcome, ${userInfo.name}” )`}</h1>
+        <h1 className="text-text-default-color font-neuemachina font-bold text-[1.25rem] leading-[110%] mt-[2.8125rem]">{`( “Welcome, ${userInfo.name}” )`}</h1>
       )}
-      {learningTracks.length && (
+      {!!learningTracks.length && (
         <div>
           <Title className="font-bold">{'</Learning Tracks>'}</Title>
           <SliderContainer>

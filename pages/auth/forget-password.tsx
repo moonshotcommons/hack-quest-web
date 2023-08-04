@@ -15,19 +15,19 @@ interface ForgetPasswordProps {
   children: React.ReactNode;
 }
 
-const CustomButton: FC<ButtonProps> = (props) => {
-  const { children } = props;
-  return (
-    <Button
-      padding="px-[3rem] py-[1.25rem]"
-      fontStyle="Inter font-normal font-next-book"
-      textStyle="text-[.875rem] text-white leading-[1.25rem]"
-      {...props}
-    >
-      {children}
-    </Button>
-  );
-};
+// const CustomButton: FC<ButtonProps> = (props) => {
+//   const { children } = props;
+//   return (
+//     <Button
+//       padding="px-[3rem] py-[1.25rem]"
+//       fontStyle="Inter font-normal font-next-book"
+//       textStyle="text-[.875rem] text-white leading-[1.25rem]"
+//       {...props}
+//     >
+//       {children}
+//     </Button>
+//   );
+// };
 
 const ForgetPassword: NextPage<ForgetPasswordProps> = (props) => {
   const [formData, setFormData] = useState<{
@@ -106,7 +106,7 @@ const ForgetPassword: NextPage<ForgetPasswordProps> = (props) => {
             }}
           ></Input>
           <div className="mt-[2rem] flex flex-col gap-[0.75rem]">
-            <CustomButton block onClick={sendEmail}>
+            <Button block onClick={sendEmail}>
               <div className="flex items-center gap-[1.25rem]">
                 <span className="text-[1.25rem] font-next-book text-white leading-[118.5%] font-normal">
                   Send me link
@@ -115,7 +115,7 @@ const ForgetPassword: NextPage<ForgetPasswordProps> = (props) => {
                   <RightArrowIcon></RightArrowIcon>
                 </span>
               </div>
-            </CustomButton>
+            </Button>
             <Link href={'/login'}>
               <button className="py-[20px] w-full rounded-[2.52rem] border border-[#EDEDED] text-[1rem] font-Sofia-Pro-Light-Az text-white leading-[1.25rem]">
                 Back

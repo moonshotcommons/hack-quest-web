@@ -45,7 +45,7 @@ const LearningTrackDetail: NextPage<IProps> = (props) => {
 
             {!learningTrackDetail?.enrolled && (
               <button
-                className="px-8 w-fit py-4 mt-[1.875rem] border border-solid border-[#F2F2F2] rounded-[2.5rem] text-sm text-[#F2F2F2] primary-button-hover cursor-pointer"
+                className="px-8 w-fit py-4 mt-[1.875rem] bg-course-learning-button-bg border border-solid border-course-learning-button-border-color rounded-[2.5rem] text-sm text-course-learning-button-text-color primary-button-hover cursor-pointer"
                 onClick={enroll}
               >
                 Enroll

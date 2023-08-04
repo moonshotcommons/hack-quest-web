@@ -10,7 +10,7 @@ interface BaseIconProps {
 type IconProps = BaseIconProps & React.HTMLAttributes<unknown>;
 
 const ProgressIcon: React.FC<IconProps> = (props) => {
-  const { size = 24, color = '#9EFA13' } = props;
+  const { size = 24, color = 'currentColor' } = props;
 
   return (
     <svg

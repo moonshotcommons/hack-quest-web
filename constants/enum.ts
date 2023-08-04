@@ -1,7 +1,7 @@
 /** 主题 */
 export enum Theme {
-  Dark = 'DARK',
-  Light = 'LIGHT'
+  Dark = 'dark',
+  Light = 'light'
 }
 
 /** 卡片类型 */

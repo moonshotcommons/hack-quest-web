@@ -1,6 +1,14 @@
 'use client';
-import { FC, ReactNode, useCallback, useEffect, useState } from 'react';
-import LessonPassLogo from '@/public/images/lesson/lesson_pass_logo.png';
+import {
+  FC,
+  ReactNode,
+  useCallback,
+  useContext,
+  useEffect,
+  useState
+} from 'react';
+import DarkLessonPassLogo from '@/public/images/lesson/dark-lesson_pass_logo.png';
+import LightLessonPassLogo from '@/public/images/lesson/light-lesson_pass_logo.png';
 import Image from 'next/image';
 import Button, { ButtonProps } from '@/components/Common/Button';
 import { useRouter } from 'next/router';
@@ -9,29 +17,32 @@ import { AppRootState } from '@/store/redux';
 import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
 import { getCourseLink, getLessonLink } from '@/helper/utils';
 import { useDebounceEffect, useDebounceFn } from 'ahooks';
+import { ThemeContext } from '@/store/context/theme';
+import { Theme } from '@/constants/enum';
 interface LessonPassPageProps {
   lesson: CourseLessonType;
   courseType: CourseType;
   isLastLesson: boolean;
 }
 
-const CustomButton: FC<ButtonProps> = (props) => {
-  const { children } = props;
-  return (
-    <Button
-      padding="px-[3rem] py-[1.25rem]"
-      fontStyle="Inter font-normal font-next-book"
-      textStyle="text-[.875rem] text-white leading-[1.25rem]"
-      {...props}
-    >
-      {children}
-    </Button>
-  );
-};
+// const CustomButton: FC<ButtonProps> = (props) => {
+//   const { children } = props;
+//   return (
+//     <Button
+//       padding="px-[3rem] py-[1.25rem]"
+//       fontStyle="Inter font-normal font-next-book"
+//       textStyle="text-[.875rem] text-white leading-[1.25rem]"
+//       {...props}
+//     >
+//       {children}
+//     </Button>
+//   );
+// };
 
 const LessonPassPage: FC<LessonPassPageProps> = (props) => {
   const { lesson, courseType, isLastLesson } = props;
   const router = useRouter();
+  const { theme } = useContext(ThemeContext);
   const { unitsLessonsList } = useSelector((state: AppRootState) => {
     return {
       unitsLessonsList: state.course.unitsLessonsList
@@ -70,26 +81,36 @@ const LessonPassPage: FC<LessonPassPageProps> = (props) => {
   return (
     <div className={`w-full h-full flex justify-between flex-col text-center`}>
       <div className="mt-[7.5rem]">
-        <div className="font-futura-bold text-[1.5rem] leading-[110%] text-white">
+        <div className="font-futura-bold text-[1.5rem] leading-[110%] text-text-default-color">
           Good Job!
         </div>
-        <div className="font-Sofia-Pro-Light-Az leading-[1.25rem] text-white mt-[1.25rem]">
+        <div className="font-Sofia-Pro-Light-Az leading-[1.25rem] text-text-default-color mt-[1.25rem]">
           Your answer are all correct.
         </div>
         <div className="mt-[4rem] flex justify-center">
-          <Image src={LessonPassLogo} alt="pass-logo" width={269}></Image>
+          {theme === Theme.Dark && (
+            <Image src={DarkLessonPassLogo} alt="pass-logo" width={269}></Image>
+          )}
+          {theme === Theme.Light && (
+            <Image
+              src={LightLessonPassLogo}
+              alt="pass-logo"
+              width={269}
+            ></Image>
+          )}
         </div>
       </div>
       <div className="-mb-[1.25rem]">
         {!isLastLesson && (
-          <CustomButton
+          <Button
             block
+            className="bg-lesson-primary-button-bg text-lesson-primary-button-text-color border border-lesson-primary-button-border-color font-next-book"
             onClick={() => {
               onNextClick();
             }}
           >
             Next
-          </CustomButton>
+          </Button>
         )}
       </div>
     </div>

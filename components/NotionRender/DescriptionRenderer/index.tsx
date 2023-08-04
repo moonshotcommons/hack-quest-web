@@ -16,7 +16,7 @@ const DescriptionRenderer: FC<DescriptionRendererProps> = (props) => {
         rows: 6,
         expandable: true,
         symbol: (
-          <span className="text-[#676767] font-next-book text-[1rem] leading-[120%]">{`</View More>`}</span>
+          <span className="text-renderer-description-more-text-color font-next-book text-[1rem] leading-[120%]">{`</View More>`}</span>
         )
       }}
       className="font-next-book text-[#676767] text-[1rem] leading-[120%] "

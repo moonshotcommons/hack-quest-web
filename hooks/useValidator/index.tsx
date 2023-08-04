@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Schema, { Rule, type Rules } from 'async-validator';
+import Schema, { Rule, ValidateMessages, type Rules } from 'async-validator';
 import webApi from '@/service';
 
 export type FormStatusType = 'default' | 'error' | 'success';
@@ -19,8 +19,8 @@ const checkEmailRules: Rule = [
   {
     type: 'string',
     required: true,
-    pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-    message: 'Incorrect Email'
+    pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+    // message: 'Incorrect Email'
   },
   {
     async asyncValidator(rule, value, callback, source, options) {
@@ -47,8 +47,8 @@ const checkRegisterEmailRules: Rule = [
   {
     type: 'string',
     required: true,
-    pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-    message: 'Incorrect Email'
+    pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+    // message: 'Incorrect Email'
   },
   {
     async asyncValidator(rule, value, callback, source, options) {
@@ -75,15 +75,15 @@ const checkRegisterEmailRules: Rule = [
 const checkPasswordRules: Rule = {
   type: 'string',
   required: true,
-  pattern: /^(?=.*\d)(?=.*[a-zA-Z]).{8,16}$/,
-  message: 'Incorrect Password'
+  pattern: /^(?=.*\d)(?=.*[a-zA-Z]).{8,16}$/
+  // message: 'Incorrect Password'
 };
 
 const checkReenterPasswordRules: Rule = {
   type: 'string',
   required: true,
-  pattern: /^(?=.*\d)(?=.*[a-zA-Z]).{8,16}$/,
-  message: 'Incorrect Password'
+  pattern: /^(?=.*\d)(?=.*[a-zA-Z]).{8,16}$/
+  // message: 'Incorrect Password'
 };
 
 export const useValidator = (
@@ -98,16 +98,24 @@ export const useValidator = (
   const [status, setStatus] = useState<FormStatusType>('default');
   const [errorMessage, setErrorMessage] = useState('');
   let descriptor: Record<string, Rule> = {};
+  const cn: ValidateMessages = {
+    required: '%s cannot be empty',
+    pattern: { mismatch: '' }
+  };
   types.forEach((type) => {
     switch (type) {
       case 'email':
         descriptor[type] = checkEmailRules;
+        cn.pattern!.mismatch = 'Incorrect Email Format';
         break;
       case 'registerEmail':
         descriptor['email'] = checkRegisterEmailRules;
+        cn.pattern!.mismatch = 'Incorrect Email Format';
         break;
       case 'password':
         descriptor[type] = checkPasswordRules;
+        cn.pattern!.mismatch =
+          'Use 8 or more characters with a mix of letters & numbers';
         break;
       case 'newPassword':
         descriptor[type] = checkPasswordRules;
@@ -120,5 +128,6 @@ export const useValidator = (
 
   const validator = new Schema(descriptor);
 
+  validator.messages(cn);
   return { validator, status, errorMessage, setStatus, setErrorMessage };
 };

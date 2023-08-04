@@ -3,13 +3,14 @@ import React from 'react';
 interface BaseIconProps {
   size?: number | string;
   color?: string;
+  bgColor?: string;
   hoverColor?: string;
   children?: React.ReactNode;
 }
 
 type IconProps = BaseIconProps & React.HTMLAttributes<unknown>;
 
-const InstagramIcon: React.FC<IconProps> = (props) => {
+const DarkInstagramIcon: React.FC<IconProps> = (props) => {
   const { size = 24, color = '#333' } = props;
 
   return (
@@ -39,4 +40,4 @@ const InstagramIcon: React.FC<IconProps> = (props) => {
     </svg>
   );
 };
-export default InstagramIcon;
+export default DarkInstagramIcon;

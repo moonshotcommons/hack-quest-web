@@ -1,4 +1,7 @@
+import CheckIcon from '@/components/Common/Icon/Check';
 import LockIcon from '@/components/Common/Icon/Lock';
+import PassIcon from '@/components/Common/Icon/Pass';
+import { Theme } from '@/constants/enum';
 import { computeProgress } from '@/helper/formate';
 import { getCourseLink } from '@/helper/utils';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
@@ -8,11 +11,12 @@ import {
   CourseType,
   CourseUnitType
 } from '@/service/webApi/course/type';
+import { ThemeContext } from '@/store/context/theme';
 import { Progress, Typography } from 'antd';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { ButtonHTMLAttributes, FC, ReactNode } from 'react';
+import { ButtonHTMLAttributes, FC, ReactNode, useContext } from 'react';
 import styled from 'styled-components';
 
 const CustomProgress = styled(Progress)`
@@ -47,7 +51,7 @@ const UnitButton: FC<
   if (!unit.progress) {
     return (
       <button
-        className="px-8 py-4 border border-solid border-[#F2F2F2] rounded-[2.5rem] whitespace-nowrap text-sm text-[#F2F2F2] primary-button-hover cursor-pointer"
+        className="px-8 py-4 border border-solid bg-course-learning-button-bg border-course-learning-button-border-color rounded-[2.5rem] whitespace-nowrap text-sm text-course-learning-button-text-color primary-button-hover cursor-pointer"
         {...rest}
       >
         Start Learning
@@ -57,7 +61,7 @@ const UnitButton: FC<
 
   return (
     <button
-      className="px-8 py-4 border border-solid border-[#F2F2F2] rounded-[2.5rem] whitespace-nowrap text-sm text-[#F2F2F2] primary-button-hover cursor-pointer"
+      className="px-8 py-4 border border-solid bg-course-learning-button-bg border-course-learning-button-border-color rounded-[2.5rem] whitespace-nowrap text-sm text-course-learning-button-text-color primary-button-hover cursor-pointer"
       {...rest}
     >
       Resume Learning
@@ -69,6 +73,7 @@ const UnitCard: FC<UnitCardProps> = (props) => {
   const { unit, isLock = true, courseDetail, courseType, index } = props;
   const router = useRouter();
   const jumpLearningLesson = useJumpLeaningLesson();
+  const { theme } = useContext(ThemeContext);
   return (
     <div className="py-[1.5rem] flex  items-center">
       <div
@@ -102,30 +107,51 @@ const UnitCard: FC<UnitCardProps> = (props) => {
         ></Image> */}
       </div>
       <div className="ml-[3.69rem] h-[9.8125rem] w-[22.4375rem]">
-        <h2 className="font-next-book-bold font-bold text-[1.5rem] mt-[1.72rem] text-[#F2F2F2] leading-[120%]">
+        <h2 className="font-next-book-bold font-bold text-[1.5rem] mt-[1.72rem] text-text-default-color leading-[120%]">
           {unit.name}
         </h2>
         <div>
           <Typography.Paragraph
             ellipsis={{ rows: 3 }}
-            className="text-[#676767] font-next-book leading-[120%] text-base mt-4 "
+            className="text-course-unit-desc-text-color font-next-book leading-[120%] text-base mt-4 "
           >
             {unit.description}
           </Typography.Paragraph>
         </div>
       </div>
-      <div className="text-white flex-1 flex items-center justify-center">
+      <div className="text-text-default-color flex-1 flex items-center justify-center">
         {isLock ? (
-          <LockIcon width={16} height={21} color="#F2F2F2"></LockIcon>
+          <span className="text-course-unit-lock-icon-color">
+            <LockIcon width={16} height={21} color="currentColor"></LockIcon>
+          </span>
         ) : (
           <CustomProgress
             type="circle"
             percent={Math.floor(computeProgress(unit.progress))}
             strokeWidth={2}
-            strokeColor="#9EFA13"
-            trailColor="#676767"
+            strokeColor={
+              (theme === Theme.Dark && '#9EFA13') ||
+              (theme === Theme.Light && '#FCC409') ||
+              '#9EFA13'
+            }
+            trailColor={
+              (theme === Theme.Dark && '#676767') ||
+              (theme === Theme.Light && '#DADADA') ||
+              '#676767'
+            }
             size={80}
-            format={(percent: any) => `${percent} %`}
+            format={(percent: any) => {
+              if (percent === 100) {
+                return (
+                  <span className="flex justify-center items-center align-middle text-course-progress-icon-color">
+                    <CheckIcon width={32} height={32} color="currentColor" />
+                  </span>
+                );
+              }
+              return (
+                <span className="text-text-default-color">{`${percent} %`}</span>
+              );
+            }}
           ></CustomProgress>
         )}
       </div>

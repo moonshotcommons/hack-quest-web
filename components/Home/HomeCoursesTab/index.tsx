@@ -6,6 +6,7 @@ import { FC, ReactNode, useState } from 'react';
 import { tabData, renderCard } from './data';
 import Link from 'next/link';
 import { renderCourseCard } from '@/helper/renderCard';
+import { cn } from '@/helper/utils';
 interface HomeCourseTabProps {
   // children: ReactNode;
 }
@@ -17,7 +18,7 @@ const HomeCourseTab: FC<HomeCourseTabProps> = (props) => {
 
   return (
     <div>
-      <div className="text-[#F5F5F5] mt-[18.37rem] relative font-next-poster-Bold font-bold text-[2.5rem] text-center z-[99]">
+      <div className="text-text-default-color mt-[18.37rem] relative font-next-poster-Bold font-bold text-[2.5rem] text-center z-[99]">
         What we offer...
       </div>
       <div className="flex justify-center mt-[5.25rem] relative z-[99] items-center gap-[1.25rem]">
@@ -25,39 +26,55 @@ const HomeCourseTab: FC<HomeCourseTabProps> = (props) => {
           return (
             <div
               key={item.title}
-              className={`flex items-center w-fit px-[2rem] py-[1.25rem]  font-next-book-Thin text-[#F5F5F5] text-[1rem] rounded-[2.25rem] border border-solid border-[#F5F5F5] gap-[0.62rem] hover:bg-[#D9D9D9] hover:text-black hover:border-none cursor-pointer ${
+              className={cn(
+                `
+              flex items-center w-fit px-[2rem] py-[1.25rem] font-next-book-Thin bg-landing-tab-bg
+              text-[1rem] rounded-[2.25rem] border border-solid border-landing-tab-border-color
+              hover:bg-landing-tab-hover-bg hover:text-landing-tab-hover-text-color
+              hover:border-landing-tab-hover-border-color cursor-pointer text-landing-tab-text-color
+              `,
                 item.type === selectTabItem?.type
-                  ? 'text-black bg-[#D9D9D9] border-none'
+                  ? 'text-landing-tab-hover-text-color bg-landing-tab-hover-bg border-landing-tab-hover-border-color'
                   : ''
-              }`}
+              )}
               onClick={() => setSelectTabItem(item)}
             >
               <div>{item.title}</div>
-              <span className="mb-1">
-                {item.type === selectTabItem?.type ? (
-                  <BottomIcon width={11} height={17} color="black"></BottomIcon>
-                ) : null}
-              </span>
+              {item.type === selectTabItem?.type && (
+                <span
+                  className={cn(
+                    `mb-1 ml-[0.62rem]  text-landing-tab-hover-text-color`
+                  )}
+                >
+                  <BottomIcon
+                    width={11}
+                    height={17}
+                    color="currentColor"
+                  ></BottomIcon>
+                </span>
+              )}
             </div>
           );
         })}
       </div>
       <div className="flex justify-between mt-[5rem]">
         <div className="">
-          <div className="w-fit whitespace-nowrap flex items-center font-next-book-bold text-[#F5F5F5] text-[2rem] rounded-[5rem] gap-[1.5rem]">
+          <div className="w-fit whitespace-nowrap flex items-center font-next-book-bold text-text-default-color text-[2rem] rounded-[5rem] gap-[1.5rem]">
             <div>{selectTabItem.title}</div>
             <RightIcon></RightIcon>
           </div>
-          <div className="w-[19.625rem] mt-[1.25rem] font-next-book text-[1rem] text-[#F5F5F5]">
+          <div className="w-[19.625rem] mt-[1.25rem] font-next-book text-[1rem] text-text-default-color">
             {selectTabItem.description}
           </div>
           <Link href={'/courses'}>
-            <div className="flex w-fit text-[#F5F5F5] font-next-book text-[1.25rem] items-center gap-[0.31rem] mt-8">
+            <div className="flex w-fit text-text-default-color font-next-book text-[1.25rem] items-center gap-[0.31rem] mt-8">
               <div>
                 <span>Explore All Course</span>
-                <span className="block h-[.0625rem] w-full bg-[#595959]"></span>
+                <span className="block h-[.125rem] w-full bg-primary-color"></span>
               </div>
-              <SkipIcon></SkipIcon>
+              <span className="text-text-default-color">
+                <SkipIcon color="currentColor"></SkipIcon>
+              </span>
             </div>
           </Link>
         </div>

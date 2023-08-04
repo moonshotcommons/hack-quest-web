@@ -10,7 +10,7 @@ interface BaseIconProps {
 type IconProps = BaseIconProps & React.HTMLAttributes<unknown>;
 
 const CourseIcon: React.FC<IconProps> = (props) => {
-  const { size = 15, color = '#F2F2F2' } = props;
+  const { size = 15, color = 'currentColor' } = props;
 
   return (
     <>
