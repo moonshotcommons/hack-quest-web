@@ -1,4 +1,9 @@
-const { missionCenterColors } = require('./missionCenter');
+const {
+  missionCenterColors,
+  missionCenterBackgroundColor,
+  missionCenterBorderColor,
+  missionCenterBackgroundImage
+} = require('./missionCenter');
 const { courseBackgroundImage, courseThemeColors } = require('./course');
 
 const themeColors = {
@@ -16,10 +21,21 @@ const themeColors = {
 };
 
 const backgroundImage = {
-  ...courseBackgroundImage
+  ...courseBackgroundImage,
+  ...missionCenterBackgroundImage
+};
+
+const backgroundColor = {
+  ...missionCenterBackgroundColor
+};
+
+const borderColor = {
+  ...missionCenterBorderColor
 };
 
 module.exports = {
   themeColors,
-  backgroundImage
+  backgroundImage,
+  backgroundColor,
+  borderColor
 };

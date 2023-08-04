@@ -1,5 +1,10 @@
 /** @type {import('tailwindcss').Config} */
-const { themeColors, backgroundImage } = require('./config/theme/variable.js');
+const {
+  themeColors,
+  backgroundImage,
+  backgroundColor,
+  borderColor
+} = require('./config/theme/variable.js');
 module.exports = {
   // corePlugins: {
   //   preflight: false
@@ -13,14 +18,9 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
         ...backgroundImage
       },
-      colors: {
-        ...themeColors
-      },
+
       fontFamily: {
         'next-book-bold': ['NEXT Book Bold'],
         'next-book': ['NEXT Book'],
@@ -51,6 +51,15 @@ module.exports = {
 
         '2xl': '1352px'
         // => @media (min-width: 1352px) { ... }
+      },
+      colors: {
+        ...themeColors
+      },
+      backgroundColor: {
+        ...backgroundColor
+      },
+      borderColor: {
+        ...borderColor
       }
     }
   },

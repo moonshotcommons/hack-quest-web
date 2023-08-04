@@ -72,9 +72,27 @@
   .arrow {
     @apply flex items-center justify-center p-2 rounded-full border border-solid border-[#303030] hover:bg-[#303030] cursor-pointer;
   }
-
   .primary-button-hover {
     @apply hover:bg-white hover:text-black;
+  }
+
+  .flex-col-center {
+    @apply flex flex-col items-center;
+  }
+  .flex-row-center {
+    @apply flex flex-row items-center;
+  }
+  .flex-center {
+    @apply flex items-center justify-center;
+  }
+  .base-btn {
+    @apply w-[145px] h-[40px] flex items-center justify-center text-[14px] rounded-[12px] cursor-pointer text-center;
+  }
+  .base-btn-bg {
+    @apply base-btn bg-mission-center-gradient-radial;
+  }
+  .base-btn-adapt {
+    @apply h-[40px] flex items-center justify-center text-[14px] rounded-[12px] cursor-pointer text-center
   }
 }
 

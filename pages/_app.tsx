@@ -64,6 +64,10 @@ const Layout = (props: {
           {
             name: 'Learning Dashboard',
             path: '/dashboard'
+          },
+          {
+            name: 'Mission Center',
+            path: '/mission-center'
           }
         ];
       }
