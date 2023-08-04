@@ -4,8 +4,8 @@ import { NextPage } from 'next';
 import Image from 'next/image';
 import { FC, useState } from 'react';
 import Robot from '@/public/images/login/robot.svg';
-import MoonLeft from '@/public/images/other/moon_left.svg';
-import MoonRight from '@/public/images/other/moon_right.png';
+import MoonLeft from '@/public/images/other/dark-moon_left.svg';
+import MoonRight from '@/public/images/other/dark-moon_right.png';
 import Link from 'next/link';
 interface CompleteModalProps {
   open: boolean;
