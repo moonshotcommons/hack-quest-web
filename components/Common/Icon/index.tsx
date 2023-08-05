@@ -10,6 +10,7 @@ import DarkInstagramIcon from './DarkInstagram';
 import DiscordIcon from './Discord';
 import DropDownIcon from './DropDown';
 import EmailFillIcon from './EmailFill';
+import EyeIcon from './Eye';
 import FlightSideWayIcon from './FlightSideWay';
 import LeftArrowIcon from './LeftArrow';
 import LightInstagramIcon from './LightInstagram';
@@ -41,6 +42,7 @@ const Icons: IconsType = {
   Discord: <DiscordIcon />,
   DropDown: <DropDownIcon />,
   EmailFill: <EmailFillIcon />,
+  Eye: <EyeIcon />,
   FlightSideWay: <FlightSideWayIcon />,
   LeftArrow: <LeftArrowIcon />,
   LightInstagram: <LightInstagramIcon />,

@@ -24,23 +24,24 @@ const RegisterPage: NextPage<any> = () => {
   const [showRegisterForm, setRegisterForm] = useState(false);
   const [email, setEmail] = useState('');
   return (
-    <div className="relative">
-      <div className="w-full flex justify-end">
-        {!showRegisterForm ? (
-          <VerifyEmail
-            actionType="register"
-            onStatusChange={(status) => setEmailCheckStatus(status)}
-            onNext={(email: string) => {
-              if (emailCheckStatus) {
-                setRegisterForm(true);
-                setEmail(email);
-              }
-            }}
-          ></VerifyEmail>
-        ) : (
-          <RegisterForm email={email}></RegisterForm>
-        )}
-      </div>
+    <div className="w-full max-w-[33.0625rem]  h-full flex justify-end items-center">
+      {!showRegisterForm ? (
+        <VerifyEmail
+          actionType="register"
+          onStatusChange={(status) => setEmailCheckStatus(status)}
+          onNext={(email: string) => {
+            if (emailCheckStatus) {
+              setRegisterForm(true);
+              setEmail(email);
+            }
+          }}
+        ></VerifyEmail>
+      ) : (
+        <RegisterForm
+          email={email}
+          onBack={() => setRegisterForm(false)}
+        ></RegisterForm>
+      )}
     </div>
   );
 };

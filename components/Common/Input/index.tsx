@@ -14,6 +14,7 @@ import {
 import PassIcon from '../Icon/Pass';
 import CloseIcon from '../Icon/Close';
 import WarningIcon from '../Icon/Warning';
+import EyeIcon from '../Icon/Eye';
 
 interface InputProps {
   name: string;
@@ -43,7 +44,7 @@ const Input = forwardRef<
 >((props, ref) => {
   const {
     label,
-    type,
+    type: propType,
     placeholder,
     prefix,
     description,
@@ -56,7 +57,7 @@ const Input = forwardRef<
     onChange,
     defaultValue = '',
     clear = false,
-    showVisibleIcon = type === 'password' ? true : false,
+    showVisibleIcon = propType === 'password' ? true : false,
     ...rest
   } = props;
   const inputRef = useRef<HTMLInputElement>(null);
@@ -68,6 +69,7 @@ const Input = forwardRef<
   };
   const validator = new Schema(descriptor);
   const [value, setValue] = useState(defaultValue);
+  const [type, setType] = useState(propType);
 
   useEffect(() => {
     setStatus(propsState);
@@ -99,6 +101,7 @@ const Input = forwardRef<
       if (rules) {
         validator.validate({ [name]: e.target.value }, (errors, fields) => {
           if (errors && errors[0]) {
+            console.log('error');
             setStatus('error');
             setErrorMessage(errors[0].message || '');
           } else {
@@ -125,41 +128,68 @@ const Input = forwardRef<
           value={value}
           placeholder={placeholder}
           className={cn(
-            `w-[33.0625rem] border border-solid border-[#5B5B5B] outline-none bg-transparent px-[1.5rem] py-[1.12rem] rounded-[2.5rem] text-[#5B5B5B] text-[1.25rem] font-next-book leading-[118.5%] caret-[#5B5B5B] hover:border-white focus:border-white focus:text-text-default-color`,
+            `w-full border border-solid border-auth-input-outline-color outline-none bg-auth-input-bg px-[1.5rem] py-[1.12rem] rounded-[2.5rem] text-[#5B5B5B] text-[1.125rem] font-next-book leading-[118.5%] caret-[#5B5B5B] hover:border-auth-input-outline-focus-color focus:border-auth-input-outline-focus-color focus:text-[#5B5B5B] `,
+            type === 'password' &&
+              'bg-auth-password-input-bg focus:bg-auth-password-focus-bg border-auth-password-input-bg focus:border-auth-input-outline-color',
             status === 'success'
-              ? 'border-[#9EFA13] focus:border-[#9EFA13]'
+              ? 'border-auth-input-success-color focus:border-auth-input-success-color bg-auth-input-success-bg'
               : '',
-            status === 'error' ? 'border-[#FF4747] focus:border-[#FF4747]' : '',
+            status === 'error'
+              ? 'border-auth-input-error-color focus:border-auth-input-error-color bg-auth-input-error-bg focus:bg-auth-input-error-bg'
+              : '',
             className
           )}
           onChange={(e) => {
             setValue(e.target.value);
+            setErrorMessage('');
+            setStatus('default');
             run(e);
           }}
           {...rest}
         />
 
-        <span className="absolute right-[1.4375rem] top-[50%] -translate-y-[50%]">
-          {clear && value && (
-            <span
-              className="text-red-500 flex justify-center items-center cursor-pointer"
-              onClick={() => setValue('')}
-            >
-              <CloseIcon size={20}></CloseIcon>
+        <span className="absolute right-[1.4375rem] top-[50%] -translate-y-[50%] flex gap-4 items-center">
+          {status === 'error' && (
+            <span className="text-auth-input-error-color flex justify-center items-center">
+              <CloseIcon width={20} height={20}></CloseIcon>
             </span>
           )}
-          {status === 'success' ? (
-            <PassIcon width={19} height={15}></PassIcon>
-          ) : null}
+          {status === 'success' && (
+            <span className="text-auth-input-success-icon-color">
+              <PassIcon width={19} height={15} color="currentColor"></PassIcon>
+            </span>
+          )}
+          {showVisibleIcon && value && (
+            <span
+              className="text-auth-input-visible-icon-color cursor-pointer"
+              onMouseDown={(e) => {
+                if (propType === 'password' && type === 'password') {
+                  setType('text');
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (propType === 'password' && type === 'text') {
+                  setType('password');
+                }
+              }}
+              onMouseUp={() => {
+                if (propType === 'password' && type === 'text') {
+                  setType('password');
+                }
+              }}
+            >
+              <EyeIcon size={20} color="currentColor"></EyeIcon>
+            </span>
+          )}
         </span>
       </div>
       {description && (
-        <p className="ml-[1.5rem] text-[#676767] text-[1rem] leading-[150%] tracking-[-0.011rem] font-Sofia-Pro-Light-Az">
+        <p className="ml-[1.5rem] text-  text-[1rem] leading-[150%] tracking-[-0.011rem] font-Sofia-Pro-Light-Az">
           {description}
         </p>
       )}
       {errorMessage && (
-        <p className="text-[#FF4747] text-[1rem] leading-[150%] tracking-[-0.011rem] font-Sofia-Pro-Light-Az flex flex-row items-center gap-2">
+        <p className="text-auth-input-error-color text-[1rem] leading-[150%] tracking-[-0.011rem] font-Sofia-Pro-Light-Az flex flex-row items-center gap-2">
           <WarningIcon width={17} height={16}></WarningIcon>
           {errorMessage}
         </p>

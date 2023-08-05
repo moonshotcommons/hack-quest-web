@@ -106,11 +106,12 @@ html[data-theme='dark'] {
   --lesson-completed-modal-line-color: #202020;
   --lesson-code-copy-button-bg: #e3e3e3;
   --lesson-code-copy-button-text: #000;
+
   /* notionRender */
   --renderer-step-label-bg: #111;
   --renderer-step-label-text-color: #9efa13;
   --renderer-step-box-bg: var(--codedesbg);
-  --renderer-step-box-text-color: var(--color-white);
+  --renderer-step-box-text-color: var(--neutral-white);
   --renderer-quote-border-color: var(--text-text-gray);
   --renderer-quote-text-color: var(--text-text-gray);
   --renderer-code-bg: var(--codedesbg);
@@ -159,6 +160,38 @@ html[data-theme='dark'] {
   --setting-close-icon-color: var(--text-text-white-on-dark);
 
   /* auth */
+  --auth-global-bg: var(--neutral-black);
+  --auth-input-outline-color: var(--button-card-card-outline);
+  --auth-input-outline-focus-color: var(--button-card-card-outline);
+  --auth-input-success-color: #9efa13;
+  /* --auth-input-success-bg: var(--neutral-off-white); */
+  --auth-input-success-bg: var(--neutral-black);
+  --auth-input-error-color: var(--status-error);
+  --auth-input-error-bg: #ffb9b9;
+  --auth-input-focus-bg: var(--neutral-off-white);
+  /* --auth-input-bg: var(--neutral-off-white); */
+  --auth-input-bg: var(--neutral-black);
+  --auth-password-input-bg: var(--color-block-bg-on-dark);
+  --auth-password-focus-bg: var(--neutral-off-white);
+  --auth-input-clear-icon-color: var(--status-error);
+  --auth-input-success-icon-color: #9efa13;
+  --auth-input-visible-icon-color: #3e3e3e;
+  --auth-input-checkbox-bg: #9efa13;
+  --auth-input-checkbox-border-color: #ededed;
+  --auth-input-checkbox-hover-bg: #9efa13;
+  --auth-primary-button-border-color: var(--button-card-dark-gray-button);
+  --auth-primary-button-border-hover-color: #353535;
+  --auth-primary-button-bg: var(--button-card-dark-gray-button);
+  --auth-primary-button-hover-bg: #353535;
+  --auth-primary-button-text-color: var(--neutral-white);
+  --auth-primary-button-text-hover-color: var(--neutral-white);
+  --auth-ghost-button-bg: var(--neutral-black);
+  --auth-ghost-button-hover-bg: #111;
+  --auth-ghost-button-text-color: #fff;
+  --auth-ghost-button-hover-text-color: #fff;
+  --auth-ghost-button-border-color: var(--text-text-white);
+  --auth-ghost-button-hover-border-color: var(--text-text-white);
+  --auth-description-text-color: #676767;
 
   /* mission center */
   --mission-center-bg: #101010;

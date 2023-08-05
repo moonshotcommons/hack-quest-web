@@ -34,16 +34,19 @@ const EmailConfirmed: NextPage<EmailConfirmedProps> = (props) => {
   // }, [countDown, router]);
 
   return (
-    <div className="w-full h-full min-h-screen flex justify-end items-center">
-      <div className="py-[19.78rem] px-[7.5rem] text-center flex flex-col justify-center items-center gap-8">
+    <div className="w-full h-full flex justify-center items-center">
+      <div className="text-center flex flex-col justify-center items-center gap-8">
         <Image src={FailIcon} alt="fail"></Image>
-        <h1 className="text-[#F8F8F8] text-[1.75rem] font-next-book-bold font-bold leading-[150%] -tracking-[0.01924rem]">
+        <h1 className="text-text-default-color text-[2rem] font-next-book-bold font-bold leading-[150%] -tracking-[0.01924rem]">
           Unable to Verify Email Address!
         </h1>
-        <div className="text-[#676767] font-next-book w-[31.8125rem] leading-[150%] -tracking-[0.011rem]">
+        <div className="text-auth-description-text-color font-next-book w-[31.8125rem] leading-[150%] -tracking-[0.011rem]">
           <span>
             There was a problem verifying your email address. Please try{' '}
-            <Link href={'/auth/login'} className="underline text-white">
+            <Link
+              href={'/auth/login'}
+              className="underline text-text-default-color"
+            >
               Login
             </Link>
             .
