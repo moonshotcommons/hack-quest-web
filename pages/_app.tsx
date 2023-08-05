@@ -18,6 +18,7 @@ import HomeLayout from '@/components/Layout/HomeLayout';
 import LoginLayout from '@/components/Layout/LoginLayout';
 import { useGetUserInfo, useLoadUserInfo } from '@/hooks/useGetUserInfo';
 import useNavAuth from '@/hooks/useNavPage/userNavAuth';
+import EmailVerifyLayout from '@/components/Layout/EmailVerifyLayout';
 
 const Layout = (props: {
   pathname: string;
@@ -37,14 +38,18 @@ const Layout = (props: {
     case [
       '/auth/register',
       '/auth/login',
-      '/users/email-confirmed',
-      '/auth/email-verify',
+
       '/auth/forget-password',
-      '/auth/update-password',
-      '/auth/email-fail',
-      '/auth/email-success'
+      '/auth/update-password'
     ].includes(pathname):
       return <LoginLayout>{children}</LoginLayout>;
+    case [
+      '/auth/email-verify',
+      '/auth/email-fail',
+      '/auth/email-success',
+      '/users/email-confirmed'
+    ].includes(pathname):
+      return <EmailVerifyLayout>{children}</EmailVerifyLayout>;
     case pathname === '/':
     // return <HomeLayout>{children}</HomeLayout>;
     default:

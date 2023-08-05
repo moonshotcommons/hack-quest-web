@@ -31,9 +31,10 @@ const LoginPage: NextPage<any> = () => {
   const [showLogin, setShowLogin] = useState(false);
   const [email, setEmail] = useState('');
   return (
-    <div className="w-full h-full flex justify-end items-center">
+    <div className="w-full max-w-[33.0625rem]  h-full flex justify-end items-center">
       {!showLogin ? (
         <VerifyEmail
+          value={email}
           actionType="login"
           onStatusChange={(status) => setEmailCheckStatus(status)}
           onNext={(email: string) => {
@@ -44,7 +45,7 @@ const LoginPage: NextPage<any> = () => {
           }}
         ></VerifyEmail>
       ) : (
-        <UserLogin email={email}></UserLogin>
+        <UserLogin email={email} onBack={() => setShowLogin(false)}></UserLogin>
       )}
     </div>
   );

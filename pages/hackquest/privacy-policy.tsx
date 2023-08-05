@@ -8,17 +8,17 @@ interface NotFoundPageProps {
 
 const NotFoundPage: NextPage<NotFoundPageProps> = (props) => {
   return (
-    <div className="text-center w-full text-white font-next-book-bold">
-      <div className="w-full h-[60.25rem] bg-black relative">
+    <div className="text-center w-full text-text-default-color font-next-book-bold">
+      <div className="w-full h-[60.25rem] bg-default-global-bg relative">
         <Image src={Bg} alt="bg" className="w-full mt-[3.375rem]"></Image>
-        <div className="w-full h-full absolute -top-[3.375rem] left-0 bg-gradient-to-b from-transparent to-black">
-          <h1 className="mt-[12.5rem] font-next-poster-Bold text-[3.375rem] text-[#F5F5F5] text-center font-bold tracking-[.2025rem] pb-[2.625rem]">
+        <div className="w-full h-full absolute -top-[3.375rem] left-0 bg-gradient-to-b from-transparent to-default-global-bg">
+          <h1 className="mt-[12.5rem] font-next-poster-Bold text-[3.375rem] text-text-default-color text-center font-bold tracking-[.2025rem] pb-[2.625rem]">
             Privacy Policy for HackQuest
           </h1>
-          <h1 className="text-white font-next-poster-Bold tracking-[.15rem] text-[2.5rem] font-bold text-left mt-[23.75rem]">
+          <h1 className="text-text-default-color font-next-poster-Bold tracking-[.15rem] text-[2.5rem] font-bold text-left mt-[23.75rem]">
             Privacy Policy for HackQuest
           </h1>
-          <div className="mt-[4.5rem] flex flex-col gap-[1.875rem] text-left text-[1.5rem] font-next-book leading-[125%] tracking-[.03rem] text-[#F4F4F4]">
+          <div className="mt-[4.5rem] flex flex-col gap-[1.875rem] text-left text-[1.5rem] font-next-book leading-[125%] tracking-[.03rem] text-text-default-color">
             <p className="">
               {`This privacy policy ("Policy") will help you understand how
               HackQuest ("us", "we", "our") uses and protects the data you
@@ -31,9 +31,9 @@ const NotFoundPage: NextPage<NotFoundPageProps> = (props) => {
           </div>
         </div>
       </div>
-      <div className="text-left mt-[4.5rem] flex flex-col gap-[12.5rem] text-[1.5rem] font-next-book leading-[125%] tracking-[.03rem] text-[#F4F4F4] ">
+      <div className="text-left mt-[4.5rem] flex flex-col gap-[12.5rem] text-[1.5rem] font-next-book leading-[125%] tracking-[.03rem] text-text-default-color">
         <div className="flex flex-col gap-[1.875rem]">
-          <h1 className="text-white text-[2.5rem] font-bold tracking-[.15rem] font-next-poster-Bold pb-[2.625rem]">
+          <h1 className="text-text-default-color text-[2.5rem] font-bold tracking-[.15rem] font-next-poster-Bold pb-[2.625rem]">
             1. Data We Collect
           </h1>
           <p className="mt-[1.875rem]">
@@ -53,7 +53,7 @@ const NotFoundPage: NextPage<NotFoundPageProps> = (props) => {
           </ul>
         </div>
         <div className="flex flex-col gap-[1.875rem]">
-          <h1 className="text-white text-[2.5rem] font-bold tracking-[.15rem] font-next-poster-Bold  pb-[2.625rem]">
+          <h1 className="text-text-default-color text-[2.5rem] font-bold tracking-[.15rem] font-next-poster-Bold  pb-[2.625rem]">
             2. Why We Collect Your Data
           </h1>
           <p className="mt-[1.875rem]">
@@ -77,7 +77,7 @@ const NotFoundPage: NextPage<NotFoundPageProps> = (props) => {
           </ul>
         </div>
         <div className="flex flex-col gap-[1.875rem]">
-          <h1 className="text-white text-[2.5rem] font-bold tracking-[.15rem] font-next-poster-Bold  pb-[2.625rem]">
+          <h1 className="text-text-default-color text-[2.5rem] font-bold tracking-[.15rem] font-next-poster-Bold  pb-[2.625rem]">
             5. Restricting the Collection of your Personal Data
           </h1>
           <p className="">
@@ -99,7 +99,7 @@ agree to this privacy policy.`}
           </p>
         </div>
         <div className="flex flex-col gap-[1.875rem]">
-          <h1 className="text-white text-[2.5rem] font-bold tracking-[.15rem] font-next-poster-Bold  pb-[2.625rem]">
+          <h1 className="text-text-default-color text-[2.5rem] font-bold tracking-[.15rem] font-next-poster-Bold  pb-[2.625rem]">
             6. Intellectual Property Rights
           </h1>
           <p className="">
