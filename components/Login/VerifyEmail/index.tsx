@@ -31,21 +31,24 @@ interface VerifyEmailProps {
   onStatusChange: (status: boolean) => void;
   onNext: (email: string) => void;
   actionType: 'login' | 'register';
+  value?: string;
 }
 
 const VerifyEmail: FC<VerifyEmailProps> = (props) => {
-  const { onStatusChange, onNext, actionType } = props;
+  const { onStatusChange, onNext, actionType, value } = props;
 
   const [formData, setFormData] = useState<{
     email: string;
   }>({
-    email: ''
+    email: value || ''
   });
 
   const [status, setStatus] = useState<any>('default');
   const [errorMessage, setErrorMessage] = useState('');
 
-  const { validator } = useValidator(['email']);
+  const { validator } = useValidator([
+    actionType === 'login' ? 'email' : 'registerEmail'
+  ]);
 
   const { run: verifyEmail } = useDebounceFn(
     () => {
@@ -66,20 +69,23 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
   useKeyPress('enter', verifyEmail);
 
   return (
-    <div className="h-full flex flex-col justify-center items-center">
+    <div className="h-full w-full flex flex-col justify-center items-center">
       {/* <ThirdPartyLogin></ThirdPartyLogin> */}
-      <div className="flex flex-col gap-[2rem]">
+      <div className="flex w-full flex-col gap-[2rem]">
         {actionType === 'register' && (
           <div>
-            <p className="text-text-default-color text-[2rem] font-next-book leading-[125%] tracking-[.04rem]">
+            <div className="text-text-default-color text-[2rem] font-next-book leading-[125%] tracking-[.04rem]">
               <div>
                 Welcome to <span>HACKQUEST</span>,
                 <br /> Register to begin the Journey.
               </div>
-            </p>
-            <p className="text-text-default-color text-[1.125rem] font-next-book leading-[125%] tracking-[.0225rem] mt-8">
-              Already have an account? <Link href={'/auth/login'}>Login</Link>
-            </p>
+            </div>
+            <div className="text-text-default-color text-[1.125rem] font-next-book leading-[125%] tracking-[.0225rem] mt-8">
+              Already have an account?{' '}
+              <Link href={'/auth/login'} className="underline cursor-pointer">
+                Login
+              </Link>
+            </div>
           </div>
         )}
         {actionType === 'login' && (
@@ -89,7 +95,10 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
             </p>
             <p className="text-text-default-color text-[1.125rem] font-next-book leading-[125%] tracking-[.0225rem] mt-8">
               {`Don’t have an account? `}
-              <Link href={'/auth/register'} className="underline">
+              <Link
+                href={'/auth/register'}
+                className="underline cursor-pointer"
+              >
                 Create a account
               </Link>
               <br />
@@ -107,6 +116,8 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
           errorMessage={errorMessage}
           delay={500}
           onChange={(e) => {
+            setStatus('default');
+            setErrorMessage('');
             validator.validate({ email: e.target.value }, (errors, fields) => {
               if (errors?.[0]) {
                 setStatus('error');
@@ -123,22 +134,23 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
               email: e.target.value
             });
           }}
+          defaultValue={formData.email}
         ></Input>
         <Button
           onClick={verifyEmail}
           block
           icon={<RightArrowIcon></RightArrowIcon>}
           iconPosition="right"
-          type="primary"
+          className="bg-auth-primary-button-bg hover:bg-auth-primary-button-hover-bg text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color border-auth-primary-button-border-color hover:border-auth-primary-button-border-hover-color"
         >
           Next
         </Button>
-        <div className="flex gap-[0.5rem] justify-end text-[#ACACAC] font-Sofia-Pro-Light-Az font-light leading-[150%] tracking-[-0.011rem]">
+        {/* <div className="flex gap-[0.5rem] justify-end text-[#ACACAC] font-Sofia-Pro-Light-Az font-light leading-[150%] tracking-[-0.011rem]">
           <span>Not a member yet? </span>
           <Link href={'/auth/register'}>
             <span className="text-[#F8F8F8] font-semibold">Register now</span>
           </Link>
-        </div>
+        </div> */}
       </div>
     </div>
   );

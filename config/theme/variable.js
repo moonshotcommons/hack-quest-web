@@ -5,6 +5,7 @@ const { landingThemeColors } = require('./landing');
 const { settingThemeColors } = require('./setting');
 const { notionRendererThemeColors } = require('./notionRenderer');
 const { lessonThemeColors } = require('./lesson');
+const { authThemeColors } = require('./auth');
 
 const themeColors = {
   'primary-color': 'var(--primary-green-yellow)',
@@ -23,7 +24,8 @@ const themeColors = {
   ...courseThemeColors,
   ...settingThemeColors,
   ...notionRendererThemeColors,
-  ...lessonThemeColors
+  ...lessonThemeColors,
+  ...authThemeColors
 };
 
 const backgroundImage = {

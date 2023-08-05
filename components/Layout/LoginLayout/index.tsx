@@ -13,7 +13,7 @@ export interface LoginLayoutProps {
 const LoginLayout: React.FC<LoginLayoutProps> = ({ children }) => {
   return (
     <div
-      className={`w-full relative min-h-screen bg-default-global-bg ${inter.className} bg-cover bg-no-repeat`}
+      className={`w-full relative min-h-screen bg-auth-global-bg ${inter.className} bg-cover bg-no-repeat`}
     >
       <div className="fixed w-full bottom-0 left-0">
         <Image
@@ -31,7 +31,9 @@ const LoginLayout: React.FC<LoginLayoutProps> = ({ children }) => {
         {/* <h1 className="absolute text-[4.6985rem] text-[#EDEDED] left-[5.31rem] top-[13.19rem] font-neuemachina-light w-[23.375rem] leading-[102%]">{`Let's Begin the </Quest>!`}</h1> */}
       </div>
       <main className="absolute w-[47.25vw] h-full max-h-screen overflow-y-auto top-0 right-0 flex flex-col px-[6.875rem]">
-        <div className="flex-1">{children}</div>
+        <div className="flex-1 flex justify-center items-center">
+          {children}
+        </div>
         <ul className="text-text-default-color py-[3.75rem] flex flex-row justify-between">
           <li>© HackQuest</li>
           <li>Contact</li>

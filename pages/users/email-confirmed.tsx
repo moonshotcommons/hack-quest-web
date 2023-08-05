@@ -40,13 +40,13 @@ const EmailConfirmed: NextPage<EmailConfirmedProps> = (props) => {
   }, [router, dispatch]);
 
   return (
-    <div className="w-full h-full min-h-screen flex justify-end items-center">
-      <div className="py-[19.78rem] px-[7.5rem] text-center flex flex-col justify-center items-center gap-8">
+    <div className="w-full h-full flex justify-center items-center">
+      <div className="text-center flex flex-col justify-center items-center gap-8">
         <Image src={Verifying} alt="Congrats"></Image>
-        <h1 className="text-[#F8F8F8] text-[1.75rem] font-next-book-bold font-bold leading-[150%] -tracking-[0.01924rem]">
+        <h1 className="text-text-default-color text-[1.75rem] font-next-book-bold font-bold leading-[150%] -tracking-[0.01924rem]">
           Verifying...
         </h1>
-        <div className="text-[#676767] font-next-book w-[31.8125rem] leading-[150%] -tracking-[0.011rem]">
+        <div className="text-auth-description-text-color font-next-book w-[31.8125rem] leading-[150%] -tracking-[0.011rem]">
           <span>Please wait... We are verifying your email...</span>
         </div>
       </div>

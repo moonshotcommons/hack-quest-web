@@ -11,6 +11,7 @@ const IconKeys = tuple(
   'Discord',
   'DropDown',
   'EmailFill',
+  'Eye',
   'FlightSideWay',
   'LeftArrow',
   'LightInstagram',

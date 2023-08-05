@@ -159,6 +159,38 @@ html[data-theme='light'] {
   --setting-close-icon-border-color: var(--neutral-rich-gray);
   --setting-close-icon-color: var(--neutral-black);
 
+  /* auth */
+  --auth-global-bg: var(--neutral-white);
+  --auth-input-outline-color: var(--neutral-rich-gray);
+  --auth-input-outline-focus-color: var(--neutral-rich-gray);
+  --auth-input-success-color: var(--primary-green-yellow);
+  --auth-input-success-bg: var(--neutral-white);
+  --auth-input-error-color: var(--status-error-default);
+  --auth-input-error-bg: var(--status-error-light);
+  --auth-input-focus-bg: var(--neutral-white);
+  --auth-input-bg: var(--neutral-white);
+  --auth-password-input-bg: var(--text-text-white-on-dark);
+  --auth-password-focus-bg: var(--neutral-white);
+  --auth-input-clear-icon-color: var(--status-error-default);
+  --auth-input-success-icon-color: #fcc409;
+  --auth-input-visible-icon-color: #3e3e3e;
+  --auth-input-checkbox-bg: #fcc409;
+  --auth-input-checkbox-border-color: ;
+  --auth-input-checkbox-hover-bg: #fcc409;
+  --auth-primary-button-border-color: var(--neutral-medium-gray);
+  --auth-primary-button-border-hover-color: #fcc409;
+  --auth-primary-button-bg: var(--primary-green-yellow);
+  --auth-primary-button-hover-bg: #fdd234;
+  --auth-primary-button-text-color: var(--neutral-black);
+  --auth-primary-button-text-hover-color: #2e2e2e;
+  --auth-ghost-button-bg: var(--neutral-white);
+  --auth-ghost-button-hover-bg: #f2f2f2;
+  --auth-ghost-button-text-color: var(--neutral-black);
+  --auth-ghost-button-hover-text-color: var(--neutral-black);
+  --auth-ghost-button-border-color: var(--neutral-black);
+  --auth-ghost-button-hover-border-color: var(--neutral-black);
+  --auth-description-text-color: var(--neutral-black);
+
   /* --------------------------- mission center --------------------------- */
   --mission-bg: var(--neutral-white);
   --mission-card-bg: var(--neutral-off-white);

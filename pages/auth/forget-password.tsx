@@ -64,13 +64,13 @@ const ForgetPassword: NextPage<ForgetPasswordProps> = (props) => {
   );
 
   return (
-    <div className="w-full h-full min-h-screen flex justify-end items-center">
-      <div className="py-[19.78rem] px-[7.5rem] text-left">
+    <div className="h-full max-w-[33.0625rem] flex flex-col justify-center items-center">
+      <div className="pt-[8rem] text-left">
         <div className="flex flex-col gap-8">
-          <h1 className="text-[#F8F8F8] text-[1.75rem] font-Sofia-Pro-Light-Az font-semibold leading-[150%]">
+          <h1 className="text-text-default-color text-[1.75rem] font-Sofia-Pro-Light-Az font-semibold leading-[150%]">
             Forgot your password?
           </h1>
-          <p className="text-[#676767] font-next-book w-[31.8125rem] leading-[150%] -tracking-[0.011rem]">
+          <p className="text-auth-description-text-color font-next-book w-[31.8125rem] leading-[150%] -tracking-[0.011rem]">
             We will send you a link to reset your password.{' '}
           </p>
         </div>
@@ -82,7 +82,6 @@ const ForgetPassword: NextPage<ForgetPasswordProps> = (props) => {
             name="email"
             state={status}
             errorMessage={errorMessage}
-            className="border-none bg-[#111]"
             delay={500}
             onChange={(e) => {
               validator.validate(
@@ -106,7 +105,7 @@ const ForgetPassword: NextPage<ForgetPasswordProps> = (props) => {
             }}
           ></Input>
           <div className="mt-[2rem] flex flex-col gap-[0.75rem]">
-            <Button block onClick={sendEmail}>
+            {/* <Button block onClick={sendEmail}>
               <div className="flex items-center gap-[1.25rem]">
                 <span className="text-[1.25rem] font-next-book text-white leading-[118.5%] font-normal">
                   Send me link
@@ -120,7 +119,36 @@ const ForgetPassword: NextPage<ForgetPasswordProps> = (props) => {
               <button className="py-[20px] w-full rounded-[2.52rem] border border-[#EDEDED] text-[1rem] font-Sofia-Pro-Light-Az text-white leading-[1.25rem]">
                 Back
               </button>
-            </Link>
+            </Link> */}
+            <Button
+              onClick={sendEmail}
+              block
+              icon={<RightArrowIcon></RightArrowIcon>}
+              iconPosition="right"
+              className="
+          font-next-book
+          text-[1.125rem]
+          bg-auth-primary-button-bg hover:bg-auth-primary-button-hover-bg
+          text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
+          border-auth-primary-button-border-color hover:border-auth-primary-button-border-hover-color
+          "
+            >
+              Send me link
+            </Button>
+            <Button
+              onClick={() => router.back()}
+              block
+              className="
+              font-next-book
+              text-[1.125rem]
+              border
+              bg-auth-ghost-button-bg hover:bg-auth-ghost-button-hover-bg
+              text-auth-ghost-button-text-color hover:text-auth-ghost-button-text-hover-color
+              border-auth-ghost-button-border-color hover:border-auth-ghost-button-border-hover-color
+              "
+            >
+              Back
+            </Button>
           </div>
         </div>
       </div>

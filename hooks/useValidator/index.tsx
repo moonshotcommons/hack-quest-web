@@ -58,9 +58,7 @@ const checkRegisterEmailRules: Rule = [
           .checkEmailExists(value)
           .then((res) => {
             // onStatusChange(false);
-            reject(
-              'Email already exists, please register with another email, or.'
-            );
+            reject('Email already exists, please register with another email.');
           })
           .catch((e) => {
             // onStatusChange(true);
