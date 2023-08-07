@@ -7,11 +7,13 @@ import {
   MissionDataType,
   MissionType
 } from '@/service/webApi/missionCenter/type';
+import { useRouter } from 'next/router';
 
 type QuestsType = {
   missions: MissionDataType[];
 };
 const Quests: React.FC<QuestsType> = ({ missions }) => {
+  const router = useRouter();
   const questsData = missions.filter(
     (v: MissionDataType) => v.type === MissionType.DAILY_QUESTS
   );
@@ -65,7 +67,7 @@ const Quests: React.FC<QuestsType> = ({ missions }) => {
                   className="flex items-center justify-center w-[122px] h-[122px] border-[0.5px] border-mission-center-quests-box rounded-[50%] leading-[15px] text-[14px] bg-[url('/images/mission-center/claimed_btn_bg.svg')]"
                   key={item.id}
                 >
-                  <button className="flex-center w-[79px] h-[40px] bg-claimed text-mission-center-claimed border border-mission-center-claimed rounded-[12px] cursor-pointer">
+                  <button className="flex-center w-[79px] h-[40px] bg-claimed text-mission-center-claimed border border-mission-center-claimed rounded-[12px]">
                     Claimed
                   </button>
                 </div>
@@ -99,7 +101,12 @@ const Quests: React.FC<QuestsType> = ({ missions }) => {
         <button className="base-btn w-[53.56%] h-[39px] mb-[12px] text-mission-center-claimed-d bg-mission-center-claimed-d">
           Claim
         </button>
-        <button className="base-btn-bg w-[53.56%]">Start Learning</button>
+        <button
+          className="base-btn-bg w-[53.56%]"
+          onClick={() => router.push('/courses')}
+        >
+          Start Learning
+        </button>
       </div>
     </div>
   );
