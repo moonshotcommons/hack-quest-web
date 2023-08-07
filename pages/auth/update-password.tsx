@@ -20,19 +20,19 @@ interface ForgetPasswordProps {
   children: React.ReactNode;
 }
 
-const CustomButton: FC<ButtonProps> = (props) => {
-  const { children } = props;
-  return (
-    <Button
-      padding="px-[3rem] py-[1.25rem]"
-      fontStyle="Inter font-normal font-next-book"
-      textStyle="text-[.875rem] text-white leading-[1.25rem]"
-      {...props}
-    >
-      {children}
-    </Button>
-  );
-};
+// const CustomButton: FC<ButtonProps> = (props) => {
+//   const { children } = props;
+//   return (
+//     <Button
+//       padding="px-[3rem] py-[1.25rem]"
+//       fontStyle="Inter font-normal font-next-book"
+//       textStyle="text-[.875rem] text-white leading-[1.25rem]"
+//       {...props}
+//     >
+//       {children}
+//     </Button>
+//   );
+// };
 
 const ForgetPassword: NextPage<ForgetPasswordProps> = (props) => {
   const router = useRouter();
@@ -66,8 +66,6 @@ const ForgetPassword: NextPage<ForgetPasswordProps> = (props) => {
   const { run: onUpdate } = useDebounceFn(
     () => {
       validator.validate(formData, async (errors, fields) => {
-        console.log('开始更新');
-        debugger;
         if (!errors) {
           const status: any = { ...formState };
           for (let key in status) {
@@ -75,9 +73,9 @@ const ForgetPassword: NextPage<ForgetPasswordProps> = (props) => {
           }
           try {
             const res = (await webApi.userApi.updatePassword(formData)) as any;
-            dispatch(setUserInfo(omit(res, 'token')));
-            setToken(res.token);
-            router.push('/courses');
+            // dispatch(setUserInfo(omit(res, 'token')));
+            // setToken(res.token);
+            router.push('/auth/login');
           } catch (e: any) {
             message.error(e.msg);
           }
@@ -98,20 +96,20 @@ const ForgetPassword: NextPage<ForgetPasswordProps> = (props) => {
   );
 
   return (
-    <div className="w-full h-full min-h-screen flex justify-end items-center">
-      <div className="py-[19.78rem] px-[7.5rem] text-left">
-        <div className="flex flex-col gap-8">
-          <h1 className="text-[#F8F8F8] text-[1.75rem] font-Sofia-Pro-Light-Az font-semibold leading-[150%]">
+    <div className="h-full w-full max-w-[33.0625rem] flex flex-col justify-center items-center">
+      <div className="pt-[8rem] w-full text-left">
+        <div className="flex w-full flex-col gap-8">
+          <h1 className="text-text-default-color text-[1.75rem] font-next-book  leading-[150%]">
             Set your new password
           </h1>
         </div>
-        <div className="mt-[2rem] flex flex-col gap-[2rem]">
+        <div className="mt-[2rem] w-full flex flex-col gap-[2rem]">
           <Input
             label="Password"
             type="password"
             name="password"
-            placeholder="Password"
-            description="Use 8 or more characters with a mix of letters & numbers"
+            placeholder="8+ characters with a mix of letters & numbers"
+            // description="Use 8 or more characters with a mix of letters & numbers"
             state={formState.newPassword.status as any}
             errorMessage={formState.newPassword.errorMessage}
             delay={500}
@@ -131,7 +129,7 @@ const ForgetPassword: NextPage<ForgetPasswordProps> = (props) => {
           <Input
             label="Re-enter password"
             type="password"
-            placeholder="Password"
+            placeholder="Confirm your password"
             name="reenterPassword"
             state={formState.reenterPassword.status as any}
             errorMessage={formState.reenterPassword.errorMessage}
@@ -159,17 +157,20 @@ const ForgetPassword: NextPage<ForgetPasswordProps> = (props) => {
               });
             }}
           ></Input>
-          <div className="mt-[2rem] flex flex-col gap-[0.75rem]">
-            <CustomButton block onClick={onUpdate}>
-              <div className="flex items-center gap-[1.25rem]">
-                <span className="text-[1.25rem] font-next-book text-white leading-[118.5%] font-normal">
-                  Save changes
-                </span>
-                <span>
-                  <RightArrowIcon></RightArrowIcon>
-                </span>
-              </div>
-            </CustomButton>
+          <div className="flex flex-col gap-[0.75rem]">
+            <Button
+              onClick={onUpdate}
+              block
+              className="
+              font-next-book
+              text-[1.125rem]
+              bg-auth-primary-button-bg hover:bg-auth-primary-button-hover-bg
+              text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
+              border-auth-primary-button-border-color hover:border-auth-primary-button-border-hover-color
+              "
+            >
+              Confirm
+            </Button>
           </div>
         </div>
       </div>

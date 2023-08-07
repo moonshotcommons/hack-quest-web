@@ -1,9 +1,14 @@
-import { FC, LegacyRef, ReactNode, RefObject, useRef } from 'react';
+import { FC, LegacyRef, ReactNode, RefObject, useContext, useRef } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { oneDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import {
+  oneDark,
+  oneLight
+} from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import { NotionRenderType } from '../type';
 import CopyIcon from '@/components/Common/Icon/Copy';
 import { message } from 'antd';
+import { ThemeContext } from '@/store/context/theme';
+import { Theme } from '@/constants/enum';
 
 interface CodeSourceType {
   [NotionRenderType.CODE]: {
@@ -22,13 +27,13 @@ interface CodeRendererProps {
 const CodeRenderer: FC<CodeRendererProps> = (props) => {
   const { type, source } = props;
   const language = source[type].language;
-
+  const { theme } = useContext(ThemeContext);
   const codeRef = useRef<HTMLTextAreaElement>(null);
 
   return (
     <div className="py-4 relative">
       <SyntaxHighlighter
-        style={oneDark}
+        style={theme === Theme.Dark ? oneDark : oneLight}
         language={language}
         className="scroll-wrap-x"
       >
@@ -38,7 +43,7 @@ const CodeRenderer: FC<CodeRendererProps> = (props) => {
       </SyntaxHighlighter>
       {/* <textarea className="hidden" ref={codeRef} value={}></textarea> */}
       <div
-        className="absolute flex justify-center py-2 px-2 gap-2 items-center top-10 right-8 text-[0.75rem] font-next-book text-black bg-[#E3E3E3] rounded-[0.5rem] cursor-pointer"
+        className="absolute flex justify-center py-2 px-2 gap-2 items-center top-10 right-8 text-[0.75rem] font-next-book text-lesson-code-copy-button-text bg-lesson-code-copy-button-bg rounded-[0.5rem] cursor-pointer"
         onClick={async (e) => {
           try {
             await navigator.clipboard.writeText(
@@ -52,7 +57,7 @@ const CodeRenderer: FC<CodeRendererProps> = (props) => {
           }
         }}
       >
-        <CopyIcon width={17} height={20} color={'#E3E3E3'}></CopyIcon>
+        <CopyIcon width={17} height={20} color={'currentColor'}></CopyIcon>
         <span>Copy</span>
       </div>
     </div>

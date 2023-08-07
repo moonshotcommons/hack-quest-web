@@ -20,6 +20,7 @@ const generateTypeRenderData = (iconPath) => {
   files.forEach((file) => {
     if (file === 'index.tsx') return;
     if (file === 'type.tsx') return;
+    if (file === 'example.tsx') return;
     file = file.replace('.tsx', '');
     typeString.push(`'${file}'`);
     const iconName = getComponentName(file);

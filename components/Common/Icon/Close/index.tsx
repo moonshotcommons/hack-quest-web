@@ -12,7 +12,7 @@ interface BaseIconProps {
 type IconProps = BaseIconProps & React.HTMLAttributes<unknown>;
 
 const CloseIcon: React.FC<IconProps> = (props) => {
-  const { size = 24, width = 24, height = 24, color = '#F2F2F2' } = props;
+  const { size = 24, width, height, color = 'currentColor' } = props;
 
   return (
     <svg
@@ -22,22 +22,27 @@ const CloseIcon: React.FC<IconProps> = (props) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <line
-        x1="2.08579"
-        y1="17.5858"
-        x2="18.0858"
-        y2="1.58579"
-        stroke={color}
-        strokeWidth="4"
-      />
-      <line
-        x1="1.91421"
-        y1="1.58579"
-        x2="17.9142"
-        y2="17.5858"
-        stroke={color}
-        strokeWidth="4"
-      />
+      <g clipPath="url(#clip0_11_7201)">
+        <path
+          d="M15.625 4.375L4.375 15.625"
+          stroke={color}
+          strokeWidth="1.25"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M15.625 15.625L4.375 4.375"
+          stroke={color}
+          strokeWidth="1.25"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </g>
+      <defs>
+        <clipPath id="clip0_11_7201">
+          <rect width="20" height="20" fill="white" />
+        </clipPath>
+      </defs>
     </svg>
   );
 };

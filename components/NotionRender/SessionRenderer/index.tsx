@@ -1,4 +1,4 @@
-import { FC, ReactNode, createContext, useMemo } from 'react';
+import { FC, ReactNode, createContext, useMemo, useRef } from 'react';
 import { RichTextType } from '../type';
 import { useState } from 'react';
 import { useEffect } from 'react';
@@ -25,7 +25,7 @@ const SessionRenderer: FC<SessionRendererProps> = (props) => {
   const { source, parent, onCompleteStateChange } = props;
   const [currentSessionIndex, setCurrentSessionIndex] = useState(0);
   const [sessionList, setSessionList] = useState<any[]>([]);
-
+  const sessionListRef = useRef<HTMLDivElement>();
   const originList = useMemo(() => {
     return formatSource(source);
   }, [source]);
@@ -52,6 +52,7 @@ const SessionRenderer: FC<SessionRendererProps> = (props) => {
       const newItem = originList[currentSessionIndex];
       setSessionList(sessionList.concat(newItem));
     }
+    sessionListRef.current?.scrollTo(0, sessionListRef.current.scrollHeight);
   }, [sessionList]);
 
   return (
@@ -64,7 +65,10 @@ const SessionRenderer: FC<SessionRendererProps> = (props) => {
         originList
       }}
     >
-      <div className="w-full h-full flex flex-col gap-6 overflow-y-scroll scroll-wrap-y">
+      <div
+        className="w-full h-full flex flex-col gap-6 overflow-y-scroll scroll-wrap-y no-scrollbar"
+        ref={sessionListRef as any}
+      >
         {sessionList?.map((item: any, index: number) => {
           if (!item) return <></>;
           return (

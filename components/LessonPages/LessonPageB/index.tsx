@@ -18,19 +18,19 @@ import { useRouter } from 'next/router';
 import { FC, ReactNode, useEffect, useState } from 'react';
 import CompleteModal from '../CompleteModal';
 
-const CustomButton: FC<ButtonProps> = (props) => {
-  const { children } = props;
-  return (
-    <Button
-      padding="px-[3rem] py-[1.25rem]"
-      fontStyle="Inter font-normal"
-      textStyle="text-[.875rem] text-white leading-[1.25rem]"
-      {...props}
-    >
-      {children}
-    </Button>
-  );
-};
+// const CustomButton: FC<ButtonProps> = (props) => {
+//   const { children } = props;
+//   return (
+//     <Button
+//       padding="px-[3rem] py-[1.25rem]"
+//       fontStyle="Inter font-normal"
+//       textStyle="text-[.875rem] text-white leading-[1.25rem]"
+//       {...props}
+//     >
+//       {children}
+//     </Button>
+//   );
+// };
 
 interface LessonPageBProps {
   lesson: CourseLessonType;
@@ -55,7 +55,7 @@ const LessonPageB: FC<LessonPageBProps> = (props) => {
     }
   }, [lesson]);
   return (
-    <div className="relative w-full h-[80vh] flex-col gap-[4.5rem] mt-[1.25rem] text-white px-[3rem] py-[2.5rem]">
+    <div className="relative w-full h-[80vh] flex-col gap-[4.5rem] mt-[1.25rem] text-text-default-color px-[3rem] py-[2.5rem]">
       <div className=" w-full h-full scroll-wrap-y">
         {lesson.content?.map((section: any, index) => {
           return (
@@ -72,10 +72,20 @@ const LessonPageB: FC<LessonPageBProps> = (props) => {
         })}
       </div>
       <div className="h-[3rem] flex gap-4 self-end absolute right-[4rem] bottom-[2.5rem]">
-        {!isFirst && <CustomButton onClick={onBackClick}>Back</CustomButton>}
-        <CustomButton className="border" onClick={onNextClick}>
+        {!isFirst && (
+          <Button
+            onClick={onBackClick}
+            className="bg-lesson-ghost-button-bg text-lesson-ghost-button-text-color border border-lesson-ghost-border-color px-[3rem] py-[1rem]"
+          >
+            Back
+          </Button>
+        )}
+        <Button
+          onClick={onNextClick}
+          className="bg-lesson-primary-button-bg text-lesson-primary-button-text-color border border-lesson-primary-button-border-color font-next-book px-[3rem] py-[1rem]"
+        >
           Next
-        </CustomButton>
+        </Button>
       </div>
       <CompleteModal
         title={courseName as string}

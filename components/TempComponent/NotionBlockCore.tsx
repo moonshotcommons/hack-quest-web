@@ -8,6 +8,8 @@ import { Context } from '@/helper/block';
 import VideoRenderer from './VideoRenderer';
 // import {BlockProps} from "@/types/props";
 import TableOfContentsRenderer from './TableOfContentsRenderer';
+import { Theme } from '@/constants/enum';
+import { ThemeContext } from '@/store/context/theme';
 
 const NotionBlockCore: React.FC<any> = ({
   block,
@@ -17,6 +19,7 @@ const NotionBlockCore: React.FC<any> = ({
   parent
 }) => {
   const { prefix, blockPrefix } = useContext(Context);
+  const { theme } = useContext(ThemeContext);
   // // debugger;
   switch (block.type) {
     case 'paragraph':
@@ -125,7 +128,7 @@ const NotionBlockCore: React.FC<any> = ({
     case 'quote':
       return (
         <div
-          className={`${prefix}-${blockPrefix}-quote border-l-2 border-solid border-[#676767] pl-[1.25rem]`}
+          className={`${prefix}-${blockPrefix}-quote border-l-2 border-solid border-renderer-quote-border-color text-renderer-quote-text-color pl-[1.25rem]`}
         >
           <div>
             <TextRenderer richTextArr={block[block.type].rich_text} />
@@ -148,7 +151,7 @@ const NotionBlockCore: React.FC<any> = ({
           <CodeRenderer
             lang={block[block.type].language}
             richTextArr={block[block.type].rich_text}
-            darkMode={darkMode}
+            darkMode={theme === Theme.Dark}
           />
           <div className={`${prefix}-caption`}>
             <TextRenderer richTextArr={block[block.type].caption} />

@@ -29,13 +29,15 @@ export const ChildrenDropDown = <T,>(props: {
 }) => {
   const { childrenData, onSelect } = props;
   return (
-    <ul className="pl-[1.5rem] mt-[1.25rem] border-l border-[#404040]">
+    <ul className="pl-[1.5rem] mt-[1.25rem] font-normal border-l border-lesson-dropdown-select-line-color">
       {childrenData.map((item, index) => {
         return (
           <li
             key={item.key}
             className={`${index !== 0 ? 'pt-[0.75rem]' : ''} cursor-pointer ${
-              item.disable ? 'text-[#505050] cursor-not-allowed' : ''
+              item.disable
+                ? 'text-lesson-dropdown-disable-text-color cursor-not-allowed'
+                : ''
             }`}
             onClick={(e) => {
               if (item.disable) return;
@@ -76,24 +78,28 @@ const Dropdown = <P, T>(props: DropdownProps<P, T>) => {
       ref={containerRef as any}
     >
       <div
-        className="h-[2.25rem] text-white rounded-full border border-solid border-[#505050] flex justify-between items-center "
+        className="h-[2.25rem] text-lesson-dropdown-text-color rounded-full border border-solid border-lesson-dropdown-border-color flex justify-between items-center "
         onClick={() => {
           setOpen(!open);
         }}
       >
-        <div className="relative w-[72%] px-[3.125rem] h-full flex justify-center items-center border border-solid border-[#505050] rounded-full">
+        <div className="relative w-[72%] px-[3.125rem] h-full flex justify-center items-center border border-solid border-lesson-dropdown-border-color rounded-full">
           <span className="text-[0.75rem] font-futura-bold">
             {dropData.find((item) => item.key === defaultSelectKey)?.title}
           </span>
         </div>
-        <div className="h-full flex items-center justify-center mr-[1.5rem]">
-          <DropDownIcon width={13} height={11}></DropDownIcon>
+        <div className="h-full flex items-center justify-center mr-[1.5rem] text-lesson-dropdown-icon-color">
+          <DropDownIcon
+            width={13}
+            height={11}
+            color="currentColor"
+          ></DropDownIcon>
         </div>
       </div>
 
       {open ? (
         <ul
-          className={`w-fit whitespace-nowrap absolute right-0 top-[3rem] pt-8 pl-8 pb-[1rem] pr-[3rem] rounded-[2rem] bg-[#171717] text-[#D9D9D9] transition ease-in-out z-[99] ${
+          className={`w-fit whitespace-nowrap absolute right-0 top-[3rem] pt-8 pl-8 pb-[1rem] pr-[3rem] rounded-[2rem] bg-lesson-dropdown-bg text-lesson-dropdown-text-color transition ease-in-out z-[99] shadow-2xl ${
             minWidth ? `min-w-[${minWidth}]` : ''
           }`}
         >
@@ -101,8 +107,10 @@ const Dropdown = <P, T>(props: DropdownProps<P, T>) => {
             return (
               <li
                 key={data.key}
-                className={`pb-[1.25rem] cursor-pointer ${
-                  data.disable ? 'text-[#505050] cursor-not-allowed' : ''
+                className={`pb-[1.25rem] cursor-pointer font-bold ${
+                  data.disable
+                    ? 'text-lesson-dropdown-disable-text-color cursor-not-allowed'
+                    : ''
                 }`}
                 onClick={() => {
                   if (data.disable) return;

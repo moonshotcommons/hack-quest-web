@@ -25,11 +25,11 @@ const CourseDetailInfo: FC<CourseDetailInfoProps> = (props) => {
         {/* 课程等级 */}
         <div className="flex items-center gap-5">
           <span
-            className={`w-12 h-12 border flex justify-center items-center border-solid border-[#676767] rounded-full`}
+            className={`w-12 h-12 border flex justify-center items-center border-solid border-course-detail-type-text-color rounded-full text-text-default-color`}
           >
-            <UserIcon size={18}></UserIcon>
+            <UserIcon size={18} color="currentColor"></UserIcon>
           </span>
-          <span className="text-[#F2F2F2] font-next-book">
+          <span className="text-text-default-color font-next-book">
             {tagFormate(level)} Level
           </span>
         </div>
@@ -37,12 +37,14 @@ const CourseDetailInfo: FC<CourseDetailInfoProps> = (props) => {
         {/* 课程预计时间 */}
         <div className="flex items-center gap-5">
           <span
-            className={`w-12 h-12 border flex justify-center items-center border-solid border-[#676767] font-next-book text-white rounded-full`}
+            className={`w-12 h-12 border flex justify-center items-center border-solid border-course-detail-type-text-color font-next-book text-text-default-color rounded-full`}
           >
             {computeTime(courseDetail?.duration || 0, 'Hour', false)} h
           </span>
-          <span className="text-[#F2F2F2] font-next-book">
-            <span className="text-[#676767]">Estimate </span>
+          <span className="text-text-default-color font-next-book">
+            <span className="text-course-detail-type-text-color">
+              Estimate{' '}
+            </span>
             <span>Learning Time</span>
           </span>
         </div>
@@ -50,9 +52,11 @@ const CourseDetailInfo: FC<CourseDetailInfoProps> = (props) => {
         {/* 观看人数 */}
         <div className="flex h-full items-center gap-3">
           <PeopleJoined avatars={getRandomAvatars(4)}></PeopleJoined>
-          <div className="text-[#F2F2F2] font-next-book">
+          <div className="text-text-default-color font-next-book">
             <span className="">{courseDetail?.peopleJoined ?? 4} </span>
-            <span className="text-[#676767] ml-1">People joined</span>
+            <span className="text-course-detail-type-text-color ml-1">
+              People joined
+            </span>
           </div>
         </div>
       </div>

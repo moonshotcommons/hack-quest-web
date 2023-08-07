@@ -1,30 +1,197 @@
 html[data-theme='dark'] {
   --primary-green-yellow: #fcc409;
-  --global-bg: var(--neutral-black);
-  --text-default-color: var(--neutral-white);
+  --default-global-bg: var(--neutral-black);
+  /* 默认文字颜色 */
+  --text-default-color: var(--text-text-white-on-dark);
+  --text-second-color: var(--neutral-light-gray);
+  /* 默认文字hover颜色 */
   --text-default-hover-color: var(--neutral-white);
+  /* 上下伪类下划线的颜色 */
+  --line-color: var(--neutral-rich-gray);
 
-  /* course */
-  --concept-card-bg: url('/images/card/ConceptLearning/dark-bg.svg');
-  --guided-card-bg: url('/images/card/GuidedProject/dark-bg.svg');
-  --hackathon-card-bg: url('/images/card/Hackathon/dark-bg.svg');
-  --learning-track-card-bg: url('/images/card/LearningTracks/dark-bg.svg');
-  --syntax-card-bg: url('/images/card/Syntax/dark-bg.svg');
-  --teaser-card-bg: url('/images/card/Teaser/dark-bg.svg');
-  --card-title-text-color: var(--neutral-white);
-  --tag-border-color: var(--neutral-medium-gray);
-  --tag-learning-track-border-color: var(--neutral-medium-gray);
-  --tag-learning-track-text-color: var(--neutral-medium-gray);
-  --card-description-text-color: var(--neutral-medium-gray);
-  --banner-arrow-bg: var(--neutral-black);
-  --banner-arrow-color: var(--neutral-white);
-  --syntax-primary-color: ;
-  --learning-track-primary-color: ;
-  --concept-primary-color: ;
-  --guided-primary-color: ;
-  --teaser-primary-color: ;
-  --hackathon-primary-color: ;
-  --line-color: ;
+  /* --------------------------- course --------------------------- */
+  --course-concept-card-bg: url('/images/card/ConceptLearning/dark-bg.svg');
+  --course-guided-card-bg: url('/images/card/GuidedProject/dark-bg.svg');
+  --course-hackathon-card-bg: url('/images/card/Hackathon/dark-bg.svg');
+  --course-learning-track-card-bg: url('/images/card/LearningTracks/dark-bg.svg');
+  --course-syntax-card-bg: url('/images/card/Syntax/dark-bg.svg');
+  --course-teaser-card-bg: url('/images/card/Teaser/dark-bg.svg');
+  /* 课程卡片标题文字颜色 */
+  --course-card-title-text-color: var(--neutral-white);
+  /* 课程卡片描述字体颜色 */
+  --course-card-description-text-color: var(--neutral-medium-gray);
+  /* 课程tag边框颜色 */
+  --course-tag-border-color: var(--neutral-medium-gray);
+  /* 课程进度button背景色 */
+  --course-progress-button-bg: var(--neutral-dark-gray);
+  /* 课程进度icon颜色 */
+  --course-progress-button-icon-color: var(--primary-green-yellow);
+  /* 课程进度文字颜色 */
+  --course-progress-button-text-color: var(--primary-green-yellow);
+  --course-tag-learning-track-border-color: var(--neutral-medium-gray);
+  /* learning track 主题色*/
+  --course-tag-learning-track-text-color: var(--neutral-medium-gray);
+  /* Trending Now 箭头背景色 */
+  --course-banner-arrow-bg: var(--neutral-black);
+  --course-banner-arrow-hover-bg: #303030;
+  --course-banner-arrow-border-color: #303030;
+  --course-banner-arrow-border-hover-color: #303030;
+  /* Trending Now 箭头icon */
+  --course-banner-arrow-color: var(--neutral-white);
+  --course-banner-arrow-hover-color: var(--neutral-white);
+  /* syntax 主题色 */
+  --course-syntax-primary-color: ;
+  /* learning track 主题色 */
+  --course-learning-track-primary-color: ;
+  /* concept 主题色 */
+  --course-concept-primary-color: ;
+  /* guided project 主题色 */
+  --course-guided-primary-color: ;
+  /* teaser 主题色 */
+  --course-teaser-primary-color: ;
+  /* hackathon 主题色 */
+  --course-hackathon-primary-color: ;
+  --course-learning-button-bg: transparent;
+  --course-learning-button-text-color: var(--text-text-white-on-dark);
+  --course-learning-button-border-color: var(--text-text-white-on-dark);
+  --course-progress-border-color: var(--status-progress-green);
+  --course-progress-icon-color: var(--status-progress-green);
+  --course-progress-text-color: var(--text-text-white);
+  --course-detail-desc-text-color: var(--text-text-gray);
+  --course-detail-desc-border-color: var(--text-text-gray);
+  --course-unit-desc-text-color: var(--text-text-gray);
+  --course-unit-lock-icon-color: var(--text-text-white-on-dark);
+  --course-detail-type-text-color: var(--text-text-gray);
+
+  /* learning track */
+  --learning-track-progress-border-color: #ededed;
+  --learning-track-progress-text-color: var(--text-text-white);
+  --learning-track-course-hover-bg: #151515;
+  --learning-track-course-title-color: var(--text-text-white);
+  --learning-track-course-type-color: #b2b2b2;
+
+  /* lesson */
+  --lesson-global-bg: var(--color-dark-bg);
+  --lesson-content-global-bg: #101010;
+  --lesson-header-back-button-bg: var(--color-dark-bg);
+  --lesson-header-back-button-hover-bg: var(--neutral-rich-gray);
+  --lesson-header-back-button-border-color: var(--button-card-card-outline);
+  --lesson-header-back-button-border-hover-color: var(--neutral-rich-gray);
+  --lesson-header-back-icon-color: var(--text-text-white-on-dark);
+  --lesson-header-back-icon-hover-color: var(--neutral-white);
+  --lesson-left-session-bg: #202020;
+  --lesson-left-session-text-color: var(--text-text-white);
+  --lesson-right-session-bg: transparent;
+  --lesson-right-session-border-color: var(--neutral-white);
+  --lesson-right-session-hover-bg: var(--text-text-white);
+  --lesson-right-session-text-color: var(--text-text-whit);
+  --lesson-right-session-hover-text-color: var(--color-black);
+  --lesson-right-session-hover-border-color: var(--text-text-white);
+  --lesson-dropdown-text-color: #d9d9d9;
+  --lesson-dropdown-border-color: #505050;
+  --lesson-dropdown-select-line-color: #404040;
+  --lesson-dropdown-select-border-color: #d9d9d9;
+  --lesson-dropdown-select-text-color: #d9d9d9;
+  --lesson-dropdown-select-bg: transparent;
+  --lesson-dropdown-disable-text-color: #505050;
+  --lesson-dropdown-icon-color: var(--neutral-white);
+  --lesson-dropdown-bg: #171717;
+  --lesson-primary-button-bg: #101010;
+  --lesson-primary-button-text-color: var(--neutral-white);
+  --lesson-primary-button-border-color: var(--button-card-button-bg-on-light);
+  --lesson-ghost-button-bg: transparent;
+  --lesson-ghost-border-color: var(--button-card-card-outline);
+  --lesson-ghost-button-text-color: var(--button-card-button-bg-on-light);
+  --lesson-completed-modal-bg: #131313;
+  --lesson-completed-modal-line-color: #202020;
+  --lesson-code-copy-button-bg: #e3e3e3;
+  --lesson-code-copy-button-text: #000;
+
+  /* notionRender */
+  --renderer-step-label-bg: #111;
+  --renderer-step-label-text-color: #9efa13;
+  --renderer-step-box-bg: var(--codedesbg);
+  --renderer-step-box-text-color: var(--neutral-white);
+  --renderer-quote-border-color: var(--text-text-gray);
+  --renderer-quote-text-color: var(--text-text-gray);
+  --renderer-code-bg: var(--codedesbg);
+  --renderer-description-more-text-color: var(--text-text-gray);
+
+  /* layout */
+  --navbar-login-button-bg: var(--primary-green-yellow);
+  --navbar-login-button-text-color: var(--neutral-black);
+
+  /* landing*/
+  /* --landing-  */
+  --landing-banner-gradient-to: var(--neutral-black);
+  --landing-banner-login-button-bg: var(--neutral-black);
+  --landing-banner-login-button-text-color: var(--neutral-white);
+  --landing-banner-login-button-border-color: var(--neutral-white);
+  --landing-card-bg: var(--neutral-off-black);
+  --landing-tab-bg: transparent;
+  --landing-tab-hover-bg: var(--neutral-white);
+  --landing-tab-border-color: #636363;
+  --landing-tab-hover-border-color: var(--neutral-black);
+  --landing-tab-text-color: var(--neutral-white);
+  --landing-tab-hover-text-color: var(--neutral-black);
+  --landing-card-login-button-bg: transparent;
+  --landing-card-login-button-text-color: var(--text-text-white);
+  --landing-card-login-button-border-color: #f5f5f5;
+
+  /* setting */
+  --setting-dropcard-bg: var(--neutral-black);
+  --setting-dropcard-line-color: var(--neutral-rich-gray);
+  --setting-dropcard-border-color: var(--neutral-rich-gray);
+  --setting-dropcard-text-color: var(--neutral-medium-gray);
+  --setting-modal-bg: var(--neutral-off-black);
+  --setting-modal-border-color: var(--button-card-card-outline);
+  --setting-upload-button-bg: transparent;
+  --setting-upload-button-text-color: var(--text-text-white-on-dark);
+  --setting-upload-button-border-color: var(--neutral-white);
+  --setting-input-title-color: var(--text-text-gray);
+  --setting-input-text-color: var(--text-text-white);
+  --setting-input-line-color: var(--button-card-card-outline);
+  --setting-input--border-hover-color: var(--neutral-white);
+  --setting-input-icon-color: #676767;
+  --setting-transparent-button-bg: transparent;
+  --setting-transparent-button-text-color: var(--text-text-white-on-dark);
+  --setting-transparent-button-border-color: var(--neutral-white);
+  --setting-close-icon-border-color: var(--button-card-card-outline);
+  --setting-close-icon-color: var(--text-text-white-on-dark);
+
+  /* auth */
+  --auth-global-bg: var(--neutral-black);
+  --auth-input-outline-color: var(--button-card-card-outline);
+  --auth-input-outline-focus-color: var(--button-card-card-outline);
+  --auth-input-success-color: #9efa13;
+  /* --auth-input-success-bg: var(--neutral-off-white); */
+  --auth-input-success-bg: var(--neutral-black);
+  --auth-input-error-color: var(--status-error);
+  --auth-input-error-bg: #ffb9b9;
+  --auth-input-focus-bg: var(--neutral-off-white);
+  /* --auth-input-bg: var(--neutral-off-white); */
+  --auth-input-bg: var(--neutral-black);
+  --auth-password-input-bg: var(--color-block-bg-on-dark);
+  --auth-password-focus-bg: var(--neutral-off-white);
+  --auth-input-clear-icon-color: var(--status-error);
+  --auth-input-success-icon-color: #9efa13;
+  --auth-input-visible-icon-color: #3e3e3e;
+  --auth-input-checkbox-bg: #9efa13;
+  --auth-input-checkbox-border-color: #ededed;
+  --auth-input-checkbox-hover-bg: #9efa13;
+  --auth-primary-button-border-color: var(--button-card-dark-gray-button);
+  --auth-primary-button-border-hover-color: #353535;
+  --auth-primary-button-bg: var(--button-card-dark-gray-button);
+  --auth-primary-button-hover-bg: #353535;
+  --auth-primary-button-text-color: var(--neutral-white);
+  --auth-primary-button-text-hover-color: var(--neutral-white);
+  --auth-ghost-button-bg: var(--neutral-black);
+  --auth-ghost-button-hover-bg: #111;
+  --auth-ghost-button-text-color: #fff;
+  --auth-ghost-button-hover-text-color: #fff;
+  --auth-ghost-button-border-color: var(--text-text-white);
+  --auth-ghost-button-hover-border-color: var(--text-text-white);
+  --auth-description-text-color: #676767;
 
   /* mission center */
   --mission-center-gradient-radial:linear-gradient(180deg, #353535 0%, #2e2e2e 100%);

@@ -34,42 +34,45 @@ const Settings: FC<SettingsProps> = (props) => {
   return (
     <div>
       <Modal open={settingsOpen} onClose={onClose} showCloseIcon={true}>
-        <div className="relative w-full m-auto py-[7.81rem] rounded-[2.5rem] bg-[#131313] z-[99] flex justify-center">
+        <div className="relative w-full m-auto py-[7.81rem] rounded-[2.5rem] bg-setting-modal-bg border-2 border-solid border-setting-modal-border-color z-[99] flex justify-center">
           <div className="flex flex-col w-[64%] ">
-            <h1 className="text-white text-[2rem] font-next-poster-Bold leading-[110%] tracking-[0.04rem]">
+            <h1 className="text-text-default-color text-[2rem] font-next-poster-Bold leading-[110%] tracking-[0.04rem]">
               Settings
             </h1>
             <div className="mt-[4rem] flex flex-col gap-[1.5rem] ">
               <AvatarUpload userInfo={userInfo}></AvatarUpload>
               <div className="w-full relative flex flex-col gap-[0.25rem] bottom-line">
-                <span className="text-[#676767] text-[0.875rem] font-next-book leading-[110%]">
+                <span className="text-setting-input-title-color text-[0.875rem] font-next-book leading-[110%]">
                   ID
                 </span>
                 <div className="h-[3.5rem] flex gap-[1.25rem] items-center">
-                  <span>
-                    <UserFillIcon color="#9597A1" size={24}></UserFillIcon>
+                  <span className="text-setting-input-icon-color">
+                    <UserFillIcon color="currentColor" size={24}></UserFillIcon>
                   </span>
                   <input
                     type="text"
                     disabled
                     defaultValue={userInfo?.name}
-                    className="bg-transparent h-full text-[#EDEDED] text-[1rem] font-next-book leading-[120%] outline-none w-full disabled:cursor-not-allowed"
+                    className="bg-transparent h-full text-setting-input-text-color text-[1rem] font-next-book leading-[120%] outline-none w-full disabled:cursor-not-allowed"
                   />
                 </div>
               </div>
               <div className="w-full relative flex flex-col gap-[0.25rem] bottom-line">
-                <span className="text-[#676767] text-[0.875rem] font-next-book leading-[110%]">
+                <span className="text-setting-input-title-color text-[0.875rem] font-next-book leading-[110%]">
                   Email
                 </span>
                 <div className="h-[3.5rem] flex gap-[1.25rem] items-center">
-                  <span>
-                    <EmailFillIcon color="#676767" size={24}></EmailFillIcon>
+                  <span className="text-setting-input-icon-color">
+                    <EmailFillIcon
+                      color="currentColor"
+                      size={24}
+                    ></EmailFillIcon>
                   </span>
                   <input
                     type="text"
                     disabled
                     defaultValue={userInfo?.email}
-                    className="bg-transparent h-full text-[#EDEDED] text-[1rem] font-next-book leading-[120%] outline-none w-full disabled:cursor-not-allowed"
+                    className="bg-transparent h-full text-setting-input-text-color text-[1rem] font-next-book leading-[120%] outline-none w-full disabled:cursor-not-allowed"
                   />
                 </div>
               </div>

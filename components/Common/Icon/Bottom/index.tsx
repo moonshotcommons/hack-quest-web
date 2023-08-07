@@ -22,8 +22,8 @@ const BottomIcon: React.FC<IconProps> = (props) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <path d="M5.5 4L5.5 16" stroke="black" />
-      <path d="M10.5 11L5.5 16L0.5 11" stroke="black" />
+      <path d="M5.5 4L5.5 16" stroke={color} />
+      <path d="M10.5 11L5.5 16L0.5 11" stroke={color} />
     </svg>
   );
 };

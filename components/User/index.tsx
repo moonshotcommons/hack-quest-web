@@ -9,6 +9,7 @@ import Link from 'next/link';
 import Settings from './Settings';
 import RightIcon from '../Common/Icon/Right';
 import { useGetUserInfo } from '@/hooks/useGetUserInfo';
+import Button from '../Common/Button';
 interface UserProps {
   // children: ReactNode;
 }
@@ -30,7 +31,7 @@ const User: FC<UserProps> = (props) => {
         onMouseEnter={(e) => setShowUserDropCard(true)}
         onMouseLeave={(e) => setShowUserDropCard(false)}
       >
-        <div className="cursor-pointer h-full flex items-center w-[4rem] justify-end">
+        <div className="cursor-pointer h-full flex items-center justify-end">
           {isLogin && (
             <div className="relative w-[2.5rem] h-[40px] overflow-hidden rounded-full flex justify-center items-center">
               <Image
@@ -43,10 +44,18 @@ const User: FC<UserProps> = (props) => {
           )}
           {!isLogin && (
             <Link href={'/auth/login'}>
-              <div className="w-fit whitespace-nowrap flex items-center  px-8 py-3 font-next-book leading-[128%] text-[#F5F5F5] text-[.875rem] rounded-[5rem] border border-solid hover:bg-white hover:text-black border-[#F5F5F5] gap-[0.62rem]">
+              {/* <div className="w-fit whitespace-nowrap flex items-center  px-8 py-3 font-next-book leading-[128%] text-[#F5F5F5] text-[.875rem] rounded-[5rem] border border-solid hover:bg-white hover:text-black border-[#F5F5F5] gap-[0.62rem]">
                 <div>Login To Learn Now</div>
                 <RightIcon></RightIcon>
-              </div>
+              </div> */}
+              <Button
+                type="primary"
+                className="bg-navbar-login-button-bg text-navbar-login-button-text-color font-next-book font-normal tracking-[.01rem] px-[2rem] py-[.75rem]"
+                icon={<RightIcon />}
+                iconPosition="right"
+              >
+                Login To Learn Now
+              </Button>
             </Link>
           )}
         </div>

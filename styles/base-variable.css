@@ -1,10 +1,26 @@
 html {
   --neutral-dark-gray: #212121;
   --neutral-off-white: #f4f4f4;
+  --neutral-rich-gray: #3e3e3e;
+  --neutral-off-black: #131313;
   --neutral-white: #fff;
   --neutral-light-gray: #dadada;
   --neutral-medium-gray: #8c8c8c;
   --neutral-black: #0b0b0b;
   --code-dark-green: #9ed600;
   --code-purple: #6b6bf6;
+  --text-text-white: #ededed;
+  --status-error-default: #ff624d;
+  --status-error: #ff4747;
+
+  --status-error-light: #fff7f5;
+  --button-card-card-outline: #5b5b5b;
+  --text-text-white-on-dark: #f2f2f2;
+  --status-progress-green: #9efa13;
+  --text-text-gray: #676767;
+  --color-dark-bg: #030303;
+  --button-card-button-bg-on-light: rgba(255, 255, 255, 0.7);
+  --codedesbg: #1e1e1e;
+  --color-black: #000;
+  --button-card-dark-gray-button: #2a2a2a;
 }
