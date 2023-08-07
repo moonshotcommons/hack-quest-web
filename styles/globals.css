@@ -86,13 +86,13 @@
     @apply flex items-center justify-center;
   }
   .base-btn {
-    @apply w-[145px] h-[40px] flex items-center justify-center text-[14px] rounded-[12px] cursor-pointer text-center;
+    @apply w-[145px] h-[40px] flex items-center justify-center text-[14px] rounded-[12px]  text-center;
   }
   .base-btn-bg {
     @apply base-btn bg-mission-center-gradient-radial;
   }
   .base-btn-adapt {
-    @apply h-[40px] flex items-center justify-center text-[14px] rounded-[12px] cursor-pointer text-center
+    @apply h-[40px] flex items-center justify-center text-[14px] rounded-[12px]  text-center
   }
 }
 

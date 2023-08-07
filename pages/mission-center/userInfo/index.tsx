@@ -1,20 +1,39 @@
 import React, { useState } from 'react';
 import Badges from './badges';
+import { UserLevelType, BadgesType } from '@/service/webApi/missionCenter/type';
+import Image from 'next/image';
+import { LoginResponse } from '@/service/webApi/user/type';
 
-function UserInfo() {
+type UserInfoType = {
+  userInfo: LoginResponse | null;
+  useLevel: UserLevelType;
+  badges: BadgesType[];
+};
+const UserInfo: React.FC<UserInfoType> = ({ userInfo, useLevel, badges }) => {
   const [showBadges, setShowBadges] = useState(false);
-  const data = [1, 2, 3];
+
   return (
     <div className="flex-center bg-mission-center-box w-[24%] rounded-[20px] h-[561px]">
       <div className="flex-col-center">
-        <div className="w-[107px] h-[107px] rounded-[50%] bg-mission-center-rounded"></div>
+        <div className="relative rounded-[50%] overflow-hidden">
+          {/* {userInfo?.avatar && (
+            <Image
+              src={userInfo?.avatar as string}
+              alt="avatar"
+              fill
+              className="object-contain"
+            ></Image>
+          )} */}
+        </div>
         <div className="flex-col-center pt-5">
           <p className="text-[20px] font-next-book-bold leading-5">
-            Carina Geng
+            {/* {userInfo?.name} */}
           </p>
           <div className="flex items-center pt-[12px]">
             <div className="w-5 h-5 bg-mission-center-rounded rounded-[50%]"></div>
-            <span className="pl-[10px] pr-5 text-[13px]">Level 3</span>
+            <span className="pl-[10px] pr-5 text-[13px]">
+              Level {useLevel?.level ?? 0}
+            </span>
             <div className="w-5 h-5 rounded-[50%] flex-center text-[12px] text-mission-center-undertone border border-mission-center-undertone">
               ?
             </div>
@@ -24,7 +43,7 @@ function UserInfo() {
           <div className="h-full flex-col-center justify-between">
             <p>Today’s XP</p>
             <p className="text-[16px] font-next-book-bold text-mission-center-basics">
-              50
+              {useLevel?.expToday ?? 0}
             </p>
           </div>
 
@@ -42,24 +61,31 @@ function UserInfo() {
           <div className="h-full flex-col-center justify-between">
             <p>Total XP</p>
             <p className="text-[16px] font-next-book-bold text-mission-center-basics">
-              750/800
+              {`${useLevel?.expCurrent ?? 0}/${useLevel?.expNextLevel ?? 0}`}
             </p>
           </div>
         </div>
         <div
           className={`flex items-center mb-6 relative w-[184px] h-[92px] ${
-            data.length > 2 ? 'justify-between' : ''
+            useLevel?.badges?.length > 2 ? 'justify-between' : ''
           }`}
         >
-          {data.map((v: any, i: number) => (
+          {useLevel?.badges?.map((badge: BadgesType, i: number) => (
             <div
-              className={`${
+              className={`overflow-hidden ${
                 !i
-                  ? 'w-[92px] h-[92px] rounded-[50%] bg-mission-center-rounded  absolute z-1 top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4'
-                  : 'w-[69px] h-[69px] rounded-[50%] bg-mission-center-rounded1'
+                  ? 'w-[92px] h-[92px] rounded-[50%] absolute z-[2] top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4'
+                  : 'w-[69px] h-[69px] rounded-[50%] relative z-[1]'
               }`}
-              key={v}
-            ></div>
+              key={badge.id}
+            >
+              <Image
+                src={badge?.icon}
+                alt="badgeIcon"
+                fill
+                className="object-cover"
+              ></Image>
+            </div>
           ))}
         </div>
         <button className="base-btn-bg" onClick={() => setShowBadges(true)}>
@@ -67,9 +93,13 @@ function UserInfo() {
         </button>
       </div>
 
-      <Badges open={showBadges} onClose={() => setShowBadges(false)} />
+      <Badges
+        open={showBadges}
+        badges={badges}
+        onClose={() => setShowBadges(false)}
+      />
     </div>
   );
-}
+};
 
 export default UserInfo;

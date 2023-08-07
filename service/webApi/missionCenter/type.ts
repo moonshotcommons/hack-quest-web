@@ -1,5 +1,5 @@
 /** 勋章 */
-export interface Badges {
+export interface BadgesType {
   id: string;
   name: string;
   description: string;
@@ -15,33 +15,33 @@ export enum MissionType {
 
 export enum MissionSubType {
   COURSE_COMPLETION = 'COURSE_COMPLETION',
-  'QUEST_WINNING_STREAK' = 'QUEST_WINNING_STREAK',
+  QUEST_WINNING_STREAK = 'QUEST_WINNING_STREAK',
   TRACK_COMPLETION = 'TRACK_COMPLETION'
 }
 /** 用户等级 */
-export interface UserLevel {
+export interface UserLevelType {
   level: number;
   expToday: number;
   expCurrent: number;
   expNextLevel: number;
-  badges: Badges[];
+  badges: BadgesType[];
 }
 /** 进度 */
-export interface Progress {
+export interface ProgressType {
   id: string;
   completed: boolean;
   claimed: boolean;
-  progress: [number, number];
+  progress: number[];
 }
 
 /** mission */
-export interface Mission {
+export interface MissionDataType {
   id: string;
   name: string;
   description: string;
   icon: string;
   type: MissionType;
-  subType: MissionSubType;
+  subType: MissionSubType | '';
   exp: number;
-  progress: Progress;
+  progress: ProgressType;
 }

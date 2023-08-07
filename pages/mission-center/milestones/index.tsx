@@ -7,8 +7,11 @@ import {
   MilestonesTab,
   MilestonesData
 } from '../data';
-
-function Milestones() {
+import { MissionDataType } from '@/service/webApi/missionCenter/type';
+type MilestonesType = {
+  missions: MissionDataType[];
+};
+const Milestones: React.FC<MilestonesType> = ({ missions }) => {
   const [curTabId, setCurTabId] = useState(milestonesTab[0].id);
   const milestonesRef = useRef<HTMLDivElement | null>(null);
   const isClickScroll = useRef(false);
@@ -187,6 +190,6 @@ function Milestones() {
       <div className="bg-mission-center-tab-box-shadow absolute bottom-9 left-0 w-full h-[30px] pointer-events-none"></div>
     </div>
   );
-}
+};
 
 export default Milestones;

@@ -1,11 +1,20 @@
 import React, { useContext } from 'react';
 import Image from 'next/image';
 import Ring from '../component/Ring';
-import { questsData } from '../data';
 import Sphere from '@/public/images/mission-center/sphere.png';
 import { ThemeContext } from '@/store/context/theme';
+import {
+  MissionDataType,
+  MissionType
+} from '@/service/webApi/missionCenter/type';
 
-function Quests() {
+type QuestsType = {
+  missions: MissionDataType[];
+};
+const Quests: React.FC<QuestsType> = ({ missions }) => {
+  const questsData = missions.filter(
+    (v: MissionDataType) => v.type === MissionType.DAILY_QUESTS
+  );
   const { theme } = useContext(ThemeContext);
   const claimedRingPercent = theme === 'dark' ? 1 : 0;
   return (
@@ -45,13 +54,13 @@ function Quests() {
                 <Ring
                   radius={69}
                   percent={
-                    item.type === 'hidden'
+                    item.progress.claimed
                       ? claimedRingPercent
                       : item.comQuest / item.totalQuest
                   }
                 />
               </div>
-              {item.type === 'hidden' ? (
+              {item.progress.claimed ? (
                 <div
                   className="flex items-center justify-center w-[122px] h-[122px] border-[0.5px] border-mission-center-quests-box rounded-[50%] leading-[15px] text-[14px] bg-[url('/images/mission-center/claimed_btn_bg.svg')]"
                   key={item.id}
@@ -66,9 +75,9 @@ function Quests() {
                   key={item.id}
                 >
                   <div className="flex-col-center">
-                    <p>Complete</p>
-                    <p className="mb-[12px]">{`${item.totalQuest} Quest`}</p>
-                    <p>{`${item.comQuest}/${item.totalQuest}`}</p>
+                    {/* <p>Complete</p> */}
+                    <p className="mb-[12px] text-left w-[60px]">{`${item.name}`}</p>
+                    <p>{`${item.progress.progress[0]}/${item.progress.progress[1]}`}</p>
                   </div>
                 </div>
               )}
@@ -81,7 +90,7 @@ function Quests() {
                 height={20}
                 unoptimized
               />
-              <span className="ml-1">{item.integral}</span>
+              <span className="ml-1">{item.exp}</span>
             </div>
           </div>
         ))}
@@ -94,6 +103,6 @@ function Quests() {
       </div>
     </div>
   );
-}
+};
 
 export default Quests;
