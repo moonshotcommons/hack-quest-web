@@ -71,8 +71,8 @@ function MissionCenter() {
             (v: MissionDataType) => v.type === MissionType.MILESTONES
           )}
         />
-        <SignUpStreak missions={missions} />
-        <BeginnerRewards missions={missions} />
+        {/* <SignUpStreak missions={missions} />
+        <BeginnerRewards missions={missions} /> */}
       </div>
     </div>
   );
