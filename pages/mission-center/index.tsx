@@ -9,6 +9,7 @@ import {
   UserLevelType,
   BadgesType,
   MissionDataType,
+  BeginnerRewardsType,
   MissionType
 } from '@/service/webApi/missionCenter/type';
 import { useRequest } from 'ahooks';
@@ -20,6 +21,7 @@ function MissionCenter() {
   const userInfo = useSelector((state: AppRootState) => {
     return state.user.userInfo;
   }, shallowEqual);
+
   /** 获取用户等级 */
   const { data: useLevel = {} as UserLevelType } = useRequest(
     async () => {
@@ -78,7 +80,12 @@ function MissionCenter() {
             ) || {}) as MissionDataType
           }
         />
-        {/* <BeginnerRewards missions={missions} />g */}
+        <BeginnerRewards
+          rewardData={missions.filter(
+            (v: MissionDataType) => BeginnerRewardsType[v.type]
+          )}
+        />
+        BeginnerRewardsType
       </div>
     </div>
   );
