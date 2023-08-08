@@ -4,7 +4,7 @@ import {
   MissionType,
   MissionSubType
 } from '@/service/webApi/missionCenter/type';
-import uuid from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 
 type Data = {
   name: string;
@@ -27,7 +27,7 @@ const getMethodHandler = (
 ) => {
   res.status(200).json([
     {
-      id: uuid?.v4() || '0', // mission id
+      id: uuidv4(), // mission id
       name: 'Complete 5 Quest',
       description: 'Complete 5 Quest',
       icon: '',
@@ -35,14 +35,14 @@ const getMethodHandler = (
       subType: '',
       exp: 5,
       progress: {
-        id: uuid?.v4() || '0', // mission progress id
+        id: uuidv4(), // mission progress id
         completed: true,
         claimed: true,
         progress: [5, 5]
       }
     },
     {
-      id: uuid?.v4() || '0',
+      id: uuidv4(),
       name: 'Complete 10 Quest',
       description: 'Complete 10 Quest',
       icon: '',
@@ -50,14 +50,14 @@ const getMethodHandler = (
       subType: '',
       exp: 10,
       progress: {
-        id: uuid?.v4() || '0',
+        id: uuidv4(),
         completed: false,
         claimed: false,
         progress: [5, 10]
       }
     },
     {
-      id: uuid?.v4() || '0',
+      id: uuidv4(),
       name: 'Complete 10 Quest',
       description: 'Complete 10 Quest',
       icon: '',
@@ -65,14 +65,14 @@ const getMethodHandler = (
       subType: '',
       exp: 10,
       progress: {
-        id: uuid?.v4() || '0',
+        id: uuidv4(),
         completed: false,
         claimed: false,
         progress: [5, 10]
       }
     },
     {
-      id: uuid?.v4() || '0',
+      id: uuidv4(),
       name: 'Complete 3 Syntax',
       description: 'Complete 3 Syntax',
       icon: '',
@@ -80,14 +80,14 @@ const getMethodHandler = (
       subType: MissionSubType.COURSE_COMPLETION,
       exp: 25,
       progress: {
-        id: uuid?.v4() || '0',
+        id: uuidv4(),
         completed: true,
-        claimed: true,
-        progress: [3, 3]
+        claimed: false,
+        progress: [3, 10]
       }
     },
     {
-      id: uuid?.v4() || '0',
+      id: uuidv4(),
       name: 'Complete 3 Syntax',
       description: 'Complete 3 Syntax',
       icon: '',
@@ -95,14 +95,14 @@ const getMethodHandler = (
       subType: MissionSubType.COURSE_COMPLETION,
       exp: 25,
       progress: {
-        id: uuid?.v4() || '0',
-        completed: true,
-        claimed: true,
-        progress: [3, 3]
+        id: uuidv4(),
+        completed: false,
+        claimed: false,
+        progress: [3, 7]
       }
     },
     {
-      id: uuid?.v4() || '0',
+      id: uuidv4(),
       name: 'Complete 3 Syntax',
       description: 'Complete 3 Syntax',
       icon: '',
@@ -110,14 +110,14 @@ const getMethodHandler = (
       subType: MissionSubType.COURSE_COMPLETION,
       exp: 25,
       progress: {
-        id: uuid?.v4() || '0',
+        id: uuidv4(),
         completed: true,
-        claimed: true,
-        progress: [3, 3]
+        claimed: false,
+        progress: [3, 10]
       }
     },
     {
-      id: uuid?.v4() || '0',
+      id: uuidv4(),
       name: 'Complete 3 Syntax',
       description: 'Complete 3 Syntax',
       icon: '',
@@ -125,14 +125,14 @@ const getMethodHandler = (
       subType: MissionSubType.QUEST_WINNING_STREAK,
       exp: 25,
       progress: {
-        id: uuid?.v4() || '0',
+        id: uuidv4(),
         completed: true,
-        claimed: true,
-        progress: [3, 3]
+        claimed: false,
+        progress: [3, 30]
       }
     },
     {
-      id: uuid?.v4() || '0',
+      id: uuidv4(),
       name: 'Complete 3 Syntax',
       description: 'Complete 3 Syntax',
       icon: '',
@@ -140,14 +140,14 @@ const getMethodHandler = (
       subType: MissionSubType.QUEST_WINNING_STREAK,
       exp: 25,
       progress: {
-        id: uuid?.v4() || '0',
-        completed: true,
-        claimed: true,
-        progress: [3, 3]
+        id: uuidv4(),
+        completed: false,
+        claimed: false,
+        progress: [3, 20]
       }
     },
     {
-      id: uuid?.v4() || '0',
+      id: uuidv4(),
       name: 'Complete 3 Syntax',
       description: 'Complete 3 Syntax',
       icon: '',
@@ -155,14 +155,14 @@ const getMethodHandler = (
       subType: MissionSubType.QUEST_WINNING_STREAK,
       exp: 25,
       progress: {
-        id: uuid?.v4() || '0',
+        id: uuidv4(),
         completed: true,
-        claimed: true,
-        progress: [3, 3]
+        claimed: false,
+        progress: [3, 20]
       }
     },
     {
-      id: uuid?.v4() || '0',
+      id: uuidv4(),
       name: 'Complete 3 Syntax',
       description: 'Complete 3 Syntax',
       icon: '',
@@ -170,14 +170,14 @@ const getMethodHandler = (
       subType: MissionSubType.TRACK_COMPLETION,
       exp: 25,
       progress: {
-        id: uuid?.v4() || '0',
+        id: uuidv4(),
         completed: true,
-        claimed: true,
-        progress: [3, 3]
+        claimed: false,
+        progress: [3, 10]
       }
     },
     {
-      id: uuid?.v4() || '0',
+      id: uuidv4(),
       name: 'Complete 3 Syntax',
       description: 'Complete 3 Syntax',
       icon: '',
@@ -185,14 +185,14 @@ const getMethodHandler = (
       subType: MissionSubType.TRACK_COMPLETION,
       exp: 25,
       progress: {
-        id: uuid?.v4() || '0',
+        id: uuidv4(),
         completed: true,
-        claimed: true,
-        progress: [3, 3]
+        claimed: false,
+        progress: [3, 10]
       }
     },
     {
-      id: uuid?.v4() || '0',
+      id: uuidv4(),
       name: 'Complete 3 Syntax',
       description: 'Complete 3 Syntax',
       icon: '',
@@ -200,14 +200,14 @@ const getMethodHandler = (
       subType: MissionSubType.TRACK_COMPLETION,
       exp: 25,
       progress: {
-        id: uuid?.v4() || '0',
+        id: uuidv4(),
         completed: true,
         claimed: true,
-        progress: [3, 3]
+        progress: [3, 20]
       }
     },
     {
-      id: uuid?.v4() || '0',
+      id: uuidv4(),
       name: 'Complete 3 Syntax',
       description: 'Complete 3 Syntax',
       icon: '',
@@ -215,14 +215,14 @@ const getMethodHandler = (
       subType: MissionSubType.TRACK_COMPLETION,
       exp: 25,
       progress: {
-        id: uuid?.v4() || '0',
+        id: uuidv4(),
         completed: true,
-        claimed: true,
-        progress: [3, 3]
+        claimed: false,
+        progress: [3, 10]
       }
     },
     {
-      id: uuid?.v4() || '0',
+      id: uuidv4(),
       name: '7 Days Signup Streak',
       description: '7 Days Signup Streak',
       icon: '',
@@ -230,14 +230,29 @@ const getMethodHandler = (
       subType: '',
       exp: 10, // exp of day 1/7
       progress: {
-        id: uuid?.v4() || '0',
+        id: uuidv4(),
         completed: true, // For SEVEN_DAYS_SIGNUP, 'completed' will always be true
         claimed: false,
         progress: [1, 7] // e.g. 1/7, 2/7, 5/7
       }
     },
     {
-      id: uuid?.v4() || '0',
+      id: uuidv4(),
+      name: 'Join Discord',
+      description: 'Join Our Discord community',
+      icon: '',
+      type: MissionType.FOLLOW_TWITTER,
+      subType: '',
+      exp: 25,
+      progress: {
+        id: uuidv4(),
+        completed: true,
+        claimed: false,
+        progress: []
+      }
+    },
+    {
+      id: uuidv4(),
       name: 'Join Discord',
       description: 'Join Our Discord community',
       icon: '',
@@ -245,7 +260,22 @@ const getMethodHandler = (
       subType: '',
       exp: 25,
       progress: {
-        id: uuid?.v4() || '0',
+        id: uuidv4(),
+        completed: true,
+        claimed: false,
+        progress: []
+      }
+    },
+    {
+      id: uuidv4(),
+      name: 'Join Discord',
+      description: 'Join Our Discord community',
+      icon: '',
+      type: MissionType.UPDATE_PROFILE,
+      subType: '',
+      exp: 25,
+      progress: {
+        id: uuidv4(),
         completed: true,
         claimed: false,
         progress: []

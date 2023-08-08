@@ -35,7 +35,7 @@ function Ring({ radius, percent, strokeWidth = 2 }: RingProps) {
         className="text-mission-center-quests-box-active"
         strokeWidth={strokeWidth}
         strokeDasharray={len}
-        strokeDashoffset={strokeDashoffset}
+        strokeDashoffset={strokeDashoffset as number}
         stroke="currentColor"
         fill="none"
       ></circle>
