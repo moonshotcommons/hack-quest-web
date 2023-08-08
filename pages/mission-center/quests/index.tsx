@@ -3,20 +3,13 @@ import Image from 'next/image';
 import Ring from '../component/Ring';
 import Sphere from '@/public/images/mission-center/sphere.png';
 import { ThemeContext } from '@/store/context/theme';
-import {
-  MissionDataType,
-  MissionType
-} from '@/service/webApi/missionCenter/type';
+import { MissionDataType } from '@/service/webApi/missionCenter/type';
 import { useRouter } from 'next/router';
-
 type QuestsType = {
-  missions: MissionDataType[];
+  questsData: MissionDataType[];
 };
-const Quests: React.FC<QuestsType> = ({ missions }) => {
+const Quests: React.FC<QuestsType> = ({ questsData }) => {
   const router = useRouter();
-  const questsData = missions.filter(
-    (v: MissionDataType) => v.type === MissionType.DAILY_QUESTS
-  );
   const { theme } = useContext(ThemeContext);
   const claimedRingPercent = theme === 'dark' ? 1 : 0;
   return (
@@ -47,7 +40,7 @@ const Quests: React.FC<QuestsType> = ({ missions }) => {
         </p>
       </div>
       <div className="flex flex-1 flex-row-center justify-between pl-[10px]">
-        {questsData.map((item: Record<string, any>) => (
+        {questsData.map((item: MissionDataType) => (
           <div className="w-[138px] flex-col-center" key={item.id}>
             <div
               className={`w-[138px] h-[138px] mb-[20px] relative quest-mission-center-box flex-center`}
@@ -58,26 +51,19 @@ const Quests: React.FC<QuestsType> = ({ missions }) => {
                   percent={
                     item.progress.claimed
                       ? claimedRingPercent
-                      : item.comQuest / item.totalQuest
+                      : item.progress.progress[0] / item.progress.progress[1]
                   }
                 />
               </div>
               {item.progress.claimed ? (
-                <div
-                  className="flex items-center justify-center w-[122px] h-[122px] border-[0.5px] border-mission-center-quests-box rounded-[50%] leading-[15px] text-[14px] bg-[url('/images/mission-center/claimed_btn_bg.svg')]"
-                  key={item.id}
-                >
+                <div className="flex items-center justify-center w-[122px] h-[122px] border-[0.5px] border-mission-center-quests-box rounded-[50%] leading-[15px] text-[14px] bg-[url('/images/mission-center/claimed_btn_bg.svg')]">
                   <button className="flex-center w-[79px] h-[40px] bg-claimed text-mission-center-claimed border border-mission-center-claimed rounded-[12px]">
                     Claimed
                   </button>
                 </div>
               ) : (
-                <div
-                  className="flex items-center justify-center w-[122px] h-[122px] border-[0.5px] border-mission-center-quests-box rounded-[50%] leading-[15px] text-[14px]  hover:bg-mission-center-quests-box-hover hover:text-mission-center-quests-box-hover"
-                  key={item.id}
-                >
+                <div className="flex items-center justify-center w-[122px] h-[122px] border-[0.5px] border-mission-center-quests-box rounded-[50%] leading-[15px] text-[14px]  hover:bg-mission-center-quests-box-hover hover:text-mission-center-quests-box-hover">
                   <div className="flex-col-center">
-                    {/* <p>Complete</p> */}
                     <p className="mb-[12px] text-left w-[60px]">{`${item.name}`}</p>
                     <p>{`${item.progress.progress[0]}/${item.progress.progress[1]}`}</p>
                   </div>

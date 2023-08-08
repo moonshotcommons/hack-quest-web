@@ -8,7 +8,8 @@ import webApi from '@/service';
 import {
   UserLevelType,
   BadgesType,
-  MissionDataType
+  MissionDataType,
+  MissionType
 } from '@/service/webApi/missionCenter/type';
 import { useRequest } from 'ahooks';
 import { AppRootState } from '@/store/redux';
@@ -55,14 +56,23 @@ function MissionCenter() {
       }
     }
   );
+
   return (
     <div className="flex justify-between w-full  text-mission-center-basics  text-[14px] font-next-book">
       <UserInfo userInfo={userInfo} useLevel={useLevel} badges={badges} />
       <div className="w-[calc(76%-10px)] [&>div]:mb-3">
-        <Quests missions={missions} />
-        {/* <Milestones missions={missions} />
+        <Quests
+          questsData={missions.filter(
+            (v: MissionDataType) => v.type === MissionType.DAILY_QUESTS
+          )}
+        />
+        <Milestones
+          milestonesData={missions.filter(
+            (v: MissionDataType) => v.type === MissionType.MILESTONES
+          )}
+        />
         <SignUpStreak missions={missions} />
-        <BeginnerRewards missions={missions} /> */}
+        <BeginnerRewards missions={missions} />
       </div>
     </div>
   );

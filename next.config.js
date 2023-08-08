@@ -9,7 +9,7 @@ const nextConfig = (phase) => {
     // 配置环境变量
     env: {
       BACKEND_BASE_URL:
-        process.env.BACKEND_BASE_URL || 'https://api.dev.hackquest.io/',
+        process.env.BACKEND_BASE_URL || 'https://api.dev.hackquest.io/v1/',
       IS_DEV: isDev
     },
     modifyVars: {

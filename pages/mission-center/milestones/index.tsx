@@ -2,25 +2,33 @@ import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import Sphere from '@/public/images/mission-center/sphere.png';
 import {
-  milestonesTab,
-  milestonesData,
-  MilestonesTab,
-  MilestonesData
-} from '../data';
-import { MissionDataType } from '@/service/webApi/missionCenter/type';
+  MissionDataType,
+  MissionSubType
+} from '@/service/webApi/missionCenter/type';
+import { useRouter } from 'next/router';
 type MilestonesType = {
-  missions: MissionDataType[];
+  milestonesData: MissionDataType[];
 };
-const Milestones: React.FC<MilestonesType> = ({ missions }) => {
-  const [curTabId, setCurTabId] = useState(milestonesTab[0].id);
+type MilestonesTabType = {
+  label: string;
+  id: string;
+};
+const Milestones: React.FC<MilestonesType> = ({ milestonesData }) => {
+  const router = useRouter();
+  const [curTabId, setCurTabId] = useState('');
+  const [milestonesTab, setMilestonesTab] = useState<MilestonesTabType[]>([]);
   const milestonesRef = useRef<HTMLDivElement | null>(null);
   const isClickScroll = useRef(false);
-  const [typeIdHeight, setTypeIdHeight] = useState<Record<string, any>>({});
+  const [subTabHeight, setSubTabHeight] = useState<Record<string, any>>({});
   const boxHeightInfo = useRef<{ h: number; mb: number }>({
     h: 52,
     mb: 12
   });
-  const renderTabLabel = (item: MilestonesTab, index: number) => {
+
+  const handleClaim = (item: MissionDataType) => {
+    console.info('handleClaim');
+  };
+  const renderTabLabel = (item: MilestonesTabType) => {
     const { id, label } = item;
     return id === curTabId ? (
       <div className="relative text-mission-center-basics font-next-book-bold h-full pb-5">
@@ -32,24 +40,19 @@ const Milestones: React.FC<MilestonesType> = ({ missions }) => {
     );
   };
 
-  const renderTitle = (item: MilestonesData) => {
-    const { typeId, title, totalQuest } = item;
-    return typeId !== 1 ? title : `Complete ${totalQuest} Syntax`;
-  };
-
-  const changeCurTabId = (id: number) => {
+  const changeCurTabId = (id: MissionSubType) => {
     if (id === curTabId) return;
     setCurTabId(id);
     isClickScroll.current = true;
-    (milestonesRef.current as HTMLDivElement).scrollTop = typeIdHeight[id].y;
+    (milestonesRef.current as HTMLDivElement).scrollTop = subTabHeight[id].y;
   };
 
   const handleScroll = () => {
     if (isClickScroll.current) return;
     const scrollHeight = milestonesRef.current?.scrollTop || 0;
-    for (let id in typeIdHeight) {
-      if (scrollHeight - typeIdHeight[id].height < 0) {
-        setCurTabId(Number(id));
+    for (let id in subTabHeight) {
+      if (scrollHeight - subTabHeight[id].height < 0) {
+        setCurTabId(id as MissionSubType);
         break;
       }
     }
@@ -70,15 +73,35 @@ const Milestones: React.FC<MilestonesType> = ({ missions }) => {
       }
     };
   };
+  /** 数据格式 XX_XX => Xx Xx */
+  const getTabNameToDict = (dict: string) => {
+    const tabName = dict
+      .replace(/\_/g, ' ')
+      .toLowerCase()
+      .replace(/(\s|^)[a-z]/g, (w) => w.toUpperCase());
+    return tabName;
+  };
+  /** 在milestonesData数据里面将subTab数据取出来 */
+  const getMilestonesTab = (data: MissionDataType[]) => {
+    const tab = [...new Set(data.map((v: MissionDataType) => v.subType))].map(
+      (v: string) => ({
+        label: getTabNameToDict(v),
+        id: v
+      })
+    );
+    return tab;
+  };
 
   useEffect(() => {
     const heightInfo: Record<string, any> = {};
     let height = 0,
       y = 0;
-    milestonesTab.map((tab: MilestonesTab) => {
+    const milestonesTab = getMilestonesTab(milestonesData);
+    setMilestonesTab(milestonesTab);
+    milestonesTab.map((tab: MilestonesTabType) => {
       const { id } = tab;
       const len = milestonesData.filter(
-        (data: MilestonesData) => data.typeId === id
+        (data: MissionDataType) => data.subType === id
       )?.length;
       height =
         height + (boxHeightInfo.current.h + boxHeightInfo.current.mb) * len;
@@ -89,25 +112,26 @@ const Milestones: React.FC<MilestonesType> = ({ missions }) => {
       y = y + (boxHeightInfo.current.h + boxHeightInfo.current.mb) * len;
       heightInfo[id] = h;
     });
-    setTypeIdHeight(heightInfo);
+    setCurTabId(milestonesTab[0]?.id);
+    setSubTabHeight(heightInfo);
     (milestonesRef.current as any).onscrollend = () => {
       isClickScroll.current = false;
     };
-  }, []);
+  }, [milestonesData]);
   return (
     <div className="bg-mission-center-box h-[328px] rounded-[20px] px-[28px] py-9 flex flex-col relative">
       <div className="flex items-center justify-between w-full mb-[26px]">
         <span className="text-[16px] font-next-book-bold">Milestones</span>
         <div className="flex item-center relative border-b border-mission-center-b-tab">
-          {milestonesTab.map((item: MilestonesTab, index: number) => (
+          {milestonesTab.map((item: MilestonesTabType, index: number) => (
             <div
               key={item.id}
               className={`${
                 index ? 'ml-[40px]' : ''
               } text-mission-center-tab cursor-pointer  h-full`}
-              onClick={() => changeCurTabId(item.id)}
+              onClick={() => changeCurTabId(item.id as MissionSubType)}
             >
-              {renderTabLabel(item, index)}
+              {renderTabLabel(item)}
             </div>
           ))}
         </div>
@@ -120,7 +144,7 @@ const Milestones: React.FC<MilestonesType> = ({ missions }) => {
           scrollBehavior: 'smooth'
         }}
       >
-        {milestonesData.map((item: MilestonesData) => (
+        {milestonesData.map((item: MissionDataType) => (
           <div
             key={item.id}
             className="flex items-center bg-mission-center-tab-data text-mission-center-tab-data-color rounded-[20px] overflow-hidden pr-[6px]"
@@ -150,7 +174,7 @@ const Milestones: React.FC<MilestonesType> = ({ missions }) => {
               />
             </svg>
             <div className="flex-row-center flex-1 justify-between pl-[10px]">
-              <div className="w-[19%]">{renderTitle(item)}</div>
+              <div className="w-[19%]">{item.name}</div>
               <div className="flex-row-center">
                 <Image
                   src={Sphere}
@@ -159,26 +183,44 @@ const Milestones: React.FC<MilestonesType> = ({ missions }) => {
                   height={20}
                   unoptimized
                 />
-                <span className="ml-1">{item.integral}</span>
+                <span className="ml-1">{item.exp}</span>
               </div>
               <div className="flex-row-center w-[37%]">
                 <div className="w-[82%] bg-mission-center-schedule rounded-[12px] overflow-hidden h-3 mr-[12px]">
                   <div
                     className="bg-mission-center-schedule-active h-full rounded-[12px]"
                     style={{
-                      width: `${(item.comQuest / item.totalQuest) * 100}%`
+                      width: `${
+                        (item.progress.progress[0] /
+                          item.progress.progress[1]) *
+                        100
+                      }%`
                     }}
                   ></div>
                 </div>
-                <span className="w-[13%]">{`${item.comQuest}/${item.totalQuest}`}</span>
+                <span className="w-[13%]">{`${item.progress.progress[0]}/${item.progress.progress[1]}`}</span>
               </div>
               <div className="w-[17%] h-10 flex justify-end">
-                {item.status === 'claim' ? (
-                  <button className="base-btn w-[63%] bg-mission-center-tab-btn-claimed-bg text-mission-center-tab-btn-claimed-color">
-                    Claim
-                  </button>
+                {item.progress.completed ? (
+                  item.progress.claimed ? (
+                    <button
+                      className={`base-btn w-[63%] text-mission-center-claimed-d bg-mission-center-claimed-d cursor-not-allowed`}
+                    >
+                      Claimd
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => handleClaim(item)}
+                      className={`base-btn w-[63%] bg-mission-center-tab-btn-claimed-bg text-mission-center-tab-btn-claimed-color`}
+                    >
+                      Claim
+                    </button>
+                  )
                 ) : (
-                  <button className="base-btn bg-mission-center-tab-btn-start-bg text-mission-center-tab-btn-start-color border border-mission-center-tab-btn-start-border">
+                  <button
+                    onClick={() => router.push('/courses')}
+                    className="base-btn bg-mission-center-tab-btn-start-bg text-mission-center-tab-btn-start-color border border-mission-center-tab-btn-start-border"
+                  >
                     Start Learning
                   </button>
                 )}
