@@ -78,7 +78,7 @@ function MissionCenter() {
             ) || {}) as MissionDataType
           }
         />
-        {/* <BeginnerRewards missions={missions} /> */}
+        {/* <BeginnerRewards missions={missions} />g */}
       </div>
     </div>
   );
