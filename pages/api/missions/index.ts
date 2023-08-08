@@ -233,7 +233,7 @@ const getMethodHandler = (
         id: uuidv4(),
         completed: true, // For SEVEN_DAYS_SIGNUP, 'completed' will always be true
         claimed: false,
-        progress: [1, 7] // e.g. 1/7, 2/7, 5/7
+        progress: [2, 7] // e.g. 1/7, 2/7, 5/7
       }
     },
     {
