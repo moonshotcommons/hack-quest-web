@@ -72,12 +72,12 @@ function MissionCenter() {
             (v: MissionDataType) => v.type === MissionType.DAILY_QUESTS
           )}
         />
-        {/* <Milestones
+        <Milestones
           milestonesData={missions.filter(
             (v: MissionDataType) => v.type === MissionType.MILESTONES
           )}
         />
-        <SignUpStreak
+        {/* <SignUpStreak
           daysData={
             (missions.find(
               (v: MissionDataType) => v.type === MissionType.SEVEN_DAYS_SIGNUP
