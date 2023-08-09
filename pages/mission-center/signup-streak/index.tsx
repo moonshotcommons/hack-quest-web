@@ -42,7 +42,7 @@ const SignUpStreak: React.FC<SignUpStreakType> = ({ daysData }) => {
       <div className="absolute left-[135px] pl-[40px] flex flex-1 flex-row-center  w-[calc(100%-185px)]  z-[1]  h-full overflow-auto no-scrollbar">
         {Array.from({ length: progress?.progress[1] }).map(
           (_: any, i: number) => {
-            return i + 1 < progress?.progress[0] ? (
+            return i < progress?.progress[0] ? (
               <div
                 key={i}
                 className={`flex-shrink-0 w-[119px] h-[142px] ml-3 flex-col-center py-4 justify-between rounded-[20px] bg-mission-center-tab-data text-mission-center-track-color`}

@@ -11,19 +11,23 @@ type UserInfoType = {
 };
 const UserInfo: React.FC<UserInfoType> = ({ userInfo, useLevel, badges }) => {
   const [showBadges, setShowBadges] = useState(false);
+  const useLevelBadges =
+    useLevel?.badges?.length > 3
+      ? useLevel?.badges?.slice(0, 3)
+      : useLevel?.badges;
 
   return (
     <div className="flex-center bg-mission-center-box w-[24%] rounded-[20px] h-[561px]">
       <div className="flex-col-center">
         <div className="relative rounded-[50%] overflow-hidden">
-          {/* {userInfo?.avatar && (
+          {userInfo?.avatar && (
             <Image
               src={userInfo?.avatar as string}
               alt="avatar"
-              fill
-              className="object-contain"
+              width={102}
+              height={102}
             ></Image>
-          )} */}
+          )}
         </div>
         <div className="flex-col-center pt-5">
           <p className="text-[20px] font-next-book-bold leading-5">
@@ -67,10 +71,10 @@ const UserInfo: React.FC<UserInfoType> = ({ userInfo, useLevel, badges }) => {
         </div>
         <div
           className={`flex items-center mb-6 relative w-[184px] h-[92px] ${
-            useLevel?.badges?.length > 2 ? 'justify-between' : ''
+            useLevelBadges?.length > 2 ? 'justify-between' : ''
           }`}
         >
-          {useLevel?.badges?.map((badge: BadgesType, i: number) => (
+          {useLevelBadges?.map((badge: BadgesType, i: number) => (
             <div
               className={`overflow-hidden ${
                 !i
@@ -79,12 +83,12 @@ const UserInfo: React.FC<UserInfoType> = ({ userInfo, useLevel, badges }) => {
               }`}
               key={badge.id}
             >
-              <Image
+              {/* <Image
                 src={badge?.icon}
                 alt="badgeIcon"
                 fill
                 className="object-cover"
-              ></Image>
+              ></Image> */}
             </div>
           ))}
         </div>

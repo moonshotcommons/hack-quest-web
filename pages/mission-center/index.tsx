@@ -50,6 +50,10 @@ function MissionCenter() {
   const { data: missions = [] as MissionDataType[] } = useRequest(
     async () => {
       let res = await webApi.MissionCenterApi.getAllMission();
+      res?.map((v: MissionDataType) => {
+        v.progress.progress[0] = v.progress.progress[0] || 0;
+        v.progress.progress[1] = v.progress.progress[1] || 0;
+      });
       return res;
     },
     {
@@ -68,7 +72,7 @@ function MissionCenter() {
             (v: MissionDataType) => v.type === MissionType.DAILY_QUESTS
           )}
         />
-        <Milestones
+        {/* <Milestones
           milestonesData={missions.filter(
             (v: MissionDataType) => v.type === MissionType.MILESTONES
           )}
@@ -85,7 +89,7 @@ function MissionCenter() {
             (v: MissionDataType) =>
               BeginnerRewardsType[v.type as BeginnerRewardsType]
           )}
-        />
+        /> */}
       </div>
     </div>
   );

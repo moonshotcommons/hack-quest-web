@@ -17,7 +17,7 @@ const BeginnerRewards: React.FC<BeginnerRewardsProp> = ({ rewardData }) => {
   const { theme } = useContext(ThemeContext);
   const renderIcon = (type: BeginnerRewardsType) => {
     switch (type) {
-      case BeginnerRewardsType.FOLLOW_TWITTER:
+      case BeginnerRewardsType.JOIN_DISCORD:
         return (
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -50,7 +50,7 @@ const BeginnerRewards: React.FC<BeginnerRewardsProp> = ({ rewardData }) => {
             />
           </svg>
         );
-      case BeginnerRewardsType.JOIN_DISCORD:
+      case BeginnerRewardsType.FOLLOW_TWITTER:
         return (
           <Image
             src={MetaIcon}
@@ -64,22 +64,22 @@ const BeginnerRewards: React.FC<BeginnerRewardsProp> = ({ rewardData }) => {
   };
   const renderButtonText = (type: BeginnerRewardsType) => {
     switch (type) {
-      case BeginnerRewardsType.FOLLOW_TWITTER:
+      case BeginnerRewardsType.JOIN_DISCORD:
         return 'Join Now';
       case BeginnerRewardsType.UPDATE_PROFILE:
         return 'Edit My Profile';
-      case BeginnerRewardsType.JOIN_DISCORD:
+      case BeginnerRewardsType.FOLLOW_TWITTER:
         return 'Link';
     }
   };
 
   const handleReward = (type: BeginnerRewardsType) => {
     switch (type) {
-      case BeginnerRewardsType.FOLLOW_TWITTER:
+      case BeginnerRewardsType.JOIN_DISCORD:
         break;
       case BeginnerRewardsType.UPDATE_PROFILE:
         break;
-      case BeginnerRewardsType.JOIN_DISCORD:
+      case BeginnerRewardsType.FOLLOW_TWITTER:
         break;
     }
   };

@@ -2,7 +2,7 @@ import WebService from '@/service/webService/webService';
 import { UserLevelType, BadgesType, MissionDataType } from './type';
 
 export enum MissionCenterApiType {
-  GetUserLevel = '/user/level',
+  GetUserLevel = '/users/level',
   GetAllBadges = '/badges',
   GetAllMission = '/missions'
 }
