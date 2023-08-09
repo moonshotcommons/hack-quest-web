@@ -77,14 +77,14 @@ function MissionCenter() {
             (v: MissionDataType) => v.type === MissionType.MILESTONES
           )}
         />
-        {/* <SignUpStreak
+        <SignUpStreak
           daysData={
             (missions.find(
               (v: MissionDataType) => v.type === MissionType.SEVEN_DAYS_SIGNUP
             ) || {}) as MissionDataType
           }
         />
-        <BeginnerRewards
+        {/* <BeginnerRewards
           rewardData={missions.filter(
             (v: MissionDataType) =>
               BeginnerRewardsType[v.type as BeginnerRewardsType]
