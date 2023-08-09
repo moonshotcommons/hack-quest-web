@@ -84,12 +84,12 @@ function MissionCenter() {
             ) || {}) as MissionDataType
           }
         />
-        {/* <BeginnerRewards
+        <BeginnerRewards
           rewardData={missions.filter(
             (v: MissionDataType) =>
               BeginnerRewardsType[v.type as BeginnerRewardsType]
           )}
-        /> */}
+        />
       </div>
     </div>
   );
