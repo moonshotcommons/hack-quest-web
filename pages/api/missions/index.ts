@@ -2,7 +2,8 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import {
   MissionDataType,
   MissionType,
-  MissionSubType
+  MissionSubType,
+  BeginnerRewardsType
 } from '@/service/webApi/missionCenter/type';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -233,7 +234,7 @@ const getMethodHandler = (
         id: uuidv4(),
         completed: true, // For SEVEN_DAYS_SIGNUP, 'completed' will always be true
         claimed: false,
-        progress: [1, 7] // e.g. 1/7, 2/7, 5/7
+        progress: [2, 7] // e.g. 1/7, 2/7, 5/7
       }
     },
     {
@@ -241,7 +242,7 @@ const getMethodHandler = (
       name: 'Join Discord',
       description: 'Join Our Discord community',
       icon: '',
-      type: MissionType.FOLLOW_TWITTER,
+      type: BeginnerRewardsType.FOLLOW_TWITTER,
       subType: '',
       exp: 25,
       progress: {
@@ -254,9 +255,9 @@ const getMethodHandler = (
     {
       id: uuidv4(),
       name: 'Join Discord',
-      description: 'Join Our Discord community',
+      description: 'Updates profile pictures and username',
       icon: '',
-      type: MissionType.JOIN_DISCORD,
+      type: BeginnerRewardsType.UPDATE_PROFILE,
       subType: '',
       exp: 25,
       progress: {
@@ -269,9 +270,9 @@ const getMethodHandler = (
     {
       id: uuidv4(),
       name: 'Join Discord',
-      description: 'Join Our Discord community',
+      description: 'Updates profile pictures and username',
       icon: '',
-      type: MissionType.UPDATE_PROFILE,
+      type: BeginnerRewardsType.UPDATE_PROFILE,
       subType: '',
       exp: 25,
       progress: {

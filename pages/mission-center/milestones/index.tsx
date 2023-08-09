@@ -206,7 +206,7 @@ const Milestones: React.FC<MilestonesType> = ({ milestonesData }) => {
                     <button
                       className={`base-btn w-[63%] text-mission-center-claimed-d bg-mission-center-claimed-d cursor-not-allowed`}
                     >
-                      Claimd
+                      Claimed
                     </button>
                   ) : (
                     <button

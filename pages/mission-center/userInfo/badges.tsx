@@ -8,6 +8,7 @@ type BadgesProps = {
   badges: BadgesType[];
 };
 const Badges: React.FC<BadgesProps> = ({ open, onClose, badges }) => {
+  console.info(badges);
   return (
     <Modal open={open} onClose={onClose} showCloseIcon={true}>
       <div className="w-full h-[686px] rounded-[40px] text-mission-center-basics  bg-mission-center-badge-modal-bg flex-col-center py-[75px] pb-[105px]">
@@ -27,14 +28,16 @@ const Badges: React.FC<BadgesProps> = ({ open, onClose, badges }) => {
                 key={item.id}
               >
                 <div className="w-[92px] h-[92px] rounded-[50%] relative overflow-hidden">
-                  <Image
+                  {/* <Image
                     src={item?.icon}
                     alt="badgeIcon"
                     fill
                     className="object-cover"
-                  ></Image>
+                  ></Image> */}
                 </div>
-                <p className="text-[16px] leading-4 mt-[14px]">{item.name}</p>
+                <p className="text-[16px] leading-4 w-[146px] mt-[14px]">
+                  {item.name}
+                </p>
                 <p className="mt-[9px] text-mission-center-tab text-[12px] leading-3">
                   {item.description}
                 </p>

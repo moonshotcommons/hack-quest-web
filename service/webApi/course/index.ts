@@ -12,7 +12,7 @@ import { LessonContentType } from '@/constants/lesson';
 
 export enum CourseApiType {
   Course_List = '/courses',
-  LessonDetail = '/api/pages'
+  LessonDetail = '/pages'
 }
 
 class CourseApi {
