@@ -19,6 +19,7 @@ import LoginLayout from '@/components/Layout/LoginLayout';
 import { useGetUserInfo, useLoadUserInfo } from '@/hooks/useGetUserInfo';
 import useNavAuth from '@/hooks/useNavPage/userNavAuth';
 import EmailVerifyLayout from '@/components/Layout/EmailVerifyLayout';
+import HackathonLayout from '@/components/Layout/HackathonLayout';
 
 const Layout = (props: {
   pathname: string;
@@ -50,6 +51,8 @@ const Layout = (props: {
       '/users/email-confirmed'
     ].includes(pathname):
       return <EmailVerifyLayout>{children}</EmailVerifyLayout>;
+    case pathname === '/event/hackathon':
+      return <HackathonLayout>{children}</HackathonLayout>;
     case pathname === '/':
     // return <HomeLayout>{children}</HomeLayout>;
     default:
