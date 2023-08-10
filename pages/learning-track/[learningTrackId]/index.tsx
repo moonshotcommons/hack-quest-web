@@ -5,6 +5,7 @@ import CourseDetailInfo from '@/components/Course/CourseDetail/CouseDetailInfo';
 import TrackList from '@/components/Course/TrackList';
 import UnitList from '@/components/Course/UnitList';
 import { Renderer } from '@/components/NotionRender';
+import { CustomRenderType } from '@/components/NotionRender/type';
 import { Block } from '@/components/TempComponent/Block';
 import { tagFormate } from '@/helper/formate';
 import { useEnrollUnEnroll } from '@/hooks/useLearningTrackHooks/useEnrollUnEnroll';
@@ -61,7 +62,7 @@ const LearningTrackDetail: NextPage<IProps> = (props) => {
           {learningTrackDetail?.aboutDesc && (
             <Renderer
               source={learningTrackDetail?.aboutDesc}
-              type="description"
+              type={CustomRenderType.DESCRIPTION}
               parent={{ ...learningTrackDetail, isRoot: true }}
             ></Renderer>
           )}

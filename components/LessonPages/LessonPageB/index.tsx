@@ -17,6 +17,7 @@ import {
 import { useRouter } from 'next/router';
 import { FC, ReactNode, useEffect, useState } from 'react';
 import CompleteModal from '../CompleteModal';
+import { CustomRenderType } from '@/components/NotionRender/type';
 
 // const CustomButton: FC<ButtonProps> = (props) => {
 //   const { children } = props;
@@ -62,7 +63,7 @@ const LessonPageB: FC<LessonPageBProps> = (props) => {
             <div key={section.id} className="relative bottom-line mb-8">
               <NotionRenderer styleType={LessonStyleType.B}>
                 <Renderer
-                  type="section"
+                  type={CustomRenderType.SECTION}
                   source={section}
                   parent={{ ...lesson, isRoot: true }}
                 ></Renderer>
