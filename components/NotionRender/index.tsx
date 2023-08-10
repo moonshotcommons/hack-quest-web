@@ -14,6 +14,7 @@ import NumberListItemRenderer from './NumberListItemRenderer';
 import BulletedListItemRenderer from './BulletedListItem';
 import VideoRenderer from './VideoRenderer';
 import DescriptionRenderer from './DescriptionRenderer';
+import QuizRenderer from './QuizRenderer';
 
 export interface NotionRendererContextType {
   styleType: LessonStyleType;
@@ -72,6 +73,23 @@ export const Renderer: FC<RendererPropsType> = (props) => {
         ></DescriptionRenderer>
       );
 
+    case CustomRenderType.STEP:
+      return (
+        <StepRenderer
+          type={type}
+          source={source}
+          parent={parent}
+        ></StepRenderer>
+      );
+    case CustomRenderType.Quiz:
+      return (
+        <QuizRenderer
+          type={type}
+          source={source}
+          parent={parent}
+        ></QuizRenderer>
+      );
+
     case NotionRenderType.PARAGRAPH:
       return (
         <ParagraphRenderer
@@ -114,15 +132,6 @@ export const Renderer: FC<RendererPropsType> = (props) => {
           source={source}
           parent={parent}
         ></VideoRenderer>
-      );
-
-    case CustomRenderType.STEP:
-      return (
-        <StepRenderer
-          type={type}
-          source={source}
-          parent={parent}
-        ></StepRenderer>
       );
 
     case NotionRenderType.QUOTE:
