@@ -24,7 +24,7 @@ const HackathonPage: NextPage<any> = (props) => {
 
   return (
     <div className="w-full bg-[#1F1920] flex flex-col justify-center items-center">
-      <div className="relative w-full left-0 -top-[4.875rem]">
+      <div className="relative w-full left-0 -top-[calc((78/1728)*100vw)]">
         <Image
           src={BannerBg}
           alt="hackathon"
@@ -33,12 +33,12 @@ const HackathonPage: NextPage<any> = (props) => {
           "
         ></Image>
         <div
-          style={{
-            top: `${formatSize(224)}`,
-            fontSize: `${formatSize(318.408)}`
-          }}
+          // style={{
+          //   top: `${formatSize(224)}`,
+          //   fontSize: `${formatSize(318.408)}`
+          // }}
           className={`
-        absolute z-[5] m-auto top-[]  overflow-hidden w-full
+        absolute z-[5] m-auto top-[calc((224/1728)*100vw)] text-[calc((318.408/1728)*100vw)]  overflow-hidden w-full
         text-[#cd9df24c] text-center leading-[120%]
         `}
         >
@@ -46,92 +46,106 @@ const HackathonPage: NextPage<any> = (props) => {
         </div>
         <div
           className={`zz
-          absolute w-full z-[5] m-auto top-[15.375rem] flex-col justify-center
-          text-white text-center text-[6.9375rem] leading-[97%]
+          absolute w-full z-[5] m-auto top-[calc((246/1728)*100vw)]  flex-col justify-center
+          text-white text-center text-[calc((111.36/1728)*100vw)] leading-[97%]
           `}
           style={{
-            top: `${formatSize(246)}`,
-            fontSize: `${formatSize(111.36)}`,
+            // top: `${formatSize(246)}`,
+            // fontSize: `${formatSize(111.36)}`,
             textShadow:
               '0px 3.9771456718444824px 67.6114730834961px rgba(0, 0, 0, 0.25)'
           }}
         >
           <p>SevenX</p>
           <p className="flex items-center justify-center">
-            <span style={{ fontSize: `${formatSize(36)}` }}>8.26</span>
+            <span
+              // style={{ fontSize: `${formatSize(36)}` }}
+              className="text-[calc((36/1728)*100vw)]"
+            >
+              8.26
+            </span>
             <span>{`->`}</span>
-            <span style={{ fontSize: `${formatSize(36)}` }}>9.17</span>
+            <span
+              // style={{ fontSize: `${formatSize(36)}` }}
+              className="text-[calc((36/1728)*100vw)]"
+            >
+              9.17
+            </span>
           </p>
           <p>*Nitro*</p>
           <p>{`[hackathon]`}</p>
         </div>
         <div
-          style={{
-            top: `${formatSize(773)}`,
-            fontSize: `${formatSize(36)}`
-          }}
-          className="absolute w-full  text-center  leading-[100%] text-white"
+          style={
+            {
+              // top: `${formatSize(773)}`,
+              // fontSize: `${formatSize(36)}`
+            }
+          }
+          className="absolute w-full  text-center top-[calc((773/1728)*100vw)] text-[calc((36/1728)*100vw)] leading-[100%] text-white"
         >
           2023.8.26-2023.9.17
         </div>
         <div
-          style={{
-            top: `${formatSize(1054)}`,
-            fontSize: `${formatSize(39.3936)}`,
-            lineHeight: `${formatSize(29.152)}`,
-            gap: `${formatSize(67)}`
-          }}
-          className="absolute left-[50%] -translate-x-[50%] flex flex-col  justify-center items-center text-white font-semibold"
+          // style={{
+          //   top: `${formatSize(1054)}`,
+          //   fontSize: `${formatSize(39.3936)}`,
+          //   lineHeight: `${formatSize(29.152)}`,
+          //   gap: `${formatSize(67)}`
+          // }}
+          className="
+          absolute top-[calc((1054/1728)*100vw)] left-[50%] -translate-x-[50%] gap-[calc((67/1728)*100vw)] flex flex-col  justify-center items-center
+         text-white text-[calc((39.3936/1728)*100vw)] leading-[calc((29.152/1728)*100vw)] font-semibold"
         >
           <button
-            style={{
-              width: `${formatSize(431)}`,
-              padding: `${formatSize(18)}`,
-              borderWidth: `${formatSize(3)}`,
-              borderRadius: `${formatSize(50)}`,
-              gap: `${formatSize(8)}`
-            }}
-            className="flex border-white "
+            // style={{
+            //   width: `${formatSize(431)}`,
+            //   padding: `${formatSize(18)}`,
+            //   borderWidth: `${formatSize(3)}`,
+            //   borderRadius: `${formatSize(50)}`,
+            //   gap: `${formatSize(8)}`
+            // }}
+            className="flex border-white w-[calc((431/1728)*100vw)] p-[calc((18/1728)*100vw)] border-[calc((3/1728)*100vw)] rounded-[calc((50/1728)*100vw)] gap-[calc((8/1728)*100vw)]"
           >
             <span>{`->`}</span>
             <span>Register Now</span>
           </button>
           <button
-            style={{
-              width: `${formatSize(431)}`,
-              padding: `${formatSize(18)}`,
-              borderWidth: `${formatSize(3)}`,
-              borderRadius: `${formatSize(50)}`,
-              gap: `${formatSize(8)}`
-            }}
-            className="flex border-white"
+            // style={{
+            //   width: `${formatSize(431)}`,
+            //   padding: `${formatSize(18)}`,
+            //   borderWidth: `${formatSize(3)}`,
+            //   borderRadius: `${formatSize(50)}`,
+            //   gap: `${formatSize(8)}`
+            // }}
+            className="flex w-[calc((431/1728)*100vw)] p-[calc((18/1728)*100vw)] border-[calc((3/1728)*100vw)] rounded-[calc((50/1728)*100vw)] gap-[calc((8/1728)*100vw)] border-white"
           >
             <span>{`->`}</span>
             <span>Partner With US</span>
           </button>
           <p
-            style={{
-              fontSize: `${formatSize(27.5264)}`,
-              lineHeight: `${formatSize(20.3696)}`
-            }}
-            className="font-[MiSans]"
+            // style={{
+            //   fontSize: `${formatSize(27.5264)}`,
+            //   lineHeight: `${formatSize(20.3696)}`
+            // }}
+            className="font-[MiSans] text-[calc((27.5264/1728)*100vw)] leading-[calc((20.3696/1728)*100vw)]"
           >
             报名截止：2023.8.25
           </p>
         </div>
       </div>
       <div
-        style={{
-          marginTop: `${formatSize(1840)}`,
-          width: `${formatSize(1298)}`
-        }}
-        className="relative flex flex-col items-center justify-center"
+        // style={{
+        //   marginTop: `${formatSize(1840)}`,
+        //   width: `${formatSize(1298)}`
+        // }}
+        className="relative flex flex-col items-center mt-[calc((1840/1728)*100vw)] w-[calc((1298/1728)*100vw)] justify-center"
       >
         <div
-          style={{
-            width: `${formatSize(1146)}`
-          }}
-          className="flex flex-col items-center justify- overflow-hidden"
+          // style={{
+          //   width: `${formatSize(1146)}`
+          // }}
+          className="flex flex-col items-center w-[calc((1146/1728)*100vw)] justify- overflow-hidden"
         >
           <div className="text-[39.394px] text-[#AA83C8] relative font-semibold w-full pb-[33px] text-center bottom-line-default after:bg-[#CD9DF2] after:left-0">
             <div className="rotate-90">{`>>`}</div>
