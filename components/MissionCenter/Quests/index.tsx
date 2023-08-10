@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Image from 'next/image';
-import Ring from '../component/Ring';
+import Ring from '../Ring';
 import Sphere from '@/public/images/mission-center/sphere.png';
 import { ThemeContext } from '@/store/context/theme';
 import { MissionDataType } from '@/service/webApi/missionCenter/type';

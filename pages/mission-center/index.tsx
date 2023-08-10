@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import UserInfo from './userInfo';
-import Quests from './quests';
-import Milestones from './milestones';
-import SignUpStreak from './signup-streak';
-import BeginnerRewards from './beginner-rewards';
+import UserInfo from '@/components/MissionCenter/UserInfo';
+import Quests from '@/components/MissionCenter/Quests';
+import Milestones from '@/components/MissionCenter/Milestones';
+import SignUpStreak from '@/components/MissionCenter/SignupStreak';
+import BeginnerRewards from '@/components/MissionCenter/BeginnerRewards';
 import webApi from '@/service';
 import {
   UserLevelType,
@@ -12,7 +12,7 @@ import {
   BeginnerRewardsType,
   MissionType
 } from '@/service/webApi/missionCenter/type';
-import { useDebounce, useRequest } from 'ahooks';
+import { useRequest } from 'ahooks';
 import { AppRootState } from '@/store/redux';
 import { shallowEqual, useSelector } from 'react-redux';
 import { message } from 'antd';
