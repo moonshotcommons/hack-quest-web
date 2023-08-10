@@ -21,7 +21,8 @@ export enum CustomRenderType {
   SECTION = 'section',
   /** 自定义类型，步骤框 */
   STEP = 'step',
-  DESCRIPTION = 'description'
+  DESCRIPTION = 'description',
+  Quiz = 'quiz'
 }
 
 export interface AnnotationsType {

@@ -21,7 +21,7 @@ const BulletedListItemRenderer: FC<BulletedListItemRendererProps> = (props) => {
         <span className="">•</span>
         <TextRenderer richTextArr={source[type].rich_text}></TextRenderer>
       </div>
-      <div>
+      <div className="ml-4">
         {source.children?.map((child: any, index: number) => {
           return (
             <Renderer
