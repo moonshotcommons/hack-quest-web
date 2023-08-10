@@ -51,15 +51,6 @@ const BeginnerRewards: React.FC<BeginnerRewardsProp> = ({ rewardData }) => {
           </svg>
         );
       case BeginnerRewardsType.FOLLOW_TWITTER:
-        return (
-          <Image
-            src={MetaIcon}
-            alt="MetaIcon"
-            width={27}
-            height={27}
-            unoptimized
-          />
-        );
     }
   };
   const renderButtonText = (type: BeginnerRewardsType) => {

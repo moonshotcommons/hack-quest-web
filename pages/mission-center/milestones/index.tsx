@@ -8,12 +8,16 @@ import {
 import { useRouter } from 'next/router';
 type MilestonesType = {
   milestonesData: MissionDataType[];
+  missionClaim: (missionIds: string[]) => void;
 };
 type MilestonesTabType = {
   label: string;
   id: string;
 };
-const Milestones: React.FC<MilestonesType> = ({ milestonesData }) => {
+const Milestones: React.FC<MilestonesType> = ({
+  milestonesData,
+  missionClaim
+}) => {
   const router = useRouter();
   const [curTabId, setCurTabId] = useState('');
   const [milestonesTab, setMilestonesTab] = useState<MilestonesTabType[]>([]);
@@ -25,9 +29,9 @@ const Milestones: React.FC<MilestonesType> = ({ milestonesData }) => {
     mb: 12
   });
 
-  const handleClaim = (item: MissionDataType) => {
-    console.info('handleClaim');
-  };
+  // const handleClaim = (item: MissionDataType) => {
+  //   console.info('handleClaim');
+  // };
   const renderTabLabel = (item: MilestonesTabType) => {
     const { id, label } = item;
     return id === curTabId ? (
@@ -210,7 +214,7 @@ const Milestones: React.FC<MilestonesType> = ({ milestonesData }) => {
                     </button>
                   ) : (
                     <button
-                      onClick={() => handleClaim(item)}
+                      onClick={() => missionClaim([item.id])}
                       className={`base-btn w-[63%] bg-mission-center-tab-btn-claimed-bg text-mission-center-tab-btn-claimed-color`}
                     >
                       Claim

@@ -8,12 +8,11 @@ type BadgesProps = {
   badges: BadgesType[];
 };
 const Badges: React.FC<BadgesProps> = ({ open, onClose, badges }) => {
-  console.info(badges);
   return (
     <Modal open={open} onClose={onClose} showCloseIcon={true}>
       <div className="w-full h-[686px] rounded-[40px] text-mission-center-basics  bg-mission-center-badge-modal-bg flex-col-center py-[75px] pb-[105px]">
         <div className="w-[592px] flex-col-center">
-          <div className="text-[24px] leading-6 mb-9">Achievement Badges</div>
+          <div className="text-[24px] leading-6 mb-9 ">Achievement Badges</div>
           <div className="w-full text-[16px] flex justify-center relative mb-[77px] text-mission-center-tab before:bg-mission-center-badge-line before:absolute before:w-full before:h-[1px] before:top-[50%] before:left-0">
             <div className="w-[168px] h-[26px] relative z-1 leading-[26px] text-center bg-mission-center-badge-modal-bg">
               You have {badges?.length || 0} badges
@@ -39,7 +38,7 @@ const Badges: React.FC<BadgesProps> = ({ open, onClose, badges }) => {
                   {item.name}
                 </p>
                 <p className="mt-[9px] text-mission-center-tab text-[12px] leading-3">
-                  {item.description}
+                  {item.description} item.description
                 </p>
               </div>
             ))}
