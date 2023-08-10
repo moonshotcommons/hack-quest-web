@@ -139,7 +139,7 @@ const HackathonPage: NextPage<HackathonPageProps> = (props) => {
                     <img
                       src={`${item.url}/${index + 1}.png`}
                       alt={index + ''}
-                      className="object-contain"
+                      className="inline-block object-contain  h-[calc((68/1728)*100vw)]"
                     ></img>
                   </div>
                 );
@@ -353,12 +353,12 @@ const HackathonPage: NextPage<HackathonPageProps> = (props) => {
                 return (
                   <div
                     key={index}
-                    className="flex w-[calc((206/1728)*100vw)] h-[calc((90/1728)*100vw)] border rounded-[calc((110/1728)*100vw)] relative items-center justify-center"
+                    className="flex w-[calc((206/1728)*100vw)] h-[calc((90/1728)*100vw)] border rounded-[calc((110/1728)*100vw)] relative items-center justify-center overflow-clip"
                   >
                     <img
                       src={`${item.url}/${index + 1}.png`}
                       alt={index + ''}
-                      className="object-contain"
+                      className="inline-block object-contain  h-[calc((68/1728)*100vw)]"
                     ></img>
                   </div>
                 );
@@ -383,7 +383,7 @@ const HackathonPage: NextPage<HackathonPageProps> = (props) => {
                     <img
                       src={`${item.url}/${index + 1}.png`}
                       alt={index + ''}
-                      className="object-contain"
+                      className="inline-block object-contain  h-[calc((71/1728)*100vw)]"
                     ></img>
                   </div>
                 );
