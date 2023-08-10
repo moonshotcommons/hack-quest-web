@@ -46,7 +46,10 @@ const lessonThemeColors = {
   'lesson-completed-modal-line-color':
     'var(--lesson-completed-modal-line-color)',
   'lesson-code-copy-button-bg': 'var(--lesson-code-copy-button-bg)',
-  'lesson-code-copy-button-text': 'var(--lesson-code-copy-button-text)'
+  'lesson-code-copy-button-text': 'var(--lesson-code-copy-button-text)',
+  'lesson-code-editor-input-text-color':
+    'var(--lesson-code-editor-input-text-color)',
+  'lesson-code-editor-input-bg': 'var(--lesson-code-editor-input-bg)'
 };
 
 module.exports = {

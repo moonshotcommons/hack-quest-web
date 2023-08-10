@@ -23,4 +23,90 @@ html {
   --codedesbg: #1e1e1e;
   --color-black: #000;
   --button-card-dark-gray-button: #2a2a2a;
+
+  /* solidity */
+
+  --solidity-abstract: #2253b7;
+  --solidity-constant: #2253b7;
+  --solidity-emit: #2253b7;
+  --solidity-enum: #2253b7;
+  --solidity-event: #2253b7;
+  --solidity-false: #2253b7;
+  --solidity-import: #2253b7;
+  --solidity-contract: #2253b7;
+  --solidity-function: #2253b7;
+  --solidity-is: #2253b7;
+  --solidity-library: #2253b7;
+  --solidity-let: #2253b7;
+  --solidity-mapping: #2253b7;
+  --solidity-new: #2253b7;
+  --solidity-pragma: #2253b7;
+  --solidity-: #2253b7;
+  --solidity-struct: #2253b7;
+  --solidity-true: #2253b7;
+  --solidity-var: #2253b7;
+  --solidity-using: #2253b7;
+  --solidity-uint: #2253b7;
+  --solidity-type: #2253b7;
+  --solidity-uint256: #2253b7;
+
+  --solidity-revert: #166ca6;
+  --solidity-virtual: #1c54b5;
+
+  --solidity-external: #28ac89;
+  --solidity-internal: #28ac89;
+  --solidity-private: #28ac89;
+  --solidity-public: #28ac89;
+  --solidity-pure: #28ac89;
+
+  --solidity-fallback: #f294da;
+  --solidity-constructor: #f294da;
+
+  --solidity-else: #ffdf71;
+  --solidity-indexed: #ffdf71;
+  --solidity-if: #ffdf71;
+
+  --solidity-continue: #ffaf71;
+  --solidity-for: #ffaf71;
+  --solidity-do: #ffaf71;
+  --solidity-while: #ffaf71;
+
+  --solidity-catch: #fa8328;
+  --solidity-throw: #fa8328;
+  --solidity-: #fa8328;
+  --solidity-try: #fa8328;
+
+  --solidity-memory: #5c4f02;
+  --solidity-storage: #5c4f02;
+
+  --solidity-after: #acacac;
+  --solidity-alias: #acacac;
+  --solidity-apply: #acacac;
+  --solidity-auto: #acacac;
+  --solidity-case: #acacac;
+  --solidity-debug: #acacac;
+  --solidity-default: #acacac;
+  --solidity-define: #acacac;
+  --solidity-div: #acacac;
+  --solidity-end: #acacac;
+  --solidity-error: #acacac;
+  --solidity-finally: #acacac;
+  --solidity-from: #acacac;
+  --solidity-get: #acacac;
+  --solidity-hex: #acacac;
+  --solidity-inherit: #acacac;
+  --solidity-inline: #acacac;
+  --solidity-interface: #acacac;
+  --solidity-log: #acacac;
+  --solidity-modify: #acacac;
+  --solidity-null: #acacac;
+  --solidity-of: #acacac;
+  --solidity-or: #acacac;
+  --solidity-sizeof: #acacac;
+  --solidity-sub: #acacac;
+  --solidity-switch: #acacac;
+  --solidity-typeid: #acacac;
+  --solidity-typeof: #acacac;
+  --solidity-with: #acacac;
+  --solidity-xor: #acacac;
 }

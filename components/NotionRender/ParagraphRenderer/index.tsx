@@ -19,6 +19,18 @@ const ParagraphRenderer: FC<ParagraphRendererProps> = (props) => {
   return (
     <div className="py-2">
       <TextRenderer richTextArr={source[type].rich_text}></TextRenderer>
+      <div className="ml-4">
+        {source.children?.map((item: any, index: number) => {
+          return (
+            <Renderer
+              key={index}
+              type={item.type}
+              source={item}
+              parent={source}
+            ></Renderer>
+          );
+        })}
+      </div>
     </div>
   );
 };

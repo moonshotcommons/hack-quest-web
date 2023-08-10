@@ -2,9 +2,9 @@ import WebService from '@/service/webService/webService';
 import { UserLevelType, BadgesType, MissionDataType } from './type';
 
 export enum MissionCenterApiType {
-  GetUserLevel = '/user/level',
+  GetUserLevel = '/users/level',
   GetAllBadges = '/badges',
-  GetAllMission = '/missions'
+  Missions = '/missions'
 }
 
 class MissionCenterApi {
@@ -22,9 +22,12 @@ class MissionCenterApi {
   }
   /** 获取所有mission */
   getAllMission() {
-    return this.service.get<MissionDataType[]>(
-      MissionCenterApiType.GetAllMission
-    );
+    return this.service.get<MissionDataType[]>(MissionCenterApiType.Missions);
+  }
+  /** mission claim */
+  missionClaim(missionId: string) {
+    const url = `${MissionCenterApiType.Missions}/${missionId}/claim`;
+    return this.service.get(url);
   }
 }
 

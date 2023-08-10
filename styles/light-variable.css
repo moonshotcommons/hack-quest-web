@@ -106,6 +106,13 @@ html[data-theme='light'] {
   --lesson-completed-modal-line-color: #f4f4f4;
   --lesson-code-copy-button-bg: var(--primary-green-yellow);
   --lesson-code-copy-button-text: var(--neutral-black);
+  --lesson-code-editor-input-text-color: var(--text-default-color);
+  --lesson-code-editor-input-bg: #929292;
+  /* --lesson-code-editor-bg: #000;
+  --lesson-code-editor-num-color: #8c8c8c;
+  --lesson-code-editor-text-color: #000;
+  --lesson-code-editor-error-color: #000;
+  --lesson-code-editor-success-color: #000; */
 
   /* notionRender */
   --renderer-step-label-bg: var(--neutral-white);
@@ -192,8 +199,16 @@ html[data-theme='light'] {
   --auth-description-text-color: var(--neutral-black);
 
   /* mission center */
-  --mission-center-gradient-radial:linear-gradient(180deg, #FFD850 0%, #FFD850 100%);
-  --mission-center-tab-box-shadow:linear-gradient(180deg, rgba(255, 255, 255, 0) 0%,#fff 100%);
+  --mission-center-gradient-radial: linear-gradient(
+    180deg,
+    #ffd850 0%,
+    #ffd850 100%
+  );
+  --mission-center-tab-box-shadow: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    #fff 100%
+  );
   --mission-center-basics: #0b0b0b;
   --mission-center-base-bg-color: #010101;
   --mission-center-tab-data: #fff;
@@ -202,10 +217,10 @@ html[data-theme='light'] {
   --mission-center-round-bg-color-d: #444;
   --mission-center-undertone: #828282;
   --mission-center-undertone-d: #7d7d7d;
-  --mission-center-quests: #FFF4CE;
-  --mission-center-quests-d: #FDEAAA;
-  --mission-center-quests-box: #DADADA;
-  --mission-center-quests-box-active: #FFD850;
+  --mission-center-quests: #fff4ce;
+  --mission-center-quests-d: #fdeaaa;
+  --mission-center-quests-box: #dadada;
+  --mission-center-quests-box-active: #ffd850;
   --mission-center-claimed: #fff;
   --mission-center-claimed-d: #f8f8f8;
   --mission-center-quest-btn-bg-color: rgba(10, 10, 10, 0.4);
@@ -216,18 +231,18 @@ html[data-theme='light'] {
   --mission-center-tab-btn-start-color:#0b0b0b;
   --mission-center-tab-btn-start-bg:#F4F4F4;
   --mission-center-tab-btn-start-border:#0b0b0b;
-  --mission-center-tab: #b2b2b2;
+  --mission-center-tab: #0b0b0b;
   --mission-center-tab-border-color: #282828;
-  --mission-center-tab-border-active-color: #FFD850;
-  --mission-center-tab-bg:#F4F4F4;
-  --mission-center-tab-color:#0b0b0b;
-  --mission-center-b-tab:#dadada;
-  --mission-center-tab-svg-color: #FDEAAA;
-  --mission-center-tab-svg: #FFF4CE;
+  --mission-center-tab-border-active-color: #ffd850;
+  --mission-center-tab-bg: #f4f4f4;
+  --mission-center-tab-color: #0b0b0b;
+  --mission-center-b-tab: #dadada;
+  --mission-center-tab-svg-color: #fdeaaa;
+  --mission-center-tab-svg: #fff4ce;
   --mission-center-schedule-bg-color: #fff;
-  --mission-center-schedule-bg-active-color: #FFD850;
+  --mission-center-schedule-bg-active-color: #ffd850;
   --mission-center-tab-shadow-t-color: rgba(16, 16, 16, 0);
-  --mission-center-badge-modal-bg:#141414;
+  --mission-center-badge-modal-bg:#fff;
   --mission-center-track-color:#0b0b0b;
   --mission-center-track-color-r:#0b0b0b;
   --mission-center-track-bg-r:#FFD850;
@@ -236,10 +251,10 @@ html[data-theme='light'] {
   --mission-center-lock-bg:#f4f4f4;
   --mission-center-lock-bg-r:#FDEAAA;
   --mission-center-track-border: #dadada;
-  --mission-center-beginner-svg: #FDEAAA;
-  --mission-center-beginner-bg: #F4F4F4;
-  --mission-center-beginner-btn-color: #EDEDED;
+  --mission-center-beginner-svg: #fdeaaa;
+  --mission-center-beginner-bg: #f4f4f4;
+  --mission-center-beginner-btn-color: #ededed;
   --mission-center-beginner-btn-bg: #353535;
-  --mission-center-icon-twitter-color: #0388FE;
-  --mission-center-icon-user-color: #0B0B0B;
+  --mission-center-icon-twitter-color: #0388fe;
+  --mission-center-icon-user-color: #0b0b0b;
 }

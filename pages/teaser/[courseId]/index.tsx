@@ -4,6 +4,7 @@ import CourseDetailBanner from '@/components/Course/CourseDetail/CourseDetailBra
 import CourseDetailInfo from '@/components/Course/CourseDetail/CouseDetailInfo';
 import UnitList from '@/components/Course/UnitList';
 import { Renderer } from '@/components/NotionRender';
+import { CustomRenderType } from '@/components/NotionRender/type';
 import { Block } from '@/components/TempComponent/Block';
 import { tagFormate } from '@/helper/formate';
 import webApi from '@/service';
@@ -43,7 +44,7 @@ const SyntaxDetail: NextPage<IProps> = (props) => {
           {courseDetail?.aboutDesc && (
             <Renderer
               source={courseDetail?.aboutDesc}
-              type="description"
+              type={CustomRenderType.DESCRIPTION}
               parent={{ ...courseDetail, isRoot: true }}
             ></Renderer>
           )}
