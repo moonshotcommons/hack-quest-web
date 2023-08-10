@@ -60,7 +60,20 @@
 }
 @font-face {
   font-weight: normal;
+  font-family: 'Chaney-Extended';
+  font-style: normal;
+  src: url('../fonts/Chaney/CHANEY-Extended.ttf');
+}
+
+@font-face {
+  font-weight: normal;
   font-family: 'MiSans';
   font-style: normal;
   src: url('../fonts/MiSans/MiSans-Regular.ttf');
+}
+@font-face {
+  font-weight: normal;
+  font-family: 'MiSans-Semibold';
+  font-style: normal;
+  src: url('../fonts/MiSans/MiSans-Semibold.ttf');
 }

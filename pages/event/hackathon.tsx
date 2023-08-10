@@ -1,14 +1,10 @@
-import { NextPage } from 'next';
+import { GetServerSideProps, NextPage } from 'next';
 import PeopleJoined from '@/components/Common/PeopleJoined';
 import { getRandomPeopleAvatars } from '@/helper/random';
 import RightIcon from '@/components/Common/Icon/Right';
 import SkipIcon from '@/components/Common/Icon/Skip';
 import Image from 'next/image';
 import BannerBg from '@/public/images/event/hackathon/banner_bg.jpg';
-const formatSize = (s: number | string) => {
-  if (typeof s === 'string') s = parseInt(s);
-  return `${(s / 1728) * 100}vw`;
-};
 
 const originator: { name: string; status: string }[] = new Array(14).fill({
   name: 'Jim Rogers',
@@ -19,16 +15,14 @@ const investor: { name: string; status: string }[] = new Array(12).fill({
   status: 'International Investor and Author'
 });
 
-const partners = new Array(11).fill({
-  url: '/images/event/hackathon/partners'
-});
-const mediaPartners = new Array(7).fill({
-  url: '/images/event/hackathon/media_partners'
-});
+interface HackathonPageProps {
+  sponsor: { url: string }[];
+  partners: { url: string }[];
+  mediaPartners: { url: string }[];
+  mentors: { name: string; description: string; url: string }[];
+}
 
-const HackathonPage: NextPage<any> = (props) => {
-  // const { nowCards, syntaxCards, tracksCards } = props;
-
+const HackathonPage: NextPage<HackathonPageProps> = (props) => {
   return (
     <div className="w-full bg-[#1F1920] flex flex-col justify-center items-center">
       <div className="relative w-full left-0 -top-[calc((78/1728)*100vw)]">
@@ -51,13 +45,8 @@ const HackathonPage: NextPage<any> = (props) => {
           className={`
           absolute w-full z-[5] m-auto top-[calc((246/1728)*100vw)]  flex-col justify-center
           text-white text-center font-Chaney text-[calc((111.36/1728)*100vw)] leading-[97%]
+          uppercase
           `}
-          // style={{
-          //   // top: `${formatSize(246)}`,
-          //   // fontSize: `${formatSize(111.36)}`,
-          //   textShadow:
-          //     '0px 3.97714567184448calc((24/1728)*100vw) 67.6114730834961px rgba(0, 0, 0, 0.25)'
-          // }}
         >
           <p>SevenX</p>
           <p className="flex items-center justify-center gap-[calc((56/1728)*100vw)]">
@@ -65,14 +54,14 @@ const HackathonPage: NextPage<any> = (props) => {
               // style={{ fontSize: `${formatSize(36)}` }}
               className="text-[calc((36/1728)*100vw)]"
             >
-              8.26
+              8.25
             </span>
             <span>{`->`}</span>
             <span
               // style={{ fontSize: `${formatSize(36)}` }}
               className="text-[calc((36/1728)*100vw)]"
             >
-              9.17
+              9.13
             </span>
           </p>
           <p>*Nitro*</p>
@@ -86,29 +75,11 @@ const HackathonPage: NextPage<any> = (props) => {
           absolute top-[calc((1054/1728)*100vw)] left-[50%] -translate-x-[50%] gap-[calc((67/1728)*100vw)] flex flex-col  justify-center items-center
          text-white text-[calc((40/1728)*100vw)] font-MiSans leading-[calc((30/1728)*100vw)] font-semibold"
         >
-          <button
-            // style={{
-            //   width: `${formatSize(431)}`,
-            //   padding: `${formatSize(18)}`,
-            //   borderWidth: `${formatSize(3)}`,
-            //   borderRadius: `${formatSize(50)}`,
-            //   gap: `${formatSize(8)}`
-            // }}
-            className="flex border-white w-[calc((431/1728)*100vw)] p-[calc((18/1728)*100vw)] border-[calc((3/1728)*100vw)] rounded-[calc((50/1728)*100vw)] gap-[calc((8/1728)*100vw)]"
-          >
+          <button className="flex border-white w-[calc((431/1728)*100vw)] p-[calc((18/1728)*100vw)] border-[calc((3/1728)*100vw)] rounded-[calc((50/1728)*100vw)] gap-[calc((8/1728)*100vw)]">
             <span>{`->`}</span>
             <span>Register Now</span>
           </button>
-          <button
-            // style={{
-            //   width: `${formatSize(431)}`,
-            //   padding: `${formatSize(18)}`,
-            //   borderWidth: `${formatSize(3)}`,
-            //   borderRadius: `${formatSize(50)}`,
-            //   gap: `${formatSize(8)}`
-            // }}
-            className="flex w-[calc((431/1728)*100vw)] p-[calc((18/1728)*100vw)] border-[calc((3/1728)*100vw)] rounded-[calc((50/1728)*100vw)] gap-[calc((8/1728)*100vw)] border-white"
-          >
+          <button className="flex w-[calc((431/1728)*100vw)] p-[calc((18/1728)*100vw)] border-[calc((3/1728)*100vw)] rounded-[calc((50/1728)*100vw)] gap-[calc((8/1728)*100vw)] border-white">
             <span>{`->`}</span>
             <span>Partner With US</span>
           </button>
@@ -151,27 +122,40 @@ const HackathonPage: NextPage<any> = (props) => {
               奖金：20000 USD
             </div>
           </div>
-          <div className="w-full text-center pt-[calc((60/1728)*100vw)] pb-[calc((50/1728)*100vw)] flex flex-col gap-[calc((7.34/1728)*100vw)] relative bottom-line-default after:bg-[#CD9DF2] after:left-0">
-            <div
-              // style={{ color: '#cd9df299' }}
-              className="text-[#cd9df299] text-[calc((18/1728)*100vw)] leading-[120%] font-Chaney"
-            >{`co-host ->`}</div>
-            <div className="text-white text-[calc((40/1728)*100vw)] font-bold leading-[120%]">
-              主办方
+          <div className="w-full text-center pt-[calc((60/1728)*100vw)] pb-[calc((50/1728)*100vw)] flex flex-col gap-[calc((50/1728)*100vw)] relative bottom-line-default after:bg-[#CD9DF2] after:left-0">
+            <div className="flex flex-col gap-[calc((7.34/1728)*100vw)]">
+              <div className="text-[#cd9df299] text-[calc((18/1728)*100vw)] leading-[120%] font-Chaney">{`co-host ->`}</div>
+              <div className="text-white text-[calc((40/1728)*100vw)] font-bold leading-[120%]">
+                主办方
+              </div>
+            </div>
+            <div className="text-left max-w-[119calc((2/1728)*100vw)] text-[calc((26/1728)*100vw)] flex self-center justify-center relative flex-wrap gap-x-[calc((24/1728)*100vw)] gap-y-[calc((24/1728)*100vw)]">
+              {props.sponsor?.map((item, index) => {
+                return (
+                  <div
+                    key={index}
+                    className="flex w-[calc((206/1728)*100vw)] h-[calc((90/1728)*100vw)] border rounded-[calc((110/1728)*100vw)] relative items-center justify-center"
+                  >
+                    <img
+                      src={`${item.url}/${index + 1}.png`}
+                      alt={index + ''}
+                      className="object-contain"
+                    ></img>
+                  </div>
+                );
+              })}
             </div>
           </div>
           <div className="w-full text-center pt-[calc((60/1728)*100vw)] pb-[calc((60/1728)*100vw)] flex flex-col gap-[calc((50/1728)*100vw)] relative bottom-line-default after:bg-[#CD9DF2] after:left-0">
-            <div
-              // style={{ color: '#cd9df299' }}
-              className="text-white text-[calc((40/1728)*100vw)] font-bold leading-[120%]"
-            >
+            <div className="text-white text-[calc((40/1728)*100vw)] font-bold leading-[120%]">
               赛程安排
             </div>
-            <div className="text-white text-[calc((28/1728)*100vw)] font-black leading-[164.643%]">
-              <p>项目报名 Now - 8.23</p>
-              <p>开幕式 8.26</p>
-              <p>Hackathon 8.27 - 9.13</p>
-              <p>Apollo Day 9.16</p>
+            <div className="text-white text-[calc((28/1728)*100vw)] font-black leading-[215%]">
+              <p>报名通道开启 8.11 (Fri.)</p>
+              <p>报名征集时间 8.11 - 8.25 (2 weeks)</p>
+              <p>比赛时间 8.25 - 9.8 (2 weeks)</p>
+              <p>项目终审 9.9 - 9.12 (4 days)</p>
+              <p>Nitro Day 9.13 形式待定</p>
             </div>
           </div>
           <div className="w-full text-center text-white  pt-[calc((60/1728)*100vw)] pb-[calc((60/1728)*100vw)] flex flex-col gap-[calc((50/1728)*100vw)] relative bottom-line-default after:bg-[#CD9DF2] after:left-0">
@@ -179,6 +163,23 @@ const HackathonPage: NextPage<any> = (props) => {
               // style={{ color: '#cd9df299' }}
               className="text-[calc((40/1728)*100vw)] font-bold leading-[120%]"
             >
+              面向人群
+            </div>
+            <div className="text-left max-w-[calc((1064/1728)*100vw)] text-[calc((26/1728)*100vw)] flex flex-col gap-[calc((50/1728)*100vw)] self-center leading-[253%]">
+              <p>
+                我们欢迎所有对 On-Chain Gaming 或 Web3+AI 技术感兴趣的 Hackers
+                的参与。
+              </p>
+              <p>
+                正在阅读这篇邀请函的你们可能已经有了一个初步的想法，可能正在探索一个新的领域，或者已经拥有了创业经验。我们珍视每一个人，每一个团队，每一个想法的潜力。在为期
+                3 周的 Hackathon
+                中，我们期待看到你们带来令人振奋的、可行的方案，通过不断的头脑风暴、尝试、改进和创新，最后在
+                Nitro Day 向所有人展示你们的成果。
+              </p>
+            </div>
+          </div>
+          <div className="w-full text-center text-white  pt-[calc((60/1728)*100vw)] pb-[calc((60/1728)*100vw)] flex flex-col gap-[calc((50/1728)*100vw)] relative bottom-line-default after:bg-[#CD9DF2] after:left-0">
+            <div className="text-[calc((40/1728)*100vw)] font-bold leading-[120%]">
               Hackathon 主题
             </div>
             <div className="text-left max-w-[calc((1051/1728)*100vw)] text-[calc((26/1728)*100vw)] flex flex-col gap-[calc((50/1728)*100vw)] self-center leading-[181.5%]">
@@ -219,8 +220,16 @@ const HackathonPage: NextPage<any> = (props) => {
               <p>
                 SevenX
                 Venture成立于2020年，是一只以亚洲+美国双边市场为根据地的Web3基金，目前共管理直投基金3支、FoF基金1支，总管理规模接近3亿美元。
+                <br />
+                Nitro 是 SevenX Ventures 创办的 Hackathon/Hacker House
+                品牌，目的是通过 SevenX Ventures
+                的丰富全球化资源，深刻的行业认知和成熟的赋能系统，为最优秀的
+                Web3 创业团队提供展示、比拼和发展的舞台。Nitro 系列
+                Hackathon/Hacker House 将于每年举办 2
+                次活动，聚焦当前市场最前沿，最有潜力的叙事和主题，以求通过此品牌推动
+                Web3 的前沿创新，并成为 Web3 新物种的发现者。
               </p>
-              <p className="mt-[calc((40/1728)*100vw)]">
+              {/* <p className="mt-[calc((40/1728)*100vw)]">
                 Infra：Near, Arweave, Aurora, Orb, Space&Time, Hyper Oracle, Red
                 Stone, EthStorage, Particle, Kwil, Herodotus, Trusta, GoPlus,
                 Footprint Defi：DODO, DAO Maker, Orderly, CowSwap, RageTrade,
@@ -237,7 +246,7 @@ const HackathonPage: NextPage<any> = (props) => {
                 Hackathon/Hacker House 将于每年举办 2
                 次活动，聚焦当前市场最前沿，最有潜力的叙事和主题，以求通过此品牌推动
                 Web3 的前沿创新，并成为 Web3 新物种的发现者。
-              </p>
+              </p> */}
             </div>
           </div>
           <div className="w-full text-center text-white  pt-[calc((60/1728)*100vw)] pb-[calc((60/1728)*100vw)] flex flex-col gap-[calc((50/1728)*100vw)] relative bottom-line-default after:bg-[#CD9DF2] after:left-0">
@@ -249,7 +258,25 @@ const HackathonPage: NextPage<any> = (props) => {
             </div>
             <div className="text-left max-w-[calc((1064/1728)*100vw)] text-[calc((26/1728)*100vw)] flex flex-col self-center leading-[253%]">
               <p className="font-black">1. Moonshot Commons</p>
+              <p className="text-[calc((25/1728)*100vw)] font-extralight">
+                {`Moonshot Commons is a Web3 builder & developer
+                community based in HK, SG, and NYC. Moonshot was founded in 2021
+                when a group of technologists gathered in a basement and decided
+                to build. In three days, they created "Moonshot" projects - from
+                Brain Computer Interfaces to rocket engines - while forming a
+                vibrant community of engineers.
+                `}
+                <br></br>
+                {`Today, Moonshot Commons has
+                emerged as a global community with over 8,000 members. Among
+                them, more than 40 founders have seen their ideas go from 0 to
+                venture-backed, with many more launching soon.`}
+              </p>
               <p className="font-black">2. HackQuest</p>
+              <p className="text-[calc((25/1728)*100vw)] font-extralight">
+                {`HackQuest is a comprehensive, one-stop coding education platform developed by Moonshot team. We believe that improving Web3 developer education is key to driving mass adoption. `}
+              </p>
+
               <p className="font-black">3. MUD</p>
               <p>
                 MUD is an advanced framework developed for crafting
@@ -269,29 +296,38 @@ const HackathonPage: NextPage<any> = (props) => {
           </div>
           <div className="w-full text-center text-white  pt-[calc((60/1728)*100vw)] pb-[calc((60/1728)*100vw)] flex flex-col gap-[calc((50/1728)*100vw)] relative bottom-line-default after:bg-[#CD9DF2] after:left-0">
             <div className="flex flex-col gap-[calc((7.34/1728)*100vw)]">
-              <div className="text-[#cd9df299] text-[calc((18/1728)*100vw)] leading-[120%] font-Chaney">{`mentors ->`}</div>
+              <div className="text-[#cd9df299] text-[calc((18/1728)*100vw)] leading-[120%] font-Chaney">{`hackathon ->`}</div>
               <div
                 // style={{ color: '#cd9df299' }}
                 className="text-[calc((40/1728)*100vw)] font-bold leading-[120%] text-[#CD9DF2]"
               >
-                创始人&联合创始人
+                Mentors & Guests
               </div>
             </div>
 
             <div className="text-left max-w-[calc((1064/1728)*100vw)] pl-[calc((21/1728)*100vw)] text-[calc((26/1728)*100vw)] flex self-center flex-wrap gap-x-[calc((70.25/1728)*100vw)] gap-y-[calc((21/1728)*100vw)]">
-              {originator.map((item, index) => {
+              {props.mentors?.map((item, index) => {
                 return (
                   <div
                     key={index}
-                    className="flex items-center gap-[8.5calc((2/1728)*100vw)] "
+                    className="flex items-center gap-[calc((8.5/1728)*100vw)] "
                   >
-                    <div className="w-[calc((104/1728)*100vw)] h-[calc((104/1728)*100vw)] rounded-full border-[calc((2/1728)*100vw)] border-[#CD9DF2]"></div>
-                    <div className="flex flex-col max-w-[calc((180/1728)*100vw)] gap-1">
+                    <div className="w-[calc((104/1728)*100vw)] relative h-[calc((104/1728)*100vw)] rounded-full border-[calc((2/1728)*100vw)] border-[#CD9DF2]">
+                      {item.url && (
+                        <Image
+                          src={`${item.url}/${item.name}.png`}
+                          alt={item.name}
+                          fill
+                          className="object-cover scale-105"
+                        ></Image>
+                      )}
+                    </div>
+                    <div className="flex flex-col max-w-[calc((180/1728)*100vw)] gap-[calc((8.5/1728)*100vw)]">
                       <span className="text-[calc((21/1728)*100vw)] font-semibold leading-[140%]">
                         {item.name}
                       </span>
-                      <span className="text-[calc((17/1728)*100vw)] font-semibold text-[#CD9DF2] leading-[125%]">
-                        {item.status}
+                      <span className="text-[calc((15/1728)*100vw)] w-[calc((182/1728)*100vw)] font-semibold text-[#CD9DF2] leading-[125%]">
+                        {item.description}
                       </span>
                     </div>
                   </div>
@@ -299,38 +335,7 @@ const HackathonPage: NextPage<any> = (props) => {
               })}
             </div>
           </div>
-          <div className="w-full text-center text-white  pt-[calc((60/1728)*100vw)] pb-[calc((60/1728)*100vw)] flex flex-col gap-[calc((50/1728)*100vw)] relative bottom-line-default after:bg-[#CD9DF2] after:left-0">
-            <div className="flex flex-col gap-[calc((7.34/1728)*100vw)]">
-              <div className="text-[#cd9df299] text-[calc((18/1728)*100vw)] leading-[120%] font-Chaney">{`Venture Capital ->`}</div>
-              <div
-                // style={{ color: '#cd9df299' }}
-                className="text-[calc((40/1728)*100vw)] font-bold leading-[120%] text-[#CD9DF2]"
-              >
-                创业投资人
-              </div>
-            </div>
 
-            <div className="text-left max-w-[calc((1064/1728)*100vw)] pl-[calc((21/1728)*100vw)] text-[calc((26/1728)*100vw)] flex self-center flex-wrap gap-x-[calc((70.25/1728)*100vw)] gap-y-[calc((21/1728)*100vw)]">
-              {investor.map((item, index) => {
-                return (
-                  <div
-                    key={index}
-                    className="flex items-center gap-[8.5calc((2/1728)*100vw)] "
-                  >
-                    <div className="w-[calc((104/1728)*100vw)] h-[calc((104/1728)*100vw)] rounded-full border-[calc((2/1728)*100vw)] border-[#CD9DF2]"></div>
-                    <div className="flex flex-col max-w-[calc((180/1728)*100vw)] gap-1">
-                      <span className="text-[calc((21/1728)*100vw)] font-semibold leading-[140%]">
-                        {item.name}
-                      </span>
-                      <span className="text-[calc((17/1728)*100vw)] font-semibold text-[#CD9DF2] leading-[125%]">
-                        {item.status}
-                      </span>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
           <div className="w-full text-center text-white  pt-[calc((60/1728)*100vw)] pb-[calc((60/1728)*100vw)] flex flex-col gap-[calc((50/1728)*100vw)] relative bottom-line-default after:bg-[#CD9DF2] after:left-0">
             <div className="text-[calc((14.67/1728)*100vw)] font-bold leading-[120%] pb-[calc((18/1728)*100vw)]">{`/*We choose to go to the Moon*/`}</div>
             <div className="flex flex-col gap-[calc((20/1728)*100vw)]">
@@ -343,8 +348,8 @@ const HackathonPage: NextPage<any> = (props) => {
               </div>
             </div>
 
-            <div className="text-left max-w-[119calc((2/1728)*100vw)] text-[calc((26/1728)*100vw)] flex self-center justify-center relative flex-wrap gap-x-[calc((24/1728)*100vw)] gap-y-[calc((24/1728)*100vw)]">
-              {partners.map((item, index) => {
+            <div className="text-left max-w-[119calc((2/1728)*100vw)] text-[calc((26/1728)*100vw)] flex self-center relative flex-wrap gap-x-[calc((24/1728)*100vw)] gap-y-[calc((24/1728)*100vw)]">
+              {props.partners.map((item, index) => {
                 return (
                   <div
                     key={index}
@@ -359,7 +364,7 @@ const HackathonPage: NextPage<any> = (props) => {
                 );
               })}
             </div>
-            <div className="flex flex-col gap-[calc((20/1728)*100vw)] mt-[calc((50/1728)*100vw)]">
+            <div className="flex flex-col gap-[calc((20/1728)*100vw)]">
               <div className="text-[#cd9df299] text-[calc((18/1728)*100vw)] leading-[120%] font-Chaney">{`Community Partners -> `}</div>
               <div
                 // style={{ color: '#cd9df299' }}
@@ -368,8 +373,8 @@ const HackathonPage: NextPage<any> = (props) => {
                 合作媒体
               </div>
             </div>
-            <div className="text-left max-w-[119calc((2/1728)*100vw)] text-[calc((26/1728)*100vw)] flex self-center justify-center relative flex-wrap gap-x-[calc((24/1728)*100vw)] gap-y-[calc((24/1728)*100vw)]">
-              {mediaPartners.map((item, index) => {
+            <div className="text-left max-w-[119calc((2/1728)*100vw)] text-[calc((26/1728)*100vw)] flex self-center relative flex-wrap gap-x-[calc((24/1728)*100vw)] gap-y-[calc((24/1728)*100vw)]">
+              {props.mediaPartners?.map((item, index) => {
                 return (
                   <div
                     key={index}
@@ -403,11 +408,11 @@ const HackathonPage: NextPage<any> = (props) => {
           <div className="w-full text-center text-white  pt-[calc((60/1728)*100vw)] flex flex-col gap-[calc((56/1728)*100vw)] justify-center items-center self-center">
             <div
               // style={{ color: '#cd9df299' }}
-              className="text-[calc((80/1728)*100vw)] font-bold mt-[calc((50/1728)*100vw)] py-[calc((36/1728)*100vw)] font-Chaney leading-normal text-center"
+              className="text-[calc((80/1728)*100vw)] font-bold mt-[calc((50/1728)*100vw)] py-[calc((36/1728)*100vw)] font-Chaney-Extended leading-normal text-center"
             >
               SEE YOU IN FALL !
             </div>
-            <div className="text-left text-[calc((32.52/1728)*100vw)] flex h-fit self-center leading-[calc((24.067/1728)*100vw)] gap-[calc((65/1728)*100vw)] text-[#CD9DF2]">
+            <div className="text-left text-[calc((32.52/1728)*100vw)] font-MiSans-Semibold flex h-fit self-center leading-[calc((24.067/1728)*100vw)] gap-[calc((65/1728)*100vw)] text-[#CD9DF2]">
               <button className="flex border-[#CD9DF2] px-[calc((36/1728)*100vw)] py-[calc((15/1728)*100vw)] border-[calc((2/1728)*100vw)] gap-[calc((8/1728)*100vw)] rounded-[calc((50/1728)*100vw)] ">
                 <span>{`->`}</span>
                 <span>Register Now</span>
@@ -426,8 +431,119 @@ const HackathonPage: NextPage<any> = (props) => {
 
 HackathonPage.displayName = 'HackathonPage';
 
-// Landing.getInitialProps = (context) => {
-//   return {};
-// };
-
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  return {
+    props: {
+      sponsor: new Array(5).fill({ url: '/images/event/hackathon/sponsor/' }),
+      mentors: [
+        {
+          name: 'Aiko',
+          description: 'Gamification Alchemist at Folius Ventures',
+          url: '/images/event/hackathon/avatar'
+        },
+        {
+          name: 'Bowen Wang',
+          description: 'Partner at Smrti Lab',
+          url: '/images/event/hackathon/avatar'
+        },
+        {
+          name: 'Chris Zhu',
+          description: 'Co-founder and CEO at Mirror World',
+          url: '/images/event/hackathon/avatar'
+        },
+        {
+          name: 'Evans Huangfu',
+          description: 'CIO & Partner at Arcane Group',
+          url: '/images/event/hackathon/avatar'
+        },
+        {
+          name: 'Frost Lam',
+          description: 'Investor at Qiming Venture Partners',
+          url: '/images/event/hackathon/avatar'
+        },
+        {
+          name: 'GM',
+          description: 'Partner at Dragonfly',
+          url: '/images/event/hackathon/avatar'
+        },
+        {
+          name: 'Jenny Cheng',
+          description: 'Vice President at Animoca Ventures',
+          url: '/images/event/hackathon/avatar'
+        },
+        {
+          name: 'Komorabi',
+          description: `Creator of Komorabi's AW Hacker House`,
+          url: '/images/event/hackathon/avatar'
+        },
+        {
+          name: '空岛',
+          description: `Investor at Parallel ventures`,
+          url: '/images/event/hackathon/avatar'
+        },
+        {
+          name: 'Louis Song',
+          description: 'Partner at SevenX Ventures',
+          url: '/images/event/hackathon/avatar'
+        },
+        {
+          name: 'Matt',
+          description: 'Founder and CEO of Caldera',
+          url: '/images/event/hackathon/avatar'
+        },
+        {
+          name: 'Mike Liou',
+          description: 'contributor at AGLD DAO',
+          url: null
+        },
+        {
+          name: 'Pengyu Wang',
+          description: 'Co-founder and CEO at Particle Network',
+          url: '/images/event/hackathon/avatar'
+        },
+        {
+          name: 'Scissors',
+          description: 'Founder at Funblocks',
+          url: null
+        },
+        {
+          name: 'Sinka Gao',
+          description: 'Founder and CEO at Delphinus Labs',
+          url: '/images/event/hackathon/avatar'
+        },
+        {
+          name: 'Tianran Zhang',
+          description: 'Ecosystem Head at MaskNetwork',
+          url: '/images/event/hackathon/avatar'
+        },
+        {
+          name: 'Victor J',
+          description: 'Co-founder and CEO at Manta Network',
+          url: '/images/event/hackathon/avatar'
+        },
+        {
+          name: 'Will Robinson',
+          description: 'Core Contributor at Alliance DAO',
+          url: '/images/event/hackathon/avatar'
+        },
+        {
+          name: 'Yijia Chen',
+          description: 'Co-founder and CEO at Curio',
+          url: '/images/event/hackathon/avatar'
+        },
+        {
+          name: 'Yuetian Chen',
+          description: 'Founding Partner at Initiate Capital',
+          url: '/images/event/hackathon/avatar'
+        }
+      ],
+      partners: new Array(11).fill({
+        url: '/images/event/hackathon/partners'
+      }),
+      mediaPartners: new Array(7).fill({
+        url: '/images/event/hackathon/community_partners'
+      })
+    }
+  };
+};
 export default HackathonPage;

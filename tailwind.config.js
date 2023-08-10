@@ -34,7 +34,9 @@ module.exports = {
         'futura-book': ['Futura Book'],
         'Sofia-Pro-Light-Az': ['Sofia Pro;'],
         Chaney: ['Chaney'],
-        MiSans: ['MiSans']
+        'Chaney-Extended': ['Chaney-Extended'],
+        MiSans: ['MiSans'],
+        'MiSans-Semibold': ['MiSans-Semibold']
       },
       screens: {
         xs: '480px',
