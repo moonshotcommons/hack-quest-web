@@ -15,6 +15,8 @@ import CompleteModal from '../CompleteModal';
 import { shallowEqual, useSelector } from 'react-redux';
 import { AppRootState } from '@/store/redux';
 import { useRouter } from 'next/router';
+import NotionRenderer, { Renderer } from '@/components/NotionRender';
+import { CustomRenderType } from '@/components/NotionRender/type';
 
 interface LessonPageAProps {
   lesson: CourseLessonType;
@@ -64,6 +66,7 @@ const LessonPageA: FC<LessonPageAProps> = (props) => {
   }, [lesson, unitsLessonsList]);
 
   const RightComponent = useMemo(() => {
+    console.log(quizes);
     if (pass) {
       return (
         <LessonPassPage
@@ -74,18 +77,16 @@ const LessonPageA: FC<LessonPageAProps> = (props) => {
       );
     }
     return (
-      <Quest
-        courseType={courseType}
-        lessonID={lesson.id}
-        isLastUnit={false}
-        content={quizes}
-        onPass={onPass}
-        darkMode={true}
-        setIsProgressing={setIsProgressing}
-      />
+      <NotionRenderer styleType={LessonStyleType.A}>
+        <Renderer
+          type={CustomRenderType.Quiz}
+          source={quizes}
+          parent={{ ...quizes, isRoot: true, onPass, isLastLesson }}
+        ></Renderer>
+      </NotionRenderer>
     );
   }, [pass, courseType, lesson, quizes, onPass, isLastLesson]);
-
+  console.log(quizes);
   useEffect(() => {
     if (lesson) {
       setLessonContent((lesson.content?.[0] as any).children);
@@ -105,14 +106,13 @@ const LessonPageA: FC<LessonPageAProps> = (props) => {
       lessonContentRef.current.scrollTo(0, 0);
     }
   }, [lesson]);
-
   return (
-    <div className="w-full h-[80vh] flex justify-between gap-[4.5rem] mt-[1.25rem]">
+    <div className="h-[80vh] flex justify-between gap-[4.5rem] mt-[1.25rem]">
       <div
         ref={lessonContentRef}
-        className="text-text-default-color h-full w-full px-[3rem] py-[2.5rem] rounded-[2.5rem] bg-lesson-content-global-bg overflow-y-scroll notion-render-block no-scrollbar"
+        className="text-text-default-color text-[.875rem] h-full w-[50%] px-[3rem] py-[2.5rem] rounded-[2.5rem] bg-lesson-content-global-bg overflow-y-scroll no-scrollbar"
       >
-        {lessonContent &&
+        {/* {lessonContent &&
           lessonContent?.map((block: any) => (
             <Block
               block={block}
@@ -120,9 +120,23 @@ const LessonPageA: FC<LessonPageAProps> = (props) => {
               darkMode={true}
               renderChildren={true}
             />
-          ))}
+          ))} */}
+        <div className="relative mb-8">
+          <NotionRenderer styleType={LessonStyleType.A}>
+            {lessonContent?.map((item: any) => {
+              return (
+                <Renderer
+                  key={item.id}
+                  type={item.type}
+                  source={item}
+                  parent={{ ...lessonContent, isRoot: true }}
+                ></Renderer>
+              );
+            })}
+          </NotionRenderer>
+        </div>
       </div>
-      <div className="w-full text-text-default-color h-full bg-lesson-content-global-bg notion-render-block py-[2.5rem] rounded-[2.5rem]">
+      <div className="text-text-default-color w-[50%] h-full bg-lesson-content-global-bg px-[3rem] py-[2.5rem] rounded-[2.5rem]">
         {RightComponent}
       </div>
       <>

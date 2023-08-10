@@ -1,5 +1,6 @@
 import { FC, ReactNode } from 'react';
 import { Renderer } from '..';
+import { CustomRenderType } from '../type';
 
 interface SectionRendererProps {
   type: string;
@@ -29,7 +30,9 @@ const SectionRenderer: FC<SectionRendererProps> = (props) => {
               <Renderer
                 key={index}
                 type={
-                  content.type === 'numbered_list_item' ? 'step' : content.type
+                  content.type === 'numbered_list_item'
+                    ? CustomRenderType.STEP
+                    : content.type
                 }
                 source={content}
                 parent={contentSource}

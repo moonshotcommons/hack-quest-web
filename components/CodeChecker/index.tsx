@@ -12,25 +12,25 @@ interface CodeCheckerProps {
 
 const CodeChecker: FC<CodeCheckerProps> = (props) => {
   const { content, courseType } = props;
-  const {
-    codeText,
-    codeTextDispatch,
-    quiz,
-    shouldRenderBlock,
-    shouldRenderCodeEditor,
-    answerReg,
-    answerCode,
-    answerLineNumber
-  } = useParseQuiz({
-    content,
-    courseType
-  });
+  // const {
+  //   codeText,
+  //   codeTextDispatch,
+  //   quiz,
+  //   shouldRenderBlock,
+  //   shouldRenderCodeEditor,
+  //   answerReg,
+  //   answerCode,
+  //   answerLineNumber
+  // } = useParseQuiz({
+  //   content,
+  //   courseType
+  // });
   return (
     <div className="w-full h-full relative">
-      <div>
+      {/* <div>
         {shouldRenderBlock && quiz && <Block block={quiz} />}
         {shouldRenderCodeEditor && <CodeEditor></CodeEditor>}
-      </div>
+      </div> */}
     </div>
   );
 };

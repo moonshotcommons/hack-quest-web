@@ -11,8 +11,8 @@ import {
 import { LessonContentType } from '@/constants/lesson';
 
 export enum CourseApiType {
-  Course_List = '/api/courses',
-  LessonDetail = '/api/pages'
+  Course_List = '/courses',
+  LessonDetail = '/pages'
 }
 
 class CourseApi {

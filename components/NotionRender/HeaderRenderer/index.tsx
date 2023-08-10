@@ -21,26 +21,26 @@ const HeaderRenderer: FC<HeaderRendererProps> = (props) => {
   const HeadingTag = ('h' + type.slice(-1)) as keyof JSX.IntrinsicElements;
   const { styleType } = useContext(NotionRendererContext);
   const className = cn(
-    ``,
-    type === NotionRenderType.H1 ? '' : '',
-    type === NotionRenderType.H2 ? '' : '',
-    type === NotionRenderType.H3 ? '' : ''
+    `font-bold`,
+    type === NotionRenderType.H1 ? 'text-[1.5rem]' : '',
+    type === NotionRenderType.H2 ? 'text-[1.25rem]' : '',
+    type === NotionRenderType.H3 ? 'text-[1rem]' : ''
   );
 
   return (
-    <div>
-      <HeadingTag className="mb-[1.25rem]">
+    <div className="py-4">
+      <HeadingTag className={className}>
         <TextRenderer richTextArr={source[type].rich_text} />{' '}
       </HeadingTag>
       {/* 正常渲染子对象 */}
-      <div>
+      <div className="ml-4">
         {isRenderChildren &&
           source.children?.map((item: any, index: number) => {
             return (
               <Renderer
                 key={index}
                 type={item.type}
-                source={item[item.type]}
+                source={item}
                 parent={source}
               ></Renderer>
             );

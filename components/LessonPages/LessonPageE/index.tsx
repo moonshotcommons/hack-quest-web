@@ -29,20 +29,6 @@ interface LessonPageDProps {
   courseType: CourseType;
 }
 
-// const CustomButton: FC<ButtonProps> = (props) => {
-//   const { children } = props;
-//   return (
-//     <Button
-//       padding="px-[3rem] py-[1.25rem]"
-//       fontStyle="Inter font-normal"
-//       textStyle="text-[.875rem] text-white leading-[1.25rem]"
-//       {...props}
-//     >
-//       {children}
-//     </Button>
-//   );
-// };
-
 const LessonPageD: FC<LessonPageDProps> = (props) => {
   const { lesson, courseType } = props;
   const router = useRouter();
@@ -73,12 +59,6 @@ const LessonPageD: FC<LessonPageDProps> = (props) => {
         ></SessionRenderer>
       </div>
       <div className="absolute bottom-10 right-10">
-        {/* <CustomButton onClick={onBackClick}>Back</CustomButton> */}
-        {/* {isCompleted && (
-          <Button className="border" onClick={onNextClick}>
-            Next
-          </Button>
-        )} */}
         {!isFirst && (
           <Button
             onClick={onBackClick}
