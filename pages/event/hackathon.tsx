@@ -52,15 +52,15 @@ const HackathonPage: NextPage<any> = (props) => {
           absolute w-full z-[5] m-auto top-[calc((246/1728)*100vw)]  flex-col justify-center
           text-white text-center font-Chaney text-[calc((111.36/1728)*100vw)] leading-[97%]
           `}
-          style={{
-            // top: `${formatSize(246)}`,
-            // fontSize: `${formatSize(111.36)}`,
-            textShadow:
-              '0px 3.9771456718444824px 67.6114730834961px rgba(0, 0, 0, 0.25)'
-          }}
+          // style={{
+          //   // top: `${formatSize(246)}`,
+          //   // fontSize: `${formatSize(111.36)}`,
+          //   textShadow:
+          //     '0px 3.97714567184448calc((24/1728)*100vw) 67.6114730834961px rgba(0, 0, 0, 0.25)'
+          // }}
         >
           <p>SevenX</p>
-          <p className="flex items-center justify-center gap-14">
+          <p className="flex items-center justify-center gap-[calc((56/1728)*100vw)]">
             <span
               // style={{ fontSize: `${formatSize(36)}` }}
               className="text-[calc((36/1728)*100vw)]"
@@ -84,7 +84,7 @@ const HackathonPage: NextPage<any> = (props) => {
         <div
           className="
           absolute top-[calc((1054/1728)*100vw)] left-[50%] -translate-x-[50%] gap-[calc((67/1728)*100vw)] flex flex-col  justify-center items-center
-         text-white text-[calc((39.3936/1728)*100vw)] font-MiSans leading-[calc((29.152/1728)*100vw)] font-semibold"
+         text-white text-[calc((40/1728)*100vw)] font-MiSans leading-[calc((30/1728)*100vw)] font-semibold"
         >
           <button
             // style={{
@@ -125,64 +125,64 @@ const HackathonPage: NextPage<any> = (props) => {
       </div>
       <div className="relative flex flex-col items-center mt-[calc((1840/1728)*100vw)] w-[calc((1298/1728)*100vw)] justify-center font-MiSans">
         <div className="flex flex-col items-center w-[calc((1146/1728)*100vw)] justify- overflow-hidden">
-          <div className="text-[calc((39.394/1728)*100vw)] text-[#AA83C8] relative font-semibold w-full pb-[33px] text-center bottom-line-default after:bg-[#CD9DF2] after:left-0">
+          <div className="text-[calc((39.394/1728)*100vw)] text-[#AA83C8] relative font-semibold w-full pb-[calc((33/1728)*100vw)] text-center bottom-line-default after:bg-[#CD9DF2] after:left-0">
             <div className="rotate-90">{`>>`}</div>
           </div>
-          <div className="w-full text-center pt-[50px] pb-[60px] flex flex-col gap-[30px] relative bottom-line-default after:bg-[#CD9DF2] after:left-0">
+          <div className="w-full text-center pt-[calc((50/1728)*100vw)] pb-[calc((60/1728)*100vw)] flex flex-col gap-[calc((30/1728)*100vw)] relative bottom-line-default after:bg-[#CD9DF2] after:left-0">
             <div className="w-full flex flex-col justify-center items-center">
-              <p className="text-[18px] text-[#87689E] text-center font-Chaney">
+              <p className="text-[calc((18/1728)*100vw)] text-[#87689E] text-center font-Chaney">
                 ABOUT HAACKATHON
               </p>
-              <p className="text-[2.5rem] font-bold leading-[120%] text-white text-center">
+              <p className="text-[calc((40/1728)*100vw)] font-bold leading-[120%] text-white text-center">
                 Hackathon&nbsp;主题:
               </p>
             </div>
-            <ul className="text-white text-center text-[28px] leading-[46px] font-Chaney">
+            <ul className="text-white text-center text-[calc((28/1728)*100vw)] leading-[164.643%] font-Chaney">
               <li className="">1. Fully On-Chain Game</li>
               <li className="">2. Web3+AI Applications</li>
             </ul>
             <div
               className="
-              px-[36px] py-1 w-fit flex justify-center items-center self-center
-              text-[20px]  text-white
-              border-[3px] rounded-full
+              px-[calc((36/1728)*100vw)] py-1 w-fit flex justify-center items-center self-center
+              text-[calc((20/1728)*100vw)]  text-white
+              border-[calc((3/1728)*100vw)] rounded-full
             "
             >
               奖金：20000 USD
             </div>
           </div>
-          <div className="w-full text-center pt-[60px] pb-[50px] flex flex-col gap-[7.34px] relative bottom-line-default after:bg-[#CD9DF2] after:left-0">
+          <div className="w-full text-center pt-[calc((60/1728)*100vw)] pb-[calc((50/1728)*100vw)] flex flex-col gap-[calc((7.34/1728)*100vw)] relative bottom-line-default after:bg-[#CD9DF2] after:left-0">
             <div
               // style={{ color: '#cd9df299' }}
-              className="text-[#cd9df299] text-[18px] leading-[120%] font-Chaney"
+              className="text-[#cd9df299] text-[calc((18/1728)*100vw)] leading-[120%] font-Chaney"
             >{`co-host ->`}</div>
-            <div className="text-white text-[40px] font-bold leading-[120%]">
+            <div className="text-white text-[calc((40/1728)*100vw)] font-bold leading-[120%]">
               主办方
             </div>
           </div>
-          <div className="w-full text-center pt-[60px] pb-[60px] flex flex-col gap-[50px] relative bottom-line-default after:bg-[#CD9DF2] after:left-0">
+          <div className="w-full text-center pt-[calc((60/1728)*100vw)] pb-[calc((60/1728)*100vw)] flex flex-col gap-[calc((50/1728)*100vw)] relative bottom-line-default after:bg-[#CD9DF2] after:left-0">
             <div
               // style={{ color: '#cd9df299' }}
-              className="text-white text-[40px] font-bold leading-[120%]"
+              className="text-white text-[calc((40/1728)*100vw)] font-bold leading-[120%]"
             >
               赛程安排
             </div>
-            <div className="text-white text-[28px] font-black leading-[46px]">
+            <div className="text-white text-[calc((28/1728)*100vw)] font-black leading-[164.643%]">
               <p>项目报名 Now - 8.23</p>
               <p>开幕式 8.26</p>
               <p>Hackathon 8.27 - 9.13</p>
               <p>Apollo Day 9.16</p>
             </div>
           </div>
-          <div className="w-full text-center text-white  pt-[60px] pb-[60px] flex flex-col gap-[50px] relative bottom-line-default after:bg-[#CD9DF2] after:left-0">
+          <div className="w-full text-center text-white  pt-[calc((60/1728)*100vw)] pb-[calc((60/1728)*100vw)] flex flex-col gap-[calc((50/1728)*100vw)] relative bottom-line-default after:bg-[#CD9DF2] after:left-0">
             <div
               // style={{ color: '#cd9df299' }}
-              className="text-[40px] font-bold leading-[120%]"
+              className="text-[calc((40/1728)*100vw)] font-bold leading-[120%]"
             >
               Hackathon 主题
             </div>
-            <div className="text-left max-w-[65.6875rem] text-[1.625rem] flex flex-col gap-[50px] self-center leading-[181.5%]">
-              <div className="text-[20px] font-black text-center border px-[28.67px] w-fit self-center rounded-full leading-[182%]">
+            <div className="text-left max-w-[calc((1051/1728)*100vw)] text-[calc((26/1728)*100vw)] flex flex-col gap-[calc((50/1728)*100vw)] self-center leading-[181.5%]">
+              <div className="text-[calc((20/1728)*100vw)] font-black text-center border px-[calc((28.67/1728)*100vw)] w-fit self-center rounded-full leading-[182%]">
                 Theme1: FULLY ON-CHAIN GAME
               </div>
               <p>
@@ -192,14 +192,14 @@ const HackathonPage: NextPage<any> = (props) => {
                 的三个环节，分别是基础设施（包括引擎，抽象协议、中间件及各类功能模块）、内容（包括不同genre的游戏或实验内容）和发行（通过去中心化、可组合和经济模型对发行方式的颠覆）。
               </p>
             </div>
-            <div className="text-left max-w-[65.6875rem] text-[1.625rem] flex flex-col gap-[50px] mt-[50px] self-center leading-[253%]">
-              <div className="text-[20px] font-black text-center border px-[28.67px] w-fit self-center rounded-full leading-[182%]">
+            <div className="text-left max-w-[calc((1051/1728)*100vw)] text-[calc((26/1728)*100vw)] flex flex-col gap-[calc((50/1728)*100vw)] mt-[calc((50/1728)*100vw)] self-center leading-[253%]">
+              <div className="text-[calc((20/1728)*100vw)] font-black text-center border px-[calc((28.67/1728)*100vw)] w-fit self-center rounded-full leading-[182%]">
                 Theme2：Web3+AI APPLICATION
               </div>
               <p>
                 随着区块链技术在基础设施、中间件和经济模型等各个层次取得的快速突破，伴随AI技术中大语言模型的持续迭代，两个领域正在发生不可阻挡的融合，同时走入开发者和大众用户的视野。
               </p>
-              <p className="mt-[40px]">
+              <p className="mt-[calc((40/1728)*100vw)]">
                 在 Web3+AI 这个主题中，除了已经看到的例如 ZKML
                 等基础设施方向的创新叙事，我们认为Web3+AI 同样也可以为 C
                 端带来无穷无尽的想象力，以全新的构建方式、交互逻辑和激励模型，对传统的移动互联网产品进行颠覆，在移动互利网创新乏力、流量枯竭的现状下，为
@@ -208,19 +208,19 @@ const HackathonPage: NextPage<any> = (props) => {
               </p>
             </div>
           </div>
-          <div className="w-full text-center text-white  pt-[60px] pb-[60px] flex flex-col gap-[50px] relative bottom-line-default after:bg-[#CD9DF2] after:left-0">
+          <div className="w-full text-center text-white  pt-[calc((60/1728)*100vw)] pb-[calc((60/1728)*100vw)] flex flex-col gap-[calc((50/1728)*100vw)] relative bottom-line-default after:bg-[#CD9DF2] after:left-0">
             <div
               // style={{ color: '#cd9df299' }}
-              className="text-[40px] font-bold leading-[120%]"
+              className="text-[calc((40/1728)*100vw)] font-bold leading-[120%]"
             >
               About SevenX & Nitro
             </div>
-            <div className="text-left max-w-[66.5rem] text-[1.625rem] flex flex-col gap-[50px] self-center leading-[253%]">
+            <div className="text-left max-w-[calc((1064/1728)*100vw)] text-[calc((26/1728)*100vw)] flex flex-col gap-[calc((50/1728)*100vw)] self-center leading-[253%]">
               <p>
                 SevenX
                 Venture成立于2020年，是一只以亚洲+美国双边市场为根据地的Web3基金，目前共管理直投基金3支、FoF基金1支，总管理规模接近3亿美元。
               </p>
-              <p className="mt-[40px]">
+              <p className="mt-[calc((40/1728)*100vw)]">
                 Infra：Near, Arweave, Aurora, Orb, Space&Time, Hyper Oracle, Red
                 Stone, EthStorage, Particle, Kwil, Herodotus, Trusta, GoPlus,
                 Footprint Defi：DODO, DAO Maker, Orderly, CowSwap, RageTrade,
@@ -229,7 +229,7 @@ const HackathonPage: NextPage<any> = (props) => {
                 Games, Citvatas, Space Nation, Block Lords, Matr1x Social: Mask
                 Network, RSS3, Cyberconnect, ReadON, Clique, QuestN, HackMD
               </p>
-              <p className="mt-[40px]">
+              <p className="mt-[calc((40/1728)*100vw)]">
                 Nitro 是 SevenX Ventures 创办的 Hackathon/Hacker House
                 品牌，目的是通过 SevenX Ventures
                 的丰富全球化资源，深刻的行业认知和成熟的赋能系统，为最优秀的
@@ -240,14 +240,14 @@ const HackathonPage: NextPage<any> = (props) => {
               </p>
             </div>
           </div>
-          <div className="w-full text-center text-white  pt-[60px] pb-[60px] flex flex-col gap-[50px] relative bottom-line-default after:bg-[#CD9DF2] after:left-0">
+          <div className="w-full text-center text-white  pt-[calc((60/1728)*100vw)] pb-[calc((60/1728)*100vw)] flex flex-col gap-[calc((50/1728)*100vw)] relative bottom-line-default after:bg-[#CD9DF2] after:left-0">
             <div
               // style={{ color: '#cd9df299' }}
-              className="text-[40px] font-bold leading-[120%]"
+              className="text-[calc((40/1728)*100vw)] font-bold leading-[120%]"
             >
               Co-Host 介绍
             </div>
-            <div className="text-left max-w-[66.5rem] text-[1.625rem] flex flex-col self-center leading-[253%]">
+            <div className="text-left max-w-[calc((1064/1728)*100vw)] text-[calc((26/1728)*100vw)] flex flex-col self-center leading-[253%]">
               <p className="font-black">1. Moonshot Commons</p>
               <p className="font-black">2. HackQuest</p>
               <p className="font-black">3. MUD</p>
@@ -267,27 +267,30 @@ const HackathonPage: NextPage<any> = (props) => {
               </p>
             </div>
           </div>
-          <div className="w-full text-center text-white  pt-[60px] pb-[60px] flex flex-col gap-[50px] relative bottom-line-default after:bg-[#CD9DF2] after:left-0">
-            <div className="flex flex-col gap-[7.34px]">
-              <div className="text-[#cd9df299] text-[18px] leading-[120%] font-Chaney">{`mentors ->`}</div>
+          <div className="w-full text-center text-white  pt-[calc((60/1728)*100vw)] pb-[calc((60/1728)*100vw)] flex flex-col gap-[calc((50/1728)*100vw)] relative bottom-line-default after:bg-[#CD9DF2] after:left-0">
+            <div className="flex flex-col gap-[calc((7.34/1728)*100vw)]">
+              <div className="text-[#cd9df299] text-[calc((18/1728)*100vw)] leading-[120%] font-Chaney">{`mentors ->`}</div>
               <div
                 // style={{ color: '#cd9df299' }}
-                className="text-[40px] font-bold leading-[120%] text-[#CD9DF2]"
+                className="text-[calc((40/1728)*100vw)] font-bold leading-[120%] text-[#CD9DF2]"
               >
                 创始人&联合创始人
               </div>
             </div>
 
-            <div className="text-left max-w-[66.5rem] pl-[21px] text-[1.625rem] flex self-center flex-wrap gap-x-[70.25px] gap-y-[21px]">
+            <div className="text-left max-w-[calc((1064/1728)*100vw)] pl-[calc((21/1728)*100vw)] text-[calc((26/1728)*100vw)] flex self-center flex-wrap gap-x-[calc((70.25/1728)*100vw)] gap-y-[calc((21/1728)*100vw)]">
               {originator.map((item, index) => {
                 return (
-                  <div key={index} className="flex items-center gap-[8.52px] ">
-                    <div className="w-[104px] h-[104px] rounded-full border-[2px] border-[#CD9DF2]"></div>
-                    <div className="flex flex-col max-w-[180px] gap-1">
-                      <span className="text-[21px] font-semibold leading-[140%]">
+                  <div
+                    key={index}
+                    className="flex items-center gap-[8.5calc((2/1728)*100vw)] "
+                  >
+                    <div className="w-[calc((104/1728)*100vw)] h-[calc((104/1728)*100vw)] rounded-full border-[calc((2/1728)*100vw)] border-[#CD9DF2]"></div>
+                    <div className="flex flex-col max-w-[calc((180/1728)*100vw)] gap-1">
+                      <span className="text-[calc((21/1728)*100vw)] font-semibold leading-[140%]">
                         {item.name}
                       </span>
-                      <span className="text-[17.031px] font-semibold text-[#CD9DF2] leading-[125%]">
+                      <span className="text-[calc((17/1728)*100vw)] font-semibold text-[#CD9DF2] leading-[125%]">
                         {item.status}
                       </span>
                     </div>
@@ -296,27 +299,30 @@ const HackathonPage: NextPage<any> = (props) => {
               })}
             </div>
           </div>
-          <div className="w-full text-center text-white  pt-[60px] pb-[60px] flex flex-col gap-[50px] relative bottom-line-default after:bg-[#CD9DF2] after:left-0">
-            <div className="flex flex-col gap-[7.34px]">
-              <div className="text-[#cd9df299] text-[18px] leading-[120%] font-Chaney">{`Venture Capital ->`}</div>
+          <div className="w-full text-center text-white  pt-[calc((60/1728)*100vw)] pb-[calc((60/1728)*100vw)] flex flex-col gap-[calc((50/1728)*100vw)] relative bottom-line-default after:bg-[#CD9DF2] after:left-0">
+            <div className="flex flex-col gap-[calc((7.34/1728)*100vw)]">
+              <div className="text-[#cd9df299] text-[calc((18/1728)*100vw)] leading-[120%] font-Chaney">{`Venture Capital ->`}</div>
               <div
                 // style={{ color: '#cd9df299' }}
-                className="text-[40px] font-bold leading-[120%] text-[#CD9DF2]"
+                className="text-[calc((40/1728)*100vw)] font-bold leading-[120%] text-[#CD9DF2]"
               >
                 创业投资人
               </div>
             </div>
 
-            <div className="text-left max-w-[66.5rem] pl-[21px] text-[1.625rem] flex self-center flex-wrap gap-x-[70.25px] gap-y-[21px]">
+            <div className="text-left max-w-[calc((1064/1728)*100vw)] pl-[calc((21/1728)*100vw)] text-[calc((26/1728)*100vw)] flex self-center flex-wrap gap-x-[calc((70.25/1728)*100vw)] gap-y-[calc((21/1728)*100vw)]">
               {investor.map((item, index) => {
                 return (
-                  <div key={index} className="flex items-center gap-[8.52px] ">
-                    <div className="w-[104px] h-[104px] rounded-full border-[2px] border-[#CD9DF2]"></div>
-                    <div className="flex flex-col max-w-[180px] gap-1">
-                      <span className="text-[21px] font-semibold leading-[140%]">
+                  <div
+                    key={index}
+                    className="flex items-center gap-[8.5calc((2/1728)*100vw)] "
+                  >
+                    <div className="w-[calc((104/1728)*100vw)] h-[calc((104/1728)*100vw)] rounded-full border-[calc((2/1728)*100vw)] border-[#CD9DF2]"></div>
+                    <div className="flex flex-col max-w-[calc((180/1728)*100vw)] gap-1">
+                      <span className="text-[calc((21/1728)*100vw)] font-semibold leading-[140%]">
                         {item.name}
                       </span>
-                      <span className="text-[17.031px] font-semibold text-[#CD9DF2] leading-[125%]">
+                      <span className="text-[calc((17/1728)*100vw)] font-semibold text-[#CD9DF2] leading-[125%]">
                         {item.status}
                       </span>
                     </div>
@@ -325,24 +331,24 @@ const HackathonPage: NextPage<any> = (props) => {
               })}
             </div>
           </div>
-          <div className="w-full text-center text-white  pt-[60px] pb-[60px] flex flex-col gap-[50px] relative bottom-line-default after:bg-[#CD9DF2] after:left-0">
-            <div className="text-[14.67px] font-bold leading-[120%] pb-[18px]">{`/*We choose to go to the Moon*/`}</div>
-            <div className="flex flex-col gap-[20px]">
-              <div className="text-[#cd9df299] text-[18px] leading-[120%] font-Chaney">{`OUR PARTNERS ->`}</div>
+          <div className="w-full text-center text-white  pt-[calc((60/1728)*100vw)] pb-[calc((60/1728)*100vw)] flex flex-col gap-[calc((50/1728)*100vw)] relative bottom-line-default after:bg-[#CD9DF2] after:left-0">
+            <div className="text-[calc((14.67/1728)*100vw)] font-bold leading-[120%] pb-[calc((18/1728)*100vw)]">{`/*We choose to go to the Moon*/`}</div>
+            <div className="flex flex-col gap-[calc((20/1728)*100vw)]">
+              <div className="text-[#cd9df299] text-[calc((18/1728)*100vw)] leading-[120%] font-Chaney">{`OUR PARTNERS ->`}</div>
               <div
                 // style={{ color: '#cd9df299' }}
-                className="text-[40px] font-bold leading-[120%] text-white"
+                className="text-[calc((40/1728)*100vw)] font-bold leading-[120%] text-white"
               >
                 黑客松合作伙伴
               </div>
             </div>
 
-            <div className="text-left max-w-[1192px] text-[1.625rem] flex self-center justify-center relative flex-wrap gap-x-[24px] gap-y-[24px]">
+            <div className="text-left max-w-[119calc((2/1728)*100vw)] text-[calc((26/1728)*100vw)] flex self-center justify-center relative flex-wrap gap-x-[calc((24/1728)*100vw)] gap-y-[calc((24/1728)*100vw)]">
               {partners.map((item, index) => {
                 return (
                   <div
                     key={index}
-                    className="flex w-[206px] h-[90px] border rounded-[110px] relative items-center justify-center"
+                    className="flex w-[calc((206/1728)*100vw)] h-[calc((90/1728)*100vw)] border rounded-[calc((110/1728)*100vw)] relative items-center justify-center"
                   >
                     <img
                       src={`${item.url}/${index + 1}.png`}
@@ -353,21 +359,21 @@ const HackathonPage: NextPage<any> = (props) => {
                 );
               })}
             </div>
-            <div className="flex flex-col gap-[20px] mt-[50px]">
-              <div className="text-[#cd9df299] text-[18px] leading-[120%] font-Chaney">{`Community Partners -> `}</div>
+            <div className="flex flex-col gap-[calc((20/1728)*100vw)] mt-[calc((50/1728)*100vw)]">
+              <div className="text-[#cd9df299] text-[calc((18/1728)*100vw)] leading-[120%] font-Chaney">{`Community Partners -> `}</div>
               <div
                 // style={{ color: '#cd9df299' }}
-                className="text-[40px] font-bold leading-[120%] text-white"
+                className="text-[calc((40/1728)*100vw)] font-bold leading-[120%] text-white"
               >
                 合作媒体
               </div>
             </div>
-            <div className="text-left max-w-[1192px] text-[1.625rem] flex self-center justify-center relative flex-wrap gap-x-[24px] gap-y-[24px]">
+            <div className="text-left max-w-[119calc((2/1728)*100vw)] text-[calc((26/1728)*100vw)] flex self-center justify-center relative flex-wrap gap-x-[calc((24/1728)*100vw)] gap-y-[calc((24/1728)*100vw)]">
               {mediaPartners.map((item, index) => {
                 return (
                   <div
                     key={index}
-                    className="flex w-[206px] h-[90px] border rounded-[110px] relative items-center justify-center"
+                    className="flex w-[calc((206/1728)*100vw)] h-[calc((90/1728)*100vw)] border rounded-[calc((110/1728)*100vw)] relative items-center justify-center"
                   >
                     <img
                       src={`${item.url}/${index + 1}.png`}
@@ -379,14 +385,14 @@ const HackathonPage: NextPage<any> = (props) => {
               })}
             </div>
           </div>
-          <div className="w-full text-center text-white  pt-[60px] pb-[60px] flex flex-col gap-[60px] relative bottom-line-default after:bg-[#CD9DF2] after:left-0">
+          <div className="w-full text-center text-white  pt-[calc((60/1728)*100vw)] pb-[calc((60/1728)*100vw)] flex flex-col gap-[calc((60/1728)*100vw)] relative bottom-line-default after:bg-[#CD9DF2] after:left-0">
             <div
               // style={{ color: '#cd9df299' }}
-              className="text-[40px] font-bold leading-[120%]"
+              className="text-[calc((40/1728)*100vw)] font-bold leading-[120%]"
             >
               Message
             </div>
-            <div className="text-left max-w-[66.5rem] text-[1.625rem] flex flex-col gap-[50px] self-center leading-[253%]">
+            <div className="text-left max-w-[calc((1064/1728)*100vw)] text-[calc((26/1728)*100vw)] flex flex-col gap-[calc((50/1728)*100vw)] self-center leading-[253%]">
               <p>
                 在此，我们诚挚地邀请你加入我们的 Nitro
                 Hackathon，与我们一起挑战未知、探索可能、实现创新。期待在这个舞台上见证你的才华与创新。The
@@ -394,19 +400,19 @@ const HackathonPage: NextPage<any> = (props) => {
               </p>
             </div>
           </div>
-          <div className="w-full text-center text-white  pt-[60px] flex flex-col gap-[56px] justify-center items-center self-center">
+          <div className="w-full text-center text-white  pt-[calc((60/1728)*100vw)] flex flex-col gap-[calc((56/1728)*100vw)] justify-center items-center self-center">
             <div
               // style={{ color: '#cd9df299' }}
-              className="text-[80px] font-bold mt-[49px] py-[36px] font-Chaney leading-normal text-center"
+              className="text-[calc((80/1728)*100vw)] font-bold mt-[calc((50/1728)*100vw)] py-[calc((36/1728)*100vw)] font-Chaney leading-normal text-center"
             >
               SEE YOU IN FALL !
             </div>
-            <div className="text-left text-[32.523px] flex h-fit self-center leading-[24.067px] gap-[65px] text-[#CD9DF2]">
-              <button className="flex border-[#CD9DF2] px-[36px] py-[15px] border-[2px] gap-[8px] rounded-[50px] ">
+            <div className="text-left text-[calc((32.52/1728)*100vw)] flex h-fit self-center leading-[calc((24.067/1728)*100vw)] gap-[calc((65/1728)*100vw)] text-[#CD9DF2]">
+              <button className="flex border-[#CD9DF2] px-[calc((36/1728)*100vw)] py-[calc((15/1728)*100vw)] border-[calc((2/1728)*100vw)] gap-[calc((8/1728)*100vw)] rounded-[calc((50/1728)*100vw)] ">
                 <span>{`->`}</span>
                 <span>Register Now</span>
               </button>
-              <button className="flex px-[36px] py-[15px] border-[2px] rounded-[50px] gap-[8px]  border-[#CD9DF2]">
+              <button className="flex px-[calc((36/1728)*100vw)] py-[calc((15/1728)*100vw)] border-[calc((2/1728)*100vw)] rounded-[calc((50/1728)*100vw)] gap-[calc((8/1728)*100vw)]  border-[#CD9DF2]">
                 <span>{`->`}</span>
                 <span>Partner With US</span>
               </button>

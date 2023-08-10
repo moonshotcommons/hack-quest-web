@@ -19,18 +19,18 @@ const HackathonLayout: React.FC<HackathonLayoutProps> = ({ children }) => {
       className={`w-full min-h-screen h-full ${inter.className} m-auto relative bg-[#1f1920] bg-no-repeat`}
     >
       {children}
-      <footer className="pl-[75px] pr-[92px] m-auto h-[540px] z-50 text-[200px] flex justify-between">
-        <div className="mt-[318px] flex flex-col gap-[36px]">
-          <div className="text-[24px] text-[#ffffff7f] font-Chaney leading-[100%]">
+      <footer className="pl-[calc((75/1728)*100vw)] pr-[calc((92/1728)*100vw)] m-auto h-[calc((549/1728)*100vw)] z-50 text-[calc((200/1728)*100vw)] flex justify-between">
+        <div className="mt-[calc((318/1728)*100vw)] flex flex-col gap-[calc((36/1728)*100vw)]">
+          <div className="text-[calc((24/1728)*100vw)] text-[#ffffff7f] font-Chaney leading-[100%]">
             <p>Hackathon count down</p>
             <p>T- 53 days / 14 hours / 36 min / 05 sec</p>
           </div>
-          <div className="text-[#cd9df2cc] text-[16px] leading-[120%] font-bold">
+          <div className="text-[#cd9df2cc] text-[calc((16/1728)*100vw)] leading-[120%] font-bold">
             Copyright © 2022 Moonshot Global, LLC.
           </div>
         </div>
-        <div className="mt-[390px] flex gap-[88px] text-[#cd9df2cc]">
-          <div className="text-[10px] flex gap-[20px] border h-fit px-[15px] py-[5px] rounded-full font-Chaney">
+        <div className="mt-[calc((390/1728)*100vw)] flex gap-[calc((88/1728)*100vw)] text-[#cd9df2cc]">
+          <div className="text-[calc((10/1728)*100vw)] flex gap-[calc((20/1728)*100vw)] border h-fit px-[calc((15/1728)*100vw)] py-[calc((5/1728)*100vw)] rounded-full font-Chaney">
             <span>Nitro hackathon</span>
             <span>2023</span>
           </div>
