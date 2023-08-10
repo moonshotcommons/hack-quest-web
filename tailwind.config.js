@@ -32,7 +32,11 @@ module.exports = {
         neuemachina: ['Neue Machina'],
         'futura-bold': ['Futura Bold'],
         'futura-book': ['Futura Book'],
-        'Sofia-Pro-Light-Az': ['Sofia Pro;']
+        'Sofia-Pro-Light-Az': ['Sofia Pro;'],
+        Chaney: ['Chaney'],
+        'Chaney-Extended': ['Chaney-Extended'],
+        MiSans: ['MiSans'],
+        'MiSans-Semibold': ['MiSans-Semibold']
       },
       screens: {
         xs: '480px',
