@@ -19,6 +19,13 @@ const investor: { name: string; status: string }[] = new Array(12).fill({
   status: 'International Investor and Author'
 });
 
+const partners = new Array(11).fill({
+  url: '/images/event/hackathon/partners'
+});
+const mediaPartners = new Array(7).fill({
+  url: '/images/event/hackathon/media_partners'
+});
+
 const HackathonPage: NextPage<any> = (props) => {
   // const { nowCards, syntaxCards, tracksCards } = props;
 
@@ -33,21 +40,17 @@ const HackathonPage: NextPage<any> = (props) => {
           "
         ></Image>
         <div
-          // style={{
-          //   top: `${formatSize(224)}`,
-          //   fontSize: `${formatSize(318.408)}`
-          // }}
           className={`
         absolute z-[5] m-auto top-[calc((224/1728)*100vw)] text-[calc((318.408/1728)*100vw)]  overflow-hidden w-full
-        text-[#cd9df24c] text-center leading-[120%]
+        text-[#cd9df24c] text-center font-Chaney leading-[120%]
         `}
         >
           2023
         </div>
         <div
-          className={`zz
+          className={`
           absolute w-full z-[5] m-auto top-[calc((246/1728)*100vw)]  flex-col justify-center
-          text-white text-center text-[calc((111.36/1728)*100vw)] leading-[97%]
+          text-white text-center font-Chaney text-[calc((111.36/1728)*100vw)] leading-[97%]
           `}
           style={{
             // top: `${formatSize(246)}`,
@@ -57,7 +60,7 @@ const HackathonPage: NextPage<any> = (props) => {
           }}
         >
           <p>SevenX</p>
-          <p className="flex items-center justify-center">
+          <p className="flex items-center justify-center gap-14">
             <span
               // style={{ fontSize: `${formatSize(36)}` }}
               className="text-[calc((36/1728)*100vw)]"
@@ -75,27 +78,13 @@ const HackathonPage: NextPage<any> = (props) => {
           <p>*Nitro*</p>
           <p>{`[hackathon]`}</p>
         </div>
-        <div
-          style={
-            {
-              // top: `${formatSize(773)}`,
-              // fontSize: `${formatSize(36)}`
-            }
-          }
-          className="absolute w-full  text-center top-[calc((773/1728)*100vw)] text-[calc((36/1728)*100vw)] leading-[100%] text-white"
-        >
+        <div className="absolute w-full font-Chaney text-center top-[calc((773/1728)*100vw)] text-[calc((36/1728)*100vw)] leading-[100%] text-white">
           2023.8.26-2023.9.17
         </div>
         <div
-          // style={{
-          //   top: `${formatSize(1054)}`,
-          //   fontSize: `${formatSize(39.3936)}`,
-          //   lineHeight: `${formatSize(29.152)}`,
-          //   gap: `${formatSize(67)}`
-          // }}
           className="
           absolute top-[calc((1054/1728)*100vw)] left-[50%] -translate-x-[50%] gap-[calc((67/1728)*100vw)] flex flex-col  justify-center items-center
-         text-white text-[calc((39.3936/1728)*100vw)] leading-[calc((29.152/1728)*100vw)] font-semibold"
+         text-white text-[calc((39.3936/1728)*100vw)] font-MiSans leading-[calc((29.152/1728)*100vw)] font-semibold"
         >
           <button
             // style={{
@@ -134,32 +123,21 @@ const HackathonPage: NextPage<any> = (props) => {
           </p>
         </div>
       </div>
-      <div
-        // style={{
-        //   marginTop: `${formatSize(1840)}`,
-        //   width: `${formatSize(1298)}`
-        // }}
-        className="relative flex flex-col items-center mt-[calc((1840/1728)*100vw)] w-[calc((1298/1728)*100vw)] justify-center"
-      >
-        <div
-          // style={{
-          //   width: `${formatSize(1146)}`
-          // }}
-          className="flex flex-col items-center w-[calc((1146/1728)*100vw)] justify- overflow-hidden"
-        >
-          <div className="text-[39.394px] text-[#AA83C8] relative font-semibold w-full pb-[33px] text-center bottom-line-default after:bg-[#CD9DF2] after:left-0">
+      <div className="relative flex flex-col items-center mt-[calc((1840/1728)*100vw)] w-[calc((1298/1728)*100vw)] justify-center font-MiSans">
+        <div className="flex flex-col items-center w-[calc((1146/1728)*100vw)] justify- overflow-hidden">
+          <div className="text-[calc((39.394/1728)*100vw)] text-[#AA83C8] relative font-semibold w-full pb-[33px] text-center bottom-line-default after:bg-[#CD9DF2] after:left-0">
             <div className="rotate-90">{`>>`}</div>
           </div>
           <div className="w-full text-center pt-[50px] pb-[60px] flex flex-col gap-[30px] relative bottom-line-default after:bg-[#CD9DF2] after:left-0">
             <div className="w-full flex flex-col justify-center items-center">
-              <p className="text-[18px] text-[#87689E] text-center">
+              <p className="text-[18px] text-[#87689E] text-center font-Chaney">
                 ABOUT HAACKATHON
               </p>
               <p className="text-[2.5rem] font-bold leading-[120%] text-white text-center">
                 Hackathon&nbsp;主题:
               </p>
             </div>
-            <ul className="text-white text-center text-[28px] leading-[46px]">
+            <ul className="text-white text-center text-[28px] leading-[46px] font-Chaney">
               <li className="">1. Fully On-Chain Game</li>
               <li className="">2. Web3+AI Applications</li>
             </ul>
@@ -176,7 +154,7 @@ const HackathonPage: NextPage<any> = (props) => {
           <div className="w-full text-center pt-[60px] pb-[50px] flex flex-col gap-[7.34px] relative bottom-line-default after:bg-[#CD9DF2] after:left-0">
             <div
               // style={{ color: '#cd9df299' }}
-              className="text-[#cd9df299] text-[18px] leading-[120%]"
+              className="text-[#cd9df299] text-[18px] leading-[120%] font-Chaney"
             >{`co-host ->`}</div>
             <div className="text-white text-[40px] font-bold leading-[120%]">
               主办方
@@ -291,7 +269,7 @@ const HackathonPage: NextPage<any> = (props) => {
           </div>
           <div className="w-full text-center text-white  pt-[60px] pb-[60px] flex flex-col gap-[50px] relative bottom-line-default after:bg-[#CD9DF2] after:left-0">
             <div className="flex flex-col gap-[7.34px]">
-              <div className="text-[#cd9df299] text-[18px] leading-[120%]">{`mentors ->`}</div>
+              <div className="text-[#cd9df299] text-[18px] leading-[120%] font-Chaney">{`mentors ->`}</div>
               <div
                 // style={{ color: '#cd9df299' }}
                 className="text-[40px] font-bold leading-[120%] text-[#CD9DF2]"
@@ -320,7 +298,7 @@ const HackathonPage: NextPage<any> = (props) => {
           </div>
           <div className="w-full text-center text-white  pt-[60px] pb-[60px] flex flex-col gap-[50px] relative bottom-line-default after:bg-[#CD9DF2] after:left-0">
             <div className="flex flex-col gap-[7.34px]">
-              <div className="text-[#cd9df299] text-[18px] leading-[120%]">{`Venture Capital ->`}</div>
+              <div className="text-[#cd9df299] text-[18px] leading-[120%] font-Chaney">{`Venture Capital ->`}</div>
               <div
                 // style={{ color: '#cd9df299' }}
                 className="text-[40px] font-bold leading-[120%] text-[#CD9DF2]"
@@ -348,33 +326,90 @@ const HackathonPage: NextPage<any> = (props) => {
             </div>
           </div>
           <div className="w-full text-center text-white  pt-[60px] pb-[60px] flex flex-col gap-[50px] relative bottom-line-default after:bg-[#CD9DF2] after:left-0">
-            <div className="text-[14.67px] font-bold leading-[120%]">{`/*We choose to go to the Moon*/`}</div>
+            <div className="text-[14.67px] font-bold leading-[120%] pb-[18px]">{`/*We choose to go to the Moon*/`}</div>
             <div className="flex flex-col gap-[20px]">
-              <div className="text-[#cd9df299] text-[18px] leading-[120%]">{`OUR PARTNERS ->`}</div>
+              <div className="text-[#cd9df299] text-[18px] leading-[120%] font-Chaney">{`OUR PARTNERS ->`}</div>
               <div
                 // style={{ color: '#cd9df299' }}
-                className="text-[40px] font-bold leading-[120%] text-[#CD9DF2]"
+                className="text-[40px] font-bold leading-[120%] text-white"
               >
                 黑客松合作伙伴
               </div>
             </div>
 
-            <div className="text-left max-w-[66.5rem] pl-[21px] text-[1.625rem] flex self-center flex-wrap gap-x-[70.25px] gap-y-[21px]">
-              {originator.map((item, index) => {
+            <div className="text-left max-w-[1192px] text-[1.625rem] flex self-center justify-center relative flex-wrap gap-x-[24px] gap-y-[24px]">
+              {partners.map((item, index) => {
                 return (
-                  <div key={index} className="flex items-center gap-[8.52px] ">
-                    <div className="w-[104px] h-[104px] rounded-full border-[2px] border-[#CD9DF2]"></div>
-                    <div className="flex flex-col max-w-[180px] gap-1">
-                      <span className="text-[21px] font-semibold leading-[140%]">
-                        {item.name}
-                      </span>
-                      <span className="text-[17.031px] font-semibold text-[#CD9DF2] leading-[125%]">
-                        {item.status}
-                      </span>
-                    </div>
+                  <div
+                    key={index}
+                    className="flex w-[206px] h-[90px] border rounded-[110px] relative items-center justify-center"
+                  >
+                    <img
+                      src={`${item.url}/${index + 1}.png`}
+                      alt={index + ''}
+                      className="object-contain"
+                    ></img>
                   </div>
                 );
               })}
+            </div>
+            <div className="flex flex-col gap-[20px] mt-[50px]">
+              <div className="text-[#cd9df299] text-[18px] leading-[120%] font-Chaney">{`Community Partners -> `}</div>
+              <div
+                // style={{ color: '#cd9df299' }}
+                className="text-[40px] font-bold leading-[120%] text-white"
+              >
+                合作媒体
+              </div>
+            </div>
+            <div className="text-left max-w-[1192px] text-[1.625rem] flex self-center justify-center relative flex-wrap gap-x-[24px] gap-y-[24px]">
+              {mediaPartners.map((item, index) => {
+                return (
+                  <div
+                    key={index}
+                    className="flex w-[206px] h-[90px] border rounded-[110px] relative items-center justify-center"
+                  >
+                    <img
+                      src={`${item.url}/${index + 1}.png`}
+                      alt={index + ''}
+                      className="object-contain"
+                    ></img>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+          <div className="w-full text-center text-white  pt-[60px] pb-[60px] flex flex-col gap-[60px] relative bottom-line-default after:bg-[#CD9DF2] after:left-0">
+            <div
+              // style={{ color: '#cd9df299' }}
+              className="text-[40px] font-bold leading-[120%]"
+            >
+              Message
+            </div>
+            <div className="text-left max-w-[66.5rem] text-[1.625rem] flex flex-col gap-[50px] self-center leading-[253%]">
+              <p>
+                在此，我们诚挚地邀请你加入我们的 Nitro
+                Hackathon，与我们一起挑战未知、探索可能、实现创新。期待在这个舞台上见证你的才华与创新。The
+                Next Big Thing is Here!
+              </p>
+            </div>
+          </div>
+          <div className="w-full text-center text-white  pt-[60px] flex flex-col gap-[56px] justify-center items-center self-center">
+            <div
+              // style={{ color: '#cd9df299' }}
+              className="text-[80px] font-bold mt-[49px] py-[36px] font-Chaney leading-normal text-center"
+            >
+              SEE YOU IN FALL !
+            </div>
+            <div className="text-left text-[32.523px] flex h-fit self-center leading-[24.067px] gap-[65px] text-[#CD9DF2]">
+              <button className="flex border-[#CD9DF2] px-[36px] py-[15px] border-[2px] gap-[8px] rounded-[50px] ">
+                <span>{`->`}</span>
+                <span>Register Now</span>
+              </button>
+              <button className="flex px-[36px] py-[15px] border-[2px] rounded-[50px] gap-[8px]  border-[#CD9DF2]">
+                <span>{`->`}</span>
+                <span>Partner With US</span>
+              </button>
             </div>
           </div>
         </div>
