@@ -216,7 +216,7 @@ html[data-theme='light'] {
   --mission-center-tab-btn-start-color:#0b0b0b;
   --mission-center-tab-btn-start-bg:#F4F4F4;
   --mission-center-tab-btn-start-border:#0b0b0b;
-  --mission-center-tab: #b2b2b2;
+  --mission-center-tab: #0b0b0b;
   --mission-center-tab-border-color: #282828;
   --mission-center-tab-border-active-color: #FFD850;
   --mission-center-tab-bg:#F4F4F4;
@@ -227,7 +227,7 @@ html[data-theme='light'] {
   --mission-center-schedule-bg-color: #fff;
   --mission-center-schedule-bg-active-color: #FFD850;
   --mission-center-tab-shadow-t-color: rgba(16, 16, 16, 0);
-  --mission-center-badge-modal-bg:#141414;
+  --mission-center-badge-modal-bg:#fff;
   --mission-center-track-color:#0b0b0b;
   --mission-center-track-color-r:#0b0b0b;
   --mission-center-track-bg-r:#FFD850;

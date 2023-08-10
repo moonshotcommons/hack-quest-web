@@ -7,8 +7,9 @@ import { MissionDataType } from '@/service/webApi/missionCenter/type';
 import { useRouter } from 'next/router';
 type QuestsType = {
   questsData: MissionDataType[];
+  missionClaim: (missionIds: string[]) => void;
 };
-const Quests: React.FC<QuestsType> = ({ questsData }) => {
+const Quests: React.FC<QuestsType> = ({ questsData, missionClaim }) => {
   const router = useRouter();
   const { theme } = useContext(ThemeContext);
   const claimedRingPercent = theme === 'dark' ? 1 : 0;
@@ -25,6 +26,12 @@ const Quests: React.FC<QuestsType> = ({ questsData }) => {
       setIsClaim(false);
     }
   }, [questsData]);
+
+  const handleClaim = () => {
+    if (!claimData.length) return;
+    const missionIds = claimData.map((v: MissionDataType) => v.id);
+    missionClaim(missionIds);
+  };
   return (
     <div className="bg-mission-center-box h-[220px] rounded-[20px] flex">
       <div className="relative h-full w-[189px]">
@@ -70,7 +77,7 @@ const Quests: React.FC<QuestsType> = ({ questsData }) => {
               </div>
               {item.progress.claimed ? (
                 <div className="flex items-center justify-center w-[122px] h-[122px] border-[0.5px] border-mission-center-quests-box rounded-[50%] leading-[15px] text-[14px] bg-[url('/images/mission-center/claimed_btn_bg.svg')]">
-                  <button className="flex-center w-[79px] h-[40px] bg-claimed text-mission-center-claimed border border-mission-center-claimed rounded-[12px]">
+                  <button className="flex-center w-[79px] h-[40px] bg-claimed text-mission-center-claimed border border-mission-center-claimed rounded-[12px] cursor-not-allowed ">
                     Claimed
                   </button>
                 </div>
@@ -98,6 +105,7 @@ const Quests: React.FC<QuestsType> = ({ questsData }) => {
       </div>
       <div className="flex-col-center justify-center w-[24%] h-full">
         <button
+          onClick={handleClaim}
           className={`base-btn w-[53.56%] h-[39px] mb-[12px] ${
             !isClaim || !claimData.length
               ? 'text-mission-center-claimed-d bg-mission-center-claimed-d cursor-not-allowed'
