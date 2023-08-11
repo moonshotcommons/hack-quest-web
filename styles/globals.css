@@ -1,5 +1,6 @@
 @import url('./font.css');
 @import url('./variable.css');
+@import url('./antd.css');
 
 @tailwind base;
 @tailwind components;
@@ -65,6 +66,14 @@
     @apply after:absolute after:h-[1px] after:scale-y-[1] after:w-full after:bg-line-color after:-bottom-1;
   }
 
+  .top-line-default {
+    @apply before:absolute before:h-[1px] before:scale-y-[1] before:w-full before:-top-1;
+  }
+
+  .bottom-line-default {
+    @apply after:absolute after:h-[1px] after:scale-y-[1] after:w-full after:-bottom-1;
+  }
+
   .description {
     @apply w-[21.5rem] text-xs font-normal not-italic;
   }
@@ -92,7 +101,7 @@
     @apply base-btn bg-mission-center-gradient-radial;
   }
   .base-btn-adapt {
-    @apply h-[40px] flex items-center justify-center text-[14px] rounded-[12px]  text-center
+    @apply h-[40px] flex items-center justify-center text-[14px] rounded-[12px]  text-center;
   }
 }
 
@@ -158,6 +167,7 @@
   border-radius: 16px;
   background: rgba(150, 150, 150, 0.1);
 }
+
 
 body {
   transition: all ease-in-out 0.5;

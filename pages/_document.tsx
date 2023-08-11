@@ -18,6 +18,7 @@ export default function Document() {
           localStorage.setItem('theme', item);
           document.getElementsByTagName('html')[0].dataset.theme = item;
           document.documentElement.classList.add(item);
+          console.log('主题');
           document.documentElement.classList.remove(
             item === 'dark' ? 'light' : 'dark'
           );
