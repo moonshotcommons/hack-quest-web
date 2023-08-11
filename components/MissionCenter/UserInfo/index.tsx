@@ -19,14 +19,9 @@ const UserInfo: React.FC<UserInfoType> = ({ userInfo, useLevel, badges }) => {
   return (
     <div className="flex-center bg-mission-center-box w-[24%] rounded-[20px] h-[561px]">
       <div className="flex-col-center">
-        <div className="relative rounded-[50%] overflow-hidden">
+        <div className="relative rounded-[50%] w-[102px] h-[102px] overflow-hidden">
           {userInfo?.avatar && (
-            <Image
-              src={userInfo?.avatar as string}
-              alt="avatar"
-              width={102}
-              height={102}
-            ></Image>
+            <Image src={userInfo?.avatar as string} alt="avatar" fill></Image>
           )}
         </div>
         <div className="flex-col-center pt-5">
