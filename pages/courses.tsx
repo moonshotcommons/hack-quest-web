@@ -23,6 +23,7 @@ import {
   useGetCourses,
   useLoadCourseList
 } from '@/hooks/useCoursesHooks/useGetCourses';
+import CourseSkeleton from '@/components/CourseSkeleton';
 
 const trendingNowIds = [
   '2e2f1305-a5a2-4f24-8ae7-d6b46228824a',
@@ -76,9 +77,11 @@ const Courses: NextPage<CoursesProps> = (props) => {
 
     return (
       <>
-        {filterCourseList.map((card, index) => {
-          return <div key={index}>{renderCourseCard(card)}</div>;
-        })}
+        <CourseSkeleton hideSkeleton={!!learningTracks.length}>
+          {filterCourseList.map((card, index) => {
+            return <div key={index}>{renderCourseCard(card)}</div>;
+          })}
+        </CourseSkeleton>
       </>
     );
   }, [selectTab, courseList]);
@@ -92,19 +95,23 @@ const Courses: NextPage<CoursesProps> = (props) => {
       <Title className="font-bold">{'</Trending Now>'}</Title>
       <SliderContainer>
         <div className="flex h-[17.625rem] gap-[3.25rem] items-end">
-          {nowCards?.map((course, index) => {
-            return <div key={index}>{renderCourseCard(course)}</div>;
-          })}
+          <CourseSkeleton hideSkeleton={!!nowCards.length}>
+            {nowCards?.map((course, index) => {
+              return <div key={index}>{renderCourseCard(course)}</div>;
+            })}
+          </CourseSkeleton>
         </div>
       </SliderContainer>
       <Title className="font-bold">{'</Learning Tracks>'}</Title>
       <SliderContainer>
         <div className="flex h-[17.625rem] gap-[3.25rem] items-end">
-          {learningTracks?.map((learningTrack, index) => {
-            return (
-              <div key={index}>{renderLearningTrackCard(learningTrack)}</div>
-            );
-          })}
+          <CourseSkeleton hideSkeleton={!!learningTracks.length}>
+            {learningTracks?.map((learningTrack, index) => {
+              return (
+                <div key={index}>{renderLearningTrackCard(learningTrack)}</div>
+              );
+            })}
+          </CourseSkeleton>
         </div>
       </SliderContainer>
       <div ref={hashCourseTypeRef as any}>

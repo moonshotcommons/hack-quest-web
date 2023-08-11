@@ -9,15 +9,21 @@ export const ThemeContext = createContext({} as ThemeContextProps);
 
 const ThemeContextProvider: FC<{ children: ReactNode }> = (props) => {
   const { children } = props;
-  const [theme, setTheme] = useState<Theme>(Theme.Dark);
+
+  const [theme, setTheme] = useState<Theme>(
+    () =>
+      (typeof window === 'object' &&
+        (localStorage?.getItem('theme') as Theme)) ||
+      Theme.Light
+  );
   useEffect(() => {
     const checkTheme = () => {
-      const cacheTheme =
-        (localStorage.getItem('theme') as Theme) || Theme.Light;
-      setTheme(cacheTheme);
-      document.documentElement.classList.add(cacheTheme);
+      // const cacheTheme =
+      //   (localStorage.getItem('theme') as Theme) || Theme.Light;
+      // setTheme(cacheTheme);
+      document.documentElement.classList.add(theme);
       document.documentElement.classList.remove(
-        cacheTheme === Theme.Dark ? Theme.Light : Theme.Dark
+        theme === Theme.Dark ? Theme.Light : Theme.Dark
       );
     };
     checkTheme();

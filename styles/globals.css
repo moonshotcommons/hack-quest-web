@@ -1,5 +1,6 @@
 @import url('./font.css');
 @import url('./variable.css');
+@import url('./antd.css');
 
 @tailwind base;
 @tailwind components;
@@ -166,6 +167,7 @@
   border-radius: 16px;
   background: rgba(150, 150, 150, 0.1);
 }
+
 
 body {
   transition: all ease-in-out 0.5;
