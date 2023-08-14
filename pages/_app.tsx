@@ -99,13 +99,13 @@ function MyApp(appProps: AppProps & LayoutProps) {
   return (
     <Provider store={store}>
       <ThemeContextProvider>
-        <Layout
+        <HackathonLayout
           {...props.pageProps}
           navbarData={navbarData}
           pathname={pathname}
         >
           <Component {...props.pageProps} />
-        </Layout>
+        </HackathonLayout>
         <Analytics />
       </ThemeContextProvider>
     </Provider>

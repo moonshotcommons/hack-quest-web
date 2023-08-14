@@ -1,7 +1,9 @@
+'use client';
+
 import React, { ReactNode } from 'react';
 import { Inter } from 'next/font/google';
 import Image from 'next/image';
-import Countdown from '@/components/event/hackathon/Countdown';
+// import Countdown from '@/components/event/hackathon/Countdown';
 const inter = Inter({ subsets: ['latin'] });
 
 export interface HackathonLayoutProps {
@@ -9,10 +11,13 @@ export interface HackathonLayoutProps {
   children: ReactNode;
 }
 
-const formatSize = (s: number | string) => {
-  if (typeof s === 'string') s = parseInt(s);
-  return `${(s / 1728) * 100}vw`;
-};
+import dynamic from 'next/dynamic';
+
+// 动态导入你的倒计时组件，禁用SSR
+const Countdown = dynamic(
+  () => import('@/components/event/hackathon/Countdown'),
+  { ssr: false }
+);
 
 const HackathonLayout: React.FC<HackathonLayoutProps> = ({ children }) => {
   return (
