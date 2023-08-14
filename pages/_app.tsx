@@ -1,5 +1,6 @@
 import BaseLayout, { LayoutProps } from '@/components/Layout';
 import ThemeContextProvider from '@/store/context/theme';
+import { Analytics } from '@vercel/analytics/react';
 import '@/styles/globals.css';
 import '@/styles/main.scss';
 import '@/styles/Lesson.scss';
@@ -105,6 +106,7 @@ function MyApp(appProps: AppProps & LayoutProps) {
         >
           <Component {...props.pageProps} />
         </Layout>
+        <Analytics />
       </ThemeContextProvider>
     </Provider>
   );
