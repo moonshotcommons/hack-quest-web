@@ -36,7 +36,8 @@ module.exports = {
         Chaney: ['Chaney'],
         'Chaney-Extended': ['Chaney-Extended'],
         MiSans: ['MiSans'],
-        'MiSans-Semibold': ['MiSans-Semibold']
+        'MiSans-Semibold': ['MiSans-Semibold'],
+        'MiSans-Heavy': ['MiSans-Heavy']
       },
       screens: {
         xs: '480px',

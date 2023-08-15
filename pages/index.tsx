@@ -80,10 +80,12 @@ const HackathonPage: NextPage<HackathonPageProps> = (props) => {
               <span>Register Now</span>
             </button>
           </Link>
-          <button className="flex hover:bg-[#CD9DF2] hover:text-white transition-all duration-300 w-[calc((431/1728)*100vw)] p-[calc((18/1728)*100vw)] border-[calc((3/1728)*100vw)] rounded-[calc((50/1728)*100vw)] gap-[calc((8/1728)*100vw)] border-white">
-            <span>{`->`}</span>
-            <span>Partner With US</span>
-          </button>
+          <Link href={'https://xsxo494365r.typeform.com/to/I3vuAbEx'}>
+            <button className="flex hover:bg-[#CD9DF2] hover:text-white transition-all duration-300 w-[calc((431/1728)*100vw)] p-[calc((18/1728)*100vw)] border-[calc((3/1728)*100vw)] rounded-[calc((50/1728)*100vw)] gap-[calc((8/1728)*100vw)] border-white">
+              <span>{`->`}</span>
+              <span>Partner With Us</span>
+            </button>
+          </Link>
           <p
             // style={{
             //   fontSize: `${formatSize(27.5264)}`,
@@ -105,7 +107,7 @@ const HackathonPage: NextPage<HackathonPageProps> = (props) => {
               <p className="text-[calc((18/1728)*100vw)] text-[#87689E] text-center font-Chaney">
                 ABOUT HACKATHON
               </p>
-              <p className="text-[calc((40/1728)*100vw)] font-MiSans-Semibold font-bold leading-[120%] text-white text-center">
+              <p className="text-[calc((40/1728)*100vw)] font-MiSans-Heavy font-bold leading-[120%] text-white text-center">
                 Hackathon Themes
               </p>
             </div>
@@ -217,7 +219,7 @@ const HackathonPage: NextPage<HackathonPageProps> = (props) => {
             </div>
           </div>
           <div className="w-full text-center pt-[calc((60/1728)*100vw)] pb-[calc((60/1728)*100vw)] flex flex-col gap-[calc((50/1728)*100vw)] relative bottom-line-default after:bg-[#CD9DF2] after:left-0">
-            <div className="text-white text-[calc((40/1728)*100vw)] font-bold leading-[120%]">
+            <div className="text-white text-[calc((40/1728)*100vw)] font-MiSans-Heavy font-bold leading-[120%]">
               Hackathon Schedule
             </div>
             <div className="text-white text-[calc((28/1728)*100vw)] font-black leading-[215%]">
@@ -231,7 +233,7 @@ const HackathonPage: NextPage<HackathonPageProps> = (props) => {
           <div className="w-full text-center text-white  pt-[calc((60/1728)*100vw)] pb-[calc((60/1728)*100vw)] flex flex-col gap-[calc((50/1728)*100vw)] relative bottom-line-default after:bg-[#CD9DF2] after:left-0">
             <div
               // style={{ color: '#cd9df299' }}
-              className="text-[calc((40/1728)*100vw)] font-MiSans-Semibold font-bold  leading-[120%]"
+              className="text-[calc((40/1728)*100vw)] font-MiSans-Heavy font-bold  leading-[120%]"
             >
               WHO CAN APPLY
             </div>
@@ -286,7 +288,7 @@ const HackathonPage: NextPage<HackathonPageProps> = (props) => {
 
                 <p>
                   1.{' '}
-                  <span className="text-[#CD9DF2] font-MiSans-Semibold">
+                  <span className="text-[#CD9DF2] font-MiSans-Heavy">
                     Infrastructure:
                   </span>{' '}
                   the development of robust engines, protocols, middleware, and
@@ -295,15 +297,15 @@ const HackathonPage: NextPage<HackathonPageProps> = (props) => {
                 </p>
                 <p>
                   2.{' '}
-                  <span className="text-[#CD9DF2] font-MiSans-Semibold">
+                  <span className="text-[#CD9DF2] font-MiSans-Heavy">
                     Content:
                   </span>{' '}
                   the availability of diverse and captivating gaming content of
-                  various genres will.
+                  various genres.
                 </p>
                 <p>
                   3.{' '}
-                  <span className="text-[#CD9DF2] font-MiSans-Semibold">
+                  <span className="text-[#CD9DF2] font-MiSans-Heavy">
                     Distribution:
                   </span>{' '}
                   distribution methods will undergo a revolution through
@@ -388,14 +390,14 @@ const HackathonPage: NextPage<HackathonPageProps> = (props) => {
               Co-Host Introduction
             </div>
             <div className="text-left max-w-[calc((1064/1728)*100vw)] text-[calc((26/1728)*100vw)] flex flex-col self-center leading-[200%]">
-              <p className="font-black font-MiSans-Semibold">1. MUD</p>
+              <p className="font-black font-MiSans-Heavy">1. MUD</p>
               <p className="text-[calc((19/1728)*100vw)]">
                 MUD is an advanced framework developed for crafting
                 sophisticated Ethereum applications. By integrating a
                 comprehensive software stack, MUD streamlines the construction
                 of EVM applications.
               </p>
-              <p className="font-black font-MiSans-Semibold">2. Dojo</p>
+              <p className="font-black font-MiSans-Heavy">2. Dojo</p>
               <p className="text-[calc((19/1728)*100vw)]">
                 Dojo is a provable game engine with an integrated toolchain,
                 designed for creating onchain games and autonomous worlds using
@@ -403,7 +405,7 @@ const HackathonPage: NextPage<HackathonPageProps> = (props) => {
                 pattern, facilitating a modular, scalable world. Worlds grow via
                 the addition of Components (state) and Systems (logic).
               </p>
-              <p className="font-black font-MiSans-Semibold">
+              <p className="font-black font-MiSans-Heavy">
                 3. Moonshot Commons
               </p>
               <p className="text-[calc((19/1728)*100vw)] font-extralight">
@@ -415,7 +417,7 @@ const HackathonPage: NextPage<HackathonPageProps> = (props) => {
                 them, more than 40 founders have seen their ideas go from 0 to
                 venture-backed, with many more launching soon.`}
               </p>
-              <p className="font-black font-MiSans-Semibold">4. HackQuest</p>
+              <p className="font-black font-MiSans-Heavy">4. HackQuest</p>
               <p className="text-[calc((19/1728)*100vw)] font-extralight">
                 {`HackQuest is a comprehensive, one-stop coding education platform developed by Moonshot team. We believe that improving Web3 developer education is key to driving mass adoption. `}
               </p>
@@ -426,7 +428,7 @@ const HackathonPage: NextPage<HackathonPageProps> = (props) => {
               <div className="text-[#cd9df299] text-[calc((18/1728)*100vw)] leading-[120%] font-Chaney">{`hackathon ->`}</div>
               <div
                 // style={{ color: '#cd9df299' }}
-                className="text-[calc((40/1728)*100vw)] font-MiSans-Semibold font-bold leading-[120%] text-[#CD9DF2]"
+                className="text-[calc((40/1728)*100vw)] font-MiSans-Heavy font-bold leading-[120%] text-[#CD9DF2]"
               >
                 Mentors & Guests
               </div>
@@ -469,7 +471,7 @@ const HackathonPage: NextPage<HackathonPageProps> = (props) => {
               <div className="text-[#cd9df299] text-[calc((18/1728)*100vw)] leading-[120%] font-Chaney">{`NITRO`}</div>
               <div
                 // style={{ color: '#cd9df299' }}
-                className="text-[calc((40/1728)*100vw)] font-MiSans-Semibold font-bold leading-[120%] text-white"
+                className="text-[calc((40/1728)*100vw)] font-MiSans-Heavy font-bold leading-[120%] text-white"
               >
                 Media Partners
               </div>
@@ -496,7 +498,7 @@ const HackathonPage: NextPage<HackathonPageProps> = (props) => {
               <div className="text-[#cd9df299] text-[calc((18/1728)*100vw)] leading-[120%] font-Chaney">{`NITRO`}</div>
               <div
                 // style={{ color: '#cd9df299' }}
-                className="text-[calc((40/1728)*100vw)] font-MiSans-Semibold font-bold leading-[120%] text-white"
+                className="text-[calc((40/1728)*100vw)] font-MiSans-Heavy font-bold leading-[120%] text-white"
               >
                 Community Partners
               </div>
@@ -536,17 +538,19 @@ const HackathonPage: NextPage<HackathonPageProps> = (props) => {
             >
               SEE YOU IN FALL !
             </div>
-            <div className="text-left text-[calc((32.52/1728)*100vw)] font-MiSans-Semibold flex h-fit self-center leading-[calc((24.067/1728)*100vw)] gap-[calc((65/1728)*100vw)] text-[#CD9DF2]">
+            <div className="text-left text-[calc((32.52/1728)*100vw)] font-MiSans-Heavy flex h-fit self-center leading-[calc((24.067/1728)*100vw)] gap-[calc((65/1728)*100vw)] text-[#CD9DF2]">
               <Link href={'https://xsxo494365r.typeform.com/to/I3vuAbEx'}>
                 <button className="flex hover:bg-[#CD9DF2] hover:text-white transition-all duration-300 border-[#CD9DF2] px-[calc((36/1728)*100vw)] py-[calc((15/1728)*100vw)] border-[calc((2/1728)*100vw)] gap-[calc((8/1728)*100vw)] rounded-[calc((50/1728)*100vw)] ">
                   <span>{`->`}</span>
                   <span>Register Now</span>
                 </button>
               </Link>
-              <button className="flex hover:bg-[#CD9DF2] hover:text-white transition-all duration-300  px-[calc((36/1728)*100vw)] py-[calc((15/1728)*100vw)] border-[calc((2/1728)*100vw)] rounded-[calc((50/1728)*100vw)] gap-[calc((8/1728)*100vw)]  border-[#CD9DF2]">
-                <span>{`->`}</span>
-                <span>Partner With US</span>
-              </button>
+              <Link href={'https://xsxo494365r.typeform.com/to/I3vuAbEx'}>
+                <button className="flex hover:bg-[#CD9DF2] hover:text-white transition-all duration-300  px-[calc((36/1728)*100vw)] py-[calc((15/1728)*100vw)] border-[calc((2/1728)*100vw)] rounded-[calc((50/1728)*100vw)] gap-[calc((8/1728)*100vw)]  border-[#CD9DF2]">
+                  <span>{`->`}</span>
+                  <span>Partner With Us</span>
+                </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -683,7 +687,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       mediaPartners: new Array(7).fill({
         url: '/images/event/hackathon/media_partners'
       }),
-      communityPartners: new Array(12).fill({
+      communityPartners: new Array(13).fill({
         url: '/images/event/hackathon/community_partners'
       })
     }

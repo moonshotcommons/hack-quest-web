@@ -77,3 +77,9 @@
   font-style: normal;
   src: url('../fonts/MiSans/MiSans-Semibold.ttf');
 }
+@font-face {
+  font-weight: normal;
+  font-family: 'MiSans-Heavy';
+  font-style: normal;
+  src: url('../fonts/MiSans/MiSans-Heavy.ttf');
+}
