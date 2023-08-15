@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import DarkButtonDeg from '@/public/images/home/dark-button_deg.svg';
 import LightButtonDeg from '@/public/images/home/light-button_deg.svg';
-import TeaserInfo from '@/public/images/home/teaser_info.svg';
+import TeaserInfo from '@/public/images/home/teaser_info.png';
 import { FC, ReactNode, useContext } from 'react';
 import RightBottomIcon from '@/components/Common/Icon/RightBottom';
 import { CourseType } from '@/service/webApi/course/type';

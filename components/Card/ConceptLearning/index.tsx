@@ -34,7 +34,7 @@ const ConceptLearningCard: React.FC<ConceptLearningCardProps> = (props) => {
       >
         <div
           className="absolute top-6 left-4 w-full h-full p-4 bg-no-repeat"
-          style={{ backgroundImage: `url(${cover})` }}
+          style={{ backgroundImage: `url(${cover})`, backgroundSize: '380px' }}
         ></div>
         <div className="pl-10 pr-4 pt-9 h-full">
           <div className="w-[2.875rem] h-1 rounded-xl bg-gradient-to-t from-[#EB3E1C] to-[#E0AD38]"></div>
