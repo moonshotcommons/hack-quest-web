@@ -49,12 +49,13 @@ const Courses: NextPage<CoursesProps> = (props) => {
   const { courseType } = router.query;
   const hashCourseTypeRef = useRef<HTMLElement>();
 
-  useLoadCourseList();
+  const { waitingLoadCourseList } = useLoadCourseList();
   useScrollToElement(hashCourseTypeRef.current, courseType as CourseType);
 
   const courseList = useGetCourses();
 
-  const { learningTracks } = useGetLearningTracks();
+  const { learningTracks, loading: learningTracksLoading } =
+    useGetLearningTracks();
 
   const [selectTab, setSelectTab] = useState<CourseType>(
     (courseType as CourseType) || coursesTabs[0].type
@@ -77,14 +78,14 @@ const Courses: NextPage<CoursesProps> = (props) => {
 
     return (
       <>
-        <CourseSkeleton hideSkeleton={!!learningTracks.length}>
+        <CourseSkeleton hideSkeleton={!waitingLoadCourseList}>
           {filterCourseList.map((card, index) => {
             return <div key={index}>{renderCourseCard(card)}</div>;
           })}
         </CourseSkeleton>
       </>
     );
-  }, [selectTab, courseList]);
+  }, [selectTab, courseList, waitingLoadCourseList]);
 
   // useEffect(() => {
   //   dispatch(getCourseList());
@@ -95,7 +96,7 @@ const Courses: NextPage<CoursesProps> = (props) => {
       <Title className="font-bold">{'</Trending Now>'}</Title>
       <SliderContainer>
         <div className="flex h-[17.625rem] gap-[3.25rem] items-end">
-          <CourseSkeleton hideSkeleton={!!nowCards.length}>
+          <CourseSkeleton hideSkeleton={!waitingLoadCourseList}>
             {nowCards?.map((course, index) => {
               return <div key={index}>{renderCourseCard(course)}</div>;
             })}
@@ -105,7 +106,7 @@ const Courses: NextPage<CoursesProps> = (props) => {
       <Title className="font-bold">{'</Learning Tracks>'}</Title>
       <SliderContainer>
         <div className="flex h-[17.625rem] gap-[3.25rem] items-end">
-          <CourseSkeleton hideSkeleton={!!learningTracks.length}>
+          <CourseSkeleton hideSkeleton={!learningTracksLoading}>
             {learningTracks?.map((learningTrack, index) => {
               return (
                 <div key={index}>{renderLearningTrackCard(learningTrack)}</div>
