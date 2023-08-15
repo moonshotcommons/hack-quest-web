@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react';
 import { Inter } from 'next/font/google';
 import Image from 'next/image';
+import Countdown from '@/components/event/hackathon/Countdown';
 const inter = Inter({ subsets: ['latin'] });
 
 export interface HackathonLayoutProps {
@@ -21,12 +22,9 @@ const HackathonLayout: React.FC<HackathonLayoutProps> = ({ children }) => {
       {children}
       <footer className="pl-[calc((75/1728)*100vw)] pr-[calc((92/1728)*100vw)] m-auto h-[calc((549/1728)*100vw)] z-50 text-[calc((200/1728)*100vw)] flex justify-between">
         <div className="mt-[calc((318/1728)*100vw)] flex flex-col gap-[calc((36/1728)*100vw)]">
-          <div className="text-[calc((24/1728)*100vw)] text-[#ffffff7f] font-Chaney leading-[100%]">
-            <p>Hackathon count down</p>
-            <p>T- 53 days / 14 hours / 36 min / 05 sec</p>
-          </div>
+          <Countdown></Countdown>
           <div className="text-[#cd9df2cc] text-[calc((16/1728)*100vw)] leading-[120%] font-bold">
-            Copyright © 2022 Moonshot Global, LLC.
+            Copyright © 2023 Moonshot Global, LLC.
           </div>
         </div>
         <div className="mt-[calc((390/1728)*100vw)] flex gap-[calc((88/1728)*100vw)] text-[#cd9df2cc]">
