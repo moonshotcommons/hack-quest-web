@@ -84,6 +84,13 @@ class CourseApi {
     const url = `${CourseApiType.LessonDetail}/${lessonId}/complete`;
     return this.service.get(url);
   }
+
+  markQuestState(lessonId: string, isWin: boolean) {
+    const url = `${CourseApiType.LessonDetail}/${lessonId}/quest`;
+    return this.service.post(url, {
+      data: { isWin }
+    });
+  }
 }
 
 export default CourseApi;
