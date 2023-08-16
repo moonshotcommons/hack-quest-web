@@ -63,6 +63,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
 
   const { validator } = useValidator(['email', 'password']);
   const router = useRouter();
+  const { redirect_url } = router.query;
   const passwordInputRef = useRef<any>(null);
 
   const { run: onLogin } = useDebounceFn(
@@ -77,7 +78,10 @@ const UserLogin: FC<UserLoginProps> = (props) => {
             }
             dispatch(setUserInfo(omit(res, 'token')));
             setToken(res.token);
-            router.push('/courses');
+            const toPageUrl = redirect_url
+              ? `${redirect_url}?token=${res.token}`
+              : '/courses';
+            router.push(toPageUrl);
           } catch (e: any) {
             if (e.code === 400) {
               // setTimeout(() => {
