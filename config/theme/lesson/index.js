@@ -49,9 +49,22 @@ const lessonThemeColors = {
   'lesson-code-copy-button-text': 'var(--lesson-code-copy-button-text)',
   'lesson-code-editor-input-text-color':
     'var(--lesson-code-editor-input-text-color)',
-  'lesson-code-editor-input-bg': 'var(--lesson-code-editor-input-bg)'
+  'lesson-code-editor-input-bg': 'var(--lesson-code-editor-input-bg)',
+  //v2
+  'lesson-footer-bg': 'var(--neutral-rich-gray)'
+};
+
+const lessonThemeBackgroundColor = {
+  'lesson-footer-tab-bg': 'var(--lesson-footer-tab-bg)',
+  'lesson-footer-tab-active-bg': 'var(--lesson-footer-tab-active-bg)'
+};
+const lessonThemeBorderColor = {
+  'lesson-footer-tab-border': 'var(--lesson-footer-tab-border)',
+  'lesson-footer-tab-active-border': 'var(--lesson-footer-tab-active-border)'
 };
 
 module.exports = {
-  lessonThemeColors
+  lessonThemeColors,
+  lessonThemeBackgroundColor,
+  lessonThemeBorderColor
 };
