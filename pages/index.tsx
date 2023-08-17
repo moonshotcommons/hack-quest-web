@@ -566,7 +566,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     props: {
       nitro: [],
       sponsor: new Array(5).fill({ url: '/images/event/hackathon/sponsor/' }),
-      hackathonPartners: new Array(12).fill({
+      hackathonPartners: new Array(13).fill({
         url: '/images/event/hackathon/hackathon_parthers/'
       }),
       mentors: [
