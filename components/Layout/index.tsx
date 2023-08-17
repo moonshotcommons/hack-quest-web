@@ -21,9 +21,9 @@ const Layout: FC<LayoutProps> = (props) => {
   const userInfo = useGetUserInfo();
   const regex = /\/[^/]+\/\[courseId\]\/learn\/\[lessonId\]/;
 
-  // if (pathname.startsWith('/v2')) {
-  //   pathname = pathname.replace('/v2', '');
-  // }
+  if (pathname.startsWith('/v2')) {
+    pathname = pathname.replace('/v2', '');
+  }
 
   switch (true) {
     case regex.test(pathname):
