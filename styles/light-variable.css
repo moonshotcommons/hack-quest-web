@@ -108,6 +108,12 @@ html[data-theme='light'] {
   --lesson-code-copy-button-text: var(--neutral-black);
   --lesson-code-editor-input-text-color: var(--text-default-color);
   --lesson-code-editor-input-bg: #929292;
+  /* v2 */
+  --lesson-footer-bg: var(--neutral-rich-gray);
+  --lesson-footer-tab-bg: var(--neutral-medium-gray);
+  --lesson-footer-tab-border: var(--neutral-medium-gray);
+  --lesson-footer-tab-active-border:var(--neutral-white);
+  --lesson-footer-tab-active-bg:var(--neutral-white);
   /* --lesson-code-editor-bg: #000;
   --lesson-code-editor-num-color: #8c8c8c;
   --lesson-code-editor-text-color: #000;
