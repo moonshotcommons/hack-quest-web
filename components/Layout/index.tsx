@@ -15,11 +15,15 @@ export interface LayoutProps {
 }
 
 const Layout: FC<LayoutProps> = (props) => {
-  const { pathname, children, navbarData } = props;
+  let { pathname, children, navbarData } = props;
   const { waitingLoadUserInfo } = useLoadUserInfo();
   useNavAuth(waitingLoadUserInfo);
   const userInfo = useGetUserInfo();
   const regex = /\/[^/]+\/\[courseId\]\/learn\/\[lessonId\]/;
+
+  // if (pathname.startsWith('/v2')) {
+  //   pathname = pathname.replace('/v2', '');
+  // }
 
   switch (true) {
     case regex.test(pathname):
