@@ -21,7 +21,7 @@ export const renderCourseCard = (card: CourseResponse) => {
             duration={card.duration || 0}
             unitCount={card.unitCount || 0}
             progress={card.progress || 0}
-            cover={'/images/card/ConceptLearning/cover.svg'}
+            cover={'/images/card/ConceptLearning/cover.png'}
           ></ConceptLearningCard>
         </Link>
       );

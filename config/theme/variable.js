@@ -9,7 +9,11 @@ const { layoutThemeColors } = require('./layout');
 const { landingThemeColors } = require('./landing');
 const { settingThemeColors } = require('./setting');
 const { notionRendererThemeColors } = require('./notionRenderer');
-const { lessonThemeColors } = require('./lesson');
+const {
+  lessonThemeColors,
+  lessonThemeBackgroundColor,
+  lessonThemeBorderColor
+} = require('./lesson');
 const { authThemeColors } = require('./auth');
 
 const themeColors = {
@@ -39,11 +43,13 @@ const backgroundImage = {
 };
 
 const backgroundColor = {
-  ...missionCenterBackgroundColor
+  ...missionCenterBackgroundColor,
+  ...lessonThemeBackgroundColor
 };
 
 const borderColor = {
-  ...missionCenterBorderColor
+  ...missionCenterBorderColor,
+  ...lessonThemeBorderColor
 };
 
 module.exports = {

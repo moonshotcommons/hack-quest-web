@@ -77,7 +77,7 @@ const UnitCard: FC<UnitCardProps> = (props) => {
   return (
     <div className="py-[1.5rem] flex  items-center">
       <div
-        className={`w-[23.25rem] h-[9.8125rem] bg-[#000] rounded-[1.25rem] overflow-hidden flex justify-center ${
+        className={`w-[23.25rem] h-[9.8125rem] rounded-[1.25rem] overflow-hidden flex justify-center ${
           unit.progress === 1 ? 'cursor-pointer' : ''
         }`}
         onClick={async (e) => {
@@ -96,7 +96,7 @@ const UnitCard: FC<UnitCardProps> = (props) => {
         }}
       >
         <img
-          src={`/images/unit/unit_cover/${index + 1}.png`}
+          src={`/images/unit/unit_cover/${index + 1}_${theme}.png`}
           alt="cover"
           className="h-full scale-[0.65]"
         ></img>
