@@ -10,12 +10,13 @@ import {
   CourseUnitType
 } from '@/service/webApi/course/type';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
+import { ThemeContext } from '@/store/context/theme';
 import { useRequest } from 'ahooks';
 import { Typography } from 'antd';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { FC, ReactNode, useMemo } from 'react';
+import { FC, ReactNode, useContext, useMemo } from 'react';
 import styled from 'styled-components';
 
 interface CourseDetailBannerProps {
@@ -28,7 +29,7 @@ const CourseDetailBanner: FC<CourseDetailBannerProps> = (props) => {
   const { courseDetail, jumpRef, children } = props;
   const router = useRouter();
   const jumpLearningLesson = useJumpLeaningLesson();
-
+  const { theme } = useContext(ThemeContext);
   return (
     <div className="flex justify-end relative">
       <div className="absolute top-[7.77rem] left-0 flex flex-col course-detail-banner z-[50]">
@@ -77,7 +78,7 @@ const CourseDetailBanner: FC<CourseDetailBannerProps> = (props) => {
         /> */}
         {courseDetail?.type && (
           <Image
-            src={`/images/course/course_cover/${courseDetail?.type}.png`}
+            src={`/images/course/course_cover/${courseDetail?.type}_${theme}.png`}
             alt="cover"
             width={560}
             height={497}
