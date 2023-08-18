@@ -50,13 +50,21 @@ const lessonThemeColors = {
   'lesson-code-editor-input-text-color':
     'var(--lesson-code-editor-input-text-color)',
   'lesson-code-editor-input-bg': 'var(--lesson-code-editor-input-bg)',
-  //v2
-  'lesson-footer-bg': 'var(--neutral-rich-gray)'
+  'lesson-footer-bg': 'var(--neutral-rich-gray)',
+  'lesson-preview-color': 'var(--lesson-preview-color)',
+  'lesson-events-toggle-list-box-shadow':
+    'var(--lesson-events-toggle-list-box-shadow)'
 };
 
 const lessonThemeBackgroundColor = {
   'lesson-footer-tab-bg': 'var(--lesson-footer-tab-bg)',
-  'lesson-footer-tab-active-bg': 'var(--lesson-footer-tab-active-bg)'
+  'lesson-footer-tab-active-bg': 'var(--lesson-footer-tab-active-bg)',
+  'lesson-events-left-border-bg': 'var(--lesson-events-left-border-bg)',
+  'lesson-events-toggle-bg': 'var(--lesson-events-toggle-bg)',
+  'lesson-events-toggle-list-bg': 'var(--lesson-events-toggle-list-bg)',
+  'lesson-events-toggle-list-active-bg':
+    'var(--lesson-events-toggle-list-active-bg)',
+  'lesson-code-bg': 'var(--lesson-code-bg)'
 };
 const lessonThemeBorderColor = {
   'lesson-footer-tab-border': 'var(--lesson-footer-tab-border)',
