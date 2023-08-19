@@ -76,7 +76,6 @@ const Code: React.FC<CodeProps> = (props) => {
   }, [pass, courseType, lesson, quizes, onPass, isLastLesson]);
   useEffect(() => {
     if (lesson) {
-      console.info(lesson.content?.[1].children);
       setQuizes((lesson.content?.[1] as any).children);
       setPass(false);
       setIsLastLesson(false);

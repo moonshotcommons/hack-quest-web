@@ -74,9 +74,6 @@ const UnitList: React.FC<UnitListType> = ({ unitData, lesson, courseType }) => {
               >
                 <div>
                   <p className="font-next-book-bold text-[14px]">{v.name}</p>
-                  <p className="font-mono text-[12px] tracking-[0.72px]">
-                    {v.time}min
-                  </p>
                 </div>
                 <div className="h-full pt-[10px]">
                   <Image

@@ -63,7 +63,6 @@ const LessonPageA: FC<LessonPageAProps> = (props) => {
     }
   }, [lesson, unitsLessonsList]);
 
-  console.log(quizes);
   useEffect(() => {
     if (lesson) {
       setLessonContent((lesson.content?.[0] as any).children);

@@ -45,9 +45,6 @@ const PreviewEvents: React.FC<PreviewEventsProps> = (props) => {
               className={isToggle ? 'rotate-180' : ''}
             />
           </div>
-          <div className="font-mono text-[12px] pt-1 tracking-[0.72px]">
-            10min
-          </div>
         </div>
       </div>
       {isToggle ? (
