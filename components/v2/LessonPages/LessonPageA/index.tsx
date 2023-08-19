@@ -1,25 +1,34 @@
-import NotionRenderer, { Renderer } from '@/components/NotionRender';
-import { CustomRenderType } from '@/components/NotionRender/type';
-import LessonPassPage from '@/components/v2/LessonPages/LessonPassPage';
-import webApi from '@/service';
+import { Block } from '@/components/TempComponent/Block';
+import Quest from '@/components/TempComponent/Quest';
+
 import {
   CourseLessonType,
   CourseType,
   LessonStyleType
 } from '@/service/webApi/course/type';
+
+import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import CompleteModal from '../CompleteModal';
+import webApi from '@/service';
+import { shallowEqual, useSelector } from 'react-redux';
 import { AppRootState } from '@/store/redux';
 import { useRouter } from 'next/router';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { shallowEqual, useSelector } from 'react-redux';
+import NotionRenderer, { Renderer } from '@/components/NotionRender';
+import { CustomRenderType } from '@/components/NotionRender/type';
 
-interface CodeProps {
+interface LessonPageAProps {
   lesson: CourseLessonType;
   courseType: CourseType;
 }
-const Code: React.FC<CodeProps> = (props) => {
+
+const LessonPageA: FC<LessonPageAProps> = (props) => {
   const { lesson, courseType } = props;
+  const [lessonContent, setLessonContent] = useState([]);
   const [quizes, setQuizes] = useState([]);
+  const [isProgressing, setIsProgressing] = useState(false);
   const [pass, setPass] = useState<boolean>(false);
+  const router = useRouter();
+  const { courseId: courseName } = router.query;
   const [completeModalOpen, setCompleteModalOpen] = useState(false);
   const [isLastLesson, setIsLastLesson] = useState(false);
   const { unitsLessonsList } = useSelector((state: AppRootState) => {
@@ -54,28 +63,9 @@ const Code: React.FC<CodeProps> = (props) => {
     }
   }, [lesson, unitsLessonsList]);
 
-  const RightComponent = useMemo(() => {
-    if (pass) {
-      return (
-        <LessonPassPage
-          isLastLesson={isLastLesson}
-          lesson={lesson}
-          courseType={courseType}
-        ></LessonPassPage>
-      );
-    }
-    return (
-      <NotionRenderer styleType={LessonStyleType.A}>
-        <Renderer
-          type={CustomRenderType.Quiz}
-          source={quizes}
-          parent={{ ...quizes, isRoot: true, onPass, isLastLesson, lesson }}
-        ></Renderer>
-      </NotionRenderer>
-    );
-  }, [pass, courseType, lesson, quizes, onPass, isLastLesson]);
   useEffect(() => {
     if (lesson) {
+      setLessonContent((lesson.content?.[0] as any).children);
       setQuizes((lesson.content?.[1] as any).children);
       setPass(false);
       setIsLastLesson(false);
@@ -84,7 +74,42 @@ const Code: React.FC<CodeProps> = (props) => {
       });
     }
   }, [lesson]);
-  return <div className="w-full h-full overflow-auto">{RightComponent}</div>;
+
+  const lessonContentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (lessonContentRef.current) {
+      lessonContentRef.current.scrollTo(0, 0);
+    }
+  }, [lesson]);
+  return (
+    <div
+      ref={lessonContentRef}
+      className="text-text-default-color text-[.875rem] h-full"
+    >
+      <div className="relative mb-8">
+        <NotionRenderer styleType={LessonStyleType.A}>
+          {lessonContent?.map((item: any) => {
+            return (
+              <Renderer
+                key={item.id}
+                type={item.type}
+                source={item}
+                parent={{ ...lessonContent, isRoot: true }}
+              ></Renderer>
+            );
+          })}
+        </NotionRenderer>
+      </div>
+      <>
+        <CompleteModal
+          title={courseName as string}
+          open={completeModalOpen}
+          onClose={() => setCompleteModalOpen(false)}
+        ></CompleteModal>
+      </>
+    </div>
+  );
 };
 
-export default Code;
+export default LessonPageA;

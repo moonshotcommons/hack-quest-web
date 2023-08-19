@@ -114,6 +114,16 @@ html[data-theme='light'] {
   --lesson-footer-tab-border: var(--neutral-medium-gray);
   --lesson-footer-tab-active-border:var(--neutral-white);
   --lesson-footer-tab-active-bg:var(--neutral-white);
+  --lesson-preview-color:var(--neutral-white-black);
+  --lesson-events-left-border-bg:var(--primary-green-yellow);
+  --lesson-events-toggle-bg:var(--primary-green-yellow);
+  --lesson-events-toggle-list-bg:var(--neutral-white);
+  --lesson-events-toggle-list-active-bg:#f4f4f4;
+  --lesson-events-toggle-list-box-shadow:0px 4px 8px 0px rgba(0, 0, 0, 0.25);
+  --lesson-code-bg:#f4f4f4;
+  --lesson-code-container-bg:#e6e6e6;
+  --lesson-code-box-bg:#f4f4f4;
+
   /* --lesson-code-editor-bg: #000;
   --lesson-code-editor-num-color: #8c8c8c;
   --lesson-code-editor-text-color: #000;

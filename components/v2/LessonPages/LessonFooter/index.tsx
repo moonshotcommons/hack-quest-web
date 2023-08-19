@@ -1,45 +1,34 @@
 import React from 'react';
 import Button from '@/components/Common/Button';
+import { UnitPagesListType } from '@/service/webApi/course/type';
 
-function LessonFooter() {
-  const data = [
-    {
-      p: 0.1
-    },
-    {
-      p: 0.2
-    },
-    {
-      p: 0.5
-    },
-    {
-      p: 0.4
-    },
-    {
-      p: 0.1
-    }
-  ];
-  const active = 2;
+interface LessonFooterProps {
+  currentUnitIndex: number;
+  unitData: UnitPagesListType[];
+}
+const LessonFooter: React.FC<LessonFooterProps> = ({
+  unitData,
+  currentUnitIndex
+}) => {
   const isHandle = false;
   return (
     <div className="fixed flex-center w-full h-20 left-0 bottom-0 bg-lesson-footer-bg">
       <div className="w-[calc(100%-380px)] flex-center overflow-auto">
-        {data.map((item, i) => (
+        {unitData.map((item, i) => (
           <div
             key={i}
             className={`w-[70px] rounded-[3px]  mx-[1px] ${
-              i < active
+              i < currentUnitIndex
                 ? ' h-[5px] bg-lesson-footer-tab-bg'
-                : i === active
+                : i === currentUnitIndex
                 ? 'h-[7px] border border-lesson-footer-tab-active-border rounded-[5px]'
                 : 'h-[5px] border border-lesson-footer-tab-border'
             }`}
           >
-            {i === active ? (
+            {i === currentUnitIndex ? (
               <div
-                className={`w-[${
-                  item.p * 100
-                }%] relative -top-[1px] h-[7px] bg-lesson-footer-tab-active-bg  rounded-[5px]`}
+                className={`relative -top-[1px] h-[7px] bg-lesson-footer-tab-active-bg  rounded-[5px]`}
+                style={{ width: `${item.progress * 100}%` }}
               ></div>
             ) : null}
           </div>
@@ -47,13 +36,13 @@ function LessonFooter() {
       </div>
       <Button
         className={`fixed bottom-[18px] right-10 w-[140px] h-11 bg-lesson-primary-button-bg text-lesson-primary-button-text-color ${
-          !isHandle && 'opacity-40'
+          !isHandle && 'opacity-40 cursor-not-allowed'
         }`}
       >
         Next
       </Button>
     </div>
   );
-}
+};
 
 export default LessonFooter;
