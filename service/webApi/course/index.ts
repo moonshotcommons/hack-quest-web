@@ -64,7 +64,7 @@ class CourseApi {
   /** 获取单个lesson的内容 */
   getLessonContent(lessonId: string) {
     const url = `${CourseApiType.LessonDetail}/${lessonId}`;
-    return this.service.get<any>(url);
+    return this.service.get<CourseLessonType>(url);
   }
 
   /** 获取单个lesson的内容 */

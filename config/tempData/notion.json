@@ -1,0 +1,1711 @@
+{
+  "left": [
+    {
+      "id": "ce540277-c12c-46af-840c-948e9c14122f",
+      "type": "Content",
+      "children": [
+        {
+          "id": "61e67d3f-a48f-452c-b120-93353864159f",
+          "type": "heading_3",
+          "content": {
+            "rich_text": [
+              {
+                "type": "text",
+                "text": { "content": "Concept", "link": null },
+                "annotations": {
+                  "bold": false,
+                  "italic": false,
+                  "strikethrough": false,
+                  "underline": false,
+                  "code": false,
+                  "color": "default"
+                },
+                "plain_text": "Concept",
+                "href": null
+              }
+            ],
+            "is_toggleable": false,
+            "color": "default"
+          },
+          "isCustomType": false,
+          "isToggle": false
+        },
+        {
+          "id": "4e98dd7f-db06-4593-a90f-9ddbfcafdb19",
+          "type": "paragraph",
+          "content": {
+            "rich_text": [
+              {
+                "type": "text",
+                "text": {
+                  "content": "A mapping in Solidity is a key-value data structure that allows efficient storage and retrieval of data, where each key corresponds to a unique value.",
+                  "link": null
+                },
+                "annotations": {
+                  "bold": false,
+                  "italic": false,
+                  "strikethrough": false,
+                  "underline": false,
+                  "code": false,
+                  "color": "default"
+                },
+                "plain_text": "A mapping in Solidity is a key-value data structure that allows efficient storage and retrieval of data, where each key corresponds to a unique value.",
+                "href": null
+              }
+            ],
+            "color": "default"
+          },
+          "isCustomType": false,
+          "isToggle": false
+        },
+        {
+          "id": "35fb58fb-da64-4faa-b567-c0944e423007",
+          "type": "toggle",
+          "children": [
+            {
+              "id": "fef2c6ce-8f91-4060-872f-715b796fd838",
+              "type": "paragraph",
+              "content": {
+                "rich_text": [
+                  {
+                    "type": "text",
+                    "text": {
+                      "content": "Imagine you’re a bank. You’ll need to keep track of the balance of all accounts (represented by ",
+                      "link": null
+                    },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": false,
+                      "color": "default"
+                    },
+                    "plain_text": "Imagine you’re a bank. You’ll need to keep track of the balance of all accounts (represented by ",
+                    "href": null
+                  },
+                  {
+                    "type": "text",
+                    "text": { "content": "address", "link": null },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": false,
+                      "color": "blue"
+                    },
+                    "plain_text": "address",
+                    "href": null
+                  },
+                  {
+                    "type": "text",
+                    "text": { "content": "). ", "link": null },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": false,
+                      "color": "default"
+                    },
+                    "plain_text": "). ",
+                    "href": null
+                  }
+                ],
+                "color": "default"
+              },
+              "isCustomType": false,
+              "isToggle": false
+            },
+            {
+              "id": "091cb98b-c7b5-4c8f-b5be-f4569801405c",
+              "type": "paragraph",
+              "content": {
+                "rich_text": [
+                  {
+                    "type": "text",
+                    "text": {
+                      "content": "Very frequently, you want to look up the balance given the account, but normally, there’s no scenario that given the balance you want to look up the account. This is a one way association.  ",
+                      "link": null
+                    },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": false,
+                      "color": "default"
+                    },
+                    "plain_text": "Very frequently, you want to look up the balance given the account, but normally, there’s no scenario that given the balance you want to look up the account. This is a one way association.  ",
+                    "href": null
+                  }
+                ],
+                "color": "default"
+              },
+              "isCustomType": false,
+              "isToggle": false
+            }
+          ],
+          "content": {
+            "rich_text": [
+              {
+                "type": "text",
+                "text": { "content": "Metaphor", "link": null },
+                "annotations": {
+                  "bold": false,
+                  "italic": false,
+                  "strikethrough": false,
+                  "underline": false,
+                  "code": false,
+                  "color": "default"
+                },
+                "plain_text": "Metaphor",
+                "href": null
+              }
+            ],
+            "color": "default"
+          },
+          "isCustomType": false,
+          "isToggle": true
+        },
+        {
+          "id": "127a93b1-a06d-4839-a4ef-e256a8a1ecd7",
+          "type": "toggle",
+          "children": [
+            {
+              "id": "1410b398-db35-4c8e-975b-dfca62a8b038",
+              "type": "paragraph",
+              "content": {
+                "rich_text": [
+                  {
+                    "type": "text",
+                    "text": {
+                      "content": "In an ERC20 contract, the ",
+                      "link": null
+                    },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": false,
+                      "color": "default"
+                    },
+                    "plain_text": "In an ERC20 contract, the ",
+                    "href": null
+                  },
+                  {
+                    "type": "text",
+                    "text": { "content": "balances", "link": null },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": true,
+                      "color": "default"
+                    },
+                    "plain_text": "balances",
+                    "href": null
+                  },
+                  {
+                    "type": "text",
+                    "text": {
+                      "content": " mapping is used to store the token balances of various addresses. The keys (addresses) are associated with their respective token balances (uint).",
+                      "link": null
+                    },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": false,
+                      "color": "default"
+                    },
+                    "plain_text": " mapping is used to store the token balances of various addresses. The keys (addresses) are associated with their respective token balances (uint).",
+                    "href": null
+                  }
+                ],
+                "color": "default"
+              },
+              "isCustomType": false,
+              "isToggle": false
+            },
+            {
+              "id": "04ab4a40-5c55-4062-becb-2356a5e93d2d",
+              "type": "paragraph",
+              "content": {
+                "rich_text": [
+                  {
+                    "type": "text",
+                    "text": {
+                      "content": "It provides one way association between two types —— ",
+                      "link": null
+                    },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": false,
+                      "color": "default"
+                    },
+                    "plain_text": "It provides one way association between two types —— ",
+                    "href": null
+                  },
+                  {
+                    "type": "text",
+                    "text": { "content": "address", "link": null },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": false,
+                      "color": "blue"
+                    },
+                    "plain_text": "address",
+                    "href": null
+                  },
+                  {
+                    "type": "text",
+                    "text": { "content": " and ", "link": null },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": false,
+                      "color": "default"
+                    },
+                    "plain_text": " and ",
+                    "href": null
+                  },
+                  {
+                    "type": "text",
+                    "text": { "content": "uint", "link": null },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": false,
+                      "color": "blue"
+                    },
+                    "plain_text": "uint",
+                    "href": null
+                  },
+                  {
+                    "type": "text",
+                    "text": { "content": " here.", "link": null },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": false,
+                      "color": "default"
+                    },
+                    "plain_text": " here.",
+                    "href": null
+                  }
+                ],
+                "color": "default"
+              },
+              "isCustomType": false,
+              "isToggle": false
+            },
+            {
+              "id": "2c79c74a-80ae-4d95-9bc7-e894fa234f88",
+              "type": "code",
+              "content": {
+                "caption": [],
+                "rich_text": [
+                  {
+                    "type": "text",
+                    "text": {
+                      "content": "mapping(address => uint) balances;",
+                      "link": null
+                    },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": false,
+                      "color": "default"
+                    },
+                    "plain_text": "mapping(address => uint) balances;",
+                    "href": null
+                  }
+                ],
+                "language": "solidity"
+              },
+              "isCustomType": false,
+              "isToggle": false
+            },
+            {
+              "id": "8c8dab46-1c87-4f95-96ee-34504edc3b78",
+              "type": "paragraph",
+              "content": {
+                "rich_text": [
+                  {
+                    "type": "text",
+                    "text": { "content": "Here, the ", "link": null },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": false,
+                      "color": "default"
+                    },
+                    "plain_text": "Here, the ",
+                    "href": null
+                  },
+                  {
+                    "type": "text",
+                    "text": { "content": "address", "link": null },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": false,
+                      "color": "blue"
+                    },
+                    "plain_text": "address",
+                    "href": null
+                  },
+                  {
+                    "type": "text",
+                    "text": { "content": " is called the ", "link": null },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": false,
+                      "color": "default"
+                    },
+                    "plain_text": " is called the ",
+                    "href": null
+                  },
+                  {
+                    "type": "text",
+                    "text": { "content": "key", "link": null },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": true,
+                      "color": "default"
+                    },
+                    "plain_text": "key",
+                    "href": null
+                  },
+                  {
+                    "type": "text",
+                    "text": { "content": " type and ", "link": null },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": false,
+                      "color": "default"
+                    },
+                    "plain_text": " type and ",
+                    "href": null
+                  },
+                  {
+                    "type": "text",
+                    "text": { "content": "uint", "link": null },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": false,
+                      "color": "blue"
+                    },
+                    "plain_text": "uint",
+                    "href": null
+                  },
+                  {
+                    "type": "text",
+                    "text": { "content": " is the ", "link": null },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": false,
+                      "color": "default"
+                    },
+                    "plain_text": " is the ",
+                    "href": null
+                  },
+                  {
+                    "type": "text",
+                    "text": { "content": "value", "link": null },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": true,
+                      "color": "default"
+                    },
+                    "plain_text": "value",
+                    "href": null
+                  },
+                  {
+                    "type": "text",
+                    "text": { "content": " type. ", "link": null },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": false,
+                      "color": "default"
+                    },
+                    "plain_text": " type. ",
+                    "href": null
+                  }
+                ],
+                "color": "default"
+              },
+              "isCustomType": false,
+              "isToggle": false
+            }
+          ],
+          "content": {
+            "rich_text": [
+              {
+                "type": "text",
+                "text": { "content": "Real Use Case", "link": null },
+                "annotations": {
+                  "bold": false,
+                  "italic": false,
+                  "strikethrough": false,
+                  "underline": false,
+                  "code": false,
+                  "color": "default"
+                },
+                "plain_text": "Real Use Case",
+                "href": null
+              }
+            ],
+            "color": "default"
+          },
+          "isCustomType": false,
+          "isToggle": true
+        },
+        {
+          "id": "8730c635-ed9c-4b6c-9d2d-c3b6f8a26acf",
+          "type": "heading_3",
+          "content": {
+            "rich_text": [
+              {
+                "type": "text",
+                "text": { "content": "Documentation", "link": null },
+                "annotations": {
+                  "bold": false,
+                  "italic": false,
+                  "strikethrough": false,
+                  "underline": false,
+                  "code": false,
+                  "color": "default"
+                },
+                "plain_text": "Documentation",
+                "href": null
+              }
+            ],
+            "is_toggleable": false,
+            "color": "default"
+          },
+          "isCustomType": false,
+          "isToggle": false
+        },
+        {
+          "id": "b7f2d68e-7920-40af-883c-0bf47f061a38",
+          "type": "code",
+          "content": {
+            "caption": [],
+            "rich_text": [
+              {
+                "type": "text",
+                "text": {
+                  "content": "mapping(uint => uint) IDToID;",
+                  "link": null
+                },
+                "annotations": {
+                  "bold": false,
+                  "italic": false,
+                  "strikethrough": false,
+                  "underline": false,
+                  "code": false,
+                  "color": "default"
+                },
+                "plain_text": "mapping(uint => uint) IDToID;",
+                "href": null
+              }
+            ],
+            "language": "solidity"
+          },
+          "isCustomType": false,
+          "isToggle": false
+        },
+        {
+          "id": "6b163324-8c22-4cc2-9b46-873a4de6590e",
+          "type": "paragraph",
+          "content": {
+            "rich_text": [
+              {
+                "type": "text",
+                "text": { "content": "To define a ", "link": null },
+                "annotations": {
+                  "bold": false,
+                  "italic": false,
+                  "strikethrough": false,
+                  "underline": false,
+                  "code": false,
+                  "color": "default"
+                },
+                "plain_text": "To define a ",
+                "href": null
+              },
+              {
+                "type": "text",
+                "text": { "content": "mapping", "link": null },
+                "annotations": {
+                  "bold": false,
+                  "italic": false,
+                  "strikethrough": false,
+                  "underline": false,
+                  "code": true,
+                  "color": "default"
+                },
+                "plain_text": "mapping",
+                "href": null
+              },
+              {
+                "type": "text",
+                "text": { "content": ", we use the keyword ", "link": null },
+                "annotations": {
+                  "bold": false,
+                  "italic": false,
+                  "strikethrough": false,
+                  "underline": false,
+                  "code": false,
+                  "color": "default"
+                },
+                "plain_text": ", we use the keyword ",
+                "href": null
+              },
+              {
+                "type": "text",
+                "text": { "content": "mapping", "link": null },
+                "annotations": {
+                  "bold": true,
+                  "italic": false,
+                  "strikethrough": false,
+                  "underline": false,
+                  "code": true,
+                  "color": "yellow"
+                },
+                "plain_text": "mapping",
+                "href": null
+              },
+              {
+                "type": "text",
+                "text": {
+                  "content": ", followed by the two types that we want to build one way association between. Finally the name at the end. ",
+                  "link": null
+                },
+                "annotations": {
+                  "bold": false,
+                  "italic": false,
+                  "strikethrough": false,
+                  "underline": false,
+                  "code": false,
+                  "color": "default"
+                },
+                "plain_text": ", followed by the two types that we want to build one way association between. Finally the name at the end. ",
+                "href": null
+              }
+            ],
+            "color": "default"
+          },
+          "isCustomType": false,
+          "isToggle": false
+        },
+        {
+          "id": "6b7fbada-be7a-490c-81c9-b314eb282149",
+          "type": "heading_3",
+          "content": {
+            "rich_text": [
+              {
+                "type": "text",
+                "text": { "content": "FAQ", "link": null },
+                "annotations": {
+                  "bold": false,
+                  "italic": false,
+                  "strikethrough": false,
+                  "underline": false,
+                  "code": false,
+                  "color": "default"
+                },
+                "plain_text": "FAQ",
+                "href": null
+              }
+            ],
+            "is_toggleable": false,
+            "color": "default"
+          },
+          "isCustomType": false,
+          "isToggle": false
+        },
+        {
+          "id": "4380af06-f8ce-49f9-b687-a0b1eea02b68",
+          "type": "toggle",
+          "children": [
+            {
+              "id": "f3c767b5-1048-4861-8cca-019ef1bd96eb",
+              "type": "paragraph",
+              "content": {
+                "rich_text": [
+                  {
+                    "type": "text",
+                    "text": {
+                      "content": "Yes, you could. In Solidity, you can use a mapping as either the key or value type of another mapping. This is often referred to as a \"nested mapping\" or \"mapping of mappings.\" It allows you to create more complex data structures that provide efficient ways to organize and access data.",
+                      "link": null
+                    },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": false,
+                      "color": "default"
+                    },
+                    "plain_text": "Yes, you could. In Solidity, you can use a mapping as either the key or value type of another mapping. This is often referred to as a \"nested mapping\" or \"mapping of mappings.\" It allows you to create more complex data structures that provide efficient ways to organize and access data.",
+                    "href": null
+                  }
+                ],
+                "color": "default"
+              },
+              "isCustomType": false,
+              "isToggle": false
+            },
+            {
+              "id": "ca8c75d9-11c0-4cbc-b538-ccae2c11bf7e",
+              "type": "code",
+              "content": {
+                "caption": [],
+                "rich_text": [
+                  {
+                    "type": "text",
+                    "text": {
+                      "content": "mapping(address => mapping(uint256 => uint256)) public nestedMapping;",
+                      "link": null
+                    },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": false,
+                      "color": "default"
+                    },
+                    "plain_text": "mapping(address => mapping(uint256 => uint256)) public nestedMapping;",
+                    "href": null
+                  }
+                ],
+                "language": "solidity"
+              },
+              "isCustomType": false,
+              "isToggle": false
+            }
+          ],
+          "content": {
+            "rich_text": [
+              {
+                "type": "text",
+                "text": {
+                  "content": "Could we have a mapping as the key or value type of another mapping?",
+                  "link": null
+                },
+                "annotations": {
+                  "bold": false,
+                  "italic": false,
+                  "strikethrough": false,
+                  "underline": false,
+                  "code": false,
+                  "color": "default"
+                },
+                "plain_text": "Could we have a mapping as the key or value type of another mapping?",
+                "href": null
+              }
+            ],
+            "color": "default"
+          },
+          "isCustomType": false,
+          "isToggle": true
+        },
+        {
+          "id": "21cff2a7-f2ec-4977-a132-7c37d418a79c",
+          "type": "toggle",
+          "children": [
+            {
+              "id": "783f1a61-0698-40f6-a4ea-4cd130f7e676",
+              "type": "paragraph",
+              "content": {
+                "rich_text": [
+                  {
+                    "type": "text",
+                    "text": {
+                      "content": "You should have two mappings in this case.",
+                      "link": null
+                    },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": false,
+                      "color": "default"
+                    },
+                    "plain_text": "You should have two mappings in this case.",
+                    "href": null
+                  }
+                ],
+                "color": "default"
+              },
+              "isCustomType": false,
+              "isToggle": false
+            }
+          ],
+          "content": {
+            "rich_text": [
+              {
+                "type": "text",
+                "text": {
+                  "content": "What if I want to both use key to look up values, but also use value to look keys?",
+                  "link": null
+                },
+                "annotations": {
+                  "bold": false,
+                  "italic": false,
+                  "strikethrough": false,
+                  "underline": false,
+                  "code": false,
+                  "color": "default"
+                },
+                "plain_text": "What if I want to both use key to look up values, but also use value to look keys?",
+                "href": null
+              }
+            ],
+            "color": "default"
+          },
+          "isCustomType": false,
+          "isToggle": true
+        }
+      ],
+      "content": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Content/Content", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Content/Content",
+            "href": null
+          }
+        ],
+        "is_toggleable": true,
+        "color": "default"
+      },
+      "notionType": "heading_1",
+      "title": "Content",
+      "isToggle": true,
+      "isCustomType": true
+    }
+  ],
+  "right": [
+    {
+      "id": "abe65562-ddd6-4c94-8430-3d6ea0e8c547",
+      "type": "Example",
+      "children": [
+        {
+          "id": "eeb7c282-04ab-406b-aa0a-3f4c5dcdd9d3",
+          "type": "code",
+          "content": {
+            "caption": [],
+            "rich_text": [
+              {
+                "type": "text",
+                "text": {
+                  "content": "pragma solidity ^0.8.4;\ncontract book {\n  //mapping(keyType => valueType) scope mappingName;\n  mapping(address => uint) private owned_book;\n\n  function add_book(uint bookID) public {\n    //this will find the book given the owner\n    owned_book[address(0x123)] = bookID;\n  }\n}",
+                  "link": null
+                },
+                "annotations": {
+                  "bold": false,
+                  "italic": false,
+                  "strikethrough": false,
+                  "underline": false,
+                  "code": false,
+                  "color": "default"
+                },
+                "plain_text": "pragma solidity ^0.8.4;\ncontract book {\n  //mapping(keyType => valueType) scope mappingName;\n  mapping(address => uint) private owned_book;\n\n  function add_book(uint bookID) public {\n    //this will find the book given the owner\n    owned_book[address(0x123)] = bookID;\n  }\n}",
+                "href": null
+              }
+            ],
+            "language": "solidity"
+          },
+          "isCustomType": false,
+          "isToggle": false
+        }
+      ],
+      "content": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Example/Example", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Example/Example",
+            "href": null
+          }
+        ],
+        "is_toggleable": true,
+        "color": "default"
+      },
+      "notionType": "heading_1",
+      "title": "Example",
+      "isToggle": true,
+      "isCustomType": true
+    },
+    {
+      "id": "5c462656-dc1b-4daa-8a3e-8982b1fe4a34",
+      "type": "Quiz",
+      "children": [
+        {
+          "id": "639f1074-3cb1-491f-8fd3-e74666264ddb",
+          "type": "QuizA",
+          "children": [
+            {
+              "id": "61fd8795-b7e7-41a7-817c-dce360a24bdd",
+              "type": "paragraph",
+              "content": {
+                "rich_text": [
+                  {
+                    "type": "text",
+                    "text": { "content": "Create a ", "link": null },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": false,
+                      "color": "default"
+                    },
+                    "plain_text": "Create a ",
+                    "href": null
+                  },
+                  {
+                    "type": "text",
+                    "text": { "content": "mapping", "link": null },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": true,
+                      "color": "default"
+                    },
+                    "plain_text": "mapping",
+                    "href": null
+                  },
+                  {
+                    "type": "text",
+                    "text": {
+                      "content": " that has a key of type ",
+                      "link": null
+                    },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": false,
+                      "color": "default"
+                    },
+                    "plain_text": " that has a key of type ",
+                    "href": null
+                  },
+                  {
+                    "type": "text",
+                    "text": { "content": "address", "link": null },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": false,
+                      "color": "blue"
+                    },
+                    "plain_text": "address",
+                    "href": null
+                  },
+                  {
+                    "type": "text",
+                    "text": {
+                      "content": " and a value of type ",
+                      "link": null
+                    },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": false,
+                      "color": "default"
+                    },
+                    "plain_text": " and a value of type ",
+                    "href": null
+                  },
+                  {
+                    "type": "text",
+                    "text": { "content": "uint", "link": null },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": false,
+                      "color": "blue"
+                    },
+                    "plain_text": "uint",
+                    "href": null
+                  },
+                  {
+                    "type": "text",
+                    "text": { "content": " named ", "link": null },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": false,
+                      "color": "default"
+                    },
+                    "plain_text": " named ",
+                    "href": null
+                  },
+                  {
+                    "type": "text",
+                    "text": { "content": "pool", "link": null },
+                    "annotations": {
+                      "bold": true,
+                      "italic": true,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": false,
+                      "color": "blue"
+                    },
+                    "plain_text": "pool",
+                    "href": null
+                  },
+                  {
+                    "type": "text",
+                    "text": { "content": ".", "link": null },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": false,
+                      "color": "default"
+                    },
+                    "plain_text": ".",
+                    "href": null
+                  }
+                ],
+                "color": "default"
+              },
+              "isCustomType": false,
+              "isToggle": false
+            }
+          ],
+          "content": {
+            "rich_text": [
+              {
+                "type": "text",
+                "text": { "content": "QuizA", "link": null },
+                "annotations": {
+                  "bold": false,
+                  "italic": false,
+                  "strikethrough": false,
+                  "underline": false,
+                  "code": false,
+                  "color": "default"
+                },
+                "plain_text": "QuizA",
+                "href": null
+              }
+            ],
+            "is_toggleable": true,
+            "color": "default"
+          },
+          "notionType": "heading_1",
+          "title": "",
+          "isToggle": true,
+          "isCustomType": true,
+          "sourceEditorCode": {
+            "id": "dd99be88-af0e-4376-b7b5-362643c8ce5e",
+            "type": "code",
+            "content": {
+              "caption": [],
+              "rich_text": [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "@@@\nmapping(address => uint) pool;\n###\n//regex starts here\n^mapping\\s*\\(\\s*address\\s*=>\\s*uint\\s*\\)\\s*pool\\s*;\\s*$\n//regex ends here",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": "@@@\nmapping(address => uint) pool;\n###\n//regex starts here\n^mapping\\s*\\(\\s*address\\s*=>\\s*uint\\s*\\)\\s*pool\\s*;\\s*$\n//regex ends here",
+                  "href": null
+                }
+              ],
+              "language": "solidity"
+            },
+            "isCustomType": false,
+            "isToggle": false
+          },
+          "answerRegex": [
+            "^mapping\\s*\\(\\s*address\\s*=>\\s*uint\\s*\\)\\s*pool\\s*;\\s*$"
+          ],
+          "lines": [
+            {
+              "id": "line4",
+              "type": "input",
+              "content": "mapping(address => uint) pool;",
+              "regex": "^mapping\\s*\\(\\s*address\\s*=>\\s*uint\\s*\\)\\s*pool\\s*;\\s*$",
+              "sourceLines": [
+                {
+                  "id": "line2",
+                  "type": "default",
+                  "content": "mapping(address => uint) pool;",
+                  "lineNumber": 0
+                }
+              ],
+              "lineNumber": 1
+            },
+            { "id": "line5", "type": "default", "content": "", "lineNumber": 2 }
+          ]
+        },
+        {
+          "id": "03f26549-1211-48ae-8c58-28c98d70e356",
+          "type": "QuizB",
+          "children": [
+            {
+              "id": "c1f22fd7-4c3f-47cb-ab91-69f30aa88423",
+              "type": "paragraph",
+              "content": {
+                "rich_text": [
+                  {
+                    "type": "text",
+                    "text": { "content": "It is ", "link": null },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": false,
+                      "color": "default"
+                    },
+                    "plain_text": "It is ",
+                    "href": null,
+                    "isGapFill": false
+                  },
+                  {
+                    "type": "text",
+                    "text": { "content": "@@true##", "link": null },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": true,
+                      "color": "default"
+                    },
+                    "plain_text": "@@true##",
+                    "href": null,
+                    "isGapFill": true
+                  },
+                  {
+                    "type": "text",
+                    "text": { "content": " that ", "link": null },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": false,
+                      "color": "default"
+                    },
+                    "plain_text": " that ",
+                    "href": null,
+                    "isGapFill": false
+                  },
+                  {
+                    "type": "text",
+                    "text": { "content": "Mapping", "link": null },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": true,
+                      "color": "default"
+                    },
+                    "plain_text": "Mapping",
+                    "href": null,
+                    "isGapFill": false
+                  },
+                  {
+                    "type": "text",
+                    "text": {
+                      "content": " is a way to manage and store information.",
+                      "link": null
+                    },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": false,
+                      "color": "default"
+                    },
+                    "plain_text": " is a way to manage and store information.",
+                    "href": null,
+                    "isGapFill": false
+                  },
+                  {
+                    "type": "text",
+                    "text": { "content": "@@Event##", "link": null },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": true,
+                      "color": "default"
+                    },
+                    "plain_text": "@@Event##",
+                    "href": null,
+                    "isGapFill": true
+                  },
+                  {
+                    "type": "text",
+                    "text": { "content": "Mapping", "link": null },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": true,
+                      "color": "default"
+                    },
+                    "plain_text": "Mapping",
+                    "href": null,
+                    "isGapFill": false
+                  },
+                  {
+                    "type": "text",
+                    "text": {
+                      "content": " is a way to manage and store information.",
+                      "link": null
+                    },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": false,
+                      "color": "default"
+                    },
+                    "plain_text": " is a way to manage and store information.",
+                    "href": null,
+                    "isGapFill": false
+                  },
+                  {
+                    "type": "text",
+                    "text": { "content": "@@第三个答案##", "link": null },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": true,
+                      "color": "default"
+                    },
+                    "plain_text": "@@第三个答案##",
+                    "href": null,
+                    "isGapFill": true
+                  }
+                ],
+                "color": "default"
+              },
+              "isCustomType": false,
+              "isToggle": false
+            }
+          ],
+          "content": {
+            "rich_text": [
+              {
+                "type": "text",
+                "text": { "content": "QuizB", "link": null },
+                "annotations": {
+                  "bold": false,
+                  "italic": false,
+                  "strikethrough": false,
+                  "underline": false,
+                  "code": false,
+                  "color": "default"
+                },
+                "plain_text": "QuizB",
+                "href": null
+              }
+            ],
+            "is_toggleable": true,
+            "color": "default"
+          },
+          "notionType": "heading_1",
+          "title": "",
+          "isToggle": true,
+          "isCustomType": true,
+          "options": [
+            {
+              "id": "1e660f8e-5121-43e2-9d8d-dfb6e441d664",
+              "type": "bulleted_list_item",
+              "content": {
+                "rich_text": [
+                  {
+                    "type": "text",
+                    "text": { "content": "true", "link": null },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": false,
+                      "color": "default"
+                    },
+                    "plain_text": "true",
+                    "href": null
+                  }
+                ],
+                "color": "default"
+              },
+              "isCustomType": false,
+              "isToggle": false
+            },
+            {
+              "id": "81296cc0-cc4e-429c-bdce-777d91149a19",
+              "type": "bulleted_list_item",
+              "content": {
+                "rich_text": [
+                  {
+                    "type": "text",
+                    "text": { "content": "false", "link": null },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": false,
+                      "color": "default"
+                    },
+                    "plain_text": "false",
+                    "href": null
+                  }
+                ],
+                "color": "default"
+              },
+              "isCustomType": false,
+              "isToggle": false
+            },
+            {
+              "id": "81296cc0-cc4e-429c-bdce-777dd91149a19",
+              "type": "bulleted_list_item",
+              "content": {
+                "rich_text": [
+                  {
+                    "type": "text",
+                    "text": { "content": "event", "link": null },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": false,
+                      "color": "default"
+                    },
+                    "plain_text": "event",
+                    "href": null
+                  }
+                ],
+                "color": "default"
+              },
+              "isCustomType": false,
+              "isToggle": false
+            },
+            {
+              "id": "81296cc0-cc4e-4g29c-bdce-777d91149a19",
+              "type": "bulleted_list_item",
+              "content": {
+                "rich_text": [
+                  {
+                    "type": "text",
+                    "text": { "content": "Event", "link": null },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": false,
+                      "color": "default"
+                    },
+                    "plain_text": "Event",
+                    "href": null
+                  }
+                ],
+                "color": "default"
+              },
+              "isCustomType": false,
+              "isToggle": false
+            },
+            {
+              "id": "81296cc0-cc4e-429hc-bdce-777d91149a19",
+              "type": "bulleted_list_item",
+              "content": {
+                "rich_text": [
+                  {
+                    "type": "text",
+                    "text": { "content": "第二个答案", "link": null },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": false,
+                      "color": "default"
+                    },
+                    "plain_text": "第二个答案",
+                    "href": null
+                  }
+                ],
+                "color": "default"
+              },
+              "isCustomType": false,
+              "isToggle": false
+            },
+            {
+              "id": "81296cc0-cc4e-429c-bdche-777d91149a19",
+              "type": "bulleted_list_item",
+              "content": {
+                "rich_text": [
+                  {
+                    "type": "text",
+                    "text": { "content": "第三个答案", "link": null },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": false,
+                      "color": "default"
+                    },
+                    "plain_text": "第三个答案",
+                    "href": null
+                  }
+                ],
+                "color": "default"
+              },
+              "isCustomType": false,
+              "isToggle": false
+            }
+          ]
+        },
+        {
+          "id": "4c8905ae-02d6-4286-aff4-876c4d12dfb4",
+          "type": "QuizA",
+          "children": [
+            {
+              "id": "54042016-2143-487e-83f4-0440ce0d9d59",
+              "type": "paragraph",
+              "content": {
+                "rich_text": [
+                  {
+                    "type": "text",
+                    "text": { "content": "Create a ", "link": null },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": false,
+                      "color": "default"
+                    },
+                    "plain_text": "Create a ",
+                    "href": null
+                  },
+                  {
+                    "type": "text",
+                    "text": { "content": "mapping", "link": null },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": true,
+                      "color": "default"
+                    },
+                    "plain_text": "mapping",
+                    "href": null
+                  },
+                  {
+                    "type": "text",
+                    "text": {
+                      "content": " that has a key of type ",
+                      "link": null
+                    },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": false,
+                      "color": "default"
+                    },
+                    "plain_text": " that has a key of type ",
+                    "href": null
+                  },
+                  {
+                    "type": "text",
+                    "text": { "content": "uint", "link": null },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": false,
+                      "color": "blue"
+                    },
+                    "plain_text": "uint",
+                    "href": null
+                  },
+                  {
+                    "type": "text",
+                    "text": {
+                      "content": " and a value of type ",
+                      "link": null
+                    },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": false,
+                      "color": "default"
+                    },
+                    "plain_text": " and a value of type ",
+                    "href": null
+                  },
+                  {
+                    "type": "text",
+                    "text": { "content": "string", "link": null },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": false,
+                      "color": "blue"
+                    },
+                    "plain_text": "string",
+                    "href": null
+                  },
+                  {
+                    "type": "text",
+                    "text": { "content": " named ", "link": null },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": false,
+                      "color": "default"
+                    },
+                    "plain_text": " named ",
+                    "href": null
+                  },
+                  {
+                    "type": "text",
+                    "text": { "content": "temp", "link": null },
+                    "annotations": {
+                      "bold": true,
+                      "italic": true,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": false,
+                      "color": "blue"
+                    },
+                    "plain_text": "temp",
+                    "href": null
+                  },
+                  {
+                    "type": "text",
+                    "text": { "content": ".", "link": null },
+                    "annotations": {
+                      "bold": false,
+                      "italic": false,
+                      "strikethrough": false,
+                      "underline": false,
+                      "code": false,
+                      "color": "default"
+                    },
+                    "plain_text": ".",
+                    "href": null
+                  }
+                ],
+                "color": "default"
+              },
+              "isCustomType": false,
+              "isToggle": false
+            }
+          ],
+          "content": {
+            "rich_text": [
+              {
+                "type": "text",
+                "text": { "content": "QuizA", "link": null },
+                "annotations": {
+                  "bold": false,
+                  "italic": false,
+                  "strikethrough": false,
+                  "underline": false,
+                  "code": false,
+                  "color": "default"
+                },
+                "plain_text": "QuizA",
+                "href": null
+              }
+            ],
+            "is_toggleable": true,
+            "color": "default"
+          },
+          "notionType": "heading_1",
+          "title": "",
+          "isToggle": true,
+          "isCustomType": true,
+          "sourceEditorCode": {
+            "id": "682edfec-e291-4585-acfc-f978b44202f4",
+            "type": "code",
+            "content": {
+              "caption": [],
+              "rich_text": [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "mapping(@@uint => string##) temp;\n//regex starts here\n^uint\\s*=>\\s*string$\n//regex ends here",
+                    "link": null
+                  },
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "plain_text": "mapping(@@uint => string##) temp;\n//regex starts here\n^uint\\s*=>\\s*string$\n//regex ends here",
+                  "href": null
+                }
+              ],
+              "language": "solidity"
+            },
+            "isCustomType": false,
+            "isToggle": false
+          },
+          "answerRegex": ["^uint\\s*=>\\s*string$"],
+          "lines": [
+            {
+              "id": "line6",
+              "type": "insert_input",
+              "content": "mapping(@@uint => string##) temp;",
+              "lineNumber": 1,
+              "answers": [
+                {
+                  "regex": "^uint\\s*=>\\s*string$",
+                  "content": "uint => string"
+                }
+              ]
+            },
+            { "id": "line7", "type": "default", "content": "", "lineNumber": 2 }
+          ]
+        }
+      ],
+      "content": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Quiz/Try it out!", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Quiz/Try it out!",
+            "href": null
+          }
+        ],
+        "is_toggleable": true,
+        "color": "default"
+      },
+      "notionType": "heading_1",
+      "title": "Try it out!",
+      "isToggle": true,
+      "isCustomType": true
+    }
+  ]
+}
