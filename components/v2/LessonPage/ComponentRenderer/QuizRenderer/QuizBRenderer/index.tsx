@@ -19,6 +19,7 @@ import ComponentRenderer from '../..';
 import DragAnswer from './DragAnswer';
 import { AnswerType, QuizBContext, QuizOptionType } from './type';
 import Button from '@/components/Common/Button';
+import QuizFooter from '../QuizFooter';
 
 interface QuizBRendererProps {
   parent: CustomType | NotionType;
@@ -103,21 +104,13 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
           </div>
         </div>
       </DndProvider>
-      <div className="flex justify-between items-center">
-        <div
-          className="underline font-next-book text-[#3E3E3E] tracking-[0.28px] leading-[125%] cursor-pointer"
-          onClick={() => setShowAnswer(!showAnswer)}
-        >
-          {showAnswer && 'Hidden me right answer '}
-          {!showAnswer && 'Show me right answer'}
-        </div>
-        <Button
-          className="bg-[#FFD850] py-[8px] px-[40px] font-next-book text-[#0B0B0B] text-[14px]"
-          onClick={() => console.log(answers)}
-        >
-          Submit
-        </Button>
-      </div>
+      <QuizFooter
+        showAnswer={showAnswer}
+        setShowAnswer={(isShow) => setShowAnswer(isShow)}
+        onSubmit={() => {
+          console.log(answers);
+        }}
+      ></QuizFooter>
     </div>
   );
 };
