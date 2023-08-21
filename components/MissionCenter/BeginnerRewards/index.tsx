@@ -77,7 +77,9 @@ const BeginnerRewards: React.FC<BeginnerRewardsProp> = ({ rewardData }) => {
   return (
     <div className="h-[500px] rounded-[20px] px-[28px] py-[40px] bg-mission-center-box flex justify-between">
       <div>
-        <span className="text-[16px] font-next-book-bold">Milestones</span>
+        <span className="text-[16px] leading-[18px] font-bold">
+          Beginner <br /> Rewards
+        </span>
         <div className="pl-[46px]">
           <Image
             src={
