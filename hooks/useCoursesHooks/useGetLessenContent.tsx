@@ -1,12 +1,13 @@
 import webApi from '@/service';
 import { RequestError } from '@/service/types';
+import { CourseLessonType } from '@/service/webApi/course/type';
 import { useRequest } from 'ahooks';
 import { message } from 'antd';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
 export const useGetLessonContent = (lessonId: string) => {
-  const [lesson, setLesson] = useState<any>(null);
+  const [lesson, setLesson] = useState<CourseLessonType>();
   const router = useRouter();
   const { run, loading, refresh } = useRequest(
     async (lessonId) => {

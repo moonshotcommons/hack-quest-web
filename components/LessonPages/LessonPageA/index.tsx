@@ -81,7 +81,7 @@ const LessonPageA: FC<LessonPageAProps> = (props) => {
         <Renderer
           type={CustomRenderType.Quiz}
           source={quizes}
-          parent={{ ...quizes, isRoot: true, onPass, isLastLesson }}
+          parent={{ ...quizes, isRoot: true, onPass, isLastLesson, lesson }}
         ></Renderer>
       </NotionRenderer>
     );

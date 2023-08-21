@@ -139,7 +139,7 @@ export const renderCard = (card: any) => {
           duration={card.duration || 0}
           unitCount={card.unitCount || 0}
           progress={0}
-          cover={'/images/card/ConceptLearning/cover.svg'}
+          cover={'/images/card/ConceptLearning/cover.png'}
         ></ConceptLearningCard>
       );
     case CourseType.HACKATHON:

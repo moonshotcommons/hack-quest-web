@@ -20,7 +20,7 @@ const HomeBanner: FC<HomeBannerProps> = (props) => {
         <Image src={BannerBg} alt="bg" className="z-0"></Image>
       </div>
       <div className="relative left-0 top-0 z-[999] ">
-        <h1 className="text-text-default-color  font-next-book-bold text-[80px] font-bold pt-[12.56rem] leading-[110%] uppercase">
+        <h1 className="text-text-default-color  font-next-book text-[80px] font-bold pt-[12.56rem] leading-[110%] uppercase">
           Web3.0 <br />
           Programming
           <br />

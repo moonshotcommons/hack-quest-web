@@ -9,6 +9,7 @@ import {
 } from '@/hooks/useParseQuiz';
 import { message } from 'antd';
 import Button from '@/components/Common/Button';
+import webApi from '@/service';
 
 interface QuizRendererProps {
   source: any;
@@ -103,6 +104,8 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
       });
       setErrorLines(errorLines);
       setAnswerWrong(isWrong);
+      console.log(parent);
+      webApi.courseApi.markQuestState(parent.lesson.id, false);
     }
 
     if (!isWrong) {
