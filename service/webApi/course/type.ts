@@ -69,6 +69,7 @@ export interface CourseUnitStateType {
   description: string;
   state: CompleteStateType;
   progress: number;
+  disable: boolean;
 }
 
 export interface CourseLessonType {
@@ -86,6 +87,7 @@ export interface CourseLessonStateType {
   name: string;
   unitId: string;
   state: CompleteStateType;
+  disable: boolean;
 }
 
 export type UnitPagesListType = CourseUnitStateType & {

@@ -1,26 +1,9 @@
-// ./pages/article/[articleId].tsx
-
-import webApi from '@/service';
-import {
-  CourseLessonType,
-  CourseType,
-  LessonStyleType
-} from '@/service/webApi/course/type';
-import wrapper from '@/store/redux';
-
-import type { GetServerSideProps, NextPage } from 'next';
-
-import LessonHeader from '@/components/LessonPages/LessonHeader';
-import LessonPageA from '@/components/LessonPages/LessonPageA';
-import { useEffect, useMemo, useState } from 'react';
+import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useGetLessonContent } from '@/hooks/useCoursesHooks/useGetLessenContent';
-import LessonPageB from '@/components/LessonPages/LessonPageB';
-import LessonPageD from '@/components/LessonPages/LessonPageD';
-import LessonPageE from '@/components/LessonPages/LessonPageE';
-import LessonFooter from '@/components/v2/LessonPages/LessonFooter';
-import Preview from '@/components/v2/LessonPages/Preview';
-import Code from '@/components/v2/LessonPages/Code';
+import { CourseType } from '@/service/webApi/course/type';
+
+import LessonPage from '@/components/v2/LessonPage';
 
 interface IProps {}
 
@@ -28,63 +11,13 @@ const SyntaxUnit: NextPage<IProps> = (props) => {
   const router = useRouter();
   const { lessonId } = router.query;
 
-  const { lesson } = useGetLessonContent(lessonId as string);
-
-  const LessonPage = useMemo(() => {
-    if (lesson) {
-      switch (lesson.style) {
-        case LessonStyleType.A:
-          return (
-            <>
-              <LessonPageA
-                lesson={lesson}
-                courseType={CourseType.SYNTAX}
-              ></LessonPageA>
-            </>
-          );
-        case LessonStyleType.B:
-          return (
-            <LessonPageB
-              lesson={lesson}
-              courseType={CourseType.SYNTAX}
-            ></LessonPageB>
-          );
-        case LessonStyleType.C:
-        case LessonStyleType.D:
-          return (
-            <LessonPageD
-              lesson={lesson}
-              courseType={CourseType.SYNTAX}
-            ></LessonPageD>
-          );
-        case LessonStyleType.E:
-          return (
-            <>
-              <LessonPageE
-                lesson={lesson}
-                courseType={CourseType.SYNTAX}
-              ></LessonPageE>
-            </>
-          );
-        default:
-          return <></>;
-      }
-    }
-  }, [lesson]);
-
   return (
     <>
-      <div className="w-full h-full flex flex-col">
-        <div className="flex-1 w-full flex justify-between [&>div]:w-[50%] [&>div]:h-full pb-20">
-          <Preview />
-          <Code />
-        </div>
-        <LessonFooter />
-        {/* <LessonHeader
-          lesson={lesson}
+      <div className="w-full h-[calc(100vh-80px)] flex flex-col font-next-book-Thin">
+        <LessonPage
+          lessonId={lessonId as string}
           courseType={CourseType.SYNTAX}
-        ></LessonHeader>
-        {LessonPage} */}
+        ></LessonPage>
       </div>
     </>
   );
