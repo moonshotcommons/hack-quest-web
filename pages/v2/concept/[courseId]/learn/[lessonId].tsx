@@ -73,7 +73,7 @@ const SyntaxUnit: NextPage<IProps> = (props) => {
       <div className="w-full h-full flex flex-col">
         <LessonHeader
           isBetween={true}
-          lesson={lesson}
+          lesson={lesson as CourseLessonType}
           courseType={CourseType.CONCEPT}
         ></LessonHeader>
         {LessonPage}
