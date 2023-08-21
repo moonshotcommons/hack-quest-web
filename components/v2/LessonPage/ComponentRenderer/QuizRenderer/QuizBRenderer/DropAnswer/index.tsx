@@ -1,5 +1,5 @@
 'use client';
-import { FC, ReactNode, useContext, useEffect, useState } from 'react';
+import { FC, ReactNode, useContext, useEffect, useRef, useState } from 'react';
 import { useDrop } from 'react-dnd';
 import { AnswerType, QuizBContext, QuizOptionType } from '../type';
 import { MdOutlineDragHandle } from 'react-icons/md';
@@ -15,8 +15,9 @@ const DropAnswer: FC<DropAnswerProps> = (props) => {
   const { onDrop, accept, changeOptionState, answers, showAnswer, setAnswers } =
     useContext(QuizBContext);
   const [clearVisible, setClearVisible] = useState(false);
-
   const [currentAnswer, setCurrentAnswer] = useState<AnswerType>();
+
+  const renderState = useRef(false);
 
   const [{ isOver, canDrop }, drop] = useDrop({
     accept: showAnswer ? [] : accept.map((option) => option.id),
@@ -34,6 +35,8 @@ const DropAnswer: FC<DropAnswerProps> = (props) => {
 
   useEffect(() => {
     if (!currentAnswer) {
+      console.log(process.env.NODE_ENV);
+      if (process.env.NODE_ENV === 'development' && renderState.current) return;
       const newAnswer = {
         id: uuid(),
         answer,
@@ -52,12 +55,13 @@ const DropAnswer: FC<DropAnswerProps> = (props) => {
         return newAnswers;
       });
       setCurrentAnswer(newAnswer);
+      renderState.current = true;
     }
   }, []);
 
   return (
     <div ref={drop} className="inline-block">
-      {showAnswer && (
+      {(!currentAnswer?.option || showAnswer) && (
         <span
           data-testid="填空框"
           className="inline-flex w-[100px] px-[10px] mx-[10px] h-[34px] rounded-[3px] border-[0.5px] my-1 border-[#8C8C8C] bg-[#F4F4F4] justify-center items-center font-next-book text-[14px]"

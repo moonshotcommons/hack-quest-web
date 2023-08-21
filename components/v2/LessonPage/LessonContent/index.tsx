@@ -22,7 +22,6 @@ const LessonContent: FC<LessonContentProps> = (props) => {
   const [components, setComponents] = useState<
     (CustomComponent | NotionComponent)[]
   >(() => {
-    console.log('根据lesson重新设置');
     return lesson.content.left;
   });
 
