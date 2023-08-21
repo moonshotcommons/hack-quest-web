@@ -57,7 +57,7 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
   return (
     <div className="h-full flex flex-col justify-between">
       <DndProvider backend={HTML5Backend}>
-        <div className="rounded-lg">
+        <div className="rounded-lg pb-20">
           <QuizBContext.Provider
             value={{
               onDrop,
@@ -106,6 +106,9 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
       </DndProvider>
       <QuizFooter
         showAnswer={showAnswer}
+        submitDisable={
+          !!Object.keys(answers).find((key) => !answers[key].option)
+        }
         setShowAnswer={(isShow) => setShowAnswer(isShow)}
         onSubmit={() => {
           console.log(answers);
