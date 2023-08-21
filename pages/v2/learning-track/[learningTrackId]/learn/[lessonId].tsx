@@ -45,7 +45,7 @@ const SyntaxUnit: NextPage<IProps> = (props) => {
     <>
       <div className="w-full h-full flex flex-col">
         <LessonHeader
-          lesson={lesson}
+          lesson={lesson as CourseLessonType}
           courseType={CourseType.SYNTAX}
         ></LessonHeader>
         {LessonPage}
