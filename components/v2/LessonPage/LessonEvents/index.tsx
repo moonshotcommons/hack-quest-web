@@ -1,53 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import ArrowBottom from '@/public/images/lesson/arrow_bottom.svg';
 import Image from 'next/image';
 import UnitList from './UnitList';
-import {
-  CompleteStateType,
-  CourseLessonType,
-  CourseType,
-  UnitPagesListType
-} from '@/service/webApi/course/type';
-import { useDispatch } from 'react-redux';
-import { useRequest } from 'ahooks';
-import webApi from '@/service';
-import { setUnitsLessonsList } from '@/store/redux/modules/course';
+import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
 import { useUnitNavList } from '@/hooks/useUnitNavList';
 
 interface LessonEventsProps {
   lesson: CourseLessonType;
   courseType: CourseType;
-  // unitData: UnitPagesListType[];
 }
-
-const formateDropdownData = (
-  data: UnitPagesListType[],
-  lesson: CourseLessonType
-) => {
-  let currentUnitIndex = data.findIndex((unit) => unit.id === lesson.unitId);
-  let currentLessonIndex = data[currentUnitIndex].pages.findIndex(
-    (page) => page.id === lesson.id
-  );
-  const newData: UnitPagesListType[] = data.map((unit, index) => {
-    return {
-      ...unit,
-      disable: index > currentUnitIndex,
-      pages: unit.pages.map((page, pageIndex) => {
-        return {
-          ...page,
-          disable:
-            page.state === CompleteStateType.NOT_STARTED &&
-            currentLessonIndex !== pageIndex
-        };
-      })
-    };
-  });
-
-  return {
-    newData,
-    currentUnitIndex
-  };
-};
 
 const LessonEvents: React.FC<LessonEventsProps> = (props) => {
   const { lesson, courseType } = props;
@@ -58,7 +19,7 @@ const LessonEvents: React.FC<LessonEventsProps> = (props) => {
   return (
     <div
       className={`mb-[30px] text-lesson-preview-color relative z-10 ${
-        isToggle ? 'w-[322px] shadow-2xl' : 'w-[121px]'
+        isToggle ? 'w-[322px] shadow-2xl' : 'w-fit'
       }`}
       tabIndex={1}
       onBlur={() => setIsToggle(false)}
