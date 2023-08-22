@@ -3,6 +3,7 @@ import {
   FC,
   ReactNode,
   createContext,
+  useContext,
   useEffect,
   useRef,
   useState
@@ -20,6 +21,8 @@ import DragAnswer from './DragAnswer';
 import { AnswerType, QuizBContext, QuizOptionType } from './type';
 import Button from '@/components/Common/Button';
 import QuizFooter from '../QuizFooter';
+import { message } from 'antd';
+import { QuizContext } from '..';
 
 interface QuizBRendererProps {
   parent: CustomType | NotionType;
@@ -28,7 +31,7 @@ interface QuizBRendererProps {
 
 const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
   const { quiz } = props;
-
+  const { onPass } = useContext(QuizContext);
   const [options, setOptions] = useState<QuizOptionType[]>(() =>
     quiz.options.map((option) => ({ ...option, isRender: true }))
   );
@@ -54,10 +57,48 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
     );
   };
 
+  const onSubmit = () => {
+    const newAnswers = { ...answers };
+    let wrongAnswers = [];
+    for (const key in newAnswers) {
+      let answerItem = answers[key];
+      let inputAnswer = answerItem
+        .option!.content.rich_text.map((text: any) => text.plain_text.trim())
+        .join('');
+
+      if (answerItem.answer !== inputAnswer) {
+        answerItem.status = 'error';
+        wrongAnswers.push(answerItem);
+      }
+    }
+
+    if (!wrongAnswers.length) {
+      onPass();
+      return;
+    }
+
+    const wrongOptionIds = wrongAnswers.map((item) => item.option!.id);
+    setOptions((prevOptions) => {
+      const newOptions = prevOptions.map((option) => {
+        if (wrongOptionIds.includes(option.id)) {
+          return { ...option, isRender: true };
+        }
+        return option;
+      });
+      return newOptions;
+    });
+
+    wrongAnswers.map((item) => {
+      item.option = null;
+      return item;
+    });
+    setAnswers(newAnswers);
+  };
+
   return (
     <div className="h-full flex flex-col justify-between">
       <DndProvider backend={HTML5Backend}>
-        <div className="rounded-lg">
+        <div className="rounded-lg pb-20">
           <QuizBContext.Provider
             value={{
               onDrop,
@@ -106,10 +147,11 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
       </DndProvider>
       <QuizFooter
         showAnswer={showAnswer}
+        submitDisable={
+          !!Object.keys(answers).find((key) => !answers[key].option)
+        }
         setShowAnswer={(isShow) => setShowAnswer(isShow)}
-        onSubmit={() => {
-          console.log(answers);
-        }}
+        onSubmit={onSubmit}
       ></QuizFooter>
     </div>
   );

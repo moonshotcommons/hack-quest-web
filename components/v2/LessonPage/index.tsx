@@ -43,7 +43,7 @@ const LessonPage: FC<LessonPageProps> = (props) => {
   return (
     <div className="relative w-full h-full">
       <Split
-        className="flex-1 w-full h-full flex justify-between [&>div]:w-[50%]"
+        className="flex-1 w-full h-full flex justify-between [&>div]:w-[50%] [&>.gutter]:border-x [&>.gutter]:cursor-col-resize"
         minSize={80}
         cursor="col-resize"
       >
