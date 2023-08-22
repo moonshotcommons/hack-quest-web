@@ -68,7 +68,8 @@ const lessonThemeBackgroundColor = {
 };
 const lessonThemeBorderColor = {
   'lesson-footer-tab-border': 'var(--lesson-footer-tab-border)',
-  'lesson-footer-tab-active-border': 'var(--lesson-footer-tab-active-border)'
+  'lesson-footer-tab-active-border': 'var(--lesson-footer-tab-active-border)',
+  'lesson-title-box-border-color': 'var(--lesson-title-box-border-color)'
 };
 
 module.exports = {

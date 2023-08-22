@@ -14,7 +14,6 @@ import {
   UnitPagesListType
 } from '@/service/webApi/course/type';
 import webApi from '@/service';
-import { setUnitsLessonsList } from '@/store/redux/modules/course';
 import { useGetLessonContent } from '@/hooks/useCoursesHooks/useGetLessenContent';
 
 interface LessonPageProps {
