@@ -14,6 +14,7 @@ export interface AnswerType {
   id: string;
   answer: string;
   option: QuizOptionType | null;
+  status: 'error' | 'default';
 }
 
 interface QuizBContextType {

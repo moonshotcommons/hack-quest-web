@@ -8,7 +8,6 @@ import {
   CourseUnitType,
   UnitPagesListType
 } from './type';
-import { LessonContentType } from '@/constants/lesson';
 
 export enum CourseApiType {
   Course_List = '/courses',

@@ -1,6 +1,5 @@
 import { FC, ReactNode, useEffect, useRef, useState } from 'react';
 import { Renderer } from '..';
-import Quest from '@/components/TempComponent/Quest';
 import { CourseType } from '@/service/webApi/course/type';
 import {
   AnswerState,
