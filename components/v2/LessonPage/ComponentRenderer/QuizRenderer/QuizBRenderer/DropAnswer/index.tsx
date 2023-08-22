@@ -5,8 +5,8 @@ import { AnswerType, QuizBContext, QuizOptionType } from '../type';
 import { MdOutlineDragHandle } from 'react-icons/md';
 import { MdCancel } from 'react-icons/md';
 import { v4 as uuid } from 'uuid';
+import { motion } from 'framer-motion';
 interface DropAnswerProps {
-  // children: ReactNode
   answer: string;
 }
 
@@ -23,7 +23,11 @@ const DropAnswer: FC<DropAnswerProps> = (props) => {
     accept: showAnswer ? [] : accept.map((option) => option.id),
     drop: (item: QuizOptionType) => {
       if (!currentAnswer) return;
-      const curAnswer = { ...currentAnswer, option: item };
+      const curAnswer: AnswerType = {
+        ...currentAnswer,
+        option: item,
+        status: 'default'
+      };
       setCurrentAnswer(curAnswer);
       onDrop(curAnswer as AnswerType);
     },
@@ -35,17 +39,13 @@ const DropAnswer: FC<DropAnswerProps> = (props) => {
 
   useEffect(() => {
     if (!currentAnswer) {
-      console.log(process.env.NODE_ENV);
       if (process.env.NODE_ENV === 'development' && renderState.current) return;
-      const newAnswer = {
+      const newAnswer: AnswerType = {
         id: uuid(),
         answer,
-        option: null
+        option: null,
+        status: 'default'
       };
-
-      // if (answers?.current) {
-      //   answers.current[newAnswer.id] = newAnswer;
-      // }
 
       setAnswers((state) => {
         const newAnswers = {
@@ -59,21 +59,36 @@ const DropAnswer: FC<DropAnswerProps> = (props) => {
     }
   }, []);
 
+  useEffect(() => {
+    if (currentAnswer) {
+      const updateAnswer = answers[currentAnswer.id];
+      setCurrentAnswer(updateAnswer);
+    }
+  }, [answers]);
+
   return (
     <div ref={drop} className="inline-block">
       {(!currentAnswer?.option || showAnswer) && (
-        <span
-          data-testid="填空框"
-          className="inline-flex w-[100px] px-[10px] mx-[10px] h-[34px] rounded-[3px] border-[0.5px] my-1 border-[#8C8C8C] bg-[#F4F4F4] justify-center items-center font-next-book text-[14px]"
+        <motion.span
+          animate={{
+            rotate: [0, -0.2, 0.2, -0.2, 0.2, 0],
+            x: [-2, 2, -2, 2, 0] // 定义水平偏移的关键帧
+          }}
+          transition={{
+            duration: currentAnswer?.status === 'error' ? 0.5 : 0 // 动画持续时间
+          }}
+          className={`inline-flex w-[100px] px-[10px] mx-[10px] h-[34px] rounded-[3px] border-[0.5px] my-1 border-[#8C8C8C] bg-[#F4F4F4] justify-center items-center font-next-book text-[14px] ${
+            currentAnswer?.status === 'error'
+              ? 'bg-[#FFF7F5] border-[#C73333]'
+              : ''
+          }`}
         >
           &nbsp;{showAnswer && currentAnswer?.answer}&nbsp;
-        </span>
+        </motion.span>
       )}
       {!!currentAnswer?.option && !showAnswer && (
         <div
-          // ref={drop}
           className="inline-flex relative gap-[28px] pl-[8px] py-[7px] bg-[#FFF4CE] cursor-move border-[0.5px] border-[#8C8C8C] rounded-[3px] text-[#000] font-next-book text-[14px] leading-[125%] tracking-[0.28px]"
-          data-testid="box"
           onMouseEnter={() => setClearVisible(true)}
           onMouseLeave={() => setClearVisible(false)}
         >

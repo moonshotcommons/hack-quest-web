@@ -1,7 +1,7 @@
 import NotionRenderer, { Renderer } from '@/components/NotionRender';
 import ImageRenderer from '@/components/NotionRender/ImageRenderer';
 import TextRenderer from '@/components/NotionRender/TextRenderer';
-import { Block } from '@/components/TempComponent/Block';
+
 import { useParseLessonBSection } from '@/hooks/useParseLesson/useParseLessonBSection';
 import {
   CourseLessonType,

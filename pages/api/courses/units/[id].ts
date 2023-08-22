@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { CourseDetailType, CourseResponse } from '@/service/webApi/course/type';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import LessonData from '@/constants/page_json.json';
+import LessonData from '@/config/tempData/page_json.json';
 type Data = {
   name: string;
 };

@@ -27,7 +27,7 @@ const Playground: FC<PlaygroundProps> = (props) => {
   }, [lesson]);
   return (
     <div
-      className="p-5 bg-lesson-code-bg h-full overflow-auto flex flex-col gap-[20px]"
+      className="p-5 bg-lesson-code-bg h-full overflow-auto flex flex-col gap-[20px] scroll-wrap-y"
       style={{
         boxShadow: ' -2px 0px 4px 0px rgba(0, 0, 0, 0.10)'
       }}
