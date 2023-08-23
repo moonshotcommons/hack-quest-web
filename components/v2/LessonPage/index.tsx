@@ -1,19 +1,11 @@
 'use client';
-import { FC, ReactNode, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import Split from 'react-split';
-import { useRequest } from 'ahooks';
 import { LessonContent as LessonContentType } from './type';
 import LessonContent from './LessonContent';
 import Playground from './Playground';
 import LessonFooter from './LessonFooter';
-import { useDispatch } from 'react-redux';
-import {
-  CompleteStateType,
-  CourseLessonType,
-  CourseType,
-  UnitPagesListType
-} from '@/service/webApi/course/type';
-import webApi from '@/service';
+import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
 import { useGetLessonContent } from '@/hooks/useCoursesHooks/useGetLessenContent';
 
 interface LessonPageProps {

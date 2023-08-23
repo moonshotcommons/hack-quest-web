@@ -1126,7 +1126,7 @@
               ],
               "lineNumber": 1
             },
-            { "id": "line5", "type": "default", "content": "", "lineNumber": 2 }
+            { "id": "line5", "type": "default", "content": "function", "lineNumber": 2 }
           ]
         },
         {
@@ -1678,7 +1678,7 @@
                 }
               ]
             },
-            { "id": "line7", "type": "default", "content": "", "lineNumber": 2 }
+            { "id": "line7", "type": "default", "content": "xxxxxxx", "lineNumber": 2 }
           ]
         }
       ],
