@@ -53,9 +53,9 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
             }`}
             onClick={() => setQuizDropdownVisible(!quizDropdownVisible)}
           >
-            <span>{`${quiz.title ? 'Quiz' : 'Quiz'} ${currentQuizIndex + 1}/${
-              quiz.children.length
-            }`}</span>
+            <span>{`${quiz.title ? quiz.title : 'Quiz'} ${
+              currentQuizIndex + 1
+            }/${quiz.children.length}`}</span>
             <FiChevronDown size={28} color=""></FiChevronDown>
           </div>
           <QuizDropdown
