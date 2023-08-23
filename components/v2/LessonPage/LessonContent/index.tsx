@@ -16,10 +16,11 @@ interface LessonContentProps {
   // children: ReactNode
 
   lesson: Omit<CourseLessonType, 'content'> & { content: LessonContent };
+  isPreview?: boolean;
 }
 
 const LessonContent: FC<LessonContentProps> = (props) => {
-  const { lesson } = props;
+  const { lesson, isPreview = false } = props;
 
   const [components, setComponents] = useState<
     (CustomComponent | NotionComponent)[]
@@ -45,12 +46,17 @@ const LessonContent: FC<LessonContentProps> = (props) => {
 
   return (
     <div className="flex flex-col h-[calc(100%-10px)] min-h-[calc(100vh-80px)] max-h-[calc(100vh-80px)] [&>div]:pr-5">
-      <LessonNav lesson={lesson as any} courseType={CourseType.SYNTAX} />
-      <LessonEvents
-        // unitData={dropData}
-        lesson={lesson as any}
-        courseType={CourseType.SYNTAX}
-      />
+      {!isPreview && (
+        <>
+          <LessonNav lesson={lesson as any} courseType={CourseType.SYNTAX} />
+          <LessonEvents
+            // unitData={dropData}
+            lesson={lesson as any}
+            courseType={CourseType.SYNTAX}
+          />
+        </>
+      )}
+
       {!!components.length && (
         <Split
           direction="vertical"
