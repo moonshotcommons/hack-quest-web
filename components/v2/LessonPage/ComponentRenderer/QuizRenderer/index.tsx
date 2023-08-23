@@ -18,7 +18,7 @@ export const QuizContext = createContext<{ onPass: VoidFunction }>({
 
 const QuizRenderer: FC<QuizRendererProps> = (props) => {
   const { quiz, parent } = props;
-  const [currentQuizIndex, setCurrentQuizIndex] = useState(1);
+  const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
   const [quizDropdownVisible, setQuizDropdownVisible] = useState(false);
   const [start, setStart] = useState(parent.right.length <= 1);
   const [passOpen, setPassOpen] = useState(false);

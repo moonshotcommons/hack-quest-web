@@ -40,6 +40,12 @@ export interface CodeLineType {
   type: LineType;
   content: string;
   lineNumber: number;
+  regex: string;
+  answers: {
+    regex: string;
+    content: string[];
+    type: LineType;
+  }[];
 }
 
 export interface LessonContent {

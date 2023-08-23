@@ -124,7 +124,10 @@ html[data-theme='light'] {
   --lesson-code-bg:#f4f4f4;
   --lesson-code-container-bg:#e6e6e6;
   --lesson-code-box-bg:#f4f4f4;
-
+  --lesson-code-input-bg:#fff4ce;
+  --lesson-code-input-border:var(--neutral-medium-gray);
+  --lesson-code-index:var(--neutral-medium-gray);
+  --lesson-code-copy-bg:var(--neutral-medium-gray);
   /* --lesson-code-editor-bg: #000;
   --lesson-code-editor-num-color: #8c8c8c;
   --lesson-code-editor-text-color: #000;

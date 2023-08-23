@@ -18,7 +18,7 @@ const QuizDropdown: FC<QuizDropdownProps> = (props) => {
           {quiz.children.map((quizChild: any, index: number) => {
             return (
               <div
-                key={quiz.id}
+                key={quizChild.id}
                 onClick={() => onChange?.(index)}
                 className={cn(
                   `px-[20px] py-[8px] text-[14px] bg-white tracking-[0.28px] leading-[125%] font-next-book flex items-center gap-[20px]`,
