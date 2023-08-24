@@ -27,27 +27,33 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
     useParseQuizA(quiz.lines);
   const setAnswers = () => {
     const show = !showAnswer;
-    let inputEle: HTMLTextAreaElement;
+    let inputEle: HTMLTextAreaElement | HTMLInputElement;
     answerState.map((line) => {
       if (line.answers?.length) {
         line.answers.map((answer) => {
           inputEle = document.querySelector(
             `[data-uuid="${answer.id}"]`
-          ) as HTMLTextAreaElement;
-          if (show) {
-            inputEle.value = answer.answer;
-          } else {
-            inputEle.value = answer.value;
+          ) as HTMLInputElement;
+          if (inputEle) {
+            if (show) {
+              inputEle.value = answer.answer;
+            } else {
+              inputEle.value = answer.value;
+            }
+            inputEle.disabled = show;
           }
         });
       } else {
         inputEle = document.querySelector(
           `[data-uuid="${line.id}"]`
         ) as HTMLTextAreaElement;
-        if (show) {
-          inputEle.value = line.answer;
-        } else {
-          inputEle.value = line.value;
+        if (inputEle) {
+          if (show) {
+            inputEle.value = line.answer;
+          } else {
+            inputEle.value = line.value;
+          }
+          inputEle.disabled = show;
         }
       }
     });
@@ -55,6 +61,7 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
   };
   const onSubmit = async () => {
     const newAnswerState = [...answerState];
+
     let isCurrent = true;
     newAnswerState.map((line) => {
       if (line.answers?.length) {
