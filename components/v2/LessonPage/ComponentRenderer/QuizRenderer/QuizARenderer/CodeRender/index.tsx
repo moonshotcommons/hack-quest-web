@@ -20,24 +20,9 @@ const CodeRender: React.FC<CodeRenderType> = ({ waitingRenderCodes }) => {
             <span className="mr-[1.875rem] text-lesson-code-index text-[12px] font-mono">
               {fillStr(lineIndex + 1)}
             </span>
-            {Array.isArray(line) ? (
-              line.map((item: any, index: number) => {
-                return (
-                  <div
-                    key={index}
-                    className={`flex items-center ${
-                      item.type === 'input' ? 'flex-1' : ''
-                    }`}
-                  >
-                    {item.render(answers)}
-                  </div>
-                );
-              })
-            ) : (
-              <div className="flex-1 flex items-center">
-                {line.render(answers)}
-              </div>
-            )}
+            <div className="flex-1 flex flex-shrink-0 items-center break-all whitespace-pre-wrap">
+              {line.render(answers)}
+            </div>
           </li>
         ))}
       </ul>
