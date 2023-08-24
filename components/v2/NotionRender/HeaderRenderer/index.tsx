@@ -48,7 +48,10 @@ const HeaderRenderer: FC<HeaderRendererProps> = (props) => {
   return (
     <div className="py-[10px] pr-[4px]">
       <HeadingTag className={`${className} flex justify-between items-center`}>
-        <TextRenderer richTextArr={component.content.rich_text} fontSize={21} />
+        <TextRenderer
+          richTextArr={component.content.rich_text}
+          fontSize={'21px'}
+        />
         {expandIndex >= 0 && (
           <span
             className="cursor-pointer text-[12px] underline"
