@@ -13,7 +13,8 @@ export enum NotionType {
   VIDEO = 'video',
   COLUMN_LIST = 'column_list',
   COLUMN = 'column',
-  PARAGRAPH = 'paragraph'
+  PARAGRAPH = 'paragraph',
+  CALLOUT = 'callout'
 }
 
 export enum CustomType {

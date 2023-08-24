@@ -45,7 +45,7 @@ const LessonContent: FC<LessonContentProps> = (props) => {
   }, [lesson]);
 
   return (
-    <div className="flex flex-col h-[calc(100%-10px)] min-h-[calc(100vh-80px)] max-h-[calc(100vh-80px)] [&>div]:pr-5">
+    <div className="flex flex-col h-[calc(100%-10px)] [&>div]:pr-5">
       {!isPreview && (
         <>
           <LessonNav lesson={lesson as any} courseType={CourseType.SYNTAX} />

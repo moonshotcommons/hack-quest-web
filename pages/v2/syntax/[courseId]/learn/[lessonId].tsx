@@ -13,7 +13,7 @@ const SyntaxUnit: NextPage<IProps> = (props) => {
 
   return (
     <>
-      <div className="w-full h-[calc(100vh-80px)] flex flex-col font-next-book-Thin">
+      <div className="w-full h-full flex flex-col font-next-book-Thin">
         <LessonPage
           lessonId={lessonId as string}
           courseType={CourseType.SYNTAX}

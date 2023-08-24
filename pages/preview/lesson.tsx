@@ -10,7 +10,7 @@ const SyntaxUnit: NextPage<IProps> = (props) => {
 
   return (
     <>
-      <div className="w-full h-[calc(100vh-80px)] flex flex-col font-next-book-Thin">
+      <div className="w-full min-h-[calc(100vh-80px)] flex flex-col font-next-book-Thin">
         <PreviewLessonPage
           previewUrl={previewUrl as string}
         ></PreviewLessonPage>

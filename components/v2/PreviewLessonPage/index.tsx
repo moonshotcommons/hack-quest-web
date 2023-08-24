@@ -60,7 +60,7 @@ const PreviewLessonPage: FC<PreviewLessonPageProps> = (props) => {
   // if (!lesson) return null;
 
   return (
-    <div className="relative w-full h-full">
+    <div className="relative w-full h-full max-h-[100%-80px]">
       {lesson && (
         <Split
           className="flex-1 w-full h-full flex justify-between [&>div]:w-[50%] [&>.gutter]:border-x [&>.gutter]:cursor-col-resize"
@@ -68,7 +68,13 @@ const PreviewLessonPage: FC<PreviewLessonPageProps> = (props) => {
           cursor="col-resize"
         >
           <LessonContent lesson={lesson!} isPreview={true}></LessonContent>
-          <Playground lesson={lesson!}></Playground>
+          <Playground
+            lesson={lesson!}
+            isPreview={true}
+            onCompleted={() => {
+              message.info('当前是预览模式');
+            }}
+          ></Playground>
         </Split>
       )}
       {!lesson && !!errorMessage && (

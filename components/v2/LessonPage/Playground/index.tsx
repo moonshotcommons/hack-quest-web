@@ -9,10 +9,12 @@ import { PlaygroundContext, LessonType } from './type';
 interface PlaygroundProps {
   // children: ReactNode
   lesson: LessonType;
+  onCompleted: VoidFunction;
+  isPreview?: boolean;
 }
 
 const Playground: FC<PlaygroundProps> = (props) => {
-  const { lesson } = props;
+  const { lesson, onCompleted, isPreview = false } = props;
 
   const [components, setComponents] = useState<
     (CustomComponent | NotionComponent)[]
@@ -26,6 +28,7 @@ const Playground: FC<PlaygroundProps> = (props) => {
       isRoot: true
     };
   }, [lesson]);
+
   return (
     <div
       className="p-5 bg-lesson-code-bg h-full overflow-auto flex flex-col gap-[20px] scroll-wrap-y"
@@ -33,13 +36,13 @@ const Playground: FC<PlaygroundProps> = (props) => {
         boxShadow: ' -2px 0px 4px 0px rgba(0, 0, 0, 0.10)'
       }}
     >
-      <PlaygroundContext.Provider value={{ lesson }}>
+      <PlaygroundContext.Provider value={{ lesson, onCompleted, isPreview }}>
         {!!components.length &&
           components.map((component) => {
             return (
               <ComponentRenderer
-                key={component.id}
                 parent={parent}
+                key={component.id}
                 component={component}
               ></ComponentRenderer>
             );
