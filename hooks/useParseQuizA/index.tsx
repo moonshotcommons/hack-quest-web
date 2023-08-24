@@ -1,6 +1,4 @@
-import { Quiz } from '@/components/CodeChecker/type';
-import { CourseType } from '@/service/webApi/course/type';
-import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { reservedWords } from '@/constants/solidity';
 import { LineType, CodeLineType } from '@/components/v2/LessonPage/type';
 
@@ -18,7 +16,7 @@ export interface WaitingRenderCodeType {
   render: (answerState: AnswerState[]) => ReactNode;
 }
 
-const AnswerInput = (props: {
+const AnswerInputTextarea = (props: {
   error: boolean | undefined;
   uuid: string;
   type?: LineType;
@@ -41,7 +39,7 @@ const AnswerInput = (props: {
         color: '#333',
         outline: 'none',
         borderRadius: '3px',
-        width: props.type === LineType.INSERT_INPUT ? '20%' : '100%',
+        width: props.type === LineType.INSERT_INPUT ? '100px' : '100%',
         height: '40px',
         padding: '8px',
         resize: 'none' /* 禁止用户手动调整大小 */,
@@ -50,17 +48,14 @@ const AnswerInput = (props: {
       }}
       data-uuid={props.uuid}
       onInput={(e) => {
+        if (props.type === LineType.INSERT_INPUT) return;
         const textarea = e.target as HTMLTextAreaElement;
         textarea.style.backgroundColor = 'var(--lesson-code-input-bg)';
-        const oldHeight = textarea.style.height;
         // 重置textarea的高度为默认值，以便可以正确计算其内容的高度
-        textarea.style.height = 'inherit';
-
+        textarea.style.height = '40px';
         // 获取textarea的内容高度，并加上padding和border的高度
-        let height =
-          textarea.scrollHeight + textarea.offsetHeight - textarea.clientHeight;
+        let height = textarea.scrollHeight;
         let lineLen = textarea.value.split('\n').length;
-        height = lineLen > 1 ? height : 40;
         // 将textarea的高度设置为内容高度
         textarea.style.height = height + 'px';
       }}
@@ -70,6 +65,44 @@ const AnswerInput = (props: {
         props.onChange(currentId!, value);
       }}
     ></textarea>
+  );
+};
+
+const AnswerInput = (props: {
+  error: boolean | undefined;
+  uuid: string;
+  type?: LineType;
+  onChange: (id: string, v: string) => void;
+}) => {
+  const borderBackBg = !!props.error
+    ? {
+        backgroundColor: '#FFF7F5',
+        border: '1px solid #C73333'
+      }
+    : {
+        backgroundColor: 'var(--lesson-code-input-bg)',
+        border: '1px solid var(--lesson-code-input-border)'
+      };
+  return (
+    <input
+      placeholder="Type answer"
+      type="text"
+      style={{
+        color: '#333',
+        outline: 'none',
+        borderRadius: '3px',
+        width: '110px',
+        height: '40px',
+        padding: '8px',
+        ...borderBackBg
+      }}
+      data-uuid={props.uuid}
+      onChange={(e) => {
+        const currentId = e.target.dataset.uuid;
+        const value = e.target.value;
+        props.onChange(currentId!, value);
+      }}
+    />
   );
 };
 
@@ -228,7 +261,7 @@ export const useParseQuizA = (lines: CodeLineType[]) => {
           (item) => item.id === line.id
         );
         return (
-          <AnswerInput
+          <AnswerInputTextarea
             uuid={line.id}
             error={currentLineState?.error}
             onChange={(id, value) => {
@@ -244,7 +277,7 @@ export const useParseQuizA = (lines: CodeLineType[]) => {
                   });
               });
             }}
-          ></AnswerInput>
+          ></AnswerInputTextarea>
         );
       }
     };
@@ -302,6 +335,7 @@ export const useParseQuizA = (lines: CodeLineType[]) => {
   };
 
   useEffect(() => {
+    setAnswerState(() => []);
     parseWaitingRenderCodes(lines);
   }, [lines]);
 
