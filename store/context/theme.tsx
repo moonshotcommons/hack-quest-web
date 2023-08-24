@@ -5,22 +5,34 @@ interface ThemeContextProps {
   setTheme: (theme: Theme) => void;
 }
 
-const ThemeContext = createContext({} as ThemeContextProps);
+export const ThemeContext = createContext({} as ThemeContextProps);
 
 const ThemeContextProvider: FC<{ children: ReactNode }> = (props) => {
   const { children } = props;
-  const [theme, setTheme] = useState<Theme>(Theme.Dark);
+
+  const [theme, setTheme] = useState<Theme>(
+    () =>
+      (typeof window === 'object' &&
+        (localStorage?.getItem('theme') as Theme)) ||
+      Theme.Light
+  );
   useEffect(() => {
     const checkTheme = () => {
-      const cacheTheme = (localStorage.getItem('theme') as Theme) || Theme.Dark;
-      setTheme(theme);
-      document.getElementsByTagName('html')[0].dataset.theme = cacheTheme;
+      // const cacheTheme =
+      //   (localStorage.getItem('theme') as Theme) || Theme.Light;
+      // setTheme(cacheTheme);
+      document.documentElement.classList.add(theme);
+      document.documentElement.classList.remove(
+        theme === Theme.Dark ? Theme.Light : Theme.Dark
+      );
     };
     checkTheme();
 
     // 标签主题同步
     window.addEventListener('storage', checkTheme);
-    return window.removeEventListener('storage', checkTheme);
+    return (): void => {
+      window.removeEventListener('storage', checkTheme);
+    };
   }, []);
   return (
     <ThemeContext.Provider
@@ -30,6 +42,10 @@ const ThemeContextProvider: FC<{ children: ReactNode }> = (props) => {
           setTheme(value);
           localStorage.setItem('theme', value);
           document.getElementsByTagName('html')[0].dataset.theme = value;
+          document.documentElement.classList.add(value);
+          document.documentElement.classList.remove(
+            value === Theme.Dark ? Theme.Light : Theme.Dark
+          );
         }
       }}
     >

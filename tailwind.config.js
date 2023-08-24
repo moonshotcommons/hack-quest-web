@@ -1,4 +1,10 @@
 /** @type {import('tailwindcss').Config} */
+const {
+  themeColors,
+  backgroundImage,
+  backgroundColor,
+  borderColor
+} = require('./config/theme/variable.js');
 module.exports = {
   // corePlugins: {
   //   preflight: false
@@ -8,13 +14,13 @@ module.exports = {
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}'
   ],
+  darkMode: ['class'],
   theme: {
     extend: {
       backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))'
+        ...backgroundImage
       },
+
       fontFamily: {
         'next-book-bold': ['NEXT Book Bold'],
         'next-book': ['NEXT Book'],
@@ -26,7 +32,11 @@ module.exports = {
         neuemachina: ['Neue Machina'],
         'futura-bold': ['Futura Bold'],
         'futura-book': ['Futura Book'],
-        'Sofia-Pro-Light-Az': ['Sofia Pro;']
+        'Sofia-Pro-Light-Az': ['Sofia Pro;'],
+        Chaney: ['Chaney'],
+        'Chaney-Extended': ['Chaney-Extended'],
+        MiSans: ['MiSans'],
+        'MiSans-Semibold': ['MiSans-Semibold']
       },
       screens: {
         xs: '480px',
@@ -45,6 +55,15 @@ module.exports = {
 
         '2xl': '1352px'
         // => @media (min-width: 1352px) { ... }
+      },
+      colors: {
+        ...themeColors
+      },
+      backgroundColor: {
+        ...backgroundColor
+      },
+      borderColor: {
+        ...borderColor
       }
     }
   },

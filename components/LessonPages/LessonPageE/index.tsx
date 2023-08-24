@@ -29,20 +29,6 @@ interface LessonPageDProps {
   courseType: CourseType;
 }
 
-const CustomButton: FC<ButtonProps> = (props) => {
-  const { children } = props;
-  return (
-    <Button
-      padding="px-[3rem] py-[1.25rem]"
-      fontStyle="Inter font-normal"
-      textStyle="text-[.875rem] text-white leading-[1.25rem]"
-      {...props}
-    >
-      {children}
-    </Button>
-  );
-};
-
 const LessonPageD: FC<LessonPageDProps> = (props) => {
   const { lesson, courseType } = props;
   const router = useRouter();
@@ -51,7 +37,7 @@ const LessonPageD: FC<LessonPageDProps> = (props) => {
   // const sections = useParseLessonBSection(lesson.content);
   const { onNextClick, completeModalOpen, setCompleteModalOpen } =
     useGotoNextLesson(lesson, courseType, true);
-  const { onBackClick } = useBackToPrevLesson(lesson, courseType);
+  const { isFirst, onBackClick } = useBackToPrevLesson(lesson, courseType);
   useEffect(() => {
     setIsCompleted(false);
     if (lesson) {
@@ -62,7 +48,7 @@ const LessonPageD: FC<LessonPageDProps> = (props) => {
   }, [lesson]);
 
   return (
-    <div className="w-full h-[80vh] relative flex mt-[1.25rem] text-white  bg-[#111] rounded-[2.5rem]">
+    <div className="w-full h-[80vh] relative flex mt-[1.25rem] text-white  bg-lesson-content-global-bg rounded-[2.5rem]">
       <div className="w-[47rem] h-full rounded-[2.5rem] bg-[url('/images/lesson/lesson_type_e_cover.jpg')] bg-no-repeat bg-cover bg-center"></div>
       <div className="flex-1 px-[3rem] py-[2.5rem]">
         <SessionRenderer
@@ -73,11 +59,21 @@ const LessonPageD: FC<LessonPageDProps> = (props) => {
         ></SessionRenderer>
       </div>
       <div className="absolute bottom-10 right-10">
-        {/* <CustomButton onClick={onBackClick}>Back</CustomButton> */}
+        {!isFirst && (
+          <Button
+            onClick={onBackClick}
+            className="bg-lesson-ghost-button-bg text-lesson-ghost-button-text-color border border-lesson-ghost-border-color px-[3rem] py-[1rem]"
+          >
+            Back
+          </Button>
+        )}
         {isCompleted && (
-          <CustomButton className="border" onClick={onNextClick}>
+          <Button
+            onClick={onNextClick}
+            className="bg-lesson-primary-button-bg text-lesson-primary-button-text-color border border-lesson-primary-button-border-color font-next-book px-[3rem] py-[1rem]"
+          >
             Next
-          </CustomButton>
+          </Button>
         )}
       </div>
       <CompleteModal

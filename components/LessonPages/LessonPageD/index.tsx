@@ -28,19 +28,19 @@ interface LessonPageDProps {
   courseType: CourseType;
 }
 
-const CustomButton: FC<ButtonProps> = (props) => {
-  const { children } = props;
-  return (
-    <Button
-      padding="px-[3rem] py-[1.25rem]"
-      fontStyle="Inter font-normal"
-      textStyle="text-[.875rem] text-white leading-[1.25rem]"
-      {...props}
-    >
-      {children}
-    </Button>
-  );
-};
+// const CustomButton: FC<ButtonProps> = (props) => {
+//   const { children } = props;
+//   return (
+//     <Button
+//       padding="px-[3rem] py-[1.25rem]"
+//       fontStyle="Inter font-normal"
+//       textStyle="text-[.875rem] text-white leading-[1.25rem]"
+//       {...props}
+//     >
+//       {children}
+//     </Button>
+//   );
+// };
 
 const LessonPageD: FC<LessonPageDProps> = (props) => {
   const { lesson, courseType } = props;
@@ -59,9 +59,9 @@ const LessonPageD: FC<LessonPageDProps> = (props) => {
   }, [lesson]);
 
   return (
-    <div className="w-full h-[80vh] flex gap-[4.5rem] mt-[1.25rem] text-white px-[3rem] py-[2.5rem]  bg-[#111] rounded-[2.5rem]">
+    <div className="w-full h-[80vh] flex gap-[4.5rem] mt-[1.25rem] text-text-default-color px-[3rem] py-[2.5rem]  bg-lesson-content-global-bg rounded-[2.5rem]">
       <div className="flex-1 scroll-wrap-y">
-        <h1 className="mb-[2rem] font-next-poster-Bold leading-[110%] tracking-[0.03rem] text-[1.5rem] text-[#F2F2F2]">
+        <h1 className="mb-[2rem] font-next-poster-Bold leading-[110%] tracking-[0.03rem] text-[1.5rem] text-text-default-color">
           {lesson.name}
         </h1>
         <NotionRenderer styleType={LessonStyleType.D}>
@@ -86,10 +86,20 @@ const LessonPageD: FC<LessonPageDProps> = (props) => {
           ></img>
         </div>
         <div className="h-[3rem] flex gap-4 self-end">
-          {!isFirst && <CustomButton onClick={onBackClick}>Back</CustomButton>}
-          <CustomButton className="border" onClick={onNextClick}>
+          {!isFirst && (
+            <Button
+              onClick={onBackClick}
+              className="bg-lesson-ghost-button-bg text-lesson-ghost-button-text-color border border-lesson-ghost-border-color px-[3rem] py-[1rem]"
+            >
+              Back
+            </Button>
+          )}
+          <Button
+            onClick={onNextClick}
+            className="bg-lesson-primary-button-bg text-lesson-primary-button-text-color border border-lesson-primary-button-border-color font-next-book px-[3rem] py-[1rem]"
+          >
             Next
-          </CustomButton>
+          </Button>
         </div>
       </div>
       <CompleteModal

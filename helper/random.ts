@@ -1,14 +1,14 @@
 const starAvatars = [
-  '/images/user/star_avatar/maskgroup-0.svg',
-  '/images/user/star_avatar/maskgroup-1.svg',
-  '/images/user/star_avatar/maskgroup-2.svg',
-  '/images/user/star_avatar/maskgroup-3.svg',
-  '/images/user/star_avatar/maskgroup-4.svg',
-  '/images/user/star_avatar/maskgroup-5.svg',
-  '/images/user/star_avatar/maskgroup-6.svg',
-  '/images/user/star_avatar/maskgroup-7.svg',
-  '/images/user/star_avatar/maskgroup-8.svg',
-  '/images/user/star_avatar/maskgroup-9.svg'
+  '/images/user/star_avatar/maskgroup-0.png',
+  '/images/user/star_avatar/maskgroup-1.png',
+  '/images/user/star_avatar/maskgroup-2.png',
+  '/images/user/star_avatar/maskgroup-3.png',
+  '/images/user/star_avatar/maskgroup-4.png',
+  '/images/user/star_avatar/maskgroup-5.png',
+  '/images/user/star_avatar/maskgroup-6.png',
+  '/images/user/star_avatar/maskgroup-7.png',
+  '/images/user/star_avatar/maskgroup-8.png',
+  '/images/user/star_avatar/maskgroup-9.png'
 ];
 
 const peopleAvatars = [

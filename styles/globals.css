@@ -1,4 +1,6 @@
 @import url('./font.css');
+@import url('./variable.css');
+@import url('./antd.css');
 
 @tailwind base;
 @tailwind components;
@@ -53,27 +55,53 @@
   }
 
   .title {
-    @apply font-next-book text-base font-bold text-white;
+    @apply font-next-book text-base font-bold;
   }
 
   .top-line {
-    @apply after:absolute after:h-[1px] after:scale-y-[1] after:w-full after:bg-[#282828] after:-top-1;
+    @apply before:absolute before:h-[1px] before:scale-y-[1] before:w-full before:bg-line-color before:-top-1;
   }
 
   .bottom-line {
-    @apply before:absolute before:h-[1px] before:scale-y-[1] before:w-full before:bg-[#282828] before:-bottom-1;
+    @apply after:absolute after:h-[1px] after:scale-y-[1] after:w-full after:bg-line-color after:-bottom-1;
+  }
+
+  .top-line-default {
+    @apply before:absolute before:h-[1px] before:scale-y-[1] before:w-full before:-top-1;
+  }
+
+  .bottom-line-default {
+    @apply after:absolute after:h-[1px] after:scale-y-[1] after:w-full after:-bottom-1;
   }
 
   .description {
-    @apply text-[#676767] w-[21.5rem] text-xs font-normal not-italic;
+    @apply w-[21.5rem] text-xs font-normal not-italic;
   }
 
   .arrow {
-    @apply flex items-center justify-center p-2 rounded-full bg-[#000] border border-solid border-[#303030] hover:bg-[#303030] cursor-pointer;
+    @apply flex items-center justify-center p-2 rounded-full border border-solid border-course-banner-arrow-border-color hover:bg-course-banner-arrow-hover-bg cursor-pointer;
   }
-
   .primary-button-hover {
     @apply hover:bg-white hover:text-black;
+  }
+
+  .flex-col-center {
+    @apply flex flex-col items-center;
+  }
+  .flex-row-center {
+    @apply flex flex-row items-center;
+  }
+  .flex-center {
+    @apply flex items-center justify-center;
+  }
+  .base-btn {
+    @apply w-[145px] h-[40px] flex items-center justify-center text-[14px] rounded-[12px]  text-center;
+  }
+  .base-btn-bg {
+    @apply base-btn bg-mission-center-gradient-radial;
+  }
+  .base-btn-adapt {
+    @apply h-[40px] flex items-center justify-center text-[14px] rounded-[12px]  text-center;
   }
 }
 
@@ -138,4 +166,40 @@
   -webkit-box-shadow: inset 0 0 5px rgba(95, 95, 95, 0.2);
   border-radius: 16px;
   background: rgba(150, 150, 150, 0.1);
+}
+
+
+body {
+  transition: all ease-in-out 0.5;
+}
+
+/* 15 */
+.btn-hover {
+  /* background: #b621fe; */
+  /* border: none; */
+  z-index: 1;
+}
+.btn-hover:after {
+  position: absolute;
+  content: '';
+  width: 0;
+  height: 100%;
+  top: 0;
+  right: 0;
+  z-index: -1;
+  background-color: #cd9df2;
+  border-radius: 50px;
+  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+  transition: all 0.5s ease;
+}
+.btn-hover:hover {
+  color: #fff;
+}
+.btn-hover:hover:after {
+  left: 0;
+  width: 100%;
+}
+.btn-hover:active {
+  top: 2px;
 }

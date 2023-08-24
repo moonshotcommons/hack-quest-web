@@ -19,27 +19,28 @@ import { useDebounceFn, useKeyPress } from 'ahooks';
 import { setToken } from '@/helper/user-token';
 import { omit } from 'lodash-es';
 
-const CustomButton: FC<ButtonProps> = (props) => {
-  const { children } = props;
-  return (
-    <Button
-      padding="px-[3rem] py-[1.25rem]"
-      fontStyle="Inter font-normal font-next-book"
-      textStyle="text-[.875rem] text-white leading-[1.25rem]"
-      {...props}
-    >
-      {children}
-    </Button>
-  );
-};
+// const CustomButton: FC<ButtonProps> = (props) => {
+//   const { children } = props;
+//   return (
+//     <Button
+//       padding="px-[3rem] py-[1.25rem]"
+//       fontStyle="Inter font-normal font-next-book"
+//       textStyle="text-[.875rem] text-white leading-[1.25rem]"
+//       {...props}
+//     >
+//       {children}
+//     </Button>
+//   );
+// };
 
 interface UserLoginProps {
   // children: ReactNode;
   email: string;
+  onBack: VoidFunction;
 }
 
 const UserLogin: FC<UserLoginProps> = (props) => {
-  const { email } = props;
+  const { email, onBack } = props;
 
   const dispatch = useDispatch();
 
@@ -62,6 +63,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
 
   const { validator } = useValidator(['email', 'password']);
   const router = useRouter();
+  const { redirect_url } = router.query;
   const passwordInputRef = useRef<any>(null);
 
   const { run: onLogin } = useDebounceFn(
@@ -76,7 +78,10 @@ const UserLogin: FC<UserLoginProps> = (props) => {
             }
             dispatch(setUserInfo(omit(res, 'token')));
             setToken(res.token);
-            router.push('/courses');
+            const toPageUrl = redirect_url
+              ? `${redirect_url}?token=${res.token}`
+              : '/courses';
+            router.push(toPageUrl);
           } catch (e: any) {
             if (e.code === 400) {
               // setTimeout(() => {
@@ -84,9 +89,10 @@ const UserLogin: FC<UserLoginProps> = (props) => {
               // }, 1000);
               if (e.status === 'UNACTIVATED') {
                 setTimeout(() => {
-                  router.push('/auth/email-verify');
+                  router.push(`/auth/email-verify?email=${email}`);
                 }, 200);
               }
+              message.error(e?.msg);
               passwordInputRef.current?.setStatus?.('error');
               passwordInputRef.current?.setErrorMessage?.(e.msg);
             }
@@ -109,13 +115,21 @@ const UserLogin: FC<UserLoginProps> = (props) => {
   useKeyPress('enter', onLogin);
 
   return (
-    <div className="px-[6.875rem] py-[11.3125rem] h-full flex flex-col justify-center items-center">
+    <div className="pt-[8rem] w-full h-full flex flex-col justify-center items-center">
       {/* <ThirdPartyLogin></ThirdPartyLogin> */}
-      <div className="flex flex-col gap-[2rem]">
-        <p className="text-[#F8F8F8] text-[1.75rem] font-Sofia-Pro-Light-Az font-semibold leading-[150%]">
-          Welcome
+      <div className="flex flex-col gap-[1.75rem] w-full">
+        <p className="text-text-default-color text-[2rem] font-next-book font-semibold leading-[150%]">
+          Welcome to HACKQUEST
         </p>
-
+        <p className="text-text-default-color text-[1.125rem] font-next-book leading-[125%] tracking-[.0225rem]]">
+          {`Don’t have an account? `}
+          <Link href={'/auth/register'} className="underline">
+            Create a account
+          </Link>
+          <br />
+          It takes less than a minute.
+        </p>
+        {/*
         <Input
           label="Email"
           type="email"
@@ -137,7 +151,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
               email: e.target.value
             });
           }}
-        ></Input>
+        ></Input> */}
         <Input
           ref={passwordInputRef}
           label="Password"
@@ -147,12 +161,12 @@ const UserLogin: FC<UserLoginProps> = (props) => {
           state={formState.password.status as any}
           errorMessage={formState.password.errorMessage}
           delay={500}
-          rules={{
-            type: 'string',
-            required: true,
-            pattern: /^(?=.*\d)(?=.*[a-zA-Z]).{8,16}$/,
-            message: 'Incorrect Password'
-          }}
+          // rules={{
+          //   type: 'string',
+          //   required: true,
+          //   pattern: /^(?=.*\d)(?=.*[a-zA-Z]).{8,16}$/,
+          //   message: 'Incorrect Password'
+          // }}
           onChange={(e) => {
             setFormData({
               ...formData,
@@ -169,26 +183,49 @@ const UserLogin: FC<UserLoginProps> = (props) => {
               });
             }}
           ></Checkbox>
-          <p className="text-[#676767] text-[1rem] font-Sofia-Pro-Light-Az tracking-[-0.011rem]">
+          <p className="text-auth-description-text-color text-[1rem] font-next-book tracking-[-0.011rem]">
             Keep me logged in
           </p>
         </div>
-        <CustomButton onClick={onLogin} block>
-          <div className="flex items-center gap-[1.25rem]">
-            <span className="text-[1.25rem] font-next-book text-white leading-[118.5%]">
-              Login now
-            </span>
-            <span>
-              <RightArrowIcon></RightArrowIcon>
-            </span>
-          </div>
-        </CustomButton>
-
-        <Link href={'/auth/forget-password'} className="w-full text-right">
-          <span className="text-[#676767] font-Sofia-Pro-Light-Az text-[1rem] leading-[150%] tracking-[-0.011rem] text-right">
-            Forgot your password？
+        <Link
+          href={'/auth/forget-password'}
+          className="w-full text-center underline"
+        >
+          <span className="text-auth-description-text-color font-next-book text-[1.125rem] leading-[150%] tracking-[-0.011rem] text-center">
+            Forgot Password?
           </span>
         </Link>
+        <div className="flex flex-col gap-[.625rem]">
+          <Button
+            onClick={onLogin}
+            block
+            icon={<RightArrowIcon></RightArrowIcon>}
+            iconPosition="right"
+            className="
+          font-next-book
+          text-[1.125rem]
+          bg-auth-primary-button-bg hover:bg-auth-primary-button-hover-bg
+          text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
+          border-auth-primary-button-border-color hover:border-auth-primary-button-border-hover-color
+          "
+          >
+            Login now
+          </Button>
+          <Button
+            onClick={onBack}
+            block
+            className="
+          font-next-book
+          text-[1.125rem]
+          border
+          bg-auth-ghost-button-bg hover:bg-auth-ghost-button-hover-bg
+          text-auth-ghost-button-text-color hover:text-auth-ghost-button-text-hover-color
+          border-auth-ghost-button-border-color hover:border-auth-ghost-button-border-hover-color
+          "
+          >
+            Back
+          </Button>
+        </div>
       </div>
     </div>
   );

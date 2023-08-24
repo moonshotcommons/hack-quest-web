@@ -1,34 +1,42 @@
 @font-face {
   font-family: 'Neue Machina Light';
   src: url('../fonts/neuemachina/neuemachina-light.otf');
+  font-display: 'swap';
 }
 @font-face {
   font-family: 'Neue Machina';
   src: url('../fonts/neuemachina/neuemachina-regular.otf');
+  font-display: 'swap';
 }
 @font-face {
   font-family: 'NEXT Poster';
   src: url('../fonts/Next/NEXT-Poster-Regular.otf');
+  font-display: 'swap';
 }
 @font-face {
   font-family: 'NEXT Poster Thin';
   src: url('../fonts/Next/NEXT-Poster-Thin.otf');
+  font-display: 'swap';
 }
 @font-face {
   font-family: 'NEXT Poster Bold';
   src: url('../fonts/Next/NEXT-Poster-Bold.otf');
+  font-display: 'swap';
 }
 @font-face {
   font-family: 'NEXT Book';
   src: url('../fonts/Next/NEXT-Book-Regular.otf');
+  font-display: 'swap';
 }
 @font-face {
   font-family: 'NEXT Book Thin';
   src: url('../fonts/Next/NEXT-Book-Thin.otf');
+  font-display: 'swap';
 }
 @font-face {
   font-family: 'NEXT Book Bold';
   src: url('../fonts/Next/NEXT-Book-Bold.otf');
+  font-display: 'swap';
 }
 
 @font-face {
@@ -36,6 +44,7 @@
   font-family: 'Futura Bold';
   font-style: normal;
   src: url('../fonts/Futura/Futura\ Bold.otf');
+  font-display: 'swap';
 }
 
 @font-face {
@@ -43,6 +52,7 @@
   font-family: 'Futura Book';
   font-style: normal;
   src: url('../fonts/Futura/Futura\ Book.ttf');
+  font-display: 'swap';
 }
 
 @font-face {
@@ -50,4 +60,35 @@
   font-family: 'Sofia Pro';
   font-style: normal;
   src: url('../fonts/Sofia-Pro/Sofia-Pro-Light-Az.otf');
+  font-display: 'swap';
+}
+
+@font-face {
+  font-weight: normal;
+  font-family: 'Chaney';
+  font-style: normal;
+  src: url('../fonts/Chaney/CHANEY-Regular.ttf');
+  font-display: 'swap';
+}
+@font-face {
+  font-weight: normal;
+  font-family: 'Chaney-Extended';
+  font-style: normal;
+  src: url('../fonts/Chaney/CHANEY-Extended.ttf');
+  font-display: 'swap';
+}
+
+@font-face {
+  font-weight: normal;
+  font-family: 'MiSans';
+  font-style: normal;
+  src: url('../fonts/MiSans/MiSans-Regular.ttf');
+  font-display: 'swap';
+}
+@font-face {
+  font-weight: normal;
+  font-family: 'MiSans-Semibold';
+  font-style: normal;
+  src: url('../fonts/MiSans/MiSans-Semibold.ttf');
+  font-display: 'swap';
 }

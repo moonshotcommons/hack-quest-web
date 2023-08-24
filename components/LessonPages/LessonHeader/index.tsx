@@ -51,7 +51,7 @@ const formateDropdownData = (
             type: 'page',
             render(itemData) {
               return currentLessonIndex === pageIndex ? (
-                <div className="px-[0.8rem] border rounded-full w-fit border-[#D9D9D9] -ml-3">
+                <div className="px-[0.8rem] border rounded-full w-fit border-lesson-dropdown-select-border-color py-1 bg-lesson-dropdown-select-bg text-lesson-dropdown-select-text-color -ml-3">
                   {itemData.title}
                 </div>
               ) : (
@@ -102,11 +102,15 @@ const LessonHeader: FC<LessonHeaderProps> = (props) => {
         <div className="flex items-center gap-[.75rem]">
           <Link
             href={`${getCourseLink(courseType)}/${lesson?.courseId}`}
-            className="max-w-fit flex items-center justify-center p-2 rounded-full bg-[#000] border border-solid border-[#303030] hover:bg-[#303030] cursor-pointer"
+            className="max-w-fit flex items-center justify-center p-2 rounded-full bg-lesson-header-back-button-bg
+             border border-solid border-lesson-header-back-button-border-color hover:bg-lesson-header-back-button-hover-bg cursor-pointer
+             text-lesson-header-back-icon-color
+             hover:text-lesson-header-back-icon-hover-color
+             "
           >
-            <LeftArrowIcon></LeftArrowIcon>
+            <LeftArrowIcon color="currentColor"></LeftArrowIcon>
           </Link>
-          <div className="text-[#F2F2F2F2] font-next-poster-Bold text-2xl">
+          <div className="text-text-default-color font-next-poster-Bold text-2xl">
             {lesson?.name}
           </div>
         </div>

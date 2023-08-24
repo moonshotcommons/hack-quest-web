@@ -18,8 +18,8 @@ const IconClose: FC<{ icon?: ReactNode }> = (props) => {
   return icon ? (
     icon
   ) : (
-    <div className="absolute right-[2.25rem] top-[2.5rem] z-[999] cursor-pointer rounded-full p-[0.66rem] border border-solid border-[#5B5B5B]">
-      <CloseIcon width={20} height={19} color={'#F2F2F2'} />
+    <div className="absolute right-[2.25rem] top-[2.5rem] z-[999] cursor-pointer rounded-full p-[0.66rem] border border-solid border-setting-close-icon-border-color text-setting-close-icon-color">
+      <CloseIcon width={20} height={19} color={'currentColor'} />
     </div>
   );
 };
@@ -43,7 +43,7 @@ const Modal: React.FC<ModalProps> = (props) => {
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel className="w-full max-w-[74.0625rem] overflow-hidden text-left align-middle">
-                <div className="relative flex w-full items-center overflow-y-scroll no-scrollbar shadow-2xl">
+                <div className="relative flex  items-center overflow-y-scroll no-scrollbar shadow-2xl">
                   {showCloseIcon ? (
                     <div onClick={onClose}>
                       <IconClose icon={icon}></IconClose>

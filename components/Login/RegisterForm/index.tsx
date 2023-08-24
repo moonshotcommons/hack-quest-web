@@ -15,39 +15,42 @@ import { useRouter } from 'next/router';
 import { FC, useState } from 'react';
 import WhiteListModal from '../WhiteListModal';
 
-const CustomButton: FC<ButtonProps> = (props) => {
-  const { children } = props;
-  return (
-    <Button
-      padding="px-[3rem] py-[1.25rem]"
-      fontStyle="Inter font-normal font-next-book"
-      textStyle="text-[.875rem] text-white leading-[1.25rem]"
-      {...props}
-    >
-      {children}
-    </Button>
-  );
-};
+// const CustomButton: FC<ButtonProps> = (props) => {
+//   const { children } = props;
+//   return (
+//     <Button
+//       padding="px-[3rem] py-[1.25rem]"
+//       fontStyle="Inter font-normal font-next-book"
+//       textStyle="text-[.875rem] text-white leading-[1.25rem]"
+//       {...props}
+//     >
+//       {children}
+//     </Button>
+//   );
+// };
 interface RegisterFormProps {
   // children: ReactNode;
+  email: string;
+  onBack: VoidFunction;
 }
 
 const RegisterForm: FC<RegisterFormProps> = (props) => {
+  const { onBack } = props;
   const [formData, setFormData] = useState<{
     email: string;
     password: string;
     reenterPassword: string;
   }>({
-    email: '',
+    email: props.email,
     password: '',
     reenterPassword: ''
   });
 
   const [formState, setFormState] = useState({
-    email: {
-      status: 'default',
-      errorMessage: ''
-    },
+    // email: {
+    //   status: 'default',
+    //   errorMessage: ''
+    // },
     password: {
       status: 'default',
       errorMessage: ''
@@ -59,7 +62,7 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
   });
 
   const { validator } = useValidator([
-    'registerEmail',
+    // 'registerEmail',
     'password',
     'reenterPassword'
   ]);
@@ -104,14 +107,19 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
   );
 
   return (
-    <div className="w-[48.8125rem] h-full flex justify-center">
+    <div className="w-full pt-[8rem] h-full flex justify-center">
       {/* <ThirdPartyLogin></ThirdPartyLogin> */}
-      <div className="flex flex-col gap-[2rem] mt-[12.25rem]">
-        <p className="text-[#F8F8F8] text-[1.75rem] font-Sofia-Pro-Light-Az font-semibold leading-[150%]">
-          Register
+      <div className="flex w-full flex-col gap-[2rem] mt-[12.25rem]">
+        <p className="text-text-default-color text-[1.75rem] font-Sofia-Pro-Light-Az font-semibold leading-[150%]">
+          Register to begin the Journey.
         </p>
-
-        <Input
+        <p className="text-text-default-color text-[1.125rem] font-next-book leading-[125%] tracking-[.0225rem]]">
+          Already have an account?{' '}
+          <Link href={'/auth/login'} className="underline">
+            Login
+          </Link>
+        </p>
+        {/* <Input
           label="Email"
           type="email"
           placeholder="Email"
@@ -162,13 +170,13 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
               email: e.target.value
             });
           }}
-        ></Input>
+        ></Input> */}
         <Input
           label="Password"
           type="password"
           name="password"
-          placeholder="Password"
-          description="Use 8 or more characters with a mix of letters & numbers"
+          placeholder="8+characters with a mix of letters & numbers"
+          // description="Use 8 or more characters with a mix of letters & numbers"
           state={formState.password.status as any}
           errorMessage={formState.password.errorMessage}
           delay={500}
@@ -188,7 +196,7 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
         <Input
           label="Re-enter password"
           type="password"
-          placeholder="Password"
+          placeholder="Confirm my password"
           name="reenterPassword"
           state={formState.reenterPassword.status as any}
           errorMessage={formState.reenterPassword.errorMessage}
@@ -217,7 +225,7 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
           }}
         ></Input>
         <div className="flex flex-col gap-[.5rem]">
-          <div className="flex gap-[0.5rem] text-[#ACACAC] font-Sofia-Pro-Light-Az font-light leading-[150%] tracking-[-0.011rem]">
+          {/* <div className="flex gap-[0.5rem] text-[#ACACAC] font-Sofia-Pro-Light-Az font-light leading-[150%] tracking-[-0.011rem]">
             <span>See our</span>
             <Link href={'/hackquest/privacy-policy'} target="_blank">
               <span className="text-[#F8F8F8] font-semibold">
@@ -225,7 +233,7 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
               </span>
             </Link>
             <span>for more details</span>
-          </div>
+          </div> */}
           <div className="flex gap-[.75rem]">
             <Checkbox
               onChange={(value) => {
@@ -238,24 +246,52 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
 
             <p
               className={cn(
-                `text-[#676767] text-[1rem] font-Sofia-Pro-Light-Az tracking-[-0.011rem]`,
+                `text-auth-description-text-color text-[1rem] font-next-book tracking-[-0.011rem]`,
                 acceptErrorMessage ? 'text-[#FF4747]' : ''
               )}
             >
-              I have red and accept the Terms and Conditions
+              {`I agree with HackQuest's `}
+              <Link
+                href={'/hackquest/privacy-policy'}
+                target="_blank"
+                className="underline"
+              >
+                Terms of Service, Privacy Policy.
+              </Link>
             </p>
           </div>
         </div>
-        <CustomButton onClick={onRegister} block>
-          <div className="flex items-center gap-[1.25rem]">
-            <span className="text-[1.25rem] font-next-book text-white leading-[118.5%]">
-              Create Account
-            </span>
-            <span>
-              <RightArrowIcon></RightArrowIcon>
-            </span>
-          </div>
-        </CustomButton>
+        <div className="flex flex-col gap-[.625rem]">
+          <Button
+            onClick={onRegister}
+            block
+            icon={<RightArrowIcon></RightArrowIcon>}
+            iconPosition="right"
+            className="
+          font-next-book
+          text-[1.125rem]
+          bg-auth-primary-button-bg hover:bg-auth-primary-button-hover-bg
+          text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
+          border-auth-primary-button-border-color hover:border-auth-primary-button-border-hover-color
+          "
+          >
+            Create my account
+          </Button>
+          <Button
+            onClick={onBack}
+            block
+            className="
+          font-next-book
+          text-[1.125rem]
+          border
+          bg-auth-ghost-button-bg hover:bg-auth-ghost-button-hover-bg
+          text-auth-ghost-button-text-color hover:text-auth-ghost-button-text-hover-color
+          border-auth-ghost-button-border-color hover:border-auth-ghost-button-border-hover-color
+          "
+          >
+            Back
+          </Button>
+        </div>
       </div>
       <WhiteListModal
         open={showWhiteListModal}

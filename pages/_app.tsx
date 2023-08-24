@@ -1,5 +1,6 @@
-import BaseLayout, { LayoutProps } from '@/components/Layout';
+import Layout, { LayoutProps } from '@/components/Layout';
 import ThemeContextProvider from '@/store/context/theme';
+import { Analytics } from '@vercel/analytics/react';
 import '@/styles/globals.css';
 import '@/styles/main.scss';
 import '@/styles/Lesson.scss';
@@ -12,67 +13,7 @@ import App from 'next/app';
 
 import { Provider } from 'react-redux';
 import wrapper from '@/store/redux';
-import UnitLayout from '@/components/Layout/UnitLayout';
-import { ReactNode, useEffect } from 'react';
-import HomeLayout from '@/components/Layout/HomeLayout';
-import LoginLayout from '@/components/Layout/LoginLayout';
-import { useGetUserInfo, useLoadUserInfo } from '@/hooks/useGetUserInfo';
-import useNavAuth from '@/hooks/useNavPage/userNavAuth';
-
-const Layout = (props: {
-  pathname: string;
-  children: ReactNode;
-  navbarData: any;
-}) => {
-  const { pathname, children, navbarData } = props;
-  const { waitingLoadUserInfo } = useLoadUserInfo();
-  useNavAuth(waitingLoadUserInfo);
-  const userInfo = useGetUserInfo();
-  const regex = /\/[^/]+\/\[courseId\]\/learn\/\[lessonId\]/;
-
-  switch (true) {
-    case regex.test(pathname):
-      return <UnitLayout>{children}</UnitLayout>;
-
-    case [
-      '/auth/register',
-      '/auth/login',
-      '/users/email-confirmed',
-      '/auth/email-verify',
-      '/auth/forget-password',
-      '/auth/update-password',
-      '/auth/email-fail',
-      '/auth/email-success'
-    ].includes(pathname):
-      return <LoginLayout>{children}</LoginLayout>;
-    case pathname === '/':
-    // return <HomeLayout>{children}</HomeLayout>;
-    default:
-      navbarData.navList = [
-        {
-          name: 'All Courses',
-          path: '/courses'
-        }
-      ];
-
-      if (userInfo) {
-        navbarData.navList = [
-          {
-            name: 'All Courses',
-            path: '/courses'
-          },
-          {
-            name: 'Learning Dashboard',
-            path: '/dashboard'
-          }
-        ];
-      }
-
-      return <BaseLayout navbarData={navbarData}>{children}</BaseLayout>;
-  }
-};
-
-function MyApp(appProps: AppProps & LayoutProps) {
+function MyApp(appProps: AppProps & Omit<LayoutProps, 'pathname'>) {
   const { Component, router, navbarData, ...rest } = appProps;
   const { store, props } = wrapper.useWrappedStore(rest);
   const { pathname } = router;
@@ -93,6 +34,7 @@ function MyApp(appProps: AppProps & LayoutProps) {
         >
           <Component {...props.pageProps} />
         </Layout>
+        {/* <Analytics /> */}
       </ThemeContextProvider>
     </Provider>
   );
@@ -100,67 +42,13 @@ function MyApp(appProps: AppProps & LayoutProps) {
 
 MyApp.getInitialProps = async (
   context: AppContext
-): Promise<{} & Omit<LayoutProps, 'children'>> => {
+): Promise<{} & Omit<LayoutProps, 'children' | 'pathname'>> => {
   const pageProps = await App.getInitialProps(context);
   return {
     ...pageProps,
     navbarData: {
-      navList: [
-        // {
-        //   name: 'Mission Center',
-        //   path: '/courses',
-        // },
-        // {
-        //   name: 'Ranking',
-        //   path: '/courses',
-        // },
-      ]
+      navList: []
     }
-    // footerData: {
-    //   title: 'Demo',
-    //   linkList: [
-    //     {
-    //       title: '技术栈',
-    //       list: [
-    //         {
-    //           label: 'react',
-    //         },
-    //         {
-    //           label: 'typescript',
-    //         },
-    //         {
-    //           label: 'ssr',
-    //         },
-    //         {
-    //           label: 'nodejs',
-    //         },
-    //       ],
-    //     },
-    //     {
-    //       title: '了解更多',
-    //       list: [
-    //         {
-    //           label: '掘金',
-    //           link: 'https://juejin.cn/user/2714061017452557',
-    //         },
-    //         {
-    //           label: '知乎',
-    //           link: 'https://www.zhihu.com/people/zmAboutFront',
-    //         },
-    //         {
-    //           label: 'csdn',
-    //         },
-    //       ],
-    //     },
-    //     {
-    //       title: '联系我',
-    //       list: [{ label: '微信' }, { label: 'QQ' }],
-    //     },
-    //   ],
-    //   copyRight: 'Copyright © 2022 xxx. 保留所有权利',
-    //   siteNumber: '粤ICP备XXXXXXXX号-X',
-    //   publicNumber: '粤公网安备 xxxxxxxxxxxxxx号',
-    // },
   };
 };
 

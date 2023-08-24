@@ -11,8 +11,8 @@ import {
 import { LessonContentType } from '@/constants/lesson';
 
 export enum CourseApiType {
-  Course_List = '/api/courses',
-  LessonDetail = '/api/pages'
+  Course_List = '/courses',
+  LessonDetail = '/pages'
 }
 
 class CourseApi {
@@ -64,7 +64,7 @@ class CourseApi {
   /** 获取单个lesson的内容 */
   getLessonContent(lessonId: string) {
     const url = `${CourseApiType.LessonDetail}/${lessonId}`;
-    return this.service.get<any>(url);
+    return this.service.get<CourseLessonType>(url);
   }
 
   /** 获取单个lesson的内容 */
@@ -83,6 +83,13 @@ class CourseApi {
   completeLesson(lessonId: string) {
     const url = `${CourseApiType.LessonDetail}/${lessonId}/complete`;
     return this.service.get(url);
+  }
+
+  markQuestState(lessonId: string, isWin: boolean) {
+    const url = `${CourseApiType.LessonDetail}/${lessonId}/quest`;
+    return this.service.post(url, {
+      data: { isWin }
+    });
   }
 }
 

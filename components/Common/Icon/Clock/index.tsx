@@ -6,7 +6,7 @@ interface ClockProps {
 }
 
 const ClockIcon: React.FC<ClockProps> = (props) => {
-  const { color = '#F2F2F2', size = 14 } = props;
+  const { color = 'currentColor', size = 14 } = props;
   return (
     <>
       <svg

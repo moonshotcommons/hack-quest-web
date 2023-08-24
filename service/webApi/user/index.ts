@@ -8,14 +8,14 @@ import {
 import { transformQueryString } from '@/helper/formate';
 
 export enum UserApiType {
-  CheckEmail = '/api/users/verify',
-  UserRegister = '/api/users',
-  UserLogin = '/api/users/signin',
-  TokenVerify = '/api/users/token',
-  UpdatePassword = '/api/users/update-password',
-  ForgetPassword = '/api/users/forgot-password',
-  UploadAvatar = '/api/users/upload-avatar',
-  UserInfo = '/api/users/info '
+  CheckEmail = '/users/verify',
+  UserRegister = '/users',
+  UserLogin = '/users/signin',
+  TokenVerify = '/users/token',
+  UpdatePassword = '/users/update-password',
+  ForgetPassword = '/users/forgot-password',
+  UploadAvatar = '/users/upload-avatar',
+  UserInfo = '/users/info '
 }
 
 class UserApi {

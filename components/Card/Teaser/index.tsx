@@ -26,21 +26,21 @@ const TeaserCard: React.FC<TeaserCardProps> = (props) => {
         </span>
       </div>
       <div
-        className={`w-full h-full bg-[url('/images/card/Teaser/bg.svg')] scale-[1.01] absolute top-0 left-0 hover:-top-1 hover:left-1 hover:transition-all duration-700`}
+        className={`w-full h-full bg-course-teaser-card-bg scale-[1.01] absolute top-0 left-0 hover:-top-1 hover:left-1 hover:transition-all duration-700`}
       >
         <div className="pl-[5.81rem] pt-[4.38rem]">
           {/* <div className="w-[2.875rem] h-1 rounded-xl bg-gradient-to-t from-[#EB3E1C] to-[#E0AD38]"></div> */}
 
           <Typography.Paragraph
-            className="text-base font-bold text-white w-[13.25rem]"
+            className="text-base text-course-card-title-text-color font-bold text-text-default-color w-[13.25rem]"
             ellipsis={{ rows: 1 }}
           >
             {name}
           </Typography.Paragraph>
 
-          <div className="w-[16.4375rem] text-[#F2F2F2] font-normal text-sm mt-[1.5rem]">
+          <div className="w-[16.4375rem] font-normal text-sm mt-[1.5rem]">
             <Typography.Paragraph
-              className="text-[#F2F2F2] font-normal text-sm"
+              className="text-course-card-description-text-color font-normal text-sm"
               ellipsis={{
                 rows: 3
               }}

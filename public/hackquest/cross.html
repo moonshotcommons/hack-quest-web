@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+  <script
+    src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js"
+    type="application/javascript"
+  ></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Axelar</title>
+  </head>
+  <body>
+    <h2 style="text-align: center; margin-top: 150px">
+      Cross-chain Token Interaction
+    </h2>
+    <div style="width: 100%; height: 100%">
+      <div style="margin-left: 780px; margin-top: 150px">
+        <div style="margin-top: 20px">
+          <a href="https://faucet.fantom.network/" target="_blank"
+            >Claim some testnet tokens</a
+          >
+        </div>
+        <div style="margin-top: 20px">
+          <button id="isConnect" onclick="connect()">Connect</button>
+          <span id="wallet">please connect your wallet</span
+          ><span style="margin-left: 10px" id="network"></span>
+          <input type="hidden" id="walletAddress" value="" />
+        </div>
+        <div style="margin-top: 20px">
+          <button onclick="change_network(4002)">Change to Fantom</button>
+          <button onclick="change_network(5)">Change to Goerli</button>
+        </div>
+        <div style="margin-top: 20px">
+          <button onclick="giveme()">Give Me</button>
+          <input
+            type="text"
+            id="value"
+            style="width: 250px"
+            placeholder="Mint some tokens for test"
+          />
+        </div>
+        <!-- <p>Give me some tokens for testing</p> -->
+        <div style="margin-top: 20px">
+          <button onclick="sourceChainBalance()">Refresh</button>
+          <span
+            >Your balance on source chain : <span id="balance">0</span></span
+          >
+        </div>
+        <div style="margin-top: 20px">
+          <button onclick="transferRemote()">Cross tokens</button>
+          <input type="text" id="amount" placeholder="amount" value="" /> and
+          <input
+            type="text"
+            style="width: 30px"
+            id="gas"
+            placeholder="gas"
+            value=""
+          />
+          (ether) Gas fees for Axelar Services (Suggest 4 here).
+        </div>
+        <div style="margin-top: 20px">
+          <button onclick="destinationChainBalance()">Refresh</button>
+          <span
+            >Your balance on destination chain :
+            <span id="balance1">0</span></span
+          >
+        </div>
+        <div style="margin-top: 50px">
+          <a href="https://testnet.axelarscan.io/gmp/search" target="_blank"
+            >AxelarScan testnet
+          </a>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script type="application/javascript">
+    const abi = [
+      {
+        inputs: [],
+        name: 'acceptOwnership',
+        outputs: [],
+        stateMutability: 'nonpayable',
+        type: 'function'
+      },
+      {
+        inputs: [
+          {
+            internalType: 'address',
+            name: 'gateway_',
+            type: 'address'
+          },
+          {
+            internalType: 'address',
+            name: 'gasReceiver_',
+            type: 'address'
+          },
+          {
+            internalType: 'uint8',
+            name: 'decimals_',
+            type: 'uint8'
+          }
+        ],
+        stateMutability: 'nonpayable',
+        type: 'constructor'
+      },
+      {
+        inputs: [],
+        name: 'AlreadyInitialized',
+        type: 'error'
+      },
+      {
+        inputs: [
+          {
+            internalType: 'address',
+            name: 'spender',
+            type: 'address'
+          },
+          {
+            internalType: 'uint256',
+            name: 'amount',
+            type: 'uint256'
+          }
+        ],
+        name: 'approve',
+        outputs: [
+          {
+            internalType: 'bool',
+            name: '',
+            type: 'bool'
+          }
+        ],
+        stateMutability: 'nonpayable',
+        type: 'function'
+      },
+      {
+        inputs: [
+          {
+            internalType: 'address',
+            name: 'spender',
+            type: 'address'
+          },
+          {
+            internalType: 'uint256',
+            name: 'subtractedValue',
+            type: 'uint256'
+          }
+        ],
+        name: 'decreaseAllowance',
+        outputs: [
+          {
+            internalType: 'bool',
+            name: '',
+            type: 'bool'
+          }
+        ],
+        stateMutability: 'nonpayable',
+        type: 'function'
+      },
+      {
+        inputs: [
+          {
+            internalType: 'bytes32',
+            name: 'commandId',
+            type: 'bytes32'
+          },
+          {
+            internalType: 'string',
+            name: 'sourceChain',
+            type: 'string'
+          },
+          {
+            internalType: 'string',
+            name: 'sourceAddress',
+            type: 'string'
+          },
+          {
+            internalType: 'bytes',
+            name: 'payload',
+            type: 'bytes'
+          }
+        ],
+        name: 'execute',
+        outputs: [],
+        stateMutability: 'nonpayable',
+        type: 'function'
+      },
+      {
+        inputs: [
+          {
+            internalType: 'bytes32',
+            name: 'commandId',
+            type: 'bytes32'
+          },
+          {
+            internalType: 'string',
+            name: 'sourceChain',
+            type: 'string'
+          },
+          {
+            internalType: 'string',
+            name: 'sourceAddress',
+            type: 'string'
+          },
+          {
+            internalType: 'bytes',
+            name: 'payload',
+            type: 'bytes'
+          },
+          {
+            internalType: 'string',
+            name: 'tokenSymbol',
+            type: 'string'
+          },
+          {
+            internalType: 'uint256',
+            name: 'amount',
+            type: 'uint256'
+          }
+        ],
+        name: 'executeWithToken',
+        outputs: [],
+        stateMutability: 'nonpayable',
+        type: 'function'
+      },
+      {
+        inputs: [
+          {
+            internalType: 'uint256',
+            name: 'amount',
+            type: 'uint256'
+          }
+        ],
+        name: 'giveMe',
+        outputs: [],
+        stateMutability: 'nonpayable',
+        type: 'function'
+      },
+      {
+        inputs: [
+          {
+            internalType: 'address',
+            name: 'spender',
+            type: 'address'
+          },
+          {
+            internalType: 'uint256',
+            name: 'addedValue',
+            type: 'uint256'
+          }
+        ],
+        name: 'increaseAllowance',
+        outputs: [
+          {
+            internalType: 'bool',
+            name: '',
+            type: 'bool'
+          }
+        ],
+        stateMutability: 'nonpayable',
+        type: 'function'
+      },
+      {
+        inputs: [],
+        name: 'InvalidAccount',
+        type: 'error'
+      },
+      {
+        inputs: [],
+        name: 'InvalidAddress',
+        type: 'error'
+      },
+      {
+        inputs: [],
+        name: 'InvalidAddressString',
+        type: 'error'
+      },
+      {
+        inputs: [],
+        name: 'InvalidCodeHash',
+        type: 'error'
+      },
+      {
+        inputs: [],
+        name: 'InvalidImplementation',
+        type: 'error'
+      },
+      {
+        inputs: [],
+        name: 'InvalidOwner',
+        type: 'error'
+      },
+      {
+        inputs: [],
+        name: 'NotApprovedByGateway',
+        type: 'error'
+      },
+      {
+        inputs: [],
+        name: 'NotOwner',
+        type: 'error'
+      },
+      {
+        inputs: [],
+        name: 'NotProxy',
+        type: 'error'
+      },
+      {
+        inputs: [
+          {
+            internalType: 'bytes',
+            name: 'data',
+            type: 'bytes'
+          }
+        ],
+        name: 'setup',
+        outputs: [],
+        stateMutability: 'nonpayable',
+        type: 'function'
+      },
+      {
+        inputs: [],
+        name: 'SetupFailed',
+        type: 'error'
+      },
+      {
+        anonymous: false,
+        inputs: [
+          {
+            indexed: true,
+            internalType: 'address',
+            name: 'owner',
+            type: 'address'
+          },
+          {
+            indexed: true,
+            internalType: 'address',
+            name: 'spender',
+            type: 'address'
+          },
+          {
+            indexed: false,
+            internalType: 'uint256',
+            name: 'value',
+            type: 'uint256'
+          }
+        ],
+        name: 'Approval',
+        type: 'event'
+      },
+      {
+        anonymous: false,
+        inputs: [
+          {
+            indexed: false,
+            internalType: 'string',
+            name: 'sourceChain',
+            type: 'string'
+          },
+          {
+            indexed: false,
+            internalType: 'string',
+            name: 'sourceAddress',
+            type: 'string'
+          }
+        ],
+        name: 'FalseSender',
+        type: 'event'
+      },
+      {
+        anonymous: false,
+        inputs: [
+          {
+            indexed: true,
+            internalType: 'address',
+            name: 'newOwner',
+            type: 'address'
+          }
+        ],
+        name: 'OwnershipTransferStarted',
+        type: 'event'
+      },
+      {
+        anonymous: false,
+        inputs: [
+          {
+            indexed: true,
+            internalType: 'address',
+            name: 'newOwner',
+            type: 'address'
+          }
+        ],
+        name: 'OwnershipTransferred',
+        type: 'event'
+      },
+      {
+        inputs: [
+          {
+            internalType: 'address',
+            name: 'newOwner',
+            type: 'address'
+          }
+        ],
+        name: 'proposeOwnership',
+        outputs: [],
+        stateMutability: 'nonpayable',
+        type: 'function'
+      },
+      {
+        inputs: [
+          {
+            internalType: 'address',
+            name: 'recipient',
+            type: 'address'
+          },
+          {
+            internalType: 'uint256',
+            name: 'amount',
+            type: 'uint256'
+          }
+        ],
+        name: 'transfer',
+        outputs: [
+          {
+            internalType: 'bool',
+            name: '',
+            type: 'bool'
+          }
+        ],
+        stateMutability: 'nonpayable',
+        type: 'function'
+      },
+      {
+        anonymous: false,
+        inputs: [
+          {
+            indexed: true,
+            internalType: 'address',
+            name: 'from',
+            type: 'address'
+          },
+          {
+            indexed: true,
+            internalType: 'address',
+            name: 'to',
+            type: 'address'
+          },
+          {
+            indexed: false,
+            internalType: 'uint256',
+            name: 'value',
+            type: 'uint256'
+          }
+        ],
+        name: 'Transfer',
+        type: 'event'
+      },
+      {
+        inputs: [
+          {
+            internalType: 'address',
+            name: 'sender',
+            type: 'address'
+          },
+          {
+            internalType: 'address',
+            name: 'recipient',
+            type: 'address'
+          },
+          {
+            internalType: 'uint256',
+            name: 'amount',
+            type: 'uint256'
+          }
+        ],
+        name: 'transferFrom',
+        outputs: [
+          {
+            internalType: 'bool',
+            name: '',
+            type: 'bool'
+          }
+        ],
+        stateMutability: 'nonpayable',
+        type: 'function'
+      },
+      {
+        inputs: [
+          {
+            internalType: 'address',
+            name: 'newOwner',
+            type: 'address'
+          }
+        ],
+        name: 'transferOwnership',
+        outputs: [],
+        stateMutability: 'nonpayable',
+        type: 'function'
+      },
+      {
+        inputs: [
+          {
+            internalType: 'string',
+            name: 'destinationChain',
+            type: 'string'
+          },
+          {
+            internalType: 'address',
+            name: 'destinationAddress',
+            type: 'address'
+          },
+          {
+            internalType: 'uint256',
+            name: 'amount',
+            type: 'uint256'
+          }
+        ],
+        name: 'transferRemote',
+        outputs: [],
+        stateMutability: 'payable',
+        type: 'function'
+      },
+      {
+        inputs: [
+          {
+            internalType: 'address',
+            name: 'newImplementation',
+            type: 'address'
+          },
+          {
+            internalType: 'bytes32',
+            name: 'newImplementationCodeHash',
+            type: 'bytes32'
+          },
+          {
+            internalType: 'bytes',
+            name: 'params',
+            type: 'bytes'
+          }
+        ],
+        name: 'upgrade',
+        outputs: [],
+        stateMutability: 'nonpayable',
+        type: 'function'
+      },
+      {
+        anonymous: false,
+        inputs: [
+          {
+            indexed: true,
+            internalType: 'address',
+            name: 'newImplementation',
+            type: 'address'
+          }
+        ],
+        name: 'Upgraded',
+        type: 'event'
+      },
+      {
+        inputs: [
+          {
+            internalType: 'address',
+            name: '',
+            type: 'address'
+          },
+          {
+            internalType: 'address',
+            name: '',
+            type: 'address'
+          }
+        ],
+        name: 'allowance',
+        outputs: [
+          {
+            internalType: 'uint256',
+            name: '',
+            type: 'uint256'
+          }
+        ],
+        stateMutability: 'view',
+        type: 'function'
+      },
+      {
+        inputs: [
+          {
+            internalType: 'address',
+            name: '',
+            type: 'address'
+          }
+        ],
+        name: 'balanceOf',
+        outputs: [
+          {
+            internalType: 'uint256',
+            name: '',
+            type: 'uint256'
+          }
+        ],
+        stateMutability: 'view',
+        type: 'function'
+      },
+      {
+        inputs: [],
+        name: 'contractId',
+        outputs: [
+          {
+            internalType: 'bytes32',
+            name: '',
+            type: 'bytes32'
+          }
+        ],
+        stateMutability: 'pure',
+        type: 'function'
+      },
+      {
+        inputs: [],
+        name: 'decimals',
+        outputs: [
+          {
+            internalType: 'uint8',
+            name: '',
+            type: 'uint8'
+          }
+        ],
+        stateMutability: 'view',
+        type: 'function'
+      },
+      {
+        inputs: [],
+        name: 'gasService',
+        outputs: [
+          {
+            internalType: 'contract IAxelarGasService',
+            name: '',
+            type: 'address'
+          }
+        ],
+        stateMutability: 'view',
+        type: 'function'
+      },
+      {
+        inputs: [],
+        name: 'gateway',
+        outputs: [
+          {
+            internalType: 'contract IAxelarGateway',
+            name: '',
+            type: 'address'
+          }
+        ],
+        stateMutability: 'view',
+        type: 'function'
+      },
+      {
+        inputs: [],
+        name: 'implementation',
+        outputs: [
+          {
+            internalType: 'address',
+            name: 'implementation_',
+            type: 'address'
+          }
+        ],
+        stateMutability: 'view',
+        type: 'function'
+      },
+      {
+        inputs: [],
+        name: 'name',
+        outputs: [
+          {
+            internalType: 'string',
+            name: '',
+            type: 'string'
+          }
+        ],
+        stateMutability: 'view',
+        type: 'function'
+      },
+      {
+        inputs: [],
+        name: 'owner',
+        outputs: [
+          {
+            internalType: 'address',
+            name: 'owner_',
+            type: 'address'
+          }
+        ],
+        stateMutability: 'view',
+        type: 'function'
+      },
+      {
+        inputs: [],
+        name: 'pendingOwner',
+        outputs: [
+          {
+            internalType: 'address',
+            name: 'owner_',
+            type: 'address'
+          }
+        ],
+        stateMutability: 'view',
+        type: 'function'
+      },
+      {
+        inputs: [],
+        name: 'symbol',
+        outputs: [
+          {
+            internalType: 'string',
+            name: '',
+            type: 'string'
+          }
+        ],
+        stateMutability: 'view',
+        type: 'function'
+      },
+      {
+        inputs: [],
+        name: 'totalSupply',
+        outputs: [
+          {
+            internalType: 'uint256',
+            name: '',
+            type: 'uint256'
+          }
+        ],
+        stateMutability: 'view',
+        type: 'function'
+      }
+    ];
+    const sourceChainContractAddr =
+      '0x213a125D68CA661071dc950c5e6f0e083f1EFA97';
+    const destinationChainContractAddr =
+      '0xA7d8531Cd7953Af6C223395eF203F8304BcDdf98';
+
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+
+    async function giveme() {
+      let provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      let network = await provider.getNetwork();
+      if (network.chainId == '4002') {
+        const sourceChainContract = new ethers.Contract(
+          sourceChainContractAddr,
+          abi,
+          signer
+        );
+        var value = document.getElementById('value').value;
+        await sourceChainContract.giveMe(value);
+      } else {
+        alert('Please change to Fantom testnet');
+      }
+    }
+
+    async function sourceChainBalance() {
+      let provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      let network = await provider.getNetwork();
+      if (network.chainId == '4002') {
+        const sourceChainContract = new ethers.Contract(
+          sourceChainContractAddr,
+          abi,
+          signer
+        );
+        const address = document.getElementById('walletAddress').value;
+        console.log(address);
+        try {
+          const balance = await sourceChainContract.balanceOf(address);
+          document.getElementById('balance').innerText = balance;
+        } catch (error) {
+          console.log(error);
+          alert('Please change to Fantom');
+        }
+      } else {
+        alert('Please change to Fantom network');
+      }
+    }
+
+    async function destinationChainBalance() {
+      let provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      let network = await provider.getNetwork();
+      if (network.chainId == '5') {
+        const destinationChainContract = new ethers.Contract(
+          destinationChainContractAddr,
+          abi,
+          signer
+        );
+        const address = document.getElementById('walletAddress').value;
+        console.log(address);
+        try {
+          const balance = await destinationChainContract.balanceOf(address);
+          document.getElementById('balance1').innerText = balance;
+        } catch (error) {
+          console.log(error);
+          alert('Please change to Goerli');
+        }
+      } else {
+        alert('Please change to Goerli network');
+      }
+    }
+
+    async function transferRemote() {
+      let provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      let network = await provider.getNetwork();
+      if (network.chainId == '4002') {
+        const sourceChainContract = new ethers.Contract(
+          sourceChainContractAddr,
+          abi,
+          signer
+        );
+        const amount = document.getElementById('amount').value;
+        const _gas = document.getElementById('gas').value;
+        const gas = ethers.utils.parseUnits(`${_gas}`, 'ether');
+        console.log(amount);
+        try {
+          const tx = await sourceChainContract.transferRemote(
+            'ethereum-2',
+            destinationChainContractAddr,
+            amount,
+            { value: gas }
+          );
+          await tx.wait();
+        } catch (error) {
+          console.log(error);
+          alert(error.data.message);
+        }
+      } else {
+        alert('Please change to Fantom testnet');
+      }
+    }
+
+    async function connect() {
+      if (window.ethereum) {
+        let provider = new ethers.providers.Web3Provider(window.ethereum);
+        const accounts = await provider.send('eth_requestAccounts', []);
+        let network = await provider.getNetwork();
+        console.log(network);
+        let networkName = ' ';
+        if (network.chainId == '4002') {
+          networkName = 'Fantom';
+        } else if (network.chainId == '5') {
+          networkName = 'Goerli';
+        } else networkName = network.name;
+        document.getElementById('isConnect').innerText = 'Connected';
+        document.getElementById('wallet').innerText = getSubAddr(accounts[0]);
+        document.getElementById('walletAddress').value = accounts[0];
+        document.getElementById('network').innerText = networkName;
+      }
+    }
+
+    function getSubAddr(str) {
+      var subStr1 = str.slice(0, 5);
+      var subStr2 = str.slice(str.length - 4, str.length);
+      var subStr = subStr1 + '...' + subStr2;
+      return subStr;
+    }
+
+    async function change_network(chainId) {
+      if (window.ethereum) {
+        let provider = new ethers.providers.Web3Provider(window.ethereum);
+        try {
+          await window.ethereum.request({
+            method: 'wallet_switchEthereumChain',
+            params: [{ chainId: `0x${chainId.toString(16)}` }] // 例如，对于Goerli测试网络，chainId是5
+          });
+          connect();
+        } catch (switchError) {
+          if (switchError.code === 4902) {
+            try {
+              await window.ethereum.request({
+                method: 'wallet_addEthereumChain',
+                params: [
+                  {
+                    chainId: `0x${chainId.toString(16)}`
+                    // 添加其他必要的参数，如rpcUrl, symbol, blockExplorerUrls等
+                  }
+                ]
+              });
+            } catch (addError) {
+              console.error(addError);
+            }
+          }
+          console.error(switchError);
+        }
+      }
+    }
+    window.ethereum.on('accountsChanged', (accounts) => {
+      connect();
+      console.log('Accounts changed:', accounts);
+      // Handle the new accounts, or do whatever you want
+    });
+    window.ethereum.on('chainChanged', (chainId) => {
+      connect();
+      console.log('Network changed to:', chainId);
+      // Handle the new network, or do whatever you want
+    });
+  </script>
+</html>
