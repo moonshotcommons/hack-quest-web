@@ -20,6 +20,8 @@ const LessonPage: FC<LessonPageProps> = (props) => {
     Omit<CourseLessonType, 'content'> & { content: LessonContentType }
   >();
 
+  const [nextLesson, setNextLesson] = useState(null);
+
   useEffect(() => {
     if (lesson) {
       fetch('/api/pages/temp-lesson')
@@ -33,14 +35,19 @@ const LessonPage: FC<LessonPageProps> = (props) => {
   if (!lesson || !tempLesson) return null;
 
   return (
-    <div className="relative w-full h-full">
+    <div className="relative w-full h-[calc(100vh-80px)]">
       <Split
         className="flex-1 w-full h-full flex justify-between [&>div]:w-[50%] [&>.gutter]:border-x [&>.gutter]:cursor-col-resize"
         minSize={80}
         cursor="col-resize"
       >
         <LessonContent lesson={tempLesson!}></LessonContent>
-        <Playground lesson={tempLesson!}></Playground>
+        <Playground
+          lesson={tempLesson!}
+          onCompleted={() => {
+            // 请求下一个lesson
+          }}
+        ></Playground>
       </Split>
       <LessonFooter lesson={lesson} />
     </div>

@@ -13,8 +13,8 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
   const [expand, setExpand] = useState(true);
   return (
     <div
-      className={`rounded-[.625rem] py-[12px] px-[20px] bg-[#E6E6E6] flex w-full flex-col ${
-        expand ? 'h-full' : ''
+      className={`rounded-[.625rem] py-[12px] px-[20px] bg-[#E6E6E6] flex w-full flex-col h-fit ${
+        expand ? 'min-h-fit flex-1' : ''
       }`}
     >
       <div className="flex justify-between items-center">
@@ -30,7 +30,7 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
         </span>
       </div>
       {expand && (
-        <div>
+        <div className="relative">
           {component.children.map((child) => {
             return (
               <ComponentRenderer

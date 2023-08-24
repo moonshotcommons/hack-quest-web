@@ -67,7 +67,7 @@ const DropAnswer: FC<DropAnswerProps> = (props) => {
   }, [answers]);
 
   return (
-    <div ref={drop} className="inline-block">
+    <div ref={drop} className="inline-block relative">
       {(!currentAnswer?.option || showAnswer) && (
         <motion.span
           animate={{
@@ -87,12 +87,12 @@ const DropAnswer: FC<DropAnswerProps> = (props) => {
         </motion.span>
       )}
       {!!currentAnswer?.option && !showAnswer && (
-        <div
-          className="inline-flex relative gap-[28px] pl-[8px] py-[7px] bg-[#FFF4CE] cursor-move border-[0.5px] border-[#8C8C8C] rounded-[3px] text-[#000] font-next-book text-[14px] leading-[125%] tracking-[0.28px]"
+        <span
+          className="inline-flex relative gap-[28px] pl-[8px] py-[7px] overflow-hidden top-2 bg-[#FFF4CE] cursor-move border-[0.5px] border-[#8C8C8C] rounded-[3px] text-[#000] font-next-book text-[14px] leading-[125%] tracking-[0.28px]"
           onMouseEnter={() => setClearVisible(true)}
           onMouseLeave={() => setClearVisible(false)}
         >
-          <div className="inline-flex gap-[28px] items-center">
+          <span className="inline-flex gap-[28px] items-center relative">
             <span>
               <MdOutlineDragHandle
                 size={28}
@@ -106,10 +106,10 @@ const DropAnswer: FC<DropAnswerProps> = (props) => {
                 }
               )}
             </span>
-          </div>
+          </span>
 
           {clearVisible && (
-            <div
+            <span
               className={`absolute w-full h-full top-0 left-0 bg-white flex items-center justify-center bg-opacity-90`}
               onClick={() => {
                 const curAnswer = { ...currentAnswer, option: null };
@@ -126,9 +126,9 @@ const DropAnswer: FC<DropAnswerProps> = (props) => {
               }}
             >
               <MdCancel color="#3E3E3E" size={20} />
-            </div>
+            </span>
           )}
-        </div>
+        </span>
       )}
     </div>
   );
