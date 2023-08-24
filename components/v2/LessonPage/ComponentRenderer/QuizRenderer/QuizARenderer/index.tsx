@@ -12,6 +12,7 @@ import { useParseQuizA, AnswerState } from '@/hooks/useParseQuizA';
 import webApi from '@/service';
 import { PlaygroundContext } from '@/components/v2/LessonPage/Playground/type';
 import { QuizContext } from '..';
+import { changeTextareaHeight } from '@/helper/utils';
 interface QuizARendererProps {
   parent: CustomType | NotionType;
   quiz: QuizAType;
@@ -54,6 +55,7 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
             inputEle.value = line.value;
           }
           inputEle.disabled = show;
+          changeTextareaHeight(inputEle);
         }
       }
     });

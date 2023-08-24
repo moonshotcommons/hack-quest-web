@@ -30,7 +30,7 @@ const CodeRenderer: FC<CodeRendererProps> = (props) => {
   const codeRef = useRef<HTMLTextAreaElement>(null);
 
   return (
-    <div className="py-4 relative">
+    <div className=" relative">
       <SyntaxHighlighter
         style={theme === Theme.Dark ? oneDark : oneLight}
         language={language}
