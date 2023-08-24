@@ -8,14 +8,49 @@ import { useUnitNavList } from '@/hooks/useUnitNavList';
 interface LessonEventsProps {
   lesson: CourseLessonType;
   courseType: CourseType;
+  isPreview?: boolean;
 }
 
+const PreviewLessonEvent = () => {
+  return (
+    <div
+      className={`mb-[30px] text-lesson-preview-color relative z-10 ${
+        false ? 'w-[322px] shadow-2xl' : 'w-fit'
+      }`}
+      tabIndex={1}
+    >
+      <div className="absolute left-0 top-0 w-[5px] h-[70px] rounded-[5px] bg-lesson-events-left-border-bg mr-[15px]"></div>
+      <div
+        className={`w-full flex items-center h-[70px] rounded-t-[5px] cursor-pointer ${
+          false ? ' bg-lesson-events-toggle-bg' : ''
+        }`}
+      >
+        <div className="flex-1 px-5">
+          <div className="flex items-center justify-between">
+            <span className="font-next-poster-Bold text-[28px] mr-[7px] tracking-[1.68px] leading-[28px]">
+              Event
+            </span>
+            <Image
+              src={ArrowBottom}
+              alt="arrow-bottom"
+              width={16}
+              height={8}
+              className={false ? 'rotate-180' : ''}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const LessonEvents: React.FC<LessonEventsProps> = (props) => {
-  const { lesson, courseType } = props;
+  const { lesson, courseType, isPreview = false } = props;
 
   const { unitNavList = [], currentUnitIndex } = useUnitNavList(lesson);
 
   const [isToggle, setIsToggle] = useState(false);
+  if (isPreview) return <PreviewLessonEvent></PreviewLessonEvent>;
   return (
     <div
       className={`mb-[30px] text-lesson-preview-color relative z-10 ${

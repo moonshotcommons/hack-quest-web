@@ -35,9 +35,9 @@ const LessonPage: FC<LessonPageProps> = (props) => {
   if (!lesson || !tempLesson) return null;
 
   return (
-    <div className="relative w-full h-[calc(100vh-80px)]">
+    <div className="relative w-full h-[calc(100vh-80px-76px)]">
       <Split
-        className="flex-1 w-full h-full flex justify-between [&>div]:w-[50%] [&>.gutter]:border-x [&>.gutter]:cursor-col-resize"
+        className="flex-1 w-full h-full flex justify-between [&>div]:w-[50%] [&>.gutter]:cursor-col-resize"
         minSize={80}
         cursor="col-resize"
       >
@@ -49,7 +49,7 @@ const LessonPage: FC<LessonPageProps> = (props) => {
           }}
         ></Playground>
       </Split>
-      <LessonFooter lesson={lesson} />
+      <LessonFooter lesson={lesson as any} />
     </div>
   );
 };

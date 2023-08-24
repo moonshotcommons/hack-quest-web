@@ -35,14 +35,15 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
   const containerRef = useRef(null);
 
   const onPass = () => {
+    setPassOpen(true);
+    setTimeout(() => {
+      // setCurrentQuizIndex(currentQuizIndex + 1);
+      setPassOpen(false);
+    }, 3000);
     if (currentQuizIndex !== quiz.children.length - 1) {
-      setPassOpen(true);
-      setTimeout(() => {
-        // setCurrentQuizIndex(currentQuizIndex + 1);
-        setPassOpen(false);
-      }, 3000);
       return;
     }
+
     onCompleted();
   };
 
