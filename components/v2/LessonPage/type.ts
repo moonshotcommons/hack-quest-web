@@ -13,7 +13,8 @@ export enum NotionType {
   VIDEO = 'video',
   COLUMN_LIST = 'column_list',
   COLUMN = 'column',
-  PARAGRAPH = 'paragraph'
+  PARAGRAPH = 'paragraph',
+  CALLOUT = 'callout'
 }
 
 export enum CustomType {
@@ -40,6 +41,12 @@ export interface CodeLineType {
   type: LineType;
   content: string;
   lineNumber: number;
+  regex: string;
+  answers: {
+    regex: string;
+    content: string[];
+    type: LineType;
+  }[];
 }
 
 export interface LessonContent {

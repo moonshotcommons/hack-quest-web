@@ -4,14 +4,17 @@ import { CustomComponent, LessonContent, NotionComponent } from '../type';
 import ComponentRenderer from '../ComponentRenderer';
 import Split from 'react-split';
 import { CourseLessonType } from '@/service/webApi/course/type';
+import { PlaygroundContext, LessonType } from './type';
 
 interface PlaygroundProps {
   // children: ReactNode
-  lesson: Omit<CourseLessonType, 'content'> & { content: LessonContent };
+  lesson: LessonType;
+  onCompleted: VoidFunction;
+  isPreview?: boolean;
 }
 
 const Playground: FC<PlaygroundProps> = (props) => {
-  const { lesson } = props;
+  const { lesson, onCompleted, isPreview = false } = props;
 
   const [components, setComponents] = useState<
     (CustomComponent | NotionComponent)[]
@@ -25,32 +28,26 @@ const Playground: FC<PlaygroundProps> = (props) => {
       isRoot: true
     };
   }, [lesson]);
+
   return (
     <div
-      className="p-5 bg-lesson-code-bg h-full overflow-auto flex flex-col gap-[20px]"
+      className="p-5 bg-lesson-code-bg h-full overflow-auto flex flex-col gap-[20px] scroll-wrap-y"
       style={{
         boxShadow: ' -2px 0px 4px 0px rgba(0, 0, 0, 0.10)'
       }}
     >
-      {
-        !!components.length &&
-          // <Split
-          //   direction="vertical"
-          //   className="flex flex-col w-full h-full"
-          //   sizes={[95, 5]}
-          //   minSize={80}
-          // >
+      <PlaygroundContext.Provider value={{ lesson, onCompleted, isPreview }}>
+        {!!components.length &&
           components.map((component) => {
             return (
               <ComponentRenderer
-                key={component.id}
                 parent={parent}
+                key={component.id}
                 component={component}
               ></ComponentRenderer>
             );
-          })
-        // </Split>
-      }
+          })}
+      </PlaygroundContext.Provider>
     </div>
   );
 };

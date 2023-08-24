@@ -1,0 +1,2503 @@
+[
+  {
+    "id": "0b4cff39-f01e-484c-8561-8ec839ff9b63",
+    "type": "heading_1",
+    "object": "block",
+    "parent": {
+      "type": "page_id",
+      "page_id": "df987c23-1638-4c80-975b-e42155edede6"
+    },
+    "archived": false,
+    "children": [
+      {
+        "id": "40cdd2f1-c34d-4071-a32b-5b0d0ec719dc",
+        "type": "heading_3",
+        "object": "block",
+        "archived": false,
+        "children": [
+          {
+            "id": "68b7a013-1110-4ccb-8251-97668bb0d9cc",
+            "type": "paragraph",
+            "object": "block",
+            "archived": false,
+            "paragraph": {
+              "color": "default",
+              "rich_text": [
+                {
+                  "href": null,
+                  "text": {
+                    "link": null,
+                    "content": "Every Solidity file has one line of code, that looks like this."
+                  },
+                  "type": "text",
+                  "plain_text": "Every Solidity file has one line of code, that looks like this.",
+                  "annotations": {
+                    "bold": false,
+                    "code": false,
+                    "color": "default",
+                    "italic": false,
+                    "underline": false,
+                    "strikethrough": false
+                  }
+                }
+              ]
+            },
+            "created_by": {
+              "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+              "object": "user"
+            },
+            "created_time": "2023-07-01T01:20:00.000Z",
+            "has_children": false,
+            "last_edited_by": {
+              "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+              "object": "user"
+            },
+            "parent_block_id": "40cdd2f1-c34d-4071-a32b-5b0d0ec719dc",
+            "last_edited_time": "2023-07-01T01:20:00.000Z"
+          },
+          {
+            "id": "9f16d8ae-d5cc-44e5-a2a4-3e025af6fc4a",
+            "code": {
+              "caption": [],
+              "language": "solidity",
+              "rich_text": [
+                {
+                  "href": null,
+                  "text": {
+                    "link": null,
+                    "content": "pragma solidity ^0.8.4;"
+                  },
+                  "type": "text",
+                  "plain_text": "pragma solidity ^0.8.4;",
+                  "annotations": {
+                    "bold": false,
+                    "code": false,
+                    "color": "default",
+                    "italic": false,
+                    "underline": false,
+                    "strikethrough": false
+                  }
+                }
+              ]
+            },
+            "type": "code",
+            "object": "block",
+            "archived": false,
+            "created_by": {
+              "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+              "object": "user"
+            },
+            "created_time": "2023-07-01T01:20:00.000Z",
+            "has_children": false,
+            "last_edited_by": {
+              "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+              "object": "user"
+            },
+            "parent_block_id": "40cdd2f1-c34d-4071-a32b-5b0d0ec719dc",
+            "last_edited_time": "2023-07-01T01:20:00.000Z"
+          },
+          {
+            "id": "4705b4e8-7b31-41ea-9a63-b12876d0ceab",
+            "type": "paragraph",
+            "object": "block",
+            "archived": false,
+            "paragraph": {
+              "color": "default",
+              "rich_text": [
+                {
+                  "href": null,
+                  "text": { "link": null, "content": "Here we use keywords " },
+                  "type": "text",
+                  "plain_text": "Here we use keywords ",
+                  "annotations": {
+                    "bold": false,
+                    "code": false,
+                    "color": "default",
+                    "italic": false,
+                    "underline": false,
+                    "strikethrough": false
+                  }
+                },
+                {
+                  "href": null,
+                  "text": { "link": null, "content": "pragma solidity" },
+                  "type": "text",
+                  "plain_text": "pragma solidity",
+                  "annotations": {
+                    "bold": true,
+                    "code": true,
+                    "color": "yellow",
+                    "italic": false,
+                    "underline": false,
+                    "strikethrough": false
+                  }
+                },
+                {
+                  "href": null,
+                  "text": {
+                    "link": null,
+                    "content": " to specify the version of the Solidity "
+                  },
+                  "type": "text",
+                  "plain_text": " to specify the version of the Solidity ",
+                  "annotations": {
+                    "bold": false,
+                    "code": false,
+                    "color": "default",
+                    "italic": false,
+                    "underline": false,
+                    "strikethrough": false
+                  }
+                },
+                {
+                  "href": null,
+                  "text": { "link": null, "content": "compiler" },
+                  "type": "text",
+                  "plain_text": "compiler",
+                  "annotations": {
+                    "bold": false,
+                    "code": true,
+                    "color": "default",
+                    "italic": false,
+                    "underline": false,
+                    "strikethrough": false
+                  }
+                },
+                {
+                  "href": null,
+                  "text": {
+                    "link": null,
+                    "content": " to be used to compile the code."
+                  },
+                  "type": "text",
+                  "plain_text": " to be used to compile the code.",
+                  "annotations": {
+                    "bold": false,
+                    "code": false,
+                    "color": "default",
+                    "italic": false,
+                    "underline": false,
+                    "strikethrough": false
+                  }
+                }
+              ]
+            },
+            "created_by": {
+              "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+              "object": "user"
+            },
+            "created_time": "2023-07-01T01:20:00.000Z",
+            "has_children": false,
+            "last_edited_by": {
+              "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+              "object": "user"
+            },
+            "parent_block_id": "40cdd2f1-c34d-4071-a32b-5b0d0ec719dc",
+            "last_edited_time": "2023-07-01T01:20:00.000Z"
+          },
+          {
+            "id": "9da28c7d-2f22-4216-ace9-23cface7838e",
+            "type": "paragraph",
+            "object": "block",
+            "archived": false,
+            "paragraph": {
+              "color": "default",
+              "rich_text": [
+                {
+                  "href": null,
+                  "text": { "link": null, "content": "What is a compiler?" },
+                  "type": "text",
+                  "plain_text": "What is a compiler?",
+                  "annotations": {
+                    "bold": true,
+                    "code": false,
+                    "color": "default",
+                    "italic": false,
+                    "underline": false,
+                    "strikethrough": false
+                  }
+                }
+              ]
+            },
+            "created_by": {
+              "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+              "object": "user"
+            },
+            "created_time": "2023-07-01T01:20:00.000Z",
+            "has_children": false,
+            "last_edited_by": {
+              "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+              "object": "user"
+            },
+            "parent_block_id": "40cdd2f1-c34d-4071-a32b-5b0d0ec719dc",
+            "last_edited_time": "2023-07-01T01:20:00.000Z"
+          },
+          {
+            "id": "18513db4-b935-4201-955a-e7d3f635eaf8",
+            "type": "paragraph",
+            "object": "block",
+            "archived": false,
+            "paragraph": {
+              "color": "default",
+              "rich_text": [
+                {
+                  "href": null,
+                  "text": { "link": null, "content": "Compiler" },
+                  "type": "text",
+                  "plain_text": "Compiler",
+                  "annotations": {
+                    "bold": false,
+                    "code": true,
+                    "color": "default",
+                    "italic": false,
+                    "underline": false,
+                    "strikethrough": false
+                  }
+                },
+                {
+                  "href": null,
+                  "text": {
+                    "link": null,
+                    "content": " is a special type of program, and you can think of it as a translator, that translates something you write (code in Solidity) (the “source language”) to something that a computer could understand (0 and 1s). "
+                  },
+                  "type": "text",
+                  "plain_text": " is a special type of program, and you can think of it as a translator, that translates something you write (code in Solidity) (the “source language”) to something that a computer could understand (0 and 1s). ",
+                  "annotations": {
+                    "bold": false,
+                    "code": false,
+                    "color": "default",
+                    "italic": false,
+                    "underline": false,
+                    "strikethrough": false
+                  }
+                }
+              ]
+            },
+            "created_by": {
+              "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+              "object": "user"
+            },
+            "created_time": "2023-07-01T01:20:00.000Z",
+            "has_children": false,
+            "last_edited_by": {
+              "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+              "object": "user"
+            },
+            "parent_block_id": "40cdd2f1-c34d-4071-a32b-5b0d0ec719dc",
+            "last_edited_time": "2023-07-01T01:20:00.000Z"
+          },
+          {
+            "id": "f00e2ed2-5a78-42ea-a24e-2a09d78b49ca",
+            "type": "paragraph",
+            "object": "block",
+            "archived": false,
+            "paragraph": {
+              "color": "default",
+              "rich_text": [
+                {
+                  "href": null,
+                  "text": {
+                    "link": null,
+                    "content": "Why do we have different versions? "
+                  },
+                  "type": "text",
+                  "plain_text": "Why do we have different versions? ",
+                  "annotations": {
+                    "bold": true,
+                    "code": false,
+                    "color": "default",
+                    "italic": false,
+                    "underline": false,
+                    "strikethrough": false
+                  }
+                }
+              ]
+            },
+            "created_by": {
+              "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+              "object": "user"
+            },
+            "created_time": "2023-07-01T01:20:00.000Z",
+            "has_children": false,
+            "last_edited_by": {
+              "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+              "object": "user"
+            },
+            "parent_block_id": "40cdd2f1-c34d-4071-a32b-5b0d0ec719dc",
+            "last_edited_time": "2023-07-01T01:20:00.000Z"
+          },
+          {
+            "id": "88fc0a59-3a8c-4af5-8a98-4bcc5dcdb3f6",
+            "type": "paragraph",
+            "object": "block",
+            "archived": false,
+            "paragraph": {
+              "color": "default",
+              "rich_text": [
+                {
+                  "href": null,
+                  "text": {
+                    "link": null,
+                    "content": "Solidity is constantly evolving as a programming language with new features and bug fixes. "
+                  },
+                  "type": "text",
+                  "plain_text": "Solidity is constantly evolving as a programming language with new features and bug fixes. ",
+                  "annotations": {
+                    "bold": false,
+                    "code": false,
+                    "color": "default",
+                    "italic": false,
+                    "underline": false,
+                    "strikethrough": false
+                  }
+                }
+              ]
+            },
+            "created_by": {
+              "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+              "object": "user"
+            },
+            "created_time": "2023-07-01T01:20:00.000Z",
+            "has_children": false,
+            "last_edited_by": {
+              "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+              "object": "user"
+            },
+            "parent_block_id": "40cdd2f1-c34d-4071-a32b-5b0d0ec719dc",
+            "last_edited_time": "2023-07-01T01:20:00.000Z"
+          },
+          {
+            "id": "d5035482-072b-4b53-b610-06330904554c",
+            "type": "paragraph",
+            "object": "block",
+            "archived": false,
+            "paragraph": {
+              "color": "default",
+              "rich_text": [
+                {
+                  "href": null,
+                  "text": {
+                    "link": null,
+                    "content": "For example, some syntax may not be available in earlier versions or later versions; or some keywords are required in the earlier versions, but not later versions. "
+                  },
+                  "type": "text",
+                  "plain_text": "For example, some syntax may not be available in earlier versions or later versions; or some keywords are required in the earlier versions, but not later versions. ",
+                  "annotations": {
+                    "bold": false,
+                    "code": false,
+                    "color": "default",
+                    "italic": false,
+                    "underline": false,
+                    "strikethrough": false
+                  }
+                }
+              ]
+            },
+            "created_by": {
+              "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+              "object": "user"
+            },
+            "created_time": "2023-07-01T01:20:00.000Z",
+            "has_children": false,
+            "last_edited_by": {
+              "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+              "object": "user"
+            },
+            "parent_block_id": "40cdd2f1-c34d-4071-a32b-5b0d0ec719dc",
+            "last_edited_time": "2023-07-01T01:20:00.000Z"
+          },
+          {
+            "id": "72810ebd-a84b-46e3-bbdb-4524b670ec15",
+            "type": "paragraph",
+            "object": "block",
+            "archived": false,
+            "paragraph": {
+              "color": "default",
+              "rich_text": [
+                {
+                  "href": null,
+                  "text": {
+                    "link": null,
+                    "content": "When you write a Solidity smart "
+                  },
+                  "type": "text",
+                  "plain_text": "When you write a Solidity smart ",
+                  "annotations": {
+                    "bold": false,
+                    "code": false,
+                    "color": "default",
+                    "italic": false,
+                    "underline": false,
+                    "strikethrough": false
+                  }
+                },
+                {
+                  "href": null,
+                  "text": { "link": null, "content": "contract" },
+                  "type": "text",
+                  "plain_text": "contract",
+                  "annotations": {
+                    "bold": false,
+                    "code": true,
+                    "color": "default",
+                    "italic": false,
+                    "underline": false,
+                    "strikethrough": false
+                  }
+                },
+                {
+                  "href": null,
+                  "text": {
+                    "link": null,
+                    "content": ", you want to ensure that it is compiled using the right version. Otherwise, the program may not be able to compile.  "
+                  },
+                  "type": "text",
+                  "plain_text": ", you want to ensure that it is compiled using the right version. Otherwise, the program may not be able to compile.  ",
+                  "annotations": {
+                    "bold": false,
+                    "code": false,
+                    "color": "default",
+                    "italic": false,
+                    "underline": false,
+                    "strikethrough": false
+                  }
+                }
+              ]
+            },
+            "created_by": {
+              "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+              "object": "user"
+            },
+            "created_time": "2023-07-01T01:20:00.000Z",
+            "has_children": false,
+            "last_edited_by": {
+              "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+              "object": "user"
+            },
+            "parent_block_id": "40cdd2f1-c34d-4071-a32b-5b0d0ec719dc",
+            "last_edited_time": "2023-07-01T01:20:00.000Z"
+          }
+        ],
+        "heading_3": {
+          "color": "default",
+          "rich_text": [
+            {
+              "href": null,
+              "text": { "link": null, "content": "Concept" },
+              "type": "text",
+              "plain_text": "Concept",
+              "annotations": {
+                "bold": false,
+                "code": false,
+                "color": "default",
+                "italic": false,
+                "underline": false,
+                "strikethrough": false
+              }
+            }
+          ],
+          "is_toggleable": true
+        },
+        "created_by": {
+          "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+          "object": "user"
+        },
+        "created_time": "2023-07-01T01:20:00.000Z",
+        "has_children": true,
+        "last_edited_by": {
+          "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+          "object": "user"
+        },
+        "parent_block_id": "0b4cff39-f01e-484c-8561-8ec839ff9b63",
+        "last_edited_time": "2023-07-01T01:20:00.000Z"
+      },
+      {
+        "id": "bba691d5-a6ec-46a5-9066-f58fa1e2be50",
+        "type": "heading_3",
+        "object": "block",
+        "archived": false,
+        "children": [
+          {
+            "id": "c1c88f92-b9ee-47a0-9cc0-98f4e835380d",
+            "type": "bulleted_list_item",
+            "object": "block",
+            "archived": false,
+            "children": [
+              {
+                "id": "beb1e31b-dc10-4b96-8ed9-36e2df887951",
+                "type": "paragraph",
+                "object": "block",
+                "archived": false,
+                "paragraph": {
+                  "color": "default",
+                  "rich_text": [
+                    {
+                      "href": null,
+                      "text": {
+                        "link": null,
+                        "content": "We have two ways to define the "
+                      },
+                      "type": "text",
+                      "plain_text": "We have two ways to define the ",
+                      "annotations": {
+                        "bold": false,
+                        "code": false,
+                        "color": "default",
+                        "italic": false,
+                        "underline": false,
+                        "strikethrough": false
+                      }
+                    },
+                    {
+                      "href": null,
+                      "text": { "link": null, "content": "compiler" },
+                      "type": "text",
+                      "plain_text": "compiler",
+                      "annotations": {
+                        "bold": false,
+                        "code": true,
+                        "color": "default",
+                        "italic": false,
+                        "underline": false,
+                        "strikethrough": false
+                      }
+                    },
+                    {
+                      "href": null,
+                      "text": {
+                        "link": null,
+                        "content": " version needed for our Solidity code."
+                      },
+                      "type": "text",
+                      "plain_text": " version needed for our Solidity code.",
+                      "annotations": {
+                        "bold": false,
+                        "code": false,
+                        "color": "default",
+                        "italic": false,
+                        "underline": false,
+                        "strikethrough": false
+                      }
+                    }
+                  ]
+                },
+                "created_by": {
+                  "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+                  "object": "user"
+                },
+                "created_time": "2023-07-01T01:20:00.000Z",
+                "has_children": false,
+                "last_edited_by": {
+                  "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+                  "object": "user"
+                },
+                "parent_block_id": "c1c88f92-b9ee-47a0-9cc0-98f4e835380d",
+                "last_edited_time": "2023-07-01T01:20:00.000Z"
+              },
+              {
+                "id": "c606bb29-242d-4401-9344-a2e61fc3a50a",
+                "type": "paragraph",
+                "object": "block",
+                "archived": false,
+                "paragraph": {
+                  "color": "default",
+                  "rich_text": [
+                    {
+                      "href": null,
+                      "text": {
+                        "link": null,
+                        "content": "We need exactly version "
+                      },
+                      "type": "text",
+                      "plain_text": "We need exactly version ",
+                      "annotations": {
+                        "bold": false,
+                        "code": false,
+                        "color": "default",
+                        "italic": false,
+                        "underline": false,
+                        "strikethrough": false
+                      }
+                    },
+                    {
+                      "href": null,
+                      "text": { "link": null, "content": "0.8.4" },
+                      "type": "text",
+                      "plain_text": "0.8.4",
+                      "annotations": {
+                        "bold": false,
+                        "code": false,
+                        "color": "blue",
+                        "italic": true,
+                        "underline": false,
+                        "strikethrough": false
+                      }
+                    },
+                    {
+                      "href": null,
+                      "text": {
+                        "link": null,
+                        "content": " to compile our code."
+                      },
+                      "type": "text",
+                      "plain_text": " to compile our code.",
+                      "annotations": {
+                        "bold": false,
+                        "code": false,
+                        "color": "default",
+                        "italic": false,
+                        "underline": false,
+                        "strikethrough": false
+                      }
+                    }
+                  ]
+                },
+                "created_by": {
+                  "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+                  "object": "user"
+                },
+                "created_time": "2023-07-01T01:20:00.000Z",
+                "has_children": false,
+                "last_edited_by": {
+                  "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+                  "object": "user"
+                },
+                "parent_block_id": "c1c88f92-b9ee-47a0-9cc0-98f4e835380d",
+                "last_edited_time": "2023-07-01T01:20:00.000Z"
+              },
+              {
+                "id": "c09e1381-5f6e-4020-8c8c-b4d573cba985",
+                "code": {
+                  "caption": [],
+                  "language": "solidity",
+                  "rich_text": [
+                    {
+                      "href": null,
+                      "text": {
+                        "link": null,
+                        "content": "pragma solidity 0.8.4;"
+                      },
+                      "type": "text",
+                      "plain_text": "pragma solidity 0.8.4;",
+                      "annotations": {
+                        "bold": false,
+                        "code": false,
+                        "color": "default",
+                        "italic": false,
+                        "underline": false,
+                        "strikethrough": false
+                      }
+                    }
+                  ]
+                },
+                "type": "code",
+                "object": "block",
+                "archived": false,
+                "created_by": {
+                  "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+                  "object": "user"
+                },
+                "created_time": "2023-07-01T01:20:00.000Z",
+                "has_children": false,
+                "last_edited_by": {
+                  "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+                  "object": "user"
+                },
+                "parent_block_id": "c1c88f92-b9ee-47a0-9cc0-98f4e835380d",
+                "last_edited_time": "2023-07-01T01:20:00.000Z"
+              }
+            ],
+            "created_by": {
+              "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+              "object": "user"
+            },
+            "created_time": "2023-07-01T01:20:00.000Z",
+            "has_children": true,
+            "last_edited_by": {
+              "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+              "object": "user"
+            },
+            "parent_block_id": "bba691d5-a6ec-46a5-9066-f58fa1e2be50",
+            "last_edited_time": "2023-07-01T01:20:00.000Z",
+            "bulleted_list_item": {
+              "color": "default",
+              "rich_text": [
+                {
+                  "href": null,
+                  "text": { "link": null, "content": "Exact Version" },
+                  "type": "text",
+                  "plain_text": "Exact Version",
+                  "annotations": {
+                    "bold": false,
+                    "code": false,
+                    "color": "default",
+                    "italic": false,
+                    "underline": false,
+                    "strikethrough": false
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": "f3db9aeb-b8cc-47a1-8df3-1255d87d9b22",
+            "type": "bulleted_list_item",
+            "object": "block",
+            "archived": false,
+            "children": [
+              {
+                "id": "fb325879-ba7d-4060-9074-6b172de05412",
+                "type": "paragraph",
+                "object": "block",
+                "archived": false,
+                "paragraph": {
+                  "color": "default",
+                  "rich_text": [
+                    {
+                      "href": null,
+                      "text": { "link": null, "content": "We need solidity " },
+                      "type": "text",
+                      "plain_text": "We need solidity ",
+                      "annotations": {
+                        "bold": false,
+                        "code": false,
+                        "color": "default",
+                        "italic": false,
+                        "underline": false,
+                        "strikethrough": false
+                      }
+                    },
+                    {
+                      "href": null,
+                      "text": { "link": null, "content": "≥" },
+                      "type": "text",
+                      "plain_text": "≥",
+                      "annotations": {
+                        "bold": true,
+                        "code": false,
+                        "color": "blue",
+                        "italic": false,
+                        "underline": false,
+                        "strikethrough": false
+                      }
+                    },
+                    {
+                      "href": null,
+                      "text": { "link": null, "content": "0.8.4" },
+                      "type": "text",
+                      "plain_text": "0.8.4",
+                      "annotations": {
+                        "bold": false,
+                        "code": false,
+                        "color": "blue",
+                        "italic": true,
+                        "underline": false,
+                        "strikethrough": false
+                      }
+                    },
+                    {
+                      "href": null,
+                      "text": { "link": null, "content": " and " },
+                      "type": "text",
+                      "plain_text": " and ",
+                      "annotations": {
+                        "bold": false,
+                        "code": false,
+                        "color": "default",
+                        "italic": false,
+                        "underline": false,
+                        "strikethrough": false
+                      }
+                    },
+                    {
+                      "href": null,
+                      "text": { "link": null, "content": "<0.9.0" },
+                      "type": "text",
+                      "plain_text": "<0.9.0",
+                      "annotations": {
+                        "bold": false,
+                        "code": false,
+                        "color": "blue",
+                        "italic": true,
+                        "underline": false,
+                        "strikethrough": false
+                      }
+                    },
+                    {
+                      "href": null,
+                      "text": {
+                        "link": null,
+                        "content": " to make the below code work. The “"
+                      },
+                      "type": "text",
+                      "plain_text": " to make the below code work. The “",
+                      "annotations": {
+                        "bold": false,
+                        "code": false,
+                        "color": "default",
+                        "italic": false,
+                        "underline": false,
+                        "strikethrough": false
+                      }
+                    },
+                    {
+                      "href": null,
+                      "text": { "link": null, "content": "<0.9.0" },
+                      "type": "text",
+                      "plain_text": "<0.9.0",
+                      "annotations": {
+                        "bold": false,
+                        "code": false,
+                        "color": "blue",
+                        "italic": true,
+                        "underline": false,
+                        "strikethrough": false
+                      }
+                    },
+                    {
+                      "href": null,
+                      "text": {
+                        "link": null,
+                        "content": "” restriction is indicated by the "
+                      },
+                      "type": "text",
+                      "plain_text": "” restriction is indicated by the ",
+                      "annotations": {
+                        "bold": false,
+                        "code": false,
+                        "color": "default",
+                        "italic": false,
+                        "underline": false,
+                        "strikethrough": false
+                      }
+                    },
+                    {
+                      "href": null,
+                      "text": { "link": null, "content": "^" },
+                      "type": "text",
+                      "plain_text": "^",
+                      "annotations": {
+                        "bold": true,
+                        "code": true,
+                        "color": "yellow",
+                        "italic": false,
+                        "underline": false,
+                        "strikethrough": false
+                      }
+                    },
+                    {
+                      "href": null,
+                      "text": { "link": null, "content": " in the code, so " },
+                      "type": "text",
+                      "plain_text": " in the code, so ",
+                      "annotations": {
+                        "bold": false,
+                        "code": false,
+                        "color": "default",
+                        "italic": false,
+                        "underline": false,
+                        "strikethrough": false
+                      }
+                    },
+                    {
+                      "href": null,
+                      "text": { "link": null, "content": "^0.a.b" },
+                      "type": "text",
+                      "plain_text": "^0.a.b",
+                      "annotations": {
+                        "bold": false,
+                        "code": false,
+                        "color": "blue",
+                        "italic": true,
+                        "underline": false,
+                        "strikethrough": false
+                      }
+                    },
+                    {
+                      "href": null,
+                      "text": {
+                        "link": null,
+                        "content": " means it needs solidity "
+                      },
+                      "type": "text",
+                      "plain_text": " means it needs solidity ",
+                      "annotations": {
+                        "bold": false,
+                        "code": false,
+                        "color": "default",
+                        "italic": false,
+                        "underline": false,
+                        "strikethrough": false
+                      }
+                    },
+                    {
+                      "href": null,
+                      "text": { "link": null, "content": "≥" },
+                      "type": "text",
+                      "plain_text": "≥",
+                      "annotations": {
+                        "bold": true,
+                        "code": false,
+                        "color": "blue",
+                        "italic": false,
+                        "underline": false,
+                        "strikethrough": false
+                      }
+                    },
+                    {
+                      "href": null,
+                      "text": { "link": null, "content": "0.a.b" },
+                      "type": "text",
+                      "plain_text": "0.a.b",
+                      "annotations": {
+                        "bold": false,
+                        "code": false,
+                        "color": "blue",
+                        "italic": true,
+                        "underline": false,
+                        "strikethrough": false
+                      }
+                    },
+                    {
+                      "href": null,
+                      "text": { "link": null, "content": " and " },
+                      "type": "text",
+                      "plain_text": " and ",
+                      "annotations": {
+                        "bold": false,
+                        "code": false,
+                        "color": "default",
+                        "italic": false,
+                        "underline": false,
+                        "strikethrough": false
+                      }
+                    },
+                    {
+                      "href": null,
+                      "text": { "link": null, "content": "<0.(a+1).0." },
+                      "type": "text",
+                      "plain_text": "<0.(a+1).0.",
+                      "annotations": {
+                        "bold": false,
+                        "code": false,
+                        "color": "blue",
+                        "italic": true,
+                        "underline": false,
+                        "strikethrough": false
+                      }
+                    }
+                  ]
+                },
+                "created_by": {
+                  "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+                  "object": "user"
+                },
+                "created_time": "2023-07-01T01:20:00.000Z",
+                "has_children": false,
+                "last_edited_by": {
+                  "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+                  "object": "user"
+                },
+                "parent_block_id": "f3db9aeb-b8cc-47a1-8df3-1255d87d9b22",
+                "last_edited_time": "2023-07-01T01:20:00.000Z"
+              },
+              {
+                "id": "66b2e267-0d1d-4b9d-84c2-4785d31d2f59",
+                "type": "paragraph",
+                "object": "block",
+                "archived": false,
+                "paragraph": {
+                  "color": "default",
+                  "rich_text": [
+                    {
+                      "href": null,
+                      "text": { "link": null, "content": "If we say “" },
+                      "type": "text",
+                      "plain_text": "If we say “",
+                      "annotations": {
+                        "bold": false,
+                        "code": false,
+                        "color": "default",
+                        "italic": false,
+                        "underline": false,
+                        "strikethrough": false
+                      }
+                    },
+                    {
+                      "href": null,
+                      "text": { "link": null, "content": "^0.7.5" },
+                      "type": "text",
+                      "plain_text": "^0.7.5",
+                      "annotations": {
+                        "bold": false,
+                        "code": false,
+                        "color": "blue",
+                        "italic": true,
+                        "underline": false,
+                        "strikethrough": false
+                      }
+                    },
+                    {
+                      "href": null,
+                      "text": {
+                        "link": null,
+                        "content": "” then it means from "
+                      },
+                      "type": "text",
+                      "plain_text": "” then it means from ",
+                      "annotations": {
+                        "bold": false,
+                        "code": false,
+                        "color": "default",
+                        "italic": false,
+                        "underline": false,
+                        "strikethrough": false
+                      }
+                    },
+                    {
+                      "href": null,
+                      "text": { "link": null, "content": "≥0.7.5" },
+                      "type": "text",
+                      "plain_text": "≥0.7.5",
+                      "annotations": {
+                        "bold": false,
+                        "code": false,
+                        "color": "blue",
+                        "italic": true,
+                        "underline": false,
+                        "strikethrough": false
+                      }
+                    },
+                    {
+                      "href": null,
+                      "text": { "link": null, "content": " and " },
+                      "type": "text",
+                      "plain_text": " and ",
+                      "annotations": {
+                        "bold": false,
+                        "code": false,
+                        "color": "default",
+                        "italic": false,
+                        "underline": false,
+                        "strikethrough": false
+                      }
+                    },
+                    {
+                      "href": null,
+                      "text": { "link": null, "content": "<0.8.0" },
+                      "type": "text",
+                      "plain_text": "<0.8.0",
+                      "annotations": {
+                        "bold": false,
+                        "code": false,
+                        "color": "blue",
+                        "italic": true,
+                        "underline": false,
+                        "strikethrough": false
+                      }
+                    },
+                    {
+                      "href": null,
+                      "text": { "link": null, "content": " ." },
+                      "type": "text",
+                      "plain_text": " .",
+                      "annotations": {
+                        "bold": false,
+                        "code": false,
+                        "color": "default",
+                        "italic": false,
+                        "underline": false,
+                        "strikethrough": false
+                      }
+                    }
+                  ]
+                },
+                "created_by": {
+                  "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+                  "object": "user"
+                },
+                "created_time": "2023-07-01T01:20:00.000Z",
+                "has_children": false,
+                "last_edited_by": {
+                  "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+                  "object": "user"
+                },
+                "parent_block_id": "f3db9aeb-b8cc-47a1-8df3-1255d87d9b22",
+                "last_edited_time": "2023-07-01T01:20:00.000Z"
+              },
+              {
+                "id": "44ba539e-23a2-4b4d-ad7b-d6a6bd3e678f",
+                "code": {
+                  "caption": [],
+                  "language": "solidity",
+                  "rich_text": [
+                    {
+                      "href": null,
+                      "text": {
+                        "link": null,
+                        "content": "pragma solidity ^0.7.5;"
+                      },
+                      "type": "text",
+                      "plain_text": "pragma solidity ^0.7.5;",
+                      "annotations": {
+                        "bold": false,
+                        "code": false,
+                        "color": "default",
+                        "italic": false,
+                        "underline": false,
+                        "strikethrough": false
+                      }
+                    }
+                  ]
+                },
+                "type": "code",
+                "object": "block",
+                "archived": false,
+                "created_by": {
+                  "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+                  "object": "user"
+                },
+                "created_time": "2023-07-01T01:20:00.000Z",
+                "has_children": false,
+                "last_edited_by": {
+                  "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+                  "object": "user"
+                },
+                "parent_block_id": "f3db9aeb-b8cc-47a1-8df3-1255d87d9b22",
+                "last_edited_time": "2023-07-01T01:20:00.000Z"
+              },
+              {
+                "id": "c2f107d3-4af7-4c6c-a5a6-2b0317ccc461",
+                "type": "paragraph",
+                "object": "block",
+                "archived": false,
+                "paragraph": {
+                  "color": "default",
+                  "rich_text": [
+                    {
+                      "href": null,
+                      "text": {
+                        "link": null,
+                        "content": "This is commonly used because major changes in Solidity happens in the second digit, which means from "
+                      },
+                      "type": "text",
+                      "plain_text": "This is commonly used because major changes in Solidity happens in the second digit, which means from ",
+                      "annotations": {
+                        "bold": false,
+                        "code": false,
+                        "color": "default",
+                        "italic": false,
+                        "underline": false,
+                        "strikethrough": false
+                      }
+                    },
+                    {
+                      "href": null,
+                      "text": { "link": null, "content": "0.a.b" },
+                      "type": "text",
+                      "plain_text": "0.a.b",
+                      "annotations": {
+                        "bold": false,
+                        "code": false,
+                        "color": "blue",
+                        "italic": true,
+                        "underline": false,
+                        "strikethrough": false
+                      }
+                    },
+                    {
+                      "href": null,
+                      "text": { "link": null, "content": " to " },
+                      "type": "text",
+                      "plain_text": " to ",
+                      "annotations": {
+                        "bold": false,
+                        "code": false,
+                        "color": "default",
+                        "italic": false,
+                        "underline": false,
+                        "strikethrough": false
+                      }
+                    },
+                    {
+                      "href": null,
+                      "text": { "link": null, "content": "0.a.c" },
+                      "type": "text",
+                      "plain_text": "0.a.c",
+                      "annotations": {
+                        "bold": false,
+                        "code": false,
+                        "color": "blue",
+                        "italic": true,
+                        "underline": false,
+                        "strikethrough": false
+                      }
+                    },
+                    {
+                      "href": null,
+                      "text": {
+                        "link": null,
+                        "content": " is minor updates in most cases. "
+                      },
+                      "type": "text",
+                      "plain_text": " is minor updates in most cases. ",
+                      "annotations": {
+                        "bold": false,
+                        "code": false,
+                        "color": "default",
+                        "italic": false,
+                        "underline": false,
+                        "strikethrough": false
+                      }
+                    }
+                  ]
+                },
+                "created_by": {
+                  "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+                  "object": "user"
+                },
+                "created_time": "2023-07-01T01:20:00.000Z",
+                "has_children": false,
+                "last_edited_by": {
+                  "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+                  "object": "user"
+                },
+                "parent_block_id": "f3db9aeb-b8cc-47a1-8df3-1255d87d9b22",
+                "last_edited_time": "2023-07-01T01:20:00.000Z"
+              },
+              {
+                "id": "b304a499-961c-4317-935c-97344531c828",
+                "type": "callout",
+                "object": "block",
+                "callout": {
+                  "icon": { "type": "emoji", "emoji": "💡" },
+                  "color": "gray_background",
+                  "rich_text": [
+                    {
+                      "href": null,
+                      "text": { "link": null, "content": "Using the version " },
+                      "type": "text",
+                      "plain_text": "Using the version ",
+                      "annotations": {
+                        "bold": false,
+                        "code": false,
+                        "color": "default",
+                        "italic": false,
+                        "underline": false,
+                        "strikethrough": false
+                      }
+                    },
+                    {
+                      "href": null,
+                      "text": { "link": null, "content": "pragma" },
+                      "type": "text",
+                      "plain_text": "pragma",
+                      "annotations": {
+                        "bold": true,
+                        "code": true,
+                        "color": "yellow",
+                        "italic": false,
+                        "underline": false,
+                        "strikethrough": false
+                      }
+                    },
+                    {
+                      "href": null,
+                      "text": { "link": null, "content": " " },
+                      "type": "text",
+                      "plain_text": " ",
+                      "annotations": {
+                        "bold": false,
+                        "code": false,
+                        "color": "default",
+                        "italic": false,
+                        "underline": false,
+                        "strikethrough": false
+                      }
+                    },
+                    {
+                      "href": null,
+                      "text": { "link": null, "content": "does not" },
+                      "type": "text",
+                      "plain_text": "does not",
+                      "annotations": {
+                        "bold": false,
+                        "code": false,
+                        "color": "default",
+                        "italic": true,
+                        "underline": false,
+                        "strikethrough": false
+                      }
+                    },
+                    {
+                      "href": null,
+                      "text": {
+                        "link": null,
+                        "content": " change the version of the compiler. It also "
+                      },
+                      "type": "text",
+                      "plain_text": " change the version of the compiler. It also ",
+                      "annotations": {
+                        "bold": false,
+                        "code": false,
+                        "color": "default",
+                        "italic": false,
+                        "underline": false,
+                        "strikethrough": false
+                      }
+                    },
+                    {
+                      "href": null,
+                      "text": { "link": null, "content": "does not" },
+                      "type": "text",
+                      "plain_text": "does not",
+                      "annotations": {
+                        "bold": false,
+                        "code": false,
+                        "color": "default",
+                        "italic": true,
+                        "underline": false,
+                        "strikethrough": false
+                      }
+                    },
+                    {
+                      "href": null,
+                      "text": {
+                        "link": null,
+                        "content": " enable or disable features of the compiler. It just instructs the compiler to check whether its version matches the one the "
+                      },
+                      "type": "text",
+                      "plain_text": " enable or disable features of the compiler. It just instructs the compiler to check whether its version matches the one the ",
+                      "annotations": {
+                        "bold": false,
+                        "code": false,
+                        "color": "default",
+                        "italic": false,
+                        "underline": false,
+                        "strikethrough": false
+                      }
+                    },
+                    {
+                      "href": null,
+                      "text": { "link": null, "content": "pragma" },
+                      "type": "text",
+                      "plain_text": "pragma",
+                      "annotations": {
+                        "bold": true,
+                        "code": true,
+                        "color": "yellow",
+                        "italic": false,
+                        "underline": false,
+                        "strikethrough": false
+                      }
+                    },
+                    {
+                      "href": null,
+                      "text": { "link": null, "content": " " },
+                      "type": "text",
+                      "plain_text": " ",
+                      "annotations": {
+                        "bold": true,
+                        "code": false,
+                        "color": "yellow",
+                        "italic": false,
+                        "underline": false,
+                        "strikethrough": false
+                      }
+                    },
+                    {
+                      "href": null,
+                      "text": {
+                        "link": null,
+                        "content": "requires. If it does not match, the "
+                      },
+                      "type": "text",
+                      "plain_text": "requires. If it does not match, the ",
+                      "annotations": {
+                        "bold": false,
+                        "code": false,
+                        "color": "default",
+                        "italic": false,
+                        "underline": false,
+                        "strikethrough": false
+                      }
+                    },
+                    {
+                      "href": null,
+                      "text": { "link": null, "content": "compiler" },
+                      "type": "text",
+                      "plain_text": "compiler",
+                      "annotations": {
+                        "bold": false,
+                        "code": true,
+                        "color": "default",
+                        "italic": false,
+                        "underline": false,
+                        "strikethrough": false
+                      }
+                    },
+                    {
+                      "href": null,
+                      "text": { "link": null, "content": " issues an error." },
+                      "type": "text",
+                      "plain_text": " issues an error.",
+                      "annotations": {
+                        "bold": false,
+                        "code": false,
+                        "color": "default",
+                        "italic": false,
+                        "underline": false,
+                        "strikethrough": false
+                      }
+                    }
+                  ]
+                },
+                "archived": false,
+                "created_by": {
+                  "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+                  "object": "user"
+                },
+                "created_time": "2023-07-01T01:20:00.000Z",
+                "has_children": false,
+                "last_edited_by": {
+                  "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+                  "object": "user"
+                },
+                "parent_block_id": "f3db9aeb-b8cc-47a1-8df3-1255d87d9b22",
+                "last_edited_time": "2023-07-01T01:20:00.000Z"
+              }
+            ],
+            "created_by": {
+              "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+              "object": "user"
+            },
+            "created_time": "2023-07-01T01:20:00.000Z",
+            "has_children": true,
+            "last_edited_by": {
+              "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+              "object": "user"
+            },
+            "parent_block_id": "bba691d5-a6ec-46a5-9066-f58fa1e2be50",
+            "last_edited_time": "2023-07-01T01:20:00.000Z",
+            "bulleted_list_item": {
+              "color": "default",
+              "rich_text": [
+                {
+                  "href": null,
+                  "text": { "link": null, "content": "Range" },
+                  "type": "text",
+                  "plain_text": "Range",
+                  "annotations": {
+                    "bold": false,
+                    "code": false,
+                    "color": "default",
+                    "italic": false,
+                    "underline": false,
+                    "strikethrough": false
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        "heading_3": {
+          "color": "default",
+          "rich_text": [
+            {
+              "href": null,
+              "text": { "link": null, "content": " Documentation" },
+              "type": "text",
+              "plain_text": " Documentation",
+              "annotations": {
+                "bold": false,
+                "code": false,
+                "color": "default",
+                "italic": false,
+                "underline": false,
+                "strikethrough": false
+              }
+            }
+          ],
+          "is_toggleable": true
+        },
+        "created_by": {
+          "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+          "object": "user"
+        },
+        "created_time": "2023-07-01T01:20:00.000Z",
+        "has_children": true,
+        "last_edited_by": {
+          "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+          "object": "user"
+        },
+        "parent_block_id": "0b4cff39-f01e-484c-8561-8ec839ff9b63",
+        "last_edited_time": "2023-07-01T01:20:00.000Z"
+      },
+      {
+        "id": "c4f52a54-3fce-47ec-8aca-9ed79ef052c7",
+        "type": "heading_3",
+        "object": "block",
+        "archived": false,
+        "children": [
+          {
+            "id": "8edd32f6-2a42-4f61-ac49-e9d63b664356",
+            "code": {
+              "caption": [],
+              "language": "solidity",
+              "rich_text": [
+                {
+                  "href": null,
+                  "text": {
+                    "link": null,
+                    "content": "pragma solidity ^0.4.3;"
+                  },
+                  "type": "text",
+                  "plain_text": "pragma solidity ^0.4.3;",
+                  "annotations": {
+                    "bold": false,
+                    "code": false,
+                    "color": "default",
+                    "italic": false,
+                    "underline": false,
+                    "strikethrough": false
+                  }
+                }
+              ]
+            },
+            "type": "code",
+            "object": "block",
+            "archived": false,
+            "created_by": {
+              "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+              "object": "user"
+            },
+            "created_time": "2023-07-01T01:20:00.000Z",
+            "has_children": false,
+            "last_edited_by": {
+              "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+              "object": "user"
+            },
+            "parent_block_id": "c4f52a54-3fce-47ec-8aca-9ed79ef052c7",
+            "last_edited_time": "2023-07-01T01:20:00.000Z"
+          }
+        ],
+        "heading_3": {
+          "color": "default",
+          "rich_text": [
+            {
+              "href": null,
+              "text": { "link": null, "content": "Example" },
+              "type": "text",
+              "plain_text": "Example",
+              "annotations": {
+                "bold": false,
+                "code": false,
+                "color": "default",
+                "italic": false,
+                "underline": false,
+                "strikethrough": false
+              }
+            }
+          ],
+          "is_toggleable": true
+        },
+        "created_by": {
+          "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+          "object": "user"
+        },
+        "created_time": "2023-07-01T01:20:00.000Z",
+        "has_children": true,
+        "last_edited_by": {
+          "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+          "object": "user"
+        },
+        "parent_block_id": "0b4cff39-f01e-484c-8561-8ec839ff9b63",
+        "last_edited_time": "2023-07-01T01:20:00.000Z"
+      }
+    ],
+    "heading_1": {
+      "color": "default",
+      "rich_text": [
+        {
+          "href": null,
+          "text": { "link": null, "content": "Left Panel" },
+          "type": "text",
+          "plain_text": "Left Panel",
+          "annotations": {
+            "bold": false,
+            "code": false,
+            "color": "default",
+            "italic": false,
+            "underline": false,
+            "strikethrough": false
+          }
+        }
+      ],
+      "is_toggleable": true
+    },
+    "created_by": {
+      "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+      "object": "user"
+    },
+    "created_time": "2023-07-01T01:20:00.000Z",
+    "has_children": true,
+    "last_edited_by": {
+      "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+      "object": "user"
+    },
+    "last_edited_time": "2023-07-01T01:20:00.000Z"
+  },
+  {
+    "id": "f74c12d4-b161-4b3d-8895-0b427f444cdc",
+    "type": "heading_1",
+    "object": "block",
+    "parent": {
+      "type": "page_id",
+      "page_id": "df987c23-1638-4c80-975b-e42155edede6"
+    },
+    "archived": false,
+    "children": [
+      {
+        "id": "54118ea6-c4f8-4b66-9296-3d246ab9c862",
+        "type": "bulleted_list_item",
+        "object": "block",
+        "archived": false,
+        "children": [
+          {
+            "id": "5bf43ee2-7aa2-4927-ba9a-446e9a2fc3b1",
+            "code": {
+              "caption": [],
+              "language": "solidity",
+              "rich_text": [
+                {
+                  "href": null,
+                  "text": {
+                    "link": null,
+                    "content": "//code starts here\npragma solidity ^0.8.2;\n//code ends here\n//regex starts here\n^pragma\\s+solidity\\s+\\^\\s*0\\s*.\\s*8\\s*.\\s*2\\s*;\\s*$\n//regex ends here"
+                  },
+                  "type": "text",
+                  "plain_text": "//code starts here\npragma solidity ^0.8.2;\n//code ends here\n//regex starts here\n^pragma\\s+solidity\\s+\\^\\s*0\\s*.\\s*8\\s*.\\s*2\\s*;\\s*$\n//regex ends here",
+                  "annotations": {
+                    "bold": false,
+                    "code": false,
+                    "color": "default",
+                    "italic": false,
+                    "underline": false,
+                    "strikethrough": false
+                  }
+                }
+              ]
+            },
+            "type": "code",
+            "object": "block",
+            "archived": false,
+            "created_by": {
+              "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+              "object": "user"
+            },
+            "created_time": "2023-07-01T01:20:00.000Z",
+            "has_children": false,
+            "last_edited_by": {
+              "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+              "object": "user"
+            },
+            "parent_block_id": "54118ea6-c4f8-4b66-9296-3d246ab9c862",
+            "last_edited_time": "2023-07-01T01:20:00.000Z"
+          }
+        ],
+        "created_by": {
+          "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+          "object": "user"
+        },
+        "created_time": "2023-07-01T01:20:00.000Z",
+        "has_children": true,
+        "last_edited_by": {
+          "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+          "object": "user"
+        },
+        "parent_block_id": "f74c12d4-b161-4b3d-8895-0b427f444cdc",
+        "last_edited_time": "2023-07-01T01:20:00.000Z",
+        "bulleted_list_item": {
+          "color": "default",
+          "rich_text": [
+            {
+              "href": null,
+              "text": {
+                "link": null,
+                "content": "Define a Solidity file with a "
+              },
+              "type": "text",
+              "plain_text": "Define a Solidity file with a ",
+              "annotations": {
+                "bold": false,
+                "code": false,
+                "color": "default",
+                "italic": false,
+                "underline": false,
+                "strikethrough": false
+              }
+            },
+            {
+              "href": null,
+              "text": { "link": null, "content": "compiler" },
+              "type": "text",
+              "plain_text": "compiler",
+              "annotations": {
+                "bold": false,
+                "code": true,
+                "color": "default",
+                "italic": false,
+                "underline": false,
+                "strikethrough": false
+              }
+            },
+            {
+              "href": null,
+              "text": { "link": null, "content": " version later than " },
+              "type": "text",
+              "plain_text": " version later than ",
+              "annotations": {
+                "bold": false,
+                "code": false,
+                "color": "default",
+                "italic": false,
+                "underline": false,
+                "strikethrough": false
+              }
+            },
+            {
+              "href": null,
+              "text": { "link": null, "content": "0.8.2" },
+              "type": "text",
+              "plain_text": "0.8.2",
+              "annotations": {
+                "bold": false,
+                "code": false,
+                "color": "blue",
+                "italic": true,
+                "underline": false,
+                "strikethrough": false
+              }
+            },
+            {
+              "href": null,
+              "text": { "link": null, "content": " " },
+              "type": "text",
+              "plain_text": " ",
+              "annotations": {
+                "bold": false,
+                "code": false,
+                "color": "default",
+                "italic": true,
+                "underline": false,
+                "strikethrough": false
+              }
+            },
+            {
+              "href": null,
+              "text": { "link": null, "content": "until " },
+              "type": "text",
+              "plain_text": "until ",
+              "annotations": {
+                "bold": false,
+                "code": false,
+                "color": "default",
+                "italic": false,
+                "underline": false,
+                "strikethrough": false
+              }
+            },
+            {
+              "href": null,
+              "text": { "link": null, "content": "0.9.0" },
+              "type": "text",
+              "plain_text": "0.9.0",
+              "annotations": {
+                "bold": false,
+                "code": false,
+                "color": "blue",
+                "italic": true,
+                "underline": false,
+                "strikethrough": false
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id": "3999928e-55e7-474d-900a-d83ea5dbed7f",
+        "type": "bulleted_list_item",
+        "object": "block",
+        "archived": false,
+        "children": [
+          {
+            "id": "beb20578-e19a-4f59-90bc-b4a888ea5bb2",
+            "code": {
+              "caption": [],
+              "language": "solidity",
+              "rich_text": [
+                {
+                  "href": null,
+                  "text": {
+                    "link": null,
+                    "content": "//code starts here\npragma solidity 0.7.5;\n//code ends here\n//regex starts here\n^pragma\\s+solidity\\s+0\\s*.\\s*7\\s*.\\s*5\\s*;\\s*$\n//regex ends here"
+                  },
+                  "type": "text",
+                  "plain_text": "//code starts here\npragma solidity 0.7.5;\n//code ends here\n//regex starts here\n^pragma\\s+solidity\\s+0\\s*.\\s*7\\s*.\\s*5\\s*;\\s*$\n//regex ends here",
+                  "annotations": {
+                    "bold": false,
+                    "code": false,
+                    "color": "default",
+                    "italic": false,
+                    "underline": false,
+                    "strikethrough": false
+                  }
+                }
+              ]
+            },
+            "type": "code",
+            "object": "block",
+            "archived": false,
+            "created_by": {
+              "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+              "object": "user"
+            },
+            "created_time": "2023-07-01T01:20:00.000Z",
+            "has_children": false,
+            "last_edited_by": {
+              "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+              "object": "user"
+            },
+            "parent_block_id": "3999928e-55e7-474d-900a-d83ea5dbed7f",
+            "last_edited_time": "2023-07-01T01:20:00.000Z"
+          }
+        ],
+        "created_by": {
+          "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+          "object": "user"
+        },
+        "created_time": "2023-07-01T01:20:00.000Z",
+        "has_children": true,
+        "last_edited_by": {
+          "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+          "object": "user"
+        },
+        "parent_block_id": "f74c12d4-b161-4b3d-8895-0b427f444cdc",
+        "last_edited_time": "2023-07-01T01:20:00.000Z",
+        "bulleted_list_item": {
+          "color": "default",
+          "rich_text": [
+            {
+              "href": null,
+              "text": {
+                "link": null,
+                "content": "Define an exact Solidity file with a "
+              },
+              "type": "text",
+              "plain_text": "Define an exact Solidity file with a ",
+              "annotations": {
+                "bold": false,
+                "code": false,
+                "color": "default",
+                "italic": false,
+                "underline": false,
+                "strikethrough": false
+              }
+            },
+            {
+              "href": null,
+              "text": { "link": null, "content": "compiler" },
+              "type": "text",
+              "plain_text": "compiler",
+              "annotations": {
+                "bold": false,
+                "code": true,
+                "color": "default",
+                "italic": false,
+                "underline": false,
+                "strikethrough": false
+              }
+            },
+            {
+              "href": null,
+              "text": { "link": null, "content": " version of " },
+              "type": "text",
+              "plain_text": " version of ",
+              "annotations": {
+                "bold": false,
+                "code": false,
+                "color": "default",
+                "italic": false,
+                "underline": false,
+                "strikethrough": false
+              }
+            },
+            {
+              "href": null,
+              "text": { "link": null, "content": "0.7.5" },
+              "type": "text",
+              "plain_text": "0.7.5",
+              "annotations": {
+                "bold": false,
+                "code": false,
+                "color": "blue",
+                "italic": true,
+                "underline": false,
+                "strikethrough": false
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id": "9250ebba-6329-4ffd-bb4a-b4859518a1c0",
+        "type": "bulleted_list_item",
+        "object": "block",
+        "archived": false,
+        "children": [
+          {
+            "id": "b05972d9-550c-4bf0-b169-b1153b07dfe0",
+            "code": {
+              "caption": [],
+              "language": "solidity",
+              "rich_text": [
+                {
+                  "href": null,
+                  "text": {
+                    "link": null,
+                    "content": "//code starts here\ntrue\n//code ends here\n//regex starts here\n^true\\s*$\n//regex ends here"
+                  },
+                  "type": "text",
+                  "plain_text": "//code starts here\ntrue\n//code ends here\n//regex starts here\n^true\\s*$\n//regex ends here",
+                  "annotations": {
+                    "bold": false,
+                    "code": false,
+                    "color": "default",
+                    "italic": false,
+                    "underline": false,
+                    "strikethrough": false
+                  }
+                }
+              ]
+            },
+            "type": "code",
+            "object": "block",
+            "archived": false,
+            "created_by": {
+              "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+              "object": "user"
+            },
+            "created_time": "2023-07-01T01:20:00.000Z",
+            "has_children": false,
+            "last_edited_by": {
+              "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+              "object": "user"
+            },
+            "parent_block_id": "9250ebba-6329-4ffd-bb4a-b4859518a1c0",
+            "last_edited_time": "2023-07-01T01:20:00.000Z"
+          }
+        ],
+        "created_by": {
+          "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+          "object": "user"
+        },
+        "created_time": "2023-07-01T01:20:00.000Z",
+        "has_children": true,
+        "last_edited_by": {
+          "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+          "object": "user"
+        },
+        "parent_block_id": "f74c12d4-b161-4b3d-8895-0b427f444cdc",
+        "last_edited_time": "2023-07-01T01:20:00.000Z",
+        "bulleted_list_item": {
+          "color": "default",
+          "rich_text": [
+            {
+              "href": null,
+              "text": { "link": null, "content": "Answer with either " },
+              "type": "text",
+              "plain_text": "Answer with either ",
+              "annotations": {
+                "bold": false,
+                "code": false,
+                "color": "default",
+                "italic": false,
+                "underline": false,
+                "strikethrough": false
+              }
+            },
+            {
+              "href": null,
+              "text": { "link": null, "content": "true " },
+              "type": "text",
+              "plain_text": "true ",
+              "annotations": {
+                "bold": false,
+                "code": false,
+                "color": "blue",
+                "italic": true,
+                "underline": false,
+                "strikethrough": false
+              }
+            },
+            {
+              "href": null,
+              "text": { "link": null, "content": "or " },
+              "type": "text",
+              "plain_text": "or ",
+              "annotations": {
+                "bold": false,
+                "code": false,
+                "color": "default",
+                "italic": false,
+                "underline": false,
+                "strikethrough": false
+              }
+            },
+            {
+              "href": null,
+              "text": { "link": null, "content": "false" },
+              "type": "text",
+              "plain_text": "false",
+              "annotations": {
+                "bold": false,
+                "code": false,
+                "color": "blue",
+                "italic": true,
+                "underline": false,
+                "strikethrough": false
+              }
+            },
+            {
+              "href": null,
+              "text": {
+                "link": null,
+                "content": ". When specifying the version using "
+              },
+              "type": "text",
+              "plain_text": ". When specifying the version using ",
+              "annotations": {
+                "bold": false,
+                "code": false,
+                "color": "default",
+                "italic": false,
+                "underline": false,
+                "strikethrough": false
+              }
+            },
+            {
+              "href": null,
+              "text": { "link": null, "content": "pragma" },
+              "type": "text",
+              "plain_text": "pragma",
+              "annotations": {
+                "bold": true,
+                "code": true,
+                "color": "yellow",
+                "italic": false,
+                "underline": false,
+                "strikethrough": false
+              }
+            },
+            {
+              "href": null,
+              "text": { "link": null, "content": " it instructs the " },
+              "type": "text",
+              "plain_text": " it instructs the ",
+              "annotations": {
+                "bold": false,
+                "code": false,
+                "color": "default",
+                "italic": false,
+                "underline": false,
+                "strikethrough": false
+              }
+            },
+            {
+              "href": null,
+              "text": { "link": null, "content": "compiler" },
+              "type": "text",
+              "plain_text": "compiler",
+              "annotations": {
+                "bold": false,
+                "code": true,
+                "color": "default",
+                "italic": false,
+                "underline": false,
+                "strikethrough": false
+              }
+            },
+            {
+              "href": null,
+              "text": {
+                "link": null,
+                "content": " to check if the version matches the "
+              },
+              "type": "text",
+              "plain_text": " to check if the version matches the ",
+              "annotations": {
+                "bold": false,
+                "code": false,
+                "color": "default",
+                "italic": false,
+                "underline": false,
+                "strikethrough": false
+              }
+            },
+            {
+              "href": null,
+              "text": { "link": null, "content": "pragma" },
+              "type": "text",
+              "plain_text": "pragma",
+              "annotations": {
+                "bold": true,
+                "code": true,
+                "color": "yellow",
+                "italic": false,
+                "underline": false,
+                "strikethrough": false
+              }
+            },
+            {
+              "href": null,
+              "text": { "link": null, "content": " it requires." },
+              "type": "text",
+              "plain_text": " it requires.",
+              "annotations": {
+                "bold": false,
+                "code": false,
+                "color": "default",
+                "italic": false,
+                "underline": false,
+                "strikethrough": false
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id": "c8cb9c6d-7f3c-4cd7-a2e2-71db685c7dd0",
+        "type": "bulleted_list_item",
+        "object": "block",
+        "archived": false,
+        "children": [
+          {
+            "id": "cb837cd0-6dcf-440b-bb11-78ff1898145c",
+            "code": {
+              "caption": [],
+              "language": "solidity",
+              "rich_text": [
+                {
+                  "href": null,
+                  "text": {
+                    "link": null,
+                    "content": "//code starts here\npragma solidity ^0.6.0;\n//code ends here\n//regex starts here\n^pragma\\s+solidity\\s*\\^\\s*0\\s*.\\s*6\\s*.\\s*0\\s*;\\s*$\n//regex ends here"
+                  },
+                  "type": "text",
+                  "plain_text": "//code starts here\npragma solidity ^0.6.0;\n//code ends here\n//regex starts here\n^pragma\\s+solidity\\s*\\^\\s*0\\s*.\\s*6\\s*.\\s*0\\s*;\\s*$\n//regex ends here",
+                  "annotations": {
+                    "bold": false,
+                    "code": false,
+                    "color": "default",
+                    "italic": false,
+                    "underline": false,
+                    "strikethrough": false
+                  }
+                }
+              ]
+            },
+            "type": "code",
+            "object": "block",
+            "archived": false,
+            "created_by": {
+              "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+              "object": "user"
+            },
+            "created_time": "2023-07-01T01:20:00.000Z",
+            "has_children": false,
+            "last_edited_by": {
+              "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+              "object": "user"
+            },
+            "parent_block_id": "c8cb9c6d-7f3c-4cd7-a2e2-71db685c7dd0",
+            "last_edited_time": "2023-07-01T01:20:00.000Z"
+          }
+        ],
+        "created_by": {
+          "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+          "object": "user"
+        },
+        "created_time": "2023-07-01T01:20:00.000Z",
+        "has_children": true,
+        "last_edited_by": {
+          "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+          "object": "user"
+        },
+        "parent_block_id": "f74c12d4-b161-4b3d-8895-0b427f444cdc",
+        "last_edited_time": "2023-07-01T01:20:00.000Z",
+        "bulleted_list_item": {
+          "color": "default",
+          "rich_text": [
+            {
+              "href": null,
+              "text": {
+                "link": null,
+                "content": "Define a Solidity file with a "
+              },
+              "type": "text",
+              "plain_text": "Define a Solidity file with a ",
+              "annotations": {
+                "bold": false,
+                "code": false,
+                "color": "default",
+                "italic": false,
+                "underline": false,
+                "strikethrough": false
+              }
+            },
+            {
+              "href": null,
+              "text": { "link": null, "content": "compiler" },
+              "type": "text",
+              "plain_text": "compiler",
+              "annotations": {
+                "bold": false,
+                "code": true,
+                "color": "default",
+                "italic": false,
+                "underline": false,
+                "strikethrough": false
+              }
+            },
+            {
+              "href": null,
+              "text": { "link": null, "content": " version from " },
+              "type": "text",
+              "plain_text": " version from ",
+              "annotations": {
+                "bold": false,
+                "code": false,
+                "color": "default",
+                "italic": false,
+                "underline": false,
+                "strikethrough": false
+              }
+            },
+            {
+              "href": null,
+              "text": { "link": null, "content": "0.6.0" },
+              "type": "text",
+              "plain_text": "0.6.0",
+              "annotations": {
+                "bold": false,
+                "code": false,
+                "color": "blue",
+                "italic": true,
+                "underline": false,
+                "strikethrough": false
+              }
+            },
+            {
+              "href": null,
+              "text": { "link": null, "content": " " },
+              "type": "text",
+              "plain_text": " ",
+              "annotations": {
+                "bold": false,
+                "code": false,
+                "color": "default",
+                "italic": true,
+                "underline": false,
+                "strikethrough": false
+              }
+            },
+            {
+              "href": null,
+              "text": { "link": null, "content": "until " },
+              "type": "text",
+              "plain_text": "until ",
+              "annotations": {
+                "bold": false,
+                "code": false,
+                "color": "default",
+                "italic": false,
+                "underline": false,
+                "strikethrough": false
+              }
+            },
+            {
+              "href": null,
+              "text": { "link": null, "content": "0.7.0" },
+              "type": "text",
+              "plain_text": "0.7.0",
+              "annotations": {
+                "bold": false,
+                "code": false,
+                "color": "blue",
+                "italic": true,
+                "underline": false,
+                "strikethrough": false
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id": "d4529d9a-fa2b-48db-bc54-184d299e902a",
+        "type": "bulleted_list_item",
+        "object": "block",
+        "archived": false,
+        "children": [
+          {
+            "id": "d3d2bf35-8a0c-47bf-841e-4bf797b2e250",
+            "code": {
+              "caption": [],
+              "language": "solidity",
+              "rich_text": [
+                {
+                  "href": null,
+                  "text": {
+                    "link": null,
+                    "content": "//code starts here\npragma solidity 0.8.0;\n//code ends here\n//regex starts here\n^pragma\\s+solidity\\s+0\\s*.\\s*8\\s*.\\s*0\\s*;\\s*$\n//regex ends here"
+                  },
+                  "type": "text",
+                  "plain_text": "//code starts here\npragma solidity 0.8.0;\n//code ends here\n//regex starts here\n^pragma\\s+solidity\\s+0\\s*.\\s*8\\s*.\\s*0\\s*;\\s*$\n//regex ends here",
+                  "annotations": {
+                    "bold": false,
+                    "code": false,
+                    "color": "default",
+                    "italic": false,
+                    "underline": false,
+                    "strikethrough": false
+                  }
+                }
+              ]
+            },
+            "type": "code",
+            "object": "block",
+            "archived": false,
+            "created_by": {
+              "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+              "object": "user"
+            },
+            "created_time": "2023-07-01T01:20:00.000Z",
+            "has_children": false,
+            "last_edited_by": {
+              "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+              "object": "user"
+            },
+            "parent_block_id": "d4529d9a-fa2b-48db-bc54-184d299e902a",
+            "last_edited_time": "2023-07-01T01:20:00.000Z"
+          }
+        ],
+        "created_by": {
+          "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+          "object": "user"
+        },
+        "created_time": "2023-07-01T01:20:00.000Z",
+        "has_children": true,
+        "last_edited_by": {
+          "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+          "object": "user"
+        },
+        "parent_block_id": "f74c12d4-b161-4b3d-8895-0b427f444cdc",
+        "last_edited_time": "2023-07-01T01:20:00.000Z",
+        "bulleted_list_item": {
+          "color": "default",
+          "rich_text": [
+            {
+              "href": null,
+              "text": {
+                "link": null,
+                "content": "Define an exact Solidity file with a "
+              },
+              "type": "text",
+              "plain_text": "Define an exact Solidity file with a ",
+              "annotations": {
+                "bold": false,
+                "code": false,
+                "color": "default",
+                "italic": false,
+                "underline": false,
+                "strikethrough": false
+              }
+            },
+            {
+              "href": null,
+              "text": { "link": null, "content": "compiler" },
+              "type": "text",
+              "plain_text": "compiler",
+              "annotations": {
+                "bold": false,
+                "code": true,
+                "color": "default",
+                "italic": false,
+                "underline": false,
+                "strikethrough": false
+              }
+            },
+            {
+              "href": null,
+              "text": { "link": null, "content": " version of " },
+              "type": "text",
+              "plain_text": " version of ",
+              "annotations": {
+                "bold": false,
+                "code": false,
+                "color": "default",
+                "italic": false,
+                "underline": false,
+                "strikethrough": false
+              }
+            },
+            {
+              "href": null,
+              "text": { "link": null, "content": "0.8.0" },
+              "type": "text",
+              "plain_text": "0.8.0",
+              "annotations": {
+                "bold": false,
+                "code": false,
+                "color": "blue",
+                "italic": true,
+                "underline": false,
+                "strikethrough": false
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "heading_1": {
+      "color": "default",
+      "rich_text": [
+        {
+          "href": null,
+          "text": { "link": null, "content": "Quiz" },
+          "type": "text",
+          "plain_text": "Quiz",
+          "annotations": {
+            "bold": false,
+            "code": false,
+            "color": "default",
+            "italic": false,
+            "underline": false,
+            "strikethrough": false
+          }
+        }
+      ],
+      "is_toggleable": true
+    },
+    "created_by": {
+      "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+      "object": "user"
+    },
+    "created_time": "2023-07-01T01:20:00.000Z",
+    "has_children": true,
+    "last_edited_by": {
+      "id": "c1cb59ba-1f25-42c5-8f23-6e25ec008148",
+      "object": "user"
+    },
+    "last_edited_time": "2023-07-01T01:20:00.000Z"
+  }
+]

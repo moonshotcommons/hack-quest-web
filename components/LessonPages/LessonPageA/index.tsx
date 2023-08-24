@@ -1,6 +1,3 @@
-import { Block } from '@/components/TempComponent/Block';
-import Quest from '@/components/TempComponent/Quest';
-
 import {
   CourseLessonType,
   CourseType,

@@ -1,20 +1,11 @@
 'use client';
-import { FC, ReactNode, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import Split from 'react-split';
-import { useRequest } from 'ahooks';
 import { LessonContent as LessonContentType } from './type';
 import LessonContent from './LessonContent';
 import Playground from './Playground';
 import LessonFooter from './LessonFooter';
-import { useDispatch } from 'react-redux';
-import {
-  CompleteStateType,
-  CourseLessonType,
-  CourseType,
-  UnitPagesListType
-} from '@/service/webApi/course/type';
-import webApi from '@/service';
-import { setUnitsLessonsList } from '@/store/redux/modules/course';
+import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
 import { useGetLessonContent } from '@/hooks/useCoursesHooks/useGetLessenContent';
 
 interface LessonPageProps {
@@ -29,6 +20,8 @@ const LessonPage: FC<LessonPageProps> = (props) => {
     Omit<CourseLessonType, 'content'> & { content: LessonContentType }
   >();
 
+  const [nextLesson, setNextLesson] = useState(null);
+
   useEffect(() => {
     if (lesson) {
       fetch('/api/pages/temp-lesson')
@@ -42,14 +35,19 @@ const LessonPage: FC<LessonPageProps> = (props) => {
   if (!lesson || !tempLesson) return null;
 
   return (
-    <div className="relative w-full h-full">
+    <div className="relative w-full h-[calc(100vh-80px)]">
       <Split
-        className="flex-1 w-full h-full flex justify-between [&>div]:w-[50%]"
+        className="flex-1 w-full h-full flex justify-between [&>div]:w-[50%] [&>.gutter]:border-x [&>.gutter]:cursor-col-resize"
         minSize={80}
         cursor="col-resize"
       >
         <LessonContent lesson={tempLesson!}></LessonContent>
-        <Playground lesson={tempLesson!}></Playground>
+        <Playground
+          lesson={tempLesson!}
+          onCompleted={() => {
+            // 请求下一个lesson
+          }}
+        ></Playground>
       </Split>
       <LessonFooter lesson={lesson} />
     </div>

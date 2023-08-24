@@ -28,7 +28,7 @@ const getTextClassNames = (annotations: AnnotationType) => {
       ? `${
           annotations.color.includes('background')
             ? `bg-[${annotations.color}]`
-            : `text-${annotations.color}-400`
+            : `text-${annotations.color}-400 opacity-60`
         }`
       : ''
   );
@@ -48,7 +48,7 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
             <a
               key={index}
               href={richText.href}
-              className={`${className} bg-slate-800`}
+              className={`${className} bg-slate-800 opacity-40`}
               style={{ color: '#676767' }}
             >
               {richText.plain_text}
@@ -68,7 +68,23 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
           );
         }
         return (
-          <span key={index} className={`${className} rounded-md`}>
+          <span
+            key={index}
+            className={`${className} rounded-md`}
+            style={{
+              color:
+                annotations.color !== 'default' &&
+                !annotations.code &&
+                !annotations.color.includes('background')
+                  ? annotations.color
+                  : '',
+              backgroundColor:
+                annotations.color !== 'default' &&
+                annotations.color.includes('background')
+                  ? annotations.color
+                  : ''
+            }}
+          >
             {richText.plain_text}
           </span>
         );

@@ -1,7 +1,7 @@
-import { FC, ReactNode } from 'react';
+import { FC, ReactNode, useState } from 'react';
 import { CustomComponent } from '../../type';
 import ComponentRenderer from '..';
-
+import { FiChevronDown } from 'react-icons/fi';
 interface ExampleRendererProps {
   // children: ReactNode
   component: CustomComponent;
@@ -10,18 +10,38 @@ interface ExampleRendererProps {
 
 const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
   const { component, parent } = props;
+  const [expand, setExpand] = useState(true);
   return (
-    <div className="rounded-[.625rem] p-[20px] bg-[#E6E6E6] flex w-full h-full flex-col">
-      <div>ExampleRenderer</div>
-      {component.children.map((child) => {
-        return (
-          <ComponentRenderer
-            key={child.id}
-            component={child}
-            parent={component}
-          ></ComponentRenderer>
-        );
-      })}
+    <div
+      className={`rounded-[.625rem] py-[12px] px-[20px] bg-[#E6E6E6] flex w-full flex-col h-fit ${
+        expand ? 'min-h-fit flex-1' : ''
+      }`}
+    >
+      <div className="flex justify-between items-center">
+        <span className="inline-flex font-next-poster-Bold items-center relative text-[18px] font-bold tracking-[1.08px]">
+          {component.title || 'Example'}
+        </span>
+        <span onClick={() => setExpand(!expand)}>
+          <FiChevronDown
+            size={28}
+            color=""
+            className={`${expand ? 'rotate-180' : '0'} transition-transform`}
+          ></FiChevronDown>
+        </span>
+      </div>
+      {expand && (
+        <div className="relative">
+          {component.children.map((child) => {
+            return (
+              <ComponentRenderer
+                key={child.id}
+                component={child}
+                parent={component}
+              ></ComponentRenderer>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 };

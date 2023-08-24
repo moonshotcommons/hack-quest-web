@@ -1,12 +1,13 @@
-import { FC, ReactNode, useContext, useState } from 'react';
+import { FC, ReactNode, useContext, useEffect, useMemo, useState } from 'react';
 
 import { cn } from '@/helper/utils';
 import { LessonStyleType } from '@/service/webApi/course/type';
 import TextRenderer from '../TextRenderer';
 import DropDownIcon from '@/components/Common/Icon/DropDown';
-import { MdKeyboardArrowDown, MdOutlineKeyboardArrowUp } from 'react-icons/md';
+import { VscAdd, VscChromeMinimize } from 'react-icons/vsc';
 import { CustomComponent, NotionComponent } from '../../LessonPage/type';
 import ComponentRenderer from '../../LessonPage/ComponentRenderer';
+import { LessonContentContext } from '../../LessonPage/LessonContent';
 interface ToggleRendererProps {
   component: NotionComponent;
   isRenderChildren?: boolean;
@@ -15,22 +16,30 @@ interface ToggleRendererProps {
 
 const ToggleRenderer: FC<ToggleRendererProps> = (props) => {
   const { component, isRenderChildren = true } = props;
-
   const [showChild, setShowChild] = useState(false);
-
+  const { expandData } = useContext(LessonContentContext);
+  const [initExpandNum, setInitExpandNum] = useState(0);
+  useEffect(() => {
+    const expandNum =
+      expandData.find((v) => v.id === component.id)?.expandNum || 0;
+    if (expandNum > initExpandNum) {
+      setShowChild(true);
+      setInitExpandNum(expandNum);
+    }
+  }, [expandData]);
   return (
-    <div>
+    <div className="border-b border-[#676767] ">
       <div
-        className="w-fit py-[.25rem] px-[.75rem] flex justify-center items-center border border-[#676767] rounded-[2.5rem] my-4 gap-3"
+        className="py-[.5rem] px-[.5rem] flex justify-between items-center my-4"
         onClick={() => setShowChild(!showChild)}
       >
-        <TextRenderer richTextArr={component.content.rich_text} />{' '}
-        <span
-          className={`${
-            !showChild ? 'rotate-0' : 'rotate-180'
-          } transition-transform duration-150 ease-in-out`}
-        >
-          <MdKeyboardArrowDown size={24}></MdKeyboardArrowDown>
+        <TextRenderer richTextArr={component.content.rich_text} />
+        <span className={`cursor-pointer`}>
+          {!showChild ? (
+            <VscAdd size={20}></VscAdd>
+          ) : (
+            <VscChromeMinimize size={20}></VscChromeMinimize>
+          )}
         </span>
       </div>
       {/* 正常渲染子对象 */}

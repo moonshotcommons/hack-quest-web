@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react';
+import { FC, ReactNode, useState } from 'react';
 import {
   CustomComponent,
   CustomType,
@@ -23,6 +23,7 @@ import CodeRenderer from '../../NotionRender/CodeRenderer';
 import HeaderRenderer from '../../NotionRender/HeaderRenderer';
 import ImageRenderer from '../../NotionRender/ImageRenderer';
 import ContentRenderer from './ContentRenderer';
+import CalloutRenderer from '../../NotionRender/CalloutRenderer';
 
 interface ComponentRendererProps {
   // children: ReactNode
@@ -105,6 +106,13 @@ const ComponentRenderer: FC<ComponentRendererProps> = (props) => {
     case NotionType.QUOTE:
       return (
         <QuoteRenderer component={component} parent={parent}></QuoteRenderer>
+      );
+    case NotionType.CALLOUT:
+      return (
+        <CalloutRenderer
+          component={component}
+          parent={parent}
+        ></CalloutRenderer>
       );
 
     case NotionType.TOGGLE:

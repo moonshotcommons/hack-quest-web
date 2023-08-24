@@ -109,6 +109,7 @@ html[data-theme='light'] {
   --lesson-code-editor-input-text-color: var(--text-default-color);
   --lesson-code-editor-input-bg: #929292;
   /* v2 */
+  --lesson-title-box-border-color:var(--neutral-rich-gray);
   --lesson-footer-bg: var(--neutral-rich-gray);
   --lesson-footer-tab-bg: var(--neutral-medium-gray);
   --lesson-footer-tab-border: var(--neutral-medium-gray);
@@ -123,7 +124,10 @@ html[data-theme='light'] {
   --lesson-code-bg:#f4f4f4;
   --lesson-code-container-bg:#e6e6e6;
   --lesson-code-box-bg:#f4f4f4;
-
+  --lesson-code-input-bg:#fff4ce;
+  --lesson-code-input-border:var(--neutral-medium-gray);
+  --lesson-code-index:var(--neutral-medium-gray);
+  --lesson-code-copy-bg:var(--neutral-medium-gray);
   /* --lesson-code-editor-bg: #000;
   --lesson-code-editor-num-color: #8c8c8c;
   --lesson-code-editor-text-color: #000;
@@ -137,7 +141,8 @@ html[data-theme='light'] {
   --renderer-step-box-text-color: var(--neutral-black);
   --renderer-quote-border-color: var(--primary-green-yellow);
   --renderer-quote-text-color: var(--neutral-rich-gray);
-  --renderer-code-bg: var(--primary-green-yellow);
+  /* --renderer-code-bg: var(--primary-green-yellow); */
+  --renderer-code-bg: var(--neutral-off-white);
   --renderer-description-more-text-color: var(--primary-green-yellow);
 
   /* navbar */

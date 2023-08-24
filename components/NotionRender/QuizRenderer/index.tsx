@@ -1,6 +1,5 @@
 import { FC, ReactNode, useEffect, useRef, useState } from 'react';
 import { Renderer } from '..';
-import Quest from '@/components/TempComponent/Quest';
 import { CourseType } from '@/service/webApi/course/type';
 import {
   AnswerState,
@@ -68,6 +67,20 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
 
   const containerRef = useRef<HTMLDivElement>(null);
 
+  const updateInput = (textarea: HTMLTextAreaElement) => {
+    // textarea.style.backgroundColor = 'var(--lesson-code-editor-input-bg)';
+    // 重置textarea的高度为默认值，以便可以正确计算其内容的高度
+    textarea.style.height = 'inherit';
+
+    // 获取textarea的内容高度，并加上padding和border的高度
+    let height =
+      textarea.scrollHeight + textarea.offsetHeight - textarea.clientHeight;
+    let lineLen = textarea.value.split('\n').length;
+    height = lineLen > 1 ? height : 40;
+    // 将textarea的高度设置为内容高度
+    textarea.style.height = height + 'px';
+  };
+
   const onCheckSubmit = () => {
     let isWrong = false;
     let tempAnswerReg = [...answerReg];
@@ -122,11 +135,14 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
       ) as HTMLTextAreaElement;
       target.style.backgroundColor = 'var(--lesson-code-editor-input-bg)';
       target.style.opacity = '1';
+      target.disabled = false;
+
       const currentAnswerState = answerState.find(
         (state) => state.id === line.id
       );
       if (currentAnswerState) {
         target.value = currentAnswerState.inputValue;
+        updateInput(target);
       }
     });
     setErrorLines([]);
@@ -137,13 +153,17 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
       const target = document.querySelector(
         `[data-uuid="${line.id}"]`
       ) as HTMLTextAreaElement;
+
+      target.disabled = true;
       target.style.backgroundColor = '#9EFA13';
       target.style.opacity = '0.6';
+      updateInput(target);
       const currentAnswerState = answerState.find(
         (state) => state.id === line.id
       );
       if (currentAnswerState) {
         target.value = currentAnswerState.answer;
+        updateInput(target);
       }
     });
   };

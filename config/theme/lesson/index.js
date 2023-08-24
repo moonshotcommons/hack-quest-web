@@ -53,7 +53,8 @@ const lessonThemeColors = {
   'lesson-footer-bg': 'var(--neutral-rich-gray)',
   'lesson-preview-color': 'var(--lesson-preview-color)',
   'lesson-events-toggle-list-box-shadow':
-    'var(--lesson-events-toggle-list-box-shadow)'
+    'var(--lesson-events-toggle-list-box-shadow)',
+  'lesson-code-index': 'var(--lesson-code-index)'
 };
 
 const lessonThemeBackgroundColor = {
@@ -64,11 +65,15 @@ const lessonThemeBackgroundColor = {
   'lesson-events-toggle-list-bg': 'var(--lesson-events-toggle-list-bg)',
   'lesson-events-toggle-list-active-bg':
     'var(--lesson-events-toggle-list-active-bg)',
-  'lesson-code-bg': 'var(--lesson-code-bg)'
+  'lesson-code-bg': 'var(--lesson-code-bg)',
+  'lesson-code-input-bg': 'var(--lesson-code-input-bg)',
+  'lesson-code-copy-bg': 'var(--lesson-code-copy-bg)'
 };
 const lessonThemeBorderColor = {
   'lesson-footer-tab-border': 'var(--lesson-footer-tab-border)',
-  'lesson-footer-tab-active-border': 'var(--lesson-footer-tab-active-border)'
+  'lesson-footer-tab-active-border': 'var(--lesson-footer-tab-active-border)',
+  'lesson-title-box-border-color': 'var(--lesson-title-box-border-color)',
+  'lesson-code-input-border': 'var(--lesson-code-input-border)'
 };
 
 module.exports = {
