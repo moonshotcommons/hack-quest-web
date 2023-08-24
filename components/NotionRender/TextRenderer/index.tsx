@@ -74,14 +74,15 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
             style={{
               color:
                 annotations.color !== 'default' &&
+                !annotations.code &&
                 !annotations.color.includes('background')
                   ? annotations.color
-                  : 'inherit',
+                  : '',
               backgroundColor:
                 annotations.color !== 'default' &&
                 annotations.color.includes('background')
                   ? annotations.color
-                  : 'inherit'
+                  : ''
             }}
           >
             {richText.plain_text}
