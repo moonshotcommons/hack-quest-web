@@ -27,7 +27,7 @@ function MissionCenter() {
   const { data: useLevel = {} as UserLevelType, run: updateUserLevel } =
     useRequest(
       async () => {
-        let res = await webApi.MissionCenterApi.getUserLevel();
+        let res = await webApi.missionCenterApi.getUserLevel();
         return res;
       },
       {
@@ -39,7 +39,7 @@ function MissionCenter() {
   /** 获取用户badge */
   const { data: badges = [] as BadgesType[], run: updateBadges } = useRequest(
     async () => {
-      let res = await webApi.MissionCenterApi.getAllBadges();
+      let res = await webApi.missionCenterApi.getAllBadges();
       return res;
     },
     {
@@ -52,7 +52,7 @@ function MissionCenter() {
   const { data: missions = [] as MissionDataType[], run: updateMission } =
     useRequest(
       async () => {
-        let res = await webApi.MissionCenterApi.getAllMission();
+        let res = await webApi.missionCenterApi.getAllMission();
         res?.map((v: MissionDataType) => {
           v.progress.progress[0] = v.progress.progress[0] || 0;
           v.progress.progress[1] = v.progress.progress[1] || 0;
@@ -96,7 +96,8 @@ function MissionCenter() {
   };
   const handleClaim = (missionId: string) => {
     return new Promise((resolve) => {
-      webApi.MissionCenterApi.missionClaim(missionId)
+      webApi.missionCenterApi
+        .missionClaim(missionId)
         .then(() => {
           resolve('success');
         })

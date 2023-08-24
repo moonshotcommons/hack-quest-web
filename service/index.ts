@@ -2,6 +2,7 @@ import WebService from './webService/webService';
 import CourseApi from './webApi/course';
 import LearningTrackApi from './webApi/learningTrack';
 import MissionCenterApi from './webApi/missionCenter';
+import PreviewApi from './webApi/preview';
 import UserApi from './webApi/user';
 
 class WebApi {
@@ -11,7 +12,8 @@ class WebApi {
 
   courseApi: CourseApi;
   learningTrackApi: LearningTrackApi;
-  MissionCenterApi: MissionCenterApi;
+  missionCenterApi: MissionCenterApi;
+  previewApi: PreviewApi;
   userApi: UserApi;
 
   constructor(baseURL: string) {
@@ -22,15 +24,17 @@ class WebApi {
 
     this.courseApi = new CourseApi(this.service);
     this.learningTrackApi = new LearningTrackApi(this.service);
-    this.MissionCenterApi = new MissionCenterApi(this.service);
+    this.missionCenterApi = new MissionCenterApi(this.service);
+    this.previewApi = new PreviewApi(this.service);
     this.userApi = new UserApi(this.service);
   }
 }
 
 let webApi = null;
+
 if (!webApi) {
   webApi = new WebApi(
-    process.env.BACKEND_BASE_URL || 'https://api.dev.hackquest.io/v1/'
+    process.env.BACKEND_BASE_URL || 'https://api.dev.hackquest.io/'
   );
 }
 

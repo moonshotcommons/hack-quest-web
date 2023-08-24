@@ -15,6 +15,7 @@ import BulletedListItemRenderer from './BulletedListItem';
 import VideoRenderer from './VideoRenderer';
 import DescriptionRenderer from './DescriptionRenderer';
 import QuizRenderer from './QuizRenderer';
+import CalloutRenderer from './CalloutRenderer';
 
 export interface NotionRendererContextType {
   styleType: LessonStyleType;
@@ -141,6 +142,14 @@ export const Renderer: FC<RendererPropsType> = (props) => {
           source={source}
           parent={parent}
         ></QuoteRenderer>
+      );
+    case NotionRenderType.CALLOUT:
+      return (
+        <CalloutRenderer
+          type={type}
+          source={source}
+          parent={parent}
+        ></CalloutRenderer>
       );
 
     case NotionRenderType.TOGGLE:

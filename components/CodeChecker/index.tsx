@@ -3,7 +3,6 @@ import CodeEditor from './CodeEditor';
 import { Quiz } from './type';
 import { CourseType } from '@/service/webApi/course/type';
 import { useParseQuiz } from '@/hooks/useParseQuiz';
-import { Block } from '../TempComponent/Block';
 
 interface CodeCheckerProps {
   content: Quiz[];

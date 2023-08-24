@@ -2,7 +2,7 @@ import Button, { ButtonProps } from '@/components/Common/Button';
 import NotionRenderer, { Renderer } from '@/components/NotionRender';
 import ImageRenderer from '@/components/NotionRender/ImageRenderer';
 import TextRenderer from '@/components/NotionRender/TextRenderer';
-import { Block } from '@/components/TempComponent/Block';
+
 import {
   useBackToPrevLesson,
   useGotoNextLesson

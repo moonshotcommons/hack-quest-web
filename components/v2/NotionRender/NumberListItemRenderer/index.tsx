@@ -15,9 +15,9 @@ const NumberListItemRenderer: FC<NumberListItemRendererProps> = (props) => {
     ?.filter((child: any) => child.type === NotionType.NUMBERED_LIST_ITEM)
     .findIndex((child: any) => child.id === component.id);
   return (
-    <div>
+    <li className="list-decimal">
       <div className="flex items-center gap-2 py-1">
-        <span className="">{index + 1}.</span>
+        {/* <span className="">{index + 1}.</span> */}
         <TextRenderer richTextArr={component.content.rich_text}></TextRenderer>
       </div>
       <div className="ml-4">
@@ -31,7 +31,7 @@ const NumberListItemRenderer: FC<NumberListItemRendererProps> = (props) => {
           );
         })}
       </div>
-    </div>
+    </li>
   );
 };
 
