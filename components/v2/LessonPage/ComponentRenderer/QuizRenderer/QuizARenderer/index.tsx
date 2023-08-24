@@ -3,12 +3,15 @@ import {
   NotionType,
   QuizAType
 } from '@/components/v2/LessonPage/type';
-import { FC, ReactNode, useEffect, useState } from 'react';
+import { FC, ReactNode, useContext, useEffect, useState } from 'react';
 import ComponentRenderer from '../..';
 import QuizFooter from '../QuizFooter';
 import CodeRender from './CodeRender';
 import { QuizAContext } from './type';
 import { useParseQuizA, AnswerState } from '@/hooks/useParseQuizA';
+import webApi from '@/service';
+import { PlaygroundContext } from '@/components/v2/LessonPage/Playground/type';
+import { QuizContext } from '..';
 interface QuizARendererProps {
   parent: CustomType | NotionType;
   quiz: QuizAType;
@@ -18,6 +21,8 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
   const { quiz } = props;
   const [showAnswer, setShowAnswer] = useState(false);
   const [submitDisable, setSubmitDisable] = useState(true);
+  const { lesson } = useContext(PlaygroundContext);
+  const { onPass } = useContext(QuizContext);
   const { waitingRenderCodes, answerState, answerStateDispatch } =
     useParseQuizA(quiz.lines);
   const setAnswers = () => {
@@ -48,7 +53,7 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
     });
     setShowAnswer(show);
   };
-  const onSubmit = () => {
+  const onSubmit = async () => {
     const newAnswerState = [...answerState];
     let isCurrent = true;
     newAnswerState.map((line) => {
@@ -68,9 +73,11 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
     });
     if (!isCurrent) {
       answerStateDispatch([...newAnswerState]);
+      await webApi.courseApi.markQuestState(lesson.id, false);
       return;
     }
-    console.info('通过');
+    await webApi.courseApi.completeLesson(lesson.id);
+    onPass();
   };
   useEffect(() => {
     setSubmitDisable(
