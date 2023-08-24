@@ -27,7 +27,6 @@ function useNavAuth(waitingUserData: boolean) {
 
     // 未登录
     if (isNoNeedUserInfo(pathname)) {
-      console.log('不需要登录');
       return;
     } else {
       router.push(LOGIN_PATHNAME);
