@@ -109,7 +109,7 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
               setAnswers
             }}
           >
-            <div className="py-4 flex items-center">
+            <div className="py-4 flex items-center pb-[52px]">
               {quiz.children.map((child) => {
                 return (
                   <ComponentRenderer
@@ -122,7 +122,7 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
             </div>
           </QuizBContext.Provider>
 
-          <div className="mt-[52px] flex flex-row gap-[30px] flex-wrap">
+          <div className=" flex flex-row gap-[30px] flex-wrap">
             {options.map((option) => {
               if (!option.isRender) return null;
               return (

@@ -7,7 +7,11 @@ export type LessonType = Omit<CourseLessonType, 'content'> & {
 };
 interface PlaygroundContextType {
   lesson: LessonType;
+  onCompleted: VoidFunction;
+  isPreview: boolean;
 }
 export const PlaygroundContext = createContext<PlaygroundContextType>({
-  lesson: {} as LessonType
+  lesson: {} as LessonType,
+  onCompleted: () => {},
+  isPreview: false
 });

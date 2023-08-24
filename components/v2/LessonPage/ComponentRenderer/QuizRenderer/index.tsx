@@ -1,12 +1,21 @@
-import { FC, ReactNode, createContext, useState } from 'react';
+import {
+  FC,
+  ReactNode,
+  createContext,
+  useContext,
+  useRef,
+  useState
+} from 'react';
 import { QuizAType, QuizBType, QuizType } from '../../type';
 import { FiChevronDown } from 'react-icons/fi';
-import { PiCaretDownBold } from 'react-icons/pi';
+import { MdArrowDropDown } from 'react-icons/md';
 import QuizDropdown from './QuizDropdwon';
 import ComponentRenderer from '..';
 import Button from '@/components/Common/Button';
 import { message } from 'antd';
 import QuizPassModal from './QuizPassModal';
+import { useClickAway } from 'ahooks';
+import { PlaygroundContext } from '../../Playground/type';
 interface QuizRendererProps {
   quiz: QuizType;
   parent: any;
@@ -22,6 +31,9 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
   const [quizDropdownVisible, setQuizDropdownVisible] = useState(false);
   const [start, setStart] = useState(parent.right.length <= 1);
   const [passOpen, setPassOpen] = useState(false);
+  const { onCompleted } = useContext(PlaygroundContext);
+  const containerRef = useRef(null);
+
   const onPass = () => {
     if (currentQuizIndex !== quiz.children.length - 1) {
       setPassOpen(true);
@@ -29,63 +41,76 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
         // setCurrentQuizIndex(currentQuizIndex + 1);
         setPassOpen(false);
       }, 3000);
-      message.info('进入下一个quiz');
       return;
     }
-    message.info('进入下一个lesson');
-    // 请求下一个lesson ？ 还是用户手动点 next？
+    onCompleted();
   };
 
-  const QuizHeader = () => {
-    return (
-      <div className={`flex justify-between h-fit w-full`}>
+  useClickAway(() => {
+    setQuizDropdownVisible(false);
+  }, containerRef);
+
+  const QuizHeader = (
+    <div className={`flex justify-between h-fit w-full`}>
+      <div
+        className={`inline-flex font-next-poster-Bold items-center relative text-[18px] font-bold tracking-[1.08px] ${
+          quizDropdownVisible && 'shadow-2xl'
+        }`}
+      >
         <div
-          className={`inline-flex font-next-poster-Bold items-center relative text-[18px] font-bold tracking-[1.08px] ${
-            quizDropdownVisible && 'shadow-2xl'
-          }
-  `}
+          ref={containerRef as any}
+          className={`inline-flex gap-2 box-content border-b-2 pb-[20px] cursor-pointer min-h-fit ${
+            quizDropdownVisible ? 'px-[20px] pt-[20px] border-[#8C8C8C]' : ''
+          }`}
+          onClick={() => {
+            setQuizDropdownVisible(!quizDropdownVisible);
+          }}
         >
-          <div
-            className={`inline-flex gap-2 box-content pb-[20px] ${
-              quizDropdownVisible
-                ? 'px-[20px] pt-[20px] border-b-2 border-[#8C8C8C]'
-                : ''
-            }`}
-            onClick={() => setQuizDropdownVisible(!quizDropdownVisible)}
+          <span>{`${quiz.title ? quiz.title : 'Quiz'} ${currentQuizIndex + 1}/${
+            quiz.children.length
+          }`}</span>
+
+          <span
+            className={`${
+              quizDropdownVisible ? 'rotate-180' : ''
+            } transition-transform`}
           >
-            <span>{`${quiz.title ? quiz.title : 'Quiz'} ${
-              currentQuizIndex + 1
-            }/${quiz.children.length}`}</span>
-            <FiChevronDown size={28} color=""></FiChevronDown>
-          </div>
+            <MdArrowDropDown size={28} color=""></MdArrowDropDown>
+          </span>
+        </div>
+
+        {quizDropdownVisible ? (
           <QuizDropdown
             quiz={quiz}
             onChange={(index) => setCurrentQuizIndex(index)}
-            visible={quizDropdownVisible}
             currentQuizIndex={currentQuizIndex}
           ></QuizDropdown>
-        </div>
-        <div
-          className={`${quizDropdownVisible ? 'p-[20px]' : ''}`}
-          onClick={() => {
-            setStart(false);
-          }}
-        >
-          <PiCaretDownBold size={20}></PiCaretDownBold>
-        </div>
+        ) : null}
       </div>
-    );
-  };
+      <div
+        className={`${quizDropdownVisible ? 'p-[20px]' : ''}`}
+        onClick={() => {
+          setStart(false);
+        }}
+      >
+        <FiChevronDown
+          size={28}
+          color=""
+          className={`rotate-180`}
+        ></FiChevronDown>
+      </div>
+    </div>
+  );
 
   return (
     <>
       {start && (
         <div
-          className={`rounded-[.625rem] pb-[20px] bg-[#E6E6E6] flex w-full h-full flex-col ${
+          className={`rounded-[.625rem] pb-[20px] bg-[#E6E6E6] flex w-full min-h-fit flex-1 flex-col ${
             !quizDropdownVisible ? 'p-[20px]' : ''
           }`}
         >
-          <QuizHeader></QuizHeader>
+          {QuizHeader}
           <QuizContext.Provider value={{ onPass }}>
             <div className={`h-full ${quizDropdownVisible ? 'px-[20px]' : ''}`}>
               <ComponentRenderer
