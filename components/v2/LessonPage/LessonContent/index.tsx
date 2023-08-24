@@ -45,17 +45,20 @@ const LessonContent: FC<LessonContentProps> = (props) => {
   }, [lesson]);
 
   return (
-    <div className="flex flex-col h-[calc(100%-10px)] [&>div]:pr-5">
-      {!isPreview && (
-        <>
-          <LessonNav lesson={lesson as any} courseType={CourseType.SYNTAX} />
-          <LessonEvents
-            // unitData={dropData}
-            lesson={lesson as any}
-            courseType={CourseType.SYNTAX}
-          />
-        </>
-      )}
+    <div className="flex flex-col h-[calc(100%-10px)] [&>div]:pr-5 ">
+      <>
+        <LessonNav
+          lesson={lesson as any}
+          courseType={CourseType.SYNTAX}
+          isPreview={isPreview}
+        />
+        <LessonEvents
+          isPreview={isPreview}
+          // unitData={dropData}
+          lesson={lesson as any}
+          courseType={CourseType.SYNTAX}
+        />
+      </>
 
       {!!components.length && (
         <Split
