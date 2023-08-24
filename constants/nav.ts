@@ -14,6 +14,7 @@ export const EMAIL_CONFIRMED_PATHNAME = '/users/email-confirmed';
 export const HOME_PATHNAME = '/';
 export const ALL_COURSES_PATHNAME = '/courses';
 export const DASHBOARD_PATHNAME = '/dashboard';
+export const MISSION_CENTER = '/mission-center';
 
 export function isLoginOrRegister(pathname: string) {
   if (
@@ -43,6 +44,7 @@ export function isNoNeedUserInfo(pathname: string) {
 
   if (/\/[^/]+\/\[courseId\]\/learn\/\[lessonId\]/.test(pathname)) return false;
   if (pathname === DASHBOARD_PATHNAME) return false;
+  if (pathname === MISSION_CENTER) return false;
 
   return true;
 }

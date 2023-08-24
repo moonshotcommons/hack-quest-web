@@ -11,9 +11,7 @@ const PreviewWorkspace: FC<PreviewWorkspaceProps> = (props) => {
 
   return (
     <>
-      <Typography.Title style={{ fontSize: '20px' }}>
-        输入url预览lesson页面
-      </Typography.Title>
+      <h1 style={{ fontSize: '20px' }}>输入url预览lesson页面</h1>
 
       <Input
         size="large"
