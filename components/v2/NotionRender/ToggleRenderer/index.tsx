@@ -30,10 +30,13 @@ const ToggleRenderer: FC<ToggleRendererProps> = (props) => {
   return (
     <div className="border-b border-[#676767] ">
       <div
-        className="py-[.5rem] px-[.5rem] flex justify-between items-center my-4"
+        className="px-[.5rem] flex justify-between items-center my-3"
         onClick={() => setShowChild(!showChild)}
       >
-        <TextRenderer richTextArr={component.content.rich_text} />
+        <TextRenderer
+          richTextArr={component.content.rich_text}
+          fontSize={'16px'}
+        />
         <span className={`cursor-pointer`}>
           {!showChild ? (
             <VscAdd size={20}></VscAdd>

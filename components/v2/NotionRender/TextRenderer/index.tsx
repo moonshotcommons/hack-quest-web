@@ -4,6 +4,7 @@ import MathJax from 'react-mathjax';
 import DropAnswer from '../../LessonPage/ComponentRenderer/QuizRenderer/QuizBRenderer/DropAnswer';
 interface TextRendererProps {
   richTextArr: any;
+  fontSize?: string;
 }
 
 export type AnnotationType = {
@@ -37,7 +38,7 @@ const getTextClassNames = (annotations: AnnotationType) => {
 };
 
 const TextRenderer: FC<TextRendererProps> = (props) => {
-  const { richTextArr } = props;
+  const { richTextArr, fontSize = '14px' } = props;
 
   return (
     <div className="">
@@ -67,7 +68,7 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
               key={index}
               href={richText.href}
               className={`${className} bg-slate-800`}
-              style={{ color: '#676767' }}
+              style={{ color: '#676767', fontSize }}
             >
               {richText.plain_text}
             </a>
@@ -86,7 +87,11 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
           );
         }
         return (
-          <span key={index} className={`${className} rounded-md`}>
+          <span
+            key={index}
+            className={`${className} rounded-md`}
+            style={{ fontSize }}
+          >
             {richText.plain_text}
           </span>
         );
