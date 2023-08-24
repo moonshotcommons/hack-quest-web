@@ -4,10 +4,11 @@ import { CustomComponent, LessonContent, NotionComponent } from '../type';
 import ComponentRenderer from '../ComponentRenderer';
 import Split from 'react-split';
 import { CourseLessonType } from '@/service/webApi/course/type';
+import { PlaygroundContext, LessonType } from './type';
 
 interface PlaygroundProps {
   // children: ReactNode
-  lesson: Omit<CourseLessonType, 'content'> & { content: LessonContent };
+  lesson: LessonType;
 }
 
 const Playground: FC<PlaygroundProps> = (props) => {
@@ -32,14 +33,8 @@ const Playground: FC<PlaygroundProps> = (props) => {
         boxShadow: ' -2px 0px 4px 0px rgba(0, 0, 0, 0.10)'
       }}
     >
-      {
-        !!components.length &&
-          // <Split
-          //   direction="vertical"
-          //   className="flex flex-col w-full h-full"
-          //   sizes={[95, 5]}
-          //   minSize={80}
-          // >
+      <PlaygroundContext.Provider value={{ lesson }}>
+        {!!components.length &&
           components.map((component) => {
             return (
               <ComponentRenderer
@@ -48,9 +43,8 @@ const Playground: FC<PlaygroundProps> = (props) => {
                 component={component}
               ></ComponentRenderer>
             );
-          })
-        // </Split>
-      }
+          })}
+      </PlaygroundContext.Provider>
     </div>
   );
 };
