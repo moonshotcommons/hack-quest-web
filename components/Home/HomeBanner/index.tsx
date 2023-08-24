@@ -79,7 +79,7 @@ const HomeBanner: FC<HomeBannerProps> = (props) => {
                 <span>Explore All Course</span>
                 <span className="block h-[.125rem] w-full bg-primary-color"></span>
               </div>
-              <SkipIcon></SkipIcon>
+              <SkipIcon color="currentColor"></SkipIcon>
             </div>
           </Link>
         </div>
