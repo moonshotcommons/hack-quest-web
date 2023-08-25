@@ -88,16 +88,13 @@ const DropAnswer: FC<DropAnswerProps> = (props) => {
       )}
       {!!currentAnswer?.option && !showAnswer && (
         <span
-          className="inline-flex relative gap-[28px] pl-[8px] py-[7px] overflow-hidden top-2 bg-[#FFF4CE] cursor-move border-[0.5px] border-[#8C8C8C] rounded-[3px] text-[#000] font-next-book text-[14px] leading-[125%] tracking-[0.28px]"
+          className="inline-flex relative gap-[28px] pl-[8px] mx-[10px] h-[34px] overflow-hidden bg-[#FFF4CE] cursor-move border-[0.5px] border-[#8C8C8C] rounded-[3px] text-[#000] font-next-book text-[14px] leading-[125%] tracking-[0.28px]"
           onMouseEnter={() => setClearVisible(true)}
           onMouseLeave={() => setClearVisible(false)}
         >
           <span className="inline-flex gap-[28px] items-center relative">
             <span>
-              <MdOutlineDragHandle
-                size={28}
-                color="#8C8C8C"
-              ></MdOutlineDragHandle>
+              <MdOutlineDragHandle color="#8C8C8C"></MdOutlineDragHandle>
             </span>
             <span className="pr-[28px]">
               {currentAnswer.option.content.rich_text.map(
