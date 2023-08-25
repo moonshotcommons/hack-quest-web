@@ -132,7 +132,18 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
                 //   animate={{ opacity: 1, translateY: 0 }}
                 //   transition={{ duration: 0.5 }}
                 // >
-                <DragAnswer option={option} key={option.id}>
+                <DragAnswer
+                  option={option}
+                  key={option.id}
+                  onClick={() => {
+                    const emptyAnswerKey = Object.keys(answers).find(
+                      (key) => !answers[key].option
+                    );
+                    if (!emptyAnswerKey) return;
+                    answers[emptyAnswerKey].option = option;
+                    setAnswers({ ...answers });
+                  }}
+                >
                   {option.content.rich_text.map(
                     (richText: any, index: number) => {
                       return <span key={index}>{richText.plain_text}</span>;

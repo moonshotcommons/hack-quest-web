@@ -16,6 +16,7 @@ import { message } from 'antd';
 import QuizPassModal from './QuizPassModal';
 import { useClickAway } from 'ahooks';
 import { PlaygroundContext } from '../../Playground/type';
+import { cn } from '@/helper/utils';
 interface QuizRendererProps {
   quiz: QuizType;
   parent: any;
@@ -52,7 +53,7 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
   }, containerRef);
 
   const QuizHeader = (
-    <div className={`flex justify-between h-fit w-full`}>
+    <div className={`flex justify-between h-fit w-full items-center`}>
       <div
         className={`inline-flex font-next-poster-Bold items-center relative text-[18px] font-bold tracking-[1.08px] ${
           quizDropdownVisible && 'shadow-2xl'
@@ -60,8 +61,8 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
       >
         <div
           ref={containerRef as any}
-          className={`inline-flex gap-2 box-content border-b-2 pb-[20px] cursor-pointer min-h-fit ${
-            quizDropdownVisible ? 'px-[20px] pt-[20px] border-[#8C8C8C]' : ''
+          className={`inline-flex gap-2 box-content border-b-2 p-[20px] cursor-pointer min-h-fit ${
+            quizDropdownVisible ? ' border-[#8C8C8C]' : ''
           }`}
           onClick={() => {
             setQuizDropdownVisible(!quizDropdownVisible);
@@ -89,7 +90,7 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
         ) : null}
       </div>
       <div
-        className={`${quizDropdownVisible ? 'p-[20px]' : ''}`}
+        className={`p-[20px]`}
         onClick={() => {
           setStart(false);
         }}
@@ -97,7 +98,7 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
         <FiChevronDown
           size={28}
           color=""
-          className={`rotate-180`}
+          className={`rotate-180 cursor-pointer`}
         ></FiChevronDown>
       </div>
     </div>
@@ -107,13 +108,13 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
     <>
       {start && (
         <div
-          className={`rounded-[.625rem] pb-[20px] bg-[#E6E6E6] flex w-full min-h-fit flex-1 flex-col ${
-            !quizDropdownVisible ? 'p-[20px]' : ''
-          }`}
+          className={cn(
+            `rounded-[.625rem] pb-[20px] bg-[#E6E6E6] flex w-full min-h-fit flex-1 flex-col`
+          )}
         >
           {QuizHeader}
           <QuizContext.Provider value={{ onPass }}>
-            <div className={`h-full ${quizDropdownVisible ? 'px-[20px]' : ''}`}>
+            <div className={`h-full px-[20px]`}>
               <ComponentRenderer
                 parent={quiz}
                 component={quiz.children[currentQuizIndex]}
