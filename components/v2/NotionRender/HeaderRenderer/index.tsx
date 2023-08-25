@@ -46,7 +46,7 @@ const HeaderRenderer: FC<HeaderRendererProps> = (props) => {
   };
 
   return (
-    <div className="py-[10px] pr-[4px]">
+    <div className="pb-[10px] pt-[20px] pr-[4px]">
       <HeadingTag className={`${className} flex justify-between items-center`}>
         <TextRenderer
           richTextArr={component.content.rich_text}
