@@ -98,7 +98,7 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
         <FiChevronDown
           size={28}
           color=""
-          className={`rotate-180`}
+          className={`rotate-180 cursor-pointer`}
         ></FiChevronDown>
       </div>
     </div>

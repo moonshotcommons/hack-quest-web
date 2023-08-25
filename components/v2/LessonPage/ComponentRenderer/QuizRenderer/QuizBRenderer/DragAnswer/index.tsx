@@ -6,10 +6,11 @@ interface DragAnswerProps {
   children: ReactNode;
   isDropped?: boolean;
   option: any;
+  onClick: () => void;
 }
 
 const DragAnswer: FC<DragAnswerProps> = memo(function DragAnswer(props) {
-  const { isDropped, children, option } = props;
+  const { isDropped, children, option, onClick } = props;
 
   const [{ opacity }, drag] = useDrag(
     () => ({
@@ -26,9 +27,29 @@ const DragAnswer: FC<DragAnswerProps> = memo(function DragAnswer(props) {
       ref={drag}
       className="inline-flex gap-[28px] pl-[8px] h-[34px] py-[8px]  leading-[125%] bg-[#FFF4CE] cursor-move items-center border-[0.5px] border-[#8C8C8C] rounded-[3px] text-[#000] font-next-book text-[14px] tracking-[0.28px]"
       style={{ opacity }}
+      onClick={onClick}
     >
       <span>
-        <MdOutlineDragHandle size={28} color="#8C8C8C"></MdOutlineDragHandle>
+        <svg
+          width="14"
+          height="8"
+          viewBox="0 0 14 8"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M1 1H13"
+            stroke="#8C8C8C"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+          />
+          <path
+            d="M1 7H13"
+            stroke="#8C8C8C"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+          />
+        </svg>
       </span>
       <span className="pr-[28px]">{children}</span>
     </div>
