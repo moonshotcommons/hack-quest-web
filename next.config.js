@@ -45,6 +45,9 @@ const nextConfig = (phase) => {
         'hackquest-s3-prod.s3.ap-northeast-1.amazonaws.com'
       ]
     },
+    experimental: {
+      outputStandalone: true,
+    },
   });
 };
 
