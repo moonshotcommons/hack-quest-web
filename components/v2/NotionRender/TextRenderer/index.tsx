@@ -65,9 +65,10 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
         if (richText.href) {
           return (
             <a
+              target="_blank"
               key={index}
               href={richText.href}
-              className={`${className} bg-slate-800`}
+              className={`${className}`}
               style={{ color: '#676767', fontSize }}
             >
               {richText.plain_text}
