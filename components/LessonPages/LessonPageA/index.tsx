@@ -6,14 +6,14 @@ import {
 
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import LessonPassPage from '../LessonPassPage';
-import webApi from '@/service';
-import CompleteModal from '../CompleteModal';
-import { shallowEqual, useSelector } from 'react-redux';
-import { AppRootState } from '@/store/redux';
-import { useRouter } from 'next/router';
 import NotionRenderer, { Renderer } from '@/components/NotionRender';
 import { CustomRenderType } from '@/components/NotionRender/type';
+import webApi from '@/service';
+import { AppRootState } from '@/store/redux';
+import { useRouter } from 'next/router';
+import { shallowEqual, useSelector } from 'react-redux';
+import CompleteModal from '../CompleteModal';
+import LessonPassPage from '../LessonPassPage';
 
 interface LessonPageAProps {
   lesson: CourseLessonType;
@@ -63,7 +63,6 @@ const LessonPageA: FC<LessonPageAProps> = (props) => {
   }, [lesson, unitsLessonsList]);
 
   const RightComponent = useMemo(() => {
-    console.log(quizes);
     if (pass) {
       return (
         <LessonPassPage
@@ -83,7 +82,6 @@ const LessonPageA: FC<LessonPageAProps> = (props) => {
       </NotionRenderer>
     );
   }, [pass, courseType, lesson, quizes, onPass, isLastLesson]);
-  console.log(quizes);
   useEffect(() => {
     if (lesson) {
       setLessonContent((lesson.content?.[0] as any).children);
@@ -126,7 +124,11 @@ const LessonPageA: FC<LessonPageAProps> = (props) => {
                   key={item.id}
                   type={item.type}
                   source={item}
-                  parent={{ ...lessonContent, isRoot: true }}
+                  parent={{
+                    ...lesson,
+                    content: [...lessonContent],
+                    isRoot: true
+                  }}
                 ></Renderer>
               );
             })}
