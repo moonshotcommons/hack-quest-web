@@ -1,7 +1,7 @@
-import { FC, ReactNode } from 'react';
-import { CustomRenderType, NotionRenderType } from '../type';
-import TextRenderer from '../TextRenderer';
+import { FC } from 'react';
 import { Renderer } from '..';
+import TextRenderer from '../TextRenderer';
+import { CustomRenderType, NotionRenderType } from '../type';
 
 interface NumberListItemRendererProps {
   type: NotionRenderType | CustomRenderType;
@@ -17,7 +17,7 @@ const NumberListItemRenderer: FC<NumberListItemRendererProps> = (props) => {
     .findIndex((child: any) => child.id === source.id);
   return (
     <div>
-      <div className="flex items-center gap-2 py-1">
+      <div className="flex gap-2 py-1">
         <span className="">{index + 1}.</span>
         <TextRenderer richTextArr={source[type].rich_text}></TextRenderer>
       </div>
