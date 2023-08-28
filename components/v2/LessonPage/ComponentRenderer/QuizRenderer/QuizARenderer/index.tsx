@@ -87,12 +87,12 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
       await webApi.courseApi.markQuestState(lesson.id, false);
       return;
     }
-    await webApi.courseApi.completeLesson(lesson.id);
     onPass();
   };
 
   const initCompleteInput = () => {
-    const completed = quiz.id === '639f1074-3cb1-491f-8fd3-e74666264ddb';
+    const completed = false;
+    // const completed = quiz.id === '639f1074-3cb1-491f-8fd3-e74666264ddb';
     setIsCompleted(completed);
     if (!completed) return;
     let inputEle: HTMLTextAreaElement | HTMLInputElement;

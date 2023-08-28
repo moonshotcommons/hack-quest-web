@@ -38,9 +38,9 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
   const onPass = () => {
     setPassOpen(true);
     setTimeout(() => {
-      // setCurrentQuizIndex(currentQuizIndex + 1);
+      setCurrentQuizIndex(currentQuizIndex + 1);
       setPassOpen(false);
-    }, 3000);
+    }, 1500);
     if (currentQuizIndex !== quiz.children.length - 1) {
       return;
     }
