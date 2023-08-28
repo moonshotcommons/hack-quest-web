@@ -32,7 +32,7 @@ function MissionCenter() {
       },
       {
         onError(error: any) {
-          message.error(`get user level ${error.msg}!`);
+          // message.error(`get user level ${error.msg}!`);
         }
       }
     );
@@ -44,7 +44,7 @@ function MissionCenter() {
     },
     {
       onError(error: any) {
-        message.error(`get badges ${error.msg}!`);
+        // message.error(`get badges ${error.msg}!`);
       }
     }
   );
@@ -61,7 +61,7 @@ function MissionCenter() {
       },
       {
         onError(error: any) {
-          message.error(`get mission ${error.msg}!`);
+          // message.error(`get mission ${error.msg}!`);
         }
       }
     );
