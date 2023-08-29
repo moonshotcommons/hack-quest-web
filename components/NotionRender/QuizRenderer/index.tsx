@@ -103,6 +103,7 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
         const target = document.querySelector(
           `[data-uuid="${line.id}"]`
         ) as HTMLTextAreaElement;
+        if (!target) return;
         target.style.backgroundColor = '#FF4747';
         target.style.opacity = '0.6';
         // message.error('Input error, please check your answer!');
@@ -131,6 +132,7 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
       const target = document.querySelector(
         `[data-uuid="${line.id}"]`
       ) as HTMLTextAreaElement;
+      if (!target) return;
       target.style.backgroundColor = 'var(--lesson-code-editor-input-bg)';
       target.style.opacity = '1';
       target.disabled = false;
@@ -152,6 +154,7 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
         `[data-uuid="${line.id}"]`
       ) as HTMLTextAreaElement;
 
+      if (!target) return;
       target.disabled = true;
       target.style.backgroundColor = '#9EFA13';
       target.style.opacity = '0.6';
