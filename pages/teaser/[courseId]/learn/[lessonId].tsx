@@ -1,30 +1,26 @@
 // ./pages/article/[articleId].tsx
 
-import webApi from '@/service';
-import {
-  CourseLessonType,
-  CourseType,
-  LessonStyleType
-} from '@/service/webApi/course/type';
-import wrapper from '@/store/redux';
+import { CourseType, LessonStyleType } from '@/service/webApi/course/type';
 
-import type { GetServerSideProps, NextPage } from 'next';
+import type { NextPage } from 'next';
 
 import LessonHeader from '@/components/LessonPages/LessonHeader';
 import LessonPageA from '@/components/LessonPages/LessonPageA';
-import { useEffect, useMemo, useState } from 'react';
-import { useRouter } from 'next/router';
-import { useGetLessonContent } from '@/hooks/useCoursesHooks/useGetLessenContent';
 import LessonPageB from '@/components/LessonPages/LessonPageB';
 import LessonPageD from '@/components/LessonPages/LessonPageD';
 import LessonPageE from '@/components/LessonPages/LessonPageE';
+import { useGetLessonContent } from '@/hooks/useCoursesHooks/useGetLessenContent';
+import { ConfigProvider, Spin } from 'antd';
+import { useRouter } from 'next/router';
+import { useMemo } from 'react';
 
 interface IProps {}
 
-const SyntaxUnit: NextPage<IProps> = (props) => {
+const TeaserUnit: NextPage<IProps> = (props) => {
   const router = useRouter();
   const { lessonId } = router.query;
-  const { lesson } = useGetLessonContent(lessonId as string);
+
+  const { lesson, loading } = useGetLessonContent(lessonId as string);
 
   const LessonPage = useMemo(() => {
     if (lesson) {
@@ -70,15 +66,35 @@ const SyntaxUnit: NextPage<IProps> = (props) => {
 
   return (
     <>
-      <div className="w-full h-full flex flex-col">
-        <LessonHeader
-          lesson={lesson as CourseLessonType}
-          courseType={CourseType.TEASER}
-        ></LessonHeader>
-        {LessonPage}
+      <div className="w-full h-full flex flex-col ">
+        <ConfigProvider
+          theme={{
+            components: {
+              Spin: {
+                contentHeight: 400
+              }
+            },
+            token: {
+              colorPrimary: '#ffd850'
+            }
+          }}
+        >
+          <Spin
+            spinning={loading}
+            className="h-[100vh] flex justify-center items-center translate-y-[calc(50vh-50%)]"
+            tip="loading..."
+            size="large"
+          >
+            <LessonHeader
+              lesson={lesson!}
+              courseType={CourseType.TEASER}
+            ></LessonHeader>
+            {LessonPage}
+          </Spin>
+        </ConfigProvider>
       </div>
     </>
   );
 };
 
-export default SyntaxUnit;
+export default TeaserUnit;
