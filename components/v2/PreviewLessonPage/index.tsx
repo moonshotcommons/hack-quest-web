@@ -60,10 +60,10 @@ const PreviewLessonPage: FC<PreviewLessonPageProps> = (props) => {
   // if (!lesson) return null;
 
   return (
-    <div className="relative w-full h-full max-h-[100%-80px]">
+    <div className="relative w-full h-[calc(100vh-80px-76px)]">
       {lesson && (
         <Split
-          className="flex-1 w-full h-full flex justify-between [&>div]:w-[50%] [&>.gutter]:border-x [&>.gutter]:cursor-col-resize"
+          className="flex-1 w-full h-full flex justify-between [&>div]:w-[50%] [&>.gutter]:cursor-col-resize"
           minSize={80}
           cursor="col-resize"
         >
@@ -82,10 +82,8 @@ const PreviewLessonPage: FC<PreviewLessonPageProps> = (props) => {
           {errorMessage}
         </div>
       )}
-      {/* <LessonFooter lesson={lesson} /> */}
-      {/* <Modal open={loading} onClose={() => {}}>
-        <></>
-      </Modal> */}
+      <LessonFooter lesson={lesson} />
+
       {loading && (
         <div className="w-full h-full flex justify-center items-center text-text-default-color">
           <Spin

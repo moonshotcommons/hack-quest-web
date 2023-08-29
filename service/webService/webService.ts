@@ -62,7 +62,6 @@ class WebService {
     if (res.status === 200) {
       return Promise.resolve(res.data);
     }
-
     return Promise.resolve(res.data);
   }
 

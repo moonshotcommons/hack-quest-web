@@ -25,7 +25,9 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
           <FiChevronDown
             size={28}
             color=""
-            className={`${expand ? 'rotate-180' : '0'} transition-transform`}
+            className={`${
+              expand ? 'rotate-180' : '0'
+            } transition-transform cursor-pointer`}
           ></FiChevronDown>
         </span>
       </div>

@@ -1114,7 +1114,7 @@
             {
               "id": "line4",
               "type": "input",
-              "content": "mapping(address => uint) pool;mapping(address => uint) pool;mapping(address => uint) pool;mapping(address => uint) pool;mapping(address => uint) pool;mapping(address => uint) pool;mapping(address => uint) pool;mapping(address => uint) pool;",
+              "content": "mapping(address => uint) pool;",
               "regex": "^mapping\\s*\\(\\s*address\\s*=>\\s*uint\\s*\\)\\s*pool\\s*;\\s*$",
               "sourceLines": [
                 {
@@ -1126,7 +1126,7 @@
               ],
               "lineNumber": 1
             },
-            { "id": "line5", "type": "default", "content": "functionfunctionfunctionfunctionfunctionfunctionfunctionfunctionfunctionfunctionfunctionfunctionfunctionfunctionfunctionfunctionfunctionfunctionfunction", "lineNumber": 2 }
+            { "id": "line5", "type": "default", "content": "function", "lineNumber": 2 }
           ]
         },
         {

@@ -6,12 +6,29 @@ import { getCourseLink } from '@/helper/utils';
 interface LessonNavProps {
   lesson: CourseLessonType;
   courseType: CourseType;
+  isPreview?: boolean;
 }
 interface navDataProps {
   label: string;
   link: string;
 }
-const LessonNav: React.FC<LessonNavProps> = ({ lesson, courseType }) => {
+
+const previewNavData = [
+  {
+    label: 'Preview course',
+    link: '/preview'
+  },
+  {
+    label: 'Preview lesson',
+    link: '/preview'
+  }
+];
+
+const LessonNav: React.FC<LessonNavProps> = ({
+  lesson,
+  courseType,
+  isPreview = false
+}) => {
   const router = useRouter();
   const { lessonId } = router.query;
   const [navData, setNavData] = useState<navDataProps[]>([]);
@@ -52,6 +69,10 @@ const LessonNav: React.FC<LessonNavProps> = ({ lesson, courseType }) => {
         link: '/courses'
       }
     ];
+    if (!router.query?.courseId && isPreview) {
+      setNavData([...initLink, ...previewNavData]);
+      return;
+    }
     const lessonLink = (router.query?.courseId as string)
       .split(' - ')
       .map((v, i) => ({

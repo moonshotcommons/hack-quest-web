@@ -12,6 +12,7 @@ import { useParseQuizA, AnswerState } from '@/hooks/useParseQuizA';
 import webApi from '@/service';
 import { PlaygroundContext } from '@/components/v2/LessonPage/Playground/type';
 import { QuizContext } from '..';
+import { changeTextareaHeight } from '@/helper/utils';
 interface QuizARendererProps {
   parent: CustomType | NotionType;
   quiz: QuizAType;
@@ -20,12 +21,14 @@ interface QuizARendererProps {
 const QuizARenderer: FC<QuizARendererProps> = (props) => {
   const { quiz } = props;
   const [showAnswer, setShowAnswer] = useState(false);
+  const [isCompleted, setIsCompleted] = useState(false);
   const [submitDisable, setSubmitDisable] = useState(true);
   const { lesson } = useContext(PlaygroundContext);
   const { onPass } = useContext(QuizContext);
   const { waitingRenderCodes, answerState, answerStateDispatch } =
     useParseQuizA(quiz.lines);
   const setAnswers = () => {
+    if (isCompleted) return;
     const show = !showAnswer;
     let inputEle: HTMLTextAreaElement | HTMLInputElement;
     answerState.map((line) => {
@@ -54,6 +57,7 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
             inputEle.value = line.value;
           }
           inputEle.disabled = show;
+          changeTextareaHeight(inputEle);
         }
       }
     });
@@ -83,8 +87,37 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
       await webApi.courseApi.markQuestState(lesson.id, false);
       return;
     }
-    await webApi.courseApi.completeLesson(lesson.id);
     onPass();
+  };
+
+  const initCompleteInput = () => {
+    const completed = false;
+    // const completed = quiz.id === '639f1074-3cb1-491f-8fd3-e74666264ddb';
+    setIsCompleted(completed);
+    if (!completed) return;
+    let inputEle: HTMLTextAreaElement | HTMLInputElement;
+    answerState.map((line) => {
+      if (line.answers?.length) {
+        line.answers.map((answer) => {
+          inputEle = document.querySelector(
+            `[data-uuid="${answer.id}"]`
+          ) as HTMLInputElement;
+          if (inputEle) {
+            inputEle.value = answer.answer;
+            inputEle.disabled = true;
+          }
+        });
+      } else {
+        inputEle = document.querySelector(
+          `[data-uuid="${line.id}"]`
+        ) as HTMLTextAreaElement;
+        if (inputEle) {
+          inputEle.value = line.answer;
+          inputEle.disabled = true;
+          changeTextareaHeight(inputEle);
+        }
+      }
+    });
   };
   useEffect(() => {
     setSubmitDisable(
@@ -96,6 +129,7 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
         }
       })
     );
+    initCompleteInput();
   }, [answerState]);
 
   useEffect(() => {

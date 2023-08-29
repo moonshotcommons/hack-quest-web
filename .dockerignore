@@ -1,0 +1,11 @@
+node_modules
+.husky
+.github
+.swc
+.next
+.vscode
+.idea
+.gitignore
+README.md
+.dockerignore
+.git

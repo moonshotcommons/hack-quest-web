@@ -5,12 +5,13 @@ import {
   UnitPagesListType
 } from '@/service/webApi/course/type';
 import { useUnitNavList } from '@/hooks/useUnitNavList';
+import { LessonContent } from '../type';
 
 interface LessonFooterProps {
-  lesson: CourseLessonType;
+  lesson?: Omit<CourseLessonType, 'content'> & { content: LessonContent };
 }
 const LessonFooter: React.FC<LessonFooterProps> = ({ lesson }) => {
-  const { unitNavList = [], currentUnitIndex } = useUnitNavList(lesson);
+  const { unitNavList = [], currentUnitIndex } = useUnitNavList(lesson as any);
 
   const isHandle = false;
   return (

@@ -7,6 +7,7 @@ import EmailVerifyLayout from './EmailVerifyLayout';
 import HackathonLayout from './HackathonLayout';
 import BaseLayout from './BaseLayout';
 import { NavBarProps } from './Navbar';
+import V2Layout from './V2Layout';
 
 export interface LayoutProps {
   navbarData: NavBarProps;
@@ -20,15 +21,40 @@ const Layout: FC<LayoutProps> = (props) => {
   useNavAuth(waitingLoadUserInfo);
   const userInfo = useGetUserInfo();
   const regex = /\/[^/]+\/\[courseId\]\/learn\/\[lessonId\]/;
+  navbarData.navList = [
+    {
+      name: 'All Courses',
+      path: '/courses'
+    }
+  ];
 
-  if (pathname.startsWith('/v2')) {
-    pathname = pathname.replace('/v2', '');
+  if (userInfo) {
+    navbarData.navList = [
+      {
+        name: 'All Courses',
+        path: '/courses'
+      },
+      {
+        name: 'Learning Dashboard',
+        path: '/dashboard'
+      },
+      {
+        name: 'Mission Center',
+        path: '/mission-center'
+      }
+    ];
   }
 
+  // console.log('使用v2布局', pathname.startsWith('/v2'));
+
   switch (true) {
+    case pathname.startsWith('/v2'):
+      console.log('使用v2');
+      return <V2Layout navbarData={navbarData}>{children}</V2Layout>;
     case regex.test(pathname):
       return <UnitLayout>{children}</UnitLayout>;
-
+    case pathname.startsWith('/preview'):
+      return <V2Layout navbarData={navbarData}>{children}</V2Layout>;
     case [
       '/auth/register',
       '/auth/login',
@@ -49,30 +75,6 @@ const Layout: FC<LayoutProps> = (props) => {
     case pathname === '/':
     // return <HomeLayout>{children}</HomeLayout>;
     default:
-      navbarData.navList = [
-        {
-          name: 'All Courses',
-          path: '/courses'
-        }
-      ];
-
-      if (userInfo) {
-        navbarData.navList = [
-          {
-            name: 'All Courses',
-            path: '/courses'
-          },
-          {
-            name: 'Learning Dashboard',
-            path: '/dashboard'
-          },
-          {
-            name: 'Mission Center',
-            path: '/mission-center'
-          }
-        ];
-      }
-
       return <BaseLayout navbarData={navbarData}>{children}</BaseLayout>;
   }
 };

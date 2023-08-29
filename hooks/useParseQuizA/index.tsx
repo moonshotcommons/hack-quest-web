@@ -1,6 +1,7 @@
 import { ReactNode, useEffect, useState } from 'react';
 import { reservedWords } from '@/constants/solidity';
 import { LineType, CodeLineType } from '@/components/v2/LessonPage/type';
+import { changeTextareaHeight } from '@/helper/utils';
 
 export interface AnswerState {
   id: string;
@@ -39,7 +40,7 @@ const AnswerInputTextarea = (props: {
         color: '#333',
         outline: 'none',
         borderRadius: '3px',
-        width: props.type === LineType.INSERT_INPUT ? '100px' : '100%',
+        width: '100%',
         height: '40px',
         padding: '8px',
         resize: 'none' /* 禁止用户手动调整大小 */,
@@ -48,16 +49,9 @@ const AnswerInputTextarea = (props: {
       }}
       data-uuid={props.uuid}
       onInput={(e) => {
-        if (props.type === LineType.INSERT_INPUT) return;
         const textarea = e.target as HTMLTextAreaElement;
         textarea.style.backgroundColor = 'var(--lesson-code-input-bg)';
-        // 重置textarea的高度为默认值，以便可以正确计算其内容的高度
-        textarea.style.height = '40px';
-        // 获取textarea的内容高度，并加上padding和border的高度
-        let height = textarea.scrollHeight;
-        let lineLen = textarea.value.split('\n').length;
-        // 将textarea的高度设置为内容高度
-        textarea.style.height = height + 'px';
+        changeTextareaHeight(textarea);
       }}
       onChange={(e) => {
         const currentId = e.target.dataset.uuid;

@@ -1,14 +1,12 @@
-import { FC, ReactNode, useEffect, useRef, useState } from 'react';
-import { Renderer } from '..';
-import { CourseType } from '@/service/webApi/course/type';
+import Button from '@/components/Common/Button';
 import {
   AnswerState,
-  useParseQuiz,
-  WaitingRenderCodeType
+  WaitingRenderCodeType,
+  useParseQuiz
 } from '@/hooks/useParseQuiz';
-import { message } from 'antd';
-import Button from '@/components/Common/Button';
 import webApi from '@/service';
+import { FC, useRef, useState } from 'react';
+import { Renderer } from '..';
 
 interface QuizRendererProps {
   source: any;
@@ -105,6 +103,7 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
         const target = document.querySelector(
           `[data-uuid="${line.id}"]`
         ) as HTMLTextAreaElement;
+        if (!target) return;
         target.style.backgroundColor = '#FF4747';
         target.style.opacity = '0.6';
         // message.error('Input error, please check your answer!');
@@ -133,6 +132,7 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
       const target = document.querySelector(
         `[data-uuid="${line.id}"]`
       ) as HTMLTextAreaElement;
+      if (!target) return;
       target.style.backgroundColor = 'var(--lesson-code-editor-input-bg)';
       target.style.opacity = '1';
       target.disabled = false;
@@ -154,6 +154,7 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
         `[data-uuid="${line.id}"]`
       ) as HTMLTextAreaElement;
 
+      if (!target) return;
       target.disabled = true;
       target.style.backgroundColor = '#9EFA13';
       target.style.opacity = '0.6';
@@ -172,10 +173,10 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
     <div className="h-full w-full overflow-hidden flex flex-col">
       <div
         ref={containerRef}
-        style={{
-          boxShadow:
-            'rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;'
-        }}
+        // style={{
+        //   boxShadow:
+        //     'rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px'
+        // }}
         className="overflow-hidden flex-1 h-full scroll-wrap-y no-scrollbar"
       >
         <div className="lesson-quiz-content w-full h-[100%] flex flex-col relative">
