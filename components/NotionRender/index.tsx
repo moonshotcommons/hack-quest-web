@@ -1,21 +1,20 @@
 import { LessonStyleType } from '@/service/webApi/course/type';
 import { FC, ReactNode, createContext } from 'react';
-import HeaderRenderer from './HeaderRenderer';
-import { HeaderLevel } from './HeaderRenderer/type';
-import SectionRenderer from './SectionRenderer';
-import ImageRenderer from './ImageRenderer';
-import StepRenderer from './StepRenderer';
-import QuoteRenderer from './QuoteRenderer';
-import CodeRenderer from './CodeRenderer';
-import ToggleRenderer from './ToggleRenderer';
-import { CustomRenderType, NotionRenderType } from './type';
-import ParagraphRenderer from './ParagraphRenderer';
-import NumberListItemRenderer from './NumberListItemRenderer';
 import BulletedListItemRenderer from './BulletedListItem';
-import VideoRenderer from './VideoRenderer';
-import DescriptionRenderer from './DescriptionRenderer';
-import QuizRenderer from './QuizRenderer';
 import CalloutRenderer from './CalloutRenderer';
+import CodeRenderer from './CodeRenderer';
+import DescriptionRenderer from './DescriptionRenderer';
+import HeaderRenderer from './HeaderRenderer';
+import ImageRenderer from './ImageRenderer';
+import NumberListItemRenderer from './NumberListItemRenderer';
+import ParagraphRenderer from './ParagraphRenderer';
+import QuizRenderer from './QuizRenderer';
+import QuoteRenderer from './QuoteRenderer';
+import SectionRenderer from './SectionRenderer';
+import StepRenderer from './StepRenderer';
+import ToggleRenderer from './ToggleRenderer';
+import VideoRenderer from './VideoRenderer';
+import { CustomRenderType, NotionRenderType } from './type';
 
 export interface NotionRendererContextType {
   styleType: LessonStyleType;
@@ -181,6 +180,9 @@ export const Renderer: FC<RendererPropsType> = (props) => {
           parent={parent}
         ></HeaderRenderer>
       );
+    default:
+      // message.error('不能识别的render类型');
+      return null;
   }
 };
 
