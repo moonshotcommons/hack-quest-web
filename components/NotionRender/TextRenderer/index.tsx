@@ -1,5 +1,5 @@
 import { cn } from '@/helper/utils';
-import { FC, ReactNode } from 'react';
+import { FC } from 'react';
 import MathJax from 'react-mathjax';
 interface TextRendererProps {
   richTextArr: any;
@@ -46,10 +46,10 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
         if (richText.href) {
           return (
             <a
-              target="_blank"
               key={index}
               href={richText.href}
-              className={`${className} `}
+              target="_blank"
+              className={`${className} underline`}
               style={{ color: '#676767' }}
             >
               {richText.plain_text}
