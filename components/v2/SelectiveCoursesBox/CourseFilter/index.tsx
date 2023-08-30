@@ -43,10 +43,8 @@ const CourseFilter: React.FC<CourseFilterProps> = ({
             <div key={sort.value} className="mb-[10px] ">
               <label className="flex items-center cursor-pointer">
                 <Radio
-                  parentValue={filter.sort}
-                  value={sort.value}
-                  radioName={'sort'}
-                  onChange={changeSort}
+                  checked={sort.value === filter.sort}
+                  onChange={() => changeSort(sort.value)}
                 />
                 <span className="text-[18px] ml-[15px]">{sort.label}</span>
               </label>
