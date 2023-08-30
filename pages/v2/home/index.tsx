@@ -1,4 +1,4 @@
-import HomeTop from '@/components/v2/Home/Top';
+import LearningCourse from '@/components/v2/Home/LearningCourse';
 import React from 'react';
 
 import FeatureCourses from '@/components/v2/Home/FeaturedCourses';
@@ -9,8 +9,8 @@ interface HomeProps {
 
 const Home: NextPage<HomeProps> = (props) => {
   return (
-    <div className="w-full">
-      <HomeTop />
+    <div className="">
+      <LearningCourse />
       <FeatureCourses></FeatureCourses>
     </div>
   );
