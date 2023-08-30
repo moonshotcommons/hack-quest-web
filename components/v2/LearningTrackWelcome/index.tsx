@@ -1,6 +1,6 @@
 import React from 'react';
 
-const WelCome = () => {
+const LearningTrackWelCome = () => {
   return (
     <div>
       <p className="text-[40px] font-next-poster-Bold">Welcome, Jose!</p>
@@ -12,4 +12,4 @@ const WelCome = () => {
   );
 };
 
-export default WelCome;
+export default LearningTrackWelCome;

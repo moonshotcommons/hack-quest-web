@@ -1,10 +1,12 @@
 import React from 'react';
-import WelCome from './WelCome';
+import LearningTrackWelcome from '@/components/v2/LearningTrackWelcome';
+import Course from './Course';
 
 function HomeTop() {
   return (
-    <div className="py-10 font-next-book">
-      <WelCome />
+    <div className="py-10 font-next-book-Thin text-home-default-color">
+      <LearningTrackWelcome />
+      <Course />
     </div>
   );
 }

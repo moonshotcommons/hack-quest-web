@@ -278,4 +278,24 @@ html[data-theme='light'] {
   --mission-center-beginner-btn-bg: #353535;
   --mission-center-icon-twitter-color: #0388fe;
   --mission-center-icon-user-color: #0b0b0b;
+
+
+  /** home */
+  --home-default-color:var(--neutral-white-black);
+  --home-tab-border:var(--primary-green-yellow);
+  --home-learning-track-bg:var(--neutral-white);
+  --home-learning-track-border-bg:var(--primary-green-yellow);
+  --home-learning-track-color:var(--neutral-white-black);
+  --home-learning-track-default-color:var(--text-default-color);
+  --home-learning-track-progress-bg:var(--neutral-light-gray);
+  --home-learning-track-progress-active-bg:#FCC409;
+  --home-learning-track-progress-border:var(--neutral-white-black);
+  --home-learning-track-view-button-border:var(--neutral-black);
+  --home-learning-track-view-button-color:var(--neutral-black);
+  --home-learning-track-view-button-bg:var(--primary-green-yellow);
+  --home-learning-track-no-data-color:var(--neutral-medium-gray);
+  --home-learning-track-no-data-button-add-color:var(--neutral-white);
+  --home-learning-track-no-data-button-add-bg:var(--neutral-white-black);
+  --home-learning-track-no-data-button-explore-color:var(--neutral-black);
+  --home-learning-track-no-data-button-explore-border:var(--neutral-white-black);
 }
