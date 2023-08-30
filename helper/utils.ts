@@ -42,3 +42,19 @@ export const changeTextareaHeight = (target: HTMLTextAreaElement) => {
   // 将textarea的高度设置为内容高度
   target.style.height = height + 'px';
 };
+
+export const throttle = (fn: any) => {
+  let throttleTimer: NodeJS.Timeout | null = null;
+  let startTime = +new Date();
+  const waitTime = 100;
+  return function () {
+    var curTime = +new Date();
+    var remaining = waitTime - (curTime - startTime);
+    throttleTimer && clearTimeout(throttleTimer);
+    if (remaining > 0) {
+      throttleTimer = setTimeout(fn, remaining);
+    } else {
+      startTime = curTime;
+    }
+  };
+};
