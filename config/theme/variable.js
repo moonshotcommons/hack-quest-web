@@ -14,6 +14,11 @@ const {
   lessonThemeBackgroundColor,
   lessonThemeBorderColor
 } = require('./lesson');
+const {
+  homeThemeColors,
+  homeThemeBackgroundColor,
+  homeThemeBorderColor
+} = require('./home');
 const { authThemeColors } = require('./auth');
 
 const themeColors = {
@@ -34,7 +39,8 @@ const themeColors = {
   ...settingThemeColors,
   ...notionRendererThemeColors,
   ...lessonThemeColors,
-  ...authThemeColors
+  ...authThemeColors,
+  ...homeThemeColors
 };
 
 const backgroundImage = {
@@ -44,12 +50,14 @@ const backgroundImage = {
 
 const backgroundColor = {
   ...missionCenterBackgroundColor,
-  ...lessonThemeBackgroundColor
+  ...lessonThemeBackgroundColor,
+  ...homeThemeBackgroundColor
 };
 
 const borderColor = {
   ...missionCenterBorderColor,
-  ...lessonThemeBorderColor
+  ...lessonThemeBorderColor,
+  ...homeThemeBorderColor
 };
 
 module.exports = {
