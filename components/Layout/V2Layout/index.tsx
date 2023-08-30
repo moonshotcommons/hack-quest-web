@@ -22,7 +22,7 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
             <User></User>
           </NavBar>
         </div>
-        <main className="pl-[30px]">{children}</main>
+        <main className="px-[30px]">{children}</main>
       </div>
     </div>
   );
