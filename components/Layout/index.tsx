@@ -51,8 +51,8 @@ const Layout: FC<LayoutProps> = (props) => {
         path: '/v2/learning-track1'
       },
       {
-        name: 'Selective Courses',
-        path: '/v2/selective-courses'
+        name: 'Electives',
+        path: '/v2/electives'
       }
     ];
   }
