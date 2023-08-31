@@ -31,7 +31,7 @@ const Checkbox: FC<CheckboxProps> = (props) => {
         checked={checked}
         onChange={() => {}}
       />
-      <div className="w-[20px] h-[20px] border rounded-[3px] border-selective-courses-filter-border-color block">
+      <div className="w-[20px] h-[20px] border rounded-[3px] border-electives-filter-border-color block">
         {checked ? (
           <span
             className={cn(

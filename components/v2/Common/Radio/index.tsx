@@ -24,7 +24,7 @@ const Radio: FC<RadioProps> = (props) => {
         checked={checked}
         onChange={() => {}}
       />
-      <span className="w-[20px] h-[20px] border border-solid rounded-full border-selective-courses-filter-border-color block">
+      <span className="w-[20px] h-[20px] border border-solid rounded-full border-electives-filter-border-color block">
         {checked ? (
           <span
             className={cn(

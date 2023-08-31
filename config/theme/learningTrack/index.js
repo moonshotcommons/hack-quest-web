@@ -1,11 +1,11 @@
 const learningTrackThemeColors = {
-  'selective-courses-filter-color': 'var(--selective-courses-filter-color)'
+  'electives-filter-color': 'var(--electives-filter-color)'
 };
 
 const learningTrackThemeBackgroundColor = {};
 const learningTrackThemeBorderColor = {
-  'selective-courses-filter-border-color':
-    'var(--selective-courses-filter-border-color)'
+  'electives-filter-border-color':
+    'var(--electives-filter-border-color)'
 };
 
 module.exports = {

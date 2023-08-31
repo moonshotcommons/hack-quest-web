@@ -2,6 +2,8 @@ import User from '@/components/User';
 import { Inter } from 'next/font/google';
 import React, { ReactNode } from 'react';
 import NavBar, { NavBarProps } from '../Navbar';
+
+import Breadcrumb from '@/components/v2/Breadcrumb';
 const inter = Inter({ subsets: ['latin'] });
 export interface V2LayoutProps {
   navbarData: NavBarProps;
@@ -20,6 +22,7 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
             <User></User>
           </NavBar>
         </div>
+        <Breadcrumb />
         <main className="w-full">{children}</main>
       </div>
     </div>

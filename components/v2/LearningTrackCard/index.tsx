@@ -65,10 +65,10 @@ const LearningTrackCard: React.FC = () => {
               <div>sdsdsd</div>
             </div>
             <div className="w-full flex justify-between">
-              <Button className="w-[47%] h-11 border border-home-learning-track-view-button-border text-home-learning-track-view-button-color">
+              <Button className="w-[48%] h-11 border border-home-learning-track-view-button-border text-home-learning-track-view-button-color px-0">
                 View Syllabus
               </Button>
-              <Button className="w-[47%] h-11 text-home-learning-track-view-button-color bg-home-learning-track-view-button-bg">
+              <Button className="w-[48%] h-11 text-home-learning-track-view-button-color bg-home-learning-track-view-button-bg px-0">
                 Resume
               </Button>
             </div>
