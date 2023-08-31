@@ -36,7 +36,7 @@ const borderColor: Record<string, string> = {
 const CourseCard: FC<CourseCardProps> = (props) => {
   const { course, inProgress = false, inCompleted = false } = props;
   return (
-    <Link href={`/v2/courses/${course.id}`}>
+    <Link href={`/v2/electives/${course.id}`}>
       <div
         className={cn(
           'flex px-5 pb-5 flex-col border-t-[10px] rounded-[10px]  h-fit bg-white w-[305px] hover:-translate-y-1 transition-all duration-300 mt-1 relative shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)]',

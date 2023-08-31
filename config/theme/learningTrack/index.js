@@ -4,8 +4,7 @@ const learningTrackThemeColors = {
 
 const learningTrackThemeBackgroundColor = {};
 const learningTrackThemeBorderColor = {
-  'electives-filter-border-color':
-    'var(--electives-filter-border-color)'
+  'electives-filter-border-color': 'var(--electives-filter-border-color)'
 };
 
 module.exports = {

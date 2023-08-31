@@ -13,17 +13,21 @@ export interface V2LayoutProps {
 
 const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
   return (
-    <div
-      className={`w-full min-h-screen bg-[white]  ${inter.className} overflow-x-scroll`}
-    >
-      <div className="m-auto">
-        <div className="px-[40px]">
-          <NavBar {...navbarData}>
-            <User></User>
-          </NavBar>
+    <div className={`w-full bg-[white]  ${inter.className}`}>
+      <div className="w-full fixed left-0 top-0 bg-[#0B0B0B] h-[64px] flex items-center z-[99] shadow-[box-shadow: rgba(17, 12, 46, 0.15)_0px_48px_100px_0px]">
+        <div className="relative container m-auto h-full ">
+          <div className="xl:px-[40px] xl:w-[calc(100%+160px)] w-full h-full absolute top-0 left-1/2 -translate-x-1/2">
+            <NavBar {...navbarData}>
+              <User></User>
+            </NavBar>
+          </div>
         </div>
-        <Breadcrumb />
-        <main className="w-full">{children}</main>
+      </div>
+      <div className="m-auto">
+        <div className="w-full pt-[64px]">
+          <Breadcrumb />
+          <main className="w-full">{children}</main>
+        </div>
       </div>
     </div>
   );
