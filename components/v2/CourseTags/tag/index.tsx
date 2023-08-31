@@ -17,8 +17,8 @@ const Tag: React.FC<
     <span
       className={cn(
         `flex gap-2 items-center text-text-default-color text-xs not-italic font-normal whitespace-nowrap`,
-        className,
-        size === 'large' ? 'text-base gap-[28px]' : ''
+        size === 'large' ? 'text-base gap-[10px]' : '',
+        className
       )}
       {...rest}
     >
