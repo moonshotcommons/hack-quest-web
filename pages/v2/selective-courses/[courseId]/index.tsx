@@ -1,6 +1,6 @@
 // ./pages/article/[articleId].tsx
 
-import CourseDetail from '@/components/v2/CourseDetail';
+import CourseDetail from '@/components/v2/DetailPage/CourseDetail';
 import webApi from '@/service';
 import { CourseDetailType } from '@/service/webApi/course/type';
 import type { NextPage } from 'next';
@@ -25,12 +25,11 @@ const CourseDetailPage: NextPage<IProps> = (props) => {
 
   if (!courseDetail) return null;
 
+  console.log(courseDetail.units);
+
   return (
     <div className="container mx-auto">
-      <CourseDetail
-        courseDetail={courseDetail}
-        itemCount={courseDetail.units?.length || 0}
-      ></CourseDetail>
+      <CourseDetail courseDetail={courseDetail}></CourseDetail>
     </div>
   );
 };

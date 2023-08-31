@@ -34,6 +34,11 @@ export const getLessonLink = (
   return `${getCourseLink(courseType)}/${courseName}/learn/${lessonId}`;
 };
 
+export const getV2LessonLink = (courseName: string, lessonId: string) => {
+  if (!courseName || !lessonId) return '/404';
+  return `/${courseName}/learn/${lessonId}`;
+};
+
 export const changeTextareaHeight = (target: HTMLTextAreaElement) => {
   // 重置textarea的高度为默认值，以便可以正确计算其内容的高度
   target.style.height = '40px';

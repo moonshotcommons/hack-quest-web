@@ -12,10 +12,11 @@ interface CourseTagsProps {
   duration: number;
   unitCount: number;
   size?: 'small' | 'large';
+  type?: 'course' | 'learning-track';
 }
 
 const CourseTags: FC<CourseTagsProps> = (props) => {
-  const { level, unitCount, duration, size = 'small' } = props;
+  const { level, unitCount, duration, size = 'small', type = 'course' } = props;
   return (
     <div
       className={cn(
@@ -28,7 +29,10 @@ const CourseTags: FC<CourseTagsProps> = (props) => {
         {computeTime(duration, 'Hour')}
       </Tag>
       <Tag icon={<CourseIcon />} size={size}>
-        {unitCount + ' ' + `${unitCount > 1 ? 'Units' : 'Unit'}`}
+        {type === 'course' &&
+          unitCount + ' ' + `${unitCount > 1 ? 'Units' : 'Unit'}`}
+        {type === 'learning-track' &&
+          unitCount + ' ' + `${unitCount > 1 ? 'Courses' : 'Course'}`}
       </Tag>
     </div>
   );
