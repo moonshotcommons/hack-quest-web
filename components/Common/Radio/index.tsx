@@ -22,7 +22,7 @@ const Radio: FC<RadioProps> = (props) => {
       onClick={() => onChange?.(value)}
     >
       <input type="radio" className="hidden" value={value} name={radioName} />
-      <span className="w-[20px] h-[20px] border border-solid rounded-full border-selective-courses-filter-border-color block">
+      <span className="w-[20px] h-[20px] border border-solid rounded-full border-electives-filter-border-color block">
         {parentValue === value ? (
           <span
             className={cn(

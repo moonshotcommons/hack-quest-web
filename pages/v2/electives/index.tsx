@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react';
 import PageDescription from '@/components/v2/PageDescription';
-import SelectiveCoursesBox from '@/components/v2/SelectiveCoursesBox';
-import { throttle } from '@/helper/utils';
+import SelectiveCoursesBox from '@/components/v2/ElectivesBox';
 
 function SelectiveCourses() {
   const selectiveCoursesRef = useRef<HTMLDivElement | null>(null);

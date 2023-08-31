@@ -305,6 +305,6 @@ html[data-theme='light'] {
   --learning-track-more-text-color:var(--neutral-white-black);
 
   /** v2 selective courses */
-  --selective-courses-filter-color:var(--neutral-white-black);
-  --selective-courses-filter-border-color:var(--neutral-white-black);
+  --electives-filter-color:var(--neutral-white-black);
+  --electives-filter-border-color:var(--neutral-white-black);
 }
