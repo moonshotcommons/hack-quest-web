@@ -1,8 +1,8 @@
-import React from 'react';
-import Image from 'next/image';
-import LearningImage from '@/public/images/home/learning-image.svg';
 import Button from '@/components/Common/Button';
 import { TabValueType } from '@/components/v2/Home/LearningCourse/Course/type';
+import LearningImage from '@/public/images/home/learning-image.svg';
+import Image from 'next/image';
+import React from 'react';
 const LearningTrackCard: React.FC = () => {
   const status = 1;
   const leftRender = () => {
