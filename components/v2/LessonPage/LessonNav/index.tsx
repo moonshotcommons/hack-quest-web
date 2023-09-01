@@ -1,8 +1,8 @@
+import { getCourseLink } from '@/helper/utils';
+import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
-import { getCourseLink } from '@/helper/utils';
 interface LessonNavProps {
   lesson: CourseLessonType;
   courseType: CourseType;
@@ -77,7 +77,7 @@ const LessonNav: React.FC<LessonNavProps> = ({
       .split(' - ')
       .map((v, i) => ({
         label: v,
-        link: !i ? `${getCourseLink(courseType)}/${lesson?.courseId}` : ''
+        link: !i ? `/v2/${getCourseLink(courseType)}/${lesson?.courseId}` : ''
       }));
     setNavData([...initLink, ...lessonLink]);
   }, []);

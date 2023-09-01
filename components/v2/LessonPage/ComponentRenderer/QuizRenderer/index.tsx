@@ -1,22 +1,14 @@
-import {
-  FC,
-  ReactNode,
-  createContext,
-  useContext,
-  useRef,
-  useState
-} from 'react';
-import { QuizAType, QuizBType, QuizType } from '../../type';
+import Button from '@/components/Common/Button';
+import { cn } from '@/helper/utils';
+import { useClickAway } from 'ahooks';
+import { FC, createContext, useContext, useRef, useState } from 'react';
 import { FiChevronDown } from 'react-icons/fi';
 import { MdArrowDropDown } from 'react-icons/md';
-import QuizDropdown from './QuizDropdwon';
 import ComponentRenderer from '..';
-import Button from '@/components/Common/Button';
-import { message } from 'antd';
-import QuizPassModal from './QuizPassModal';
-import { useClickAway } from 'ahooks';
 import { PlaygroundContext } from '../../Playground/type';
-import { cn } from '@/helper/utils';
+import { QuizType } from '../../type';
+import QuizDropdown from './QuizDropdwon';
+import QuizPassModal from './QuizPassModal';
 interface QuizRendererProps {
   quiz: QuizType;
   parent: any;
@@ -38,14 +30,14 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
   const onPass = () => {
     setPassOpen(true);
     setTimeout(() => {
-      setCurrentQuizIndex(currentQuizIndex + 1);
+      let nextQuizIndex = currentQuizIndex + 1;
+      if (nextQuizIndex < quiz.children.length) {
+        setCurrentQuizIndex(nextQuizIndex);
+      } else {
+        onCompleted();
+      }
       setPassOpen(false);
     }, 1500);
-    if (currentQuizIndex !== quiz.children.length - 1) {
-      return;
-    }
-
-    onCompleted();
   };
 
   useClickAway(() => {

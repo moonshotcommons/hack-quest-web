@@ -1,10 +1,8 @@
 'use client';
-import { FC, ReactNode, useMemo, useState } from 'react';
-import { CustomComponent, LessonContent, NotionComponent } from '../type';
+import { FC, useEffect, useMemo, useState } from 'react';
 import ComponentRenderer from '../ComponentRenderer';
-import Split from 'react-split';
-import { CourseLessonType } from '@/service/webApi/course/type';
-import { PlaygroundContext, LessonType } from './type';
+import { CustomComponent, NotionComponent } from '../type';
+import { LessonType, PlaygroundContext } from './type';
 
 interface PlaygroundProps {
   // children: ReactNode
@@ -27,6 +25,12 @@ const Playground: FC<PlaygroundProps> = (props) => {
       ...lesson.content,
       isRoot: true
     };
+  }, [lesson]);
+
+  useEffect(() => {
+    if (lesson.content.right) {
+      setComponents(lesson.content.right);
+    }
   }, [lesson]);
 
   return (

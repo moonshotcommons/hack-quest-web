@@ -2,9 +2,9 @@
 
 import { Dialog, Transition } from '@headlessui/react';
 
+import { cn } from '@/helper/utils';
 import { FC, Fragment, ReactNode } from 'react';
 import CloseIcon from '../Icon/Close';
-import { cn } from '@/helper/utils';
 
 interface ModalProps {
   open: boolean;
@@ -39,7 +39,12 @@ const Modal: React.FC<ModalProps> = (props) => {
   return (
     <Transition show={open} appear as={Fragment}>
       <Dialog as="div" className="relative z-[999]" onClose={onClose}>
-        <div className={cn(`fixed inset-0 bg-opacity-5`, `bg-[${markBg}]`)} />
+        <div
+          className={cn(
+            `fixed inset-0 bg-opacity-50`,
+            markBg === 'transparent' ? 'bg-transparent' : 'bg-black'
+          )}
+        />
         <div className="fixed inset-0 overflow-y-auto">
           <div className="flex min-h-full items-center justify-center p-4 text-center">
             <Transition.Child

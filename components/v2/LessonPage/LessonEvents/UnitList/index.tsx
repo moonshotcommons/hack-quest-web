@@ -1,20 +1,17 @@
-import React, { useState } from 'react';
+import { getCourseLink } from '@/helper/utils';
 import ArrowLeft from '@/public/images/lesson/arrow_left_line.svg';
 import Complete from '@/public/images/lesson/complete.svg';
 import CompleteActive from '@/public/images/lesson/complete_active.svg';
-import Image from 'next/image';
 import {
   CompleteStateType,
   CourseLessonStateType,
   CourseLessonType,
   CourseType,
-  CourseUnitType,
   UnitPagesListType
 } from '@/service/webApi/course/type';
-import { DropData } from '@/components/Common/DropDown/type';
-import { getCourseLink } from '@/helper/utils';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { DropDataChildrenType } from '@/components/Common/DropDown/type';
+import React, { useState } from 'react';
 interface UnitListType {
   unitData: UnitPagesListType[];
   lesson: CourseLessonType;
@@ -33,7 +30,9 @@ const UnitList: React.FC<UnitListType> = ({ unitData, lesson, courseType }) => {
   const handleUnit = (item: CourseLessonStateType) => {
     if (item.disable) return;
     router.push(
-      `${getCourseLink(courseType)}/${router.query.courseId}/learn/${item.id}`
+      `/v2/${getCourseLink(courseType)}/${router.query.courseId}/learn/${
+        item.id
+      }`
     );
   };
   return (

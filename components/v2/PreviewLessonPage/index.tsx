@@ -1,24 +1,14 @@
 'use client';
-import { FC, ReactNode, useEffect, useState } from 'react';
-import Split from 'react-split';
+import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
 import { useRequest } from 'ahooks';
-import { LessonContent as LessonContentType } from '../LessonPage/type';
-import LessonContent from '../LessonPage/LessonContent';
-import Playground from '../LessonPage/Playground';
-import LessonFooter from '../LessonPage/LessonFooter';
-import { useDispatch } from 'react-redux';
-import {
-  CompleteStateType,
-  CourseLessonType,
-  CourseType,
-  UnitPagesListType
-} from '@/service/webApi/course/type';
-import webApi from '@/service';
-import { useGetLessonContent } from '@/hooks/useCoursesHooks/useGetLessenContent';
-import { useRouter } from 'next/router';
 import { Spin, message } from 'antd';
-import Modal from '@/components/Common/Modal';
 import axios from 'axios';
+import { FC, useEffect, useState } from 'react';
+import Split from 'react-split';
+import LessonContent from '../LessonPage/LessonContent';
+import LessonFooter from '../LessonPage/LessonFooter';
+import Playground from '../LessonPage/Playground';
+import { LessonContent as LessonContentType } from '../LessonPage/type';
 
 interface PreviewLessonPageProps {
   previewUrl: string;
@@ -67,7 +57,11 @@ const PreviewLessonPage: FC<PreviewLessonPageProps> = (props) => {
           minSize={80}
           cursor="col-resize"
         >
-          <LessonContent lesson={lesson!} isPreview={true}></LessonContent>
+          <LessonContent
+            lesson={lesson!}
+            isPreview={true}
+            courseType={CourseType.GUIDED_PROJECT}
+          ></LessonContent>
           <Playground
             lesson={lesson!}
             isPreview={true}

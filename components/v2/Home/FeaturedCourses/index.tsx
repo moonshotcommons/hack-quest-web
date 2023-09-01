@@ -2,11 +2,10 @@ import {
   ChangeState,
   ScrollContainer
 } from '@/components/Common/ScrollContainer';
-import {
-  useGetCourses,
-  useLoadCourseList
-} from '@/hooks/useCoursesHooks/useGetCourses';
-import { CourseType } from '@/service/webApi/course/type';
+import webApi from '@/service';
+import { CourseResponse } from '@/service/webApi/course/type';
+import { useRequest } from 'ahooks';
+import Link from 'next/link';
 import { FC, useState } from 'react';
 import { LuChevronRight } from 'react-icons/lu';
 import CourseCard from '../../CourseCard';
@@ -25,20 +24,37 @@ const FeaturedCourseHeader = () => {
           eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </p>
       </div>
-      <div className="flex gap-x-[15px] items-center">
+      <Link
+        href={'/v2/electives'}
+        className="flex gap-x-[15px] items-center text-[#0B0B0B] hover:opacity-70 font-next-book tracking-[0.36px] text-[18px]"
+      >
         <span>View All</span>
         <LuChevronRight size={32}></LuChevronRight>
-      </div>
+      </Link>
     </div>
   );
 };
 
 const FeatureCourses: FC<FeatureCoursesProps> = (props) => {
-  useLoadCourseList();
-  const courseList = useGetCourses();
-
+  const [courseList, setCourseList] = useState<CourseResponse[]>([]);
   const [scrollContainerState, setScrollContainerState] =
     useState<ChangeState>();
+
+  const { run, loading } = useRequest(
+    async () => {
+      const courseList = await webApi.courseApi.getCourseList('featured=true');
+      return courseList;
+    },
+    {
+      onSuccess(courses) {
+        setCourseList(courses);
+      },
+      onError(error: any) {
+        console.log(error);
+        // message.error(error.msg);
+      }
+    }
+  );
 
   return (
     <div className="w-full bg-[#FFF4CE] py-[60px]">
@@ -48,18 +64,9 @@ const FeatureCourses: FC<FeatureCoursesProps> = (props) => {
           onChange={(state: any) => setScrollContainerState(state)}
         >
           <div className="my-[30px] flex gap-[20px] overflow-x-hidden">
-            {courseList
-              .filter((item) =>
-                [CourseType.SYNTAX, CourseType.GUIDED_PROJECT].includes(
-                  item.type
-                )
-              )
-              .map((course, index) => {
-                if (index > 4) return null;
-                return (
-                  <CourseCard key={course.id} course={course}></CourseCard>
-                );
-              })}
+            {courseList.map((course, index) => {
+              return <CourseCard key={course.id} course={course}></CourseCard>;
+            })}
           </div>
         </ScrollContainer>
         <ScrollControl changeState={scrollContainerState}></ScrollControl>
