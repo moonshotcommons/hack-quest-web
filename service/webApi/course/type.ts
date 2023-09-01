@@ -93,3 +93,13 @@ export interface CourseLessonStateType {
 export type UnitPagesListType = CourseUnitStateType & {
   pages: CourseLessonStateType[];
 };
+
+export enum ProcessType {
+  IN_PROCESS = 'inProcess',
+  COMPLETED = 'completed'
+}
+export type LearningTrackCourseType =
+  | ProcessType
+  | {
+      UN_ENROLL: 'unEnroll';
+    };

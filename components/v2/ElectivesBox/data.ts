@@ -1,7 +1,8 @@
 export const sort = [
   {
     label: 'Featured',
-    value: 'Featured'
+    value: true,
+    key: 'featured'
   },
   {
     label: 'Level: low to high',
@@ -23,15 +24,18 @@ export const sort = [
 export const courseType = [
   {
     label: 'All',
-    value: 'All'
+    value: 'All',
+    key: 'type'
   },
   {
     label: 'Guided project',
-    value: 'Guided project'
+    value: 'Guided project',
+    key: 'type'
   },
   {
     label: 'Mini',
-    value: 'Mini'
+    value: 'Mini',
+    key: 'type'
   }
 ];
 export const experienceLevel = [

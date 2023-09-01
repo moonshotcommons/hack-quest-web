@@ -1,8 +1,9 @@
 import React from 'react';
 import { courseTab, CourseTabType } from './type';
+import { ProcessType } from '@/service/webApi/course/type';
 
 interface TabType {
-  curTab: number;
+  curTab: ProcessType;
   changeTab: (tab: CourseTabType) => void;
 }
 const Tab: React.FC<TabType> = ({ curTab, changeTab }) => {

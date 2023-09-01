@@ -6,7 +6,8 @@ import {
   CourseResponse,
   CourseUnitStateType,
   CourseUnitType,
-  UnitPagesListType
+  UnitPagesListType,
+  ProcessType
 } from './type';
 
 export enum CourseApiType {
@@ -23,6 +24,15 @@ class CourseApi {
   /** 获取课程列表信息 */
   getCourseList() {
     return this.service.get<CourseResponse[]>(CourseApiType.Course_List);
+  }
+
+  /** 获取课程列表信息By search */
+  getCourseListBySearch(params: object) {
+    return this.service.get<CourseResponse[]>(`${CourseApiType.Course_List}`, {
+      params: {
+        ...params
+      }
+    });
   }
 
   /** 获取单个课程的详情信息 */
