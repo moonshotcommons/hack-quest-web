@@ -1,4 +1,4 @@
-import LearningCourse from '@/components/v2/Home/LearningCourse';
+import LearningCourses from '@/components/v2/Home/LearningCourses';
 import React from 'react';
 
 import FeatureCourses from '@/components/v2/Home/FeaturedCourses';
@@ -10,7 +10,7 @@ interface HomeProps {
 const Home: NextPage<HomeProps> = (props) => {
   return (
     <div className="">
-      <LearningCourse />
+      <LearningCourses />
       <FeatureCourses></FeatureCourses>
     </div>
   );
