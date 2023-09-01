@@ -1,10 +1,10 @@
-import { getCourseLink, getLessonLink } from '@/helper/utils';
+import { getLessonLink, getV2LessonLink } from '@/helper/utils';
 import webApi from '@/service';
-import { CourseDetailType, CourseResponse } from '@/service/webApi/course/type';
+import { CourseDetailType } from '@/service/webApi/course/type';
 import { useRequest } from 'ahooks';
 import { useRouter } from 'next/router';
 
-export const useJumpLeaningLesson = () => {
+export const useJumpLeaningLesson = (isV2: boolean = false) => {
   const router = useRouter();
   const { run } = useRequest(
     async (courseDetail: CourseDetailType) => {
@@ -24,6 +24,10 @@ export const useJumpLeaningLesson = () => {
         //     courseDetail?.name
         //   }/learn/${pageId}`
         // );
+        if (isV2) {
+          router.push(getV2LessonLink(courseDetail?.name, pageId));
+          return;
+        }
         router.push(
           getLessonLink(courseDetail?.type, courseDetail?.name, pageId)
         );

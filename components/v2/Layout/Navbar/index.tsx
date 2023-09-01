@@ -1,5 +1,4 @@
 import DarkLogoActive from '@/public/images/logo/dark-text-Logo-active.svg';
-import LightLogoActive from '@/public/images/logo/light-text-logo-active.svg';
 import Image from 'next/image';
 import React, { ReactNode, useContext } from 'react';
 
@@ -27,18 +26,18 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
     // if (pathname !== '/') return <Image src={Logo} alt="logo"></Image>;
     // if (pathname === '/') {
     switch (theme) {
+      case Theme.Light:
+      // return <Image src={LightLogoActive} alt="logo"></Image>;
       case Theme.Dark:
         return <Image src={DarkLogoActive} alt="logo"></Image>;
-      case Theme.Light:
-        return <Image src={LightLogoActive} alt="logo"></Image>;
     }
     // }
   };
 
   return (
-    <div className="m-auto h-[4.75rem] flex items-center justify-between">
+    <div className="m-auto h-full flex items-center justify-between">
       <nav className="gap-[4rem] h-full flex items-center">
-        <Link href="/" className="h-full flex items-center">
+        <Link href="/v2" className="h-full flex items-center">
           {/* {Logo && pathname !== '/' && <Image src={Logo} alt="logo"></Image>}
           {DarkLogoActive && pathname === '/' && theme === Theme.Dark && (
             <Image src={DarkLogoActive} alt="logo"></Image>
@@ -48,10 +47,10 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
         {navList.map((nav) => {
           return (
             <Link
-              className={`text-sm h-full flex items-center hover:font-next-book-bold hover:text-text-default-color hover:font-bold ${
+              className={`text-sm h-full flex items-center text-white hover:font-bold tracking-[0.28px] ${
                 pathname === nav.path
-                  ? 'font-next-book-bold text-text-default-color font-bold'
-                  : 'font-next-book text-[#B2B2B2] font-normal'
+                  ? 'font-next-book-bold text-text-default-color font-bold border-b-4 border-[#FFD850]'
+                  : 'font-next-book font-normal'
               }`}
               key={nav.path}
               href={nav.path}

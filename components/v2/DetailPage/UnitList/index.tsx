@@ -1,17 +1,15 @@
-import {
-  CourseDetailType,
-  CourseType,
-  CourseUnitType
-} from '@/service/webApi/course/type';
-import { FC, ReactNode, useEffect, useState } from 'react';
+import { CourseDetailType } from '@/service/webApi/course/type';
+import { FC, useEffect, useState } from 'react';
+import { LearningStatus } from '../type';
 import UnitCard from './UnitCard';
 
 interface UnitListProps {
   courseDetail?: CourseDetailType;
+  learningStatus?: LearningStatus;
 }
 
 const UnitList: FC<UnitListProps> = (props) => {
-  const { courseDetail } = props;
+  const { courseDetail, learningStatus = LearningStatus.UN_START } = props;
 
   const { type: courseType } = courseDetail || {};
   const [units, setUnits] = useState(courseDetail?.units || []);
@@ -23,7 +21,7 @@ const UnitList: FC<UnitListProps> = (props) => {
   }, [courseDetail]);
 
   return (
-    <ul className="w-full">
+    <ul className="flex flex-col">
       {units.map((unit, index) => {
         if (index === 0) {
           return (
@@ -34,6 +32,7 @@ const UnitList: FC<UnitListProps> = (props) => {
                 courseType={courseType}
                 index={index}
                 courseDetail={courseDetail}
+                learningStatus={learningStatus}
               ></UnitCard>
             </li>
           );
@@ -47,6 +46,7 @@ const UnitList: FC<UnitListProps> = (props) => {
               }
               courseType={courseType}
               index={index}
+              learningStatus={learningStatus}
               courseDetail={courseDetail}
             ></UnitCard>
           </li>

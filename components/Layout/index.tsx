@@ -1,13 +1,14 @@
+import V2Layout from '@/components/v2/Layout/index';
 import { useGetUserInfo, useLoadUserInfo } from '@/hooks/useGetUserInfo';
 import useNavAuth from '@/hooks/useNavPage/userNavAuth';
 import { FC, ReactNode } from 'react';
-import UnitLayout from './UnitLayout';
-import LoginLayout from './LoginLayout';
+import V2FullLayout from '../v2/Layout/V2FullLayout';
+import BaseLayout from './BaseLayout';
 import EmailVerifyLayout from './EmailVerifyLayout';
 import HackathonLayout from './HackathonLayout';
-import BaseLayout from './BaseLayout';
+import LoginLayout from './LoginLayout';
 import { NavBarProps } from './Navbar';
-import V2Layout from './V2Layout';
+import UnitLayout from './UnitLayout';
 
 export interface LayoutProps {
   navbarData: NavBarProps;
@@ -41,32 +42,43 @@ const Layout: FC<LayoutProps> = (props) => {
       {
         name: 'Mission Center',
         path: '/mission-center'
-      },
-      {
-        name: 'Home',
-        path: '/v2/home'
-      },
-      {
-        name: 'Learning Track',
-        path: '/v2/learning-track1'
-      },
-      {
-        name: 'Electives',
-        path: '/v2/electives'
       }
     ];
+
+    if (pathname.startsWith('/v2')) {
+      navbarData.navList = [
+        {
+          name: 'Home',
+          path: '/v2/home'
+        },
+        {
+          name: 'Learning Track',
+          path: '/v2/learning-track1'
+        },
+        {
+          name: 'Electives',
+          path: '/v2/electives'
+        }
+      ];
+    }
   }
 
   // console.log('使用v2布局', pathname.startsWith('/v2'));
 
   switch (true) {
     case pathname.startsWith('/v2'):
-      console.log('使用v2');
-      return <V2Layout navbarData={navbarData}>{children}</V2Layout>;
+      return (
+        <V2Layout
+          navbarData={navbarData}
+          pathname={pathname.replace('/v2', '')}
+        >
+          {children}
+        </V2Layout>
+      );
     case regex.test(pathname):
       return <UnitLayout>{children}</UnitLayout>;
     case pathname.startsWith('/preview'):
-      return <V2Layout navbarData={navbarData}>{children}</V2Layout>;
+      return <V2FullLayout navbarData={navbarData}>{children}</V2FullLayout>;
     case [
       '/auth/register',
       '/auth/login',
