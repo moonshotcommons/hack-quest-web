@@ -29,7 +29,7 @@ export const courseType = [
   },
   {
     label: 'Guided project',
-    value: 'Guided project',
+    value: 'GUIDED_PROJECT',
     key: 'type'
   },
   {

@@ -7,9 +7,11 @@ import CourseList from './CourseList';
 import NoData from './NoData';
 import webApi from '@/service';
 import { CourseResponse } from '@/service/webApi/course/type';
+import { Spin } from 'antd';
 
 function Course() {
   const [curTab, setCurTab] = useState<ProcessType>(ProcessType.IN_PROCESS);
+  const [loading, setLoading] = useState(false);
   const [courseListData, setCourseListData] = useState<
     Record<ProcessType, CourseResponse[]>
   >({
@@ -23,24 +25,30 @@ function Course() {
       [status]: list
     };
     setCourseListData(newData);
+    setLoading(false);
   };
   const changeTab = (tab: CourseTabType) => {
     setCurTab(tab.value);
   };
   useEffect(() => {
-    if (!courseListData[curTab].length) getCourseList(curTab);
+    if (!courseListData[curTab].length) {
+      getCourseList(curTab);
+      setLoading(true);
+    }
   }, [curTab]);
   return (
     <div className="pt-20">
       <Tab curTab={curTab} changeTab={changeTab} />
-      {!courseListData[curTab].length ? (
-        <NoData curTab={curTab} />
-      ) : (
-        <>
-          <LearningTrackCard />
-          <CourseList list={courseListData[curTab]} />
-        </>
-      )}
+      <Spin size="large" tip={'加载中...'} spinning={loading}>
+        {!courseListData[curTab].length ? (
+          <NoData curTab={curTab} />
+        ) : (
+          <>
+            <LearningTrackCard />
+            <CourseList list={courseListData[curTab]} curTab={curTab} />
+          </>
+        )}
+      </Spin>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Button from '@/components/Common/Button';
 import {
   CourseLessonType,
@@ -11,9 +11,15 @@ interface LessonFooterProps {
   lesson?: Omit<CourseLessonType, 'content'> & { content: LessonContent };
 }
 const LessonFooter: React.FC<LessonFooterProps> = ({ lesson }) => {
-  const { unitNavList = [], currentUnitIndex } = useUnitNavList(lesson as any);
-
+  const {
+    unitNavList = [],
+    currentUnitIndex,
+    refreshNavList
+  } = useUnitNavList(lesson as any);
   const isHandle = false;
+  useEffect(() => {
+    refreshNavList();
+  }, [lesson]);
   return (
     <div className="fixed flex-center w-full h-20 left-0 bottom-0 bg-lesson-footer-bg">
       <div className="w-[calc(100%-380px)] flex-center overflow-auto">
