@@ -2,7 +2,9 @@ import CheckIcon from '@/components/Common/Icon/Check';
 import LockIcon from '@/components/Common/Icon/Lock';
 import { Theme } from '@/constants/enum';
 import { computeProgress } from '@/helper/formate';
+import { cn, getCourseLink } from '@/helper/utils';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
+import webApi from '@/service';
 import {
   CourseDetailType,
   CourseType,
@@ -10,6 +12,7 @@ import {
 } from '@/service/webApi/course/type';
 import { ThemeContext } from '@/store/context/theme';
 import { Progress, Typography } from 'antd';
+import { useRouter } from 'next/router';
 import { ButtonHTMLAttributes, FC, useContext } from 'react';
 import styled from 'styled-components';
 import { LearningStatus } from '../type';
@@ -76,6 +79,7 @@ const UnitCard: FC<UnitCardProps> = (props) => {
   } = props;
   const jumpLearningLesson = useJumpLeaningLesson(true);
   const { theme } = useContext(ThemeContext);
+  const router = useRouter();
   return (
     <div className="py-[30px] flex items-center pl-[54px] pr-[50px]">
       {/* <div
@@ -155,7 +159,26 @@ const UnitCard: FC<UnitCardProps> = (props) => {
       </div>
 
       <div className="ml-[60px] lg:ml-[120px] xl:ml-[335px] flex-1">
-        <div className="max-w-[450px]">
+        <div
+          className={cn(
+            'max-w-[450px]',
+            unit.progress === 1 ? 'cursor-pointer' : ''
+          )}
+          onClick={async (e) => {
+            if (unit.progress === 1) {
+              const unitPages = await webApi.courseApi.getCourseUnitLessons(
+                courseDetail?.id || '',
+                unit.id
+              );
+              const lessonId = unitPages.pages[0]?.id;
+              router.replace(
+                `/v2/${getCourseLink(courseType)}/${
+                  courseDetail?.name
+                }/learn/${lessonId}`
+              );
+            }
+          }}
+        >
           <h2 className="font-next-book-bold font-bold text-[1.5rem] text-text-default-color leading-[120%]">
             {unit.name}
           </h2>
