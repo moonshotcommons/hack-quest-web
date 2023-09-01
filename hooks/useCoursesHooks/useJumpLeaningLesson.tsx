@@ -25,7 +25,9 @@ export const useJumpLeaningLesson = (isV2: boolean = false) => {
         //   }/learn/${pageId}`
         // );
         if (isV2) {
-          router.push(getV2LessonLink(courseDetail?.name, pageId));
+          router.push(
+            getV2LessonLink(courseDetail?.type, courseDetail?.name, pageId)
+          );
           return;
         }
         router.push(

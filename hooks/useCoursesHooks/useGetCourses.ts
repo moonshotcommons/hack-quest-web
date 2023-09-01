@@ -1,5 +1,5 @@
 import webApi from '@/service';
-import { AppDispatch, AppRootState } from '@/store/redux';
+import { AppRootState } from '@/store/redux';
 import { setCourseList } from '@/store/redux/modules/course';
 import { useRequest } from 'ahooks';
 import { useEffect, useState } from 'react';
@@ -28,8 +28,6 @@ export const useLoadCourseList = () => {
       }
     }
   );
-
-  const courseList = useGetCourses();
 
   useEffect(() => {
     run();

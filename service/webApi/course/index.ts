@@ -21,8 +21,11 @@ class CourseApi {
   }
 
   /** 获取课程列表信息 */
-  getCourseList() {
-    return this.service.get<CourseResponse[]>(CourseApiType.Course_List);
+  getCourseList(searchString?: string) {
+    let url: string = CourseApiType.Course_List;
+    if (searchString) url = `${url}?${searchString}`;
+    console.log(url);
+    return this.service.get<CourseResponse[]>(url);
   }
 
   /** 获取单个课程的详情信息 */
