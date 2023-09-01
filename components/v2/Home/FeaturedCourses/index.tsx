@@ -42,7 +42,6 @@ const FeatureCourses: FC<FeatureCoursesProps> = (props) => {
 
   const { run, loading } = useRequest(
     async () => {
-      console.log('object');
       const courseList = await webApi.courseApi.getCourseList('featured=true');
       return courseList;
     },
@@ -66,7 +65,6 @@ const FeatureCourses: FC<FeatureCoursesProps> = (props) => {
         >
           <div className="my-[30px] flex gap-[20px] overflow-x-hidden">
             {courseList.map((course, index) => {
-              if (index > 4) return null;
               return <CourseCard key={course.id} course={course}></CourseCard>;
             })}
           </div>

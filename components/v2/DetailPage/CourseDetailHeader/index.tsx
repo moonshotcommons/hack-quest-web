@@ -40,7 +40,7 @@ const CourseDetailHeader: FC<CourseDetailHeaderProps> = (props) => {
           </h1>
           <Typography.Paragraph
             ellipsis={{ rows: 3 }}
-            className="max-w-[775px] w-[775px] text-course-detail-desc-text-color font-next-book mt-[10px] leading-[160%] text-base"
+            className="max-w-[775px] w-[775px] min-h-[78px] text-course-detail-desc-text-color font-next-book mt-[10px] leading-[160%] text-base"
             style={{ marginBottom: 0 }}
           >
             {courseDetail.description}

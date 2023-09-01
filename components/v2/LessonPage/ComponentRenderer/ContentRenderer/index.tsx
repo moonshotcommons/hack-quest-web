@@ -1,7 +1,7 @@
-import { FC, ReactNode, useState } from 'react';
-import { CustomComponent } from '../../type';
-import ComponentRenderer from '..';
+import { FC, useState } from 'react';
 import { VscChevronDown } from 'react-icons/vsc';
+import ComponentRenderer from '..';
+import { CustomComponent } from '../../type';
 interface ContentRendererProps {
   component: CustomComponent;
   parent: CustomComponent;

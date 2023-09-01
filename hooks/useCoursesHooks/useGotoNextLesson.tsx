@@ -1,4 +1,4 @@
-import { getCourseLink, getLessonLink } from '@/helper/utils';
+import { getLessonLink, getV2LessonLink } from '@/helper/utils';
 import webApi from '@/service';
 import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
 import { AppRootState } from '@/store/redux';
@@ -11,7 +11,8 @@ import { shallowEqual, useSelector } from 'react-redux';
 export const useGotoNextLesson = (
   lesson: CourseLessonType,
   courseType: CourseType,
-  completed = false
+  completed = false,
+  isV2 = false
 ) => {
   const router = useRouter();
   const [completeModalOpen, setCompleteModalOpen] = useState(false);
@@ -54,6 +55,14 @@ export const useGotoNextLesson = (
     // router.push(
     //   `${getCourseLink(courseType)}/${courseId}/learn/${nextLesson?.id}`
     // );
+
+    if (isV2) {
+      router.push(
+        getV2LessonLink(courseType, courseId as string, nextLesson?.id!)
+      );
+      return;
+    }
+
     router.push(getLessonLink(courseType, courseId as string, nextLesson?.id!));
   });
 
@@ -62,7 +71,8 @@ export const useGotoNextLesson = (
 
 export const useBackToPrevLesson = (
   lesson: CourseLessonType,
-  courseType: CourseType
+  courseType: CourseType,
+  isV2 = false
 ) => {
   const router = useRouter();
 
@@ -100,6 +110,13 @@ export const useBackToPrevLesson = (
     } else {
       const prevUnit = unitsLessonsList[currentUnitIndex - 1];
       prevLesson = prevUnit.pages.at(-1);
+    }
+
+    if (isV2) {
+      router.push(
+        getV2LessonLink(courseType, courseId as string, prevLesson?.id!)
+      );
+      return;
     }
     router.push(getLessonLink(courseType, courseId as string, prevLesson?.id!));
   });

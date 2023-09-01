@@ -9,7 +9,8 @@ export enum CourseType {
   CONCEPT = 'CONCEPT',
   TEASER = 'TEASER',
   HACKATHON = 'HACKATHON',
-  LEARNING_TRACK = 'LEARNING_TRACK'
+  LEARNING_TRACK = 'LEARNING_TRACK',
+  Mini = 'MINI'
 }
 
 export enum LessonStyleType {

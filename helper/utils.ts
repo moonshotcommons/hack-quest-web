@@ -22,6 +22,8 @@ export const getCourseLink = (courseType?: CourseType) => {
       return `/hackathon`;
     case CourseType.TEASER:
       return `/teaser`;
+    case CourseType.Mini:
+      return `/mini`;
   }
 };
 
