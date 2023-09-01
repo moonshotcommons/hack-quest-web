@@ -6,7 +6,7 @@ import LessonPage from '@/components/v2/LessonPage';
 
 interface IProps {}
 
-const GuidedProjectUnit: NextPage<IProps> = (props) => {
+const MiniUnit: NextPage<IProps> = (props) => {
   const router = useRouter();
   const { lessonId } = router.query;
 
@@ -15,11 +15,11 @@ const GuidedProjectUnit: NextPage<IProps> = (props) => {
       <div className="w-full h-full flex flex-col font-next-book-Thin">
         <LessonPage
           lessonId={lessonId as string}
-          courseType={CourseType.GUIDED_PROJECT}
+          courseType={CourseType.Mini}
         ></LessonPage>
       </div>
     </>
   );
 };
 
-export default GuidedProjectUnit;
+export default MiniUnit;

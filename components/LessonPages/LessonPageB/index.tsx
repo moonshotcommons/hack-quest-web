@@ -1,8 +1,7 @@
-import Button, { ButtonProps } from '@/components/Common/Button';
+import Button from '@/components/Common/Button';
 import NotionRenderer, { Renderer } from '@/components/NotionRender';
-import ImageRenderer from '@/components/NotionRender/ImageRenderer';
-import TextRenderer from '@/components/NotionRender/TextRenderer';
 
+import { CustomRenderType } from '@/components/NotionRender/type';
 import {
   useBackToPrevLesson,
   useGotoNextLesson
@@ -15,9 +14,8 @@ import {
   LessonStyleType
 } from '@/service/webApi/course/type';
 import { useRouter } from 'next/router';
-import { FC, ReactNode, useEffect, useState } from 'react';
+import { FC, useEffect } from 'react';
 import CompleteModal from '../CompleteModal';
-import { CustomRenderType } from '@/components/NotionRender/type';
 
 // const CustomButton: FC<ButtonProps> = (props) => {
 //   const { children } = props;

@@ -1,53 +1,53 @@
-import { CourseDetailType } from '@/service/webApi/course/type';
 import { FC, useCallback, useMemo } from 'react';
 
 import Button from '@/components/Common/Button';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
+import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import CourseDetailHeader from '../CourseDetailHeader';
 import HeaderRight from '../HeaderRight';
-import UnitList from '../UnitList';
+import TrackList from '../TrackList';
 import { LearningStatus } from '../type';
 
-interface CourseDetailProps {
+interface LearningTrackDetailProps {
   // children: ReactNode;
-  courseDetail: CourseDetailType;
+  learningTrackDetail: LearningTrackDetailType;
 }
 
-const CourseDetail: FC<CourseDetailProps> = (props) => {
-  const { courseDetail } = props;
+const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
+  const { learningTrackDetail } = props;
 
-  const jumpLearningLesson = useJumpLeaningLesson(true);
+  const jumpLearningLesson = useJumpLeaningLesson();
 
   const learningStatus = useMemo(() => {
-    if (courseDetail.progress <= 0 || !courseDetail.progress)
-      return LearningStatus.UN_START;
-    if (courseDetail.progress >= 1) return LearningStatus.COMPLETED;
+    let progress = learningTrackDetail.progress || 0;
+    if (progress <= 0 || !progress) return LearningStatus.UN_START;
+    if (progress >= 1) return LearningStatus.COMPLETED;
     return LearningStatus.IN_PROGRESS;
-  }, [courseDetail.progress]);
+  }, [learningTrackDetail.progress]);
 
   const resumeCallback = useCallback(() => {
-    jumpLearningLesson(courseDetail);
-  }, [courseDetail]);
+    // jumpLearningLesson(courseDetail);
+  }, [learningTrackDetail]);
 
   const RightComponent = useMemo(
     () => (
       <HeaderRight
-        courseDetail={courseDetail}
-        itemCount={courseDetail.units?.length || 0}
+        courseDetail={learningTrackDetail}
+        itemCount={learningTrackDetail.courses?.length || 0}
         nextInfo={{ title: 'Unit 3', content: 'Mint - 1' }}
         type="course"
         resumeCallback={resumeCallback}
         learningStatus={learningStatus}
       ></HeaderRight>
     ),
-    [courseDetail, resumeCallback]
+    [learningTrackDetail, resumeCallback]
   );
 
   return (
     <div className="flex flex-col pb-[84px]">
       <CourseDetailHeader
-        courseDetail={courseDetail}
-        itemCount={courseDetail.units?.length || 0}
+        courseDetail={learningTrackDetail}
+        itemCount={learningTrackDetail.courses?.length || 0}
         rightComponent={RightComponent}
         type="course"
         learningStatus={learningStatus}
@@ -56,10 +56,7 @@ const CourseDetail: FC<CourseDetailProps> = (props) => {
         <h2 className="mb-[30px] text-[#000] font-next-poster-Bold text-[28px] tracking-[1.68px]">
           Syllabus
         </h2>
-        <UnitList
-          courseDetail={courseDetail}
-          learningStatus={learningStatus}
-        ></UnitList>
+        <TrackList trackDetail={learningTrackDetail}></TrackList>
       </div>
       {learningStatus === LearningStatus.UN_START && (
         <div className="mt-[60px] self-center">
@@ -75,4 +72,4 @@ const CourseDetail: FC<CourseDetailProps> = (props) => {
   );
 };
 
-export default CourseDetail;
+export default LearningTrackDetail;
