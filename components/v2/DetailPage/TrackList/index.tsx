@@ -1,80 +1,54 @@
-import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
-import { FC, ReactNode, useEffect, useState } from 'react';
-import TrackCard from './TrackCard';
-import { CourseResponse } from '@/service/webApi/course/type';
+import {
+  LearningTrackDetailType,
+  SectionType
+} from '@/service/webApi/learningTrack/type';
+import { FC, useEffect, useState } from 'react';
+import SectionCard from './SectionCard';
 
 interface TrackListProps {
   trackDetail: LearningTrackDetailType;
+  expandAll?: boolean;
 }
 
-type CourseListType = {
-  title: string;
-  courses: CourseResponse & { group: string };
-}[];
-
 const TrackList: FC<TrackListProps> = (props) => {
-  const { trackDetail } = props;
-  // const { courses } = trackDetail;
-
-  const [courseList, setCourseList] = useState<CourseListType>([]);
+  const { trackDetail, expandAll = false } = props;
+  const [sectionList, setSectionList] = useState<SectionType[]>([]);
 
   useEffect(() => {
     if (trackDetail) {
-      const map = new Map();
-      trackDetail?.courses?.forEach((course) => {
-        const track = map.get(course.group);
-        if (Array.isArray(track?.courses)) {
-          track?.courses.push(course);
-        } else {
-          const courses = [course];
-          map.set(course.group, { title: course.group, courses });
-        }
-      });
-      const res = Array.from(map).map((track) => track[1]);
-      console.log(res);
-      setCourseList(res);
+      setSectionList(trackDetail.sections);
     }
   }, [trackDetail]);
 
   return (
-    <div>
-      <ul className="w-full">
-        {courseList.map((course, index) => {
-          if (index === 0) {
-            return (
-              <li key={index} className="w-full relative top-line bottom-line">
-                <TrackCard
-                  // unit={unit}
-                  course={course}
-                  // isLock={false}
-                  // courseType={courseType}
-                  // index={index}
-                  // courseDetail={courseDetail}
-                ></TrackCard>
-              </li>
-            );
-          }
+    <ul className="w-full px-10 py-10 bg-white rounded-[10px] h-fit">
+      {sectionList.map((section, index) => {
+        if (index === 0) {
           return (
-            <li
-              // key={unit.id}
-              key={index}
-              className="w-full relative bottom-line"
-            >
-              <TrackCard
-                course={course}
-                // unit={unit}
-                // isLock={
-                //   units[index - 1].progress < 1 || unit.progress === undefined
-                // }
-                // courseType={courseType}
-                // index={index}
-                // courseDetail={courseDetail}
-              ></TrackCard>
+            <li key={index} className="w-full relative ">
+              <SectionCard
+                section={section}
+                enrolled={trackDetail.enrolled}
+                index={index}
+                expandAll={expandAll}
+                sectionList={sectionList}
+              ></SectionCard>
             </li>
           );
-        })}
-      </ul>
-    </div>
+        }
+        return (
+          <li key={index} className="w-full relative top-line">
+            <SectionCard
+              section={section}
+              enrolled={trackDetail.enrolled}
+              index={index}
+              expandAll={expandAll}
+              sectionList={sectionList}
+            ></SectionCard>
+          </li>
+        );
+      })}
+    </ul>
   );
 };
 

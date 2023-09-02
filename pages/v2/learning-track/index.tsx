@@ -1,8 +1,7 @@
-import React from 'react';
-import PageDescription from '@/components/v2/PageDescription';
+import Loading from '@/components/v2/Common/Loading';
 import LearningTracksCard from '@/components/v2/LearningTrackCard';
+import PageDescription from '@/components/v2/PageDescription';
 import { useGetLearningTracks } from '@/hooks/useLearningTrackHooks/useLearningTracks';
-import { Spin } from 'antd';
 import { LearningTrackCourseType } from '@/service/webApi/course/type';
 
 function LearningTrack() {
@@ -13,7 +12,7 @@ function LearningTrack() {
         title={'Learning Track'}
         description={'description description'}
       />
-      <Spin size="large" tip={'加载中...'} spinning={loading}>
+      <Loading loading={loading}>
         <div className="pt-[60px]">
           {learningTracks.map((item) => (
             <LearningTracksCard
@@ -30,7 +29,7 @@ function LearningTrack() {
           <p>Vyper, Huff, Rust ...</p>
           <p>More Learning Tracks are coming soon</p>
         </div>
-      </Spin>
+      </Loading>
     </div>
   );
 }

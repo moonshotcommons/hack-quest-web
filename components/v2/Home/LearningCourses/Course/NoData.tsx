@@ -1,8 +1,8 @@
-import React from 'react';
 import Button from '@/components/Common/Button';
-import { TabValueType } from './type';
+import React from 'react';
+// import { TabValueType } from './type';
 interface NoDataType {
-  curTab: TabValueType;
+  curTab: any;
 }
 const NoData: React.FC<NoDataType> = ({ curTab }) => {
   return (

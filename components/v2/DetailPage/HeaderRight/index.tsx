@@ -20,7 +20,8 @@ interface HeaderRightProps {
 
 function UnProgressHeaderRight(
   courseDetail: CourseDetailType | LearningTrackDetailType,
-  itemCount: number
+  itemCount: number,
+  type: 'course' | 'learning-track'
 ) {
   return (
     <div className="border-t w-[445px] max-w-[445px] border-[#000] flex flex-col">
@@ -58,7 +59,10 @@ function UnProgressHeaderRight(
             size="large"
             className="gap-[28px] text-[#0B0B0B] font-next-book text-[16px]"
           >
-            {itemCount + ' ' + `${itemCount > 1 ? 'Units' : 'Unit'}`}
+            {type === 'course' &&
+              itemCount + ' ' + `${itemCount > 1 ? 'Units' : 'Unit'}`}
+            {type === 'learning-track' &&
+              itemCount + ' ' + `${itemCount > 1 ? 'Courses' : 'Course'}`}
           </Tag>
         </div>
       </div>
@@ -131,7 +135,7 @@ const HeaderRight: FC<HeaderRightProps> = (props) => {
       );
     case LearningStatus.COMPLETED:
     case LearningStatus.UN_START:
-      return UnProgressHeaderRight(courseDetail, itemCount);
+      return UnProgressHeaderRight(courseDetail, itemCount, type);
   }
 };
 

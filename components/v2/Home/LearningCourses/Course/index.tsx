@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { CourseTabType } from './type';
-import { ProcessType } from '@/service/webApi/course/type';
-import Tab from './Tab';
-import CourseList from './CourseList';
-import NoData from './NoData';
+import Loading from '@/components/v2/Common/Loading';
 import webApi from '@/service';
-import { CourseResponse } from '@/service/webApi/course/type';
-import { Spin } from 'antd';
+import { CourseResponse, ProcessType } from '@/service/webApi/course/type';
 import { LearningTrackType } from '@/service/webApi/learningTrack/type';
+import { useEffect, useState } from 'react';
+import CourseList from './CourseList';
 import LearningTrackList from './LearningTrackList';
+import NoData from './NoData';
+import Tab from './Tab';
+import { CourseTabType } from './type';
 
 function Course() {
   const [curTab, setCurTab] = useState<ProcessType>(ProcessType.IN_PROCESS);
@@ -68,7 +67,7 @@ function Course() {
   return (
     <div className="pt-20">
       <Tab curTab={curTab} changeTab={changeTab} />
-      <Spin size="large" tip={'加载中...'} spinning={loading}>
+      <Loading loading={loading}>
         {!courseListData[curTab].length &&
         !learningTrackListData[curTab].length ? (
           <NoData curTab={curTab} />
@@ -81,7 +80,7 @@ function Course() {
             <CourseList list={courseListData[curTab]} curTab={curTab} />
           </>
         )}
-      </Spin>
+      </Loading>
     </div>
   );
 }

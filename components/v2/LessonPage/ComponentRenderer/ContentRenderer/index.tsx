@@ -1,3 +1,4 @@
+import TextRenderer from '@/components/v2/NotionRender/TextRenderer';
 import { FC, useState } from 'react';
 import { VscChevronDown } from 'react-icons/vsc';
 import ComponentRenderer from '..';
@@ -17,7 +18,11 @@ const ContentRenderer: FC<ContentRendererProps> = (props) => {
         onClick={() => setShowAll(!showAll)}
       >
         <span className="font-next-poster-Bold text-[21px]">
-          {component.title || component.content}
+          {component.title || (
+            <TextRenderer
+              richTextArr={component.content.rich_text}
+            ></TextRenderer>
+          )}
         </span>
         <span
           className={`${
