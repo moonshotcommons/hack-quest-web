@@ -1,4 +1,3 @@
-import React from 'react';
 import Button from '@/components/Common/Button';
 import { ProcessType } from '@/service/webApi/course/type';
 interface NoDataType {
