@@ -1,14 +1,14 @@
 import React from 'react';
 import Button from '@/components/Common/Button';
-import { TabValueType } from './type';
+import { ProcessType } from '@/service/webApi/course/type';
 interface NoDataType {
-  curTab: TabValueType;
+  curTab: ProcessType;
 }
 const NoData: React.FC<NoDataType> = ({ curTab }) => {
   return (
     <div className="flex flex-col items-center pb-[100px]">
       <p className="text-home-learning-track-no-data-color text-[32px]">
-        {curTab === 1
+        {curTab === ProcessType.IN_PROCESS
           ? 'You don’t have any on-going course'
           : 'You don’t have any completed course'}
       </p>
