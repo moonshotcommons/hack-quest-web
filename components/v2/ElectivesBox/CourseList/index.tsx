@@ -1,18 +1,15 @@
 import React from 'react';
+import CourseCard from '@/components/v2/CourseCard';
+import { CourseResponse } from '@/service/webApi/course/type';
 
 interface CourseListProps {
-  list: any;
+  list: CourseResponse[];
 }
 const CourseList: React.FC<CourseListProps> = ({ list }) => {
   return (
     <div className="flex-1 flex flex-wrap gap-[2%]">
-      {list.map((v: any, i: any) => (
-        <div
-          key={i}
-          className="w-[32%] h-[333px] bg-black mb-[20px] text-[#fff]"
-        >
-          {i}
-        </div>
+      {list.map((course) => (
+        <CourseCard key={course?.id} course={course}></CourseCard>
       ))}
     </div>
   );

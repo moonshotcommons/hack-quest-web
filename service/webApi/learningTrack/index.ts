@@ -13,9 +13,12 @@ class LearningTrackApi {
   }
 
   /** 获取学习路线列表 */
-  getLearningTracks() {
+  getLearningTracks(params?: object) {
     return this.service.get<LearningTrackType[]>(
-      LearningTrackApiType.GetLearningTrack
+      LearningTrackApiType.GetLearningTrack,
+      {
+        params
+      }
     );
   }
 
