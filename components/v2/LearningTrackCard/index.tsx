@@ -1,95 +1,97 @@
 import Button from '@/components/Common/Button';
-import { TabValueType } from '@/components/v2/Home/LearningCourse/Course/type';
 import LearningImage from '@/public/images/home/learning-image.svg';
 import Image from 'next/image';
 import React from 'react';
 const LearningTrackCard: React.FC = () => {
   const status = 1;
   const leftRender = () => {
-    switch (status) {
-      // case TabValueType.UN_LEARNING:
-      // case TabValueType.COMPLETED:
-      //   return (
-      //     <span className="text-home-default-color">
-      //       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-      //       eiusmod tempor incididunt ut Lorem ipsum dolor sit amet, consectetur
-      //       adipiscing elit, sed do eiusmod tempor incididunt ut labore et Lorem
-      //       ipsum dolor sit amet
-      //     </span>
-      //   );
-      case TabValueType.IN_PROGRESS:
-        return (
-          <>
-            <div className="w-full flex items-center justify-between">
-              <div className="w-[93%] bg-home-learning-track-progress-bg rounded-[3px] h-[7px] overflow-hidden">
-                <div
-                  className="h-full bg-home-learning-track-progress-active-bg rounded-[3px]"
-                  style={{ width: '50%' }}
-                ></div>
-              </div>
-              <div>48%</div>
-            </div>
-            <div>Overall Process</div>
-          </>
-        );
-    }
+    return null;
+    // switch (status) {
+    // case TabValueType.UN_LEARNING:
+    // case TabValueType.COMPLETED:
+    //   return (
+    //     <span className="text-home-default-color">
+    //       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+    //       eiusmod tempor incididunt ut Lorem ipsum dolor sit amet, consectetur
+    //       adipiscing elit, sed do eiusmod tempor incididunt ut labore et Lorem
+    //       ipsum dolor sit amet
+    //     </span>
+    //   );
+    // case TabValueType.IN_PROGRESS:
+    //   return (
+    //     <>
+    //       <div className="w-full flex items-center justify-between">
+    //         <div className="w-[93%] bg-home-learning-track-progress-bg rounded-[3px] h-[7px] overflow-hidden">
+    //           <div
+    //             className="h-full bg-home-learning-track-progress-active-bg rounded-[3px]"
+    //             style={{ width: '50%' }}
+    //           ></div>
+    //         </div>
+    //         <div>48%</div>
+    //       </div>
+    //       <div>Overall Process</div>
+    //     </>
+    //   );
+    // }
   };
 
   const rightRender = () => {
-    switch (status) {
-      // case TabValueType.UN_LEARNING:
-      //   return (
-      //     <>
-      //       <div>
-      //         <p className="text-[21px] pt-[15px] pb-[10px]">
-      //           You need to enroll in this learning track to display next
-      //           lesson.
-      //         </p>
-      //       </div>
-      //       <div className="w-full flex justify-between">
-      //         <Button className="w-[47%] h-11 border border-home-learning-track-view-button-border text-home-learning-track-view-button-color">
-      //           View Syllabus
-      //         </Button>
-      //         <Button className="w-[47%] h-11 text-home-learning-track-view-button-color bg-home-learning-track-view-button-bg">
-      //           Enroll
-      //         </Button>
-      //       </div>
-      //     </>
-      //   );
-
-      case TabValueType.IN_PROGRESS:
-        return (
-          <>
-            <div>
-              <p className="text-[21px] pt-[15px] pb-[10px]">Deploy Your NFT</p>
-              <div>sdsdsd</div>
-            </div>
-            <div className="w-full flex justify-between">
-              <Button className="w-[48%] h-11 border border-home-learning-track-view-button-border text-home-learning-track-view-button-color px-0">
-                View Syllabus
-              </Button>
-              <Button className="w-[48%] h-11 text-home-learning-track-view-button-color bg-home-learning-track-view-button-bg px-0">
-                Resume
-              </Button>
-            </div>
-          </>
-        );
-      // case TabValueType.COMPLETED:
-      //   return (
-      //     <>
-      //       <div>
-      //         <p className="text-[21px] pt-[15px] pb-[10px]">
-      //           You’ve finished this learning track.
-      //         </p>
-      //       </div>
-      //       <div className="w-full flex justify-between">
-      //         <Button className="w-[47%] h-11 border border-home-learning-track-view-button-border text-home-learning-track-view-button-color">
-      //           View Syllabus
-      //         </Button>
-      //       </div>
-      //     </>
-      //   );
-    }
+    return null;
+    // switch (
+    //   status
+    // case TabValueType.UN_LEARNING:
+    //   return (
+    //     <>
+    //       <div>
+    //         <p className="text-[21px] pt-[15px] pb-[10px]">
+    //           You need to enroll in this learning track to display next
+    //           lesson.
+    //         </p>
+    //       </div>
+    //       <div className="w-full flex justify-between">
+    //         <Button className="w-[47%] h-11 border border-home-learning-track-view-button-border text-home-learning-track-view-button-color">
+    //           View Syllabus
+    //         </Button>
+    //         <Button className="w-[47%] h-11 text-home-learning-track-view-button-color bg-home-learning-track-view-button-bg">
+    //           Enroll
+    //         </Button>
+    //       </div>
+    //     </>
+    //   );
+    // case TabValueType.IN_PROGRESS:
+    //   return (
+    //     <>
+    //       <div>
+    //         <p className="text-[21px] pt-[15px] pb-[10px]">Deploy Your NFT</p>
+    //         <div>sdsdsd</div>
+    //       </div>
+    //       <div className="w-full flex justify-between">
+    //         <Button className="w-[48%] h-11 border border-home-learning-track-view-button-border text-home-learning-track-view-button-color px-0">
+    //           View Syllabus
+    //         </Button>
+    //         <Button className="w-[48%] h-11 text-home-learning-track-view-button-color bg-home-learning-track-view-button-bg px-0">
+    //           Resume
+    //         </Button>
+    //       </div>
+    //     </>
+    //   );
+    // case TabValueType.COMPLETED:
+    //   return (
+    //     <>
+    //       <div>
+    //         <p className="text-[21px] pt-[15px] pb-[10px]">
+    //           You’ve finished this learning track.
+    //         </p>
+    //       </div>
+    //       <div className="w-full flex justify-between">
+    //         <Button className="w-[47%] h-11 border border-home-learning-track-view-button-border text-home-learning-track-view-button-color">
+    //           View Syllabus
+    //         </Button>
+    //       </div>
+    //     </>
+    //   );
+    // ) {
+    // }
   };
   return (
     <div
