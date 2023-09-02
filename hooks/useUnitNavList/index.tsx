@@ -61,7 +61,7 @@ export const useUnitNavList = (lesson: CourseLessonType) => {
   );
 
   useEffect(() => {
-    if (lesson && !unitNavList) {
+    if (lesson && !unitNavList && lesson.courseId) {
       run();
     }
   }, [lesson, run]);

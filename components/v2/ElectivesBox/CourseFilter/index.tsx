@@ -1,8 +1,8 @@
-import React from 'react';
-import { sort, courseType, experienceLevel, initFilter } from '../data';
-import Radio from '@/components/v2/Common/Radio';
 import Checkbox from '@/components/v2/Common/Checkbox';
+import Radio from '@/components/v2/Common/Radio';
+import React from 'react';
 import { FilterType } from '..';
+import { courseType, experienceLevel, initFilter, sort } from '../data';
 
 interface CourseFilterProps {
   changeFilter: (filter: FilterType) => void;

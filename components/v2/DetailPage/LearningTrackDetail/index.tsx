@@ -32,25 +32,38 @@ const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
 
   const [expandAll, setExpandAll] = useState(false);
 
-  const resumeCallback = useCallback(() => {
-    for (let i = 0; i < learningTrackDetail.sections.length; i++) {
-      const section = learningTrackDetail.sections[i];
+  const { learningSection, learningCourse } = useMemo(() => {
+    const sections = learningTrackDetail.sections;
+    let targetSection = sections[0];
+    let targetCourse = targetSection.courses[0];
+    for (let i = 0; i < sections.length; i++) {
+      const section = sections[i];
       const course = section.courses.find(
         (course) => course.progress < 1 || !course.progress
       );
       if (course) {
-        jumpLearningLesson(course);
+        targetCourse = course;
+        targetSection = section;
         break;
       }
     }
+    return {
+      learningSection: targetSection,
+      learningCourse: targetCourse
+    };
   }, [learningTrackDetail]);
+
+  const resumeCallback = useCallback(() => {}, [learningTrackDetail]);
 
   const RightComponent = useMemo(
     () => (
       <HeaderRight
         courseDetail={learningTrackDetail}
-        itemCount={learningTrackDetail.sections?.length || 0}
-        nextInfo={{ title: 'Unit 3', content: 'Mint - 1' }}
+        itemCount={learningCourse.unitCount || 0}
+        nextInfo={{
+          title: `${learningSection.name}/${learningCourse.name}`,
+          content: learningCourse.name
+        }}
         type="learning-track"
         resumeCallback={resumeCallback}
         learningStatus={learningStatus}

@@ -19,21 +19,21 @@ const TrackList: FC<TrackListProps> = (props) => {
   const [courseList, setCourseList] = useState<CourseListType>([]);
 
   useEffect(() => {
-    if (trackDetail) {
-      const map = new Map();
-      trackDetail?.courses?.forEach((course) => {
-        const track = map.get(course.group);
-        if (Array.isArray(track?.courses)) {
-          track?.courses.push(course);
-        } else {
-          const courses = [course];
-          map.set(course.group, { title: course.group, courses });
-        }
-      });
-      const res = Array.from(map).map((track) => track[1]);
-      console.log(res);
-      setCourseList(res);
-    }
+    // if (trackDetail) {
+    //   const map = new Map();
+    //   trackDetail?.courses?.forEach((course) => {
+    //     const track = map.get(course.group);
+    //     if (Array.isArray(track?.courses)) {
+    //       track?.courses.push(course);
+    //     } else {
+    //       const courses = [course];
+    //       map.set(course.group, { title: course.group, courses });
+    //     }
+    //   });
+    //   const res = Array.from(map).map((track) => track[1]);
+    //   console.log(res);
+    //   setCourseList(res);
+    // }
   }, [trackDetail]);
 
   return (
