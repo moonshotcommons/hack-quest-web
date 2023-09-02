@@ -33,7 +33,7 @@ const ContentRenderer: FC<ContentRendererProps> = (props) => {
         </span>
       </div>
       {showAll &&
-        component?.children.map((child) => {
+        component?.children?.map((child) => {
           return (
             <ComponentRenderer
               key={child.id}

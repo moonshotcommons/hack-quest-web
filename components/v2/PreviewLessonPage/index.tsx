@@ -51,7 +51,7 @@ const PreviewLessonPage: FC<PreviewLessonPageProps> = (props) => {
   // if (!lesson) return null;
 
   return (
-    <div className="relative w-full h-[calc(100vh-80px-76px)]">
+    <div className="relative w-full h-[calc(100vh-80px-76px)] pl-[20px]">
       {lesson && (
         <Split
           className="flex-1 w-full h-full flex justify-between [&>div]:w-[50%] [&>.gutter]:cursor-col-resize"

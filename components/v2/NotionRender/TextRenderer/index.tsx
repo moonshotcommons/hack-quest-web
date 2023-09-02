@@ -1,5 +1,5 @@
 import { cn } from '@/helper/utils';
-import { FC, ReactNode } from 'react';
+import { FC } from 'react';
 import MathJax from 'react-mathjax';
 import DropAnswer from '../../LessonPage/ComponentRenderer/QuizRenderer/QuizBRenderer/DropAnswer';
 interface TextRendererProps {
@@ -91,7 +91,19 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
           <span
             key={index}
             className={`${className} rounded-md`}
-            style={{ fontSize }}
+            style={{
+              fontSize,
+              color:
+                annotations.color !== 'default' &&
+                !annotations.color.includes('background')
+                  ? annotations.color
+                  : '',
+              backgroundColor:
+                annotations.color !== 'default' &&
+                annotations.color.includes('background')
+                  ? annotations.color
+                  : ''
+            }}
           >
             {richText.plain_text}
           </span>
