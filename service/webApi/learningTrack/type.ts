@@ -16,6 +16,7 @@ export interface LearningTrackType {
   aboutDesc: any;
   courseCount: number;
   duration: number;
+  progress: number;
 }
 
 /** 学习路线详情 */

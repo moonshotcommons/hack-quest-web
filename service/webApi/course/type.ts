@@ -99,8 +99,8 @@ export enum ProcessType {
   IN_PROCESS = 'inProcess',
   COMPLETED = 'completed'
 }
-export type LearningTrackCourseType =
-  | ProcessType
-  | {
-      UN_ENROLL: 'unEnroll';
-    };
+export enum LearningTrackCourseType {
+  IN_PROCESS = 'inProcess',
+  COMPLETED = 'completed',
+  UN_ENROLL = 'unEnroll'
+}
