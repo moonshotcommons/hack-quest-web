@@ -1,31 +1,30 @@
 export const sort = [
-  {
-    label: 'Featured',
-    value: true,
-    key: 'featured'
-  },
+  // {
+  //   label: 'Featured',
+  //   value: true,
+  //   key: 'featured'
+  // },
   {
     label: 'Level: low to high',
-    value: 'Level: low to high'
+    value: '+level'
   },
   {
     label: 'Level: high to low',
-    value: 'Level: high to low'
+    value: '-level'
   },
   {
     label: 'Duration: Short to long',
-    value: 'Duration: Short to long'
+    value: '+duration'
   },
   {
     label: 'Duration: Long to short',
-    value: 'Duration: Long to short'
+    value: '-duration'
   }
 ];
 export const courseType = [
   {
     label: 'All',
-    value: 'All',
-    key: 'type'
+    value: 'All'
   },
   {
     label: 'Guided project',
@@ -45,14 +44,20 @@ export const experienceLevel = [
   },
   {
     label: 'Beginner',
-    value: 'Beginner'
+    value: 'BEGINNER'
   },
   {
     label: 'Intermediate',
-    value: 'Intermediate'
+    value: 'INTERMEDIATE'
   },
   {
     label: 'Advanced',
-    value: 'Advanced'
+    value: 'ADVANCED'
   }
 ];
+
+export const initFilter = {
+  sort: sort[0].value,
+  courseType: [courseType[0].value],
+  experienceLevel: [experienceLevel[0].value]
+};

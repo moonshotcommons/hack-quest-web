@@ -1,5 +1,5 @@
 import React from 'react';
-import { sort, courseType, experienceLevel } from '../data';
+import { sort, courseType, experienceLevel, initFilter } from '../data';
 import Radio from '@/components/v2/Common/Radio';
 import Checkbox from '@/components/v2/Common/Checkbox';
 import { FilterType } from '..';
@@ -7,10 +7,12 @@ import { FilterType } from '..';
 interface CourseFilterProps {
   changeFilter: (filter: FilterType) => void;
   filter: FilterType;
+  len: number;
 }
 const CourseFilter: React.FC<CourseFilterProps> = ({
   filter,
-  changeFilter
+  changeFilter,
+  len
 }) => {
   const changeSort = (sort: string) => {
     changeFilter({ ...filter, sort });
@@ -32,9 +34,14 @@ const CourseFilter: React.FC<CourseFilterProps> = ({
     <div className="text-electives-filter-color w-[272px] ">
       <div className="flex mb-[15px] items-center justify-between border-b border-electives-filter-border-color pb-[15px]">
         <span className="text-[24px] leading-[24px] font-next-book-bold">
-          200 Results
+          {len} Results
         </span>
-        <span className="cursor-pointer underline">Clear Filters</span>
+        <span
+          className="cursor-pointer underline"
+          onClick={() => changeFilter(initFilter)}
+        >
+          Clear Filters
+        </span>
       </div>
       <div>
         <div className="font-next-book-bold text-[24px] mb-[15px]">Sort by</div>

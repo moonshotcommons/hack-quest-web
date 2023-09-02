@@ -32,9 +32,7 @@ class CourseApi {
   /** 获取课程列表信息By search */
   getCourseListBySearch(params: object) {
     return this.service.get<CourseResponse[]>(`${CourseApiType.Course_List}`, {
-      params: {
-        ...params
-      }
+      params
     });
   }
 

@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { CourseTabType } from './type';
 import { ProcessType } from '@/service/webApi/course/type';
 import Tab from './Tab';
-import LearningTrackCard from '@/components/v2/LearningTrackCard';
 import CourseList from './CourseList';
 import NoData from './NoData';
 import webApi from '@/service';
 import { CourseResponse } from '@/service/webApi/course/type';
 import { Spin } from 'antd';
+import { LearningTrackType } from '@/service/webApi/learningTrack/type';
+import LearningTrackList from './LearningTrackList';
 
 function Course() {
   const [curTab, setCurTab] = useState<ProcessType>(ProcessType.IN_PROCESS);
@@ -18,33 +19,65 @@ function Course() {
     [ProcessType.IN_PROCESS]: [],
     [ProcessType.COMPLETED]: []
   });
-  const getCourseList = async (status: ProcessType) => {
-    const list = await webApi.courseApi.getCourseListBySearch({ status });
-    const newData = {
-      ...courseListData,
-      [status]: list
-    };
-    setCourseListData(newData);
-    setLoading(false);
+  const [learningTrackListData, setLearningTrackListData] = useState<
+    Record<ProcessType, LearningTrackType[]>
+  >({
+    [ProcessType.IN_PROCESS]: [],
+    [ProcessType.COMPLETED]: []
+  });
+  const getCourseList = () => {
+    return new Promise(async (resolve) => {
+      const list = await webApi.courseApi.getCourseListBySearch({
+        status: curTab
+      });
+      const newData = {
+        ...courseListData,
+        [curTab]: list
+      };
+      setCourseListData(newData);
+      resolve(false);
+    });
+  };
+  const getLearningTrackList = () => {
+    return new Promise(async (resolve) => {
+      const list = await webApi.learningTrackApi.getLearningTracks({
+        status: curTab
+      });
+      const newData = {
+        ...learningTrackListData,
+        [curTab]: list
+      };
+      setLearningTrackListData(newData);
+      resolve(true);
+    });
   };
   const changeTab = (tab: CourseTabType) => {
     setCurTab(tab.value);
   };
   useEffect(() => {
-    if (!courseListData[curTab].length) {
-      getCourseList(curTab);
+    if (
+      !courseListData[curTab].length ||
+      !learningTrackListData[curTab].length
+    ) {
       setLoading(true);
+      Promise.all([getCourseList(), getLearningTrackList()]).finally(() => {
+        setLoading(false);
+      });
     }
   }, [curTab]);
   return (
     <div className="pt-20">
       <Tab curTab={curTab} changeTab={changeTab} />
       <Spin size="large" tip={'加载中...'} spinning={loading}>
-        {!courseListData[curTab].length ? (
+        {!courseListData[curTab].length &&
+        !learningTrackListData[curTab].length ? (
           <NoData curTab={curTab} />
         ) : (
           <>
-            <LearningTrackCard />
+            <LearningTrackList
+              list={learningTrackListData[curTab]}
+              status={curTab}
+            />
             <CourseList list={courseListData[curTab]} curTab={curTab} />
           </>
         )}
