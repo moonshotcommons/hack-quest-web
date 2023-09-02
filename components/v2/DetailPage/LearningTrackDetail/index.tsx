@@ -58,18 +58,6 @@ const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
     };
   }, [learningTrackDetail]);
 
-  // const {learningCourseDetail,learningUnit} = useMemo(async () => {
-  //   const learningCourseDetail = await
-  //   return {
-  //     learningCourseDetail,
-  //     learningUnit:learningCourseDetail.units?.find(
-  //       (unit) => unit.progress < 1 || !unit.progress
-  //     )
-  //   }
-  // }, [learningCourse]);
-
-  const resumeCallback = useCallback(() => {}, [learningTrackDetail]);
-
   useEffect(() => {
     if (learningCourse) {
       webApi.courseApi.getCourseDetail(learningCourse.id).then((res) => {
@@ -83,6 +71,10 @@ const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
       });
     }
   }, [learningCourse]);
+
+  const resumeCallback = useCallback(() => {
+    jumpLearningLesson(learningCourse);
+  }, [learningTrackDetail]);
 
   const RightComponent = useMemo(
     () => (
