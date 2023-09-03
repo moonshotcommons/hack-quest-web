@@ -63,8 +63,7 @@ app.get('/', async (req, res) => {
   let gitout = '';
   try {
     res.write('[start to git pull]\n');
-    const shell = __dirname + '/pull.sh';
-    const { stdout, stderr } = await exec(shell);
+    const { stdout, stderr } = await exec('git pull');
     gitout = stdout;
     res.write(stdout);
     if (stderr) {
