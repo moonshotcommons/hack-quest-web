@@ -1,35 +1,42 @@
 #!/usr/bin/env node
 
-const cp = require('node:child_process');
+const { exec: baseExec, spawn } = require('node:child_process');
 const { promisify } = require('node:util');
 const { existsSync } = require('node:fs');
 const { writeFile, unlink } = require('node:fs/promises');
 const { resolve } = require('node:path');
 const express = require('express');
-const exec = promisify(cp.exec);
+const exec = promisify(baseExec);
 const port = process.env.SITE_PORT || '5126';
 const pkg = require('../package.json');
 
 const app = express();
 
 // build
-async function buildVite(root) {
-  let output = '';
+async function runPnpmBuild(root, res) {
+  let resolve;
+  let reject;
+  const p = new Promise((r, j) => {
+    resolve = r;
+    reject = j;
+  });
+  const ls = spawn('pnpm', ['run', 'build'], {
+    cwd: root
+  });
 
-  // build vite
-  try {
-    const { stdout, stderr } = await exec('pnpm run build', {
-      cwd: root
-    });
-    output += stdout;
-    if (stderr) {
-      output += stderr;
-    }
-  } catch (e) {
-    console.error(e);
-  }
+  ls.stdout.on('data', (data) => {
+    res.write(data);
+  });
 
-  return output;
+  ls.stderr.on('data', (data) => {
+    res.write(`err: ${data}`);
+  });
+
+  ls.on('close', (code) => {
+    resolve(code);
+  });
+
+  return p;
 }
 
 function sleep(ms) {
@@ -101,9 +108,8 @@ app.get('/', async (req, res) => {
   // build
   const root = resolve(__dirname, '../');
   res.write('[start to build by `pnpm run build`]\n');
-  const output = await buildVite();
-  res.write(output);
-  res.write('---- vite built\n');
+  const buildCode = await runPnpmBuild(root, res);
+  res.write(`---- pnpm built: ${buildCode}\n`);
 
   // echo message
   res.write('[Successfully deployed]\n');
