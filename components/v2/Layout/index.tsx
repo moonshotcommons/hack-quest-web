@@ -14,7 +14,6 @@ export interface LayoutProps {
 const V2Layout: FC<LayoutProps> = (props) => {
   let { pathname, children, navbarData } = props;
   const regex = /\/[^/]+\/\[courseId\]\/learn\/\[lessonId\]/;
-
   switch (true) {
     case regex.test(pathname):
       return <V2FullLayout navbarData={navbarData}>{children}</V2FullLayout>;
