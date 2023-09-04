@@ -2,16 +2,15 @@ import { FC, useMemo } from 'react';
 
 import ComponentRenderer from '../../LessonPage/ComponentRenderer';
 import TextRenderer from '../TextRenderer';
-import { CustomRenderType, NotionRenderType } from '../type';
+import { NotionRenderType } from '../type';
 
 interface NumberListItemRendererProps {
-  type: NotionRenderType | CustomRenderType;
   component: any;
   parent: any;
 }
 
 const NumberListItemRenderer: FC<NumberListItemRendererProps> = (props) => {
-  const { component, type, parent } = props;
+  const { component, parent } = props;
   let children = parent?.isRoot ? parent.content : parent.children;
   // const index = children
   //   ?.filter((child: any) => child.type === NotionRenderType.NUMBERED_LIST_ITEM)
