@@ -6,7 +6,7 @@ export const sort = [
   // },
   {
     label: 'Level: low to high',
-    value: '+level'
+    value: 'level'
   },
   {
     label: 'Level: high to low',
@@ -14,7 +14,7 @@ export const sort = [
   },
   {
     label: 'Duration: Short to long',
-    value: '+duration'
+    value: 'duration'
   },
   {
     label: 'Duration: Long to short',
