@@ -24,23 +24,21 @@ export const sort = [
 export const courseType = [
   {
     label: 'All',
-    value: 'All'
+    value: 'ALL'
   },
   {
     label: 'Guided project',
-    value: 'GUIDED_PROJECT',
-    key: 'type'
+    value: 'GUIDED_PROJECT'
   },
   {
     label: 'Mini',
-    value: 'Mini',
-    key: 'type'
+    value: 'MINI'
   }
 ];
 export const experienceLevel = [
   {
     label: 'All',
-    value: 'All'
+    value: 'ALL'
   },
   {
     label: 'Beginner',
@@ -60,4 +58,9 @@ export const initFilter = {
   sort: sort[0].value,
   courseType: [courseType[0].value],
   experienceLevel: [experienceLevel[0].value]
+};
+
+export const initPageInfo = {
+  limit: 12,
+  page: 1
 };

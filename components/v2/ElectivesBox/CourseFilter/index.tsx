@@ -22,9 +22,10 @@ const CourseFilter: React.FC<CourseFilterProps> = ({
     value: string,
     type: 'courseType' | 'experienceLevel'
   ) => {
+    console.info(checked, value);
     const newFilter = { ...filter };
     if (!checked) {
-      newFilter[type] = filter[type].filter((v) => v !== value);
+      newFilter[type] = filter[type].filter((v: string) => v !== value);
     } else {
       newFilter[type].push(value);
     }
