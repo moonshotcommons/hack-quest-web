@@ -27,6 +27,7 @@ const SelectiveCoursesBox: React.FC<SelectiveCoursesBoxProps> = ({
   const [pageInfo, setPageInfo] = useState<PageInfoType>(initPageInfo);
   const [list, setList] = useState<CourseResponse[]>([]);
   const [runNum, setRunNum] = useState(0);
+  // const [loading, setLoading] = useState(true);
 
   const changeFilter = (newFilter: FilterType) => {
     setFilter({ ...newFilter });
@@ -57,6 +58,7 @@ const SelectiveCoursesBox: React.FC<SelectiveCoursesBoxProps> = ({
         ...pInfo
       });
       if (!list.length) setNoMore();
+      // setLoading(false);
       resolve(list);
     });
   };
