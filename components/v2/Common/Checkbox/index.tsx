@@ -25,12 +25,7 @@ const Checkbox: FC<CheckboxProps> = (props) => {
       }}
       className="cursor-pointer"
     >
-      <input
-        type="checkbox"
-        className="hidden"
-        checked={checked}
-        onChange={() => {}}
-      />
+      <input type="checkbox" className="hidden" checked={checked} readOnly />
       <div className="w-[20px] h-[20px] border rounded-[3px] border-electives-filter-border-color block">
         {checked ? (
           <span
