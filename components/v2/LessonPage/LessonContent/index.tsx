@@ -2,7 +2,6 @@
 import { ExpandDataType, useLessonExpand } from '@/hooks/useLessonExpand';
 import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
 import { FC, createContext, useEffect, useMemo, useState } from 'react';
-import Split from 'react-split';
 import ComponentRenderer from '../ComponentRenderer';
 import LessonEvents from '../LessonEvents';
 import LessonNav from '../LessonNav';
@@ -68,11 +67,7 @@ const LessonContent: FC<LessonContentProps> = (props) => {
       </>
 
       {!!components.length && (
-        <Split
-          direction="vertical"
-          className="flex flex-col mb-[20px] w-full flex-1 shrink-0 overflow-auto h-full scroll-wrap-y scroll-wrap-x no-scrollbar"
-          minSize={80}
-        >
+        <div className="flex flex-col mb-[20px] w-full flex-1 shrink-0 overflow-auto h-full scroll-wrap-y scroll-wrap-x no-scrollbar">
           {components.map((component, i) => {
             return (
               <div key={component.id} className="">
@@ -90,7 +85,7 @@ const LessonContent: FC<LessonContentProps> = (props) => {
               </div>
             );
           })}
-        </Split>
+        </div>
       )}
     </div>
   );
