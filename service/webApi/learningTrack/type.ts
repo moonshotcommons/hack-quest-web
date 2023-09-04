@@ -17,6 +17,7 @@ export interface LearningTrackType {
   courseCount: number;
   duration: number;
   progress: number;
+  unitCount: number;
 }
 
 /** 学习路线详情 */

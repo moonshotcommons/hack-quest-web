@@ -85,7 +85,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
                 <CourseTags
                   level={learningTrack.level as string}
                   duration={learningTrack.duration}
-                  unitCount={learningTrack.courseCount}
+                  unitCount={learningTrack.unitCount ?? 0}
                 ></CourseTags>
               </div>
             </div>
