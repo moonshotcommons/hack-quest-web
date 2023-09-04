@@ -1,8 +1,9 @@
 import { getCourseLink } from '@/helper/utils';
+import { useUnitNavList } from '@/hooks/useUnitNavList';
 import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 interface LessonNavProps {
   lesson: CourseLessonType;
   courseType: CourseType;
@@ -32,6 +33,13 @@ const LessonNav: React.FC<LessonNavProps> = ({
   const router = useRouter();
   const { lessonId } = router.query;
   const [navData, setNavData] = useState<navDataProps[]>([]);
+  const { unitNavList = [], refreshNavList } = useUnitNavList(lesson);
+
+  const uName = useMemo(() => {
+    const uName = unitNavList.find((v) => v.id === lesson.unitId)
+      ?.name as string;
+    return uName;
+  }, [unitNavList]);
 
   const renderNav = (item: navDataProps, i: number) => {
     if (item.link) {
@@ -62,25 +70,38 @@ const LessonNav: React.FC<LessonNavProps> = ({
       );
     }
   };
-  useEffect(() => {
+
+  const initNav = () => {
     const initLink = [
       {
-        label: 'All Courses',
-        link: '/courses'
+        label: 'home',
+        link: '/v2/home'
       }
     ];
     if (!router.query?.courseId && isPreview) {
       setNavData([...initLink, ...previewNavData]);
       return;
     }
-    const lessonLink = (router.query?.courseId as string)
-      .split(' - ')
-      .map((v, i) => ({
-        label: v,
-        link: !i ? `/v2/${getCourseLink(courseType)}/${lesson?.courseId}` : ''
-      }));
+    const lessonLink: navDataProps[] = [
+      {
+        label: (router.query?.courseId as string).split(' - ')[0],
+        link: `/v2/electives/${lesson?.courseId}`
+      },
+      {
+        label: uName as string,
+        link: ''
+      }
+    ];
     setNavData([...initLink, ...lessonLink]);
-  }, []);
+  };
+
+  useEffect(() => {
+    refreshNavList();
+  }, [lesson]);
+
+  useEffect(() => {
+    initNav();
+  }, [uName]);
 
   return (
     <div className="mb-[30px] text-[14px] text-lesson-preview-color flex pt-5">
