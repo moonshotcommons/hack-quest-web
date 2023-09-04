@@ -1,8 +1,9 @@
-import { FC, useCallback, useMemo, useState } from 'react';
+import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 
 import Button from '@/components/Common/Button';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
 import { useEnrollUnEnroll } from '@/hooks/useLearningTrackHooks/useEnrollUnEnroll';
+import webApi from '@/service';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import CourseDetailHeader from '../CourseDetailHeader';
 import HeaderRight from '../HeaderRight';
@@ -19,6 +20,10 @@ const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
   const { learningTrackDetail, refresh } = props;
 
   const { enroll, unEnroll } = useEnrollUnEnroll(learningTrackDetail, refresh);
+  const [learningInfo, setLearningInfo] = useState<{
+    learningCourseDetail: any;
+    learningUnit: any;
+  }>();
 
   const jumpLearningLesson = useJumpLeaningLesson();
 
@@ -53,7 +58,23 @@ const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
     };
   }, [learningTrackDetail]);
 
-  const resumeCallback = useCallback(() => {}, [learningTrackDetail]);
+  useEffect(() => {
+    if (learningCourse) {
+      webApi.courseApi.getCourseDetail(learningCourse.id).then((res) => {
+        const learningInfo = {
+          learningCourseDetail: res,
+          learningUnit: res.units?.find(
+            (unit) => unit.progress < 1 || !unit.progress
+          )
+        };
+        setLearningInfo(learningInfo);
+      });
+    }
+  }, [learningCourse]);
+
+  const resumeCallback = useCallback(() => {
+    jumpLearningLesson(learningCourse);
+  }, [learningTrackDetail]);
 
   const RightComponent = useMemo(
     () => (
