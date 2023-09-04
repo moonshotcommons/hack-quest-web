@@ -131,6 +131,7 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
                   option={option}
                   key={option.id}
                   onClick={() => {
+                    if (showAnswer) return;
                     const emptyAnswerKey = Object.keys(answers).find(
                       (key) => !answers[key].option
                     );
