@@ -11,7 +11,7 @@ import {
 } from '@/service/webApi/course/type';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 interface UnitListType {
   unitData: UnitPagesListType[];
   lesson: CourseLessonType;
@@ -35,6 +35,13 @@ const UnitList: React.FC<UnitListType> = ({ unitData, lesson, courseType }) => {
       }`
     );
   };
+
+  useEffect(() => {
+    const unit = unitData.find(
+      (v) => v.id === lesson.unitId
+    ) as UnitPagesListType;
+    getChildren(unit);
+  }, []);
   return (
     <div className="h-full">
       {!unitName ? (

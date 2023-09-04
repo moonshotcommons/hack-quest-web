@@ -31,6 +31,7 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
     if (isCompleted) return;
     const show = !showAnswer;
     let inputEle: HTMLTextAreaElement | HTMLInputElement;
+    console.info(answerState);
     answerState.map((line) => {
       if (line.answers?.length) {
         line.answers.map((answer) => {

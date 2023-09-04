@@ -101,7 +101,7 @@ const LessonEvents: React.FC<LessonEventsProps> = (props) => {
         </div>
       </div>
       {isToggle ? (
-        <div className="absolute z-100 left-0 top-[70px] w-full h-[530px] overflow-auto bg-lesson-events-toggle-list-bg rounded-b-[5px] shadow-2xl">
+        <div className="absolute z-100 left-0 top-[70px] w-full overflow-auto bg-lesson-events-toggle-list-bg rounded-b-[5px] shadow-2xl">
           <UnitList
             unitData={unitNavList}
             lesson={lesson}
