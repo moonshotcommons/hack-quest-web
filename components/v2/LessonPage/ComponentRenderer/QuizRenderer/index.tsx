@@ -1,6 +1,7 @@
 import Button from '@/components/Common/Button';
 import { cn } from '@/helper/utils';
 import { useClickAway } from 'ahooks';
+import JSConfetti from 'js-confetti';
 import { FC, createContext, useContext, useRef, useState } from 'react';
 import { FiChevronDown } from 'react-icons/fi';
 import { MdArrowDropDown } from 'react-icons/md';
@@ -29,6 +30,26 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
 
   const onPass = () => {
     setPassOpen(true);
+    const jsConfetti = new JSConfetti();
+
+    jsConfetti.addConfetti({
+      confettiColors: [
+        '#ff0a54',
+        '#ff477e',
+        '#ff7096',
+        '#ff85a1',
+        '#fbb1bd',
+        '#f9bec7',
+        '#3b47af',
+        '#28ca59',
+        '#eb1c1c',
+        '#15dffa',
+        '#0452fa',
+        '#cceb1c'
+      ],
+      confettiRadius: 6,
+      confettiNumber: 500
+    });
     setTimeout(() => {
       let nextQuizIndex = currentQuizIndex + 1;
       if (nextQuizIndex < quiz.children.length) {
