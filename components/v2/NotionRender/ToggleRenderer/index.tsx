@@ -28,7 +28,7 @@ const ToggleRenderer: FC<ToggleRendererProps> = (props) => {
     }
   }, [expandData]);
   return (
-    <div className="border-b border-[#676767] ">
+    <div className="border-b border-[#676767]">
       <div
         className="px-[.5rem] flex justify-between items-center my-3"
         onClick={() => setShowChild(!showChild)}

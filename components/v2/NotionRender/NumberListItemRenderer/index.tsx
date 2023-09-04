@@ -1,23 +1,42 @@
-import { FC, ReactNode } from 'react';
-import TextRenderer from '../TextRenderer';
-import { NotionComponent, NotionType } from '../../LessonPage/type';
+import { FC, useMemo } from 'react';
+
 import ComponentRenderer from '../../LessonPage/ComponentRenderer';
+import TextRenderer from '../TextRenderer';
+import { CustomRenderType, NotionRenderType } from '../type';
 
 interface NumberListItemRendererProps {
-  component: NotionComponent;
+  type: NotionRenderType | CustomRenderType;
+  component: any;
   parent: any;
 }
 
 const NumberListItemRenderer: FC<NumberListItemRendererProps> = (props) => {
-  const { component, parent } = props;
+  const { component, type, parent } = props;
   let children = parent?.isRoot ? parent.content : parent.children;
-  const index = children
-    ?.filter((child: any) => child.type === NotionType.NUMBERED_LIST_ITEM)
-    .findIndex((child: any) => child.id === component.id);
+  // const index = children
+  //   ?.filter((child: any) => child.type === NotionRenderType.NUMBERED_LIST_ITEM)
+  //   .findIndex((child: any) => child.id === source.id);
+
+  const index = useMemo(() => {
+    const currentIndex = children.findIndex(
+      (child: any) => child.id === component.id
+    );
+
+    let firstIndex = 0;
+
+    for (let i = currentIndex; i >= 0; i--) {
+      if (children[i].type !== NotionRenderType.NUMBERED_LIST_ITEM) {
+        break;
+      }
+      firstIndex = i;
+    }
+    return currentIndex - firstIndex;
+  }, [children, component]);
+
   return (
-    <li className="list-decimal">
-      <div className="flex items-center gap-2 py-1">
-        {/* <span className="">{index + 1}.</span> */}
+    <div>
+      <div className="flex gap-2 py-1 items-center">
+        <span className="">{index + 1}.</span>
         <TextRenderer richTextArr={component.content.rich_text}></TextRenderer>
       </div>
       <div className="ml-4">
@@ -31,7 +50,7 @@ const NumberListItemRenderer: FC<NumberListItemRendererProps> = (props) => {
           );
         })}
       </div>
-    </li>
+    </div>
   );
 };
 

@@ -12,7 +12,7 @@ const ContentRenderer: FC<ContentRendererProps> = (props) => {
   const { component } = props;
   const [showAll, setShowAll] = useState(true);
   return (
-    <div className="px-[20px] py-[15px] rounded-[10px] border border-lesson-title-box-border-color">
+    <div className="px-[20px] py-[15px] rounded-[10px] border border-lesson-title-box-border-color mb-5">
       <div
         className="flex  justify-between items-center cursor-pointer"
         onClick={() => setShowAll(!showAll)}
