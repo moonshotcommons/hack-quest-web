@@ -1,4 +1,4 @@
-import User from '@/components/User';
+import User from '@/components/v2/User';
 import { Inter } from 'next/font/google';
 import React, { ReactNode } from 'react';
 import Footer from '../Footer';
@@ -24,11 +24,11 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ navbarData, children }) => {
           </div>
         </div>
       </div>
-      <div className="container m-auto">
-        <main>{children}</main>
-        {/* <Footer {...footerData} /> */}
-        <Footer></Footer>
-      </div>
+      {/* <div className="container m-auto"> */}
+      <main>{children}</main>
+      {/* <Footer {...footerData} /> */}
+      <Footer></Footer>
+      {/* </div> */}
     </div>
   );
 };

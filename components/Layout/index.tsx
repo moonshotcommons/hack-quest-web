@@ -9,6 +9,7 @@ import HackathonLayout from './HackathonLayout';
 import LoginLayout from './LoginLayout';
 import { NavBarProps } from './Navbar';
 import UnitLayout from './UnitLayout';
+import V2BaseLayout from '../v2/Layout/V2BaseLayout';
 
 export interface LayoutProps {
   navbarData: NavBarProps;
@@ -22,12 +23,13 @@ const Layout: FC<LayoutProps> = (props) => {
   useNavAuth(waitingLoadUserInfo);
   const userInfo = useGetUserInfo();
   const regex = /\/[^/]+\/\[courseId\]\/learn\/\[lessonId\]/;
-  navbarData.navList = [
-    {
-      name: 'All Courses',
-      path: '/courses'
-    }
-  ];
+  // navbarData.navList = [
+  //   {
+  //     name: 'All Courses',
+  //     path: '/courses'
+  //   }
+  // ];
+  navbarData.navList = [];
 
   if (userInfo) {
     navbarData.navList = [

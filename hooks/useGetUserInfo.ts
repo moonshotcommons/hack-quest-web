@@ -14,6 +14,13 @@ export const useGetUserInfo = () => {
   return userInfo;
 };
 
+export const useGetUserUnLoginType = () => {
+  const unLoginType = useSelector((state: AppRootState) => {
+    return state.user.unLoginType;
+  }, shallowEqual);
+  return unLoginType;
+};
+
 export const useLoadUserInfo = () => {
   const dispatch = useDispatch();
   const [waitingLoadUserInfo, setWaitingLoadUserInfo] = useState(true);
