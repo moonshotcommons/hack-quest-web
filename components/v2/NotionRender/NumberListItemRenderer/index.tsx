@@ -34,8 +34,11 @@ const NumberListItemRenderer: FC<NumberListItemRendererProps> = (props) => {
 
   return (
     <div>
-      <div className="flex gap-2 py-1">
-        <span className="">{index + 1}.</span>
+      <div className="flex gap-2 py-1 items-start h-fit">
+        <span className="inline-flex items-center w-fit h-full text-[14px] py-[0.4rem] leading-[100%]">
+          {index + 1}.
+        </span>
+
         <TextRenderer richTextArr={component.content.rich_text}></TextRenderer>
       </div>
       <div className="ml-4">
