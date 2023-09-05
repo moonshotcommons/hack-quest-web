@@ -1,3 +1,9 @@
+export interface ParamType {
+  label: string;
+  value: string;
+  checked: boolean;
+}
+
 export const sort = [
   // {
   //   label: 'Featured',
@@ -6,61 +12,79 @@ export const sort = [
   // },
   {
     label: 'Level: low to high',
-    value: 'level'
+    value: 'level',
+    checked: true
   },
   {
     label: 'Level: high to low',
-    value: '-level'
+    value: '-level',
+    checked: false
   },
   {
     label: 'Duration: Short to long',
-    value: 'duration'
+    value: 'duration',
+    checked: false
   },
   {
     label: 'Duration: Long to short',
-    value: '-duration'
+    value: '-duration',
+    checked: false
   }
 ];
 export const courseType = [
   {
     label: 'All',
-    value: 'ALL'
+    value: 'ALL',
+    checked: true
   },
   {
     label: 'Guided project',
-    value: 'GUIDED_PROJECT'
+    value: 'GUIDED_PROJECT',
+    checked: true
   },
   {
     label: 'Mini',
-    value: 'MINI'
+    value: 'MINI',
+    checked: true
   }
 ];
 export const experienceLevel = [
   {
     label: 'All',
-    value: 'ALL'
+    value: 'ALL',
+    checked: true
   },
   {
     label: 'Beginner',
-    value: 'BEGINNER'
+    value: 'BEGINNER',
+    checked: true
   },
   {
     label: 'Intermediate',
-    value: 'INTERMEDIATE'
+    value: 'INTERMEDIATE',
+    checked: true
   },
   {
     label: 'Advanced',
-    value: 'ADVANCED'
+    value: 'ADVANCED',
+    checked: true
   }
 ];
-
-export const initFilter = {
-  sort: sort[0].value,
-  courseType: [courseType[0].value],
-  experienceLevel: [experienceLevel[0].value]
-};
 
 export const initPageInfo = {
   limit: 12,
   page: 1
+};
+
+export enum SearchFiled {
+  sort = 'sort',
+  type = 'type',
+  level = 'level'
+}
+export type SearchParamType = Record<SearchFiled, ParamType[]>;
+
+export const initParam = {
+  sort: [...sort],
+  type: [...courseType],
+  level: [...experienceLevel]
 };
