@@ -67,7 +67,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
               </p>
             </div>
             <div className="w-full flex justify-between">
-              <Button className="w-[47%] h-11 border border-home-learning-track-view-button-border text-home-learning-track-view-button-color">
+              <Button className="w-[47%] h-11 border border-home-learning-track-view-button-border p-0 text-home-learning-track-view-button-color">
                 View Syllabus
               </Button>
               <Button className="w-[47%] h-11 text-home-learning-track-view-button-color bg-home-learning-track-view-button-bg">
@@ -117,7 +117,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
     }
   };
   return (
-    <Link href={`/v2/learning-track/${learningTrack.id}`}>
+    <Link href={`/v2/learning-track/${learningTrack?.id}`}>
       <div
         className="h-[275px] rounded-[10px] bg-home-learning--track-bg overflow-hidden flex flex-col mb-10"
         style={{

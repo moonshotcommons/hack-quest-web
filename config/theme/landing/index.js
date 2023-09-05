@@ -16,7 +16,13 @@ const landingThemeColors = {
   'landing-card-login-button-text-color':
     'var(--landing-card-login-button-text-color)',
   'landing-card-login-button-border-color':
-    'var(--landing-card-login-button-border-color)'
+    'var(--landing-card-login-button-border-color)',
+
+  'landing-banner-intr-color': 'var(--landing-banner-intr-color)',
+  'landing-hack-info-bg': 'var(--landing-hack-info-bg)',
+  'landing-hack-info-top-color': 'var(--landing-hack-info-top-color)',
+  'landing-hack-info-learning-btn-color':
+    'var(--landing-hack-info-learning-btn-color)'
 };
 
 module.exports = {
