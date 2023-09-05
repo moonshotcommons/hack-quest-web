@@ -1,17 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import CourseFilter from './CourseFilter';
 import CourseList from './CourseList';
-import {
-  courseType,
-  experienceLevel,
-  sort,
-  initPageInfo,
-  ParamType,
-  initParam,
-  SearchParamType
-} from './data';
+import { initPageInfo, ParamType, initParam } from './data';
 import webApi from '@/service';
-import { CourseDataType } from '@/service/webApi/course/type';
+import { CourseResponse } from '@/service/webApi/course/type';
 import Loading from '../Common/Loading';
 
 interface PageInfoType {
@@ -28,7 +20,7 @@ const SelectiveCoursesBox: React.FC<SelectiveCoursesBoxProps> = ({
 }) => {
   const [searchParam, setSearchParam] = useState<any>(initParam);
   const [pageInfo, setPageInfo] = useState<PageInfoType>(initPageInfo);
-  const [list, setList] = useState<CourseDataType[]>([]);
+  const [list, setList] = useState<CourseResponse[]>([]);
   const [runNum, setRunNum] = useState(0);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -39,7 +31,7 @@ const SelectiveCoursesBox: React.FC<SelectiveCoursesBoxProps> = ({
 
   const initList = () => {
     getCourseList(initPageInfo).then((newList) => {
-      setList([...(newList as CourseDataType[])]);
+      setList([...(newList as CourseResponse[])]);
     });
   };
 
@@ -86,7 +78,7 @@ const SelectiveCoursesBox: React.FC<SelectiveCoursesBoxProps> = ({
         ...pageInfo,
         page: pageInfo.page + 1
       }).then((newList) => {
-        setList([...list, ...(newList as CourseDataType[])]);
+        setList([...list, ...(newList as CourseResponse[])]);
       });
     }
   }, [loadNum]);
