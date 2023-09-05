@@ -1,5 +1,5 @@
 import { cn } from '@/helper/utils';
-import { FC, ReactNode, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 interface CheckboxProps {
   checked?: boolean;

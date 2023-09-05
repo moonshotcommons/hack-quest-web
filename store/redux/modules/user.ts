@@ -1,15 +1,6 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { HYDRATE } from 'next-redux-wrapper';
-import webApi from '@/service';
+import { removeToken } from '@/helper/user-token';
 import { LoginResponse } from '@/service/webApi/user/type';
-import { omit } from 'lodash-es';
-import {
-  getUser,
-  removeToken,
-  removeUser,
-  setToken,
-  setUser
-} from '@/helper/user-token';
+import { createSlice } from '@reduxjs/toolkit';
 
 export enum UnLoginType {
   LOGIN = 'Log in',
@@ -45,6 +36,7 @@ const userSlice = createSlice({
     setSettingsOpen(state, { type, payload }) {
       state.settingsOpen = payload;
     },
+
     setUnLoginType(state, { type, payload }) {
       console.info(payload, 'payloadpayload');
       state.unLoginType = payload;

@@ -11,10 +11,10 @@ import {
   useRef,
   useState
 } from 'react';
-import PassIcon from '../Icon/Pass';
 import CloseIcon from '../Icon/Close';
-import WarningIcon from '../Icon/Warning';
 import EyeIcon from '../Icon/Eye';
+import PassIcon from '../Icon/Pass';
+import WarningIcon from '../Icon/Warning';
 
 interface InputProps {
   name: string;
@@ -118,7 +118,7 @@ const Input = forwardRef<
 
   return (
     <div className="flex flex-col gap-[0.75rem]">
-      <p className="text-text-default-color text-[1rem] font-next-book leading-[125%] tracking-[-0.011rem]">
+      <p className="text-[21px] font-next-poster leading-[125%] tracking-[1.26px]">
         {label}
       </p>
       <div className="relative">
@@ -128,14 +128,14 @@ const Input = forwardRef<
           value={value}
           placeholder={placeholder}
           className={cn(
-            `w-full border border-solid border-auth-input-outline-color outline-none bg-auth-input-bg px-[1.5rem] py-[1.12rem] rounded-[2.5rem] text-[#5B5B5B] text-[1.125rem] font-next-book leading-[118.5%] caret-[#5B5B5B] hover:border-auth-input-outline-focus-color focus:border-auth-input-outline-focus-color focus:text-[#5B5B5B] `,
-            type === 'password' &&
-              'bg-auth-password-input-bg focus:bg-auth-password-focus-bg border-auth-password-input-bg focus:border-auth-input-outline-color',
+            `w-full border border-solid border-[#212121] outline-none px-[25px] py-[15px] rounded-[2.5rem] text-[14px] font-next-book leading-[118.5%] caret-[#5B5B5B] hover:border-[#212121] focus:border-[#212121]`,
+            // type === 'password' &&
+            //   'border-auth-password-input-bg focus:border-[#212121]',
             status === 'success'
-              ? 'border-auth-input-success-color focus:border-auth-input-success-color bg-auth-input-success-bg'
+              ? 'border-auth-input-success-color focus:border-auth-input-success-color'
               : '',
             status === 'error'
-              ? 'border-auth-input-error-color focus:border-auth-input-error-color bg-auth-input-error-bg focus:bg-auth-input-error-bg'
+              ? 'border-auth-input-error-color focus:border-auth-input-error-color'
               : '',
             className
           )}
