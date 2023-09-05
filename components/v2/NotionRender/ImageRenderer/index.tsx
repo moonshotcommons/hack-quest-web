@@ -14,14 +14,24 @@ const ImageRenderer: FC<ImageRendererProps> = (props) => {
     // return <img src={block.external.url} alt={``} />;
     return (
       <div className="py-4">
-        <Image src={content.external.url} alt="image" />
+        <Image
+          src={content.external.url}
+          alt="image"
+          width={400}
+          className="object-contain"
+        />
       </div>
     );
   } else if (content.file) {
     // return <img src={block.file.url} alt={``} />;
     return (
       <div className="py-4">
-        <Image src={content.file.url} alt="image" />
+        <Image
+          src={content.file.url}
+          alt="image"
+          width={400}
+          className="object-contain"
+        />
       </div>
     );
   }
