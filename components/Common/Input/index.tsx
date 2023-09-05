@@ -11,10 +11,10 @@ import {
   useRef,
   useState
 } from 'react';
-import PassIcon from '../Icon/Pass';
 import CloseIcon from '../Icon/Close';
-import WarningIcon from '../Icon/Warning';
 import EyeIcon from '../Icon/Eye';
+import PassIcon from '../Icon/Pass';
+import WarningIcon from '../Icon/Warning';
 
 interface InputProps {
   name: string;
@@ -118,7 +118,7 @@ const Input = forwardRef<
 
   return (
     <div className="flex flex-col gap-[0.75rem]">
-      <p className="text-text-default-color text-[1rem] font-next-book leading-[125%] tracking-[-0.011rem]">
+      <p className="text-[1rem] font-next-book leading-[125%] tracking-[-0.011rem]">
         {label}
       </p>
       <div className="relative">
