@@ -26,12 +26,12 @@ function Course() {
   });
   const getCourseList = () => {
     return new Promise(async (resolve) => {
-      const list = await webApi.courseApi.getCourseListBySearch({
+      const res = await webApi.courseApi.getCourseListBySearch({
         status: curTab
       });
       const newData = {
         ...courseListData,
-        [curTab]: list
+        [curTab]: res.data
       };
       setCourseListData(newData);
       resolve(false);
