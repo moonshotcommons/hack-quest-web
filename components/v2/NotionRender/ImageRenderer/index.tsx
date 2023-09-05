@@ -30,7 +30,7 @@ const ImageRenderer: FC<ImageRendererProps> = (props) => {
           src={content.file.url}
           alt="image"
           width={400}
-          className="object-contain"
+          className="object-contain rounded-xl"
         />
       </div>
     );
