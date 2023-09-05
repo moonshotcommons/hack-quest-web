@@ -1,5 +1,6 @@
 // ./pages/article/[articleId].tsx
 
+import Loading from '@/components/v2/Common/Loading';
 import CourseDetail from '@/components/v2/DetailPage/CourseDetail';
 import webApi from '@/service';
 import { CourseDetailType } from '@/service/webApi/course/type';
@@ -16,20 +17,19 @@ const CourseDetailPage: NextPage<IProps> = (props) => {
   const router = useRouter();
   const { courseId } = router.query;
   const [courseDetail, setCourseDetail] = useState<CourseDetailType>();
-
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     webApi.courseApi.getCourseDetail(courseId as string, true).then((res) => {
       setCourseDetail(res);
+      setIsLoading(false);
     });
   }, [courseId, router, setCourseDetail]);
 
-  if (!courseDetail) return null;
-
-  console.log(courseDetail.units);
-
   return (
     <div className="container mx-auto">
-      <CourseDetail courseDetail={courseDetail}></CourseDetail>
+      <Loading loading={isLoading} className="mt-[50vh]">
+        <CourseDetail courseDetail={courseDetail}></CourseDetail>
+      </Loading>
     </div>
   );
 };

@@ -1,7 +1,5 @@
-import React, { FC, HTMLAttributes, ReactNode } from 'react';
-import classnames from 'classnames';
-import { omit } from 'lodash-es';
 import { cn } from '@/helper/utils';
+import React, { FC, ReactNode } from 'react';
 type ButtonType = 'default' | 'primary' | 'secondary' | 'text';
 type SizeType = 'default' | 'large' | 'medium-x' | 'medium-y' | 'small';
 interface BaseButtonProps {
@@ -56,8 +54,10 @@ const Button: FC<ButtonProps> = (props) => {
   return (
     <button
       className={cn(
-        `text-text-default-color flex gap-[.625rem] items-center justify-center h-fit w-fit cursor-pointer`,
-        type === 'primary' ? 'bg-primary-color' : '',
+        `text-text-default-color flex gap-[.625rem] items-center justify-center h-fit w-fit cursor-pointer transition`,
+        type === 'primary'
+          ? 'bg-primary-color hover:-translate-y-[1px] hover:shadow-[rgba(0,0,0,0.15)_1.95px_1.95px_2.6px]'
+          : '',
         block && 'w-full',
         ghost && 'bg-transparent border-primary-color',
         mergeSize(),

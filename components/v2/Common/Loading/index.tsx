@@ -1,4 +1,4 @@
-import { ConfigProvider, Spin } from 'antd';
+import { ConfigProvider, Spin, SpinProps } from 'antd';
 import { FC, ReactNode } from 'react';
 
 interface LoadingProps {
@@ -7,10 +7,11 @@ interface LoadingProps {
   children: ReactNode;
 }
 
-const Loading: FC<LoadingProps> = ({
+const Loading: FC<LoadingProps & SpinProps> = ({
   loading,
   children,
-  loadingText = 'loading...'
+  loadingText = 'loading...',
+  ...rest
 }) => {
   return (
     <ConfigProvider
@@ -20,7 +21,7 @@ const Loading: FC<LoadingProps> = ({
         }
       }}
     >
-      <Spin size="large" tip={loadingText} spinning={loading}>
+      <Spin size="large" tip={loadingText} spinning={loading} {...rest}>
         {children}
       </Spin>
     </ConfigProvider>
