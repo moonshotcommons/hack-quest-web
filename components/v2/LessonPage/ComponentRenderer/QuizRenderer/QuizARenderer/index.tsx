@@ -120,21 +120,23 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
       }
     });
   };
+  const getSubmitDisable = () => {
+    return answerState.some((line) => {
+      if (line.answers?.length) {
+        return line.answers.some((answer) => !answer.value);
+      } else {
+        return !line.value;
+      }
+    });
+  };
   useEffect(() => {
-    setSubmitDisable(
-      answerState.some((line) => {
-        if (line.answers?.length) {
-          return line.answers.some((answer) => !answer.value);
-        } else {
-          return !line.value;
-        }
-      })
-    );
+    setSubmitDisable(getSubmitDisable());
     initCompleteInput();
   }, [answerState]);
 
   useEffect(() => {
     if (showAnswer) setSubmitDisable(true);
+    else setSubmitDisable(getSubmitDisable());
   }, [showAnswer]);
 
   return (

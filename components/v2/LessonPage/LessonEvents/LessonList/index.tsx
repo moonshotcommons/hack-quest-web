@@ -12,12 +12,16 @@ import {
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useEffect, useMemo, useState } from 'react';
-interface UnitListType {
+interface LessonListType {
   unitData: UnitPagesListType[];
   lesson: CourseLessonType;
   courseType: CourseType;
 }
-const UnitList: React.FC<UnitListType> = ({ unitData, lesson, courseType }) => {
+const LessonList: React.FC<LessonListType> = ({
+  unitData,
+  lesson,
+  courseType
+}) => {
   const [lessonList, setLessonList] = useState<CourseLessonStateType[]>([]);
   const [unitName, setUnitName] = useState('');
   const router = useRouter();
@@ -42,17 +46,23 @@ const UnitList: React.FC<UnitListType> = ({ unitData, lesson, courseType }) => {
     ) as UnitPagesListType;
     getChildren(unit);
   }, []);
+
+  console.info(unitData);
   return (
-    <div className="h-full">
+    <div className="h-full font-next-book">
       {!unitName ? (
         unitData.map((v) => (
           <div
             key={v.id}
-            className={`h-[54px] pl-5 text-[20px] flex items-center ${
+            className={`h-[54px] pl-5 text-[21px]  flex items-center tracking-[0.42px]  ${
               v.id === lesson.unitId
                 ? 'bg-lesson-events-toggle-list-active-bg'
                 : ''
-            } ${!v.disable ? 'cursor-pointer' : ''}`}
+            } ${
+              !v.disable
+                ? 'cursor-pointer hover:bg-lesson-events-toggle-list-active-bg'
+                : 'cursor-not-allowed'
+            }`}
             onClick={() => getChildren(v)}
           >
             {v.name}
@@ -71,15 +81,22 @@ const UnitList: React.FC<UnitListType> = ({ unitData, lesson, courseType }) => {
             {lessonList.map((v) => (
               <div
                 key={v.id}
-                className={`h-[54px]  flex-row-center justify-between px-5 ${
+                className={`h-[54px]  flex-row-center justify-between px-5 hover:bg-lesson-events-toggle-list-active-bg ${
                   v.id === lesson.id
                     ? 'bg-lesson-events-toggle-list-active-bg'
                     : ''
+                } ${
+                  !v.disable
+                    ? 'cursor-pointer hover:bg-lesson-events-toggle-list-active-bg'
+                    : 'cursor-not-allowed'
                 }`}
                 onClick={() => handleUnit(v)}
               >
                 <div>
-                  <p className="font-next-book-bold text-[14px]">{v.name}</p>
+                  <p className="font-next-book-bold text-[14px]">
+                    {v.name}
+                    {v.disable}
+                  </p>
                 </div>
                 <div className="h-full pt-[10px]">
                   <Image
@@ -102,4 +119,4 @@ const UnitList: React.FC<UnitListType> = ({ unitData, lesson, courseType }) => {
   );
 };
 
-export default UnitList;
+export default LessonList;

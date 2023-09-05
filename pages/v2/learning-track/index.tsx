@@ -18,7 +18,13 @@ function LearningTrack() {
             <LearningTracksCard
               key={item.id}
               learningTrack={item}
-              status={LearningTrackCourseType.UN_ENROLL}
+              status={
+                !item.progress
+                  ? LearningTrackCourseType.UN_ENROLL
+                  : item.progress === 1
+                  ? LearningTrackCourseType.COMPLETED
+                  : LearningTrackCourseType.IN_PROCESS
+              }
             />
           ))}
         </div>

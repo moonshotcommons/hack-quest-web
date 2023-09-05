@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ArrowBottom from '@/public/images/lesson/arrow_bottom.svg';
 import Image from 'next/image';
-import UnitList from './UnitList';
+import LessonList from './LessonList';
 import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
 import { useUnitNavList } from '@/hooks/useUnitNavList';
 
@@ -102,7 +102,7 @@ const LessonEvents: React.FC<LessonEventsProps> = (props) => {
       </div>
       {isToggle ? (
         <div className="absolute z-100 left-0 top-[70px] w-full overflow-auto bg-lesson-events-toggle-list-bg rounded-b-[5px] shadow-2xl">
-          <UnitList
+          <LessonList
             unitData={unitNavList}
             lesson={lesson}
             courseType={courseType}

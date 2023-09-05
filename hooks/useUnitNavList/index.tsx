@@ -17,19 +17,26 @@ const formateDropdownData = (
   let currentLessonIndex = data[currentUnitIndex].pages.findIndex(
     (page) => page.id === lesson.id
   );
+  let prevUnitProgress = 1;
   const newData: UnitPagesListType[] = data.map((unit, index) => {
-    return {
+    let prevLessonState = 0;
+    const newUnit = {
       ...unit,
-      disable: index > currentUnitIndex,
+      disable: !unit.progress && !prevUnitProgress,
       pages: unit.pages.map((page, pageIndex) => {
-        return {
+        const newPage = {
           ...page,
           disable:
             page.state === CompleteStateType.NOT_STARTED &&
-            currentLessonIndex !== pageIndex
+            prevLessonState !== CompleteStateType.COMPLETED
         };
+        prevLessonState = page.state;
+        return newPage;
       })
     };
+
+    prevUnitProgress = unit.progress;
+    return newUnit;
   });
 
   return {

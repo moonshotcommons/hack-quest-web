@@ -5,9 +5,8 @@ import {
   courseType,
   experienceLevel,
   sort,
-  initParam,
-  ParamType,
-  SearchParamType
+  SearchParamType,
+  ParamType
 } from '../data';
 
 interface CourseFilterProps {
@@ -45,16 +44,28 @@ const CourseFilter: React.FC<CourseFilterProps> = ({
     }
     changeParam({ ...newSearchParam });
   };
+
+  const clearParam = () => {
+    const newSearchParam = { ...searchParam };
+    for (let key in newSearchParam) {
+      if (key === 'sort') {
+        newSearchParam[key].map((v: ParamType) => (v.checked = false));
+        newSearchParam[key][0].checked = true;
+      } else {
+        newSearchParam[key as 'type' | 'level'].map(
+          (v: ParamType) => (v.checked = true)
+        );
+      }
+    }
+    changeParam({ ...newSearchParam });
+  };
   return (
     <div className="text-electives-filter-color w-[272px] ">
       <div className="flex mb-[15px] items-center justify-between border-b border-electives-filter-border-color pb-[15px]">
         <span className="text-[24px] leading-[24px] font-next-book-bold">
           {len} Results
         </span>
-        <span
-          className="cursor-pointer underline"
-          onClick={() => changeParam(initParam)}
-        >
+        <span className="cursor-pointer underline" onClick={() => clearParam()}>
           Clear Filters
         </span>
       </div>
