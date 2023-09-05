@@ -9,7 +9,7 @@ const Landing: NextPage<any> = (props) => {
     <div className="flex  flex-col justify-center">
       <HomeBanner></HomeBanner>
       <HackQuestInfo></HackQuestInfo>
-      <div className="mt-[6.25rem]">
+      <div className="mx-auto container mt-[100px] flex justify-center">
         <JoinUs></JoinUs>
       </div>
     </div>
