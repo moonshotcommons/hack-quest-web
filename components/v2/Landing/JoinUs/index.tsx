@@ -6,7 +6,7 @@ interface JoinUsProps {}
 
 const JoinUs: FC<JoinUsProps> = (props) => {
   return (
-    <div className="text-text-default-color flex -ml-20">
+    <div className="text-text-default-color flex">
       <div>
         <Image
           src={'/images/home/join_us.png'}

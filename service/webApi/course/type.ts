@@ -28,7 +28,7 @@ export enum CompleteStateType {
 }
 
 /** 课程列表的返回值 */
-export interface CourseDataType {
+export interface CourseResponse {
   id: string;
   name: string;
   description: string;
@@ -39,10 +39,9 @@ export interface CourseDataType {
   unitCount: number;
   progress: number;
 }
-
-export interface CourseResponse {
+export interface CourseDataType {
   total: number;
-  data: CourseDataType[];
+  data: CourseResponse[];
 }
 
 export interface CourseDetailType {

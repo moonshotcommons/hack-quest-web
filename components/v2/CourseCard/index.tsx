@@ -3,7 +3,7 @@ import CheckIcon from '@/components/Common/Icon/Check';
 import { computeProgress, tagFormate } from '@/helper/formate';
 import { cn } from '@/helper/utils';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
-import { CourseDataType, CourseType } from '@/service/webApi/course/type';
+import { CourseResponse, CourseType } from '@/service/webApi/course/type';
 import { Progress, Typography } from 'antd';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -13,7 +13,7 @@ import CourseTags from '../CourseTags';
 
 interface CourseCardProps {
   // children: ReactNode;
-  course: CourseDataType;
+  course: CourseResponse;
   inProgress?: boolean;
   inCompleted?: boolean;
 }

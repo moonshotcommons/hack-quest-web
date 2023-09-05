@@ -309,4 +309,11 @@ html[data-theme='light'] {
   /** v2 selective courses */
   --electives-filter-color: var(--neutral-white-black);
   --electives-filter-border-color: var(--neutral-white-black);
+
+  /* v2 landing*/
+  /* --landing-  */
+  --landing-banner-intr-color: var(--neutral-white);
+  --landing-hack-info-bg: var(--neutral-off-white);
+  --landing-hack-info-top-color:var(----neutral-off-black);
+  --landing-hack-info-learning-btn-color:var(--neutral-black);
 }

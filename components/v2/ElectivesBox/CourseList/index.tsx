@@ -1,9 +1,9 @@
 import React from 'react';
 import CourseCard from '@/components/v2/CourseCard';
-import { CourseDataType } from '@/service/webApi/course/type';
+import { CourseResponse } from '@/service/webApi/course/type';
 
 interface CourseListProps {
-  list: CourseDataType[];
+  list: CourseResponse[];
 }
 const CourseList: React.FC<CourseListProps> = ({ list }) => {
   return (

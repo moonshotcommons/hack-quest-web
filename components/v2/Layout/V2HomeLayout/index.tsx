@@ -27,7 +27,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ navbarData, children }) => {
       {/* <div className="container m-auto"> */}
       <main>{children}</main>
       {/* <Footer {...footerData} /> */}
-      <Footer></Footer>
+      {/* <Footer></Footer> */}
       {/* </div> */}
     </div>
   );
