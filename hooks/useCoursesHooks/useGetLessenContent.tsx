@@ -1,5 +1,4 @@
 import webApi from '@/service';
-import { RequestError } from '@/service/types';
 import { CourseLessonType } from '@/service/webApi/course/type';
 import { useRequest } from 'ahooks';
 import { message } from 'antd';
@@ -11,7 +10,7 @@ export const useGetLessonContent = (lessonId: string) => {
   const router = useRouter();
   const { run, loading, refresh } = useRequest(
     async (lessonId) => {
-      const res = await webApi.courseApi.getLessonContent(lessonId);
+      const res = webApi.courseApi.getLessonContent(lessonId);
       return res;
     },
     {

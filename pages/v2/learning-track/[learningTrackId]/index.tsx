@@ -1,5 +1,6 @@
 // ./pages/article/[articleId].tsx
 
+import Loading from '@/components/v2/Common/Loading';
 import LearningTrackDetail from '@/components/v2/DetailPage/LearningTrackDetail';
 import { useGetLearningTrackDetail } from '@/hooks/useLearningTrackHooks/useLearningTrackDetail';
 import type { NextPage } from 'next';
@@ -11,13 +12,14 @@ const LearningTrackDetailPage: NextPage<IProps> = (props) => {
   const ref = useRef();
   const { learningTrackDetail, refresh } = useGetLearningTrackDetail();
 
-  if (!learningTrackDetail) return null;
   return (
     <div className="container mx-auto">
-      <LearningTrackDetail
-        learningTrackDetail={learningTrackDetail}
-        refresh={refresh}
-      ></LearningTrackDetail>
+      <Loading loading={!learningTrackDetail} className="mt-[50vh]">
+        <LearningTrackDetail
+          learningTrackDetail={learningTrackDetail}
+          refresh={refresh}
+        ></LearningTrackDetail>
+      </Loading>
     </div>
   );
 };

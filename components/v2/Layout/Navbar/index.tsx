@@ -37,13 +37,13 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
   return (
     <div className="m-auto h-full flex items-center justify-between">
       <nav className="gap-[4rem] h-full flex items-center">
-        <Link href="/v2" className="h-full flex items-center">
-          {/* {Logo && pathname !== '/' && <Image src={Logo} alt="logo"></Image>}
+        {/* <Link href="/v2" className="h-full flex items-center"> */}
+        {/* {Logo && pathname !== '/' && <Image src={Logo} alt="logo"></Image>}
           {DarkLogoActive && pathname === '/' && theme === Theme.Dark && (
             <Image src={DarkLogoActive} alt="logo"></Image>
           )} */}
-          <NavBarLogo></NavBarLogo>
-        </Link>
+        <NavBarLogo></NavBarLogo>
+        {/* </Link> */}
         {navList.map((nav) => {
           return (
             <Link

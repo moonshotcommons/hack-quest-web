@@ -17,7 +17,7 @@ const Login: FC<LoginProps> = (props) => {
 
   const EmailTitle = (
     <div>
-      <p className="text-[#FFF] text-[21px] font-next-poster leading-[160%] tracking-[1.26px] mt-8">
+      <p className="text-[#FFF] text-[21px] font-next-poster leading-[160%] tracking-[1.26px]">
         {`Don’t have an account? `}
         <span
           className="underline cursor-pointer"
@@ -34,7 +34,7 @@ const Login: FC<LoginProps> = (props) => {
   );
 
   return (
-    <div className="w-full max-w-[400px]  h-full flex justify-end items-center">
+    <div className="w-full  h-full flex justify-end items-center">
       {!showLogin ? (
         <VerifyEmail
           validator={validator}

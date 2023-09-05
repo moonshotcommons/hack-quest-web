@@ -12,7 +12,7 @@ import { LearningStatus } from '../type';
 
 interface LearningTrackDetailProps {
   // children: ReactNode;
-  learningTrackDetail: LearningTrackDetailType;
+  learningTrackDetail?: LearningTrackDetailType;
   refresh: VoidFunction;
 }
 
@@ -28,16 +28,19 @@ const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
   const jumpLearningLesson = useJumpLeaningLesson();
 
   const learningStatus = useMemo(() => {
-    let progress = learningTrackDetail.progress || 0;
-    if (progress <= 0 || !progress || !learningTrackDetail.enrolled)
-      return LearningStatus.UN_START;
-    if (progress >= 1) return LearningStatus.COMPLETED;
+    if (learningTrackDetail) {
+      let progress = learningTrackDetail.progress || 0;
+      if (progress <= 0 || !progress || !learningTrackDetail.enrolled)
+        return LearningStatus.UN_START;
+      if (progress >= 1) return LearningStatus.COMPLETED;
+    }
     return LearningStatus.IN_PROGRESS;
-  }, [learningTrackDetail.progress, learningTrackDetail.enrolled]);
+  }, [learningTrackDetail]);
 
   const [expandAll, setExpandAll] = useState(false);
 
   const { learningSection, learningCourse } = useMemo(() => {
+    if (!learningTrackDetail) return {};
     const sections = learningTrackDetail.sections;
     let targetSection = sections[0];
     let targetCourse = targetSection.courses[0];
@@ -73,11 +76,14 @@ const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
   }, [learningCourse]);
 
   const resumeCallback = useCallback(() => {
-    jumpLearningLesson(learningCourse);
+    if (learningTrackDetail && learningCourse) {
+      jumpLearningLesson(learningCourse);
+    }
   }, [learningTrackDetail]);
 
-  const RightComponent = useMemo(
-    () => (
+  const RightComponent = useMemo(() => {
+    if (!learningTrackDetail || !learningCourse) return false;
+    return (
       <HeaderRight
         courseDetail={learningTrackDetail}
         itemCount={learningCourse.unitCount || 0}
@@ -89,9 +95,10 @@ const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
         resumeCallback={resumeCallback}
         learningStatus={learningStatus}
       ></HeaderRight>
-    ),
-    [learningTrackDetail, resumeCallback]
-  );
+    );
+  }, [learningTrackDetail, resumeCallback]);
+
+  if (!learningTrackDetail) return null;
 
   return (
     <div className="flex flex-col pb-[84px]">

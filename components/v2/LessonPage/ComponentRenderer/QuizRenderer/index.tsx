@@ -140,7 +140,8 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
         <div className="inline-flex h-fit justify-between items-center rounded-[.625rem] bg-[#E6E6E6]  w-full px-[20px] py-[8px]">
           <h1 className="font-next-poster-Bold text-[18px]">Quiz</h1>
           <Button
-            className="bg-[#FFD850] py-[8px] px-[40px] font-next-book text-[#0B0B0B] text-[14px]"
+            type="primary"
+            className="py-[8px] px-[40px] font-next-book text-[#0B0B0B] text-[14px]"
             onClick={() => setStart(true)}
           >
             Start Quiz

@@ -4,7 +4,8 @@ import { createSlice } from '@reduxjs/toolkit';
 
 export enum UnLoginType {
   LOGIN = 'Log in',
-  SIGN_UP = 'Sign Up'
+  SIGN_UP = 'Sign Up',
+  EMAIL_VERIFY = 'Email Verify'
 }
 export interface UserStateType {
   userInfo: LoginResponse | null;

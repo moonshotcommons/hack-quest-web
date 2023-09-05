@@ -50,7 +50,7 @@ const UnitButton: FC<
   if (!unit.progress) {
     return (
       <button
-        className="w-[165px] py-[11px] leading-[125%] border border-solid bg-course-learning-button-bg border-course-learning-button-border-color rounded-[32px] whitespace-nowrap text-sm text-[#0B0B0B] font-next-book text-[16px] cursor-pointer"
+        className="w-[165px] hover:-translate-y-[1px] hover:shadow-[rgba(0,0,0,0.15)_1.95px_1.95px_2.6px] transition py-[11px] leading-[125%] border border-solid bg-course-learning-button-bg border-course-learning-button-border-color rounded-[32px] whitespace-nowrap text-sm text-[#0B0B0B] font-next-book text-[16px] cursor-pointer"
         {...rest}
       >
         Start
@@ -60,7 +60,7 @@ const UnitButton: FC<
 
   return (
     <button
-      className="w-[165px] py-[11px] leading-[125%] border border-solid bg-course-learning-button-bg border-course-learning-button-border-color rounded-[32px] whitespace-nowrap text-sm text-[#0B0B0B] font-next-book text-[16px] cursor-pointer"
+      className="w-[165px] py-[11px] hover:-translate-y-[1px] hover:shadow-[rgba(0,0,0,0.15)_1.95px_1.95px_2.6px] transition leading-[125%] border border-solid bg-course-learning-button-bg border-course-learning-button-border-color rounded-[32px] whitespace-nowrap text-sm text-[#0B0B0B] font-next-book text-[16px] cursor-pointer"
       {...rest}
     >
       Resume

@@ -51,26 +51,9 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
   useKeyPress('enter', verifyEmail);
 
   return (
-    <div className="h-full w-full flex flex-col justify-center items-center">
+    <div className="h-full w-full flex flex-col items-center">
       {/* <ThirdPartyLogin></ThirdPartyLogin> */}
-      <div className="flex w-full flex-col gap-[2rem]">
-        {/* {actionType === 'register' && (
-          <div>
-            <div className="text-text-default-color text-[2rem] font-next-book leading-[125%] tracking-[.04rem]">
-              <div>
-                Welcome to <span>HACKQUEST</span>,
-                <br /> Register to begin the Journey.
-              </div>
-            </div>
-            <div className="text-text-default-color text-[1.125rem] font-next-book leading-[125%] tracking-[.0225rem] mt-8">
-              Already have an account?{' '}
-              <Link href={'/auth/login'} className="underline cursor-pointer">
-                Login
-              </Link>
-            </div>
-          </div>
-        )} */}
-
+      <div className="flex w-full flex-col gap-[25px]">
         {EmailTitle}
         <div className="text-white">
           <Input

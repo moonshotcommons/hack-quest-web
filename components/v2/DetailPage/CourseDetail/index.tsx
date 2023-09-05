@@ -10,7 +10,7 @@ import { LearningStatus } from '../type';
 
 interface CourseDetailProps {
   // children: ReactNode;
-  courseDetail: CourseDetailType;
+  courseDetail?: CourseDetailType;
 }
 
 const CourseDetail: FC<CourseDetailProps> = (props) => {
@@ -19,28 +19,29 @@ const CourseDetail: FC<CourseDetailProps> = (props) => {
   const jumpLearningLesson = useJumpLeaningLesson(true);
 
   const learningStatus = useMemo(() => {
-    if (courseDetail.progress <= 0 || !courseDetail.progress)
-      return LearningStatus.UN_START;
-    if (courseDetail.progress >= 1) return LearningStatus.COMPLETED;
+    if (courseDetail) {
+      if (courseDetail.progress <= 0 || !courseDetail.progress)
+        return LearningStatus.UN_START;
+      if (courseDetail.progress >= 1) return LearningStatus.COMPLETED;
+    }
     return LearningStatus.IN_PROGRESS;
-  }, [courseDetail.progress]);
-
-  const resumeCallback = useCallback(() => {
-    jumpLearningLesson(courseDetail);
   }, [courseDetail]);
 
-  const RightComponent = useMemo(
-    () => (
-      <HeaderRight
-        courseDetail={courseDetail}
-        itemCount={courseDetail.units?.length || 0}
-        nextInfo={{ title: 'Unit 3', content: 'Mint - 1' }}
-        type="course"
-        resumeCallback={resumeCallback}
-        learningStatus={learningStatus}
-      ></HeaderRight>
-    ),
-    [courseDetail, resumeCallback]
+  const resumeCallback = useCallback(() => {
+    courseDetail && jumpLearningLesson(courseDetail);
+  }, [courseDetail]);
+
+  if (!courseDetail) return null;
+
+  const RightComponent = (
+    <HeaderRight
+      courseDetail={courseDetail}
+      itemCount={courseDetail.units?.length || 0}
+      nextInfo={{ title: 'Unit 3', content: 'Mint - 1' }}
+      type="course"
+      resumeCallback={resumeCallback}
+      learningStatus={learningStatus}
+    ></HeaderRight>
   );
 
   return (

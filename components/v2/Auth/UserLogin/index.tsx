@@ -66,7 +66,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
             setToken(res.token);
             const toPageUrl = redirect_url
               ? `${redirect_url}?token=${res.token}`
-              : '/courses';
+              : '/home';
             router.push(toPageUrl);
           } catch (e: any) {
             if (e.code === 400) {
@@ -101,11 +101,11 @@ const UserLogin: FC<UserLoginProps> = (props) => {
   useKeyPress('enter', onLogin);
 
   return (
-    <div className="pt-[8rem] w-full h-full flex flex-col justify-center items-center">
+    <div className="w-full h-full flex flex-col justify-center items-center">
       {/* <ThirdPartyLogin></ThirdPartyLogin> */}
-      <div className="flex flex-col gap-[1.75rem] w-full">
+      <div className="flex flex-col gap-[25px] w-full">
         <div>
-          <p className="text-[#FFF] text-[21px] font-next-poster leading-[160%] tracking-[1.26px] mt-8">
+          <p className="text-[#FFF] text-[21px] font-next-poster leading-[160%] tracking-[1.26px]">
             {`Don’t have an account? `}
             <span
               className="underline cursor-pointer"
@@ -144,7 +144,10 @@ const UserLogin: FC<UserLoginProps> = (props) => {
         </div>
         <div className="flex gap-[.75rem]">
           <Checkbox
-            outClassNames="border-[#8C8C8C]"
+            outClassNames={`${
+              formData.keepMeLoggedIn ? 'border-[#FFD850]' : 'border-[#8C8C8C]'
+            }`}
+            innerClassNames="bg-[#FFD850]"
             onChange={(value) => {
               setFormData({
                 ...formData,
