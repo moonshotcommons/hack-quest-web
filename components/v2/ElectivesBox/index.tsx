@@ -18,7 +18,7 @@ const SelectiveCoursesBox: React.FC<SelectiveCoursesBoxProps> = ({
   loadNum,
   setNoMore
 }) => {
-  const [searchParam, setSearchParam] = useState<any>(initParam);
+  const [searchParam, setSearchParam] = useState<any>({ ...initParam });
   const [pageInfo, setPageInfo] = useState<PageInfoType>(initPageInfo);
   const [list, setList] = useState<CourseResponse[]>([]);
   const [runNum, setRunNum] = useState(0);
@@ -38,7 +38,6 @@ const SelectiveCoursesBox: React.FC<SelectiveCoursesBoxProps> = ({
   const getCourseList = (pInfo: PageInfoType) => {
     setPageInfo({ ...pInfo });
     const newFilter: any = {};
-
     for (let key in searchParam) {
       if (key === 'sort') {
         newFilter[key] = searchParam[key]?.find(
