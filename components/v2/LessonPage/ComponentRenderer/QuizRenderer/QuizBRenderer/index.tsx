@@ -1,28 +1,19 @@
 'use client';
 import {
-  FC,
-  ReactNode,
-  createContext,
-  useContext,
-  useEffect,
-  useRef,
-  useState
-} from 'react';
-import { useDrag, DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
-import { motion } from 'framer-motion';
-import {
   CustomType,
   NotionType,
   QuizBType
 } from '@/components/v2/LessonPage/type';
+import webApi from '@/service';
+import { FC, useContext, useState } from 'react';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import { QuizContext } from '..';
 import ComponentRenderer from '../..';
+import { PlaygroundContext } from '../../../Playground/type';
+import QuizFooter from '../QuizFooter';
 import DragAnswer from './DragAnswer';
 import { AnswerType, QuizBContext, QuizOptionType } from './type';
-import Button from '@/components/Common/Button';
-import QuizFooter from '../QuizFooter';
-import { message } from 'antd';
-import { QuizContext } from '..';
 
 interface QuizBRendererProps {
   parent: CustomType | NotionType;
@@ -36,7 +27,7 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
     quiz.options.map((option) => ({ ...option, isRender: true }))
   );
   const [showAnswer, setShowAnswer] = useState(false);
-
+  const { lesson } = useContext(PlaygroundContext);
   const [answers, setAnswers] = useState<Record<string, AnswerType>>({});
 
   const onDrop = (item: AnswerType) => {
@@ -68,6 +59,7 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
 
       if (answerItem.answer !== inputAnswer) {
         answerItem.status = 'error';
+
         wrongAnswers.push(answerItem);
       }
     }
@@ -92,7 +84,10 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
       item.option = null;
       return item;
     });
+
     setAnswers(newAnswers);
+
+    webApi.courseApi.markQuestState(lesson.id, false);
   };
 
   return (
@@ -109,7 +104,7 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
               setAnswers
             }}
           >
-            <div className="py-4 flex items-center pb-[52px]">
+            <div className="py-4 items-center pb-[52px]">
               {quiz.children.map((child) => {
                 return (
                   <ComponentRenderer
@@ -136,6 +131,7 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
                   option={option}
                   key={option.id}
                   onClick={() => {
+                    if (showAnswer) return;
                     const emptyAnswerKey = Object.keys(answers).find(
                       (key) => !answers[key].option
                     );

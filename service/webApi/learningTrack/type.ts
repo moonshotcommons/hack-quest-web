@@ -1,5 +1,10 @@
 import { CourseResponse, CourseType } from '../course/type';
 
+export type SectionType = {
+  name: string;
+  courses: CourseResponse[];
+};
+
 /** 学习路线卡片信息 */
 export interface LearningTrackType {
   id: string;
@@ -11,6 +16,8 @@ export interface LearningTrackType {
   aboutDesc: any;
   courseCount: number;
   duration: number;
+  progress: number;
+  unitCount: number;
 }
 
 /** 学习路线详情 */
@@ -23,8 +30,9 @@ export interface LearningTrackDetailType {
   enrolled?: boolean;
   aboutDesc: any;
   courseCount: number;
-  progress?: number;
+  progress: number;
   duration: number;
   peopleJoined: number;
-  courses: (CourseResponse & { group: string })[];
+  // courses: (CourseResponse )[];
+  sections: SectionType[];
 }

@@ -9,7 +9,8 @@ export enum CourseType {
   CONCEPT = 'CONCEPT',
   TEASER = 'TEASER',
   HACKATHON = 'HACKATHON',
-  LEARNING_TRACK = 'LEARNING_TRACK'
+  LEARNING_TRACK = 'LEARNING_TRACK',
+  Mini = 'MINI'
 }
 
 export enum LessonStyleType {
@@ -37,6 +38,10 @@ export interface CourseResponse {
   aboutDesc: string;
   unitCount: number;
   progress: number;
+}
+export interface CourseDataType {
+  total: number;
+  data: CourseResponse[];
 }
 
 export interface CourseDetailType {
@@ -93,3 +98,13 @@ export interface CourseLessonStateType {
 export type UnitPagesListType = CourseUnitStateType & {
   pages: CourseLessonStateType[];
 };
+
+export enum ProcessType {
+  IN_PROCESS = 'inProcess',
+  COMPLETED = 'completed'
+}
+export enum LearningTrackCourseType {
+  IN_PROCESS = 'inProcess',
+  COMPLETED = 'completed',
+  UN_ENROLL = 'unEnroll'
+}

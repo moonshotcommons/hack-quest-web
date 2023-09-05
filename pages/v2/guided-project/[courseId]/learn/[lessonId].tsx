@@ -1,84 +1,25 @@
-// ./pages/article/[articleId].tsx
-
-import webApi from '@/service';
-import {
-  CourseLessonType,
-  CourseType,
-  LessonStyleType
-} from '@/service/webApi/course/type';
-import wrapper from '@/store/redux';
-
-import type { GetServerSideProps, NextPage } from 'next';
-
-import LessonHeader from '@/components/LessonPages/LessonHeader';
-import LessonPageA from '@/components/LessonPages/LessonPageA';
-import { useEffect, useMemo, useState } from 'react';
+import { CourseType } from '@/service/webApi/course/type';
+import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useGetLessonContent } from '@/hooks/useCoursesHooks/useGetLessenContent';
-import LessonPageB from '@/components/LessonPages/LessonPageB';
-import LessonPageD from '@/components/LessonPages/LessonPageD';
-import LessonPageE from '@/components/LessonPages/LessonPageE';
+
+import LessonPage from '@/components/v2/LessonPage';
 
 interface IProps {}
 
-const SyntaxUnit: NextPage<IProps> = (props) => {
+const GuidedProjectUnit: NextPage<IProps> = (props) => {
   const router = useRouter();
   const { lessonId } = router.query;
-  const { lesson } = useGetLessonContent(lessonId as string);
-
-  const LessonPage = useMemo(() => {
-    if (lesson) {
-      switch (lesson.style) {
-        case LessonStyleType.A:
-          return (
-            <>
-              <LessonPageA
-                lesson={lesson}
-                courseType={CourseType.GUIDED_PROJECT}
-              ></LessonPageA>
-            </>
-          );
-        case LessonStyleType.B:
-          return (
-            <LessonPageB
-              lesson={lesson}
-              courseType={CourseType.GUIDED_PROJECT}
-            ></LessonPageB>
-          );
-        case LessonStyleType.C:
-        case LessonStyleType.D:
-          return (
-            <LessonPageD
-              lesson={lesson}
-              courseType={CourseType.GUIDED_PROJECT}
-            ></LessonPageD>
-          );
-        case LessonStyleType.E:
-          return (
-            <>
-              <LessonPageE
-                lesson={lesson}
-                courseType={CourseType.GUIDED_PROJECT}
-              ></LessonPageE>
-            </>
-          );
-        default:
-          return <></>;
-      }
-    }
-  }, [lesson]);
 
   return (
     <>
-      <div className="w-full h-full flex flex-col">
-        <LessonHeader
-          lesson={lesson as CourseLessonType}
+      <div className="w-full h-full flex flex-col font-next-book-Thin">
+        <LessonPage
+          lessonId={lessonId as string}
           courseType={CourseType.GUIDED_PROJECT}
-        ></LessonHeader>
-        {LessonPage}
+        ></LessonPage>
       </div>
     </>
   );
 };
 
-export default SyntaxUnit;
+export default GuidedProjectUnit;

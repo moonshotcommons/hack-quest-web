@@ -31,6 +31,7 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
     if (isCompleted) return;
     const show = !showAnswer;
     let inputEle: HTMLTextAreaElement | HTMLInputElement;
+    console.info(answerState);
     answerState.map((line) => {
       if (line.answers?.length) {
         line.answers.map((answer) => {
@@ -119,21 +120,23 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
       }
     });
   };
+  const getSubmitDisable = () => {
+    return answerState.some((line) => {
+      if (line.answers?.length) {
+        return line.answers.some((answer) => !answer.value);
+      } else {
+        return !line.value;
+      }
+    });
+  };
   useEffect(() => {
-    setSubmitDisable(
-      answerState.some((line) => {
-        if (line.answers?.length) {
-          return line.answers.some((answer) => !answer.value);
-        } else {
-          return !line.value;
-        }
-      })
-    );
+    setSubmitDisable(getSubmitDisable());
     initCompleteInput();
   }, [answerState]);
 
   useEffect(() => {
     if (showAnswer) setSubmitDisable(true);
+    else setSubmitDisable(getSubmitDisable());
   }, [showAnswer]);
 
   return (

@@ -1,5 +1,5 @@
 import Button from '@/components/Common/Button';
-import { FC, ReactNode } from 'react';
+import { FC } from 'react';
 
 interface QuizFooterProps {
   showAnswer: boolean;
@@ -13,14 +13,15 @@ const QuizFooter: FC<QuizFooterProps> = (props) => {
   return (
     <div className="flex justify-between items-center">
       <div
-        className="underline font-next-book text-[#3E3E3E] tracking-[0.28px] leading-[125%] cursor-pointer"
+        className="underline font-next-book text-[#3E3E3E] hover:text-black transition tracking-[0.28px] leading-[125%] cursor-pointer"
         onClick={() => setShowAnswer(!showAnswer)}
       >
         {showAnswer && 'Hidden me right answer '}
         {!showAnswer && 'Show me right answer'}
       </div>
       <Button
-        className={`bg-[#FFD850] py-[8px] px-[40px] font-next-book text-[#0B0B0B] text-[14px] ${
+        type="primary"
+        className={`py-[8px] px-[40px] font-next-book text-[#0B0B0B] text-[14px] ${
           submitDisable ? 'opacity-40 cursor-not-allowed' : ''
         }`}
         disabled={submitDisable}

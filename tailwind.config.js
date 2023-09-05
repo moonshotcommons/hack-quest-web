@@ -50,10 +50,10 @@ module.exports = {
         lg: '1024px',
         // => @media (min-width: 1024px) { ... }
 
-        xl: '1280px',
+        xl: '1280px'
         // => @media (min-width: 1280px) { ... }
 
-        '2xl': '1352px'
+        // '2xl': '1352px'
         // => @media (min-width: 1352px) { ... }
       },
       colors: {
@@ -64,6 +64,15 @@ module.exports = {
       },
       borderColor: {
         ...borderColor
+      },
+      container: {
+        screens: {
+          sm: '480px',
+          md: '640px',
+          lg: '768px',
+          xl: '1024px',
+          '2xl': '1280px'
+        }
       }
     }
   },

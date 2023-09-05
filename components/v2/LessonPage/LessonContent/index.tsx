@@ -1,12 +1,11 @@
 'use client';
-import { FC, createContext, useMemo, useState } from 'react';
-import { CustomComponent, LessonContent, NotionComponent } from '../type';
-import ComponentRenderer from '../ComponentRenderer';
-import Split from 'react-split';
-import LessonNav from '../LessonNav';
+import { ExpandDataType, useLessonExpand } from '@/hooks/useLessonExpand';
 import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
+import { FC, createContext, useEffect, useMemo, useState } from 'react';
+import ComponentRenderer from '../ComponentRenderer';
 import LessonEvents from '../LessonEvents';
-import { useLessonExpand, ExpandDataType } from '@/hooks/useLessonExpand';
+import LessonNav from '../LessonNav';
+import { CustomComponent, LessonContent, NotionComponent } from '../type';
 
 export const LessonContentContext = createContext<{
   expandData: ExpandDataType[];
@@ -17,10 +16,11 @@ interface LessonContentProps {
 
   lesson: Omit<CourseLessonType, 'content'> & { content: LessonContent };
   isPreview?: boolean;
+  courseType: CourseType;
 }
 
 const LessonContent: FC<LessonContentProps> = (props) => {
-  const { lesson, isPreview = false } = props;
+  const { lesson, isPreview = false, courseType } = props;
 
   const [components, setComponents] = useState<
     (CustomComponent | NotionComponent)[]
@@ -44,28 +44,30 @@ const LessonContent: FC<LessonContentProps> = (props) => {
     };
   }, [lesson]);
 
+  useEffect(() => {
+    if (lesson.content.left) {
+      setComponents(lesson.content.left);
+    }
+  }, [lesson]);
+
   return (
-    <div className="flex flex-col h-[calc(100%-10px)] [&>div]:pr-5 ">
+    <div className="flex flex-col h-[calc(100%-10px)] ">
       <>
         <LessonNav
           lesson={lesson as any}
-          courseType={CourseType.SYNTAX}
+          courseType={courseType}
           isPreview={isPreview}
         />
         <LessonEvents
           isPreview={isPreview}
           // unitData={dropData}
           lesson={lesson as any}
-          courseType={CourseType.SYNTAX}
+          courseType={courseType}
         />
       </>
 
       {!!components.length && (
-        <Split
-          direction="vertical"
-          className="flex flex-col mb-[20px] w-full flex-1 shrink-0 overflow-auto h-full scroll-wrap-y scroll-wrap-x no-scrollbar"
-          minSize={80}
-        >
+        <div className="flex flex-col mb-[20px] w-full flex-1 shrink-0 overflow-auto h-full scroll-wrap-y scroll-wrap-x no-scrollbar">
           {components.map((component, i) => {
             return (
               <div key={component.id} className="">
@@ -83,7 +85,7 @@ const LessonContent: FC<LessonContentProps> = (props) => {
               </div>
             );
           })}
-        </Split>
+        </div>
       )}
     </div>
   );

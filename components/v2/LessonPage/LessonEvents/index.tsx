@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ArrowBottom from '@/public/images/lesson/arrow_bottom.svg';
 import Image from 'next/image';
-import UnitList from './UnitList';
+import LessonList from './LessonList';
 import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
 import { useUnitNavList } from '@/hooks/useUnitNavList';
 
@@ -47,16 +47,35 @@ const PreviewLessonEvent = () => {
 const LessonEvents: React.FC<LessonEventsProps> = (props) => {
   const { lesson, courseType, isPreview = false } = props;
 
-  const { unitNavList = [], currentUnitIndex } = useUnitNavList(lesson);
+  const { unitNavList = [], refreshNavList } = useUnitNavList(lesson);
 
   const [isToggle, setIsToggle] = useState(false);
+  const eventsRef = useRef<HTMLDivElement | null>(null);
+  const [headerTextWidth, setHeaderTextWidth] = useState(0);
+  const initHeaderTextWidth = () => {
+    const width = eventsRef.current?.clientWidth || 0;
+    const textWidth = width < 322 ? 322 : width;
+    setHeaderTextWidth(textWidth);
+  };
+  useEffect(() => {
+    refreshNavList();
+    initHeaderTextWidth();
+  }, [lesson]);
   if (isPreview) return <PreviewLessonEvent></PreviewLessonEvent>;
   return (
     <div
       className={`mb-[30px] text-lesson-preview-color relative z-10 ${
-        isToggle ? 'w-[322px] shadow-2xl' : 'w-fit'
+        isToggle ? 'shadow-2xl' : 'w-fit'
       }`}
+      style={
+        isToggle
+          ? {
+              width: `${headerTextWidth}px`
+            }
+          : {}
+      }
       tabIndex={1}
+      ref={eventsRef}
       onBlur={() => setIsToggle(false)}
     >
       <div className="absolute left-0 top-0 w-[5px] h-[70px] rounded-[5px] bg-lesson-events-left-border-bg mr-[15px]"></div>
@@ -82,8 +101,8 @@ const LessonEvents: React.FC<LessonEventsProps> = (props) => {
         </div>
       </div>
       {isToggle ? (
-        <div className="absolute z-100 left-0 top-[70px] w-full h-[530px] overflow-auto bg-lesson-events-toggle-list-bg rounded-b-[5px] shadow-2xl">
-          <UnitList
+        <div className="absolute z-100 left-0 top-[70px] w-full overflow-auto bg-lesson-events-toggle-list-bg rounded-b-[5px] shadow-2xl">
+          <LessonList
             unitData={unitNavList}
             lesson={lesson}
             courseType={courseType}

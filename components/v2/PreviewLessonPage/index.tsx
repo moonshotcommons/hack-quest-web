@@ -1,24 +1,15 @@
 'use client';
-import { FC, ReactNode, useEffect, useState } from 'react';
-import Split from 'react-split';
+import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
 import { useRequest } from 'ahooks';
-import { LessonContent as LessonContentType } from '../LessonPage/type';
-import LessonContent from '../LessonPage/LessonContent';
-import Playground from '../LessonPage/Playground';
-import LessonFooter from '../LessonPage/LessonFooter';
-import { useDispatch } from 'react-redux';
-import {
-  CompleteStateType,
-  CourseLessonType,
-  CourseType,
-  UnitPagesListType
-} from '@/service/webApi/course/type';
-import webApi from '@/service';
-import { useGetLessonContent } from '@/hooks/useCoursesHooks/useGetLessenContent';
-import { useRouter } from 'next/router';
-import { Spin, message } from 'antd';
-import Modal from '@/components/Common/Modal';
+import { message } from 'antd';
 import axios from 'axios';
+import { FC, useEffect, useState } from 'react';
+import Split from 'react-split';
+import Loading from '../Common/Loading';
+import LessonContent from '../LessonPage/LessonContent';
+import LessonFooter from '../LessonPage/LessonFooter';
+import Playground from '../LessonPage/Playground';
+import { LessonContent as LessonContentType } from '../LessonPage/type';
 
 interface PreviewLessonPageProps {
   previewUrl: string;
@@ -60,14 +51,18 @@ const PreviewLessonPage: FC<PreviewLessonPageProps> = (props) => {
   // if (!lesson) return null;
 
   return (
-    <div className="relative w-full h-[calc(100vh-80px-76px)]">
+    <div className="relative w-full h-[calc(100vh-80px-76px)] pl-[20px]">
       {lesson && (
         <Split
           className="flex-1 w-full h-full flex justify-between [&>div]:w-[50%] [&>.gutter]:cursor-col-resize"
           minSize={80}
           cursor="col-resize"
         >
-          <LessonContent lesson={lesson!} isPreview={true}></LessonContent>
+          <LessonContent
+            lesson={lesson!}
+            isPreview={true}
+            courseType={CourseType.GUIDED_PROJECT}
+          ></LessonContent>
           <Playground
             lesson={lesson!}
             isPreview={true}
@@ -86,14 +81,9 @@ const PreviewLessonPage: FC<PreviewLessonPageProps> = (props) => {
 
       {loading && (
         <div className="w-full h-full flex justify-center items-center text-text-default-color">
-          <Spin
-            size="large"
-            tip={'加载中...'}
-            className="bg-transparent"
-            spinning={loading}
-          >
+          <Loading loading={loading}>
             <div className="w-40 h-40 flex justify-center items-center bg-transparent"></div>
-          </Spin>
+          </Loading>
         </div>
       )}
     </div>

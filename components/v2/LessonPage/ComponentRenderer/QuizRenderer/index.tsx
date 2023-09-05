@@ -1,22 +1,15 @@
-import {
-  FC,
-  ReactNode,
-  createContext,
-  useContext,
-  useRef,
-  useState
-} from 'react';
-import { QuizAType, QuizBType, QuizType } from '../../type';
+import Button from '@/components/Common/Button';
+import { cn } from '@/helper/utils';
+import { useClickAway } from 'ahooks';
+import JSConfetti from 'js-confetti';
+import { FC, createContext, useContext, useRef, useState } from 'react';
 import { FiChevronDown } from 'react-icons/fi';
 import { MdArrowDropDown } from 'react-icons/md';
-import QuizDropdown from './QuizDropdwon';
 import ComponentRenderer from '..';
-import Button from '@/components/Common/Button';
-import { message } from 'antd';
-import QuizPassModal from './QuizPassModal';
-import { useClickAway } from 'ahooks';
 import { PlaygroundContext } from '../../Playground/type';
-import { cn } from '@/helper/utils';
+import { QuizType } from '../../type';
+import QuizDropdown from './QuizDropdwon';
+import QuizPassModal from './QuizPassModal';
 interface QuizRendererProps {
   quiz: QuizType;
   parent: any;
@@ -37,15 +30,35 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
 
   const onPass = () => {
     setPassOpen(true);
+    const jsConfetti = new JSConfetti();
+
+    jsConfetti.addConfetti({
+      confettiColors: [
+        '#ff0a54',
+        '#ff477e',
+        '#ff7096',
+        '#ff85a1',
+        '#fbb1bd',
+        '#f9bec7',
+        '#3b47af',
+        '#28ca59',
+        '#eb1c1c',
+        '#15dffa',
+        '#0452fa',
+        '#cceb1c'
+      ],
+      confettiRadius: 6,
+      confettiNumber: 500
+    });
     setTimeout(() => {
-      setCurrentQuizIndex(currentQuizIndex + 1);
+      let nextQuizIndex = currentQuizIndex + 1;
+      if (nextQuizIndex < quiz.children.length) {
+        setCurrentQuizIndex(nextQuizIndex);
+      } else {
+        onCompleted();
+      }
       setPassOpen(false);
     }, 1500);
-    if (currentQuizIndex !== quiz.children.length - 1) {
-      return;
-    }
-
-    onCompleted();
   };
 
   useClickAway(() => {
@@ -127,7 +140,8 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
         <div className="inline-flex h-fit justify-between items-center rounded-[.625rem] bg-[#E6E6E6]  w-full px-[20px] py-[8px]">
           <h1 className="font-next-poster-Bold text-[18px]">Quiz</h1>
           <Button
-            className="bg-[#FFD850] py-[8px] px-[40px] font-next-book text-[#0B0B0B] text-[14px]"
+            type="primary"
+            className="py-[8px] px-[40px] font-next-book text-[#0B0B0B] text-[14px]"
             onClick={() => setStart(true)}
           >
             Start Quiz

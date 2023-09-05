@@ -108,26 +108,7 @@ html[data-theme='light'] {
   --lesson-code-copy-button-text: var(--neutral-black);
   --lesson-code-editor-input-text-color: var(--text-default-color);
   --lesson-code-editor-input-bg: #929292;
-  /* v2 */
-  --lesson-title-box-border-color:var(--neutral-rich-gray);
-  --lesson-footer-bg: var(--neutral-rich-gray);
-  --lesson-footer-tab-bg: var(--neutral-medium-gray);
-  --lesson-footer-tab-border: var(--neutral-medium-gray);
-  --lesson-footer-tab-active-border:var(--neutral-white);
-  --lesson-footer-tab-active-bg:var(--neutral-white);
-  --lesson-preview-color:var(--neutral-white-black);
-  --lesson-events-left-border-bg:var(--primary-green-yellow);
-  --lesson-events-toggle-bg:var(--primary-green-yellow);
-  --lesson-events-toggle-list-bg:var(--neutral-white);
-  --lesson-events-toggle-list-active-bg:#f4f4f4;
-  --lesson-events-toggle-list-box-shadow:0px 4px 8px 0px rgba(0, 0, 0, 0.25);
-  --lesson-code-bg:#f4f4f4;
-  --lesson-code-container-bg:#e6e6e6;
-  --lesson-code-box-bg:#f4f4f4;
-  --lesson-code-input-bg:#fff4ce;
-  --lesson-code-input-border:var(--neutral-medium-gray);
-  --lesson-code-index:var(--neutral-medium-gray);
-  --lesson-code-copy-bg:var(--neutral-medium-gray);
+
   /* --lesson-code-editor-bg: #000;
   --lesson-code-editor-num-color: #8c8c8c;
   --lesson-code-editor-text-color: #000;
@@ -247,11 +228,11 @@ html[data-theme='light'] {
   --mission-center-quest-btn-bg-color: rgba(10, 10, 10, 0.4);
   --mission-center-quest-btn-bg-color-d: #dadada;
   --mission-center-quests-box-hover: #030303;
-  --mission-center-tab-btn-claimed-color:#0b0b0b;
-  --mission-center-tab-btn-claimed-bg:#FFD850;
-  --mission-center-tab-btn-start-color:#0b0b0b;
-  --mission-center-tab-btn-start-bg:#F4F4F4;
-  --mission-center-tab-btn-start-border:#0b0b0b;
+  --mission-center-tab-btn-claimed-color: #0b0b0b;
+  --mission-center-tab-btn-claimed-bg: #ffd850;
+  --mission-center-tab-btn-start-color: #0b0b0b;
+  --mission-center-tab-btn-start-bg: #f4f4f4;
+  --mission-center-tab-btn-start-border: #0b0b0b;
   --mission-center-tab: #0b0b0b;
   --mission-center-tab-border-color: #282828;
   --mission-center-tab-border-active-color: #ffd850;
@@ -263,14 +244,14 @@ html[data-theme='light'] {
   --mission-center-schedule-bg-color: #fff;
   --mission-center-schedule-bg-active-color: #ffd850;
   --mission-center-tab-shadow-t-color: rgba(16, 16, 16, 0);
-  --mission-center-badge-modal-bg:#fff;
-  --mission-center-track-color:#0b0b0b;
-  --mission-center-track-color-r:#0b0b0b;
-  --mission-center-track-bg-r:#FFD850;
-  --mission-center-track:#333;
-  --mission-center-lock:#666;
-  --mission-center-lock-bg:#f4f4f4;
-  --mission-center-lock-bg-r:#FDEAAA;
+  --mission-center-badge-modal-bg: #fff;
+  --mission-center-track-color: #0b0b0b;
+  --mission-center-track-color-r: #0b0b0b;
+  --mission-center-track-bg-r: #ffd850;
+  --mission-center-track: #333;
+  --mission-center-lock: #666;
+  --mission-center-lock-bg: #f4f4f4;
+  --mission-center-lock-bg-r: #fdeaaa;
   --mission-center-track-border: #dadada;
   --mission-center-beginner-svg: #fdeaaa;
   --mission-center-beginner-bg: #f4f4f4;
@@ -278,4 +259,61 @@ html[data-theme='light'] {
   --mission-center-beginner-btn-bg: #353535;
   --mission-center-icon-twitter-color: #0388fe;
   --mission-center-icon-user-color: #0b0b0b;
+
+  /* v2 lesson */
+  --lesson-title-box-border-color: var(--neutral-rich-gray);
+  --lesson-footer-bg: var(--neutral-rich-gray);
+  --lesson-footer-tab-bg: var(--neutral-medium-gray);
+  --lesson-footer-tab-border: var(--neutral-medium-gray);
+  --lesson-footer-tab-active-border: var(--neutral-white);
+  --lesson-footer-tab-active-bg: var(--neutral-white);
+  --lesson-preview-color: var(--neutral-white-black);
+  --lesson-events-left-border-bg: var(--primary-green-yellow);
+  --lesson-events-toggle-bg: var(--primary-green-yellow);
+  --lesson-events-toggle-list-bg: var(--neutral-white);
+  --lesson-events-toggle-list-active-bg: #f4f4f4;
+  --lesson-events-toggle-list-box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.25);
+  --lesson-code-bg: #f4f4f4;
+  --lesson-code-container-bg: #e6e6e6;
+  --lesson-code-box-bg: #f4f4f4;
+  --lesson-code-input-bg: #fff4ce;
+  --lesson-code-input-border: var(--neutral-medium-gray);
+  --lesson-code-index: var(--neutral-medium-gray);
+  --lesson-code-copy-bg: var(--neutral-medium-gray);
+
+  /** v2 home */
+  --home-default-color: var(--neutral-white-black);
+  --home-tab-border: var(--primary-green-yellow);
+  --home-learning-track-bg: var(--neutral-white);
+  --home-learning-track-border-bg: var(--primary-green-yellow);
+  --home-learning-track-color: var(--neutral-white-black);
+  --home-learning-track-default-color: var(--text-default-color);
+  --home-learning-track-progress-bg: var(--neutral-light-gray);
+  --home-learning-track-progress-active-bg: #fcc409;
+  --home-learning-track-progress-border: var(--neutral-white-black);
+  --home-learning-track-view-button-border: var(--neutral-black);
+  --home-learning-track-view-button-color: var(--neutral-black);
+  --home-learning-track-view-button-bg: var(--primary-green-yellow);
+  --home-learning-track-no-data-color: var(--neutral-medium-gray);
+  --home-learning-track-no-data-button-add-color: var(--neutral-white);
+  --home-learning-track-no-data-button-add-bg: var(--neutral-white-black);
+  --home-learning-track-no-data-button-explore-color: var(--neutral-black);
+  --home-learning-track-no-data-button-explore-border: var(
+    --neutral-white-black
+  );
+
+  /** v2 learning track */
+  --learning-track-line-bg: var(--neutral-white-black);
+  --learning-track-more-text-color: var(--neutral-white-black);
+
+  /** v2 selective courses */
+  --electives-filter-color: var(--neutral-white-black);
+  --electives-filter-border-color: var(--neutral-white-black);
+
+  /* v2 landing*/
+  /* --landing-  */
+  --landing-banner-intr-color: var(--neutral-white);
+  --landing-hack-info-bg: var(--neutral-off-white);
+  --landing-hack-info-top-color:var(----neutral-off-black);
+  --landing-hack-info-learning-btn-color:var(--neutral-black);
 }
