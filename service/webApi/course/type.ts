@@ -39,6 +39,10 @@ export interface CourseResponse {
   unitCount: number;
   progress: number;
 }
+export interface CourseDataType {
+  total: number;
+  data: CourseResponse[];
+}
 
 export interface CourseDetailType {
   id: string;

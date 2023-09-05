@@ -3,7 +3,7 @@ import webApi from '@/service';
 import { CourseResponse, ProcessType } from '@/service/webApi/course/type';
 import { LearningTrackType } from '@/service/webApi/learningTrack/type';
 import { useEffect, useState } from 'react';
-import CourseList from './CourseList';
+import CourseBox from './CourseBox';
 import LearningTrackList from './LearningTrackList';
 import NoData from './NoData';
 import Tab from './Tab';
@@ -26,12 +26,12 @@ function Course() {
   });
   const getCourseList = () => {
     return new Promise(async (resolve) => {
-      const list = await webApi.courseApi.getCourseListBySearch({
+      const res = await webApi.courseApi.getCourseListBySearch({
         status: curTab
       });
       const newData = {
         ...courseListData,
-        [curTab]: list
+        [curTab]: res.data
       };
       setCourseListData(newData);
       resolve(false);
@@ -77,7 +77,7 @@ function Course() {
               list={learningTrackListData[curTab]}
               status={curTab}
             />
-            <CourseList list={courseListData[curTab]} curTab={curTab} />
+            <CourseBox list={courseListData[curTab]} curTab={curTab} />
           </>
         )}
       </Loading>

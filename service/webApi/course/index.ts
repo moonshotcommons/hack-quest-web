@@ -7,7 +7,8 @@ import {
   CourseUnitStateType,
   CourseUnitType,
   UnitPagesListType,
-  ProcessType
+  ProcessType,
+  CourseDataType
 } from './type';
 
 export enum CourseApiType {
@@ -26,12 +27,12 @@ class CourseApi {
     let url: string = CourseApiType.Course_List;
     if (searchString) url = `${url}?${searchString}`;
     console.log(url);
-    return this.service.get<CourseResponse[]>(url);
+    return this.service.get<CourseDataType>(url);
   }
 
   /** 获取课程列表信息By search */
   getCourseListBySearch(params: object) {
-    return this.service.get<CourseResponse[]>(`${CourseApiType.Course_List}`, {
+    return this.service.get<CourseDataType>(`${CourseApiType.Course_List}`, {
       params
     });
   }

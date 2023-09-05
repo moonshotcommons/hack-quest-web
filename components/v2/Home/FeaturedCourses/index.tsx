@@ -42,8 +42,8 @@ const FeatureCourses: FC<FeatureCoursesProps> = (props) => {
 
   const { run, loading } = useRequest(
     async () => {
-      const courseList = await webApi.courseApi.getCourseList('featured=true');
-      return courseList;
+      const res = await webApi.courseApi.getCourseList('featured=true');
+      return res.data;
     },
     {
       onSuccess(courses) {

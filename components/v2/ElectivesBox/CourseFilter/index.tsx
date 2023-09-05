@@ -1,35 +1,49 @@
 import Checkbox from '@/components/v2/Common/Checkbox';
 import Radio from '@/components/v2/Common/Radio';
 import React from 'react';
-import { FilterType } from '..';
-import { courseType, experienceLevel, initFilter, sort } from '../data';
+import {
+  courseType,
+  experienceLevel,
+  sort,
+  initParam,
+  ParamType,
+  SearchParamType
+} from '../data';
 
 interface CourseFilterProps {
-  changeFilter: (filter: FilterType) => void;
-  filter: FilterType;
+  changeParam: (param: any) => void;
+  searchParam: SearchParamType;
   len: number;
 }
 const CourseFilter: React.FC<CourseFilterProps> = ({
-  filter,
-  changeFilter,
+  searchParam,
+  changeParam,
   len
 }) => {
-  const changeSort = (sort: string) => {
-    changeFilter({ ...filter, sort });
+  const changeSort = (sortValue: string) => {
+    const sort = searchParam.sort;
+    sort.map((v) => {
+      if (v.value !== sortValue) {
+        v.checked = false;
+      } else {
+        v.checked = true;
+      }
+    });
+    changeParam({ ...searchParam, sort });
   };
-  const changeTypeOrLevel = (
-    checked: boolean,
-    value: string,
-    type: 'courseType' | 'experienceLevel'
-  ) => {
-    console.info(checked, value);
-    const newFilter = { ...filter };
-    if (!checked) {
-      newFilter[type] = filter[type].filter((v: string) => v !== value);
+  const changeTypeOrLevel = (i: number, type: 'type' | 'level') => {
+    const newSearchParam = { ...searchParam };
+    const checked = newSearchParam[type][i].checked;
+    newSearchParam[type][i].checked = !checked;
+    if (!i) {
+      newSearchParam[type].map((v) => (v.checked = !checked));
     } else {
-      newFilter[type].push(value);
+      const notAllSearchParam = newSearchParam[type].slice(1);
+      newSearchParam[type][0].checked = notAllSearchParam.every(
+        (v) => v.checked
+      );
     }
-    changeFilter({ ...newFilter });
+    changeParam({ ...newSearchParam });
   };
   return (
     <div className="text-electives-filter-color w-[272px] ">
@@ -39,7 +53,7 @@ const CourseFilter: React.FC<CourseFilterProps> = ({
         </span>
         <span
           className="cursor-pointer underline"
-          onClick={() => changeFilter(initFilter)}
+          onClick={() => changeParam(initParam)}
         >
           Clear Filters
         </span>
@@ -48,14 +62,20 @@ const CourseFilter: React.FC<CourseFilterProps> = ({
         <div className="font-next-book-bold text-[24px] mb-[15px]">Sort by</div>
         <div className="mb-10">
           {sort.map((sort) => (
-            <div key={sort.value} className="mb-[10px] ">
-              <label className="flex items-center cursor-pointer">
-                <Radio
-                  checked={sort.value === filter.sort}
-                  onChange={() => changeSort(sort.value)}
-                />
-                <span className="text-[18px] ml-[15px]">{sort.label}</span>
-              </label>
+            <div
+              key={sort.value}
+              className="mb-[10px] flex items-center cursor-pointer"
+            >
+              <Radio
+                checked={sort.checked}
+                onChange={() => changeSort(sort.value)}
+              />
+              <span
+                className="text-[18px] ml-[15px]"
+                onClick={() => changeSort(sort.value)}
+              >
+                {sort.label}
+              </span>
             </div>
           ))}
         </div>
@@ -63,17 +83,21 @@ const CourseFilter: React.FC<CourseFilterProps> = ({
           Course type
         </div>
         <div className="mb-10">
-          {courseType.map((type) => (
-            <div key={type.value} className="mb-[10px] ">
-              <label className="flex items-center cursor-pointer">
-                <Checkbox
-                  checked={!!~filter.courseType.indexOf(type.value)}
-                  onChange={(checked) =>
-                    changeTypeOrLevel(checked, type.value, 'courseType')
-                  }
-                />
-                <span className="text-[18px] ml-[15px]">{type.label}</span>
-              </label>
+          {courseType.map((type, i) => (
+            <div
+              key={type.value}
+              className="mb-[10px] flex items-center cursor-pointer "
+            >
+              <Checkbox
+                checked={type.checked}
+                onChange={() => changeTypeOrLevel(i, 'type')}
+              />
+              <span
+                className="text-[18px] ml-[15px]"
+                onClick={() => changeTypeOrLevel(i, 'type')}
+              >
+                {type.label}
+              </span>
             </div>
           ))}
         </div>
@@ -81,17 +105,21 @@ const CourseFilter: React.FC<CourseFilterProps> = ({
           Experience level
         </div>
         <div>
-          {experienceLevel.map((type) => (
-            <div key={type.value} className="mb-[10px] ">
-              <label className="flex items-center cursor-pointer">
-                <Checkbox
-                  checked={!!~filter.experienceLevel.indexOf(type.value)}
-                  onChange={(checked) =>
-                    changeTypeOrLevel(checked, type.value, 'experienceLevel')
-                  }
-                />
-                <span className="text-[18px] ml-[15px]">{type.label}</span>
-              </label>
+          {experienceLevel.map((level, i) => (
+            <div
+              key={level.value}
+              className="mb-[10px] flex items-center cursor-pointer"
+            >
+              <Checkbox
+                checked={level.checked}
+                onChange={() => changeTypeOrLevel(i, 'level')}
+              />
+              <span
+                className="text-[18px] ml-[15px]"
+                onClick={() => changeTypeOrLevel(i, 'level')}
+              >
+                {level.label}
+              </span>
             </div>
           ))}
         </div>

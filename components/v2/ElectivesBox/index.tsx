@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import CourseFilter from './CourseFilter';
 import CourseList from './CourseList';
-import { initFilter, initPageInfo } from './data';
+import {
+  courseType,
+  experienceLevel,
+  sort,
+  initPageInfo,
+  ParamType,
+  initParam,
+  SearchParamType
+} from './data';
 import webApi from '@/service';
-import { CourseResponse } from '@/service/webApi/course/type';
+import { CourseDataType } from '@/service/webApi/course/type';
+import Loading from '../Common/Loading';
 
-export type FilterType = Record<string, any>;
-// export interface FilterType {
-//   sort: string;
-//   courseType: string[];
-//   experienceLevel: string[];
-// }
 interface PageInfoType {
   page: number;
   limit: number;
@@ -23,70 +26,81 @@ const SelectiveCoursesBox: React.FC<SelectiveCoursesBoxProps> = ({
   loadNum,
   setNoMore
 }) => {
-  const [filter, setFilter] = useState<FilterType>(initFilter);
+  const [searchParam, setSearchParam] = useState<any>(initParam);
   const [pageInfo, setPageInfo] = useState<PageInfoType>(initPageInfo);
-  const [list, setList] = useState<CourseResponse[]>([]);
+  const [list, setList] = useState<CourseDataType[]>([]);
   const [runNum, setRunNum] = useState(0);
-  // const [loading, setLoading] = useState(true);
+  const [total, setTotal] = useState(0);
+  const [loading, setLoading] = useState(false);
 
-  const changeFilter = (newFilter: FilterType) => {
-    setFilter({ ...newFilter });
+  const changeParam = (newFilter: ParamType) => {
+    setSearchParam({ ...newFilter });
   };
 
   const initList = () => {
     getCourseList(initPageInfo).then((newList) => {
-      setList([...(newList as CourseResponse[])]);
+      setList([...(newList as CourseDataType[])]);
     });
   };
 
   const getCourseList = (pInfo: PageInfoType) => {
     setPageInfo({ ...pInfo });
     const newFilter: any = {};
-    for (let key in filter) {
-      const f = filter[key] as string[];
-      if (typeof f === 'object') {
-        if (!~f.indexOf('ALL')) {
-          newFilter[key] = f.join(',');
-        }
+
+    for (let key in searchParam) {
+      if (key === 'sort') {
+        newFilter[key] = searchParam[key]?.find(
+          (v: ParamType) => v.checked
+        )?.value;
       } else {
-        newFilter[key] = f;
+        const item = searchParam[key].filter(
+          (v: ParamType) => v.value !== 'ALL'
+        );
+        const filterItem = item
+          ?.filter((v: ParamType) => v.checked)
+          ?.map((v: ParamType) => v.value)
+          .join(',');
+        if (filterItem.length) newFilter[key] = filterItem;
       }
     }
     return new Promise(async (resolve) => {
-      const list = await webApi.courseApi.getCourseListBySearch({
+      setLoading(true);
+      const res = await webApi.courseApi.getCourseListBySearch({
         ...newFilter,
         ...pInfo
       });
-      if (!list.length) setNoMore();
-      // setLoading(false);
-      resolve(list);
+      setLoading(false);
+      setTotal(res.total);
+      resolve(res.data);
     });
   };
 
   useEffect(() => {
     initList();
-  }, [filter]);
+  }, [searchParam]);
 
   useEffect(() => {
-    if (loadNum > runNum) {
+    if (loadNum > runNum && list.length < total) {
       setRunNum(loadNum);
       getCourseList({
         ...pageInfo,
         page: pageInfo.page + 1
       }).then((newList) => {
-        setList([...list, ...(newList as CourseResponse[])]);
+        setList([...list, ...(newList as CourseDataType[])]);
       });
     }
   }, [loadNum]);
   return (
-    <div className="flex justify-between gap-10">
-      <CourseFilter
-        changeFilter={changeFilter}
-        filter={filter}
-        len={list.length}
-      />
-      <CourseList list={list} />
-    </div>
+    <Loading loading={loading}>
+      <div className="flex justify-between gap-10">
+        <CourseFilter
+          changeParam={changeParam}
+          searchParam={searchParam}
+          len={total}
+        />
+        <CourseList list={list} />
+      </div>
+    </Loading>
   );
 };
 

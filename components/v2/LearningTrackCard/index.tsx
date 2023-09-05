@@ -117,13 +117,8 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
     }
   };
   return (
-    <Link href={`/v2/learning-track/${learningTrack?.id}`}>
-      <div
-        className="h-[275px] rounded-[10px] bg-home-learning--track-bg overflow-hidden flex flex-col mb-10"
-        style={{
-          boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.25)'
-        }}
-      >
+    <Link href={`/v2/learning-track/${learningTrack.id}`}>
+      <div className="h-[275px] rounded-[10px] bg-home-learning--track-bg overflow-hidden flex flex-col mb-10 hover:-translate-y-1 transition-all duration-300 shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)]">
         <div className="h-[10px] bg-home-learning--track-border-bg"></div>
         <div className="w-full flex-1 flex items-center p-10 relative">
           <div className="absolute left-[16px] top-[13px]">

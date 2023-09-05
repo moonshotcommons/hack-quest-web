@@ -73,7 +73,6 @@ const CourseCard: FC<CourseCardProps> = (props) => {
                     style={{ transform: `scale(${0.5})` }}
                   >{`${percent} %`}</span>
                 );
-                return <span></span>;
               }}
             ></CustomProgress>
           )}
