@@ -3,7 +3,7 @@ import CheckIcon from '@/components/Common/Icon/Check';
 import { computeProgress, tagFormate } from '@/helper/formate';
 import { cn } from '@/helper/utils';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
-import { CourseResponse, CourseType } from '@/service/webApi/course/type';
+import { CourseDataType, CourseType } from '@/service/webApi/course/type';
 import { Progress, Typography } from 'antd';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -13,7 +13,7 @@ import CourseTags from '../CourseTags';
 
 interface CourseCardProps {
   // children: ReactNode;
-  course: CourseResponse;
+  course: CourseDataType;
   inProgress?: boolean;
   inCompleted?: boolean;
 }
@@ -73,7 +73,6 @@ const CourseCard: FC<CourseCardProps> = (props) => {
                     style={{ transform: `scale(${0.5})` }}
                   >{`${percent} %`}</span>
                 );
-                return <span></span>;
               }}
             ></CustomProgress>
           )}

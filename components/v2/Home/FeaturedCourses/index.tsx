@@ -3,7 +3,7 @@ import {
   ScrollContainer
 } from '@/components/Common/ScrollContainer';
 import webApi from '@/service';
-import { CourseResponse } from '@/service/webApi/course/type';
+import { CourseDataType } from '@/service/webApi/course/type';
 import { useRequest } from 'ahooks';
 import Link from 'next/link';
 import { FC, useState } from 'react';
@@ -36,14 +36,14 @@ const FeaturedCourseHeader = () => {
 };
 
 const FeatureCourses: FC<FeatureCoursesProps> = (props) => {
-  const [courseList, setCourseList] = useState<CourseResponse[]>([]);
+  const [courseList, setCourseList] = useState<CourseDataType[]>([]);
   const [scrollContainerState, setScrollContainerState] =
     useState<ChangeState>();
 
   const { run, loading } = useRequest(
     async () => {
-      const courseList = await webApi.courseApi.getCourseList('featured=true');
-      return courseList;
+      const res = await webApi.courseApi.getCourseList('featured=true');
+      return res.data;
     },
     {
       onSuccess(courses) {
