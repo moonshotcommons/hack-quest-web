@@ -1,7 +1,7 @@
 import Loading from '@/components/v2/Common/Loading';
 import webApi from '@/service';
 import { CourseResponse, ProcessType } from '@/service/webApi/course/type';
-import { LearningTrackType } from '@/service/webApi/learningTrack/type';
+import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import { useEffect, useState } from 'react';
 import CourseBox from './CourseBox';
 import LearningTrackList from './LearningTrackList';
@@ -19,7 +19,7 @@ function Course() {
     [ProcessType.COMPLETED]: []
   });
   const [learningTrackListData, setLearningTrackListData] = useState<
-    Record<ProcessType, LearningTrackType[]>
+    Record<ProcessType, LearningTrackDetailType[]>
   >({
     [ProcessType.IN_PROCESS]: [],
     [ProcessType.COMPLETED]: []
@@ -53,6 +53,7 @@ function Course() {
   const changeTab = (tab: CourseTabType) => {
     setCurTab(tab.value);
   };
+
   useEffect(() => {
     if (
       !courseListData[curTab].length ||

@@ -23,13 +23,13 @@ const Layout: FC<LayoutProps> = (props) => {
   useNavAuth(waitingLoadUserInfo);
   const userInfo = useGetUserInfo();
   const regex = /\/[^/]+\/\[courseId\]\/learn\/\[lessonId\]/;
-  // navbarData.navList = [
-  //   {
-  //     name: 'All Courses',
-  //     path: '/courses'
-  //   }
-  // ];
-  navbarData.navList = [];
+  navbarData.navList = [
+    {
+      name: 'All Courses',
+      path: '/courses'
+    }
+  ];
+  // navbarData.navList = [];
 
   if (userInfo) {
     navbarData.navList = [
