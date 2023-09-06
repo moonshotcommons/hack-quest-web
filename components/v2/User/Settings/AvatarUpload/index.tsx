@@ -86,9 +86,9 @@ const AvatarUpload: FC<AvatarUploadProps> = (props) => {
         >
           <div
             type="file"
-            className="text-[0.875rem] font-next-book leading-[120%] text-setting-upload-button-text-color bg-setting-upload-button-bg border border-solid border-setting-upload-button-border-color px-[2.5rem] py-[1rem] rounded-[2.5rem]"
+            className="text-[0.875rem] font-next-book leading-[120%] text-setting-drop-setting-change-color border border-solid border-setting-drop-user-name-color px-[2.5rem] py-[1rem] rounded-[2.5rem]"
           >
-            Upload
+            Change
           </div>
         </Upload>
       </div>

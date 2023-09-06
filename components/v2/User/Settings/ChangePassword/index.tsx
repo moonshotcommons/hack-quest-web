@@ -25,7 +25,7 @@ const PasswordInput: FC<{ onChange: VoidFunction }> = (props) => {
 
   return (
     <div className="w-full relative flex flex-col gap-[0.25rem] bottom-line">
-      <span className="text-setting-input-title-color text-[0.875rem] font-next-book leading-[110%]">
+      <span className="text-setting-drop-setting-input-label text-[0.875rem] font-next-book leading-[110%]">
         Password
       </span>
       <div className="h-[3.5rem] flex justify-between items-center">
@@ -36,12 +36,13 @@ const PasswordInput: FC<{ onChange: VoidFunction }> = (props) => {
           <input
             type="password"
             value={'********'}
-            className="bg-transparent h-full text-setting-input-text-color text-[1rem] font-next-book leading-[120%]"
+            disabled
+            className="bg-transparent h-full outline-none text-setting-drop-user-name-color text-[1rem] disabled:cursor-not-allowed font-next-book leading-[120%]"
           />
         </div>
 
         <div
-          className="text-[0.875rem] font-next-book leading-[120%] text-setting-transparent-button-text-color border border-solid border-setting-transparent-button-border-color bg-setting-transparent-button-bg px-[2.5rem] py-[1rem] rounded-[2.5rem] cursor-pointer"
+          className="text-[0.875rem] font-next-book leading-[120%] text-setting-drop-setting-change-color border border-setting-drop-user-name-color bg-setting-transparent-button-bg px-[2.5rem] py-[1rem] rounded-[2.5rem] cursor-pointer"
           onClick={onChange}
         >
           Change password
@@ -154,10 +155,9 @@ const ChangePasswordInput: FC<{
       clearInterval(timer);
     };
   }, [changeSuccessVisible]);
-
   return (
     <div className="w-full flex flex-col gap-[1.5rem] mt-[1.5rem]">
-      <h1 className="text-text-default-color text-[1.5rem] font-bold font-next-poster-Bold leading-[110%] tracking-[0.03rem]">
+      <h1 className="text-setting-drop-user-name-color text-[28px] tracking-[1.68px] font-bold font-next-poster-Bold leading-[110%]">
         Change password
       </h1>
       {!changeSuccessVisible && (
@@ -241,15 +241,17 @@ const ChangePasswordInput: FC<{
           ></Input>
           <div className="flex gap-[0.5rem] self-end">
             <button
-              className="px-[2.5rem] py-[1rem] border border-solid border-[#676767] rounded-[2.5rem] text-[0.875rem] font-next-book leading-[120%] text-setting-transparent-button-text-color hover:bg-[#F2F2F2] hover:text-[#676767]"
+              className="px-[2.5rem] py-[1rem] text-setting-drop-setting-change-color border border-solid border-setting-drop-user-name-color rounded-[2.5rem] text-[0.875rem] font-next-book leading-[120%]  hover:bg-[#F2F2F2] hover:text-[#676767]"
               onClick={(e) => changeVisible(false)}
             >
               Cancel
             </button>
             <button
               disabled={updateDisable}
-              className={`px-[2.5rem] py-[1rem] border border-solid bg-setting-upload-button-bg border-setting-upload-button-border-color rounded-[2.5rem] text-[0.875rem] font-next-book leading-[120%] text-setting-upload-button-text-color disabled:text-[#676767] hover:bg-[#F2F2F2] disabled:bg-transparent hover:text-[#676767] ${
-                updateDisable ? 'cursor-not-allowed' : ''
+              className={`px-[2.5rem] py-[1rem] border border-solid rounded-[2.5rem] text-[0.875rem] font-next-book leading-[120%]  ${
+                updateDisable
+                  ? 'cursor-not-allowed border-setting-drop-change-password-submit-btn-disable text-setting-drop-change-password-submit-btn-disable'
+                  : 'border-setting-drop-user-name-color text-setting-drop-setting-change-color hover:bg-[#F2F2F2] disabled:bg-transparent hover:text-[#676767]'
               }`}
               onClick={onUpdate}
             >

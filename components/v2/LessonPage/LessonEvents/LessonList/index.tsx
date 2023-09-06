@@ -46,8 +46,6 @@ const LessonList: React.FC<LessonListType> = ({
     ) as UnitPagesListType;
     getChildren(unit);
   }, []);
-
-  console.info(unitData);
   return (
     <div className="h-full font-next-book">
       {!unitName ? (

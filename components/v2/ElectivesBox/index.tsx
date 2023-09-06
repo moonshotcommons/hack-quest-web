@@ -77,7 +77,9 @@ const SelectiveCoursesBox: React.FC<SelectiveCoursesBoxProps> = ({
         ...pageInfo,
         page: pageInfo.page + 1
       }).then((newList) => {
-        setList([...list, ...(newList as CourseResponse[])]);
+        const l = [...list, ...(newList as CourseResponse[])];
+        setList(l);
+        if (l.length >= total) setNoMore();
       });
     }
   }, [loadNum]);
