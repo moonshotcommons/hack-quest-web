@@ -73,7 +73,7 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
           }
           try {
             const res = await webApi.userApi.userRegister(formData);
-            router.push('/auth/email-verify');
+            dispatch(setUnLoginType(UnLoginType.EMAIL_VERIFY));
           } catch (e: any) {
             if (e?.code === 400) setShowWhiteListModal(true);
             else message.error(e?.msg);

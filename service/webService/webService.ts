@@ -1,12 +1,12 @@
 import { getToken } from '@/helper/user-token';
-import { RequestInterceptors, RequestConfig } from './webServiceTypes';
 import axios, {
-  AxiosInstance,
-  InternalAxiosRequestConfig,
-  AxiosResponse,
   AxiosError,
-  CreateAxiosDefaults
+  AxiosInstance,
+  AxiosResponse,
+  CreateAxiosDefaults,
+  InternalAxiosRequestConfig
 } from 'axios';
+import { RequestConfig, RequestInterceptors } from './webServiceTypes';
 
 class WebService {
   instance: AxiosInstance;
@@ -66,7 +66,6 @@ class WebService {
   }
 
   responseInterceptorCatch(err: AxiosError) {
-    // console.log('全局响应失败拦截器')
     return Promise.reject(err.response?.data);
   }
 

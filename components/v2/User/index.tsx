@@ -1,15 +1,11 @@
-import { useGetUserInfo } from '@/hooks/useGetUserInfo';
+import { useGetUserInfo, useGetUserUnLoginType } from '@/hooks/useGetUserInfo';
+import { setUnLoginType } from '@/store/redux/modules/user';
 import Image from 'next/image';
-import Link from 'next/link';
 import { FC, useEffect, useRef, useState } from 'react';
-import Button from '../Common/Button';
-import RightIcon from '../Common/Icon/Right';
+import { useDispatch } from 'react-redux';
 import Settings from './Settings';
 import UserDropCard from './UserDropCard';
-import { setUnLoginType } from '@/store/redux/modules/user';
 import { unLoginTab } from './data';
-import { useGetUserUnLoginType } from '@/hooks/useGetUserInfo';
-import { useDispatch } from 'react-redux';
 interface UserProps {
   // children: ReactNode;
 }
@@ -49,7 +45,7 @@ const User: FC<UserProps> = (props) => {
               {unLoginTab.map((tab) => (
                 <div
                   className={`text-sm h-full flex items-center text-white hover:font-bold border-b-4 tracking-[0.28px] cursor-pointer ${
-                    tab.value === unLoginType
+                    tab.value === unLoginType.type
                       ? 'font-next-book-bold text-text-default-color font-bold  border-[#FFD850]'
                       : 'font-next-book font-normal border-transparent'
                   }`}

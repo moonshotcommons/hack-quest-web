@@ -4,7 +4,8 @@
 
 @tailwind base;
 @layer base {
-  html,body {
+  html,
+  body {
     height: 100%;
     overflow: auto;
   }
@@ -173,7 +174,6 @@
   border-radius: 16px;
   background: rgba(150, 150, 150, 0.1);
 }
-
 
 body {
   transition: all ease-in-out 0.5;

@@ -68,8 +68,21 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
               target="_blank"
               key={index}
               href={richText.href}
-              className={`${className} py-[0.4rem]`}
-              style={{ color: '#676767', fontSize }}
+              className={`${className} py-[0.4rem] underline`}
+              style={{
+                fontSize,
+                color:
+                  annotations.color !== 'default' &&
+                  !annotations.code &&
+                  !annotations.color.includes('background')
+                    ? annotations.color
+                    : '',
+                backgroundColor:
+                  annotations.color !== 'default' &&
+                  annotations.color.includes('background')
+                    ? annotations.color
+                    : ''
+              }}
             >
               {richText.plain_text}
             </a>

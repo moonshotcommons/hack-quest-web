@@ -69,19 +69,18 @@ const UserLogin: FC<UserLoginProps> = (props) => {
               : '/home';
             router.push(toPageUrl);
           } catch (e: any) {
-            if (e.code === 400) {
-              // setTimeout(() => {
-              //   router.push('/auth/email-verify');
-              // }, 1000);
-              if (e.status === 'UNACTIVATED') {
-                setTimeout(() => {
-                  router.push(`/auth/email-verify?email=${email}`);
-                }, 200);
-              }
-              message.error(e?.msg);
-              passwordInputRef.current?.setStatus?.('error');
-              passwordInputRef.current?.setErrorMessage?.(e.msg);
+            console.log(e);
+            // if (e.code === 400) {
+            if (e.status === 'UNACTIVATED') {
+              setTimeout(() => {
+                console.log('跳转2');
+                dispatch(setUnLoginType(UnLoginType.EMAIL_VERIFY));
+              }, 1000);
             }
+            message.error(e?.msg);
+            passwordInputRef.current?.setStatus?.('error');
+            passwordInputRef.current?.setErrorMessage?.(e.msg);
+            // }
           }
         } else {
           const status: any = { ...formState };
@@ -101,7 +100,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
   useKeyPress('enter', onLogin);
 
   return (
-    <div className="w-full h-full flex flex-col justify-center items-center">
+    <div className="w-full h-full flex flex-col items-center">
       {/* <ThirdPartyLogin></ThirdPartyLogin> */}
       <div className="flex flex-col gap-[25px] w-full">
         <div>
@@ -139,7 +138,17 @@ const UserLogin: FC<UserLoginProps> = (props) => {
             }}
           ></Input>
         </div>
-        <div className="w-full underline text-white font-next-book text-[1.125rem] leading-[160%] tracking-[0.36px] text-center">
+        <div
+          className="w-full underline text-white font-next-book text-[1.125rem] leading-[160%] tracking-[0.36px] text-center cursor-pointer"
+          onClick={() => {
+            dispatch(
+              setUnLoginType({
+                type: UnLoginType.FORGOT_PASSWORD,
+                params: { email }
+              })
+            );
+          }}
+        >
           Forgot Password?
         </div>
         <div className="flex gap-[.75rem]">

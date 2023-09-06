@@ -108,7 +108,7 @@ function InProgressHeaderRight(
           type="primary"
           onClick={resumeCallback}
         >
-          Resume
+          {courseDetail.progress <= 0 ? 'Start' : 'Resume'}
         </Button>
       </div>
     </div>

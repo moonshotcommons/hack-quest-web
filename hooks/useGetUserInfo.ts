@@ -2,7 +2,6 @@ import webApi from '@/service';
 import { AppRootState } from '@/store/redux';
 import { setUserInfo } from '@/store/redux/modules/user';
 import { useRequest } from 'ahooks';
-import { message } from 'antd';
 
 import { useEffect, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
@@ -15,10 +14,10 @@ export const useGetUserInfo = () => {
 };
 
 export const useGetUserUnLoginType = () => {
-  const unLoginType = useSelector((state: AppRootState) => {
-    return state.user.unLoginType;
+  const loginRouteType = useSelector((state: AppRootState) => {
+    return state.user.loginRouteType;
   }, shallowEqual);
-  return unLoginType;
+  return loginRouteType;
 };
 
 export const useLoadUserInfo = () => {

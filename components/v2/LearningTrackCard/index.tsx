@@ -1,20 +1,17 @@
 import Button from '@/components/Common/Button';
-import LearningImage from '@/public/images/home/learning-image.svg';
-import Image from 'next/image';
-import React, { useState } from 'react';
-import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
-import { LearningTrackCourseType } from '@/service/webApi/course/type';
 import CheckIcon from '@/components/Common/Icon/Check';
 import { computeProgress } from '@/helper/formate';
-import { styled } from 'styled-components';
-import { Progress } from 'antd';
-import CourseTags from '../CourseTags';
-import { useRouter } from 'next/router';
-import { useGetUserInfo } from '@/hooks/useGetUserInfo';
-import learningTrack from '@/service/webApi/learningTrack';
-import { useEnrollUnEnroll } from '@/hooks/useLearningTrackHooks/useEnrollUnEnroll';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
-import { useRequest } from 'ahooks';
+import { useEnrollUnEnroll } from '@/hooks/useLearningTrackHooks/useEnrollUnEnroll';
+import LearningImage from '@/public/images/home/learning-image.svg';
+import { LearningTrackCourseType } from '@/service/webApi/course/type';
+import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
+import { Progress } from 'antd';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import React, { useState } from 'react';
+import { styled } from 'styled-components';
+import CourseTags from '../CourseTags';
 
 const CustomProgress = styled(Progress)`
   .ant-progress-inner {
@@ -55,7 +52,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
   const handleResume = (e: any) => {
     if (isLandingPage) return;
     e.stopPropagation();
-    const section = learningTrack.sections.find((v) => v.progress < 1);
+    const section = learningTrack.sections.find((v) => (v?.progress || 0) < 1);
     if (section) {
       const course = section.courses.find((v) => v.progress < 1);
       if (course) jumpLearningLesson(course);
