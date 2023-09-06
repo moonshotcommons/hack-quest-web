@@ -203,3 +203,8 @@ body {
 .btn-hover:active {
   top: 2px;
 }
+input[data-type='changePassword']:-internal-autofill-previewed,
+input[data-type='changePassword']:-internal-autofill-selected {
+  -webkit-text-fill-color: #fff;
+  transition: background-color 5000s ease-out 0.5s;
+}

@@ -1,4 +1,4 @@
-import User from '@/components/User';
+import User from '@/components/v2/User';
 import { Inter } from 'next/font/google';
 import React, { ReactNode } from 'react';
 import NavBar, { NavBarProps } from '../Navbar';

@@ -21,7 +21,26 @@ const settingThemeColors = {
   'setting-close-icon-border-color': 'var(--setting-close-icon-border-color)',
   'setting-close-icon-color': 'var(--setting-close-icon-color)',
   'setting-input--border-hover-color':
-    'var(--setting-input--border-hover-color)'
+    'var(--setting-input--border-hover-color)',
+
+  /** v2 */
+  'setting-drop-card-bg': 'var(--setting-drop-card-bg)',
+  'setting-drop-user-name-color': 'var(--setting-drop-user-name-color)',
+  'setting-drop-user-color': 'var(--setting-drop-user-color)',
+  'setting-drop-user-border': 'var(--setting-drop-user-border)',
+  'setting-drop-handler-color': 'var(--setting-drop-handler-color)',
+  'setting-drop-setting-modal-border':
+    'var(--setting-drop-setting-modal-border)',
+  'setting-drop-setting-change-color':
+    'var(--setting-drop-setting-change-color)',
+  'setting-drop-setting-input-label': 'var(--setting-drop-setting-input-label)',
+  'setting-close-icon-color-v2': 'var(--setting-close-icon-color-v2)',
+  'setting-drop-change-password-input-bg':
+    'var(--setting-drop-change-password-input-bg)',
+  'setting-drop-change-password-input-color':
+    'var(--setting-drop-change-password-input-color)',
+  'setting-drop-change-password-submit-btn-disable':
+    'var(--setting-drop-change-password-submit-btn-disable)'
 };
 
 module.exports = {

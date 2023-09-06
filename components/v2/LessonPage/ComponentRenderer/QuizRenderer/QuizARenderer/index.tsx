@@ -27,11 +27,9 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
   const { onPass } = useContext(QuizContext);
   const { waitingRenderCodes, answerState, answerStateDispatch } =
     useParseQuizA(quiz.lines);
-  const setAnswers = () => {
-    if (isCompleted) return;
-    const show = !showAnswer;
+
+  const dealInputValue = (show: boolean) => {
     let inputEle: HTMLTextAreaElement | HTMLInputElement;
-    console.info(answerState);
     answerState.map((line) => {
       if (line.answers?.length) {
         line.answers.map((answer) => {
@@ -62,6 +60,11 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
         }
       }
     });
+  };
+  const setAnswers = () => {
+    if (isCompleted) return;
+    const show = !showAnswer;
+    dealInputValue(show);
     setShowAnswer(show);
   };
   const onSubmit = async () => {
@@ -91,9 +94,9 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
     onPass();
   };
 
+  // 是否自动填充
   const initCompleteInput = () => {
     const completed = false;
-    // const completed = quiz.id === '639f1074-3cb1-491f-8fd3-e74666264ddb';
     setIsCompleted(completed);
     if (!completed) return;
     let inputEle: HTMLTextAreaElement | HTMLInputElement;
@@ -132,6 +135,8 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
   useEffect(() => {
     setSubmitDisable(getSubmitDisable());
     initCompleteInput();
+    dealInputValue(false);
+    setShowAnswer(false);
   }, [answerState]);
 
   useEffect(() => {
