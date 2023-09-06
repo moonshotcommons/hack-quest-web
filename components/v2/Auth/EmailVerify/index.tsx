@@ -1,11 +1,37 @@
 import Button from '@/components/Common/Button';
+import { useGetUserUnLoginType } from '@/hooks/useGetUserInfo';
+import { UnLoginType, setUnLoginType } from '@/store/redux/modules/user';
 import { useRouter } from 'next/router';
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
+import { useDispatch } from 'react-redux';
 
 interface EmailVerifyProps {}
 
 const EmailVerify: FC<EmailVerifyProps> = (props) => {
   const router = useRouter();
+
+  const loginRouteType = useGetUserUnLoginType();
+  const dispatch = useDispatch();
+  const backButtonParams = useMemo(() => {
+    switch (loginRouteType.prevType) {
+      case UnLoginType.LOGIN:
+        return {
+          text: 'Back to Log in',
+          handle: () => dispatch(setUnLoginType(UnLoginType.LOGIN))
+        };
+      case UnLoginType.SIGN_UP:
+        return {
+          text: 'Change Email',
+          handle: () => dispatch(setUnLoginType(UnLoginType.SIGN_UP))
+        };
+      default:
+        return {
+          text: 'Back',
+          handle: () => dispatch(setUnLoginType(loginRouteType.prevType))
+        };
+    }
+  }, [loginRouteType.prevType]);
+
   return (
     <div className="w-full h-full flex-col flex items-center">
       <div className="flex flex-col gap-[25px]">
@@ -27,24 +53,23 @@ const EmailVerify: FC<EmailVerifyProps> = (props) => {
 
           {/* <Image src={Logo} alt="logo" width={191} className="mt-[2rem]"></Image> */}
         </div>
-        <div className="w-full flex flex-col justify-center items-center">
-          <Button
-            // onClick={onLogin}
-            block
-            className="
+
+        <Button
+          // onClick={onLogin}
+          block
+          className="
           font-next-book
           text-[1.125rem]
           bg-auth-primary-button-bg hover:bg-auth-primary-button-hover-bg
           text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
           border-auth-primary-button-border-color hover:border-auth-primary-button-border-hover-color
           "
-          >
-            Resend Link
-          </Button>
-        </div>
+        >
+          Resend Link
+        </Button>
 
         <Button
-          onClick={() => router.back()}
+          onClick={backButtonParams.handle}
           block
           className="
           font-next-book
@@ -53,9 +78,9 @@ const EmailVerify: FC<EmailVerifyProps> = (props) => {
           bg-transparent
           text-white hover:text-auth-ghost-button-text-hover-color
           border-white hover:border-auth-ghost-button-border-hover-color
-          "
+    "
         >
-          Change Email
+          {backButtonParams.text}
         </Button>
       </div>
     </div>

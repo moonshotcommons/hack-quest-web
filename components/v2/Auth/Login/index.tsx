@@ -12,7 +12,6 @@ const Login: FC<LoginProps> = (props) => {
   const [showLogin, setShowLogin] = useState(false);
   const [email, setEmail] = useState('619730086@qq.com');
   const { validator } = useValidator(['email']);
-
   const dispatch = useDispatch();
 
   const EmailTitle = (
