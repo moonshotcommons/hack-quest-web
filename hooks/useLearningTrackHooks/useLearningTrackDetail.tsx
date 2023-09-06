@@ -1,21 +1,18 @@
 import webApi from '@/service';
 import { CourseResponse } from '@/service/webApi/course/type';
-import {
-  LearningTrackDetailType,
-  LearningTrackType
-} from '@/service/webApi/learningTrack/type';
+import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import { useRequest } from 'ahooks';
 import { message } from 'antd';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
-export const useGetLearningTrackDetail = () => {
+export const useGetLearningTrackDetail = (trackId?: string) => {
   const [learningTrackDetail, setLearningTracks] = useState<
     LearningTrackDetailType & { courses: CourseResponse[] }
   >();
 
   const router = useRouter();
-  const { learningTrackId } = router.query;
+  const learningTrackId = trackId || router.query.learningTrackId;
   const { run, loading, refresh } = useRequest(
     async (id) => {
       const res =

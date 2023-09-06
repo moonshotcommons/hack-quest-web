@@ -3,6 +3,12 @@
 @import url('./antd.css');
 
 @tailwind base;
+@layer base {
+  html,body {
+    height: 100%;
+    overflow: auto;
+  }
+}
 @tailwind components;
 @tailwind utilities;
 

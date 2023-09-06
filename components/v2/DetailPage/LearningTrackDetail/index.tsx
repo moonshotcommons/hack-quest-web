@@ -25,7 +25,7 @@ const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
     learningUnit: any;
   }>();
 
-  const jumpLearningLesson = useJumpLeaningLesson();
+  const jumpLearningLesson = useJumpLeaningLesson(true);
 
   const learningStatus = useMemo(() => {
     if (learningTrackDetail) {

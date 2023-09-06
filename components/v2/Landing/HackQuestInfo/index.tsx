@@ -28,9 +28,9 @@ import { ThemeContext } from '@/store/context/theme';
 import { Theme } from '@/constants/enum';
 import { useGetLearningTracks } from '@/hooks/useLearningTrackHooks/useLearningTracks';
 import LearningTracksCard from '@/components/v2/LearningTrackCard';
-import { useRouter } from 'next/router';
 import { AiOutlineRight } from 'react-icons/ai';
 import CenterLogo from '@/public/images/home/light-center-logo.png';
+import { message } from 'antd';
 // import {h}
 interface HackQuestInfoProps {
   // children: ReactNode;
@@ -38,12 +38,14 @@ interface HackQuestInfoProps {
 interface GotoPageButtonProps {
   isBlack: boolean;
 }
+const goToLogin = () => {
+  const bodyEle = document.querySelector('body') as HTMLBodyElement;
+  bodyEle.style.scrollBehavior = 'smooth';
+  bodyEle.scrollTop = 0;
+  message.warning('请先登录');
+};
 const GotoPageButton: React.FC<GotoPageButtonProps> = (props) => {
   const { isBlack } = props;
-  const router = useRouter();
-  const goToPageAuth = (url: string) => {
-    router.push(url);
-  };
   const color = useMemo(() => {
     return isBlack
       ? {
@@ -59,7 +61,7 @@ const GotoPageButton: React.FC<GotoPageButtonProps> = (props) => {
     <>
       <Button
         className={`mt-[40px]  border text-${color.text} border-${color.border}`}
-        onClick={() => goToPageAuth('/v2/learning-tract')}
+        onClick={() => goToLogin()}
       >
         Explore Learning Tracks
       </Button>
@@ -67,7 +69,7 @@ const GotoPageButton: React.FC<GotoPageButtonProps> = (props) => {
         icon={<AiOutlineRight />}
         iconPosition="right"
         className={`text-${color.text}`}
-        onClick={() => goToPageAuth('/v2/electives')}
+        onClick={() => goToLogin()}
       >
         <span className="border-b border-[#FCC409]">
           Explore Selective Courses
@@ -103,10 +105,13 @@ export const TopInfo: FC = () => {
             {learningTracks[0]?.description}
           </p>
         </div>
-        <LearningTracksCard
-          learningTrack={learningTracks[0] || {}}
-          status={LearningTrackCourseType.UN_ENROLL}
-        />
+        <div onClick={goToLogin}>
+          <LearningTracksCard
+            isLandingPage={true}
+            learningTrack={learningTracks[0] || {}}
+            status={LearningTrackCourseType.UN_ENROLL}
+          />
+        </div>
       </div>
       <div className="container pt-[80px] pb-[47px] bg-landing-card-bg mt-[150px] rounded-[5rem] flex-col-center">
         <h1 className="text-text-default-color text-center font-next-poster-Bold text-[54px] tracking-[3.24px]">
