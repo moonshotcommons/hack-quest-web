@@ -187,7 +187,7 @@ const SectionCard: FC<SectionCardProps> = (props) => {
         {enrolled && (
           <CustomProgress
             type="circle"
-            percent={Math.floor(computeProgress(0.4))}
+            percent={Math.floor(computeProgress(section.progress || 0))}
             strokeWidth={4}
             strokeColor={
               (theme === Theme.Dark && '#9EFA13') ||

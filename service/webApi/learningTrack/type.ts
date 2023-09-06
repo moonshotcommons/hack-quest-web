@@ -3,6 +3,7 @@ import { CourseResponse, CourseType } from '../course/type';
 export type SectionType = {
   name: string;
   courses: CourseResponse[];
+  progress?: number;
 };
 
 /** 学习路线卡片信息 */
