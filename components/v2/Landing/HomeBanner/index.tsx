@@ -14,8 +14,9 @@ const HomeBanner: FC<HomeBannerProps> = (props) => {
       className="h-[850px] flex justify-center w-full pt-[214px]"
       style={{
         backgroundImage: `url('/images/landing/banner_bg.png')`,
-        backgroundSize: '1440px 100%',
-        backgroundRepeat: 'repeat'
+        backgroundSize: '100% auto',
+        // backgroundRepeat: 'repeat'
+        backgroundPosition: 'center'
       }}
     >
       <div className="container flex justify-between w-full">

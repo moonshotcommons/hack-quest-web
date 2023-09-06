@@ -25,7 +25,6 @@ const Auth: FC<AuthProps> = (props) => {
       );
     }
   }, [query]);
-
   switch (loginRouteType.type) {
     case UnLoginType.EMAIL_VERIFY:
       return <EmailVerify></EmailVerify>;

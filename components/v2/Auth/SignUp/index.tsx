@@ -1,6 +1,7 @@
 import { useGetUserUnLoginType } from '@/hooks/useGetUserInfo';
 import { useValidator } from '@/hooks/useValidator';
 import { UnLoginType, setUnLoginType } from '@/store/redux/modules/user';
+import { motion } from 'framer-motion';
 import { FC, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import RegisterForm from '../RegisterForm';
@@ -31,19 +32,25 @@ const SignUp: FC<SignUpProps> = (props) => {
   );
 
   return (
-    <div className="w-full  h-full flex justify-end items-center">
+    <div className="w-full h-full flex flex-col">
       {!showRegisterForm ? (
-        <VerifyEmail
-          emailTitle={EmailTitle}
-          validator={validator}
-          onStatusChange={(status) => setEmailCheckStatus(status)}
-          onNext={(email: string) => {
-            if (emailCheckStatus) {
-              setRegisterForm(true);
-              setEmail(email);
-            }
-          }}
-        ></VerifyEmail>
+        <motion.div
+          initial={{ translateX: -50, opacity: 0 }}
+          animate={{ opacity: 1, translateX: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <VerifyEmail
+            emailTitle={EmailTitle}
+            validator={validator}
+            onStatusChange={(status) => setEmailCheckStatus(status)}
+            onNext={(email: string) => {
+              if (emailCheckStatus) {
+                setRegisterForm(true);
+                setEmail(email);
+              }
+            }}
+          ></VerifyEmail>
+        </motion.div>
       ) : (
         <RegisterForm
           email={email}
