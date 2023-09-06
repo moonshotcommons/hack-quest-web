@@ -11,7 +11,7 @@ interface LoginProps {}
 const Login: FC<LoginProps> = (props) => {
   const [emailCheckStatus, setEmailCheckStatus] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
-  const [email, setEmail] = useState('619730086@qq.com');
+  const [email, setEmail] = useState('');
   const { validator } = useValidator(['email']);
   const dispatch = useDispatch();
 

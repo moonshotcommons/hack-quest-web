@@ -58,7 +58,7 @@ function SectionList(props: {
 }) {
   const { section, enrolled, theme, sectionIndex, sectionList } = props;
   const router = useRouter();
-  const jumpLearningLesson = useJumpLeaningLesson();
+  const jumpLearningLesson = useJumpLeaningLesson(true);
 
   const renderLearningButton = (item: CourseDetailType, index: number) => {
     if (!enrolled) return null;

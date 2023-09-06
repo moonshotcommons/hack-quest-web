@@ -29,7 +29,7 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
   const containerRef = useRef(null);
 
   const onPass = () => {
-    setPassOpen(true);
+    // setPassOpen(true);
     const jsConfetti = new JSConfetti();
 
     jsConfetti.addConfetti({
