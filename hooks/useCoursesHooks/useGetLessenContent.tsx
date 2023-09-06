@@ -10,7 +10,7 @@ export const useGetLessonContent = (lessonId: string) => {
   const router = useRouter();
   const { run, loading, refresh } = useRequest(
     async (lessonId) => {
-      const res = await webApi.courseApi.getLessonContent(lessonId);
+      const res = webApi.courseApi.getLessonContent(lessonId);
       return res;
     },
     {

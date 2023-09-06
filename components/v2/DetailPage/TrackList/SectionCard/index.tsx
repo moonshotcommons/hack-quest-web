@@ -36,57 +36,12 @@ interface SectionCardProps {
   sectionList: SectionType[];
 }
 
-// const UnitButton: FC<
-//   SectionCardProps & ButtonHTMLAttributes<HTMLButtonElement>
-// > = (props) => {
-//   const { unit, isLock, ...rest } = props;
-//   if (isLock) {
-//     return null;
-//   }
-
-//   if (unit.progress === 1) {
-//     return null;
-//   }
-
-//   if (!unit.progress) {
-//     return (
-//       <button
-//         className="px-8 py-4 border border-solid border-[#F2F2F2] rounded-[2.5rem] whitespace-nowrap text-sm text-[#F2F2F2] primary-button-hover cursor-pointer"
-//         {...rest}
-//       >
-//         Start Learning
-//       </button>
-//     );
-//   }
-
-//   return (
-//     <button
-//       className="px-8 py-4 border border-solid border-[#F2F2F2] rounded-[2.5rem] whitespace-nowrap text-sm text-[#F2F2F2] primary-button-hover cursor-pointer"
-//       {...rest}
-//     >
-//       Resume Learning
-//     </button>
-//   );
-// };
-
 const renderColorTag = (type: CourseType) => {
   switch (type) {
     case CourseType.SYNTAX:
-    // return (
-    //   <div className="absolute w-[0.25rem] left-0 h-[1.25rem] rounded-xl bg-gradient-to-r from-[#0891D5] to-[#38C1A5]"></div>
-    // );
     case CourseType.GUIDED_PROJECT:
-    // return (
-    //   <div className="absolute w-[0.25rem] left-0 h-[1.25rem] rounded-xl bg-gradient-to-r from-[#5C1DE6] to-[#1B7DEC]"></div>
-    // );
     case CourseType.CONCEPT:
-    // return (
-    //   <div className="absolute w-[0.25rem] left-0 h-[1.25rem] rounded-xl bg-gradient-to-r from-[#EB3E1C] to-[#E0AD38]"></div>
-    // );
     case CourseType.TEASER:
-    // return (
-    //   <div className="absolute w-[0.25rem] left-0 h-[1.25rem] rounded-xl bg-gradient-to-r from-[#8E8E8E] to-[#FFF]"></div>
-    // );
     default:
       return (
         <div className="w-[0.25rem] left-0 h-[26px] rounded-xl bg-[#8C8C8C]"></div>
@@ -131,7 +86,7 @@ function SectionList(props: {
         {enrolled && item.progress < 1 && (
           <div className="h-full flex items-center justify-end pr-[50px]">
             <button
-              className="w-[165px] py-[11px] leading-[125%] border border-solid bg-course-learning-button-bg border-course-learning-button-border-color rounded-[32px] whitespace-nowrap text-sm text-[#0B0B0B] font-next-book text-[16px] cursor-pointer"
+              className="w-[165px] py-[11px] leading-[125%] hover:-translate-y-[1px] hover:shadow-[rgba(0,0,0,0.15)_1.95px_1.95px_2.6px] transition border border-solid bg-course-learning-button-bg border-course-learning-button-border-color rounded-[32px] whitespace-nowrap text-sm text-[#0B0B0B] font-next-book text-[16px] cursor-pointer"
               onClick={(e) => {
                 e.stopPropagation();
                 jumpLearningLesson(item);

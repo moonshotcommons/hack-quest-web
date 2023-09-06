@@ -1,10 +1,7 @@
-import React, { useEffect } from 'react';
 import Button from '@/components/Common/Button';
-import {
-  CourseLessonType,
-  UnitPagesListType
-} from '@/service/webApi/course/type';
 import { useUnitNavList } from '@/hooks/useUnitNavList';
+import { CourseLessonType } from '@/service/webApi/course/type';
+import React, { useEffect } from 'react';
 import { LessonContent } from '../type';
 
 interface LessonFooterProps {
@@ -44,6 +41,7 @@ const LessonFooter: React.FC<LessonFooterProps> = ({ lesson }) => {
         ))}
       </div>
       <Button
+        type="primary"
         className={`fixed bottom-[18px] right-10 w-[140px] h-11 bg-lesson-primary-button-bg text-lesson-primary-button-text-color ${
           !isHandle && 'opacity-40 cursor-not-allowed'
         }`}

@@ -33,8 +33,6 @@ const LessonPage: FC<LessonPageProps> = (props) => {
     }
   }, [lesson]);
 
-  if (!lesson) return null;
-
   return (
     <ConfigProvider
       theme={{
@@ -54,31 +52,33 @@ const LessonPage: FC<LessonPageProps> = (props) => {
         tip="loading..."
         size="large"
       >
-        <div className="relative w-full h-[calc(100vh-80px-76px)] pl-[20px]">
-          <Split
-            className="flex-1 w-full h-full flex justify-between [&>div]:w-[50%] [&>.gutter]:cursor-col-resize"
-            minSize={80}
-            cursor="col-resize"
-          >
-            <LessonContent
-              lesson={lesson! as any}
-              courseType={courseType}
-            ></LessonContent>
-            <Playground
-              lesson={lesson! as any}
-              onCompleted={() => {
-                // 请求下一个lesson
-                onNextClick();
-              }}
-            ></Playground>
-          </Split>
-          <LessonFooter lesson={lesson as any} />
-          <CompleteModal
-            title={courseName as string}
-            open={completeModalOpen}
-            onClose={() => setCompleteModalOpen(false)}
-          ></CompleteModal>
-        </div>
+        {lesson && (
+          <div className="relative w-full h-[calc(100vh-80px-64px)] pl-[20px]">
+            <Split
+              className="flex-1 w-full h-full flex justify-between [&>div]:w-[50%] [&>.gutter]:cursor-col-resize"
+              minSize={80}
+              cursor="col-resize"
+            >
+              <LessonContent
+                lesson={lesson as any}
+                courseType={courseType}
+              ></LessonContent>
+              <Playground
+                lesson={lesson! as any}
+                onCompleted={() => {
+                  // 请求下一个lesson
+                  onNextClick();
+                }}
+              ></Playground>
+            </Split>
+            <LessonFooter lesson={lesson as any} />
+            <CompleteModal
+              title={courseName as string}
+              open={completeModalOpen}
+              onClose={() => setCompleteModalOpen(false)}
+            ></CompleteModal>
+          </div>
+        )}
       </Spin>
     </ConfigProvider>
   );

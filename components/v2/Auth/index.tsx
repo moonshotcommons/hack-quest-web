@@ -2,6 +2,7 @@ import { AppRootState } from '@/store/redux';
 import { UnLoginType } from '@/store/redux/modules/user';
 import { FC } from 'react';
 import { useSelector } from 'react-redux';
+import EmailVerify from './EmailVerify';
 import Login from './Login';
 import SignUp from './SignUp';
 
@@ -13,6 +14,8 @@ const Auth: FC<AuthProps> = (props) => {
   });
 
   switch (loginType) {
+    case UnLoginType.EMAIL_VERIFY:
+      return <EmailVerify></EmailVerify>;
     case UnLoginType.SIGN_UP:
       return <SignUp></SignUp>;
     case UnLoginType.LOGIN:

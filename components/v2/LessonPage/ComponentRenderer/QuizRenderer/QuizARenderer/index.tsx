@@ -1,18 +1,18 @@
+import { PlaygroundContext } from '@/components/v2/LessonPage/Playground/type';
 import {
   CustomType,
   NotionType,
   QuizAType
 } from '@/components/v2/LessonPage/type';
-import { FC, ReactNode, useContext, useEffect, useState } from 'react';
+import { changeTextareaHeight } from '@/helper/utils';
+import { useParseQuizA } from '@/hooks/useParseQuizA';
+import webApi from '@/service';
+import { FC, useContext, useEffect, useState } from 'react';
+import { QuizContext } from '..';
 import ComponentRenderer from '../..';
 import QuizFooter from '../QuizFooter';
 import CodeRender from './CodeRender';
 import { QuizAContext } from './type';
-import { useParseQuizA, AnswerState } from '@/hooks/useParseQuizA';
-import webApi from '@/service';
-import { PlaygroundContext } from '@/components/v2/LessonPage/Playground/type';
-import { QuizContext } from '..';
-import { changeTextareaHeight } from '@/helper/utils';
 interface QuizARendererProps {
   parent: CustomType | NotionType;
   quiz: QuizAType;
@@ -158,7 +158,7 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
             );
           })}
         </div>
-        {quiz.lines.length > 0 && (
+        {quiz.lines?.length > 0 && (
           <div className="w-full flex-1">
             <QuizAContext.Provider
               value={{

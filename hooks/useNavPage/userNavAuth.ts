@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 
 import {
-  ALL_COURSES_PATHNAME,
-  LOGIN_PATHNAME,
+  V2_HOME_PATH,
+  V2_LANDING_PATH,
   isLoginOrRegister,
   isNoNeedUserInfo
 } from '@/constants/nav';
@@ -20,7 +20,8 @@ function useNavAuth(waitingUserData: boolean) {
     // 已经登录了
     if (userInfo) {
       if (isLoginOrRegister(pathname)) {
-        router.push(ALL_COURSES_PATHNAME);
+        console.log('跳转');
+        router.push(V2_HOME_PATH);
       }
       return;
     }
@@ -29,7 +30,7 @@ function useNavAuth(waitingUserData: boolean) {
     if (isNoNeedUserInfo(pathname)) {
       return;
     } else {
-      router.push(LOGIN_PATHNAME);
+      router.push(V2_LANDING_PATH);
     }
   }, [waitingUserData, userInfo, pathname, router]);
 }

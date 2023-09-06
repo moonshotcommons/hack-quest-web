@@ -18,10 +18,10 @@ export type AnnotationType = {
 
 const getTextClassNames = (annotations: AnnotationType) => {
   const className = cn(
-    ``,
+    `py-[0.4rem] leading-[100%]`,
     annotations.bold ? 'font-bold' : '',
     annotations.code
-      ? 'inline-block px-[0.2rem] py-[0.4rem] text-[85%] text-[#eb5757] bg-renderer-code-bg mx-[0.25rem]'
+      ? 'px-[0.2rem] text-[85%] text-[#eb5757] bg-renderer-code-bg mx-[0.25rem]'
       : '',
     annotations.italic ? 'italic' : '',
     annotations.strikethrough ? '' : '',
@@ -68,7 +68,7 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
               target="_blank"
               key={index}
               href={richText.href}
-              className={`${className}`}
+              className={`${className} py-[0.4rem]`}
               style={{ color: '#676767', fontSize }}
             >
               {richText.plain_text}
