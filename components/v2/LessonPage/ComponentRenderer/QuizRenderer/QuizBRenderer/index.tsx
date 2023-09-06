@@ -136,8 +136,10 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
                       (key) => !answers[key].option
                     );
                     if (!emptyAnswerKey) return;
-                    answers[emptyAnswerKey].option = option;
-                    setAnswers({ ...answers });
+                    const dropAnswer = answers[emptyAnswerKey];
+                    dropAnswer.option = option;
+                    // setAnswers({ ...answers });
+                    onDrop(dropAnswer);
                   }}
                 >
                   {option.content.rich_text.map(
