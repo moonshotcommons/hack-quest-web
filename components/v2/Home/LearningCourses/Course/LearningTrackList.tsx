@@ -1,10 +1,10 @@
 import React from 'react';
-import { LearningTrackType } from '@/service/webApi/learningTrack/type';
+import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import LearningTrackCard from '@/components/v2/LearningTrackCard';
 import { ProcessType } from '@/service/webApi/course/type';
 import { LearningTrackCourseType } from '@/service/webApi/course/type';
 interface LearningTrackListProps {
-  list: LearningTrackType[];
+  list: LearningTrackDetailType[];
   status?: ProcessType;
 }
 

@@ -19,7 +19,7 @@ function SelectiveCourses() {
   };
   return (
     <div
-      className="container mx-auto h-[95vh] overflow-auto no-scrollbar pb-[120px]"
+      className="container mx-auto h-[calc(100%-64px)] overflow-auto no-scrollbar"
       onScroll={handleScroll}
       ref={selectiveCoursesRef}
     >

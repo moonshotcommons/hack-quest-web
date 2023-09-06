@@ -5,12 +5,17 @@ import { createSlice } from '@reduxjs/toolkit';
 export enum UnLoginType {
   LOGIN = 'Log in',
   SIGN_UP = 'Sign Up',
-  EMAIL_VERIFY = 'Email Verify'
+  EMAIL_VERIFY = 'Email Verify',
+  FORGOT_PASSWORD = 'Forgot Password'
 }
 export interface UserStateType {
   userInfo: LoginResponse | null;
   settingsOpen: boolean;
-  unLoginType: UnLoginType;
+  loginRouteType: {
+    type: UnLoginType;
+    prevType: UnLoginType;
+    params: Record<string, any>;
+  };
 }
 
 const userSlice = createSlice({
@@ -18,7 +23,11 @@ const userSlice = createSlice({
   initialState: {
     userInfo: null,
     settingsOpen: false,
-    unLoginType: UnLoginType.LOGIN
+    loginRouteType: {
+      type: UnLoginType.LOGIN,
+      prevType: UnLoginType.LOGIN,
+      params: {}
+    }
   } as UserStateType,
   reducers: {
     // loginReducer(state, { type, payload }) {
@@ -39,8 +48,23 @@ const userSlice = createSlice({
     },
 
     setUnLoginType(state, { type, payload }) {
-      console.info(payload, 'payloadpayload');
-      state.unLoginType = payload;
+      if (!payload) return;
+      const types = Object.values(UnLoginType);
+      if (types.includes(payload)) {
+        payload = {
+          type: payload,
+          prevType: state.loginRouteType.type,
+          params: {}
+        };
+      } else if (types.includes(payload?.type)) {
+        payload = {
+          type: payload.type,
+          prevType: state.loginRouteType.type,
+          params: payload.params || {}
+        };
+      }
+
+      state.loginRouteType = payload;
     }
   }
   // extraReducers: (builder) => {

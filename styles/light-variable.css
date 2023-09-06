@@ -314,6 +314,19 @@ html[data-theme='light'] {
   /* --landing-  */
   --landing-banner-intr-color: var(--neutral-white);
   --landing-hack-info-bg: var(--neutral-off-white);
-  --landing-hack-info-top-color:var(----neutral-off-black);
-  --landing-hack-info-learning-btn-color:var(--neutral-black);
+  --landing-hack-info-top-color: var(----neutral-off-black);
+  --landing-hack-info-learning-btn-color: var(--neutral-black);
+  /** --setting */
+  --setting-drop-card-bg: var(--neutral-off-black);
+  --setting-drop-user-name-color: var(--neutral-white);
+  --setting-drop-user-color: var(--neutral-light-gray);
+  --setting-drop-user-border: #282828;
+  --setting-drop-handler-color: var(--neutral-off-white);
+  --setting-drop-setting-modal-border: var(--button-card-card-outline);
+  --setting-drop-setting-change-color: var(--text-text-white-on-dark);
+  --setting-drop-setting-input-label: var(--neutral-off-white);
+  --setting-close-icon-color-v2: var(--neutral-white);
+  --setting-drop-change-password-input-bg: var(--neutral-dark-gray);
+  --setting-drop-change-password-input-color: var(--neutral-white);
+  --setting-drop-change-password-submit-btn-disable: rgba(255, 255, 255, 0.4);
 }

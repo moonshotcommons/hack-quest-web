@@ -25,12 +25,12 @@ const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
     learningUnit: any;
   }>();
 
-  const jumpLearningLesson = useJumpLeaningLesson();
+  const jumpLearningLesson = useJumpLeaningLesson(true);
 
   const learningStatus = useMemo(() => {
     if (learningTrackDetail) {
       let progress = learningTrackDetail.progress || 0;
-      if (progress <= 0 || !progress || !learningTrackDetail.enrolled)
+      if ((!progress || progress <= 0) && !learningTrackDetail.enrolled)
         return LearningStatus.UN_START;
       if (progress >= 1) return LearningStatus.COMPLETED;
     }

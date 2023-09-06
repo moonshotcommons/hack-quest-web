@@ -1,3 +1,4 @@
+import { useGetUserUnLoginType } from '@/hooks/useGetUserInfo';
 import { useValidator } from '@/hooks/useValidator';
 import { UnLoginType, setUnLoginType } from '@/store/redux/modules/user';
 import { FC, useState } from 'react';
@@ -13,6 +14,7 @@ const SignUp: FC<SignUpProps> = (props) => {
   const [email, setEmail] = useState('');
   const dispatch = useDispatch();
   const { validator } = useValidator(['registerEmail']);
+  const loginRouteType = useGetUserUnLoginType();
 
   const EmailTitle = (
     <div className="text-[#FFF] text-[21px] font-next-poster leading-[160%] tracking-[1.26px]">

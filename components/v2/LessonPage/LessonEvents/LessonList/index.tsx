@@ -46,15 +46,13 @@ const LessonList: React.FC<LessonListType> = ({
     ) as UnitPagesListType;
     getChildren(unit);
   }, []);
-
-  console.info(unitData);
   return (
-    <div className="h-full font-next-book">
+    <div className="h-full w-full font-next-book">
       {!unitName ? (
         unitData.map((v) => (
           <div
             key={v.id}
-            className={`h-[54px] pl-5 text-[21px]  flex items-center tracking-[0.42px]  ${
+            className={`h-[54px] px-5 text-[21px] w-full  flex items-center tracking-[0.42px]   ${
               v.id === lesson.unitId
                 ? 'bg-lesson-events-toggle-list-active-bg'
                 : ''
@@ -64,24 +62,26 @@ const LessonList: React.FC<LessonListType> = ({
                 : 'cursor-not-allowed'
             }`}
             onClick={() => getChildren(v)}
+            title={v.name}
           >
-            {v.name}
+            <p className="w-full truncate">{v.name}</p>
           </div>
         ))
       ) : (
-        <div>
+        <div className="w-full">
           <div
-            className="flex-row-center text-[21px] leading-[0.42px] h-[64px] px-5 cursor-pointer"
+            className="flex items-center w-full text-[21px] tracking-[0.42px] h-[64px] px-5 cursor-pointer"
             onClick={() => setUnitName('')}
+            title={unitName}
           >
             <Image src={ArrowLeft} alt="arrow-left" width={8} height={16} />
-            <span className="pl-[10px]">{unitName}</span>
+            <p className="pl-[10px] truncate w-[calc(100%-8px)]">{unitName}</p>
           </div>
-          <div>
+          <div className="w-full">
             {lessonList.map((v) => (
               <div
                 key={v.id}
-                className={`h-[54px]  flex-row-center justify-between px-5 hover:bg-lesson-events-toggle-list-active-bg ${
+                className={`h-[54px] w-full  flex-row-center justify-between px-5 hover:bg-lesson-events-toggle-list-active-bg ${
                   v.id === lesson.id
                     ? 'bg-lesson-events-toggle-list-active-bg'
                     : ''
@@ -90,26 +90,22 @@ const LessonList: React.FC<LessonListType> = ({
                     ? 'cursor-pointer hover:bg-lesson-events-toggle-list-active-bg'
                     : 'cursor-not-allowed'
                 }`}
+                title={v.name}
                 onClick={() => handleUnit(v)}
               >
-                <div>
-                  <p className="font-next-book-bold text-[14px]">
-                    {v.name}
-                    {v.disable}
-                  </p>
-                </div>
-                <div className="h-full pt-[10px]">
-                  <Image
-                    src={
-                      v.state === CompleteStateType.COMPLETED
-                        ? CompleteActive
-                        : Complete
-                    }
-                    alt="complete"
-                    width={20}
-                    height={20}
-                  />
-                </div>
+                <p className="font-next-book-bold text-[14px] w-[100%] truncate">
+                  {v.name}
+                </p>
+                <Image
+                  src={
+                    v.state === CompleteStateType.COMPLETED
+                      ? CompleteActive
+                      : Complete
+                  }
+                  alt="complete"
+                  width={20}
+                  height={20}
+                />
               </div>
             ))}
           </div>
