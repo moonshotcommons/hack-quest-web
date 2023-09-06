@@ -100,12 +100,6 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
         >
           Next
         </Button>
-        {/* <div className="flex gap-[0.5rem] justify-end text-[#ACACAC] font-Sofia-Pro-Light-Az font-light leading-[150%] tracking-[-0.011rem]">
-          <span>Not a member yet? </span>
-          <Link href={'/auth/register'}>
-            <span className="text-[#F8F8F8] font-semibold">Register now</span>
-          </Link>
-        </div> */}
       </div>
     </div>
   );
