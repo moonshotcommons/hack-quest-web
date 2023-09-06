@@ -6,21 +6,6 @@ export type SectionType = {
   progress?: number;
 };
 
-/** 学习路线卡片信息 */
-export interface LearningTrackType {
-  id: string;
-  name: string;
-  type: CourseType;
-  description: string;
-  enrolled?: boolean;
-  level: string;
-  aboutDesc: any;
-  courseCount: number;
-  duration: number;
-  progress: number;
-  unitCount: number;
-}
-
 /** 学习路线详情 */
 export interface LearningTrackDetailType {
   id: string;
@@ -36,4 +21,5 @@ export interface LearningTrackDetailType {
   peopleJoined: number;
   // courses: (CourseResponse )[];
   sections: SectionType[];
+  unitCount: number;
 }

@@ -1,11 +1,13 @@
 import webApi from '@/service';
-import { LearningTrackType } from '@/service/webApi/learningTrack/type';
+import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import { useRequest } from 'ahooks';
 import { message } from 'antd';
 import { useState } from 'react';
 
 export const useGetLearningTracks = (showAll = true) => {
-  const [learningTracks, setLearningTracks] = useState<LearningTrackType[]>([]);
+  const [learningTracks, setLearningTracks] = useState<
+    LearningTrackDetailType[]
+  >([]);
 
   const { loading, refresh } = useRequest(
     async () => {

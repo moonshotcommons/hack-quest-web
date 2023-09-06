@@ -106,10 +106,9 @@ const Input = forwardRef<
     },
     { wait: delay }
   );
-
   return (
     <div className="flex flex-col gap-[1.5rem] w-full">
-      <p className="text-[#676767] font-next-book text-[1rem] leading-[120%]">
+      <p className="text-setting-drop-setting-input-label font-next-book text-[1rem] leading-[120%]">
         {label}
       </p>
       <div className="relative w-full">
@@ -118,8 +117,9 @@ const Input = forwardRef<
           type={type}
           value={value}
           placeholder={placeholder}
+          data-type="changePassword"
           className={cn(
-            `w-full h-[3.75rem] px-[1.5rem] bg-transparent border border-solid border-setting-input-line-color rounded-[2.5rem] outline-none text-setting-input-text-color text-[1.25rem] font-Sofia-Pro-Light-Az -leading-[0.01375rem] caret-[#5B5B5B] hover:border-setting-input--border-hover-color focus:border-setting-input--border-hover-color focus:text-setting-input-text-color`,
+            `bg-setting-drop-change-password-input-bg text-setting-drop-change-password-input-color w-full h-[3.75rem] px-[1.5rem] border  border-transparent rounded-[2.5rem] outline-none  text-[1.25rem] font-Sofia-Pro-Light-Az -leading-[0.01375rem] caret-setting-drop-change-password-input-color hover:border-setting-input--border-hover-color focus:border-setting-input--border-hover-color`,
             status === 'success'
               ? 'border-[#9EFA13] focus:border-[#9EFA13]'
               : '',

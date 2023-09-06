@@ -5,6 +5,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import { cn } from '@/helper/utils';
 import { FC, Fragment, ReactNode } from 'react';
 import CloseIcon from '../Icon/Close';
+import { BsXLg } from 'react-icons/bs';
 
 interface ModalProps {
   open: boolean;
@@ -20,8 +21,9 @@ const IconClose: FC<{ icon?: ReactNode }> = (props) => {
   return icon ? (
     icon
   ) : (
-    <div className="absolute right-[2.25rem] top-[2.5rem] z-[999] cursor-pointer rounded-full p-[0.66rem] border border-solid border-setting-close-icon-border-color text-setting-close-icon-color">
-      <CloseIcon width={20} height={19} color={'currentColor'} />
+    <div className="absolute right-[2.25rem] top-[2.5rem] z-[999] cursor-pointer  p-[0.66rem] text-setting-close-icon-color-v2">
+      {/* <CloseIcon width={20} height={19} color={'currentColor'} /> */}
+      <BsXLg size={22} />
     </div>
   );
 };

@@ -24,7 +24,7 @@ const User: FC<UserProps> = (props) => {
   return (
     <div className="relative h-full">
       <div
-        className="h-full flex items-center"
+        className="h-full  flex items-center justify-end relative"
         ref={userDropCardRef as any}
         onMouseEnter={(e) => setShowUserDropCard(true)}
         onMouseLeave={(e) => setShowUserDropCard(false)}
@@ -59,7 +59,7 @@ const User: FC<UserProps> = (props) => {
           )}
         </div>
         {userInfo && showUserDropCard ? (
-          <div className="absolute z-[999] -right-[0.75rem] top-[4.75rem]">
+          <div className="absolute z-[999] -right-[0.75rem] top-[60px] pt-[20px]">
             <UserDropCard
               userInfo={userInfo || ({} as any)}
               onClose={() => setShowUserDropCard(false)}
