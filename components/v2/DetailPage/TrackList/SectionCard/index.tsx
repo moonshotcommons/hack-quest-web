@@ -15,6 +15,7 @@ import { FC, useContext, useEffect, useState } from 'react';
 import { GrSubtract } from 'react-icons/gr';
 import { VscAdd } from 'react-icons/vsc';
 import styled from 'styled-components';
+import { QueryIdType, MenuLink } from '@/components/v2/Breadcrumb/type';
 
 const CustomProgress = styled(Progress)`
   .ant-progress-inner {
@@ -58,7 +59,7 @@ function SectionList(props: {
 }) {
   const { section, enrolled, theme, sectionIndex, sectionList } = props;
   const router = useRouter();
-  const jumpLearningLesson = useJumpLeaningLesson(true);
+  const jumpLearningLesson = useJumpLeaningLesson();
 
   const renderLearningButton = (item: CourseDetailType, index: number) => {
     if (!enrolled) return null;
@@ -89,7 +90,17 @@ function SectionList(props: {
               className="w-[165px] py-[11px] leading-[125%] hover:-translate-y-[1px] hover:shadow-[rgba(0,0,0,0.15)_1.95px_1.95px_2.6px] transition border border-solid bg-course-learning-button-bg border-course-learning-button-border-color rounded-[32px] whitespace-nowrap text-sm text-[#0B0B0B] font-next-book text-[16px] cursor-pointer"
               onClick={(e) => {
                 e.stopPropagation();
-                jumpLearningLesson(item);
+                jumpLearningLesson(item, {
+                  menu: MenuLink.LEARNING_TRACK,
+                  idTypes: [
+                    QueryIdType.LEARNING_TRACK_ID,
+                    QueryIdType.MENU_COURSE_ID
+                  ],
+                  ids: [
+                    router.query[QueryIdType.LEARNING_TRACK_ID] as string,
+                    item.id
+                  ]
+                });
               }}
             >
               {item.progress > 0 ? 'Resume' : 'Start'}
@@ -146,7 +157,15 @@ function SectionList(props: {
             </div>
             <div
               className="text-learning-track-course-title-color font-next-book-bold leading-[120%] w-[36%] ml-[10%] flex-1 cursor-pointer hover:opacity-70 transition"
-              onClick={(e) => router.push(`/electives/${item.id}`)}
+              onClick={(e) =>
+                router.push(
+                  `/electives/${item.id}?${QueryIdType.LEARNING_TRACK_ID}=${
+                    router.query[QueryIdType.LEARNING_TRACK_ID]
+                  }&${QueryIdType.MENU_COURSE_ID}=${item.id}&menu=${
+                    MenuLink.LEARNING_TRACK
+                  }`
+                )
+              }
             >
               {item.name}
             </div>

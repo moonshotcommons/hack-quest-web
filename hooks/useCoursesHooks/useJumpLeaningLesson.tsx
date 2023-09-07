@@ -4,38 +4,48 @@ import { CourseDetailType, CourseResponse } from '@/service/webApi/course/type';
 import { UnLoginType, setUnLoginType } from '@/store/redux/modules/user';
 import { useRequest } from 'ahooks';
 import { useRouter } from 'next/router';
+import { MenuLink, QueryIdType } from '@/components/v2/Breadcrumb/type';
 import { useDispatch } from 'react-redux';
 
-export const useJumpLeaningLesson = (isV2: boolean = false) => {
+interface JumpLeaningLessonType {
+  menu: string;
+  idTypes: string[];
+  ids: string[];
+}
+export const useJumpLeaningLesson = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { run } = useRequest(
-    async (courseDetail: CourseDetailType | CourseResponse) => {
+    async (
+      courseDetail: CourseDetailType | CourseResponse,
+      linkParam?: JumpLeaningLessonType
+    ) => {
       const lesson = await webApi.courseApi.getLearningLessonId(
         courseDetail?.id as string
       );
+      const lParam = linkParam || {
+        menu: MenuLink.ELECTIVES,
+        idTypes: [QueryIdType.MENU_COURSE_ID],
+        ids: [courseDetail.id]
+      };
       return {
         courseDetail,
-        pageId: lesson?.pageId
+        pageId: lesson?.pageId,
+        ...lParam
       };
     },
     {
       manual: true,
-      onSuccess({ courseDetail, pageId }) {
-        // router.push(
-        //   `${getCourseLink(courseDetail?.type)}/${
-        //     courseDetail?.name
-        //   }/learn/${pageId}`
-        // );
-        if (isV2) {
-          router.push(
-            getV2LessonLink(courseDetail?.type, courseDetail?.name, pageId)
-          );
-          return;
-        }
-        router.push(
-          getLessonLink(courseDetail?.type, courseDetail?.name, pageId)
-        );
+      onSuccess({ courseDetail, pageId, menu, idTypes, ids }) {
+        let link = `${getLessonLink(
+          courseDetail?.type,
+          courseDetail?.name,
+          pageId
+        )}?menu=${menu}`;
+        idTypes.map((v, i) => {
+          link += `&${v}=${ids[i]}`;
+        });
+        router.push(link);
       },
       onError(err: any) {
         if (err.code === 401) {

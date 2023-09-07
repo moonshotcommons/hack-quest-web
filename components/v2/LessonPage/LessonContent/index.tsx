@@ -4,7 +4,6 @@ import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
 import { FC, createContext, useEffect, useMemo, useState } from 'react';
 import ComponentRenderer from '../ComponentRenderer';
 import LessonEvents from '../LessonEvents';
-import LessonNav from '../LessonNav';
 import { CustomComponent, LessonContent, NotionComponent } from '../type';
 
 export const LessonContentContext = createContext<{
@@ -52,19 +51,11 @@ const LessonContent: FC<LessonContentProps> = (props) => {
 
   return (
     <div className="flex flex-col h-[calc(100%-10px)] ">
-      <>
-        <LessonNav
-          lesson={lesson as any}
-          courseType={courseType}
-          isPreview={isPreview}
-        />
-        <LessonEvents
-          isPreview={isPreview}
-          // unitData={dropData}
-          lesson={lesson as any}
-          courseType={courseType}
-        />
-      </>
+      <LessonEvents
+        isPreview={isPreview}
+        lesson={lesson as any}
+        courseType={courseType}
+      />
 
       {!!components.length && (
         <div className="flex flex-col mb-[20px] w-full flex-1 shrink-0 overflow-auto h-full scroll-wrap-y scroll-wrap-x no-scrollbar">

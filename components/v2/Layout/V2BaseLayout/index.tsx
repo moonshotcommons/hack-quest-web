@@ -25,7 +25,9 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
       </div>
       <div className="m-auto">
         <div className="w-full pt-[64px]">
-          <Breadcrumb />
+          <div className="container mx-auto">
+            <Breadcrumb />
+          </div>
           <main className="w-full">{children}</main>
         </div>
       </div>

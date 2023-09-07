@@ -29,7 +29,6 @@ const LessonPage: FC<LessonPageProps> = (props) => {
   const [isHandleNext, setIsHandleNext] = useState(false);
 
   const judgmentInitIsHandleNext = useCallback(() => {
-    console.info(lesson);
     const quiz = lesson?.content?.right.find(
       (v: NotionComponent) => v.type === CustomType.Quiz
     );
