@@ -84,12 +84,12 @@ export const TopInfo: FC = () => {
   const { learningTracks } = useGetLearningTracks();
 
   return (
-    <div className="bg-landing-hack-info-bg">
+    <div className="bg-landing-hack-info-bg w-full">
       <div
-        className="h-[286px]"
+        className="h-[286px] w-full"
         style={{
           backgroundImage: `url('/images/landing/hack_quest_info_bg.png')`,
-          backgroundSize: '1440px 100%',
+          backgroundSize: '100% auto',
           backgroundRepeat: 'repeat'
         }}
       ></div>
