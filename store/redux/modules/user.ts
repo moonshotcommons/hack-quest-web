@@ -8,6 +8,8 @@ export enum UnLoginType {
   EMAIL_VERIFY = 'Email Verify',
   FORGOT_PASSWORD = 'Forgot Password',
   VERIFYING = 'verifying',
+  VERIFYING_FAIL = 'verifying_fail',
+  VERIFYING_SUCCESS = 'verifying_success',
   CHANGE_PASSWORD = 'change-password'
 }
 
