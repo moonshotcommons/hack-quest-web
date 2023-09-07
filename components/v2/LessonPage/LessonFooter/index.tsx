@@ -1,19 +1,26 @@
 import Button from '@/components/Common/Button';
 import { useUnitNavList } from '@/hooks/useUnitNavList';
 import { CourseLessonType } from '@/service/webApi/course/type';
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { LessonContent } from '../type';
+import { LessonPageContext } from '../type';
 
 interface LessonFooterProps {
   lesson?: Omit<CourseLessonType, 'content'> & { content: LessonContent };
+  onNextClick: VoidFunction;
 }
-const LessonFooter: React.FC<LessonFooterProps> = ({ lesson }) => {
+const LessonFooter: React.FC<LessonFooterProps> = ({ lesson, onNextClick }) => {
   const {
     unitNavList = [],
     currentUnitIndex,
     refreshNavList
   } = useUnitNavList(lesson as any);
-  const isHandle = false;
+  const { isHandleNext } = useContext(LessonPageContext);
+  const handleNext = () => {
+    if (!isHandleNext) return;
+    onNextClick();
+  };
+
   useEffect(() => {
     refreshNavList();
   }, [lesson]);
@@ -42,9 +49,11 @@ const LessonFooter: React.FC<LessonFooterProps> = ({ lesson }) => {
       </div>
       <Button
         type="primary"
+        disabled={!isHandleNext}
         className={`fixed bottom-[18px] right-10 w-[140px] h-11 bg-lesson-primary-button-bg text-lesson-primary-button-text-color ${
-          !isHandle && 'opacity-40 cursor-not-allowed'
+          !isHandleNext && 'opacity-40 cursor-not-allowed'
         }`}
+        onClick={handleNext}
       >
         Next
       </Button>

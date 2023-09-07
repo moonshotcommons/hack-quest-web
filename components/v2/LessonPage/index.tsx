@@ -6,11 +6,13 @@ import webApi from '@/service';
 import { CourseType } from '@/service/webApi/course/type';
 import { ConfigProvider, Spin } from 'antd';
 import { useRouter } from 'next/router';
-import { FC, useEffect } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import Split from 'react-split';
 import LessonContent from './LessonContent';
 import LessonFooter from './LessonFooter';
 import Playground from './Playground';
+import { CustomType, LessonPageContext, NotionComponent } from './type';
+import { CompleteStateType } from '@/service/webApi/course/type';
 
 interface LessonPageProps {
   lessonId: string;
@@ -24,14 +26,27 @@ const LessonPage: FC<LessonPageProps> = (props) => {
   const { courseId: courseName } = router.query;
   const { onNextClick, completeModalOpen, setCompleteModalOpen } =
     useGotoNextLesson(lesson!, courseType, true, true);
+  const [isHandleNext, setIsHandleNext] = useState(false);
 
+  const judgmentInitIsHandleNext = useCallback(() => {
+    console.info(lesson);
+    const quiz = lesson?.content?.right.find(
+      (v: NotionComponent) => v.type === CustomType.Quiz
+    );
+    if (!quiz || lesson?.state === CompleteStateType.COMPLETED) {
+      setIsHandleNext(true);
+    } else {
+      setIsHandleNext(false);
+    }
+  }, [lesson]);
   useEffect(() => {
     if (lesson) {
+      judgmentInitIsHandleNext();
       webApi.courseApi.startLesson(lesson.id).catch((e) => {
         console.log('开始学习失败', e);
       });
     }
-  }, [lesson]);
+  }, [lesson, judgmentInitIsHandleNext]);
 
   return (
     <ConfigProvider
@@ -54,29 +69,36 @@ const LessonPage: FC<LessonPageProps> = (props) => {
       >
         {lesson && (
           <div className="relative w-full h-[calc(100vh-80px-64px)] pl-[20px]">
-            <Split
-              className="flex-1 w-full h-full flex justify-between [&>div]:w-[50%] [&>.gutter]:cursor-col-resize"
-              minSize={80}
-              cursor="col-resize"
+            <LessonPageContext.Provider
+              value={{
+                isHandleNext,
+                changeHandleNext: (handle) => setIsHandleNext(handle)
+              }}
             >
-              <LessonContent
-                lesson={lesson as any}
-                courseType={courseType}
-              ></LessonContent>
-              <Playground
-                lesson={lesson! as any}
-                onCompleted={() => {
-                  // 请求下一个lesson
-                  onNextClick();
-                }}
-              ></Playground>
-            </Split>
-            <LessonFooter lesson={lesson as any} />
-            <CompleteModal
-              title={courseName as string}
-              open={completeModalOpen}
-              onClose={() => setCompleteModalOpen(false)}
-            ></CompleteModal>
+              <Split
+                className="flex-1 w-full h-full flex justify-between [&>div]:w-[50%] [&>.gutter]:cursor-col-resize"
+                minSize={80}
+                cursor="col-resize"
+              >
+                <LessonContent
+                  lesson={lesson as any}
+                  courseType={courseType}
+                ></LessonContent>
+                <Playground
+                  lesson={lesson! as any}
+                  onCompleted={() => {
+                    // 当前lesson完成
+                    setIsHandleNext(true);
+                  }}
+                ></Playground>
+              </Split>
+              <LessonFooter lesson={lesson as any} onNextClick={onNextClick} />
+              <CompleteModal
+                title={courseName as string}
+                open={completeModalOpen}
+                onClose={() => setCompleteModalOpen(false)}
+              ></CompleteModal>
+            </LessonPageContext.Provider>
           </div>
         )}
       </Spin>

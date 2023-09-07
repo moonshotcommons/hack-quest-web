@@ -84,7 +84,8 @@ export interface CourseLessonType {
   sequence: number;
   unitId: string;
   courseId: string;
-  content?: any[];
+  content?: Record<string, any>;
+  state: CompleteStateType;
 }
 
 export interface CourseLessonStateType {

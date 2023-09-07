@@ -58,7 +58,7 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
         onCompleted();
       }
       setPassOpen(false);
-    }, 1500);
+    }, 500);
   };
 
   useClickAway(() => {
