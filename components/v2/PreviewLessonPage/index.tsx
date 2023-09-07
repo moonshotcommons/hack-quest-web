@@ -1,11 +1,10 @@
 'use client';
 import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
 import { useRequest } from 'ahooks';
-import { message } from 'antd';
+import { ConfigProvider, Spin, message } from 'antd';
 import axios from 'axios';
 import { FC, useEffect, useState } from 'react';
 import Split from 'react-split';
-import Loading from '../Common/Loading';
 import LessonContent from '../LessonPage/LessonContent';
 import LessonFooter from '../LessonPage/LessonFooter';
 import Playground from '../LessonPage/Playground';
@@ -48,45 +47,56 @@ const PreviewLessonPage: FC<PreviewLessonPageProps> = (props) => {
     run(previewUrl);
   }, [run, previewUrl]);
 
-  // if (!lesson) return null;
-
   return (
-    <div className="relative w-full h-[calc(100vh-80px-76px)] pl-[20px]">
-      {lesson && (
-        <Split
-          className="flex-1 w-full h-full flex justify-between [&>div]:w-[50%] [&>.gutter]:cursor-col-resize"
-          minSize={80}
-          cursor="col-resize"
-        >
-          <LessonContent
-            lesson={lesson!}
-            isPreview={true}
-            courseType={CourseType.GUIDED_PROJECT}
-          ></LessonContent>
-          <Playground
-            lesson={lesson!}
-            isPreview={true}
-            onCompleted={() => {
-              message.info('当前是预览模式');
-            }}
-          ></Playground>
-        </Split>
-      )}
-      {!lesson && !!errorMessage && (
-        <div className="text-[18px] text-text-default-color">
-          {errorMessage}
-        </div>
-      )}
-      <LessonFooter lesson={lesson} />
-
-      {loading && (
-        <div className="w-full h-full flex justify-center items-center text-text-default-color">
-          <Loading loading={loading}>
-            <div className="w-40 h-40 flex justify-center items-center bg-transparent"></div>
-          </Loading>
-        </div>
-      )}
-    </div>
+    <ConfigProvider
+      theme={{
+        components: {
+          Spin: {
+            contentHeight: 400
+          }
+        },
+        token: {
+          colorPrimary: '#ffd850'
+        }
+      }}
+    >
+      <Spin
+        spinning={loading}
+        className="h-[100vh] flex justify-center items-center translate-y-[calc(50vh-50%)]"
+        tip="loading..."
+        size="large"
+      >
+        {lesson && (
+          <div className="relative w-full h-[calc(100vh-80px-64px)] pl-[20px]">
+            <Split
+              className="flex-1 w-full h-full flex justify-between [&>div]:w-[50%] [&>.gutter]:cursor-col-resize"
+              minSize={80}
+              cursor="col-resize"
+            >
+              <LessonContent
+                lesson={lesson as any}
+                courseType={CourseType.GUIDED_PROJECT}
+                isPreview={true}
+              ></LessonContent>
+              <Playground
+                lesson={lesson! as any}
+                isPreview={true}
+                onCompleted={() => {
+                  // 请求下一个lesson
+                  message.info('当前是预览模式');
+                }}
+              ></Playground>
+            </Split>
+            <LessonFooter lesson={lesson as any} onNextClick={() => {}} />
+          </div>
+        )}
+        {!lesson && !!errorMessage && (
+          <div className="text-[18px] text-text-default-color">
+            {errorMessage}
+          </div>
+        )}
+      </Spin>
+    </ConfigProvider>
   );
 };
 

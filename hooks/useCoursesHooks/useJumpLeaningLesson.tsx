@@ -1,9 +1,11 @@
 import { getLessonLink, getV2LessonLink } from '@/helper/utils';
 import webApi from '@/service';
 import { CourseDetailType, CourseResponse } from '@/service/webApi/course/type';
+import { UnLoginType, setUnLoginType } from '@/store/redux/modules/user';
 import { useRequest } from 'ahooks';
 import { useRouter } from 'next/router';
 import { MenuLink, QueryIdType } from '@/components/v2/Breadcrumb/type';
+import { useDispatch } from 'react-redux';
 
 interface JumpLeaningLessonType {
   menu: string;
@@ -12,6 +14,7 @@ interface JumpLeaningLessonType {
 }
 export const useJumpLeaningLesson = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const { run } = useRequest(
     async (
       courseDetail: CourseDetailType | CourseResponse,
@@ -46,7 +49,8 @@ export const useJumpLeaningLesson = () => {
       },
       onError(err: any) {
         if (err.code === 401) {
-          router.push('/auth/login');
+          dispatch(setUnLoginType(UnLoginType.LOGIN));
+          router.push('/');
         }
       }
     }

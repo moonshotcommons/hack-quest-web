@@ -54,7 +54,7 @@ const EmailVerify: FC<EmailVerifyProps> = (props) => {
           {/* <Image src={Logo} alt="logo" width={191} className="mt-[2rem]"></Image> */}
         </div>
 
-        <Button
+        {/* <Button
           // onClick={onLogin}
           block
           className="
@@ -66,7 +66,7 @@ const EmailVerify: FC<EmailVerifyProps> = (props) => {
           "
         >
           Resend Link
-        </Button>
+        </Button> */}
 
         <Button
           onClick={backButtonParams.handle}

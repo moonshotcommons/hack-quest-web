@@ -1,6 +1,6 @@
-import { FC, ReactNode } from 'react';
-import TextRenderer from '../TextRenderer';
+import { FC } from 'react';
 import ComponentRenderer from '../../LessonPage/ComponentRenderer';
+import TextRenderer from '../TextRenderer';
 
 interface BulletedListItemRendererProps {
   component: any;
