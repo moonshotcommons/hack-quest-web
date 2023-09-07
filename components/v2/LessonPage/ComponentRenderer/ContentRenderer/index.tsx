@@ -17,7 +17,7 @@ const ContentRenderer: FC<ContentRendererProps> = (props) => {
         className="flex  justify-between items-center cursor-pointer"
         onClick={() => setShowAll(!showAll)}
       >
-        <span className="font-next-poster-Bold text-[21px]">
+        <span className="font-next-poster-Bold text-[21px] font-bold">
           {component.title || (
             <TextRenderer
               richTextArr={component.content.rich_text}

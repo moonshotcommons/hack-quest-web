@@ -41,6 +41,7 @@ const V2Layout: FC<LayoutProps> = (props) => {
 
   switch (true) {
     case regex.test(pathname):
+    case pathname.startsWith('/preview'):
       return <V2FullLayout navbarData={navbarData}>{children}</V2FullLayout>;
     case ['/', ''].includes(pathname):
       return <V2HomeLayout navbarData={navbarData}>{children}</V2HomeLayout>;
