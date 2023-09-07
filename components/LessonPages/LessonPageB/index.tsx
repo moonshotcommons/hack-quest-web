@@ -56,7 +56,7 @@ const LessonPageB: FC<LessonPageBProps> = (props) => {
   return (
     <div className="relative w-full h-[80vh] flex-col gap-[4.5rem] mt-[1.25rem] text-text-default-color px-[3rem] py-[2.5rem]">
       <div className=" w-full h-full scroll-wrap-y">
-        {lesson.content?.map((section: any, index) => {
+        {lesson.content?.map((section: any, index: number) => {
           return (
             <div key={section.id} className="relative bottom-line mb-8">
               <NotionRenderer styleType={LessonStyleType.B}>
