@@ -87,7 +87,7 @@ const PreviewLessonPage: FC<PreviewLessonPageProps> = (props) => {
                 }}
               ></Playground>
             </Split>
-            <LessonFooter lesson={lesson as any} />
+            <LessonFooter lesson={lesson as any} onNextClick={() => {}} />
           </div>
         )}
         {!lesson && !!errorMessage && (
