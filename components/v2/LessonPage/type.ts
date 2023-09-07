@@ -1,3 +1,5 @@
+import { createContext } from 'react';
+
 export enum NotionType {
   H1 = 'heading_1',
   H2 = 'heading_2',
@@ -89,3 +91,12 @@ export interface QuizBType extends CustomComponent {
   options: (NotionComponent & { type: NotionType.BULLETED_LIST_ITEM })[];
   children: (NotionComponent & { content: { isGapFill: boolean }[] })[];
 }
+
+export interface LessonPageContextType {
+  isHandleNext: boolean;
+  changeHandleNext: (isHandle: boolean) => void;
+}
+export const LessonPageContext = createContext<LessonPageContextType>({
+  isHandleNext: false,
+  changeHandleNext: () => {}
+});
