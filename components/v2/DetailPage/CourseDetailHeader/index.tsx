@@ -34,9 +34,6 @@ const CourseDetailHeader: FC<CourseDetailHeaderProps> = (props) => {
     <div className="flex flex-col">
       <div className="flex gap-[50px] mt-[10px] justify-between">
         <div>
-          <p className="text-[#0B0B0B] font-next-book text-base leading-[160%] opacity-60">
-            {tagFormate(courseDetail.type)}
-          </p>
           <h1 className="font-next-poster-Bold text-[40px] text-text-default-color whitespace-nowrap leading-normal">
             {courseDetail.name}
           </h1>

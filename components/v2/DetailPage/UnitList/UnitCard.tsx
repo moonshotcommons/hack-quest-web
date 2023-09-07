@@ -77,7 +77,7 @@ const UnitCard: FC<UnitCardProps> = (props) => {
     index,
     learningStatus = LearningStatus.UN_START
   } = props;
-  const jumpLearningLesson = useJumpLeaningLesson(true);
+  const jumpLearningLesson = useJumpLeaningLesson();
   const { theme } = useContext(ThemeContext);
   const router = useRouter();
   return (

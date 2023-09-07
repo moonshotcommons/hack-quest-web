@@ -10,6 +10,7 @@ import { useRouter } from 'next/router';
 import { FC } from 'react';
 import { styled } from 'styled-components';
 import CourseTags from '../CourseTags';
+import { QueryIdType, MenuLink } from '../Breadcrumb/type';
 
 interface CourseCardProps {
   // children: ReactNode;
@@ -37,7 +38,7 @@ const borderColor: Record<string, string> = {
 
 const CourseCard: FC<CourseCardProps> = (props) => {
   const { course, inProgress = false, inCompleted = false } = props;
-  const jumpLearningLesson = useJumpLeaningLesson(true);
+  const jumpLearningLesson = useJumpLeaningLesson();
   const router = useRouter();
   return (
     <div
@@ -46,7 +47,9 @@ const CourseCard: FC<CourseCardProps> = (props) => {
         borderColor[course.type as any]
       )}
       onClick={() => {
-        router.push(`/electives/${course.id}`);
+        router.push(
+          `/electives/${course.id}?${QueryIdType.MENU_COURSE_ID}=${course.id}&menu=${MenuLink.ELECTIVES}`
+        );
       }}
     >
       {(inProgress || inCompleted) && (
@@ -143,9 +146,6 @@ const CourseCard: FC<CourseCardProps> = (props) => {
           <Button
             className="border border-[#000] rounded-[32px] px-0 py-[12px] flex text-[16px] font-next-book tracking-[0.32] leading-[125%]"
             block
-            onClick={() => {
-              router.push(`/electives/${course.id}`);
-            }}
           >
             View Syllabus
           </Button>
