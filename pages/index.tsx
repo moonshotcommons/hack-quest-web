@@ -1,6 +1,6 @@
+import BannerBg from '@/public/images/event/hackathon/banner_bg.jpg';
 import { GetServerSideProps, NextPage } from 'next';
 import Image from 'next/image';
-import BannerBg from '@/public/images/event/hackathon/banner_bg.jpg';
 import Link from 'next/link';
 
 const originator: { name: string; status: string }[] = new Array(14).fill({
@@ -80,10 +80,10 @@ const HackathonPage: NextPage<HackathonPageProps> = (props) => {
               <span>Register Now</span>
             </button>
           </Link>
-          <Link href={'https://xsxo494365r.typeform.com/to/I3vuAbEx'}>
+          <Link href={'https://xsxo494365r.typeform.com/to/oFVKPKTT'}>
             <button className="flex hover:bg-[#CD9DF2] hover:text-white transition-all duration-300 w-[calc((431/1728)*100vw)] p-[calc((18/1728)*100vw)] border-[calc((3/1728)*100vw)] rounded-[calc((50/1728)*100vw)] gap-[calc((8/1728)*100vw)] border-white">
               <span>{`->`}</span>
-              <span>Partner With Us</span>
+              <span>Submit Now</span>
             </button>
           </Link>
           <p
