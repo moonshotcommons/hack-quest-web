@@ -75,7 +75,7 @@ const LessonNav: React.FC<LessonNavProps> = ({
     const initLink = [
       {
         label: 'home',
-        link: '/v2/home'
+        link: '/home'
       }
     ];
     if (!router.query?.courseId && isPreview) {
@@ -85,7 +85,7 @@ const LessonNav: React.FC<LessonNavProps> = ({
     const lessonLink: navDataProps[] = [
       {
         label: (router.query?.courseId as string).split(' - ')[0],
-        link: `/v2/electives/${lesson?.courseId}`
+        link: `/electives/${lesson?.courseId}`
       },
       {
         label: uName as string,

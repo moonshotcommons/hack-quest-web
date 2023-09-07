@@ -45,7 +45,7 @@ const User: FC<UserProps> = (props) => {
               {unLoginTab.map((tab) => (
                 <div
                   className={`text-sm h-full flex items-center text-white hover:font-bold border-b-4 tracking-[0.28px] cursor-pointer ${
-                    tab.value === unLoginType.type
+                    tab.value === unLoginType?.type
                       ? 'font-next-book-bold text-text-default-color font-bold  border-[#FFD850]'
                       : 'font-next-book font-normal border-transparent'
                   }`}

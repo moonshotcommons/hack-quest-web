@@ -6,8 +6,17 @@ export enum UnLoginType {
   LOGIN = 'Log in',
   SIGN_UP = 'Sign Up',
   EMAIL_VERIFY = 'Email Verify',
-  FORGOT_PASSWORD = 'Forgot Password'
+  FORGOT_PASSWORD = 'Forgot Password',
+  VERIFYING = 'verifying',
+  VERIFYING_FAIL = 'verifying_fail',
+  VERIFYING_SUCCESS = 'verifying_success',
+  CHANGE_PASSWORD = 'change-password'
 }
+
+export const callbackMap = {
+  [UnLoginType.VERIFYING]: UnLoginType.VERIFYING,
+  [UnLoginType.CHANGE_PASSWORD]: UnLoginType.CHANGE_PASSWORD
+};
 export interface UserStateType {
   userInfo: LoginResponse | null;
   settingsOpen: boolean;

@@ -42,7 +42,7 @@ export const getV2LessonLink = (
   lessonId: string
 ) => {
   if (!courseType || !courseName || !lessonId) return '/404';
-  return `/v2${getCourseLink(courseType)}/${courseName}/learn/${lessonId}`;
+  return `${getCourseLink(courseType)}/${courseName}/learn/${lessonId}`;
 };
 
 export const changeTextareaHeight = (target: HTMLTextAreaElement) => {

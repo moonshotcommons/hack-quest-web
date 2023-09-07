@@ -75,7 +75,7 @@ const CompleteModal: NextPage<CompleteModalProps> = ({
           >
             Close
           </Button> */}
-          <Link href={'/v2/home'} onClick={onClose}>
+          <Link href={'/home'} onClick={onClose}>
             {/* <Button className="border solid border-white hover:bg-white hover:text-black">
               All Course
             </Button> */}

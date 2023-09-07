@@ -1,6 +1,8 @@
+import { UnLoginType, setUnLoginType } from '@/store/redux/modules/user';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 interface NotFoundPageProps {
   children: React.ReactNode;
@@ -9,8 +11,10 @@ interface NotFoundPageProps {
 const NotFoundPage: NextPage<NotFoundPageProps> = (props) => {
   const router = useRouter();
   const [seconds, setSeconds] = useState(3);
+  const dispatch = useDispatch();
   useEffect(() => {
     let time = setTimeout(() => {
+      dispatch(setUnLoginType(UnLoginType.LOGIN));
       router.push('/');
     }, 3000);
 

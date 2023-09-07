@@ -15,8 +15,8 @@ export const HOME_PATHNAME = '/';
 export const ALL_COURSES_PATHNAME = '/courses';
 export const DASHBOARD_PATHNAME = '/dashboard';
 export const MISSION_CENTER = '/mission-center';
-export const V2_LANDING_PATH = '/v2';
-export const V2_HOME_PATH = '/v2/home';
+export const V2_LANDING_PATH = '/';
+export const V2_HOME_PATH = '/home';
 
 export function isLoginOrRegister(pathname: string) {
   if (

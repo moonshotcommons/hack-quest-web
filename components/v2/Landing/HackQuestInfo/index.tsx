@@ -84,12 +84,12 @@ export const TopInfo: FC = () => {
   const { learningTracks } = useGetLearningTracks();
 
   return (
-    <div className="bg-landing-hack-info-bg">
+    <div className="bg-landing-hack-info-bg w-full">
       <div
-        className="h-[286px]"
+        className="h-[286px] w-full"
         style={{
           backgroundImage: `url('/images/landing/hack_quest_info_bg.png')`,
-          backgroundSize: '1440px 100%',
+          backgroundSize: '100% auto',
           backgroundRepeat: 'repeat'
         }}
       ></div>
@@ -113,7 +113,7 @@ export const TopInfo: FC = () => {
           />
         </div>
       </div>
-      <div className="container pt-[80px] pb-[47px] bg-landing-card-bg mt-[150px] rounded-[5rem] flex-col-center">
+      <div className="container pt-[80px] mx-auto pb-[47px] bg-landing-card-bg mt-[150px] rounded-[5rem] flex-col-center">
         <h1 className="text-text-default-color text-center font-next-poster-Bold text-[54px] tracking-[3.24px]">
           What is HackQuest?
         </h1>

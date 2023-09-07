@@ -34,9 +34,7 @@ const LessonList: React.FC<LessonListType> = ({
   const handleUnit = (item: CourseLessonStateType) => {
     if (item.disable) return;
     router.push(
-      `/v2/${getCourseLink(courseType)}/${router.query.courseId}/learn/${
-        item.id
-      }`
+      `/${getCourseLink(courseType)}/${router.query.courseId}/learn/${item.id}`
     );
   };
 

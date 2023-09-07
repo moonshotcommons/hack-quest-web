@@ -18,7 +18,7 @@ export type AnnotationType = {
 
 const getTextClassNames = (annotations: AnnotationType) => {
   const className = cn(
-    `py-[0.4rem] leading-[100%]`,
+    `py-1`,
     annotations.bold ? 'font-bold' : '',
     annotations.code
       ? 'px-[0.2rem] text-[85%] text-[#eb5757] bg-renderer-code-bg mx-[0.25rem]'
@@ -41,7 +41,7 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
   const { richTextArr, fontSize = '14px' } = props;
 
   return (
-    <div className="">
+    <>
       {richTextArr.map((richText: any, index: number) => {
         const annotations = richText.annotations;
         const className = getTextClassNames(annotations);
@@ -68,7 +68,7 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
               target="_blank"
               key={index}
               href={richText.href}
-              className={`${className} py-[0.4rem] underline`}
+              className={`${className} py-1 underline`}
               style={{
                 fontSize,
                 color:
@@ -103,7 +103,7 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
         return (
           <span
             key={index}
-            className={`${className} rounded-md`}
+            className={`${className} rounded-md leading-[200%]`}
             style={{
               fontSize,
               color:
@@ -122,7 +122,7 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
           </span>
         );
       })}
-    </div>
+    </>
   );
 };
 

@@ -47,7 +47,7 @@ const UserDropCard: FC<UserDropCardProps> = (props) => {
   const router = useRouter();
   const signOut = () => {
     dispatch(userSignOut());
-    router.push('/v2');
+    router.push('/');
   };
 
   return (
