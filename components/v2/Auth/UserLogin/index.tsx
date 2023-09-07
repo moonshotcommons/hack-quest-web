@@ -66,7 +66,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
             setToken(res.token);
             const toPageUrl = redirect_url
               ? `${redirect_url}?token=${res.token}`
-              : '/v2/home';
+              : '/home';
             router.push(toPageUrl);
           } catch (e: any) {
             console.log(e);

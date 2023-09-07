@@ -1,13 +1,12 @@
-import Layout, { LayoutProps } from '@/components/Layout';
+import Layout, { LayoutProps } from '@/components/v2/Layout';
 import ThemeContextProvider from '@/store/context/theme';
-import { Analytics } from '@vercel/analytics/react';
 import '@/styles/globals.css';
 
 import type { AppContext, AppProps } from 'next/app';
 import App from 'next/app';
 
-import { Provider } from 'react-redux';
 import wrapper from '@/store/redux';
+import { Provider } from 'react-redux';
 function MyApp(appProps: AppProps & Omit<LayoutProps, 'pathname'>) {
   const { Component, router, navbarData, ...rest } = appProps;
   const { store, props } = wrapper.useWrappedStore(rest);

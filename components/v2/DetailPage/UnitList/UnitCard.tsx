@@ -172,7 +172,7 @@ const UnitCard: FC<UnitCardProps> = (props) => {
               );
               const lessonId = unitPages.pages[0]?.id;
               router.replace(
-                `/v2/${getCourseLink(courseType)}/${
+                `/${getCourseLink(courseType)}/${
                   courseDetail?.name
                 }/learn/${lessonId}`
               );
