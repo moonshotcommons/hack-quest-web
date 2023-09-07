@@ -156,7 +156,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
 
   const goLearningTrackDetail = (e: any) => {
     if (isLandingPage) return;
-    router.push(`/v2/learning-track/${learningTrack.id}`);
+    router.push(`/learning-track/${learningTrack.id}`);
   };
   return (
     <div

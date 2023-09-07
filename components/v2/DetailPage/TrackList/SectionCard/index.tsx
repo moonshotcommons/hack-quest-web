@@ -146,7 +146,7 @@ function SectionList(props: {
             </div>
             <div
               className="text-learning-track-course-title-color font-next-book-bold leading-[120%] w-[36%] ml-[10%] flex-1 cursor-pointer hover:opacity-70 transition"
-              onClick={(e) => router.push(`/v2/electives/${item.id}`)}
+              onClick={(e) => router.push(`/electives/${item.id}`)}
             >
               {item.name}
             </div>

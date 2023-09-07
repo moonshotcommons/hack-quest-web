@@ -46,7 +46,7 @@ const CourseCard: FC<CourseCardProps> = (props) => {
         borderColor[course.type as any]
       )}
       onClick={() => {
-        router.push(`/v2/electives/${course.id}`);
+        router.push(`/electives/${course.id}`);
       }}
     >
       {(inProgress || inCompleted) && (
@@ -144,7 +144,7 @@ const CourseCard: FC<CourseCardProps> = (props) => {
             className="border border-[#000] rounded-[32px] px-0 py-[12px] flex text-[16px] font-next-book tracking-[0.32] leading-[125%]"
             block
             onClick={() => {
-              router.push(`/v2/electives/${course.id}`);
+              router.push(`/electives/${course.id}`);
             }}
           >
             View Syllabus
