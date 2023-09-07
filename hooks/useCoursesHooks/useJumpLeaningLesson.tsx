@@ -1,11 +1,14 @@
 import { getLessonLink, getV2LessonLink } from '@/helper/utils';
 import webApi from '@/service';
 import { CourseDetailType, CourseResponse } from '@/service/webApi/course/type';
+import { UnLoginType, setUnLoginType } from '@/store/redux/modules/user';
 import { useRequest } from 'ahooks';
 import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
 
 export const useJumpLeaningLesson = (isV2: boolean = false) => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const { run } = useRequest(
     async (courseDetail: CourseDetailType | CourseResponse) => {
       const lesson = await webApi.courseApi.getLearningLessonId(
@@ -36,6 +39,7 @@ export const useJumpLeaningLesson = (isV2: boolean = false) => {
       },
       onError(err: any) {
         if (err.code === 401) {
+          dispatch(setUnLoginType(UnLoginType.LOGIN));
           router.push('/');
         }
       }
