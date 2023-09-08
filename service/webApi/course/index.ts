@@ -1,14 +1,12 @@
 import WebService from '@/service/webService/webService';
 import {
+  CourseDataType,
   CourseDetailType,
   CourseLessonStateType,
   CourseLessonType,
-  CourseResponse,
   CourseUnitStateType,
   CourseUnitType,
-  UnitPagesListType,
-  ProcessType,
-  CourseDataType
+  UnitPagesListType
 } from './type';
 
 export enum CourseApiType {
@@ -100,6 +98,13 @@ class CourseApi {
     const url = `${CourseApiType.LessonDetail}/${lessonId}/quest`;
     return this.service.post(url, {
       data: { isWin }
+    });
+  }
+
+  completeQuiz(lessonId: string, quizIndex: number) {
+    const url = `${CourseApiType.LessonDetail}/${lessonId}/quiz`;
+    return this.service.post(url, {
+      data: { index: quizIndex, isCompleted: true }
     });
   }
 }

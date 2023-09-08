@@ -12,8 +12,6 @@ export const LessonContentContext = createContext<{
   changeExpandData: (data: ExpandDataType[], index: number) => void;
 }>({} as any);
 interface LessonContentProps {
-  // children: ReactNode
-
   lesson: Omit<CourseLessonType, 'content'> & { content: LessonContent };
   isPreview?: boolean;
   courseType: CourseType;

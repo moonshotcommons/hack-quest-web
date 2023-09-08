@@ -1,8 +1,7 @@
-import { FC, ReactNode, useRef } from 'react';
-import { QuizType } from '../../../type';
 import { cn } from '@/helper/utils';
+import { FC } from 'react';
 import { BsCheckCircleFill } from 'react-icons/bs';
-import { useClickAway } from 'ahooks';
+import { QuizType } from '../../../type';
 interface QuizDropdownProps {
   quiz: QuizType;
   onChange?: (index: number) => void;
@@ -19,11 +18,16 @@ const QuizDropdown: FC<QuizDropdownProps> = (props) => {
           return (
             <div
               key={quizChild.id}
-              onClick={() => onChange?.(index)}
+              onClick={() => {
+                quizChild.isCompleted && onChange?.(index);
+              }}
               className={cn(
                 `px-[20px] py-[8px] text-[14px] bg-white tracking-[0.28px] leading-[125%] font-next-book cursor-pointer flex items-center gap-[20px] hover:bg-[#F4F4F4]`,
                 index === quiz.children.length - 1 && 'rounded-b-lg',
-                currentQuizIndex === index && 'bg-[#F4F4F4]'
+                currentQuizIndex === index && 'bg-[#F4F4F4]',
+                !quizChild.isCompleted && currentQuizIndex !== index
+                  ? 'cursor-not-allowed'
+                  : ''
               )}
             >
               <span>
@@ -33,7 +37,7 @@ const QuizDropdown: FC<QuizDropdownProps> = (props) => {
               </span>
               <BsCheckCircleFill
                 size={20}
-                color={`${'#E6E6E6'}`}
+                color={`${quizChild.isCompleted ? '#00C365' : '#E6E6E6'}`}
               ></BsCheckCircleFill>
             </div>
           );

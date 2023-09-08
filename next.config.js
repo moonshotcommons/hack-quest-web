@@ -12,6 +12,7 @@ const nextConfig = (phase) => {
         process.env.BACKEND_BASE_URL || 'https://api.dev.hackquest.io/v1/',
       IS_DEV: isDev
     },
+    assetPrefix: isDev ? '' : 'https://api.meathill.com',
     modifyVars: {
       '@primary-color': '#000000',
       '@link-color': '#676767',
