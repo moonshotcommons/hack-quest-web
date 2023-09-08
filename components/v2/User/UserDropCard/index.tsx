@@ -51,7 +51,7 @@ const UserDropCard: FC<UserDropCardProps> = (props) => {
   };
 
   return (
-    <div className="w-[25.875rem] relative p-[2.5rem] pb-0 bg-setting-drop-card-bg font-next-book box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.15);   rounded-[10px]">
+    <div className="w-[25.875rem] relative p-[2.5rem] pb-10 bg-setting-drop-card-bg font-next-book box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.15);   rounded-[10px]">
       <AiFillCaretUp
         size={40}
         className="absolute -top-[27px] right-[10px] text-setting-drop-card-bg"

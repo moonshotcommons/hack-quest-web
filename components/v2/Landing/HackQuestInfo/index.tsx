@@ -153,12 +153,12 @@ export const CenterInfo: FC = () => {
       title: 'Personalized Learning Experience',
       description: `Customize your Web3 learning experience by choosing among extended, standard, or concise modes for each learning quest based on your skill level. HackQuest is built for learners of all levels!`,
       image: theme === Theme.Dark ? DrakHackquest_info4 : LightHackquest_info4
-    },
-    {
-      title: 'Concept learning made interactive',
-      description: `Reimagine lengthy and jargon-packed blog posts with HackQuest concept learning. Chat with Vitalik and explore Blockchain concepts like ledger, hash, and node in a fun, interactive, and quirky way.`,
-      image: theme === Theme.Dark ? DrakHackquest_info5 : LightHackquest_info5
     }
+    // {
+    //   title: 'Concept learning made interactive',
+    //   description: `Reimagine lengthy and jargon-packed blog posts with HackQuest concept learning. Chat with Vitalik and explore Blockchain concepts like ledger, hash, and node in a fun, interactive, and quirky way.`,
+    //   image: theme === Theme.Dark ? DrakHackquest_info5 : LightHackquest_info5
+    // }
   ];
 
   return (
