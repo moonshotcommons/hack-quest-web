@@ -70,7 +70,7 @@ export const useGotoNextLesson = (
           QueryIdType.MENU_COURSE_ID,
           QueryIdType.LESSON_ID
         ],
-        ids: [learningTrackId, menuCourseId, nextLesson?.id]
+        ids: [learningTrackId || '', menuCourseId, nextLesson?.id]
       }
     );
     router.push(link);

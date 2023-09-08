@@ -16,7 +16,7 @@ const Breadcrumb: React.FC = () => {
   const [navData, setNavData] = useState<navDataProps[]>([]);
   const getLearningTrackDetail = (id: string) => {
     return new Promise(async (resolve) => {
-      if (!!id) {
+      if (id) {
         const res =
           await webApi.learningTrackApi.getLearningTrackDetailAndCourses(id);
         resolve(res);
@@ -77,7 +77,6 @@ const Breadcrumb: React.FC = () => {
           }
         })
         .filter((v) => v.label);
-      console.info(newNavData);
       setNavData([menuNavData, ...newNavData]);
     });
   }, [router]);

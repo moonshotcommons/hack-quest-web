@@ -54,10 +54,6 @@ const LessonList: React.FC<LessonListType> = ({
         ids: [learningTrackId || '', menuCourseId, item?.id as string]
       }
     );
-    console.info(link);
-    console.info(
-      `${getCourseLink(courseType)}/${router.query.courseId}/learn/${item.id}`
-    );
     router.push(link);
   };
 
