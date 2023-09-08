@@ -1,37 +1,28 @@
-import RightIcon from '@/components/Common/Icon/Right';
-import SkipIcon from '@/components/Common/Icon/Skip';
-import Image from 'next/image';
-import Link from 'next/link';
-import DarkButtonDeg from '@/public/images/home/dark-button_deg.svg';
-import LightButtonDeg from '@/public/images/home/light-button_deg.svg';
-import TeaserInfo from '@/public/images/home/teaser_info.png';
-import { FC, ReactNode, useContext, useMemo } from 'react';
+import Button from '@/components/Common/Button';
 import RightBottomIcon from '@/components/Common/Icon/RightBottom';
-import {
-  CourseType,
-  LearningTrackCourseType
-} from '@/service/webApi/course/type';
+import LearningTracksCard from '@/components/v2/LearningTrackCard';
+import { Theme } from '@/constants/enum';
+import { useGetUserInfo } from '@/hooks/useGetUserInfo';
+import { useGetLearningTracks } from '@/hooks/useLearningTrackHooks/useLearningTracks';
 import DrakHackquest_info1 from '@/public/images/home/dark-hackquest_info1.png';
-import DrakHackquest_info2 from '@/public/images/home/dark-hackquest_info2.png';
 import DrakHackquest_info3 from '@/public/images/home/dark-hackquest_info3.png';
 import DrakHackquest_info4 from '@/public/images/home/dark-hackquest_info4.png';
 import DrakHackquest_info5 from '@/public/images/home/dark-hackquest_info5.png';
+import LightButtonDeg from '@/public/images/home/light-button_deg.svg';
+import CenterLogo from '@/public/images/home/light-center-logo.png';
 import LightHackquest_info1 from '@/public/images/home/light-hackquest_info1.png';
-import LightHackquest_info2 from '@/public/images/home/light-hackquest_info2.png';
 import LightHackquest_info3 from '@/public/images/home/light-hackquest_info3.png';
 import LightHackquest_info4 from '@/public/images/home/light-hackquest_info4.png';
 import LightHackquest_info5 from '@/public/images/home/light-hackquest_info5.png';
-import HackQuestInfoBg from '@/public/images/landing/hack_quest_info_bg.png';
-import { useGetUserInfo } from '@/hooks/useGetUserInfo';
-import Button from '@/components/Common/Button';
+import TeaserInfo from '@/public/images/home/teaser_info.png';
+import HackquestInfoBg from '@/public/images/landing/hack_quest_info_bg.png';
+import { LearningTrackCourseType } from '@/service/webApi/course/type';
 import { ThemeContext } from '@/store/context/theme';
-import { Theme } from '@/constants/enum';
-import { useGetLearningTracks } from '@/hooks/useLearningTrackHooks/useLearningTracks';
-import LearningTracksCard from '@/components/v2/LearningTrackCard';
-import { AiOutlineRight } from 'react-icons/ai';
-import CenterLogo from '@/public/images/home/light-center-logo.png';
 import { message } from 'antd';
-// import {h}
+import Image from 'next/image';
+import { FC, useContext, useMemo } from 'react';
+import { AiOutlineRight } from 'react-icons/ai';
+
 interface HackQuestInfoProps {
   // children: ReactNode;
 }
@@ -88,7 +79,7 @@ export const TopInfo: FC = () => {
       <div
         className="h-[286px] w-full"
         style={{
-          backgroundImage: `url('/images/landing/hack_quest_info_bg.png')`,
+          backgroundImage: `url(${HackquestInfoBg.src})`,
           backgroundSize: '100% auto',
           backgroundRepeat: 'repeat'
         }}
