@@ -1,10 +1,12 @@
 import Auth from '@/components/v2/Auth';
 import { useGetUserInfo, useGetUserUnLoginType } from '@/hooks/useGetUserInfo';
 import Astronaut from '@/public/images/landing/astronaut.png';
+import BannerBg from '@/public/images/landing/banner_bg.png';
 import Image from 'next/image';
 import { FC } from 'react';
 interface HomeBannerProps {}
 
+console.log(BannerBg);
 const HomeBanner: FC<HomeBannerProps> = (props) => {
   const userInfo = useGetUserInfo();
   const unLoginType = useGetUserUnLoginType();
@@ -13,7 +15,7 @@ const HomeBanner: FC<HomeBannerProps> = (props) => {
     <div
       className="h-[850px] flex justify-center w-full pt-[214px]"
       style={{
-        backgroundImage: `url('/images/landing/banner_bg.png')`,
+        backgroundImage: `url(${BannerBg.src})`,
         backgroundSize: '100% auto',
         // backgroundRepeat: 'repeat'
         backgroundPosition: 'center'
