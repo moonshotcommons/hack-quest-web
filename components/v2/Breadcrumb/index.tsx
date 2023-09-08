@@ -77,7 +77,6 @@ const Breadcrumb: React.FC = () => {
           }
         })
         .filter((v) => v.label);
-      console.info(newNavData);
       setNavData([menuNavData, ...newNavData]);
     });
   }, [router]);
@@ -115,7 +114,7 @@ const Breadcrumb: React.FC = () => {
     }
   };
   return navData.length === 1 ? null : (
-    <div className="text-[14px] text-lesson-preview-color flex py-5">
+    <div className="text-[14px] text-lesson-preview-color flex h-[50px] items-center ">
       {navData?.map((nav: navDataProps, i: number) => renderNav(nav, i))}
     </div>
   );

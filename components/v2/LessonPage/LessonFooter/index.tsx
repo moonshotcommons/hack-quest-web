@@ -25,7 +25,7 @@ const LessonFooter: React.FC<LessonFooterProps> = ({ lesson, onNextClick }) => {
     refreshNavList();
   }, [lesson]);
   return (
-    <div className="fixed flex-center w-full h-20 left-0 bottom-0 bg-lesson-footer-bg">
+    <div className="fixed flex-center w-full h-[50px] left-0 bottom-0 bg-lesson-footer-bg">
       <div className="w-[calc(100%-380px)] flex-center overflow-auto">
         {unitNavList.map((item, i) => (
           <div
@@ -47,16 +47,18 @@ const LessonFooter: React.FC<LessonFooterProps> = ({ lesson, onNextClick }) => {
           </div>
         ))}
       </div>
-      <Button
-        type="primary"
-        disabled={!isHandleNext}
-        className={`fixed bottom-[18px] right-10 w-[140px] h-11 bg-lesson-primary-button-bg text-lesson-primary-button-text-color ${
-          !isHandleNext && 'opacity-40 cursor-not-allowed'
-        }`}
-        onClick={handleNext}
-      >
-        Next
-      </Button>
+      <div className="h-[50px] flex items-center fixed right-10 bottom-0">
+        <Button
+          type="primary"
+          disabled={!isHandleNext}
+          className={`w-[140px] h-[40px] bg-lesson-primary-button-bg text-lesson-primary-button-text-color ${
+            !isHandleNext && 'opacity-40 cursor-not-allowed'
+          }`}
+          onClick={handleNext}
+        >
+          Next
+        </Button>
+      </div>
     </div>
   );
 };

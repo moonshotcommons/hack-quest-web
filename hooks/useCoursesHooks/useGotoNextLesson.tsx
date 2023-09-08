@@ -1,3 +1,4 @@
+import { QueryIdType } from '@/components/v2/Breadcrumb/type';
 import { getLessonLink, getV2LessonLink } from '@/helper/utils';
 import webApi from '@/service';
 import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
@@ -52,18 +53,27 @@ export const useGotoNextLesson = (
     } else {
       nextLesson = unitsLessonsList[currentUnitIndex + 1].pages[0];
     }
-    // router.push(
-    //   `${getCourseLink(courseType)}/${courseId}/learn/${nextLesson?.id}`
-    // );
-
-    if (isV2) {
-      router.push(
-        getV2LessonLink(courseType, courseId as string, nextLesson?.id!)
-      );
-      return;
-    }
-
-    router.push(getLessonLink(courseType, courseId as string, nextLesson?.id!));
+    const menu = router.query.menu;
+    const learningTrackId = router.query[
+      QueryIdType.LEARNING_TRACK_ID
+    ] as string;
+    const menuCourseId = router.query[QueryIdType.MENU_COURSE_ID] as string;
+    const link = getLessonLink(
+      courseType,
+      courseId as string,
+      nextLesson?.id!,
+      menuCourseId as string,
+      {
+        menu: menu as string,
+        idTypes: [
+          QueryIdType.LEARNING_TRACK_ID,
+          QueryIdType.MENU_COURSE_ID,
+          QueryIdType.LESSON_ID
+        ],
+        ids: [learningTrackId || '', menuCourseId, nextLesson?.id]
+      }
+    );
+    router.push(link);
   });
 
   return { onNextClick, completeModalOpen, setCompleteModalOpen };
@@ -112,13 +122,27 @@ export const useBackToPrevLesson = (
       prevLesson = prevUnit.pages.at(-1);
     }
 
-    if (isV2) {
-      router.push(
-        getV2LessonLink(courseType, courseId as string, prevLesson?.id!)
-      );
-      return;
-    }
-    router.push(getLessonLink(courseType, courseId as string, prevLesson?.id!));
+    const menu = router.query.menu;
+    const learningTrackId = router.query[
+      QueryIdType.LEARNING_TRACK_ID
+    ] as string;
+    const menuCourseId = router.query[QueryIdType.MENU_COURSE_ID] as string;
+    const link = getLessonLink(
+      courseType,
+      courseId as string,
+      prevLesson?.id!,
+      menuCourseId as string,
+      {
+        menu: menu as string,
+        idTypes: [
+          QueryIdType.LEARNING_TRACK_ID,
+          QueryIdType.MENU_COURSE_ID,
+          QueryIdType.LESSON_ID
+        ],
+        ids: [learningTrackId, menuCourseId, prevLesson?.id as string]
+      }
+    );
+    router.push(link);
   });
 
   return { onBackClick, isFirst };
