@@ -3,9 +3,9 @@ import { FC, ReactNode, useState } from 'react';
 import Button from '@/components/Common/Button';
 import RightArrowIcon from '@/components/Common/Icon/RightArrow';
 import Input from '@/components/v2/Common/Input';
+import va from '@vercel/analytics';
 import { useDebounceFn, useKeyPress } from 'ahooks';
 import Schema from 'async-validator';
-
 interface VerifyEmailProps {
   onStatusChange: (status: boolean) => void;
   onNext: (email: string) => void;
@@ -34,6 +34,8 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
 
   const { run: verifyEmail } = useDebounceFn(
     () => {
+      va.track('邮箱验证next');
+
       validator.validate(formData, (errors, fields) => {
         if (errors?.[0]) {
           setStatus('error');
