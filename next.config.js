@@ -13,9 +13,9 @@ const nextConfig = (phase) => {
       IS_DEV: isDev
     },
     assetPrefix:
-      isDev || !process.env.ASSET_PREFIX_FOR_CHINA
+      isDev || !process.env.NEXT_PUBLIC_ASSET_PREFIX_FOR_CHINA
         ? ''
-        : process.env.ASSET_PREFIX_FOR_CHINA,
+        : process.env.NEXT_PUBLIC_ASSET_PREFIX_FOR_CHINA,
     modifyVars: {
       '@primary-color': '#000000',
       '@link-color': '#676767',
