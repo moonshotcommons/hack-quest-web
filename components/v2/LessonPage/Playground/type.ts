@@ -4,6 +4,7 @@ import { LessonContent } from '../type';
 
 export type LessonType = Omit<CourseLessonType, 'content'> & {
   content: LessonContent;
+  completedQuiz: number[];
 };
 interface PlaygroundContextType {
   lesson: LessonType;

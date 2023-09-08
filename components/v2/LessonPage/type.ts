@@ -65,6 +65,7 @@ export interface CustomComponent {
   isCustomType: boolean;
   isToggle: boolean;
   title: string;
+  isCompleted?: boolean;
 }
 
 export interface NotionComponent {
@@ -74,6 +75,7 @@ export interface NotionComponent {
   content: any;
   isCustomType: boolean;
   isToggle: boolean;
+  isCompleted?: boolean;
 }
 
 export interface QuizType extends CustomComponent {

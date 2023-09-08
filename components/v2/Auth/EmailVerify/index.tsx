@@ -54,8 +54,8 @@ const EmailVerify: FC<EmailVerifyProps> = (props) => {
           {/* <Image src={Logo} alt="logo" width={191} className="mt-[2rem]"></Image> */}
         </div>
 
-        {/* <Button
-          // onClick={onLogin}
+        <Button
+          onClick={backButtonParams.handle}
           block
           className="
           font-next-book
@@ -65,10 +65,10 @@ const EmailVerify: FC<EmailVerifyProps> = (props) => {
           border-auth-primary-button-border-color hover:border-auth-primary-button-border-hover-color
           "
         >
-          Resend Link
-        </Button> */}
+          {backButtonParams.text}
+        </Button>
 
-        <Button
+        {/* <Button
           onClick={backButtonParams.handle}
           block
           className="
@@ -81,7 +81,7 @@ const EmailVerify: FC<EmailVerifyProps> = (props) => {
     "
         >
           {backButtonParams.text}
-        </Button>
+        </Button> */}
       </div>
     </div>
   );
