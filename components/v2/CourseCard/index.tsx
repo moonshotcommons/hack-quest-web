@@ -40,6 +40,7 @@ const CourseCard: FC<CourseCardProps> = (props) => {
   const { course, inProgress = false, inCompleted = false } = props;
   const jumpLearningLesson = useJumpLeaningLesson();
   const router = useRouter();
+
   return (
     <div
       className={cn(
@@ -100,7 +101,11 @@ const CourseCard: FC<CourseCardProps> = (props) => {
       <div className="h-[148px] w-[265px] flex items-center justify-center">
         <div className="h-[87px] relative  w-[150px]">
           <Image
-            src={`${process.env.ASSET_PREFIX_FOR_CHINA}/images/v2/course/course_cover/${course.type}.svg`}
+            src={`${
+              process.env.NODE_ENV === 'development'
+                ? ''
+                : process.env.ASSET_PREFIX_FOR_CHINA
+            }/images/v2/course/course_cover/${course.type}.svg`}
             fill
             alt="course"
             className="object-contain"

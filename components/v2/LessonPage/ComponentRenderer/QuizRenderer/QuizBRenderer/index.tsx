@@ -190,7 +190,8 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
       <QuizFooter
         showAnswer={showAnswer}
         submitDisable={
-          !!Object.keys(answers).find((key) => !answers[key].option)
+          !!Object.keys(answers).find((key) => !answers[key].option) ||
+          showAnswer
         }
         setShowAnswer={(isShow) => setShowAnswer(isShow)}
         onSubmit={onSubmit}
