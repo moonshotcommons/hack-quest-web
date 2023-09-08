@@ -18,7 +18,11 @@ const User: FC<UserProps> = (props) => {
   const unLoginType = useGetUserUnLoginType();
   const dispatch = useDispatch();
   useEffect(() => {
-    if (userInfo) setIsLogin(true);
+    if (userInfo) {
+      setIsLogin(true);
+    } else {
+      setIsLogin(false);
+    }
   }, [userInfo]);
 
   return (
