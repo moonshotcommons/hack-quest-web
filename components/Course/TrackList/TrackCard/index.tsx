@@ -161,7 +161,7 @@ const TrackCard: FC<TrackCardProps> = (props) => {
                     className="px-8 text-course-learning-button-text-color py-[0.875rem] font-next-book bg-course-learning-button-bg border border-solid text-[0.625rem] border-course-learning-button-border-color rounded-[2.5rem] whitespace-nowrap leading-[120%]  primary-button-hover cursor-pointer"
                     onClick={(e) => {
                       e.stopPropagation();
-                      // jumpLearningLesson(item);
+                      jumpLearningLesson(item);
                     }}
                   >
                     {item.progress > 0 ? 'Resume Learning' : 'Start Learning'}

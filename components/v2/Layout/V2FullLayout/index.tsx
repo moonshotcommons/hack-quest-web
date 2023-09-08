@@ -28,9 +28,6 @@ const V2FullLayout: React.FC<V2FullLayoutProps> = ({
       </div>
       <div className="m-auto">
         <div className="w-full pt-[64px]">
-          <div className="px-5">
-            <Breadcrumb />
-          </div>
           <main className="w-full">{children}</main>
         </div>
       </div>

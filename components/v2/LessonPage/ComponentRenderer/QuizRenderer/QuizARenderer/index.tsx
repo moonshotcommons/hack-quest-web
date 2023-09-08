@@ -21,7 +21,6 @@ interface QuizARendererProps {
 const QuizARenderer: FC<QuizARendererProps> = (props) => {
   const { quiz } = props;
   const [showAnswer, setShowAnswer] = useState(false);
-  const [isCompleted, setIsCompleted] = useState(false);
   const [submitDisable, setSubmitDisable] = useState(true);
   const { lesson } = useContext(PlaygroundContext);
   const { onPass } = useContext(QuizContext);
@@ -62,7 +61,7 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
     });
   };
   const setAnswers = () => {
-    if (isCompleted) return;
+    if (quiz.isCompleted) return;
     const show = !showAnswer;
     dealInputValue(show);
     setShowAnswer(show);
@@ -96,9 +95,7 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
 
   // 是否自动填充
   const initCompleteInput = () => {
-    const completed = false;
-    setIsCompleted(completed);
-    if (!completed) return;
+    if (!quiz.isCompleted) return;
     let inputEle: HTMLTextAreaElement | HTMLInputElement;
     answerState.map((line) => {
       if (line.answers?.length) {
@@ -134,10 +131,10 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
   };
   useEffect(() => {
     setSubmitDisable(getSubmitDisable());
-    initCompleteInput();
     dealInputValue(false);
+    initCompleteInput();
     setShowAnswer(false);
-  }, [answerState]);
+  }, [answerState, quiz]);
 
   useEffect(() => {
     if (showAnswer) setSubmitDisable(true);

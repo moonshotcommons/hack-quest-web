@@ -1,3 +1,5 @@
+import { MenuLink, QueryIdType } from '@/components/v2/Breadcrumb/type';
+import { JumpLeaningLessonType } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
 import { CourseType } from '@/service/webApi/course/type';
 
 import { clsx, type ClassValue } from 'clsx';
@@ -30,10 +32,23 @@ export const getCourseLink = (courseType?: CourseType) => {
 export const getLessonLink = (
   courseType: CourseType,
   courseName: string,
-  lessonId: string
+  lessonId: string,
+  menuCourseId: string,
+  linkParam?: JumpLeaningLessonType
 ) => {
   if (!courseType || !courseName || !lessonId) return '/404';
-  return `${getCourseLink(courseType)}/${courseName}/learn/${lessonId}`;
+  const lParam = linkParam || {
+    menu: MenuLink.ELECTIVES,
+    idTypes: [QueryIdType.MENU_COURSE_ID],
+    ids: [menuCourseId]
+  };
+  let link = `${getCourseLink(
+    courseType
+  )}/${courseName}/learn/${lessonId}?menu=${lParam.menu}`;
+  lParam.idTypes.map((v: string, i: number) => {
+    link += `&${v}=${lParam.ids[i]}`;
+  });
+  return link;
 };
 
 export const getV2LessonLink = (
