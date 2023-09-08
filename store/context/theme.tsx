@@ -1,5 +1,5 @@
-import { FC, ReactNode, createContext, useEffect, useState } from 'react';
 import { Theme } from '@/constants/enum';
+import { FC, ReactNode, createContext, useEffect, useState } from 'react';
 interface ThemeContextProps {
   theme: Theme;
   setTheme: (theme: Theme) => void;
@@ -10,12 +10,13 @@ export const ThemeContext = createContext({} as ThemeContextProps);
 const ThemeContextProvider: FC<{ children: ReactNode }> = (props) => {
   const { children } = props;
 
-  const [theme, setTheme] = useState<Theme>(
-    () =>
-      (typeof window === 'object' &&
-        (localStorage?.getItem('theme') as Theme)) ||
-      Theme.Light
-  );
+  // const [theme, setTheme] = useState<Theme>(
+  //   () =>
+  //     (typeof window === 'object' &&
+  //       (localStorage?.getItem('theme') as Theme)) ||
+  //     Theme.Light
+  // );
+  const [theme, setTheme] = useState<Theme>(Theme.Light);
   useEffect(() => {
     const checkTheme = () => {
       // const cacheTheme =
