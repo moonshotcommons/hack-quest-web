@@ -1,5 +1,5 @@
 import { QueryIdType } from '@/components/v2/Breadcrumb/type';
-import { getLessonLink, getV2LessonLink } from '@/helper/utils';
+import { getLessonLink } from '@/helper/utils';
 import webApi from '@/service';
 import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
 import { AppRootState } from '@/store/redux';
@@ -8,6 +8,7 @@ import { message } from 'antd';
 import { useRouter } from 'next/router';
 import { useMemo, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
+import { useGetLessonLink } from './useGetLessonLink';
 
 export const useGotoNextLesson = (
   lesson: CourseLessonType,
@@ -17,6 +18,7 @@ export const useGotoNextLesson = (
 ) => {
   const router = useRouter();
   const [completeModalOpen, setCompleteModalOpen] = useState(false);
+  const { getLink } = useGetLessonLink();
   const { unitsLessonsList } = useSelector((state: AppRootState) => {
     return {
       unitsLessonsList: state.course.unitsLessonsList
@@ -53,26 +55,7 @@ export const useGotoNextLesson = (
     } else {
       nextLesson = unitsLessonsList[currentUnitIndex + 1].pages[0];
     }
-    const menu = router.query.menu;
-    const learningTrackId = router.query[
-      QueryIdType.LEARNING_TRACK_ID
-    ] as string;
-    const menuCourseId = router.query[QueryIdType.MENU_COURSE_ID] as string;
-    const link = getLessonLink(
-      courseType,
-      courseId as string,
-      nextLesson?.id!,
-      menuCourseId as string,
-      {
-        menu: menu as string,
-        idTypes: [
-          QueryIdType.LEARNING_TRACK_ID,
-          QueryIdType.MENU_COURSE_ID,
-          QueryIdType.LESSON_ID
-        ],
-        ids: [learningTrackId || '', menuCourseId, nextLesson?.id]
-      }
-    );
+    const link = getLink(courseType, nextLesson?.id as string);
     router.push(link);
   });
 
@@ -85,7 +68,7 @@ export const useBackToPrevLesson = (
   isV2 = false
 ) => {
   const router = useRouter();
-
+  const { getLink } = useGetLessonLink();
   const { unitsLessonsList } = useSelector((state: AppRootState) => {
     return {
       unitsLessonsList: state.course.unitsLessonsList
@@ -122,26 +105,7 @@ export const useBackToPrevLesson = (
       prevLesson = prevUnit.pages.at(-1);
     }
 
-    const menu = router.query.menu;
-    const learningTrackId = router.query[
-      QueryIdType.LEARNING_TRACK_ID
-    ] as string;
-    const menuCourseId = router.query[QueryIdType.MENU_COURSE_ID] as string;
-    const link = getLessonLink(
-      courseType,
-      courseId as string,
-      prevLesson?.id!,
-      menuCourseId as string,
-      {
-        menu: menu as string,
-        idTypes: [
-          QueryIdType.LEARNING_TRACK_ID,
-          QueryIdType.MENU_COURSE_ID,
-          QueryIdType.LESSON_ID
-        ],
-        ids: [learningTrackId, menuCourseId, prevLesson?.id as string]
-      }
-    );
+    const link = getLink(courseType, prevLesson?.id as string);
     router.push(link);
   });
 

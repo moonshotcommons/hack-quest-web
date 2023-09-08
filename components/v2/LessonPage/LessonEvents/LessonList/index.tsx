@@ -1,5 +1,6 @@
 import { QueryIdType } from '@/components/v2/Breadcrumb/type';
 import { getCourseLink, getLessonLink } from '@/helper/utils';
+import { useGetLessonLink } from '@/hooks/useCoursesHooks/useGetLessonLink';
 import ArrowLeft from '@/public/images/lesson/arrow_left_line.svg';
 import Complete from '@/public/images/lesson/complete.svg';
 import CompleteActive from '@/public/images/lesson/complete_active.svg';
@@ -26,6 +27,7 @@ const LessonList: React.FC<LessonListType> = ({
   const [lessonList, setLessonList] = useState<CourseLessonStateType[]>([]);
   const [unitName, setUnitName] = useState('');
   const router = useRouter();
+  const { getLink } = useGetLessonLink();
   const getChildren = (item: UnitPagesListType) => {
     if (item.disable) return;
     setLessonList(item.pages as CourseLessonStateType[]);
@@ -34,26 +36,7 @@ const LessonList: React.FC<LessonListType> = ({
 
   const handleUnit = (item: CourseLessonStateType) => {
     if (item.disable) return;
-    const menu = router.query.menu;
-    const learningTrackId = router.query[
-      QueryIdType.LEARNING_TRACK_ID
-    ] as string;
-    const menuCourseId = router.query[QueryIdType.MENU_COURSE_ID] as string;
-    const link = getLessonLink(
-      courseType,
-      router.query.courseId as string,
-      item.id!,
-      menuCourseId as string,
-      {
-        menu: menu as string,
-        idTypes: [
-          QueryIdType.LEARNING_TRACK_ID,
-          QueryIdType.MENU_COURSE_ID,
-          QueryIdType.LESSON_ID
-        ],
-        ids: [learningTrackId || '', menuCourseId, item?.id as string]
-      }
-    );
+    const link = getLink(courseType, item?.id as string);
     router.push(link);
   };
 

@@ -19,6 +19,8 @@ import { getCourseLink, getLessonLink } from '@/helper/utils';
 import { useDebounceEffect, useDebounceFn } from 'ahooks';
 import { ThemeContext } from '@/store/context/theme';
 import { Theme } from '@/constants/enum';
+import { QueryIdType } from '@/components/v2/Breadcrumb/type';
+import { useGetLessonLink } from '@/hooks/useCoursesHooks/useGetLessonLink';
 interface LessonPassPageProps {
   lesson: CourseLessonType;
   courseType: CourseType;
@@ -43,6 +45,7 @@ const LessonPassPage: FC<LessonPassPageProps> = (props) => {
   const { lesson, courseType, isLastLesson } = props;
   const router = useRouter();
   const { theme } = useContext(ThemeContext);
+  const { getLink } = useGetLessonLink();
   const { unitsLessonsList } = useSelector((state: AppRootState) => {
     return {
       unitsLessonsList: state.course.unitsLessonsList
@@ -72,10 +75,9 @@ const LessonPassPage: FC<LessonPassPageProps> = (props) => {
     } else {
       nextLesson = unitsLessonsList[currentUnitIndex + 1].pages[0];
     }
-    // router.push(
-    //   `${getCourseLink(courseType)}/${courseId}/learn/${nextLesson?.id}`
-    // );
-    router.push(getLessonLink(courseType, courseId as string, nextLesson?.id!));
+
+    const link = getLink(courseType, nextLesson?.id as string);
+    router.push(link);
   });
 
   return (

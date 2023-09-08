@@ -1,4 +1,4 @@
-import { getLessonLink, getV2LessonLink } from '@/helper/utils';
+import { getLessonLink } from '@/helper/utils';
 import webApi from '@/service';
 import { CourseDetailType, CourseResponse } from '@/service/webApi/course/type';
 import { UnLoginType, setUnLoginType } from '@/store/redux/modules/user';
