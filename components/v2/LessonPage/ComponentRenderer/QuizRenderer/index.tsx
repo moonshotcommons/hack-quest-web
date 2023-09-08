@@ -1,8 +1,16 @@
 import Button from '@/components/Common/Button';
 import { cn } from '@/helper/utils';
+import webApi from '@/service';
 import { useClickAway } from 'ahooks';
 import JSConfetti from 'js-confetti';
-import { FC, createContext, useContext, useRef, useState } from 'react';
+import {
+  FC,
+  createContext,
+  useContext,
+  useEffect,
+  useRef,
+  useState
+} from 'react';
 import { FiChevronDown } from 'react-icons/fi';
 import { MdArrowDropDown } from 'react-icons/md';
 import ComponentRenderer from '..';
@@ -20,16 +28,22 @@ export const QuizContext = createContext<{ onPass: VoidFunction }>({
 });
 
 const QuizRenderer: FC<QuizRendererProps> = (props) => {
-  const { quiz, parent } = props;
+  const { quiz: propsQuiz, parent } = props;
   const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
   const [quizDropdownVisible, setQuizDropdownVisible] = useState(false);
   const [start, setStart] = useState(parent.right.length <= 1);
   const [passOpen, setPassOpen] = useState(false);
-  const { onCompleted } = useContext(PlaygroundContext);
+  const { onCompleted, lesson } = useContext(PlaygroundContext);
   const containerRef = useRef(null);
+
+  const [quiz, setQuiz] = useState(propsQuiz);
 
   const onPass = () => {
     // setPassOpen(true);
+    webApi.courseApi
+      .completeQuiz(lesson.id, currentQuizIndex)
+      .then((res) => console.log(res));
+
     const jsConfetti = new JSConfetti();
 
     jsConfetti.addConfetti({
@@ -50,6 +64,7 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
       confettiRadius: 6,
       confettiNumber: 500
     });
+
     setTimeout(() => {
       let nextQuizIndex = currentQuizIndex + 1;
       if (nextQuizIndex < quiz.children.length) {
@@ -61,9 +76,37 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
     }, 500);
   };
 
+  useEffect(() => {
+    const notCompleted: number[] = [];
+    quiz.children.forEach((item, index) => {
+      if (!lesson.completedQuiz && !Array.isArray(lesson.completedQuiz)) {
+        item.isCompleted = false;
+        return false;
+      }
+
+      if (!lesson.completedQuiz.includes(index)) {
+        notCompleted.push(index);
+        item.isCompleted = false;
+      } else {
+        item.isCompleted = true;
+      }
+    });
+
+    if (notCompleted.length) {
+      setCurrentQuizIndex(notCompleted[0]);
+    }
+
+    setQuiz({
+      ...quiz,
+      children: quiz.children.map((child) => ({ ...child }))
+    });
+  }, [lesson, propsQuiz]);
+
   useClickAway(() => {
     setQuizDropdownVisible(false);
   }, containerRef);
+
+  console.log('quiz的完成状态', quiz.children[currentQuizIndex].isCompleted);
 
   const QuizHeader = (
     <div className={`flex justify-between h-fit w-full items-center`}>

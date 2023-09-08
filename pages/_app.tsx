@@ -2,6 +2,7 @@ import Layout, { LayoutProps } from '@/components/v2/Layout';
 import ThemeContextProvider from '@/store/context/theme';
 import '@/styles/globals.css';
 
+import { Analytics } from '@vercel/analytics/react';
 import type { AppContext, AppProps } from 'next/app';
 import App from 'next/app';
 
@@ -28,7 +29,7 @@ function MyApp(appProps: AppProps & Omit<LayoutProps, 'pathname'>) {
         >
           <Component {...props.pageProps} />
         </Layout>
-        {/* <Analytics /> */}
+        <Analytics />
       </ThemeContextProvider>
     </Provider>
   );
