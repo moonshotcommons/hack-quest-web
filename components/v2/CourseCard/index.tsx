@@ -41,8 +41,6 @@ const CourseCard: FC<CourseCardProps> = (props) => {
   const jumpLearningLesson = useJumpLeaningLesson();
   const router = useRouter();
 
-  console.log(process.env.ASSET_PREFIX_FOR_CHINA);
-
   return (
     <div
       className={cn(
@@ -106,7 +104,7 @@ const CourseCard: FC<CourseCardProps> = (props) => {
             src={`${
               process.env.NODE_ENV === 'development'
                 ? ''
-                : process.env.ASSET_PREFIX_FOR_CHINA
+                : process.env.NEXT_PUBLIC_ASSET_PREFIX_FOR_CHINA ?? ''
             }/images/v2/course/course_cover/${course.type}.svg`}
             fill
             alt="course"
