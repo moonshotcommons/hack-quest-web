@@ -67,7 +67,7 @@ const PreviewLessonPage: FC<PreviewLessonPageProps> = (props) => {
         size="large"
       >
         {lesson && (
-          <div className="relative w-full h-[calc(100vh-80px-64px)] pl-[20px]">
+          <div className="relative w-full h-[calc(100vh-115px)] pl-[20px]">
             <Split
               className="flex-1 w-full h-full flex justify-between [&>div]:w-[50%] [&>.gutter]:cursor-col-resize"
               minSize={80}

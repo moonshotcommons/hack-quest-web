@@ -67,7 +67,7 @@ const LessonPage: FC<LessonPageProps> = (props) => {
         size="large"
       >
         {lesson && (
-          <div className="relative w-full h-[calc(100vh-80px-64px)] pl-[20px]">
+          <div className="relative w-full h-[calc(100vh-115px)] pl-[20px]">
             <LessonPageContext.Provider
               value={{
                 isHandleNext,
