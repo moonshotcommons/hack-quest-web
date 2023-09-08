@@ -4,10 +4,9 @@ import { CourseDetailType, CourseResponse } from '@/service/webApi/course/type';
 import { UnLoginType, setUnLoginType } from '@/store/redux/modules/user';
 import { useRequest } from 'ahooks';
 import { useRouter } from 'next/router';
-import { MenuLink, QueryIdType } from '@/components/v2/Breadcrumb/type';
 import { useDispatch } from 'react-redux';
 
-interface JumpLeaningLessonType {
+export interface JumpLeaningLessonType {
   menu: string;
   idTypes: string[];
   ids: string[];
@@ -23,28 +22,22 @@ export const useJumpLeaningLesson = () => {
       const lesson = await webApi.courseApi.getLearningLessonId(
         courseDetail?.id as string
       );
-      const lParam = linkParam || {
-        menu: MenuLink.ELECTIVES,
-        idTypes: [QueryIdType.MENU_COURSE_ID],
-        ids: [courseDetail.id]
-      };
       return {
         courseDetail,
         pageId: lesson?.pageId,
-        ...lParam
+        linkParam
       };
     },
     {
       manual: true,
-      onSuccess({ courseDetail, pageId, menu, idTypes, ids }) {
+      onSuccess({ courseDetail, pageId, linkParam }) {
         let link = `${getLessonLink(
           courseDetail?.type,
           courseDetail?.name,
-          pageId
-        )}?menu=${menu}`;
-        idTypes.map((v, i) => {
-          link += `&${v}=${ids[i]}`;
-        });
+          pageId,
+          courseDetail?.id,
+          linkParam
+        )}`;
         router.push(link);
       },
       onError(err: any) {

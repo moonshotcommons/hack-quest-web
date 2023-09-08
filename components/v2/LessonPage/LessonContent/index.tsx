@@ -5,6 +5,7 @@ import { FC, createContext, useEffect, useMemo, useState } from 'react';
 import ComponentRenderer from '../ComponentRenderer';
 import LessonEvents from '../LessonEvents';
 import { CustomComponent, LessonContent, NotionComponent } from '../type';
+import Breadcrumb from '../../Breadcrumb';
 
 export const LessonContentContext = createContext<{
   expandData: ExpandDataType[];
@@ -51,6 +52,7 @@ const LessonContent: FC<LessonContentProps> = (props) => {
 
   return (
     <div className="flex flex-col h-[calc(100%-10px)] ">
+      <Breadcrumb />
       <LessonEvents
         isPreview={isPreview}
         lesson={lesson as any}

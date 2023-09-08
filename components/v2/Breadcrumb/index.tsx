@@ -16,7 +16,7 @@ const Breadcrumb: React.FC = () => {
   const [navData, setNavData] = useState<navDataProps[]>([]);
   const getLearningTrackDetail = (id: string) => {
     return new Promise(async (resolve) => {
-      if (id) {
+      if (!!id) {
         const res =
           await webApi.learningTrackApi.getLearningTrackDetailAndCourses(id);
         resolve(res);
@@ -115,7 +115,7 @@ const Breadcrumb: React.FC = () => {
     }
   };
   return navData.length === 1 ? null : (
-    <div className="text-[14px] text-lesson-preview-color flex py-5">
+    <div className="text-[14px] text-lesson-preview-color flex h-[50px] items-center ">
       {navData?.map((nav: navDataProps, i: number) => renderNav(nav, i))}
     </div>
   );
