@@ -9,6 +9,7 @@ import CourseDetailHeader from '../CourseDetailHeader';
 import HeaderRight from '../HeaderRight';
 import TrackList from '../TrackList';
 import { LearningStatus } from '../type';
+import { MenuLink, QueryIdType } from '../../Breadcrumb/type';
 
 interface LearningTrackDetailProps {
   // children: ReactNode;
@@ -25,7 +26,7 @@ const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
     learningUnit: any;
   }>();
 
-  const jumpLearningLesson = useJumpLeaningLesson(true);
+  const jumpLearningLesson = useJumpLeaningLesson();
 
   const learningStatus = useMemo(() => {
     if (learningTrackDetail) {
@@ -77,7 +78,11 @@ const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
 
   const resumeCallback = useCallback(() => {
     if (learningTrackDetail && learningCourse) {
-      jumpLearningLesson(learningCourse);
+      jumpLearningLesson(learningCourse, {
+        menu: MenuLink.LEARNING_TRACK,
+        idTypes: [QueryIdType.LEARNING_TRACK_ID, QueryIdType.MENU_COURSE_ID],
+        ids: [learningTrackDetail.id, learningCourse.id]
+      });
     }
   }, [learningTrackDetail]);
 

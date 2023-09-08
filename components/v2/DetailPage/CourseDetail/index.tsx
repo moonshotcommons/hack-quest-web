@@ -16,7 +16,7 @@ interface CourseDetailProps {
 const CourseDetail: FC<CourseDetailProps> = (props) => {
   const { courseDetail } = props;
 
-  const jumpLearningLesson = useJumpLeaningLesson(true);
+  const jumpLearningLesson = useJumpLeaningLesson();
 
   const learningStatus = useMemo(() => {
     if (courseDetail) {

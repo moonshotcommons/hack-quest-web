@@ -4,16 +4,14 @@ import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
 import { FC, createContext, useEffect, useMemo, useState } from 'react';
 import ComponentRenderer from '../ComponentRenderer';
 import LessonEvents from '../LessonEvents';
-import LessonNav from '../LessonNav';
 import { CustomComponent, LessonContent, NotionComponent } from '../type';
+import Breadcrumb from '../../Breadcrumb';
 
 export const LessonContentContext = createContext<{
   expandData: ExpandDataType[];
   changeExpandData: (data: ExpandDataType[], index: number) => void;
 }>({} as any);
 interface LessonContentProps {
-  // children: ReactNode
-
   lesson: Omit<CourseLessonType, 'content'> & { content: LessonContent };
   isPreview?: boolean;
   courseType: CourseType;
@@ -52,19 +50,12 @@ const LessonContent: FC<LessonContentProps> = (props) => {
 
   return (
     <div className="flex flex-col h-[calc(100%-10px)] ">
-      <>
-        <LessonNav
-          lesson={lesson as any}
-          courseType={courseType}
-          isPreview={isPreview}
-        />
-        <LessonEvents
-          isPreview={isPreview}
-          // unitData={dropData}
-          lesson={lesson as any}
-          courseType={courseType}
-        />
-      </>
+      <Breadcrumb />
+      <LessonEvents
+        isPreview={isPreview}
+        lesson={lesson as any}
+        courseType={courseType}
+      />
 
       {!!components.length && (
         <div className="flex flex-col mb-[20px] w-full flex-1 shrink-0 overflow-auto h-full scroll-wrap-y scroll-wrap-x no-scrollbar">

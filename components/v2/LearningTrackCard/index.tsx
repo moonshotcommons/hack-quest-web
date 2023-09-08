@@ -12,6 +12,7 @@ import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { styled } from 'styled-components';
 import CourseTags from '../CourseTags';
+import { QueryIdType, MenuLink } from '../Breadcrumb/type';
 
 const CustomProgress = styled(Progress)`
   .ant-progress-inner {
@@ -33,7 +34,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
 }) => {
   const router = useRouter();
 
-  const jumpLearningLesson = useJumpLeaningLesson(true);
+  const jumpLearningLesson = useJumpLeaningLesson();
   const [learningTrack, setLearningTrack] =
     useState<LearningTrackDetailType>(track);
   const refresh = () => {
@@ -55,7 +56,12 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
     const section = learningTrack.sections.find((v) => (v?.progress || 0) < 1);
     if (section) {
       const course = section.courses.find((v) => v.progress < 1);
-      if (course) jumpLearningLesson(course);
+      if (course)
+        jumpLearningLesson(course, {
+          menu: MenuLink.LEARNING_TRACK,
+          idTypes: [QueryIdType.LEARNING_TRACK_ID, QueryIdType.MENU_COURSE_ID],
+          ids: [learningTrack.id, course.id]
+        });
     }
   };
   const leftRender = () => {
@@ -156,7 +162,9 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
 
   const goLearningTrackDetail = (e: any) => {
     if (isLandingPage) return;
-    router.push(`/learning-track/${learningTrack.id}`);
+    router.push(
+      `/learning-track/${learningTrack.id}?${QueryIdType.LEARNING_TRACK_ID}=${learningTrack.id}&menu=${MenuLink.LEARNING_TRACK}`
+    );
   };
   return (
     <div

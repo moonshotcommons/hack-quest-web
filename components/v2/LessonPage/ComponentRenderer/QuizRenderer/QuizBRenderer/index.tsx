@@ -5,7 +5,7 @@ import {
   QuizBType
 } from '@/components/v2/LessonPage/type';
 import webApi from '@/service';
-import { FC, useContext, useState } from 'react';
+import { FC, useContext, useEffect, useRef, useState } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { QuizContext } from '..';
@@ -29,6 +29,7 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
   const [showAnswer, setShowAnswer] = useState(false);
   const { lesson } = useContext(PlaygroundContext);
   const [answers, setAnswers] = useState<Record<string, AnswerType>>({});
+  const mountAnswers = useRef(0);
 
   const onDrop = (item: AnswerType) => {
     const newAnswers = { ...answers, [item.id]: item };
@@ -89,6 +90,37 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
 
     webApi.courseApi.markQuestState(lesson.id, false);
   };
+
+  useEffect(() => {
+    if (
+      quiz?.isCompleted &&
+      mountAnswers.current !== Object.keys(answers).length
+    ) {
+      const newAnswers = { ...answers };
+      const mountOptionIds: string[] = [];
+      for (const key in newAnswers) {
+        let answerItem = answers[key];
+        answerItem.option = options.find(
+          (option) =>
+            option.content.rich_text
+              .map((text: any) => text.plain_text.trim())
+              .join('') === answerItem.answer
+        ) as QuizOptionType;
+        mountOptionIds.push(answerItem.option?.id);
+      }
+      setAnswers(newAnswers);
+      setOptions((prevOptions) => {
+        const newOptions = prevOptions.map((option) => {
+          if (mountOptionIds.includes(option.id)) {
+            return { ...option, isRender: false };
+          }
+          return option;
+        });
+        return newOptions;
+      });
+      mountAnswers.current += 1;
+    }
+  }, [quiz, answers]);
 
   return (
     <div className="h-full flex flex-col justify-between">

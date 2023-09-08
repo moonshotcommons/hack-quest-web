@@ -1,4 +1,5 @@
-import { getCourseLink } from '@/helper/utils';
+import { QueryIdType } from '@/components/v2/Breadcrumb/type';
+import { getCourseLink, getLessonLink } from '@/helper/utils';
 import ArrowLeft from '@/public/images/lesson/arrow_left_line.svg';
 import Complete from '@/public/images/lesson/complete.svg';
 import CompleteActive from '@/public/images/lesson/complete_active.svg';
@@ -33,9 +34,27 @@ const LessonList: React.FC<LessonListType> = ({
 
   const handleUnit = (item: CourseLessonStateType) => {
     if (item.disable) return;
-    router.push(
-      `/${getCourseLink(courseType)}/${router.query.courseId}/learn/${item.id}`
+    const menu = router.query.menu;
+    const learningTrackId = router.query[
+      QueryIdType.LEARNING_TRACK_ID
+    ] as string;
+    const menuCourseId = router.query[QueryIdType.MENU_COURSE_ID] as string;
+    const link = getLessonLink(
+      courseType,
+      router.query.courseId as string,
+      item.id!,
+      menuCourseId as string,
+      {
+        menu: menu as string,
+        idTypes: [
+          QueryIdType.LEARNING_TRACK_ID,
+          QueryIdType.MENU_COURSE_ID,
+          QueryIdType.LESSON_ID
+        ],
+        ids: [learningTrackId || '', menuCourseId, item?.id as string]
+      }
     );
+    router.push(link);
   };
 
   useEffect(() => {
