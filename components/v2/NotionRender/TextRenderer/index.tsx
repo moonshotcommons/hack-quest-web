@@ -91,13 +91,13 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
 
         if (richText.equation) {
           return (
-            <div key={index}>
+            <span key={index}>
               <MathJax.Provider>
-                <div>
+                <span className="[&>div]:inline-block">
                   <MathJax.Node formula={richText.equation.expression} />
-                </div>
+                </span>
               </MathJax.Provider>
-            </div>
+            </span>
           );
         }
         return (
