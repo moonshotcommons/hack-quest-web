@@ -41,6 +41,8 @@ const CourseCard: FC<CourseCardProps> = (props) => {
   const jumpLearningLesson = useJumpLeaningLesson();
   const router = useRouter();
 
+  console.log(process.env.ASSET_PREFIX_FOR_CHINA);
+
   return (
     <div
       className={cn(
