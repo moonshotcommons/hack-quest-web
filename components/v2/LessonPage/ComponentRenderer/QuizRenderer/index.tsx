@@ -106,8 +106,6 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
     setQuizDropdownVisible(false);
   }, containerRef);
 
-  console.log('quiz的完成状态', quiz.children[currentQuizIndex].isCompleted);
-
   const QuizHeader = (
     <div className={`flex justify-between h-fit w-full items-center`}>
       <div
