@@ -5,6 +5,7 @@ import {
   QuizBType
 } from '@/components/v2/LessonPage/type';
 import webApi from '@/service';
+import va from '@vercel/analytics';
 import { FC, useContext, useEffect, useRef, useState } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
@@ -14,7 +15,6 @@ import { PlaygroundContext } from '../../../Playground/type';
 import QuizFooter from '../QuizFooter';
 import DragAnswer from './DragAnswer';
 import { AnswerType, QuizBContext, QuizOptionType } from './type';
-
 interface QuizBRendererProps {
   parent: CustomType | NotionType;
   quiz: QuizBType;
@@ -50,6 +50,7 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
   };
 
   const onSubmit = () => {
+    va.track('QuizB 提交');
     const newAnswers = { ...answers };
     let wrongAnswers = [];
     for (const key in newAnswers) {
