@@ -62,7 +62,9 @@ const CourseDetailHeader: FC<CourseDetailHeaderProps> = (props) => {
           {learningStatus === LearningStatus.IN_PROGRESS && (
             <div className="mt-[31px]">
               <CourseProgress
-                progress={(courseDetail.progress || 0) * 100}
+                progress={Number(
+                  ((courseDetail.progress || 0) * 100).toFixed(2)
+                )}
               ></CourseProgress>
             </div>
           )}

@@ -9,8 +9,8 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
 import { styled } from 'styled-components';
+import { MenuLink, QueryIdType } from '../Breadcrumb/type';
 import CourseTags from '../CourseTags';
-import { QueryIdType, MenuLink } from '../Breadcrumb/type';
 
 interface CourseCardProps {
   // children: ReactNode;
@@ -40,6 +40,7 @@ const CourseCard: FC<CourseCardProps> = (props) => {
   const { course, inProgress = false, inCompleted = false } = props;
   const jumpLearningLesson = useJumpLeaningLesson();
   const router = useRouter();
+
   return (
     <div
       className={cn(
@@ -100,7 +101,11 @@ const CourseCard: FC<CourseCardProps> = (props) => {
       <div className="h-[148px] w-[265px] flex items-center justify-center">
         <div className="h-[87px] relative  w-[150px]">
           <Image
-            src={`/images/v2/course/course_cover/${course.type}.svg`}
+            src={`${
+              process.env.NODE_ENV === 'development'
+                ? ''
+                : process.env.ASSET_PREFIX_FOR_CHINA
+            }/images/v2/course/course_cover/${course.type}.svg`}
             fill
             alt="course"
             className="object-contain"

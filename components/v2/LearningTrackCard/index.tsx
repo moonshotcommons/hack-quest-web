@@ -11,8 +11,8 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { styled } from 'styled-components';
+import { MenuLink, QueryIdType } from '../Breadcrumb/type';
 import CourseTags from '../CourseTags';
-import { QueryIdType, MenuLink } from '../Breadcrumb/type';
 
 const CustomProgress = styled(Progress)`
   .ant-progress-inner {
@@ -74,7 +74,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
           </span>
         );
       case LearningTrackCourseType.IN_PROCESS:
-        const percent = `${learningTrack.progress * 100}%`;
+        const percent = `${(learningTrack.progress * 100).toFixed(2)}%`;
         return (
           <>
             <div className="w-full flex items-center justify-between">
