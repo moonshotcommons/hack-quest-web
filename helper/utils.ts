@@ -51,15 +51,6 @@ export const getLessonLink = (
   return link;
 };
 
-export const getV2LessonLink = (
-  courseType: CourseType,
-  courseName: string,
-  lessonId: string
-) => {
-  if (!courseType || !courseName || !lessonId) return '/404';
-  return `${getCourseLink(courseType)}/${courseName}/learn/${lessonId}`;
-};
-
 export const changeTextareaHeight = (target: HTMLTextAreaElement) => {
   // 重置textarea的高度为默认值，以便可以正确计算其内容的高度
   target.style.height = '40px';
