@@ -1,6 +1,7 @@
-import { FC, ReactNode } from 'react';
-import ContractUs from '../ContractUs';
+import JoinUsImage from '@/public/images/home/join_us.png';
 import Image from 'next/image';
+import { FC } from 'react';
+import ContractUs from '../ContractUs';
 
 interface JoinUsProps {}
 
@@ -8,12 +9,7 @@ const JoinUs: FC<JoinUsProps> = (props) => {
   return (
     <div className="text-text-default-color flex">
       <div>
-        <Image
-          src={'/images/home/join_us.png'}
-          alt="join_us"
-          width={868}
-          height={684}
-        ></Image>
+        <Image src={JoinUsImage} alt="join_us" width={868} height={684}></Image>
       </div>
       <div className="flex flex-col justify-center text-center items-center ml-8">
         <div className="w-[17.3125rem] text-[2rem] font-next-poster-Bold leading-[120%] tracking-[0.08rem]">
