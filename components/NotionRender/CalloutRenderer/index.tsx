@@ -1,7 +1,7 @@
-import { FC, ReactNode, useState } from 'react';
-import TextRenderer from '../TextRenderer';
-import { Renderer } from '..';
+import { FC, useState } from 'react';
 import { IoCloseOutline } from 'react-icons/io5';
+import { Renderer } from '..';
+import TextRenderer from '../TextRenderer';
 
 interface CalloutRendererProps {
   source: any;

@@ -1,7 +1,6 @@
 import User from '@/components/v2/User';
 import { Inter } from 'next/font/google';
 import React, { ReactNode } from 'react';
-import Footer from '../Footer';
 import NavBar, { NavBarProps } from '../Navbar';
 const inter = Inter({ subsets: ['latin'] });
 export interface BaseLayoutProps {
@@ -13,7 +12,7 @@ export interface BaseLayoutProps {
 const BaseLayout: React.FC<BaseLayoutProps> = ({ navbarData, children }) => {
   return (
     <div
-      className={`w-full min-h-screen bg-default-global-bg  ${inter.className} overflow-x-scroll`}
+      className={`w-full min-h-screen bg-default-global-bg  ${inter.className} overflow-x-auto`}
     >
       <div className="w-full fixed left-0 top-0 bg-[#0B0B0B] h-[64px] flex items-center z-[99] shadow-[box-shadow: rgba(17, 12, 46, 0.15)_0px_48px_100px_0px]">
         <div className="relative m-auto h-full w-full">
