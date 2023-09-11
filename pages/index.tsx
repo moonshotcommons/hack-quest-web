@@ -1,10 +1,19 @@
-import { NextPage } from 'next';
-import HomeBanner from '@/components/v2/Landing/HomeBanner';
-import HackQuestInfo from '@/components/v2/Landing/HackQuestInfo';
 import JoinUs from '@/components/Home/JoinUs';
+import HackQuestInfo from '@/components/v2/Landing/HackQuestInfo';
+import HomeBanner from '@/components/v2/Landing/HomeBanner';
+import { BurialPoint } from '@/helper/burialPoint';
+import { NextPage } from 'next';
+import { useEffect } from 'react';
 const Landing: NextPage<any> = (props) => {
   // const { nowCards, syntaxCards, tracksCards } = props;
-
+  useEffect(() => {
+    const startTime = new Date().getTime();
+    return () => {
+      const endTime = new Date().getTime();
+      const duration = endTime - startTime;
+      BurialPoint.track('landing-页面留存时间', { duration });
+    };
+  }, []);
   return (
     <div className="flex  flex-col justify-center">
       <HomeBanner></HomeBanner>

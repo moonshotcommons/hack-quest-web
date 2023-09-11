@@ -2,18 +2,17 @@ import Button from '@/components/Common/Button';
 import RightBottomIcon from '@/components/Common/Icon/RightBottom';
 import LearningTracksCard from '@/components/v2/LearningTrackCard';
 import { Theme } from '@/constants/enum';
+import { BurialPoint } from '@/helper/burialPoint';
 import { useGetUserInfo } from '@/hooks/useGetUserInfo';
 import { useGetLearningTracks } from '@/hooks/useLearningTrackHooks/useLearningTracks';
 import DrakHackquest_info1 from '@/public/images/home/dark-hackquest_info1.png';
 import DrakHackquest_info3 from '@/public/images/home/dark-hackquest_info3.png';
 import DrakHackquest_info4 from '@/public/images/home/dark-hackquest_info4.png';
-import DrakHackquest_info5 from '@/public/images/home/dark-hackquest_info5.png';
 import LightButtonDeg from '@/public/images/home/light-button_deg.svg';
 import CenterLogo from '@/public/images/home/light-center-logo.png';
 import LightHackquest_info1 from '@/public/images/home/light-hackquest_info1.png';
 import LightHackquest_info3 from '@/public/images/home/light-hackquest_info3.png';
 import LightHackquest_info4 from '@/public/images/home/light-hackquest_info4.png';
-import LightHackquest_info5 from '@/public/images/home/light-hackquest_info5.png';
 import TeaserInfo from '@/public/images/home/teaser_info.png';
 import HackquestInfoBg from '@/public/images/landing/hack_quest_info_bg.png';
 import { LearningTrackCourseType } from '@/service/webApi/course/type';
@@ -28,6 +27,7 @@ interface HackQuestInfoProps {
 }
 interface GotoPageButtonProps {
   isBlack: boolean;
+  direction: 'top' | 'bottom';
 }
 const goToLogin = () => {
   const bodyEle = document.querySelector('body') as HTMLBodyElement;
@@ -36,7 +36,7 @@ const goToLogin = () => {
   message.warning('Please log in first');
 };
 const GotoPageButton: React.FC<GotoPageButtonProps> = (props) => {
-  const { isBlack } = props;
+  const { isBlack, direction } = props;
   const color = useMemo(() => {
     return isBlack
       ? {
@@ -52,7 +52,12 @@ const GotoPageButton: React.FC<GotoPageButtonProps> = (props) => {
     <>
       <Button
         className={`mt-[40px]  border text-${color.text} border-${color.border}`}
-        onClick={() => goToLogin()}
+        onClick={() => {
+          goToLogin();
+          BurialPoint.track(
+            `landing-${direction} Explore Learning Tracks按钮点击`
+          );
+        }}
       >
         Explore Learning Tracks
       </Button>
@@ -60,7 +65,12 @@ const GotoPageButton: React.FC<GotoPageButtonProps> = (props) => {
         icon={<AiOutlineRight />}
         iconPosition="right"
         className={`text-${color.text}`}
-        onClick={() => goToLogin()}
+        onClick={() => {
+          goToLogin();
+          BurialPoint.track(
+            `landing-${direction} Explore Selective Courses按钮点击`
+          );
+        }}
       >
         <span className="border-b border-[#FCC409]">
           Explore Selective Courses
@@ -96,7 +106,12 @@ export const TopInfo: FC = () => {
             {learningTracks[0]?.description}
           </p>
         </div>
-        <div onClick={goToLogin}>
+        <div
+          onClick={() => {
+            goToLogin();
+            BurialPoint.track('landing-learning track卡片点击');
+          }}
+        >
           <LearningTracksCard
             isLandingPage={true}
             learningTrack={learningTracks[0] || {}}
@@ -116,7 +131,7 @@ export const TopInfo: FC = () => {
         <div className="w-full  flex justify-center mt-[3rem]">
           <Image src={LightButtonDeg} alt="hackquset"></Image>
         </div>
-        <GotoPageButton isBlack={true} />
+        <GotoPageButton isBlack={true} direction="top" />
       </div>
     </div>
   );
@@ -205,7 +220,7 @@ export const BottomInfo: FC = () => {
         ></div>
       </div>
       <div className="mt-[2.64rem] flex-col-center">
-        <GotoPageButton isBlack={false} />
+        <GotoPageButton isBlack={false} direction="bottom" />
       </div>
     </div>
   );

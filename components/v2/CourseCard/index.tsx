@@ -1,5 +1,6 @@
 import Button from '@/components/Common/Button';
 import CheckIcon from '@/components/Common/Icon/Check';
+import { BurialPoint } from '@/helper/burialPoint';
 import { computeProgress, tagFormate } from '@/helper/formate';
 import { cn } from '@/helper/utils';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
@@ -48,6 +49,7 @@ const CourseCard: FC<CourseCardProps> = (props) => {
         borderColor[course.type as any]
       )}
       onClick={() => {
+        BurialPoint.track('home-course卡片点击', { courseName: course.name });
         router.push(
           `/electives/${course.id}?${QueryIdType.MENU_COURSE_ID}=${course.id}&menu=${MenuLink.ELECTIVES}`
         );
@@ -142,6 +144,9 @@ const CourseCard: FC<CourseCardProps> = (props) => {
             className="px-0 py-[12px] flex text-[16px] font-next-book tracking-[0.32] leading-[125%]"
             block
             onClick={(e) => {
+              BurialPoint.track('home-course卡片resume按钮点击', {
+                courseName: course.name
+              });
               e.stopPropagation();
               jumpLearningLesson(course);
             }}
@@ -151,6 +156,11 @@ const CourseCard: FC<CourseCardProps> = (props) => {
           <Button
             className="border border-[#000] rounded-[32px] px-0 py-[12px] flex text-[16px] font-next-book tracking-[0.32] leading-[125%]"
             block
+            onClick={() => {
+              BurialPoint.track('home-course卡片View Syllabus按钮点击', {
+                courseName: course.name
+              });
+            }}
           >
             View Syllabus
           </Button>
