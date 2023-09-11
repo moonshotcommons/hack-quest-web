@@ -1,5 +1,6 @@
 import Button from '@/components/Common/Button';
 import CheckIcon from '@/components/Common/Icon/Check';
+import { BurialPoint } from '@/helper/burialPoint';
 import { computeProgress } from '@/helper/formate';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
 import { useEnrollUnEnroll } from '@/hooks/useLearningTrackHooks/useEnrollUnEnroll';
@@ -46,14 +47,23 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
   };
   const { enroll, unEnroll } = useEnrollUnEnroll(track, refresh);
   const handleRoll = async (e: any) => {
-    if (isLandingPage) return;
+    if (isLandingPage) {
+      BurialPoint.track('landing-learning track Enroll按钮点击');
+      return;
+    }
     e.stopPropagation();
+    BurialPoint.track('home-learning track卡片Enroll按钮点击', {
+      learningTrackName: track.name
+    });
     await enroll();
     // learningTrack.enrolled ? await unEnroll() : await enroll();
   };
   const handleResume = (e: any) => {
     if (isLandingPage) return;
     e.stopPropagation();
+    BurialPoint.track('home-learning track卡片resume按钮点击', {
+      learningTrackName: track.name
+    });
     const section = learningTrack.sections.find((v) => (v?.progress || 0) < 1);
     if (section) {
       const course = section.courses.find((v) => v.progress < 1);
@@ -105,7 +115,14 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
               </p>
             </div>
             <div className="w-full flex justify-between">
-              <Button className="w-[47%] h-11 border border-home-learning-track-view-button-border p-0 text-home-learning-track-view-button-color">
+              <Button
+                onClick={() => {
+                  BurialPoint.track(
+                    'home-learning track卡片View Syllabus按钮点击'
+                  );
+                }}
+                className="w-[47%] h-11 border border-home-learning-track-view-button-border p-0 text-home-learning-track-view-button-color"
+              >
                 View Syllabus
               </Button>
               {!learningTrack.enrolled ? (

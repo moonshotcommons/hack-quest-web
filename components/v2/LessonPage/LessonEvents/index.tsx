@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
-import ArrowBottom from '@/public/images/lesson/arrow_bottom.svg';
-import Image from 'next/image';
-import LessonList from './LessonList';
-import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
+import { BurialPoint } from '@/helper/burialPoint';
 import { useUnitNavList } from '@/hooks/useUnitNavList';
+import ArrowBottom from '@/public/images/lesson/arrow_bottom.svg';
+import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
+import Image from 'next/image';
+import React, { useEffect, useRef, useState } from 'react';
+import LessonList from './LessonList';
 
 interface LessonEventsProps {
   lesson: CourseLessonType;
@@ -83,7 +84,12 @@ const LessonEvents: React.FC<LessonEventsProps> = (props) => {
         className={`w-full flex items-center h-[70px] rounded-t-[5px] cursor-pointer ${
           isToggle ? ' bg-lesson-events-toggle-bg' : ''
         }`}
-        onClick={() => setIsToggle(!isToggle)}
+        onClick={() => {
+          if (!isToggle) {
+            BurialPoint.track('lesson-lesson dropdown点击');
+          }
+          setIsToggle(!isToggle);
+        }}
       >
         <div className="flex-1 px-5">
           <div className="flex items-center justify-between">

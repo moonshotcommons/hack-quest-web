@@ -1,13 +1,13 @@
-import { LoginResponse } from '@/service/webApi/user/type';
-import { Upload, message } from 'antd';
-import Image from 'next/image';
-import { FC, ReactNode } from 'react';
-import type { RcFile, UploadProps } from 'antd/es/upload/interface';
-import { basename, extname } from 'path';
+import { BurialPoint } from '@/helper/burialPoint';
 import webApi from '@/service';
 import { UserApiType } from '@/service/webApi/user';
-import { useDispatch } from 'react-redux';
+import { LoginResponse } from '@/service/webApi/user/type';
 import { setUserInfo } from '@/store/redux/modules/user';
+import { Upload, message } from 'antd';
+import type { RcFile } from 'antd/es/upload/interface';
+import Image from 'next/image';
+import { FC } from 'react';
+import { useDispatch } from 'react-redux';
 // import sanitize from 'sanitize-filename';
 // import { generate } from 'shortid';
 interface AvatarUploadProps {
@@ -74,13 +74,16 @@ const AvatarUpload: FC<AvatarUploadProps> = (props) => {
             const formData = new FormData();
             formData.append('file', file);
             formData.append('fileName', fileName);
+            BurialPoint.track('头像上传');
             try {
               const res = await webApi.userApi.uploadAvatar(formData);
               dispatch(setUserInfo({ ...userInfo, avatar: res.avatar || '' }));
               message.success('Updated avatar successfully');
+              BurialPoint.track('头像上传成功');
             } catch (e: any) {
               console.log(e);
               message.error(e?.msg);
+              BurialPoint.track('头像上传失败', { message: e?.msg });
             }
           }}
         >

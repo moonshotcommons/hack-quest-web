@@ -1,21 +1,14 @@
 import LockIcon from '@/components/Common/Icon/Lock';
-import Input from '../Input';
-import { useDebounceFn } from 'ahooks';
-import Schema, { Rule, Rules } from 'async-validator';
-import {
-  FC,
-  ForwardRefExoticComponent,
-  ReactNode,
-  forwardRef,
-  useEffect,
-  useRef,
-  useState
-} from 'react';
-import webApi from '@/service';
-import Image from 'next/image';
+import { BurialPoint } from '@/helper/burialPoint';
 import OkIcon from '@/public/images/other/ok.svg';
+import webApi from '@/service';
 import { Transition } from '@headlessui/react';
+import { useDebounceFn } from 'ahooks';
 import { message } from 'antd';
+import Schema, { Rule } from 'async-validator';
+import Image from 'next/image';
+import { FC, useRef, useState } from 'react';
+import Input from '../Input';
 interface ChangePasswordProps {
   // children: ReactNode;
 }
@@ -132,7 +125,11 @@ const ChangePasswordInput: FC<{
             }
             setChangeSuccessVisible(true);
             message.success('Updated password successfully');
+            BurialPoint.track('settings修改密码成功');
           } catch (e: any) {
+            BurialPoint.track('settings修改密码失败', {
+              message: e?.msg || e?.message || ''
+            });
             currentPasswordRef.current?.setStatus?.('error');
             currentPasswordRef.current?.setErrorMessage?.(e.msg);
           }
@@ -251,7 +248,10 @@ const ChangePasswordInput: FC<{
           <div className="flex gap-[0.5rem] self-end">
             <button
               className="px-[2.5rem] py-[1rem] text-setting-drop-setting-change-color border border-solid border-setting-drop-user-name-color rounded-[2.5rem] text-[0.875rem] font-next-book leading-[120%]  hover:bg-[#F2F2F2] hover:text-[#676767]"
-              onClick={(e) => changeVisible(false)}
+              onClick={(e) => {
+                BurialPoint.track('settings取消修改密码');
+                changeVisible(false);
+              }}
             >
               Cancel
             </button>
@@ -287,6 +287,7 @@ const ChangePasswordInput: FC<{
           <button
             className="px-[2rem] py-[1rem] w-fit text-[#fff] text-[0.875rem] leading-[120%] border border-solid rounded-[2.5rem] border-[#fff]"
             onClick={(e) => {
+              BurialPoint.track('settings修改密码成功Got it按钮点击');
               changeVisible(false);
               setChangeSuccessVisible(false);
             }}
@@ -317,7 +318,10 @@ const ChangePassword: FC<ChangePasswordProps> = (props) => {
       )} */}
       {!showChangeInput && (
         <PasswordInput
-          onChange={() => setShowChangeInput(true)}
+          onChange={() => {
+            BurialPoint.track('settings修改密码');
+            setShowChangeInput(true);
+          }}
         ></PasswordInput>
       )}
 

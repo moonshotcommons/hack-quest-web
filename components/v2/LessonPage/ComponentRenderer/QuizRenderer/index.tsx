@@ -1,4 +1,5 @@
 import Button from '@/components/Common/Button';
+import { BurialPoint } from '@/helper/burialPoint';
 import { cn } from '@/helper/utils';
 import webApi from '@/service';
 import { useClickAway } from 'ahooks';
@@ -65,6 +66,11 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
       confettiNumber: 500
     });
 
+    BurialPoint.track('lesson-单个quiz提交通过', {
+      lessonId: lesson.id,
+      lessonName: lesson.name
+    });
+
     setTimeout(() => {
       let nextQuizIndex = currentQuizIndex + 1;
       if (nextQuizIndex < quiz.children.length) {
@@ -119,6 +125,7 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
             quizDropdownVisible ? ' border-[#8C8C8C]' : ''
           }`}
           onClick={() => {
+            BurialPoint.track('lesson-quiz dropdown点击');
             setQuizDropdownVisible(!quizDropdownVisible);
           }}
         >
@@ -138,7 +145,10 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
         {quizDropdownVisible ? (
           <QuizDropdown
             quiz={quiz}
-            onChange={(index) => setCurrentQuizIndex(index)}
+            onChange={(index) => {
+              BurialPoint.track('lesson-quiz切换');
+              setCurrentQuizIndex(index);
+            }}
             currentQuizIndex={currentQuizIndex}
           ></QuizDropdown>
         ) : null}
@@ -146,6 +156,7 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
       <div
         className={`p-[20px]`}
         onClick={() => {
+          BurialPoint.track('lesson-quiz 收起');
           setStart(false);
         }}
       >
@@ -183,7 +194,10 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
           <Button
             type="primary"
             className="py-[8px] px-[40px] font-next-book text-[#0B0B0B] text-[14px]"
-            onClick={() => setStart(true)}
+            onClick={() => {
+              BurialPoint.track('lesson-start quiz按钮点击');
+              setStart(true);
+            }}
           >
             Start Quiz
           </Button>

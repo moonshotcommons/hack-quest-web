@@ -49,10 +49,14 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
           setStatus('error');
           setErrorMessage(errors?.[0].message || '');
           if (type === UnLoginType.LOGIN) {
-            BurialPoint.track('login-登录邮箱验证失败');
+            BurialPoint.track('login-登录邮箱验证失败', {
+              message: errors?.[0].message || ''
+            });
           }
           if (type === UnLoginType.SIGN_UP) {
-            BurialPoint.track('signup-注册邮箱验证失败');
+            BurialPoint.track('signup-注册邮箱验证失败', {
+              message: errors?.[0].message || ''
+            });
           }
         } else {
           if (type === UnLoginType.LOGIN) {

@@ -1,10 +1,11 @@
-import Link from 'next/link';
-import React, { useCallback, useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import { QueryIdType } from './type';
-import { navLinks, navIdType } from './data';
-import webApi from '@/service';
+import { BurialPoint } from '@/helper/burialPoint';
 import { tagFormate } from '@/helper/formate';
+import webApi from '@/service';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React, { useCallback, useEffect, useState } from 'react';
+import { navIdType, navLinks } from './data';
+import { QueryIdType } from './type';
 
 interface navDataProps {
   label?: string;
@@ -87,7 +88,13 @@ const Breadcrumb: React.FC = () => {
   const renderNav = (item: navDataProps, i: number) => {
     if (i < navData.length - 1) {
       return (
-        <Link key={i} href={item.link as string}>
+        <Link
+          key={i}
+          href={item.link as string}
+          onClick={() => {
+            BurialPoint.track('使用navbar跳转');
+          }}
+        >
           {i ? <span className="mx-2 text-[#0b0b0b]">/</span> : ''}
           <span className=" text-[#0b0b0b]"> {item.label}</span>
         </Link>

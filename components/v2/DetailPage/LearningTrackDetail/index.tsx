@@ -1,15 +1,16 @@
 import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 
 import Button from '@/components/Common/Button';
+import { BurialPoint } from '@/helper/burialPoint';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
 import { useEnrollUnEnroll } from '@/hooks/useLearningTrackHooks/useEnrollUnEnroll';
 import webApi from '@/service';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
+import { MenuLink, QueryIdType } from '../../Breadcrumb/type';
 import CourseDetailHeader from '../CourseDetailHeader';
 import HeaderRight from '../HeaderRight';
 import TrackList from '../TrackList';
 import { LearningStatus } from '../type';
-import { MenuLink, QueryIdType } from '../../Breadcrumb/type';
 
 interface LearningTrackDetailProps {
   // children: ReactNode;
@@ -103,6 +104,18 @@ const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
     );
   }, [learningTrackDetail, resumeCallback]);
 
+  useEffect(() => {
+    const startTime = new Date().getTime();
+    return () => {
+      const endTime = new Date().getTime();
+      const duration = endTime - startTime;
+      BurialPoint.track('learningTrackDetail-页面留存时间', {
+        duration,
+        learningTrackName: learningTrackDetail?.name || ''
+      });
+    };
+  }, []);
+
   if (!learningTrackDetail) return null;
 
   return (
@@ -113,7 +126,12 @@ const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
         rightComponent={RightComponent}
         type="learning-track"
         learningStatus={learningStatus}
-        onStartCallback={enroll}
+        onStartCallback={() => {
+          enroll();
+          BurialPoint.track('learningTrackDetail-页面上方Enroll按钮', {
+            learningTrackName: learningTrackDetail.name
+          });
+        }}
       ></CourseDetailHeader>
       <div className="mt-[60px] w-full">
         <div className="flex justify-between items-center">
@@ -122,7 +140,10 @@ const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
           </h2>
           <span
             className="font-next-book leading-[125%] tracking-[0.32px] text-[16px] underline cursor-pointer"
-            onClick={() => setExpandAll(!expandAll)}
+            onClick={() => () => {
+              BurialPoint.track('learningTrackDetail-Expand All 按钮点击');
+              setExpandAll(!expandAll);
+            }}
           >
             {expandAll && 'Fold All'}
             {!expandAll && 'Expand All'}
@@ -134,7 +155,15 @@ const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
         ></TrackList>
       </div>
       {!learningTrackDetail.enrolled && (
-        <div className="mt-[60px] self-center" onClick={enroll}>
+        <div
+          className="mt-[60px] self-center"
+          onClick={() => {
+            enroll();
+            BurialPoint.track('learningTrackDetail-页面下方Enroll按钮', {
+              learningTrackName: learningTrackDetail.name
+            });
+          }}
+        >
           <Button
             className="px-0 w-[270px] py-[16px] leading-[125%] text-[#000] font-next-book text-[18px] tracking-[0.36px]"
             type="primary"

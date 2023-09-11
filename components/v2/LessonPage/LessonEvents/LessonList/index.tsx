@@ -1,3 +1,4 @@
+import { BurialPoint } from '@/helper/burialPoint';
 import { useGetLessonLink } from '@/hooks/useCoursesHooks/useGetLessonLink';
 import ArrowLeft from '@/public/images/lesson/arrow_left_line.svg';
 import Complete from '@/public/images/lesson/complete.svg';
@@ -11,7 +12,7 @@ import {
 } from '@/service/webApi/course/type';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 interface LessonListType {
   unitData: UnitPagesListType[];
   lesson: CourseLessonType;
@@ -35,6 +36,7 @@ const LessonList: React.FC<LessonListType> = ({
   const handleUnit = (item: CourseLessonStateType) => {
     if (item.disable) return;
     const link = getLink(courseType, item?.id as string);
+    BurialPoint.track('lesson-使用lesson dropdown跳转lesson');
     router.push(link);
   };
 

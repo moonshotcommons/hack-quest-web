@@ -1,14 +1,14 @@
-import { FC, LegacyRef, ReactNode, RefObject, useContext, useRef } from 'react';
+import CopyIcon from '@/components/Common/Icon/Copy';
+import { Theme } from '@/constants/enum';
+import { BurialPoint } from '@/helper/burialPoint';
+import { ThemeContext } from '@/store/context/theme';
+import { message } from 'antd';
+import { FC, useContext, useRef } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import {
   oneDark,
   oneLight
 } from 'react-syntax-highlighter/dist/cjs/styles/prism';
-import { NotionRenderType } from '../type';
-import CopyIcon from '@/components/Common/Icon/Copy';
-import { message } from 'antd';
-import { ThemeContext } from '@/store/context/theme';
-import { Theme } from '@/constants/enum';
 
 interface CodeSourceType {
   content: {
@@ -50,6 +50,7 @@ const CodeRenderer: FC<CodeRendererProps> = (props) => {
                 .map((richText: any) => richText.plain_text)
                 .join('')
             );
+            BurialPoint.track('lesson-code复制');
             message.success('Copy success!');
           } catch (e) {
             message.warning('The browser version is too low or incompatible！');
