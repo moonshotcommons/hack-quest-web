@@ -1,5 +1,3 @@
-import { QueryIdType } from '@/components/v2/Breadcrumb/type';
-import { getCourseLink, getLessonLink } from '@/helper/utils';
 import { useGetLessonLink } from '@/hooks/useCoursesHooks/useGetLessonLink';
 import ArrowLeft from '@/public/images/lesson/arrow_left_line.svg';
 import Complete from '@/public/images/lesson/complete.svg';
