@@ -1,3 +1,4 @@
+import { BurialPoint } from '@/helper/burialPoint';
 import { useGetUserInfo, useGetUserUnLoginType } from '@/hooks/useGetUserInfo';
 import { setUnLoginType } from '@/store/redux/modules/user';
 import Image from 'next/image';
@@ -41,6 +42,11 @@ const User: FC<UserProps> = (props) => {
                 alt="avatar"
                 fill
                 className="object-cover"
+                onError={() => {
+                  BurialPoint.track('头像加载失败', {
+                    userId: userInfo?.id || ''
+                  });
+                }}
               ></Image>
             </div>
           )}

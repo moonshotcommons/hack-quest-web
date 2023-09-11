@@ -1,17 +1,14 @@
 import EmailFillIcon from '@/components/Common/Icon/EmailFill';
-import LockIcon from '@/components/Common/Icon/Lock';
-import UserIcon from '@/components/Common/Icon/User';
 import UserFillIcon from '@/components/Common/Icon/UserFill';
 import Modal from '@/components/Common/Modal';
+import { BurialPoint } from '@/helper/burialPoint';
+import { useGetUserInfo } from '@/hooks/useGetUserInfo';
 import { AppRootState } from '@/store/redux';
 import { setSettingsOpen } from '@/store/redux/modules/user';
-import { Upload } from 'antd';
-import Image from 'next/image';
-import { FC, ReactNode, useState } from 'react';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import ChangePassword from './ChangePassword';
+import { FC } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import AvatarUpload from './AvatarUpload';
-import { useGetUserInfo } from '@/hooks/useGetUserInfo';
+import ChangePassword from './ChangePassword';
 
 interface SettingsProps {
   // children: ReactNode;
@@ -41,7 +38,12 @@ const Settings: FC<SettingsProps> = (props) => {
             </h1>
             <div className="mt-[4rem] flex flex-col gap-[1.5rem] ">
               <AvatarUpload userInfo={userInfo}></AvatarUpload>
-              <div className="w-full relative flex flex-col gap-[0.25rem] bottom-line">
+              <div
+                className="w-full relative flex flex-col gap-[0.25rem] bottom-line"
+                onClick={() => {
+                  BurialPoint.track('想要修改用户名');
+                }}
+              >
                 <span className="text-setting-drop-setting-input-label text-[0.875rem] font-next-book leading-[110%]">
                   ID
                 </span>
@@ -57,7 +59,12 @@ const Settings: FC<SettingsProps> = (props) => {
                   />
                 </div>
               </div>
-              <div className="w-full relative flex flex-col gap-[0.25rem] bottom-line">
+              <div
+                className="w-full relative flex flex-col gap-[0.25rem] bottom-line"
+                onClick={() => {
+                  BurialPoint.track('想要修改邮箱');
+                }}
+              >
                 <span className="text-setting-drop-setting-input-label text-[0.875rem] font-next-book leading-[110%]">
                   Email
                 </span>

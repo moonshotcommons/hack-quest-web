@@ -125,12 +125,16 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
           setVerifyState(VerifyStateType.SUCCESS);
         })
         .catch((err) => {
-          BurialPoint.track('signup-注册邮箱token验证失败');
+          BurialPoint.track('signup-注册邮箱token验证失败', {
+            message: err?.msg || err?.message || ''
+          });
           setVerifyState(VerifyStateType.FAIL);
           console.log(err);
         });
     } else {
-      BurialPoint.track('signup-注册邮箱token验证失败');
+      BurialPoint.track('signup-注册邮箱token验证失败', {
+        message: 'token不存在'
+      });
       setVerifyState(VerifyStateType.FAIL);
     }
   }, [router, dispatch]);

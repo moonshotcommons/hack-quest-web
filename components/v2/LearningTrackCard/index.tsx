@@ -52,14 +52,18 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
       return;
     }
     e.stopPropagation();
-    BurialPoint.track('home-learning track卡片Enroll按钮点击');
+    BurialPoint.track('home-learning track卡片Enroll按钮点击', {
+      learningTrackName: track.name
+    });
     await enroll();
     // learningTrack.enrolled ? await unEnroll() : await enroll();
   };
   const handleResume = (e: any) => {
     if (isLandingPage) return;
     e.stopPropagation();
-    BurialPoint.track('home-learning track卡片resume按钮点击');
+    BurialPoint.track('home-learning track卡片resume按钮点击', {
+      learningTrackName: track.name
+    });
     const section = learningTrack.sections.find((v) => (v?.progress || 0) < 1);
     if (section) {
       const course = section.courses.find((v) => v.progress < 1);

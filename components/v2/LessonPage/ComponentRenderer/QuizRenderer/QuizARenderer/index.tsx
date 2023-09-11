@@ -4,6 +4,7 @@ import {
   NotionType,
   QuizAType
 } from '@/components/v2/LessonPage/type';
+import { BurialPoint } from '@/helper/burialPoint';
 import { changeTextareaHeight } from '@/helper/utils';
 import { useParseQuizA } from '@/hooks/useParseQuizA';
 import webApi from '@/service';
@@ -63,10 +64,14 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
   };
   const setAnswers = () => {
     const show = !showAnswer;
+    if (show) {
+      BurialPoint.track('lesson-show answer次数');
+    }
     dealInputValue(show);
     setShowAnswer(show);
   };
   const onSubmit = async () => {
+    BurialPoint.track('lesson-单个quiz提交', { lessonId: lesson.id });
     const newAnswerState = [...answerState];
 
     let isCurrent = true;
@@ -88,6 +93,7 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
     if (!isCurrent) {
       answerStateDispatch([...newAnswerState]);
       await webApi.courseApi.markQuestState(lesson.id, false);
+      BurialPoint.track('lesson-单个quiz提交未通过', { lessonId: lesson.id });
       return;
     }
     onPass();

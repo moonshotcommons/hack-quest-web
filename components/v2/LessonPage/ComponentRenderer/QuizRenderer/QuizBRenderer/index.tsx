@@ -4,8 +4,8 @@ import {
   NotionType,
   QuizBType
 } from '@/components/v2/LessonPage/type';
+import { BurialPoint } from '@/helper/burialPoint';
 import webApi from '@/service';
-import va from '@vercel/analytics';
 import { FC, useContext, useEffect, useRef, useState } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
@@ -50,7 +50,7 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
   };
 
   const onSubmit = () => {
-    va.track('QuizB 提交');
+    BurialPoint.track('lesson-单个quiz提交', { lessonId: lesson.id });
     const newAnswers = { ...answers };
     let wrongAnswers = [];
     for (const key in newAnswers) {
@@ -70,7 +70,7 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
       onPass();
       return;
     }
-
+    BurialPoint.track('lesson-单个quiz提交未通过', { lessonId: lesson.id });
     const wrongOptionIds = wrongAnswers.map((item) => item.option!.id);
     setOptions((prevOptions) => {
       const newOptions = prevOptions.map((option) => {
@@ -193,7 +193,10 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
           !!Object.keys(answers).find((key) => !answers[key].option) ||
           showAnswer
         }
-        setShowAnswer={(isShow) => setShowAnswer(isShow)}
+        setShowAnswer={(isShow) => {
+          if (isShow) BurialPoint.track('lesson-show answer次数');
+          setShowAnswer(isShow);
+        }}
         onSubmit={onSubmit}
       ></QuizFooter>
     </div>

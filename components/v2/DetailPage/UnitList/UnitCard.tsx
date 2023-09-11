@@ -1,6 +1,7 @@
 import CheckIcon from '@/components/Common/Icon/Check';
 import LockIcon from '@/components/Common/Icon/Lock';
 import { Theme } from '@/constants/enum';
+import { BurialPoint } from '@/helper/burialPoint';
 import { computeProgress } from '@/helper/formate';
 import { cn, getCourseLink } from '@/helper/utils';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
@@ -198,7 +199,13 @@ const UnitCard: FC<UnitCardProps> = (props) => {
           unit={unit}
           isLock={isLock}
           index={index}
-          onClick={() => courseDetail && jumpLearningLesson(courseDetail)}
+          onClick={() => {
+            BurialPoint.track('courseDetail-unit按钮', {
+              courseName: courseDetail?.name || '',
+              unitName: unit.name
+            });
+            courseDetail && jumpLearningLesson(courseDetail);
+          }}
         ></UnitButton>
       </div>
     </div>

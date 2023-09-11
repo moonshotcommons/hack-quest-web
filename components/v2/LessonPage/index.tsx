@@ -1,18 +1,18 @@
 'use client';
 import CompleteModal from '@/components/v2/LessonPage/CompleteModal';
+import { BurialPoint } from '@/helper/burialPoint';
 import { useGetLessonContent } from '@/hooks/useCoursesHooks/useGetLessenContent';
 import { useGotoNextLesson } from '@/hooks/useCoursesHooks/useGotoNextLesson';
 import webApi from '@/service';
-import { CourseType } from '@/service/webApi/course/type';
+import { CompleteStateType, CourseType } from '@/service/webApi/course/type';
 import { ConfigProvider, Spin } from 'antd';
 import { useRouter } from 'next/router';
-import { FC, useCallback, useEffect, useState } from 'react';
+import { FC, useCallback, useEffect, useRef, useState } from 'react';
 import Split from 'react-split';
 import LessonContent from './LessonContent';
 import LessonFooter from './LessonFooter';
 import Playground from './Playground';
 import { CustomType, LessonPageContext, NotionComponent } from './type';
-import { CompleteStateType } from '@/service/webApi/course/type';
 
 interface LessonPageProps {
   lessonId: string;
@@ -27,6 +27,7 @@ const LessonPage: FC<LessonPageProps> = (props) => {
   const { onNextClick, completeModalOpen, setCompleteModalOpen } =
     useGotoNextLesson(lesson!, courseType, true, true);
   const [isHandleNext, setIsHandleNext] = useState(false);
+  const allowNextButtonClickTime = useRef(0);
 
   const judgmentInitIsHandleNext = useCallback(() => {
     const quiz = lesson?.content?.right.find(
@@ -34,10 +35,12 @@ const LessonPage: FC<LessonPageProps> = (props) => {
     );
     if (!quiz || lesson?.state === CompleteStateType.COMPLETED) {
       setIsHandleNext(true);
+      allowNextButtonClickTime.current = new Date().getTime();
     } else {
       setIsHandleNext(false);
     }
   }, [lesson]);
+
   useEffect(() => {
     if (lesson) {
       judgmentInitIsHandleNext();
@@ -46,6 +49,18 @@ const LessonPage: FC<LessonPageProps> = (props) => {
       });
     }
   }, [lesson, judgmentInitIsHandleNext]);
+
+  useEffect(() => {
+    const startTime = new Date().getTime();
+    return () => {
+      const endTime = new Date().getTime();
+      const duration = endTime - startTime;
+      BurialPoint.track('lesson-页面留存时间', {
+        duration,
+        lesson: JSON.stringify({ name: lesson?.name || '', id: lesson?.id })
+      });
+    };
+  }, []);
 
   return (
     <ConfigProvider
@@ -71,7 +86,12 @@ const LessonPage: FC<LessonPageProps> = (props) => {
             <LessonPageContext.Provider
               value={{
                 isHandleNext,
-                changeHandleNext: (handle) => setIsHandleNext(handle)
+                changeHandleNext: (handle) => {
+                  if (handle) {
+                    allowNextButtonClickTime.current = new Date().getTime();
+                  }
+                  setIsHandleNext(handle);
+                }
               }}
             >
               <Split
@@ -91,7 +111,26 @@ const LessonPage: FC<LessonPageProps> = (props) => {
                   }}
                 ></Playground>
               </Split>
-              <LessonFooter lesson={lesson as any} onNextClick={onNextClick} />
+              <LessonFooter
+                lesson={lesson as any}
+                onNextClick={() => {
+                  BurialPoint.track('lesson-底部next按钮点击');
+                  BurialPoint.track(
+                    'lesson-底部next按钮亮起到点击所消耗的时间',
+                    {
+                      duration:
+                        new Date().getTime() - allowNextButtonClickTime.current,
+                      lesson: JSON.stringify({
+                        lessonName: lesson.name,
+                        lessonId: lessonId,
+                        courseName
+                      })
+                    }
+                  );
+
+                  onNextClick();
+                }}
+              />
               <CompleteModal
                 title={courseName as string}
                 open={completeModalOpen}
