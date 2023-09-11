@@ -72,10 +72,10 @@ const CourseCard: FC<CourseCardProps> = (props) => {
                   );
                 }
                 return (
-                  <span
-                    className="inline-block text-[#3E3E3E] scale-50 text-[12px] font-neuemachina-light whitespace-nowrap"
-                    style={{ transform: `scale(${0.5})` }}
-                  >{`${percent} %`}</span>
+                  <p className="flex justify-center text-[12px] text-[#3E3E3E]   font-neuemachina-light whitespace-nowrap">
+                    <span className="relative left-[3px]">{`${percent}`}</span>
+                    <span className="scale-50">%</span>
+                  </p>
                 );
               }}
             ></CustomProgress>
