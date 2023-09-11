@@ -74,7 +74,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
           </span>
         );
       case LearningTrackCourseType.IN_PROCESS:
-        const percent = `${(learningTrack.progress * 100).toFixed(2)}%`;
+        const percent = `${Math.floor(learningTrack.progress * 100)}%`;
         return (
           <>
             <div className="w-full flex items-center justify-between">
