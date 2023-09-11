@@ -63,9 +63,9 @@ html {
   --solidity-fallback: #f294da;
   --solidity-constructor: #f294da;
 
-  --solidity-else: #ffdf71;
-  --solidity-indexed: #ffdf71;
-  --solidity-if: #ffdf71;
+  --solidity-else: #745900;
+  --solidity-indexed: #745900;
+  --solidity-if: #745900;
 
   --solidity-continue: #ffaf71;
   --solidity-for: #ffaf71;

@@ -1,9 +1,10 @@
-import { FC, useRef, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 
 import Button from '@/components/Common/Button';
 import RightArrowIcon from '@/components/Common/Icon/RightArrow';
 import Checkbox from '@/components/v2/Common/Checkbox';
 import Input from '@/components/v2/Common/Input';
+import { BurialPoint } from '@/helper/burialPoint';
 import { setToken } from '@/helper/user-token';
 import { useValidator } from '@/hooks/useValidator';
 import webApi from '@/service';
@@ -54,6 +55,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
 
   const { run: onLogin } = useDebounceFn(
     () => {
+      BurialPoint.track('login-登录按钮点击');
       validator.validate(formData, async (errors, fields) => {
         if (!errors) {
           try {
@@ -64,23 +66,27 @@ const UserLogin: FC<UserLoginProps> = (props) => {
             }
             dispatch(setUserInfo(omit(res, 'token')));
             setToken(res.token);
+            BurialPoint.track('login-登录成功');
+            if (redirect_url) {
+              BurialPoint.track('login-redirect跳转');
+            }
             const toPageUrl = redirect_url
               ? `${redirect_url}?token=${res.token}`
               : '/home';
             router.push(toPageUrl);
           } catch (e: any) {
             console.log(e);
-            // if (e.code === 400) {
-            if (e.status === 'UNACTIVATED') {
-              setTimeout(() => {
-                console.log('跳转2');
-                dispatch(setUnLoginType(UnLoginType.EMAIL_VERIFY));
-              }, 1000);
+            if (e.code === 400) {
+              BurialPoint.track('login-登录失败', { message: e?.msg });
+              if (e.status === 'UNACTIVATED') {
+                setTimeout(() => {
+                  dispatch(setUnLoginType(UnLoginType.EMAIL_VERIFY));
+                }, 1000);
+              }
+              message.error(e?.msg);
+              passwordInputRef.current?.setStatus?.('error');
+              passwordInputRef.current?.setErrorMessage?.(e.msg);
             }
-            message.error(e?.msg);
-            passwordInputRef.current?.setStatus?.('error');
-            passwordInputRef.current?.setErrorMessage?.(e.msg);
-            // }
           }
         } else {
           const status: any = { ...formState };
@@ -98,6 +104,15 @@ const UserLogin: FC<UserLoginProps> = (props) => {
   );
 
   useKeyPress('enter', onLogin);
+
+  useEffect(() => {
+    const startTime = new Date().getTime();
+    return () => {
+      const endTime = new Date().getTime();
+      const duration = endTime - startTime;
+      BurialPoint.track('login-登录输入密码停留时间', { duration });
+    };
+  }, []);
 
   return (
     <div className="w-full h-full flex flex-col items-center">
@@ -141,6 +156,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
         <div
           className="w-full underline text-white font-next-book text-[1.125rem] leading-[160%] tracking-[0.36px] text-center cursor-pointer"
           onClick={() => {
+            BurialPoint.track('login-忘记密码');
             dispatch(
               setUnLoginType({
                 type: UnLoginType.FORGOT_PASSWORD,
@@ -158,6 +174,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
             }`}
             innerClassNames="bg-[#FFD850]"
             onChange={(value) => {
+              BurialPoint.track('login-保存登录状态');
               setFormData({
                 ...formData,
                 keepMeLoggedIn: value

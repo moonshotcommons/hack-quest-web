@@ -1,3 +1,4 @@
+import { BurialPoint } from '@/helper/burialPoint';
 import { useGetUserUnLoginType } from '@/hooks/useGetUserInfo';
 import { useValidator } from '@/hooks/useValidator';
 import webApi from '@/service';
@@ -25,6 +26,7 @@ const ForgotPassword: FC<ForgotPasswordProps> = (props) => {
   const dispatch = useDispatch();
   const { run: sendEmail } = useDebounceFn(
     () => {
+      BurialPoint.track('login-忘记密码发送邮件');
       validator.validate(formData, async (errors, fields) => {
         if (errors?.[0]) {
           setStatus('error');
@@ -34,8 +36,12 @@ const ForgotPassword: FC<ForgotPasswordProps> = (props) => {
             setStatus('success');
             setErrorMessage('');
             const res = await webApi.userApi.forgetPassword(formData.email);
+            BurialPoint.track('login-忘记密码发送邮件成功');
             dispatch(setUnLoginType(UnLoginType.EMAIL_VERIFY));
           } catch (e: any) {
+            BurialPoint.track('login-忘记密码发送邮件失败', {
+              message: e?.msg
+            });
             setStatus('error');
             setErrorMessage(e.msg || '');
           }
