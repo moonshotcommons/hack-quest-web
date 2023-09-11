@@ -23,7 +23,7 @@ const HomeBanner: FC<HomeBannerProps> = (props) => {
     >
       <div className="container flex justify-between w-full">
         <div className="flex flex-col h-full justify-between">
-          <h1 className="text-landing-banner-intr-color  font-next-book-bold text-[48px] tracking-[2.28px] leading-[110%] uppercase">
+          <h1 className="text-landing-banner-intr-color  font-next-book-bold text-[48px] tracking-[2.4px] leading-[140%] uppercase">
             Web3.0 <br />
             Programming
             <br />

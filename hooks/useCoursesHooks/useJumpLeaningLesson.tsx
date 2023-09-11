@@ -1,3 +1,4 @@
+import { MenuLink, QueryIdType } from '@/components/v2/Breadcrumb/type';
 import { getLessonLink } from '@/helper/utils';
 import webApi from '@/service';
 import { CourseDetailType, CourseResponse } from '@/service/webApi/course/type';
@@ -13,11 +14,12 @@ export interface JumpLeaningLessonType {
 }
 export const useJumpLeaningLesson = () => {
   const router = useRouter();
+  const { query } = router;
   const dispatch = useDispatch();
   const { run } = useRequest(
     async (
       courseDetail: CourseDetailType | CourseResponse,
-      linkParam?: JumpLeaningLessonType
+      lParam?: JumpLeaningLessonType
     ) => {
       const lesson = await webApi.courseApi.getLearningLessonId(
         courseDetail?.id as string
@@ -25,12 +27,20 @@ export const useJumpLeaningLesson = () => {
       return {
         courseDetail,
         pageId: lesson?.pageId,
-        linkParam
+        lParam
       };
     },
     {
       manual: true,
-      onSuccess({ courseDetail, pageId, linkParam }) {
+      onSuccess({ courseDetail, pageId, lParam }) {
+        const linkParam = lParam || {
+          menu: query.menu as string,
+          idTypes: [QueryIdType.LEARNING_TRACK_ID, QueryIdType.MENU_COURSE_ID],
+          ids: [
+            query[QueryIdType.LEARNING_TRACK_ID] || '',
+            query[QueryIdType.MENU_COURSE_ID] || ''
+          ] as string[]
+        };
         let link = `${getLessonLink(
           courseDetail?.type,
           courseDetail?.name,

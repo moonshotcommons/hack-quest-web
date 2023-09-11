@@ -1,3 +1,4 @@
+import { BurialPoint } from '@/helper/burialPoint';
 import { useValidator } from '@/hooks/useValidator';
 import { UnLoginType, setUnLoginType } from '@/store/redux/modules/user';
 import { motion } from 'framer-motion';
@@ -45,6 +46,7 @@ const Login: FC<LoginProps> = (props) => {
             validator={validator}
             emailTitle={EmailTitle}
             value={email}
+            type={UnLoginType.LOGIN}
             onStatusChange={(status) => setEmailCheckStatus(status)}
             onNext={(email: string) => {
               if (emailCheckStatus) {
@@ -62,7 +64,10 @@ const Login: FC<LoginProps> = (props) => {
         >
           <UserLogin
             email={email}
-            onBack={() => setShowLogin(false)}
+            onBack={() => {
+              BurialPoint.track('login-登录返回');
+              setShowLogin(false);
+            }}
           ></UserLogin>
         </motion.div>
       )}

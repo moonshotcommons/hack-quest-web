@@ -1,3 +1,4 @@
+import { BurialPoint } from '@/helper/burialPoint';
 import { useGetUserUnLoginType } from '@/hooks/useGetUserInfo';
 import { useValidator } from '@/hooks/useValidator';
 import { UnLoginType, setUnLoginType } from '@/store/redux/modules/user';
@@ -43,6 +44,7 @@ const SignUp: FC<SignUpProps> = (props) => {
             emailTitle={EmailTitle}
             validator={validator}
             onStatusChange={(status) => setEmailCheckStatus(status)}
+            type={UnLoginType.SIGN_UP}
             onNext={(email: string) => {
               if (emailCheckStatus) {
                 setRegisterForm(true);
@@ -54,7 +56,10 @@ const SignUp: FC<SignUpProps> = (props) => {
       ) : (
         <RegisterForm
           email={email}
-          onBack={() => setRegisterForm(false)}
+          onBack={() => {
+            BurialPoint.track('signup-注册返回');
+            setRegisterForm(false);
+          }}
         ></RegisterForm>
       )}
     </div>

@@ -128,7 +128,7 @@ const Input = forwardRef<
           value={value}
           placeholder={placeholder}
           className={cn(
-            `w-full border border-solid border-[#212121] outline-none px-[25px] py-[15px] rounded-[2.5rem] text-[14px] font-next-book leading-[118.5%] caret-[#5B5B5B] hover:border-[#212121] focus:border-[#212121]`,
+            `w-full border border-solid border-[#212121] outline-none px-[25px] py-[15px] rounded-[2.5rem] text-[14px] font-next-book leading-[118.5%] caret-[#ffffff] hover:border-[#212121] focus:border-[#212121]`,
             // type === 'password' &&
             //   'border-auth-password-input-bg focus:border-[#212121]',
             status === 'success'

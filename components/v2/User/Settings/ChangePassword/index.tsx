@@ -93,21 +93,29 @@ const ChangePasswordInput: FC<{
       pattern: /^(?=.*\d)(?=.*[a-zA-Z]).{8,16}$/,
       message: 'Use 8 or more characters with a mix of letters & numbers'
     },
-    reenterPassword: [
-      {
-        type: 'string',
-        required: true,
-        pattern: /^(?=.*\d)(?=.*[a-zA-Z]).{8,16}$/,
-        message: 'Use 8 or more characters with a mix of letters & numbers'
-      },
-      {
-        type: 'string',
-        message: 'Those passwords didn’t match. Try again.',
-        validator(rule, value) {
-          return value === formData.newPassword;
-        }
+    // reenterPassword: [
+    //   {
+    //     type: 'string',
+    //     required: true,
+    //     pattern: /^(?=.*\d)(?=.*[a-zA-Z]).{8,16}$/,
+    //     message: 'Use 8 or more characters with a mix of letters & numbers'
+    //   },
+    //   {
+    //     type: 'string',
+    //     message: 'Those passwords didn’t match. Try again.',
+    //     validator(rule, value) {
+    //       return value === formData.newPassword;
+    //     }
+    //   }
+    // ],
+    reenterPassword: {
+      type: 'string',
+      required: true,
+      message: 'Those passwords didn’t match. Try again.',
+      validator(rule, value) {
+        return value === formData.newPassword;
       }
-    ]
+    }
   };
   const currentPasswordRef = useRef<any>();
   const validator = new Schema(descriptor);
@@ -130,6 +138,7 @@ const ChangePasswordInput: FC<{
           }
         } else {
           const status: any = { ...formState };
+
           errors.map((error) => {
             status[error.field as string] = {
               status: 'error',
@@ -143,18 +152,18 @@ const ChangePasswordInput: FC<{
     { wait: 500 }
   );
 
-  useEffect(() => {
-    let timer: NodeJS.Timeout;
-    if (changeSuccessVisible) {
-      setTimeout(() => {
-        changeVisible(false);
-        setChangeSuccessVisible(false);
-      }, 3000);
-    }
-    return () => {
-      clearInterval(timer);
-    };
-  }, [changeSuccessVisible]);
+  // useEffect(() => {
+  //   let timer: NodeJS.Timeout;
+  //   if (changeSuccessVisible) {
+  //     setTimeout(() => {
+  //       changeVisible(false);
+  //       setChangeSuccessVisible(false);
+  //     }, 3000);
+  //   }
+  //   return () => {
+  //     clearInterval(timer);
+  //   };
+  // }, [changeSuccessVisible]);
   return (
     <div className="w-full flex flex-col gap-[1.5rem] mt-[1.5rem]">
       <h1 className="text-setting-drop-user-name-color text-[28px] tracking-[1.68px] font-bold font-next-poster-Bold leading-[110%]">
@@ -217,13 +226,13 @@ const ChangePasswordInput: FC<{
             errorMessage={formState.reenterPassword.errorMessage}
             delay={500}
             rules={[
-              {
-                type: 'string',
-                required: true,
-                pattern: /^(?=.*\d)(?=.*[a-zA-Z]).{8,16}$/,
-                message:
-                  'Use 8 or more characters with a mix of letters & numbers'
-              },
+              // {
+              //   type: 'string',
+              //   required: true,
+              //   pattern: /^(?=.*\d)(?=.*[a-zA-Z]).{8,16}$/,
+              //   message:
+              //     'Use 8 or more characters with a mix of letters & numbers'
+              // },
               {
                 type: 'string',
                 message: 'Those passwords didn’t match. Try again.',
@@ -276,7 +285,7 @@ const ChangePasswordInput: FC<{
             You have changed your password successfully.
           </p>
           <button
-            className="px-[2rem] py-[1rem] w-fit text-text-default-color text-[0.875rem] leading-[120%] border border-solid rounded-[2.5rem] border-[#5B5B5B]"
+            className="px-[2rem] py-[1rem] w-fit text-[#fff] text-[0.875rem] leading-[120%] border border-solid rounded-[2.5rem] border-[#fff]"
             onClick={(e) => {
               changeVisible(false);
               setChangeSuccessVisible(false);

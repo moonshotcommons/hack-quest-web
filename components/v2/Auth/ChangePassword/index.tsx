@@ -1,5 +1,6 @@
 import Button from '@/components/Common/Button';
 import Input from '@/components/v2/Common/Input';
+import { BurialPoint } from '@/helper/burialPoint';
 import { useValidator } from '@/hooks/useValidator';
 import webApi from '@/service';
 import { UnLoginType, setUnLoginType } from '@/store/redux/modules/user';
@@ -138,7 +139,9 @@ const ChangeForm = ({
           try {
             const res = (await webApi.userApi.updatePassword(formData)) as any;
             changeState(ChangeStateType.SUCCESS);
+            BurialPoint.track('login-忘记密码重置成功');
           } catch (e: any) {
+            BurialPoint.track('login-忘记密码重置失败', { message: e?.msg });
             message.error(e.msg);
             changeState(ChangeStateType.FAIL);
           }
