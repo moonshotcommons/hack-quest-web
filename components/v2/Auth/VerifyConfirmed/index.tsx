@@ -1,4 +1,5 @@
 import Button from '@/components/Common/Button';
+import { BurialPoint } from '@/helper/burialPoint';
 import { setToken } from '@/helper/user-token';
 import webApi from '@/service';
 import { setUserInfo } from '@/store/redux/modules/user';
@@ -113,19 +114,23 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
   const [verifyState, setVerifyState] = useState(VerifyStateType.VERIFYING);
   useEffect(() => {
     const { token } = router.query;
+    BurialPoint.track('signup-注册邮箱token验证');
     if (token) {
       webApi.userApi
         .tokenVerify({ token: token as string })
         .then((res: any) => {
           dispatch(setUserInfo(omit(res, 'token')));
+          BurialPoint.track('signup-注册邮箱token验证成功');
           setToken(res.token || token);
           setVerifyState(VerifyStateType.SUCCESS);
         })
         .catch((err) => {
+          BurialPoint.track('signup-注册邮箱token验证失败');
           setVerifyState(VerifyStateType.FAIL);
           console.log(err);
         });
     } else {
+      BurialPoint.track('signup-注册邮箱token验证失败');
       setVerifyState(VerifyStateType.FAIL);
     }
   }, [router, dispatch]);

@@ -1,6 +1,7 @@
 import LeftArrowIcon from '@/components/Common/Icon/LeftArrow';
 import RightArrowIcon from '@/components/Common/Icon/RightArrow';
 import { ChangeState } from '@/components/Common/ScrollContainer';
+import { BurialPoint } from '@/helper/burialPoint';
 import { cn } from '@/helper/utils';
 import { useEffect, useRef, useState } from 'react';
 
@@ -37,7 +38,10 @@ function ScrollControl({ changeState }: { changeState?: ChangeState }) {
               ? 'bg-transparent text-black cursor-not-allowed'
               : 'hover:bg-[#000000]/70 hover:border-[#000000]/70 transition'
           )}
-          onClick={() => handleArrowClick?.('left')}
+          onClick={() => {
+            BurialPoint.track('home-featured course滚动-左');
+            handleArrowClick?.('left');
+          }}
         >
           <LeftArrowIcon></LeftArrowIcon>
         </div>
@@ -48,7 +52,10 @@ function ScrollControl({ changeState }: { changeState?: ChangeState }) {
               ? 'bg-transparent text-black cursor-not-allowed'
               : 'hover:bg-[#000000]/70 hover:border-[#000000]/70 transition'
           )}
-          onClick={() => handleArrowClick?.('right')}
+          onClick={() => {
+            BurialPoint.track('home-featured course滚动-右');
+            handleArrowClick?.('right');
+          }}
         >
           <RightArrowIcon></RightArrowIcon>
         </div>

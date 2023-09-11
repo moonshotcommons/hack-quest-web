@@ -2,6 +2,7 @@ import {
   ChangeState,
   ScrollContainer
 } from '@/components/Common/ScrollContainer';
+import { BurialPoint } from '@/helper/burialPoint';
 import webApi from '@/service';
 import { CourseResponse } from '@/service/webApi/course/type';
 import { useRequest } from 'ahooks';
@@ -27,6 +28,9 @@ const FeaturedCourseHeader = () => {
       <Link
         href={'/electives'}
         className="flex gap-x-[15px] items-center text-[#0B0B0B] hover:opacity-70 font-next-book tracking-[0.36px] text-[18px]"
+        onClick={() => {
+          BurialPoint.track('home-view all点击');
+        }}
       >
         <span>View All</span>
         <LuChevronRight size={32}></LuChevronRight>
@@ -60,16 +64,20 @@ const FeatureCourses: FC<FeatureCoursesProps> = (props) => {
     <div className="w-full bg-[#FFF4CE] py-[60px]">
       <div className="container mx-auto">
         <FeaturedCourseHeader></FeaturedCourseHeader>
-        <ScrollContainer
-          onChange={(state: any) => setScrollContainerState(state)}
-        >
-          <div className="my-[30px] flex gap-[20px] overflow-x-hidden">
-            {courseList.map((course, index) => {
-              return <CourseCard key={course.id} course={course}></CourseCard>;
-            })}
-          </div>
-        </ScrollContainer>
-        <ScrollControl changeState={scrollContainerState}></ScrollControl>
+        <div>
+          <ScrollContainer
+            onChange={(state: any) => setScrollContainerState(state)}
+          >
+            <div className="my-[30px] flex gap-[20px] overflow-x-hidden">
+              {courseList.map((course, index) => {
+                return (
+                  <CourseCard key={course.id} course={course}></CourseCard>
+                );
+              })}
+            </div>
+          </ScrollContainer>
+          <ScrollControl changeState={scrollContainerState}></ScrollControl>
+        </div>
       </div>
     </div>
   );

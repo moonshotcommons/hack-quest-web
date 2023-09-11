@@ -2,6 +2,7 @@ import Button from '@/components/Common/Button';
 import RightArrowIcon from '@/components/Common/Icon/RightArrow';
 import Checkbox from '@/components/v2/Common/Checkbox';
 import Input from '@/components/v2/Common/Input';
+import { BurialPoint } from '@/helper/burialPoint';
 import { cn } from '@/helper/utils';
 import { useValidator } from '@/hooks/useValidator';
 import webApi from '@/service';
@@ -61,7 +62,9 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
 
   const { run: onRegister } = useDebounceFn(
     () => {
+      BurialPoint.track('signup-注册按钮点击');
       if (!acceptConditions) {
+        BurialPoint.track('signup-没有同意隐私策略');
         setAcceptErrorMessage(true);
         return;
       }
@@ -72,9 +75,12 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
             status[key] = { status: 'success', errorMessage: '' };
           }
           try {
+            BurialPoint.track('signup-发送注册邮件');
             const res = await webApi.userApi.userRegister(formData);
+            BurialPoint.track('signup-注册邮件发送成功');
             dispatch(setUnLoginType(UnLoginType.EMAIL_VERIFY));
           } catch (e: any) {
+            BurialPoint.track('signup-注册邮件发送失败', { message: e?.msg });
             if (e?.code === 400) setShowWhiteListModal(true);
             else message.error(e?.msg);
           }
