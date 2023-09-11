@@ -1,5 +1,24 @@
 import va from '@vercel/analytics';
 
+type BaseBurialPointType =
+  | '页面留存时间'
+  | '使用navbar跳转'
+  | '头像加载失败'
+  | 'settings'
+  | '登出';
+
+type SettingsBurialPointType =
+  | '头像上传'
+  | '头像上传失败'
+  | '头像上传成功'
+  | '想要修改用户名'
+  | '想要修改邮箱'
+  | 'settings修改密码'
+  | 'settings修改密码成功'
+  | 'settings修改密码失败'
+  | 'settings取消修改密码'
+  | 'settings修改密码成功Got it按钮点击';
+
 type AuthBurialPointType =
   | 'login-登录邮箱验证失败'
   | 'login-登录next按钮'
@@ -62,28 +81,35 @@ type HomeBurialPointType =
 
 type CourseDetailBurialPointType =
   | 'courseDetail-页面留存时间'
-  | 'courseDetail-页面上方按钮'
+  | 'courseDetail-页面上方按钮点击'
   | 'courseDetail-unit按钮'
-  | 'courseDetail-页面下方start按钮';
+  | 'courseDetail-页面下方按钮点击';
 
 type LearningTrackDetailBurialPointType =
   | 'learningTrackDetail-页面留存时间'
-  | 'learningTrackDetail-页面上方按钮'
-  | 'learningTrackDetail-unit按钮'
-  | 'learningTrackDetail-页面下方start按钮'
+  | 'learningTrackDetail-页面上方Enroll按钮'
+  | 'learningTrackDetail-course学习按钮'
+  | 'learningTrackDetail-页面下方Enroll按钮'
   | 'learningTrackDetail-Expand All 按钮点击'
   | 'learningTrackDetail-section展开按钮'
-  | 'learningTrackDetail-课程点击';
+  | 'learningTrackDetail-课程名点击';
 
 type LessonDetailBurialPointType =
+  | 'lesson-页面留存时间'
   | 'lesson-content展开'
-  | 'lesson-开始quiz'
+  | 'lesson-start quiz按钮点击'
   | 'lesson-单个quiz提交'
-  | 'lesson-单个lesson完成'
-  | 'lesson-show answer'
-  | 'lesson-下一个lesson按钮'
+  | 'lesson-单个quiz提交通过'
+  | 'lesson-单个quiz提交未通过'
+  | 'lesson-show answer次数'
+  | 'lesson-底部next按钮亮起到点击所消耗的时间'
+  | 'lesson-底部next按钮点击'
   | 'lesson-completed course'
+  | 'lesson-lesson dropdown点击'
+  | 'lesson-使用lesson dropdown跳转lesson'
   | 'lesson-code复制'
+  | 'lesson-quiz dropdown点击'
+  | 'lesson-quiz切换'
   | 'lesson-quiz 收起'
   | 'lesson-example 收起'
   | 'lesson-课程完成';
@@ -94,7 +120,9 @@ type BurialPointType =
   | HomeBurialPointType
   | CourseDetailBurialPointType
   | LearningTrackDetailBurialPointType
-  | LessonDetailBurialPointType;
+  | LessonDetailBurialPointType
+  | BaseBurialPointType
+  | SettingsBurialPointType;
 
 export class BurialPoint {
   static track(

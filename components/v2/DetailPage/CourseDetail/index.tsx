@@ -1,7 +1,8 @@
 import { CourseDetailType } from '@/service/webApi/course/type';
-import { FC, useCallback, useMemo } from 'react';
+import { FC, useCallback, useEffect, useMemo } from 'react';
 
 import Button from '@/components/Common/Button';
+import { BurialPoint } from '@/helper/burialPoint';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
 import CourseDetailHeader from '../CourseDetailHeader';
 import HeaderRight from '../HeaderRight';
@@ -31,6 +32,18 @@ const CourseDetail: FC<CourseDetailProps> = (props) => {
     courseDetail && jumpLearningLesson(courseDetail);
   }, [courseDetail]);
 
+  useEffect(() => {
+    const startTime = new Date().getTime();
+    return () => {
+      const endTime = new Date().getTime();
+      const duration = endTime - startTime;
+      BurialPoint.track('courseDetail-页面留存时间', {
+        duration,
+        courseName: courseDetail?.name || ''
+      });
+    };
+  }, []);
+
   if (!courseDetail) return null;
 
   const RightComponent = (
@@ -52,7 +65,12 @@ const CourseDetail: FC<CourseDetailProps> = (props) => {
         rightComponent={RightComponent}
         type="course"
         learningStatus={learningStatus}
-        onStartCallback={resumeCallback}
+        onStartCallback={() => {
+          BurialPoint.track('courseDetail-页面上方按钮点击', {
+            courseName: courseDetail.name
+          });
+          resumeCallback();
+        }}
       ></CourseDetailHeader>
       <div className="mt-[60px] w-full">
         <h2 className="mb-[30px] text-[#000] font-next-poster-Bold text-[28px] tracking-[1.68px]">
@@ -64,7 +82,15 @@ const CourseDetail: FC<CourseDetailProps> = (props) => {
         ></UnitList>
       </div>
       {learningStatus === LearningStatus.UN_START && (
-        <div className="mt-[60px] self-center" onClick={resumeCallback}>
+        <div
+          className="mt-[60px] self-center"
+          onClick={() => {
+            BurialPoint.track('courseDetail-页面下方按钮点击', {
+              courseName: courseDetail.name
+            });
+            resumeCallback();
+          }}
+        >
           <Button
             className="px-0 w-[270px] py-[16px] leading-[125%] text-[#000] font-next-book text-[18px] tracking-[0.36px]"
             type="primary"

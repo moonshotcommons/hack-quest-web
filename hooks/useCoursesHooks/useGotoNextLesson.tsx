@@ -1,5 +1,4 @@
-import { QueryIdType } from '@/components/v2/Breadcrumb/type';
-import { getLessonLink } from '@/helper/utils';
+import { BurialPoint } from '@/helper/burialPoint';
 import webApi from '@/service';
 import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
 import { AppRootState } from '@/store/redux';
@@ -46,6 +45,9 @@ export const useGotoNextLesson = (
 
     if (isLastUnit && isLastLesson) {
       // router.push(`${getCourseLink(courseType)}/${lesson.courseId}/completed`);
+      BurialPoint.track('lesson-课程完成', {
+        courseId: courseId as string
+      });
       setCompleteModalOpen(true);
       return;
     }

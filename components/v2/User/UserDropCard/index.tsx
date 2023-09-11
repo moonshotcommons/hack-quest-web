@@ -1,17 +1,13 @@
 import SettingIcon from '@/components/Common/Icon/Setting';
 import SignOutIcon from '@/components/Common/Icon/SignOut';
+import { BurialPoint } from '@/helper/burialPoint';
 import { LoginResponse } from '@/service/webApi/user/type';
 import { setSettingsOpen, userSignOut } from '@/store/redux/modules/user';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { FC, ReactNode, useContext } from 'react';
-import { useDispatch } from 'react-redux';
-import Avatar from '@/public/images/user/login_avatar.svg';
-import { ThemeContext } from '@/store/context/theme';
-import { Theme } from '@/constants/enum';
-import ThemeIcon from '@/components/Common/Icon/Theme';
-import Switch from '@/components/Common/Switch';
+import { FC } from 'react';
 import { AiFillCaretUp } from 'react-icons/ai';
+import { useDispatch } from 'react-redux';
 interface UserDropCardProps {
   // children: ReactNode;
   userInfo: LoginResponse;
@@ -48,6 +44,7 @@ const UserDropCard: FC<UserDropCardProps> = (props) => {
   const signOut = () => {
     dispatch(userSignOut());
     router.push('/');
+    BurialPoint.track('登出');
   };
 
   return (
@@ -62,6 +59,7 @@ const UserDropCard: FC<UserDropCardProps> = (props) => {
         onClick={() => {
           onClose();
           dispatch(setSettingsOpen(true));
+          BurialPoint.track('settings');
         }}
       >
         <span>
