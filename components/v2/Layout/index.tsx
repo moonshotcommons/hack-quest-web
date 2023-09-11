@@ -12,6 +12,21 @@ export interface LayoutProps {
   pathname: string;
 }
 
+export const navbarList = [
+  {
+    name: 'Home',
+    path: '/home'
+  },
+  {
+    name: 'Learning Track',
+    path: '/learning-track'
+  },
+  {
+    name: 'Electives',
+    path: '/electives'
+  }
+];
+
 const V2Layout: FC<LayoutProps> = (props) => {
   let { pathname, children, navbarData } = props;
   const { waitingLoadUserInfo } = useLoadUserInfo();
@@ -22,20 +37,7 @@ const V2Layout: FC<LayoutProps> = (props) => {
   // navbarData.navList = [];
 
   if (userInfo) {
-    navbarData.navList = [
-      {
-        name: 'Home',
-        path: '/home'
-      },
-      {
-        name: 'Learning Track',
-        path: '/learning-track'
-      },
-      {
-        name: 'Electives',
-        path: '/electives'
-      }
-    ];
+    navbarData.navList = navbarList;
   }
 
   switch (true) {
