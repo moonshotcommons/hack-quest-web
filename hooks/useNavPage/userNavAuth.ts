@@ -6,6 +6,7 @@ import {
   isLoginOrRegister,
   isNoNeedUserInfo
 } from '@/constants/nav';
+import { getToken } from '@/helper/user-token';
 import { useRouter } from 'next/router';
 import { useGetUserInfo } from '../useGetUserInfo';
 
@@ -16,11 +17,13 @@ function useNavAuth(waitingUserData: boolean) {
 
   useEffect(() => {
     if (waitingUserData) return;
-
+    const { redirect_url } = router.query;
     // 已经登录了
-    if (userInfo) {
-      if (isLoginOrRegister(pathname)) {
-        console.log('跳转');
+    if (userInfo && isLoginOrRegister(pathname)) {
+      const token = getToken();
+      if (redirect_url && token) {
+        router.push(`${redirect_url}?token=${token}`);
+      } else {
         router.push(V2_HOME_PATH);
       }
       return;
