@@ -33,7 +33,7 @@ const goToLogin = () => {
   const bodyEle = document.querySelector('body') as HTMLBodyElement;
   bodyEle.style.scrollBehavior = 'smooth';
   bodyEle.scrollTop = 0;
-  message.warning('请先登录');
+  message.warning('Please log in first');
 };
 const GotoPageButton: React.FC<GotoPageButtonProps> = (props) => {
   const { isBlack } = props;

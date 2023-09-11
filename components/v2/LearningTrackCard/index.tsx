@@ -48,7 +48,8 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
   const handleRoll = async (e: any) => {
     if (isLandingPage) return;
     e.stopPropagation();
-    learningTrack.enrolled ? await unEnroll() : await enroll();
+    await enroll();
+    // learningTrack.enrolled ? await unEnroll() : await enroll();
   };
   const handleResume = (e: any) => {
     if (isLandingPage) return;
@@ -74,7 +75,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
           </span>
         );
       case LearningTrackCourseType.IN_PROCESS:
-        const percent = `${Math.floor(learningTrack.progress * 100)}%`;
+        const percent = `${computeProgress(learningTrack.progress)}%`;
         return (
           <>
             <div className="w-full flex items-center justify-between">
@@ -107,12 +108,21 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
               <Button className="w-[47%] h-11 border border-home-learning-track-view-button-border p-0 text-home-learning-track-view-button-color">
                 View Syllabus
               </Button>
-              <Button
-                className="w-[47%] h-11 text-home-learning-track-view-button-color bg-home-learning-track-view-button-bg"
-                onClick={handleRoll}
-              >
-                {learningTrack.enrolled ? 'UnEnroll' : 'Enroll'}
-              </Button>
+              {!learningTrack.enrolled ? (
+                <Button
+                  className="w-[47%] h-11 text-home-learning-track-view-button-color bg-home-learning-track-view-button-bg"
+                  onClick={handleRoll}
+                >
+                  Enroll
+                </Button>
+              ) : (
+                <Button
+                  className="w-[48%] h-11 text-home-learning-track-view-button-color bg-home-learning-track-view-button-bg px-0"
+                  onClick={handleResume}
+                >
+                  Start
+                </Button>
+              )}
             </div>
           </>
         );
@@ -177,7 +187,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
           {learningTrack.progress < 1 && learningTrack.progress > 0 && (
             <CustomProgress
               type="circle"
-              percent={Math.floor(computeProgress(learningTrack.progress))}
+              percent={computeProgress(learningTrack.progress)}
               strokeWidth={6}
               strokeColor={'#FCC409'}
               trailColor={'#8C8C8C'}
@@ -191,10 +201,10 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
                   );
                 }
                 return (
-                  <span
-                    className="inline-block text-[#3E3E3E] scale-50 text-[12px] font-neuemachina-light whitespace-nowrap"
-                    style={{ transform: `scale(${0.5})` }}
-                  >{`${percent} %`}</span>
+                  <p className="flex justify-center text-[12px] text-[#3E3E3E]   font-neuemachina-light whitespace-nowrap">
+                    <span className="relative left-[3px]">{`${percent}`}</span>
+                    <span className="scale-50">%</span>
+                  </p>
                 );
               }}
             ></CustomProgress>
