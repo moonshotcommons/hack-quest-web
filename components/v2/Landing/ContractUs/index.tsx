@@ -1,12 +1,13 @@
-import Link from 'next/link';
-import { FC, ReactNode, useContext } from 'react';
-import TwitterIcon from '@/components/Common/Icon/Twitter';
-import DiscordIcon from '@/components/Common/Icon/Discord';
 import DarkInstagramIcon from '@/components/Common/Icon/DarkInstagram';
+import DiscordIcon from '@/components/Common/Icon/Discord';
+import LightInstagramIcon from '@/components/Common/Icon/LightInstagram';
+import TwitterIcon from '@/components/Common/Icon/Twitter';
+import { Theme } from '@/constants/enum';
+import { BurialPoint } from '@/helper/burialPoint';
 import { cn } from '@/helper/utils';
 import { ThemeContext } from '@/store/context/theme';
-import { Theme } from '@/constants/enum';
-import LightInstagramIcon from '@/components/Common/Icon/LightInstagram';
+import Link from 'next/link';
+import { FC, useContext } from 'react';
 interface ContractUsProps {
   // children: ReactNode;
   className?: string;
@@ -27,6 +28,9 @@ const ContractUs: FC<ContractUsProps> = (props) => {
       <Link
         href={'https://twitter.com/_hackquest'}
         className="hover:scale-[1.1] cursor-pointer"
+        onClick={() => {
+          BurialPoint.track('landing-推特按钮点击');
+        }}
       >
         <span className="text-text-default-color">
           <TwitterIcon />
@@ -35,6 +39,9 @@ const ContractUs: FC<ContractUsProps> = (props) => {
       <Link
         href={'https://discord.gg/KkAJHPqywn'}
         className="hover:scale-[1.1] cursor-pointer"
+        onClick={() => {
+          BurialPoint.track('landing-discord按钮点击');
+        }}
       >
         <span className="text-text-default-color">
           <DiscordIcon />
@@ -43,6 +50,9 @@ const ContractUs: FC<ContractUsProps> = (props) => {
       <Link
         href={'https://www.instagram.com/_hackquest/'}
         className="hover:scale-[1.1] cursor-pointer"
+        onClick={() => {
+          BurialPoint.track('landing-instagram按钮点击');
+        }}
       >
         <span>
           {theme === Theme.Dark && <DarkInstagramIcon />}

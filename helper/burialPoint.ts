@@ -31,19 +31,18 @@ type AuthBurialPointType =
   | 'signup-注册邮箱验证成功'
   | 'signup-注册按钮点击'
   | 'signup-注册返回'
-  | 'signup-发送注册邮件'
-  | 'signup-修改注册邮件';
+  | 'signup-发送注册邮件';
+// | 'signup-修改注册邮件';
 
 type LandingBurialPointType =
   | 'landing-页面留存时间'
   | 'landing-learning track卡片点击'
-  | 'landing-View Syllabus按钮点击'
-  | 'landing-Enroll按钮点击'
-  | 'landing-内容浏览'
-  | 'landing-上方Explore Learning Tracks按钮点击'
-  | 'landing-上方Explore Selective Courses按钮点击'
-  | 'landing-下方Explore Learning Tracks按钮点击'
-  | 'landing-下方Explore Selective Courses按钮点击'
+  | 'landing-learning track Enroll按钮点击'
+  // | 'landing-内容浏览'
+  | 'landing-top Explore Learning Tracks按钮点击'
+  | 'landing-top Explore Selective Courses按钮点击'
+  | 'landing-bottom Explore Learning Tracks按钮点击'
+  | 'landing-bottom Explore Selective Courses按钮点击'
   | 'landing-推特按钮点击'
   | 'landing-discord按钮点击'
   | 'landing-instagram按钮点击';
@@ -53,6 +52,12 @@ type HomeBurialPointType =
   | 'home-featured course浏览'
   | 'home-featured course滚动-左'
   | 'home-featured course滚动-右'
+  | 'home-course卡片点击'
+  | 'home-course卡片resume按钮点击'
+  | 'home-course卡片View Syllabus按钮点击'
+  | 'home-learning track卡片View Syllabus按钮点击'
+  | 'home-learning track卡片Enroll按钮点击'
+  | 'home-learning track卡片resume按钮点击'
   | 'home-view all点击';
 
 type CourseDetailBurialPointType =
