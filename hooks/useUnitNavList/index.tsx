@@ -14,12 +14,12 @@ const formateDropdownData = (
   lesson: CourseLessonType
 ) => {
   let currentUnitIndex = data.findIndex((unit) => unit.id === lesson.unitId);
-  let currentLessonIndex = data[currentUnitIndex].pages.findIndex(
-    (page) => page.id === lesson.id
-  );
+  // let currentLessonIndex = data[currentUnitIndex].pages.findIndex(
+  //   (page) => page.id === lesson.id
+  // );
   let prevUnitProgress = 1;
   const newData: UnitPagesListType[] = data.map((unit, index) => {
-    let prevLessonState = 0;
+    let prevLessonState = CompleteStateType.COMPLETED;
     const newUnit = {
       ...unit,
       disable: !unit.progress && !prevUnitProgress,
