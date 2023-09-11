@@ -3,13 +3,13 @@ import { LoginResponse } from '@/service/webApi/user/type';
 import { createSlice } from '@reduxjs/toolkit';
 
 export enum UnLoginType {
-  LOGIN = 'Log in',
-  SIGN_UP = 'Sign Up',
-  EMAIL_VERIFY = 'Email Verify',
-  FORGOT_PASSWORD = 'Forgot Password',
+  LOGIN = 'login',
+  SIGN_UP = 'sign-up',
+  EMAIL_VERIFY = 'email-verify',
+  FORGOT_PASSWORD = 'forgot-password',
   VERIFYING = 'verifying',
-  VERIFYING_FAIL = 'verifying_fail',
-  VERIFYING_SUCCESS = 'verifying_success',
+  VERIFYING_FAIL = 'verifying-fail',
+  VERIFYING_SUCCESS = 'verifying-success',
   CHANGE_PASSWORD = 'change-password'
 }
 
