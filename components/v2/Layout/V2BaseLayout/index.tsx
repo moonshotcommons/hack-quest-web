@@ -4,6 +4,8 @@ import React, { ReactNode } from 'react';
 import NavBar, { NavBarProps } from '../Navbar';
 
 import Breadcrumb from '@/components/v2/Breadcrumb';
+import { useRouter } from 'next/router';
+import { navbarList } from '..';
 const inter = Inter({ subsets: ['latin'] });
 export interface V2LayoutProps {
   navbarData: NavBarProps;
@@ -12,6 +14,7 @@ export interface V2LayoutProps {
 }
 
 const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
+  const route = useRouter().route;
   return (
     <div
       className={`w-full bg-[#F4F4F4] min-h-[100vh] ${inter.className} overflow-x-auto`}
@@ -27,9 +30,12 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
       </div>
       <div className="m-auto">
         <div className="w-full pt-[64px]">
-          <div className="container mx-auto">
-            <Breadcrumb />
-          </div>
+          {!navbarList.some((v) => v.path === route) ? (
+            <div className="container mx-auto">
+              <Breadcrumb />
+            </div>
+          ) : null}
+
           <main className="w-full">{children}</main>
         </div>
       </div>

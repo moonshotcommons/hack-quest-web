@@ -101,7 +101,7 @@ const Breadcrumb: React.FC = () => {
       );
     }
   };
-  return navData.length <= 1 ? null : (
+  return (
     <div className="text-[14px] text-lesson-preview-color flex h-[50px] items-center ">
       {navData?.map((nav: navDataProps, i: number) => renderNav(nav, i))}
     </div>
