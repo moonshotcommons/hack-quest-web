@@ -1,7 +1,6 @@
 import va from '@vercel/analytics';
 
 type BaseBurialPointType =
-  | '页面留存时间'
   | '使用navbar跳转'
   | '头像加载失败'
   | 'settings'
@@ -57,7 +56,6 @@ type LandingBurialPointType =
   | 'landing-页面留存时间'
   | 'landing-learning track卡片点击'
   | 'landing-learning track Enroll按钮点击'
-  // | 'landing-内容浏览'
   | 'landing-top Explore Learning Tracks按钮点击'
   | 'landing-top Explore Selective Courses按钮点击'
   | 'landing-bottom Explore Learning Tracks按钮点击'

@@ -128,7 +128,9 @@ const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
         learningStatus={learningStatus}
         onStartCallback={() => {
           enroll();
-          BurialPoint.track('learningTrackDetail-页面上方Enroll按钮');
+          BurialPoint.track('learningTrackDetail-页面上方Enroll按钮', {
+            learningTrackName: learningTrackDetail.name
+          });
         }}
       ></CourseDetailHeader>
       <div className="mt-[60px] w-full">
@@ -157,7 +159,9 @@ const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
           className="mt-[60px] self-center"
           onClick={() => {
             enroll();
-            BurialPoint.track('learningTrackDetail-页面下方Enroll按钮');
+            BurialPoint.track('learningTrackDetail-页面下方Enroll按钮', {
+              learningTrackName: learningTrackDetail.name
+            });
           }}
         >
           <Button

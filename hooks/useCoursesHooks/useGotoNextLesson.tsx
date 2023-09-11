@@ -46,7 +46,7 @@ export const useGotoNextLesson = (
     if (isLastUnit && isLastLesson) {
       // router.push(`${getCourseLink(courseType)}/${lesson.courseId}/completed`);
       BurialPoint.track('lesson-课程完成', {
-        courseId: courseId as string
+        courseName: courseId as string
       });
       setCompleteModalOpen(true);
       return;
