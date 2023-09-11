@@ -19,7 +19,8 @@ function useNavAuth(waitingUserData: boolean) {
     if (waitingUserData) return;
     const { redirect_url } = router.query;
     // 已经登录了
-    if (userInfo && isLoginOrRegister(pathname)) {
+    if (userInfo) {
+      if (!isLoginOrRegister(pathname)) return;
       const token = getToken();
       if (redirect_url && token) {
         router.push(`${redirect_url}?token=${token}`);
