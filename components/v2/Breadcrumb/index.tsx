@@ -88,27 +88,15 @@ const Breadcrumb: React.FC = () => {
     if (i < navData.length - 1) {
       return (
         <Link key={i} href={item.link as string}>
-          {i ? <span className="mx-2">/</span> : ''}
-          <span
-            className={`${
-              i === navData.length - 1 ? 'font-next-book underline' : ''
-            }`}
-          >
-            {item.label}
-          </span>
+          {i ? <span className="mx-2 text-[#0b0b0b]">/</span> : ''}
+          <span className=" text-[#0b0b0b]"> {item.label}</span>
         </Link>
       );
     } else {
       return (
         <div key={i}>
-          {i ? <span className="mx-2">/</span> : ''}
-          <span
-            className={`${
-              i === navData.length - 1 ? 'font-next-book underline' : ''
-            }`}
-          >
-            {item.label}
-          </span>
+          <span className="mx-2">/</span>
+          <span className={`font-next-book underline`}>{item.label}</span>
         </div>
       );
     }

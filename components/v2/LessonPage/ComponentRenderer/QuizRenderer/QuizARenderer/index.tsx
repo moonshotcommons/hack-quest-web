@@ -7,7 +7,7 @@ import {
 import { changeTextareaHeight } from '@/helper/utils';
 import { useParseQuizA } from '@/hooks/useParseQuizA';
 import webApi from '@/service';
-import { FC, useContext, useEffect, useState } from 'react';
+import { FC, useContext, useEffect, useRef, useState } from 'react';
 import { QuizContext } from '..';
 import ComponentRenderer from '../..';
 import QuizFooter from '../QuizFooter';
@@ -22,6 +22,7 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
   const { quiz } = props;
   const [showAnswer, setShowAnswer] = useState(false);
   const [submitDisable, setSubmitDisable] = useState(true);
+  const isCompleted = useRef(false);
   const { lesson } = useContext(PlaygroundContext);
   const { onPass } = useContext(QuizContext);
   const { waitingRenderCodes, answerState, answerStateDispatch } =
@@ -61,7 +62,6 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
     });
   };
   const setAnswers = () => {
-    if (quiz.isCompleted) return;
     const show = !showAnswer;
     dealInputValue(show);
     setShowAnswer(show);
@@ -93,48 +93,77 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
     onPass();
   };
 
-  // 是否自动填充
+  // 自动填充
   const initCompleteInput = () => {
-    if (!quiz.isCompleted) return;
+    if (!isCompleted.current || !isInitAnswerState()) return;
+    const newAnswerState = [...answerState];
     let inputEle: HTMLTextAreaElement | HTMLInputElement;
-    answerState.map((line) => {
-      if (line.answers?.length) {
-        line.answers.map((answer) => {
+    if (answerState.length) {
+      newAnswerState.map((line) => {
+        if (line.answers?.length) {
+          line.answers.map((l) => {
+            const { answer } = l;
+            l.inputValue = answer;
+            l.value = answer;
+            inputEle = document.querySelector(
+              `[data-uuid="${l.id}"]`
+            ) as HTMLInputElement;
+            if (inputEle) {
+              inputEle.value = answer;
+            }
+          });
+        } else {
+          const { answer } = line;
+          line.inputValue = answer;
+          line.value = answer;
           inputEle = document.querySelector(
-            `[data-uuid="${answer.id}"]`
-          ) as HTMLInputElement;
+            `[data-uuid="${line.id}"]`
+          ) as HTMLTextAreaElement;
           if (inputEle) {
-            inputEle.value = answer.answer;
-            inputEle.disabled = true;
+            inputEle.value = answer;
+            changeTextareaHeight(inputEle);
           }
-        });
-      } else {
-        inputEle = document.querySelector(
-          `[data-uuid="${line.id}"]`
-        ) as HTMLTextAreaElement;
-        if (inputEle) {
-          inputEle.value = line.answer;
-          inputEle.disabled = true;
-          changeTextareaHeight(inputEle);
         }
-      }
-    });
+      });
+      isCompleted.current = false;
+    }
   };
-  const getSubmitDisable = () => {
-    return answerState.some((line) => {
+  //判断是否是初始化的answerState(初始化的value都为空)
+  const isInitAnswerState = () => {
+    return answerState.every((line) => {
       if (line.answers?.length) {
-        return line.answers.some((answer) => !answer.value);
+        return line.answers.every((answer) => !answer.value);
       } else {
         return !line.value;
       }
     });
   };
+  //submit是否可以点击
+  //!isCompleted.current || !isInitAnswerState()为true 意味这手动输入input 判断value值
+  //否者标识初始化 quiz.isCompleted为true 方法 return false
+  const getSubmitDisable = () => {
+    if (!isCompleted.current || !isInitAnswerState()) {
+      return answerState.some((line) => {
+        if (line.answers?.length) {
+          return line.answers.some((answer) => !answer.value);
+        } else {
+          return !line.value;
+        }
+      });
+    } else {
+      return false;
+    }
+  };
   useEffect(() => {
     setSubmitDisable(getSubmitDisable());
     dealInputValue(false);
-    initCompleteInput();
     setShowAnswer(false);
+    initCompleteInput();
   }, [answerState, quiz]);
+
+  useEffect(() => {
+    isCompleted.current = quiz.isCompleted as boolean;
+  }, [quiz]);
 
   useEffect(() => {
     if (showAnswer) setSubmitDisable(true);
