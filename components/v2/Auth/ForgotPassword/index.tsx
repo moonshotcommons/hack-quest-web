@@ -37,7 +37,12 @@ const ForgotPassword: FC<ForgotPasswordProps> = (props) => {
             setErrorMessage('');
             const res = await webApi.userApi.forgetPassword(formData.email);
             BurialPoint.track('login-忘记密码发送邮件成功');
-            dispatch(setUnLoginType(UnLoginType.EMAIL_VERIFY));
+            dispatch(
+              setUnLoginType({
+                type: UnLoginType.EMAIL_VERIFY,
+                params: { email: formData.email }
+              })
+            );
           } catch (e: any) {
             BurialPoint.track('login-忘记密码发送邮件失败', {
               message: e?.msg
