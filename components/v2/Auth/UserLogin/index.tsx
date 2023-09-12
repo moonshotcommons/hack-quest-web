@@ -167,12 +167,13 @@ const UserLogin: FC<UserLoginProps> = (props) => {
         >
           Forgot Password?
         </div>
-        <div className="flex gap-[.75rem]">
+        <div className="flex gap-[.75rem]" onClick={(e) => {}}>
           <Checkbox
             outClassNames={`${
               formData.keepMeLoggedIn ? 'border-[#FFD850]' : 'border-[#8C8C8C]'
             }`}
             innerClassNames="bg-[#FFD850]"
+            checked={formData.keepMeLoggedIn}
             onChange={(value) => {
               BurialPoint.track('login-保存登录状态');
               setFormData({
@@ -182,7 +183,15 @@ const UserLogin: FC<UserLoginProps> = (props) => {
             }}
             isCircle={true}
           ></Checkbox>
-          <p className="text-white text-[1rem] font-next-book tracking-[-0.011rem]">
+          <p
+            className="text-white text-[1rem] font-next-book tracking-[-0.011rem] cursor-pointer"
+            onClick={() => {
+              setFormData({
+                ...formData,
+                keepMeLoggedIn: !formData.keepMeLoggedIn
+              });
+            }}
+          >
             Keep me logged in
           </p>
         </div>
