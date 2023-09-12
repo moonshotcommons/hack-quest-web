@@ -22,7 +22,7 @@ const formateDropdownData = (
     let prevLessonState = CompleteStateType.COMPLETED;
     const newUnit = {
       ...unit,
-      disable: !unit.progress && !prevUnitProgress,
+      disable: !unit.progress && prevUnitProgress < 1,
       pages: unit.pages.map((page, pageIndex) => {
         const newPage = {
           ...page,
@@ -38,7 +38,6 @@ const formateDropdownData = (
     prevUnitProgress = unit.progress;
     return newUnit;
   });
-
   return {
     newData,
     currentUnitIndex

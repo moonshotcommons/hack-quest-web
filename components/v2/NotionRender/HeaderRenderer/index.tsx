@@ -31,7 +31,7 @@ const HeaderRenderer: FC<HeaderRendererProps> = (props) => {
   );
 
   const expandIndex = useMemo(() => {
-    return expandData.findIndex((v) => v.id === component.id);
+    return expandData?.findIndex((v) => v.id === component.id);
   }, [component]);
 
   const changeExpandNum = () => {
