@@ -19,13 +19,15 @@ const QuizDropdown: FC<QuizDropdownProps> = (props) => {
             <div
               key={quizChild.id}
               onClick={() => {
-                quizChild.isCompleted && onChange?.(index);
+                (quizChild.isCompleted ||
+                  quiz.children[index - 1]?.isCompleted) &&
+                  onChange?.(index);
               }}
               className={cn(
                 `px-[20px] py-[8px] text-[14px] bg-white tracking-[0.28px] leading-[125%] font-next-book cursor-pointer flex items-center gap-[20px] hover:bg-[#F4F4F4]`,
                 index === quiz.children.length - 1 && 'rounded-b-lg',
                 currentQuizIndex === index && 'bg-[#F4F4F4]',
-                !quizChild.isCompleted && currentQuizIndex !== index
+                !quizChild.isCompleted && !quiz.children[index - 1]?.isCompleted
                   ? 'cursor-not-allowed'
                   : ''
               )}
