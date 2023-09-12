@@ -41,27 +41,31 @@ const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
 
   const [expandAll, setExpandAll] = useState(false);
 
-  const { learningSection, learningCourse } = useMemo(() => {
-    if (!learningTrackDetail) return {};
-    const sections = learningTrackDetail.sections;
-    let targetSection = sections[0];
-    let targetCourse = targetSection.courses[0];
-    for (let i = 0; i < sections.length; i++) {
-      const section = sections[i];
-      const course = section.courses.find(
-        (course) => course.progress < 1 || !course.progress
-      );
-      if (course) {
-        targetCourse = course;
-        targetSection = section;
-        break;
+  const { learningSection, learningCourse, learningSectionIndex } =
+    useMemo(() => {
+      if (!learningTrackDetail) return {};
+      const sections = learningTrackDetail.sections;
+      let targetSection = sections[0];
+      let targetCourse = targetSection.courses[0];
+      let learningSectionIndex = 0;
+      for (let i = 0; i < sections.length; i++) {
+        const section = sections[i];
+        const course = section.courses.find(
+          (course) => course.progress < 1 || !course.progress
+        );
+        if (course) {
+          targetCourse = course;
+          targetSection = section;
+          learningSectionIndex = i;
+          break;
+        }
       }
-    }
-    return {
-      learningSection: targetSection,
-      learningCourse: targetCourse
-    };
-  }, [learningTrackDetail]);
+      return {
+        learningSection: targetSection,
+        learningCourse: targetCourse,
+        learningSectionIndex
+      };
+    }, [learningTrackDetail]);
 
   useEffect(() => {
     if (learningCourse) {
@@ -140,9 +144,10 @@ const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
           </h2>
           <span
             className="font-next-book leading-[125%] tracking-[0.32px] text-[16px] underline cursor-pointer"
-            onClick={() => () => {
-              BurialPoint.track('learningTrackDetail-Expand All 按钮点击');
+            onClick={() => {
+              console.log('--------------');
               setExpandAll(!expandAll);
+              BurialPoint.track('learningTrackDetail-Expand All 按钮点击');
             }}
           >
             {expandAll && 'Fold All'}
@@ -152,6 +157,7 @@ const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
         <TrackList
           trackDetail={learningTrackDetail}
           expandAll={expandAll}
+          learningSectionIndex={learningSectionIndex}
         ></TrackList>
       </div>
       {!learningTrackDetail.enrolled && (

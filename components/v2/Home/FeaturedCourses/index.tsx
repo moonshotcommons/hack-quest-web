@@ -18,11 +18,12 @@ const FeaturedCourseHeader = () => {
     <div className="flex justify-between">
       <div className="flex flex-col gap-[15px]">
         <h2 className="font-next-poster-Bold text-[28px] tracking-[1.68px] text-[#000]">
-          Featured Selective Courses
+          Featured Electives
         </h2>
         <p className="w-[540px] text-[14px] leading-[160%] font-next-book text-[#000]">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          Electives are a treasury hunt. Each course is relatively short and
+          independent, with a focused topic. You may learn something
+          mind-blowing, or simply steel your skills.
         </p>
       </div>
       <Link
