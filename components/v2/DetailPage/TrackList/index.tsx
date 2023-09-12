@@ -2,16 +2,17 @@ import {
   LearningTrackDetailType,
   SectionType
 } from '@/service/webApi/learningTrack/type';
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 import SectionCard from './SectionCard';
 
 interface TrackListProps {
   trackDetail: LearningTrackDetailType;
   expandAll?: boolean;
+  learningSectionIndex?: number;
 }
 
 const TrackList: FC<TrackListProps> = (props) => {
-  const { trackDetail, expandAll = false } = props;
+  const { trackDetail, expandAll = false, learningSectionIndex = 0 } = props;
   const [sectionList, setSectionList] = useState<SectionType[]>([]);
 
   useEffect(() => {
@@ -19,6 +20,8 @@ const TrackList: FC<TrackListProps> = (props) => {
       setSectionList(trackDetail.sections);
     }
   }, [trackDetail]);
+
+  const a = useMemo;
 
   return (
     <ul className="w-full px-10 py-10 bg-white rounded-[10px] h-fit">
@@ -32,6 +35,7 @@ const TrackList: FC<TrackListProps> = (props) => {
                 index={index}
                 expandAll={expandAll}
                 sectionList={sectionList}
+                learningSectionIndex={learningSectionIndex}
               ></SectionCard>
             </li>
           );
@@ -44,6 +48,7 @@ const TrackList: FC<TrackListProps> = (props) => {
               index={index}
               expandAll={expandAll}
               sectionList={sectionList}
+              learningSectionIndex={learningSectionIndex}
             ></SectionCard>
           </li>
         );
