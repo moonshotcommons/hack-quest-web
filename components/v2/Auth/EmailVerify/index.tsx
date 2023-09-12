@@ -1,8 +1,13 @@
 import Button from '@/components/Common/Button';
+import { cn } from '@/helper/utils';
 import { useGetUserUnLoginType } from '@/hooks/useGetUserInfo';
+import webApi from '@/service';
 import { UnLoginType, setUnLoginType } from '@/store/redux/modules/user';
+import { useCountDown, useDebounceFn } from 'ahooks';
+import { message } from 'antd';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { FC, useMemo } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 interface EmailVerifyProps {}
@@ -12,6 +17,26 @@ const EmailVerify: FC<EmailVerifyProps> = (props) => {
 
   const loginRouteType = useGetUserUnLoginType();
   const dispatch = useDispatch();
+
+  const [targetDate, setTargetDate] = useState<number>();
+
+  const [countdown] = useCountDown({
+    targetDate
+  });
+
+  const { run: sendEmail } = useDebounceFn(
+    async (email) => {
+      if (!email) {
+        message.error('Email does not exist!');
+        dispatch(setUnLoginType(UnLoginType.LOGIN));
+        return;
+      }
+      const res = await webApi.userApi.forgetPassword(email);
+      setTargetDate(Date.now() + 30 * 1000);
+    },
+    { wait: 500 }
+  );
+
   const backButtonParams = useMemo(() => {
     switch (loginRouteType.prevType) {
       case UnLoginType.LOGIN:
@@ -27,8 +52,47 @@ const EmailVerify: FC<EmailVerifyProps> = (props) => {
       default:
         return {
           text: 'Back',
+          handle: () => dispatch(setUnLoginType(UnLoginType.LOGIN))
+        };
+    }
+  }, [loginRouteType.prevType]);
+
+  const resendButtonParams = useMemo(() => {
+    switch (loginRouteType.prevType) {
+      case UnLoginType.LOGIN:
+        return {
+          text: 'Log in to Resend',
+          handle: () => {
+            // setTargetDate(Date.now() + 30 * 1000);
+            dispatch(setUnLoginType(UnLoginType.LOGIN));
+          }
+        };
+      case UnLoginType.SIGN_UP:
+        return {
+          text: 'Log in to Resend',
+          handle: () => {
+            // setTargetDate(Date.now() + 30 * 1000);
+            dispatch(setUnLoginType(UnLoginType.SIGN_UP));
+          }
+        };
+      case UnLoginType.FORGOT_PASSWORD:
+        return {
+          text: 'Resend Link',
+          handle: () => {
+            sendEmail(loginRouteType.params?.email);
+          }
+        };
+      default:
+        return {
+          text: 'Back',
           handle: () => dispatch(setUnLoginType(loginRouteType.prevType))
         };
+    }
+  }, [loginRouteType.prevType]);
+
+  useEffect(() => {
+    if (loginRouteType.prevType === UnLoginType.FORGOT_PASSWORD) {
+      setTargetDate(Date.now() + 30 * 1000);
     }
   }, [loginRouteType.prevType]);
 
@@ -46,29 +110,43 @@ const EmailVerify: FC<EmailVerifyProps> = (props) => {
           <p className="whitespace-nowrap">{`If you don't receive an email from us, please check your spam`}</p>
           <p>
             <span>folder or</span>
-            <span className="text-white font-next-book -tracking-[0.154px] text-left mt-1 cursor-pointer underline ml-1">
+            <Link
+              className="text-white font-next-book -tracking-[0.154px] text-left mt-1 cursor-pointer underline ml-1"
+              href={'mailto:founder@hackquest.io'}
+              target="_blank"
+            >
               Contact customer support
-            </span>
+            </Link>
           </p>
 
           {/* <Image src={Logo} alt="logo" width={191} className="mt-[2rem]"></Image> */}
         </div>
 
         <Button
-          onClick={backButtonParams.handle}
+          onClick={resendButtonParams.handle}
           block
-          className="
+          disabled={!!Math.floor(countdown / 1000)}
+          className={cn(
+            `
           font-next-book
           text-[1.125rem]
           bg-auth-primary-button-bg hover:bg-auth-primary-button-hover-bg
           text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
           border-auth-primary-button-border-color hover:border-auth-primary-button-border-hover-color
-          "
+          `,
+            !!Math.floor(countdown / 1000)
+              ? 'opacity-60 cursor-not-allowed'
+              : ''
+          )}
         >
-          {backButtonParams.text}
+          {`${resendButtonParams.text}  ${
+            Math.floor(countdown / 1000) > 0
+              ? Math.floor(countdown / 1000) + 's'
+              : ''
+          }`}
         </Button>
 
-        {/* <Button
+        <Button
           onClick={backButtonParams.handle}
           block
           className="
@@ -81,7 +159,7 @@ const EmailVerify: FC<EmailVerifyProps> = (props) => {
     "
         >
           {backButtonParams.text}
-        </Button> */}
+        </Button>
       </div>
     </div>
   );
