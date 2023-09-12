@@ -5,6 +5,7 @@ import webApi from '@/service';
 import { UnLoginType, setUnLoginType } from '@/store/redux/modules/user';
 import { useCountDown, useDebounceFn } from 'ahooks';
 import { message } from 'antd';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -109,9 +110,13 @@ const EmailVerify: FC<EmailVerifyProps> = (props) => {
           <p className="whitespace-nowrap">{`If you don't receive an email from us, please check your spam`}</p>
           <p>
             <span>folder or</span>
-            <span className="text-white font-next-book -tracking-[0.154px] text-left mt-1 cursor-pointer underline ml-1">
+            <Link
+              className="text-white font-next-book -tracking-[0.154px] text-left mt-1 cursor-pointer underline ml-1"
+              href={'mailto:founder@hackquest.io'}
+              target="_blank"
+            >
               Contact customer support
-            </span>
+            </Link>
           </p>
 
           {/* <Image src={Logo} alt="logo" width={191} className="mt-[2rem]"></Image> */}
