@@ -130,7 +130,7 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
               type: 'string',
               required: true,
               pattern: /^(?=.*\d)(?=.*[a-zA-Z]).{8,16}$/,
-              message: 'Incorrect Password'
+              message: '8 or more characters with a mix of letters & numbers'
             }}
             onChange={(e) => {
               setFormData({
@@ -151,13 +151,13 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
             errorMessage={formState.reenterPassword.errorMessage}
             delay={500}
             rules={[
-              {
-                type: 'string',
-                required: true,
-                pattern: /^(?=.*\d)(?=.*[a-zA-Z]).{8,16}$/,
-                message:
-                  'Use 8 or more characters with a mix of letters & numbers'
-              },
+              // {
+              //   type: 'string',
+              //   required: true,
+              //   pattern: /^(?=.*\d)(?=.*[a-zA-Z]).{8,16}$/,
+              //   message:
+              //     'Use 8 or more characters with a mix of letters & numbers'
+              // },
               {
                 type: 'string',
                 message: 'Those passwords didn’t match. Try again.',

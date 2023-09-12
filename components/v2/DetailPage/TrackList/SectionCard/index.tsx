@@ -36,6 +36,7 @@ interface SectionCardProps {
   index: number;
   expandAll: boolean;
   sectionList: SectionType[];
+  learningSectionIndex?: number;
 }
 
 const renderColorTag = (type: CourseType) => {
@@ -191,9 +192,12 @@ const SectionCard: FC<SectionCardProps> = (props) => {
     enrolled = false,
     index: sectionIndex,
     expandAll,
-    sectionList
+    sectionList,
+    learningSectionIndex
   } = props;
-  const [expand, setExpand] = useState(expandAll);
+  const [expand, setExpand] = useState(
+    enrolled && learningSectionIndex === sectionIndex
+  );
   const router = useRouter();
   const { theme } = useContext(ThemeContext);
 
@@ -201,8 +205,15 @@ const SectionCard: FC<SectionCardProps> = (props) => {
     setExpand(expandAll);
   }, [expandAll]);
 
+  useEffect(() => {
+    setExpand(enrolled && learningSectionIndex === sectionIndex);
+  }, []);
+
   const SectionTitle = (
-    <div className="flex w-full items-center gap-[35px]">
+    <div
+      className="flex w-full items-center gap-[35px] cursor-pointer"
+      onClick={() => setExpand(!expand)}
+    >
       <div className="w-[55px] h-[55px]">
         {!enrolled && (
           <div className="w-full h-full relative border border-black rounded-full text-[24px] font-next-poster">
@@ -235,17 +246,14 @@ const SectionCard: FC<SectionCardProps> = (props) => {
       </div>
 
       {!expand && (
-        <div
-          className="cursor-pointer p-[10px] w-fit h-fit"
-          onClick={() => setExpand(true)}
-        >
+        <div className="p-[10px] w-fit h-fit">
           <VscAdd size={28}></VscAdd>
         </div>
       )}
       {expand && (
         <div
-          className="cursor-pointer p-[10px] w-fit h-fit"
-          onClick={() => setExpand(false)}
+          className="p-[10px] w-fit h-fit"
+          // onClick={() => setExpand(false)}
         >
           <GrSubtract size={28}></GrSubtract>
         </div>
