@@ -49,5 +49,5 @@ export function isNoNeedUserInfo(pathname: string) {
   if (pathname === DASHBOARD_PATHNAME) return false;
   if (pathname === MISSION_CENTER) return false;
 
-  return true;
+  return false;
 }
