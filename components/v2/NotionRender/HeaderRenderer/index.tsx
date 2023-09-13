@@ -47,11 +47,14 @@ const HeaderRenderer: FC<HeaderRendererProps> = (props) => {
 
   return (
     <div className="pb-[10px] pt-[20px] pr-[4px]">
-      <HeadingTag className={`${className} flex justify-between items-center`}>
+      <HeadingTag
+        className={`${className} flex justify-between items-center font-next-poster-Thin tracking-[1.26px]`}
+      >
         <div>
           <TextRenderer
             richTextArr={component.content.rich_text}
             fontSize={'21px'}
+            letterSpacing={'1.68px'}
           />
         </div>
         {expandIndex >= 0 && (

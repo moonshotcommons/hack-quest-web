@@ -5,7 +5,7 @@ import {
   QuizAType
 } from '@/components/v2/LessonPage/type';
 import { BurialPoint } from '@/helper/burialPoint';
-import { changeTextareaHeight } from '@/helper/utils';
+import { adaptWidth, changeTextareaHeight } from '@/helper/utils';
 import { useParseQuizA, AnswerState } from '@/hooks/useParseQuizA';
 import webApi from '@/service';
 import { FC, useContext, useEffect, useRef, useState } from 'react';
@@ -45,6 +45,7 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
               inputEle.value = answer.value;
             }
             inputEle.disabled = show;
+            adaptWidth(inputEle);
             isSet && (answer.disable = show);
           }
         });
@@ -120,6 +121,7 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
             ) as HTMLInputElement;
             if (inputEle) {
               inputEle.value = answer;
+              adaptWidth(inputEle);
             }
           });
         } else {
