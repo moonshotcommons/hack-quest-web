@@ -41,9 +41,13 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
 
   const onPass = () => {
     // setPassOpen(true);
-    webApi.courseApi
-      .completeQuiz(lesson.id, currentQuizIndex)
-      .then((res) => console.log(res));
+    webApi.courseApi.completeQuiz(lesson.id, currentQuizIndex).then((res) => {
+      quiz.children[currentQuizIndex].isCompleted = true;
+      setQuiz({
+        ...quiz,
+        children: quiz.children.map((child) => ({ ...child }))
+      });
+    });
 
     const jsConfetti = new JSConfetti();
 
@@ -84,7 +88,7 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
 
   useEffect(() => {
     const notCompleted: number[] = [];
-    quiz.children.forEach((item, index) => {
+    propsQuiz.children.forEach((item, index) => {
       if (!lesson.completedQuiz && !Array.isArray(lesson.completedQuiz)) {
         item.isCompleted = false;
         return false;
@@ -103,8 +107,8 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
     }
 
     setQuiz({
-      ...quiz,
-      children: quiz.children.map((child) => ({ ...child }))
+      ...propsQuiz,
+      children: propsQuiz.children.map((child) => ({ ...child }))
     });
   }, [lesson, propsQuiz]);
 
@@ -146,7 +150,6 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
           <QuizDropdown
             quiz={quiz}
             onChange={(index) => {
-              BurialPoint.track('lesson-quiz切换');
               setCurrentQuizIndex(index);
             }}
             currentQuizIndex={currentQuizIndex}
