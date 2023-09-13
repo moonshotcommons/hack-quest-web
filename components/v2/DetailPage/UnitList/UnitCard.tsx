@@ -153,7 +153,7 @@ const UnitCard: FC<UnitCardProps> = (props) => {
         {learningStatus === LearningStatus.UN_START && (
           <div className="w-[65px] h-[65px] border-2 border-[#000] rounded-full relative">
             <span className="absolute text-[32px] font-next-poster text-[#000 tracking-[1.92px] left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2">
-              {index}
+              {index + 1}
             </span>
           </div>
         )}
