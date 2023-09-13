@@ -167,7 +167,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
         >
           Forgot Password?
         </div>
-        <div className="flex gap-[.75rem]" onClick={(e) => {}}>
+        <div className="flex gap-[.75rem] items-center" onClick={(e) => {}}>
           <Checkbox
             outClassNames={`${
               formData.keepMeLoggedIn ? 'border-[#FFD850]' : 'border-[#8C8C8C]'
