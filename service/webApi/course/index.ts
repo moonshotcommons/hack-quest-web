@@ -79,7 +79,7 @@ class CourseApi {
   /** 获取单个lesson的内容 */
   getLearningLessonId(courseId: string) {
     const url = `${CourseApiType.Course_List}/${courseId}/learning-page`;
-    return this.service.get<{ pageId: string }>(url);
+    return this.service.get<{ pageId: string; name: string }>(url);
   }
 
   /** 开始一个lesson */

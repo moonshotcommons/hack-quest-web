@@ -51,7 +51,8 @@ function UnProgressHeaderRight(
       </div>
       <div className="py-5 px-[15px] border-b border-[#000] flex justify-between items-center">
         <span className="font-next-book-bold tracking-[0.36px] text-black text-[18px]">
-          Total Sections
+          {type === 'course' && 'Total Units'}
+          {type === 'learning-track' && 'Total Courses'}
         </span>
         <div className="w-[151px] flex items-center pl-[21px]">
           <Tag
@@ -89,7 +90,7 @@ function InProgressHeaderRight(
         {nextInfo.content}
       </p>
       <div className={'flex gap-[15px] items-center mt-[34px]'}>
-        <CourseLevel
+        {/* <CourseLevel
           level={tagFormate(courseDetail.level as string)}
         ></CourseLevel>
         <Tag icon={<ClockIcon />}>
@@ -100,7 +101,7 @@ function InProgressHeaderRight(
             itemCount + ' ' + `${itemCount > 1 ? 'Units' : 'Unit'}`}
           {type === 'learning-track' &&
             itemCount + ' ' + `${itemCount > 1 ? 'Courses' : 'Course'}`}
-        </Tag>
+        </Tag> */}
       </div>
       <div className="mt-[40px]">
         <Button

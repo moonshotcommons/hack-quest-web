@@ -207,7 +207,7 @@ const SectionCard: FC<SectionCardProps> = (props) => {
 
   useEffect(() => {
     setExpand(enrolled && learningSectionIndex === sectionIndex);
-  }, []);
+  }, [enrolled]);
 
   const SectionTitle = (
     <div
