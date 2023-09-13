@@ -19,17 +19,15 @@ interface LessonContentProps {
 
 const LessonContent: FC<LessonContentProps> = (props) => {
   const { lesson, isPreview = false, courseType } = props;
-
   const [components, setComponents] = useState<
     (CustomComponent | NotionComponent)[]
   >(() => {
     return lesson.content.left;
   });
-
+  const { getLessonExpand } = useLessonExpand(lesson.content.left);
   const [expandData, setExpandData] = useState<ExpandDataType[][]>(
-    useLessonExpand(lesson.content.left) as ExpandDataType[][]
+    getLessonExpand()
   );
-
   const changeExpandData = (data: ExpandDataType[], index: number) => {
     expandData[index] = data;
     setExpandData([...expandData]);
@@ -43,6 +41,7 @@ const LessonContent: FC<LessonContentProps> = (props) => {
   }, [lesson]);
 
   useEffect(() => {
+    setExpandData(getLessonExpand());
     if (lesson.content.left) {
       setComponents(lesson.content.left);
     }

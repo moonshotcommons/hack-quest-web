@@ -13,35 +13,41 @@ export interface ExpandDataType {
 export const useLessonExpand = (
   lesson: (CustomComponent | NotionComponent)[]
 ) => {
-  if (!lesson.length) return [];
-  const lessonExpand: any[] = [];
-  lesson.map((v: any, i) => {
-    const childExpand: Record<string, any> = [];
-    let expandIndex = 0;
-    v.children.map((c: any, j: number) => {
-      childExpand[j] = {};
-      if (~[NotionType.H1, NotionType.H2, NotionType.H3].indexOf(c.type)) {
-        expandIndex = j;
-      }
-      if (NotionType.TOGGLE === c.type && j > expandIndex) {
-        childExpand[expandIndex] = {
-          isExpandAll: true,
-          id: v.children[expandIndex].id,
-          index: i
-        };
-        childExpand[j] = {
-          expandNum: 0,
-          id: c.id,
-          index: i
-        };
-      }
+  const getLessonExpand = () => {
+    if (!lesson.length) return [];
+    const lessonExpand: any[] = [];
+    lesson.map((v: any, i) => {
+      const childExpand: Record<string, any> = [];
+      let expandIndex = 0;
+      v.children.map((c: any, j: number) => {
+        childExpand[j] = {};
+        if (~[NotionType.H1, NotionType.H2, NotionType.H3].indexOf(c.type)) {
+          expandIndex = j;
+        }
+        if (NotionType.TOGGLE === c.type && j > expandIndex) {
+          childExpand[expandIndex] = {
+            isExpandAll: true,
+            id: v.children[expandIndex].id,
+            index: i
+          };
+          childExpand[j] = {
+            expandNum: 0,
+            id: c.id,
+            index: i
+          };
+        }
+      });
+      const newChildExpand = childExpand.filter(
+        (item: ExpandDataType) => item.id
+      );
+      lessonExpand.push(newChildExpand);
     });
-    const newChildExpand = childExpand.filter(
-      (item: ExpandDataType) => item.id
-    );
-    lessonExpand.push(newChildExpand);
-  });
-  return lessonExpand;
+    return lessonExpand;
+  };
+
+  return {
+    getLessonExpand
+  };
 };
 
 export default useLessonExpand;

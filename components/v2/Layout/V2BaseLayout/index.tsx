@@ -30,12 +30,11 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
       </div>
       <div className="m-auto">
         <div className="w-full pt-[64px]">
-          {!navbarList.some((v) => v.path === route) ? (
+          {!navbarList.some((v) => v.path === route || route === '/') ? (
             <div className="container mx-auto">
               <Breadcrumb />
             </div>
           ) : null}
-
           <main className="w-full">{children}</main>
         </div>
       </div>
