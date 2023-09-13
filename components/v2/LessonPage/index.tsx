@@ -84,7 +84,7 @@ const LessonPage: FC<LessonPageProps> = (props) => {
           <div
             className={`relative w-full ${
               isHandleNext ? 'h-[calc(100vh-145px)]' : 'h-[calc(100vh-95px)]'
-            } pl-[20px]`}
+            }`}
           >
             <LessonPageContext.Provider
               value={{

@@ -2,10 +2,10 @@
 import { ExpandDataType, useLessonExpand } from '@/hooks/useLessonExpand';
 import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
 import { FC, createContext, useEffect, useMemo, useState } from 'react';
+import Breadcrumb from '../../Breadcrumb';
 import ComponentRenderer from '../ComponentRenderer';
 import LessonEvents from '../LessonEvents';
 import { CustomComponent, LessonContent, NotionComponent } from '../type';
-import Breadcrumb from '../../Breadcrumb';
 
 export const LessonContentContext = createContext<{
   expandData: ExpandDataType[];
@@ -48,8 +48,9 @@ const LessonContent: FC<LessonContentProps> = (props) => {
   }, [lesson]);
 
   return (
-    <div className="flex flex-col h-[calc(100%-10px)] ">
+    <div className="flex flex-col h-[calc(100%-10px)] pl-[20px] pr-[10px]">
       <Breadcrumb />
+
       <LessonEvents
         isPreview={isPreview}
         lesson={lesson as any}
