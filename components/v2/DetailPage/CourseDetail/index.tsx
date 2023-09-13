@@ -59,7 +59,7 @@ const CourseDetail: FC<CourseDetailProps> = (props) => {
           });
 
           setLearningInfo({
-            learningLessonName: res.name,
+            learningLessonName: res.pageName,
             learningUnitName: learningUnit?.name || ''
           });
         });
