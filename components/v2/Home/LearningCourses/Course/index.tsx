@@ -64,6 +64,7 @@ function Course() {
         setLoading(false);
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [curTab]);
   return (
     <div className="pt-20">
@@ -74,10 +75,7 @@ function Course() {
           <NoData curTab={curTab} />
         ) : (
           <>
-            <LearningTrackList
-              list={learningTrackListData[curTab]}
-              status={curTab}
-            />
+            <LearningTrackList list={learningTrackListData[curTab]} />
             <CourseBox list={courseListData[curTab]} curTab={curTab} />
           </>
         )}

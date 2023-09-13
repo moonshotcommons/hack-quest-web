@@ -9,7 +9,11 @@ const CourseList: React.FC<CourseListProps> = ({ list }) => {
   return (
     <div className="flex-1 flex flex-wrap gap-[20px] pb-[20px]">
       {list.map((course) => (
-        <CourseCard key={course?.id} course={course}></CourseCard>
+        <CourseCard
+          key={course?.id}
+          course={course}
+          baseProgress={true}
+        ></CourseCard>
       ))}
     </div>
   );
