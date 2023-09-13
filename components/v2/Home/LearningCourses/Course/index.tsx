@@ -74,10 +74,7 @@ function Course() {
           <NoData curTab={curTab} />
         ) : (
           <>
-            <LearningTrackList
-              list={learningTrackListData[curTab]}
-              status={curTab}
-            />
+            <LearningTrackList list={learningTrackListData[curTab]} />
             <CourseBox list={courseListData[curTab]} curTab={curTab} />
           </>
         )}
