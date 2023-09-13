@@ -64,6 +64,7 @@ function Course() {
         setLoading(false);
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [curTab]);
   return (
     <div className="pt-20">
