@@ -18,6 +18,7 @@ interface CourseCardProps {
   course: CourseResponse;
   inProgress?: boolean;
   inCompleted?: boolean;
+  baseProgress?: boolean;
 }
 
 const CustomProgress = styled(Progress)`
@@ -38,7 +39,12 @@ const borderColor: Record<string, string> = {
 };
 
 const CourseCard: FC<CourseCardProps> = (props) => {
-  const { course, inProgress = false, inCompleted = false } = props;
+  const {
+    course,
+    inProgress = false,
+    inCompleted = false,
+    baseProgress = false
+  } = props;
   const jumpLearningLesson = useJumpLeaningLesson();
   const router = useRouter();
 
@@ -55,7 +61,7 @@ const CourseCard: FC<CourseCardProps> = (props) => {
         );
       }}
     >
-      {(inProgress || inCompleted) && (
+      {(inProgress || inCompleted || baseProgress) && (
         <div className="absolute font-neuemachina-light top-[13px] left-[16px]">
           {course.progress < 1 && course.progress > 0 && (
             <CustomProgress

@@ -10,7 +10,7 @@ import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import { Progress } from 'antd';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { styled } from 'styled-components';
 import { MenuLink, QueryIdType } from '../Breadcrumb/type';
 import CourseTags from '../CourseTags';
@@ -25,13 +25,13 @@ const CustomProgress = styled(Progress)`
 `;
 interface LearningTrackCardProps {
   learningTrack: LearningTrackDetailType;
-  status?: any;
   isLandingPage?: boolean;
+  status?: LearningTrackCourseType;
 }
 const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
   learningTrack: track,
-  status,
-  isLandingPage
+  isLandingPage,
+  status
 }) => {
   const router = useRouter();
 
@@ -45,7 +45,18 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
     };
     setLearningTrack({ ...newLearningTrack });
   };
-  const { enroll, unEnroll } = useEnrollUnEnroll(track, refresh);
+  const { enroll } = useEnrollUnEnroll(track, refresh);
+  const learningTrackStatus = useMemo(() => {
+    if (status) return status;
+    const { progress } = learningTrack;
+    if (progress > 0 && progress < 1) {
+      return LearningTrackCourseType.IN_PROCESS;
+    } else if (progress >= 1) {
+      return LearningTrackCourseType.COMPLETED;
+    } else {
+      return LearningTrackCourseType.UN_ENROLL;
+    }
+  }, [learningTrack]);
   const handleRoll = async (e: any) => {
     if (isLandingPage) {
       BurialPoint.track('landing-learning track Enroll按钮点击');
@@ -56,7 +67,6 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
       learningTrackName: track.name
     });
     await enroll();
-    // learningTrack.enrolled ? await unEnroll() : await enroll();
   };
   const handleResume = (e: any) => {
     if (isLandingPage) return;
@@ -75,8 +85,57 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
         });
     }
   };
+  const leftIconRender = () => {
+    switch (learningTrackStatus) {
+      case LearningTrackCourseType.IN_PROCESS:
+        return (
+          <CustomProgress
+            type="circle"
+            percent={computeProgress(learningTrack.progress)}
+            strokeWidth={6}
+            strokeColor={'#FCC409'}
+            trailColor={'#8C8C8C'}
+            size={32}
+            format={(percent: any) => {
+              if (percent === 100) {
+                return (
+                  <span className="flex justify-center items-center align-middle text-[#3E3E3E]">
+                    <CheckIcon width={32} height={32} color="currentColor" />
+                  </span>
+                );
+              }
+              return (
+                <p className="flex justify-center relative top-[1px] items-end text-[12px] text-[#3E3E3E]   font-neuemachina-light whitespace-nowrap">
+                  <span className="relative left-[3px]">{`${percent}`}</span>
+                  <span className="scale-50 relative top-[1px] ">%</span>
+                </p>
+              );
+            }}
+          ></CustomProgress>
+        );
+      case LearningTrackCourseType.COMPLETED:
+        return (
+          <svg
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle cx="16" cy="16" r="16" fill="#00C365" />
+            <path
+              d="M8 15.9999L14.4 22.3999L25.6 11.1999"
+              stroke="white"
+              strokeLinecap="round"
+            />
+          </svg>
+        );
+      default:
+        return null;
+    }
+  };
   const leftRender = () => {
-    switch (status) {
+    switch (learningTrackStatus) {
       case LearningTrackCourseType.UN_ENROLL:
       case LearningTrackCourseType.COMPLETED:
         return (
@@ -104,7 +163,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
   };
 
   const rightRender = () => {
-    switch (status) {
+    switch (learningTrackStatus) {
       case LearningTrackCourseType.UN_ENROLL:
         return (
           <>
@@ -201,47 +260,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
       <div className="h-[10px] bg-home-learning--track-border-bg"></div>
       <div className="w-full flex-1 flex items-center p-10 relative">
         <div className="absolute left-[16px] top-[13px]">
-          {learningTrack.progress < 1 && learningTrack.progress > 0 && (
-            <CustomProgress
-              type="circle"
-              percent={computeProgress(learningTrack.progress)}
-              strokeWidth={6}
-              strokeColor={'#FCC409'}
-              trailColor={'#8C8C8C'}
-              size={32}
-              format={(percent: any) => {
-                if (percent === 100) {
-                  return (
-                    <span className="flex justify-center items-center align-middle text-[#3E3E3E]">
-                      <CheckIcon width={32} height={32} color="currentColor" />
-                    </span>
-                  );
-                }
-                return (
-                  <p className="flex justify-center relative top-[1px] items-end text-[12px] text-[#3E3E3E]   font-neuemachina-light whitespace-nowrap">
-                    <span className="relative left-[3px]">{`${percent}`}</span>
-                    <span className="scale-50 relative top-[1px] ">%</span>
-                  </p>
-                );
-              }}
-            ></CustomProgress>
-          )}
-          {learningTrack.progress >= 1 && (
-            <svg
-              width="32"
-              height="32"
-              viewBox="0 0 32 32"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <circle cx="16" cy="16" r="16" fill="#00C365" />
-              <path
-                d="M8 15.9999L14.4 22.3999L25.6 11.1999"
-                stroke="white"
-                strokeLinecap="round"
-              />
-            </svg>
-          )}
+          {leftIconRender()}
         </div>
         <div className="w-[69%] flex items-center justify-between px-[37px] h-full border-r border-home-learning-track-progress-border">
           <Image src={LearningImage} width={92} alt="learning-image" />
