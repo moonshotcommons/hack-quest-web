@@ -1,4 +1,4 @@
-import JoinUs from '@/components/Home/JoinUs';
+import JoinUs from '@/components/v2/Landing/JoinUs';
 import HackQuestInfo from '@/components/v2/Landing/HackQuestInfo';
 import HomeBanner from '@/components/v2/Landing/HomeBanner';
 import { BurialPoint } from '@/helper/burialPoint';

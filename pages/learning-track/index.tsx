@@ -1,8 +1,7 @@
 import Loading from '@/components/v2/Common/Loading';
-import LearningTracksCard from '@/components/v2/LearningTrackCard';
+import LearningTrackCard from '@/components/v2/LearningTrackCard';
 import PageDescription from '@/components/v2/PageDescription';
 import { useGetLearningTracks } from '@/hooks/useLearningTrackHooks/useLearningTracks';
-import { LearningTrackCourseType } from '@/service/webApi/course/type';
 
 function LearningTrack() {
   const { learningTracks, loading } = useGetLearningTracks();
@@ -15,17 +14,7 @@ function LearningTrack() {
       <Loading loading={loading}>
         <div className="pt-[60px]">
           {learningTracks.map((item) => (
-            <LearningTracksCard
-              key={item.id}
-              learningTrack={item}
-              status={
-                !item.progress
-                  ? LearningTrackCourseType.UN_ENROLL
-                  : item.progress === 1
-                  ? LearningTrackCourseType.COMPLETED
-                  : LearningTrackCourseType.IN_PROCESS
-              }
-            />
+            <LearningTrackCard key={item.id} learningTrack={item} />
           ))}
         </div>
         <div className="flex-center h-[170px]">

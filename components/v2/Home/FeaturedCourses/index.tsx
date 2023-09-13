@@ -72,7 +72,11 @@ const FeatureCourses: FC<FeatureCoursesProps> = (props) => {
             <div className="my-[30px] flex gap-[20px] overflow-x-hidden">
               {courseList.map((course, index) => {
                 return (
-                  <CourseCard key={course.id} course={course}></CourseCard>
+                  <CourseCard
+                    key={course.id}
+                    course={course}
+                    baseProgress={true}
+                  ></CourseCard>
                 );
               })}
             </div>
