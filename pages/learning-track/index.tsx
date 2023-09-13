@@ -10,7 +10,9 @@ function LearningTrack() {
     <div className="container mx-auto">
       <PageDescription
         title={'Learning Track'}
-        description={'description description'}
+        description={
+          "Don't know where to start? Pick a learning track! Leaning Track provides a series of core + elective courses that help you master one topic and explore in the related field."
+        }
       />
       <Loading loading={loading}>
         <div className="pt-[60px]">

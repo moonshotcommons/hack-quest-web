@@ -26,7 +26,9 @@ function SelectiveCourses() {
       <div className="pb-[60px]">
         <PageDescription
           title={'Selective Courses'}
-          description={'Lorem ipsum '}
+          description={
+            'Electives is a treasury hunt. Each course is relatively short and independent, with a focused topic. You may learning something mind-blowing, or simply steel your skills.'
+          }
         />
       </div>
       <SelectiveCoursesBox

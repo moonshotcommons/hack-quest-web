@@ -10,6 +10,7 @@ export interface AnswerState {
   answer: string;
   regex: string;
   error?: boolean;
+  disable?: boolean;
   answers?: AnswerState[];
 }
 export interface WaitingRenderCodeType {
@@ -23,7 +24,7 @@ const AnswerInputTextarea = (props: {
   type?: LineType;
   onChange: (id: string, v: string) => void;
 }) => {
-  const borderBackBg = !!props.error
+  const borderAndBg = !!props.error
     ? {
         backgroundColor: '#FFF7F5',
         border: '1px solid #C73333'
@@ -45,7 +46,7 @@ const AnswerInputTextarea = (props: {
         padding: '8px',
         resize: 'none' /* 禁止用户手动调整大小 */,
         overflow: 'hidden' /* 隐藏溢出的内容 */,
-        ...borderBackBg
+        ...borderAndBg
       }}
       data-uuid={props.uuid}
       onInput={(e) => {
@@ -68,7 +69,7 @@ const AnswerInput = (props: {
   type?: LineType;
   onChange: (id: string, v: string) => void;
 }) => {
-  const borderBackBg = !!props.error
+  const borderAndBg = !!props.error
     ? {
         backgroundColor: '#FFF7F5',
         border: '1px solid #C73333'
@@ -88,7 +89,7 @@ const AnswerInput = (props: {
         width: '110px',
         height: '40px',
         padding: '8px',
-        ...borderBackBg
+        ...borderAndBg
       }}
       data-uuid={props.uuid}
       onChange={(e) => {
@@ -251,6 +252,7 @@ export const useParseQuizA = (lines: CodeLineType[]) => {
     const inputLine = {
       type: 'input',
       render(newAnswerState: AnswerState[]) {
+        console.info(newAnswerState, 'newAnswerState');
         const currentLineState = newAnswerState.find(
           (item) => item.id === line.id
         );

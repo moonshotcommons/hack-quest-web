@@ -6,7 +6,7 @@ import {
 } from '@/components/v2/LessonPage/type';
 import { BurialPoint } from '@/helper/burialPoint';
 import { changeTextareaHeight } from '@/helper/utils';
-import { useParseQuizA } from '@/hooks/useParseQuizA';
+import { useParseQuizA, AnswerState } from '@/hooks/useParseQuizA';
 import webApi from '@/service';
 import { FC, useContext, useEffect, useRef, useState } from 'react';
 import { QuizContext } from '..';
@@ -29,11 +29,12 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
   const { waitingRenderCodes, answerState, answerStateDispatch } =
     useParseQuizA(quiz.lines);
 
-  const dealInputValue = (show: boolean) => {
+  const dealInputValue = (show: boolean, isSet?: boolean) => {
     let inputEle: HTMLTextAreaElement | HTMLInputElement;
-    answerState.map((line) => {
+    const newAnswerState = JSON.parse(JSON.stringify(answerState));
+    newAnswerState.map((line: AnswerState) => {
       if (line.answers?.length) {
-        line.answers.map((answer) => {
+        line.answers.map((answer: AnswerState) => {
           inputEle = document.querySelector(
             `[data-uuid="${answer.id}"]`
           ) as HTMLInputElement;
@@ -44,6 +45,7 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
               inputEle.value = answer.value;
             }
             inputEle.disabled = show;
+            isSet && (answer.disable = show);
           }
         });
       } else {
@@ -57,17 +59,19 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
             inputEle.value = line.value;
           }
           inputEle.disabled = show;
+          isSet && (line.disable = show);
           changeTextareaHeight(inputEle);
         }
       }
     });
+    // isSet && answerStateDispatch([...newAnswerState]);
   };
   const setAnswers = () => {
     const show = !showAnswer;
     if (show) {
       BurialPoint.track('lesson-show answer次数');
     }
-    dealInputValue(show);
+    dealInputValue(show, true);
     setShowAnswer(show);
   };
   const onSubmit = async () => {
