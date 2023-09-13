@@ -96,7 +96,6 @@ const AnswerInput = (props: {
         const currentId = e.target.dataset.uuid;
         const value = e.target.value;
         props.onChange(currentId!, value);
-        adaptWidth(e.target);
       }}
     />
   );
