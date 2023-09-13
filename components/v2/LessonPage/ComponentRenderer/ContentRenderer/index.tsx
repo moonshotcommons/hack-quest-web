@@ -15,10 +15,8 @@ const ContentRenderer: FC<ContentRendererProps> = (props) => {
   const { leftLength } = useContext(LessonPageContext);
   return (
     <div
-      className={` py-[15px] rounded-[10px]  mb-5 ${
-        leftLength !== 1
-          ? 'px-[20px] border border-lesson-title-box-border-color'
-          : ''
+      className={`px-[20px] py-[15px] rounded-[10px]  mb-5 ${
+        leftLength !== 1 ? 'border border-lesson-title-box-border-color' : ''
       }`}
     >
       <div
