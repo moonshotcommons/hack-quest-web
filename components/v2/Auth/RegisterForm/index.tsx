@@ -175,7 +175,7 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
           ></Input>
         </div>
         <div className="flex flex-col gap-[.5rem]">
-          <div className="flex gap-[.75rem]">
+          <div className="flex gap-[.75rem] items-center">
             <Checkbox
               outClassNames={`${
                 acceptConditions ? 'border-[#FFD850]' : 'border-[#8C8C8C]'
