@@ -29,7 +29,7 @@ const LessonPage: FC<LessonPageProps> = (props) => {
   const [isHandleNext, setIsHandleNext] = useState(false);
   const allowNextButtonClickTime = useRef(0);
   const judgmentInitIsHandleNext = useCallback(() => {
-    const quiz = lesson?.content?.right.find(
+    const quiz = lesson?.content?.right?.find(
       (v: NotionComponent) => v.type === CustomType.Quiz
     );
     if (!quiz || lesson?.state === CompleteStateType.COMPLETED) {

@@ -60,6 +60,17 @@ export const changeTextareaHeight = (target: HTMLTextAreaElement) => {
   target.style.height = height + 'px';
 };
 
+export const adaptWidth = (target: HTMLInputElement) => {
+  const parentEleWidth =
+    target.parentElement?.getBoundingClientRect().width || 0;
+  const minWidth = 110;
+  const len = target.value.length;
+  let width = len * 7.6;
+  if (width < minWidth) width = minWidth;
+  else if (width > parentEleWidth / 2) width = parentEleWidth / 2;
+  target.style.width = `${width}px`;
+};
+
 export const throttle = (fn: any) => {
   let throttleTimer: NodeJS.Timeout | null = null;
   let startTime = +new Date();

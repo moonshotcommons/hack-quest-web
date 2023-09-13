@@ -1,7 +1,7 @@
 import { ReactNode, useEffect, useState } from 'react';
 import { reservedWords } from '@/constants/solidity';
 import { LineType, CodeLineType } from '@/components/v2/LessonPage/type';
-import { changeTextareaHeight } from '@/helper/utils';
+import { changeTextareaHeight, adaptWidth } from '@/helper/utils';
 
 export interface AnswerState {
   id: string;
@@ -96,6 +96,7 @@ const AnswerInput = (props: {
         const currentId = e.target.dataset.uuid;
         const value = e.target.value;
         props.onChange(currentId!, value);
+        adaptWidth(e.target);
       }}
     />
   );
@@ -252,7 +253,6 @@ export const useParseQuizA = (lines: CodeLineType[]) => {
     const inputLine = {
       type: 'input',
       render(newAnswerState: AnswerState[]) {
-        console.info(newAnswerState, 'newAnswerState');
         const currentLineState = newAnswerState.find(
           (item) => item.id === line.id
         );
