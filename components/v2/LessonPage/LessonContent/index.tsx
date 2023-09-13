@@ -57,7 +57,7 @@ const LessonContent: FC<LessonContentProps> = (props) => {
         courseType={courseType}
       />
 
-      {!!components.length && (
+      {!!components?.length && (
         <div className="flex flex-col mb-[20px] w-full flex-1 shrink-0 overflow-auto h-full scroll-wrap-y scroll-wrap-x no-scrollbar">
           {components.map((component, i) => {
             return (

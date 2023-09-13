@@ -5,6 +5,7 @@ import DropAnswer from '../../LessonPage/ComponentRenderer/QuizRenderer/QuizBRen
 interface TextRendererProps {
   richTextArr: any;
   fontSize?: string;
+  letterSpacing?: string;
 }
 
 export type AnnotationType = {
@@ -38,7 +39,7 @@ const getTextClassNames = (annotations: AnnotationType) => {
 };
 
 const TextRenderer: FC<TextRendererProps> = (props) => {
-  const { richTextArr, fontSize = '14px' } = props;
+  const { richTextArr, fontSize = '14px', letterSpacing = '0.28px' } = props;
 
   return (
     <>
@@ -71,6 +72,7 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
               className={`${className} py-1 underline`}
               style={{
                 fontSize,
+                letterSpacing,
                 color:
                   annotations.color !== 'default' &&
                   !annotations.code &&
@@ -106,6 +108,7 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
             className={`${className} rounded-md leading-[200%]`}
             style={{
               fontSize,
+              letterSpacing,
               color:
                 annotations.color !== 'default' &&
                 !annotations.color.includes('background')

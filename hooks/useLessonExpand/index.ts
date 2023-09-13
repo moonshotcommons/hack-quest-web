@@ -14,7 +14,7 @@ export const useLessonExpand = (
   lesson: (CustomComponent | NotionComponent)[]
 ) => {
   const getLessonExpand = () => {
-    if (!lesson.length) return [];
+    if (!lesson?.length) return [];
     const lessonExpand: any[] = [];
     lesson.map((v: any, i) => {
       const childExpand: Record<string, any> = [];
