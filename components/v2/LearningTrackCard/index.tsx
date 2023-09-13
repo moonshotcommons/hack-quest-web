@@ -195,7 +195,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
   };
   return (
     <div
-      className="h-[275px] rounded-[10px] bg-home-learning--track-bg overflow-hidden flex flex-col mb-10 hover:-translate-y-1 transition-all duration-300 shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)]"
+      className="h-[275px] font-next-book cursor-pointer rounded-[10px] bg-home-learning--track-bg overflow-hidden flex flex-col mb-10 hover:-translate-y-1 transition-all duration-300 shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)]"
       onClick={goLearningTrackDetail}
     >
       <div className="h-[10px] bg-home-learning--track-border-bg"></div>
@@ -218,9 +218,9 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
                   );
                 }
                 return (
-                  <p className="flex justify-center text-[12px] text-[#3E3E3E]   font-neuemachina-light whitespace-nowrap">
+                  <p className="flex justify-center relative top-[1px] items-end text-[12px] text-[#3E3E3E]   font-neuemachina-light whitespace-nowrap">
                     <span className="relative left-[3px]">{`${percent}`}</span>
-                    <span className="scale-50">%</span>
+                    <span className="scale-50 relative top-[1px] ">%</span>
                   </p>
                 );
               }}
@@ -250,7 +250,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
               <p className="text-home-learning-track-default-color text-[18px]">
                 Learning Track
               </p>
-              <p className="text-home-learning-track-color font-next-book-bold text-[28px]">
+              <p className="text-home-learning-track-color tracking-[1.68px] font-next-poster-Bold text-[28px]">
                 {learningTrack.name}
               </p>
             </div>

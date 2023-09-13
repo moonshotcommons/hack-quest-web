@@ -21,7 +21,7 @@ const ToggleRenderer: FC<ToggleRendererProps> = (props) => {
   const [initExpandNum, setInitExpandNum] = useState(0);
   useEffect(() => {
     const expandNum =
-      expandData.find((v) => v.id === component.id)?.expandNum || 0;
+      expandData?.find((v) => v.id === component.id)?.expandNum || 0;
     if (expandNum > initExpandNum) {
       setShowChild(true);
       setInitExpandNum(expandNum);
