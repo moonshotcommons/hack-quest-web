@@ -95,7 +95,7 @@ const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
     return (
       <HeaderRight
         courseDetail={learningTrackDetail}
-        itemCount={learningCourse.unitCount || 0}
+        itemCount={learningTrackDetail.courseCount || 0}
         nextInfo={{
           title: learningInfo?.learningSectionAndCourseName || '',
           content: learningInfo?.learningLessonName || ''
