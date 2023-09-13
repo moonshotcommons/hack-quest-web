@@ -2,7 +2,7 @@ import {
   LearningTrackDetailType,
   SectionType
 } from '@/service/webApi/learningTrack/type';
-import { FC, useEffect, useMemo, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import SectionCard from './SectionCard';
 
 interface TrackListProps {
@@ -20,8 +20,6 @@ const TrackList: FC<TrackListProps> = (props) => {
       setSectionList(trackDetail.sections);
     }
   }, [trackDetail]);
-
-  const a = useMemo;
 
   return (
     <ul className="w-full px-10 py-10 bg-white rounded-[10px] h-fit">

@@ -101,7 +101,6 @@ const Input = forwardRef<
       if (rules) {
         validator.validate({ [name]: e.target.value }, (errors, fields) => {
           if (errors && errors[0]) {
-            console.log('error');
             setStatus('error');
             setErrorMessage(errors[0].message || '');
           } else {
@@ -150,7 +149,18 @@ const Input = forwardRef<
 
         <span className="absolute right-[1.4375rem] top-[50%] -translate-y-[50%] flex gap-4 items-center">
           {status === 'error' && (
-            <span className="text-auth-input-error-color flex justify-center items-center">
+            <span
+              className="text-auth-input-error-color flex justify-center items-center cursor-pointer"
+              onClick={() => {
+                setValue('');
+                setErrorMessage('');
+                setStatus('default');
+                const event = {
+                  target: inputRef.current
+                };
+                onChange?.(event as any);
+              }}
+            >
               <CloseIcon width={20} height={20}></CloseIcon>
             </span>
           )}

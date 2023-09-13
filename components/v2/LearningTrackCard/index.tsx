@@ -5,12 +5,13 @@ import { computeProgress } from '@/helper/formate';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
 import { useEnrollUnEnroll } from '@/hooks/useLearningTrackHooks/useEnrollUnEnroll';
 import LearningImage from '@/public/images/home/learning-image.svg';
+import webApi from '@/service';
 import { LearningTrackCourseType } from '@/service/webApi/course/type';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import { Progress } from 'antd';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { styled } from 'styled-components';
 import { MenuLink, QueryIdType } from '../Breadcrumb/type';
 import CourseTags from '../CourseTags';
@@ -34,7 +35,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
   status
 }) => {
   const router = useRouter();
-
+  const [learningLessonName, setLearningLessonName] = useState('');
   const jumpLearningLesson = useJumpLeaningLesson();
   const [learningTrack, setLearningTrack] =
     useState<LearningTrackDetailType>(track);
@@ -57,6 +58,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
       return LearningTrackCourseType.UN_ENROLL;
     }
   }, [learningTrack]);
+
   const handleRoll = async (e: any) => {
     if (isLandingPage) {
       BurialPoint.track('landing-learning track Enroll按钮点击');
@@ -206,7 +208,9 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
         return (
           <>
             <div>
-              <p className="text-[21px] pt-[15px] pb-[10px]">Deploy Your NFT</p>
+              <p className="text-[21px] pt-[15px] pb-[10px]">
+                {learningLessonName}&nbsp;
+              </p>
               <div>
                 <CourseTags
                   level={learningTrack.level as string}
@@ -245,6 +249,22 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
         );
     }
   };
+
+  useEffect(() => {
+    const isProgress =
+      learningTrackStatus === LearningTrackCourseType.IN_PROCESS;
+
+    if (learningTrack && isProgress) {
+      const section = learningTrack.sections.find(
+        (v) => (v?.progress || 0) < 1
+      );
+      const course = section!.courses.find((v) => v.progress < 1);
+
+      webApi.courseApi.getLearningLessonId(course?.id as string).then((res) => {
+        setLearningLessonName(res.pageName);
+      });
+    }
+  }, [learningTrack]);
 
   const goLearningTrackDetail = (e: any) => {
     if (isLandingPage) return;

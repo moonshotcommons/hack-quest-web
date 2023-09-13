@@ -23,8 +23,8 @@ const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
 
   const { enroll, unEnroll } = useEnrollUnEnroll(learningTrackDetail, refresh);
   const [learningInfo, setLearningInfo] = useState<{
-    learningCourseDetail: any;
-    learningUnit: any;
+    learningSectionAndCourseName: string;
+    learningLessonName: string;
   }>();
 
   const jumpLearningLesson = useJumpLeaningLesson();
@@ -68,18 +68,17 @@ const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
     }, [learningTrackDetail]);
 
   useEffect(() => {
-    if (learningCourse) {
-      webApi.courseApi.getCourseDetail(learningCourse.id).then((res) => {
-        const learningInfo = {
-          learningCourseDetail: res,
-          learningUnit: res.units?.find(
-            (unit) => unit.progress < 1 || !unit.progress
-          )
-        };
-        setLearningInfo(learningInfo);
-      });
+    if (learningCourse && learningTrackDetail?.enrolled) {
+      webApi.courseApi
+        .getLearningLessonId(learningCourse?.id as string)
+        .then((res) => {
+          setLearningInfo({
+            learningLessonName: res.pageName,
+            learningSectionAndCourseName: `${learningSection.name}/${learningCourse.name}`
+          });
+        });
     }
-  }, [learningCourse]);
+  }, [learningCourse, learningTrackDetail, learningSection]);
 
   const resumeCallback = useCallback(() => {
     if (learningTrackDetail && learningCourse) {
@@ -98,15 +97,15 @@ const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
         courseDetail={learningTrackDetail}
         itemCount={learningCourse.unitCount || 0}
         nextInfo={{
-          title: `${learningSection.name}/${learningCourse.name}`,
-          content: learningCourse.name
+          title: learningInfo?.learningSectionAndCourseName || '',
+          content: learningInfo?.learningLessonName || ''
         }}
         type="learning-track"
         resumeCallback={resumeCallback}
         learningStatus={learningStatus}
       ></HeaderRight>
     );
-  }, [learningTrackDetail, resumeCallback]);
+  }, [learningTrackDetail, resumeCallback, learningInfo]);
 
   useEffect(() => {
     const startTime = new Date().getTime();
@@ -145,7 +144,6 @@ const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
           <span
             className="font-next-book leading-[125%] tracking-[0.32px] text-[16px] underline cursor-pointer"
             onClick={() => {
-              console.log('--------------');
               setExpandAll(!expandAll);
               BurialPoint.track('learningTrackDetail-Expand All 按钮点击');
             }}

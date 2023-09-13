@@ -1,9 +1,10 @@
 import { CourseDetailType } from '@/service/webApi/course/type';
-import { FC, useCallback, useEffect, useMemo } from 'react';
+import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 
 import Button from '@/components/Common/Button';
 import { BurialPoint } from '@/helper/burialPoint';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
+import webApi from '@/service';
 import CourseDetailHeader from '../CourseDetailHeader';
 import HeaderRight from '../HeaderRight';
 import UnitList from '../UnitList';
@@ -17,6 +18,10 @@ interface CourseDetailProps {
 const CourseDetail: FC<CourseDetailProps> = (props) => {
   const { courseDetail } = props;
 
+  const [learningInfo, setLearningInfo] = useState<{
+    learningUnitName: string;
+    learningLessonName: string;
+  }>();
   const jumpLearningLesson = useJumpLeaningLesson();
 
   const learningStatus = useMemo(() => {
@@ -44,13 +49,33 @@ const CourseDetail: FC<CourseDetailProps> = (props) => {
     };
   }, []);
 
+  useEffect(() => {
+    if (courseDetail && learningStatus !== LearningStatus.COMPLETED) {
+      webApi.courseApi
+        .getLearningLessonId(courseDetail?.id as string)
+        .then((res) => {
+          const learningUnit = courseDetail.units?.find((unit) => {
+            return unit.progress < 1;
+          });
+
+          setLearningInfo({
+            learningLessonName: res.pageName,
+            learningUnitName: learningUnit?.name || ''
+          });
+        });
+    }
+  }, [courseDetail]);
+
   if (!courseDetail) return null;
 
   const RightComponent = (
     <HeaderRight
       courseDetail={courseDetail}
       itemCount={courseDetail.units?.length || 0}
-      nextInfo={{ title: 'Unit 3', content: 'Mint - 1' }}
+      nextInfo={{
+        title: learningInfo?.learningUnitName || '',
+        content: learningInfo?.learningLessonName || ''
+      }}
       type="course"
       resumeCallback={resumeCallback}
       learningStatus={learningStatus}
