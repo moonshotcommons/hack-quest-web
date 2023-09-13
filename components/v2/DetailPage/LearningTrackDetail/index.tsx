@@ -76,6 +76,9 @@ const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
             learningLessonName: res.pageName,
             learningSectionAndCourseName: `${learningSection.name}/${learningCourse.name}`
           });
+        })
+        .catch((error) => {
+          console.log(error);
         });
     }
   }, [learningCourse, learningTrackDetail, learningSection]);
