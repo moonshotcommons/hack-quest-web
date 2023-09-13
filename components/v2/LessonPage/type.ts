@@ -97,8 +97,10 @@ export interface QuizBType extends CustomComponent {
 export interface LessonPageContextType {
   isHandleNext: boolean;
   changeHandleNext: (isHandle: boolean) => void;
+  leftLength: number;
 }
 export const LessonPageContext = createContext<LessonPageContextType>({
   isHandleNext: false,
-  changeHandleNext: () => {}
+  changeHandleNext: () => {},
+  leftLength: 0
 });

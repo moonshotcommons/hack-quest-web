@@ -22,7 +22,7 @@ const EyeIcon: React.FC<IconProps> = (props) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_11_7205)">
+      <g clipPath="url(#clip0_11_7205)">
         <path
           d="M10.001 4.37451C3.75098 4.37451 1.25098 9.99951 1.25098 9.99951C1.25098 9.99951 3.75098 15.6245 10.001 15.6245C16.251 15.6245 18.751 9.99951 18.751 9.99951C18.751 9.99951 16.251 4.37451 10.001 4.37451Z"
           stroke={color}

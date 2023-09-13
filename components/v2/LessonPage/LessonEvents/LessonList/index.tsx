@@ -81,7 +81,7 @@ const LessonList: React.FC<LessonListType> = ({
             {lessonList.map((v) => (
               <div
                 key={v.id}
-                className={`h-[54px] w-full  flex-row-center justify-between px-5 hover:bg-lesson-events-toggle-list-active-bg ${
+                className={`h-[54px] w-full  flex-row-center justify-between px-5 ${
                   v.id === lesson.id
                     ? 'bg-lesson-events-toggle-list-active-bg'
                     : ''

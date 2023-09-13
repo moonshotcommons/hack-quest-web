@@ -74,9 +74,9 @@ const CourseCard: FC<CourseCardProps> = (props) => {
                   );
                 }
                 return (
-                  <p className="flex justify-center text-[12px] text-[#3E3E3E]   font-neuemachina-light whitespace-nowrap">
+                  <p className="flex justify-center relative top-[1px] items-end text-[12px] text-[#3E3E3E]   font-neuemachina-light whitespace-nowrap">
                     <span className="relative left-[3px]">{`${percent}`}</span>
-                    <span className="scale-50">%</span>
+                    <span className="scale-50 relative top-[1px] ">%</span>
                   </p>
                 );
               }}

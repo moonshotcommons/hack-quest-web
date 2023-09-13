@@ -28,7 +28,6 @@ const LessonPage: FC<LessonPageProps> = (props) => {
     useGotoNextLesson(lesson!, courseType, true, true);
   const [isHandleNext, setIsHandleNext] = useState(false);
   const allowNextButtonClickTime = useRef(0);
-
   const judgmentInitIsHandleNext = useCallback(() => {
     const quiz = lesson?.content?.right.find(
       (v: NotionComponent) => v.type === CustomType.Quiz
@@ -82,10 +81,15 @@ const LessonPage: FC<LessonPageProps> = (props) => {
         size="large"
       >
         {lesson && (
-          <div className="relative w-full h-[calc(100vh-115px)]">
+          <div
+            className={`relative w-full ${
+              isHandleNext ? 'h-[calc(100vh-145px)]' : 'h-[calc(100vh-95px)]'
+            }`}
+          >
             <LessonPageContext.Provider
               value={{
                 isHandleNext,
+                leftLength: lesson?.content?.left?.length || 0,
                 changeHandleNext: (handle) => {
                   if (handle) {
                     allowNextButtonClickTime.current = new Date().getTime();
@@ -95,7 +99,7 @@ const LessonPage: FC<LessonPageProps> = (props) => {
               }}
             >
               <Split
-                className="flex-1 w-full h-full flex justify-between [&>div]:w-[50%] [&>.gutter]:cursor-col-resize"
+                className="flex-1 w-full h-full flex justify-between [&>div]:w-[50%] [&>.gutter]:cursor-col-resize font-next-book"
                 minSize={80}
                 cursor="col-resize"
               >
