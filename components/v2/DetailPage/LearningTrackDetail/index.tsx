@@ -32,8 +32,7 @@ const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
   const learningStatus = useMemo(() => {
     if (learningTrackDetail) {
       let progress = learningTrackDetail.progress || 0;
-      if ((!progress || progress <= 0) && !learningTrackDetail.enrolled)
-        return LearningStatus.UN_START;
+      if (!learningTrackDetail.enrolled) return LearningStatus.UN_START;
       if (progress >= 1) return LearningStatus.COMPLETED;
     }
     return LearningStatus.IN_PROGRESS;
@@ -97,12 +96,13 @@ const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
     if (!learningTrackDetail || !learningCourse) return false;
     return (
       <HeaderRight
-        courseDetail={learningTrackDetail}
+        detail={learningTrackDetail}
         itemCount={learningTrackDetail.courseCount || 0}
         nextInfo={{
           title: learningInfo?.learningSectionAndCourseName || '',
           content: learningInfo?.learningLessonName || ''
         }}
+        learningCourse={learningCourse}
         type="learning-track"
         resumeCallback={resumeCallback}
         learningStatus={learningStatus}
