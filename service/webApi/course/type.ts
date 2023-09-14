@@ -86,6 +86,7 @@ export interface CourseLessonType {
   courseId: string;
   content?: Record<string, any>;
   state: CompleteStateType;
+  completedQuiz?: number[];
 }
 
 export interface CourseLessonStateType {

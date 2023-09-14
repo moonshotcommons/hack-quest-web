@@ -58,7 +58,7 @@ const LessonContent: FC<LessonContentProps> = (props) => {
       />
 
       {!!components?.length && (
-        <div className="flex flex-col mb-[20px] w-full flex-1 shrink-0 overflow-auto h-full scroll-wrap-y scroll-wrap-x no-scrollbar">
+        <div className="flex flex-col mb-[20px] w-full flex-1 shrink-0 h-full scroll-wrap-y scroll-wrap-x">
           {components.map((component, i) => {
             return (
               <div key={component.id} className="">
