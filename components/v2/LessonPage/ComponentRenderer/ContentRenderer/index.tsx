@@ -16,7 +16,7 @@ const ContentRenderer: FC<ContentRendererProps> = (props) => {
   return (
     <div
       className={`px-[20px] py-[15px] rounded-[10px]  mb-5 ${
-        leftLength !== 1 ? 'border border-lesson-title-box-border-color' : ''
+        leftLength > 1 ? 'border border-lesson-title-box-border-color' : ''
       }`}
     >
       <div
@@ -33,13 +33,15 @@ const ContentRenderer: FC<ContentRendererProps> = (props) => {
             ></TextRenderer>
           )}
         </span>
-        <span
-          className={`${
-            showAll ? 'rotate-180' : 'rotate-0'
-          } transition-transform duration-150 ease-in-out`}
-        >
-          <VscChevronDown size={24} />
-        </span>
+        {leftLength > 1 ? (
+          <span
+            className={`${
+              showAll ? 'rotate-180' : 'rotate-0'
+            } transition-transform duration-150 ease-in-out`}
+          >
+            <VscChevronDown size={24} />
+          </span>
+        ) : null}
       </div>
       {showAll &&
         component?.children?.map((child) => {
