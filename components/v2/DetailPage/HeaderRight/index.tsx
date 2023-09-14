@@ -2,7 +2,7 @@ import Button from '@/components/Common/Button';
 import ClockIcon from '@/components/Common/Icon/Clock';
 import CourseIcon from '@/components/Common/Icon/Course';
 import { computeTime, tagFormate } from '@/helper/formate';
-import { CourseDetailType } from '@/service/webApi/course/type';
+import { CourseDetailType, CourseResponse } from '@/service/webApi/course/type';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import { FC } from 'react';
 import CourseLevel from '../../CourseTags/CourseLevel';
@@ -12,14 +12,15 @@ interface HeaderRightProps {
   // children: ReactNode;
   learningStatus?: LearningStatus;
   nextInfo: { title: string; content: string };
-  courseDetail: CourseDetailType | LearningTrackDetailType;
+  detail: CourseDetailType | LearningTrackDetailType;
   itemCount: number;
   type: 'course' | 'learning-track';
   resumeCallback: VoidFunction;
+  learningCourse?: CourseResponse;
 }
 
 function UnProgressHeaderRight(
-  courseDetail: CourseDetailType | LearningTrackDetailType,
+  detail: CourseDetailType | LearningTrackDetailType,
   itemCount: number,
   type: 'course' | 'learning-track'
 ) {
@@ -30,7 +31,7 @@ function UnProgressHeaderRight(
           Experience
         </span>
         <CourseLevel
-          level={tagFormate(courseDetail.level as string)}
+          level={tagFormate(detail.level as string)}
           size="large"
         ></CourseLevel>
       </div>
@@ -45,7 +46,7 @@ function UnProgressHeaderRight(
             size="large"
             className="gap-[28px] text-[#0B0B0B] font-next-book text-[16px]"
           >
-            {computeTime(courseDetail.duration, 'Hour')}
+            {computeTime(detail.duration, 'Hour')}
           </Tag>
         </div>
       </div>
@@ -73,10 +74,11 @@ function UnProgressHeaderRight(
 
 function InProgressHeaderRight(
   nextInfo: { title: string; content: string },
-  courseDetail: CourseDetailType | LearningTrackDetailType,
+  detail: CourseDetailType | LearningTrackDetailType,
   itemCount: number,
   type: 'course' | 'learning-track',
-  resumeCallback: VoidFunction
+  resumeCallback: VoidFunction,
+  learningCourse?: CourseResponse
 ) {
   return (
     <div className="flex flex-col w-[445px] max-w-[445px]">
@@ -109,7 +111,12 @@ function InProgressHeaderRight(
           type="primary"
           onClick={resumeCallback}
         >
-          {courseDetail.progress <= 0 ? 'Start' : 'Resume'}
+          {type === 'course' && (detail.progress <= 0 ? 'Start' : 'Resume')}
+          {type === 'learning-track' && learningCourse
+            ? learningCourse.progress <= 0
+              ? 'Start'
+              : 'Resume'
+            : ''}
         </Button>
       </div>
     </div>
@@ -118,25 +125,34 @@ function InProgressHeaderRight(
 
 const HeaderRight: FC<HeaderRightProps> = (props) => {
   const {
-    courseDetail,
+    detail,
     itemCount,
     learningStatus = LearningStatus.IN_PROGRESS,
     type,
-    resumeCallback
+    resumeCallback,
+    learningCourse
   } = props;
+
+  if (
+    type === 'learning-track' &&
+    !(detail as LearningTrackDetailType).enrolled
+  ) {
+  }
+
   switch (learningStatus) {
     case LearningStatus.IN_PROGRESS:
       let nextInfo = props.nextInfo || { title: '', content: '' };
       return InProgressHeaderRight(
         nextInfo,
-        courseDetail,
+        detail,
         itemCount,
         type,
-        resumeCallback
+        resumeCallback,
+        learningCourse
       );
     case LearningStatus.COMPLETED:
     case LearningStatus.UN_START:
-      return UnProgressHeaderRight(courseDetail, itemCount, type);
+      return UnProgressHeaderRight(detail, itemCount, type);
   }
 };
 

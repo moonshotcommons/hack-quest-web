@@ -70,7 +70,7 @@ const CourseDetail: FC<CourseDetailProps> = (props) => {
 
   const RightComponent = (
     <HeaderRight
-      courseDetail={courseDetail}
+      detail={courseDetail}
       itemCount={courseDetail.units?.length || 0}
       nextInfo={{
         title: learningInfo?.learningUnitName || '',
