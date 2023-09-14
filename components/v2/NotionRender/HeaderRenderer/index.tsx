@@ -59,7 +59,7 @@ const HeaderRenderer: FC<HeaderRendererProps> = (props) => {
         </div>
         {expandIndex >= 0 && (
           <span
-            className="cursor-pointer text-[12px] underline"
+            className="cursor-pointer text-[12px] underline font-next-book"
             onClick={changeExpandNum}
           >
             Expand All

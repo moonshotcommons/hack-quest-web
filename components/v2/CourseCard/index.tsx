@@ -108,7 +108,7 @@ const CourseCard: FC<CourseCardProps> = (props) => {
       )}
       <div className="h-[148px] w-[265px] flex items-center justify-center">
         <div className="h-[87px] relative  w-[150px]">
-          <Image
+          {/* <Image
             src={`${
               process.env.NODE_ENV === 'development'
                 ? ''
@@ -117,7 +117,7 @@ const CourseCard: FC<CourseCardProps> = (props) => {
             fill
             alt="course"
             className="object-contain"
-          ></Image>
+          ></Image> */}
         </div>
       </div>
       <h3 className="text-[#0B0B0B] font-next-book leading-[160%]  tracking-[0.32px] opacity-60 text-base">
@@ -152,7 +152,11 @@ const CourseCard: FC<CourseCardProps> = (props) => {
                 courseName: course.name
               });
               e.stopPropagation();
-              jumpLearningLesson(course);
+              jumpLearningLesson(course, {
+                menu: 'electives',
+                idTypes: [QueryIdType.MENU_COURSE_ID],
+                ids: [course.id]
+              });
             }}
           >
             Resume
