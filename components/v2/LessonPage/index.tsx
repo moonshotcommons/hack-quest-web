@@ -32,7 +32,11 @@ const LessonPage: FC<LessonPageProps> = (props) => {
     const quiz = lesson?.content?.right?.find(
       (v: NotionComponent) => v.type === CustomType.Quiz
     );
-    if (!quiz || lesson?.state === CompleteStateType.COMPLETED) {
+    if (
+      !quiz ||
+      lesson?.state === CompleteStateType.COMPLETED ||
+      quiz?.children.length === lesson?.completedQuiz?.length
+    ) {
       setIsHandleNext(true);
       allowNextButtonClickTime.current = new Date().getTime();
     } else {
