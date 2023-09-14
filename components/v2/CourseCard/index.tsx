@@ -129,9 +129,7 @@ const CourseCard: FC<CourseCardProps> = (props) => {
       {!inProgress && (
         <Typography.Paragraph ellipsis={{ rows: 2 }} className="my-[13px]">
           <div className="text-[14px] font-next-book-Thin leading-[160%] text-[#000]">
-            Here we will write our first project which is a fungible token that
-            users could mint, Here we will write our first project which is a
-            fungible token that users could mint
+            {course.description}
           </div>
         </Typography.Paragraph>
       )}

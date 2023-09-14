@@ -42,8 +42,8 @@ const UserDropCard: FC<UserDropCardProps> = (props) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const signOut = () => {
-    dispatch(userSignOut());
     router.push('/');
+    dispatch(userSignOut());
     BurialPoint.track('登出');
   };
 

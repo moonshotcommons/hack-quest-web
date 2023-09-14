@@ -34,7 +34,8 @@ const CodeRenderer: FC<CodeRendererProps> = (props) => {
       <SyntaxHighlighter
         style={theme === Theme.Dark ? oneDark : oneLight}
         language={language}
-        className="scroll-wrap-x"
+        className="scroll-wrap-x font-next-poster-Bold"
+        showLineNumbers
       >
         {component.content.rich_text
           .map((richText: any) => richText.plain_text)
