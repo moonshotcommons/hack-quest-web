@@ -35,7 +35,10 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
   status
 }) => {
   const router = useRouter();
-  const [learningLessonName, setLearningLessonName] = useState('');
+  const [learningInfo, setLearningInfo] = useState<{
+    learningSectionAndCourseName: string;
+    learningLessonName: string;
+  }>();
   const jumpLearningLesson = useJumpLeaningLesson();
   const [learningTrack, setLearningTrack] =
     useState<LearningTrackDetailType>(track);
@@ -50,7 +53,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
   const learningTrackStatus = useMemo(() => {
     if (status) return status;
     const { progress } = learningTrack;
-    if (progress > 0 && progress < 1) {
+    if (learningTrack.enrolled && progress > 0 && progress < 1) {
       return LearningTrackCourseType.IN_PROCESS;
     } else if (progress >= 1) {
       return LearningTrackCourseType.COMPLETED;
@@ -208,16 +211,19 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
         return (
           <>
             <div>
-              <p className="text-[21px] pt-[15px] pb-[10px]">
-                {learningLessonName}&nbsp;
+              <p className="text-[16px] pt-[10px] font-next-book-Thin leading-[160%]">
+                {learningInfo?.learningSectionAndCourseName}&nbsp;
               </p>
-              <div>
+              <p className="text-[24px] pb-[10px] leading-[160%]">
+                {learningInfo?.learningLessonName}&nbsp;
+              </p>
+              {/* <div>
                 <CourseTags
                   level={learningTrack.level as string}
                   duration={learningTrack.duration}
                   unitCount={learningTrack.unitCount ?? 0}
                 ></CourseTags>
-              </div>
+              </div> */}
             </div>
             <div className="w-full flex justify-between">
               <Button className="w-[48%] h-11 border border-home-learning-track-view-button-border text-home-learning-track-view-button-color px-0">
@@ -261,7 +267,12 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
       const course = section!.courses.find((v) => v.progress < 1);
 
       webApi.courseApi.getLearningLessonId(course?.id as string).then((res) => {
-        setLearningLessonName(res.pageName);
+        setLearningInfo({
+          learningLessonName: res.pageName,
+          learningSectionAndCourseName: `${section?.name || ''}/${
+            course?.name || ''
+          }`
+        });
       });
     }
   }, [learningTrack]);
