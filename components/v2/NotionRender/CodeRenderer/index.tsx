@@ -43,7 +43,7 @@ const CodeRenderer: FC<CodeRendererProps> = (props) => {
       </SyntaxHighlighter>
       {/* <textarea className="hidden" ref={codeRef} value={}></textarea> */}
       <div
-        className="absolute top-[5px] right-[5px] text-[0.75rem] font-next-book text-[#E3E3E3] rounded-[0.5rem] cursor-pointer"
+        className="absolute top-[9px] right-[9px] text-[0.75rem] font-next-book text-[#E3E3E3] rounded-[0.5rem] cursor-pointer"
         onClick={async (e) => {
           try {
             await navigator.clipboard.writeText(
@@ -58,7 +58,7 @@ const CodeRenderer: FC<CodeRendererProps> = (props) => {
           }
         }}
       >
-        <CopyIcon width={12} height={13} color={'currentColor'}></CopyIcon>
+        <CopyIcon width={17} height={21} color={'currentColor'}></CopyIcon>
         {/* <span>Copy</span> */}
       </div>
     </div>
