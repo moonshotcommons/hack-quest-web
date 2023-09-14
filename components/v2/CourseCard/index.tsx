@@ -152,7 +152,11 @@ const CourseCard: FC<CourseCardProps> = (props) => {
                 courseName: course.name
               });
               e.stopPropagation();
-              jumpLearningLesson(course);
+              jumpLearningLesson(course, {
+                menu: 'electives',
+                idTypes: [QueryIdType.MENU_COURSE_ID],
+                ids: [course.id]
+              });
             }}
           >
             Resume
