@@ -30,7 +30,7 @@ const ToggleRenderer: FC<ToggleRendererProps> = (props) => {
   return (
     <div className="border-b border-[#676767]">
       <div
-        className="px-[.5rem] flex justify-between items-center my-3"
+        className="px-[.5rem] flex justify-between items-center my-3 cursor-pointer"
         onClick={() => setShowChild(!showChild)}
       >
         <div>
@@ -39,7 +39,7 @@ const ToggleRenderer: FC<ToggleRendererProps> = (props) => {
             fontSize={'16px'}
           />
         </div>
-        <span className={`cursor-pointer`}>
+        <span className={``}>
           {!showChild ? (
             <VscAdd size={20}></VscAdd>
           ) : (
