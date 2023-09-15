@@ -20,8 +20,11 @@ const ContentRenderer: FC<ContentRendererProps> = (props) => {
       }`}
     >
       <div
-        className="flex  justify-between items-center cursor-pointer"
+        className={`flex  justify-between items-center ${
+          leftLength > 1 ? 'cursor-pointer' : ''
+        }`}
         onClick={() => {
+          if (leftLength <= 1) return;
           BurialPoint.track('lesson-content展开');
           setShowAll(!showAll);
         }}
