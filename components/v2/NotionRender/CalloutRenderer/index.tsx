@@ -34,14 +34,14 @@ const CalloutRenderer: FC<CalloutRendererProps> = (props) => {
             );
           })}
         </div>
-        <div
+        {/* <div
           onClick={() => {
             setVisible(false);
           }}
           className="cursor-pointer"
         >
           <IoCloseOutline size={20}></IoCloseOutline>
-        </div>
+        </div> */}
       </div>
     </div>
   );

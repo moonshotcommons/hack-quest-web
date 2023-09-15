@@ -29,14 +29,10 @@ const checkEmailRules: Rule = [
         webApi.userApi
           .checkEmailExists(value)
           .then((res) => {
-            // onStatusChange(false);
-
             resolve();
           })
           .catch((e) => {
-            // onStatusChange(true);
             reject('Email does not exist.');
-            // 'Email already exists, please register with another email, or'
           });
       });
     }
@@ -57,13 +53,10 @@ const checkRegisterEmailRules: Rule = [
         webApi.userApi
           .checkEmailExists(value)
           .then((res) => {
-            // onStatusChange(false);
             reject('Email already exists, please try another email. ');
           })
           .catch((e) => {
-            // onStatusChange(true);
             resolve();
-            // 'Email already exists, please register with another email, or'
           });
       });
     }
