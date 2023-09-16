@@ -26,13 +26,12 @@ export const useGetLessonContent = (lessonId: string) => {
           message.error(error?.msg);
           dispatch(setUnLoginType(UnLoginType.LOGIN));
           router.push('/');
-
           return;
         }
 
         if (error?.code === 403) {
           message.error(error?.msg);
-          router.push('/courses');
+          router.push('/home');
           return;
         }
         message.error('404 Not Found');
