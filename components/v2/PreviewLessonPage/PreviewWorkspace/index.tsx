@@ -1,6 +1,6 @@
 import Button from '@/components/Common/Button';
-import webApi from '@/service';
 import { Input, message } from 'antd';
+import axios from 'axios';
 import { useRouter } from 'next/router';
 import { FC, useState } from 'react';
 
@@ -69,8 +69,10 @@ const PreviewWorkspace: FC<PreviewWorkspaceProps> = (props) => {
               return;
             }
 
-            webApi.previewApi
-              .createPreviewCourse(previewCourseUrl)
+            axios
+              .post('/api/preview/lesson', {
+                notionPageUrl: previewCourseUrl
+              })
               .then((res) => {
                 message.success({
                   content:
