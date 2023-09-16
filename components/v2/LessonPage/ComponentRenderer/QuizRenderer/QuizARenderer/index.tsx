@@ -21,6 +21,7 @@ interface QuizARendererProps {
 
 const QuizARenderer: FC<QuizARendererProps> = (props) => {
   const { quiz } = props;
+  console.info(quiz, 'quizquizquiz');
   const [showAnswer, setShowAnswer] = useState(false);
   const [submitDisable, setSubmitDisable] = useState(true);
   const isCompleted = useRef(false);
