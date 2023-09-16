@@ -16,8 +16,8 @@ const BulletedListItemRenderer: FC<BulletedListItemRendererProps> = (props) => {
   //   .findIndex((child: any) => child.id === source.id);
   return (
     <div>
-      <div className="flex items-center gap-2 py-1">
-        <span className="">•</span>
+      <div className="flex items-start gap-2 py-1">
+        <span className="leading-[200%]">•</span>
         <div>
           <TextRenderer
             richTextArr={component.content.rich_text}
