@@ -21,7 +21,6 @@ interface QuizARendererProps {
 
 const QuizARenderer: FC<QuizARendererProps> = (props) => {
   const { quiz } = props;
-  console.info(quiz, 'quizquizquiz');
   const [showAnswer, setShowAnswer] = useState(false);
   const [submitDisable, setSubmitDisable] = useState(true);
   const isCompleted = useRef(false);
@@ -107,7 +106,11 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
 
   // 自动填充
   const initCompleteInput = () => {
-    console.info(isCompleted.current, 'initCompleteInput');
+    console.info(isCompleted.current, 'initCompleteInput.isCompleted.current');
+    console.info(
+      !isInitAnswerState(),
+      'initCompleteInput.!isInitAnswerState()'
+    );
     if (!isCompleted.current || !isInitAnswerState()) return;
     const newAnswerState = [...answerState];
     let inputEle: HTMLTextAreaElement | HTMLInputElement;
@@ -144,6 +147,7 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
   };
   //判断是否是初始化的answerState(初始化的value都为空)
   const isInitAnswerState = () => {
+    console.info(answerState, 'isInitAnswerState.answerState');
     return answerState.every((line) => {
       if (line.answers?.length) {
         return line.answers.every((answer) => !answer.value);
@@ -174,10 +178,11 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
     dealInputValue(false);
     setShowAnswer(false);
     initCompleteInput();
+    console.info(quiz, 'answerState, quiz');
   }, [answerState, quiz]);
 
   useEffect(() => {
-    console.info(isCompleted.current, 'isCompleted.current');
+    console.info(quiz, 'isCompleted.current');
     isCompleted.current = quiz.isCompleted as boolean;
   }, [quiz]);
 
