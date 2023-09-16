@@ -101,7 +101,6 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
         item.isCompleted = true;
       }
     });
-
     if (notCompleted.length) {
       setCurrentQuizIndex(notCompleted[0]);
     }
