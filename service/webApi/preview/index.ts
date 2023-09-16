@@ -1,7 +1,8 @@
 import WebService from '@/service/webService/webService';
 
 export enum PreviewApiType {
-  PreviewLesson = '/preview/lesson'
+  PreviewLesson = '/preview/lesson',
+  PreviewCourse = '/preview/course'
 }
 
 class PreviewApi {
@@ -12,6 +13,14 @@ class PreviewApi {
 
   getPreviewLesson(notionPageUrl: string) {
     return this.service.post(PreviewApiType.PreviewLesson, {
+      data: {
+        notionPageUrl: notionPageUrl
+      }
+    });
+  }
+
+  createPreviewCourse(notionPageUrl: string) {
+    return this.service.post(PreviewApiType.PreviewCourse, {
       data: {
         notionPageUrl: notionPageUrl
       }
