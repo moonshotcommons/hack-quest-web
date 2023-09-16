@@ -35,6 +35,7 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
   const [start, setStart] = useState(parent.right.length <= 1);
   const [passOpen, setPassOpen] = useState(false);
   const { onCompleted, lesson } = useContext(PlaygroundContext);
+
   const containerRef = useRef(null);
 
   const [quiz, setQuiz] = useState(propsQuiz);
@@ -93,7 +94,6 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
         item.isCompleted = false;
         return false;
       }
-
       if (!lesson.completedQuiz.includes(index)) {
         notCompleted.push(index);
         item.isCompleted = false;
@@ -101,11 +101,9 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
         item.isCompleted = true;
       }
     });
-
     if (notCompleted.length) {
       setCurrentQuizIndex(notCompleted[0]);
     }
-
     setQuiz({
       ...propsQuiz,
       children: propsQuiz.children.map((child) => ({ ...child }))

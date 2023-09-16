@@ -3,7 +3,7 @@ import LockIcon from '@/components/Common/Icon/Lock';
 import { Theme } from '@/constants/enum';
 import { BurialPoint } from '@/helper/burialPoint';
 import { computeProgress } from '@/helper/formate';
-import { cn, getCourseLink } from '@/helper/utils';
+import { cn, getCourseLink, getLessonLink } from '@/helper/utils';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
 import webApi from '@/service';
 import {
@@ -17,6 +17,7 @@ import { useRouter } from 'next/router';
 import { ButtonHTMLAttributes, FC, useContext } from 'react';
 import styled from 'styled-components';
 import { LearningStatus } from '../type';
+import { QueryIdType } from '../../Breadcrumb/type';
 
 const CustomProgress = styled(Progress)`
   .ant-progress-inner {
@@ -172,11 +173,25 @@ const UnitCard: FC<UnitCardProps> = (props) => {
                 unit.id
               );
               const lessonId = unitPages.pages[0]?.id;
-              router.replace(
-                `/${getCourseLink(courseType)}/${
-                  courseDetail?.name
-                }/learn/${lessonId}`
-              );
+              const { query } = router;
+              let link = `${getLessonLink(
+                courseType as CourseType,
+                courseDetail?.name as string,
+                lessonId,
+                courseDetail?.id as string,
+                {
+                  menu: query.menu as string,
+                  idTypes: [
+                    QueryIdType.LEARNING_TRACK_ID,
+                    QueryIdType.MENU_COURSE_ID
+                  ],
+                  ids: [
+                    query[QueryIdType.LEARNING_TRACK_ID] || '',
+                    query[QueryIdType.MENU_COURSE_ID] || ''
+                  ] as string[]
+                }
+              )}`;
+              router.replace(link);
             }
           }}
         >
