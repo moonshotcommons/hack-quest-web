@@ -17,6 +17,7 @@ export const DASHBOARD_PATHNAME = '/dashboard';
 export const MISSION_CENTER = '/mission-center';
 export const V2_LANDING_PATH = '/';
 export const V2_HOME_PATH = '/home';
+export const PREVIEW_PATH = '/preview';
 
 export function isLoginOrRegister(pathname: string) {
   if (
@@ -40,7 +41,8 @@ export function isNoNeedUserInfo(pathname: string) {
       HOME_PATHNAME,
       LOGIN_PATHNAME,
       REGISTER_PATHNAME,
-      ALL_COURSES_PATHNAME
+      ALL_COURSES_PATHNAME,
+      PREVIEW_PATH
     ].includes(pathname)
   )
     return true;
