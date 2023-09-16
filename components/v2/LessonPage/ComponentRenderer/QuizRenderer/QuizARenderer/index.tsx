@@ -112,7 +112,9 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
       'initCompleteInput.!isInitAnswerState()'
     );
     if (!isCompleted.current || !isInitAnswerState()) return;
-    const newAnswerState = [...answerState];
+    const newAnswerState: AnswerState[] = JSON.parse(
+      JSON.stringify(answerState)
+    );
     let inputEle: HTMLTextAreaElement | HTMLInputElement;
     if (answerState.length) {
       newAnswerState.map((line) => {
@@ -142,6 +144,7 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
           }
         }
       });
+      answerStateDispatch(newAnswerState);
       isCompleted.current = false;
     }
   };
