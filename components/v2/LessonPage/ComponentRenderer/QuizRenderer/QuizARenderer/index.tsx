@@ -107,6 +107,7 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
 
   // 自动填充
   const initCompleteInput = () => {
+    console.info(isCompleted.current, 'initCompleteInput');
     if (!isCompleted.current || !isInitAnswerState()) return;
     const newAnswerState = [...answerState];
     let inputEle: HTMLTextAreaElement | HTMLInputElement;
@@ -169,12 +170,14 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
   };
   useEffect(() => {
     setSubmitDisable(getSubmitDisable());
+    console.info('answerState, quiz');
     dealInputValue(false);
     setShowAnswer(false);
     initCompleteInput();
   }, [answerState, quiz]);
 
   useEffect(() => {
+    console.info(isCompleted.current, 'isCompleted.current');
     isCompleted.current = quiz.isCompleted as boolean;
   }, [quiz]);
 
