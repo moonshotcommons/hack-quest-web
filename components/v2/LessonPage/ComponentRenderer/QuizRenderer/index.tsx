@@ -35,7 +35,7 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
   const [start, setStart] = useState(parent.right.length <= 1);
   const [passOpen, setPassOpen] = useState(false);
   const { onCompleted, lesson } = useContext(PlaygroundContext);
-  console.info(lesson, 'lessonlessonlesson');
+
   const containerRef = useRef(null);
 
   const [quiz, setQuiz] = useState(propsQuiz);
@@ -89,13 +89,17 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
 
   useEffect(() => {
     const notCompleted: number[] = [];
-
+    console.info(propsQuiz, 'propsQuizpropsQuiz');
+    console.info(lesson, 'lessonlessonlesson');
     propsQuiz.children.forEach((item, index) => {
       if (!lesson.completedQuiz && !Array.isArray(lesson.completedQuiz)) {
         item.isCompleted = false;
         return false;
       }
-
+      console.info(
+        lesson.completedQuiz.includes(index),
+        'lesson.completedQuiz.includes(index)'
+      );
       if (!lesson.completedQuiz.includes(index)) {
         notCompleted.push(index);
         item.isCompleted = false;
