@@ -104,11 +104,17 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
     if (notCompleted.length) {
       setCurrentQuizIndex(notCompleted[0]);
     }
-
     setQuiz({
       ...propsQuiz,
       children: propsQuiz.children.map((child) => ({ ...child }))
     });
+    console.info(
+      {
+        ...propsQuiz,
+        children: propsQuiz.children.map((child) => ({ ...child }))
+      },
+      'quiz'
+    );
   }, [lesson, propsQuiz]);
 
   useClickAway(() => {
