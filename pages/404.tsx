@@ -32,7 +32,7 @@ const NotFoundPage: NextPage<NotFoundPageProps> = (props) => {
   }, [seconds]);
 
   return (
-    <div className="text-center m-20 text-white font-next-book-bold">
+    <div className="text-center m-20 text-black font-next-book-bold">
       <div className="text-8xl">404 Not Found</div>
       <p className="m-10">
         It will return to the home page in

@@ -70,7 +70,7 @@ const PreviewWorkspace: FC<PreviewWorkspaceProps> = (props) => {
             }
 
             axios
-              .post('/api/preview/lesson', {
+              .post('/api/preview/course', {
                 notionPageUrl: previewCourseUrl
               })
               .then((res) => {

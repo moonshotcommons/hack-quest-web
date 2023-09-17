@@ -43,7 +43,8 @@ export function isNoNeedUserInfo(pathname: string) {
       REGISTER_PATHNAME,
       ALL_COURSES_PATHNAME,
       PREVIEW_PATH
-    ].includes(pathname)
+    ].includes(pathname) ||
+    pathname.startsWith(PREVIEW_PATH)
   )
     return true;
 
