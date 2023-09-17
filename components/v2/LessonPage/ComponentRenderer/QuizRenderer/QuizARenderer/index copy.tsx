@@ -23,19 +23,18 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
   const { quiz } = props;
   const [showAnswer, setShowAnswer] = useState(false);
   const [submitDisable, setSubmitDisable] = useState(true);
-  const prevQuiz = useRef<any>({});
   const isCompleted = useRef(false);
   const { lesson } = useContext(PlaygroundContext);
   const { onPass } = useContext(QuizContext);
   const { waitingRenderCodes, answerState, answerStateDispatch } =
     useParseQuizA(quiz.lines);
 
-  const dealInputValue = (show: boolean) => {
+  const dealInputValue = (show: boolean, isSet?: boolean) => {
+    let inputEle: HTMLTextAreaElement | HTMLInputElement;
     const newAnswerState = JSON.parse(JSON.stringify(answerState));
     newAnswerState.map((line: AnswerState) => {
       if (line.answers?.length) {
         line.answers.map((answer: AnswerState) => {
-          let inputEle: HTMLTextAreaElement | HTMLInputElement;
           inputEle = document.querySelector(
             `[data-uuid="${answer.id}"]`
           ) as HTMLInputElement;
@@ -47,10 +46,10 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
             }
             inputEle.disabled = show;
             adaptWidth(inputEle);
+            isSet && (answer.disable = show);
           }
         });
       } else {
-        let inputEle: HTMLTextAreaElement | HTMLInputElement;
         inputEle = document.querySelector(
           `[data-uuid="${line.id}"]`
         ) as HTMLTextAreaElement;
@@ -61,20 +60,21 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
             inputEle.value = line.value;
           }
           inputEle.disabled = show;
+          isSet && (line.disable = show);
           changeTextareaHeight(inputEle);
         }
       }
     });
+    // isSet && answerStateDispatch([...newAnswerState]);
   };
   const setAnswers = () => {
     const show = !showAnswer;
     if (show) {
       BurialPoint.track('lesson-show answer次数');
     }
+    dealInputValue(show, true);
     setShowAnswer(show);
-    dealInputValue(show);
   };
-
   const onSubmit = async () => {
     BurialPoint.track('lesson-单个quiz提交', { lessonId: lesson.id });
     const newAnswerState = [...answerState];
@@ -106,18 +106,23 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
 
   // 自动填充
   const initCompleteInput = () => {
-    if (!isCompleted.current) return;
+    console.info(isCompleted.current, 'initCompleteInput.isCompleted.current');
+    console.info(
+      !isInitAnswerState(),
+      'initCompleteInput.!isInitAnswerState()'
+    );
+    if (!isCompleted.current || !isInitAnswerState()) return;
     const newAnswerState: AnswerState[] = JSON.parse(
       JSON.stringify(answerState)
     );
-    if (newAnswerState.length) {
+    let inputEle: HTMLTextAreaElement | HTMLInputElement;
+    if (answerState.length) {
       newAnswerState.map((line) => {
         if (line.answers?.length) {
           line.answers.map((l) => {
             const { answer } = l;
             l.inputValue = answer;
             l.value = answer;
-            let inputEle: HTMLTextAreaElement | HTMLInputElement;
             inputEle = document.querySelector(
               `[data-uuid="${l.id}"]`
             ) as HTMLInputElement;
@@ -130,7 +135,7 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
           const { answer } = line;
           line.inputValue = answer;
           line.value = answer;
-          const inputEle = document.querySelector(
+          inputEle = document.querySelector(
             `[data-uuid="${line.id}"]`
           ) as HTMLTextAreaElement;
           if (inputEle) {
@@ -143,30 +148,46 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
       isCompleted.current = false;
     }
   };
-
-  //submit是否可以点击
-  //!isCompleted.current || !isInitAnswerState()为true 意味这手动输入input 判断value值
-  //否者标识初始化 quiz.isCompleted为true 方法 return false
-  const getSubmitDisable = () => {
-    return answerState.some((line) => {
+  //判断是否是初始化的answerState(初始化的value都为空)
+  const isInitAnswerState = () => {
+    console.info(answerState, 'isInitAnswerState.answerState');
+    return answerState.every((line) => {
       if (line.answers?.length) {
-        return line.answers.some((answer) => !answer.value);
+        return line.answers.every((answer) => !answer.value);
       } else {
         return !line.value;
       }
     });
   };
+  //submit是否可以点击
+  //!isCompleted.current || !isInitAnswerState()为true 意味这手动输入input 判断value值
+  //否者标识初始化 quiz.isCompleted为true 方法 return false
+  const getSubmitDisable = () => {
+    if (!isCompleted.current || !isInitAnswerState()) {
+      return answerState.some((line) => {
+        if (line.answers?.length) {
+          return line.answers.some((answer) => !answer.value);
+        } else {
+          return !line.value;
+        }
+      });
+    } else {
+      return false;
+    }
+  };
+  useEffect(() => {
+    setSubmitDisable(getSubmitDisable());
+    console.info('answerState, quiz');
+    dealInputValue(false);
+    setShowAnswer(false);
+    initCompleteInput();
+    console.info(quiz, 'answerState, quiz');
+  }, [answerState, quiz]);
 
   useEffect(() => {
-    if (JSON.stringify(quiz) !== JSON.stringify(prevQuiz.current)) {
-      prevQuiz.current = JSON.parse(JSON.stringify(quiz));
-      isCompleted.current = quiz.isCompleted as boolean;
-      setShowAnswer(false);
-    }
-    setSubmitDisable(getSubmitDisable());
-    initCompleteInput();
-    dealInputValue(false);
-  }, [answerState]);
+    console.info(quiz, 'isCompleted.current');
+    isCompleted.current = quiz.isCompleted as boolean;
+  }, [quiz]);
 
   useEffect(() => {
     if (showAnswer) setSubmitDisable(true);
