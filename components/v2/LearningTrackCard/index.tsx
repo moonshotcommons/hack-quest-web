@@ -60,7 +60,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
     } else {
       return LearningTrackCourseType.UN_ENROLL;
     }
-  }, [learningTrack]);
+  }, [learningTrack, status]);
 
   const handleRoll = async (e: any) => {
     if (isLandingPage) {
@@ -168,6 +168,24 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
   };
 
   const rightRender = () => {
+    if (isLandingPage) {
+      return (
+        <div className="flex-col-center h-full justify-center">
+          <Button
+            className="w-[80%] h-15 text-[18px] border border-home-learning-track-view-button-border text-home-learning-track-view-button-color px-0"
+            onClick={handleRoll}
+          >
+            View Syllabus
+          </Button>
+          <Button
+            className="w-[80%] mt-5  h-15 text-[18px] text-home-learning-track-view-button-color bg-home-learning-track-view-button-bg px-0"
+            onClick={handleResume}
+          >
+            Enroll
+          </Button>
+        </div>
+      );
+    }
     switch (learningTrackStatus) {
       case LearningTrackCourseType.UN_ENROLL:
         return (
@@ -275,7 +293,10 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
         });
       });
     }
-  }, [learningTrack]);
+  }, [learningTrack, learningTrackStatus]);
+  useEffect(() => {
+    setLearningTrack(track);
+  }, [track]);
 
   const goLearningTrackDetail = (e: any) => {
     if (isLandingPage) return;
@@ -283,6 +304,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
       `/learning-track/${learningTrack.id}?${QueryIdType.LEARNING_TRACK_ID}=${learningTrack.id}&menu=${MenuLink.LEARNING_TRACK}`
     );
   };
+
   return (
     <div
       className="h-[275px] font-next-book cursor-pointer rounded-[10px] bg-home-learning--track-bg overflow-hidden flex flex-col mb-10 hover:-translate-y-1 transition-all duration-300 shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)]"
@@ -293,7 +315,11 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
         <div className="absolute left-[16px] top-[13px]">
           {leftIconRender()}
         </div>
-        <div className="w-[69%] flex items-center justify-between px-[37px] h-full border-r border-home-learning-track-progress-border">
+        <div
+          className={`w-[69%] flex items-center justify-between px-[37px] h-full  border-home-learning-track-progress-border ${
+            !isLandingPage ? 'border-r' : ''
+          }`}
+        >
           <Image src={LearningImage} width={92} alt="learning-image" />
           <div className="flex flex-col justify-between h-full w-[77%] ">
             <div>
@@ -301,14 +327,14 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
                 Learning Track
               </p>
               <p className="text-home-learning-track-color tracking-[1.68px] font-next-poster-Bold text-[28px]">
-                {learningTrack.name}
+                {learningTrack?.name}
               </p>
             </div>
             <div>
               <CourseTags
-                level={learningTrack.level as string}
-                duration={learningTrack.duration}
-                unitCount={learningTrack.courseCount}
+                level={learningTrack?.level as string}
+                duration={learningTrack?.duration}
+                unitCount={learningTrack?.courseCount}
                 type={'learning-track'}
               ></CourseTags>
             </div>
@@ -318,7 +344,9 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
           </div>
         </div>
         <div className="w-[31%] pl-[30px] h-full flex flex-col text-home-learning-track-default-color">
-          <p className="text-[16px] font-next-book-bold">Next Up</p>
+          {!isLandingPage && (
+            <p className="text-[16px] font-next-book-bold">Next Up</p>
+          )}
           <div className="flex-1 flex flex-col justify-between">
             {rightRender()}
           </div>

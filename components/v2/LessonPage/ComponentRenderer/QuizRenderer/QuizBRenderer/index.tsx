@@ -190,8 +190,7 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
       <QuizFooter
         showAnswer={showAnswer}
         submitDisable={
-          !!Object.keys(answers).find((key) => !answers[key].option) ||
-          showAnswer
+          !Object.keys(answers).find((key) => answers[key].option) || showAnswer
         }
         setShowAnswer={(isShow) => {
           if (isShow) BurialPoint.track('lesson-show answer次数');
