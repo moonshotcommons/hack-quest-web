@@ -1,7 +1,7 @@
-import { FC, ReactNode, useState } from 'react';
-import { CustomComponent } from '../../type';
-import ComponentRenderer from '..';
+import { FC, useState } from 'react';
 import { FiChevronDown } from 'react-icons/fi';
+import ComponentRenderer from '..';
+import { CustomComponent } from '../../type';
 interface ExampleRendererProps {
   // children: ReactNode
   component: CustomComponent;
@@ -32,7 +32,7 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
         </span>
       </div>
       {expand && (
-        <div className="relative">
+        <div className="relative  mt-[20px]">
           {component.children.map((child) => {
             return (
               <ComponentRenderer

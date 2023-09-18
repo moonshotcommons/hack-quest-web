@@ -41,7 +41,6 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
   const [quiz, setQuiz] = useState(propsQuiz);
 
   const onPass = () => {
-    // setPassOpen(true);
     webApi.courseApi.completeQuiz(lesson.id, currentQuizIndex).then((res) => {
       quiz.children[currentQuizIndex].isCompleted = true;
       setQuiz({
