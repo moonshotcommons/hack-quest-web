@@ -19,7 +19,7 @@ export const useLessonExpand = (
     lesson.map((v: any, i) => {
       const childExpand: Record<string, any> = [];
       let expandIndex = 0;
-      v.children.map((c: any, j: number) => {
+      v?.children?.map((c: any, j: number) => {
         childExpand[j] = {};
         if (~[NotionType.H1, NotionType.H2, NotionType.H3].indexOf(c.type)) {
           expandIndex = j;

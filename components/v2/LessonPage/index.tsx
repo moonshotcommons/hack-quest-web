@@ -106,6 +106,23 @@ const LessonPage: FC<LessonPageProps> = (props) => {
                 className="flex-1 w-full h-full flex justify-between [&>div]:w-[50%] [&>.gutter]:cursor-col-resize font-next-book"
                 minSize={80}
                 cursor="col-resize"
+                gutter={(index, direction) => {
+                  const gutter = document.createElement('div');
+                  const container = document.createElement('div');
+                  const content1 = document.createElement('span');
+                  const content2 = document.createElement('span');
+                  container.className = 'w-full px-[6px] flex justify-between';
+                  content1.className =
+                    'w-[2px] h-[12px] bg-[#8C8C8C] rounded-full';
+                  content2.className =
+                    'w-[2px] h-[12px] bg-[#8C8C8C] rounded-full';
+
+                  container.appendChild(content1);
+                  container.appendChild(content2);
+                  gutter.appendChild(container);
+                  gutter.className = `gutter gutter-${direction} flex flex-col justify-center items-center bg-[#F4F4F4] shadow-[-2px_0px_4px_0px_rgba(0,0,0,0.10)] w-[20px!important]`;
+                  return gutter;
+                }}
               >
                 <LessonContent
                   lesson={lesson as any}

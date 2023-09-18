@@ -34,7 +34,7 @@ const Playground: FC<PlaygroundProps> = (props) => {
   }, [lesson]);
 
   return (
-    <div className="p-5 bg-lesson-code-bg h-full overflow-auto flex flex-col gap-[20px] scroll-wrap-y">
+    <div className="p-5 pl-[0px] bg-lesson-code-bg h-full overflow-auto flex flex-col gap-[20px] scroll-wrap-y">
       <PlaygroundContext.Provider value={{ lesson, onCompleted, isPreview }}>
         {!!components?.length &&
           components.map((component) => {
