@@ -30,7 +30,30 @@ const CodeRenderer: FC<CodeRendererProps> = (props) => {
   const codeRef = useRef<HTMLTextAreaElement>(null);
 
   return (
-    <div className="relative">
+    <div className="relative bg-[#fafafa] rounded-md">
+      <div className="h-[6px] relative">
+        <div
+          className="absolute top-[9px] right-[9px] text-[0.75rem] font-next-book text-[#E3E3E3] rounded-[0.5rem] cursor-pointer"
+          onClick={async (e) => {
+            try {
+              await navigator.clipboard.writeText(
+                component.content.rich_text
+                  .map((richText: any) => richText.plain_text)
+                  .join('')
+              );
+              BurialPoint.track('lesson-code复制');
+              message.success('Copy success!');
+            } catch (e) {
+              message.warning(
+                'The browser version is too low or incompatible！'
+              );
+            }
+          }}
+        >
+          <CopyIcon width={17} height={21} color={'currentColor'}></CopyIcon>
+          {/* <span>Copy</span> */}
+        </div>
+      </div>
       <SyntaxHighlighter
         style={theme === Theme.Dark ? oneDark : oneLight}
         language={language}
@@ -42,25 +65,6 @@ const CodeRenderer: FC<CodeRendererProps> = (props) => {
           .join('')}
       </SyntaxHighlighter>
       {/* <textarea className="hidden" ref={codeRef} value={}></textarea> */}
-      <div
-        className="absolute top-[9px] right-[9px] text-[0.75rem] font-next-book text-[#E3E3E3] rounded-[0.5rem] cursor-pointer"
-        onClick={async (e) => {
-          try {
-            await navigator.clipboard.writeText(
-              component.content.rich_text
-                .map((richText: any) => richText.plain_text)
-                .join('')
-            );
-            BurialPoint.track('lesson-code复制');
-            message.success('Copy success!');
-          } catch (e) {
-            message.warning('The browser version is too low or incompatible！');
-          }
-        }}
-      >
-        <CopyIcon width={17} height={21} color={'currentColor'}></CopyIcon>
-        {/* <span>Copy</span> */}
-      </div>
     </div>
   );
 };
