@@ -6,7 +6,7 @@ import {
 } from '@/components/v2/LessonPage/type';
 import { BurialPoint } from '@/helper/burialPoint';
 import { adaptWidth, changeTextareaHeight } from '@/helper/utils';
-import { useParseQuizA, AnswerState } from '@/hooks/useParseQuizA';
+import { AnswerState, useParseQuizA } from '@/hooks/useParseQuizA';
 import webApi from '@/service';
 import { FC, useContext, useEffect, useRef, useState } from 'react';
 import { QuizContext } from '..';
@@ -148,11 +148,11 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
   //!isCompleted.current || !isInitAnswerState()为true 意味这手动输入input 判断value值
   //否者标识初始化 quiz.isCompleted为true 方法 return false
   const getSubmitDisable = () => {
-    return answerState.some((line) => {
+    return !answerState.some((line) => {
       if (line.answers?.length) {
-        return line.answers.some((answer) => !answer.value);
+        return line.answers.some((answer) => answer.value);
       } else {
-        return !line.value;
+        return line.value;
       }
     });
   };
