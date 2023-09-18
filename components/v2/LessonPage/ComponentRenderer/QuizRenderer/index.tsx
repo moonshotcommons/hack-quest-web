@@ -169,7 +169,6 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
       </div>
     </div>
   );
-
   return (
     <>
       {start && (
