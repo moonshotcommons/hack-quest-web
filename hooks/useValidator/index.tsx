@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import Schema, { Rule, ValidateMessages, type Rules } from 'async-validator';
 import webApi from '@/service';
+import Schema, { Rule, ValidateMessages } from 'async-validator';
+import { useState } from 'react';
 
 export type FormStatusType = 'default' | 'error' | 'success';
 export type FormErrorType = string | null | undefined;
@@ -29,14 +29,10 @@ const checkEmailRules: Rule = [
         webApi.userApi
           .checkEmailExists(value)
           .then((res) => {
-            // onStatusChange(false);
-
             resolve();
           })
           .catch((e) => {
-            // onStatusChange(true);
             reject('Email does not exist.');
-            // 'Email already exists, please register with another email, or'
           });
       });
     }
@@ -57,13 +53,10 @@ const checkRegisterEmailRules: Rule = [
         webApi.userApi
           .checkEmailExists(value)
           .then((res) => {
-            // onStatusChange(false);
-            reject('Email already exists, please register with another email.');
+            reject('Email already exists, please try another email. ');
           })
           .catch((e) => {
-            // onStatusChange(true);
             resolve();
-            // 'Email already exists, please register with another email, or'
           });
       });
     }
@@ -113,7 +106,7 @@ export const useValidator = (
       case 'password':
         descriptor[type] = checkPasswordRules;
         cn.pattern!.mismatch =
-          'Use 8 or more characters with a mix of letters & numbers';
+          '8 or more characters with a mix of letters & numbers';
         break;
       case 'newPassword':
         descriptor[type] = checkPasswordRules;

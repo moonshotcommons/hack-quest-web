@@ -1,9 +1,9 @@
 import WebService from '@/service/webService/webService';
 import {
+  CourseDataType,
   CourseDetailType,
   CourseLessonStateType,
   CourseLessonType,
-  CourseResponse,
   CourseUnitStateType,
   CourseUnitType,
   UnitPagesListType
@@ -21,8 +21,18 @@ class CourseApi {
   }
 
   /** 获取课程列表信息 */
-  getCourseList() {
-    return this.service.get<CourseResponse[]>(CourseApiType.Course_List);
+  getCourseList(searchString?: string) {
+    let url: string = CourseApiType.Course_List;
+    if (searchString) url = `${url}?${searchString}`;
+    console.log(url);
+    return this.service.get<CourseDataType>(url);
+  }
+
+  /** 获取课程列表信息By search */
+  getCourseListBySearch(params: object) {
+    return this.service.get<CourseDataType>(`${CourseApiType.Course_List}`, {
+      params
+    });
   }
 
   /** 获取单个课程的详情信息 */
@@ -69,7 +79,7 @@ class CourseApi {
   /** 获取单个lesson的内容 */
   getLearningLessonId(courseId: string) {
     const url = `${CourseApiType.Course_List}/${courseId}/learning-page`;
-    return this.service.get<{ pageId: string }>(url);
+    return this.service.get<{ pageId: string; pageName: string }>(url);
   }
 
   /** 开始一个lesson */
@@ -88,6 +98,13 @@ class CourseApi {
     const url = `${CourseApiType.LessonDetail}/${lessonId}/quest`;
     return this.service.post(url, {
       data: { isWin }
+    });
+  }
+
+  completeQuiz(lessonId: string, quizIndex: number) {
+    const url = `${CourseApiType.LessonDetail}/${lessonId}/quiz`;
+    return this.service.post(url, {
+      data: { index: quizIndex, isCompleted: true }
     });
   }
 }

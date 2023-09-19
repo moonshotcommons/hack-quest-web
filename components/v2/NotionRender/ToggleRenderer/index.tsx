@@ -21,20 +21,25 @@ const ToggleRenderer: FC<ToggleRendererProps> = (props) => {
   const [initExpandNum, setInitExpandNum] = useState(0);
   useEffect(() => {
     const expandNum =
-      expandData.find((v) => v.id === component.id)?.expandNum || 0;
+      expandData?.find((v) => v.id === component.id)?.expandNum || 0;
     if (expandNum > initExpandNum) {
       setShowChild(true);
       setInitExpandNum(expandNum);
     }
   }, [expandData]);
   return (
-    <div className="border-b border-[#676767] ">
+    <div className="border-b border-[#676767]">
       <div
-        className="py-[.5rem] px-[.5rem] flex justify-between items-center my-4"
+        className="px-[.5rem] flex justify-between items-center my-3 cursor-pointer"
         onClick={() => setShowChild(!showChild)}
       >
-        <TextRenderer richTextArr={component.content.rich_text} />
-        <span className={`cursor-pointer`}>
+        <div>
+          <TextRenderer
+            richTextArr={component.content.rich_text}
+            fontSize={'16px'}
+          />
+        </div>
+        <span className={``}>
           {!showChild ? (
             <VscAdd size={20}></VscAdd>
           ) : (

@@ -1,24 +1,14 @@
 'use client';
-import { FC, ReactNode, useEffect, useState } from 'react';
-import Split from 'react-split';
+import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
 import { useRequest } from 'ahooks';
-import { LessonContent as LessonContentType } from '../LessonPage/type';
-import LessonContent from '../LessonPage/LessonContent';
-import Playground from '../LessonPage/Playground';
-import LessonFooter from '../LessonPage/LessonFooter';
-import { useDispatch } from 'react-redux';
-import {
-  CompleteStateType,
-  CourseLessonType,
-  CourseType,
-  UnitPagesListType
-} from '@/service/webApi/course/type';
-import webApi from '@/service';
-import { useGetLessonContent } from '@/hooks/useCoursesHooks/useGetLessenContent';
-import { useRouter } from 'next/router';
-import { Spin, message } from 'antd';
-import Modal from '@/components/Common/Modal';
+import { ConfigProvider, Spin, message } from 'antd';
 import axios from 'axios';
+import { FC, useEffect, useState } from 'react';
+import Split from 'react-split';
+import LessonContent from '../LessonPage/LessonContent';
+import LessonFooter from '../LessonPage/LessonFooter';
+import Playground from '../LessonPage/Playground';
+import { LessonContent as LessonContentType } from '../LessonPage/type';
 
 interface PreviewLessonPageProps {
   previewUrl: string;
@@ -57,48 +47,56 @@ const PreviewLessonPage: FC<PreviewLessonPageProps> = (props) => {
     run(previewUrl);
   }, [run, previewUrl]);
 
-  // if (!lesson) return null;
-
   return (
-    <div className="relative w-full h-full max-h-[100%-80px]">
-      {lesson && (
-        <Split
-          className="flex-1 w-full h-full flex justify-between [&>div]:w-[50%] [&>.gutter]:border-x [&>.gutter]:cursor-col-resize"
-          minSize={80}
-          cursor="col-resize"
-        >
-          <LessonContent lesson={lesson!} isPreview={true}></LessonContent>
-          <Playground
-            lesson={lesson!}
-            isPreview={true}
-            onCompleted={() => {
-              message.info('当前是预览模式');
-            }}
-          ></Playground>
-        </Split>
-      )}
-      {!lesson && !!errorMessage && (
-        <div className="text-[18px] text-text-default-color">
-          {errorMessage}
-        </div>
-      )}
-      {/* <LessonFooter lesson={lesson} /> */}
-      {/* <Modal open={loading} onClose={() => {}}>
-        <></>
-      </Modal> */}
-      {loading && (
-        <div className="w-full h-full flex justify-center items-center text-text-default-color">
-          <Spin
-            size="large"
-            tip={'加载中...'}
-            className="bg-transparent"
-            spinning={loading}
-          >
-            <div className="w-40 h-40 flex justify-center items-center bg-transparent"></div>
-          </Spin>
-        </div>
-      )}
-    </div>
+    <ConfigProvider
+      theme={{
+        components: {
+          Spin: {
+            contentHeight: 400
+          }
+        },
+        token: {
+          colorPrimary: '#ffd850'
+        }
+      }}
+    >
+      <Spin
+        spinning={loading}
+        className="h-[100vh] flex justify-center items-center translate-y-[calc(50vh-50%)]"
+        tip="loading..."
+        size="large"
+      >
+        {lesson && (
+          <div className="relative w-full h-[calc(100vh-115px)] pl-[20px]">
+            <Split
+              className="flex-1 w-full h-full flex justify-between [&>div]:w-[50%] [&>.gutter]:cursor-col-resize"
+              minSize={80}
+              cursor="col-resize"
+            >
+              <LessonContent
+                lesson={lesson as any}
+                courseType={CourseType.GUIDED_PROJECT}
+                isPreview={true}
+              ></LessonContent>
+              <Playground
+                lesson={lesson! as any}
+                isPreview={true}
+                onCompleted={() => {
+                  // 请求下一个lesson
+                  message.info('当前是预览模式');
+                }}
+              ></Playground>
+            </Split>
+            <LessonFooter lesson={lesson as any} onNextClick={() => {}} />
+          </div>
+        )}
+        {!lesson && !!errorMessage && (
+          <div className="text-[18px] text-text-default-color">
+            {errorMessage}
+          </div>
+        )}
+      </Spin>
+    </ConfigProvider>
   );
 };
 

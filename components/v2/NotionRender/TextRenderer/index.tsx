@@ -1,9 +1,11 @@
 import { cn } from '@/helper/utils';
-import { FC, ReactNode } from 'react';
+import { FC } from 'react';
 import MathJax from 'react-mathjax';
 import DropAnswer from '../../LessonPage/ComponentRenderer/QuizRenderer/QuizBRenderer/DropAnswer';
 interface TextRendererProps {
   richTextArr: any;
+  fontSize?: string;
+  letterSpacing?: string;
 }
 
 export type AnnotationType = {
@@ -17,10 +19,10 @@ export type AnnotationType = {
 
 const getTextClassNames = (annotations: AnnotationType) => {
   const className = cn(
-    ``,
+    `py-1`,
     annotations.bold ? 'font-bold' : '',
     annotations.code
-      ? 'inline-block px-[0.2rem] py-[0.4rem] text-[85%] text-[#eb5757] bg-renderer-code-bg mx-[0.25rem]'
+      ? 'px-[0.2rem] text-[85%] text-[#eb5757] bg-renderer-code-bg mx-[0.25rem]'
       : '',
     annotations.italic ? 'italic' : '',
     annotations.strikethrough ? '' : '',
@@ -37,10 +39,10 @@ const getTextClassNames = (annotations: AnnotationType) => {
 };
 
 const TextRenderer: FC<TextRendererProps> = (props) => {
-  const { richTextArr } = props;
+  const { richTextArr, fontSize = '14px', letterSpacing = '0.28px' } = props;
 
   return (
-    <div className="">
+    <>
       {richTextArr.map((richText: any, index: number) => {
         const annotations = richText.annotations;
         const className = getTextClassNames(annotations);
@@ -64,10 +66,25 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
         if (richText.href) {
           return (
             <a
+              target="_blank"
               key={index}
               href={richText.href}
-              className={`${className} bg-slate-800`}
-              style={{ color: '#676767' }}
+              className={`${className} py-1 underline`}
+              style={{
+                fontSize,
+                letterSpacing,
+                color:
+                  annotations.color !== 'default' &&
+                  !annotations.code &&
+                  !annotations.color.includes('background')
+                    ? annotations.color
+                    : '',
+                backgroundColor:
+                  annotations.color !== 'default' &&
+                  annotations.color.includes('background')
+                    ? annotations.color
+                    : ''
+              }}
             >
               {richText.plain_text}
             </a>
@@ -76,22 +93,39 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
 
         if (richText.equation) {
           return (
-            <div key={index}>
+            <span key={index}>
               <MathJax.Provider>
-                <div>
+                <span className="[&>div]:inline-block">
                   <MathJax.Node formula={richText.equation.expression} />
-                </div>
+                </span>
               </MathJax.Provider>
-            </div>
+            </span>
           );
         }
         return (
-          <span key={index} className={`${className} rounded-md`}>
+          <span
+            key={index}
+            className={`${className} rounded-md leading-[200%]`}
+            style={{
+              fontSize,
+              letterSpacing,
+              color:
+                annotations.color !== 'default' &&
+                !annotations.color.includes('background')
+                  ? annotations.color
+                  : '',
+              backgroundColor:
+                annotations.color !== 'default' &&
+                annotations.color.includes('background')
+                  ? annotations.color
+                  : ''
+            }}
+          >
             {richText.plain_text}
           </span>
         );
       })}
-    </div>
+    </>
   );
 };
 

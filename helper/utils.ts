@@ -1,3 +1,5 @@
+import { MenuLink, QueryIdType } from '@/components/v2/Breadcrumb/type';
+import { JumpLeaningLessonType } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
 import { CourseType } from '@/service/webApi/course/type';
 
 import { clsx, type ClassValue } from 'clsx';
@@ -22,14 +24,65 @@ export const getCourseLink = (courseType?: CourseType) => {
       return `/hackathon`;
     case CourseType.TEASER:
       return `/teaser`;
+    case CourseType.Mini:
+      return `/mini`;
   }
 };
 
 export const getLessonLink = (
   courseType: CourseType,
   courseName: string,
-  lessonId: string
+  lessonId: string,
+  menuCourseId: string,
+  linkParam?: JumpLeaningLessonType
 ) => {
   if (!courseType || !courseName || !lessonId) return '/404';
-  return `${getCourseLink(courseType)}/${courseName}/learn/${lessonId}`;
+  const lParam = linkParam || {
+    menu: MenuLink.ELECTIVES,
+    idTypes: [QueryIdType.MENU_COURSE_ID],
+    ids: [menuCourseId]
+  };
+  let link = `${getCourseLink(
+    courseType
+  )}/${courseName}/learn/${lessonId}?menu=${lParam.menu}`;
+  lParam.idTypes.map((v: string, i: number) => {
+    link += `&${v}=${lParam.ids[i]}`;
+  });
+  return link;
+};
+
+export const changeTextareaHeight = (target: HTMLTextAreaElement) => {
+  // 重置textarea的高度为默认值，以便可以正确计算其内容的高度
+  target.style.height = '40px';
+  // 获取textarea的内容高度，并加上padding和border的高度
+  let height = target.scrollHeight;
+  // 将textarea的高度设置为内容高度
+  target.style.height = height + 'px';
+};
+
+export const adaptWidth = (target: HTMLInputElement) => {
+  const parentEleWidth =
+    target.parentElement?.getBoundingClientRect().width || 0;
+  const minWidth = 110;
+  const len = target.value.length;
+  let width = len * 7.6;
+  if (width < minWidth) width = minWidth;
+  else if (width > parentEleWidth / 2) width = parentEleWidth / 2;
+  target.style.width = `${width}px`;
+};
+
+export const throttle = (fn: any) => {
+  let throttleTimer: NodeJS.Timeout | null = null;
+  let startTime = +new Date();
+  const waitTime = 100;
+  return function () {
+    var curTime = +new Date();
+    var remaining = waitTime - (curTime - startTime);
+    throttleTimer && clearTimeout(throttleTimer);
+    if (remaining > 0) {
+      throttleTimer = setTimeout(fn, remaining);
+    } else {
+      startTime = curTime;
+    }
+  };
 };

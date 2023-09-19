@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
 
 import {
-  ALL_COURSES_PATHNAME,
-  LOGIN_PATHNAME,
+  V2_HOME_PATH,
+  V2_LANDING_PATH,
   isLoginOrRegister,
   isNoNeedUserInfo
 } from '@/constants/nav';
+import { getToken } from '@/helper/user-token';
 import { useRouter } from 'next/router';
 import { useGetUserInfo } from '../useGetUserInfo';
 
@@ -16,11 +17,15 @@ function useNavAuth(waitingUserData: boolean) {
 
   useEffect(() => {
     if (waitingUserData) return;
-
+    const { redirect_url } = router.query;
     // 已经登录了
     if (userInfo) {
-      if (isLoginOrRegister(pathname)) {
-        router.push(ALL_COURSES_PATHNAME);
+      if (!isLoginOrRegister(pathname)) return;
+      const token = getToken();
+      if (redirect_url && token) {
+        router.push(`${redirect_url}?token=${token}`);
+      } else {
+        router.push(V2_HOME_PATH);
       }
       return;
     }
@@ -29,7 +34,7 @@ function useNavAuth(waitingUserData: boolean) {
     if (isNoNeedUserInfo(pathname)) {
       return;
     } else {
-      router.push(LOGIN_PATHNAME);
+      router.push(V2_LANDING_PATH);
     }
   }, [waitingUserData, userInfo, pathname, router]);
 }

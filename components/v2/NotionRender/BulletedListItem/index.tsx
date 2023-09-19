@@ -1,6 +1,6 @@
-import { FC, ReactNode } from 'react';
-import TextRenderer from '../TextRenderer';
+import { FC } from 'react';
 import ComponentRenderer from '../../LessonPage/ComponentRenderer';
+import TextRenderer from '../TextRenderer';
 
 interface BulletedListItemRendererProps {
   component: any;
@@ -16,9 +16,13 @@ const BulletedListItemRenderer: FC<BulletedListItemRendererProps> = (props) => {
   //   .findIndex((child: any) => child.id === source.id);
   return (
     <div>
-      <div className="flex items-center gap-2 py-1">
-        <span className="">•</span>
-        <TextRenderer richTextArr={component.content.rich_text}></TextRenderer>
+      <div className="flex items-start gap-2 py-1">
+        <span className="leading-[200%]">•</span>
+        <div>
+          <TextRenderer
+            richTextArr={component.content.rich_text}
+          ></TextRenderer>
+        </div>
       </div>
       <div className="ml-4">
         {component.children?.map((child: any, index: number) => {

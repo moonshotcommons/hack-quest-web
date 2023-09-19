@@ -1,20 +1,36 @@
-import React from 'react';
 import Button from '@/components/Common/Button';
-import {
-  CourseLessonType,
-  UnitPagesListType
-} from '@/service/webApi/course/type';
 import { useUnitNavList } from '@/hooks/useUnitNavList';
+import { CourseLessonType } from '@/service/webApi/course/type';
+import React, { useContext, useEffect } from 'react';
+import { LessonContent } from '../type';
+import { LessonPageContext } from '../type';
 
 interface LessonFooterProps {
-  lesson: CourseLessonType;
+  lesson?: Omit<CourseLessonType, 'content'> & { content: LessonContent };
+  onNextClick: VoidFunction;
 }
-const LessonFooter: React.FC<LessonFooterProps> = ({ lesson }) => {
-  const { unitNavList = [], currentUnitIndex } = useUnitNavList(lesson);
+const LessonFooter: React.FC<LessonFooterProps> = ({ lesson, onNextClick }) => {
+  const {
+    unitNavList = [],
+    currentUnitIndex,
+    refreshNavList
+  } = useUnitNavList(lesson as any);
+  const { isHandleNext } = useContext(LessonPageContext);
+  const handleNext = () => {
+    if (!isHandleNext) return;
+    onNextClick();
+  };
 
-  const isHandle = false;
+  useEffect(() => {
+    refreshNavList();
+  }, [lesson]);
   return (
-    <div className="fixed flex-center w-full h-20 left-0 bottom-0 bg-lesson-footer-bg">
+    <div
+      className="fixed flex-center w-full transition-all left-0 bottom-0 bg-lesson-footer-bg"
+      style={{
+        height: isHandleNext ? '80px' : '30px'
+      }}
+    >
       <div className="w-[calc(100%-380px)] flex-center overflow-auto">
         {unitNavList.map((item, i) => (
           <div
@@ -36,13 +52,25 @@ const LessonFooter: React.FC<LessonFooterProps> = ({ lesson }) => {
           </div>
         ))}
       </div>
-      <Button
-        className={`fixed bottom-[18px] right-10 w-[140px] h-11 bg-lesson-primary-button-bg text-lesson-primary-button-text-color ${
-          !isHandle && 'opacity-40 cursor-not-allowed'
-        }`}
-      >
-        Next
-      </Button>
+      {isHandleNext && (
+        <div
+          className=" flex items-center fixed right-10 bottom-0"
+          style={{
+            height: isHandleNext ? '80px' : '30px'
+          }}
+        >
+          <Button
+            type="primary"
+            disabled={!isHandleNext}
+            className={`w-[140px] h-[44px] bg-lesson-primary-button-bg text-lesson-primary-button-text-color ${
+              !isHandleNext && 'opacity-40 cursor-not-allowed'
+            }`}
+            onClick={handleNext}
+          >
+            Next
+          </Button>
+        </div>
+      )}
     </div>
   );
 };

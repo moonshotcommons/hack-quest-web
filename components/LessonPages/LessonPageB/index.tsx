@@ -1,8 +1,7 @@
-import Button, { ButtonProps } from '@/components/Common/Button';
+import Button from '@/components/Common/Button';
 import NotionRenderer, { Renderer } from '@/components/NotionRender';
-import ImageRenderer from '@/components/NotionRender/ImageRenderer';
-import TextRenderer from '@/components/NotionRender/TextRenderer';
 
+import { CustomRenderType } from '@/components/NotionRender/type';
 import {
   useBackToPrevLesson,
   useGotoNextLesson
@@ -15,9 +14,8 @@ import {
   LessonStyleType
 } from '@/service/webApi/course/type';
 import { useRouter } from 'next/router';
-import { FC, ReactNode, useEffect, useState } from 'react';
+import { FC, useEffect } from 'react';
 import CompleteModal from '../CompleteModal';
-import { CustomRenderType } from '@/components/NotionRender/type';
 
 // const CustomButton: FC<ButtonProps> = (props) => {
 //   const { children } = props;
@@ -58,7 +56,7 @@ const LessonPageB: FC<LessonPageBProps> = (props) => {
   return (
     <div className="relative w-full h-[80vh] flex-col gap-[4.5rem] mt-[1.25rem] text-text-default-color px-[3rem] py-[2.5rem]">
       <div className=" w-full h-full scroll-wrap-y">
-        {lesson.content?.map((section: any, index) => {
+        {lesson.content?.map((section: any, index: number) => {
           return (
             <div key={section.id} className="relative bottom-line mb-8">
               <NotionRenderer styleType={LessonStyleType.B}>

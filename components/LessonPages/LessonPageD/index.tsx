@@ -1,27 +1,19 @@
 import NotionRenderer, { Renderer } from '@/components/NotionRender';
-import ImageRenderer from '@/components/NotionRender/ImageRenderer';
-import TextRenderer from '@/components/NotionRender/TextRenderer';
 
+import Button from '@/components/Common/Button';
+import {
+  useBackToPrevLesson,
+  useGotoNextLesson
+} from '@/hooks/useCoursesHooks/useGotoNextLesson';
 import { useParseLessonBSection } from '@/hooks/useParseLesson/useParseLessonBSection';
+import webApi from '@/service';
 import {
   CourseLessonType,
   CourseType,
   LessonStyleType
 } from '@/service/webApi/course/type';
-import { FC, ReactNode, useEffect, useState } from 'react';
-import Cover from '@/public/images/lesson/lesson_type_b_cover.svg';
-import Image from 'next/image';
-import Button, { ButtonProps } from '@/components/Common/Button';
 import { useRouter } from 'next/router';
-import { useDebounceFn } from 'ahooks';
-import { shallowEqual, useSelector } from 'react-redux';
-import { AppRootState } from '@/store/redux';
-import { getCourseLink } from '@/helper/utils';
-import {
-  useBackToPrevLesson,
-  useGotoNextLesson
-} from '@/hooks/useCoursesHooks/useGotoNextLesson';
-import webApi from '@/service';
+import { FC, useEffect } from 'react';
 import CompleteModal from '../CompleteModal';
 interface LessonPageDProps {
   lesson: CourseLessonType;
@@ -65,7 +57,7 @@ const LessonPageD: FC<LessonPageDProps> = (props) => {
           {lesson.name}
         </h1>
         <NotionRenderer styleType={LessonStyleType.D}>
-          {lesson.content?.map((source: any, index) => {
+          {lesson.content?.map((source: any, index: number) => {
             return (
               <Renderer
                 key={index}

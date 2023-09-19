@@ -1,8 +1,8 @@
-import { FC, ReactNode, useState } from 'react';
-import TextRenderer from '../TextRenderer';
+import { FC, useState } from 'react';
 import { IoCloseOutline } from 'react-icons/io5';
 import ComponentRenderer from '../../LessonPage/ComponentRenderer';
 import { NotionComponent } from '../../LessonPage/type';
+import TextRenderer from '../TextRenderer';
 
 interface CalloutRendererProps {
   component: NotionComponent;
@@ -34,14 +34,14 @@ const CalloutRenderer: FC<CalloutRendererProps> = (props) => {
             );
           })}
         </div>
-        <div
+        {/* <div
           onClick={() => {
             setVisible(false);
           }}
           className="cursor-pointer"
         >
           <IoCloseOutline size={20}></IoCloseOutline>
-        </div>
+        </div> */}
       </div>
     </div>
   );

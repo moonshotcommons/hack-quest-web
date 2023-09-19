@@ -1,7 +1,7 @@
-import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
-import { FC, ReactNode, useEffect, useState } from 'react';
-import TrackCard from './TrackCard';
 import { CourseResponse } from '@/service/webApi/course/type';
+import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
+import { FC, useEffect, useState } from 'react';
+import TrackCard from './TrackCard';
 
 interface TrackListProps {
   trackDetail: LearningTrackDetailType;
@@ -9,7 +9,7 @@ interface TrackListProps {
 
 type CourseListType = {
   title: string;
-  courses: CourseResponse & { group: string };
+  courses: CourseResponse;
 }[];
 
 const TrackList: FC<TrackListProps> = (props) => {
@@ -19,21 +19,21 @@ const TrackList: FC<TrackListProps> = (props) => {
   const [courseList, setCourseList] = useState<CourseListType>([]);
 
   useEffect(() => {
-    if (trackDetail) {
-      const map = new Map();
-      trackDetail?.courses?.forEach((course) => {
-        const track = map.get(course.group);
-        if (Array.isArray(track?.courses)) {
-          track?.courses.push(course);
-        } else {
-          const courses = [course];
-          map.set(course.group, { title: course.group, courses });
-        }
-      });
-      const res = Array.from(map).map((track) => track[1]);
-      console.log(res);
-      setCourseList(res);
-    }
+    // if (trackDetail) {
+    //   const map = new Map();
+    //   trackDetail?.courses?.forEach((course) => {
+    //     const track = map.get(course.group);
+    //     if (Array.isArray(track?.courses)) {
+    //       track?.courses.push(course);
+    //     } else {
+    //       const courses = [course];
+    //       map.set(course.group, { title: course.group, courses });
+    //     }
+    //   });
+    //   const res = Array.from(map).map((track) => track[1]);
+    //   console.log(res);
+    //   setCourseList(res);
+    // }
   }, [trackDetail]);
 
   return (

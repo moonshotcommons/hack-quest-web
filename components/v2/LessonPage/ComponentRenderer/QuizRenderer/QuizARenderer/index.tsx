@@ -1,17 +1,19 @@
+import { PlaygroundContext } from '@/components/v2/LessonPage/Playground/type';
 import {
   CustomType,
   NotionType,
   QuizAType
 } from '@/components/v2/LessonPage/type';
-import { FC, ReactNode, useContext, useEffect, useState } from 'react';
+import { BurialPoint } from '@/helper/burialPoint';
+import { adaptWidth, changeTextareaHeight } from '@/helper/utils';
+import { AnswerState, useParseQuizA } from '@/hooks/useParseQuizA';
+import webApi from '@/service';
+import { FC, useContext, useEffect, useRef, useState } from 'react';
+import { QuizContext } from '..';
 import ComponentRenderer from '../..';
 import QuizFooter from '../QuizFooter';
 import CodeRender from './CodeRender';
 import { QuizAContext } from './type';
-import { useParseQuizA, AnswerState } from '@/hooks/useParseQuizA';
-import webApi from '@/service';
-import { PlaygroundContext } from '@/components/v2/LessonPage/Playground/type';
-import { QuizContext } from '..';
 interface QuizARendererProps {
   parent: CustomType | NotionType;
   quiz: QuizAType;
@@ -21,16 +23,19 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
   const { quiz } = props;
   const [showAnswer, setShowAnswer] = useState(false);
   const [submitDisable, setSubmitDisable] = useState(true);
+  const prevQuiz = useRef<any>({});
+  const isCompleted = useRef(false);
   const { lesson } = useContext(PlaygroundContext);
   const { onPass } = useContext(QuizContext);
   const { waitingRenderCodes, answerState, answerStateDispatch } =
     useParseQuizA(quiz.lines);
-  const setAnswers = () => {
-    const show = !showAnswer;
-    let inputEle: HTMLTextAreaElement | HTMLInputElement;
-    answerState.map((line) => {
+
+  const dealInputValue = (show: boolean) => {
+    const newAnswerState = JSON.parse(JSON.stringify(answerState));
+    newAnswerState.map((line: AnswerState) => {
       if (line.answers?.length) {
-        line.answers.map((answer) => {
+        line.answers.map((answer: AnswerState) => {
+          let inputEle: HTMLTextAreaElement | HTMLInputElement;
           inputEle = document.querySelector(
             `[data-uuid="${answer.id}"]`
           ) as HTMLInputElement;
@@ -41,9 +46,11 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
               inputEle.value = answer.value;
             }
             inputEle.disabled = show;
+            adaptWidth(inputEle);
           }
         });
       } else {
+        let inputEle: HTMLTextAreaElement | HTMLInputElement;
         inputEle = document.querySelector(
           `[data-uuid="${line.id}"]`
         ) as HTMLTextAreaElement;
@@ -54,12 +61,22 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
             inputEle.value = line.value;
           }
           inputEle.disabled = show;
+          changeTextareaHeight(inputEle);
         }
       }
     });
-    setShowAnswer(show);
   };
+  const setAnswers = () => {
+    const show = !showAnswer;
+    if (show) {
+      BurialPoint.track('lesson-show answer次数');
+    }
+    setShowAnswer(show);
+    dealInputValue(show);
+  };
+
   const onSubmit = async () => {
+    BurialPoint.track('lesson-单个quiz提交', { lessonId: lesson.id });
     const newAnswerState = [...answerState];
 
     let isCurrent = true;
@@ -81,25 +98,79 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
     if (!isCurrent) {
       answerStateDispatch([...newAnswerState]);
       await webApi.courseApi.markQuestState(lesson.id, false);
+      BurialPoint.track('lesson-单个quiz提交未通过', { lessonId: lesson.id });
       return;
     }
-    await webApi.courseApi.completeLesson(lesson.id);
     onPass();
   };
-  useEffect(() => {
-    setSubmitDisable(
-      answerState.some((line) => {
-        if (line.answers?.length) {
-          return line.answers.some((answer) => !answer.value);
-        } else {
-          return !line.value;
-        }
-      })
+
+  // 自动填充
+  const initCompleteInput = () => {
+    if (!isCompleted.current) return;
+    const newAnswerState: AnswerState[] = JSON.parse(
+      JSON.stringify(answerState)
     );
+    if (newAnswerState.length) {
+      newAnswerState.map((line) => {
+        if (line.answers?.length) {
+          line.answers.map((l) => {
+            const { answer } = l;
+            l.inputValue = answer;
+            l.value = answer;
+            let inputEle: HTMLTextAreaElement | HTMLInputElement;
+            inputEle = document.querySelector(
+              `[data-uuid="${l.id}"]`
+            ) as HTMLInputElement;
+            if (inputEle) {
+              inputEle.value = answer;
+              adaptWidth(inputEle);
+            }
+          });
+        } else {
+          const { answer } = line;
+          line.inputValue = answer;
+          line.value = answer;
+          const inputEle = document.querySelector(
+            `[data-uuid="${line.id}"]`
+          ) as HTMLTextAreaElement;
+          if (inputEle) {
+            inputEle.value = answer;
+            changeTextareaHeight(inputEle);
+          }
+        }
+      });
+      answerStateDispatch(newAnswerState);
+      isCompleted.current = false;
+    }
+  };
+
+  //submit是否可以点击
+  //!isCompleted.current || !isInitAnswerState()为true 意味这手动输入input 判断value值
+  //否者标识初始化 quiz.isCompleted为true 方法 return false
+  const getSubmitDisable = () => {
+    return !answerState.some((line) => {
+      if (line.answers?.length) {
+        return line.answers.some((answer) => answer.value);
+      } else {
+        return line.value;
+      }
+    });
+  };
+
+  useEffect(() => {
+    if (JSON.stringify(quiz) !== JSON.stringify(prevQuiz.current)) {
+      prevQuiz.current = JSON.parse(JSON.stringify(quiz));
+      isCompleted.current = quiz.isCompleted as boolean;
+      setShowAnswer(false);
+    }
+    setSubmitDisable(getSubmitDisable());
+    initCompleteInput();
+    dealInputValue(false);
   }, [answerState]);
 
   useEffect(() => {
     if (showAnswer) setSubmitDisable(true);
+    else setSubmitDisable(getSubmitDisable());
   }, [showAnswer]);
 
   return (
@@ -116,7 +187,7 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
             );
           })}
         </div>
-        {quiz.lines.length > 0 && (
+        {quiz.lines?.length > 0 && (
           <div className="w-full flex-1">
             <QuizAContext.Provider
               value={{

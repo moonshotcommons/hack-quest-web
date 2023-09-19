@@ -60,6 +60,7 @@ const DropAnswer: FC<DropAnswerProps> = (props) => {
   }, []);
 
   useEffect(() => {
+    setClearVisible(false);
     if (currentAnswer) {
       const updateAnswer = answers[currentAnswer.id];
       setCurrentAnswer(updateAnswer);
@@ -77,29 +78,51 @@ const DropAnswer: FC<DropAnswerProps> = (props) => {
           transition={{
             duration: currentAnswer?.status === 'error' ? 0.5 : 0 // 动画持续时间
           }}
-          className={`inline-flex w-[100px] px-[10px] mx-[10px] h-[34px] rounded-[3px] border-[0.5px] my-1 border-[#8C8C8C] bg-[#F4F4F4] justify-center items-center font-next-book text-[14px] ${
+          className={`inline-flex relative w-[110px] mx-[10px] h-[34px] rounded-[3px] border-[0.5px] my-1 border-[#8C8C8C] bg-[#F4F4F4] justify-center items-center font-next-book text-[14px] leading-[125%] ${
             currentAnswer?.status === 'error'
               ? 'bg-[#FFF7F5] border-[#C73333]'
               : ''
           }`}
         >
-          &nbsp;{showAnswer && currentAnswer?.answer}&nbsp;
+          <div className="inline-flex relative items-center">
+            &nbsp;{showAnswer && currentAnswer?.answer}&nbsp;
+          </div>
         </motion.span>
       )}
       {!!currentAnswer?.option && !showAnswer && (
         <span
-          className="inline-flex relative gap-[28px] pl-[8px] py-[7px] overflow-hidden top-2 bg-[#FFF4CE] cursor-move border-[0.5px] border-[#8C8C8C] rounded-[3px] text-[#000] font-next-book text-[14px] leading-[125%] tracking-[0.28px]"
+          className="inline-flex relative min-w-[110px] mx-[10px] h-[34px] my-1 bg-[#FFF4CE] max-w-[110px] cursor-move border-[0.5px] border-[#8C8C8C] rounded-[3px] text-[#000] font-next-book text-[14px] tracking-[0.28px] leading-[125%]"
           onMouseEnter={() => setClearVisible(true)}
           onMouseLeave={() => setClearVisible(false)}
         >
-          <span className="inline-flex gap-[28px] items-center relative">
-            <span>
-              <MdOutlineDragHandle
-                size={28}
+          <span className="inline-flex items-center relative w-full">
+            <span className="leading-[125%] px-[7px]">
+              {/* <MdOutlineDragHandle
+                size={8}
                 color="#8C8C8C"
-              ></MdOutlineDragHandle>
+              ></MdOutlineDragHandle> */}
+              <svg
+                width="14"
+                height="8"
+                viewBox="0 0 14 8"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M1 1H13"
+                  stroke="#8C8C8C"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                />
+                <path
+                  d="M1 7H13"
+                  stroke="#8C8C8C"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                />
+              </svg>
             </span>
-            <span className="pr-[28px]">
+            <span className="text-center flex-1 overflow-hidden text-ellipsis">
               {currentAnswer.option.content.rich_text.map(
                 (richText: any, index: number) => {
                   return <span key={index}>{richText.plain_text}</span>;
@@ -112,7 +135,11 @@ const DropAnswer: FC<DropAnswerProps> = (props) => {
             <span
               className={`absolute w-full h-full top-0 left-0 bg-white flex items-center justify-center bg-opacity-90`}
               onClick={() => {
-                const curAnswer = { ...currentAnswer, option: null };
+                const curAnswer: AnswerType = {
+                  ...currentAnswer,
+                  option: null,
+                  status: 'default'
+                };
                 setCurrentAnswer(curAnswer);
                 const newAnswers = { ...answers, [curAnswer.id]: curAnswer };
                 setAnswers(newAnswers);

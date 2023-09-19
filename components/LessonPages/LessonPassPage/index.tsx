@@ -1,48 +1,28 @@
 'use client';
-import {
-  FC,
-  ReactNode,
-  useCallback,
-  useContext,
-  useEffect,
-  useState
-} from 'react';
+import Button from '@/components/Common/Button';
+import { Theme } from '@/constants/enum';
+import { useGetLessonLink } from '@/hooks/useCoursesHooks/useGetLessonLink';
 import DarkLessonPassLogo from '@/public/images/lesson/dark-lesson_pass_logo.png';
 import LightLessonPassLogo from '@/public/images/lesson/light-lesson_pass_logo.png';
-import Image from 'next/image';
-import Button, { ButtonProps } from '@/components/Common/Button';
-import { useRouter } from 'next/router';
-import { shallowEqual, useSelector } from 'react-redux';
-import { AppRootState } from '@/store/redux';
 import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
-import { getCourseLink, getLessonLink } from '@/helper/utils';
-import { useDebounceEffect, useDebounceFn } from 'ahooks';
 import { ThemeContext } from '@/store/context/theme';
-import { Theme } from '@/constants/enum';
+import { AppRootState } from '@/store/redux';
+import { useDebounceFn } from 'ahooks';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { FC, useContext } from 'react';
+import { shallowEqual, useSelector } from 'react-redux';
 interface LessonPassPageProps {
   lesson: CourseLessonType;
   courseType: CourseType;
   isLastLesson: boolean;
 }
 
-// const CustomButton: FC<ButtonProps> = (props) => {
-//   const { children } = props;
-//   return (
-//     <Button
-//       padding="px-[3rem] py-[1.25rem]"
-//       fontStyle="Inter font-normal font-next-book"
-//       textStyle="text-[.875rem] text-white leading-[1.25rem]"
-//       {...props}
-//     >
-//       {children}
-//     </Button>
-//   );
-// };
-
 const LessonPassPage: FC<LessonPassPageProps> = (props) => {
   const { lesson, courseType, isLastLesson } = props;
   const router = useRouter();
   const { theme } = useContext(ThemeContext);
+  const { getLink } = useGetLessonLink();
   const { unitsLessonsList } = useSelector((state: AppRootState) => {
     return {
       unitsLessonsList: state.course.unitsLessonsList
@@ -72,10 +52,9 @@ const LessonPassPage: FC<LessonPassPageProps> = (props) => {
     } else {
       nextLesson = unitsLessonsList[currentUnitIndex + 1].pages[0];
     }
-    // router.push(
-    //   `${getCourseLink(courseType)}/${courseId}/learn/${nextLesson?.id}`
-    // );
-    router.push(getLessonLink(courseType, courseId as string, nextLesson?.id!));
+
+    const link = getLink(courseType, nextLesson?.id as string);
+    router.push(link);
   });
 
   return (

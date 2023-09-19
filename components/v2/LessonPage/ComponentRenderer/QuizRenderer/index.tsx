@@ -1,21 +1,24 @@
+import Button from '@/components/Common/Button';
+import { BurialPoint } from '@/helper/burialPoint';
+import { cn } from '@/helper/utils';
+import webApi from '@/service';
+import { useClickAway } from 'ahooks';
+import JSConfetti from 'js-confetti';
 import {
   FC,
-  ReactNode,
   createContext,
   useContext,
+  useEffect,
   useRef,
   useState
 } from 'react';
-import { QuizAType, QuizBType, QuizType } from '../../type';
 import { FiChevronDown } from 'react-icons/fi';
 import { MdArrowDropDown } from 'react-icons/md';
-import QuizDropdown from './QuizDropdwon';
 import ComponentRenderer from '..';
-import Button from '@/components/Common/Button';
-import { message } from 'antd';
-import QuizPassModal from './QuizPassModal';
-import { useClickAway } from 'ahooks';
 import { PlaygroundContext } from '../../Playground/type';
+import { QuizType } from '../../type';
+import QuizDropdown from './QuizDropdwon';
+import QuizPassModal from './QuizPassModal';
 interface QuizRendererProps {
   quiz: QuizType;
   parent: any;
@@ -26,32 +29,92 @@ export const QuizContext = createContext<{ onPass: VoidFunction }>({
 });
 
 const QuizRenderer: FC<QuizRendererProps> = (props) => {
-  const { quiz, parent } = props;
+  const { quiz: propsQuiz, parent } = props;
   const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
   const [quizDropdownVisible, setQuizDropdownVisible] = useState(false);
   const [start, setStart] = useState(parent.right.length <= 1);
   const [passOpen, setPassOpen] = useState(false);
-  const { onCompleted } = useContext(PlaygroundContext);
+  const { onCompleted, lesson } = useContext(PlaygroundContext);
+
   const containerRef = useRef(null);
 
+  const [quiz, setQuiz] = useState(propsQuiz);
+
   const onPass = () => {
-    if (currentQuizIndex !== quiz.children.length - 1) {
-      setPassOpen(true);
-      setTimeout(() => {
-        // setCurrentQuizIndex(currentQuizIndex + 1);
-        setPassOpen(false);
-      }, 3000);
-      return;
-    }
-    onCompleted();
+    webApi.courseApi.completeQuiz(lesson.id, currentQuizIndex).then((res) => {
+      quiz.children[currentQuizIndex].isCompleted = true;
+      setQuiz({
+        ...quiz,
+        children: quiz.children.map((child) => ({ ...child }))
+      });
+    });
+
+    const jsConfetti = new JSConfetti();
+
+    jsConfetti.addConfetti({
+      confettiColors: [
+        '#ff0a54',
+        '#ff477e',
+        '#ff7096',
+        '#ff85a1',
+        '#fbb1bd',
+        '#f9bec7',
+        '#3b47af',
+        '#28ca59',
+        '#eb1c1c',
+        '#15dffa',
+        '#0452fa',
+        '#cceb1c'
+      ],
+      confettiRadius: 6,
+      confettiNumber: 500
+    });
+
+    BurialPoint.track('lesson-单个quiz提交通过', {
+      lessonId: lesson.id,
+      lessonName: lesson.name
+    });
+
+    setTimeout(() => {
+      let nextQuizIndex = currentQuizIndex + 1;
+      if (nextQuizIndex < quiz.children.length) {
+        setCurrentQuizIndex(nextQuizIndex);
+      } else {
+        onCompleted();
+      }
+      setPassOpen(false);
+    }, 500);
   };
+
+  useEffect(() => {
+    const notCompleted: number[] = [];
+    propsQuiz.children.forEach((item, index) => {
+      if (!lesson.completedQuiz && !Array.isArray(lesson.completedQuiz)) {
+        item.isCompleted = false;
+        return false;
+      }
+      if (!lesson.completedQuiz.includes(index)) {
+        notCompleted.push(index);
+        item.isCompleted = false;
+      } else {
+        item.isCompleted = true;
+      }
+    });
+    if (notCompleted.length) {
+      setCurrentQuizIndex(notCompleted[0]);
+    }
+    setQuiz({
+      ...propsQuiz,
+      children: propsQuiz.children.map((child) => ({ ...child }))
+    });
+  }, [lesson, propsQuiz]);
 
   useClickAway(() => {
     setQuizDropdownVisible(false);
   }, containerRef);
 
   const QuizHeader = (
-    <div className={`flex justify-between h-fit w-full`}>
+    <div className={`flex justify-between h-fit w-full items-center`}>
       <div
         className={`inline-flex font-next-poster-Bold items-center relative text-[18px] font-bold tracking-[1.08px] ${
           quizDropdownVisible && 'shadow-2xl'
@@ -59,10 +122,11 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
       >
         <div
           ref={containerRef as any}
-          className={`inline-flex gap-2 box-content border-b-2 pb-[20px] cursor-pointer min-h-fit ${
-            quizDropdownVisible ? 'px-[20px] pt-[20px] border-[#8C8C8C]' : ''
+          className={`inline-flex gap-2 box-content border-b-2 p-[20px] cursor-pointer min-h-fit ${
+            quizDropdownVisible ? ' border-[#8C8C8C]' : ''
           }`}
           onClick={() => {
+            BurialPoint.track('lesson-quiz dropdown点击');
             setQuizDropdownVisible(!quizDropdownVisible);
           }}
         >
@@ -82,37 +146,39 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
         {quizDropdownVisible ? (
           <QuizDropdown
             quiz={quiz}
-            onChange={(index) => setCurrentQuizIndex(index)}
+            onChange={(index) => {
+              setCurrentQuizIndex(index);
+            }}
             currentQuizIndex={currentQuizIndex}
           ></QuizDropdown>
         ) : null}
       </div>
       <div
-        className={`${quizDropdownVisible ? 'p-[20px]' : ''}`}
+        className={`p-[20px]`}
         onClick={() => {
+          BurialPoint.track('lesson-quiz 收起');
           setStart(false);
         }}
       >
         <FiChevronDown
           size={28}
           color=""
-          className={`rotate-180`}
+          className={`rotate-180 cursor-pointer`}
         ></FiChevronDown>
       </div>
     </div>
   );
-
   return (
     <>
       {start && (
         <div
-          className={`rounded-[.625rem] pb-[20px] bg-[#E6E6E6] flex w-full min-h-fit flex-1 flex-col ${
-            !quizDropdownVisible ? 'p-[20px]' : ''
-          }`}
+          className={cn(
+            `rounded-[.625rem] pb-[20px] bg-[#E6E6E6] flex w-full min-h-fit flex-1 flex-col`
+          )}
         >
           {QuizHeader}
           <QuizContext.Provider value={{ onPass }}>
-            <div className={`h-full ${quizDropdownVisible ? 'px-[20px]' : ''}`}>
+            <div className={`h-full px-[20px]`}>
               <ComponentRenderer
                 parent={quiz}
                 component={quiz.children[currentQuizIndex]}
@@ -125,8 +191,12 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
         <div className="inline-flex h-fit justify-between items-center rounded-[.625rem] bg-[#E6E6E6]  w-full px-[20px] py-[8px]">
           <h1 className="font-next-poster-Bold text-[18px]">Quiz</h1>
           <Button
-            className="bg-[#FFD850] py-[8px] px-[40px] font-next-book text-[#0B0B0B] text-[14px]"
-            onClick={() => setStart(true)}
+            type="primary"
+            className="py-[8px] px-[40px] font-next-book text-[#0B0B0B] text-[14px]"
+            onClick={() => {
+              BurialPoint.track('lesson-start quiz按钮点击');
+              setStart(true);
+            }}
           >
             Start Quiz
           </Button>

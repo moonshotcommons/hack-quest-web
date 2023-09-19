@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react';
+import { FC } from 'react';
 import { NotionComponent } from '../../LessonPage/type';
 
 interface VideoRendererProps {
@@ -8,12 +8,13 @@ interface VideoRendererProps {
 
 const VideoRenderer: FC<VideoRendererProps> = (props) => {
   const { component, parent } = props;
+  console.log(component.content);
 
   return (
     <div>
       <video controls className="w-[80%]">
         {/* width="400px" */}
-        {<source src={component.content.url} />}
+        {<source src={component.content.file.url} />}
       </video>
     </div>
   );

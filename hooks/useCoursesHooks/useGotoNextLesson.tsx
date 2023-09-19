@@ -1,4 +1,4 @@
-import { getCourseLink, getLessonLink } from '@/helper/utils';
+import { BurialPoint } from '@/helper/burialPoint';
 import webApi from '@/service';
 import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
 import { AppRootState } from '@/store/redux';
@@ -7,14 +7,17 @@ import { message } from 'antd';
 import { useRouter } from 'next/router';
 import { useMemo, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
+import { useGetLessonLink } from './useGetLessonLink';
 
 export const useGotoNextLesson = (
   lesson: CourseLessonType,
   courseType: CourseType,
-  completed = false
+  completed = false,
+  isV2 = false
 ) => {
   const router = useRouter();
   const [completeModalOpen, setCompleteModalOpen] = useState(false);
+  const { getLink } = useGetLessonLink();
   const { unitsLessonsList } = useSelector((state: AppRootState) => {
     return {
       unitsLessonsList: state.course.unitsLessonsList
@@ -42,6 +45,9 @@ export const useGotoNextLesson = (
 
     if (isLastUnit && isLastLesson) {
       // router.push(`${getCourseLink(courseType)}/${lesson.courseId}/completed`);
+      BurialPoint.track('lesson-课程完成', {
+        courseName: courseId as string
+      });
       setCompleteModalOpen(true);
       return;
     }
@@ -51,10 +57,8 @@ export const useGotoNextLesson = (
     } else {
       nextLesson = unitsLessonsList[currentUnitIndex + 1].pages[0];
     }
-    // router.push(
-    //   `${getCourseLink(courseType)}/${courseId}/learn/${nextLesson?.id}`
-    // );
-    router.push(getLessonLink(courseType, courseId as string, nextLesson?.id!));
+    const link = getLink(courseType, nextLesson?.id as string);
+    router.push(link);
   });
 
   return { onNextClick, completeModalOpen, setCompleteModalOpen };
@@ -62,10 +66,11 @@ export const useGotoNextLesson = (
 
 export const useBackToPrevLesson = (
   lesson: CourseLessonType,
-  courseType: CourseType
+  courseType: CourseType,
+  isV2 = false
 ) => {
   const router = useRouter();
-
+  const { getLink } = useGetLessonLink();
   const { unitsLessonsList } = useSelector((state: AppRootState) => {
     return {
       unitsLessonsList: state.course.unitsLessonsList
@@ -101,7 +106,9 @@ export const useBackToPrevLesson = (
       const prevUnit = unitsLessonsList[currentUnitIndex - 1];
       prevLesson = prevUnit.pages.at(-1);
     }
-    router.push(getLessonLink(courseType, courseId as string, prevLesson?.id!));
+
+    const link = getLink(courseType, prevLesson?.id as string);
+    router.push(link);
   });
 
   return { onBackClick, isFirst };

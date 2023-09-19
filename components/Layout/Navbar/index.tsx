@@ -1,13 +1,12 @@
-import Image from 'next/image';
-import React, { ReactNode, useContext } from 'react';
-import Logo from '@/public/images/logo/text-Logo.svg';
 import DarkLogoActive from '@/public/images/logo/dark-text-Logo-active.svg';
 import LightLogoActive from '@/public/images/logo/light-text-logo-active.svg';
+import Image from 'next/image';
+import React, { ReactNode, useContext } from 'react';
 
+import { Theme } from '@/constants/enum';
+import { ThemeContext } from '@/store/context/theme';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { ThemeContext } from '@/store/context/theme';
-import { Theme } from '@/constants/enum';
 
 export interface NavBarProps {
   navList: {
@@ -37,7 +36,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
   };
 
   return (
-    <div className="container m-auto h-[4.75rem] flex items-center justify-between">
+    <div className="m-auto h-[4.75rem] flex items-center justify-between">
       <nav className="gap-[4rem] h-full flex items-center">
         <Link href="/" className="h-full flex items-center">
           {/* {Logo && pathname !== '/' && <Image src={Logo} alt="logo"></Image>}

@@ -1,15 +1,11 @@
-import { FC, ReactNode, RefObject, useEffect, useRef, useState } from 'react';
-import Avatar from '@/public/images/user/login_avatar.svg';
-import Image from 'next/image';
-import UserDropCard from './UserDropCard';
-import { useClickAway } from 'ahooks';
-import { shallowEqual, useSelector } from 'react-redux';
-import { AppRootState } from '@/store/redux';
-import Link from 'next/link';
-import Settings from './Settings';
-import RightIcon from '../Common/Icon/Right';
 import { useGetUserInfo } from '@/hooks/useGetUserInfo';
+import Image from 'next/image';
+import Link from 'next/link';
+import { FC, useEffect, useRef, useState } from 'react';
 import Button from '../Common/Button';
+import RightIcon from '../Common/Icon/Right';
+import Settings from './Settings';
+import UserDropCard from './UserDropCard';
 interface UserProps {
   // children: ReactNode;
 }
@@ -33,7 +29,7 @@ const User: FC<UserProps> = (props) => {
       >
         <div className="cursor-pointer h-full flex items-center justify-end">
           {isLogin && (
-            <div className="relative w-[2.5rem] h-[40px] bg-[#8d8d8d] overflow-hidden rounded-full flex justify-center items-center">
+            <div className="relative w-[34px] h-[34px] bg-[#8d8d8d] overflow-hidden rounded-full flex justify-center items-center">
               <Image
                 src={userInfo?.avatar as string}
                 alt="avatar"

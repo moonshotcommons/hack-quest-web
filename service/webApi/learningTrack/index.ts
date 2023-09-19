@@ -1,5 +1,5 @@
 import WebService from '@/service/webService/webService';
-import { LearningTrackDetailType, LearningTrackType } from './type';
+import { LearningTrackDetailType } from './type';
 import { CourseResponse } from '../course/type';
 
 export enum LearningTrackApiType {
@@ -13,9 +13,12 @@ class LearningTrackApi {
   }
 
   /** 获取学习路线列表 */
-  getLearningTracks() {
-    return this.service.get<LearningTrackType[]>(
-      LearningTrackApiType.GetLearningTrack
+  getLearningTracks(params?: object) {
+    return this.service.get<LearningTrackDetailType[]>(
+      LearningTrackApiType.GetLearningTrack,
+      {
+        params
+      }
     );
   }
 

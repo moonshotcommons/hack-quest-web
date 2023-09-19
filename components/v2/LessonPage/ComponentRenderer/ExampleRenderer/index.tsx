@@ -1,7 +1,7 @@
-import { FC, ReactNode, useState } from 'react';
-import { CustomComponent } from '../../type';
-import ComponentRenderer from '..';
+import { FC, useState } from 'react';
 import { FiChevronDown } from 'react-icons/fi';
+import ComponentRenderer from '..';
+import { CustomComponent } from '../../type';
 interface ExampleRendererProps {
   // children: ReactNode
   component: CustomComponent;
@@ -25,12 +25,14 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
           <FiChevronDown
             size={28}
             color=""
-            className={`${expand ? 'rotate-180' : '0'} transition-transform`}
+            className={`${
+              expand ? 'rotate-180' : '0'
+            } transition-transform cursor-pointer`}
           ></FiChevronDown>
         </span>
       </div>
       {expand && (
-        <div className="relative">
+        <div className="relative  mt-[20px] h-full pb-[10px]">
           {component.children.map((child) => {
             return (
               <ComponentRenderer

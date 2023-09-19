@@ -15,6 +15,9 @@ export const HOME_PATHNAME = '/';
 export const ALL_COURSES_PATHNAME = '/courses';
 export const DASHBOARD_PATHNAME = '/dashboard';
 export const MISSION_CENTER = '/mission-center';
+export const V2_LANDING_PATH = '/';
+export const V2_HOME_PATH = '/home';
+export const PREVIEW_PATH = '/preview';
 
 export function isLoginOrRegister(pathname: string) {
   if (
@@ -24,7 +27,8 @@ export function isLoginOrRegister(pathname: string) {
       FORGET_PASSWORD_PATHNAME,
       UPDATE_PASSWORD_PATHNAME,
       EMAIL_VERIFY_PATHNAME,
-      EMAIL_CONFIRMED_PATHNAME
+      EMAIL_CONFIRMED_PATHNAME,
+      V2_LANDING_PATH
     ].includes(pathname)
   )
     return true;
@@ -37,8 +41,10 @@ export function isNoNeedUserInfo(pathname: string) {
       HOME_PATHNAME,
       LOGIN_PATHNAME,
       REGISTER_PATHNAME,
-      ALL_COURSES_PATHNAME
-    ].includes(pathname)
+      ALL_COURSES_PATHNAME,
+      PREVIEW_PATH
+    ].includes(pathname) ||
+    pathname.startsWith(PREVIEW_PATH)
   )
     return true;
 
@@ -46,5 +52,5 @@ export function isNoNeedUserInfo(pathname: string) {
   if (pathname === DASHBOARD_PATHNAME) return false;
   if (pathname === MISSION_CENTER) return false;
 
-  return true;
+  return false;
 }

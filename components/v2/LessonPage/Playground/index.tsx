@@ -1,10 +1,8 @@
 'use client';
-import { FC, ReactNode, useMemo, useState } from 'react';
-import { CustomComponent, LessonContent, NotionComponent } from '../type';
+import { FC, useEffect, useMemo, useState } from 'react';
 import ComponentRenderer from '../ComponentRenderer';
-import Split from 'react-split';
-import { CourseLessonType } from '@/service/webApi/course/type';
-import { PlaygroundContext, LessonType } from './type';
+import { CustomComponent, NotionComponent } from '../type';
+import { LessonType, PlaygroundContext } from './type';
 
 interface PlaygroundProps {
   // children: ReactNode
@@ -29,15 +27,16 @@ const Playground: FC<PlaygroundProps> = (props) => {
     };
   }, [lesson]);
 
+  useEffect(() => {
+    if (lesson.content.right) {
+      setComponents(lesson.content.right);
+    }
+  }, [lesson]);
+
   return (
-    <div
-      className="p-5 bg-lesson-code-bg h-full overflow-auto flex flex-col gap-[20px] scroll-wrap-y"
-      style={{
-        boxShadow: ' -2px 0px 4px 0px rgba(0, 0, 0, 0.10)'
-      }}
-    >
+    <div className="p-5 pl-[0px] bg-lesson-code-bg h-full overflow-auto flex flex-col gap-[20px] scroll-wrap-y">
       <PlaygroundContext.Provider value={{ lesson, onCompleted, isPreview }}>
-        {!!components.length &&
+        {!!components?.length &&
           components.map((component) => {
             return (
               <ComponentRenderer

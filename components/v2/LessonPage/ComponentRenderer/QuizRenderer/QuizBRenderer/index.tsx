@@ -1,29 +1,20 @@
 'use client';
 import {
-  FC,
-  ReactNode,
-  createContext,
-  useContext,
-  useEffect,
-  useRef,
-  useState
-} from 'react';
-import { useDrag, DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
-import { motion } from 'framer-motion';
-import {
   CustomType,
   NotionType,
   QuizBType
 } from '@/components/v2/LessonPage/type';
+import { BurialPoint } from '@/helper/burialPoint';
+import webApi from '@/service';
+import { FC, useContext, useEffect, useRef, useState } from 'react';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import { QuizContext } from '..';
 import ComponentRenderer from '../..';
+import { PlaygroundContext } from '../../../Playground/type';
+import QuizFooter from '../QuizFooter';
 import DragAnswer from './DragAnswer';
 import { AnswerType, QuizBContext, QuizOptionType } from './type';
-import Button from '@/components/Common/Button';
-import QuizFooter from '../QuizFooter';
-import { message } from 'antd';
-import { QuizContext } from '..';
-
 interface QuizBRendererProps {
   parent: CustomType | NotionType;
   quiz: QuizBType;
@@ -36,8 +27,9 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
     quiz.options.map((option) => ({ ...option, isRender: true }))
   );
   const [showAnswer, setShowAnswer] = useState(false);
-
+  const { lesson } = useContext(PlaygroundContext);
   const [answers, setAnswers] = useState<Record<string, AnswerType>>({});
+  const mountAnswers = useRef(0);
 
   const onDrop = (item: AnswerType) => {
     const newAnswers = { ...answers, [item.id]: item };
@@ -58,6 +50,7 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
   };
 
   const onSubmit = () => {
+    BurialPoint.track('lesson-单个quiz提交', { lessonId: lesson.id });
     const newAnswers = { ...answers };
     let wrongAnswers = [];
     for (const key in newAnswers) {
@@ -68,6 +61,7 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
 
       if (answerItem.answer !== inputAnswer) {
         answerItem.status = 'error';
+
         wrongAnswers.push(answerItem);
       }
     }
@@ -76,7 +70,7 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
       onPass();
       return;
     }
-
+    BurialPoint.track('lesson-单个quiz提交未通过', { lessonId: lesson.id });
     const wrongOptionIds = wrongAnswers.map((item) => item.option!.id);
     setOptions((prevOptions) => {
       const newOptions = prevOptions.map((option) => {
@@ -92,8 +86,42 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
       item.option = null;
       return item;
     });
+
     setAnswers(newAnswers);
+
+    webApi.courseApi.markQuestState(lesson.id, false);
   };
+
+  useEffect(() => {
+    if (
+      quiz?.isCompleted &&
+      mountAnswers.current !== Object.keys(answers).length
+    ) {
+      const newAnswers = { ...answers };
+      const mountOptionIds: string[] = [];
+      for (const key in newAnswers) {
+        let answerItem = answers[key];
+        answerItem.option = options.find(
+          (option) =>
+            option.content.rich_text
+              .map((text: any) => text.plain_text.trim())
+              .join('') === answerItem.answer
+        ) as QuizOptionType;
+        mountOptionIds.push(answerItem.option?.id);
+      }
+      setAnswers(newAnswers);
+      setOptions((prevOptions) => {
+        const newOptions = prevOptions.map((option) => {
+          if (mountOptionIds.includes(option.id)) {
+            return { ...option, isRender: false };
+          }
+          return option;
+        });
+        return newOptions;
+      });
+      mountAnswers.current += 1;
+    }
+  }, [quiz, answers]);
 
   return (
     <div className="h-full flex flex-col justify-between">
@@ -109,7 +137,7 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
               setAnswers
             }}
           >
-            <div className="py-4 flex items-center pb-[52px]">
+            <div className="py-4 items-center pb-[52px]">
               {quiz.children.map((child) => {
                 return (
                   <ComponentRenderer
@@ -132,7 +160,21 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
                 //   animate={{ opacity: 1, translateY: 0 }}
                 //   transition={{ duration: 0.5 }}
                 // >
-                <DragAnswer option={option} key={option.id}>
+                <DragAnswer
+                  option={option}
+                  key={option.id}
+                  onClick={() => {
+                    if (showAnswer) return;
+                    const emptyAnswerKey = Object.keys(answers).find(
+                      (key) => !answers[key].option
+                    );
+                    if (!emptyAnswerKey) return;
+                    const dropAnswer = answers[emptyAnswerKey];
+                    dropAnswer.option = option;
+                    // setAnswers({ ...answers });
+                    onDrop(dropAnswer);
+                  }}
+                >
                   {option.content.rich_text.map(
                     (richText: any, index: number) => {
                       return <span key={index}>{richText.plain_text}</span>;
@@ -148,9 +190,12 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
       <QuizFooter
         showAnswer={showAnswer}
         submitDisable={
-          !!Object.keys(answers).find((key) => !answers[key].option)
+          !Object.keys(answers).find((key) => answers[key].option) || showAnswer
         }
-        setShowAnswer={(isShow) => setShowAnswer(isShow)}
+        setShowAnswer={(isShow) => {
+          if (isShow) BurialPoint.track('lesson-show answer次数');
+          setShowAnswer(isShow);
+        }}
         onSubmit={onSubmit}
       ></QuizFooter>
     </div>

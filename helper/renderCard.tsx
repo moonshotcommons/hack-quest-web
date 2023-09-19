@@ -7,7 +7,7 @@ import HackathonCard from '@/components/Card/Hackathon';
 import TeaserCard from '@/components/Card/Teaser';
 import GuidedProjectCard from '@/components/Card/GuidedProject';
 import ConceptLearningCard from '@/components/Card/ConceptLearning';
-import { LearningTrackType } from '@/service/webApi/learningTrack/type';
+import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 
 export const renderCourseCard = (card: CourseResponse) => {
   switch (card.type) {
@@ -88,7 +88,9 @@ export const renderCourseCard = (card: CourseResponse) => {
   }
 };
 
-export const renderLearningTrackCard = (learningTrack: LearningTrackType) => {
+export const renderLearningTrackCard = (
+  learningTrack: LearningTrackDetailType
+) => {
   return (
     <Link
       href={`${getCourseLink(CourseType.LEARNING_TRACK)}/${learningTrack.id}`}

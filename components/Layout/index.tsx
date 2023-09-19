@@ -1,12 +1,15 @@
+import V2Layout from '@/components/v2/Layout/index';
 import { useGetUserInfo, useLoadUserInfo } from '@/hooks/useGetUserInfo';
 import useNavAuth from '@/hooks/useNavPage/userNavAuth';
 import { FC, ReactNode } from 'react';
-import UnitLayout from './UnitLayout';
-import LoginLayout from './LoginLayout';
+import V2FullLayout from '../v2/Layout/V2FullLayout';
+import BaseLayout from './BaseLayout';
 import EmailVerifyLayout from './EmailVerifyLayout';
 import HackathonLayout from './HackathonLayout';
-import BaseLayout from './BaseLayout';
+import LoginLayout from './LoginLayout';
 import { NavBarProps } from './Navbar';
+import UnitLayout from './UnitLayout';
+import V2BaseLayout from '../v2/Layout/V2BaseLayout';
 
 export interface LayoutProps {
   navbarData: NavBarProps;
@@ -20,15 +23,64 @@ const Layout: FC<LayoutProps> = (props) => {
   useNavAuth(waitingLoadUserInfo);
   const userInfo = useGetUserInfo();
   const regex = /\/[^/]+\/\[courseId\]\/learn\/\[lessonId\]/;
+  navbarData.navList = [
+    {
+      name: 'All Courses',
+      path: '/courses'
+    }
+  ];
+  // navbarData.navList = [];
 
-  if (pathname.startsWith('/v2')) {
-    pathname = pathname.replace('/v2', '');
+  if (userInfo) {
+    navbarData.navList = [
+      {
+        name: 'All Courses',
+        path: '/courses'
+      },
+      {
+        name: 'Learning Dashboard',
+        path: '/dashboard'
+      },
+      {
+        name: 'Mission Center',
+        path: '/mission-center'
+      }
+    ];
+
+    if (pathname.startsWith('/v2')) {
+      navbarData.navList = [
+        {
+          name: 'Home',
+          path: '/v2/home'
+        },
+        {
+          name: 'Learning Track',
+          path: '/v2/learning-track'
+        },
+        {
+          name: 'Electives',
+          path: '/v2/electives'
+        }
+      ];
+    }
   }
 
+  // console.log('使用v2布局', pathname.startsWith('/v2'));
+
   switch (true) {
+    case pathname.startsWith('/v2'):
+      return (
+        <V2Layout
+          navbarData={navbarData}
+          pathname={pathname.replace('/v2', '')}
+        >
+          {children}
+        </V2Layout>
+      );
     case regex.test(pathname):
       return <UnitLayout>{children}</UnitLayout>;
-
+    case pathname.startsWith('/preview'):
+      return <V2FullLayout navbarData={navbarData}>{children}</V2FullLayout>;
     case [
       '/auth/register',
       '/auth/login',
@@ -49,30 +101,6 @@ const Layout: FC<LayoutProps> = (props) => {
     case pathname === '/':
     // return <HomeLayout>{children}</HomeLayout>;
     default:
-      navbarData.navList = [
-        {
-          name: 'All Courses',
-          path: '/courses'
-        }
-      ];
-
-      if (userInfo) {
-        navbarData.navList = [
-          {
-            name: 'All Courses',
-            path: '/courses'
-          },
-          {
-            name: 'Learning Dashboard',
-            path: '/dashboard'
-          },
-          {
-            name: 'Mission Center',
-            path: '/mission-center'
-          }
-        ];
-      }
-
       return <BaseLayout navbarData={navbarData}>{children}</BaseLayout>;
   }
 };

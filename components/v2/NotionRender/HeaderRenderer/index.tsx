@@ -31,7 +31,7 @@ const HeaderRenderer: FC<HeaderRendererProps> = (props) => {
   );
 
   const expandIndex = useMemo(() => {
-    return expandData.findIndex((v) => v.id === component.id);
+    return expandData?.findIndex((v) => v.id === component.id);
   }, [component]);
 
   const changeExpandNum = () => {
@@ -46,12 +46,20 @@ const HeaderRenderer: FC<HeaderRendererProps> = (props) => {
   };
 
   return (
-    <div className="py-4 pr-[4px]">
-      <HeadingTag className={`${className} flex justify-between items-center`}>
-        <TextRenderer richTextArr={component.content.rich_text} />
+    <div className="pb-[10px] pt-[20px] pr-[4px]">
+      <HeadingTag
+        className={`${className} flex justify-between items-center font-next-poster-Thin tracking-[1.26px]`}
+      >
+        <div>
+          <TextRenderer
+            richTextArr={component.content.rich_text}
+            fontSize={'21px'}
+            letterSpacing={'1.68px'}
+          />
+        </div>
         {expandIndex >= 0 && (
           <span
-            className="cursor-pointer text-[12px] underline"
+            className="cursor-pointer text-[12px] underline font-next-book"
             onClick={changeExpandNum}
           >
             Expand All

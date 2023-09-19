@@ -12,6 +12,10 @@ const nextConfig = (phase) => {
         process.env.BACKEND_BASE_URL || 'https://api.dev.hackquest.io/v1/',
       IS_DEV: isDev
     },
+    assetPrefix:
+      isDev || !process.env.NEXT_PUBLIC_ASSET_PREFIX_FOR_CHINA
+        ? ''
+        : process.env.NEXT_PUBLIC_ASSET_PREFIX_FOR_CHINA,
     modifyVars: {
       '@primary-color': '#000000',
       '@link-color': '#676767',
@@ -44,7 +48,8 @@ const nextConfig = (phase) => {
         'hackquest-s3-staging.s3.ap-northeast-1.amazonaws.com',
         'hackquest-s3-prod.s3.ap-northeast-1.amazonaws.com'
       ]
-    }
+    },
+    output: 'standalone'
   });
 };
 

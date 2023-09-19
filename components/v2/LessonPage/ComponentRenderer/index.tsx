@@ -1,4 +1,4 @@
-import { FC, ReactNode, useState } from 'react';
+import { FC } from 'react';
 import {
   CustomComponent,
   CustomType,
@@ -9,21 +9,21 @@ import {
   QuizType
 } from '../type';
 
+import BulletedListItemRenderer from '../../NotionRender/BulletedListItem';
+import CalloutRenderer from '../../NotionRender/CalloutRenderer';
+import CodeRenderer from '../../NotionRender/CodeRenderer';
+import HeaderRenderer from '../../NotionRender/HeaderRenderer';
+import ImageRenderer from '../../NotionRender/ImageRenderer';
+import NumberListItemRenderer from '../../NotionRender/NumberListItemRenderer';
+import ParagraphRenderer from '../../NotionRender/ParagraphRenderer';
+import QuoteRenderer from '../../NotionRender/QuoteRenderer';
+import ToggleRenderer from '../../NotionRender/ToggleRenderer';
+import VideoRenderer from '../../NotionRender/VideoRenderer';
+import ContentRenderer from './ContentRenderer';
 import ExampleRenderer from './ExampleRenderer';
 import QuizRenderer from './QuizRenderer';
 import QuizARenderer from './QuizRenderer/QuizARenderer';
 import QuizBRenderer from './QuizRenderer/QuizBRenderer';
-import ParagraphRenderer from '../../NotionRender/ParagraphRenderer';
-import NumberListItemRenderer from '../../NotionRender/NumberListItemRenderer';
-import BulletedListItemRenderer from '../../NotionRender/BulletedListItem';
-import VideoRenderer from '../../NotionRender/VideoRenderer';
-import QuoteRenderer from '../../NotionRender/QuoteRenderer';
-import ToggleRenderer from '../../NotionRender/ToggleRenderer';
-import CodeRenderer from '../../NotionRender/CodeRenderer';
-import HeaderRenderer from '../../NotionRender/HeaderRenderer';
-import ImageRenderer from '../../NotionRender/ImageRenderer';
-import ContentRenderer from './ContentRenderer';
-import CalloutRenderer from '../../NotionRender/CalloutRenderer';
 
 interface ComponentRendererProps {
   // children: ReactNode
@@ -34,7 +34,7 @@ interface ComponentRendererProps {
 
 const ComponentRenderer: FC<ComponentRendererProps> = (props) => {
   const { parent, component, isRenderChildren = true } = props;
-  switch (component.type) {
+  switch (component.type.trim()) {
     case CustomType.Content:
       return (
         <ContentRenderer
