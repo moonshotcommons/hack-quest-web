@@ -69,9 +69,7 @@ const CourseDetailHeader: FC<CourseDetailHeaderProps> = (props) => {
           {/* 进度条 */}
           {learningStatus === LearningStatus.COMPLETED && (
             <div className="mt-[58px] text-[#0B0B0B] font-next-book text-[21px] tracking-[0.42px] leading-[160%]">
-              {`You’ve finished this ${tagFormate(
-                courseDetail.type
-              )} of study.`}
+              {`You’ve finished this ${tagFormate(courseDetail.type)}.`}
             </div>
           )}
 
