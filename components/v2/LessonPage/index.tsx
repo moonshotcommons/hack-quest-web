@@ -104,7 +104,7 @@ const LessonPage: FC<LessonPageProps> = (props) => {
             >
               <Split
                 className="flex-1 w-full h-full flex justify-between [&>div]:w-[50%] [&>.gutter]:cursor-col-resize font-next-book"
-                minSize={80}
+                minSize={360}
                 cursor="col-resize"
                 gutter={(index, direction) => {
                   const gutter = document.createElement('div');
