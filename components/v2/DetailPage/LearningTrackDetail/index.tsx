@@ -152,7 +152,7 @@ const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
             }}
           >
             {expandAll && 'Fold All'}
-            {!expandAll && 'Expand All'}
+            {!expandAll && 'Collapse All'}
           </span>
         </div>
         <TrackList

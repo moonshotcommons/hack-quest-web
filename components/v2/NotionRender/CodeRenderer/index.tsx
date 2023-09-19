@@ -30,7 +30,7 @@ const CodeRenderer: FC<CodeRendererProps> = (props) => {
   const codeRef = useRef<HTMLTextAreaElement>(null);
 
   return (
-    <div className="relative bg-[#fafafa] rounded-md">
+    <div className="relative bg-[#fafafa] rounded-md h-full">
       <div className="h-[6px] relative">
         <div
           className="absolute top-[9px] right-[9px] text-[0.75rem] font-next-book text-[#E3E3E3] rounded-[0.5rem] cursor-pointer"

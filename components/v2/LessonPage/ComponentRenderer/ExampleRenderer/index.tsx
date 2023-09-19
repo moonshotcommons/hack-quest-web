@@ -32,7 +32,7 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
         </span>
       </div>
       {expand && (
-        <div className="relative  mt-[20px]">
+        <div className="relative  mt-[20px] h-full pb-[10px]">
           {component.children.map((child) => {
             return (
               <ComponentRenderer
