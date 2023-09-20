@@ -1,4 +1,4 @@
-import { FC, useContext, useMemo, useState } from 'react';
+import { FC, useContext, useEffect, useMemo, useState } from 'react';
 import { cn } from '@/helper/utils';
 import TextRenderer from '../TextRenderer';
 import { NotionRenderType } from '../type';
@@ -23,6 +23,7 @@ const HeaderRenderer: FC<HeaderRendererProps> = (props) => {
 
   const { expandData, changeExpandData } = useContext(LessonContentContext);
   const HeadingTag = ('h' + type.slice(-1)) as keyof JSX.IntrinsicElements;
+  const [isExpandAll, setIsExpandAll] = useState(false);
   const className = cn(
     `font-bold`,
     type === NotionType.H1 ? 'text-[1.5rem]' : '',
@@ -35,15 +36,29 @@ const HeaderRenderer: FC<HeaderRendererProps> = (props) => {
   }, [component]);
 
   const changeExpandNum = () => {
+    const newIsExpandAll = !isExpandAll;
     const newExpandData = [...expandData] as ExpandDataType[];
     for (let i = expandIndex + 1; i < newExpandData.length; i++) {
       if (newExpandData[i].expandNum !== undefined) {
-        newExpandData[i].expandNum =
-          (newExpandData?.[i].expandNum as number) + 1;
+        newExpandData[i].expandNum = newIsExpandAll ? 1 : 0;
       } else if (newExpandData[i].isExpandAll) break;
     }
+    setIsExpandAll(newIsExpandAll);
     changeExpandData(newExpandData, newExpandData[0].index);
   };
+  const changeExpandAll = () => {
+    let newIsExpandAll = false;
+    for (let i = expandIndex + 1; i < expandData.length; i++) {
+      if (expandData[i].expandNum === 1) {
+        newIsExpandAll = true;
+        break;
+      } else if (expandData[i].isExpandAll) break;
+    }
+    setIsExpandAll(newIsExpandAll);
+  };
+  useEffect(() => {
+    changeExpandAll();
+  }, [expandData]);
 
   return (
     <div className="pb-[10px] pt-[20px] pr-[4px]">
@@ -62,7 +77,7 @@ const HeaderRenderer: FC<HeaderRendererProps> = (props) => {
             className="cursor-pointer text-[12px] underline font-next-book"
             onClick={changeExpandNum}
           >
-            Expand All
+            {isExpandAll ? 'Fold All' : 'Expand All'}
           </span>
         )}
       </HeadingTag>
