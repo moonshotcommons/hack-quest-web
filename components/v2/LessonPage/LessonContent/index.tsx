@@ -48,7 +48,7 @@ const LessonContent: FC<LessonContentProps> = (props) => {
   }, [lesson]);
 
   return (
-    <div className="flex flex-col h-[calc(100%-10px)] pl-[20px] pr-[20px]">
+    <div className="flex flex-shrink-0 flex-col h-[calc(100%-10px)] pl-[20px] pr-[20px]">
       <Breadcrumb />
 
       <LessonEvents
