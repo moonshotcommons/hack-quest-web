@@ -29,7 +29,7 @@ function MyApp(appProps: AppProps & Omit<LayoutProps, 'pathname'>) {
         >
           <Component {...props.pageProps} />
         </Layout>
-        <Analytics />
+        <Analytics mode="production" debug={false} />
       </ThemeContextProvider>
     </Provider>
   );
