@@ -26,7 +26,7 @@ const Login: FC<LoginProps> = (props) => {
             dispatch(setUnLoginType(UnLoginType.SIGN_UP));
           }}
         >
-          Create a account
+          Create an account
         </span>
         <br />
         It takes less than a minute.
