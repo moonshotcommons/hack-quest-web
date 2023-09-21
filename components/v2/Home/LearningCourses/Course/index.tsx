@@ -55,16 +55,10 @@ function Course() {
   };
 
   useEffect(() => {
-    if (
-      !courseListData[curTab].length ||
-      !learningTrackListData[curTab].length
-    ) {
-      setLoading(true);
-      Promise.all([getCourseList(), getLearningTrackList()]).finally(() => {
-        setLoading(false);
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    setLoading(true);
+    Promise.all([getCourseList(), getLearningTrackList()]).finally(() => {
+      setLoading(false);
+    });
   }, [curTab]);
   return (
     <div className="pt-20">
