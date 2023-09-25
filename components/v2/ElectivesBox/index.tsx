@@ -72,6 +72,7 @@ const SelectiveCoursesBox: React.FC<SelectiveCoursesBoxProps> = ({
 
   useEffect(() => {
     if (loadNum > runNum && list.length < total) {
+      console.info(loadNum);
       setRunNum(loadNum);
       getCourseList({
         ...pageInfo,

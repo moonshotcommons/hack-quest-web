@@ -19,22 +19,24 @@ function SelectiveCourses() {
   };
   return (
     <div
-      className="container mx-auto h-[calc(100%-64px)] overflow-auto no-scrollbar"
+      className="h-[calc(100vh-64px)] overflow-auto"
       onScroll={handleScroll}
       ref={selectiveCoursesRef}
     >
-      <div className="pb-[60px]">
-        <PageDescription
-          title={'Selective Courses'}
-          description={
-            'Electives is a treasury hunt. Each course is relatively short and independent, with a focused topic. You may learning something mind-blowing, or simply steel your skills.'
-          }
+      <div className="container mx-auto ">
+        <div className="pb-[60px]">
+          <PageDescription
+            title={'Selective Courses'}
+            description={
+              'Electives is a treasury hunt. Each course is relatively short and independent, with a focused topic. You may learning something mind-blowing, or simply steel your skills.'
+            }
+          />
+        </div>
+        <SelectiveCoursesBox
+          loadNum={loadNum}
+          setNoMore={() => setIsNoMore(true)}
         />
       </div>
-      <SelectiveCoursesBox
-        loadNum={loadNum}
-        setNoMore={() => setIsNoMore(true)}
-      />
     </div>
   );
 }
