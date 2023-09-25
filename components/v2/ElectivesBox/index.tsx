@@ -13,17 +13,18 @@ interface PageInfoType {
 interface SelectiveCoursesBoxProps {
   loadNum: number;
   setApiStatus: (status: string) => void;
+  apiStatus: string;
 }
 const SelectiveCoursesBox: React.FC<SelectiveCoursesBoxProps> = ({
   loadNum,
-  setApiStatus
+  setApiStatus,
+  apiStatus
 }) => {
   const [searchParam, setSearchParam] = useState<any>({ ...initParam });
   const [pageInfo, setPageInfo] = useState<PageInfoType>(initPageInfo);
   const [list, setList] = useState<CourseResponse[]>([]);
   const [runNum, setRunNum] = useState(0);
   const [total, setTotal] = useState(0);
-  const [loading, setLoading] = useState(false);
 
   const changeParam = (newFilter: ParamType) => {
     setSearchParam({ ...newFilter });
@@ -57,12 +58,10 @@ const SelectiveCoursesBox: React.FC<SelectiveCoursesBoxProps> = ({
       }
     }
     return new Promise(async (resolve) => {
-      setLoading(true);
       const res = await webApi.courseApi.getCourseListBySearch({
         ...newFilter,
         ...pInfo
       });
-      setLoading(false);
       setTotal(res.total);
       resolve(res.data);
     });
@@ -73,8 +72,7 @@ const SelectiveCoursesBox: React.FC<SelectiveCoursesBoxProps> = ({
   }, [searchParam]);
 
   useEffect(() => {
-    if (loadNum > runNum && list.length < total) {
-      console.info(loadNum);
+    if (loadNum > runNum && list.length < total && apiStatus === 'init') {
       setRunNum(loadNum);
       getCourseList({
         ...pageInfo,
@@ -83,12 +81,6 @@ const SelectiveCoursesBox: React.FC<SelectiveCoursesBoxProps> = ({
         const l = [...list, ...(newList as CourseResponse[])];
         setList(l);
         if (l.length >= total) {
-          setPageInfo((preInfo) => {
-            return {
-              ...preInfo,
-              page: pageInfo.page - 1
-            };
-          });
           setApiStatus('noMre');
         } else {
           setApiStatus('init');
@@ -97,7 +89,7 @@ const SelectiveCoursesBox: React.FC<SelectiveCoursesBoxProps> = ({
     }
   }, [loadNum]);
   return (
-    <Loading loading={loading}>
+    <Loading loading={apiStatus === 'loading'}>
       <div className="flex justify-between gap-10">
         <CourseFilter
           changeParam={changeParam}
