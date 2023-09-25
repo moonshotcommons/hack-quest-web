@@ -12,11 +12,11 @@ interface PageInfoType {
 }
 interface SelectiveCoursesBoxProps {
   loadNum: number;
-  setNoMore: (more: boolean) => void;
+  setApiStatus: (status: string) => void;
 }
 const SelectiveCoursesBox: React.FC<SelectiveCoursesBoxProps> = ({
   loadNum,
-  setNoMore
+  setApiStatus
 }) => {
   const [searchParam, setSearchParam] = useState<any>({ ...initParam });
   const [pageInfo, setPageInfo] = useState<PageInfoType>(initPageInfo);
@@ -31,12 +31,13 @@ const SelectiveCoursesBox: React.FC<SelectiveCoursesBoxProps> = ({
 
   const initList = () => {
     getCourseList(initPageInfo).then((newList) => {
+      setApiStatus('init');
       setList([...(newList as CourseResponse[])]);
     });
   };
 
   const getCourseList = (pInfo: PageInfoType) => {
-    setNoMore(false);
+    setApiStatus('loading');
     setPageInfo({ ...pInfo });
     const newFilter: any = {};
     for (let key in searchParam) {
@@ -73,6 +74,7 @@ const SelectiveCoursesBox: React.FC<SelectiveCoursesBoxProps> = ({
 
   useEffect(() => {
     if (loadNum > runNum && list.length < total) {
+      console.info(loadNum);
       setRunNum(loadNum);
       getCourseList({
         ...pageInfo,
@@ -80,7 +82,17 @@ const SelectiveCoursesBox: React.FC<SelectiveCoursesBoxProps> = ({
       }).then((newList) => {
         const l = [...list, ...(newList as CourseResponse[])];
         setList(l);
-        if (l.length >= total) setNoMore(true);
+        if (l.length >= total) {
+          setPageInfo((preInfo) => {
+            return {
+              ...preInfo,
+              page: pageInfo.page - 1
+            };
+          });
+          setApiStatus('noMre');
+        } else {
+          setApiStatus('init');
+        }
       });
     }
   }, [loadNum]);
