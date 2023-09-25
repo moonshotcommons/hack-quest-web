@@ -21,7 +21,7 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
   const [expand, setExpand] = useState(true);
   const [exampleContent, setExampleContent] = useState('');
 
-  console.log(exampleContent);
+  console.log(process.env.IS_DEV);
 
   return (
     <div
@@ -44,7 +44,7 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
         </span>
       </div>
       {expand && (
-        <div className="relative mt-[20px] h-full">
+        <div className="relative mt-[20px] overflow-y-auto">
           <ExampleContext.Provider
             value={{
               updateExampleContent: (value: string) => setExampleContent(value)
@@ -63,11 +63,15 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
         </div>
       )}
       <Link
-        href={`http://localhost:8080?code=${encodeURIComponent(
+        href={`${
+          process.env.IS_DEV
+            ? 'http://localhost:8080/'
+            : 'https://ide.dev.hackquest.io/'
+        }?code=${encodeURIComponent(
           LzString.compressToBase64(exampleContent)
         )}`}
         target="_blank"
-        className="self-end"
+        className="self-end mt-[20px]"
       >
         <Button
           ghost
