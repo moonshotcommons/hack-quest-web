@@ -5,6 +5,7 @@ import { CustomComponent } from '../../type';
 import Button from '@/components/Common/Button';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import LzString from 'lz-string';
 interface ExampleRendererProps {
   // children: ReactNode
   component: CustomComponent;
@@ -19,6 +20,8 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
   const { component, parent } = props;
   const [expand, setExpand] = useState(true);
   const [exampleContent, setExampleContent] = useState('');
+
+  console.log(exampleContent);
 
   return (
     <div
@@ -60,7 +63,9 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
         </div>
       )}
       <Link
-        href={`http://localhost:8080?code=${btoa(exampleContent)}`}
+        href={`http://localhost:8080?code=${encodeURIComponent(
+          LzString.compressToBase64(exampleContent)
+        )}`}
         target="_blank"
         className="self-end"
       >
