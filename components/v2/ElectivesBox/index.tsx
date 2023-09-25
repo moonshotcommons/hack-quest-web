@@ -12,7 +12,7 @@ interface PageInfoType {
 }
 interface SelectiveCoursesBoxProps {
   loadNum: number;
-  setNoMore: VoidFunction;
+  setNoMore: (more: boolean) => void;
 }
 const SelectiveCoursesBox: React.FC<SelectiveCoursesBoxProps> = ({
   loadNum,
@@ -36,6 +36,7 @@ const SelectiveCoursesBox: React.FC<SelectiveCoursesBoxProps> = ({
   };
 
   const getCourseList = (pInfo: PageInfoType) => {
+    setNoMore(false);
     setPageInfo({ ...pInfo });
     const newFilter: any = {};
     for (let key in searchParam) {
@@ -72,7 +73,6 @@ const SelectiveCoursesBox: React.FC<SelectiveCoursesBoxProps> = ({
 
   useEffect(() => {
     if (loadNum > runNum && list.length < total) {
-      console.info(loadNum);
       setRunNum(loadNum);
       getCourseList({
         ...pageInfo,
@@ -80,7 +80,7 @@ const SelectiveCoursesBox: React.FC<SelectiveCoursesBoxProps> = ({
       }).then((newList) => {
         const l = [...list, ...(newList as CourseResponse[])];
         setList(l);
-        if (l.length >= total) setNoMore();
+        if (l.length >= total) setNoMore(true);
       });
     }
   }, [loadNum]);

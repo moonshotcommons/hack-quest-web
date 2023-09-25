@@ -34,7 +34,7 @@ function SelectiveCourses() {
         </div>
         <SelectiveCoursesBox
           loadNum={loadNum}
-          setNoMore={() => setIsNoMore(true)}
+          setNoMore={(more) => setIsNoMore(more)}
         />
       </div>
     </div>
