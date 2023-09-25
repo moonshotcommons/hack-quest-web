@@ -21,7 +21,7 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
   const [expand, setExpand] = useState(true);
   const [exampleContent, setExampleContent] = useState('');
 
-  console.log(exampleContent);
+  console.log(process.env.IS_DEV);
 
   return (
     <div
@@ -63,7 +63,11 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
         </div>
       )}
       <Link
-        href={`http://localhost:8080?code=${encodeURIComponent(
+        href={`${
+          process.env.IS_DEV
+            ? 'http://localhost:8080/'
+            : 'https://ide.dev.hackquest.io/'
+        }?code=${encodeURIComponent(
           LzString.compressToBase64(exampleContent)
         )}`}
         target="_blank"
