@@ -35,6 +35,7 @@ function SelectiveCourses() {
         <SelectiveCoursesBox
           loadNum={loadNum}
           setApiStatus={(status) => setApiStatus(status)}
+          apiStatus={apiStatus}
         />
       </div>
     </div>
