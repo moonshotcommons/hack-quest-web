@@ -44,7 +44,7 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
         </span>
       </div>
       {expand && (
-        <div className="relative mt-[20px] h-full">
+        <div className="relative mt-[20px] overflow-y-auto">
           <ExampleContext.Provider
             value={{
               updateExampleContent: (value: string) => setExampleContent(value)
@@ -71,7 +71,7 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
           LzString.compressToBase64(exampleContent)
         )}`}
         target="_blank"
-        className="self-end"
+        className="self-end mt-[20px]"
       >
         <Button
           ghost
