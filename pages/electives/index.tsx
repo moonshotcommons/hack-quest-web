@@ -6,10 +6,10 @@ function SelectiveCourses() {
   const selectiveCoursesRef = useRef<HTMLDivElement | null>(null);
 
   const [loadNum, setLoadNum] = useState(0);
-  const [isNoMore, setIsNoMore] = useState(false);
+  const [apiStatus, setApiStatus] = useState('init');
 
   const handleScroll = () => {
-    if (isNoMore) return;
+    if (apiStatus !== 'init') return;
     const clientHeight = selectiveCoursesRef.current?.clientHeight || 0;
     const scrollTop = selectiveCoursesRef.current?.scrollTop || 0;
     const scrollHeight = selectiveCoursesRef.current?.scrollHeight || 0;
@@ -34,7 +34,7 @@ function SelectiveCourses() {
         </div>
         <SelectiveCoursesBox
           loadNum={loadNum}
-          setNoMore={(more) => setIsNoMore(more)}
+          setApiStatus={(status) => setApiStatus(status)}
         />
       </div>
     </div>
