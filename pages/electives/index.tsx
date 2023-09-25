@@ -13,7 +13,7 @@ function SelectiveCourses() {
     const clientHeight = selectiveCoursesRef.current?.clientHeight || 0;
     const scrollTop = selectiveCoursesRef.current?.scrollTop || 0;
     const scrollHeight = selectiveCoursesRef.current?.scrollHeight || 0;
-    if (clientHeight + scrollTop >= scrollHeight - 10) {
+    if (clientHeight + scrollTop >= scrollHeight - 5) {
       setLoadNum((num) => num + 1);
     }
   };
@@ -34,7 +34,7 @@ function SelectiveCourses() {
         </div>
         <SelectiveCoursesBox
           loadNum={loadNum}
-          setNoMore={() => setIsNoMore(true)}
+          setNoMore={(more) => setIsNoMore(more)}
         />
       </div>
     </div>
