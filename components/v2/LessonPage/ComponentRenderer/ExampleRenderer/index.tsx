@@ -13,15 +13,14 @@ interface ExampleRendererProps {
 }
 
 export const ExampleContext = createContext({
-  updateExampleContent: (value: string) => {}
+  updateExampleContent: (value: string) => {},
+  isExample: false
 });
 
 const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
   const { component, parent } = props;
   const [expand, setExpand] = useState(true);
   const [exampleContent, setExampleContent] = useState('');
-
-  console.log(process.env.IS_DEV);
 
   return (
     <div
@@ -44,10 +43,11 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
         </span>
       </div>
       {expand && (
-        <div className="relative mt-[20px] overflow-y-auto">
+        <div className="relative mt-[20px] flex-1 overflow-y-auto flex flex-col">
           <ExampleContext.Provider
             value={{
-              updateExampleContent: (value: string) => setExampleContent(value)
+              updateExampleContent: (value: string) => setExampleContent(value),
+              isExample: true
             }}
           >
             {component.children.map((child) => {
