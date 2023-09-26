@@ -13,7 +13,8 @@ interface ExampleRendererProps {
 }
 
 export const ExampleContext = createContext({
-  updateExampleContent: (value: string) => {}
+  updateExampleContent: (value: string) => {},
+  isExample: false
 });
 
 const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
@@ -42,10 +43,11 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
         </span>
       </div>
       {expand && (
-        <div className="relative mt-[20px] flex-1 overflow-y-auto">
+        <div className="relative mt-[20px] flex-1 overflow-y-auto flex flex-col">
           <ExampleContext.Provider
             value={{
-              updateExampleContent: (value: string) => setExampleContent(value)
+              updateExampleContent: (value: string) => setExampleContent(value),
+              isExample: true
             }}
           >
             {component.children.map((child) => {
@@ -60,7 +62,7 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
           </ExampleContext.Provider>
         </div>
       )}
-      {/* <Link
+      <Link
         href={`${
           process.env.IS_DEV
             ? 'http://localhost:8080/'
@@ -69,7 +71,7 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
           LzString.compressToBase64(exampleContent)
         )}`}
         target="_blank"
-        className="self-end mt-[20px]"
+        className="self-end"
       >
         <Button
           ghost
@@ -77,7 +79,7 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
         >
           Try It Out
         </Button>
-      </Link> */}
+      </Link>
     </div>
   );
 };
