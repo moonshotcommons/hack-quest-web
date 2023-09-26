@@ -21,8 +21,6 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
   const [expand, setExpand] = useState(true);
   const [exampleContent, setExampleContent] = useState('');
 
-  console.log(process.env.IS_DEV);
-
   return (
     <div
       className={`rounded-[.625rem] py-[12px] px-[20px] bg-[#E6E6E6] flex w-full flex-col h-fit ${
@@ -44,7 +42,7 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
         </span>
       </div>
       {expand && (
-        <div className="relative mt-[20px] h-full">
+        <div className="relative mt-[20px] flex-1 overflow-y-auto">
           <ExampleContext.Provider
             value={{
               updateExampleContent: (value: string) => setExampleContent(value)
@@ -62,7 +60,7 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
           </ExampleContext.Provider>
         </div>
       )}
-      <Link
+      {/* <Link
         href={`${
           process.env.IS_DEV
             ? 'http://localhost:8080/'
@@ -71,7 +69,7 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
           LzString.compressToBase64(exampleContent)
         )}`}
         target="_blank"
-        className="self-end"
+        className="self-end mt-[20px]"
       >
         <Button
           ghost
@@ -79,7 +77,7 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
         >
           Try It Out
         </Button>
-      </Link>
+      </Link> */}
     </div>
   );
 };
