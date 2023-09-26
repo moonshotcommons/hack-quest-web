@@ -62,24 +62,26 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
           </ExampleContext.Provider>
         </div>
       )}
-      <Link
-        href={`${
-          process.env.IS_DEV
-            ? 'http://localhost:8080/'
-            : 'https://ide.dev.hackquest.io/'
-        }?code=${encodeURIComponent(
-          LzString.compressToBase64(exampleContent)
-        )}`}
-        target="_blank"
-        className="self-end mt-[20px]"
-      >
-        <Button
-          ghost
-          className="text-[#0b0b0b] font-next-book text-[14px] leading-[125%] tracking-[0.28px] border py-[8px] px-[40px] border-black  hover:bg-white/50 transition"
+      {expand && (
+        <Link
+          href={`${
+            process.env.IS_DEV
+              ? 'http://localhost:8080/'
+              : 'https://ide.dev.hackquest.io/'
+          }?code=${encodeURIComponent(
+            LzString.compressToBase64(exampleContent)
+          )}`}
+          target="_blank"
+          className="self-end"
         >
-          Try It Out
-        </Button>
-      </Link>
+          <Button
+            ghost
+            className="text-[#0b0b0b] font-next-book text-[14px] leading-[125%] tracking-[0.28px] border py-[8px] px-[40px] border-black  hover:bg-white/50 transition"
+          >
+            Try It Out
+          </Button>
+        </Link>
+      )}
     </div>
   );
 };
