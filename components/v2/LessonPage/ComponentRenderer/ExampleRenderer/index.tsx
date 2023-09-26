@@ -71,7 +71,7 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
           LzString.compressToBase64(exampleContent)
         )}`}
         target="_blank"
-        className="self-end"
+        className="self-end mt-[20px]"
       >
         <Button
           ghost
