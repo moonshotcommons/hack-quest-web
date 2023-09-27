@@ -65,9 +65,7 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
       {expand && (
         <Link
           href={`${
-            process.env.IS_DEV
-              ? 'http://localhost:8080/'
-              : 'https://ide.dev.hackquest.io/'
+            process.env.IDE_URL || 'http://localhost:8080'
           }?code=${encodeURIComponent(
             LzString.compressToBase64(exampleContent)
           )}`}
