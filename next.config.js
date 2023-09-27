@@ -10,7 +10,8 @@ const nextConfig = (phase) => {
     env: {
       BACKEND_BASE_URL:
         process.env.BACKEND_BASE_URL || 'https://api.dev.hackquest.io/v1/',
-      IS_DEV: isDev
+      IS_DEV: isDev,
+      IDE_URL: process.env.IDE_URL || 'http://localhost:3000'
     },
     assetPrefix:
       isDev || !process.env.NEXT_PUBLIC_ASSET_PREFIX_FOR_CHINA
