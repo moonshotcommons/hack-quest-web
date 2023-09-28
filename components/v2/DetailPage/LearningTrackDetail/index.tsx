@@ -1,4 +1,13 @@
-import { FC, useCallback, useEffect, useMemo, useState } from 'react';
+import {
+  Dispatch,
+  FC,
+  SetStateAction,
+  createContext,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState
+} from 'react';
 
 import Button from '@/components/Common/Button';
 import { BurialPoint } from '@/helper/burialPoint';
@@ -17,6 +26,14 @@ interface LearningTrackDetailProps {
   learningTrackDetail?: LearningTrackDetailType;
   refresh: VoidFunction;
 }
+
+export const TrackListContext = createContext<{
+  setExpandList: Dispatch<SetStateAction<number[]>>;
+  expandList: number[];
+}>({
+  setExpandList: (value) => {},
+  expandList: []
+});
 
 const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
   const { learningTrackDetail, refresh } = props;
@@ -38,7 +55,11 @@ const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
     return LearningStatus.IN_PROGRESS;
   }, [learningTrackDetail]);
 
-  const [expandAll, setExpandAll] = useState(false);
+  // const [expandAll, setExpandAll] = useState(false);
+  const [expandList, setExpandList] = useState<number[]>([]);
+  const expandAll = useMemo(() => {
+    return expandList.length === learningTrackDetail?.sections.length;
+  }, [expandList, learningTrackDetail?.sections.length]);
 
   const { learningSection, learningCourse, learningSectionIndex } =
     useMemo(() => {
@@ -147,19 +168,33 @@ const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
           <span
             className="font-next-book leading-[125%] tracking-[0.32px] text-[16px] underline cursor-pointer"
             onClick={() => {
-              setExpandAll(!expandAll);
+              if (expandAll) {
+                setExpandList([]);
+              } else {
+                setExpandList(
+                  learningTrackDetail?.sections.map((item, index) => index)
+                );
+              }
+
               BurialPoint.track('learningTrackDetail-Expand All 按钮点击');
             }}
           >
-            {expandAll && 'Fold All'}
-            {!expandAll && 'Collapse All'}
+            {expandAll && 'Collapse All'}
+            {!expandAll && 'Expand All'}
           </span>
         </div>
-        <TrackList
-          trackDetail={learningTrackDetail}
-          expandAll={expandAll}
-          learningSectionIndex={learningSectionIndex}
-        ></TrackList>
+        <TrackListContext.Provider
+          value={{
+            expandList,
+            setExpandList
+          }}
+        >
+          <TrackList
+            trackDetail={learningTrackDetail}
+            expandAll={expandAll}
+            learningSectionIndex={learningSectionIndex}
+          ></TrackList>
+        </TrackListContext.Provider>
       </div>
       {!learningTrackDetail.enrolled && (
         <div
