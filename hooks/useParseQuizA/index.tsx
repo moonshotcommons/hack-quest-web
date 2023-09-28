@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useEffect, useMemo, useState } from 'react';
 import { reservedWords } from '@/constants/solidity';
 import { LineType, CodeLineType } from '@/components/v2/LessonPage/type';
 import { changeTextareaHeight, adaptWidth } from '@/helper/utils';
@@ -138,6 +138,24 @@ export const useParseQuizA = (lines: CodeLineType[]) => {
 
   /** 错误行 */
   const [errorLine, setErrorLine] = useState<AnswerState[]>([]);
+  const codeStyle = useMemo(() => {
+    const bgResetClasses = [
+      'pre[class*="language-"]',
+      'code[class*="language-"]'
+    ];
+
+    const newStyle = {
+      ...oneLight
+    };
+
+    bgResetClasses.forEach((item) => {
+      newStyle[item] = {
+        ...newStyle[item],
+        background: '#f4f4f4'
+      };
+    });
+    return newStyle;
+  }, []);
 
   const mergeAnswer = (answer: AnswerState) => {
     setAnswerState((state) => {
@@ -206,7 +224,16 @@ export const useParseQuizA = (lines: CodeLineType[]) => {
       render(newAnswerState: AnswerState[]) {
         return rendArr.map((v, i: number) => {
           if (v.type === LineType.DEFAULT) {
-            return <span key={i}>{codeRender(v.content)}</span>;
+            console.log(v);
+            return (
+              <CustomSyntaxHighlighter
+                style={codeStyle}
+                language={'solidity'}
+                key={i}
+              >
+                {v.content.join(' ')}
+              </CustomSyntaxHighlighter>
+            );
           } else {
             const inputId = `${line.id}${i}`;
             const currentLineState = newAnswerState
@@ -308,20 +335,11 @@ export const useParseQuizA = (lines: CodeLineType[]) => {
     //   return spanLine;
     // }
 
-    const bgResetClasses = [
-      'pre[class*="language-"]',
-      'code[class*="language-"]'
-    ];
-
-    bgResetClasses.forEach((item) => {
-      oneLight[item].background = '#f4f4f4';
-    });
-
     const spanLine = {
       type: 'span',
       render() {
         return (
-          <CustomSyntaxHighlighter style={oneLight} language={'solidity'}>
+          <CustomSyntaxHighlighter style={codeStyle} language={'solidity'}>
             {line.content}
           </CustomSyntaxHighlighter>
         );
