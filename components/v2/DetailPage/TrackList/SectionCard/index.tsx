@@ -17,6 +17,7 @@ import { FC, useContext, useEffect, useState } from 'react';
 import { GrSubtract } from 'react-icons/gr';
 import { VscAdd } from 'react-icons/vsc';
 import styled from 'styled-components';
+import { TrackListContext } from '../../LearningTrackDetail';
 
 const CustomProgress = styled(Progress)`
   .ant-progress-inner {
@@ -200,19 +201,40 @@ const SectionCard: FC<SectionCardProps> = (props) => {
   );
   const router = useRouter();
   const { theme } = useContext(ThemeContext);
+  const { expandList, setExpandList } = useContext(TrackListContext);
 
   useEffect(() => {
-    setExpand(expandAll);
-  }, [expandAll]);
+    setExpand(expandList.includes(sectionIndex));
+  }, [expandList]);
 
   useEffect(() => {
-    setExpand(enrolled && learningSectionIndex === sectionIndex);
+    const value = enrolled && learningSectionIndex === sectionIndex;
+    setExpand(value);
+    if (value) {
+      setExpandList((prevState) => {
+        if (prevState.includes(sectionIndex)) return prevState;
+        return prevState.concat(sectionIndex);
+      });
+    } else {
+      setExpandList((prevState) => {
+        return prevState.filter((item) => item !== sectionIndex);
+      });
+    }
   }, [enrolled]);
 
   const SectionTitle = (
     <div
       className="flex w-full items-center gap-[35px] cursor-pointer"
-      onClick={() => setExpand(!expand)}
+      onClick={() => {
+        const value = !expand;
+        setExpand(value);
+        if (value) {
+          !expandList.includes(sectionIndex) &&
+            setExpandList(expandList.concat(sectionIndex));
+        } else {
+          setExpandList(expandList.filter((item) => item !== sectionIndex));
+        }
+      }}
     >
       <div className="w-[55px] h-[55px]">
         {!enrolled && (
