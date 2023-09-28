@@ -11,7 +11,7 @@ const CodeRender: React.FC<CodeRenderType> = ({ waitingRenderCodes }) => {
   };
   return (
     <div className="h-full w-full bg-renderer-code-bg relative rounded-[10px] pr-[20px]">
-      <ul className="p-[15px] max-w-full overflow-x-auto">
+      <ul className="p-[15px] max-w-full overflow-x-auto scroll-wrap-x">
         {waitingRenderCodes.map((line, lineIndex) => (
           <li
             className="list-decimal w-full text-text-default-color font-thin whitespace-nowrap flex items-center justify-start"
