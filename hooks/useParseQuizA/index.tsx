@@ -1,7 +1,20 @@
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useEffect, useMemo, useState } from 'react';
 import { reservedWords } from '@/constants/solidity';
 import { LineType, CodeLineType } from '@/components/v2/LessonPage/type';
 import { changeTextareaHeight, adaptWidth } from '@/helper/utils';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import {
+  oneDark,
+  oneLight
+} from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import { styled } from 'styled-components';
+
+const CustomSyntaxHighlighter = styled(SyntaxHighlighter)`
+  & {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+`;
 
 export interface AnswerState {
   id: string;
@@ -125,6 +138,24 @@ export const useParseQuizA = (lines: CodeLineType[]) => {
 
   /** 错误行 */
   const [errorLine, setErrorLine] = useState<AnswerState[]>([]);
+  const codeStyle = useMemo(() => {
+    const bgResetClasses = [
+      'pre[class*="language-"]',
+      'code[class*="language-"]'
+    ];
+
+    const newStyle = {
+      ...oneLight
+    };
+
+    bgResetClasses.forEach((item) => {
+      newStyle[item] = {
+        ...newStyle[item],
+        background: '#f4f4f4'
+      };
+    });
+    return newStyle;
+  }, []);
 
   const mergeAnswer = (answer: AnswerState) => {
     setAnswerState((state) => {
@@ -193,7 +224,16 @@ export const useParseQuizA = (lines: CodeLineType[]) => {
       render(newAnswerState: AnswerState[]) {
         return rendArr.map((v, i: number) => {
           if (v.type === LineType.DEFAULT) {
-            return <span key={i}>{codeRender(v.content)}</span>;
+            console.log(v);
+            return (
+              <CustomSyntaxHighlighter
+                style={codeStyle}
+                language={'solidity'}
+                key={i}
+              >
+                {v.content.join(' ')}
+              </CustomSyntaxHighlighter>
+            );
           } else {
             const inputId = `${line.id}${i}`;
             const currentLineState = newAnswerState
@@ -280,26 +320,29 @@ export const useParseQuizA = (lines: CodeLineType[]) => {
   };
 
   const parseLineByTextLine = (line: CodeLineType) => {
-    if (line.type === LineType.ANNOTATION) {
-      // 处理注释行
-      const spanLine = {
-        type: 'span',
-        render() {
-          return (
-            <span style={{ color: 'rgb(96,139,78)' }}>
-              {line.content.replaceAll(/ /g, '\u00A0\u00A0')}
-            </span>
-          );
-        }
-      };
-      return spanLine;
-    }
+    // if (line.type === LineType.ANNOTATION) {
+    //   // 处理注释行
+    //   const spanLine = {
+    //     type: 'span',
+    //     render() {
+    //       return (
+    //         <span style={{ color: 'rgb(96,139,78)' }}>
+    //           {line.content.replaceAll(/ /g, '\u00A0\u00A0')}
+    //         </span>
+    //       );
+    //     }
+    //   };
+    //   return spanLine;
+    // }
 
-    const codes = line.content.split(' ');
     const spanLine = {
       type: 'span',
       render() {
-        return <span>{codeRender(codes)}</span>;
+        return (
+          <CustomSyntaxHighlighter style={codeStyle} language={'solidity'}>
+            {line.content}
+          </CustomSyntaxHighlighter>
+        );
       }
     };
 
