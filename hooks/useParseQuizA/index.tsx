@@ -2,6 +2,19 @@ import { ReactNode, useEffect, useState } from 'react';
 import { reservedWords } from '@/constants/solidity';
 import { LineType, CodeLineType } from '@/components/v2/LessonPage/type';
 import { changeTextareaHeight, adaptWidth } from '@/helper/utils';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import {
+  oneDark,
+  oneLight
+} from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import { styled } from 'styled-components';
+
+const CustomSyntaxHighlighter = styled(SyntaxHighlighter)`
+  & {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+`;
 
 export interface AnswerState {
   id: string;
@@ -280,26 +293,38 @@ export const useParseQuizA = (lines: CodeLineType[]) => {
   };
 
   const parseLineByTextLine = (line: CodeLineType) => {
-    if (line.type === LineType.ANNOTATION) {
-      // 处理注释行
-      const spanLine = {
-        type: 'span',
-        render() {
-          return (
-            <span style={{ color: 'rgb(96,139,78)' }}>
-              {line.content.replaceAll(/ /g, '\u00A0\u00A0')}
-            </span>
-          );
-        }
-      };
-      return spanLine;
-    }
+    // if (line.type === LineType.ANNOTATION) {
+    //   // 处理注释行
+    //   const spanLine = {
+    //     type: 'span',
+    //     render() {
+    //       return (
+    //         <span style={{ color: 'rgb(96,139,78)' }}>
+    //           {line.content.replaceAll(/ /g, '\u00A0\u00A0')}
+    //         </span>
+    //       );
+    //     }
+    //   };
+    //   return spanLine;
+    // }
 
-    const codes = line.content.split(' ');
+    const bgResetClasses = [
+      'pre[class*="language-"]',
+      'code[class*="language-"]'
+    ];
+
+    bgResetClasses.forEach((item) => {
+      oneLight[item].background = '#f4f4f4';
+    });
+
     const spanLine = {
       type: 'span',
       render() {
-        return <span>{codeRender(codes)}</span>;
+        return (
+          <CustomSyntaxHighlighter style={oneLight} language={'solidity'}>
+            {line.content}
+          </CustomSyntaxHighlighter>
+        );
       }
     };
 
