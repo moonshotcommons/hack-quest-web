@@ -3,7 +3,8 @@ import {
   LoginParamsType,
   LoginResponse,
   RegisterParamsType,
-  RegisterResponse
+  RegisterResponse,
+  AuthType
 } from './type';
 import { transformQueryString } from '@/helper/formate';
 
@@ -15,7 +16,9 @@ export enum UserApiType {
   UpdatePassword = '/users/update-password',
   ForgetPassword = '/users/forgot-password',
   UploadAvatar = '/users/upload-avatar',
-  UserInfo = '/users/info '
+  UserInfo = '/users/info',
+  AuthGoogle = 'auth/google',
+  AuthGithub = 'auth/github'
 }
 
 class UserApi {
@@ -89,6 +92,14 @@ class UserApi {
   /** 获取用户信息 */
   getUserInfo() {
     return this.service.get(UserApiType.UserInfo);
+  }
+
+  getAuthUrl(type: AuthType) {
+    const url =
+      type === AuthType.GOOGLE
+        ? UserApiType.AuthGoogle
+        : UserApiType.AuthGithub;
+    return this.service.get(url);
   }
 }
 
