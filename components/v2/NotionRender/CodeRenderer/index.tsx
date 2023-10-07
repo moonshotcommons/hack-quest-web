@@ -31,7 +31,6 @@ const CodeRenderer: FC<CodeRendererProps> = (props) => {
   const codeRef = useRef<HTMLTextAreaElement>(null);
   const [codeContent, setCodeContent] = useState('');
   const { updateExampleContent, isExample } = useContext(ExampleContext);
-
   useEffect(() => {
     if (component.content.rich_text) {
       const code = component.content.rich_text
