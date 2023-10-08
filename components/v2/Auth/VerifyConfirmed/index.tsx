@@ -7,6 +7,7 @@ import { omit } from 'lodash-es';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { UnLoginType, setUnLoginType } from '@/store/redux/modules/user';
 
 enum VerifyStateType {
   VERIFYING = 'verifying',
@@ -75,7 +76,7 @@ const Success = () => {
   );
 };
 const Fail = () => {
-  const router = useRouter();
+  const dispatch = useDispatch();
   return (
     <div className="flex flex-col gap-8 w-full">
       <h1 className="text-white text-[1.75rem] font-next-book-bold font-bold leading-[125%] -tracking-[0.64px]">
@@ -89,7 +90,9 @@ const Fail = () => {
         </span>
       </div>
       <Button
-        // onClick={onLogin}
+        onClick={() => {
+          dispatch(setUnLoginType(UnLoginType.LOGIN));
+        }}
         block
         className="
           font-next-book
@@ -112,8 +115,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
   const [jump, setJump] = useState(false);
   const [countDown, setCountDown] = useState(3);
   const [verifyState, setVerifyState] = useState(VerifyStateType.VERIFYING);
-  useEffect(() => {
-    const { token } = router.query;
+  const verifyEmail = (token: string) => {
     BurialPoint.track('signup-注册邮箱token验证');
     if (token) {
       webApi.userApi
@@ -136,6 +138,76 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
         message: 'token不存在'
       });
       setVerifyState(VerifyStateType.FAIL);
+    }
+  };
+  const verifyGoogle = (code: string) => {
+    BurialPoint.track('signup-Google三方登录code验证');
+    if (code) {
+      webApi.userApi
+        .googleVerify(code)
+        .then((res: any) => {
+          dispatch(setUserInfo(omit(res, 'token')));
+          BurialPoint.track('signup-Google三方登录code验证成功');
+          setToken(res.token);
+          setVerifyState(VerifyStateType.SUCCESS);
+        })
+        .catch((err) => {
+          BurialPoint.track('signup-Google三方登录code验证失败', {
+            message: err?.msg || err?.message || ''
+          });
+          setVerifyState(VerifyStateType.FAIL);
+          console.log(err);
+        });
+    } else {
+      BurialPoint.track('signup-Google三方登录code验证失败', {
+        message: 'code不存在'
+      });
+      setVerifyState(VerifyStateType.FAIL);
+    }
+  };
+
+  const verifyGithub = (code: string) => {
+    BurialPoint.track('signup-Github三方登录code验证');
+    if (code) {
+      webApi.userApi
+        .githubVerify(code)
+        .then((res: any) => {
+          dispatch(setUserInfo(omit(res, 'token')));
+          BurialPoint.track('signup-Github三方登录code验证成功');
+          setToken(res.token);
+          setVerifyState(VerifyStateType.SUCCESS);
+        })
+        .catch((err) => {
+          BurialPoint.track('signup-Github三方登录code验证失败', {
+            message: err?.msg || err?.message || ''
+          });
+          setVerifyState(VerifyStateType.FAIL);
+          console.log(err);
+        });
+    } else {
+      BurialPoint.track('signup-Github三方登录code验证失败', {
+        message: 'code不存在'
+      });
+      setVerifyState(VerifyStateType.FAIL);
+    }
+  };
+  useEffect(() => {
+    const { token, state } = router.query;
+    let code = router.query.code;
+    let source = router.query.source;
+    if (state) {
+      const verifyData = JSON.parse(atob(state as string));
+      source = verifyData?.source;
+    }
+    switch (source) {
+      case 'google':
+        verifyGoogle(code as string);
+        break;
+      case 'github':
+        verifyGithub(code as string);
+        break;
+      default:
+        verifyEmail(token as string);
     }
   }, [router, dispatch]);
 

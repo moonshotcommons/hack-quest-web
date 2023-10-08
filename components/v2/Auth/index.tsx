@@ -25,7 +25,9 @@ const Auth: FC<AuthProps> = (props) => {
       dispatch(setUnLoginType(type));
     }
   }, [query]);
-
+  if (query.state) {
+    return <VerifyConfirmed></VerifyConfirmed>;
+  }
   switch (loginRouteType.type) {
     case UnLoginType.EMAIL_VERIFY:
       return <EmailVerify></EmailVerify>;

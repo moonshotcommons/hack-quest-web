@@ -7,6 +7,7 @@ import { FC, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import RegisterForm from '../RegisterForm';
 import VerifyEmail from '../VerifyEmail';
+import ThreePartyLogin from '../ThreePartyLogin';
 
 interface SignUpProps {}
 
@@ -33,7 +34,7 @@ const SignUp: FC<SignUpProps> = (props) => {
   );
 
   return (
-    <div className="w-full h-full flex flex-col">
+    <div className="w-full flex flex-col">
       {!showRegisterForm ? (
         <motion.div
           initial={{ translateX: -50, opacity: 0 }}
@@ -52,6 +53,7 @@ const SignUp: FC<SignUpProps> = (props) => {
               }
             }}
           ></VerifyEmail>
+          <ThreePartyLogin />
         </motion.div>
       ) : (
         <RegisterForm
