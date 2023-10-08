@@ -26,7 +26,7 @@ const ContractUs: FC<ContractUsProps> = (props) => {
       )}
     >
       <Link
-        href={'https://twitter.com/_hackquest'}
+        href={'https://x.com/hackquest_?s=21&t=kYetGSBybf-ssFBo7GodGA'}
         className="hover:scale-[1.1] cursor-pointer"
         onClick={() => {
           BurialPoint.track('landing-推特按钮点击');
