@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { use } from 'react';
 import Button from '@/components/Common/Button';
 import { BsGoogle, BsGithub } from 'react-icons/bs';
 import Google from '@/public/images/login/google.svg';
@@ -9,8 +9,8 @@ import { AuthType } from '@/service/webApi/user/type';
 
 function ThreePartyLogin() {
   const loginThreeParty = async (type: AuthType) => {
-    const url = await webApi.userApi.getAuthUrl(type);
-    console.info(url);
+    const res = (await webApi.userApi.getAuthUrl(type)) as any;
+    window.location.href = res?.url;
   };
   return (
     <div className="">
