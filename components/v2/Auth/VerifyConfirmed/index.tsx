@@ -257,7 +257,6 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
       const verifyData = JSON.parse(atob(state as string));
       querySource = verifyData?.source || AuthType.GOOGLE;
     }
-    querySource = AuthType.GITHUB;
     setSource(querySource as AuthType);
     switch (querySource) {
       case AuthType.GOOGLE:
