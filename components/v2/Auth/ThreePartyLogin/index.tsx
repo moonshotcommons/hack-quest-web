@@ -1,6 +1,5 @@
-import React, { use } from 'react';
+import React from 'react';
 import Button from '@/components/Common/Button';
-import { BsGoogle, BsGithub } from 'react-icons/bs';
 import Google from '@/public/images/login/google.svg';
 import Github from '@/public/images/login/github.svg';
 import Image from 'next/image';
