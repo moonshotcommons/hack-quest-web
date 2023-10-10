@@ -29,6 +29,7 @@ export interface UserLevelType {
   expToday: number;
   expCurrent: number;
   expNextLevel: number;
+  expTotal: number;
   badges: BadgesType[];
 }
 /** 进度 */

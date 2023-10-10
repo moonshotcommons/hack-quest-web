@@ -8,6 +8,10 @@ import { useRouter } from 'next/router';
 import { FC, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { UnLoginType, setUnLoginType } from '@/store/redux/modules/user';
+import Google from '@/public/images/login/google.svg';
+import Github from '@/public/images/login/github.svg';
+import Image from 'next/image';
+import { AuthType } from '@/service/webApi/user/type';
 
 enum VerifyStateType {
   VERIFYING = 'verifying',
@@ -17,19 +21,19 @@ enum VerifyStateType {
 
 interface VerifyConfirmedProps {}
 
-const Verifying = () => {
+const Verifying: React.FC<{ type: AuthType }> = ({ type }) => {
   return (
     <div className="text-center flex flex-col items-center gap-[25px]">
       <h1 className="text-white text-[1.75rem] font-next-book-bold font-bold leading-[125%] -tracking-[0.01924rem]">
         Verifying...
       </h1>
       <div className="text-white font-next-book leading-[160%] tracking-[0.64px] text-[18px]">
-        <span>Please wait... We are verifying your email...</span>
+        <span>Please wait... We are verifying your {type}...</span>
       </div>
     </div>
   );
 };
-const Success = () => {
+const Success: React.FC<{ type: AuthType }> = ({ type }) => {
   const router = useRouter();
 
   const [jump, setJump] = useState(false);
@@ -55,7 +59,7 @@ const Success = () => {
       </h1>
       <div className="text-white font-next-book leading-[160%] tracking-[0.64px] text-[18px]">
         <span>
-          You have been successfully verified the email! You will be redirected
+          You have been successfully verified the {type}! You will be redirected
           in 5 second.
         </span>
       </div>
@@ -75,35 +79,88 @@ const Success = () => {
     </div>
   );
 };
-const Fail = () => {
+const Fail: React.FC<{ type: AuthType }> = ({ type }) => {
+  const loginThreeParty = async (type: AuthType) => {
+    const res = (await webApi.userApi.getAuthUrl(type)) as any;
+    window.location.href = res?.url;
+  };
   const dispatch = useDispatch();
-  return (
-    <div className="flex flex-col gap-8 w-full">
-      <h1 className="text-white text-[1.75rem] font-next-book-bold font-bold leading-[125%] -tracking-[0.64px]">
-        Verification Failed! 😵
-      </h1>
-      <div className="text-white font-next-book leading-[160%] tracking-[0.64px] text-[18px]">
-        <span>
-          Your verification has failed!
-          <br />
-          Please verify your Email again.
-        </span>
-      </div>
-      <Button
-        onClick={() => {
-          dispatch(setUnLoginType(UnLoginType.LOGIN));
-        }}
-        block
-        className="
+  const renderTextAndBtn = () => {
+    switch (type) {
+      case AuthType.EMAIL:
+        return (
+          <>
+            <div className="text-white font-next-book leading-[160%] tracking-[0.64px] text-[18px]">
+              <span>
+                Your verification has failed!
+                <br />
+                Please verify your Email again.
+              </span>
+            </div>
+            <Button
+              onClick={() => {
+                dispatch(setUnLoginType(UnLoginType.LOGIN));
+              }}
+              block
+              className="
           font-next-book
           text-[1.125rem]
           bg-auth-primary-button-bg hover:bg-auth-primary-button-hover-bg
           text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
           border-auth-primary-button-border-color hover:border-auth-primary-button-border-hover-color
           "
-      >
-        try login
-      </Button>
+            >
+              try login
+            </Button>
+          </>
+        );
+      default:
+        return (
+          <>
+            <div className="text-white font-next-book leading-[160%] tracking-[0.64px] text-[18px]">
+              <span>
+                Your {type} account verification has failed!
+                <br />
+                Please try again.
+              </span>
+            </div>
+            <Button
+              block
+              className=" font-next-book
+              text-[1.125rem]
+              bg-auth-primary-button-bg hover:bg-auth-primary-button-hover-bg
+              text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
+              border-auth-primary-button-border-color hover:border-auth-primary-button-border-hover-color relative"
+              onClick={() => loginThreeParty(type)}
+            >
+              <Image
+                src={type === AuthType.GOOGLE ? Google : Github}
+                width={22}
+                height={22}
+                alt="Google"
+                className="absolute left-[25px] top-[16px]"
+              ></Image>
+              Continue with {type}
+            </Button>
+            <Button
+              onClick={() => {
+                dispatch(setUnLoginType(UnLoginType.LOGIN));
+              }}
+              block
+              className="font-next-book text-[1.125rem] text-[#fff] border border-[#fff]"
+            >
+              Back
+            </Button>
+          </>
+        );
+    }
+  };
+  return (
+    <div className="flex flex-col gap-8 w-full">
+      <h1 className="text-white text-[1.75rem] font-next-book-bold font-bold leading-[125%] -tracking-[0.64px]">
+        Verification Failed! 😵
+      </h1>
+      {renderTextAndBtn()}
     </div>
   );
 };
@@ -115,6 +172,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
   const [jump, setJump] = useState(false);
   const [countDown, setCountDown] = useState(3);
   const [verifyState, setVerifyState] = useState(VerifyStateType.VERIFYING);
+  const [source, setSource] = useState<AuthType>(AuthType.EMAIL);
   const verifyEmail = (token: string) => {
     BurialPoint.track('signup-注册邮箱token验证');
     if (token) {
@@ -194,16 +252,18 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
   useEffect(() => {
     const { token, state } = router.query;
     let code = router.query.code;
-    let source = router.query.source;
+    let querySource = router.query.source || AuthType.EMAIL;
     if (state) {
       const verifyData = JSON.parse(atob(state as string));
-      source = verifyData?.source;
+      querySource = verifyData?.source || AuthType.GOOGLE;
     }
-    switch (source) {
-      case 'google':
+    querySource = AuthType.GITHUB;
+    setSource(querySource as AuthType);
+    switch (querySource) {
+      case AuthType.GOOGLE:
         verifyGoogle(code as string);
         break;
-      case 'github':
+      case AuthType.GITHUB:
         verifyGithub(code as string);
         break;
       default:
@@ -213,9 +273,13 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
 
   return (
     <div className="w-full h-full flex flex-col items-center">
-      {verifyState === VerifyStateType.VERIFYING && <Verifying></Verifying>}
-      {verifyState === VerifyStateType.SUCCESS && <Success></Success>}
-      {verifyState === VerifyStateType.FAIL && <Fail></Fail>}
+      {verifyState === VerifyStateType.VERIFYING && (
+        <Verifying type={source}></Verifying>
+      )}
+      {verifyState === VerifyStateType.SUCCESS && (
+        <Success type={source}></Success>
+      )}
+      {verifyState === VerifyStateType.FAIL && <Fail type={source}></Fail>}
     </div>
   );
 };

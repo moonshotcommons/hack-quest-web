@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import UserInfo from '@/components/v2/MissionCenter/UserInfo';
+import UserInfo from '@/components/MissionCenter/UserInfo';
 import Quests from '@/components/MissionCenter/Quests';
 import Milestones from '@/components/MissionCenter/Milestones';
 import SignUpStreak from '@/components/MissionCenter/SignupStreak';
@@ -108,8 +108,34 @@ function MissionCenter() {
   };
 
   return (
-    <div className="flex justify-between w-full pt-[40px]  text-[#0b0b0b] tracking-[0.3px] bg-[#f4f4f4]  text-[14px] font-next-book">
+    <div className="flex justify-between w-full  text-mission-center-basics  text-[14px] font-next-book">
       <UserInfo userInfo={userInfo} useLevel={useLevel} badges={badges} />
+      <div className="w-[calc(76%-10px)] [&>div]:mb-3">
+        <Quests
+          questsData={missions.filter(
+            (v: MissionDataType) => v.type === MissionType.DAILY_QUESTS
+          )}
+          missionClaim={missionClaim}
+        />
+        <Milestones
+          milestonesData={missions.filter(
+            (v: MissionDataType) => v.type === MissionType.MILESTONES
+          )}
+          missionClaim={missionClaim}
+        />
+        <SignUpStreak
+          daysData={missions.filter(
+            (v: MissionDataType) => v.type === MissionType.SEVEN_DAYS_SIGNUP
+          )}
+          missionClaim={missionClaim}
+        />
+        <BeginnerRewards
+          rewardData={missions.filter(
+            (v: MissionDataType) =>
+              BeginnerRewardsType[v.type as BeginnerRewardsType]
+          )}
+        />
+      </div>
     </div>
   );
 }
