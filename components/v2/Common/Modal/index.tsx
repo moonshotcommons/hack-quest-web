@@ -39,7 +39,7 @@ const Modal: React.FC<ModalProps> = (props) => {
   return (
     <Transition show={open} appear as={Fragment}>
       <Dialog as="div" className="relative z-[999]" onClose={onClose}>
-        <div className={cn(`fixed inset-0 bg-opacity-5`, `bg-[${markBg}]`)} />
+        <div className={cn(`fixed inset-0 bg-opacity-50 bg-black`)} />
         <div className="fixed inset-0 overflow-y-auto">
           <div className="flex min-h-full items-center justify-center p-4 text-center">
             <Transition.Child
@@ -51,8 +51,8 @@ const Modal: React.FC<ModalProps> = (props) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-[74.0625rem] overflow-hidden text-left align-middle">
-                <div className="relative flex  items-center overflow-y-scroll no-scrollbar shadow-2xl">
+              <Dialog.Panel className="w-fit overflow-hidden text-left align-middle">
+                <div className="relative flex justify-center  items-center overflow-y-scroll no-scrollbar shadow-2xl w-fit">
                   {showCloseIcon ? (
                     <div onClick={onClose}>
                       <IconClose icon={icon}></IconClose>

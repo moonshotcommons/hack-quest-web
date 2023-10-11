@@ -1,11 +1,24 @@
 'use client';
 import { ExpandDataType, useLessonExpand } from '@/hooks/useLessonExpand';
 import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
-import { FC, createContext, useEffect, useMemo, useState } from 'react';
+import {
+  FC,
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState
+} from 'react';
 import Breadcrumb from '../../Breadcrumb';
 import ComponentRenderer from '../ComponentRenderer';
 import LessonEvents from '../LessonEvents';
-import { CustomComponent, LessonContent, NotionComponent } from '../type';
+import {
+  CustomComponent,
+  LessonContent,
+  LessonPageContext,
+  NotionComponent
+} from '../type';
+import Button from '../../Common/Button';
 
 export const LessonContentContext = createContext<{
   expandData: ExpandDataType[];
@@ -19,6 +32,7 @@ interface LessonContentProps {
 
 const LessonContent: FC<LessonContentProps> = (props) => {
   const { lesson, isPreview = false, courseType } = props;
+  const { onBugCommit } = useContext(LessonPageContext);
   const [components, setComponents] = useState<
     (CustomComponent | NotionComponent)[]
   >(() => {
@@ -76,10 +90,43 @@ const LessonContent: FC<LessonContentProps> = (props) => {
               </div>
             );
           })}
+          <Button
+            icon={BugIcon}
+            className="bg-[#8c8c8c] text-white rounded-[10px] px-[16px] py-[14px]"
+            onClick={() => {
+              console.log('object');
+              onBugCommit?.();
+            }}
+          >
+            <span className="ml-[0.5] leading-[125%] tracking-[0.32px] font-next-book text-[16px]">
+              Found a bug?
+            </span>
+          </Button>
         </div>
       )}
     </div>
   );
 };
+
+const BugIcon = (
+  <svg
+    width="23"
+    height="23"
+    viewBox="0 0 23 23"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <circle cx="11.5" cy="11.5" r="11.5" fill="white" />
+    <circle cx="11.5001" cy="5.36634" r="1.53333" fill="#8C8C8C" />
+    <rect
+      x="9.9668"
+      y="8.43359"
+      width="3.06667"
+      height="10.35"
+      rx="1.53333"
+      fill="#8C8C8C"
+    />
+  </svg>
+);
 
 export default LessonContent;
