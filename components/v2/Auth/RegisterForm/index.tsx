@@ -81,6 +81,7 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
             dispatch(setUnLoginType(UnLoginType.EMAIL_VERIFY));
           } catch (e: any) {
             BurialPoint.track('signup-注册邮件发送失败', { message: e?.msg });
+            console.log(e);
             if (e?.code === 400) setShowWhiteListModal(true);
             else message.error(e?.msg);
           }

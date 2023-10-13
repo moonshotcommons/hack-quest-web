@@ -1,4 +1,5 @@
 import webApi from '@/service';
+import { message } from 'antd';
 import Schema, { Rule, ValidateMessages } from 'async-validator';
 import { useState } from 'react';
 
@@ -32,7 +33,12 @@ const checkEmailRules: Rule = [
             resolve();
           })
           .catch((e) => {
-            reject('Email does not exist.');
+            if (e.code) {
+              reject('Email does not exist.');
+            } else {
+              e.message && message.error(e.message);
+              reject(e.message);
+            }
           });
       });
     }
@@ -56,7 +62,12 @@ const checkRegisterEmailRules: Rule = [
             reject('Email already exists, please try another email. ');
           })
           .catch((e) => {
-            resolve();
+            if (e.code) {
+              resolve();
+            } else {
+              e.message && message.error(e.message);
+              reject(e.message);
+            }
           });
       });
     }
