@@ -196,26 +196,25 @@ const UserLogin: FC<UserLoginProps> = (props) => {
           </p>
         </div>
 
-        <div className="flex flex-col gap-[.625rem]">
-          <Button
-            onClick={onLogin}
-            block
-            icon={<RightArrowIcon></RightArrowIcon>}
-            iconPosition="right"
-            className="
+        <Button
+          onClick={onLogin}
+          block
+          icon={<RightArrowIcon></RightArrowIcon>}
+          iconPosition="right"
+          className="
           font-next-book
           text-[1.125rem]
           bg-auth-primary-button-bg hover:bg-auth-primary-button-hover-bg
           text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
           border-auth-primary-button-border-color hover:border-auth-primary-button-border-hover-color
           "
-          >
-            Login now
-          </Button>
-          <Button
-            onClick={onBack}
-            block
-            className="
+        >
+          Login now
+        </Button>
+        <Button
+          onClick={onBack}
+          block
+          className="
           font-next-book
           text-[1.125rem]
           border
@@ -223,10 +222,9 @@ const UserLogin: FC<UserLoginProps> = (props) => {
           text-white hover:text-auth-ghost-button-text-hover-color
           border-white hover:border-auth-ghost-button-border-hover-color
           "
-          >
-            Back
-          </Button>
-        </div>
+        >
+          Back
+        </Button>
       </div>
     </div>
   );

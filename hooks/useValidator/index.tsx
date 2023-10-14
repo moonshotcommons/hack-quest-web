@@ -1,4 +1,5 @@
 import webApi from '@/service';
+import { message } from 'antd';
 import Schema, { Rule, ValidateMessages } from 'async-validator';
 import { useState } from 'react';
 
@@ -29,10 +30,20 @@ const checkEmailRules: Rule = [
         webApi.userApi
           .checkEmailExists(value)
           .then((res) => {
-            resolve();
+            if (res.exists) {
+              resolve();
+            } else {
+              reject('Email does not exist.');
+            }
           })
           .catch((e) => {
-            reject('Email does not exist.');
+            if (e.code) {
+              e.msg && message.error(e.msg);
+              reject(e.msg);
+            } else {
+              e.message && message.error(e.message);
+              reject(e.message);
+            }
           });
       });
     }
@@ -53,10 +64,22 @@ const checkRegisterEmailRules: Rule = [
         webApi.userApi
           .checkEmailExists(value)
           .then((res) => {
-            reject('Email already exists, please try another email. ');
+            // reject('Email already exists, please try another email. ');
+            if (res.exists) {
+              reject('Email already exists, please try another email.');
+            } else if (res.exists === false) {
+              // reject('Email does not exist.');
+              resolve();
+            }
           })
           .catch((e) => {
-            resolve();
+            if (e.code) {
+              e.msg && message.error(e.msg);
+              reject(e.msg);
+            } else {
+              e.message && message.error(e.message);
+              reject(e.message);
+            }
           });
       });
     }
