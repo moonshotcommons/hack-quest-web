@@ -18,22 +18,22 @@ function Ring({ radius, percent, strokeWidth = 2 }: RingProps) {
   const p = percent > 1 || percent < 0 ? 0 : percent;
   const strokeDashoffset = len - len * p;
   return (
-    <svg width={width} height={width} className="-rotate-90">
+    <svg width={width} height={width} className="rotate-90">
       <circle
         cx={radius}
         cy={radius}
-        r={radius - strokeWidth}
-        className="text-mission-center-quests-box"
-        strokeWidth={strokeWidth}
+        r={radius - 12}
+        className="text-[#DADADA]"
+        strokeWidth={12}
         stroke="currentColor"
         fill="none"
       ></circle>
       <circle
         cx={radius}
         cy={radius}
-        r={radius - strokeWidth}
-        className="text-mission-center-quests-box-active"
-        strokeWidth={strokeWidth}
+        r={radius - 10}
+        className="text-[#FFD850]"
+        strokeWidth={20}
         strokeDasharray={len}
         strokeDashoffset={strokeDashoffset as number}
         stroke="currentColor"
