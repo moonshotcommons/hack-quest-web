@@ -24,6 +24,8 @@ const Auth: FC<AuthProps> = (props) => {
     const { type } = query;
     if (type) {
       dispatch(setUnLoginType(type));
+    } else {
+      dispatch(setUnLoginType(UnLoginType.LOGIN));
     }
   }, [query]);
   if (query.state) {

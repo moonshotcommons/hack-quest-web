@@ -27,11 +27,11 @@ export const navbarList = [
   {
     name: 'Electives',
     path: '/electives'
-  },
-  {
-    name: 'Mission Center ',
-    path: '/mission-center'
   }
+  // {
+  //   name: 'Mission Center ',
+  //   path: '/mission-center'
+  // }
 ];
 
 const V2Layout: FC<LayoutProps> = (props) => {
