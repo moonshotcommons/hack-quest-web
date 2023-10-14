@@ -1,6 +1,6 @@
 import { BurialPoint } from '@/helper/burialPoint';
 import { useGetUserInfo, useGetUserUnLoginType } from '@/hooks/useGetUserInfo';
-import { setUnLoginType } from '@/store/redux/modules/user';
+import { UnLoginType, setUnLoginType } from '@/store/redux/modules/user';
 import Image from 'next/image';
 import { FC, useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -55,7 +55,9 @@ const User: FC<UserProps> = (props) => {
               {unLoginTab.map((tab) => (
                 <div
                   className={`text-sm h-full flex items-center text-white hover:font-bold border-b-4 tracking-[0.28px] cursor-pointer ${
-                    tab.value === unLoginType?.type
+                    tab.value === unLoginType?.type ||
+                    (tab.value === UnLoginType.SIGN_UP &&
+                      unLoginType.type === UnLoginType.INVITE_CODE)
                       ? 'font-next-book-bold text-text-default-color font-bold  border-[#FFD850]'
                       : 'font-next-book font-normal border-transparent'
                   }`}

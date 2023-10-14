@@ -55,7 +55,8 @@ type AuthBurialPointType =
   | 'signup-注册邮箱验证成功'
   | 'signup-注册按钮点击'
   | 'signup-注册返回'
-  | 'signup-发送注册邮件';
+  | 'signup-发送注册邮件'
+  | 'signup-验证邀请码按钮点击';
 // | 'signup-修改注册邮件';
 
 type LandingBurialPointType =
@@ -117,6 +118,8 @@ type LessonDetailBurialPointType =
   | 'lesson-quiz 收起'
   | 'lesson-example 收起'
   | 'lesson-课程完成';
+
+// type MissCenterBurialPointType =
 
 type BurialPointType =
   | AuthBurialPointType

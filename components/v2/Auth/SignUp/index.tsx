@@ -3,21 +3,36 @@ import { useGetUserUnLoginType } from '@/hooks/useGetUserInfo';
 import { useValidator } from '@/hooks/useValidator';
 import { UnLoginType, setUnLoginType } from '@/store/redux/modules/user';
 import { motion } from 'framer-motion';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import RegisterForm from '../RegisterForm';
 import VerifyEmail from '../VerifyEmail';
 import ThreePartyLogin from '../ThreePartyLogin';
+import webApi from '@/service';
 
 interface SignUpProps {}
 
 const SignUp: FC<SignUpProps> = (props) => {
   const [emailCheckStatus, setEmailCheckStatus] = useState(false);
-  const [showRegisterForm, setRegisterForm] = useState(false);
+  const [showRegisterForm, setShowRegisterForm] = useState(false);
   const [email, setEmail] = useState('');
   const dispatch = useDispatch();
   const { validator } = useValidator(['registerEmail']);
   const loginRouteType = useGetUserUnLoginType();
+
+  const authInfo = useGetUserUnLoginType();
+
+  useEffect(() => {
+    if (
+      authInfo &&
+      authInfo.prevType === UnLoginType.INVITE_CODE &&
+      authInfo.params?.email &&
+      authInfo.params?.codeVerify
+    ) {
+      setEmail(authInfo.params?.email);
+      setShowRegisterForm(true);
+    }
+  }, []);
 
   const EmailTitle = (
     <div className="text-[#FFF] text-[21px] font-next-poster leading-[160%] tracking-[1.26px]">
@@ -48,8 +63,21 @@ const SignUp: FC<SignUpProps> = (props) => {
             type={UnLoginType.SIGN_UP}
             onNext={(email: string) => {
               if (emailCheckStatus) {
-                setRegisterForm(true);
                 setEmail(email);
+                webApi.userApi.checkEmailExists(email).then((res) => {
+                  if (res.inWhitelist) {
+                    setShowRegisterForm(true);
+                  } else {
+                    dispatch(
+                      setUnLoginType({
+                        type: UnLoginType.INVITE_CODE,
+                        params: {
+                          email
+                        }
+                      })
+                    );
+                  }
+                });
               }
             }}
           ></VerifyEmail>
@@ -60,7 +88,7 @@ const SignUp: FC<SignUpProps> = (props) => {
           email={email}
           onBack={() => {
             BurialPoint.track('signup-注册返回');
-            setRegisterForm(false);
+            setShowRegisterForm(false);
           }}
         ></RegisterForm>
       )}

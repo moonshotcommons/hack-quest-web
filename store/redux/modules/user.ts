@@ -10,7 +10,8 @@ export enum UnLoginType {
   VERIFYING = 'verifying',
   VERIFYING_FAIL = 'verifying-fail',
   VERIFYING_SUCCESS = 'verifying-success',
-  CHANGE_PASSWORD = 'change-password'
+  CHANGE_PASSWORD = 'change-password',
+  INVITE_CODE = 'invite_code'
 }
 
 export const callbackMap = {
