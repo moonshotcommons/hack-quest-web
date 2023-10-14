@@ -137,7 +137,7 @@ const Fail: React.FC<{ type: AuthType }> = ({ type }) => {
                 src={type === AuthType.GOOGLE ? Google : Github}
                 width={22}
                 height={22}
-                alt="Google"
+                alt={type}
                 className="absolute left-[25px] top-[16px]"
               ></Image>
               Continue with {type}

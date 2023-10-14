@@ -118,6 +118,8 @@ type LessonDetailBurialPointType =
   | 'lesson-example 收起'
   | 'lesson-课程完成';
 
+// type MissCenterBurialPointType =
+
 type BurialPointType =
   | AuthBurialPointType
   | LandingBurialPointType
