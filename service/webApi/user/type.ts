@@ -40,3 +40,9 @@ export enum ForgetPasswordErrorStatusType {
   /** 邮箱不存在 */
   EMAIL_NOT_EXIST = 404
 }
+
+export enum AuthType {
+  EMAIL = 'Email',
+  GOOGLE = 'Google',
+  GITHUB = 'Github'
+}

@@ -6,6 +6,7 @@ import { FC, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import UserLogin from '../UserLogin';
 import VerifyEmail from '../VerifyEmail';
+import ThreePartyLogin from '../ThreePartyLogin';
 
 interface LoginProps {}
 
@@ -26,7 +27,7 @@ const Login: FC<LoginProps> = (props) => {
             dispatch(setUnLoginType(UnLoginType.SIGN_UP));
           }}
         >
-          Create a account
+          Create an account
         </span>
         <br />
         It takes less than a minute.
@@ -35,7 +36,7 @@ const Login: FC<LoginProps> = (props) => {
   );
 
   return (
-    <div className="w-full  h-full flex flex-col items-center">
+    <div className="w-full  flex flex-col items-center">
       {!showLogin ? (
         <motion.div
           initial={{ translateX: -50, opacity: 0 }}
@@ -55,6 +56,7 @@ const Login: FC<LoginProps> = (props) => {
               }
             }}
           ></VerifyEmail>
+          <ThreePartyLogin />
         </motion.div>
       ) : (
         <motion.div

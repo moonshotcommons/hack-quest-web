@@ -127,7 +127,10 @@ const CourseCard: FC<CourseCardProps> = (props) => {
         {course.name}
       </h2>
       {!inProgress && (
-        <Typography.Paragraph ellipsis={{ rows: 2 }} className="my-[13px]">
+        <Typography.Paragraph
+          ellipsis={{ rows: 2 }}
+          className="my-[13px] min-h-[45px]"
+        >
           <div className="text-[14px] font-next-book-Thin leading-[160%] text-[#000]">
             {course.description}
           </div>

@@ -3,12 +3,13 @@ import { Theme } from '@/constants/enum';
 import { BurialPoint } from '@/helper/burialPoint';
 import { ThemeContext } from '@/store/context/theme';
 import { message } from 'antd';
-import { FC, useContext, useRef } from 'react';
+import { FC, useContext, useEffect, useRef, useState } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import {
   oneDark,
   oneLight
 } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import { ExampleContext } from '../../LessonPage/ComponentRenderer/ExampleRenderer';
 
 interface CodeSourceType {
   content: {
@@ -28,10 +29,21 @@ const CodeRenderer: FC<CodeRendererProps> = (props) => {
   const language = component.content.language;
   const { theme } = useContext(ThemeContext);
   const codeRef = useRef<HTMLTextAreaElement>(null);
+  const [codeContent, setCodeContent] = useState('');
+  const { updateExampleContent, isExample } = useContext(ExampleContext);
+  useEffect(() => {
+    if (component.content.rich_text) {
+      const code = component.content.rich_text
+        .map((richText: any) => richText.plain_text)
+        .join('');
+      setCodeContent(code);
+      updateExampleContent(code);
+    }
+  }, [component.content.rich_text, updateExampleContent]);
 
   return (
-    <div className="relative bg-[#fafafa] rounded-md h-full">
-      <div className="h-[6px] relative">
+    <div className="relative rounded-md flex-1">
+      <div className="h-[6px] relative bg-[#fafafa] rounded-t-[4.8px]">
         <div
           className="absolute top-[9px] right-[9px] text-[0.75rem] font-next-book text-[#E3E3E3] rounded-[0.5rem] cursor-pointer"
           onClick={async (e) => {
@@ -57,12 +69,10 @@ const CodeRenderer: FC<CodeRendererProps> = (props) => {
       <SyntaxHighlighter
         style={theme === Theme.Dark ? oneDark : oneLight}
         language={language}
-        className="scroll-wrap-x font-next-poster-Bold"
+        className="scroll-wrap-x scroll-wrap-y font-next-poster-Bold h-[calc(100%-20px)] rounded-t-[0!important] mt-[0!important]"
         showLineNumbers
       >
-        {component.content.rich_text
-          .map((richText: any) => richText.plain_text)
-          .join('')}
+        {codeContent}
       </SyntaxHighlighter>
       {/* <textarea className="hidden" ref={codeRef} value={}></textarea> */}
     </div>

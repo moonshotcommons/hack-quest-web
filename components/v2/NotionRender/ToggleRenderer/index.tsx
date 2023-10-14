@@ -8,6 +8,7 @@ import { VscAdd, VscChromeMinimize } from 'react-icons/vsc';
 import { CustomComponent, NotionComponent } from '../../LessonPage/type';
 import ComponentRenderer from '../../LessonPage/ComponentRenderer';
 import { LessonContentContext } from '../../LessonPage/LessonContent';
+import { ExpandDataType } from '@/hooks/useLessonExpand';
 interface ToggleRendererProps {
   component: NotionComponent;
   isRenderChildren?: boolean;
@@ -17,21 +18,30 @@ interface ToggleRendererProps {
 const ToggleRenderer: FC<ToggleRendererProps> = (props) => {
   const { component, isRenderChildren = true } = props;
   const [showChild, setShowChild] = useState(false);
-  const { expandData } = useContext(LessonContentContext);
-  const [initExpandNum, setInitExpandNum] = useState(0);
+  const { expandData, changeExpandData } = useContext(LessonContentContext);
+
+  const changeShowChild = (status: boolean) => {
+    const newExpandData = [...expandData] as ExpandDataType[];
+    const index = newExpandData?.findIndex((v) => v.id === component.id);
+    newExpandData[index].expandNum = status ? 1 : 0;
+    setShowChild(status);
+    changeExpandData(newExpandData, expandData[0].index);
+  };
   useEffect(() => {
     const expandNum =
       expandData?.find((v) => v.id === component.id)?.expandNum || 0;
-    if (expandNum > initExpandNum) {
+    if (expandNum === 1) {
       setShowChild(true);
-      setInitExpandNum(expandNum);
+    } else {
+      setShowChild(false);
     }
-  }, [expandData]);
+  }, [expandData, component]);
+
   return (
-    <div className="border-b border-[#676767]">
+    <div className="border-b border-[#676767]  overflow-hidden">
       <div
         className="px-[.5rem] flex justify-between items-center my-3 cursor-pointer"
-        onClick={() => setShowChild(!showChild)}
+        onClick={() => changeShowChild(!showChild)}
       >
         <div>
           <TextRenderer
@@ -48,7 +58,7 @@ const ToggleRenderer: FC<ToggleRendererProps> = (props) => {
         </span>
       </div>
       {/* 正常渲染子对象 */}
-      <div className="ml-4">
+      <div className="pl-4">
         {isRenderChildren &&
           showChild &&
           component.children?.map((item: any, index: number) => {
