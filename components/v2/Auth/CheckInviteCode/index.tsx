@@ -7,11 +7,11 @@ import { cn } from '@/helper/utils';
 import { useValidator } from '@/hooks/useValidator';
 import webApi from '@/service';
 import { UnLoginType, setUnLoginType } from '@/store/redux/modules/user';
-import { useDebounceFn } from 'ahooks';
+import { useDebounceFn, useRequest } from 'ahooks';
 import { message } from 'antd';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import WhiteListModal from '../WhiteListModal';
 import { useGetUserUnLoginType } from '@/hooks/useGetUserInfo';
@@ -46,41 +46,59 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
     }
   });
 
-  const { run: validateInviteCode } = useDebounceFn(
-    () => {
-      BurialPoint.track('signup-验证邀请码按钮点击');
+  // const { run: validateInviteCode } = useDebounceFn(
+  //   () => {
+  //     BurialPoint.track('signup-验证邀请码按钮点击');
+  //   },
+  //   { wait: 500 }
+  // );
 
-      // validator.validate(formData, async (errors, fields) => {
-      //   if (!errors) {
-      //     const status: any = { ...formState };
-      //     for (let key in status) {
-      //       status[key] = { status: 'success', errorMessage: '' };
-      //     }
-      //     try {
-      //       BurialPoint.track('signup-发送注册邮件');
-      //       const res = await webApi.userApi.userRegister(formData);
-      //       BurialPoint.track('signup-注册邮件发送成功');
-      //       dispatch(setUnLoginType(UnLoginType.EMAIL_VERIFY));
-      //     } catch (e: any) {
-      //       BurialPoint.track('signup-注册邮件发送失败', { message: e?.msg });
-      //       console.log(e);
-      //       if (e?.code === 400) setShowWhiteListModal(true);
-      //       else message.error(e?.msg);
-      //     }
-      //   } else {
-      //     const status: any = { ...formState };
-      //     errors.map((error) => {
-      //       status[error.field as string] = {
-      //         status: 'error',
-      //         errorMessage: error.message
-      //       };
-      //     });
-      //     setFormState(status);
-      //   }
-      // });
+  const { run: verify, loading } = useRequest(
+    async () => {
+      const res = await webApi.userApi.checkInviteCode(formData.inviteCode);
+      return res;
     },
-    { wait: 500 }
+    {
+      onSuccess(res) {
+        if (res.valid) {
+          dispatch(
+            setUnLoginType({
+              type: UnLoginType.SIGN_UP,
+              params: {
+                codeVerify: true,
+                email: formData.email,
+                inviteCode: formData.inviteCode
+              }
+            })
+          );
+        } else {
+          setFormState({
+            ...formState,
+            inviteCode: {
+              status: 'error',
+              errorMessage: 'Invalid invite code'
+            }
+          });
+        }
+      },
+      onError(e: any) {
+        if (e.msg) {
+          message.error(e.msg);
+        } else {
+          message.error(e.message);
+        }
+      },
+      manual: true,
+      debounceWait: 500
+    }
   );
+
+  useEffect(() => {
+    setFormData({
+      ...formData,
+      email: loginRouteParams.params.email
+    });
+  }, []);
 
   return (
     <div className="w-full h-full flex justify-center">
@@ -98,7 +116,7 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
           <Input
             label="Invite Code"
             type="text"
-            name="inviteCode"
+            name="invite code"
             placeholder="8+characters with a mix of letters & numbers"
             className="bg-[#212121] text-white"
             // description="Use 8 or more characters with a mix of letters & numbers"
@@ -108,8 +126,7 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
             rules={{
               type: 'string',
               required: true,
-              pattern: /^(?=.*\d)(?=.*[a-zA-Z]).{8,16}$/,
-              message: '8 or more characters with a mix of letters & numbers'
+              len: 10
             }}
             onChange={(e) => {
               setFormData({
@@ -121,7 +138,9 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
         </div>
 
         <Button
-          onClick={() => {}}
+          onClick={() => {
+            verify();
+          }}
           block
           icon={<RightArrowIcon></RightArrowIcon>}
           iconPosition="right"
@@ -138,14 +157,16 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
         <Button
           onClick={() => {}}
           block
-          className="
-            font-next-book
-            text-[1.125rem]
-            border
-            bg-transparent
-            text-white hover:text-auth-ghost-button-text-hover-color
-            border-white hover:border-auth-ghost-button-border-hover-color
-          "
+          disabled={loading}
+          className={cn(
+            `font-next-book
+          text-[1.125rem]
+          border
+          bg-transparent
+          text-white hover:text-auth-ghost-button-text-hover-color
+          border-white hover:border-auth-ghost-button-border-hover-color`,
+            loading ? 'cursor-not-allowed opacity-70' : ''
+          )}
         >
           Back
         </Button>
