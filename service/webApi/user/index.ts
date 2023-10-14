@@ -9,7 +9,7 @@ import {
 import { transformQueryString } from '@/helper/formate';
 
 export enum UserApiType {
-  CheckEmail = '/users/verify',
+  CheckEmail = '/users/verify-email',
   UserRegister = '/users',
   UserLogin = '/users/signin',
   TokenVerify = '/users/token',
@@ -20,7 +20,8 @@ export enum UserApiType {
   AuthGoogle = 'auth/google',
   AuthGithub = 'auth/github',
   googleVerify = 'auth/google/callback',
-  githubVerify = 'auth/github/callback'
+  githubVerify = 'auth/github/callback',
+  CheckInViteCode = '/users/verify-inviteCode'
 }
 
 class UserApi {
@@ -31,9 +32,18 @@ class UserApi {
 
   /** 检查邮箱是否存在 */
   checkEmailExists(email: string) {
-    const queryString = transformQueryString({ email });
-    const url = `${UserApiType.CheckEmail}?${queryString}`;
-    return this.service.get(url);
+    // const queryString = transformQueryString({ email });
+    const url = `${UserApiType.CheckEmail}`;
+    return this.service.post<{ exists: boolean; inWhitelist: boolean }>(url, {
+      data: { email }
+    });
+  }
+
+  /** 检查邀请码 */
+  checkInviteCode(inviteCode: string) {
+    return this.service.post<{ valid: boolean }>(UserApiType.CheckInViteCode, {
+      data: { inviteCode }
+    });
   }
 
   /** 用户注册 */

@@ -18,7 +18,10 @@ const JoinUs: FC<JoinUsProps> = (props) => {
         <div className="w-[19.25rem] font-next-book-Thin text-[1rem] leading-[120%] mt-[1.63rem]">
           Connect with thousands of other brilliant minds in Web3, just like you
         </div>
-        <ContractUs className="gap-[2.19rem] mt-[2rem] mx-auto"></ContractUs>
+        <ContractUs
+          className="gap-[2.19rem] mt-[2rem] mx-auto"
+          theme="dark"
+        ></ContractUs>
       </div>
     </div>
   );
