@@ -18,6 +18,7 @@ import WhiteListModal from '../WhiteListModal';
 interface RegisterFormProps {
   email: string;
   onBack: VoidFunction;
+  inviteCode?: string;
 }
 
 const RegisterForm: FC<RegisterFormProps> = (props) => {
@@ -26,9 +27,11 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
     email: string;
     password: string;
     reenterPassword: string;
+    inviteCode: string | undefined;
   }>({
     email: props.email,
     password: '',
+    inviteCode: props.inviteCode,
     reenterPassword: ''
   });
 

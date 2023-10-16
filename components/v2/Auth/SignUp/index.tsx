@@ -9,6 +9,7 @@ import RegisterForm from '../RegisterForm';
 import VerifyEmail from '../VerifyEmail';
 import ThreePartyLogin from '../ThreePartyLogin';
 import webApi from '@/service';
+import { AuthType } from '@/service/webApi/user/type';
 
 interface SignUpProps {}
 
@@ -72,7 +73,8 @@ const SignUp: FC<SignUpProps> = (props) => {
                       setUnLoginType({
                         type: UnLoginType.INVITE_CODE,
                         params: {
-                          email
+                          email,
+                          registerType: AuthType.EMAIL
                         }
                       })
                     );
@@ -86,6 +88,7 @@ const SignUp: FC<SignUpProps> = (props) => {
       ) : (
         <RegisterForm
           email={email}
+          inviteCode={authInfo.params?.inviteCode}
           onBack={() => {
             BurialPoint.track('signup-注册返回');
             setShowRegisterForm(false);
