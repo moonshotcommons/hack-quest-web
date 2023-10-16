@@ -86,6 +86,7 @@ const SignUp: FC<SignUpProps> = (props) => {
       ) : (
         <RegisterForm
           email={email}
+          inviteCode={authInfo.params?.inviteCode}
           onBack={() => {
             BurialPoint.track('signup-注册返回');
             setShowRegisterForm(false);
