@@ -38,7 +38,9 @@ const TargetCard: React.FC<TargetCardProp> = ({
       buttonName: unClaimText
     });
     if (!isShare) {
-      router.push(unClaimPath);
+      unClaimPath.includes('http')
+        ? (window.location.href = unClaimPath)
+        : router.push(unClaimPath);
     } else {
     }
   };

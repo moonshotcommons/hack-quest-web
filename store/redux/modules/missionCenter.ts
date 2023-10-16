@@ -2,6 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 import {
   MissionDataType,
   MissionType,
+  UserCoinType,
+  UserLevelType,
   BeginnerRewardsType
 } from '@/service/webApi/missionCenter/type';
 
@@ -20,6 +22,8 @@ export interface MissionDataStateType {
 
 interface MissionCenterStateType {
   missionData: MissionDataStateType;
+  userLevel: UserLevelType;
+  userCoin: UserCoinType;
 }
 const filterUnClaim = (
   missions: MissionDataType[],
@@ -34,6 +38,14 @@ const filterUnClaim = (
 const MissionCenterSlice = createSlice({
   name: 'missionCenter',
   initialState: {
+    userLevel: {
+      exp: 0,
+      expNextLevel: 0,
+      level: 0
+    },
+    userCoin: {
+      coin: 0
+    },
     missionData: {
       all: [],
       unClaimAll: [],
@@ -48,6 +60,12 @@ const MissionCenterSlice = createSlice({
     }
   } as MissionCenterStateType,
   reducers: {
+    setUserLevel(state, { type, payload }) {
+      state.userLevel = payload;
+    },
+    setUserCoin(state, { type, payload }) {
+      state.userCoin = payload;
+    },
     setMissionData(state, { type, payload }) {
       payload?.map((v: MissionDataType) => {
         v.progress.progress[0] = v.progress.progress[0] || 0;
@@ -80,5 +98,6 @@ const MissionCenterSlice = createSlice({
 });
 
 // 同步的action
-export const { setMissionData } = MissionCenterSlice.actions;
+export const { setUserLevel, setUserCoin, setMissionData } =
+  MissionCenterSlice.actions;
 export default MissionCenterSlice.reducer;

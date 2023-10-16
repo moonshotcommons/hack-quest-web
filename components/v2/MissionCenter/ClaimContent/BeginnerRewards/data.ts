@@ -19,7 +19,7 @@ export const rewardsCardData: RewardsCardDataType = {
   },
   JOIN_DISCORD: {
     targetIcon: IconDiscord,
-    unClaimPath: '/',
+    unClaimPath: 'https://discord.gg/HJPqJnW2jw',
     unClaimText: 'Join Discord Community'
   },
   LINK_METAMASK: {
