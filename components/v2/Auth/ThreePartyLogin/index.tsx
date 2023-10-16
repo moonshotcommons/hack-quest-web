@@ -35,7 +35,7 @@ function ThreePartyLogin() {
           ></Image>
           Continue with Google
         </Button>
-        <Button
+        {/* <Button
           block
           className="border mt-[25px] border-[#f4f4f4] text-[#fff] relative"
           onClick={() => loginThreeParty(AuthType.GITHUB)}
@@ -48,7 +48,7 @@ function ThreePartyLogin() {
             className="absolute left-[25px] top-[16px]"
           ></Image>
           Continue with GitHub
-        </Button>
+        </Button> */}
       </div>
     </div>
   );

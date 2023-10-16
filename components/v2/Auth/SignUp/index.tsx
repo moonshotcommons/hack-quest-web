@@ -53,7 +53,7 @@ const SignUp: FC<SignUpProps> = (props) => {
               }
             }}
           ></VerifyEmail>
-          {/* <ThreePartyLogin /> */}
+          <ThreePartyLogin />
         </motion.div>
       ) : (
         <RegisterForm

@@ -56,7 +56,7 @@ const Login: FC<LoginProps> = (props) => {
               }
             }}
           ></VerifyEmail>
-          {/* <ThreePartyLogin /> */}
+          <ThreePartyLogin />
         </motion.div>
       ) : (
         <motion.div
