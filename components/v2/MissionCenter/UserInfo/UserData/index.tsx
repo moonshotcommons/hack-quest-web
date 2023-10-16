@@ -5,16 +5,26 @@ import IconCoin from '@/public/images/mission-center/icon_coin.png';
 import IconXp from '@/public/images/mission-center/icon_xp.png';
 import BrokenLine from '@/public/images/mission-center/broken_line.png';
 import Ring from './Ring';
+import { LoginResponse } from '@/service/webApi/user/type';
+import {
+  UserCoinType,
+  UserLevelType
+} from '@/service/webApi/missionCenter/type';
 
-const UserData: React.FC<Omit<UserInfoType, 'userTreasure'>> = ({
+export interface UserDataType {
+  userInfo: LoginResponse | null;
+  userLevel: UserLevelType;
+  userCoin: UserCoinType;
+}
+const UserData: React.FC<UserDataType> = ({
   userInfo,
   userLevel,
   userCoin
 }) => {
   return (
     <>
-      <div className="relative  mx-[auto] flex-center w-[150px] h-[150px] group cursor-pointer">
-        <div className="absolute w-[70px] right-[-73px] top-[12px] text-center hidden  group-hover:block ">
+      <div className="relative  mx-[auto] flex-center w-[150px] h-[150px] ">
+        <div className="absolute w-[70px] right-[-73px] top-[12px] text-center">
           <span className="text-[#000]">{`${userLevel.exp}`}</span>
           <span className="text-[#8C8C8C]">{`/${userLevel.expNextLevel}`}</span>
         </div>
@@ -22,7 +32,7 @@ const UserData: React.FC<Omit<UserInfoType, 'userTreasure'>> = ({
           src={BrokenLine}
           width={90}
           alt="vrokenLine"
-          className="absolute right-[-72px] top-[30px] z-10 hidden  group-hover:block"
+          className="absolute right-[-72px] top-[30px] z-10"
         ></Image>
         <div className="absolute w-full flex-center h-full left-0 top-0 pointer-events-none">
           <Ring radius={75} percent={userLevel.exp / userLevel.expNextLevel} />

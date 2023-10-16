@@ -84,7 +84,7 @@ const DailyBonus: React.FC<TabContentType> = ({
               disabled={claimed}
               onClick={() => missionClaim([item.id])}
             >
-              {claimed ? 'Rewards Claimed' : 'Claim'}
+              {claimed ? 'Claimed' : 'Claim'}
             </Button>
           </div>
           <div
