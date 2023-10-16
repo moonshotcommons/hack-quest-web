@@ -94,7 +94,7 @@ export const TopInfo: FC = () => {
           backgroundRepeat: 'repeat'
         }}
       ></div>
-      <div className="container mx-auto">
+      {/* <div className="container mx-auto">
         <h1 className="text-center pt-[20px] pb-[60px] text-[54px] font-next-poster-Bold text-landing-hack-info-top-color">
           Become a Solidity Developer
         </h1>
@@ -118,7 +118,7 @@ export const TopInfo: FC = () => {
             status={LearningTrackCourseType.UN_ENROLL}
           />
         </div>
-      </div>
+      </div> */}
       <div className="container pt-[80px] mx-auto pb-[47px] bg-landing-card-bg mt-[150px] rounded-[5rem] flex-col-center">
         <h1 className="text-text-default-color text-center font-next-poster-Bold text-[54px] tracking-[3.24px]">
           What is HackQuest?
@@ -230,7 +230,7 @@ const HackQuestInfo: FC<HackQuestInfoProps> = (props) => {
   // const { theme } = useContext(ThemeContext);
   return (
     <div className="flex flex-col items-center">
-      {/* <TopInfo></TopInfo> */}
+      <TopInfo></TopInfo>
       <div className="w-[100vw] flex justify-center py-[150px]">
         <Image src={CenterLogo} alt="hackquest"></Image>
       </div>
