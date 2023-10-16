@@ -71,20 +71,18 @@ const DailyBonus: React.FC<TabContentType> = ({
               </div>
             </div>
             <Button
-              className={`w-[164px] text-[16px] ml-[-20px] h-[44px] text-[#0b0b0b] 
-                      bg-auth-primary-button-bg
-                      text-auth-primary-button-text-color 
-                      border-auth-primary-button-border-color ${
+              className={`w-[164px] text-[16px] ml-[-20px] h-[44px] 
+                      border-auth-primary-button-border-color p-0 ${
                         claimed
-                          ? 'opacity-50 cursor-not-allowed'
+                          ? 'cursor-not-allowed bg-[#3E3E3E] text-[#fff]'
                           : `hover:border-auth-primary-button-border-hover-color 
                             hover:text-auth-primary-button-text-hover-color 
-                            hover:bg-auth-primary-button-hover-bg`
+                            hover:bg-auth-primary-button-hover-bg bg-auth-primary-button-bg text-[#0b0b0b]`
                       }`}
               disabled={claimed}
               onClick={() => missionClaim([item.id])}
             >
-              {claimed ? 'Claimed' : 'Claim'}
+              {claimed ? 'Rewards Claimed' : 'Claim'}
             </Button>
           </div>
           <div
