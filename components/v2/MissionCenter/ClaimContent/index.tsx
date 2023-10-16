@@ -7,6 +7,7 @@ import DailyQuests from './DailyQuests';
 import Milestones from './Milestones';
 import BannerBg from '@/public/images/landing/banner_bg.png';
 import { MissionDataStateType } from '@/store/redux/modules/missionCenter';
+import { BurialPoint } from '@/helper/burialPoint';
 
 interface ClaimContentProp {
   missions: MissionDataStateType;
@@ -21,24 +22,26 @@ const ClaimContent: React.FC<ClaimContentProp> = ({
     return [
       {
         label: 'Daily Bonus',
-        count: missions.unClaimDailyBonus.length
+        count: missions?.unClaimDailyBonus?.length
       },
       {
         label: 'Beginner Rewards',
-        count: missions.unClaimBeginnerRewards.length
+        count: missions?.unClaimBeginnerRewards?.length
       },
       {
         label: 'Daily Quests',
-        count: missions.unClaimDailyQuests.length
+        count: missions?.unClaimDailyQuests?.length
       },
       {
         label: 'Milestones',
-        count: missions.unClaimMilestones.length
+        count: missions?.unClaimMilestones?.length
       }
     ];
   }, [missions]);
 
   const changeTab = (i: number) => {
+    if (i > 1) return;
+    BurialPoint.track(`mission-center-切换tab`, { tab: tabList[i].label });
     setCurIndex(i);
   };
 

@@ -23,8 +23,7 @@ interface MissionCenterStateType {
 }
 const filterUnClaim = (
   missions: MissionDataType[],
-  type: MissionType | BeginnerRewardsType,
-  isBeginnerRewards?: boolean
+  type: MissionType | BeginnerRewardsType
 ) => {
   const data = missions.filter((v) => v.type === type);
   const unClaimData = data.filter(
@@ -33,7 +32,7 @@ const filterUnClaim = (
   return { data, unClaimData };
 };
 const MissionCenterSlice = createSlice({
-  name: 'course',
+  name: 'missionCenter',
   initialState: {
     missionData: {
       all: [],
