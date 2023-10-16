@@ -12,11 +12,11 @@ type RingProps = {
   strokeWidth?: number;
 };
 
-function Ring({ radius, percent, strokeWidth = 2 }: RingProps) {
+function Ring({ radius, percent }: RingProps) {
   const width = 2 * radius;
   const len = 2 * Math.PI * radius;
   const p = percent > 1 || percent < 0 ? 0 : percent;
-  const strokeDashoffset = len - len * p;
+  const strokeDashoffset = len - len * p || 0;
   return (
     <svg width={width} height={width} className="rotate-90">
       <circle

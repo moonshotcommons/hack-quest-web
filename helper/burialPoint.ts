@@ -119,7 +119,18 @@ type LessonDetailBurialPointType =
   | 'lesson-example 收起'
   | 'lesson-课程完成';
 
-// type MissCenterBurialPointType =
+type MissCenterBurialPointType =
+  | 'mission-center-切换tab'
+  | 'mission-center-claim'
+  | 'mission-center-unClaim按钮 点击 点击'
+  | 'mission-center-beginner-rewards-claimAll 按钮点击'
+  | 'mission-center-daily-quests-claimAll 按钮点击'
+  | 'mission-center-milestones-claimAll 按钮点击'
+  | 'mission-center-开宝箱'
+  | 'mission-center-HackQuest Rights 查看更多'
+  | 'mission-center-HackQuest Rights 收起'
+  | 'mission-center-daily-bonus claim滚动-左'
+  | 'mission-center-daily-bonus claim滚动-右';
 
 type BurialPointType =
   | AuthBurialPointType
@@ -129,7 +140,8 @@ type BurialPointType =
   | LearningTrackDetailBurialPointType
   | LessonDetailBurialPointType
   | BaseBurialPointType
-  | SettingsBurialPointType;
+  | SettingsBurialPointType
+  | MissCenterBurialPointType;
 
 export class BurialPoint {
   static track(

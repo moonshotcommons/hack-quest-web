@@ -1,13 +1,23 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import IconTip from '@/public/images/mission-center/icon_tip.svg';
 import IconLock from '@/public/images/mission-center/icon_lock.png';
 import { equityList, EquityListType, equityTip, EquityTipType } from './data';
+import { BurialPoint } from '@/helper/burialPoint';
 interface EquityProp {
   level: number;
 }
 const Equity: React.FC<EquityProp> = ({ level }) => {
   const [showMore, setShowMore] = useState(false);
+
+  const handleShowMore = () => {
+    if (!showMore) {
+      BurialPoint.track(`mission-center-HackQuest Rights 查看更多`);
+    } else {
+      BurialPoint.track(`mission-center-HackQuest Rights 收起`);
+    }
+    setShowMore(!showMore);
+  };
 
   const renderEquity = (v: EquityListType, i: number) => {
     if (level > v.level) {
@@ -81,7 +91,7 @@ const Equity: React.FC<EquityProp> = ({ level }) => {
       <div className="flex justify-end w-full pt-[4px]">
         <span
           className="text-[12px] text-[#000] underline cursor-pointer"
-          onClick={() => setShowMore(!showMore)}
+          onClick={() => handleShowMore()}
         >
           Show {showMore ? 'Less' : 'More'}
         </span>

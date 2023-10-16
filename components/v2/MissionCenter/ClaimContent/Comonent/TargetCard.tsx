@@ -12,6 +12,7 @@ import IconXp from '@/public/images/mission-center/icon_xp.png';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import LeftArrowIcon from '@/components/Common/Icon/LeftArrow';
+import { BurialPoint } from '@/helper/burialPoint';
 
 interface TargetCardProp {
   missionData: MissionDataType;
@@ -33,6 +34,9 @@ const TargetCard: React.FC<TargetCardProp> = ({
 }) => {
   const router = useRouter();
   const handleUnClaim = (item: MissionDataType) => {
+    BurialPoint.track(`mission-center-unClaim按钮 点击 点击`, {
+      buttonName: unClaimText
+    });
     if (!isShare) {
       router.push(unClaimPath);
     } else {
