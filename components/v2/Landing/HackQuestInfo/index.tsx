@@ -230,7 +230,7 @@ const HackQuestInfo: FC<HackQuestInfoProps> = (props) => {
   // const { theme } = useContext(ThemeContext);
   return (
     <div className="flex flex-col items-center">
-      <TopInfo></TopInfo>
+      {/* <TopInfo></TopInfo> */}
       <div className="w-[100vw] flex justify-center py-[150px]">
         <Image src={CenterLogo} alt="hackquest"></Image>
       </div>
