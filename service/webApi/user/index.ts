@@ -46,6 +46,13 @@ class UserApi {
     });
   }
 
+  /** 检查邀请码 */
+  checkInviteCodeByThirdParty(inviteCode: string, token: string) {
+    return this.service.post<{ token: string }>('/users/invitee', {
+      data: { inviteCode, token }
+    });
+  }
+
   /** 用户注册 */
   userRegister(params: RegisterParamsType) {
     const url = `${UserApiType.UserRegister}`;

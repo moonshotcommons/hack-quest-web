@@ -56,7 +56,8 @@ type AuthBurialPointType =
   | 'signup-注册按钮点击'
   | 'signup-注册返回'
   | 'signup-发送注册邮件'
-  | 'signup-验证邀请码按钮点击';
+  | 'signup-验证邀请码按钮点击'
+  | 'signup-Google三方登录输入邀请码登录成功';
 // | 'signup-修改注册邮件';
 
 type LandingBurialPointType =
