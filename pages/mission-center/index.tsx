@@ -51,7 +51,7 @@ function MissionCenter() {
       });
   };
   return (
-    <div className="flex justify-between w-full h-[calc(100vh-64px)]  text-[#0b0b0b] tracking-[0.3px] bg-[#f4f4f4]  text-[14px] font-next-book">
+    <div className="container mx-auto flex justify-between h-[calc(100vh-64px)]  text-[#0b0b0b] tracking-[0.3px] bg-[#f4f4f4]  text-[14px] font-next-book">
       <UserInfo userInfo={userInfo} userTreasure={userTreasure} />
       <ClaimContent missionClaim={missionClaim} />
     </div>
