@@ -209,7 +209,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
         .googleVerify(code)
         .then((res: any) => {
           if (res.status === 'UNACTIVATED') {
-            router.replace('/');
+            router.replace(`/?type=${UnLoginType.INVITE_CODE}`);
             dispatch(
               setUnLoginType({
                 type: UnLoginType.INVITE_CODE,
@@ -248,7 +248,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
         .githubVerify(code)
         .then((res: any) => {
           if (res.status === 'UNACTIVATED') {
-            router.replace('/');
+            router.replace(`/?type=${UnLoginType.INVITE_CODE}`);
             dispatch(
               setUnLoginType({
                 type: UnLoginType.INVITE_CODE,
