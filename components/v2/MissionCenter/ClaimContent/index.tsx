@@ -53,7 +53,6 @@ const ClaimContent: React.FC<ClaimContentProp> = ({ missionClaim }) => {
         return (
           <DailyBonus
             missionData={missionData.dailyBonus}
-            unClaimMissionData={missionData.unClaimDailyBonus}
             missionClaim={missionClaim}
           />
         );
@@ -97,10 +96,10 @@ const ClaimContent: React.FC<ClaimContentProp> = ({ missionClaim }) => {
         };
   }, [curIndex]);
   return (
-    <div className="w-[calc(100vw-400px)] pr-[40px] h-full flex flex-col py-[40px]">
+    <div className="w-[calc(100%-360px)] pr-[40px] h-full flex flex-col py-[40px]">
       <Tab curIndex={curIndex} tabList={tabList} changeTab={changeTab} />
       <div
-        className=" w-full overflow-x-hidden overflow-y-auto no-scrollbar rounded-b-[10px]"
+        className="w-full overflow-x-hidden overflow-y-auto no-scrollbar rounded-b-[10px]"
         style={{
           ...contentStyle,
           boxShadow: `0 1px 6px #dadada`
