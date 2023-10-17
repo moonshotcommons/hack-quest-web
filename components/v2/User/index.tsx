@@ -9,9 +9,7 @@ import UserDropCard from './UserDropCard';
 import { unLoginTab } from './data';
 import IconCoin from '@/public/images/mission-center/icon_coin.png';
 import { AppRootState } from '@/store/redux';
-interface UserProps {
-  // children: ReactNode;
-}
+interface UserProps {}
 
 const User: FC<UserProps> = (props) => {
   const [showUserDropCard, setShowUserDropCard] = useState(false);
