@@ -9,7 +9,6 @@ import { AuthType } from '@/service/webApi/user/type';
 function ThreePartyLogin() {
   const loginThreeParty = async (type: AuthType) => {
     const res = (await webApi.userApi.getAuthUrl(type)) as any;
-    debugger;
     window.location.href = res?.url;
   };
   return (

@@ -152,7 +152,7 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
             label="Invite Code"
             type="text"
             name="invite code"
-            placeholder="8+characters with a mix of letters & numbers"
+            placeholder="Enter your invite code"
             className="bg-[#212121] text-white"
             // description="Use 8 or more characters with a mix of letters & numbers"
             state={formState.inviteCode.status as any}
@@ -194,7 +194,10 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
           Next
         </Button>
         <Button
-          onClick={() => {}}
+          onClick={() => {
+            router.push('/');
+            dispatch(setUnLoginType(UnLoginType.LOGIN));
+          }}
           block
           disabled={emailLoading}
           className={cn(
