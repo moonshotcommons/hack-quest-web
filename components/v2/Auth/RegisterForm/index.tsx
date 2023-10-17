@@ -18,6 +18,7 @@ import WhiteListModal from '../WhiteListModal';
 interface RegisterFormProps {
   email: string;
   onBack: VoidFunction;
+  inviteCode?: string;
 }
 
 const RegisterForm: FC<RegisterFormProps> = (props) => {
@@ -26,9 +27,11 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
     email: string;
     password: string;
     reenterPassword: string;
+    inviteCode: string | undefined;
   }>({
     email: props.email,
     password: '',
+    inviteCode: props.inviteCode,
     reenterPassword: ''
   });
 
@@ -81,6 +84,7 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
             dispatch(setUnLoginType(UnLoginType.EMAIL_VERIFY));
           } catch (e: any) {
             BurialPoint.track('signup-注册邮件发送失败', { message: e?.msg });
+            console.log(e);
             if (e?.code === 400) setShowWhiteListModal(true);
             else message.error(e?.msg);
           }
@@ -207,26 +211,26 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
             </p>
           </div>
         </div>
-        <div className="flex flex-col gap-[.625rem]">
-          <Button
-            onClick={onRegister}
-            block
-            icon={<RightArrowIcon></RightArrowIcon>}
-            iconPosition="right"
-            className="
+
+        <Button
+          onClick={onRegister}
+          block
+          icon={<RightArrowIcon></RightArrowIcon>}
+          iconPosition="right"
+          className="
           font-next-book
           text-[1.125rem]
           bg-auth-primary-button-bg hover:bg-auth-primary-button-hover-bg
           text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
           border-auth-primary-button-border-color hover:border-auth-primary-button-border-hover-color
           "
-          >
-            Create my account
-          </Button>
-          <Button
-            onClick={onBack}
-            block
-            className="
+        >
+          Create my account
+        </Button>
+        <Button
+          onClick={onBack}
+          block
+          className="
             font-next-book
             text-[1.125rem]
             border
@@ -234,10 +238,9 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
             text-white hover:text-auth-ghost-button-text-hover-color
             border-white hover:border-auth-ghost-button-border-hover-color
           "
-          >
-            Back
-          </Button>
-        </div>
+        >
+          Back
+        </Button>
       </div>
       <WhiteListModal
         open={showWhiteListModal}

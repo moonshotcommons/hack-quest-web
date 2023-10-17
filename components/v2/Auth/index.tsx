@@ -9,6 +9,7 @@ import ForgotPassword from './ForgotPassword';
 import Login from './Login';
 import SignUp from './SignUp';
 import VerifyConfirmed from './VerifyConfirmed';
+import CheckInviteCode from './CheckInviteCode';
 
 interface AuthProps {}
 
@@ -23,8 +24,11 @@ const Auth: FC<AuthProps> = (props) => {
     const { type } = query;
     if (type) {
       dispatch(setUnLoginType(type));
+    } else {
+      dispatch(setUnLoginType(UnLoginType.LOGIN));
     }
-  }, [query]);
+  }, []);
+
   if (query.state) {
     return <VerifyConfirmed></VerifyConfirmed>;
   }
@@ -37,6 +41,8 @@ const Auth: FC<AuthProps> = (props) => {
       return <ChangePassword></ChangePassword>;
     case UnLoginType.VERIFYING:
       return <VerifyConfirmed></VerifyConfirmed>;
+    case UnLoginType.INVITE_CODE:
+      return <CheckInviteCode></CheckInviteCode>;
     case UnLoginType.SIGN_UP:
       return <SignUp></SignUp>;
     case UnLoginType.LOGIN:

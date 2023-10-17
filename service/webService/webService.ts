@@ -66,7 +66,11 @@ class WebService {
   }
 
   responseInterceptorCatch(err: AxiosError) {
-    return Promise.reject(err.response?.data);
+    if (err.response?.data) {
+      return Promise.reject(err.response.data);
+    } else {
+      return Promise.reject(err);
+    }
   }
 
   get<T>(url: string, config?: Omit<RequestConfig<T>, 'url'>): Promise<T> {
