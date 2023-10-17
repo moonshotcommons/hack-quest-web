@@ -79,11 +79,13 @@ const Success: React.FC<{ type: AuthType }> = ({ type }) => {
     </div>
   );
 };
+
 const Fail: React.FC<{ type: AuthType }> = ({ type }) => {
   const loginThreeParty = async (type: AuthType) => {
     const res = (await webApi.userApi.getAuthUrl(type)) as any;
     window.location.href = res?.url;
   };
+  const router = useRouter();
   const dispatch = useDispatch();
   const renderTextAndBtn = () => {
     switch (type) {
@@ -99,6 +101,7 @@ const Fail: React.FC<{ type: AuthType }> = ({ type }) => {
             </div>
             <Button
               onClick={() => {
+                router.push('/');
                 dispatch(setUnLoginType(UnLoginType.LOGIN));
               }}
               block
@@ -144,6 +147,7 @@ const Fail: React.FC<{ type: AuthType }> = ({ type }) => {
             </Button>
             <Button
               onClick={() => {
+                router.push('/');
                 dispatch(setUnLoginType(UnLoginType.LOGIN));
               }}
               block
@@ -204,10 +208,23 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
       webApi.userApi
         .googleVerify(code)
         .then((res: any) => {
-          dispatch(setUserInfo(omit(res, 'token')));
-          BurialPoint.track('signup-Google三方登录code验证成功');
-          setToken(res.token);
-          setVerifyState(VerifyStateType.SUCCESS);
+          if (res.status === 'UNACTIVATED') {
+            router.replace(`/?type=${UnLoginType.INVITE_CODE}`);
+            dispatch(
+              setUnLoginType({
+                type: UnLoginType.INVITE_CODE,
+                params: {
+                  registerType: AuthType.GOOGLE,
+                  ...res
+                }
+              })
+            );
+          } else {
+            dispatch(setUserInfo(omit(res, 'token')));
+            BurialPoint.track('signup-Google三方登录code验证成功');
+            setToken(res.token);
+            router.push('/home');
+          }
         })
         .catch((err) => {
           BurialPoint.track('signup-Google三方登录code验证失败', {
@@ -230,10 +247,23 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
       webApi.userApi
         .githubVerify(code)
         .then((res: any) => {
-          dispatch(setUserInfo(omit(res, 'token')));
-          BurialPoint.track('signup-Github三方登录code验证成功');
-          setToken(res.token);
-          setVerifyState(VerifyStateType.SUCCESS);
+          if (res.status === 'UNACTIVATED') {
+            router.replace(`/?type=${UnLoginType.INVITE_CODE}`);
+            dispatch(
+              setUnLoginType({
+                type: UnLoginType.INVITE_CODE,
+                params: {
+                  registerType: AuthType.GITHUB,
+                  ...res
+                }
+              })
+            );
+          } else {
+            dispatch(setUserInfo(omit(res, 'token')));
+            BurialPoint.track('signup-Github三方登录code验证成功');
+            setToken(res.token);
+            router.push('/home');
+          }
         })
         .catch((err) => {
           BurialPoint.track('signup-Github三方登录code验证失败', {
@@ -268,7 +298,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
       default:
         verifyEmail(token as string);
     }
-  }, [router, dispatch]);
+  }, []);
 
   return (
     <div className="w-full h-full flex flex-col items-center">

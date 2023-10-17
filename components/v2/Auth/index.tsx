@@ -27,7 +27,8 @@ const Auth: FC<AuthProps> = (props) => {
     } else {
       dispatch(setUnLoginType(UnLoginType.LOGIN));
     }
-  }, [query]);
+  }, []);
+
   if (query.state) {
     return <VerifyConfirmed></VerifyConfirmed>;
   }

@@ -6,6 +6,7 @@ export interface RegisterParamsType {
   email: string;
   password: string;
   reenterPassword: string;
+  inviteCode?: string;
 }
 
 export interface RegisterResponse {
