@@ -7,7 +7,12 @@ import V2BaseLayout from './V2BaseLayout';
 import V2FullLayout from './V2FullLayout';
 import webApi from '@/service';
 import { useDispatch } from 'react-redux';
-import { setMissionData } from '@/store/redux/modules/missionCenter';
+import {
+  setUserLevel,
+  setUserCoin,
+  setMissionData
+} from '@/store/redux/modules/missionCenter';
+import { useGetMissionData } from '@/hooks/useGetMissionData';
 
 export interface LayoutProps {
   navbarData: NavBarProps;
@@ -39,19 +44,13 @@ const V2Layout: FC<LayoutProps> = (props) => {
   const { waitingLoadUserInfo } = useLoadUserInfo();
   useNavAuth(waitingLoadUserInfo);
   const userInfo = useGetUserInfo();
-  const dispatch = useDispatch();
+  const { updateMissionDataAll } = useGetMissionData();
   const regex = /\/[^/]+\/\[courseId\]\/learn\/\[lessonId\]/;
   navbarData.navList = [];
-  // navbarData.navList = [];
-
-  const getMissionData = async () => {
-    let res = await webApi.missionCenterApi.getAllMission();
-    dispatch(setMissionData(res || []));
-  };
 
   if (userInfo) {
     navbarData.navList = navbarList;
-    getMissionData();
+    updateMissionDataAll();
   }
 
   switch (true) {

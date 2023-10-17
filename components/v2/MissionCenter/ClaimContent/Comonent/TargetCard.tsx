@@ -38,7 +38,9 @@ const TargetCard: React.FC<TargetCardProp> = ({
       buttonName: unClaimText
     });
     if (!isShare) {
-      router.push(unClaimPath);
+      unClaimPath.includes('http')
+        ? (window.location.href = unClaimPath)
+        : router.push(unClaimPath);
     } else {
     }
   };
@@ -89,15 +91,14 @@ const TargetCard: React.FC<TargetCardProp> = ({
           {missionData.progress?.completed ? (
             <Button
               className={`w-[164px] ml-[-20px] h-[44px] text-[#0b0b0b] 
-                                  bg-auth-primary-button-bg
-                                  text-auth-primary-button-text-color 
-                                  border-auth-primary-button-border-color ${
-                                    missionData.progress.claimed
-                                      ? 'opacity-50 cursor-not-allowed'
-                                      : `hover:border-auth-primary-button-border-hover-color
-                                         hover:text-auth-primary-button-text-hover-color 
-                                         hover:bg-auth-primary-button-hover-bg`
-                                  }`}
+                          bg-auth-primary-button-bg
+                          border-auth-primary-button-border-color ${
+                            missionData.progress.claimed
+                              ? 'opacity-50 cursor-not-allowed '
+                              : `hover:border-auth-primary-button-border-hover-color
+                                  hover:text-auth-primary-button-text-hover-color 
+                                  hover:bg-auth-primary-button-hover-bg`
+                          }`}
               disabled={missionData.progress.claimed}
               onClick={() => missionClaim([missionData.id])}
             >
