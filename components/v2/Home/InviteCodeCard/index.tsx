@@ -1,15 +1,61 @@
-import { FC, ReactNode, useState } from 'react';
+import { FC, ReactNode, useMemo, useState } from 'react';
 import Button from '../../Common/Button';
 import { VscAdd } from 'react-icons/vsc';
 import { ShareWrap, shareList } from './constant';
 import { message } from 'antd';
 import { BurialPoint } from '@/helper/burialPoint';
+import { useGetUserInfo } from '@/hooks/useGetUserInfo';
+import PopBox from './PopBox';
+import { useSelector } from 'react-redux';
+import { AppRootState } from '@/store/redux';
+import { cn } from '@/helper/utils';
+import webApi from '@/service';
+import { useRequest } from 'ahooks';
 
 interface InviteCodeCardProps {}
 
 const InviteCodeCard: FC<InviteCodeCardProps> = (props) => {
   const [expand, setExpand] = useState(true);
   const [showShare, setShowShare] = useState(false);
+  const [showDesc, setShowDesc] = useState(false);
+
+  const beginnerRewards = useSelector((state: AppRootState) => {
+    return state.missionCenter?.missionData?.beginnerRewards;
+  });
+
+  console.log(beginnerRewards);
+
+  const inviteProgress = useMemo(() => {
+    const inviteObject = beginnerRewards.find(
+      (item) => item.subType === 'INVITE_USER'
+    );
+    return {
+      progress: inviteObject?.progress.progress || [],
+      id: inviteObject?.id,
+      claimed: inviteObject?.progress.claimed,
+      completed: inviteObject?.progress.completed,
+      subType: inviteObject?.subType
+    };
+  }, [beginnerRewards]);
+
+  const userInfo = useGetUserInfo();
+
+  const inviteCode = useMemo(() => {
+    return userInfo?.inviteCode;
+  }, [userInfo]);
+
+  const { run: completeProgress, loading } = useRequest(
+    webApi.missionCenterApi.missionClaim,
+    {
+      onSuccess(res) {
+        message.success('success!');
+      },
+      onError(e: any) {
+        message.error(e.msg || e.message);
+      },
+      manual: true
+    }
+  );
 
   return (
     <div className="w-[380px] bg-white shadow-md rounded-[10px] p-5">
@@ -18,7 +64,22 @@ const InviteCodeCard: FC<InviteCodeCardProps> = (props) => {
           <span className="font-next-book text-[18px] tracking-[1.08pxx] leading-[120%]">
             INVITE CODE
           </span>
-          <span>{icons.descIcon}</span>
+          <div
+            className="relative h-full flex items-center justify-center pl-1"
+            onMouseEnter={(e) => setShowDesc(true)}
+            onMouseLeave={(e) => setShowDesc(false)}
+          >
+            <span className="cursor-pointer">{icons.descIcon}</span>
+            {showDesc && (
+              <PopBox className="-right-[34px]">
+                <p className="w-[340px] text-[12px] font-next-book leading-[160%] -tracking-[0.132px] text-[#0B0B0B]">
+                  HackQuest is currently in beta. Share your invite code to help
+                  new users sign up. Rewards are available at Mission Center
+                  after two users register with your invite code.
+                </p>
+              </PopBox>
+            )}
+          </div>
         </div>
         <div
           className="w-5 h-5 flex items-center justify-center cursor-pointer"
@@ -36,7 +97,7 @@ const InviteCodeCard: FC<InviteCodeCardProps> = (props) => {
             <div className="flex items-center gap-[6px]">
               {icons.inviteIcon}
               <span className="font-next-book text-[14px] leading-[120%] text-[#0B0B0B]">
-                HJJKWERCS654982168
+                {inviteCode}
               </span>
             </div>
             <div className="flex gap-[8.5px] h-full">
@@ -44,7 +105,7 @@ const InviteCodeCard: FC<InviteCodeCardProps> = (props) => {
                 className="flex gap-[5px] items-center cursor-pointer h-full"
                 onClick={async (e) => {
                   try {
-                    await navigator.clipboard.writeText('HJJKWERCS654982168');
+                    await navigator.clipboard.writeText(inviteCode || '');
                     BurialPoint.track('home-邀请码复制');
                     message.success('Copy success!');
                   } catch (e) {
@@ -70,27 +131,19 @@ const InviteCodeCard: FC<InviteCodeCardProps> = (props) => {
                   <span>Share</span>
                   <div>
                     {showShare && (
-                      <div className="absolute z-[9] flex flex-col items-center -right-[24px] top-[24px]">
-                        <div className="w-[24px] h-[24px] -rotate-[135deg] bg-white self-end -mb-[12px] mr-[28px] shadow-[rgba(0,0,0,0.05)_1.5px_1.5px_1.5px]"></div>
-
-                        <div
-                          className="p-5 flex flex-col bg-white rounded-[10px] w-fit gap-y-[15px]
-                      shadow-[0px_2px_8px_0px_rgba(99,99,99,0.2)]
-                      "
-                        >
-                          {shareList.map((item) => {
-                            return (
-                              <ShareWrap
-                                key={item.name}
-                                name={item.name}
-                                component={item.component}
-                                icon={item.icon}
-                                props={item.props}
-                              ></ShareWrap>
-                            );
-                          })}
-                        </div>
-                      </div>
+                      <PopBox>
+                        {shareList.map((item) => {
+                          return (
+                            <ShareWrap
+                              key={item.name}
+                              name={item.name}
+                              component={item.component}
+                              icon={item.icon}
+                              props={item.props}
+                            ></ShareWrap>
+                          );
+                        })}
+                      </PopBox>
                     )}
                   </div>
                 </div>
@@ -100,18 +153,42 @@ const InviteCodeCard: FC<InviteCodeCardProps> = (props) => {
           <div className="mt-5 flex justify-between gap-x-4 items-center">
             <div className="flex-1 flex flex-col gap-[13px]">
               <div className="leading-[100%] font-next-book text-[#0B0B0B] text-[14px] tracking-[0.28px]">
-                Users you invited (1/2)
+                {`Users you invited (${inviteProgress.progress[0] || 0}/${
+                  inviteProgress.progress[1] || 0
+                })`}
               </div>
               <div className="flex gap-[3px] w-full">
-                <div className="w-1/2 bg-[#FCC409] h-[7px] rounded-[3px]"></div>
-                <div className="w-1/2 bg-[#DADADA] h-[7px] rounded-[3px]"></div>
-                {/* <div className="w-1/3 bg-[#DADADA] h-[7px] rounded-[3px]"></div> */}
+                {new Array(inviteProgress.progress[1] || 0)
+                  .fill('')
+                  .map((item, index) => {
+                    return (
+                      <div
+                        key={index}
+                        className={cn(
+                          `w-1/2 h-[7px] rounded-[3px]`,
+                          index < inviteProgress.progress[0]
+                            ? 'bg-[#FCC409]'
+                            : 'bg-[#DADADA]'
+                        )}
+                      ></div>
+                    );
+                  })}
               </div>
             </div>
             <Button
               type="primary"
-              disabled
-              className="px-5 py-2 font-next-book text-[14px] text-[0B0B0B] opacity-40 leading-[125%] tracking-[0.28px]"
+              onClick={() => {
+                if (!inviteProgress.claimed && inviteProgress.completed) {
+                  completeProgress([inviteProgress.id || '']);
+                }
+              }}
+              disabled={inviteProgress.claimed || !inviteProgress.completed}
+              className={cn(
+                `px-5 py-2 font-next-book text-[14px] text-[0B0B0B] leading-[125%] tracking-[0.28px]`,
+                inviteProgress.claimed || !inviteProgress.completed
+                  ? 'opacity-40'
+                  : ''
+              )}
             >
               Claim Rewards
             </Button>

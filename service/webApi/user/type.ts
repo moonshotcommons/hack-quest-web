@@ -33,6 +33,7 @@ export interface LoginResponse {
   role: string;
   status: string;
   registerType: string;
+  inviteCode: string;
 }
 
 export enum ForgetPasswordErrorStatusType {
