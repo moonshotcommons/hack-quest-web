@@ -6,7 +6,6 @@ import BeginnerRewards from './BeginnerRewards';
 import DailyQuests from './DailyQuests';
 import Milestones from './Milestones';
 import BannerBg from '@/public/images/landing/banner_bg.png';
-import { MissionDataStateType } from '@/store/redux/modules/missionCenter';
 import { BurialPoint } from '@/helper/burialPoint';
 import { useSelector } from 'react-redux';
 import { AppRootState } from '@/store/redux';
@@ -96,13 +95,13 @@ const ClaimContent: React.FC<ClaimContentProp> = ({ missionClaim }) => {
         };
   }, [curIndex]);
   return (
-    <div className="w-[calc(100%-360px)] pr-[40px] h-full flex flex-col py-[40px]">
+    <div className="w-[calc(100%-360px)] h-full flex flex-col pt-[40px] pb-[20px]">
       <Tab curIndex={curIndex} tabList={tabList} changeTab={changeTab} />
       <div
-        className="w-full overflow-x-hidden overflow-y-auto no-scrollbar rounded-b-[10px]"
+        className="relative z-10 w-full overflow-x-hidden overflow-y-auto no-scrollbar rounded-b-[10px]"
         style={{
           ...contentStyle,
-          boxShadow: `0 1px 6px #dadada`
+          boxShadow: `0 5px 6px #dadada`
         }}
       >
         {renderContent()}

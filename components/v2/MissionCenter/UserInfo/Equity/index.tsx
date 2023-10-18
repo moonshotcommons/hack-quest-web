@@ -59,12 +59,16 @@ const Equity: React.FC<EquityProp> = ({ level }) => {
         <span>Your HackQuest rights as a Web3 Newbie</span>
         <div className="w-[40px] h-[40px] flex-center  relative left-[-15px] cursor-pointer group">
           <Image src={IconTip} width={10} alt="iconTip"></Image>
-          <div className="absolute top-[3px] right-[-3px] hidden group-hover:block  w-0 h-0 border-t-[17px] border-t-transparent border-b-[17px] border-b-transparent border-l-[17px] border-l-transparent border-r-[17px] border-r-[#fff]"></div>
-          <div className="absolute right-[-416px] top-[-30px] hidden group-hover:block w-[415px]  bg-[#fff] rounded-[10px] p-[20px]  z-10">
+          <div
+            className="absolute z-20 right-[-416px] top-[-30px] hidden group-hover:block w-[415px]  bg-[#fff] rounded-[10px] p-[20px]"
+            style={{
+              boxShadow: `0 1px 6px #dadada`
+            }}
+          >
             <div className="flex mt-[-15px] pb-[5px] border-b border-[#8C8C8C]">
               <div className="w-[45px]">Level</div>
               <div className="w-[115px]">Role</div>
-              <div className="w-[215px]">RightS</div>
+              <div className="w-[215px]">Rights</div>
             </div>
             <div className="text-[12px] font-next-book-Thin">
               {equityTip.map((v, i) => (
@@ -85,6 +89,7 @@ const Equity: React.FC<EquityProp> = ({ level }) => {
               ))}
             </div>
           </div>
+          <div className="absolute z-30 top-[3px] right-[-3px] hidden group-hover:block  w-0 h-0 border-t-[17px] border-t-transparent border-b-[17px] border-b-transparent border-l-[17px] border-l-transparent border-r-[17px] border-r-[#fff]"></div>
         </div>
       </div>
       <ul>{equityList.map((v, i) => renderEquity(v, i))}</ul>

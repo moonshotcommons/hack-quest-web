@@ -4,35 +4,35 @@ export interface EquityListType {
 }
 export const equityList: EquityListType[] = [
   {
-    label: 'learning for certificate',
+    label: 'Learning for certificate',
     level: 0
   },
   {
-    label: 'create courses',
+    label: 'Create courses',
     level: 10
   },
   {
-    label: 'eligible for airdrop',
+    label: 'Eligible for airdrop',
     level: 10
   },
   {
-    label: 'improve course content',
+    label: 'Improve course content',
     level: 10
   },
   {
-    label: 'apply for community advocate',
+    label: 'Apply for community advocate',
     level: 10
   },
   {
-    label: 'curate courses',
+    label: 'Curate courses',
     level: 20
   },
   {
-    label: 'platform governance',
+    label: 'Platform governance',
     level: 30
   },
   {
-    label: 'censor courses',
+    label: 'Censor courses',
     level: 30
   }
 ];
@@ -45,26 +45,26 @@ export const equityTip: EquityTipType[] = [
   {
     level: '1-9',
     role: 'Web3 Newbie',
-    rights: ['learning for certificate']
+    rights: ['Learning for certificate']
   },
   {
     level: '10-19',
     role: 'Web3 Explorer',
     rights: [
-      'create courses',
-      'eligible for airdrop',
-      'improve course content',
-      'apply for community advocate'
+      'Create courses',
+      'Eligible for airdrop',
+      'Improve course content',
+      'Apply for community advocate'
     ]
   },
   {
     level: '20-29',
     role: 'Web3 Explorer',
-    rights: ['curate courses']
+    rights: ['Curate courses']
   },
   {
     level: '30+',
     role: 'Web3 Questmaster',
-    rights: ['platform governance', 'censor courses']
+    rights: ['Platform governance', 'Censor courses']
   }
 ];

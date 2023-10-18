@@ -20,6 +20,9 @@ const Tab: React.FC<TabProp> = ({ tabList, curIndex, changeTab }) => {
               ? 'bg-[#fff] text-[#000] font-next-book-bold'
               : 'bg-[#DADADA] text-[#8c8c8c]'
           }`}
+          style={{
+            boxShadow: `0 -3px 6px #dadada`
+          }}
           onClick={() => changeTab(i)}
         >
           {i === curIndex && (
