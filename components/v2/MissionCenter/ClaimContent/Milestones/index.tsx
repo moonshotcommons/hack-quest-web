@@ -49,7 +49,7 @@ const Milestones: React.FC<TabContentType> = ({
               missionClaim={missionClaim}
               targetIcon={IconHack}
               unClaimPath={'/home'}
-              unClaimText={'Go to Dashboard'}
+              unClaimText={'Go to Learning'}
             />
           ))}
         </div>

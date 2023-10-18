@@ -70,18 +70,18 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
               </div>
             </div>
             <Button
-              className={`w-[164px] text-[16px]  h-[44px] 
-                      border-auth-primary-button-border-color p-0 ${
+              className={`w-[164px] text-[16px]  h-[44px] bg-auth-primary-button-bg
+                      border-auth-primary-button-border-color p-0 text-[#0b0b0b] ${
                         claimed
-                          ? 'cursor-not-allowed bg-[#3E3E3E] text-[#fff]'
+                          ? 'cursor-not-allowed opacity-50'
                           : `hover:border-auth-primary-button-border-hover-color 
                             hover:text-auth-primary-button-text-hover-color 
-                            hover:bg-auth-primary-button-hover-bg bg-auth-primary-button-bg text-[#0b0b0b]`
+                            hover:bg-auth-primary-button-hover-bg  `
                       }`}
               disabled={claimed}
               onClick={() => missionClaim([item.id])}
             >
-              {claimed ? 'Rewards Claimed' : 'Claim'}
+              {claimed ? 'Claimed' : 'Claim'}
             </Button>
           </div>
           <div

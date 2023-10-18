@@ -22,7 +22,7 @@ function Ring({ radius, percent }: RingProps) {
       <circle
         cx={radius}
         cy={radius}
-        r={radius - 12}
+        r={radius - 14}
         className="text-[#DADADA]"
         strokeWidth={12}
         stroke="currentColor"

@@ -48,9 +48,15 @@ const User: FC<UserProps> = (props) => {
                   <Image src={IconCoin} width={30} alt="iconCoin" />
                   <span>{userCoin.coin}</span>
                 </div>
-                <div className="w-[170px] h-full relative flex-center mr-[20px]">
-                  <div className="absolute right-[0] top-[0] w-[103px] h-full bg-[#8C8C8C] rounded-[20px]"></div>
-                  <div className="absolute left-[0] top-[0] w-[103px] h-full bg-[#3E3E3E] rounded-[20px]"></div>
+                <div className="w-[170px] h-full relative flex-center mr-[20px] rounded-[20px] bg-[#8C8C8C] ">
+                  <div
+                    className="absolute left-[0] top-[0] h-full bg-[#3E3E3E] rounded-[20px]"
+                    style={{
+                      width: `${
+                        (userLevel.exp / userLevel.expNextLevel) * 100
+                      }%`
+                    }}
+                  ></div>
                   <div className="absolute w-full h-full flex-row-center justify-between text-[#0b0b0b]">
                     <div className="w-[30px] h-[30px] flex-center rounded-[50%] bg-[#FFD850]">
                       <div className="w-[24px] h-[24px] flex-center rounded-[50%] bg-[#E7A600] ">
