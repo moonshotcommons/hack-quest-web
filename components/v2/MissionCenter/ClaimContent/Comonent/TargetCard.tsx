@@ -47,7 +47,6 @@ const TargetCard: React.FC<TargetCardProp> = ({
           .then((res) => {
             window.open(res.url);
             updateMissionDataAll();
-            console.info(res);
           })
           .finally(() => {
             changeMissionIds([]);
