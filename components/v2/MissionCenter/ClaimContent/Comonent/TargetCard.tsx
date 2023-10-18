@@ -10,9 +10,9 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import LeftArrowIcon from '@/components/Common/Icon/LeftArrow';
 import { BurialPoint } from '@/helper/burialPoint';
-import { MissionCenterContext } from '@/pages/mission-center/type';
 import { RewardsCardType } from '../BeginnerRewards/data';
 import webApi from '@/service';
+import { MissionCenterContext } from '@/components/v2/MissionCenter/type';
 
 interface TargetCardProp {
   missionData: MissionDataType;

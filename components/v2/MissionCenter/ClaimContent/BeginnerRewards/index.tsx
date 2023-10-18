@@ -6,7 +6,7 @@ import TargetCard from '../Comonent/TargetCard';
 import { TabContentType } from '../../type';
 import { rewardsCardData } from './data';
 import { BurialPoint } from '@/helper/burialPoint';
-import { MissionCenterContext } from '@/pages/mission-center/type';
+import { MissionCenterContext } from '@/components/v2/MissionCenter/type';
 
 const BeginnerRewards: React.FC<TabContentType> = ({
   missionData,

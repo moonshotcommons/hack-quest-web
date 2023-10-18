@@ -17,7 +17,7 @@ import {
 } from '@/components/Common/ScrollContainer';
 import ScrollControl from './ScrollControl';
 import { TabContentType } from '../../type';
-import { MissionCenterContext } from '@/pages/mission-center/type';
+import { MissionCenterContext } from '@/components/v2/MissionCenter/type';
 
 const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
   missionData,

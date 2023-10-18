@@ -9,7 +9,7 @@ import { shallowEqual, useSelector } from 'react-redux';
 import { message } from 'antd';
 import { BurialPoint } from '@/helper/burialPoint';
 import { useGetMissionData } from '@/hooks/useGetMissionData';
-import { MissionCenterContext } from './type';
+import { MissionCenterContext } from '@/components/v2/MissionCenter/type';
 
 function MissionCenter() {
   const userInfo = useSelector((state: AppRootState) => {

@@ -9,7 +9,7 @@ import { useRouter } from 'next/router';
 import TargetCard from '../Comonent/TargetCard';
 import { TabContentType } from '../../type';
 import { BurialPoint } from '@/helper/burialPoint';
-import { MissionCenterContext } from '@/pages/mission-center/type';
+import { MissionCenterContext } from '@/components/v2/MissionCenter/type';
 
 const DailyQuests: React.FC<TabContentType> = ({
   missionData,
