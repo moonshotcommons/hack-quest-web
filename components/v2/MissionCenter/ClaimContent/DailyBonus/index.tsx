@@ -18,9 +18,8 @@ import {
 import ScrollControl from './ScrollControl';
 import { TabContentType } from '../../type';
 
-const DailyBonus: React.FC<TabContentType> = ({
+const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
   missionData,
-  unClaimMissionData,
   missionClaim
 }) => {
   const [scrollContainerState, setScrollContainerState] =
@@ -31,12 +30,12 @@ const DailyBonus: React.FC<TabContentType> = ({
         (a: MissionDataType, b: MissionDataType) =>
           a?.progress?.progress?.[0] - b?.progress?.progress?.[0]
       ) || [];
-    const completedLen = unClaimMissionData.length;
+    const completedLen = missionData.filter((v) => v.progress.completed).length;
     return {
       mData,
       completedLen
     };
-  }, [missionData, unClaimMissionData]);
+  }, [missionData]);
   const renderClaimContent = (item: MissionDataType, i: number) => {
     const completed = item.progress?.completed;
     const claimed = item.progress?.claimed;
@@ -71,7 +70,7 @@ const DailyBonus: React.FC<TabContentType> = ({
               </div>
             </div>
             <Button
-              className={`w-[164px] text-[16px] ml-[-20px] h-[44px] 
+              className={`w-[164px] text-[16px]  h-[44px] 
                       border-auth-primary-button-border-color p-0 ${
                         claimed
                           ? 'cursor-not-allowed bg-[#3E3E3E] text-[#fff]'
@@ -88,7 +87,7 @@ const DailyBonus: React.FC<TabContentType> = ({
           <div
             className="w-[293px] h-[104px] relative"
             style={{
-              backgroundImage: `url(${claimed ? PitM.src : Pit.src})`,
+              backgroundImage: `url(${!claimed ? PitM.src : Pit.src})`,
               backgroundSize: `100% 100%`
             }}
           >
@@ -96,7 +95,7 @@ const DailyBonus: React.FC<TabContentType> = ({
               <div className="absolute right-[-120px] top-[-185px]">
                 <Image src={Mperson} width={190} alt="Mperson" className="" />
                 {claimed ? (
-                  <div className="absolute right-[-90px] top-[25px]">
+                  <div className="absolute right-[-35px] top-[25px]">
                     <div className="flex-row-center gap-[8px]">
                       <Image
                         src={IconCoin}
@@ -203,7 +202,7 @@ const DailyBonus: React.FC<TabContentType> = ({
                 )}
               </div>
             </ScrollContainer>
-            <div className="absolute left-[33px] bottom-[35px]">
+            <div className="absolute left-[33px] bottom-[35px] z-40">
               <ScrollControl changeState={scrollContainerState}></ScrollControl>
             </div>
           </div>
