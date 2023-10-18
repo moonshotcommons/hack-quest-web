@@ -20,6 +20,7 @@ const ClaimContent: React.FC<ClaimContentProp> = ({ missionClaim }) => {
     };
   });
   const [curIndex, setCurIndex] = useState(0);
+
   const tabList = useMemo(() => {
     return [
       {
