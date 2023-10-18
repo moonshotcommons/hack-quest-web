@@ -83,7 +83,8 @@ type HomeBurialPointType =
   | 'home-learning track卡片View Syllabus按钮点击'
   | 'home-learning track卡片Enroll按钮点击'
   | 'home-learning track卡片resume按钮点击'
-  | 'home-view all点击';
+  | 'home-view all点击'
+  | 'home-邀请码复制';
 
 type CourseDetailBurialPointType =
   | 'courseDetail-页面留存时间'

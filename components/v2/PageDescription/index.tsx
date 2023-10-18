@@ -1,15 +1,18 @@
+import { cn } from '@/helper/utils';
 import React from 'react';
 
 interface PageDescriptionType {
   title: string;
   description: string;
+  className?: string;
 }
 const PageDescription: React.FC<PageDescriptionType> = ({
   title,
-  description
+  description,
+  className
 }) => {
   return (
-    <div>
+    <div className={cn(`pb-[60px]`, className)}>
       <p className="text-[40px] font-next-poster-Bold tracking-[2.4px] pt-[20px]">
         {title}
       </p>
