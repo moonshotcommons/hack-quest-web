@@ -18,6 +18,7 @@ interface CourseDetailHeaderProps {
   type: 'course' | 'learning-track';
   rightComponent: ReactNode;
   onStartCallback: VoidFunction;
+  startLoading?: boolean;
 }
 
 const CourseDetailHeader: FC<CourseDetailHeaderProps> = (props) => {
@@ -27,7 +28,8 @@ const CourseDetailHeader: FC<CourseDetailHeaderProps> = (props) => {
     learningStatus = LearningStatus.IN_PROGRESS,
     rightComponent,
     type,
-    onStartCallback
+    onStartCallback,
+    startLoading = false
   } = props;
 
   return (
@@ -76,6 +78,8 @@ const CourseDetailHeader: FC<CourseDetailHeaderProps> = (props) => {
           {learningStatus === LearningStatus.UN_START && (
             <div>
               <Button
+                loading={startLoading}
+                disabled={startLoading}
                 className="px-0 w-[270px] py-[16px] leading-[125%] text-[#000] font-next-book text-[18px] tracking-[0.36px]"
                 type="primary"
                 onClick={onStartCallback}
