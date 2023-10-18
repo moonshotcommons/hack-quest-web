@@ -18,12 +18,14 @@ export const useGotoNextLesson = (
   const router = useRouter();
   const [completeModalOpen, setCompleteModalOpen] = useState(false);
   const { getLink } = useGetLessonLink();
+  const [loading, setLoading] = useState(false);
   const { unitsLessonsList } = useSelector((state: AppRootState) => {
     return {
       unitsLessonsList: state.course.unitsLessonsList
     };
   }, shallowEqual);
   const { run: onNextClick } = useDebounceFn(async () => {
+    setLoading(true);
     const { courseId } = router.query;
     let nextLesson;
     if (completed) {
@@ -51,7 +53,7 @@ export const useGotoNextLesson = (
       setCompleteModalOpen(true);
       return;
     }
-
+    setLoading(false);
     if (currentLessonIndex < (currentUnit?.pages?.length || 1) - 1) {
       nextLesson = currentUnit?.pages[currentLessonIndex + 1];
     } else {
@@ -61,7 +63,7 @@ export const useGotoNextLesson = (
     router.push(link);
   });
 
-  return { onNextClick, completeModalOpen, setCompleteModalOpen };
+  return { onNextClick, completeModalOpen, setCompleteModalOpen, loading };
 };
 
 export const useBackToPrevLesson = (

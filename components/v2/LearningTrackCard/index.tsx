@@ -39,7 +39,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
     learningSectionAndCourseName: string;
     learningLessonName: string;
   }>();
-  const jumpLearningLesson = useJumpLeaningLesson();
+  const { jumpLearningLesson, loading: jumpLoading } = useJumpLeaningLesson();
   const [learningTrack, setLearningTrack] =
     useState<LearningTrackDetailType>(track);
   const refresh = () => {
@@ -178,7 +178,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
             View Syllabus
           </Button>
           <Button
-            className="w-[80%] mt-5  h-15 text-[18px] text-home-learning-track-view-button-color bg-home-learning-track-view-button-bg px-0"
+            className="w-[80%] mt-5 h-15 text-[18px] text-home-learning-track-view-button-color bg-home-learning-track-view-button-bg px-0"
             onClick={handleResume}
           >
             Enroll
@@ -218,6 +218,8 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
                 </Button>
               ) : (
                 <Button
+                  loading={jumpLoading}
+                  disabled={jumpLoading}
                   className="w-[48%] h-11 text-home-learning-track-view-button-color bg-home-learning-track-view-button-bg px-0"
                   onClick={handleResume}
                 >
@@ -250,6 +252,8 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
                 View Syllabus
               </Button>
               <Button
+                loading={jumpLoading}
+                disabled={jumpLoading}
                 className="w-[48%] h-11 text-home-learning-track-view-button-color bg-home-learning-track-view-button-bg px-0"
                 onClick={handleResume}
               >
