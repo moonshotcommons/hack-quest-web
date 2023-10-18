@@ -158,11 +158,11 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
             state={formState.inviteCode.status as any}
             errorMessage={formState.inviteCode.errorMessage}
             delay={500}
-            rules={{
-              type: 'string',
-              required: true,
-              len: 10
-            }}
+            // rules={{
+            //   type: 'string',
+            //   required: true,
+            //   len: 10
+            // }}
             onChange={(e) => {
               setFormData({
                 ...formData,

@@ -12,11 +12,10 @@ function LearningTrack() {
         description={`Don't know where to start? Pick a learning track! Leaning Track provides a series of core + elective courses that help you master one topic and explore in the related field.`}
       />
       <Loading loading={loading}>
-        <div className="pt-[60px]">
-          {learningTracks.map((item) => (
-            <LearningTrackCard key={item.id} learningTrack={item} />
-          ))}
-        </div>
+        {learningTracks.map((item) => (
+          <LearningTrackCard key={item.id} learningTrack={item} />
+        ))}
+
         <div className="flex-center h-[170px]">
           <div className="w-[1px] h-[100px] bg-learning-track-line-bg"></div>
         </div>

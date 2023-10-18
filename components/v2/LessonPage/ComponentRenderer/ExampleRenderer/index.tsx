@@ -21,7 +21,6 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
   const { component, parent } = props;
   const [expand, setExpand] = useState(true);
   const [exampleContent, setExampleContent] = useState('');
-
   return (
     <div
       className={`rounded-[.625rem] py-[12px] px-[20px] bg-[#E6E6E6] flex w-full flex-col h-fit ${
