@@ -1,4 +1,4 @@
-import Button from '@/components/Common/Button';
+import Button from '@/components/v2/Common/Button';
 import RightArrowIcon from '@/components/Common/Icon/RightArrow';
 import Checkbox from '@/components/v2/Common/Checkbox';
 import Input from '@/components/v2/Common/Input';
@@ -89,6 +89,7 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
   );
   const { run: thirdPartyVerify, loading: thirdPartyLoading } = useRequest(
     async () => {
+      console.log('再次执行');
       const res = await webApi.userApi.checkInviteCodeByThirdParty(
         formData.inviteCode,
         formData.token
@@ -168,6 +169,13 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
                 ...formData,
                 inviteCode: e.target.value
               });
+              setFormState({
+                ...formState,
+                inviteCode: {
+                  status: 'default',
+                  errorMessage: ''
+                }
+              });
             }}
           ></Input>
         </div>
@@ -182,6 +190,8 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
           }}
           block
           icon={<RightArrowIcon></RightArrowIcon>}
+          disabled={emailLoading || thirdPartyLoading}
+          loading={emailLoading || thirdPartyLoading}
           iconPosition="right"
           className="
           font-next-book
@@ -199,7 +209,7 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
             dispatch(setUnLoginType(UnLoginType.LOGIN));
           }}
           block
-          disabled={emailLoading}
+          disabled={emailLoading || thirdPartyLoading}
           className={cn(
             `font-next-book
           text-[1.125rem]
@@ -207,7 +217,9 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
           bg-transparent
           text-white hover:text-auth-ghost-button-text-hover-color
           border-white hover:border-auth-ghost-button-border-hover-color`,
-            emailLoading ? 'cursor-not-allowed opacity-70' : ''
+            emailLoading || thirdPartyLoading
+              ? 'cursor-not-allowed opacity-70'
+              : ''
           )}
         >
           Back

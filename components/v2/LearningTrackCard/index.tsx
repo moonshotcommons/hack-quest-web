@@ -1,4 +1,4 @@
-import Button from '@/components/Common/Button';
+import Button from '@/components/v2/Common/Button';
 import CheckIcon from '@/components/Common/Icon/Check';
 import { BurialPoint } from '@/helper/burialPoint';
 import { computeProgress } from '@/helper/formate';
@@ -49,7 +49,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
     };
     setLearningTrack({ ...newLearningTrack });
   };
-  const { enroll } = useEnrollUnEnroll(track, refresh);
+  const { enroll, enrollLoading } = useEnrollUnEnroll(track, refresh);
   const learningTrackStatus = useMemo(() => {
     if (status) return status;
     const { progress } = learningTrack;
@@ -209,6 +209,8 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
               </Button>
               {!learningTrack.enrolled ? (
                 <Button
+                  loading={enrollLoading}
+                  disabled={enrollLoading}
                   className="w-[47%] h-11 text-home-learning-track-view-button-color bg-home-learning-track-view-button-bg"
                   onClick={handleRoll}
                 >

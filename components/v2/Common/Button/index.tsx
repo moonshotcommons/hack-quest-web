@@ -1,9 +1,18 @@
-import React, { FC, HTMLAttributes, ReactNode } from 'react';
+import React, {
+  FC,
+  HTMLAttributes,
+  ReactNode,
+  useEffect,
+  useMemo,
+  useRef
+} from 'react';
 import classnames from 'classnames';
 import { omit } from 'lodash-es';
 import { cn } from '@/helper/utils';
 type ButtonType = 'default' | 'primary' | 'secondary' | 'text';
 type SizeType = 'default' | 'large' | 'medium-x' | 'medium-y' | 'small';
+import Loading from '@/public/images/other/loading.png';
+import Image from 'next/image';
 interface BaseButtonProps {
   type?: ButtonType;
   icon?: ReactNode;
@@ -14,6 +23,7 @@ interface BaseButtonProps {
   rounded?: 'full' | 'medium' | 'small' | 'large';
   ghost?: boolean;
   size?: SizeType;
+  loading?: boolean;
 }
 
 export type ButtonProps = BaseButtonProps &
@@ -30,6 +40,7 @@ const Button: FC<ButtonProps> = (props) => {
     rounded,
     ghost,
     size,
+    loading = false,
     ...rest
   } = props;
   // const classNames = ;
@@ -53,8 +64,22 @@ const Button: FC<ButtonProps> = (props) => {
     if (!rounded) return 'rounded-[2.5rem]';
   };
 
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  const loadingSize = useMemo(() => {
+    const button = buttonRef.current;
+    if (!button) return [26, 26];
+    const fontSize = window
+      .getComputedStyle(button)
+      .getPropertyValue('font-size');
+    if (parseInt(fontSize || '0') > 0)
+      return [parseInt(fontSize) * 1.625, parseInt(fontSize) * 1.625];
+    return [26, 26];
+  }, [buttonRef]);
+
   return (
     <button
+      ref={buttonRef}
       className={cn(
         `text-text-default-color flex gap-[.625rem] items-center justify-center h-fit w-fit cursor-pointer`,
         type === 'primary' ? 'bg-primary-color' : '',
@@ -62,13 +87,28 @@ const Button: FC<ButtonProps> = (props) => {
         ghost && 'bg-transparent border-primary-color',
         mergeSize(),
         mergeRounded(),
-        className
+        className,
+        loading ? 'opacity-60 cursor-not-allowed' : '',
+        rest.disabled ? 'cursor-pointer' : ''
       )}
       {...rest}
     >
-      {icon && iconPosition === 'left' && <span>{icon}</span>}
-      <span>{children}</span>
-      {icon && iconPosition === 'right' && <span>{icon}</span>}
+      {!loading && (
+        <>
+          {icon && iconPosition === 'left' && <span>{icon}</span>}
+          <span>{children}</span>
+          {icon && iconPosition === 'right' && <span>{icon}</span>}
+        </>
+      )}
+      {loading && (
+        <Image
+          src={Loading}
+          width={loadingSize[0]}
+          height={loadingSize[1]}
+          alt="loading"
+          className="object-contain animate-spin"
+        ></Image>
+      )}
     </button>
   );
 };

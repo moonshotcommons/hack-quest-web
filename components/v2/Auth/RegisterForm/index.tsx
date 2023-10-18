@@ -1,4 +1,4 @@
-import Button from '@/components/Common/Button';
+import Button from '@/components/v2/Common/Button';
 import RightArrowIcon from '@/components/Common/Icon/RightArrow';
 import Checkbox from '@/components/v2/Common/Checkbox';
 import Input from '@/components/v2/Common/Input';
@@ -62,7 +62,7 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
   const [acceptErrorMessage, setAcceptErrorMessage] = useState(false);
   const [showWhiteListModal, setShowWhiteListModal] = useState(false);
   const router = useRouter();
-
+  const [loading, setLoading] = useState(false);
   const { run: onRegister } = useDebounceFn(
     () => {
       BurialPoint.track('signup-注册按钮点击');
@@ -71,6 +71,7 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
         setAcceptErrorMessage(true);
         return;
       }
+      setLoading(true);
       validator.validate(formData, async (errors, fields) => {
         if (!errors) {
           const status: any = { ...formState };
@@ -88,6 +89,7 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
             if (e?.code === 400) setShowWhiteListModal(true);
             else message.error(e?.msg);
           }
+          setLoading(false);
         } else {
           const status: any = { ...formState };
           errors.map((error) => {
@@ -97,6 +99,7 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
             };
           });
           setFormState(status);
+          setLoading(false);
         }
       });
     },
@@ -215,6 +218,8 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
         <Button
           onClick={onRegister}
           block
+          loading={loading}
+          disabled={loading}
           icon={<RightArrowIcon></RightArrowIcon>}
           iconPosition="right"
           className="
