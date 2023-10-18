@@ -51,6 +51,12 @@ class MissionCenterApi {
       }
     });
   }
+  /** 获取所有missionDiscord */
+  getMissionDiscord() {
+    return this.service.get<{ url: string }>(
+      `${MissionCenterApiType.Missions}/discord`
+    );
+  }
 }
 
 export default MissionCenterApi;
