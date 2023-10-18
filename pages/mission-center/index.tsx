@@ -41,7 +41,7 @@ function MissionCenter() {
       .missionClaim(missionIds)
       .then(() => {
         updateUserData();
-        message.success('成功');
+        message.success('success');
       })
       .catch((error) => {
         message.error(`claim ${error.msg}!`);

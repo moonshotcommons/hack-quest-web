@@ -1,18 +1,21 @@
-import React, { useMemo } from 'react';
+import React, { useState } from 'react';
 import Badge from '@/components/Common/Badge';
 import Image from 'next/image';
 import ChestImg from '@/public/images/mission-center/chest_img.png';
 import { UserTreasuresType } from '@/service/webApi/missionCenter/type';
 import { BurialPoint } from '@/helper/burialPoint';
+import TreasureModal, { TreasureType } from '@/components/v2/TreasureModal';
 
 interface TreasuresProp {
   userTreasure: UserTreasuresType[];
 }
 const Treasures: React.FC<TreasuresProp> = ({ userTreasure }) => {
+  const [teasureOpen, setTeasureOpen] = useState(false);
   const openChest = (i: number) => {
-    if (i >= userTreasure.length) return;
+    // if (i >= userTreasure.length) return;
     BurialPoint.track(`mission-center-开宝箱`);
     console.info(userTreasure[i]);
+    setTeasureOpen(true);
   };
   return (
     <div className="w-full">
@@ -39,6 +42,14 @@ const Treasures: React.FC<TreasuresProp> = ({ userTreasure }) => {
           </div>
         ))}
       </div>
+
+      <TreasureModal
+        open={teasureOpen}
+        onClose={() => setTeasureOpen(false)}
+        type={TreasureType.SHOW}
+        treasureXp={0}
+        treasureCoin={0}
+      />
     </div>
   );
 };

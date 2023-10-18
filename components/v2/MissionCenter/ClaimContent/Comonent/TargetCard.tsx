@@ -47,7 +47,9 @@ const TargetCard: React.FC<TargetCardProp> = ({
   return (
     <div
       key={missionData.id}
-      className="h-[84px] rounded-[10px] border border-[#8C8C8C] mt-[15px] relative overflow-hidden"
+      className={`h-[84px] rounded-[10px] border  mt-[15px] relative overflow-hidden ${
+        missionData.progress.completed ? 'border-[#ffd850]' : 'border-[#8C8C8C]'
+      }`}
     >
       <div
         className="h-full bg-auth-primary-button-bg opacity-40 absolute left-0 top-0"

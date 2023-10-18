@@ -1,9 +1,5 @@
-import React from 'react';
-import {
-  UserCoinType,
-  UserLevelType,
-  UserTreasuresType
-} from '@/service/webApi/missionCenter/type';
+import React, { useState } from 'react';
+import { UserTreasuresType } from '@/service/webApi/missionCenter/type';
 import { LoginResponse } from '@/service/webApi/user/type';
 import UserData from './UserData';
 import Treasures from './Treasures';
@@ -22,6 +18,7 @@ const UserInfo: React.FC<UserInfoType> = ({ userInfo, userTreasure }) => {
       userCoin: state.missionCenter?.userCoin
     };
   });
+
   return (
     <div className="flex justify-center flex-shrink-0 w-[360px] py-[40px] h-full">
       <div className="w-full h-full flex-col">
