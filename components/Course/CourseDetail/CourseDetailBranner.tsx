@@ -1,4 +1,4 @@
-import Button from '@/components/Common/Button';
+import Button from '@/components/v2/Common/Button';
 import { tagFormate } from '@/helper/formate';
 import { getCourseLink } from '@/helper/utils';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
@@ -28,7 +28,7 @@ interface CourseDetailBannerProps {
 const CourseDetailBanner: FC<CourseDetailBannerProps> = (props) => {
   const { courseDetail, jumpRef, children } = props;
   const router = useRouter();
-  const jumpLearningLesson = useJumpLeaningLesson();
+  const { jumpLearningLesson, loading } = useJumpLeaningLesson();
   const { theme } = useContext(ThemeContext);
   return (
     <div className="flex justify-end relative">
@@ -49,6 +49,8 @@ const CourseDetailBanner: FC<CourseDetailBannerProps> = (props) => {
         {children ||
           (courseDetail && (
             <Button
+              loading={loading}
+              disabled={loading}
               size="medium-x"
               className="mt-[1.875rem]
               bg-course-learning-button-bg

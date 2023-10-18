@@ -1,4 +1,4 @@
-import Button from '@/components/Common/Button';
+import Button from '@/components/v2/Common/Button';
 import ClockIcon from '@/components/Common/Icon/Clock';
 import CourseIcon from '@/components/Common/Icon/Course';
 import { computeTime, tagFormate } from '@/helper/formate';
@@ -17,6 +17,7 @@ interface HeaderRightProps {
   type: 'course' | 'learning-track';
   resumeCallback: VoidFunction;
   learningCourse?: CourseResponse;
+  resumeLoading?: boolean;
 }
 
 function UnProgressHeaderRight(
@@ -78,7 +79,8 @@ function InProgressHeaderRight(
   itemCount: number,
   type: 'course' | 'learning-track',
   resumeCallback: VoidFunction,
-  learningCourse?: CourseResponse
+  learningCourse?: CourseResponse,
+  resumeLoading = false
 ) {
   return (
     <div className="flex flex-col w-[445px] max-w-[445px]">
@@ -107,6 +109,8 @@ function InProgressHeaderRight(
       </div>
       <div className="mt-[40px]">
         <Button
+          loading={resumeLoading}
+          disabled={resumeLoading}
           className="px-0 w-[270px] py-[16px] leading-[125%] text-[#000] font-next-book text-[18px] tracking-[0.36px]"
           type="primary"
           onClick={resumeCallback}
@@ -130,7 +134,8 @@ const HeaderRight: FC<HeaderRightProps> = (props) => {
     learningStatus = LearningStatus.IN_PROGRESS,
     type,
     resumeCallback,
-    learningCourse
+    learningCourse,
+    resumeLoading = false
   } = props;
 
   if (
@@ -148,7 +153,8 @@ const HeaderRight: FC<HeaderRightProps> = (props) => {
         itemCount,
         type,
         resumeCallback,
-        learningCourse
+        learningCourse,
+        resumeLoading
       );
     case LearningStatus.COMPLETED:
     case LearningStatus.UN_START:

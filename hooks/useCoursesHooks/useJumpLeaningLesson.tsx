@@ -16,7 +16,7 @@ export const useJumpLeaningLesson = () => {
   const router = useRouter();
   const { query } = router;
   const dispatch = useDispatch();
-  const { run } = useRequest(
+  const { run: jumpLearningLesson, loading } = useRequest(
     async (
       courseDetail: CourseDetailType | CourseResponse,
       lParam?: JumpLeaningLessonType
@@ -59,5 +59,5 @@ export const useJumpLeaningLesson = () => {
     }
   );
 
-  return run;
+  return { jumpLearningLesson, loading };
 };
