@@ -37,8 +37,10 @@ const Treasures: React.FC<TreasuresProp> = ({ userTreasure }) => {
           <div
             key={i}
             className={`w-[60px] h-[60px] rounded-[10px] flex-center ${
-              userTreasure.length <= i || curId === userTreasure[i]?.id
-                ? 'border border-[#8C8C8C]'
+              curId === userTreasure[i]?.id
+                ? 'border border-[#8c8c8c]'
+                : userTreasure.length <= i
+                ? 'border border-[rgba(218, 218, 218, 0.8)]'
                 : 'cursor-pointer'
             }`}
             onClick={() => openChest(i)}
