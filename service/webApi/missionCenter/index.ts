@@ -5,7 +5,8 @@ import {
   UserTreasuresType,
   BadgesType,
   MissionDataType,
-  DigTreasuresResponse
+  DigTreasuresResponse,
+  OpenTreasuresResponse
 } from './type';
 
 export enum MissionCenterApiType {
@@ -63,6 +64,16 @@ class MissionCenterApi {
   digTreasures(lessonId: string) {
     const url = `${MissionCenterApiType.Treasures}/dig?lessonId=${lessonId}`;
     return this.service.get<DigTreasuresResponse>(url);
+  }
+
+  /** 开宝箱 */
+  openTreasures(treasuresId: string) {
+    const url = `${MissionCenterApiType.Treasures}/open`;
+    return this.service.post<OpenTreasuresResponse>(url, {
+      data: {
+        id: treasuresId
+      }
+    });
   }
 }
 

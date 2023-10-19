@@ -24,44 +24,53 @@ export const useGotoNextLesson = (
       unitsLessonsList: state.course.unitsLessonsList
     };
   }, shallowEqual);
-  const { run: onNextClick } = useDebounceFn(async () => {
-    setLoading(true);
-    const { courseId } = router.query;
-    let nextLesson;
-    if (completed) {
-      try {
-        await webApi.courseApi.completeLesson(lesson.id);
-      } catch (e) {
-        console.log('完成状态发生错误', e);
-      }
-    }
-    let currentUnitIndex = unitsLessonsList.findIndex((unit) => {
-      return unit.id === lesson.unitId;
-    });
-    const currentUnit = unitsLessonsList[currentUnitIndex];
-    const currentLessonIndex =
-      currentUnit?.pages.findIndex((page) => page.id === lesson.id) || 0;
-    const isLastUnit = currentUnitIndex === (unitsLessonsList.length || 1) - 1;
-    const isLastLesson =
-      currentLessonIndex === (currentUnit?.pages.length || 1) - 1;
+  const { run: onNextClick } = useDebounceFn(
+    async (callback?: VoidFunction) => {
+      setLoading(true);
+      const { courseId } = router.query;
+      let nextLesson;
 
-    if (isLastUnit && isLastLesson) {
-      // router.push(`${getCourseLink(courseType)}/${lesson.courseId}/completed`);
-      BurialPoint.track('lesson-课程完成', {
-        courseName: courseId as string
+      let currentUnitIndex = unitsLessonsList.findIndex((unit) => {
+        return unit.id === lesson.unitId;
       });
-      setCompleteModalOpen(true);
-      return;
+      const currentUnit = unitsLessonsList[currentUnitIndex];
+      const currentLessonIndex =
+        currentUnit?.pages.findIndex((page) => page.id === lesson.id) || 0;
+      const isLastUnit =
+        currentUnitIndex === (unitsLessonsList.length || 1) - 1;
+      const isLastLesson =
+        currentLessonIndex === (currentUnit?.pages.length || 1) - 1;
+      if (callback && isLastLesson) {
+        callback();
+        return;
+      }
+
+      if (completed) {
+        try {
+          await webApi.courseApi.completeLesson(lesson.id);
+        } catch (e) {
+          console.log('完成状态发生错误', e);
+        }
+      }
+
+      if (isLastUnit && isLastLesson) {
+        // router.push(`${getCourseLink(courseType)}/${lesson.courseId}/completed`);
+        BurialPoint.track('lesson-课程完成', {
+          courseName: courseId as string
+        });
+        setCompleteModalOpen(true);
+        return;
+      }
+      setLoading(false);
+      if (currentLessonIndex < (currentUnit?.pages?.length || 1) - 1) {
+        nextLesson = currentUnit?.pages[currentLessonIndex + 1];
+      } else {
+        nextLesson = unitsLessonsList[currentUnitIndex + 1].pages[0];
+      }
+      const link = getLink(courseType, nextLesson?.id as string);
+      router.push(link);
     }
-    setLoading(false);
-    if (currentLessonIndex < (currentUnit?.pages?.length || 1) - 1) {
-      nextLesson = currentUnit?.pages[currentLessonIndex + 1];
-    } else {
-      nextLesson = unitsLessonsList[currentUnitIndex + 1].pages[0];
-    }
-    const link = getLink(courseType, nextLesson?.id as string);
-    router.push(link);
-  });
+  );
 
   return { onNextClick, completeModalOpen, setCompleteModalOpen, loading };
 };
