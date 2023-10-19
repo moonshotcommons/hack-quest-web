@@ -19,7 +19,7 @@ const Treasures: React.FC<TreasuresProp> = ({ userTreasure }) => {
     // if (i >= userTreasure.length) return;
     BurialPoint.track(`mission-center-开宝箱`);
     console.info(userTreasure[i]);
-    treasureModalRef.current?.open('123');
+    treasureModalRef.current?.open('123', true);
   };
   return (
     <div className="w-full">
