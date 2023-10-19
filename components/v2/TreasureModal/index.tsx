@@ -25,7 +25,6 @@ export interface TreasureModalRef {
     digCallback?: VoidFunction
   ) => void;
 }
-
 const TreasureModal = forwardRef<TreasureModalRef, TreasureModalProp>(
   (props, ref) => {
     const [treasureContent, setTreasureContent] = useState({
