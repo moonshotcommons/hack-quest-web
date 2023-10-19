@@ -133,8 +133,8 @@ const InviteCodeCard: FC<InviteCodeCardProps> = (props) => {
                   <span>Share</span>
                   <div>
                     {showShare && (
-                      <PopBox>
-                        {shareList('邀请模板').map((item) => {
+                      <PopBox showPopTriangle={true}>
+                        {shareList(inviteCode || '').map((item) => {
                           return (
                             <ShareWrap
                               key={item.name}
