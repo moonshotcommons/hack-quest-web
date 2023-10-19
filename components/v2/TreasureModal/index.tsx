@@ -34,9 +34,11 @@ const TreasureModal = forwardRef<TreasureModalRef, TreasureModalProp>(
 
     useImperativeHandle(ref, () => {
       return {
-        open(treasureId: string) {
+        open(treasureId: string, isDig = false) {
           setTreasureId(treasureId);
           setOpen(true);
+          if (isDig) {
+          }
         }
       };
     });
