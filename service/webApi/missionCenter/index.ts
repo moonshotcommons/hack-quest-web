@@ -4,7 +4,8 @@ import {
   UserCoinType,
   UserTreasuresType,
   BadgesType,
-  MissionDataType
+  MissionDataType,
+  DigTreasuresResponse
 } from './type';
 
 export enum MissionCenterApiType {
@@ -56,6 +57,12 @@ class MissionCenterApi {
     return this.service.get<{ url: string }>(
       `${MissionCenterApiType.Missions}/discord`
     );
+  }
+
+  /** 挖宝箱 */
+  digTreasures(lessonId: string) {
+    const url = `${MissionCenterApiType.Treasures}/dig?lessonId=${lessonId}`;
+    return this.service.get<DigTreasuresResponse>(url);
   }
 }
 

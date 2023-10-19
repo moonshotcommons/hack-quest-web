@@ -62,3 +62,8 @@ export interface MissionDataType {
   coin: number;
   progress: ProgressType;
 }
+
+export interface DigTreasuresResponse {
+  success: boolean;
+  treasureId?: string;
+}
