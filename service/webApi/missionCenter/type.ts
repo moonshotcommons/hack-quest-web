@@ -67,3 +67,9 @@ export interface DigTreasuresResponse {
   success: boolean;
   treasureId?: string;
 }
+
+export interface OpenTreasuresResponse {
+  id: string;
+  exp: number;
+  coin: number;
+}

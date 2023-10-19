@@ -135,13 +135,13 @@ const LessonPage: FC<LessonPageProps> = (props) => {
                   lesson={lesson! as any}
                   onCompleted={() => {
                     if (lesson.state !== CompleteStateType.COMPLETED) {
-                      // webApi.missionCenterApi
-                      // .digTreasures(lessonId)
-                      // .then((res) => {
-                      //   if (res.success && res.treasureId) {
-                      treasureModalRef.current?.open('res.treasureId');
-                      // }
-                      // });
+                      webApi.missionCenterApi
+                        .digTreasures(lessonId)
+                        .then((res) => {
+                          if (res.success && res.treasureId) {
+                            treasureModalRef.current?.open(res.treasureId);
+                          }
+                        });
                     }
                     // 当前lesson完成
                     setIsHandleNext(true);

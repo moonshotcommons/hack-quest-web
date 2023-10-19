@@ -11,6 +11,8 @@ import Qmark from '@/public/images/mission-center/q_mark.png';
 import Mperson from '@/public/images/mission-center/m_person.png';
 import Image from 'next/image';
 import Button from '@/components/Common/Button';
+import webApi from '@/service';
+import { useGetMissionData } from '@/hooks/useGetMissionData';
 
 export enum TreasureType {
   DIG = 'dig',
@@ -34,6 +36,35 @@ const TreasureModal = forwardRef<TreasureModalRef, TreasureModalProp>(
     const [open, setOpen] = useState(false);
     const [treasureId, setTreasureId] = useState('');
     const [type, setType] = useState<TreasureType>(TreasureType.NOT_DIG);
+    const { updateMissionDataAll } = useGetMissionData();
+
+    const openTreasures = async (
+      treasureId: string,
+      digCallback?: VoidFunction
+    ) => {
+      const res = await webApi.missionCenterApi.openTreasures(treasureId);
+      setType(TreasureType.DIG);
+      setTreasureContent({
+        treasureCoin: res.coin,
+        treasureXp: res.exp
+      });
+      updateMissionDataAll();
+      digCallback?.();
+      return res;
+    };
+
+    const resetModal = () => {
+      setOpen(false);
+
+      setTimeout(() => {
+        setTreasureId('');
+        setTreasureContent({
+          treasureCoin: 0,
+          treasureXp: 0
+        });
+        setType(TreasureType.NOT_DIG);
+      }, 300);
+    };
 
     useImperativeHandle(ref, () => {
       return {
@@ -41,13 +72,14 @@ const TreasureModal = forwardRef<TreasureModalRef, TreasureModalProp>(
           setTreasureId(treasureId);
           setOpen(true);
           if (isDig) {
+            openTreasures(treasureId, digCallback);
           }
         }
       };
     });
 
     return (
-      <Modal open={open} onClose={() => setOpen(false)} showCloseIcon={true}>
+      <Modal open={open} onClose={() => resetModal()} showCloseIcon={true}>
         <div className="w-full h-[750px] flex-center">
           <div
             className="w-[99%] h-[700px] flex flex-col  rounded-[10px] overflow-hidden text-[#fff]"
@@ -67,7 +99,9 @@ const TreasureModal = forwardRef<TreasureModalRef, TreasureModalProp>(
                     You found something hidden on your HackQuest Journey!
                   </p>
                   <Button
-                    onClick={() => {}}
+                    onClick={() => {
+                      openTreasures(treasureId);
+                    }}
                     className={`w-[400px] text-[18px]  h-[55px] bg-auth-primary-button-bg
                       border-auth-primary-button-border-color p-0 text-[#0b0b0b] hover:border-auth-primary-button-border-hover-color
                       hover:text-auth-primary-button-text-hover-color
@@ -78,7 +112,7 @@ const TreasureModal = forwardRef<TreasureModalRef, TreasureModalProp>(
                   <Button
                     className={`w-[400px] text-[18px]  h-[55px] border
                       border-[#fff] p-0 text-[#fff] tracking-[0.36px]  `}
-                    onClick={() => setOpen(false)}
+                    onClick={() => resetModal()}
                   >
                     Check Later
                   </Button>
@@ -106,7 +140,7 @@ const TreasureModal = forwardRef<TreasureModalRef, TreasureModalProp>(
                   <Button
                     className={`w-[400px] text-[18px]  h-[55px] border
                       border-[#fff] p-0 text-[#fff] tracking-[0.36px]  `}
-                    onClick={() => setOpen(false)}
+                    onClick={() => resetModal()}
                   >
                     Continue
                   </Button>
