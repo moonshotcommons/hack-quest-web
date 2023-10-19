@@ -1,5 +1,5 @@
 import { MissionDataType } from '@/service/webApi/missionCenter/type';
-import React, { useMemo, useState } from 'react';
+import React, { useContext, useMemo, useState } from 'react';
 import MoonFace from '@/public/images/mission-center/moon_face.png';
 import IconCoin from '@/public/images/mission-center/icon_coin.png';
 import IconXp from '@/public/images/mission-center/icon_xp.png';
@@ -10,18 +10,20 @@ import Flag from '@/public/images/mission-center/flag.png';
 import Qmark from '@/public/images/mission-center/q_mark.png';
 import Mperson from '@/public/images/mission-center/m_person.png';
 import Image from 'next/image';
-import Button from '@/components/Common/Button';
+import Button from '@/components/v2/Common/Button';
 import {
   ChangeState,
   ScrollContainer
 } from '@/components/Common/ScrollContainer';
 import ScrollControl from './ScrollControl';
 import { TabContentType } from '../../type';
+import { MissionCenterContext } from '@/components/v2/MissionCenter/type';
 
 const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
   missionData,
   missionClaim
 }) => {
+  const { missionIds } = useContext(MissionCenterContext);
   const [scrollContainerState, setScrollContainerState] =
     useState<ChangeState>();
   const dealedMissionData = useMemo(() => {
@@ -79,6 +81,7 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
                             hover:bg-auth-primary-button-hover-bg  `
                       }`}
               disabled={claimed}
+              loading={missionIds.includes(item.id)}
               onClick={() => missionClaim([item.id])}
             >
               {claimed ? 'Claimed' : 'Claim'}
