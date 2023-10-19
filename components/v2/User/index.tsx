@@ -53,7 +53,8 @@ const User: FC<UserProps> = (props) => {
                     className="absolute left-[0] top-[0] h-full bg-[#3E3E3E] rounded-[20px]"
                     style={{
                       width: `${
-                        (userLevel.exp / userLevel.expNextLevel) * 100
+                        (userLevel.expCurrentLevel / userLevel.expNextLevel) *
+                        100
                       }%`
                     }}
                   ></div>
@@ -64,7 +65,7 @@ const User: FC<UserProps> = (props) => {
                       </div>
                     </div>
                     <div className="flex-1 flex-shrink-0 flex-center text-[#fff]">
-                      {`${userLevel.exp}/${userLevel.expNextLevel}`}
+                      {`${userLevel.expCurrentLevel}/${userLevel.expNextLevel}`}
                     </div>
                     <div className="w-[30px] h-[30px] flex-center rounded-[50%] bg-[#FFD850] opacity-50">
                       {userLevel.level + 1}

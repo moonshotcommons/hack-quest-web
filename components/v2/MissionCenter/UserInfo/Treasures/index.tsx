@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import Badge from '@/components/Common/Badge';
 import Image from 'next/image';
 import ChestImg from '@/public/images/mission-center/chest_img.png';
@@ -8,18 +8,21 @@ import TreasureModal, {
   TreasureType,
   TreasureModalRef
 } from '@/components/v2/TreasureModal';
+import Loading from '@/public/images/other/loading.png';
 
 interface TreasuresProp {
   userTreasure: UserTreasuresType[];
 }
 const Treasures: React.FC<TreasuresProp> = ({ userTreasure }) => {
   const treasureModalRef = useRef<TreasureModalRef>(null);
-
+  const [curId, setCurId] = useState('');
   const openChest = (i: number) => {
-    // if (i >= userTreasure.length) return;
+    if (i >= userTreasure.length) return;
     BurialPoint.track(`mission-center-开宝箱`);
-    console.info(userTreasure[i]);
-    treasureModalRef.current?.open('123', true);
+    setCurId(userTreasure[i].id);
+    treasureModalRef.current?.open(userTreasure[i].id, true, () => {
+      setCurId('');
+    });
   };
   return (
     <div className="w-full">
@@ -33,16 +36,23 @@ const Treasures: React.FC<TreasuresProp> = ({ userTreasure }) => {
         {Array.from({ length: 5 }).map((_, i) => (
           <div
             key={i}
-            className={`w-[60px] h-[60px] rounded-[10px] ${
-              userTreasure.length <= i
+            className={`w-[60px] h-[60px] rounded-[10px] flex-center ${
+              userTreasure.length <= i || curId === userTreasure[i]?.id
                 ? 'border border-[#8C8C8C]'
                 : 'cursor-pointer'
             }`}
             onClick={() => openChest(i)}
           >
-            {userTreasure.length > i && (
+            {curId === userTreasure[i]?.id ? (
+              <Image
+                src={Loading}
+                width={40}
+                alt="loading"
+                className="object-contain animate-spin opacity-100"
+              ></Image>
+            ) : userTreasure.length > i ? (
               <Image src={ChestImg} width={60} alt="chestImg"></Image>
-            )}
+            ) : null}
           </div>
         ))}
       </div>
