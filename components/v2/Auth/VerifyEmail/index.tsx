@@ -139,6 +139,7 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
         <Button
           onClick={verifyEmail}
           block
+          type="primary"
           disabled={loading}
           icon={<RightArrowIcon></RightArrowIcon>}
           iconPosition="right"

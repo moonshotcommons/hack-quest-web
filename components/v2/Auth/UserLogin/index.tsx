@@ -206,6 +206,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
           disabled={loading}
           icon={<RightArrowIcon></RightArrowIcon>}
           iconPosition="right"
+          type="primary"
           className="
           font-next-book
           text-[1.125rem]

@@ -189,6 +189,7 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
             }
           }}
           block
+          type="primary"
           icon={<RightArrowIcon></RightArrowIcon>}
           disabled={emailLoading || thirdPartyLoading}
           loading={emailLoading || thirdPartyLoading}

@@ -82,6 +82,7 @@ const ForgotPassword: FC<ForgotPasswordProps> = (props) => {
       <Button
         onClick={sendEmail}
         block
+        type="primary"
         loading={loading}
         disabled={loading}
         className="

@@ -50,6 +50,7 @@ const Success = () => {
           dispatch(setUnLoginType(UnLoginType.LOGIN));
           router.push('/');
         }}
+        type="primary"
         block
         className="
       font-next-book
@@ -76,6 +77,7 @@ const Fail = () => {
         <span>Your token has expired! Please try again.</span>
       </div>
       <Button
+        type="primary"
         onClick={() => {
           dispatch(setUnLoginType(UnLoginType.LOGIN));
           router.push('/');
@@ -233,6 +235,7 @@ const ChangeForm = ({
       <Button
         onClick={onUpdate}
         block
+        type="primary"
         loading={loading}
         disabled={loading}
         className="
