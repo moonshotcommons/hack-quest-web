@@ -1,8 +1,5 @@
 import Button from '@/components/v2/Common/Button';
-import {
-  BeginnerRewardsType,
-  MissionDataType
-} from '@/service/webApi/missionCenter/type';
+import { MissionDataType } from '@/service/webApi/missionCenter/type';
 import React, { useContext } from 'react';
 import IconCoin from '@/public/images/mission-center/icon_coin.png';
 import IconXp from '@/public/images/mission-center/icon_xp.png';

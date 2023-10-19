@@ -25,7 +25,7 @@ const UserData: React.FC<UserDataType> = ({
     <>
       <div className="relative  mx-[auto] flex-center w-[150px] h-[150px] ">
         <div className="absolute w-[70px] right-[-73px] top-[12px] text-center">
-          <span className="text-[#000]">{`${userLevel.exp}`}</span>
+          <span className="text-[#000]">{`${userLevel.expCurrentLevel}`}</span>
           <span className="text-[#8C8C8C]">{`/${userLevel.expNextLevel}`}</span>
         </div>
         <Image
@@ -35,7 +35,10 @@ const UserData: React.FC<UserDataType> = ({
           className="absolute right-[-72px] top-[30px] z-10"
         ></Image>
         <div className="absolute w-full flex-center h-full left-0 top-0 pointer-events-none">
-          <Ring radius={75} percent={userLevel.exp / userLevel.expNextLevel} />
+          <Ring
+            radius={75}
+            percent={userLevel.expCurrentLevel / userLevel.expNextLevel}
+          />
         </div>
         <div className="relative  rounded-[50%] w-[102px] h-[102px] overflow-hidden">
           {userInfo?.avatar && (
