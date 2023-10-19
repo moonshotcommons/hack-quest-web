@@ -30,6 +30,7 @@ export enum BeginnerRewardsType {
 export interface UserLevelType {
   level: number;
   expNextLevel: number;
+  expCurrentLevel: number;
   exp: number;
   id?: string;
 }

@@ -41,7 +41,8 @@ const MissionCenterSlice = createSlice({
     userLevel: {
       exp: 0,
       expNextLevel: 0,
-      level: 0
+      level: 0,
+      expCurrentLevel: 0
     },
     userCoin: {
       coin: 0

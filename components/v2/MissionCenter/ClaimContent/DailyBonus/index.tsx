@@ -1,5 +1,5 @@
 import { MissionDataType } from '@/service/webApi/missionCenter/type';
-import React, { useContext, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import MoonFace from '@/public/images/mission-center/moon_face.png';
 import IconCoin from '@/public/images/mission-center/icon_coin.png';
 import IconXp from '@/public/images/mission-center/icon_xp.png';
@@ -17,13 +17,12 @@ import {
 } from '@/components/Common/ScrollContainer';
 import ScrollControl from './ScrollControl';
 import { TabContentType } from '../../type';
-import { MissionCenterContext } from '@/components/v2/MissionCenter/type';
 
 const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
   missionData,
   missionClaim
 }) => {
-  const { missionIds } = useContext(MissionCenterContext);
+  const [curIndex, setCurIndex] = useState(-1);
   const [scrollContainerState, setScrollContainerState] =
     useState<ChangeState>();
   const dealedMissionData = useMemo(() => {
@@ -38,6 +37,10 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
       completedLen
     };
   }, [missionData]);
+  const handleClaim = (i: number) => {
+    setCurIndex(i);
+    missionClaim([dealedMissionData.mData[i].id]);
+  };
   const renderClaimContent = (item: MissionDataType, i: number) => {
     const completed = item.progress?.completed;
     const claimed = item.progress?.claimed;
@@ -81,8 +84,8 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
                             hover:bg-auth-primary-button-hover-bg  `
                       }`}
               disabled={claimed}
-              loading={missionIds.includes(item.id)}
-              onClick={() => missionClaim([item.id])}
+              loading={curIndex === i}
+              onClick={() => handleClaim(i)}
             >
               {claimed ? 'Claimed' : 'Claim'}
             </Button>
@@ -174,6 +177,7 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
       );
     }
   };
+
   return (
     <div className="text-[#fff] h-full flex flex-col overflow-hidden">
       <div className="w-full flex-1 overflow-y-auto overflow-x-hidden no-scrollbar ">

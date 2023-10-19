@@ -19,15 +19,14 @@ const Tab: React.FC<TabProp> = ({ tabList, curIndex, changeTab }) => {
               : i === curIndex
               ? 'bg-[#fff] text-[#000] font-next-book-bold'
               : 'bg-[#DADADA] text-[#8c8c8c]'
+          } ${
+            curIndex === i ? 'border-t-[10px] border-[#FFD850] pb-[10px]' : ''
           }`}
           style={{
             boxShadow: `0 -3px 6px #dadada`
           }}
           onClick={() => changeTab(i)}
         >
-          {i === curIndex && (
-            <div className="absolute left-0 top-0 w-full h-[10px] bg-[#FFD850]"></div>
-          )}
           <div className="relative">
             <span>{v.label}</span>
             <Badge count={v.count || 0} />

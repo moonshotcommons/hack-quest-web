@@ -7,7 +7,6 @@ import {
   setUserCoin,
   setMissionData
 } from '@/store/redux/modules/missionCenter';
-import { useRequest } from 'ahooks';
 
 export const useGetMissionData = () => {
   const dispatch = useDispatch();
