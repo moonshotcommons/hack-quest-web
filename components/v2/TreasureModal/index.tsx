@@ -19,7 +19,11 @@ export enum TreasureType {
 interface TreasureModalProp {}
 
 export interface TreasureModalRef {
-  open: (treasureId: string, isDig?: boolean) => void;
+  open: (
+    treasureId: string,
+    isDig?: boolean,
+    digCallback?: VoidFunction
+  ) => void;
 }
 
 const TreasureModal = forwardRef<TreasureModalRef, TreasureModalProp>(
@@ -34,7 +38,7 @@ const TreasureModal = forwardRef<TreasureModalRef, TreasureModalProp>(
 
     useImperativeHandle(ref, () => {
       return {
-        open(treasureId: string, isDig = false) {
+        open(treasureId: string, isDig = false, digCallback) {
           setTreasureId(treasureId);
           setOpen(true);
           if (isDig) {
