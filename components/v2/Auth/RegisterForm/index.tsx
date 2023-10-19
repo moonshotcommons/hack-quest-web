@@ -218,6 +218,7 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
         <Button
           onClick={onRegister}
           block
+          type="primary"
           loading={loading}
           disabled={loading}
           icon={<RightArrowIcon></RightArrowIcon>}

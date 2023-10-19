@@ -178,6 +178,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
             View Syllabus
           </Button>
           <Button
+            type="primary"
             className="w-[80%] mt-5 h-15 text-[18px] text-home-learning-track-view-button-color bg-home-learning-track-view-button-bg px-0"
             onClick={handleResume}
           >
@@ -209,6 +210,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
               </Button>
               {!learningTrack.enrolled ? (
                 <Button
+                  type="primary"
                   loading={enrollLoading}
                   disabled={enrollLoading}
                   className="w-[47%] h-11 text-home-learning-track-view-button-color bg-home-learning-track-view-button-bg"
@@ -220,6 +222,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
                 <Button
                   loading={jumpLoading}
                   disabled={jumpLoading}
+                  type="primary"
                   className="w-[48%] h-11 text-home-learning-track-view-button-color bg-home-learning-track-view-button-bg px-0"
                   onClick={handleResume}
                 >
@@ -254,6 +257,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
               <Button
                 loading={jumpLoading}
                 disabled={jumpLoading}
+                type="primary"
                 className="w-[48%] h-11 text-home-learning-track-view-button-color bg-home-learning-track-view-button-bg px-0"
                 onClick={handleResume}
               >
