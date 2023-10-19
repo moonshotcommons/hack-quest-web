@@ -165,7 +165,19 @@ const LessonPage: FC<LessonPageProps> = (props) => {
                     }
                   );
 
-                  onNextClick();
+                  onNextClick(() => {
+                    if (lesson.state !== CompleteStateType.COMPLETED) {
+                      webApi.missionCenterApi
+                        .digTreasures(lessonId)
+                        .then((res) => {
+                          if (res.success && res.treasureId) {
+                            treasureModalRef.current?.open(res.treasureId);
+                          } else {
+                            onNextClick();
+                          }
+                        });
+                    }
+                  });
                 }}
               />
               <CompleteModal
