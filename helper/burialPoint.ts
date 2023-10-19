@@ -56,7 +56,8 @@ type AuthBurialPointType =
   | 'signup-注册按钮点击'
   | 'signup-注册返回'
   | 'signup-发送注册邮件'
-  | 'signup-验证邀请码按钮点击';
+  | 'signup-验证邀请码按钮点击'
+  | 'signup-Google三方登录输入邀请码登录成功';
 // | 'signup-修改注册邮件';
 
 type LandingBurialPointType =
@@ -82,7 +83,8 @@ type HomeBurialPointType =
   | 'home-learning track卡片View Syllabus按钮点击'
   | 'home-learning track卡片Enroll按钮点击'
   | 'home-learning track卡片resume按钮点击'
-  | 'home-view all点击';
+  | 'home-view all点击'
+  | 'home-邀请码复制';
 
 type CourseDetailBurialPointType =
   | 'courseDetail-页面留存时间'
@@ -119,7 +121,18 @@ type LessonDetailBurialPointType =
   | 'lesson-example 收起'
   | 'lesson-课程完成';
 
-// type MissCenterBurialPointType =
+type MissCenterBurialPointType =
+  | 'mission-center-切换tab'
+  | 'mission-center-claim'
+  | 'mission-center-unClaim按钮 点击 点击'
+  | 'mission-center-beginner-rewards-claimAll 按钮点击'
+  | 'mission-center-daily-quests-claimAll 按钮点击'
+  | 'mission-center-milestones-claimAll 按钮点击'
+  | 'mission-center-开宝箱'
+  | 'mission-center-HackQuest Rights 查看更多'
+  | 'mission-center-HackQuest Rights 收起'
+  | 'mission-center-daily-bonus claim滚动-左'
+  | 'mission-center-daily-bonus claim滚动-右';
 
 type BurialPointType =
   | AuthBurialPointType
@@ -129,7 +142,8 @@ type BurialPointType =
   | LearningTrackDetailBurialPointType
   | LessonDetailBurialPointType
   | BaseBurialPointType
-  | SettingsBurialPointType;
+  | SettingsBurialPointType
+  | MissCenterBurialPointType;
 
 export class BurialPoint {
   static track(

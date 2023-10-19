@@ -1,17 +1,21 @@
-import Button from '@/components/Common/Button';
-import {
-  BeginnerRewardsType,
-  MissionDataType
-} from '@/service/webApi/missionCenter/type';
-import React, { useMemo } from 'react';
-import IconHack from '@/public/images/mission-center/icon_hack.png';
-import IconMetaMask from '@/public/images/mission-center/icon_meta_mask.png';
-import IconDiscord from '@/public/images/mission-center/icon_discord_communitypng.png';
+import Button from '@/components/v2/Common/Button';
+import { MissionDataType } from '@/service/webApi/missionCenter/type';
+import React, { useContext, useState } from 'react';
 import IconCoin from '@/public/images/mission-center/icon_coin.png';
 import IconXp from '@/public/images/mission-center/icon_xp.png';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import LeftArrowIcon from '@/components/Common/Icon/LeftArrow';
+import { BurialPoint } from '@/helper/burialPoint';
+import { RewardsCardType } from '../BeginnerRewards/data';
+import webApi from '@/service';
+import { MissionCenterContext } from '@/components/v2/MissionCenter/type';
+import PopBox from '@/components/v2/Home/InviteCodeCard/PopBox';
+import {
+  ShareWrap,
+  shareList
+} from '@/components/v2/Home/InviteCodeCard/constant';
+import { useGetUserInfo } from '@/hooks/useGetUserInfo';
 
 interface TargetCardProp {
   missionData: MissionDataType;
@@ -19,7 +23,7 @@ interface TargetCardProp {
   targetIcon: any;
   unClaimText: string;
   unClaimPath: string;
-  isShare?: boolean;
+  type?: RewardsCardType;
   isScale?: boolean;
 }
 const TargetCard: React.FC<TargetCardProp> = ({
@@ -28,20 +32,47 @@ const TargetCard: React.FC<TargetCardProp> = ({
   targetIcon,
   unClaimText,
   unClaimPath,
-  isShare = false,
+  type,
   isScale = true
 }) => {
+  const userInfo = useGetUserInfo();
+  const [showShare, setShowShare] = useState(false);
+  const { missionIds, changeMissionIds, updateMissionDataAll } =
+    useContext(MissionCenterContext);
   const router = useRouter();
-  const handleUnClaim = (item: MissionDataType) => {
-    if (!isShare) {
-      router.push(unClaimPath);
-    } else {
+  const handleUnClaim = () => {
+    BurialPoint.track(`mission-center-unClaim按钮 点击 点击`, {
+      buttonName: unClaimText
+    });
+    switch (type) {
+      case RewardsCardType.DISCORD:
+        changeMissionIds([missionData.id]);
+        webApi.missionCenterApi
+          .getMissionDiscord()
+          .then((res) => {
+            updateMissionDataAll();
+            window.open(res.url);
+          })
+          .finally(() => {
+            changeMissionIds([]);
+          });
+        break;
+      case RewardsCardType.SHARE:
+        setShowShare(!showShare);
+        break;
+      default:
+        unClaimPath.includes('http')
+          ? window.open(unClaimPath)
+          : router.push(unClaimPath);
     }
   };
+
   return (
     <div
       key={missionData.id}
-      className="h-[84px] rounded-[10px] border border-[#8C8C8C] mt-[15px] relative overflow-hidden"
+      className={`h-[84px] rounded-[10px] border  mt-[15px] relative ${
+        missionData.progress.completed ? 'border-[#ffd850]' : 'border-[#8C8C8C]'
+      }`}
     >
       <div
         className="h-full bg-auth-primary-button-bg opacity-40 absolute left-0 top-0"
@@ -59,7 +90,7 @@ const TargetCard: React.FC<TargetCardProp> = ({
           <span className="text-[16px]">
             {missionData.name}
             {isScale ||
-              (isShare &&
+              (type === RewardsCardType.SHARE &&
                 `(${missionData.progress.progress[0]}/${missionData.progress.progress[1]})`)}
           </span>
         </div>
@@ -85,36 +116,56 @@ const TargetCard: React.FC<TargetCardProp> = ({
           {missionData.progress?.completed ? (
             <Button
               className={`w-[164px] ml-[-20px] h-[44px] text-[#0b0b0b] 
-                                  bg-auth-primary-button-bg
-                                  text-auth-primary-button-text-color 
-                                  border-auth-primary-button-border-color ${
-                                    missionData.progress.claimed
-                                      ? 'opacity-50 cursor-not-allowed'
-                                      : `hover:border-auth-primary-button-border-hover-color
-                                         hover:text-auth-primary-button-text-hover-color 
-                                         hover:bg-auth-primary-button-hover-bg`
-                                  }`}
+                          bg-auth-primary-button-bg
+                          border-auth-primary-button-border-color ${
+                            missionData.progress.claimed
+                              ? 'opacity-50 cursor-not-allowed '
+                              : `hover:border-auth-primary-button-border-hover-color
+                                  hover:text-auth-primary-button-text-hover-color 
+                                  hover:bg-auth-primary-button-hover-bg`
+                          }`}
               disabled={missionData.progress.claimed}
+              loading={missionIds.includes(missionData.id)}
               onClick={() => missionClaim([missionData.id])}
             >
               {missionData.progress.claimed ? 'Claimed' : 'Claim'}
             </Button>
           ) : (
-            <Button
-              className={`w-[164px] p-0 ml-[-20px] h-[44px] text-[14px] text-[#0b0b0b] 
+            <div className="relative">
+              <Button
+                className={`w-[164px] p-0 ml-[-20px] h-[44px] text-[14px] text-[#0b0b0b] 
               text-auth-primary-button-text-color  border
               border-[#0b0b0b]`}
-              onClick={() => handleUnClaim(missionData)}
-            >
-              <div className="relative flex items-center">
-                {unClaimText}
-                {isShare && (
-                  <div className="-rotate-90">
-                    <LeftArrowIcon />
-                  </div>
-                )}
-              </div>
-            </Button>
+                loading={missionIds.includes(missionData.id)}
+                onClick={() => handleUnClaim()}
+              >
+                <div className="flex items-center">
+                  {unClaimText}
+                  {type === RewardsCardType.SHARE && (
+                    <div
+                      className={`${showShare ? 'rotate-90' : '-rotate-90'}`}
+                    >
+                      <LeftArrowIcon />
+                    </div>
+                  )}
+                </div>
+              </Button>
+              {type === RewardsCardType.SHARE && showShare && (
+                <PopBox className="top-[-260px] left-[-45px]">
+                  {shareList(userInfo?.inviteCode || '').map((item) => {
+                    return (
+                      <ShareWrap
+                        key={item.name}
+                        name={item.name}
+                        component={item.component}
+                        icon={item.icon}
+                        props={item.props}
+                      ></ShareWrap>
+                    );
+                  })}
+                </PopBox>
+              )}
+            </div>
           )}
         </div>
       </div>

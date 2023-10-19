@@ -5,27 +5,40 @@ import IconCoin from '@/public/images/mission-center/icon_coin.png';
 import IconXp from '@/public/images/mission-center/icon_xp.png';
 import BrokenLine from '@/public/images/mission-center/broken_line.png';
 import Ring from './Ring';
+import { LoginResponse } from '@/service/webApi/user/type';
+import {
+  UserCoinType,
+  UserLevelType
+} from '@/service/webApi/missionCenter/type';
 
-const UserData: React.FC<Omit<UserInfoType, 'userTreasure'>> = ({
+export interface UserDataType {
+  userInfo: LoginResponse | null;
+  userLevel: UserLevelType;
+  userCoin: UserCoinType;
+}
+const UserData: React.FC<UserDataType> = ({
   userInfo,
   userLevel,
   userCoin
 }) => {
   return (
     <>
-      <div className="relative  mx-[auto] flex-center w-[150px] h-[150px] group cursor-pointer">
-        <div className="absolute w-[70px] right-[-73px] top-[12px] text-center hidden  group-hover:block ">
-          <span className="text-[#000]">{`${userLevel.exp}`}</span>
+      <div className="relative  mx-[auto] flex-center w-[150px] h-[150px] ">
+        <div className="absolute w-[70px] right-[-73px] top-[12px] text-center">
+          <span className="text-[#000]">{`${userLevel.expCurrentLevel}`}</span>
           <span className="text-[#8C8C8C]">{`/${userLevel.expNextLevel}`}</span>
         </div>
         <Image
           src={BrokenLine}
           width={90}
           alt="vrokenLine"
-          className="absolute right-[-72px] top-[30px] z-10 hidden  group-hover:block"
+          className="absolute right-[-72px] top-[30px] z-10"
         ></Image>
         <div className="absolute w-full flex-center h-full left-0 top-0 pointer-events-none">
-          <Ring radius={75} percent={userLevel.exp / userLevel.expNextLevel} />
+          <Ring
+            radius={75}
+            percent={userLevel.expCurrentLevel / userLevel.expNextLevel}
+          />
         </div>
         <div className="relative  rounded-[50%] w-[102px] h-[102px] overflow-hidden">
           {userInfo?.avatar && (
@@ -42,7 +55,7 @@ const UserData: React.FC<Omit<UserInfoType, 'userTreasure'>> = ({
       <div className="flex-col-center mt-[20px] mb-[40px]">
         <p className="leading-[22.5px]">
           <span className="text-[18px] ">{userInfo?.name}</span>
-          <span className="ml-[15px] font-[250]">
+          <span className="ml-[15px] font-[250] font-next-book-Thin">
             Lv. {userLevel?.level ?? 0}
           </span>
         </p>

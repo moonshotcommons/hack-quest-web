@@ -2,7 +2,12 @@ import SettingIcon from '@/components/Common/Icon/Setting';
 import SignOutIcon from '@/components/Common/Icon/SignOut';
 import { BurialPoint } from '@/helper/burialPoint';
 import { LoginResponse } from '@/service/webApi/user/type';
-import { setSettingsOpen, userSignOut } from '@/store/redux/modules/user';
+import {
+  UnLoginType,
+  setSettingsOpen,
+  setUnLoginType,
+  userSignOut
+} from '@/store/redux/modules/user';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
@@ -43,6 +48,7 @@ const UserDropCard: FC<UserDropCardProps> = (props) => {
   const router = useRouter();
   const signOut = () => {
     router.push('/');
+    dispatch(setUnLoginType(UnLoginType.LOGIN));
     dispatch(userSignOut());
     BurialPoint.track('登出');
   };

@@ -6,6 +6,7 @@ export interface RegisterParamsType {
   email: string;
   password: string;
   reenterPassword: string;
+  inviteCode?: string;
 }
 
 export interface RegisterResponse {
@@ -32,6 +33,7 @@ export interface LoginResponse {
   role: string;
   status: string;
   registerType: string;
+  inviteCode: string;
 }
 
 export enum ForgetPasswordErrorStatusType {

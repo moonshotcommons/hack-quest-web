@@ -61,7 +61,7 @@ function Course() {
     });
   }, [curTab]);
   return (
-    <div className="pt-20">
+    <>
       <Tab curTab={curTab} changeTab={changeTab} />
       <Loading loading={loading}>
         {!courseListData[curTab].length &&
@@ -74,7 +74,7 @@ function Course() {
           </>
         )}
       </Loading>
-    </div>
+    </>
   );
 }
 

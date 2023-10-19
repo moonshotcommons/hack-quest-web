@@ -4,7 +4,9 @@ import {
   UserCoinType,
   UserTreasuresType,
   BadgesType,
-  MissionDataType
+  MissionDataType,
+  DigTreasuresResponse,
+  OpenTreasuresResponse
 } from './type';
 
 export enum MissionCenterApiType {
@@ -43,9 +45,35 @@ class MissionCenterApi {
     return this.service.get<MissionDataType[]>(MissionCenterApiType.Missions);
   }
   /** mission claim */
-  missionClaim(missionId: string) {
-    const url = `${MissionCenterApiType.Missions}/${missionId}/claim`;
-    return this.service.get(url);
+  missionClaim(missionIds: string[]) {
+    const url = `${MissionCenterApiType.Missions}/claim`;
+    return this.service.post(url, {
+      data: {
+        missionIds
+      }
+    });
+  }
+  /** 获取所有missionDiscord */
+  getMissionDiscord() {
+    return this.service.get<{ url: string }>(
+      `${MissionCenterApiType.Missions}/discord`
+    );
+  }
+
+  /** 挖宝箱 */
+  digTreasures(lessonId: string) {
+    const url = `${MissionCenterApiType.Treasures}/dig?lessonId=${lessonId}`;
+    return this.service.get<DigTreasuresResponse>(url);
+  }
+
+  /** 开宝箱 */
+  openTreasures(treasuresId: string) {
+    const url = `${MissionCenterApiType.Treasures}/open`;
+    return this.service.post<OpenTreasuresResponse>(url, {
+      data: {
+        id: treasuresId
+      }
+    });
   }
 }
 

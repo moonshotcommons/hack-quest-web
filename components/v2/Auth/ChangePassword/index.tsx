@@ -1,4 +1,4 @@
-import Button from '@/components/Common/Button';
+import Button from '@/components/v2/Common/Button';
 import Input from '@/components/v2/Common/Input';
 import { BurialPoint } from '@/helper/burialPoint';
 import { useValidator } from '@/hooks/useValidator';
@@ -50,6 +50,7 @@ const Success = () => {
           dispatch(setUnLoginType(UnLoginType.LOGIN));
           router.push('/');
         }}
+        type="primary"
         block
         className="
       font-next-book
@@ -76,6 +77,7 @@ const Fail = () => {
         <span>Your token has expired! Please try again.</span>
       </div>
       <Button
+        type="primary"
         onClick={() => {
           dispatch(setUnLoginType(UnLoginType.LOGIN));
           router.push('/');
@@ -127,9 +129,10 @@ const ChangeForm = ({
   });
 
   const { validator } = useValidator(['newPassword', 'reenterPassword']);
-
+  const [loading, setLoading] = useState(false);
   const { run: onUpdate } = useDebounceFn(
     () => {
+      setLoading(true);
       validator.validate(formData, async (errors, fields) => {
         if (!errors) {
           const status: any = { ...formState };
@@ -145,8 +148,9 @@ const ChangeForm = ({
             message.error(e.msg);
             changeState(ChangeStateType.FAIL);
           }
+          setLoading(false);
         } else {
-          console.log('产生错误', errors, fields);
+          // console.log('产生错误', errors, fields);
           const status: any = { ...formState };
           errors.map((error) => {
             status[error.field as string] = {
@@ -155,6 +159,7 @@ const ChangeForm = ({
             };
           });
           setFormState(status);
+          setLoading(false);
         }
       });
     },
@@ -230,6 +235,9 @@ const ChangeForm = ({
       <Button
         onClick={onUpdate}
         block
+        type="primary"
+        loading={loading}
+        disabled={loading}
         className="
               font-next-book
               text-[1.125rem]

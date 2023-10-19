@@ -1,4 +1,4 @@
-import Button from '@/components/Common/Button';
+import Button from '@/components/v2/Common/Button';
 import RightArrowIcon from '@/components/Common/Icon/RightArrow';
 import Checkbox from '@/components/v2/Common/Checkbox';
 import Input from '@/components/v2/Common/Input';
@@ -19,41 +19,36 @@ import ContractUs from '../../Landing/ContractUs';
 import DarkInstagramIcon from '@/components/Common/Icon/DarkInstagram';
 import TwitterIcon from '@/components/Common/Icon/Twitter';
 import DiscordIcon from '@/components/Common/Icon/Discord';
+import { AuthType } from '@/service/webApi/user/type';
+import { setUserInfo } from '@/store/redux/modules/user';
+import { setToken } from '@/helper/user-token';
+import { omit } from 'lodash-es';
 
 interface CheckInviteCodeProps {}
 
 const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
   const loginRouteParams = useGetUserUnLoginType();
-
+  const router = useRouter();
   const [formData, setFormData] = useState<{
     email: string;
     inviteCode: string;
+    token: string;
   }>({
     email: '',
-    inviteCode: ''
+    inviteCode: '',
+    token: ''
   });
 
   const dispatch = useDispatch();
 
   const [formState, setFormState] = useState({
-    // email: {
-    //   status: 'default',
-    //   errorMessage: ''
-    // },
     inviteCode: {
       status: 'default',
       errorMessage: ''
     }
   });
 
-  // const { run: validateInviteCode } = useDebounceFn(
-  //   () => {
-  //     BurialPoint.track('signup-验证邀请码按钮点击');
-  //   },
-  //   { wait: 500 }
-  // );
-
-  const { run: verify, loading } = useRequest(
+  const { run: emailVerify, loading: emailLoading } = useRequest(
     async () => {
       const res = await webApi.userApi.checkInviteCode(formData.inviteCode);
       return res;
@@ -92,12 +87,53 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
       debounceWait: 500
     }
   );
+  const { run: thirdPartyVerify, loading: thirdPartyLoading } = useRequest(
+    async () => {
+      console.log('再次执行');
+      const res = await webApi.userApi.checkInviteCodeByThirdParty(
+        formData.inviteCode,
+        formData.token
+      );
+      return res;
+    },
+    {
+      onSuccess(res) {
+        dispatch(setUserInfo(omit(res, 'token')));
+        BurialPoint.track('signup-Google三方登录输入邀请码登录成功');
+        setToken(res.token);
+        router.push('/home');
+      },
+      onError(e: any) {
+        let msg = '';
+        if (e.msg) {
+          message.error(e.msg);
+          msg = e.msg;
+        } else {
+          message.error(e.message);
+          msg = e.message;
+        }
+
+        setFormState({
+          ...formState,
+          inviteCode: {
+            status: 'error',
+            errorMessage: msg
+          }
+        });
+      },
+      manual: true,
+      debounceWait: 500
+    }
+  );
 
   useEffect(() => {
-    setFormData({
-      ...formData,
-      email: loginRouteParams.params.email
-    });
+    if (loginRouteParams.params) {
+      setFormData({
+        ...formData,
+        email: loginRouteParams.params.email,
+        token: loginRouteParams.params?.token || ''
+      });
+    }
   }, []);
 
   return (
@@ -117,21 +153,28 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
             label="Invite Code"
             type="text"
             name="invite code"
-            placeholder="8+characters with a mix of letters & numbers"
+            placeholder="Enter your invite code"
             className="bg-[#212121] text-white"
             // description="Use 8 or more characters with a mix of letters & numbers"
             state={formState.inviteCode.status as any}
             errorMessage={formState.inviteCode.errorMessage}
             delay={500}
-            rules={{
-              type: 'string',
-              required: true,
-              len: 10
-            }}
+            // rules={{
+            //   type: 'string',
+            //   required: true,
+            //   len: 10
+            // }}
             onChange={(e) => {
               setFormData({
                 ...formData,
                 inviteCode: e.target.value
+              });
+              setFormState({
+                ...formState,
+                inviteCode: {
+                  status: 'default',
+                  errorMessage: ''
+                }
               });
             }}
           ></Input>
@@ -139,10 +182,17 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
 
         <Button
           onClick={() => {
-            verify();
+            if (loginRouteParams.params?.registerType === AuthType.EMAIL) {
+              emailVerify();
+            } else {
+              thirdPartyVerify();
+            }
           }}
           block
+          type="primary"
           icon={<RightArrowIcon></RightArrowIcon>}
+          disabled={emailLoading || thirdPartyLoading}
+          loading={emailLoading || thirdPartyLoading}
           iconPosition="right"
           className="
           font-next-book
@@ -155,9 +205,12 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
           Next
         </Button>
         <Button
-          onClick={() => {}}
+          onClick={() => {
+            router.push('/');
+            dispatch(setUnLoginType(UnLoginType.LOGIN));
+          }}
           block
-          disabled={loading}
+          disabled={emailLoading || thirdPartyLoading}
           className={cn(
             `font-next-book
           text-[1.125rem]
@@ -165,7 +218,9 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
           bg-transparent
           text-white hover:text-auth-ghost-button-text-hover-color
           border-white hover:border-auth-ghost-button-border-hover-color`,
-            loading ? 'cursor-not-allowed opacity-70' : ''
+            emailLoading || thirdPartyLoading
+              ? 'cursor-not-allowed opacity-70'
+              : ''
           )}
         >
           Back

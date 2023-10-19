@@ -1,4 +1,4 @@
-import Button from '@/components/Common/Button';
+import Button from '@/components/v2/Common/Button';
 import CheckIcon from '@/components/Common/Icon/Check';
 import { BurialPoint } from '@/helper/burialPoint';
 import { computeProgress, tagFormate } from '@/helper/formate';
@@ -45,7 +45,7 @@ const CourseCard: FC<CourseCardProps> = (props) => {
     inCompleted = false,
     baseProgress = false
   } = props;
-  const jumpLearningLesson = useJumpLeaningLesson();
+  const { jumpLearningLesson, loading } = useJumpLeaningLesson();
   const router = useRouter();
 
   return (
@@ -150,6 +150,8 @@ const CourseCard: FC<CourseCardProps> = (props) => {
             type="primary"
             className="px-0 py-[12px] flex text-[16px] font-next-book tracking-[0.32] leading-[125%]"
             block
+            loading={loading}
+            disabled={loading}
             onClick={(e) => {
               BurialPoint.track('home-course卡片resume按钮点击', {
                 courseName: course.name

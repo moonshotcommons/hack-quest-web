@@ -1,4 +1,5 @@
 import LockIcon from '@/components/Common/Icon/Lock';
+import Button from '@/components/v2/Common/Button';
 import { Theme } from '@/constants/enum';
 import { computeProgress, tagFormate } from '@/helper/formate';
 import { cn, getCourseLink } from '@/helper/utils';
@@ -102,7 +103,7 @@ const TrackCard: FC<TrackCardProps> = (props) => {
   const [hoverCourseIndex, setHoverCourseIndex] = useState<number | null>(null);
   const router = useRouter();
   const { theme } = useContext(ThemeContext);
-  const jumpLearningLesson = useJumpLeaningLesson();
+  const { jumpLearningLesson, loading } = useJumpLeaningLesson();
   return (
     <div className=" pt-[2.5rem] pb-[1.5rem] w-full flex items-start">
       <div className="font-next-book leading-[120%] text-text-default-color text-[1rem] w-[30%] flex mt-2">
@@ -157,7 +158,9 @@ const TrackCard: FC<TrackCardProps> = (props) => {
 
               <div className="w-[8.875rem] h-full flex items-center justify-end flex-1">
                 {hoverCourseIndex === index ? (
-                  <button
+                  <Button
+                    loading={loading}
+                    disabled={loading}
                     className="px-8 text-course-learning-button-text-color py-[0.875rem] font-next-book bg-course-learning-button-bg border border-solid text-[0.625rem] border-course-learning-button-border-color rounded-[2.5rem] whitespace-nowrap leading-[120%]  primary-button-hover cursor-pointer"
                     onClick={(e) => {
                       e.stopPropagation();
@@ -165,7 +168,7 @@ const TrackCard: FC<TrackCardProps> = (props) => {
                     }}
                   >
                     {item.progress > 0 ? 'Resume Learning' : 'Start Learning'}
-                  </button>
+                  </Button>
                 ) : null}
               </div>
             </li>

@@ -30,14 +30,14 @@ export enum BeginnerRewardsType {
 export interface UserLevelType {
   level: number;
   expNextLevel: number;
+  expCurrentLevel: number;
   exp: number;
-  coin: number;
-  id: string;
+  id?: string;
 }
 /** 用户等级 */
 export interface UserCoinType {
   coin: number;
-  id: string;
+  id?: string;
 }
 /** 用户等级 */
 export interface UserTreasuresType {
@@ -62,4 +62,15 @@ export interface MissionDataType {
   exp: number;
   coin: number;
   progress: ProgressType;
+}
+
+export interface DigTreasuresResponse {
+  success: boolean;
+  treasureId?: string;
+}
+
+export interface OpenTreasuresResponse {
+  id: string;
+  exp: number;
+  coin: number;
 }

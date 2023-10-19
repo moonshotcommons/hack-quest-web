@@ -6,39 +6,44 @@ import BeginnerRewards from './BeginnerRewards';
 import DailyQuests from './DailyQuests';
 import Milestones from './Milestones';
 import BannerBg from '@/public/images/landing/banner_bg.png';
-import { MissionDataStateType } from '@/store/redux/modules/missionCenter';
+import { BurialPoint } from '@/helper/burialPoint';
+import { useSelector } from 'react-redux';
+import { AppRootState } from '@/store/redux';
 
 interface ClaimContentProp {
-  missions: MissionDataStateType;
   missionClaim: (missionIds: string[]) => void;
 }
-const ClaimContent: React.FC<ClaimContentProp> = ({
-  missions,
-  missionClaim
-}) => {
+const ClaimContent: React.FC<ClaimContentProp> = ({ missionClaim }) => {
+  const { missionData } = useSelector((state: AppRootState) => {
+    return {
+      missionData: state.missionCenter?.missionData
+    };
+  });
   const [curIndex, setCurIndex] = useState(0);
+
   const tabList = useMemo(() => {
     return [
       {
         label: 'Daily Bonus',
-        count: missions.unClaimDailyBonus.length
+        count: missionData?.unClaimDailyBonus?.length
       },
       {
         label: 'Beginner Rewards',
-        count: missions.unClaimBeginnerRewards.length
+        count: missionData?.unClaimBeginnerRewards?.length
       },
       {
         label: 'Daily Quests',
-        count: missions.unClaimDailyQuests.length
+        count: missionData?.unClaimDailyQuests?.length
       },
       {
         label: 'Milestones',
-        count: missions.unClaimMilestones.length
+        count: missionData?.unClaimMilestones?.length
       }
     ];
-  }, [missions]);
+  }, [missionData]);
 
   const changeTab = (i: number) => {
+    BurialPoint.track(`mission-center-切换tab`, { tab: tabList[i].label });
     setCurIndex(i);
   };
 
@@ -47,32 +52,31 @@ const ClaimContent: React.FC<ClaimContentProp> = ({
       case 0:
         return (
           <DailyBonus
-            missionData={missions.dailyBonus}
-            unClaimMissionData={missions.unClaimDailyBonus}
+            missionData={missionData.dailyBonus}
             missionClaim={missionClaim}
           />
         );
       case 1:
         return (
           <BeginnerRewards
-            missionData={missions.beginnerRewards}
-            unClaimMissionData={missions.unClaimBeginnerRewards}
+            missionData={missionData.beginnerRewards}
+            unClaimMissionData={missionData.unClaimBeginnerRewards}
             missionClaim={missionClaim}
           />
         );
       case 2:
         return (
           <DailyQuests
-            missionData={missions.dailyQuests}
-            unClaimMissionData={missions.unClaimDailyQuests}
+            missionData={missionData.dailyQuests}
+            unClaimMissionData={missionData.unClaimDailyQuests}
             missionClaim={missionClaim}
           />
         );
       case 3:
         return (
           <Milestones
-            missionData={missions.milestones}
-            unClaimMissionData={missions.unClaimDailyQuests}
+            missionData={missionData.milestones}
+            unClaimMissionData={missionData.unClaimDailyQuests}
             missionClaim={missionClaim}
           />
         );
@@ -92,13 +96,13 @@ const ClaimContent: React.FC<ClaimContentProp> = ({
         };
   }, [curIndex]);
   return (
-    <div className="w-[calc(100vw-400px)] pr-[40px] h-full flex flex-col py-[40px]">
+    <div className="w-[calc(100%-360px)] h-full flex flex-col pt-[40px] pb-[20px]">
       <Tab curIndex={curIndex} tabList={tabList} changeTab={changeTab} />
       <div
-        className=" w-full overflow-x-hidden overflow-y-auto no-scrollbar rounded-b-[10px]"
+        className="relative z-10 w-full overflow-x-hidden overflow-y-auto no-scrollbar rounded-b-[10px] rounded-r-[10px]"
         style={{
           ...contentStyle,
-          boxShadow: `0 1px 6px #dadada`
+          boxShadow: `0 5px 6px #dadada`
         }}
       >
         {renderContent()}

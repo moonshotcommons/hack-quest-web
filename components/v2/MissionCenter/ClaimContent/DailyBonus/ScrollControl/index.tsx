@@ -38,7 +38,7 @@ function ScrollControl({ changeState }: { changeState?: ChangeState }) {
               : 'hover:bg-[#000000]/70 hover:border-[#000000]/70 transition'
           )}
           onClick={() => {
-            BurialPoint.track('home-featured course滚动-左');
+            BurialPoint.track('mission-center-daily-bonus claim滚动-左');
             handleArrowClick?.('left');
           }}
         >
@@ -52,7 +52,7 @@ function ScrollControl({ changeState }: { changeState?: ChangeState }) {
               : 'hover:bg-[#000000]/70 hover:border-[#000000]/70 transition'
           )}
           onClick={() => {
-            // BurialPoint.track('mission-center-featured Daily Bonus滚动-右');
+            BurialPoint.track('mission-center-daily-bonus claim滚动-右');
             handleArrowClick?.('right');
           }}
         >

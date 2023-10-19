@@ -1,20 +1,26 @@
-import Button from '@/components/Common/Button';
+import Button from '@/components/v2/Common/Button';
 import { MissionSubType } from '@/service/webApi/missionCenter/type';
-import React, { useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 
-import { useRouter } from 'next/router';
 import TargetCard from '../Comonent/TargetCard';
 import { TabContentType } from '../../type';
 import { rewardsCardData } from './data';
+import { BurialPoint } from '@/helper/burialPoint';
+import { MissionCenterContext } from '@/components/v2/MissionCenter/type';
 
 const BeginnerRewards: React.FC<TabContentType> = ({
   missionData,
   unClaimMissionData,
   missionClaim
 }) => {
+  const { missionIds } = useContext(MissionCenterContext);
   const allIds = useMemo(() => {
     return unClaimMissionData.map((v) => v.id);
   }, [unClaimMissionData]);
+  const handleAllClaim = () => {
+    BurialPoint.track(`mission-center-beginner-rewards-claimAll 按钮点击`);
+    missionClaim(allIds);
+  };
   return (
     <div>
       <div className="flex items-center justify-between mb-[40px]">
@@ -33,7 +39,8 @@ const BeginnerRewards: React.FC<TabContentType> = ({
               : 'hover:border-auth-primary-button-border-hover-color hover:text-auth-primary-button-text-hover-color hover:bg-auth-primary-button-hover-bg'
           }`}
           disabled={!allIds.length}
-          onClick={() => missionClaim(allIds)}
+          loading={missionIds.join() === allIds.join() && missionIds.length > 0}
+          onClick={() => handleAllClaim}
         >
           Claim All ({allIds.length})
         </Button>
@@ -52,7 +59,7 @@ const BeginnerRewards: React.FC<TabContentType> = ({
                 targetIcon={rewardsCardData[subType].targetIcon}
                 unClaimPath={rewardsCardData[subType].unClaimPath}
                 unClaimText={rewardsCardData[subType].unClaimText}
-                isShare={rewardsCardData[subType].isShare}
+                type={rewardsCardData[subType].type}
                 isScale={false}
               />
             );

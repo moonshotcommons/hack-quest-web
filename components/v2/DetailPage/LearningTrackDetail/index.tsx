@@ -38,13 +38,16 @@ export const TrackListContext = createContext<{
 const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
   const { learningTrackDetail, refresh } = props;
 
-  const { enroll, unEnroll } = useEnrollUnEnroll(learningTrackDetail, refresh);
+  const { enroll, enrollLoading, unEnroll } = useEnrollUnEnroll(
+    learningTrackDetail,
+    refresh
+  );
   const [learningInfo, setLearningInfo] = useState<{
     learningSectionAndCourseName: string;
     learningLessonName: string;
   }>();
 
-  const jumpLearningLesson = useJumpLeaningLesson();
+  const { jumpLearningLesson, loading: resumeLoading } = useJumpLeaningLesson();
 
   const learningStatus = useMemo(() => {
     if (learningTrackDetail) {
@@ -125,11 +128,12 @@ const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
         }}
         learningCourse={learningCourse}
         type="learning-track"
+        resumeLoading={resumeLoading}
         resumeCallback={resumeCallback}
         learningStatus={learningStatus}
       ></HeaderRight>
     );
-  }, [learningTrackDetail, resumeCallback, learningInfo]);
+  }, [learningTrackDetail, resumeCallback, learningInfo, resumeLoading]);
 
   useEffect(() => {
     const startTime = new Date().getTime();
@@ -153,6 +157,7 @@ const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
         rightComponent={RightComponent}
         type="learning-track"
         learningStatus={learningStatus}
+        startLoading={enrollLoading}
         onStartCallback={() => {
           enroll();
           BurialPoint.track('learningTrackDetail-页面上方Enroll按钮', {

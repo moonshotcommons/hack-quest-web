@@ -3,12 +3,16 @@ import IconMetaMask from '@/public/images/mission-center/icon_meta_mask.png';
 import IconDiscord from '@/public/images/mission-center/icon_discord_communitypng.png';
 import { MissionSubType } from '@/service/webApi/missionCenter/type';
 
+export enum RewardsCardType {
+  DISCORD = 'discord',
+  SHARE = 'share'
+}
 type RewardsCardDataType = {
   [k in MissionSubType]: {
     targetIcon: any;
     unClaimPath: string;
     unClaimText: string;
-    isShare?: boolean;
+    type?: RewardsCardType;
   };
 };
 export const rewardsCardData: RewardsCardDataType = {
@@ -19,8 +23,9 @@ export const rewardsCardData: RewardsCardDataType = {
   },
   JOIN_DISCORD: {
     targetIcon: IconDiscord,
-    unClaimPath: '/',
-    unClaimText: 'Join Discord Community'
+    unClaimPath: '',
+    unClaimText: 'Join Discord Community',
+    type: RewardsCardType.DISCORD
   },
   LINK_METAMASK: {
     targetIcon: IconMetaMask,
@@ -36,6 +41,6 @@ export const rewardsCardData: RewardsCardDataType = {
     targetIcon: IconHack,
     unClaimPath: '/',
     unClaimText: 'Share Invite Code',
-    isShare: true
+    type: RewardsCardType.SHARE
   }
 };

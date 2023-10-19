@@ -1,5 +1,5 @@
 import { MissionDataType } from '@/service/webApi/missionCenter/type';
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import MoonFace from '@/public/images/mission-center/moon_face.png';
 import IconCoin from '@/public/images/mission-center/icon_coin.png';
 import IconXp from '@/public/images/mission-center/icon_xp.png';
@@ -10,7 +10,7 @@ import Flag from '@/public/images/mission-center/flag.png';
 import Qmark from '@/public/images/mission-center/q_mark.png';
 import Mperson from '@/public/images/mission-center/m_person.png';
 import Image from 'next/image';
-import Button from '@/components/Common/Button';
+import Button from '@/components/v2/Common/Button';
 import {
   ChangeState,
   ScrollContainer
@@ -18,11 +18,11 @@ import {
 import ScrollControl from './ScrollControl';
 import { TabContentType } from '../../type';
 
-const DailyBonus: React.FC<TabContentType> = ({
+const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
   missionData,
-  unClaimMissionData,
   missionClaim
 }) => {
+  const [curIndex, setCurIndex] = useState(-1);
   const [scrollContainerState, setScrollContainerState] =
     useState<ChangeState>();
   const dealedMissionData = useMemo(() => {
@@ -31,12 +31,16 @@ const DailyBonus: React.FC<TabContentType> = ({
         (a: MissionDataType, b: MissionDataType) =>
           a?.progress?.progress?.[0] - b?.progress?.progress?.[0]
       ) || [];
-    const completedLen = unClaimMissionData.length;
+    const completedLen = missionData.filter((v) => v.progress.completed).length;
     return {
       mData,
       completedLen
     };
-  }, [missionData, unClaimMissionData]);
+  }, [missionData]);
+  const handleClaim = (i: number) => {
+    setCurIndex(i);
+    missionClaim([dealedMissionData.mData[i].id]);
+  };
   const renderClaimContent = (item: MissionDataType, i: number) => {
     const completed = item.progress?.completed;
     const claimed = item.progress?.claimed;
@@ -71,26 +75,25 @@ const DailyBonus: React.FC<TabContentType> = ({
               </div>
             </div>
             <Button
-              className={`w-[164px] text-[16px] ml-[-20px] h-[44px] text-[#0b0b0b] 
-                      bg-auth-primary-button-bg
-                      text-auth-primary-button-text-color 
-                      border-auth-primary-button-border-color ${
+              className={`w-[164px] text-[16px]  h-[44px] bg-auth-primary-button-bg
+                      border-auth-primary-button-border-color p-0 text-[#0b0b0b] ${
                         claimed
-                          ? 'opacity-50 cursor-not-allowed'
+                          ? 'cursor-not-allowed opacity-50'
                           : `hover:border-auth-primary-button-border-hover-color 
                             hover:text-auth-primary-button-text-hover-color 
-                            hover:bg-auth-primary-button-hover-bg`
+                            hover:bg-auth-primary-button-hover-bg  `
                       }`}
               disabled={claimed}
-              onClick={() => missionClaim([item.id])}
+              loading={curIndex === i}
+              onClick={() => handleClaim(i)}
             >
-              {claimed ? 'Rewards Claimed' : 'Claim'}
+              {claimed ? 'Claimed' : 'Claim'}
             </Button>
           </div>
           <div
             className="w-[293px] h-[104px] relative"
             style={{
-              backgroundImage: `url(${claimed ? PitM.src : Pit.src})`,
+              backgroundImage: `url(${!claimed ? PitM.src : Pit.src})`,
               backgroundSize: `100% 100%`
             }}
           >
@@ -98,7 +101,7 @@ const DailyBonus: React.FC<TabContentType> = ({
               <div className="absolute right-[-120px] top-[-185px]">
                 <Image src={Mperson} width={190} alt="Mperson" className="" />
                 {claimed ? (
-                  <div className="absolute right-[-90px] top-[25px]">
+                  <div className="absolute right-[-35px] top-[25px]">
                     <div className="flex-row-center gap-[8px]">
                       <Image
                         src={IconCoin}
@@ -174,6 +177,7 @@ const DailyBonus: React.FC<TabContentType> = ({
       );
     }
   };
+
   return (
     <div className="text-[#fff] h-full flex flex-col overflow-hidden">
       <div className="w-full flex-1 overflow-y-auto overflow-x-hidden no-scrollbar ">
@@ -205,7 +209,7 @@ const DailyBonus: React.FC<TabContentType> = ({
                 )}
               </div>
             </ScrollContainer>
-            <div className="absolute left-[33px] bottom-[35px]">
+            <div className="absolute left-[33px] bottom-[35px] z-40">
               <ScrollControl changeState={scrollContainerState}></ScrollControl>
             </div>
           </div>
