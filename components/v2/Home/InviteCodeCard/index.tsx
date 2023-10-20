@@ -45,7 +45,10 @@ const InviteCodeCard: FC<InviteCodeCardProps> = (props) => {
   }, [userInfo]);
 
   const { run: completeProgress, loading } = useRequest(
-    webApi.missionCenterApi.missionClaim,
+    async (missionIds: string[]) => {
+      const res = await webApi.missionCenterApi.missionClaim(missionIds);
+      return res;
+    },
     {
       onSuccess(res) {
         message.success('success!');
@@ -179,12 +182,15 @@ const InviteCodeCard: FC<InviteCodeCardProps> = (props) => {
             </div>
             <Button
               type="primary"
+              loading={loading}
               onClick={() => {
                 if (!inviteProgress.claimed && inviteProgress.completed) {
                   completeProgress([inviteProgress.id || '']);
                 }
               }}
-              disabled={inviteProgress.claimed || !inviteProgress.completed}
+              disabled={
+                inviteProgress.claimed || !inviteProgress.completed || loading
+              }
               className={cn(
                 `px-5 py-2 font-next-book text-[14px] text-[0B0B0B] leading-[125%] tracking-[0.28px]`,
                 inviteProgress.claimed || !inviteProgress.completed
