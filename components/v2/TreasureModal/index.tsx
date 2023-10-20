@@ -42,8 +42,8 @@ const TreasureModal = forwardRef<TreasureModalRef, TreasureModalProp>(
       treasureId: string,
       digCallback?: VoidFunction
     ) => {
-      const res = await webApi.missionCenterApi.openTreasures(treasureId);
       setType(TreasureType.DIG);
+      const res = await webApi.missionCenterApi.openTreasures(treasureId);
       setTreasureContent({
         treasureCoin: res.coin,
         treasureXp: res.exp
