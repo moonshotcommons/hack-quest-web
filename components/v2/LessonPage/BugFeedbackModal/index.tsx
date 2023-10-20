@@ -20,6 +20,9 @@ import {
 } from 'antd';
 import { Upload } from 'antd';
 import { IoMdAddCircle } from 'react-icons/io';
+import { RcFile } from 'antd/es/upload';
+import webApi from '@/service';
+import { useRequest } from 'ahooks';
 
 interface BugFeedbackModalProps {}
 
@@ -33,13 +36,18 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
   (props, ref) => {
     const [open, setOpen] = useState(false);
     const [selectKind, setSelectKind] = useState('');
-    const formRef = useRef<FormInstance>(null);
+    const formRef = useRef<
+      FormInstance<{
+        kind: string;
+        description: string;
+        files: { file: UploadFile; fileList: UploadFile[] };
+      }>
+    >(null);
     const [fileList, setFileList] = useState<UploadFile[]>([]);
-
+    // const [loading, setLoading] = useState(false);
     useImperativeHandle(ref, () => {
       return {
         onCommit(params) {
-          console.log(params);
           setOpen(true);
         }
       };
@@ -99,6 +107,70 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
           Add attachments to your report (optional){' '}
         </span>
       </div>
+    );
+
+    // const submit = () => {
+    //   formRef.current
+    //     ?.validateFields()
+    //     .then((data) => {
+    //       const formData = new FormData();
+    //       const { kind, files, description } = data;
+    //       files.fileList.forEach((file) => {
+    //         formData.append('file[]', file as RcFile);
+    //       });
+    //       setLoading(true);
+    //       webApi.courseApi
+    //         .commitSuggest(kind, description, formData)
+    //         .then((res) => {
+    //           console.log(res);
+    //           message.success('Commit success!');
+    //         })
+    //         .catch((err) => {
+    //           message.error(err.msg || err.message);
+    //         })
+    //         .finally(() => {
+    //           setLoading(false);
+    //         });
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // };
+
+    const { run: submit, loading } = useRequest(
+      async () => {
+        const verifyRes = await formRef.current?.validateFields();
+        if (!verifyRes) return;
+        let formData = new FormData();
+        const { kind, files, description } = verifyRes;
+
+        files.fileList?.forEach((file) => {
+          formData.append('file[]', file as RcFile);
+        });
+
+        const res = await webApi.courseApi.commitSuggest(
+          kind,
+          description,
+          formData
+        );
+
+        return res;
+      },
+      {
+        onError(err: any) {
+          message.error(err.msg || err.message);
+        },
+        onSuccess(res) {
+          console.log(res);
+          formRef.current?.resetFields();
+          setFileList([]);
+          setSelectKind('');
+          message.success('Commit success!');
+          setOpen(false);
+        },
+        manual: true,
+        debounceWait: 500
+      }
     );
 
     const UploadButton = (
@@ -188,7 +260,7 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
             >
               <Input.TextArea
                 placeholder="Describe the bugs you found..."
-                className="font-next-book text-[#0B0B0B] text-[14px] leading-[118.5%]"
+                className="font-next-book text-[#0B0B0B] text-[14px] leading-[118.5%] p-5"
                 styles={{
                   textarea: {
                     height: '200px'
@@ -271,6 +343,8 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
             <Form.Item>
               <Button
                 type="primary"
+                loading={loading}
+                disabled={loading}
                 className="py-[16px] text-[18px] font-next-book leading-[125%] tracking-[0.36px] text-[#0b0b0b]"
                 iconPosition="right"
                 icon={
@@ -291,16 +365,7 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
                   </svg>
                 }
                 block
-                onClick={() => {
-                  formRef.current
-                    ?.validateFields()
-                    .then((res) => {
-                      console.log(res);
-                    })
-                    .catch((err) => {
-                      console.log(err);
-                    });
-                }}
+                onClick={() => submit()}
               >
                 Submit
               </Button>

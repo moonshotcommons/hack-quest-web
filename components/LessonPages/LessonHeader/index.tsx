@@ -121,7 +121,6 @@ const LessonHeader: FC<LessonHeaderProps> = (props) => {
           }
           dropData={dropData}
           onSelect={(value) => {
-            console.log(value);
             if (value.type === 'page') {
               router.push(
                 `${getCourseLink(courseType)}/${router.query.courseId}/learn/${

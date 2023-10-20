@@ -94,7 +94,6 @@ const LessonContent: FC<LessonContentProps> = (props) => {
             icon={BugIcon}
             className="bg-[#8c8c8c] text-white rounded-[10px] px-[16px] py-[14px]"
             onClick={() => {
-              console.log('object');
               onBugCommit?.();
             }}
           >
