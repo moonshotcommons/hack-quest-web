@@ -13,6 +13,9 @@ import LessonContent from './LessonContent';
 import LessonFooter from './LessonFooter';
 import Playground from './Playground';
 import { CustomType, LessonPageContext, NotionComponent } from './type';
+
+import Modal from '../Common/Modal';
+import BugFeedbackModal, { BugFeedbackModalRef } from './BugFeedbackModal';
 import TreasureModal, { TreasureModalRef } from '../TreasureModal';
 
 interface LessonPageProps {
@@ -68,6 +71,8 @@ const LessonPage: FC<LessonPageProps> = (props) => {
     };
   }, []);
 
+  const bugFeedbackModalRef = useRef<BugFeedbackModalRef>(null);
+
   return (
     <ConfigProvider
       theme={{
@@ -102,6 +107,11 @@ const LessonPage: FC<LessonPageProps> = (props) => {
                     allowNextButtonClickTime.current = new Date().getTime();
                   }
                   setIsHandleNext(handle);
+                },
+                onBugCommit() {
+                  bugFeedbackModalRef.current?.onCommit({
+                    lesson
+                  });
                 }
               }}
             >
@@ -185,6 +195,8 @@ const LessonPage: FC<LessonPageProps> = (props) => {
                 open={completeModalOpen}
                 onClose={() => setCompleteModalOpen(false)}
               ></CompleteModal>
+
+              <BugFeedbackModal ref={bugFeedbackModalRef}></BugFeedbackModal>
               <TreasureModal ref={treasureModalRef} />
             </LessonPageContext.Provider>
           </div>

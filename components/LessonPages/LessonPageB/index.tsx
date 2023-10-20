@@ -41,7 +41,6 @@ const LessonPageB: FC<LessonPageBProps> = (props) => {
   const router = useRouter();
   const { courseId: courseName } = router.query;
   const sections = useParseLessonBSection(lesson.content);
-  console.log(sections);
 
   const { onNextClick, completeModalOpen, setCompleteModalOpen } =
     useGotoNextLesson(lesson, courseType, true);

@@ -98,9 +98,11 @@ export interface LessonPageContextType {
   isHandleNext: boolean;
   changeHandleNext: (isHandle: boolean) => void;
   leftLength: number;
+  onBugCommit: VoidFunction;
 }
 export const LessonPageContext = createContext<LessonPageContextType>({
   isHandleNext: false,
   changeHandleNext: () => {},
-  leftLength: 0
+  leftLength: 0,
+  onBugCommit: () => {}
 });
