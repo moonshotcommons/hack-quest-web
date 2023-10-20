@@ -287,6 +287,10 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
       const verifyData = JSON.parse(atob(state as string));
       querySource = verifyData?.source || AuthType.GOOGLE;
     }
+    //第一个字母大写 其余小写
+    querySource = (querySource as string)
+      .toLocaleLowerCase()
+      .replace(/^\w/, (s) => s.toLocaleUpperCase());
     setSource(querySource as AuthType);
     switch (querySource) {
       case AuthType.GOOGLE.toLocaleLowerCase():

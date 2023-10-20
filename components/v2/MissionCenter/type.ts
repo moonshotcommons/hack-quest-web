@@ -9,7 +9,7 @@ export interface TabListType {
 export interface TabContentType {
   missionData: MissionDataType[];
   unClaimMissionData: MissionDataType[];
-  missionClaim: (missionIds: string[]) => void;
+  missionClaim: (missionIds: string[], cb?: VoidFunction) => void;
 }
 
 export interface MissionCenterContextType {
