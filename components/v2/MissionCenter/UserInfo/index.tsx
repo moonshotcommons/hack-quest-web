@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { UserTreasuresType } from '@/service/webApi/missionCenter/type';
 import { LoginResponse } from '@/service/webApi/user/type';
 import UserData from './UserData';
@@ -9,15 +9,17 @@ import { AppRootState } from '@/store/redux';
 
 export interface UserInfoType {
   userInfo: LoginResponse | null;
-  userTreasure: UserTreasuresType[];
 }
-const UserInfo: React.FC<UserInfoType> = ({ userInfo, userTreasure }) => {
-  const { userLevel, userCoin } = useSelector((state: AppRootState) => {
-    return {
-      userLevel: state.missionCenter?.userLevel,
-      userCoin: state.missionCenter?.userCoin
-    };
-  });
+const UserInfo: React.FC<UserInfoType> = ({ userInfo }) => {
+  const { userLevel, userCoin, userTreasure } = useSelector(
+    (state: AppRootState) => {
+      return {
+        userLevel: state.missionCenter?.userLevel,
+        userCoin: state.missionCenter?.userCoin,
+        userTreasure: state.missionCenter?.userTreasure
+      };
+    }
+  );
 
   return (
     <div className="flex justify-center flex-shrink-0 w-[360px] py-[40px] h-full">

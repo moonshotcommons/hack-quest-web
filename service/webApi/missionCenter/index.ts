@@ -31,7 +31,7 @@ class MissionCenterApi {
     return this.service.get<UserCoinType>(MissionCenterApiType.GetUserCoin);
   }
   /** 获取用户宝箱 */
-  getTreasuresCoins() {
+  getTreasures() {
     return this.service.get<UserTreasuresType[]>(
       MissionCenterApiType.Treasures
     );
@@ -53,7 +53,7 @@ class MissionCenterApi {
       }
     });
   }
-  /** 获取所有missionDiscord */
+  /** 获取 missionDiscord 链接 */
   getMissionDiscord() {
     return this.service.get<{ url: string }>(
       `${MissionCenterApiType.Missions}/discord`

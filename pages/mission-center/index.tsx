@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import UserInfo from '@/components/v2/MissionCenter/UserInfo';
 import ClaimContent from '@/components/v2/MissionCenter/ClaimContent';
 import webApi from '@/service';
-import { UserTreasuresType } from '@/service/webApi/missionCenter/type';
-import { useRequest } from 'ahooks';
 import { AppRootState } from '@/store/redux';
 import { shallowEqual, useSelector } from 'react-redux';
 import { message } from 'antd';
@@ -19,20 +17,7 @@ function MissionCenter() {
   const [loading, setLoading] = useState(false);
   const [missionIds, setMissionIds] = useState<string[]>([]);
 
-  /** 获取用户宝箱 */
-  const { data: userTreasure = [] as UserTreasuresType[] } = useRequest(
-    async () => {
-      let res = await webApi.missionCenterApi.getTreasuresCoins();
-      return res;
-    },
-    {
-      onError(error: any) {
-        // message.error(`get user level ${error.msg}!`);
-      }
-    }
-  );
-
-  const missionClaim = (missionIds: string[]) => {
+  const missionClaim = (missionIds: string[], cb?: () => {}) => {
     if (loading) return;
     setMissionIds(missionIds);
     BurialPoint.track(`mission-center-claim`);
@@ -47,6 +32,7 @@ function MissionCenter() {
         message.error(`claim ${error.msg}!`);
       })
       .finally(() => {
+        cb && cb();
         setLoading(false);
         setMissionIds([]);
       });
@@ -63,7 +49,7 @@ function MissionCenter() {
           updateMissionDataAll
         }}
       >
-        <UserInfo userInfo={userInfo} userTreasure={userTreasure} />
+        <UserInfo userInfo={userInfo} />
         <ClaimContent missionClaim={missionClaim} />
       </MissionCenterContext.Provider>
     </div>
