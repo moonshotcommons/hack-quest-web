@@ -1,5 +1,5 @@
 import { MissionDataType } from '@/service/webApi/missionCenter/type';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import MoonFace from '@/public/images/mission-center/moon_face.png';
 import IconCoin from '@/public/images/mission-center/icon_coin.png';
 import IconXp from '@/public/images/mission-center/icon_xp.png';
@@ -23,23 +23,23 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
   missionClaim
 }) => {
   const [curIndex, setCurIndex] = useState(-1);
+  const [dealedMissionData, setDealedMissionData] = useState<{
+    mData: MissionDataType[];
+    completedLen: number;
+  }>({
+    mData: [],
+    completedLen: 0
+  });
   const [scrollContainerState, setScrollContainerState] =
     useState<ChangeState>();
-  const dealedMissionData = useMemo(() => {
-    const mData =
-      [...missionData]?.sort(
-        (a: MissionDataType, b: MissionDataType) =>
-          a?.progress?.progress?.[0] - b?.progress?.progress?.[0]
-      ) || [];
-    const completedLen = missionData.filter((v) => v.progress.completed).length;
-    return {
-      mData,
-      completedLen
-    };
-  }, [missionData]);
   const handleClaim = (i: number) => {
     setCurIndex(i);
-    missionClaim([dealedMissionData.mData[i].id]);
+    missionClaim([dealedMissionData.mData[i].id], () => {
+      let newData = JSON.parse(JSON.stringify(dealedMissionData));
+      newData.mData[i].progress.claimed = true;
+      setDealedMissionData(newData);
+      setCurIndex(-1);
+    });
   };
   const renderClaimContent = (item: MissionDataType, i: number) => {
     const completed = item.progress?.completed;
@@ -177,6 +177,19 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
       );
     }
   };
+
+  useEffect(() => {
+    const mData =
+      [...missionData]?.sort(
+        (a: MissionDataType, b: MissionDataType) =>
+          a?.progress?.progress?.[0] - b?.progress?.progress?.[0]
+      ) || [];
+    const completedLen = missionData.filter((v) => v.progress.completed).length;
+    setDealedMissionData({
+      mData,
+      completedLen
+    });
+  }, [missionData]);
 
   return (
     <div className="text-[#fff] h-full flex flex-col overflow-hidden">

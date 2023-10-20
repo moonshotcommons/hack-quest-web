@@ -4,7 +4,8 @@ import {
   MissionType,
   UserCoinType,
   UserLevelType,
-  BeginnerRewardsType
+  BeginnerRewardsType,
+  UserTreasuresType
 } from '@/service/webApi/missionCenter/type';
 
 export interface MissionDataStateType {
@@ -21,9 +22,10 @@ export interface MissionDataStateType {
 }
 
 interface MissionCenterStateType {
-  missionData: MissionDataStateType;
   userLevel: UserLevelType;
   userCoin: UserCoinType;
+  userTreasure: UserTreasuresType[];
+  missionData: MissionDataStateType;
 }
 const filterUnClaim = (
   missions: MissionDataType[],
@@ -47,6 +49,7 @@ const MissionCenterSlice = createSlice({
     userCoin: {
       coin: 0
     },
+    userTreasure: [],
     missionData: {
       all: [],
       unClaimAll: [],
@@ -66,6 +69,9 @@ const MissionCenterSlice = createSlice({
     },
     setUserCoin(state, { type, payload }) {
       state.userCoin = payload;
+    },
+    setUserTreasure(state, { type, payload }) {
+      state.userTreasure = payload;
     },
     setMissionData(state, { type, payload }) {
       payload?.map((v: MissionDataType) => {
@@ -99,6 +105,6 @@ const MissionCenterSlice = createSlice({
 });
 
 // 同步的action
-export const { setUserLevel, setUserCoin, setMissionData } =
+export const { setUserLevel, setUserCoin, setUserTreasure, setMissionData } =
   MissionCenterSlice.actions;
 export default MissionCenterSlice.reducer;
