@@ -73,7 +73,6 @@ function SectionList(props: {
       if (index === 0 && sectionIndex !== 0) {
         let prevCourses = sectionList[sectionIndex - 1].courses;
         let prevCourse = prevCourses[prevCourses.length - 1] as CourseResponse;
-        console.log(prevCourse.name, item.name);
         if (prevCourse.progress < 1) return null;
       }
 

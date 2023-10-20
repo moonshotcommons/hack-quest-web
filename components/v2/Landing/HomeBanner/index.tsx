@@ -6,7 +6,6 @@ import Image from 'next/image';
 import { FC } from 'react';
 interface HomeBannerProps {}
 
-console.log(BannerBg);
 const HomeBanner: FC<HomeBannerProps> = (props) => {
   const userInfo = useGetUserInfo();
   const unLoginType = useGetUserUnLoginType();
