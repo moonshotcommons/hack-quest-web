@@ -8,7 +8,7 @@ import { message } from 'antd';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import Button from '../../Common/Button';
+import Button from '@/components/v2/Common/Button';
 
 interface ForgotPasswordProps {}
 
@@ -24,13 +24,16 @@ const ForgotPassword: FC<ForgotPasswordProps> = (props) => {
   const router = useRouter();
   const { validator } = useValidator(['email']);
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
   const { run: sendEmail } = useDebounceFn(
     () => {
+      setLoading(true);
       BurialPoint.track('login-忘记密码发送邮件');
       validator.validate(formData, async (errors, fields) => {
         if (errors?.[0]) {
           setStatus('error');
           setErrorMessage(errors?.[0].message || '');
+          setLoading(false);
         } else {
           try {
             setStatus('success');
@@ -50,6 +53,7 @@ const ForgotPassword: FC<ForgotPasswordProps> = (props) => {
             setStatus('error');
             setErrorMessage(e.msg || '');
           }
+          setLoading(false);
         }
       });
     },
@@ -78,6 +82,9 @@ const ForgotPassword: FC<ForgotPasswordProps> = (props) => {
       <Button
         onClick={sendEmail}
         block
+        type="primary"
+        loading={loading}
+        disabled={loading}
         className="
           font-next-book
           text-[1.125rem]

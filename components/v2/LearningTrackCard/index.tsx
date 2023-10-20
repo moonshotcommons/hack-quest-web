@@ -1,4 +1,4 @@
-import Button from '@/components/Common/Button';
+import Button from '@/components/v2/Common/Button';
 import CheckIcon from '@/components/Common/Icon/Check';
 import { BurialPoint } from '@/helper/burialPoint';
 import { computeProgress } from '@/helper/formate';
@@ -39,7 +39,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
     learningSectionAndCourseName: string;
     learningLessonName: string;
   }>();
-  const jumpLearningLesson = useJumpLeaningLesson();
+  const { jumpLearningLesson, loading: jumpLoading } = useJumpLeaningLesson();
   const [learningTrack, setLearningTrack] =
     useState<LearningTrackDetailType>(track);
   const refresh = () => {
@@ -49,7 +49,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
     };
     setLearningTrack({ ...newLearningTrack });
   };
-  const { enroll } = useEnrollUnEnroll(track, refresh);
+  const { enroll, enrollLoading } = useEnrollUnEnroll(track, refresh);
   const learningTrackStatus = useMemo(() => {
     if (status) return status;
     const { progress } = learningTrack;
@@ -178,7 +178,8 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
             View Syllabus
           </Button>
           <Button
-            className="w-[80%] mt-5  h-15 text-[18px] text-home-learning-track-view-button-color bg-home-learning-track-view-button-bg px-0"
+            type="primary"
+            className="w-[80%] mt-5 h-15 text-[18px] text-home-learning-track-view-button-color bg-home-learning-track-view-button-bg px-0"
             onClick={handleResume}
           >
             Enroll
@@ -209,6 +210,9 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
               </Button>
               {!learningTrack.enrolled ? (
                 <Button
+                  type="primary"
+                  loading={enrollLoading}
+                  disabled={enrollLoading}
                   className="w-[47%] h-11 text-home-learning-track-view-button-color bg-home-learning-track-view-button-bg"
                   onClick={handleRoll}
                 >
@@ -216,6 +220,9 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
                 </Button>
               ) : (
                 <Button
+                  loading={jumpLoading}
+                  disabled={jumpLoading}
+                  type="primary"
                   className="w-[48%] h-11 text-home-learning-track-view-button-color bg-home-learning-track-view-button-bg px-0"
                   onClick={handleResume}
                 >
@@ -248,6 +255,9 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
                 View Syllabus
               </Button>
               <Button
+                loading={jumpLoading}
+                disabled={jumpLoading}
+                type="primary"
                 className="w-[48%] h-11 text-home-learning-track-view-button-color bg-home-learning-track-view-button-bg px-0"
                 onClick={handleResume}
               >

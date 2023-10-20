@@ -5,7 +5,7 @@ const withAntdLess = require('next-plugin-antd-less');
 const nextConfig = (phase) => {
   const isDev = phase === PHASE_DEVELOPMENT_SERVER;
   return withAntdLess({
-    reactStrictMode: true,
+    reactStrictMode: false,
     // 配置环境变量
     env: {
       BACKEND_BASE_URL:

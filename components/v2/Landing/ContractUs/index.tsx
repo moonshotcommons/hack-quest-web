@@ -11,11 +11,12 @@ import { FC, useContext } from 'react';
 interface ContractUsProps {
   // children: ReactNode;
   className?: string;
+  theme?: 'light' | 'dark';
 }
 
 const ContractUs: FC<ContractUsProps> = (props) => {
-  const { className } = props;
-  const { theme } = useContext(ThemeContext);
+  const { className, theme = 'light' } = props;
+
   return (
     <ul
       className={cn(
@@ -33,7 +34,7 @@ const ContractUs: FC<ContractUsProps> = (props) => {
         }}
       >
         <span className="text-text-default-color">
-          <TwitterIcon />
+          <TwitterIcon color={theme === 'light' ? 'white' : 'black'} />
         </span>
       </Link>
       <Link
@@ -44,7 +45,7 @@ const ContractUs: FC<ContractUsProps> = (props) => {
         }}
       >
         <span className="text-text-default-color">
-          <DiscordIcon />
+          <DiscordIcon color={theme === 'light' ? 'white' : 'black'} />
         </span>
       </Link>
       <Link
@@ -55,8 +56,8 @@ const ContractUs: FC<ContractUsProps> = (props) => {
         }}
       >
         <span>
-          {theme === Theme.Dark && <DarkInstagramIcon />}
-          {theme === Theme.Light && <LightInstagramIcon />}
+          {theme === 'light' && <DarkInstagramIcon />}
+          {theme === 'dark' && <LightInstagramIcon />}
         </span>
       </Link>
     </ul>

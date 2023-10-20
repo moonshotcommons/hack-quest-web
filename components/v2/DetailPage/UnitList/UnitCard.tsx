@@ -18,6 +18,7 @@ import { ButtonHTMLAttributes, FC, useContext } from 'react';
 import styled from 'styled-components';
 import { LearningStatus } from '../type';
 import { QueryIdType } from '../../Breadcrumb/type';
+import Button from '../../Common/Button';
 
 const CustomProgress = styled(Progress)`
   .ant-progress-inner {
@@ -35,12 +36,14 @@ interface UnitCardProps {
   index: number;
   courseDetail?: CourseDetailType;
   learningStatus?: LearningStatus;
+  loading?: boolean;
 }
 
 const UnitButton: FC<
-  UnitCardProps & ButtonHTMLAttributes<HTMLButtonElement>
+  UnitCardProps &
+    Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'className' | 'type'>
 > = (props) => {
-  const { unit, isLock, ...rest } = props;
+  const { unit, isLock, loading = false, ...rest } = props;
   if (isLock) {
     return null;
   }
@@ -51,22 +54,27 @@ const UnitButton: FC<
 
   if (!unit.progress) {
     return (
-      <button
-        className="w-[165px] hover:-translate-y-[1px] hover:shadow-[rgba(0,0,0,0.15)_1.95px_1.95px_2.6px] transition py-[11px] leading-[125%] border border-solid bg-course-learning-button-bg border-course-learning-button-border-color rounded-[32px] whitespace-nowrap text-sm text-[#0B0B0B] font-next-book text-[16px] cursor-pointer"
+      <Button
+        loading={loading}
+        disabled={loading}
+        className="w-[165px] px-0 hover:-translate-y-[1px] hover:shadow-[rgba(0,0,0,0.15)_1.95px_1.95px_2.6px] transition py-[11px]
+         border border-solid bg-course-learning-button-bg border-course-learning-button-border-color rounded-[32px] whitespace-nowrap text-[16px] text-[#0B0B0B] font-next-book cursor-pointer leading-[125%]"
         {...rest}
       >
         Start
-      </button>
+      </Button>
     );
   }
 
   return (
-    <button
-      className="w-[165px] py-[11px] hover:-translate-y-[1px] hover:shadow-[rgba(0,0,0,0.15)_1.95px_1.95px_2.6px] transition leading-[125%] border border-solid bg-course-learning-button-bg border-course-learning-button-border-color rounded-[32px] whitespace-nowrap text-sm text-[#0B0B0B] font-next-book text-[16px] cursor-pointer"
+    <Button
+      loading={loading}
+      disabled={loading}
+      className="w-[165px] py-[11px] hover:-translate-y-[1px] hover:shadow-[rgba(0,0,0,0.15)_1.95px_1.95px_2.6px] transition border border-solid bg-course-learning-button-bg border-course-learning-button-border-color rounded-[32px] whitespace-nowrap text-[#0B0B0B] font-next-book text-[16px] cursor-pointer leading-[125%]"
       {...rest}
     >
       Resume
-    </button>
+    </Button>
   );
 };
 
@@ -79,7 +87,7 @@ const UnitCard: FC<UnitCardProps> = (props) => {
     index,
     learningStatus = LearningStatus.UN_START
   } = props;
-  const jumpLearningLesson = useJumpLeaningLesson();
+  const { jumpLearningLesson, loading } = useJumpLeaningLesson();
   const { theme } = useContext(ThemeContext);
   const router = useRouter();
   return (
@@ -214,6 +222,7 @@ const UnitCard: FC<UnitCardProps> = (props) => {
           unit={unit}
           isLock={isLock}
           index={index}
+          loading={loading}
           onClick={() => {
             BurialPoint.track('courseDetail-unit按钮', {
               courseName: courseDetail?.name || '',

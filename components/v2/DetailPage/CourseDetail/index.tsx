@@ -22,7 +22,7 @@ const CourseDetail: FC<CourseDetailProps> = (props) => {
     learningUnitName: string;
     learningLessonName: string;
   }>();
-  const jumpLearningLesson = useJumpLeaningLesson();
+  const { jumpLearningLesson, loading: jumpLoading } = useJumpLeaningLesson();
 
   const learningStatus = useMemo(() => {
     if (courseDetail) {
@@ -77,6 +77,7 @@ const CourseDetail: FC<CourseDetailProps> = (props) => {
         content: learningInfo?.learningLessonName || ''
       }}
       type="course"
+      resumeLoading={jumpLoading}
       resumeCallback={resumeCallback}
       learningStatus={learningStatus}
     ></HeaderRight>
@@ -90,6 +91,7 @@ const CourseDetail: FC<CourseDetailProps> = (props) => {
         rightComponent={RightComponent}
         type="course"
         learningStatus={learningStatus}
+        startLoading={jumpLoading}
         onStartCallback={() => {
           BurialPoint.track('courseDetail-页面上方按钮点击', {
             courseName: courseDetail.name

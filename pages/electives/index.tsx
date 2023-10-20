@@ -24,14 +24,13 @@ function SelectiveCourses() {
       ref={selectiveCoursesRef}
     >
       <div className="container mx-auto ">
-        <div className="pb-[60px]">
-          <PageDescription
-            title={'Selective Courses'}
-            description={
-              'Electives is a treasury hunt. Each course is relatively short and independent, with a focused topic. You may learning something mind-blowing, or simply steel your skills.'
-            }
-          />
-        </div>
+        <PageDescription
+          title={'Selective Courses'}
+          description={
+            'Electives is a treasury hunt. Each course is relatively short and independent, with a focused topic. You may learning something mind-blowing, or simply steel your skills.'
+          }
+        />
+
         <SelectiveCoursesBox
           loadNum={loadNum}
           setApiStatus={(status) => setApiStatus(status)}

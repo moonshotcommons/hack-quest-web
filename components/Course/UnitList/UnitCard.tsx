@@ -1,6 +1,7 @@
 import CheckIcon from '@/components/Common/Icon/Check';
 import LockIcon from '@/components/Common/Icon/Lock';
 import PassIcon from '@/components/Common/Icon/Pass';
+import Button from '@/components/v2/Common/Button';
 import { Theme } from '@/constants/enum';
 import { computeProgress } from '@/helper/formate';
 import { getCourseLink } from '@/helper/utils';
@@ -34,12 +35,14 @@ interface UnitCardProps {
   courseType?: CourseType;
   index: number;
   courseDetail?: CourseDetailType;
+  loading?: boolean;
 }
 
 const UnitButton: FC<
-  UnitCardProps & ButtonHTMLAttributes<HTMLButtonElement>
+  UnitCardProps &
+    Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'className' | 'type'>
 > = (props) => {
-  const { unit, isLock, ...rest } = props;
+  const { unit, isLock, loading, ...rest } = props;
   if (isLock) {
     return null;
   }
@@ -50,29 +53,33 @@ const UnitButton: FC<
 
   if (!unit.progress) {
     return (
-      <button
+      <Button
+        loading={loading}
+        disabled={loading}
         className="px-8 py-4 border border-solid bg-course-learning-button-bg border-course-learning-button-border-color rounded-[2.5rem] whitespace-nowrap text-sm text-course-learning-button-text-color primary-button-hover cursor-pointer"
         {...rest}
       >
         Start Learning
-      </button>
+      </Button>
     );
   }
 
   return (
-    <button
+    <Button
+      loading={loading}
+      disabled={loading}
       className="px-8 py-4 border border-solid bg-course-learning-button-bg border-course-learning-button-border-color rounded-[2.5rem] whitespace-nowrap text-sm text-course-learning-button-text-color primary-button-hover cursor-pointer"
       {...rest}
     >
       Resume Learning
-    </button>
+    </Button>
   );
 };
 
 const UnitCard: FC<UnitCardProps> = (props) => {
   const { unit, isLock = true, courseDetail, courseType, index } = props;
   const router = useRouter();
-  const jumpLearningLesson = useJumpLeaningLesson();
+  const { jumpLearningLesson, loading } = useJumpLeaningLesson();
   const { theme } = useContext(ThemeContext);
   return (
     <div className="py-[1.5rem] flex  items-center">
@@ -161,6 +168,7 @@ const UnitCard: FC<UnitCardProps> = (props) => {
           unit={unit}
           isLock={isLock}
           index={index}
+          loading={loading}
           onClick={() => courseDetail && jumpLearningLesson(courseDetail)}
         ></UnitButton>
       </div>

@@ -16,6 +16,7 @@ import { CustomType, LessonPageContext, NotionComponent } from './type';
 
 import Modal from '../Common/Modal';
 import BugFeedbackModal, { BugFeedbackModalRef } from './BugFeedbackModal';
+import TreasureModal, { TreasureModalRef } from '../TreasureModal';
 
 interface LessonPageProps {
   lessonId: string;
@@ -31,6 +32,7 @@ const LessonPage: FC<LessonPageProps> = (props) => {
     useGotoNextLesson(lesson!, courseType, true, true);
   const [isHandleNext, setIsHandleNext] = useState(false);
   const allowNextButtonClickTime = useRef(0);
+  const treasureModalRef = useRef<TreasureModalRef>(null);
 
   const judgmentInitIsHandleNext = useCallback(() => {
     const quiz = lesson?.content?.right?.find(
@@ -142,6 +144,15 @@ const LessonPage: FC<LessonPageProps> = (props) => {
                 <Playground
                   lesson={lesson! as any}
                   onCompleted={() => {
+                    if (lesson.state !== CompleteStateType.COMPLETED) {
+                      webApi.missionCenterApi
+                        .digTreasures(lessonId)
+                        .then((res) => {
+                          if (res.success && res.treasureId) {
+                            treasureModalRef.current?.open(res.treasureId);
+                          }
+                        });
+                    }
                     // 当前lesson完成
                     setIsHandleNext(true);
                   }}
@@ -164,7 +175,19 @@ const LessonPage: FC<LessonPageProps> = (props) => {
                     }
                   );
 
-                  onNextClick();
+                  onNextClick(() => {
+                    if (lesson.state !== CompleteStateType.COMPLETED) {
+                      webApi.missionCenterApi
+                        .digTreasures(lessonId)
+                        .then((res) => {
+                          if (res.success && res.treasureId) {
+                            treasureModalRef.current?.open(res.treasureId);
+                          } else {
+                            onNextClick();
+                          }
+                        });
+                    }
+                  });
                 }}
               />
               <CompleteModal
@@ -174,6 +197,7 @@ const LessonPage: FC<LessonPageProps> = (props) => {
               ></CompleteModal>
 
               <BugFeedbackModal ref={bugFeedbackModalRef}></BugFeedbackModal>
+              <TreasureModal ref={treasureModalRef} />
             </LessonPageContext.Provider>
           </div>
         )}

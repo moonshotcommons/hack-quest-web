@@ -1,6 +1,6 @@
 import { FC, useEffect, useRef, useState } from 'react';
 
-import Button from '@/components/Common/Button';
+import Button from '@/components/v2/Common/Button';
 import RightArrowIcon from '@/components/Common/Icon/RightArrow';
 import Checkbox from '@/components/v2/Common/Checkbox';
 import Input from '@/components/v2/Common/Input';
@@ -52,9 +52,10 @@ const UserLogin: FC<UserLoginProps> = (props) => {
   const router = useRouter();
   const { redirect_url } = router.query;
   const passwordInputRef = useRef<any>(null);
-
+  const [loading, setLoading] = useState(false);
   const { run: onLogin } = useDebounceFn(
     () => {
+      setLoading(true);
       BurialPoint.track('login-登录按钮点击');
       validator.validate(formData, async (errors, fields) => {
         if (!errors) {
@@ -74,8 +75,8 @@ const UserLogin: FC<UserLoginProps> = (props) => {
               ? `${redirect_url}?token=${res.token}`
               : '/home';
             router.push(toPageUrl);
+            setLoading(false);
           } catch (e: any) {
-            console.log(e);
             if (e.code === 400) {
               BurialPoint.track('login-登录失败', { message: e?.msg });
               if (e.status === 'UNACTIVATED') {
@@ -87,6 +88,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
               passwordInputRef.current?.setStatus?.('error');
               passwordInputRef.current?.setErrorMessage?.(e.msg);
             }
+            setLoading(false);
           }
         } else {
           const status: any = { ...formState };
@@ -97,6 +99,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
             };
           });
           setFormState(status);
+          setLoading(false);
         }
       });
     },
@@ -196,26 +199,28 @@ const UserLogin: FC<UserLoginProps> = (props) => {
           </p>
         </div>
 
-        <div className="flex flex-col gap-[.625rem]">
-          <Button
-            onClick={onLogin}
-            block
-            icon={<RightArrowIcon></RightArrowIcon>}
-            iconPosition="right"
-            className="
+        <Button
+          onClick={onLogin}
+          block
+          loading={loading}
+          disabled={loading}
+          icon={<RightArrowIcon></RightArrowIcon>}
+          iconPosition="right"
+          type="primary"
+          className="
           font-next-book
           text-[1.125rem]
           bg-auth-primary-button-bg hover:bg-auth-primary-button-hover-bg
           text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
           border-auth-primary-button-border-color hover:border-auth-primary-button-border-hover-color
           "
-          >
-            Login now
-          </Button>
-          <Button
-            onClick={onBack}
-            block
-            className="
+        >
+          Login now
+        </Button>
+        <Button
+          onClick={onBack}
+          block
+          className="
           font-next-book
           text-[1.125rem]
           border
@@ -223,10 +228,9 @@ const UserLogin: FC<UserLoginProps> = (props) => {
           text-white hover:text-auth-ghost-button-text-hover-color
           border-white hover:border-auth-ghost-button-border-hover-color
           "
-          >
-            Back
-          </Button>
-        </div>
+        >
+          Back
+        </Button>
       </div>
     </div>
   );
