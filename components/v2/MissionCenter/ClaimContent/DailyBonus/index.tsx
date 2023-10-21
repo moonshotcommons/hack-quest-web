@@ -1,5 +1,5 @@
 import { MissionDataType } from '@/service/webApi/missionCenter/type';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import MoonFace from '@/public/images/mission-center/moon_face.png';
 import IconCoin from '@/public/images/mission-center/icon_coin.png';
 import IconXp from '@/public/images/mission-center/icon_xp.png';
@@ -32,6 +32,8 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
   });
   const [scrollContainerState, setScrollContainerState] =
     useState<ChangeState>();
+  const scrollContainerRef = useRef<any>();
+  const isTranslate = useRef(false);
   const handleClaim = (i: number) => {
     setCurIndex(i);
     missionClaim([dealedMissionData.mData[i].id], () => {
@@ -42,7 +44,8 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
     });
   };
   const renderClaimContent = (item: MissionDataType, i: number) => {
-    const completed = item.progress?.completed;
+    // const completed = item.progress?.completed;
+    const completed = true;
     const claimed = item.progress?.claimed;
     if (completed) {
       return (
@@ -179,6 +182,23 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
   };
 
   useEffect(() => {
+    if (isTranslate.current) return;
+    if (
+      scrollContainerState &&
+      scrollContainerState?.listWidth > 1200 &&
+      dealedMissionData.completedLen > 0
+    ) {
+      const { containerWidth, listWidth } = scrollContainerState;
+      let translateX = 313 * (dealedMissionData.completedLen - 1);
+      if (listWidth - Math.abs(translateX) < containerWidth) {
+        translateX = listWidth - containerWidth;
+      }
+      scrollContainerRef.current.handlesetTranslateX(translateX * -1);
+      isTranslate.current = true;
+    }
+  }, [dealedMissionData.completedLen, scrollContainerState]);
+
+  useEffect(() => {
     const mData =
       [...missionData]?.sort(
         (a: MissionDataType, b: MissionDataType) =>
@@ -202,6 +222,7 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
           </div>
           <div className="relative">
             <ScrollContainer
+              ref={scrollContainerRef}
               onChange={(state: any) => setScrollContainerState(state)}
             >
               <div
