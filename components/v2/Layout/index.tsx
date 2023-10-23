@@ -27,8 +27,12 @@ export const navbarList = [
     path: '/electives'
   },
   {
-    name: 'Mission Center ',
+    name: 'Mission Center',
     path: '/mission-center'
+  },
+  {
+    name: 'Resource Station',
+    path: '/resource-station'
   }
 ];
 

@@ -6,8 +6,9 @@ import { useEffect, useState } from 'react';
 import CourseBox from './CourseBox';
 import LearningTrackList from './LearningTrackList';
 import NoData from './NoData';
-import Tab from './Tab';
-import { CourseTabType } from './type';
+import { courseTab } from './data';
+import Tab from '@/components/v2/Tab';
+import { TabListType } from '@/components/v2/Tab/type';
 
 function Course() {
   const [curTab, setCurTab] = useState<ProcessType>(ProcessType.IN_PROCESS);
@@ -50,8 +51,8 @@ function Course() {
       resolve(true);
     });
   };
-  const changeTab = (tab: CourseTabType) => {
-    setCurTab(tab.value);
+  const changeTab = (tab: TabListType) => {
+    setCurTab(tab.value as ProcessType);
   };
 
   useEffect(() => {
@@ -62,7 +63,7 @@ function Course() {
   }, [curTab]);
   return (
     <>
-      <Tab curTab={curTab} changeTab={changeTab} />
+      <Tab tabList={courseTab} curTab={curTab} changeTab={changeTab} />
       <Loading loading={loading}>
         {!courseListData[curTab].length &&
         !learningTrackListData[curTab].length ? (

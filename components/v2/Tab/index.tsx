@@ -1,15 +1,19 @@
 import React from 'react';
-import { courseTab, CourseTabType } from './type';
 import { ProcessType } from '@/service/webApi/course/type';
+import { HackathonType } from '@/service/webApi/resourceStation/type';
+import { TabListType, TabValueType } from './type';
+import { cn } from '@/helper/utils';
 
 interface TabType {
-  curTab: ProcessType;
-  changeTab: (tab: CourseTabType) => void;
+  tabList: TabListType[];
+  curTab: ProcessType | HackathonType;
+  changeTab: (tab: TabListType) => void;
+  className?: string;
 }
-const Tab: React.FC<TabType> = ({ curTab, changeTab }) => {
+const Tab: React.FC<TabType> = ({ tabList, curTab, changeTab, className }) => {
   return (
-    <div className="flex gap-10 pb-[30px]">
-      {courseTab.map((tab: CourseTabType) => (
+    <div className={cn(`flex gap-10 pb-[30px] `, className)}>
+      {tabList.map((tab: TabListType) => (
         <div
           key={tab.value}
           className={`cursor-pointer h-[37px] text-[20px] border-b-[3px] leading-[44px]  border-[transparent] ${
