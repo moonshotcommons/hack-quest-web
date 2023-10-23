@@ -1,6 +1,6 @@
 import React from 'react';
 import Hackathon from '@/components/v2/ResourceStation/Hackathon';
-import FeatruedProject from '@/components/v2/ResourceStation/FeatruedProject';
+import FeatruedProject from '@/components/v2/ResourceStation/Hackathon/FeatruedProject';
 
 function ResourceStation() {
   return (
