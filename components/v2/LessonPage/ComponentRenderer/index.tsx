@@ -45,7 +45,7 @@ const ComponentRenderer: FC<ComponentRendererProps> = (props) => {
     case CustomType.Example:
       return (
         <ExampleRenderer
-          component={component as CustomComponent}
+          component={component as any}
           parent={parent as any}
         ></ExampleRenderer>
       );
