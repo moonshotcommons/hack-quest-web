@@ -293,10 +293,10 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
       .replace(/^\w/, (s) => s.toLocaleUpperCase());
     setSource(querySource as AuthType);
     switch (querySource) {
-      case AuthType.GOOGLE.toLocaleLowerCase():
+      case AuthType.GOOGLE:
         verifyGoogle(code as string);
         break;
-      case AuthType.GITHUB.toLocaleLowerCase():
+      case AuthType.GITHUB:
         verifyGithub(code as string);
         break;
       default:
