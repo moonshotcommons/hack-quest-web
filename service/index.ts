@@ -8,7 +8,7 @@ import UserApi from './webApi/user';
 class WebApi {
   protected baseURL: string;
   protected service: WebService;
-  protected timeout = 10000;
+  protected timeout = 300000;
 
   courseApi: CourseApi;
   learningTrackApi: LearningTrackApi;

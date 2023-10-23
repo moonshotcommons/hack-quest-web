@@ -32,7 +32,7 @@ export const navbarList = [
   },
   {
     name: 'Resource Station',
-    path: '/resource-station'
+    path: '/resource-station/hackathon'
   }
 ];
 

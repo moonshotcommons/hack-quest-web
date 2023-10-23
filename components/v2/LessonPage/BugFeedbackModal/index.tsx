@@ -158,6 +158,7 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
       },
       {
         onError(err: any) {
+          console.log(err);
           message.error(err.msg || err.message);
         },
         onSuccess(res) {
