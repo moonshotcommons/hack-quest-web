@@ -44,8 +44,7 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
     });
   };
   const renderClaimContent = (item: MissionDataType, i: number) => {
-    // const completed = item.progress?.completed;
-    const completed = true;
+    const completed = item.progress?.completed;
     const claimed = item.progress?.claimed;
     if (completed) {
       return (
