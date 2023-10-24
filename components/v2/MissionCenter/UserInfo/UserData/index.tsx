@@ -68,7 +68,7 @@ const UserData: React.FC<UserDataType> = ({
             <Image
               src={IconXp}
               width={30}
-              alt="iconCoin"
+              alt="iconCredits"
               className="object-cover"
             ></Image>
             <span className=" leading-[45px] ml-[10px]">
@@ -78,7 +78,7 @@ const UserData: React.FC<UserDataType> = ({
         </div>
 
         <div className=" pt-[20px] pb-[16px] h-full  w-[155px] flex-col-center justify-between rounded-[10px] border border-[#8C8C8C] bg-[#fff]">
-          <p>Total Hack Coins</p>
+          <p>Total Hack Credits</p>
           <div className="text-[28px] pt-1  flex-row-center">
             <Image
               src={IconCoin}
