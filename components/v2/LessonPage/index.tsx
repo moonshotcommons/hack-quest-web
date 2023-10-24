@@ -174,9 +174,8 @@ const LessonPage: FC<LessonPageProps> = (props) => {
                       })
                     }
                   );
-
-                  onNextClick(() => {
-                    if (lesson.state !== CompleteStateType.COMPLETED) {
+                  if (lesson.state !== CompleteStateType.COMPLETED) {
+                    onNextClick(() => {
                       webApi.missionCenterApi
                         .digTreasures(lessonId)
                         .then((res) => {
@@ -186,8 +185,10 @@ const LessonPage: FC<LessonPageProps> = (props) => {
                             onNextClick();
                           }
                         });
-                    }
-                  });
+                    });
+                  } else {
+                    onNextClick();
+                  }
                 }}
               />
               <CompleteModal
