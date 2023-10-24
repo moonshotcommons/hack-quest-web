@@ -25,10 +25,7 @@ const BeginnerRewards: React.FC<TabContentType> = ({
     <div>
       <div className="flex items-center justify-between mb-[40px]">
         <div className="text-[#000] w-[62%]">
-          {`This special section is designed for newcomers, helping you ease into
-          HackQuest while earning rewards. From profile updates to social
-          connections, we're here to make your start as smooth as possible.
-          Let's embark on this learning journey together! 🚀`}
+          {`We're here to help you get started on your HackQuest journey while also giving you the chance to earn rewards. Let's embark on this learning journey together! 🚀`}
         </div>
         <Button
           className={`w-[270px] h-[60px] text-[18px] text-[#0b0b0b] bg-auth-primary-button-bg 

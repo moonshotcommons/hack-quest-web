@@ -8,31 +8,15 @@ export const equityList: EquityListType[] = [
     level: 0
   },
   {
-    label: 'Create courses',
+    label: 'More to come',
     level: 10
   },
   {
-    label: 'Eligible for airdrop',
-    level: 10
-  },
-  {
-    label: 'Improve course content',
-    level: 10
-  },
-  {
-    label: 'Apply for community advocate',
-    level: 10
-  },
-  {
-    label: 'Curate courses',
+    label: 'More to come',
     level: 20
   },
   {
-    label: 'Platform governance',
-    level: 30
-  },
-  {
-    label: 'Censor courses',
+    label: 'More to come',
     level: 30
   }
 ];
@@ -50,21 +34,16 @@ export const equityTip: EquityTipType[] = [
   {
     level: '10-19',
     role: 'Web3 Explorer',
-    rights: [
-      'Create courses',
-      'Eligible for airdrop',
-      'Improve course content',
-      'Apply for community advocate'
-    ]
+    rights: ['More to come']
   },
   {
     level: '20-29',
     role: 'Web3 Explorer',
-    rights: ['Curate courses']
+    rights: ['More to come']
   },
   {
     level: '30+',
     role: 'Web3 Questmaster',
-    rights: ['Platform governance', 'Censor courses']
+    rights: ['More to come']
   }
 ];
