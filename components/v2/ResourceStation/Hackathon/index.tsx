@@ -5,11 +5,17 @@ import { HackathonType } from '@/service/webApi/resourceStation/type';
 import { hackathonTab } from './data';
 import OnGoing from './OnGoing';
 import Past from './Past';
+import { useRouter } from 'next/router';
 
 function Hackathon() {
+  const router = useRouter();
   const [curTab, setCurTab] = useState<HackathonType>(HackathonType.ON_GOING);
   const changeTab = (item: TabListType) => {
-    setCurTab(item.value as HackathonType);
+    if (item.type === 'tab') {
+      setCurTab(item.value as HackathonType);
+    } else {
+      router.push(item.value);
+    }
   };
   const renderHackathon = () => {
     switch (curTab) {
