@@ -9,6 +9,7 @@ import BannerBg from '@/public/images/landing/banner_bg.png';
 import { BurialPoint } from '@/helper/burialPoint';
 import { useSelector } from 'react-redux';
 import { AppRootState } from '@/store/redux';
+import Loading from '../../Common/Loading';
 
 interface ClaimContentProp {
   missionClaim: (missionIds: string[]) => void;
@@ -95,6 +96,7 @@ const ClaimContent: React.FC<ClaimContentProp> = ({ missionClaim }) => {
           flex: 1
         };
   }, [curIndex]);
+  console.info(missionData, 'missionData');
   return (
     <div className="w-[calc(100%-360px)] h-full flex flex-col pt-[40px] pb-[20px]">
       <Tab curIndex={curIndex} tabList={tabList} changeTab={changeTab} />
@@ -105,7 +107,7 @@ const ClaimContent: React.FC<ClaimContentProp> = ({ missionClaim }) => {
           boxShadow: `0 5px 6px #dadada`
         }}
       >
-        {renderContent()}
+        {missionData?.all?.length > 0 && renderContent()}
       </div>
     </div>
   );
