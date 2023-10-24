@@ -3,7 +3,7 @@ import { TabListType, TabValueType } from '@/components/v2/Tab/type';
 
 export const courseTab: TabListType[] = [
   {
-    label: 'In Process',
+    label: 'In Progress',
     value: ProcessType.IN_PROCESS
   },
   {

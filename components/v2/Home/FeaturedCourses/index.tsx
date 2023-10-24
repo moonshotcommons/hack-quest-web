@@ -21,9 +21,8 @@ const FeaturedCourseHeader = () => {
           Featured Electives
         </h2>
         <p className="w-[540px] text-[14px] leading-[160%] font-next-book text-[#000]">
-          Electives are a treasury hunt. Each course is relatively short and
-          independent, with a focused topic. You may learn something
-          mind-blowing, or simply steel your skills.
+          Each elective course is relatively short and independent, with a
+          focused topic. You will learn how to build a project step by step.
         </p>
       </div>
       <Link
