@@ -14,6 +14,10 @@ import LessonFooter from './LessonFooter';
 import Playground from './Playground';
 import { CustomType, LessonPageContext, NotionComponent } from './type';
 
+import Modal from '../Common/Modal';
+import BugFeedbackModal, { BugFeedbackModalRef } from './BugFeedbackModal';
+import TreasureModal, { TreasureModalRef } from '../TreasureModal';
+
 interface LessonPageProps {
   lessonId: string;
   courseType: CourseType;
@@ -28,6 +32,8 @@ const LessonPage: FC<LessonPageProps> = (props) => {
     useGotoNextLesson(lesson!, courseType, true, true);
   const [isHandleNext, setIsHandleNext] = useState(false);
   const allowNextButtonClickTime = useRef(0);
+  const treasureModalRef = useRef<TreasureModalRef>(null);
+
   const judgmentInitIsHandleNext = useCallback(() => {
     const quiz = lesson?.content?.right?.find(
       (v: NotionComponent) => v.type === CustomType.Quiz
@@ -65,6 +71,8 @@ const LessonPage: FC<LessonPageProps> = (props) => {
     };
   }, []);
 
+  const bugFeedbackModalRef = useRef<BugFeedbackModalRef>(null);
+
   return (
     <ConfigProvider
       theme={{
@@ -99,6 +107,11 @@ const LessonPage: FC<LessonPageProps> = (props) => {
                     allowNextButtonClickTime.current = new Date().getTime();
                   }
                   setIsHandleNext(handle);
+                },
+                onBugCommit() {
+                  bugFeedbackModalRef.current?.onCommit({
+                    lesson
+                  });
                 }
               }}
             >
@@ -131,6 +144,15 @@ const LessonPage: FC<LessonPageProps> = (props) => {
                 <Playground
                   lesson={lesson! as any}
                   onCompleted={() => {
+                    if (lesson.state !== CompleteStateType.COMPLETED) {
+                      webApi.missionCenterApi
+                        .digTreasures(lessonId)
+                        .then((res) => {
+                          if (res.success && res.treasureId) {
+                            treasureModalRef.current?.open(res.treasureId);
+                          }
+                        });
+                    }
                     // 当前lesson完成
                     setIsHandleNext(true);
                   }}
@@ -152,8 +174,21 @@ const LessonPage: FC<LessonPageProps> = (props) => {
                       })
                     }
                   );
-
-                  onNextClick();
+                  if (lesson.state !== CompleteStateType.COMPLETED) {
+                    onNextClick(() => {
+                      webApi.missionCenterApi
+                        .digTreasures(lessonId)
+                        .then((res) => {
+                          if (res.success && res.treasureId) {
+                            treasureModalRef.current?.open(res.treasureId);
+                          } else {
+                            onNextClick();
+                          }
+                        });
+                    });
+                  } else {
+                    onNextClick();
+                  }
                 }}
               />
               <CompleteModal
@@ -161,6 +196,9 @@ const LessonPage: FC<LessonPageProps> = (props) => {
                 open={completeModalOpen}
                 onClose={() => setCompleteModalOpen(false)}
               ></CompleteModal>
+
+              <BugFeedbackModal ref={bugFeedbackModalRef}></BugFeedbackModal>
+              <TreasureModal ref={treasureModalRef} />
             </LessonPageContext.Provider>
           </div>
         )}

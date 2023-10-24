@@ -11,7 +11,8 @@ import {
 
 export enum CourseApiType {
   Course_List = '/courses',
-  LessonDetail = '/pages'
+  LessonDetail = '/pages',
+  Support = '/support/suggest'
 }
 
 class CourseApi {
@@ -24,7 +25,6 @@ class CourseApi {
   getCourseList(searchString?: string) {
     let url: string = CourseApiType.Course_List;
     if (searchString) url = `${url}?${searchString}`;
-    console.log(url);
     return this.service.get<CourseDataType>(url);
   }
 
@@ -101,10 +101,25 @@ class CourseApi {
     });
   }
 
+  /** 完成单个quiz */
   completeQuiz(lessonId: string, quizIndex: number) {
     const url = `${CourseApiType.LessonDetail}/${lessonId}/quiz`;
     return this.service.post(url, {
       data: { index: quizIndex, isCompleted: true }
+    });
+  }
+
+  /** 提交bug和建议 */
+  commitSuggest(type: string, content: string, file: FormData) {
+    return this.service.post(CourseApiType.Support, {
+      data: {
+        type,
+        content,
+        file
+      },
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
     });
   }
 }

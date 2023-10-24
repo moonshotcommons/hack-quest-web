@@ -1,6 +1,6 @@
 import { FC, ReactNode, useEffect, useState } from 'react';
 
-import Button from '@/components/Common/Button';
+import Button from '@/components/v2/Common/Button';
 import RightArrowIcon from '@/components/Common/Icon/RightArrow';
 import Input from '@/components/v2/Common/Input';
 import { BurialPoint } from '@/helper/burialPoint';
@@ -34,9 +34,11 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
 
   const [status, setStatus] = useState<any>('default');
   const [errorMessage, setErrorMessage] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const { run: verifyEmail } = useDebounceFn(
     () => {
+      setLoading(true);
       if (type === UnLoginType.LOGIN) {
         BurialPoint.track('login-登录next按钮');
       }
@@ -58,6 +60,7 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
               message: errors?.[0].message || ''
             });
           }
+          setLoading(false);
         } else {
           if (type === UnLoginType.LOGIN) {
             BurialPoint.track('login-登录邮箱验证成功');
@@ -68,6 +71,7 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
           setStatus('success');
           setErrorMessage('');
           onNext(formData.email);
+          setLoading(false);
         }
       });
     },
@@ -135,8 +139,11 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
         <Button
           onClick={verifyEmail}
           block
+          type="primary"
+          disabled={loading}
           icon={<RightArrowIcon></RightArrowIcon>}
           iconPosition="right"
+          loading={loading}
           className="bg-auth-primary-button-bg hover:bg-auth-primary-button-hover-bg text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color border-auth-primary-button-border-color hover:border-auth-primary-button-border-hover-color"
         >
           Next

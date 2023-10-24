@@ -79,11 +79,13 @@ const Success: React.FC<{ type: AuthType }> = ({ type }) => {
     </div>
   );
 };
+
 const Fail: React.FC<{ type: AuthType }> = ({ type }) => {
   const loginThreeParty = async (type: AuthType) => {
     const res = (await webApi.userApi.getAuthUrl(type)) as any;
     window.location.href = res?.url;
   };
+  const router = useRouter();
   const dispatch = useDispatch();
   const renderTextAndBtn = () => {
     switch (type) {
@@ -99,6 +101,7 @@ const Fail: React.FC<{ type: AuthType }> = ({ type }) => {
             </div>
             <Button
               onClick={() => {
+                router.push('/');
                 dispatch(setUnLoginType(UnLoginType.LOGIN));
               }}
               block
@@ -137,13 +140,14 @@ const Fail: React.FC<{ type: AuthType }> = ({ type }) => {
                 src={type === AuthType.GOOGLE ? Google : Github}
                 width={22}
                 height={22}
-                alt="Google"
+                alt={type}
                 className="absolute left-[25px] top-[16px]"
               ></Image>
               Continue with {type}
             </Button>
             <Button
               onClick={() => {
+                router.push('/');
                 dispatch(setUnLoginType(UnLoginType.LOGIN));
               }}
               block
@@ -204,10 +208,23 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
       webApi.userApi
         .googleVerify(code)
         .then((res: any) => {
-          dispatch(setUserInfo(omit(res, 'token')));
-          BurialPoint.track('signup-Google三方登录code验证成功');
-          setToken(res.token);
-          setVerifyState(VerifyStateType.SUCCESS);
+          if (res.status === 'UNACTIVATED') {
+            router.replace(`/?type=${UnLoginType.INVITE_CODE}`);
+            dispatch(
+              setUnLoginType({
+                type: UnLoginType.INVITE_CODE,
+                params: {
+                  registerType: AuthType.GOOGLE,
+                  ...res
+                }
+              })
+            );
+          } else {
+            dispatch(setUserInfo(omit(res, 'token')));
+            BurialPoint.track('signup-Google三方登录code验证成功');
+            setToken(res.token);
+            router.push('/home');
+          }
         })
         .catch((err) => {
           BurialPoint.track('signup-Google三方登录code验证失败', {
@@ -230,10 +247,23 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
       webApi.userApi
         .githubVerify(code)
         .then((res: any) => {
-          dispatch(setUserInfo(omit(res, 'token')));
-          BurialPoint.track('signup-Github三方登录code验证成功');
-          setToken(res.token);
-          setVerifyState(VerifyStateType.SUCCESS);
+          if (res.status === 'UNACTIVATED') {
+            router.replace(`/?type=${UnLoginType.INVITE_CODE}`);
+            dispatch(
+              setUnLoginType({
+                type: UnLoginType.INVITE_CODE,
+                params: {
+                  registerType: AuthType.GITHUB,
+                  ...res
+                }
+              })
+            );
+          } else {
+            dispatch(setUserInfo(omit(res, 'token')));
+            BurialPoint.track('signup-Github三方登录code验证成功');
+            setToken(res.token);
+            router.push('/home');
+          }
         })
         .catch((err) => {
           BurialPoint.track('signup-Github三方登录code验证失败', {
@@ -257,18 +287,22 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
       const verifyData = JSON.parse(atob(state as string));
       querySource = verifyData?.source || AuthType.GOOGLE;
     }
+    //第一个字母大写 其余小写
+    querySource = (querySource as string)
+      .toLocaleLowerCase()
+      .replace(/^\w/, (s) => s.toLocaleUpperCase());
     setSource(querySource as AuthType);
     switch (querySource) {
-      case AuthType.GOOGLE.toLocaleLowerCase():
+      case AuthType.GOOGLE:
         verifyGoogle(code as string);
         break;
-      case AuthType.GITHUB.toLocaleLowerCase():
+      case AuthType.GITHUB:
         verifyGithub(code as string);
         break;
       default:
         verifyEmail(token as string);
     }
-  }, [router, dispatch]);
+  }, []);
 
   return (
     <div className="w-full h-full flex flex-col items-center">

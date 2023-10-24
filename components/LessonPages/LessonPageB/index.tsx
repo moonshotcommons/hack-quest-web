@@ -41,7 +41,6 @@ const LessonPageB: FC<LessonPageBProps> = (props) => {
   const router = useRouter();
   const { courseId: courseName } = router.query;
   const sections = useParseLessonBSection(lesson.content);
-  console.log(sections);
 
   const { onNextClick, completeModalOpen, setCompleteModalOpen } =
     useGotoNextLesson(lesson, courseType, true);
@@ -80,7 +79,7 @@ const LessonPageB: FC<LessonPageBProps> = (props) => {
           </Button>
         )}
         <Button
-          onClick={onNextClick}
+          onClick={() => onNextClick()}
           className="bg-lesson-primary-button-bg text-lesson-primary-button-text-color border border-lesson-primary-button-border-color font-next-book px-[3rem] py-[1rem]"
         >
           Next

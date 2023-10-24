@@ -1,5 +1,12 @@
 import type { ReactElement } from 'react';
-import { forwardRef, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  forwardRef,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  useImperativeHandle
+} from 'react';
 
 import useResizeObserver from '@/hooks/useDomHooks/useResizeObserver';
 
@@ -31,7 +38,9 @@ export const ScrollContainer = forwardRef<unknown, ScrollContainerProps>(
     const [translateX, setTranslateX] = useState(0);
 
     const cache = useRef(containerWidth);
-
+    useImperativeHandle(ref, () => ({
+      handlesetTranslateX: (x: number) => setTranslateX(x)
+    }));
     useEffect(() => {
       if (
         containerWidth > cache.current &&

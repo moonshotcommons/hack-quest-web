@@ -18,6 +18,7 @@ import { GrSubtract } from 'react-icons/gr';
 import { VscAdd } from 'react-icons/vsc';
 import styled from 'styled-components';
 import { TrackListContext } from '../../LearningTrackDetail';
+import Button from '@/components/v2/Common/Button';
 
 const CustomProgress = styled(Progress)`
   .ant-progress-inner {
@@ -62,7 +63,7 @@ function SectionList(props: {
 }) {
   const { section, enrolled, theme, sectionIndex, sectionList } = props;
   const router = useRouter();
-  const jumpLearningLesson = useJumpLeaningLesson();
+  const { jumpLearningLesson, loading } = useJumpLeaningLesson();
 
   const renderLearningButton = (item: CourseDetailType, index: number) => {
     if (!enrolled) return null;
@@ -72,7 +73,6 @@ function SectionList(props: {
       if (index === 0 && sectionIndex !== 0) {
         let prevCourses = sectionList[sectionIndex - 1].courses;
         let prevCourse = prevCourses[prevCourses.length - 1] as CourseResponse;
-        console.log(prevCourse.name, item.name);
         if (prevCourse.progress < 1) return null;
       }
 
@@ -89,8 +89,13 @@ function SectionList(props: {
       <>
         {enrolled && item.progress < 1 && (
           <div className="h-full flex items-center justify-end pr-[50px]">
-            <button
-              className="w-[165px] py-[11px] leading-[125%] hover:-translate-y-[1px] hover:shadow-[rgba(0,0,0,0.15)_1.95px_1.95px_2.6px] transition border border-solid bg-course-learning-button-bg border-course-learning-button-border-color rounded-[32px] whitespace-nowrap text-sm text-[#0B0B0B] font-next-book text-[16px] cursor-pointer"
+            <Button
+              loading={loading}
+              disabled={loading}
+              className="
+              w-[165px] py-[11px] leading-[125%] hover:-translate-y-[1px] hover:shadow-[rgba(0,0,0,0.15)_1.95px_1.95px_2.6px] transition border border-solid
+              bg-course-learning-button-bg border-course-learning-button-border-color rounded-[32px] whitespace-nowrap
+              text-sm text-[#0B0B0B] font-next-book text-[16px] cursor-pointer"
               onClick={(e) => {
                 e.stopPropagation();
                 BurialPoint.track('learningTrackDetail-course学习按钮', {
@@ -111,7 +116,7 @@ function SectionList(props: {
               }}
             >
               {item.progress > 0 ? 'Resume' : 'Start'}
-            </button>
+            </Button>
           </div>
         )}
       </>

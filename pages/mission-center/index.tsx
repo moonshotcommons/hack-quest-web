@@ -1,115 +1,57 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import UserInfo from '@/components/v2/MissionCenter/UserInfo';
-import Quests from '@/components/MissionCenter/Quests';
-import Milestones from '@/components/MissionCenter/Milestones';
-import SignUpStreak from '@/components/MissionCenter/SignupStreak';
-import BeginnerRewards from '@/components/MissionCenter/BeginnerRewards';
+import ClaimContent from '@/components/v2/MissionCenter/ClaimContent';
 import webApi from '@/service';
-import {
-  UserLevelType,
-  BadgesType,
-  MissionDataType,
-  BeginnerRewardsType,
-  MissionType
-} from '@/service/webApi/missionCenter/type';
-import { useRequest } from 'ahooks';
 import { AppRootState } from '@/store/redux';
 import { shallowEqual, useSelector } from 'react-redux';
 import { message } from 'antd';
+import { BurialPoint } from '@/helper/burialPoint';
+import { useGetMissionData } from '@/hooks/useGetMissionData';
+import { MissionCenterContext } from '@/components/v2/MissionCenter/type';
 
 function MissionCenter() {
   const userInfo = useSelector((state: AppRootState) => {
     return state.user.userInfo;
   }, shallowEqual);
-  const [claimLoading, setClaimLoading] = useState(false);
+  const { updateMissionDataAll } = useGetMissionData();
+  const [loading, setLoading] = useState(false);
+  const [missionIds, setMissionIds] = useState<string[]>([]);
 
-  /** 获取用户等级 */
-  const { data: useLevel = {} as UserLevelType, run: updateUserLevel } =
-    useRequest(
-      async () => {
-        let res = await webApi.missionCenterApi.getUserLevel();
-        return res;
-      },
-      {
-        onError(error: any) {
-          // message.error(`get user level ${error.msg}!`);
-        }
-      }
-    );
-  /** 获取用户badge */
-  const { data: badges = [] as BadgesType[], run: updateBadges } = useRequest(
-    async () => {
-      let res = await webApi.missionCenterApi.getAllBadges();
-      return res;
-    },
-    {
-      onError(error: any) {
-        // message.error(`get badges ${error.msg}!`);
-      }
-    }
-  );
-  /** 获取mission */
-  const { data: missions = [] as MissionDataType[], run: updateMission } =
-    useRequest(
-      async () => {
-        let res = await webApi.missionCenterApi.getAllMission();
-        res?.map((v: MissionDataType) => {
-          v.progress.progress[0] = v.progress.progress[0] || 0;
-          v.progress.progress[1] = v.progress.progress[1] || 0;
-        });
-        return res;
-      },
-      {
-        onError(error: any) {
-          // message.error(`get mission ${error.msg}!`);
-        }
-      }
-    );
-  const updateUserData = () => {
-    updateUserLevel();
-    updateBadges();
-    updateMission();
+  const missionClaim = (missionIds: string[], cb?: () => {}) => {
+    if (loading) return;
+    setMissionIds(missionIds);
+    BurialPoint.track(`mission-center-claim`);
+    setLoading(true);
+    webApi.missionCenterApi
+      .missionClaim(missionIds)
+      .then(() => {
+        updateMissionDataAll();
+        message.success('success');
+      })
+      .catch((error) => {
+        message.error(`claim ${error.msg}!`);
+      })
+      .finally(() => {
+        cb && cb();
+        setLoading(false);
+        setMissionIds([]);
+      });
   };
-
-  const missionClaim = (missionIds: string[]) => {
-    if (claimLoading) return;
-    setClaimLoading(true);
-    if (missionIds.length > 1) {
-      Promise.all(missionIds.map((v: string) => handleClaim(v)))
-        .then(() => {
-          updateUserData();
-          message.success('成功');
-        })
-        .finally(() => {
-          setClaimLoading(false);
-        });
-    } else {
-      handleClaim(missionIds[0])
-        .then(() => {
-          updateUserData();
-          message.success('成功');
-        })
-        .finally(() => {
-          setClaimLoading(false);
-        });
-    }
-  };
-  const handleClaim = (missionId: string) => {
-    return new Promise((resolve) => {
-      webApi.missionCenterApi
-        .missionClaim(missionId)
-        .then(() => {
-          resolve('success');
-        })
-        .catch((error) => {
-          message.error(`mission claim ${error.msg}!`);
-        });
-    });
-  };
-
   return (
-    <div className="flex justify-between w-full pt-[40px]  text-[#0b0b0b] tracking-[0.3px] bg-[#f4f4f4]  text-[14px] font-next-book">
-      <UserInfo userInfo={userInfo} useLevel={useLevel} badges={badges} />
+    <div className="container mx-auto flex justify-between h-[calc(100vh-64px)]  text-[#0b0b0b] tracking-[0.3px] bg-[#f4f4f4]  text-[14px] font-next-book">
+      <MissionCenterContext.Provider
+        value={{
+          loading,
+          missionIds,
+          changeMissionIds: (ids: string[]) => {
+            setMissionIds(ids);
+          },
+          updateMissionDataAll
+        }}
+      >
+        <UserInfo userInfo={userInfo} />
+        <ClaimContent missionClaim={missionClaim} />
+      </MissionCenterContext.Provider>
     </div>
   );
 }

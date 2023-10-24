@@ -7,7 +7,7 @@ export const useEnrollUnEnroll = (
   learningTrackDetail: LearningTrackDetailType | undefined,
   refreshCallback: VoidFunction
 ) => {
-  const { run: unEnroll } = useRequest(
+  const { run: unEnroll, loading: unEnrollLoading } = useRequest(
     async () => {
       if (learningTrackDetail) {
         const res = await webApi.learningTrackApi.unenrollLearningTrack(
@@ -29,7 +29,7 @@ export const useEnrollUnEnroll = (
     }
   );
 
-  const { run: enroll } = useRequest(
+  const { run: enroll, loading: enrollLoading } = useRequest(
     async () => {
       if (learningTrackDetail) {
         await webApi.learningTrackApi.enrollLearningTrack(
@@ -44,5 +44,5 @@ export const useEnrollUnEnroll = (
       debounceWait: 300
     }
   );
-  return { enroll, unEnroll };
+  return { enroll, enrollLoading, unEnroll, unEnrollLoading };
 };

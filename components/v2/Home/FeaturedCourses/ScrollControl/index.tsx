@@ -21,7 +21,6 @@ function ScrollControl({ changeState }: { changeState?: ChangeState }) {
     setWidthRatio(containerWidth / listWidth);
     if (scrollBarRef.current && scrollBarInstanceRef.current) {
       const scrollbarInstanceWidth = scrollBarInstanceRef.current.clientWidth;
-      console.log(translateX);
       setTranslateX(translateX * (scrollbarInstanceWidth / containerWidth));
     }
   }, [changeState]);

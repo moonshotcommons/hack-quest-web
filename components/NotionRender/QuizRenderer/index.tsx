@@ -116,7 +116,6 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
       });
       setErrorLines(errorLines);
       setAnswerWrong(isWrong);
-      console.log(parent);
       webApi.courseApi.markQuestState(parent.lesson.id, false);
     }
 

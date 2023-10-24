@@ -7,15 +7,18 @@ export interface BadgesType {
 }
 
 export enum MissionType {
-  DAILY_QUESTS = 'DAILY_QUESTS',
+  DAILY_BONUS = 'DAILY_BONUS',
+  BEGINNER_REWARDS = 'BEGINNER_REWARDS',
   MILESTONES = 'MILESTONES',
-  SEVEN_DAYS_SIGNUP = 'SEVEN_DAYS_SIGNUP'
+  DAILY_QUEST = 'DAILY_QUEST'
 }
 
 export enum MissionSubType {
-  COURSE_COMPLETION = 'COURSE_COMPLETION',
-  QUEST_WINNING_STREAK = 'QUEST_WINNING_STREAK',
-  TRACK_COMPLETION = 'TRACK_COMPLETION'
+  REGISTER_ACCOUNT = 'REGISTER_ACCOUNT',
+  JOIN_DISCORD = 'JOIN_DISCORD',
+  LINK_METAMASK = 'LINK_METAMASK',
+  ENROLL_LEARNING_TRACK = 'ENROLL_LEARNING_TRACK',
+  INVITE_USER = 'INVITE_USER'
 }
 
 export enum BeginnerRewardsType {
@@ -26,11 +29,19 @@ export enum BeginnerRewardsType {
 /** 用户等级 */
 export interface UserLevelType {
   level: number;
-  expToday: number;
-  expCurrent: number;
   expNextLevel: number;
-  expTotal: number;
-  badges: BadgesType[];
+  expCurrentLevel: number;
+  exp: number;
+  id?: string;
+}
+/** 用户等级 */
+export interface UserCoinType {
+  coin: number;
+  id?: string;
+}
+/** 用户等级 */
+export interface UserTreasuresType {
+  id: string;
 }
 /** 进度 */
 export interface ProgressType {
@@ -46,8 +57,20 @@ export interface MissionDataType {
   name: string;
   description: string;
   icon: string;
-  type: MissionType | BeginnerRewardsType;
-  subType: MissionSubType | '';
+  type: MissionType;
+  subType: MissionSubType & '';
   exp: number;
+  coin: number;
   progress: ProgressType;
+}
+
+export interface DigTreasuresResponse {
+  success: boolean;
+  treasureId?: string;
+}
+
+export interface OpenTreasuresResponse {
+  id: string;
+  exp: number;
+  coin: number;
 }

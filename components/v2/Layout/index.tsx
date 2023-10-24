@@ -5,6 +5,7 @@ import useNavAuth from '@/hooks/useNavPage/userNavAuth';
 import { NavBarProps } from './Navbar';
 import V2BaseLayout from './V2BaseLayout';
 import V2FullLayout from './V2FullLayout';
+import { useGetMissionData } from '@/hooks/useGetMissionData';
 
 export interface LayoutProps {
   navbarData: NavBarProps;
@@ -24,10 +25,18 @@ export const navbarList = [
   {
     name: 'Electives',
     path: '/electives'
+  },
+  {
+    name: 'Mission Center',
+    path: '/mission-center'
+  },
+  {
+    name: 'Resource Station',
+    path: '/resource-station'
   }
   // {
-  //   name: 'Mission Center ',
-  //   path: '/mission-center'
+  //   name: 'Resource Station',
+  //   path: '/resource-station/hackathon'
   // }
 ];
 
@@ -36,12 +45,13 @@ const V2Layout: FC<LayoutProps> = (props) => {
   const { waitingLoadUserInfo } = useLoadUserInfo();
   useNavAuth(waitingLoadUserInfo);
   const userInfo = useGetUserInfo();
+  const { updateMissionDataAll } = useGetMissionData();
   const regex = /\/[^/]+\/\[courseId\]\/learn\/\[lessonId\]/;
   navbarData.navList = [];
-  // navbarData.navList = [];
 
   if (userInfo) {
     navbarData.navList = navbarList;
+    updateMissionDataAll();
   }
 
   switch (true) {

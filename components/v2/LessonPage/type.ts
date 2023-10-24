@@ -94,13 +94,26 @@ export interface QuizBType extends CustomComponent {
   children: (NotionComponent & { content: { isGapFill: boolean }[] })[];
 }
 
+export interface CodeFileComponent extends CustomComponent {
+  filename: string;
+  isActive: boolean;
+  codeContent: NotionComponent;
+}
+
+export interface ExampleComponent extends CustomComponent {
+  renderIdeBtn: boolean;
+  codeFiles: CodeFileComponent[];
+}
+
 export interface LessonPageContextType {
   isHandleNext: boolean;
   changeHandleNext: (isHandle: boolean) => void;
   leftLength: number;
+  onBugCommit: VoidFunction;
 }
 export const LessonPageContext = createContext<LessonPageContextType>({
   isHandleNext: false,
   changeHandleNext: () => {},
-  leftLength: 0
+  leftLength: 0,
+  onBugCommit: () => {}
 });

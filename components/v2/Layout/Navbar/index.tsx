@@ -6,6 +6,9 @@ import { Theme } from '@/constants/enum';
 import { ThemeContext } from '@/store/context/theme';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
+import { AppRootState } from '@/store/redux';
+import Badge from '@/components/Common/Badge';
 
 export interface NavBarProps {
   navList: {
@@ -20,7 +23,11 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
   const { navList, children, logo } = NavBarProps;
   const { pathname } = useRouter();
   const { theme } = useContext(ThemeContext);
-
+  const { missionData } = useSelector((state: AppRootState) => {
+    return {
+      missionData: state.missionCenter?.missionData
+    };
+  });
   const NavBarLogo = () => {
     // if (!Logo) return null;
     // if (pathname !== '/') return <Image src={Logo} alt="logo"></Image>;
@@ -55,7 +62,12 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
               key={nav.path}
               href={nav.path}
             >
-              {nav.name}
+              <div className="relative">
+                <span>{nav.name}</span>
+                {nav.path === '/mission-center' && (
+                  <Badge count={missionData?.unClaimAll?.length || 0} />
+                )}
+              </div>
             </Link>
           );
         })}
