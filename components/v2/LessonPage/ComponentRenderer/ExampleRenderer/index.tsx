@@ -79,7 +79,7 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
               );
             })}
           </ExampleContext.Provider>
-          {component.codeFiles?.length && (
+          {!!component.codeFiles?.length && (
             <div className="flex flex-col h-full">
               <div className="w-full flex gap-[5px]">
                 {component.codeFiles?.map((codeFile, index) => {
