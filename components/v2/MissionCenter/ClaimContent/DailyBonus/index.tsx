@@ -63,7 +63,7 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
               <div className="text-[24px]">{`Day ${i + 1}`}</div>
               <div className="w-[165px] flex justify-between mt-[20px]">
                 <div>
-                  <Image src={IconCoin} width={60} alt="iconCoin" />
+                  <Image src={IconCoin} width={60} alt="iconCredits" />
                   <div className="w-[60px] h-[28px] rounded-[20px] mt-[10px] flex-center bg-[#3E3E3E]">
                     {item.coin}
                   </div>
@@ -108,7 +108,7 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
                       <Image
                         src={IconCoin}
                         width={20}
-                        alt="iconCoin"
+                        alt="iconCredits"
                         className=""
                       />
                       <span className="text-[16px]">{`X${item.coin}`}</span>
@@ -117,7 +117,7 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
                       <Image
                         src={IconXp}
                         width={20}
-                        alt="iconCoin"
+                        alt="iconXP"
                         className=""
                       />
                       <span className="text-[16px]">{`X${item.exp}`}</span>
@@ -156,7 +156,7 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
             <div className="text-[18px]">{`Day ${i + 1}`}</div>
             <div className="w-[104px] flex justify-between mt-[20px]">
               <div>
-                <Image src={IconCoin} width={40} alt="iconCoin" />
+                <Image src={IconCoin} width={40} alt="iconCredits" />
                 <div className="w-[40px] h-[20px] text-[12px] rounded-[20px] mt-[8px] flex-center bg-[#3E3E3E]">
                   {item.coin}
                 </div>
