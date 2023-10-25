@@ -25,9 +25,9 @@ function ProjectsPage() {
     >
       <div className="container mx-auto ">
         <PageDescription
-          title={'Selective Courses'}
+          title={'Project Archive'}
           description={
-            'Electives is a treasury hunt. Each course is relatively short and independent, with a focused topic. You may learning something mind-blowing, or simply steel your skills.'
+            'Welcome to the central repository for accessing all previous projects from our various hackathons.'
           }
           className="pt-0"
         />

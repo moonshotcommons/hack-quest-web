@@ -1,4 +1,4 @@
-import { FilterType } from '@/components/v2/SearchFilter/type';
+import { ALL, FilterType } from '@/components/v2/SearchFilter/type';
 
 export const sort = {
   type: FilterType.RADIO,
@@ -27,7 +27,7 @@ export const projectType = {
   filterList: [
     {
       label: 'All',
-      value: 'ALL',
+      value: ALL,
       checked: true
     },
     {
@@ -43,7 +43,7 @@ export const tracks = {
   filterList: [
     {
       label: 'All',
-      value: 'ALL',
+      value: ALL,
       checked: true
     },
     {

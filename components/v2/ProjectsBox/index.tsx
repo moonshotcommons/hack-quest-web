@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import CourseList from './CourseList';
 import { initPageInfo, initParam, filterData } from './data';
 import webApi from '@/service';
 import { CourseResponse } from '@/service/webApi/course/type';
 import Loading from '../Common/Loading';
 import SearchFilter from '@/components/v2/SearchFilter';
+import ProjectsList from './ProjectsList';
+import { deepClone } from '@/helper/utils';
+import { FilterDataType } from '../SearchFilter/type';
 
 interface PageInfoType {
   page: number;
@@ -20,14 +22,16 @@ const ProjectsBox: React.FC<ProjectsBoxProps> = ({
   setApiStatus,
   apiStatus
 }) => {
-  const [searchParam, setSearchParam] = useState<any>({ ...initParam });
+  const [searchParam, setSearchParam] = useState<FilterDataType[]>(
+    deepClone(filterData)
+  );
   const [pageInfo, setPageInfo] = useState<PageInfoType>(initPageInfo);
   const [list, setList] = useState<CourseResponse[]>([]);
   const [runNum, setRunNum] = useState(0);
   const [total, setTotal] = useState(0);
 
-  const changeParam = (newFilter: ParamType) => {
-    setSearchParam({ ...newFilter });
+  const changeParam = (newSearchParam: FilterDataType[]) => {
+    setSearchParam(newSearchParam);
   };
 
   const initList = () => {
@@ -92,12 +96,11 @@ const ProjectsBox: React.FC<ProjectsBoxProps> = ({
     <Loading loading={apiStatus === 'loading'}>
       <div className="flex justify-between gap-10">
         <SearchFilter
-          changeParam={changeParam}
           searchParam={searchParam}
+          changeParam={changeParam}
           len={total}
-          filterData={filterData}
         />
-        <CourseList list={list} />
+        <ProjectsList list={list} />
       </div>
     </Loading>
   );
