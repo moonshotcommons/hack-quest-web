@@ -67,8 +67,8 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
       return {
         onCommit(params) {
           setOpen(true);
+
           setLessonId(params.lessonId);
-          // form;
         }
       };
     });
@@ -202,7 +202,6 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
         </span>
       </div>
     );
-
     return (
       <Modal
         open={open}
