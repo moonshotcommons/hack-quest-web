@@ -129,7 +129,6 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
 
         const { kind, files, description } = verifyRes;
         if (!kind?.length) throw new Error('The bug type cannot be empty!');
-        const uploadFiles: Record<string, FormData> = {};
 
         let formData = new FormData();
         kind.forEach((k) => {
