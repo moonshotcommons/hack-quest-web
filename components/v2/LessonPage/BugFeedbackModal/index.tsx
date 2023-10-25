@@ -67,7 +67,8 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
       return {
         onCommit(params) {
           setOpen(true);
-          setLessonId(params.lesson?.lessonId);
+
+          setLessonId(params.lessonId);
         }
       };
     });
@@ -127,8 +128,9 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
         if (!verifyRes) return;
         let formData = new FormData();
         const { kind, files, description } = verifyRes;
+        if (!kind?.length) throw new Error('The bug type cannot be empty!');
 
-        files.fileList?.forEach((file) => {
+        files?.fileList?.forEach((file) => {
           formData.append('file[]', file as RcFile);
         });
 
@@ -144,7 +146,7 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
       },
       {
         onError(err: any) {
-          console.log(err);
+          if (err?.errorFields?.length) return;
           message.error(err.msg || err.message);
         },
         onSuccess(res) {
