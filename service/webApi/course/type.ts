@@ -114,7 +114,7 @@ export enum LearningTrackCourseType {
 export interface SuggestCommitParams {
   type: string[];
   content: string;
-  file: FormData;
+  // file: FormData;
   lessonId: string;
   link: string;
 }

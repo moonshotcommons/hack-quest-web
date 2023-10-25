@@ -126,21 +126,23 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
       async () => {
         const verifyRes = await formRef.current?.validateFields();
         if (!verifyRes) return;
-        let formData = new FormData();
+
         const { kind, files, description } = verifyRes;
         if (!kind?.length) throw new Error('The bug type cannot be empty!');
 
+        let formData = new FormData();
+        kind.forEach((k) => {
+          formData.append('type[]', k);
+        });
+        formData.append('content', description);
+        formData.append('lessonId', lessonId);
+        formData.append('link', window.location.href);
+
         files?.fileList?.forEach((file) => {
-          formData.append('file[]', file as RcFile);
+          formData.append('file', file.originFileObj as RcFile);
         });
 
-        const res = await webApi.courseApi.commitSuggest({
-          type: kind,
-          content: description,
-          file: formData,
-          lessonId: lessonId,
-          link: window.location.href
-        });
+        const res = await webApi.courseApi.commitSuggest(formData);
 
         return res;
       },
