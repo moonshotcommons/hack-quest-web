@@ -6,6 +6,7 @@ import {
   CourseLessonType,
   CourseUnitStateType,
   CourseUnitType,
+  SuggestCommitParams,
   UnitPagesListType
 } from './type';
 
@@ -110,13 +111,9 @@ class CourseApi {
   }
 
   /** 提交bug和建议 */
-  commitSuggest(type: string, content: string, file: FormData) {
+  commitSuggest(data: FormData) {
     return this.service.post(CourseApiType.Support, {
-      data: {
-        type,
-        content,
-        file
-      },
+      data,
       headers: {
         'Content-Type': 'multipart/form-data'
       }

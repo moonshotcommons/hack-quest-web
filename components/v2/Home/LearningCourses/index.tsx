@@ -17,7 +17,7 @@ function LearningCourses() {
           title={`Welcome,${userInfo?.name}!`}
           className="pb-20"
           description={
-            'This is your Dashboard, where you can check your ongoing projects and resume your study.'
+            'This is your Dashboard, where you can check your ongoing and completed courses. '
           }
         />
         <div className="pt-10">
