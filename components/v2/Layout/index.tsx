@@ -32,6 +32,10 @@ export const navbarList = [
   }
   // {
   //   name: 'Resource Station',
+  //   path: '/resource-station'
+  // }
+  // {
+  //   name: 'Resource Station',
   //   path: '/resource-station/hackathon'
   // }
 ];
