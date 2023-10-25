@@ -110,3 +110,11 @@ export enum LearningTrackCourseType {
   COMPLETED = 'completed',
   UN_ENROLL = 'unEnroll'
 }
+
+export interface SuggestCommitParams {
+  type: string[];
+  content: string;
+  file: FormData;
+  lessonId: string;
+  link: string;
+}
