@@ -25,9 +25,9 @@ function SelectiveCourses() {
     >
       <div className="container mx-auto ">
         <PageDescription
-          title={'Selective Courses'}
+          title={'Electives'}
           description={
-            'Electives is a treasury hunt. Each course is relatively short and independent, with a focused topic. You may learning something mind-blowing, or simply steel your skills.'
+            'Each elective course is relatively short and independent, with a focused topic. You will  learn how to build a project step by step. '
           }
         />
 
