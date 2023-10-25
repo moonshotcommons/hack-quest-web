@@ -44,7 +44,7 @@ const kinds = [
   'Factual Errors',
   'Clarity and Comprehension',
   'Enhancement Suggestions',
-  'other'
+  'Others'
 ];
 
 type A = (typeof kinds)[number];
@@ -67,8 +67,8 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
       return {
         onCommit(params) {
           setOpen(true);
-
           setLessonId(params.lessonId);
+          // form;
         }
       };
     });
@@ -152,12 +152,11 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
           message.error(err.msg || err.message);
         },
         onSuccess(res) {
-          console.log(res);
           formRef.current?.resetFields();
           setFileList([]);
           setSelectKinds([]);
-          message.success('Commit success!');
           setOpen(false);
+          message.success('Commit success!');
         },
         manual: true,
         debounceWait: 500
@@ -207,7 +206,12 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
     return (
       <Modal
         open={open}
-        onClose={() => setOpen(false)}
+        onClose={() => {
+          formRef.current?.resetFields();
+          setFileList([]);
+          setSelectKinds([]);
+          setOpen(false);
+        }}
         showCloseIcon
         icon={
           <div className="absolute right-[15px] top-[15px] cursor-pointer">
