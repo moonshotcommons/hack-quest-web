@@ -111,7 +111,7 @@ class CourseApi {
   }
 
   /** 提交bug和建议 */
-  commitSuggest(data: SuggestCommitParams) {
+  commitSuggest(data: FormData) {
     return this.service.post(CourseApiType.Support, {
       data,
       headers: {
