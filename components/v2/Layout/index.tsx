@@ -29,11 +29,11 @@ export const navbarList = [
   {
     name: 'Mission Center',
     path: '/mission-center'
-  },
-  {
-    name: 'Resource Station',
-    path: '/resource-station'
   }
+  // {
+  //   name: 'Resource Station',
+  //   path: '/resource-station'
+  // }
   // {
   //   name: 'Resource Station',
   //   path: '/resource-station/hackathon'
