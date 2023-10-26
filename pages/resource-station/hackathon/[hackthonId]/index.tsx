@@ -15,8 +15,12 @@ const HackDetail: FC<HackDetailProps> = (props) => {
       <div className="w-[58%]">
         <About hackathonData={hackathonData} />
         <GuestsMentors hackathonData={hackathonData} />
+        <MediaPartners hackathonData={hackathonData} />
+        <CommunityPartners hackathonData={hackathonData} />
       </div>
-      <div className="w-[39%]"></div>
+      <div className="w-[39%]">
+        <HackathonInfo hackathonData={hackathonData} />
+      </div>
     </div>
   );
 };

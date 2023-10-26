@@ -2,6 +2,8 @@ import React from 'react';
 import Astronaut from '@/public/images/landing/astronaut.png';
 import Image from 'next/image';
 import Button from '@/components/v2/Common/Button';
+import { useRouter } from 'next/router';
+import { MenuLink, QueryIdType } from '../Breadcrumb/type';
 
 interface OnGoingHackathonCardProp {
   hackathon: any;
@@ -10,8 +12,17 @@ interface OnGoingHackathonCardProp {
 const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({
   hackathon
 }) => {
+  const router = useRouter();
+  const goHackathonDetail = (e: any) => {
+    router.push(
+      `/learning-track/${hackathon.id}?${QueryIdType.HACKATHON_ID}=${hackathon.id}&menu=${MenuLink.RESOURCE_STATION}`
+    );
+  };
   return (
-    <div className="h-[430px] cursor-pointer rounded-[10px] bg-[#fff] overflow-hidden flex  mb-20 hover:-translate-y-1 transition-all duration-300 shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)] ">
+    <div
+      className="h-[430px] cursor-pointer rounded-[10px] bg-[#fff] overflow-hidden flex  mb-20 hover:-translate-y-1 transition-all duration-300 shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)] "
+      onClick={goHackathonDetail}
+    >
       <div className="h-full flex-1">
         <Image
           src={Astronaut}
@@ -20,10 +31,7 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({
         ></Image>
       </div>
       <div className="w-[580px] h-full flex flex-col justify-between p-[40px]">
-        <div className="flex flex-col">
-          <div className="mb-[13px] leading-[14px] flex items-center w-fit h-[28px] px-[14px] bg-[#DADADA] text-[#3E3E3E] rounded-[10px]">
-            Topic
-          </div>
+        <div className="flex">
           <div className="text-[21px] leading-[21px] font-next-book-bold">
             2023 Web 3 Hackathon Forum London + Day Party
           </div>

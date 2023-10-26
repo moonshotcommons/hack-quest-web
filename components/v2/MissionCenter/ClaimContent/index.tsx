@@ -96,7 +96,6 @@ const ClaimContent: React.FC<ClaimContentProp> = ({ missionClaim }) => {
           flex: 1
         };
   }, [curIndex]);
-  console.info(missionData, 'missionData');
   return (
     <div className="w-[calc(100%-360px)] h-full flex flex-col pt-[40px] pb-[20px]">
       <Tab curIndex={curIndex} tabList={tabList} changeTab={changeTab} />
