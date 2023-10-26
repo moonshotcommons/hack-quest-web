@@ -245,10 +245,7 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
             Found a bug? Claim rewards!
           </h1>
           <p className="mt-[10px] font-next-book text-[14px] text-black leading-[160%] -tracking-[0.154px]">
-            {`HackQuest is in its beta phase, and we value your input. If you come
-            across any bugs while learning, report them to us. Once verified,
-            you'll unlock exciting rewards as a token of our appreciation. Join
-            us in shaping a better Web 3 experience with HackQuest! 🐞🚀`}
+            {`HackQuest is currently in beta, and your feedback is crucial. If you come across any bug or error while learning, report it to us. Once verified,  we'll reward you with XP and hack credits. Join us in delivering a better experience! 🐞🚀`}
           </p>
           <p className="font-next-book text-base leading-[125%] tracking-[0.32px] text-black mt-[30px]">
             What kind of bugs have you found?
