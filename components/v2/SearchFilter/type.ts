@@ -1,3 +1,5 @@
+export const ALL = 'ALL';
+
 export enum FilterType {
   RADIO = 'radio',
   CHECKBOX = 'checkbox'
@@ -5,6 +7,7 @@ export enum FilterType {
 export interface FilterDataType {
   type: FilterType;
   title: string;
+  value: string;
   filterList: ParamType[];
 }
 export interface ParamType {
@@ -12,5 +15,3 @@ export interface ParamType {
   value: string;
   checked: boolean;
 }
-
-export type SearchParamType = Record<string, ParamType[]>;
