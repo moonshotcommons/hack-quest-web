@@ -1,9 +1,7 @@
 import WebService from '@/service/webService/webService';
 import {} from './type';
 
-export enum HackathonApiType {
-  GetUserLevel = '/users/level'
-}
+export enum HackathonApiType {}
 
 class HackathonApi {
   protected service: WebService;
@@ -11,9 +9,9 @@ class HackathonApi {
     this.service = service;
   }
   /** 获取用户等级 */
-  getUserLevel() {
-    return this.service.get(HackathonApiType.GetUserLevel);
-  }
+  // getUserLevel() {
+  //   return this.service.get(HackathonApiType.GetUserLevel);
+  // }
 }
 
 export default HackathonApi;
