@@ -7,6 +7,7 @@ export enum FilterType {
 export interface FilterDataType {
   type: FilterType;
   title: string;
+  value: string;
   filterList: ParamType[];
 }
 export interface ParamType {

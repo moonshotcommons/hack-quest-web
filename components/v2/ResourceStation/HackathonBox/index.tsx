@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Tab from '@/components/v2/Tab';
 import { TabListType, TabValueType } from '@/components/v2/Tab/type';
-import { HackathonType } from '@/service/webApi/resourceStation/type';
+import { HackathonType } from '@/service/webApi/resourceStation/hackathon/type';
 import { hackathonTab } from './data';
 import OnGoing from './OnGoing';
 import Past from './Past';

@@ -1,9 +1,9 @@
-import { FC, ReactNode } from 'react';
+import { FC } from 'react';
 
-interface IndexProps {}
+interface HackDetailProps {}
 
-const Index: FC<IndexProps> = (props) => {
-  return <div>Index</div>;
+const HackDetail: FC<HackDetailProps> = (props) => {
+  return <div>HackDetail</div>;
 };
 
-export default Index;
+export default HackDetail;

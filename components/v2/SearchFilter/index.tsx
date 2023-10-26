@@ -1,46 +1,64 @@
 import Checkbox from '@/components/v2/Common/Checkbox';
 import Radio from '@/components/v2/Common/Radio';
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { ALL, ParamType, FilterDataType, FilterType } from './type';
 import { deepClone } from '@/helper/utils';
+import { BiSearch } from 'react-icons/bi';
 
+export const dealFilterParam = (param: FilterDataType[]) => {
+  const paramObj: any = {};
+  param.map((v: FilterDataType) => {
+    paramObj[v.value] = v.filterList
+      .filter((filter: ParamType) => filter.checked && filter.value !== ALL)
+      .map((filter: ParamType) => filter.value)
+      .join(',');
+  });
+  return paramObj;
+};
 interface SearchFilterProps {
   searchParam: FilterDataType[];
   changeParam: (param: any) => void;
-  len: number;
+  changeInputValue?: (value: string) => void;
   isShowResult?: boolean;
+  resultsLen?: number;
+  isShowInput?: boolean;
 }
 const SearchFilter: React.FC<SearchFilterProps> = ({
   searchParam,
   changeParam,
-  len
+  changeInputValue,
+  isShowResult = false,
+  resultsLen = 0,
+  isShowInput = false
 }) => {
+  const timeOut = useRef<NodeJS.Timeout | null>(null);
+  const [inputValue, setInputValue] = useState('');
   const changeFilterParam = (i: number, j: number) => {
-    const newsearchParam = deepClone(searchParam);
-    const { type } = newsearchParam[i];
-    const { checked, value } = newsearchParam[i].filterList[j];
+    const newSearchParam = deepClone(searchParam);
+    const { type } = newSearchParam[i];
+    const { checked, value } = newSearchParam[i].filterList[j];
     switch (type) {
       case FilterType.RADIO:
         if (checked) return;
-        newsearchParam[i].filterList.map((v: ParamType) => (v.checked = false));
-        newsearchParam[i].filterList[j].checked = true;
+        newSearchParam[i].filterList.map((v: ParamType) => (v.checked = false));
+        newSearchParam[i].filterList[j].checked = true;
         break;
       case FilterType.CHECKBOX:
         if (value === ALL) {
-          newsearchParam[i].filterList.map(
+          newSearchParam[i].filterList.map(
             (v: ParamType) => (v.checked = !checked)
           );
         } else {
-          newsearchParam[i].filterList[j].checked = !checked;
-          isAllChecked(newsearchParam, i);
+          newSearchParam[i].filterList[j].checked = !checked;
+          isAllChecked(newSearchParam, i);
         }
         break;
     }
-    changeParam(newsearchParam);
+    changeParam(newSearchParam);
   };
 
-  const isAllChecked = (newsearchParam: FilterDataType[], i: number) => {
-    const filterList = newsearchParam[i].filterList;
+  const isAllChecked = (newSearchParam: FilterDataType[], i: number) => {
+    const filterList = newSearchParam[i].filterList;
     const AllIndex = filterList.findIndex((v: ParamType) => v.value === ALL);
     const checkedLen = filterList.filter(
       (v: ParamType) => v.value !== ALL && v.checked
@@ -80,14 +98,37 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
         return <Checkbox checked={checked} />;
     }
   };
+
+  const changeInput = (e: any) => {
+    const value = e.target.value;
+    setInputValue(value);
+    if (timeOut.current) clearTimeout(timeOut.current);
+    timeOut.current = setTimeout(() => {
+      changeInputValue?.(value);
+    }, 300);
+  };
   return (
     <div className="text-electives-filter-color w-[272px] ">
-      <div className="flex mb-[15px] items-center justify-between border-b border-electives-filter-border-color pb-[15px]">
-        <span className="text-[24px] leading-[24px] font-next-book-bold">
-          {len} Results
-        </span>
+      <div className="flex mb-[15px] items-center justify-between border-b border-electives-filter-border-color pb-[6px]">
+        {isShowResult && (
+          <span className="text-[24px] leading-[24px] font-next-book-bold">
+            {resultsLen} Results
+          </span>
+        )}
+        {isShowInput && (
+          <div className="flex-row-center text-[18px] ">
+            <BiSearch />
+            <input
+              type="text"
+              placeholder="search"
+              className="bg-[transparent] outline-none ml-[5px] "
+              value={inputValue}
+              onInput={changeInput}
+            />
+          </div>
+        )}
         <span className="cursor-pointer underline" onClick={() => clearParam()}>
-          Clear Filters
+          Clear
         </span>
       </div>
       <div>
