@@ -112,6 +112,7 @@ const LessonEvents: React.FC<LessonEventsProps> = (props) => {
             unitData={unitNavList}
             lesson={lesson}
             courseType={courseType}
+            changeToggle={(toggle) => setIsToggle(toggle)}
           />
         </div>
       ) : null}

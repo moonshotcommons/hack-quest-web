@@ -17,11 +17,13 @@ interface LessonListType {
   unitData: UnitPagesListType[];
   lesson: CourseLessonType;
   courseType: CourseType;
+  changeToggle: (toggle: boolean) => void;
 }
 const LessonList: React.FC<LessonListType> = ({
   unitData,
   lesson,
-  courseType
+  courseType,
+  changeToggle
 }) => {
   const [lessonList, setLessonList] = useState<CourseLessonStateType[]>([]);
   const [unitName, setUnitName] = useState('');
@@ -35,8 +37,13 @@ const LessonList: React.FC<LessonListType> = ({
 
   const handleUnit = (item: CourseLessonStateType) => {
     if (item.disable) return;
+    if (lesson?.id === item?.id) {
+      changeToggle(false);
+      return;
+    }
     const link = getLink(courseType, item?.id as string);
     BurialPoint.track('lesson-使用lesson dropdown跳转lesson');
+    changeToggle(false);
     router.push(link);
   };
 
