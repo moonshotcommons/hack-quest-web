@@ -9,7 +9,7 @@ function LearningTrack() {
     <div className="container mx-auto">
       <PageDescription
         title={'Learning Track'}
-        description={`Don't know where to start? Pick a learning track! Leaning Track provides a series of core + elective courses that help you master one smart contract language. `}
+        description={`Don't know where to start? Pick a learning track! Learning Track provides a series of core + elective courses that help you master one smart contract language. `}
       />
       <Loading loading={loading}>
         {learningTracks.map((item) => (
