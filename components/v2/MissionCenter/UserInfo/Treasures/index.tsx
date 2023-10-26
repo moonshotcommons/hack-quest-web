@@ -28,7 +28,7 @@ const Treasures: React.FC<TreasuresProp> = ({ userTreasure }) => {
     <div className="w-full">
       <div className="leading-[23px] text-[#000] flex mt-[40px]">
         <div className="relative">
-          Your undug treasures
+          Your treasures
           <Badge count={userTreasure.length} />
         </div>
       </div>

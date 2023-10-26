@@ -23,7 +23,7 @@ const NoData: React.FC<NoDataType> = ({ curTab }) => {
         onClick={() => router.push('electives')}
         className="w-90 h-[55px] border border-home-learning-track-no-data-button-explore-border text-home-learning-track-no-data-button-explore-color"
       >
-        Explore Selective Courses
+        Explore Elective Courses
       </Button>
     </div>
   );

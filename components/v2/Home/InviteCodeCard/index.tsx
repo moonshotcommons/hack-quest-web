@@ -11,6 +11,7 @@ import { AppRootState } from '@/store/redux';
 import { cn } from '@/helper/utils';
 import webApi from '@/service';
 import { useRequest } from 'ahooks';
+import { useGetMissionData } from '@/hooks/useGetMissionData';
 
 interface InviteCodeCardProps {}
 
@@ -23,7 +24,7 @@ const InviteCodeCard: FC<InviteCodeCardProps> = (props) => {
     return state.missionCenter?.missionData?.beginnerRewards;
   });
 
-  console.log(beginnerRewards);
+  const { updateMissionData } = useGetMissionData();
 
   const inviteProgress = useMemo(() => {
     const inviteObject = beginnerRewards.find(
@@ -51,7 +52,8 @@ const InviteCodeCard: FC<InviteCodeCardProps> = (props) => {
     },
     {
       onSuccess(res) {
-        message.success('success!');
+        message.success('Success!');
+        updateMissionData();
       },
       onError(e: any) {
         message.error(e.msg || e.message);

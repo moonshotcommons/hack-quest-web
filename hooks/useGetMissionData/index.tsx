@@ -35,5 +35,5 @@ export const useGetMissionData = () => {
     updateTreasures();
   };
 
-  return { updateMissionDataAll: updateAll };
+  return { updateMissionDataAll: updateAll, updateMissionData };
 };

@@ -110,7 +110,7 @@ const LessonPage: FC<LessonPageProps> = (props) => {
                 },
                 onBugCommit() {
                   bugFeedbackModalRef.current?.onCommit({
-                    lesson
+                    lessonId
                   });
                 }
               }}
