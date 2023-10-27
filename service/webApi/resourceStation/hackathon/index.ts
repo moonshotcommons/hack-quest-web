@@ -1,8 +1,8 @@
 import WebService from '@/service/webService/webService';
-import {} from './type';
+import { HackathonDataType, HackathonType } from './type';
 
 export enum HackathonApiType {
-  HACKATHON = '/hackathons'
+  Hackathon = '/hackathons'
 }
 
 class HackathonApi {
@@ -10,9 +10,15 @@ class HackathonApi {
   constructor(service: WebService) {
     this.service = service;
   }
-  /** 获取用户等级 */
-  getUserLevel() {
-    return this.service.get(HackathonApiType.HACKATHON);
+  getHackathonList(params: object) {
+    return this.service.get<HackathonDataType>(HackathonApiType.Hackathon, {
+      params
+    });
+  }
+  getHackathonDetail(id: string) {
+    return this.service.get<HackathonType>(
+      `${HackathonApiType.Hackathon}/${id}`
+    );
   }
 }
 

@@ -1,16 +1,14 @@
 import React from 'react';
 import ProjectCard from '@/components/v2/ProjectCard';
-import { CourseResponse } from '@/service/webApi/course/type';
+import { ProjectType } from '@/service/webApi/resourceStation/project/type';
 
 interface ProjectsListProps {
-  list: CourseResponse[];
+  list: ProjectType[];
 }
 const ProjectsList: React.FC<ProjectsListProps> = ({ list }) => {
   return (
     <div className="flex-1 flex flex-wrap gap-[20px] pb-[20px]">
-      {/* {list.map((project) => ( */}
-      <ProjectCard project={{}}></ProjectCard>
-      {/* ))} */}
+      <ProjectCard project={{ id: '1' }}></ProjectCard>
     </div>
   );
 };

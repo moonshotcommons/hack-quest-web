@@ -5,8 +5,14 @@ export enum QueryIdType {
   HACKATHON_ID = 'hackathonId',
   PROJECT_ID = 'projectId'
 }
-export enum MenuLink {
-  LEARNING_TRACK = 'learning-track',
+
+export enum Menu {
+  LEARNING_TRACK = 'learningTrack',
   ELECTIVES = 'electives',
-  RESOURCE_STATION = 'resource-station'
+  RESOURCE_STATION = 'resourceStation',
+  HACKATHON = 'hackathon',
+  PROJECTS = 'projects'
 }
+export type MenuNameType = {
+  [key in Menu]: string;
+};

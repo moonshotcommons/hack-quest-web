@@ -12,7 +12,6 @@ interface TabType {
   className?: string;
 }
 const Tab: React.FC<TabType> = ({ tabList, curTab, changeTab, className }) => {
-  console.info(tabList);
   return (
     <div
       className={cn(

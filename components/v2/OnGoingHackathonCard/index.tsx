@@ -3,19 +3,21 @@ import Astronaut from '@/public/images/landing/astronaut.png';
 import Image from 'next/image';
 import Button from '@/components/v2/Common/Button';
 import { useRouter } from 'next/router';
-import { MenuLink, QueryIdType } from '../Breadcrumb/type';
+import { Menu, QueryIdType } from '../Breadcrumb/type';
+import { menuLink } from '../Breadcrumb/data';
+import { HackathonType } from '@/service/webApi/resourceStation/hackathon/type';
 
 interface OnGoingHackathonCardProp {
-  hackathon: any;
+  hackathon: HackathonType;
 }
 
 const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({
   hackathon
 }) => {
   const router = useRouter();
-  const goHackathonDetail = (e: any) => {
+  const goHackathonDetail = () => {
     router.push(
-      `/learning-track/${hackathon.id}?${QueryIdType.HACKATHON_ID}=${hackathon.id}&menu=${MenuLink.RESOURCE_STATION}`
+      `${menuLink.hackathon}/${hackathon.id}?menu=${Menu.HACKATHON}&${QueryIdType.HACKATHON_ID}=${hackathon.id}`
     );
   };
   return (

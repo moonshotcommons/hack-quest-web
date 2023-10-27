@@ -7,6 +7,8 @@ import OnGoing from './OnGoing';
 import Past from './Past';
 import PageDescription from '../../PageDescription';
 import { useRouter } from 'next/router';
+import { menuLink } from '../../Breadcrumb/data';
+import { Menu, QueryIdType } from '../../Breadcrumb/type';
 
 function HackathonBox() {
   const router = useRouter();
@@ -17,13 +19,15 @@ function HackathonBox() {
     if (item.type === 'tab') {
       setCurTab(item.value as HackathonStatusType);
     } else {
-      router.push(item.value);
+      router.push(
+        `${menuLink.projects}/projects?menu=${Menu.PROJECTS}&${QueryIdType.PROJECT_ID}=projects`
+      );
     }
   };
   const renderHackathon = () => {
     switch (curTab) {
       case HackathonStatusType.ON_GOING:
-        return <OnGoing />;
+        return <OnGoing list={[]} />;
       case HackathonStatusType.PAST:
         return <Past />;
     }
