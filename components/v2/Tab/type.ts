@@ -1,5 +1,5 @@
 import { ProcessType } from '@/service/webApi/course/type';
-import { HackathonType } from '@/service/webApi/resourceStation/type';
+import { HackathonType } from '@/service/webApi/resourceStation/hackathon/type';
 
 export type TabValueType = ProcessType & HackathonType;
 

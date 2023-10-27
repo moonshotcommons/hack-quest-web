@@ -86,3 +86,14 @@ export const throttle = (fn: any) => {
     }
   };
 };
+
+export const deepClone = (obj: any) => {
+  if (obj === null || typeof obj !== 'object') return obj;
+  const result: any = Array.isArray(obj) ? [] : {};
+  for (let key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      result[key] = deepClone(obj[key]);
+    }
+  }
+  return result;
+};
