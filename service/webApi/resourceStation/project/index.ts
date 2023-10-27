@@ -1,7 +1,7 @@
 import WebService from '@/service/webService/webService';
 
 export enum ProjectApiType {
-  GetUserLevel = '/users/level'
+  GetProjects = '/projects'
 }
 
 class ProjectApi {
@@ -9,9 +9,13 @@ class ProjectApi {
   constructor(service: WebService) {
     this.service = service;
   }
-  /** 获取用户等级 */
-  getUserLevel() {
-    return this.service.get(ProjectApiType.GetUserLevel);
+
+  getFeaturedProjects() {
+    return this.service.get(ProjectApiType.GetProjects, {
+      params: {
+        featured: true
+      }
+    });
   }
 }
 
