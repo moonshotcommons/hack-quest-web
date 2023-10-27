@@ -1,5 +1,5 @@
 import { HackathonStatusType } from '@/service/webApi/resourceStation/hackathon/type';
-import { TabListType, TabValueType } from '@/components/v2/Tab/type';
+import { TabListType } from '@/components/v2/Tab/type';
 
 export const hackathonTab: TabListType[] = [
   {

@@ -77,7 +77,7 @@ const ClaimContent: React.FC<ClaimContentProp> = ({ missionClaim }) => {
         return (
           <Milestones
             missionData={missionData.milestones}
-            unClaimMissionData={missionData.unClaimDailyQuests}
+            unClaimMissionData={missionData.unClaimMilestones}
             missionClaim={missionClaim}
           />
         );

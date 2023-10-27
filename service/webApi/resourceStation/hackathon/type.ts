@@ -9,9 +9,7 @@ export interface MentorType {
   description: string;
   avatar: string;
 }
-
-// HackathonType
-export interface hType {
+export interface HType {
   id: string;
   name: string;
   image: string;
@@ -27,7 +25,8 @@ export interface hType {
   mediaPartners: MentorType[];
   CommunityPartners: MentorType[];
 }
-export type HackathonType = Partial<hType>;
+
+export type HackathonType = Partial<HType>;
 
 export interface HackathonDataType {
   data: HackathonType[];

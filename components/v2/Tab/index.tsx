@@ -1,7 +1,7 @@
 import React from 'react';
 import { ProcessType } from '@/service/webApi/course/type';
 import { HackathonStatusType } from '@/service/webApi/resourceStation/hackathon/type';
-import { TabListType, TabValueType } from './type';
+import { TabListType } from './type';
 import { cn } from '@/helper/utils';
 import { VscArrowRight } from 'react-icons/vsc';
 
