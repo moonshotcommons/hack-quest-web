@@ -1,17 +1,18 @@
 import React from 'react';
 import { ProcessType } from '@/service/webApi/course/type';
-import { HackathonType } from '@/service/webApi/resourceStation/hackathon/type';
+import { HackathonStatusType } from '@/service/webApi/resourceStation/hackathon/type';
 import { TabListType, TabValueType } from './type';
 import { cn } from '@/helper/utils';
 import { VscArrowRight } from 'react-icons/vsc';
 
 interface TabType {
   tabList: TabListType[];
-  curTab: ProcessType | HackathonType;
+  curTab: ProcessType | HackathonStatusType;
   changeTab: (tab: TabListType) => void;
   className?: string;
 }
 const Tab: React.FC<TabType> = ({ tabList, curTab, changeTab, className }) => {
+  console.info(tabList);
   return (
     <div
       className={cn(

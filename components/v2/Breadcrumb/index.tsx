@@ -49,6 +49,28 @@ const Breadcrumb: React.FC = () => {
     });
   };
 
+  const getHackathonDetail = (id: string) => {
+    return new Promise(async (resolve) => {
+      if (id) {
+        const res = await webApi.courseApi.getLessonContent(id);
+        resolve(res);
+      } else {
+        resolve(false);
+      }
+    });
+  };
+
+  const getProjectDetail = (id: string) => {
+    return new Promise(async (resolve) => {
+      if (id) {
+        const res = await webApi.courseApi.getLessonContent(id);
+        resolve(res);
+      } else {
+        resolve(false);
+      }
+    });
+  };
+
   const getNavData = useCallback(() => {
     const queryIds = [
       router.query[QueryIdType.LEARNING_TRACK_ID],

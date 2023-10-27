@@ -58,7 +58,6 @@ const ProjectsBox: React.FC<ProjectsBoxProps> = ({
 
   useEffect(() => {
     initList();
-    console.info(inputValue);
   }, [searchParam, inputValue]);
 
   useEffect(() => {

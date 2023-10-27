@@ -44,7 +44,7 @@ const kinds = [
   'Factual Errors',
   'Clarity and Comprehension',
   'Enhancement Suggestions',
-  'other'
+  'Others'
 ];
 
 type A = (typeof kinds)[number];
@@ -126,21 +126,23 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
       async () => {
         const verifyRes = await formRef.current?.validateFields();
         if (!verifyRes) return;
-        let formData = new FormData();
+
         const { kind, files, description } = verifyRes;
         if (!kind?.length) throw new Error('The bug type cannot be empty!');
 
+        let formData = new FormData();
+        kind.forEach((k) => {
+          formData.append('type[]', k);
+        });
+        formData.append('content', description);
+        formData.append('lessonId', lessonId);
+        formData.append('link', window.location.href);
+
         files?.fileList?.forEach((file) => {
-          formData.append('file[]', file as RcFile);
+          formData.append('file', file.originFileObj as RcFile);
         });
 
-        const res = await webApi.courseApi.commitSuggest({
-          type: kind,
-          content: description,
-          file: formData,
-          lessonId: lessonId,
-          link: window.location.href
-        });
+        const res = await webApi.courseApi.commitSuggest(formData);
 
         return res;
       },
@@ -150,12 +152,11 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
           message.error(err.msg || err.message);
         },
         onSuccess(res) {
-          console.log(res);
           formRef.current?.resetFields();
           setFileList([]);
           setSelectKinds([]);
-          message.success('Commit success!');
           setOpen(false);
+          message.success('Commit success!');
         },
         manual: true,
         debounceWait: 500
@@ -201,11 +202,15 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
         </span>
       </div>
     );
-
     return (
       <Modal
         open={open}
-        onClose={() => setOpen(false)}
+        onClose={() => {
+          formRef.current?.resetFields();
+          setFileList([]);
+          setSelectKinds([]);
+          setOpen(false);
+        }}
         showCloseIcon
         icon={
           <div className="absolute right-[15px] top-[15px] cursor-pointer">
@@ -240,10 +245,7 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
             Found a bug? Claim rewards!
           </h1>
           <p className="mt-[10px] font-next-book text-[14px] text-black leading-[160%] -tracking-[0.154px]">
-            {`HackQuest is in its beta phase, and we value your input. If you come
-            across any bugs while learning, report them to us. Once verified,
-            you'll unlock exciting rewards as a token of our appreciation. Join
-            us in shaping a better Web 3 experience with HackQuest! 🐞🚀`}
+            {`HackQuest is currently in beta, and your feedback is crucial. If you come across any bug or error while learning, report it to us. Once verified,  we'll reward you with XP and hack credits. Join us in delivering a better experience! 🐞🚀`}
           </p>
           <p className="font-next-book text-base leading-[125%] tracking-[0.32px] text-black mt-[30px]">
             What kind of bugs have you found?
