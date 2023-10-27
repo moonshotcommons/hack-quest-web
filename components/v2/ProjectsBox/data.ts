@@ -1,8 +1,9 @@
-import { FilterType } from '@/components/v2/SearchFilter/type';
+import { ALL, FilterType } from '@/components/v2/SearchFilter/type';
 
 export const sort = {
   type: FilterType.RADIO,
   title: 'Sort By',
+  value: 'sort',
   filterList: [
     {
       label: 'Featured',
@@ -24,10 +25,11 @@ export const sort = {
 export const projectType = {
   type: FilterType.CHECKBOX,
   title: 'ProjectType',
+  value: 'project',
   filterList: [
     {
       label: 'All',
-      value: 'ALL',
+      value: ALL,
       checked: true
     },
     {
@@ -40,10 +42,11 @@ export const projectType = {
 export const tracks = {
   type: FilterType.CHECKBOX,
   title: 'Tracks',
+  value: 'tracks',
   filterList: [
     {
       label: 'All',
-      value: 'ALL',
+      value: ALL,
       checked: true
     },
     {
@@ -79,8 +82,3 @@ export const initPageInfo = {
   page: 1
 };
 export const filterData = [sort, projectType, tracks];
-export const initParam = {
-  sort,
-  projectType,
-  tracks
-};
