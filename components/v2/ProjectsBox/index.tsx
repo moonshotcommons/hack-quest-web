@@ -58,6 +58,7 @@ const ProjectsBox: React.FC<ProjectsBoxProps> = ({
 
   useEffect(() => {
     initList();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParam, inputValue]);
 
   useEffect(() => {
