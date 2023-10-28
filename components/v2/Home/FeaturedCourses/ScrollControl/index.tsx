@@ -4,6 +4,7 @@ import { ChangeState } from '@/components/Common/ScrollContainer';
 import { BurialPoint } from '@/helper/burialPoint';
 import { cn } from '@/helper/utils';
 import { useEffect, useRef, useState } from 'react';
+import { HiArrowLongRight, HiArrowLongLeft } from 'react-icons/hi2';
 
 function ScrollControl({ changeState }: { changeState?: ChangeState }) {
   const { handleArrowClick, rightArrowVisible, leftArrowVisible } =
@@ -32,7 +33,7 @@ function ScrollControl({ changeState }: { changeState?: ChangeState }) {
       <div className="flex gap-[10px]">
         <div
           className={cn(
-            `flex items-center justify-center p-2 rounded-full border border-solid border-[#000000] bg-[#000000] text-white cursor-pointer`,
+            `flex items-center justify-center p-2 rounded-full border border-solid border-[#000000] bg-[#000000] text-white cursor-pointer scale-[0.835]`,
             !leftArrowVisible
               ? 'bg-transparent text-black cursor-not-allowed'
               : 'hover:bg-[#000000]/70 hover:border-[#000000]/70 transition'
@@ -42,11 +43,11 @@ function ScrollControl({ changeState }: { changeState?: ChangeState }) {
             handleArrowClick?.('left');
           }}
         >
-          <LeftArrowIcon></LeftArrowIcon>
+          <HiArrowLongLeft size={24}></HiArrowLongLeft>
         </div>
         <div
           className={cn(
-            `flex items-center justify-center p-2 rounded-full border border-solid border-[#000000] bg-[#000000] text-white cursor-pointer`,
+            `flex items-center justify-center p-2 rounded-full border border-solid border-[#000000] bg-[#000000] text-white cursor-pointer scale-[0.835]`,
             !rightArrowVisible
               ? 'bg-transparent text-black cursor-not-allowed'
               : 'hover:bg-[#000000]/70 hover:border-[#000000]/70 transition'
@@ -56,7 +57,7 @@ function ScrollControl({ changeState }: { changeState?: ChangeState }) {
             handleArrowClick?.('right');
           }}
         >
-          <RightArrowIcon></RightArrowIcon>
+          <HiArrowLongRight size={24}></HiArrowLongRight>
         </div>
       </div>
       <div
