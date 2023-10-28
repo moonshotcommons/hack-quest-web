@@ -17,8 +17,8 @@ const Milestones: React.FC<TabContentType> = ({
     return unClaimMissionData.map((v) => v.id);
   }, [unClaimMissionData]);
   const handleAllClaim = () => {
-    BurialPoint.track(`mission-center-milestones-claimAll 按钮点击`);
     missionClaim(allIds);
+    BurialPoint.track(`mission-center-milestones-claimAll 按钮点击`);
   };
   return (
     <div>
@@ -36,7 +36,7 @@ const Milestones: React.FC<TabContentType> = ({
           }`}
           disabled={!allIds.length}
           loading={missionIds.join() === allIds.join() && missionIds.length > 0}
-          onClick={() => handleAllClaim}
+          onClick={handleAllClaim}
         >
           Claim All ({allIds.length})
         </Button>
