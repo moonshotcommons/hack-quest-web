@@ -9,19 +9,19 @@ export const menuName: MenuNameType = {
 };
 
 export const menuLink: MenuNameType = {
-  [Menu.LEARNING_TRACK]: `/${menuName.learningTrack}`,
-  [Menu.ELECTIVES]: `/${menuName.electives}`,
-  [Menu.RESOURCE_STATION]: `/${menuName.resourceStation}`,
-  [Menu.HACKATHON]: `/${menuName.resourceStation}/hackathon`,
-  [Menu.PROJECTS]: `/${menuName.resourceStation}/hackathon`
+  [Menu.LEARNING_TRACK]: `/${menuName[Menu.LEARNING_TRACK]}`,
+  [Menu.ELECTIVES]: `/${menuName[Menu.ELECTIVES]}`,
+  [Menu.RESOURCE_STATION]: `/${menuName[Menu.RESOURCE_STATION]}`,
+  [Menu.HACKATHON]: `/${menuName[Menu.RESOURCE_STATION]}/hackathon`,
+  [Menu.PROJECTS]: `/${menuName[Menu.RESOURCE_STATION]}/hackathon`
 };
 
 export const navLinks = [
-  menuLink.learningTrack,
-  menuLink.electives,
-  menuLink.electives,
-  menuLink.hackathon,
-  menuLink.projects
+  menuLink[Menu.LEARNING_TRACK],
+  menuLink[Menu.ELECTIVES],
+  menuLink[Menu.ELECTIVES],
+  menuLink[Menu.HACKATHON],
+  menuLink[Menu.PROJECTS]
 ];
 export const navIdType = [
   QueryIdType.LEARNING_TRACK_ID,

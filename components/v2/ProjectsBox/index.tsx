@@ -62,7 +62,12 @@ const ProjectsBox: React.FC<ProjectsBoxProps> = ({
   }, [searchParam, inputValue]);
 
   useEffect(() => {
-    if (loadNum > runNum && list.length < total && apiStatus === 'init') {
+    if (
+      loadNum > runNum &&
+      list.length < total &&
+      total > 0 &&
+      apiStatus === 'init'
+    ) {
       setRunNum(loadNum);
       getCourseList({
         ...pageInfo,
