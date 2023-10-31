@@ -46,5 +46,6 @@ export enum ForgetPasswordErrorStatusType {
 export enum AuthType {
   EMAIL = 'Email',
   GOOGLE = 'Google',
-  GITHUB = 'Github'
+  GITHUB = 'Github',
+  METAMASK = 'Metamask'
 }
