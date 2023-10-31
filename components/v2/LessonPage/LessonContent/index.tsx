@@ -7,6 +7,7 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState
 } from 'react';
 import Breadcrumb from '../../Breadcrumb';
@@ -42,10 +43,13 @@ const LessonContent: FC<LessonContentProps> = (props) => {
   const [expandData, setExpandData] = useState<ExpandDataType[][]>(
     getLessonExpand()
   );
+
   const changeExpandData = (data: ExpandDataType[], index: number) => {
     expandData[index] = data;
     setExpandData([...expandData]);
   };
+
+  const componentsWrapRef = useRef<HTMLDivElement>(null);
 
   const parent = useMemo(() => {
     return {
@@ -61,6 +65,12 @@ const LessonContent: FC<LessonContentProps> = (props) => {
     }
   }, [lesson]);
 
+  useEffect(() => {
+    if (componentsWrapRef.current) {
+      componentsWrapRef.current.scrollTo(0, 0);
+    }
+  }, [lesson]);
+
   return (
     <div className="flex flex-shrink-0 flex-col h-[calc(100%-10px)] pl-[20px] pr-[20px]">
       <Breadcrumb />
@@ -72,7 +82,10 @@ const LessonContent: FC<LessonContentProps> = (props) => {
       />
 
       {!!components?.length && (
-        <div className="flex flex-col mb-[20px] w-full flex-1 shrink-0 h-full scroll-wrap-y scroll-wrap-x">
+        <div
+          className="flex flex-col mb-[20px] w-full flex-1 shrink-0 h-full scroll-wrap-y scroll-wrap-x"
+          ref={componentsWrapRef}
+        >
           {components.map((component, i) => {
             return (
               <div key={component.id} className="">
