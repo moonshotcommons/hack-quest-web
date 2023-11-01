@@ -14,39 +14,57 @@ export const useLessonExpand = (
   lesson: (CustomComponent | NotionComponent)[]
 ) => {
   const getLessonExpand = () => {
-    if (!lesson?.length) return [];
     const lessonExpand: any[] = [];
-    // console.info(lesson, 'lessonlessonlesson');
-    lesson.map((v: any, i) => {
-      const childExpand: Record<string, any> = [];
+    lesson.map((v: any, i: number) => {
+      const childExpand: any[] = [];
       let expandIndex = 0;
-      v?.children?.map((c: any, j: number) => {
-        childExpand[j] = {};
-        if (~[NotionType.H1, NotionType.H2, NotionType.H3].indexOf(c.type)) {
-          expandIndex = j;
-        }
-        if (NotionType.TOGGLE === c.type && j > expandIndex) {
-          childExpand[expandIndex] = {
-            isExpandAll: true,
-            id: v.children[expandIndex].id,
-            index: i
-          };
-          childExpand[j] = {
-            expandNum: 0,
-            id: c.id,
-            index: i
-          };
-        }
-      });
-      const newChildExpand = childExpand.filter(
-        (item: ExpandDataType) => item.id
-      );
-      // console.info(newChildExpand, 'newChildExpandnewChildExpand');
-      lessonExpand.push(newChildExpand);
+      getExpand(lessonExpand, childExpand, v, i, expandIndex);
     });
     return lessonExpand;
   };
 
+  const getExpand = (
+    lessonExpand: any,
+    childExpand: any,
+    v: any,
+    i: number,
+    expandIndex: number
+  ) => {
+    if (!v?.children?.length) return [];
+    v.children.map((c: any, j: number) => {
+      childExpand[j] = {};
+      if (NotionType.TOGGLE === c.type) {
+        childExpand[expandIndex] = {
+          isExpandAll: true,
+          id: v.children[expandIndex].id,
+          index: i
+        };
+        childExpand[j] = {
+          expandNum: 0,
+          id: c.id,
+          index: i
+        };
+      } else if (
+        ~[
+          NotionType.H1,
+          NotionType.H2,
+          NotionType.H3,
+          NotionType.NUMBERED_LIST_ITEM
+        ].indexOf(c.type)
+      ) {
+        expandIndex = j;
+        if (c.children?.length) {
+          getExpand(lessonExpand, [], c, i, expandIndex);
+        }
+      }
+    });
+    const newChildExpand = [
+      ...new Set(childExpand.map((v: any) => JSON.stringify(v)))
+    ]
+      .map((v: any) => JSON.parse(v))
+      .filter((item: ExpandDataType) => item.id);
+    newChildExpand.length && lessonExpand.push(newChildExpand);
+  };
   return {
     getLessonExpand
   };
