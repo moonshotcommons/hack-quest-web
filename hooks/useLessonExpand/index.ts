@@ -16,6 +16,7 @@ export const useLessonExpand = (
   const getLessonExpand = () => {
     if (!lesson?.length) return [];
     const lessonExpand: any[] = [];
+    // console.info(lesson, 'lessonlessonlesson');
     lesson.map((v: any, i) => {
       const childExpand: Record<string, any> = [];
       let expandIndex = 0;
@@ -40,6 +41,7 @@ export const useLessonExpand = (
       const newChildExpand = childExpand.filter(
         (item: ExpandDataType) => item.id
       );
+      // console.info(newChildExpand, 'newChildExpandnewChildExpand');
       lessonExpand.push(newChildExpand);
     });
     return lessonExpand;

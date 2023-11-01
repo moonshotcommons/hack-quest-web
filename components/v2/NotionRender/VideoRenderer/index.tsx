@@ -8,7 +8,6 @@ interface VideoRendererProps {
 
 const VideoRenderer: FC<VideoRendererProps> = (props) => {
   const { component, parent } = props;
-  console.log(component.content);
 
   return (
     <div>
