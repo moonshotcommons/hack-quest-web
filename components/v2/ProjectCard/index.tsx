@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import { Menu, QueryIdType } from '../Breadcrumb/type';
 
 interface ProjectCardProp {
-  project: ProjectType;
+  project: any;
 }
 
 const ProjectCard: React.FC<ProjectCardProp> = ({ project }) => {
@@ -42,7 +42,7 @@ const ProjectCard: React.FC<ProjectCardProp> = ({ project }) => {
           </div>
           <div className="text-[#000] text-[18px]">Company Name</div>
         </div>
-        <div className="font-next-book-Thin">
+        <div className="font-next-book-Thin line-clamp-3">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing
           elit, sed do eiusmod tempor

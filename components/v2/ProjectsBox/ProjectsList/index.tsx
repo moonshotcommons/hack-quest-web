@@ -3,7 +3,7 @@ import ProjectCard from '@/components/v2/ProjectCard';
 import { ProjectType } from '@/service/webApi/resourceStation/project/type';
 
 interface ProjectsListProps {
-  list: ProjectType[];
+  list: any;
 }
 const ProjectsList: React.FC<ProjectsListProps> = ({ list }) => {
   return (

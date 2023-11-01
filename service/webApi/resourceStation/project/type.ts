@@ -1,4 +1,4 @@
-export interface PType {
+export type ProjectType = {
   id: string;
   name: string;
   description: string;
@@ -10,9 +10,7 @@ export interface PType {
   tracks: string[];
   featured: boolean;
   apolloDay: boolean;
-}
-
-export type ProjectType = Partial<PType>;
+};
 
 export interface ProjectDataType {
   data: ProjectType[];

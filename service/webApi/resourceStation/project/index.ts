@@ -10,7 +10,11 @@ class ProjectApi {
   constructor(service: WebService) {
     this.service = service;
   }
-  getProjectsList(params: object) {
+  getProjectsList(
+    params:
+      | Record<string, string | number>
+      | { page: number; limit: number } = {}
+  ) {
     return this.service.get<ProjectDataType>(ProjectApiType.Projects, {
       params
     });
