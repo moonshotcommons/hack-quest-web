@@ -7,7 +7,7 @@ import { FC, ReactNode } from 'react';
 import Loading from '@/components/v2/Common/Loading';
 import { message } from 'antd';
 import Pagination from '@/components/v2/Common/Pagination';
-import { HackathonDetailType } from '@/service/webApi/resourceStation/hackathon/type';
+import { HackathonStatusType } from '@/service/webApi/resourceStation/hackathon/type';
 
 interface PastProps {}
 
@@ -20,7 +20,8 @@ const Past: FC<PastProps> = (props) => {
 
   const { run, loading } = useRequest(
     async () => {
-      const res = await webApi.hackathon.getPastHackathon({
+      const res = await webApi.hackathon.getHackathonList({
+        status: HackathonStatusType.PAST,
         page: page,
         limit: PROJECTS_LIMIT
       });

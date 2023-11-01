@@ -1,4 +1,4 @@
-import { MenuLink, QueryIdType } from '@/components/v2/Breadcrumb/type';
+import { Menu, QueryIdType } from '@/components/v2/Breadcrumb/type';
 import { Theme } from '@/constants/enum';
 import { BurialPoint } from '@/helper/burialPoint';
 import { computeProgress, tagFormate } from '@/helper/formate';
@@ -19,6 +19,7 @@ import { VscAdd } from 'react-icons/vsc';
 import styled from 'styled-components';
 import { TrackListContext } from '../../LearningTrackDetail';
 import Button from '@/components/v2/Common/Button';
+import { menuLink } from '@/components/v2/Breadcrumb/data';
 
 const CustomProgress = styled(Progress)`
   .ant-progress-inner {
@@ -103,7 +104,7 @@ function SectionList(props: {
                   courseName: item.name
                 });
                 jumpLearningLesson(item, {
-                  menu: MenuLink.LEARNING_TRACK,
+                  menu: Menu.LEARNING_TRACK,
                   idTypes: [
                     QueryIdType.LEARNING_TRACK_ID,
                     QueryIdType.MENU_COURSE_ID
@@ -171,11 +172,11 @@ function SectionList(props: {
               className="text-learning-track-course-title-color font-next-book-bold leading-[120%] w-[36%] ml-[10%] flex-1 cursor-pointer hover:opacity-70 transition"
               onClick={(e) => {
                 router.push(
-                  `/electives/${item.id}?${QueryIdType.LEARNING_TRACK_ID}=${
-                    router.query[QueryIdType.LEARNING_TRACK_ID]
-                  }&${QueryIdType.MENU_COURSE_ID}=${item.id}&menu=${
-                    MenuLink.LEARNING_TRACK
-                  }`
+                  `${menuLink.electives}/${item.id}?${
+                    QueryIdType.LEARNING_TRACK_ID
+                  }=${router.query[QueryIdType.LEARNING_TRACK_ID]}&${
+                    QueryIdType.MENU_COURSE_ID
+                  }=${item.id}&menu=${Menu.LEARNING_TRACK}`
                 );
                 BurialPoint.track('learningTrackDetail-课程名点击', {
                   courseName: item.name

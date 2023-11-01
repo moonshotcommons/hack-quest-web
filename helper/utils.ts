@@ -1,4 +1,4 @@
-import { MenuLink, QueryIdType } from '@/components/v2/Breadcrumb/type';
+import { Menu, QueryIdType } from '@/components/v2/Breadcrumb/type';
 import { JumpLeaningLessonType } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
 import { CourseType } from '@/service/webApi/course/type';
 
@@ -38,7 +38,7 @@ export const getLessonLink = (
 ) => {
   if (!courseType || !courseName || !lessonId) return '/404';
   const lParam = linkParam || {
-    menu: MenuLink.ELECTIVES,
+    menu: Menu.ELECTIVES,
     idTypes: [QueryIdType.MENU_COURSE_ID],
     ids: [menuCourseId]
   };

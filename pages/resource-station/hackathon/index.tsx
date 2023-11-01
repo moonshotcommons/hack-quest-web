@@ -1,12 +1,12 @@
 import React from 'react';
 import HackathonBox from '@/components/v2/ResourceStation/HackathonBox';
-import FeaturedProject from '@/components/v2/ResourceStation/FeaturedProject';
+import FeatruedProject from '@/components/v2/ResourceStation/HackathonBox/FeatruedProject';
 
 function Hackathon() {
   return (
     <div className="font-next-book text-home-default-color">
       <HackathonBox />
-      <FeaturedProject />
+      <FeatruedProject />
     </div>
   );
 }

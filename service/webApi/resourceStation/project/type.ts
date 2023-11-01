@@ -1,16 +1,18 @@
-export interface ProjectDetail {
-  apolloDay: boolean;
-  createdAt: string;
+export type ProjectType = {
+  id: string;
+  name: string;
   description: string;
-  featured: boolean;
+  video: string;
+  introduction: string;
+  team: string;
   hackathonId: string;
   hackathonName: string;
-  id: string;
-  introduction: string;
-  name: string;
-  team: string;
-  thumbnail: string;
   tracks: string[];
-  updatedAt: string;
-  video: string;
+  featured: boolean;
+  apolloDay: boolean;
+};
+
+export interface ProjectDataType {
+  data: ProjectType[];
+  total: number;
 }
