@@ -1,6 +1,6 @@
 import React from 'react';
 import HackathonBox from '@/components/v2/ResourceStation/HackathonBox';
-import FeatruedProject from '@/components/v2/ResourceStation/HackathonBox/FeatruedProject';
+import FeatruedProject from '@/components/v2/ResourceStation/FeaturedProject';
 
 function Hackathon() {
   return (
