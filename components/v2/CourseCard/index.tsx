@@ -10,8 +10,9 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
 import { styled } from 'styled-components';
-import { MenuLink, QueryIdType } from '../Breadcrumb/type';
+import { Menu, QueryIdType } from '../Breadcrumb/type';
 import CourseTags from '../CourseTags';
+import { menuLink } from '../Breadcrumb/data';
 
 interface CourseCardProps {
   // children: ReactNode;
@@ -57,7 +58,7 @@ const CourseCard: FC<CourseCardProps> = (props) => {
       onClick={() => {
         BurialPoint.track('home-course卡片点击', { courseName: course.name });
         router.push(
-          `/electives/${course.id}?${QueryIdType.MENU_COURSE_ID}=${course.id}&menu=${MenuLink.ELECTIVES}`
+          `${menuLink.electives}/${course.id}?${QueryIdType.MENU_COURSE_ID}=${course.id}&menu=${Menu.ELECTIVES}`
         );
       }}
     >

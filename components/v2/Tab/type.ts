@@ -1,10 +1,10 @@
 import { ProcessType } from '@/service/webApi/course/type';
-import { HackathonType } from '@/service/webApi/resourceStation/hackathon/type';
+import { HackathonStatusType } from '@/service/webApi/resourceStation/hackathon/type';
 
-export type TabValueType = ProcessType & HackathonType;
+export type TabValueType = ProcessType & HackathonStatusType;
 
 export interface TabListType {
   label: string;
-  value: ProcessType | HackathonType;
+  value: ProcessType | HackathonStatusType;
   type?: 'link' | 'tab';
 }

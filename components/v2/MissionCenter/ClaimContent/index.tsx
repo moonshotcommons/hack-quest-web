@@ -87,7 +87,8 @@ const ClaimContent: React.FC<ClaimContentProp> = ({ missionClaim }) => {
   const contentStyle = useMemo(() => {
     return !curIndex
       ? {
-          background: `url(${BannerBg.src}) center  / 100% auto`,
+          // background: `url(${BannerBg.src}) center  / 100% auto`,
+          background: `#ffd850`,
           height: '699px'
         }
       : {

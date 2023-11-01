@@ -1,24 +1,27 @@
 import React from 'react';
 import Box from '../components/Box';
 import Title from '../components/Title';
-import Astronaut from '@/public/images/landing/astronaut.png';
 import Image from 'next/image';
+import { HackathonType } from '@/service/webApi/resourceStation/hackathon/type';
 interface AboutProp {
-  hackathonData: any;
+  hackathon: HackathonType;
 }
 
-const About: React.FC<AboutProp> = ({ hackathonData }) => {
+const About: React.FC<AboutProp> = ({ hackathon }) => {
   return (
     <div>
-      <Box className=" h-[383px]  overflow-hidden">
-        <Image src={Astronaut} alt="astronaut" className="w-full"></Image>
+      <Box className=" h-[383px] relative ">
+        <Image
+          src={hackathon.image}
+          fill
+          alt="astronaut"
+          className="object-contain"
+        ></Image>
       </Box>
       <Box>
         <Title title="About" />
         <div className="text-[21px] leading-[33px] tracking-[0.42px]">
-          We shall not only bring a mere hackathon experience, but infinite
-          inspirations, creations, and opportunities. We wish to preserve the
-          moment of insight, and turn unrestrained thoughts into reality.
+          {hackathon.about}
         </div>
       </Box>
     </div>
