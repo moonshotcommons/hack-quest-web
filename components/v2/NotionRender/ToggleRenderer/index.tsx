@@ -17,9 +17,9 @@ interface ToggleRendererProps {
 
 const ToggleRenderer: FC<ToggleRendererProps> = (props) => {
   const { component, isRenderChildren = true } = props;
-  const [showChild, setShowChild] = useState(false);
+  const [showChild, setShowChild] = useState(true);
   const { expandData, changeExpandData } = useContext(LessonContentContext);
-
+  console.info(expandData, component);
   const changeShowChild = (status: boolean) => {
     const newExpandData = [...expandData] as ExpandDataType[];
     const index = newExpandData?.findIndex((v) => v.id === component.id);
@@ -36,7 +36,6 @@ const ToggleRenderer: FC<ToggleRendererProps> = (props) => {
       setShowChild(false);
     }
   }, [expandData, component]);
-
   return (
     <div className="border-b border-[#676767]  overflow-hidden">
       <div
