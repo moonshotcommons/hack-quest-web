@@ -1,48 +1,105 @@
-import { FC, ReactNode } from 'react';
+import { FC, ReactNode, useState } from 'react';
 import ProjectCard from '../../ProjectCard';
 import Pagination from '../../Common/Pagination';
 import Link from 'next/link';
 import OtherProjects from './OtherProjects';
 import { Typography } from 'antd';
 import InfoBlock from './InfoBloack';
-
-interface ProjectDetailProps {}
+import { useRequest } from 'ahooks';
+import Loading from '../../Common/Loading';
+import webApi from '@/service';
+import { ProjectType } from '@/service/webApi/resourceStation/project/type';
+import { errorMessage } from '@/helper/utils';
+import YouTube from 'react-youtube';
+import Image from 'next/image';
+interface ProjectDetailProps {
+  projectId: string;
+}
 
 const ProjectDetail: FC<ProjectDetailProps> = (props) => {
+  const { projectId } = props;
+
+  const [project, setProject] = useState<ProjectType>();
+
+  const { loading } = useRequest(
+    async () => {
+      const res = await webApi.project.getProjectsDetail(projectId);
+      return res;
+    },
+    {
+      onSuccess(res) {
+        setProject(res);
+      },
+      onError(err) {
+        errorMessage(err);
+      }
+    }
+  );
+
+  const getYoutubeId = (uri: string) => {
+    const url = new URL(uri);
+    return url.searchParams.get('v') || '';
+  };
+
   return (
-    <div className="flex justify-between gap-x-[80px]">
-      <div className="flex flex-col flex-1">
-        <div className="flex gap-x-[15px] items-center">
-          <div className="w-[48px] h-[48px] bg-gray-300 rounded-[10px]"></div>
-          <h1 className="font-next-poster-Bold text-[40px] tracking-[2.4px]">
-            MetaLine-X
-          </h1>
+    <Loading loading={loading}>
+      {project && (
+        <div className="flex justify-between gap-x-[80px]">
+          <div className="flex flex-col flex-1">
+            <div className="flex gap-x-[15px] items-center">
+              <div className="w-[48px] h-[48px] bg-gray-300 rounded-[10px] relative overflow-hidden flex items-center justify-center">
+                <Image
+                  src={project.thumbnail}
+                  width={48}
+                  height={48}
+                  alt="thumbnail"
+                  className="object-cover"
+                ></Image>
+              </div>
+              <h1 className="font-next-poster-Bold text-[40px] tracking-[2.4px]">
+                {project.name}
+              </h1>
+            </div>
+            <p className="mt-[8px] font-next-book text-[21px] leading-[160%] tracking-[0.42px]">
+              {project.description}
+            </p>
+            <div className="mt-[30px] bg-gray-300 rounded-[10px] max-h-[504px] w-full">
+              {!project.video.includes('youtube') && (
+                <video controls className="w-full">
+                  <source src={project.video}></source>
+                </video>
+              )}
+              {project.video.includes('youtube') && (
+                <YouTube
+                  videoId={getYoutubeId(project.video)}
+                  loading="lazy"
+                  iframeClassName="w-full min-h-[500px]"
+                />
+              )}
+            </div>
+            <p className="mt-[15px] font-next-book text-[18px] leading-[160%] tracking-[0.36px] opacity-[0.6]">
+              {`${project.hackathonName} · ${project.tracks.join(' · ')}`}
+            </p>
+            <div className="mt-[30px]">
+              <InfoBlock
+                title="Introduction"
+                description={project.introduction}
+              ></InfoBlock>
+            </div>
+            <div>
+              <InfoBlock title="Team" description={project.team}></InfoBlock>
+            </div>
+          </div>
+          <div>
+            <OtherProjects
+              activeProjectId={project.id}
+              hackathonId={project.hackathonId}
+              hackathonName={project.hackathonName}
+            ></OtherProjects>
+          </div>
         </div>
-        <p className="mt-[8px] font-next-book text-[21px] leading-[160%] tracking-[0.42px]">
-          MetaLine-X is a comprehensive, fully onchain WebGame platform.
-        </p>
-        <div className="mt-[30px] bg-gray-300 rounded-[10px] h-[504px] w-full"></div>
-        <p className="mt-[15px] font-next-book text-[18px] leading-[160%] tracking-[0.36px] opacity-[0.6]">
-          HackQuest Hackathon 2023 · DeFi
-        </p>
-        <div className="mt-[30px]">
-          <InfoBlock
-            title="Introduction"
-            description="MetaLine X is a comprehensive, fully onchain WebGame platform built upon the core products of MetaLine. Utilizing Layer3+ end- to-end foundational technology, MetaLine X offers a range of technical services, including engines, tools, SDKs, protocols, and more. This creates a complete WebGame ecosystem for creators, users, and investors within the entire ecosystem.MetaLine X is a comprehensive, fully onchain WebGame platform built upon the core products of MetaLine. Utilizing Layer3+ end- to-end foundational technology, MetaLine X offers a range of technical services, including engines, tools, SDKs, protocols, and more. This creates a complete WebGame ecosystem for creators, users, and investors within the entire ecosystem."
-          ></InfoBlock>
-        </div>
-        <div>
-          <InfoBlock
-            title="Team"
-            description="Most of MetaLine’s team graduated from world-renowned universities and have many years of experience in game development.
-            Jack is the co-founder of MetaLine. He majored in finance at the University of Paris with a PhD. With more than 13 years of experience in Internet games, he has served as the head of game planning at Tudou.com and Kaixin.com, and has been deeply involved in the release of many games. After experiencing the wave of GAMEFI1.0, JAC decided to create a new cryptocurrency game that connects WEB2 and WEB3 users."
-          ></InfoBlock>
-        </div>
-      </div>
-      <div>
-        <OtherProjects></OtherProjects>
-      </div>
-    </div>
+      )}
+    </Loading>
   );
 };
 

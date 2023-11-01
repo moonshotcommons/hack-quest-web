@@ -13,7 +13,7 @@ interface ProjectCardProp {
 const ProjectCard: React.FC<ProjectCardProp> = ({ project }) => {
   const router = useRouter();
   const goProjectDetail = () => {
-    project.id = '1';
+    // project.id = '1';
     router.push(
       `${menuLink.projects}/projects/${project.id}?${QueryIdType.PROJECT_ID}=${project.id}&menu=${Menu.PROJECTS}`
     );

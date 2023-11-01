@@ -20,9 +20,7 @@ class ProjectApi {
     });
   }
   getProjectsDetail(id: string) {
-    return this.service.get<ProjectDataType>(
-      `${ProjectApiType.Projects}/${id}`
-    );
+    return this.service.get<ProjectType>(`${ProjectApiType.Projects}/${id}`);
   }
 }
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import ProjectCard from '@/components/v2/ProjectCard';
 import { ProjectType } from '@/service/webApi/resourceStation/project/type';
+import Link from 'next/link';
 
 interface ProjectsListProps {
   list: any;
@@ -8,11 +9,7 @@ interface ProjectsListProps {
 const ProjectsList: React.FC<ProjectsListProps> = ({ list }) => {
   return (
     <div className="flex-1 flex flex-wrap gap-[20px] pb-[20px]">
-      {/* {list.map((project) => ( */}
-      <Link href={'/resource-station/hackathon/projects/123'}>
-        <ProjectCard project={{}}></ProjectCard>
-      </Link>
-      {/* ))} */}
+      <ProjectCard project={{ id: 1 }}></ProjectCard>
     </div>
   );
 };
