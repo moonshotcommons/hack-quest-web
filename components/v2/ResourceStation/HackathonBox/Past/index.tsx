@@ -7,6 +7,7 @@ import { FC, ReactNode } from 'react';
 import Loading from '@/components/v2/Common/Loading';
 import { message } from 'antd';
 import Pagination from '@/components/v2/Common/Pagination';
+import { HackathonDetailType } from '@/service/webApi/resourceStation/hackathon/type';
 
 interface PastProps {}
 
@@ -14,7 +15,8 @@ let PROJECTS_LIMIT = 9;
 
 const Past: FC<PastProps> = (props) => {
   const [page, setPage] = useState(1);
-  const [totalPage, setTotalPage] = useState(20);
+  const [totalPage, setTotalPage] = useState(1);
+  const [hackathonList, setHackathonList] = useState<HackathonDetailType[]>([]);
 
   const { run, loading } = useRequest(
     async () => {
@@ -22,10 +24,15 @@ const Past: FC<PastProps> = (props) => {
         page: page,
         limit: PROJECTS_LIMIT
       });
+      return res;
     },
     {
       manual: true,
-      onSuccess() {},
+      onSuccess(res) {
+        const { data, total } = res;
+        setTotalPage(total);
+        setHackathonList(data);
+      },
       onError(err: any) {
         const msg = err.msg || err.message;
         msg && message.error(msg);
@@ -40,13 +47,15 @@ const Past: FC<PastProps> = (props) => {
   return (
     <Loading loading={loading}>
       <div className="flex w-full justify-between flex-wrap gap-y-[22px]">
-        {new Array(9).fill('').map((item, index) => {
+        {hackathonList.map((item, index) => {
           return (
             <div key={index} className="w-[calc(33.33%-22px)]">
               <PastHackathonCard
-                name="2023 Web 3 Hackathon Forum London + Day Party"
-                starDate="Dec 8 - 10, 2023"
-                address="Broadleaf, 25, Old Broad Street, EC2N 1HN, City of London"
+                name={item.name}
+                starDate={item.startTime}
+                endDate={item.endTime}
+                address={item.address}
+                cover={item.image}
               ></PastHackathonCard>
             </div>
           );

@@ -1,5 +1,5 @@
 import WebService from '@/service/webService/webService';
-import {} from './type';
+import { HackathonDetailType } from './type';
 
 export enum HackathonApiType {
   Hackathon = '/hackathons'
@@ -20,12 +20,15 @@ class HackathonApi {
       | Record<string, string | number>
       | { page: number; limit: number } = {}
   ) {
-    return this.service.get(HackathonApiType.Hackathon, {
-      params: {
-        status: 'past',
-        ...query
+    return this.service.get<{ data: HackathonDetailType[]; total: number }>(
+      HackathonApiType.Hackathon,
+      {
+        params: {
+          status: 'past',
+          ...query
+        }
       }
-    });
+    );
   }
 }
 

@@ -12,6 +12,7 @@ import { LuChevronRight } from 'react-icons/lu';
 import CourseCard from '../../CourseCard';
 import ScrollControl from './ScrollControl';
 import ProjectCard from '../../ProjectCard';
+import { ProjectDetail } from '@/service/webApi/resourceStation/project/type';
 interface FeatureProjectsProps {}
 
 const FeatureProjectsHeader = () => {
@@ -41,19 +42,18 @@ const FeatureProjectsHeader = () => {
 };
 
 const FeatureProjects: FC<FeatureProjectsProps> = (props) => {
-  const [projectList, setProjectList] = useState<any[]>([]);
+  const [projectList, setProjectList] = useState<ProjectDetail[]>([]);
   const [scrollContainerState, setScrollContainerState] =
     useState<ChangeState>();
 
   const { run, loading } = useRequest(
     async () => {
-      // const res = await webApi.project.getFeaturedProjects();
-
-      return [{}, {}, {}, {}, {}, {}, {}];
+      const res = await webApi.project.getFeaturedProjects();
+      return res;
     },
     {
-      onSuccess(courses) {
-        setProjectList(courses);
+      onSuccess(projects) {
+        setProjectList(projects.data);
       },
       onError(error: any) {
         console.log(error);
@@ -71,8 +71,10 @@ const FeatureProjects: FC<FeatureProjectsProps> = (props) => {
             onChange={(state: any) => setScrollContainerState(state)}
           >
             <div className="my-[30px] flex gap-[20px] overflow-x-hidden">
-              {projectList.map((course, index) => {
-                return <ProjectCard key={index} project={{}}></ProjectCard>;
+              {projectList.map((project, index) => {
+                return (
+                  <ProjectCard key={index} project={project}></ProjectCard>
+                );
               })}
             </div>
           </ScrollContainer>

@@ -1,4 +1,5 @@
 import WebService from '@/service/webService/webService';
+import { ProjectDetail } from './type';
 
 export enum ProjectApiType {
   GetProjects = '/projects'
@@ -11,11 +12,14 @@ class ProjectApi {
   }
 
   getFeaturedProjects() {
-    return this.service.get(ProjectApiType.GetProjects, {
-      params: {
-        featured: true
+    return this.service.get<{ data: ProjectDetail[]; total: number }>(
+      ProjectApiType.GetProjects,
+      {
+        params: {
+          featured: true
+        }
       }
-    });
+    );
   }
 }
 
