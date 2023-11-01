@@ -12,7 +12,7 @@ import { LuChevronRight } from 'react-icons/lu';
 import CourseCard from '../../CourseCard';
 import ScrollControl from './ScrollControl';
 import ProjectCard from '../../ProjectCard';
-import { ProjectDetail } from '@/service/webApi/resourceStation/project/type';
+import { ProjectType } from '@/service/webApi/resourceStation/project/type';
 interface FeatureProjectsProps {}
 
 const FeatureProjectsHeader = () => {
@@ -42,13 +42,13 @@ const FeatureProjectsHeader = () => {
 };
 
 const FeatureProjects: FC<FeatureProjectsProps> = (props) => {
-  const [projectList, setProjectList] = useState<ProjectDetail[]>([]);
+  const [projectList, setProjectList] = useState<ProjectType[]>([]);
   const [scrollContainerState, setScrollContainerState] =
     useState<ChangeState>();
 
   const { run, loading } = useRequest(
     async () => {
-      const res = await webApi.project.getFeaturedProjects();
+      const res = await webApi.project.getProjectsList({ featured: true });
       return res;
     },
     {

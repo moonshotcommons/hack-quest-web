@@ -7,7 +7,10 @@ import { FC, ReactNode } from 'react';
 import Loading from '@/components/v2/Common/Loading';
 import { message } from 'antd';
 import Pagination from '@/components/v2/Common/Pagination';
-import { HackathonStatusType } from '@/service/webApi/resourceStation/hackathon/type';
+import {
+  HackathonStatusType,
+  HackathonType
+} from '@/service/webApi/resourceStation/hackathon/type';
 
 interface PastProps {}
 
@@ -16,7 +19,7 @@ let PROJECTS_LIMIT = 9;
 const Past: FC<PastProps> = (props) => {
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
-  const [hackathonList, setHackathonList] = useState<HackathonDetailType[]>([]);
+  const [hackathonList, setHackathonList] = useState<HackathonType[]>([]);
 
   const { run, loading } = useRequest(
     async () => {

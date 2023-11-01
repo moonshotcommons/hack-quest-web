@@ -12,7 +12,7 @@ class ProjectApi {
   }
   getProjectsList(
     params:
-      | Record<string, string | number>
+      | Record<string, string | number | boolean>
       | { page: number; limit: number } = {}
   ) {
     return this.service.get<ProjectDataType>(ProjectApiType.Projects, {
