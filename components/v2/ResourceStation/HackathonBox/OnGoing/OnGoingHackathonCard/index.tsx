@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Button from '@/components/v2/Common/Button';
 import { useRouter } from 'next/router';
-import { Menu, QueryIdType } from '../Breadcrumb/type';
-import { menuLink } from '../Breadcrumb/data';
+import { Menu, QueryIdType } from '@/components/v2/Breadcrumb/type';
+import { menuLink } from '@/components/v2/Breadcrumb/data';
 import { HackathonType } from '@/service/webApi/resourceStation/hackathon/type';
 import useDealHackathonData from '@/hooks/useDealHackathonData';
 

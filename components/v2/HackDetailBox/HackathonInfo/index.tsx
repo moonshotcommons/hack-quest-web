@@ -17,11 +17,20 @@ interface HackathonInfoProp {
 const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
   const router = useRouter();
   const closeInTimeOut = useRef<NodeJS.Timeout | null>(null);
+  const [status, setStatus] = useState<HackathonStatusType>(
+    HackathonStatusType.ON_GOING
+  );
   const [closeInTime, setCloseInTime] = useState('');
   const { getRunFromTime, getCloseInTime, getParticipantsStr } =
     useDealhackathon();
   const getCloseIn = () => {
-    setCloseInTime(getCloseInTime(hackathon.endTime));
+    const t = getCloseInTime(hackathon.endTime);
+    if (t === HackathonStatusType.PAST) {
+      setStatus(HackathonStatusType.PAST);
+      if (closeInTimeOut.current) clearTimeout(closeInTimeOut.current);
+      return;
+    }
+    setCloseInTime(t);
     closeInTimeOut.current = setTimeout(() => {
       getCloseIn();
     }, 60 * 1000);
@@ -82,7 +91,7 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
           <div className="text-[16px]">{hackathon.address}</div>
         </div>
       </div>
-      {hackathon.status === HackathonStatusType.ON_GOING ? (
+      {status === HackathonStatusType.ON_GOING ? (
         <>
           <div className="h-[63px] px-[20px] rounded-[10px] bg-[rgba(255,244,206,0.5)] flex flex-col justify-center ">
             <div className="text-[#8C8C8C]">APPLICATIONS CLOSE IN</div>

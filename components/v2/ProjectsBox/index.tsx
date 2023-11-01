@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { initPageInfo, filterData } from './data';
 import webApi from '@/service';
-import { CourseResponse } from '@/service/webApi/course/type';
 import Loading from '../Common/Loading';
 import ProjectsList from './ProjectsList';
 import { deepClone } from '@/helper/utils';
 import SearchFilter, { dealFilterParam } from '@/components/v2/SearchFilter';
 import { FilterDataType } from '@/components/v2/SearchFilter/type';
+import { ProjectType } from '@/service/webApi/resourceStation/project/type';
 
 interface PageInfoType {
   page: number;
@@ -27,7 +27,7 @@ const ProjectsBox: React.FC<ProjectsBoxProps> = ({
   );
   const [inputValue, setInputValue] = useState('');
   const [pageInfo, setPageInfo] = useState<PageInfoType>(initPageInfo);
-  const [list, setList] = useState<CourseResponse[]>([]);
+  const [list, setList] = useState<ProjectType[]>([]);
   const [runNum, setRunNum] = useState(0);
   const [total, setTotal] = useState(0);
 
@@ -36,20 +36,21 @@ const ProjectsBox: React.FC<ProjectsBoxProps> = ({
   };
 
   const initList = () => {
-    getCourseList(initPageInfo).then((newList) => {
+    getProjectList(initPageInfo).then((newList) => {
       setApiStatus('init');
-      setList([...(newList as CourseResponse[])]);
+      setList([...(newList as ProjectType[])]);
     });
   };
 
-  const getCourseList = (pInfo: PageInfoType) => {
+  const getProjectList = (pInfo: PageInfoType) => {
     setApiStatus('loading');
     setPageInfo({ ...pInfo });
     const newFilter = dealFilterParam(searchParam);
     return new Promise(async (resolve) => {
-      const res = await webApi.courseApi.getCourseListBySearch({
+      const res = await webApi.project.getProjectsList({
         ...newFilter,
-        ...pInfo
+        ...pInfo,
+        keyword: inputValue
       });
       setTotal(res.total);
       resolve(res.data);
@@ -69,11 +70,11 @@ const ProjectsBox: React.FC<ProjectsBoxProps> = ({
       apiStatus === 'init'
     ) {
       setRunNum(loadNum);
-      getCourseList({
+      getProjectList({
         ...pageInfo,
         page: pageInfo.page + 1
       }).then((newList) => {
-        const l = [...list, ...(newList as CourseResponse[])];
+        const l = [...list, ...(newList as ProjectType[])];
         setList(l);
         if (l.length >= total) {
           setApiStatus('noMre');
