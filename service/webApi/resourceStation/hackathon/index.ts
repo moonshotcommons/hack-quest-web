@@ -10,7 +10,11 @@ class HackathonApi {
   constructor(service: WebService) {
     this.service = service;
   }
-  getHackathonList(params: object) {
+  getHackathonList(
+    params:
+      | Record<string, string | number>
+      | { page: number; limit: number } = {}
+  ) {
     return this.service.get<HackathonDataType>(HackathonApiType.Hackathon, {
       params
     });
