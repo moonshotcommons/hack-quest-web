@@ -6,27 +6,33 @@ interface ShowAllProp {
   showAll: boolean;
   changeShowAll: VoidFunction;
   children: ReactNode;
+  isShowAllButton: boolean;
 }
 
 const ShowAll: React.FC<ShowAllProp> = ({
   showAll,
   changeShowAll,
-  children
+  children,
+  isShowAllButton
 }) => {
   return (
     <>
       <div className="flex flex-wrap justify-between">{children}</div>
-      <div className="flex justify-end text-[18px]">
-        <div
-          className="flex items-center cursor-pointer"
-          onClick={changeShowAll}
-        >
-          <span>Show {showAll ? 'Less' : 'All'}</span>
-          <VscChevronDown
-            className={`transition text-[24px] ${showAll ? 'rotate-180' : ''}`}
-          />
+      {isShowAllButton && (
+        <div className="flex justify-end text-[18px]">
+          <div
+            className="flex items-center cursor-pointer"
+            onClick={changeShowAll}
+          >
+            <span>Show {showAll ? 'Less' : 'All'}</span>
+            <VscChevronDown
+              className={`transition text-[24px] ${
+                showAll ? 'rotate-180' : ''
+              }`}
+            />
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 };

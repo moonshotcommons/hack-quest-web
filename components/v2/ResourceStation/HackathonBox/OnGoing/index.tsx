@@ -1,15 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import OnGoingHackathonCard from '@/components/v2/OnGoingHackathonCard';
-import { HackathonType } from '@/service/webApi/resourceStation/hackathon/type';
+import {
+  HackathonStatusType,
+  HackathonType,
+  acquiescePageInfo
+} from '@/service/webApi/resourceStation/hackathon/type';
+import { useRequest } from 'ahooks';
+import webApi from '@/service';
 
-interface OnGoingProp {
-  list: HackathonType[];
-}
+interface OnGoingProp {}
 
-const OnGoing: React.FC<OnGoingProp> = ({ list }) => {
+const OnGoing: React.FC<OnGoingProp> = () => {
+  const { data: list = [] } = useRequest(async () => {
+    const res = await webApi.hackathon.getHackathonList({
+      status: HackathonStatusType.ON_GOING
+    });
+    return res.data || [];
+  });
   return (
     <div className="text-[#0b0b0b] text-[14px]">
-      <OnGoingHackathonCard hackathon={{ id: '1' }} />
+      {list.map((hackathon: HackathonType) => (
+        <OnGoingHackathonCard hackathon={hackathon} key={hackathon.id} />
+      ))}
     </div>
   );
 };

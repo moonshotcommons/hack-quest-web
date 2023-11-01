@@ -1,34 +1,38 @@
 export enum HackathonStatusType {
-  ON_GOING = 'onGoing',
+  ON_GOING = 'ongoing',
   PAST = 'past',
   ALL_PROJECT = '/resource-station/hackathon/projects'
 }
 
 export interface MentorType {
   name: string;
-  description: string;
-  avatar: string;
+  title: string;
+  picture: string;
 }
-export interface HType {
+export interface HackathonType {
   id: string;
   name: string;
   image: string;
   about: string;
   theme: string;
   participants: string[];
-  host: string;
-  startDate: string;
-  endDate: string;
+  hosts: Omit<MentorType, 'title'>[];
+  startTime: string;
+  endTime: string;
   address: string;
   applyLink: string;
-  GuestsAndMentors: MentorType[];
+  guestsAndMentors: MentorType[];
   mediaPartners: MentorType[];
-  CommunityPartners: MentorType[];
+  communityPartners: MentorType[];
+  status: HackathonStatusType;
 }
-
-export type HackathonType = Partial<HType>;
 
 export interface HackathonDataType {
   data: HackathonType[];
   total: number;
 }
+
+export const acquiescePageInfo = {
+  page: 1,
+  limit: 1000
+};

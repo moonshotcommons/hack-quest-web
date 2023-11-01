@@ -3,29 +3,39 @@ import Box from '../components/Box';
 import Title from '../components/Title';
 import ShowBox from '../components/ShowBox';
 import { deepClone } from '@/helper/utils';
-import Astronaut from '@/public/images/landing/astronaut.png';
 import Image from 'next/image';
+import { HackathonType } from '@/service/webApi/resourceStation/hackathon/type';
 
 interface MediaPartnersProp {
-  hackathonData: any;
+  hackathon: HackathonType;
 }
 
-const MediaPartners: React.FC<MediaPartnersProp> = ({ hackathonData }) => {
-  const data = Array.from({ length: 10 });
+const MediaPartners: React.FC<MediaPartnersProp> = ({ hackathon }) => {
   const [showAll, setShowAll] = useState(false);
   const showList = useMemo(() => {
-    return showAll ? deepClone(data) : data.slice(0, 3);
-  }, [data, showAll]);
+    return showAll
+      ? deepClone(hackathon.mediaPartners)
+      : hackathon.mediaPartners.slice(0, 3);
+  }, [hackathon, showAll]);
   return (
     <Box>
       <Title title="Guests and Mentors" />
-      <ShowBox showAll={showAll} changeShowAll={() => setShowAll(!showAll)}>
-        {showList.map((_: any, i: number) => (
+      <ShowBox
+        showAll={showAll}
+        isShowAllButton={hackathon.mediaPartners.length > 3}
+        changeShowAll={() => setShowAll(!showAll)}
+      >
+        {showList.map((v: any, i: number) => (
           <div
             key={i}
-            className="w-[32.5%] h-[125px] mb-[20px] rounded-[10px] overflow-hidden"
+            className="w-[32.5%] h-[125px] mb-[20px] rounded-[10px] relative overflow-hidden"
           >
-            <Image src={Astronaut} alt="astronaut" className="w-full"></Image>
+            <Image
+              src={v.picture}
+              alt="picture"
+              fill
+              className="object-contain"
+            ></Image>
           </div>
         ))}
       </ShowBox>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Tab from '@/components/v2/Tab';
 import { TabListType, TabValueType } from '@/components/v2/Tab/type';
 import { HackathonStatusType } from '@/service/webApi/resourceStation/hackathon/type';
@@ -27,7 +27,7 @@ function HackathonBox() {
   const renderHackathon = () => {
     switch (curTab) {
       case HackathonStatusType.ON_GOING:
-        return <OnGoing list={[]} />;
+        return <OnGoing />;
       case HackathonStatusType.PAST:
         return <Past />;
     }
