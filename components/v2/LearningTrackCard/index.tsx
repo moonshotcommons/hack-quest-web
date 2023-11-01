@@ -13,8 +13,9 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useEffect, useMemo, useState } from 'react';
 import { styled } from 'styled-components';
-import { MenuLink, QueryIdType } from '../Breadcrumb/type';
+import { Menu, QueryIdType } from '../Breadcrumb/type';
 import CourseTags from '../CourseTags';
+import { menuLink } from '../Breadcrumb/data';
 
 const CustomProgress = styled(Progress)`
   .ant-progress-inner {
@@ -84,7 +85,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
       const course = section.courses.find((v) => v.progress < 1);
       if (course)
         jumpLearningLesson(course, {
-          menu: MenuLink.LEARNING_TRACK,
+          menu: Menu.LEARNING_TRACK,
           idTypes: [QueryIdType.LEARNING_TRACK_ID, QueryIdType.MENU_COURSE_ID],
           ids: [learningTrack.id, course.id]
         });
@@ -311,7 +312,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
   const goLearningTrackDetail = (e: any) => {
     if (isLandingPage) return;
     router.push(
-      `/learning-track/${learningTrack.id}?${QueryIdType.LEARNING_TRACK_ID}=${learningTrack.id}&menu=${MenuLink.LEARNING_TRACK}`
+      `${menuLink.learningTrack}/${learningTrack.id}?${QueryIdType.LEARNING_TRACK_ID}=${learningTrack.id}&menu=${Menu.LEARNING_TRACK}`
     );
   };
 

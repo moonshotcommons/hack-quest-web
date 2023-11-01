@@ -1,7 +1,8 @@
 import WebService from '@/service/webService/webService';
+import { ProjectType, ProjectDataType } from './type';
 
 export enum ProjectApiType {
-  GetProjects = '/projects'
+  Projects = '/projects'
 }
 
 class ProjectApi {
@@ -9,13 +10,19 @@ class ProjectApi {
   constructor(service: WebService) {
     this.service = service;
   }
-
-  getFeaturedProjects() {
-    return this.service.get(ProjectApiType.GetProjects, {
-      params: {
-        featured: true
-      }
+  getProjectsList(
+    params:
+      | Record<string, string | number | boolean>
+      | { page: number; limit: number } = {}
+  ) {
+    return this.service.get<ProjectDataType>(ProjectApiType.Projects, {
+      params
     });
+  }
+  getProjectsDetail(id: string) {
+    return this.service.get<ProjectDataType>(
+      `${ProjectApiType.Projects}/${id}`
+    );
   }
 }
 

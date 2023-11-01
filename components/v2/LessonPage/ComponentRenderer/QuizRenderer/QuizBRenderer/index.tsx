@@ -31,16 +31,22 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
   const [answers, setAnswers] = useState<Record<string, AnswerType>>({});
   const mountAnswers = useRef(0);
 
-  const onDrop = (item: AnswerType) => {
-    const newAnswers = { ...answers, [item.id]: item };
+  const onDrop = (
+    dropAnswer: AnswerType,
+    replaceOption?: QuizOptionType | null
+  ) => {
+    const newAnswers = { ...answers, [dropAnswer.id]: dropAnswer };
     setAnswers(newAnswers);
     setOptions(
       options.map((option) => {
-        if (answers[item.id].option?.id === option.id) {
+        if (
+          answers[dropAnswer.id].option?.id === option.id ||
+          (replaceOption && replaceOption.id === option.id)
+        ) {
           option = { ...option, isRender: true };
         }
 
-        if (option.id === item.option?.id) {
+        if (option.id === dropAnswer.option?.id) {
           return { ...option, isRender: false };
         }
 
@@ -168,11 +174,15 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
                     const emptyAnswerKey = Object.keys(answers).find(
                       (key) => !answers[key].option
                     );
-                    if (!emptyAnswerKey) return;
-                    const dropAnswer = answers[emptyAnswerKey];
+                    let replaceAnswerKey = emptyAnswerKey;
+                    let replaceOption = null;
+                    if (!emptyAnswerKey) {
+                      replaceAnswerKey = Object.keys(answers)[0];
+                    }
+                    const dropAnswer = answers[replaceAnswerKey!];
+                    if (dropAnswer.option) replaceOption = dropAnswer.option;
                     dropAnswer.option = option;
-                    // setAnswers({ ...answers });
-                    onDrop(dropAnswer);
+                    onDrop(dropAnswer, replaceOption);
                   }}
                 >
                   {option.content.rich_text.map(
