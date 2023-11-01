@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import CourseFilter from './CourseFilter';
 import CourseList from './CourseList';
-import { initPageInfo, ParamType, initParam } from './data';
+import { initPageInfo, filterData } from './data';
 import webApi from '@/service';
 import { CourseResponse } from '@/service/webApi/course/type';
 import Loading from '../Common/Loading';
+import SearchFilter, { dealFilterParam } from '@/components/v2/SearchFilter';
+import { FilterDataType } from '@/components/v2/SearchFilter/type';
+import { deepClone } from '@/helper/utils';
 
 interface PageInfoType {
   page: number;
@@ -20,14 +22,16 @@ const SelectiveCoursesBox: React.FC<SelectiveCoursesBoxProps> = ({
   setApiStatus,
   apiStatus
 }) => {
-  const [searchParam, setSearchParam] = useState<any>({ ...initParam });
+  const [searchParam, setSearchParam] = useState<FilterDataType[]>(
+    deepClone(filterData)
+  );
   const [pageInfo, setPageInfo] = useState<PageInfoType>(initPageInfo);
   const [list, setList] = useState<CourseResponse[]>([]);
   const [runNum, setRunNum] = useState(0);
   const [total, setTotal] = useState(0);
 
-  const changeParam = (newFilter: ParamType) => {
-    setSearchParam({ ...newFilter });
+  const changeParam = (newSearchParam: FilterDataType[]) => {
+    setSearchParam(newSearchParam);
   };
 
   const initList = () => {
@@ -40,23 +44,7 @@ const SelectiveCoursesBox: React.FC<SelectiveCoursesBoxProps> = ({
   const getCourseList = (pInfo: PageInfoType) => {
     setApiStatus('loading');
     setPageInfo({ ...pInfo });
-    const newFilter: any = {};
-    for (let key in searchParam) {
-      if (key === 'sort') {
-        newFilter[key] = searchParam[key]?.find(
-          (v: ParamType) => v.checked
-        )?.value;
-      } else {
-        const item = searchParam[key].filter(
-          (v: ParamType) => v.value !== 'ALL'
-        );
-        const filterItem = item
-          ?.filter((v: ParamType) => v.checked)
-          ?.map((v: ParamType) => v.value)
-          .join(',');
-        if (filterItem.length) newFilter[key] = filterItem;
-      }
-    }
+    const newFilter = dealFilterParam(searchParam);
     return new Promise(async (resolve) => {
       const res = await webApi.courseApi.getCourseListBySearch({
         ...newFilter,
@@ -91,10 +79,11 @@ const SelectiveCoursesBox: React.FC<SelectiveCoursesBoxProps> = ({
   return (
     <Loading loading={apiStatus === 'loading'}>
       <div className="flex justify-between gap-10">
-        <CourseFilter
-          changeParam={changeParam}
+        <SearchFilter
           searchParam={searchParam}
-          len={total}
+          changeParam={changeParam}
+          isShowResult={true}
+          resultsLen={total}
         />
         <CourseList list={list} />
       </div>
