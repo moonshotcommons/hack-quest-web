@@ -33,8 +33,7 @@ const OtherProjects: FC<OtherProjectsProps> = (props) => {
     {
       onSuccess(res) {
         setProjects(
-          // res.data.filter((project) => project.id !== activeProjectId)
-          res.data
+          res.data.filter((project) => project.id !== activeProjectId)
         );
         setTotalPage(res.total);
       },
@@ -50,7 +49,7 @@ const OtherProjects: FC<OtherProjectsProps> = (props) => {
 
   useEffect(() => {
     run();
-  }, [page]);
+  }, [page, activeProjectId]);
 
   return (
     <>
@@ -69,7 +68,6 @@ const OtherProjects: FC<OtherProjectsProps> = (props) => {
       <div className="mt-[30px]">
         <div className="flex flex-col gap-y-[30px] mb-[30px]">
           {[...projects]
-            .filter((item) => item.id !== activeProjectId)
             .splice(
               page === 1 ? page - 1 : page * PROJECTS_LIMIT,
               PROJECTS_LIMIT

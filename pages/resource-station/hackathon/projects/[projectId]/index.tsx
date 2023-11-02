@@ -21,7 +21,9 @@ const ProjectDetailPage: FC<ProjectDetailPageProps> = (props) => {
         )}
       </div>
       <div className="mt-[80px]">
-        <FeatureProjects></FeatureProjects>
+        <FeatureProjects
+          ignoreProjectId={projectId as string}
+        ></FeatureProjects>
       </div>
     </div>
   );
