@@ -13,7 +13,9 @@ import CourseCard from '../../CourseCard';
 import ScrollControl from './ScrollControl';
 import ProjectCard from '../../ProjectCard';
 import { ProjectType } from '@/service/webApi/resourceStation/project/type';
-interface FeatureProjectsProps {}
+interface FeatureProjectsProps {
+  ignoreProjectId?: string;
+}
 
 const FeatureProjectsHeader = () => {
   return (
@@ -53,7 +55,13 @@ const FeatureProjects: FC<FeatureProjectsProps> = (props) => {
     },
     {
       onSuccess(projects) {
-        setProjectList(projects.data);
+        if (props.ignoreProjectId) {
+          setProjectList(
+            projects.data.filter(
+              (project) => project.id !== props.ignoreProjectId
+            )
+          );
+        } else setProjectList(projects.data);
       },
       onError(error: any) {
         console.log(error);

@@ -67,7 +67,7 @@ const Pagination: FC<PaginationProps> = (props) => {
             onPageInputValueChange(value);
           }}
           value={currentPage}
-          className="bg-transparent outline-none appearance-none text-center w-10 underline"
+          className="bg-transparent outline-none appearance-none text-center w-[26px] underline"
         />
         <span>{`of ${total}`}</span>
       </div>
