@@ -24,6 +24,9 @@ class ProjectApi {
       `${ProjectApiType.Projects}/${id}`
     );
   }
+  getProjectTracksDict() {
+    return this.service.get<string[]>(`${ProjectApiType.Projects}/tracks-dir`);
+  }
 }
 
 export default ProjectApi;
