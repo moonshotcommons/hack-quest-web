@@ -5,7 +5,7 @@ import webApi from '@/service';
 import { ProjectType } from '@/service/webApi/resourceStation/project/type';
 import { useRequest } from 'ahooks';
 import Link from 'next/link';
-import { FC, ReactNode, useState } from 'react';
+import { FC, ReactNode, useEffect, useState } from 'react';
 let PROJECTS_LIMIT = 3;
 interface OtherProjectsProps {
   hackathonId: string;
@@ -19,19 +19,20 @@ const OtherProjects: FC<OtherProjectsProps> = (props) => {
   const [totalPage, setTotalPage] = useState(1);
   const [projects, setProjects] = useState<ProjectType[]>([]);
 
-  useRequest(
+  const { run } = useRequest(
     async () => {
       const res = await webApi.project.getProjectsList({
-        keyword: hackathonName,
-        page: page,
-        limit: PROJECTS_LIMIT
+        keyword: hackathonName
+        // page: page,
+        // limit: PROJECTS_LIMIT
       });
       return res;
     },
     {
       onSuccess(res) {
         setProjects(
-          res.data.filter((project) => project.id !== activeProjectId)
+          // res.data.filter((project) => project.id !== activeProjectId)
+          res.data
         );
         setTotalPage(res.total);
       },
@@ -40,6 +41,14 @@ const OtherProjects: FC<OtherProjectsProps> = (props) => {
       }
     }
   );
+
+  useEffect(() => {
+    setPage(1);
+  }, [hackathonId, hackathonName, activeProjectId]);
+
+  useEffect(() => {
+    run();
+  }, [page]);
 
   return (
     <>
@@ -57,15 +66,21 @@ const OtherProjects: FC<OtherProjectsProps> = (props) => {
       </p>
       <div className="mt-[30px]">
         <div className="flex flex-col gap-y-[30px] mb-[30px]">
-          {projects.map((project) => {
-            return (
-              <ProjectCard key={project.id} project={project}></ProjectCard>
-            );
-          })}
+          {[...projects]
+            .filter((item) => item.id !== activeProjectId)
+            .splice(
+              page === 1 ? page - 1 : page * PROJECTS_LIMIT,
+              PROJECTS_LIMIT
+            )
+            .map((project) => {
+              return (
+                <ProjectCard key={project.id} project={project}></ProjectCard>
+              );
+            })}
         </div>
         {totalPage > PROJECTS_LIMIT && (
           <Pagination
-            total={totalPage}
+            total={Math.floor((totalPage - 1) / PROJECTS_LIMIT)}
             page={page}
             onPageChange={(v) => {
               setPage(v);
