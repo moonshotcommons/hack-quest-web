@@ -51,7 +51,7 @@ const User: FC<UserProps> = (props) => {
                   <Image src={IconCoin} width={30} alt="iconCredits" />
                   <span>{userCoin.coin}</span>
                 </div>
-                <div className="w-[170px] h-full relative flex-center rounded-[20px] bg-[#8C8C8C] ">
+                <div className="w-[170px] h-full relative flex-center rounded-[20px] bg-[#8C8C8C] overflow-hidden ">
                   <div
                     className="absolute left-[0] top-[0] h-full bg-[#3E3E3E] rounded-[20px]"
                     style={{

@@ -17,7 +17,7 @@ const ShowAll: React.FC<ShowAllProp> = ({
 }) => {
   return (
     <>
-      <div className="flex flex-wrap justify-between">{children}</div>
+      <div className="flex flex-wrap gap-[1.25%]">{children}</div>
       {isShowAllButton && (
         <div className="flex justify-end text-[18px]">
           <div

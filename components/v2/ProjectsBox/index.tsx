@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { initPageInfo, filterData } from './data';
 import webApi from '@/service';
 import Loading from '../Common/Loading';
@@ -8,6 +8,7 @@ import SearchFilter, { dealFilterParam } from '@/components/v2/SearchFilter';
 import { FilterDataType, ParamType } from '@/components/v2/SearchFilter/type';
 import { ProjectType } from '@/service/webApi/resourceStation/project/type';
 import { useRequest } from 'ahooks';
+import { useRouter } from 'next/router';
 
 interface PageInfoType {
   page: number;
@@ -23,10 +24,12 @@ const ProjectsBox: React.FC<ProjectsBoxProps> = ({
   setApiStatus,
   apiStatus
 }) => {
+  const router = useRouter();
   const [searchParam, setSearchParam] = useState<FilterDataType[]>(
     deepClone(filterData)
   );
-  const [inputValue, setInputValue] = useState('');
+  const timeOut = useRef<NodeJS.Timeout | null>(null);
+  const [inputValue, setInputValue] = useState(router.query.keyWord || '');
   const [pageInfo, setPageInfo] = useState<PageInfoType>(initPageInfo);
   const [list, setList] = useState<ProjectType[]>([]);
   const [runNum, setRunNum] = useState(0);
@@ -68,13 +71,19 @@ const ProjectsBox: React.FC<ProjectsBoxProps> = ({
     const newSearchParam = deepClone(searchParam);
     newSearchParam[2].filterList =
       newSearchParam[2].filterList.concat(tracksDict);
-    // setSearchParam(newSearchParam);
+    setSearchParam(newSearchParam);
   });
 
   useEffect(() => {
     initList();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchParam, inputValue]);
+  }, [searchParam]);
+
+  useEffect(() => {
+    if (timeOut.current) clearTimeout(timeOut.current);
+    timeOut.current = setTimeout(() => {
+      initList();
+    }, 300);
+  }, [inputValue]);
 
   useEffect(() => {
     if (
@@ -106,6 +115,7 @@ const ProjectsBox: React.FC<ProjectsBoxProps> = ({
           changeParam={changeParam}
           changeInputValue={(value) => setInputValue(value)}
           isShowInput={true}
+          inputValue={inputValue as string}
         />
         <ProjectsList list={list} />
       </div>

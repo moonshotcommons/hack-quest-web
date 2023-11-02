@@ -28,7 +28,7 @@ const CommunityPartners: React.FC<CommunityPartnersProp> = ({ hackathon }) => {
         {showList.map((v: any, i: number) => (
           <div
             key={i}
-            className="w-[32.5%] h-[125px] mb-[20px] rounded-[10px] relative overflow-hidden"
+            className="w-[32.5%] h-[125px] mb-[20px] rounded-[10px] relative overflow-hidden shadow-[0px_0px_8px_0px_rgba(0,0,0,0.12)]"
           >
             <Image
               src={v.picture}
