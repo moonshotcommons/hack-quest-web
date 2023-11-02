@@ -11,6 +11,7 @@ import {
   HackathonStatusType,
   HackathonType
 } from '@/service/webApi/resourceStation/hackathon/type';
+import { errorMessage } from '@/helper/utils';
 
 interface PastProps {}
 
@@ -38,8 +39,7 @@ const Past: FC<PastProps> = (props) => {
         setHackathonList(data);
       },
       onError(err: any) {
-        const msg = err.msg || err.message;
-        msg && message.error(msg);
+        errorMessage(err);
       }
     }
   );
@@ -51,16 +51,10 @@ const Past: FC<PastProps> = (props) => {
   return (
     <Loading loading={loading}>
       <div className="flex w-full justify-between flex-wrap gap-y-[22px]">
-        {hackathonList.map((item, index) => {
+        {hackathonList.map((hackathon, index) => {
           return (
             <div key={index} className="w-[calc(33.33%-22px)]">
-              <PastHackathonCard
-                name={item.name}
-                starDate={item.startTime}
-                endDate={item.endTime}
-                address={item.address}
-                cover={item.image}
-              ></PastHackathonCard>
+              <PastHackathonCard hackathon={hackathon}></PastHackathonCard>
             </div>
           );
         })}
