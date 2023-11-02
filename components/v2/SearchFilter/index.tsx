@@ -22,6 +22,7 @@ interface SearchFilterProps {
   isShowResult?: boolean;
   resultsLen?: number;
   isShowInput?: boolean;
+  inputValue?: string;
 }
 const SearchFilter: React.FC<SearchFilterProps> = ({
   searchParam,
@@ -29,10 +30,9 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
   changeInputValue,
   isShowResult = false,
   resultsLen = 0,
-  isShowInput = false
+  isShowInput = false,
+  inputValue
 }) => {
-  const timeOut = useRef<NodeJS.Timeout | null>(null);
-  const [inputValue, setInputValue] = useState('');
   const changeFilterParam = (i: number, j: number) => {
     const newSearchParam = deepClone(searchParam);
     const { type } = newSearchParam[i];
@@ -72,6 +72,7 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
 
   const clearParam = () => {
     const newSearchParam = deepClone(searchParam);
+    changeInputValue?.('');
     newSearchParam.map((v: FilterDataType) => {
       switch (v.type) {
         case FilterType.RADIO:
@@ -101,11 +102,7 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
 
   const changeInput = (e: any) => {
     const value = e.target.value;
-    setInputValue(value);
-    if (timeOut.current) clearTimeout(timeOut.current);
-    timeOut.current = setTimeout(() => {
-      changeInputValue?.(value);
-    }, 300);
+    changeInputValue?.(value);
   };
   return (
     <div className="text-electives-filter-color w-[272px] ">

@@ -1,3 +1,5 @@
+import { menuLink } from '@/components/v2/Breadcrumb/data';
+import { Menu, QueryIdType } from '@/components/v2/Breadcrumb/type';
 import Pagination from '@/components/v2/Common/Pagination';
 import ProjectCard from '@/components/v2/ProjectCard';
 import { errorMessage } from '@/helper/utils';
@@ -58,7 +60,7 @@ const OtherProjects: FC<OtherProjectsProps> = (props) => {
       <p className="mt-[8px] font-next-book text-[21px] leading-[160%] tracking-[0.42px]">
         {`in `}
         <Link
-          href={'#'}
+          href={`${menuLink.projects}/projects?menu=${Menu.PROJECTS}&${QueryIdType.PROJECT_ID}=projects&keyWord=${hackathonName}`}
           className="text-[#0B0B0B] underline hover:opacity-70 hover:text-[#0B0B0B] hover:underline transition-all"
         >
           {hackathonName}
