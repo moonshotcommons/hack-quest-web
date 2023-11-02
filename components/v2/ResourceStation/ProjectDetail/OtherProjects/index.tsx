@@ -37,6 +37,7 @@ const OtherProjects: FC<OtherProjectsProps> = (props) => {
         );
         setTotalPage(res.total);
       },
+
       onError(err) {
         errorMessage(err);
       }
