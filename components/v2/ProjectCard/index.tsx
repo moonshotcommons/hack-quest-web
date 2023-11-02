@@ -1,13 +1,12 @@
 import React from 'react';
 import Image from 'next/image';
-import Astronaut from '@/public/images/landing/astronaut.png';
 import { menuLink } from '../Breadcrumb/data';
 import { ProjectType } from '@/service/webApi/resourceStation/project/type';
 import { useRouter } from 'next/router';
 import { Menu, QueryIdType } from '../Breadcrumb/type';
 
 interface ProjectCardProp {
-  project: any;
+  project: ProjectType;
 }
 
 const ProjectCard: React.FC<ProjectCardProp> = ({ project }) => {
@@ -25,27 +24,33 @@ const ProjectCard: React.FC<ProjectCardProp> = ({ project }) => {
     >
       <div className="h-[163px] bg-[#D9D9D9] relative">
         <Image
-          src={Astronaut}
-          alt="astronaut"
-          className="w-full h-full"
+          src={project.thumbnail}
+          alt="thumbnail"
+          fill
+          className="object-contain"
         ></Image>
-        <div className="absolute left-[10px] top-[10px] px-[14px] h-[25px] bg-[#fff] text-[#3E3E3E] text-[12px] flex items-center rounded-[10px]">
-          Apollo Day
-        </div>
+        {project.apolloDay && (
+          <div className="absolute left-[10px] top-[10px] px-[14px] h-[25px] bg-[#fff] text-[#3E3E3E] text-[12px] flex items-center rounded-[10px]">
+            Apollo Day
+          </div>
+        )}
       </div>
       <div className="flex-1 flex flex-col justify-between px-[20px] py-[10px]">
-        <div>
-          <div className="text-[rgba(11,11,11,0.6)] text-[16px] flex items-center">
-            <span>2022 Summer</span>
-            <span className="w-[4px] mx-[6px] h-[4px] rounded-[50%] bg-[rgba(11,11,11,0.6)]"></span>
-            <span>DeFi</span>
+        <div className="w-full">
+          <div className="text-[rgba(11,11,11,0.6)] text-[16px] flex items-center text-ellipsis overflow-hidden whitespace-nowrap">
+            {project.tracks.map((v, i) => (
+              <React.Fragment key={i}>
+                <span>{v}</span>
+                {i < project.tracks.length - 1 && (
+                  <span className="w-[4px] mx-[6px] h-[4px] rounded-[50%] bg-[rgba(11,11,11,0.6)]"></span>
+                )}
+              </React.Fragment>
+            ))}
           </div>
-          <div className="text-[#000] text-[18px]">Company Name</div>
+          <div className="text-[#000] text-[18px]">{project.name}</div>
         </div>
         <div className="font-next-book-Thin line-clamp-3">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing
-          elit, sed do eiusmod tempor
+          {project.introduction}
         </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
 import { MissionDataType } from '@/service/webApi/missionCenter/type';
 import React, { useEffect, useRef, useState } from 'react';
-import MoonFace from '@/public/images/mission-center/moon_face.png';
+import MoonFace from '@/public/images/mission-center/moon_face1.png';
 import IconCoin from '@/public/images/mission-center/icon_coin.png';
 import IconXp from '@/public/images/mission-center/icon_xp.png';
 import IconLock from '@/public/images/mission-center/icon_lock.png';
