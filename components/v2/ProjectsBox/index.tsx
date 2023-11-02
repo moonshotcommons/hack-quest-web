@@ -5,8 +5,9 @@ import Loading from '../Common/Loading';
 import ProjectsList from './ProjectsList';
 import { deepClone } from '@/helper/utils';
 import SearchFilter, { dealFilterParam } from '@/components/v2/SearchFilter';
-import { FilterDataType } from '@/components/v2/SearchFilter/type';
+import { FilterDataType, ParamType } from '@/components/v2/SearchFilter/type';
 import { ProjectType } from '@/service/webApi/resourceStation/project/type';
+import { useRequest } from 'ahooks';
 
 interface PageInfoType {
   page: number;
@@ -56,6 +57,19 @@ const ProjectsBox: React.FC<ProjectsBoxProps> = ({
       resolve(res.data);
     });
   };
+
+  const {} = useRequest(async () => {
+    const res = await webApi.project.getProjectTracksDict();
+    const tracksDict = res.map((v: string) => ({
+      label: v,
+      value: v,
+      checked: true
+    }));
+    const newSearchParam = deepClone(searchParam);
+    newSearchParam[2].filterList =
+      newSearchParam[2].filterList.concat(tracksDict);
+    // setSearchParam(newSearchParam);
+  });
 
   useEffect(() => {
     initList();

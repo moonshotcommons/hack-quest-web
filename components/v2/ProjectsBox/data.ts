@@ -7,7 +7,7 @@ export const sort = {
   filterList: [
     {
       label: 'Featured',
-      vlaue: '-featured',
+      value: '-featured',
       checked: true
     },
     {
@@ -47,31 +47,6 @@ export const tracks = {
     {
       label: 'All',
       value: ALL,
-      checked: true
-    },
-    {
-      label: 'DeFi',
-      value: 'DEFI',
-      checked: true
-    },
-    {
-      label: 'NFT',
-      value: 'NFT',
-      checked: true
-    },
-    {
-      label: 'GameFi',
-      value: 'GAMEFI',
-      checked: true
-    },
-    {
-      label: 'SociFi',
-      value: 'SOCIFI',
-      checked: true
-    },
-    {
-      label: 'Infra',
-      value: 'INFRA',
       checked: true
     }
   ]

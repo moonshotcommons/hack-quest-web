@@ -10,6 +10,7 @@ export type ProjectType = {
   tracks: string[];
   featured: boolean;
   apolloDay: boolean;
+  thumbnail: string;
 };
 
 export interface ProjectDataType {
