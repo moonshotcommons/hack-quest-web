@@ -1,4 +1,4 @@
-import { FC, ReactNode, useState } from 'react';
+import { FC, ReactNode, useEffect, useState } from 'react';
 import ProjectCard from '../../ProjectCard';
 import Pagination from '../../Common/Pagination';
 import Link from 'next/link';
@@ -21,7 +21,7 @@ const ProjectDetail: FC<ProjectDetailProps> = (props) => {
 
   const [project, setProject] = useState<ProjectType>();
 
-  const { loading } = useRequest(
+  const { run, loading } = useRequest(
     async () => {
       const res = await webApi.project.getProjectsDetail(projectId);
       return res;
@@ -40,6 +40,14 @@ const ProjectDetail: FC<ProjectDetailProps> = (props) => {
     const url = new URL(uri);
     return url.searchParams.get('v') || '';
   };
+
+  useEffect(() => {
+    run();
+  }, [projectId]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  });
 
   return (
     <Loading loading={loading}>

@@ -5,7 +5,7 @@ import ProjectDetail from '@/components/v2/ResourceStation/ProjectDetail';
 import { useRequest } from 'ahooks';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { FC, ReactNode, useEffect } from 'react';
+import { FC } from 'react';
 
 interface ProjectDetailPageProps {}
 
@@ -15,7 +15,7 @@ const ProjectDetailPage: FC<ProjectDetailPageProps> = (props) => {
 
   return (
     <div>
-      <div className="container mx-auto ">
+      <div className="container mx-auto">
         {projectId && (
           <ProjectDetail projectId={projectId as string}></ProjectDetail>
         )}
