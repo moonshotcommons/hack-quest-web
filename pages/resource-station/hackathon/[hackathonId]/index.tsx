@@ -8,7 +8,6 @@ import { useRequest } from 'ahooks';
 import { useRouter } from 'next/router';
 import { QueryIdType } from '@/components/v2/Breadcrumb/type';
 import webApi from '@/service';
-import { message } from 'antd';
 import Loading from '@/components/v2/Common/Loading';
 import { HackathonType } from '@/service/webApi/resourceStation/hackathon/type';
 

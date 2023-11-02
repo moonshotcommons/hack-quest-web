@@ -7,25 +7,25 @@ export const sort = {
   filterList: [
     {
       label: 'Featured',
-      vlaue: 'featured',
+      vlaue: '-featured',
       checked: true
     },
     {
       label: 'Latest to oldest',
-      value: 'oldest',
+      value: '-startTime',
       checked: false
     },
     {
       label: 'Oldest to latest',
-      value: 'latest',
+      value: 'startTime',
       checked: false
     }
   ]
 };
 export const projectType = {
-  type: FilterType.CHECKBOX,
+  type: FilterType.RADIO,
   title: 'ProjectType',
-  value: 'project',
+  value: 'apolloDay',
   filterList: [
     {
       label: 'All',
@@ -34,8 +34,8 @@ export const projectType = {
     },
     {
       label: 'Apollo Day only',
-      value: 'APOLLO_DAY_ONLY',
-      checked: true
+      value: true,
+      checked: false
     }
   ]
 };

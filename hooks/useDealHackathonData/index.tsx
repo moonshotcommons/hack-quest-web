@@ -1,5 +1,6 @@
 import moment from 'moment';
 import { week } from './data';
+import { HackathonStatusType } from '@/service/webApi/resourceStation/hackathon/type';
 
 const useDealHackathonData = () => {
   const getRunFromTime = (time: string) => {
@@ -10,6 +11,9 @@ const useDealHackathonData = () => {
     const start = +new Date();
     const end = +new Date(endTime);
     const gapTime = end - start;
+    if (gapTime <= 0) {
+      return HackathonStatusType.PAST;
+    }
     const mTime = 60 * 1000;
     const HTime = 60 * mTime;
     const dTime = 24 * HTime;

@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import OnGoingHackathonCard from '@/components/v2/OnGoingHackathonCard';
+import OnGoingHackathonCard from './OnGoingHackathonCard';
 import {
   HackathonStatusType,
-  HackathonType,
-  acquiescePageInfo
+  HackathonType
 } from '@/service/webApi/resourceStation/hackathon/type';
 import { useRequest } from 'ahooks';
 import webApi from '@/service';
