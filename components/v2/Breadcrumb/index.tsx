@@ -52,13 +52,8 @@ const Breadcrumb: React.FC = () => {
   const getHackathonDetail = (id: string) => {
     return new Promise(async (resolve) => {
       if (id) {
-        // const res = await webApi.hackathon.getHackathonDetail(id);
-        // resolve(res);
-
-        resolve({
-          id: 'aaa',
-          name: 'hackathonName'
-        });
+        const res = await webApi.hackathon.getHackathonDetail(id);
+        resolve(res);
       } else {
         resolve(false);
       }
@@ -74,12 +69,8 @@ const Breadcrumb: React.FC = () => {
             name: 'Projects'
           });
         } else {
-          // const res = await webApi.project.getProjectsDetail(id);
-          // resolve(res);
-          resolve({
-            id: 'aaa',
-            name: 'projectName'
-          });
+          const res = await webApi.project.getProjectsDetail(id);
+          resolve(res);
         }
       } else {
         resolve(false);

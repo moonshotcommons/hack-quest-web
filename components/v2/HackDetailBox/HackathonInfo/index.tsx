@@ -56,7 +56,7 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
         <div className="text-[18px] font-next-book-bold leading-[22.5px] mb-[5px]">
           PARTICIPANTS
         </div>
-        <div className="text-[16px] leading-[20px]">
+        <div className="text-[16px] leading-[20px] break-words">
           {getParticipantsStr(hackathon.participants)}
         </div>
       </div>
@@ -65,7 +65,7 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
           HOST
         </div>
         {hackathon.hosts.map((v, i) => (
-          <div key={i} className="h-[30px] flex-row-center">
+          <div key={i} className="h-[30px] mb-[10px] flex-row-center">
             <div className="w-[30px] h-[30px] relative">
               <Image
                 src={v.picture}

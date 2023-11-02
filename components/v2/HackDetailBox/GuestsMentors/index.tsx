@@ -28,7 +28,7 @@ const GuestsMentors: React.FC<GuestsMentorsProp> = ({ hackathon }) => {
         {showList?.map((v: any, i: number) => (
           <div
             key={i}
-            className="w-[32.5%] h-[307px] mb-[20px] rounded-[10px] overflow-hidden shadow-[0px_4px_8px_0px_rgba(0,0,0,0.12)]"
+            className="w-[32.5%] h-[307px] mb-[20px] rounded-[10px] overflow-hidden shadow-[0px_0px_8px_0px_rgba(0,0,0,0.12)]"
           >
             <div className="h-[178px] relative overflow-hidden">
               <Image
