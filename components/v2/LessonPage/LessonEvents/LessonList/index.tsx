@@ -54,7 +54,7 @@ const LessonList: React.FC<LessonListType> = ({
     getChildren(unit);
   }, []);
   return (
-    <div className="h-full w-full font-next-book">
+    <div className="max-h-[60vh] overflow-auto w-full font-next-book">
       {!unitName ? (
         unitData.map((v) => (
           <div

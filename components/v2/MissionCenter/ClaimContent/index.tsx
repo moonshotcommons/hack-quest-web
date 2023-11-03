@@ -5,11 +5,10 @@ import DailyBonus from './DailyBonus';
 import BeginnerRewards from './BeginnerRewards';
 import DailyQuests from './DailyQuests';
 import Milestones from './Milestones';
-import BannerBg from '@/public/images/landing/banner_bg.png';
+import MoonBg from '@/public/images/mission-center/moon_bg.png';
 import { BurialPoint } from '@/helper/burialPoint';
 import { useSelector } from 'react-redux';
 import { AppRootState } from '@/store/redux';
-import Loading from '../../Common/Loading';
 
 interface ClaimContentProp {
   missionClaim: (missionIds: string[]) => void;
@@ -87,7 +86,7 @@ const ClaimContent: React.FC<ClaimContentProp> = ({ missionClaim }) => {
   const contentStyle = useMemo(() => {
     return !curIndex
       ? {
-          background: `url(${BannerBg.src}) center  / 100% auto`,
+          background: `url(${MoonBg.src}) #FFF4CE center bottom / auto 450px no-repeat`,
           height: '699px'
         }
       : {

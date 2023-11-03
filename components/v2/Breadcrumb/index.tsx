@@ -4,8 +4,8 @@ import webApi from '@/service';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useCallback, useEffect, useState } from 'react';
-import { navIdType, navLinks } from './data';
-import { QueryIdType } from './type';
+import { navIdType, navLinks, menuName, menuLink } from './data';
+import { MenuNameType, QueryIdType } from './type';
 
 interface navDataProps {
   label?: string;
@@ -49,21 +49,55 @@ const Breadcrumb: React.FC = () => {
     });
   };
 
+  const getHackathonDetail = (id: string) => {
+    return new Promise(async (resolve) => {
+      if (id) {
+        const res = await webApi.hackathon.getHackathonDetail(id);
+        resolve(res);
+      } else {
+        resolve(false);
+      }
+    });
+  };
+
+  const getProjectDetail = (id: string) => {
+    return new Promise(async (resolve) => {
+      if (id) {
+        if (id === 'projects') {
+          resolve({
+            menu_: true,
+            name: 'Projects'
+          });
+        } else {
+          const res = await webApi.project.getProjectsDetail(id);
+          resolve(res);
+        }
+      } else {
+        resolve(false);
+      }
+    });
+  };
+
   const getNavData = useCallback(() => {
     const queryIds = [
       router.query[QueryIdType.LEARNING_TRACK_ID],
       router.query[QueryIdType.MENU_COURSE_ID],
-      router.query[QueryIdType.LESSON_ID]
+      router.query[QueryIdType.LESSON_ID],
+      router.query[QueryIdType.HACKATHON_ID],
+      router.query[QueryIdType.PROJECT_ID]
     ];
     Promise.all([
       getLearningTrackDetail(queryIds[0] as string),
       getCourseDetail(queryIds[1] as string),
-      getLessonDetail(queryIds[2] as string)
+      getLessonDetail(queryIds[2] as string),
+      getHackathonDetail(queryIds[3] as string),
+      getProjectDetail(queryIds[4] as string)
     ]).then((res) => {
       let linkIdsStr = '';
+      const menu = router.query.menu as keyof MenuNameType;
       const menuNavData = {
-        label: tagFormate(router.query.menu as string),
-        link: `/${router.query.menu}`
+        label: tagFormate(menuName[menu]),
+        link: menuLink[menu]
       };
       const newNavData = res
         .map((v: any, i) => {
@@ -71,7 +105,9 @@ const Breadcrumb: React.FC = () => {
             linkIdsStr += `&${navIdType[i]}=${v.id}`;
             return {
               label: v.name,
-              link: `/${navLinks[i]}/${v.id}?menu=${router.query.menu}${linkIdsStr}`
+              link: !v.menu_
+                ? `${navLinks[i]}/${v.id}?menu=${router.query.menu}${linkIdsStr}`
+                : ''
             };
           } else {
             return {};
@@ -90,7 +126,7 @@ const Breadcrumb: React.FC = () => {
       return (
         <Link
           key={i}
-          href={item.link as string}
+          href={item.link || ''}
           onClick={() => {
             BurialPoint.track('使用navbar跳转');
           }}
@@ -103,13 +139,13 @@ const Breadcrumb: React.FC = () => {
       return (
         <div key={i}>
           <span className="mx-2">/</span>
-          <span className={`font-next-book underline`}>{item.label}</span>
+          <span className={`font-next-book-bold underline`}>{item.label}</span>
         </div>
       );
     }
   };
   return (
-    <div className="text-[14px] text-lesson-preview-color flex h-[50px] items-center ">
+    <div className="text-[14px] font-next-book text-lesson-preview-color flex h-[50px] items-center ">
       {navData?.map((nav: navDataProps, i: number) => renderNav(nav, i))}
     </div>
   );

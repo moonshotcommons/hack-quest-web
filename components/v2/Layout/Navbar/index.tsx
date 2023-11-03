@@ -55,7 +55,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
           return (
             <Link
               className={`text-sm h-full flex items-center text-white hover:font-bold tracking-[0.28px] ${
-                pathname === nav.path
+                pathname.includes(nav.path)
                   ? 'font-next-book-bold text-text-default-color font-bold border-b-4 border-[#FFD850]'
                   : 'font-next-book font-normal'
               }`}
