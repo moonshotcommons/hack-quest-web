@@ -5,7 +5,6 @@ import NavBar, { NavBarProps } from '../Navbar';
 
 import Breadcrumb from '@/components/v2/Breadcrumb';
 import { useRouter } from 'next/router';
-import { circIn } from 'framer-motion';
 const inter = Inter({ subsets: ['latin'] });
 export interface V2LayoutProps {
   navbarData: NavBarProps;

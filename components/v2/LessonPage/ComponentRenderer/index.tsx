@@ -24,6 +24,8 @@ import ExampleRenderer from './ExampleRenderer';
 import QuizRenderer from './QuizRenderer';
 import QuizARenderer from './QuizRenderer/QuizARenderer';
 import QuizBRenderer from './QuizRenderer/QuizBRenderer';
+import { type } from 'os';
+import EquationRenderer from '../../NotionRender/EquationRenderer';
 
 interface ComponentRendererProps {
   // children: ReactNode
@@ -124,6 +126,13 @@ const ComponentRenderer: FC<ComponentRendererProps> = (props) => {
       return (
         <CodeRenderer component={component} parent={parent}></CodeRenderer>
       );
+    case NotionType.EQUATION:
+      return (
+        <EquationRenderer
+          component={component}
+          parent={parent}
+        ></EquationRenderer>
+      );
 
     case NotionType.H1:
     case NotionType.H2:
@@ -136,6 +145,7 @@ const ComponentRenderer: FC<ComponentRendererProps> = (props) => {
         ></HeaderRenderer>
       );
     default:
+      console.log('不能渲染的类型', component.type.trim());
       return <div></div>;
   }
 };

@@ -16,7 +16,8 @@ export enum NotionType {
   COLUMN_LIST = 'column_list',
   COLUMN = 'column',
   PARAGRAPH = 'paragraph',
-  CALLOUT = 'callout'
+  CALLOUT = 'callout',
+  EQUATION = 'equation'
 }
 
 export enum CustomType {
