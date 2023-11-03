@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Button from '@/components/v2/Common/Button';
 import { useRouter } from 'next/router';
-import { Menu, QueryIdType } from '../Breadcrumb/type';
-import { menuLink } from '../Breadcrumb/data';
+import { Menu, QueryIdType } from '@/components/v2/Breadcrumb/type';
+import { menuLink } from '@/components/v2/Breadcrumb/data';
 import { HackathonType } from '@/service/webApi/resourceStation/hackathon/type';
 import useDealHackathonData from '@/hooks/useDealHackathonData';
 
@@ -37,10 +37,10 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({
   }, [hackathon]);
   return (
     <div
-      className="h-[430px] cursor-pointer rounded-[10px] bg-[#fff] overflow-hidden flex  mb-20 hover:-translate-y-1 transition-all duration-300 shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)] "
+      className="h-[430px] cursor-pointer rounded-[10px] bg-[#fff] overflow-hidden flex  mb-[20px] hover:-translate-y-1 transition-all duration-300 shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)] "
       onClick={goHackathonDetail}
     >
-      <div className="h-full flex-1 relative">
+      <div className="h-full flex-1 relative bg-[#d9d9d9]/30">
         <Image
           src={hackathon.image}
           fill
@@ -78,7 +78,10 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({
           >
             Apply Now
           </Button>
-          <Button className="w-[245px] h-[60px] text-[18px] border border-[#0B0B0B]">
+          <Button
+            className="w-[245px] h-[60px] text-[18px] border border-[#0B0B0B]"
+            onClick={goHackathonDetail}
+          >
             Learn More
           </Button>
         </div>

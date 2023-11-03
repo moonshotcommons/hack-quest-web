@@ -15,7 +15,7 @@ import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLess
 import { useEnrollUnEnroll } from '@/hooks/useLearningTrackHooks/useEnrollUnEnroll';
 import webApi from '@/service';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
-import { MenuLink, QueryIdType } from '../../Breadcrumb/type';
+import { Menu, QueryIdType } from '../../Breadcrumb/type';
 import CourseDetailHeader from '../CourseDetailHeader';
 import HeaderRight from '../HeaderRight';
 import TrackList from '../TrackList';
@@ -109,7 +109,7 @@ const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
   const resumeCallback = useCallback(() => {
     if (learningTrackDetail && learningCourse) {
       jumpLearningLesson(learningCourse, {
-        menu: MenuLink.LEARNING_TRACK,
+        menu: Menu.LEARNING_TRACK,
         idTypes: [QueryIdType.LEARNING_TRACK_ID, QueryIdType.MENU_COURSE_ID],
         ids: [learningTrackDetail.id, learningCourse.id]
       });
