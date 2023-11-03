@@ -42,7 +42,8 @@ function HackathonBox() {
         tabList={hackathonTab}
         curTab={curTab}
         changeTab={changeTab}
-        className="pb-[40px] text-[24px] leading-[24px]"
+        className="pb-[40px]  text-[24px] leading-[24px]"
+        textClassName="pb-[2px]"
       />
       <div className="mb-[40px]">{renderHackathon()}</div>
     </div>
