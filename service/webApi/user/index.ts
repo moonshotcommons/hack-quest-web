@@ -21,7 +21,8 @@ export enum UserApiType {
   AuthGithub = 'auth/github',
   googleVerify = 'auth/google/callback',
   githubVerify = 'auth/github/callback',
-  CheckInViteCode = '/users/verify-inviteCode'
+  CheckInViteCode = '/users/verify-inviteCode',
+  WalletVerify = '/auth/wallet'
 }
 
 class UserApi {
@@ -136,6 +137,16 @@ class UserApi {
     return this.service.get<LoginResponse>(
       `${UserApiType.githubVerify}?code=${code}`
     );
+  }
+
+  /** metamask验证 */
+  walletVerify(account: string, type = 'metamask') {
+    return this.service.post<LoginResponse>(UserApiType.WalletVerify, {
+      data: {
+        account,
+        type
+      }
+    });
   }
 }
 
