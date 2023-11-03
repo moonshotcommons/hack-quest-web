@@ -119,9 +119,11 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
         </div>
       )}
 
-      {expand && !component.renderIdeBtn && (
+      {expand && component.renderIdeBtn && (
         <Link
-          href={`${'https://ide.dev.hackquest.io'}?code=${encodeURIComponent(
+          href={`${
+            process.env.IDE_URL || 'https://ide.dev.hackquest.io'
+          }?code=${encodeURIComponent(
             LzString.compressToBase64(exampleContent)
           )}`}
           target="_blank"
