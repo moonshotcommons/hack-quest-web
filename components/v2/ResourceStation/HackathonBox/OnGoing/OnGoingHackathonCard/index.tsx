@@ -37,7 +37,7 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({
   }, [hackathon]);
   return (
     <div
-      className="h-[430px] cursor-pointer rounded-[10px] bg-[#fff] overflow-hidden flex  mb-[20px] hover:-translate-y-1 transition-all duration-300 shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)] "
+      className="h-[443px] cursor-pointer rounded-[10px] bg-[#fff] overflow-hidden flex  mb-[20px] hover:-translate-y-1 transition-all duration-300 shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)] "
       onClick={goHackathonDetail}
     >
       <div className="h-full flex-1 relative bg-[#d9d9d9]/30">
@@ -45,7 +45,7 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({
           src={hackathon.image}
           fill
           alt="hackathonImage"
-          className="object-contain"
+          className="object-cover"
         ></Image>
       </div>
       <div className="w-[580px] h-full flex flex-col justify-between p-[40px]">

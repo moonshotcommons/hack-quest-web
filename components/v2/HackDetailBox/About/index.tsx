@@ -10,13 +10,14 @@ interface AboutProp {
 const About: React.FC<AboutProp> = ({ hackathon }) => {
   return (
     <div>
-      <Box className=" h-[383px] relative ">
-        <Image
+      <Box className="w-full relative p-0 overflow-hidden">
+        <img src={hackathon.image} alt="" />
+        {/* <Image
           src={hackathon.image}
           fill
           alt="astronaut"
           className="object-contain"
-        ></Image>
+        ></Image> */}
       </Box>
       <Box>
         <Title title="About" />

@@ -115,7 +115,7 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
             className="w-full h-[60px] text-[18px] border border-[#0b0b0b]"
             onClick={() =>
               router.push(
-                `${menuLink.projects}/projects?menu=${Menu.PROJECTS}&${QueryIdType.PROJECT_ID}=projects`
+                `${menuLink.projects}/projects?menu=${Menu.PROJECTS}&${QueryIdType.PROJECT_ID}=projects&keyWord=${hackathon.name}`
               )
             }
           >

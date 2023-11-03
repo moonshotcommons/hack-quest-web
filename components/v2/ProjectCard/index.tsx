@@ -12,7 +12,6 @@ interface ProjectCardProp {
 const ProjectCard: React.FC<ProjectCardProp> = ({ project }) => {
   const router = useRouter();
   const goProjectDetail = () => {
-    // project.id = '1';
     router.push(
       `${menuLink.projects}/projects/${project.id}?${QueryIdType.PROJECT_ID}=${project.id}&menu=${Menu.PROJECTS}`
     );
@@ -27,7 +26,7 @@ const ProjectCard: React.FC<ProjectCardProp> = ({ project }) => {
           src={project.thumbnail}
           alt="thumbnail"
           fill
-          className="object-contain"
+          className="object-cover"
         ></Image>
         {project.apolloDay && (
           <div className="absolute left-[10px] top-[10px] px-[14px] h-[25px] bg-[#fff] text-[#3E3E3E] text-[12px] flex items-center rounded-[10px]">
