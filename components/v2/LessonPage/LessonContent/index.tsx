@@ -91,7 +91,7 @@ const LessonContent: FC<LessonContentProps> = (props) => {
               <div key={component.id} className="">
                 <LessonContentContext.Provider
                   value={{
-                    expandData: expandData[i],
+                    expandData: expandData[i] || [],
                     changeExpandData
                   }}
                 >
