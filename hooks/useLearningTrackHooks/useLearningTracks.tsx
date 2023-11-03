@@ -21,7 +21,7 @@ export const useGetLearningTracks = (showAll = true) => {
         setLearningTracks(res);
       },
       onError(error: any) {
-        message.error(`Learning Tracks ${error.msg}!`);
+        // message.error(`Learning Tracks ${error.msg}!`);
       }
     }
   );
