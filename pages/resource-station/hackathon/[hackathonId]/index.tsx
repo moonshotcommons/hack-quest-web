@@ -10,6 +10,7 @@ import { QueryIdType } from '@/components/v2/Breadcrumb/type';
 import webApi from '@/service';
 import Loading from '@/components/v2/Common/Loading';
 import { HackathonType } from '@/service/webApi/resourceStation/hackathon/type';
+import GuestPartner from '@/components/v2/HackDetailBox/components/GuestPartner';
 
 interface HackDetailProps {}
 
@@ -21,16 +22,25 @@ const HackDetail: FC<HackDetailProps> = (props) => {
     return res;
   });
   return (
-    <div className="mx-auto container  tracking-[0.36px]">
+    <div className="mx-auto container font-next-book tracking-[0.36px]">
       <Loading loading={!hackathon.id}>
         {hackathon.id && (
           <>
-            <div className="flex justify-between">
+            <div className="flex justify-between font-next-book">
               <div className="w-[58%]">
                 <About hackathon={hackathon} />
-                <GuestsMentors hackathon={hackathon} />
-                <MediaPartners hackathon={hackathon} />
-                <CommunityPartners hackathon={hackathon} />
+                <GuestPartner
+                  listData={hackathon.guestsAndMentors}
+                  title="Guests and Mentors"
+                />
+                <GuestPartner
+                  listData={hackathon.mediaPartners}
+                  title="Media Partners"
+                />
+                <GuestPartner
+                  listData={hackathon.communityPartners}
+                  title="Community Partners"
+                />
               </div>
               <div className="w-[39%]">
                 <HackathonInfo hackathon={hackathon} />
