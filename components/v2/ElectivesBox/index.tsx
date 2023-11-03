@@ -60,7 +60,12 @@ const SelectiveCoursesBox: React.FC<SelectiveCoursesBoxProps> = ({
   }, [searchParam]);
 
   useEffect(() => {
-    if (loadNum > runNum && list.length < total && apiStatus === 'init') {
+    if (
+      loadNum > runNum &&
+      list.length < total &&
+      total > 0 &&
+      apiStatus === 'init'
+    ) {
       setRunNum(loadNum);
       getCourseList({
         ...pageInfo,

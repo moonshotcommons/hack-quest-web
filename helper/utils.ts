@@ -1,6 +1,7 @@
-import { MenuLink, QueryIdType } from '@/components/v2/Breadcrumb/type';
+import { Menu, QueryIdType } from '@/components/v2/Breadcrumb/type';
 import { JumpLeaningLessonType } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
 import { CourseType } from '@/service/webApi/course/type';
+import { message } from 'antd';
 
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
@@ -38,7 +39,7 @@ export const getLessonLink = (
 ) => {
   if (!courseType || !courseName || !lessonId) return '/404';
   const lParam = linkParam || {
-    menu: MenuLink.ELECTIVES,
+    menu: Menu.ELECTIVES,
     idTypes: [QueryIdType.MENU_COURSE_ID],
     ids: [menuCourseId]
   };
@@ -96,4 +97,9 @@ export const deepClone = (obj: any) => {
     }
   }
   return result;
+};
+
+export const errorMessage = (err: any) => {
+  const msg = err.msg || err.message;
+  msg && message.error(msg);
 };

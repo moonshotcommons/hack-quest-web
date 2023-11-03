@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { initPageInfo, filterData } from './data';
 import webApi from '@/service';
-import { CourseResponse } from '@/service/webApi/course/type';
 import Loading from '../Common/Loading';
 import ProjectsList from './ProjectsList';
 import { deepClone } from '@/helper/utils';
 import SearchFilter, { dealFilterParam } from '@/components/v2/SearchFilter';
-import { FilterDataType } from '@/components/v2/SearchFilter/type';
+import { FilterDataType, ParamType } from '@/components/v2/SearchFilter/type';
+import { ProjectType } from '@/service/webApi/resourceStation/project/type';
+import { useRequest } from 'ahooks';
+import { useRouter } from 'next/router';
 
 interface PageInfoType {
   page: number;
@@ -22,12 +24,14 @@ const ProjectsBox: React.FC<ProjectsBoxProps> = ({
   setApiStatus,
   apiStatus
 }) => {
+  const router = useRouter();
   const [searchParam, setSearchParam] = useState<FilterDataType[]>(
     deepClone(filterData)
   );
-  const [inputValue, setInputValue] = useState('');
+  const timeOut = useRef<NodeJS.Timeout | null>(null);
+  const [inputValue, setInputValue] = useState(router.query.keyWord || '');
   const [pageInfo, setPageInfo] = useState<PageInfoType>(initPageInfo);
-  const [list, setList] = useState<CourseResponse[]>([]);
+  const [list, setList] = useState<ProjectType[]>([]);
   const [runNum, setRunNum] = useState(0);
   const [total, setTotal] = useState(0);
 
@@ -36,39 +40,64 @@ const ProjectsBox: React.FC<ProjectsBoxProps> = ({
   };
 
   const initList = () => {
-    getCourseList(initPageInfo).then((newList) => {
+    getProjectList(initPageInfo).then((newList) => {
       setApiStatus('init');
-      setList([...(newList as CourseResponse[])]);
+      setList([...(newList as ProjectType[])]);
     });
   };
 
-  const getCourseList = (pInfo: PageInfoType) => {
+  const getProjectList = (pInfo: PageInfoType) => {
     setApiStatus('loading');
     setPageInfo({ ...pInfo });
     const newFilter = dealFilterParam(searchParam);
     return new Promise(async (resolve) => {
-      const res = await webApi.courseApi.getCourseListBySearch({
+      const res = await webApi.project.getProjectsList({
         ...newFilter,
-        ...pInfo
+        ...pInfo,
+        keyword: inputValue
       });
       setTotal(res.total);
       resolve(res.data);
     });
   };
 
-  useEffect(() => {
-    initList();
-    console.info(inputValue);
-  }, [searchParam, inputValue]);
+  const {} = useRequest(async () => {
+    const res = await webApi.project.getProjectTracksDict();
+    const tracksDict = res.map((v: string) => ({
+      label: v,
+      value: v,
+      checked: true
+    }));
+    const newSearchParam = deepClone(searchParam);
+    newSearchParam[2].filterList =
+      newSearchParam[2].filterList.concat(tracksDict);
+    setSearchParam(newSearchParam);
+  });
 
   useEffect(() => {
-    if (loadNum > runNum && list.length < total && apiStatus === 'init') {
+    initList();
+  }, [searchParam]);
+
+  useEffect(() => {
+    if (timeOut.current) clearTimeout(timeOut.current);
+    timeOut.current = setTimeout(() => {
+      initList();
+    }, 300);
+  }, [inputValue]);
+
+  useEffect(() => {
+    if (
+      loadNum > runNum &&
+      list.length < total &&
+      total > 0 &&
+      apiStatus === 'init'
+    ) {
       setRunNum(loadNum);
-      getCourseList({
+      getProjectList({
         ...pageInfo,
         page: pageInfo.page + 1
       }).then((newList) => {
-        const l = [...list, ...(newList as CourseResponse[])];
+        const l = [...list, ...(newList as ProjectType[])];
         setList(l);
         if (l.length >= total) {
           setApiStatus('noMre');
@@ -86,6 +115,7 @@ const ProjectsBox: React.FC<ProjectsBoxProps> = ({
           changeParam={changeParam}
           changeInputValue={(value) => setInputValue(value)}
           isShowInput={true}
+          inputValue={inputValue as string}
         />
         <ProjectsList list={list} />
       </div>

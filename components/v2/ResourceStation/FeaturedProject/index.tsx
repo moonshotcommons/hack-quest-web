@@ -12,7 +12,10 @@ import { LuChevronRight } from 'react-icons/lu';
 import CourseCard from '../../CourseCard';
 import ScrollControl from './ScrollControl';
 import ProjectCard from '../../ProjectCard';
-interface FeatureProjectsProps {}
+import { ProjectType } from '@/service/webApi/resourceStation/project/type';
+interface FeatureProjectsProps {
+  ignoreProjectId?: string;
+}
 
 const FeatureProjectsHeader = () => {
   return (
@@ -41,19 +44,24 @@ const FeatureProjectsHeader = () => {
 };
 
 const FeatureProjects: FC<FeatureProjectsProps> = (props) => {
-  const [projectList, setProjectList] = useState<any[]>([]);
+  const [projectList, setProjectList] = useState<ProjectType[]>([]);
   const [scrollContainerState, setScrollContainerState] =
     useState<ChangeState>();
 
   const { run, loading } = useRequest(
     async () => {
-      // const res = await webApi.project.getFeaturedProjects();
-
-      return [{}, {}, {}, {}, {}, {}, {}];
+      const res = await webApi.project.getProjectsList({ featured: true });
+      return res;
     },
     {
-      onSuccess(courses) {
-        setProjectList(courses);
+      onSuccess(projects) {
+        if (props.ignoreProjectId) {
+          setProjectList(
+            projects.data.filter(
+              (project) => project.id !== props.ignoreProjectId
+            )
+          );
+        } else setProjectList(projects.data);
       },
       onError(error: any) {
         console.log(error);
@@ -71,8 +79,10 @@ const FeatureProjects: FC<FeatureProjectsProps> = (props) => {
             onChange={(state: any) => setScrollContainerState(state)}
           >
             <div className="my-[30px] flex gap-[20px] overflow-x-hidden">
-              {projectList.map((course, index) => {
-                return <ProjectCard key={index} project={{}}></ProjectCard>;
+              {projectList.map((project, index) => {
+                return (
+                  <ProjectCard key={index} project={project}></ProjectCard>
+                );
               })}
             </div>
           </ScrollContainer>
