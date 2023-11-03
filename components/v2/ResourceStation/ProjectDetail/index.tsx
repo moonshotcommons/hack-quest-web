@@ -45,10 +45,6 @@ const ProjectDetail: FC<ProjectDetailProps> = (props) => {
     run();
   }, [projectId]);
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  });
-
   return (
     <Loading loading={loading}>
       {project && (

@@ -1,7 +1,7 @@
 import { HiArrowLongRight, HiArrowLongLeft } from 'react-icons/hi2';
 import { cn } from '@/helper/utils';
 import { useKeyPress } from 'ahooks';
-import { FC, ReactNode, useRef, useState } from 'react';
+import { FC, ReactNode, useEffect, useRef, useState } from 'react';
 
 interface PaginationProps {
   total: number;
@@ -31,6 +31,10 @@ const Pagination: FC<PaginationProps> = (props) => {
     const value = pageInputRef.current.value as any;
     onPageInputValueChange(value);
   });
+
+  useEffect(() => {
+    setCurrentPage(page);
+  }, [page]);
 
   return (
     <div className="flex gap-x-[50px] items-center">
@@ -63,7 +67,7 @@ const Pagination: FC<PaginationProps> = (props) => {
             onPageInputValueChange(value);
           }}
           value={currentPage}
-          className="bg-transparent outline-none appearance-none text-center w-10 underline"
+          className="bg-transparent outline-none appearance-none text-center w-[26px] underline"
         />
         <span>{`of ${total}`}</span>
       </div>

@@ -22,12 +22,11 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon }) => {
       href={`${menuLink.hackathon}/${hackathon.id}?menu=${Menu.HACKATHON}&${QueryIdType.HACKATHON_ID}=${hackathon.id}`}
     >
       <div className="rounded-[10px] w-full h-fit flex gap-y-[22px] flex-col bg-white shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] hover:-translate-y-1 transition-all duration-300 hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)] cursor-pointer">
-        <div className="h-[194px] w-full bg-[#D9D9D9] rounded-t-[10px] relative">
+        <div className="h-[194px] w-full bg-[#D9D9D9] rounded-t-[10px] relative overflow-hidden">
           {cover && (
             <Image
               src={cover}
-              width={412}
-              height={193}
+              fill
               alt="hackathon cover"
               className="object-cover"
             ></Image>
