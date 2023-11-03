@@ -20,6 +20,7 @@ export const useLessonExpand = (
       let expandIndex = 0;
       getExpand(lessonExpand, childExpand, v, i, expandIndex, true);
     });
+
     return lessonExpand;
   };
 
