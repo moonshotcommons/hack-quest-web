@@ -63,7 +63,7 @@ const Past: FC<PastProps> = (props) => {
         {totalPage > PROJECTS_LIMIT && (
           <Pagination
             page={page}
-            total={totalPage}
+            total={Math.floor(totalPage / PROJECTS_LIMIT)}
             onPageChange={(value) => {
               setPage(value);
             }}

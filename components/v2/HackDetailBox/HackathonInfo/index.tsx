@@ -50,7 +50,7 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
         <div className="text-[18px] font-next-book-bold leading-[22.5px] mb-[5px]">
           THEME
         </div>
-        <div className="text-[16px] leading-[20px]">{hackathon.theme}</div>
+        <pre className="text-[16px] leading-[20px]">{hackathon.theme}</pre>
       </div>
       <div>
         <div className="text-[18px] font-next-book-bold leading-[22.5px] mb-[5px]">

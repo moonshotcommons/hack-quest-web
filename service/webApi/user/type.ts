@@ -32,8 +32,9 @@ export interface LoginResponse {
   avatar: string;
   role: string;
   status: string;
-  registerType: string;
+  // registerType: string;
   inviteCode: string;
+  token: string;
 }
 
 export enum ForgetPasswordErrorStatusType {
@@ -46,5 +47,6 @@ export enum ForgetPasswordErrorStatusType {
 export enum AuthType {
   EMAIL = 'Email',
   GOOGLE = 'Google',
-  GITHUB = 'Github'
+  GITHUB = 'Github',
+  METAMASK = 'Metamask'
 }

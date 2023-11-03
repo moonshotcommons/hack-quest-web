@@ -13,7 +13,11 @@ import CourseCard from '../../CourseCard';
 import ScrollControl from './ScrollControl';
 import ProjectCard from '../../ProjectCard';
 import { ProjectType } from '@/service/webApi/resourceStation/project/type';
-interface FeatureProjectsProps {}
+import { menuLink } from '../../Breadcrumb/data';
+import { Menu, QueryIdType } from '../../Breadcrumb/type';
+interface FeatureProjectsProps {
+  ignoreProjectId?: string;
+}
 
 const FeatureProjectsHeader = () => {
   return (
@@ -28,7 +32,7 @@ const FeatureProjectsHeader = () => {
         </p>
       </div>
       <Link
-        href={'/resource-station/hackathon/projects'}
+        href={`${menuLink.projects}/projects?menu=${Menu.PROJECTS}&${QueryIdType.PROJECT_ID}=projects`}
         className="flex gap-x-[15px] items-center text-[#0B0B0B] hover:opacity-70 font-next-book tracking-[0.36px] text-[18px]"
         onClick={() => {
           BurialPoint.track('home-view all点击');
@@ -53,7 +57,13 @@ const FeatureProjects: FC<FeatureProjectsProps> = (props) => {
     },
     {
       onSuccess(projects) {
-        setProjectList(projects.data);
+        if (props.ignoreProjectId) {
+          setProjectList(
+            projects.data.filter(
+              (project) => project.id !== props.ignoreProjectId
+            )
+          );
+        } else setProjectList(projects.data);
       },
       onError(error: any) {
         console.log(error);
