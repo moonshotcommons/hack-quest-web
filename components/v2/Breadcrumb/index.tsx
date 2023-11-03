@@ -139,13 +139,13 @@ const Breadcrumb: React.FC = () => {
       return (
         <div key={i}>
           <span className="mx-2">/</span>
-          <span className={`font-next-book underline`}>{item.label}</span>
+          <span className={`font-next-book-bold underline`}>{item.label}</span>
         </div>
       );
     }
   };
   return (
-    <div className="text-[14px] text-lesson-preview-color flex h-[50px] items-center ">
+    <div className="text-[14px] font-next-book text-lesson-preview-color flex h-[50px] items-center ">
       {navData?.map((nav: navDataProps, i: number) => renderNav(nav, i))}
     </div>
   );
