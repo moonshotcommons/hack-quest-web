@@ -18,7 +18,7 @@ export const useLessonExpand = (
     lesson.map((v: any, i: number) => {
       const childExpand: any[] = [];
       let expandIndex = 0;
-      getExpand(lessonExpand, childExpand, v, i, expandIndex);
+      getExpand(lessonExpand, childExpand, v, i, expandIndex, true);
     });
     return lessonExpand;
   };
@@ -28,7 +28,8 @@ export const useLessonExpand = (
     childExpand: any,
     v: any,
     i: number,
-    expandIndex: number
+    expandIndex: number,
+    main?: boolean | undefined
   ) => {
     if (!v?.children?.length) return [];
     v.children.map((c: any, j: number) => {
@@ -36,7 +37,7 @@ export const useLessonExpand = (
       if (NotionType.TOGGLE === c.type) {
         childExpand[expandIndex] = {
           isExpandAll: true,
-          id: v.children[expandIndex].id,
+          id: v.children[expandIndex]?.id,
           index: i
         };
         childExpand[j] = {
@@ -63,7 +64,11 @@ export const useLessonExpand = (
     ]
       .map((v: any) => JSON.parse(v))
       .filter((item: ExpandDataType) => item.id);
-    newChildExpand.length && lessonExpand.push(newChildExpand);
+    if (newChildExpand.length) {
+      lessonExpand.push(newChildExpand);
+    } else if (main) {
+      lessonExpand.push([]);
+    }
   };
   return {
     getLessonExpand
