@@ -72,7 +72,7 @@ function ThreePartyLogin() {
     }
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     error?.message && message.error(error?.message);
   }, [error]);
 
