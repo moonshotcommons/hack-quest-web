@@ -46,11 +46,11 @@ const ProjectCard: React.FC<ProjectCardProp> = ({ project }) => {
               </React.Fragment>
             ))}
           </div>
-          <div className="text-[#000] text-[18px] font-next-book-bold">
+          <div className="text-[#000] text-[18px] font-next-book-bold pt-[3px]">
             {project.name}
           </div>
         </div>
-        <div className="font-next-book-Thin line-clamp-3 h-[65px]">
+        <div className="font-next-book-Thin line-clamp-3 h-[70px]">
           {project.introduction}
         </div>
       </div>
