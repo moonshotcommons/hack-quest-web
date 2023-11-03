@@ -1,34 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Tab from '@/components/v2/Tab';
 import { TabListType, TabValueType } from '@/components/v2/Tab/type';
-import { HackathonStatusType } from '@/service/webApi/resourceStation/hackathon/type';
+import { HackathonType } from '@/service/webApi/resourceStation/hackathon/type';
 import { hackathonTab } from './data';
 import OnGoing from './OnGoing';
 import Past from './Past';
 import PageDescription from '../../PageDescription';
 import { useRouter } from 'next/router';
-import { menuLink } from '../../Breadcrumb/data';
-import { Menu, QueryIdType } from '../../Breadcrumb/type';
 
 function HackathonBox() {
   const router = useRouter();
-  const [curTab, setCurTab] = useState<HackathonStatusType>(
-    HackathonStatusType.ON_GOING
-  );
+  const [curTab, setCurTab] = useState<HackathonType>(HackathonType.ON_GOING);
   const changeTab = (item: TabListType) => {
     if (item.type === 'tab') {
-      setCurTab(item.value as HackathonStatusType);
+      setCurTab(item.value as HackathonType);
     } else {
-      router.push(
-        `${menuLink.projects}/projects?menu=${Menu.PROJECTS}&${QueryIdType.PROJECT_ID}=projects`
-      );
+      router.push(item.value);
     }
   };
   const renderHackathon = () => {
     switch (curTab) {
-      case HackathonStatusType.ON_GOING:
+      case HackathonType.ON_GOING:
         return <OnGoing />;
-      case HackathonStatusType.PAST:
+      case HackathonType.PAST:
         return <Past />;
     }
   };
