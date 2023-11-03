@@ -50,7 +50,7 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
         <div className="text-[18px] font-next-book-bold leading-[22.5px] mb-[5px]">
           THEME
         </div>
-        <div className="text-[16px] leading-[20px]">{hackathon.theme}</div>
+        <pre className="text-[16px] leading-[20px]">{hackathon.theme}</pre>
       </div>
       <div>
         <div className="text-[18px] font-next-book-bold leading-[22.5px] mb-[5px]">
@@ -115,7 +115,7 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
             className="w-full h-[60px] text-[18px] border border-[#0b0b0b]"
             onClick={() =>
               router.push(
-                `${menuLink.projects}/projects?menu=${Menu.PROJECTS}&${QueryIdType.PROJECT_ID}=projects`
+                `${menuLink.projects}/projects?menu=${Menu.PROJECTS}&${QueryIdType.PROJECT_ID}=projects&keyWord=${hackathon.name}`
               )
             }
           >

@@ -10,8 +10,15 @@ interface TabType {
   curTab: ProcessType | HackathonStatusType;
   changeTab: (tab: TabListType) => void;
   className?: string;
+  textClassName?: string;
 }
-const Tab: React.FC<TabType> = ({ tabList, curTab, changeTab, className }) => {
+const Tab: React.FC<TabType> = ({
+  tabList,
+  curTab,
+  changeTab,
+  className,
+  textClassName
+}) => {
   return (
     <div
       className={cn(
@@ -22,11 +29,14 @@ const Tab: React.FC<TabType> = ({ tabList, curTab, changeTab, className }) => {
       {tabList.map((tab: TabListType) => (
         <div
           key={tab.value}
-          className={`cursor-pointer flex items-center  border-b-[3px]  border-[transparent] ${
-            tab.value === curTab
-              ? 'font-next-book-bold border-home-tab-border'
-              : 'font-next-book'
-          }`}
+          className={cn(
+            `cursor-pointer flex items-center  border-b-[3px]  border-[transparent] ${
+              tab.value === curTab
+                ? 'font-next-book-bold border-home-tab-border'
+                : 'font-next-book'
+            }`,
+            textClassName
+          )}
           onClick={() => changeTab(tab)}
         >
           {tab.label}
