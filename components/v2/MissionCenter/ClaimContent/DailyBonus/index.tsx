@@ -38,9 +38,9 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
   const handleClaim = (i: number) => {
     setCurIndex(i);
     missionClaim([dealedMissionData.mData[i].id], () => {
-      let newData = JSON.parse(JSON.stringify(dealedMissionData));
-      newData.mData[i].progress.claimed = true;
-      setDealedMissionData(newData);
+      // let newData = JSON.parse(JSON.stringify(dealedMissionData));
+      // newData.mData[i].progress.claimed = true;
+      // setDealedMissionData(newData);
       setCurIndex(-1);
     });
   };
