@@ -49,49 +49,53 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
     router.push(nav.menu[0].path);
   };
   return (
-    <>
-      <div className="m-auto h-full flex items-center justify-between font-next-book">
-        <nav className="gap-[4rem] h-full flex items-center text-[#fff]">
-          <Image src={DarkLogoActive} alt="logo"></Image>
-          <div className="flex gap-[10px] h-[34px]  text-[14px] rounded-[20px] bg-[#3E3E3E] overflow-hidden tracking-[0.28px]">
-            {navList.map((nav) => (
-              <div
-                key={nav.id}
-                className={`h-full flex-center px-[14px] rounded-[20px] cursor-pointer ${
-                  curNavId === nav.id ? 'bg-[#FFD850] text-[#0b0b0b]' : ''
-                }`}
-                onClick={() => handleClickNav(nav)}
-              >
-                <div className="relative">
-                  <span>{nav.label}</span>
-                  {nav.id === 'missions' && (
-                    <Badge count={missionData?.unClaimAll?.length || 0} />
-                  )}
+    <div className="relativeh-full ">
+      <div className="container m-auto 2xl:px-[40px] 2xl:w-[calc(100%+160px)] w-full h-full absolute top-0 left-1/2 -translate-x-1/2">
+        <div className="m-auto h-full flex items-center justify-between font-next-book">
+          <nav className="gap-[4rem] h-full flex items-center text-[#fff]">
+            <Image src={DarkLogoActive} alt="logo"></Image>
+            <div className="flex gap-[10px] h-[34px]  text-[14px] rounded-[20px] bg-[#3E3E3E] overflow-hidden tracking-[0.28px]">
+              {navList.map((nav) => (
+                <div
+                  key={nav.id}
+                  className={`h-full flex-center px-[14px] rounded-[20px] cursor-pointer ${
+                    curNavId === nav.id ? 'bg-[#FFD850] text-[#0b0b0b]' : ''
+                  }`}
+                  onClick={() => handleClickNav(nav)}
+                >
+                  <div className="relative">
+                    <span>{nav.label}</span>
+                    {nav.id === 'missions' && (
+                      <Badge count={missionData?.unClaimAll?.length || 0} />
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        </nav>
-        {children}
+              ))}
+            </div>
+          </nav>
+          {children}
+        </div>
       </div>
       {showSecondNav && (
-        <div className="fixed text-[#fff] tracking-[0.84px] cursor-pointer left-0 top-[64px] w-[100vw]  h-[48px]  flex items-end gap-[30px] pl-[40px] bg-[#0B0B0B]">
-          {secondNavData.map((menu: MenuType) => (
-            <Link
-              key={menu.path}
-              href={menu.path}
-              className={`pb-[8px] border-b-[3px] ${
-                pathname.includes(menu.path)
-                  ? 'border-b-[#FFD850]'
-                  : 'border-b-[transparent]'
-              }`}
-            >
-              {menu.label}
-            </Link>
-          ))}
+        <div className="fixed text-[#fff] tracking-[0.84px] left-0 top-[64px] w-[100vw]  h-[48px]  bg-[#0B0B0B]">
+          <div className="container m-auto flex items-end gap-[30px] pl-[40px] h-full">
+            {secondNavData.map((menu: MenuType) => (
+              <Link
+                key={menu.path}
+                href={menu.path}
+                className={`pb-[8px] border-b-[3px] cursor-pointer  ${
+                  pathname.includes(menu.path)
+                    ? 'border-b-[#FFD850]'
+                    : 'border-b-[transparent]'
+                }`}
+              >
+                {menu.label}
+              </Link>
+            ))}
+          </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 
