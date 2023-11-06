@@ -15,10 +15,12 @@ export interface NavBarProps {
   logo?: ReactNode;
   showSecondNav?: boolean;
   changeShowSecondNav?: (show: boolean) => void;
+  isFull?: boolean;
 }
 
 const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
-  const { navList, children, showSecondNav, changeShowSecondNav } = NavBarProps;
+  const { navList, children, showSecondNav, changeShowSecondNav, isFull } =
+    NavBarProps;
   const router = useRouter();
   const pathname = router.pathname;
   const [secondNavData, setSecondNavData] = useState([]);
@@ -49,9 +51,11 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
     router.push(nav.menu[0].path);
   };
   return (
-    <div className="relativeh-full ">
-      <div className="container m-auto 2xl:px-[40px] 2xl:w-[calc(100%+160px)] w-full h-full absolute top-0 left-1/2 -translate-x-1/2">
-        <div className="m-auto h-full flex items-center justify-between font-next-book">
+    <div className="h-full w-full flex justify-center">
+      <div
+        className={`h-full  ${isFull ? 'w-full 2xl:px-[40px]' : 'container'}`}
+      >
+        <div className="h-full flex items-center justify-between font-next-book">
           <nav className="gap-[4rem] h-full flex items-center text-[#fff]">
             <Image src={DarkLogoActive} alt="logo"></Image>
             <div className="flex gap-[10px] h-[34px]  text-[14px] rounded-[20px] bg-[#3E3E3E] overflow-hidden tracking-[0.28px]">
@@ -78,7 +82,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
       </div>
       {showSecondNav && (
         <div className="fixed text-[#fff] tracking-[0.84px] left-0 top-[64px] w-[100vw]  h-[48px]  bg-[#0B0B0B]">
-          <div className="container m-auto flex items-end gap-[30px] pl-[40px] h-full">
+          <div className="container m-auto flex items-end gap-[30px]  h-full">
             {secondNavData.map((menu: MenuType) => (
               <Link
                 key={menu.path}
