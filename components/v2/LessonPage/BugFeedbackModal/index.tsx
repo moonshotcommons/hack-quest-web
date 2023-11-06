@@ -105,7 +105,7 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
       maxCount: 10,
       onChange(info) {
         setFileList(info.fileList);
-        console.log(info.file);
+
         // console.log(info);
         // const { status } = info.file;
         // if (status !== 'uploading') {
@@ -128,7 +128,7 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
         if (!verifyRes) return;
 
         const { kind, files, description } = verifyRes;
-        if (!kind?.length) throw new Error('The bug type cannot be empty!');
+        if (!kind?.length) throw new Error('Please select a bugs category!');
 
         let formData = new FormData();
         kind.forEach((k) => {

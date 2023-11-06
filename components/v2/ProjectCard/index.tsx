@@ -50,7 +50,7 @@ const ProjectCard: React.FC<ProjectCardProp> = ({ project }) => {
             {project.name}
           </div>
         </div>
-        <div className="font-next-book-Thin line-clamp-3 h-[70px]">
+        <div className="font-next-book-Thin line-clamp-3 h-[66px]">
           {project.introduction}
         </div>
       </div>

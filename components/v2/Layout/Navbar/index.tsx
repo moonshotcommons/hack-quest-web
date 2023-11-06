@@ -1,78 +1,100 @@
 import DarkLogoActive from '@/public/images/logo/dark-text-Logo-active.svg';
 import Image from 'next/image';
-import React, { ReactNode, useContext } from 'react';
+import React, { ReactNode, use, useEffect, useMemo, useState } from 'react';
 
-import { Theme } from '@/constants/enum';
-import { ThemeContext } from '@/store/context/theme';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { AppRootState } from '@/store/redux';
 import Badge from '@/components/Common/Badge';
+import { MenuType, NavbarListType } from './type';
 
 export interface NavBarProps {
-  navList: {
-    name: string;
-    path: string;
-  }[];
+  navList: NavbarListType[];
   children?: ReactNode;
   logo?: ReactNode;
+  showSecondNav?: boolean;
+  changeShowSecondNav?: (show: boolean) => void;
 }
 
 const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
-  const { navList, children, logo } = NavBarProps;
-  const { pathname } = useRouter();
-  const { theme } = useContext(ThemeContext);
+  const { navList, children, showSecondNav, changeShowSecondNav } = NavBarProps;
+  const router = useRouter();
+  const pathname = router.pathname;
+  const [secondNavData, setSecondNavData] = useState([]);
+  const [curNavId, setCurNavId] = useState('');
   const { missionData } = useSelector((state: AppRootState) => {
     return {
       missionData: state.missionCenter?.missionData
     };
   });
-  const NavBarLogo = () => {
-    // if (!Logo) return null;
-    // if (pathname !== '/') return <Image src={Logo} alt="logo"></Image>;
-    // if (pathname === '/') {
-    switch (theme) {
-      case Theme.Light:
-      // return <Image src={LightLogoActive} alt="logo"></Image>;
-      case Theme.Dark:
-        return <Image src={DarkLogoActive} alt="logo"></Image>;
-    }
-    // }
-  };
 
+  useEffect(() => {
+    for (let nav of navList) {
+      const curNav = nav.menu.find((menu) => pathname.includes(menu.path));
+      if (curNav) {
+        changeShowSecondNav?.(nav.menu.length > 1);
+        setSecondNavData(nav.menu as []);
+        setCurNavId(nav.id);
+        return;
+      }
+    }
+    changeShowSecondNav?.(false);
+    setSecondNavData([]);
+    setCurNavId('');
+  }, [pathname, navList]);
+
+  const handleClickNav = (nav: NavbarListType) => {
+    if (nav.id === curNavId) return;
+    router.push(nav.menu[0].path);
+  };
   return (
-    <div className="m-auto h-full flex items-center justify-between">
-      <nav className="gap-[4rem] h-full flex items-center">
-        {/* <Link href="/v2" className="h-full flex items-center"> */}
-        {/* {Logo && pathname !== '/' && <Image src={Logo} alt="logo"></Image>}
-          {DarkLogoActive && pathname === '/' && theme === Theme.Dark && (
+    <div className="relativeh-full ">
+      <div className="container m-auto 2xl:px-[40px] 2xl:w-[calc(100%+160px)] w-full h-full absolute top-0 left-1/2 -translate-x-1/2">
+        <div className="m-auto h-full flex items-center justify-between font-next-book">
+          <nav className="gap-[4rem] h-full flex items-center text-[#fff]">
             <Image src={DarkLogoActive} alt="logo"></Image>
-          )} */}
-        <NavBarLogo></NavBarLogo>
-        {/* </Link> */}
-        {navList.map((nav) => {
-          return (
-            <Link
-              className={`text-sm h-full flex items-center text-white hover:font-bold tracking-[0.28px] ${
-                pathname.includes(nav.path)
-                  ? 'font-next-book-bold text-text-default-color font-bold border-b-4 border-[#FFD850]'
-                  : 'font-next-book font-normal'
-              }`}
-              key={nav.path}
-              href={nav.path}
-            >
-              <div className="relative">
-                <span>{nav.name}</span>
-                {nav.path === '/mission-center' && (
-                  <Badge count={missionData?.unClaimAll?.length || 0} />
-                )}
-              </div>
-            </Link>
-          );
-        })}
-      </nav>
-      {children}
+            <div className="flex gap-[10px] h-[34px]  text-[14px] rounded-[20px] bg-[#3E3E3E] overflow-hidden tracking-[0.28px]">
+              {navList.map((nav) => (
+                <div
+                  key={nav.id}
+                  className={`h-full flex-center px-[14px] rounded-[20px] cursor-pointer ${
+                    curNavId === nav.id ? 'bg-[#FFD850] text-[#0b0b0b]' : ''
+                  }`}
+                  onClick={() => handleClickNav(nav)}
+                >
+                  <div className="relative">
+                    <span>{nav.label}</span>
+                    {nav.id === 'missions' && (
+                      <Badge count={missionData?.unClaimAll?.length || 0} />
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </nav>
+          {children}
+        </div>
+      </div>
+      {showSecondNav && (
+        <div className="fixed text-[#fff] tracking-[0.84px] left-0 top-[64px] w-[100vw]  h-[48px]  bg-[#0B0B0B]">
+          <div className="container m-auto flex items-end gap-[30px] pl-[40px] h-full">
+            {secondNavData.map((menu: MenuType) => (
+              <Link
+                key={menu.path}
+                href={menu.path}
+                className={`pb-[8px] border-b-[3px] cursor-pointer  ${
+                  pathname.includes(menu.path)
+                    ? 'border-b-[#FFD850]'
+                    : 'border-b-[transparent]'
+                }`}
+              >
+                {menu.label}
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

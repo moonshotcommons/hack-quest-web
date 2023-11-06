@@ -19,6 +19,7 @@ import { omit } from 'lodash-es';
 import { BurialPoint } from '@/helper/burialPoint';
 import { setToken } from '@/helper/user-token';
 import { useRouter } from 'next/router';
+import { errorMessage } from '@/helper/utils';
 
 function ThreePartyLogin() {
   const [isMounted, setIsMounted] = useState(false);
@@ -33,9 +34,19 @@ function ThreePartyLogin() {
       const connector = connectors.find((item) => item.id === 'metaMask');
       if (connector) {
         try {
-          const connectRes = await connectAsync({ connector });
-          if (connectRes.account) {
-            const res = await webApi.userApi.walletVerify(connectRes.account);
+          const isAccount = await connector.isAuthorized();
+
+          let account = null;
+          if (isAccount) {
+            account = await connector.getAccount();
+          }
+
+          if (!account) {
+            const connectRes = await connectAsync({ connector });
+            account = connectRes.account;
+          }
+          if (account) {
+            const res = await webApi.userApi.walletVerify(account);
             if (res.status === 'UNACTIVATED') {
               dispatch(
                 setUnLoginType({
@@ -53,7 +64,9 @@ function ThreePartyLogin() {
               router.push('/home');
             }
           }
-        } catch (err) {}
+        } catch (err) {
+          errorMessage(err);
+        }
       } else {
         message.error('No metaMask connector found!');
       }
