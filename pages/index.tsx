@@ -1,9 +1,11 @@
-import JoinUs from '@/components/v2/Landing/JoinUs';
-import HackQuestInfo from '@/components/v2/Landing/HackQuestInfo';
-import HomeBanner from '@/components/v2/Landing/HomeBanner';
+// import JoinUs from '@/components/Mantle/Landing/JoinUs';
+import HackQuestInfo from '@/components/Mantle/Landing/HackQuestInfo';
+import HomeBanner from '@/components/Mantle/Landing/HomeBanner';
+import JoinUsImage from '@/public/images/mantle/mantle_join.png';
 import { BurialPoint } from '@/helper/burialPoint';
 import { NextPage } from 'next';
 import { useEffect } from 'react';
+import Image from 'next/image';
 const Landing: NextPage<any> = (props) => {
   // const { nowCards, syntaxCards, tracksCards } = props;
   useEffect(() => {
@@ -18,8 +20,11 @@ const Landing: NextPage<any> = (props) => {
     <div className="flex  flex-col justify-center">
       <HomeBanner></HomeBanner>
       <HackQuestInfo></HackQuestInfo>
-      <div className="mx-auto container py-[150px] flex justify-center">
+      {/* <div className="mx-auto container py-[150px] flex justify-center">
         <JoinUs></JoinUs>
+      </div> */}
+      <div className="container m-auto">
+        <Image src={JoinUsImage} alt="mantle"></Image>
       </div>
     </div>
   );
