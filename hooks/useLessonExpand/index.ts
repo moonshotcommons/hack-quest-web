@@ -63,8 +63,13 @@ export const useLessonExpand = (
     const newChildExpand = [
       ...new Set(childExpand.map((v: any) => JSON.stringify(v)))
     ]
-      .map((v: any) => JSON.parse(v))
-      .filter((item: ExpandDataType) => item.id);
+      .map((v: any) => {
+        if (v) {
+          return JSON.parse(v);
+        }
+        return {};
+      })
+      .filter((item: any) => item.id);
     if (newChildExpand.length) {
       lessonExpand.push(newChildExpand);
     } else if (main) {
