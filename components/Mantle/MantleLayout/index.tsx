@@ -1,13 +1,14 @@
 import User from '@/components/v2/User';
 import { Inter, DM_Sans } from 'next/font/google';
 import React, { ReactNode } from 'react';
-import NavBar, { NavBarProps } from '../Navbar';
 
 import Breadcrumb from '@/components/v2/Breadcrumb';
 import { useRouter } from 'next/router';
 
 import { cn } from '@/helper/utils';
-import { navbarList } from '../Navbar/data';
+import { navbarList } from '@/components/v2/Layout/Navbar/data';
+import NavBar, { NavBarProps } from '@/components/v2/Layout/Navbar';
+
 const inter = DM_Sans({
   weight: ['400', '700', '500'],
   subsets: ['latin', 'latin-ext']
