@@ -1,6 +1,6 @@
 export enum MenuLink {
   HOME = '/home',
-  LEARNING_TRACK = '/learningTrack',
+  LEARNING_TRACK = '/learning-track',
   ELECTIVES = '/electives',
   MISSION_CENTER = '/mission-center',
   HACKATHON = '/resource-station/hackathon',
