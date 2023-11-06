@@ -65,6 +65,11 @@ const LessonContent: FC<LessonContentProps> = (props) => {
     }
   }, [lesson]);
 
+  const getExpandData = (cId: string) => {
+    const eData = expandData.find((v) => v.some((v1) => v1.cId === cId));
+    return eData || [];
+  };
+
   useEffect(() => {
     if (componentsWrapRef.current) {
       componentsWrapRef.current.scrollTo(0, 0);
@@ -91,7 +96,7 @@ const LessonContent: FC<LessonContentProps> = (props) => {
               <div key={component.id} className="">
                 <LessonContentContext.Provider
                   value={{
-                    expandData: expandData[i] || [],
+                    expandData: getExpandData(component.id),
                     changeExpandData
                   }}
                 >
