@@ -35,9 +35,7 @@ const OtherProjects: FC<OtherProjectsProps> = (props) => {
         setProjects(
           res.data.filter((project) => project.id !== activeProjectId)
         );
-        console.log(
-          res.data.filter((project) => project.id !== activeProjectId).length
-        );
+
         setTotalPage(res.total);
       },
 
@@ -54,7 +52,6 @@ const OtherProjects: FC<OtherProjectsProps> = (props) => {
   useEffect(() => {
     run();
   }, [page, activeProjectId]);
-  console.log([...projects].length);
 
   return (
     <>

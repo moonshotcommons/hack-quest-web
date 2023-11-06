@@ -105,7 +105,7 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
       maxCount: 10,
       onChange(info) {
         setFileList(info.fileList);
-        console.log(info.file);
+
         // console.log(info);
         // const { status } = info.file;
         // if (status !== 'uploading') {
