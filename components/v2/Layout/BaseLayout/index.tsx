@@ -44,6 +44,7 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
       <div className="w-full fixed left-0 top-0 bg-[#0B0B0B] h-[64px] flex items-center z-[99] shadow-[box-shadow: rgba(17, 12, 46, 0.15)_0px_48px_100px_0px]">
         <NavBar
           {...navbarData}
+          isFull={getFull()}
           showSecondNav={showSecondNav}
           changeShowSecondNav={(show) => setShowSecondNav(show)}
         >
