@@ -9,6 +9,7 @@ export interface ExpandDataType {
   expandNum?: number;
   id: string;
   index: number;
+  cId?: string;
 }
 export const useLessonExpand = (
   lesson: (CustomComponent | NotionComponent)[]
@@ -18,13 +19,13 @@ export const useLessonExpand = (
     lesson.map((v: any, i: number) => {
       const childExpand: any[] = [];
       let expandIndex = 0;
-      getExpand(lessonExpand, childExpand, v, i, expandIndex, true);
+      getExpand(v.id, lessonExpand, childExpand, v, i, expandIndex, true);
     });
-
     return lessonExpand;
   };
 
   const getExpand = (
+    cId: string,
     lessonExpand: any,
     childExpand: any,
     v: any,
@@ -32,7 +33,7 @@ export const useLessonExpand = (
     expandIndex: number,
     main?: boolean | undefined
   ) => {
-    if (!v?.children?.length) return [];
+    if (!v?.children?.length) return;
     v.children.map((c: any, j: number) => {
       childExpand[j] = {};
       if (NotionType.TOGGLE === c.type) {
@@ -44,7 +45,8 @@ export const useLessonExpand = (
         childExpand[j] = {
           expandNum: 0,
           id: c.id,
-          index: i
+          index: i,
+          cId: cId
         };
       } else if (
         ~[
@@ -56,7 +58,8 @@ export const useLessonExpand = (
       ) {
         expandIndex = j;
         if (c.children?.length) {
-          getExpand(lessonExpand, [], c, i, expandIndex);
+          getExpand(cId, lessonExpand, [], c, i, expandIndex);
+          return;
         }
       }
     });
@@ -71,11 +74,10 @@ export const useLessonExpand = (
       })
       .filter((item: any) => item.id);
     if (newChildExpand.length) {
-      lessonExpand.push(newChildExpand);
-    } else if (main) {
-      lessonExpand.push([]);
+      lessonExpand.push(newChildExpand || []);
     }
   };
+
   return {
     getLessonExpand
   };
