@@ -24,30 +24,32 @@ const HackDetail: FC<HackDetailProps> = (props) => {
   return (
     <div className="mx-auto container font-next-book tracking-[0.36px]">
       <Loading loading={!hackathon.id}>
-        {hackathon.id && (
-          <>
-            <div className="flex justify-between font-next-book">
-              <div className="w-[58%]">
-                <About hackathon={hackathon} />
-                <GuestPartner
-                  listData={hackathon.guestsAndMentors}
-                  title="Guests and Mentors"
-                />
-                <GuestPartner
-                  listData={hackathon.mediaPartners}
-                  title="Media Partners"
-                />
-                <GuestPartner
-                  listData={hackathon.communityPartners}
-                  title="Community Partners"
-                />
+        <div className="w-full min-h-[50vh]">
+          {hackathon.id && (
+            <>
+              <div className="flex justify-between font-next-book">
+                <div className="w-[58%]">
+                  <About hackathon={hackathon} />
+                  <GuestPartner
+                    listData={hackathon.guestsAndMentors}
+                    title="Guests and Mentors"
+                  />
+                  <GuestPartner
+                    listData={hackathon.mediaPartners}
+                    title="Media Partners"
+                  />
+                  <GuestPartner
+                    listData={hackathon.communityPartners}
+                    title="Community Partners"
+                  />
+                </div>
+                <div className="w-[39%]">
+                  <HackathonInfo hackathon={hackathon} />
+                </div>
               </div>
-              <div className="w-[39%]">
-                <HackathonInfo hackathon={hackathon} />
-              </div>
-            </div>
-          </>
-        )}
+            </>
+          )}
+        </div>
       </Loading>
     </div>
   );
