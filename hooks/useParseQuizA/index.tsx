@@ -72,7 +72,6 @@ const AnswerInputTextarea = (props: {
           e.preventDefault(); // 取消默认事件
           const input = e.target as HTMLTextAreaElement;
           const { selectionStart, selectionEnd } = input;
-          console.log(selectionStart, selectionEnd);
           input.value =
             input.value.substring(0, selectionStart) +
             '  ' +

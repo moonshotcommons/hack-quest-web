@@ -35,7 +35,7 @@ const Pagination: FC<PaginationProps> = (props) => {
   useEffect(() => {
     setCurrentPage(page);
   }, [page]);
-  console.log(total);
+
   return (
     <div className="flex gap-x-[50px] items-center">
       <div

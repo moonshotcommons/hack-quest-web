@@ -21,7 +21,6 @@ export default function handler(
 }
 
 const getMethodHandler = (req: NextApiRequest, res: NextApiResponse<any>) => {
-  console.log(req);
   res.status(200).json([
     {
       id: uuid?.v4() || '0',
