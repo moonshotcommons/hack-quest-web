@@ -50,10 +50,10 @@ const Past: FC<PastProps> = (props) => {
 
   return (
     <Loading loading={loading}>
-      <div className="flex w-full justify-between flex-wrap gap-y-[22px]">
+      <div className="flex w-full gap-x-[22px] flex-wrap gap-y-[22px]">
         {hackathonList.map((hackathon, index) => {
           return (
-            <div key={index} className="w-[calc(33.33%-22px)]">
+            <div key={index} className="w-[calc(33.33%-15px)]">
               <PastHackathonCard hackathon={hackathon}></PastHackathonCard>
             </div>
           );
@@ -63,7 +63,7 @@ const Past: FC<PastProps> = (props) => {
         {totalPage > PROJECTS_LIMIT && (
           <Pagination
             page={page}
-            total={Math.floor(totalPage / PROJECTS_LIMIT)}
+            total={Math.ceil(totalPage / PROJECTS_LIMIT)}
             onPageChange={(value) => {
               setPage(value);
             }}

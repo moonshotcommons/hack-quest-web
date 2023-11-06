@@ -47,62 +47,64 @@ const ProjectDetail: FC<ProjectDetailProps> = (props) => {
 
   return (
     <Loading loading={loading}>
-      {project && (
-        <div className="flex justify-between gap-x-[80px]">
-          <div className="flex flex-col flex-1">
-            <div className="flex gap-x-[15px] items-center">
-              <div className="w-[48px] h-[48px] bg-gray-300 rounded-[10px] relative overflow-hidden flex items-center justify-center">
-                <Image
-                  src={project.thumbnail}
-                  width={48}
-                  height={48}
-                  alt="thumbnail"
-                  className="object-cover"
-                ></Image>
+      <div className="w-full min-h-[50vh]">
+        {project && (
+          <div className="flex justify-between gap-x-[80px]">
+            <div className="flex flex-col flex-1">
+              <div className="flex gap-x-[15px] items-center">
+                <div className="w-[48px] h-[48px] bg-gray-300 rounded-[10px] relative overflow-hidden flex items-center justify-center">
+                  <Image
+                    src={project.thumbnail}
+                    width={48}
+                    height={48}
+                    alt="thumbnail"
+                    className="object-cover"
+                  ></Image>
+                </div>
+                <h1 className="font-next-poster-Bold text-[40px] tracking-[2.4px]">
+                  {project.name}
+                </h1>
               </div>
-              <h1 className="font-next-poster-Bold text-[40px] tracking-[2.4px]">
-                {project.name}
-              </h1>
-            </div>
-            <p className="mt-[8px] font-next-book text-[21px] leading-[160%] tracking-[0.42px]">
-              {project.description}
-            </p>
-            <div className="mt-[30px] bg-gray-300 rounded-[10px] max-h-[504px] w-full">
-              {!project.video.includes('youtube') && (
-                <video controls className="w-full">
-                  <source src={project.video}></source>
-                </video>
-              )}
-              {project.video.includes('youtube') && (
-                <YouTube
-                  videoId={getYoutubeId(project.video)}
-                  loading="lazy"
-                  iframeClassName="w-full min-h-[500px]"
-                />
-              )}
-            </div>
-            <p className="mt-[15px] font-next-book text-[18px] leading-[160%] tracking-[0.36px] opacity-[0.6]">
-              {`${project.hackathonName} · ${project.tracks.join(' · ')}`}
-            </p>
-            <div className="mt-[30px]">
-              <InfoBlock
-                title="Introduction"
-                description={project.introduction}
-              ></InfoBlock>
+              <p className="mt-[8px] font-next-book text-[21px] leading-[160%] tracking-[0.42px]">
+                {project.description}
+              </p>
+              <div className="mt-[30px] bg-gray-300 rounded-[10px] max-h-[504px] w-full">
+                {!project.video.includes('youtube') && (
+                  <video controls className="w-full">
+                    <source src={project.video}></source>
+                  </video>
+                )}
+                {project.video.includes('youtube') && (
+                  <YouTube
+                    videoId={getYoutubeId(project.video)}
+                    loading="lazy"
+                    iframeClassName="w-full min-h-[500px]"
+                  />
+                )}
+              </div>
+              <p className="mt-[15px] font-next-book text-[18px] leading-[160%] tracking-[0.36px] opacity-[0.6]">
+                {`${project.hackathonName} · ${project.tracks.join(' · ')}`}
+              </p>
+              <div className="mt-[30px]">
+                <InfoBlock
+                  title="Introduction"
+                  description={project.introduction}
+                ></InfoBlock>
+              </div>
+              <div>
+                <InfoBlock title="Team" description={project.team}></InfoBlock>
+              </div>
             </div>
             <div>
-              <InfoBlock title="Team" description={project.team}></InfoBlock>
+              <OtherProjects
+                activeProjectId={project.id}
+                hackathonId={project.hackathonId}
+                hackathonName={project.hackathonName}
+              ></OtherProjects>
             </div>
           </div>
-          <div>
-            <OtherProjects
-              activeProjectId={project.id}
-              hackathonId={project.hackathonId}
-              hackathonName={project.hackathonName}
-            ></OtherProjects>
-          </div>
-        </div>
-      )}
+        )}
+      </div>
     </Loading>
   );
 };
