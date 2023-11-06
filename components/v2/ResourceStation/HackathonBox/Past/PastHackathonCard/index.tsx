@@ -5,6 +5,7 @@ import { HackathonType } from '@/service/webApi/resourceStation/hackathon/type';
 import Link from 'next/link';
 import { menuLink } from '@/components/v2/Breadcrumb/data';
 import { Menu, QueryIdType } from '@/components/v2/Breadcrumb/type';
+import { Typography } from 'antd';
 interface PastHackathonCardProps {
   hackathon: HackathonType;
 }
@@ -33,9 +34,15 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon }) => {
           )}
         </div>
         <div className="pb-[30px] flex flex-col px-[22px]">
-          <h2 className="font-next-book-bold text-[#0b0b0b] text-[18px] leading-[125%] -tracking-[0.185px]">
+          {/* <h2 className="font-next-book-bold text-[#0b0b0b] text-[18px] leading-[125%] -tracking-[0.185px] min-h-[46px]"> */}
+          <Typography.Paragraph
+            ellipsis={{ rows: 2 }}
+            className="font-next-book-bold text-[#0b0b0b] text-[18px] leading-[125%] -tracking-[0.185px] min-h-[46px]"
+            style={{ marginBottom: 0 }}
+          >
             {name}
-          </h2>
+          </Typography.Paragraph>
+          {/* </h2> */}
           <div className="mt-[15px] flex w-full h-fit gap-[15px]">
             <div className="w-[5px] rounded-full bg-[#FFD850]"></div>
             <div className="flex flex-col gap-[15px]">
@@ -51,9 +58,14 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon }) => {
                 <p className="text-[12px] leading-[125%] tracking-[0.24px] text-[#8C8C8C]">
                   HAPPENING
                 </p>
-                <p className="mt-[5px] text-[14px] text-[#0b0b0b] tracking-[0.28px]">
+
+                <Typography.Paragraph
+                  ellipsis={{ rows: 2 }}
+                  className="mt-[5px] text-[14px] text-[#0b0b0b] tracking-[0.28px] min-h-[36px]"
+                  style={{ marginBottom: 0 }}
+                >
                   {address}
-                </p>
+                </Typography.Paragraph>
               </div>
             </div>
           </div>

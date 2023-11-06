@@ -26,10 +26,6 @@ const FeatureProjectsHeader = () => {
         <h2 className="font-next-poster-Bold text-[28px] tracking-[1.68px] text-[#000]">
           Featured Projects
         </h2>
-        <p className="w-[540px] text-[14px] leading-[160%] font-next-book text-[#000]">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        </p>
       </div>
       <Link
         href={`${menuLink.projects}/projects?menu=${Menu.PROJECTS}&${QueryIdType.PROJECT_ID}=projects`}
