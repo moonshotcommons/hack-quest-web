@@ -28,10 +28,10 @@ export const useGetMissionData = () => {
     let res = await webApi.missionCenterApi.getTreasures();
     dispatch(setUserTreasure(res || []));
   };
-  const updateAll = () => {
+  const updateAll = async () => {
+    await updateMissionData();
     updateUserLevel();
     updateUserCoin();
-    updateMissionData();
     updateTreasures();
   };
 

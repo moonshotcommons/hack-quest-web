@@ -59,7 +59,7 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({
           <div>
             <div className="text-[#8C8C8C]">RUNS FROM</div>
             <div className="text-[16px]">
-              {getRunFromTime(hackathon.startTime)}
+              {getRunFromTime(hackathon.startTime, hackathon.endTime)}
             </div>
           </div>
           <div>
