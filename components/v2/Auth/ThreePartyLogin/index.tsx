@@ -20,6 +20,7 @@ import { BurialPoint } from '@/helper/burialPoint';
 import { setToken } from '@/helper/user-token';
 import { useRouter } from 'next/router';
 import { errorMessage } from '@/helper/utils';
+import MetamaskLoginButton from './MetamaskLoginButton';
 
 function ThreePartyLogin() {
   const [isMounted, setIsMounted] = useState(false);
@@ -29,56 +30,11 @@ function ThreePartyLogin() {
   const { connectAsync, connectors, error, isLoading, pendingConnector, data } =
     useConnect();
 
-  const { run: loginByMetaMask, loading: metamaskLoading } = useRequest(
-    async () => {
-      const connector = connectors.find((item) => item.id === 'metaMask');
-      if (connector) {
-        try {
-          const isAccount = await connector.isAuthorized();
-
-          let account = null;
-          if (isAccount) {
-            account = await connector.getAccount();
-          }
-
-          if (!account) {
-            const connectRes = await connectAsync({ connector });
-            account = connectRes.account;
-          }
-          if (account) {
-            const res = await webApi.userApi.walletVerify(account);
-            if (res.status === 'UNACTIVATED') {
-              dispatch(
-                setUnLoginType({
-                  type: UnLoginType.INVITE_CODE,
-                  params: {
-                    registerType: AuthType.METAMASK,
-                    ...res
-                  }
-                })
-              );
-            } else {
-              dispatch(setUserInfo(omit(res, 'token')));
-              BurialPoint.track('signup-Metamask第三方登录code验证成功');
-              setToken(res.token);
-              router.push('/home');
-            }
-          }
-        } catch (err) {
-          errorMessage(err);
-        }
-      } else {
-        message.error('No metaMask connector found!');
-      }
-    },
-    { manual: true }
-  );
-
   const loginThreeParty = async (type: AuthType) => {
     switch (type) {
-      case AuthType.METAMASK:
-        loginByMetaMask();
-        return;
+      // case AuthType.METAMASK:
+      //   loginByMetaMask();
+      //   return;
       default:
         const res = (await webApi.userApi.getAuthUrl(type)) as any;
         window.location.href = res?.url;
@@ -135,27 +91,8 @@ function ThreePartyLogin() {
           ></Image>
           Continue with GitHub
         </Button>
-        <Button
-          block
-          loading={metamaskLoading}
-          disabled={
-            metamaskLoading ||
-            !connectors.find((item) => item.id === 'metaMask')?.ready
-          }
-          className="border mt-[25px] border-[#f4f4f4] py-[13px] text-[#fff] relative"
-          onClick={() => loginThreeParty(AuthType.METAMASK)}
-        >
-          <Image
-            src={Metamask}
-            width={22}
-            height={22}
-            alt="Github"
-            className="absolute left-[25px] top-[16px]"
-          ></Image>
-          {!connectors.find((item) => item.id === 'metaMask')?.ready
-            ? 'Unsupported'
-            : 'Continue with Metamask'}
-        </Button>
+        <MetamaskLoginButton></MetamaskLoginButton>
+
         {/* <div className="text-red-700 flex gap-1 flex-wrap ">
           {connectors.map((connector) => (
             <button
