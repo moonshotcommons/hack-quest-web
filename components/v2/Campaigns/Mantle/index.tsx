@@ -1,14 +1,16 @@
 import React from 'react';
 import MantleInfo from './MantleInfo';
 import Progress from './Progress';
+import TargetBox from './TagetBox';
 
 interface MantleProp {}
 
 const Mantle: React.FC<MantleProp> = ({}) => {
   return (
-    <div className="h-full overflow-auto px-[30px]">
+    <div className="p-[30px]">
       <MantleInfo />
       <Progress />
+      <TargetBox />
     </div>
   );
 };

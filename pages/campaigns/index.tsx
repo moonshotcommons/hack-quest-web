@@ -27,7 +27,9 @@ const Campaigns: React.FC<CampaignsProp> = () => {
         mantle: {}
       }}
     >
-      <div className="container m-auto flex h-[calc(100vh-64px)] font-next-book text-[#0b0b0b] py-[40px] text-[16px]">
+      <div
+        className={`container m-auto flex h-[calc(100vh-64px)] font-next-book text-[#0b0b0b] py-[40px] text-[16px]`}
+      >
         <div className="w-[203px]">
           <Tab
             tabList={tabList}
@@ -35,7 +37,7 @@ const Campaigns: React.FC<CampaignsProp> = () => {
             changeTab={(index) => setCurIndex(index)}
           />
         </div>
-        <div className="flex-1 h-full bg-[#fff] rounded-b-[10px] rounded-r-[10px] shadow-[5px_5px_5px_#dadada]">
+        <div className="flex-1 h-full  overflow-auto bg-[#fff] rounded-b-[10px] rounded-r-[10px] shadow-[5px_5px_5px_#dadada]">
           {renderContent()}
         </div>
       </div>

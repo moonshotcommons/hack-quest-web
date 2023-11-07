@@ -1,11 +1,16 @@
 import React from 'react';
 import Image from 'next/image';
 import BIcon from '@/public/images/campaigns/b_icon.png';
+import { Inter, DM_Sans } from 'next/font/google';
+const inter = DM_Sans({
+  weight: ['400', '700', '500'],
+  subsets: ['latin', 'latin-ext']
+});
 interface ProgressProp {}
 
 const Progress: React.FC<ProgressProp> = () => {
   return (
-    <div>
+    <div className={`text-[#000] ${inter.className} mb-[30px]`}>
       <div>0</div>
       <div className="flex gap-[0.5%] relative">
         {Array.from({ length: 5 }).map((_, i) => (

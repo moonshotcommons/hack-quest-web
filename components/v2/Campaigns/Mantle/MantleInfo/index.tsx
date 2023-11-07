@@ -5,22 +5,28 @@ import Certificate from '@/public/images/campaigns/certificate.png';
 import iconXp from '@/public/images/mission-center/icon_xp.png';
 import iconCoin from '@/public/images/mission-center/icon_coin.png';
 import Button from '@/components/v2/Common/Button';
+import { Inter, DM_Sans } from 'next/font/google';
+const inter = DM_Sans({
+  weight: ['400', '700', '500'],
+  subsets: ['latin', 'latin-ext']
+});
+
 interface MantleInfoProp {}
 
 const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
   const [showAll, setShowAll] = useState(true);
   return (
-    <div className="pt-[30px] flex justify-between gap-[50px] mb-[30px]">
-      <div className="flex-1 text-[#000] ">
-        <p className="text-[24px] leading-[25px] mb-[10px] font-next-book">
+    <div className="flex justify-between gap-[50px] mb-[30px]">
+      <div className={`flex-1 text-[#000] ${inter.className}`}>
+        <p className="text-[24px] font-[500] leading-[25px] mb-[10px]">
           Mantle Developer Journey
         </p>
-        <p className="font-next-book-Thin">
+        <p className="text-[16px] font-[400]">
           Developers reach 500 developer miles can claim Mantle learning
           certificate and participate in lucky draw.
         </p>
       </div>
-      <div className="w-[572px] h-fit p-[20px] border border-[#8c8c8c] rounded-[10px]">
+      <div className="w-[572px] h-fit p-[20px] border border-[#8c8c8c] rounded-[10px] font-next-book">
         <div className="flex-row-center justify-between mb-[5px]">
           <div className="text-[18px]">Certificate & Rewards</div>
           <div onClick={() => setShowAll(!showAll)} className="cursor-pointer">
