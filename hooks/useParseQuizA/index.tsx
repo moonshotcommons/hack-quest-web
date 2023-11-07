@@ -67,6 +67,18 @@ const AnswerInputTextarea = (props: {
         textarea.style.backgroundColor = 'var(--lesson-code-input-bg)';
         changeTextareaHeight(textarea);
       }}
+      onKeyDown={(e) => {
+        if (e.code === 'Tab') {
+          e.preventDefault(); // 取消默认事件
+          const input = e.target as HTMLTextAreaElement;
+          const { selectionStart, selectionEnd } = input;
+          input.value =
+            input.value.substring(0, selectionStart) +
+            '  ' +
+            input.value.substring(selectionEnd);
+          input.selectionStart = input.selectionEnd = selectionStart + 2;
+        }
+      }}
       onChange={(e) => {
         const currentId = e.target.dataset.uuid;
         const value = e.target.value;

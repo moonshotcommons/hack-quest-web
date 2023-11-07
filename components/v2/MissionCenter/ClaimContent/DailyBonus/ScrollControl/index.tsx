@@ -32,10 +32,10 @@ function ScrollControl({ changeState }: { changeState?: ChangeState }) {
       <div className="flex gap-[10px]">
         <div
           className={cn(
-            `flex items-center justify-center w-[35px] h-[35px] rounded-[50%] border border-solid border-[#000000] bg-[#000000] text-white cursor-pointer`,
+            `flex items-center justify-center w-[35px] h-[35px] rounded-[50%] border border-solid border-[#FDEAAA] bg-[#FDEAAA] text-[#0b0b0b] cursor-pointer`,
             !leftArrowVisible
-              ? 'bg-transparent text-black cursor-not-allowed'
-              : 'hover:bg-[#000000]/70 hover:border-[#000000]/70 transition'
+              ? 'bg-[#FDEAAA]/40 text-[#0b0b0b]/40 border-[#FDEAAA]/40 cursor-not-allowed'
+              : 'hover:bg-[#FFD850] hover:border-[#FFD850] transition'
           )}
           onClick={() => {
             BurialPoint.track('mission-center-daily-bonus claim滚动-左');
@@ -46,10 +46,10 @@ function ScrollControl({ changeState }: { changeState?: ChangeState }) {
         </div>
         <div
           className={cn(
-            `flex items-center justify-center w-[35px] h-[35px] rounded-full border border-solid border-[#000000] bg-[#000000] text-white cursor-pointer`,
+            `flex items-center justify-center w-[35px] h-[35px] rounded-full border border-solid border-[#FDEAAA] bg-[#FDEAAA] text-[#0b0b0b] cursor-pointer`,
             !rightArrowVisible
-              ? 'bg-transparent text-black cursor-not-allowed'
-              : 'hover:bg-[#000000]/70 hover:border-[#000000]/70 transition'
+              ? 'bg-[#FDEAAA]/40 text-[#0b0b0b]/40 border-[#FDEAAA]/40 cursor-not-allowed'
+              : 'hover:bg-[#FFD850] hover:border-[#FFD850] transition'
           )}
           onClick={() => {
             BurialPoint.track('mission-center-daily-bonus claim滚动-右');

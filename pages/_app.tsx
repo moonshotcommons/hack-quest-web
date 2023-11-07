@@ -8,11 +8,64 @@ import App from 'next/app';
 
 import wrapper from '@/store/redux';
 import { Provider } from 'react-redux';
+import { WagmiConfig, createConfig, configureChains } from 'wagmi';
+
+import { mainnet, optimism, polygon } from 'wagmi/chains';
+
+import { alchemyProvider } from 'wagmi/providers/alchemy';
+import { infuraProvider } from 'wagmi/providers/infura';
+import { publicProvider } from 'wagmi/providers/public';
+
+import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
+import { InjectedConnector } from 'wagmi/connectors/injected';
+import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
+import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
+
+const { chains, publicClient, webSocketPublicClient } = configureChains(
+  [mainnet, optimism, polygon],
+  [
+    // alchemyProvider({ apiKey: 'ZBeLxZsUffmyjnUhj-Px0pR1XRWYOjXC' }),
+    // infuraProvider({ apiKey: '3ee2300bf8cf44148303dc4fff1fe840' }),
+    publicProvider()
+  ]
+);
+
+const config = createConfig({
+  autoConnect: true,
+  connectors: [
+    new MetaMaskConnector({
+      chains,
+      options: {
+        shimDisconnect: false
+      }
+    })
+    // new CoinbaseWalletConnector({
+    //   chains,
+    //   options: {
+    //     appName: 'wagmi'
+    //   }
+    // }),
+    // new WalletConnectConnector({
+    //   chains,
+    //   options: {
+    //     projectId: '...'
+    //   }
+    // }),
+    // new InjectedConnector({
+    //   chains,
+    //   options: {
+    //     name: 'Injected',
+    //     shimDisconnect: true
+    //   }
+    // })
+  ],
+  publicClient,
+  webSocketPublicClient
+});
 function MyApp(appProps: AppProps & Omit<LayoutProps, 'pathname'>) {
   const { Component, router, navbarData, ...rest } = appProps;
   const { store, props } = wrapper.useWrappedStore(rest);
   const { pathname } = router;
-
   if (typeof window === 'object') {
     // client
   } else {
@@ -22,13 +75,16 @@ function MyApp(appProps: AppProps & Omit<LayoutProps, 'pathname'>) {
   return (
     <Provider store={store}>
       <ThemeContextProvider>
-        <Layout
-          {...props.pageProps}
-          navbarData={navbarData}
-          pathname={pathname}
-        >
-          <Component {...props.pageProps} />
-        </Layout>
+        <WagmiConfig config={config}>
+          <Layout
+            {...props.pageProps}
+            navbarData={navbarData}
+            pathname={pathname}
+          >
+            <Component {...props.pageProps} />
+          </Layout>
+        </WagmiConfig>
+
         <Analytics mode="production" debug={false} />
       </ThemeContextProvider>
     </Provider>

@@ -4,11 +4,11 @@
 
 @tailwind base;
 @layer base {
-  html,
+  /* html,
   body {
     height: 100%;
     overflow: auto;
-  }
+  } */
 }
 @tailwind components;
 @tailwind utilities;

@@ -9,6 +9,7 @@ import UserDropCard from './UserDropCard';
 import { unLoginTab } from './data';
 import IconCoin from '@/public/images/mission-center/icon_coin.png';
 import { AppRootState } from '@/store/redux';
+import { useRouter } from 'next/router';
 interface UserProps {}
 
 const User: FC<UserProps> = (props) => {
@@ -18,6 +19,7 @@ const User: FC<UserProps> = (props) => {
   const userInfo = useGetUserInfo();
   const unLoginType = useGetUserUnLoginType();
   const dispatch = useDispatch();
+  const router = useRouter();
   const { userLevel, userCoin } = useSelector((state: AppRootState) => {
     return {
       userLevel: state.missionCenter?.userLevel,
@@ -37,18 +39,19 @@ const User: FC<UserProps> = (props) => {
       <div
         className="h-full  flex items-center justify-end relative"
         ref={userDropCardRef as any}
-        onMouseEnter={(e) => setShowUserDropCard(true)}
-        onMouseLeave={(e) => setShowUserDropCard(false)}
       >
         <div className="cursor-pointer h-full flex items-center justify-end">
           {isLogin && (
             <div className="flex-row-center">
-              <div className="h-[30px] text-[#fff] flex-row-center">
+              <div
+                className="h-[30px] text-[#fff] flex-row-center"
+                onClick={() => router.push('/mission-center')}
+              >
                 <div className="w-[115px] h-full bg-[#3E3E3E] rounded-[20px] flex-row-center justify-between mr-[20px] pr-[15px]">
                   <Image src={IconCoin} width={30} alt="iconCredits" />
                   <span>{userCoin.coin}</span>
                 </div>
-                <div className="w-[170px] h-full relative flex-center mr-[20px] rounded-[20px] bg-[#8C8C8C] ">
+                <div className="w-[170px] h-full relative flex-center rounded-[20px] bg-[#8C8C8C] overflow-hidden ">
                   <div
                     className="absolute left-[0] top-[0] h-full bg-[#3E3E3E] rounded-[20px]"
                     style={{
@@ -73,18 +76,32 @@ const User: FC<UserProps> = (props) => {
                   </div>
                 </div>
               </div>
-              <div className="relative w-[34px] h-[34px] bg-[#8d8d8d] overflow-hidden rounded-full flex justify-center items-center">
-                <Image
-                  src={userInfo?.avatar as string}
-                  alt="avatar"
-                  fill
-                  className="object-cover"
-                  onError={() => {
-                    BurialPoint.track('头像加载失败', {
-                      userId: userInfo?.id || ''
-                    });
-                  }}
-                ></Image>
+              <div
+                className="relative w-[54px] h-[64px] flex items-center justify-end"
+                onMouseEnter={(e) => setShowUserDropCard(true)}
+                onMouseLeave={(e) => setShowUserDropCard(false)}
+              >
+                <div className="relative w-[34px] h-[34px] bg-[#8d8d8d] overflow-hidden rounded-full flex justify-center items-center">
+                  <Image
+                    src={userInfo?.avatar as string}
+                    alt="avatar"
+                    fill
+                    className="object-cover"
+                    onError={() => {
+                      BurialPoint.track('头像加载失败', {
+                        userId: userInfo?.id || ''
+                      });
+                    }}
+                  ></Image>
+                </div>
+                {userInfo && showUserDropCard ? (
+                  <div className="absolute z-[999] -right-[0.75rem] top-[60px] pt-[20px]">
+                    <UserDropCard
+                      userInfo={userInfo || ({} as any)}
+                      onClose={() => setShowUserDropCard(false)}
+                    ></UserDropCard>
+                  </div>
+                ) : null}
               </div>
             </div>
           )}
@@ -108,14 +125,6 @@ const User: FC<UserProps> = (props) => {
             </div>
           )}
         </div>
-        {userInfo && showUserDropCard ? (
-          <div className="absolute z-[999] -right-[0.75rem] top-[60px] pt-[20px]">
-            <UserDropCard
-              userInfo={userInfo || ({} as any)}
-              onClose={() => setShowUserDropCard(false)}
-            ></UserDropCard>
-          </div>
-        ) : null}
       </div>
       <Settings></Settings>
     </div>
