@@ -19,10 +19,10 @@ const Login: FC<LoginProps> = (props) => {
 
   const EmailTitle = (
     <div>
-      <p className="text-[#FFF] text-[21px] font-next-poster leading-[160%] tracking-[1.26px]">
+      <p className="text-[#FFF] text-[21px] font-next-poster leading-[160%] tracking-[1px]">
         {`Don’t have an account? `}
         <span
-          className="underline cursor-pointer"
+          className="underline cursor-pointer font-next-poster leading-[160%] tracking-[1.26px]"
           onClick={() => {
             dispatch(setUnLoginType(UnLoginType.SIGN_UP));
           }}

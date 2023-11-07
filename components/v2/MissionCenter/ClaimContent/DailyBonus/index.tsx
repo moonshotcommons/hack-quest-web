@@ -1,6 +1,6 @@
 import { MissionDataType } from '@/service/webApi/missionCenter/type';
 import React, { useEffect, useRef, useState } from 'react';
-import MoonFace from '@/public/images/mission-center/moon_face.png';
+import MoonFace from '@/public/images/mission-center/moon_face1.png';
 import IconCoin from '@/public/images/mission-center/icon_coin.png';
 import IconXp from '@/public/images/mission-center/icon_xp.png';
 import IconLock from '@/public/images/mission-center/icon_lock.png';
@@ -23,6 +23,7 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
   missionClaim
 }) => {
   const [curIndex, setCurIndex] = useState(-1);
+  const [refreshTime, setRefreshTime] = useState('');
   const [dealedMissionData, setDealedMissionData] = useState<{
     mData: MissionDataType[];
     completedLen: number;
@@ -37,9 +38,9 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
   const handleClaim = (i: number) => {
     setCurIndex(i);
     missionClaim([dealedMissionData.mData[i].id], () => {
-      let newData = JSON.parse(JSON.stringify(dealedMissionData));
-      newData.mData[i].progress.claimed = true;
-      setDealedMissionData(newData);
+      // let newData = JSON.parse(JSON.stringify(dealedMissionData));
+      // newData.mData[i].progress.claimed = true;
+      // setDealedMissionData(newData);
       setCurIndex(-1);
     });
   };
@@ -60,17 +61,17 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
             }}
           >
             <div className="flex-col-center">
-              <div className="text-[24px]">{`Day ${i + 1}`}</div>
+              <div className="text-[24px] text-[#fff] ">{`Day ${i + 1}`}</div>
               <div className="w-[165px] flex justify-between mt-[20px]">
                 <div>
                   <Image src={IconCoin} width={60} alt="iconCredits" />
-                  <div className="w-[60px] h-[28px] rounded-[20px] mt-[10px] flex-center bg-[#3E3E3E]">
+                  <div className="w-[60px] h-[28px] rounded-[20px] mt-[10px] flex-center bg-[#F4F4F4]">
                     {item.coin}
                   </div>
                 </div>
                 <div>
                   <Image src={IconXp} width={60} alt="iconXp" />
-                  <div className="w-[60px] h-[28px] rounded-[20px] mt-[10px] flex-center bg-[#3E3E3E]">
+                  <div className="w-[60px] h-[28px] rounded-[20px] mt-[10px] flex-center bg-[#F4F4F4]">
                     {item.exp}
                   </div>
                 </div>
@@ -153,17 +154,17 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
               flex-col-center justify-between pt-[30px] pb-[30px] `}
         >
           <div className="flex-col-center">
-            <div className="text-[18px]">{`Day ${i + 1}`}</div>
+            <div className="text-[18px] text-[#fff] ">{`Day ${i + 1}`}</div>
             <div className="w-[104px] flex justify-between mt-[20px]">
               <div>
                 <Image src={IconCoin} width={40} alt="iconCredits" />
-                <div className="w-[40px] h-[20px] text-[12px] rounded-[20px] mt-[8px] flex-center bg-[#3E3E3E]">
+                <div className="w-[40px] h-[20px] text-[12px] rounded-[20px] mt-[8px] flex-center bg-[#F4F4F4]">
                   {item.coin}
                 </div>
               </div>
               <div>
                 <Image src={IconXp} width={40} alt="iconXp" />
-                <div className="w-[40px] h-[20px] text-[12px] rounded-[20px] mt-[8px] flex-center bg-[#3E3E3E]">
+                <div className="w-[40px] h-[20px] text-[12px] rounded-[20px] mt-[8px] flex-center bg-[#F4F4F4]">
                   {item.exp}
                 </div>
               </div>
@@ -204,6 +205,7 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
           a?.progress?.progress?.[0] - b?.progress?.progress?.[0]
       ) || [];
     const completedLen = missionData.filter((v) => v.progress.completed).length;
+    setRefreshTime(`${6 - completedLen}d${24 - new Date().getHours()}h`);
     setDealedMissionData({
       mData,
       completedLen
@@ -211,12 +213,15 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
   }, [missionData]);
 
   return (
-    <div className="text-[#fff] h-full flex flex-col overflow-hidden">
+    <div className="h-full flex flex-col overflow-hidden">
       <div className="w-full flex-1 overflow-y-auto overflow-x-hidden no-scrollbar ">
         <div className="pt-[30px] w-full overflow-x-hidden">
           <div className="flex px-[30px] items-center justify-between mb-[20px]">
             <span className="text-[24px] font-next-book-bold">
               Daily Login Rewards
+            </span>
+            <span className="text-[18px]">
+              Rewards Refresh In: {refreshTime}
             </span>
           </div>
           <div className="relative">

@@ -37,9 +37,9 @@ const TargetCard: React.FC<TargetCardProp> = ({
 }) => {
   const userInfo = useGetUserInfo();
   const [showShare, setShowShare] = useState(false);
-  const [mData, setMData] = useState<MissionDataType | Record<string, any>>(
-    missionData
-  );
+  // const [missionData, setmissionData] = useState<MissionDataType | Record<string, any>>(
+  //   missionData
+  // );
   const [loading, setLoading] = useState(false);
   const { missionIds, updateMissionDataAll } = useContext(MissionCenterContext);
   const router = useRouter();
@@ -72,31 +72,35 @@ const TargetCard: React.FC<TargetCardProp> = ({
   };
 
   const handleClaim = () => {
-    changeClaim();
-    missionClaim([mData.id]);
+    // changeClaim();
+    missionClaim([missionData.id]);
   };
 
-  const changeClaim = () => {
-    const newData = JSON.parse(JSON.stringify(mData));
-    newData.progress.claimed = true;
-    setMData(newData);
-  };
-  useEffect(() => {
-    setMData(missionData);
-  }, [missionData]);
+  // const changeClaim = () => {
+  //   const newData = JSON.parse(JSON.stringify(missionData));
+  //   newData.progress.claimed = true;
+  //   setmissionData(newData);
+  // };
+  // useEffect(() => {
+  //   setmissionData(missionData);
+  // }, [missionData]);
 
   return (
     <div
-      key={mData.id}
+      key={missionData.id}
       className={`h-[84px] rounded-[10px] border  mt-[15px] relative ${
-        mData.progress?.completed ? 'border-[#ffd850]' : 'border-[#8C8C8C]'
+        missionData.progress?.completed
+          ? 'border-[#ffd850]'
+          : 'border-[#8C8C8C]'
       }`}
     >
       <div
         className="h-full bg-auth-primary-button-bg opacity-40 absolute left-0 top-0"
         style={{
           width: `${
-            (mData.progress.progress[0] / mData.progress.progress[1]) * 100
+            (missionData.progress.progress[0] /
+              missionData.progress.progress[1]) *
+            100
           }%`
         }}
       ></div>
@@ -104,9 +108,9 @@ const TargetCard: React.FC<TargetCardProp> = ({
         <div className="flex-row-center gap-[20px]">
           <Image src={targetIcon} width={40} alt="icon"></Image>
           <span className="text-[16px]">
-            {mData.name}
+            {missionData.name}
             {(isScale || type === RewardsCardType.SHARE) &&
-              `(${mData.progress.progress[0]}/${mData.progress.progress[1]})`}
+              `(${missionData.progress.progress[0]}/${missionData.progress.progress[1]})`}
           </span>
         </div>
         <div className="flex-row-center gap-[40px]">
@@ -117,7 +121,7 @@ const TargetCard: React.FC<TargetCardProp> = ({
               alt="icon"
               className="absolute top-[-1px] left-[-20px]"
             ></Image>
-            <span>{mData.coin}</span>
+            <span>{missionData.coin}</span>
           </div>
           <div className="w-[76px] h-[40px] leading-[40px] text-[18px] border border-[#DADADA] bg-[#F4F4F4] rounded-r-[20px] relative pr-[15px] text-right">
             <Image
@@ -126,24 +130,24 @@ const TargetCard: React.FC<TargetCardProp> = ({
               alt="icon"
               className="absolute top-[-1px] left-[-20px]"
             ></Image>
-            <span>{mData.exp}</span>
+            <span>{missionData.exp}</span>
           </div>
-          {mData.progress?.completed ? (
+          {missionData.progress?.completed ? (
             <Button
               className={`w-[164px] ml-[-20px] h-[44px] text-[#0b0b0b] 
                           bg-auth-primary-button-bg
                           border-auth-primary-button-border-color ${
-                            mData.progress.claimed
+                            missionData.progress.claimed
                               ? 'opacity-50 cursor-not-allowed '
                               : `hover:border-auth-primary-button-border-hover-color
                                   hover:text-auth-primary-button-text-hover-color 
                                   hover:bg-auth-primary-button-hover-bg`
                           }`}
-              disabled={mData.progress.claimed}
-              loading={missionIds.includes(mData.id)}
+              disabled={missionData.progress.claimed}
+              loading={missionIds.includes(missionData.id)}
               onClick={() => handleClaim()}
             >
-              {mData.progress.claimed ? 'Claimed' : 'Claim'}
+              {missionData.progress.claimed ? 'Claimed' : 'Claim'}
             </Button>
           ) : (
             <div className="relative">

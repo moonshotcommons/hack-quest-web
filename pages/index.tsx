@@ -25,7 +25,7 @@ const Landing: NextPage<any> = (props) => {
   );
 };
 
-Landing.displayName = 'Courses';
+Landing.displayName = 'Landing';
 
 // Landing.getInitialProps = (context) => {
 //   return {};
