@@ -3,9 +3,10 @@ import { week } from './data';
 import { HackathonStatusType } from '@/service/webApi/resourceStation/hackathon/type';
 
 const useDealHackathonData = () => {
-  const getRunFromTime = (time: string) => {
-    const d: unknown = moment(time).format('d');
-    return `${week[d as number]} ${moment(time).format('DD - MM,YYYY')}`;
+  const getRunFromTime = (startTime: string, endTime: string) => {
+    startTime = moment(startTime).format('ll');
+    endTime = moment(endTime).format('ll');
+    return `${startTime} - ${endTime}`;
   };
   const getCloseInTime = (endTime: string) => {
     const start = +new Date();
