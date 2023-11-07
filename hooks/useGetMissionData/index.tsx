@@ -29,9 +29,9 @@ export const useGetMissionData = () => {
     dispatch(setUserTreasure(res || []));
   };
   const updateAll = async () => {
+    await updateMissionData();
     updateUserLevel();
     updateUserCoin();
-    updateMissionData();
     updateTreasures();
   };
 
