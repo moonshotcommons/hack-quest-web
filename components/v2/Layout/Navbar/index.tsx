@@ -55,7 +55,6 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
   }, [pathname, navList]);
 
   const handleClickNav = (nav: NavbarListType) => {
-    if (nav.id === curNavId && !isFull) return;
     router.push(nav.menu[0].path);
   };
   return (
