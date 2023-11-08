@@ -1,5 +1,6 @@
 import SelectiveCoursesBox from '@/components/v2/ElectivesBox';
 import PageDescription from '@/components/v2/PageDescription';
+import Title from '@/components/Head/Title';
 import { useRef, useState } from 'react';
 
 function SelectiveCourses() {
@@ -23,6 +24,7 @@ function SelectiveCourses() {
       onScroll={handleScroll}
       ref={selectiveCoursesRef}
     >
+      <Title title="Electives" />
       <div className="container mx-auto ">
         <PageDescription
           title={'Electives'}
