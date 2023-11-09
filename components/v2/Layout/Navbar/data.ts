@@ -20,7 +20,7 @@ export const navbarList: NavbarListType[] = [
     ]
   },
   {
-    label: 'Missons',
+    label: 'Missions',
     id: 'missions',
     menu: [
       {
