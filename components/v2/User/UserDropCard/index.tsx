@@ -55,7 +55,7 @@ const UserDropCard: FC<UserDropCardProps> = (props) => {
   };
 
   return (
-    <div className="w-[25.875rem] relative p-[2.5rem] pb-0 bg-[#0b0b0b] font-next-book shadow-[0_0_6px_rgba(255,255,255,0.3)] rounded-[10px]">
+    <div className="w-[25.875rem] relative p-[2.5rem] pb-0 bg-[#0b0b0b] font-next-book shadow-[0_0_6px_rgba(255,255,255,0.7)] rounded-[10px]">
       {/* <AiFillCaretUp
         size={40}
         style={{
@@ -68,6 +68,7 @@ const UserDropCard: FC<UserDropCardProps> = (props) => {
       <div className="absolute -top-[21px] right-[10px] ">
         <Image src={ArrowUp} alt="arrow" width={47}></Image>
       </div>
+      <div className="absolute top-0 right-[10px] w-[47px] h-[10px] bg-[#0b0b0b]"></div>
 
       <UserInfo userInfo={userInfo}></UserInfo>
       <div
