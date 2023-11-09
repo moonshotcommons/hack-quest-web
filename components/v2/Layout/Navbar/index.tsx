@@ -32,22 +32,29 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
   });
 
   useEffect(() => {
-    for (let nav of navList) {
-      const curNav = nav.menu.find((menu) => pathname.includes(menu.path));
-      if (curNav) {
-        changeShowSecondNav?.(nav.menu.length > 1);
-        setSecondNavData(nav.menu as []);
-        setCurNavId(nav.id);
+    if (navList.length) {
+      if (isFull) {
+        changeShowSecondNav?.(false);
+        setSecondNavData(navList[0].menu as []);
+        setCurNavId(navList[0].id);
         return;
       }
+      for (let nav of navList) {
+        const curNav = nav.menu.find((menu) => pathname.includes(menu.path));
+        if (curNav) {
+          changeShowSecondNav?.(nav.menu.length > 1);
+          setSecondNavData(nav.menu as []);
+          setCurNavId(nav.id);
+          return;
+        }
+      }
+      changeShowSecondNav?.(false);
+      setSecondNavData([]);
+      setCurNavId('');
     }
-    changeShowSecondNav?.(false);
-    setSecondNavData([]);
-    setCurNavId('');
   }, [pathname, navList]);
 
   const handleClickNav = (nav: NavbarListType) => {
-    if (nav.id === curNavId) return;
     router.push(nav.menu[0].path);
   };
   return (
