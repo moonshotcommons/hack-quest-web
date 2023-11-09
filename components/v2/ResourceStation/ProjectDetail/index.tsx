@@ -1,4 +1,4 @@
-import { FC, ReactNode, useEffect, useState } from 'react';
+import { FC, ReactNode, useEffect, useMemo, useState } from 'react';
 import ProjectCard from '../../ProjectCard';
 import Pagination from '../../Common/Pagination';
 import Link from 'next/link';
@@ -45,6 +45,34 @@ const ProjectDetail: FC<ProjectDetailProps> = (props) => {
     run();
   }, [projectId]);
 
+  const Video = useMemo(() => {
+    return (
+      <>
+        {project?.video && (
+          <div className="mt-[30px] bg-gray-300 rounded-[10px] max-h-[504px] w-full">
+            {!project.video.includes('youtube') && (
+              <video controls className="w-full" key={project.id}>
+                <source src={project.video}></source>
+              </video>
+            )}
+            {project.video.includes('youtube') && (
+              <YouTube
+                videoId={getYoutubeId(project.video)}
+                loading="lazy"
+                iframeClassName="w-full min-h-[500px]"
+              />
+            )}
+          </div>
+        )}
+        {!project?.video && project?.thumbnail && (
+          <div className="relative h-[504px] w-full mt-4">
+            <Image src={project?.thumbnail} alt="hackquest" fill></Image>
+          </div>
+        )}
+      </>
+    );
+  }, [project]);
+
   return (
     <Loading loading={loading}>
       <div className="w-full min-h-[50vh]">
@@ -68,27 +96,7 @@ const ProjectDetail: FC<ProjectDetailProps> = (props) => {
               <p className="mt-[8px] font-next-book text-[21px] leading-[160%] tracking-[0.42px]">
                 {project.description}
               </p>
-              {project.video && (
-                <div className="mt-[30px] bg-gray-300 rounded-[10px] max-h-[504px] w-full">
-                  {!project.video.includes('youtube') && (
-                    <video controls className="w-full">
-                      <source src={project.video}></source>
-                    </video>
-                  )}
-                  {project.video.includes('youtube') && (
-                    <YouTube
-                      videoId={getYoutubeId(project.video)}
-                      loading="lazy"
-                      iframeClassName="w-full min-h-[500px]"
-                    />
-                  )}
-                </div>
-              )}
-              {!project.video && (
-                <div className="relative h-[504px] w-full mt-4">
-                  <Image src={project.thumbnail} alt="hackquest" fill></Image>
-                </div>
-              )}
+              {Video}
               <p className="mt-[30px] font-next-book text-[18px] leading-[160%] tracking-[0.36px] opacity-[0.6]">
                 {`${project.hackathonName} · ${project.tracks.join(' · ')}`}
               </p>
