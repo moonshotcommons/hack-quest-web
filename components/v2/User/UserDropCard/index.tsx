@@ -1,5 +1,6 @@
 import SettingIcon from '@/components/Common/Icon/Setting';
 import SignOutIcon from '@/components/Common/Icon/SignOut';
+import ProfileIcon from '@/components/Common/Icon/Profile';
 import { BurialPoint } from '@/helper/burialPoint';
 import { LoginResponse } from '@/service/webApi/user/type';
 import {
@@ -73,6 +74,18 @@ const UserDropCard: FC<UserDropCardProps> = (props) => {
       <UserInfo userInfo={userInfo}></UserInfo>
       <div
         className="relative mt-[2rem] w-full py-[2rem] text-setting-drop-handler-color border-t border-setting-drop-user-border flex justify-start items-center gap-[1.25rem] cursor-pointer"
+        onClick={() => {
+          onClose();
+          BurialPoint.track('profile');
+        }}
+      >
+        <span>
+          <ProfileIcon size={24} color="currentColor"></ProfileIcon>
+        </span>
+        <span className="text-[1rem] leading-[120%]">Profile</span>
+      </div>
+      <div
+        className="relative w-full py-[2rem] text-setting-drop-handler-color border-t border-setting-drop-user-border flex justify-start items-center gap-[1.25rem] cursor-pointer"
         onClick={() => {
           onClose();
           dispatch(setSettingsOpen(true));
