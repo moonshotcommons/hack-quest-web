@@ -15,6 +15,7 @@ import { FC } from 'react';
 import { AiFillCaretUp } from 'react-icons/ai';
 import { useDispatch } from 'react-redux';
 import ArrowUp from '@/public/images/user/arrow_up.png';
+import Link from 'next/link';
 interface UserDropCardProps {
   // children: ReactNode;
   userInfo: LoginResponse;
@@ -72,18 +73,20 @@ const UserDropCard: FC<UserDropCardProps> = (props) => {
       <div className="absolute top-0 right-[10px] w-[47px] h-[10px] bg-[#0b0b0b]"></div>
 
       <UserInfo userInfo={userInfo}></UserInfo>
-      <div
-        className="relative mt-[2rem] w-full py-[2rem] text-setting-drop-handler-color border-t border-setting-drop-user-border flex justify-start items-center gap-[1.25rem] cursor-pointer"
-        onClick={() => {
-          onClose();
-          BurialPoint.track('profile');
-        }}
-      >
-        <span>
-          <ProfileIcon size={24} color="currentColor"></ProfileIcon>
-        </span>
-        <span className="text-[1rem] leading-[120%]">Profile</span>
-      </div>
+      <Link href={'/user/profile'}>
+        <div
+          className="relative mt-[2rem] w-full py-[2rem] text-setting-drop-handler-color border-t border-setting-drop-user-border flex justify-start items-center gap-[1.25rem] cursor-pointer"
+          onClick={() => {
+            onClose();
+            BurialPoint.track('profile');
+          }}
+        >
+          <span>
+            <ProfileIcon size={24} color="currentColor"></ProfileIcon>
+          </span>
+          <span className="text-[1rem] leading-[120%]">Profile</span>
+        </div>
+      </Link>
       <div
         className="relative w-full py-[2rem] text-setting-drop-handler-color border-t border-setting-drop-user-border flex justify-start items-center gap-[1.25rem] cursor-pointer"
         onClick={() => {
