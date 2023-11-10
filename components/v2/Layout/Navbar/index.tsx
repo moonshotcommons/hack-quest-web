@@ -51,10 +51,6 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
       changeShowSecondNav?.(false);
       setSecondNavData([]);
       setCurNavId('');
-    } else {
-      changeShowSecondNav?.(false);
-      setSecondNavData([]);
-      setCurNavId('');
     }
   }, [pathname, navList]);
 
