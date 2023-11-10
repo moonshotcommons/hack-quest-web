@@ -90,7 +90,6 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
 
   const { run: thirdPartyVerify, loading: thirdPartyLoading } = useRequest(
     async () => {
-      console.log('再次执行');
       const res = await webApi.userApi.checkInviteCodeByThirdParty(
         formData.inviteCode,
         formData.token

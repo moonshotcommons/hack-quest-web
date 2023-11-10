@@ -24,17 +24,18 @@ function MissionCenter() {
     setLoading(true);
     webApi.missionCenterApi
       .missionClaim(missionIds)
-      .then(() => {
-        updateMissionDataAll();
-        message.success('success');
-      })
-      .catch((error) => {
-        message.error(`claim ${error.msg}!`);
-      })
-      .finally(() => {
+      .then(async () => {
+        await updateMissionDataAll();
         cb && cb();
         setLoading(false);
         setMissionIds([]);
+        message.success('success');
+      })
+      .catch(async (error) => {
+        cb && cb();
+        setLoading(false);
+        setMissionIds([]);
+        message.error(`claim ${error.msg}!`);
       });
   };
   return (

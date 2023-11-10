@@ -37,10 +37,10 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({
   }, [hackathon]);
   return (
     <div
-      className="h-[443px] cursor-pointer font-next-book rounded-[10px] bg-[#fff] overflow-hidden flex  mb-[20px] hover:-translate-y-1 transition-all duration-300 shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)] "
+      className="h-[400px] cursor-pointer font-next-book rounded-[10px] bg-[#fff] overflow-hidden flex  mb-[20px] hover:-translate-y-1 transition-all duration-300 shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)] "
       onClick={goHackathonDetail}
     >
-      <div className="h-full flex-1 relative bg-[#d9d9d9]/30">
+      <div className="h-full w-[711px] relative bg-[#d9d9d9]/30">
         <Image
           src={hackathon.image}
           fill
@@ -48,7 +48,7 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({
           className="object-cover"
         ></Image>
       </div>
-      <div className="w-[580px] h-full flex flex-col justify-between p-[40px]">
+      <div className="flex-1 h-full flex flex-col justify-between p-[30px]">
         <div className="flex">
           <div className="text-[21px] leading-[21px] font-next-book-bold">
             {hackathon.name}
@@ -59,7 +59,7 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({
           <div>
             <div className="text-[#8C8C8C]">RUNS FROM</div>
             <div className="text-[16px]">
-              {getRunFromTime(hackathon.startTime)}
+              {getRunFromTime(hackathon.startTime, hackathon.endTime)}
             </div>
           </div>
           <div>
