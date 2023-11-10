@@ -74,7 +74,6 @@ const logo = (
 const HomeBanner: FC<HomeBannerProps> = (props) => {
   const userInfo = useGetUserInfo();
   const unLoginType = useGetUserUnLoginType();
-
   return (
     <div
       className="h-[820px] flex justify-center w-full pt-[60px]"
