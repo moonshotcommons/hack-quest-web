@@ -39,6 +39,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
         setCurNavId(navList[0].id);
         return;
       }
+
       for (let nav of navList) {
         const curNav = nav.menu.find((menu) => pathname.includes(menu.path));
         if (curNav) {

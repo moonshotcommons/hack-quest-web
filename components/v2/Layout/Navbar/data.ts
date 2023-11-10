@@ -50,3 +50,5 @@ export const navbarList: NavbarListType[] = [
     ]
   }
 ];
+
+export const excludeLink = ['/user/profile'];
