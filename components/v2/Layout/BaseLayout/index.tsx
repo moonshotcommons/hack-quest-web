@@ -51,8 +51,10 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
           <User></User>
         </NavBar>
       </div>
+      <div className="h-[64px] bg-[#0b0b0b]"></div>
       <div className="m-auto">
-        <div className={`w-full ${showSecondNav ? 'pt-[110px]' : 'pt-[64px]'}`}>
+        {/* <div className={`w-full ${showSecondNav ? 'pt-[110px]' : 'pt-[64px]'}`}> */}
+        <div className={`w-full ${showSecondNav ? 'pt-[58px]' : ''}`}>
           {renderBreadcrumb()}
           <main className="w-full">{children}</main>
         </div>
