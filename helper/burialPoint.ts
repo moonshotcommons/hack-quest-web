@@ -4,6 +4,7 @@ type BaseBurialPointType =
   | '使用navbar跳转'
   | '头像加载失败'
   | 'settings'
+  | 'profile'
   | '登出';
 
 type SettingsBurialPointType =

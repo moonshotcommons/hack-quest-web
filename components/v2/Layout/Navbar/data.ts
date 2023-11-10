@@ -38,5 +38,15 @@ export const navbarList: NavbarListType[] = [
         path: MenuLink.HACKATHON
       }
     ]
+  },
+  {
+    label: 'Campaigns',
+    id: 'Campaigns',
+    menu: [
+      {
+        label: 'XXXX',
+        path: MenuLink.CAMPAIGINS
+      }
+    ]
   }
 ];
