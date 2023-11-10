@@ -64,7 +64,10 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
       >
         <div className="h-full flex items-center justify-between font-next-book">
           <nav className="gap-[4rem] h-full flex items-center text-[#fff]">
-            <Image src={DarkLogoActive} alt="logo"></Image>
+            {/* <Image src={DarkLogoActive} alt="logo"></Image> */}
+            <h1 className="font-bold text-[24px] tracking-wider">
+              Mantle University
+            </h1>
             <div className="flex gap-[10px] h-[34px]  text-[14px] rounded-[20px] bg-[#3E3E3E] overflow-hidden tracking-[0.28px]">
               {navList.map((nav) => (
                 <div
