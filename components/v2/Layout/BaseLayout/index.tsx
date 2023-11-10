@@ -28,9 +28,7 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
   const renderBreadcrumb = useCallback(() => {
     const full = getFull();
     const { navList } = navbarData;
-    if (full || pathname === '/') {
-      return null;
-    }
+    if (full || pathname === '/' || !navList.length) return null;
     for (let menu of navList) {
       if (menu.menu.some((v) => v.path === pathname)) {
         return null;
