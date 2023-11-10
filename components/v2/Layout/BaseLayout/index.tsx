@@ -42,20 +42,19 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
       } `}
     >
       <div className="w-full fixed left-0 top-0 bg-[#0B0B0B] h-[64px] flex items-center z-[99] shadow-[box-shadow: rgba(17, 12, 46, 0.15)_0px_48px_100px_0px]">
-        <div className="relative container m-auto h-full ">
-          <div className="2xl:px-[40px] 2xl:w-[calc(100%+160px)] w-full h-full absolute top-0 left-1/2 -translate-x-1/2">
-            <NavBar
-              {...navbarData}
-              showSecondNav={showSecondNav}
-              changeShowSecondNav={(show) => setShowSecondNav(show)}
-            >
-              <User></User>
-            </NavBar>
-          </div>
-        </div>
+        <NavBar
+          {...navbarData}
+          isFull={getFull()}
+          showSecondNav={showSecondNav}
+          changeShowSecondNav={(show) => setShowSecondNav(show)}
+        >
+          <User></User>
+        </NavBar>
       </div>
+      <div className="h-[64px] bg-[#0b0b0b]"></div>
       <div className="m-auto">
-        <div className={`w-full ${showSecondNav ? 'pt-[110px]' : 'pt-[64px]'}`}>
+        {/* <div className={`w-full ${showSecondNav ? 'pt-[110px]' : 'pt-[64px]'}`}> */}
+        <div className={`w-full ${showSecondNav ? 'pt-[58px]' : ''}`}>
           {renderBreadcrumb()}
           <main className="w-full">{children}</main>
         </div>

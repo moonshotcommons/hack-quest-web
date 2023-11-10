@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { menuLink } from '@/components/v2/Breadcrumb/data';
 import { Menu, QueryIdType } from '@/components/v2/Breadcrumb/type';
 import { Typography } from 'antd';
+
 interface PastHackathonCardProps {
   hackathon: HackathonType;
 }
@@ -22,8 +23,8 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon }) => {
     <Link
       href={`${menuLink.hackathon}/${hackathon.id}?menu=${Menu.HACKATHON}&${QueryIdType.HACKATHON_ID}=${hackathon.id}`}
     >
-      <div className="rounded-[10px] w-full h-fit flex gap-y-[22px] flex-col bg-white shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] hover:-translate-y-1 transition-all duration-300 hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)] cursor-pointer">
-        <div className="h-[194px] w-full bg-[#D9D9D9] rounded-t-[10px] relative overflow-hidden">
+      <div className="rounded-[10px] overflow-hidden w-full h-fit flex gap-y-[22px] flex-col bg-white shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] hover:-translate-y-1 transition-all duration-300 hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)] cursor-pointer">
+        <div className="w-full bg-[#D9D9D9] rounded-t-[10px] relative pt-[56.25%] h-0">
           {cover && (
             <Image
               src={cover}

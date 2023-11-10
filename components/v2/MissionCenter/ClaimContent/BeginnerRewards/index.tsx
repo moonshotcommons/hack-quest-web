@@ -13,7 +13,7 @@ const BeginnerRewards: React.FC<TabContentType> = ({
   unClaimMissionData,
   missionClaim
 }) => {
-  const { missionIds } = useContext(MissionCenterContext);
+  const { missionIds, loading } = useContext(MissionCenterContext);
   const allIds = useMemo(() => {
     return unClaimMissionData.map((v) => v.id);
   }, [unClaimMissionData]);
