@@ -9,6 +9,10 @@
     height: 100%;
     overflow: auto;
   } */
+  body {
+    /* background: red; */
+    @apply bg-[#0b0b0b];
+  }
 }
 @tailwind components;
 @tailwind utilities;
