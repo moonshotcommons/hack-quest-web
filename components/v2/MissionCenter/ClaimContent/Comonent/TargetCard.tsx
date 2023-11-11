@@ -95,7 +95,7 @@ const TargetCard: React.FC<TargetCardProp> = ({
       }`}
     >
       <div
-        className="h-full bg-auth-primary-button-bg opacity-40 absolute left-0 top-0"
+        className="h-full bg-auth-primary-button-bg opacity-40 absolute left-0 top-0 rounded-[10px]"
         style={{
           width: `${
             (missionData.progress.progress[0] /
