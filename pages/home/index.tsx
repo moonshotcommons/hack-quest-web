@@ -4,6 +4,8 @@ import React, { useEffect } from 'react';
 import FeatureCourses from '@/components/v2/Home/FeaturedCourses';
 import { BurialPoint } from '@/helper/burialPoint';
 import { NextPage } from 'next';
+import Title from '@/components/Head/Title';
+
 interface HomeProps {
   children: React.ReactNode;
 }
@@ -20,6 +22,7 @@ const Home: NextPage<HomeProps> = (props) => {
 
   return (
     <div className="">
+      <Title title="Dashboard" />
       <LearningCourses />
       <FeatureCourses></FeatureCourses>
     </div>

@@ -15,7 +15,7 @@ const Landing: NextPage<any> = (props) => {
     };
   }, []);
   return (
-    <div className="flex  flex-col justify-center">
+    <div className="flex flex-col justify-center">
       <HomeBanner></HomeBanner>
       <HackQuestInfo></HackQuestInfo>
       <div className="mx-auto container py-[150px] flex justify-center">
