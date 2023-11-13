@@ -1,23 +1,29 @@
 import Button from '@/components/v2/Common/Button';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import Box from '../components/Box';
 import Add from '../components/Add';
 import { BoxType, IconValue } from '../components/HoverIcon/type';
 import HoverIcon from '../components/HoverIcon';
+import Edit from './Edit';
 
 interface ExperienceProps {}
 
 const Experience: FC<ExperienceProps> = (props) => {
   const handleAdd = () => {};
-  const handleClickIcon = (value: IconValue) => {
-    console.info(value);
+  const [editOpen, setEditOpen] = useState(false);
+  const handleClick = (value: IconValue) => {
+    switch (value) {
+      case 'edit':
+        setEditOpen(true);
+        break;
+    }
   };
   return (
     <Box className="font-next-poster relative group">
       <div className="absolute right-[30px] top-[30px] hidden group-hover:block">
         <HoverIcon
           boxType={BoxType.EXPERIENCE}
-          handleClick={handleClickIcon}
+          handleClick={handleClick}
           editTip="Edit your experience"
         />
       </div>
@@ -75,6 +81,7 @@ const Experience: FC<ExperienceProps> = (props) => {
           handleClick={handleAdd}
         />
       )}
+      <Edit open={editOpen} onClose={() => setEditOpen(false)} />
     </Box>
   );
 };
