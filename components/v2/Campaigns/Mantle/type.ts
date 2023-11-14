@@ -1,8 +1,21 @@
+import { MantleType, TargetsType } from '@/service/webApi/campagins/type';
 import { createContext } from 'react';
 
 export interface MantleContextType {
-  mantle: any;
+  mantle: MantleType;
+  targetList: TargetsType[];
+  campaignsClaim: () => void;
+  campaignsTargetClaim: (ids: string[]) => void;
+  loading: boolean;
+  refresh: () => void;
+  claimIds: string[];
 }
 export const MantleContext = createContext<MantleContextType>({
-  mantle: {}
+  mantle: {} as MantleType,
+  targetList: [],
+  campaignsClaim: () => {},
+  campaignsTargetClaim: () => {},
+  loading: false,
+  refresh: () => {},
+  claimIds: []
 });

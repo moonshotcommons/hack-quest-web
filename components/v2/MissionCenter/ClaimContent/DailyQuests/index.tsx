@@ -6,7 +6,7 @@ import IconCoin from '@/public/images/mission-center/icon_coin.png';
 import IconXp from '@/public/images/mission-center/icon_xp.png';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import TargetCard from '../Comonent/TargetCard';
+import TargetCard from '../component/TargetCard';
 import { TabContentType } from '../../type';
 import { BurialPoint } from '@/helper/burialPoint';
 import { MissionCenterContext } from '@/components/v2/MissionCenter/type';
