@@ -12,6 +12,7 @@ import NavBar, { NavBarProps } from '../Navbar';
 import Breadcrumb from '@/components/v2/Breadcrumb';
 import { useRouter } from 'next/router';
 import { excludeLink } from '../Navbar/data';
+import { MenuLink } from '../Navbar/type';
 const inter = Inter({ subsets: ['latin'] });
 export interface V2LayoutProps {
   navbarData: NavBarProps;
@@ -33,7 +34,7 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
       full ||
       pathname === '/' ||
       !navList.length ||
-      ~excludeLink.indexOf(pathname)
+      ~excludeLink.indexOf(pathname as MenuLink)
     )
       return null;
     for (let menu of navList) {

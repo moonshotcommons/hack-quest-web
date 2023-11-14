@@ -25,6 +25,8 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
   const pathname = router.pathname;
   const [secondNavData, setSecondNavData] = useState([]);
   const [curNavId, setCurNavId] = useState('');
+  const [outSideNav, setOutSideNav] = useState<NavbarListType[]>([]);
+  const [inSideNav, setInSideNav] = useState<NavbarListType[]>([]);
   const { missionData } = useSelector((state: AppRootState) => {
     return {
       missionData: state.missionCenter?.missionData
@@ -33,14 +35,18 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
 
   useEffect(() => {
     if (navList.length) {
+      const outSide = navList.filter((v) => v.type === 'outSide');
+      setOutSideNav(outSide);
+      const inSide = navList.filter((v) => v.type !== 'outSide');
+      setInSideNav(inSide);
       if (isFull) {
         changeShowSecondNav?.(false);
-        setSecondNavData(navList[0].menu as []);
-        setCurNavId(navList[0].id);
+        setSecondNavData(inSide[0].menu as []);
+        setCurNavId(inSide[0].id);
         return;
       }
 
-      for (let nav of navList) {
+      for (let nav of inSide) {
         const curNav = nav.menu.find((menu) => pathname.includes(menu.path));
         if (curNav) {
           changeShowSecondNav?.(nav.menu.length > 1);
@@ -56,6 +62,10 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
   }, [pathname, navList]);
 
   const handleClickNav = (nav: NavbarListType) => {
+    if (nav.id === 'playground') {
+      router.push(process.env.IDE_URL || 'https://ide.dev.hackquest.io');
+      return;
+    }
     router.push(nav.menu[0].path);
   };
   return (
@@ -64,10 +74,10 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
         className={`h-full  ${isFull ? 'w-full 2xl:px-[40px]' : 'container'}`}
       >
         <div className="h-full flex items-center justify-between font-next-book">
-          <nav className="gap-[4rem] h-full flex items-center text-[#fff]">
+          <nav className="h-full flex items-center text-[#fff]">
             <Image src={DarkLogoActive} alt="logo"></Image>
-            <div className="flex gap-[10px] h-[34px]  text-[14px] rounded-[20px] bg-[#3E3E3E] overflow-hidden tracking-[0.28px]">
-              {navList.map((nav) => (
+            <div className="flex ml-[64px] gap-[10px] h-[34px]  text-[14px] rounded-[20px] bg-[#3E3E3E] overflow-hidden tracking-[0.28px]">
+              {inSideNav.map((nav) => (
                 <div
                   key={nav.id}
                   className={`h-full flex-center px-[14px] rounded-[20px] cursor-pointer ${
@@ -80,6 +90,19 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
                     {nav.id === 'missions' && (
                       <Badge count={missionData?.unClaimAll?.length || 0} />
                     )}
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="flex ml-[20px] gap-[10px] h-[34px]  text-[14px] rounded-[20px] bg-[#3E3E3E] overflow-hidden tracking-[0.28px]">
+              {outSideNav.map((nav) => (
+                <div
+                  key={nav.id}
+                  className={`h-full flex-center px-[14px] rounded-[20px] cursor-pointer `}
+                  onClick={() => handleClickNav(nav)}
+                >
+                  <div className="relative">
+                    <span>{nav.label}</span>
                   </div>
                 </div>
               ))}

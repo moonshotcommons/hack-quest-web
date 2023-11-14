@@ -48,7 +48,13 @@ export const navbarList: NavbarListType[] = [
         path: MenuLink.CAMPAIGINS
       }
     ]
+  },
+  {
+    label: 'Playground',
+    id: 'playground',
+    type: 'outSide',
+    menu: []
   }
 ];
 
-export const excludeLink = ['/user/profile'];
+export const excludeLink = [MenuLink.USER_PROFILE];

@@ -1,29 +1,32 @@
-import Button from '@/components/Common/Button';
-import { ProcessType } from '@/service/webApi/course/type';
+import { menuLink } from '@/components/v2/Breadcrumb/data';
+import { Menu, QueryIdType } from '@/components/v2/Breadcrumb/type';
+import Button from '@/components/v2/Common/Button';
 import { useRouter } from 'next/router';
 interface NoDataType {
-  curTab: ProcessType;
+  goPast: VoidFunction;
 }
-const NoData: React.FC<NoDataType> = ({ curTab }) => {
+const NoData: React.FC<NoDataType> = ({ goPast }) => {
   const router = useRouter();
   return (
     <div className="flex flex-col items-center pb-[100px] font-next-book">
       <p className="text-home-learning-track-no-data-color text-[32px]">
-        {curTab === ProcessType.IN_PROCESS
-          ? 'You don’t have any on-going course'
-          : 'You don’t have any completed course'}
+        There is no ongoing hackathon
       </p>
       <Button
-        onClick={() => router.push('learning-track')}
+        onClick={goPast}
         className="w-[360px] mt-[30px] text-[18px] mb-[20px] h-[55px] bg-home-learning-track-no-data-button-add-bg text-home-learning-track-no-data-button-add-color"
       >
-        Add a New Learning Track
+        Check Past Hackathon
       </Button>
       <Button
-        onClick={() => router.push('electives')}
+        onClick={() =>
+          router.push(
+            `${menuLink.projects}/projects?menu=${Menu.PROJECTS}&${QueryIdType.PROJECT_ID}=projects`
+          )
+        }
         className="w-[360px] h-[55px] text-[18px] border border-home-learning-track-no-data-button-explore-border text-home-learning-track-no-data-button-explore-color"
       >
-        Explore Elective Courses
+        Check All Projects
       </Button>
     </div>
   );
