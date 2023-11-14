@@ -2,7 +2,7 @@ import Button from '@/components/v2/Common/Button';
 import { MissionDataType } from '@/service/webApi/missionCenter/type';
 import React, { useContext, useMemo } from 'react';
 import IconHack from '@/public/images/mission-center/icon_hack.png';
-import TargetCard from '../Comonent/TargetCard';
+import TargetCard from '../component/TargetCard';
 import { TabContentType } from '../../type';
 import { BurialPoint } from '@/helper/burialPoint';
 import { MissionCenterContext } from '@/components/v2/MissionCenter/type';
