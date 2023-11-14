@@ -2,7 +2,7 @@ import Button from '@/components/v2/Common/Button';
 import { MissionSubType } from '@/service/webApi/missionCenter/type';
 import React, { useContext, useMemo } from 'react';
 
-import TargetCard from '../Comonent/TargetCard';
+import TargetCard from '../component/TargetCard';
 import { TabContentType } from '../../type';
 import { rewardsCardData } from './data';
 import { BurialPoint } from '@/helper/burialPoint';
