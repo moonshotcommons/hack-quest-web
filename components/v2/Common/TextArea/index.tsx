@@ -2,8 +2,7 @@ import { cn } from '@/helper/utils';
 import { useDebounceFn } from 'ahooks';
 import Schema, { Rule, Rules } from 'async-validator';
 import {
-  HTMLInputTypeAttribute,
-  InputHTMLAttributes,
+  TextareaHTMLAttributes,
   ReactNode,
   forwardRef,
   useEffect,
@@ -16,10 +15,9 @@ import EyeIcon from '../Icon/Eye';
 import PassIcon from '../Icon/Pass';
 import WarningIcon from '../Icon/Warning';
 
-export interface InputProps {
+interface InputProps {
   name: string;
   label: string | ReactNode;
-  type: HTMLInputTypeAttribute;
   placeholder?: string;
   state?: 'success' | 'error' | 'warning' | 'default';
   className?: string;
@@ -28,6 +26,7 @@ export interface InputProps {
   errorMessage?: string | null | undefined;
   rules?: Rule;
   delay?: number;
+  row?: number;
   defaultValue?: string;
   clear?: boolean;
   showVisibleIcon?: boolean;
@@ -40,7 +39,7 @@ export interface InputRef {
 
 const Input = forwardRef<
   InputRef,
-  InputProps & InputHTMLAttributes<HTMLInputElement>
+  InputProps & TextareaHTMLAttributes<HTMLTextAreaElement>
 >((props, ref) => {
   const {
     label,
@@ -55,12 +54,13 @@ const Input = forwardRef<
     delay = 0,
     className,
     onChange,
+    row = 5,
     defaultValue = '',
     clear = false,
     showVisibleIcon = propType === 'password' ? true : false,
     ...rest
   } = props;
-  const inputRef = useRef<HTMLInputElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const [status, setStatus] = useState(propsState);
   const [errorMessage, setErrorMessage] = useState('');
@@ -82,10 +82,10 @@ const Input = forwardRef<
   useImperativeHandle(ref, () => {
     return {
       focus: () => {
-        inputRef.current?.focus();
+        textareaRef.current?.focus();
       },
       blur: () => {
-        inputRef.current?.blur();
+        textareaRef.current?.blur();
       },
       setStatus(value: any) {
         setStatus(value);
@@ -117,17 +117,17 @@ const Input = forwardRef<
 
   return (
     <div className="flex flex-col gap-[0.75rem]">
-      <p className="text-[21px] font-next-poster leading-[125%] tracking-[1.26px] label">
+      <p className="text-[21px] font-next-poster leading-[125%] tracking-[1.26px]">
         {label}
       </p>
       <div className="relative">
-        <input
-          ref={inputRef}
-          type={type}
+        <textarea
+          ref={textareaRef}
           value={value}
           placeholder={placeholder}
+          rows={row}
           className={cn(
-            `w-full border border-solid border-[#212121] outline-none px-[25px] py-[15px] rounded-[2.5rem] text-[14px] font-next-book leading-[118.5%] caret-[#ffffff] hover:border-[#212121] focus:border-[#212121]`,
+            `w-full border border-solid min-h-[150px] max-h-[300px] border-[#212121] outline-none px-[25px] py-[15px] rounded-[24px] text-[14px] font-next-book leading-[118.5%]  hover:border-[#212121] focus:border-[#212121]`,
             // type === 'password' &&
             //   'border-auth-password-input-bg focus:border-[#212121]',
             status === 'success'
@@ -156,7 +156,7 @@ const Input = forwardRef<
                 setErrorMessage('');
                 setStatus('default');
                 const event = {
-                  target: inputRef.current
+                  target: textareaRef.current
                 };
                 onChange?.(event as any);
               }}

@@ -27,13 +27,13 @@ function HackathonBox() {
   const renderHackathon = () => {
     switch (curTab) {
       case HackathonStatusType.ON_GOING:
-        return <OnGoing />;
+        return <OnGoing goPast={() => setCurTab(HackathonStatusType.PAST)} />;
       case HackathonStatusType.PAST:
         return <Past />;
     }
   };
   return (
-    <div className="pb-10  container mx-auto">
+    <div className="pb-10  container mx-auto ">
       <PageDescription
         title="Welcome to HackQuest Hackathon!"
         description="Explore ongoing hackathons, uncover past projects, and dive into the world of innovation. Your journey through the realm of creativity begins here! 🚀💡"

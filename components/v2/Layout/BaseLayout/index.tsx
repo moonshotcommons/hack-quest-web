@@ -1,10 +1,18 @@
 import User from '@/components/v2/User';
 import { Inter } from 'next/font/google';
-import React, { ReactNode, useCallback, useMemo, useState } from 'react';
+import React, {
+  ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState
+} from 'react';
 import NavBar, { NavBarProps } from '../Navbar';
 
 import Breadcrumb from '@/components/v2/Breadcrumb';
 import { useRouter } from 'next/router';
+import { excludeLink } from '../Navbar/data';
+import { MenuLink } from '../Navbar/type';
 const inter = Inter({ subsets: ['latin'] });
 export interface V2LayoutProps {
   navbarData: NavBarProps;
@@ -22,7 +30,13 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
   const renderBreadcrumb = useCallback(() => {
     const full = getFull();
     const { navList } = navbarData;
-    if (full || pathname === '/' || !navList.length) return null;
+    if (
+      full ||
+      pathname === '/' ||
+      !navList.length ||
+      ~excludeLink.indexOf(pathname as MenuLink)
+    )
+      return null;
     for (let menu of navList) {
       if (menu.menu.some((v) => v.path === pathname)) {
         return null;
@@ -34,6 +48,12 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
       </div>
     );
   }, [pathname, navbarData]);
+
+  useEffect(() => {
+    if (pathname === '/') {
+      setShowSecondNav(false);
+    }
+  }, [pathname]);
 
   return (
     <div
@@ -54,7 +74,7 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
       <div className="h-[64px] bg-[#0b0b0b]"></div>
       <div className="m-auto">
         {/* <div className={`w-full ${showSecondNav ? 'pt-[110px]' : 'pt-[64px]'}`}> */}
-        <div className={`w-full ${showSecondNav ? 'pt-[58px]' : ''}`}>
+        <div className={`w-full ${showSecondNav ? 'pt-[48px]' : ''}`}>
           {renderBreadcrumb()}
           <main className="w-full">{children}</main>
         </div>

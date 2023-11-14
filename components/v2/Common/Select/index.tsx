@@ -2,12 +2,12 @@ import { cn } from '@/helper/utils';
 import { useDebounceFn } from 'ahooks';
 import Schema, { Rule, Rules } from 'async-validator';
 import {
-  HTMLInputTypeAttribute,
   InputHTMLAttributes,
   ReactNode,
   forwardRef,
   useEffect,
   useImperativeHandle,
+  useMemo,
   useRef,
   useState
 } from 'react';
@@ -15,22 +15,23 @@ import CloseIcon from '../Icon/Close';
 import EyeIcon from '../Icon/Eye';
 import PassIcon from '../Icon/Pass';
 import WarningIcon from '../Icon/Warning';
+import { AiFillCaretDown } from 'react-icons/ai';
+import { FiCheck } from 'react-icons/fi';
+import { OptionType } from './type';
+import { use } from 'echarts';
 
-export interface InputProps {
+interface SelectProps {
   name: string;
   label: string | ReactNode;
-  type: HTMLInputTypeAttribute;
   placeholder?: string;
   state?: 'success' | 'error' | 'warning' | 'default';
   className?: string;
-  prefix?: ReactNode;
+  onChange: (v: string) => void;
   description?: string;
   errorMessage?: string | null | undefined;
   rules?: Rule;
-  delay?: number;
   defaultValue?: string;
-  clear?: boolean;
-  showVisibleIcon?: boolean;
+  options: OptionType[];
 }
 
 export interface InputRef {
@@ -38,42 +39,41 @@ export interface InputRef {
   blur: () => void;
 }
 
-const Input = forwardRef<
+const Select = forwardRef<
   InputRef,
-  InputProps & InputHTMLAttributes<HTMLInputElement>
+  SelectProps & InputHTMLAttributes<HTMLInputElement>
 >((props, ref) => {
   const {
     label,
-    type: propType,
     placeholder,
-    prefix,
     description,
     state: propsState,
     errorMessage: propsErrorMessage,
     name,
     rules,
-    delay = 0,
     className,
     onChange,
+    disabled,
     defaultValue = '',
-    clear = false,
-    showVisibleIcon = propType === 'password' ? true : false,
+    options,
     ...rest
   } = props;
   const inputRef = useRef<HTMLInputElement>(null);
 
   const [status, setStatus] = useState(propsState);
   const [errorMessage, setErrorMessage] = useState('');
-  const descriptor: Rules = {
-    [name]: rules || {}
-  };
-  const validator = new Schema(descriptor);
   const [value, setValue] = useState(defaultValue);
-  const [type, setType] = useState(propType);
+  const [selectLabel, setSelectLabel] = useState('');
+  const [visibleOption, setVisibleOption] = useState(false);
 
   useEffect(() => {
     setStatus(propsState);
   }, [propsState]);
+
+  useEffect(() => {
+    const l = options?.find((v) => v.value === value)?.label || '';
+    setSelectLabel(l);
+  }, [value, options]);
 
   useEffect(() => {
     setErrorMessage(propsErrorMessage || '');
@@ -96,38 +96,26 @@ const Input = forwardRef<
     };
   });
 
-  const { run } = useDebounceFn(
-    (e) => {
-      if (rules) {
-        validator.validate({ [name]: e.target.value }, (errors, fields) => {
-          if (errors && errors[0]) {
-            setStatus('error');
-            setErrorMessage(errors[0].message || '');
-          } else {
-            setStatus('success');
-            setErrorMessage('');
-          }
-        });
-      }
-
-      onChange?.(e);
-    },
-    { wait: delay }
-  );
-
   return (
-    <div className="flex flex-col gap-[0.75rem]">
-      <p className="text-[21px] font-next-poster leading-[125%] tracking-[1.26px] label">
+    <div className="flex flex-col gap-[0.75rem] w-full relative">
+      <p className="text-[21px] font-next-poster leading-[125%] tracking-[1.26px]">
         {label}
       </p>
       <div className="relative">
         <input
           ref={inputRef}
-          type={type}
-          value={value}
+          onFocus={() => setVisibleOption(true)}
+          onBlur={() =>
+            setTimeout(() => {
+              setVisibleOption(false);
+            }, 100)
+          }
+          type={'text'}
+          value={selectLabel}
+          readOnly
           placeholder={placeholder}
           className={cn(
-            `w-full border border-solid border-[#212121] outline-none px-[25px] py-[15px] rounded-[2.5rem] text-[14px] font-next-book leading-[118.5%] caret-[#ffffff] hover:border-[#212121] focus:border-[#212121]`,
+            `w-full border cursor-pointer border-solid border-[#212121] outline-none px-[25px] py-[15px] rounded-[2.5rem] text-[14px] font-next-book leading-[118.5%] caret-[#ffffff] hover:border-[#212121] focus:border-[#212121]`,
             // type === 'password' &&
             //   'border-auth-password-input-bg focus:border-[#212121]',
             status === 'success'
@@ -138,16 +126,13 @@ const Input = forwardRef<
               : '',
             className
           )}
-          onChange={(e) => {
-            setValue(e.target.value);
-            setErrorMessage('');
-            setStatus('default');
-            run(e);
-          }}
           {...rest}
         />
 
         <span className="absolute right-[1.4375rem] top-[50%] -translate-y-[50%] flex gap-4 items-center">
+          {status === 'default' && (
+            <AiFillCaretDown className=" text-[#8c8c8c] text-[20px]" />
+          )}
           {status === 'error' && (
             <span
               className="text-auth-input-error-color flex justify-center items-center cursor-pointer"
@@ -155,10 +140,7 @@ const Input = forwardRef<
                 setValue('');
                 setErrorMessage('');
                 setStatus('default');
-                const event = {
-                  target: inputRef.current
-                };
-                onChange?.(event as any);
+                onChange?.('');
               }}
             >
               <CloseIcon width={20} height={20}></CloseIcon>
@@ -169,30 +151,44 @@ const Input = forwardRef<
               <PassIcon width={19} height={15} color="currentColor"></PassIcon>
             </span>
           )}
-          {showVisibleIcon && value && (
-            <span
-              className="text-auth-input-visible-icon-color cursor-pointer"
-              onMouseDown={(e) => {
-                if (propType === 'password' && type === 'password') {
-                  setType('text');
-                }
-              }}
-              onMouseLeave={(e) => {
-                if (propType === 'password' && type === 'text') {
-                  setType('password');
-                }
-              }}
-              onMouseUp={() => {
-                if (propType === 'password' && type === 'text') {
-                  setType('password');
-                }
-              }}
-            >
-              <EyeIcon size={20} color="currentColor"></EyeIcon>
-            </span>
-          )}
         </span>
       </div>
+      {visibleOption && (
+        <div className="absolute w-full top-[37px] z-[1000] text-[21px] text-[#] bg-[#fff] left-0 border border-[#212121] rounded-[24px] pb-[5px] font-next-book overflow-hidden">
+          <div
+            className="flex items-center justify-between mx-[20px] h-[48px] border-b border-b-[#8C8C8C] cursor-pointer"
+            onClick={() => {
+              setVisibleOption(false);
+            }}
+          >
+            <span>{selectLabel}</span>
+            <AiFillCaretDown className=" text-[#8c8c8c] text-[20px] rotate-180" />
+          </div>
+          <ul className="w-full max-h-[250px] overflow-auto">
+            {options.map((v: OptionType) => (
+              <li
+                key={v.value}
+                className={`leading-[34px] px-[20px] flex items-center justify-between mt-[5px] cursor-pointer ${
+                  value === v.value ? 'bg-[#F4F4F4]' : ''
+                }`}
+                onClick={() => {
+                  setValue(v.value);
+                  setErrorMessage('');
+                  setStatus('default');
+                  setVisibleOption(false);
+                  onChange?.(v.value);
+                }}
+              >
+                <span>{v.label}</span>
+                {value === v.value && (
+                  <FiCheck className="text-[#3E3E3E] text-[14px]" />
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       {description && (
         <p className="ml-[1.5rem] text-  text-[1rem] leading-[150%] tracking-[-0.011rem] font-Sofia-Pro-Light-Az">
           {description}
@@ -208,6 +204,6 @@ const Input = forwardRef<
   );
 });
 
-Input.displayName = 'Input';
+Select.displayName = 'Select';
 
-export default Input;
+export default Select;

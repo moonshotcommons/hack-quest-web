@@ -8,16 +8,20 @@ import { useRequest } from 'ahooks';
 import webApi from '@/service';
 import { message } from 'antd';
 import Loading from '@/components/v2/Common/Loading';
+import NoData from './NoData';
 
-interface OnGoingProp {}
+interface OnGoingProp {
+  goPast: VoidFunction;
+}
 
-const OnGoing: React.FC<OnGoingProp> = () => {
+const OnGoing: React.FC<OnGoingProp> = ({ goPast }) => {
   const { data: list = [], loading } = useRequest(
     async () => {
       const res = await webApi.hackathon.getHackathonList({
         status: HackathonStatusType.ON_GOING
       });
-      return res.data || [];
+      // return res.data || [];
+      return [];
     },
     {
       onError(err: any) {
@@ -28,11 +32,15 @@ const OnGoing: React.FC<OnGoingProp> = () => {
   );
   return (
     <Loading loading={loading}>
-      <div className="text-[#0b0b0b] text-[14px]">
-        {list.map((hackathon: HackathonType) => (
-          <OnGoingHackathonCard hackathon={hackathon} key={hackathon.id} />
-        ))}
-      </div>
+      {!list.length ? (
+        <NoData goPast={goPast} />
+      ) : (
+        <div className="text-[#0b0b0b] text-[14px]">
+          {list.map((hackathon: HackathonType) => (
+            <OnGoingHackathonCard hackathon={hackathon} key={hackathon.id} />
+          ))}
+        </div>
+      )}
     </Loading>
   );
 };
