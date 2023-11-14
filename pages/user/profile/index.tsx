@@ -10,12 +10,22 @@ interface IProps {}
 const UserProfilePage: NextPage<IProps> = (props) => {
   return (
     <>
-      <div className="container h-[500px] m-auto">
-        <PersonalEdit edit={true}></PersonalEdit>
-        <GithubActivity></GithubActivity>
-        <OnChainActivity></OnChainActivity>
-        <Experience></Experience>
-        <PersonalLinks></PersonalLinks>
+      <div className="container m-auto pb-[80px]">
+        <div className="mt-[40px]">
+          <PersonalEdit edit={true}></PersonalEdit>
+        </div>
+        <div className="flex gap-[40px] mt-[40px] w-full">
+          <div className="flex-1">
+            <GithubActivity></GithubActivity>
+          </div>
+          <OnChainActivity></OnChainActivity>
+        </div>
+        <div className="flex gap-[40px] mt-[40px] w-full">
+          <div className="flex-1">
+            <Experience></Experience>
+          </div>
+          <PersonalLinks></PersonalLinks>
+        </div>
       </div>
     </>
   );

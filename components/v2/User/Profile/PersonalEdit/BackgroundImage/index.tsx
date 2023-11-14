@@ -16,7 +16,7 @@ const BackgroundImage: FC<BackgroundImageProps> = (props) => {
   return (
     <div className="w-full z-50">
       <div
-        className="w-full h-[210px] bg-red-300 relative"
+        className="w-full h-[210px] relative"
         onMouseEnter={() => {
           if (edit) {
             setShowEditIcon(true);
