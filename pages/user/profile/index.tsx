@@ -11,7 +11,7 @@ const UserProfilePage: NextPage<IProps> = (props) => {
   return (
     <>
       <div className="container h-[500px] m-auto">
-        <PersonalEdit></PersonalEdit>
+        <PersonalEdit edit={true}></PersonalEdit>
         <GithubActivity></GithubActivity>
         <OnChainActivity></OnChainActivity>
         <Experience></Experience>
