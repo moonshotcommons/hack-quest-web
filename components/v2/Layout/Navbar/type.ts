@@ -4,7 +4,8 @@ export enum MenuLink {
   ELECTIVES = '/electives',
   MISSION_CENTER = '/mission-center',
   HACKATHON = '/resource-station/hackathon',
-  PROJECTS = '/resource-station/hackathon/projects'
+  PROJECTS = '/resource-station/hackathon/projects',
+  CAMPAIGINS = '/campaigns'
 }
 export interface MenuType {
   label: string;

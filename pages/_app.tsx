@@ -5,6 +5,7 @@ import '@/styles/globals.css';
 import { Analytics } from '@vercel/analytics/react';
 import type { AppContext, AppProps } from 'next/app';
 import App from 'next/app';
+import Head from 'next/head';
 
 import wrapper from '@/store/redux';
 import { Provider } from 'react-redux';
@@ -81,6 +82,9 @@ function MyApp(appProps: AppProps & Omit<LayoutProps, 'pathname'>) {
             navbarData={navbarData}
             pathname={pathname}
           >
+            <Head>
+              <title>HackQuest</title>
+            </Head>
             <Component {...props.pageProps} />
           </Layout>
         </WagmiConfig>

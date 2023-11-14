@@ -11,6 +11,7 @@ import NavBar, { NavBarProps } from '../Navbar';
 
 import Breadcrumb from '@/components/v2/Breadcrumb';
 import { useRouter } from 'next/router';
+import { excludeLink } from '../Navbar/data';
 const inter = Inter({ subsets: ['latin'] });
 export interface V2LayoutProps {
   navbarData: NavBarProps;
@@ -28,7 +29,13 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
   const renderBreadcrumb = useCallback(() => {
     const full = getFull();
     const { navList } = navbarData;
-    if (full || pathname === '/' || !navList.length) return null;
+    if (
+      full ||
+      pathname === '/' ||
+      !navList.length ||
+      ~excludeLink.indexOf(pathname)
+    )
+      return null;
     for (let menu of navList) {
       if (menu.menu.some((v) => v.path === pathname)) {
         return null;
