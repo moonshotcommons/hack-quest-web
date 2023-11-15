@@ -96,7 +96,7 @@ const HomeBanner: FC<HomeBannerProps> = (props) => {
             {logo}
           </div>
         </div>
-        <div className="w-[400px]">
+        <div className="w-[400px] mt-[200px]">
           <Auth />
         </div>
       </div>

@@ -80,16 +80,12 @@ const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
     { manual: true }
   );
 
-  useEffect(() => {
-    error?.message && message.error(error?.message);
-  }, [error]);
-
   return (
     <Button
       block
       loading={metamaskLoading}
       disabled={metamaskLoading}
-      className="border mt-[25px] border-[#f4f4f4] py-[13px] text-[#fff] relative"
+      className="px-0 py-[0px] text-[#fff] relative w-fit"
       onClick={() => {
         if (!metamaskConnector?.ready) {
           message.error('Please connect to your metamask plugin!');
@@ -98,14 +94,7 @@ const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
         }
       }}
     >
-      <Image
-        src={Metamask}
-        width={22}
-        height={22}
-        alt="Github"
-        className="absolute left-[25px] top-[16px]"
-      ></Image>
-      {'Continue with MetaMask'}
+      <Image src={Metamask} width={40} height={40} alt="MetaMask"></Image>
     </Button>
   );
 };
