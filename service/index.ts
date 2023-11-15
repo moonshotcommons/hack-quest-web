@@ -6,6 +6,7 @@ import PreviewApi from './webApi/preview';
 import UserApi from './webApi/user';
 import HackathonApi from './webApi/resourceStation/hackathon';
 import ProjectApi from './webApi/resourceStation/project';
+import CampaignsApi from './webApi/campagins';
 
 class WebApi {
   protected baseURL: string;
@@ -19,6 +20,7 @@ class WebApi {
   userApi: UserApi;
   hackathon: HackathonApi;
   project: ProjectApi;
+  campaigns: CampaignsApi;
 
   constructor(baseURL: string) {
     this.baseURL = baseURL;
@@ -33,6 +35,7 @@ class WebApi {
     this.userApi = new UserApi(this.service);
     this.hackathon = new HackathonApi(this.service);
     this.project = new ProjectApi(this.service);
+    this.campaigns = new CampaignsApi(this.service);
   }
 }
 

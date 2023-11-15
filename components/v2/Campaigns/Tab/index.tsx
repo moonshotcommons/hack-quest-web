@@ -1,5 +1,4 @@
 import React from 'react';
-import { divide } from 'lodash-es';
 import Badge from '@/components/Common/Badge';
 import { TabListType } from './type';
 
