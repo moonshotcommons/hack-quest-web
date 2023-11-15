@@ -5,10 +5,13 @@ import Add from '../components/Add';
 import { BoxType, IconValue } from '../components/HoverIcon/type';
 import HoverIcon from '../components/HoverIcon';
 import Edit from './Edit';
+import { PageType } from './type';
 
-interface ExperienceProps {}
+interface ExperienceProps {
+  pageType: PageType;
+}
 
-const Experience: FC<ExperienceProps> = (props) => {
+const Experience: FC<ExperienceProps> = ({ pageType }) => {
   const handleAdd = () => {};
   const [editOpen, setEditOpen] = useState(false);
   const handleClick = (value: IconValue) => {
@@ -28,7 +31,7 @@ const Experience: FC<ExperienceProps> = (props) => {
         />
       </div>
       <div className="text-[28px] font-next-book-bold tracking-[1.68px]">
-        Experience (6)
+        {pageType === 'experience' ? 'Experience' : 'Hackathon'} (6)
       </div>
       {false ? (
         <>
@@ -76,8 +79,14 @@ const Experience: FC<ExperienceProps> = (props) => {
         </>
       ) : (
         <Add
-          addText="Share your work experience with others"
-          buttonText="Add Experience"
+          addText={
+            pageType === 'experience'
+              ? 'Share your work experience with others'
+              : 'Share your hackathon experience with others'
+          }
+          buttonText={
+            pageType === 'experience' ? 'Add Experience' : 'Add Hackathon'
+          }
           handleClick={handleAdd}
         />
       )}
