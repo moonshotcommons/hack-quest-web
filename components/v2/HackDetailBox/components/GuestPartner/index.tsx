@@ -42,17 +42,21 @@ const GuestPartner: React.FC<GuestPartnerProp> = ({ listData, title }) => {
           </div>
         ))}
       </div>
-      <div className="flex justify-end text-[18px]">
-        <div
-          className="flex items-center cursor-pointer"
-          onClick={() => setShowAll(!showAll)}
-        >
-          <span>Show {showAll ? 'Less' : 'All'}</span>
-          <VscChevronDown
-            className={`transition text-[24px] ${showAll ? 'rotate-180' : ''}`}
-          />
+      {listData.length > 6 && (
+        <div className="flex justify-end text-[18px]">
+          <div
+            className="flex items-center cursor-pointer"
+            onClick={() => setShowAll(!showAll)}
+          >
+            <span>Show {showAll ? 'Less' : 'All'}</span>
+            <VscChevronDown
+              className={`transition text-[24px] ${
+                showAll ? 'rotate-180' : ''
+              }`}
+            />
+          </div>
         </div>
-      </div>
+      )}
     </Box>
   );
 };
