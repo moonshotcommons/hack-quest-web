@@ -27,9 +27,6 @@ function ThreePartyLogin() {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const { connectAsync, connectors, error, isLoading, pendingConnector, data } =
-    useConnect();
-
   const loginThreeParty = async (type: AuthType) => {
     switch (type) {
       // case AuthType.METAMASK:
@@ -42,10 +39,6 @@ function ThreePartyLogin() {
   };
 
   useEffect(() => {
-    error?.message && message.error(error?.message);
-  }, [error]);
-
-  useEffect(() => {
     setIsMounted(true);
   }, []);
 
@@ -56,41 +49,25 @@ function ThreePartyLogin() {
       <div className="my-[25px]">
         <div className="relative flex py-[9px] justify-center">
           <div className="text-center h-[22px] text-[#fff] text-[18px] tracking-[1.08px]">
-            Or
+            or continue with
           </div>
-          <div className="absolute left-0 top-[21px] w-[calc(50%-50px)] h-[1px] bg-white"></div>
-          <div className="absolute right-0 top-[21px] w-[calc(50%-50px)] h-[1px] bg-white"></div>
+          <div className="absolute left-0 top-[21px] w-[calc(50%-100px)] h-[1px] bg-white"></div>
+          <div className="absolute right-0 top-[21px] w-[calc(50%-100px)] h-[1px] bg-white"></div>
         </div>
       </div>
-      <div>
-        <Button
-          block
-          className="border border-[#f4f4f4] py-[13px] text-[#fff] relative"
+      <div className="flex gap-[30px] justify-center">
+        <div
           onClick={() => loginThreeParty(AuthType.GOOGLE)}
+          className="cursor-pointer"
         >
-          <Image
-            src={Google}
-            width={22}
-            height={22}
-            alt="Google"
-            className="absolute left-[25px] top-[16px]"
-          ></Image>
-          Continue with Google
-        </Button>
-        <Button
-          block
-          className="border mt-[25px] py-[13px] border-[#f4f4f4] text-[#fff] relative"
+          <Image src={Google} width={40} height={40} alt="Google"></Image>
+        </div>
+        <div
           onClick={() => loginThreeParty(AuthType.GITHUB)}
+          className="cursor-pointer"
         >
-          <Image
-            src={Github}
-            width={22}
-            height={22}
-            alt="Github"
-            className="absolute left-[25px] top-[16px]"
-          ></Image>
-          Continue with GitHub
-        </Button>
+          <Image src={Github} width={40} height={40} alt="Github"></Image>
+        </div>
         <MetamaskLoginButton></MetamaskLoginButton>
 
         {/* <div className="text-red-700 flex gap-1 flex-wrap ">
