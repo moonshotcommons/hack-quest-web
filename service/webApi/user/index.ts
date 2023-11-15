@@ -4,7 +4,10 @@ import {
   LoginResponse,
   RegisterParamsType,
   RegisterResponse,
-  AuthType
+  AuthType,
+  UserProfileType,
+  UserExperienceType,
+  UserPersonalType
 } from './type';
 import { transformQueryString } from '@/helper/formate';
 
@@ -22,7 +25,8 @@ export enum UserApiType {
   googleVerify = 'auth/google/callback',
   githubVerify = 'auth/github/callback',
   CheckInViteCode = '/users/verify-inviteCode',
-  WalletVerify = '/auth/wallet'
+  WalletVerify = '/auth/wallet',
+  UserProfile = '/users/profile'
 }
 
 class UserApi {
@@ -147,6 +151,49 @@ class UserApi {
         type
       }
     });
+  }
+
+  /** 获取用户信息 */
+  getUserProfile() {
+    return this.service.get<UserProfileType>(UserApiType.UserProfile);
+  }
+  /** 编辑用户信息 */
+  editUserProfile(data: UserPersonalType) {
+    return this.service.put<UserPersonalType>(UserApiType.UserProfile, {
+      data
+    });
+  }
+  /**上传背景图片 */
+  uploadBackgroudImage(url: string) {
+    return this.service.post(`${UserApiType.UserProfile}/background-image`, {
+      data: {
+        backgroundImage: url
+      }
+    });
+  }
+  /**新增ex */
+  addExperience(data: Omit<UserExperienceType, 'id'>) {
+    return this.service.post<UserExperienceType>(
+      `${UserApiType.UserProfile}/work-experience`,
+      {
+        data
+      }
+    );
+  }
+  /**编辑ex */
+  editExperience(id: string, data: Omit<UserExperienceType, 'id'>) {
+    return this.service.put<UserExperienceType>(
+      `${UserApiType.UserProfile}/work-experience/${id}`,
+      {
+        data
+      }
+    );
+  }
+  /**删除ex */
+  deleteExperience(id: string) {
+    return this.service.delete(
+      `${UserApiType.UserProfile}/work-experience/${id}`
+    );
   }
 }
 

@@ -50,3 +50,38 @@ export enum AuthType {
   GITHUB = 'Github',
   METAMASK = 'Metamask'
 }
+
+export enum WorkExperienceType {
+  FULL_TIME = 'FULL_TIME',
+  PART_TIME = 'PART_TIME',
+  CONTRACTOR = 'CONTRACTOR',
+  INTERNSHIP = 'INTERNSHIP'
+}
+export interface UserExperienceType {
+  id: string;
+  title: string;
+  companyName: string;
+  employmentType: WorkExperienceType;
+  location: string;
+  startDate: string;
+  endDate?: string;
+  isCurrentWork: boolean;
+  description: string;
+}
+export interface UserProfileType {
+  id: string;
+  location: string;
+  experience: number;
+  techStack: string[];
+  backgroundImage?: string;
+  personalLinks: Record<string, string>;
+  githubActivity: any;
+  onChainActivity: any;
+  workExperience: UserExperienceType[];
+}
+
+export interface UserPersonalType {
+  location: string;
+  experience: number;
+  techStack: string[];
+}

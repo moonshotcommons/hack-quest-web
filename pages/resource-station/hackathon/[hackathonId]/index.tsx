@@ -1,8 +1,5 @@
 import { FC, useEffect, useRef, useState } from 'react';
 import About from '@/components/v2/HackDetailBox/About';
-import GuestsMentors from '@/components/v2/HackDetailBox/GuestsMentors';
-import MediaPartners from '@/components/v2/HackDetailBox/MediaPartners';
-import CommunityPartners from '@/components/v2/HackDetailBox/CommunityPartners';
 import HackathonInfo from '@/components/v2/HackDetailBox/HackathonInfo';
 import { useRequest } from 'ahooks';
 import { useRouter } from 'next/router';

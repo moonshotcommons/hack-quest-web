@@ -20,8 +20,7 @@ const OnGoing: React.FC<OnGoingProp> = ({ goPast }) => {
       const res = await webApi.hackathon.getHackathonList({
         status: HackathonStatusType.ON_GOING
       });
-      // return res.data || [];
-      return [];
+      return res.data || [];
     },
     {
       onError(err: any) {
