@@ -13,14 +13,16 @@ import type { NextPage } from 'next';
 interface IProps {}
 
 const UserProfilePage: NextPage<IProps> = (props) => {
-  const { refresh, data: profile = {} as UserProfileType } = useRequest(
-    async () => {
-      const res = await webApi.userApi.getUserProfile();
-      return res;
-    }
-  );
+  const {
+    refresh,
+    data: profile = {} as UserProfileType,
+    loading
+  } = useRequest(async () => {
+    const res = await webApi.userApi.getUserProfile();
+    return res;
+  });
   return (
-    <ProfileContext.Provider value={{ profile, refresh }}>
+    <ProfileContext.Provider value={{ profile, refresh, loading }}>
       <div className="container m-auto pb-[80px]">
         <div className="mt-[40px]">
           <PersonalEdit edit={true}></PersonalEdit>
