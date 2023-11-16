@@ -77,7 +77,7 @@ export interface UserProfileType {
   personalLinks: Record<string, string>;
   githubActivity: any;
   onChainActivity: any;
-  workExperience: UserExperienceType[];
+  workExperiences: UserExperienceType[];
 }
 
 export interface UserPersonalType {

@@ -1,8 +1,5 @@
 import { ReactNode } from 'react';
-export enum BoxType {
-  GITHUB_ACTIVITY = 'GithubActivity',
-  EXPERIENCE = 'Experience'
-}
+import { BoxType } from '../../type';
 
 export enum IconValue {
   REFRESH = 'refresh',
