@@ -28,7 +28,7 @@ export interface InputProps {
   errorMessage?: string | null | undefined;
   rules?: Rule;
   delay?: number;
-  defaultValue?: string;
+  defaultValue?: string | number;
   clear?: boolean;
   showVisibleIcon?: boolean;
 }
