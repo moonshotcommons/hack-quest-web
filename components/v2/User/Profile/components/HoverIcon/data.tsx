@@ -1,4 +1,5 @@
-import { FiRefreshCw, FiLink, FiEye, FiEyeOff, FiEdit3 } from 'react-icons/fi';
+import { FiRefreshCw, FiLink, FiEye, FiEyeOff } from 'react-icons/fi';
+import { CiEdit } from 'react-icons/ci';
 import { BoxType, IconType, IconValue } from './type';
 
 export const iconList: IconType[] = [
@@ -13,7 +14,7 @@ export const iconList: IconType[] = [
     type: [BoxType.GITHUB_ACTIVITY]
   },
   {
-    icon: <FiEdit3 size={20} />,
+    icon: <CiEdit size={26} />,
     value: IconValue.EDIT,
     type: [BoxType.EXPERIENCE]
   },
