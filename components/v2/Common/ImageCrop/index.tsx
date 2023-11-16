@@ -81,6 +81,7 @@ const deprecate = (obj: Record<string, any>, old: string, now: string) => {
  */
 const ImageCrop = forwardRef<ImageCropRef, ImageCropProps>((props, ref) => {
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const {
     title,
     beforeCrop,
@@ -138,16 +139,23 @@ const ImageCrop = forwardRef<ImageCropRef, ImageCropProps>((props, ref) => {
 
   // on modal confirm
   onOk.current = async (event: MouseEvent<HTMLElement>) => {
-    setModalImage('');
-    setOpen(false);
-    easyCropRef.current!.onReset();
+    setLoading(true);
     const canvas = getCropCanvas(event.target as ShadowRoot);
     const { type, name, uid } = fileList[0] as UploadFile;
 
     canvas.toBlob(
       async (blob) => {
-        const newFile = new File([blob as BlobPart], name, { type });
-        cb.current.onModalOk?.(Object.assign(newFile, { uid }));
+        try {
+          const newFile = new File([blob as BlobPart], name, { type });
+          await cb.current.onModalOk?.(Object.assign(newFile, { uid }));
+          setModalImage('');
+          easyCropRef.current!.onReset();
+          setOpen(false);
+        } catch (err) {
+          errorMessage(err);
+        } finally {
+          setLoading(false);
+        }
       },
       type,
       quality
@@ -382,7 +390,7 @@ const ImageCrop = forwardRef<ImageCropRef, ImageCropProps>((props, ref) => {
       }}
       showCloseIcon
       icon={
-        <div className="absolute right-[30px] top-[30px] cursor-pointer">
+        <div className="absolute -top-2 -right-2 cursor-pointer">
           <svg
             width="30"
             height="30"
@@ -434,6 +442,8 @@ const ImageCrop = forwardRef<ImageCropRef, ImageCropProps>((props, ref) => {
           <Button
             className="w-[265px] flex items-center justify-center py-[12px]"
             type="primary"
+            loading={loading}
+            disabled={loading}
             onClick={(e) => {
               onOk.current?.(e);
             }}
