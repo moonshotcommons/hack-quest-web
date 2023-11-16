@@ -1,22 +1,24 @@
+import { WorkExperienceType } from '@/service/webApi/user/type';
+
 export const employmentTypeList = [
   {
-    label: 'Full-time',
-    value: 'Full-time'
+    label: WorkExperienceType.FULL_TIME,
+    value: WorkExperienceType.FULL_TIME
   },
   {
-    label: 'Part-time',
-    value: 'Part-time'
+    label: WorkExperienceType.PART_TIME,
+    value: WorkExperienceType.PART_TIME
   },
   {
-    label: 'Contractor',
-    value: 'Contractor'
+    label: WorkExperienceType.CONTRACTOR,
+    value: WorkExperienceType.CONTRACTOR
   },
   {
-    label: 'Internship',
-    value: 'Internship'
+    label: WorkExperienceType.INTERNSHIP,
+    value: WorkExperienceType.INTERNSHIP
   }
 ];
-const months = [
+export const months = [
   'January',
   'February',
   'March',
@@ -27,14 +29,14 @@ const months = [
   'August',
   'September',
   'October',
-  'October',
+  'November',
   'December'
 ];
 const curYear = new Date().getFullYear();
 const yearStart = 1949;
-export const monthList = months.map((label, i) => ({
-  label,
-  value: String(i + 1)
+export const monthList = months.map((v, i) => ({
+  label: v,
+  value: v
 }));
 export const yearList = Array.from({ length: curYear - yearStart + 1 }).map(
   (_, i) => ({

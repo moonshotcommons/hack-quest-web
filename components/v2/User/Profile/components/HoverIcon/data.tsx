@@ -1,6 +1,7 @@
 import { FiRefreshCw, FiLink, FiEye, FiEyeOff } from 'react-icons/fi';
 import { CiEdit } from 'react-icons/ci';
-import { BoxType, IconType, IconValue } from './type';
+import { IconType, IconValue } from './type';
+import { BoxType } from '../../type';
 
 export const iconList: IconType[] = [
   {

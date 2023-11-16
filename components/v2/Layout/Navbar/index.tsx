@@ -58,14 +58,16 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
       changeShowSecondNav?.(false);
       setSecondNavData([]);
       setCurNavId('');
+    } else {
+      setOutSideNav([]);
+      setInSideNav([]);
+      changeShowSecondNav?.(false);
+      setSecondNavData([]);
+      setCurNavId('');
     }
   }, [pathname, navList]);
 
   const handleClickNav = (nav: NavbarListType) => {
-    if (nav.id === 'playground') {
-      router.push(process.env.IDE_URL || 'https://ide.dev.hackquest.io');
-      return;
-    }
     router.push(nav.menu[0].path);
   };
   return (
@@ -96,15 +98,14 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
             </div>
             <div className="flex ml-[20px] gap-[10px] h-[34px]  text-[14px] rounded-[20px] bg-[#3E3E3E] overflow-hidden tracking-[0.28px]">
               {outSideNav.map((nav) => (
-                <div
+                <Link
                   key={nav.id}
+                  href={nav.link as string}
+                  target="_blank"
                   className={`h-full flex-center px-[14px] rounded-[20px] cursor-pointer `}
-                  onClick={() => handleClickNav(nav)}
                 >
-                  <div className="relative">
-                    <span>{nav.label}</span>
-                  </div>
-                </div>
+                  {nav.label}
+                </Link>
               ))}
             </div>
           </nav>
