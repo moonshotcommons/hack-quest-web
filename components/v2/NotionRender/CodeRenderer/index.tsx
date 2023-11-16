@@ -42,7 +42,7 @@ const CodeRenderer: FC<CodeRendererProps> = (props) => {
   }, [component.content.rich_text, updateExampleContent]);
 
   return (
-    <div className="relative rounded-md flex-1">
+    <div className="relative rounded-md flex-1 overflow-hidden">
       <div className="h-[6px] relative bg-[#fafafa] rounded-t-[4.8px]">
         <div
           className="absolute top-[9px] right-[9px] text-[0.75rem] font-next-book text-[#E3E3E3] rounded-[0.5rem] cursor-pointer"
