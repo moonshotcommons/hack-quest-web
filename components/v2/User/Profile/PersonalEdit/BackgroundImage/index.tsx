@@ -44,7 +44,8 @@ const BackgroundImage: FC<BackgroundImageProps> = (props) => {
             <Image
               fill
               alt="background image"
-              src={profile.backgroundImage}
+              src={profile.backgroundImage || ''}
+              // src={'/images/user/test_background.png'}
             ></Image>
           )}
         </div>
