@@ -141,15 +141,21 @@ export async function urlToBlobAndBase64(url: string) {
   return new Promise<{ base64: string; blob: BlobPart }>(
     async (resolve, reject) => {
       try {
-        const response = await fetch('/api/helper/fetch-image', {
-          body: JSON.stringify({ url }),
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        });
+        let blob: Blob;
+        if (!url.startsWith('/')) {
+          const response = await fetch('/api/helper/fetch-image', {
+            body: JSON.stringify({ url }),
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          });
 
-        const blob = await response.blob();
+          blob = await response.blob();
+        } else {
+          const response = await fetch(url);
+          blob = await response.blob();
+        }
         const reader = new FileReader();
         reader.readAsDataURL(blob);
         reader.onload = () => {

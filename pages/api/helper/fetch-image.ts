@@ -18,14 +18,14 @@ const getMethodHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
 const postMethodHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const imageUrl = req.body.url;
-  // console.log(imageUrl);
+  console.log(imageUrl);
   // get image
-  console.log('--------------------1');
+
   try {
     const response = await axios.get<ArrayBuffer>(imageUrl, {
       responseType: 'arraybuffer'
     });
-    console.log('--------------------');
+
     console.log(response.data);
     res.setHeader('Content-Type', 'image/jpeg');
     res.end(response.data);

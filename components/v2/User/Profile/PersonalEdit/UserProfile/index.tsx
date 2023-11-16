@@ -6,6 +6,7 @@ import EditButton from '../EditButton';
 import { cn } from '@/helper/utils';
 import BasicInfoModal, { BasicInfoModalRef } from '../BasicInfoModal';
 import AvatarUpload from '../AvatarUpload';
+import Tooltip from '@/components/v2/Common/Tooltip';
 interface UserProfileProps {
   edit?: boolean;
 }
@@ -21,7 +22,7 @@ const UserProfile: FC<UserProfileProps> = (props) => {
       </div>
       <div
         className={cn(
-          'pt-[80px] font-next-book px-[30px] pb-[40px] transition-shadow duration-200 ',
+          'pt-[80px] font-next-book px-[30px] pb-[35px] transition-shadow duration-200 rounded-b-[10px]',
           showEditIcon ? 'shadow-[0px_4px_16px_0px_rgba(0,0,0,0.25)]' : ''
         )}
         onMouseEnter={() => {
@@ -36,7 +37,12 @@ const UserProfile: FC<UserProfileProps> = (props) => {
             className="absolute right-[30px] top-[68px]"
             onClick={() => basicInfoEditor.current?.onEdit({})}
           >
-            <EditButton className="bg-[#F4F4F4]"></EditButton>
+            <Tooltip
+              title="Edit your basic information"
+              placement="bottomRight"
+            >
+              <EditButton className="bg-[#F4F4F4]"></EditButton>
+            </Tooltip>
           </div>
         )}
         <div className="font-next-poster-Bold text-[28px] tracking-[1.68px] text-[#0B0B0B] leading-normal">
