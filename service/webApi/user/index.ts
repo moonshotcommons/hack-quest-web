@@ -157,17 +157,20 @@ class UserApi {
   getUserProfile() {
     return this.service.get<UserProfileType>(UserApiType.UserProfile);
   }
+
   /** 编辑用户信息 */
   editUserProfile(data: UserPersonalType) {
     return this.service.put<UserPersonalType>(UserApiType.UserProfile, {
       data
     });
   }
+
   /**上传背景图片 */
-  uploadBackgroudImage(url: string) {
+  uploadBackgroundImage(file: FormData) {
     return this.service.post(`${UserApiType.UserProfile}/background-image`, {
-      data: {
-        backgroundImage: url
+      data: file,
+      headers: {
+        'Content-Type': 'multipart/form-data'
       }
     });
   }
