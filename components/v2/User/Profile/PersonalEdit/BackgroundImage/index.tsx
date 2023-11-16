@@ -31,7 +31,7 @@ const BackgroundImage: FC<BackgroundImageProps> = (props) => {
         }}
         onMouseLeave={() => setShowEditIcon(false)}
       >
-        <div className="w-full h-full overflow-hidden">
+        <div className="w-full h-full overflow-hidden rounded-[10px]">
           {Object.keys(profile).includes('backgroundImage') &&
             !profile?.backgroundImage && (
               <Image
