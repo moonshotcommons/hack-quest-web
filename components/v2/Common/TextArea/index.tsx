@@ -15,7 +15,7 @@ import EyeIcon from '../Icon/Eye';
 import PassIcon from '../Icon/Pass';
 import WarningIcon from '../Icon/Warning';
 
-interface InputProps {
+interface TextAreaProps {
   name: string;
   label: string | ReactNode;
   placeholder?: string;
@@ -32,14 +32,14 @@ interface InputProps {
   showVisibleIcon?: boolean;
 }
 
-export interface InputRef {
+export interface TextAreaRef {
   focus: () => void;
   blur: () => void;
 }
 
-const Input = forwardRef<
-  InputRef,
-  InputProps & TextareaHTMLAttributes<HTMLTextAreaElement>
+const TextArea = forwardRef<
+  TextAreaRef,
+  TextAreaProps & TextareaHTMLAttributes<HTMLTextAreaElement>
 >((props, ref) => {
   const {
     label,
@@ -208,6 +208,6 @@ const Input = forwardRef<
   );
 });
 
-Input.displayName = 'Input';
+TextArea.displayName = 'TextArea';
 
-export default Input;
+export default TextArea;

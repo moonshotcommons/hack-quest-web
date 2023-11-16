@@ -1,20 +1,44 @@
 import Modal from '@/components/v2/Common/Modal';
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { FiX, FiChevronLeft } from 'react-icons/fi';
 import List from './List';
 import EditAdd from './EditAdd';
+import { ListDataType } from '..';
+import { PageType } from '../type';
+import { UserExperienceType } from '@/service/webApi/user/type';
+import { ProfileContext } from '../../type';
 
 interface EditProp {
   open: boolean;
+  list: ListDataType[];
   onClose: VoidFunction;
+  pageType: PageType;
 }
 
-const Edit: React.FC<EditProp> = ({ open, onClose }) => {
+export enum EditType {}
+
+const Edit: React.FC<EditProp> = ({ open, onClose, list, pageType }) => {
   const [status, setStatus] = useState('list');
-  const handleEdit = () => {
+  const [editType, setEditType] = useState<'add' | 'edit'>('add');
+  const [editEx, setEditEx] = useState<UserExperienceType>();
+  const { refresh } = useContext(ProfileContext);
+  const handleEdit = (id?: string) => {
+    if (id) {
+      const ex = list.find((v) => v.id === id) || {};
+      setEditEx(ex as UserExperienceType);
+      setEditType('edit');
+    } else {
+      setEditEx({} as UserExperienceType);
+      setEditType('add');
+    }
     setStatus('edit');
   };
-  const onRefresh = () => {};
+
+  const experienceAdd = () => {};
+
+  useEffect(() => {
+    open && setStatus('list');
+  }, [open]);
   return (
     <Modal
       open={open}
@@ -37,9 +61,14 @@ const Edit: React.FC<EditProp> = ({ open, onClose }) => {
           )}
         </div>
         {status === 'list' ? (
-          <List onClose={onClose} handleEdit={handleEdit} />
+          <List list={list} onClose={onClose} handleEdit={handleEdit} />
         ) : (
-          <EditAdd onCancel={() => setStatus('list')} onRefresh={onRefresh} />
+          <EditAdd
+            editEx={editEx}
+            editType={editType}
+            onCancel={() => setStatus('list')}
+            onRefresh={refresh}
+          />
         )}
       </div>
     </Modal>

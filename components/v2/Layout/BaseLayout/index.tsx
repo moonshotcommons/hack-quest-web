@@ -49,12 +49,6 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
     );
   }, [pathname, navbarData]);
 
-  useEffect(() => {
-    if (pathname === '/') {
-      setShowSecondNav(false);
-    }
-  }, [pathname]);
-
   return (
     <div
       className={`w-full overflow-x-auto   ${inter.className} ${
