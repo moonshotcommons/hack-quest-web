@@ -29,7 +29,7 @@ const UserProfile: FC<UserProfileProps> = (props) => {
       <div
         className={cn(
           'pt-[80px] font-next-book px-[30px] pb-[35px] transition-shadow duration-200 rounded-b-[10px]',
-          showEditIcon ? 'shadow-[0px_4px_16px_0px_rgba(0,0,0,0.25)]' : ''
+          showEditIcon ? 'shadow-[0px_4px_16px_0px_rgba(0,0,0,0.25)]' : ' '
         )}
         onMouseEnter={() => {
           if (edit) {
