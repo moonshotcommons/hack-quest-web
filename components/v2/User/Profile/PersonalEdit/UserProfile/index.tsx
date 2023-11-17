@@ -22,13 +22,13 @@ const UserProfile: FC<UserProfileProps> = (props) => {
   const userInfo = useGetUserInfo();
 
   return (
-    <div className="relative z-50">
+    <div className="relative h-full z-50">
       <div className="absolute w-[170px] h-[170px] rounded-full -top-[110px] left-[30px]">
         <AvatarUpload edit={edit}></AvatarUpload>
       </div>
       <div
         className={cn(
-          'pt-[80px] font-next-book px-[30px] pb-[35px] transition-shadow duration-200 rounded-b-[10px]',
+          'pt-[80px] font-next-book px-[30px] pb-[35px] transition-shadow duration-200 rounded-b-[10px] h-full',
           showEditIcon ? 'shadow-[0px_4px_16px_0px_rgba(0,0,0,0.25)]' : ' '
         )}
         onMouseEnter={() => {
@@ -54,8 +54,8 @@ const UserProfile: FC<UserProfileProps> = (props) => {
         <div className="font-next-poster-Bold text-[28px] tracking-[1.68px] text-[#0B0B0B] leading-normal">
           {userInfo?.name}
         </div>
-        <div className="mt-[10px] text-[18px] leading-[120%] text-[#8C8C8C]">
-          {userInfo?.email}
+        <div className="mt-[10px] text-[18px] leading-[120%] text-[#8C8C8C] whitespace-pre-line">
+          {userInfo?.email}&nbsp;
         </div>
         <div className="flex gap-x-[15px] mt-[31.5px] items-center">
           <span className="text-[21px] tracking-[0.42px] leading-[160%] text-[#8C8C8C]">
