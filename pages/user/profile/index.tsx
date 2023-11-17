@@ -1,5 +1,5 @@
-import ExperienceHackathon from '@/components/v2/User/Profile/ExperienceHackathon';
-import { PageType } from '@/components/v2/User/Profile/ExperienceHackathon/type';
+import Experience from '@/components/v2/User/Profile/Experience';
+import Hackathon from '@/components/v2/User/Profile/Hackathon';
 import GithubActivity from '@/components/v2/User/Profile/GithubActivity';
 import OnChainActivity from '@/components/v2/User/Profile/OnChainActivity';
 import PersonalEdit from '@/components/v2/User/Profile/PersonalEdit';
@@ -35,8 +35,8 @@ const UserProfilePage: NextPage<IProps> = (props) => {
         </div>
         <div className="flex gap-[40px] mt-[40px] w-full">
           <div className="flex-1 flex flex-col gap-[40px]">
-            <ExperienceHackathon pageType={PageType.EXPERIENCE} />
-            {/* <ExperienceHackathon pageType={PageType.HACKATHON} /> */}
+            <Experience />
+            <Hackathon />
           </div>
           <PersonalLinks></PersonalLinks>
         </div>
