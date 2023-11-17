@@ -21,7 +21,7 @@ const BackgroundImage: FC<BackgroundImageProps> = (props) => {
   const { profile, refresh } = useContext(ProfileContext);
 
   return (
-    <div className="w-full z-50">
+    <div className="w-full z-50 overflow-hidden rounded-t-[10px]">
       <div
         className="w-full h-[210px] relative"
         onMouseEnter={() => {
@@ -31,7 +31,7 @@ const BackgroundImage: FC<BackgroundImageProps> = (props) => {
         }}
         onMouseLeave={() => setShowEditIcon(false)}
       >
-        <div className="w-full h-full overflow-hidden rounded-[10px]">
+        <div className="w-full h-full">
           {Object.keys(profile).includes('backgroundImage') &&
             !profile?.backgroundImage && (
               <Image
