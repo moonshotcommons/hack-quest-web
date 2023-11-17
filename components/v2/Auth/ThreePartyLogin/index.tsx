@@ -55,18 +55,18 @@ function ThreePartyLogin() {
           <div className="absolute right-0 top-[21px] w-[calc(50%-100px)] h-[1px] bg-white"></div>
         </div>
       </div>
-      <div className="flex gap-[30px] justify-center">
+      <div className="flex gap-[15px] justify-center mt-4">
         <div
           onClick={() => loginThreeParty(AuthType.GOOGLE)}
-          className="cursor-pointer"
+          className="cursor-pointer w-[48px] h-[48px] border flex items-center justify-center rounded-[10px] border-[#8C8C8C] bg-[#0B0B0B]"
         >
-          <Image src={Google} width={40} height={40} alt="Google"></Image>
+          <Image src={Google} width={24} height={24} alt="Google"></Image>
         </div>
         <div
           onClick={() => loginThreeParty(AuthType.GITHUB)}
-          className="cursor-pointer"
+          className="cursor-pointer w-[48px] h-[48px] border flex items-center justify-center rounded-[10px] border-[#8C8C8C] bg-[#0B0B0B]"
         >
-          <Image src={Github} width={40} height={40} alt="Github"></Image>
+          <Image src={Github} width={24} height={24} alt="Github"></Image>
         </div>
         <MetamaskLoginButton></MetamaskLoginButton>
 
