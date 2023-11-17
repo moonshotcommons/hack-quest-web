@@ -33,7 +33,7 @@ const postMethodHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     // const imageBase64 = Buffer.from(response.data).toString('base64');
     // console.log(imageBase64);
   } catch (err) {
-    console.log(err);
+    res.end({ code: 500, msg: 'Picture request exception!' });
   }
 
   // res.setHeader('Content-Type', 'application/json');
