@@ -44,7 +44,7 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
   return (
     <div
       className={`rounded-[.625rem] py-[12px] px-[20px] bg-[#E6E6E6] flex w-full flex-col h-fit ${
-        expand ? 'min-h-fit flex-1' : ''
+        expand ? 'min-h-[50%] flex-1' : ''
       }`}
     >
       <div className="flex justify-between items-center">
@@ -62,7 +62,7 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
         </span>
       </div>
       {expand && (
-        <div className="relative mt-[20px] flex-1 flex flex-col">
+        <div className="relative mt-[20px] flex-1 flex flex-col overflow-hidden">
           <ExampleContext.Provider
             value={{
               updateExampleContent: (value: string) => setExampleContent(value),

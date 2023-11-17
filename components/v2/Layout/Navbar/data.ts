@@ -53,6 +53,7 @@ export const navbarList: NavbarListType[] = [
     label: 'Playground',
     id: 'playground',
     type: 'outSide',
+    link: process.env.IDE_URL || 'https://ide.dev.hackquest.io',
     menu: []
   }
 ];

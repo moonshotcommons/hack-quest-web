@@ -1,8 +1,20 @@
 import Button from '@/components/v2/Common/Button';
 import Input from '@/components/v2/Common/Input';
 import Modal from '@/components/v2/Common/Modal';
-import { Form } from 'antd';
-import { forwardRef, useImperativeHandle, useState } from 'react';
+import { Form, FormInstance, message } from 'antd';
+import {
+  forwardRef,
+  useContext,
+  useEffect,
+  useImperativeHandle,
+  useState
+} from 'react';
+import { ProfileContext } from '../../type';
+import { useRequest } from 'ahooks';
+import { MdCancel } from 'react-icons/md';
+import { ReactNode } from 'react';
+import webApi from '@/service';
+import { errorMessage } from '@/helper/utils';
 
 interface BasicInfoModalProps {}
 
@@ -10,9 +22,47 @@ export interface BasicInfoModalRef {
   onEdit: (params: Record<string, any>) => void;
 }
 
+interface FormKeyValues {
+  location: string;
+  experience: number;
+  techStack: string[];
+}
+
+const TechStackItem = ({
+  item,
+  onRemove
+}: {
+  item: string;
+  onRemove: (value: string) => void;
+}) => {
+  const [clearVisible, setClearVisible] = useState(false);
+  return (
+    <div
+      className="px-[14px] py-[3px] rounded-[10px] border border-[#3E3E3E] bg-[#F4F4F4] relative overflow-hidden text-[16px] text-[#0B0B0B] leading-[160%] tracking-[0.32px]"
+      onMouseEnter={() => setClearVisible(true)}
+      onMouseLeave={() => setClearVisible(false)}
+    >
+      {item}
+      {clearVisible && (
+        <span
+          className={`absolute w-full h-full top-0 left-0 bg-white flex items-center justify-center bg-opacity-90 cursor-pointer`}
+          onClick={() => {
+            onRemove(item);
+          }}
+        >
+          <MdCancel color="#3E3E3E" size={20} />
+        </span>
+      )}
+    </div>
+  );
+};
+
 const BasicInfoModal = forwardRef<BasicInfoModalRef, BasicInfoModalProps>(
   (props, ref) => {
     const [open, setOpen] = useState(false);
+    const [form] = Form.useForm<FormKeyValues>();
+    const { profile, refresh } = useContext(ProfileContext);
+    const [techStack, setTechStack] = useState(profile.techStack || []);
 
     useImperativeHandle(ref, () => {
       return {
@@ -22,6 +72,41 @@ const BasicInfoModal = forwardRef<BasicInfoModalRef, BasicInfoModalProps>(
       };
     });
 
+    useEffect(() => {
+      form.setFieldsValue({
+        location: profile.location,
+        experience: profile.experience || 0,
+        techStack: profile.techStack
+      });
+
+      setTechStack(profile.techStack || []);
+    }, [profile]);
+
+    const { run: onSubmit, loading } = useRequest(
+      async () => {
+        const values = await form.validateFields();
+        const res = await webApi.userApi.editUserProfile({
+          experience: Number(values.experience),
+          location: values.location,
+          techStack
+        });
+        return res;
+      },
+      {
+        manual: true,
+        onSuccess() {
+          refresh();
+          message.success('Update basic info success!');
+          form.resetFields();
+          setTechStack([]);
+          setOpen(false);
+        },
+        onError(err) {
+          errorMessage(err);
+        }
+      }
+    );
+
     return (
       <Modal
         open={open}
@@ -30,7 +115,7 @@ const BasicInfoModal = forwardRef<BasicInfoModalRef, BasicInfoModalProps>(
         }}
         showCloseIcon
         icon={
-          <div className="absolute right-[30px] top-[30px] cursor-pointer">
+          <div className="absolute -top-2 -right-2 cursor-pointer">
             <svg
               width="30"
               height="30"
@@ -61,9 +146,9 @@ const BasicInfoModal = forwardRef<BasicInfoModalRef, BasicInfoModalProps>(
           <div className="font-next-poster-Bold text-[28px] text-black tracking-[1.68px]">
             Basic Information
           </div>
-          <Form className="mt-[30px]">
+          <Form className="mt-[30px]" form={form}>
             <div className="flex gap-[30px]">
-              <Form.Item>
+              <Form.Item name="location">
                 <div
                   className="
                   [&>div]:gap-y-[5px]
@@ -76,13 +161,14 @@ const BasicInfoModal = forwardRef<BasicInfoModalRef, BasicInfoModalProps>(
                 >
                   <Input
                     name="location"
+                    defaultValue={form.getFieldValue('location')}
                     label="Location"
                     type="text"
                     className="w-[497px] py-[7px] px-[30px] text-[21px] font-next-book tracking-[0.063px] leading-[160%] border-[#8C8C8C] caret-gray-500"
                   ></Input>
                 </div>
               </Form.Item>
-              <Form.Item>
+              <Form.Item name="experience">
                 <div
                   className="
               [&>div]:gap-y-[5px]
@@ -95,9 +181,11 @@ const BasicInfoModal = forwardRef<BasicInfoModalRef, BasicInfoModalProps>(
               "
                 >
                   <Input
-                    name="location"
+                    name="experience"
                     label="Experience"
-                    type="text"
+                    type="number"
+                    min={0}
+                    defaultValue={form.getFieldValue('experience')}
                     className="py-[7px] px-[30px] text-[21px] font-next-book tracking-[0.063px] leading-[160%] border-[#8C8C8C] caret-gray-500"
                   ></Input>
                   <span className="mt-[46px] text-[21px] leading-[160%] text-black font-next-book tracking-[0.063px]">
@@ -106,9 +194,10 @@ const BasicInfoModal = forwardRef<BasicInfoModalRef, BasicInfoModalProps>(
                 </div>
               </Form.Item>
             </div>
-            <Form.Item>
-              <div
-                className="
+            <Form.Item name="techStack">
+              <div className="flex flex-col">
+                <div
+                  className="
               [&>div]:gap-y-[5px]
               [&>div>.label]:text-[#8C8C8C]
               [&>div>.label]:leading-[160%]
@@ -116,14 +205,54 @@ const BasicInfoModal = forwardRef<BasicInfoModalRef, BasicInfoModalProps>(
               [&>div>.label]:font-next-book
               [&>div>.label]:tracking-[0.42px]
               "
-              >
-                <Input
-                  name="location"
-                  label="Tech Stack"
-                  placeholder="Python / JavaScript / C# / ..."
-                  type="text"
-                  className="py-[7px] px-[30px] text-[21px] font-next-book tracking-[0.063px] leading-[160%] border-[#8C8C8C] caret-gray-500"
-                ></Input>
+                >
+                  <Input
+                    name="techStack"
+                    label="Tech Stack"
+                    placeholder="Python / JavaScript / C# / ..."
+                    type="text"
+                    className="py-[7px] px-[30px] pr-[106px] text-[21px] font-next-book tracking-[0.063px] font-next-book leading-[160%] border-[#8C8C8C] caret-gray-500"
+                  ></Input>
+                  <div className="absolute right-2 top-11">
+                    <Button
+                      type="primary"
+                      className="py-2 px-6"
+                      onClick={() => {
+                        const value = form.getFieldValue('techStack');
+                        let values: string[] = value.trim().split('/');
+                        values = values.filter((item: string) => {
+                          if (!techStack.includes(item)) return true;
+                          else {
+                            message.error(
+                              `${item} with the same name already exists!`
+                            );
+                            return false;
+                          }
+                        });
+
+                        setTechStack(techStack.concat([...new Set(values)]));
+                        form.resetFields(['techStack']);
+                      }}
+                    >
+                      Add
+                    </Button>
+                  </div>
+                </div>
+                <div className="flex gap-[10px] text-black mt-[20px] flex-wrap">
+                  {techStack.map((item, index) => {
+                    return (
+                      <TechStackItem
+                        key={index}
+                        item={item}
+                        onRemove={(value) => {
+                          setTechStack(
+                            techStack.filter((item) => item !== value)
+                          );
+                        }}
+                      ></TechStackItem>
+                    );
+                  })}
+                </div>
               </div>
             </Form.Item>
           </Form>
@@ -137,6 +266,11 @@ const BasicInfoModal = forwardRef<BasicInfoModalRef, BasicInfoModalProps>(
             <Button
               className=" py-[12px] w-[265px] flex items-center justify-center"
               type="primary"
+              loading={loading}
+              disabled={loading}
+              onClick={() => {
+                onSubmit();
+              }}
             >
               Save
             </Button>

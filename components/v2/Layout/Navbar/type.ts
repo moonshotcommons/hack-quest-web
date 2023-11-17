@@ -17,5 +17,6 @@ export interface NavbarListType {
   label: string;
   id: string;
   type?: 'outSide';
+  link?: string;
   menu: MenuType[];
 }

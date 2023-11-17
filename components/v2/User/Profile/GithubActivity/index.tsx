@@ -3,10 +3,10 @@ import Box from '../components/Box';
 import Add from '../components/Add';
 import Chart from './Charts';
 import HoverIcon from '../components/HoverIcon';
-import { BoxType, IconValue } from '../components/HoverIcon/type';
-import Modal from '@/components/v2/Common/Modal';
-import Button from '@/components/v2/Common/Button';
-import { FiX } from 'react-icons/fi';
+import { IconValue } from '../components/HoverIcon/type';
+
+import { BoxType } from '../type';
+import Confirm from '../components/Confirm';
 
 interface GithubActivityProps {}
 
@@ -19,6 +19,7 @@ const GithubActivity: FC<GithubActivityProps> = (props) => {
   const separationNumber = (num: number) => {
     return String(num).replace(/(?!^)(?=(\d{3})+$)/g, ',');
   };
+  const handleConfirm = () => {};
   return (
     <Box className="font-next-poster relative group">
       <div className="absolute right-[30px] top-[30px] hidden group-hover:block">
@@ -54,34 +55,13 @@ const GithubActivity: FC<GithubActivityProps> = (props) => {
         />
       )}
 
-      <Modal
+      <Confirm
         open={modalOpen}
         onClose={() => setModalOpen(false)}
-        showCloseIcon={true}
-        icon={<FiX size={26} />}
-      >
-        <div className="w-[800px] h-[400px] bg-[#fff] rounded-[10px] p-[30px] flex flex-col">
-          <div className="text-[28px] font-next-book-bold tracking-[1.68px]">
-            GithubActivity
-          </div>
-          <div className="flex-1 flex flex-col items-center justify-center gap-[35px]">
-            <p className="text-[#000] text-[18px]">
-              Do you want to disconnect from Github?
-            </p>
-            <div className="flex justify-center gap-[15px]">
-              <Button
-                onClick={() => setModalOpen(false)}
-                className="w-[265px] h-[44px] border border-[#0b0b0b]  text-[#0b0b0b] text-[16px]"
-              >
-                Cancel
-              </Button>
-              <Button className="w-[265px] h-[44px] bg-[#ffd850]    text-[16px]">
-                Disconnect
-              </Button>
-            </div>
-          </div>
-        </div>
-      </Modal>
+        title="GithubActivity"
+        content="Do you want to disconnect from Github?"
+        handleConfirm={handleConfirm}
+      />
     </Box>
   );
 };

@@ -18,14 +18,14 @@ const getMethodHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
 const postMethodHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const imageUrl = req.body.url;
-  // console.log(imageUrl);
+  console.log(imageUrl);
   // get image
-  console.log('--------------------1');
+
   try {
     const response = await axios.get<ArrayBuffer>(imageUrl, {
       responseType: 'arraybuffer'
     });
-    console.log('--------------------');
+
     console.log(response.data);
     res.setHeader('Content-Type', 'image/jpeg');
     res.end(response.data);
@@ -33,7 +33,7 @@ const postMethodHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     // const imageBase64 = Buffer.from(response.data).toString('base64');
     // console.log(imageBase64);
   } catch (err) {
-    console.log(err);
+    res.end({ code: 500, msg: 'Picture request exception!' });
   }
 
   // res.setHeader('Content-Type', 'application/json');

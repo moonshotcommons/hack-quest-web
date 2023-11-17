@@ -1,8 +1,10 @@
 import React, { useMemo } from 'react';
 
-import { BoxType, IconType, IconValue } from './type';
+import { IconType, IconValue } from './type';
 import { iconList } from './data';
-import { Tooltip } from 'antd';
+import { BoxType } from '../../type';
+import Tooltip from '@/components/v2/Common/Tooltip';
+import { spawn } from 'child_process';
 
 interface HoverIconProp {
   boxType: BoxType;
@@ -24,14 +26,12 @@ const HoverIcon: React.FC<HoverIconProp> = ({
       case IconValue.EDIT:
         return (
           <Tooltip
-            placement="top"
-            overlayInnerStyle={{
-              color: '#0b0b0b',
-              fontSize: '12px',
-              padding: '20px'
-            }}
-            color="#fff"
-            title={editTip}
+            placement="topRight"
+            title={
+              <span className="font-next-book-Thin text-[#0b0b0b] text-[12px]">
+                {editTip}
+              </span>
+            }
           >
             <div className="w-full h-full flex-center">{icon.icon}</div>
           </Tooltip>
