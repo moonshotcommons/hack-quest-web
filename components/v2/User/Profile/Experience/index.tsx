@@ -5,21 +5,18 @@ import Add from '../components/Add';
 import { IconValue } from '../components/HoverIcon/type';
 import HoverIcon from '../components/HoverIcon';
 import Edit from './Edit';
-import { PageType } from './type';
 import { BoxType, ProfileContext } from '../type';
 import { UserExperienceType } from '@/service/webApi/user/type';
 import { dealDate, dateInterval } from './utils';
 import { deepClone } from '@/helper/utils';
 
-interface ExperienceProps {
-  pageType: PageType;
-}
+interface ExperienceProps {}
 export type ListDataType = {
   showMore: boolean;
   descriptions: string[];
   descriptionLess: string[];
 } & UserExperienceType;
-const Experience: FC<ExperienceProps> = ({ pageType }) => {
+const Experience: FC<ExperienceProps> = ({}) => {
   const [editOpen, setEditOpen] = useState(false);
   const { profile } = useContext(ProfileContext);
   const [listData, setListData] = useState<ListDataType[]>([]);
@@ -37,27 +34,23 @@ const Experience: FC<ExperienceProps> = ({ pageType }) => {
     }
   };
   useEffect(() => {
-    switch (pageType) {
-      case PageType.EXPERIENCE:
-        if (profile?.workExperiences?.length) {
-          let list = profile.workExperiences?.map((v) => ({
-            ...v,
-            showMore: false,
-            descriptions: v.description.split('\n').filter((d) => d),
-            descriptionLess: v.description
-              .split('\n')
-              .filter((d) => d)
-              .slice(0, 1)
-          }));
-          setAllData(list);
-          setListData(showAll ? list : list.slice(0, 4));
-        } else {
-          setAllData([]);
-          setListData([]);
-        }
-        break;
+    if (profile?.workExperiences?.length) {
+      let list = profile.workExperiences?.map((v) => ({
+        ...v,
+        showMore: false,
+        descriptions: v.description.split('\n').filter((d) => d),
+        descriptionLess: v.description
+          .split('\n')
+          .filter((d) => d)
+          .slice(0, 1)
+      }));
+      setAllData(list);
+      setListData(showAll ? list : list.slice(0, 4));
+    } else {
+      setAllData([]);
+      setListData([]);
     }
-  }, [profile, pageType, showAll]);
+  }, [profile, showAll]);
 
   const handleShowMore = (index: number) => {
     const newListData = deepClone(listData);
@@ -75,8 +68,7 @@ const Experience: FC<ExperienceProps> = ({ pageType }) => {
         />
       </div>
       <div className="text-[28px] font-next-book-bold tracking-[1.68px]">
-        {pageType === 'experience' ? 'Experience' : 'Hackathon'} (
-        {allData.length})
+        Experience ({allData.length})
       </div>
       {listData?.length ? (
         <>
@@ -148,23 +140,12 @@ const Experience: FC<ExperienceProps> = ({ pageType }) => {
         </>
       ) : (
         <Add
-          addText={
-            pageType === 'experience'
-              ? 'Share your work experience with others'
-              : 'Share your hackathon experience with others'
-          }
-          buttonText={
-            pageType === 'experience' ? 'Add Experience' : 'Add Hackathon'
-          }
+          addText={'Share your work experience with others'}
+          buttonText={'Add Experience'}
           handleClick={handleAdd}
         />
       )}
-      <Edit
-        open={editOpen}
-        pageType={pageType}
-        list={allData}
-        onClose={() => setEditOpen(false)}
-      />
+      <Edit open={editOpen} list={allData} onClose={() => setEditOpen(false)} />
     </Box>
   );
 };

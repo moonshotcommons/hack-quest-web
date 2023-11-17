@@ -4,7 +4,6 @@ import { FiX, FiChevronLeft } from 'react-icons/fi';
 import List from './List';
 import EditAdd from './EditAdd';
 import { ListDataType } from '..';
-import { PageType } from '../type';
 import { UserExperienceType } from '@/service/webApi/user/type';
 import { ProfileContext } from '../../type';
 
@@ -12,12 +11,11 @@ interface EditProp {
   open: boolean;
   list: ListDataType[];
   onClose: VoidFunction;
-  pageType: PageType;
 }
 
 export enum EditType {}
 
-const Edit: React.FC<EditProp> = ({ open, onClose, list, pageType }) => {
+const Edit: React.FC<EditProp> = ({ open, onClose, list }) => {
   const [status, setStatus] = useState('list');
   const [editType, setEditType] = useState<'add' | 'edit'>('add');
   const [editEx, setEditEx] = useState<UserExperienceType>();
