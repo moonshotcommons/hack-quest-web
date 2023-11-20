@@ -18,7 +18,7 @@ const Charts: React.FC<ChartsProp> = () => {
       {
         type: 'pie',
         radius: ['50%', '80%'],
-        center: ['35%', '50%'],
+        center: ['36%', '50%'],
         label: {
           show: true,
           formatter: '{d}%', // 使用 {d} 占比和百分号表示
@@ -51,7 +51,7 @@ const Charts: React.FC<ChartsProp> = () => {
     const myChart = echarts.init(document.getElementById('github'));
     myChart.setOption(option);
   }, []);
-  return <div id="github" className="w-[404px] h-[160px]"></div>;
+  return <div id="github" className="w-full h-[140px]"></div>;
 };
 
 export default Charts;

@@ -173,7 +173,7 @@ const EditAdd: React.FC<EditAddProp> = ({
           onCancel();
         })
         .catch((err) => {
-          message.error(err.error);
+          message.error(err.msg);
         })
         .finally(() => {
           setLoading(false);
@@ -187,7 +187,7 @@ const EditAdd: React.FC<EditAddProp> = ({
           onCancel();
         })
         .catch((err) => {
-          message.error(err.error);
+          message.error(err.msg);
         })
         .finally(() => {
           setLoading(false);

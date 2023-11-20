@@ -7,7 +7,8 @@ import {
   AuthType,
   UserProfileType,
   UserExperienceType,
-  UserPersonalType
+  UserPersonalType,
+  GithubActivityType
 } from './type';
 import { transformQueryString } from '@/helper/formate';
 
@@ -196,6 +197,11 @@ class UserApi {
   deleteExperience(id: string) {
     return this.service.delete(
       `${UserApiType.UserProfile}/work-experience/${id}`
+    );
+  }
+  linkGithub() {
+    return this.service.get<GithubActivityType>(
+      `${UserApiType.UserProfile}/link-github`
     );
   }
 }

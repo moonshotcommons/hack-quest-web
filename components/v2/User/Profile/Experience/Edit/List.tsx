@@ -35,7 +35,7 @@ const List: React.FC<ListProp> = ({ onClose, handleEdit, list }) => {
         refresh();
       })
       .catch((err) => {
-        message.error(err.error);
+        message.error(err.msg);
       })
       .finally(() => {
         setLoading(false);

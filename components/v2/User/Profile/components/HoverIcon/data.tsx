@@ -2,6 +2,7 @@ import { FiRefreshCw, FiLink, FiEye, FiEyeOff } from 'react-icons/fi';
 import { CiEdit } from 'react-icons/ci';
 import { IconType, IconValue } from './type';
 import { BoxType } from '../../type';
+import { GoUnlink } from 'react-icons/go';
 
 export const iconList: IconType[] = [
   {
@@ -10,8 +11,8 @@ export const iconList: IconType[] = [
     type: [BoxType.GITHUB_ACTIVITY]
   },
   {
-    icon: <FiLink size={20} />,
-    value: IconValue.LINK,
+    icon: <GoUnlink size={20} />,
+    value: IconValue.UN_LINK,
     type: [BoxType.GITHUB_ACTIVITY]
   },
   {
@@ -21,12 +22,12 @@ export const iconList: IconType[] = [
   },
   {
     icon: <FiEye size={20} />,
-    value: IconValue.LINK,
+    value: IconValue.SHOW,
     type: []
   },
   {
     icon: <FiEyeOff size={20} />,
-    value: IconValue.LINK,
+    value: IconValue.UN_SHOW,
     type: []
   }
 ];
