@@ -260,6 +260,11 @@ const BasicInfoModal = forwardRef<BasicInfoModalRef, BasicInfoModalProps>(
             <Button
               ghost
               className="border-[#0B0B0B] py-[12px] w-[265px] flex items-center justify-center"
+              onClick={() => {
+                setOpen(false);
+                form.resetFields();
+                setTechStack([]);
+              }}
             >
               Cancel
             </Button>
