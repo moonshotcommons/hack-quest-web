@@ -49,13 +49,20 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
     );
   }, [pathname, navbarData]);
 
+  useEffect(() => {
+    const contentWrap = document.querySelector('#content-scroll-wrap');
+    if (contentWrap) {
+      contentWrap.scrollTo(0, 0);
+    }
+  });
+
   return (
     <div
-      className={`w-full overflow-x-auto   ${inter.className} ${
-        getFull() ? 'bg-[white]' : 'bg-[#F4F4F4] min-h-[100vh]'
-      } `}
+      className={`w-full h-[100vh] flex flex-col overflow-hidden  ${
+        inter.className
+      } ${getFull() ? 'bg-[white]' : 'bg-[#F4F4F4] min-h-[100vh]'} `}
     >
-      <div className="w-full fixed left-0 top-0 bg-[#0B0B0B] h-[64px] flex items-center z-[99] shadow-[box-shadow: rgba(17, 12, 46, 0.15)_0px_48px_100px_0px]">
+      <div className="w-full bg-[#0B0B0B] h-[64px] flex items-center z-[99] shadow-[box-shadow: rgba(17, 12, 46, 0.15)_0px_48px_100px_0px]">
         <NavBar
           {...navbarData}
           isFull={getFull()}
@@ -65,12 +72,16 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
           <User></User>
         </NavBar>
       </div>
-      <div className="h-[64px] bg-[#0b0b0b]"></div>
-      <div className="m-auto">
-        {/* <div className={`w-full ${showSecondNav ? 'pt-[110px]' : 'pt-[64px]'}`}> */}
-        <div className={`w-full ${showSecondNav ? 'pt-[48px]' : ''}`}>
+      {/* <div className="h-[64px] bg-[#0b0b0b]"></div> */}
+      <div
+        id="content-scroll-wrap"
+        className={`m-auto relative overflow-auto flex-1 w-full ${
+          showSecondNav ? 'pt-[48px]' : ''
+        }`}
+      >
+        <div className={`w-full h-full`}>
           {renderBreadcrumb()}
-          <main className="w-full">{children}</main>
+          <main className="w-full h-full">{children}</main>
         </div>
       </div>
     </div>

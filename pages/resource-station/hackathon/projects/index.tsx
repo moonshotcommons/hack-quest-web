@@ -19,11 +19,11 @@ function ProjectsPage() {
   };
   return (
     <div
-      className="h-[calc(100vh-114px)] overflow-auto"
+      className="h-full overflow-auto"
       onScroll={handleScroll}
       ref={ProjectsPageRef}
     >
-      <div className="container mx-auto ">
+      <div className="container mx-auto h-full">
         <PageDescription
           title={'Project Archive'}
           description={
