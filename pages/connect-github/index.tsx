@@ -8,7 +8,9 @@ interface ConnectGithubProp {}
 const ConnectGithub: React.FC<ConnectGithubProp> = () => {
   const router = useRouter();
   const {} = useRequest(async () => {
-    await webApi.userApi.linkGithub('896c8b89738c3bfc7c43');
+    if (router.query.code) {
+      await webApi.userApi.linkGithub(router.query.code as string);
+    }
   });
   return <div></div>;
 };
