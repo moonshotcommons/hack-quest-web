@@ -81,7 +81,7 @@ const Campaigns: React.FC<CampaignsProp> = () => {
             changeTab={(index) => setCurIndex(index)}
           />
         </div>
-        <div className="flex-1 h-full  overflow-auto bg-[#fff] rounded-b-[10px] rounded-r-[10px] shadow-[5px_5px_5px_#dadada]">
+        <div className="flex-1 h-full no-scrollbar  overflow-auto bg-[#fff] rounded-b-[10px] rounded-r-[10px] shadow-[5px_5px_5px_#dadada]">
           {mantles[curIndex]?.id ? (
             <Mantle />
           ) : (
