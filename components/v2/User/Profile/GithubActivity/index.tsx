@@ -72,7 +72,7 @@ const GithubActivity: FC<GithubActivityProps> = (props) => {
   }, [profile]);
   return (
     <Box className="font-next-poster relative group h-[260px] flex flex-col justify-between">
-      {!githubInfo?.telegram && (
+      {githubInfo?.telegram && (
         <div className="absolute right-[30px] top-[30px] hidden group-hover:block">
           <HoverIcon
             boxType={BoxType.GITHUB_ACTIVITY}

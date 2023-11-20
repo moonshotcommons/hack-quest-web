@@ -25,32 +25,30 @@ const HoverIcon: React.FC<HoverIconProp> = ({
     switch (icon.value) {
       case IconValue.EDIT:
         return (
-          <Tooltip
-            placement="topRight"
-            title={
-              <span className="font-next-book-Thin text-[#0b0b0b] text-[12px]">
-                {editTip}
-              </span>
-            }
-          >
-            <div className="w-full h-full flex-center">{icon.icon}</div>
+          <Tooltip key={icon.value} placement="topRight" title={editTip}>
+            <div
+              onClick={() => handleClick(icon.value)}
+              className="text-[#231F20] flex-center w-[45px] h-[45px] rounded-[50%] bg-[#f4f4f4] cursor-pointer hover:text-[#8c8c8c] hover:bg-[#DADADA]"
+            >
+              <div className="w-full h-full flex-center">{icon.icon}</div>
+            </div>
           </Tooltip>
         );
       default:
-        return <span>{icon.icon}</span>;
+        return (
+          <div
+            key={icon.value}
+            onClick={() => handleClick(icon.value)}
+            className="text-[#231F20] flex-center w-[45px] h-[45px] rounded-[50%] bg-[#f4f4f4] cursor-pointer hover:text-[#8c8c8c] hover:bg-[#DADADA]"
+          >
+            <span>{icon.icon}</span>
+          </div>
+        );
     }
   };
   return (
     <div className="flex gap-[10px]">
-      {list.map((v: IconType, i: number) => (
-        <div
-          key={v.value}
-          onClick={() => handleClick(v.value)}
-          className="text-[#231F20] flex-center w-[45px] h-[45px] rounded-[50%] bg-[#f4f4f4] cursor-pointer hover:text-[#8c8c8c] hover:bg-[#DADADA]"
-        >
-          {renderIcon(v)}
-        </div>
-      ))}
+      {list.map((v: IconType, i: number) => renderIcon(v))}
     </div>
   );
 };

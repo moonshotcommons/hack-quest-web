@@ -29,7 +29,7 @@ const Tooltip: FC<TooltipProps> = (props) => {
       {show && (
         <div
           className={cn(
-            'absolute p-[20px] whitespace-nowrap rounded-[10px] z-[99] shadow-md',
+            ' font-next-book-Thin text-[#0b0b0b] text-[12px] absolute p-[20px] whitespace-nowrap rounded-[10px] z-[99] shadow-md',
             placement === 'topLeft'
               ? '-translate-y-[calc(100%+17px)] -left-[12px]'
               : '',
