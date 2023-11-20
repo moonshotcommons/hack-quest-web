@@ -8,6 +8,8 @@ import { ProfileContext } from '../../type';
 import webApi from '@/service';
 import { RcFile } from 'antd/es/upload';
 import Tooltip from '@/components/v2/Common/Tooltip';
+import HoverIcon from '../../components/HoverIcon';
+import { IconType } from '../../components/HoverIcon/type';
 
 interface BackgroundImageProps {
   edit?: boolean;
@@ -57,20 +59,20 @@ const BackgroundImage: FC<BackgroundImageProps> = (props) => {
         >
           {showEditIcon && (
             <div className="absolute right-[30px] top-[25px] w-[45px]">
-              <Tooltip
-                title="Edit your background image"
-                placement="bottomRight"
-              >
-                <EditButton
-                  onClick={() =>
-                    imageCropRef.current?.onEdit({
-                      imageUrl:
-                        profile.backgroundImage ||
-                        '/images/user/test_background.png'
-                    })
-                  }
-                ></EditButton>
-              </Tooltip>
+              <HoverIcon
+                type={IconType.EDIT}
+                tooltip="Edit your background image"
+                tooltipProps={{
+                  placement: 'bottomRight'
+                }}
+                onClick={() =>
+                  imageCropRef.current?.onEdit({
+                    imageUrl:
+                      profile.backgroundImage ||
+                      '/images/user/test_background.png'
+                  })
+                }
+              ></HoverIcon>
             </div>
           )}
         </div>

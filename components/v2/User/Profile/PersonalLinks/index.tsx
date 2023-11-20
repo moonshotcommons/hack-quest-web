@@ -1,5 +1,5 @@
 import { FC, ReactNode, useContext, useRef } from 'react';
-import { ProfileContext } from '../type';
+import { BoxType, ProfileContext } from '../type';
 import { getThirdPartyMedia, thirdPartyMedia } from '@/helper/thirdPartyMedia';
 import { RiShareBoxLine } from 'react-icons/ri';
 import Button from '@/components/v2/Common/Button';
@@ -8,23 +8,28 @@ import EditButton from '../PersonalEdit/EditButton';
 import PersonalLinkEditModal, {
   PersonalLinkEditModalRef
 } from './PersonalLinkEditModal';
+import HoverIcon from '../components/HoverIcon';
+import { IconType } from '../components/HoverIcon/type';
 interface PersonalLinksProps {}
 
 const PersonalLinks: FC<PersonalLinksProps> = (props) => {
   const { profile } = useContext(ProfileContext);
   const personalLinkEditRef = useRef<PersonalLinkEditModalRef>(null);
+
   return (
-    <div className="w-[420px] h-fit p-[30px] pb-[40px] bg-white rounded-[10px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)] hover:-translate-y-1 transition-all duration-300 relative cursor-pointer">
+    <div className="w-[420px] h-fit p-[30px] pb-[40px] bg-white rounded-[10px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] group hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)] hover:-translate-y-1 transition-all duration-300 relative cursor-pointer">
       <p className="text-black font-next-poster-Bold text-[28px] tracking-[1.68px] leading-[125%]">
         Personal Links
       </p>
-      <div
-        className="absolute right-[30px] top-[25px]"
-        onClick={() => personalLinkEditRef.current?.onEdit({})}
-      >
-        <Tooltip title="Edit your personal links" placement="topRight">
-          <EditButton className="bg-[#F4F4F4]"></EditButton>
-        </Tooltip>
+      <div className="absolute right-[30px] top-[25px] hidden group-hover:block">
+        <HoverIcon
+          type={IconType.EDIT}
+          tooltip="Edit your personal links"
+          tooltipProps={{
+            placement: 'topRight'
+          }}
+          onClick={() => personalLinkEditRef.current?.onEdit({})}
+        ></HoverIcon>
       </div>
       {Object.keys(profile.personalLinks || {}).length > 0 && (
         <ul>

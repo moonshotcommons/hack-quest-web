@@ -3,7 +3,7 @@ import Box from '../components/Box';
 import Add from '../components/Add';
 import Chart from './Charts';
 import HoverIcon from '../components/HoverIcon';
-import { IconValue } from '../components/HoverIcon/type';
+import { IconType } from '../components/HoverIcon/type';
 
 import { BoxType, ProfileContext } from '../type';
 import Confirm from '../components/Confirm';
@@ -41,16 +41,7 @@ const GithubActivity: FC<GithubActivityProps> = (props) => {
     //   });
   };
   const [modalOpen, setModalOpen] = useState(false);
-  const handleClick = (value: IconValue) => {
-    switch (value) {
-      case IconValue.REFRESH:
-        handleAdd();
-        break;
-      case IconValue.UN_LINK:
-        setModalOpen(true);
-        break;
-    }
-  };
+
   const separationNumber = (num: number) => {
     return String(num).replace(/(?!^)(?=(\d{3})+$)/g, ',');
   };
@@ -73,10 +64,11 @@ const GithubActivity: FC<GithubActivityProps> = (props) => {
   return (
     <Box className="font-next-poster relative group h-[260px] flex flex-col justify-between">
       {!githubInfo?.telegram && (
-        <div className="absolute right-[30px] top-[30px] hidden group-hover:block">
+        <div className="absolute right-[30px] gap-[10px] top-[30px] hidden group-hover:flex">
+          <HoverIcon type={IconType.REFRESH} onClick={() => handleAdd()} />
           <HoverIcon
-            boxType={BoxType.GITHUB_ACTIVITY}
-            handleClick={handleClick}
+            type={IconType.UN_LINK}
+            onClick={() => setModalOpen(true)}
           />
         </div>
       )}

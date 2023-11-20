@@ -2,7 +2,7 @@ import Button from '@/components/v2/Common/Button';
 import { FC, useContext, useEffect, useMemo, useState } from 'react';
 import Box from '../components/Box';
 import Add from '../components/Add';
-import { IconValue } from '../components/HoverIcon/type';
+import { IconType } from '../components/HoverIcon/type';
 import HoverIcon from '../components/HoverIcon';
 import Edit from './Edit';
 import { BoxType, ProfileContext } from '../type';
@@ -26,13 +26,6 @@ const Experience: FC<ExperienceProps> = ({}) => {
     setEditOpen(true);
   };
 
-  const handleClick = (value: IconValue) => {
-    switch (value) {
-      case 'edit':
-        setEditOpen(true);
-        break;
-    }
-  };
   useEffect(() => {
     if (profile?.workExperiences?.length) {
       let list = profile.workExperiences?.map((v) => ({
@@ -63,9 +56,9 @@ const Experience: FC<ExperienceProps> = ({}) => {
       {listData?.length > 0 && (
         <div className="absolute right-[30px] top-[30px] hidden group-hover:block">
           <HoverIcon
-            boxType={BoxType.EXPERIENCE}
-            handleClick={handleClick}
-            editTip="Edit your experience"
+            type={IconType.EDIT}
+            tooltip="Edit your experience"
+            onClick={() => setEditOpen(true)}
           />
         </div>
       )}
