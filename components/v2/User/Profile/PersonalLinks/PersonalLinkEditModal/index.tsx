@@ -105,7 +105,7 @@ const PersonalLinkEditModal = forwardRef<
       }
       markBg="black"
     >
-      <div className="w-[800px] bg-[#F4F4F4] rounded-[10px] px-[30px] py-[30px]">
+      <div className="w-[800px] bg-white rounded-[10px] px-[30px] py-[30px]">
         <div className="font-next-poster-Bold text-[28px] text-black tracking-[1.68px]">
           Personal Links
         </div>
