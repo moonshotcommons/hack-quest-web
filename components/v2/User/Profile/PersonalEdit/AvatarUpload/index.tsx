@@ -37,7 +37,12 @@ const AvatarUpload: FC<AvatarUploadProps> = (props) => {
       >
         <div className="relative w-full h-full bg-[#8d8d8d] overflow-hidden rounded-full flex justify-center items-center">
           {userInfo?.avatar && (
-            <Image fill alt="avatar" src={userInfo?.avatar || ''}></Image>
+            <Image
+              fill
+              alt="avatar"
+              src={userInfo?.avatar || ''}
+              className="object-cover"
+            ></Image>
           )}
         </div>
         <div
