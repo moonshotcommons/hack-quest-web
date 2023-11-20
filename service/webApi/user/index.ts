@@ -8,6 +8,7 @@ import {
   UserProfileType,
   UserExperienceType,
   UserPersonalType,
+  PersonalLinksType,
   GithubActivityType
 } from './type';
 import { transformQueryString } from '@/helper/formate';
@@ -27,7 +28,8 @@ export enum UserApiType {
   githubVerify = 'auth/github/callback',
   CheckInViteCode = '/users/verify-inviteCode',
   WalletVerify = '/auth/wallet',
-  UserProfile = '/users/profile'
+  UserProfile = '/users/profile',
+  PersonalLinks = '/users/profile/personal-links'
 }
 
 class UserApi {
@@ -175,6 +177,7 @@ class UserApi {
       }
     });
   }
+
   /**新增ex */
   addExperience(data: Omit<UserExperienceType, 'id'>) {
     return this.service.post<UserExperienceType>(
@@ -184,6 +187,7 @@ class UserApi {
       }
     );
   }
+
   /**编辑ex */
   editExperience(id: string, data: Omit<UserExperienceType, 'id'>) {
     return this.service.put<UserExperienceType>(
@@ -193,6 +197,7 @@ class UserApi {
       }
     );
   }
+
   /**删除ex */
   deleteExperience(id: string) {
     return this.service.delete(
@@ -204,6 +209,13 @@ class UserApi {
     return this.service.get<{ url: string }>(
       `${UserApiType.AuthGithub}?type=connect`
     );
+  }
+
+  /** 更新personal links */
+  updatePersonalLinks(personalLinks: PersonalLinksType) {
+    return this.service.put(UserApiType.PersonalLinks, {
+      data: personalLinks
+    });
   }
   linkGithub() {
     return this.service.get<GithubActivityType>(

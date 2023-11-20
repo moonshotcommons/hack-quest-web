@@ -89,3 +89,10 @@ export interface UserPersonalType {
   experience: number;
   techStack: string[];
 }
+
+export interface PersonalLinksType {
+  x: string;
+  github: string;
+  linkedIn: string;
+  telegram: string;
+}
