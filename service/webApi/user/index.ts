@@ -217,9 +217,9 @@ class UserApi {
       data: personalLinks
     });
   }
-  linkGithub() {
+  linkGithub(code: string) {
     return this.service.get<GithubActivityType>(
-      `${UserApiType.UserProfile}/link-github`
+      `${UserApiType.UserProfile}/link-github?code=${code}`
     );
   }
 }
