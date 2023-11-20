@@ -145,9 +145,11 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
   };
 
   return (
-    <div className="h-full w-full flex justify-center">
+    <div className=" w-full">
       <div
-        className={`h-full  ${isFull ? 'w-full 2xl:px-[40px]' : 'container'}`}
+        className={`h-[64px] mx-auto  ${
+          isFull ? 'w-full 2xl:px-[40px]' : 'container'
+        }`}
       >
         <div className="h-full flex items-center justify-between font-next-book">
           <nav className="h-full flex items-center text-white">
@@ -192,7 +194,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
         </div>
       </div>
       {showSecondNav && (
-        <div className="fixed text-white tracking-[0.84px] left-0 top-16 w-screen h-12 bg-[#0B0B0B]">
+        <div className=" text-white tracking-[0.84px]  w-screen h-12 bg-[#0B0B0B]">
           <div
             ref={secondNavEl}
             className="container m-auto flex items-end gap-[30px] h-full slide-navigator slide-navigator-underline"

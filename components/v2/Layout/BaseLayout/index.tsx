@@ -62,7 +62,7 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
         inter.className
       } ${getFull() ? 'bg-[white]' : 'bg-[#F4F4F4] min-h-[100vh]'} `}
     >
-      <div className="w-full bg-[#0B0B0B] h-[64px] flex items-center z-[99] shadow-[box-shadow: rgba(17, 12, 46, 0.15)_0px_48px_100px_0px]">
+      <div className="w-full bg-[#0B0B0B]  flex items-center z-[99] shadow-[box-shadow: rgba(17, 12, 46, 0.15)_0px_48px_100px_0px]">
         <NavBar
           {...navbarData}
           isFull={getFull()}
@@ -72,16 +72,17 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
           <User></User>
         </NavBar>
       </div>
-      {/* <div className="h-[64px] bg-[#0b0b0b]"></div> */}
       <div
         id="content-scroll-wrap"
-        className={`m-auto relative overflow-auto flex-1 w-full ${
-          showSecondNav ? 'pt-[48px]' : ''
-        }`}
+        className={`m-auto relative overflow-auto flex-1 w-full`}
       >
-        <div className={`w-full h-full`}>
+        <div className={`w-full h-full flex flex-col`}>
           {renderBreadcrumb()}
-          <main className="w-full h-full">{children}</main>
+          <div className="w-full flex-1 relative">
+            <main className="absolute left-0 top-0 w-full h-full ">
+              {children}
+            </main>
+          </div>
         </div>
       </div>
     </div>

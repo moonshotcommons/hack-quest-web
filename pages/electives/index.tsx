@@ -2,6 +2,7 @@ import SelectiveCoursesBox from '@/components/v2/ElectivesBox';
 import PageDescription from '@/components/v2/PageDescription';
 import Title from '@/components/Head/Title';
 import { useRef, useState } from 'react';
+import { circIn } from 'framer-motion';
 
 function SelectiveCourses() {
   const selectiveCoursesRef = useRef<HTMLDivElement | null>(null);
@@ -10,6 +11,7 @@ function SelectiveCourses() {
   const [apiStatus, setApiStatus] = useState('init');
 
   const handleScroll = () => {
+    console.info(11);
     if (apiStatus !== 'init') return;
     const clientHeight = selectiveCoursesRef.current?.clientHeight || 0;
     const scrollTop = selectiveCoursesRef.current?.scrollTop || 0;

@@ -204,6 +204,12 @@ class UserApi {
       `${UserApiType.UserProfile}/work-experience/${id}`
     );
   }
+  /** 获取user profile github 授权url */
+  getGithubConnectUrl() {
+    return this.service.get<{ url: string }>(
+      `${UserApiType.AuthGithub}?type=connect`
+    );
+  }
 
   /** 更新personal links */
   updatePersonalLinks(personalLinks: PersonalLinksType) {

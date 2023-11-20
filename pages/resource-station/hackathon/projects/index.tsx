@@ -23,7 +23,7 @@ function ProjectsPage() {
       onScroll={handleScroll}
       ref={ProjectsPageRef}
     >
-      <div className="container mx-auto h-full">
+      <div className="container mx-auto">
         <PageDescription
           title={'Project Archive'}
           description={
