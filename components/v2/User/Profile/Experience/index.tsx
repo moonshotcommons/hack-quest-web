@@ -61,7 +61,7 @@ const Experience: FC<ExperienceProps> = ({}) => {
   return (
     <Box className="font-next-poster relative group">
       {listData?.length > 0 && (
-        <div className="absolute right-[30px] top-[30px]  group-hover:block">
+        <div className="absolute right-[30px] top-[30px] hidden group-hover:block">
           <HoverIcon
             boxType={BoxType.EXPERIENCE}
             handleClick={handleClick}
