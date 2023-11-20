@@ -20,7 +20,7 @@ function SelectiveCourses() {
   };
   return (
     <div
-      className="h-[calc(100vh-64px)] overflow-auto"
+      className="h-full overflow-auto"
       onScroll={handleScroll}
       ref={selectiveCoursesRef}
     >
