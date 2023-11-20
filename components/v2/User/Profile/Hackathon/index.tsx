@@ -60,13 +60,16 @@ const Hackathon: FC<HackathonProps> = ({}) => {
 
   return (
     <Box className="font-next-poster relative group">
-      <div className="absolute right-[30px] top-[30px] hidden group-hover:block">
-        <HoverIcon
-          boxType={BoxType.EXPERIENCE}
-          handleClick={handleClick}
-          editTip="Edit your experience"
-        />
-      </div>
+      {listData?.length && (
+        <div className="absolute right-[30px] top-[30px] hidden group-hover:block">
+          <HoverIcon
+            boxType={BoxType.EXPERIENCE}
+            handleClick={handleClick}
+            editTip="Edit your experience"
+          />
+        </div>
+      )}
+
       <div className="text-[28px] font-next-book-bold tracking-[1.68px]">
         Hackathon ({allData.length})
       </div>

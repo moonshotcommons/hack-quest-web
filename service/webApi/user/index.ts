@@ -8,7 +8,8 @@ import {
   UserProfileType,
   UserExperienceType,
   UserPersonalType,
-  PersonalLinksType
+  PersonalLinksType,
+  GithubActivityType
 } from './type';
 import { transformQueryString } from '@/helper/formate';
 
@@ -209,6 +210,11 @@ class UserApi {
     return this.service.put(UserApiType.PersonalLinks, {
       data: personalLinks
     });
+  }
+  linkGithub() {
+    return this.service.get<GithubActivityType>(
+      `${UserApiType.UserProfile}/link-github`
+    );
   }
 }
 

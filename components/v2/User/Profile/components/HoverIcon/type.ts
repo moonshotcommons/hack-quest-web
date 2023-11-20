@@ -3,8 +3,10 @@ import { BoxType } from '../../type';
 
 export enum IconValue {
   REFRESH = 'refresh',
-  LINK = 'link',
-  EDIT = 'edit'
+  UN_LINK = 'unLink',
+  EDIT = 'edit',
+  SHOW = 'show',
+  UN_SHOW = 'unShow'
 }
 
 export interface IconType {
