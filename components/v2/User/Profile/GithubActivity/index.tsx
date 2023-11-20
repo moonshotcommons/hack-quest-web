@@ -20,19 +20,25 @@ const GithubActivity: FC<GithubActivityProps> = (props) => {
   const [loading, setLoading] = useState(false);
   const [githubInfo, setGithubInfo] = useState<GithubActivityType | null>(null);
   const { profile, refresh } = useContext(ProfileContext);
-  const handleAdd = () => {
-    setLoading(true);
-    webApi.userApi
-      .linkGithub()
-      .then((res) => {
-        refresh();
-      })
-      .catch((err) => {
-        message.error(err.msg);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+  const handleAdd = async () => {
+    const res = await webApi.userApi.getGithubConnectUrl();
+    window.open(
+      res.url,
+      '_blank',
+      'width=500,height=500,toolbar=no,menubar=no,location=no,status=no'
+    );
+    // setLoading(true);
+    // webApi.userApi
+    //   .linkGithub()
+    //   .then((res) => {
+    //     refresh();
+    //   })
+    //   .catch((err) => {
+    //     message.error(err.msg);
+    //   })
+    //   .finally(() => {
+    //     setLoading(false);
+    //   });
   };
   const [modalOpen, setModalOpen] = useState(false);
   const handleClick = (value: IconValue) => {
@@ -66,7 +72,7 @@ const GithubActivity: FC<GithubActivityProps> = (props) => {
   }, [profile]);
   return (
     <Box className="font-next-poster relative group h-[260px] flex flex-col justify-between">
-      {githubInfo?.telegram && (
+      {!githubInfo?.telegram && (
         <div className="absolute right-[30px] top-[30px] hidden group-hover:block">
           <HoverIcon
             boxType={BoxType.GITHUB_ACTIVITY}

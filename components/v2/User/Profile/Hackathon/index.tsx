@@ -60,7 +60,7 @@ const Hackathon: FC<HackathonProps> = ({}) => {
 
   return (
     <Box className="font-next-poster relative group">
-      {listData?.length && (
+      {listData?.length > 0 && (
         <div className="absolute right-[30px] top-[30px] hidden group-hover:block">
           <HoverIcon
             boxType={BoxType.EXPERIENCE}
