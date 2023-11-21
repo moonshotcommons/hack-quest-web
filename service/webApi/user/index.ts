@@ -222,6 +222,9 @@ class UserApi {
       `${UserApiType.UserProfile}/link-github?code=${code}`
     );
   }
+  unLinkGithub() {
+    return this.service.get(`${UserApiType.UserProfile}/unlink-github`);
+  }
 }
 
 export default UserApi;

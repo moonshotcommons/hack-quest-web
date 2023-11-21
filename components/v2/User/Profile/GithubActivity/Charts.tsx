@@ -1,14 +1,22 @@
 import React, { useEffect } from 'react';
 import * as echarts from 'echarts';
 
-interface ChartsProp {}
+export interface OptionDataType {
+  value: number;
+  name: string;
+}
 
-const Charts: React.FC<ChartsProp> = () => {
+interface ChartsProp {
+  optionData: OptionDataType[];
+}
+
+const Charts: React.FC<ChartsProp> = ({ optionData }) => {
   const option = {
     legend: {
       orient: 'vertical',
       left: 'right',
       align: 'left',
+      itemGap: 6,
       textStyle: {
         fontFamily: 'NEXT Book',
         fonstSize: '14px'
@@ -37,21 +45,16 @@ const Charts: React.FC<ChartsProp> = () => {
         labelLine: {
           show: true
         },
-        data: [
-          { value: 1048, name: 'Search Engine' },
-          { value: 735, name: 'Direct' },
-          { value: 580, name: 'Email' },
-          { value: 484, name: 'Union Ads' },
-          { value: 300, name: 'Video Ads' }
-        ]
+        data: []
       }
     ]
   };
   useEffect(() => {
     const myChart = echarts.init(document.getElementById('github'));
+    option.series[0].data = optionData as [];
     myChart.setOption(option);
-  }, []);
-  return <div id="github" className="w-full h-[140px]"></div>;
+  }, [optionData]);
+  return <div id="github" className="w-full h-[136px]"></div>;
 };
 
 export default Charts;

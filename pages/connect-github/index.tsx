@@ -10,6 +10,8 @@ const ConnectGithub: React.FC<ConnectGithubProp> = () => {
   const {} = useRequest(async () => {
     if (router.query.code) {
       await webApi.userApi.linkGithub(router.query.code as string);
+      localStorage.setItem('linkGitHub', `${+new Date()}`);
+      window.close();
     }
   });
   return <div></div>;
