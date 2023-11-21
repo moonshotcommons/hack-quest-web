@@ -11,6 +11,8 @@ import { useGetUserInfo } from '@/hooks/useGetUserInfo';
 import { useDispatch } from 'react-redux';
 import webApi from '@/service';
 import { setUserInfo } from '@/store/redux/modules/user';
+import HoverIcon from '../../components/HoverIcon';
+import { IconType } from '../../components/HoverIcon/type';
 
 interface AvatarUploadProps {
   edit?: boolean;
@@ -51,18 +53,15 @@ const AvatarUpload: FC<AvatarUploadProps> = (props) => {
             showEditIcon ? 'opacity-100' : 'opacity-0'
           )}
         >
-          <Tooltip title="Edit profile photo">
-            <EditButton
-              className="bg-[#DADADA]"
-              color="#231F20"
-              opacity={0.5}
-              onClick={() => {
-                imageCropRef.current?.onEdit({
-                  imageUrl: userInfo?.avatar
-                });
-              }}
-            ></EditButton>
-          </Tooltip>
+          <HoverIcon
+            type={IconType.EDIT}
+            tooltip="Edit profile photo"
+            onClick={() => {
+              imageCropRef.current?.onEdit({
+                imageUrl: userInfo?.avatar
+              });
+            }}
+          ></HoverIcon>
         </div>
       </div>
       <ImageCrop

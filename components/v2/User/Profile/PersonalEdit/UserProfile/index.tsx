@@ -9,6 +9,8 @@ import AvatarUpload from '../AvatarUpload';
 import Tooltip from '@/components/v2/Common/Tooltip';
 import { ProfileContext } from '../../type';
 import { useGetUserInfo } from '@/hooks/useGetUserInfo';
+import HoverIcon from '../../components/HoverIcon';
+import { IconType } from '../../components/HoverIcon/type';
 interface UserProfileProps {
   edit?: boolean;
 }
@@ -43,12 +45,13 @@ const UserProfile: FC<UserProfileProps> = (props) => {
             className="absolute right-[30px] top-[68px]"
             onClick={() => basicInfoEditor.current?.onEdit({})}
           >
-            <Tooltip
-              title="Edit your basic information"
-              placement="bottomRight"
-            >
-              <EditButton className="bg-[#F4F4F4]"></EditButton>
-            </Tooltip>
+            <HoverIcon
+              type={IconType.EDIT}
+              tooltip="Edit your basic information"
+              tooltipProps={{
+                placement: 'bottomRight'
+              }}
+            ></HoverIcon>
           </div>
         )}
         <div className="font-next-poster-Bold text-[28px] tracking-[1.68px] text-[#0B0B0B] leading-normal">
