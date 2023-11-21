@@ -48,7 +48,14 @@ export const navbarList: NavbarListType[] = [
         path: MenuLink.CAMPAIGINS
       }
     ]
+  },
+  {
+    label: 'Playground',
+    id: 'playground',
+    type: 'outSide',
+    link: process.env.IDE_URL || 'https://ide.dev.hackquest.io',
+    menu: []
   }
 ];
 
-export const excludeLink = ['/user/profile'];
+export const excludeLink = [MenuLink.USER_PROFILE];

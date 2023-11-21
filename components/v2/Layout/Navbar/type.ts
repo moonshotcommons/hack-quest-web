@@ -5,8 +5,11 @@ export enum MenuLink {
   MISSION_CENTER = '/mission-center',
   HACKATHON = '/resource-station/hackathon',
   PROJECTS = '/resource-station/hackathon/projects',
-  CAMPAIGINS = '/campaigns'
+  CAMPAIGINS = '/campaigns',
+  USER_PROFILE = '/user/profile',
+  CONNECT_GITHUB = '/connect-github'
 }
+
 export interface MenuType {
   label: string;
   path: MenuLink;
@@ -14,5 +17,7 @@ export interface MenuType {
 export interface NavbarListType {
   label: string;
   id: string;
+  type?: 'outSide';
+  link?: string;
   menu: MenuType[];
 }

@@ -7,7 +7,7 @@ interface NoDataType {
 const NoData: React.FC<NoDataType> = ({ curTab }) => {
   const router = useRouter();
   return (
-    <div className="flex flex-col items-center pb-[100px]">
+    <div className="flex flex-col items-center pb-[100px] font-next-book">
       <p className="text-home-learning-track-no-data-color text-[32px]">
         {curTab === ProcessType.IN_PROCESS
           ? 'You don’t have any on-going course'
@@ -15,13 +15,13 @@ const NoData: React.FC<NoDataType> = ({ curTab }) => {
       </p>
       <Button
         onClick={() => router.push('learning-track')}
-        className="w-90 mt-[30px] mb-[20px] h-[55px] bg-home-learning-track-no-data-button-add-bg text-home-learning-track-no-data-button-add-color"
+        className="w-[360px] mt-[30px] text-[18px] mb-[20px] h-[55px] bg-home-learning-track-no-data-button-add-bg text-home-learning-track-no-data-button-add-color"
       >
         Add a New Learning Track
       </Button>
       <Button
         onClick={() => router.push('electives')}
-        className="w-90 h-[55px] border border-home-learning-track-no-data-button-explore-border text-home-learning-track-no-data-button-explore-color"
+        className="w-[360px] h-[55px] text-[18px] border border-home-learning-track-no-data-button-explore-border text-home-learning-track-no-data-button-explore-color"
       >
         Explore Elective Courses
       </Button>
