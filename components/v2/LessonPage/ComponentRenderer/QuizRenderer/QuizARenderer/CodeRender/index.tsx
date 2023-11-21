@@ -10,7 +10,7 @@ const CodeRender: React.FC<CodeRenderType> = ({ waitingRenderCodes }) => {
     return index < 10 ? `0${index}` : index;
   };
   return (
-    <div className="h-full w-full bg-renderer-code-bg relative rounded-[10px] pr-[20px] overflow-x-auto scroll-wrap-x">
+    <div className="h-full w-full bg-renderer-code-bg relative rounded-[10px] pr-[20px] overflow-auto scroll-wrap-x scroll-wrap-y">
       <ul className="p-[15px] max-w-full">
         {waitingRenderCodes.map((line, lineIndex) => (
           <li
