@@ -21,16 +21,18 @@ const PersonalLinks: FC<PersonalLinksProps> = (props) => {
       <p className="text-black font-next-poster-Bold text-[28px] tracking-[1.68px] leading-[125%]">
         Personal Links
       </p>
-      <div className="absolute right-[30px] top-[25px] hidden group-hover:block">
-        <HoverIcon
-          type={IconType.EDIT}
-          tooltip="Edit your personal links"
-          tooltipProps={{
-            placement: 'topRight'
-          }}
-          onClick={() => personalLinkEditRef.current?.onEdit({})}
-        ></HoverIcon>
-      </div>
+      {Object.keys(profile.personalLinks || {}).length > 0 && (
+        <div className="absolute right-[30px] top-[25px] hidden group-hover:block">
+          <HoverIcon
+            type={IconType.EDIT}
+            tooltip="Edit your personal links"
+            tooltipProps={{
+              placement: 'topRight'
+            }}
+            onClick={() => personalLinkEditRef.current?.onEdit({})}
+          ></HoverIcon>
+        </div>
+      )}
       {Object.keys(profile.personalLinks || {}).length > 0 && (
         <ul>
           {Object.keys(

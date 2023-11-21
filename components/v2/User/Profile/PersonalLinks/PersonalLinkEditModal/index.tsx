@@ -111,12 +111,14 @@ const PersonalLinkEditModal = forwardRef<
         </div>
         <Form className="" form={form}>
           {Object.keys(
-            profile.personalLinks || {
-              x: '',
-              github: '',
-              linkedIn: '',
-              telegram: ''
-            }
+            !!Object.keys(profile.personalLinks || {}).length
+              ? profile.personalLinks
+              : {
+                  x: '',
+                  github: '',
+                  linkedIn: '',
+                  telegram: ''
+                }
           ).map((key, index) => {
             const media = getThirdPartyMedia(
               key as keyof typeof thirdPartyMedia
