@@ -30,9 +30,12 @@ interface GotoPageButtonProps {
   direction: 'top' | 'bottom';
 }
 const goToLogin = () => {
-  const bodyEle = document.querySelector('body') as HTMLBodyElement;
-  bodyEle.style.scrollBehavior = 'smooth';
-  bodyEle.scrollTop = 0;
+  const contentWrapEle = document.querySelector(
+    '#content-scroll-wrap'
+  ) as HTMLDivElement;
+  if (!contentWrapEle) return;
+  contentWrapEle.style.scrollBehavior = 'smooth';
+  contentWrapEle.scrollTop = 0;
   message.warning('Please log in first');
 };
 const GotoPageButton: React.FC<GotoPageButtonProps> = (props) => {
@@ -231,7 +234,7 @@ const HackQuestInfo: FC<HackQuestInfoProps> = (props) => {
   return (
     <div className="flex flex-col items-center">
       <TopInfo></TopInfo>
-      <div className="w-[100vw] flex justify-center py-[150px]">
+      <div className="w-[100%] flex justify-center py-[150px]">
         <Image src={CenterLogo} alt="hackquest"></Image>
       </div>
       <CenterInfo></CenterInfo>

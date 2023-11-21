@@ -27,18 +27,16 @@ const UserProfilePage: NextPage<IProps> = (props) => {
         <div className="mt-[40px]">
           <PersonalEdit edit={true}></PersonalEdit>
         </div>
-        <div className="flex gap-[40px] mt-[40px] w-full">
-          <div className="flex-1">
+        <div className="flex justify-between gap-x-[40px] mt-[40px]">
+          <div className="flex-1 flex flex-col gap-y-[40px] z-10">
             <GithubActivity></GithubActivity>
-          </div>
-          <OnChainActivity></OnChainActivity>
-        </div>
-        <div className="flex gap-[40px] mt-[40px] w-full">
-          <div className="flex-1 flex flex-col gap-[40px]">
             <Experience />
             <Hackathon />
           </div>
-          <PersonalLinks></PersonalLinks>
+          <div className="w-[420px] flex flex-col gap-y-[40px] z-0">
+            {/* <OnChainActivity></OnChainActivity> */}
+            <PersonalLinks></PersonalLinks>
+          </div>
         </div>
       </div>
     </ProfileContext.Provider>

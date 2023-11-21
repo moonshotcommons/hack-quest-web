@@ -68,6 +68,10 @@ export interface UserExperienceType {
   isCurrentWork: boolean;
   description: string;
 }
+
+export interface GithubActivityType {
+  telegram: string;
+}
 export interface UserProfileType {
   id: string;
   location: string;
@@ -75,7 +79,7 @@ export interface UserProfileType {
   techStack: string[];
   backgroundImage?: string;
   personalLinks: Record<string, string>;
-  githubActivity: any;
+  githubActivity: GithubActivityType;
   onChainActivity: any;
   workExperiences: UserExperienceType[];
 }
@@ -84,4 +88,11 @@ export interface UserPersonalType {
   location: string;
   experience: number;
   techStack: string[];
+}
+
+export interface PersonalLinksType {
+  x: string;
+  github: string;
+  linkedIn: string;
+  telegram: string;
 }

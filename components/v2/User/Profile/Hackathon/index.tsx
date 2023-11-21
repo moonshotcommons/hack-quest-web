@@ -2,7 +2,7 @@ import Button from '@/components/v2/Common/Button';
 import { FC, useContext, useEffect, useMemo, useState } from 'react';
 import Box from '../components/Box';
 import Add from '../components/Add';
-import { IconValue } from '../components/HoverIcon/type';
+import { IconType } from '../components/HoverIcon/type';
 import HoverIcon from '../components/HoverIcon';
 import Edit from './Edit';
 import { BoxType, ProfileContext } from '../type';
@@ -26,13 +26,6 @@ const Hackathon: FC<HackathonProps> = ({}) => {
     setEditOpen(true);
   };
 
-  const handleClick = (value: IconValue) => {
-    switch (value) {
-      case 'edit':
-        setEditOpen(true);
-        break;
-    }
-  };
   useEffect(() => {
     if (profile?.workExperiences?.length) {
       let list = profile.workExperiences?.map((v) => ({
@@ -60,13 +53,16 @@ const Hackathon: FC<HackathonProps> = ({}) => {
 
   return (
     <Box className="font-next-poster relative group">
-      <div className="absolute right-[30px] top-[30px] hidden group-hover:block">
-        <HoverIcon
-          boxType={BoxType.EXPERIENCE}
-          handleClick={handleClick}
-          editTip="Edit your experience"
-        />
-      </div>
+      {listData?.length > 0 && (
+        <div className="absolute right-[30px] top-[30px] hidden group-hover:block">
+          <HoverIcon
+            type={IconType.EDIT}
+            onClick={() => setEditOpen(true)}
+            tooltip="Edit your experience"
+          />
+        </div>
+      )}
+
       <div className="text-[28px] font-next-book-bold tracking-[1.68px]">
         Hackathon ({allData.length})
       </div>

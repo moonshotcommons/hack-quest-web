@@ -2,7 +2,7 @@ import { cloneElement, cn } from '@/helper/utils';
 import { title } from 'process';
 import { FC, ReactElement, ReactNode, isValidElement, useState } from 'react';
 
-interface TooltipProps {
+export interface TooltipProps {
   children: React.ReactNode;
   title: ReactNode;
   color?: string;
@@ -29,7 +29,7 @@ const Tooltip: FC<TooltipProps> = (props) => {
       {show && (
         <div
           className={cn(
-            'absolute p-[20px] whitespace-nowrap rounded-[10px] z-[99] shadow-md',
+            ' font-next-book-Thin text-[#0b0b0b] text-[12px] absolute p-[20px] whitespace-nowrap rounded-[10px] shadow-md',
             placement === 'topLeft'
               ? '-translate-y-[calc(100%+17px)] -left-[12px]'
               : '',
@@ -40,13 +40,13 @@ const Tooltip: FC<TooltipProps> = (props) => {
               ? '-translate-y-[calc(100%+17px)] -right-[12px]'
               : '',
             placement == 'bottomLeft'
-              ? 'translate-y-[calc(100%-2px)] -left-[12px]'
+              ? 'translate-y-[calc(100%+2px)] -left-[12px]'
               : '',
             placement == 'bottom'
-              ? 'translate-y-[calc(100%-2px)] left-[50%] -translate-x-[50%]'
+              ? 'translate-y-[calc(100%+2px)] left-[50%] -translate-x-[50%]'
               : '',
             placement === 'bottomRight'
-              ? 'translate-y-[calc(100%-2px)] -right-[12px]'
+              ? 'translate-y-[calc(100%+2px)] -right-[12px]'
               : ''
           )}
           style={{ backgroundColor: color }}

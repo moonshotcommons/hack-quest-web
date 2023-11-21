@@ -417,7 +417,7 @@ const ImageCrop = forwardRef<ImageCropRef, ImageCropProps>((props, ref) => {
       }
       markBg="black"
     >
-      <div className="w-[800px] bg-[#F4F4F4] rounded-[10px] pt-[30px] pb-[40px]">
+      <div className="w-[800px] bg-white rounded-[10px] pt-[30px] pb-[40px]">
         <div className="font-next-book text-[28px] text-black leading-[125%] tracking-[0.64px] px-[30px] pb-[40px]">
           {title}
         </div>
