@@ -65,7 +65,7 @@ const Experience: FC<ExperienceProps> = ({}) => {
       <div className="text-[28px] font-next-book-bold tracking-[1.68px]">
         Experience ({allData.length})
       </div>
-      {!listData?.length ? (
+      {listData?.length ? (
         <>
           {listData.map((v, i) => (
             <div
