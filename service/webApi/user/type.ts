@@ -70,7 +70,10 @@ export interface UserExperienceType {
 }
 
 export interface GithubActivityType {
-  telegram: string;
+  languages: Record<string, number>;
+  totalContributor: number;
+  totalFork: number;
+  totalStar: number;
 }
 export interface UserProfileType {
   id: string;
