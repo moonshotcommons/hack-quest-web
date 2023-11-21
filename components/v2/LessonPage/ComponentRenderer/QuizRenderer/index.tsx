@@ -173,7 +173,7 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
       {start && (
         <div
           className={cn(
-            `rounded-[.625rem] pb-[20px] bg-[#E6E6E6] flex w-full flex-1 max-h-[50%] flex-col overflow-hidden`
+            `rounded-[.625rem] pb-[20px] bg-[#E6E6E6] flex w-full flex-1 min-h-[50%] flex-col overflow-hidden`
           )}
         >
           {QuizHeader}
