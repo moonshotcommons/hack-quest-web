@@ -4,7 +4,12 @@ import {
   LoginResponse,
   RegisterParamsType,
   RegisterResponse,
-  AuthType
+  AuthType,
+  UserProfileType,
+  UserExperienceType,
+  UserPersonalType,
+  PersonalLinksType,
+  GithubActivityType
 } from './type';
 import { transformQueryString } from '@/helper/formate';
 
@@ -22,7 +27,9 @@ export enum UserApiType {
   googleVerify = 'auth/google/callback',
   githubVerify = 'auth/github/callback',
   CheckInViteCode = '/users/verify-inviteCode',
-  WalletVerify = '/auth/wallet'
+  WalletVerify = '/auth/wallet',
+  UserProfile = '/users/profile',
+  PersonalLinks = '/users/profile/personal-links'
 }
 
 class UserApi {
@@ -147,6 +154,76 @@ class UserApi {
         type
       }
     });
+  }
+
+  /** 获取用户信息 */
+  getUserProfile() {
+    return this.service.get<UserProfileType>(UserApiType.UserProfile);
+  }
+
+  /** 编辑用户信息 */
+  editUserProfile(data: UserPersonalType) {
+    return this.service.put<UserPersonalType>(UserApiType.UserProfile, {
+      data
+    });
+  }
+
+  /**上传背景图片 */
+  uploadBackgroundImage(file: FormData) {
+    return this.service.post(`${UserApiType.UserProfile}/background-image`, {
+      data: file,
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+  }
+
+  /**新增ex */
+  addExperience(data: Omit<UserExperienceType, 'id'>) {
+    return this.service.post<UserExperienceType>(
+      `${UserApiType.UserProfile}/work-experience`,
+      {
+        data
+      }
+    );
+  }
+
+  /**编辑ex */
+  editExperience(id: string, data: Omit<UserExperienceType, 'id'>) {
+    return this.service.put<UserExperienceType>(
+      `${UserApiType.UserProfile}/work-experience/${id}`,
+      {
+        data
+      }
+    );
+  }
+
+  /**删除ex */
+  deleteExperience(id: string) {
+    return this.service.delete(
+      `${UserApiType.UserProfile}/work-experience/${id}`
+    );
+  }
+  /** 获取user profile github 授权url */
+  getGithubConnectUrl() {
+    return this.service.get<{ url: string }>(
+      `${UserApiType.AuthGithub}?type=connect`
+    );
+  }
+
+  /** 更新personal links */
+  updatePersonalLinks(personalLinks: PersonalLinksType) {
+    return this.service.put(UserApiType.PersonalLinks, {
+      data: personalLinks
+    });
+  }
+  linkGithub(code: string) {
+    return this.service.get<GithubActivityType>(
+      `${UserApiType.UserProfile}/link-github?code=${code}`
+    );
+  }
+  unLinkGithub() {
+    return this.service.get(`${UserApiType.UserProfile}/unlink-github`);
   }
 }
 
