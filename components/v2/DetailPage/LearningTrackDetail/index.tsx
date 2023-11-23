@@ -20,6 +20,7 @@ import CourseDetailHeader from '../CourseDetailHeader';
 import HeaderRight from '../HeaderRight';
 import TrackList from '../TrackList';
 import { LearningStatus } from '../type';
+import CertificationCard from '@/components/v2/Certification/CertificationCard';
 
 interface LearningTrackDetailProps {
   // children: ReactNode;
@@ -165,6 +166,9 @@ const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
           });
         }}
       ></CourseDetailHeader>
+      <div className="mt-[80px] mb-[20px]">
+        <CertificationCard></CertificationCard>
+      </div>
       <div className="mt-[60px] w-full">
         <div className="flex justify-between items-center">
           <h2 className="mb-[30px] text-[#000] font-next-poster-Bold text-[28px] tracking-[1.68px]">
