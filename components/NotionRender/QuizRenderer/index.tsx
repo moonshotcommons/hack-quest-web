@@ -226,7 +226,7 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
               className="bg-lesson-ghost-button-bg text-lesson-ghost-button-text-color border border-lesson-ghost-border-color px-[3rem] py-[1rem]"
             >
               {/* {toggleAnswer ? 'Hide the answer' : 'Show me the answer'} */}
-              {'Show me the answer'}
+              {'Hint'}
             </Button>
             <Button
               onClick={onTryAgain}

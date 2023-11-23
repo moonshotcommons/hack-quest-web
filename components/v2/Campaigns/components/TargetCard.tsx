@@ -70,7 +70,7 @@ const TargetCard: React.FC<TargetCardProp> = ({ target }) => {
         </div>
         <div className="flex-row-center gap-[40px]">
           <div className="flex-row-center justify-between px-[10px] w-[75px] h-[44px] leading-[40px] text-[#000] text-[16px] border border-[#DADADA] bg-[#F4F4F4] rounded-[100px]">
-            <Image src={BIcon} width={24} alt="icon" className=""></Image>
+            <Image src={BIcon} width={22} alt="icon" className=""></Image>
             <span>{target.reward}</span>
           </div>
           {target.completed ? (

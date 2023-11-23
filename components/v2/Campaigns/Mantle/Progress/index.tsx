@@ -56,9 +56,9 @@ const Progress: React.FC<ProgressProp> = () => {
         ))}
         <Image
           src={BIcon}
-          width={24}
+          width={22}
           alt="icon"
-          className="absolute left-0 bottom-0"
+          className="absolute left-0 bottom-[4px]"
         ></Image>
       </div>
     </div>

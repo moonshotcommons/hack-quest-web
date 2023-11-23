@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import CourseList from './CourseList';
 import { initPageInfo, filterData } from './data';
 import webApi from '@/service';
@@ -25,7 +25,9 @@ const SelectiveCoursesBox: React.FC<SelectiveCoursesBoxProps> = ({
   const [searchParam, setSearchParam] = useState<FilterDataType[]>(
     deepClone(filterData)
   );
+  const timeOut = useRef<NodeJS.Timeout | null>(null);
   const [pageInfo, setPageInfo] = useState<PageInfoType>(initPageInfo);
+  const [inputValue, setInputValue] = useState('');
   const [list, setList] = useState<CourseResponse[]>([]);
   const [runNum, setRunNum] = useState(0);
   const [total, setTotal] = useState(0);
@@ -48,12 +50,19 @@ const SelectiveCoursesBox: React.FC<SelectiveCoursesBoxProps> = ({
     return new Promise(async (resolve) => {
       const res = await webApi.courseApi.getCourseListBySearch({
         ...newFilter,
-        ...pInfo
+        ...pInfo,
+        keyword: inputValue
       });
       setTotal(res.total);
       resolve(res.data);
     });
   };
+  useEffect(() => {
+    if (timeOut.current) clearTimeout(timeOut.current);
+    timeOut.current = setTimeout(() => {
+      initList();
+    }, 300);
+  }, [inputValue]);
 
   useEffect(() => {
     initList();
@@ -87,8 +96,9 @@ const SelectiveCoursesBox: React.FC<SelectiveCoursesBoxProps> = ({
         <SearchFilter
           searchParam={searchParam}
           changeParam={changeParam}
-          isShowResult={true}
-          resultsLen={total}
+          changeInputValue={(value) => setInputValue(value)}
+          isShowInput={true}
+          inputValue={inputValue as string}
         />
         <CourseList list={list} />
       </div>

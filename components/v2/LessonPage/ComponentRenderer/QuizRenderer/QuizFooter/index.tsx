@@ -16,8 +16,8 @@ const QuizFooter: FC<QuizFooterProps> = (props) => {
         className="underline font-next-book text-[#3E3E3E] hover:text-black transition tracking-[0.28px] leading-[125%] cursor-pointer"
         onClick={() => setShowAnswer(!showAnswer)}
       >
-        {showAnswer && 'Hidden me right answer '}
-        {!showAnswer && 'Show me right answer'}
+        {showAnswer && 'Hide'}
+        {!showAnswer && 'Hint'}
       </div>
       <Button
         type="primary"

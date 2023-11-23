@@ -16,12 +16,13 @@ interface MantleInfoProp {}
 
 const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
   const { mantle, campaignsClaim, loading } = useContext(MantleContext);
-  const [showAll, setShowAll] = useState(false);
+  const [showAll, setShowAll] = useState(true);
   const buttonDisable = useMemo(() => {
     return !(mantle.completed && !mantle.claimed);
   }, [mantle]);
+  const learnMore = () => {};
   useEffect(() => {
-    setShowAll(!buttonDisable);
+    // setShowAll(!buttonDisable);
   }, [buttonDisable]);
   return (
     <div className="flex justify-between gap-[50px] mb-[30px]">
@@ -31,52 +32,70 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
         </p>
         <p className="text-[16px] font-[400]">{mantle.description}</p>
       </div>
-      <div className="w-[572px] h-fit p-[20px] border border-[#8c8c8c] rounded-[10px] font-next-book">
-        <div
-          className="flex-row-center justify-between mb-[5px] cursor-pointer"
-          onClick={() => setShowAll(!showAll)}
-        >
-          <div className="text-[18px]">{mantle.certificate?.title}</div>
-          <div>
-            {showAll ? (
-              <VscChromeMinimize size={20}></VscChromeMinimize>
-            ) : (
-              <VscAdd size={20}></VscAdd>
+      <div
+        className={`h-fit flex gap-[40px] px-[30px] py-[20px] border border-[#8c8c8c] rounded-[10px] font-next-book ${
+          showAll ? 'w-[495px]' : 'w-[306px]'
+        }`}
+      >
+        {showAll && (
+          <div className="w-[146px]">
+            <div className="w-full h-[169px] relative mb-[8px]">
+              <Image
+                src={mantle.certificate?.image || Certificate}
+                alt="certificate"
+                fill
+                className="object-cover"
+              ></Image>
+            </div>
+            <div className="flex justify-between text-[14px]">
+              <div className="px-[5px] flex items-center justify-between w-[69px] h-[32px] border border-[#DADADA] rounded-[6px]">
+                <Image
+                  src={iconCoin}
+                  width={22}
+                  alt="icon"
+                  className=""
+                ></Image>
+                <span>x200</span>
+              </div>
+              <div className="px-[5px] flex items-center justify-between w-[69px] h-[32px] border border-[#DADADA] rounded-[6px]">
+                <Image
+                  src={iconCoin}
+                  width={22}
+                  alt="icon"
+                  className=""
+                ></Image>
+                <span>x200</span>
+              </div>
+            </div>
+          </div>
+        )}
+        <div className="flex-1 flex flex-col justify-between">
+          <div className="">
+            <div
+              className="flex-row-center justify-between cursor-pointer"
+              onClick={() => setShowAll(!showAll)}
+            >
+              <div className="text-[18px]">{mantle.certificate?.title}</div>
+              <div>
+                {showAll ? (
+                  <VscChromeMinimize size={20}></VscChromeMinimize>
+                ) : (
+                  <VscAdd size={20}></VscAdd>
+                )}
+              </div>
+            </div>
+            {showAll && (
+              <div
+                className={`text-[14px] mt-[5px] mb-[20px] ${inter.className}`}
+              >
+                {mantle.certificate?.description}
+              </div>
             )}
           </div>
-        </div>
-        {showAll && (
-          <>
-            <div className="text-[14px] font-next-book-Thin mb-[20px]">
-              {mantle.certificate?.description}
-            </div>
-            <div className="h-[140px] flex justify-between">
-              <div className="w-[227px] h-full flex justify-between relative">
-                <Image
-                  src={mantle.certificate?.image || Certificate}
-                  alt="certificate"
-                  fill
-                  className="object-cover"
-                ></Image>
-              </div>
-              <div className="w-[265px] h-full flex flex-col justify-between py-[6px]">
-                <div className="flex gap-[12px]">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <div key={i} className="w-[40px]">
-                      <div className="w-full h-[40px] rounded-[50%] bg-[#DADADA] mb-[4px] relative">
-                        {/* <Image
-                            src={iconCoin}
-                            width={40}
-                            alt="icon"
-                            className=""
-                          ></Image> */}
-                      </div>
-                      <p className="text-center">x1</p>
-                    </div>
-                  ))}
-                </div>
-                <Button
-                  className={`w-full h-[44px] text-[#0b0b0b] text-[16px] p-0
+          {showAll && (
+            <div className="flex justify-between">
+              <Button
+                className={`w-[120px] h-[34px] text-[#0b0b0b] text-[16px] p-0
                           bg-auth-primary-button-bg
                           border-auth-primary-button-border-color ${
                             buttonDisable
@@ -85,16 +104,22 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
                                   hover:text-auth-primary-button-text-hover-color 
                                   hover:bg-auth-primary-button-hover-bg`
                           }`}
-                  loading={loading}
-                  disabled={buttonDisable}
-                  onClick={campaignsClaim}
-                >
-                  Claim Certificate & Rewards
-                </Button>
-              </div>
+                loading={loading}
+                disabled={buttonDisable}
+                onClick={campaignsClaim}
+              >
+                {!buttonDisable ? 'Claimed' : 'Claim'}
+              </Button>
+              <Button
+                className={`w-[120px] h-[34px] text-[#0b0b0b] p-0 text-[14px]
+                          border border-[#0b0b0b]`}
+                onClick={learnMore}
+              >
+                Learn More
+              </Button>
             </div>
-          </>
-        )}
+          )}
+        </div>
       </div>
     </div>
   );

@@ -7,7 +7,8 @@ import { QueryIdType } from '@/components/v2/Breadcrumb/type';
 import webApi from '@/service';
 import Loading from '@/components/v2/Common/Loading';
 import { HackathonType } from '@/service/webApi/resourceStation/hackathon/type';
-import GuestPartner from '@/components/v2/HackDetailBox/components/GuestPartner';
+import MediaCommunity from '@/components/v2/HackDetailBox/components/MediaCommunity';
+import GuestMentors from '@/components/v2/HackDetailBox/GuestMentors';
 
 interface HackDetailProps {}
 
@@ -27,15 +28,15 @@ const HackDetail: FC<HackDetailProps> = (props) => {
               <div className="flex justify-between font-next-book">
                 <div className="w-[58%]">
                   <About hackathon={hackathon} />
-                  <GuestPartner
+                  <GuestMentors
                     listData={hackathon.guestsAndMentors}
                     title="Guests and Mentors"
                   />
-                  <GuestPartner
+                  <MediaCommunity
                     listData={hackathon.mediaPartners}
                     title="Media Partners"
                   />
-                  <GuestPartner
+                  <MediaCommunity
                     listData={hackathon.communityPartners}
                     title="Community Partners"
                   />

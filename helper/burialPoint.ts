@@ -72,7 +72,9 @@ type LandingBurialPointType =
   | 'landing-bottom Explore Selective Courses按钮点击'
   | 'landing-推特按钮点击'
   | 'landing-discord按钮点击'
-  | 'landing-instagram按钮点击';
+  | 'landing-instagram按钮点击'
+  | 'landing Explore Hackathons按钮点击'
+  | 'landing Explore Projects按钮点击';
 
 type HomeBurialPointType =
   | 'home-页面留存时间'
@@ -136,6 +138,8 @@ type MissCenterBurialPointType =
   | 'mission-center-daily-bonus claim滚动-左'
   | 'mission-center-daily-bonus claim滚动-右';
 
+type HackathonBurialPointType = 'hackathonDetail show all 按钮点击';
+
 type BurialPointType =
   | AuthBurialPointType
   | LandingBurialPointType
@@ -145,7 +149,8 @@ type BurialPointType =
   | LessonDetailBurialPointType
   | BaseBurialPointType
   | SettingsBurialPointType
-  | MissCenterBurialPointType;
+  | MissCenterBurialPointType
+  | HackathonBurialPointType;
 
 export class BurialPoint {
   static track(
