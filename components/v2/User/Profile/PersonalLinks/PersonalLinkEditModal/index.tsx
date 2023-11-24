@@ -38,6 +38,8 @@ const PersonalLinkEditModal = forwardRef<
   const [form] = Form.useForm<FormKeyValues>();
   const { profile, refresh } = useContext(ProfileContext);
 
+  const [personLinks, setPersonLinks] = useState<Record<string, string>>({});
+
   useImperativeHandle(ref, () => {
     return {
       onEdit(params) {
@@ -47,8 +49,18 @@ const PersonalLinkEditModal = forwardRef<
   });
 
   useEffect(() => {
-    form.setFieldsValue(profile?.personalLinks);
-  }, [profile]);
+    let newValues: Record<string, string> = {
+      x: '',
+      github: '',
+      linkedIn: '',
+      telegram: ''
+    };
+    Object.keys(profile?.personalLinks || {}).forEach((key: string) => {
+      newValues[key] = profile?.personalLinks[key];
+    });
+    setPersonLinks(newValues);
+    form.setFieldsValue(newValues);
+  }, [profile.personalLinks]);
 
   const { run: onSubmit, loading } = useRequest(
     async () => {
@@ -64,8 +76,16 @@ const PersonalLinkEditModal = forwardRef<
         form.resetFields();
         setOpen(false);
       },
-      onError(err) {
-        errorMessage(err);
+      onError(err: any) {
+        // console.log(err);
+        if (err.errorFields?.length) {
+          err.errorFields.forEach((item: any) => {
+            console.log(item?.errors?.[0]);
+            item?.errors?.length && message.error(item?.errors?.[0]);
+          });
+        } else {
+          errorMessage(err);
+        }
       }
     }
   );
@@ -110,22 +130,22 @@ const PersonalLinkEditModal = forwardRef<
           Personal Links
         </div>
         <Form className="" form={form}>
-          {Object.keys(
-            !!Object.keys(profile.personalLinks || {}).length
-              ? profile.personalLinks
-              : {
-                  x: '',
-                  github: '',
-                  linkedIn: '',
-                  telegram: ''
-                }
-          ).map((key, index) => {
+          {Object.keys(personLinks).map((key, index) => {
             const media = getThirdPartyMedia(
               key as keyof typeof thirdPartyMedia
             );
             if (!media) return null;
             return (
-              <Form.Item key={index} style={{ marginBottom: '0px' }} name={key}>
+              <Form.Item
+                key={index}
+                style={{ marginBottom: '0px' }}
+                name={key}
+                rules={[
+                  {
+                    type: 'url'
+                  }
+                ]}
+              >
                 <div className="text-black relative flex items-center py-[20px] after:absolute after:h-[1px] after:scale-y-[0.5] after:w-full after:bg-black after:bottom-0">
                   <div className="flex gap-x-[15px] items-center h-full w-[25%]">
                     <span>{media.icon}</span>
@@ -135,7 +155,7 @@ const PersonalLinkEditModal = forwardRef<
                   </div>
                   <input
                     defaultValue={profile?.personalLinks?.[key] || ''}
-                    type="text"
+                    type="url"
                     placeholder="Please enter personal link"
                     className="flex-1 h-[30px] truncate text-[14px] font-next-book text-[#8C8C8C] leading-[160%] -tracking-[0.154px] outline-none bg-transparent"
                   />
