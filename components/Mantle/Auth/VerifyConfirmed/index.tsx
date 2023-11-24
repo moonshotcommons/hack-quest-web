@@ -48,7 +48,9 @@ const Success: React.FC<{ type: AuthType }> = ({ type }) => {
         clearInterval(timer);
       };
     } else {
-      router.push('/home');
+      router.push(
+        '/learning-track/6d108f0d-dfb2-4dad-8f38-93b45573bc43?learningTrackId=6d108f0d-dfb2-4dad-8f38-93b45573bc43&menu=learningTrack'
+      );
     }
   }, [countDown, router]);
 
@@ -222,7 +224,9 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
             dispatch(setUserInfo(omit(res, 'token')));
             BurialPoint.track('signup-Google三方登录code验证成功');
             setToken(res.token);
-            router.push('/home');
+            router.push(
+              '/learning-track/6d108f0d-dfb2-4dad-8f38-93b45573bc43?learningTrackId=6d108f0d-dfb2-4dad-8f38-93b45573bc43&menu=learningTrack'
+            );
           }
         })
         .catch((err) => {
@@ -261,7 +265,9 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
             dispatch(setUserInfo(omit(res, 'token')));
             BurialPoint.track('signup-Github三方登录code验证成功');
             setToken(res.token);
-            router.push('/home');
+            router.push(
+              '/learning-track/6d108f0d-dfb2-4dad-8f38-93b45573bc43?learningTrackId=6d108f0d-dfb2-4dad-8f38-93b45573bc43&menu=learningTrack'
+            );
           }
         })
         .catch((err) => {

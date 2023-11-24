@@ -73,7 +73,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
             }
             const toPageUrl = redirect_url
               ? `${redirect_url}?token=${res.token}`
-              : '/home';
+              : '/learning-track/6d108f0d-dfb2-4dad-8f38-93b45573bc43?learningTrackId=6d108f0d-dfb2-4dad-8f38-93b45573bc43&menu=learningTrack';
             router.push(toPageUrl);
             setLoading(false);
           } catch (e: any) {
