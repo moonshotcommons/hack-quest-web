@@ -1,5 +1,5 @@
 import React, { useEffect, useLayoutEffect, useMemo, useState } from 'react';
-import Button from '@/components/v2/Common/Button';
+import Button from '@/components/Mantle/Common/Button';
 import Google from '@/public/images/login/google.svg';
 import Github from '@/public/images/login/github.svg';
 import Metamask from '@/public/images/login/metamask.svg';
@@ -44,7 +44,6 @@ const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
           if (isAccount) {
             account = await metamaskConnector.getAccount();
           }
-
           if (!account) {
             const connectRes = await connectAsync({
               connector: metamaskConnector
@@ -67,7 +66,9 @@ const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
               dispatch(setUserInfo(omit(res, 'token')));
               BurialPoint.track('signup-Metamask第三方登录code验证成功');
               setToken(res.token);
-              router.push('/home');
+              router.push(
+                '/learning-track/6d108f0d-dfb2-4dad-8f38-93b45573bc43?learningTrackId=6d108f0d-dfb2-4dad-8f38-93b45573bc43&menu=learningTrack'
+              );
             }
           }
         } catch (err) {
@@ -85,7 +86,8 @@ const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
       block
       loading={metamaskLoading}
       disabled={metamaskLoading}
-      className="px-0 py-[0px] text-[#fff] relative w-fit"
+      ghost
+      className="px-0 py-[0px] text-[#fff] relative rounded-[10px] w-[48px] h-[48px] border-[#8C8C8C] bg-[#0B0B0B]"
       onClick={() => {
         if (!metamaskConnector?.ready) {
           message.error('Please connect to your metamask plugin!');
@@ -94,7 +96,7 @@ const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
         }
       }}
     >
-      <Image src={Metamask} width={40} height={40} alt="MetaMask"></Image>
+      <Image src={Metamask} width={24} height={24} alt="MetaMask"></Image>
     </Button>
   );
 };

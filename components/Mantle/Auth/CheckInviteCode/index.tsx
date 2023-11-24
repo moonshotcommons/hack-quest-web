@@ -102,7 +102,9 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
         dispatch(setUserInfo(omit(res, 'token')));
         BurialPoint.track('signup-Google三方登录输入邀请码登录成功');
         setToken(res.token);
-        router.push('/home');
+        router.push(
+          '/learning-track/6d108f0d-dfb2-4dad-8f38-93b45573bc43?learningTrackId=6d108f0d-dfb2-4dad-8f38-93b45573bc43&menu=learningTrack'
+        );
       },
       onError(e: any) {
         let msg = '';
