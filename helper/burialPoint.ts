@@ -72,7 +72,9 @@ type LandingBurialPointType =
   | 'landing-bottom Explore Selective Courses按钮点击'
   | 'landing-推特按钮点击'
   | 'landing-discord按钮点击'
-  | 'landing-instagram按钮点击';
+  | 'landing-instagram按钮点击'
+  | 'landing Explore Hackathons按钮点击'
+  | 'landing Explore Projects按钮点击';
 
 type HomeBurialPointType =
   | 'home-页面留存时间'
@@ -124,6 +126,7 @@ type LessonDetailBurialPointType =
   | 'lesson-课程完成';
 
 type MissCenterBurialPointType =
+  | 'mission-center-页面留存时间'
   | 'mission-center-切换tab'
   | 'mission-center-claim'
   | 'mission-center-unClaim按钮 点击 点击'
@@ -136,6 +139,30 @@ type MissCenterBurialPointType =
   | 'mission-center-daily-bonus claim滚动-左'
   | 'mission-center-daily-bonus claim滚动-右';
 
+type HackathonBurialPointType =
+  | 'hackathon-页面留存时间'
+  | 'hackathon-all-projects-页面留存时间'
+  | 'hackathon-detail-页面留存时间'
+  | 'hackathonDetail show all 按钮点击'
+  | 'hackathon onGoingCard 点击'
+  | 'hackathon onGoingCard Apply Now 按钮点击'
+  | 'hackathon page tab 点击'
+  | 'hackathon detail Apply Now 按钮点击'
+  | 'hackathon detail View All Projects 按钮点击'
+  | 'hackathon projectCard 点击';
+
+type CampaignsBurialPointType =
+  | 'campaigns-页面留存时间'
+  | 'campaigns tab 点击'
+  | 'campaigns certificateCard show all 点击'
+  | 'campaigns certificateCard learn more 按钮点击'
+  | 'campaigns certificateCard claim 按钮点击'
+  | 'campaigns targetCard claim 按钮点击'
+  | 'campaigns targetCard Go to Dashboard 按钮点击'
+  | 'campaigns targetCard Go to Learning 按钮点击'
+  | 'campaigns targetCard Link with Twitter 按钮点击'
+  | 'campaigns targetCard Join Community 按钮点击';
+
 type BurialPointType =
   | AuthBurialPointType
   | LandingBurialPointType
@@ -145,7 +172,9 @@ type BurialPointType =
   | LessonDetailBurialPointType
   | BaseBurialPointType
   | SettingsBurialPointType
-  | MissCenterBurialPointType;
+  | MissCenterBurialPointType
+  | HackathonBurialPointType
+  | CampaignsBurialPointType;
 
 export class BurialPoint {
   static track(
