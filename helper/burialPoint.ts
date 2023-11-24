@@ -161,7 +161,7 @@ type CampaignsBurialPointType =
   | 'campaigns targetCard Go to Dashboard 按钮点击'
   | 'campaigns targetCard Go to Learning 按钮点击'
   | 'campaigns targetCard Link with Twitter 按钮点击'
-  | 'campaigns targetCard Join Community 按钮点击';
+  | 'campaigns targetCard Join Discord 按钮点击';
 
 type BurialPointType =
   | AuthBurialPointType

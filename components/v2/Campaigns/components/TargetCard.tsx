@@ -35,7 +35,7 @@ const TargetCard: React.FC<TargetCardProp> = ({ target }) => {
         window.open(t.url);
         break;
       case TargetType.DISCORD:
-        BurialPoint.track('campaigns targetCard Join Community 按钮点击');
+        BurialPoint.track('campaigns targetCard Join Discord 按钮点击');
         setUnLoading(true);
         const d = await webApi.campaigns.campaignsDiscord();
         setUnLoading(false);
@@ -53,7 +53,7 @@ const TargetCard: React.FC<TargetCardProp> = ({ target }) => {
       case TargetType.TWITTER:
         return 'Link with Twitter';
       case TargetType.DISCORD:
-        return 'Join Community';
+        return 'Join Discord';
     }
   };
   return (
