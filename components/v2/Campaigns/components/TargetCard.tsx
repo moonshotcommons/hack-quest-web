@@ -7,6 +7,7 @@ import webApi from '@/service';
 import { TargetsType, TargetType } from '@/service/webApi/campagins/type';
 import { MenuLink } from '../../Layout/Navbar/type';
 import { MantleContext } from '../Mantle/type';
+import { BurialPoint } from '@/helper/burialPoint';
 
 interface TargetCardProp {
   target: TargetsType;
@@ -18,12 +19,15 @@ const TargetCard: React.FC<TargetCardProp> = ({ target }) => {
   const handleUnClaim = async (type: TargetType) => {
     switch (type) {
       case TargetType.COURSE:
+        BurialPoint.track('campaigns targetCard Go to Dashboard 按钮点击');
         router.push(MenuLink.HOME);
         break;
       case TargetType.LEARNING_TRACK:
+        BurialPoint.track('campaigns targetCard Go to Learning 按钮点击');
         router.push(MenuLink.LEARNING_TRACK);
         break;
       case TargetType.TWITTER:
+        BurialPoint.track('campaigns targetCard Link with Twitter 按钮点击');
         setUnLoading(true);
         const t = await webApi.campaigns.campaignsTwitter();
         setUnLoading(false);
@@ -31,6 +35,7 @@ const TargetCard: React.FC<TargetCardProp> = ({ target }) => {
         window.open(t.url);
         break;
       case TargetType.DISCORD:
+        BurialPoint.track('campaigns targetCard Join Community 按钮点击');
         setUnLoading(true);
         const d = await webApi.campaigns.campaignsDiscord();
         setUnLoading(false);
@@ -48,7 +53,7 @@ const TargetCard: React.FC<TargetCardProp> = ({ target }) => {
       case TargetType.TWITTER:
         return 'Link with Twitter';
       case TargetType.DISCORD:
-        return 'Join Discord';
+        return 'Join Community';
     }
   };
   return (

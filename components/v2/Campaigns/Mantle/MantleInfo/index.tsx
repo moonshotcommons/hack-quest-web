@@ -7,6 +7,7 @@ import iconCoin from '@/public/images/mission-center/icon_coin.png';
 import Button from '@/components/v2/Common/Button';
 import { Inter, DM_Sans } from 'next/font/google';
 import { MantleContext } from '@/components/v2/Campaigns/Mantle/type';
+import { BurialPoint } from '@/helper/burialPoint';
 const inter = DM_Sans({
   weight: ['400', '700', '500'],
   subsets: ['latin', 'latin-ext']
@@ -20,9 +21,11 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
   const buttonDisable = useMemo(() => {
     return !(mantle.completed && !mantle.claimed);
   }, [mantle]);
-  const learnMore = () => {};
+  const learnMore = () => {
+    BurialPoint.track('campaigns certificateCard learn more 按钮点击');
+  };
   useEffect(() => {
-    // setShowAll(!buttonDisable);
+    setShowAll(!buttonDisable);
   }, [buttonDisable]);
   return (
     <div className="flex justify-between gap-[50px] mb-[30px]">
@@ -73,7 +76,10 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
           <div className="">
             <div
               className="flex-row-center justify-between cursor-pointer"
-              onClick={() => setShowAll(!showAll)}
+              onClick={() => {
+                BurialPoint.track('campaigns certificateCard show all 点击');
+                setShowAll(!showAll);
+              }}
             >
               <div className="text-[18px]">{mantle.certificate?.title}</div>
               <div>

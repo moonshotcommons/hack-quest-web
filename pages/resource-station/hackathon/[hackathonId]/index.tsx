@@ -9,6 +9,7 @@ import Loading from '@/components/v2/Common/Loading';
 import { HackathonType } from '@/service/webApi/resourceStation/hackathon/type';
 import MediaCommunity from '@/components/v2/HackDetailBox/components/MediaCommunity';
 import GuestMentors from '@/components/v2/HackDetailBox/GuestMentors';
+import { BurialPoint } from '@/helper/burialPoint';
 
 interface HackDetailProps {}
 
@@ -19,6 +20,16 @@ const HackDetail: FC<HackDetailProps> = (props) => {
     const res = await webApi.hackathon.getHackathonDetail(id as string);
     return res;
   });
+  useEffect(() => {
+    const startTime = new Date().getTime();
+    return () => {
+      const endTime = new Date().getTime();
+      const duration = endTime - startTime;
+      BurialPoint.track('hackathon-detail-页面留存时间', {
+        duration
+      });
+    };
+  }, []);
   return (
     <div className="mx-auto container font-next-book tracking-[0.36px]">
       <Loading loading={!hackathon.id}>
