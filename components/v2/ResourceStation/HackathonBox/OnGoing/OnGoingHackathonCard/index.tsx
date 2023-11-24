@@ -6,6 +6,7 @@ import { Menu, QueryIdType } from '@/components/v2/Breadcrumb/type';
 import { menuLink } from '@/components/v2/Breadcrumb/data';
 import { HackathonType } from '@/service/webApi/resourceStation/hackathon/type';
 import useDealHackathonData from '@/hooks/useDealHackathonData';
+import { BurialPoint } from '@/helper/burialPoint';
 
 interface OnGoingHackathonCardProp {
   hackathon: HackathonType;
@@ -18,6 +19,7 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({
   const closeInTimeOut = useRef<NodeJS.Timeout | null>(null);
   const [closeInTime, setCloseInTime] = useState('');
   const goHackathonDetail = () => {
+    BurialPoint.track(`hackathon onGoingCard 点击`);
     router.push(
       `${menuLink.hackathon}/${hackathon.id}?menu=${Menu.HACKATHON}&${QueryIdType.HACKATHON_ID}=${hackathon.id}`
     );
@@ -74,7 +76,10 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({
         <div className="flex justify-between">
           <Button
             className="w-[245px] h-[60px] text-[18px] bg-[#ffd850]"
-            onClick={() => window.open(hackathon.applyLink)}
+            onClick={() => {
+              BurialPoint.track(`hackathon onGoingCard Apply Now 按钮点击`);
+              window.open(hackathon.applyLink);
+            }}
           >
             Apply Now
           </Button>
