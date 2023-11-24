@@ -12,6 +12,7 @@ import HoverIcon from '../components/HoverIcon';
 import { IconType } from '../components/HoverIcon/type';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import Link from 'next/link';
 interface PersonalLinksProps {}
 
 const PersonalLinks: FC<PersonalLinksProps> = (props) => {
@@ -81,7 +82,16 @@ const PersonalLinks: FC<PersonalLinksProps> = (props) => {
                   <p className="w-[140px] flex-1 truncate text-[14px] font-next-book text-[#8C8C8C] leading-[160%] -tracking-[0.154px]">
                     {personLinks[key]}
                   </p>
-                  <RiShareBoxLine size={20}></RiShareBoxLine>
+                  <Link
+                    href={personLinks[key]}
+                    target="_blank"
+                    className="hover:text-black/40 transition duration-200"
+                  >
+                    <RiShareBoxLine
+                      size={20}
+                      color="currentColor"
+                    ></RiShareBoxLine>
+                  </Link>
                 </div>
               </li>
             );
