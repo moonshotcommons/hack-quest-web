@@ -25,7 +25,7 @@ export interface BasicInfoModalRef {
 interface FormKeyValues {
   location: string;
   experience: number;
-  techStack: string[];
+  techStack: string;
 }
 
 const TechStackItem = ({
@@ -76,7 +76,7 @@ const BasicInfoModal = forwardRef<BasicInfoModalRef, BasicInfoModalProps>(
       form.setFieldsValue({
         location: profile.location,
         experience: profile.experience || 0,
-        techStack: profile.techStack
+        techStack: ''
       });
 
       setTechStack(profile.techStack || []);
@@ -101,8 +101,15 @@ const BasicInfoModal = forwardRef<BasicInfoModalRef, BasicInfoModalProps>(
           setTechStack([]);
           setOpen(false);
         },
-        onError(err) {
-          errorMessage(err);
+        onError(err: any) {
+          if (err.errorFields?.length) {
+            err.errorFields.forEach((item: any) => {
+              console.log(item?.errors?.[0]);
+              item?.errors?.length && message.error(item?.errors?.[0]);
+            });
+          } else {
+            errorMessage(err);
+          }
         }
       }
     );
@@ -148,7 +155,7 @@ const BasicInfoModal = forwardRef<BasicInfoModalRef, BasicInfoModalProps>(
           </div>
           <Form className="mt-[30px]" form={form}>
             <div className="flex gap-[30px]">
-              <Form.Item name="location">
+              <Form.Item name="location" rules={[{ max: 240 }]}>
                 <div
                   className="
                   [&>div]:gap-y-[5px]
@@ -168,7 +175,7 @@ const BasicInfoModal = forwardRef<BasicInfoModalRef, BasicInfoModalProps>(
                   ></Input>
                 </div>
               </Form.Item>
-              <Form.Item name="experience">
+              <Form.Item name="experience" rules={[{ max: 99, min: 0 }]}>
                 <div
                   className="
               [&>div]:gap-y-[5px]
@@ -185,6 +192,7 @@ const BasicInfoModal = forwardRef<BasicInfoModalRef, BasicInfoModalProps>(
                     label="Experience"
                     type="number"
                     min={0}
+                    max={99}
                     defaultValue={form.getFieldValue('experience')}
                     className="py-[7px] px-[30px] text-[21px] font-next-book tracking-[0.063px] leading-[160%] border-[#8C8C8C] caret-gray-500"
                   ></Input>
@@ -219,6 +227,8 @@ const BasicInfoModal = forwardRef<BasicInfoModalRef, BasicInfoModalProps>(
                       className="py-2 px-6"
                       onClick={() => {
                         const value = form.getFieldValue('techStack');
+                        if (!value) return;
+                        console.log(value);
                         let values: string[] = value.trim().split('/');
                         values = values.filter((item: string) => {
                           if (!item.trim()) {
