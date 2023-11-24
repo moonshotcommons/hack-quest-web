@@ -221,6 +221,10 @@ const BasicInfoModal = forwardRef<BasicInfoModalRef, BasicInfoModalProps>(
                         const value = form.getFieldValue('techStack');
                         let values: string[] = value.trim().split('/');
                         values = values.filter((item: string) => {
+                          if (!item.trim()) {
+                            message.error(`The input cannot be empty!`);
+                            return false;
+                          }
                           if (!techStack.includes(item)) return true;
                           else {
                             message.error(
