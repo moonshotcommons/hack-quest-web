@@ -44,7 +44,6 @@ const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
           if (isAccount) {
             account = await metamaskConnector.getAccount();
           }
-
           if (!account) {
             const connectRes = await connectAsync({
               connector: metamaskConnector
@@ -67,7 +66,9 @@ const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
               dispatch(setUserInfo(omit(res, 'token')));
               BurialPoint.track('signup-Metamask第三方登录code验证成功');
               setToken(res.token);
-              router.push('/home');
+              router.push(
+                '/learning-track/6d108f0d-dfb2-4dad-8f38-93b45573bc43?learningTrackId=6d108f0d-dfb2-4dad-8f38-93b45573bc43&menu=learningTrack'
+              );
             }
           }
         } catch (err) {
