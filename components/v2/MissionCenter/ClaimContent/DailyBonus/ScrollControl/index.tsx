@@ -1,9 +1,8 @@
-import LeftArrowIcon from '@/components/Common/Icon/LeftArrow';
-import RightArrowIcon from '@/components/Common/Icon/RightArrow';
 import { ChangeState } from '@/components/Common/ScrollContainer';
 import { BurialPoint } from '@/helper/burialPoint';
 import { cn } from '@/helper/utils';
 import { useEffect, useRef, useState } from 'react';
+import { HiArrowLongRight, HiArrowLongLeft } from 'react-icons/hi2';
 
 function ScrollControl({ changeState }: { changeState?: ChangeState }) {
   const { handleArrowClick, rightArrowVisible, leftArrowVisible } =
@@ -42,7 +41,7 @@ function ScrollControl({ changeState }: { changeState?: ChangeState }) {
             handleArrowClick?.('left');
           }}
         >
-          <LeftArrowIcon></LeftArrowIcon>
+          <HiArrowLongLeft size={24}></HiArrowLongLeft>
         </div>
         <div
           className={cn(
@@ -56,11 +55,11 @@ function ScrollControl({ changeState }: { changeState?: ChangeState }) {
             handleArrowClick?.('right');
           }}
         >
-          <RightArrowIcon></RightArrowIcon>
+          <HiArrowLongRight size={24}></HiArrowLongRight>
         </div>
       </div>
       <div
-        className=" relative w-[210px] h-[2px] bg-[#DADADA] mt-[15px]"
+        className=" relative w-[210px] h-[2px] bg-[#DADADA] mt-[15px] shadow-[0px_1px_2px_0_rgba(0,0,0,0.25)]"
         ref={scrollBarRef}
       >
         <div

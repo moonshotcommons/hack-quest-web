@@ -28,12 +28,12 @@ const LessonPage: FC<LessonPageProps> = (props) => {
   const { lesson, loading } = useGetLessonContent(lessonId);
   const router = useRouter();
   const { courseId: courseName } = router.query;
+  const [nextLoading, setNextLoading] = useState(true);
   const { onNextClick, completeModalOpen, setCompleteModalOpen } =
     useGotoNextLesson(lesson!, courseType, true, true);
   const [isHandleNext, setIsHandleNext] = useState(false);
   const allowNextButtonClickTime = useRef(0);
   const treasureModalRef = useRef<TreasureModalRef>(null);
-
   const judgmentInitIsHandleNext = useCallback(() => {
     const quiz = lesson?.content?.right?.find(
       (v: NotionComponent) => v.type === CustomType.Quiz
@@ -52,6 +52,7 @@ const LessonPage: FC<LessonPageProps> = (props) => {
 
   useEffect(() => {
     if (lesson) {
+      setNextLoading(false);
       judgmentInitIsHandleNext();
       webApi.courseApi.startLesson(lesson.id).catch((e) => {
         console.log('开始学习失败', e);
@@ -100,6 +101,7 @@ const LessonPage: FC<LessonPageProps> = (props) => {
           >
             <LessonPageContext.Provider
               value={{
+                nextLoading,
                 isHandleNext,
                 leftLength: lesson?.content?.left?.length || 0,
                 changeHandleNext: (handle) => {
@@ -160,7 +162,7 @@ const LessonPage: FC<LessonPageProps> = (props) => {
               </Split>
               <LessonFooter
                 lesson={lesson as any}
-                onNextClick={() => {
+                onNextClick={async () => {
                   BurialPoint.track('lesson-底部next按钮点击');
                   BurialPoint.track(
                     'lesson-底部next按钮亮起到点击所消耗的时间',
@@ -174,20 +176,25 @@ const LessonPage: FC<LessonPageProps> = (props) => {
                       })
                     }
                   );
+                  setNextLoading(true);
                   if (lesson.state !== CompleteStateType.COMPLETED) {
                     onNextClick(() => {
                       webApi.missionCenterApi
                         .digTreasures(lessonId)
-                        .then((res) => {
+                        .then(async (res) => {
                           if (res.success && res.treasureId) {
                             treasureModalRef.current?.open(res.treasureId);
+                            setNextLoading(false);
                           } else {
-                            onNextClick();
+                            await onNextClick();
                           }
+                        })
+                        .catch(() => {
+                          setNextLoading(false);
                         });
                     });
                   } else {
-                    onNextClick();
+                    await onNextClick();
                   }
                 }}
               />
