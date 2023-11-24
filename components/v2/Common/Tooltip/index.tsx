@@ -1,6 +1,14 @@
 import { cloneElement, cn } from '@/helper/utils';
+import { useDebounceFn } from 'ahooks';
 import { title } from 'process';
-import { FC, ReactElement, ReactNode, isValidElement, useState } from 'react';
+import {
+  FC,
+  ReactElement,
+  ReactNode,
+  isValidElement,
+  useEffect,
+  useState
+} from 'react';
 
 export interface TooltipProps {
   children: React.ReactNode;
@@ -13,23 +21,55 @@ export interface TooltipProps {
     | 'bottomLeft'
     | 'bottom'
     | 'bottomRight';
+  className?: string;
+  /** 显示控制 */
+  show?: boolean;
+  /** 是否自定义显示控制，默认为false，值为true内部将不再控制显示隐藏 */
+  customize?: boolean;
 }
 
 const Tooltip: FC<TooltipProps> = (props) => {
-  const { children, title, color = '#FFF', placement = 'topLeft' } = props;
-  const [show, setShow] = useState(false);
+  const {
+    children,
+    title,
+    color = '#FFF',
+    placement = 'topLeft',
+    className,
+    show: propShow = false,
+    customize = false
+  } = props;
+  const [show, setShow] = useState(propShow);
+
+  // const
+
+  useEffect(() => {
+    setShow(propShow);
+  }, [propShow]);
+
+  const { run: handleMouseLeave } = useDebounceFn(
+    () => {
+      setShow(false);
+    },
+    { wait: 100 }
+  );
+
   return (
     <div
       className="relative w-fit h-fit"
       onMouseEnter={() => {
+        if (customize) return;
+        handleMouseLeave.cancel();
         setShow(true);
       }}
-      onMouseLeave={() => setShow(false)}
+      onMouseLeave={() => {
+        if (customize) return;
+        handleMouseLeave();
+      }}
     >
       {show && (
         <div
           className={cn(
-            ' font-next-book-Thin text-[#0b0b0b] text-[12px] absolute p-[20px] whitespace-nowrap rounded-[10px] shadow-md',
+            ' font-next-book-Thin text-[#0b0b0b] text-[12px] absolute h-fit p-[20px] whitespace-nowrap rounded-[10px] shadow-[rgba(100,100,111,0.2)_0px_7px_29px_0px]',
             placement === 'topLeft'
               ? '-translate-y-[calc(100%+17px)] -left-[12px]'
               : '',
@@ -47,7 +87,8 @@ const Tooltip: FC<TooltipProps> = (props) => {
               : '',
             placement === 'bottomRight'
               ? 'translate-y-[calc(100%+2px)] -right-[12px]'
-              : ''
+              : '',
+            className
           )}
           style={{ backgroundColor: color }}
         >
@@ -77,7 +118,9 @@ const Tooltip: FC<TooltipProps> = (props) => {
           {title}
         </div>
       )}
+
       {children}
+      {/* <div className="h-[9px] w-full bg-red-400"></div> */}
     </div>
   );
 };
