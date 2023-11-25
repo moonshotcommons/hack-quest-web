@@ -44,7 +44,7 @@ const PersonalLinks: FC<PersonalLinksProps> = (props) => {
   }, [profile]);
 
   return (
-    <div className="w-[420px] h-fit p-[30px] pb-[40px] bg-white rounded-[10px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] group hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)] hover:-translate-y-1 transition-all duration-300 relative cursor-pointer">
+    <div className="w-[420px] p-[30px] pb-[40px] bg-white rounded-[10px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] group hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)] hover:-translate-y-1 transition-all duration-300 relative cursor-pointer">
       <p className="text-black font-next-poster-Bold text-[28px] tracking-[1.68px] leading-[125%]">
         Personal Links
       </p>
@@ -82,16 +82,18 @@ const PersonalLinks: FC<PersonalLinksProps> = (props) => {
                   <p className="w-[140px] flex-1 truncate text-[14px] font-next-book text-[#8C8C8C] leading-[160%] -tracking-[0.154px]">
                     {personLinks[key]}
                   </p>
-                  <Link
-                    href={personLinks[key]}
-                    target="_blank"
-                    className="hover:text-black/40 transition duration-200"
-                  >
-                    <RiShareBoxLine
-                      size={20}
-                      color="currentColor"
-                    ></RiShareBoxLine>
-                  </Link>
+                  {personLinks[key] && (
+                    <Link
+                      href={personLinks[key]}
+                      target="_blank"
+                      className="hover:text-black/40 transition duration-200"
+                    >
+                      <RiShareBoxLine
+                        size={20}
+                        color="currentColor"
+                      ></RiShareBoxLine>
+                    </Link>
+                  )}
                 </div>
               </li>
             );
@@ -100,12 +102,12 @@ const PersonalLinks: FC<PersonalLinksProps> = (props) => {
       )}
       {!showLinks && (
         <div className="flex flex-col items-center">
-          <p className="mt-[57px] text-center font-next-book text-[18px] leading-[160%] tracking-[0.054px]">
+          <p className="mt-[48px] text-center font-next-book text-[18px] leading-[160%] tracking-[0.054px]">
             Share your social media information
           </p>
           <Button
             type="primary"
-            className="w-[223px] px-0 py-[12px] text-[16px] font-next-book leading-[125%] tracking-[0.32px] text-[#0B0B0B] mt-[25px] mb-[30px]"
+            className="w-[223px] px-0 py-[12px] text-[16px] font-next-book leading-[125%] tracking-[0.32px] text-[#0B0B0B] mt-[25px] mb-[10px]"
             onClick={() => personalLinkEditRef.current?.onEdit({})}
           >
             Add Personal links
