@@ -44,7 +44,7 @@ export const navbarList: NavbarListType[] = [
     id: 'Campaigns',
     menu: [
       {
-        label: 'XXXX',
+        label: 'Campaigns',
         path: MenuLink.CAMPAIGINS
       }
     ]
@@ -59,3 +59,10 @@ export const navbarList: NavbarListType[] = [
 ];
 
 export const excludeLink = [MenuLink.USER_PROFILE];
+export const needLoginPath = [
+  MenuLink.MISSION_CENTER,
+  MenuLink.CAMPAIGINS,
+  MenuLink.USER_PROFILE
+];
+
+export const isBadgeIds = ['missions'];

@@ -9,7 +9,8 @@ import {
   UserExperienceType,
   UserPersonalType,
   PersonalLinksType,
-  GithubActivityType
+  GithubActivityType,
+  UserHackathonType
 } from './type';
 import { transformQueryString } from '@/helper/formate';
 
@@ -202,6 +203,33 @@ class UserApi {
   deleteExperience(id: string) {
     return this.service.delete(
       `${UserApiType.UserProfile}/work-experience/${id}`
+    );
+  }
+
+  /**新增hackathon */
+  addHackathon(data: Omit<UserHackathonType, 'id'>) {
+    return this.service.post<UserHackathonType>(
+      `${UserApiType.UserProfile}/hackathon-experience`,
+      {
+        data
+      }
+    );
+  }
+
+  /**编辑hackathon */
+  editHackathon(id: string, data: Omit<UserHackathonType, 'id'>) {
+    return this.service.put<UserHackathonType>(
+      `${UserApiType.UserProfile}/hackathon-experience/${id}`,
+      {
+        data
+      }
+    );
+  }
+
+  /**删除hackathon */
+  deleteHackathon(id: string) {
+    return this.service.delete(
+      `${UserApiType.UserProfile}/hackathon-experience/${id}`
     );
   }
   /** 获取user profile github 授权url */
