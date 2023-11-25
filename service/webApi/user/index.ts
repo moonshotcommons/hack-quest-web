@@ -9,7 +9,8 @@ import {
   UserExperienceType,
   UserPersonalType,
   PersonalLinksType,
-  GithubActivityType
+  GithubActivityType,
+  UserHackathonType
 } from './type';
 import { transformQueryString } from '@/helper/formate';
 
@@ -204,6 +205,33 @@ class UserApi {
       `${UserApiType.UserProfile}/work-experience/${id}`
     );
   }
+
+  /**新增hackathon */
+  addHackathon(data: Omit<UserHackathonType, 'id'>) {
+    return this.service.post<UserHackathonType>(
+      `${UserApiType.UserProfile}/hackathon-experience`,
+      {
+        data
+      }
+    );
+  }
+
+  /**编辑hackathon */
+  editHackathon(id: string, data: Omit<UserHackathonType, 'id'>) {
+    return this.service.put<UserHackathonType>(
+      `${UserApiType.UserProfile}/hackathon-experience/${id}`,
+      {
+        data
+      }
+    );
+  }
+
+  /**删除hackathon */
+  deleteHackathon(id: string) {
+    return this.service.delete(
+      `${UserApiType.UserProfile}/hackathon-experience/${id}`
+    );
+  }
   /** 获取user profile github 授权url */
   getGithubConnectUrl() {
     return this.service.get<{ url: string }>(
@@ -217,13 +245,38 @@ class UserApi {
       data: personalLinks
     });
   }
+
   linkGithub(code: string) {
     return this.service.get<GithubActivityType>(
       `${UserApiType.UserProfile}/link-github?code=${code}`
     );
   }
+
   unLinkGithub() {
     return this.service.get(`${UserApiType.UserProfile}/unlink-github`);
+  }
+
+  /** on-Chain Activity  link*/
+  linkChain(address: string) {
+    return this.service.post<{
+      address: string;
+      balance: number;
+      transactionCount: number;
+    }>(`${UserApiType.UserProfile}/link-chain`, {
+      data: {
+        address
+      }
+    });
+  }
+
+  /** on-Chain Activity unLink */
+  unLinkChain() {
+    return this.service.get(`${UserApiType.UserProfile}/unlink-chain`);
+  }
+
+  /** on-Chain Activity unLink */
+  refreshChain() {
+    return this.service.get(`${UserApiType.UserProfile}/refresh-chain`);
   }
 }
 

@@ -1,3 +1,6 @@
+import { MenuLink } from '@/components/v2/Layout/Navbar/type';
+import { Menu } from 'antd';
+
 /** 登录页 */
 export const LOGIN_PATHNAME = '/auth/login';
 /** 注册页 */
@@ -18,6 +21,10 @@ export const MISSION_CENTER = '/mission-center';
 export const V2_LANDING_PATH = '/';
 export const V2_HOME_PATH = '/home';
 export const PREVIEW_PATH = '/preview';
+export const LEARNING_TRACK_DETAIL = `${MenuLink.LEARNING_TRACK}/[learningTrackId]`;
+export const ELECTIVE_DETAIL = `${MenuLink.ELECTIVES}/[courseId]`;
+export const HACKATHON_DETAIL = `${MenuLink.HACKATHON}/[hackathonId]`;
+export const PROJECT_DETAIL = `${MenuLink.PROJECTS}/[projectId]`;
 
 export function isLoginOrRegister(pathname: string) {
   if (
@@ -42,7 +49,17 @@ export function isNoNeedUserInfo(pathname: string) {
       LOGIN_PATHNAME,
       REGISTER_PATHNAME,
       ALL_COURSES_PATHNAME,
-      PREVIEW_PATH
+      PREVIEW_PATH,
+      MenuLink.HOME,
+      MenuLink.LEARNING_TRACK,
+      MenuLink.ELECTIVES,
+      MenuLink.HACKATHON,
+      LEARNING_TRACK_DETAIL,
+      ELECTIVE_DETAIL,
+      MenuLink.HACKATHON,
+      HACKATHON_DETAIL,
+      MenuLink.PROJECTS,
+      PROJECT_DETAIL
     ].includes(pathname) ||
     pathname.startsWith(PREVIEW_PATH)
   )

@@ -26,9 +26,9 @@ const DailyQuests: React.FC<TabContentType> = ({
   };
   return (
     <div>
-      <div className="flex items-center justify-between mb-[40px]">
+      <div className="flex  justify-between mb-[40px]">
         <div className="text-[#000] w-[62%]">
-          <p>{`Finish tasks and receive daily rewards. Keep that momentum going and discover what lies ahead! 💡`}</p>
+          {`Finish tasks and receive daily rewards. Keep that momentum going and discover what lies ahead! 💡`}
         </div>
         <Button
           className={`w-[270px] h-[60px] text-[18px] text-[#0b0b0b] bg-auth-primary-button-bg 

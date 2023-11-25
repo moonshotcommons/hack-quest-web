@@ -1,4 +1,4 @@
-import { FC, ReactNode, useContext, useRef } from 'react';
+import { FC, ReactNode, useContext, useMemo, useRef } from 'react';
 import { BoxType, ProfileContext } from '../type';
 import { getThirdPartyMedia, thirdPartyMedia } from '@/helper/thirdPartyMedia';
 import { RiShareBoxLine } from 'react-icons/ri';
@@ -10,18 +10,45 @@ import PersonalLinkEditModal, {
 } from './PersonalLinkEditModal';
 import HoverIcon from '../components/HoverIcon';
 import { IconType } from '../components/HoverIcon/type';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import Link from 'next/link';
 interface PersonalLinksProps {}
 
 const PersonalLinks: FC<PersonalLinksProps> = (props) => {
   const { profile } = useContext(ProfileContext);
   const personalLinkEditRef = useRef<PersonalLinkEditModalRef>(null);
 
+  const [personLinks, setPersonLinks] = useState<Record<string, string>>({});
+
+  const showLinks = useMemo(() => {
+    const keys = Object.keys(personLinks);
+    if (!keys.length) return false;
+    if (!keys.filter((key) => !!personLinks[key].trim()).length) return false;
+    return true;
+  }, [personLinks]);
+
+  useEffect(() => {
+    let newValues: Record<string, string> = {
+      x: '',
+      github: '',
+      linkedIn: '',
+      telegram: ''
+    };
+
+    Object.keys(profile?.personalLinks || {}).forEach((key: string) => {
+      newValues[key] = profile?.personalLinks[key];
+    });
+
+    setPersonLinks(newValues);
+  }, [profile]);
+
   return (
-    <div className="w-[420px] h-fit p-[30px] pb-[40px] bg-white rounded-[10px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] group hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)] hover:-translate-y-1 transition-all duration-300 relative cursor-pointer">
+    <div className="w-[420px] p-[30px] pb-[40px] bg-white rounded-[10px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] group hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)] hover:-translate-y-1 transition-all duration-300 relative cursor-pointer">
       <p className="text-black font-next-poster-Bold text-[28px] tracking-[1.68px] leading-[125%]">
         Personal Links
       </p>
-      {Object.keys(profile.personalLinks || {}).length > 0 && (
+      {showLinks && (
         <div className="absolute right-[30px] top-[25px] hidden group-hover:block">
           <HoverIcon
             type={IconType.EDIT}
@@ -33,16 +60,9 @@ const PersonalLinks: FC<PersonalLinksProps> = (props) => {
           ></HoverIcon>
         </div>
       )}
-      {Object.keys(profile.personalLinks || {}).length > 0 && (
+      {showLinks && (
         <ul>
-          {Object.keys(
-            profile.personalLinks || {
-              x: '',
-              github: '',
-              linkedIn: '',
-              telegram: ''
-            }
-          ).map((key, index) => {
+          {Object.keys(personLinks).map((key, index) => {
             const media = getThirdPartyMedia(
               key as keyof typeof thirdPartyMedia
             );
@@ -60,23 +80,34 @@ const PersonalLinks: FC<PersonalLinksProps> = (props) => {
                 </div>
                 <div className="flex gap-[10px] items-center">
                   <p className="w-[140px] flex-1 truncate text-[14px] font-next-book text-[#8C8C8C] leading-[160%] -tracking-[0.154px]">
-                    {profile.personalLinks[key]}
+                    {personLinks[key]}
                   </p>
-                  <RiShareBoxLine size={20}></RiShareBoxLine>
+                  {personLinks[key] && (
+                    <Link
+                      href={personLinks[key]}
+                      target="_blank"
+                      className="hover:text-black/40 transition duration-200"
+                    >
+                      <RiShareBoxLine
+                        size={20}
+                        color="currentColor"
+                      ></RiShareBoxLine>
+                    </Link>
+                  )}
                 </div>
               </li>
             );
           })}
         </ul>
       )}
-      {Object.keys(profile.personalLinks || {}).length <= 0 && (
+      {!showLinks && (
         <div className="flex flex-col items-center">
-          <p className="mt-[57px] text-center font-next-book text-[18px] leading-[160%] tracking-[0.054px]">
+          <p className="mt-[48px] text-center font-next-book text-[18px] leading-[160%] tracking-[0.054px]">
             Share your social media information
           </p>
           <Button
             type="primary"
-            className="w-[223px] px-0 py-[12px] text-[16px] font-next-book leading-[125%] tracking-[0.32px] text-[#0B0B0B] mt-[25px] mb-[30px]"
+            className="w-[223px] px-0 py-[12px] text-[16px] font-next-book leading-[125%] tracking-[0.32px] text-[#0B0B0B] mt-[25px] mb-[10px]"
             onClick={() => personalLinkEditRef.current?.onEdit({})}
           >
             Add Personal links
