@@ -10,6 +10,7 @@ import { unLoginTab } from './data';
 import IconCoin from '@/public/images/mission-center/icon_coin.png';
 import { AppRootState } from '@/store/redux';
 import { useRouter } from 'next/router';
+import { V2_LANDING_PATH } from '@/constants/nav';
 interface UserProps {}
 
 const User: FC<UserProps> = (props) => {
@@ -20,12 +21,20 @@ const User: FC<UserProps> = (props) => {
   const unLoginType = useGetUserUnLoginType();
   const dispatch = useDispatch();
   const router = useRouter();
+  const pathname = router.pathname;
   const { userLevel, userCoin } = useSelector((state: AppRootState) => {
     return {
       userLevel: state.missionCenter?.userLevel,
       userCoin: state.missionCenter?.userCoin
     };
   });
+
+  const unLoginTabClick = (value: UnLoginType) => {
+    if (pathname !== V2_LANDING_PATH) {
+      router.replace(`${V2_LANDING_PATH}?type=${value}`);
+    }
+    dispatch(setUnLoginType(value));
+  };
   useEffect(() => {
     if (userInfo) {
       setIsLogin(true);
@@ -114,14 +123,15 @@ const User: FC<UserProps> = (props) => {
               {unLoginTab.map((tab) => (
                 <div
                   className={`text-sm h-full flex items-center text-white hover:font-bold border-b-4 tracking-[0.28px] cursor-pointer ${
-                    tab.value === unLoginType?.type ||
+                    (pathname === V2_LANDING_PATH &&
+                      tab.value === unLoginType?.type) ||
                     (tab.value === UnLoginType.SIGN_UP &&
                       unLoginType.type === UnLoginType.INVITE_CODE)
                       ? 'font-next-book-bold text-text-default-color font-bold  border-[#FFD850]'
                       : 'font-next-book font-normal border-transparent'
                   }`}
                   key={tab.value}
-                  onClick={() => dispatch(setUnLoginType(tab.value))}
+                  onClick={() => unLoginTabClick(tab.value)}
                 >
                   {tab.label}
                 </div>
