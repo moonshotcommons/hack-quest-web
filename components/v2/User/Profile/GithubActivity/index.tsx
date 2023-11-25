@@ -125,7 +125,7 @@ const GithubActivity: FC<GithubActivityProps> = (props) => {
     };
   }, []);
   return (
-    <Box className="font-next-poster relative group h-[261.4px] flex flex-col justify-between">
+    <Box className="font-next-poster relative group h-[261px] flex flex-col justify-between">
       {!!githubInfo && (
         <div className="absolute right-[30px] top-[30px] hidden group-hover:block">
           <div className="flex gap-[10px]">
