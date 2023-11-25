@@ -70,6 +70,7 @@ const AvatarUpload: FC<AvatarUploadProps> = (props) => {
         cropShape="round"
         quality={1}
         maxZoom={10}
+        minZoom={1}
         onModalOk={async (res) => {
           if (!res) return;
           const file = res as RcFile;
@@ -85,13 +86,17 @@ const AvatarUpload: FC<AvatarUploadProps> = (props) => {
             errorMessage(e);
           }
         }}
+        aspect={1}
+        // minZoom={0.1}
         cropperProps={{
-          cropSize: {
-            width: 450,
-            height: 450
-          },
-          zoomSpeed: 0.4,
-          restrictPosition: false,
+          // cropSize: {
+          //   width: 450,
+          //   height: 450
+          // },
+
+          zoomSpeed: 0.1,
+          objectFit: 'contain',
+          restrictPosition: true,
           mediaProps: {},
           style: {
             containerStyle: {
