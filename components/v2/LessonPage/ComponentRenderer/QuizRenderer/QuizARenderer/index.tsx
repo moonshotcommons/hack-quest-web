@@ -5,7 +5,11 @@ import {
   QuizAType
 } from '@/components/v2/LessonPage/type';
 import { BurialPoint } from '@/helper/burialPoint';
-import { adaptWidth, changeTextareaHeight } from '@/helper/utils';
+import {
+  adaptWidth,
+  changeTextareaHeight,
+  elementVibration
+} from '@/helper/utils';
 import { AnswerState, useParseQuizA } from '@/hooks/useParseQuizA';
 import webApi from '@/service';
 import { FC, useContext, useEffect, useRef, useState } from 'react';
@@ -78,7 +82,6 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
   const onSubmit = async () => {
     BurialPoint.track('lesson-单个quiz提交', { lessonId: lesson.id });
     const newAnswerState = [...answerState];
-
     let isCurrent = true;
     newAnswerState.map((line) => {
       if (line.answers?.length) {
@@ -86,12 +89,20 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
           if (!new RegExp(answer.regex).test(answer.value.trim())) {
             isCurrent = false;
             answer.error = true;
+            const inputEle = document.querySelector(
+              `[data-uuid="${line.id}"]`
+            ) as HTMLTextAreaElement;
+            elementVibration(inputEle);
           }
         });
       } else {
         if (!new RegExp(line.regex).test(line.value.trim())) {
           isCurrent = false;
           line.error = true;
+          const inputEle = document.querySelector(
+            `[data-uuid="${line.id}"]`
+          ) as HTMLInputElement;
+          elementVibration(inputEle);
         }
       }
     });

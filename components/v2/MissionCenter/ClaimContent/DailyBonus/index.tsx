@@ -247,7 +247,7 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
                 )}
               </div>
             </ScrollContainer>
-            <div className="absolute left-[33px] bottom-[35px] z-40">
+            <div className="absolute left-[33px] bottom-[25px] z-40">
               <ScrollControl changeState={scrollContainerState}></ScrollControl>
             </div>
           </div>
