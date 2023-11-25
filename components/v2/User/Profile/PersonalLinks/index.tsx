@@ -102,12 +102,12 @@ const PersonalLinks: FC<PersonalLinksProps> = (props) => {
       )}
       {!showLinks && (
         <div className="flex flex-col items-center">
-          <p className="mt-[48px] text-center font-next-book text-[18px] leading-[160%] tracking-[0.054px]">
+          <p className="mt-[56.2px] text-center font-next-book text-[18px] leading-[160%] tracking-[0.054px]">
             Share your social media information
           </p>
           <Button
             type="primary"
-            className="w-[223px] px-0 py-[12px] text-[16px] font-next-book leading-[125%] tracking-[0.32px] text-[#0B0B0B] mt-[25px] mb-[10px]"
+            className="w-[223px] px-0 py-[12px] text-[16px] font-next-book leading-[125%] tracking-[0.32px] text-[#0B0B0B] mt-[25px] mb-[30px]"
             onClick={() => personalLinkEditRef.current?.onEdit({})}
           >
             Add Personal links

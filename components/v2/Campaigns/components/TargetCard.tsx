@@ -80,13 +80,13 @@ const TargetCard: React.FC<TargetCardProp> = ({ target }) => {
           </div>
           {target.completed ? (
             <Button
-              className={`w-[164px] ml-[-20px] h-[44px] text-[#0b0b0b] 
+              className={`w-[164px] ml-[-20px] h-[44px] text-[#0b0b0b]
                           bg-auth-primary-button-bg
                           border-auth-primary-button-border-color ${
                             target.claimed
                               ? 'opacity-50 cursor-not-allowed '
                               : `hover:border-auth-primary-button-border-hover-color
-                                  hover:text-auth-primary-button-text-hover-color 
+                                  hover:text-auth-primary-button-text-hover-color
                                   hover:bg-auth-primary-button-hover-bg`
                           }`}
               loading={claimIds.includes(target.id)}
@@ -97,7 +97,7 @@ const TargetCard: React.FC<TargetCardProp> = ({ target }) => {
           ) : (
             <div className="relative">
               <Button
-                className={`w-[164px] p-0 ml-[-20px] h-[44px] text-[14px] text-[#0b0b0b] 
+                className={`w-[164px] p-0 ml-[-20px] h-[44px] text-[14px] text-[#0b0b0b]
               text-auth-primary-button-text-color  border
               border-[#0b0b0b]`}
                 loading={unLoading}

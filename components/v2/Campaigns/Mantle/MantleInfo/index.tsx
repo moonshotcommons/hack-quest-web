@@ -107,7 +107,7 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
                             buttonDisable
                               ? 'opacity-50 cursor-not-allowed '
                               : `hover:border-auth-primary-button-border-hover-color
-                                  hover:text-auth-primary-button-text-hover-color 
+                                  hover:text-auth-primary-button-text-hover-color
                                   hover:bg-auth-primary-button-hover-bg`
                           }`}
                 loading={loading}
