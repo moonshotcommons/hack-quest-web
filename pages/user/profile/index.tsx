@@ -31,7 +31,7 @@ const UserProfilePage: NextPage<IProps> = (props) => {
           <div className="flex-1 flex flex-col gap-y-[40px] z-10">
             <GithubActivity></GithubActivity>
             <Experience />
-            {/* <Hackathon /> */}
+            <Hackathon />
           </div>
           <div
             className="flex flex-col gap-y-[40px] z-0"

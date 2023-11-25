@@ -32,8 +32,6 @@ const Edit: React.FC<EditProp> = ({ open, onClose, list }) => {
     setStatus('edit');
   };
 
-  const experienceAdd = () => {};
-
   useEffect(() => {
     open && setStatus('list');
   }, [open]);

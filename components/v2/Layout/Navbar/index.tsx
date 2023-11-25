@@ -15,6 +15,9 @@ import { useSelector } from 'react-redux';
 import { AppRootState } from '@/store/redux';
 import Badge from '@/components/Common/Badge';
 import { MenuType, NavbarListType } from './type';
+import { needLoginPath, isBadgeIds } from './data';
+import { useGetUserInfo } from '@/hooks/useGetUserInfo';
+import { message } from 'antd';
 
 export interface NavBarProps {
   navList: NavbarListType[];
@@ -31,6 +34,7 @@ type SlideNavigatorHighlight = CSSProperties & {
 };
 
 const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
+  const userInfo = useGetUserInfo();
   const { navList, children, showSecondNav, changeShowSecondNav, isFull } =
     NavBarProps;
   const router = useRouter();
@@ -52,49 +56,47 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
   });
 
   useEffect(() => {
-    if (navList.length) {
-      const outSide = navList.filter((v) => v.type === 'outSide');
-      setOutSideNav(outSide);
-      const inSide = navList.filter((v) => v.type !== 'outSide');
-      setInSideNav(inSide);
-      if (isFull) {
-        changeShowSecondNav?.(false);
-        setSecondNavData(inSide[0].menu as []);
-        setCurNavId(inSide[0].id);
+    const outSide = navList.filter((v) => v.type === 'outSide');
+    setOutSideNav(outSide);
+    const inSide = navList.filter((v) => v.type !== 'outSide');
+    setInSideNav(inSide);
+    if (isFull) {
+      changeShowSecondNav?.(false);
+      setSecondNavData(inSide[0].menu as []);
+      setCurNavId(inSide[0].id);
+      return;
+    }
+
+    for (let nav of inSide) {
+      const curNav = nav.menu.find((menu) => pathname.includes(menu.path));
+      if (curNav) {
+        changeShowSecondNav?.(nav.menu.length > 1);
+        setSecondNavData(nav.menu as []);
+        setCurNavId(nav.id);
         return;
       }
-
-      for (let nav of inSide) {
-        const curNav = nav.menu.find((menu) => pathname.includes(menu.path));
-        if (curNav) {
-          changeShowSecondNav?.(nav.menu.length > 1);
-          setSecondNavData(nav.menu as []);
-          setCurNavId(nav.id);
-          return;
-        }
-      }
-      changeShowSecondNav?.(false);
-      setSecondNavData([]);
-      setCurNavId('');
-    } else {
-      setOutSideNav([]);
-      setInSideNav([]);
-      changeShowSecondNav?.(false);
-      setSecondNavData([]);
-      setCurNavId('');
     }
+    changeShowSecondNav?.(false);
+    setSecondNavData([]);
+    setCurNavId('');
   }, [pathname, navList]);
   useEffect(() => {
     if (!inSideNavEl.current) return;
-
+    let isInNav = false;
     const { left } = inSideNavEl.current.getBoundingClientRect();
     for (const child of inSideNavEl.current.children) {
       if (curNavId !== (child as HTMLElement).dataset.id) continue;
-
+      isInNav = true;
       const { left: l, width } = child.getBoundingClientRect();
       setInSideNavStyle({
         '--highlight-x': `${l - left}px`,
         '--highlight-width': `${width}px`
+      });
+    }
+    if (!isInNav) {
+      setInSideNavStyle({
+        ...inSideNavStyle,
+        '--highlight-width': `0px`
       });
     }
   }, [pathname, curNavId]);
@@ -105,7 +107,6 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
     for (const child of secondNavEl.current.children) {
       const { href } = child as HTMLAnchorElement;
       if (!href.includes(pathname)) continue;
-
       const { left: l, width } = child.getBoundingClientRect();
       setSecondNavStyle({
         '--highlight-x': `${l - left}px`,
@@ -115,14 +116,16 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
   }, [pathname, showSecondNav]);
 
   const handleClickNav = (nav: NavbarListType) => {
-    router.push(nav.menu[0].path);
-
+    const path = nav.menu[0].path;
+    if (~needLoginPath.indexOf(path) && !userInfo) {
+      message.warning('Please log in first');
+      return;
+    }
+    router.push(path);
     if (!inSideNavEl.current) return;
-
     const { left } = inSideNavEl.current.getBoundingClientRect();
     for (const child of inSideNavEl.current.children) {
       if (nav.id !== (child as HTMLElement).dataset.id) continue;
-
       const { left: l, width } = child.getBoundingClientRect();
       setInSideNavStyle({
         '--highlight-x': `${l - left}px`,
@@ -170,9 +173,9 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
                 >
                   <div className="relative">
                     <span>{nav.label}</span>
-                    {nav.id === 'missions' && (
+                    {~isBadgeIds.indexOf(nav.id) && userInfo ? (
                       <Badge count={missionData?.unClaimAll?.length || 0} />
-                    )}
+                    ) : null}
                   </div>
                 </div>
               ))}
