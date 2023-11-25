@@ -10,6 +10,7 @@ import { unLoginTab } from './data';
 import IconCoin from '@/public/images/mission-center/icon_coin.png';
 import { AppRootState } from '@/store/redux';
 import { useRouter } from 'next/router';
+import { cn } from '@/helper/utils';
 interface UserProps {}
 
 const User: FC<UserProps> = (props) => {
@@ -33,6 +34,8 @@ const User: FC<UserProps> = (props) => {
       setIsLogin(false);
     }
   }, [userInfo]);
+
+  console.log(router.pathname);
 
   return (
     <div className="relative h-full">
@@ -85,7 +88,14 @@ const User: FC<UserProps> = (props) => {
                 onMouseEnter={(e) => setShowUserDropCard(true)}
                 onMouseLeave={(e) => setShowUserDropCard(false)}
               >
-                <div className="relative w-[34px] h-[34px] bg-[#8d8d8d] overflow-hidden rounded-full flex justify-center items-center">
+                <div
+                  className={cn(
+                    'relative w-[34px] h-[34px] bg-[#8d8d8d] overflow-hidden rounded-full flex justify-center items-center',
+                    router.pathname === '/user/profile'
+                      ? 'border-[5px] border-[#ffd952] box-content'
+                      : ''
+                  )}
+                >
                   <Image
                     src={userInfo?.avatar as string}
                     alt="avatar"

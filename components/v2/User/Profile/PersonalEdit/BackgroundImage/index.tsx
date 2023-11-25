@@ -68,7 +68,7 @@ const BackgroundImage: FC<BackgroundImageProps> = (props) => {
                 onClick={() =>
                   imageCropRef.current?.onEdit({
                     imageUrl:
-                      profile.backgroundImage ||
+                      // profile.backgroundImage ||
                       '/images/user/test_background.png'
                   })
                 }
@@ -95,15 +95,12 @@ const BackgroundImage: FC<BackgroundImageProps> = (props) => {
             errorMessage(e);
           }
         }}
+        aspect={800 / 124}
         quality={1}
-        maxZoom={10}
         cropperProps={{
-          cropSize: {
-            width: 800,
-            height: 124
-          },
-          zoomSpeed: 0.4,
-          restrictPosition: false,
+          zoomSpeed: 0.1,
+          objectFit: 'horizontal-cover',
+          restrictPosition: true,
           mediaProps: {},
           style: {
             containerStyle: {
