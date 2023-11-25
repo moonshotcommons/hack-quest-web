@@ -11,6 +11,7 @@ function SelectiveCourses() {
   const [apiStatus, setApiStatus] = useState('init');
 
   const handleScroll = () => {
+    console.info(11);
     if (apiStatus !== 'init') return;
     const clientHeight = selectiveCoursesRef.current?.clientHeight || 0;
     const scrollTop = selectiveCoursesRef.current?.scrollTop || 0;
