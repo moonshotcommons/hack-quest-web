@@ -107,10 +107,7 @@ const List: React.FC<ListProp> = ({ onClose, handleEdit, list }) => {
           onClick={onClose}
           className="w-[265px] h-[44px] border border-[#0b0b0b]  text-[#0b0b0b] text-[16px]"
         >
-          Cancel
-        </Button>
-        <Button className="w-[265px] h-[44px] bg-[#ffd850]    text-[16px]">
-          Save
+          Close
         </Button>
       </div>
 

@@ -4,7 +4,7 @@ import { FiX, FiChevronLeft } from 'react-icons/fi';
 import List from './List';
 import EditAdd from './EditAdd';
 import { ListDataType } from '..';
-import { UserExperienceType } from '@/service/webApi/user/type';
+import { UserHackathonType } from '@/service/webApi/user/type';
 import { ProfileContext } from '../../type';
 
 interface EditProp {
@@ -18,21 +18,19 @@ export enum EditType {}
 const Edit: React.FC<EditProp> = ({ open, onClose, list }) => {
   const [status, setStatus] = useState('list');
   const [editType, setEditType] = useState<'add' | 'edit'>('add');
-  const [editEx, setEditEx] = useState<UserExperienceType>();
+  const [editEx, setEditEx] = useState<UserHackathonType>();
   const { refresh } = useContext(ProfileContext);
   const handleEdit = (id?: string) => {
     if (id) {
       const ex = list.find((v) => v.id === id) || {};
-      setEditEx(ex as UserExperienceType);
+      setEditEx(ex as UserHackathonType);
       setEditType('edit');
     } else {
-      setEditEx({} as UserExperienceType);
+      setEditEx({} as UserHackathonType);
       setEditType('add');
     }
     setStatus('edit');
   };
-
-  const experienceAdd = () => {};
 
   useEffect(() => {
     open && setStatus('list');
@@ -52,10 +50,10 @@ const Edit: React.FC<EditProp> = ({ open, onClose, list }) => {
               onClick={() => setStatus('list')}
             >
               <FiChevronLeft />
-              <span>Experience</span>
+              <span>Hackathon</span>
             </div>
           ) : (
-            <span>Experience</span>
+            <span>Hackathon</span>
           )}
         </div>
         {status === 'list' ? (

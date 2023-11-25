@@ -222,6 +222,7 @@ const EditAdd: React.FC<EditAddProp> = ({
           name={'title'}
           label={<Span text={'Title*'} />}
           type="text"
+          placeholder="EX: Software Engineer"
           className="border-[#8c8c8c] text-[21px] caret-[#0b0b0b]"
           state={formData.title.status as any}
           errorMessage={formData.title.errorMessage}
@@ -243,6 +244,7 @@ const EditAdd: React.FC<EditAddProp> = ({
               name={'companyName'}
               label={<Span text={'Company Name*'} />}
               type="text"
+              placeholder="EX: Apple"
               className="border-[#8c8c8c] text-[21px] caret-[#0b0b0b]"
               state={formData.companyName.status as any}
               errorMessage={formData.companyName.errorMessage}
@@ -264,6 +266,7 @@ const EditAdd: React.FC<EditAddProp> = ({
               name={'employmentType'}
               label={<Span text={'Employment Type*'} />}
               className="border-[#8c8c8c] text-[21px] "
+              placeholder="Please select"
               state={formData.employmentType.status as any}
               errorMessage={formData.employmentType.errorMessage}
               options={employmentTypeList}
@@ -285,6 +288,7 @@ const EditAdd: React.FC<EditAddProp> = ({
           name={'location'}
           label={<Span text={'Location*'} />}
           type="text"
+          placeholder="EX: New York, United States"
           className="border-[#8c8c8c] text-[21px] caret-[#0b0b0b]"
           state={formData.location.status as any}
           errorMessage={formData.location.errorMessage}
@@ -322,6 +326,7 @@ const EditAdd: React.FC<EditAddProp> = ({
               name={'startMonth'}
               label={<Span text={'Start Date*'} />}
               className="border-[#8c8c8c] text-[21px]"
+              placeholder="Please select"
               state={formData.startMonth.status as any}
               errorMessage={formData.startMonth.errorMessage}
               options={monthList}
@@ -343,6 +348,7 @@ const EditAdd: React.FC<EditAddProp> = ({
               name={'startYear'}
               label={<Span text={' '} />}
               className="border-[#8c8c8c] text-[21px]"
+              placeholder="Please select"
               state={formData.startYear.status as any}
               errorMessage={formData.startYear.errorMessage}
               options={yearList}
@@ -366,6 +372,7 @@ const EditAdd: React.FC<EditAddProp> = ({
               name={'endMonth'}
               label={<Span text={'End Date'} />}
               className="border-[#8c8c8c] text-[21px]"
+              placeholder="Please select"
               state={formData.endMonth.status as any}
               errorMessage={formData.endMonth.errorMessage}
               options={monthList}
@@ -388,6 +395,7 @@ const EditAdd: React.FC<EditAddProp> = ({
               name={'endYear'}
               label={<Span text={' '} />}
               className="border-[#8c8c8c] text-[21px]"
+              placeholder="Please select"
               state={formData.endYear.status as any}
               errorMessage={formData.endYear.errorMessage}
               options={yearList}
@@ -437,7 +445,7 @@ const EditAdd: React.FC<EditAddProp> = ({
           className="w-[265px] h-[44px] bg-[#ffd850]    text-[16px]"
           onClick={handleSubmit}
         >
-          {editType === 'add' ? 'Add to Experience' : 'Edit Experience'}
+          Save
         </Button>
       </div>
     </div>
