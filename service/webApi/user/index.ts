@@ -245,13 +245,38 @@ class UserApi {
       data: personalLinks
     });
   }
+
   linkGithub(code: string) {
     return this.service.get<GithubActivityType>(
       `${UserApiType.UserProfile}/link-github?code=${code}`
     );
   }
+
   unLinkGithub() {
     return this.service.get(`${UserApiType.UserProfile}/unlink-github`);
+  }
+
+  /** on-Chain Activity  link*/
+  linkChain(address: string) {
+    return this.service.post<{
+      address: string;
+      balance: number;
+      transactionCount: number;
+    }>(`${UserApiType.UserProfile}/link-chain`, {
+      data: {
+        address
+      }
+    });
+  }
+
+  /** on-Chain Activity unLink */
+  unLinkChain() {
+    return this.service.get(`${UserApiType.UserProfile}/unlink-chain`);
+  }
+
+  /** on-Chain Activity unLink */
+  refreshChain() {
+    return this.service.get(`${UserApiType.UserProfile}/refresh-chain`);
   }
 }
 

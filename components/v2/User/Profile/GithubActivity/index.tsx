@@ -193,7 +193,7 @@ const GithubActivity: FC<GithubActivityProps> = (props) => {
         open={modalOpen}
         loading={loading}
         onClose={() => setModalOpen(false)}
-        title="GithubActivity"
+        title="Github Activity"
         content="Do you want to disconnect from Github?"
         handleConfirm={handleDisConnect}
       />
