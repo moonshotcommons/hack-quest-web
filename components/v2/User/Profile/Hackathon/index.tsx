@@ -5,8 +5,8 @@ import Add from '../components/Add';
 import { IconType } from '../components/HoverIcon/type';
 import HoverIcon from '../components/HoverIcon';
 import Edit from './Edit';
-import { BoxType, ProfileContext } from '../type';
-import { UserExperienceType } from '@/service/webApi/user/type';
+import { ProfileContext } from '../type';
+import { UserHackathonType } from '@/service/webApi/user/type';
 import { dealDate, dateInterval } from './utils';
 import { deepClone } from '@/helper/utils';
 
@@ -15,7 +15,7 @@ export type ListDataType = {
   showMore: boolean;
   descriptions: string[];
   descriptionLess: string[];
-} & UserExperienceType;
+} & UserHackathonType;
 const Hackathon: FC<HackathonProps> = ({}) => {
   const [editOpen, setEditOpen] = useState(false);
   const { profile } = useContext(ProfileContext);
@@ -25,10 +25,9 @@ const Hackathon: FC<HackathonProps> = ({}) => {
   const handleAdd = () => {
     setEditOpen(true);
   };
-
   useEffect(() => {
     if (profile?.workExperiences?.length) {
-      let list = profile.workExperiences?.map((v) => ({
+      let list = profile.hackathonExperiences?.map((v) => ({
         ...v,
         showMore: false,
         descriptions: v.description.split('\n').filter((d) => d),
@@ -57,12 +56,11 @@ const Hackathon: FC<HackathonProps> = ({}) => {
         <div className="absolute right-[30px] top-[30px] hidden group-hover:block">
           <HoverIcon
             type={IconType.EDIT}
+            tooltip="Edit your hackathon experience"
             onClick={() => setEditOpen(true)}
-            tooltip="Edit your experience"
           />
         </div>
       )}
-
       <div className="text-[28px] font-next-book-bold tracking-[1.68px]">
         Hackathon ({allData.length})
       </div>
@@ -84,12 +82,10 @@ const Hackathon: FC<HackathonProps> = ({}) => {
               <div className="flex-1 text-[#000]">
                 <div className="w-full break-all">
                   <span className="text-[21px] font-next-poster-Bold">
-                    {v.title}
+                    {v.hackathonName}
                   </span>
                   <span>{` · `}</span>
-                  <span className="font-next-book text-[18px] ">
-                    {v.companyName} · {v.employmentType}
-                  </span>
+                  <span className="font-next-book text-[18px] ">{v.role}</span>
                 </div>
                 <div>
                   {v.showMore ? (
@@ -129,7 +125,7 @@ const Hackathon: FC<HackathonProps> = ({}) => {
                 onClick={() => setShowAll(!showAll)}
                 className="w-[265px] h-[44px] bg-[#ffd850] font-next-book text-[16px]"
               >
-                View {showAll ? 'Less' : 'Full'} Experience
+                View {showAll ? 'Less' : 'Full'} Hackathon
               </Button>
             </div>
           )}
@@ -137,7 +133,7 @@ const Hackathon: FC<HackathonProps> = ({}) => {
       ) : (
         <Add
           addText={'Share your hackathon experience with others'}
-          buttonText={'Add Hackathon'}
+          buttonText={'Add a Hackathon Experience'}
           handleClick={handleAdd}
         />
       )}

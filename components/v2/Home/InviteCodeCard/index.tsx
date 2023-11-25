@@ -69,24 +69,23 @@ const InviteCodeCard: FC<InviteCodeCardProps> = (props) => {
           <span className="font-next-book text-[18px] tracking-[1.08pxx] leading-[120%]">
             INVITE CODE
           </span>
-          {expand && (
-            <div
-              className="relative h-full flex items-center justify-center pl-1"
-              onMouseEnter={(e) => setShowDesc(true)}
-              onMouseLeave={(e) => setShowDesc(false)}
-            >
-              <span className="cursor-pointer">{icons.descIcon}</span>
-              {showDesc && (
-                <PopBox className="-right-[34px]">
-                  <p className="w-[340px] text-[12px] font-next-book leading-[160%] -tracking-[0.132px] text-[#0B0B0B]">
-                    HackQuest is currently in beta. Share your invite code to
-                    help new users sign up. Rewards are available at Mission
-                    Center after two users register with your invite code.
-                  </p>
-                </PopBox>
-              )}
-            </div>
-          )}
+
+          <div
+            className="relative h-full flex items-center justify-center pl-1"
+            onMouseEnter={(e) => setShowDesc(true)}
+            onMouseLeave={(e) => setShowDesc(false)}
+          >
+            <span className="cursor-pointer">{icons.descIcon}</span>
+            {showDesc && (
+              <PopBox className="-right-[34px]">
+                <p className="w-[340px] text-[12px] font-next-book leading-[160%] -tracking-[0.132px] text-[#0B0B0B]">
+                  HackQuest is currently in beta. Share your invite code to help
+                  new users sign up. Rewards are available at Mission Center
+                  after two users register with your invite code.
+                </p>
+              </PopBox>
+            )}
+          </div>
         </div>
         <div
           className="w-5 h-5 flex items-center justify-center cursor-pointer"

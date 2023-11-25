@@ -22,7 +22,7 @@ const Milestones: React.FC<TabContentType> = ({
   };
   return (
     <div>
-      <div className="flex items-center justify-between mb-[40px]">
+      <div className="flex  justify-between mb-[40px]">
         <div className="text-[#000] w-[62%]">
           {`Celebrate your progress as you complete courses. Each achievement is a step towards your success in Web 3 coding. Let's make every milestone memorable! 🚀`}
         </div>

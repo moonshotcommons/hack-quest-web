@@ -76,11 +76,11 @@ const UserProfile: FC<UserProfileProps> = (props) => {
             {`${profile.experience || 0} Years`}
           </span>
         </div>
-        <div className="flex gap-x-[15px] mt-[11.5px] items-center">
-          <span className="text-[21px] tracking-[0.42px] leading-[160%] text-[#8C8C8C]">
+        <div className="flex gap-x-[15px] mt-[11.5px] items-start">
+          <span className="text-[21px] tracking-[0.42px] leading-[160%] text-[#8C8C8C] whitespace-nowrap">
             Tech Stack:
           </span>
-          <div className="flex gap-x-[10px]">
+          <div className="flex gap-[10px] flex-wrap">
             {profile.techStack?.length > 0 &&
               profile.techStack.map((item, index) => {
                 return (
