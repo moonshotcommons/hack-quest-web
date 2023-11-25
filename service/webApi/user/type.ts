@@ -63,9 +63,20 @@ export interface UserExperienceType {
   companyName: string;
   employmentType: WorkExperienceType;
   location: string;
+  isCurrentWork: boolean;
   startDate: string;
   endDate?: string;
+  description: string;
+}
+
+export interface UserHackathonType {
+  id: string;
+  role: string;
+  hackathonName: string;
+  location: string;
   isCurrentWork: boolean;
+  startDate: string;
+  endDate?: string;
   description: string;
 }
 
@@ -85,6 +96,7 @@ export interface UserProfileType {
   githubActivity: GithubActivityType;
   onChainActivity: any;
   workExperiences: UserExperienceType[];
+  hackathonExperiences: UserHackathonType[];
 }
 
 export interface UserPersonalType {

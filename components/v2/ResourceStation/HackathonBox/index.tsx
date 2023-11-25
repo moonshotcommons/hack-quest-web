@@ -9,6 +9,7 @@ import PageDescription from '../../PageDescription';
 import { useRouter } from 'next/router';
 import { menuLink } from '../../Breadcrumb/data';
 import { Menu, QueryIdType } from '../../Breadcrumb/type';
+import { BurialPoint } from '@/helper/burialPoint';
 
 function HackathonBox() {
   const router = useRouter();
@@ -16,6 +17,7 @@ function HackathonBox() {
     HackathonStatusType.ON_GOING
   );
   const changeTab = (item: TabListType) => {
+    BurialPoint.track(`hackathon page tab 点击`);
     if (item.type === 'tab') {
       setCurTab(item.value as HackathonStatusType);
     } else {
