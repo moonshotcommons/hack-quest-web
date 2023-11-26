@@ -15,7 +15,7 @@ import { cn } from '@/helper/utils';
 import SlideHighlight from '@/components/Common/Navigation/SlideHighlight';
 interface UserProps {}
 
-const User: FC<UserProps> = (props) => {
+const User: FC<UserProps> = () => {
   const [showUserDropCard, setShowUserDropCard] = useState(false);
   const userDropCardRef = useRef();
   const [isLogin, setIsLogin] = useState(false);
@@ -104,8 +104,8 @@ const User: FC<UserProps> = (props) => {
               </div>
               <div
                 className="relative w-[54px] h-[64px] flex items-center justify-end"
-                onMouseEnter={(e) => setShowUserDropCard(true)}
-                onMouseLeave={(e) => setShowUserDropCard(false)}
+                onMouseEnter={() => setShowUserDropCard(true)}
+                onMouseLeave={() => setShowUserDropCard(false)}
               >
                 <div
                   className={cn(

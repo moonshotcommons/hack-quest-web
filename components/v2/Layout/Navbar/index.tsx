@@ -1,13 +1,6 @@
 import DarkLogoActive from '@/public/images/logo/dark-text-Logo-active.svg';
 import Image from 'next/image';
-import React, {
-  CSSProperties,
-  MouseEventHandler,
-  ReactNode,
-  useEffect,
-  useRef,
-  useState
-} from 'react';
+import React, { CSSProperties, ReactNode, useEffect, useState } from 'react';
 
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -28,11 +21,6 @@ export interface NavBarProps {
   changeShowSecondNav?: (show: boolean) => void;
   isFull?: boolean;
 }
-
-type SlideNavigatorHighlight = CSSProperties & {
-  '--highlight-x'?: string;
-  '--highlight-width'?: string;
-};
 
 const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
   const userInfo = useGetUserInfo();
@@ -81,13 +69,13 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
   useEffect(() => {
     const index = inSideNav.findIndex((v) => v.id === curNavId);
     setInSideNavIndex(index);
-  }, [pathname, curNavId]);
+  }, [inSideNav, curNavId]);
 
   useEffect(() => {
     if (!showSecondNav) return;
     const index = secondNavData.findIndex((v) => pathname.includes(v.path));
     setSecondNavIndex(index);
-  }, [pathname, secondNavData]);
+  }, [pathname, showSecondNav, secondNavData]);
 
   const handleClickNav = (nav: NavbarListType) => {
     const path = nav.menu[0].path;

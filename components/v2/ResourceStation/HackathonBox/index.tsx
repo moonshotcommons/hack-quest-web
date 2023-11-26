@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Tab from '@/components/v2/Tab';
-import { TabListType, TabValueType } from '@/components/v2/Tab/type';
+import { TabListType } from '@/components/v2/Tab/type';
 import { HackathonStatusType } from '@/service/webApi/resourceStation/hackathon/type';
 import { hackathonTab } from './data';
 import OnGoing from './OnGoing';
