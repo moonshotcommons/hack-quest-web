@@ -95,6 +95,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
       message.warning('Please log in first');
       return;
     }
+    router.push(path);
   };
 
   return (
