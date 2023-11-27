@@ -2,7 +2,7 @@ import Button from '@/components/v2/Common/Button';
 import { MissionSubType } from '@/service/webApi/missionCenter/type';
 import React, { useContext, useMemo } from 'react';
 
-import TargetCard from '../Comonent/TargetCard';
+import TargetCard from '../component/TargetCard';
 import { TabContentType } from '../../type';
 import { rewardsCardData } from './data';
 import { BurialPoint } from '@/helper/burialPoint';
@@ -23,7 +23,7 @@ const BeginnerRewards: React.FC<TabContentType> = ({
   };
   return (
     <div>
-      <div className="flex items-center justify-between mb-[40px]">
+      <div className="flex justify-between mb-[40px]">
         <div className="text-[#000] w-[62%]">
           {`We're here to help you get started on your HackQuest journey while also giving you the chance to earn rewards. Let's embark on this learning journey together! 🚀`}
         </div>

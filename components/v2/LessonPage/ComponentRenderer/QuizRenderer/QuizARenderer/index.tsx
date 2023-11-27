@@ -5,7 +5,11 @@ import {
   QuizAType
 } from '@/components/v2/LessonPage/type';
 import { BurialPoint } from '@/helper/burialPoint';
-import { adaptWidth, changeTextareaHeight } from '@/helper/utils';
+import {
+  adaptWidth,
+  changeTextareaHeight,
+  elementVibration
+} from '@/helper/utils';
 import { AnswerState, useParseQuizA } from '@/hooks/useParseQuizA';
 import webApi from '@/service';
 import { FC, useContext, useEffect, useRef, useState } from 'react';
@@ -78,7 +82,6 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
   const onSubmit = async () => {
     BurialPoint.track('lesson-单个quiz提交', { lessonId: lesson.id });
     const newAnswerState = [...answerState];
-
     let isCurrent = true;
     newAnswerState.map((line) => {
       if (line.answers?.length) {
@@ -86,12 +89,20 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
           if (!new RegExp(answer.regex).test(answer.value.trim())) {
             isCurrent = false;
             answer.error = true;
+            const inputEle = document.querySelector(
+              `[data-uuid="${line.id}"]`
+            ) as HTMLTextAreaElement;
+            elementVibration(inputEle);
           }
         });
       } else {
         if (!new RegExp(line.regex).test(line.value.trim())) {
           isCurrent = false;
           line.error = true;
+          const inputEle = document.querySelector(
+            `[data-uuid="${line.id}"]`
+          ) as HTMLInputElement;
+          elementVibration(inputEle);
         }
       }
     });
@@ -175,8 +186,8 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
 
   return (
     <div className="h-full flex flex-col justify-between">
-      <div className="pb-4 flex-1 flex flex-col">
-        <div>
+      <div className="flex-1 flex flex-col overflow-hidden">
+        <div className="h-fit">
           {quiz.children.map((child) => {
             return (
               <ComponentRenderer
@@ -188,7 +199,7 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
           })}
         </div>
         {quiz.lines?.length > 0 && (
-          <div className="w-full flex-1">
+          <div className="max-h-[100%] py-4 flex-1 w-full overflow-hidden flex flex-col">
             <QuizAContext.Provider
               value={{
                 answers: answerState,

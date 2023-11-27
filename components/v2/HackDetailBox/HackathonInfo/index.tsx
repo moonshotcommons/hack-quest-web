@@ -9,6 +9,7 @@ import {
 import useDealhackathon from '@/hooks/useDealHackathonData';
 import { menuLink } from '../../Breadcrumb/data';
 import { Menu, QueryIdType } from '../../Breadcrumb/type';
+import { BurialPoint } from '@/helper/burialPoint';
 
 interface HackathonInfoProp {
   hackathon: HackathonType;
@@ -99,7 +100,10 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
           </div>
           <Button
             className="w-full h-[60px] text-[18px] bg-[#ffd850]"
-            onClick={() => window.open(hackathon.applyLink)}
+            onClick={() => {
+              BurialPoint.track(`hackathon detail Apply Now 按钮点击`);
+              window.open(hackathon.applyLink);
+            }}
           >
             Apply Now
           </Button>
@@ -113,11 +117,12 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
           </div>
           <Button
             className="w-full h-[60px] text-[18px] border border-[#0b0b0b]"
-            onClick={() =>
+            onClick={() => {
+              BurialPoint.track(`hackathon detail View All Projects 按钮点击`);
               router.push(
                 `${menuLink.projects}/projects?menu=${Menu.PROJECTS}&${QueryIdType.PROJECT_ID}=projects&keyWord=${hackathon.name}`
-              )
-            }
+              );
+            }}
           >
             View All Projects
           </Button>

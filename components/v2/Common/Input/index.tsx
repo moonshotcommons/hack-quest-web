@@ -16,9 +16,9 @@ import EyeIcon from '../Icon/Eye';
 import PassIcon from '../Icon/Pass';
 import WarningIcon from '../Icon/Warning';
 
-interface InputProps {
+export interface InputProps {
   name: string;
-  label: string;
+  label: string | ReactNode;
   type: HTMLInputTypeAttribute;
   placeholder?: string;
   state?: 'success' | 'error' | 'warning' | 'default';
@@ -28,7 +28,7 @@ interface InputProps {
   errorMessage?: string | null | undefined;
   rules?: Rule;
   delay?: number;
-  defaultValue?: string;
+  defaultValue?: string | number;
   clear?: boolean;
   showVisibleIcon?: boolean;
 }
@@ -117,7 +117,7 @@ const Input = forwardRef<
 
   return (
     <div className="flex flex-col gap-[0.75rem]">
-      <p className="text-[21px] font-next-poster leading-[125%] tracking-[1.26px]">
+      <p className="text-[21px] font-next-poster leading-[125%] tracking-[1.26px] label">
         {label}
       </p>
       <div className="relative">

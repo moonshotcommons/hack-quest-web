@@ -1,4 +1,4 @@
-import Button from '@/components/Common/Button';
+import Button from '@/components/v2/Common/Button';
 import Modal from '@/components/Common/Modal';
 import { Theme } from '@/constants/enum';
 import Congrats from '@/public/images/course/congrats.svg';
@@ -10,83 +10,115 @@ import { ThemeContext } from '@/store/context/theme';
 import { NextPage } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useContext } from 'react';
-interface CompleteModalProps {
-  open: boolean;
-  onClose: () => void;
+import { forwardRef, useContext, useImperativeHandle, useState } from 'react';
+interface CompleteModalProps {}
+
+interface OpenParams {
+  type: 'course' | 'claim';
   title: string;
 }
 
-// const CustomButton: FC<ButtonProps> = (props) => {
-//   const { children } = props;
-//   return (
-//     <Button
-//       padding="px-[2.5rem] py-[1.25rem]"
-//       fontStyle="font-Sofia-Pro-Light-Az font-normal"
-//       textStyle="text-[1rem] text-white leading-[1.25rem]"
-//       {...props}
-//     >
-//       {children}
-//     </Button>
-//   );
-// };
+export interface CompleteModalInstance {
+  open: (params: OpenParams) => void;
+  close: (closeCallback?: VoidFunction) => void;
+}
 
-const CompleteModal: NextPage<CompleteModalProps> = ({
-  open,
-  onClose,
-  title
-}) => {
-  const { theme } = useContext(ThemeContext);
-  return (
-    <Modal open={open} onClose={onClose} markBg="black">
-      <div className="w-[74.0625rem] h-[35.6875rem] bg-lesson-completed-modal-bg rounded-[2.5rem] m-auto flex flex-col items-center relative overflow-hidden">
-        <div className="absolute left-0 top-0">
-          {theme === Theme.Dark && <Image src={DarkMoonLeft} alt="bg"></Image>}
-          {theme === Theme.Light && (
-            <Image src={LightMoonLeft} alt="bg"></Image>
-          )}
-        </div>
-        <div className="absolute right-0 top-0">
-          {theme === Theme.Dark && <Image src={DarkMoonRight} alt="bg"></Image>}
-          {theme === Theme.Light && (
-            <Image src={LightMoonRight} alt="bg"></Image>
-          )}
-        </div>
-        <div className="absolute top-[7.375rem] left-[50%] -translate-x-[50%]">
-          <Image src={Congrats} alt="completed" width={45} height={50}></Image>
-        </div>
-        <h1
-          className="
-            relative text-center w-[34.625rem] font-next-poster
-            text-[2.2021rem] leading-[100%] text-text-default-color mt-[11.6875rem]
-            after:absolute after:h-[1px] after:scale-y-[1] after:w-[27.75rem] after:bg-lesson-completed-modal-line-color after:-top-[1.5625rem] after:left-[50%] after:-translate-x-[50%]
-            before:absolute before:h-[1px] before:scale-y-[1] before:w-full before:bg-lesson-completed-modal-line-color  before:-bottom-[1.3125rem] before:left-0
-            "
-        >
-          COURSE COMPLETE!
-        </h1>
-        <p className="font-next-book text-[1.25rem] text-text-default-color mt-[2.375rem] leading-[128%]">
-          {title}
-        </p>
-        <div className="flex gap-[1.25rem] mt-[3.75rem]">
-          {/* <Button
-            className="bg-lesson-ghost-button-bg text-lesson-ghost-button-text-color border border-lesson-ghost-border-color px-[3rem] py-[1rem]"
-            onClick={onClose}
+const CompleteModal = forwardRef<CompleteModalInstance, CompleteModalProps>(
+  (props, ref) => {
+    const [open, setOpen] = useState(false);
+    const { theme } = useContext(ThemeContext);
+    const [type, setType] = useState<'course' | 'claim'>('course');
+    const [title, setTitle] = useState('');
+
+    useImperativeHandle(ref, () => {
+      return {
+        open(params) {
+          setType(params.type);
+          setTitle(params.title);
+          setOpen(true);
+        },
+        close(closeCallback) {
+          setOpen(false);
+          closeCallback?.();
+        }
+      };
+    });
+
+    return (
+      <Modal
+        open={open}
+        onClose={() => {
+          setOpen(false);
+        }}
+        markBg="black"
+      >
+        <div className="w-[74.0625rem] h-[35.6875rem] bg-lesson-completed-modal-bg rounded-[2.5rem] m-auto flex flex-col items-center relative overflow-hidden">
+          <div className="absolute left-0 top-0">
+            {theme === Theme.Dark && (
+              <Image src={DarkMoonLeft} alt="bg"></Image>
+            )}
+            {theme === Theme.Light && (
+              <Image src={LightMoonLeft} alt="bg"></Image>
+            )}
+          </div>
+          <div className="absolute right-0 top-0">
+            {theme === Theme.Dark && (
+              <Image src={DarkMoonRight} alt="bg"></Image>
+            )}
+            {theme === Theme.Light && (
+              <Image src={LightMoonRight} alt="bg"></Image>
+            )}
+          </div>
+          <div className="mt-[91px]">
+            <Image
+              src={Congrats}
+              alt="completed"
+              width={45}
+              height={50}
+            ></Image>
+          </div>
+          <h1
+            className="
+            relative text-center w-[34.625rem] font-next-poster
+            text-[2.2021rem] leading-[100%] text-text-default-color mt-[20px] py-[23px]
+            before:absolute before:h-[1px] before:scale-y-[1] before:w-[27.75rem] before:bg-lesson-completed-modal-line-color before:top-[0px] before:left-[50%] before:-translate-x-[50%]
+            after:absolute after:h-[1px] after:scale-y-[1] after:w-full after:bg-lesson-completed-modal-line-color after:-bottom-[0px] after:left-0
+            "
           >
-            Close
-          </Button> */}
-          <Link href={'/home'} onClick={onClose}>
-            {/* <Button className="border solid border-white hover:bg-white hover:text-black">
-              All Course
-            </Button> */}
-            <Button className="bg-lesson-primary-button-bg text-lesson-primary-button-text-color border border-lesson-primary-button-border-color font-next-book px-[3rem] py-[1rem] text-[18px]">
-              Back to Homepage
-            </Button>
-          </Link>
+            COURSE COMPLETE!
+          </h1>
+          <p className="font-next-book text-[1.25rem] text-text-default-color mt-[20px] leading-[128%]">
+            {title}
+          </p>
+          {type === 'course' && (
+            <div className="flex gap-[1.25rem] mt-[100px]">
+              <Link href={'/home'} onClick={() => setOpen(false)}>
+                <Button className="bg-lesson-primary-button-bg text-lesson-primary-button-text-color border border-lesson-primary-button-border-color font-next-book px-[3rem] py-[1rem] text-[18px]">
+                  Back to Homepage
+                </Button>
+              </Link>
+            </div>
+          )}
+          {type === 'claim' && (
+            <div className="w-full flex flex-col items-center">
+              <p className="w-[297px] font-next-book leading-[125%] tracking-[0.32px] text-center mt-[10px] text-[#3E3E3E]">
+                You have completed this learning track. Continue to claim your
+                Badge.
+              </p>
+              <Button
+                type="primary"
+                className="mt-[30px] w-[260px] px-0 py-[11px] flex justify-center items-center font-next-book leading-[125%] tracking-[0.32px] text-[#0B0B0B]"
+              >
+                Claim Certificate
+              </Button>
+            </div>
+          )}
         </div>
-      </div>
-    </Modal>
-  );
-};
+      </Modal>
+    );
+  }
+);
+
+CompleteModal.displayName = 'CompleteModal';
 
 export default CompleteModal;
