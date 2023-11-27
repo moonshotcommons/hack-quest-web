@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Tab from '@/components/v2/Tab';
-import { TabListType, TabValueType } from '@/components/v2/Tab/type';
+import { TabListType } from '@/components/v2/Tab/type';
 import { HackathonStatusType } from '@/service/webApi/resourceStation/hackathon/type';
 import { hackathonTab } from './data';
 import OnGoing from './OnGoing';
@@ -44,7 +44,7 @@ function HackathonBox() {
         tabList={hackathonTab}
         curTab={curTab}
         changeTab={changeTab}
-        className="pb-[40px]  text-[24px] leading-[24px]"
+        className="pb-10 text-2xl leading-6 before:bottom-9"
         textClassName="pb-[2px]"
       />
       <div className="mb-[40px]">{renderHackathon()}</div>
