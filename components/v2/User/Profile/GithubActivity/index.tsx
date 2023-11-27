@@ -22,7 +22,11 @@ interface GithubInfoType {
 }
 const GithubActivity: FC<GithubActivityProps> = (props) => {
   const [loading, setLoading] = useState(false);
-  const { profile, refresh } = useContext(ProfileContext);
+  const {
+    profile,
+    refresh,
+    loading: refreshLoading
+  } = useContext(ProfileContext);
   const handleAdd = async () => {
     setLoading(true);
     webApi.userApi
@@ -139,7 +143,7 @@ const GithubActivity: FC<GithubActivityProps> = (props) => {
       <div className="text-[28px] font-next-book-bold tracking-[1.68px]">
         GithubActivity
       </div>
-      {loading ? (
+      {loading || refreshLoading ? (
         <div className="relative flex-1 w-full flex-center">
           <Image
             src={Loading}

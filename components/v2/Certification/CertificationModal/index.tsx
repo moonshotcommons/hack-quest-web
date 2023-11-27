@@ -52,9 +52,9 @@ const CertificationModal = forwardRef<
               src={certification.image || ''}
               fill
               alt="certification"
-              className={cn(!certification.claim ? 'blur-[2px]' : '')}
+              className={cn(!certification.claimed ? 'blur-[2px]' : '')}
             ></Image>
-            {!certification.claim && (
+            {!certification.claimed && (
               <>
                 <div className="absolute w-full h-full bg-black/10 rounded-[22px] flex justify-center items-center"></div>
                 <div className="absolute  w-full flex py-[25px] bg-white/70 justify-center items-center top-1/2 -translate-y-1/2 text-[40px] font-next-poster-Bold tracking-[2.4px] text-[#131313]">
@@ -63,10 +63,10 @@ const CertificationModal = forwardRef<
               </>
             )}
           </div>
-          {!certification.claim && (
+          {!certification.claimed && (
             <NotCertified onClose={() => setOpen(false)}></NotCertified>
           )}
-          {certification.claim && <GettingCertificate></GettingCertificate>}
+          {certification.claimed && <GettingCertificate></GettingCertificate>}
         </div>
       </div>
     </Modal>
