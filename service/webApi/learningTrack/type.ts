@@ -22,4 +22,6 @@ export interface LearningTrackDetailType {
   // courses: (CourseResponse )[];
   sections: SectionType[];
   unitCount: number;
+  certificationId?: string;
+  campaignId?: string;
 }

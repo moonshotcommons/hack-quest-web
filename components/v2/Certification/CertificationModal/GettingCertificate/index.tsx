@@ -8,6 +8,7 @@ import {
   ShareWrap,
   shareList
 } from '@/components/v2/Home/InviteCodeCard/constant';
+import Link from 'next/link';
 interface GettingCertificateProps {}
 
 const badge = (
@@ -119,12 +120,14 @@ const GettingCertificate: FC<GettingCertificateProps> = (props) => {
             Share
           </Button>
         </Tooltip>
-        <Button
-          ghost
-          className="w-[210px] py-[11px] px-0 font-next-book text-[#0B0B0B] text-[16px] leading-[125%] tracking-[0.32px] border-[#0B0B0B]"
-        >
-          Check Profile
-        </Button>
+        <Link href={'/user/profile'}>
+          <Button
+            ghost
+            className="w-[210px] py-[11px] px-0 font-next-book text-[#0B0B0B] text-[16px] leading-[125%] tracking-[0.32px] border-[#0B0B0B]"
+          >
+            Check Profile
+          </Button>
+        </Link>
       </div>
     </div>
   );
