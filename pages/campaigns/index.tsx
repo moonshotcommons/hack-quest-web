@@ -1,5 +1,5 @@
 import Tab from '@/components/v2/Campaigns/Tab';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import Mantle from '@/components/v2/Campaigns/Mantle';
 import { MantleContext } from '@/components/v2/Campaigns/Mantle/type';
 import webApi from '@/service';
@@ -10,6 +10,9 @@ import Image from 'next/image';
 import { message } from 'antd';
 import { BurialPoint } from '@/helper/burialPoint';
 import { useRouter } from 'next/router';
+import CertificationModal, {
+  CertificationModalInstance
+} from '@/components/v2/Certification/CertificationModal';
 
 interface CampaignsProp {}
 
@@ -21,6 +24,7 @@ const Campaigns: React.FC<CampaignsProp> = () => {
   const [tabList, setTabList] = useState<TabListType[]>([]);
   const [claimIds, setClaimIds] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
+  const certificationModalRef = useRef<CertificationModalInstance>(null);
   const getCampaignsInfo = async (campaignId?: string) => {
     const res = await webApi.campaigns.getCampaigns();
     let id;
@@ -62,6 +66,7 @@ const Campaigns: React.FC<CampaignsProp> = () => {
     BurialPoint.track('campaigns certificateCard claim 按钮点击');
     setLoading(true);
     await webApi.campaigns.campaignsClaim({ campaignId: mantles[curIndex].id });
+    certificationModalRef.current?.open();
     getCampaignsInfo();
   };
   const campaignsTargetClaim = async (ids: string[]) => {
@@ -124,6 +129,11 @@ const Campaigns: React.FC<CampaignsProp> = () => {
             </div>
           )}
         </div>
+        <CertificationModal
+          ref={certificationModalRef}
+          certification={mantles[curIndex]?.certification || {}}
+          showCoin={true}
+        />
       </div>
     </MantleContext.Provider>
   );
