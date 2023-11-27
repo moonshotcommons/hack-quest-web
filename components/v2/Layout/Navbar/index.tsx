@@ -148,18 +148,6 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
                 </Link>
               ))}
             </div>
-            <div className="flex ml-[20px] gap-[10px] h-[34px]  text-[14px] rounded-[20px] bg-[#3E3E3E] overflow-hidden tracking-[0.28px]">
-              {outSideNav.map((nav) => (
-                <Link
-                  key={nav.id}
-                  href={nav.link as string}
-                  target="_blank"
-                  className={`h-full flex-center px-[14px] rounded-[20px] cursor-pointer `}
-                >
-                  {nav.label}
-                </Link>
-              ))}
-            </div>
           </nav>
           {children}
         </div>
