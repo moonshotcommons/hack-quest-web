@@ -95,7 +95,7 @@ const AvatarUpload: FC<AvatarUploadProps> = (props) => {
           // },
 
           zoomSpeed: 0.1,
-          objectFit: 'contain',
+          objectFit: 'vertical-cover',
           restrictPosition: true,
           mediaProps: {},
           style: {

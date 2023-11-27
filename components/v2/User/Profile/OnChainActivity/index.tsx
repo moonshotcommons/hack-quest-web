@@ -49,7 +49,6 @@ const OnChainActivity: FC<OnChainActivityProps> = (props) => {
       if (metamaskConnector) {
         try {
           const isAccount = await metamaskConnector.isAuthorized();
-
           let account = null;
           if (isAccount) {
             account = await metamaskConnector.getAccount();

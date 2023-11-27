@@ -155,7 +155,7 @@ const EasyCrop = forwardRef<EasyCropRef, EasyCropProps>((props, ref) => {
                   fill="white"
                   stroke="#0B0B0B"
                 />
-                <path d="M7 12L17 12" stroke="#0B0B0B" stroke-linecap="round" />
+                <path d="M7 12L17 12" stroke="#0B0B0B" strokeLinecap="round" />
               </svg>
             </button>
             <div className="w-full mx-[15px] -mt-[4px]">

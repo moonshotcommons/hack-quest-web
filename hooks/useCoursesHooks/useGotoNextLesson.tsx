@@ -5,25 +5,30 @@ import { AppRootState } from '@/store/redux';
 import { useDebounceFn } from 'ahooks';
 import { message } from 'antd';
 import { useRouter } from 'next/router';
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import { useGetLessonLink } from './useGetLessonLink';
+import { CompleteModalInstance } from '@/components/v2/LessonPage/CompleteModal';
 
 export const useGotoNextLesson = (
   lesson: CourseLessonType,
   courseType: CourseType,
-  completed = false,
-  isV2 = false
+  completed = false
 ) => {
+  console.log(lesson);
+
   const router = useRouter();
-  const [completeModalOpen, setCompleteModalOpen] = useState(false);
+  // const [completeModalOpen, setCompleteModalOpen] = useState(false);
   const { getLink } = useGetLessonLink();
   const [loading, setLoading] = useState(false);
+  const completeModalRef = useRef<CompleteModalInstance>(null);
+
   const { unitsLessonsList } = useSelector((state: AppRootState) => {
     return {
       unitsLessonsList: state.course.unitsLessonsList
     };
   }, shallowEqual);
+
   const { run: onNextClick } = useDebounceFn(
     async (callback?: VoidFunction) => {
       setLoading(true);
@@ -58,7 +63,7 @@ export const useGotoNextLesson = (
         BurialPoint.track('lesson-课程完成', {
           courseName: courseId as string
         });
-        setCompleteModalOpen(true);
+        // completeModalRef.current?.open();
         return;
       }
       setLoading(false);
@@ -72,13 +77,12 @@ export const useGotoNextLesson = (
     }
   );
 
-  return { onNextClick, completeModalOpen, setCompleteModalOpen, loading };
+  return { onNextClick, completeModalRef, loading };
 };
 
 export const useBackToPrevLesson = (
   lesson: CourseLessonType,
-  courseType: CourseType,
-  isV2 = false
+  courseType: CourseType
 ) => {
   const router = useRouter();
   const { getLink } = useGetLessonLink();
