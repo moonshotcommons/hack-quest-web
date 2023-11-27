@@ -25,7 +25,7 @@ const Charts: React.FC<ChartsProp> = ({ optionData }) => {
     series: [
       {
         type: 'pie',
-        radius: ['50%', '80%'],
+        radius: ['40%', '70%'],
         center: ['36%', '50%'],
         label: {
           show: true,

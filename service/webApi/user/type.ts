@@ -1,3 +1,5 @@
+import { CertificationType } from '../campagins/type';
+
 export interface Response {
   id: string;
 }
@@ -97,6 +99,7 @@ export interface UserProfileType {
   onChainActivity: any;
   workExperiences: UserExperienceType[];
   hackathonExperiences: UserHackathonType[];
+  certifications: CertificationType[];
 }
 
 export interface UserPersonalType {

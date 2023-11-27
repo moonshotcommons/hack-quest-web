@@ -21,13 +21,16 @@ import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
-
+import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
 const { chains, publicClient, webSocketPublicClient } = configureChains(
   [mainnet, optimism, polygon],
   [
     // alchemyProvider({ apiKey: 'ZBeLxZsUffmyjnUhj-Px0pR1XRWYOjXC' }),
     // infuraProvider({ apiKey: '3ee2300bf8cf44148303dc4fff1fe840' }),
-    publicProvider()
+    // publicProvider(),
+    jsonRpcProvider({
+      rpc: (chain) => ({ http: 'https://rpc.mantle.xyz' })
+    })
   ]
 );
 

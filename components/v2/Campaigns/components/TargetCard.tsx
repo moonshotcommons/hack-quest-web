@@ -29,10 +29,12 @@ const TargetCard: React.FC<TargetCardProp> = ({ target }) => {
       case TargetType.TWITTER:
         BurialPoint.track('campaigns targetCard Link with Twitter 按钮点击');
         setUnLoading(true);
-        const t = await webApi.campaigns.campaignsTwitter();
+        const t = await webApi.campaigns.campaignsTwitter(target.campaignId, {
+          targetIds: [target.id]
+        });
         setUnLoading(false);
         refresh();
-        window.open(t.url);
+        window.open(target.extra?.url);
         break;
       case TargetType.DISCORD:
         BurialPoint.track('campaigns targetCard Join Discord 按钮点击');
@@ -42,6 +44,10 @@ const TargetCard: React.FC<TargetCardProp> = ({ target }) => {
         refresh();
         window.open(d.url);
         break;
+      case TargetType.GIUHUB:
+        BurialPoint.track('campaigns targetCard Go to Profile 按钮点击');
+        router.push(MenuLink.USER_PROFILE);
+        return 'Go to Profile';
     }
   };
   const renderUnText = (type: TargetType) => {
@@ -54,6 +60,8 @@ const TargetCard: React.FC<TargetCardProp> = ({ target }) => {
         return 'Link with Twitter';
       case TargetType.DISCORD:
         return 'Join Discord';
+      case TargetType.GIUHUB:
+        return 'Go to Profile';
     }
   };
   return (

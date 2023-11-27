@@ -68,7 +68,7 @@ const BackgroundImage: FC<BackgroundImageProps> = (props) => {
                 onClick={() =>
                   imageCropRef.current?.onEdit({
                     imageUrl:
-                      // profile.backgroundImage ||
+                      profile.backgroundImage ||
                       '/images/user/test_background.png'
                   })
                 }
@@ -90,18 +90,18 @@ const BackgroundImage: FC<BackgroundImageProps> = (props) => {
           try {
             const res = await webApi.userApi.uploadBackgroundImage(formData);
             refresh();
-            message.success('Updated avatar successfully');
+            message.success('Updated background image successfully');
           } catch (e: any) {
             errorMessage(e);
           }
         }}
-        aspect={800 / 124}
+        aspect={6.451612903225806}
         quality={1}
         cropperProps={{
           zoomSpeed: 0.1,
-          objectFit: 'horizontal-cover',
           restrictPosition: true,
           mediaProps: {},
+          objectFit: 'horizontal-cover',
           style: {
             containerStyle: {
               height: '450px'

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Tab from '@/components/v2/Tab';
-import { TabListType, TabValueType } from '@/components/v2/Tab/type';
+import { TabListType } from '@/components/v2/Tab/type';
 import { HackathonStatusType } from '@/service/webApi/resourceStation/hackathon/type';
 import { hackathonTab } from './data';
 import OnGoing from './OnGoing';
@@ -10,6 +10,7 @@ import { useRouter } from 'next/router';
 import { menuLink } from '../../Breadcrumb/data';
 import { Menu, QueryIdType } from '../../Breadcrumb/type';
 import { BurialPoint } from '@/helper/burialPoint';
+import { MenuLink } from '../../Layout/Navbar/type';
 
 function HackathonBox() {
   const router = useRouter();
@@ -22,7 +23,7 @@ function HackathonBox() {
       setCurTab(item.value as HackathonStatusType);
     } else {
       router.push(
-        `${menuLink.projects}/projects?menu=${Menu.PROJECTS}&${QueryIdType.PROJECT_ID}=projects`
+        `${MenuLink.PROJECTS}?menu=${Menu.PROJECTS}&${QueryIdType.PROJECT_ID}=projects`
       );
     }
   };
@@ -44,7 +45,7 @@ function HackathonBox() {
         tabList={hackathonTab}
         curTab={curTab}
         changeTab={changeTab}
-        className="pb-[40px]  text-[24px] leading-[24px]"
+        className="pb-10 text-2xl leading-6 before:bottom-9"
         textClassName="pb-[2px]"
       />
       <div className="mb-[40px]">{renderHackathon()}</div>
