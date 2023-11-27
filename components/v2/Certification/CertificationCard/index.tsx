@@ -53,12 +53,14 @@ const CertificationCard: FC<CertificationCardProps> = (props) => {
           </Button>
         </div>
         <div className="w-[246px] h-[283px] relative mr-[130px]">
-          <Image
-            fill
-            src={certification?.image || ''}
-            alt="certification"
-            className="z-50"
-          ></Image>
+          {certification?.image && (
+            <Image
+              fill
+              src={certification?.image || ''}
+              alt="certification"
+              className="z-50"
+            ></Image>
+          )}
         </div>
       </div>
       {certification && (
