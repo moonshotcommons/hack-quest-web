@@ -18,6 +18,7 @@ export const useGotoNextLesson = (
   console.log(lesson);
 
   const router = useRouter();
+  const { courseId: courseName } = router.query;
   // const [completeModalOpen, setCompleteModalOpen] = useState(false);
   const { getLink } = useGetLessonLink();
   const [loading, setLoading] = useState(false);
@@ -63,7 +64,10 @@ export const useGotoNextLesson = (
         BurialPoint.track('lesson-课程完成', {
           courseName: courseId as string
         });
-        // completeModalRef.current?.open();
+        completeModalRef.current?.open({
+          type: 'course',
+          title: courseName as string
+        });
         return;
       }
       setLoading(false);

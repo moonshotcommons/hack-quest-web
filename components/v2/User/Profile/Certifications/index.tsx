@@ -10,39 +10,18 @@ import { IconType } from '../components/HoverIcon/type';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import Link from 'next/link';
+import CertificationImage from '@/components/v2/Certification/CertificationCard/certificate.png';
+import Image from 'next/image';
+import { Typography } from 'antd';
 interface PersonalLinksProps {}
 
 const Certifications: FC<PersonalLinksProps> = (props) => {
   const { profile } = useContext(ProfileContext);
 
-  const [personLinks, setPersonLinks] = useState<Record<string, string>>({});
-
-  const showLinks = useMemo(() => {
-    const keys = Object.keys(personLinks);
-    if (!keys.length) return false;
-    if (!keys.filter((key) => !!personLinks[key].trim()).length) return false;
-    return true;
-  }, [personLinks]);
-
-  useEffect(() => {
-    let newValues: Record<string, string> = {
-      x: '',
-      github: '',
-      linkedIn: '',
-      telegram: ''
-    };
-
-    Object.keys(profile?.personalLinks || {}).forEach((key: string) => {
-      newValues[key] = profile?.personalLinks[key];
-    });
-
-    setPersonLinks(newValues);
-  }, [profile]);
-
   return (
     <div className="p-[30px] pb-[40px] bg-white rounded-[10px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] group hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)] hover:-translate-y-1 transition-all duration-300 relative cursor-pointer">
       <p className="text-black font-next-poster-Bold text-[28px] tracking-[1.68px] leading-[125%]">
-        Certifications
+        {`Certifications (${profile?.certifications?.length || 0})`}
       </p>
       {/* {showLinks && (
         <div className="absolute right-[30px] top-[25px] hidden group-hover:block">
@@ -56,47 +35,34 @@ const Certifications: FC<PersonalLinksProps> = (props) => {
           ></HoverIcon>
         </div>
       )} */}
-      {/* {showLinks && (
-        <ul>
-          {Object.keys(personLinks).map((key, index) => {
-            const media = getThirdPartyMedia(
-              key as keyof typeof thirdPartyMedia
-            );
-            if (!media) return null;
+      {profile?.certifications?.length > 0 && (
+        <ul className="flex gap-[20px] mt-[20px] flex-wrap">
+          {profile.certifications.map((item) => {
             return (
               <li
-                key={index}
-                className="text-black relative flex items-center py-[20px] after:absolute after:h-[1px] after:scale-y-[0.5] after:w-full after:bg-black after:bottom-0"
+                key={item.id}
+                className="flex w-[168px] flex-col justify-center"
               >
-                <div className="flex gap-x-[15px] items-center h-full flex-1">
-                  <span>{media.icon}</span>
-                  <span className="text-[18px] text-[#0B0B0B] font-next-book leading-[160%] tracking-[0.36px]">
-                    {media.name}
-                  </span>
+                <div className=" h-[193px] relative rounded-[10px] overflow-hidden">
+                  <Image
+                    src={item.image}
+                    fill
+                    alt="Solidity Learning Track"
+                  ></Image>
                 </div>
-                <div className="flex gap-[10px] items-center">
-                  <p className="w-[140px] flex-1 truncate text-[14px] font-next-book text-[#8C8C8C] leading-[160%] -tracking-[0.154px]">
-                    {personLinks[key]}
-                  </p>
-                  {personLinks[key] && (
-                    <Link
-                      href={personLinks[key]}
-                      target="_blank"
-                      className="hover:text-black/40 transition duration-200"
-                    >
-                      <RiShareBoxLine
-                        size={20}
-                        color="currentColor"
-                      ></RiShareBoxLine>
-                    </Link>
-                  )}
-                </div>
+                <Typography.Paragraph
+                  ellipsis={{ rows: 2 }}
+                  className="text-center mt-[10px] font-next-book text-black leading-[125%] tracking-[0.32px]"
+                  style={{ marginBottom: '0px' }}
+                >
+                  {item.name}
+                </Typography.Paragraph>
               </li>
             );
           })}
         </ul>
-      )} */}
-      {!showLinks && (
+      )}
+      {!profile?.certifications?.length && (
         <div className="flex flex-col items-center">
           <p className="mt-[56.2px] text-center font-next-book text-[18px] leading-[160%] tracking-[0.054px]">
             You don’t have any certificate yet~
