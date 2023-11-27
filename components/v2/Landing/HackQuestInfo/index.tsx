@@ -1,18 +1,9 @@
 import Button from '@/components/Common/Button';
-import RightBottomIcon from '@/components/Common/Icon/RightBottom';
 import LearningTracksCard from '@/components/v2/LearningTrackCard';
-import { Theme } from '@/constants/enum';
 import { BurialPoint } from '@/helper/burialPoint';
 import { useGetUserInfo } from '@/hooks/useGetUserInfo';
 import { useGetLearningTracks } from '@/hooks/useLearningTrackHooks/useLearningTracks';
-import DrakHackquest_info1 from '@/public/images/home/dark-hackquest_info1.png';
-import DrakHackquest_info3 from '@/public/images/home/dark-hackquest_info3.png';
-import DrakHackquest_info4 from '@/public/images/home/dark-hackquest_info4.png';
 import LightButtonDeg from '@/public/images/home/light-button_deg.svg';
-import CenterLogo from '@/public/images/home/light-center-logo.png';
-import LightHackquest_info1 from '@/public/images/home/light-hackquest_info1.png';
-import LightHackquest_info3 from '@/public/images/home/light-hackquest_info3.png';
-import LightHackquest_info4 from '@/public/images/home/light-hackquest_info4.png';
 import TeaserInfo from '@/public/images/home/teaser_info.png';
 import HackquestInfoBg from '@/public/images/landing/hack_quest_info_bg.png';
 import { LearningTrackCourseType } from '@/service/webApi/course/type';
@@ -21,6 +12,17 @@ import { message } from 'antd';
 import Image from 'next/image';
 import { FC, useContext, useMemo } from 'react';
 import { AiOutlineRight } from 'react-icons/ai';
+import WhyL1 from '@/public/images/landing/why_h_1_l.png';
+import WhyR1 from '@/public/images/landing/why_h_1_r.png';
+import WhyL2 from '@/public/images/landing/why_h_2_l.png';
+import WhyR2 from '@/public/images/landing/why_h_2_r.png';
+import WhyL3 from '@/public/images/landing/why_h_3_l.png';
+import WhyR3 from '@/public/images/landing/why_h_3_r.png';
+import WhyL4 from '@/public/images/landing/why_h_4_l.png';
+import WhyR4 from '@/public/images/landing/why_h_4_r.png';
+import { useRouter } from 'next/router';
+import { MenuLink } from '../../Layout/Navbar/type';
+import { Menu, QueryIdType } from '../../Breadcrumb/type';
 
 interface HackQuestInfoProps {
   // children: ReactNode;
@@ -30,9 +32,12 @@ interface GotoPageButtonProps {
   direction: 'top' | 'bottom';
 }
 const goToLogin = () => {
-  const bodyEle = document.querySelector('body') as HTMLBodyElement;
-  bodyEle.style.scrollBehavior = 'smooth';
-  bodyEle.scrollTop = 0;
+  const contentWrapEle = document.querySelector(
+    '#content-scroll-wrap'
+  ) as HTMLDivElement;
+  if (!contentWrapEle) return;
+  contentWrapEle.style.scrollBehavior = 'smooth';
+  contentWrapEle.scrollTop = 0;
   message.warning('Please log in first');
 };
 const GotoPageButton: React.FC<GotoPageButtonProps> = (props) => {
@@ -119,7 +124,7 @@ export const TopInfo: FC = () => {
           />
         </div>
       </div>
-      <div className="container pt-[80px] mx-auto pb-[47px] bg-landing-card-bg mt-[150px] rounded-[5rem] flex-col-center">
+      <div className="container pt-[80px] mx-auto pb-[47px] bg-landing-card-bg mt-[150px] rounded-[10px] flex-col-center">
         <h1 className="text-text-default-color text-center font-next-poster-Bold text-[54px] tracking-[3.24px]">
           What is HackQuest?
         </h1>
@@ -143,22 +148,58 @@ export const CenterInfo: FC = () => {
     {
       title: 'Easy to follow, quick to test',
       description: `Each course is broken into 3-5 minute sessions with a quest to test understanding. Short lesson + quick action = retention!`,
-      image: theme === Theme.Dark ? LightHackquest_info1 : DrakHackquest_info1
+      image: [
+        {
+          img: WhyL1,
+          width: 416
+        },
+        {
+          img: WhyR1,
+          width: 354
+        }
+      ]
     },
     {
       title: 'Earn rewards, in addition to skills',
       description: `Complete quests and unlock exciting rewards: tokens, NFT learning certificates, and even airdrop qualification!`,
-      image: theme === Theme.Dark ? DrakHackquest_info1 : LightHackquest_info1
+      image: [
+        {
+          img: WhyL2,
+          width: 465
+        },
+        {
+          img: WhyR2,
+          width: 281
+        }
+      ]
     },
     {
       title: 'Build Web3 reputation',
       description: `HackQuest generates a gamified developer profile to highlight your Web3 reputation scores, interests and skill proficiency levels based on your in-app activities and GitHub histories. Build your Web3 reputation and unlock new possibilities!`,
-      image: theme === Theme.Dark ? DrakHackquest_info3 : LightHackquest_info3
+      image: [
+        {
+          img: WhyL3,
+          width: 463
+        },
+        {
+          img: WhyR3,
+          width: 349
+        }
+      ]
     },
     {
       title: 'Personalized Learning Experience',
       description: `Customize your Web3 learning experience by choosing among extended, standard, or concise modes for each learning quest based on your skill level. HackQuest is built for learners of all levels!`,
-      image: theme === Theme.Dark ? DrakHackquest_info4 : LightHackquest_info4
+      image: [
+        {
+          img: WhyL4,
+          width: 535
+        },
+        {
+          img: WhyR4,
+          width: 297
+        }
+      ]
     }
     // {
     //   title: 'Concept learning made interactive',
@@ -168,31 +209,42 @@ export const CenterInfo: FC = () => {
   ];
 
   return (
-    <div className="container px-[6.25rem] pt-[6rem] pb-[9rem] bg-landing-card-bg  rounded-[5rem]">
-      <h1 className="text-text-default-color tracking-[3.24px] text-center font-next-poster-Bold text-[54px] pb-[9.06rem]">
+    <div className="container   mt-[150px]">
+      <h1 className="text-text-default-color tracking-[3.24px] text-center font-next-poster-Bold text-[54px] mb-[50px]">
         Why HackQuest?
       </h1>
-      <div className="flex flex-col gap-[290px]">
+      <div className="flex flex-wrap gap-[40px]  ">
         {infoList.map((item, index) => {
           return (
-            <div key={index} className="flex  justify-between items-center ">
-              <div className={`w-[550px]`}>
-                {item.image ? (
-                  <Image src={item.image} alt="info"></Image>
-                ) : // <div className="w-[42.3125rem] h-[20.0625rem] bg-[#202020]"></div>
-                null}
+            <div
+              key={index}
+              className="w-[calc(50%-20px)] h-[750px] pt-[50px] px-[55px] bg-landing-card-bg rounded-[10px]"
+            >
+              <div className="w-full relative h-[410px]">
+                <Image
+                  src={item.image[0].img}
+                  width={item.image[0].width}
+                  alt="demo"
+                  className={`absolute left-0 ${
+                    index <= 1 ? 'bottom-0' : 'top-0'
+                  }`}
+                ></Image>
+                <Image
+                  src={item.image[1].img}
+                  width={item.image[1].width}
+                  alt="demo"
+                  className={`absolute right-0 ${
+                    index <= 1 ? 'top-0' : 'bottom-0'
+                  }`}
+                ></Image>
               </div>
-              <div className="relative flex flex-col gap-[1.25rem]">
-                <div className="relative w-[20rem] top-line"></div>
-                <div className="text-text-default-color">
-                  <RightBottomIcon width={17} height={16}></RightBottomIcon>
-                </div>
-                <h1 className="w-[418px] text-text-default-color leading-[75px] text-[60px] font-next-book-bold tracking-[0.02rem]">
+              <div className="mt-[70px]">
+                <p className="text-[30px] leading-[42.5px] tracking-[0.68px] font-next-book-bold mb-[22px]">
                   {item.title}
-                </h1>
-                <div className="w-[418px] text-text-default-color text-[18px] font-normal tracking-[0.36px]">
+                </p>
+                <p className="text-[16px] leading-[28.8px] tracking-[0.36px] font-next-book">
                   {item.description}
-                </div>
+                </p>
               </div>
             </div>
           );
@@ -203,9 +255,71 @@ export const CenterInfo: FC = () => {
   );
 };
 
+export const HackQuestHackathon: FC = () => {
+  const router = useRouter();
+  return (
+    <div className="container py-[80px] bg-landing-card-bg rounded-[10px] flex-col-center font-next-book mt-[150px]">
+      <div className="text-text-default-color tracking-[3.24px] text-center font-next-poster-Bold text-[54px] ">
+        HackQuest Hackathon
+      </div>
+      <div className="w-[560px] my-[30px]">
+        {`Explore ongoing hackathons, uncover past projects, and dive into the world of innovation. Your journey through the realm of creativity begins here!`}
+      </div>
+      <div className="flex h-[152px] mb-[50px]">
+        <div className="h-full w-[360px] text-center flex flex-col justify-between border-r-[0.5px] border-r-[#000]">
+          <p className="text-[68px] text-[#000] leading-[108px] tracking-[0.2px]">
+            8
+          </p>
+          <p className="text-[18px] text-[#8C8C8C] tracking-[0.36px]">
+            Hackathon
+          </p>
+        </div>
+        <div className="h-full w-[360px] text-center flex flex-col justify-between border-r-[0.5px] border-r-[#000]">
+          <p className="text-[68px] text-[#000] leading-[108px] tracking-[0.2px]">
+            68
+          </p>
+          <p className="text-[18px] text-[#8C8C8C] tracking-[0.36px]">
+            Projects
+          </p>
+        </div>
+        <div className="h-full w-[360px] text-center flex flex-col justify-between">
+          <p className="text-[68px] text-[#000] leading-[108px] tracking-[0.2px]">{`2,560`}</p>
+          <p className="text-[18px] text-[#8C8C8C] tracking-[0.36px]">
+            Participants
+          </p>
+        </div>
+      </div>
+      <div className="flex  items-center gap-[40px]">
+        <Button
+          className={`border text-landing-hack-info-learning-btn-color border-landing-card-login-button-border-color`}
+          onClick={() => {
+            router.push(MenuLink.HACKATHON);
+            BurialPoint.track(`landing Explore Hackathons按钮点击`);
+          }}
+        >
+          Explore Hackathons
+        </Button>
+        <Button
+          icon={<AiOutlineRight />}
+          iconPosition="right"
+          className={`text-landing-hack-info-learning-btn-color`}
+          onClick={() => {
+            router.push(
+              `${MenuLink.PROJECTS}?menu=${Menu.PROJECTS}&${QueryIdType.PROJECT_ID}=projects`
+            );
+            BurialPoint.track(`landing Explore Projects按钮点击`);
+          }}
+        >
+          <span className="border-b border-[#FCC409]">Explore Projects</span>
+        </Button>
+      </div>
+    </div>
+  );
+};
+
 export const BottomInfo: FC = () => {
   return (
-    <div className="container pt-[7.5rem] pb-[80px] flex flex-col items-center  bg-neutral-dark-gray mt-[13.69rem] rounded-[5rem]">
+    <div className="container pt-[7.5rem] pb-[80px] flex flex-col items-center  bg-neutral-dark-gray mt-[150px] rounded-[10px]">
       <h1 className="text-[#F5F5F5] w-[43.5rem] mx-auto text-center font-next-poster-Bold text-[2.5rem] leading-[110%] tracking-wider pb-[4.25rem]">
         Still not sure? Create your own token in 10 minutes and decide.
       </h1>
@@ -231,10 +345,11 @@ const HackQuestInfo: FC<HackQuestInfoProps> = (props) => {
   return (
     <div className="flex flex-col items-center">
       <TopInfo></TopInfo>
-      <div className="w-[100vw] flex justify-center py-[150px]">
+      {/* <div className="w-[100%] flex justify-center py-[150px]">
         <Image src={CenterLogo} alt="hackquest"></Image>
-      </div>
+      </div> */}
       <CenterInfo></CenterInfo>
+      <HackQuestHackathon></HackQuestHackathon>
       <BottomInfo></BottomInfo>
     </div>
   );

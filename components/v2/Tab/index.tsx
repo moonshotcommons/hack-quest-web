@@ -4,6 +4,7 @@ import { HackathonStatusType } from '@/service/webApi/resourceStation/hackathon/
 import { TabListType } from './type';
 import { cn } from '@/helper/utils';
 import { VscArrowRight } from 'react-icons/vsc';
+import SlideHighlight from '@/components/Common/Navigation/SlideHighlight';
 
 interface TabType {
   tabList: TabListType[];
@@ -20,19 +21,20 @@ const Tab: React.FC<TabType> = ({
   textClassName
 }) => {
   return (
-    <div
+    <SlideHighlight
       className={cn(
-        `flex gap-10 pb-[30px] text-[20px] leading-[20px]`,
+        `flex gap-10 pb-[30px] text-xl leading-5 before:bottom-6`,
         className
       )}
+      currentIndex={tabList.findIndex((v) => v.value === curTab)}
     >
       {tabList.map((tab: TabListType) => (
         <div
           key={tab.value}
           className={cn(
-            `cursor-pointer flex items-center  border-b-[3px]  border-[transparent] ${
+            `cursor-pointer flex items-center ${
               tab.value === curTab
-                ? 'font-next-book-bold border-home-tab-border'
+                ? 'font-next-book-bold relative'
                 : 'font-next-book'
             }`,
             textClassName
@@ -43,7 +45,7 @@ const Tab: React.FC<TabType> = ({
           {tab.type === 'link' && <VscArrowRight />}
         </div>
       ))}
-    </div>
+    </SlideHighlight>
   );
 };
 

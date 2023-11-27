@@ -60,6 +60,13 @@ export const changeTextareaHeight = (target: HTMLTextAreaElement) => {
   // 将textarea的高度设置为内容高度
   target.style.height = height + 'px';
 };
+//元素抖动
+export const elementVibration = (ele: HTMLElement) => {
+  ele.classList.add('input-quiver');
+  setTimeout(() => {
+    ele.classList.remove('input-quiver');
+  }, 300);
+};
 
 export const adaptWidth = (target: HTMLInputElement) => {
   const parentEleWidth =
@@ -103,3 +110,72 @@ export const errorMessage = (err: any) => {
   const msg = err.msg || err.message;
   msg && message.error(msg);
 };
+
+import * as React from 'react';
+
+export const { isValidElement } = React;
+
+export function isFragment(child: any): boolean {
+  return child && isValidElement(child) && child.type === React.Fragment;
+}
+
+type AnyObject = Record<PropertyKey, any>;
+
+type RenderProps = AnyObject | ((originProps: AnyObject) => AnyObject | void);
+
+export function replaceElement(
+  element: React.ReactNode,
+  replacement: React.ReactNode,
+  props?: RenderProps
+): React.ReactNode {
+  if (!isValidElement(element)) {
+    return replacement;
+  }
+  return React.cloneElement(
+    element,
+    typeof props === 'function' ? props(element.props || {}) : props
+  );
+}
+
+export function cloneElement(
+  element: React.ReactNode,
+  props?: RenderProps
+): React.ReactElement {
+  return replaceElement(element, element, props) as React.ReactElement;
+}
+
+export async function urlToBlobAndBase64(url: string) {
+  return new Promise<{ base64: string; blob: BlobPart }>(
+    async (resolve, reject) => {
+      try {
+        let blob: Blob;
+        if (!url.startsWith('/')) {
+          const response = await fetch('/api/helper/fetch-image', {
+            body: JSON.stringify({ url }),
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            cache: 'force-cache'
+          });
+
+          blob = await response.blob();
+        } else {
+          const response = await fetch(url);
+          blob = await response.blob();
+        }
+        const reader = new FileReader();
+        reader.readAsDataURL(blob);
+        reader.onload = () => {
+          const base64 = reader.result as string;
+          resolve({
+            base64,
+            blob
+          });
+        };
+      } catch (err) {
+        reject(err);
+      }
+    }
+  );
+}

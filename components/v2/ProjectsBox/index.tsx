@@ -109,7 +109,7 @@ const ProjectsBox: React.FC<ProjectsBoxProps> = ({
   }, [loadNum]);
   return (
     <Loading loading={apiStatus === 'loading'}>
-      <div className="flex justify-between gap-10">
+      <div className="flex justify-between gap-10 h-full">
         <SearchFilter
           searchParam={searchParam}
           changeParam={changeParam}

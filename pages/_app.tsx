@@ -5,6 +5,7 @@ import '@/styles/globals.css';
 import { Analytics } from '@vercel/analytics/react';
 import type { AppContext, AppProps } from 'next/app';
 import App from 'next/app';
+import Head from 'next/head';
 
 import wrapper from '@/store/redux';
 import { Provider } from 'react-redux';
@@ -20,13 +21,16 @@ import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
-
+import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
 const { chains, publicClient, webSocketPublicClient } = configureChains(
   [mainnet, optimism, polygon],
   [
     // alchemyProvider({ apiKey: 'ZBeLxZsUffmyjnUhj-Px0pR1XRWYOjXC' }),
     // infuraProvider({ apiKey: '3ee2300bf8cf44148303dc4fff1fe840' }),
-    publicProvider()
+    // publicProvider(),
+    jsonRpcProvider({
+      rpc: (chain) => ({ http: 'https://rpc.mantle.xyz' })
+    })
   ]
 );
 
@@ -81,6 +85,9 @@ function MyApp(appProps: AppProps & Omit<LayoutProps, 'pathname'>) {
             navbarData={navbarData}
             pathname={pathname}
           >
+            <Head>
+              <title>HackQuest</title>
+            </Head>
             <Component {...props.pageProps} />
           </Layout>
         </WagmiConfig>
