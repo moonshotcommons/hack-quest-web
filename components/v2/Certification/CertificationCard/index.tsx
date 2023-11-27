@@ -1,34 +1,52 @@
 import Image from 'next/image';
-import { FC, ReactNode, useRef } from 'react';
+import { FC, ReactNode, useEffect, useRef, useState } from 'react';
 import CertificationImage from './certificate.png';
 import Button from '@/components/v2/Common/Button';
 import CertificationModal, {
-  CertificationModalInstance,
-  CertificationStatus
+  CertificationModalInstance
 } from '../CertificationModal';
 import { message } from 'antd';
-interface CertificationCardProps {}
+import { useRequest } from 'ahooks';
+import webApi from '@/service';
+import { CertificationType } from '@/service/webApi/campagins/type';
+interface CertificationCardProps {
+  certificationId: string;
+}
 
 const CertificationCard: FC<CertificationCardProps> = (props) => {
   const CertificationModalRef = useRef<CertificationModalInstance>(null);
+  const { certificationId } = props;
+  const [certification, setCertification] = useState<CertificationType>();
+
+  useRequest(
+    async () => {
+      const res = await webApi.courseApi.getCertificationDetail(
+        certificationId
+      );
+      return res;
+    },
+    {
+      onSuccess(res) {
+        setCertification(res);
+      }
+    }
+  );
+
   return (
     <div className="w-full relative">
       <div className="w-full h-fit flex justify-end relative">
         <div className="w-full h-fit absolute -z-1 top-1/2 -translate-y-1/2 py-[24px] px-[30px] bg-[#FFF4CE] rounded-[10px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)]">
           <p className="text-[21px] font-next-poster-Bold tracking-[1.26px] text-[#0B0B0B]">
-            Earn a Web3 Certification
+            {certification?.name}
           </p>
           <p className="mt-[10px] mb-[20px] w-[46.5%] text-[18px] font-next-book leading-[160%] tracking-[0.36px] text-[#0B0B0B]">
-            {`Upon completing the course, you'll earn a certification, attesting
-            to your proficiency in Web3 development .`}
+            {certification?.description}
           </p>
           <Button
             ghost
             className="py-2 w-[140px] flex justify-center items-center px-0 border-[#0B0B0B] font-next-book text-[14px] leading-[125%] tracking-[0.28px]"
             onClick={() => {
-              CertificationModalRef.current?.open({
-                status: CertificationStatus.CERTIFIED
-              });
+              CertificationModalRef.current?.open();
             }}
           >
             Learn More
@@ -37,13 +55,18 @@ const CertificationCard: FC<CertificationCardProps> = (props) => {
         <div className="w-[246px] h-[283px] relative mr-[130px]">
           <Image
             fill
-            src={CertificationImage}
+            src={certification?.image || ''}
             alt="certification"
             className="z-50"
           ></Image>
         </div>
       </div>
-      <CertificationModal ref={CertificationModalRef}></CertificationModal>
+      {certification && (
+        <CertificationModal
+          ref={CertificationModalRef}
+          certification={certification}
+        ></CertificationModal>
+      )}
     </div>
   );
 };

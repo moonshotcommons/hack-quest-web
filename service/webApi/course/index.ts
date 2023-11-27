@@ -11,6 +11,7 @@ import {
   SuggestCommitParams,
   UnitPagesListType
 } from './type';
+import { CertificationType } from '../campagins/type';
 
 export enum CourseApiType {
   Course_List = '/courses',
@@ -128,6 +129,13 @@ class CourseApi {
     return this.service.post<SignatureData>(CourseApiType.GetSignature, {
       data: params
     });
+  }
+
+  /** 获取证书的详情 */
+  getCertificationDetail(certificationId: string) {
+    return this.service.get<CertificationType>(
+      `/certifications/${certificationId}`
+    );
   }
 }
 

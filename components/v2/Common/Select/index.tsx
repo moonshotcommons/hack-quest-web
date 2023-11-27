@@ -108,7 +108,7 @@ const Select = forwardRef<
           onBlur={() =>
             setTimeout(() => {
               setVisibleOption(false);
-            }, 100)
+            }, 310)
           }
           type={'text'}
           value={selectLabel}

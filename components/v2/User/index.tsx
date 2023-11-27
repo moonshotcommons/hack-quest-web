@@ -12,12 +12,14 @@ import { AppRootState } from '@/store/redux';
 import { useRouter } from 'next/router';
 import { V2_LANDING_PATH } from '@/constants/nav';
 import { cn } from '@/helper/utils';
+import SlideHighlight from '@/components/Common/Navigation/SlideHighlight';
 interface UserProps {}
 
-const User: FC<UserProps> = (props) => {
+const User: FC<UserProps> = () => {
   const [showUserDropCard, setShowUserDropCard] = useState(false);
   const userDropCardRef = useRef();
   const [isLogin, setIsLogin] = useState(false);
+  const [tabIndex, setTabIndex] = useState(0);
   const userInfo = useGetUserInfo();
   const unLoginType = useGetUserUnLoginType();
   const dispatch = useDispatch();
@@ -43,6 +45,16 @@ const User: FC<UserProps> = (props) => {
       setIsLogin(false);
     }
   }, [userInfo]);
+  useEffect(() => {
+    if (pathname === V2_LANDING_PATH) {
+      setTabIndex(unLoginTab.findIndex((v) => v.value === unLoginType.type));
+      return;
+    }
+    if (unLoginType.type === UnLoginType.INVITE_CODE) {
+      setTabIndex(unLoginTab.findIndex((v) => v.value === UnLoginType.SIGN_UP));
+      return;
+    }
+  }, [pathname, unLoginType.type]);
 
   return (
     <div className="relative h-full">
@@ -92,8 +104,8 @@ const User: FC<UserProps> = (props) => {
               </div>
               <div
                 className="relative w-[54px] h-[64px] flex items-center justify-end"
-                onMouseEnter={(e) => setShowUserDropCard(true)}
-                onMouseLeave={(e) => setShowUserDropCard(false)}
+                onMouseEnter={() => setShowUserDropCard(true)}
+                onMouseLeave={() => setShowUserDropCard(false)}
               >
                 <div
                   className={cn(
@@ -127,16 +139,16 @@ const User: FC<UserProps> = (props) => {
             </div>
           )}
           {!isLogin && (
-            <div className="flex gap-[30px] h-full">
-              {unLoginTab.map((tab) => (
+            <SlideHighlight
+              className="flex gap-[30px] h-full"
+              currentIndex={tabIndex}
+            >
+              {unLoginTab.map((tab, index) => (
                 <div
-                  className={`text-sm h-full flex items-center text-white hover:font-bold border-b-4 tracking-[0.28px] cursor-pointer ${
-                    (pathname === V2_LANDING_PATH &&
-                      tab.value === unLoginType?.type) ||
-                    (tab.value === UnLoginType.SIGN_UP &&
-                      unLoginType.type === UnLoginType.INVITE_CODE)
-                      ? 'font-next-book-bold text-text-default-color font-bold  border-[#FFD850]'
-                      : 'font-next-book font-normal border-transparent'
+                  className={`text-sm h-full flex items-center text-white hover:font-bold tracking-[0.28px] cursor-pointer ${
+                    tabIndex === index
+                      ? 'font-next-book-bold text-text-default-color font-bold'
+                      : 'font-next-book font-normal'
                   }`}
                   key={tab.value}
                   onClick={() => unLoginTabClick(tab.value)}
@@ -144,7 +156,7 @@ const User: FC<UserProps> = (props) => {
                   {tab.label}
                 </div>
               ))}
-            </div>
+            </SlideHighlight>
           )}
         </div>
       </div>

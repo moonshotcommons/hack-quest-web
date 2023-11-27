@@ -175,7 +175,7 @@ const BasicInfoModal = forwardRef<BasicInfoModalRef, BasicInfoModalProps>(
                   ></Input>
                 </div>
               </Form.Item>
-              <Form.Item name="experience" rules={[{ max: 99, min: 0 }]}>
+              <Form.Item name="experience">
                 <div
                   className="
               [&>div]:gap-y-[5px]
@@ -195,6 +195,17 @@ const BasicInfoModal = forwardRef<BasicInfoModalRef, BasicInfoModalProps>(
                     max={99}
                     defaultValue={form.getFieldValue('experience')}
                     className="py-[7px] px-[30px] text-[21px] font-next-book tracking-[0.063px] leading-[160%] border-[#8C8C8C] caret-gray-500"
+                    onChange={(e) => {
+                      let value: any = (e.target as HTMLInputElement).value;
+                      if (Number(value) > 99) value = 99;
+                      form.setFieldValue('experience', value);
+                    }}
+                    onBlur={(e) => {
+                      let value: any = (e.target as HTMLInputElement).value;
+                      if (Number(value) > 99) value = 99;
+                      e.target.value = value;
+                      form.setFieldValue('experience', value);
+                    }}
                   ></Input>
                   <span className="mt-[46px] text-[21px] leading-[160%] text-black font-next-book tracking-[0.063px]">
                     Years
