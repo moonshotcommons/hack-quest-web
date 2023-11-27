@@ -60,6 +60,7 @@ export const navbarList: NavbarListType[] = [
 
 export const excludeLink = [MenuLink.USER_PROFILE];
 export const needLoginPath = [
+  MenuLink.HOME,
   MenuLink.MISSION_CENTER,
   MenuLink.CAMPAIGINS,
   MenuLink.USER_PROFILE

@@ -44,7 +44,7 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
           <div className="w-[146px]">
             <div className="w-full h-[169px] relative mb-[8px]">
               <Image
-                src={mantle.certificate?.image || Certificate}
+                src={mantle.certification?.image || Certificate}
                 alt="certificate"
                 fill
                 className="object-cover"
@@ -58,7 +58,7 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
                   alt="icon"
                   className=""
                 ></Image>
-                <span>x200</span>
+                <span>x{mantle.certification?.credits}</span>
               </div>
               <div className="px-[5px] flex items-center justify-between w-[69px] h-[32px] border border-[#DADADA] rounded-[6px]">
                 <Image
@@ -67,7 +67,7 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
                   alt="icon"
                   className=""
                 ></Image>
-                <span>x200</span>
+                <span>x{mantle.certification?.exp}</span>
               </div>
             </div>
           </div>
@@ -81,7 +81,7 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
                 setShowAll(!showAll);
               }}
             >
-              <div className="text-[18px]">{mantle.certificate?.title}</div>
+              <div className="text-[18px]">{mantle.certification?.name}</div>
               <div>
                 {showAll ? (
                   <VscChromeMinimize size={20}></VscChromeMinimize>
@@ -94,7 +94,7 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
               <div
                 className={`text-[14px] mt-[5px] mb-[20px] ${inter.className}`}
               >
-                {mantle.certificate?.description}
+                {mantle.certification?.description}
               </div>
             )}
           </div>

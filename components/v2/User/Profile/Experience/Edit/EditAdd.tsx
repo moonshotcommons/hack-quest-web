@@ -221,6 +221,7 @@ const EditAdd: React.FC<EditAddProp> = ({
         <Input
           name={'title'}
           label={<Span text={'Title*'} />}
+          maxLength={50}
           type="text"
           placeholder="EX: Software Engineer"
           className="border-[#8c8c8c] text-[21px] caret-[#0b0b0b]"
@@ -243,6 +244,7 @@ const EditAdd: React.FC<EditAddProp> = ({
             <Input
               name={'companyName'}
               label={<Span text={'Company Name*'} />}
+              maxLength={100}
               type="text"
               placeholder="EX: Apple"
               className="border-[#8c8c8c] text-[21px] caret-[#0b0b0b]"
@@ -287,6 +289,7 @@ const EditAdd: React.FC<EditAddProp> = ({
         <Input
           name={'location'}
           label={<Span text={'Location*'} />}
+          maxLength={255}
           type="text"
           placeholder="EX: New York, United States"
           className="border-[#8c8c8c] text-[21px] caret-[#0b0b0b]"

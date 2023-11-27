@@ -10,6 +10,7 @@ import { useRouter } from 'next/router';
 import { menuLink } from '../../Breadcrumb/data';
 import { Menu, QueryIdType } from '../../Breadcrumb/type';
 import { BurialPoint } from '@/helper/burialPoint';
+import { MenuLink } from '../../Layout/Navbar/type';
 
 function HackathonBox() {
   const router = useRouter();
@@ -22,7 +23,7 @@ function HackathonBox() {
       setCurTab(item.value as HackathonStatusType);
     } else {
       router.push(
-        `${menuLink.projects}/projects?menu=${Menu.PROJECTS}&${QueryIdType.PROJECT_ID}=projects`
+        `${MenuLink.PROJECTS}?menu=${Menu.PROJECTS}&${QueryIdType.PROJECT_ID}=projects`
       );
     }
   };
