@@ -14,6 +14,7 @@ import { CertificationType } from '@/service/webApi/campagins/type';
 
 interface CertificationModalProps {
   certification: CertificationType;
+  showCoin?: boolean;
 }
 
 export interface CertificationModalInstance {
@@ -24,7 +25,7 @@ const CertificationModal = forwardRef<
   CertificationModalInstance,
   CertificationModalProps
 >((props, ref) => {
-  const { certification } = props;
+  const { certification, showCoin = false } = props;
   const [open, setOpen] = useState(false);
   useImperativeHandle(ref, () => {
     return {
