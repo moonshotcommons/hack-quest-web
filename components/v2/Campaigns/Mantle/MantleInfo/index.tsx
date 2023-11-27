@@ -22,9 +22,11 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
   const { mantle, campaignsClaim, loading } = useContext(MantleContext);
   const [showAll, setShowAll] = useState(true);
   const certificationModalRef = useRef<CertificationModalInstance>(null);
+
   const buttonDisable = useMemo(() => {
     return !(mantle.completed && !mantle.certification.claimed);
   }, [mantle]);
+
   const learnMore = () => {
     certificationModalRef.current?.open();
     BurialPoint.track('campaigns certificateCard learn more 按钮点击');
@@ -130,6 +132,8 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
       <CertificationModal
         ref={certificationModalRef}
         certification={mantle.certification}
+        completed={mantle.completed}
+        campaignId={mantle.id}
         showCoin={true}
       />
     </div>
