@@ -24,6 +24,7 @@ import EasyCrop from './EasyCrop';
 import type { CropperProps } from 'react-easy-crop';
 import { Upload as AntUpload } from 'antd';
 import { errorMessage, urlToBlobAndBase64 } from '@/helper/utils';
+import { v4 as uuidV4 } from 'uuid';
 interface ImageCropProps {
   title?: string;
   children: ReactNode;
@@ -133,7 +134,7 @@ const ImageCrop = forwardRef<ImageCropRef, ImageCropProps>((props, ref) => {
     setModalImage('');
     easyCropRef.current!.onReset();
     setOpen(false);
-    // resolve(AntUpload.LIST_IGNORE);
+    setFileList([]);
     cb.current.onModalCancel?.();
   };
 
@@ -151,6 +152,7 @@ const ImageCrop = forwardRef<ImageCropRef, ImageCropProps>((props, ref) => {
           setModalImage('');
           easyCropRef.current!.onReset();
           setOpen(false);
+          setFileList([]);
         } catch (err) {
           errorMessage(err);
         } finally {
@@ -173,8 +175,8 @@ const ImageCrop = forwardRef<ImageCropRef, ImageCropProps>((props, ref) => {
           const newFile = new File([blob as BlobPart], 'avatar', {
             type: 'image/png'
           });
-          console.log(Object.assign(newFile, { uid: '123456' }));
-          setFileList([Object.assign(newFile, { uid: '123456' })]);
+
+          setFileList([Object.assign(newFile, { uid: uuidV4() })]);
         } catch (err) {
           errorMessage(err);
         }
@@ -386,7 +388,11 @@ const ImageCrop = forwardRef<ImageCropRef, ImageCropProps>((props, ref) => {
     <Modal
       open={open}
       onClose={() => {
+        setModalImage('');
+        easyCropRef.current!.onReset();
         setOpen(false);
+        setFileList([]);
+        cb.current.onModalCancel?.();
       }}
       showCloseIcon
       icon={

@@ -29,8 +29,11 @@ const LessonPage: FC<LessonPageProps> = (props) => {
   const router = useRouter();
   const { courseId: courseName } = router.query;
   const [nextLoading, setNextLoading] = useState(true);
-  const { onNextClick, completeModalOpen, setCompleteModalOpen } =
-    useGotoNextLesson(lesson!, courseType, true, true);
+  const { onNextClick, completeModalRef } = useGotoNextLesson(
+    lesson!,
+    courseType,
+    true
+  );
   const [isHandleNext, setIsHandleNext] = useState(false);
   const allowNextButtonClickTime = useRef(0);
   const treasureModalRef = useRef<TreasureModalRef>(null);
@@ -73,6 +76,15 @@ const LessonPage: FC<LessonPageProps> = (props) => {
   }, []);
 
   const bugFeedbackModalRef = useRef<BugFeedbackModalRef>(null);
+
+  // useEffect(() => {
+  //   if (completeModalRef.current) {
+  //     completeModalRef.current?.open({
+  //       type: 'claim',
+  //       title: courseName as string
+  //     });
+  //   }
+  // }, [lesson]);
 
   return (
     <ConfigProvider
@@ -198,12 +210,7 @@ const LessonPage: FC<LessonPageProps> = (props) => {
                   }
                 }}
               />
-              <CompleteModal
-                title={courseName as string}
-                open={completeModalOpen}
-                onClose={() => setCompleteModalOpen(false)}
-              ></CompleteModal>
-
+              <CompleteModal ref={completeModalRef}></CompleteModal>
               <BugFeedbackModal ref={bugFeedbackModalRef}></BugFeedbackModal>
               <TreasureModal ref={treasureModalRef} />
             </LessonPageContext.Provider>

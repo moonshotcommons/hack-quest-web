@@ -9,6 +9,7 @@ import webApi from '@/service';
 import { UserProfileType } from '@/service/webApi/user/type';
 import { useRequest } from 'ahooks';
 import type { NextPage } from 'next';
+import Certifications from '@/components/v2/User/Profile/Certifications';
 
 interface IProps {}
 
@@ -32,6 +33,7 @@ const UserProfilePage: NextPage<IProps> = (props) => {
             <GithubActivity></GithubActivity>
             <Experience />
             <Hackathon />
+            <Certifications></Certifications>
           </div>
           <div
             className="flex flex-col gap-y-[40px] z-0"
