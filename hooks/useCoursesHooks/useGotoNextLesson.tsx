@@ -15,8 +15,6 @@ export const useGotoNextLesson = (
   courseType: CourseType,
   completed = false
 ) => {
-  console.log(lesson);
-
   const router = useRouter();
   const { courseId: courseName } = router.query;
   // const [completeModalOpen, setCompleteModalOpen] = useState(false);

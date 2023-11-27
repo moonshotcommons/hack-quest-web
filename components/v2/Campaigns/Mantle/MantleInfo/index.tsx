@@ -23,7 +23,7 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
   const [showAll, setShowAll] = useState(true);
   const certificationModalRef = useRef<CertificationModalInstance>(null);
   const buttonDisable = useMemo(() => {
-    return !(mantle.completed && !mantle.claimed);
+    return !(mantle.completed && !mantle.certification.claimed);
   }, [mantle]);
   const learnMore = () => {
     certificationModalRef.current?.open();
@@ -114,7 +114,7 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
                 disabled={buttonDisable}
                 onClick={campaignsClaim}
               >
-                {!buttonDisable ? 'Claimed' : 'Claim'}
+                {mantle.certification.claimed ? 'Claimed' : 'Claim'}
               </Button>
               <Button
                 className={`w-[120px] h-[34px] text-[#0b0b0b] p-0 text-[14px]
