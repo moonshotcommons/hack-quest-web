@@ -26,23 +26,26 @@ const Campaigns: React.FC<CampaignsProp> = () => {
   const [loading, setLoading] = useState(false);
   const certificationModalRef = useRef<CertificationModalInstance>(null);
   const getCampaignsInfo = async (campaignId?: string) => {
-    const res = await webApi.campaigns.getCampaigns();
-    let id;
-    if (campaignId) {
-      const index = res.findIndex((v) => v.id === campaignId);
-      if (index < 0) {
-        id = res[curIndex].id;
+    return new Promise(async (resolve) => {
+      const res = await webApi.campaigns.getCampaigns();
+      let id;
+      if (campaignId) {
+        const index = res.findIndex((v) => v.id === campaignId);
+        if (index < 0) {
+          id = res[curIndex].id;
+        } else {
+          setCurIndex(index);
+          id = campaignId;
+        }
       } else {
-        setCurIndex(index);
-        id = campaignId;
+        id = res[curIndex].id;
       }
-    } else {
-      id = res[curIndex].id;
-    }
-    setLoading(false);
-    setMantles(res);
-    getTabList(res);
-    getTargetList(id);
+      setLoading(false);
+      setMantles(res);
+      getTabList(res);
+      getTargetList(id);
+      resolve(res);
+    });
   };
 
   const getTabList = (list: MantleType[]) => {
@@ -66,8 +69,9 @@ const Campaigns: React.FC<CampaignsProp> = () => {
     BurialPoint.track('campaigns certificateCard claim 按钮点击');
     setLoading(true);
     await webApi.campaigns.campaignsClaim({ campaignId: mantles[curIndex].id });
-    certificationModalRef.current?.open();
-    getCampaignsInfo();
+    getCampaignsInfo().then(() => {
+      certificationModalRef.current?.open();
+    });
   };
   const campaignsTargetClaim = async (ids: string[]) => {
     BurialPoint.track('campaigns targetCard claim 按钮点击');
