@@ -73,6 +73,7 @@ const Campaigns: React.FC<CampaignsProp> = () => {
       certificationModalRef.current?.open();
     });
   };
+
   const campaignsTargetClaim = async (ids: string[]) => {
     BurialPoint.track('campaigns targetCard claim 按钮点击');
     setClaimIds(ids);
