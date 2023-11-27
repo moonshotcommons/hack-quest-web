@@ -9,22 +9,36 @@ import Loading from '@/public/images/other/loading.png';
 import Image from 'next/image';
 import { message } from 'antd';
 import { BurialPoint } from '@/helper/burialPoint';
+import { useRouter } from 'next/router';
 
 interface CampaignsProp {}
 
 const Campaigns: React.FC<CampaignsProp> = () => {
+  const router = useRouter();
   const [curIndex, setCurIndex] = useState(0);
   const [mantles, setMantles] = useState<MantleType[]>([]);
   const [targetList, setTargetList] = useState<TargetsType[]>([]);
   const [tabList, setTabList] = useState<TabListType[]>([]);
   const [claimIds, setClaimIds] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
-  const getCampaginsInfo = async () => {
+  const getCampaignsInfo = async (campaignId?: string) => {
     const res = await webApi.campaigns.getCampaigns();
+    let id;
+    if (campaignId) {
+      const index = res.findIndex((v) => v.id === campaignId);
+      if (index < 0) {
+        id = res[curIndex].id;
+      } else {
+        setCurIndex(index);
+        id = campaignId;
+      }
+    } else {
+      id = res[curIndex].id;
+    }
     setLoading(false);
     setMantles(res);
     getTabList(res);
-    getTargetList(res[curIndex].id);
+    getTargetList(id);
   };
 
   const getTabList = (list: MantleType[]) => {
@@ -48,7 +62,7 @@ const Campaigns: React.FC<CampaignsProp> = () => {
     BurialPoint.track('campaigns certificateCard claim 按钮点击');
     setLoading(true);
     await webApi.campaigns.campaignsClaim({ campaignId: mantles[curIndex].id });
-    getCampaginsInfo();
+    getCampaignsInfo();
   };
   const campaignsTargetClaim = async (ids: string[]) => {
     BurialPoint.track('campaigns targetCard claim 按钮点击');
@@ -56,13 +70,12 @@ const Campaigns: React.FC<CampaignsProp> = () => {
     await webApi.campaigns.campaignsTargetClaim(mantles[curIndex].id, {
       targetIds: ids
     });
-    getCampaginsInfo();
+    getCampaignsInfo();
   };
 
   useEffect(() => {
-    getCampaginsInfo();
-  }, [curIndex]);
-  useEffect(() => {
+    const campaignId = router.query.campaignId as string;
+    getCampaignsInfo(campaignId);
     const startTime = new Date().getTime();
     return () => {
       const endTime = new Date().getTime();
@@ -80,7 +93,7 @@ const Campaigns: React.FC<CampaignsProp> = () => {
         campaignsClaim,
         campaignsTargetClaim,
         loading,
-        refresh: getCampaginsInfo,
+        refresh: getCampaignsInfo,
         claimIds
       }}
     >

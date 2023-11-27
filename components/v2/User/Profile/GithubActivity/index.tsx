@@ -63,7 +63,6 @@ const GithubActivity: FC<GithubActivityProps> = (props) => {
       });
   };
 
-  const n = 123456789111;
   const renderFontSize = (num: number) => {
     const len = String(num).length;
     const bNum = 5;

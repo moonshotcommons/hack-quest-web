@@ -12,6 +12,7 @@ import { MenuType, NavbarListType } from './type';
 import { needLoginPath, isBadgeIds } from './data';
 import { useGetUserInfo } from '@/hooks/useGetUserInfo';
 import { message } from 'antd';
+import { V2_LANDING_PATH } from '@/constants/nav';
 
 export interface NavBarProps {
   navList: NavbarListType[];
@@ -85,7 +86,10 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
     }
     router.push(path);
   };
-
+  const logoClick = () => {
+    if (userInfo) return;
+    router.push(V2_LANDING_PATH);
+  };
   return (
     <div className=" w-full">
       <div
@@ -95,7 +99,15 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
       >
         <div className="h-full flex items-center justify-between font-next-book">
           <nav className="h-full flex items-center text-white">
-            <Image src={DarkLogoActive} alt="logo"></Image>
+            <div
+              className={`h-full flex items-center ${
+                !userInfo ? 'cursor-pointer' : ''
+              }`}
+              onClick={logoClick}
+            >
+              <Image src={DarkLogoActive} alt="logo"></Image>
+            </div>
+
             <SlideHighlight
               className="flex ml-16 gap-[10px] h-[34px] text-sm rounded-[20px] bg-[#3E3E3E] overflow-hidden tracking-[0.28px]"
               currentIndex={inSideNavIndex}

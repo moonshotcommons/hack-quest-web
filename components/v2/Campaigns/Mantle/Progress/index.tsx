@@ -12,10 +12,9 @@ interface ProgressProp {}
 const Progress: React.FC<ProgressProp> = () => {
   const { progress } = useContext(MantleContext).mantle;
   const periodNum = 5;
-
   const schedule = useMemo(() => {
     const average = progress[1] / periodNum;
-    const curPeriod = Math.floor(progress[0] / average);
+    let curPeriod = Math.floor(progress[0] / average);
     const schedulePeriod = Array.from({ length: periodNum }).map((v, i) => {
       const c = progress[0] - average * i < 0 ? 0 : progress[0] - average * i;
       const curSchedule = progress[0] > average * (i + 1) ? average : c;
@@ -32,7 +31,8 @@ const Progress: React.FC<ProgressProp> = () => {
         {schedule.schedulePeriod.map((s, i) => (
           <div key={i} className="w-[19.6%]">
             <div className="relative h-[25px]">
-              {schedule.curPeriod === i && (
+              {(schedule.curPeriod === i ||
+                (i === periodNum - 1 && s[0] === s[1])) && (
                 <div
                   className="absolute h-[40px] top-0 translate-x-[-100%] transition-all border-r border-r-[#ffd850] pr-[2px]"
                   style={{
