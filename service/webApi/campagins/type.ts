@@ -5,6 +5,7 @@ export interface CertificationType {
   exp: number;
   credits: number;
   id: number;
+  claim: boolean;
 }
 export interface MantleType {
   id: string;

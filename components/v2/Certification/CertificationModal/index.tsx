@@ -10,42 +10,28 @@ import CertificationImage from '../CertificationCard/certificate.png';
 import Image from 'next/image';
 import NotCertified from './NotCertified';
 import GettingCertificate from './GettingCertificate';
+import { CertificationType } from '@/service/webApi/campagins/type';
 
-interface CertificationModalProps {}
-
-export enum CertificationStatus {
-  NOT_CERTIFIED,
-  CERTIFIED
+interface CertificationModalProps {
+  certification: CertificationType;
 }
 
 export interface CertificationModalInstance {
-  open: (params: { status: CertificationStatus }) => void;
+  open: (params?: any) => void;
 }
 
 const CertificationModal = forwardRef<
   CertificationModalInstance,
   CertificationModalProps
 >((props, ref) => {
+  const { certification } = props;
   const [open, setOpen] = useState(false);
-  const [status, setStatus] = useState(CertificationStatus.NOT_CERTIFIED);
-
   useImperativeHandle(ref, () => {
     return {
-      open(params) {
+      open() {
         setOpen(true);
-        setStatus(params.status);
       }
     };
-  });
-
-  const { run: onSubmit, loading } = useRequest(async () => {}, {
-    manual: true,
-    onSuccess() {
-      // setOpen(false);
-    },
-    onError(err) {
-      errorMessage(err);
-    }
   });
 
   return (
@@ -62,14 +48,12 @@ const CertificationModal = forwardRef<
         <div className="flex gap-x-[60px] items-center">
           <div className="w-[370px] h-[425px] relative">
             <Image
-              src={CertificationImage}
+              src={certification.image || ''}
               fill
               alt="certification"
-              className={cn(
-                status === CertificationStatus.NOT_CERTIFIED ? 'blur-[2px]' : ''
-              )}
+              className={cn(!certification.claim ? 'blur-[2px]' : '')}
             ></Image>
-            {status === CertificationStatus.NOT_CERTIFIED && (
+            {!certification.claim && (
               <>
                 <div className="absolute w-full h-full bg-black/10 rounded-[22px] flex justify-center items-center"></div>
                 <div className="absolute  w-full flex py-[25px] bg-white/70 justify-center items-center top-1/2 -translate-y-1/2 text-[40px] font-next-poster-Bold tracking-[2.4px] text-[#131313]">
@@ -78,12 +62,10 @@ const CertificationModal = forwardRef<
               </>
             )}
           </div>
-          {status === CertificationStatus.NOT_CERTIFIED && (
+          {!certification.claim && (
             <NotCertified onClose={() => setOpen(false)}></NotCertified>
           )}
-          {status === CertificationStatus.CERTIFIED && (
-            <GettingCertificate></GettingCertificate>
-          )}
+          {certification.claim && <GettingCertificate></GettingCertificate>}
         </div>
       </div>
     </Modal>
