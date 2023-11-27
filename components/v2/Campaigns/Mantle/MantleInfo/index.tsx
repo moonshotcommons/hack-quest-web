@@ -1,4 +1,4 @@
-import React, { use, useContext, useEffect, useMemo, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { VscAdd, VscChromeMinimize } from 'react-icons/vsc';
 import Image from 'next/image';
 import Certificate from '@/public/images/campaigns/certificate.png';
@@ -8,6 +8,9 @@ import Button from '@/components/v2/Common/Button';
 import { Inter, DM_Sans } from 'next/font/google';
 import { MantleContext } from '@/components/v2/Campaigns/Mantle/type';
 import { BurialPoint } from '@/helper/burialPoint';
+import CertificationModal, {
+  CertificationModalInstance
+} from '@/components/v2/Certification/CertificationModal';
 const inter = DM_Sans({
   weight: ['400', '700', '500'],
   subsets: ['latin', 'latin-ext']
@@ -18,10 +21,12 @@ interface MantleInfoProp {}
 const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
   const { mantle, campaignsClaim, loading } = useContext(MantleContext);
   const [showAll, setShowAll] = useState(true);
+  const certificationModalRef = useRef<CertificationModalInstance>(null);
   const buttonDisable = useMemo(() => {
     return !(mantle.completed && !mantle.claimed);
   }, [mantle]);
   const learnMore = () => {
+    certificationModalRef.current?.open();
     BurialPoint.track('campaigns certificateCard learn more 按钮点击');
   };
   useEffect(() => {
@@ -61,12 +66,7 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
                 <span>x{mantle.certification?.credits}</span>
               </div>
               <div className="px-[5px] flex items-center justify-between w-[69px] h-[32px] border border-[#DADADA] rounded-[6px]">
-                <Image
-                  src={iconCoin}
-                  width={22}
-                  alt="icon"
-                  className=""
-                ></Image>
+                <Image src={iconXp} width={22} alt="icon" className=""></Image>
                 <span>x{mantle.certification?.exp}</span>
               </div>
             </div>
@@ -127,6 +127,11 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
           )}
         </div>
       </div>
+      <CertificationModal
+        ref={certificationModalRef}
+        certification={mantle.certification}
+        showCoin={true}
+      />
     </div>
   );
 };
