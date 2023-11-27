@@ -42,9 +42,12 @@ class CampaignsApi {
     );
   }
 
-  campaignsTwitter() {
-    return this.service.get<{ url: string }>(
-      `${CampaignsApiType.Campaigns}/twitter`
+  campaignsToUrl(campaignId: string, data: { targetIds: string[] }) {
+    return this.service.post<{ url: string }>(
+      `${CampaignsApiType.Campaigns}/${campaignId}/targets/complete`,
+      {
+        data
+      }
     );
   }
 }

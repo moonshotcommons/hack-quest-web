@@ -1,3 +1,12 @@
+export interface CertificationType {
+  name: string;
+  description: string;
+  image: string;
+  exp: number;
+  credits: number;
+  id: number;
+  claim: boolean;
+}
 export interface MantleType {
   id: string;
   name: string;
@@ -7,18 +16,15 @@ export interface MantleType {
   sequence: number;
   completed: boolean;
   claimed: boolean;
-  certificate: {
-    title: string;
-    description: string;
-    image: string;
-  };
+  certification: CertificationType;
 }
 
 export enum TargetType {
   COURSE = 'COMPLETE_COURSE',
   LEARNING_TRACK = 'COMPLETE_LEARNING_TRACK',
   TWITTER = 'FOLLOW_TWITTER',
-  DISCORD = 'JOIN_DISCORD'
+  DISCORD = 'JOIN_DISCORD',
+  GIUHUB = 'CONNECT_GITHUB'
 }
 export interface TargetsType {
   id: string;
@@ -31,4 +37,7 @@ export interface TargetsType {
   claimed: boolean;
   reward: number;
   type: TargetType;
+  extra?: {
+    url: string;
+  };
 }

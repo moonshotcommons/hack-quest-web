@@ -155,7 +155,8 @@ export async function urlToBlobAndBase64(url: string) {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
-            }
+            },
+            cache: 'force-cache'
           });
 
           blob = await response.blob();

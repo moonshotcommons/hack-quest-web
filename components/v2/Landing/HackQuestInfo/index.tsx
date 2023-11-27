@@ -20,6 +20,9 @@ import WhyL3 from '@/public/images/landing/why_h_3_l.png';
 import WhyR3 from '@/public/images/landing/why_h_3_r.png';
 import WhyL4 from '@/public/images/landing/why_h_4_l.png';
 import WhyR4 from '@/public/images/landing/why_h_4_r.png';
+import { useRouter } from 'next/router';
+import { MenuLink } from '../../Layout/Navbar/type';
+import { Menu, QueryIdType } from '../../Breadcrumb/type';
 
 interface HackQuestInfoProps {
   // children: ReactNode;
@@ -253,6 +256,7 @@ export const CenterInfo: FC = () => {
 };
 
 export const HackQuestHackathon: FC = () => {
+  const router = useRouter();
   return (
     <div className="container py-[80px] bg-landing-card-bg rounded-[10px] flex-col-center font-next-book mt-[150px]">
       <div className="text-text-default-color tracking-[3.24px] text-center font-next-poster-Bold text-[54px] ">
@@ -289,7 +293,7 @@ export const HackQuestHackathon: FC = () => {
         <Button
           className={`border text-landing-hack-info-learning-btn-color border-landing-card-login-button-border-color`}
           onClick={() => {
-            goToLogin();
+            router.push(MenuLink.HACKATHON);
             BurialPoint.track(`landing Explore Hackathons按钮点击`);
           }}
         >
@@ -300,7 +304,9 @@ export const HackQuestHackathon: FC = () => {
           iconPosition="right"
           className={`text-landing-hack-info-learning-btn-color`}
           onClick={() => {
-            goToLogin();
+            router.push(
+              `${MenuLink.PROJECTS}?menu=${Menu.PROJECTS}&${QueryIdType.PROJECT_ID}=projects`
+            );
             BurialPoint.track(`landing Explore Projects按钮点击`);
           }}
         >
