@@ -43,7 +43,7 @@ const Certifications: FC<PersonalLinksProps> = (props) => {
                 key={item.id}
                 className="flex w-[168px] flex-col justify-center"
               >
-                <div className=" h-[193px] relative rounded-[10px] overflow-hidden">
+                <div className=" h-[193px] relative rounded-[10px]">
                   <Image
                     src={item.image}
                     fill
