@@ -31,28 +31,18 @@ const EditAdd: React.FC<EditAddProp> = ({
 }) => {
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState<any>({
-    title: {
+    role: {
       value: '',
       status: 'default',
       errorMessage: ''
     },
-    companyName: {
-      value: '',
-      status: 'default',
-      errorMessage: ''
-    },
-    employmentType: {
+    hackathonName: {
       value: '',
       status: 'default',
       errorMessage: ''
     },
     location: {
       value: '',
-      status: 'default',
-      errorMessage: ''
-    },
-    isCurrentWork: {
-      value: false,
       status: 'default',
       errorMessage: ''
     },
@@ -126,23 +116,10 @@ const EditAdd: React.FC<EditAddProp> = ({
     let isValidate = true;
     let newFormData = deepClone(formData);
     for (let key in formData) {
-      if (
-        !~['isCurrentWork', 'endMonth', 'endYear'].indexOf(key) &&
-        !newFormData[key].value
-      ) {
+      if (!newFormData[key].value) {
         newFormData[key].status = 'error';
         newFormData[key].errorMessage = `${key} cannot be empty`;
         isValidate = false;
-      }
-      if (
-        (newFormData.endMonth.value && !newFormData.endYear.value) ||
-        (!newFormData.endMonth.value && newFormData.endYear.value)
-      ) {
-        if (!newFormData[key].value) {
-          newFormData[key].status = 'error';
-          newFormData[key].errorMessage = `${key} cannot be empty`;
-          isValidate = false;
-        }
       }
     }
     if (isValidate && !compareDate(newFormData)) return;
@@ -161,12 +138,11 @@ const EditAdd: React.FC<EditAddProp> = ({
       }
     }
     newFormData.startDate = `${formData.startMonth.value} ${formData.startYear.value}`;
-    formData.endMonth.value &&
-      (newFormData.endDate = `${formData.endMonth.value} ${formData.endYear.value}`);
+    newFormData.endDate = `${formData.endMonth.value} ${formData.endYear.value}`;
     setLoading(true);
     if (editType === 'add') {
       webApi.userApi
-        .addExperience(newFormData)
+        .addHackathon(newFormData)
         .then(() => {
           message.success('success');
           onRefresh();
@@ -180,7 +156,7 @@ const EditAdd: React.FC<EditAddProp> = ({
         });
     } else {
       webApi.userApi
-        .editExperience(editEx.id, newFormData)
+        .editHackathon(editEx.id, newFormData)
         .then(() => {
           message.success('success');
           onRefresh();
@@ -219,72 +195,50 @@ const EditAdd: React.FC<EditAddProp> = ({
     <div className="">
       <div className="mb-[20px] flex flex-col gap-[20px] max-h-[60vh] overflow-auto">
         <Input
-          name={'title'}
-          label={<Span text={'Title*'} />}
+          name={'role'}
+          label={<Span text={'Role*'} />}
           type="text"
+          placeholder="EX: Software Engineer"
           className="border-[#8c8c8c] text-[21px] caret-[#0b0b0b]"
-          state={formData.title.status as any}
-          errorMessage={formData.title.errorMessage}
-          defaultValue={editEx.title}
+          state={formData.role.status as any}
+          errorMessage={formData.role.errorMessage}
+          defaultValue={editEx.role}
           onChange={(e) => {
             setFormData({
               ...formData,
-              title: {
-                ...formData.title,
+              role: {
+                ...formData.role,
                 value: e.target.value,
                 status: 'default'
               }
             });
           }}
         ></Input>
-        <div className="flex justify-between">
-          <div className="w-[460px]">
-            <Input
-              name={'companyName'}
-              label={<Span text={'Company Name*'} />}
-              type="text"
-              className="border-[#8c8c8c] text-[21px] caret-[#0b0b0b]"
-              state={formData.companyName.status as any}
-              errorMessage={formData.companyName.errorMessage}
-              defaultValue={editEx.companyName}
-              onChange={(e) => {
-                setFormData({
-                  ...formData,
-                  companyName: {
-                    ...formData.companyName,
-                    value: e.target.value,
-                    status: 'default'
-                  }
-                });
-              }}
-            ></Input>
-          </div>
-          <div className="w-[460px]">
-            <Select
-              name={'employmentType'}
-              label={<Span text={'Employment Type*'} />}
-              className="border-[#8c8c8c] text-[21px] "
-              state={formData.employmentType.status as any}
-              errorMessage={formData.employmentType.errorMessage}
-              options={employmentTypeList}
-              defaultValue={editEx.employmentType}
-              onChange={(value) => {
-                setFormData({
-                  ...formData,
-                  employmentType: {
-                    ...formData.employmentType,
-                    value: value,
-                    status: 'default'
-                  }
-                });
-              }}
-            ></Select>
-          </div>
-        </div>
+        <Input
+          name={'hackathonName'}
+          label={<Span text={'Hackathon Name*'} />}
+          type="text"
+          placeholder="EX: HackQuest Hackathon"
+          className="border-[#8c8c8c] text-[21px] caret-[#0b0b0b]"
+          state={formData.hackathonName.status as any}
+          errorMessage={formData.hackathonName.errorMessage}
+          defaultValue={editEx.hackathonName}
+          onChange={(e) => {
+            setFormData({
+              ...formData,
+              hackathonName: {
+                ...formData.hackathonName,
+                value: e.target.value,
+                status: 'default'
+              }
+            });
+          }}
+        ></Input>
         <Input
           name={'location'}
           label={<Span text={'Location*'} />}
           type="text"
+          placeholder="EX: New York, United States"
           className="border-[#8c8c8c] text-[21px] caret-[#0b0b0b]"
           state={formData.location.status as any}
           errorMessage={formData.location.errorMessage}
@@ -300,28 +254,13 @@ const EditAdd: React.FC<EditAddProp> = ({
             });
           }}
         ></Input>
-        <div>
-          <div
-            className="flex-row-center gap-[10px] cursor-pointer"
-            onClick={() => {
-              setFormData({
-                ...formData,
-                isCurrentWork: {
-                  value: !formData.isCurrentWork.value
-                }
-              });
-            }}
-          >
-            <Checkbox checked={formData.isCurrentWork.value}></Checkbox>
-            <span>I’m currently working in this role</span>
-          </div>
-        </div>
         <div className="flex justify-between">
           <div className="w-[460px]">
             <Select
               name={'startMonth'}
               label={<Span text={'Start Date*'} />}
               className="border-[#8c8c8c] text-[21px]"
+              placeholder="Please select"
               state={formData.startMonth.status as any}
               errorMessage={formData.startMonth.errorMessage}
               options={monthList}
@@ -343,6 +282,7 @@ const EditAdd: React.FC<EditAddProp> = ({
               name={'startYear'}
               label={<Span text={' '} />}
               className="border-[#8c8c8c] text-[21px]"
+              placeholder="Please select"
               state={formData.startYear.status as any}
               errorMessage={formData.startYear.errorMessage}
               options={yearList}
@@ -364,8 +304,9 @@ const EditAdd: React.FC<EditAddProp> = ({
           <div className="w-[460px]">
             <Select
               name={'endMonth'}
-              label={<Span text={'End Date'} />}
+              label={<Span text={'End Date*'} />}
               className="border-[#8c8c8c] text-[21px]"
+              placeholder="Please select"
               state={formData.endMonth.status as any}
               errorMessage={formData.endMonth.errorMessage}
               options={monthList}
@@ -388,6 +329,7 @@ const EditAdd: React.FC<EditAddProp> = ({
               name={'endYear'}
               label={<Span text={' '} />}
               className="border-[#8c8c8c] text-[21px]"
+              placeholder="Please select"
               state={formData.endYear.status as any}
               errorMessage={formData.endYear.errorMessage}
               options={yearList}
@@ -434,10 +376,10 @@ const EditAdd: React.FC<EditAddProp> = ({
         </Button>
         <Button
           loading={loading}
-          className="w-[265px] h-[44px] bg-[#ffd850]    text-[16px]"
+          className="w-[265px] h-[44px] bg-[#ffd850]  p-0  text-[16px]"
           onClick={handleSubmit}
         >
-          {editType === 'add' ? 'Add to Experience' : 'Edit Experience'}
+          Save
         </Button>
       </div>
     </div>

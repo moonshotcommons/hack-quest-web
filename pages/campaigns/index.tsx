@@ -8,6 +8,7 @@ import { TabListType } from '@/components/v2/Campaigns/Tab/type';
 import Loading from '@/public/images/other/loading.png';
 import Image from 'next/image';
 import { message } from 'antd';
+import { BurialPoint } from '@/helper/burialPoint';
 
 interface CampaignsProp {}
 
@@ -44,11 +45,13 @@ const Campaigns: React.FC<CampaignsProp> = () => {
   };
 
   const campaignsClaim = async () => {
+    BurialPoint.track('campaigns certificateCard claim 按钮点击');
     setLoading(true);
     await webApi.campaigns.campaignsClaim({ campaignId: mantles[curIndex].id });
     getCampaginsInfo();
   };
   const campaignsTargetClaim = async (ids: string[]) => {
+    BurialPoint.track('campaigns targetCard claim 按钮点击');
     setClaimIds(ids);
     await webApi.campaigns.campaignsTargetClaim(mantles[curIndex].id, {
       targetIds: ids
@@ -59,6 +62,16 @@ const Campaigns: React.FC<CampaignsProp> = () => {
   useEffect(() => {
     getCampaginsInfo();
   }, [curIndex]);
+  useEffect(() => {
+    const startTime = new Date().getTime();
+    return () => {
+      const endTime = new Date().getTime();
+      const duration = endTime - startTime;
+      BurialPoint.track('campaigns-页面留存时间', {
+        duration
+      });
+    };
+  }, []);
   return (
     <MantleContext.Provider
       value={{
@@ -78,7 +91,10 @@ const Campaigns: React.FC<CampaignsProp> = () => {
           <Tab
             tabList={tabList}
             curIndex={curIndex}
-            changeTab={(index) => setCurIndex(index)}
+            changeTab={(index) => {
+              BurialPoint.track('campaigns tab 点击');
+              setCurIndex(index);
+            }}
           />
         </div>
         <div className="flex-1 h-full no-scrollbar  overflow-auto bg-[#fff] rounded-b-[10px] rounded-r-[10px] shadow-[5px_5px_5px_#dadada]">

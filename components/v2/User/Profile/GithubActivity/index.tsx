@@ -125,7 +125,7 @@ const GithubActivity: FC<GithubActivityProps> = (props) => {
     };
   }, []);
   return (
-    <Box className="font-next-poster relative group h-[290px] flex flex-col justify-between">
+    <Box className="font-next-poster relative group h-[261px] flex flex-col justify-between">
       {!!githubInfo && (
         <div className="absolute right-[30px] top-[30px] hidden group-hover:block">
           <div className="flex gap-[10px]">
@@ -193,7 +193,7 @@ const GithubActivity: FC<GithubActivityProps> = (props) => {
         open={modalOpen}
         loading={loading}
         onClose={() => setModalOpen(false)}
-        title="GithubActivity"
+        title="Github Activity"
         content="Do you want to disconnect from Github?"
         handleConfirm={handleDisConnect}
       />

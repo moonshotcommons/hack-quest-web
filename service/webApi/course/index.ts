@@ -6,6 +6,8 @@ import {
   CourseLessonType,
   CourseUnitStateType,
   CourseUnitType,
+  GetSignatureParams,
+  SignatureData,
   SuggestCommitParams,
   UnitPagesListType
 } from './type';
@@ -13,7 +15,8 @@ import {
 export enum CourseApiType {
   Course_List = '/courses',
   LessonDetail = '/pages',
-  Support = '/support/suggest'
+  Support = '/support/suggest',
+  GetSignature = '/ethers/signature'
 }
 
 class CourseApi {
@@ -117,6 +120,13 @@ class CourseApi {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
+    });
+  }
+
+  /** 获取certification 密钥 */
+  getSignature(params: GetSignatureParams) {
+    return this.service.post<SignatureData>(CourseApiType.GetSignature, {
+      data: params
     });
   }
 }

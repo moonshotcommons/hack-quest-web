@@ -27,7 +27,7 @@ const List: React.FC<ListProp> = ({ onClose, handleEdit, list }) => {
   const handleDelete = () => {
     setLoading(true);
     webApi.userApi
-      .deleteExperience(deleteId)
+      .deleteHackathon(deleteId)
       .then(() => {
         message.success('success');
         setDeleteId('');
@@ -48,7 +48,7 @@ const List: React.FC<ListProp> = ({ onClose, handleEdit, list }) => {
         className="h-[63px] rounded-[10px] border-[0.5px] border-dashed border-[#8C8C8C] text-[#8c8c8c] flex items-center justify-center gap-[5px] cursor-pointer"
       >
         <IoIosAddCircle size={24} />
-        <span>Add new experience</span>
+        <span>Add a hackathon experience</span>
       </div>
       <div className="max-h-[60vh] overflow-auto my-[20px]">
         <div>
@@ -68,12 +68,10 @@ const List: React.FC<ListProp> = ({ onClose, handleEdit, list }) => {
               <div className="flex-1 text-[#000] ml-[35px] mr-[20px]">
                 <div className="w-full break-all">
                   <span className="text-[21px] font-next-poster-Bold">
-                    {v.title}
+                    {v.hackathonName}
                   </span>
                   <span>{` · `}</span>
-                  <span className="font-next-book text-[18px] ">
-                    {v.companyName} · {v.employmentType}
-                  </span>
+                  <span className="font-next-book text-[18px] ">{v.role}</span>
                 </div>
                 <div>
                   {v.descriptions.map((d, j) => (
@@ -107,18 +105,15 @@ const List: React.FC<ListProp> = ({ onClose, handleEdit, list }) => {
           onClick={onClose}
           className="w-[265px] h-[44px] border border-[#0b0b0b]  text-[#0b0b0b] text-[16px]"
         >
-          Cancel
-        </Button>
-        <Button className="w-[265px] h-[44px] bg-[#ffd850]    text-[16px]">
-          Save
+          Close
         </Button>
       </div>
 
       <Confirm
         open={open}
         onClose={() => setOpen(false)}
-        title="Experience"
-        content="Do you want to delete this experience?"
+        title="Hackathon"
+        content="Do you want to delete this hackathon experience?"
         handleConfirm={handleDelete}
         loading={loading}
       />
