@@ -90,7 +90,7 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
             isCurrent = false;
             answer.error = true;
             const inputEle = document.querySelector(
-              `[data-uuid="${line.id}"]`
+              `[data-uuid="${answer.id}"]`
             ) as HTMLTextAreaElement;
             elementVibration(inputEle);
           }

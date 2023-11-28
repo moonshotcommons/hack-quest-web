@@ -15,6 +15,8 @@ import { CertificationType } from '@/service/webApi/campagins/type';
 interface CertificationModalProps {
   certification: CertificationType;
   showCoin?: boolean;
+  completed?: boolean;
+  campaignId?: string;
 }
 
 export interface CertificationModalInstance {
@@ -25,7 +27,7 @@ const CertificationModal = forwardRef<
   CertificationModalInstance,
   CertificationModalProps
 >((props, ref) => {
-  const { certification, showCoin = false } = props;
+  const { certification, completed, campaignId, showCoin = false } = props;
   const [open, setOpen] = useState(false);
   useImperativeHandle(ref, () => {
     return {
@@ -52,9 +54,9 @@ const CertificationModal = forwardRef<
               src={certification.image || ''}
               fill
               alt="certification"
-              className={cn(!certification.claim ? 'blur-[2px]' : '')}
+              className={cn(!certification.claimed ? 'blur-[2px]' : '')}
             ></Image>
-            {!certification.claim && (
+            {!certification.claimed && (
               <>
                 <div className="absolute w-full h-full bg-black/10 rounded-[22px] flex justify-center items-center"></div>
                 <div className="absolute  w-full flex py-[25px] bg-white/70 justify-center items-center top-1/2 -translate-y-1/2 text-[40px] font-next-poster-Bold tracking-[2.4px] text-[#131313]">
@@ -63,10 +65,14 @@ const CertificationModal = forwardRef<
               </>
             )}
           </div>
-          {!certification.claim && (
-            <NotCertified onClose={() => setOpen(false)}></NotCertified>
+          {!certification.claimed && (
+            <NotCertified
+              onClose={() => setOpen(false)}
+              completed={completed}
+              campaignId={campaignId}
+            ></NotCertified>
           )}
-          {certification.claim && <GettingCertificate></GettingCertificate>}
+          {certification.claimed && <GettingCertificate></GettingCertificate>}
         </div>
       </div>
     </Modal>

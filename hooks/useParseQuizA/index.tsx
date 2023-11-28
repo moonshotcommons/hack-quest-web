@@ -116,6 +116,18 @@ const AnswerInput = (props: {
         padding: '8px',
         ...borderAndBg
       }}
+      onKeyDown={(e) => {
+        if (e.code === 'Tab') {
+          e.preventDefault(); // 取消默认事件
+          const input = e.target as HTMLTextAreaElement;
+          const { selectionStart, selectionEnd } = input;
+          input.value =
+            input.value.substring(0, selectionStart) +
+            '  ' +
+            input.value.substring(selectionEnd);
+          input.selectionStart = input.selectionEnd = selectionStart + 2;
+        }
+      }}
       data-uuid={props.uuid}
       onChange={(e) => {
         const currentId = e.target.dataset.uuid;
@@ -236,7 +248,6 @@ export const useParseQuizA = (lines: CodeLineType[]) => {
       render(newAnswerState: AnswerState[]) {
         return rendArr.map((v, i: number) => {
           if (v.type === LineType.DEFAULT) {
-            console.log(v);
             return (
               <CustomSyntaxHighlighter
                 style={codeStyle}
