@@ -26,7 +26,7 @@ const Hackathon: FC<HackathonProps> = ({}) => {
     setEditOpen(true);
   };
   useEffect(() => {
-    if (profile?.workExperiences?.length) {
+    if (profile?.hackathonExperiences?.length) {
       let list = profile.hackathonExperiences?.map((v) => ({
         ...v,
         showMore: false,
