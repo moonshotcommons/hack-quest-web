@@ -43,7 +43,6 @@ module.exports = {
 
         sm: '640px',
         // => @media (min-width: 640px) { ... }
-
         md: '768px',
         // => @media (min-width: 768px) { ... }
 
@@ -53,8 +52,14 @@ module.exports = {
         xl: '1280px',
         // => @media (min-width: 1280px) { ... }
 
-        '2xl': '1352px'
+        '2xl': '1352px',
         // => @media (min-width: 1352px) { ... }
+        wap: {
+          raw: '(max-width: 450px)'
+        },
+        slab: {
+          raw: '(max-width: 770px)'
+        }
       },
       colors: {
         ...themeColors

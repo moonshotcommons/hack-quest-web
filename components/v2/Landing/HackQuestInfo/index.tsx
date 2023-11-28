@@ -7,10 +7,9 @@ import LightButtonDeg from '@/public/images/home/light-button_deg.svg';
 import TeaserInfo from '@/public/images/home/teaser_info.png';
 import HackquestInfoBg from '@/public/images/landing/hack_quest_info_bg.png';
 import { LearningTrackCourseType } from '@/service/webApi/course/type';
-import { ThemeContext } from '@/store/context/theme';
 import { message } from 'antd';
 import Image from 'next/image';
-import { FC, useContext, useMemo } from 'react';
+import { FC, useMemo } from 'react';
 import { AiOutlineRight } from 'react-icons/ai';
 import WhyL1 from '@/public/images/landing/why_h_1_l.png';
 import WhyR1 from '@/public/images/landing/why_h_1_r.png';
@@ -23,6 +22,9 @@ import WhyR4 from '@/public/images/landing/why_h_4_r.png';
 import { useRouter } from 'next/router';
 import { MenuLink } from '../../Layout/Navbar/type';
 import { Menu, QueryIdType } from '../../Breadcrumb/type';
+import LearningTrackWrapCard from '../components/LearningTrackWrapCard';
+import WhatIsHackquest from '@/public/images/landing/what_is_hackquest.png';
+import useIsPc from '@/hooks/useIsPc';
 
 interface HackQuestInfoProps {
   // children: ReactNode;
@@ -86,32 +88,32 @@ const GotoPageButton: React.FC<GotoPageButtonProps> = (props) => {
 };
 
 export const TopInfo: FC = () => {
-  const userInfo = useGetUserInfo();
   const { learningTracks } = useGetLearningTracks();
 
   return (
     <div className="bg-landing-hack-info-bg w-full">
       <div
-        className="h-[286px] w-full"
+        className="h-[286px] w-full wap:h-[152px]"
         style={{
           backgroundImage: `url(${HackquestInfoBg.src})`,
           backgroundSize: '100% auto',
           backgroundRepeat: 'repeat'
         }}
       ></div>
-      <div className="container mx-auto">
-        <h1 className="text-center pt-[20px] pb-[60px] text-[54px] font-next-poster-Bold text-landing-hack-info-top-color">
+      <div className="container mx-auto wap:w-full wap:px-[20px]">
+        <h1 className="text-center pt-[20px] pb-[60px] text-[54px] wap:text-[24px] font-next-poster-Bold text-landing-hack-info-top-color">
           Become a Solidity Developer
         </h1>
         <div className="mb-[30px]">
           <p className="text-[28px] font-next-poster-Bold">
             {learningTracks[0]?.name}
           </p>
-          <p className="text-[16px] leading-[25px] w-[569px]">
+          <p className="text-[16px] leading-[25px] w-[569px] wap:w-full">
             {learningTracks[0]?.description}
           </p>
         </div>
         <div
+          className="wap:hidden"
           onClick={() => {
             goToLogin();
             BurialPoint.track('landing-learning track卡片点击');
@@ -123,27 +125,41 @@ export const TopInfo: FC = () => {
             status={LearningTrackCourseType.UN_ENROLL}
           />
         </div>
+        <div
+          className="hidden wap:block"
+          onClick={() => {
+            goToLogin();
+            BurialPoint.track('landing-learning track卡片点击');
+          }}
+        >
+          <LearningTrackWrapCard learningTrack={learningTracks[0] || {}} />
+        </div>
       </div>
-      <div className="container pt-[80px] mx-auto pb-[47px] bg-landing-card-bg mt-[150px] rounded-[10px] flex-col-center">
-        <h1 className="text-text-default-color text-center font-next-poster-Bold text-[54px] tracking-[3.24px]">
-          What is HackQuest?
-        </h1>
-        <div className="mt-[18px] text-[1rem] w-[34.875rem] text-center text-text-default-color font-next-book ">
-          Learn everything you need to “hack” in Web3 while earning quest
-          rewards. Unlock the world of Web3 development with our all-in-one
-          developer educational platform friendly to the mass.
+      <div className="container mx-auto wap:h-full wap:px-[20px]">
+        <div className="w-full pt-[80px]  pb-[47px] bg-landing-card-bg mt-[150px] rounded-[10px] flex-col-center wap:px-[20px]">
+          <h1 className="text-text-default-color text-center font-next-poster-Bold text-[54px] wap:text-[24px] tracking-[3.24px]">
+            What is HackQuest?
+          </h1>
+          <div className="mt-[18px] text-[1rem] w-[34.875rem] wap:w-full text-center text-text-default-color font-next-book ">
+            Learn everything you need to “hack” in Web3 while earning quest
+            rewards. Unlock the world of Web3 development with our all-in-one
+            developer educational platform friendly to the mass.
+          </div>
+          <div className="w-full  wap:hidden flex justify-center mt-[3rem]">
+            <Image src={LightButtonDeg} alt="hackquset"></Image>
+          </div>
+          <div className="w-full hidden wap:block  mt-[3rem]">
+            <Image src={WhatIsHackquest} alt="hackquset"></Image>
+          </div>
+          <GotoPageButton isBlack={true} direction="top" />
         </div>
-        <div className="w-full  flex justify-center mt-[3rem]">
-          <Image src={LightButtonDeg} alt="hackquset"></Image>
-        </div>
-        <GotoPageButton isBlack={true} direction="top" />
       </div>
     </div>
   );
 };
 
 export const CenterInfo: FC = () => {
-  const { theme } = useContext(ThemeContext);
+  const isPc = useIsPc();
   const infoList = [
     {
       title: 'Easy to follow, quick to test',
@@ -151,11 +167,11 @@ export const CenterInfo: FC = () => {
       image: [
         {
           img: WhyL1,
-          width: 416
+          width: '82%'
         },
         {
           img: WhyR1,
-          width: 354
+          width: '70%'
         }
       ]
     },
@@ -165,11 +181,11 @@ export const CenterInfo: FC = () => {
       image: [
         {
           img: WhyL2,
-          width: 465
+          width: '85%'
         },
         {
           img: WhyR2,
-          width: 281
+          width: '55%'
         }
       ]
     },
@@ -179,11 +195,11 @@ export const CenterInfo: FC = () => {
       image: [
         {
           img: WhyL3,
-          width: 463
+          width: '86%'
         },
         {
           img: WhyR3,
-          width: 349
+          width: '70%'
         }
       ]
     },
@@ -193,11 +209,11 @@ export const CenterInfo: FC = () => {
       image: [
         {
           img: WhyL4,
-          width: 535
+          width: '88%'
         },
         {
           img: WhyR4,
-          width: 297
+          width: '60%'
         }
       ]
     }
@@ -209,37 +225,49 @@ export const CenterInfo: FC = () => {
   ];
 
   return (
-    <div className="container   mt-[150px]">
-      <h1 className="text-text-default-color tracking-[3.24px] text-center font-next-poster-Bold text-[54px] mb-[50px]">
+    <div className="container  wap:w-full wap:px-[20px]  mt-[150px] wap:mt-[80px]">
+      <h1 className="text-text-default-color tracking-[3.24px] text-center font-next-poster-Bold text-[54px] wap:text-[24px] mb-[50px] wap:mb-[30px]">
         Why HackQuest?
       </h1>
-      <div className="flex flex-wrap gap-[40px]  ">
+      <div className="flex flex-wrap gap-[40px] wap:flex-col  ">
         {infoList.map((item, index) => {
           return (
             <div
               key={index}
-              className="w-[calc(50%-20px)] h-[750px] pt-[50px] px-[55px] bg-landing-card-bg rounded-[10px]"
+              className="w-[calc(50%-20px)] wap:w-full h-[750px] wap:h-[auto] pt-[50px] wap:pt-[20px] px-[55px] wap:px-[20px] wap:pb-[30px] bg-landing-card-bg rounded-[10px]"
             >
-              <div className="w-full relative h-[410px]">
-                <Image
-                  src={item.image[0].img}
-                  width={item.image[0].width}
-                  alt="demo"
+              <div className="w-full relative h-0 pt-[80%]">
+                <div
                   className={`absolute left-0 ${
                     index <= 1 ? 'bottom-0' : 'top-0'
                   }`}
-                ></Image>
-                <Image
-                  src={item.image[1].img}
-                  width={item.image[1].width}
-                  alt="demo"
+                  style={{
+                    width: item.image[0].width
+                  }}
+                >
+                  <Image
+                    src={item.image[0].img}
+                    alt="demo"
+                    className={'object-fill'}
+                  ></Image>
+                </div>
+                <div
                   className={`absolute right-0 ${
                     index <= 1 ? 'top-0' : 'bottom-0'
                   }`}
-                ></Image>
+                  style={{
+                    width: item.image[1].width
+                  }}
+                >
+                  <Image
+                    src={item.image[1].img}
+                    alt="demo"
+                    className="object-fill"
+                  ></Image>
+                </div>
               </div>
-              <div className="mt-[70px]">
-                <p className="text-[30px] leading-[42.5px] tracking-[0.68px] font-next-book-bold mb-[22px]">
+              <div className="mt-[70px] wap:mt-[30px]">
+                <p className="text-[30px] wap:text-[24px] leading-[42.5px] tracking-[0.68px] font-next-book-bold mb-[22px]">
                   {item.title}
                 </p>
                 <p className="text-[16px] leading-[28.8px] tracking-[0.36px] font-next-book">
@@ -258,60 +286,62 @@ export const CenterInfo: FC = () => {
 export const HackQuestHackathon: FC = () => {
   const router = useRouter();
   return (
-    <div className="container py-[80px] bg-landing-card-bg rounded-[10px] flex-col-center font-next-book mt-[150px]">
-      <div className="text-text-default-color tracking-[3.24px] text-center font-next-poster-Bold text-[54px] ">
-        HackQuest Hackathon
-      </div>
-      <div className="w-[560px] my-[30px]">
-        {`Explore ongoing hackathons, uncover past projects, and dive into the world of innovation. Your journey through the realm of creativity begins here!`}
-      </div>
-      <div className="flex h-[152px] mb-[50px]">
-        <div className="h-full w-[360px] text-center flex flex-col justify-between border-r-[0.5px] border-r-[#000]">
-          <p className="text-[68px] text-[#000] leading-[108px] tracking-[0.2px]">
-            8
-          </p>
-          <p className="text-[18px] text-[#8C8C8C] tracking-[0.36px]">
-            Hackathon
-          </p>
+    <div className="container mx-auto wap:w-full px-[20px] mt-[150px] wap:mt-[80px]">
+      <div className="w-full py-[80px] wap:py-[30px] wap:px-[20px] bg-landing-card-bg rounded-[10px] flex-col-center font-next-book ">
+        <div className="text-text-default-color tracking-[3.24px] text-center font-next-poster-Bold text-[54px] wap:text-[24px]">
+          HackQuest Hackathon
         </div>
-        <div className="h-full w-[360px] text-center flex flex-col justify-between border-r-[0.5px] border-r-[#000]">
-          <p className="text-[68px] text-[#000] leading-[108px] tracking-[0.2px]">
-            68
-          </p>
-          <p className="text-[18px] text-[#8C8C8C] tracking-[0.36px]">
-            Projects
-          </p>
+        <div className="w-[560px] wap:w-full wap:text-center my-[30px]">
+          {`Explore ongoing hackathons, uncover past projects, and dive into the world of innovation. Your journey through the realm of creativity begins here!`}
         </div>
-        <div className="h-full w-[360px] text-center flex flex-col justify-between">
-          <p className="text-[68px] text-[#000] leading-[108px] tracking-[0.2px]">{`2,560`}</p>
-          <p className="text-[18px] text-[#8C8C8C] tracking-[0.36px]">
-            Participants
-          </p>
+        <div className="flex h-[152px] wap:h-[83px] mb-[50px] w-full">
+          <div className="h-full w-[360px] wap:w-[33%] text-center flex flex-col justify-between border-r-[0.5px] border-r-[#000]">
+            <p className="text-[68px] wap:text-[32px] text-[#000] leading-[108px] wap:leading-[51px] tracking-[0.2px]">
+              8
+            </p>
+            <p className="text-[18px] wap:text-[14px] text-[#8C8C8C] tracking-[0.36px]">
+              Hackathon
+            </p>
+          </div>
+          <div className="h-full w-[360px] wap:w-[33%] text-center flex flex-col justify-between border-r-[0.5px] border-r-[#000]">
+            <p className="text-[68px] wap:text-[32px] text-[#000] leading-[108px] wap:leading-[51px] tracking-[0.2px]">
+              68
+            </p>
+            <p className="text-[18px] wap:text-[14px] text-[#8C8C8C] tracking-[0.36px]">
+              Projects
+            </p>
+          </div>
+          <div className="h-full w-[360px] wap:w-[33%] text-center flex flex-col justify-between">
+            <p className="text-[68px] wap:text-[32px] text-[#000] leading-[108px] wap:leading-[51px] tracking-[0.2px]">{`2,560`}</p>
+            <p className="text-[18px] wap:text-[14px] text-[#8C8C8C] tracking-[0.36px]">
+              Participants
+            </p>
+          </div>
         </div>
-      </div>
-      <div className="flex  items-center gap-[40px]">
-        <Button
-          className={`border text-landing-hack-info-learning-btn-color border-landing-card-login-button-border-color`}
-          onClick={() => {
-            router.push(MenuLink.HACKATHON);
-            BurialPoint.track(`landing Explore Hackathons按钮点击`);
-          }}
-        >
-          Explore Hackathons
-        </Button>
-        <Button
-          icon={<AiOutlineRight />}
-          iconPosition="right"
-          className={`text-landing-hack-info-learning-btn-color`}
-          onClick={() => {
-            router.push(
-              `${MenuLink.PROJECTS}?menu=${Menu.PROJECTS}&${QueryIdType.PROJECT_ID}=projects`
-            );
-            BurialPoint.track(`landing Explore Projects按钮点击`);
-          }}
-        >
-          <span className="border-b border-[#FCC409]">Explore Projects</span>
-        </Button>
+        <div className="flex  items-center gap-[40px] wap:flex-col wap:gap-0">
+          <Button
+            className={`border text-landing-hack-info-learning-btn-color border-landing-card-login-button-border-color`}
+            onClick={() => {
+              router.push(MenuLink.HACKATHON);
+              BurialPoint.track(`landing Explore Hackathons按钮点击`);
+            }}
+          >
+            Explore Hackathons
+          </Button>
+          <Button
+            icon={<AiOutlineRight />}
+            iconPosition="right"
+            className={`text-landing-hack-info-learning-btn-color`}
+            onClick={() => {
+              router.push(
+                `${MenuLink.PROJECTS}?menu=${Menu.PROJECTS}&${QueryIdType.PROJECT_ID}=projects`
+              );
+              BurialPoint.track(`landing Explore Projects按钮点击`);
+            }}
+          >
+            <span className="border-b border-[#FCC409]">Explore Projects</span>
+          </Button>
+        </div>
       </div>
     </div>
   );
@@ -345,9 +375,6 @@ const HackQuestInfo: FC<HackQuestInfoProps> = (props) => {
   return (
     <div className="flex flex-col items-center">
       <TopInfo></TopInfo>
-      {/* <div className="w-[100%] flex justify-center py-[150px]">
-        <Image src={CenterLogo} alt="hackquest"></Image>
-      </div> */}
       <CenterInfo></CenterInfo>
       <HackQuestHackathon></HackQuestHackathon>
       <BottomInfo></BottomInfo>
