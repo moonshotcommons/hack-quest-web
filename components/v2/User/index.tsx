@@ -1,18 +1,18 @@
+import SlideHighlight from '@/components/Common/Navigation/SlideHighlight';
+import UserDropCard from '@/components/v2/Business/UserDropCard';
+import { V2_LANDING_PATH } from '@/constants/nav';
 import { BurialPoint } from '@/helper/burialPoint';
+import { cn } from '@/helper/utils';
 import { useGetUserInfo, useGetUserUnLoginType } from '@/hooks/useGetUserInfo';
+import IconCoin from '@/public/images/mission-center/icon_coin.png';
+import { AppRootState } from '@/store/redux';
 import { UnLoginType, setUnLoginType } from '@/store/redux/modules/user';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { FC, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Settings from './Settings';
-import UserDropCard from './UserDropCard';
 import { unLoginTab } from './data';
-import IconCoin from '@/public/images/mission-center/icon_coin.png';
-import { AppRootState } from '@/store/redux';
-import { useRouter } from 'next/router';
-import { V2_LANDING_PATH } from '@/constants/nav';
-import { cn } from '@/helper/utils';
-import SlideHighlight from '@/components/Common/Navigation/SlideHighlight';
 interface UserProps {}
 
 const User: FC<UserProps> = () => {

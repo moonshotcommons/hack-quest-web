@@ -1,8 +1,7 @@
-import SelectiveCoursesBox from '@/components/v2/ElectivesBox';
-import PageDescription from '@/components/v2/PageDescription';
 import Title from '@/components/Head/Title';
+import PageDescription from '@/components/v2/Business/PageDescription';
+import SelectiveCoursesBox from '@/components/v2/ElectivesBox';
 import { useRef, useState } from 'react';
-import { circIn } from 'framer-motion';
 
 function SelectiveCourses() {
   const selectiveCoursesRef = useRef<HTMLDivElement | null>(null);

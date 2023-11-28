@@ -1,18 +1,17 @@
-import Tab from '@/components/v2/Campaigns/Tab';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
-import Mantle from '@/components/v2/Campaigns/Mantle';
-import { MantleContext } from '@/components/v2/Campaigns/Mantle/type';
-import webApi from '@/service';
-import { MantleType, TargetsType } from '@/service/webApi/campagins/type';
-import { TabListType } from '@/components/v2/Campaigns/Tab/type';
-import Loading from '@/public/images/other/loading.png';
-import Image from 'next/image';
-import { message } from 'antd';
-import { BurialPoint } from '@/helper/burialPoint';
-import { useRouter } from 'next/router';
 import CertificationModal, {
   CertificationModalInstance
-} from '@/components/v2/Certification/CertificationModal';
+} from '@/components/v2/Business/Certification/CertificationModal';
+import Mantle from '@/components/v2/Campaigns/Mantle';
+import { MantleContext } from '@/components/v2/Campaigns/Mantle/type';
+import Tab from '@/components/v2/Campaigns/Tab';
+import { TabListType } from '@/components/v2/Campaigns/Tab/type';
+import { BurialPoint } from '@/helper/burialPoint';
+import Loading from '@/public/images/other/loading.png';
+import webApi from '@/service';
+import { MantleType, TargetsType } from '@/service/webApi/campagins/type';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import React, { useEffect, useRef, useState } from 'react';
 
 interface CampaignsProp {}
 

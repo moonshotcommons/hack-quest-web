@@ -1,16 +1,11 @@
-import Button from '@/components/v2/Common/Button';
-import Image from 'next/image';
-import { FC, ReactNode, useContext, useRef, useState } from 'react';
-import { RiShareBoxLine } from 'react-icons/ri';
-import EditButton from '../EditButton';
+import AvatarUpload from '@/components/v2/Business/AvatarUpload';
+import HoverIcon from '@/components/v2/Business/HoverIcon';
+import { IconType } from '@/components/v2/Business/HoverIcon/type';
 import { cn } from '@/helper/utils';
-import BasicInfoModal, { BasicInfoModalRef } from '../BasicInfoModal';
-import AvatarUpload from '../AvatarUpload';
-import Tooltip from '@/components/v2/Common/Tooltip';
-import { ProfileContext } from '../../type';
 import { useGetUserInfo } from '@/hooks/useGetUserInfo';
-import HoverIcon from '../../components/HoverIcon';
-import { IconType } from '../../components/HoverIcon/type';
+import { FC, useContext, useRef, useState } from 'react';
+import { ProfileContext } from '../../type';
+import BasicInfoModal, { BasicInfoModalRef } from '../BasicInfoModal';
 interface UserProfileProps {
   edit?: boolean;
 }
