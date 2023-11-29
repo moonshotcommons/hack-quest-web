@@ -77,20 +77,20 @@ const DropAnswer: FC<DropAnswerProps> = (props) => {
           transition={{
             duration: currentAnswer?.status === 'error' ? 0.5 : 0 // 动画持续时间
           }}
-          className={`inline-flex relative w-[110px] mx-[10px] h-[34px] rounded-[3px] border-[0.5px] my-1 border-[#8C8C8C] bg-[#F4F4F4] justify-center items-center font-next-book text-[14px] leading-[125%] ${
+          className={`inline-flex relative min-w-[110px] mx-[10px] h-[34px] rounded-[3px] border-[0.5px] my-1 border-[#8C8C8C] bg-[#F4F4F4] justify-center items-center font-next-book text-[14px] leading-[125%] ${
             currentAnswer?.status === 'error'
               ? 'bg-[#FFF7F5] border-[#C73333]'
               : ''
           }`}
         >
-          <div className="inline-flex relative items-center">
+          <div className="inline-flex relative items-center px-5">
             &nbsp;{showAnswer && currentAnswer?.answer}&nbsp;
           </div>
         </motion.span>
       )}
       {!!currentAnswer?.option && !showAnswer && (
         <span
-          className="inline-flex relative min-w-[110px] mx-[10px] h-[34px] my-1 bg-[#FFF4CE] max-w-[110px] cursor-move border-[0.5px] border-[#8C8C8C] rounded-[3px] text-[#000] font-next-book text-[14px] tracking-[0.28px] leading-[125%]"
+          className="inline-flex relative min-w-[110px] mx-[10px] h-[34px] my-1 bg-[#FFF4CE] cursor-move border-[0.5px] border-[#8C8C8C] rounded-[3px] text-[#000] font-next-book text-[14px] tracking-[0.28px] leading-[125%]"
           onMouseEnter={() => setClearVisible(true)}
           onMouseLeave={() => setClearVisible(false)}
         >
@@ -121,7 +121,7 @@ const DropAnswer: FC<DropAnswerProps> = (props) => {
                 />
               </svg>
             </span>
-            <span className="text-center flex-1 overflow-hidden text-ellipsis">
+            <span className="text-center flex-1 overflow-hidden text-ellipsis px-5">
               {currentAnswer.option.content.rich_text.map(
                 (richText: any, index: number) => {
                   return <span key={index}>{richText.plain_text}</span>;
