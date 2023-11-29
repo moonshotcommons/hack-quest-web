@@ -1,4 +1,4 @@
-import { Menu, QueryIdType } from '@/components/v2/Breadcrumb/type';
+import { Menu, QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
 import { JumpLeaningLessonType } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
 import { CourseType } from '@/service/webApi/course/type';
 import { message } from 'antd';

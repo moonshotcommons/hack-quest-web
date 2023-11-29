@@ -8,8 +8,8 @@ import EditButton from '../PersonalEdit/EditButton';
 import PersonalLinkEditModal, {
   PersonalLinkEditModalRef
 } from './PersonalLinkEditModal';
-import HoverIcon from '../components/HoverIcon';
-import { IconType } from '../components/HoverIcon/type';
+import HoverIcon from '@/components/v2/Business/HoverIcon';
+import { IconType } from '@/components/v2/Business/HoverIcon/type';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import Link from 'next/link';

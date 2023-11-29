@@ -1,7 +1,7 @@
+import PageDescription from '@/components/v2/Business/PageDescription';
 import ProjectsPageBox from '@/components/v2/ProjectsBox';
-import PageDescription from '@/components/v2/PageDescription';
-import { useEffect, useRef, useState } from 'react';
 import { BurialPoint } from '@/helper/burialPoint';
+import { useEffect, useRef, useState } from 'react';
 
 function ProjectsPage() {
   const ProjectsPageRef = useRef<HTMLDivElement | null>(null);

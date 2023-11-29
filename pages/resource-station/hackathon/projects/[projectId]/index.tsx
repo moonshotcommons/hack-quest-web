@@ -1,9 +1,5 @@
-import Pagination from '@/components/v2/Common/Pagination';
-import ProjectCard from '@/components/v2/ProjectCard';
 import FeatureProjects from '@/components/v2/ResourceStation/FeaturedProject';
 import ProjectDetail from '@/components/v2/ResourceStation/ProjectDetail';
-import { useRequest } from 'ahooks';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
 

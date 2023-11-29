@@ -10,7 +10,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
 import { styled } from 'styled-components';
-import CourseTags from '@/components/v2/CourseTags';
+import CourseTags from '@/components/v2/Business/CourseTags';
 import LEARNING_TRACK_DARK from '@/public/images/v2/course/course_cover/LEARNING_TRACK_light.png';
 
 interface LearningTrackWrapCardProps {

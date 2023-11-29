@@ -1,8 +1,8 @@
+import { LessonContent } from '@/components/v2/Business/ComponentRenderer/type';
 import Button from '@/components/v2/Common/Button';
 import { useUnitNavList } from '@/hooks/useUnitNavList';
 import { CourseLessonType } from '@/service/webApi/course/type';
-import React, { useContext, useEffect, useState } from 'react';
-import { LessonContent } from '../type';
+import React, { useContext, useEffect } from 'react';
 import { LessonPageContext } from '../type';
 
 interface LessonFooterProps {

@@ -1,3 +1,4 @@
+import { CompleteModalInstance } from '@/components/v2/Business/CompleteModal';
 import { BurialPoint } from '@/helper/burialPoint';
 import webApi from '@/service';
 import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
@@ -8,7 +9,6 @@ import { useRouter } from 'next/router';
 import { useMemo, useRef, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import { useGetLessonLink } from './useGetLessonLink';
-import { CompleteModalInstance } from '@/components/v2/LessonPage/CompleteModal';
 
 export const useGotoNextLesson = (
   lesson: CourseLessonType,
