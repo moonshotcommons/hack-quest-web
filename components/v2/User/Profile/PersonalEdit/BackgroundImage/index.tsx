@@ -1,15 +1,13 @@
-import { cn, errorMessage } from '@/helper/utils';
-import Image from 'next/image';
-import { FC, ReactNode, useContext, useRef, useState } from 'react';
-import EditButton from '../EditButton';
+import HoverIcon from '@/components/v2/Business/HoverIcon';
+import { IconType } from '@/components/v2/Business/HoverIcon/type';
 import ImageCrop, { ImageCropRef } from '@/components/v2/Common/ImageCrop';
-import { Upload, message } from 'antd';
-import { ProfileContext } from '../../type';
+import { cn, errorMessage } from '@/helper/utils';
 import webApi from '@/service';
+import { Upload, message } from 'antd';
 import { RcFile } from 'antd/es/upload';
-import Tooltip from '@/components/v2/Common/Tooltip';
-import HoverIcon from '../../components/HoverIcon';
-import { IconType } from '../../components/HoverIcon/type';
+import Image from 'next/image';
+import { FC, useContext, useRef, useState } from 'react';
+import { ProfileContext } from '../../type';
 
 interface BackgroundImageProps {
   edit?: boolean;

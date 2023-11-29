@@ -1,12 +1,15 @@
-import React, { useEffect, useRef, useState } from 'react';
-import CourseList from './CourseList';
-import { initPageInfo, filterData } from './data';
+import SearchFilter, {
+  dealFilterParam
+} from '@/components/v2/Business/SearchFilter';
+import { FilterDataType } from '@/components/v2/Business/SearchFilter/type';
+import { deepClone } from '@/helper/utils';
 import webApi from '@/service';
 import { CourseResponse } from '@/service/webApi/course/type';
+import React, { useEffect, useRef, useState } from 'react';
+import MiniElectiveDetailModal from '../Business/MiniElectiveDetailModal';
 import Loading from '../Common/Loading';
-import SearchFilter, { dealFilterParam } from '@/components/v2/SearchFilter';
-import { FilterDataType } from '@/components/v2/SearchFilter/type';
-import { deepClone } from '@/helper/utils';
+import CourseList from './CourseList';
+import { filterData, initPageInfo } from './data';
 
 interface PageInfoType {
   page: number;
@@ -102,6 +105,7 @@ const SelectiveCoursesBox: React.FC<SelectiveCoursesBoxProps> = ({
         />
         <CourseList list={list} />
       </div>
+      <MiniElectiveDetailModal />
     </Loading>
   );
 };

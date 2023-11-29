@@ -1,10 +1,8 @@
-import React from 'react';
-import PageDescription from '@/components/v2/PageDescription';
-import Course from './Course';
-import { shallowEqual, useSelector } from 'react-redux';
+import PageDescription from '@/components/v2/Business/PageDescription';
 import { AppRootState } from '@/store/redux';
-import Button from '../../Common/Button';
+import { shallowEqual, useSelector } from 'react-redux';
 import InviteCodeCard from '../InviteCodeCard';
+import Course from './Course';
 
 function LearningCourses() {
   const userInfo = useSelector((state: AppRootState) => {

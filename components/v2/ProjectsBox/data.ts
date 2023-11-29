@@ -1,4 +1,4 @@
-import { ALL, FilterType } from '@/components/v2/SearchFilter/type';
+import { ALL, FilterType } from '@/components/v2/Business/SearchFilter/type';
 
 export const sort = {
   type: FilterType.RADIO,

@@ -1,12 +1,12 @@
-import { ReactNode, useEffect, useMemo, useState } from 'react';
-import { reservedWords } from '@/constants/solidity';
-import { LineType, CodeLineType } from '@/components/v2/LessonPage/type';
-import { changeTextareaHeight, adaptWidth } from '@/helper/utils';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import {
-  oneDark,
-  oneLight
-} from 'react-syntax-highlighter/dist/cjs/styles/prism';
+  CodeLineType,
+  LineType
+} from '@/components/v2/Business/ComponentRenderer/type';
+import { reservedWords } from '@/constants/solidity';
+import { changeTextareaHeight } from '@/helper/utils';
+import { ReactNode, useEffect, useMemo, useState } from 'react';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { oneLight } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import { styled } from 'styled-components';
 
 const CustomSyntaxHighlighter = styled(SyntaxHighlighter)`
