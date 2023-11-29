@@ -33,7 +33,7 @@ const HomeBanner: FC<HomeBannerProps> = (props) => {
         </div>
       </div>
       <div className="hidden wap:block w-full h-full px-[20px] relative">
-        <h1 className="text-landing-banner-intr-color  font-next-book-bold text-[24px] tracking-[2.4px] leading-[140%] uppercase">
+        <h1 className="wap:container mx-auto text-landing-banner-intr-color  font-next-book-bold text-[24px] tracking-[2.4px] leading-[140%] uppercase">
           Web3.0 Programming
           <br />
           For<span className="text-primary-color"> Everyone</span>
@@ -41,7 +41,7 @@ const HomeBanner: FC<HomeBannerProps> = (props) => {
         <div className="w-full mt-[60px]">
           <Auth />
         </div>
-        <div className=" absolute bottom-0 left-[20px]">
+        <div className="absolute bottom-0 left-[20px]">
           <Image src={Astronaut} alt="astronaut" width={138}></Image>
         </div>
       </div>

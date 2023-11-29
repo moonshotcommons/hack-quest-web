@@ -62,7 +62,7 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
         inter.className
       } ${getFull() ? 'bg-[white]' : 'bg-[#F4F4F4] min-h-[100vh]'} `}
     >
-      <div className="w-full bg-[#0B0B0B]  flex items-center z-[99] shadow-[box-shadow: rgba(17, 12, 46, 0.15)_0px_48px_100px_0px]">
+      <div className="w-full bg-[#0B0B0B]  flex items-center z-[99]">
         <NavBar
           {...navbarData}
           isFull={getFull()}

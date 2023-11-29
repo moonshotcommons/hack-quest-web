@@ -44,7 +44,7 @@ const LearningTrackWrapCard: FC<LearningTrackWrapCardProps> = (props) => {
   return (
     <div
       className={cn(
-        'flex px-5 pb-[30px] flex-col border-t-[10px] rounded-[10px]  h-fit bg-white w-[full] hover:-translate-y-1 transition-all duration-300 mt-1 relative shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)] cursor-pointer border-[#ffd850]'
+        'flex px-5 pb-[30px] flex-col border-t-[10px] rounded-[10px]  h-fit bg-white w-full hover:-translate-y-1 transition-all duration-300 mt-1 relative shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)] cursor-pointer border-[#ffd850]'
       )}
     >
       <div className="flex w-full justify-center">

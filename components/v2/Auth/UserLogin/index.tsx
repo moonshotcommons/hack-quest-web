@@ -70,7 +70,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
             }
             setLoading(false);
             BurialPoint.track('login-登录成功');
-            if (isPc) {
+            if (isPc()) {
               dispatch(setUserInfo(omit(res, 'token')));
               setToken(res.token);
               if (redirect_url) {

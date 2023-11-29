@@ -25,6 +25,8 @@ import { Menu, QueryIdType } from '../../Breadcrumb/type';
 import LearningTrackWrapCard from '../components/LearningTrackWrapCard';
 import WhatIsHackquest from '@/public/images/landing/what_is_hackquest.png';
 import useIsPc from '@/hooks/useIsPc';
+import { cn } from '@/helper/utils';
+import classNames from 'classnames';
 
 interface HackQuestInfoProps {
   // children: ReactNode;
@@ -32,6 +34,8 @@ interface HackQuestInfoProps {
 interface GotoPageButtonProps {
   isBlack: boolean;
   direction: 'top' | 'bottom';
+  type: 'learningTrack' | 'hackathon';
+  className?: string;
 }
 const goToLogin = () => {
   const contentWrapEle = document.querySelector(
@@ -43,7 +47,8 @@ const goToLogin = () => {
   message.warning('Please log in first');
 };
 const GotoPageButton: React.FC<GotoPageButtonProps> = (props) => {
-  const { isBlack, direction } = props;
+  const { isBlack, direction, type, className = '' } = props;
+  const router = useRouter();
   const color = useMemo(() => {
     return isBlack
       ? {
@@ -55,35 +60,60 @@ const GotoPageButton: React.FC<GotoPageButtonProps> = (props) => {
           border: 'landing-banner-intr-color'
         };
   }, []);
-  return (
-    <>
-      <Button
-        className={`mt-[40px]  border text-${color.text} border-${color.border}`}
-        onClick={() => {
+  const handleClick = (index: number) => {
+    switch (type) {
+      case 'learningTrack':
+        if (index === 1) {
           goToLogin();
           BurialPoint.track(
             `landing-${direction} Explore Learning Tracks按钮点击`
           );
-        }}
-      >
-        Explore Learning Tracks
-      </Button>
-      <Button
-        icon={<AiOutlineRight />}
-        iconPosition="right"
-        className={`text-${color.text}`}
-        onClick={() => {
+        } else {
           goToLogin();
           BurialPoint.track(
             `landing-${direction} Explore Selective Courses按钮点击`
           );
-        }}
+        }
+      case 'hackathon':
+        if (index === 1) {
+          router.push(MenuLink.HACKATHON);
+          BurialPoint.track(`landing Explore Hackathons按钮点击`);
+        } else {
+          router.push(
+            `${MenuLink.PROJECTS}?menu=${Menu.PROJECTS}&${QueryIdType.PROJECT_ID}=projects`
+          );
+          BurialPoint.track(`landing Explore Projects按钮点击`);
+        }
+    }
+  };
+  return (
+    <div
+      className={cn(
+        `wap:w-full gap-[40px] wap:gap-0 flex-row-center wap:flex-col-center`,
+        className
+      )}
+    >
+      <Button
+        className={`w-[270px] wap:w-[90%] h-[60px] p-0  border text-${color.text} border-${color.border} font-next-book`}
+        onClick={() => handleClick(1)}
+      >
+        {type === 'learningTrack'
+          ? 'Explore Learning Tracks'
+          : 'Explore Hackathons'}
+      </Button>
+      <Button
+        icon={<AiOutlineRight />}
+        iconPosition="right"
+        className={`text-${color.text}  wap:w-[90%] p-0 h-[60px] font-next-book`}
+        onClick={() => handleClick(2)}
       >
         <span className="border-b border-[#FCC409]">
-          Explore Selective Courses
+          {type === 'learningTrack'
+            ? 'Explore Selective Courses'
+            : 'Explore Projects'}
         </span>
       </Button>
-    </>
+    </div>
   );
 };
 
@@ -101,17 +131,12 @@ export const TopInfo: FC = () => {
         }}
       ></div>
       <div className="container mx-auto wap:w-full wap:px-[20px]">
-        <h1 className="text-center pt-[20px] pb-[60px] text-[54px] wap:text-[24px] font-next-poster-Bold text-landing-hack-info-top-color">
+        <h1 className="text-center pt-[20px] pb-[40px] text-[54px] wap:text-[24px] font-next-poster-Bold text-landing-hack-info-top-color">
           Become a Solidity Developer
         </h1>
-        <div className="mb-[30px]">
-          <p className="text-[28px] font-next-poster-Bold">
-            {learningTracks[0]?.name}
-          </p>
-          <p className="text-[16px] leading-[25px] w-[569px] wap:w-full">
-            {learningTracks[0]?.description}
-          </p>
-        </div>
+        <p className="w-[663px] mx-auto text-[16px] leading-[25px]  wap:w-full mb-[40px]">
+          {`Don't know where to start? Pick a learning track! Leaning Track provides a series of core + elective courses that help you master one topic and explore in the related field.`}
+        </p>
         <div
           className="wap:hidden"
           onClick={() => {
@@ -135,7 +160,7 @@ export const TopInfo: FC = () => {
           <LearningTrackWrapCard learningTrack={learningTracks[0] || {}} />
         </div>
       </div>
-      <div className="container mx-auto wap:h-full wap:px-[20px]">
+      <div className="container mx-auto wap:w-full wap:px-[20px]">
         <div className="w-full pt-[80px]  pb-[47px] bg-landing-card-bg mt-[150px] rounded-[10px] flex-col-center wap:px-[20px]">
           <h1 className="text-text-default-color text-center font-next-poster-Bold text-[54px] wap:text-[24px] tracking-[3.24px]">
             What is HackQuest?
@@ -151,7 +176,12 @@ export const TopInfo: FC = () => {
           <div className="w-full hidden wap:block  mt-[3rem]">
             <Image src={WhatIsHackquest} alt="hackquset"></Image>
           </div>
-          <GotoPageButton isBlack={true} direction="top" />
+          <GotoPageButton
+            className="mt-[40px] wap:mt-[30px]"
+            isBlack={true}
+            direction="top"
+            type="learningTrack"
+          />
         </div>
       </div>
     </div>
@@ -159,7 +189,6 @@ export const TopInfo: FC = () => {
 };
 
 export const CenterInfo: FC = () => {
-  const isPc = useIsPc();
   const infoList = [
     {
       title: 'Easy to follow, quick to test',
@@ -284,7 +313,6 @@ export const CenterInfo: FC = () => {
 };
 
 export const HackQuestHackathon: FC = () => {
-  const router = useRouter();
   return (
     <div className="container mx-auto wap:w-full px-[20px] mt-[150px] wap:mt-[80px]">
       <div className="w-full py-[80px] wap:py-[30px] wap:px-[20px] bg-landing-card-bg rounded-[10px] flex-col-center font-next-book ">
@@ -318,30 +346,12 @@ export const HackQuestHackathon: FC = () => {
             </p>
           </div>
         </div>
-        <div className="flex  items-center gap-[40px] wap:flex-col wap:gap-0">
-          <Button
-            className={`border text-landing-hack-info-learning-btn-color border-landing-card-login-button-border-color`}
-            onClick={() => {
-              router.push(MenuLink.HACKATHON);
-              BurialPoint.track(`landing Explore Hackathons按钮点击`);
-            }}
-          >
-            Explore Hackathons
-          </Button>
-          <Button
-            icon={<AiOutlineRight />}
-            iconPosition="right"
-            className={`text-landing-hack-info-learning-btn-color`}
-            onClick={() => {
-              router.push(
-                `${MenuLink.PROJECTS}?menu=${Menu.PROJECTS}&${QueryIdType.PROJECT_ID}=projects`
-              );
-              BurialPoint.track(`landing Explore Projects按钮点击`);
-            }}
-          >
-            <span className="border-b border-[#FCC409]">Explore Projects</span>
-          </Button>
-        </div>
+        <GotoPageButton
+          className="mt-[40px]  wap:mt-[30px]"
+          isBlack={true}
+          direction="top"
+          type="hackathon"
+        />
       </div>
     </div>
   );
@@ -349,22 +359,27 @@ export const HackQuestHackathon: FC = () => {
 
 export const BottomInfo: FC = () => {
   return (
-    <div className="container pt-[7.5rem] pb-[80px] flex flex-col items-center  bg-neutral-dark-gray mt-[150px] rounded-[10px]">
-      <h1 className="text-[#F5F5F5] w-[43.5rem] mx-auto text-center font-next-poster-Bold text-[2.5rem] leading-[110%] tracking-wider pb-[4.25rem]">
-        Still not sure? Create your own token in 10 minutes and decide.
-      </h1>
-      <div className="relative flex justify-center mt-[2.5rem] ">
-        <Image src={TeaserInfo} alt="hackquset"></Image>
-        <div
-          className="absolute w-[81.5%]  left-[9.6%] -bottom-[20px] mx-auto h-[7.375rem]"
-          style={{
-            background:
-              'linear-gradient(180deg, rgba(33, 33, 33, 0.00) 0%, #212121 100%)'
-          }}
-        ></div>
-      </div>
-      <div className="mt-[2.64rem] flex-col-center">
-        <GotoPageButton isBlack={false} direction="bottom" />
+    <div className="container mx-auto wap:w-full wap:px-[20px]">
+      <div className="w-full wap:px-[17px] pt-[7.5rem] wap:pt-[30px] pb-[80px] wap:pb-[30px] flex flex-col items-center  bg-landing-card-bg mt-[150px] rounded-[10px]">
+        <h1 className="text-text-default-color w-[43.5rem] wap:w-full mx-auto text-center font-next-poster-Bold text-[2.5rem] wap:text-[24px] leading-[110%] tracking-wider pb-[4.25rem] wap:pb-0">
+          Still not sure? Create your own token in 10 minutes and decide.
+        </h1>
+        <div className="relative w-full flex justify-center mt-[2.5rem] ">
+          <Image src={TeaserInfo} alt="hackquset"></Image>
+          <div
+            className="absolute bottom-[0] left-[9.4%] w-[82%] h-[100px]"
+            style={{
+              background:
+                'linear-gradient(180deg, rgba(33, 33, 33, 0.00) 0%, #212121 100%)'
+            }}
+          ></div>
+        </div>
+        <GotoPageButton
+          className="mt-[100px]  wap:mt-[30px]"
+          isBlack={true}
+          direction="top"
+          type="hackathon"
+        />
       </div>
     </div>
   );

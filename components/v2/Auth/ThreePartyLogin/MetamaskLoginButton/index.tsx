@@ -69,7 +69,7 @@ const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
               );
             } else {
               BurialPoint.track('signup-Metamask第三方登录code验证成功');
-              if (isPc) {
+              if (isPc()) {
                 dispatch(setUserInfo(omit(res, 'token')));
                 setToken(res.token);
                 router.push('/home');

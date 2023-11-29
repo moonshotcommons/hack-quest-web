@@ -1,6 +1,10 @@
+'use client';
+import React from 'react';
 const useIsPc = () => {
-  const winWidth = window.screen.width;
-  const isPc = winWidth >= 770;
+  const isPc = () => {
+    const winWidth = window?.screen?.width;
+    return winWidth >= 770;
+  };
   return isPc;
 };
 

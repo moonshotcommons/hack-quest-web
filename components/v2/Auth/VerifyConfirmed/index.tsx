@@ -187,7 +187,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
         .tokenVerify({ token: token as string })
         .then((res: any) => {
           BurialPoint.track('signup-注册邮箱token验证成功');
-          if (isPc) {
+          if (isPc()) {
             dispatch(setUserInfo(omit(res, 'token')));
             setToken(res.token || token);
             setVerifyState(VerifyStateType.SUCCESS);
@@ -228,7 +228,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
             );
           } else {
             BurialPoint.track('signup-Google三方登录code验证成功');
-            if (isPc) {
+            if (isPc()) {
               dispatch(setUserInfo(omit(res, 'token')));
               setToken(res.token);
               router.push('/home');
@@ -271,7 +271,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
             );
           } else {
             BurialPoint.track('signup-Google三方登录code验证成功');
-            if (isPc) {
+            if (isPc()) {
               BurialPoint.track('signup-Github三方登录code验证成功');
               setToken(res.token);
               router.push('/home');
