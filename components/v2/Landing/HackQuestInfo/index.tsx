@@ -1,5 +1,5 @@
 import Button from '@/components/Common/Button';
-import LearningTracksCard from '@/components/v2/LearningTrackCard';
+import LearningTracksCard from '@/components/v2/Business/LearningTrackCard';
 import { BurialPoint } from '@/helper/burialPoint';
 import { useGetUserInfo } from '@/hooks/useGetUserInfo';
 import { useGetLearningTracks } from '@/hooks/useLearningTrackHooks/useLearningTracks';
@@ -22,7 +22,7 @@ import WhyL4 from '@/public/images/landing/why_h_4_l.png';
 import WhyR4 from '@/public/images/landing/why_h_4_r.png';
 import { useRouter } from 'next/router';
 import { MenuLink } from '../../Layout/Navbar/type';
-import { Menu, QueryIdType } from '../../Breadcrumb/type';
+import { Menu, QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
 
 interface HackQuestInfoProps {
   // children: ReactNode;

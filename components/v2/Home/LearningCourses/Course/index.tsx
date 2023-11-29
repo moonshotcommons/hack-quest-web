@@ -7,8 +7,8 @@ import CourseBox from './CourseBox';
 import LearningTrackList from './LearningTrackList';
 import NoData from './NoData';
 import { courseTab } from './data';
-import Tab from '@/components/v2/Tab';
-import { TabListType } from '@/components/v2/Tab/type';
+import Tab from '@/components/v2/Business/Tab';
+import { TabListType } from '@/components/v2/Business/Tab/type';
 
 function Course() {
   const [curTab, setCurTab] = useState<ProcessType>(ProcessType.IN_PROCESS);

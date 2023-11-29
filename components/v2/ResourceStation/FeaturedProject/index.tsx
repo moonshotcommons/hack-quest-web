@@ -2,19 +2,17 @@ import {
   ChangeState,
   ScrollContainer
 } from '@/components/Common/ScrollContainer';
+import { menuLink } from '@/components/v2/Business/Breadcrumb/data';
+import { Menu, QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
+import ProjectCard from '@/components/v2/Business/ProjectCard';
 import { BurialPoint } from '@/helper/burialPoint';
 import webApi from '@/service';
-import { CourseResponse } from '@/service/webApi/course/type';
+import { ProjectType } from '@/service/webApi/resourceStation/project/type';
 import { useRequest } from 'ahooks';
 import Link from 'next/link';
 import { FC, useState } from 'react';
 import { LuChevronRight } from 'react-icons/lu';
-import CourseCard from '../../CourseCard';
 import ScrollControl from './ScrollControl';
-import ProjectCard from '../../ProjectCard';
-import { ProjectType } from '@/service/webApi/resourceStation/project/type';
-import { menuLink } from '../../Breadcrumb/data';
-import { Menu, QueryIdType } from '../../Breadcrumb/type';
 interface FeatureProjectsProps {
   ignoreProjectId?: string;
 }

@@ -1,16 +1,15 @@
-import React, { useState } from 'react';
-import Tab from '@/components/v2/Tab';
-import { TabListType } from '@/components/v2/Tab/type';
+import { Menu, QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
+import PageDescription from '@/components/v2/Business/PageDescription';
+import Tab from '@/components/v2/Business/Tab';
+import { TabListType } from '@/components/v2/Business/Tab/type';
+import { BurialPoint } from '@/helper/burialPoint';
 import { HackathonStatusType } from '@/service/webApi/resourceStation/hackathon/type';
-import { hackathonTab } from './data';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
+import { MenuLink } from '../../Layout/Navbar/type';
 import OnGoing from './OnGoing';
 import Past from './Past';
-import PageDescription from '../../PageDescription';
-import { useRouter } from 'next/router';
-import { menuLink } from '../../Breadcrumb/data';
-import { Menu, QueryIdType } from '../../Breadcrumb/type';
-import { BurialPoint } from '@/helper/burialPoint';
-import { MenuLink } from '../../Layout/Navbar/type';
+import { hackathonTab } from './data';
 
 function HackathonBox() {
   const router = useRouter();
