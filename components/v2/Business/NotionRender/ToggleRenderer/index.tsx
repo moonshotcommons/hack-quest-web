@@ -21,6 +21,10 @@ const ToggleRenderer: FC<ToggleRendererProps> = (props) => {
   const [showChild, setShowChild] = useState(true);
   const { expandData, changeExpandData } = useContext(LessonContentContext);
   const changeShowChild = (status: boolean) => {
+    if (!expandData) {
+      setShowChild(status);
+      return;
+    }
     const newExpandData = [...expandData] as ExpandDataType[];
     const index = newExpandData?.findIndex((v) => v.id === component.id);
     newExpandData[index].expandNum = status ? 1 : 0;
