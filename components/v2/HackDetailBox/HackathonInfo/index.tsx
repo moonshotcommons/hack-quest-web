@@ -7,8 +7,8 @@ import {
   HackathonType
 } from '@/service/webApi/resourceStation/hackathon/type';
 import useDealhackathon from '@/hooks/useDealHackathonData';
-import { menuLink } from '../../Breadcrumb/data';
-import { Menu, QueryIdType } from '../../Breadcrumb/type';
+import { menuLink } from '@/components/v2/Business/Breadcrumb/data';
+import { Menu, QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
 import { BurialPoint } from '@/helper/burialPoint';
 
 interface HackathonInfoProp {

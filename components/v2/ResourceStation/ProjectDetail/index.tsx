@@ -1,17 +1,13 @@
-import { FC, ReactNode, useEffect, useMemo, useState } from 'react';
-import ProjectCard from '../../ProjectCard';
-import Pagination from '../../Common/Pagination';
-import Link from 'next/link';
-import OtherProjects from './OtherProjects';
-import { Typography } from 'antd';
-import InfoBlock from './InfoBloack';
-import { useRequest } from 'ahooks';
-import Loading from '../../Common/Loading';
+import { errorMessage } from '@/helper/utils';
 import webApi from '@/service';
 import { ProjectType } from '@/service/webApi/resourceStation/project/type';
-import { errorMessage } from '@/helper/utils';
-import YouTube from 'react-youtube';
+import { useRequest } from 'ahooks';
 import Image from 'next/image';
+import { FC, useEffect, useMemo, useState } from 'react';
+import YouTube from 'react-youtube';
+import Loading from '../../Common/Loading';
+import InfoBlock from './InfoBloack';
+import OtherProjects from './OtherProjects';
 interface ProjectDetailProps {
   projectId: string;
 }

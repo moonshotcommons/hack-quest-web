@@ -5,8 +5,8 @@ import { computeTime, tagFormate } from '@/helper/formate';
 import { CourseDetailType, CourseResponse } from '@/service/webApi/course/type';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import { FC } from 'react';
-import CourseLevel from '../../CourseTags/CourseLevel';
-import Tag from '../../CourseTags/tag';
+import CourseLevel from '@/components/v2/Business/CourseTags/CourseLevel';
+import Tag from '@/components/v2/Business/CourseTags/tag';
 import { LearningStatus } from '../type';
 interface HeaderRightProps {
   // children: ReactNode;

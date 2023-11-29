@@ -1,14 +1,16 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { initPageInfo, filterData } from './data';
-import webApi from '@/service';
-import Loading from '../Common/Loading';
-import ProjectsList from './ProjectsList';
+import SearchFilter, {
+  dealFilterParam
+} from '@/components/v2/Business/SearchFilter';
+import { FilterDataType } from '@/components/v2/Business/SearchFilter/type';
 import { deepClone } from '@/helper/utils';
-import SearchFilter, { dealFilterParam } from '@/components/v2/SearchFilter';
-import { FilterDataType, ParamType } from '@/components/v2/SearchFilter/type';
+import webApi from '@/service';
 import { ProjectType } from '@/service/webApi/resourceStation/project/type';
 import { useRequest } from 'ahooks';
 import { useRouter } from 'next/router';
+import React, { useEffect, useRef, useState } from 'react';
+import Loading from '../Common/Loading';
+import ProjectsList from './ProjectsList';
+import { filterData, initPageInfo } from './data';
 
 interface PageInfoType {
   page: number;

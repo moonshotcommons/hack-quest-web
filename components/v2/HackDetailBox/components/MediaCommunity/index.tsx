@@ -25,7 +25,7 @@ const MediaCommunity: React.FC<MediaCommunityProp> = ({ listData, title }) => {
         {showList.map((v: MentorType, i: number) => (
           <div
             key={i}
-            className="p-[10px]   w-[calc(25%-15px)] h-[71px] border border-[#8C8C8C] bg-[#F4F4F4] rounded-[80px]"
+            className="  w-[calc(25%-15px)] h-[71px] border border-[#8C8C8C] bg-[#F4F4F4] rounded-[80px]"
           >
             <div className="w-full h-full relative">
               <Image

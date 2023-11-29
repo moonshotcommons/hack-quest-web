@@ -1,6 +1,6 @@
 import Button from '@/components/v2/Common/Button';
 
-import CourseTags from '@/components/v2/CourseTags';
+import CourseTags from '@/components/v2/Business/CourseTags';
 import { tagFormate } from '@/helper/formate';
 import { CourseDetailType } from '@/service/webApi/course/type';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';

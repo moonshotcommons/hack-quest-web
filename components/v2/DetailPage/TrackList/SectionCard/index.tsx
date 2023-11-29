@@ -1,4 +1,4 @@
-import { Menu, QueryIdType } from '@/components/v2/Breadcrumb/type';
+import { Menu, QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
 import { Theme } from '@/constants/enum';
 import { BurialPoint } from '@/helper/burialPoint';
 import { computeProgress, tagFormate } from '@/helper/formate';
@@ -19,7 +19,7 @@ import { VscAdd } from 'react-icons/vsc';
 import styled from 'styled-components';
 import { TrackListContext } from '../../LearningTrackDetail';
 import Button from '@/components/v2/Common/Button';
-import { menuLink } from '@/components/v2/Breadcrumb/data';
+import { menuLink } from '@/components/v2/Business/Breadcrumb/data';
 
 const CustomProgress = styled(Progress)`
   .ant-progress-inner {
