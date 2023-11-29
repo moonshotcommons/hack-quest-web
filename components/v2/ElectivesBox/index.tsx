@@ -6,6 +6,7 @@ import { deepClone } from '@/helper/utils';
 import webApi from '@/service';
 import { CourseResponse } from '@/service/webApi/course/type';
 import React, { useEffect, useRef, useState } from 'react';
+import MiniElectiveDetailModal from '../Business/MiniElectiveDetailModal';
 import Loading from '../Common/Loading';
 import CourseList from './CourseList';
 import { filterData, initPageInfo } from './data';
@@ -104,6 +105,7 @@ const SelectiveCoursesBox: React.FC<SelectiveCoursesBoxProps> = ({
         />
         <CourseList list={list} />
       </div>
+      <MiniElectiveDetailModal />
     </Loading>
   );
 };
