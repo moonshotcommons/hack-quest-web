@@ -30,13 +30,13 @@ const LessonList: React.FC<LessonListType> = ({
   const router = useRouter();
   const { getLink } = useGetLessonLink();
   const getChildren = (item: UnitPagesListType) => {
-    if (item.disable) return;
+    if (!item || item?.disable) return;
     setLessonList(item.pages as CourseLessonStateType[]);
     setUnitName(item.name);
   };
 
   const handleUnit = (item: CourseLessonStateType) => {
-    if (item.disable) return;
+    if (item?.disable) return;
     if (lesson?.id === item?.id) {
       changeToggle(false);
       return;
