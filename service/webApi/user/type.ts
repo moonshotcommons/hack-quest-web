@@ -102,12 +102,20 @@ export interface UserProfileType {
   workExperiences: UserExperienceType[];
   hackathonExperiences: UserHackathonType[];
   certifications: CertificationType[];
+  user: {
+    avatar: string;
+    email: string;
+    name: string | null;
+    nickname: string;
+    inviteCode: string;
+  };
 }
 
 export interface UserPersonalType {
   location: string;
   experience: number;
   techStack: string[];
+  nickname: string;
 }
 
 export interface PersonalLinksType {

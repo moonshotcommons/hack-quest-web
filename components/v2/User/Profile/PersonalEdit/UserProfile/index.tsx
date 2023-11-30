@@ -2,7 +2,6 @@ import AvatarUpload from '@/components/v2/Business/AvatarUpload';
 import HoverIcon from '@/components/v2/Business/HoverIcon';
 import { IconType } from '@/components/v2/Business/HoverIcon/type';
 import { cn } from '@/helper/utils';
-import { useGetUserInfo } from '@/hooks/useGetUserInfo';
 import { FC, useContext, useRef, useState } from 'react';
 import { ProfileContext } from '../../type';
 import BasicInfoModal, { BasicInfoModalRef } from '../BasicInfoModal';
@@ -16,7 +15,6 @@ const UserProfile: FC<UserProfileProps> = (props) => {
   const [showEditIcon, setShowEditIcon] = useState(false);
 
   const { profile } = useContext(ProfileContext);
-  const userInfo = useGetUserInfo();
 
   return (
     <div className="relative h-full z-50">
@@ -49,11 +47,11 @@ const UserProfile: FC<UserProfileProps> = (props) => {
             ></HoverIcon>
           </div>
         )}
-        <div className="font-next-poster-Bold text-[28px] tracking-[1.68px] text-[#0B0B0B] leading-normal">
-          {userInfo?.nickname}
+        <div className="font-next-poster-Bold text-[28px] tracking-[1.68px] text-[#0B0B0B] leading-normal whitespace-pre-wrap">
+          {profile.user?.nickname}
         </div>
         <div className="mt-[10px] text-[18px] leading-[120%] text-[#8C8C8C] whitespace-pre-line">
-          {userInfo?.email}&nbsp;
+          {profile.user?.email}&nbsp;
         </div>
         <div className="flex gap-x-[15px] mt-[31.5px] items-center">
           <span className="text-[21px] tracking-[0.42px] leading-[160%] text-[#8C8C8C]">
