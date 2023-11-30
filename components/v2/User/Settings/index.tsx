@@ -54,7 +54,7 @@ const Settings: FC<SettingsProps> = (props) => {
                   <input
                     type="text"
                     disabled
-                    defaultValue={userInfo?.name}
+                    defaultValue={userInfo?.nickname}
                     className="bg-transparent h-full text-setting-drop-user-name-color text-[1rem] font-next-book leading-[120%] outline-none w-full disabled:cursor-not-allowed"
                   />
                 </div>
