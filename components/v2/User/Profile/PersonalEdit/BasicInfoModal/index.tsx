@@ -25,6 +25,8 @@ interface FormKeyValues {
   location: string;
   experience: number;
   techStack: string;
+  nickname: string;
+  email: string;
 }
 
 const TechStackItem = ({
@@ -75,7 +77,9 @@ const BasicInfoModal = forwardRef<BasicInfoModalRef, BasicInfoModalProps>(
       form.setFieldsValue({
         location: profile.location,
         experience: profile.experience || 0,
-        techStack: ''
+        techStack: '',
+        nickname: profile.user?.nickname,
+        email: profile.user?.email
       });
 
       setTechStack(profile.techStack || []);
@@ -87,7 +91,8 @@ const BasicInfoModal = forwardRef<BasicInfoModalRef, BasicInfoModalProps>(
         const res = await webApi.userApi.editUserProfile({
           experience: Number(values.experience),
           location: values.location,
-          techStack
+          techStack,
+          nickname: values.nickname
         });
         return res;
       },
@@ -155,8 +160,14 @@ const BasicInfoModal = forwardRef<BasicInfoModalRef, BasicInfoModalProps>(
           <Form className="mt-[30px]" form={form}>
             <div className="flex gap-[30px]">
               <Form.Item
-                name="username"
-                rules={[{ max: 240 }]}
+                name="nickname"
+                rules={[
+                  { max: 16 },
+                  {
+                    pattern: /\S+/,
+                    message: 'Username cannot be empty or contain only spaces'
+                  }
+                ]}
                 className="flex-1"
               >
                 <div
@@ -170,8 +181,8 @@ const BasicInfoModal = forwardRef<BasicInfoModalRef, BasicInfoModalProps>(
               "
                 >
                   <Input
-                    name="username"
-                    defaultValue={form.getFieldValue('username')}
+                    name="nickname"
+                    defaultValue={form.getFieldValue('nickname')}
                     label="User Name"
                     type="text"
                     className="py-[7px] px-[30px] text-[21px] font-next-book tracking-[0.063px] leading-[160%] border-[#8C8C8C] caret-gray-500"
