@@ -20,12 +20,16 @@ import { BurialPoint } from '@/helper/burialPoint';
 import { setToken } from '@/helper/user-token';
 import { useRouter } from 'next/router';
 import { errorMessage } from '@/helper/utils';
+import TipsModal from '@/components/v2/Landing/components/TipsModal';
+import useIsPc from '@/hooks/useIsPc';
 interface MetamaskLoginButtonProps {}
 
 const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
   const [isMounted, setIsMounted] = useState(false);
   const dispatch = useDispatch();
   const router = useRouter();
+  const isPc = useIsPc();
+  const [tipsOpen, setTipsOpen] = useState(false);
 
   const { connectAsync, connectors, error, isLoading, pendingConnector, data } =
     useConnect();
@@ -64,10 +68,14 @@ const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
                 })
               );
             } else {
-              dispatch(setUserInfo(omit(res, 'token')));
               BurialPoint.track('signup-Metamask第三方登录code验证成功');
-              setToken(res.token);
-              router.push('/home');
+              if (isPc()) {
+                dispatch(setUserInfo(omit(res, 'token')));
+                setToken(res.token);
+                router.push('/home');
+              } else {
+                setTipsOpen(true);
+              }
             }
           }
         } catch (err) {
@@ -85,22 +93,25 @@ const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
   }, [error]);
 
   return (
-    <Button
-      block
-      loading={metamaskLoading}
-      disabled={metamaskLoading}
-      ghost
-      className="px-0 py-[0px] text-[#fff] relative rounded-[10px] w-[48px] h-[48px] border-[#8C8C8C] bg-[#0B0B0B]"
-      onClick={() => {
-        if (!metamaskConnector?.ready) {
-          message.error('Please connect to your metamask plugin!');
-        } else {
-          loginByMetaMask();
-        }
-      }}
-    >
-      <Image src={Metamask} width={24} height={24} alt="MetaMask"></Image>
-    </Button>
+    <>
+      <Button
+        block
+        loading={metamaskLoading}
+        disabled={metamaskLoading}
+        ghost
+        className="px-0 py-[0px] text-[#fff] relative rounded-[10px] w-[48px] h-[48px] border-[#8C8C8C] bg-[#0B0B0B]"
+        onClick={() => {
+          if (!metamaskConnector?.ready) {
+            message.error('Please connect to your metamask plugin!');
+          } else {
+            loginByMetaMask();
+          }
+        }}
+      >
+        <Image src={Metamask} width={24} height={24} alt="MetaMask"></Image>
+      </Button>
+      <TipsModal open={tipsOpen} onClose={() => setTipsOpen(false)} />
+    </>
   );
 };
 

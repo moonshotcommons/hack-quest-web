@@ -15,6 +15,7 @@ export interface RegisterResponse {
   id: string;
   email: string;
   name: string;
+  nickname: string;
   avatar: string;
   role: string;
   status: string;
@@ -34,6 +35,7 @@ export interface LoginResponse {
   avatar: string;
   role: string;
   status: string;
+  nickname: string;
   // registerType: string;
   inviteCode: string;
   token: string;

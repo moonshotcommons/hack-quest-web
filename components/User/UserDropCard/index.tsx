@@ -1,16 +1,15 @@
 import SettingIcon from '@/components/Common/Icon/Setting';
 import SignOutIcon from '@/components/Common/Icon/SignOut';
+import ThemeIcon from '@/components/Common/Icon/Theme';
+import Switch from '@/components/Common/Switch';
+import { Theme } from '@/constants/enum';
 import { LoginResponse } from '@/service/webApi/user/type';
+import { ThemeContext } from '@/store/context/theme';
 import { setSettingsOpen, userSignOut } from '@/store/redux/modules/user';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { FC, ReactNode, useContext } from 'react';
+import { FC, useContext } from 'react';
 import { useDispatch } from 'react-redux';
-import Avatar from '@/public/images/user/login_avatar.svg';
-import { ThemeContext } from '@/store/context/theme';
-import { Theme } from '@/constants/enum';
-import ThemeIcon from '@/components/Common/Icon/Theme';
-import Switch from '@/components/Common/Switch';
 interface UserDropCardProps {
   // children: ReactNode;
   userInfo: LoginResponse;
@@ -31,7 +30,7 @@ const UserInfo: FC<Omit<UserDropCardProps, 'onClose'>> = ({ userInfo }) => {
       </div>
       {/* </div> */}
       <div className="font-next-poster-Bold text-[1.5rem] font-bold leading-[110%] tracking-[0.03rem] mt-[0.75rem] text-text-default-color">
-        {userInfo?.name}
+        {userInfo?.nickname}
       </div>
       <div className="text-setting-dropcard-text-color text-[1rem] font-next-book leading-[120%] mt-[0.5rem]">
         {userInfo?.email}
