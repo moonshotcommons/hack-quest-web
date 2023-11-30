@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { AppRootState } from '@/store/redux';
 import Badge from '@/components/Common/Badge';
 import { MenuType, NavbarListType } from './type';
+import HeaderRightIcon from '@/public/images/mantle/header_right_icon.svg';
 
 export interface NavBarProps {
   navList: NavbarListType[];
@@ -25,6 +26,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
   const pathname = router.pathname;
   const [secondNavData, setSecondNavData] = useState([]);
   const [curNavId, setCurNavId] = useState('');
+
   const { missionData } = useSelector((state: AppRootState) => {
     return {
       missionData: state.missionCenter?.missionData
@@ -62,7 +64,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
       <div
         className={`h-full  ${isFull ? 'w-full 2xl:px-[40px]' : 'container'}`}
       >
-        <div className="h-full flex items-center justify-between font-next-book">
+        <div className=" h-full  flex items-center justify-between font-next-book">
           <nav className="gap-[4rem] h-full flex items-center text-[#fff]">
             {/* <Image src={DarkLogoActive} alt="logo"></Image> */}
             <h1 className="font-bold text-[24px] tracking-wider">
@@ -88,6 +90,9 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
             </div>
           </nav>
           {children}
+        </div>
+        <div className="hidden h-full wap:flex justify-end items-center ">
+          <Image src={HeaderRightIcon} width={32} alt="icon"></Image>
         </div>
       </div>
       {showSecondNav && (
