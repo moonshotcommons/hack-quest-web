@@ -39,7 +39,7 @@ module.exports = {
         'MiSans-Semibold': ['MiSans-Semibold']
       },
       screens: {
-        xs: '480px',
+        xs: '500px',
 
         // md: '640px',
         // => @media (min-width: 640px) { ... }
@@ -55,7 +55,7 @@ module.exports = {
         '2xl': '1352px',
         // => @media (min-width: 1352px) { ... }
         wap: {
-          raw: '(max-width: 770px)'
+          raw: '(max-width: 1024px)'
         }
       },
       colors: {
@@ -69,7 +69,7 @@ module.exports = {
       },
       container: {
         screens: {
-          xs: '480px',
+          xs: '500px',
           // md: '640px',
           lg: '768px',
           xl: '1024px',
