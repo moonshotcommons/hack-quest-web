@@ -16,11 +16,13 @@ import { LearningTrackCourseType } from '@/service/webApi/course/type';
 import { ThemeContext } from '@/store/context/theme';
 import { message } from 'antd';
 import Image from 'next/image';
-import { FC, useContext, useMemo } from 'react';
+import { FC, useContext, useMemo, useState } from 'react';
 import { AiOutlineRight } from 'react-icons/ai';
 import DeveloperCard from './DeveloperCard';
 import Button from '../../Common/Button';
 import LearningTrackWrapCard from '../components/LearningTrackWrapCard';
+import useIsPc from '@/hooks/useIsPc';
+import TipsModal from '../components/TipsModal';
 
 interface HackQuestInfoProps {
   // children: ReactNode;
@@ -37,15 +39,21 @@ const goToLogin = () => {
 };
 const GotoPageButton: React.FC<GotoPageButtonProps> = (props) => {
   const { isBlack, direction } = props;
+  const isPc = useIsPc();
+  const [tipsOpen, setTipsOpen] = useState(false);
   return (
     <>
       <Button
         type="primary"
         onClick={() => {
-          goToLogin();
           BurialPoint.track(
             `landing-${direction} Explore Learning Tracks按钮点击`
           );
+          if (!isPc()) {
+            setTipsOpen(true);
+            return;
+          }
+          goToLogin();
         }}
       >
         Explore Mantle Learning Tracks
@@ -55,14 +63,19 @@ const GotoPageButton: React.FC<GotoPageButtonProps> = (props) => {
         iconPosition="right"
         className={`text-white text-[18px] pt-[20px]`}
         onClick={() => {
-          goToLogin();
           BurialPoint.track(
             `landing-${direction} Explore Selective Courses按钮点击`
           );
+          if (!isPc()) {
+            setTipsOpen(true);
+            return;
+          }
+          goToLogin();
         }}
       >
         Explore Electives
       </Button>
+      <TipsModal open={tipsOpen} onClose={() => setTipsOpen(false)} />
     </>
   );
 };
@@ -70,7 +83,8 @@ const GotoPageButton: React.FC<GotoPageButtonProps> = (props) => {
 export const TopInfo: FC = () => {
   const userInfo = useGetUserInfo();
   const { learningTracks } = useGetLearningTracks();
-
+  const isPc = useIsPc();
+  const [tipsOpen, setTipsOpen] = useState(false);
   return (
     <div className="bg-black w-full wap:mt-[80px]">
       <div className="container mx-auto  wap:w-full wap:px-[20px]">
@@ -100,13 +114,18 @@ export const TopInfo: FC = () => {
         <div
           className="hidden wap:block"
           onClick={() => {
-            goToLogin();
             BurialPoint.track('landing-learning track卡片点击');
+            if (!isPc()) {
+              setTipsOpen(true);
+              return;
+            }
+            goToLogin();
           }}
         >
           <LearningTrackWrapCard learningTrack={learningTracks[0] || {}} />
         </div>
       </div>
+      <TipsModal open={tipsOpen} onClose={() => setTipsOpen(false)} />
     </div>
   );
 };
