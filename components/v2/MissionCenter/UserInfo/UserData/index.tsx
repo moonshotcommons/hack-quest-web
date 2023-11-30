@@ -1,15 +1,14 @@
-import React from 'react';
-import { UserInfoType } from '..';
-import Image from 'next/image';
+import BrokenLine from '@/public/images/mission-center/broken_line.png';
 import IconCoin from '@/public/images/mission-center/icon_coin.png';
 import IconXp from '@/public/images/mission-center/icon_xp.png';
-import BrokenLine from '@/public/images/mission-center/broken_line.png';
-import Ring from './Ring';
-import { LoginResponse } from '@/service/webApi/user/type';
 import {
   UserCoinType,
   UserLevelType
 } from '@/service/webApi/missionCenter/type';
+import { LoginResponse } from '@/service/webApi/user/type';
+import Image from 'next/image';
+import React from 'react';
+import Ring from './Ring';
 
 export interface UserDataType {
   userInfo: LoginResponse | null;
@@ -54,7 +53,7 @@ const UserData: React.FC<UserDataType> = ({
 
       <div className="flex-col-center mt-[20px] mb-[40px]">
         <p className="leading-[22.5px]">
-          <span className="text-[18px] ">{userInfo?.name}</span>
+          <span className="text-[18px] ">{userInfo?.nickname}</span>
           <span className="ml-[15px] text-[16px] font-[250] font-next-book-Thin">
             Lv. {userLevel?.level ?? 0}
           </span>

@@ -13,7 +13,7 @@ function LearningCourses() {
       <div className="flex justify-between">
         <PageDescription
           title={`${
-            userInfo?.name ? `Welcome,${userInfo?.name}!` : 'Welcome!'
+            userInfo?.nickname ? `Welcome,${userInfo?.nickname}!` : 'Welcome!'
           }`}
           className="pb-20"
           description={
