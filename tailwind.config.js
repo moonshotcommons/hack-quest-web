@@ -41,10 +41,9 @@ module.exports = {
       screens: {
         xs: '480px',
 
-        sm: '640px',
+        // md: '640px',
         // => @media (min-width: 640px) { ... }
-
-        md: '768px',
+        // md: '768px',
         // => @media (min-width: 768px) { ... }
 
         lg: '1024px',
@@ -53,8 +52,11 @@ module.exports = {
         xl: '1280px',
         // => @media (min-width: 1280px) { ... }
 
-        '2xl': '1352px'
+        '2xl': '1352px',
         // => @media (min-width: 1352px) { ... }
+        wap: {
+          raw: '(max-width: 770px)'
+        }
       },
       colors: {
         ...themeColors
@@ -67,8 +69,8 @@ module.exports = {
       },
       container: {
         screens: {
-          sm: '480px',
-          md: '640px',
+          xs: '480px',
+          // md: '640px',
           lg: '768px',
           xl: '1024px',
           '2xl': '1280px'
