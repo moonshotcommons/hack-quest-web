@@ -1,17 +1,13 @@
 import EmailFillIcon from '@/components/Common/Icon/EmailFill';
-import LockIcon from '@/components/Common/Icon/Lock';
-import UserIcon from '@/components/Common/Icon/User';
 import UserFillIcon from '@/components/Common/Icon/UserFill';
 import Modal from '@/components/Common/Modal';
+import { useGetUserInfo } from '@/hooks/useGetUserInfo';
 import { AppRootState } from '@/store/redux';
 import { setSettingsOpen } from '@/store/redux/modules/user';
-import { Upload } from 'antd';
-import Image from 'next/image';
-import { FC, ReactNode, useState } from 'react';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import ChangePassword from './ChangePassword';
+import { FC } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import AvatarUpload from './AvatarUpload';
-import { useGetUserInfo } from '@/hooks/useGetUserInfo';
+import ChangePassword from './ChangePassword';
 
 interface SettingsProps {
   // children: ReactNode;
@@ -52,7 +48,7 @@ const Settings: FC<SettingsProps> = (props) => {
                   <input
                     type="text"
                     disabled
-                    defaultValue={userInfo?.name}
+                    defaultValue={userInfo?.nickname}
                     className="bg-transparent h-full text-setting-input-text-color text-[1rem] font-next-book leading-[120%] outline-none w-full disabled:cursor-not-allowed"
                   />
                 </div>

@@ -50,7 +50,7 @@ const UserProfile: FC<UserProfileProps> = (props) => {
           </div>
         )}
         <div className="font-next-poster-Bold text-[28px] tracking-[1.68px] text-[#0B0B0B] leading-normal">
-          {userInfo?.name}
+          {userInfo?.nickname}
         </div>
         <div className="mt-[10px] text-[18px] leading-[120%] text-[#8C8C8C] whitespace-pre-line">
           {userInfo?.email}&nbsp;

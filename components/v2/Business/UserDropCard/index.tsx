@@ -1,7 +1,8 @@
+import ProfileIcon from '@/components/Common/Icon/Profile';
 import SettingIcon from '@/components/Common/Icon/Setting';
 import SignOutIcon from '@/components/Common/Icon/SignOut';
-import ProfileIcon from '@/components/Common/Icon/Profile';
 import { BurialPoint } from '@/helper/burialPoint';
+import ArrowUp from '@/public/images/user/arrow_up.png';
 import { LoginResponse } from '@/service/webApi/user/type';
 import {
   UnLoginType,
@@ -10,12 +11,10 @@ import {
   userSignOut
 } from '@/store/redux/modules/user';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
-import { AiFillCaretUp } from 'react-icons/ai';
 import { useDispatch } from 'react-redux';
-import ArrowUp from '@/public/images/user/arrow_up.png';
-import Link from 'next/link';
 interface UserDropCardProps {
   // children: ReactNode;
   userInfo: LoginResponse;
@@ -36,7 +35,7 @@ const UserInfo: FC<Omit<UserDropCardProps, 'onClose'>> = ({ userInfo }) => {
       </div>
       {/* </div> */}
       <div className="font-next-poster-Bold text-[1.5rem] leading-[110%] tracking-[0.03rem] mt-[0.75rem] text-setting-drop-user-name-color">
-        {userInfo?.name}
+        {userInfo?.nickname}
       </div>
       <div className="text-setting-drop-user-color text-[1rem] font-next-book leading-[120%] mt-[0.5rem]">
         {userInfo?.email}
