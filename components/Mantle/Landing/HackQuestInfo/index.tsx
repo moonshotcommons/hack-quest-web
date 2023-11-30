@@ -260,7 +260,7 @@ export const BottomInfo: FC = () => {
             'linear-gradient(13deg, rgba(24, 49, 48, 0.75) 9.57%, #000 42.83%, #000403 67.77%, #020F0E 92.38%)'
         }}
       >
-        <h1 className="text-[#F5F5F5] w-[43.5rem] wap:w-full mx-auto text-center font-bold text-[2.5rem] wap:text-[32px] pb-[4.25rem]">
+        <h1 className="text-[#F5F5F5] w-[43.5rem] wap:w-full wap:px-[20px] mx-auto text-center font-bold text-[2.5rem] wap:text-[32px] pb-[4.25rem]">
           Still not sure? Create your own token in 10 minutes and decide.
         </h1>
         <div className="flex-col-center">
