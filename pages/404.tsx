@@ -11,6 +11,7 @@ interface NotFoundPageProps {
 const NotFoundPage: NextPage<NotFoundPageProps> = (props) => {
   const router = useRouter();
   const [seconds, setSeconds] = useState(3);
+
   const dispatch = useDispatch();
   useEffect(() => {
     let time = setTimeout(() => {
