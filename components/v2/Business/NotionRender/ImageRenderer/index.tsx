@@ -1,4 +1,4 @@
-import { NotionComponent } from '@/components/v2/Business/ComponentRenderer/type';
+import { NotionComponent } from '@/components/v2/Business/Renderer/ComponentRenderer/type';
 import { Image } from 'antd';
 import { FC } from 'react';
 

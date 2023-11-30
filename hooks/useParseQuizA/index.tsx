@@ -1,7 +1,7 @@
 import {
   CodeLineType,
   LineType
-} from '@/components/v2/Business/ComponentRenderer/type';
+} from '@/components/v2/Business/Renderer/ComponentRenderer/type';
 import { reservedWords } from '@/constants/solidity';
 import { changeTextareaHeight } from '@/helper/utils';
 import { ReactNode, useEffect, useMemo, useState } from 'react';

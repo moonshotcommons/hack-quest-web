@@ -1,4 +1,4 @@
-import DropAnswer from '@/components/v2/Business/ComponentRenderer/QuizRenderer/QuizBRenderer/DropAnswer';
+import DropAnswer from '@/components/v2/Business/Renderer/ComponentRenderer/QuizRenderer/QuizBRenderer/DropAnswer';
 import { cn } from '@/helper/utils';
 import { FC } from 'react';
 import MathJax from 'react-mathjax';

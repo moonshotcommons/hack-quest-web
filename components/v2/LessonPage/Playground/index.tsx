@@ -1,9 +1,9 @@
 'use client';
-import ComponentRenderer from '@/components/v2/Business/ComponentRenderer';
+import ComponentRenderer from '@/components/v2/Business/Renderer/ComponentRenderer';
 import {
   CustomComponent,
   NotionComponent
-} from '@/components/v2/Business/ComponentRenderer/type';
+} from '@/components/v2/Business/Renderer/ComponentRenderer/type';
 import { FC, useEffect, useMemo, useState } from 'react';
 import { LessonType, PlaygroundContext } from './type';
 

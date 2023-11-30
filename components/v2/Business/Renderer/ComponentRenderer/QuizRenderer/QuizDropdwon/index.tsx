@@ -1,4 +1,4 @@
-import { QuizType } from '@/components/v2/Business/ComponentRenderer/type';
+import { QuizType } from '@/components/v2/Business/Renderer/ComponentRenderer/type';
 import { cn } from '@/helper/utils';
 import { FC } from 'react';
 import { BsCheckCircleFill } from 'react-icons/bs';

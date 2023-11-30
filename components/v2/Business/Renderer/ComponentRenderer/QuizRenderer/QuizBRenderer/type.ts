@@ -1,4 +1,4 @@
-import { QuizBType } from '@/components/v2/Business/ComponentRenderer/type';
+import { QuizBType } from '@/components/v2/Business/Renderer/ComponentRenderer/type';
 import { Dispatch, SetStateAction, createContext } from 'react';
 
 export type QuizOptionType = QuizBType['options'][number] & {

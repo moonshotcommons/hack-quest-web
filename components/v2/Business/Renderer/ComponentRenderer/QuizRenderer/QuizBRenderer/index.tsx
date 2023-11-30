@@ -4,7 +4,7 @@ import {
   NotionComponent,
   NotionType,
   QuizBType
-} from '@/components/v2/Business/ComponentRenderer/type';
+} from '@/components/v2/Business/Renderer/ComponentRenderer/type';
 import { BurialPoint } from '@/helper/burialPoint';
 import webApi from '@/service';
 import { FC, useContext, useEffect, useMemo, useRef, useState } from 'react';

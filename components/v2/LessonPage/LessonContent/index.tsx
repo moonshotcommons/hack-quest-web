@@ -1,11 +1,11 @@
 'use client';
 import Breadcrumb from '@/components/v2/Business/Breadcrumb';
-import ComponentRenderer from '@/components/v2/Business/ComponentRenderer';
+import ComponentRenderer from '@/components/v2/Business/Renderer/ComponentRenderer';
 import {
   CustomComponent,
   LessonContent,
   NotionComponent
-} from '@/components/v2/Business/ComponentRenderer/type';
+} from '@/components/v2/Business/Renderer/ComponentRenderer/type';
 import Button from '@/components/v2/Common/Button';
 import { ExpandDataType, useLessonExpand } from '@/hooks/useLessonExpand';
 import { CourseLessonType, CourseType } from '@/service/webApi/course/type';

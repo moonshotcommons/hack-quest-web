@@ -16,7 +16,7 @@ import { FiChevronDown } from 'react-icons/fi';
 import { MdArrowDropDown } from 'react-icons/md';
 import ComponentRenderer from '..';
 
-import { QuizType } from '@/components/v2/Business/ComponentRenderer/type';
+import { QuizType } from '@/components/v2/Business/Renderer/ComponentRenderer/type';
 import { PlaygroundContext } from '@/components/v2/LessonPage/Playground/type';
 import QuizDropdown from './QuizDropdwon';
 import QuizPassModal from './QuizPassModal';

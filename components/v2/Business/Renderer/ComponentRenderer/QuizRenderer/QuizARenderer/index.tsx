@@ -2,7 +2,7 @@ import {
   CustomType,
   NotionType,
   QuizAType
-} from '@/components/v2/Business/ComponentRenderer/type';
+} from '@/components/v2/Business/Renderer/ComponentRenderer/type';
 import { PlaygroundContext } from '@/components/v2/LessonPage/Playground/type';
 import { BurialPoint } from '@/helper/burialPoint';
 import {

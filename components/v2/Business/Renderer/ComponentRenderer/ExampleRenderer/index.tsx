@@ -1,5 +1,5 @@
 import Button from '@/components/Common/Button';
-import { ExampleComponent } from '@/components/v2/Business/ComponentRenderer/type';
+import { ExampleComponent } from '@/components/v2/Business/Renderer/ComponentRenderer/type';
 import { cn } from '@/helper/utils';
 import LzString from 'lz-string';
 import Link from 'next/link';

@@ -1,11 +1,11 @@
 import { FC } from 'react';
 import TextRenderer from '../TextRenderer';
 
-import ComponentRenderer from '@/components/v2/Business/ComponentRenderer';
+import ComponentRenderer from '@/components/v2/Business/Renderer/ComponentRenderer';
 import {
   CustomComponent,
   NotionComponent
-} from '@/components/v2/Business/ComponentRenderer/type';
+} from '@/components/v2/Business/Renderer/ComponentRenderer/type';
 
 interface QuoteRendererProps {
   component: NotionComponent;
