@@ -1,15 +1,9 @@
 import Button from '@/components/v2/Common/Button';
-import CheckIcon from '@/components/Common/Icon/Check';
-import { BurialPoint } from '@/helper/burialPoint';
-import { computeProgress, tagFormate } from '@/helper/formate';
 import { cn } from '@/helper/utils';
-import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
 import { CourseResponse, CourseType } from '@/service/webApi/course/type';
-import { Progress, Typography } from 'antd';
+import { Typography } from 'antd';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 import { FC } from 'react';
-import { styled } from 'styled-components';
 import CourseTags from '@/components/v2/Business/CourseTags';
 import LEARNING_TRACK_DARK from '@/public/images/v2/course/course_cover/LEARNING_TRACK_light.png';
 
@@ -20,23 +14,6 @@ interface LearningTrackWrapCardProps {
   inCompleted?: boolean;
   baseProgress?: boolean;
 }
-
-const CustomProgress = styled(Progress)`
-  .ant-progress-inner {
-    .ant-progress-text {
-      color: #3e3e3e;
-      font-size: 12px;
-    }
-  }
-`;
-
-const borderColor: Record<string, string> = {
-  [CourseType.GUIDED_PROJECT]: 'border-[#DBCDF6]',
-  [CourseType.CONCEPT]: 'border-[#DBCDF6]',
-  [CourseType.SYNTAX]: 'border-[#E5F3FF]',
-  [CourseType.TEASER]: 'border-[#E5F3FF]',
-  [CourseType.Mini]: 'border-[#E5F3FF]'
-};
 
 const LearningTrackWrapCard: FC<LearningTrackWrapCardProps> = (props) => {
   const { learningTrack } = props;
