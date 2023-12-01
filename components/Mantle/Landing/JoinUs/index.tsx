@@ -153,15 +153,15 @@ const MediaList = [
 const JoinUs: FC<JoinUsProps> = (props) => {
   return (
     <div className="w-full">
-      <p className="text-white text-[54px] font-bold text-center">
+      <p className="text-white text-[54px] wap:text-[32px] font-bold text-center">
         Join the Community
       </p>
-      <ul className=" gap-[30px] mt-[60px] flex justify-between">
+      <ul className=" gap-[30px] mt-[60px] wap:mt-[30px] flex justify-between wap:flex-col wap:gap-[24px] wap:w-full wap:px-[20px]">
         {MediaList.map((item, index) => {
           return (
             <li
               key={index}
-              className="flex-1 h-[220px] rounded-[15px] border border-[#171717] flex justify-center relative pt-[90px]"
+              className="lg:flex-1 h-[220px] wap:h-[200px] rounded-[15px] border border-[#171717] flex justify-center relative pt-[90px]"
               style={{
                 background:
                   'linear-gradient(261deg, #0B242B 1.16%, #0A0B0B 49.12%, #0B181C 98.08%)'
