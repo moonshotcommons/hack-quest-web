@@ -96,7 +96,7 @@ const HomeBanner: FC<HomeBannerProps> = (props) => {
       <div className="container  wap:hidden  flex justify-between w-full">
         <div className="flex flex-col h-full relative">
           <h1 className="text-white  text-[54px] tracking-[2.4px] font-bold leading-[130%]">
-            Mantle University
+            Mantle Learn
           </h1>
           <div className="flex items-center">
             <p className="text-white pr-[12px] text-[21px] leading-[130%]">
@@ -174,8 +174,8 @@ const HomeBanner: FC<HomeBannerProps> = (props) => {
       </div>
       <div className="hidden wap:flex flex-col justify-between"></div>
       {loginVisible && (
-        <div className="fixed z-[999] w-[100vw] h-[100vh] left-0 top-0 bg-[#000] text-[#fff]">
-          <div className="fixed right-[24px] top-[40px] flex justify-end">
+        <div className="absolute z-[999] w-[100vw] h-[100%] left-0 top-0 bg-[#000] text-[#fff]">
+          <div className="absolute right-[24px] top-[40px] flex justify-end">
             <FiX size={26} onClick={() => setLoginVisible(false)} />
           </div>
           <div className="w-full h-full p-[20px] flex flex-col justify-center">

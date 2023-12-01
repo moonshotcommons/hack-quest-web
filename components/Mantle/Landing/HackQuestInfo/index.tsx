@@ -89,7 +89,7 @@ export const TopInfo: FC = () => {
     <div className="bg-black w-full wap:mt-[80px]">
       <div className="container mx-auto  wap:w-full wap:px-[20px]">
         <h1 className="text-center pb-[40px] text-[54px] wap:text-[28px] font-bold text-white">
-          Become a <br /> Solidity Developer
+          Become a Solidity Developer
         </h1>
         <div className="flex justify-center">
           <p className="w-[638px] mb-[30px] wap:text-[12px] text-white leading-[160%]">
@@ -134,7 +134,7 @@ export const MantelDeveloperJourney: FC = () => {
   return (
     <div className="text-white text-center">
       <h2 className="text-[54px] wap:text-[28px] font-bold">
-        Mantle Developer Journey
+        Mantle Developer Quest
       </h2>
       <p className="leading-[160%] mt-[40px] wap:text-[12px]">
         Developers reach 500 developer miles can claim Mantle learning
