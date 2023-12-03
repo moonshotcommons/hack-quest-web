@@ -32,11 +32,10 @@ async function getAllHackathons() {
     .replace(
       '</urlset>',
       hackathons
-        .map((hackthon) => {
-          const { language, filename } = post;
-          const url = `https://qe-editor.arealme.com/${language}/${filename}`;
+        .map((hackathon) => {
+          const { language, filename } = hackathon;
           return `<url>
-  <loc>https://www.hackquest.io/resource-station/hackathon/projects/${hackthon.id}?projectId=${hackthon.id}&menu=projects${url}</loc>
+  <loc>https://www.hackquest.io/resource-station/hackathon/projects/${hackathon.id}?projectId=${hackathon.id}&amp;menu=projects</loc>
   <lastmod>${hackathon.updatedAt}</lastmod>
   <priority>0.8</priority>
   <changefreq>weekly</changefreq>
