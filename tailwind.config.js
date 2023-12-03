@@ -47,7 +47,7 @@ module.exports = {
         // md: '768px',
         // => @media (min-width: 768px) { ... }
 
-        lg: '430px',
+        lg: '431px',
         // => @media (min-width: 1024px) { ... }
 
         xl: '1280px',
@@ -56,7 +56,7 @@ module.exports = {
         '2xl': '1352px',
         // => @media (min-width: 1352px) { ... }
         wap: {
-          raw: '(max-width: 430px)'
+          raw: '(max-width: 431px)'
         }
       },
       colors: {
