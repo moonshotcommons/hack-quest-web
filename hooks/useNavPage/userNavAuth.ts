@@ -25,7 +25,9 @@ function useNavAuth(waitingUserData: boolean) {
       if (redirect_url && token) {
         router.push(`${redirect_url}?token=${token}`);
       } else {
-        router.push(V2_HOME_PATH);
+        router.push(
+          '/learning-track/6d108f0d-dfb2-4dad-8f38-93b45573bc43?learningTrackId=6d108f0d-dfb2-4dad-8f38-93b45573bc43&menu=learningTrack'
+        );
       }
       return;
     }

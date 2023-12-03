@@ -51,6 +51,9 @@ const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
 
   const learningStatus = useMemo(() => {
     if (learningTrackDetail) {
+      if (learningTrackDetail.id === '6d108f0d-dfb2-4dad-8f38-93b45573bc43') {
+        enroll();
+      }
       let progress = learningTrackDetail.progress || 0;
       if (!learningTrackDetail.enrolled) return LearningStatus.UN_START;
       if (progress >= 1) return LearningStatus.COMPLETED;

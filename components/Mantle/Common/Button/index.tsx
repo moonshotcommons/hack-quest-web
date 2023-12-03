@@ -78,7 +78,6 @@ const Button: FC<ButtonProps> = (props) => {
       ]);
     }
   }, [buttonRef]);
-
   return (
     <button
       ref={buttonRef}
@@ -86,14 +85,19 @@ const Button: FC<ButtonProps> = (props) => {
         `text-text-default-color flex gap-[.625rem] items-center justify-center h-fit w-fit cursor-pointer relative`,
         type === 'primary' ? 'bg-[#CCE9E7]' : '',
         block && 'w-full',
-        ghost && 'bg-transparent border-primary-color',
+        ghost && 'bg-transparent border border-primary-color',
         mergeSize(),
         mergeRounded(),
         className,
-        loading ? 'opacity-70 cursor-not-allowed' : '',
-        loading && type === 'primary'
+        loading
+          ? 'opacity-70 cursor-not-allowed'
+          : loading && type === 'primary'
           ? 'bg-[#E2F9F7 ] opacity-100 hover:bg-[#E2F9F7 ]'
           : '',
+        // loading ? 'opacity-70 cursor-not-allowed' : '',
+        // loading && type === 'primary'
+        //   ? 'bg-[#E2F9F7 ] opacity-100 hover:bg-[#E2F9F7 ]'
+        //   : '',
         rest.disabled ? 'cursor-pointer' : ''
       )}
       {...rest}

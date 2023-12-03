@@ -19,6 +19,8 @@ import { message } from 'antd';
 import { omit } from 'lodash-es';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
+import useIsPc from '@/hooks/useIsPc';
+import TipsModal from '../../Landing/components/TipsModal';
 
 interface UserLoginProps {
   // children: ReactNode;
@@ -30,7 +32,8 @@ const UserLogin: FC<UserLoginProps> = (props) => {
   const { email, onBack } = props;
 
   const dispatch = useDispatch();
-
+  const isPc = useIsPc();
+  const [tipsOpen, setTipsOpen] = useState(false);
   const [formData, setFormData] = useState<LoginParamsType>({
     email: email,
     password: '',
@@ -65,17 +68,21 @@ const UserLogin: FC<UserLoginProps> = (props) => {
             for (let key in status) {
               status[key] = { status: 'success', errorMessage: '' };
             }
-            dispatch(setUserInfo(omit(res, 'token')));
-            setToken(res.token);
             BurialPoint.track('login-登录成功');
-            if (redirect_url) {
-              BurialPoint.track('login-redirect跳转');
-            }
-            const toPageUrl = redirect_url
-              ? `${redirect_url}?token=${res.token}`
-              : '/home';
-            router.push(toPageUrl);
             setLoading(false);
+            if (isPc()) {
+              dispatch(setUserInfo(omit(res, 'token')));
+              setToken(res.token);
+              if (redirect_url) {
+                BurialPoint.track('login-redirect跳转');
+              }
+              const toPageUrl = redirect_url
+                ? `${redirect_url}?token=${res.token}`
+                : '/learning-track/6d108f0d-dfb2-4dad-8f38-93b45573bc43?learningTrackId=6d108f0d-dfb2-4dad-8f38-93b45573bc43&menu=learningTrack';
+              router.push(toPageUrl);
+            } else {
+              setTipsOpen(true);
+            }
           } catch (e: any) {
             if (e.code === 400) {
               BurialPoint.track('login-登录失败', { message: e?.msg });
@@ -230,6 +237,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
           Back
         </Button>
       </div>
+      <TipsModal open={tipsOpen} onClose={() => setTipsOpen(false)} />
     </div>
   );
 };

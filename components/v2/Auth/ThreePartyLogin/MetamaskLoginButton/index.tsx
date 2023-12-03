@@ -80,6 +80,10 @@ const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
     { manual: true }
   );
 
+  useEffect(() => {
+    error?.message && message.error(error?.message);
+  }, [error]);
+
   return (
     <Button
       block
