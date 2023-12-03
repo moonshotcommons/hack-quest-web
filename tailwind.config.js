@@ -39,7 +39,7 @@ module.exports = {
         'MiSans-Semibold': ['MiSans-Semibold']
       },
       screens: {
-        xs: '500px',
+        xs: '375px',
 
         // sm: '640px',
         // // => @media (min-width: 640px) { ... }
@@ -47,7 +47,7 @@ module.exports = {
         // md: '768px',
         // => @media (min-width: 768px) { ... }
 
-        lg: '1024px',
+        lg: '430',
         // => @media (min-width: 1024px) { ... }
 
         xl: '1280px',
@@ -56,7 +56,7 @@ module.exports = {
         '2xl': '1352px',
         // => @media (min-width: 1352px) { ... }
         wap: {
-          raw: '(max-width: 1024px)'
+          raw: '(max-width: 430px)'
         }
       },
       colors: {
@@ -70,7 +70,7 @@ module.exports = {
       },
       container: {
         screens: {
-          xs: '500px',
+          xs: '375px',
           // md: '640px',
           lg: '768px',
           xl: '1024px',

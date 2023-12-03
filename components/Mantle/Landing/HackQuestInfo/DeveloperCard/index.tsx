@@ -26,13 +26,13 @@ const DeveloperCard: FC<DeveloperCardProps> = (props) => {
         </p>
       </div>
       <div className="mt-[15px] wap:w-full wap:mt-[20px] wap:text-[10px] flex wap:flex-col gap-[10px] p-[10px] bg-[#1C363C] rounded-[10px] items-center wap:items-start w-fit">
-        <Image src={MantleIcon} alt="mantle" className="wap:hidden"></Image>
-        <Image
+        {/* <Image src={MantleIcon} alt="mantle" className="wap:hidden"></Image> */}
+        {/* <Image
           src={MantleIcon}
           width={16}
           alt="mantle"
           className="hidden wap:block"
-        ></Image>
+        ></Image> */}
         <span>{props.description}</span>
       </div>
     </div>
