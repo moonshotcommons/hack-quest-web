@@ -78,7 +78,6 @@ const Button: FC<ButtonProps> = (props) => {
       ]);
     }
   }, [buttonRef]);
-
   return (
     <button
       ref={buttonRef}
@@ -90,10 +89,15 @@ const Button: FC<ButtonProps> = (props) => {
         mergeSize(),
         mergeRounded(),
         className,
-        loading ? 'opacity-70 cursor-not-allowed' : '',
-        loading && type === 'primary'
+        loading
+          ? 'opacity-70 cursor-not-allowed'
+          : loading && type === 'primary'
           ? 'bg-[#E2F9F7 ] opacity-100 hover:bg-[#E2F9F7 ]'
           : '',
+        // loading ? 'opacity-70 cursor-not-allowed' : '',
+        // loading && type === 'primary'
+        //   ? 'bg-[#E2F9F7 ] opacity-100 hover:bg-[#E2F9F7 ]'
+        //   : '',
         rest.disabled ? 'cursor-pointer' : ''
       )}
       {...rest}

@@ -5,8 +5,9 @@ import { BurialPoint } from '@/helper/burialPoint';
 import { useGetUserInfo } from '@/hooks/useGetUserInfo';
 import { useGetLearningTracks } from '@/hooks/useLearningTrackHooks/useLearningTracks';
 import TeaserInfo from '@/public/images/home/teaser_info.png';
-import MilestoneProgress from '@/public/images/mantle/milestone_progress.svg';
+import MilestoneProgress from '@/public/images/mantle/milestone_progress.png';
 import MilestoneProgressWap from '@/public/images/mantle/milestone_progress_wap.png';
+import MilestoneProgressIcon from '@/public/images/mantle/quest_icon.png';
 import HackquestoInfo1 from '@/public/images/mantle/hackquest_info1.png';
 import HackquestoInfo2 from '@/public/images/mantle/hackquest_info2.png';
 import HackquestoInfo3 from '@/public/images/mantle/hackquest_info3.png';
@@ -137,45 +138,52 @@ export const MantelDeveloperJourney: FC = () => {
         Mantle Developer Quest
       </h2>
       <p className="leading-[160%] mt-[40px] wap:text-[12px]">
-        Developers reach 500 developer miles can claim Mantle learning
-        certificate and participate in lucky draw.
+        Developers reach 200 points can claim Mantle learning certificate.
       </p>
+      <div className="relative">
+        <Image
+          src={MilestoneProgressIcon}
+          alt="Mantle Developer Icon"
+          className="absolute bottom-0 left-[0.5%] w-[2.1%] wap:w-[3%] wap:bottom-[7%] wap:left-[2%]"
+        ></Image>
 
-      <Image
-        src={MilestoneProgress}
-        alt="Mantle Developer Journey"
-        className="mt-[30px] wap:hidden"
-      ></Image>
-      <Image
-        src={MilestoneProgressWap}
-        alt="Mantle Developer Journey"
-        className="mt-[30px] hidden wap:block"
-      ></Image>
+        <Image
+          src={MilestoneProgress}
+          alt="Mantle Developer Journey"
+          className="mt-[30px] wap:hidden"
+        ></Image>
+        <Image
+          src={MilestoneProgressWap}
+          alt="Mantle Developer Journey"
+          className="mt-[30px] hidden wap:block"
+        ></Image>
+      </div>
+
       <div className="mt-[60px] flex flex-wrap gap-x-[40px] gap-y-[37px] wap:gap-x-[12px] wap:gap-y-[24px]">
         <DeveloperCard
           title="Join Mantle Developer Community"
-          description="50 Mantle developer miles"
+          description="50 Mantle developer points"
         ></DeveloperCard>
         <DeveloperCard
           title="Fill in Mantle Developer Form"
-          description="30 Mantle developer miles "
+          description="30 Mantle developer points "
         ></DeveloperCard>
         <DeveloperCard
           title="Learn Solidity Syntax"
-          description="100 Mantle developer miles"
+          description="100 Mantle developer points"
         ></DeveloperCard>
         <DeveloperCard
           title="Learn Guided Project"
-          description="100 Mantle developer miles"
+          description="100 Mantle developer points"
         ></DeveloperCard>
         <DeveloperCard
           title="Learn How to Deploy a Project on Mantle Testnet"
           className="px-[53px]"
-          description="100 Mantle developer miles"
+          description="100 Mantle developer points"
         ></DeveloperCard>
         <DeveloperCard
           title="Create Mantle Developer profile"
-          description="50 Mantle developer miles"
+          description="50 Mantle developer points"
         ></DeveloperCard>
       </div>
     </div>
