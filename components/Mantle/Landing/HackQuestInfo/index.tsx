@@ -261,7 +261,7 @@ export const CenterInfo: FC = () => {
                   {info.image}
                 </div>
                 <div className="px-[35px]  wap:py-[24px] text-white">
-                  <p className="leading-[125%] wap:w-full tracking-[0.68px] font-medium text-[34px] wap:text-[24px] mt-[30px] wap:mt-0 lg:whitespace-nowrap wap:break-all">
+                  <p className="leading-[125%] wap:w-full tracking-[0.68px] font-medium text-[34px] wap:text-[24px] mt-[30px] wap:mt-0 lg:whitespace-nowrap wap:break-words">
                     {info.title}
                   </p>
                   <p className="leading-[160%] wap:text-[12px] tracking-[0.36px] text-[18px] mt-[22px]">

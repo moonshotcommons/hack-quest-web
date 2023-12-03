@@ -8,6 +8,7 @@ interface JoinUsProps {}
 const MediaList = [
   {
     name: 'X',
+    url: 'https://twitter.com/0xMantle',
     icon: (
       <svg
         width="60"
@@ -25,6 +26,7 @@ const MediaList = [
   },
   {
     name: 'Telegram',
+    url: 'https://t.me/mantlenetwork',
     icon: (
       <svg
         width="60"
@@ -56,6 +58,7 @@ const MediaList = [
   },
   {
     name: 'Discord',
+    url: 'https://discord.com/invite/0xMantle',
     icon: (
       <svg
         width="60"
@@ -73,6 +76,7 @@ const MediaList = [
   },
   {
     name: 'Careers',
+    url: 'https://www.mantle.xyz/jobs',
     icon: (
       <svg
         width="60"
@@ -161,11 +165,12 @@ const JoinUs: FC<JoinUsProps> = (props) => {
           return (
             <li
               key={index}
-              className="lg:flex-1 h-[220px] wap:h-[200px] rounded-[15px] border border-[#171717] flex justify-center relative pt-[90px]"
+              className="lg:flex-1 h-[220px] wap:h-[200px] rounded-[15px] border border-[#171717] flex justify-center relative pt-[90px] cursor-pointer"
               style={{
                 background:
                   'linear-gradient(261deg, #0B242B 1.16%, #0A0B0B 49.12%, #0B181C 98.08%)'
               }}
+              onClick={() => window.open(item.url)}
             >
               {item.icon}
               <div className="absolute top-[24px] left-[24px] w-[120px] h-[38px] bg-[#1C343B] flex justify-center items-center rounded-[10px] text-[#579C9A] leading-[110%]">
