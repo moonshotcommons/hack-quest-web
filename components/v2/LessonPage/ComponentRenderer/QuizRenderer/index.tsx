@@ -173,12 +173,12 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
       {start && (
         <div
           className={cn(
-            `rounded-[.625rem] pb-[20px] bg-[#E6E6E6] flex w-full min-h-fit flex-1 flex-col`
+            `rounded-[.625rem] pb-[20px] bg-[#E6E6E6] flex w-full flex-1 min-h-[50%] flex-col overflow-hidden`
           )}
         >
           {QuizHeader}
           <QuizContext.Provider value={{ onPass }}>
-            <div className={`h-full px-[20px]`}>
+            <div className={`h-full overflow-hidden px-[20px]`}>
               <ComponentRenderer
                 parent={quiz}
                 component={quiz.children[currentQuizIndex]}

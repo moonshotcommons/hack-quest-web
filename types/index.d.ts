@@ -21,3 +21,7 @@ declare module '@lottiefiles/react-lottie-player' {
   export const Player = any;
   export default a;
 }
+declare module '*.abi' {
+  const abiData: string;
+  export default abiData;
+}

@@ -6,7 +6,7 @@ import IconCoin from '@/public/images/mission-center/icon_coin.png';
 import IconXp from '@/public/images/mission-center/icon_xp.png';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import TargetCard from '../Comonent/TargetCard';
+import TargetCard from '../component/TargetCard';
 import { TabContentType } from '../../type';
 import { BurialPoint } from '@/helper/burialPoint';
 import { MissionCenterContext } from '@/components/v2/MissionCenter/type';
@@ -26,9 +26,9 @@ const DailyQuests: React.FC<TabContentType> = ({
   };
   return (
     <div>
-      <div className="flex items-center justify-between mb-[40px]">
+      <div className="flex  justify-between mb-[40px]">
         <div className="text-[#000] w-[62%]">
-          <p>{`Finish tasks and receive daily rewards. Keep that momentum going and discover what lies ahead! 💡`}</p>
+          {`Finish tasks and receive daily rewards. Keep that momentum going and discover what lies ahead! 💡`}
         </div>
         <Button
           className={`w-[270px] h-[60px] text-[18px] text-[#0b0b0b] bg-auth-primary-button-bg 

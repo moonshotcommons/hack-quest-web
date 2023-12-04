@@ -2,7 +2,7 @@ import Button from '@/components/v2/Common/Button';
 import { MissionDataType } from '@/service/webApi/missionCenter/type';
 import React, { useContext, useMemo } from 'react';
 import IconHack from '@/public/images/mission-center/icon_hack.png';
-import TargetCard from '../Comonent/TargetCard';
+import TargetCard from '../component/TargetCard';
 import { TabContentType } from '../../type';
 import { BurialPoint } from '@/helper/burialPoint';
 import { MissionCenterContext } from '@/components/v2/MissionCenter/type';
@@ -22,7 +22,7 @@ const Milestones: React.FC<TabContentType> = ({
   };
   return (
     <div>
-      <div className="flex items-center justify-between mb-[40px]">
+      <div className="flex  justify-between mb-[40px]">
         <div className="text-[#000] w-[62%]">
           {`Celebrate your progress as you complete courses. Each achievement is a step towards your success in Web 3 coding. Let's make every milestone memorable! 🚀`}
         </div>
