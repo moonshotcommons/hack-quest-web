@@ -240,21 +240,21 @@ export const CenterInfo: FC = () => {
   return (
     <div className="mt-[120px] container slab:w-full slab:px-[20px] slab:mt-[80px]">
       <h2 className="mb-[65px] text-white text-center text-[54px] slab:text-[28px]  font-bold">
-        Why Mantle University?
+        Why Mantle Learn?
       </h2>
-      <div className="flex gap-[40px] slab:flex-col slab:gap-[32px] container slab:w-full  flex-wrap">
+      <div className="flex w-full gap-[40px] wap:flex-col slab:gap-[32px] container slab:w-full  flex-wrap">
         {infoList.map((info) => {
           return (
             <div
               key={info.title}
-              className="flex lg:h-[750px]  slab:w-full slab:h-[fit]"
+              className="flex w-[calc((100%-40px)/2)] slab:w-[calc((100%-32px)/2)] wap:w-full "
             >
-              <div className="w-[620px] slab:w-full  border border-[#3A3A3A] rounded-[15px]">
+              <div className="w-full  border border-[#3A3A3A] rounded-[15px]">
                 <div className="w-full  overflow-hidden rounded-t-[15px]">
                   {info.image}
                 </div>
-                <div className="px-[35px]  slab:py-[24px] text-white">
-                  <p className="leading-[125%] slab:w-full tracking-[0.68px] font-medium text-[34px] slab:text-[24px] mt-[30px] slab:mt-0 lg:whitespace-nowrap slab:break-words">
+                <div className="px-[32px] py-[30px] text-white">
+                  <p className="leading-[125%] slab:w-full tracking-[0.68px] font-medium text-[34px] slab:text-[24px] mt-[30px] slab:mt-0  break-words">
                     {info.title}
                   </p>
                   <p className="leading-[160%] slab:text-[12px] tracking-[0.36px] text-[18px] mt-[22px]">
