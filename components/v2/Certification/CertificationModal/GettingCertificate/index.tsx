@@ -82,7 +82,7 @@ const GettingCertificate: FC<GettingCertificateProps> = (props) => {
       </p>
 
       <div
-        className="flex gap-x-[10px] mt-[40px]"
+        className="flex gap-x-[10px] mt-[30px]"
         onMouseLeave={() => {
           if (showShare) setShowShare(false);
         }}
