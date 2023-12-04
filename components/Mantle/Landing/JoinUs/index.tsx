@@ -160,7 +160,7 @@ const JoinUs: FC<JoinUsProps> = (props) => {
       <p className="text-white text-[54px] wap:text-[32px] font-bold text-center">
         Join the Community
       </p>
-      <ul className=" gap-[30px] mt-[60px] wap:mt-[30px] flex justify-between wap:flex-col wap:gap-[24px] wap:w-full wap:px-[20px]">
+      <ul className="gap-[30px] mt-[60px] wap:mt-[30px] flex justify-between wap:flex-col wap:gap-[24px] wap:w-full wap:px-[20px]">
         {MediaList.map((item, index) => {
           return (
             <li

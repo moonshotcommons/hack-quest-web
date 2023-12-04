@@ -1,17 +1,12 @@
 import Button from '@/components/Common/Button';
 import LearningTracksCard from '@/components/v2/LearningTrackCard';
 import { BurialPoint } from '@/helper/burialPoint';
+import { goToLogin } from '@/helper/utils';
 import { useGetUserInfo } from '@/hooks/useGetUserInfo';
 import { useGetLearningTracks } from '@/hooks/useLearningTrackHooks/useLearningTracks';
 import LightButtonDeg from '@/public/images/home/light-button_deg.svg';
 import TeaserInfo from '@/public/images/home/teaser_info.png';
 import HackquestInfoBg from '@/public/images/landing/hack_quest_info_bg.png';
-import { LearningTrackCourseType } from '@/service/webApi/course/type';
-import { ThemeContext } from '@/store/context/theme';
-import { message } from 'antd';
-import Image from 'next/image';
-import { FC, useContext, useMemo } from 'react';
-import { AiOutlineRight } from 'react-icons/ai';
 import WhyL1 from '@/public/images/landing/why_h_1_l.png';
 import WhyR1 from '@/public/images/landing/why_h_1_r.png';
 import WhyL2 from '@/public/images/landing/why_h_2_l.png';
@@ -20,9 +15,14 @@ import WhyL3 from '@/public/images/landing/why_h_3_l.png';
 import WhyR3 from '@/public/images/landing/why_h_3_r.png';
 import WhyL4 from '@/public/images/landing/why_h_4_l.png';
 import WhyR4 from '@/public/images/landing/why_h_4_r.png';
+import { LearningTrackCourseType } from '@/service/webApi/course/type';
+import { ThemeContext } from '@/store/context/theme';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { MenuLink } from '../../Layout/Navbar/type';
+import { FC, useContext, useMemo } from 'react';
+import { AiOutlineRight } from 'react-icons/ai';
 import { Menu, QueryIdType } from '../../Breadcrumb/type';
+import { MenuLink } from '../../Layout/Navbar/type';
 
 interface HackQuestInfoProps {
   // children: ReactNode;
@@ -31,15 +31,7 @@ interface GotoPageButtonProps {
   isBlack: boolean;
   direction: 'top' | 'bottom';
 }
-const goToLogin = () => {
-  const contentWrapEle = document.querySelector(
-    '#content-scroll-wrap'
-  ) as HTMLDivElement;
-  if (!contentWrapEle) return;
-  contentWrapEle.style.scrollBehavior = 'smooth';
-  contentWrapEle.scrollTop = 0;
-  message.warning('Please log in first');
-};
+
 const GotoPageButton: React.FC<GotoPageButtonProps> = (props) => {
   const { isBlack, direction } = props;
   const color = useMemo(() => {

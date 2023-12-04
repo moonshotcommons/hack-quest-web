@@ -2,8 +2,8 @@ import { Menu, QueryIdType } from '@/components/v2/Breadcrumb/type';
 import { JumpLeaningLessonType } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
 import { CourseType } from '@/service/webApi/course/type';
 import { message } from 'antd';
-
 import { clsx, type ClassValue } from 'clsx';
+import * as React from 'react';
 import { twMerge } from 'tailwind-merge';
 
 export function cn(...inputs: ClassValue[]) {
@@ -111,8 +111,6 @@ export const errorMessage = (err: any) => {
   msg && message.error(msg);
 };
 
-import * as React from 'react';
-
 export const { isValidElement } = React;
 
 export function isFragment(child: any): boolean {
@@ -179,3 +177,14 @@ export async function urlToBlobAndBase64(url: string) {
     }
   );
 }
+
+export const goToLogin = () => {
+  const contentWrapEle = document.querySelector(
+    '#content-scroll-wrap'
+  ) as HTMLDivElement;
+  if (contentWrapEle) {
+    contentWrapEle.style.scrollBehavior = 'smooth';
+    contentWrapEle.scrollTop = 0;
+  }
+  message.warning('Please login first');
+};
