@@ -1,12 +1,13 @@
 'use client';
 import {
   CustomType,
+  NotionComponent,
   NotionType,
   QuizBType
 } from '@/components/v2/LessonPage/type';
 import { BurialPoint } from '@/helper/burialPoint';
 import webApi from '@/service';
-import { FC, useContext, useEffect, useRef, useState } from 'react';
+import { FC, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { QuizContext } from '..';
@@ -129,74 +130,104 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
     }
   }, [quiz, answers]);
 
+  const { quizChildren, parseComponent } = useMemo(() => {
+    let parseComponent: NotionComponent | null = null;
+    console.log(quiz.children);
+    for (let i = quiz.children.length - 1; i >= 0; i--) {
+      let child = quiz.children[i];
+      console.log(child);
+      if (child.type === NotionType.TOGGLE) {
+        parseComponent = child;
+      }
+    }
+
+    return {
+      parseComponent,
+      quizChildren: !!parseComponent
+        ? quiz.children.filter((item) => item.id !== parseComponent!.id)
+        : quiz.children
+    };
+  }, [quiz]);
+
   return (
     <div className="h-full flex flex-col justify-between">
-      <DndProvider backend={HTML5Backend}>
-        <div className="rounded-lg pb-20">
-          <QuizBContext.Provider
-            value={{
-              onDrop,
-              accept: options,
-              changeOptionState: (options) => setOptions(options),
-              answers,
-              showAnswer,
-              setAnswers
-            }}
-          >
-            <div className="py-4 items-center pb-[52px]">
-              {quiz.children.map((child) => {
+      <div className="flex-1 overflow-auto scroll-wrap-y">
+        <DndProvider backend={HTML5Backend}>
+          <div className="rounded-lg">
+            <QuizBContext.Provider
+              value={{
+                onDrop,
+                accept: options,
+                changeOptionState: (options) => setOptions(options),
+                answers,
+                showAnswer,
+                setAnswers
+              }}
+            >
+              <div className="py-4 items-center">
+                {quizChildren.map((child) => {
+                  return (
+                    <ComponentRenderer
+                      key={child.id}
+                      parent={quiz}
+                      component={child}
+                    ></ComponentRenderer>
+                  );
+                })}
+              </div>
+            </QuizBContext.Provider>
+
+            <div className=" flex flex-row gap-[30px] flex-wrap pb-4 pt-[52px]">
+              {options.map((option) => {
+                if (!option.isRender) return null;
                 return (
-                  <ComponentRenderer
-                    key={child.id}
-                    parent={quiz}
-                    component={child}
-                  ></ComponentRenderer>
+                  // <motion.div
+                  //   key={option.id}
+                  //   initial={{ translateY: 50, opacity: 0 }}
+                  //   animate={{ opacity: 1, translateY: 0 }}
+                  //   transition={{ duration: 0.5 }}
+                  // >
+                  <DragAnswer
+                    option={option}
+                    key={option.id}
+                    onClick={() => {
+                      if (showAnswer) return;
+                      const emptyAnswerKey = Object.keys(answers).find(
+                        (key) => !answers[key].option
+                      );
+                      let replaceAnswerKey = emptyAnswerKey;
+                      let replaceOption = null;
+                      if (!emptyAnswerKey) {
+                        replaceAnswerKey = Object.keys(answers)[0];
+                      }
+                      const dropAnswer = answers[replaceAnswerKey!];
+                      if (dropAnswer.option) replaceOption = dropAnswer.option;
+                      dropAnswer.option = option;
+                      onDrop(dropAnswer, replaceOption);
+                    }}
+                  >
+                    {option.content.rich_text.map(
+                      (richText: any, index: number) => {
+                        return <span key={index}>{richText.plain_text}</span>;
+                      }
+                    )}
+                  </DragAnswer>
+                  // </motion.div>
                 );
               })}
             </div>
-          </QuizBContext.Provider>
-
-          <div className=" flex flex-row gap-[30px] flex-wrap">
-            {options.map((option) => {
-              if (!option.isRender) return null;
-              return (
-                // <motion.div
-                //   key={option.id}
-                //   initial={{ translateY: 50, opacity: 0 }}
-                //   animate={{ opacity: 1, translateY: 0 }}
-                //   transition={{ duration: 0.5 }}
-                // >
-                <DragAnswer
-                  option={option}
-                  key={option.id}
-                  onClick={() => {
-                    if (showAnswer) return;
-                    const emptyAnswerKey = Object.keys(answers).find(
-                      (key) => !answers[key].option
-                    );
-                    let replaceAnswerKey = emptyAnswerKey;
-                    let replaceOption = null;
-                    if (!emptyAnswerKey) {
-                      replaceAnswerKey = Object.keys(answers)[0];
-                    }
-                    const dropAnswer = answers[replaceAnswerKey!];
-                    if (dropAnswer.option) replaceOption = dropAnswer.option;
-                    dropAnswer.option = option;
-                    onDrop(dropAnswer, replaceOption);
-                  }}
-                >
-                  {option.content.rich_text.map(
-                    (richText: any, index: number) => {
-                      return <span key={index}>{richText.plain_text}</span>;
-                    }
-                  )}
-                </DragAnswer>
-                // </motion.div>
-              );
-            })}
           </div>
-        </div>
-      </DndProvider>
+        </DndProvider>
+        {!!parseComponent && (
+          <div className="mt-5">
+            <ComponentRenderer
+              key={parseComponent.id}
+              parent={quiz}
+              component={parseComponent}
+            ></ComponentRenderer>
+          </div>
+        )}
+      </div>
       <QuizFooter
         showAnswer={showAnswer}
         submitDisable={

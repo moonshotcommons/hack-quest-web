@@ -1,6 +1,7 @@
 import ProjectsPageBox from '@/components/v2/ProjectsBox';
 import PageDescription from '@/components/v2/PageDescription';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { BurialPoint } from '@/helper/burialPoint';
 
 function ProjectsPage() {
   const ProjectsPageRef = useRef<HTMLDivElement | null>(null);
@@ -17,13 +18,23 @@ function ProjectsPage() {
       setLoadNum((num) => num + 1);
     }
   };
+  useEffect(() => {
+    const startTime = new Date().getTime();
+    return () => {
+      const endTime = new Date().getTime();
+      const duration = endTime - startTime;
+      BurialPoint.track('hackathon-all-projects-页面留存时间', {
+        duration
+      });
+    };
+  }, []);
   return (
     <div
-      className="h-[calc(100vh-114px)] overflow-auto"
+      className="h-full overflow-auto"
       onScroll={handleScroll}
       ref={ProjectsPageRef}
     >
-      <div className="container mx-auto ">
+      <div className="container mx-auto">
         <PageDescription
           title={'Project Archive'}
           description={

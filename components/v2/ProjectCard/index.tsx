@@ -4,6 +4,7 @@ import { menuLink } from '../Breadcrumb/data';
 import { ProjectType } from '@/service/webApi/resourceStation/project/type';
 import { useRouter } from 'next/router';
 import { Menu, QueryIdType } from '../Breadcrumb/type';
+import { BurialPoint } from '@/helper/burialPoint';
 
 interface ProjectCardProp {
   project: ProjectType;
@@ -12,6 +13,7 @@ interface ProjectCardProp {
 const ProjectCard: React.FC<ProjectCardProp> = ({ project }) => {
   const router = useRouter();
   const goProjectDetail = () => {
+    BurialPoint.track(`hackathon projectCard 点击`);
     router.push(
       `${menuLink.projects}/projects/${project.id}?${QueryIdType.PROJECT_ID}=${project.id}&menu=${Menu.PROJECTS}`
     );

@@ -86,7 +86,7 @@ const Button: FC<ButtonProps> = (props) => {
         `text-text-default-color flex gap-[.625rem] items-center justify-center h-fit w-fit cursor-pointer relative`,
         type === 'primary' ? 'bg-primary-color' : '',
         block && 'w-full',
-        ghost && 'bg-transparent border-primary-color',
+        ghost && 'bg-transparent border-primary-color border',
         mergeSize(),
         mergeRounded(),
         className,

@@ -181,7 +181,7 @@ const TreasureModal = forwardRef<TreasureModalRef, TreasureModalProp>(
                         alt="iconCredits"
                         className=""
                       />
-                      <span className="text-[16px]">{`X${treasureContent.treasureXp}`}</span>
+                      <span className="text-[16px]">{`X${treasureContent.treasureCoin}`}</span>
                     </div>
                     <div className="flex-row-center gap-[8px] mt-[10px]">
                       <Image
@@ -190,7 +190,7 @@ const TreasureModal = forwardRef<TreasureModalRef, TreasureModalProp>(
                         alt="iconXp"
                         className=""
                       />
-                      <span className="text-[16px]">{`X${treasureContent.treasureCoin}`}</span>
+                      <span className="text-[16px]">{`X${treasureContent.treasureXp}`}</span>
                     </div>
                   </div>
                 )}

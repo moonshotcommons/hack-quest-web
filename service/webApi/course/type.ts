@@ -118,3 +118,18 @@ export interface SuggestCommitParams {
   lessonId: string;
   link: string;
 }
+
+export interface GetSignatureParams {
+  sourceType: 'Certification';
+  sourceId: string;
+  userAddress: string;
+}
+
+export interface SignatureData {
+  hashResult: string;
+  sig: {
+    v: number;
+    r: string;
+    s: string;
+  };
+}

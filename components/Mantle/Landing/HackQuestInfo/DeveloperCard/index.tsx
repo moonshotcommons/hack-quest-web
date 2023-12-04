@@ -12,7 +12,7 @@ const DeveloperCard: FC<DeveloperCardProps> = (props) => {
   return (
     <div
       className={cn(
-        'w-[400px] wap:w-[calc(50%-6px)] px-[70px] wap:px-[8px] wap:pt-[16px] wap:pb-[16px] pt-[30px] pb-[20px] rounded-[15px] justify-between items-center flex flex-col border-[#171717] border',
+        'w-[400px] slab:w-[calc(50%-6px)] px-[70px] slab:px-[8px] slab:pt-[16px] slab:pb-[16px] pt-[30px] pb-[20px] rounded-[15px] justify-between items-center flex flex-col border-[#171717] border',
         props.className
       )}
       style={{
@@ -21,17 +21,17 @@ const DeveloperCard: FC<DeveloperCardProps> = (props) => {
       }}
     >
       <div className="flex-1 flex items-center justify-center">
-        <p className="text-[24px] wap:text-[12px] font-medium leading-[110%]">
+        <p className="text-[24px] slab:text-[12px] font-medium leading-[110%] ">
           {props.title}
         </p>
       </div>
-      <div className="mt-[15px] wap:w-full wap:mt-[20px] wap:text-[10px] flex wap:flex-col gap-[10px] p-[10px] bg-[#1C363C] rounded-[10px] items-center wap:items-start w-fit">
-        {/* <Image src={MantleIcon} alt="mantle" className="wap:hidden"></Image> */}
+      <div className="mt-[15px] flex-center slab:w-full slab:mt-[20px]  slab:text-[10px] flex  p-[10px] bg-[#1C363C] rounded-[10px]  w-fit">
+        {/* <Image src={MantleIcon} alt="mantle" className="slab:hidden"></Image> */}
         {/* <Image
           src={MantleIcon}
           width={16}
           alt="mantle"
-          className="hidden wap:block"
+          className="hidden slab:block"
         ></Image> */}
         <span>{props.description}</span>
       </div>

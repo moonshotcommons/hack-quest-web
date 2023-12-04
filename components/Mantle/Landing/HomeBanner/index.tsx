@@ -85,7 +85,7 @@ const HomeBanner: FC<HomeBannerProps> = (props) => {
   const isPc = useIsPc();
   return (
     <div
-      className="h-[820px] flex justify-center w-full pt-[60px] wap:h-[0] wap:pt-[150%] wap:relative"
+      className="h-[820px] flex justify-center w-full pt-[60px] slab:h-[0] slab:pt-[150%] slab:relative"
       style={{
         backgroundImage: `url(${isPc() ? BannerBg.src : BannerBgWap.src})`,
         backgroundSize: `${isPc() ? 'contain' : 'cover'}`,
@@ -93,7 +93,7 @@ const HomeBanner: FC<HomeBannerProps> = (props) => {
         backgroundPosition: 'center 0px'
       }}
     >
-      <div className="container  wap:hidden  flex justify-between w-full">
+      <div className="container  slab:hidden  flex justify-between w-full">
         <div className="flex flex-col h-full relative">
           <h1 className="text-white  text-[54px] tracking-[2.4px] font-bold leading-[130%]">
             Mantle Learn
@@ -129,7 +129,7 @@ const HomeBanner: FC<HomeBannerProps> = (props) => {
           <Auth />
         </div>
       </div>
-      <div className="hidden wap:flex absolute w-full h-full left-0 top-0 py-[10%] flex-col justify-between">
+      <div className="hidden slab:flex absolute w-full h-full left-0 top-0 py-[10%] flex-col justify-between">
         <div className="flex flex-col h-full relative text-center">
           <h1 className="text-white  text-[36px] tracking-[2.4px] font-bold leading-[130%]">
             Mantle University
@@ -172,7 +172,7 @@ const HomeBanner: FC<HomeBannerProps> = (props) => {
           </Button>
         </div>
       </div>
-      <div className="hidden wap:flex flex-col justify-between"></div>
+      <div className="hidden slab:flex flex-col justify-between"></div>
       {loginVisible && (
         <div className="absolute z-[999] w-[100vw] h-[100%] left-0 top-0 bg-[#000] text-[#fff]">
           <div className="absolute right-[24px] top-[40px] flex justify-end">

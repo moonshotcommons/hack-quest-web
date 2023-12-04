@@ -14,7 +14,9 @@ function LearningCourses() {
     <div className="pb-10 font-next-book-Thin text-home-default-color container mx-auto">
       <div className="flex justify-between">
         <PageDescription
-          title={`Welcome,${userInfo?.name}!`}
+          title={`${
+            userInfo?.name ? `Welcome,${userInfo?.name}!` : 'Welcome!'
+          }`}
           className="pb-20"
           description={
             'This is your Dashboard, where you can check your ongoing and completed courses. '

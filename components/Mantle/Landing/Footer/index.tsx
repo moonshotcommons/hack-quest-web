@@ -1,5 +1,5 @@
-import Link from 'next/link';
-import { FC, ReactNode } from 'react';
+import { goToLogin } from '@/helper/utils';
+import { FC } from 'react';
 
 interface FooterProps {}
 
@@ -31,15 +31,15 @@ const partnerList = [
     links: [
       {
         title: 'DISCORD',
-        url: ''
+        url: 'https://discord.com/invite/hWd9M8mCQh'
       },
       {
         title: 'X',
-        url: ''
+        url: 'https://twitter.com/HackQuest_'
       },
       {
         title: 'INSTAGRAM',
-        url: ''
+        url: 'https://www.instagram.com/_hackquest/'
       }
     ]
   },
@@ -48,7 +48,7 @@ const partnerList = [
     links: [
       {
         title: 'HACKATHON',
-        url: ''
+        url: 'http://localhost:3000/resource-station/hackathon'
       },
       {
         title: 'NEWS',
@@ -76,8 +76,8 @@ const partnerList = [
 
 const Footer: FC<FooterProps> = (props) => {
   return (
-    <div className="w-full wap:px-[20px] bg-[#0B0B0B]">
-      <div className="container mx-auto py-[120px] flex justify-between gap-x-[300px] wap:flex-col wap:gap-[60px]">
+    <div className="w-full slab:px-[20px] bg-[#0B0B0B]">
+      <div className="container mx-auto py-[120px] flex justify-between gap-x-[300px] slab:flex-col slab:gap-[60px]">
         <div className="flex gap-x-[15px]">
           <svg
             width="35"
@@ -101,21 +101,28 @@ const Footer: FC<FooterProps> = (props) => {
             HackQuest 2023
           </span>
         </div>
-        <div className="lg:flex-1 flex justify-between gap-x-[150px] wap:flex-col wap:gap-[100px]">
+        <div className="lg:flex-1 flex justify-between  slab:flex-col slab:gap-[100px]">
           {partnerList.map((item) => {
             return (
               <div key={item.name} className="text-white">
-                <div className="text-[24px] wap:text-[20px] font-bold leading-[125%] tracking-[0.48px] whitespace-nowrap">
+                <div className="text-[24px] slab:text-[20px] font-bold leading-[125%] tracking-[0.48px] whitespace-nowrap">
                   {item.name}
                 </div>
-                <ul className="mt-[40px] flex flex-col gap-y-[7px] text-[21px] wap:text-[16px] leading-[160%] tracking-[0.42px]">
+                <ul className="mt-[40px] flex flex-col gap-y-[7px] text-[21px] slab:text-[16px] leading-[160%] tracking-[0.42px]">
                   {item.links.map((link, index) => {
                     return (
                       <li
                         key={index}
-                        className="hover:underline whitespace-nowrap"
+                        className="hover:underline whitespace-nowrap cursor-pointer"
+                        onClick={() => {
+                          if (item.name === 'HACKQUEST') {
+                            goToLogin();
+                          } else {
+                            window.open(link.url);
+                          }
+                        }}
                       >
-                        <Link href={link.url}>{link.title}</Link>
+                        {link.title}
                       </li>
                     );
                   })}
