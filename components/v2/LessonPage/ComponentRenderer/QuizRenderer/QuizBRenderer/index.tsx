@@ -1,12 +1,13 @@
 'use client';
 import {
   CustomType,
+  NotionComponent,
   NotionType,
   QuizBType
 } from '@/components/v2/LessonPage/type';
 import { BurialPoint } from '@/helper/burialPoint';
 import webApi from '@/service';
-import { FC, useContext, useEffect, useRef, useState } from 'react';
+import { FC, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { QuizContext } from '..';
@@ -129,6 +130,25 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
     }
   }, [quiz, answers]);
 
+  const { quizChildren, parseComponent } = useMemo(() => {
+    let parseComponent: NotionComponent | null = null;
+    console.log(quiz.children);
+    for (let i = quiz.children.length - 1; i >= 0; i--) {
+      let child = quiz.children[i];
+      console.log(child);
+      if (child.type === NotionType.TOGGLE) {
+        parseComponent = child;
+      }
+    }
+
+    return {
+      parseComponent,
+      quizChildren: !!parseComponent
+        ? quiz.children.filter((item) => item.id !== parseComponent!.id)
+        : quiz.children
+    };
+  }, [quiz]);
+
   return (
     <div className="h-full flex flex-col justify-between">
       <div className="flex-1 overflow-auto scroll-wrap-y">
@@ -145,7 +165,7 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
               }}
             >
               <div className="py-4 items-center">
-                {quiz.children.map((child) => {
+                {quizChildren.map((child) => {
                   return (
                     <ComponentRenderer
                       key={child.id}
@@ -198,6 +218,15 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
             </div>
           </div>
         </DndProvider>
+        {!!parseComponent && (
+          <div className="mt-5">
+            <ComponentRenderer
+              key={parseComponent.id}
+              parent={quiz}
+              component={parseComponent}
+            ></ComponentRenderer>
+          </div>
+        )}
       </div>
       <QuizFooter
         showAnswer={showAnswer}
