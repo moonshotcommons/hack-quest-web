@@ -22,10 +22,10 @@ const V2Layout: FC<LayoutProps> = (props) => {
   const userInfo = useGetUserInfo();
   const { updateMissionDataAll } = useGetMissionData();
 
-  navbarData.navList = [];
+  navbarData.navList = navbarList;
 
   if (userInfo) {
-    navbarData.navList = navbarList;
+    // navbarData.navList = navbarList;
     updateMissionDataAll();
   }
 

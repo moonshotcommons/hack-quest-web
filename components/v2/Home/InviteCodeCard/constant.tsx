@@ -12,6 +12,7 @@ import {
   RedditShareButton,
   RedditIcon
 } from 'next-share';
+import Image from 'next/image';
 import React from 'react';
 import {
   Component,
@@ -28,12 +29,15 @@ interface ShareWrapProps<T> {
   icon: ReactNode;
   component: T;
   props: Record<string, any>;
+  showName?: boolean;
+  iconSize?: number;
 }
 
 export const ShareWrap = <T extends React.ForwardRefExoticComponent<any>>(
   props: ShareWrapProps<T>
 ) => {
   const ShareButton = props.component;
+  const { iconSize = 16, name, showName = true } = props;
   return (
     <ShareButton
       {...(props.props as any)}
@@ -44,8 +48,20 @@ export const ShareWrap = <T extends React.ForwardRefExoticComponent<any>>(
         key={props.name}
         className="flex gap-3 items-center text-[#0B0B0B] hover:text-[#0B0B0B]/60 animate"
       >
-        {props.icon}
-        <span className="font-next-book text-[14px] leading-[160%] -tracking-[0.154px] whitespace-nowrap ">{`Share on ${props.name}`}</span>
+        <div
+          style={{
+            width: `${iconSize}px`,
+            height: `${iconSize}px`
+          }}
+          className="relative"
+        >
+          {React.cloneElement(props.icon as ReactElement, {
+            className: 'w-full h-full'
+          })}
+        </div>
+        {showName && (
+          <span className="font-next-book text-[14px] leading-[160%] -tracking-[0.154px] whitespace-nowrap ">{`Share on ${name}`}</span>
+        )}
       </div>
     </ShareButton>
   );

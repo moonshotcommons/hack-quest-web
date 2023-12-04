@@ -1,5 +1,5 @@
-import Link from 'next/link';
-import { FC, ReactNode } from 'react';
+import { goToLogin } from '@/helper/utils';
+import { FC } from 'react';
 
 interface FooterProps {}
 
@@ -31,15 +31,15 @@ const partnerList = [
     links: [
       {
         title: 'DISCORD',
-        url: ''
+        url: 'https://discord.com/invite/hWd9M8mCQh'
       },
       {
         title: 'X',
-        url: ''
+        url: 'https://twitter.com/HackQuest_'
       },
       {
         title: 'INSTAGRAM',
-        url: ''
+        url: 'https://www.instagram.com/_hackquest/'
       }
     ]
   },
@@ -48,7 +48,7 @@ const partnerList = [
     links: [
       {
         title: 'HACKATHON',
-        url: ''
+        url: 'http://localhost:3000/resource-station/hackathon'
       },
       {
         title: 'NEWS',
@@ -101,7 +101,7 @@ const Footer: FC<FooterProps> = (props) => {
             HackQuest 2023
           </span>
         </div>
-        <div className="lg:flex-1 flex justify-between gap-x-[150px] wap:flex-col wap:gap-[100px]">
+        <div className="lg:flex-1 flex justify-between wap:flex-col wap:gap-[100px]">
           {partnerList.map((item) => {
             return (
               <div key={item.name} className="text-white">
@@ -113,9 +113,16 @@ const Footer: FC<FooterProps> = (props) => {
                     return (
                       <li
                         key={index}
-                        className="hover:underline whitespace-nowrap"
+                        className="hover:underline whitespace-nowrap cursor-pointer"
+                        onClick={() => {
+                          if (item.name === 'HACKQUEST') {
+                            goToLogin();
+                          } else {
+                            window.open(link.url);
+                          }
+                        }}
                       >
-                        <Link href={link.url}>{link.title}</Link>
+                        {link.title}
                       </li>
                     );
                   })}

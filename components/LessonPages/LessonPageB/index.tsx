@@ -42,8 +42,7 @@ const LessonPageB: FC<LessonPageBProps> = (props) => {
   const { courseId: courseName } = router.query;
   const sections = useParseLessonBSection(lesson.content);
 
-  const { onNextClick, completeModalOpen, setCompleteModalOpen } =
-    useGotoNextLesson(lesson, courseType, true);
+  const { onNextClick } = useGotoNextLesson(lesson, courseType, true);
   const { onBackClick, isFirst } = useBackToPrevLesson(lesson, courseType);
   useEffect(() => {
     if (lesson) {
@@ -85,11 +84,11 @@ const LessonPageB: FC<LessonPageBProps> = (props) => {
           Next
         </Button>
       </div>
-      <CompleteModal
+      {/* <CompleteModal
         title={courseName as string}
         open={completeModalOpen}
         onClose={() => setCompleteModalOpen(false)}
-      ></CompleteModal>
+      ></CompleteModal> */}
     </div>
   );
 };

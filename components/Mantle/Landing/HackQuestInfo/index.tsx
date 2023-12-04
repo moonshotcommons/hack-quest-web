@@ -1,29 +1,27 @@
-import RightBottomIcon from '@/components/Common/Icon/RightBottom';
 import LearningTracksCard from '@/components/Mantle/LearningTrackCard';
-import { Theme } from '@/constants/enum';
 import { BurialPoint } from '@/helper/burialPoint';
 import { useGetUserInfo } from '@/hooks/useGetUserInfo';
 import { useGetLearningTracks } from '@/hooks/useLearningTrackHooks/useLearningTracks';
 import TeaserInfo from '@/public/images/home/teaser_info.png';
-import MilestoneProgress from '@/public/images/mantle/milestone_progress.png';
-import MilestoneProgressWap from '@/public/images/mantle/milestone_progress_wap.png';
-import MilestoneProgressIcon from '@/public/images/mantle/quest_icon.png';
 import HackquestoInfo1 from '@/public/images/mantle/hackquest_info1.png';
 import HackquestoInfo2 from '@/public/images/mantle/hackquest_info2.png';
 import HackquestoInfo3 from '@/public/images/mantle/hackquest_info3.png';
 import HackquestoInfo4 from '@/public/images/mantle/hackquest_info4.png';
+import MilestoneProgress from '@/public/images/mantle/milestone_progress.png';
+import MilestoneProgressWap from '@/public/images/mantle/milestone_progress_wap.png';
+import MilestoneProgressIcon from '@/public/images/mantle/quest_icon.png';
 
+import { goToLogin } from '@/helper/utils';
+import useIsPc from '@/hooks/useIsPc';
 import { LearningTrackCourseType } from '@/service/webApi/course/type';
 import { ThemeContext } from '@/store/context/theme';
-import { message } from 'antd';
 import Image from 'next/image';
-import { FC, useContext, useMemo, useState } from 'react';
+import { FC, useContext, useState } from 'react';
 import { AiOutlineRight } from 'react-icons/ai';
-import DeveloperCard from './DeveloperCard';
 import Button from '../../Common/Button';
 import LearningTrackWrapCard from '../components/LearningTrackWrapCard';
-import useIsPc from '@/hooks/useIsPc';
 import TipsModal from '../components/TipsModal';
+import DeveloperCard from './DeveloperCard';
 
 interface HackQuestInfoProps {
   // children: ReactNode;
@@ -32,12 +30,7 @@ interface GotoPageButtonProps {
   isBlack: boolean;
   direction: 'top' | 'bottom';
 }
-const goToLogin = () => {
-  const bodyEle = document.querySelector('body') as HTMLBodyElement;
-  bodyEle.style.scrollBehavior = 'smooth';
-  bodyEle.scrollTop = 0;
-  message.warning('Please log in first');
-};
+
 const GotoPageButton: React.FC<GotoPageButtonProps> = (props) => {
   const { isBlack, direction } = props;
   const isPc = useIsPc();
