@@ -1,16 +1,12 @@
-import Button from '@/components/v2/Common/Button';
 import Modal from '@/components/v2/Common/Modal';
-import { forwardRef, useImperativeHandle, useState } from 'react';
-
-import { useRequest } from 'ahooks';
-import { ReactNode } from 'react';
-import webApi from '@/service';
-import { cn, errorMessage } from '@/helper/utils';
-import CertificationImage from '../CertificationCard/certificate.png';
-import Image from 'next/image';
-import NotCertified from './NotCertified';
-import GettingCertificate from './GettingCertificate';
+import { cn } from '@/helper/utils';
+import iconCoin from '@/public/images/mission-center/icon_coin.png';
+import iconXp from '@/public/images/mission-center/icon_xp.png';
 import { CertificationType } from '@/service/webApi/campagins/type';
+import Image from 'next/image';
+import { forwardRef, useImperativeHandle, useState } from 'react';
+import GettingCertificate from './GettingCertificate';
+import NotCertified from './NotCertified';
 
 interface CertificationModalProps {
   certification: CertificationType;
@@ -47,20 +43,53 @@ const CertificationModal = forwardRef<
       icon={closeIcon}
       markBg="black"
     >
-      <div className="w-[1000px] bg-white rounded-[10px] p-[70px]">
+      <div className="w-[1080px] bg-white rounded-[10px] p-[60px]">
         <div className="flex gap-x-[60px] items-center">
-          <div className="w-[370px] h-[425px] relative">
-            <Image
-              src={certification.image || ''}
-              fill
-              alt="certification"
-              className={cn(!certification.claimed ? 'blur-[2px]' : '')}
-            ></Image>
-            {!certification.claimed && (
+          <div className="flex flex-col">
+            <div className="w-[452px] h-[250px] relative">
+              <Image
+                src={certification.image || ''}
+                fill
+                alt="certification"
+                className={cn(!certification.claimed ? 'blur-[2px]' : '')}
+              ></Image>
+              {!certification.claimed && (
+                <>
+                  <div className="absolute w-full h-full bg-black/10 rounded-[15px] flex justify-center items-center"></div>
+                  <div className="absolute  w-full flex py-[25px] bg-white/70 justify-center items-center top-1/2 -translate-y-1/2 text-[40px] font-next-poster-Bold tracking-[2.4px] text-[#131313]">
+                    NOT CERTIFIED
+                  </div>
+                </>
+              )}
+            </div>
+            {showCoin && (
               <>
-                <div className="absolute w-full h-full bg-black/10 rounded-[22px] flex justify-center items-center"></div>
-                <div className="absolute  w-full flex py-[25px] bg-white/70 justify-center items-center top-1/2 -translate-y-1/2 text-[40px] font-next-poster-Bold tracking-[2.4px] text-[#131313]">
-                  NOT CERTIFIED
+                <div className="flex items-center gap-[30px] mt-[20px]">
+                  <span className="inline-block h-[1px] flex-1 bg-black scale-y-50"></span>
+                  <span className="text-[18px] font-next-poster text-[#0b0b0b] tracking-[1.08px]">
+                    and
+                  </span>
+                  <span className="inline-block h-[1px] flex-1 bg-black scale-y-50"></span>
+                </div>
+                <div className="flex mt-[20px] gap-[20px] justify-center">
+                  <div className="px-[15px] flex items-center justify-between box-border w-[125px] h-[60px] border-[2px] border-[#DADADA] rounded-[15px]">
+                    <Image
+                      src={iconCoin}
+                      width={40}
+                      alt="icon"
+                      className=""
+                    ></Image>
+                    <span>x{certification?.credits}</span>
+                  </div>
+                  <div className="px-[15px] flex items-center justify-between box-border w-[125px] h-[60px] border-[2px] border-[#DADADA] rounded-[15px]">
+                    <Image
+                      src={iconXp}
+                      width={40}
+                      alt="icon"
+                      className=""
+                    ></Image>
+                    <span>x{certification?.exp}</span>
+                  </div>
                 </div>
               </>
             )}
@@ -80,7 +109,7 @@ const CertificationModal = forwardRef<
 });
 
 const closeIcon = (
-  <div className="absolute -top-[2px] -right-[2px] cursor-pointer">
+  <div className="absolute -top-[4px] -right-[4px] cursor-pointer">
     <svg
       width="30"
       height="30"
