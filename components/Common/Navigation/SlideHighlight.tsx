@@ -29,7 +29,6 @@ const SlideHighlight: FC<SlideHighlightProps> = function (props) {
 
   const onClick: MouseEventHandler<HTMLDivElement> = (event) => {
     if (!root.current) return;
-
     const target = Array.from(root.current.children).find((v) =>
       v.contains(event.target as Node)
     ) as HTMLElement;

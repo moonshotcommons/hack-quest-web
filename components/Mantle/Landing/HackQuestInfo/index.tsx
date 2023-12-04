@@ -7,9 +7,6 @@ import HackquestoInfo1 from '@/public/images/mantle/hackquest_info1.png';
 import HackquestoInfo2 from '@/public/images/mantle/hackquest_info2.png';
 import HackquestoInfo3 from '@/public/images/mantle/hackquest_info3.png';
 import HackquestoInfo4 from '@/public/images/mantle/hackquest_info4.png';
-import MilestoneProgress from '@/public/images/mantle/milestone_progress.png';
-import MilestoneProgressWap from '@/public/images/mantle/milestone_progress_wap.png';
-import MilestoneProgressIcon from '@/public/images/mantle/quest_icon.png';
 
 import { goToLogin } from '@/helper/utils';
 import useIsPc from '@/hooks/useIsPc';
@@ -20,6 +17,7 @@ import { FC, useContext, useState } from 'react';
 import { AiOutlineRight } from 'react-icons/ai';
 import Button from '../../Common/Button';
 import LearningTrackWrapCard from '../components/LearningTrackWrapCard';
+import Progress from '../components/Progress';
 import TipsModal from '../components/TipsModal';
 import DeveloperCard from './DeveloperCard';
 
@@ -133,8 +131,9 @@ export const MantelDeveloperJourney: FC = () => {
       <p className="leading-[160%] mt-[40px] slab:text-[12px]">
         Developers reach 200 points can claim Mantle learning certificate.
       </p>
-      <div className="relative">
-        <Image
+      <div className="relative mt-[30px]">
+        <Progress></Progress>
+        {/* <Image
           src={MilestoneProgressIcon}
           alt="Mantle Developer Icon"
           className="absolute bottom-0 left-[0.5%] w-[2.1%] slab:w-[3%] slab:bottom-[7%] slab:left-[2%]"
@@ -149,7 +148,7 @@ export const MantelDeveloperJourney: FC = () => {
           src={MilestoneProgressWap}
           alt="Mantle Developer Journey"
           className="mt-[30px] hidden slab:block"
-        ></Image>
+        ></Image> */}
       </div>
 
       <div className="mt-[60px] flex flex-wrap gap-x-[40px] gap-y-[37px] slab:gap-x-[12px] slab:gap-y-[24px]">
