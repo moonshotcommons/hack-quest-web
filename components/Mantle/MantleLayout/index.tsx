@@ -34,7 +34,7 @@ const MantleLayout: React.FC<MantleLayoutProps> = ({
     >
       <div
         className={cn(
-          'w-full  wap:hidden  fixed left-0 top-0 bg-[#0B0B0B] h-[64px] flex items-center z-[99] shadow-[box-shadow: rgba(17, 12, 46, 0.15)_0px_48px_100px_0px]',
+          'w-full  slab:hidden  fixed left-0 top-0 bg-[#0B0B0B] h-[64px] flex items-center z-[99] shadow-[box-shadow: rgba(17, 12, 46, 0.15)_0px_48px_100px_0px]',
           router.pathname === '/' ? 'bg-[#0A1A19]' : 'bg-[#0B0B0B]'
         )}
       >
@@ -47,7 +47,7 @@ const MantleLayout: React.FC<MantleLayoutProps> = ({
         </div>
       </div>
       <div className="m-auto">
-        <div className="w-full pt-[64px] wap:pt-[0]">
+        <div className="w-full pt-[64px] slab:pt-[0]">
           {!navbarList.some((v: any) => v.path === route || route === '/') ? (
             <div className="container mx-auto">
               <Breadcrumb />

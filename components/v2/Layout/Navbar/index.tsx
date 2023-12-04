@@ -151,7 +151,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
           </nav>
           {children}
         </div>
-        <div className="hidden h-full wap:flex justify-end items-center ">
+        <div className="hidden h-full slab:flex justify-end items-center ">
           <Image src={HeaderRightIcon} width={32} alt="icon"></Image>
         </div>
       </div>
