@@ -131,9 +131,9 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
             setQuizDropdownVisible(!quizDropdownVisible);
           }}
         >
-          <span>{`${quiz.title ? quiz.title : 'Quiz'} ${currentQuizIndex + 1}/${
-            quiz.children.length
-          }`}</span>
+          <span>{`${quiz.title ? quiz.title : 'Quest'} ${
+            currentQuizIndex + 1
+          }/${quiz.children.length}`}</span>
 
           <span
             className={`${
@@ -190,7 +190,7 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
       )}
       {!start && (
         <div className="inline-flex h-fit justify-between items-center rounded-[.625rem] bg-[#E6E6E6]  w-full px-[20px] py-[8px]">
-          <h1 className="font-next-poster-Bold text-[18px]">Quiz</h1>
+          <h1 className="font-next-poster-Bold text-[18px]">Quest</h1>
           <Button
             type="primary"
             className="py-[8px] px-[40px] font-next-book text-[#0B0B0B] text-[14px]"
@@ -199,7 +199,7 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
               setStart(true);
             }}
           >
-            Start Quiz
+            Start Quest
           </Button>
         </div>
       )}

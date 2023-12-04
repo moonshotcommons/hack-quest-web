@@ -217,17 +217,17 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
                 );
               })}
             </div>
-            {!!parseComponent && (
-              <div className="mt-5">
-                <ComponentRenderer
-                  key={parseComponent.id}
-                  parent={quiz}
-                  component={parseComponent}
-                ></ComponentRenderer>
-              </div>
-            )}
           </div>
         </DndProvider>
+        {!!parseComponent && (
+          <div className="mt-5">
+            <ComponentRenderer
+              key={parseComponent.id}
+              parent={quiz}
+              component={parseComponent}
+            ></ComponentRenderer>
+          </div>
+        )}
       </div>
       <QuizFooter
         showAnswer={showAnswer}
