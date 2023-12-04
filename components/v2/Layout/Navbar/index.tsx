@@ -89,7 +89,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
     const path = nav.menu[0].path;
     if (~needLoginPath.indexOf(path) && !userInfo) {
       e.stopPropagation();
-      message.warning('Please log in first');
+      message.warning('Please login first');
       router.push(V2_LANDING_PATH);
       return;
     }
