@@ -132,7 +132,7 @@ const HomeBanner: FC<HomeBannerProps> = (props) => {
       <div className="hidden slab:flex absolute w-full h-full left-0 top-0 py-[10%] flex-col justify-between">
         <div className="flex flex-col h-full relative text-center">
           <h1 className="text-white  text-[36px] tracking-[2.4px] font-bold leading-[130%]">
-            Mantle University
+            Mantle Learn
           </h1>
           <div className="flex items-center justify-center mt-[10px]">
             <p className="text-white pr-[12px] text-[14px] leading-[130%]">
@@ -180,7 +180,7 @@ const HomeBanner: FC<HomeBannerProps> = (props) => {
           </div>
           <div className="w-full h-full p-[20px] flex flex-col justify-center">
             <h1 className="text-white text-center  text-[36px] tracking-[2.4px] font-bold leading-[130%]">
-              Mantle University
+              Mantle Learn
             </h1>
             <div className="flex items-center justify-center mt-[10px]">
               <p className="text-white pr-[12px] text-[14px] leading-[130%]">

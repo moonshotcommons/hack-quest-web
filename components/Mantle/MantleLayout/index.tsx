@@ -66,7 +66,7 @@ const MantleLayout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
     >
       <div
         className={cn(
-          'w-full   flex items-center z-[99] shadow-[box-shadow: rgba(17, 12, 46, 0.15)_0px_48px_100px_0px]',
+          'w-full  slab:hidden  flex items-center z-[99] shadow-[box-shadow: rgba(17, 12, 46, 0.15)_0px_48px_100px_0px]',
           router.pathname === '/' ? 'bg-[#0A1A19]' : 'bg-[#0B0B0B]'
         )}
       >
