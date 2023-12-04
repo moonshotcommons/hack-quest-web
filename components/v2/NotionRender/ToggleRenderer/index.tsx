@@ -1,14 +1,11 @@
-import { FC, ReactNode, useContext, useEffect, useMemo, useState } from 'react';
+import { FC, useContext, useEffect, useState } from 'react';
 
-import { cn } from '@/helper/utils';
-import { LessonStyleType } from '@/service/webApi/course/type';
-import TextRenderer from '../TextRenderer';
-import DropDownIcon from '@/components/Common/Icon/DropDown';
+import { ExpandDataType } from '@/hooks/useLessonExpand';
 import { VscAdd, VscChromeMinimize } from 'react-icons/vsc';
-import { CustomComponent, NotionComponent } from '../../LessonPage/type';
 import ComponentRenderer from '../../LessonPage/ComponentRenderer';
 import { LessonContentContext } from '../../LessonPage/LessonContent';
-import { ExpandDataType } from '@/hooks/useLessonExpand';
+import { CustomComponent, NotionComponent } from '../../LessonPage/type';
+import TextRenderer from '../TextRenderer';
 interface ToggleRendererProps {
   component: NotionComponent;
   isRenderChildren?: boolean;
@@ -20,6 +17,10 @@ const ToggleRenderer: FC<ToggleRendererProps> = (props) => {
   const [showChild, setShowChild] = useState(true);
   const { expandData, changeExpandData } = useContext(LessonContentContext);
   const changeShowChild = (status: boolean) => {
+    if (!expandData) {
+      setShowChild(status);
+      return;
+    }
     const newExpandData = [...expandData] as ExpandDataType[];
     const index = newExpandData?.findIndex((v) => v.id === component.id);
     newExpandData[index].expandNum = status ? 1 : 0;
