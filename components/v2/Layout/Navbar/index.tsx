@@ -110,7 +110,10 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
               }`}
               onClick={logoClick}
             >
-              <Image src={DarkLogoActive} alt="logo"></Image>
+              {/* <Image src={DarkLogoActive} alt="logo"></Image> */}
+              <span className="font-next-book-bold text-[24px] tracking-[1.2px]">
+                Mantle Learn
+              </span>
             </div>
 
             <SlideHighlight

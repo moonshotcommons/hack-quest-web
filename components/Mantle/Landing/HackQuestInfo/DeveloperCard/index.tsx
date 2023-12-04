@@ -7,12 +7,11 @@ interface DeveloperCardProps {
   description: string;
   className?: string;
 }
-
 const DeveloperCard: FC<DeveloperCardProps> = (props) => {
   return (
     <div
       className={cn(
-        'w-[400px] slab:w-[calc(50%-6px)] px-[70px] slab:px-[8px] slab:pt-[16px] slab:pb-[16px] pt-[30px] pb-[20px] rounded-[15px] justify-between items-center flex flex-col border-[#171717] border',
+        'w-[calc((100%-80px)/3)] slab:w-[calc((100%-24px)/3)] wap:w-[calc((100%-12px)/2)] px-[70px] slab:px-[8px] slab:pt-[16px] slab:pb-[16px] pt-[30px] pb-[20px] rounded-[15px] justify-between items-center flex flex-col border-[#171717] border',
         props.className
       )}
       style={{
@@ -25,7 +24,7 @@ const DeveloperCard: FC<DeveloperCardProps> = (props) => {
           {props.title}
         </p>
       </div>
-      <div className="mt-[15px] flex-center slab:w-full slab:mt-[20px]  slab:text-[10px] flex  p-[10px] bg-[#1C363C] rounded-[10px]  w-fit">
+      <div className="mt-[15px] lg:w-[255px] flex-center slab:w-full slab:mt-[20px]  slab:text-[10px] flex  p-[10px] bg-[#1C363C] rounded-[10px]  w-fit">
         {/* <Image src={MantleIcon} alt="mantle" className="slab:hidden"></Image> */}
         {/* <Image
           src={MantleIcon}
