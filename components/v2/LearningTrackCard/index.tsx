@@ -323,10 +323,10 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
 
   return (
     <div
-      className="h-[275px] font-next-book cursor-pointer rounded-[10px] bg-home-learning--track-bg overflow-hidden flex flex-col mb-10 hover:-translate-y-1 transition-all duration-300 shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)]"
+      className="h-[275px] font-next-book cursor-pointer relative rounded-[10px] bg-home-learning--track-bg overflow-hidden flex flex-col mb-10 hover:-translate-y-1 transition-all duration-300 shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)]"
       onClick={goLearningTrackDetail}
     >
-      <div className="h-[10px] bg-home-learning--track-border-bg"></div>
+      <div className="absolute left-0 top-0 w-full h-[10px] bg-home-learning--track-border-bg"></div>
       <div className="w-full flex-1 flex items-center p-10 relative">
         <div className="absolute left-[16px] top-[13px]">
           {leftIconRender()}
