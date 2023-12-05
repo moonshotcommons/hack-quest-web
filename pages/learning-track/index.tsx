@@ -1,17 +1,17 @@
+import Title from '@/components/Head/Title';
 import Loading from '@/components/v2/Common/Loading';
 import LearningTrackCard from '@/components/v2/LearningTrackCard';
 import PageDescription from '@/components/v2/PageDescription';
 import { useGetLearningTracks } from '@/hooks/useLearningTrackHooks/useLearningTracks';
-import Title from '@/components/Head/Title';
 
 function LearningTrack() {
   const { learningTracks, loading } = useGetLearningTracks();
   return (
     <div className="container mx-auto">
-      <Title title="Learning Track" />
+      <Title title="Learning Tracks" />
       <PageDescription
-        title={'Learning Track'}
-        description={`Don't know where to start? Pick a learning track! Learning Track provides a series of core + elective courses that help you master one smart contract language. `}
+        title={'Learning Tracks'}
+        description={`Don't know where to start? Choose a Learning Track! Our Learning Tracks offer a curated sequence of core and elective courses designed to guide you in mastering a specific smart contract programming language.`}
       />
       <Loading loading={loading}>
         {learningTracks.map((item) => (
