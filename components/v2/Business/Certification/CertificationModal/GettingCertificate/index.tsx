@@ -69,14 +69,12 @@ const GettingCertificate: FC<GettingCertificateProps> = (props) => {
       <div className="flex items-center gap-x-5 h-fit">
         <div>{badge}</div>
         <h3 className="font-next-poster-Bold leading-[125%] text-[28px] tracking-[1.68px] text-[#131313]">
-          Congratulations on getting your certificate!
+          Congratulations! You are now a Certified Mantle Developer.
         </h3>
       </div>
 
       <p className="mt-5 text-[#0B0B0B] font-next-book text-[16px] leading-[160%] tracking-[0.32px]">
-        {`You’ve reached a significant milestone in your Web3 learning journey!
-          Proudly share your well-deserved certificate with others as a testament
-          to your expertise in the dynamic world of decentralized technology.`}
+        {`This certificate, co-issued by Mantle Network and HackQuest, certifies that you have successfully completed the Mantle Learning Track. It attests that you have acquired foundational skills and understanding in Solidity Development, Deploying to Mantle, Mantle Architecture, and EVM Concepts. Share your accomplishment with the world!`}
       </p>
 
       <div
@@ -112,7 +110,7 @@ const GettingCertificate: FC<GettingCertificateProps> = (props) => {
             type="primary"
             icon={<RiShareBoxLine />}
             iconPosition="left"
-            className="w-[210px] py-[11px] px-0 font-next-book text-[#0B0B0B] text-[16px] leading-[125%] tracking-[0.32px]"
+            className="w-[210px] py-[11px] px-0 font-next-book text-[#0B0B0B] text-[16px] leading-[125%] tracking-[0.32px] outline-none"
             onClick={() => setShowShare(true)}
           >
             Share

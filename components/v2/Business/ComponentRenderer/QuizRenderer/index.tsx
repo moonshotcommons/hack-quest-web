@@ -25,8 +25,14 @@ interface QuizRendererProps {
   parent: any;
 }
 
-export const QuizContext = createContext<{ onPass: VoidFunction }>({
-  onPass: () => {}
+export const QuizContext = createContext<{
+  onPass: VoidFunction;
+  currentQuizIndex: number;
+  parentQuiz: any;
+}>({
+  onPass: () => {},
+  currentQuizIndex: 0,
+  parentQuiz: {}
 });
 
 const QuizRenderer: FC<QuizRendererProps> = (props) => {
@@ -178,7 +184,9 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
           )}
         >
           {QuizHeader}
-          <QuizContext.Provider value={{ onPass }}>
+          <QuizContext.Provider
+            value={{ onPass, currentQuizIndex, parentQuiz: quiz }}
+          >
             <div className={`h-full overflow-hidden px-[20px]`}>
               <ComponentRenderer
                 parent={quiz}
