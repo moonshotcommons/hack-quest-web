@@ -1,16 +1,16 @@
-import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
-import { VscAdd, VscChromeMinimize } from 'react-icons/vsc';
-import Image from 'next/image';
-import Certificate from '@/public/images/campaigns/certificate.png';
-import iconXp from '@/public/images/mission-center/icon_xp.png';
-import iconCoin from '@/public/images/mission-center/icon_coin.png';
-import Button from '@/components/v2/Common/Button';
-import { Inter, DM_Sans } from 'next/font/google';
-import { MantleContext } from '@/components/v2/Campaigns/Mantle/type';
-import { BurialPoint } from '@/helper/burialPoint';
 import CertificationModal, {
   CertificationModalInstance
-} from '@/components/v2/Certification/CertificationModal';
+} from '@/components/v2/Business/Certification/CertificationModal';
+import { MantleContext } from '@/components/v2/Campaigns/Mantle/type';
+import Button from '@/components/v2/Common/Button';
+import { BurialPoint } from '@/helper/burialPoint';
+import Certificate from '@/public/images/campaigns/certificate.png';
+import iconCoin from '@/public/images/mission-center/icon_coin.png';
+import iconXp from '@/public/images/mission-center/icon_xp.png';
+import { DM_Sans } from 'next/font/google';
+import Image from 'next/image';
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { VscAdd, VscChromeMinimize } from 'react-icons/vsc';
 const inter = DM_Sans({
   weight: ['400', '700', '500'],
   subsets: ['latin', 'latin-ext']
@@ -44,20 +44,24 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
       </div>
       <div
         className={`h-fit flex gap-[40px] px-[30px] py-[20px] border border-[#8c8c8c] rounded-[10px] font-next-book ${
-          showAll ? 'w-[495px]' : 'w-[306px]'
+          showAll ? 'w-[567px]' : 'w-[306px]'
         }`}
       >
         {showAll && (
-          <div className="w-[146px]">
-            <div className="w-full h-[169px] relative mb-[8px]">
+          <div className="w-[218px]">
+            <div
+              className="w-[218px] h-[121px] relative mb-[8px] bg-white cursor-pointer hover:scale-[1.03] hover:-translate-y-1 transition-transform"
+              onClick={() => {
+                certificationModalRef.current?.open();
+              }}
+            >
               <Image
                 src={mantle.certification?.image || Certificate}
                 alt="certificate"
                 fill
-                className="object-cover"
               ></Image>
             </div>
-            <div className="flex justify-between text-[14px]">
+            <div className="flex gap-[10px] text-[14px]">
               <div className="px-[5px] flex items-center justify-between w-[69px] h-[32px] border border-[#DADADA] rounded-[6px]">
                 <Image
                   src={iconCoin}

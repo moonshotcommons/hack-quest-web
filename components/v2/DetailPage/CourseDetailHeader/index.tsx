@@ -1,6 +1,6 @@
 import Button from '@/components/v2/Common/Button';
 
-import CourseTags from '@/components/v2/CourseTags';
+import CourseTags from '@/components/v2/Business/CourseTags';
 import { tagFormate } from '@/helper/formate';
 import { CourseDetailType } from '@/service/webApi/course/type';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
@@ -40,7 +40,7 @@ const CourseDetailHeader: FC<CourseDetailHeaderProps> = (props) => {
             {courseDetail.name}
           </h1>
           <Typography.Paragraph
-            ellipsis={{ rows: 3 }}
+            // ellipsis={{ rows: 3 }}
             className="max-w-[775px] w-[775px] min-h-[78px] text-course-detail-desc-text-color font-next-book mt-[10px] leading-[160%] text-base"
             style={{ marginBottom: 0 }}
           >
@@ -76,7 +76,7 @@ const CourseDetailHeader: FC<CourseDetailHeaderProps> = (props) => {
           )}
 
           {learningStatus === LearningStatus.UN_START && (
-            <div>
+            <div className="mt-5">
               <Button
                 loading={startLoading}
                 disabled={startLoading}

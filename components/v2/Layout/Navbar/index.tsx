@@ -2,17 +2,17 @@ import DarkLogoActive from '@/public/images/logo/dark-text-Logo-active.svg';
 import Image from 'next/image';
 import React, { ReactNode, useEffect, useState } from 'react';
 
+import Badge from '@/components/Common/Badge';
+import SlideHighlight from '@/components/Common/Navigation/SlideHighlight';
+import { V2_LANDING_PATH } from '@/constants/nav';
+import { useGetUserInfo } from '@/hooks/useGetUserInfo';
+import { AppRootState } from '@/store/redux';
+import { message } from 'antd';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
-import { AppRootState } from '@/store/redux';
-import Badge from '@/components/Common/Badge';
-import SlideHighlight from '@/components/Common/Navigation/SlideHighlight';
+import { isBadgeIds, needLoginPath } from './data';
 import { MenuType, NavbarListType } from './type';
-import { needLoginPath, isBadgeIds } from './data';
-import { useGetUserInfo } from '@/hooks/useGetUserInfo';
-import { message } from 'antd';
-import { V2_LANDING_PATH } from '@/constants/nav';
 
 export interface NavBarProps {
   navList: NavbarListType[];
@@ -83,10 +83,15 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
     setSecondNavIndex(index);
   }, [pathname, showSecondNav, secondNavData]);
 
-  const handleClickNav = (nav: NavbarListType) => {
+  const handleClickNav = (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    nav: NavbarListType
+  ) => {
     const path = nav.menu[0].path;
     if (~needLoginPath.indexOf(path) && !userInfo) {
-      message.warning('Please log in first');
+      e.stopPropagation();
+      message.warning('Please login first');
+      router.push(V2_LANDING_PATH);
       return;
     }
     router.push(path);
@@ -102,7 +107,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
           isFull ? 'w-full 2xl:px-[40px]' : 'container'
         }`}
       >
-        <div className="h-full flex items-center justify-between font-next-book">
+        <div className="wap:hidden  h-full flex items-center justify-between font-next-book">
           <nav className="h-full flex items-center text-white">
             <div
               className={`h-full flex items-center ${
@@ -112,7 +117,6 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
             >
               <Image src={DarkLogoActive} alt="logo"></Image>
             </div>
-
             <SlideHighlight
               className="flex ml-16 gap-[10px] h-[34px] text-sm rounded-[20px] bg-[#3E3E3E] overflow-hidden tracking-[0.28px]"
               currentIndex={inSideNavIndex}
@@ -125,7 +129,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
                     curNavId === nav.id ? 'text-[#0b0b0b]' : ''
                   }`}
                   data-id={nav.id}
-                  onClick={() => handleClickNav(nav)}
+                  onClick={(e) => handleClickNav(e, nav)}
                 >
                   <div className="relative">
                     <span>{nav.label}</span>
@@ -151,9 +155,12 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
           </nav>
           {children}
         </div>
+        <nav className="hidden wap:flex-center w-full h-full ">
+          <Image src={DarkLogoActive} height={20} alt="logo"></Image>
+        </nav>
       </div>
       {showSecondNav && (
-        <div className=" text-white tracking-[0.84px]  w-screen h-12 bg-[#0B0B0B]">
+        <div className="wap:hidden  text-white tracking-[0.84px]  w-screen h-12 bg-[#0B0B0B]">
           <SlideHighlight
             className="container m-auto flex items-end gap-[30px] h-full"
             currentIndex={secondNavIndex}

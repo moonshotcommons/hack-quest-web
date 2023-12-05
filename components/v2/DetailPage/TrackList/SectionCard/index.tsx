@@ -1,4 +1,4 @@
-import { Menu, QueryIdType } from '@/components/v2/Breadcrumb/type';
+import { Menu, QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
 import { Theme } from '@/constants/enum';
 import { BurialPoint } from '@/helper/burialPoint';
 import { computeProgress, tagFormate } from '@/helper/formate';
@@ -19,7 +19,7 @@ import { VscAdd } from 'react-icons/vsc';
 import styled from 'styled-components';
 import { TrackListContext } from '../../LearningTrackDetail';
 import Button from '@/components/v2/Common/Button';
-import { menuLink } from '@/components/v2/Breadcrumb/data';
+import { menuLink } from '@/components/v2/Business/Breadcrumb/data';
 
 const CustomProgress = styled(Progress)`
   .ant-progress-inner {
@@ -65,7 +65,7 @@ function SectionList(props: {
   const { section, enrolled, theme, sectionIndex, sectionList } = props;
   const router = useRouter();
   const { jumpLearningLesson, loading } = useJumpLeaningLesson();
-
+  const [clickIndex, setClickIndex] = useState<null | number>(null);
   const renderLearningButton = (item: CourseDetailType, index: number) => {
     if (!enrolled) return null;
 
@@ -91,8 +91,8 @@ function SectionList(props: {
         {enrolled && item.progress < 1 && (
           <div className="h-full flex items-center justify-end pr-[50px]">
             <Button
-              loading={loading}
-              disabled={loading}
+              loading={loading && clickIndex === index}
+              disabled={loading && clickIndex === index}
               className="
               w-[165px] py-[11px] leading-[125%] hover:-translate-y-[1px] hover:shadow-[rgba(0,0,0,0.15)_1.95px_1.95px_2.6px] transition border border-solid
               bg-course-learning-button-bg border-course-learning-button-border-color rounded-[32px] whitespace-nowrap
@@ -103,6 +103,7 @@ function SectionList(props: {
                   sectionName: section.name,
                   courseName: item.name
                 });
+                setClickIndex(index);
                 jumpLearningLesson(item, {
                   menu: Menu.LEARNING_TRACK,
                   idTypes: [

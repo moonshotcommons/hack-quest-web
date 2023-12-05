@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { CourseResponse, ProcessType } from '@/service/webApi/course/type';
-import CourseCard from '@/components/v2/CourseCard';
+import CourseCard from '@/components/v2/Business/CourseCard';
 interface CourseListType {
   list: CourseResponse[];
   curTab: ProcessType;

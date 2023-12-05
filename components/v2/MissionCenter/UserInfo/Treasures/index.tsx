@@ -7,7 +7,7 @@ import { BurialPoint } from '@/helper/burialPoint';
 import TreasureModal, {
   TreasureType,
   TreasureModalRef
-} from '@/components/v2/TreasureModal';
+} from '@/components/v2/Business/TreasureModal';
 import Loading from '@/public/images/other/loading.png';
 
 interface TreasuresProp {
