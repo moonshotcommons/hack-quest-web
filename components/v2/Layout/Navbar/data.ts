@@ -14,6 +14,10 @@ export const navbarList: NavbarListType[] = [
         path: MenuLink.LEARNING_TRACK
       },
       {
+        label: 'PRACTICES',
+        path: MenuLink.PRACTICES
+      },
+      {
         label: 'ELECTIVES',
         path: MenuLink.ELECTIVES
       }
