@@ -4,7 +4,7 @@ import webApi from '@/service';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useCallback, useEffect, useState } from 'react';
-import { navIdType, navLinks, menuName, menuLink } from './data';
+import { menuLink, menuName, navIdType, navLinks } from './data';
 import { MenuNameType, QueryIdType } from './type';
 
 interface navDataProps {
@@ -146,7 +146,13 @@ const Breadcrumb: React.FC = () => {
   };
   return (
     <div className="text-[14px] font-next-book text-lesson-preview-color flex h-[50px] items-center ">
-      {navData?.map((nav: navDataProps, i: number) => renderNav(nav, i))}
+      {navData?.map((nav: navDataProps, i: number) => {
+        return (
+          <div key={i} className="max-w-[30%] truncate">
+            {renderNav(nav, i)}
+          </div>
+        );
+      })}
     </div>
   );
 };

@@ -1,18 +1,9 @@
-import { FC, ReactNode, useContext, useMemo, useRef } from 'react';
-import { BoxType, ProfileContext } from '../type';
-import { getThirdPartyMedia, thirdPartyMedia } from '@/helper/thirdPartyMedia';
-import { RiShareBoxLine } from 'react-icons/ri';
 import Button from '@/components/v2/Common/Button';
-import Tooltip from '@/components/v2/Common/Tooltip';
-import EditButton from '../PersonalEdit/EditButton';
-import HoverIcon from '../components/HoverIcon';
-import { IconType } from '../components/HoverIcon/type';
-import { useState } from 'react';
-import { useEffect } from 'react';
-import Link from 'next/link';
-import CertificationImage from '@/components/v2/Certification/CertificationCard/certificate.png';
-import Image from 'next/image';
 import { Typography } from 'antd';
+import Image from 'next/image';
+import Link from 'next/link';
+import { FC, useContext } from 'react';
+import { ProfileContext } from '../type';
 interface PersonalLinksProps {}
 
 const Certifications: FC<PersonalLinksProps> = (props) => {
@@ -41,9 +32,9 @@ const Certifications: FC<PersonalLinksProps> = (props) => {
             return (
               <li
                 key={item.id}
-                className="flex w-[168px] flex-col justify-center"
+                className="flex w-[195px] flex-col justify-center"
               >
-                <div className=" h-[193px] relative rounded-[10px]">
+                <div className=" h-[108px] relative rounded-[10px]">
                   <Image
                     src={item.image}
                     fill

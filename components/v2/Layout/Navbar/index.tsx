@@ -83,10 +83,15 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
     setSecondNavIndex(index);
   }, [pathname, showSecondNav, secondNavData]);
 
-  const handleClickNav = (nav: NavbarListType) => {
+  const handleClickNav = (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    nav: NavbarListType
+  ) => {
     const path = nav.menu[0].path;
     if (~needLoginPath.indexOf(path) && !userInfo) {
-      message.warning('Please log in first');
+      e.stopPropagation();
+      message.warning('Please login first');
+      router.push(V2_LANDING_PATH);
       return;
     }
     router.push(path);
@@ -128,7 +133,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
                     curNavId === nav.id ? 'text-[#0b0b0b]' : ''
                   }`}
                   data-id={nav.id}
-                  onClick={() => handleClickNav(nav)}
+                  onClick={(e) => handleClickNav(e, nav)}
                 >
                   <div className="relative">
                     <span>{nav.label}</span>
