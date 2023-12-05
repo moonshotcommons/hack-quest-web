@@ -22,6 +22,7 @@ const DragAnswer: FC<DragAnswerProps> = memo(function DragAnswer(props) {
     }),
     [option]
   );
+
   return (
     <div
       ref={drag}
