@@ -66,6 +66,11 @@ const TargetCard: React.FC<TargetCardProp> = ({ target }) => {
         return 'Go to Profile';
     }
   };
+
+  const targerClaim = () => {
+    if (target.claimed) return;
+    campaignsTargetClaim([target.id]);
+  };
   return (
     <div
       key={target.id}
@@ -100,7 +105,7 @@ const TargetCard: React.FC<TargetCardProp> = ({ target }) => {
                                   hover:bg-auth-primary-button-hover-bg`
                           }`}
               loading={claimIds.includes(target.id)}
-              onClick={() => campaignsTargetClaim([target.id])}
+              onClick={targerClaim}
             >
               {target.claimed ? 'Claimed' : 'Claim'}
             </Button>

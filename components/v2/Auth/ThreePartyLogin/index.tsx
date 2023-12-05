@@ -1,25 +1,11 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react';
-import Button from '@/components/v2/Common/Button';
-import Google from '@/public/images/login/google.svg';
 import Github from '@/public/images/login/github.svg';
-import Metamask from '@/public/images/login/metamask.svg';
-import Image from 'next/image';
+import Google from '@/public/images/login/google.svg';
 import webApi from '@/service';
 import { AuthType } from '@/service/webApi/user/type';
-import { useConnect } from 'wagmi';
-import { message } from 'antd';
-import { useDispatch } from 'react-redux';
-import {
-  UnLoginType,
-  setUnLoginType,
-  setUserInfo
-} from '@/store/redux/modules/user';
-import { useRequest } from 'ahooks';
-import { omit } from 'lodash-es';
-import { BurialPoint } from '@/helper/burialPoint';
-import { setToken } from '@/helper/user-token';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { errorMessage } from '@/helper/utils';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import MetamaskLoginButton from './MetamaskLoginButton';
 
 function ThreePartyLogin() {
