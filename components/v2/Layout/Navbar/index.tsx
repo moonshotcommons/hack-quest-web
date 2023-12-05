@@ -2,17 +2,17 @@ import DarkLogoActive from '@/public/images/logo/dark-text-Logo-active.svg';
 import Image from 'next/image';
 import React, { ReactNode, useEffect, useState } from 'react';
 
+import Badge from '@/components/Common/Badge';
+import SlideHighlight from '@/components/Common/Navigation/SlideHighlight';
+import { V2_LANDING_PATH } from '@/constants/nav';
+import { useGetUserInfo } from '@/hooks/useGetUserInfo';
+import { AppRootState } from '@/store/redux';
+import { message } from 'antd';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
-import { AppRootState } from '@/store/redux';
-import Badge from '@/components/Common/Badge';
-import SlideHighlight from '@/components/Common/Navigation/SlideHighlight';
+import { isBadgeIds, needLoginPath } from './data';
 import { MenuType, NavbarListType } from './type';
-import { needLoginPath, isBadgeIds } from './data';
-import { useGetUserInfo } from '@/hooks/useGetUserInfo';
-import { message } from 'antd';
-import { V2_LANDING_PATH } from '@/constants/nav';
 
 export interface NavBarProps {
   navList: NavbarListType[];
@@ -83,10 +83,15 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
     setSecondNavIndex(index);
   }, [pathname, showSecondNav, secondNavData]);
 
-  const handleClickNav = (nav: NavbarListType) => {
+  const handleClickNav = (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    nav: NavbarListType
+  ) => {
     const path = nav.menu[0].path;
     if (~needLoginPath.indexOf(path) && !userInfo) {
-      message.warning('Please log in first');
+      e.stopPropagation();
+      message.warning('Please login first');
+      router.push(V2_LANDING_PATH);
       return;
     }
     router.push(path);
@@ -124,7 +129,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
                     curNavId === nav.id ? 'text-[#0b0b0b]' : ''
                   }`}
                   data-id={nav.id}
-                  onClick={() => handleClickNav(nav)}
+                  onClick={(e) => handleClickNav(e, nav)}
                 >
                   <div className="relative">
                     <span>{nav.label}</span>
