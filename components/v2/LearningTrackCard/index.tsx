@@ -1,5 +1,5 @@
-import Button from '@/components/v2/Common/Button';
 import CheckIcon from '@/components/Common/Icon/Check';
+import Button from '@/components/v2/Common/Button';
 import { BurialPoint } from '@/helper/burialPoint';
 import { computeProgress } from '@/helper/formate';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
@@ -8,14 +8,14 @@ import LearningImage from '@/public/images/home/learning-image.svg';
 import webApi from '@/service';
 import { LearningTrackCourseType } from '@/service/webApi/course/type';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
-import { Progress } from 'antd';
+import { Progress, Typography } from 'antd';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useEffect, useMemo, useState } from 'react';
 import { styled } from 'styled-components';
+import { menuLink } from '../Breadcrumb/data';
 import { Menu, QueryIdType } from '../Breadcrumb/type';
 import CourseTags from '../CourseTags';
-import { menuLink } from '../Breadcrumb/data';
 
 const CustomProgress = styled(Progress)`
   .ant-progress-inner {
@@ -145,9 +145,14 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
       case LearningTrackCourseType.UN_ENROLL:
       case LearningTrackCourseType.COMPLETED:
         return (
-          <span className="text-home-default-color">
-            {learningTrack.description}
-          </span>
+          <Typography.Paragraph
+            ellipsis={{ rows: 3 }}
+            style={{ marginBottom: '0px' }}
+          >
+            <span className="text-home-default-color text-[16px] font-next-book">
+              {learningTrack.description}
+            </span>
+          </Typography.Paragraph>
         );
       case LearningTrackCourseType.IN_PROCESS:
         const percent = `${computeProgress(learningTrack.progress)}%`;

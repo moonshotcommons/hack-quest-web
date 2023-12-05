@@ -13,7 +13,6 @@ import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { isBadgeIds, needLoginPath } from './data';
 import { MenuType, NavbarListType } from './type';
-
 export interface NavBarProps {
   navList: NavbarListType[];
   children?: ReactNode;
