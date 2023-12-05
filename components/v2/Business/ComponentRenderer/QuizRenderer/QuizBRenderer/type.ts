@@ -1,5 +1,5 @@
-import { QuizBType } from '@/components/v2/Business/ComponentRenderer/type';
 import { Dispatch, SetStateAction, createContext } from 'react';
+import { QuizBType } from '../../type';
 
 export type QuizOptionType = QuizBType['options'][number] & {
   isRender: boolean;
@@ -19,6 +19,7 @@ interface QuizBContextType {
   showAnswer: boolean;
   accept: QuizOptionType[];
   changeOptionState: (options: QuizOptionType[]) => void;
+  quiz: any;
 }
 
 export const QuizBContext = createContext<QuizBContextType>({
@@ -27,5 +28,6 @@ export const QuizBContext = createContext<QuizBContextType>({
   answers: {},
   showAnswer: false,
   setAnswers: () => {},
-  accept: []
+  accept: [],
+  quiz: {}
 });

@@ -4,6 +4,7 @@ import { FC, useContext, useEffect, useRef, useState } from 'react';
 import { useDrop } from 'react-dnd';
 import { MdCancel } from 'react-icons/md';
 import { v4 as uuid } from 'uuid';
+import { QuizContext } from '../..';
 import { AnswerType, QuizBContext, QuizOptionType } from '../type';
 interface DropAnswerProps {
   answer: string;
@@ -11,8 +12,17 @@ interface DropAnswerProps {
 
 const DropAnswer: FC<DropAnswerProps> = (props) => {
   const { answer } = props;
-  const { onDrop, accept, changeOptionState, answers, showAnswer, setAnswers } =
-    useContext(QuizBContext);
+  const {
+    onDrop,
+    accept,
+    changeOptionState,
+    answers,
+    showAnswer,
+    setAnswers,
+    quiz
+  } = useContext(QuizBContext);
+
+  const { currentQuizIndex } = useContext(QuizContext);
   const [clearVisible, setClearVisible] = useState(false);
   const [currentAnswer, setCurrentAnswer] = useState<AnswerType>();
 
@@ -46,8 +56,9 @@ const DropAnswer: FC<DropAnswerProps> = (props) => {
         status: 'default'
       };
 
+      setAnswers({});
       setAnswers((state) => {
-        const newAnswers = {
+        const newAnswers: any = {
           ...state,
           [newAnswer.id]: newAnswer
         };
@@ -56,7 +67,7 @@ const DropAnswer: FC<DropAnswerProps> = (props) => {
       setCurrentAnswer(newAnswer);
       renderState.current = true;
     }
-  }, []);
+  }, [quiz]);
 
   useEffect(() => {
     setClearVisible(false);
@@ -96,10 +107,6 @@ const DropAnswer: FC<DropAnswerProps> = (props) => {
         >
           <span className="inline-flex items-center relative w-full">
             <span className="leading-[125%] px-[7px]">
-              {/* <MdOutlineDragHandle
-                size={8}
-                color="#8C8C8C"
-              ></MdOutlineDragHandle> */}
               <svg
                 width="14"
                 height="8"

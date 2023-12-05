@@ -1,14 +1,12 @@
-import Image from 'next/image';
-import { FC, ReactNode, useEffect, useRef, useState } from 'react';
-import CertificationImage from './certificate.png';
 import Button from '@/components/v2/Common/Button';
+import webApi from '@/service';
+import { CertificationType } from '@/service/webApi/campagins/type';
+import { useRequest } from 'ahooks';
+import Image from 'next/image';
+import { FC, useRef, useState } from 'react';
 import CertificationModal, {
   CertificationModalInstance
 } from '../CertificationModal';
-import { message } from 'antd';
-import { useRequest } from 'ahooks';
-import webApi from '@/service';
-import { CertificationType } from '@/service/webApi/campagins/type';
 interface CertificationCardProps {
   certificationId: string;
 }
@@ -52,7 +50,7 @@ const CertificationCard: FC<CertificationCardProps> = (props) => {
             Learn More
           </Button>
         </div>
-        <div className="w-[246px] h-[283px] relative mr-[130px]">
+        <div className="w-[421px] h-[233px] relative mr-[20px]">
           {certification?.image && (
             <Image
               fill

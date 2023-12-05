@@ -24,7 +24,7 @@ interface QuizBRendererProps {
 
 const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
   const { quiz } = props;
-  const { onPass } = useContext(QuizContext);
+  const { onPass, parentQuiz } = useContext(QuizContext);
   const [options, setOptions] = useState<QuizOptionType[]>(() =>
     quiz.options.map((option) => ({ ...option, isRender: true }))
   );
@@ -32,7 +32,8 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
   const { lesson } = useContext(PlaygroundContext);
   const [answers, setAnswers] = useState<Record<string, AnswerType>>({});
   const mountAnswers = useRef(0);
-
+  const [mountOptionIds, setMountOptionIds] = useState<string[]>([]);
+  const renderState = useRef(false);
   const onDrop = (
     dropAnswer: AnswerType,
     replaceOption?: QuizOptionType | null
@@ -101,21 +102,41 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
   };
 
   useEffect(() => {
+    const answerOptions = Object.keys(answers)
+      .map((key) => answers[key].option?.id)
+      .filter((id) => !!id);
+    setOptions(
+      quiz.options.map((option) => {
+        if (answerOptions.includes(option.id)) {
+          return { ...option, isRender: false };
+        }
+        return { ...option, isRender: true };
+      })
+    );
+
+    setMountOptionIds([]);
+  }, [quiz]);
+
+  useEffect(() => {
     if (
       quiz?.isCompleted &&
-      mountAnswers.current !== Object.keys(answers).length
+      mountOptionIds.length !== Object.keys(answers).length
     ) {
       const newAnswers = { ...answers };
       const mountOptionIds: string[] = [];
       for (const key in newAnswers) {
         let answerItem = answers[key];
-        answerItem.option = options.find(
+        const findOption = options.find(
           (option) =>
             option.content.rich_text
               .map((text: any) => text.plain_text.trim())
               .join('') === answerItem.answer
         ) as QuizOptionType;
-        mountOptionIds.push(answerItem.option?.id);
+        if (findOption) {
+          answerItem.option = findOption;
+          mountOptionIds.push(findOption.id);
+          setMountOptionIds(mountOptionIds);
+        }
       }
       setAnswers(newAnswers);
       setOptions((prevOptions) => {
@@ -129,7 +150,7 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
       });
       mountAnswers.current += 1;
     }
-  }, [quiz, answers]);
+  }, [answers]);
 
   const { quizChildren, parseComponent } = useMemo(() => {
     let parseComponent: NotionComponent | null = null;
@@ -150,6 +171,10 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
     };
   }, [quiz]);
 
+  const quizIndex = useMemo(() => {
+    return parentQuiz.children.findIndex((item: any) => item.id === quiz.id);
+  }, [quiz, parentQuiz]);
+
   return (
     <div className="h-full flex flex-col justify-between">
       <div className="flex-1 overflow-auto scroll-wrap-y">
@@ -162,7 +187,8 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
                 changeOptionState: (options) => setOptions(options),
                 answers,
                 showAnswer,
-                setAnswers
+                setAnswers,
+                quiz
               }}
             >
               <div className="py-4 items-center">
@@ -217,17 +243,17 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
                 );
               })}
             </div>
-            {!!parseComponent && (
-              <div className="mt-5">
-                <ComponentRenderer
-                  key={parseComponent.id}
-                  parent={quiz}
-                  component={parseComponent}
-                ></ComponentRenderer>
-              </div>
-            )}
           </div>
         </DndProvider>
+        {!!parseComponent && (
+          <div className="mt-5">
+            <ComponentRenderer
+              key={parseComponent.id}
+              parent={quiz}
+              component={parseComponent}
+            ></ComponentRenderer>
+          </div>
+        )}
       </div>
       <QuizFooter
         showAnswer={showAnswer}
