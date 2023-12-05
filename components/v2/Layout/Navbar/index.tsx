@@ -1,4 +1,3 @@
-import DarkLogoActive from '@/public/images/logo/dark-text-Logo-active.svg';
 import Image from 'next/image';
 import React, { ReactNode, useEffect, useState } from 'react';
 

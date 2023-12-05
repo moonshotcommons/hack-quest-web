@@ -7,6 +7,10 @@ export default function Document() {
       <Head>
         <meta charSet="UTF-8" />
         <link rel="icon" type="image/svg+xml" href="/images/logo/logo.svg" />
+        <meta
+          name="viewport"
+          content="width=device-width,initial-scale=1.0,maximum-scale=1.0, user-scalable=0"
+        ></meta>
         {/* <meta name="viewport" content="width=device-width, initial-scale=1.0" /> */}
       </Head>
       <body>

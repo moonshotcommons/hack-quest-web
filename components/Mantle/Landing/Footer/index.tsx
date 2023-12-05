@@ -49,27 +49,27 @@ const partnerList = [
       {
         title: 'HACKATHON',
         url: 'http://localhost:3000/resource-station/hackathon'
-      },
-      {
-        title: 'NEWS',
-        url: ''
-      },
-      {
-        title: 'MARKET',
-        url: ''
-      },
-      {
-        title: 'ARTICLES',
-        url: ''
-      },
-      {
-        title: 'PODCAST',
-        url: ''
-      },
-      {
-        title: 'COMMUNITY',
-        url: ''
       }
+      // {
+      //   title: 'NEWS',
+      //   url: ''
+      // },
+      // {
+      //   title: 'MARKET',
+      //   url: ''
+      // },
+      // {
+      //   title: 'ARTICLES',
+      //   url: ''
+      // },
+      // {
+      //   title: 'PODCAST',
+      //   url: ''
+      // },
+      // {
+      //   title: 'COMMUNITY',
+      //   url: ''
+      // }
     ]
   }
 ];
