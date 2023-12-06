@@ -8,7 +8,8 @@ export enum MenuLink {
   PROJECTS = '/resource-station/hackathon/projects',
   CAMPAIGINS = '/campaigns',
   USER_PROFILE = '/user/profile',
-  CONNECT_GITHUB = '/connect-github'
+  CONNECT_GITHUB = '/connect-github',
+  PROFILE = '/profile'
 }
 
 export interface MenuType {
