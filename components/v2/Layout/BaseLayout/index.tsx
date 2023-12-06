@@ -35,8 +35,10 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
       pathname === '/' ||
       !navList.length ||
       ~excludeLink.indexOf(pathname as MenuLink)
-    )
+    ) {
       return null;
+    }
+
     for (let menu of navList) {
       if (menu.menu.some((v) => v.path === pathname)) {
         return null;
