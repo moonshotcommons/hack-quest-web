@@ -9,26 +9,41 @@ import Tag from './tag';
 
 interface CourseTagsProps {
   level: string;
-  duration: number;
+  duration?: number;
   unitCount: number;
   size?: 'small' | 'large';
   type?: 'course' | 'learning-track';
+  className?: string;
 }
 
 const CourseTags: FC<CourseTagsProps> = (props) => {
-  const { level, unitCount, duration, size = 'small', type = 'course' } = props;
+  const {
+    level,
+    unitCount,
+    duration,
+    size = 'small',
+    type = 'course',
+    className
+  } = props;
   return (
     <div
       className={cn(
         'flex gap-[10px] items-center',
-        size === 'large' ? 'gap-[40px]' : ''
+        `${size === 'large' ? 'gap-[40px]' : ''} ${className}`
       )}
     >
-      <CourseLevel level={tagFormate(level)} size={size}></CourseLevel>
-      <Tag icon={<ClockIcon />} size={size}>
-        {computeTime(duration, 'Hour')}
-      </Tag>
-      <Tag icon={<CourseIcon />} size={size}>
+      <CourseLevel
+        level={tagFormate(level)}
+        size={size}
+        className="text-[#3E3E3E] font-next-book"
+      ></CourseLevel>
+      {duration && (
+        <Tag icon={<ClockIcon />} size={size}>
+          {computeTime(duration, 'Hour')}
+        </Tag>
+      )}
+
+      <Tag icon={<CourseIcon />} size={size} className="text-[#3E3E3E]">
         {type === 'course' &&
           unitCount + ' ' + `${unitCount > 1 ? 'Units' : 'Unit'}`}
         {type === 'learning-track' &&
