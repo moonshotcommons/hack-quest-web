@@ -1,27 +1,25 @@
-import React, { useEffect, useLayoutEffect, useMemo, useState } from 'react';
 import Button from '@/components/v2/Common/Button';
-import Google from '@/public/images/login/google.svg';
-import Github from '@/public/images/login/github.svg';
+import TipsModal from '@/components/v2/Landing/components/TipsModal';
+import { BurialPoint } from '@/helper/burialPoint';
+import { setToken } from '@/helper/user-token';
+import { errorMessage } from '@/helper/utils';
+import useIsPc from '@/hooks/useIsPc';
 import Metamask from '@/public/images/login/metamask.svg';
-import Image from 'next/image';
 import webApi from '@/service';
 import { AuthType } from '@/service/webApi/user/type';
-import { useConnect } from 'wagmi';
-import { message } from 'antd';
-import { useDispatch } from 'react-redux';
 import {
   UnLoginType,
   setUnLoginType,
   setUserInfo
 } from '@/store/redux/modules/user';
 import { useRequest } from 'ahooks';
+import { message } from 'antd';
 import { omit } from 'lodash-es';
-import { BurialPoint } from '@/helper/burialPoint';
-import { setToken } from '@/helper/user-token';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { errorMessage } from '@/helper/utils';
-import TipsModal from '@/components/v2/Landing/components/TipsModal';
-import useIsPc from '@/hooks/useIsPc';
+import React, { useEffect, useMemo, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useConnect } from 'wagmi';
 interface MetamaskLoginButtonProps {}
 
 const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {

@@ -8,7 +8,7 @@ import HackquestInfoBg from '@/public/images/landing/hack_quest_info_bg.png';
 import { LearningTrackCourseType } from '@/service/webApi/course/type';
 import { message } from 'antd';
 import Image from 'next/image';
-import { FC, useMemo } from 'react';
+import { FC, useMemo, useState } from 'react';
 import { AiOutlineRight } from 'react-icons/ai';
 import WhyL1 from '@/public/images/landing/why_h_1_l.png';
 import WhyR1 from '@/public/images/landing/why_h_1_r.png';
@@ -24,6 +24,8 @@ import LearningTrackWrapCard from '../components/LearningTrackWrapCard';
 import WhatIsHackquest from '@/public/images/landing/what_is_hackquest.png';
 import { cn } from '@/helper/utils';
 import { Menu, QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
+import useIsPc from '@/hooks/useIsPc';
+import TipsModal from '../components/TipsModal';
 
 interface HackQuestInfoProps {
   // children: ReactNode;
@@ -46,6 +48,8 @@ const goToLogin = () => {
 const GotoPageButton: React.FC<GotoPageButtonProps> = (props) => {
   const { isBlack, direction, type, className = '' } = props;
   const router = useRouter();
+  const isPc = useIsPc();
+  const [tispOpen, setTipsOpen] = useState(false);
   const color = useMemo(() => {
     return isBlack
       ? {
@@ -60,6 +64,10 @@ const GotoPageButton: React.FC<GotoPageButtonProps> = (props) => {
   const handleClick = (index: number) => {
     switch (type) {
       case 'learningTrack':
+        if (!isPc()) {
+          setTipsOpen(true);
+          return;
+        }
         if (index === 1) {
           goToLogin();
           BurialPoint.track(
@@ -71,7 +79,12 @@ const GotoPageButton: React.FC<GotoPageButtonProps> = (props) => {
             `landing-${direction} Explore Selective Courses按钮点击`
           );
         }
+        break;
       case 'hackathon':
+        if (!isPc()) {
+          setTipsOpen(true);
+          return;
+        }
         if (index === 1) {
           router.push(MenuLink.HACKATHON);
           BurialPoint.track(`landing Explore Hackathons按钮点击`);
@@ -84,33 +97,36 @@ const GotoPageButton: React.FC<GotoPageButtonProps> = (props) => {
     }
   };
   return (
-    <div
-      className={cn(
-        `wap:w-full gap-[40px] wap:gap-0 flex-row-center wap:flex-col-center`,
-        className
-      )}
-    >
-      <Button
-        className={`w-[270px] wap:w-[90%] h-[60px] p-0  border text-${color.text} border-${color.border} font-next-book`}
-        onClick={() => handleClick(1)}
+    <>
+      <div
+        className={cn(
+          `wap:w-full gap-[40px] wap:gap-0 flex-row-center wap:flex-col-center`,
+          className
+        )}
       >
-        {type === 'learningTrack'
-          ? 'Explore Learning Tracks'
-          : 'Explore Hackathons'}
-      </Button>
-      <Button
-        icon={<AiOutlineRight />}
-        iconPosition="right"
-        className={`text-${color.text}  wap:w-[90%] p-0 h-[60px] font-next-book`}
-        onClick={() => handleClick(2)}
-      >
-        <span className="border-b border-[#FCC409]">
+        <Button
+          className={`w-[270px] wap:w-[90%] h-[60px] p-0  border text-${color.text} border-${color.border} font-next-book`}
+          onClick={() => handleClick(1)}
+        >
           {type === 'learningTrack'
-            ? 'Explore Selective Courses'
-            : 'Explore Projects'}
-        </span>
-      </Button>
-    </div>
+            ? 'Explore Learning Tracks'
+            : 'Explore Hackathons'}
+        </Button>
+        <Button
+          icon={<AiOutlineRight />}
+          iconPosition="right"
+          className={`text-${color.text}  wap:w-[90%] p-0 h-[60px] font-next-book`}
+          onClick={() => handleClick(2)}
+        >
+          <span className="border-b border-[#FCC409]">
+            {type === 'learningTrack'
+              ? 'Explore Selective Courses'
+              : 'Explore Projects'}
+          </span>
+        </Button>
+      </div>
+      <TipsModal open={tispOpen} onClose={() => setTipsOpen(false)} />
+    </>
   );
 };
 
