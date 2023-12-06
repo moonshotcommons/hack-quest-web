@@ -1,5 +1,5 @@
 import Button from '@/components/Common/Button';
-import LearningTracksCard from '@/components/v2/Business/LearningTrackLandingCard';
+import LearningTracksCard from '@/components/v2/Business/LearningTrackCard';
 import { BurialPoint } from '@/helper/burialPoint';
 import { useGetLearningTracks } from '@/hooks/useLearningTrackHooks/useLearningTracks';
 import LightButtonDeg from '@/public/images/home/light-button_deg.svg';
