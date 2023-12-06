@@ -39,6 +39,7 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
     replaceOption?: QuizOptionType | null
   ) => {
     const newAnswers = { ...answers, [dropAnswer.id]: dropAnswer };
+    console.log(dropAnswer, newAnswers, 'log');
     setAnswers(newAnswers);
     setOptions(
       options.map((option) => {
