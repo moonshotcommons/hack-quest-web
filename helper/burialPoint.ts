@@ -82,11 +82,14 @@ type HomeBurialPointType =
   | 'home-featured course滚动-左'
   | 'home-featured course滚动-右'
   | 'home-course卡片点击'
+  | 'home-practice卡片点击'
   | 'home-course卡片resume按钮点击'
+  | 'home-course卡片Continue按钮点击'
   | 'home-course卡片View Syllabus按钮点击'
   | 'home-learning track卡片View Syllabus按钮点击'
   | 'home-learning track卡片Enroll按钮点击'
   | 'home-learning track卡片resume按钮点击'
+  | 'home-learning track卡片Continue按钮点击'
   | 'home-view all点击'
   | 'home-邀请码复制';
 

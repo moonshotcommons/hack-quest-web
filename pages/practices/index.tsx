@@ -1,6 +1,6 @@
 import Title from '@/components/Head/Title';
 import PageDescription from '@/components/v2/Business/PageDescription';
-import SelectiveCoursesBox from '@/components/v2/ElectivesBox';
+import PracticesBox from '@/components/v2/PracticesBox';
 import { useRef, useState } from 'react';
 
 function SelectiveCourses() {
@@ -33,7 +33,7 @@ function SelectiveCourses() {
           }
         />
 
-        <SelectiveCoursesBox
+        <PracticesBox
           loadNum={loadNum}
           setApiStatus={(status) => setApiStatus(status)}
           apiStatus={apiStatus}
