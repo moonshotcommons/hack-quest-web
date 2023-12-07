@@ -8,7 +8,7 @@ import LearningImage from '@/public/images/mantle/learning-image.svg';
 import webApi from '@/service';
 import { LearningTrackCourseType } from '@/service/webApi/course/type';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
-import { Progress } from 'antd';
+import { Progress, Typography } from 'antd';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useEffect, useMemo, useState } from 'react';
@@ -145,9 +145,15 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
       case LearningTrackCourseType.UN_ENROLL:
       case LearningTrackCourseType.COMPLETED:
         return (
-          <span className="text-white leading-[160%]">
-            {learningTrack.description}
-          </span>
+          <Typography.Paragraph
+            ellipsis={{ rows: 3 }}
+            style={{ marginBottom: '0px' }}
+            className="text-white"
+          >
+            <span className="text-[16px] font-next-book">
+              {learningTrack.description}
+            </span>
+          </Typography.Paragraph>
         );
       case LearningTrackCourseType.IN_PROCESS:
         const percent = `${computeProgress(learningTrack.progress)}%`;
