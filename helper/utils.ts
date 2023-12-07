@@ -179,3 +179,9 @@ export async function urlToBlobAndBase64(url: string) {
     }
   );
 }
+
+export const separationNumber = (num: number, maxNum = 9999) => {
+  const sNum = num > maxNum ? maxNum : num;
+  const str = String(sNum).replace(/(?!^)(?=(\d{3})+$)/g, ',');
+  return num > maxNum ? `${str}+` : str;
+};

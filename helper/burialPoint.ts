@@ -167,6 +167,30 @@ type CampaignsBurialPointType =
   | 'campaigns targetCard Go to Profile 按钮点击'
   | 'campaigns targetCard Join Discord 按钮点击';
 
+type UserProfile =
+  | 'user-profile-页面留存时间'
+  | 'user-profile Experenice Add Experience按钮点击'
+  | 'user-profile Experenice Show More按钮点击'
+  | 'user-profile Experenice Edit icon按钮点击'
+  | 'user-profile Experenice Modal Save按钮点击'
+  | 'user-profile Experenice Modal Edit icon按钮点击'
+  | 'user-profile Experenice Modal Add icon按钮点击'
+  | 'user-profile Experenice Modal Delete icon按钮点击'
+  | 'user-profile Experenice Modal 确认删除'
+  | 'user-profile Hackathon Add Hackathon Experience按钮点击'
+  | 'user-profile Hackathon Show More按钮点击'
+  | 'user-profile Hackathon Edit icon按钮点击'
+  | 'user-profile Hackathon Modal Save按钮点击'
+  | 'user-profile Hackathon Modal Edit icon按钮点击'
+  | 'user-profile Hackathon Modal Add icon按钮点击'
+  | 'user-profile Hackathon Modal Delete icon按钮点击'
+  | 'user-profile Hackathon Modal 确认删除'
+  | 'user-profile GithubActivity unLink icon按钮点击'
+  | 'user-profile GithubActivity refresh icon按钮点击'
+  | 'user-profile GithubActivity Connect to Github按钮点击';
+
+type Profile = 'profile-页面留存时间' | 'profile-Official Website点击';
+
 type BurialPointType =
   | AuthBurialPointType
   | LandingBurialPointType
@@ -178,7 +202,9 @@ type BurialPointType =
   | SettingsBurialPointType
   | MissCenterBurialPointType
   | HackathonBurialPointType
-  | CampaignsBurialPointType;
+  | CampaignsBurialPointType
+  | UserProfile
+  | Profile;
 
 export class BurialPoint {
   static track(

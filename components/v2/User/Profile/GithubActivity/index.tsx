@@ -7,20 +7,18 @@ import { IconType } from '@/components/v2/Business/HoverIcon/type';
 
 import { BoxType, ProfileContext } from '../type';
 import Confirm from '../components/Confirm';
-import { fontSizeSpec } from './data';
 import webApi from '@/service';
 import { message } from 'antd';
 import Image from 'next/image';
 import Loading from '@/public/images/other/loading.png';
+import { separationNumber } from '@/helper/utils';
+import { BurialPoint } from '@/helper/burialPoint';
 
-interface GithubActivityProps {}
-
-interface GithubInfoType {
-  commit: number;
-  fork: number;
-  teachStack: OptionDataType[];
+interface GithubActivityProps {
+  edit?: boolean;
 }
-const GithubActivity: FC<GithubActivityProps> = (props) => {
+
+const GithubActivity: FC<GithubActivityProps> = ({ edit = false }) => {
   const [loading, setLoading] = useState(false);
   const {
     profile,
@@ -28,6 +26,7 @@ const GithubActivity: FC<GithubActivityProps> = (props) => {
     loading: refreshLoading
   } = useContext(ProfileContext);
   const handleAdd = async () => {
+    BurialPoint.track('user-profile GithubActivity Connect to Github按钮点击');
     setLoading(true);
     webApi.userApi
       .getGithubConnectUrl()
@@ -47,10 +46,6 @@ const GithubActivity: FC<GithubActivityProps> = (props) => {
   };
   const [modalOpen, setModalOpen] = useState(false);
 
-  const separationNumber = (num: number) => {
-    return String(num).replace(/(?!^)(?=(\d{3})+$)/g, ',');
-  };
-
   const handleDisConnect = () => {
     setLoading(true);
     webApi.userApi
@@ -65,15 +60,6 @@ const GithubActivity: FC<GithubActivityProps> = (props) => {
       .finally(() => {
         setLoading(false);
       });
-  };
-
-  const renderFontSize = (num: number) => {
-    const len = String(num).length;
-    const bNum = 5;
-    let fontSize = 54;
-    const index = len - bNum;
-    if (index < 0) return `${fontSize}px`;
-    return fontSizeSpec[index] || '22px';
   };
 
   const githubInfo = useMemo(() => {
@@ -129,13 +115,26 @@ const GithubActivity: FC<GithubActivityProps> = (props) => {
   }, []);
   return (
     <Box className="font-next-poster relative group h-[261px] flex flex-col justify-between">
-      {!!githubInfo && (
+      {!!githubInfo && edit && (
         <div className="absolute right-[30px] top-[30px] hidden group-hover:block">
           <div className="flex gap-[10px]">
-            <HoverIcon type={IconType.REFRESH} onClick={() => handleAdd()} />
+            <HoverIcon
+              type={IconType.REFRESH}
+              onClick={() => {
+                BurialPoint.track(
+                  'user-profile GithubActivity refresh icon按钮点击'
+                );
+                handleAdd();
+              }}
+            />
             <HoverIcon
               type={IconType.UN_LINK}
-              onClick={() => setModalOpen(true)}
+              onClick={() => {
+                BurialPoint.track(
+                  'user-profile GithubActivity unLink icon按钮点击'
+                );
+                setModalOpen(true);
+              }}
             />
           </div>
         </div>
@@ -159,23 +158,13 @@ const GithubActivity: FC<GithubActivityProps> = (props) => {
           </div>
           <div className="w-[45%] flex-shrink-0 flex">
             <div className="w-[52.99%] border-l-[0.5px] border-l-[#000] flex flex-col justify-between text-center">
-              <p
-                className="text-[54px] text-[#000] leading-[86px]"
-                style={{
-                  fontSize: renderFontSize(githubInfo.commit)
-                }}
-              >
+              <p className="text-[54px] text-[#000] leading-[86px]">
                 {separationNumber(githubInfo.commit)}
               </p>
               <p className="text-[#8c8c8c] tracking-[0.36px]">Commits</p>
             </div>
             <div className="w-[47.99%] border-l-[0.5px] border-l-[#000] flex flex-col justify-between text-center">
-              <p
-                className="text-[54px] text-[#000] leading-[86px]"
-                style={{
-                  fontSize: renderFontSize(githubInfo.start)
-                }}
-              >
+              <p className="text-[54px] text-[#000] leading-[86px]">
                 {separationNumber(githubInfo.start)}
               </p>
               <p className="text-[#8c8c8c] tracking-[0.36px]">
@@ -184,13 +173,13 @@ const GithubActivity: FC<GithubActivityProps> = (props) => {
             </div>
           </div>
         </div>
-      ) : (
+      ) : edit ? (
         <Add
           addText="Share your Github information with others"
           buttonText="Connect to Github"
           handleClick={handleAdd}
         />
-      )}
+      ) : null}
 
       <Confirm
         open={modalOpen}

@@ -9,6 +9,7 @@ import { deepClone } from '@/helper/utils';
 import webApi from '@/service';
 import { message } from 'antd';
 import { UserExperienceType } from '@/service/webApi/user/type';
+import { BurialPoint } from '@/helper/burialPoint';
 
 interface EditAddProp {
   onCancel: VoidFunction;
@@ -123,6 +124,7 @@ const EditAdd: React.FC<EditAddProp> = ({
     }
   };
   const handleSubmit = () => {
+    BurialPoint.track('user-profile Experenice Modal Save按钮点击');
     let isValidate = true;
     let newFormData = deepClone(formData);
     for (let key in formData) {
