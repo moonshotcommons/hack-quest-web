@@ -9,14 +9,14 @@ interface HomeBannerProps {}
 const HomeBanner: FC<HomeBannerProps> = (props) => {
   return (
     <div
-      className="h-[850px] flex justify-center w-full pt-[214px] wap:pt-[50px]"
+      className="h-[850px] flex justify-center w-full pt-[214px] slab:pt-[50px]"
       style={{
         backgroundImage: `url(${BannerBg.src})`,
         backgroundSize: '100% auto',
         backgroundPosition: 'center'
       }}
     >
-      <div className="container flex justify-between w-full wap:hidden">
+      <div className="container flex justify-between w-full slab:hidden">
         <div className="flex flex-col h-full justify-between">
           <h1 className="text-landing-banner-intr-color  font-next-book-bold text-[48px] tracking-[2.4px] leading-[140%] uppercase">
             Web3.0 <br />
@@ -32,8 +32,8 @@ const HomeBanner: FC<HomeBannerProps> = (props) => {
           <Auth />
         </div>
       </div>
-      <div className="hidden wap:block w-full h-full px-[20px] relative">
-        <h1 className="wap:container mx-auto text-landing-banner-intr-color  font-next-book-bold text-[24px] tracking-[2.4px] leading-[140%] uppercase">
+      <div className="hidden slab:block w-full h-full px-[20px] relative max-w-[640px]">
+        <h1 className="slab:container mx-auto text-landing-banner-intr-color  font-next-book-bold text-[24px] tracking-[2.4px] leading-[140%] uppercase">
           Web3.0 Programming
           <br />
           For<span className="text-primary-color"> Everyone</span>

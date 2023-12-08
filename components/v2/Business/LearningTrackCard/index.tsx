@@ -25,12 +25,12 @@ const CustomProgress = styled(Progress)`
     }
   }
 `;
-interface LearningTrackCardProps {
+interface LearningTrackLandingCardProps {
   learningTrack: LearningTrackDetailType;
   isLandingPage?: boolean;
   status?: LearningTrackCourseType;
 }
-const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
+const LearningTrackLandingCard: React.FC<LearningTrackLandingCardProps> = ({
   learningTrack: track,
   isLandingPage,
   status
@@ -372,4 +372,4 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
   );
 };
 
-export default LearningTrackCard;
+export default LearningTrackLandingCard;
