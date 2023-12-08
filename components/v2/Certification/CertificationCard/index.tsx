@@ -7,6 +7,7 @@ import { FC, useRef, useState } from 'react';
 import CertificationModal, {
   CertificationModalInstance
 } from '../CertificationModal';
+import { Typography } from 'antd';
 interface CertificationCardProps {
   certificationId: string;
 }
@@ -37,9 +38,11 @@ const CertificationCard: FC<CertificationCardProps> = (props) => {
           <p className="text-[21px] font-next-poster-Bold tracking-[1.26px] text-[#0B0B0B]">
             {certification?.name}
           </p>
-          <p className="mt-[10px] mb-[20px] w-[46.5%] text-[18px] font-next-book leading-[160%] tracking-[0.36px] text-[#0B0B0B]">
-            {certification?.description}
-          </p>
+          <Typography.Paragraph ellipsis={{ rows: 2 }}>
+            <p className="mt-[10px] mb-[20px] w-[46.5%] text-[18px] font-next-book leading-[160%] tracking-[0.36px] text-[#0B0B0B]">
+              {certification?.description}
+            </p>
+          </Typography.Paragraph>
           <Button
             ghost
             className="py-2 w-[140px] flex justify-center items-center px-0 border-[#0B0B0B] font-next-book text-[14px] leading-[125%] tracking-[0.28px]"
