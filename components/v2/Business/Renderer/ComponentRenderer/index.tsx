@@ -6,7 +6,7 @@ import {
   QuizAType,
   QuizBType,
   QuizType
-} from '@/components/v2/Business/Renderer/ComponentRenderer/type';
+} from '@/components/v2/Business/Renderer/type';
 import { FC } from 'react';
 
 import BulletedListItemRenderer from '@/components/v2/Business/NotionRender/BulletedListItem';

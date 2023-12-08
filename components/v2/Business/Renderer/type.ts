@@ -22,6 +22,7 @@ export enum CustomType {
   Quiz = 'Quiz',
   QuizA = 'QuizA',
   QuizB = 'QuizB',
+  QuizC = 'QuizC',
   Content = 'Content',
   Example = 'Example'
 }

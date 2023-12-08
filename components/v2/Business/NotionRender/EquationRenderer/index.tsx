@@ -1,4 +1,4 @@
-import { NotionComponent } from '@/components/v2/Business/Renderer/ComponentRenderer/type';
+import { NotionComponent } from '@/components/v2/Business/Renderer/type';
 import { FC } from 'react';
 import MathJax from 'react-mathjax';
 interface EquationRendererProps {

@@ -5,7 +5,7 @@ import ComponentRenderer from '@/components/v2/Business/Renderer/ComponentRender
 import {
   CustomComponent,
   NotionComponent
-} from '@/components/v2/Business/Renderer/ComponentRenderer/type';
+} from '@/components/v2/Business/Renderer/type';
 
 interface QuoteRendererProps {
   component: NotionComponent;

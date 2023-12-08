@@ -2,7 +2,7 @@ import {
   CustomType,
   NotionType,
   QuizAType
-} from '@/components/v2/Business/Renderer/ComponentRenderer/type';
+} from '@/components/v2/Business/Renderer/type';
 import { PlaygroundContext } from '@/components/v2/LessonPage/Playground/type';
 import { BurialPoint } from '@/helper/burialPoint';
 import {
@@ -17,7 +17,7 @@ import { QuizContext } from '..';
 import ComponentRenderer from '../..';
 import QuizFooter from '../QuizFooter';
 import CodeRender from './CodeRender';
-import { QuizAContext } from './type';
+import { RendererContext } from '@/components/v2/Business/Renderer/context';
 interface QuizARendererProps {
   parent: CustomType | NotionType;
   quiz: QuizAType;
@@ -200,15 +200,17 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
         </div>
         {quiz.lines?.length > 0 && (
           <div className="max-h-[100%] py-4 flex-1 w-full overflow-hidden flex flex-col">
-            <QuizAContext.Provider
+            <RendererContext.Provider
               value={{
-                answers: answerState,
-                showAnswer,
-                setAnswers
+                quizARendererContext: {
+                  answers: answerState,
+                  showAnswer,
+                  setAnswers
+                }
               }}
             >
               <CodeRender waitingRenderCodes={waitingRenderCodes} />
-            </QuizAContext.Provider>
+            </RendererContext.Provider>
           </div>
         )}
       </div>

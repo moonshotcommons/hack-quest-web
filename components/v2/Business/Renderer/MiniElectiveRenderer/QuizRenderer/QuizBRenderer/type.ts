@@ -1,5 +1,5 @@
-import { Dispatch, SetStateAction, createContext } from 'react';
 import { QuizBType } from '@/components/v2/Business/Renderer/type';
+import { Dispatch, SetStateAction, createContext } from 'react';
 
 export type QuizOptionType = QuizBType['options'][number] & {
   isRender: boolean;
@@ -12,22 +12,20 @@ export interface AnswerType {
   status: 'error' | 'default';
 }
 
-// interface QuizBContextType {
+// export interface QuizBContextType {
 //   onDrop: (item: AnswerType) => void;
 //   answers: Record<string, AnswerType>;
 //   setAnswers: Dispatch<SetStateAction<Record<string, AnswerType>>>;
 //   showAnswer: boolean;
 //   accept: QuizOptionType[];
 //   changeOptionState: (options: QuizOptionType[]) => void;
-//   quiz: any;
 // }
 
-// export const QuizBContext = createContext<QuizBContextType>({
+// export const QuizBContextDefaultValue = {
 //   onDrop: (item: any) => {},
-//   changeOptionState: (options) => {},
+//   changeOptionState: (options: any) => {},
 //   answers: {},
 //   showAnswer: false,
 //   setAnswers: () => {},
-//   accept: [],
-//   quiz: {}
-// });
+//   accept: []
+// };

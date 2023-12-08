@@ -1,7 +1,6 @@
 import { WaitingRenderCodeType } from '@/hooks/useParseQuizA';
 import React, { useContext } from 'react';
 import { RendererContext } from '@/components/v2/Business/Renderer/context';
-
 interface CodeRenderType {
   waitingRenderCodes: WaitingRenderCodeType[];
 }
@@ -11,7 +10,7 @@ const CodeRender: React.FC<CodeRenderType> = ({ waitingRenderCodes }) => {
     return index < 10 ? `0${index}` : index;
   };
   return (
-    <div className="h-full w-full bg-renderer-code-bg relative rounded-[10px] pr-[20px] overflow-auto scroll-wrap-x scroll-wrap-y">
+    <div className="w-full bg-renderer-code-bg relative rounded-[10px] pr-[20px] overflow-auto scroll-wrap-x scroll-wrap-y">
       <ul className="p-[15px] max-w-full">
         {waitingRenderCodes.map((line, lineIndex) => (
           <li

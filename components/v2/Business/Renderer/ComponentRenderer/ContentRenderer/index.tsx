@@ -1,5 +1,5 @@
 import TextRenderer from '@/components/v2/Business/NotionRender/TextRenderer';
-import { CustomComponent } from '@/components/v2/Business/Renderer/ComponentRenderer/type';
+import { CustomComponent } from '@/components/v2/Business/Renderer/type';
 import { LessonPageContext } from '@/components/v2/LessonPage/type';
 import { BurialPoint } from '@/helper/burialPoint';
 import { FC, useContext, useState } from 'react';

@@ -1,5 +1,5 @@
 'use client';
-import { LessonContent as LessonContentType } from '@/components/v2/Business/Renderer/ComponentRenderer/type';
+import { LessonContent as LessonContentType } from '@/components/v2/Business/Renderer/type';
 import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
 import { useRequest } from 'ahooks';
 import { ConfigProvider, Spin, message } from 'antd';

@@ -4,7 +4,7 @@ import {
   NotionComponent,
   NotionType,
   QuizBType
-} from '@/components/v2/Business/Renderer/ComponentRenderer/type';
+} from '@/components/v2/Business/Renderer/type';
 import { BurialPoint } from '@/helper/burialPoint';
 import webApi from '@/service';
 import { FC, useContext, useEffect, useMemo, useRef, useState } from 'react';
@@ -16,7 +16,8 @@ import ComponentRenderer from '../..';
 import { PlaygroundContext } from '@/components/v2/LessonPage/Playground/type';
 import QuizFooter from '../QuizFooter';
 import DragAnswer from './DragAnswer';
-import { AnswerType, QuizBContext, QuizOptionType } from './type';
+import { AnswerType, QuizOptionType } from './type';
+import { RendererContext } from '@/components/v2/Business/Renderer/context';
 interface QuizBRendererProps {
   parent: CustomType | NotionType;
   quiz: QuizBType;
@@ -181,15 +182,17 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
       <div className="flex-1 overflow-auto scroll-wrap-y">
         <DndProvider backend={HTML5Backend}>
           <div className="rounded-lg">
-            <QuizBContext.Provider
+            <RendererContext.Provider
               value={{
-                onDrop,
-                accept: options,
-                changeOptionState: (options) => setOptions(options),
-                answers,
-                showAnswer,
-                setAnswers,
-                quiz
+                quizBRendererContext: {
+                  onDrop,
+                  accept: options,
+                  changeOptionState: (options) => setOptions(options),
+                  answers,
+                  showAnswer,
+                  setAnswers,
+                  quiz
+                }
               }}
             >
               <div className="py-4 items-center">
@@ -203,7 +206,7 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
                   );
                 })}
               </div>
-            </QuizBContext.Provider>
+            </RendererContext.Provider>
 
             <div className=" flex flex-row gap-[30px] flex-wrap pb-4 pt-[52px]">
               {options.map((option) => {

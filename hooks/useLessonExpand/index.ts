@@ -2,7 +2,7 @@ import {
   CustomComponent,
   NotionComponent,
   NotionType
-} from '@/components/v2/Business/Renderer/ComponentRenderer/type';
+} from '@/components/v2/Business/Renderer/type';
 
 export interface ExpandDataType {
   isExpandAll?: boolean;

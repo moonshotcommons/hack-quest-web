@@ -28,7 +28,7 @@ const MiniElectiveCompletedModal = forwardRef<
   MiniElectiveCompletedModalRef,
   MiniElectiveCompletedModalProps
 >((props, ref) => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   useImperativeHandle(ref, () => {
     return {

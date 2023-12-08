@@ -7,7 +7,7 @@ import { VscAdd, VscChromeMinimize } from 'react-icons/vsc';
 import {
   CustomComponent,
   NotionComponent
-} from '@/components/v2/Business/Renderer/ComponentRenderer/type';
+} from '@/components/v2/Business/Renderer/type';
 import { LessonContentContext } from '@/components/v2/LessonPage/LessonContent';
 import TextRenderer from '../TextRenderer';
 interface ToggleRendererProps {

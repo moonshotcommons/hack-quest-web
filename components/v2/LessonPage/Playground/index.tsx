@@ -3,7 +3,7 @@ import ComponentRenderer from '@/components/v2/Business/Renderer/ComponentRender
 import {
   CustomComponent,
   NotionComponent
-} from '@/components/v2/Business/Renderer/ComponentRenderer/type';
+} from '@/components/v2/Business/Renderer/type';
 import { FC, useEffect, useMemo, useState } from 'react';
 import { LessonType, PlaygroundContext } from './type';
 
