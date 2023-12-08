@@ -1,5 +1,5 @@
+import ComponentRenderer from '@/components/v2/Business/Renderer/ComponentRenderer';
 import { FC } from 'react';
-import ComponentRenderer from '@/components/v2/Business/ComponentRenderer';
 import TextRenderer from '../TextRenderer';
 
 interface BulletedListItemRendererProps {

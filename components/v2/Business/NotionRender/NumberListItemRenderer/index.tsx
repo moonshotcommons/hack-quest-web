@@ -1,6 +1,6 @@
 import { FC, useMemo } from 'react';
 
-import ComponentRenderer from '@/components/v2/Business/ComponentRenderer';
+import ComponentRenderer from '@/components/v2/Business/Renderer/ComponentRenderer';
 import TextRenderer from '../TextRenderer';
 import { NotionRenderType } from '../type';
 
