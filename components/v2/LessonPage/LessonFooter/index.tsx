@@ -1,4 +1,4 @@
-import { LessonContent } from '@/components/v2/Business/ComponentRenderer/type';
+import { LessonContent } from '@/components/v2/Business/Renderer/type';
 import Button from '@/components/v2/Common/Button';
 import { useUnitNavList } from '@/hooks/useUnitNavList';
 import { CourseLessonType } from '@/service/webApi/course/type';

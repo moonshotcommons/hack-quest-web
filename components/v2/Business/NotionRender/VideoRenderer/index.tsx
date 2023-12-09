@@ -1,4 +1,4 @@
-import { NotionComponent } from '@/components/v2/Business/ComponentRenderer/type';
+import { NotionComponent } from '@/components/v2/Business/Renderer/type';
 import { FC } from 'react';
 
 interface VideoRendererProps {

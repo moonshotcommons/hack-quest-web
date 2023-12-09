@@ -1,7 +1,9 @@
-import DropAnswer from '@/components/v2/Business/ComponentRenderer/QuizRenderer/QuizBRenderer/DropAnswer';
+import DropAnswer from '@/components/v2/Business/Renderer/ComponentRenderer/QuizRenderer/QuizBRenderer/DropAnswer';
 import { cn } from '@/helper/utils';
-import { FC } from 'react';
+import { FC, useContext } from 'react';
 import MathJax from 'react-mathjax';
+import { RendererContext } from '@/components/v2/Business/Renderer/context';
+
 interface TextRendererProps {
   richTextArr: any;
   fontSize?: string;
@@ -39,7 +41,15 @@ const getTextClassNames = (annotations: AnnotationType) => {
 };
 
 const TextRenderer: FC<TextRendererProps> = (props) => {
-  const { richTextArr, fontSize = '14px', letterSpacing = '0.28px' } = props;
+  const {
+    richTextArr,
+    fontSize: propsFontSize,
+    letterSpacing = '0.28px'
+  } = props;
+
+  const { fontSize: contextFontSize } = useContext(RendererContext)
+    .textRenderer! || { fontSize: '14px' };
+  const fontSize = propsFontSize || contextFontSize;
 
   return (
     <>

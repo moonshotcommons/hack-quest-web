@@ -1,12 +1,6 @@
 import User from '@/components/v2/User';
 import { Inter } from 'next/font/google';
-import React, {
-  ReactNode,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState
-} from 'react';
+import React, { ReactNode, useCallback, useEffect, useState } from 'react';
 import NavBar, { NavBarProps } from '../Navbar';
 
 import Breadcrumb from '@/components/v2/Business/Breadcrumb';
@@ -21,7 +15,7 @@ export interface V2LayoutProps {
 }
 
 const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
-  const regex = /\/[^/]+\/\[courseId\]\/learn\/\[lessonId\]/;
+  const regex = /\/[^/]+\/\[courseId\]\/learn\/\[lessonId|lessonIndex\]/;
   const [showSecondNav, setShowSecondNav] = useState(false);
   const { pathname } = useRouter();
   const getFull = () => {

@@ -1,4 +1,4 @@
-import ComponentRenderer from '@/components/v2/Business/ComponentRenderer';
+import ComponentRenderer from '@/components/v2/Business/Renderer/ComponentRenderer';
 import { cn } from '@/helper/utils';
 import { ExpandDataType } from '@/hooks/useLessonExpand';
 import { FC, useContext, useEffect, useMemo, useState } from 'react';
@@ -6,7 +6,7 @@ import { FC, useContext, useEffect, useMemo, useState } from 'react';
 import {
   NotionComponent,
   NotionType
-} from '@/components/v2/Business/ComponentRenderer/type';
+} from '@/components/v2/Business/Renderer/type';
 import { LessonContentContext } from '@/components/v2/LessonPage/LessonContent';
 import TextRenderer from '../TextRenderer';
 import { NotionRenderType } from '../type';
@@ -51,6 +51,10 @@ const HeaderRenderer: FC<HeaderRendererProps> = (props) => {
     changeExpandData(newExpandData, newExpandData[0].index);
   };
   const changeExpandAll = () => {
+    if (!expandData) {
+      setIsExpandAll(false);
+      return;
+    }
     let newIsExpandAll = false;
     for (let i = expandIndex + 1; i < expandData.length; i++) {
       if (expandData[i].expandNum === 1) {

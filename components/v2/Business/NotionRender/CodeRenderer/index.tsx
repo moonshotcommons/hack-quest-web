@@ -1,5 +1,5 @@
 import CopyIcon from '@/components/Common/Icon/Copy';
-import { ExampleContext } from '@/components/v2/Business/ComponentRenderer/ExampleRenderer';
+import { ExampleContext } from '@/components/v2/Business/Renderer/ComponentRenderer/ExampleRenderer';
 import { Theme } from '@/constants/enum';
 import { BurialPoint } from '@/helper/burialPoint';
 import { ThemeContext } from '@/store/context/theme';

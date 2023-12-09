@@ -215,27 +215,26 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
       webApi.userApi
         .googleVerify(code)
         .then((res: any) => {
-          if (res.status === 'UNACTIVATED') {
-            router.replace(`/?type=${UnLoginType.INVITE_CODE}`);
-            dispatch(
-              setUnLoginType({
-                type: UnLoginType.INVITE_CODE,
-                params: {
-                  registerType: AuthType.GOOGLE,
-                  ...res
-                }
-              })
-            );
-          } else {
-            BurialPoint.track('signup-Google三方登录code验证成功');
-            if (isPc()) {
-              dispatch(setUserInfo(omit(res, 'token')));
-              setToken(res.token);
-              router.push('/home');
-            } else {
-              setTipsOpen(true);
-            }
-          }
+          // if (res.status === 'UNACTIVATED') {
+          router.replace(`/?type=${UnLoginType.INVITE_CODE}`);
+          dispatch(
+            setUnLoginType({
+              type: UnLoginType.INVITE_CODE,
+              params: {
+                registerType: AuthType.GOOGLE,
+                ...res
+              }
+            })
+          );
+          // } else {
+          // if (isPc()) {
+          //   dispatch(setUserInfo(omit(res, 'token')));
+          //   setToken(res.token);
+          //   router.push('/home');
+          // } else {
+          //   setTipsOpen(true);
+          // }
+          // }
         })
         .catch((err) => {
           BurialPoint.track('signup-Google三方登录code验证失败', {
@@ -258,27 +257,26 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
       webApi.userApi
         .githubVerify(code)
         .then((res: any) => {
-          if (res.status === 'UNACTIVATED') {
-            router.replace(`/?type=${UnLoginType.INVITE_CODE}`);
-            dispatch(
-              setUnLoginType({
-                type: UnLoginType.INVITE_CODE,
-                params: {
-                  registerType: AuthType.GITHUB,
-                  ...res
-                }
-              })
-            );
-          } else {
-            BurialPoint.track('signup-Google三方登录code验证成功');
-            if (isPc()) {
-              BurialPoint.track('signup-Github三方登录code验证成功');
-              setToken(res.token);
-              router.push('/home');
-            } else {
-              setTipsOpen(true);
-            }
-          }
+          // if (res.status === 'UNACTIVATED') {
+          router.replace(`/?type=${UnLoginType.INVITE_CODE}`);
+          dispatch(
+            setUnLoginType({
+              type: UnLoginType.INVITE_CODE,
+              params: {
+                registerType: AuthType.GITHUB,
+                ...res
+              }
+            })
+          );
+          // } else {
+          // if (isPc()) {
+          //   BurialPoint.track('signup-Github三方登录code验证成功');
+          //   setToken(res.token);
+          //   router.push('/home');
+          // } else {
+          //   setTipsOpen(true);
+          // }
+          // }
         })
         .catch((err) => {
           BurialPoint.track('signup-Github三方登录code验证失败', {

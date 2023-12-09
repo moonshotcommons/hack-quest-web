@@ -29,7 +29,7 @@ const MiniElectiveDetailModal = forwardRef<
   MiniElectiveDetailModalRef,
   MiniElectiveDetailModalProps
 >((props, ref) => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   useImperativeHandle(ref, () => {
     return {
