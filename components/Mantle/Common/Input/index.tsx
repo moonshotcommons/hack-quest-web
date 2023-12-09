@@ -175,12 +175,22 @@ const Input = forwardRef<
                   setType('text');
                 }
               }}
-              onMouseLeave={(e) => {
+              onTouchStart={(e) => {
+                if (propType === 'password' && type === 'password') {
+                  setType('text');
+                }
+              }}
+              onMouseUp={() => {
                 if (propType === 'password' && type === 'text') {
                   setType('password');
                 }
               }}
-              onMouseUp={() => {
+              onTouchEnd={(e) => {
+                if (propType === 'password' && type === 'text') {
+                  setType('password');
+                }
+              }}
+              onMouseLeave={(e) => {
                 if (propType === 'password' && type === 'text') {
                   setType('password');
                 }

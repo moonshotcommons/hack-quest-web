@@ -37,7 +37,7 @@ const logo = (
       d="M52.0982 9.76347L51.3294 10.6862V13.5842H46.8325V0.409424H51.3294V4.70046H51.464L54.7311 0.409424H59.7858L54.9809 6.26226L60.0927 13.5831H54.7882L52.1941 9.76235H52.0982V9.76347Z"
       fill="white"
     />
-    <g clip-path="url(#clip0_6011_7238)">
+    <g clipPath="url(#clip0_6011_7238)">
       <path
         d="M73.1369 2.05251L73.1346 2.05482C74.4014 3.3231 75.1849 5.07324 75.1849 7.00005L74.8769 13.6928L68.185 14C66.7335 14 65.3853 13.5583 64.2673 12.8019C63.9031 12.5555 63.5634 12.2757 63.2525 11.9669L63.2548 11.9646C61.9764 10.6949 61.1848 8.93669 61.1848 7.00005L61.4928 0.30729L68.185 0.000107682C69.4213 0.000107696 70.5826 0.320538 71.5906 0.882933C72.1597 1.20046 72.6799 1.59513 73.1372 2.0528L73.1369 2.05251Z"
         fill="white"
@@ -129,56 +129,56 @@ const HomeBanner: FC<HomeBannerProps> = (props) => {
           <Auth />
         </div>
       </div>
-      <div className="hidden slab:flex absolute w-full h-full left-0 top-0 py-[10%] flex-col justify-between">
-        <div className="flex flex-col h-full relative text-center">
-          <h1 className="text-white  text-[36px] tracking-[2.4px] font-bold leading-[130%]">
-            Mantle Learn
-          </h1>
-          <div className="flex items-center justify-center mt-[10px]">
-            <p className="text-white pr-[12px] text-[14px] leading-[130%]">
-              - Powered by{' '}
-            </p>
-            {logo}
-          </div>
-          <Link
-            href={' https://www.mantle.xyz/'}
-            className="flex gap-x-[10px] mt-[30px] items-center justify-center"
-          >
-            <p className="font-next-book text-[16px] text-white leading-[125%] tracking-[0.42px] underline cursor-pointer hover:text-white/9 0">
-              Visit Mantle main site
-            </p>
-            <svg
-              width="22"
-              height="16"
-              viewBox="0 0 22 16"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
+      {!loginVisible ? (
+        <div className="hidden slab:flex absolute w-full h-full left-0 top-0 pt-[10%] flex-col justify-between">
+          <div className="flex flex-col h-full relative text-center">
+            <h1 className="text-white  text-[36px] tracking-[2.4px] font-bold leading-[130%]">
+              Mantle Learn
+            </h1>
+            <div className="flex items-center justify-center mt-[10px]">
+              <p className="text-white pr-[12px] text-[14px] leading-[130%]">
+                - Powered by{' '}
+              </p>
+              {logo}
+            </div>
+            <Link
+              href={' https://www.mantle.xyz/'}
+              className="flex gap-x-[10px] mt-[30px] items-center justify-center"
             >
-              <path
-                d="M1 7C0.447715 7 4.82823e-08 7.44772 0 8C-4.82823e-08 8.55228 0.447715 9 1 9L1 7ZM21.7071 8.70711C22.0976 8.31658 22.0976 7.68342 21.7071 7.2929L15.3431 0.928933C14.9526 0.538409 14.3195 0.538409 13.9289 0.928933C13.5384 1.31946 13.5384 1.95262 13.9289 2.34315L19.5858 8L13.9289 13.6569C13.5384 14.0474 13.5384 14.6805 13.9289 15.0711C14.3195 15.4616 14.9526 15.4616 15.3431 15.0711L21.7071 8.70711ZM1 9L21 9L21 7L1 7L1 9Z"
-                fill="white"
-              />
-            </svg>
-          </Link>
+              <p className="font-next-book text-[16px] text-white leading-[125%] tracking-[0.42px] underline cursor-pointer hover:text-white/9 0">
+                Visit Mantle main site
+              </p>
+              <svg
+                width="22"
+                height="16"
+                viewBox="0 0 22 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M1 7C0.447715 7 4.82823e-08 7.44772 0 8C-4.82823e-08 8.55228 0.447715 9 1 9L1 7ZM21.7071 8.70711C22.0976 8.31658 22.0976 7.68342 21.7071 7.2929L15.3431 0.928933C14.9526 0.538409 14.3195 0.538409 13.9289 0.928933C13.5384 1.31946 13.5384 1.95262 13.9289 2.34315L19.5858 8L13.9289 13.6569C13.5384 14.0474 13.5384 14.6805 13.9289 15.0711C14.3195 15.4616 14.9526 15.4616 15.3431 15.0711L21.7071 8.70711ZM1 9L21 9L21 7L1 7L1 9Z"
+                  fill="white"
+                />
+              </svg>
+            </Link>
+          </div>
+          <div className="flex justify-center">
+            <Button
+              onClick={() => setLoginVisible(true)}
+              icon={<RightArrowIcon></RightArrowIcon>}
+              iconPosition="right"
+              className="text-auth-primary-button-text-color text-[18px] bg-[#CCE9E7]"
+            >
+              Start learning today
+            </Button>
+          </div>
         </div>
-        <div className="flex justify-center">
-          <Button
-            onClick={() => setLoginVisible(true)}
-            icon={<RightArrowIcon></RightArrowIcon>}
-            iconPosition="right"
-            className="text-auth-primary-button-text-color text-[18px] bg-[#CCE9E7]"
-          >
-            Start learning today
-          </Button>
-        </div>
-      </div>
-      <div className="hidden slab:flex flex-col justify-between"></div>
-      {loginVisible && (
-        <div className="absolute z-[999] w-[100vw] h-[100%] left-0 top-0 bg-[#000] text-[#fff]">
-          <div className="absolute right-[24px] top-[40px] flex justify-end">
+      ) : (
+        <div className="absolute z-[999] w-[100vw] h-[100%] pt-[40px] left-0 top-0 bg-[#000] text-[#fff]">
+          <div className="absolute right-[24px] top-[20px] flex justify-end">
             <FiX size={26} onClick={() => setLoginVisible(false)} />
           </div>
-          <div className="w-full h-full p-[20px] flex flex-col justify-center">
+          <div className="w-full h-full px-[20px] flex flex-col">
             <h1 className="text-white text-center  text-[36px] tracking-[2.4px] font-bold leading-[130%]">
               Mantle Learn
             </h1>
@@ -188,7 +188,7 @@ const HomeBanner: FC<HomeBannerProps> = (props) => {
               </p>
               {logo}
             </div>
-            <div className="w-full mt-[60px] h-[330px]">
+            <div className="w-full mt-[40px] h-[330px]">
               <Auth />
             </div>
           </div>
