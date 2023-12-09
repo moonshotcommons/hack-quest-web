@@ -154,28 +154,28 @@ export const MantelDeveloperJourney: FC = () => {
       <div className="mt-[60px] flex flex-wrap gap-x-[40px] gap-y-[37px] slab:gap-x-[12px] slab:gap-y-[24px]">
         <DeveloperCard
           title="Join Mantle Developer Community"
-          description="50 Mantle developer points"
+          description="30 Mantle developer points"
         ></DeveloperCard>
         <DeveloperCard
-          title="Fill in Mantle Developer Form"
-          description="30 Mantle developer points "
+          title="Finish Mantle Learning Track"
+          description="100 Mantle developer points"
         ></DeveloperCard>
         <DeveloperCard
           title="Learn Solidity Syntax"
-          description="100 Mantle developer points"
+          description="50 Mantle developer points"
         ></DeveloperCard>
         <DeveloperCard
-          title="Learn Guided Project"
-          description="100 Mantle developer points"
+          title="Follow Mantle Twitter"
+          description="30 Mantle developer points"
         ></DeveloperCard>
         <DeveloperCard
           title="Learn How to Deploy a Project on Mantle Testnet"
           className="px-[53px]"
-          description="100 Mantle developer points"
+          description="50 Mantle developer points"
         ></DeveloperCard>
         <DeveloperCard
           title="Create Mantle Developer profile"
-          description="50 Mantle developer points"
+          description="30 Mantle developer points"
         ></DeveloperCard>
       </div>
     </div>
