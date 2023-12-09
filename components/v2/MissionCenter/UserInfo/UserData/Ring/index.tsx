@@ -32,7 +32,7 @@ function Ring({ radius, percent }: RingProps) {
         cx={radius}
         cy={radius}
         r={radius - 10}
-        className="text-[#FFD850] "
+        className="text-[#FFD850] transition-all"
         strokeWidth={20}
         strokeDasharray={len}
         strokeDashoffset={strokeDashoffset as number}
