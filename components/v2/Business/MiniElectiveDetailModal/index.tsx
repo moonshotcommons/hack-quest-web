@@ -29,7 +29,7 @@ const MiniElectiveDetailModal = forwardRef<
   MiniElectiveDetailModalRef,
   MiniElectiveDetailModalProps
 >((props, ref) => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   useImperativeHandle(ref, () => {
     return {
@@ -151,9 +151,9 @@ const MiniElectiveDetailModal = forwardRef<
                             <path
                               d="M2 9.59223L8.09524 15.6923L18 4"
                               stroke="#00C365"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
                             />
                           </svg>
                         )}

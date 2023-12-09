@@ -100,12 +100,12 @@ const GotoPageButton: React.FC<GotoPageButtonProps> = (props) => {
     <>
       <div
         className={cn(
-          `wap:w-full gap-[40px] wap:gap-0 flex-row-center wap:flex-col-center`,
+          `slab:w-full gap-[40px] slab:gap-0 flex-row-center slab:flex-col-center`,
           className
         )}
       >
         <Button
-          className={`w-[270px] wap:w-[90%] h-[60px] p-0  border text-${color.text} border-${color.border} font-next-book`}
+          className={`w-[270px] slab:w-[90%] h-[60px] p-0  border text-${color.text} border-${color.border} font-next-book`}
           onClick={() => handleClick(1)}
         >
           {type === 'learningTrack'
@@ -115,7 +115,7 @@ const GotoPageButton: React.FC<GotoPageButtonProps> = (props) => {
         <Button
           icon={<AiOutlineRight />}
           iconPosition="right"
-          className={`text-${color.text}  wap:w-[90%] p-0 h-[60px] font-next-book`}
+          className={`text-${color.text}  slab:w-[90%] p-0 h-[60px] font-next-book`}
           onClick={() => handleClick(2)}
         >
           <span className="border-b border-[#FCC409]">
@@ -136,22 +136,22 @@ export const TopInfo: FC = () => {
   return (
     <div className="bg-landing-hack-info-bg w-full">
       <div
-        className="h-[286px] w-full wap:h-[152px]"
+        className="h-[286px] w-full slab:h-[152px]"
         style={{
           backgroundImage: `url(${HackquestInfoBg.src})`,
           backgroundSize: '100% auto',
           backgroundRepeat: 'repeat'
         }}
       ></div>
-      <div className="container mx-auto wap:w-full wap:px-[20px]">
-        <h1 className="text-center pt-[20px] pb-[40px] text-[54px] wap:text-[24px] font-next-poster-Bold text-landing-hack-info-top-color">
+      <div className="container mx-auto slab:w-full slab:px-[20px]">
+        <h1 className="text-center pt-[20px] pb-[40px] text-[54px] slab:text-[24px] font-next-poster-Bold text-landing-hack-info-top-color">
           Become a Solidity Developer
         </h1>
-        <p className="w-[663px] mx-auto text-[16px] leading-[25px]  wap:w-full mb-[40px]">
+        <p className="w-[663px] mx-auto text-[16px] leading-[25px]  slab:w-full mb-[40px]">
           {`Don't know where to start? Pick a learning track! Leaning Track provides a series of core + elective courses that help you master one topic and explore in the related field.`}
         </p>
         <div
-          className="wap:hidden"
+          className="slab:hidden"
           onClick={() => {
             goToLogin();
             BurialPoint.track('landing-learning track卡片点击');
@@ -164,7 +164,7 @@ export const TopInfo: FC = () => {
           />
         </div>
         <div
-          className="hidden wap:block"
+          className="hidden slab:flex justify-center"
           onClick={() => {
             goToLogin();
             BurialPoint.track('landing-learning track卡片点击');
@@ -173,24 +173,24 @@ export const TopInfo: FC = () => {
           <LearningTrackWrapCard learningTrack={learningTracks[0] || {}} />
         </div>
       </div>
-      <div className="container mx-auto wap:w-full wap:px-[20px]">
-        <div className="w-full pt-[80px]  pb-[47px] bg-landing-card-bg mt-[150px] rounded-[10px] flex-col-center wap:px-[20px]">
-          <h1 className="text-text-default-color text-center font-next-poster-Bold text-[54px] wap:text-[24px] tracking-[3.24px]">
+      <div className="container mx-auto slab:w-full slab:px-[20px]">
+        <div className="w-full pt-[80px]  pb-[47px] bg-landing-card-bg mt-[150px] rounded-[10px] flex-col-center slab:px-[20px]">
+          <h1 className="text-text-default-color text-center font-next-poster-Bold text-[54px] slab:text-[24px] tracking-[3.24px]">
             What is HackQuest?
           </h1>
-          <div className="mt-[18px] text-[1rem] w-[34.875rem] wap:w-full text-center text-text-default-color font-next-book ">
+          <div className="mt-[18px] text-[1rem] w-[34.875rem] slab:w-full text-center text-text-default-color font-next-book ">
             Learn everything you need to “hack” in Web3 while earning quest
             rewards. Unlock the world of Web3 development with our all-in-one
             developer educational platform friendly to the mass.
           </div>
-          <div className="w-full  wap:hidden flex justify-center mt-[3rem]">
+          <div className="w-full  slab:hidden flex justify-center mt-[3rem]">
             <Image src={LightButtonDeg} alt="hackquset"></Image>
           </div>
-          <div className="w-full hidden wap:block  mt-[3rem]">
+          <div className="w-full hidden slab:block  mt-[3rem]">
             <Image src={WhatIsHackquest} alt="hackquset"></Image>
           </div>
           <GotoPageButton
-            className="mt-[40px] wap:mt-[30px]"
+            className="mt-[40px] slab:mt-[30px]"
             isBlack={true}
             direction="top"
             type="learningTrack"
@@ -267,16 +267,16 @@ export const CenterInfo: FC = () => {
   ];
 
   return (
-    <div className="container  wap:w-full wap:px-[20px]  mt-[150px] wap:mt-[80px]">
-      <h1 className="text-text-default-color tracking-[3.24px] text-center font-next-poster-Bold text-[54px] wap:text-[24px] mb-[50px] wap:mb-[30px]">
+    <div className="container  slab:w-full slab:px-[20px]  mt-[150px] slab:mt-[80px]">
+      <h1 className="text-text-default-color tracking-[3.24px] text-center font-next-poster-Bold text-[54px] slab:text-[24px] mb-[50px] slab:mb-[30px]">
         Why HackQuest?
       </h1>
-      <div className="flex flex-wrap gap-[40px] wap:flex-col  ">
+      <div className="flex flex-wrap gap-[40px] slab:flex-col  ">
         {infoList.map((item, index) => {
           return (
             <div
               key={index}
-              className="w-[calc(50%-20px)] wap:w-full h-[750px] wap:h-[auto] pt-[50px] wap:pt-[20px] px-[55px] wap:px-[20px] wap:pb-[30px] bg-landing-card-bg rounded-[10px]"
+              className="w-[calc(50%-20px)] slab:w-full h-[750px] slab:h-[auto] pt-[50px] slab:pt-[20px] px-[55px] slab:px-[20px] slab:pb-[30px] bg-landing-card-bg rounded-[10px]"
             >
               <div className="w-full relative h-0 pt-[80%]">
                 <div
@@ -308,8 +308,8 @@ export const CenterInfo: FC = () => {
                   ></Image>
                 </div>
               </div>
-              <div className="mt-[70px] wap:mt-[30px]">
-                <p className="text-[30px] wap:text-[24px] leading-[42.5px] tracking-[0.68px] font-next-book-bold mb-[22px]">
+              <div className="mt-[70px] slab:mt-[30px]">
+                <p className="text-[30px] slab:text-[24px] leading-[42.5px] tracking-[0.68px] font-next-book-bold mb-[22px]">
                   {item.title}
                 </p>
                 <p className="text-[16px] leading-[28.8px] tracking-[0.36px] font-next-book">
@@ -327,40 +327,40 @@ export const CenterInfo: FC = () => {
 
 export const HackQuestHackathon: FC = () => {
   return (
-    <div className="container mx-auto wap:w-full px-[20px] mt-[150px] wap:mt-[80px]">
-      <div className="w-full py-[80px] wap:py-[30px] wap:px-[20px] bg-landing-card-bg rounded-[10px] flex-col-center font-next-book ">
-        <div className="text-text-default-color tracking-[3.24px] text-center font-next-poster-Bold text-[54px] wap:text-[24px]">
+    <div className="container mx-auto slab:w-full px-[20px] mt-[150px] slab:mt-[80px]">
+      <div className="w-full py-[80px] slab:py-[30px] slab:px-[20px] bg-landing-card-bg rounded-[10px] flex-col-center font-next-book ">
+        <div className="text-text-default-color tracking-[3.24px] text-center font-next-poster-Bold text-[54px] slab:text-[24px]">
           HackQuest Hackathon
         </div>
-        <div className="w-[560px] wap:w-full wap:text-center my-[30px]">
+        <div className="w-[560px] slab:w-full slab:text-center my-[30px]">
           {`Explore ongoing hackathons, uncover past projects, and dive into the world of innovation. Your journey through the realm of creativity begins here!`}
         </div>
-        <div className="flex h-[152px] wap:h-[83px] mb-[50px] w-full">
-          <div className="h-full w-[360px] wap:w-[33%] text-center flex flex-col justify-between border-r-[0.5px] border-r-[#000]">
-            <p className="text-[68px] wap:text-[32px] text-[#000] leading-[108px] wap:leading-[51px] tracking-[0.2px]">
+        <div className="flex h-[152px] slab:h-[83px] mb-[50px] w-full">
+          <div className="h-full w-[360px] slab:w-[33%] text-center flex flex-col justify-between border-r-[0.5px] border-r-[#000]">
+            <p className="text-[68px] slab:text-[32px] text-[#000] leading-[108px] slab:leading-[51px] tracking-[0.2px]">
               8
             </p>
-            <p className="text-[18px] wap:text-[14px] text-[#8C8C8C] tracking-[0.36px]">
+            <p className="text-[18px] slab:text-[14px] text-[#8C8C8C] tracking-[0.36px]">
               Hackathon
             </p>
           </div>
-          <div className="h-full w-[360px] wap:w-[33%] text-center flex flex-col justify-between border-r-[0.5px] border-r-[#000]">
-            <p className="text-[68px] wap:text-[32px] text-[#000] leading-[108px] wap:leading-[51px] tracking-[0.2px]">
+          <div className="h-full w-[360px] slab:w-[33%] text-center flex flex-col justify-between border-r-[0.5px] border-r-[#000]">
+            <p className="text-[68px] slab:text-[32px] text-[#000] leading-[108px] slab:leading-[51px] tracking-[0.2px]">
               68
             </p>
-            <p className="text-[18px] wap:text-[14px] text-[#8C8C8C] tracking-[0.36px]">
+            <p className="text-[18px] slab:text-[14px] text-[#8C8C8C] tracking-[0.36px]">
               Projects
             </p>
           </div>
-          <div className="h-full w-[360px] wap:w-[33%] text-center flex flex-col justify-between">
-            <p className="text-[68px] wap:text-[32px] text-[#000] leading-[108px] wap:leading-[51px] tracking-[0.2px]">{`2,560`}</p>
-            <p className="text-[18px] wap:text-[14px] text-[#8C8C8C] tracking-[0.36px]">
+          <div className="h-full w-[360px] slab:w-[33%] text-center flex flex-col justify-between">
+            <p className="text-[68px] slab:text-[32px] text-[#000] leading-[108px] slab:leading-[51px] tracking-[0.2px]">{`2,560`}</p>
+            <p className="text-[18px] slab:text-[14px] text-[#8C8C8C] tracking-[0.36px]">
               Participants
             </p>
           </div>
         </div>
         <GotoPageButton
-          className="mt-[40px]  wap:mt-[30px]"
+          className="mt-[40px]  slab:mt-[30px]"
           isBlack={true}
           direction="top"
           type="hackathon"
@@ -372,9 +372,9 @@ export const HackQuestHackathon: FC = () => {
 
 export const BottomInfo: FC = () => {
   return (
-    <div className="container mx-auto wap:w-full wap:px-[20px]">
-      <div className="w-full wap:px-[17px] pt-[7.5rem] wap:pt-[30px] pb-[80px] wap:pb-[30px] flex flex-col items-center  bg-landing-card-bg mt-[150px] rounded-[10px]">
-        <h1 className="text-text-default-color w-[43.5rem] wap:w-full mx-auto text-center font-next-poster-Bold text-[2.5rem] wap:text-[24px] leading-[110%] tracking-wider pb-[4.25rem] wap:pb-0">
+    <div className="container mx-auto slab:w-full slab:px-[20px]">
+      <div className="w-full slab:px-[17px] pt-[7.5rem] slab:pt-[30px] pb-[80px] slab:pb-[30px] flex flex-col items-center  bg-landing-card-bg mt-[150px] rounded-[10px]">
+        <h1 className="text-text-default-color w-[43.5rem] slab:w-full mx-auto text-center font-next-poster-Bold text-[2.5rem] slab:text-[24px] leading-[110%] tracking-wider pb-[4.25rem] slab:pb-0">
           Still not sure? Create your own token in 10 minutes and decide.
         </h1>
         <div className="relative w-full flex justify-center mt-[2.5rem] ">
@@ -388,7 +388,7 @@ export const BottomInfo: FC = () => {
           ></div>
         </div>
         <GotoPageButton
-          className="mt-[100px]  wap:mt-[30px]"
+          className="mt-[100px]  slab:mt-[30px]"
           isBlack={true}
           direction="top"
           type="hackathon"

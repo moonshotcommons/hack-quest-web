@@ -3,7 +3,7 @@ import CompleteModal from '@/components/v2/Business/CompleteModal';
 import {
   CustomType,
   NotionComponent
-} from '@/components/v2/Business/ComponentRenderer/type';
+} from '@/components/v2/Business/Renderer/type';
 import { BurialPoint } from '@/helper/burialPoint';
 import { useGetLessonContent } from '@/hooks/useCoursesHooks/useGetLessenContent';
 import { useGotoNextLesson } from '@/hooks/useCoursesHooks/useGotoNextLesson';

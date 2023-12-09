@@ -9,20 +9,24 @@ import { BoxType, ProfileContext } from '../type';
 import { UserExperienceType } from '@/service/webApi/user/type';
 import { dealDate, dateInterval } from './utils';
 import { deepClone } from '@/helper/utils';
+import { BurialPoint } from '@/helper/burialPoint';
 
-interface ExperienceProps {}
+interface ExperienceProps {
+  edit?: boolean;
+}
 export type ListDataType = {
   showMore: boolean;
   descriptions: string[];
   descriptionLess: string[];
 } & UserExperienceType;
-const Experience: FC<ExperienceProps> = ({}) => {
+const Experience: FC<ExperienceProps> = ({ edit = false }) => {
   const [editOpen, setEditOpen] = useState(false);
   const { profile } = useContext(ProfileContext);
   const [listData, setListData] = useState<ListDataType[]>([]);
   const [allData, setAllData] = useState<ListDataType[]>([]);
   const [showAll, setShowAll] = useState(false);
   const handleAdd = () => {
+    BurialPoint.track('user-profile Experenice Add Experience按钮点击');
     setEditOpen(true);
   };
 
@@ -46,6 +50,7 @@ const Experience: FC<ExperienceProps> = ({}) => {
   }, [profile, showAll]);
 
   const handleShowMore = (index: number) => {
+    BurialPoint.track('user-profile Experenice Show More按钮点击');
     const newListData = deepClone(listData);
     newListData[index].showMore = !newListData[index].showMore;
     setListData(newListData);
@@ -53,12 +58,15 @@ const Experience: FC<ExperienceProps> = ({}) => {
 
   return (
     <Box className="font-next-poster relative group">
-      {listData?.length > 0 && (
+      {listData?.length > 0 && edit && (
         <div className="absolute right-[30px] top-[30px] hidden group-hover:block">
           <HoverIcon
             type={IconType.EDIT}
             tooltip="Edit your experience"
-            onClick={() => setEditOpen(true)}
+            onClick={() => {
+              BurialPoint.track('user-profile Experenice Edit icon按钮点击');
+              setEditOpen(true);
+            }}
           />
         </div>
       )}
@@ -133,13 +141,13 @@ const Experience: FC<ExperienceProps> = ({}) => {
             </div>
           )}
         </>
-      ) : (
+      ) : edit ? (
         <Add
           addText={'Share your work experience with others'}
           buttonText={'Add Experience'}
           handleClick={handleAdd}
         />
-      )}
+      ) : null}
       <Edit open={editOpen} list={allData} onClose={() => setEditOpen(false)} />
     </Box>
   );

@@ -1,13 +1,15 @@
 export enum MenuLink {
   HOME = '/home',
   LEARNING_TRACK = '/learning-track',
+  PRACTICES = '/practices',
   ELECTIVES = '/electives',
   MISSION_CENTER = '/mission-center',
   HACKATHON = '/resource-station/hackathon',
   PROJECTS = '/resource-station/hackathon/projects',
   CAMPAIGINS = '/campaigns',
   USER_PROFILE = '/user/profile',
-  CONNECT_GITHUB = '/connect-github'
+  CONNECT_GITHUB = '/connect-github',
+  PROFILE = '/profile'
 }
 
 export interface MenuType {

@@ -6,10 +6,11 @@ const levels = ['Beginner', 'Intermediate', 'Advanced'];
 interface CourseLevelProps {
   level: (typeof levels)[number];
   size?: 'small' | 'large';
+  className?: string;
 }
 
 const CourseLevel: FC<CourseLevelProps> = (props) => {
-  const { level, size = 'small' } = props;
+  const { level, size = 'small', className } = props;
   const levelIndex = useMemo(() => {
     return levels.findIndex((item) => item === level);
   }, [level]);
@@ -40,7 +41,9 @@ const CourseLevel: FC<CourseLevelProps> = (props) => {
       <p
         className={cn(
           'text-[12px] font-neuemachina-light text-[var(--neutral-rich-gray)]',
-          size === 'large' ? 'text-[16px] font-next-book text-black' : ''
+          `${
+            size === 'large' ? 'text-[16px] font-next-book text-black' : ''
+          } ${className}`
         )}
       >
         {level}

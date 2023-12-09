@@ -1,5 +1,5 @@
-import ComponentRenderer from '@/components/v2/Business/ComponentRenderer';
-import { NotionComponent } from '@/components/v2/Business/ComponentRenderer/type';
+import ComponentRenderer from '@/components/v2/Business/Renderer/ComponentRenderer';
+import { NotionComponent } from '@/components/v2/Business/Renderer/type';
 import { FC } from 'react';
 import TextRenderer from '../TextRenderer';
 

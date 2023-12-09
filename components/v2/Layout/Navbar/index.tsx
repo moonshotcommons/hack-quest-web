@@ -107,7 +107,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
           isFull ? 'w-full 2xl:px-[40px]' : 'container'
         }`}
       >
-        <div className="wap:hidden  h-full flex items-center justify-between font-next-book">
+        <div className="slab:hidden  h-full flex items-center justify-between font-next-book">
           <nav className="h-full flex items-center text-white">
             <div
               className={`h-full flex items-center ${
@@ -155,12 +155,12 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
           </nav>
           {children}
         </div>
-        <nav className="hidden wap:flex-center w-full h-full ">
+        <nav className="hidden slab:flex-center w-full h-full ">
           <Image src={DarkLogoActive} height={20} alt="logo"></Image>
         </nav>
       </div>
       {showSecondNav && (
-        <div className="wap:hidden  text-white tracking-[0.84px]  w-screen h-12 bg-[#0B0B0B]">
+        <div className="slab:hidden  text-white tracking-[0.84px]  w-screen h-12 bg-[#0B0B0B]">
           <SlideHighlight
             className="container m-auto flex items-end gap-[30px] h-full"
             currentIndex={secondNavIndex}
