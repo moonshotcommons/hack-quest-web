@@ -256,8 +256,11 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
                 })
               );
             } else {
-              // dispatch(setUserInfo(omit(res, 'token')));
-
+              dispatch(
+                setUserInfo(
+                  omit(loginRouteParams.params, 'token', 'registerType')
+                )
+              );
               setToken(formData.token);
               router.push('/home');
             }
