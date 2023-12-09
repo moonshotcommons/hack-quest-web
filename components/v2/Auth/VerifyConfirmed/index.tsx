@@ -253,6 +253,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
 
   const verifyGithub = (code: string) => {
     BurialPoint.track('signup-Github三方登录code验证');
+
     if (code) {
       webApi.userApi
         .githubVerify(code)
