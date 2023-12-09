@@ -204,10 +204,63 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
         >
           Next
         </Button>
+        {/* <Button
+          onClick={() => {
+            if (loginRouteParams.params?.registerType === AuthType.EMAIL) {
+              dispatch(
+                setUnLoginType({
+                  type: UnLoginType.SIGN_UP,
+                  params: {
+                    codeVerify: true,
+                    email: formData.email,
+                    inviteCode: ''
+                  }
+                })
+              );
+            } else {
+              // dispatch(setUserInfo(omit(res, 'token')));
+
+              setToken(formData.token);
+              router.push('/home');
+            }
+          }}
+          block
+          type="primary"
+          icon={<RightArrowIcon></RightArrowIcon>}
+          disabled={emailLoading || thirdPartyLoading}
+          loading={emailLoading || thirdPartyLoading}
+          iconPosition="right"
+          className="
+          font-next-book
+          text-[1.125rem]
+          bg-auth-primary-button-bg hover:bg-auth-primary-button-hover-bg
+          text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
+          border-auth-primary-button-border-color hover:border-auth-primary-button-border-hover-color
+          "
+        >
+          Skip
+        </Button> */}
         <Button
           onClick={() => {
-            router.push('/');
-            dispatch(setUnLoginType(UnLoginType.LOGIN));
+            // router.push('/');
+            // dispatch(setUnLoginType(UnLoginType.LOGIN));
+            if (loginRouteParams.params?.registerType === AuthType.EMAIL) {
+              dispatch(
+                setUnLoginType({
+                  type: UnLoginType.SIGN_UP,
+                  params: {
+                    codeVerify: true,
+                    email: formData.email,
+                    inviteCode: ''
+                  }
+                })
+              );
+            } else {
+              // dispatch(setUserInfo(omit(res, 'token')));
+
+              setToken(formData.token);
+              router.push('/home');
+            }
           }}
           block
           disabled={emailLoading || thirdPartyLoading}
@@ -223,7 +276,7 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
               : ''
           )}
         >
-          Back
+          Skip
         </Button>
         <div className="py-[12px] flex justify-between items-center">
           <div className="h-[1px] w-[20.5%] bg-white"></div>
