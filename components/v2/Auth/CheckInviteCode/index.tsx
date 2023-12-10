@@ -126,6 +126,41 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
     }
   );
 
+  const { run: skipInviteCode, loading: skipInviteCodeLoading } = useRequest(
+    async () => {
+      const res = await webApi.userApi.activateUser(formData.token);
+      return res;
+    },
+    {
+      onSuccess(res: any) {
+        dispatch(setUserInfo(omit(res, 'token')));
+        BurialPoint.track('signup-Google三方登录输入邀请码登录成功');
+        setToken(res.token);
+        router.push('/home');
+      },
+      onError(e: any) {
+        let msg = '';
+        if (e.msg) {
+          message.error(e.msg);
+          msg = e.msg;
+        } else {
+          message.error(e.message);
+          msg = e.message;
+        }
+
+        setFormState({
+          ...formState,
+          inviteCode: {
+            status: 'error',
+            errorMessage: msg
+          }
+        });
+      },
+      manual: true,
+      debounceWait: 500
+    }
+  );
+
   useEffect(() => {
     if (loginRouteParams.params) {
       setFormData({
@@ -256,17 +291,12 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
                 })
               );
             } else {
-              dispatch(
-                setUserInfo(
-                  omit(loginRouteParams.params, 'token', 'registerType')
-                )
-              );
-              setToken(formData.token);
-              router.push('/home');
+              skipInviteCode();
             }
           }}
           block
-          disabled={emailLoading || thirdPartyLoading}
+          loading={skipInviteCodeLoading}
+          disabled={skipInviteCodeLoading}
           className={cn(
             `font-next-book
           text-[1.125rem]
@@ -274,9 +304,7 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
           bg-transparent
           text-white hover:text-auth-ghost-button-text-hover-color
           border-white hover:border-auth-ghost-button-border-hover-color`,
-            emailLoading || thirdPartyLoading
-              ? 'cursor-not-allowed opacity-70'
-              : ''
+            skipInviteCodeLoading ? 'cursor-not-allowed opacity-70' : ''
           )}
         >
           Skip
