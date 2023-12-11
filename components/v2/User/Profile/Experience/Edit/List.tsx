@@ -8,6 +8,7 @@ import { dateInterval, dealDate } from '../utils';
 import Confirm from '../../components/Confirm';
 import webApi from '@/service';
 import { message } from 'antd';
+import { BurialPoint } from '@/helper/burialPoint';
 
 interface ListProp {
   onClose: VoidFunction;
@@ -21,10 +22,12 @@ const List: React.FC<ListProp> = ({ onClose, handleEdit, list }) => {
   const [deleteId, setDeleteId] = useState('');
   const [loading, setLoading] = useState(false);
   const openDeleteConfirm = (id: string) => {
+    BurialPoint.track('user-profile Experenice Modal Delete icon按钮点击');
     setDeleteId(id);
     setOpen(true);
   };
   const handleDelete = () => {
+    BurialPoint.track('user-profile Experenice Modal 确认删除');
     setLoading(true);
     webApi.userApi
       .deleteExperience(deleteId)

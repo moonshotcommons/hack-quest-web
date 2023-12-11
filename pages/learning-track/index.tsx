@@ -1,7 +1,7 @@
 import Title from '@/components/Head/Title';
+import LearningTrackCard from '@/components/v2/Business/LearningTrackCard';
+import PageDescription from '@/components/v2/Business/PageDescription';
 import Loading from '@/components/v2/Common/Loading';
-import LearningTrackCard from '@/components/v2/LearningTrackCard';
-import PageDescription from '@/components/v2/PageDescription';
 import { useGetLearningTracks } from '@/hooks/useLearningTrackHooks/useLearningTracks';
 
 function LearningTrack() {

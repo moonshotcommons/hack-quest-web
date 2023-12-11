@@ -1,0 +1,300 @@
+{
+  "type": "QuizB",
+  "style": "A",
+  "name": "testing quizB",
+  "content": {
+    "children": [
+      {
+        "id": "8460d9a0-ea74-46aa-8cf3-8a503b9f7246",
+        "parent": {
+          "type": "page_id",
+          "page_id": "6a79a94f-7915-44b3-a0d2-256f6acf0640"
+        },
+        "type": "paragraph",
+        "content": { "rich_text": [], "color": "default" },
+        "isCustomType": false,
+        "isToggle": false
+      },
+      {
+        "id": "4795c406-4bb2-489c-bcb1-39e2079827b3",
+        "parent": {
+          "type": "page_id",
+          "page_id": "6a79a94f-7915-44b3-a0d2-256f6acf0640"
+        },
+        "type": "paragraph",
+        "content": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "The following statement is ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "The following statement is ",
+              "href": null,
+              "isGapFill": false
+            },
+            {
+              "type": "text",
+              "text": { "content": "@@true##", "link": null },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": true,
+                "color": "default"
+              },
+              "plain_text": "@@true##",
+              "href": null,
+              "isGapFill": true,
+              "answer": {
+                "id": "20cbf007-78e4-434b-b2d2-9a17d6168d84",
+                "answer": "true"
+              }
+            },
+            {
+              "type": "text",
+              "text": { "content": ". If the ", "link": null },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": ". If the ",
+              "href": null,
+              "isGapFill": false
+            },
+            {
+              "type": "text",
+              "text": { "content": "contract", "link": null },
+              "annotations": {
+                "bold": false,
+                "italic": true,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "contract",
+              "href": null,
+              "isGapFill": false
+            },
+            {
+              "type": "text",
+              "text": { "content": " does not define a ", "link": null },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " does not define a ",
+              "href": null,
+              "isGapFill": false
+            },
+            {
+              "type": "text",
+              "text": { "content": "receive", "link": null },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "brown"
+              },
+              "plain_text": "receive",
+              "href": null,
+              "isGapFill": false
+            },
+            {
+              "type": "text",
+              "text": { "content": " function and the ", "link": null },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " function and the ",
+              "href": null,
+              "isGapFill": false
+            },
+            {
+              "type": "text",
+              "text": { "content": "fallback", "link": null },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "brown"
+              },
+              "plain_text": "fallback",
+              "href": null,
+              "isGapFill": false
+            },
+            {
+              "type": "text",
+              "text": { "content": " function is not ", "link": null },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " function is not ",
+              "href": null,
+              "isGapFill": false
+            },
+            {
+              "type": "text",
+              "text": { "content": "payable", "link": null },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "brown"
+              },
+              "plain_text": "payable",
+              "href": null,
+              "isGapFill": false
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " either, then it cannot receive ETH payment. ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": " either, then it cannot receive ETH payment. ",
+              "href": null,
+              "isGapFill": false
+            }
+          ],
+          "color": "default"
+        },
+        "isCustomType": false,
+        "isToggle": false
+      },
+      {
+        "id": "467c049d-2613-4358-8fab-30727a27da43",
+        "parent": {
+          "type": "page_id",
+          "page_id": "6a79a94f-7915-44b3-a0d2-256f6acf0640"
+        },
+        "type": "paragraph",
+        "content": { "rich_text": [], "color": "default" },
+        "isCustomType": false,
+        "isToggle": false
+      },
+      {
+        "id": "abe0ade6-47bf-4db2-8d8b-b6c186612638",
+        "parent": {
+          "type": "page_id",
+          "page_id": "6a79a94f-7915-44b3-a0d2-256f6acf0640"
+        },
+        "type": "paragraph",
+        "content": { "rich_text": [], "color": "default" },
+        "isCustomType": false,
+        "isToggle": false
+      }
+    ],
+    "type": "QuizB",
+    "notionType": "heading_1",
+    "title": "testing quizB",
+    "isToggle": true,
+    "isCustomType": true,
+    "options": [
+      {
+        "id": "472e6f14-d4eb-497c-993e-597c819e5306",
+        "parent": {
+          "type": "page_id",
+          "page_id": "6a79a94f-7915-44b3-a0d2-256f6acf0640"
+        },
+        "type": "bulleted_list_item",
+        "content": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": { "content": "true", "link": null },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "true",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "isCustomType": false,
+        "isToggle": false
+      },
+      {
+        "id": "a95769b6-ac5e-4c90-8c2b-e996a643e201",
+        "parent": {
+          "type": "page_id",
+          "page_id": "6a79a94f-7915-44b3-a0d2-256f6acf0640"
+        },
+        "type": "bulleted_list_item",
+        "content": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": { "content": "false", "link": null },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "false",
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        "isCustomType": false,
+        "isToggle": false
+      }
+    ],
+    "answers": [
+      { "id": "20cbf007-78e4-434b-b2d2-9a17d6168d84", "answer": "true" }
+    ]
+  }
+}

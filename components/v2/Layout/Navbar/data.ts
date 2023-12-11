@@ -13,6 +13,10 @@ export const navbarList: NavbarListType[] = [
         label: 'LEARNING TRACK',
         path: MenuLink.LEARNING_TRACK
       },
+      // {
+      //   label: 'PRACTICES',
+      //   path: MenuLink.PRACTICES
+      // },
       {
         label: 'ELECTIVES',
         path: MenuLink.ELECTIVES
@@ -58,7 +62,7 @@ export const navbarList: NavbarListType[] = [
   }
 ];
 
-export const excludeLink = [MenuLink.USER_PROFILE];
+export const excludeLink = [MenuLink.USER_PROFILE, MenuLink.PROFILE];
 export const needLoginPath = [
   MenuLink.HOME,
   MenuLink.MISSION_CENTER,

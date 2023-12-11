@@ -3,7 +3,7 @@ import { Inter } from 'next/font/google';
 import React, { ReactNode, useCallback, useEffect, useState } from 'react';
 import NavBar, { NavBarProps } from '../Navbar';
 
-import Breadcrumb from '@/components/v2/Breadcrumb';
+import Breadcrumb from '@/components/v2/Business/Breadcrumb';
 import { useRouter } from 'next/router';
 import { excludeLink } from '../Navbar/data';
 import { MenuLink } from '../Navbar/type';
@@ -15,7 +15,7 @@ export interface V2LayoutProps {
 }
 
 const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
-  const regex = /\/[^/]+\/\[courseId\]\/learn\/\[lessonId\]/;
+  const regex = /\/[^/]+\/\[courseId\]\/learn\/\[lessonId|lessonIndex\]/;
   const [showSecondNav, setShowSecondNav] = useState(false);
   const { pathname } = useRouter();
   const getFull = () => {
@@ -29,8 +29,10 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
       pathname === '/' ||
       !navList.length ||
       ~excludeLink.indexOf(pathname as MenuLink)
-    )
+    ) {
       return null;
+    }
+
     for (let menu of navList) {
       if (menu.menu.some((v) => v.path === pathname)) {
         return null;
@@ -54,9 +56,9 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
     <div
       className={`w-full h-[100vh] flex flex-col overflow-hidden  ${
         inter.className
-      } ${getFull() ? 'bg-[white]' : 'bg-[#F4F4F4] min-h-[100vh]'} `}
+      } ${getFull() ? '' : 'min-h-[100vh]'} `}
     >
-      <div className="w-full bg-[#0B0B0B]  flex items-center z-[99] shadow-[box-shadow: rgba(17, 12, 46, 0.15)_0px_48px_100px_0px]">
+      <div className="w-full bg-[#0B0B0B] flex items-center">
         <NavBar
           {...navbarData}
           isFull={getFull()}
@@ -68,7 +70,9 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
       </div>
       <div
         id="content-scroll-wrap"
-        className={`m-auto relative overflow-auto flex-1 w-full`}
+        className={`m-auto overflow-auto flex-1 w-full  ${
+          getFull() ? 'bg-[white]' : 'bg-[#F4F4F4]'
+        }`}
       >
         <div className={`w-full h-full flex flex-col`}>
           {renderBreadcrumb()}

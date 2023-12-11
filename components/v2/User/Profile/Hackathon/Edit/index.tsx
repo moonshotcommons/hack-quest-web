@@ -6,6 +6,7 @@ import EditAdd from './EditAdd';
 import { ListDataType } from '..';
 import { UserHackathonType } from '@/service/webApi/user/type';
 import { ProfileContext } from '../../type';
+import { BurialPoint } from '@/helper/burialPoint';
 
 interface EditProp {
   open: boolean;
@@ -21,6 +22,9 @@ const Edit: React.FC<EditProp> = ({ open, onClose, list }) => {
   const [editEx, setEditEx] = useState<UserHackathonType>();
   const { refresh } = useContext(ProfileContext);
   const handleEdit = (id?: string) => {
+    BurialPoint.track(
+      `user-profile Hackathon Modal ${id ? 'Edit' : 'Add'} icon按钮点击`
+    );
     if (id) {
       const ex = list.find((v) => v.id === id) || {};
       setEditEx(ex as UserHackathonType);

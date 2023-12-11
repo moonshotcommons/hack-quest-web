@@ -126,6 +126,41 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
     }
   );
 
+  const { run: skipInviteCode, loading: skipInviteCodeLoading } = useRequest(
+    async () => {
+      const res = await webApi.userApi.activateUser(formData.token);
+      return res;
+    },
+    {
+      onSuccess(res: any) {
+        dispatch(setUserInfo(omit(res, 'token')));
+        BurialPoint.track('signup-Google三方登录输入邀请码登录成功');
+        setToken(res.token);
+        router.push('/home');
+      },
+      onError(e: any) {
+        let msg = '';
+        if (e.msg) {
+          message.error(e.msg);
+          msg = e.msg;
+        } else {
+          message.error(e.message);
+          msg = e.message;
+        }
+
+        // setFormState({
+        //   ...formState,
+        //   inviteCode: {
+        //     status: 'error',
+        //     errorMessage: msg
+        //   }
+        // });
+      },
+      manual: true,
+      debounceWait: 500
+    }
+  );
+
   useEffect(() => {
     if (loginRouteParams.params) {
       setFormData({
@@ -204,13 +239,64 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
         >
           Next
         </Button>
-        <Button
+        {/* <Button
           onClick={() => {
-            router.push('/');
-            dispatch(setUnLoginType(UnLoginType.LOGIN));
+            if (loginRouteParams.params?.registerType === AuthType.EMAIL) {
+              dispatch(
+                setUnLoginType({
+                  type: UnLoginType.SIGN_UP,
+                  params: {
+                    codeVerify: true,
+                    email: formData.email,
+                    inviteCode: ''
+                  }
+                })
+              );
+            } else {
+              // dispatch(setUserInfo(omit(res, 'token')));
+
+              setToken(formData.token);
+              router.push('/home');
+            }
           }}
           block
+          type="primary"
+          icon={<RightArrowIcon></RightArrowIcon>}
           disabled={emailLoading || thirdPartyLoading}
+          loading={emailLoading || thirdPartyLoading}
+          iconPosition="right"
+          className="
+          font-next-book
+          text-[1.125rem]
+          bg-auth-primary-button-bg hover:bg-auth-primary-button-hover-bg
+          text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
+          border-auth-primary-button-border-color hover:border-auth-primary-button-border-hover-color
+          "
+        >
+          Skip
+        </Button> */}
+        <Button
+          onClick={() => {
+            // router.push('/');
+            // dispatch(setUnLoginType(UnLoginType.LOGIN));
+            if (loginRouteParams.params?.registerType === AuthType.EMAIL) {
+              dispatch(
+                setUnLoginType({
+                  type: UnLoginType.SIGN_UP,
+                  params: {
+                    codeVerify: true,
+                    email: formData.email,
+                    inviteCode: ''
+                  }
+                })
+              );
+            } else {
+              skipInviteCode();
+            }
+          }}
+          block
+          loading={skipInviteCodeLoading}
+          disabled={skipInviteCodeLoading}
           className={cn(
             `font-next-book
           text-[1.125rem]
@@ -218,12 +304,10 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
           bg-transparent
           text-white hover:text-auth-ghost-button-text-hover-color
           border-white hover:border-auth-ghost-button-border-hover-color`,
-            emailLoading || thirdPartyLoading
-              ? 'cursor-not-allowed opacity-70'
-              : ''
+            skipInviteCodeLoading ? 'cursor-not-allowed opacity-70' : ''
           )}
         >
-          Back
+          Skip
         </Button>
         <div className="py-[12px] flex justify-between items-center">
           <div className="h-[1px] w-[20.5%] bg-white"></div>

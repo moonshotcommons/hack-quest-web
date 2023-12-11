@@ -66,19 +66,19 @@ const SignUp: FC<SignUpProps> = (props) => {
               if (emailCheckStatus) {
                 setEmail(email);
                 webApi.userApi.checkEmailExists(email).then((res) => {
-                  if (res.inWhitelist) {
-                    setShowRegisterForm(true);
-                  } else {
-                    dispatch(
-                      setUnLoginType({
-                        type: UnLoginType.INVITE_CODE,
-                        params: {
-                          email,
-                          registerType: AuthType.EMAIL
-                        }
-                      })
-                    );
-                  }
+                  // if (res.inWhitelist) {
+                  //   setShowRegisterForm(true);
+                  // } else {
+                  dispatch(
+                    setUnLoginType({
+                      type: UnLoginType.INVITE_CODE,
+                      params: {
+                        email,
+                        registerType: AuthType.EMAIL
+                      }
+                    })
+                  );
+                  // }
                 });
               }
             }}

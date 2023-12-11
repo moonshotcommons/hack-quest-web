@@ -42,6 +42,7 @@ const Login: FC<LoginProps> = (props) => {
           initial={{ translateX: -50, opacity: 0 }}
           animate={{ opacity: 1, translateX: 0 }}
           transition={{ duration: 0.5 }}
+          className="slab:container"
         >
           <VerifyEmail
             validator={validator}
@@ -63,6 +64,7 @@ const Login: FC<LoginProps> = (props) => {
           initial={{ translateX: -50, opacity: 0 }}
           animate={{ opacity: 1, translateX: 0 }}
           transition={{ duration: 0.5 }}
+          className="slab:container"
         >
           <UserLogin
             email={email}

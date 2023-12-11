@@ -1,7 +1,10 @@
 import Button from '@/components/v2/Common/Button';
 import Input from '@/components/v2/Common/Input';
 import Modal from '@/components/v2/Common/Modal';
-import { Form, FormInstance, message } from 'antd';
+import { errorMessage } from '@/helper/utils';
+import webApi from '@/service';
+import { useRequest } from 'ahooks';
+import { Form, message } from 'antd';
 import {
   forwardRef,
   useContext,
@@ -9,12 +12,8 @@ import {
   useImperativeHandle,
   useState
 } from 'react';
-import { ProfileContext } from '../../type';
-import { useRequest } from 'ahooks';
 import { MdCancel } from 'react-icons/md';
-import { ReactNode } from 'react';
-import webApi from '@/service';
-import { errorMessage } from '@/helper/utils';
+import { ProfileContext } from '../../type';
 
 interface BasicInfoModalProps {}
 
@@ -26,6 +25,8 @@ interface FormKeyValues {
   location: string;
   experience: number;
   techStack: string;
+  nickname: string;
+  email: string;
 }
 
 const TechStackItem = ({
@@ -76,7 +77,9 @@ const BasicInfoModal = forwardRef<BasicInfoModalRef, BasicInfoModalProps>(
       form.setFieldsValue({
         location: profile.location,
         experience: profile.experience || 0,
-        techStack: ''
+        techStack: '',
+        nickname: profile.user?.nickname,
+        email: profile.user?.email
       });
 
       setTechStack(profile.techStack || []);
@@ -88,7 +91,8 @@ const BasicInfoModal = forwardRef<BasicInfoModalRef, BasicInfoModalProps>(
         const res = await webApi.userApi.editUserProfile({
           experience: Number(values.experience),
           location: values.location,
-          techStack
+          techStack,
+          nickname: values.nickname
         });
         return res;
       },
@@ -154,6 +158,70 @@ const BasicInfoModal = forwardRef<BasicInfoModalRef, BasicInfoModalProps>(
             Basic Information
           </div>
           <Form className="mt-[30px]" form={form}>
+            <div className="flex gap-[30px]">
+              <Form.Item
+                name="nickname"
+                rules={[
+                  { max: 16 },
+                  {
+                    pattern: /\S+/,
+                    message: 'Username cannot be empty or contain only spaces'
+                  }
+                ]}
+                className="flex-1"
+              >
+                <div
+                  className="
+                  [&>div]:gap-y-[5px]
+              [&>div>.label]:text-[#8C8C8C]
+              [&>div>.label]:leading-[160%]
+              [&>div>.label]:text-[21px]
+              [&>div>.label]:font-next-book
+              [&>div>.label]:tracking-[0.42px]
+              "
+                >
+                  <Input
+                    name="nickname"
+                    defaultValue={form.getFieldValue('nickname')}
+                    label="User Name"
+                    type="text"
+                    className="py-[7px] px-[30px] text-[21px] font-next-book tracking-[0.063px] leading-[160%] border-[#8C8C8C] caret-gray-500"
+                  ></Input>
+                </div>
+              </Form.Item>
+              <Form.Item name="email" className="flex-1">
+                <div
+                  className="
+              [&>div]:gap-y-[5px]
+              [&>div>.label]:text-[#8C8C8C]
+              [&>div>.label]:leading-[160%]
+              [&>div>.label]:text-[21px]
+              [&>div>.label]:font-next-book
+              [&>div>.label]:tracking-[0.42px]
+              "
+                >
+                  <Input
+                    name="email"
+                    label="Email"
+                    type="text"
+                    disabled
+                    defaultValue={form.getFieldValue('email')}
+                    className="py-[7px] px-[30px] text-[21px] font-next-book tracking-[0.063px] leading-[160%] border-[#8C8C8C] caret-gray-500 border-none hover:border-none cursor-not-allowed bg-[#DADADA] text-[#8C8C8C]"
+                    onChange={(e) => {
+                      let value: any = (e.target as HTMLInputElement).value;
+                      if (Number(value) > 99) value = 99;
+                      form.setFieldValue('experience', value);
+                    }}
+                    onBlur={(e) => {
+                      let value: any = (e.target as HTMLInputElement).value;
+                      if (Number(value) > 99) value = 99;
+                      e.target.value = value;
+                      form.setFieldValue('experience', value);
+                    }}
+                  ></Input>
+                </div>
+              </Form.Item>
+            </div>
             <div className="flex gap-[30px]">
               <Form.Item name="location" rules={[{ max: 240 }]}>
                 <div

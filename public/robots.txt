@@ -1,2 +1,4 @@
 User-agent: *
-Disallow:
+Disallow: /courses
+Disallow: /learning-track
+Disallow: /mission-center
