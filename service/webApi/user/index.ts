@@ -62,6 +62,15 @@ class UserApi {
     });
   }
 
+  /** 激活用户 */
+  activateUser(token: string) {
+    return this.service.post('/users/activate', {
+      data: {
+        token
+      }
+    });
+  }
+
   /** 用户注册 */
   userRegister(params: RegisterParamsType) {
     const url = `${UserApiType.UserRegister}`;

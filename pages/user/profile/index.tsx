@@ -10,6 +10,8 @@ import { UserProfileType } from '@/service/webApi/user/type';
 import { useRequest } from 'ahooks';
 import type { NextPage } from 'next';
 import Certifications from '@/components/v2/User/Profile/Certifications';
+import { BurialPoint } from '@/helper/burialPoint';
+import { useEffect } from 'react';
 
 interface IProps {}
 
@@ -22,6 +24,17 @@ const UserProfilePage: NextPage<IProps> = (props) => {
     const res = await webApi.userApi.getUserProfile();
     return res;
   });
+
+  useEffect(() => {
+    const startTime = new Date().getTime();
+    return () => {
+      const endTime = new Date().getTime();
+      const duration = endTime - startTime;
+      BurialPoint.track('user-profile-页面留存时间', {
+        duration
+      });
+    };
+  }, []);
   return (
     <ProfileContext.Provider value={{ profile, refresh, loading }}>
       <div className="container m-auto pb-[80px]">
@@ -30,9 +43,9 @@ const UserProfilePage: NextPage<IProps> = (props) => {
         </div>
         <div className="flex justify-between gap-x-[40px] mt-[40px]">
           <div className="flex-1 flex flex-col gap-y-[40px] z-10">
-            <GithubActivity></GithubActivity>
-            <Experience />
-            <Hackathon />
+            <GithubActivity edit={true}></GithubActivity>
+            <Experience edit={true} />
+            <Hackathon edit={true} />
             <Certifications></Certifications>
           </div>
           <div

@@ -12,6 +12,8 @@ import Google from '@/public/images/login/google.svg';
 import Github from '@/public/images/login/github.svg';
 import Image from 'next/image';
 import { AuthType } from '@/service/webApi/user/type';
+import TipsModal from '../../Landing/components/TipsModal';
+import useIsPc from '@/hooks/useIsPc';
 
 enum VerifyStateType {
   VERIFYING = 'verifying',
@@ -172,7 +174,8 @@ const Fail: React.FC<{ type: AuthType }> = ({ type }) => {
 const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
   const router = useRouter();
   const dispatch = useDispatch();
-
+  const isPc = useIsPc();
+  const [tipsOpen, setTipsOpen] = useState(false);
   const [jump, setJump] = useState(false);
   const [countDown, setCountDown] = useState(3);
   const [verifyState, setVerifyState] = useState(VerifyStateType.VERIFYING);
@@ -183,10 +186,14 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
       webApi.userApi
         .tokenVerify({ token: token as string })
         .then((res: any) => {
-          dispatch(setUserInfo(omit(res, 'token')));
           BurialPoint.track('signup-注册邮箱token验证成功');
-          setToken(res.token || token);
-          setVerifyState(VerifyStateType.SUCCESS);
+          if (isPc()) {
+            dispatch(setUserInfo(omit(res, 'token')));
+            setToken(res.token || token);
+            setVerifyState(VerifyStateType.SUCCESS);
+          } else {
+            setTipsOpen(true);
+          }
         })
         .catch((err) => {
           BurialPoint.track('signup-注册邮箱token验证失败', {
@@ -220,10 +227,13 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
               })
             );
           } else {
-            dispatch(setUserInfo(omit(res, 'token')));
-            BurialPoint.track('signup-Google三方登录code验证成功');
-            setToken(res.token);
-            router.push('/home');
+            if (isPc()) {
+              dispatch(setUserInfo(omit(res, 'token')));
+              setToken(res.token);
+              router.push('/home');
+            } else {
+              setTipsOpen(true);
+            }
           }
         })
         .catch((err) => {
@@ -243,6 +253,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
 
   const verifyGithub = (code: string) => {
     BurialPoint.track('signup-Github三方登录code验证');
+
     if (code) {
       webApi.userApi
         .githubVerify(code)
@@ -259,10 +270,13 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
               })
             );
           } else {
-            dispatch(setUserInfo(omit(res, 'token')));
-            BurialPoint.track('signup-Github三方登录code验证成功');
-            setToken(res.token);
-            router.push('/home');
+            if (isPc()) {
+              BurialPoint.track('signup-Github三方登录code验证成功');
+              setToken(res.token);
+              router.push('/home');
+            } else {
+              setTipsOpen(true);
+            }
           }
         })
         .catch((err) => {
@@ -313,6 +327,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
         <Success type={source}></Success>
       )}
       {verifyState === VerifyStateType.FAIL && <Fail type={source}></Fail>}
+      <TipsModal open={tipsOpen} onClose={() => setTipsOpen(false)} />
     </div>
   );
 };

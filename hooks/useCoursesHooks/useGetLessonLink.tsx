@@ -1,4 +1,4 @@
-import { QueryIdType } from '@/components/v2/Breadcrumb/type';
+import { QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
 import { getLessonLink } from '@/helper/utils';
 import { CourseType } from '@/service/webApi/course/type';
 import { useRouter } from 'next/router';

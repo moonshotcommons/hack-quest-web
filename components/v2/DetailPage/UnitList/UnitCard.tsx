@@ -17,7 +17,7 @@ import { useRouter } from 'next/router';
 import { ButtonHTMLAttributes, FC, useContext } from 'react';
 import styled from 'styled-components';
 import { LearningStatus } from '../type';
-import { QueryIdType } from '../../Breadcrumb/type';
+import { QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
 import Button from '../../Common/Button';
 
 const CustomProgress = styled(Progress)`

@@ -1,6 +1,6 @@
+import { LessonContent } from '@/components/v2/Business/Renderer/type';
 import { CourseLessonType } from '@/service/webApi/course/type';
 import { createContext } from 'react';
-import { LessonContent } from '../type';
 
 export type LessonType = Omit<CourseLessonType, 'content'> & {
   content: LessonContent;

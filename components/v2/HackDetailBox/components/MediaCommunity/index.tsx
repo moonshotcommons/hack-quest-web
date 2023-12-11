@@ -23,10 +23,7 @@ const MediaCommunity: React.FC<MediaCommunityProp> = ({ listData, title }) => {
       <Title title={title}></Title>
       <div className="flex flex-wrap gap-[20px] mb-[30px]">
         {showList.map((v: MentorType, i: number) => (
-          <div
-            key={i}
-            className="  w-[calc(25%-15px)] h-[71px] border border-[#8C8C8C] bg-[#F4F4F4] rounded-[80px]"
-          >
+          <div key={i} className="w-[calc(25%-15px)] h-[71px]">
             <div className="w-full h-full relative">
               <Image
                 src={v.picture as string}

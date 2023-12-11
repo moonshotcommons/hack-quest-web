@@ -15,6 +15,7 @@ export interface RegisterResponse {
   id: string;
   email: string;
   name: string;
+  nickname: string;
   avatar: string;
   role: string;
   status: string;
@@ -34,6 +35,7 @@ export interface LoginResponse {
   avatar: string;
   role: string;
   status: string;
+  nickname: string;
   // registerType: string;
   inviteCode: string;
   token: string;
@@ -100,12 +102,20 @@ export interface UserProfileType {
   workExperiences: UserExperienceType[];
   hackathonExperiences: UserHackathonType[];
   certifications: CertificationType[];
+  user: {
+    avatar: string;
+    email: string;
+    name: string | null;
+    nickname: string;
+    inviteCode: string;
+  };
 }
 
 export interface UserPersonalType {
   location: string;
   experience: number;
   techStack: string[];
+  nickname: string;
 }
 
 export interface PersonalLinksType {
