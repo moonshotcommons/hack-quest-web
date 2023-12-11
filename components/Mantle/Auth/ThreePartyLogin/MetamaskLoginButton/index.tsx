@@ -71,7 +71,7 @@ const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
                 dispatch(setUserInfo(omit(res, 'token')));
                 setToken(res.token);
                 router.push(
-                  'https://www.hackquest.io/learning-track/6d108f0d-dfb2-4dad-8f38-93b45573bc43?learningTrackId=6d108f0d-dfb2-4dad-8f38-93b45573bc43&menu=learningTrack'
+                  `https://www.hackquest.io/learning-track/6d108f0d-dfb2-4dad-8f38-93b45573bc43?learningTrackId=6d108f0d-dfb2-4dad-8f38-93b45573bc43&menu=learningTrack&origin=mantle&token=${res.token}`
                 );
               } else {
                 setTipsOpen(true);

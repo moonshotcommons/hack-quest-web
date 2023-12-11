@@ -99,10 +99,10 @@ const EmailVerify: FC<EmailVerifyProps> = (props) => {
   return (
     <div className="w-full h-full flex-col flex items-center">
       <div className="flex flex-col gap-[25px]">
-        <h1 className="text-white text-[2rem leading-[125%] tracking-[0.64px]">
+        <h1 className="text-white text-[2rem] leading-[125%] tracking-[0.64px]">
           Verify Your Email
         </h1>
-        <div className="text-whit leading-[160%] text-[14px] -tracking-[0.154px]">
+        <div className="text-white leading-[160%] text-[14px] -tracking-[0.154px]">
           <span>
             Please verify your account via the link in the e-mail and follow the
             instruction to login.{<br />}
