@@ -230,9 +230,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
             if (isPc()) {
               dispatch(setUserInfo(omit(res, 'token')));
               setToken(res.token);
-              setTimeout(() => {
-                router.push('/home');
-              }, 1000);
+              router.reload();
             } else {
               setTipsOpen(true);
             }
@@ -275,9 +273,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
             if (isPc()) {
               BurialPoint.track('signup-Github三方登录code验证成功');
               setToken(res.token);
-              setTimeout(() => {
-                router.push('/home');
-              }, 1000);
+              router.reload();
             } else {
               setTipsOpen(true);
             }
