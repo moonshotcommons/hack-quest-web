@@ -72,10 +72,10 @@ const ForgotPassword: FC<ForgotPasswordProps> = (props) => {
 
   return (
     <div className="h-full max-w-[33.0625rem] flex flex-col items-start gap-y-[25px] text-left ">
-      <h1 className="text-[#FFF] text-[32px] font-next-poster leading-[160%] tracking-[0.64px]">
+      <h1 className="text-[#FFF] text-[32px] leading-[160%] tracking-[0.64px]">
         Forgot your password?
       </h1>
-      <p className="text-white font-next-book leading-[160%] -tracking-[0.154px] text-[14px]">
+      <p className="text-white leading-[160%] -tracking-[0.154px] text-[14px]">
         We will send you a link to reset your password.{' '}
       </p>
 
@@ -86,7 +86,7 @@ const ForgotPassword: FC<ForgotPasswordProps> = (props) => {
         loading={loading}
         disabled={loading}
         className="
-          font-next-book
+
           text-[1.125rem]
           text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
           "
@@ -98,7 +98,7 @@ const ForgotPassword: FC<ForgotPasswordProps> = (props) => {
         onClick={() => dispatch(setUnLoginType(loginRouteParams.prevType))}
         block
         className="
-          font-next-book
+
           text-[1.125rem]
           border
           bg-transparent

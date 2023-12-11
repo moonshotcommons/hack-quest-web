@@ -77,7 +77,6 @@ const LearningTrackWrapCard: FC<LearningTrackWrapCardProps> = (props) => {
         <Button
           block
           className="
-          font-next-book
           text-[1.125rem]
           border
           bg-transparent
@@ -92,7 +91,6 @@ const LearningTrackWrapCard: FC<LearningTrackWrapCardProps> = (props) => {
           iconPosition="right"
           type="primary"
           className="
-          font-next-book
           text-[1.125rem]
           text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
           "

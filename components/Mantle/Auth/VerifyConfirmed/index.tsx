@@ -26,10 +26,10 @@ interface VerifyConfirmedProps {}
 const Verifying: React.FC<{ type: AuthType }> = ({ type }) => {
   return (
     <div className="text-center flex flex-col items-center gap-[25px]">
-      <h1 className="text-white text-[1.75rem] font-next-book-bold font-bold leading-[125%] -tracking-[0.01924rem]">
+      <h1 className="text-white text-[1.75rem]font-bold leading-[125%] -tracking-[0.01924rem]">
         Verifying...
       </h1>
-      <div className="text-white font-next-book leading-[160%] tracking-[0.64px] text-[18px]">
+      <div className="text-white leading-[160%] tracking-[0.64px] text-[18px]">
         <span>Please wait... We are verifying your {type}...</span>
       </div>
     </div>
@@ -51,17 +51,17 @@ const Success: React.FC<{ type: AuthType }> = ({ type }) => {
       };
     } else {
       router.push(
-        '/learning-track/6d108f0d-dfb2-4dad-8f38-93b45573bc43?learningTrackId=6d108f0d-dfb2-4dad-8f38-93b45573bc43&menu=learningTrack'
+        'https://www.hackquest.io/learning-track/6d108f0d-dfb2-4dad-8f38-93b45573bc43?learningTrackId=6d108f0d-dfb2-4dad-8f38-93b45573bc43&menu=learningTrack'
       );
     }
   }, [countDown, router]);
 
   return (
     <div className="flex flex-col gap-[25px]">
-      <h1 className="text-white text-[32px] font-next-book-bold font-bold leading-[125%] -tracking-[0.64px] flex items-center">
+      <h1 className="text-white text-[32px] font-bold leading-[125%] -tracking-[0.64px] flex items-center">
         Email Verified! 🎉
       </h1>
-      <div className="text-white font-next-book leading-[160%] tracking-[0.64px] text-[18px]">
+      <div className="text-white leading-[160%] tracking-[0.64px] text-[18px]">
         <span>
           You have been successfully verified the {type}! You will be redirected
           in 5 second.
@@ -96,7 +96,7 @@ const Fail: React.FC<{ type: AuthType }> = ({ type }) => {
       case AuthType.EMAIL:
         return (
           <>
-            <div className="text-white font-next-book leading-[160%] tracking-[0.64px] text-[18px]">
+            <div className="text-white leading-[160%] tracking-[0.64px] text-[18px]">
               <span>
                 Your verification has failed!
                 <br />
@@ -111,7 +111,6 @@ const Fail: React.FC<{ type: AuthType }> = ({ type }) => {
               block
               type="primary"
               className="
-          font-next-book
           text-[1.125rem]
           text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
           "
@@ -123,7 +122,7 @@ const Fail: React.FC<{ type: AuthType }> = ({ type }) => {
       default:
         return (
           <>
-            <div className="text-white font-next-book leading-[160%] tracking-[0.64px] text-[18px]">
+            <div className="text-white leading-[160%] tracking-[0.64px] text-[18px]">
               <span>
                 Your {type} account verification has failed!
                 <br />
@@ -133,7 +132,7 @@ const Fail: React.FC<{ type: AuthType }> = ({ type }) => {
             <Button
               block
               type="primary"
-              className=" font-next-book
+              className="
               text-[1.125rem]
               text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
               relative"
@@ -154,7 +153,7 @@ const Fail: React.FC<{ type: AuthType }> = ({ type }) => {
                 dispatch(setUnLoginType(UnLoginType.LOGIN));
               }}
               block
-              className="font-next-book text-[1.125rem] text-[#fff] border border-[#fff]"
+              className="text-[1.125rem] text-[#fff] border border-[#fff]"
             >
               Back
             </Button>
@@ -164,7 +163,7 @@ const Fail: React.FC<{ type: AuthType }> = ({ type }) => {
   };
   return (
     <div className="flex flex-col gap-8 w-full">
-      <div className="text-white text-[1.75rem] font-next-book-bold font-bold leading-[125%] -tracking-[0.64px]">
+      <div className="text-white text-[1.75rem] font-bold leading-[125%] -tracking-[0.64px]">
         Verification Failed! 😵
       </div>
       {renderTextAndBtn()}

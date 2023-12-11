@@ -143,10 +143,10 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
     <div className="w-full h-full flex justify-center">
       {/* <ThirdPartyLogin></ThirdPartyLogin> */}
       <div className="flex w-full flex-col gap-[25px]">
-        <h1 className="text-[#FFF] text-[32px] font-next-book leading-[125%] tracking-[0.64px]">
+        <h1 className="text-[#FFF] text-[32px] leading-[125%] tracking-[0.64px]">
           Got an Invite Code?
         </h1>
-        <div className="text-[#FFF] text-[14px] font-next-book leading-[160%] -tracking-[0.154px]">
+        <div className="text-[#FFF] text-[14px] leading-[160%] -tracking-[0.154px]">
           HackQuest is currently in beta. Get an invite code from an existing
           user to sign up.
         </div>
@@ -198,7 +198,6 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
           loading={emailLoading || thirdPartyLoading}
           iconPosition="right"
           className="
-          font-next-book
           text-[1.125rem]
           text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
           "
@@ -213,7 +212,7 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
           block
           disabled={emailLoading || thirdPartyLoading}
           className={cn(
-            `font-next-book
+            `
           text-[1.125rem]
           border
           bg-transparent
@@ -228,12 +227,12 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
         </Button>
         <div className="py-[12px] flex justify-between items-center">
           <div className="h-[1px] w-[20.5%] bg-white"></div>
-          <span className="text-[#FFF] text-[14px] font-next-book tracking-[0.28px]">
+          <span className="text-[#FFF] text-[14px] tracking-[0.28px]">
             Don’t have an invite code?
           </span>
           <div className="h-[1px] w-[20.5%] bg-white"></div>
         </div>
-        <p className="text-[#FFF] text-[14px] font-next-book leading-[160%] tracking-[0.28px] text-center">
+        <p className="text-[#FFF] text-[14px] leading-[160%] tracking-[0.28px] text-center">
           Follow HackQuest on social media for latest updates:
         </p>
         <ContractUs className="gap-[30px] justify-center"></ContractUs>

@@ -53,7 +53,7 @@ const WhiteListModal: NextPage<CompleteModalProps> = ({ open, onClose }) => {
         </div>
         <h1
           className="
-          relative text-center w-[34.625rem] font-next-poster-Bold
+          relative text-center w-[34.625rem] font-bold
           text-[2.2021rem] leading-[100%] text-text-default-color mt-[11.6875rem]
           after:absolute after:h-[1px] after:scale-y-[1] after:w-[27.75rem] after:bg-lesson-completed-modal-line-color after:-top-[1.5625rem] after:left-[50%] after:-translate-x-[50%]
           before:absolute before:h-[1px] before:scale-y-[1] before:w-full before:bg-lesson-completed-modal-line-color  before:-bottom-[1.3125rem] before:left-0
@@ -61,7 +61,7 @@ const WhiteListModal: NextPage<CompleteModalProps> = ({ open, onClose }) => {
         >
           MVP Invitation Needed
         </h1>
-        <p className="w-[29.1875rem] font-next-book text-center text-[1.25rem] text-text-default-color mt-[2.375rem] leading-[110%] z-[51]">
+        <p className="w-[29.1875rem] text-center text-[1.25rem] text-text-default-color mt-[2.375rem] leading-[110%] z-[51]">
           Sorry our site is currently only available for invited MVP user. If
           you’d like to join our whitelist, please email us at
           <a
@@ -86,7 +86,7 @@ const WhiteListModal: NextPage<CompleteModalProps> = ({ open, onClose }) => {
           >
             <Button
               type="primary"
-              className="bg-lesson-primary-button-bg text-lesson-primary-button-text-color border border-lesson-primary-button-border-color font-next-book px-[3rem] py-[1rem]"
+              className="bg-lesson-primary-button-bg text-lesson-primary-button-text-color border border-lesson-primary-button-border-color px-[3rem] py-[1rem]"
             >
               Email Us
             </Button>

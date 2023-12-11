@@ -110,7 +110,7 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
     <div className="w-full h-full flex justify-center">
       {/* <ThirdPartyLogin></ThirdPartyLogin> */}
       <div className="flex w-full flex-col gap-[25px]">
-        <div className="text-[#FFF] text-[21px] font-next-poster leading-[160%] tracking-[1.26px]">
+        <div className="text-[#FFF] text-[21px] leading-[160%] tracking-[1.26px]">
           Already have an account?{' '}
           <span
             className="underline cursor-pointer"
@@ -199,13 +199,13 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
 
             <p
               className={cn(
-                `text-white text-[14px] font-next-book tracking-[-0.154px]`,
+                `text-white text-[14px] tracking-[-0.154px]`,
                 acceptErrorMessage ? 'text-[#FF4747]' : ''
               )}
             >
               {`I agree with HackQuest's `}
               <Link
-                href={'/hackquest/privacy-policy'}
+                href={'https://www.hackquest.io/hackquest/privacy-policy'}
                 target="_blank"
                 className="underline"
               >
@@ -224,7 +224,6 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
           icon={<RightArrowIcon></RightArrowIcon>}
           iconPosition="right"
           className="
-          font-next-book
           text-[1.125rem]
           text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
           "
@@ -235,7 +234,6 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
           onClick={onBack}
           block
           className="
-            font-next-book
             text-[1.125rem]
             border
             bg-transparent

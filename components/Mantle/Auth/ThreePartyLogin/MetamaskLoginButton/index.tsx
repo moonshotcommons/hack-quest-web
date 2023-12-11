@@ -69,10 +69,9 @@ const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
               BurialPoint.track('signup-Metamask第三方登录code验证成功');
               if (isPc()) {
                 dispatch(setUserInfo(omit(res, 'token')));
-
                 setToken(res.token);
                 router.push(
-                  '/learning-track/6d108f0d-dfb2-4dad-8f38-93b45573bc43?learningTrackId=6d108f0d-dfb2-4dad-8f38-93b45573bc43&menu=learningTrack'
+                  'https://www.hackquest.io/learning-track/6d108f0d-dfb2-4dad-8f38-93b45573bc43?learningTrackId=6d108f0d-dfb2-4dad-8f38-93b45573bc43&menu=learningTrack'
                 );
               } else {
                 setTipsOpen(true);

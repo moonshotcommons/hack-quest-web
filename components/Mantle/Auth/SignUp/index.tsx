@@ -36,7 +36,7 @@ const SignUp: FC<SignUpProps> = (props) => {
   }, []);
 
   const EmailTitle = (
-    <div className="text-[#FFF] text-[21px] font-next-poster leading-[160%] tracking-[1.26px]">
+    <div className="text-[#FFF] text-[21px] leading-[160%] tracking-[1.26px]">
       Already have an account?{' '}
       <span
         className="underline cursor-pointer"
