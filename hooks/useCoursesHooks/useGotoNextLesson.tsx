@@ -44,6 +44,9 @@ export const useGotoNextLesson = (
       currentLessonIndex === (currentUnit?.pages.length || 1) - 1;
     if (callbackProp?.callback && isLastLesson) {
       callbackProp.callback();
+      if (callbackProp?.completedCallback) {
+        callbackProp?.completedCallback();
+      }
       return;
     }
 
