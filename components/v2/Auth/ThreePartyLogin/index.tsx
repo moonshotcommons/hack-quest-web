@@ -7,11 +7,15 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import MetamaskLoginButton from './MetamaskLoginButton';
+import useIsPc from '@/hooks/useIsPc';
+import TipsModal from '../../Landing/components/TipsModal';
 
 function ThreePartyLogin() {
   const [isMounted, setIsMounted] = useState(false);
   const dispatch = useDispatch();
   const router = useRouter();
+  const isPc = useIsPc();
+  const [tipsOpen, setTipsOpen] = useState(false);
 
   const loginThreeParty = async (type: AuthType) => {
     switch (type) {
@@ -19,6 +23,10 @@ function ThreePartyLogin() {
       //   loginByMetaMask();
       //   return;
       default:
+        if (!isPc()) {
+          setTipsOpen(true);
+          return;
+        }
         const res = (await webApi.userApi.getAuthUrl(type)) as any;
         window.location.href = res?.url;
     }
@@ -75,6 +83,7 @@ function ThreePartyLogin() {
           {error && <div>{error.message}</div>}
         </div> */}
       </div>
+      <TipsModal open={tipsOpen} onClose={() => setTipsOpen(false)} />
     </div>
   );
 }
