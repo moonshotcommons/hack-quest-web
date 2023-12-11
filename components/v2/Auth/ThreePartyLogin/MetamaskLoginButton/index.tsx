@@ -67,13 +67,9 @@ const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
               );
             } else {
               BurialPoint.track('signup-Metamask第三方登录code验证成功');
-              if (isPc()) {
-                dispatch(setUserInfo(omit(res, 'token')));
-                setToken(res.token);
-                router.push('/home');
-              } else {
-                setTipsOpen(true);
-              }
+              dispatch(setUserInfo(omit(res, 'token')));
+              setToken(res.token);
+              router.push('/home');
             }
           }
         } catch (err) {
@@ -102,7 +98,11 @@ const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
           if (!metamaskConnector?.ready) {
             message.error('Please connect to your metamask plugin!');
           } else {
-            loginByMetaMask();
+            if (!isPc()) {
+              setTipsOpen(true);
+            } else {
+              loginByMetaMask();
+            }
           }
         }}
       >
