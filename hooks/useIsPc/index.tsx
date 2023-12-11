@@ -1,13 +1,13 @@
 'use client';
 
-import { useLayoutEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 
 const useIsPc = () => {
   const [pc, setPc] = useState(true);
   const isPc = () => {
     return pc;
   };
-  useLayoutEffect(() => {
+  useEffect(() => {
     const handleResize = () => {
       setPc(window.innerWidth >= 1024);
     };
