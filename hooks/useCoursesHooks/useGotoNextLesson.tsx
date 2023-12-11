@@ -3,7 +3,7 @@ import { BurialPoint } from '@/helper/burialPoint';
 import webApi from '@/service';
 import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
 import { AppRootState } from '@/store/redux';
-import { useDebounceFn } from 'ahooks';
+import { useDebounceFn, useRequest } from 'ahooks';
 import { message } from 'antd';
 import { useRouter } from 'next/router';
 import { useMemo, useRef, useState } from 'react';
@@ -28,56 +28,62 @@ export const useGotoNextLesson = (
     };
   }, shallowEqual);
 
-  const { run: onNextClick } = useDebounceFn(
-    async (callback?: VoidFunction) => {
-      setLoading(true);
-      const { courseId } = router.query;
-      let nextLesson;
+  const { run: onNextClick } = useDebounceFn(async (callbackProp?) => {
+    setLoading(true);
+    const { courseId } = router.query;
+    let nextLesson;
 
-      let currentUnitIndex = unitsLessonsList.findIndex((unit) => {
-        return unit.id === lesson.unitId;
-      });
-      const currentUnit = unitsLessonsList[currentUnitIndex];
-      const currentLessonIndex =
-        currentUnit?.pages.findIndex((page) => page.id === lesson.id) || 0;
-      const isLastUnit =
-        currentUnitIndex === (unitsLessonsList.length || 1) - 1;
-      const isLastLesson =
-        currentLessonIndex === (currentUnit?.pages.length || 1) - 1;
-      if (callback && isLastLesson) {
-        callback();
-        return;
+    let currentUnitIndex = unitsLessonsList.findIndex((unit) => {
+      return unit.id === lesson.unitId;
+    });
+    const currentUnit = unitsLessonsList[currentUnitIndex];
+    const currentLessonIndex =
+      currentUnit?.pages.findIndex((page) => page.id === lesson.id) || 0;
+    const isLastUnit = currentUnitIndex === (unitsLessonsList.length || 1) - 1;
+    const isLastLesson =
+      currentLessonIndex === (currentUnit?.pages.length || 1) - 1;
+    if (callbackProp?.callback && isLastLesson) {
+      callbackProp.callback();
+      if (callbackProp?.completedCallback) {
+        callbackProp?.completedCallback();
       }
-
-      if (completed) {
-        try {
-          await webApi.courseApi.completeLesson(lesson.id);
-        } catch (e) {
-          console.log('完成状态发生错误', e);
-        }
-      }
-
-      if (isLastUnit && isLastLesson) {
-        // router.push(`${getCourseLink(courseType)}/${lesson.courseId}/completed`);
-        BurialPoint.track('lesson-课程完成', {
-          courseName: courseId as string
-        });
-        completeModalRef.current?.open({
-          type: 'course',
-          title: courseName as string
-        });
-        return;
-      }
-      setLoading(false);
-      if (currentLessonIndex < (currentUnit?.pages?.length || 1) - 1) {
-        nextLesson = currentUnit?.pages[currentLessonIndex + 1];
-      } else {
-        nextLesson = unitsLessonsList[currentUnitIndex + 1].pages[0];
-      }
-      const link = getLink(courseType, nextLesson?.id as string);
-      router.push(link);
+      return;
     }
-  );
+
+    if (completed) {
+      try {
+        await webApi.courseApi.completeLesson(lesson.id);
+      } catch (e) {
+        console.log('完成状态发生错误', e);
+      }
+    }
+
+    if (isLastUnit && isLastLesson) {
+      // router.push(`${getCourseLink(courseType)}/${lesson.courseId}/completed`);
+      BurialPoint.track('lesson-课程完成', {
+        courseName: courseId as string
+      });
+      completeModalRef.current?.open({
+        type: 'course',
+        title: courseName as string
+      });
+      if (callbackProp?.completedCallback) {
+        callbackProp?.completedCallback();
+      }
+      return;
+    }
+    setLoading(false);
+    if (currentLessonIndex < (currentUnit?.pages?.length || 1) - 1) {
+      nextLesson = currentUnit?.pages[currentLessonIndex + 1];
+    } else {
+      nextLesson = unitsLessonsList[currentUnitIndex + 1].pages[0];
+    }
+    const link = getLink(courseType, nextLesson?.id as string);
+    router.push(link);
+    if (callbackProp?.completedCallback) {
+      callbackProp?.completedCallback();
+    }
+  });
 
   return { onNextClick, completeModalRef, loading };
 };
