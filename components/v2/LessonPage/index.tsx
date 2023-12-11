@@ -62,7 +62,6 @@ const LessonPage: FC<LessonPageProps> = (props) => {
 
   useEffect(() => {
     if (lesson) {
-      setNextLoading(false);
       judgmentInitIsHandleNext();
       webApi.courseApi.startLesson(lesson.id).catch((e) => {
         console.log('开始学习失败', e);
@@ -197,23 +196,33 @@ const LessonPage: FC<LessonPageProps> = (props) => {
                   );
                   setNextLoading(true);
                   if (lesson.state !== CompleteStateType.COMPLETED) {
-                    onNextClick(() => {
-                      webApi.missionCenterApi
-                        .digTreasures(lessonId)
-                        .then(async (res) => {
-                          if (res.success && res.treasureId) {
-                            treasureModalRef.current?.open(res.treasureId);
+                    onNextClick({
+                      callback: () => {
+                        webApi.missionCenterApi
+                          .digTreasures(lessonId)
+                          .then(async (res) => {
+                            if (res.success && res.treasureId) {
+                              treasureModalRef.current?.open(res.treasureId);
+                              setNextLoading(false);
+                            } else {
+                              onNextClick({
+                                completedCallback: () => {
+                                  setNextLoading(false);
+                                }
+                              });
+                            }
+                          })
+                          .catch(() => {
                             setNextLoading(false);
-                          } else {
-                            await onNextClick();
-                          }
-                        })
-                        .catch(() => {
-                          setNextLoading(false);
-                        });
+                          });
+                      }
                     });
                   } else {
-                    await onNextClick();
+                    onNextClick({
+                      completedCallback: () => {
+                        setNextLoading(false);
+                      }
+                    });
                   }
                 }}
               />
