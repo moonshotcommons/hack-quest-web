@@ -22,6 +22,7 @@ import { InjectedConnector } from 'wagmi/connectors/injected';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
+import { setToken } from '@/helper/user-token';
 const { chains, publicClient, webSocketPublicClient } = configureChains(
   [mainnet, optimism, polygon],
   [
@@ -69,9 +70,11 @@ const config = createConfig({
 function MyApp(appProps: AppProps & Omit<LayoutProps, 'pathname'>) {
   const { Component, router, navbarData, ...rest } = appProps;
   const { store, props } = wrapper.useWrappedStore(rest);
-  const { pathname } = router;
+  const { pathname, query } = router;
   if (typeof window === 'object') {
-    // client
+    if (query.origin === 'mantle' && query.token) {
+      setToken(query.token as string);
+    }
   } else {
     // server
   }
