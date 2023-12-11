@@ -232,7 +232,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
               setToken(res.token);
               setTimeout(() => {
                 router.push('/home');
-              }, 300);
+              }, 1000);
             } else {
               setTipsOpen(true);
             }
@@ -277,7 +277,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
               setToken(res.token);
               setTimeout(() => {
                 router.push('/home');
-              }, 300);
+              }, 1000);
             } else {
               setTipsOpen(true);
             }
