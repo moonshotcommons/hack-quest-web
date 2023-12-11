@@ -78,7 +78,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
               }
               const toPageUrl = redirect_url
                 ? `${redirect_url}?token=${res.token}`
-                : 'https://www.hackquest.io/learning-track/6d108f0d-dfb2-4dad-8f38-93b45573bc43?learningTrackId=6d108f0d-dfb2-4dad-8f38-93b45573bc43&menu=learningTrack';
+                : `https://www.hackquest.io/learning-track/6d108f0d-dfb2-4dad-8f38-93b45573bc43?learningTrackId=6d108f0d-dfb2-4dad-8f38-93b45573bc43&menu=learningTrack&origin=mantle&token=${res.token}`;
               router.push(toPageUrl);
             } else {
               setTipsOpen(true);

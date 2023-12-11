@@ -51,7 +51,7 @@ const Success: React.FC<{ type: AuthType }> = ({ type }) => {
       };
     } else {
       router.push(
-        'https://www.hackquest.io/learning-track/6d108f0d-dfb2-4dad-8f38-93b45573bc43?learningTrackId=6d108f0d-dfb2-4dad-8f38-93b45573bc43&menu=learningTrack'
+        `'https://www.hackquest.io/learning-track/6d108f0d-dfb2-4dad-8f38-93b45573bc43?learningTrackId=6d108f0d-dfb2-4dad-8f38-93b45573bc43&menu=learningTrack'`
       );
     }
   }, [countDown, router]);
