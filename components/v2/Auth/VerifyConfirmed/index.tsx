@@ -230,7 +230,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
             if (isPc()) {
               dispatch(setUserInfo(omit(res, 'token')));
               setToken(res.token);
-              router.reload();
+              router.push('/home');
             } else {
               setTipsOpen(true);
             }
