@@ -48,7 +48,7 @@ const partnerList = [
     links: [
       {
         title: 'HACKATHON',
-        url: 'http://localhost:3000/resource-station/hackathon'
+        url: 'https://www.hackquest.io/resource-station/hackathon'
       }
       // {
       //   title: 'NEWS',

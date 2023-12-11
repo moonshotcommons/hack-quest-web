@@ -39,10 +39,10 @@ const Success = () => {
   }, [countDown, router]);
   return (
     <div className="flex flex-col gap-[25px]">
-      <h1 className="text-white text-[32px] font-next-book-bold font-bold leading-[125%] -tracking-[0.64px] flex items-center">
+      <h1 className="text-white text-[32px] font-bold leading-[125%] -tracking-[0.64px] flex items-center">
         Password Changed! 🎉
       </h1>
-      <div className="text-white font-next-book leading-[160%] tracking-[0.64px] text-[18px]">
+      <div className="text-white leading-[160%] tracking-[0.64px] text-[18px]">
         <span>Your password has been changed successfully.</span>
       </div>
       <Button
@@ -53,7 +53,6 @@ const Success = () => {
         type="primary"
         block
         className="
-      font-next-book
       text-[1.125rem]
       text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
       "
@@ -68,10 +67,10 @@ const Fail = () => {
   const dispatch = useDispatch();
   return (
     <div className="flex flex-col gap-8 w-full">
-      <h1 className="text-white text-[1.75rem] font-next-book-bold font-bold leading-[125%] -tracking-[0.64px]">
+      <h1 className="text-white text-[1.75rem] font-bold leading-[125%] -tracking-[0.64px]">
         Verification Failed! 😵
       </h1>
-      <div className="text-white font-next-book leading-[160%] tracking-[0.64px] text-[18px]">
+      <div className="text-white leading-[160%] tracking-[0.64px] text-[18px]">
         <span>Your token has expired! Please try again.</span>
       </div>
       <Button
@@ -82,7 +81,6 @@ const Fail = () => {
         }}
         block
         className="
-          font-next-book
           text-[1.125rem]
           border-auth-primary-button-border-color hover:border-auth-primary-button-border-hover-color
           "
@@ -164,7 +162,7 @@ const ChangeForm = ({
 
   return (
     <div className="h-full w-full flex flex-col items-center gap-[25px]">
-      <h1 className="text-white text-[32px] font-next-book  leading-[150%] w-full">
+      <h1 className="text-white text-[32px] leading-[150%] w-full">
         Set your new password
       </h1>
 
@@ -235,7 +233,6 @@ const ChangeForm = ({
         loading={loading}
         disabled={loading}
         className="
-              font-next-book
               text-[1.125rem]
               border-auth-primary-button-border-color hover:border-auth-primary-button-border-hover-color
               "

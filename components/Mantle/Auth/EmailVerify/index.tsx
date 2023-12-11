@@ -99,10 +99,10 @@ const EmailVerify: FC<EmailVerifyProps> = (props) => {
   return (
     <div className="w-full h-full flex-col flex items-center">
       <div className="flex flex-col gap-[25px]">
-        <h1 className="text-white text-[2rem] font-next-book leading-[125%] tracking-[0.64px]">
+        <h1 className="text-white text-[2rem leading-[125%] tracking-[0.64px]">
           Verify Your Email
         </h1>
-        <div className="text-white font-next-book leading-[160%] text-[14px] -tracking-[0.154px]">
+        <div className="text-whit leading-[160%] text-[14px] -tracking-[0.154px]">
           <span>
             Please verify your account via the link in the e-mail and follow the
             instruction to login.{<br />}
@@ -111,7 +111,7 @@ const EmailVerify: FC<EmailVerifyProps> = (props) => {
           <p>
             <span>folder or</span>
             <Link
-              className="text-white font-next-book -tracking-[0.154px] text-left mt-1 cursor-pointer underline ml-1"
+              className="text-whit -tracking-[0.154px] text-left mt-1 cursor-pointer underline ml-1"
               href={'mailto:founder@hackquest.io'}
               target="_blank"
             >
@@ -129,7 +129,6 @@ const EmailVerify: FC<EmailVerifyProps> = (props) => {
           type="primary"
           className={cn(
             `
-          font-next-book
           text-[1.125rem]
           text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
           `,
@@ -149,7 +148,6 @@ const EmailVerify: FC<EmailVerifyProps> = (props) => {
           onClick={backButtonParams.handle}
           block
           className="
-          font-next-book
           text-[1.125rem]
           border
           bg-transparent

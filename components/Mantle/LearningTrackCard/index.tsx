@@ -150,9 +150,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
             style={{ marginBottom: '0px' }}
             className="text-white"
           >
-            <span className="text-[16px] font-next-book">
-              {learningTrack.description}
-            </span>
+            <span className="text-[16px]">{learningTrack.description}</span>
           </Typography.Paragraph>
         );
       case LearningTrackCourseType.IN_PROCESS:
@@ -243,7 +241,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
         return (
           <>
             <div>
-              <p className="text-[16px] pt-[10px] font-next-book-Thin leading-[160%]">
+              <p className="text-[16px] pt-[10px] font-extralight leading-[160%]">
                 {learningInfo?.learningSectionAndCourseName}&nbsp;
               </p>
               <p className="text-[24px] pb-[10px] leading-[160%]">
@@ -365,9 +363,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
           </div>
         </div>
         <div className="w-[31%] pl-[30px] h-full flex flex-col text-white">
-          {!isLandingPage && (
-            <p className="text-[16px] font-next-book-bold">Next Up</p>
-          )}
+          {!isLandingPage && <p className="text-[16px] font-bold">Next Up</p>}
           <div className="flex-1 flex flex-col justify-between">
             {rightRender()}
           </div>

@@ -108,7 +108,7 @@ const HomeBanner: FC<HomeBannerProps> = (props) => {
             href={' https://www.mantle.xyz/'}
             className="flex gap-x-[10px] mt-[30px] items-center"
           >
-            <p className="font-next-book text-[21px] text-white leading-[125%] tracking-[0.42px] underline cursor-pointer hover:text-white/9 0">
+            <p className="text-[21px] text-white leading-[125%] tracking-[0.42px] underline cursor-pointer hover:text-white/9 0">
               Visit Mantle main site
             </p>
             <svg
@@ -145,7 +145,7 @@ const HomeBanner: FC<HomeBannerProps> = (props) => {
               href={' https://www.mantle.xyz/'}
               className="flex gap-x-[10px] mt-[30px] items-center justify-center"
             >
-              <p className="font-next-book text-[16px] text-white leading-[125%] tracking-[0.42px] underline cursor-pointer hover:text-white/9 0">
+              <p className="text-[16px] text-white leading-[125%] tracking-[0.42px] underline cursor-pointer hover:text-white/9 0">
                 Visit Mantle main site
               </p>
               <svg

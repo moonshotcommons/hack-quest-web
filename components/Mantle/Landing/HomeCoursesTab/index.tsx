@@ -18,7 +18,7 @@ const HomeCourseTab: FC<HomeCourseTabProps> = (props) => {
 
   return (
     <div>
-      <div className="text-text-default-color mt-[18.37rem] relative font-next-poster-Bold font-bold text-[2.5rem] text-center z-[99]">
+      <div className="text-text-default-color mt-[18.37rem] relative font-bold text-[2.5rem] text-center z-[99]">
         What we offer...
       </div>
       <div className="flex justify-center mt-[5.25rem] relative z-[99] items-center gap-[1.25rem]">
@@ -28,7 +28,7 @@ const HomeCourseTab: FC<HomeCourseTabProps> = (props) => {
               key={item.title}
               className={cn(
                 `
-              flex items-center w-fit px-[2rem] py-[1.25rem] font-next-book-Thin bg-landing-tab-bg
+              flex items-center w-fit px-[2rem] py-[1.25rem] bg-landing-tab-bg
               text-[1rem] rounded-[2.25rem] border border-solid border-landing-tab-border-color
               hover:bg-landing-tab-hover-bg hover:text-landing-tab-hover-text-color
               hover:border-landing-tab-hover-border-color cursor-pointer text-landing-tab-text-color
@@ -59,15 +59,15 @@ const HomeCourseTab: FC<HomeCourseTabProps> = (props) => {
       </div>
       <div className="flex justify-between mt-[5rem]">
         <div className="">
-          <div className="w-fit whitespace-nowrap flex items-center font-next-book-bold text-text-default-color text-[2rem] rounded-[5rem] gap-[1.5rem]">
+          <div className="w-fit whitespace-nowrap flex items-center text-text-default-color text-[2rem] rounded-[5rem] gap-[1.5rem]">
             <div>{selectTabItem.title}</div>
             <RightIcon></RightIcon>
           </div>
-          <div className="w-[19.625rem] mt-[1.25rem] font-next-book text-[1rem] text-text-default-color">
+          <div className="w-[19.625rem] mt-[1.25rem] text-[1rem] text-text-default-color">
             {selectTabItem.description}
           </div>
           <Link href={'/courses'}>
-            <div className="flex w-fit text-text-default-color font-next-book text-[1.25rem] items-center gap-[0.31rem] mt-8">
+            <div className="flex w-fit text-text-default-color text-[1.25rem] items-center gap-[0.31rem] mt-8">
               <div>
                 <span>Explore All Course</span>
                 <span className="block h-[.125rem] w-full bg-primary-color"></span>

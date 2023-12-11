@@ -78,7 +78,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
               }
               const toPageUrl = redirect_url
                 ? `${redirect_url}?token=${res.token}`
-                : '/learning-track/6d108f0d-dfb2-4dad-8f38-93b45573bc43?learningTrackId=6d108f0d-dfb2-4dad-8f38-93b45573bc43&menu=learningTrack';
+                : 'https://www.hackquest.io/learning-track/6d108f0d-dfb2-4dad-8f38-93b45573bc43?learningTrackId=6d108f0d-dfb2-4dad-8f38-93b45573bc43&menu=learningTrack';
               router.push(toPageUrl);
             } else {
               setTipsOpen(true);
@@ -129,7 +129,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
       {/* <ThirdPartyLogin></ThirdPartyLogin> */}
       <div className="flex flex-col gap-[25px] w-full">
         <div>
-          <p className="text-[#FFF] text-[21px] font-next-poster leading-[160%] tracking-[1.26px]">
+          <p className="text-[#FFF] text-[21px] leading-[160%] tracking-[1.26px]">
             {`Don’t have an account? `}
             <span
               className="underline cursor-pointer"
@@ -164,7 +164,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
           ></Input>
         </div>
         <div
-          className="w-full underline text-white font-next-book text-[1.125rem] leading-[160%] tracking-[0.36px] text-center cursor-pointer"
+          className="w-full underline text-white text-[1.125rem] leading-[160%] tracking-[0.36px] text-center cursor-pointer"
           onClick={() => {
             BurialPoint.track('login-忘记密码');
             dispatch(
@@ -194,7 +194,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
             isCircle={true}
           ></Checkbox>
           <p
-            className="text-white text-[1rem] font-next-book tracking-[-0.011rem] cursor-pointer"
+            className="text-white text-[1rem] tracking-[-0.011rem] cursor-pointer"
             onClick={() => {
               setFormData({
                 ...formData,
@@ -215,7 +215,6 @@ const UserLogin: FC<UserLoginProps> = (props) => {
           iconPosition="right"
           type="primary"
           className="
-          font-next-book
           text-[1.125rem]
           text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
           "
@@ -226,7 +225,6 @@ const UserLogin: FC<UserLoginProps> = (props) => {
           onClick={onBack}
           block
           className="
-          font-next-book
           text-[1.125rem]
           border
           bg-transparent

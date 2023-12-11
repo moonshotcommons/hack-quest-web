@@ -117,9 +117,7 @@ const Input = forwardRef<
 
   return (
     <div className="flex flex-col gap-[0.75rem]">
-      <p className="text-[21px] font-next-poster leading-[125%] tracking-[1.26px]">
-        {label}
-      </p>
+      <p className="text-[21px] leading-[125%] tracking-[1.26px]">{label}</p>
       <div className="relative">
         <input
           ref={inputRef}
@@ -127,7 +125,7 @@ const Input = forwardRef<
           value={value}
           placeholder={placeholder}
           className={cn(
-            `w-full border border-solid border-[#212121] outline-none px-[25px] py-[15px] rounded-[10px] text-[14px] font-next-book leading-[118.5%] caret-[#ffffff] hover:border-[#212121] focus:border-[#212121]`,
+            `w-full border border-solid border-[#212121] outline-none px-[25px] py-[15px] rounded-[10px] text-[14px] leading-[118.5%] caret-[#ffffff] hover:border-[#212121] focus:border-[#212121]`,
             // type === 'password' &&
             //   'border-auth-password-input-bg focus:border-[#212121]',
             status === 'success'
