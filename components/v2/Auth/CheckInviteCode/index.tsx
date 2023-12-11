@@ -148,13 +148,13 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
           msg = e.message;
         }
 
-        setFormState({
-          ...formState,
-          inviteCode: {
-            status: 'error',
-            errorMessage: msg
-          }
-        });
+        // setFormState({
+        //   ...formState,
+        //   inviteCode: {
+        //     status: 'error',
+        //     errorMessage: msg
+        //   }
+        // });
       },
       manual: true,
       debounceWait: 500
