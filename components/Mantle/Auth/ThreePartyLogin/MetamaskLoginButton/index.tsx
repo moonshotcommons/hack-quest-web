@@ -67,15 +67,11 @@ const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
               );
             } else {
               BurialPoint.track('signup-Metamask第三方登录code验证成功');
-              if (isPc()) {
-                dispatch(setUserInfo(omit(res, 'token')));
-                setToken(res.token);
-                router.push(
-                  `https://www.hackquest.io/learning-track/6d108f0d-dfb2-4dad-8f38-93b45573bc43?learningTrackId=6d108f0d-dfb2-4dad-8f38-93b45573bc43&menu=learningTrack&origin=mantle&token=${res.token}`
-                );
-              } else {
-                setTipsOpen(true);
-              }
+              dispatch(setUserInfo(omit(res, 'token')));
+              setToken(res.token);
+              router.push(
+                `https://www.hackquest.io/learning-track/6d108f0d-dfb2-4dad-8f38-93b45573bc43?learningTrackId=6d108f0d-dfb2-4dad-8f38-93b45573bc43&menu=learningTrack&origin=mantle&token=${res.token}`
+              );
             }
           }
         } catch (err) {
@@ -100,7 +96,11 @@ const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
           if (!metamaskConnector?.ready) {
             message.error('Please connect to your metamask plugin!');
           } else {
-            loginByMetaMask();
+            if (!isPc()) {
+              setTipsOpen(true);
+            } else {
+              loginByMetaMask();
+            }
           }
         }}
       >
