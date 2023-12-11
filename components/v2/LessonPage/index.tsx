@@ -35,7 +35,7 @@ const LessonPage: FC<LessonPageProps> = (props) => {
   const { lesson, loading } = useGetLessonContent(lessonId);
   const router = useRouter();
   const { courseId: courseName } = router.query;
-  const [nextLoading, setNextLoading] = useState(true);
+  const [nextLoading, setNextLoading] = useState(false);
   const { onNextClick, completeModalRef } = useGotoNextLesson(
     lesson!,
     courseType,
