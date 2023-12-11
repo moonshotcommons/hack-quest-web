@@ -1,4 +1,4 @@
-import { Menu, QueryIdType } from '@/components/v2/Breadcrumb/type';
+import { Menu, QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
 import { JumpLeaningLessonType } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
 import { CourseType } from '@/service/webApi/course/type';
 import { message } from 'antd';
@@ -179,3 +179,9 @@ export async function urlToBlobAndBase64(url: string) {
     }
   );
 }
+
+export const separationNumber = (num: number, maxNum = 9999) => {
+  const sNum = num > maxNum ? maxNum : num;
+  const str = String(sNum).replace(/(?!^)(?=(\d{3})+$)/g, ',');
+  return num > maxNum ? `${str}+` : str;
+};

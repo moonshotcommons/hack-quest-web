@@ -5,8 +5,8 @@ import iconXp from '@/public/images/mission-center/icon_xp.png';
 import { CertificationType } from '@/service/webApi/campagins/type';
 import Image from 'next/image';
 import { forwardRef, useImperativeHandle, useState } from 'react';
-import GettingCertificate from './GettingCertificate';
 import NotCertified from './NotCertified';
+import GettingCertificate from '../../Business/Certification/CertificationModal/GettingCertificate';
 
 interface CertificationModalProps {
   certification: CertificationType;

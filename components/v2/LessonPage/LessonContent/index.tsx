@@ -1,4 +1,12 @@
 'use client';
+import Breadcrumb from '@/components/v2/Business/Breadcrumb';
+import ComponentRenderer from '@/components/v2/Business/Renderer/ComponentRenderer';
+import {
+  CustomComponent,
+  LessonContent,
+  NotionComponent
+} from '@/components/v2/Business/Renderer/type';
+import Button from '@/components/v2/Common/Button';
 import { ExpandDataType, useLessonExpand } from '@/hooks/useLessonExpand';
 import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
 import {
@@ -10,16 +18,8 @@ import {
   useRef,
   useState
 } from 'react';
-import Breadcrumb from '../../Breadcrumb';
-import ComponentRenderer from '../ComponentRenderer';
 import LessonEvents from '../LessonEvents';
-import {
-  CustomComponent,
-  LessonContent,
-  LessonPageContext,
-  NotionComponent
-} from '../type';
-import Button from '../../Common/Button';
+import { LessonPageContext } from '../type';
 
 export const LessonContentContext = createContext<{
   expandData: ExpandDataType[];

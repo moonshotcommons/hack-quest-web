@@ -10,17 +10,17 @@ import {
 } from 'react';
 
 import Button from '@/components/Common/Button';
+import { Menu, QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
+import CertificationCard from '@/components/v2/Business/Certification/CertificationCard';
 import { BurialPoint } from '@/helper/burialPoint';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
 import { useEnrollUnEnroll } from '@/hooks/useLearningTrackHooks/useEnrollUnEnroll';
 import webApi from '@/service';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
-import { Menu, QueryIdType } from '../../Breadcrumb/type';
 import CourseDetailHeader from '../CourseDetailHeader';
 import HeaderRight from '../HeaderRight';
 import TrackList from '../TrackList';
 import { LearningStatus } from '../type';
-import CertificationCard from '@/components/v2/Certification/CertificationCard';
 
 interface LearningTrackDetailProps {
   // children: ReactNode;

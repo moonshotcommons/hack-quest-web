@@ -2,6 +2,7 @@ import {
   FC,
   ReactNode,
   useContext,
+  useEffect,
   useLayoutEffect,
   useMemo,
   useRef,
@@ -39,7 +40,7 @@ const SessionItemRenderer: FC<SessionItemRendererProps> = (props) => {
     }
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     let timer: NodeJS.Timer;
     if (item.content && item.type === 'left') {
       timer = setTimeout(() => {

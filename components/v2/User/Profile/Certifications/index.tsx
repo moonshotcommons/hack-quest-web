@@ -1,9 +1,11 @@
+import { FC, useContext } from 'react';
+import { ProfileContext } from '../type';
+
 import Button from '@/components/v2/Common/Button';
+
 import { Typography } from 'antd';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FC, useContext } from 'react';
-import { ProfileContext } from '../type';
 interface PersonalLinksProps {}
 
 const Certifications: FC<PersonalLinksProps> = (props) => {
