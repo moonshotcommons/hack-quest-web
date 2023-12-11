@@ -1,13 +1,13 @@
-import { menuLink } from '@/components/v2/Breadcrumb/data';
-import { Menu, QueryIdType } from '@/components/v2/Breadcrumb/type';
+import { menuLink } from '@/components/v2/Business/Breadcrumb/data';
+import { Menu, QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
+import ProjectCard from '@/components/v2/Business/ProjectCard';
 import Pagination from '@/components/v2/Common/Pagination';
-import ProjectCard from '@/components/v2/ProjectCard';
 import { errorMessage } from '@/helper/utils';
 import webApi from '@/service';
 import { ProjectType } from '@/service/webApi/resourceStation/project/type';
 import { useRequest } from 'ahooks';
 import Link from 'next/link';
-import { FC, ReactNode, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 let PROJECTS_LIMIT = 3;
 interface OtherProjectsProps {
   hackathonId: string;

@@ -2,7 +2,7 @@ import User from '@/components/v2/User';
 import { Inter } from 'next/font/google';
 import React, { ReactNode, useCallback, useEffect, useState } from 'react';
 
-import Breadcrumb from '@/components/v2/Breadcrumb';
+import Breadcrumb from '@/components/v2/Business/Breadcrumb';
 import { useRouter } from 'next/router';
 import { excludeLink } from '@/components/v2/Layout/Navbar/data';
 import NavBar, { NavBarProps } from '@/components/v2/Layout/Navbar';

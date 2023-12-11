@@ -1,7 +1,7 @@
-import { MantleContext } from '@/components/v2/Campaigns/Mantle/type';
 import CertificationModal, {
   CertificationModalInstance
-} from '@/components/v2/Certification/CertificationModal';
+} from '@/components/v2/Business/Certification/CertificationModal';
+import { MantleContext } from '@/components/v2/Campaigns/Mantle/type';
 import Button from '@/components/v2/Common/Button';
 import { BurialPoint } from '@/helper/burialPoint';
 import Certificate from '@/public/images/campaigns/certificate.png';

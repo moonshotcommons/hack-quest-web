@@ -3,7 +3,7 @@ import { Inter, DM_Sans } from 'next/font/google';
 import React, { ReactNode } from 'react';
 import NavBar, { NavBarProps } from '../Navbar';
 
-import Breadcrumb from '@/components/v2/Breadcrumb';
+import Breadcrumb from '@/components/v2/Business/Breadcrumb';
 import { useRouter } from 'next/router';
 
 import { cn } from '@/helper/utils';

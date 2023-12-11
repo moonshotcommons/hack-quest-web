@@ -2,27 +2,33 @@ import Button from '@/components/v2/Common/Button';
 import { FC, useContext, useEffect, useMemo, useState } from 'react';
 import Box from '../components/Box';
 import Add from '../components/Add';
-import { IconType } from '../components/HoverIcon/type';
-import HoverIcon from '../components/HoverIcon';
+import { IconType } from '@/components/v2/Business/HoverIcon/type';
+import HoverIcon from '@/components/v2/Business/HoverIcon';
 import Edit from './Edit';
 import { ProfileContext } from '../type';
 import { UserHackathonType } from '@/service/webApi/user/type';
 import { dealDate, dateInterval } from './utils';
 import { deepClone } from '@/helper/utils';
+import { BurialPoint } from '@/helper/burialPoint';
 
-interface HackathonProps {}
+interface HackathonProps {
+  edit?: boolean;
+}
 export type ListDataType = {
   showMore: boolean;
   descriptions: string[];
   descriptionLess: string[];
 } & UserHackathonType;
-const Hackathon: FC<HackathonProps> = ({}) => {
+const Hackathon: FC<HackathonProps> = ({ edit = false }) => {
   const [editOpen, setEditOpen] = useState(false);
   const { profile } = useContext(ProfileContext);
   const [listData, setListData] = useState<ListDataType[]>([]);
   const [allData, setAllData] = useState<ListDataType[]>([]);
   const [showAll, setShowAll] = useState(false);
   const handleAdd = () => {
+    BurialPoint.track(
+      'user-profile Hackathon Add Hackathon Experience按钮点击'
+    );
     setEditOpen(true);
   };
   useEffect(() => {
@@ -45,6 +51,7 @@ const Hackathon: FC<HackathonProps> = ({}) => {
   }, [profile, showAll]);
 
   const handleShowMore = (index: number) => {
+    BurialPoint.track('user-profile Hackathon Show More按钮点击');
     const newListData = deepClone(listData);
     newListData[index].showMore = !newListData[index].showMore;
     setListData(newListData);
@@ -52,12 +59,15 @@ const Hackathon: FC<HackathonProps> = ({}) => {
 
   return (
     <Box className="font-next-poster relative group">
-      {listData?.length > 0 && (
+      {listData?.length > 0 && edit && (
         <div className="absolute right-[30px] top-[30px] hidden group-hover:block">
           <HoverIcon
             type={IconType.EDIT}
             tooltip="Edit your hackathon experience"
-            onClick={() => setEditOpen(true)}
+            onClick={() => {
+              BurialPoint.track('user-profile Hackathon Edit icon按钮点击');
+              setEditOpen(true);
+            }}
           />
         </div>
       )}
@@ -130,13 +140,13 @@ const Hackathon: FC<HackathonProps> = ({}) => {
             </div>
           )}
         </>
-      ) : (
+      ) : edit ? (
         <Add
           addText={'Share your hackathon experience with others'}
           buttonText={'Add a Hackathon Experience'}
           handleClick={handleAdd}
         />
-      )}
+      ) : null}
       <Edit open={editOpen} list={allData} onClose={() => setEditOpen(false)} />
     </Box>
   );

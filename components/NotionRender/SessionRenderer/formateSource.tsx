@@ -6,7 +6,6 @@ import {
   ReactNode,
   useContext,
   useEffect,
-  useLayoutEffect,
   useState
 } from 'react';
 import { SessionRendererContext } from '.';

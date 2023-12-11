@@ -50,7 +50,6 @@ const UserLogin: FC<UserLoginProps> = (props) => {
       errorMessage: ''
     }
   });
-
   const { validator } = useValidator(['email', 'password']);
   const router = useRouter();
   const { redirect_url } = router.query;

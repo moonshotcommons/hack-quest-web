@@ -255,6 +255,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
 
   const verifyGithub = (code: string) => {
     BurialPoint.track('signup-Github三方登录code验证');
+
     if (code) {
       webApi.userApi
         .githubVerify(code)
@@ -271,9 +272,8 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
               })
             );
           } else {
-            BurialPoint.track('signup-Github三方登录code验证成功');
             if (isPc()) {
-              dispatch(setUserInfo(omit(res, 'token')));
+              BurialPoint.track('signup-Github三方登录code验证成功');
               setToken(res.token);
               router.push('/home');
             } else {

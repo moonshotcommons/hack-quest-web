@@ -1,5 +1,9 @@
 'use client';
-import CompleteModal from '@/components/v2/LessonPage/CompleteModal';
+import CompleteModal from '@/components/v2/Business/CompleteModal';
+import {
+  CustomType,
+  NotionComponent
+} from '@/components/v2/Business/Renderer/type';
 import { BurialPoint } from '@/helper/burialPoint';
 import { useGetLessonContent } from '@/hooks/useCoursesHooks/useGetLessenContent';
 import { useGotoNextLesson } from '@/hooks/useCoursesHooks/useGotoNextLesson';
@@ -12,11 +16,14 @@ import Split from 'react-split';
 import LessonContent from './LessonContent';
 import LessonFooter from './LessonFooter';
 import Playground from './Playground';
-import { CustomType, LessonPageContext, NotionComponent } from './type';
+import { LessonPageContext } from './type';
 
-import Modal from '../Common/Modal';
-import BugFeedbackModal, { BugFeedbackModalRef } from './BugFeedbackModal';
-import TreasureModal, { TreasureModalRef } from '../TreasureModal';
+import BugFeedbackModal, {
+  BugFeedbackModalRef
+} from '@/components/v2/Business/BugFeedbackModal';
+import TreasureModal, {
+  TreasureModalRef
+} from '@/components/v2/Business/TreasureModal';
 
 interface LessonPageProps {
   lessonId: string;

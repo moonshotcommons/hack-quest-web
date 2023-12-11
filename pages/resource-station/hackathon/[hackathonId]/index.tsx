@@ -3,7 +3,7 @@ import About from '@/components/v2/HackDetailBox/About';
 import HackathonInfo from '@/components/v2/HackDetailBox/HackathonInfo';
 import { useRequest } from 'ahooks';
 import { useRouter } from 'next/router';
-import { QueryIdType } from '@/components/v2/Breadcrumb/type';
+import { QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
 import webApi from '@/service';
 import Loading from '@/components/v2/Common/Loading';
 import { HackathonType } from '@/service/webApi/resourceStation/hackathon/type';

@@ -1,5 +1,5 @@
 import { ProcessType } from '@/service/webApi/course/type';
-import { TabListType, TabValueType } from '@/components/v2/Tab/type';
+import { TabListType, TabValueType } from '@/components/v2/Business/Tab/type';
 
 export const courseTab: TabListType[] = [
   {
