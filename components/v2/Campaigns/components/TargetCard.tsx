@@ -81,7 +81,7 @@ const TargetCard: React.FC<TargetCardProp> = ({ target }) => {
       <div
         className="h-full bg-[rgba(255,244,206,0.4)] opacity-40 absolute left-0 top-0 rounded-[10px]"
         style={{
-          width: `${(target.progress[0] / target.progress[0]) * 100}%`
+          width: `${(target.progress[0] / target.progress[1]) * 100}%`
         }}
       ></div>
       <div className="absolute w-full h-full left-0 top-0 flex justify-between items-center px-[30px] ">
