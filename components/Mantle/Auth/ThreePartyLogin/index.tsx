@@ -20,13 +20,20 @@ import { BurialPoint } from '@/helper/burialPoint';
 import { setToken } from '@/helper/user-token';
 import { useRouter } from 'next/router';
 import MetamaskLoginButton from './MetamaskLoginButton';
+import useIsPc from '@/hooks/useIsPc';
+import TipsModal from '../../Landing/components/TipsModal';
 
 function ThreePartyLogin() {
   const [isMounted, setIsMounted] = useState(false);
   const dispatch = useDispatch();
   const router = useRouter();
-
+  const isPc = useIsPc();
+  const [tipsOpen, setTipsOpen] = useState(false);
   const loginThreeParty = async (type: AuthType) => {
+    if (!isPc()) {
+      setTipsOpen(true);
+      return;
+    }
     switch (type) {
       case AuthType.METAMASK:
         return;
@@ -68,6 +75,7 @@ function ThreePartyLogin() {
         </div>
         <MetamaskLoginButton></MetamaskLoginButton>
       </div>
+      <TipsModal open={tipsOpen} onClose={() => setTipsOpen(false)} />
     </div>
   );
 }
