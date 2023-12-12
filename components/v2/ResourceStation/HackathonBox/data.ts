@@ -3,12 +3,12 @@ import { TabListType } from '@/components/v2/Business/Tab/type';
 
 export const hackathonTab: TabListType[] = [
   {
-    label: 'Ongoing Hackathon',
+    label: 'Ongoing Hackathons',
     value: HackathonStatusType.ON_GOING,
     type: 'tab'
   },
   {
-    label: 'Past Hackathon',
+    label: 'Past Hackathons',
     value: HackathonStatusType.PAST,
     type: 'tab'
   },
