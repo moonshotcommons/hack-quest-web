@@ -1,8 +1,16 @@
 import WebService from '@/service/webService/webService';
-import { MantleType, TargetsType } from './type';
+import {
+  CertificationType,
+  GetSignatureParams,
+  MantleType,
+  SignatureData,
+  TargetsType
+} from './type';
 
 export enum CampaignsApiType {
-  Campaigns = '/campaigns'
+  Campaigns = '/campaigns',
+  GetSignature = '/ethers/signature',
+  Certifications = '/certifications'
 }
 
 class CampaignsApi {
@@ -47,6 +55,32 @@ class CampaignsApi {
       `${CampaignsApiType.Campaigns}/${campaignId}/targets/complete`,
       {
         data
+      }
+    );
+  }
+
+  /** 获取certification 密钥 */
+  getSignature(params: GetSignatureParams) {
+    return this.service.post<SignatureData>(CampaignsApiType.GetSignature, {
+      data: params
+    });
+  }
+
+  /** 获取证书的详情 */
+  getCertificationDetail(certificationId: string) {
+    return this.service.get<CertificationType>(
+      `${CampaignsApiType.Certifications}/${certificationId}`
+    );
+  }
+
+  /** 保存mint状态 */
+  savaMintState(params: { certificationId: string; txId: string }) {
+    return this.service.patch(
+      `${CampaignsApiType.Certifications}/${params.certificationId}/mint`,
+      {
+        data: {
+          txId: params.txId
+        }
       }
     );
   }

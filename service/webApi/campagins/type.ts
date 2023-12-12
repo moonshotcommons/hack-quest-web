@@ -4,8 +4,10 @@ export interface CertificationType {
   image: string;
   exp: number;
   credits: number;
-  id: number;
+  id: string;
   claimed: boolean;
+  mint: boolean;
+  signatureId: number;
 }
 export interface MantleType {
   id: string;
@@ -39,5 +41,20 @@ export interface TargetsType {
   type: TargetType;
   extra?: {
     url: string;
+  };
+}
+
+export interface GetSignatureParams {
+  sourceType: 'Certification';
+  sourceId: string;
+  address: string;
+}
+
+export interface SignatureData {
+  hashResult: string;
+  sig: {
+    v: number;
+    r: string;
+    s: string;
   };
 }
