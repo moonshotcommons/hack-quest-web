@@ -115,6 +115,7 @@ const CertificationModal = forwardRef<
             <GettingCertificate
               certification={certification}
               refreshCertification={refreshCertification}
+              closeModal={() => setOpen(false)}
             ></GettingCertificate>
           )}
         </div>
