@@ -24,14 +24,6 @@ export const useMintCertification = (onSuccess?: (res: any) => void) => {
     return connectors.find((item) => item.id === 'metaMask');
   }, [connectors]);
 
-  console.log(metamaskConnector);
-
-  // useEffect(() => {
-  //   metamaskConnector?.getChainId().then((res) => {
-  //     console.log(res);
-  //   });
-  // }, [metamaskConnector]);
-
   const {
     run: safeMint,
     runAsync: safeMintAsync,
