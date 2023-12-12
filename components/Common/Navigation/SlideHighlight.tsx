@@ -34,7 +34,7 @@ const SlideHighlight: FC<SlideHighlightProps> = function (props) {
       v.contains(event.target as Node)
     ) as HTMLElement;
     const { left } = root.current.getBoundingClientRect();
-    const { left: l, width } = target.getBoundingClientRect();
+    const { left: l, width } = target?.getBoundingClientRect();
     setNavStyle({
       '--highlight-x': `${l - left}px`,
       '--highlight-width': `${width}px`
@@ -53,7 +53,7 @@ const SlideHighlight: FC<SlideHighlightProps> = function (props) {
 
     const { left } = root.current.getBoundingClientRect();
     const target = root.current.children[currentIndex] as HTMLElement;
-    const { left: l, width } = target.getBoundingClientRect();
+    const { left: l, width } = target?.getBoundingClientRect();
     setNavStyle({
       '--highlight-x': `${l - left}px`,
       '--highlight-width': `${width}px`
