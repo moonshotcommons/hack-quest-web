@@ -3,7 +3,7 @@ import { errorMessage } from '@/helper/utils';
 import webApi from '@/service';
 import { useRequest } from 'ahooks';
 import { message } from 'antd';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useAccount, useConnect, useContractWrite } from 'wagmi';
 
 const CONTRACT_ADDRESS = '0x8eDBf22b97f7bddC7F78AE13b348949DFa0731D3';
@@ -47,6 +47,12 @@ export const useMintCertification = (onSuccess?: (res: any) => void) => {
           account = connectRes.account;
         }
         if (account) {
+          const chainId = await metamaskConnector.getChainId();
+          if (![5000].includes(chainId)) {
+            throw new Error(
+              'Please Switch to Mantle Mainnet to mint the certificate!'
+            );
+          }
           const res = await webApi.campaigns.getSignature({
             sourceId: params.sourceId,
             sourceType: params.sourceType,
