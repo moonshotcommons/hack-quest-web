@@ -246,7 +246,7 @@ export const CenterInfo: FC = () => {
       ]
     },
     {
-      title: 'Personalized Learning Experience',
+      title: 'Personalized learning experience',
       description: `Customize your Web3 learning experience by choosing among extended, standard, or concise modes for each learning quest based on your skill level. HackQuest is built for learners of all levels!`,
       image: [
         {

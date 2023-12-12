@@ -58,7 +58,7 @@ const NotCertified: FC<NotCertifiedProps> = (props) => {
             if (campaignId) run(campaignId);
           }}
         >
-          Claim Certificate
+          Claim
         </Button>
         <Button
           ghost

@@ -4,10 +4,18 @@ import {
   ShareWrap,
   shareList
 } from '@/components/v2/Home/InviteCodeCard/constant';
+import { cn, errorMessage } from '@/helper/utils';
+import { useMintCertification } from '@/hooks/useMintCertification';
+import webApi from '@/service';
+import { CertificationType } from '@/service/webApi/campagins/type';
+import { useRequest } from 'ahooks';
 import Link from 'next/link';
 import { FC, useState } from 'react';
 import { RiShareBoxLine } from 'react-icons/ri';
-interface GettingCertificateProps {}
+interface GettingCertificateProps {
+  certification: CertificationType;
+  refreshCertification?: VoidFunction;
+}
 
 const badge = (
   <svg
@@ -62,8 +70,38 @@ const badge = (
   </svg>
 );
 
-const GettingCertificate: FC<GettingCertificateProps> = (props) => {
+const GettingCertificate: FC<GettingCertificateProps> = ({
+  certification,
+  refreshCertification
+}) => {
   const [showShare, setShowShare] = useState(false);
+  const { safeMintAsync } = useMintCertification();
+
+  const { run: safeMint, loading } = useRequest(
+    async (params: {
+      sourceType: 'Certification';
+      sourceId: string;
+      signatureId: number;
+    }) => {
+      const res = await safeMintAsync({
+        sourceType: params.sourceType,
+        sourceId: params.sourceId,
+        signatureId: params.signatureId
+      });
+
+      return res;
+    },
+    {
+      manual: true,
+      onSuccess(res) {
+        refreshCertification?.();
+      },
+      onError(e) {
+        errorMessage(e);
+      }
+    }
+  );
+
   return (
     <div className="flex-1">
       <div className="flex items-center gap-x-5 h-fit">
@@ -83,7 +121,7 @@ const GettingCertificate: FC<GettingCertificateProps> = (props) => {
           if (showShare) setShowShare(false);
         }}
       >
-        <Tooltip
+        {/* <Tooltip
           show={showShare}
           // customize={true}
           title={
@@ -115,7 +153,27 @@ const GettingCertificate: FC<GettingCertificateProps> = (props) => {
           >
             Share
           </Button>
-        </Tooltip>
+        </Tooltip> */}
+        <Button
+          type="primary"
+          loading={loading}
+          className={cn(
+            'w-[210px] py-[11px] px-0 font-next-book text-[#0B0B0B] text-[16px] leading-[125%] tracking-[0.32px] outline-none',
+            certification.mint ? 'cursor-not-allowed opacity-40' : ''
+          )}
+          onClick={() => {
+            if (certification.mint) {
+              return;
+            }
+            safeMint({
+              sourceType: 'Certification',
+              sourceId: certification.id,
+              signatureId: certification.signatureId
+            });
+          }}
+        >
+          {certification.mint ? 'Minted' : 'Mint'}
+        </Button>
         <Link href={'/user/profile'}>
           <Button
             ghost
