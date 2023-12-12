@@ -15,6 +15,7 @@ import { RiShareBoxLine } from 'react-icons/ri';
 interface GettingCertificateProps {
   certification: CertificationType;
   refreshCertification?: VoidFunction;
+  closeModal?: VoidFunction;
 }
 
 const badge = (
@@ -72,7 +73,8 @@ const badge = (
 
 const GettingCertificate: FC<GettingCertificateProps> = ({
   certification,
-  refreshCertification
+  refreshCertification,
+  closeModal
 }) => {
   const [showShare, setShowShare] = useState(false);
   const { safeMintAsync } = useMintCertification();
@@ -178,6 +180,7 @@ const GettingCertificate: FC<GettingCertificateProps> = ({
           <Button
             ghost
             className="w-[210px] py-[11px] px-0 font-next-book text-[#0B0B0B] text-[16px] leading-[125%] tracking-[0.32px] border-[#0B0B0B]"
+            onClick={() => closeModal?.()}
           >
             Check Profile
           </Button>
