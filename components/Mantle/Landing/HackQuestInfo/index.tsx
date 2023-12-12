@@ -174,7 +174,7 @@ export const MantelDeveloperJourney: FC = () => {
           description="50 Mantle developer points"
         ></DeveloperCard>
         <DeveloperCard
-          title="Create Mantle Developer profile"
+          title="Create Mantle Developer Profile"
           description="30 Mantle developer points"
         ></DeveloperCard>
       </div>
@@ -219,7 +219,7 @@ export const CenterInfo: FC = () => {
       )
     },
     {
-      title: 'Personalized Learning Experience',
+      title: 'Personalized learning experience',
       description: `Customize your Web3 learning experience by choosing among extended, standard, or concise modes for each learning quest based on your skill level. HackQuest is built for learners of all levels!`,
       image: (
         <Image
@@ -253,7 +253,7 @@ export const CenterInfo: FC = () => {
                   {info.image}
                 </div>
                 <div className="px-[32px] py-[30px] text-white">
-                  <p className="leading-[125%] slab:w-full tracking-[0.68px] font-medium text-[34px] slab:text-[24px] mt-[30px] slab:mt-0  break-words">
+                  <p className="leading-[125%] slab:w-full tracking-[0.68px] font-medium text-[34px] slab:text-[24px] mt-[30px] slab:mt-0 break-words xl:whitespace-nowrap md:min-h-[60px] lg:min-h-[85px] xl:min-h-0">
                     {info.title}
                   </p>
                   <p className="leading-[160%] slab:text-[12px] tracking-[0.36px] text-[18px] mt-[22px]">
