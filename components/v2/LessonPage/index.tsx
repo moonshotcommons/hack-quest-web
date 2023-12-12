@@ -215,6 +215,9 @@ const LessonPage: FC<LessonPageProps> = (props) => {
                           .catch(() => {
                             setNextLoading(false);
                           });
+                      },
+                      completedCallback: () => {
+                        setNextLoading(false);
                       }
                     });
                   } else {
