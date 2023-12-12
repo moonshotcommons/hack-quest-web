@@ -13,6 +13,8 @@ interface CertificationModalProps {
   showCoin?: boolean;
   completed?: boolean;
   campaignId?: string;
+  onClose?: VoidFunction;
+  refreshCertification?: VoidFunction;
 }
 
 export interface CertificationModalInstance {
@@ -23,7 +25,14 @@ const CertificationModal = forwardRef<
   CertificationModalInstance,
   CertificationModalProps
 >((props, ref) => {
-  const { certification, completed, campaignId, showCoin = false } = props;
+  const {
+    certification,
+    completed,
+    campaignId,
+    showCoin = false,
+    onClose,
+    refreshCertification
+  } = props;
   const [open, setOpen] = useState(false);
   useImperativeHandle(ref, () => {
     return {
@@ -38,6 +47,7 @@ const CertificationModal = forwardRef<
       open={open}
       onClose={() => {
         setOpen(false);
+        onClose?.();
       }}
       showCloseIcon
       icon={closeIcon}
@@ -101,7 +111,12 @@ const CertificationModal = forwardRef<
               campaignId={campaignId}
             ></NotCertified>
           )}
-          {certification.claimed && <GettingCertificate></GettingCertificate>}
+          {certification.claimed && (
+            <GettingCertificate
+              certification={certification}
+              refreshCertification={refreshCertification}
+            ></GettingCertificate>
+          )}
         </div>
       </div>
     </Modal>

@@ -1,6 +1,12 @@
 export const SBTManager = [
   {
-    inputs: [],
+    inputs: [
+      {
+        internalType: 'address',
+        name: '_admin',
+        type: 'address'
+      }
+    ],
     stateMutability: 'nonpayable',
     type: 'constructor'
   },

@@ -19,7 +19,8 @@ const inter = DM_Sans({
 interface MantleInfoProp {}
 
 const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
-  const { mantle, campaignsClaim, loading } = useContext(MantleContext);
+  const { mantle, campaignsClaim, loading, refresh } =
+    useContext(MantleContext);
   const [showAll, setShowAll] = useState(true);
   const certificationModalRef = useRef<CertificationModalInstance>(null);
 
@@ -138,6 +139,7 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
         certification={mantle.certification}
         completed={mantle.completed}
         campaignId={mantle.id}
+        refreshCertification={refresh}
         showCoin={true}
       />
     </div>

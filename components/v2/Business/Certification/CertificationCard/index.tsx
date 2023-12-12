@@ -19,9 +19,9 @@ const CertificationCard: FC<CertificationCardProps> = (props) => {
   const { certificationId } = props;
   const [certification, setCertification] = useState<CertificationType>();
 
-  useRequest(
+  const { refresh } = useRequest(
     async () => {
-      const res = await webApi.courseApi.getCertificationDetail(
+      const res = await webApi.campaigns.getCertificationDetail(
         certificationId
       );
       return res;
@@ -70,6 +70,7 @@ const CertificationCard: FC<CertificationCardProps> = (props) => {
         <CertificationModal
           ref={CertificationModalRef}
           certification={certification}
+          refreshCertification={refresh}
         ></CertificationModal>
       )}
     </div>
