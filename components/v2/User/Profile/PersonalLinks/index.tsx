@@ -1,10 +1,8 @@
-import { FC, ReactNode, useContext, useMemo, useRef } from 'react';
-import { BoxType, ProfileContext } from '../type';
+import { FC, useContext, useMemo, useRef } from 'react';
+import { ProfileContext } from '../type';
 import { getThirdPartyMedia, thirdPartyMedia } from '@/helper/thirdPartyMedia';
 import { RiShareBoxLine } from 'react-icons/ri';
 import Button from '@/components/v2/Common/Button';
-import Tooltip from '@/components/v2/Common/Tooltip';
-import EditButton from '../PersonalEdit/EditButton';
 import PersonalLinkEditModal, {
   PersonalLinkEditModalRef
 } from './PersonalLinkEditModal';

@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { menuLink } from '@/components/v2/Business/Breadcrumb/data';
-import { ProjectType } from '@/service/webApi/resourceStation/project/type';
+import { ProjectType } from '@/service/webApi/resourceStation/type';
 import { useRouter } from 'next/router';
 import { Menu, QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
 import { BurialPoint } from '@/helper/burialPoint';

@@ -1,24 +1,20 @@
 import { cn } from '@/helper/utils';
-import { useDebounceFn } from 'ahooks';
-import Schema, { Rule, Rules } from 'async-validator';
+import { Rule } from 'async-validator';
 import {
   InputHTMLAttributes,
   ReactNode,
   forwardRef,
   useEffect,
   useImperativeHandle,
-  useMemo,
   useRef,
   useState
 } from 'react';
 import CloseIcon from '../Icon/Close';
-import EyeIcon from '../Icon/Eye';
 import PassIcon from '../Icon/Pass';
 import WarningIcon from '../Icon/Warning';
 import { AiFillCaretDown } from 'react-icons/ai';
 import { FiCheck } from 'react-icons/fi';
 import { OptionType } from './type';
-import { use } from 'echarts';
 
 interface SelectProps {
   name: string;

@@ -1,7 +1,7 @@
 import React, { useContext, useMemo } from 'react';
 import Image from 'next/image';
 import BIcon from '@/public/images/campaigns/b_icon.png';
-import { Inter, DM_Sans } from 'next/font/google';
+import { DM_Sans } from 'next/font/google';
 import { MantleContext } from '../type';
 const inter = DM_Sans({
   weight: ['400', '700', '500'],

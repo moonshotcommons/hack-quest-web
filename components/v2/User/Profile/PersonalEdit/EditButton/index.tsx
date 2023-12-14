@@ -1,5 +1,5 @@
 import { cn } from '@/helper/utils';
-import { FC, HTMLAttributes, ReactNode } from 'react';
+import { FC, HTMLAttributes } from 'react';
 
 interface EditButtonProps {
   className?: string;

@@ -1,7 +1,7 @@
 import { HiArrowLongRight, HiArrowLongLeft } from 'react-icons/hi2';
 import { cn } from '@/helper/utils';
 import { useKeyPress } from 'ahooks';
-import { FC, ReactNode, useEffect, useRef, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 
 interface PaginationProps {
   total: number;

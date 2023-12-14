@@ -1,28 +1,12 @@
-import NotionRenderer, { Renderer } from '@/components/NotionRender';
-import ImageRenderer from '@/components/NotionRender/ImageRenderer';
-import TextRenderer from '@/components/NotionRender/TextRenderer';
-
-import { useParseLessonBSection } from '@/hooks/useParseLesson/useParseLessonBSection';
-import {
-  CourseLessonType,
-  CourseType,
-  LessonStyleType
-} from '@/service/webApi/course/type';
-import { FC, HTMLAttributes, ReactNode, useEffect, useState } from 'react';
-import Cover from '@/public/images/lesson/lesson_type_e_cover.svg';
-import Image from 'next/image';
-import Button, { ButtonProps } from '@/components/Common/Button';
+import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
+import { FC, useEffect, useState } from 'react';
+import Button from '@/components/Common/Button';
 import { useRouter } from 'next/router';
-import { useDebounceFn } from 'ahooks';
-import { shallowEqual, useSelector } from 'react-redux';
-import { AppRootState } from '@/store/redux';
-import { cn, getCourseLink } from '@/helper/utils';
 import {
   useBackToPrevLesson,
   useGotoNextLesson
 } from '@/hooks/useCoursesHooks/useGotoNextLesson';
 import webApi from '@/service';
-import CompleteModal from '../CompleteModal';
 import SessionRenderer from '@/components/NotionRender/SessionRenderer';
 interface LessonPageDProps {
   lesson: CourseLessonType;

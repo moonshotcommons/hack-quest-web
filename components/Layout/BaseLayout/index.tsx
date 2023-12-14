@@ -2,7 +2,6 @@ import React, { ReactNode } from 'react';
 import NavBar, { NavBarProps } from '../Navbar';
 import Footer from '../Footer';
 import { Inter } from 'next/font/google';
-import Image from 'next/image';
 import User from '@/components/User';
 const inter = Inter({ subsets: ['latin'] });
 export interface BaseLayoutProps {

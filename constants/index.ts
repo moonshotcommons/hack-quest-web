@@ -1,11 +1,6 @@
 import { TabItem } from '@/components/Common/Tab';
 import { CourseType } from '@/service/webApi/course/type';
-import {
-  tomorrowNightBright,
-  monokaiSublime,
-  irBlack,
-  monokai
-} from 'react-syntax-highlighter/dist/cjs/styles/hljs';
+import { tomorrowNightBright } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 
 export const HOME_PATHNAME = '/';
 export const LOGIN_PATHNAME = '/auth/login';

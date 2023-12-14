@@ -1,5 +1,3 @@
-import { FC, ReactNode } from 'react';
-
 import webApi from '@/service';
 import { useDispatch } from 'react-redux';
 import {

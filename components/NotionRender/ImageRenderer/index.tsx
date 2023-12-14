@@ -1,5 +1,5 @@
 import { Image } from 'antd';
-import { FC, ReactNode } from 'react';
+import { FC } from 'react';
 
 interface ImageRendererProps {
   source: any;

@@ -1,5 +1,5 @@
 import { cn, separationNumber } from '@/helper/utils';
-import { FC, useContext, useRef, useState } from 'react';
+import { FC } from 'react';
 import Image from 'next/image';
 import logo from '@/public/images/user/star_avatar/maskgroup-0.png';
 import { RiShareBoxLine } from 'react-icons/ri';

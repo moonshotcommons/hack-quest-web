@@ -1,4 +1,4 @@
-import { HackathonStatusType } from '@/service/webApi/resourceStation/hackathon/type';
+import { HackathonStatusType } from '@/service/webApi/resourceStation/type';
 import { TabListType } from '@/components/v2/Business/Tab/type';
 
 export const hackathonTab: TabListType[] = [

@@ -1,6 +1,5 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import TargetCard from '../../components/TargetCard';
-import { TargetType } from '@/service/webApi/campagins/type';
 import { MantleContext } from '../type';
 
 interface TargetBoxProp {}

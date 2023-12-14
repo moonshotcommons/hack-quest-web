@@ -1,4 +1,4 @@
-import { MantleType, TargetsType } from '@/service/webApi/campagins/type';
+import { MantleType, TargetsType } from '@/service/webApi/campaigns/type';
 import { createContext } from 'react';
 
 export interface MantleContextType {

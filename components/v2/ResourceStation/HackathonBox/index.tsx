@@ -3,7 +3,7 @@ import PageDescription from '@/components/v2/Business/PageDescription';
 import Tab from '@/components/v2/Business/Tab';
 import { TabListType } from '@/components/v2/Business/Tab/type';
 import { BurialPoint } from '@/helper/burialPoint';
-import { HackathonStatusType } from '@/service/webApi/resourceStation/hackathon/type';
+import { HackathonStatusType } from '@/service/webApi/resourceStation/type';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { MenuLink } from '../../Layout/Navbar/type';

@@ -1,18 +1,6 @@
-import {
-  FC,
-  ReactNode,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState
-} from 'react';
-import { BoxType, ProfileContext } from '../type';
-import { getThirdPartyMedia, thirdPartyMedia } from '@/helper/thirdPartyMedia';
-import { RiShareBoxLine } from 'react-icons/ri';
+import { FC, useContext, useEffect, useMemo, useState } from 'react';
+import { ProfileContext } from '../type';
 import Button from '@/components/v2/Common/Button';
-import Tooltip from '@/components/v2/Common/Tooltip';
-import EditButton from '../PersonalEdit/EditButton';
 import { useConnect } from 'wagmi';
 import HoverIcon from '@/components/v2/Business/HoverIcon';
 import { IconType } from '@/components/v2/Business/HoverIcon/type';

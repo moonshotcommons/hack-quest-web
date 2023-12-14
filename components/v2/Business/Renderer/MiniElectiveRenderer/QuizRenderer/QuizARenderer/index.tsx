@@ -15,7 +15,6 @@ import webApi from '@/service';
 import { FC, useContext, useEffect, useRef, useState } from 'react';
 
 import ComponentRenderer from '../..';
-import QuizFooter from '../QuizFooter';
 import CodeRender from './CodeRender';
 import { RendererContext } from '../../../context';
 interface QuizARendererProps {

@@ -1,4 +1,3 @@
-import { Dispatch, SetStateAction, createContext } from 'react';
 import { QuizBType } from '@/components/v2/Business/Renderer/type';
 
 export type QuizOptionType = QuizBType['options'][number] & {

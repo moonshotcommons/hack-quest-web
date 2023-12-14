@@ -1,4 +1,4 @@
-import React, { FC, HTMLAttributes, ReactNode } from 'react';
+import React, { FC, ReactNode } from 'react';
 import classnames from 'classnames';
 import { omit } from 'lodash-es';
 import { cn } from '@/helper/utils';

@@ -1,13 +1,8 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { HYDRATE } from 'next-redux-wrapper';
-import webApi from '@/service';
+import { createSlice } from '@reduxjs/toolkit';
 import {
-  CourseLessonType,
   CourseResponse,
   UnitPagesListType
 } from '@/service/webApi/course/type';
-import { message } from 'antd';
-import { DropData } from '@/components/Common/DropDown/type';
 
 export interface CourseStateType {
   courseList: CourseResponse[];

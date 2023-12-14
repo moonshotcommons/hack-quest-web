@@ -1,10 +1,8 @@
 import React, { ReactNode } from 'react';
 import { Inter } from 'next/font/google';
-import Image from 'next/image';
 const inter = Inter({ subsets: ['latin'] });
 // import LoginBgLine from '@/public/images/login/login_bg_line.svg';
 // import LoginMoon from '@/public/images/login/login_moon.svg';
-import LightBg from '@/public/images/login/light-bg.svg';
 export interface EmailVerifyLayoutProps {
   // footerData: IFooterProps;
   children: ReactNode;

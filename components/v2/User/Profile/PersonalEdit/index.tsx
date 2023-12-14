@@ -1,4 +1,4 @@
-import { FC, ReactNode, useContext } from 'react';
+import { FC } from 'react';
 import UserProfile from './UserProfile';
 import BackgroundImage from './BackgroundImage';
 

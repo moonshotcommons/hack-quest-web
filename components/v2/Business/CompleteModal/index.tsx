@@ -7,7 +7,6 @@ import DarkMoonRight from '@/public/images/other/dark-moon_right.png';
 import LightMoonLeft from '@/public/images/other/light-moon_left.svg';
 import LightMoonRight from '@/public/images/other/light-moon_right.png';
 import { ThemeContext } from '@/store/context/theme';
-import { NextPage } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { forwardRef, useContext, useImperativeHandle, useState } from 'react';

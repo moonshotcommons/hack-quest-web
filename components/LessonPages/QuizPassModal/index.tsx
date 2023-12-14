@@ -1,6 +1,5 @@
 import Modal from '@/components/Common/Modal';
-import { FC, ReactNode } from 'react';
-import { FaRegThumbsUp } from 'react-icons/fa';
+import { FC } from 'react';
 import PassImage from './pass.svg';
 import Image from 'next/image';
 interface QuizPassModalProps {

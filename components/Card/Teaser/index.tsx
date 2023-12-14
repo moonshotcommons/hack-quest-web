@@ -1,8 +1,4 @@
-import ClockIcon from '@/components/Common/Icon/Clock';
-import CourseIcon from '@/components/Common/Icon/Course';
 import FlightSideWayIcon from '@/components/Common/Icon/FlightSideWay';
-import Label from '@/components/Common/Label';
-import { computeTime } from '@/helper/formate';
 import { Typography } from 'antd';
 import React from 'react';
 export interface TeaserCardProps {

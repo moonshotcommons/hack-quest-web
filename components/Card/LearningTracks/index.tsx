@@ -1,10 +1,8 @@
-import Button from '@/components/Common/Button';
 import ClockIcon from '@/components/Common/Icon/Clock';
-import ProgressIcon from '@/components/Common/Icon/Progress';
 import CourseIcon from '@/components/Common/Icon/Course';
 import Label from '@/components/Common/Label';
 import Tag from '@/components/Common/Tag';
-import { computeProgress, computeTime, tagFormate } from '@/helper/formate';
+import { computeTime, tagFormate } from '@/helper/formate';
 import React from 'react';
 import { Typography } from 'antd';
 

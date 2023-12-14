@@ -15,7 +15,6 @@ import {
 } from '@/service/webApi/course/type';
 import { useRouter } from 'next/router';
 import { FC, useEffect } from 'react';
-import CompleteModal from '../CompleteModal';
 
 // const CustomButton: FC<ButtonProps> = (props) => {
 //   const { children } = props;

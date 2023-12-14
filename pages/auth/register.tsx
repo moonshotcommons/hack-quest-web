@@ -1,9 +1,7 @@
-import Button from '@/components/Common/Button';
-import { ButtonProps } from '@/components/Common/Button';
 import RegisterForm from '@/components/Login/RegisterForm';
 import VerifyEmail from '@/components/Login/VerifyEmail';
 import { NextPage } from 'next';
-import { FC, useState } from 'react';
+import { useState } from 'react';
 
 // const CustomButton: FC<ButtonProps> = (props) => {
 //   const { children } = props;

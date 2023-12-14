@@ -2,7 +2,7 @@ import Modal from '@/components/v2/Common/Modal';
 import { cn } from '@/helper/utils';
 import iconCoin from '@/public/images/mission-center/icon_coin.png';
 import iconXp from '@/public/images/mission-center/icon_xp.png';
-import { CertificationType } from '@/service/webApi/campagins/type';
+import { CertificationType } from '@/service/webApi/campaigns/type';
 import Image from 'next/image';
 import { forwardRef, useImperativeHandle, useState } from 'react';
 import GettingCertificate from './GettingCertificate';

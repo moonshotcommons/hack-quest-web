@@ -2,10 +2,8 @@ import LearningCourses from '@/components/v2/Home/LearningCourses';
 import React, { useEffect } from 'react';
 
 import Title from '@/components/Head/Title';
-import Button from '@/components/v2/Common/Button';
 import FeatureCourses from '@/components/v2/Home/FeaturedCourses';
 import { BurialPoint } from '@/helper/burialPoint';
-import { useMintCertification } from '@/hooks/useMintCertification';
 import { NextPage } from 'next';
 
 interface HomeProps {

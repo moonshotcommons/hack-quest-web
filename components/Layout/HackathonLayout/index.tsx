@@ -1,6 +1,5 @@
 import React, { ReactNode } from 'react';
 import { Inter } from 'next/font/google';
-import Image from 'next/image';
 import Countdown from '@/components/event/hackathon/Countdown';
 const inter = Inter({ subsets: ['latin'] });
 

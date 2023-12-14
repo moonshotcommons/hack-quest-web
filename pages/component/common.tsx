@@ -1,14 +1,7 @@
-import Button, { ButtonProps } from '@/components/Common/Button';
-import Dropdown, { ChildrenDropDown } from '@/components/Common/DropDown';
-import Modal from '@/components/Common/Modal';
-import { render } from '@testing-library/react';
 import { NextPage } from 'next';
-import Image from 'next/image';
-import { FC, Suspense, lazy, useEffect, useState } from 'react';
-import Congrats from '@/public/images/course/congrats.svg';
+import { Suspense, lazy, useEffect, useState } from 'react';
 // import MoonLeft from '@/public/images/other/moon_left.svg';
 // import MoonRight from '@/public/images/other/moon_right.png';
-import { Player, Controls } from '@lottiefiles/react-lottie-player';
 import { useRouter } from 'next/router';
 
 interface HomeProps {

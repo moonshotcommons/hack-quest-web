@@ -1,11 +1,11 @@
 import Button from '@/components/v2/Common/Button';
-import { FC, useContext, useEffect, useMemo, useState } from 'react';
+import { FC, useContext, useEffect, useState } from 'react';
 import Box from '../components/Box';
 import Add from '../components/Add';
 import { IconType } from '@/components/v2/Business/HoverIcon/type';
 import HoverIcon from '@/components/v2/Business/HoverIcon';
 import Edit from './Edit';
-import { BoxType, ProfileContext } from '../type';
+import { ProfileContext } from '../type';
 import { UserExperienceType } from '@/service/webApi/user/type';
 import { dealDate, dateInterval } from './utils';
 import { deepClone } from '@/helper/utils';

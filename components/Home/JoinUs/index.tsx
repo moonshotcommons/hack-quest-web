@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react';
+import { FC } from 'react';
 import ContractUs from '../ContractUs';
 import Image from 'next/image';
 

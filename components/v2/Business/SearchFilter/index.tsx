@@ -1,6 +1,6 @@
 import Checkbox from '@/components/v2/Common/Checkbox';
 import Radio from '@/components/v2/Common/Radio';
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import { ALL, ParamType, FilterDataType, FilterType } from './type';
 import { deepClone } from '@/helper/utils';
 import { BiSearch } from 'react-icons/bi';
@@ -89,6 +89,7 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
     });
     changeParam(newSearchParam);
   };
+
   const renderType = (i: number, j: number) => {
     const { type } = searchParam[i];
     const checked = searchParam[i].filterList[j].checked;
@@ -104,6 +105,7 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
     const value = e.target.value;
     changeInputValue?.(value);
   };
+
   return (
     <div className="text-electives-filter-color w-[272px] ">
       <div className="flex mb-[15px] items-center justify-between border-b border-electives-filter-border-color pb-[6px]">

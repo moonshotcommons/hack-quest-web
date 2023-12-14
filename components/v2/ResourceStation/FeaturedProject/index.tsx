@@ -7,7 +7,7 @@ import { Menu, QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
 import ProjectCard from '@/components/v2/Business/ProjectCard';
 import { BurialPoint } from '@/helper/burialPoint';
 import webApi from '@/service';
-import { ProjectType } from '@/service/webApi/resourceStation/project/type';
+import { ProjectType } from '@/service/webApi/resourceStation/type';
 import { useRequest } from 'ahooks';
 import Link from 'next/link';
 import { FC, useState } from 'react';
@@ -46,7 +46,9 @@ const FeatureProjects: FC<FeatureProjectsProps> = (props) => {
 
   const { run, loading } = useRequest(
     async () => {
-      const res = await webApi.project.getProjectsList({ featured: true });
+      const res = await webApi.resourceStationApi.getProjectsList({
+        featured: true
+      });
       return res;
     },
     {

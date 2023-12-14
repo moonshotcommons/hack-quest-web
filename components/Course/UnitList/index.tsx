@@ -1,9 +1,5 @@
-import {
-  CourseDetailType,
-  CourseType,
-  CourseUnitType
-} from '@/service/webApi/course/type';
-import { FC, ReactNode, useEffect, useState } from 'react';
+import { CourseDetailType } from '@/service/webApi/course/type';
+import { FC, useEffect, useState } from 'react';
 import UnitCard from './UnitCard';
 
 interface UnitListProps {

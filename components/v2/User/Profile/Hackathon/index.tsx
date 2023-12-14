@@ -1,5 +1,5 @@
 import Button from '@/components/v2/Common/Button';
-import { FC, useContext, useEffect, useMemo, useState } from 'react';
+import { FC, useContext, useEffect, useState } from 'react';
 import Box from '../components/Box';
 import Add from '../components/Add';
 import { IconType } from '@/components/v2/Business/HoverIcon/type';
