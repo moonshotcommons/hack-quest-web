@@ -1,6 +1,5 @@
 import CheckIcon from '@/components/Common/Icon/Check';
 import LockIcon from '@/components/Common/Icon/Lock';
-import PassIcon from '@/components/Common/Icon/Pass';
 import Button from '@/components/v2/Common/Button';
 import { Theme } from '@/constants/enum';
 import { computeProgress } from '@/helper/formate';
@@ -14,10 +13,8 @@ import {
 } from '@/service/webApi/course/type';
 import { ThemeContext } from '@/store/context/theme';
 import { Progress, Typography } from 'antd';
-import Image from 'next/image';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { ButtonHTMLAttributes, FC, ReactNode, useContext } from 'react';
+import { FC, useContext } from 'react';
 import styled from 'styled-components';
 
 const CustomProgress = styled(Progress)`

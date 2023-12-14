@@ -3,7 +3,7 @@ import LockIcon from '@/components/Common/Icon/Lock';
 import { Theme } from '@/constants/enum';
 import { BurialPoint } from '@/helper/burialPoint';
 import { computeProgress } from '@/helper/formate';
-import { cn, getCourseLink, getLessonLink } from '@/helper/utils';
+import { cn, getLessonLink } from '@/helper/utils';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
 import webApi from '@/service';
 import {
@@ -14,7 +14,7 @@ import {
 import { ThemeContext } from '@/store/context/theme';
 import { Progress, Typography } from 'antd';
 import { useRouter } from 'next/router';
-import { ButtonHTMLAttributes, FC, useContext } from 'react';
+import { FC, useContext } from 'react';
 import styled from 'styled-components';
 import { LearningStatus } from '../type';
 import { QueryIdType } from '@/components/v2/Business/Breadcrumb/type';

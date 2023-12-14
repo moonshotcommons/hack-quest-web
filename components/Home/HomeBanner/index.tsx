@@ -3,7 +3,7 @@ import SkipIcon from '@/components/Common/Icon/Skip';
 import PeopleJoined from '@/components/Common/PeopleJoined';
 import { getRandomPeopleAvatars } from '@/helper/random';
 import Image from 'next/image';
-import { FC, ReactNode } from 'react';
+import { FC } from 'react';
 import BannerBg from '@/public/images/home/landing-back.png';
 import Link from 'next/link';
 import { useGetUserInfo } from '@/hooks/useGetUserInfo';

@@ -24,6 +24,7 @@ import BugFeedbackModal, {
 import TreasureModal, {
   TreasureModalRef
 } from '@/components/v2/Business/TreasureModal';
+import { useGetUserInfo } from '@/hooks/useGetUserInfo';
 
 interface LessonPageProps {
   lessonId: string;
@@ -80,6 +81,8 @@ const LessonPage: FC<LessonPageProps> = (props) => {
       });
     };
   }, []);
+
+  const userInfo = useGetUserInfo();
 
   const bugFeedbackModalRef = useRef<BugFeedbackModalRef>(null);
 
@@ -183,14 +186,15 @@ const LessonPage: FC<LessonPageProps> = (props) => {
                 onNextClick={async () => {
                   BurialPoint.track('lesson-底部next按钮点击');
                   BurialPoint.track(
-                    'lesson-底部next按钮亮起到点击所消耗的时间',
+                    'lesson-底部next按钮亮起到点击所消耗的时间(用户lesson完成时间)',
                     {
                       duration:
                         new Date().getTime() - allowNextButtonClickTime.current,
-                      lesson: JSON.stringify({
+                      detail: JSON.stringify({
                         lessonName: lesson.name,
                         lessonId: lessonId,
-                        courseName
+                        courseName,
+                        username: userInfo?.name
                       })
                     }
                   );

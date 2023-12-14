@@ -4,7 +4,7 @@ import { cn, errorMessage } from '@/helper/utils';
 import webApi from '@/service';
 import { useRequest } from 'ahooks';
 import { message } from 'antd';
-import { FC, ReactNode, useContext } from 'react';
+import { FC, useContext } from 'react';
 
 interface NotCertifiedProps {
   onClose: VoidFunction;
@@ -19,7 +19,7 @@ const NotCertified: FC<NotCertifiedProps> = (props) => {
 
   const { run, loading } = useRequest(
     async (campaignId: string) => {
-      const res = await webApi.campaigns.campaignsClaim({ campaignId });
+      const res = await webApi.campaignsApi.campaignsClaim({ campaignId });
       return res;
     },
     {

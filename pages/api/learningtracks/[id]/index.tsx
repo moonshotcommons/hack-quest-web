@@ -1,7 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { CourseType } from '@/service/webApi/course/type';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import uuid from 'uuid';
 import { learningTrackDetail } from './data';
 type Data = {
   name: string;

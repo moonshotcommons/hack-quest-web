@@ -2,9 +2,9 @@ import UserIcon from '@/components/Common/Icon/User';
 import PeopleJoined from '@/components/Common/PeopleJoined';
 import { computeTime, tagFormate } from '@/helper/formate';
 import { getRandomAvatars } from '@/helper/random';
-import { CourseDetailType, CourseResponse } from '@/service/webApi/course/type';
+import { CourseDetailType } from '@/service/webApi/course/type';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
-import { FC, ReactNode, useMemo } from 'react';
+import { FC, useMemo } from 'react';
 
 interface CourseDetailInfoProps {
   courseDetail?: CourseDetailType | LearningTrackDetailType;

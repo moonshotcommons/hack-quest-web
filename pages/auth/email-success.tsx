@@ -3,12 +3,7 @@ import Congrats from '@/public/images/course/congrats.svg';
 import Image from 'next/image';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import webApi from '@/service';
-import { useDispatch } from 'react-redux';
-import { setUserInfo } from '@/store/redux/modules/user';
 import { useState } from 'react';
-import { setToken } from '@/helper/user-token';
-import { omit } from 'lodash-es';
 import Button from '@/components/Common/Button';
 interface EmailConfirmedProps {
   children: React.ReactNode;

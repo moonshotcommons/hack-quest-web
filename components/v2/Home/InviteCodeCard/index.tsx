@@ -1,4 +1,4 @@
-import { FC, ReactNode, useMemo, useState } from 'react';
+import { FC, useMemo, useState } from 'react';
 import Button from '../../Common/Button';
 import { VscAdd } from 'react-icons/vsc';
 import { ShareWrap, shareList } from './constant';

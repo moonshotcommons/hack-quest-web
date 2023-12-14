@@ -4,8 +4,6 @@ import React, { useContext } from 'react';
 import LightLogo from '@/public/images/logo/light-footer-logo.svg';
 import DarkLogo from '@/public/images/logo/dark-footer-logo.svg';
 
-import TwitterIcon from '@/components/Common/Icon/Twitter';
-import DiscordIcon from '@/components/Common/Icon/Discord';
 import Link from 'next/link';
 import ContractUs from '@/components/Home/ContractUs';
 import { ThemeContext } from '@/store/context/theme';

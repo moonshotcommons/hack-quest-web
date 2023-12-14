@@ -1,11 +1,11 @@
 import { FC, useContext, useEffect, useMemo, useState } from 'react';
 import Box from '../components/Box';
 import Add from '../components/Add';
-import Chart, { OptionDataType } from './Charts';
+import Chart from './Charts';
 import HoverIcon from '@/components/v2/Business/HoverIcon';
 import { IconType } from '@/components/v2/Business/HoverIcon/type';
 
-import { BoxType, ProfileContext } from '../type';
+import { ProfileContext } from '../type';
 import Confirm from '../components/Confirm';
 import webApi from '@/service';
 import { message } from 'antd';

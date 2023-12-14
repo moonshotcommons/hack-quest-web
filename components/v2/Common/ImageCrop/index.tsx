@@ -1,6 +1,6 @@
 import Button from '@/components/v2/Common/Button';
 import Modal from '@/components/v2/Common/Modal';
-import { Upload, UploadProps, message } from 'antd';
+import { message } from 'antd';
 import type CropperRef from 'react-easy-crop';
 import type { RcFile, UploadFile } from 'antd/es/upload/interface';
 import {
@@ -22,7 +22,6 @@ import type {
 } from './types';
 import EasyCrop from './EasyCrop';
 import type { CropperProps } from 'react-easy-crop';
-import { Upload as AntUpload } from 'antd';
 import { errorMessage, urlToBlobAndBase64 } from '@/helper/utils';
 import { v4 as uuidV4 } from 'uuid';
 interface ImageCropProps {

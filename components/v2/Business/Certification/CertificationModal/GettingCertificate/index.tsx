@@ -1,17 +1,11 @@
 import Button from '@/components/v2/Common/Button';
-import Tooltip from '@/components/v2/Common/Tooltip';
-import {
-  ShareWrap,
-  shareList
-} from '@/components/v2/Home/InviteCodeCard/constant';
+
 import { cn, errorMessage } from '@/helper/utils';
 import { useMintCertification } from '@/hooks/useMintCertification';
-import webApi from '@/service';
-import { CertificationType } from '@/service/webApi/campagins/type';
+import { CertificationType } from '@/service/webApi/campaigns/type';
 import { useRequest } from 'ahooks';
 import Link from 'next/link';
 import { FC, useState } from 'react';
-import { RiShareBoxLine } from 'react-icons/ri';
 interface GettingCertificateProps {
   certification: CertificationType;
   refreshCertification?: VoidFunction;

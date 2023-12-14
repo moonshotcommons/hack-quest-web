@@ -4,7 +4,6 @@ import { Dialog, Transition } from '@headlessui/react';
 
 import { cn } from '@/helper/utils';
 import { FC, Fragment, ReactNode } from 'react';
-import CloseIcon from '../Icon/Close';
 import { BsXLg } from 'react-icons/bs';
 
 interface ModalProps {

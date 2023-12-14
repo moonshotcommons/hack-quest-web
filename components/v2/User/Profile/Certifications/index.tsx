@@ -1,4 +1,4 @@
-import { FC, createRef, useContext, useEffect, useRef, useState } from 'react';
+import { FC, useContext, useEffect, useRef, useState } from 'react';
 import { ProfileContext } from '../type';
 
 import Button from '@/components/v2/Common/Button';
@@ -9,7 +9,7 @@ import Link from 'next/link';
 import CertificationModal, {
   CertificationModalInstance
 } from '@/components/v2/Business/Certification/CertificationModal';
-import { CertificationType } from '@/service/webApi/campagins/type';
+import { CertificationType } from '@/service/webApi/campaigns/type';
 import { cn, errorMessage } from '@/helper/utils';
 import { useMintCertification } from '@/hooks/useMintCertification';
 import { useRequest } from 'ahooks';
@@ -35,7 +35,7 @@ const MintButton = (props: {
         signatureId: params.signatureId
       });
 
-      return await webApi.campaigns.getCertificationDetail(params.sourceId);
+      return await webApi.campaignsApi.getCertificationDetail(params.sourceId);
     },
     {
       manual: true,

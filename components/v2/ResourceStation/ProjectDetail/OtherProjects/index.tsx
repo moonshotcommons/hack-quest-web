@@ -4,7 +4,7 @@ import ProjectCard from '@/components/v2/Business/ProjectCard';
 import Pagination from '@/components/v2/Common/Pagination';
 import { errorMessage } from '@/helper/utils';
 import webApi from '@/service';
-import { ProjectType } from '@/service/webApi/resourceStation/project/type';
+import { ProjectType } from '@/service/webApi/resourceStation/type';
 import { useRequest } from 'ahooks';
 import Link from 'next/link';
 import { FC, useEffect, useState } from 'react';
@@ -23,7 +23,7 @@ const OtherProjects: FC<OtherProjectsProps> = (props) => {
 
   const { run } = useRequest(
     async () => {
-      const res = await webApi.project.getProjectsList({
+      const res = await webApi.resourceStationApi.getProjectsList({
         keyword: hackathonName
         // page: page,
         // limit: PROJECTS_LIMIT

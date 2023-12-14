@@ -1,27 +1,13 @@
-import LockIcon from '@/components/Common/Icon/Lock';
 import Button from '@/components/v2/Common/Button';
 import { Theme } from '@/constants/enum';
 import { computeProgress, tagFormate } from '@/helper/formate';
 import { cn, getCourseLink } from '@/helper/utils';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
-import webApi from '@/service';
-import {
-  CourseDetailType,
-  CourseType,
-  CourseUnitType
-} from '@/service/webApi/course/type';
+import { CourseType } from '@/service/webApi/course/type';
 import { ThemeContext } from '@/store/context/theme';
-import { Progress, Typography } from 'antd';
-import Image from 'next/image';
-import Link from 'next/link';
+import { Progress } from 'antd';
 import { useRouter } from 'next/router';
-import {
-  ButtonHTMLAttributes,
-  FC,
-  ReactNode,
-  useContext,
-  useState
-} from 'react';
+import { FC, useContext, useState } from 'react';
 import styled from 'styled-components';
 
 const CustomProgress = styled(Progress)`

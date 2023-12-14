@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react';
+import { FC } from 'react';
 import Button from '..';
 import ProgressIcon from '../../Icon/Progress';
 import RightIcon from '../../Icon/Right';

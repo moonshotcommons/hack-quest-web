@@ -1,7 +1,7 @@
 import Image from 'next/image';
-import { FC, ReactNode } from 'react';
+import { FC } from 'react';
 import moment from 'moment';
-import { HackathonType } from '@/service/webApi/resourceStation/hackathon/type';
+import { HackathonType } from '@/service/webApi/resourceStation/type';
 import Link from 'next/link';
 import { menuLink } from '@/components/v2/Business/Breadcrumb/data';
 import { Menu, QueryIdType } from '@/components/v2/Business/Breadcrumb/type';

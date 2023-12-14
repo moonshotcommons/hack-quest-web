@@ -1,16 +1,8 @@
 import LockIcon from '@/components/Common/Icon/Lock';
 import Input from '../Input';
 import { useDebounceFn } from 'ahooks';
-import Schema, { Rule, Rules } from 'async-validator';
-import {
-  FC,
-  ForwardRefExoticComponent,
-  ReactNode,
-  forwardRef,
-  useEffect,
-  useRef,
-  useState
-} from 'react';
+import Schema, { Rule } from 'async-validator';
+import { FC, useEffect, useRef, useState } from 'react';
 import webApi from '@/service';
 import Image from 'next/image';
 import OkIcon from '@/public/images/other/ok.svg';

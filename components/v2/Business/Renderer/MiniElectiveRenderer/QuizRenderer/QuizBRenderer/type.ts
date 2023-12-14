@@ -1,5 +1,4 @@
 import { QuizBType } from '@/components/v2/Business/Renderer/type';
-import { Dispatch, SetStateAction, createContext } from 'react';
 
 export type QuizOptionType = QuizBType['options'][number] & {
   isRender: boolean;

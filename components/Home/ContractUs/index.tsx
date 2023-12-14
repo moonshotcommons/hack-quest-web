@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { FC, ReactNode, useContext } from 'react';
+import { FC, useContext } from 'react';
 import TwitterIcon from '@/components/Common/Icon/Twitter';
 import DiscordIcon from '@/components/Common/Icon/Discord';
 import DarkInstagramIcon from '@/components/Common/Icon/DarkInstagram';

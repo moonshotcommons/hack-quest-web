@@ -1,8 +1,6 @@
-import { FC, ReactNode } from 'react';
-import CodeEditor from './CodeEditor';
+import { FC } from 'react';
 import { Quiz } from './type';
 import { CourseType } from '@/service/webApi/course/type';
-import { useParseQuiz } from '@/hooks/useParseQuiz';
 
 interface CodeCheckerProps {
   content: Quiz[];

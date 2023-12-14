@@ -3,14 +3,13 @@ import PastHackathonCard from './PastHackathonCard';
 import { useRequest } from 'ahooks';
 import webApi from '@/service';
 
-import { FC, ReactNode } from 'react';
+import { FC } from 'react';
 import Loading from '@/components/v2/Common/Loading';
-import { message } from 'antd';
 import Pagination from '@/components/v2/Common/Pagination';
 import {
   HackathonStatusType,
   HackathonType
-} from '@/service/webApi/resourceStation/hackathon/type';
+} from '@/service/webApi/resourceStation/type';
 import { errorMessage } from '@/helper/utils';
 
 interface PastProps {}
@@ -24,7 +23,7 @@ const Past: FC<PastProps> = (props) => {
 
   const { run, loading } = useRequest(
     async () => {
-      const res = await webApi.hackathon.getHackathonList({
+      const res = await webApi.resourceStationApi.getHackathonList({
         status: HackathonStatusType.PAST,
         page: page,
         limit: PROJECTS_LIMIT

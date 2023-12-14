@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import {
   HackathonStatusType,
   HackathonType
-} from '@/service/webApi/resourceStation/hackathon/type';
+} from '@/service/webApi/resourceStation/type';
 import useDealhackathon from '@/hooks/useDealHackathonData';
 import { menuLink } from '@/components/v2/Business/Breadcrumb/data';
 import { Menu, QueryIdType } from '@/components/v2/Business/Breadcrumb/type';

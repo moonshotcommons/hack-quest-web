@@ -1,11 +1,8 @@
-import { FC, ReactNode, useContext, useState } from 'react';
+import { FC, useState } from 'react';
 
-import { cn } from '@/helper/utils';
-import NotionRenderer, { NotionRendererContext, Renderer } from '..';
-import { LessonStyleType } from '@/service/webApi/course/type';
+import { Renderer } from '..';
 import TextRenderer from '../TextRenderer';
-import DropDownIcon from '@/components/Common/Icon/DropDown';
-import { MdKeyboardArrowDown, MdOutlineKeyboardArrowUp } from 'react-icons/md';
+import { MdKeyboardArrowDown } from 'react-icons/md';
 interface ToggleRendererProps {
   type: string;
   source: any;

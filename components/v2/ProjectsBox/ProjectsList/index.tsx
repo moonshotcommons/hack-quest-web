@@ -1,5 +1,5 @@
 import ProjectCard from '@/components/v2/Business/ProjectCard';
-import { ProjectType } from '@/service/webApi/resourceStation/project/type';
+import { ProjectType } from '@/service/webApi/resourceStation/type';
 import React from 'react';
 
 interface ProjectsListProps {

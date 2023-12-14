@@ -1,4 +1,3 @@
-import { TabType } from '@/constants/enum';
 import { CourseType } from '@/service/webApi/course/type';
 import classNames from 'classnames';
 import { FC, ReactNode, useState } from 'react';
