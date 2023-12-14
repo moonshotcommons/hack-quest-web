@@ -1,6 +1,5 @@
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useGetLessonContent } from '@/hooks/useCoursesHooks/useGetLessenContent';
 import { CourseType } from '@/service/webApi/course/type';
 
 import LessonPage from '@/components/v2/LessonPage';

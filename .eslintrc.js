@@ -17,7 +17,8 @@ module.exports = {
     'plugin:prettier/recommended'
   ],
   plugins: [
-    'prettier'
+    'prettier',
+    'unused-imports'
     //  '@typescript-eslint'
   ],
   parserOptions: {
@@ -31,7 +32,8 @@ module.exports = {
     'react/jsx-no-undef': 'warn',
     '@typescript-eslint/no-var-requires': 'off',
     'react-hooks/exhaustive-deps': 'warn',
-    semi: 'off' //语句强制分号结尾,
+    semi: 'off', //语句强制分号结尾,
+    'unused-imports/no-unused-imports': 'off'
     // 'prettier/prettier': ['error', { printWidth: 160 }]
   }
 };

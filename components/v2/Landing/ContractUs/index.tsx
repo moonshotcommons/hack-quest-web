@@ -2,12 +2,10 @@ import DarkInstagramIcon from '@/components/Common/Icon/DarkInstagram';
 import DiscordIcon from '@/components/Common/Icon/Discord';
 import LightInstagramIcon from '@/components/Common/Icon/LightInstagram';
 import TwitterIcon from '@/components/Common/Icon/Twitter';
-import { Theme } from '@/constants/enum';
 import { BurialPoint } from '@/helper/burialPoint';
 import { cn } from '@/helper/utils';
-import { ThemeContext } from '@/store/context/theme';
 import Link from 'next/link';
-import { FC, useContext } from 'react';
+import { FC } from 'react';
 interface ContractUsProps {
   // children: ReactNode;
   className?: string;

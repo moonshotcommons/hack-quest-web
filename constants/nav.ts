@@ -1,5 +1,4 @@
 import { MenuLink } from '@/components/v2/Layout/Navbar/type';
-import { Menu } from 'antd';
 
 /** 登录页 */
 export const LOGIN_PATHNAME = '/auth/login';

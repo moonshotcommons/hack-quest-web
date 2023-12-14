@@ -1,6 +1,6 @@
 import { errorMessage } from '@/helper/utils';
 import webApi from '@/service';
-import { ProjectType } from '@/service/webApi/resourceStation/project/type';
+import { ProjectType } from '@/service/webApi/resourceStation/type';
 import { useRequest } from 'ahooks';
 import Image from 'next/image';
 import { FC, useEffect, useMemo, useState } from 'react';
@@ -19,7 +19,7 @@ const ProjectDetail: FC<ProjectDetailProps> = (props) => {
 
   const { run, loading } = useRequest(
     async () => {
-      const res = await webApi.project.getProjectsDetail(projectId);
+      const res = await webApi.resourceStationApi.getProjectsDetail(projectId);
       return res;
     },
     {

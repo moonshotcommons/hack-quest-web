@@ -1,4 +1,4 @@
-import { CertificationType } from '../campagins/type';
+import { CertificationType } from '../campaigns/type';
 
 export interface Response {
   id: string;

@@ -1,23 +1,12 @@
 import Button from '@/components/v2/Common/Button';
 import { tagFormate } from '@/helper/formate';
-import { getCourseLink } from '@/helper/utils';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
-import webApi from '@/service';
-import {
-  CourseDetailType,
-  CourseResponse,
-  CourseType,
-  CourseUnitType
-} from '@/service/webApi/course/type';
-import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
+import { CourseDetailType } from '@/service/webApi/course/type';
 import { ThemeContext } from '@/store/context/theme';
-import { useRequest } from 'ahooks';
 import { Typography } from 'antd';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { FC, ReactNode, useContext, useMemo } from 'react';
-import styled from 'styled-components';
+import { FC, ReactNode, useContext } from 'react';
 
 interface CourseDetailBannerProps {
   courseDetail?: CourseDetailType;

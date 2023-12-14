@@ -1,5 +1,4 @@
 import React, { useMemo, useState } from 'react';
-import { TabListType } from '../type';
 import Tab from './Tab';
 import DailyBonus from './DailyBonus';
 import BeginnerRewards from './BeginnerRewards';

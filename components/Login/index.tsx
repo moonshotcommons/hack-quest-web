@@ -1,14 +1,11 @@
-import { FC, ReactNode, useRef, useState } from 'react';
+import { FC, useRef, useState } from 'react';
 
 import Button from '@/components/Common/Button';
-import { ButtonProps } from '@/components/Common/Button';
 import Checkbox from '@/components/Common/Checkbox';
 import RightArrowIcon from '@/components/Common/Icon/RightArrow';
 import Input from '@/components/Common/Input';
-import { cn } from '@/helper/utils';
 import { useValidator } from '@/hooks/useValidator';
-import { Radio, message } from 'antd';
-import { NextPage } from 'next';
+import { message } from 'antd';
 import Link from 'next/link';
 import webApi from '@/service';
 import { LoginParamsType } from '@/service/webApi/user/type';

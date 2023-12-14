@@ -1,4 +1,4 @@
-import { MentorType } from '@/service/webApi/resourceStation/hackathon/type';
+import { MentorType } from '@/service/webApi/resourceStation/type';
 import React, { useMemo, useState } from 'react';
 import Box from '../Box';
 import Title from '../Title';

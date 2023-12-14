@@ -1,6 +1,6 @@
 import { useCountDown } from 'ahooks';
 
-import { FC, ReactNode } from 'react';
+import { FC } from 'react';
 
 interface CountdownProps {
   // children: ReactNode;

@@ -1,21 +1,13 @@
 import { NextPage } from 'next';
-import Image from 'next/image';
-import Logo from '@/public/images/logo/text-Logo.svg';
 import Input from '@/components/Common/Input';
-import { FC, useState } from 'react';
+import { useState } from 'react';
 import { useDebounceFn } from 'ahooks';
 import { useValidator } from '@/hooks/useValidator';
-import Button, { ButtonProps } from '@/components/Common/Button';
-import RightArrowIcon from '@/components/Common/Icon/RightArrow';
+import Button from '@/components/Common/Button';
 import webApi from '@/service';
 import { useRouter } from 'next/router';
-import { ForgetPasswordErrorStatusType } from '@/service/webApi/user/type';
-import Link from 'next/link';
 import { message } from 'antd';
 import { useDispatch } from 'react-redux';
-import { setUserInfo } from '@/store/redux/modules/user';
-import { setToken } from '@/helper/user-token';
-import { omit } from 'lodash-es';
 interface ForgetPasswordProps {
   children: React.ReactNode;
 }

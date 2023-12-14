@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import OnGoingHackathonCard from './OnGoingHackathonCard';
 import {
   HackathonStatusType,
   HackathonType
-} from '@/service/webApi/resourceStation/hackathon/type';
+} from '@/service/webApi/resourceStation/type';
 import { useRequest } from 'ahooks';
 import webApi from '@/service';
 import { message } from 'antd';
@@ -17,7 +17,7 @@ interface OnGoingProp {
 const OnGoing: React.FC<OnGoingProp> = ({ goPast }) => {
   const { data: list = [], loading } = useRequest(
     async () => {
-      const res = await webApi.hackathon.getHackathonList({
+      const res = await webApi.resourceStationApi.getHackathonList({
         status: HackathonStatusType.ON_GOING
       });
       return res.data || [];

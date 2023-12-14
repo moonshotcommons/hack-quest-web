@@ -4,7 +4,7 @@ import SearchFilter, {
 import { FilterDataType } from '@/components/v2/Business/SearchFilter/type';
 import { deepClone } from '@/helper/utils';
 import webApi from '@/service';
-import { ProjectType } from '@/service/webApi/resourceStation/project/type';
+import { ProjectType } from '@/service/webApi/resourceStation/type';
 import { useRequest } from 'ahooks';
 import { useRouter } from 'next/router';
 import React, { useEffect, useRef, useState } from 'react';
@@ -53,7 +53,7 @@ const ProjectsBox: React.FC<ProjectsBoxProps> = ({
     setPageInfo({ ...pInfo });
     const newFilter = dealFilterParam(searchParam);
     return new Promise(async (resolve) => {
-      const res = await webApi.project.getProjectsList({
+      const res = await webApi.resourceStationApi.getProjectsList({
         ...newFilter,
         ...pInfo,
         keyword: inputValue
@@ -64,7 +64,7 @@ const ProjectsBox: React.FC<ProjectsBoxProps> = ({
   };
 
   const {} = useRequest(async () => {
-    const res = await webApi.project.getProjectTracksDict();
+    const res = await webApi.resourceStationApi.getProjectTracksDict();
     const tracksDict = res.map((v: string) => ({
       label: v,
       value: v,

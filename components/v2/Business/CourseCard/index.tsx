@@ -124,7 +124,7 @@ const CourseCard: FC<CourseCardProps> = (props) => {
       <h3 className="text-[#0B0B0B] font-next-book leading-[160%]  tracking-[0.32px] opacity-60 text-base">
         {tagFormate(course.type)}
       </h3>
-      <h2 className="text-[18px] line-clamp-2 h-[54px] font-next-poster-Bold text-[#000] tracking-[1.08px] mt-[5px] mb-[9px]">
+      <h2 className="text-[18px] line-clamp-1 font-next-poster-Bold text-[#000] tracking-[1.08px] mt-[5px] mb-[9px]">
         {course.name}
       </h2>
       {!inProgress && (

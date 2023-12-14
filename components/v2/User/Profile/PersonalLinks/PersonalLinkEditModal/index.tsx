@@ -1,7 +1,6 @@
 import Button from '@/components/v2/Common/Button';
-import Input from '@/components/v2/Common/Input';
 import Modal from '@/components/v2/Common/Modal';
-import { Form, FormInstance, message } from 'antd';
+import { Form, message } from 'antd';
 import {
   forwardRef,
   useContext,
@@ -11,8 +10,6 @@ import {
 } from 'react';
 import { ProfileContext } from '../../type';
 import { useRequest } from 'ahooks';
-import { MdCancel } from 'react-icons/md';
-import { ReactNode } from 'react';
 import webApi from '@/service';
 import { errorMessage } from '@/helper/utils';
 import { getThirdPartyMedia, thirdPartyMedia } from '@/helper/thirdPartyMedia';

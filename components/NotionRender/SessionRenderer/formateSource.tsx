@@ -1,14 +1,6 @@
 import { NotionRenderType, RichTextType } from '@/components/NotionRender/type';
 import { cn } from '@/helper/utils';
-import {
-  FC,
-  HTMLAttributes,
-  ReactNode,
-  useContext,
-  useEffect,
-  useState
-} from 'react';
-import { SessionRendererContext } from '.';
+import { FC, HTMLAttributes, ReactNode } from 'react';
 
 export const getJoinedRichText = (richTextArr: RichTextType[]): string => {
   const textArr = richTextArr.map((richText: any) => richText.plain_text);

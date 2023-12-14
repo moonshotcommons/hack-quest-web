@@ -1,4 +1,4 @@
-import { FC, LegacyRef, ReactNode, RefObject, useContext, useRef } from 'react';
+import { FC, useContext, useRef } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import {
   oneDark,

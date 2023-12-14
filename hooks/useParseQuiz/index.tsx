@@ -1,6 +1,5 @@
 import { Quiz } from '@/components/CodeChecker/type';
-import { CourseType } from '@/service/webApi/course/type';
-import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { v4 as uuidV4 } from 'uuid';
 import { reservedWords } from '@/constants/solidity';
 

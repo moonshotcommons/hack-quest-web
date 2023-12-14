@@ -1,5 +1,3 @@
-import LeftArrowIcon from '@/components/Common/Icon/LeftArrow';
-import RightArrowIcon from '@/components/Common/Icon/RightArrow';
 import { ChangeState } from '@/components/Common/ScrollContainer';
 import { BurialPoint } from '@/helper/burialPoint';
 import { cn } from '@/helper/utils';

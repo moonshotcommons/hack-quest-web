@@ -1,7 +1,6 @@
-import { FC, ReactNode, useContext } from 'react';
+import { FC, useContext } from 'react';
 import { cn } from '@/helper/utils';
-import NotionRenderer, { NotionRendererContext, Renderer } from '..';
-import { LessonStyleType } from '@/service/webApi/course/type';
+import { NotionRendererContext, Renderer } from '..';
 import TextRenderer from '../TextRenderer';
 import { NotionRenderType } from '../type';
 

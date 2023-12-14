@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from 'react';
+import { FC, useEffect } from 'react';
 import About from '@/components/v2/HackDetailBox/About';
 import HackathonInfo from '@/components/v2/HackDetailBox/HackathonInfo';
 import { useRequest } from 'ahooks';
@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
 import webApi from '@/service';
 import Loading from '@/components/v2/Common/Loading';
-import { HackathonType } from '@/service/webApi/resourceStation/hackathon/type';
+import { HackathonType } from '@/service/webApi/resourceStation/type';
 import MediaCommunity from '@/components/v2/HackDetailBox/components/MediaCommunity';
 import GuestMentors from '@/components/v2/HackDetailBox/GuestMentors';
 import { BurialPoint } from '@/helper/burialPoint';
@@ -17,7 +17,9 @@ const HackDetail: FC<HackDetailProps> = (props) => {
   const router = useRouter();
   const { data: hackathon = {} as HackathonType } = useRequest(async () => {
     const id = router.query[QueryIdType.HACKATHON_ID];
-    const res = await webApi.hackathon.getHackathonDetail(id as string);
+    const res = await webApi.resourceStationApi.getHackathonDetail(
+      id as string
+    );
     return res;
   });
   useEffect(() => {

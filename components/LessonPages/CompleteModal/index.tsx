@@ -1,8 +1,8 @@
-import Button, { ButtonProps } from '@/components/Common/Button';
+import Button from '@/components/Common/Button';
 import Modal from '@/components/Common/Modal';
 import { NextPage } from 'next';
 import Image from 'next/image';
-import { FC, useContext, useState } from 'react';
+import { useContext } from 'react';
 import Congrats from '@/public/images/course/congrats.svg';
 import DarkMoonLeft from '@/public/images/other/dark-moon_left.svg';
 import LightMoonLeft from '@/public/images/other/light-moon_left.svg';

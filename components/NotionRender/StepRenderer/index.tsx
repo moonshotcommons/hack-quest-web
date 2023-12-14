@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react';
+import { FC } from 'react';
 import TextRenderer from '../TextRenderer';
 import { Renderer } from '..';
 import { NotionRenderType } from '../type';

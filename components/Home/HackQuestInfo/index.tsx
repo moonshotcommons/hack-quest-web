@@ -5,7 +5,7 @@ import Link from 'next/link';
 import DarkButtonDeg from '@/public/images/home/dark-button_deg.svg';
 import LightButtonDeg from '@/public/images/home/light-button_deg.svg';
 import TeaserInfo from '@/public/images/home/teaser_info.png';
-import { FC, ReactNode, useContext } from 'react';
+import { FC, useContext } from 'react';
 import RightBottomIcon from '@/components/Common/Icon/RightBottom';
 import { CourseType } from '@/service/webApi/course/type';
 import DrakHackquest_info1 from '@/public/images/home/dark-hackquest_info1.png';
@@ -18,7 +18,6 @@ import LightHackquest_info2 from '@/public/images/home/light-hackquest_info2.png
 import LightHackquest_info3 from '@/public/images/home/light-hackquest_info3.png';
 import LightHackquest_info4 from '@/public/images/home/light-hackquest_info4.png';
 import LightHackquest_info5 from '@/public/images/home/light-hackquest_info5.png';
-import LightCenterLogo from '@/public/images/home/light-center-logo.png';
 import { useGetUserInfo } from '@/hooks/useGetUserInfo';
 import Button from '@/components/Common/Button';
 import { ThemeContext } from '@/store/context/theme';

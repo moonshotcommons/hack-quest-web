@@ -1,6 +1,6 @@
 import Button from '@/components/v2/Common/Button';
 import webApi from '@/service';
-import { CertificationType } from '@/service/webApi/campagins/type';
+import { CertificationType } from '@/service/webApi/campaigns/type';
 import { useRequest } from 'ahooks';
 import Image from 'next/image';
 import { FC, useRef, useState } from 'react';
@@ -21,7 +21,7 @@ const CertificationCard: FC<CertificationCardProps> = (props) => {
 
   const { refresh } = useRequest(
     async () => {
-      const res = await webApi.campaigns.getCertificationDetail(
+      const res = await webApi.campaignsApi.getCertificationDetail(
         certificationId
       );
       return res;

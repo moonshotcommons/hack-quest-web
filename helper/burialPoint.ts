@@ -116,7 +116,7 @@ type LessonDetailBurialPointType =
   | 'lesson-单个quiz提交通过'
   | 'lesson-单个quiz提交未通过'
   | 'lesson-show answer次数'
-  | 'lesson-底部next按钮亮起到点击所消耗的时间'
+  | 'lesson-底部next按钮亮起到点击所消耗的时间(用户lesson完成时间)'
   | 'lesson-底部next按钮点击'
   | 'lesson-completed course'
   | 'lesson-lesson dropdown点击'

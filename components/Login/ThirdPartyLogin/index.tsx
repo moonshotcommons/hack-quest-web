@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { FC, ReactNode } from 'react';
+import { FC } from 'react';
 import GitLabLogo from '@/public/images/login/gitlab.svg';
 import GithubLogo from '@/public/images/login/github.svg';
 import GoogleLogo from '@/public/images/login/google.svg';

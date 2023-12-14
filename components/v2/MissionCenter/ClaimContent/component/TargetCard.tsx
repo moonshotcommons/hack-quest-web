@@ -1,6 +1,6 @@
 import Button from '@/components/v2/Common/Button';
 import { MissionDataType } from '@/service/webApi/missionCenter/type';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import IconCoin from '@/public/images/mission-center/icon_coin.png';
 import IconXp from '@/public/images/mission-center/icon_xp.png';
 import Image from 'next/image';

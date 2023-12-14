@@ -1,16 +1,7 @@
-import Button from '@/components/Common/Button';
-import { ButtonProps } from '@/components/Common/Button';
-import Checkbox from '@/components/Common/Checkbox';
-import RightArrowIcon from '@/components/Common/Icon/RightArrow';
-import Input from '@/components/Common/Input';
 import UserLogin from '@/components/Login';
 import VerifyEmail from '@/components/Login/VerifyEmail';
-import { cn } from '@/helper/utils';
-import { useValidator } from '@/hooks/useValidator';
-import { Radio } from 'antd';
 import { NextPage } from 'next';
-import Link from 'next/link';
-import { FC, useEffect, useState } from 'react';
+import { useState } from 'react';
 
 // const CustomButton: FC<ButtonProps> = (props) => {
 //   const { children } = props;

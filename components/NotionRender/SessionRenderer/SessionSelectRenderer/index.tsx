@@ -1,4 +1,4 @@
-import { FC, ReactNode, useContext, useEffect, useState } from 'react';
+import { FC, useContext, useEffect, useState } from 'react';
 import { DialogBox, getJoinedRichText } from '../formateSource';
 import { SessionRendererContext } from '..';
 import { useDebounceFn } from 'ahooks';

@@ -1,5 +1,5 @@
 import { Typography } from 'antd';
-import { FC, ReactNode } from 'react';
+import { FC } from 'react';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 interface InfoBlockProps {
   title: string;

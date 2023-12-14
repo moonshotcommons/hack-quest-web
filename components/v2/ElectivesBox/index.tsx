@@ -57,10 +57,20 @@ const SelectiveCoursesBox: React.FC<SelectiveCoursesBoxProps> = ({
         ...pInfo,
         keyword: inputValue
       });
+
+      const miniRes = await webApi.electiveApi.getElectives({
+        ...newFilter,
+        ...pInfo,
+        keyword: inputValue
+      });
+
+      // console.log(miniRes);
+
       setTotal(res.total);
       resolve(res.data);
     });
   };
+
   useEffect(() => {
     if (timeOut.current) clearTimeout(timeOut.current);
     timeOut.current = setTimeout(() => {
