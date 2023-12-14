@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { FC, useContext, useRef, useState } from 'react';
+import { FC } from 'react';
 
 interface BackgroundImageProps {}
 

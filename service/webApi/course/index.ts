@@ -6,10 +6,8 @@ import {
   CourseLessonType,
   CourseUnitStateType,
   CourseUnitType,
-  SuggestCommitParams,
   UnitPagesListType
 } from './type';
-import { CertificationType } from '../campaigns/type';
 
 export enum CourseApiType {
   Course_List = '/courses',

@@ -1,5 +1,4 @@
 import React from 'react';
-import { UserTreasuresType } from '@/service/webApi/missionCenter/type';
 import { LoginResponse } from '@/service/webApi/user/type';
 import UserData from './UserData';
 import Treasures from './Treasures';

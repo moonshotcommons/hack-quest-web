@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import IconTip from '@/public/images/mission-center/icon_tip.svg';
 import IconLock from '@/public/images/mission-center/icon_lock.png';
-import { equityList, EquityListType, equityTip, EquityTipType } from './data';
+import { equityList, EquityListType, equityTip } from './data';
 import { BurialPoint } from '@/helper/burialPoint';
 interface EquityProp {
   level: number;

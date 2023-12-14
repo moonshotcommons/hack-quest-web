@@ -1,5 +1,4 @@
 import Auth from '@/components/v2/Auth';
-import { useGetUserInfo, useGetUserUnLoginType } from '@/hooks/useGetUserInfo';
 import Astronaut from '@/public/images/landing/astronaut.png';
 import BannerBg from '@/public/images/landing/banner_bg.png';
 import Image from 'next/image';

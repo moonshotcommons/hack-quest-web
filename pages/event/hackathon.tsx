@@ -1,8 +1,4 @@
 import { GetServerSideProps, NextPage } from 'next';
-import PeopleJoined from '@/components/Common/PeopleJoined';
-import { getRandomPeopleAvatars } from '@/helper/random';
-import RightIcon from '@/components/Common/Icon/Right';
-import SkipIcon from '@/components/Common/Icon/Skip';
 import Image from 'next/image';
 import BannerBg from '@/public/images/event/hackathon/banner_bg.jpg';
 import Link from 'next/link';

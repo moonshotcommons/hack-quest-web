@@ -1,5 +1,4 @@
 import moment from 'moment';
-import { week } from './data';
 import { HackathonStatusType } from '@/service/webApi/resourceStation/type';
 
 const useDealHackathonData = () => {

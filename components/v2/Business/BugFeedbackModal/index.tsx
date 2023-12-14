@@ -1,11 +1,4 @@
-import {
-  FC,
-  ReactNode,
-  forwardRef,
-  useImperativeHandle,
-  useRef,
-  useState
-} from 'react';
+import { forwardRef, useImperativeHandle, useRef, useState } from 'react';
 import Modal from '../../Common/Modal';
 import Button from '../../Common/Button';
 import { cn } from '@/helper/utils';

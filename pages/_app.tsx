@@ -13,14 +13,7 @@ import { WagmiConfig, createConfig, configureChains } from 'wagmi';
 
 import { mainnet, optimism, polygon } from 'wagmi/chains';
 
-import { alchemyProvider } from 'wagmi/providers/alchemy';
-import { infuraProvider } from 'wagmi/providers/infura';
-import { publicProvider } from 'wagmi/providers/public';
-
-import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
-import { InjectedConnector } from 'wagmi/connectors/injected';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
 import { setToken } from '@/helper/user-token';
 const { chains, publicClient, webSocketPublicClient } = configureChains(

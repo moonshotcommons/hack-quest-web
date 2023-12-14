@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from 'react';
+import { FC, useEffect } from 'react';
 import About from '@/components/v2/HackDetailBox/About';
 import HackathonInfo from '@/components/v2/HackDetailBox/HackathonInfo';
 import { useRequest } from 'ahooks';

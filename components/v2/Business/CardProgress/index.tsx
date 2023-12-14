@@ -1,6 +1,5 @@
 import { computeProgress } from '@/helper/formate';
 import { cn } from '@/helper/utils';
-import classNames from 'classnames';
 import React, { useMemo } from 'react';
 
 interface CardProgressProp {

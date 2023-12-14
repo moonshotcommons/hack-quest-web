@@ -1,6 +1,6 @@
 import Button from '@/components/v2/Common/Button';
 import { cn } from '@/helper/utils';
-import { CourseResponse, CourseType } from '@/service/webApi/course/type';
+import { CourseResponse } from '@/service/webApi/course/type';
 import { Typography } from 'antd';
 import Image from 'next/image';
 import { FC } from 'react';

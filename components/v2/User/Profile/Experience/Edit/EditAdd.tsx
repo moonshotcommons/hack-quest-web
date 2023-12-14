@@ -8,7 +8,6 @@ import TextArea from '@/components/v2/Common/TextArea';
 import { deepClone } from '@/helper/utils';
 import webApi from '@/service';
 import { message } from 'antd';
-import { UserExperienceType } from '@/service/webApi/user/type';
 import { BurialPoint } from '@/helper/burialPoint';
 
 interface EditAddProp {

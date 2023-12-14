@@ -1,4 +1,4 @@
-import React, { HTMLAttributes } from 'react';
+import React from 'react';
 
 interface LabelProps {
   icon?: React.ReactNode;

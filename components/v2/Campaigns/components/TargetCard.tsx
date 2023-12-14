@@ -1,5 +1,5 @@
 import Button from '@/components/v2/Common/Button';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Image from 'next/image';
 import BIcon from '@/public/images/campaigns/b_icon.png';
 import { useRouter } from 'next/router';

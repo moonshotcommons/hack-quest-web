@@ -1,8 +1,6 @@
-import { FC, ReactNode, createContext, useMemo, useRef } from 'react';
-import { RichTextType } from '../type';
+import { FC, createContext, useMemo, useRef } from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { render } from '@headlessui/react/dist/utils/render';
 import { formatSource } from './formateSource';
 import SessionItemRenderer from './SessionItemRenderer';
 

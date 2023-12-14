@@ -1,8 +1,6 @@
 import { NextPage } from 'next';
 import Image from 'next/image';
 import Logo from '@/public/images/logo/light-footer-logo.svg';
-import Button from '@/components/Common/Button';
-import RightArrowIcon from '@/components/Common/Icon/RightArrow';
 import { useRouter } from 'next/router';
 interface EmailVerifyProps {
   children: React.ReactNode;

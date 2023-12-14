@@ -1,12 +1,9 @@
 import React, { ReactNode } from 'react';
-import NavBar, { NavBarProps } from '../Navbar';
+import NavBar from '../Navbar';
 import Footer from '../Footer';
-import Avatar from '@/public/images/user/login_avatar.svg';
 import { Inter } from 'next/font/google';
 import Image from 'next/image';
 import Logo from '@/public/images/logo/home_nav_logo.svg';
-import Link from 'next/link';
-import RightIcon from '@/components/Common/Icon/Right';
 import User from '@/components/User';
 const inter = Inter({ subsets: ['latin'] });
 export interface HomeLayoutProps {

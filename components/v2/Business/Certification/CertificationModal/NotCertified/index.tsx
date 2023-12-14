@@ -4,7 +4,7 @@ import { cn, errorMessage } from '@/helper/utils';
 import webApi from '@/service';
 import { useRequest } from 'ahooks';
 import { message } from 'antd';
-import { FC, ReactNode, useContext } from 'react';
+import { FC, useContext } from 'react';
 
 interface NotCertifiedProps {
   onClose: VoidFunction;

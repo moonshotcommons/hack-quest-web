@@ -3,7 +3,7 @@ import { BurialPoint } from '@/helper/burialPoint';
 import webApi from '@/service';
 import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
 import { AppRootState } from '@/store/redux';
-import { useDebounceFn, useRequest } from 'ahooks';
+import { useDebounceFn } from 'ahooks';
 import { message } from 'antd';
 import { useRouter } from 'next/router';
 import { useMemo, useRef, useState } from 'react';

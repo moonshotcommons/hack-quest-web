@@ -1,9 +1,8 @@
 import { LoginResponse } from '@/service/webApi/user/type';
 import { Upload, message } from 'antd';
 import Image from 'next/image';
-import { FC, ReactNode } from 'react';
-import type { RcFile, UploadProps } from 'antd/es/upload/interface';
-import { basename, extname } from 'path';
+import { FC } from 'react';
+import type { RcFile } from 'antd/es/upload/interface';
 import webApi from '@/service';
 import { UserApiType } from '@/service/webApi/user';
 import { useDispatch } from 'react-redux';

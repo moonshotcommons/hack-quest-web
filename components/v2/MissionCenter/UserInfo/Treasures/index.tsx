@@ -1,11 +1,10 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Badge from '@/components/Common/Badge';
 import Image from 'next/image';
 import ChestImg from '@/public/images/mission-center/chest_img.png';
 import { UserTreasuresType } from '@/service/webApi/missionCenter/type';
 import { BurialPoint } from '@/helper/burialPoint';
 import TreasureModal, {
-  TreasureType,
   TreasureModalRef
 } from '@/components/v2/Business/TreasureModal';
 import Loading from '@/public/images/other/loading.png';

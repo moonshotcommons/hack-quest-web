@@ -1,15 +1,6 @@
 'use client';
-import {
-  CustomType,
-  NotionComponent,
-  NotionType,
-  QuizBType
-} from '@/components/v2/Business/Renderer/type';
-import { BurialPoint } from '@/helper/burialPoint';
-import webApi from '@/service';
-import { FC, useContext, useEffect, useMemo, useRef, useState } from 'react';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
+import { CustomType, NotionType } from '@/components/v2/Business/Renderer/type';
+import { FC, useState } from 'react';
 // import { QuizContext } from '..';
 
 import TextRenderer from '@/components/v2/Business/NotionRender/TextRenderer';

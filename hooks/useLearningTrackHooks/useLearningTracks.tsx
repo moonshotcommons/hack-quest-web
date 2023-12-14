@@ -1,7 +1,6 @@
 import webApi from '@/service';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import { useRequest } from 'ahooks';
-import { message } from 'antd';
 import { useState } from 'react';
 
 export const useGetLearningTracks = (showAll = true) => {

@@ -1,28 +1,13 @@
 import {
   FacebookShareButton,
-  FacebookIcon,
   TwitterShareButton,
-  TwitterIcon,
   LinkedinShareButton,
-  LinkedinIcon,
   WhatsappShareButton,
-  WhatsappIcon,
   FacebookMessengerShareButton,
-  FacebookMessengerIcon,
-  RedditShareButton,
-  RedditIcon
+  RedditShareButton
 } from 'next-share';
-import Image from 'next/image';
 import React from 'react';
-import {
-  Component,
-  ComponentType,
-  FC,
-  FunctionComponent,
-  JSXElementConstructor,
-  ReactElement,
-  ReactNode
-} from 'react';
+import { ReactElement, ReactNode } from 'react';
 
 interface ShareWrapProps<T> {
   name: string;

@@ -1,10 +1,8 @@
 import { SBTManager } from '@/config/abi';
-import { errorMessage } from '@/helper/utils';
 import webApi from '@/service';
 import { useRequest } from 'ahooks';
-import { message } from 'antd';
-import { useEffect, useMemo, useState } from 'react';
-import { useAccount, useConnect, useContractWrite } from 'wagmi';
+import { useMemo } from 'react';
+import { useConnect, useContractWrite } from 'wagmi';
 
 const CONTRACT_ADDRESS = '0x8eDBf22b97f7bddC7F78AE13b348949DFa0731D3';
 const FUNCTION_NAME = 'safeMint';

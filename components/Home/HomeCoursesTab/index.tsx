@@ -1,9 +1,8 @@
 import BottomIcon from '@/components/Common/Icon/Bottom';
 import RightIcon from '@/components/Common/Icon/Right';
 import SkipIcon from '@/components/Common/Icon/Skip';
-import { CourseType } from '@/service/webApi/course/type';
-import { FC, ReactNode, useState } from 'react';
-import { tabData, renderCard } from './data';
+import { FC, useState } from 'react';
+import { tabData } from './data';
 import Link from 'next/link';
 import { renderCourseCard } from '@/helper/renderCard';
 import { cn } from '@/helper/utils';

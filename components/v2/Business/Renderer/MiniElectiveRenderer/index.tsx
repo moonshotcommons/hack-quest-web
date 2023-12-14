@@ -6,7 +6,7 @@ import {
   QuizAType,
   QuizBType
 } from '@/components/v2/Business/Renderer/type';
-import { FC, createContext } from 'react';
+import { FC } from 'react';
 
 import BulletedListItemRenderer from '@/components/v2/Business/NotionRender/BulletedListItem';
 import CalloutRenderer from '@/components/v2/Business/NotionRender/CalloutRenderer';

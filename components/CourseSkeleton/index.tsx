@@ -1,7 +1,6 @@
-import React, { ReactElement, memo, useContext, useState } from 'react';
+import React, { ReactElement, memo, useContext } from 'react';
 import { Skeleton } from 'antd';
 import { ThemeContext } from '@/store/context/theme';
-import { Theme } from '@/constants/enum';
 type CourseSkeletonType = {
   hideSkeleton: boolean;
   children: ReactElement[];

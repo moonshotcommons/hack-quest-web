@@ -1,16 +1,12 @@
 import { NextPage } from 'next';
-import Image from 'next/image';
-import Logo from '@/public/images/logo/text-Logo.svg';
 import Input from '@/components/Common/Input';
-import { FC, useState } from 'react';
+import { useState } from 'react';
 import { useDebounceFn } from 'ahooks';
 import { useValidator } from '@/hooks/useValidator';
-import Button, { ButtonProps } from '@/components/Common/Button';
+import Button from '@/components/Common/Button';
 import RightArrowIcon from '@/components/Common/Icon/RightArrow';
 import webApi from '@/service';
 import { useRouter } from 'next/router';
-import { ForgetPasswordErrorStatusType } from '@/service/webApi/user/type';
-import Link from 'next/link';
 interface ForgetPasswordProps {
   children: React.ReactNode;
 }

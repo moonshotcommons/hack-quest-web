@@ -1,4 +1,4 @@
-import Dropdown, { ChildrenDropDown } from '@/components/Common/DropDown';
+import Dropdown from '@/components/Common/DropDown';
 import { DropData } from '@/components/Common/DropDown/type';
 import LeftArrowIcon from '@/components/Common/Icon/LeftArrow';
 import { getCourseLink } from '@/helper/utils';
@@ -8,14 +8,13 @@ import {
   CourseLessonStateType,
   CourseLessonType,
   CourseType,
-  CourseUnitType,
   UnitPagesListType
 } from '@/service/webApi/course/type';
 import { setUnitsLessonsList } from '@/store/redux/modules/course';
 import { useRequest } from 'ahooks';
 import Link from 'next/link';
-import { NextRouter, useRouter } from 'next/router';
-import { FC, ReactNode, useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/router';
+import { FC, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 interface LessonHeaderProps {

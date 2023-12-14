@@ -3,9 +3,8 @@ import PastHackathonCard from './PastHackathonCard';
 import { useRequest } from 'ahooks';
 import webApi from '@/service';
 
-import { FC, ReactNode } from 'react';
+import { FC } from 'react';
 import Loading from '@/components/v2/Common/Loading';
-import { message } from 'antd';
 import Pagination from '@/components/v2/Common/Pagination';
 import {
   HackathonStatusType,

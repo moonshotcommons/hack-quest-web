@@ -1,7 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
 import ElectiveImg from '@/public/images/profile/elective_img.png';
-import { Typography } from 'antd';
 import ElectiveTag from '../ElectiveTag';
 import Button from '@/components/v2/Common/Button';
 interface MiniElectiveCardProp {}

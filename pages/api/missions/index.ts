@@ -1,11 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import {
-  MissionDataType,
-  MissionType,
-  MissionSubType,
-  BeginnerRewardsType
-} from '@/service/webApi/missionCenter/type';
-import { v4 as uuidv4 } from 'uuid';
+import { MissionDataType } from '@/service/webApi/missionCenter/type';
 
 type Data = {
   name: string;

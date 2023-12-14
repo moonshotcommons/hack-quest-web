@@ -1,5 +1,5 @@
 import { MentorType } from '@/service/webApi/resourceStation/type';
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import Box from '../components/Box';
 import Title from '../components/Title';
 import Image from 'next/image';
