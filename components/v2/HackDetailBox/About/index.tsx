@@ -2,7 +2,7 @@ import React from 'react';
 import Box from '../components/Box';
 import Title from '../components/Title';
 import Image from 'next/image';
-import { HackathonType } from '@/service/webApi/resourceStation/hackathon/type';
+import { HackathonType } from '@/service/webApi/resourceStation/type';
 interface AboutProp {
   hackathon: HackathonType;
 }

@@ -8,7 +8,7 @@ import { TabListType } from '@/components/v2/Campaigns/Tab/type';
 import { BurialPoint } from '@/helper/burialPoint';
 import Loading from '@/public/images/other/loading.png';
 import webApi from '@/service';
-import { MantleType, TargetsType } from '@/service/webApi/campagins/type';
+import { MantleType, TargetsType } from '@/service/webApi/campaigns/type';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useEffect, useRef, useState } from 'react';
@@ -26,7 +26,7 @@ const Campaigns: React.FC<CampaignsProp> = () => {
   const certificationModalRef = useRef<CertificationModalInstance>(null);
   const getCampaignsInfo = async (campaignId?: string) => {
     return new Promise(async (resolve) => {
-      const res = await webApi.campaigns.getCampaigns();
+      const res = await webApi.campaignsApi.getCampaigns();
       let id;
       if (campaignId) {
         const index = res.findIndex((v) => v.id === campaignId);
@@ -59,7 +59,7 @@ const Campaigns: React.FC<CampaignsProp> = () => {
   };
 
   const getTargetList = async (id: string) => {
-    const res = await webApi.campaigns.getCampaignsTargets(id);
+    const res = await webApi.campaignsApi.getCampaignsTargets(id);
     setClaimIds([]);
     setTargetList(res);
   };
@@ -67,7 +67,9 @@ const Campaigns: React.FC<CampaignsProp> = () => {
   const campaignsClaim = async () => {
     BurialPoint.track('campaigns certificateCard claim 按钮点击');
     setLoading(true);
-    await webApi.campaigns.campaignsClaim({ campaignId: mantles[curIndex].id });
+    await webApi.campaignsApi.campaignsClaim({
+      campaignId: mantles[curIndex].id
+    });
     getCampaignsInfo().then(() => {
       certificationModalRef.current?.open();
     });
@@ -76,7 +78,7 @@ const Campaigns: React.FC<CampaignsProp> = () => {
   const campaignsTargetClaim = async (ids: string[]) => {
     BurialPoint.track('campaigns targetCard claim 按钮点击');
     setClaimIds(ids);
-    await webApi.campaigns.campaignsTargetClaim(mantles[curIndex].id, {
+    await webApi.campaignsApi.campaignsTargetClaim(mantles[curIndex].id, {
       targetIds: ids
     });
     getCampaignsInfo();

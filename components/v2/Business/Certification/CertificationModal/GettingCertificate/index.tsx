@@ -7,7 +7,7 @@ import {
 import { cn, errorMessage } from '@/helper/utils';
 import { useMintCertification } from '@/hooks/useMintCertification';
 import webApi from '@/service';
-import { CertificationType } from '@/service/webApi/campagins/type';
+import { CertificationType } from '@/service/webApi/campaigns/type';
 import { useRequest } from 'ahooks';
 import Link from 'next/link';
 import { FC, useState } from 'react';

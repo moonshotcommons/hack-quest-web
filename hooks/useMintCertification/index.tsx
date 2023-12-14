@@ -53,7 +53,7 @@ export const useMintCertification = (onSuccess?: (res: any) => void) => {
               'Please Switch to Mantle Mainnet to mint the certificate!'
             );
           }
-          const res = await webApi.campaigns.getSignature({
+          const res = await webApi.campaignsApi.getSignature({
             sourceId: params.sourceId,
             sourceType: params.sourceType,
             address: account!
@@ -63,7 +63,7 @@ export const useMintCertification = (onSuccess?: (res: any) => void) => {
             args: [account, params.signatureId, res.sig.v, res.sig.r, res.sig.s]
           });
 
-          const result = await webApi.campaigns.savaMintState({
+          const result = await webApi.campaignsApi.savaMintState({
             certificationId: params.sourceId,
             txId: data.hash
           });

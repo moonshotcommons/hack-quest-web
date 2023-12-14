@@ -10,7 +10,7 @@ import Pagination from '@/components/v2/Common/Pagination';
 import {
   HackathonStatusType,
   HackathonType
-} from '@/service/webApi/resourceStation/hackathon/type';
+} from '@/service/webApi/resourceStation/type';
 import { errorMessage } from '@/helper/utils';
 
 interface PastProps {}
@@ -24,7 +24,7 @@ const Past: FC<PastProps> = (props) => {
 
   const { run, loading } = useRequest(
     async () => {
-      const res = await webApi.hackathon.getHackathonList({
+      const res = await webApi.resourceStationApi.getHackathonList({
         status: HackathonStatusType.PAST,
         page: page,
         limit: PROJECTS_LIMIT

@@ -19,7 +19,7 @@ const NotCertified: FC<NotCertifiedProps> = (props) => {
 
   const { run, loading } = useRequest(
     async (campaignId: string) => {
-      const res = await webApi.campaigns.campaignsClaim({ campaignId });
+      const res = await webApi.campaignsApi.campaignsClaim({ campaignId });
       return res;
     },
     {

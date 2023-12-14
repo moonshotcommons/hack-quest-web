@@ -9,7 +9,7 @@ import {
   SuggestCommitParams,
   UnitPagesListType
 } from './type';
-import { CertificationType } from '../campagins/type';
+import { CertificationType } from '../campaigns/type';
 
 export enum CourseApiType {
   Course_List = '/courses',
