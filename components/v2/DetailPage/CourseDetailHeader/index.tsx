@@ -2,7 +2,7 @@ import Button from '@/components/v2/Common/Button';
 
 import CourseTags from '@/components/v2/Business/CourseTags';
 import { tagFormate } from '@/helper/formate';
-import { CourseDetailType } from '@/service/webApi/course/type';
+import { CourseDetailType, CourseType } from '@/service/webApi/course/type';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 
 import { Typography } from 'antd';
@@ -15,7 +15,7 @@ interface CourseDetailHeaderProps {
   courseDetail: CourseDetailType | LearningTrackDetailType;
   itemCount: number;
   learningStatus?: LearningStatus;
-  type: 'course' | 'learning-track';
+  type: CourseType | 'learning-track';
   rightComponent: ReactNode;
   onStartCallback: VoidFunction;
   startLoading?: boolean;
@@ -84,7 +84,7 @@ const CourseDetailHeader: FC<CourseDetailHeaderProps> = (props) => {
                 type="primary"
                 onClick={onStartCallback}
               >
-                {type === 'course' && 'Start'}
+                {type !== 'learning-track' && 'Start'}
                 {type === 'learning-track' && 'Enroll'}
               </Button>
             </div>

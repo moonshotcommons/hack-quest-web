@@ -8,7 +8,7 @@ import { CourseResponse, CourseType } from '@/service/webApi/course/type';
 import { Progress, Typography } from 'antd';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { FC } from 'react';
+import { FC, useCallback } from 'react';
 import { styled } from 'styled-components';
 import { Menu, QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
 import CourseTags from '@/components/v2/Business/CourseTags';
@@ -20,6 +20,7 @@ interface CourseCardProps {
   inProgress?: boolean;
   inCompleted?: boolean;
   baseProgress?: boolean;
+  onCourseClick?: (course: CourseResponse) => void;
 }
 
 const CustomProgress = styled(Progress)`
@@ -44,10 +45,24 @@ const CourseCard: FC<CourseCardProps> = (props) => {
     course,
     inProgress = false,
     inCompleted = false,
-    baseProgress = false
+    baseProgress = false,
+    onCourseClick: courseClick
   } = props;
   const { jumpLearningLesson, loading } = useJumpLeaningLesson();
   const router = useRouter();
+
+  const onCourseClick = useCallback(() => {
+    switch (course.type) {
+      case CourseType.Mini:
+        courseClick?.(course);
+        return;
+      default:
+        router.push(
+          `${menuLink.electives}/${course.id}?${QueryIdType.MENU_COURSE_ID}=${course.id}&menu=${Menu.ELECTIVES}`
+        );
+        courseClick?.(course);
+    }
+  }, [course, router]);
 
   return (
     <div
@@ -57,9 +72,7 @@ const CourseCard: FC<CourseCardProps> = (props) => {
       )}
       onClick={() => {
         BurialPoint.track('home-course卡片点击', { courseName: course.name });
-        router.push(
-          `${menuLink.electives}/${course.id}?${QueryIdType.MENU_COURSE_ID}=${course.id}&menu=${Menu.ELECTIVES}`
-        );
+        onCourseClick();
       }}
     >
       {(inProgress || inCompleted || baseProgress) && (
@@ -141,7 +154,8 @@ const CourseCard: FC<CourseCardProps> = (props) => {
         <CourseTags
           level={course.level as string}
           duration={course.duration}
-          unitCount={course.unitCount}
+          unitCount={course.unitCount || course.pageCount || 0}
+          type={course.type}
         ></CourseTags>
       </div>
       {inProgress && (

@@ -1,5 +1,6 @@
 import webApi from '@/service';
-import { CourseLessonType } from '@/service/webApi/course/type';
+import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
+import { ElectiveLessonType } from '@/service/webApi/elective/type';
 import { UnLoginType, setUnLoginType } from '@/store/redux/modules/user';
 import { useRequest } from 'ahooks';
 import { message } from 'antd';
@@ -7,18 +8,27 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-export const useGetLessonContent = (lessonId: string) => {
-  const [lesson, setLesson] = useState<CourseLessonType>();
+export const useGetLessonContent = <
+  T extends CourseLessonType | ElectiveLessonType
+>(
+  lessonId: string,
+  courseType: CourseType
+) => {
+  const [lesson, setLesson] = useState<T>();
   const router = useRouter();
   const dispatch = useDispatch();
   const { run, loading, refresh } = useRequest(
     async (lessonId) => {
-      const res = webApi.courseApi.getLessonContent(lessonId);
-      return res;
+      switch (courseType) {
+        case CourseType.Mini:
+          return webApi.electiveApi.getElectiveLessonContent(lessonId);
+        default:
+          return webApi.courseApi.getLessonContent(lessonId);
+      }
     },
     {
       manual: true,
-      onSuccess(res) {
+      onSuccess(res: any) {
         setLesson(res);
       },
       onError(error: any) {

@@ -6,13 +6,14 @@ import ClockIcon from '@/components/Common/Icon/Clock';
 import CourseIcon from '@/components/Common/Icon/Course';
 import { cn } from '@/helper/utils';
 import Tag from './tag';
+import { CourseType } from '@/service/webApi/course/type';
 
 interface CourseTagsProps {
   level: string;
   duration?: number;
   unitCount: number;
   size?: 'small' | 'large';
-  type?: 'course' | 'learning-track';
+  type?: CourseType | 'learning-track';
   className?: string;
 }
 
@@ -22,7 +23,7 @@ const CourseTags: FC<CourseTagsProps> = (props) => {
     unitCount,
     duration,
     size = 'small',
-    type = 'course',
+    type = CourseType.GUIDED_PROJECT,
     className
   } = props;
   return (
@@ -44,8 +45,10 @@ const CourseTags: FC<CourseTagsProps> = (props) => {
       )}
 
       <Tag icon={<CourseIcon />} size={size} className="text-[#3E3E3E]">
-        {type === 'course' &&
+        {type === CourseType.GUIDED_PROJECT &&
           unitCount + ' ' + `${unitCount > 1 ? 'Units' : 'Unit'}`}
+        {type === CourseType.Mini &&
+          unitCount + ' ' + `${unitCount > 1 ? 'Lessons' : 'Lesson'}`}
         {type === 'learning-track' &&
           unitCount + ' ' + `${unitCount > 1 ? 'Courses' : 'Course'}`}
       </Tag>

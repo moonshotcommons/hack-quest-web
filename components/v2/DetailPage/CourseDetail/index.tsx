@@ -89,7 +89,7 @@ const CourseDetail: FC<CourseDetailProps> = (props) => {
         courseDetail={courseDetail}
         itemCount={courseDetail.units?.length || 0}
         rightComponent={RightComponent}
-        type="course"
+        type={courseDetail.type}
         learningStatus={learningStatus}
         startLoading={jumpLoading}
         onStartCallback={() => {
