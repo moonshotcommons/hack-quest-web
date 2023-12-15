@@ -5,6 +5,7 @@ import {
   useCallback,
   useEffect,
   useMemo,
+  useRef,
   useState
 } from 'react';
 import Progress from '../Progress';
@@ -19,6 +20,9 @@ import { useRouter } from 'next/router';
 import { useRequest } from 'ahooks';
 import { RendererContext } from '../../Business/Renderer/context';
 import JSConfetti from 'js-confetti';
+import MiniElectiveCompletedModal, {
+  MiniElectiveCompletedModalRef
+} from '../../Business/MiniElectiveCompletedModal';
 
 interface LessonContentWrapProps {
   children: ReactNode;
@@ -29,15 +33,29 @@ const LessonContentWrap: FC<LessonContentWrapProps> = ({
   children,
   lesson
 }) => {
-  const { course, loading } = useGetElectives(lesson.electiveId);
+  const { course, loading, refresh } = useGetElectives(lesson);
   const { getLink } = useGetLessonLink();
   const router = useRouter();
   const [nextControl, setNextControl] = useState(false);
-
+  const miniElectiveCompletedModalInstance =
+    useRef<MiniElectiveCompletedModalRef>(null);
   const progress = useMemo(() => {
+    if (!course)
+      return {
+        total: 0,
+        current: 0
+      };
+    let current =
+      course?.pages?.findIndex((item) => item.id === lesson.id) || 0;
+    // if (
+    //   current === course?.pages!.length - 1 &&
+    //   course.pages![current].state === CompleteStateType.COMPLETED
+    // ) {
+    //   current += 1;
+    // }
     return {
       total: course?.pages?.length || 0,
-      current: course?.pages?.findIndex((item) => item.id === lesson.id) || 0
+      current: current
     };
   }, [course, lesson]);
 
@@ -70,16 +88,17 @@ const LessonContentWrap: FC<LessonContentWrapProps> = ({
   const { run: onNextClick, loading: completedLoading } = useRequest(
     async () => {
       const res = await webApi.electiveApi.completedLesson(lesson.id);
-      const link = getLink(
-        course?.type || CourseType.Mini,
-        nextLessonId as string
-      );
+      let link = null;
+      if (nextLessonId) {
+        link = getLink(course?.type || CourseType.Mini, nextLessonId as string);
+      }
       return link;
     },
     {
       manual: true,
       onSuccess(res) {
-        router.push(res);
+        setNextControl(false);
+        if (res) router.push(res);
       },
       onError(err) {
         console.log('完成quiz失败', err);
@@ -89,6 +108,17 @@ const LessonContentWrap: FC<LessonContentWrapProps> = ({
 
   const onQuizPass = useCallback(() => {
     const jsConfetti = new JSConfetti();
+    setNextControl(true);
+
+    if (progress.current === progress.total - 1) {
+      if (
+        course!.pages![progress.current].state !== CompleteStateType.COMPLETED
+      ) {
+        onNextClick();
+        refresh();
+      }
+      miniElectiveCompletedModalInstance.current?.open({});
+    }
 
     jsConfetti.addConfetti({
       confettiColors: [
@@ -108,7 +138,7 @@ const LessonContentWrap: FC<LessonContentWrapProps> = ({
       confettiRadius: 6,
       confettiNumber: 500
     });
-  }, []);
+  }, [course]);
 
   return (
     <div className="flex-1 h-[calc(100vh-64px-80px)] flex flex-col justify-center items-center gap-[24px]">
@@ -135,8 +165,11 @@ const LessonContentWrap: FC<LessonContentWrapProps> = ({
           value={{
             globalContext: {
               onCompleted: () => {
-                setNextControl(true);
-                onNextClick();
+                if (progress.current === progress.total - 1) {
+                  miniElectiveCompletedModalInstance.current?.open({});
+                } else {
+                  onNextClick();
+                }
               },
               onQuizPass
             }
@@ -159,6 +192,9 @@ const LessonContentWrap: FC<LessonContentWrapProps> = ({
         </div>
       </div>
       <Progress total={progress.total} current={progress.current}></Progress>
+      <MiniElectiveCompletedModal
+        ref={miniElectiveCompletedModalInstance}
+      ></MiniElectiveCompletedModal>
     </div>
   );
 };

@@ -5,18 +5,20 @@ import { HiMenu } from 'react-icons/hi';
 
 import { GoCheck } from 'react-icons/go';
 import { FiLock } from 'react-icons/fi';
-import { PageType } from '@/service/webApi/elective/type';
+import { ElectiveLessonType, PageType } from '@/service/webApi/elective/type';
 import { useGetElectives } from '../hooks/useGetElectives';
+import { useGetLessonLink } from '@/hooks/useCoursesHooks/useGetLessonLink';
+import { useRouter } from 'next/router';
 
 interface SidebarProps {
-  courseId: string;
+  lesson: ElectiveLessonType;
 }
 
-const Sidebar: FC<SidebarProps> = ({ courseId }) => {
+const Sidebar: FC<SidebarProps> = ({ lesson }) => {
   const [showList, setShowList] = useState(false);
-
-  const { course } = useGetElectives(courseId);
-
+  const { getLink } = useGetLessonLink();
+  const { course } = useGetElectives(lesson);
+  const router = useRouter();
   const renderCourseListItem = (
     state: CompleteStateType,
     item: PageType,
@@ -36,12 +38,28 @@ const Sidebar: FC<SidebarProps> = ({ courseId }) => {
     }
 
     return (
-      <div className="flex justify-between">
+      <div
+        className="flex justify-between"
+        onClick={() => {
+          if (
+            item.id !== lesson.id &&
+            [CompleteStateType.COMPLETED, CompleteStateType.LEARNING].includes(
+              state
+            )
+          ) {
+            const link = getLink(course!.type, item.id);
+            router.push(link);
+          }
+        }}
+      >
         <span
           className={cn(
             'text-[#3E3E3E] text-[14px] font-next-book leading-[125%] tracking-[0.28px] pr-4',
-            state === CompleteStateType.LEARNING
-              ? 'font-next-book-bold text-[#212121] cursor-pointer'
+            item.id === lesson.id ? 'font-next-book-bold text-[#212121]' : '',
+            [CompleteStateType.COMPLETED, CompleteStateType.LEARNING].includes(
+              state
+            ) && item.id !== lesson.id
+              ? 'cursor-pointer'
               : '',
             state === CompleteStateType.NOT_STARTED
               ? 'text-[#8C8C8C] cursor-not-allowed'

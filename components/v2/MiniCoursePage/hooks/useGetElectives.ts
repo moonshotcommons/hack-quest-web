@@ -1,10 +1,13 @@
 import { errorMessage } from '@/helper/utils';
 import webApi from '@/service';
-import { MiniElectiveCourseType } from '@/service/webApi/elective/type';
+import {
+  ElectiveLessonType,
+  MiniElectiveCourseType
+} from '@/service/webApi/elective/type';
 import { useRequest } from 'ahooks';
 import { useEffect, useState } from 'react';
 
-export const useGetElectives = (electiveId: string) => {
+export const useGetElectives = (lesson: ElectiveLessonType) => {
   const [course, setCourse] = useState<MiniElectiveCourseType | null>(null);
 
   const {
@@ -14,7 +17,7 @@ export const useGetElectives = (electiveId: string) => {
   } = useRequest(
     async () => {
       const res = await webApi.electiveApi.getElectiveDetailAndPages(
-        electiveId,
+        lesson.electiveId,
         true
       );
       return res;
@@ -31,10 +34,10 @@ export const useGetElectives = (electiveId: string) => {
   );
 
   useEffect(() => {
-    if (electiveId) {
+    if (lesson) {
       getCourseDetail();
     }
-  }, [electiveId, getCourseDetail]);
+  }, [lesson, getCourseDetail]);
 
   return {
     course,

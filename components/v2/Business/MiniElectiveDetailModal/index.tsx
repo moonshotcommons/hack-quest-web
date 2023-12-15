@@ -23,6 +23,8 @@ import { GoCheck } from 'react-icons/go';
 import { FiLock } from 'react-icons/fi';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
 import { QueryIdType } from '../Breadcrumb/type';
+import { useGetLessonLink } from '@/hooks/useCoursesHooks/useGetLessonLink';
+import { useRouter } from 'next/router';
 interface MiniElectiveDetailModalProps {}
 
 export interface MiniElectiveDetailModalRef {
@@ -35,9 +37,9 @@ const MiniElectiveDetailModal = forwardRef<
 >((props, ref) => {
   const [open, setOpen] = useState(false);
   const [course, setCourse] = useState<MiniElectiveCourseType | null>(null);
-
+  const { getLink } = useGetLessonLink();
   const { jumpLearningLesson, loading: jumpLoading } = useJumpLeaningLesson();
-
+  const router = useRouter();
   const { run: getCourseDetail, loading } = useRequest(
     async (course) => {
       const res = await webApi.electiveApi.getElectiveDetailAndPages(
@@ -86,20 +88,41 @@ const MiniElectiveDetailModal = forwardRef<
     }
 
     return (
-      <div className="flex justify-between">
+      <div
+        className="flex justify-between"
+        onClick={() => {
+          if (
+            [CompleteStateType.COMPLETED, CompleteStateType.LEARNING].includes(
+              state
+            )
+          ) {
+            const link = getLink(course!.type, item.id);
+            router.push(link);
+          }
+        }}
+      >
         <span
           className={cn(
             'text-[#3E3E3E] text-[18px] font-next-book leading-[125%] tracking-[0.36px]',
+            [CompleteStateType.COMPLETED, CompleteStateType.LEARNING].includes(
+              state
+            )
+              ? 'cursor-pointer'
+              : '',
             state === CompleteStateType.LEARNING
-              ? 'font-next-book-bold text-[#131313] cursor-pointer'
+              ? 'font-next-book-bold text-[#131313]'
               : '',
             state === CompleteStateType.NOT_STARTED ? 'text-[#8C8C8C]' : ''
           )}
         >{`${index + 1 < 10 ? '0' + (index + 1) : index + 1} ${
           item.name
         }`}</span>
-        {state === CompleteStateType.COMPLETED && <GoCheck color="#00C365" />}
-        {state === CompleteStateType.NOT_STARTED && <FiLock color="#8C8C8C" />}
+        {state === CompleteStateType.COMPLETED && (
+          <GoCheck color="#00C365" size={20} />
+        )}
+        {state === CompleteStateType.NOT_STARTED && (
+          <FiLock color="#8C8C8C" size={20} />
+        )}
       </div>
     );
   };
@@ -144,7 +167,7 @@ const MiniElectiveDetailModal = forwardRef<
             <div className="flex justify-between max-h-[625px] p-[24px] mt-[24px] gap-x-[96px]">
               <div className="w-[400px] flex flex-col gap-[32px]">
                 <div className="w-full h-[225px] relative">
-                  {/* <Image src={course.image} fill alt="cover"></Image> */}
+                  <Image src={course.image} fill alt="cover"></Image>
                 </div>
                 <div>
                   <h2 className="font-next-poster-Bold text-[#0B0B0B] text-[40px] tracking-[2.4px] leading-[125%]">

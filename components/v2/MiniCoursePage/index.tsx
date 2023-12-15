@@ -20,21 +20,6 @@ interface MiniCoursePageProps {
   courseType: CourseType.Mini;
 }
 
-const mockData = [
-  {
-    name: 'Web 3’s onboarding problem',
-    state: 'ok'
-  },
-  {
-    name: 'Creating a Seamless Wallet Onboarding Experience',
-    state: 'learning'
-  },
-  {
-    name: 'Quiz',
-    state: 'lock'
-  }
-];
-
 const MiniCoursePage: FC<MiniCoursePageProps> = (props) => {
   const { lessonId, courseType } = props;
 
@@ -51,7 +36,7 @@ const MiniCoursePage: FC<MiniCoursePageProps> = (props) => {
       <div className="py-[40px] flex h-full">
         {lesson && (
           <>
-            <Sidebar courseId={lesson.electiveId}></Sidebar>
+            <Sidebar lesson={lesson}></Sidebar>
             <LessonContentWrap lesson={lesson}>
               <div className="flex-1 max-w-[840px] bg-white h-full rounded-[12px] px-[64px] py-[48px] shadow-[0px_4px_8px_0px_rgba(0,0,0,0.12)] flex flex-col">
                 <h1 className="pb-[24px] text-[28px] font-next-poster-Bold text-[#131313] tracking-[1.68px]">
