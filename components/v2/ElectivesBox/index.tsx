@@ -73,6 +73,7 @@ const SelectiveCoursesBox: React.FC<SelectiveCoursesBoxProps> = ({
 
   useEffect(() => {
     if (timeOut.current) clearTimeout(timeOut.current);
+
     timeOut.current = setTimeout(() => {
       initList();
     }, 300);
