@@ -84,9 +84,9 @@ const MiniElectiveCompletedModal = forwardRef<
               <path
                 d="M2.7373 11.5657L13.1634 22L30.1057 2"
                 stroke="#00C365"
-                stroke-width="4"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="4"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
             </svg>
 
@@ -97,12 +97,18 @@ const MiniElectiveCompletedModal = forwardRef<
           <p className="text-center font-next-book leading-[125%] tracking-[0.32px] text-[#3E3E3E]">
             You have completed this mini. Continue to claim your Badge.
           </p>
-          <div className="flex w-full flex-col gap-y-[15px]">
+          <div className="flex w-full flex-col gap-y-[15px] font-next-book leading-[125%] text-base tracking-[0.32px]">
             <Button block type="primary" className="py-[11px]">
               Claim Badge
             </Button>
-            <Button block ghost type="primary" className="py-[11px]">
-              Claim Badge
+            <Button
+              block
+              ghost
+              type="primary"
+              className="py-[11px] border-black"
+              onClick={() => setOpen(false)}
+            >
+              Close
             </Button>
           </div>
         </div>

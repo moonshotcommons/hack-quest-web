@@ -127,7 +127,7 @@ const PracticeCard: FC<PracticeCardProps> = (props) => {
         {course.progress === 0 && (
           <CourseTags
             level={course.level as string}
-            unitCount={course.unitCount}
+            unitCount={course.unitCount || 0}
             className="justify-between"
           ></CourseTags>
         )}
