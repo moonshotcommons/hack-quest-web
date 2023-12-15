@@ -25,7 +25,7 @@ interface CodeRendererProps {
 }
 
 const CodeRenderer: FC<CodeRendererProps> = (props) => {
-  const { component } = props;
+  const { component, parent } = props;
   const language = component.content.language;
   const { theme } = useContext(ThemeContext);
   const codeRef = useRef<HTMLTextAreaElement>(null);
@@ -42,7 +42,11 @@ const CodeRenderer: FC<CodeRendererProps> = (props) => {
   }, [component.content.rich_text, updateExampleContent]);
 
   return (
-    <div className="relative rounded-md flex-1 overflow-hidden">
+    <div
+      className={`relative rounded-md flex-1 overflow-hidden ${
+        parent.title === 'Placeholder' ? 'flex flex-col' : ''
+      }`}
+    >
       <div className="h-[6px] relative bg-[#fafafa] rounded-t-[4.8px]">
         <div
           className="absolute top-[9px] right-[9px] text-[0.75rem] font-next-book text-[#E3E3E3] rounded-[0.5rem] cursor-pointer"
@@ -66,14 +70,30 @@ const CodeRenderer: FC<CodeRendererProps> = (props) => {
           {/* <span>Copy</span> */}
         </div>
       </div>
-      <SyntaxHighlighter
-        style={theme === Theme.Dark ? oneDark : oneLight}
-        language={language}
-        className="scroll-wrap-x scroll-wrap-y font-next-poster-Bold h-[calc(100%-20px)] rounded-t-[0!important] mt-[0!important]"
-        showLineNumbers
-      >
-        {codeContent}
-      </SyntaxHighlighter>
+      {parent.title === 'Placeholder' ? (
+        <div className="w-full flex-1 relative">
+          <div className="absolute w-full h-full left-0 top-0 overflow-auto">
+            <SyntaxHighlighter
+              style={theme === Theme.Dark ? oneDark : oneLight}
+              language={language}
+              className="scroll-wrap-x scroll-wrap-y font-next-poster-Bold h-full rounded-t-[0!important] mt-[0!important]"
+              showLineNumbers
+            >
+              {codeContent}
+            </SyntaxHighlighter>
+          </div>
+        </div>
+      ) : (
+        <SyntaxHighlighter
+          style={theme === Theme.Dark ? oneDark : oneLight}
+          language={language}
+          className="scroll-wrap-x scroll-wrap-y font-next-poster-Bold h-[calc(100%-20px)] rounded-t-[0!important] mt-[0!important]"
+          showLineNumbers
+        >
+          {codeContent}
+        </SyntaxHighlighter>
+      )}
+
       {/* <textarea className="hidden" ref={codeRef} value={}></textarea> */}
     </div>
   );

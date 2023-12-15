@@ -18,7 +18,7 @@ const ContentRenderer: FC<ContentRendererProps> = (props) => {
     <div
       className={`px-[20px] py-[15px] rounded-[10px]  mb-5 ${
         leftLength > 1 ? 'border border-lesson-title-box-border-color' : ''
-      }`}
+      } ${component.title === 'Placeholder' ? 'flex-1 flex flex-col' : ''}`}
     >
       <div
         className={`flex  justify-between items-center ${
