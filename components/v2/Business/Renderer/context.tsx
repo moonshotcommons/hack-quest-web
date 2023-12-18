@@ -55,16 +55,28 @@ export const ExampleContext = createContext({
   isExample: false
 });
 
+export interface GlobalContextType {
+  onCompleted?: VoidFunction;
+  onQuizPass?: VoidFunction;
+}
+
+export const GlobalContextDefaultValue: GlobalContextType = {
+  onCompleted: () => {},
+  onQuizPass: () => {}
+};
+
 export interface RendererContextType {
   textRenderer?: {
     fontSize: string;
   };
   quizBRendererContext?: QuizBContextType;
   quizARendererContext?: QuizAContextType;
+  globalContext?: GlobalContextType;
 }
 
 export const RendererContext = createContext<RendererContextType>({
   textRenderer: { fontSize: '14px' },
   quizBRendererContext: QuizBContextDefaultValue,
-  quizARendererContext: QuizAContextDefaultValue
+  quizARendererContext: QuizAContextDefaultValue,
+  globalContext: GlobalContextDefaultValue
 });

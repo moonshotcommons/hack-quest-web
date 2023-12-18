@@ -7,7 +7,6 @@ import webApi from '@/service';
 import { CourseResponse } from '@/service/webApi/course/type';
 import React, { useEffect, useRef, useState } from 'react';
 import MiniElectiveCompletedModal from '../Business/MiniElectiveCompletedModal';
-import MiniElectiveDetailModal from '../Business/MiniElectiveDetailModal';
 import Loading from '../Common/Loading';
 import CourseList from './CourseList';
 import { filterData, initPageInfo } from './data';
@@ -58,14 +57,6 @@ const SelectiveCoursesBox: React.FC<SelectiveCoursesBoxProps> = ({
         keyword: inputValue
       });
 
-      const miniRes = await webApi.electiveApi.getElectives({
-        ...newFilter,
-        ...pInfo,
-        keyword: inputValue
-      });
-
-      // console.log(miniRes);
-
       setTotal(res.total);
       resolve(res.data);
     });
@@ -73,7 +64,6 @@ const SelectiveCoursesBox: React.FC<SelectiveCoursesBoxProps> = ({
 
   useEffect(() => {
     if (timeOut.current) clearTimeout(timeOut.current);
-
     timeOut.current = setTimeout(() => {
       initList();
     }, 300);
@@ -117,7 +107,7 @@ const SelectiveCoursesBox: React.FC<SelectiveCoursesBoxProps> = ({
         />
         <CourseList list={list} />
       </div>
-      <MiniElectiveDetailModal />
+
       <MiniElectiveCompletedModal />
     </Loading>
   );

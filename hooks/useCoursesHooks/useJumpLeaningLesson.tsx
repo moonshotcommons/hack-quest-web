@@ -1,7 +1,12 @@
 import { QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
 import { getLessonLink } from '@/helper/utils';
 import webApi from '@/service';
-import { CourseDetailType, CourseResponse } from '@/service/webApi/course/type';
+import {
+  CourseDetailType,
+  CourseResponse,
+  CourseType
+} from '@/service/webApi/course/type';
+import { MiniElectiveCourseType } from '@/service/webApi/elective/type';
 import { UnLoginType, setUnLoginType } from '@/store/redux/modules/user';
 import { useRequest } from 'ahooks';
 import { useRouter } from 'next/router';
@@ -18,12 +23,21 @@ export const useJumpLeaningLesson = () => {
   const dispatch = useDispatch();
   const { run: jumpLearningLesson, loading } = useRequest(
     async (
-      courseDetail: CourseDetailType | CourseResponse,
+      courseDetail: CourseDetailType | CourseResponse | MiniElectiveCourseType,
       lParam?: JumpLeaningLessonType
     ) => {
-      const lesson = await webApi.courseApi.getLearningLessonId(
-        courseDetail?.id as string
-      );
+      let lesson: any;
+      switch (courseDetail.type) {
+        case CourseType.Mini:
+          lesson = await webApi.electiveApi.getElectiveLearningLesson(
+            courseDetail.id
+          );
+          break;
+        default:
+          lesson = await webApi.courseApi.getLearningLessonId(
+            courseDetail?.id as string
+          );
+      }
       return {
         courseDetail,
         pageId: lesson?.pageId,

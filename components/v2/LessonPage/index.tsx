@@ -8,7 +8,11 @@ import { BurialPoint } from '@/helper/burialPoint';
 import { useGetLessonContent } from '@/hooks/useCoursesHooks/useGetLessenContent';
 import { useGotoNextLesson } from '@/hooks/useCoursesHooks/useGotoNextLesson';
 import webApi from '@/service';
-import { CompleteStateType, CourseType } from '@/service/webApi/course/type';
+import {
+  CompleteStateType,
+  CourseLessonType,
+  CourseType
+} from '@/service/webApi/course/type';
 import { ConfigProvider, Spin } from 'antd';
 import { useRouter } from 'next/router';
 import { FC, useCallback, useEffect, useRef, useState } from 'react';
@@ -33,7 +37,10 @@ interface LessonPageProps {
 
 const LessonPage: FC<LessonPageProps> = (props) => {
   const { lessonId, courseType } = props;
-  const { lesson, loading } = useGetLessonContent(lessonId);
+  const { lesson, loading } = useGetLessonContent<CourseLessonType>(
+    lessonId,
+    courseType
+  );
   const router = useRouter();
   const { courseId: courseName } = router.query;
   const [nextLoading, setNextLoading] = useState(false);
