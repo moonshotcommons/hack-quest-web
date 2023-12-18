@@ -54,8 +54,6 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
   };
 
   useEffect(() => {
-    console.log(parent.state, '--------');
-
     if (parent?.state === CompleteStateType.COMPLETED) {
       setAnswers(quiz.answers);
     } else {
