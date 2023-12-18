@@ -1,6 +1,5 @@
 'use client';
-import { CustomType, NotionType } from '@/components/v2/Business/Renderer/type';
-import { FC, useContext, useState } from 'react';
+import { FC, useContext, useEffect, useState } from 'react';
 // import { QuizContext } from '..';
 
 import TextRenderer from '@/components/v2/Business/NotionRender/TextRenderer';
@@ -10,8 +9,9 @@ import { RendererContext } from '@/components/v2/Business/Renderer/context';
 import ComponentRenderer from '@/components/v2/Business/Renderer/MiniElectiveRenderer';
 import { FiCheck } from 'react-icons/fi';
 import { FiX } from 'react-icons/fi';
+import { CompleteStateType } from '@/service/webApi/course/type';
 interface QuizCRendererProps {
-  parent: CustomType | NotionType;
+  parent: any;
   quiz: any;
 }
 
@@ -22,7 +22,7 @@ enum AnswerState {
 }
 
 const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
-  const { quiz } = props;
+  const { quiz, parent } = props;
   const { onCompleted, onQuizPass } =
     useContext(RendererContext).globalContext!;
   const [answers, setAnswers] = useState<number[]>([]);
@@ -52,6 +52,15 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
     setAnswerState(AnswerState.Default);
     setAnswers([]);
   };
+
+  useEffect(() => {
+    if (parent?.state === CompleteStateType.COMPLETED) {
+      setAnswers(quiz.answers);
+    } else {
+      setAnswers([]);
+      setAnswerState(AnswerState.Default);
+    }
+  }, [parent, quiz]);
 
   return (
     <div className="flex flex-col">
