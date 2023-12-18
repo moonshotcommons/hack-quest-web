@@ -43,7 +43,7 @@ const LearningTrackWrapCard: FC<LearningTrackWrapCardProps> = (props) => {
       <CourseTags
         level={learningTrack.level as string}
         duration={learningTrack.duration}
-        unitCount={learningTrack.unitCount}
+        unitCount={learningTrack.unitCount || 0}
       ></CourseTags>
       <Typography.Paragraph
         ellipsis={{ rows: 2 }}

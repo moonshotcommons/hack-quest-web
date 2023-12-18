@@ -1,29 +1,39 @@
 'use client';
-import { CustomType, NotionType } from '@/components/v2/Business/Renderer/type';
-import { FC, useState } from 'react';
+import { FC, useContext, useEffect, useState } from 'react';
 // import { QuizContext } from '..';
 
 import TextRenderer from '@/components/v2/Business/NotionRender/TextRenderer';
 import Button from '@/components/v2/Common/Button';
 import { cn } from '@/helper/utils';
-import { message } from 'antd';
 import { RendererContext } from '@/components/v2/Business/Renderer/context';
 import ComponentRenderer from '@/components/v2/Business/Renderer/MiniElectiveRenderer';
-
+import { FiCheck } from 'react-icons/fi';
+import { FiX } from 'react-icons/fi';
+import { CompleteStateType } from '@/service/webApi/course/type';
 interface QuizCRendererProps {
-  parent: CustomType | NotionType;
+  parent: any;
   quiz: any;
 }
 
-const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
-  const { quiz } = props;
+enum AnswerState {
+  Default = 'default',
+  Wrong = 'wrong',
+  Correct = 'correct'
+}
 
+const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
+  const { quiz, parent } = props;
+  const { onCompleted, onQuizPass } =
+    useContext(RendererContext).globalContext!;
   const [answers, setAnswers] = useState<number[]>([]);
+  const [answerState, setAnswerState] = useState<AnswerState>(
+    AnswerState.Default
+  );
 
   const onSubmit = () => {
     let wrongAnswer = answers.find((answer) => !quiz.answers.includes(answer));
     if (wrongAnswer) {
-      message.error('答案错误');
+      setAnswerState(AnswerState.Wrong);
       return;
     }
 
@@ -31,15 +41,29 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
       (answer: any) => !answers.includes(answer)
     );
     if (rightAnswer) {
-      message.error('答案错误');
+      setAnswerState(AnswerState.Wrong);
       return;
     }
-
-    message.success('回答正确');
+    setAnswerState(AnswerState.Correct);
+    onQuizPass?.();
   };
 
+  const onTryAgain = () => {
+    setAnswerState(AnswerState.Default);
+    setAnswers([]);
+  };
+
+  useEffect(() => {
+    if (parent?.state === CompleteStateType.COMPLETED) {
+      setAnswers(quiz.answers);
+    } else {
+      setAnswers([]);
+      setAnswerState(AnswerState.Default);
+    }
+  }, [parent, quiz]);
+
   return (
-    <div className="h-full flex flex-col">
+    <div className="flex flex-col">
       <RendererContext.Provider
         value={{
           textRenderer: {
@@ -69,6 +93,8 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
                 answers.includes(item.index) ? 'bg-[#FFF4CE]' : ''
               )}
               onClick={() => {
+                if (answerState !== AnswerState.Default)
+                  setAnswerState(AnswerState.Default);
                 if (answers.includes(item.index)) {
                   setAnswers(answers.filter((answer) => answer !== item.index));
                 } else {
@@ -79,22 +105,57 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
               <div className="w-8 h-8 flex flex-center border-[2px] border-[#DADADA] rounded-[4px]">
                 {item.index}
               </div>
-              <TextRenderer
-                richTextArr={item.option?.content?.rich_text}
-                fontSize="16px"
-              ></TextRenderer>
+              <div className="flex-1">
+                <TextRenderer
+                  richTextArr={item.option?.content?.rich_text}
+                  fontSize="16px"
+                ></TextRenderer>
+              </div>
+
+              <div>
+                {answerState === AnswerState.Correct &&
+                  answers.includes(item.index) && (
+                    <FiCheck color="#00C365" size={28} />
+                  )}
+                {answerState === AnswerState.Wrong &&
+                  answers.includes(item.index) && (
+                    <FiX color="#C73333" size={28} />
+                  )}
+              </div>
             </div>
           );
         })}
       </div>
       <div className="mt-[32px]">
-        <Button
-          type="primary"
-          className="w-[165px] p-0 py-[11px] font-next-book leading-[125%] tracking-[0.32px] text-[#0B0B0B]"
-          onClick={onSubmit}
-        >
-          Submit
-        </Button>
+        {answerState === AnswerState.Default && (
+          <Button
+            type="primary"
+            className="w-[165px] p-0 py-[11px] font-next-book leading-[125%] tracking-[0.32px] text-[#0B0B0B]"
+            onClick={onSubmit}
+          >
+            Submit
+          </Button>
+        )}
+        {answerState === AnswerState.Wrong && (
+          <Button
+            type="primary"
+            className="w-[165px] p-0 py-[11px] font-next-book leading-[125%] tracking-[0.32px] text-[#0B0B0B]"
+            onClick={onTryAgain}
+          >
+            Try again
+          </Button>
+        )}
+        {answerState === AnswerState.Correct && (
+          <Button
+            type="primary"
+            className="w-[165px] p-0 py-[11px] font-next-book leading-[125%] tracking-[0.32px] text-[#0B0B0B]"
+            onClick={() => {
+              onCompleted?.();
+            }}
+          >
+            Next
+          </Button>
+        )}
       </div>
     </div>
   );

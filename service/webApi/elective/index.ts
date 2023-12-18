@@ -1,4 +1,5 @@
 import WebService from '@/service/webService/webService';
+import { ElectiveLessonType, MiniElectiveCourseType } from './type';
 
 export enum ElectiveApiType {
   GetElectives = '/electives',
@@ -20,7 +21,7 @@ class ElectiveApi {
 
   /** 获取包含（不包含）所有pages的课程详情信息 */
   getElectiveDetailAndPages(id: string, includePages = true) {
-    return this.service.get(
+    return this.service.get<MiniElectiveCourseType>(
       `${ElectiveApiType.GetElectives}/${id}${
         includePages ? '?include=pages' : ''
       }`
@@ -29,7 +30,9 @@ class ElectiveApi {
 
   /** 获取lesson的内容 */
   getElectiveLessonContent(id: string) {
-    return this.service.get(`${ElectiveApiType.GetLesson}/${id}`);
+    return this.service.get<ElectiveLessonType>(
+      `${ElectiveApiType.GetLesson}/${id}`
+    );
   }
 
   getElectiveLearningLesson(electiveId: string) {
@@ -39,7 +42,7 @@ class ElectiveApi {
   }
 
   startLesson(lessonId: string) {
-    this.service.get(`/${ElectiveApiType.GetLesson}/${lessonId}/start`);
+    return this.service.get(`${ElectiveApiType.GetLesson}/${lessonId}/start`);
   }
 
   /** 完成单个quiz */
@@ -48,6 +51,12 @@ class ElectiveApi {
     return this.service.post(url, {
       data: { index: quizIndex, isCompleted: true }
     });
+  }
+
+  /** 完成lesson */
+  completedLesson(lessonId: string) {
+    const url = `${ElectiveApiType.GetLesson}/${lessonId}/complete`;
+    return this.service.get(url);
   }
 }
 

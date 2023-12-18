@@ -36,8 +36,9 @@ export interface CourseResponse {
   level?: string | string[];
   duration: number;
   aboutDesc: string;
-  unitCount: number;
+  unitCount?: number;
   progress: number;
+  pageCount?: number;
 }
 export interface CourseDataType {
   total: number;
