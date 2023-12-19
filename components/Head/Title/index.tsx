@@ -6,6 +6,7 @@ interface TitleProps {
 }
 
 const Title: React.FC<TitleProps> = ({ title }) => {
+  console.info(title, 'title');
   return (
     <Head>
       <title>{title ? title + ' | HackQuest' : 'HackQuest'}</title>

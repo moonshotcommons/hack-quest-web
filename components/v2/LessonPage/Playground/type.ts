@@ -10,9 +10,11 @@ interface PlaygroundContextType {
   lesson: LessonType;
   onCompleted: VoidFunction;
   isPreview: boolean;
+  isPlayground: boolean;
 }
 export const PlaygroundContext = createContext<PlaygroundContextType>({
   lesson: {} as LessonType,
   onCompleted: () => {},
-  isPreview: false
+  isPreview: false,
+  isPlayground: false
 });

@@ -1,3 +1,4 @@
+import Title from '@/components/Head/Title';
 import CertificationModal, {
   CertificationModalInstance
 } from '@/components/v2/Business/Certification/CertificationModal';
@@ -108,6 +109,7 @@ const Campaigns: React.FC<CampaignsProp> = () => {
         claimIds
       }}
     >
+      <Title title="Campaigns" />
       <div
         className={`container m-auto flex h-[calc(100vh-64px)] font-next-book text-[#0b0b0b] py-[40px] text-[16px]`}
       >

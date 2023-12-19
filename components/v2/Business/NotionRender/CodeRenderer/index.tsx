@@ -1,5 +1,6 @@
 import CopyIcon from '@/components/Common/Icon/Copy';
 import { ExampleContext } from '@/components/v2/Business/Renderer/ComponentRenderer/ExampleRenderer';
+import { PlaygroundContext } from '@/components/v2/LessonPage/Playground/type';
 import { Theme } from '@/constants/enum';
 import { BurialPoint } from '@/helper/burialPoint';
 import { ThemeContext } from '@/store/context/theme';
@@ -31,6 +32,7 @@ const CodeRenderer: FC<CodeRendererProps> = (props) => {
   const codeRef = useRef<HTMLTextAreaElement>(null);
   const [codeContent, setCodeContent] = useState('');
   const { updateExampleContent, isExample } = useContext(ExampleContext);
+  const { isPlayground } = useContext(PlaygroundContext);
   useEffect(() => {
     if (component.content.rich_text) {
       const code = component.content.rich_text
@@ -44,12 +46,12 @@ const CodeRenderer: FC<CodeRendererProps> = (props) => {
   return (
     <div
       className={`relative rounded-md flex-1 overflow-hidden ${
-        parent.title === 'Placeholder' ? 'flex flex-col' : ''
+        isPlayground ? 'flex flex-col' : ''
       }`}
     >
       <div className="h-[6px] relative bg-[#fafafa] rounded-t-[4.8px]">
         <div
-          className="absolute top-[9px] right-[9px] text-[0.75rem] font-next-book text-[#E3E3E3] rounded-[0.5rem] cursor-pointer"
+          className="absolute top-[9px] right-[9px] text-[0.75rem] font-next-book text-[#E3E3E3] rounded-[0.5rem] cursor-pointer z-[10]"
           onClick={async (e) => {
             try {
               await navigator.clipboard.writeText(
@@ -70,7 +72,7 @@ const CodeRenderer: FC<CodeRendererProps> = (props) => {
           {/* <span>Copy</span> */}
         </div>
       </div>
-      {parent.title === 'Placeholder' ? (
+      {isPlayground ? (
         <div className="w-full flex-1 relative">
           <div className="absolute w-full h-full left-0 top-0 overflow-auto">
             <SyntaxHighlighter
