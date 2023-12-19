@@ -4,8 +4,7 @@ import React, { useContext, useState } from 'react';
 import IconCoin from '@/public/images/mission-center/icon_coin.png';
 import IconXp from '@/public/images/mission-center/icon_xp.png';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
-import LeftArrowIcon from '@/components/Common/Icon/LeftArrow';
+import LeftArrowIcon from '@/components/v2/Common/Icon/LeftArrow';
 import { BurialPoint } from '@/helper/burialPoint';
 import { RewardsCardType } from '../BeginnerRewards/data';
 import webApi from '@/service';
@@ -16,6 +15,7 @@ import {
   shareList
 } from '@/components/v2/Home/InviteCodeCard/constant';
 import { useGetUserInfo } from '@/hooks/useGetUserInfo';
+import { useRedirect } from '@/hooks/useRedirect';
 
 interface TargetCardProp {
   missionData: MissionDataType;
@@ -42,7 +42,7 @@ const TargetCard: React.FC<TargetCardProp> = ({
   // );
   const [loading, setLoading] = useState(false);
   const { missionIds, updateMissionDataAll } = useContext(MissionCenterContext);
-  const router = useRouter();
+  const { redirectToUrl } = useRedirect();
   const handleUnClaim = () => {
     BurialPoint.track(`mission-center-unClaim按钮 点击 点击`, {
       buttonName: unClaimText
@@ -67,7 +67,7 @@ const TargetCard: React.FC<TargetCardProp> = ({
       default:
         unClaimPath.includes('http')
           ? window.open(unClaimPath)
-          : router.push(unClaimPath);
+          : redirectToUrl(unClaimPath);
     }
   };
 
@@ -134,13 +134,13 @@ const TargetCard: React.FC<TargetCardProp> = ({
           </div>
           {missionData.progress?.completed ? (
             <Button
-              className={`w-[164px] ml-[-20px] h-[44px] text-[#0b0b0b] 
+              className={`w-[164px] ml-[-20px] h-[44px] text-[#0b0b0b]
                           bg-auth-primary-button-bg
                           border-auth-primary-button-border-color ${
                             missionData.progress.claimed
                               ? 'opacity-50 cursor-not-allowed '
                               : `hover:border-auth-primary-button-border-hover-color
-                                  hover:text-auth-primary-button-text-hover-color 
+                                  hover:text-auth-primary-button-text-hover-color
                                   hover:bg-auth-primary-button-hover-bg`
                           }`}
               disabled={missionData.progress.claimed}
@@ -152,7 +152,7 @@ const TargetCard: React.FC<TargetCardProp> = ({
           ) : (
             <div className="relative">
               <Button
-                className={`w-[164px] p-0 ml-[-20px] h-[44px] text-[14px] text-[#0b0b0b] 
+                className={`w-[164px] p-0 ml-[-20px] h-[44px] text-[14px] text-[#0b0b0b]
               text-auth-primary-button-text-color  border
               border-[#0b0b0b]`}
                 loading={loading}

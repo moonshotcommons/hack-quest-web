@@ -2,29 +2,29 @@ import Button from '@/components/v2/Common/Button';
 import React, { useContext, useState } from 'react';
 import Image from 'next/image';
 import BIcon from '@/public/images/campaigns/b_icon.png';
-import { useRouter } from 'next/router';
 import webApi from '@/service';
 import { TargetsType, TargetType } from '@/service/webApi/campaigns/type';
 import { MenuLink } from '../../Layout/Navbar/type';
 import { MantleContext } from '../Mantle/type';
 import { BurialPoint } from '@/helper/burialPoint';
+import { useRedirect } from '@/hooks/useRedirect';
 
 interface TargetCardProp {
   target: TargetsType;
 }
 const TargetCard: React.FC<TargetCardProp> = ({ target }) => {
-  const router = useRouter();
+  const { redirectToUrl } = useRedirect();
   const { campaignsTargetClaim, refresh, claimIds } = useContext(MantleContext);
   const [unLoading, setUnLoading] = useState(false);
   const handleUnClaim = async (type: TargetType) => {
     switch (type) {
       case TargetType.COURSE:
         BurialPoint.track('campaigns targetCard Go to Dashboard 按钮点击');
-        router.push(MenuLink.HOME);
+        redirectToUrl(MenuLink.HOME);
         break;
       case TargetType.LEARNING_TRACK:
         BurialPoint.track('campaigns targetCard Go to Learning 按钮点击');
-        router.push(MenuLink.LEARNING_TRACK);
+        redirectToUrl(MenuLink.LEARNING_TRACK);
         break;
       case TargetType.TWITTER:
         BurialPoint.track('campaigns targetCard Link with Twitter 按钮点击');
@@ -48,7 +48,7 @@ const TargetCard: React.FC<TargetCardProp> = ({ target }) => {
         break;
       case TargetType.GIUHUB:
         BurialPoint.track('campaigns targetCard Go to Profile 按钮点击');
-        router.push(MenuLink.USER_PROFILE);
+        redirectToUrl(MenuLink.USER_PROFILE);
         return 'Go to Profile';
     }
   };

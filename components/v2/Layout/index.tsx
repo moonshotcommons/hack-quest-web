@@ -19,13 +19,11 @@ const V2Layout: FC<LayoutProps> = (props) => {
   const userInfo = useGetUserInfo();
   const { updateMissionDataAll } = useGetMissionData();
 
-  navbarData.navList = navbarList;
-
   if (userInfo) {
     // navbarData.navList = navbarList;
     updateMissionDataAll();
   }
-
+  navbarData.navList = navbarList;
   return <BaseLayout navbarData={navbarData}>{children}</BaseLayout>;
 };
 export default V2Layout;

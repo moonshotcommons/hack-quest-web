@@ -1,7 +1,7 @@
 import { FC, useEffect, useRef, useState } from 'react';
 
 import Button from '@/components/v2/Common/Button';
-import RightArrowIcon from '@/components/Common/Icon/RightArrow';
+import RightArrowIcon from '@/components/v2/Common/Icon/RightArrow';
 import Checkbox from '@/components/v2/Common/Checkbox';
 import Input from '@/components/v2/Common/Input';
 import { BurialPoint } from '@/helper/burialPoint';
@@ -17,10 +17,11 @@ import {
 import { useDebounceFn, useKeyPress } from 'ahooks';
 import { message } from 'antd';
 import { omit } from 'lodash-es';
-import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import useIsPc from '@/hooks/useIsPc';
 import TipsModal from '../../Landing/components/TipsModal';
+import { useRedirect } from '@/hooks/useRedirect';
+import { useParams } from 'next/navigation';
 
 interface UserLoginProps {
   // children: ReactNode;
@@ -52,8 +53,8 @@ const UserLogin: FC<UserLoginProps> = (props) => {
   const isPc = useIsPc();
   const [tipsOpen, setTipsOpen] = useState(false);
   const { validator } = useValidator(['email', 'password']);
-  const router = useRouter();
-  const { redirect_url } = router.query;
+  const { redirectToUrl } = useRedirect();
+  const { redirect_url } = useParams();
   const passwordInputRef = useRef<any>(null);
   const [loading, setLoading] = useState(false);
   const { run: onLogin } = useDebounceFn(
@@ -80,7 +81,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
                 ? `${redirect_url}?token=${res.token}`
                 : '/home';
 
-              router.push(toPageUrl);
+              redirectToUrl(toPageUrl);
             } else {
               setTipsOpen(true);
             }

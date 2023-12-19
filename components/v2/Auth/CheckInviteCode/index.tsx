@@ -1,5 +1,5 @@
 import Button from '@/components/v2/Common/Button';
-import RightArrowIcon from '@/components/Common/Icon/RightArrow';
+import RightArrowIcon from '@/components/v2/Common/Icon/RightArrow';
 import Input from '@/components/v2/Common/Input';
 import { BurialPoint } from '@/helper/burialPoint';
 import { cn } from '@/helper/utils';
@@ -7,7 +7,6 @@ import webApi from '@/service';
 import { UnLoginType, setUnLoginType } from '@/store/redux/modules/user';
 import { useRequest } from 'ahooks';
 import { message } from 'antd';
-import { useRouter } from 'next/router';
 import { FC, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useGetUserUnLoginType } from '@/hooks/useGetUserInfo';
@@ -16,12 +15,13 @@ import { AuthType } from '@/service/webApi/user/type';
 import { setUserInfo } from '@/store/redux/modules/user';
 import { setToken } from '@/helper/user-token';
 import { omit } from 'lodash-es';
+import { useRedirect } from '@/hooks/useRedirect';
 
 interface CheckInviteCodeProps {}
 
 const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
   const loginRouteParams = useGetUserUnLoginType();
-  const router = useRouter();
+  const { redirectToUrl } = useRedirect();
   const [formData, setFormData] = useState<{
     email: string;
     inviteCode: string;
@@ -94,7 +94,7 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
         dispatch(setUserInfo(omit(res, 'token')));
         BurialPoint.track('signup-Google三方登录输入邀请码登录成功');
         setToken(res.token);
-        router.push('/home');
+        redirectToUrl('/home');
       },
       onError(e: any) {
         let msg = '';
@@ -129,7 +129,7 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
         dispatch(setUserInfo(omit(res, 'token')));
         BurialPoint.track('signup-Google三方登录输入邀请码登录成功');
         setToken(res.token);
-        router.push('/home');
+        redirectToUrl('/home');
       },
       onError(e: any) {
         let msg = '';
@@ -249,7 +249,7 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
               // dispatch(setUserInfo(omit(res, 'token')));
 
               setToken(formData.token);
-              router.push('/home');
+              redirectToUrl('/home');
             }
           }}
           block
@@ -270,7 +270,7 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
         </Button> */}
         <Button
           onClick={() => {
-            // router.push('/');
+            // redirectToUrl('/');
             // dispatch(setUnLoginType(UnLoginType.LOGIN));
             if (loginRouteParams.params?.registerType === AuthType.EMAIL) {
               dispatch(

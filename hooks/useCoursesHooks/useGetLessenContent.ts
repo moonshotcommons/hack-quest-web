@@ -4,9 +4,9 @@ import { ElectiveLessonType } from '@/service/webApi/elective/type';
 import { UnLoginType, setUnLoginType } from '@/store/redux/modules/user';
 import { useRequest } from 'ahooks';
 import { message } from 'antd';
-import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useRedirect } from '../useRedirect';
 
 export const useGetLessonContent = <
   T extends CourseLessonType | ElectiveLessonType
@@ -15,7 +15,7 @@ export const useGetLessonContent = <
   courseType: CourseType
 ) => {
   const [lesson, setLesson] = useState<T>();
-  const router = useRouter();
+  const { redirectToUrl } = useRedirect();
   const dispatch = useDispatch();
   const { run, loading, refresh } = useRequest(
     async (lessonId) => {
@@ -35,17 +35,17 @@ export const useGetLessonContent = <
         if (error.code === 401) {
           message.error(error?.msg);
           dispatch(setUnLoginType(UnLoginType.LOGIN));
-          router.push('/');
+          redirectToUrl('/');
           return;
         }
 
         if (error?.code === 403) {
           message.error(error?.msg);
-          router.push('/home');
+          redirectToUrl('/home');
           return;
         }
         message.error('404 Not Found');
-        router.push('/404');
+        redirectToUrl('/404');
       }
     }
   );

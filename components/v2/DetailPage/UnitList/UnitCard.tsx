@@ -1,5 +1,5 @@
-import CheckIcon from '@/components/Common/Icon/Check';
-import LockIcon from '@/components/Common/Icon/Lock';
+import CheckIcon from '@/components/v2/Common/Icon/Check';
+import LockIcon from '@/components/v2/Common/Icon/Lock';
 import { Theme } from '@/constants/enum';
 import { BurialPoint } from '@/helper/burialPoint';
 import { computeProgress } from '@/helper/formate';

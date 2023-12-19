@@ -1,7 +1,7 @@
 import { FC, ReactNode, useEffect, useState } from 'react';
 
 import Button from '@/components/v2/Common/Button';
-import RightArrowIcon from '@/components/Common/Icon/RightArrow';
+import RightArrowIcon from '@/components/v2/Common/Icon/RightArrow';
 import Input from '@/components/v2/Common/Input';
 import { BurialPoint } from '@/helper/burialPoint';
 import { UnLoginType } from '@/store/redux/modules/user';

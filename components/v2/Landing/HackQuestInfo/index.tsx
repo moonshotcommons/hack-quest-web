@@ -1,4 +1,4 @@
-import Button from '@/components/Common/Button';
+import Button from '@/components/v2/Common/Button';
 import LearningTracksCard from '@/components/v2/Business/LearningTrackCard';
 import { BurialPoint } from '@/helper/burialPoint';
 import { useGetLearningTracks } from '@/hooks/useLearningTrackHooks/useLearningTracks';
@@ -18,7 +18,6 @@ import WhyL3 from '@/public/images/landing/why_h_3_l.png';
 import WhyR3 from '@/public/images/landing/why_h_3_r.png';
 import WhyL4 from '@/public/images/landing/why_h_4_l.png';
 import WhyR4 from '@/public/images/landing/why_h_4_r.png';
-import { useRouter } from 'next/router';
 import { MenuLink } from '../../Layout/Navbar/type';
 import LearningTrackWrapCard from '../components/LearningTrackWrapCard';
 import WhatIsHackquest from '@/public/images/landing/what_is_hackquest.png';
@@ -26,6 +25,7 @@ import { cn } from '@/helper/utils';
 import { Menu, QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
 import useIsPc from '@/hooks/useIsPc';
 import TipsModal from '../components/TipsModal';
+import { useRedirect } from '@/hooks/useRedirect';
 
 interface HackQuestInfoProps {
   // children: ReactNode;
@@ -47,8 +47,8 @@ const goToLogin = () => {
 };
 const GotoPageButton: React.FC<GotoPageButtonProps> = (props) => {
   const { isBlack, direction, type, className = '' } = props;
-  const router = useRouter();
   const isPc = useIsPc();
+  const { redirectToUrl } = useRedirect();
   const [tispOpen, setTipsOpen] = useState(false);
   const color = useMemo(() => {
     return isBlack
@@ -86,13 +86,13 @@ const GotoPageButton: React.FC<GotoPageButtonProps> = (props) => {
           return;
         }
         if (index === 1) {
-          router.push(MenuLink.HACKATHON);
           BurialPoint.track(`landing Explore Hackathons按钮点击`);
+          redirectToUrl(MenuLink.HACKATHON);
         } else {
-          router.push(
+          BurialPoint.track(`landing Explore Projects按钮点击`);
+          redirectToUrl(
             `${MenuLink.PROJECTS}?menu=${Menu.PROJECTS}&${QueryIdType.PROJECT_ID}=projects`
           );
-          BurialPoint.track(`landing Explore Projects按钮点击`);
         }
     }
   };
@@ -134,7 +134,7 @@ export const TopInfo: FC = () => {
   const { learningTracks } = useGetLearningTracks();
 
   return (
-    <div className="bg-landing-hack-info-bg w-full">
+    <div className="w-full">
       <div
         className="h-[286px] w-full slab:h-[152px]"
         style={{
@@ -327,7 +327,7 @@ export const CenterInfo: FC = () => {
 
 export const HackQuestHackathon: FC = () => {
   return (
-    <div className="container mx-auto slab:w-full px-[20px] mt-[150px] slab:mt-[80px]">
+    <div className="container mx-auto slab:w-full mt-[150px] slab:mt-[80px]">
       <div className="w-full py-[80px] slab:py-[30px] slab:px-[20px] bg-landing-card-bg rounded-[10px] flex-col-center font-next-book ">
         <div className="text-text-default-color tracking-[3.24px] text-center font-next-poster-Bold text-[54px] slab:text-[24px]">
           HackQuest Hackathon
@@ -401,7 +401,7 @@ export const BottomInfo: FC = () => {
 const HackQuestInfo: FC<HackQuestInfoProps> = (props) => {
   // const { theme } = useContext(ThemeContext);
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center bg-landing-hack-info-bg ">
       <TopInfo></TopInfo>
       <CenterInfo></CenterInfo>
       <HackQuestHackathon></HackQuestHackathon>

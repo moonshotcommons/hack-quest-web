@@ -24,7 +24,7 @@ import { FiLock } from 'react-icons/fi';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
 import { QueryIdType } from '../Breadcrumb/type';
 import { useGetLessonLink } from '@/hooks/useCoursesHooks/useGetLessonLink';
-import { useRouter } from 'next/router';
+import { useRedirect } from '@/hooks/useRedirect';
 interface MiniElectiveDetailModalProps {}
 
 export interface MiniElectiveDetailModalRef {
@@ -39,7 +39,7 @@ const MiniElectiveDetailModal = forwardRef<
   const [course, setCourse] = useState<MiniElectiveCourseType | null>(null);
   const { getLink } = useGetLessonLink();
   const { jumpLearningLesson, loading: jumpLoading } = useJumpLeaningLesson();
-  const router = useRouter();
+  const { redirectToUrl } = useRedirect();
   const { run: getCourseDetail, loading } = useRequest(
     async (course) => {
       const res = await webApi.electiveApi.getElectiveDetailAndPages(
@@ -97,7 +97,7 @@ const MiniElectiveDetailModal = forwardRef<
             )
           ) {
             const link = getLink(course!.type, item.id);
-            router.push(link);
+            redirectToUrl(link);
           }
         }}
       >

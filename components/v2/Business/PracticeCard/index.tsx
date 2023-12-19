@@ -5,7 +5,6 @@ import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLess
 import { CourseResponse } from '@/service/webApi/course/type';
 import { Typography } from 'antd';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 import { FC } from 'react';
 import { Menu, QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
 import CourseTags from '@/components/v2/Business/CourseTags';
@@ -15,6 +14,7 @@ import PracticeImg2 from '@/public/images/home/practices_img2.png';
 import PracticeImg3 from '@/public/images/home/practices_img3.png';
 import PracticeImg4 from '@/public/images/home/practices_img4.png';
 import CardProgress from '../CardProgress';
+import { useRedirect } from '@/hooks/useRedirect';
 
 interface PracticeCardProps {
   // children: ReactNode;
@@ -24,7 +24,7 @@ interface PracticeCardProps {
 const PracticeCard: FC<PracticeCardProps> = (props) => {
   const { course } = props;
   const { jumpLearningLesson, loading } = useJumpLeaningLesson();
-  const router = useRouter();
+  const { redirectToUrl } = useRedirect();
 
   const imageRender = (i: any) => {
     switch (i) {
@@ -73,7 +73,7 @@ const PracticeCard: FC<PracticeCardProps> = (props) => {
       }
       onClick={() => {
         BurialPoint.track('home-practice卡片点击', { practice: course.name });
-        router.push(
+        redirectToUrl(
           `${menuLink.electives}/${course.id}?${QueryIdType.MENU_COURSE_ID}=${course.id}&menu=${Menu.ELECTIVES}`
         );
       }}

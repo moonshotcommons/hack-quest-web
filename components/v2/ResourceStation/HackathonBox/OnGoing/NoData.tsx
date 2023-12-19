@@ -1,12 +1,12 @@
 import { menuLink } from '@/components/v2/Business/Breadcrumb/data';
 import { Menu, QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
 import Button from '@/components/v2/Common/Button';
-import { useRouter } from 'next/router';
+import { useRedirect } from '@/hooks/useRedirect';
 interface NoDataType {
   goPast: VoidFunction;
 }
 const NoData: React.FC<NoDataType> = ({ goPast }) => {
-  const router = useRouter();
+  const { redirectToUrl } = useRedirect();
   return (
     <div className="flex flex-col items-center pb-[100px] font-next-book">
       <p className="text-home-learning-track-no-data-color text-[32px]">
@@ -20,7 +20,7 @@ const NoData: React.FC<NoDataType> = ({ goPast }) => {
       </Button>
       <Button
         onClick={() =>
-          router.push(
+          redirectToUrl(
             `${menuLink.projects}/projects?menu=${Menu.PROJECTS}&${QueryIdType.PROJECT_ID}=projects`
           )
         }

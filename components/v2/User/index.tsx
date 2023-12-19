@@ -8,11 +8,12 @@ import IconCoin from '@/public/images/mission-center/icon_coin.png';
 import { AppRootState } from '@/store/redux';
 import { UnLoginType, setUnLoginType } from '@/store/redux/modules/user';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 import { FC, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Settings from './Settings';
 import { unLoginTab } from './data';
+import { usePathname } from 'next/navigation';
+import { useRedirect } from '@/hooks/useRedirect';
 interface UserProps {}
 
 const User: FC<UserProps> = () => {
@@ -23,8 +24,8 @@ const User: FC<UserProps> = () => {
   const userInfo = useGetUserInfo();
   const unLoginType = useGetUserUnLoginType();
   const dispatch = useDispatch();
-  const router = useRouter();
-  const pathname = router.pathname;
+  const pathname = usePathname();
+  const { redirectToUrl } = useRedirect();
   const { userLevel, userCoin } = useSelector((state: AppRootState) => {
     return {
       userLevel: state.missionCenter?.userLevel,
@@ -33,10 +34,10 @@ const User: FC<UserProps> = () => {
   });
 
   const unLoginTabClick = (value: UnLoginType) => {
-    if (pathname !== V2_LANDING_PATH) {
-      router.replace(`${V2_LANDING_PATH}?type=${value}`);
-    }
     dispatch(setUnLoginType(value));
+    if (pathname !== V2_LANDING_PATH) {
+      redirectToUrl(`${V2_LANDING_PATH}?type=${value}`);
+    }
   };
   useEffect(() => {
     if (userInfo) {
@@ -67,7 +68,7 @@ const User: FC<UserProps> = () => {
             <div className="flex-row-center">
               <div
                 className="h-[30px] text-[#fff] flex-row-center"
-                onClick={() => router.push('/mission-center')}
+                onClick={() => redirectToUrl('/mission-center')}
               >
                 <div className="w-[115px] h-full bg-[#3E3E3E] rounded-[20px] flex-row-center justify-between mr-[20px] pr-[15px]">
                   <Image src={IconCoin} width={30} alt="iconCredits" />
@@ -110,7 +111,7 @@ const User: FC<UserProps> = () => {
                 <div
                   className={cn(
                     'relative w-[34px] h-[34px] bg-[#8d8d8d] overflow-hidden rounded-full flex justify-center items-center',
-                    router.pathname === '/user/profile'
+                    pathname === '/user/profile'
                       ? 'border-[5px] border-[#ffd952] box-content'
                       : ''
                   )}

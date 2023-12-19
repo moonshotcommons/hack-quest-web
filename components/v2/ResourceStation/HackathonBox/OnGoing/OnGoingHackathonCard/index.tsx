@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Button from '@/components/v2/Common/Button';
-import { useRouter } from 'next/router';
 import { Menu, QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
 import { menuLink } from '@/components/v2/Business/Breadcrumb/data';
 import { HackathonType } from '@/service/webApi/resourceStation/type';
 import useDealHackathonData from '@/hooks/useDealHackathonData';
 import { BurialPoint } from '@/helper/burialPoint';
+import { useRedirect } from '@/hooks/useRedirect';
 
 interface OnGoingHackathonCardProp {
   hackathon: HackathonType;
@@ -15,12 +15,12 @@ interface OnGoingHackathonCardProp {
 const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({
   hackathon
 }) => {
-  const router = useRouter();
+  const { redirectToUrl } = useRedirect();
   const closeInTimeOut = useRef<NodeJS.Timeout | null>(null);
   const [closeInTime, setCloseInTime] = useState('');
   const goHackathonDetail = () => {
     BurialPoint.track(`hackathon onGoingCard 点击`);
-    router.push(
+    redirectToUrl(
       `${menuLink.hackathon}/${hackathon.id}?menu=${Menu.HACKATHON}&${QueryIdType.HACKATHON_ID}=${hackathon.id}`
     );
   };

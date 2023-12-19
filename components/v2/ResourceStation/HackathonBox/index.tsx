@@ -4,15 +4,15 @@ import Tab from '@/components/v2/Business/Tab';
 import { TabListType } from '@/components/v2/Business/Tab/type';
 import { BurialPoint } from '@/helper/burialPoint';
 import { HackathonStatusType } from '@/service/webApi/resourceStation/type';
-import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { MenuLink } from '../../Layout/Navbar/type';
 import OnGoing from './OnGoing';
 import Past from './Past';
 import { hackathonTab } from './data';
+import { useRedirect } from '@/hooks/useRedirect';
 
 function HackathonBox() {
-  const router = useRouter();
+  const { redirectToUrl } = useRedirect();
   const [curTab, setCurTab] = useState<HackathonStatusType>(
     HackathonStatusType.ON_GOING
   );
@@ -21,7 +21,7 @@ function HackathonBox() {
     if (item.type === 'tab') {
       setCurTab(item.value as HackathonStatusType);
     } else {
-      router.push(
+      redirectToUrl(
         `${MenuLink.PROJECTS}?menu=${Menu.PROJECTS}&${QueryIdType.PROJECT_ID}=projects`
       );
     }

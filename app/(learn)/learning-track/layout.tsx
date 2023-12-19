@@ -1,0 +1,7 @@
+import BaseLayout from '@/components/Layout/BaseLayout';
+
+const LearningTrackLayout = ({ children }: { children: React.ReactNode }) => {
+  return <BaseLayout excludeBreadcrumb={true}>{children}</BaseLayout>;
+};
+
+export default LearningTrackLayout;

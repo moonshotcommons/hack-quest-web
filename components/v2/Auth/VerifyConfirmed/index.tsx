@@ -1,10 +1,10 @@
-import Button from '@/components/Common/Button';
+import Button from '@/components/v2/Common/Button';
 import { BurialPoint } from '@/helper/burialPoint';
 import { setToken } from '@/helper/user-token';
 import webApi from '@/service';
 import { setUserInfo } from '@/store/redux/modules/user';
 import { omit } from 'lodash-es';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { FC, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { UnLoginType, setUnLoginType } from '@/store/redux/modules/user';
@@ -14,6 +14,8 @@ import Image from 'next/image';
 import { AuthType } from '@/service/webApi/user/type';
 import TipsModal from '../../Landing/components/TipsModal';
 import useIsPc from '@/hooks/useIsPc';
+import { useRedirect } from '@/hooks/useRedirect';
+import { useParams } from 'next/navigation';
 
 enum VerifyStateType {
   VERIFYING = 'verifying',
@@ -36,7 +38,7 @@ const Verifying: React.FC<{ type: AuthType }> = ({ type }) => {
   );
 };
 const Success: React.FC<{ type: AuthType }> = ({ type }) => {
-  const router = useRouter();
+  const { redirectToUrl } = useRedirect();
 
   const [jump, setJump] = useState(false);
   const [countDown, setCountDown] = useState(5);
@@ -50,9 +52,9 @@ const Success: React.FC<{ type: AuthType }> = ({ type }) => {
         clearInterval(timer);
       };
     } else {
-      router.push('/home');
+      redirectToUrl('/home');
     }
-  }, [countDown, router]);
+  }, [countDown]);
 
   return (
     <div className="flex flex-col gap-[25px]">
@@ -87,7 +89,7 @@ const Fail: React.FC<{ type: AuthType }> = ({ type }) => {
     const res = (await webApi.userApi.getAuthUrl(type)) as any;
     window.location.href = res?.url;
   };
-  const router = useRouter();
+  const { redirectToUrl } = useRedirect();
   const dispatch = useDispatch();
   const renderTextAndBtn = () => {
     switch (type) {
@@ -103,7 +105,7 @@ const Fail: React.FC<{ type: AuthType }> = ({ type }) => {
             </div>
             <Button
               onClick={() => {
-                router.push('/');
+                redirectToUrl('/');
                 dispatch(setUnLoginType(UnLoginType.LOGIN));
               }}
               block
@@ -149,7 +151,7 @@ const Fail: React.FC<{ type: AuthType }> = ({ type }) => {
             </Button>
             <Button
               onClick={() => {
-                router.push('/');
+                redirectToUrl('/');
                 dispatch(setUnLoginType(UnLoginType.LOGIN));
               }}
               block
@@ -172,12 +174,14 @@ const Fail: React.FC<{ type: AuthType }> = ({ type }) => {
 };
 
 const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
-  const router = useRouter();
+  const { redirectToUrl } = useRedirect();
   const dispatch = useDispatch();
   const isPc = useIsPc();
   const [tipsOpen, setTipsOpen] = useState(false);
   const [jump, setJump] = useState(false);
   const [countDown, setCountDown] = useState(3);
+  const query = useParams();
+  const router = useRouter();
   const [verifyState, setVerifyState] = useState(VerifyStateType.VERIFYING);
   const [source, setSource] = useState<AuthType>(AuthType.EMAIL);
   const verifyEmail = (token: string) => {
@@ -216,7 +220,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
         .googleVerify(code)
         .then((res: any) => {
           if (res.status === 'UNACTIVATED') {
-            router.replace(`/?type=${UnLoginType.INVITE_CODE}`);
+            redirectToUrl(`/?type=${UnLoginType.INVITE_CODE}`, true);
             dispatch(
               setUnLoginType({
                 type: UnLoginType.INVITE_CODE,
@@ -230,7 +234,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
             if (isPc()) {
               dispatch(setUserInfo(omit(res, 'token')));
               setToken(res.token);
-              router.push('/home');
+              redirectToUrl('/home');
             } else {
               setTipsOpen(true);
             }
@@ -259,7 +263,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
         .githubVerify(code)
         .then((res: any) => {
           if (res.status === 'UNACTIVATED') {
-            router.replace(`/?type=${UnLoginType.INVITE_CODE}`);
+            redirectToUrl(`/?type=${UnLoginType.INVITE_CODE}`, true);
             dispatch(
               setUnLoginType({
                 type: UnLoginType.INVITE_CODE,
@@ -274,7 +278,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
               BurialPoint.track('signup-Github三方登录code验证成功');
 
               setToken(res.token);
-              router.reload();
+              router.refresh();
             } else {
               setTipsOpen(true);
             }
@@ -295,9 +299,9 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
     }
   };
   useEffect(() => {
-    const { token, state } = router.query;
-    let code = router.query.code;
-    let querySource = router.query.source || AuthType.EMAIL;
+    const { token, state } = query;
+    let code = query.code;
+    let querySource = query.source || AuthType.EMAIL;
     if (state) {
       const verifyData = JSON.parse(atob(state as string));
       querySource = verifyData?.source || AuthType.GOOGLE;

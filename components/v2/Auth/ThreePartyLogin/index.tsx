@@ -3,7 +3,6 @@ import Google from '@/public/images/login/google.svg';
 import webApi from '@/service';
 import { AuthType } from '@/service/webApi/user/type';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import MetamaskLoginButton from './MetamaskLoginButton';
@@ -13,7 +12,6 @@ import TipsModal from '../../Landing/components/TipsModal';
 function ThreePartyLogin() {
   const [isMounted, setIsMounted] = useState(false);
   const dispatch = useDispatch();
-  const router = useRouter();
   const isPc = useIsPc();
   const [tipsOpen, setTipsOpen] = useState(false);
 

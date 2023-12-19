@@ -1,6 +1,7 @@
 import Button from '@/components/v2/Common/Button';
 import Input from '@/components/v2/Common/Input';
 import { BurialPoint } from '@/helper/burialPoint';
+import { useRedirect } from '@/hooks/useRedirect';
 import { useValidator } from '@/hooks/useValidator';
 import webApi from '@/service';
 import { UnLoginType, setUnLoginType } from '@/store/redux/modules/user';
@@ -19,7 +20,7 @@ enum ChangeStateType {
 
 const Success = () => {
   const dispatch = useDispatch();
-  const router = useRouter();
+  const { redirectToUrl } = useRedirect();
 
   const [jump, setJump] = useState(false);
   const [countDown, setCountDown] = useState(5);
@@ -34,9 +35,9 @@ const Success = () => {
       };
     } else {
       dispatch(setUnLoginType(UnLoginType.LOGIN));
-      router.push('/');
+      redirectToUrl('/');
     }
-  }, [countDown, router]);
+  }, [countDown]);
   return (
     <div className="flex flex-col gap-[25px]">
       <h1 className="text-white text-[32px] font-next-book-bold font-bold leading-[125%] -tracking-[0.64px] flex items-center">
@@ -48,7 +49,7 @@ const Success = () => {
       <Button
         onClick={() => {
           dispatch(setUnLoginType(UnLoginType.LOGIN));
-          router.push('/');
+          redirectToUrl('/');
         }}
         type="primary"
         block
@@ -66,7 +67,7 @@ const Success = () => {
   );
 };
 const Fail = () => {
-  const router = useRouter();
+  const { redirectToUrl } = useRedirect();
   const dispatch = useDispatch();
   return (
     <div className="flex flex-col gap-8 w-full">
@@ -80,7 +81,7 @@ const Fail = () => {
         type="primary"
         onClick={() => {
           dispatch(setUnLoginType(UnLoginType.LOGIN));
-          router.push('/');
+          redirectToUrl('/');
         }}
         block
         className="

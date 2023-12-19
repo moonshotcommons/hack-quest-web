@@ -16,13 +16,13 @@ import { CustomType } from '../../Business/Renderer/type';
 import { CompleteStateType, CourseType } from '@/service/webApi/course/type';
 import webApi from '@/service';
 import { useGetLessonLink } from '@/hooks/useCoursesHooks/useGetLessonLink';
-import { useRouter } from 'next/router';
 import { useRequest } from 'ahooks';
 import { RendererContext } from '../../Business/Renderer/context';
 import JSConfetti from 'js-confetti';
 import MiniElectiveCompletedModal, {
   MiniElectiveCompletedModalRef
 } from '../../Business/MiniElectiveCompletedModal';
+import { useRedirect } from '@/hooks/useRedirect';
 
 interface LessonContentWrapProps {
   children: ReactNode;
@@ -35,7 +35,7 @@ const LessonContentWrap: FC<LessonContentWrapProps> = ({
 }) => {
   const { course, loading, refresh } = useGetElectives(lesson);
   const { getLink } = useGetLessonLink();
-  const router = useRouter();
+  const { redirectToUrl } = useRedirect();
   const [nextControl, setNextControl] = useState(false);
   const miniElectiveCompletedModalInstance =
     useRef<MiniElectiveCompletedModalRef>(null);
@@ -98,7 +98,7 @@ const LessonContentWrap: FC<LessonContentWrapProps> = ({
       manual: true,
       onSuccess(res) {
         setNextControl(false);
-        if (res) router.push(res);
+        if (res) redirectToUrl(res);
       },
       onError(err) {
         console.log('完成quiz失败', err);
@@ -156,7 +156,7 @@ const LessonContentWrap: FC<LessonContentWrapProps> = ({
               previousLessonId as string
             );
 
-            router.push(link);
+            redirectToUrl(link);
           }}
         >
           {Icons.LeftArrowIcon}

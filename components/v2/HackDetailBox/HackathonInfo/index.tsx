@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Button from '@/components/v2/Common/Button';
-import { useRouter } from 'next/router';
 import {
   HackathonStatusType,
   HackathonType
@@ -10,13 +9,14 @@ import useDealhackathon from '@/hooks/useDealHackathonData';
 import { menuLink } from '@/components/v2/Business/Breadcrumb/data';
 import { Menu, QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
 import { BurialPoint } from '@/helper/burialPoint';
+import { useRedirect } from '@/hooks/useRedirect';
 
 interface HackathonInfoProp {
   hackathon: HackathonType;
 }
 
 const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
-  const router = useRouter();
+  const { redirectToUrl } = useRedirect();
   const closeInTimeOut = useRef<NodeJS.Timeout | null>(null);
   const [status, setStatus] = useState<HackathonStatusType>(
     HackathonStatusType.ON_GOING
@@ -119,7 +119,7 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
             className="w-full h-[60px] text-[18px] border border-[#0b0b0b]"
             onClick={() => {
               BurialPoint.track(`hackathon detail View All Projects 按钮点击`);
-              router.push(
+              redirectToUrl(
                 `${menuLink.projects}/projects?menu=${Menu.PROJECTS}&${QueryIdType.PROJECT_ID}=projects&keyWord=${hackathon.name}`
               );
             }}

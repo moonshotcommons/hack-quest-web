@@ -20,6 +20,8 @@ import styled from 'styled-components';
 import { TrackListContext } from '../../LearningTrackDetail';
 import Button from '@/components/v2/Common/Button';
 import { menuLink } from '@/components/v2/Business/Breadcrumb/data';
+import { useRedirect } from '@/hooks/useRedirect';
+import { useParams } from 'next/navigation';
 
 const CustomProgress = styled(Progress)`
   .ant-progress-inner {
@@ -63,7 +65,8 @@ function SectionList(props: {
   sectionList: SectionType[];
 }) {
   const { section, enrolled, theme, sectionIndex, sectionList } = props;
-  const router = useRouter();
+  const { redirectToUrl } = useRedirect();
+  const query = useParams();
   const { jumpLearningLesson, loading } = useJumpLeaningLesson();
   const [clickIndex, setClickIndex] = useState<null | number>(null);
   const renderLearningButton = (item: CourseDetailType, index: number) => {
@@ -110,10 +113,7 @@ function SectionList(props: {
                     QueryIdType.LEARNING_TRACK_ID,
                     QueryIdType.MENU_COURSE_ID
                   ],
-                  ids: [
-                    router.query[QueryIdType.LEARNING_TRACK_ID] as string,
-                    item.id
-                  ]
+                  ids: [query[QueryIdType.LEARNING_TRACK_ID] as string, item.id]
                 });
               }}
             >
@@ -172,10 +172,10 @@ function SectionList(props: {
             <div
               className="text-learning-track-course-title-color font-next-book-bold leading-[120%] w-[36%] ml-[10%] flex-1 cursor-pointer hover:opacity-70 transition"
               onClick={(e) => {
-                router.push(
+                redirectToUrl(
                   `${menuLink.electives}/${item.id}?${
                     QueryIdType.LEARNING_TRACK_ID
-                  }=${router.query[QueryIdType.LEARNING_TRACK_ID]}&${
+                  }=${query[QueryIdType.LEARNING_TRACK_ID]}&${
                     QueryIdType.MENU_COURSE_ID
                   }=${item.id}&menu=${Menu.LEARNING_TRACK}`
                 );

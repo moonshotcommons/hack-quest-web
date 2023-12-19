@@ -1,5 +1,5 @@
 import Button from '@/components/v2/Common/Button';
-import CheckIcon from '@/components/Common/Icon/Check';
+import CheckIcon from '@/components/v2/Common/Icon/Check';
 import { BurialPoint } from '@/helper/burialPoint';
 import { computeProgress, tagFormate } from '@/helper/formate';
 import { cn } from '@/helper/utils';
@@ -7,12 +7,12 @@ import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLess
 import { CourseResponse, CourseType } from '@/service/webApi/course/type';
 import { Progress, Typography } from 'antd';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 import { FC, useCallback } from 'react';
 import { styled } from 'styled-components';
 import { Menu, QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
 import CourseTags from '@/components/v2/Business/CourseTags';
 import { menuLink } from '@/components/v2/Business/Breadcrumb/data';
+import { useRedirect } from '@/hooks/useRedirect';
 
 interface CourseCardProps {
   // children: ReactNode;
@@ -49,7 +49,7 @@ const CourseCard: FC<CourseCardProps> = (props) => {
     onCourseClick: courseClick
   } = props;
   const { jumpLearningLesson, loading } = useJumpLeaningLesson();
-  const router = useRouter();
+  const { redirectToUrl } = useRedirect();
 
   const onCourseClick = useCallback(() => {
     switch (course.type) {
@@ -57,12 +57,12 @@ const CourseCard: FC<CourseCardProps> = (props) => {
         courseClick?.(course);
         return;
       default:
-        router.push(
+        redirectToUrl(
           `${menuLink.electives}/${course.id}?${QueryIdType.MENU_COURSE_ID}=${course.id}&menu=${Menu.ELECTIVES}`
         );
         courseClick?.(course);
     }
-  }, [course, router]);
+  }, [course]);
 
   return (
     <div

@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 
 const { PHASE_DEVELOPMENT_SERVER } = require('next/constants');
+
 const withAntdLess = require('next-plugin-antd-less');
 const nextConfig = (phase) => {
   const isDev = phase === PHASE_DEVELOPMENT_SERVER;

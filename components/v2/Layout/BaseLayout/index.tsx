@@ -59,12 +59,7 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
       } ${getFull() ? '' : 'min-h-[100vh]'} `}
     >
       <div className="w-full bg-[#0B0B0B] flex items-center">
-        <NavBar
-          {...navbarData}
-          isFull={getFull()}
-          showSecondNav={showSecondNav}
-          changeShowSecondNav={(show) => setShowSecondNav(show)}
-        >
+        <NavBar {...navbarData} isFull={getFull()}>
           <User></User>
         </NavBar>
       </div>
