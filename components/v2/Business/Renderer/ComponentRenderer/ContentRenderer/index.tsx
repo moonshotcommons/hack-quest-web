@@ -5,6 +5,7 @@ import { BurialPoint } from '@/helper/burialPoint';
 import { FC, useContext, useState } from 'react';
 import { VscChevronDown } from 'react-icons/vsc';
 import ComponentRenderer from '..';
+import { PlaygroundContext } from '@/components/v2/LessonPage/Playground/type';
 interface ContentRendererProps {
   component: CustomComponent;
   parent: CustomComponent;
@@ -14,11 +15,12 @@ const ContentRenderer: FC<ContentRendererProps> = (props) => {
   const { component } = props;
   const [showAll, setShowAll] = useState(true);
   const { leftLength } = useContext(LessonPageContext);
+  const { isPlayground } = useContext(PlaygroundContext);
   return (
     <div
       className={`px-[20px] py-[15px] rounded-[10px]  mb-5 ${
         leftLength > 1 ? 'border border-lesson-title-box-border-color' : ''
-      } ${component.title === 'Placeholder' ? 'flex-1 flex flex-col' : ''}`}
+      } ${isPlayground ? 'flex-1 flex flex-col' : ''}`}
     >
       <div
         className={`flex  justify-between items-center ${

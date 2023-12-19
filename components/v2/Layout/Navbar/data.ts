@@ -34,12 +34,16 @@ export const navbarList: NavbarListType[] = [
     ]
   },
   {
-    label: 'Hackathons',
+    label: 'Resources',
     id: 'Resources',
     menu: [
       {
         label: 'HACKATHON',
         path: MenuLink.HACKATHON
+      },
+      {
+        label: 'BLOG',
+        path: MenuLink.BLOG
       }
     ]
   },
