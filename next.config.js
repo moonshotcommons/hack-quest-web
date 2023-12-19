@@ -50,7 +50,13 @@ const nextConfig = (phase) => {
         'hackquest-s3-prod.s3.ap-northeast-1.amazonaws.com'
       ]
     },
-    output: 'standalone'
+    output: 'standalone',
+    webpack(config, { isServer }) {
+      if (isServer) {
+        require('./scripts/generate-sitemap');
+      }
+      return config;
+    }
   });
 };
 
