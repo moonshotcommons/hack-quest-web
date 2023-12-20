@@ -1,10 +1,11 @@
+import { thirdPartyMedia } from '@/helper/thirdPartyMedia';
 import { CompleteStateType, CourseType } from '../course/type';
 
 export interface CreatorType {
   id: string;
   name: string;
   nickname: string;
-  avatar: string;
+  profileImage: string;
 }
 
 export interface PageType {
@@ -31,6 +32,7 @@ export interface MiniElectiveCourseType {
   duration: number;
   creator: null | CreatorType;
   pages?: PageType[];
+  creatorId: string;
 }
 
 export interface ElectiveLessonType {
@@ -42,4 +44,34 @@ export interface ElectiveLessonType {
   sequence: number;
   state: CompleteStateType;
   updateAt: Date;
+}
+
+export enum EcosystemProfileLink {
+  DISCORD = 'discord',
+  TWITTER = 'twitter',
+  LINKEDIN = 'linkedin',
+  TELEGRAM = 'telegram'
+}
+export interface EcosystemProfileType {
+  id: string;
+  name: string;
+  description: string;
+  website: string;
+  links: Record<keyof typeof thirdPartyMedia, string>;
+  profileImage: string;
+  background: string;
+  courseCount: number;
+  learnCount: number;
+}
+
+export interface EcosystemElectiveType {
+  id: string;
+  name: string;
+  description: string;
+  image: string;
+  type: CourseType.Mini;
+  level: string;
+  track: string;
+  duration: number;
+  peopleJoined: number;
 }

@@ -1,9 +1,15 @@
 import WebService from '@/service/webService/webService';
-import { ElectiveLessonType, MiniElectiveCourseType } from './type';
+import {
+  EcosystemElectiveType,
+  EcosystemProfileType,
+  ElectiveLessonType,
+  MiniElectiveCourseType
+} from './type';
 
 export enum ElectiveApiType {
   GetElectives = '/electives',
-  GetLesson = '/elective-pages'
+  GetLesson = '/elective-pages',
+  EcosystemProfile = '/eco-system-profiles'
 }
 
 class ElectiveApi {
@@ -57,6 +63,18 @@ class ElectiveApi {
   completedLesson(lessonId: string) {
     const url = `${ElectiveApiType.GetLesson}/${lessonId}/complete`;
     return this.service.get(url);
+  }
+
+  /** 获取mini Elective profile */
+  getElectiveProfile(electiveId: string) {
+    const url = `${ElectiveApiType.EcosystemProfile}/${electiveId}`;
+    return this.service.get<EcosystemProfileType>(url);
+  }
+
+  /** 获取mini Elective profile */
+  getProfileElective(electiveId: string) {
+    const url = `${ElectiveApiType.EcosystemProfile}/${electiveId}/electives`;
+    return this.service.get<EcosystemElectiveType[]>(url);
   }
 }
 

@@ -57,7 +57,8 @@ export function isNoNeedUserInfo(pathname: string) {
       MenuLink.HACKATHON,
       HACKATHON_DETAIL,
       MenuLink.PROJECTS,
-      PROJECT_DETAIL
+      PROJECT_DETAIL,
+      MenuLink.BLOG
     ].includes(pathname) ||
     pathname.startsWith(PREVIEW_PATH)
   )
