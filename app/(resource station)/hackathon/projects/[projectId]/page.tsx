@@ -1,13 +1,12 @@
 import FeatureProjects from '@/components/v2/ResourceStation/FeaturedProject';
 import ProjectDetail from '@/components/v2/ResourceStation/ProjectDetail';
-import { useRouter } from 'next/router';
+import { useParams } from 'next/navigation';
 import { FC } from 'react';
 
 interface ProjectDetailPageProps {}
 
 const ProjectDetailPage: FC<ProjectDetailPageProps> = (props) => {
-  const router = useRouter();
-  const { projectId } = router.query;
+  const { projectId } = useParams();
 
   return (
     <div>
