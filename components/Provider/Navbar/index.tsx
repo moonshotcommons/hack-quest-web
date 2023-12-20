@@ -14,8 +14,6 @@ const NavbarProvider: FC<NavbarProviderProps> = ({ children }) => {
     return <NavBar navList={navbarList} />;
   }, []);
 
-  console.log(navbar);
-
   return (
     <NavbarContext.Provider value={{ navbarInstance: navbar }}>
       {children}

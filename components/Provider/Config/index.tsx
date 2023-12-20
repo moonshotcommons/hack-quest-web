@@ -5,7 +5,6 @@ import { Analytics } from '@vercel/analytics/react';
 import { mainnet, optimism, polygon } from 'wagmi/chains';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
-import NavbarProvider from '../Navbar';
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
   [mainnet, optimism, polygon],
@@ -37,7 +36,7 @@ const config = createConfig({
 const ConfigProvider: FC<ConfigProviderProps> = ({ children }) => {
   return (
     <WagmiConfig config={config}>
-      <NavbarProvider>{children}</NavbarProvider>
+      {children}
       <Analytics mode="production" debug={false} />
     </WagmiConfig>
   );
