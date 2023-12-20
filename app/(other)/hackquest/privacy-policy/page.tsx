@@ -1,12 +1,7 @@
-import { NextPage } from 'next';
 import Image from 'next/image';
 import Bg from '@/public/images/home/policy_banner.svg';
 
-interface PrivacyPolicyProps {
-  children: React.ReactNode;
-}
-
-const PrivacyPolicy: NextPage<PrivacyPolicyProps> = (props) => {
+const PrivacyPolicy = () => {
   return (
     <div className="text-center w-full text-text-default-color font-next-book-bold">
       <div className="w-full h-[60.25rem] bg-default-global-bg relative">
