@@ -11,13 +11,14 @@ import Loading from '@/public/images/other/loading.png';
 import webApi from '@/service';
 import { MantleType, TargetsType } from '@/service/webApi/campaigns/type';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
+import { useParams, useRouter } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react';
 
 interface CampaignsProp {}
 
 const Campaigns: React.FC<CampaignsProp> = () => {
   const router = useRouter();
+  const query = useParams();
   const [curIndex, setCurIndex] = useState(0);
   const [mantles, setMantles] = useState<MantleType[]>([]);
   const [targetList, setTargetList] = useState<TargetsType[]>([]);
@@ -86,7 +87,7 @@ const Campaigns: React.FC<CampaignsProp> = () => {
   };
 
   useEffect(() => {
-    const campaignId = router.query.campaignId as string;
+    const campaignId = query.campaignId as string;
     getCampaignsInfo(campaignId);
     const startTime = new Date().getTime();
     return () => {
@@ -141,7 +142,7 @@ const Campaigns: React.FC<CampaignsProp> = () => {
           certification={mantles[curIndex]?.certification || {}}
           showCoin={true}
           refreshCertification={() =>
-            getCampaignsInfo(router.query.campaignId as string)
+            getCampaignsInfo(query.campaignId as string)
           }
         />
       </div>

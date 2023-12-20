@@ -95,7 +95,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
       redirectToUrl(V2_LANDING_PATH);
       return;
     }
-    redirectToUrl(V2_LANDING_PATH);
+    redirectToUrl(path);
   };
   const logoClick = () => {
     if (userInfo) return;
@@ -167,13 +167,15 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
             currentIndex={secondNavIndex}
           >
             {secondNavData.map((menu: MenuType) => (
-              <Link
+              <div
                 key={menu.path}
-                href={menu.path}
                 className="pb-3 cursor-pointer hover:underline"
+                onClick={() => {
+                  redirectToUrl(menu.path);
+                }}
               >
                 {menu.label}
-              </Link>
+              </div>
             ))}
           </SlideHighlight>
         </div>

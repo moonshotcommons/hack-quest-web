@@ -193,7 +193,7 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
       if (listWidth - Math.abs(translateX) < containerWidth) {
         translateX = listWidth - containerWidth;
       }
-      scrollContainerRef.current.handlesetTranslateX(translateX * -1);
+      scrollContainerRef.current?.handlesetTranslateX(translateX * -1);
       isTranslate.current = true;
     }
   }, [dealedMissionData.completedLen, scrollContainerState]);

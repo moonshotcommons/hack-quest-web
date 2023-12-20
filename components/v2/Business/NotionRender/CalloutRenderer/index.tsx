@@ -1,3 +1,4 @@
+'use client';
 import ComponentRenderer from '@/components/v2/Business/Renderer/ComponentRenderer';
 import { NotionComponent } from '@/components/v2/Business/Renderer/type';
 import { FC, useState } from 'react';
