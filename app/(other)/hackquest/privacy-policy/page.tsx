@@ -2,11 +2,11 @@ import { NextPage } from 'next';
 import Image from 'next/image';
 import Bg from '@/public/images/home/policy_banner.svg';
 
-interface NotFoundPageProps {
+interface PrivacyPolicyProps {
   children: React.ReactNode;
 }
 
-const NotFoundPage: NextPage<NotFoundPageProps> = (props) => {
+const PrivacyPolicy: NextPage<PrivacyPolicyProps> = (props) => {
   return (
     <div className="text-center w-full text-text-default-color font-next-book-bold">
       <div className="w-full h-[60.25rem] bg-default-global-bg relative">
@@ -128,4 +128,4 @@ express prior written consent.`}
   );
 };
 
-export default NotFoundPage;
+export default PrivacyPolicy;
