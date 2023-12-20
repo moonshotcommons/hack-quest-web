@@ -4,7 +4,7 @@ import { setToken } from '@/helper/user-token';
 import webApi from '@/service';
 import { setUserInfo } from '@/store/redux/modules/user';
 import { omit } from 'lodash-es';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { FC, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { UnLoginType, setUnLoginType } from '@/store/redux/modules/user';
@@ -15,7 +15,6 @@ import { AuthType } from '@/service/webApi/user/type';
 import TipsModal from '../../Landing/components/TipsModal';
 import useIsPc from '@/hooks/useIsPc';
 import { useRedirect } from '@/hooks/useRedirect';
-import { useParams } from 'next/navigation';
 
 enum VerifyStateType {
   VERIFYING = 'verifying',
@@ -180,7 +179,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
   const [tipsOpen, setTipsOpen] = useState(false);
   const [jump, setJump] = useState(false);
   const [countDown, setCountDown] = useState(3);
-  const query = useParams();
+  const query = useSearchParams();
   const router = useRouter();
   const [verifyState, setVerifyState] = useState(VerifyStateType.VERIFYING);
   const [source, setSource] = useState<AuthType>(AuthType.EMAIL);
@@ -299,9 +298,11 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
     }
   };
   useEffect(() => {
-    const { token, state } = query;
-    let code = query.code;
-    let querySource = query.source || AuthType.EMAIL;
+    // const { token, state } = query;
+    const token = query.get('token');
+    const state = query.get('state');
+    let code = query.get('code');
+    let querySource = query.get('source') || AuthType.EMAIL;
     if (state) {
       const verifyData = JSON.parse(atob(state as string));
       querySource = verifyData?.source || AuthType.GOOGLE;

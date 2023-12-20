@@ -24,7 +24,7 @@ const LessonPassPage: FC<LessonPassPageProps> = (props) => {
   const { redirectToUrl } = useRedirect();
   const { theme } = useContext(ThemeContext);
   const { getLink } = useGetLessonLink();
-  const query = useParams();
+  const params = useParams();
   const { unitsLessonsList } = useSelector((state: AppRootState) => {
     return {
       unitsLessonsList: state.course.unitsLessonsList
@@ -32,7 +32,7 @@ const LessonPassPage: FC<LessonPassPageProps> = (props) => {
   }, shallowEqual);
 
   const { run: onNextClick } = useDebounceFn(() => {
-    const { courseId } = query;
+    const { courseId } = params;
     let nextLesson;
 
     let currentUnitIndex = unitsLessonsList.findIndex((unit) => {

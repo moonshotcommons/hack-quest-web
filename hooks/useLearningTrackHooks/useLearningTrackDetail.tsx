@@ -12,8 +12,8 @@ export const useGetLearningTrackDetail = (trackId?: string) => {
   >();
 
   const router = useRouter();
-  const query = useParams();
-  const learningTrackId = trackId || query.learningTrackId;
+  const params = useParams();
+  const learningTrackId = trackId || params.learningTrackId;
   const { run, loading, refresh } = useRequest(
     async (id) => {
       const res =

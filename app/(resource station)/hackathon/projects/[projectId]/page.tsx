@@ -1,3 +1,4 @@
+'use client';
 import FeatureProjects from '@/components/v2/ResourceStation/FeaturedProject';
 import ProjectDetail from '@/components/v2/ResourceStation/ProjectDetail';
 import { useParams } from 'next/navigation';

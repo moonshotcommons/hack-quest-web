@@ -2,7 +2,7 @@ import { BurialPoint } from '@/helper/burialPoint';
 import { tagFormate } from '@/helper/formate';
 import webApi from '@/service';
 import Link from 'next/link';
-import { useRouter, useParams } from 'next/navigation';
+import { useRouter, useParams, useSearchParams } from 'next/navigation';
 import React, { useCallback, useEffect, useState } from 'react';
 import { menuLink, menuName, navIdType, navLinks } from './data';
 import { MenuNameType, QueryIdType } from './type';
@@ -13,7 +13,8 @@ interface navDataProps {
 }
 const Breadcrumb: React.FC = () => {
   const router = useRouter();
-  const query = useParams();
+  const query = useSearchParams();
+  const params = useParams();
 
   const [navData, setNavData] = useState<navDataProps[]>([]);
   const getLearningTrackDetail = (id: string) => {
@@ -81,11 +82,11 @@ const Breadcrumb: React.FC = () => {
 
   const getNavData = useCallback(() => {
     const queryIds = [
-      query[QueryIdType.LEARNING_TRACK_ID],
-      query[QueryIdType.MENU_COURSE_ID],
-      query[QueryIdType.LESSON_ID],
-      query[QueryIdType.HACKATHON_ID],
-      query[QueryIdType.PROJECT_ID]
+      query.get(QueryIdType.LEARNING_TRACK_ID),
+      query.get(QueryIdType.MENU_COURSE_ID),
+      params[QueryIdType.LESSON_ID],
+      query.get(QueryIdType.HACKATHON_ID),
+      query.get(QueryIdType.PROJECT_ID)
     ];
     Promise.all([
       getLearningTrackDetail(queryIds[0] as string),
@@ -95,7 +96,7 @@ const Breadcrumb: React.FC = () => {
       getProjectDetail(queryIds[4] as string)
     ]).then((res) => {
       let linkIdsStr = '';
-      const menu = query.menu as keyof MenuNameType;
+      const menu = query.get('menu') as keyof MenuNameType;
       const menuNavData = {
         label: tagFormate(menuName[menu]),
         link: menuLink[menu]
@@ -107,7 +108,9 @@ const Breadcrumb: React.FC = () => {
             return {
               label: v.name,
               link: !v.menu_
-                ? `${navLinks[i]}/${v.id}?menu=${query.menu}${linkIdsStr}`
+                ? `${navLinks[i]}/${v.id}?menu=${query.get(
+                    'menu'
+                  )}${linkIdsStr}`
                 : ''
             };
           } else {

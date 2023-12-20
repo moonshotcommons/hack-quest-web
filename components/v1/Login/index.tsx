@@ -14,7 +14,7 @@ import { setUserInfo } from '@/store/redux/modules/user';
 import { useDebounceFn, useKeyPress } from 'ahooks';
 import { setToken } from '@/helper/user-token';
 import { omit } from 'lodash-es';
-import { useParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { useRedirect } from '@/hooks/useRedirect';
 
 // const CustomButton: FC<ButtonProps> = (props) => {
@@ -61,7 +61,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
 
   const { validator } = useValidator(['email', 'password']);
   const { redirectToUrl } = useRedirect();
-  const { redirect_url } = useParams();
+  const query = useSearchParams();
   const passwordInputRef = useRef<any>(null);
 
   const { run: onLogin } = useDebounceFn(
@@ -76,6 +76,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
             }
             dispatch(setUserInfo(omit(res, 'token')));
             setToken(res.token);
+            const redirect_url = query.get('redirect_url');
             const toPageUrl = redirect_url
               ? `${redirect_url}?token=${res.token}`
               : '/courses';

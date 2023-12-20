@@ -1,7 +1,7 @@
 import BaseLayout from '@/components/Layout/BaseLayout';
 
 const ProjectsLayout = ({ children }: { children: React.ReactNode }) => {
-  return <BaseLayout excludeBreadcrumb={true}>{children}</BaseLayout>;
+  return <BaseLayout>{children}</BaseLayout>;
 };
 
 export default ProjectsLayout;

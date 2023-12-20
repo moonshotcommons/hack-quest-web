@@ -1,7 +1,7 @@
 'use client';
 import DarkLogoActive from '@/public/images/logo/dark-text-Logo-active.svg';
 import Image from 'next/image';
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { ReactNode, useEffect, useLayoutEffect, useState } from 'react';
 
 import Badge from '@/components/Common/Badge';
 import SlideHighlight from '@/components/Common/Navigation/SlideHighlight';
@@ -11,7 +11,7 @@ import { AppRootState } from '@/store/redux';
 import { message } from 'antd';
 import Link from 'next/link';
 import { useSelector } from 'react-redux';
-import { isBadgeIds, needLoginPath } from './data';
+import { isBadgeIds, navbarList, needLoginPath } from './data';
 import { MenuType, NavbarListType } from './type';
 import { usePathname } from 'next/navigation';
 import { useRedirect } from '@/hooks/useRedirect';
@@ -72,7 +72,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
     setCurNavId('');
   }, [pathname, navList]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const index = inSideNav.findIndex((v) => v.id === curNavId);
     setInSideNavIndex(index);
   }, [inSideNav, curNavId]);
@@ -101,6 +101,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
     if (userInfo) return;
     redirectToUrl(V2_LANDING_PATH);
   };
+
   return (
     <div className=" w-full">
       <div
@@ -183,5 +184,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
     </div>
   );
 };
+
+export const NavbarInstance = <NavBar navList={navbarList}></NavBar>;
 
 export default NavBar;

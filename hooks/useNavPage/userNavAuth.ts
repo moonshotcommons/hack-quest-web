@@ -8,7 +8,7 @@ import {
   isNoNeedUserInfo
 } from '@/constants/nav';
 import { getToken } from '@/helper/user-token';
-import { useParams, usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { useGetUserInfo } from '../useGetUserInfo';
 import { useRedirect } from '../useRedirect';
 
@@ -16,11 +16,11 @@ function useNavAuth(waitingUserData: boolean) {
   const userInfo = useGetUserInfo();
   const { redirectToUrl } = useRedirect();
   const pathname = usePathname();
-  const params = useParams();
+  const query = useSearchParams();
 
   useEffect(() => {
     if (waitingUserData) return;
-    const { redirect_url } = params;
+    const redirect_url = query.get('redirect_url');
     // 已经登录了
     if (userInfo) {
       if (!isLoginOrRegister(pathname)) return;

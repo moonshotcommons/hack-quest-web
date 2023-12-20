@@ -18,7 +18,7 @@ interface CampaignsProp {}
 
 const Campaigns: React.FC<CampaignsProp> = () => {
   const router = useRouter();
-  const query = useParams();
+  const params = useParams();
   const [curIndex, setCurIndex] = useState(0);
   const [mantles, setMantles] = useState<MantleType[]>([]);
   const [targetList, setTargetList] = useState<TargetsType[]>([]);
@@ -87,7 +87,7 @@ const Campaigns: React.FC<CampaignsProp> = () => {
   };
 
   useEffect(() => {
-    const campaignId = query.campaignId as string;
+    const campaignId = params.campaignId as string;
     getCampaignsInfo(campaignId);
     const startTime = new Date().getTime();
     return () => {
@@ -142,7 +142,7 @@ const Campaigns: React.FC<CampaignsProp> = () => {
           certification={mantles[curIndex]?.certification || {}}
           showCoin={true}
           refreshCertification={() =>
-            getCampaignsInfo(query.campaignId as string)
+            getCampaignsInfo(params.campaignId as string)
           }
         />
       </div>

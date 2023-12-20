@@ -7,7 +7,7 @@ import Button from '@/components/v2/Common/Button';
 import webApi from '@/service';
 import { message } from 'antd';
 import { useDispatch } from 'react-redux';
-import { useParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { useRedirect } from '@/hooks/useRedirect';
 interface ForgetPasswordProps {
   children: React.ReactNode;
@@ -30,7 +30,7 @@ interface ForgetPasswordProps {
 const ForgetPassword: NextPage<ForgetPasswordProps> = (props) => {
   const { redirectToUrl } = useRedirect();
   const dispatch = useDispatch();
-  const { token } = useParams();
+  const token = useSearchParams().get('token');
   const [formData, setFormData] = useState<{
     newPassword: string;
     reenterPassword: string;

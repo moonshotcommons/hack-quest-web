@@ -9,19 +9,19 @@ import Login from './Login';
 import SignUp from './SignUp';
 import VerifyConfirmed from './VerifyConfirmed';
 import CheckInviteCode from './CheckInviteCode';
-import { useParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 
 interface AuthProps {}
 
 const Auth: FC<AuthProps> = (props) => {
-  const query = useParams();
+  const query = useSearchParams();
   const dispatch = useDispatch();
   const loginRouteType = useSelector((state: AppRootState) => {
     return state.user.loginRouteType;
   });
 
   useEffect(() => {
-    const { type } = query;
+    const type = query.get('TYPE');
     if (type) {
       dispatch(setUnLoginType(type));
     } else {
@@ -29,7 +29,7 @@ const Auth: FC<AuthProps> = (props) => {
     }
   }, []);
 
-  if (query.state) {
+  if (query.get('state')) {
     return <VerifyConfirmed></VerifyConfirmed>;
   }
   switch (loginRouteType.type) {

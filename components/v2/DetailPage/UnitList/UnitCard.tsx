@@ -13,7 +13,7 @@ import {
 } from '@/service/webApi/course/type';
 import { ThemeContext } from '@/store/context/theme';
 import { Progress, Typography } from 'antd';
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { FC, useContext } from 'react';
 import styled from 'styled-components';
 import { LearningStatus } from '../type';
@@ -90,7 +90,7 @@ const UnitCard: FC<UnitCardProps> = (props) => {
   const { jumpLearningLesson, loading } = useJumpLeaningLesson();
   const { theme } = useContext(ThemeContext);
   const router = useRouter();
-  const query = useParams();
+  const query = useSearchParams();
   return (
     <div className="py-[30px] flex items-center pl-[54px] pr-[50px]">
       {/* <div
@@ -188,14 +188,14 @@ const UnitCard: FC<UnitCardProps> = (props) => {
                 lessonId,
                 courseDetail?.id as string,
                 {
-                  menu: query.menu as string,
+                  menu: query.get('menu') as string,
                   idTypes: [
                     QueryIdType.LEARNING_TRACK_ID,
                     QueryIdType.MENU_COURSE_ID
                   ],
                   ids: [
-                    query[QueryIdType.LEARNING_TRACK_ID] || '',
-                    query[QueryIdType.MENU_COURSE_ID] || ''
+                    query.get(QueryIdType.LEARNING_TRACK_ID) || '',
+                    query.get(QueryIdType.MENU_COURSE_ID) || ''
                   ] as string[]
                 }
               )}`;

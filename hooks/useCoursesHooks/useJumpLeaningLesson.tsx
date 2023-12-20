@@ -9,7 +9,7 @@ import {
 import { MiniElectiveCourseType } from '@/service/webApi/elective/type';
 import { UnLoginType, setUnLoginType } from '@/store/redux/modules/user';
 import { useRequest } from 'ahooks';
-import { useParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 import { useRedirect } from '../useRedirect';
 
@@ -19,7 +19,7 @@ export interface JumpLeaningLessonType {
   ids: string[];
 }
 export const useJumpLeaningLesson = () => {
-  const query = useParams();
+  const query = useSearchParams();
   const dispatch = useDispatch();
   const { redirectToUrl } = useRedirect();
   const { run: jumpLearningLesson, loading } = useRequest(
@@ -49,11 +49,11 @@ export const useJumpLeaningLesson = () => {
       manual: true,
       onSuccess({ courseDetail, pageId, lParam }) {
         const linkParam = lParam || {
-          menu: query.menu as string,
+          menu: query.get('menu') as string,
           idTypes: [QueryIdType.LEARNING_TRACK_ID, QueryIdType.MENU_COURSE_ID],
           ids: [
-            query[QueryIdType.LEARNING_TRACK_ID] || '',
-            query[QueryIdType.MENU_COURSE_ID] || ''
+            query.get(QueryIdType.LEARNING_TRACK_ID) || '',
+            query.get(QueryIdType.MENU_COURSE_ID) || ''
           ] as string[]
         };
         let link = `${getLessonLink(

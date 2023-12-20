@@ -1,10 +1,11 @@
 'use client';
 import User from '@/components/v2/User';
 import { Inter } from 'next/font/google';
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Breadcrumb from '@/components/v2/Business/Breadcrumb';
 import NavBar from '@/components/Layout/Navbar';
 import { navbarList } from '@/components/Layout/Navbar/data';
+import { NavbarContext } from '@/components/Provider/Navbar';
 const inter = Inter({ subsets: ['latin'] });
 interface FullLayoutProps {
   children: React.ReactNode;
@@ -21,6 +22,8 @@ const FullLayout = (props: FullLayoutProps) => {
     }
   });
 
+  const { navbarInstance } = useContext(NavbarContext);
+
   return (
     <div
       className={`w-full h-[100vh] flex flex-col overflow-hidden  ${inter.className} min-h-[100vh]`}
@@ -29,6 +32,8 @@ const FullLayout = (props: FullLayoutProps) => {
         <NavBar navList={navbarList} isFull={true}>
           <User></User>
         </NavBar>
+        {/* {React.cloneElement(navbarInstance, { isFull: true }, <User></User>)} */}
+        {/* {navbarInstance} */}
       </div>
       <div
         id="content-scroll-wrap"

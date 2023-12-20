@@ -17,8 +17,8 @@ export const useGotoNextLesson = (
   completed = false
 ) => {
   const { redirectToUrl } = useRedirect();
-  const query = useParams();
-  const { courseId: courseName } = query;
+  const params = useParams();
+  const { courseId: courseName } = params;
   // const [completeModalOpen, setCompleteModalOpen] = useState(false);
   const { getLink } = useGetLessonLink();
   const [loading, setLoading] = useState(false);
@@ -32,7 +32,7 @@ export const useGotoNextLesson = (
 
   const { run: onNextClick } = useDebounceFn(async (callbackProp?) => {
     setLoading(true);
-    const { courseId } = query;
+    const { courseId } = params;
     let nextLesson;
 
     let currentUnitIndex = unitsLessonsList.findIndex((unit) => {
@@ -96,7 +96,7 @@ export const useBackToPrevLesson = (
 ) => {
   const { redirectToUrl } = useRedirect();
   const { getLink } = useGetLessonLink();
-  const query = useParams();
+  const params = useParams();
   const { unitsLessonsList } = useSelector((state: AppRootState) => {
     return {
       unitsLessonsList: state.course.unitsLessonsList
@@ -108,7 +108,7 @@ export const useBackToPrevLesson = (
   }, [lesson, unitsLessonsList]);
 
   const { run: onBackClick } = useDebounceFn(async () => {
-    const { courseId } = query;
+    const { courseId } = params;
     let prevLesson;
 
     let currentUnitIndex = unitsLessonsList.findIndex((unit) => {

@@ -1,3 +1,4 @@
+'use client';
 import { CourseType } from '@/service/webApi/course/type';
 import type { NextPage } from 'next';
 
@@ -6,7 +7,7 @@ import { useParams } from 'next/navigation';
 
 interface IProps {}
 
-const GuidedProjectUnit: NextPage<IProps> = (props) => {
+const GuidedProjectLessonPage: NextPage<IProps> = (props) => {
   const { lessonId } = useParams();
 
   return (
@@ -21,4 +22,4 @@ const GuidedProjectUnit: NextPage<IProps> = (props) => {
   );
 };
 
-export default GuidedProjectUnit;
+export default GuidedProjectLessonPage;

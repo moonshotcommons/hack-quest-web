@@ -1,3 +1,4 @@
+'use client';
 import type { NextPage } from 'next';
 
 import MiniCoursePage from '@/components/v2/MiniCoursePage';
@@ -6,7 +7,7 @@ import useGetDevice from '@/hooks/useGetDevice';
 import { useParams } from 'next/navigation';
 interface IProps {}
 
-const MiniUnit: NextPage<IProps> = (props) => {
+const MiniLessonPage: NextPage<IProps> = (props) => {
   const { lessonId } = useParams();
   const isMobile = useGetDevice();
   if (!lessonId) {
@@ -28,4 +29,4 @@ const MiniUnit: NextPage<IProps> = (props) => {
   );
 };
 
-export default MiniUnit;
+export default MiniLessonPage;

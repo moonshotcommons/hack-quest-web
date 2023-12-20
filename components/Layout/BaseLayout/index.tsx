@@ -1,10 +1,11 @@
 'use client';
 import User from '@/components/v2/User';
 import { Inter } from 'next/font/google';
-import React, { useEffect } from 'react';
+import React, { memo, useContext, useEffect } from 'react';
 import Breadcrumb from '@/components/v2/Business/Breadcrumb';
-import NavBar from '@/components/Layout/Navbar';
 import { navbarList } from '@/components/Layout/Navbar/data';
+import { NavbarContext } from '@/components/Provider/Navbar';
+import Navbar from '@/components/Layout/Navbar';
 const inter = Inter({ subsets: ['latin'] });
 
 interface BaseLayoutProps {
@@ -12,7 +13,7 @@ interface BaseLayoutProps {
   excludeBreadcrumb?: boolean;
 }
 
-const BaseLayout = (props: BaseLayoutProps) => {
+const BaseLayout = memo(function (props: BaseLayoutProps) {
   const { children, excludeBreadcrumb = false } = props;
 
   useEffect(() => {
@@ -22,14 +23,18 @@ const BaseLayout = (props: BaseLayoutProps) => {
     }
   });
 
+  const { navbarInstance } = useContext(NavbarContext);
+
   return (
     <div
       className={`w-full h-[100vh] flex flex-col overflow-hidden  ${inter.className} min-h-[100vh]`}
     >
       <div className="w-full bg-[#0B0B0B] flex items-center">
-        <NavBar navList={navbarList} isFull={false}>
+        <Navbar navList={navbarList} isFull={false}>
           <User></User>
-        </NavBar>
+        </Navbar>
+        {/* {React.cloneElement(navbarInstance, { isFull: false }, <User></User>)} */}
+        {/* {navbarInstance} */}
       </div>
       <div
         id="content-scroll-wrap"
@@ -50,6 +55,8 @@ const BaseLayout = (props: BaseLayoutProps) => {
       </div>
     </div>
   );
-};
+});
+
+BaseLayout.displayName = 'BaseLayout';
 
 export default BaseLayout;

@@ -21,7 +21,7 @@ import { useDispatch } from 'react-redux';
 import useIsPc from '@/hooks/useIsPc';
 import TipsModal from '../../Landing/components/TipsModal';
 import { useRedirect } from '@/hooks/useRedirect';
-import { useParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 
 interface UserLoginProps {
   // children: ReactNode;
@@ -54,7 +54,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
   const [tipsOpen, setTipsOpen] = useState(false);
   const { validator } = useValidator(['email', 'password']);
   const { redirectToUrl } = useRedirect();
-  const { redirect_url } = useParams();
+  const query = useSearchParams();
   const passwordInputRef = useRef<any>(null);
   const [loading, setLoading] = useState(false);
   const { run: onLogin } = useDebounceFn(
@@ -74,6 +74,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
             if (isPc()) {
               dispatch(setUserInfo(omit(res, 'token')));
               setToken(res.token);
+              const redirect_url = query.get('redirect_url');
               if (redirect_url) {
                 BurialPoint.track('login-redirect跳转');
               }

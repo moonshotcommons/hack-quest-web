@@ -20,7 +20,7 @@ import { TrackListContext } from '../../LearningTrackDetail';
 import Button from '@/components/v2/Common/Button';
 import { menuLink } from '@/components/v2/Business/Breadcrumb/data';
 import { useRedirect } from '@/hooks/useRedirect';
-import { useParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 
 const CustomProgress = styled(Progress)`
   .ant-progress-inner {
@@ -65,7 +65,7 @@ function SectionList(props: {
 }) {
   const { section, enrolled, theme, sectionIndex, sectionList } = props;
   const { redirectToUrl } = useRedirect();
-  const query = useParams();
+  const query = useSearchParams();
   const { jumpLearningLesson, loading } = useJumpLeaningLesson();
   const [clickIndex, setClickIndex] = useState<null | number>(null);
   const renderLearningButton = (item: CourseDetailType, index: number) => {
@@ -112,7 +112,10 @@ function SectionList(props: {
                     QueryIdType.LEARNING_TRACK_ID,
                     QueryIdType.MENU_COURSE_ID
                   ],
-                  ids: [query[QueryIdType.LEARNING_TRACK_ID] as string, item.id]
+                  ids: [
+                    query.get(QueryIdType.LEARNING_TRACK_ID) as string,
+                    item.id
+                  ]
                 });
               }}
             >
@@ -174,7 +177,7 @@ function SectionList(props: {
                 redirectToUrl(
                   `${menuLink.electives}/${item.id}?${
                     QueryIdType.LEARNING_TRACK_ID
-                  }=${query[QueryIdType.LEARNING_TRACK_ID]}&${
+                  }=${query.get(QueryIdType.LEARNING_TRACK_ID)}&${
                     QueryIdType.MENU_COURSE_ID
                   }=${item.id}&menu=${Menu.LEARNING_TRACK}`
                 );

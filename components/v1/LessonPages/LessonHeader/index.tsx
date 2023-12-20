@@ -69,7 +69,7 @@ const formateDropdownData = (
 const LessonHeader: FC<LessonHeaderProps> = (props) => {
   const { lesson, courseType, isBetween = false } = props;
   const { redirectToUrl } = useRedirect();
-  const query = useParams();
+  const params = useParams();
   const [dropData, setDropData] = useState<
     DropData<UnitPagesListType, CourseLessonStateType>[]
   >([]);
@@ -123,7 +123,7 @@ const LessonHeader: FC<LessonHeaderProps> = (props) => {
           onSelect={(value) => {
             if (value.type === 'page') {
               redirectToUrl(
-                `${getCourseLink(courseType)}/${query.courseId}/learn/${
+                `${getCourseLink(courseType)}/${params.courseId}/learn/${
                   value.key
                 }`
               );
