@@ -1,5 +1,5 @@
 'use client';
-import { redirect, usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { FC, ReactNode, useEffect } from 'react';
 import { isMobile } from 'react-device-detect';
 
@@ -9,6 +9,7 @@ interface MobileRedirectProps {
 
 const MobileRedirect: FC<MobileRedirectProps> = ({ children }) => {
   const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     if (
@@ -16,7 +17,7 @@ const MobileRedirect: FC<MobileRedirectProps> = ({ children }) => {
       isMobile &&
       !pathname.startsWith('/mobile')
     ) {
-      redirect(`/mobile${pathname}`);
+      router.replace(`/mobile${pathname}`);
     }
 
     if (
@@ -25,7 +26,7 @@ const MobileRedirect: FC<MobileRedirectProps> = ({ children }) => {
       pathname.startsWith('/mobile')
     ) {
       const newPathname = pathname.replace(/^\/mobile/, '');
-      redirect(newPathname);
+      router.replace(newPathname);
     }
   }, []);
 
