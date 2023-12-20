@@ -21,19 +21,15 @@ const nextConfig = (phase) => {
     modifyVars: {
       '@primary-color': '#000000',
       '@link-color': '#676767',
-
       '@text-color': '#FFFFFF ',
       '@text-color-secondary': '#676767',
-
       '@btn-primary-color': '#000000 ',
       '@btn-border-radius-base': '2.5rem',
       '@btn-border-width': '.0625rem',
       '@btn-shadow': '0px 3px 6px rgba(0, 0, 0, 0.16)',
       '@btn-primary-shadow': '0px 3px 6px rgba(0, 0, 0, 0.16)',
-
       '@layout-body-background': '#ffffff',
       '@layout-sider-background': '#f7f7f7',
-
       '@border-radius-base': '10px',
       '@border-color-base': '#e6e6e6',
       '@font-size-base': '13px'

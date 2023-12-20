@@ -4,7 +4,6 @@ import '@/styles/globals.css';
 const inter = Inter({ subsets: ['latin'] });
 import InitializeUserProvider from '@/components/Provider/InitializeUser';
 import { ReduxProvider } from '@/store/redux';
-import MobileRedirect from '@/components/Provider/MobileRedirect';
 import ThemeContextProvider from '@/store/context/theme';
 import Script from 'next/script';
 import ConfigProvider from '@/components/Provider/Config';
@@ -42,11 +41,11 @@ export default function RootLayout({
         </Script>
         <ReduxProvider>
           <ThemeContextProvider>
-            <MobileRedirect>
-              <InitializeUserProvider>
-                <ConfigProvider>{children}</ConfigProvider>
-              </InitializeUserProvider>
-            </MobileRedirect>
+            {/* <MobileRedirect> */}
+            <InitializeUserProvider>
+              <ConfigProvider>{children}</ConfigProvider>
+            </InitializeUserProvider>
+            {/* </MobileRedirect> */}
           </ThemeContextProvider>
         </ReduxProvider>
       </body>
