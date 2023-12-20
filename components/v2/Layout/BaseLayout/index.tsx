@@ -8,7 +8,6 @@ import Breadcrumb from '@/components/v2/Business/Breadcrumb';
 import { usePathname } from 'next/navigation';
 import { excludeLink } from '../Navbar/data';
 import { MenuLink } from '../Navbar/type';
-import { isMobile } from 'react-device-detect';
 const inter = Inter({ subsets: ['latin'] });
 export interface V2LayoutProps {
   navbarData: NavBarProps;
@@ -25,7 +24,6 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
   const renderBreadcrumb = useCallback(() => {
     const full = getFull();
     const { navList } = navbarData;
-    if (isMobile) return null;
     if (
       full ||
       pathname === '/' ||
@@ -34,6 +32,8 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
     ) {
       return null;
     }
+
+    if (pathname.startsWith('/mobile')) return null;
 
     for (let menu of navList) {
       if (menu.menu.some((v) => v.path === pathname)) {

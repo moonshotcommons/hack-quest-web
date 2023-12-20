@@ -1,28 +1,16 @@
 import Image from 'next/image';
 import { FC } from 'react';
 
-interface BackgroundImageProps {}
+interface BackgroundImageProps {
+  url: string;
+}
 
-const BackgroundImage: FC<BackgroundImageProps> = (props) => {
+const BackgroundImage: FC<BackgroundImageProps> = ({ url }) => {
   return (
     <div className="w-full z-50 overflow-hidden rounded-t-[10px]">
       <div className="w-full h-[210px] relative">
         <div className="w-full h-full">
-          {/* {Object.keys(profile).includes('backgroundImage') && */}
-          {/* // !profile?.backgroundImage && ( */}
-          <Image
-            fill
-            alt="background image"
-            src={'/images/user/test_background.png'}
-          ></Image>
-          {/* // )} */}
-          {/* {profile?.backgroundImage && (
-            <Image
-              fill
-              alt="background image"
-              src={profile.backgroundImage || ''}
-            ></Image>
-          )} */}
+          <Image fill alt="background image" src={url}></Image>
         </div>
       </div>
     </div>

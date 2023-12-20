@@ -12,25 +12,17 @@ const MobileRedirect: FC<MobileRedirectProps> = ({ children }) => {
   const router = useRouter();
 
   useEffect(() => {
-    if (
-      typeof isMobile === 'boolean' &&
-      isMobile &&
-      !pathname.startsWith('/mobile')
-    ) {
+    if (isMobile && !pathname.startsWith('/mobile')) {
       router.replace(`/mobile${pathname}`);
     }
 
-    if (
-      typeof isMobile === 'boolean' &&
-      !isMobile &&
-      pathname.startsWith('/mobile')
-    ) {
+    if (!isMobile && pathname.startsWith('/mobile')) {
       const newPathname = pathname.replace(/^\/mobile/, '');
       router.replace(newPathname);
     }
   }, []);
 
-  return <div>{children}</div>;
+  return <>{children}</>;
 };
 
 export default MobileRedirect;

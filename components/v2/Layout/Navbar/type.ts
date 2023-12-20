@@ -5,6 +5,7 @@ export enum MenuLink {
   ELECTIVES = '/electives',
   MISSION_CENTER = '/mission-center',
   HACKATHON = '/hackathon',
+  BLOG = '/blog',
   PROJECTS = '/hackathon/projects',
   CAMPAIGINS = '/campaigns',
   USER_PROFILE = '/user/profile',

@@ -180,10 +180,15 @@ const MiniElectiveDetailModal = forwardRef<
                 <div className="flex gap-[32px] items-center font-next-book text-[14px] leading-[125%] tracking-[0.28px] text-[#0B0B0B]">
                   <div className="flex gap-x-[12px] items-center">
                     <span>Created by</span>
-                    <div className="px-[8px] py-[4px] flex gap-[10px] items-center border border-[#8C8C8C] rounded-[17px]">
+                    <div
+                      className="px-[8px] py-[4px] flex gap-[10px] items-center border border-[#8C8C8C] rounded-[17px] cursor-pointer"
+                      onClick={() =>
+                        redirectToUrl(`/ecosystem/${course.creatorId}`)
+                      }
+                    >
                       <div className="w-[24px] h-[24px] rounded-full bg-[#D9D9D9] relative overflow-hidden">
                         <Image
-                          src={course.creator?.avatar || Logo}
+                          src={course.creator?.profileImage || Logo}
                           fill
                           alt="create by"
                           className="object-contain"

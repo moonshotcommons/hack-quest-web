@@ -1,16 +1,18 @@
 import React from 'react';
 import Image from 'next/image';
-import ElectiveImg from '@/public/images/profile/elective_img.png';
 import ElectiveTag from '../ElectiveTag';
 import Button from '@/components/v2/Common/Button';
-interface MiniElectiveCardProp {}
+import { EcosystemElectiveType } from '@/service/webApi/elective/type';
+interface MiniElectiveCardProp {
+  elective: EcosystemElectiveType;
+}
 
-const MiniElectiveCard: React.FC<MiniElectiveCardProp> = () => {
+const MiniElectiveCard: React.FC<MiniElectiveCardProp> = ({ elective }) => {
   return (
     <div className="cursor-pointer flex h-[336px] bg-[#fff] font-next-book text-[#0b0b0b] rounded-[10px] hover:-translate-y-1 transition-all duration-300 shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)]">
       <div className="w-[597px] h-full relative">
         <Image
-          src={ElectiveImg}
+          src={elective.image}
           fill
           alt="electiveImg"
           className="object-contain"
@@ -18,19 +20,18 @@ const MiniElectiveCard: React.FC<MiniElectiveCardProp> = () => {
       </div>
       <div className="flex-1 flex-shrink-0  flex flex-col justify-between h-full px-[40px] py-[20px]">
         <div>
-          <p className="text-[rgba(11,11,11,0.6)] text-[18px]">mini</p>
+          <p className="text-[rgba(11,11,11,0.6)] text-[18px]">
+            {elective.type}
+          </p>
           <p className="font-next-book-bold text-[21px] leading-[26px]">
-            Sui for Game Development
+            {elective.name}
           </p>
         </div>
         <div className="leading-[25px] h-[78px] line-clamp-3">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut Lorem ipsum dolor sit amet, consectetur
-          adipiscing elit, sed do eiusmod tempor incididunt ut labore et Lorem
-          ipsum dolor sit amet, consectetur adipiscing elit.
+          {elective.description}
         </div>
         <div>
-          <ElectiveTag />
+          <ElectiveTag elective={elective} />
         </div>
         <div className="flex justify-between">
           <Button
