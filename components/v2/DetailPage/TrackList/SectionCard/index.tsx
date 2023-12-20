@@ -12,7 +12,6 @@ import {
 import { SectionType } from '@/service/webApi/learningTrack/type';
 import { ThemeContext } from '@/store/context/theme';
 import { Progress } from 'antd';
-import { useRouter } from 'next/router';
 import { FC, useContext, useEffect, useState } from 'react';
 import { GrSubtract } from 'react-icons/gr';
 import { VscAdd } from 'react-icons/vsc';
@@ -206,7 +205,6 @@ const SectionCard: FC<SectionCardProps> = (props) => {
   const [expand, setExpand] = useState(
     enrolled && learningSectionIndex === sectionIndex
   );
-  const router = useRouter();
   const { theme } = useContext(ThemeContext);
   const { expandList, setExpandList } = useContext(TrackListContext);
 

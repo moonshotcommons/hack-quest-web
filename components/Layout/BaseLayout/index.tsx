@@ -33,7 +33,7 @@ const BaseLayout = (props: BaseLayoutProps) => {
       </div>
       <div
         id="content-scroll-wrap"
-        className={`m-auto overflow-auto flex-1 w-full bg-[white]`}
+        className={`m-auto overflow-auto flex-1 w-full bg-[#F4F4F4]`}
       >
         <div className={`w-full h-full flex flex-col`}>
           {!excludeBreadcrumb && (

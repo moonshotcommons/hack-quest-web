@@ -1,22 +1,21 @@
 import { QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
 import { getLessonLink } from '@/helper/utils';
 import { CourseType } from '@/service/webApi/course/type';
-import { useRouter } from 'next/router';
+import { useParams, useRouter } from 'next/navigation';
 import { useCallback } from 'react';
 
 /** lesson页面跳转到其他lesson时获取跳转参数 */
 export const useGetLessonLink = () => {
   const router = useRouter();
+  const query = useParams();
   const getLink = useCallback(
     (courseType: CourseType, lessonId: string) => {
-      const menu = router.query.menu;
-      const learningTrackId = router.query[
-        QueryIdType.LEARNING_TRACK_ID
-      ] as string;
-      const menuCourseId = router.query[QueryIdType.MENU_COURSE_ID] as string;
+      const menu = query.menu;
+      const learningTrackId = query[QueryIdType.LEARNING_TRACK_ID] as string;
+      const menuCourseId = query[QueryIdType.MENU_COURSE_ID] as string;
       const link = getLessonLink(
         courseType,
-        router.query.courseId as string,
+        query.courseId as string,
         lessonId,
         menuCourseId as string,
         {
@@ -31,7 +30,7 @@ export const useGetLessonLink = () => {
       );
       return link;
     },
-    [router]
+    [query]
   );
 
   return {
