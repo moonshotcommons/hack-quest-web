@@ -4,9 +4,9 @@ import { changeTextareaHeight } from '@/helper/utils';
 import { ReactNode, useEffect, useMemo, useState } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneLight } from 'react-syntax-highlighter/dist/cjs/styles/prism';
-import { WebTarget, styled } from 'styled-components';
+import { styled } from 'styled-components';
 
-const CustomSyntaxHighlighter = styled(SyntaxHighlighter as WebTarget)`
+const CustomSyntaxHighlighter = styled(SyntaxHighlighter)`
   & {
     padding: 0 !important;
     margin: 0 !important;
