@@ -1,24 +1,24 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import BlogBannerBg from '@/public/images/blog/blog_banner_bg.png';
 import Button from '@/components/Common/Button';
 import { PiSortAscendingBold, PiSortDescendingBold } from 'react-icons/pi';
 import { BiSearch, BiCheck } from 'react-icons/bi';
 import { searchTabData, sortData } from './data';
 import { FiX } from 'react-icons/fi';
+import { SearchInfoType } from '@/pages/resource-station/blog';
 
-interface BannerProp {}
+interface BannerProp {
+  searchInfo: SearchInfoType;
+  changeSearchInfo: (info: SearchInfoType) => void;
+}
 
-const BlogBanner: React.FC<BannerProp> = () => {
-  const [searchInfo, setSearchInfo] = useState({
-    inputValue: '',
-    tab: 'All',
-    sort: sortData[0].value
-  });
+const BlogBanner: React.FC<BannerProp> = ({ searchInfo, changeSearchInfo }) => {
   const [inputVisible, setInputVisible] = useState(false);
   const [sortVisible, setSortVisible] = useState(false);
+  const timeOut = useRef<NodeJS.Timeout | null>(null);
   const changeSearch = (val: string) => {
     if (val === searchInfo.tab) return;
-    setSearchInfo({
+    changeSearchInfo({
       ...searchInfo,
       tab: val
     });
@@ -26,10 +26,20 @@ const BlogBanner: React.FC<BannerProp> = () => {
   const changeSort = (sort: string) => {
     setSortVisible(false);
     if (sort === searchInfo.sort) return;
-    setSearchInfo({
+    changeSearchInfo({
       ...searchInfo,
       sort
     });
+  };
+  const changeInput = (e: any) => {
+    const inputValue = e.target.value;
+    if (timeOut.current) clearTimeout(timeOut.current);
+    timeOut.current = setTimeout(() => {
+      changeSearchInfo({
+        ...searchInfo,
+        inputValue
+      });
+    }, 300);
   };
   return (
     <div
@@ -136,6 +146,7 @@ const BlogBanner: React.FC<BannerProp> = () => {
                   type="text"
                   className="flex-1 h-[38px] text-[24px] bg-[transparent] outline-none"
                   placeholder="Search"
+                  onInput={changeInput}
                 />
                 <FiX
                   size={32}
