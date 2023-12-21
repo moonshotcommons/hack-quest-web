@@ -25,6 +25,7 @@ import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLess
 import { QueryIdType } from '../Breadcrumb/type';
 import { useGetLessonLink } from '@/hooks/useCoursesHooks/useGetLessonLink';
 import { useRedirect } from '@/hooks/useRedirect';
+import { MenuLink } from '../../Layout/Navbar/type';
 interface MiniElectiveDetailModalProps {}
 
 export interface MiniElectiveDetailModalRef {
@@ -183,7 +184,9 @@ const MiniElectiveDetailModal = forwardRef<
                     <div
                       className="px-[8px] py-[4px] flex gap-[10px] items-center border border-[#8C8C8C] rounded-[17px] cursor-pointer"
                       onClick={() =>
-                        redirectToUrl(`/ecosystem/${course.creatorId}`)
+                        redirectToUrl(
+                          `${MenuLink.ECOSYSTEM}/${course.creatorId}`
+                        )
                       }
                     >
                       <div className="w-[24px] h-[24px] rounded-full bg-[#D9D9D9] relative overflow-hidden">

@@ -19,10 +19,13 @@ export const useCheckPathname = () => {
 
     const isNavbarFullPage = isLessonPage || isPreviewPage;
 
+    const isEcosystem = ~pathname.indexOf(MenuLink.ECOSYSTEM);
+
     const isExcludeBreadcrumbLink =
       isNavbarFullPage ||
       isMobileLink ||
       isLandingPage ||
+      isEcosystem ||
       !!~excludeLink.indexOf(pathname as MenuLink);
 
     return {
