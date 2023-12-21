@@ -1,7 +1,8 @@
 import ProfileIcon from '@/components/Common/Icon/Profile';
-import SettingIcon from '@/components/Common/Icon/Setting';
-import SignOutIcon from '@/components/Common/Icon/SignOut';
+import SettingIcon from '@/components/v2/Common/Icon/Setting';
+import SignOutIcon from '@/components/v2/Common/Icon/SignOut';
 import { BurialPoint } from '@/helper/burialPoint';
+import { useRedirect } from '@/hooks/useRedirect';
 import ArrowUp from '@/public/images/user/arrow_up.png';
 import { LoginResponse } from '@/service/webApi/user/type';
 import {
@@ -12,7 +13,7 @@ import {
 } from '@/store/redux/modules/user';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+
 import { FC } from 'react';
 import { useDispatch } from 'react-redux';
 interface UserDropCardProps {
@@ -47,12 +48,12 @@ const UserInfo: FC<Omit<UserDropCardProps, 'onClose'>> = ({ userInfo }) => {
 const UserDropCard: FC<UserDropCardProps> = (props) => {
   const { userInfo, onClose } = props;
   const dispatch = useDispatch();
-  const router = useRouter();
+  const { redirectToUrl } = useRedirect();
   const signOut = () => {
-    router.push('/');
     dispatch(setUnLoginType(UnLoginType.LOGIN));
     dispatch(userSignOut());
     BurialPoint.track('登出');
+    redirectToUrl('/');
   };
 
   return (

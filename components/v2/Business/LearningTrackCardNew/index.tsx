@@ -8,13 +8,13 @@ import { LearningTrackCourseType } from '@/service/webApi/course/type';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import { Progress } from 'antd';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 import React, { useEffect, useMemo, useState } from 'react';
 import { styled } from 'styled-components';
 import { Menu, QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
 import CourseTags from '@/components/v2/Business/CourseTags';
 import { menuLink } from '@/components/v2/Business/Breadcrumb/data';
 import CardProgress from '../CardProgress';
+import { useRedirect } from '@/hooks/useRedirect';
 
 const CustomProgress = styled(Progress)`
   .ant-progress-inner {
@@ -34,7 +34,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
   isLandingPage,
   status
 }) => {
-  const router = useRouter();
+  const { redirectToUrl } = useRedirect();
   const [learningInfo, setLearningInfo] = useState<{
     learningSectionAndCourseName: string;
     learningLessonName: string;
@@ -228,7 +228,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
 
   const goLearningTrackDetail = (e: any) => {
     if (isLandingPage) return;
-    router.push(
+    redirectToUrl(
       `${menuLink.learningTrack}/${learningTrack.id}?${QueryIdType.LEARNING_TRACK_ID}=${learningTrack.id}&menu=${Menu.LEARNING_TRACK}`
     );
   };

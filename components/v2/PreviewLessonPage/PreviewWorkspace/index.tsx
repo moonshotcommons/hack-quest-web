@@ -1,13 +1,13 @@
-import Button from '@/components/Common/Button';
+import Button from '@/components/v2/Common/Button';
+import { useRedirect } from '@/hooks/useRedirect';
 import { Input, message } from 'antd';
 import axios from 'axios';
-import { useRouter } from 'next/router';
 import { FC, useState } from 'react';
 
 interface PreviewWorkspaceProps {}
 
 const PreviewWorkspace: FC<PreviewWorkspaceProps> = (props) => {
-  const router = useRouter();
+  const { redirectToUrl } = useRedirect();
   const [previewLessonUrl, setPreviewLessonUrl] = useState<string>();
   const [previewCourseUrl, setPreviewCourseUrl] = useState<string>();
 
@@ -38,7 +38,7 @@ const PreviewWorkspace: FC<PreviewWorkspaceProps> = (props) => {
               return;
             }
 
-            router.push(`/preview/lesson?previewUrl=${previewLessonUrl}`);
+            redirectToUrl(`/preview/lesson?previewUrl=${previewLessonUrl}`);
           }}
         >
           Preview

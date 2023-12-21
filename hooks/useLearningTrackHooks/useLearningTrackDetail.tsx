@@ -3,7 +3,7 @@ import { CourseResponse } from '@/service/webApi/course/type';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import { useRequest } from 'ahooks';
 import { message } from 'antd';
-import { useRouter } from 'next/router';
+import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 export const useGetLearningTrackDetail = (trackId?: string) => {
@@ -12,7 +12,8 @@ export const useGetLearningTrackDetail = (trackId?: string) => {
   >();
 
   const router = useRouter();
-  const learningTrackId = trackId || router.query.learningTrackId;
+  const params = useParams();
+  const learningTrackId = trackId || params.learningTrackId;
   const { run, loading, refresh } = useRequest(
     async (id) => {
       const res =

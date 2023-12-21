@@ -1,4 +1,4 @@
-import { ChangeState } from '@/components/Common/ScrollContainer';
+import { ChangeState } from '@/components/v1/Common/ScrollContainer';
 import { BurialPoint } from '@/helper/burialPoint';
 import { cn } from '@/helper/utils';
 import { useEffect, useMemo, useRef, useState } from 'react';

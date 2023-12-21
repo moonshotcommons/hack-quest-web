@@ -1,5 +1,5 @@
 import React, { forwardRef, useImperativeHandle, useState } from 'react';
-import Modal from '@/components/Common/Modal';
+import Modal from '@/components/v2/Common/Modal';
 import MoonFace from '@/public/images/mission-center/moon_face.png';
 import BannerBg from '@/public/images/landing/banner_bg.png';
 import IconCoin from '@/public/images/mission-center/icon_coin.png';
@@ -10,7 +10,7 @@ import Flag from '@/public/images/mission-center/flag.png';
 import Qmark from '@/public/images/mission-center/q_mark.png';
 import Mperson from '@/public/images/mission-center/m_person.png';
 import Image from 'next/image';
-import Button from '@/components/Common/Button';
+import Button from '@/components/v2/Common/Button';
 import webApi from '@/service';
 import { useGetMissionData } from '@/hooks/useGetMissionData';
 

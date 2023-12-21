@@ -9,17 +9,16 @@ import { useGetUserInfo } from '@/hooks/useGetUserInfo';
 import { AppRootState } from '@/store/redux';
 import { message } from 'antd';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { isBadgeIds, needLoginPath } from './data';
 import { MenuType, NavbarListType } from './type';
+import { useRedirect } from '@/hooks/useRedirect';
+import { usePathname } from 'next/navigation';
 
 export interface NavBarProps {
   navList: NavbarListType[];
   children?: ReactNode;
   logo?: ReactNode;
-  showSecondNav?: boolean;
-  changeShowSecondNav?: (show: boolean) => void;
   isFull?: boolean;
 }
 
@@ -30,10 +29,10 @@ type SlideNavigatorHighlight = React.CSSProperties & {
 
 const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
   const userInfo = useGetUserInfo();
-  const { navList, children, showSecondNav, changeShowSecondNav, isFull } =
-    NavBarProps;
-  const router = useRouter();
-  const pathname = router.pathname;
+  const { navList, children, isFull } = NavBarProps;
+  const { redirectToUrl } = useRedirect();
+  const pathname = usePathname();
+  const [showSecondNav, setShowSecondNav] = useState(false);
   const [secondNavData, setSecondNavData] = useState<MenuType[]>([]);
   const [curNavId, setCurNavId] = useState('');
   const [outSideNav, setOutSideNav] = useState<NavbarListType[]>([]);
@@ -52,7 +51,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
     const inSide = navList.filter((v) => v.type !== 'outSide');
     setInSideNav(inSide);
     if (isFull) {
-      changeShowSecondNav?.(false);
+      setShowSecondNav?.(false);
       setSecondNavData(inSide[0].menu as []);
       setCurNavId(inSide[0].id);
       return;
@@ -61,13 +60,13 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
     for (let nav of inSide) {
       const curNav = nav.menu.find((menu) => pathname.includes(menu.path));
       if (curNav) {
-        changeShowSecondNav?.(nav.menu.length > 1);
+        setShowSecondNav?.(nav.menu.length > 1);
         setSecondNavData(nav.menu as []);
         setCurNavId(nav.id);
         return;
       }
     }
-    changeShowSecondNav?.(false);
+    setShowSecondNav?.(false);
     setSecondNavData([]);
     setCurNavId('');
   }, [pathname, navList]);
@@ -91,14 +90,14 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
     if (~needLoginPath.indexOf(path) && !userInfo) {
       e.stopPropagation();
       message.warning('Please login first');
-      router.push(V2_LANDING_PATH);
+      redirectToUrl(V2_LANDING_PATH);
       return;
     }
-    router.push(path);
+    redirectToUrl(path);
   };
   const logoClick = () => {
     if (userInfo) return;
-    router.push(V2_LANDING_PATH);
+    redirectToUrl(V2_LANDING_PATH);
   };
   return (
     <div className=" w-full">

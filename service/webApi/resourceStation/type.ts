@@ -1,7 +1,7 @@
 export enum HackathonStatusType {
   ON_GOING = 'ongoing',
   PAST = 'past',
-  ALL_PROJECT = '/resource-station/hackathon/projects'
+  ALL_PROJECT = '/hackathon/projects'
 }
 
 export interface MentorType {

@@ -1,11 +1,11 @@
 import React, { useRef, useState } from 'react';
 import BlogBannerBg from '@/public/images/blog/blog_banner_bg.png';
-import Button from '@/components/Common/Button';
+import Button from '@/components/v2/Common/Button';
 import { PiSortAscendingBold, PiSortDescendingBold } from 'react-icons/pi';
 import { BiSearch, BiCheck } from 'react-icons/bi';
 import { searchTabData, sortData } from './data';
 import { FiX } from 'react-icons/fi';
-import { SearchInfoType } from '@/pages/resource-station/blog';
+import { SearchInfoType } from '@/app/(resource station)/blog/page';
 
 interface BannerProp {
   searchInfo: SearchInfoType;

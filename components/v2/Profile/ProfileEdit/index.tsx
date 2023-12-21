@@ -5,14 +5,15 @@ import { useRequest } from 'ahooks';
 import webApi from '@/service';
 import Loading from '../../Common/Loading';
 import { EcosystemProfileType } from '@/service/webApi/elective/type';
+import { useParams } from 'next/navigation';
 
 interface ProfileEditProps {}
 
 const ProfileEdit: FC<ProfileEditProps> = (props) => {
-  const id = 'caddaf21-cf2c-45dd-9476-f4de119dd1c0';
+  const { profileId } = useParams();
   const { data: profile = {} as EcosystemProfileType, loading } = useRequest(
     async () => {
-      const res = webApi.electiveApi.getElectiveProfile(id);
+      const res = webApi.electiveApi.getElectiveProfile(profileId as string);
       return res;
     }
   );

@@ -181,8 +181,8 @@ export const useParseQuizA = (lines: CodeLineType[]) => {
   const mergeAnswer = (answer: AnswerState) => {
     setAnswerState((state) => {
       const answers = state.concat(answer);
-      return [...new Set(answers.map((v) => JSON.stringify(v)))].map((v) =>
-        JSON.parse(v)
+      return Array.from(new Set(answers.map((v) => JSON.stringify(v)))).map(
+        (v) => JSON.parse(v)
       );
     });
   };

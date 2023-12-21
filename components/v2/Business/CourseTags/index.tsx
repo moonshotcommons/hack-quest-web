@@ -2,8 +2,8 @@ import { computeTime, tagFormate } from '@/helper/formate';
 import { FC } from 'react';
 import CourseLevel from './CourseLevel';
 
-import ClockIcon from '@/components/Common/Icon/Clock';
-import CourseIcon from '@/components/Common/Icon/Course';
+import ClockIcon from '@/components/v2/Common/Icon/Clock';
+import CourseIcon from '@/components/v2/Common/Icon/Course';
 import { cn } from '@/helper/utils';
 import Tag from './tag';
 import { CourseType } from '@/service/webApi/course/type';

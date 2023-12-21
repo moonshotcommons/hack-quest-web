@@ -1,5 +1,6 @@
 import { BurialPoint } from '@/helper/burialPoint';
 import { useGetLessonLink } from '@/hooks/useCoursesHooks/useGetLessonLink';
+import { useRedirect } from '@/hooks/useRedirect';
 import ArrowLeft from '@/public/images/lesson/arrow_left_line.svg';
 import Complete from '@/public/images/lesson/complete.svg';
 import CompleteActive from '@/public/images/lesson/complete_active.svg';
@@ -11,7 +12,6 @@ import {
   UnitPagesListType
 } from '@/service/webApi/course/type';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 interface LessonListType {
   unitData: UnitPagesListType[];
@@ -27,7 +27,7 @@ const LessonList: React.FC<LessonListType> = ({
 }) => {
   const [lessonList, setLessonList] = useState<CourseLessonStateType[]>([]);
   const [unitName, setUnitName] = useState('');
-  const router = useRouter();
+  const { redirectToUrl } = useRedirect();
   const { getLink } = useGetLessonLink();
   const getChildren = (item: UnitPagesListType) => {
     if (!item || item?.disable) return;
@@ -44,7 +44,7 @@ const LessonList: React.FC<LessonListType> = ({
     const link = getLink(courseType, item?.id as string);
     BurialPoint.track('lesson-使用lesson dropdown跳转lesson');
     changeToggle(false);
-    router.push(link);
+    redirectToUrl(link);
   };
 
   useEffect(() => {

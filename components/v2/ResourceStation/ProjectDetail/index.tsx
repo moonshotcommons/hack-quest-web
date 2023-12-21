@@ -1,3 +1,4 @@
+'use client';
 import { errorMessage } from '@/helper/utils';
 import webApi from '@/service';
 import { ProjectType } from '@/service/webApi/resourceStation/type';

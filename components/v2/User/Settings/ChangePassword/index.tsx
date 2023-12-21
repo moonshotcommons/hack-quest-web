@@ -1,4 +1,4 @@
-import LockIcon from '@/components/Common/Icon/Lock';
+import LockIcon from '@/components/v2/Common/Icon/Lock';
 import { BurialPoint } from '@/helper/burialPoint';
 import OkIcon from '@/public/images/other/ok.svg';
 import webApi from '@/service';

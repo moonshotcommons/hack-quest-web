@@ -9,7 +9,7 @@ import {
   useState
 } from 'react';
 
-import Button from '@/components/Common/Button';
+import Button from '@/components/v2/Common/Button';
 import { Menu, QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
 import CertificationCard from '@/components/v2/Business/Certification/CertificationCard';
 import { BurialPoint } from '@/helper/burialPoint';

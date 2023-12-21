@@ -1,4 +1,4 @@
-import CheckIcon from '@/components/Common/Icon/Check';
+import CheckIcon from '@/components/v2/Common/Icon/Check';
 import Button from '@/components/v2/Common/Button';
 import { BurialPoint } from '@/helper/burialPoint';
 import { computeProgress } from '@/helper/formate';
@@ -10,12 +10,12 @@ import { LearningTrackCourseType } from '@/service/webApi/course/type';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import { Progress, Typography } from 'antd';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 import React, { useEffect, useMemo, useState } from 'react';
 import { styled } from 'styled-components';
 import { Menu, QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
 import CourseTags from '@/components/v2/Business/CourseTags';
 import { menuLink } from '@/components/v2/Business/Breadcrumb/data';
+import { useRedirect } from '@/hooks/useRedirect';
 
 const CustomProgress = styled(Progress)`
   .ant-progress-inner {
@@ -35,12 +35,12 @@ const LearningTrackLandingCard: React.FC<LearningTrackLandingCardProps> = ({
   isLandingPage,
   status
 }) => {
-  const router = useRouter();
   const [learningInfo, setLearningInfo] = useState<{
     learningSectionAndCourseName: string;
     learningLessonName: string;
   }>();
   const { jumpLearningLesson, loading: jumpLoading } = useJumpLeaningLesson();
+  const { redirectToUrl } = useRedirect();
   const [learningTrack, setLearningTrack] =
     useState<LearningTrackDetailType>(track);
   const refresh = () => {
@@ -316,7 +316,7 @@ const LearningTrackLandingCard: React.FC<LearningTrackLandingCardProps> = ({
 
   const goLearningTrackDetail = (e: any) => {
     if (isLandingPage) return;
-    router.push(
+    redirectToUrl(
       `${menuLink.learningTrack}/${learningTrack.id}?${QueryIdType.LEARNING_TRACK_ID}=${learningTrack.id}&menu=${Menu.LEARNING_TRACK}`
     );
   };

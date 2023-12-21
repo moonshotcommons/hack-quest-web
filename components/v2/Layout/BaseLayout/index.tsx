@@ -1,10 +1,11 @@
+'use client';
 import User from '@/components/v2/User';
 import { Inter } from 'next/font/google';
-import React, { ReactNode, useCallback, useEffect, useState } from 'react';
+import React, { ReactNode, useCallback, useEffect } from 'react';
 import NavBar, { NavBarProps } from '../Navbar';
 
 import Breadcrumb from '@/components/v2/Business/Breadcrumb';
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 import { excludeLink } from '../Navbar/data';
 import { MenuLink } from '../Navbar/type';
 const inter = Inter({ subsets: ['latin'] });
@@ -16,8 +17,7 @@ export interface V2LayoutProps {
 
 const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
   const regex = /\/[^/]+\/\[courseId\]\/learn\/\[lessonId|lessonIndex\]/;
-  const [showSecondNav, setShowSecondNav] = useState(false);
-  const { pathname } = useRouter();
+  const pathname = usePathname();
   const getFull = () => {
     return regex.test(pathname) || pathname.startsWith('/preview');
   };
@@ -32,6 +32,8 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
     ) {
       return null;
     }
+
+    if (pathname.startsWith('/mobile')) return null;
 
     for (let menu of navList) {
       if (menu.menu.some((v) => v.path === pathname)) {
@@ -59,12 +61,7 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
       } ${getFull() ? '' : 'min-h-[100vh]'} `}
     >
       <div className="w-full bg-[#0B0B0B] flex items-center">
-        <NavBar
-          {...navbarData}
-          isFull={getFull()}
-          showSecondNav={showSecondNav}
-          changeShowSecondNav={(show) => setShowSecondNav(show)}
-        >
+        <NavBar {...navbarData} isFull={getFull()}>
           <User></User>
         </NavBar>
       </div>
