@@ -168,7 +168,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
               <Link
                 key={menu.path}
                 href={menu.path}
-                className="pb-3 cursor-pointer hover:underline"
+                className="h-full pb-3 cursor-pointer hover:underline flex items-end"
               >
                 {menu.label}
               </Link>
