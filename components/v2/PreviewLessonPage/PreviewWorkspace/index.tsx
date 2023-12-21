@@ -1,3 +1,4 @@
+'use client';
 import Button from '@/components/v2/Common/Button';
 import { useRedirect } from '@/hooks/useRedirect';
 import { Input, message } from 'antd';
