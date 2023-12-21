@@ -7,12 +7,15 @@ import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLess
 import { CourseResponse, CourseType } from '@/service/webApi/course/type';
 import { Progress, Typography } from 'antd';
 import Image from 'next/image';
-import { FC, useCallback } from 'react';
+import { FC, useCallback, useRef } from 'react';
 import { styled } from 'styled-components';
 import { Menu, QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
 import CourseTags from '@/components/v2/Business/CourseTags';
 import { menuLink } from '@/components/v2/Business/Breadcrumb/data';
 import { useRedirect } from '@/hooks/useRedirect';
+import MiniElectiveDetailModal, {
+  MiniElectiveDetailModalRef
+} from '../MiniElectiveDetailModal';
 
 interface CourseCardProps {
   // children: ReactNode;
@@ -50,17 +53,17 @@ const CourseCard: FC<CourseCardProps> = (props) => {
   } = props;
   const { jumpLearningLesson, loading } = useJumpLeaningLesson();
   const { redirectToUrl } = useRedirect();
+  const miniElectiveDetailInstance = useRef<MiniElectiveDetailModalRef>(null);
 
   const onCourseClick = useCallback(() => {
     switch (course.type) {
       case CourseType.Mini:
-        courseClick?.(course);
+        miniElectiveDetailInstance.current?.open(course);
         return;
       default:
         redirectToUrl(
           `${menuLink.electives}/${course.id}?${QueryIdType.MENU_COURSE_ID}=${course.id}&menu=${Menu.ELECTIVES}`
         );
-        courseClick?.(course);
     }
   }, [course]);
 
@@ -193,6 +196,9 @@ const CourseCard: FC<CourseCardProps> = (props) => {
             View Syllabus
           </Button>
         </div>
+      )}
+      {course.type === CourseType.Mini && (
+        <MiniElectiveDetailModal ref={miniElectiveDetailInstance} />
       )}
     </div>
   );
