@@ -31,16 +31,6 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className}`}>
-        <Script id="theme-script" strategy="beforeInteractive">
-          {`const item = 'light';
-          localStorage.setItem('theme', item);
-          document.getElementsByTagName('html')[0].dataset.theme = item;
-          document.documentElement.classList.add(item);
-          document.documentElement.classList.remove(
-            item === 'dark' ? 'light' : 'dark'
-          );
-          `}
-        </Script>
         <ReduxProvider>
           <ThemeContextProvider>
             <MobileRedirect>
@@ -52,6 +42,16 @@ export default function RootLayout({
             </MobileRedirect>
           </ThemeContextProvider>
         </ReduxProvider>
+        <Script id="theme-script" strategy="beforeInteractive">
+          {`const item = 'light';
+          localStorage.setItem('theme', item);
+          document.getElementsByTagName('html')[0].dataset.theme = item;
+          document.documentElement.classList.add(item);
+          document.documentElement.classList.remove(
+            item === 'dark' ? 'light' : 'dark'
+          );
+          `}
+        </Script>
       </body>
     </html>
   );
