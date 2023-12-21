@@ -17,13 +17,10 @@ const MiniLessonPage: NextPage<IProps> = (props) => {
   return (
     <>
       <div className="w-full h-full flex flex-col font-next-book px-[40px] bg-[#f4f4f4]">
-        {isMobile && null}
-        {!isMobile && (
-          <MiniCoursePage
-            lessonId={lessonId as string}
-            courseType={CourseType.Mini}
-          ></MiniCoursePage>
-        )}
+        <MiniCoursePage
+          lessonId={lessonId as string}
+          courseType={CourseType.Mini}
+        ></MiniCoursePage>
       </div>
     </>
   );
