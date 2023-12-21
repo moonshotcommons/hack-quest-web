@@ -24,6 +24,7 @@ const ThemeContextProvider: FC<{ children: ReactNode }> = (props) => {
       //   (localStorage.getItem('theme') as Theme) || Theme.Light;
       // setTheme(cacheTheme);
       document.documentElement.classList.add(theme);
+      document.getElementsByTagName('html')[0].dataset.theme = theme;
       document.documentElement.classList.remove(
         theme === Theme.Dark ? Theme.Light : Theme.Dark
       );
