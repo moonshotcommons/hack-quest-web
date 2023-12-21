@@ -42,7 +42,7 @@ export default function RootLayout({
             </MobileRedirect>
           </ThemeContextProvider>
         </ReduxProvider>
-        <Script id="theme-script" strategy="beforeInteractive">
+        <Script id="theme-script">
           {`const item = 'light';
           localStorage.setItem('theme', item);
           document.getElementsByTagName('html')[0].dataset.theme = item;
