@@ -40,11 +40,11 @@ export const navbarList: NavbarListType[] = [
       {
         label: 'HACKATHON',
         path: MenuLink.HACKATHON
-      },
-      {
-        label: 'BLOG',
-        path: MenuLink.BLOG
       }
+      // {
+      //   label: 'BLOG',
+      //   path: MenuLink.BLOG
+      // }
     ]
   },
   {
