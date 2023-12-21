@@ -1,5 +1,5 @@
 import React, { forwardRef, useImperativeHandle, useState } from 'react';
-import Modal from '@/components/v2/Common/Modal';
+import Modal from '@/components/v1/Common/Modal';
 import MoonFace from '@/public/images/mission-center/moon_face.png';
 import BannerBg from '@/public/images/landing/banner_bg.png';
 import IconCoin from '@/public/images/mission-center/icon_coin.png';
