@@ -1,5 +1,5 @@
 import Button from '@/components/v2/Common/Button';
-import RightArrowIcon from '@/components/Common/Icon/RightArrow';
+import RightArrowIcon from '@/components/v2/Common/Icon/RightArrow';
 import Checkbox from '@/components/v2/Common/Checkbox';
 import Input from '@/components/v2/Common/Input';
 import { BurialPoint } from '@/helper/burialPoint';

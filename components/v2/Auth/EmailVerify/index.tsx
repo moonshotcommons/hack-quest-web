@@ -1,4 +1,4 @@
-import Button from '@/components/Common/Button';
+import Button from '@/components/v2/Common/Button';
 import { cn } from '@/helper/utils';
 import { useGetUserUnLoginType } from '@/hooks/useGetUserInfo';
 import webApi from '@/service';

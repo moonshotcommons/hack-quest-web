@@ -1,4 +1,4 @@
-import Button from '@/components/Common/Button';
+import Button from '@/components/v2/Common/Button';
 import { ExampleComponent } from '@/components/v2/Business/Renderer/type';
 import { cn } from '@/helper/utils';
 import LzString from 'lz-string';

@@ -1,3 +1,4 @@
+'use client';
 import { useEffect } from 'react';
 
 import {
@@ -7,25 +8,27 @@ import {
   isNoNeedUserInfo
 } from '@/constants/nav';
 import { getToken } from '@/helper/user-token';
-import { useRouter } from 'next/router';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { useGetUserInfo } from '../useGetUserInfo';
+import { useRedirect } from '../useRedirect';
 
 function useNavAuth(waitingUserData: boolean) {
   const userInfo = useGetUserInfo();
-  const router = useRouter();
-  const { pathname } = router;
+  const { redirectToUrl } = useRedirect();
+  const pathname = usePathname();
+  const query = useSearchParams();
 
   useEffect(() => {
     if (waitingUserData) return;
-    const { redirect_url } = router.query;
+    const redirect_url = query.get('redirect_url');
     // 已经登录了
     if (userInfo) {
       if (!isLoginOrRegister(pathname)) return;
       const token = getToken();
       if (redirect_url && token) {
-        router.push(`${redirect_url}?token=${token}`);
+        redirectToUrl(`${redirect_url}?token=${token}`);
       } else {
-        router.push(V2_HOME_PATH);
+        redirectToUrl(V2_HOME_PATH);
       }
       return;
     }
@@ -34,9 +37,9 @@ function useNavAuth(waitingUserData: boolean) {
     if (isNoNeedUserInfo(pathname)) {
       return;
     } else {
-      router.push(V2_LANDING_PATH);
+      redirectToUrl(V2_LANDING_PATH);
     }
-  }, [waitingUserData, userInfo, pathname, router]);
+  }, [waitingUserData, userInfo, pathname]);
 }
 
 export default useNavAuth;

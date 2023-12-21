@@ -1,11 +1,11 @@
-import Button from '@/components/Common/Button';
+import Button from '@/components/v2/Common/Button';
+import { useRedirect } from '@/hooks/useRedirect';
 import { ProcessType } from '@/service/webApi/course/type';
-import { useRouter } from 'next/router';
 interface NoDataType {
   curTab: ProcessType;
 }
 const NoData: React.FC<NoDataType> = ({ curTab }) => {
-  const router = useRouter();
+  const { redirectToUrl } = useRedirect();
   return (
     <div className="flex flex-col items-center pb-[100px] font-next-book">
       <p className="text-home-learning-track-no-data-color text-[32px]">
@@ -14,13 +14,13 @@ const NoData: React.FC<NoDataType> = ({ curTab }) => {
           : 'You don’t have any completed course'}
       </p>
       <Button
-        onClick={() => router.push('learning-track')}
+        onClick={() => redirectToUrl('learning-track')}
         className="w-[360px] mt-[30px] text-[18px] mb-[20px] h-[55px] bg-home-learning-track-no-data-button-add-bg text-home-learning-track-no-data-button-add-color"
       >
         Add a New Learning Track
       </Button>
       <Button
-        onClick={() => router.push('electives')}
+        onClick={() => redirectToUrl('electives')}
         className="w-[360px] h-[55px] text-[18px] border border-home-learning-track-no-data-button-explore-border text-home-learning-track-no-data-button-explore-color"
       >
         Explore Elective Courses

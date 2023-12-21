@@ -1,7 +1,8 @@
+'use client';
 import {
   ChangeState,
   ScrollContainer
-} from '@/components/Common/ScrollContainer';
+} from '@/components/v2/Common/ScrollContainer';
 import { menuLink } from '@/components/v2/Business/Breadcrumb/data';
 import { Menu, QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
 import ProjectCard from '@/components/v2/Business/ProjectCard';

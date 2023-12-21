@@ -1,3 +1,4 @@
+'use client';
 import { Theme } from '@/constants/enum';
 import { FC, ReactNode, createContext, useEffect, useState } from 'react';
 interface ThemeContextProps {

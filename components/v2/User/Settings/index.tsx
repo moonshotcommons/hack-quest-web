@@ -1,6 +1,6 @@
-import EmailFillIcon from '@/components/Common/Icon/EmailFill';
-import UserFillIcon from '@/components/Common/Icon/UserFill';
-import Modal from '@/components/Common/Modal';
+import EmailFillIcon from '@/components/v2/Common/Icon/EmailFill';
+import UserFillIcon from '@/components/v2/Common/Icon/UserFill';
+import Modal from '@/components/v1/Common/Modal';
 import { BurialPoint } from '@/helper/burialPoint';
 import { useGetUserInfo } from '@/hooks/useGetUserInfo';
 import { AppRootState } from '@/store/redux';
@@ -32,7 +32,7 @@ const Settings: FC<SettingsProps> = (props) => {
     <div>
       <Modal open={settingsOpen} onClose={onClose} showCloseIcon={true}>
         <div className="relative w-full m-auto py-[7.81rem] rounded-[2.5rem] bg-setting-drop-card-bg border  border-setting-drop-setting-modal-border z-[99] flex justify-center">
-          <div className="flex flex-col w-[64%] ">
+          <div className="flex flex-col w-[64%]">
             <h1 className="text-setting-drop-user-name-color text-[40px] font-next-poster-Bold leading-[110%] tracking-[0.04rem]">
               Settings
             </h1>

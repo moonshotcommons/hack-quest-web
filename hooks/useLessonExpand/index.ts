@@ -63,9 +63,9 @@ export const useLessonExpand = (
         }
       }
     });
-    const newChildExpand = [
-      ...new Set(childExpand.map((v: any) => JSON.stringify(v)))
-    ]
+    const newChildExpand = Array.from(
+      new Set(childExpand.map((v: any) => JSON.stringify(v)))
+    )
       .map((v: any) => {
         if (v) {
           return JSON.parse(v);

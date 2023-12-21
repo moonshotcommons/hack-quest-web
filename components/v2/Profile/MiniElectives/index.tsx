@@ -4,14 +4,15 @@ import { useRequest } from 'ahooks';
 import webApi from '@/service';
 import { EcosystemElectiveType } from '@/service/webApi/elective/type';
 import Loading from '../../Common/Loading';
+import { useParams } from 'next/navigation';
 
 interface MiniElectivesProp {}
 
 const MiniElectives: React.FC<MiniElectivesProp> = () => {
-  const id = 'caddaf21-cf2c-45dd-9476-f4de119dd1c0';
+  const { profileId } = useParams();
   const { data: elctiveList = [] as EcosystemElectiveType[], loading } =
     useRequest(async () => {
-      const res = webApi.electiveApi.getProfileElective(id);
+      const res = webApi.electiveApi.getProfileElective(profileId as string);
       return res;
     });
   return (

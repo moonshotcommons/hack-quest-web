@@ -1,6 +1,5 @@
 import { AppRootState } from '@/store/redux';
 import { UnLoginType, setUnLoginType } from '@/store/redux/modules/user';
-import { useRouter } from 'next/router';
 import { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ChangePassword from './ChangePassword';
@@ -10,18 +9,19 @@ import Login from './Login';
 import SignUp from './SignUp';
 import VerifyConfirmed from './VerifyConfirmed';
 import CheckInviteCode from './CheckInviteCode';
+import { useSearchParams } from 'next/navigation';
 
 interface AuthProps {}
 
 const Auth: FC<AuthProps> = (props) => {
-  const query = useRouter().query;
+  const query = useSearchParams();
   const dispatch = useDispatch();
   const loginRouteType = useSelector((state: AppRootState) => {
     return state.user.loginRouteType;
   });
 
   useEffect(() => {
-    const { type } = query;
+    const type = query.get('TYPE');
     if (type) {
       dispatch(setUnLoginType(type));
     } else {
@@ -29,7 +29,7 @@ const Auth: FC<AuthProps> = (props) => {
     }
   }, []);
 
-  if (query.state) {
+  if (query.get('state')) {
     return <VerifyConfirmed></VerifyConfirmed>;
   }
   switch (loginRouteType.type) {

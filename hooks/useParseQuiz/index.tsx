@@ -1,4 +1,4 @@
-import { Quiz } from '@/components/CodeChecker/type';
+import { Quiz } from '@/components/v1/CodeChecker/type';
 import { ReactNode, useEffect, useState } from 'react';
 import { v4 as uuidV4 } from 'uuid';
 import { reservedWords } from '@/constants/solidity';

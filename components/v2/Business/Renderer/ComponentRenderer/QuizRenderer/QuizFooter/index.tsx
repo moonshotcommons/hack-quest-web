@@ -1,4 +1,4 @@
-import Button from '@/components/Common/Button';
+import Button from '@/components/v2/Common/Button';
 import { FC } from 'react';
 
 interface QuizFooterProps {

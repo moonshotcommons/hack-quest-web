@@ -1,7 +1,7 @@
-import DarkInstagramIcon from '@/components/Common/Icon/DarkInstagram';
-import DiscordIcon from '@/components/Common/Icon/Discord';
-import LightInstagramIcon from '@/components/Common/Icon/LightInstagram';
-import TwitterIcon from '@/components/Common/Icon/Twitter';
+import DarkInstagramIcon from '@/components/v2/Common/Icon/DarkInstagram';
+import DiscordIcon from '@/components/v2/Common/Icon/Discord';
+import LightInstagramIcon from '@/components/v2/Common/Icon/LightInstagram';
+import TwitterIcon from '@/components/v2/Common/Icon/Twitter';
 import { BurialPoint } from '@/helper/burialPoint';
 import { cn } from '@/helper/utils';
 import Link from 'next/link';

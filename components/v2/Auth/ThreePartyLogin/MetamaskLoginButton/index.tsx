@@ -4,6 +4,7 @@ import { BurialPoint } from '@/helper/burialPoint';
 import { setToken } from '@/helper/user-token';
 import { errorMessage } from '@/helper/utils';
 import useIsPc from '@/hooks/useIsPc';
+import { useRedirect } from '@/hooks/useRedirect';
 import Metamask from '@/public/images/login/metamask.svg';
 import webApi from '@/service';
 import { AuthType } from '@/service/webApi/user/type';
@@ -16,7 +17,6 @@ import { useRequest } from 'ahooks';
 import { message } from 'antd';
 import { omit } from 'lodash-es';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useConnect } from 'wagmi';
@@ -25,9 +25,9 @@ interface MetamaskLoginButtonProps {}
 const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
   const [isMounted, setIsMounted] = useState(false);
   const dispatch = useDispatch();
-  const router = useRouter();
   const isPc = useIsPc();
   const [tipsOpen, setTipsOpen] = useState(false);
+  const { redirectToUrl } = useRedirect();
 
   const { connectAsync, connectors, error, isLoading, pendingConnector, data } =
     useConnect();
@@ -69,7 +69,7 @@ const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
               BurialPoint.track('signup-Metamask第三方登录code验证成功');
               dispatch(setUserInfo(omit(res, 'token')));
               setToken(res.token);
-              router.push('/home');
+              redirectToUrl('/home');
             }
           }
         } catch (err) {

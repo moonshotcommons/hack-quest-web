@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import CourseCard from '@/components/v2/Business/CourseCard';
-import { CourseResponse } from '@/service/webApi/course/type';
+import { CourseResponse, CourseType } from '@/service/webApi/course/type';
 import MiniElectiveDetailModal, {
   MiniElectiveDetailModalRef
 } from '@/components/v2/Business/MiniElectiveDetailModal';
@@ -19,7 +19,9 @@ const CourseList: React.FC<CourseListProps> = ({ list }) => {
           course={course}
           baseProgress={true}
           onCourseClick={(course) => {
-            miniElectiveDetailInstance.current?.open(course);
+            if (course.type === CourseType.Mini) {
+              miniElectiveDetailInstance.current?.open(course);
+            }
           }}
         ></CourseCard>
       ))}

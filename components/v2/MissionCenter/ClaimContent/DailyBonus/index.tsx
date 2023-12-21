@@ -14,7 +14,7 @@ import Button from '@/components/v2/Common/Button';
 import {
   ChangeState,
   ScrollContainer
-} from '@/components/Common/ScrollContainer';
+} from '@/components/v2/Common/ScrollContainer';
 import ScrollControl from './ScrollControl';
 import { TabContentType } from '../../type';
 
@@ -54,7 +54,7 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
           className="w-[293px]  flex-col-center h-full justify-between pb-[20px]"
         >
           <div
-            className={`border rounded-[20px]  bg-[#131313] w-[240px] h-[300px] 
+            className={`border rounded-[20px]  bg-[#131313] w-[240px] h-[300px]
                   border-[#E7A600] flex-col-center justify-between pt-[30px] pb-[20px] `}
             style={{
               boxShadow: `0 0 10px #FFD850`
@@ -82,8 +82,8 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
                       border-auth-primary-button-border-color p-0 text-[#0b0b0b] ${
                         claimed
                           ? 'cursor-not-allowed opacity-50'
-                          : `hover:border-auth-primary-button-border-hover-color 
-                            hover:text-auth-primary-button-text-hover-color 
+                          : `hover:border-auth-primary-button-border-hover-color
+                            hover:text-auth-primary-button-text-hover-color
                             hover:bg-auth-primary-button-hover-bg  `
                       }`}
               disabled={claimed}
@@ -193,7 +193,7 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
       if (listWidth - Math.abs(translateX) < containerWidth) {
         translateX = listWidth - containerWidth;
       }
-      scrollContainerRef.current.handlesetTranslateX(translateX * -1);
+      scrollContainerRef.current?.handlesetTranslateX(translateX * -1);
       isTranslate.current = true;
     }
   }, [dealedMissionData.completedLen, scrollContainerState]);

@@ -14,7 +14,7 @@ import {
   CourseType
 } from '@/service/webApi/course/type';
 import { ConfigProvider, Spin } from 'antd';
-import { useRouter } from 'next/router';
+import { useParams, useRouter } from 'next/navigation';
 import { FC, useCallback, useEffect, useRef, useState } from 'react';
 import Split from 'react-split';
 import LessonContent from './LessonContent';
@@ -42,7 +42,7 @@ const LessonPage: FC<LessonPageProps> = (props) => {
     courseType
   );
   const router = useRouter();
-  const { courseId: courseName } = router.query;
+  const { courseId: courseName } = useParams();
   const [nextLoading, setNextLoading] = useState(false);
   const { onNextClick, completeModalRef } = useGotoNextLesson(
     lesson!,

@@ -8,7 +8,7 @@ import { FiLock } from 'react-icons/fi';
 import { ElectiveLessonType, PageType } from '@/service/webApi/elective/type';
 import { useGetElectives } from '../hooks/useGetElectives';
 import { useGetLessonLink } from '@/hooks/useCoursesHooks/useGetLessonLink';
-import { useRouter } from 'next/router';
+import { useRedirect } from '@/hooks/useRedirect';
 
 interface SidebarProps {
   lesson: ElectiveLessonType;
@@ -18,7 +18,7 @@ const Sidebar: FC<SidebarProps> = ({ lesson }) => {
   const [showList, setShowList] = useState(false);
   const { getLink } = useGetLessonLink();
   const { course } = useGetElectives(lesson);
-  const router = useRouter();
+  const { redirectToUrl } = useRedirect();
   const renderCourseListItem = (
     state: CompleteStateType,
     item: PageType,
@@ -48,7 +48,7 @@ const Sidebar: FC<SidebarProps> = ({ lesson }) => {
             )
           ) {
             const link = getLink(course!.type, item.id);
-            router.push(link);
+            redirectToUrl(link);
           }
         }}
       >

@@ -1,6 +1,6 @@
 import Button from '@/components/v2/Common/Button';
-import ClockIcon from '@/components/Common/Icon/Clock';
-import CourseIcon from '@/components/Common/Icon/Course';
+import ClockIcon from '@/components/v2/Common/Icon/Clock';
+import CourseIcon from '@/components/v2/Common/Icon/Course';
 import { computeTime, tagFormate } from '@/helper/formate';
 import { CourseDetailType, CourseResponse } from '@/service/webApi/course/type';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';

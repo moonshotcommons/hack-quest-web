@@ -6,7 +6,7 @@ import { deepClone } from '@/helper/utils';
 import webApi from '@/service';
 import { ProjectType } from '@/service/webApi/resourceStation/type';
 import { useRequest } from 'ahooks';
-import { useRouter } from 'next/router';
+import { useSearchParams } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react';
 import Loading from '../Common/Loading';
 import ProjectsList from './ProjectsList';
@@ -26,12 +26,12 @@ const ProjectsBox: React.FC<ProjectsBoxProps> = ({
   setApiStatus,
   apiStatus
 }) => {
-  const router = useRouter();
+  const query = useSearchParams();
   const [searchParam, setSearchParam] = useState<FilterDataType[]>(
     deepClone(filterData)
   );
   const timeOut = useRef<NodeJS.Timeout | null>(null);
-  const [inputValue, setInputValue] = useState(router.query.keyWord || '');
+  const [inputValue, setInputValue] = useState(query.get('keyword') || '');
   const [pageInfo, setPageInfo] = useState<PageInfoType>(initPageInfo);
   const [list, setList] = useState<ProjectType[]>([]);
   const [runNum, setRunNum] = useState(0);

@@ -9,8 +9,9 @@ import {
 import { MiniElectiveCourseType } from '@/service/webApi/elective/type';
 import { UnLoginType, setUnLoginType } from '@/store/redux/modules/user';
 import { useRequest } from 'ahooks';
-import { useRouter } from 'next/router';
+import { useSearchParams } from 'next/navigation';
 import { useDispatch } from 'react-redux';
+import { useRedirect } from '../useRedirect';
 
 export interface JumpLeaningLessonType {
   menu: string;
@@ -18,9 +19,9 @@ export interface JumpLeaningLessonType {
   ids: string[];
 }
 export const useJumpLeaningLesson = () => {
-  const router = useRouter();
-  const { query } = router;
+  const query = useSearchParams();
   const dispatch = useDispatch();
+  const { redirectToUrl } = useRedirect();
   const { run: jumpLearningLesson, loading } = useRequest(
     async (
       courseDetail: CourseDetailType | CourseResponse | MiniElectiveCourseType,
@@ -48,11 +49,11 @@ export const useJumpLeaningLesson = () => {
       manual: true,
       onSuccess({ courseDetail, pageId, lParam }) {
         const linkParam = lParam || {
-          menu: query.menu as string,
+          menu: query.get('menu') as string,
           idTypes: [QueryIdType.LEARNING_TRACK_ID, QueryIdType.MENU_COURSE_ID],
           ids: [
-            query[QueryIdType.LEARNING_TRACK_ID] || '',
-            query[QueryIdType.MENU_COURSE_ID] || ''
+            query.get(QueryIdType.LEARNING_TRACK_ID) || '',
+            query.get(QueryIdType.MENU_COURSE_ID) || ''
           ] as string[]
         };
         let link = `${getLessonLink(
@@ -62,12 +63,12 @@ export const useJumpLeaningLesson = () => {
           courseDetail?.id,
           linkParam
         )}`;
-        router.push(link);
+        redirectToUrl(link);
       },
       onError(err: any) {
         if (err.code === 401) {
           dispatch(setUnLoginType(UnLoginType.LOGIN));
-          router.push('/');
+          redirectToUrl('/');
         }
       }
     }
