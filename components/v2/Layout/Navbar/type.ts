@@ -10,7 +10,7 @@ export enum MenuLink {
   CAMPAIGINS = '/campaigns',
   USER_PROFILE = '/user/profile',
   CONNECT_GITHUB = '/connect-github',
-  PROFILE = '/profile'
+  PROFILE = '/ecosystem'
 }
 
 export interface MenuType {
