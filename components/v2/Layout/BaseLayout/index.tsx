@@ -6,8 +6,7 @@ import NavBar, { NavBarProps } from '../Navbar';
 
 import Breadcrumb from '@/components/v2/Business/Breadcrumb';
 import { useParams, usePathname } from 'next/navigation';
-import { excludeLink } from '../Navbar/data';
-import { MenuLink } from '../Navbar/type';
+import { useCheckPathname } from '@/hooks/useCheckPathname';
 const inter = Inter({ subsets: ['latin'] });
 export interface V2LayoutProps {
   navbarData: NavBarProps;
@@ -19,38 +18,26 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
   const regex = /\/[^/]+\/\[courseId\]\/learn\/\[lessonId\]/;
   const params = useParams();
   const pathname = usePathname();
+  const { isNavbarFullPage, isExcludeBreadcrumbLink } = useCheckPathname();
 
-  const getFull = () => {
-    return (
-      (params?.courseId && params.lessonId && pathname.includes('/learn/')) ||
-      pathname.startsWith('/preview')
-    );
-  };
   const renderBreadcrumb = useCallback(() => {
-    const full = getFull();
     const { navList } = navbarData;
-    if (
-      full ||
-      pathname === '/' ||
-      !navList.length ||
-      ~excludeLink.indexOf(pathname as MenuLink)
-    ) {
+    if (isExcludeBreadcrumbLink) {
       return null;
     }
-
-    if (pathname.startsWith('/mobile')) return null;
 
     for (let menu of navList) {
       if (menu.menu.some((v) => v.path === pathname)) {
         return null;
       }
     }
+
     return (
       <div className="container mx-auto">
         <Breadcrumb />
       </div>
     );
-  }, [pathname, navbarData]);
+  }, [pathname, navbarData, isExcludeBreadcrumbLink]);
 
   useEffect(() => {
     const contentWrap = document.querySelector('#content-scroll-wrap');
@@ -63,17 +50,17 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
     <div
       className={`w-full h-[100vh] flex flex-col overflow-hidden  ${
         inter.className
-      } ${getFull() ? '' : 'min-h-[100vh]'} `}
+      } ${isNavbarFullPage ? '' : 'min-h-[100vh]'} `}
     >
       <div className="w-full bg-[#0B0B0B] flex items-center">
-        <NavBar {...navbarData} isFull={getFull()}>
+        <NavBar {...navbarData} isFull={isNavbarFullPage}>
           <User></User>
         </NavBar>
       </div>
       <div
         id="content-scroll-wrap"
         className={`m-auto overflow-auto flex-1 w-full  ${
-          getFull() ? 'bg-[white]' : 'bg-[#F4F4F4]'
+          isNavbarFullPage ? 'bg-[white]' : 'bg-[#F4F4F4]'
         }`}
       >
         <div className={`w-full h-full flex flex-col`}>
