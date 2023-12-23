@@ -1,29 +1,38 @@
 'use client';
 import type { NextPage } from 'next';
 
-import MiniCoursePage from '@/components/v2/MiniCoursePage';
+import MiniCoursePage from './MiniCoursePage';
 import { CourseType } from '@/service/webApi/course/type';
-import useGetDevice from '@/hooks/useGetDevice';
 import { useParams } from 'next/navigation';
+import MiniElectiveCompletedModal, {
+  MiniElectiveCompletedModalRef
+} from './MiniElectiveCompletedModal';
+import { useRef } from 'react';
 interface IProps {}
 
 const MiniLessonPage: NextPage<IProps> = (props) => {
   const { lessonId } = useParams();
-  const isMobile = useGetDevice();
+  const miniElectiveCompletedModalInstance =
+    useRef<MiniElectiveCompletedModalRef>(null);
+  const completed = () => {
+    miniElectiveCompletedModalInstance.current?.open({});
+    console.info(111);
+  };
   if (!lessonId) {
     return null;
   }
 
   return (
     <>
-      <div className="w-full h-full flex flex-col font-next-book px-[40px] bg-[#f4f4f4]">
-        {isMobile && null}
-        {!isMobile && (
-          <MiniCoursePage
-            lessonId={lessonId as string}
-            courseType={CourseType.Mini}
-          ></MiniCoursePage>
-        )}
+      <div className="w-full h-full flex flex-col font-next-book p-[24px] bg-[#fff] relative">
+        <MiniCoursePage
+          lessonId={lessonId as string}
+          courseType={CourseType.Mini}
+          completed={completed}
+        ></MiniCoursePage>
+        <MiniElectiveCompletedModal
+          ref={miniElectiveCompletedModalInstance}
+        ></MiniElectiveCompletedModal>
       </div>
     </>
   );
