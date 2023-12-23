@@ -7,11 +7,11 @@ export const useRedirect = () => {
   const pathname = usePathname();
   const isMobile = useGetDevice();
   const redirectToUrl = useCallback((url: string, isReplace = false) => {
-    if (isMobile) {
-      if (isReplace) router.replace(`/mobile${url}`);
-      else router.push(`/mobile${url}`);
-      return;
-    }
+    // if (isMobile) {
+    //   if (isReplace) router.replace(`/mobile${url}`);
+    //   else router.push(`/mobile${url}`);
+    //   return;
+    // }
     if (isReplace) {
       router.replace(url);
     } else {
