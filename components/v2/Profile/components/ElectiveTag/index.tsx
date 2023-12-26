@@ -8,7 +8,6 @@ interface ElectiveTagProp {
 }
 
 const ElectiveTag: React.FC<ElectiveTagProp> = ({ elective }) => {
-  console.info(elective);
   return (
     <div className="flex items-center gap-[33px] text-[16px]">
       {/* <div className="flex items-center gap-[10px]">
