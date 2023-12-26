@@ -236,7 +236,7 @@ const MiniElectiveDetailModal = forwardRef<
               </div>
             )}
             {course && (
-              <div className="fixed bottom-3 left-1/2 -translate-x-1/2 w-full">
+              <div className="fixed bottom-3 left-1/2 -translate-x-1/2 w-full px-6">
                 <Button
                   type="primary"
                   block
