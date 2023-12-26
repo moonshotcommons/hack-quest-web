@@ -20,7 +20,7 @@ const TargetCard: React.FC<TargetCardProp> = ({ target }) => {
     switch (type) {
       case TargetType.COURSE:
         BurialPoint.track('campaigns targetCard Go to Dashboard 按钮点击');
-        redirectToUrl(MenuLink.HOME);
+        redirectToUrl(MenuLink.DASHBOARD);
         break;
       case TargetType.LEARNING_TRACK:
         BurialPoint.track('campaigns targetCard Go to Learning 按钮点击');

@@ -15,9 +15,11 @@ function LearningTrack() {
         description={`Don't know where to start? Choose a Learning Track! Our Learning Tracks offer a curated sequence of core and elective courses designed to guide you in mastering a specific smart contract programming language.`}
       />
       <Loading loading={loading}>
-        {learningTracks.map((item) => (
-          <LearningTrackCard key={item.id} learningTrack={item} />
-        ))}
+        <div className="flex flex-col gap-10">
+          {learningTracks.map((item) => (
+            <LearningTrackCard key={item.id} learningTrack={item} />
+          ))}
+        </div>
 
         <div className="flex-center h-[170px]">
           <div className="w-[1px] h-[100px] bg-learning-track-line-bg"></div>

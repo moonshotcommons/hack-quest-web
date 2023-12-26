@@ -41,7 +41,7 @@ export const useGetLessonContent = <
 
         if (error?.code === 403) {
           message.error(error?.msg);
-          redirectToUrl('/home');
+          redirectToUrl('/dashboard');
           return;
         }
         message.error('404 Not Found');

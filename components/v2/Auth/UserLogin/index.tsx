@@ -80,7 +80,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
               }
               const toPageUrl = redirect_url
                 ? `${redirect_url}?token=${res.token}`
-                : '/home';
+                : '/dashboard';
 
               redirectToUrl(toPageUrl);
             } else {

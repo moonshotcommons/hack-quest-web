@@ -1,6 +1,7 @@
 import {
   ChangeState,
-  ScrollContainer
+  ScrollContainer,
+  ScrollControl
 } from '@/components/v2/Common/ScrollContainer';
 import { BurialPoint } from '@/helper/burialPoint';
 import webApi from '@/service';
@@ -10,7 +11,7 @@ import Link from 'next/link';
 import { FC, useState } from 'react';
 import { LuChevronRight } from 'react-icons/lu';
 import CourseCard from '@/components/v2/Business/CourseCard';
-import ScrollControl from './ScrollControl';
+
 interface FeatureCoursesProps {}
 
 const FeaturedCourseHeader = () => {
