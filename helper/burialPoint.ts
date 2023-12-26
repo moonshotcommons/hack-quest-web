@@ -189,7 +189,11 @@ type UserProfile =
   | 'user-profile GithubActivity refresh icon按钮点击'
   | 'user-profile GithubActivity Connect to Github按钮点击';
 
-type Profile = 'profile-页面留存时间' | 'profile-Official Website点击';
+type EcosystemProfile =
+  | 'ecosystem-profile-页面留存时间'
+  | 'ecosystem-profile-Official Website点击'
+  | 'ecosystem-profile miniElectiveCard 点击'
+  | 'ecosystem-profile miniElectiveCard start按钮 点击';
 
 type BurialPointType =
   | AuthBurialPointType
@@ -204,7 +208,7 @@ type BurialPointType =
   | HackathonBurialPointType
   | CampaignsBurialPointType
   | UserProfile
-  | Profile;
+  | EcosystemProfile;
 
 export class BurialPoint {
   static track(
