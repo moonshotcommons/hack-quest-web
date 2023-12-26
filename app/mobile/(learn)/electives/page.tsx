@@ -1,7 +1,7 @@
 'use client';
 import Title from '@/components/v1/Head/Title';
 import PageDescription from '@/components/v2/Business/PageDescription';
-import SelectiveCoursesBox from '@/components/v2/ElectivesBox';
+import SelectiveCoursesBox from './components/ElectivesBox';
 import { useRef, useState } from 'react';
 
 function SelectiveCourses() {

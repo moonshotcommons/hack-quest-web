@@ -32,7 +32,7 @@ export const getCourseLink = (courseType?: CourseType) => {
 
 export const getLessonLink = (
   courseType: CourseType,
-  courseName: string,
+  courseName: string | undefined,
   lessonId: string,
   menuCourseId: string,
   linkParam?: JumpLeaningLessonType
