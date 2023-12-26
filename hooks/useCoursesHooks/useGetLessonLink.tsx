@@ -10,7 +10,7 @@ export const useGetLessonLink = () => {
   const params = useParams();
   const query = useSearchParams();
   const getLink = useCallback(
-    (courseType: CourseType, lessonId: string) => {
+    (courseType: CourseType, lessonId: string, courseName?: string) => {
       const menu = query.get('menu');
       const learningTrackId = query.get(
         QueryIdType.LEARNING_TRACK_ID
@@ -18,7 +18,7 @@ export const useGetLessonLink = () => {
       const menuCourseId = query.get(QueryIdType.MENU_COURSE_ID) as string;
       const link = getLessonLink(
         courseType,
-        params.courseId as string,
+        (params.courseId as string) || courseName,
         lessonId,
         menuCourseId as string,
         {

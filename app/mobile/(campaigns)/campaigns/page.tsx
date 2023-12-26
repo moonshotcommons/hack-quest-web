@@ -11,13 +11,12 @@ import Loading from '@/public/images/other/loading.png';
 import webApi from '@/service';
 import { MantleType, TargetsType } from '@/service/webApi/campaigns/type';
 import Image from 'next/image';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react';
 
 interface CampaignsProp {}
 
 const Campaigns: React.FC<CampaignsProp> = () => {
-  const router = useRouter();
   const params = useParams();
   const [curIndex, setCurIndex] = useState(0);
   const [mantles, setMantles] = useState<MantleType[]>([]);
@@ -87,7 +86,7 @@ const Campaigns: React.FC<CampaignsProp> = () => {
   };
 
   useEffect(() => {
-    const campaignId = params.campaignId as string;
+    const campaignId = params?.campaignId as string;
     getCampaignsInfo(campaignId);
     const startTime = new Date().getTime();
     return () => {
