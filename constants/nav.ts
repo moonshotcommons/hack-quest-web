@@ -18,7 +18,7 @@ export const ALL_COURSES_PATHNAME = '/courses';
 export const DASHBOARD_PATHNAME = '/dashboard';
 export const MISSION_CENTER = '/mission-center';
 export const V2_LANDING_PATH = '/';
-export const V2_HOME_PATH = '/home';
+export const V2_DASHBOARD_PATH = '/dashboard';
 export const PREVIEW_PATH = '/preview';
 export const LEARNING_TRACK_DETAIL = `${MenuLink.LEARNING_TRACK}/[learningTrackId]`;
 export const ELECTIVE_DETAIL = `${MenuLink.ELECTIVES}/[courseId]`;
@@ -49,7 +49,7 @@ export function isNoNeedUserInfo(pathname: string) {
       REGISTER_PATHNAME,
       ALL_COURSES_PATHNAME,
       PREVIEW_PATH,
-      // MenuLink.HOME,
+      // MenuLink.DASHBOARD,
       // MenuLink.LEARNING_TRACK,
       // MenuLink.ELECTIVES,
       // LEARNING_TRACK_DETAIL,

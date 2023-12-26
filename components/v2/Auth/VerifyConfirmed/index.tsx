@@ -51,7 +51,7 @@ const Success: React.FC<{ type: AuthType }> = ({ type }) => {
         clearInterval(timer);
       };
     } else {
-      redirectToUrl('/home');
+      redirectToUrl('/dashboard');
     }
   }, [countDown]);
 
@@ -233,7 +233,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
             if (isPc()) {
               dispatch(setUserInfo(omit(res, 'token')));
               setToken(res.token);
-              redirectToUrl('/home');
+              redirectToUrl('/dashboard');
             } else {
               setTipsOpen(true);
             }
@@ -277,7 +277,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
               BurialPoint.track('signup-Github三方登录code验证成功');
               dispatch(setUserInfo(omit(res, 'token')));
               setToken(res.token);
-              redirectToUrl('/home');
+              redirectToUrl('/dashboard');
             } else {
               setTipsOpen(true);
             }
