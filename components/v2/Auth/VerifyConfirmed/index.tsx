@@ -275,9 +275,9 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
           } else {
             if (isPc()) {
               BurialPoint.track('signup-Github三方登录code验证成功');
-
+              dispatch(setUserInfo(omit(res, 'token')));
               setToken(res.token);
-              router.refresh();
+              redirectToUrl('/home');
             } else {
               setTipsOpen(true);
             }
