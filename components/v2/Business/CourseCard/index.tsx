@@ -189,6 +189,7 @@ const CourseCard: FC<CourseCardProps> = (props) => {
             >
               Resume
             </Button>
+
             <Button
               className="border border-[#000] rounded-[32px] px-0 py-[12px] flex text-[16px] font-next-book tracking-[0.32] leading-[125%]"
               block
