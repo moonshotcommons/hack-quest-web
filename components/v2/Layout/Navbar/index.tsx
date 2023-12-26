@@ -100,7 +100,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
     redirectToUrl(V2_LANDING_PATH);
   };
   return (
-    <div className=" w-full">
+    <div className="w-full">
       <div
         className={`h-[64px] mx-auto  ${
           isFull ? 'w-full 2xl:px-[40px]' : 'container'
