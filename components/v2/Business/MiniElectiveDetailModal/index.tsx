@@ -96,7 +96,7 @@ const MiniElectiveDetailModal = forwardRef<
               state
             )
           ) {
-            const link = getLink(course!.type, item.id);
+            const link = getLink(course!.type, item.id, course?.name);
             redirectToUrl(link);
           }
         }}
