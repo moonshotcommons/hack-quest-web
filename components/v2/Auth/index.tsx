@@ -21,7 +21,7 @@ const Auth: FC<AuthProps> = (props) => {
   });
 
   useEffect(() => {
-    const type = query.get('TYPE');
+    const type = query.get('type');
     if (type) {
       dispatch(setUnLoginType(type));
     } else {
