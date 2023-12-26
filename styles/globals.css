@@ -241,6 +241,24 @@ input[data-type='changePassword']:-internal-autofill-selected {
     border-radius: 20px;
   }
 }
+.slide-blog-navigator {
+  --highlight-x: 0;
+  --highlight-width: 0;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    bottom: 0;
+    left: var(--highlight-x);
+    width: var(--highlight-width);
+    background: #fff;
+    transition: all 0.2s;
+    border-radius: 20px;
+  }
+}
 .input-quiver {
   position: relative;
   animation: shake 0.1s infinite;
