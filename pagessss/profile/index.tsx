@@ -11,7 +11,7 @@ const Profile: React.FC<ProfileProp> = () => {
     return () => {
       const endTime = new Date().getTime();
       const duration = endTime - startTime;
-      BurialPoint.track('profile-页面留存时间', {
+      BurialPoint.track('ecosystem-profile-页面留存时间', {
         duration
       });
     };

@@ -34,7 +34,7 @@ const UserProfile: FC<UserProfileProps> = ({ profile }) => {
             <div
               className="flex items-center gap-[10px] cursor-pointer"
               onClick={() => {
-                BurialPoint.track('profile-Official Website点击');
+                BurialPoint.track('ecosystem-profile-Official Website点击');
                 window.open(profile.website);
               }}
             >
