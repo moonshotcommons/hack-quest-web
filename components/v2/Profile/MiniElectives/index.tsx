@@ -5,6 +5,7 @@ import webApi from '@/service';
 import { EcosystemElectiveType } from '@/service/webApi/elective/type';
 import Loading from '../../Common/Loading';
 import { useParams } from 'next/navigation';
+import { CourseResponse } from '@/service/webApi/course/type';
 
 interface MiniElectivesProp {}
 
@@ -23,7 +24,10 @@ const MiniElectives: React.FC<MiniElectivesProp> = () => {
       <div className="flex flex-col gap-[30px]">
         <Loading loading={loading}>
           {elctiveList.map((elective) => (
-            <MiniElectiveCard elective={elective} key={elective.id} />
+            <MiniElectiveCard
+              elective={elective as EcosystemElectiveType & CourseResponse}
+              key={elective.id}
+            />
           ))}
         </Loading>
       </div>
