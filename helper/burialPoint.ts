@@ -167,7 +167,7 @@ type CampaignsBurialPointType =
   | 'campaigns targetCard Go to Profile 按钮点击'
   | 'campaigns targetCard Join Discord 按钮点击';
 
-type UserProfile =
+type UserProfileType =
   | 'user-profile-页面留存时间'
   | 'user-profile Experenice Add Experience按钮点击'
   | 'user-profile Experenice Show More按钮点击'
@@ -189,13 +189,20 @@ type UserProfile =
   | 'user-profile GithubActivity refresh icon按钮点击'
   | 'user-profile GithubActivity Connect to Github按钮点击';
 
-type EcosystemProfile =
+type EcosystemProfileType =
   | 'ecosystem-profile-页面留存时间'
   | 'ecosystem-profile-Official Website点击'
   | 'ecosystem-profile miniElectiveCard 点击'
-  | 'ecosystem-profile miniElectiveCard start按钮 点击';
+  | 'ecosystem-profile miniElectiveCard start按钮 点击'
+  | 'blog-content-page-featured blogCard滚动-左'
+  | 'blog-content-page-featured blogCard滚动-右';
 
-type BurialPointType =
+type BlogType =
+  | 'blog-页面留存时间'
+  | 'blog-content-page-页面留存时间'
+  | 'blog-content-page Back按钮点击';
+
+export type BurialPointType =
   | AuthBurialPointType
   | LandingBurialPointType
   | HomeBurialPointType
@@ -207,8 +214,9 @@ type BurialPointType =
   | MissCenterBurialPointType
   | HackathonBurialPointType
   | CampaignsBurialPointType
-  | UserProfile
-  | EcosystemProfile;
+  | UserProfileType
+  | EcosystemProfileType
+  | BlogType;
 
 export class BurialPoint {
   static track(
