@@ -1,10 +1,11 @@
 'use client';
 import Title from '@/components/v1/Head/Title';
-import BlogBanner from '@/components/v2/Blog/BlogBanner';
-import { sortData } from '@/components/v2/Blog/BlogBanner/data';
-import BlogList from '@/components/v2/Blog/BlogList';
-import FeatureBlog from '@/components/v2/Blog/FeatureBlog';
+import BlogBanner from './/BlogBanner';
+import { searchTabData, sortData } from './/BlogBanner/data';
+import BlogList from './/BlogList';
+import FeatureBlog from './/FeatureBlog';
 import Pagination from '@/components/v2/Common/Pagination';
+import { BurialPoint } from '@/helper/burialPoint';
 import React, { useEffect, useState } from 'react';
 
 interface BlogProp {}
@@ -19,7 +20,7 @@ export interface SearchInfoType {
 const Blog: React.FC<BlogProp> = () => {
   const [searchInfo, setSearchInfo] = useState<SearchInfoType>({
     inputValue: '',
-    tab: 'All',
+    tab: searchTabData[0].value,
     sort: sortData[0].value,
     page: 1
   });
@@ -29,6 +30,14 @@ const Blog: React.FC<BlogProp> = () => {
 
   useEffect(() => {
     console.info(searchInfo);
+    const startTime = new Date().getTime();
+    return () => {
+      const endTime = new Date().getTime();
+      const duration = endTime - startTime;
+      BurialPoint.track('blog-页面留存时间', {
+        duration
+      });
+    };
   }, [searchInfo]);
   return (
     <div>

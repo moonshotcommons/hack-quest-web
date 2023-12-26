@@ -1,6 +1,7 @@
 import { ChangeState } from './ScrollContainer';
+import { BurialPoint, BurialPointType } from '@/helper/burialPoint';
 import { cn } from '@/helper/utils';
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { HiArrowLongRight, HiArrowLongLeft } from 'react-icons/hi2';
 
 interface ScrollControlProps {
@@ -10,6 +11,7 @@ interface ScrollControlProps {
   controlIconSize?: number;
   onLeftClick?: VoidFunction;
   onRightClick?: VoidFunction;
+  burialPointType?: BurialPointType[];
 }
 
 function ScrollControl({
@@ -18,7 +20,11 @@ function ScrollControl({
   controlWrapSize,
   controlIconSize = 24,
   onLeftClick,
-  onRightClick
+  onRightClick,
+  burialPointType = [
+    'home-featured course滚动-左',
+    'home-featured course滚动-右'
+  ]
 }: ScrollControlProps) {
   const { handleArrowClick, rightArrowVisible, leftArrowVisible } =
     changeState || {};
@@ -53,6 +59,7 @@ function ScrollControl({
             !controlWrapSize ? 'p-2' : ''
           )}
           onClick={() => {
+            BurialPoint.track(burialPointType[0]);
             handleArrowClick?.('left');
             onLeftClick?.();
           }}
@@ -72,6 +79,7 @@ function ScrollControl({
             !controlWrapSize ? 'p-2' : ''
           )}
           onClick={() => {
+            BurialPoint.track(burialPointType[1]);
             handleArrowClick?.('right');
             onRightClick?.();
           }}
