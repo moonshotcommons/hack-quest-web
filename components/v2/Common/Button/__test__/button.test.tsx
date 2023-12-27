@@ -36,7 +36,7 @@ describe('Button', () => {
   test('applies correct class names and styles', () => {
     const { container } = render(<Button type="primary" rounded="medium" />);
     const button = container.firstChild;
-    expect(button).toHaveClass('bg-primary-color');
+    expect(button).toHaveClass('bg-yellow-primary');
     // expect(button).toHaveClass('rounded-medium');
   });
 
@@ -50,7 +50,7 @@ describe('Button', () => {
     const { container } = render(<Button ghost />);
     const button = container.firstChild;
     expect(button).toHaveClass('bg-transparent');
-    expect(button).toHaveClass('border-primary-color');
+    expect(button).toHaveClass('border-yellow-primary');
   });
 
   test('applies size attribute correctly', () => {

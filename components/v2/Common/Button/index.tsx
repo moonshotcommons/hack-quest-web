@@ -74,9 +74,9 @@ const Button: FC<ButtonProps> = (props) => {
       ref={buttonRef}
       className={cn(
         `text-text-default-color flex gap-[.625rem] items-center justify-center h-fit w-fit cursor-pointer relative`,
-        type === 'primary' ? 'bg-primary-color' : '',
+        type === 'primary' ? 'bg-yellow-primary' : '',
         block && 'w-full',
-        ghost && 'bg-transparent border-primary-color border',
+        ghost && 'bg-transparent border-yellow-primary border',
         mergeSize(),
         mergeRounded(),
         className,

@@ -252,7 +252,7 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
                     className={cn(
                       `px-[14px] py-[3px] bg-[#DADADA] text-[12px] font-next-book text-[#8C8C8C] rounded-[10px]`,
                       selectKinds.includes(kind)
-                        ? 'bg-[#FFD850] text-[#0B0B0B]'
+                        ? 'bg-yellow-primary text-[#0B0B0B]'
                         : ''
                     )}
                     onClick={() => {

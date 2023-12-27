@@ -49,7 +49,7 @@ const Confirm: React.FC<ConfirmProp> = ({
             <Button
               loading={loading}
               onClick={handleConfirm}
-              className="w-[265px] h-[44px] bg-[#ffd850] font-next-book text-[16px]"
+              className="w-[265px] h-[44px] bg-yellow-primary font-next-book text-[16px]"
             >
               {confirmText}
             </Button>

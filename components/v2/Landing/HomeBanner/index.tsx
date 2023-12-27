@@ -21,7 +21,7 @@ const HomeBanner: FC<HomeBannerProps> = (props) => {
             Web3.0 <br />
             Programming
             <br />
-            For<span className="text-primary-color"> Everyone</span>
+            For<span className="text-yellow-primary"> Everyone</span>
           </h1>
           <div className="pl-[90px]">
             <Image src={Astronaut} alt="astronaut" width={138}></Image>
@@ -35,7 +35,7 @@ const HomeBanner: FC<HomeBannerProps> = (props) => {
         <h1 className="slab:container mx-auto text-landing-banner-intr-color  font-next-book-bold text-[24px] tracking-[2.4px] leading-[140%] uppercase">
           Web3.0 Programming
           <br />
-          For<span className="text-primary-color"> Everyone</span>
+          For<span className="text-yellow-primary"> Everyone</span>
         </h1>
         <div className="w-full mt-[60px]">
           <Auth />

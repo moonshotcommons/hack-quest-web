@@ -56,10 +56,10 @@ const Button: FC<ButtonProps> = (props) => {
       className={cn(
         `text-text-default-color flex gap-[.625rem] items-center justify-center h-fit w-fit cursor-pointer transition`,
         type === 'primary'
-          ? 'bg-primary-color hover:-translate-y-[1px] hover:shadow-[rgba(0,0,0,0.15)_1.95px_1.95px_2.6px]'
+          ? 'bg-yellow-primary hover:-translate-y-[1px] hover:shadow-[rgba(0,0,0,0.15)_1.95px_1.95px_2.6px]'
           : '',
         block && 'w-full',
-        ghost && 'bg-transparent border-primary-color',
+        ghost && 'bg-transparent border-yellow-primary',
         mergeSize(),
         mergeRounded(),
         className
