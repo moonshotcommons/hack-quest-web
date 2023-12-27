@@ -86,7 +86,7 @@ const User: FC<UserProps> = () => {
                       }}
                     ></div>
                     <div className="absolute w-full h-full flex-row-center justify-between text-[#0b0b0b]">
-                      <div className="w-[30px] ml-[-15px] h-[30px] flex-center rounded-[50%] bg-[#FFD850]">
+                      <div className="w-[30px] ml-[-15px] h-[30px] flex-center rounded-[50%] bg-yellow-primary">
                         <div className="w-[24px] h-[24px] flex-center rounded-[50%] bg-[#E7A600] ">
                           {userLevel.level}
                         </div>

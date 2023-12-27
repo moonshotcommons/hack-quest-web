@@ -32,16 +32,42 @@ import {
 import { authThemeColors } from './auth';
 
 export const themeColors = {
-  'primary-color': 'var(--primary-green-yellow)',
   'default-global-bg': 'var(--default-global-bg)',
+  'text-default-color': 'var(--text-default-color)',
+  'text-second-color': 'var(--text-second-color)',
+  /* 主题黄色 */
+  'yellow-dark': 'var(--yellow-dark)',
+  'yellow-primary': 'var(--yellow-primary)',
+  'yellow-hover': 'var(--yellow-hover)',
+  'yellow-light': 'var(--yellow-light)',
+
+  /* 中性色 */
+  'neutral-black': 'var(--neutral-black)',
+  'neutral-off-black': 'var(--neutral-off-black)',
   'neutral-dark-gray': 'var(--neutral-dark-gray)',
+  'neutral-rich-gray': 'var(--neutral-rich-gray)',
+  'neutral-medium-gray': 'var(--neutral-medium-gray)',
   'neutral-light-gray': 'var(--neutral-light-gray)',
   'neutral-off-white': 'var(--neutral-off-white)',
   'neutral-white': 'var(--neutral-white)',
-  'neutral-medium-gray': 'var(--neutral-medium-gray)',
-  'neutral-black': 'var(--neutral-black)',
-  'text-default-color': 'var(--text-default-color)',
-  'text-second-color': 'var(--text-second-color)',
+
+  /* 状态色 */
+  'status-success-dark': 'var(--status-success-dark)',
+  'status-success': 'var(--status-success)',
+  'status-success-light': 'var(--status-success-light)',
+  'status-error-dark': 'var(--status-error-dark)',
+  'status-error': 'var(--status-error)',
+  'status-error-light': 'var(--status-error-light)',
+
+  /* Code */
+  'code-gray': 'var(--code-gray)',
+  'code-dark-blue': 'var(--code-dark-blue)',
+  'code-blue': 'var(--code-blue)',
+  'code-brown': 'var(--code-brown)',
+  'code-wine-red': 'var(--code-wine-red)',
+  'code-rose-red': 'var(--code-rose-red)',
+  'code-code-red': 'var(--code-code-red)',
+  'code-code-green': 'var(--code-code-green)',
   ...layoutThemeColors,
   ...landingThemeColors,
   ...missionCenterColors,

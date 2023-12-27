@@ -17,7 +17,7 @@ const Switch: FC<SwitchProps> = (props) => {
         onChange(!enabled);
       }}
       className={`${
-        enabled ? 'bg-primary-color' : 'bg-neutral-dark-gray'
+        enabled ? 'bg-yellow-primary' : 'bg-neutral-dark-gray'
       } relative inline-flex h-[1.25rem] w-[2rem] items-center rounded-full`}
     >
       <span

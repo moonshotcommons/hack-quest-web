@@ -69,7 +69,7 @@ const HomeCourseTab: FC<HomeCourseTabProps> = (props) => {
             <div className="flex w-fit text-text-default-color font-next-book text-[1.25rem] items-center gap-[0.31rem] mt-8">
               <div>
                 <span>Explore All Course</span>
-                <span className="block h-[.125rem] w-full bg-primary-color"></span>
+                <span className="block h-[.125rem] w-full bg-yellow-primary"></span>
               </div>
               <span className="text-text-default-color">
                 <SkipIcon color="currentColor"></SkipIcon>

@@ -34,7 +34,7 @@ function ScrollControl({ changeState }: { changeState?: ChangeState }) {
             `flex items-center justify-center w-[35px] h-[35px] rounded-[50%] border border-solid border-[#FDEAAA] bg-[#FDEAAA] text-[#0b0b0b] cursor-pointer`,
             !leftArrowVisible
               ? 'bg-[#FDEAAA]/40 text-[#0b0b0b]/40 border-[#FDEAAA]/40 cursor-not-allowed'
-              : 'hover:bg-[#FFD850] hover:border-[#FFD850] transition'
+              : 'hover:bg-yellow-primary hover:border-yellow-primary transition'
           )}
           onClick={() => {
             BurialPoint.track('mission-center-daily-bonus claim滚动-左');
@@ -48,7 +48,7 @@ function ScrollControl({ changeState }: { changeState?: ChangeState }) {
             `flex items-center justify-center w-[35px] h-[35px] rounded-full border border-solid border-[#FDEAAA] bg-[#FDEAAA] text-[#0b0b0b] cursor-pointer`,
             !rightArrowVisible
               ? 'bg-[#FDEAAA]/40 text-[#0b0b0b]/40 border-[#FDEAAA]/40 cursor-not-allowed'
-              : 'hover:bg-[#FFD850] hover:border-[#FFD850] transition'
+              : 'hover:bg-yellow-primary hover:border-yellow-primary transition'
           )}
           onClick={() => {
             BurialPoint.track('mission-center-daily-bonus claim滚动-右');

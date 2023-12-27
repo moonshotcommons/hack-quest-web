@@ -20,7 +20,9 @@ const Tab: React.FC<TabProp> = ({ tabList, curIndex, changeTab }) => {
               ? 'bg-[#fff] text-[#000] font-next-book-bold'
               : 'bg-[#DADADA] text-[#8c8c8c]'
           } ${
-            curIndex === i ? 'border-t-[10px] border-[#FFD850] pb-[10px]' : ''
+            curIndex === i
+              ? 'border-t-[10px] border-yellow-primary pb-[10px]'
+              : ''
           }`}
           style={{
             boxShadow: `0 -3px 6px #dadada`
