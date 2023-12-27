@@ -91,7 +91,7 @@ const CompleteModal = forwardRef<CompleteModalInstance, CompleteModalProps>(
           </p>
           {type === 'course' && (
             <div className="flex gap-[1.25rem] mt-[100px]">
-              <Link href={'/home'} onClick={() => setOpen(false)}>
+              <Link href={'/dashboard'} onClick={() => setOpen(false)}>
                 <Button className="bg-lesson-primary-button-bg text-lesson-primary-button-text-color border border-lesson-primary-button-border-color font-next-book px-[3rem] py-[1rem] text-[18px]">
                   Back to Homepage
                 </Button>

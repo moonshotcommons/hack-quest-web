@@ -15,6 +15,7 @@ import CourseTags from '@/components/v2/Business/CourseTags';
 import { menuLink } from '@/components/v2/Business/Breadcrumb/data';
 import CardProgress from '../CardProgress';
 import { useRedirect } from '@/hooks/useRedirect';
+import { cn } from '@/helper/utils';
 
 const CustomProgress = styled(Progress)`
   .ant-progress-inner {
@@ -28,11 +29,13 @@ interface LearningTrackCardProps {
   learningTrack: LearningTrackDetailType;
   isLandingPage?: boolean;
   status?: LearningTrackCourseType;
+  className?: string;
 }
 const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
   learningTrack: track,
   isLandingPage,
-  status
+  status,
+  className
 }) => {
   const { redirectToUrl } = useRedirect();
   const [learningInfo, setLearningInfo] = useState<{
@@ -235,7 +238,10 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
 
   return (
     <div
-      className="h-[280px] font-next-book cursor-pointer rounded-[10px] bg-home-learning--track-bg overflow-hidden flex flex-col mb-10 hover:-translate-y-1 transition-all duration-300 shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)]"
+      className={cn(
+        'h-[280px] font-next-book cursor-pointer rounded-[10px] bg-home-learning--track-bg overflow-hidden flex flex-col hover:-translate-y-1 transition-all duration-300 shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)]',
+        className
+      )}
       onClick={goLearningTrackDetail}
     >
       <div className="w-full flex-1 flex items-center p-10 relative">

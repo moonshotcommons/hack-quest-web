@@ -94,7 +94,7 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
         dispatch(setUserInfo(omit(res, 'token')));
         BurialPoint.track('signup-Google三方登录输入邀请码登录成功');
         setToken(res.token);
-        redirectToUrl('/home');
+        redirectToUrl('/dashboard');
       },
       onError(e: any) {
         let msg = '';
@@ -129,7 +129,7 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
         dispatch(setUserInfo(omit(res, 'token')));
         BurialPoint.track('signup-Google三方登录输入邀请码登录成功');
         setToken(res.token);
-        redirectToUrl('/home');
+        redirectToUrl('/dashboard');
       },
       onError(e: any) {
         let msg = '';
@@ -249,7 +249,7 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
               // dispatch(setUserInfo(omit(res, 'token')));
 
               setToken(formData.token);
-              redirectToUrl('/home');
+              redirectToUrl('/dashboard');
             }
           }}
           block

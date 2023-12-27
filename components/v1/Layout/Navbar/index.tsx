@@ -6,7 +6,7 @@ import React, { ReactNode, useContext } from 'react';
 import { Theme } from '@/constants/enum';
 import { ThemeContext } from '@/store/context/theme';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 
 export interface NavBarProps {
   navList: {
@@ -19,7 +19,7 @@ export interface NavBarProps {
 
 const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
   const { navList, children, logo } = NavBarProps;
-  const { pathname } = useRouter();
+  const pathname = usePathname();
   const { theme } = useContext(ThemeContext);
 
   const NavBarLogo = () => {

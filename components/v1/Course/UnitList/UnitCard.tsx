@@ -13,7 +13,7 @@ import {
 } from '@/service/webApi/course/type';
 import { ThemeContext } from '@/store/context/theme';
 import { Progress, Typography } from 'antd';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { FC, useContext } from 'react';
 import styled from 'styled-components';
 

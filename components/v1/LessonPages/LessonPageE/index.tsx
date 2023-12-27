@@ -1,7 +1,7 @@
 import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
 import { FC, useEffect, useState } from 'react';
 import Button from '@/components/v2/Common/Button';
-import { useRouter } from 'next/router';
+import { useSearchParams } from 'next/navigation';
 import {
   useBackToPrevLesson,
   useGotoNextLesson
@@ -15,8 +15,8 @@ interface LessonPageDProps {
 
 const LessonPageD: FC<LessonPageDProps> = (props) => {
   const { lesson, courseType } = props;
-  const router = useRouter();
-  const { courseId: courseName } = router.query;
+  const query = useSearchParams();
+  const courseName = query.get('courseId');
   const [isCompleted, setIsCompleted] = useState<boolean>(false);
   // const sections = useParseLessonBSection(lesson.content);
   const { onNextClick } = useGotoNextLesson(lesson, courseType, true);

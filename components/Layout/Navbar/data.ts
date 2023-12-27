@@ -7,7 +7,7 @@ export const navbarList: NavbarListType[] = [
     menu: [
       {
         label: 'DASHBOARD',
-        path: MenuLink.HOME
+        path: MenuLink.DASHBOARD
       },
       {
         label: 'LEARNING TRACK',
@@ -64,7 +64,7 @@ export const navbarList: NavbarListType[] = [
 
 export const excludeLink = [MenuLink.USER_PROFILE, MenuLink.PROFILE];
 export const needLoginPath = [
-  MenuLink.HOME,
+  MenuLink.DASHBOARD,
   MenuLink.MISSION_CENTER,
   MenuLink.CAMPAIGINS,
   MenuLink.USER_PROFILE

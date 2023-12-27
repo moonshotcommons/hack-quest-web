@@ -147,7 +147,7 @@ const Certifications: FC<PersonalLinksProps> = (props) => {
           <p className="mt-[56.2px] text-center font-next-book text-[18px] leading-[160%] tracking-[0.054px]">
             You don’t have any certificate yet~
           </p>
-          <Link href={'/home'}>
+          <Link href={'/dashboard'}>
             <Button
               type="primary"
               className="w-[265px] px-0 py-[12px] text-[16px] font-next-book leading-[125%] tracking-[0.32px] text-[#0B0B0B] mt-[25px] mb-[30px]"

@@ -5,7 +5,6 @@ import { CourseDetailType } from '@/service/webApi/course/type';
 import { ThemeContext } from '@/store/context/theme';
 import { Typography } from 'antd';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 import { FC, ReactNode, useContext } from 'react';
 
 interface CourseDetailBannerProps {
@@ -16,7 +15,6 @@ interface CourseDetailBannerProps {
 
 const CourseDetailBanner: FC<CourseDetailBannerProps> = (props) => {
   const { courseDetail, jumpRef, children } = props;
-  const router = useRouter();
   const { jumpLearningLesson, loading } = useJumpLeaningLesson();
   const { theme } = useContext(ThemeContext);
   return (
