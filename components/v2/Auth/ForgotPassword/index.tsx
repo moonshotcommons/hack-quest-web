@@ -5,7 +5,6 @@ import webApi from '@/service';
 import { UnLoginType, setUnLoginType } from '@/store/redux/modules/user';
 import { useDebounceFn } from 'ahooks';
 import { message } from 'antd';
-import { useRouter } from 'next/router';
 import { FC, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import Button from '@/components/v2/Common/Button';
@@ -21,7 +20,6 @@ const ForgotPassword: FC<ForgotPasswordProps> = (props) => {
   const loginRouteParams = useGetUserUnLoginType();
   const [status, setStatus] = useState<any>('default');
   const [errorMessage, setErrorMessage] = useState('');
-  const router = useRouter();
   const { validator } = useValidator(['email']);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
