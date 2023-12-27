@@ -53,7 +53,7 @@ export const TopInfo: FC = () => {
           <div className="flex w-fit text-text-default-color font-next-book text-[1.25rem] items-center gap-[0.31rem]">
             <div>
               <span>Explore All Course</span>
-              <span className="block h-[.125rem] w-full bg-primary-color"></span>
+              <span className="block h-[.125rem] w-full bg-yellow-primary"></span>
             </div>
             <SkipIcon></SkipIcon>
           </div>
@@ -236,7 +236,7 @@ export const BottomInfo: FC = () => {
           <div className="flex w-fit text-[#F5F5F5] font-next-book text-[1.25rem] items-center gap-[0.31rem]">
             <div>
               <span>Explore All Course</span>
-              <span className="block h-[.125rem] w-full bg-primary-color"></span>
+              <span className="block h-[.125rem] w-full bg-yellow-primary"></span>
             </div>
             <SkipIcon></SkipIcon>
           </div>

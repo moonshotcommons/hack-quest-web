@@ -183,10 +183,10 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
           <div className="flex gap-[.75rem] items-center">
             <Checkbox
               outClassNames={`${
-                acceptConditions ? 'border-[#FFD850]' : 'border-[#8C8C8C]'
+                acceptConditions ? 'border-yellow-primary' : 'border-[#8C8C8C]'
               }`}
               isCircle={true}
-              innerClassNames="bg-[#FFD850]"
+              innerClassNames="bg-yellow-primary"
               onChange={(value) => {
                 if (value) {
                   setAcceptErrorMessage(false);

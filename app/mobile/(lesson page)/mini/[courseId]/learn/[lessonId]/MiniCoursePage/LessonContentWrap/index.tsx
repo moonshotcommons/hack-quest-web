@@ -171,7 +171,7 @@ const LessonContentWrap: FC<LessonContentWrapProps> = ({
           icon={<BsArrowLeft size={20} />}
           className={`w-[161px] h-[60px] text-[16px] ${
             previousLessonId
-              ? 'bg-[#ffd850]'
+              ? 'bg-yellow-primary'
               : 'bg-[#fff]  border border-[#0b0b0b] '
           }`}
           onClick={() => {
@@ -191,7 +191,7 @@ const LessonContentWrap: FC<LessonContentWrapProps> = ({
           icon={<BsArrowRight size={20} />}
           className={`w-[161px] h-[60px] text-[16px] ${
             nextLessonId && nextControl
-              ? 'bg-[#ffd850]'
+              ? 'bg-yellow-primary'
               : 'bg-[#fff]  border border-[#0b0b0b] '
           }`}
           onClick={() => {

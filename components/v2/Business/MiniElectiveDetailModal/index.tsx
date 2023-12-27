@@ -170,7 +170,7 @@ const MiniElectiveDetailModal = forwardRef<
                   <Image src={course.image} fill alt="cover"></Image>
                 </div>
                 <div>
-                  <h2 className="font-next-poster-Bold text-[#0B0B0B] text-[40px] tracking-[2.4px] leading-[125%]">
+                  <h2 className="text-[#0B0B0B] text-h2 tracking-[2.4px] leading-[125%]">
                     {course.name}
                   </h2>
                   <p className="mt-[16px] font-next-book text-[#3E3E3E] leading-[125%] tracking-[0.32px]">

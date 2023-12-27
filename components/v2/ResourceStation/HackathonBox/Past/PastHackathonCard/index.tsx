@@ -45,7 +45,7 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon }) => {
           </Typography.Paragraph>
           {/* </h2> */}
           <div className="mt-[15px] flex w-full h-fit gap-[15px]">
-            <div className="w-[5px] rounded-full bg-[#FFD850]"></div>
+            <div className="w-[5px] rounded-full bg-yellow-primary"></div>
             <div className="flex flex-col gap-[15px]">
               <div className="w-full font-next-book leading-[125%]">
                 <p className="text-[12px] tracking-[0.24px] text-[#8C8C8C]">

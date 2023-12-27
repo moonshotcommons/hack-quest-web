@@ -1,8 +1,12 @@
 @import url('./font.css');
 @import url('./variable.css');
 @import url('./antd.css');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 @tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @layer base {
   /* html,
   body {
@@ -14,61 +18,8 @@
     @apply bg-[#0b0b0b];
   }
 }
-@tailwind components;
-@tailwind utilities;
 
 @layer components {
-  .button-hover {
-    @apply font-next-book text-base font-bold text-white;
-  }
-
-  .gray-1 {
-    @apply text-[#F2F2F2];
-  }
-  .gray-2 {
-    @apply text-[#B2B2B2];
-  }
-
-  .gray-3 {
-    @apply text-[#676767];
-  }
-
-  .gray-4 {
-    @apply text-[#282828];
-  }
-
-  .card-bg {
-    @apply bg-[#131313];
-  }
-
-  .text-h1 {
-    @apply text-[#EDEDED] font-next-book-bold text-[5rem] font-bold leading-[100%];
-  }
-
-  .text-title {
-    @apply text-[#EDEDED]  font-next-book-bold font-bold leading-[100%] text-[1.125rem];
-  }
-
-  .text-des-lg {
-    @apply w-[29.25rem] text-[#EDEDED] font-next-book font-normal text-[1rem] leading-[120%];
-  }
-
-  .text-des-sm {
-    @apply w-[16.625rem] text-[#EDEDED] font-next-book font-normal text-[.875rem] leading-[128%];
-  }
-
-  .text-des-sx {
-    @apply w-[29.25rem] text-[#EDEDED] font-next-book-Thin text-[.75rem] leading-[120%];
-  }
-
-  .button-disable {
-    @apply font-next-book text-base font-bold text-white;
-  }
-
-  .title {
-    @apply font-next-book text-base font-bold;
-  }
-
   .top-line {
     @apply before:absolute before:h-[1px] before:scale-y-[1] before:w-full before:bg-line-color before:-top-1;
   }
@@ -77,42 +28,132 @@
     @apply after:absolute after:h-[1px] after:scale-y-[1] after:w-full after:bg-line-color after:-bottom-1;
   }
 
-  .top-line-default {
-    @apply before:absolute before:h-[1px] before:scale-y-[1] before:w-full before:-top-1;
-  }
-
-  .bottom-line-default {
-    @apply after:absolute after:h-[1px] after:scale-y-[1] after:w-full after:-bottom-1;
-  }
-
-  .description {
-    @apply w-[21.5rem] text-xs font-normal not-italic;
-  }
-
   .arrow {
     @apply flex items-center justify-center p-2 rounded-full border border-solid border-course-banner-arrow-border-color hover:bg-course-banner-arrow-hover-bg cursor-pointer;
-  }
-  .primary-button-hover {
-    @apply hover:bg-white hover:text-black;
   }
 
   .flex-col-center {
     @apply flex flex-col items-center;
   }
+
   .flex-row-center {
     @apply flex flex-row items-center;
   }
+
   .flex-center {
     @apply flex items-center justify-center;
   }
-  .base-btn {
-    @apply w-[145px] h-[40px] flex items-center justify-center text-[14px] rounded-[12px]  text-center;
+
+  .text-h1 {
+    @apply font-Inter font-Int font-extrabold text-[54px] leading-[54px] tracking-normal;
   }
-  .base-btn-bg {
-    @apply base-btn bg-mission-center-gradient-radial;
+  .text-h2 {
+    @apply font-Inter font-extrabold text-[40px] leading-[40px] tracking-normal;
   }
-  .base-btn-adapt {
-    @apply h-[40px] flex items-center justify-center text-[14px] rounded-[12px]  text-center;
+  .text-h3 {
+    @apply font-Inter font-extrabold text-[28px] leading-normal tracking-normal;
+  }
+  .text-h4 {
+    @apply font-Inter font-extrabold text-[18px] leading-normal tracking-normal;
+  }
+  .text-h5 {
+    @apply font-Inter font-extrabold text-[16px] leading-normal tracking-normal;
+  }
+
+  .text-h1-mob {
+    @apply font-Inter font-extrabold text-[30px] leading-[30px] tracking-normal;
+  }
+  .text-h2-mob {
+    @apply font-Inter font-extrabold  text-[22px] leading-normal tracking-normal;
+  }
+  .text-h3-mob {
+    @apply font-Inter font-extrabold text-[18px] leading-normal tracking-normal;
+  }
+  .text-h4-mob {
+    @apply font-Inter font-extrabold text-[16px] leading-normal tracking-normal;
+  }
+  .text-h5-mob {
+    @apply font-Inter font-extrabold text-[14px] leading-normal tracking-normal;
+  }
+
+  .body-xl {
+    @apply font-Inter font-normal text-6 leading-normal;
+  }
+
+  .body-xl-bold {
+    @apply font-Inter font-semibold text-6 leading-normal;
+  }
+
+  .body-l {
+    @apply font-Inter font-normal text-[18px] leading-[160%] tracking-normal;
+  }
+
+  .body-l-bold {
+    @apply font-Inter font-semibold text-[18px] leading-[160%] tracking-normal;
+  }
+
+  .body-m {
+    @apply font-Inter font-normal text-[16px] leading-[160%] tracking-normal;
+  }
+
+  .body-m-bold {
+    @apply font-Inter font-bold text-[16px] leading-[160%] tracking-normal;
+  }
+
+  .body-s {
+    @apply font-Inter font-normal text-[14px] leading-[160%] tracking-normal;
+  }
+
+  .body-s-bold {
+    @apply font-Inter font-semibold text-[14px] leading-[160%] tracking-normal;
+  }
+
+  .caption-16pt {
+    @apply font-Inter font-normal leading-normal text-[16px];
+  }
+
+  .caption-14pt {
+    @apply font-Inter font-normal leading-normal text-[14px];
+  }
+
+  .caption-12pt {
+    @apply font-Inter font-normal leading-normal text-[12px];
+  }
+
+  .caption-10pt {
+    @apply font-Inter font-normal leading-normal text-[12px] scale-[.83] w-[120%];
+  }
+
+  .button-text-l {
+    @apply font-Inter text-[18px] leading-normal tracking-normal font-medium;
+  }
+
+  .button-text-m {
+    @apply font-Inter text-[14px] leading-normal tracking-normal font-medium;
+  }
+
+  .button-text-s {
+    @apply font-Inter text-[12px] leading-normal tracking-normal font-medium;
+  }
+
+  .code-l {
+    @apply font-Space-Mono text-[14px] leading-[150%] tracking-normal font-normal;
+  }
+  .code-m {
+    @apply font-Space-Mono text-[12px] leading-[150%] tracking-normal font-normal;
+  }
+  .code-s {
+    @apply font-Space-Mono text-[12px] leading-[150%] tracking-normal font-normal w-[120%] scale-[.83];
+  }
+
+  .underline-l {
+    @apply font-Inter text-[18px] leading-normal tracking-normal underline;
+  }
+  .underline-m {
+    @apply font-Inter text-[18px] leading-normal tracking-normal underline;
+  }
+  .underline-s {
+    @apply font-Inter text-[18px] leading-normal tracking-normal underline;
   }
 }
 
@@ -229,7 +270,7 @@ input[data-type='changePassword']:-internal-autofill-selected {
     bottom: 0;
     left: var(--highlight-x);
     width: var(--highlight-width);
-    background: #ffd850;
+    background: var(--yellow-primary);
     transition: all 0.2s;
   }
 
