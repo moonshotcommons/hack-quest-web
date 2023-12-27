@@ -1,7 +1,7 @@
 'use client';
 import webApi from '@/service';
 import { useRequest } from 'ahooks';
-import { useRouter } from 'next/router';
+import { useSearchParams } from 'next/navigation';
 import React from 'react';
 import Image from 'next/image';
 import Loading from '@/public/images/other/loading.png';
@@ -9,10 +9,11 @@ import Loading from '@/public/images/other/loading.png';
 interface ConnectGithubProp {}
 
 const ConnectGithub: React.FC<ConnectGithubProp> = () => {
-  const router = useRouter();
+  const query = useSearchParams();
   const {} = useRequest(async () => {
-    if (router.query.code) {
-      await webApi.userApi.linkGithub(router.query.code as string);
+    const code = query.get('code');
+    if (code) {
+      await webApi.userApi.linkGithub(code as string);
       localStorage.setItem('linkGitHub', `${+new Date()}`);
       window.close();
     }

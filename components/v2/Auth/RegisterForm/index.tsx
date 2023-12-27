@@ -10,7 +10,6 @@ import { UnLoginType, setUnLoginType } from '@/store/redux/modules/user';
 import { useDebounceFn } from 'ahooks';
 import { message } from 'antd';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { FC, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import WhiteListModal from '../WhiteListModal';
@@ -61,7 +60,6 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
   const [acceptConditions, setAcceptCondition] = useState(false);
   const [acceptErrorMessage, setAcceptErrorMessage] = useState(false);
   const [showWhiteListModal, setShowWhiteListModal] = useState(false);
-  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const { run: onRegister } = useDebounceFn(
     () => {

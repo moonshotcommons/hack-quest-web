@@ -13,7 +13,7 @@ import {
   CourseType,
   LessonStyleType
 } from '@/service/webApi/course/type';
-import { useRouter } from 'next/router';
+import { useSearchParams } from 'next/navigation';
 import { FC, useEffect } from 'react';
 
 // const CustomButton: FC<ButtonProps> = (props) => {
@@ -37,8 +37,8 @@ interface LessonPageBProps {
 
 const LessonPageB: FC<LessonPageBProps> = (props) => {
   const { lesson, courseType } = props;
-  const router = useRouter();
-  const { courseId: courseName } = router.query;
+  const query = useSearchParams();
+  const courseName = query.get('courseId');
   const sections = useParseLessonBSection(lesson.content);
 
   const { onNextClick } = useGotoNextLesson(lesson, courseType, true);
