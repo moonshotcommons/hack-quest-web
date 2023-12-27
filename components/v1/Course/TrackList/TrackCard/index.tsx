@@ -7,7 +7,6 @@ import { useRedirect } from '@/hooks/useRedirect';
 import { CourseType } from '@/service/webApi/course/type';
 import { ThemeContext } from '@/store/context/theme';
 import { Progress } from 'antd';
-import { useRouter } from 'next/router';
 import { FC, useContext, useState } from 'react';
 import styled from 'styled-components';
 
@@ -88,7 +87,6 @@ const renderColorTag = (type: CourseType) => {
 const TrackCard: FC<TrackCardProps> = (props) => {
   const { course } = props;
   const [hoverCourseIndex, setHoverCourseIndex] = useState<number | null>(null);
-  const router = useRouter();
   const { theme } = useContext(ThemeContext);
   const { redirectToUrl } = useRedirect();
   const { jumpLearningLesson, loading } = useJumpLeaningLesson();

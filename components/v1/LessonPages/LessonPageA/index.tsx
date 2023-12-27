@@ -11,7 +11,7 @@ import { AppRootState } from '@/store/redux';
 // import JSConfetti from 'js-confetti';
 import { CustomRenderType } from '@/components/v1/NotionRender/type';
 import JSConfetti from 'js-confetti';
-import { useRouter } from 'next/router';
+import { useSearchParams } from 'next/navigation';
 import { shallowEqual, useSelector } from 'react-redux';
 import CompleteModal from '../CompleteModal';
 import LessonPassPage from '../LessonPassPage';
@@ -26,8 +26,8 @@ const LessonPageA: FC<LessonPageAProps> = (props) => {
   const [quizes, setQuizes] = useState([]);
   const [isProgressing, setIsProgressing] = useState(false);
   const [pass, setPass] = useState<boolean>(false);
-  const router = useRouter();
-  const { courseId: courseName } = router.query;
+  const query = useSearchParams();
+  const courseName = query.get('courseId');
   const [completeModalOpen, setCompleteModalOpen] = useState(false);
   const [isLastLesson, setIsLastLesson] = useState(false);
 

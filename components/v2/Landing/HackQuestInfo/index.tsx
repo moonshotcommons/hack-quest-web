@@ -144,7 +144,7 @@ export const TopInfo: FC = () => {
         }}
       ></div>
       <div className="container mx-auto slab:w-full slab:px-[20px]">
-        <h1 className="text-center pt-[20px] pb-[40px] text-[54px] slab:text-[24px] font-next-poster-Bold text-landing-hack-info-top-color">
+        <h1 className="text-center pt-[20px] pb-[40px] text-h1 slab:text-[24px] text-landing-hack-info-top-color">
           Become a Solidity Developer
         </h1>
         <p className="w-[663px] mx-auto text-[16px] leading-[25px]  slab:w-full mb-[40px]">
@@ -175,7 +175,7 @@ export const TopInfo: FC = () => {
       </div>
       <div className="container mx-auto slab:w-full slab:px-[20px]">
         <div className="w-full pt-[80px]  pb-[47px] bg-landing-card-bg mt-[150px] rounded-[10px] flex-col-center slab:px-[20px]">
-          <h1 className="text-text-default-color text-center font-next-poster-Bold text-[54px] slab:text-[24px] tracking-[3.24px]">
+          <h1 className="text-text-default-color text-center text-h1 slab:text-[24px] tracking-[3.24px]">
             What is HackQuest?
           </h1>
           <div className="mt-[18px] text-[1rem] w-[34.875rem] slab:w-full text-center text-text-default-color font-next-book ">
@@ -268,7 +268,7 @@ export const CenterInfo: FC = () => {
 
   return (
     <div className="container  slab:w-full slab:px-[20px]  mt-[150px] slab:mt-[80px]">
-      <h1 className="text-text-default-color tracking-[3.24px] text-center font-next-poster-Bold text-[54px] slab:text-[24px] mb-[50px] slab:mb-[30px]">
+      <h1 className="text-text-default-color tracking-[3.24px] text-center text-h1 slab:text-[24px] mb-[50px] slab:mb-[30px]">
         Why HackQuest?
       </h1>
       <div className="flex flex-wrap gap-[40px] slab:flex-col  ">
@@ -329,7 +329,7 @@ export const HackQuestHackathon: FC = () => {
   return (
     <div className="container mx-auto slab:w-full mt-[150px] slab:mt-[80px]">
       <div className="w-full py-[80px] slab:py-[30px] slab:px-[20px] bg-landing-card-bg rounded-[10px] flex-col-center font-next-book ">
-        <div className="text-text-default-color tracking-[3.24px] text-center font-next-poster-Bold text-[54px] slab:text-[24px]">
+        <div className="text-text-default-color tracking-[3.24px] text-center text-h1 slab:text-[24px]">
           HackQuest Hackathon
         </div>
         <div className="w-[560px] slab:w-full slab:text-center my-[30px]">

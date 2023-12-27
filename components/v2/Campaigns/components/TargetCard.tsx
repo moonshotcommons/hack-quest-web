@@ -20,7 +20,7 @@ const TargetCard: React.FC<TargetCardProp> = ({ target }) => {
     switch (type) {
       case TargetType.COURSE:
         BurialPoint.track('campaigns targetCard Go to Dashboard 按钮点击');
-        redirectToUrl(MenuLink.HOME);
+        redirectToUrl(MenuLink.DASHBOARD);
         break;
       case TargetType.LEARNING_TRACK:
         BurialPoint.track('campaigns targetCard Go to Learning 按钮点击');
@@ -75,7 +75,7 @@ const TargetCard: React.FC<TargetCardProp> = ({ target }) => {
     <div
       key={target.id}
       className={`h-[82px] rounded-[10px] border  mt-[15px] relative ${
-        target.completed ? 'border-[#ffd850]' : 'border-[#8C8C8C]'
+        target.completed ? 'border-yellow-primary' : 'border-[#8C8C8C]'
       }`}
     >
       <div

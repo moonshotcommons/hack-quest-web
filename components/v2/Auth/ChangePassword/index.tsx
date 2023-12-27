@@ -7,7 +7,7 @@ import webApi from '@/service';
 import { UnLoginType, setUnLoginType } from '@/store/redux/modules/user';
 import { useDebounceFn } from 'ahooks';
 import { message } from 'antd';
-import { useRouter } from 'next/router';
+import { useSearchParams } from 'next/navigation';
 import { FC, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 interface ChangePasswordProps {}
@@ -103,9 +103,9 @@ const ChangeForm = ({
 }: {
   changeState: (state: ChangeStateType) => void;
 }) => {
-  const router = useRouter();
   const dispatch = useDispatch();
-  const { token } = router.query;
+  const query = useSearchParams();
+  const token = query.get('token');
   const [formData, setFormData] = useState<{
     newPassword: string;
     reenterPassword: string;

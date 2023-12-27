@@ -3,7 +3,7 @@ import { ProfileContext } from '../type';
 
 import Button from '@/components/v2/Common/Button';
 
-import { Typography, message } from 'antd';
+import { Typography } from 'antd';
 import Image from 'next/image';
 import Link from 'next/link';
 import CertificationModal, {
@@ -58,18 +58,14 @@ const MintButton = (props: {
         certification.mint ? 'cursor-not-allowed opacity-40' : ''
       )}
       onClick={async () => {
-        if (true) {
-          message.info(`Can't mint for now!`);
-          return;
-        }
         if (certification.mint) {
           return;
         }
-        // safeMint({
-        //   sourceType: 'Certification',
-        //   sourceId: certification.id,
-        //   signatureId: certification.signatureId
-        // });
+        safeMint({
+          sourceType: 'Certification',
+          sourceId: certification.id,
+          signatureId: certification.signatureId
+        });
       }}
     >
       {certification.mint ? 'Minted' : 'Mint'}
@@ -147,7 +143,7 @@ const Certifications: FC<PersonalLinksProps> = (props) => {
           <p className="mt-[56.2px] text-center font-next-book text-[18px] leading-[160%] tracking-[0.054px]">
             You don’t have any certificate yet~
           </p>
-          <Link href={'/home'}>
+          <Link href={'/dashboard'}>
             <Button
               type="primary"
               className="w-[265px] px-0 py-[12px] text-[16px] font-next-book leading-[125%] tracking-[0.32px] text-[#0B0B0B] mt-[25px] mb-[30px]"

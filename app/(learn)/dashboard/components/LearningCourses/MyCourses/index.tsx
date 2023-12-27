@@ -10,7 +10,7 @@ import { courseTab } from './data';
 import Tab from '@/components/v2/Business/Tab';
 import { TabListType } from '@/components/v2/Business/Tab/type';
 
-function Course() {
+function MyCourses() {
   const [curTab, setCurTab] = useState<ProcessType>(ProcessType.IN_PROCESS);
   const [loading, setLoading] = useState(false);
   const [courseListData, setCourseListData] = useState<
@@ -63,20 +63,37 @@ function Course() {
   }, [curTab]);
   return (
     <>
-      <Tab tabList={courseTab} curTab={curTab} changeTab={changeTab} />
+      <h2 className="text-[#131313] text-4xl font-next-poster-Bold tracking-[2.4px] mb-5">
+        My Courses
+      </h2>
+      <Tab
+        tabList={courseTab}
+        curTab={curTab}
+        changeTab={changeTab}
+        className="pb-10"
+      />
       <Loading loading={loading}>
         {!courseListData[curTab].length &&
         !learningTrackListData[curTab].length ? (
           <NoData curTab={curTab} />
         ) : (
-          <>
+          <div className="flex flex-col gap-y-10">
             <LearningTrackList list={learningTrackListData[curTab]} />
-            <CourseBox list={courseListData[curTab]} curTab={curTab} />
-          </>
+            <CourseBox
+              list={courseListData[curTab]}
+              curTab={curTab}
+              title="Practices"
+            />
+            {/* <CourseBox
+              list={courseListData[curTab]}
+              curTab={curTab}
+              title="Electives"
+            /> */}
+          </div>
         )}
       </Loading>
     </>
   );
 }
 
-export default Course;
+export default MyCourses;

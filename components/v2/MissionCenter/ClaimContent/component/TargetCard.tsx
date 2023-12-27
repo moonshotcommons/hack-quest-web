@@ -9,11 +9,11 @@ import { BurialPoint } from '@/helper/burialPoint';
 import { RewardsCardType } from '../BeginnerRewards/data';
 import webApi from '@/service';
 import { MissionCenterContext } from '@/components/v2/MissionCenter/type';
-import PopBox from '@/components/v2/Home/InviteCodeCard/PopBox';
+import PopBox from '@/components/v2/Business/InviteCodeCard/PopBox';
 import {
   ShareWrap,
   shareList
-} from '@/components/v2/Home/InviteCodeCard/constant';
+} from '@/components/v2/Business/InviteCodeCard/constant';
 import { useGetUserInfo } from '@/hooks/useGetUserInfo';
 import { useRedirect } from '@/hooks/useRedirect';
 
@@ -90,7 +90,7 @@ const TargetCard: React.FC<TargetCardProp> = ({
       key={missionData.id}
       className={`h-[84px] rounded-[10px] border  mt-[15px] relative ${
         missionData.progress?.completed
-          ? 'border-[#ffd850]'
+          ? 'border-yellow-primary'
           : 'border-[#8C8C8C]'
       }`}
     >

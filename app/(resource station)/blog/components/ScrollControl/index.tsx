@@ -1,12 +1,23 @@
 'use client';
-import { ChangeState } from '@/components/v1/Common/ScrollContainer';
-import { BurialPoint } from '@/helper/burialPoint';
+import { ChangeState } from '@/components/v2/Common/ScrollContainer';
+import { BurialPoint, BurialPointType } from '@/helper/burialPoint';
 import { cn } from '@/helper/utils';
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { HiArrowLongRight, HiArrowLongLeft } from 'react-icons/hi2';
 import { paginationWidth } from './data';
 
-function ScrollControl({ changeState }: { changeState?: ChangeState }) {
+interface ScrollControlType {
+  changeState?: ChangeState;
+  burialPointType?: BurialPointType[];
+}
+
+const ScrollControl: React.FC<ScrollControlType> = ({
+  changeState,
+  burialPointType = [
+    'home-featured course滚动-左',
+    'home-featured course滚动-右'
+  ]
+}) => {
   const { handleArrowClick, rightArrowVisible, leftArrowVisible } =
     changeState || {};
 
@@ -40,7 +51,7 @@ function ScrollControl({ changeState }: { changeState?: ChangeState }) {
             `flex items-center justify-center w-[35px] h-[35px] rounded-full bg-[#fff] shadow-[0px_0px_0px_rgba(0.12)] text-[#0b0b0b] cursor-pointer`
           )}
           onClick={() => {
-            BurialPoint.track('mission-center-daily-bonus claim滚动-左');
+            BurialPoint.track(burialPointType[0]);
             handleArrowClick?.('left');
           }}
         >
@@ -51,7 +62,7 @@ function ScrollControl({ changeState }: { changeState?: ChangeState }) {
             `flex items-center justify-center w-[35px] h-[35px] rounded-full bg-[#fff] shadow-[0px_0px_0px_rgba(0.12)]  text-[#0b0b0b] cursor-pointer`
           )}
           onClick={() => {
-            BurialPoint.track('mission-center-daily-bonus claim滚动-右');
+            BurialPoint.track(burialPointType[1]);
             handleArrowClick?.('right');
           }}
         >
@@ -79,6 +90,6 @@ function ScrollControl({ changeState }: { changeState?: ChangeState }) {
       </div>
     </div>
   );
-}
+};
 
 export default ScrollControl;

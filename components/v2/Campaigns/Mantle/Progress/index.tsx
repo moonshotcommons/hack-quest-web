@@ -34,7 +34,7 @@ const Progress: React.FC<ProgressProp> = () => {
               {(schedule.curPeriod === i ||
                 (i === periodNum - 1 && s[0] === s[1])) && (
                 <div
-                  className="absolute h-[40px] top-0 translate-x-[-100%] transition-all border-r border-r-[#ffd850] pr-[2px]"
+                  className="absolute h-[40px] top-0 translate-x-[-100%] transition-all border-r border-r-yellow-primary pr-[2px]"
                   style={{
                     left: `${(s[0] / s[1]) * 100}%`
                   }}
@@ -45,7 +45,7 @@ const Progress: React.FC<ProgressProp> = () => {
             </div>
             <div className="w-full h-[15px] bg-[#DADADA] mb-[14px]">
               <div
-                className="h-[15px] bg-[#ffd850] shadow-[0_0_8px_#ffd850] transition-all"
+                className="h-[15px] bg-yellow-primary shadow-[0_0_8px_#ffd850] transition-all"
                 style={{
                   width: `${(s[0] / s[1]) * 100}%`
                 }}

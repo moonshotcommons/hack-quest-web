@@ -446,7 +446,7 @@ const EditAdd: React.FC<EditAddProp> = ({
         </Button>
         <Button
           loading={loading}
-          className="w-[265px] h-[44px] bg-[#ffd850]    text-[16px]"
+          className="w-[265px] h-[44px] bg-yellow-primary    text-[16px]"
           onClick={handleSubmit}
         >
           Save

@@ -80,7 +80,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
               }
               const toPageUrl = redirect_url
                 ? `${redirect_url}?token=${res.token}`
-                : '/home';
+                : '/dashboard';
 
               redirectToUrl(toPageUrl);
             } else {
@@ -183,9 +183,11 @@ const UserLogin: FC<UserLoginProps> = (props) => {
         <div className="flex gap-[.75rem] items-center" onClick={(e) => {}}>
           <Checkbox
             outClassNames={`${
-              formData.keepMeLoggedIn ? 'border-[#FFD850]' : 'border-[#8C8C8C]'
+              formData.keepMeLoggedIn
+                ? 'border-yellow-primary'
+                : 'border-[#8C8C8C]'
             }`}
-            innerClassNames="bg-[#FFD850]"
+            innerClassNames="bg-yellow-primary"
             checked={formData.keepMeLoggedIn}
             onChange={(value) => {
               BurialPoint.track('login-保存登录状态');

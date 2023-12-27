@@ -24,7 +24,7 @@ const HomeBanner: FC<HomeBannerProps> = (props) => {
           Web3.0 <br />
           Programming
           <br />
-          For<span className="text-primary-color"> Everyone</span>
+          For<span className="text-yellow-primary"> Everyone</span>
         </h1>
         <div className="flex gap-[1.25rem] mt-[2.75rem] z-50">
           <PeopleJoined avatars={getRandomPeopleAvatars()}></PeopleJoined>
@@ -77,7 +77,7 @@ const HomeBanner: FC<HomeBannerProps> = (props) => {
             <div className="flex w-fit text-text-default-color font-next-book text-[1.25rem] items-center gap-[0.31rem]">
               <div>
                 <span>Explore All Course</span>
-                <span className="block h-[.125rem] w-full bg-primary-color"></span>
+                <span className="block h-[.125rem] w-full bg-yellow-primary"></span>
               </div>
               <SkipIcon color="currentColor"></SkipIcon>
             </div>

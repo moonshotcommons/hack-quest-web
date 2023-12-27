@@ -24,4 +24,5 @@ export interface LearningTrackDetailType {
   unitCount: number;
   certificationId?: string;
   campaignId?: string;
+  language: string;
 }

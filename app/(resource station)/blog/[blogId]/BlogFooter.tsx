@@ -2,9 +2,9 @@
 import BlogCard from '@/components/v2/Business/BlogCard';
 import {
   ChangeState,
-  ScrollContainer
+  ScrollContainer,
+  ScrollControl
 } from '@/components/v2/Common/ScrollContainer';
-import ScrollControl from '@/components/v2/Home/FeaturedCourses/ScrollControl';
 import { MenuLink } from '@/components/v2/Layout/Navbar/type';
 import { BurialPoint } from '@/helper/burialPoint';
 import Link from 'next/link';

@@ -7,7 +7,7 @@ import { LoginResponse } from '@/service/webApi/user/type';
 import { ThemeContext } from '@/store/context/theme';
 import { setSettingsOpen, userSignOut } from '@/store/redux/modules/user';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { FC, useContext } from 'react';
 import { useDispatch } from 'react-redux';
 interface UserDropCardProps {
@@ -46,7 +46,7 @@ const UserDropCard: FC<UserDropCardProps> = (props) => {
   const { setTheme, theme } = useContext(ThemeContext);
   const signOut = () => {
     dispatch(userSignOut());
-    router.reload();
+    router.refresh();
   };
 
   return (

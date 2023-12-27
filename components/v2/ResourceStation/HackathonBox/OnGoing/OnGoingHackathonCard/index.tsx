@@ -57,7 +57,7 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({
           </div>
         </div>
         <div className="relative h-[100px] flex flex-col justify-between pl-[20px]">
-          <div className="absolute left-0 top-0 w-[5px] h-full rounded-[10px] bg-[#ffd850]"></div>
+          <div className="absolute left-0 top-0 w-[5px] h-full rounded-[10px] bg-yellow-primary"></div>
           <div>
             <div className="text-[#8C8C8C]">RUNS FROM</div>
             <div className="text-[16px]">
@@ -75,7 +75,7 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({
         </div>
         <div className="flex justify-between">
           <Button
-            className="w-[245px] h-[60px] text-[18px] bg-[#ffd850]"
+            className="w-[245px] h-[60px] text-[18px] bg-yellow-primary"
             onClick={() => {
               BurialPoint.track(`hackathon onGoingCard Apply Now 按钮点击`);
               window.open(hackathon.applyLink);
