@@ -1,7 +1,8 @@
+'use client';
 import { ChangeState } from '@/components/v1/Common/ScrollContainer';
 import { BurialPoint } from '@/helper/burialPoint';
 import { cn } from '@/helper/utils';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { HiArrowLongRight, HiArrowLongLeft } from 'react-icons/hi2';
 import { paginationWidth } from './data';
 
@@ -9,21 +10,18 @@ function ScrollControl({ changeState }: { changeState?: ChangeState }) {
   const { handleArrowClick, rightArrowVisible, leftArrowVisible } =
     changeState || {};
 
-  const [widthRatio, setWidthRatio] = useState(0);
   const [translateX, setTranslateX] = useState(0);
 
   const scrollBarRef = useRef<HTMLDivElement>(null);
   const scrollBarInstanceRef = useRef<HTMLDivElement>(null);
   const [paginationIndex, setPaginationIndex] = useState(0);
-
-  const paginationNum = useMemo(() => {
-    return Math.ceil(1 / widthRatio) || 0;
-  }, [widthRatio]);
-
+  const [paginationNum, setPaginationNum] = useState(0);
   useEffect(() => {
     if (!changeState) return;
     const { containerWidth, listWidth, translateX } = changeState;
-    setWidthRatio(containerWidth / listWidth);
+    if (containerWidth / listWidth) {
+      setPaginationNum(Math.ceil(1 / (containerWidth / listWidth)));
+    }
     if (scrollBarRef.current && scrollBarInstanceRef.current) {
       const scrollbarInstanceWidth = scrollBarInstanceRef.current.clientWidth;
       setTranslateX(translateX * (scrollbarInstanceWidth / containerWidth));

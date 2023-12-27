@@ -2,7 +2,7 @@
 import { useEffect } from 'react';
 
 import {
-  V2_HOME_PATH,
+  V2_DASHBOARD_PATH,
   V2_LANDING_PATH,
   isLoginOrRegister,
   isNoNeedUserInfo
@@ -28,7 +28,7 @@ function useNavAuth(waitingUserData: boolean) {
       if (redirect_url && token) {
         redirectToUrl(`${redirect_url}?token=${token}`);
       } else {
-        redirectToUrl(V2_HOME_PATH);
+        redirectToUrl(V2_DASHBOARD_PATH);
       }
       return;
     }

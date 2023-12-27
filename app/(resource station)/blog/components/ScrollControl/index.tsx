@@ -1,43 +1,46 @@
-import { ChangeState } from '@/components/v2/Common/ScrollContainer';
+'use client';
+import { ChangeState } from '@/components/v1/Common/ScrollContainer';
 import { BurialPoint } from '@/helper/burialPoint';
 import { cn } from '@/helper/utils';
 import { useEffect, useRef, useState } from 'react';
 import { HiArrowLongRight, HiArrowLongLeft } from 'react-icons/hi2';
+import { paginationWidth } from './data';
 
 function ScrollControl({ changeState }: { changeState?: ChangeState }) {
   const { handleArrowClick, rightArrowVisible, leftArrowVisible } =
     changeState || {};
 
-  const [widthRatio, setWidthRatio] = useState(0);
   const [translateX, setTranslateX] = useState(0);
 
   const scrollBarRef = useRef<HTMLDivElement>(null);
   const scrollBarInstanceRef = useRef<HTMLDivElement>(null);
-
+  const [paginationIndex, setPaginationIndex] = useState(0);
+  const [paginationNum, setPaginationNum] = useState(0);
   useEffect(() => {
     if (!changeState) return;
     const { containerWidth, listWidth, translateX } = changeState;
-    setWidthRatio(containerWidth / listWidth);
+    if (containerWidth / listWidth) {
+      setPaginationNum(Math.ceil(1 / (containerWidth / listWidth)));
+    }
     if (scrollBarRef.current && scrollBarInstanceRef.current) {
       const scrollbarInstanceWidth = scrollBarInstanceRef.current.clientWidth;
       setTranslateX(translateX * (scrollbarInstanceWidth / containerWidth));
     }
   }, [changeState]);
+  useEffect(() => {
+    setPaginationIndex((0 - translateX) / paginationWidth);
+  }, [translateX]);
 
   if (!leftArrowVisible && !rightArrowVisible) return null;
-
   return (
-    <div>
+    <div className="flex items-center gap-[20px]">
       <div className="flex gap-[10px]">
         <div
           className={cn(
-            `flex items-center justify-center p-2 rounded-full border border-solid border-[#000000] bg-[#000000] text-white cursor-pointer scale-[0.835]`,
-            !leftArrowVisible
-              ? 'bg-transparent text-black cursor-not-allowed'
-              : 'hover:bg-[#000000]/70 hover:border-[#000000]/70 transition'
+            `flex items-center justify-center w-[35px] h-[35px] rounded-full bg-[#fff] shadow-[0px_0px_0px_rgba(0.12)] text-[#0b0b0b] cursor-pointer`
           )}
           onClick={() => {
-            BurialPoint.track('home-featured course滚动-左');
+            BurialPoint.track('mission-center-daily-bonus claim滚动-左');
             handleArrowClick?.('left');
           }}
         >
@@ -45,29 +48,32 @@ function ScrollControl({ changeState }: { changeState?: ChangeState }) {
         </div>
         <div
           className={cn(
-            `flex items-center justify-center p-2 rounded-full border border-solid border-[#000000] bg-[#000000] text-white cursor-pointer scale-[0.835]`,
-            !rightArrowVisible
-              ? 'bg-transparent text-black cursor-not-allowed'
-              : 'hover:bg-[#000000]/70 hover:border-[#000000]/70 transition'
+            `flex items-center justify-center w-[35px] h-[35px] rounded-full bg-[#fff] shadow-[0px_0px_0px_rgba(0.12)]  text-[#0b0b0b] cursor-pointer`
           )}
           onClick={() => {
-            BurialPoint.track('home-featured course滚动-右');
+            BurialPoint.track('mission-center-daily-bonus claim滚动-右');
             handleArrowClick?.('right');
           }}
         >
           <HiArrowLongRight size={24}></HiArrowLongRight>
         </div>
       </div>
-      <div
-        className="max-w-[502px] relative w-[502px] h-[2px] bg-[#DADADA] mt-[15px]"
-        ref={scrollBarRef}
-      >
+      <div className="relative  h-[3px]" ref={scrollBarRef}>
+        <div className="h-full absolute left-0 bottom-0 flex gap-[3px]">
+          {Array.from({ length: paginationNum }).map((_, i) => (
+            <div
+              key={i}
+              className="h-full bg-[#DADADA]"
+              style={{ width: `${paginationWidth}px` }}
+            ></div>
+          ))}
+        </div>
         <div
-          className="h-[3px] bg-[#8C8C8C] absolute left-0 bottom-0 transition-transform"
+          className="h-full bg-[#8C8C8C] absolute left-0 bottom-0 transition-transform"
           ref={scrollBarInstanceRef}
           style={{
-            width: `${widthRatio * 100}%`,
-            transform: `translateX(${-translateX}px)`
+            width: `${paginationWidth}px`,
+            transform: `translateX(${-(translateX - paginationIndex * 3)}px)`
           }}
         ></div>
       </div>

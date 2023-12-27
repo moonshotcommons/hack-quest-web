@@ -1,7 +1,8 @@
 'use client';
 import {
   ChangeState,
-  ScrollContainer
+  ScrollContainer,
+  ScrollControl
 } from '@/components/v2/Common/ScrollContainer';
 import { menuLink } from '@/components/v2/Business/Breadcrumb/data';
 import { Menu, QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
@@ -13,7 +14,7 @@ import { useRequest } from 'ahooks';
 import Link from 'next/link';
 import { FC, useState } from 'react';
 import { LuChevronRight } from 'react-icons/lu';
-import ScrollControl from './ScrollControl';
+
 interface FeatureProjectsProps {
   ignoreProjectId?: string;
 }
@@ -76,6 +77,7 @@ const FeatureProjects: FC<FeatureProjectsProps> = (props) => {
         <div>
           <ScrollContainer
             onChange={(state: any) => setScrollContainerState(state)}
+            gap={20}
           >
             <div className="my-[30px] flex gap-[20px] overflow-x-hidden">
               {projectList.map((project, index) => {

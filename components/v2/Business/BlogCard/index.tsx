@@ -6,7 +6,7 @@ interface BlogCardProp {}
 
 const BlogCard: React.FC<BlogCardProp> = () => {
   return (
-    <div className="w-full font-next-book h-[470px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)] cursor-pointer hover:-translate-y-1 transition-all duration-300 rounded-[10px] overflow-hidden flex flex-col">
+    <div className="w-full font-next-book h-[470px] bg-[#FFF] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)] cursor-pointer hover:-translate-y-1 transition-all duration-300 rounded-[10px] overflow-hidden flex flex-col">
       <div className="w-full h-[0] pt-[51.6%] relative ">
         <Image src={Ha} alt="blogImage" fill className="object-contain"></Image>
       </div>

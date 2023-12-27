@@ -26,8 +26,8 @@ const Milestones: React.FC<TabContentType> = ({
           {`Celebrate your progress as you complete courses. Each achievement is a step towards your success in Web 3 coding. Let's make every milestone memorable! 🚀`}
         </div>
         <Button
-          className={`w-[270px] h-[60px] text-[18px] text-[#0b0b0b] bg-auth-primary-button-bg 
-          text-auth-primary-button-text-color 
+          className={`w-[270px] h-[60px] text-[18px] text-[#0b0b0b] bg-auth-primary-button-bg
+          text-auth-primary-button-text-color
           border-auth-primary-button-border-color tracking-[0.36px] ${
             !allIds.length
               ? 'opacity-50 cursor-not-allowed'
@@ -50,7 +50,7 @@ const Milestones: React.FC<TabContentType> = ({
               missionData={v}
               missionClaim={missionClaim}
               targetIcon={IconHack}
-              unClaimPath={'/home'}
+              unClaimPath={'/dashboard'}
               unClaimText={'Go to Learning'}
             />
           ))}
