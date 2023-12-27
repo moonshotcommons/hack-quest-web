@@ -1,34 +1,44 @@
 'use client';
-import Title from '@/components/v1/Head/Title';
-import LearningTrackCard from '@/components/v2/Business/LearningTrackCard';
-import PageDescription from '@/components/v2/Business/PageDescription';
+import Banner from './Banner';
 import Loading from '@/components/v2/Common/Loading';
-import { useGetLearningTracks } from '@/hooks/useLearningTrackHooks/useLearningTracks';
-
+import { bannerTabList, filterList } from './data';
+import { useEffect, useState } from 'react';
+import { SearchInfoType } from './type';
+import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
+import webApi from '@/service';
+import { useRequest } from 'ahooks';
+import List from './List';
+import Filter from './Filter';
 function LearningTrack() {
-  const { learningTracks, loading } = useGetLearningTracks();
-  return (
-    <div className="container mx-auto">
-      <Title title="Learning Tracks" />
-      <PageDescription
-        title={'Learning Tracks'}
-        description={`Don't know where to start? Choose a Learning Track! Our Learning Tracks offer a curated sequence of core and elective courses designed to guide you in mastering a specific smart contract programming language.`}
-      />
-      <Loading loading={loading}>
-        <div className="flex flex-col gap-10">
-          {learningTracks.map((item) => (
-            <LearningTrackCard key={item.id} learningTrack={item} />
-          ))}
-        </div>
+  const [searchInfo, setSearchInfo] = useState<SearchInfoType>({
+    tab: bannerTabList[0].value,
+    filter: filterList[0].value
+  });
+  const [learningTrackListData, setLearningTrackListData] = useState<
+    LearningTrackDetailType[]
+  >([]);
+  const changeSearchInfo = (info: SearchInfoType) => {
+    setSearchInfo({ ...info });
+  };
+  const { run, loading } = useRequest(async () => {
+    const list = await webApi.learningTrackApi.getLearningTracks();
+    setLearningTrackListData(list);
+  });
 
-        <div className="flex-center h-[170px]">
-          <div className="w-[1px] h-[100px] bg-learning-track-line-bg"></div>
+  useEffect(() => {
+    run();
+  }, [searchInfo, run]);
+  return (
+    <div className="">
+      <Banner changeSearchInfo={changeSearchInfo} searchInfo={searchInfo} />
+      <div className="container mx-auto pt-[40px] pb-[100px] bg-[#F4F4F4]">
+        <div className="mb-[32px]">
+          <Filter changeSearchInfo={changeSearchInfo} searchInfo={searchInfo} />
         </div>
-        <div className="font-next-book-bold text-[24px] text-center text-learning-track-more-text-color pb-[63px] pt-[10px]">
-          <p>Vyper, Huff, Rust ...</p>
-          <p>More Learning Tracks are coming soon</p>
-        </div>
-      </Loading>
+        <Loading loading={loading} className="container">
+          <List list={learningTrackListData} />
+        </Loading>
+      </div>
     </div>
   );
 }
