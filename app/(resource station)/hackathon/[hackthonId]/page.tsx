@@ -3,7 +3,7 @@ import { FC, useEffect } from 'react';
 import About from '@/components/v2/HackDetailBox/About';
 import HackathonInfo from '@/components/v2/HackDetailBox/HackathonInfo';
 import { useRequest } from 'ahooks';
-import { useRouter } from 'next/router';
+import { useSearchParams } from 'next/navigation';
 import { QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
 import webApi from '@/service';
 import Loading from '@/components/v2/Common/Loading';
@@ -15,9 +15,9 @@ import { BurialPoint } from '@/helper/burialPoint';
 interface HackDetailProps {}
 
 const HackDetail: FC<HackDetailProps> = (props) => {
-  const router = useRouter();
+  const query = useSearchParams();
   const { data: hackathon = {} as HackathonType } = useRequest(async () => {
-    const id = router.query[QueryIdType.HACKATHON_ID];
+    const id = query.get(QueryIdType.HACKATHON_ID);
     const res = await webApi.resourceStationApi.getHackathonDetail(
       id as string
     );

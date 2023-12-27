@@ -6,15 +6,12 @@ import { UnLoginType, setUnLoginType } from '@/store/redux/modules/user';
 import { useCountDown, useDebounceFn } from 'ahooks';
 import { message } from 'antd';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { FC, useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 interface EmailVerifyProps {}
 
 const EmailVerify: FC<EmailVerifyProps> = (props) => {
-  const router = useRouter();
-
   const loginRouteType = useGetUserUnLoginType();
   const dispatch = useDispatch();
 

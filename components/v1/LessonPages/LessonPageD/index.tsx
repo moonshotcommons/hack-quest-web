@@ -12,7 +12,7 @@ import {
   CourseType,
   LessonStyleType
 } from '@/service/webApi/course/type';
-import { useRouter } from 'next/router';
+import { useSearchParams } from 'next/navigation';
 import { FC, useEffect } from 'react';
 interface LessonPageDProps {
   lesson: CourseLessonType;
@@ -35,8 +35,8 @@ interface LessonPageDProps {
 
 const LessonPageD: FC<LessonPageDProps> = (props) => {
   const { lesson, courseType } = props;
-  const router = useRouter();
-  const { courseId: courseName } = router.query;
+  const query = useSearchParams();
+  const courseName = query.get('courseId');
   const sections = useParseLessonBSection(lesson.content);
   const { onNextClick } = useGotoNextLesson(lesson, courseType, true);
   const { onBackClick, isFirst } = useBackToPrevLesson(lesson, courseType);
