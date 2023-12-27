@@ -4,11 +4,13 @@ import CourseLevel from './CourseLevel';
 
 import ClockIcon from '@/components/v2/Common/Icon/Clock';
 import CourseIcon from '@/components/v2/Common/Icon/Course';
+import AltIcon from '@/components/v2/Common/Icon/AltIcon';
 import { cn } from '@/helper/utils';
 import Tag from './tag';
 import { CourseType } from '@/service/webApi/course/type';
 
 interface CourseTagsProps {
+  alt?: string;
   level: string;
   duration?: number;
   unitCount: number;
@@ -19,6 +21,7 @@ interface CourseTagsProps {
 
 const CourseTags: FC<CourseTagsProps> = (props) => {
   const {
+    alt,
     level,
     unitCount,
     duration,
@@ -26,32 +29,44 @@ const CourseTags: FC<CourseTagsProps> = (props) => {
     type = CourseType.GUIDED_PROJECT,
     className
   } = props;
+  const tagFont =
+    type === 'learning-track' ? 'text-[14px] text-[#0b0b0b]' : 'text-[#3E3E3E]';
   return (
     <div
       className={cn(
-        'flex gap-[10px] items-center',
+        'flex gap-[20px] items-center ',
         `${size === 'large' ? 'gap-[40px]' : ''} ${className}`
       )}
     >
-      <CourseLevel
-        level={tagFormate(level)}
-        size={size}
-        className="text-[#3E3E3E] font-next-book"
-      ></CourseLevel>
+      <Tag icon={<AltIcon />} size={size} className="tagFont">
+        {alt}
+      </Tag>
       {duration && (
         <Tag icon={<ClockIcon />} size={size}>
           {computeTime(duration, 'Hour')}
         </Tag>
       )}
 
-      <Tag icon={<CourseIcon />} size={size} className="text-[#3E3E3E]">
+      {type === 'learning-track' && (
+        <Tag icon={<CourseIcon />} size={size} className={tagFont}>
+          {unitCount + ' ' + `${unitCount > 1 ? 'Courses' : 'Course'}`}
+        </Tag>
+      )}
+      {/* <Tag icon={<CourseIcon />} size={size} className="text-[#3E3E3E]">
         {type === CourseType.GUIDED_PROJECT &&
           unitCount + ' ' + `${unitCount > 1 ? 'Units' : 'Unit'}`}
         {type === CourseType.Mini &&
           unitCount + ' ' + `${unitCount > 1 ? 'Lessons' : 'Lesson'}`}
         {type === 'learning-track' &&
           unitCount + ' ' + `${unitCount > 1 ? 'Courses' : 'Course'}`}
-      </Tag>
+      </Tag> */}
+      {type !== 'learning-track' && (
+        <CourseLevel
+          level={tagFormate(level)}
+          size={size}
+          className="text-[#3E3E3E]"
+        ></CourseLevel>
+      )}
     </div>
   );
 };
