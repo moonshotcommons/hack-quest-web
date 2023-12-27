@@ -90,7 +90,7 @@ const TargetCard: React.FC<TargetCardProp> = ({
       key={missionData.id}
       className={`h-[84px] rounded-[10px] border  mt-[15px] relative ${
         missionData.progress?.completed
-          ? 'border-[#ffd850]'
+          ? 'border-yellow-primary'
           : 'border-[#8C8C8C]'
       }`}
     >

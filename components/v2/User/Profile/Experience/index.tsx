@@ -134,7 +134,7 @@ const Experience: FC<ExperienceProps> = ({ edit = false }) => {
             <div className="flex justify-center pt-[20px]">
               <Button
                 onClick={() => setShowAll(!showAll)}
-                className="w-[265px] h-[44px] bg-[#ffd850] font-next-book text-[16px]"
+                className="w-[265px] h-[44px] bg-yellow-primary font-next-book text-[16px]"
               >
                 View {showAll ? 'Less' : 'Full'} Experience
               </Button>

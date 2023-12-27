@@ -61,7 +61,7 @@ const BlogBanner: React.FC<BannerProp> = ({ searchInfo, changeSearchInfo }) => {
             Contribute your insights, shaping the conversation in the world of
             decentralized tech.
           </p>
-          {/* <Button className="w-[270px] h-[60px] bg-[#ffd850] text-[18px] mt-[30px]">
+          {/* <Button className="w-[270px] h-[60px] bg-yellow-primary text-[18px] mt-[30px]">
             Contribute
           </Button> */}
         </div>
