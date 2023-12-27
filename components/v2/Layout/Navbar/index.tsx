@@ -119,7 +119,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
             <SlideHighlight
               className="flex ml-16 gap-[10px] h-[34px] text-sm rounded-[20px] bg-[#3E3E3E] overflow-hidden tracking-[0.28px]"
               currentIndex={inSideNavIndex}
-              type={'background'}
+              type={'BACKGROUND'}
             >
               {inSideNav.map((nav) => (
                 <div

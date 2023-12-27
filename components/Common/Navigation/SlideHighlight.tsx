@@ -8,10 +8,16 @@ import {
   useState
 } from 'react';
 
+export enum SlideClassName {
+  UNDERLINE = 'slide-navigator slide-navigator-underline',
+  BACKGROUND = 'slide-navigator slide-navigator-full',
+  BLOG_FILTER = 'slide-blog-navigator'
+}
+
 interface SlideHighlightProps {
   children: React.ReactNode;
   className: string;
-  type?: 'underline' | 'background';
+  type?: 'UNDERLINE' | 'BACKGROUND' | 'BLOG_FILTER';
   currentIndex: number;
 }
 
@@ -21,10 +27,8 @@ type SlideNavigatorHighlight = CSSProperties & {
 };
 
 const SlideHighlight: FC<SlideHighlightProps> = function (props) {
-  const { className, children, type = 'underline', currentIndex } = props;
-  const theClassName = `${className} slide-navigator ${
-    type === 'underline' ? ' slide-navigator-underline' : 'slide-navigator-full'
-  }`;
+  const { className, children, type = 'UNDERLINE', currentIndex } = props;
+  const theClassName = `${className} ${SlideClassName[type]}`;
   const root = useRef<HTMLDivElement>(null);
   const [navStyle, setNavStyle] = useState<SlideNavigatorHighlight>();
 
