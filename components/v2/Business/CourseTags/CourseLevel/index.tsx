@@ -40,7 +40,7 @@ const CourseLevel: FC<CourseLevelProps> = (props) => {
       </div>
       <p
         className={cn(
-          'text-[12px] font-neuemachina-light text-[var(--neutral-rich-gray)]',
+          'text-[12px] font-neuemachina-light text-[var(--neutral-rich-gray)] uppercase',
           `${
             size === 'large' ? 'text-[16px] font-next-book text-black' : ''
           } ${className}`
