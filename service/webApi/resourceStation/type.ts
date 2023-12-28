@@ -1,3 +1,5 @@
+import { CustomComponent } from '@/components/v2/Business/Renderer/type';
+
 export enum HackathonStatusType {
   ON_GOING = 'ongoing',
   PAST = 'past',
@@ -56,3 +58,32 @@ export interface ProjectDataType {
   data: ProjectType[];
   total: number;
 }
+
+export interface BlogSearchType {
+  keyword: string;
+  category: string;
+  sort: string;
+  page: number;
+  limit: number;
+}
+
+export interface BlogType {
+  id: string;
+  title: string;
+  description: string;
+  background: string;
+  categories: string[];
+  content: any;
+  creatorName: string;
+  duration: number;
+  top: number;
+  publishDate: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export type BlogContentType = {
+  content: CustomComponent[];
+};
+
+export type BlogDetailType = BlogType & BlogContentType;

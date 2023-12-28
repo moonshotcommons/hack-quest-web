@@ -4,10 +4,24 @@ import BlogHeader from './BlogHeader';
 import BlogContent from './BlogContent';
 import BlogFooter from './BlogFooter';
 import { BurialPoint } from '@/helper/burialPoint';
+import { useParams } from 'next/navigation';
+import { useRequest } from 'ahooks';
+import webApi from '@/service';
+import Loading from '@/components/v2/Common/Loading';
+import { BlogDetailType } from '@/service/webApi/resourceStation/type';
 
 interface BlogDetailProp {}
 
 const BlogDetail: React.FC<BlogDetailProp> = () => {
+  const { blogId } = useParams();
+  const { data: blog = {} as BlogDetailType, loading } = useRequest(
+    async () => {
+      const res = await webApi.resourceStationApi.getBlogDetail(
+        blogId as string
+      );
+      return res;
+    }
+  );
   useEffect(() => {
     const startTime = new Date().getTime();
     return () => {
@@ -19,11 +33,11 @@ const BlogDetail: React.FC<BlogDetailProp> = () => {
     };
   }, []);
   return (
-    <div className="font-next-book text-[16px]">
-      <BlogHeader />
-      <BlogContent />
+    <Loading loading={loading} className="font-next-book text-[16px]">
+      <BlogHeader blog={blog} />
+      <BlogContent blog={blog} />
       <BlogFooter />
-    </div>
+    </Loading>
   );
 };
 

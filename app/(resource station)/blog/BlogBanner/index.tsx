@@ -4,12 +4,12 @@ import { PiSortAscendingBold, PiSortDescendingBold } from 'react-icons/pi';
 import { BiSearch, BiCheck } from 'react-icons/bi';
 import { searchTabData, sortData } from './data';
 import { FiX } from 'react-icons/fi';
-import { SearchInfoType } from '@/app/(resource station)/blog/page';
 import SlideHighlight from '@/components/Common/Navigation/SlideHighlight';
+import { BlogSearchType } from '@/service/webApi/resourceStation/type';
 
 interface BannerProp {
-  searchInfo: SearchInfoType;
-  changeSearchInfo: (info: SearchInfoType) => void;
+  searchInfo: BlogSearchType;
+  changeSearchInfo: (info: BlogSearchType) => void;
 }
 
 const BlogBanner: React.FC<BannerProp> = ({ searchInfo, changeSearchInfo }) => {
@@ -18,10 +18,10 @@ const BlogBanner: React.FC<BannerProp> = ({ searchInfo, changeSearchInfo }) => {
   const timeOut = useRef<NodeJS.Timeout | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const changeSearch = (val: string) => {
-    if (val === searchInfo.tab) return;
+    if (val === searchInfo.category) return;
     changeSearchInfo({
       ...searchInfo,
-      tab: val
+      category: val
     });
   };
   const changeSort = (sort: string) => {
@@ -33,21 +33,32 @@ const BlogBanner: React.FC<BannerProp> = ({ searchInfo, changeSearchInfo }) => {
     });
   };
   const changeInput = (e: any) => {
-    const inputValue = e.target.value;
+    const keyword = e.target.value;
     if (timeOut.current) clearTimeout(timeOut.current);
     timeOut.current = setTimeout(() => {
       changeSearchInfo({
         ...searchInfo,
-        inputValue
+        keyword
       });
     }, 300);
   };
 
+  const changeInputVisible = () => {
+    setInputVisible(!inputVisible);
+    if (!inputVisible) {
+      changeSearchInfo({
+        ...searchInfo,
+        keyword: ''
+      });
+    }
+  };
+
   useEffect(() => {
-    const { tab } = searchInfo;
-    const index = searchTabData.findIndex((v) => v.value === tab);
+    const { category } = searchInfo;
+    const index = searchTabData.findIndex((v) => v.value === category);
     setCurrentIndex(index);
   }, [searchInfo]);
+
   return (
     <div
       className="h-[487px] text-[#fff] font-next-book  pt-[60px] pb-[40px]"
@@ -124,7 +135,9 @@ const BlogBanner: React.FC<BannerProp> = ({ searchInfo, changeSearchInfo }) => {
                     className={`${
                       v.value !== 'empty'
                         ? `px-[20px] py-[7px] rounded-[100px] cursor-pointer relative ${
-                            searchInfo.tab === v.value ? 'text-[#0b0b0b]' : ''
+                            searchInfo.category === v.value
+                              ? 'text-[#0b0b0b]'
+                              : ''
                           }`
                         : 'w-[30px] h-[41px]'
                     }`}
@@ -166,7 +179,7 @@ const BlogBanner: React.FC<BannerProp> = ({ searchInfo, changeSearchInfo }) => {
                 <FiX
                   size={32}
                   className="cursor-pointer"
-                  onClick={() => setInputVisible(false)}
+                  onClick={changeInputVisible}
                 />
               </>
             ) : (

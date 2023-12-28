@@ -1,5 +1,8 @@
 import WebService from '@/service/webService/webService';
 import {
+  BlogDetailType,
+  BlogSearchType,
+  BlogType,
   HackathonDataType,
   HackathonType,
   ProjectDataType,
@@ -8,7 +11,8 @@ import {
 
 export enum ResourceStationApiType {
   Hackathon = '/hackathons',
-  Projects = '/projects'
+  Projects = '/projects',
+  Blogs = '/blogs'
 }
 
 class ResourceStationApi {
@@ -60,6 +64,27 @@ class ResourceStationApi {
   getProjectTracksDict() {
     return this.service.get<string[]>(
       `${ResourceStationApiType.Projects}/tracks-dir`
+    );
+  }
+
+  getBlog(params: BlogSearchType) {
+    return this.service.get<{ data: BlogType[]; total: number }>(
+      `${ResourceStationApiType.Blogs}`,
+      {
+        params
+      }
+    );
+  }
+
+  getFeaturedBlog() {
+    return this.service.get<BlogType[]>(
+      `${ResourceStationApiType.Blogs}/featured`
+    );
+  }
+
+  getBlogDetail(id: string) {
+    return this.service.get<BlogDetailType>(
+      `${ResourceStationApiType.Blogs}/${id}`
     );
   }
 }

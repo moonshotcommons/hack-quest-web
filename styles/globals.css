@@ -45,7 +45,7 @@
   }
 
   .text-h1 {
-    @apply font-Inter font-Int font-extrabold text-[54px] leading-[54px] tracking-normal;
+    @apply font-Inter font-extrabold text-[54px] leading-[54px] tracking-normal;
   }
   .text-h2 {
     @apply font-Inter font-extrabold text-[40px] leading-[40px] tracking-normal;
