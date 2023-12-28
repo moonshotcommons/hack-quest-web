@@ -31,10 +31,10 @@ export const searchTabData = [
 export const sortData = [
   {
     label: 'Sort Lastest to Oldest',
-    value: 'Lastest'
+    value: '-publishDate'
   },
   {
     label: 'Sort Oldest to Lastest',
-    value: 'Oldest'
+    value: 'publishDate'
   }
 ];

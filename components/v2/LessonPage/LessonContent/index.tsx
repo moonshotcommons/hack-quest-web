@@ -31,7 +31,7 @@ interface LessonContentProps {
   courseType: CourseType;
 }
 
-const LessonContent: FC<LessonContentProps> = (props) => {
+const LessonContentComponent: FC<LessonContentProps> = (props) => {
   const { lesson, isPreview = false, courseType } = props;
   const { onBugCommit } = useContext(LessonPageContext);
   const [components, setComponents] = useState<
@@ -146,4 +146,4 @@ const BugIcon = (
   </svg>
 );
 
-export default LessonContent;
+export default LessonContentComponent;
