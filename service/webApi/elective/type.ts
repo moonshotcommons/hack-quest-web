@@ -15,6 +15,11 @@ export interface PageType {
   state: CompleteStateType;
 }
 
+export interface ElectiveListDataType {
+  total: number;
+  data: MiniElectiveCourseType[];
+}
+
 export interface MiniElectiveCourseType {
   id: string;
   image: string;
@@ -32,6 +37,8 @@ export interface MiniElectiveCourseType {
   duration: number;
   creator: null | CreatorType;
   pages?: PageType[];
+  pageCount?: number;
+  unitCount?: number;
   creatorId: string;
 }
 

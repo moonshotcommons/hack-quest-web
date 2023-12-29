@@ -3,17 +3,26 @@ import webApi from '@/service';
 import { CourseResponse, ProcessType } from '@/service/webApi/course/type';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import { useEffect, useState } from 'react';
-import CourseBox from './CourseBox';
 import LearningTrackList from './LearningTrackList';
 import NoData from './NoData';
 import { courseTab } from './data';
 import Tab from '@/components/v2/Business/Tab';
 import { TabListType } from '@/components/v2/Business/Tab/type';
+import CourseSlider from '@/components/v2/Business/CourseSlider';
+import PracticeCard from '@/components/v2/Business/PracticeCard';
+import { MiniElectiveCourseType } from '@/service/webApi/elective/type';
+import ElectiveCard from '@/components/v2/Business/ElectiveCard';
 
 function MyCourses() {
   const [curTab, setCurTab] = useState<ProcessType>(ProcessType.IN_PROCESS);
   const [loading, setLoading] = useState(false);
-  const [courseListData, setCourseListData] = useState<
+  const [practicesListData, setPracticesListData] = useState<
+    Record<ProcessType, CourseResponse[]>
+  >({
+    [ProcessType.IN_PROCESS]: [],
+    [ProcessType.COMPLETED]: []
+  });
+  const [miniElectiveListData, setMiniElectiveListData] = useState<
     Record<ProcessType, CourseResponse[]>
   >({
     [ProcessType.IN_PROCESS]: [],
@@ -25,19 +34,20 @@ function MyCourses() {
     [ProcessType.IN_PROCESS]: [],
     [ProcessType.COMPLETED]: []
   });
-  const getCourseList = () => {
+  const getPracticesList = () => {
     return new Promise(async (resolve) => {
       const res = await webApi.courseApi.getCourseListBySearch({
         status: curTab
       });
       const newData = {
-        ...courseListData,
+        ...practicesListData,
         [curTab]: res.data
       };
-      setCourseListData(newData);
+      setPracticesListData(newData);
       resolve(false);
     });
   };
+
   const getLearningTrackList = () => {
     return new Promise(async (resolve) => {
       const list = await webApi.learningTrackApi.getLearningTracks({
@@ -51,13 +61,32 @@ function MyCourses() {
       resolve(true);
     });
   };
+
+  const getElectiveList = () => {
+    return new Promise(async (resolve) => {
+      const res = await webApi.electiveApi.getElectives({
+        status: curTab
+      });
+      const newData = {
+        ...miniElectiveListData,
+        [curTab]: res.data
+      };
+      setMiniElectiveListData(newData);
+      resolve(false);
+    });
+  };
+
   const changeTab = (tab: TabListType) => {
     setCurTab(tab.value as ProcessType);
   };
 
   useEffect(() => {
     setLoading(true);
-    Promise.all([getCourseList(), getLearningTrackList()]).finally(() => {
+    Promise.all([
+      getPracticesList(),
+      getLearningTrackList(),
+      getElectiveList()
+    ]).finally(() => {
       setLoading(false);
     });
   }, [curTab]);
@@ -73,22 +102,39 @@ function MyCourses() {
         className="pb-10"
       />
       <Loading loading={loading}>
-        {!courseListData[curTab].length &&
+        {!practicesListData[curTab].length &&
         !learningTrackListData[curTab].length ? (
           <NoData curTab={curTab} />
         ) : (
           <div className="flex flex-col gap-y-10">
             <LearningTrackList list={learningTrackListData[curTab]} />
-            <CourseBox
-              list={courseListData[curTab]}
-              curTab={curTab}
-              title="Practices"
-            />
-            {/* <CourseBox
-              list={courseListData[curTab]}
-              curTab={curTab}
-              title="Electives"
-            /> */}
+            <div className="flex flex-col gap-4">
+              <CourseSlider
+                list={practicesListData[curTab]}
+                // curTab={curTab}
+                title="Practices"
+                renderItem={(course) => {
+                  return (
+                    <ElectiveCard
+                      key={course.id}
+                      course={course as MiniElectiveCourseType}
+                    ></ElectiveCard>
+                  );
+                }}
+              />
+              <CourseSlider
+                list={miniElectiveListData[curTab]}
+                renderItem={(course) => {
+                  return (
+                    <PracticeCard
+                      key={course.id}
+                      course={course as CourseResponse}
+                    ></PracticeCard>
+                  );
+                }}
+                title="Electives"
+              />
+            </div>
           </div>
         )}
       </Loading>

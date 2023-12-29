@@ -2,20 +2,21 @@
 import Title from '@/components/v1/Head/Title';
 import { useEffect, useRef, useState } from 'react';
 import CourseListPageHeader from '@/components/v2/Business/CourseListPageHeader';
+import Image from 'next/image';
 import CourseSlider from '@/components/v2/Business/CourseSlider';
 import CourseFilterList, {
   CourseFilterListType
 } from '@/components/v2/Business/CourseFilterList';
 import webApi from '@/service';
+import PracticeCard from '@/components/v2/Business/PracticeCard';
+import { CourseResponse } from '@/service/webApi/course/type';
 import { cloneDeep } from 'lodash-es';
-import ElectiveCard from '@/components/v2/Business/ElectiveCard';
-import { MiniElectiveCourseType } from '@/service/webApi/elective/type';
 
-function ElectivesPage() {
+function PracticesPage() {
   const selectiveCoursesRef = useRef<HTMLDivElement | null>(null);
   const [loadNum, setLoadNum] = useState(0);
   const [apiStatus, setApiStatus] = useState('init');
-  const [topProjects, setTopProjects] = useState<MiniElectiveCourseType[]>([]);
+  const [topProjects, setTopProjects] = useState<CourseResponse[]>([]);
   const [searchKeyword, setSearchKeyword] = useState('');
 
   const [type, setType] = useState<CourseFilterListType>(
@@ -32,6 +33,17 @@ function ElectivesPage() {
     }
   };
 
+  const coverImage = (
+    <div className="pt-[50px]">
+      <Image
+        src={'/images/course/course_cover/practices_cover.png'}
+        width={314}
+        height={300}
+        alt="Projects cover"
+      ></Image>
+    </div>
+  );
+
   const onSearch = (value: string) => {
     setSearchKeyword(value);
     if (!value) {
@@ -42,7 +54,7 @@ function ElectivesPage() {
   };
 
   const loadTopCourses = () => {
-    webApi.electiveApi.getElectives({}).then((res) => {
+    webApi.courseApi.getCourseList().then((res) => {
       setTopProjects(res.data);
     });
   };
@@ -95,22 +107,22 @@ function ElectivesPage() {
       <Title title="Electives" />
       <div className="container mx-auto ">
         <CourseListPageHeader
-          title="Electives"
-          description="Each elective course is relatively short and independent, with a focused topic. You will  learn how to build a project step by step."
-          coverImageUrl={'/images/course/course_cover/elective_cover.png'}
+          title="Projects"
+          description="Practice makes perfect. Find all real-world projects here."
+          coverImage={coverImage}
           coverWidth={523}
           coverHeight={277}
-          onSearch={() => {}}
+          onSearch={onSearch}
         ></CourseListPageHeader>
         {!!topProjects?.length && type === CourseFilterListType.DEFAULT && (
           <CourseSlider
             title="Top Projects"
             renderItem={(course) => {
               return (
-                <ElectiveCard
+                <PracticeCard
                   key={course.id}
-                  course={course as MiniElectiveCourseType}
-                ></ElectiveCard>
+                  course={course as CourseResponse}
+                ></PracticeCard>
               );
             }}
             list={topProjects}
@@ -127,10 +139,10 @@ function ElectivesPage() {
               sort={sort}
               renderItem={(course) => {
                 return (
-                  <ElectiveCard
+                  <PracticeCard
                     key={course.id}
-                    course={course as MiniElectiveCourseType}
-                  ></ElectiveCard>
+                    course={course as CourseResponse}
+                  ></PracticeCard>
                 );
               }}
             ></CourseFilterList>
@@ -145,10 +157,10 @@ function ElectivesPage() {
             courseList={[]}
             renderItem={(course) => {
               return (
-                <ElectiveCard
+                <PracticeCard
                   key={course.id}
-                  course={course as MiniElectiveCourseType}
-                ></ElectiveCard>
+                  course={course as CourseResponse}
+                ></PracticeCard>
               );
             }}
           ></CourseFilterList>
@@ -164,4 +176,4 @@ function ElectivesPage() {
   );
 }
 
-export default ElectivesPage;
+export default PracticesPage;

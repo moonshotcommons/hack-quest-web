@@ -16,12 +16,13 @@ import { useRedirect } from '@/hooks/useRedirect';
 import MiniElectiveDetailModal, {
   MiniElectiveDetailModalRef
 } from '../MiniElectiveDetailModal';
+import { MiniElectiveCourseType } from '@/service/webApi/elective/type';
 import { useGetUserInfo } from '@/hooks/useGetUserInfo';
 import { V2_LANDING_PATH } from '@/constants/nav';
 
 interface CourseCardProps {
   // children: ReactNode;
-  course: CourseResponse;
+  course: CourseResponse | MiniElectiveCourseType;
   inProgress?: boolean;
   inCompleted?: boolean;
   baseProgress?: boolean;
@@ -65,7 +66,9 @@ const CourseCard: FC<CourseCardProps> = (props) => {
           redirectToUrl(V2_LANDING_PATH);
           return;
         }
-        miniElectiveDetailInstance.current?.open(course);
+        miniElectiveDetailInstance.current?.open(
+          course as MiniElectiveCourseType
+        );
         return;
       default:
         redirectToUrl(

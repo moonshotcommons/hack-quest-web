@@ -4,10 +4,7 @@ import { cn, errorMessage } from '@/helper/utils';
 import Image from 'next/image';
 import { forwardRef, useImperativeHandle, useState } from 'react';
 
-import {
-  CompleteStateType,
-  CourseResponse
-} from '@/service/webApi/course/type';
+import { CompleteStateType } from '@/service/webApi/course/type';
 import webApi from '@/service';
 import { useRequest } from 'ahooks';
 import Loading from '../../Common/Loading';
@@ -29,7 +26,7 @@ import { MenuLink } from '../../Layout/Navbar/type';
 interface MiniElectiveDetailModalProps {}
 
 export interface MiniElectiveDetailModalRef {
-  open: (course: CourseResponse) => void;
+  open: (course: MiniElectiveCourseType) => void;
 }
 
 const MiniElectiveDetailModal = forwardRef<
