@@ -12,6 +12,8 @@ import { useRequest } from 'ahooks';
 import { useSearchParams } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 import { useRedirect } from '../useRedirect';
+import { V2_LANDING_PATH } from '@/constants/nav';
+import { message } from 'antd';
 
 export interface JumpLeaningLessonType {
   menu: string;
@@ -68,7 +70,8 @@ export const useJumpLeaningLesson = () => {
       onError(err: any) {
         if (err.code === 401) {
           dispatch(setUnLoginType(UnLoginType.LOGIN));
-          redirectToUrl('/');
+          message.warning('Please login first');
+          redirectToUrl(V2_LANDING_PATH);
         }
       }
     }

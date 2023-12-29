@@ -5,7 +5,7 @@ import { computeProgress, tagFormate } from '@/helper/formate';
 import { cn } from '@/helper/utils';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
 import { CourseResponse, CourseType } from '@/service/webApi/course/type';
-import { Progress, Typography } from 'antd';
+import { Progress, Typography, message } from 'antd';
 import Image from 'next/image';
 import { FC, useCallback, useRef } from 'react';
 import { styled } from 'styled-components';
@@ -16,6 +16,8 @@ import { useRedirect } from '@/hooks/useRedirect';
 import MiniElectiveDetailModal, {
   MiniElectiveDetailModalRef
 } from '../MiniElectiveDetailModal';
+import { useGetUserInfo } from '@/hooks/useGetUserInfo';
+import { V2_LANDING_PATH } from '@/constants/nav';
 
 interface CourseCardProps {
   // children: ReactNode;
@@ -54,10 +56,15 @@ const CourseCard: FC<CourseCardProps> = (props) => {
   const { jumpLearningLesson, loading } = useJumpLeaningLesson();
   const { redirectToUrl } = useRedirect();
   const miniElectiveDetailInstance = useRef<MiniElectiveDetailModalRef>(null);
-
+  const userInfo = useGetUserInfo();
   const onCourseClick = useCallback(() => {
     switch (course.type) {
       case CourseType.Mini:
+        if (!userInfo) {
+          message.warning('Please login first');
+          redirectToUrl(V2_LANDING_PATH);
+          return;
+        }
         miniElectiveDetailInstance.current?.open(course);
         return;
       default:
