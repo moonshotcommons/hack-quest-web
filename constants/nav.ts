@@ -68,8 +68,8 @@ export function isNoNeedUserInfo(pathname: string) {
       // PROJECT_DETAIL,
       // MenuLink.BLOG
     ].includes(pathname) ||
-    pathname.startsWith(PREVIEW_PATH) ||
-    isNoNeedUserInfoDetail(pathname)
+    pathname.startsWith(PREVIEW_PATH)
+    // isNoNeedUserInfoDetail(pathname)
   )
     return true;
 
