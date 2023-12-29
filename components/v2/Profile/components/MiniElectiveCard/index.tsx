@@ -2,16 +2,18 @@ import React, { useRef, MouseEvent } from 'react';
 import Image from 'next/image';
 import ElectiveTag from '../ElectiveTag';
 import Button from '@/components/v2/Common/Button';
-import { EcosystemElectiveType } from '@/service/webApi/elective/type';
+import {
+  EcosystemElectiveType,
+  MiniElectiveCourseType
+} from '@/service/webApi/elective/type';
 import MiniElectiveDetailModal, {
   MiniElectiveDetailModalRef
 } from '@/components/v2/Business/MiniElectiveDetailModal';
-import { CourseResponse } from '@/service/webApi/course/type';
 import { BurialPoint } from '@/helper/burialPoint';
 import { QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
 interface MiniElectiveCardProp {
-  elective: EcosystemElectiveType & CourseResponse;
+  elective: EcosystemElectiveType & MiniElectiveCourseType;
 }
 
 const MiniElectiveCard: React.FC<MiniElectiveCardProp> = ({ elective }) => {
@@ -19,7 +21,9 @@ const MiniElectiveCard: React.FC<MiniElectiveCardProp> = ({ elective }) => {
   const { jumpLearningLesson } = useJumpLeaningLesson();
   const handleClick = () => {
     BurialPoint.track('ecosystem-profile miniElectiveCard 点击');
-    miniElectiveDetailInstance.current?.open(elective as CourseResponse);
+    miniElectiveDetailInstance.current?.open(
+      elective as MiniElectiveCourseType
+    );
   };
   const handleLearn = (e: MouseEvent<HTMLElement>) => {
     BurialPoint.track('ecosystem-profile miniElectiveCard start按钮 点击');

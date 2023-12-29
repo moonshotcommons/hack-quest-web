@@ -17,35 +17,9 @@
     /* background: red; */
     @apply bg-[#0b0b0b];
   }
-}
-
-@layer components {
-  .top-line {
-    @apply before:absolute before:h-[1px] before:scale-y-[1] before:w-full before:bg-line-color before:-top-1;
-  }
-
-  .bottom-line {
-    @apply after:absolute after:h-[1px] after:scale-y-[1] after:w-full after:bg-line-color after:-bottom-1;
-  }
-
-  .arrow {
-    @apply flex items-center justify-center p-2 rounded-full border border-solid border-course-banner-arrow-border-color hover:bg-course-banner-arrow-hover-bg cursor-pointer;
-  }
-
-  .flex-col-center {
-    @apply flex flex-col items-center;
-  }
-
-  .flex-row-center {
-    @apply flex flex-row items-center;
-  }
-
-  .flex-center {
-    @apply flex items-center justify-center;
-  }
 
   .text-h1 {
-    @apply font-Inter font-Int font-extrabold text-[54px] leading-[54px] tracking-normal;
+    @apply font-Inter font-extrabold text-[54px] leading-[54px] tracking-normal;
   }
   .text-h2 {
     @apply font-Inter font-extrabold text-[40px] leading-[40px] tracking-normal;
@@ -154,6 +128,36 @@
   }
   .underline-s {
     @apply font-Inter text-[18px] leading-normal tracking-normal underline;
+  }
+}
+
+@layer components {
+  .card-hover {
+    @apply hover:-translate-y-1 transition-all duration-300 hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)];
+  }
+
+  .top-line {
+    @apply before:absolute before:h-[1px] before:scale-y-[1] before:w-full before:bg-line-color before:-top-1;
+  }
+
+  .bottom-line {
+    @apply after:absolute after:h-[1px] after:scale-y-[1] after:w-full after:bg-line-color after:-bottom-1;
+  }
+
+  .arrow {
+    @apply flex items-center justify-center p-2 rounded-full border border-solid border-course-banner-arrow-border-color hover:bg-course-banner-arrow-hover-bg cursor-pointer;
+  }
+
+  .flex-col-center {
+    @apply flex flex-col items-center;
+  }
+
+  .flex-row-center {
+    @apply flex flex-row items-center;
+  }
+
+  .flex-center {
+    @apply flex items-center justify-center;
   }
 }
 

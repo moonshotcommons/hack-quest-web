@@ -1,20 +1,27 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { CourseResponse, ProcessType } from '@/service/webApi/course/type';
-interface CourseListType {
-  list: CourseResponse[];
-  curTab: ProcessType;
-  title: 'Electives' | 'Practices';
-}
+import React, { ReactNode, useEffect, useMemo, useState } from 'react';
+import { CourseResponse } from '@/service/webApi/course/type';
+
 import {
   ChangeState,
   ScrollContainer,
   ScrollControl
 } from '@/components/v2/Common/ScrollContainer';
 
-import PracticeCard from '@/components/v2/Business/PracticeCard';
 import { cn } from '@/helper/utils';
+import { MiniElectiveCourseType } from '@/service/webApi/elective/type';
 
-const CourseList: React.FC<CourseListType> = ({ list, curTab, title }) => {
+interface CourseSliderType {
+  list: (CourseResponse | MiniElectiveCourseType)[];
+  title: string;
+  renderItem: (item: CourseResponse | MiniElectiveCourseType) => ReactNode;
+}
+
+const CourseSlider: React.FC<CourseSliderType> = ({
+  list,
+  // curTab,
+  title,
+  renderItem
+}) => {
   const p = {
     inProgress: false,
     inCompleted: false
@@ -25,8 +32,9 @@ const CourseList: React.FC<CourseListType> = ({ list, curTab, title }) => {
     useState<ChangeState>();
 
   const courseGroupList = useMemo(() => {
-    const groupList: CourseResponse[][] = [];
-    let group: CourseResponse[] = [];
+    if (!list?.length) return [];
+    const groupList: (CourseResponse | MiniElectiveCourseType)[][] = [];
+    let group: (CourseResponse | MiniElectiveCourseType)[] = [];
     list.forEach((item, index) => {
       group.push(item);
       if (group.length === 4) {
@@ -39,17 +47,8 @@ const CourseList: React.FC<CourseListType> = ({ list, curTab, title }) => {
   }, [list]);
 
   useEffect(() => {
-    const newPro =
-      curTab === ProcessType.IN_PROCESS
-        ? {
-            inProgress: true
-          }
-        : {
-            inCompleted: true
-          };
-    setProgress({ ...p, ...newPro });
     setCurrentPage(0);
-  }, [curTab]);
+  }, []);
 
   const onPrevious = () => {
     if (currentPage === 0) return;
@@ -60,10 +59,12 @@ const CourseList: React.FC<CourseListType> = ({ list, curTab, title }) => {
     setCurrentPage(currentPage + 1);
   };
 
+  if (!list?.length) return null;
+
   return (
     <div>
-      <div className="font-next-poster-Bold text-[21px] tracking-[1.26px] text-[#131313] flex justify-between items-center">
-        <span>{title}</span>
+      <div className="flex justify-between items-center">
+        <h3 className="text-h3 text-neutral-black">{title}</h3>
         {courseGroupList.length > 1 && (
           <ScrollControl
             changeState={scrollContainerState}
@@ -77,19 +78,15 @@ const CourseList: React.FC<CourseListType> = ({ list, curTab, title }) => {
       <ScrollContainer
         onChange={(state: any) => setScrollContainerState(state)}
         gap={24}
-        className="py-6"
+        className="py-8"
       >
         <div className="flex gap-[24px]">
           {courseGroupList.map((item, index) => {
             return (
               <div key={index} className="flex gap-[24px] w-[1280px]">
-                {item.map((course) => (
-                  <PracticeCard
-                    key={course.id}
-                    course={course}
-                    {...progress}
-                  ></PracticeCard>
-                ))}
+                {item.map((course) => {
+                  return renderItem(course);
+                })}
               </div>
             );
           })}
@@ -114,4 +111,4 @@ const CourseList: React.FC<CourseListType> = ({ list, curTab, title }) => {
   );
 };
 
-export default CourseList;
+export default CourseSlider;

@@ -41,13 +41,13 @@ const SessionItemRenderer: FC<SessionItemRendererProps> = (props) => {
       setChildren(item.content);
     }
 
-    return () => {
-      timer && clearTimeout(timer);
-      timeIds.current.forEach((timeId) => {
-        clearTimeout(timeId);
-      });
-      timeIds.current = [];
-    };
+    // return () => {
+    //   timer && clearTimeout(timer);
+    //   timeIds.current.forEach((timeId) => {
+    //     clearTimeout(timeId);
+    //   });
+    //   timeIds.current = [];
+    // };
   }, [item]);
 
   const isDisable = useMemo(() => {

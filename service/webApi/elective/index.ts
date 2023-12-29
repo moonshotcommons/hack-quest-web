@@ -3,6 +3,7 @@ import {
   EcosystemElectiveType,
   EcosystemProfileType,
   ElectiveLessonType,
+  ElectiveListDataType,
   MiniElectiveCourseType
 } from './type';
 
@@ -19,10 +20,17 @@ class ElectiveApi {
   }
 
   /** 获取electives课程列表 */
-  getElectives(params: { sort?: string; keyword?: string }) {
-    return this.service.get(ElectiveApiType.GetElectives, {
-      params
-    });
+  getElectives(params: {
+    sort?: string;
+    keyword?: string;
+    status?: 'inProcess' | 'completed';
+  }) {
+    return this.service.get<ElectiveListDataType>(
+      ElectiveApiType.GetElectives,
+      {
+        params
+      }
+    );
   }
 
   /** 获取包含（不包含）所有pages的课程详情信息 */
