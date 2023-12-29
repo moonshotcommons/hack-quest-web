@@ -15,7 +15,6 @@ const FeatureBlog: React.FC<FeatureBlogProp> = ({ list }) => {
   const scrollContainerRef = useRef<any>();
   const [scrollContainerState, setScrollContainerState] =
     useState<ChangeState>();
-
   return (
     <div className="mb-[80px]">
       <ScrollContainer
