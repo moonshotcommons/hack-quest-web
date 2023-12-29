@@ -1,14 +1,14 @@
 import { MenuLink, NavbarListType } from './type';
 
+export const dashBoard = {
+  label: 'DASHBOARD',
+  path: MenuLink.DASHBOARD
+};
 export const navbarList: NavbarListType[] = [
   {
     label: 'Learn',
     id: 'learn',
     menu: [
-      {
-        label: 'DASHBOARD',
-        path: MenuLink.DASHBOARD
-      },
       {
         label: 'LEARNING TRACK',
         path: MenuLink.LEARNING_TRACK
