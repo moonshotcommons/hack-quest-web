@@ -5,24 +5,27 @@ import {
   ChangeState,
   ScrollContainer
 } from '@/components/v1/Common/ScrollContainer';
+import { BlogType } from '@/service/webApi/resourceStation/type.js';
 
-interface FeatureBlogProp {}
+interface FeatureBlogProp {
+  list: BlogType[];
+}
 
-const FeatureBlog: React.FC<FeatureBlogProp> = () => {
+const FeatureBlog: React.FC<FeatureBlogProp> = ({ list }) => {
   const scrollContainerRef = useRef<any>();
   const [scrollContainerState, setScrollContainerState] =
     useState<ChangeState>();
 
   return (
-    <div>
+    <div className="mb-[80px]">
       <ScrollContainer
         ref={scrollContainerRef}
         onChange={(state: any) => setScrollContainerState(state)}
       >
         <div className="flex">
-          {Array.from({ length: 5 }).map((_, i) => (
-            <div className="container p-[5px]" key={i}>
-              <FeatureBlogCard />
+          {list.map((blog) => (
+            <div className="container p-[5px]" key={blog.id}>
+              <FeatureBlogCard blog={blog} />
             </div>
           ))}
         </div>

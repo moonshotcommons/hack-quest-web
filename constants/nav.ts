@@ -41,6 +41,16 @@ export function isLoginOrRegister(pathname: string) {
   return false;
 }
 
+const isNoNeedUserInfoDetail = (pathname: string) => {
+  return [
+    MenuLink.LEARNING_TRACK,
+    MenuLink.ELECTIVES,
+    MenuLink.HACKATHON,
+    MenuLink.PROJECTS,
+    MenuLink.BLOG
+  ].some((menu) => pathname.includes(menu));
+};
+
 export function isNoNeedUserInfo(pathname: string) {
   if (
     [
@@ -48,19 +58,18 @@ export function isNoNeedUserInfo(pathname: string) {
       LOGIN_PATHNAME,
       REGISTER_PATHNAME,
       ALL_COURSES_PATHNAME,
-      PREVIEW_PATH,
+      PREVIEW_PATH
       // MenuLink.DASHBOARD,
       // MenuLink.LEARNING_TRACK,
       // MenuLink.ELECTIVES,
-      // LEARNING_TRACK_DETAIL,
-      // ELECTIVE_DETAIL,
-      MenuLink.HACKATHON,
-      HACKATHON_DETAIL,
-      MenuLink.PROJECTS,
-      PROJECT_DETAIL,
-      MenuLink.BLOG
+      // MenuLink.HACKATHON,
+      // HACKATHON_DETAIL,
+      // MenuLink.PROJECTS,
+      // PROJECT_DETAIL,
+      // MenuLink.BLOG
     ].includes(pathname) ||
     pathname.startsWith(PREVIEW_PATH)
+    // isNoNeedUserInfoDetail(pathname)
   )
     return true;
 

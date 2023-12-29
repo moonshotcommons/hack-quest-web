@@ -1,5 +1,6 @@
 'use client';
 import BlogCard from '@/components/v2/Business/BlogCard';
+import Loading from '@/components/v2/Common/Loading';
 import {
   ChangeState,
   ScrollContainer,
@@ -7,6 +8,9 @@ import {
 } from '@/components/v2/Common/ScrollContainer';
 import { MenuLink } from '@/components/v2/Layout/Navbar/type';
 import { BurialPoint } from '@/helper/burialPoint';
+import webApi from '@/service';
+import { BlogType } from '@/service/webApi/resourceStation/type';
+import { useRequest } from 'ahooks';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { LuChevronRight } from 'react-icons/lu';
@@ -16,6 +20,11 @@ interface BlogFooterProp {}
 const BlogFooter: React.FC<BlogFooterProp> = () => {
   const [scrollContainerState, setScrollContainerState] =
     useState<ChangeState>();
+  const [featureBlogList, setFeatureBlogList] = useState<BlogType[]>([]);
+  const { loading } = useRequest(async () => {
+    const res = await webApi.resourceStationApi.getFeaturedBlog();
+    setFeatureBlogList(res);
+  });
   return (
     <div className="w-full bg-[#FFF4CE] py-[60px]">
       <div className="container mx-auto">
@@ -36,18 +45,16 @@ const BlogFooter: React.FC<BlogFooterProp> = () => {
             <LuChevronRight size={32}></LuChevronRight>
           </Link>
         </div>
-        <div>
+        <Loading loading={loading}>
           <ScrollContainer
             onChange={(state: any) => setScrollContainerState(state)}
           >
             <div className="my-[30px] flex gap-[20px] overflow-x-hidden">
-              {Array.from({ length: 10 }).map((_, index) => {
-                return (
-                  <div key={index} className="w-[440px] p-[4px]">
-                    <BlogCard />
-                  </div>
-                );
-              })}
+              {featureBlogList.map((blog) => (
+                <div key={blog.id} className="w-[440px] p-[4px]">
+                  <BlogCard blog={blog} />
+                </div>
+              ))}
             </div>
           </ScrollContainer>
           <ScrollControl
@@ -57,7 +64,7 @@ const BlogFooter: React.FC<BlogFooterProp> = () => {
               'blog-content-page-featured blogCard滚动-右'
             ]}
           ></ScrollControl>
-        </div>
+        </Loading>
       </div>
     </div>
   );

@@ -72,6 +72,98 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
             ></DropAnswer>
           );
         }
+        //处理blog中 居中的text
+        if (richText.plain_text.indexOf('<<image>>') === 0) {
+          const plain_text = richText.plain_text.replace(/<<image>>/, '');
+          if (richTextArr[index + 1]) {
+            const nextPlainText = richTextArr[index + 1].plain_text;
+            richTextArr[
+              index + 1
+            ].plain_text = `${plain_text}${nextPlainText}<<image>>`;
+            return null;
+          } else {
+            return (
+              <p key={index} className="text-center">
+                <span
+                  key={index}
+                  className={`${className} rounded-md leading-[200%]`}
+                  style={{
+                    fontSize,
+                    letterSpacing,
+                    color:
+                      annotations.color !== 'default' &&
+                      !annotations.color.includes('background')
+                        ? annotations.color
+                        : '',
+                    backgroundColor:
+                      annotations.color !== 'default' &&
+                      annotations.color.includes('background')
+                        ? annotations.color
+                        : ''
+                  }}
+                >
+                  {plain_text}
+                </span>
+              </p>
+            );
+          }
+        }
+        if (richText.plain_text.indexOf('<<image>>') > 0) {
+          const plain_text = richText.plain_text.replace(/<<image>>/g, '');
+          if (richText.href) {
+            return (
+              <p key={index} className="text-center">
+                <a
+                  target="_blank"
+                  href={richText.href}
+                  className={`${className} py-1 underline break-words`}
+                  style={{
+                    fontSize,
+                    letterSpacing,
+                    color:
+                      annotations.color !== 'default' &&
+                      !annotations.code &&
+                      !annotations.color.includes('background')
+                        ? annotations.color
+                        : '',
+                    backgroundColor:
+                      annotations.color !== 'default' &&
+                      annotations.color.includes('background')
+                        ? annotations.color
+                        : ''
+                  }}
+                >
+                  {plain_text}
+                </a>
+              </p>
+            );
+          }
+
+          return (
+            <p key={index} className="text-center">
+              <span
+                key={index}
+                className={`${className} rounded-md leading-[200%]`}
+                style={{
+                  fontSize,
+                  letterSpacing,
+                  color:
+                    annotations.color !== 'default' &&
+                    !annotations.color.includes('background')
+                      ? annotations.color
+                      : '',
+                  backgroundColor:
+                    annotations.color !== 'default' &&
+                    annotations.color.includes('background')
+                      ? annotations.color
+                      : ''
+                }}
+              >
+                {plain_text}
+              </span>
+            </p>
+          );
+        }
 
         if (richText.href) {
           return (

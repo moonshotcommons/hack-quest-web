@@ -32,15 +32,14 @@ const SessionItemRenderer: FC<SessionItemRendererProps> = (props) => {
   };
 
   useEffect(() => {
-    let timer: NodeJS.Timer;
-    if (item.content && item.type === 'left') {
-      timer = setTimeout(() => {
-        writing('', 0);
-      }, item.content.length * 25);
-    } else {
-      setChildren(item.content);
-    }
-
+    // let timer: NodeJS.Timer;
+    // if (item.content && item.type === 'left') {
+    //   timer = setTimeout(() => {
+    //     writing('', 0);
+    //   }, item.content.length * 25);
+    // } else {
+    //   setChildren(item.content);
+    // }
     // return () => {
     //   timer && clearTimeout(timer);
     //   timeIds.current.forEach((timeId) => {

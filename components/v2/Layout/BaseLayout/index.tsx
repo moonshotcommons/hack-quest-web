@@ -5,7 +5,7 @@ import React, { ReactNode, useCallback, useEffect } from 'react';
 import NavBar, { NavBarProps } from '../Navbar';
 
 import Breadcrumb from '@/components/v2/Business/Breadcrumb';
-import { useParams, usePathname } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { useCheckPathname } from '@/hooks/useCheckPathname';
 const inter = Inter({ subsets: ['latin'] });
 export interface V2LayoutProps {
@@ -15,8 +15,6 @@ export interface V2LayoutProps {
 }
 
 const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
-  const regex = /\/[^/]+\/\[courseId\]\/learn\/\[lessonId\]/;
-  const params = useParams();
   const pathname = usePathname();
   const { isNavbarFullPage, isExcludeBreadcrumbLink } = useCheckPathname();
 

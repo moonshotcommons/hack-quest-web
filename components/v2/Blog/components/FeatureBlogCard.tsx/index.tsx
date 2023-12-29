@@ -1,4 +1,3 @@
-import BlogCardFooter from '@/components/v2/Business/BlogCard/BlogCardFooter';
 import React from 'react';
 import Ha from '@/public/images/hackathon/hackathon_host.png';
 import Image from 'next/image';
@@ -30,7 +29,7 @@ const FeatureBlogCard: React.FC<FeatureBlogCardProp> = () => {
             consectetur adipiscing elit, sed
           </div>
         </div>
-        <BlogCardFooter />
+        {/* <BlogCardFooter /> */}
       </div>
     </div>
   );

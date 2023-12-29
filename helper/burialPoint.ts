@@ -199,6 +199,8 @@ type EcosystemProfileType =
 
 type BlogType =
   | 'blog-页面留存时间'
+  | 'blog featureBlogCard 卡片点击'
+  | 'blog blogCard 卡片点击'
   | 'blog-content-page-页面留存时间'
   | 'blog-content-page Back按钮点击';
 

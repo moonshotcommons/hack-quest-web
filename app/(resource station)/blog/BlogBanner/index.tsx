@@ -1,25 +1,27 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import BlogBannerBg from '@/public/images/blog/blog_banner_bg.png';
 import { PiSortAscendingBold, PiSortDescendingBold } from 'react-icons/pi';
 import { BiSearch, BiCheck } from 'react-icons/bi';
 import { searchTabData, sortData } from './data';
 import { FiX } from 'react-icons/fi';
-import { SearchInfoType } from '@/app/(resource station)/blog/page';
+import SlideHighlight from '@/components/Common/Navigation/SlideHighlight';
+import { BlogSearchType } from '@/service/webApi/resourceStation/type';
 
 interface BannerProp {
-  searchInfo: SearchInfoType;
-  changeSearchInfo: (info: SearchInfoType) => void;
+  searchInfo: BlogSearchType;
+  changeSearchInfo: (info: BlogSearchType) => void;
 }
 
 const BlogBanner: React.FC<BannerProp> = ({ searchInfo, changeSearchInfo }) => {
   const [inputVisible, setInputVisible] = useState(false);
   const [sortVisible, setSortVisible] = useState(false);
   const timeOut = useRef<NodeJS.Timeout | null>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const changeSearch = (val: string) => {
-    if (val === searchInfo.tab) return;
+    if (val === searchInfo.category) return;
     changeSearchInfo({
       ...searchInfo,
-      tab: val
+      category: val
     });
   };
   const changeSort = (sort: string) => {
@@ -31,15 +33,32 @@ const BlogBanner: React.FC<BannerProp> = ({ searchInfo, changeSearchInfo }) => {
     });
   };
   const changeInput = (e: any) => {
-    const inputValue = e.target.value;
+    const keyword = e.target.value;
     if (timeOut.current) clearTimeout(timeOut.current);
     timeOut.current = setTimeout(() => {
       changeSearchInfo({
         ...searchInfo,
-        inputValue
+        keyword
       });
     }, 300);
   };
+
+  const changeInputVisible = () => {
+    setInputVisible(!inputVisible);
+    if (!inputVisible) {
+      changeSearchInfo({
+        ...searchInfo,
+        keyword: ''
+      });
+    }
+  };
+
+  useEffect(() => {
+    const { category } = searchInfo;
+    const index = searchTabData.findIndex((v) => v.value === category);
+    setCurrentIndex(index);
+  }, [searchInfo]);
+
   return (
     <div
       className="h-[487px] text-[#fff] font-next-book  pt-[60px] pb-[40px]"
@@ -105,29 +124,43 @@ const BlogBanner: React.FC<BannerProp> = ({ searchInfo, changeSearchInfo }) => {
                   </div>
                 )}
               </div>
-              <div className="text-[18px] flex items-center gap-[15px]">
-                <div className="flex items-center  pl-[15px]">
-                  {searchTabData.map((v, index) => (
-                    <div
-                      key={v.value}
-                      className={`pr-[15px] ${
-                        !index ? 'border-r border-r-[#fff]' : ''
-                      }`}
-                    >
-                      <div
-                        className={`px-[20px] py-[7px] rounded-[100px] cursor-pointer relative ${
-                          searchInfo.tab === v.value
-                            ? 'bg-[#fff] text-[#0b0b0b]'
-                            : 'text-[#fff]'
-                        }`}
-                        onClick={() => changeSearch(v.value)}
-                      >
-                        {v.label}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+              <SlideHighlight
+                className="text-[18px] flex items-center"
+                type={'BLOG_FILTER'}
+                currentIndex={currentIndex}
+              >
+                {searchTabData.map((v) => (
+                  <div
+                    key={v.value}
+                    className={`${
+                      v.value !== 'empty'
+                        ? `px-[20px] py-[7px] rounded-[100px] cursor-pointer relative ${
+                            searchInfo.category === v.value
+                              ? 'text-[#0b0b0b]'
+                              : ''
+                          }`
+                        : 'w-[30px] h-[41px]'
+                    }`}
+                    style={
+                      v.value === 'empty'
+                        ? {
+                            background:
+                              'linear-gradient(to left, #3E3E3E 14px,#fff 1px,#3E3E3E 15px)'
+                          }
+                        : {}
+                    }
+                    onClick={(e) => {
+                      if (v.value === 'empty') {
+                        e.stopPropagation();
+                        return;
+                      }
+                      changeSearch(v.value);
+                    }}
+                  >
+                    {v.label}
+                  </div>
+                ))}
+              </SlideHighlight>
             </div>
           )}
           <div
@@ -146,7 +179,7 @@ const BlogBanner: React.FC<BannerProp> = ({ searchInfo, changeSearchInfo }) => {
                 <FiX
                   size={32}
                   className="cursor-pointer"
-                  onClick={() => setInputVisible(false)}
+                  onClick={changeInputVisible}
                 />
               </>
             ) : (
