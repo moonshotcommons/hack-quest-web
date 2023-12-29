@@ -23,7 +23,7 @@ const FeatureBlogCard: React.FC<FeatureBlogCardProp> = ({ blog }) => {
     >
       <div className="w-[900px] h-full relative  overflow-hidden">
         <Image
-          src={blog.background}
+          src={blog.image}
           fill
           alt="blogImage"
           className="object-cover"

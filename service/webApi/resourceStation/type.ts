@@ -71,7 +71,7 @@ export interface BlogType {
   id: string;
   title: string;
   description: string;
-  background: string;
+  image: string;
   categories: string[];
   content: any;
   creatorName: string;
