@@ -17,18 +17,18 @@ const BlogCard: React.FC<BlogCardProp> = ({ blog }) => {
   };
   return (
     <div
-      className="w-full font-next-book h-[470px] bg-[#FFF] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)] cursor-pointer hover:-translate-y-1 transition-all duration-300 rounded-[10px] overflow-hidden flex flex-col"
+      className="w-full font-next-book bg-[#FFF] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)] cursor-pointer hover:-translate-y-1 transition-all duration-300 rounded-[10px] overflow-hidden flex flex-col"
       onClick={goBlogContent}
     >
-      <div className="w-full h-[0] pt-[51.6%] relative ">
+      <div className="w-full h-[0] pt-[56.1%] relative ">
         <Image
-          src={blog.background}
+          src={blog.image}
           alt="blogImage"
           fill
-          className="object-contain"
+          className="object-cover"
         ></Image>
       </div>
-      <div className="flex-1 px-[15px] pt-[10px] pb-[20px] flex flex-col justify-between">
+      <div className="flex-1 px-[15px] pt-[10px] pb-[20px] flex flex-col gap-[7px]">
         <div className="flex gap-[10px]">
           {blog.categories.map((v, i) => (
             <div
