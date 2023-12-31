@@ -1,5 +1,4 @@
 'use client';
-import Title from '@/components/v1/Head/Title';
 import PageDescription from '@/components/v2/Business/PageDescription';
 import SelectiveCoursesBox from './components/ElectivesBox';
 import { useRef, useState } from 'react';
@@ -25,7 +24,6 @@ function PracticesPage() {
       onScroll={handleScroll}
       ref={selectiveCoursesRef}
     >
-      <Title title="Electives" />
       <div className="container mx-auto ">
         <PageDescription
           title={'Electives'}

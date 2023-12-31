@@ -9,7 +9,6 @@ import { message } from 'antd';
 import { BurialPoint } from '@/helper/burialPoint';
 import { useGetMissionData } from '@/hooks/useGetMissionData';
 import { MissionCenterContext } from '@/components/v2/MissionCenter/type';
-import Title from '@/components/v1/Head/Title';
 
 function MissionCenter() {
   const userInfo = useSelector((state: AppRootState) => {
@@ -53,7 +52,6 @@ function MissionCenter() {
   }, []);
   return (
     <div className="container mx-auto flex justify-between h-[calc(100vh-64px)]  text-[#0b0b0b] tracking-[0.3px] bg-[#f4f4f4]  text-[14px] font-next-book">
-      <Title title="Mission Center" />
       <MissionCenterContext.Provider
         value={{
           loading,

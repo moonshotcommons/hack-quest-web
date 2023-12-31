@@ -1,5 +1,4 @@
 'use client';
-import Title from '@/components/v1/Head/Title';
 import { useEffect, useRef, useState } from 'react';
 import CourseListPageHeader from '@/components/v2/Business/CourseListPageHeader';
 import Image from 'next/image';
@@ -104,7 +103,6 @@ function PracticesPage() {
       onScroll={handleScroll}
       ref={selectiveCoursesRef}
     >
-      <Title title="Electives" />
       <div className="container mx-auto ">
         <CourseListPageHeader
           title="Projects"
