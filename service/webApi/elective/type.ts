@@ -46,6 +46,7 @@ export interface ElectiveCourseType extends CourseBaseType {
   image: string;
   pageCount: number;
   creatorId: string;
+  creator: null | CreatorType;
   status: string;
   isRegistered: boolean;
   pages?: PageType[];
@@ -55,7 +56,6 @@ export interface ElectiveCourseType extends CourseBaseType {
 export interface ElectiveCourseDetailType extends ElectiveCourseType {
   completed: boolean;
   completedPages: number;
-  creator: null | CreatorType;
 }
 
 export interface ElectiveLessonType {

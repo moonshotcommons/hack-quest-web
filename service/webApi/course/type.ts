@@ -47,10 +47,17 @@ enum CourseLevelType {
   ADVANCED = 'ADVANCED'
 }
 
-enum CourseLanguageType {
+export enum CourseLanguageType {
   SOLIDITY = 'SOLIDITY',
   RUST = 'RUST',
   MOVE = 'MOVE'
+}
+
+export enum CourseTrackType {
+  DeFi = 'DeFi',
+  NFT = 'NFT',
+  Security = 'Security',
+  Gaming = 'Gaming'
 }
 
 export interface CourseBaseType {
@@ -61,7 +68,7 @@ export interface CourseBaseType {
   level: CourseLevelType;
   duration: number;
   language: CourseLanguageType;
-  track: string;
+  track: CourseTrackType;
   progress?: number;
   peopleJoined: number;
 }

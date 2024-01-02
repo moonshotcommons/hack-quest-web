@@ -68,7 +68,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
         </div>
         <div>
           <CourseTags
-            alt={learningTrack?.language}
+            language={learningTrack.language}
             level={learningTrack?.level as string}
             unitCount={learningTrack?.courseCount}
             type={'learning-track'}

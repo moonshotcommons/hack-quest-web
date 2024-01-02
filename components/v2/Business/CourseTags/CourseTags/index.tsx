@@ -10,7 +10,7 @@ import Tag from '../tag';
 import { CourseType } from '@/service/webApi/course/type';
 
 interface CourseTagsProps {
-  alt?: string;
+  language?: string;
   level: string;
   duration?: number;
   unitCount: number;
@@ -21,7 +21,7 @@ interface CourseTagsProps {
 
 const CourseTags: FC<CourseTagsProps> = (props) => {
   const {
-    alt,
+    language,
     level,
     unitCount,
     duration,
@@ -39,7 +39,7 @@ const CourseTags: FC<CourseTagsProps> = (props) => {
       )}
     >
       <Tag icon={<AltIcon />} size={size} className="tagFont">
-        {alt}
+        {language}
       </Tag>
       {duration && (
         <Tag icon={<ClockIcon />} size={size}>

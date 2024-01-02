@@ -27,7 +27,7 @@ export const courseDefaultFilters = [
     options: [
       { name: 'Solidity', value: 'SOLIDITY', isSelect: false },
       { name: 'Rust', value: 'RUST', isSelect: false },
-      { name: 'Move ', value: 'MOVE ', isSelect: false }
+      { name: 'Move ', value: 'MOVE', isSelect: false }
     ]
   },
   {
@@ -52,8 +52,8 @@ export const courseDefaultFilters = [
 ];
 
 export const courseDefaultSort = [
-  { name: 'Most Popular', value: 'Most Popular', isSelect: false },
-  { name: 'Newest', value: 'Newest', isSelect: false }
+  { name: 'Most Popular', value: '-peopleJoined', isSelect: false },
+  { name: 'Newest', value: '-createdAt', isSelect: true }
 ];
 
 export const mergeFilterParams = (
