@@ -1,5 +1,5 @@
 import React, { ReactNode, useEffect, useMemo, useState } from 'react';
-import { CourseResponse } from '@/service/webApi/course/type';
+import { ProjectCourseType } from '@/service/webApi/course/type';
 
 import {
   ChangeState,
@@ -8,12 +8,12 @@ import {
 } from '@/components/v2/Common/ScrollContainer';
 
 import { cn } from '@/helper/utils';
-import { MiniElectiveCourseType } from '@/service/webApi/elective/type';
+import { ElectiveCourseType } from '@/service/webApi/elective/type';
 
 interface CourseSliderType {
-  list: (CourseResponse | MiniElectiveCourseType)[];
+  list: (ProjectCourseType | ElectiveCourseType)[];
   title: string;
-  renderItem: (item: CourseResponse | MiniElectiveCourseType) => ReactNode;
+  renderItem: (item: ProjectCourseType | ElectiveCourseType) => ReactNode;
 }
 
 const CourseSlider: React.FC<CourseSliderType> = ({
@@ -33,8 +33,8 @@ const CourseSlider: React.FC<CourseSliderType> = ({
 
   const courseGroupList = useMemo(() => {
     if (!list?.length) return [];
-    const groupList: (CourseResponse | MiniElectiveCourseType)[][] = [];
-    let group: (CourseResponse | MiniElectiveCourseType)[] = [];
+    const groupList: (ProjectCourseType | ElectiveCourseType)[][] = [];
+    let group: (ProjectCourseType | ElectiveCourseType)[] = [];
     list.forEach((item, index) => {
       group.push(item);
       if (group.length === 4) {

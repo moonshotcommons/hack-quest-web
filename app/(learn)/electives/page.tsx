@@ -3,19 +3,19 @@ import Title from '@/components/v1/Head/Title';
 import { useEffect, useRef, useState } from 'react';
 import CourseListPageHeader from '@/components/v2/Business/CourseListPageHeader';
 import CourseSlider from '@/components/v2/Business/CourseSlider';
-import CourseFilterList, {
-  CourseFilterListType
-} from '@/components/v2/Business/CourseFilterList';
+import { CourseFilterListType } from '@/components/v2/Business/CourseFilterList';
 import webApi from '@/service';
-import { cloneDeep } from 'lodash-es';
 import ElectiveCard from '@/components/v2/Business/ElectiveCard';
-import { MiniElectiveCourseType } from '@/service/webApi/elective/type';
+import { ElectiveCourseType } from '@/service/webApi/elective/type';
+import CourseFilterListSearch from './components/CourseFilterListSearch';
+import CourseFilterListDefault from './components/CourseFilterListDefault';
 
 function ElectivesPage() {
   const selectiveCoursesRef = useRef<HTMLDivElement | null>(null);
   const [loadNum, setLoadNum] = useState(0);
   const [apiStatus, setApiStatus] = useState('init');
-  const [topProjects, setTopProjects] = useState<MiniElectiveCourseType[]>([]);
+  const [topElectives, setTopElectives] = useState<ElectiveCourseType[]>([]);
+
   const [searchKeyword, setSearchKeyword] = useState('');
 
   const [type, setType] = useState<CourseFilterListType>(
@@ -43,48 +43,13 @@ function ElectivesPage() {
 
   const loadTopCourses = () => {
     webApi.electiveApi.getElectives({}).then((res) => {
-      setTopProjects(res.data);
+      setTopElectives(res.data);
     });
   };
 
   useEffect(() => {
     loadTopCourses();
   }, []);
-
-  const filters = [
-    {
-      filterName: 'Language',
-      filterField: 'language',
-      options: [
-        { name: 'Solidity', value: 'Solidity', isSelect: false },
-        { name: 'Rust', value: 'Rust', isSelect: false },
-        { name: 'Move ', value: 'Move ', isSelect: false }
-      ]
-    },
-    {
-      filterName: 'Track',
-      filterField: 'track',
-      options: [
-        { name: 'DeFi', value: 'DeFi', isSelect: false },
-        { name: 'NFT', value: 'NFT', isSelect: false },
-        { name: 'Data', value: 'Data', isSelect: false }
-      ]
-    },
-    {
-      filterName: 'Difficulty',
-      filterField: 'level',
-      options: [
-        { name: 'Beginner', value: 'BEGINNER', isSelect: false },
-        { name: 'Intermediate', value: 'INTERMEDIATE', isSelect: false },
-        { name: 'Advanced', value: 'ADVANCED', isSelect: false }
-      ]
-    }
-  ];
-
-  const sort = [
-    { name: 'Most Popular', value: 'Most Popular', isSelect: false },
-    { name: 'Newest', value: 'Newest', isSelect: true }
-  ];
 
   return (
     <div
@@ -100,58 +65,31 @@ function ElectivesPage() {
           coverImageUrl={'/images/course/course_cover/elective_cover.png'}
           coverWidth={523}
           coverHeight={277}
-          onSearch={() => {}}
+          onSearch={onSearch}
         ></CourseListPageHeader>
-        {!!topProjects?.length && type === CourseFilterListType.DEFAULT && (
+        {!!topElectives?.length && type === CourseFilterListType.DEFAULT && (
           <CourseSlider
-            title="Top Projects"
+            title="Top Electives"
             renderItem={(course) => {
               return (
                 <ElectiveCard
                   key={course.id}
-                  course={course as MiniElectiveCourseType}
+                  course={course as ElectiveCourseType}
                 ></ElectiveCard>
               );
             }}
-            list={topProjects}
+            list={topElectives}
           ></CourseSlider>
         )}
         {type === CourseFilterListType.DEFAULT && (
           <div className="mt-[60px]">
-            <CourseFilterList
-              title="Explore Web 3"
-              courseList={topProjects}
-              filters={cloneDeep(filters)}
-              onFiltersUpdate={() => {}}
-              onSortUpdate={() => {}}
-              sort={sort}
-              renderItem={(course) => {
-                return (
-                  <ElectiveCard
-                    key={course.id}
-                    course={course as MiniElectiveCourseType}
-                  ></ElectiveCard>
-                );
-              }}
-            ></CourseFilterList>
+            <CourseFilterListDefault></CourseFilterListDefault>
           </div>
         )}
         {type === CourseFilterListType.SEARCH && (
-          <CourseFilterList
-            onSortUpdate={() => {}}
-            onFiltersUpdate={() => {}}
-            filters={cloneDeep(filters)}
-            title={`Search result for “${searchKeyword}”`}
-            courseList={[]}
-            renderItem={(course) => {
-              return (
-                <ElectiveCard
-                  key={course.id}
-                  course={course as MiniElectiveCourseType}
-                ></ElectiveCard>
-              );
-            }}
-          ></CourseFilterList>
+          <CourseFilterListSearch
+            keyword={searchKeyword}
+          ></CourseFilterListSearch>
         )}
         {/*
         <SelectiveCoursesBox

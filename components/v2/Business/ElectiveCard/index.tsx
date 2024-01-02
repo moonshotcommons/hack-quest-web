@@ -17,15 +17,15 @@ import MiniElectiveDetailModal, {
 import corse_image from './corse_image.png';
 import avatar_image from './avatar.png';
 import AltIcon from '@/components/v2/Common/Icon/AltIcon';
-import { MiniElectiveCourseType } from '@/service/webApi/elective/type';
+import { ElectiveCourseType } from '@/service/webApi/elective/type';
 
 interface ElectiveCardProps {
   // children: ReactNode;
-  course: MiniElectiveCourseType;
+  course: ElectiveCourseType;
   inProgress?: boolean;
   inCompleted?: boolean;
   baseProgress?: boolean;
-  onCourseClick?: (course: MiniElectiveCourseType) => void;
+  onCourseClick?: (course: ElectiveCourseType) => void;
 }
 
 const CustomProgress = styled(Progress)`
@@ -103,7 +103,7 @@ const ElectiveCard: FC<ElectiveCardProps> = (props) => {
                 }}
               ></CustomProgress>
             )} */}
-            {course.progress >= 1 && (
+            {!!course.progress && course.progress >= 1 && (
               <svg
                 width="32"
                 height="32"

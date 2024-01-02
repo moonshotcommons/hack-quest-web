@@ -1,6 +1,6 @@
 import Loading from '@/components/v2/Common/Loading';
 import webApi from '@/service';
-import { CourseResponse, ProcessType } from '@/service/webApi/course/type';
+import { ProjectCourseType, ProcessType } from '@/service/webApi/course/type';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import { useEffect, useState } from 'react';
 import CourseBox from './CourseBox';
@@ -14,7 +14,7 @@ function MyCourses() {
   const [curTab, setCurTab] = useState<ProcessType>(ProcessType.IN_PROCESS);
   const [loading, setLoading] = useState(false);
   const [courseListData, setCourseListData] = useState<
-    Record<ProcessType, CourseResponse[]>
+    Record<ProcessType, ProjectCourseType[]>
   >({
     [ProcessType.IN_PROCESS]: [],
     [ProcessType.COMPLETED]: []

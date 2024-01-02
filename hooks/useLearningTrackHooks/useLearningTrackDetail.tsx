@@ -1,5 +1,5 @@
 import webApi from '@/service';
-import { CourseResponse } from '@/service/webApi/course/type';
+import { ProjectCourseType } from '@/service/webApi/course/type';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import { useRequest } from 'ahooks';
 import { message } from 'antd';
@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 
 export const useGetLearningTrackDetail = (trackId?: string) => {
   const [learningTrackDetail, setLearningTracks] = useState<
-    LearningTrackDetailType & { courses: CourseResponse[] }
+    LearningTrackDetailType & { courses: ProjectCourseType[] }
   >();
 
   const router = useRouter();
