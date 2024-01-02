@@ -15,9 +15,9 @@ const V2Layout: FC<LayoutProps> = (props) => {
   let { children, navbarData } = props;
   const userInfo = useGetUserInfo();
   let navList = deepClone(navbarList);
-  // if (userInfo) {
-  navList[0].menu.unshift(dashBoard);
-  // }
+  if (userInfo) {
+    navList[0].menu.unshift(dashBoard);
+  }
   navbarData.navList = navList;
   return <BaseLayout navbarData={navbarData}>{children}</BaseLayout>;
 };
