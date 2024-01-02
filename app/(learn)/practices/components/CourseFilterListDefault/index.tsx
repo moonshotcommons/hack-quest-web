@@ -49,12 +49,7 @@ const CourseFilterListDefault: FC<CourseFilterListDefaultProps> = (props) => {
       sort={sort}
       loading={loading}
       renderItem={(course) => {
-        return (
-          <PracticeCard
-            key={course.id}
-            course={course as ProjectCourseType}
-          ></PracticeCard>
-        );
+        return <PracticeCard key={course.id} course={course}></PracticeCard>;
       }}
     ></CourseFilterList>
   );

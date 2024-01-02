@@ -1,29 +1,28 @@
-import { FC, ReactNode } from 'react';
+import { ReactNode } from 'react';
 
-import { ProjectCourseType } from '@/service/webApi/course/type';
+import { CourseBaseType } from '@/service/webApi/course/type';
 import React, { useState } from 'react';
 import FilterSelect from './FilterSelect';
 import { FilterItemType, FilterOptionType, FilterParamsType } from './type';
-import { ElectiveCourseType } from '@/service/webApi/elective/type';
 import { mergeFilterParams } from './constant';
-import Loading from '../../Common/Loading';
+import CourseCardSkeleton from '../CourseCardSkeleton';
 
 export enum CourseFilterListType {
   DEFAULT = 'default',
   SEARCH = 'search'
 }
 
-interface CourseFilterListProps {
+interface CourseFilterListProps<T extends CourseBaseType> {
   title: string;
   filters: FilterItemType[];
   sort: FilterOptionType[];
-  renderItem: (course: ProjectCourseType | ElectiveCourseType) => ReactNode;
-  courseList: (ProjectCourseType | ElectiveCourseType)[];
+  renderItem: (course: T) => ReactNode;
+  courseList: T[];
   loading?: boolean;
   onFilterParamsUpdate: (filterParams: FilterParamsType) => void;
 }
 
-const CourseFilterList: FC<CourseFilterListProps> = ({
+const CourseFilterList = <T extends CourseBaseType>({
   renderItem,
   courseList,
   title,
@@ -31,7 +30,7 @@ const CourseFilterList: FC<CourseFilterListProps> = ({
   sort: propSort,
   onFilterParamsUpdate,
   loading
-}) => {
+}: CourseFilterListProps<T>) => {
   const [filters, setFilters] = useState(propFilters);
   const [sort, setSort] = useState(propSort);
 
@@ -42,23 +41,31 @@ const CourseFilterList: FC<CourseFilterListProps> = ({
         filters={filters}
         updateFilters={(newFilters) => {
           setFilters(newFilters);
-          onFilterParamsUpdate(mergeFilterParams(filters, sort));
+          onFilterParamsUpdate(mergeFilterParams(newFilters, sort));
         }}
         sort={sort}
         updateSort={(newSort) => {
           setSort(newSort);
-          // onSortUpdate(newFilters);
+          onFilterParamsUpdate(mergeFilterParams(filters, newSort));
         }}
       ></FilterSelect>
-      <Loading loading={!!loading}>
-        {!!courseList?.length && (
-          <div className="flex-1 flex flex-wrap gap-x-6 gap-y-8  pb-[20px] h-full">
+      {/* <CourseCardSkeleton.List></CourseCardSkeleton.List> */}
+      {/* <Loading loading={!!loading}> */}
+      <div className="w-full h-fit min-h-[600px]">
+        {/* {!!courseList?.length && ( */}
+        <div className="flex-1 flex flex-wrap gap-x-6 gap-y-8  pb-[20px] h-full">
+          {/* {courseList?.map((course, index) => {
+              return <div key={course.id + index}>{renderItem(course)}</div>;
+            })} */}
+          <CourseCardSkeleton.List active={loading as boolean}>
             {courseList?.map((course, index) => {
               return <div key={course.id + index}>{renderItem(course)}</div>;
             })}
-          </div>
-        )}
-      </Loading>
+          </CourseCardSkeleton.List>
+        </div>
+        {/* )} */}
+      </div>
+      {/* </Loading> */}
     </div>
   );
 };

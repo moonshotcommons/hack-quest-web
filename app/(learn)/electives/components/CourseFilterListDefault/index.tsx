@@ -1,32 +1,55 @@
 import CourseFilterList from '@/components/v2/Business/CourseFilterList';
 import {
   courseDefaultFilters as filters,
+  mergeFilterParams,
   courseDefaultSort as sort
 } from '@/components/v2/Business/CourseFilterList/constant';
+import { FilterParamsType } from '@/components/v2/Business/CourseFilterList/type';
 import ElectiveCard from '@/components/v2/Business/ElectiveCard';
+import { errorMessage } from '@/helper/utils';
+import webApi from '@/service';
 import { ElectiveCourseType } from '@/service/webApi/elective/type';
+import { useRequest } from 'ahooks';
 import { cloneDeep } from 'lodash-es';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 interface CourseFilterListDefaultProps {}
 
 const CourseFilterListDefault: FC<CourseFilterListDefaultProps> = (props) => {
-  const [courseList, setCourseList] = useState([]);
-  const [filterParams, setFilterParams] = useState({});
+  const [courseList, setCourseList] = useState<ElectiveCourseType[]>([]);
+
+  const { run: getCourseList, loading } = useRequest(
+    async (filterParams: FilterParamsType) => {
+      const res = await webApi.electiveApi.getElectives(filterParams);
+      return res;
+    },
+
+    {
+      manual: true,
+      onSuccess(res) {
+        setCourseList(res.data);
+      },
+      onError(err) {
+        errorMessage(err);
+      }
+    }
+  );
+
+  useEffect(() => {
+    getCourseList(mergeFilterParams(filters, sort));
+  }, []);
 
   return (
     <CourseFilterList
       title="Explore Web 3"
-      onFilterParamsUpdate={() => {}}
+      onFilterParamsUpdate={(params) => {
+        getCourseList(params);
+      }}
       courseList={courseList}
       filters={cloneDeep(filters)}
       sort={sort}
+      loading={loading}
       renderItem={(course) => {
-        return (
-          <ElectiveCard
-            key={course.id}
-            course={course as ElectiveCourseType}
-          ></ElectiveCard>
-        );
+        return <ElectiveCard key={course.id} course={course}></ElectiveCard>;
       }}
     ></CourseFilterList>
   );

@@ -5,11 +5,10 @@ import {
   courseDefaultSort as sort
 } from '@/components/v2/Business/CourseFilterList/constant';
 import { FilterParamsType } from '@/components/v2/Business/CourseFilterList/type';
-import ElectiveCard from '@/components/v2/Business/ElectiveCard';
+import PracticeCard from '@/components/v2/Business/PracticeCard';
 import { errorMessage } from '@/helper/utils';
 import webApi from '@/service';
 import { ProjectCourseType } from '@/service/webApi/course/type';
-import { ElectiveCourseType } from '@/service/webApi/elective/type';
 import { useRequest } from 'ahooks';
 import { cloneDeep } from 'lodash-es';
 import { FC, useEffect, useState } from 'react';
@@ -58,12 +57,7 @@ const CourseFilterListSearch: FC<CourseFilterListSearchProps> = ({
       courseList={searchList}
       loading={loading}
       renderItem={(course) => {
-        return (
-          <ElectiveCard
-            key={course.id}
-            course={course as ElectiveCourseType}
-          ></ElectiveCard>
-        );
+        return <PracticeCard key={course.id} course={course}></PracticeCard>;
       }}
     ></CourseFilterList>
   );
