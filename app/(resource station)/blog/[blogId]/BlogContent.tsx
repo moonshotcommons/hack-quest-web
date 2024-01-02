@@ -1,7 +1,7 @@
 'use client';
 import React, { useMemo } from 'react';
 import { BlogDetailType } from '@/service/webApi/resourceStation/type';
-import ComponentRenderer from '@/components/v2/Business/Renderer/ComponentRenderer';
+import ComponentRender from '../components/ComponentRender';
 import { CustomComponent } from '@/components/v2/Business/Renderer/type';
 
 interface BlogContentProp {
@@ -18,7 +18,7 @@ const BlogContent: React.FC<BlogContentProp> = ({ blog }) => {
   return (
     <div className="py-[80px] w-[808px] mx-auto">
       {blog?.content?.map((component: CustomComponent) => (
-        <ComponentRenderer
+        <ComponentRender
           key={component.id}
           component={component}
           parent={parent}

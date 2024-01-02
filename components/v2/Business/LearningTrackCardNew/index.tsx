@@ -49,20 +49,20 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
   return (
     <div
       className={cn(
-        'h-[264px] w-full  p-[32px] cursor-pointer rounded-[24px] bg-[#fff] overflow-hidden flex items-center gap-[16px] hover:-translate-y-1 transition-all duration-300  hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)]',
+        'h-[264px] w-full  p-[32px] cursor-pointer rounded-[24px] bg-[var(--neutral-white)] overflow-hidden flex items-center gap-[16px] hover:-translate-y-1 transition-all duration-300  hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)]',
         className
       )}
       onClick={goLearningTrackDetail}
     >
       <div className="flex-1 h-full flex flex-col flex-shrink-0 justify-between">
-        <div className="text-[12px] w-fit px-[10px] py-[4px] text-[#131313] border border-[#3E3E3E] rounded-[20px] ">
+        <div className="caption-12pt w-fit px-[10px] py-[4px] text-[var(--neutral-off-black)] border border-[#3E3E3E] rounded-[20px] ">
           Basic
         </div>
         <div>
-          <div className="text-[#131313] text-[18px] line-clamp-1">
+          <div className="text-[var(--neutral-off-black)] text-[18px] line-clamp-1">
             {learningTrack.name}
           </div>
-          <div className="text-[14px] h-[66px] text-[#8C8C8C] leading-[22.4px] line-clamp-3 mt-[8px]">
+          <div className="body-s h-[66px] text-[var(--neutral-medium-gray)]  line-clamp-3 mt-[8px]">
             {learningTrack.description}
           </div>
         </div>
