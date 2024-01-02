@@ -1,6 +1,6 @@
 import Button from '@/components/v2/Common/Button';
 import { cn } from '@/helper/utils';
-import { CourseResponse } from '@/service/webApi/course/type';
+import { ProjectCourseType } from '@/service/webApi/course/type';
 import { Typography } from 'antd';
 import Image from 'next/image';
 import { FC } from 'react';
@@ -9,7 +9,7 @@ import LEARNING_TRACK_DARK from '@/public/images/v2/course/course_cover/LEARNING
 
 interface LearningTrackWrapCardProps {
   // children: ReactNode;
-  learningTrack: CourseResponse;
+  learningTrack: ProjectCourseType;
   inProgress?: boolean;
   inCompleted?: boolean;
   baseProgress?: boolean;

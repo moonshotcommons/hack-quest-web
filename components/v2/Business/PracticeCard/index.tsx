@@ -2,7 +2,7 @@ import Button from '@/components/v2/Common/Button';
 import { BurialPoint } from '@/helper/burialPoint';
 import { tagFormate } from '@/helper/formate';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
-import { CourseResponse } from '@/service/webApi/course/type';
+import { ProjectCourseType } from '@/service/webApi/course/type';
 import { Typography } from 'antd';
 import Image from 'next/image';
 import { FC } from 'react';
@@ -18,7 +18,7 @@ import { useRedirect } from '@/hooks/useRedirect';
 
 interface PracticeCardProps {
   // children: ReactNode;
-  course: CourseResponse;
+  course: ProjectCourseType;
 }
 
 const PracticeCard: FC<PracticeCardProps> = (props) => {
@@ -78,7 +78,7 @@ const PracticeCard: FC<PracticeCardProps> = (props) => {
         );
       }}
     >
-      {course.progress >= 1 && (
+      {!!course.progress && course.progress >= 1 && (
         <div className="absolute font-neuemachina-light top-[13px] left-[16px] z-[2]">
           {course.progress < 1 && course.progress > 0 && (
             <svg
@@ -117,7 +117,7 @@ const PracticeCard: FC<PracticeCardProps> = (props) => {
               </div>
             </Typography.Paragraph>
           )}
-          {course.progress > 0 && course.progress < 1 && (
+          {!!course.progress && course.progress > 0 && course.progress < 1 && (
             <CardProgress
               progress={course.progress}
               className="mb-[8px] text-[12px]"
@@ -132,7 +132,7 @@ const PracticeCard: FC<PracticeCardProps> = (props) => {
           ></CourseTags>
         )}
 
-        {course.progress > 0 && course.progress < 1 && (
+        {!!course.progress && course.progress > 0 && course.progress < 1 && (
           <div className="flex flex-col gap-y-5">
             <Button
               type="primary"
@@ -156,7 +156,7 @@ const PracticeCard: FC<PracticeCardProps> = (props) => {
             </Button>
           </div>
         )}
-        {course.progress >= 1 && (
+        {!!course.progress && course.progress >= 1 && (
           <div className="flex flex-col gap-y-5">
             <Button
               type="primary"

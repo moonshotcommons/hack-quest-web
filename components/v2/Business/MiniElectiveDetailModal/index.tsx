@@ -9,7 +9,8 @@ import webApi from '@/service';
 import { useRequest } from 'ahooks';
 import Loading from '../../Common/Loading';
 import {
-  MiniElectiveCourseType,
+  ElectiveCourseDetailType,
+  ElectiveCourseType,
   PageType
 } from '@/service/webApi/elective/type';
 import Logo from '@/public/images/logo/logo.svg';
@@ -26,7 +27,7 @@ import { MenuLink } from '../../Layout/Navbar/type';
 interface MiniElectiveDetailModalProps {}
 
 export interface MiniElectiveDetailModalRef {
-  open: (course: MiniElectiveCourseType) => void;
+  open: (course: ElectiveCourseType) => void;
 }
 
 const MiniElectiveDetailModal = forwardRef<
@@ -34,7 +35,7 @@ const MiniElectiveDetailModal = forwardRef<
   MiniElectiveDetailModalProps
 >((props, ref) => {
   const [open, setOpen] = useState(false);
-  const [course, setCourse] = useState<MiniElectiveCourseType | null>(null);
+  const [course, setCourse] = useState<ElectiveCourseDetailType | null>(null);
   const { getLink } = useGetLessonLink();
   const { jumpLearningLesson, loading: jumpLoading } = useJumpLeaningLesson();
   const { redirectToUrl } = useRedirect();

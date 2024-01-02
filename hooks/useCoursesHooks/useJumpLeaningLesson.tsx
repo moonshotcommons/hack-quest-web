@@ -3,10 +3,10 @@ import { getLessonLink } from '@/helper/utils';
 import webApi from '@/service';
 import {
   CourseDetailType,
-  CourseResponse,
+  ProjectCourseType,
   CourseType
 } from '@/service/webApi/course/type';
-import { MiniElectiveCourseType } from '@/service/webApi/elective/type';
+import { ElectiveCourseType } from '@/service/webApi/elective/type';
 import { UnLoginType, setUnLoginType } from '@/store/redux/modules/user';
 import { useRequest } from 'ahooks';
 import { useSearchParams } from 'next/navigation';
@@ -26,7 +26,7 @@ export const useJumpLeaningLesson = () => {
   const { redirectToUrl } = useRedirect();
   const { run: jumpLearningLesson, loading } = useRequest(
     async (
-      courseDetail: CourseDetailType | CourseResponse | MiniElectiveCourseType,
+      courseDetail: CourseDetailType | ProjectCourseType | ElectiveCourseType,
       lParam?: JumpLeaningLessonType
     ) => {
       let lesson: any;

@@ -2,7 +2,10 @@ import Button from '@/components/v2/Common/Button';
 import ClockIcon from '@/components/v2/Common/Icon/Clock';
 import CourseIcon from '@/components/v2/Common/Icon/Course';
 import { computeTime, tagFormate } from '@/helper/formate';
-import { CourseDetailType, CourseResponse } from '@/service/webApi/course/type';
+import {
+  CourseDetailType,
+  ProjectCourseType
+} from '@/service/webApi/course/type';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import { FC } from 'react';
 import CourseLevel from '@/components/v2/Business/CourseTags/CourseLevel';
@@ -16,7 +19,7 @@ interface HeaderRightProps {
   itemCount: number;
   type: 'course' | 'learning-track';
   resumeCallback: VoidFunction;
-  learningCourse?: CourseResponse;
+  learningCourse?: ProjectCourseType;
   resumeLoading?: boolean;
 }
 
@@ -79,7 +82,7 @@ function InProgressHeaderRight(
   itemCount: number,
   type: 'course' | 'learning-track',
   resumeCallback: VoidFunction,
-  learningCourse?: CourseResponse,
+  learningCourse?: ProjectCourseType,
   resumeLoading = false
 ) {
   return (
@@ -115,9 +118,10 @@ function InProgressHeaderRight(
           type="primary"
           onClick={resumeCallback}
         >
-          {type === 'course' && (detail.progress <= 0 ? 'Start' : 'Resume')}
+          {type === 'course' &&
+            (!!detail.progress && detail.progress <= 0 ? 'Start' : 'Resume')}
           {type === 'learning-track' && learningCourse
-            ? learningCourse.progress <= 0
+            ? !!learningCourse.progress && learningCourse.progress <= 0
               ? 'Start'
               : 'Resume'
             : ''}

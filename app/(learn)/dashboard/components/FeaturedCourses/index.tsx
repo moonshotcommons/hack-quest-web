@@ -5,7 +5,7 @@ import {
 } from '@/components/v2/Common/ScrollContainer';
 import { BurialPoint } from '@/helper/burialPoint';
 import webApi from '@/service';
-import { CourseResponse } from '@/service/webApi/course/type';
+import { ProjectCourseType } from '@/service/webApi/course/type';
 import { useRequest } from 'ahooks';
 import Link from 'next/link';
 import { FC, useState } from 'react';
@@ -41,7 +41,7 @@ const FeaturedCourseHeader = () => {
 };
 
 const FeatureCourses: FC<FeatureCoursesProps> = (props) => {
-  const [courseList, setCourseList] = useState<CourseResponse[]>([]);
+  const [courseList, setCourseList] = useState<ProjectCourseType[]>([]);
   const [scrollContainerState, setScrollContainerState] =
     useState<ChangeState>();
 

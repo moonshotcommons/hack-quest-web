@@ -1,6 +1,6 @@
 import WebService from '@/service/webService/webService';
 import { LearningTrackDetailType } from './type';
-import { CourseResponse } from '../course/type';
+import { ProjectCourseType } from '../course/type';
 
 export enum LearningTrackApiType {
   GetLearningTrack = '/learning-tracks'
@@ -32,7 +32,7 @@ class LearningTrackApi {
   getLearningTrackDetailAndCourses(learningTrackId: string) {
     const url = `${LearningTrackApiType.GetLearningTrack}/${learningTrackId}?include=courses`;
     return this.service.get<
-      LearningTrackDetailType & { courses: CourseResponse[] }
+      LearningTrackDetailType & { courses: ProjectCourseType[] }
     >(url);
   }
 
