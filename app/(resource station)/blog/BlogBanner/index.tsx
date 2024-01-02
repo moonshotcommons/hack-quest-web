@@ -104,7 +104,7 @@ const BlogBanner: React.FC<BannerProp> = ({ searchInfo, changeSearchInfo }) => {
                 )}
 
                 {sortVisible && (
-                  <div className="absolute bottom-[-100px] left-0 rounded-[10px] border border-[#8C8C8C] bg-[#fff] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] text-[#0b0b0b] text-[14px] overflow-hidden">
+                  <div className="absolute bottom-[-100px] left-0 rounded-[10px] border border-[var(--neutral-medium-gray)] bg-[#fff] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] text-[#0b0b0b] text-[14px] overflow-hidden">
                     {sortData.map((v) => (
                       <div
                         key={v.value}

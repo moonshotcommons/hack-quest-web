@@ -9,6 +9,7 @@ export interface TextRendererProps {
   fontSize?: string;
   letterSpacing?: string;
   fontStyle?: string;
+  fontFamily?: string;
 }
 
 export type AnnotationType = {
@@ -23,7 +24,7 @@ export type AnnotationType = {
 const getTextClassNames = (annotations: AnnotationType) => {
   const className = cn(
     `py-1`,
-    annotations.bold ? 'font-next-book-bold' : 'font-next-book',
+    annotations.bold ? 'font-bold' : 'font-next-book',
     annotations.code
       ? 'px-[0.2rem] text-[85%] text-[#eb5757] bg-renderer-code-bg mx-[0.25rem]'
       : '',
@@ -46,7 +47,8 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
     richTextArr,
     fontSize: propsFontSize,
     letterSpacing = '0.36px',
-    fontStyle
+    fontStyle = '',
+    fontFamily
   } = props;
 
   // const { fontSize: contextFontSize } = useContext(RendererContext)
@@ -99,6 +101,7 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
               style={{
                 fontSize,
                 letterSpacing,
+                fontFamily,
                 color:
                   annotations.color !== 'default' &&
                   !annotations.code &&
@@ -135,6 +138,7 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
             style={{
               fontSize,
               letterSpacing,
+              fontFamily,
               color:
                 annotations.color !== 'default' &&
                 !annotations.color.includes('background')

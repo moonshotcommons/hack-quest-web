@@ -54,7 +54,7 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
           className="w-[293px]  flex-col-center h-full justify-between pb-[20px]"
         >
           <div
-            className={`border rounded-[20px]  bg-[#131313] w-[240px] h-[300px]
+            className={`border rounded-[20px]  bg-[var(--neutral-off-black)] w-[240px] h-[300px]
                   border-[#E7A600] flex-col-center justify-between pt-[30px] pb-[20px] `}
             style={{
               boxShadow: `0 0 10px var(--yellow-primary)`
@@ -150,7 +150,7 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
       return (
         <div
           key={i}
-          className={`border rounded-[20px]  bg-[#131313] w-[184px] h-[230px] border-[#8C8C8C]
+          className={`border rounded-[20px]  bg-[var(--neutral-off-black)] w-[184px] h-[230px] border-[#8C8C8C]
               flex-col-center justify-between pt-[30px] pb-[30px] `}
         >
           <div className="flex-col-center">
