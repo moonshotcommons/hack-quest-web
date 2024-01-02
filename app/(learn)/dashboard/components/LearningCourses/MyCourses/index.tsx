@@ -1,6 +1,6 @@
 import Loading from '@/components/v2/Common/Loading';
 import webApi from '@/service';
-import { CourseResponse, ProcessType } from '@/service/webApi/course/type';
+import { ProjectCourseType, ProcessType } from '@/service/webApi/course/type';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import { useEffect, useState } from 'react';
 import LearningTrackList from './LearningTrackList';
@@ -10,20 +10,20 @@ import Tab from '@/components/v2/Business/Tab';
 import { TabListType } from '@/components/v2/Business/Tab/type';
 import CourseSlider from '@/components/v2/Business/CourseSlider';
 import PracticeCard from '@/components/v2/Business/PracticeCard';
-import { MiniElectiveCourseType } from '@/service/webApi/elective/type';
+import { ElectiveCourseType } from '@/service/webApi/elective/type';
 import ElectiveCard from '@/components/v2/Business/ElectiveCard';
 
 function MyCourses() {
   const [curTab, setCurTab] = useState<ProcessType>(ProcessType.IN_PROCESS);
   const [loading, setLoading] = useState(false);
   const [practicesListData, setPracticesListData] = useState<
-    Record<ProcessType, CourseResponse[]>
+    Record<ProcessType, ProjectCourseType[]>
   >({
     [ProcessType.IN_PROCESS]: [],
     [ProcessType.COMPLETED]: []
   });
   const [miniElectiveListData, setMiniElectiveListData] = useState<
-    Record<ProcessType, CourseResponse[]>
+    Record<ProcessType, ProjectCourseType[]>
   >({
     [ProcessType.IN_PROCESS]: [],
     [ProcessType.COMPLETED]: []
@@ -117,7 +117,7 @@ function MyCourses() {
                   return (
                     <ElectiveCard
                       key={course.id}
-                      course={course as MiniElectiveCourseType}
+                      course={course as ElectiveCourseType}
                     ></ElectiveCard>
                   );
                 }}
@@ -128,7 +128,7 @@ function MyCourses() {
                   return (
                     <PracticeCard
                       key={course.id}
-                      course={course as CourseResponse}
+                      course={course as ProjectCourseType}
                     ></PracticeCard>
                   );
                 }}

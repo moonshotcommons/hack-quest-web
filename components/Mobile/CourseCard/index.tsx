@@ -4,7 +4,11 @@ import { BurialPoint } from '@/helper/burialPoint';
 import { computeProgress, tagFormate } from '@/helper/formate';
 import { cn } from '@/helper/utils';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
-import { CourseResponse, CourseType } from '@/service/webApi/course/type';
+import {
+  ProjectCourseType,
+  CourseType,
+  CourseBaseType
+} from '@/service/webApi/course/type';
 import { Progress, Typography } from 'antd';
 import Image from 'next/image';
 import { FC, useCallback, useRef } from 'react';
@@ -16,14 +20,15 @@ import { useRedirect } from '@/hooks/useRedirect';
 import MiniElectiveDetailModal, {
   MiniElectiveDetailModalRef
 } from '../MiniElectiveDetailModal';
+import { ElectiveCourseType } from '@/service/webApi/elective/type';
 
 interface CourseCardProps {
   // children: ReactNode;
-  course: CourseResponse;
+  course: CourseBaseType;
   inProgress?: boolean;
   inCompleted?: boolean;
   baseProgress?: boolean;
-  onCourseClick?: (course: CourseResponse) => void;
+  onCourseClick?: (course: CourseBaseType) => void;
 }
 
 const CustomProgress = styled(Progress)`
@@ -58,7 +63,7 @@ const CourseCard: FC<CourseCardProps> = (props) => {
   const onCourseClick = useCallback(() => {
     switch (course.type) {
       case CourseType.Mini:
-        miniElectiveDetailInstance.current?.open(course);
+        miniElectiveDetailInstance.current?.open(course as ElectiveCourseType);
         return;
       default:
         redirectToUrl(
@@ -81,36 +86,38 @@ const CourseCard: FC<CourseCardProps> = (props) => {
       >
         {(inProgress || inCompleted || baseProgress) && (
           <div className="absolute font-neuemachina-light top-[13px] left-[16px]">
-            {course.progress < 1 && course.progress > 0 && (
-              <CustomProgress
-                type="circle"
-                percent={Math.floor(computeProgress(course.progress))}
-                strokeWidth={6}
-                strokeColor={'#FCC409'}
-                trailColor={'#8C8C8C'}
-                size={32}
-                format={(percent: any) => {
-                  if (percent === 100) {
+            {!!course.progress &&
+              course.progress < 1 &&
+              course.progress > 0 && (
+                <CustomProgress
+                  type="circle"
+                  percent={Math.floor(computeProgress(course.progress))}
+                  strokeWidth={6}
+                  strokeColor={'#FCC409'}
+                  trailColor={'#8C8C8C'}
+                  size={32}
+                  format={(percent: any) => {
+                    if (percent === 100) {
+                      return (
+                        <span className="flex justify-center items-center align-middle text-[#3E3E3E]">
+                          <CheckIcon
+                            width={32}
+                            height={32}
+                            color="currentColor"
+                          />
+                        </span>
+                      );
+                    }
                     return (
-                      <span className="flex justify-center items-center align-middle text-[#3E3E3E]">
-                        <CheckIcon
-                          width={32}
-                          height={32}
-                          color="currentColor"
-                        />
-                      </span>
+                      <p className="flex justify-center relative top-[1px] items-end text-[12px] text-[#3E3E3E]   font-neuemachina-light whitespace-nowrap">
+                        <span className="relative left-[3px]">{`${percent}`}</span>
+                        <span className="scale-50 relative top-[1px] ">%</span>
+                      </p>
                     );
-                  }
-                  return (
-                    <p className="flex justify-center relative top-[1px] items-end text-[12px] text-[#3E3E3E]   font-neuemachina-light whitespace-nowrap">
-                      <span className="relative left-[3px]">{`${percent}`}</span>
-                      <span className="scale-50 relative top-[1px] ">%</span>
-                    </p>
-                  );
-                }}
-              ></CustomProgress>
-            )}
-            {course.progress >= 1 && (
+                  }}
+                ></CustomProgress>
+              )}
+            {!!course.progress && course.progress >= 1 && (
               <svg
                 width="32"
                 height="32"
@@ -162,7 +169,7 @@ const CourseCard: FC<CourseCardProps> = (props) => {
           <CourseTags
             level={course.level as string}
             duration={course.duration}
-            unitCount={course.unitCount || course.pageCount || 0}
+            unitCount={(course as ProjectCourseType).unitCount || 0}
             type={course.type}
           ></CourseTags>
         </div>

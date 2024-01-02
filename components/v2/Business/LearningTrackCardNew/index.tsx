@@ -26,9 +26,9 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
   const learningTrackStatus = useMemo(() => {
     if (status) return status;
     const { progress } = learningTrack;
-    if (learningTrack.enrolled && progress > 0 && progress < 1) {
+    if (learningTrack.enrolled && progress && progress > 0 && progress < 1) {
       return LearningTrackCourseType.IN_PROCESS;
-    } else if (progress >= 1) {
+    } else if (progress && progress >= 1) {
       return LearningTrackCourseType.COMPLETED;
     } else {
       return LearningTrackCourseType.UN_ENROLL;

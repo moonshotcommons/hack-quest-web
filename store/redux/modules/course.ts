@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
-  CourseResponse,
+  ProjectCourseType,
   UnitPagesListType
 } from '@/service/webApi/course/type';
 
 export interface CourseStateType {
-  courseList: CourseResponse[];
+  courseList: ProjectCourseType[];
   count: number;
   unitsLessonsList: UnitPagesListType[];
 }

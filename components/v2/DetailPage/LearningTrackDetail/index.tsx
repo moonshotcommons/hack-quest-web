@@ -75,7 +75,8 @@ const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
       for (let i = 0; i < sections.length; i++) {
         const section = sections[i];
         const course = section.courses.find(
-          (course) => course.progress < 1 || !course.progress
+          (course) =>
+            (!!course.progress && course.progress < 1) || !course.progress
         );
         if (course) {
           targetCourse = course;

@@ -4,7 +4,7 @@ import SearchFilter, {
 import { FilterDataType } from '@/components/v2/Business/SearchFilter/type';
 import { deepClone } from '@/helper/utils';
 import webApi from '@/service';
-import { CourseResponse } from '@/service/webApi/course/type';
+import { ProjectCourseType } from '@/service/webApi/course/type';
 import React, { useEffect, useRef, useState } from 'react';
 import Loading from '@/components/v2/Common/Loading';
 import CourseList from './CourseList';
@@ -30,7 +30,7 @@ const SelectiveCoursesBox: React.FC<SelectiveCoursesBoxProps> = ({
   const timeOut = useRef<NodeJS.Timeout | null>(null);
   const [pageInfo, setPageInfo] = useState<PageInfoType>(initPageInfo);
   const [inputValue, setInputValue] = useState('');
-  const [list, setList] = useState<CourseResponse[]>([]);
+  const [list, setList] = useState<ProjectCourseType[]>([]);
   const [runNum, setRunNum] = useState(0);
   const [total, setTotal] = useState(0);
 
@@ -41,7 +41,7 @@ const SelectiveCoursesBox: React.FC<SelectiveCoursesBoxProps> = ({
   const initList = () => {
     getCourseList(initPageInfo).then((newList) => {
       setApiStatus('init');
-      setList([...(newList as CourseResponse[])]);
+      setList([...(newList as ProjectCourseType[])]);
     });
   };
 
@@ -84,7 +84,7 @@ const SelectiveCoursesBox: React.FC<SelectiveCoursesBoxProps> = ({
         ...pageInfo,
         page: pageInfo.page + 1
       }).then((newList) => {
-        const l = [...list, ...(newList as CourseResponse[])];
+        const l = [...list, ...(newList as ProjectCourseType[])];
         setList(l);
         if (l.length >= total) {
           setApiStatus('noMre');

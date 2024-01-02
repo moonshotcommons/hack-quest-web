@@ -6,7 +6,7 @@ import { cn } from '@/helper/utils';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
 import {
   CourseDetailType,
-  CourseResponse,
+  ProjectCourseType,
   CourseType
 } from '@/service/webApi/course/type';
 import { SectionType } from '@/service/webApi/learningTrack/type';
@@ -71,26 +71,28 @@ function SectionList(props: {
   const renderLearningButton = (item: CourseDetailType, index: number) => {
     if (!enrolled) return null;
 
-    if (item.progress <= 0) {
+    if (!!item.progress && item.progress <= 0) {
       // 课程为当前section的第一个，判断上个section的最后一个的进度，如果没有完成，那么不显示按钮
       if (index === 0 && sectionIndex !== 0) {
         let prevCourses = sectionList[sectionIndex - 1].courses;
-        let prevCourse = prevCourses[prevCourses.length - 1] as CourseResponse;
-        if (prevCourse.progress < 1) return null;
+        let prevCourse = prevCourses[
+          prevCourses.length - 1
+        ] as ProjectCourseType;
+        if (!!prevCourse.progress && prevCourse.progress < 1) return null;
       }
 
       //  课程不为当前section的第一个，判断上一个course的progress是否完成，完成展示start，未完成不展示
       if (index !== 0) {
         let prevCourse = sectionList[sectionIndex].courses[
           index - 1
-        ] as CourseResponse;
-        if (prevCourse.progress < 1) return null;
+        ] as ProjectCourseType;
+        if (!!prevCourse.progress && prevCourse.progress < 1) return null;
       }
     }
 
     return (
       <>
-        {enrolled && item.progress < 1 && (
+        {enrolled && !!item.progress && item.progress < 1 && (
           <div className="h-full flex items-center justify-end pr-[50px]">
             <Button
               loading={loading && clickIndex === index}

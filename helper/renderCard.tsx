@@ -1,7 +1,7 @@
 import LearningTracksCard from '@/components/v1/Card/LearningTracks';
 import Link from 'next/link';
 import { getCourseLink } from './utils';
-import { CourseResponse, CourseType } from '@/service/webApi/course/type';
+import { ProjectCourseType, CourseType } from '@/service/webApi/course/type';
 import SyntaxCard from '@/components/v1/Card/Syntax';
 import HackathonCard from '@/components/v1/Card/Hackathon';
 import TeaserCard from '@/components/v1/Card/Teaser';
@@ -9,7 +9,7 @@ import GuidedProjectCard from '@/components/v1/Card/GuidedProject';
 import ConceptLearningCard from '@/components/v1/Card/ConceptLearning';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 
-export const renderCourseCard = (card: CourseResponse) => {
+export const renderCourseCard = (card: ProjectCourseType) => {
   switch (card.type) {
     case CourseType.CONCEPT:
       return (

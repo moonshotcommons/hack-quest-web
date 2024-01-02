@@ -4,7 +4,7 @@ import ElectiveTag from '../ElectiveTag';
 import Button from '@/components/v2/Common/Button';
 import {
   EcosystemElectiveType,
-  MiniElectiveCourseType
+  ElectiveCourseType
 } from '@/service/webApi/elective/type';
 import MiniElectiveDetailModal, {
   MiniElectiveDetailModalRef
@@ -13,7 +13,7 @@ import { BurialPoint } from '@/helper/burialPoint';
 import { QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
 interface MiniElectiveCardProp {
-  elective: EcosystemElectiveType & MiniElectiveCourseType;
+  elective: EcosystemElectiveType & ElectiveCourseType;
 }
 
 const MiniElectiveCard: React.FC<MiniElectiveCardProp> = ({ elective }) => {
@@ -21,9 +21,7 @@ const MiniElectiveCard: React.FC<MiniElectiveCardProp> = ({ elective }) => {
   const { jumpLearningLesson } = useJumpLeaningLesson();
   const handleClick = () => {
     BurialPoint.track('ecosystem-profile miniElectiveCard 点击');
-    miniElectiveDetailInstance.current?.open(
-      elective as MiniElectiveCourseType
-    );
+    miniElectiveDetailInstance.current?.open(elective as ElectiveCourseType);
   };
   const handleLearn = (e: MouseEvent<HTMLElement>) => {
     BurialPoint.track('ecosystem-profile miniElectiveCard start按钮 点击');
@@ -69,7 +67,9 @@ const MiniElectiveCard: React.FC<MiniElectiveCardProp> = ({ elective }) => {
               className="w-[calc((100%-15px)/2)] h-15 text-[18px] text-home-learning-track-view-button-color bg-home-learning-track-view-button-bg px-0"
               onClick={handleLearn}
             >
-              {elective.progress > 0 ? 'Resume' : 'Start'}
+              {!!elective.progress && elective.progress > 0
+                ? 'Resume'
+                : 'Start'}
             </Button>
             <Button className="w-[calc((100%-15px)/2)] h-15 text-[18px] border border-home-learning-track-view-button-border text-home-learning-track-view-button-color px-0">
               View Syllabus

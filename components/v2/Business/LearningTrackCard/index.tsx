@@ -57,9 +57,9 @@ const LearningTrackLandingCard: React.FC<LearningTrackLandingCardProps> = ({
   const learningTrackStatus = useMemo(() => {
     if (status) return status;
     const { progress } = learningTrack;
-    if (learningTrack.enrolled && progress > 0 && progress < 1) {
+    if (learningTrack.enrolled && progress && progress > 0 && progress < 1) {
       return LearningTrackCourseType.IN_PROCESS;
-    } else if (progress >= 1) {
+    } else if (progress && progress >= 1) {
       return LearningTrackCourseType.COMPLETED;
     } else {
       return LearningTrackCourseType.UN_ENROLL;
@@ -85,7 +85,9 @@ const LearningTrackLandingCard: React.FC<LearningTrackLandingCardProps> = ({
     });
     const section = learningTrack.sections.find((v) => (v?.progress || 0) < 1);
     if (section) {
-      const course = section.courses.find((v) => v.progress < 1);
+      const course = section.courses.find(
+        (v) => !!v.progress && v.progress < 1
+      );
       if (course)
         jumpLearningLesson(course, {
           menu: Menu.LEARNING_TRACK,
@@ -100,7 +102,7 @@ const LearningTrackLandingCard: React.FC<LearningTrackLandingCardProps> = ({
         return (
           <CustomProgress
             type="circle"
-            percent={computeProgress(learningTrack.progress)}
+            percent={computeProgress(learningTrack.progress || 0)}
             strokeWidth={6}
             strokeColor={'#FCC409'}
             trailColor={'#8C8C8C'}
@@ -158,7 +160,7 @@ const LearningTrackLandingCard: React.FC<LearningTrackLandingCardProps> = ({
           </Typography.Paragraph>
         );
       case LearningTrackCourseType.IN_PROCESS:
-        const percent = `${computeProgress(learningTrack.progress)}%`;
+        const percent = `${computeProgress(learningTrack.progress || 0)}%`;
         return (
           <>
             <div className="w-full flex items-center justify-between">
@@ -301,7 +303,9 @@ const LearningTrackLandingCard: React.FC<LearningTrackLandingCardProps> = ({
       const section = learningTrack.sections.find(
         (v) => (v?.progress || 0) < 1
       );
-      const course = section!.courses.find((v) => v.progress < 1);
+      const course = section!.courses.find(
+        (v) => !!v.progress && v.progress < 1
+      );
 
       webApi.courseApi.getLearningLessonId(course?.id as string).then((res) => {
         setLearningInfo({
