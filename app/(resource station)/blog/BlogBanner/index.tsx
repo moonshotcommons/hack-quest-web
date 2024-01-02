@@ -45,12 +45,10 @@ const BlogBanner: React.FC<BannerProp> = ({ searchInfo, changeSearchInfo }) => {
 
   const changeInputVisible = () => {
     setInputVisible(!inputVisible);
-    if (!inputVisible) {
-      changeSearchInfo({
-        ...searchInfo,
-        keyword: ''
-      });
-    }
+    changeSearchInfo({
+      ...searchInfo,
+      keyword: ''
+    });
   };
 
   useEffect(() => {
