@@ -19,7 +19,7 @@ const QuoteRenderer: FC<QuoteRendererProps> = (props) => {
       {
         <TextRenderer
           richTextArr={component.content.rich_text}
-          fontStyle="font-neuemachina"
+          fontFamily="font-neuemachina"
           fontSize="16px"
         ></TextRenderer>
       }
