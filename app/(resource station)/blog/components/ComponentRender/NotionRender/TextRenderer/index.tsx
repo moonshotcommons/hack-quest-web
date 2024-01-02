@@ -1,9 +1,10 @@
 import DropAnswer from '@/components/v2/Business/Renderer/ComponentRenderer/QuizRenderer/QuizBRenderer/DropAnswer';
-import { cn } from '@/helper/utils';
+import { cn, deepClone } from '@/helper/utils';
 import { FC } from 'react';
 import MathJax from 'react-mathjax';
+import TextCenterRenderer from '../TextCenterRenderer';
 
-interface TextRendererProps {
+export interface TextRendererProps {
   richTextArr: any;
   fontSize?: string;
   letterSpacing?: string;
@@ -52,6 +53,20 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
   //   .textRenderer! || { fontSize: '14px' };
   const fontSize = propsFontSize || '18px';
 
+  //处理blog居中的text
+  if (richTextArr[0]?.plain_text?.includes('<<image>>')) {
+    const newRichTextArr = deepClone(richTextArr);
+    newRichTextArr[0].plain_text = newRichTextArr[0].plain_text.replace(
+      /<<image>>/g,
+      ''
+    );
+    const newProps = {
+      ...props,
+      richTextArr: newRichTextArr
+    };
+    return <TextCenterRenderer {...newProps} />;
+  }
+
   return (
     <>
       {richTextArr.map((richText: any, index: number) => {
@@ -71,98 +86,6 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
                 )[0]
               }
             ></DropAnswer>
-          );
-        }
-        //处理blog中 居中的text
-        if (richText.plain_text.indexOf('<<image>>') === 0) {
-          const plain_text = richText.plain_text.replace(/<<image>>/, '');
-          if (richTextArr[index + 1]) {
-            const nextPlainText = richTextArr[index + 1].plain_text;
-            richTextArr[
-              index + 1
-            ].plain_text = `${plain_text}${nextPlainText}<<image>>`;
-            return null;
-          } else {
-            return (
-              <p key={index} className="text-center font-neuemachina">
-                <span
-                  key={index}
-                  className={`${className} rounded-md leading-[160%] ${fontStyle}`}
-                  style={{
-                    fontSize,
-                    letterSpacing,
-                    color:
-                      annotations.color !== 'default' &&
-                      !annotations.color.includes('background')
-                        ? annotations.color
-                        : '',
-                    backgroundColor:
-                      annotations.color !== 'default' &&
-                      annotations.color.includes('background')
-                        ? annotations.color
-                        : ''
-                  }}
-                >
-                  {plain_text}
-                </span>
-              </p>
-            );
-          }
-        }
-        if (richText.plain_text.indexOf('<<image>>') > 0) {
-          const plain_text = richText.plain_text.replace(/<<image>>/g, '');
-          if (richText.href) {
-            return (
-              <p key={index} className="text-center ">
-                <a
-                  target="_blank"
-                  href={richText.href}
-                  className={`${className} py-1 underline break-words ${fontStyle}`}
-                  style={{
-                    fontSize,
-                    letterSpacing,
-                    color:
-                      annotations.color !== 'default' &&
-                      !annotations.code &&
-                      !annotations.color.includes('background')
-                        ? annotations.color
-                        : '',
-                    backgroundColor:
-                      annotations.color !== 'default' &&
-                      annotations.color.includes('background')
-                        ? annotations.color
-                        : ''
-                  }}
-                >
-                  {plain_text}
-                </a>
-              </p>
-            );
-          }
-
-          return (
-            <p key={index} className="text-center">
-              <span
-                key={index}
-                className={`${className} rounded-md leading-[160%] ${fontStyle}`}
-                style={{
-                  fontSize,
-                  letterSpacing,
-                  color:
-                    annotations.color !== 'default' &&
-                    !annotations.color.includes('background')
-                      ? annotations.color
-                      : '',
-                  backgroundColor:
-                    annotations.color !== 'default' &&
-                    annotations.color.includes('background')
-                      ? annotations.color
-                      : ''
-                }}
-              >
-                {plain_text}
-              </span>
-            </p>
           );
         }
 
