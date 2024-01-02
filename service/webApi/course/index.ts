@@ -6,11 +6,13 @@ import {
   CourseLessonType,
   CourseUnitStateType,
   CourseUnitType,
+  ProjectCourseType,
   UnitPagesListType
 } from './type';
 
 export enum CourseApiType {
   Course_List = '/courses',
+  GetTopCourses = '/courses/featured',
   LessonDetail = '/pages',
   Support = '/support/suggest'
 }
@@ -26,6 +28,10 @@ class CourseApi {
     let url: string = CourseApiType.Course_List;
     if (searchString) url = `${url}?${searchString}`;
     return this.service.get<CourseDataType>(url);
+  }
+
+  getTopCourses() {
+    return this.service.get<ProjectCourseType[]>(CourseApiType.GetTopCourses);
   }
 
   /** 获取课程列表信息By search */

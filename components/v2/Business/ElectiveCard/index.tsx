@@ -14,8 +14,6 @@ import { useRedirect } from '@/hooks/useRedirect';
 import MiniElectiveDetailModal, {
   MiniElectiveDetailModalRef
 } from '../MiniElectiveDetailModal';
-import corse_image from './corse_image.png';
-import avatar_image from './avatar.png';
 import AltIcon from '@/components/v2/Common/Icon/AltIcon';
 import { ElectiveCourseType } from '@/service/webApi/elective/type';
 
@@ -123,14 +121,9 @@ const ElectiveCard: FC<ElectiveCardProps> = (props) => {
         }
         <div className="h-[120px] w-full flex items-center justify-center relative rounded-t-2xl overflow-hidden">
           <Image
-            // src={`${
-            //   process.env.NODE_ENV === 'development'
-            //     ? ''
-            //     : process.env.NEXT_PUBLIC_ASSET_PREFIX_FOR_CHINA ?? ''
-            // }/images/v2/course/course_cover/${course.type}.svg`}
-            src={corse_image}
+            src={course.image}
             fill
-            alt="course"
+            alt="cover"
             className="object-cover"
           ></Image>
         </div>
@@ -141,14 +134,14 @@ const ElectiveCard: FC<ElectiveCardProps> = (props) => {
           <div className="flex flex-col gap-y-4">
             <div className="flex justify-between">
               <div className="px-[10px] py-1 border border-neutral-rich-gray w-fit rounded-full button-text-s text-neutral-rich-gray uppercase">
-                {course.type}
+                {course.track}
               </div>
               <Tag
                 icon={<AltIcon />}
                 size="small"
                 className="tagFont uppercase"
               >
-                {'Solidity'}
+                {course.language}
               </Tag>
             </div>
             <h2 className="text-h4 line-clamp-1 text-neutral-off-black">
@@ -162,9 +155,13 @@ const ElectiveCard: FC<ElectiveCardProps> = (props) => {
           </div>
           <div className="flex gap-3 items-center">
             <div className="w-9 h-9 rounded-full relative overflow-hidden">
-              <Image src={avatar_image} fill alt="creator"></Image>
+              <Image
+                src={course.creator?.profileImage || ''}
+                fill
+                alt="creator"
+              ></Image>
             </div>
-            <span className="body-s-bold">HackQuest</span>
+            <span className="body-s-bold">{course.creator?.name}</span>
           </div>
           {/* <div className="mt-[9px]">
             <CourseTags
@@ -213,9 +210,7 @@ const ElectiveCard: FC<ElectiveCardProps> = (props) => {
           )}
         </div>
       </div>
-      {course.type === CourseType.Mini && (
-        <MiniElectiveDetailModal ref={miniElectiveDetailInstance} />
-      )}
+      <MiniElectiveDetailModal ref={miniElectiveDetailInstance} />
     </>
   );
 };

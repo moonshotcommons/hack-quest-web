@@ -23,7 +23,7 @@ function MyCourses() {
     [ProcessType.COMPLETED]: []
   });
   const [miniElectiveListData, setMiniElectiveListData] = useState<
-    Record<ProcessType, ProjectCourseType[]>
+    Record<ProcessType, ElectiveCourseType[]>
   >({
     [ProcessType.IN_PROCESS]: [],
     [ProcessType.COMPLETED]: []
@@ -115,10 +115,10 @@ function MyCourses() {
                 title="Practices"
                 renderItem={(course) => {
                   return (
-                    <ElectiveCard
+                    <PracticeCard
                       key={course.id}
-                      course={course as ElectiveCourseType}
-                    ></ElectiveCard>
+                      course={course}
+                    ></PracticeCard>
                   );
                 }}
               />
@@ -126,10 +126,10 @@ function MyCourses() {
                 list={miniElectiveListData[curTab]}
                 renderItem={(course) => {
                   return (
-                    <PracticeCard
+                    <ElectiveCard
                       key={course.id}
-                      course={course as ProjectCourseType}
-                    ></PracticeCard>
+                      course={course}
+                    ></ElectiveCard>
                   );
                 }}
                 title="Electives"

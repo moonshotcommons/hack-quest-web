@@ -1,6 +1,6 @@
 'use client';
 import Title from '@/components/v1/Head/Title';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import CourseListPageHeader from '@/components/v2/Business/CourseListPageHeader';
 import CourseSlider from '@/components/v2/Business/CourseSlider';
 import { CourseFilterListType } from '@/components/v2/Business/CourseFilterList';
@@ -9,6 +9,8 @@ import ElectiveCard from '@/components/v2/Business/ElectiveCard';
 import { ElectiveCourseType } from '@/service/webApi/elective/type';
 import CourseFilterListSearch from './components/CourseFilterListSearch';
 import CourseFilterListDefault from './components/CourseFilterListDefault';
+import { useRequest } from 'ahooks';
+import { errorMessage } from '@/helper/utils';
 
 function ElectivesPage() {
   const selectiveCoursesRef = useRef<HTMLDivElement | null>(null);
@@ -41,15 +43,19 @@ function ElectivesPage() {
     setType(CourseFilterListType.SEARCH);
   };
 
-  const loadTopCourses = () => {
-    webApi.electiveApi.getElectives({}).then((res) => {
-      setTopElectives(res.data);
-    });
-  };
-
-  useEffect(() => {
-    loadTopCourses();
-  }, []);
+  const { loading } = useRequest(
+    () => {
+      return webApi.electiveApi.getTopElectives();
+    },
+    {
+      onSuccess(res) {
+        setTopElectives(res);
+      },
+      onError(err) {
+        errorMessage(err);
+      }
+    }
+  );
 
   return (
     <div
@@ -67,9 +73,10 @@ function ElectivesPage() {
           coverHeight={277}
           onSearch={onSearch}
         ></CourseListPageHeader>
-        {!!topElectives?.length && type === CourseFilterListType.DEFAULT && (
+        {type === CourseFilterListType.DEFAULT && (
           <CourseSlider
             title="Top Electives"
+            loading={loading}
             renderItem={(course) => {
               return (
                 <ElectiveCard
