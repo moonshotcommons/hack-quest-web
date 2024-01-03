@@ -4,10 +4,12 @@ import {
   EcosystemProfileType,
   ElectiveLessonType,
   ElectiveListDataType,
-  MiniElectiveCourseType
+  ElectiveCourseDetailType,
+  ElectiveCourseType
 } from './type';
 
 export enum ElectiveApiType {
+  GetTopElectives = '/electives/featured',
   GetElectives = '/electives',
   GetLesson = '/elective-pages',
   EcosystemProfile = '/eco-system-profiles'
@@ -19,12 +21,14 @@ class ElectiveApi {
     this.service = service;
   }
 
+  getTopElectives() {
+    return this.service.get<ElectiveCourseType[]>(
+      ElectiveApiType.GetTopElectives
+    );
+  }
+
   /** 获取electives课程列表 */
-  getElectives(params: {
-    sort?: string;
-    keyword?: string;
-    status?: 'inProcess' | 'completed';
-  }) {
+  getElectives(params: Record<string, string>) {
     return this.service.get<ElectiveListDataType>(
       ElectiveApiType.GetElectives,
       {
@@ -35,7 +39,7 @@ class ElectiveApi {
 
   /** 获取包含（不包含）所有pages的课程详情信息 */
   getElectiveDetailAndPages(id: string, includePages = true) {
-    return this.service.get<MiniElectiveCourseType>(
+    return this.service.get<ElectiveCourseDetailType>(
       `${ElectiveApiType.GetElectives}/${id}${
         includePages ? '?include=pages' : ''
       }`

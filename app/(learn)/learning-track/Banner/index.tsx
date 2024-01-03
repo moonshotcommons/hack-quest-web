@@ -10,7 +10,7 @@ interface BannerProp {
 }
 
 const Banner: React.FC<BannerProp> = ({ changeSearchInfo, searchInfo }) => {
-  const { tab } = searchInfo;
+  const { track } = searchInfo;
   return (
     <div
       className="h-[400px] py-[60px] "
@@ -19,39 +19,45 @@ const Banner: React.FC<BannerProp> = ({ changeSearchInfo, searchInfo }) => {
         backgroundSize: '500px',
         backgroundPosition: 'top right',
         backgroundRepeat: 'no-repeat',
-        backgroundColor: '#131313'
+        backgroundColor: 'var(--neutral-off-black)'
       }}
     >
       <div className="container mx-auto h-full flex flex-col justify-between">
-        <div className="text-[54px] text-[#fff] leading-[100%] font-bold">
+        <div className="text-h1 text-[var(--neutral-white)]">
           LEARNING TRACKS
         </div>
         <div className="flex gap-[40px]">
           {bannerTabList.map((v) => (
             <div
               key={v.value}
-              onClick={() => changeSearchInfo({ ...searchInfo, tab: v.value })}
+              onClick={() =>
+                changeSearchInfo({ ...searchInfo, track: v.value })
+              }
               className={`w-[380px] p-[24px] rounded-[24px] cursor-pointer border ${
-                tab === v.value
-                  ? 'bg-[#FFE866] border-[#DADADA]'
-                  : 'border-[#F4F4F4]'
+                track === v.value
+                  ? 'bg-[var(--yellow-primary)] border-[var(--neutral-light-gray)]'
+                  : 'border-[var(--neutral-off-white)]'
               }`}
             >
               <div
                 className={`flex justify-between items-center ${
-                  tab === v.value ? 'text-[#131313]' : 'text-[#fff]'
+                  track === v.value
+                    ? 'text-[var(--neutral-off-black)]'
+                    : 'text-[var(--neutral-white)]'
                 }`}
               >
-                <span className="text-[28px] font-bold">{v.label}</span>
+                <span className="text-h3">{v.label}</span>
                 <Image
-                  src={tab === v.value ? v.imgActive : v.img}
+                  src={track === v.value ? v.imgActive : v.img}
                   alt="tab-img"
                   width={48}
                 ></Image>
               </div>
               <div
-                className={`text-[16px] leading-[25.6px] mt-[24px] ${
-                  tab === v.value ? 'text-[#3E3E3E]' : 'text-[#DADADA]'
+                className={`body-m mt-[24px] ${
+                  track === v.value
+                    ? 'text-[var(--neutral-rich-gray)]'
+                    : 'text-[var(--neutral-light-gray)]'
                 }`}
               >
                 {v.description}

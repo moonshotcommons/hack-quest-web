@@ -3,15 +3,13 @@ import { cn, errorMessage } from '@/helper/utils';
 import Image from 'next/image';
 import { forwardRef, useImperativeHandle, useState } from 'react';
 import { HiArrowLeft } from 'react-icons/hi2';
-import {
-  CompleteStateType,
-  CourseResponse
-} from '@/service/webApi/course/type';
+import { CompleteStateType } from '@/service/webApi/course/type';
 import webApi from '@/service';
 import { useRequest } from 'ahooks';
 import Loading from '@/components/v2/Common/Loading';
 import {
-  MiniElectiveCourseType,
+  ElectiveCourseDetailType,
+  ElectiveCourseType,
   PageType
 } from '@/service/webApi/elective/type';
 import Logo from '@/public/images/logo/logo.svg';
@@ -30,7 +28,7 @@ const inter = Inter({ subsets: ['latin'] });
 interface MiniElectiveDetailModalProps {}
 
 export interface MiniElectiveDetailModalRef {
-  open: (course: CourseResponse) => void;
+  open: (course: ElectiveCourseType) => void;
 }
 
 const MiniElectiveDetailModal = forwardRef<
@@ -38,7 +36,7 @@ const MiniElectiveDetailModal = forwardRef<
   MiniElectiveDetailModalProps
 >((props, ref) => {
   const [open, setOpen] = useState(false);
-  const [course, setCourse] = useState<MiniElectiveCourseType | null>(null);
+  const [course, setCourse] = useState<ElectiveCourseDetailType | null>(null);
   const { getLink } = useGetLessonLink();
   const { jumpLearningLesson, loading: jumpLoading } = useJumpLeaningLesson();
   const { redirectToUrl } = useRedirect();

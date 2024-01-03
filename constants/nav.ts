@@ -47,6 +47,7 @@ const isNoNeedUserInfoDetail = (pathname: string) => {
     MenuLink.ELECTIVES,
     MenuLink.HACKATHON,
     MenuLink.PROJECTS,
+    MenuLink.PRACTICES,
     MenuLink.BLOG
   ].some((menu) => pathname.includes(menu));
 };
@@ -59,14 +60,6 @@ export function isNoNeedUserInfo(pathname: string) {
       REGISTER_PATHNAME,
       ALL_COURSES_PATHNAME,
       PREVIEW_PATH
-      // MenuLink.DASHBOARD,
-      // MenuLink.LEARNING_TRACK,
-      // MenuLink.ELECTIVES,
-      // MenuLink.HACKATHON,
-      // HACKATHON_DETAIL,
-      // MenuLink.PROJECTS,
-      // PROJECT_DETAIL,
-      // MenuLink.BLOG
     ].includes(pathname) ||
     pathname.startsWith(PREVIEW_PATH) ||
     isNoNeedUserInfoDetail(pathname)

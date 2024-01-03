@@ -171,7 +171,7 @@ const FilterSelect: FC<FilterSelectProps> = ({
             <span>
               <PiSortAscendingLight size={20} />
             </span>
-            <span className="body-l text-neutral-off-black">{`Sort By ${selectSort?.name}`}</span>
+            <span className="body-l text-neutral-off-black">{`Sort By`}</span>
           </div>
           {hoverSort && (
             <motion.ul

@@ -2,13 +2,13 @@ import { errorMessage } from '@/helper/utils';
 import webApi from '@/service';
 import {
   ElectiveLessonType,
-  MiniElectiveCourseType
+  ElectiveCourseType
 } from '@/service/webApi/elective/type';
 import { useRequest } from 'ahooks';
 import { useEffect, useState } from 'react';
 
 export const useGetElectives = (lesson: ElectiveLessonType) => {
-  const [course, setCourse] = useState<MiniElectiveCourseType | null>(null);
+  const [course, setCourse] = useState<ElectiveCourseType | null>(null);
 
   const {
     run: getCourseDetail,

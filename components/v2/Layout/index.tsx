@@ -14,10 +14,13 @@ export interface LayoutProps {
 const V2Layout: FC<LayoutProps> = (props) => {
   let { children, navbarData } = props;
   const userInfo = useGetUserInfo();
-  let navList = deepClone(navbarList);
-  // if (userInfo) {
-  navList[0].menu.unshift(dashBoard);
-  // }
+  let navList;
+  if (userInfo) {
+    navList = deepClone(navbarList);
+    navList[0].menu.unshift(dashBoard);
+  } else {
+    navList = deepClone(navbarList);
+  }
   navbarData.navList = navList;
   return <BaseLayout navbarData={navbarData}>{children}</BaseLayout>;
 };

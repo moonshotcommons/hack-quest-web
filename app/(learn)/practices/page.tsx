@@ -1,34 +1,32 @@
 'use client';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import CourseListPageHeader from '@/components/v2/Business/CourseListPageHeader';
 import Image from 'next/image';
 import CourseSlider from '@/components/v2/Business/CourseSlider';
-import CourseFilterList, {
-  CourseFilterListType
-} from '@/components/v2/Business/CourseFilterList';
+import { CourseFilterListType } from '@/components/v2/Business/CourseFilterList';
 import webApi from '@/service';
 import PracticeCard from '@/components/v2/Business/PracticeCard';
-import { CourseResponse } from '@/service/webApi/course/type';
-import { cloneDeep } from 'lodash-es';
+import { ProjectCourseType } from '@/service/webApi/course/type';
+import CourseFilterListSearch from './components/CourseFilterListSearch';
+import CourseFilterListDefault from './components/CourseFilterListDefault';
+import { useRequest } from 'ahooks';
+import { errorMessage } from '@/helper/utils';
 
 function PracticesPage() {
   const selectiveCoursesRef = useRef<HTMLDivElement | null>(null);
-  const [loadNum, setLoadNum] = useState(0);
-  const [apiStatus, setApiStatus] = useState('init');
-  const [topProjects, setTopProjects] = useState<CourseResponse[]>([]);
+  const [page, setPage] = useState(0);
+  const [topProjects, setTopProjects] = useState<ProjectCourseType[]>([]);
   const [searchKeyword, setSearchKeyword] = useState('');
-
   const [type, setType] = useState<CourseFilterListType>(
     CourseFilterListType.DEFAULT
   );
 
   const handleScroll = () => {
-    if (apiStatus !== 'init') return;
     const clientHeight = selectiveCoursesRef.current?.clientHeight || 0;
     const scrollTop = selectiveCoursesRef.current?.scrollTop || 0;
     const scrollHeight = selectiveCoursesRef.current?.scrollHeight || 0;
     if (clientHeight + scrollTop >= scrollHeight - 5) {
-      setLoadNum((num) => num + 1);
+      setPage((num) => num + 1);
     }
   };
 
@@ -52,50 +50,19 @@ function PracticesPage() {
     setType(CourseFilterListType.SEARCH);
   };
 
-  const loadTopCourses = () => {
-    webApi.courseApi.getCourseList().then((res) => {
-      setTopProjects(res.data);
-    });
-  };
-
-  useEffect(() => {
-    loadTopCourses();
-  }, []);
-
-  const filters = [
-    {
-      filterName: 'Language',
-      filterField: 'language',
-      options: [
-        { name: 'Solidity', value: 'Solidity', isSelect: false },
-        { name: 'Rust', value: 'Rust', isSelect: false },
-        { name: 'Move ', value: 'Move ', isSelect: false }
-      ]
+  const { loading } = useRequest(
+    () => {
+      return webApi.courseApi.getTopCourses();
     },
     {
-      filterName: 'Track',
-      filterField: 'track',
-      options: [
-        { name: 'DeFi', value: 'DeFi', isSelect: false },
-        { name: 'NFT', value: 'NFT', isSelect: false },
-        { name: 'Data', value: 'Data', isSelect: false }
-      ]
-    },
-    {
-      filterName: 'Difficulty',
-      filterField: 'level',
-      options: [
-        { name: 'Beginner', value: 'BEGINNER', isSelect: false },
-        { name: 'Intermediate', value: 'INTERMEDIATE', isSelect: false },
-        { name: 'Advanced', value: 'ADVANCED', isSelect: false }
-      ]
+      onSuccess(res) {
+        setTopProjects(res);
+      },
+      onError(err) {
+        errorMessage(err);
+      }
     }
-  ];
-
-  const sort = [
-    { name: 'Most Popular', value: 'Most Popular', isSelect: false },
-    { name: 'Newest', value: 'Newest', isSelect: true }
-  ];
+  );
 
   return (
     <div
@@ -112,56 +79,40 @@ function PracticesPage() {
           coverHeight={277}
           onSearch={onSearch}
         ></CourseListPageHeader>
-        {!!topProjects?.length && type === CourseFilterListType.DEFAULT && (
+
+        {/* Top Projects */}
+        {/* <Loading loading={loading} loadingText=""> */}
+        {/* <div className="w-full h-fit min-h-[360px]"> */}
+        {type === CourseFilterListType.DEFAULT && (
           <CourseSlider
             title="Top Projects"
+            loading={loading}
             renderItem={(course) => {
               return (
                 <PracticeCard
                   key={course.id}
-                  course={course as CourseResponse}
+                  course={course as ProjectCourseType}
                 ></PracticeCard>
               );
             }}
             list={topProjects}
           ></CourseSlider>
         )}
+        {/* </div> */}
+        {/* </Loading> */}
+
+        {/* CourseList */}
         {type === CourseFilterListType.DEFAULT && (
           <div className="mt-[60px]">
-            <CourseFilterList
-              title="Explore Web 3"
-              courseList={topProjects}
-              filters={cloneDeep(filters)}
-              onFiltersUpdate={() => {}}
-              onSortUpdate={() => {}}
-              sort={sort}
-              renderItem={(course) => {
-                return (
-                  <PracticeCard
-                    key={course.id}
-                    course={course as CourseResponse}
-                  ></PracticeCard>
-                );
-              }}
-            ></CourseFilterList>
+            <CourseFilterListDefault></CourseFilterListDefault>
           </div>
         )}
+
+        {/* Course Search List */}
         {type === CourseFilterListType.SEARCH && (
-          <CourseFilterList
-            onSortUpdate={() => {}}
-            onFiltersUpdate={() => {}}
-            filters={cloneDeep(filters)}
-            title={`Search result for “${searchKeyword}”`}
-            courseList={[]}
-            renderItem={(course) => {
-              return (
-                <PracticeCard
-                  key={course.id}
-                  course={course as CourseResponse}
-                ></PracticeCard>
-              );
-            }}
-          ></CourseFilterList>
+          <CourseFilterListSearch
+            keyword={searchKeyword}
+          ></CourseFilterListSearch>
         )}
         {/*
         <SelectiveCoursesBox

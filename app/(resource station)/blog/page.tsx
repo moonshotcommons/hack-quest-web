@@ -36,9 +36,17 @@ const Blog: React.FC<BlogProp> = () => {
   };
 
   const getBlogList = () => {
+    const param = {
+      ...searchInfo,
+      category:
+        searchInfo.category === searchTabData[0].value
+          ? ''
+          : searchInfo.category
+    };
+
     return new Promise((resolve) => {
       webApi.resourceStationApi
-        .getBlog(searchInfo)
+        .getBlog(param)
         .then((res) => {
           setBlogList(res.data || []);
           setTotalList(res.total);
@@ -94,8 +102,8 @@ const Blog: React.FC<BlogProp> = () => {
         <Loading loading={loading}>
           {searchInfo.keyword ? (
             <div className="text-[#0b0b0b] text-[24px] font-next-book mb-[40px] text-center">
-              {totalList} for “
-              <span className="text-[#8c8c8c]">{searchInfo.keyword}</span>”
+              {totalList} {totalList > 1 ? 'Results' : 'Result'} for
+              <span className="text-[#8c8c8c]">“{searchInfo.keyword}”</span>
             </div>
           ) : (
             <FeatureBlog list={featureBlogList} />

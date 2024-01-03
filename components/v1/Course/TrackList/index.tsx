@@ -1,4 +1,4 @@
-import { CourseResponse } from '@/service/webApi/course/type';
+import { ProjectCourseType } from '@/service/webApi/course/type';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import { FC, useEffect, useState } from 'react';
 import TrackCard from './TrackCard';
@@ -9,7 +9,7 @@ interface TrackListProps {
 
 type CourseListType = {
   title: string;
-  courses: CourseResponse;
+  courses: ProjectCourseType;
 }[];
 
 const TrackList: FC<TrackListProps> = (props) => {

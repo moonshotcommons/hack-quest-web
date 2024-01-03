@@ -1,5 +1,5 @@
 import React, { ReactNode, useEffect, useMemo, useState } from 'react';
-import { CourseResponse } from '@/service/webApi/course/type';
+import { CourseBaseType } from '@/service/webApi/course/type';
 
 import {
   ChangeState,
@@ -8,20 +8,22 @@ import {
 } from '@/components/v2/Common/ScrollContainer';
 
 import { cn } from '@/helper/utils';
-import { MiniElectiveCourseType } from '@/service/webApi/elective/type';
+import CourseCardSkeleton from '../CourseCardSkeleton';
 
-interface CourseSliderType {
-  list: (CourseResponse | MiniElectiveCourseType)[];
+interface CourseSliderType<T> {
+  list: T[];
   title: string;
-  renderItem: (item: CourseResponse | MiniElectiveCourseType) => ReactNode;
+  loading?: boolean;
+  renderItem: (item: T) => ReactNode;
 }
 
-const CourseSlider: React.FC<CourseSliderType> = ({
+const CourseSlider = <T extends CourseBaseType>({
   list,
   // curTab,
+  loading = false,
   title,
   renderItem
-}) => {
+}: CourseSliderType<T>) => {
   const p = {
     inProgress: false,
     inCompleted: false
@@ -33,8 +35,8 @@ const CourseSlider: React.FC<CourseSliderType> = ({
 
   const courseGroupList = useMemo(() => {
     if (!list?.length) return [];
-    const groupList: (CourseResponse | MiniElectiveCourseType)[][] = [];
-    let group: (CourseResponse | MiniElectiveCourseType)[] = [];
+    const groupList: T[][] = [];
+    let group: T[] = [];
     list.forEach((item, index) => {
       group.push(item);
       if (group.length === 4) {
@@ -59,7 +61,7 @@ const CourseSlider: React.FC<CourseSliderType> = ({
     setCurrentPage(currentPage + 1);
   };
 
-  if (!list?.length) return null;
+  if (!list?.length && !loading) return null;
 
   return (
     <div>
@@ -81,15 +83,17 @@ const CourseSlider: React.FC<CourseSliderType> = ({
         className="py-8"
       >
         <div className="flex gap-[24px]">
-          {courseGroupList.map((item, index) => {
-            return (
-              <div key={index} className="flex gap-[24px] w-[1280px]">
-                {item.map((course) => {
-                  return renderItem(course);
-                })}
-              </div>
-            );
-          })}
+          <CourseCardSkeleton.List active={loading}>
+            {courseGroupList.map((item, index) => {
+              return (
+                <div key={index} className="flex gap-[24px] w-[1280px]">
+                  {item.map((course) => {
+                    return renderItem(course);
+                  })}
+                </div>
+              );
+            })}
+          </CourseCardSkeleton.List>
         </div>
       </ScrollContainer>
       {courseGroupList.length > 1 && (

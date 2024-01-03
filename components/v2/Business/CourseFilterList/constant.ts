@@ -1,5 +1,7 @@
 import { MotionProps } from 'framer-motion';
 
+import { FilterItemType, FilterOptionType, FilterParamsType } from './type';
+
 export const animateProps: MotionProps = {
   initial: { scaleY: 0, opacity: 0, translateY: '95%' },
   animate: {
@@ -18,38 +20,59 @@ export const animateProps: MotionProps = {
   style: { originY: 0 }
 };
 
-const filterData = {
-  filter: [
-    {
-      filterName: 'Language',
-      filterField: 'language',
-      options: [
-        { name: 'Solidity', value: 'Solidity', isSelect: false },
-        { name: 'Rust', value: 'Rust', isSelect: false },
-        { name: 'Move ', value: 'Move ', isSelect: false }
-      ]
-    },
-    {
-      filterName: 'Track',
-      filterField: 'track',
-      options: [
-        { name: 'DeFi', value: 'DeFi', isSelect: false },
-        { name: 'NFT', value: 'NFT', isSelect: false },
-        { name: 'Data', value: 'Data', isSelect: false }
-      ]
-    },
-    {
-      filterName: 'Difficulty',
-      filterField: 'level',
-      options: [
-        { name: 'Beginner', value: 'BEGINNER', isSelect: false },
-        { name: 'Intermediate', value: 'INTERMEDIATE', isSelect: false },
-        { name: 'Advanced', value: 'ADVANCED', isSelect: false }
-      ]
-    }
-  ],
-  sort: [
-    { name: 'Most Popular', value: 'Most Popular', isSelect: false },
-    { name: 'Newest', value: 'Newest', isSelect: true }
-  ]
+export const courseDefaultFilters = [
+  {
+    filterName: 'Language',
+    filterField: 'language',
+    options: [
+      { name: 'Solidity', value: 'SOLIDITY', isSelect: false },
+      { name: 'Rust', value: 'RUST', isSelect: false },
+      { name: 'Move ', value: 'MOVE', isSelect: false }
+    ]
+  },
+  {
+    filterName: 'Track',
+    filterField: 'track',
+    options: [
+      { name: 'DeFi', value: 'DeFi', isSelect: false },
+      { name: 'NFT', value: 'NFT', isSelect: false },
+      { name: 'Security', value: 'Security', isSelect: false },
+      { name: 'Gaming', value: 'Gaming', isSelect: false }
+    ]
+  },
+  {
+    filterName: 'Difficulty',
+    filterField: 'level',
+    options: [
+      { name: 'Beginner', value: 'BEGINNER', isSelect: false },
+      { name: 'Intermediate', value: 'INTERMEDIATE', isSelect: false },
+      { name: 'Advanced', value: 'ADVANCED', isSelect: false }
+    ]
+  }
+];
+
+export const courseDefaultSort = [
+  { name: 'Most Popular', value: '-peopleJoined', isSelect: false },
+  { name: 'Newest', value: '-createdAt', isSelect: true }
+];
+
+export const mergeFilterParams = (
+  filters: FilterItemType[],
+  sort: FilterOptionType[],
+  keyword?: string
+): FilterParamsType => {
+  const sortValue = sort.find((item) => item.isSelect)?.value;
+  const filtersObject: Record<string, string> = {};
+  filters.forEach((f) => {
+    const key = f.filterField;
+    const values = f.options
+      .filter((option) => option.isSelect)
+      .map((o) => o.value);
+    if (values.length) filtersObject[key] = values.join(',');
+  });
+  return {
+    ...filtersObject,
+    sort: (sortValue as string) || '',
+    keyword: keyword || ''
+  };
 };

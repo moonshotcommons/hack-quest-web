@@ -4,7 +4,7 @@ import { useRequest } from 'ahooks';
 import webApi from '@/service';
 import {
   EcosystemElectiveType,
-  MiniElectiveCourseType
+  ElectiveCourseType
 } from '@/service/webApi/elective/type';
 import Loading from '../../Common/Loading';
 import { useParams } from 'next/navigation';
@@ -27,9 +27,7 @@ const MiniElectives: React.FC<MiniElectivesProp> = () => {
         <Loading loading={loading}>
           {elctiveList.map((elective) => (
             <MiniElectiveCard
-              elective={
-                elective as EcosystemElectiveType & MiniElectiveCourseType
-              }
+              elective={elective as EcosystemElectiveType & ElectiveCourseType}
               key={elective.id}
             />
           ))}

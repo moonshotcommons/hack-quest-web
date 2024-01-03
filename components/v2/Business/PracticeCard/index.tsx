@@ -1,8 +1,9 @@
-import Button from '@/components/v2/Common/Button';
 import { BurialPoint } from '@/helper/burialPoint';
-import { tagFormate } from '@/helper/formate';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
-import { CourseResponse } from '@/service/webApi/course/type';
+import {
+  CourseTrackType,
+  ProjectCourseType
+} from '@/service/webApi/course/type';
 import { Typography } from 'antd';
 import Image from 'next/image';
 import { FC } from 'react';
@@ -13,12 +14,11 @@ import PracticeImg1 from '@/public/images/home/practices_img1.png';
 import PracticeImg2 from '@/public/images/home/practices_img2.png';
 import PracticeImg3 from '@/public/images/home/practices_img3.png';
 import PracticeImg4 from '@/public/images/home/practices_img4.png';
-import CardProgress from '../CardProgress';
 import { useRedirect } from '@/hooks/useRedirect';
 
 interface PracticeCardProps {
   // children: ReactNode;
-  course: CourseResponse;
+  course: ProjectCourseType;
 }
 
 const PracticeCard: FC<PracticeCardProps> = (props) => {
@@ -26,9 +26,9 @@ const PracticeCard: FC<PracticeCardProps> = (props) => {
   const { jumpLearningLesson, loading } = useJumpLeaningLesson();
   const { redirectToUrl } = useRedirect();
 
-  const imageRender = (i: any) => {
-    switch (i) {
-      case 1:
+  const imageRender = (track: CourseTrackType) => {
+    switch (track) {
+      case CourseTrackType.DeFi:
         return (
           <Image
             src={PracticeImg1}
@@ -37,7 +37,7 @@ const PracticeCard: FC<PracticeCardProps> = (props) => {
             className="absolute right-0 top-0"
           ></Image>
         );
-      case 2:
+      case CourseTrackType.NFT:
         return (
           <Image
             src={PracticeImg2}
@@ -46,7 +46,7 @@ const PracticeCard: FC<PracticeCardProps> = (props) => {
             className="absolute right-[32px] top-[32px]"
           ></Image>
         );
-      case 3:
+      case CourseTrackType.Gaming:
         return (
           <Image
             src={PracticeImg3}
@@ -55,7 +55,7 @@ const PracticeCard: FC<PracticeCardProps> = (props) => {
             className="absolute right-[40px] top-[24px]"
           ></Image>
         );
-      case 4:
+      case CourseTrackType.Security:
         return (
           <Image
             src={PracticeImg4}
@@ -78,36 +78,36 @@ const PracticeCard: FC<PracticeCardProps> = (props) => {
         );
       }}
     >
-      {course.progress >= 1 && (
-        <div className="absolute font-neuemachina-light top-[13px] left-[16px] z-[2]">
-          {course.progress < 1 && course.progress > 0 && (
-            <svg
-              width="32"
-              height="32"
-              viewBox="0 0 32 32"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <circle cx="16" cy="16" r="16" fill="#00C365" />
-              <path
-                d="M8 15.9999L14.4 22.3999L25.6 11.1999"
-                stroke="white"
-                strokeLinecap="round"
-              />
-            </svg>
-          )}
+      {!!course.progress && course.progress >= 1 && (
+        <div className="absolute font-neuemachina-light top-[13px] left-[16px] z-[999]">
+          <svg
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle cx="16" cy="16" r="16" fill="#00C365" />
+            <path
+              d="M8 15.9999L14.4 22.3999L25.6 11.1999"
+              stroke="white"
+              strokeLinecap="round"
+            />
+          </svg>
         </div>
       )}
-      <div className="w-full relative  h-[150px]">{imageRender(4)}</div>
+      <div className="w-full relative  h-[150px]">
+        {imageRender(course.track)}
+      </div>
       <div className="flex-1 flex flex-col justify-between w-full px-[24px] py-[20px]">
         <div>
-          <div className="text-[#3e3e3e] w-[fit-content] px-[10px] py-[4px] border border-[#3e3e3e] rounded-[20px] font-next-book  tracking-[0.32px] opacity-60 text-[12px]">
-            {tagFormate(course.type)}
+          <div className="text-[#3e3e3e] w-[fit-content] px-[10px] py-[4px] border border-[#3e3e3e] rounded-[20px] font-next-book  tracking-[0.32px] opacity-60 text-[12px] uppercase">
+            {course.track}
           </div>
           <h2 className="text-[21px] font-next-poster-Bold text-[#000] leading-[21px] tracking-[1.16px] my-[16px]">
             {course.name}
           </h2>
-          {course.progress === 0 && (
+          {
             <Typography.Paragraph
               ellipsis={{ rows: 2 }}
               className="my-[13px] min-h-[45px]"
@@ -116,23 +116,24 @@ const PracticeCard: FC<PracticeCardProps> = (props) => {
                 {course.description}
               </div>
             </Typography.Paragraph>
-          )}
-          {course.progress > 0 && course.progress < 1 && (
+          }
+          {/* {!!course.progress && course.progress > 0 && course.progress < 1 && (
             <CardProgress
               progress={course.progress}
               className="mb-[8px] text-[12px]"
             />
-          )}
+          )} */}
         </div>
-        {course.progress === 0 && (
+        {
           <CourseTags
+            language={course.language}
             level={course.level as string}
             unitCount={course.unitCount || 0}
             className="justify-between"
           ></CourseTags>
-        )}
+        }
 
-        {course.progress > 0 && course.progress < 1 && (
+        {/* {!!course.progress && course.progress > 0 && course.progress < 1 && (
           <div className="flex flex-col gap-y-5">
             <Button
               type="primary"
@@ -155,8 +156,8 @@ const PracticeCard: FC<PracticeCardProps> = (props) => {
               Continue
             </Button>
           </div>
-        )}
-        {course.progress >= 1 && (
+        )} */}
+        {/* {!!course.progress && course.progress >= 1 && (
           <div className="flex flex-col gap-y-5">
             <Button
               type="primary"
@@ -171,7 +172,7 @@ const PracticeCard: FC<PracticeCardProps> = (props) => {
               View Syllabus
             </Button>
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );

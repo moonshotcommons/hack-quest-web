@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { CourseResponse, ProcessType } from '@/service/webApi/course/type';
+import { ProjectCourseType, ProcessType } from '@/service/webApi/course/type';
 interface CourseListType {
-  list: CourseResponse[];
+  list: ProjectCourseType[];
   curTab: ProcessType;
   title: 'Electives' | 'Practices';
 }
@@ -25,8 +25,8 @@ const CourseList: React.FC<CourseListType> = ({ list, curTab, title }) => {
     useState<ChangeState>();
 
   const courseGroupList = useMemo(() => {
-    const groupList: CourseResponse[][] = [];
-    let group: CourseResponse[] = [];
+    const groupList: ProjectCourseType[][] = [];
+    let group: ProjectCourseType[] = [];
     list.forEach((item, index) => {
       group.push(item);
       if (group.length === 4) {

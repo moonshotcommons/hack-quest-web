@@ -1,15 +1,15 @@
+import { CourseLanguageType } from '@/service/webApi/course/type';
+
 export enum LearningTrackTab {
   BASIC = 'Basic',
   SPECIALLIZATION = 'Specialization'
 }
-export enum LearningTrackFilter {
-  ALL = 'All',
-  SOLIDITY = 'Solidity',
-  RUST = 'Rust',
-  MOVE = 'Move'
+
+export enum LanguageTab {
+  ALL = 'All'
 }
 
 export interface SearchInfoType {
-  tab: LearningTrackTab;
-  filter: LearningTrackFilter;
+  track: LearningTrackTab;
+  language: CourseLanguageType | LanguageTab;
 }

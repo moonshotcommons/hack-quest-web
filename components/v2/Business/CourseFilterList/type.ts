@@ -9,3 +9,5 @@ export interface FilterItemType {
   filterField: string;
   options: FilterOptionType[];
 }
+
+export type FilterParamsType = Record<string, string>;

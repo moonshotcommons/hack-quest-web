@@ -1,5 +1,5 @@
 import { thirdPartyMedia } from '@/helper/thirdPartyMedia';
-import { CompleteStateType, CourseType } from '../course/type';
+import { CompleteStateType, CourseBaseType, CourseType } from '../course/type';
 
 export interface CreatorType {
   id: string;
@@ -17,29 +17,45 @@ export interface PageType {
 
 export interface ElectiveListDataType {
   total: number;
-  data: MiniElectiveCourseType[];
+  data: ElectiveCourseType[];
 }
 
-export interface MiniElectiveCourseType {
-  id: string;
+// export interface ElectiveCourseType {
+//   id: string;
+//   image: string;
+//   level: string;
+//   name: string;
+//   description: string;
+//   isRegistered: boolean;
+//   peopleJoined: number;
+//   progress: number;
+//   status: string;
+//   track: string;
+//   type: CourseType.Mini;
+//   completed: boolean;
+//   completedPages: number;
+//   duration: number;
+//   creator: null | CreatorType;
+//   pages?: PageType[];
+//   pageCount?: number;
+//   unitCount?: number;
+//   creatorId: string;
+// }
+
+export interface ElectiveCourseType extends CourseBaseType {
   image: string;
-  level: string;
-  name: string;
-  description: string;
-  isRegistered: boolean;
-  peopleJoined: number;
-  progress: number;
+  pageCount: number;
+  creatorId: string;
+  creator: null | CreatorType;
   status: string;
-  track: string;
-  type: CourseType.Mini;
+  isRegistered: boolean;
+  pages?: PageType[];
+  totalPages: number;
+}
+
+export interface ElectiveCourseDetailType extends ElectiveCourseType {
   completed: boolean;
   completedPages: number;
-  duration: number;
-  creator: null | CreatorType;
-  pages?: PageType[];
-  pageCount?: number;
-  unitCount?: number;
-  creatorId: string;
 }
 
 export interface ElectiveLessonType {
