@@ -7,6 +7,7 @@ import CourseTags from '@/components/v2/Business/CourseTags';
 import { menuLink } from '@/components/v2/Business/Breadcrumb/data';
 import { useRedirect } from '@/hooks/useRedirect';
 import { cn } from '@/helper/utils';
+import LearningTrackImg from '@/public/images/home/learningtrack_img.png';
 interface LearningTrackCardProps {
   learningTrack: LearningTrackDetailType;
   isLandingPage?: boolean;
@@ -65,7 +66,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
       </div>
       <div className="w-[200px] h-[200px] relative">
         <Image
-          src={learningTrack.image}
+          src={learningTrack.image || LearningTrackImg}
           fill
           alt="learning-track-img"
           className="object-cover"
