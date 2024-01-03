@@ -3,23 +3,22 @@ import React from 'react';
 import Image from 'next/image';
 import { BlogType } from '@/service/webApi/resourceStation/type';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
-import { useRedirect } from '@/hooks/useRedirect';
 import { BurialPoint } from '@/helper/burialPoint';
+import Link from 'next/link';
 
 interface FeatureBlogCardProp {
   blog: BlogType;
 }
 
 const FeatureBlogCard: React.FC<FeatureBlogCardProp> = ({ blog }) => {
-  const { redirectToUrl } = useRedirect();
   const goBlogContent = () => {
     BurialPoint.track('blog featureBlogCard 卡片点击');
-    redirectToUrl(`${MenuLink.BLOG}/${blog.id}`);
   };
   return (
-    <div
-      className="w-full font-next-book h-[505px] bg-[#fff] overflow-hidden rounded-[10px]  flex shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] cursor-pointer"
+    <Link
+      className="w-full font-next-book h-[505px] bg-[#fff] overflow-hidden rounded-[10px] flex shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] cursor-pointer"
       onClick={goBlogContent}
+      href={`${MenuLink.BLOG}/${blog.id}`}
     >
       <div className="w-[900px] h-full relative  overflow-hidden">
         <Image
@@ -50,7 +49,7 @@ const FeatureBlogCard: React.FC<FeatureBlogCardProp> = ({ blog }) => {
         </div>
         <BlogCardFooter blog={blog} />
       </div>
-    </div>
+    </Link>
   );
 };
 

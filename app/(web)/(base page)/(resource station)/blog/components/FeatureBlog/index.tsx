@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useRef, useState } from 'react';
 import FeatureBlogCard from '../FeatureBlogCard.tsx';
 import ScrollControl from '../ScrollControl';
