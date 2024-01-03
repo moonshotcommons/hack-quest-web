@@ -1,9 +1,9 @@
 'use client';
 import Banner from './Banner';
 import Loading from '@/components/v2/Common/Loading';
-import { bannerTabList, filterList } from './data';
+import { bannerTabList } from './data';
 import { useEffect, useState } from 'react';
-import { SearchInfoType } from './type';
+import { SearchInfoType, LanguageTab } from './type';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import webApi from '@/service';
 import { useRequest } from 'ahooks';
@@ -11,8 +11,8 @@ import List from './List';
 import Filter from './Filter';
 function LearningTrack() {
   const [searchInfo, setSearchInfo] = useState<SearchInfoType>({
-    tab: bannerTabList[0].value,
-    filter: filterList[0].value
+    track: bannerTabList[0].value,
+    language: LanguageTab.ALL
   });
   const [learningTrackListData, setLearningTrackListData] = useState<
     LearningTrackDetailType[]
@@ -21,7 +21,12 @@ function LearningTrack() {
     setSearchInfo({ ...info });
   };
   const { run, loading } = useRequest(async () => {
-    const list = await webApi.learningTrackApi.getLearningTracks();
+    const param = {
+      ...searchInfo,
+      language:
+        searchInfo.language === LanguageTab.ALL ? '' : searchInfo.language
+    };
+    const list = await webApi.learningTrackApi.getLearningTracks(param);
     setLearningTrackListData(list);
   });
 
@@ -36,7 +41,7 @@ function LearningTrack() {
           <Filter changeSearchInfo={changeSearchInfo} searchInfo={searchInfo} />
         </div>
         <Loading loading={loading} className="container">
-          <List list={learningTrackListData} />
+          <List list={learningTrackListData} loading={loading} />
         </Loading>
       </div>
     </div>
