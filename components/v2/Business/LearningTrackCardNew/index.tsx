@@ -1,8 +1,7 @@
-import LearningImage from '@/public/images/home/learningtrack_img.png';
 import { LearningTrackCourseType } from '@/service/webApi/course/type';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import Image from 'next/image';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Menu, QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
 import CourseTags from '@/components/v2/Business/CourseTags';
 import { menuLink } from '@/components/v2/Business/Breadcrumb/data';
@@ -23,17 +22,6 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
   const { redirectToUrl } = useRedirect();
   const [learningTrack, setLearningTrack] =
     useState<LearningTrackDetailType>(track);
-  const learningTrackStatus = useMemo(() => {
-    if (status) return status;
-    const { progress } = learningTrack;
-    if (learningTrack.enrolled && progress && progress > 0 && progress < 1) {
-      return LearningTrackCourseType.IN_PROCESS;
-    } else if (progress && progress >= 1) {
-      return LearningTrackCourseType.COMPLETED;
-    } else {
-      return LearningTrackCourseType.UN_ENROLL;
-    }
-  }, [learningTrack, status]);
 
   useEffect(() => {
     setLearningTrack(track);
@@ -56,7 +44,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
     >
       <div className="flex-1 h-full flex flex-col flex-shrink-0 justify-between">
         <div className="caption-12pt w-fit px-[10px] py-[4px] text-[var(--neutral-off-black)] border border-[#3E3E3E] rounded-[20px] ">
-          Basic
+          {learningTrack.track}
         </div>
         <div>
           <div className="text-[var(--neutral-off-black)] text-[18px] line-clamp-1">
@@ -77,7 +65,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
       </div>
       <div className="w-[200px] h-[200px] relative">
         <Image
-          src={LearningImage}
+          src={learningTrack.image}
           fill
           alt="learning-track-img"
           className="object-cover"

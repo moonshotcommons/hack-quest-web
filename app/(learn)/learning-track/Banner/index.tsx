@@ -10,7 +10,7 @@ interface BannerProp {
 }
 
 const Banner: React.FC<BannerProp> = ({ changeSearchInfo, searchInfo }) => {
-  const { tab } = searchInfo;
+  const { track } = searchInfo;
   return (
     <div
       className="h-[400px] py-[60px] "
@@ -30,30 +30,32 @@ const Banner: React.FC<BannerProp> = ({ changeSearchInfo, searchInfo }) => {
           {bannerTabList.map((v) => (
             <div
               key={v.value}
-              onClick={() => changeSearchInfo({ ...searchInfo, tab: v.value })}
+              onClick={() =>
+                changeSearchInfo({ ...searchInfo, track: v.value })
+              }
               className={`w-[380px] p-[24px] rounded-[24px] cursor-pointer border ${
-                tab === v.value
+                track === v.value
                   ? 'bg-[var(--yellow-primary)] border-[var(--neutral-light-gray)]'
                   : 'border-[var(--neutral-off-white)]'
               }`}
             >
               <div
                 className={`flex justify-between items-center ${
-                  tab === v.value
+                  track === v.value
                     ? 'text-[var(--neutral-off-black)]'
                     : 'text-[var(--neutral-white)]'
                 }`}
               >
                 <span className="text-h3">{v.label}</span>
                 <Image
-                  src={tab === v.value ? v.imgActive : v.img}
+                  src={track === v.value ? v.imgActive : v.img}
                   alt="tab-img"
                   width={48}
                 ></Image>
               </div>
               <div
                 className={`body-m mt-[24px] ${
-                  tab === v.value
+                  track === v.value
                     ? 'text-[var(--neutral-rich-gray)]'
                     : 'text-[var(--neutral-light-gray)]'
                 }`}
