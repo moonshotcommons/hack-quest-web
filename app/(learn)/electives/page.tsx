@@ -1,5 +1,4 @@
 'use client';
-import Title from '@/components/v1/Head/Title';
 import { useRef, useState } from 'react';
 import CourseListPageHeader from '@/components/v2/Business/CourseListPageHeader';
 import CourseSlider from '@/components/v2/Business/CourseSlider';
@@ -63,7 +62,6 @@ function ElectivesPage() {
       onScroll={handleScroll}
       ref={selectiveCoursesRef}
     >
-      <Title title="Electives" />
       <div className="container mx-auto ">
         <CourseListPageHeader
           title="Electives"

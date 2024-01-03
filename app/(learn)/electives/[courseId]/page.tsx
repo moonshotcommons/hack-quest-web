@@ -20,6 +20,12 @@ const CourseDetailPage: NextPage<IProps> = (props) => {
     webApi.courseApi.getCourseDetail(courseId as string, true).then((res) => {
       setCourseDetail(res);
       setIsLoading(false);
+
+      // update title and description
+      document.title = res.name;
+      document
+        .querySelector('meta[name="description"]')
+        ?.setAttribute('content', res.description);
     });
   }, [courseId, setCourseDetail]);
 

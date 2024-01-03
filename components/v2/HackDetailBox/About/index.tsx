@@ -1,6 +1,5 @@
 import React from 'react';
 import Box from '../components/Box';
-import Title from '../components/Title';
 import { HackathonType } from '@/service/webApi/resourceStation/type';
 interface AboutProp {
   hackathon: HackathonType;
@@ -19,7 +18,6 @@ const About: React.FC<AboutProp> = ({ hackathon }) => {
         ></Image> */}
       </Box>
       <Box>
-        <Title title="About" />
         <div className="text-[21px] leading-[33px] tracking-[0.42px]">
           {hackathon.about}
         </div>

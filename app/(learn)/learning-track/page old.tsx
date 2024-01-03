@@ -1,5 +1,4 @@
 'use client';
-import Title from '@/components/v1/Head/Title';
 import LearningTrackCard from '@/components/v2/Business/LearningTrackCard';
 import PageDescription from '@/components/v2/Business/PageDescription';
 import Loading from '@/components/v2/Common/Loading';
@@ -9,7 +8,6 @@ function LearningTrack() {
   const { learningTracks, loading } = useGetLearningTracks();
   return (
     <div className="container mx-auto">
-      <Title title="Learning Tracks" />
       <PageDescription
         title={'Learning Tracks'}
         description={`Don't know where to start? Choose a Learning Track! Our Learning Tracks offer a curated sequence of core and elective courses designed to guide you in mastering a specific smart contract programming language.`}

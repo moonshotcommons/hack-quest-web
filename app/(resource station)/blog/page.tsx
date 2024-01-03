@@ -1,5 +1,4 @@
 'use client';
-import Title from '@/components/v1/Head/Title';
 import BlogBanner from './/BlogBanner';
 import { searchTabData, sortData } from './/BlogBanner/data';
 import BlogList from './/BlogList';
@@ -98,7 +97,6 @@ const Blog: React.FC<BlogProp> = () => {
   }, []);
   return (
     <div>
-      <Title title="Blog" />
       <BlogBanner searchInfo={searchInfo} changeSearchInfo={changeSearchInfo} />
       <div className="container mx-auto py-[70px]">
         <Loading loading={loading}>
