@@ -1,5 +1,4 @@
 import { BurialPoint } from '@/helper/burialPoint';
-import { tagFormate } from '@/helper/formate';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
 import {
   CourseTrackType,
@@ -102,8 +101,8 @@ const PracticeCard: FC<PracticeCardProps> = (props) => {
       </div>
       <div className="flex-1 flex flex-col justify-between w-full px-[24px] py-[20px]">
         <div>
-          <div className="text-[#3e3e3e] w-[fit-content] px-[10px] py-[4px] border border-[#3e3e3e] rounded-[20px] font-next-book  tracking-[0.32px] opacity-60 text-[12px]">
-            {tagFormate(course.track)}
+          <div className="text-[#3e3e3e] w-[fit-content] px-[10px] py-[4px] border border-[#3e3e3e] rounded-[20px] font-next-book  tracking-[0.32px] opacity-60 text-[12px] uppercase">
+            {course.track}
           </div>
           <h2 className="text-[21px] font-next-poster-Bold text-[#000] leading-[21px] tracking-[1.16px] my-[16px]">
             {course.name}
