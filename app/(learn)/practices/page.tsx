@@ -84,23 +84,23 @@ function PracticesPage() {
 
         {/* Top Projects */}
         {/* <Loading loading={loading} loadingText=""> */}
-        <div className="w-full h-fit min-h-[360px]">
-          {type === CourseFilterListType.DEFAULT && (
-            <CourseSlider
-              title="Top Projects"
-              loading={loading}
-              renderItem={(course) => {
-                return (
-                  <PracticeCard
-                    key={course.id}
-                    course={course as ProjectCourseType}
-                  ></PracticeCard>
-                );
-              }}
-              list={topProjects}
-            ></CourseSlider>
-          )}
-        </div>
+        {/* <div className="w-full h-fit min-h-[360px]"> */}
+        {type === CourseFilterListType.DEFAULT && (
+          <CourseSlider
+            title="Top Projects"
+            loading={loading}
+            renderItem={(course) => {
+              return (
+                <PracticeCard
+                  key={course.id}
+                  course={course as ProjectCourseType}
+                ></PracticeCard>
+              );
+            }}
+            list={topProjects}
+          ></CourseSlider>
+        )}
+        {/* </div> */}
         {/* </Loading> */}
 
         {/* CourseList */}
