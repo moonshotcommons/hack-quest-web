@@ -10,7 +10,7 @@ const LearningTrackList: React.FC<LearningTrackListProps> = ({ list }) => {
   return (
     <div>
       <h3 className="font-next-poster-Bold text-[21px] tracking-[1.26px] text-[#131313]">
-        Learning Track
+        Learning Tracks
       </h3>
       <div className="mt-6 flex flex-wrap gap-[24px]">
         {list.map((learningTrack) => (

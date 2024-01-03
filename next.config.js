@@ -36,13 +36,7 @@ const nextConfig = (phase) => {
         }
       ]
     },
-    output: 'standalone',
-    webpack(config, { isServer }) {
-      if (isServer) {
-        require('./scripts/generate-sitemap');
-      }
-      return config;
-    }
+    output: 'standalone'
   });
 };
 

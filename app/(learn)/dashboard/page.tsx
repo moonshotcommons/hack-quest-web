@@ -2,7 +2,6 @@
 import LearningCourses from './components/LearningCourses';
 import React, { useEffect } from 'react';
 
-import Title from '@/components/v1/Head/Title';
 import { BurialPoint } from '@/helper/burialPoint';
 
 const DashboardPage = () => {
@@ -17,7 +16,6 @@ const DashboardPage = () => {
 
   return (
     <div className="">
-      <Title title="Dashboard" />
       <LearningCourses />
       {/* <FeatureCourses></FeatureCourses> */}
     </div>

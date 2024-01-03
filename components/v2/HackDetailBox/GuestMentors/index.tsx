@@ -1,7 +1,6 @@
 import { MentorType } from '@/service/webApi/resourceStation/type';
 import React, { useMemo, useState } from 'react';
 import Box from '../components/Box';
-import Title from '../components/Title';
 import Image from 'next/image';
 import { VscChevronDown } from 'react-icons/vsc';
 import { deepClone } from '@/helper/utils';
@@ -18,7 +17,6 @@ const GuestMentors: React.FC<GuestMentorsProp> = ({ listData, title }) => {
   }, [showAll, listData]);
   return listData.length > 0 ? (
     <Box>
-      <Title title={title}></Title>
       <div className="flex flex-wrap gap-[20px] mb-[30px]">
         {showList.map((v: MentorType, i: number) => (
           <div

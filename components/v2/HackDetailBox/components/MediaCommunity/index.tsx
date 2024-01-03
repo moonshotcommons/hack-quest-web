@@ -1,7 +1,6 @@
 import { MentorType } from '@/service/webApi/resourceStation/type';
 import React, { useMemo, useState } from 'react';
 import Box from '../Box';
-import Title from '../Title';
 import Image from 'next/image';
 import { VscChevronDown } from 'react-icons/vsc';
 import { deepClone } from '@/helper/utils';
@@ -20,7 +19,6 @@ const MediaCommunity: React.FC<MediaCommunityProp> = ({ listData, title }) => {
 
   return listData?.length > 0 ? (
     <Box>
-      <Title title={title}></Title>
       <div className="flex flex-wrap gap-[20px] mb-[30px]">
         {showList.map((v: MentorType, i: number) => (
           <div key={i} className="w-[calc(25%-15px)] h-[72px]">
