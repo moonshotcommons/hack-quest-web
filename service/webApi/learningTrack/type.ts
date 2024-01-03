@@ -33,5 +33,6 @@ export interface LearningTrackDetailType extends CourseBaseType {
   campaignId?: string;
   certificationId?: string;
   enrolled: boolean;
+  image: string;
   sections: SectionType[];
 }
