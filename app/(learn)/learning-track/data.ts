@@ -2,7 +2,8 @@ import Basic from '@/public/images/home/learning_banner_basic.png.png';
 import BasicActive from '@/public/images/home/learning_banner_basic_active.png';
 import Specialization from '@/public/images/home/learning_track_specialization.png';
 import SpecializationActive from '@/public/images/home/learning_track_specialization_active.png';
-import { LearningTrackTab, LearningTrackFilter } from './type';
+import { LanguageTab, LearningTrackTab } from './type';
+import { CourseLanguageType } from '@/service/webApi/course/type';
 
 export const bannerTabList = [
   {
@@ -25,18 +26,18 @@ export const bannerTabList = [
 export const filterList = [
   {
     label: 'All',
-    value: LearningTrackFilter.ALL
+    value: LanguageTab.ALL
   },
   {
     label: 'Solidity',
-    value: LearningTrackFilter.SOLIDITY
+    value: CourseLanguageType.SOLIDITY
   },
   {
     label: 'Rust',
-    value: LearningTrackFilter.RUST
+    value: CourseLanguageType.RUST
   },
   {
     label: 'Move',
-    value: LearningTrackFilter.MOVE
+    value: CourseLanguageType.MOVE
   }
 ];
