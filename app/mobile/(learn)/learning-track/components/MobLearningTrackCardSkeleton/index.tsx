@@ -18,11 +18,11 @@ const MobLearningTrackCardSkeletonCard: FC<
   return (
     <div
       className={
-        'w-full  p-[1.25rem] flex flex-col gap-[1.25rem] cursor-pointer rounded-[1rem] bg-[var(--neutral-white)] overflow-hidden'
+        'w-full  p-[1.25rem] flex flex-col gap-[1.25rem]  rounded-[1rem] bg-neutral-white  '
       }
     >
       <div className="flex w-full justify-between">
-        <Skeleton className="text-h6-mob w-[3.375rem] h-[1.75rem] border border-[#3E3E3E] rounded-[1.25rem] "></Skeleton>
+        <Skeleton className="w-[3.375rem] h-[1.75rem] rounded-[1.25rem] "></Skeleton>
         <div className="w-[3rem] h-[3rem] relative">
           <FaRegImage size={48} color={'#bdbdbd'} />
         </div>
