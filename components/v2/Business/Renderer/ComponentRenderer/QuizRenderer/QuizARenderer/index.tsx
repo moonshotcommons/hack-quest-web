@@ -10,7 +10,7 @@ import {
   changeTextareaHeight,
   elementVibration
 } from '@/helper/utils';
-import { AnswerState, useParseQuizA } from '@/hooks/useParseQuizA';
+import { AnswerState, useParseQuiz } from '@/hooks/useParseQuiz';
 import webApi from '@/service';
 import { FC, useContext, useEffect, useRef, useState } from 'react';
 import { QuizContext } from '..';
@@ -31,8 +31,9 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
   const isCompleted = useRef(false);
   const { lesson } = useContext(PlaygroundContext);
   const { onPass } = useContext(QuizContext);
-  const { waitingRenderCodes, answerState, answerStateDispatch } =
-    useParseQuizA(quiz.lines);
+  const { waitingRenderCodes, answerState, answerStateDispatch } = useParseQuiz(
+    quiz.lines
+  );
 
   const dealInputValue = (show: boolean) => {
     const newAnswerState = JSON.parse(JSON.stringify(answerState));

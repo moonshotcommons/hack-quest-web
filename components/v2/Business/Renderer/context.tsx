@@ -1,6 +1,6 @@
 import { QuizBType } from '@/components/v2/Business/Renderer/type';
 import { Dispatch, SetStateAction, createContext } from 'react';
-import { AnswerState } from '@/hooks/useParseQuizA';
+import { AnswerState } from '@/hooks/useParseQuiz';
 
 //#region quizA
 interface QuizAContextType {

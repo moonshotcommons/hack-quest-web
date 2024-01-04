@@ -1,4 +1,4 @@
-import { WaitingRenderCodeType } from '@/hooks/useParseQuizA';
+import { WaitingRenderCodeType } from '@/hooks/useParseQuiz';
 import React, { useContext } from 'react';
 import { RendererContext } from '@/components/v2/Business/Renderer/context';
 
