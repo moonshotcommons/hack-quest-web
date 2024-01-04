@@ -1,3 +1,4 @@
+'use client';
 import Button from '@/components/v2/Common/Button';
 import LearningTracksCard from '@/components/v2/Business/LearningTrackCard';
 import { BurialPoint } from '@/helper/burialPoint';

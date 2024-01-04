@@ -1,7 +1,7 @@
 import React from 'react';
 import BannerImg from '@/public/images/home/learning_track_banner.png';
-import { bannerTabList } from '../data';
-import { SearchInfoType } from '../type';
+import { bannerTabList } from '../../constants/data';
+import { SearchInfoType } from '../../constants/type';
 import Image from 'next/image';
 
 interface BannerProp {

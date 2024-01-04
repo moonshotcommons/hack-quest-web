@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
-import FeatureBlogCard from '../components/FeatureBlogCard.tsx';
-import ScrollControl from '../components/ScrollControl';
+import FeatureBlogCard from '../FeatureBlogCard.tsx';
+import ScrollControl from '../ScrollControl';
 import {
   ChangeState,
   ScrollContainer

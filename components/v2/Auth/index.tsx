@@ -1,3 +1,4 @@
+'use client';
 import { AppRootState } from '@/store/redux';
 import { UnLoginType, setUnLoginType } from '@/store/redux/modules/user';
 import { FC, useEffect } from 'react';
