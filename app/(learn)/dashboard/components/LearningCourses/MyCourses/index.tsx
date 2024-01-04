@@ -1,3 +1,4 @@
+'use client';
 import Loading from '@/components/v2/Common/Loading';
 import webApi from '@/service';
 import { ProjectCourseType, ProcessType } from '@/service/webApi/course/type';

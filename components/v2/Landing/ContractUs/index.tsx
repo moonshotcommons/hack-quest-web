@@ -1,3 +1,4 @@
+'use client';
 import DarkInstagramIcon from '@/components/v2/Common/Icon/DarkInstagram';
 import DiscordIcon from '@/components/v2/Common/Icon/Discord';
 import LightInstagramIcon from '@/components/v2/Common/Icon/LightInstagram';

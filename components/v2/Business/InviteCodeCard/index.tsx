@@ -1,3 +1,4 @@
+'use client';
 import { FC, useMemo, useState } from 'react';
 import Button from '@/components/v2/Common/Button';
 import { VscAdd } from 'react-icons/vsc';
