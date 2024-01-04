@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import LearningTrack from './components/LearningTrack';
 import { Metadata } from 'next';
+import LearningTrack from './components';
 
 export const metadata: Metadata = {
   title: 'Learning Tracks'

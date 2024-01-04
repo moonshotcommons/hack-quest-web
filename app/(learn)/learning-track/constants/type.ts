@@ -6,7 +6,7 @@ export enum LearningTrackTab {
 }
 
 export enum LanguageTab {
-  ALL = 'All'
+  ALL = ''
 }
 
 export interface SearchInfoType {

@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import Blog from './components/Blog';
+import Blog from './components';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
