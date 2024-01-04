@@ -1,5 +1,5 @@
 // import { Dispatch, SetStateAction, createContext } from 'react';
-// import { AnswerState } from '@/hooks/useParseQuizA';
+// import { AnswerState } from '@/hooks/useParseQuiz';
 
 // interface QuizAContextType {
 //   answers: AnswerState[];

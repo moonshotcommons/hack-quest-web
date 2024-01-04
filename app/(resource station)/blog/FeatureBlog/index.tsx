@@ -4,7 +4,7 @@ import ScrollControl from '../components/ScrollControl';
 import {
   ChangeState,
   ScrollContainer
-} from '@/components/v1/Common/ScrollContainer';
+} from '@/components/v2/Common/ScrollContainer';
 import { BlogType } from '@/service/webApi/resourceStation/type.js';
 
 interface FeatureBlogProp {

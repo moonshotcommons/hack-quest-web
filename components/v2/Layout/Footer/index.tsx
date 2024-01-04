@@ -5,7 +5,7 @@ import LightLogo from '@/public/images/logo/light-footer-logo.svg';
 import DarkLogo from '@/public/images/logo/dark-footer-logo.svg';
 
 import Link from 'next/link';
-import ContractUs from '@/components/v1/Home/ContractUs';
+import ContractUs from '@/components/v2/Business/ContractUs';
 import { ThemeContext } from '@/store/context/theme';
 import { Theme } from '@/constants/enum';
 

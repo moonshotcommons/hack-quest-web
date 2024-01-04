@@ -13,16 +13,17 @@ interface ModalProps {
   showCloseIcon?: boolean;
   icon?: ReactNode;
   markBg?: string;
+  className?: string;
 }
 
 const IconClose: FC<{ icon?: ReactNode }> = (props) => {
   const { icon, ...rest } = props;
   return icon ? (
-    <div className="absolute right-[2.25rem] top-[2.5rem] z-[999] cursor-pointer text-setting-close-icon-color">
+    <div className="absolute right-[2.25rem] top-[2.5rem] z-[999] cursor-pointer">
       {icon}
     </div>
   ) : (
-    <div className="absolute right-[2.25rem] top-[2.5rem] z-[999] cursor-pointer rounded-full p-[0.66rem] border border-solid border-setting-close-icon-border-color text-setting-close-icon-color">
+    <div className="absolute right-[2.25rem] top-[2.5rem] z-[999] cursor-pointer rounded-full p-[0.66rem] border border-solid border-neutral-off-white">
       <CloseIcon width={20} height={19} color={'currentColor'} />
     </div>
   );
@@ -35,7 +36,8 @@ const Modal: React.FC<ModalProps> = (props) => {
     children,
     showCloseIcon = false,
     icon,
-    markBg = 'black'
+    markBg = 'black',
+    className
   } = props;
   // const closeIcon =
   return (
@@ -53,8 +55,13 @@ const Modal: React.FC<ModalProps> = (props) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-fit overflow-hidden text-left align-middle">
-                <div className="relative flex justify-center  items-center overflow-y-scroll no-scrollbar shadow-2xl w-fit">
+              <Dialog.Panel
+                className={cn(
+                  'w-fit overflow-hidden text-left align-middle',
+                  className
+                )}
+              >
+                <div className="relative flex justify-center  items-center overflow-y-scroll no-scrollbar shadow-2xl">
                   {showCloseIcon ? (
                     <div onClick={onClose}>
                       <IconClose icon={icon}></IconClose>
