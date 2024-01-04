@@ -49,12 +49,6 @@
   .text-h5-mob {
     @apply font-Inter font-extrabold text-[14px] leading-normal tracking-normal;
   }
-  .text-h6-mob {
-    @apply font-Inter font-medium text-[12px] leading-normal tracking-normal;
-  }
-  .text-h6-mob-m {
-    @apply font-Inter font-light text-[12px] leading-normal tracking-normal;
-  }
 
   .body-xl {
     @apply font-Inter font-normal text-6 leading-normal;
@@ -97,7 +91,7 @@
   }
 
   .caption-12pt {
-    @apply font-Inter font-normal leading-normal text-[12px];
+    @apply font-Inter font-light leading-normal text-[12px];
   }
 
   .caption-10pt {

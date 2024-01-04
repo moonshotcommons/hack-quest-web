@@ -37,7 +37,7 @@ function LearningTrack() {
   return (
     <div className="">
       <Banner changeSearchInfo={changeSearchInfo} searchInfo={searchInfo} />
-      <div className="px-[1.25rem] pt-[2.5rem] mt-[-2.5rem] pb-[1.25rem] bg-[var(--neutral-off-white)] rounded-t-[2rem]">
+      <div className="px-[1.25rem] pt-[2.5rem] mt-[-2.5rem] pb-[1.25rem] bg-neutral-off-white rounded-t-[2rem]">
         <div className="mb-[1.25rem]">
           <Filter changeSearchInfo={changeSearchInfo} searchInfo={searchInfo} />
         </div>

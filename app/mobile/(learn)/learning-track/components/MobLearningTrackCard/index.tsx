@@ -37,13 +37,13 @@ const MobLearningTrackCard: React.FC<MobLearningTrackCardProps> = ({
   return (
     <div
       className={cn(
-        ' w-full  p-[1.25rem] flex flex-col gap-[1.25rem] cursor-pointer rounded-[1rem] bg-[var(--neutral-white)] overflow-hidden',
+        ' w-full  p-[1.25rem] flex flex-col gap-[1.25rem] rounded-[1rem] bg-neutral-white overflow-hidden',
         className
       )}
       onClick={goLearningTrackDetail}
     >
       <div className="flex w-full justify-between">
-        <div className="text-h6-mob h-fit w-fit px-[0.625rem] py-[0.25rem] text-[var(--neutral-off-black)] border border-[#3E3E3E] rounded-[1.25rem] ">
+        <div className="button-text-s h-fit w-fit px-[0.625rem] py-[0.25rem] text-neutral-off-black  border border-[#3E3E3E] rounded-[1.25rem] ">
           {learningTrack.track}
         </div>
         <div className="w-[3rem] h-[3rem] relative">
@@ -55,10 +55,10 @@ const MobLearningTrackCard: React.FC<MobLearningTrackCardProps> = ({
           ></Image>
         </div>
       </div>
-      <div className="w-[calc(100%-3rem)] text-[var(--neutral-off-black)] text-h4-mob line-clamp-1 mt-[-1.8rem]">
+      <div className="w-[calc(100%-3rem)] text-neutral-off-black text-h4-mob line-clamp-1 mt-[-1.8rem]">
         {learningTrack.name}
       </div>
-      <div className="text-h6-mob-m  text-[var(--neutral-medium-gray)]  line-clamp-2">
+      <div className="caption-12pt text-neutral-medium-gray  line-clamp-2">
         {learningTrack.description}
       </div>
       <div>
@@ -67,7 +67,7 @@ const MobLearningTrackCard: React.FC<MobLearningTrackCardProps> = ({
           level={learningTrack?.level as string}
           unitCount={learningTrack?.courseCount}
           type={'learning-track'}
-          className="justify-between text-h6-mob text-[var(--neutral-rich-gray)]"
+          className="justify-between button-text-s text-neutral-rich-gray"
         ></CourseTags>
       </div>
     </div>

@@ -12,7 +12,7 @@ interface BannerProp {
 const Banner: React.FC<BannerProp> = ({ changeSearchInfo, searchInfo }) => {
   const { track } = searchInfo;
   return (
-    <div className="pt-[1.5rem] pb-[5rem] bg-[var(--neutral-off-black)]">
+    <div className="pt-[1.5rem] pb-[5rem] bg-neutral-off-black">
       <div className="relative h-[0] pt-[19.1%]">
         <Image
           src={BannerImg}
@@ -21,7 +21,7 @@ const Banner: React.FC<BannerProp> = ({ changeSearchInfo, searchInfo }) => {
         ></Image>
       </div>
       <div className="px-[1.25rem] mt-[1.5rem]">
-        <div className="text-h1-mob text-[var(--neutral-white)] mb-[2.5rem]">
+        <div className="text-h1-mob text-neutral-white mb-[2.5rem]">
           LEARNING TRACKS
         </div>
         <div className="flex gap-[1rem]">
@@ -33,8 +33,8 @@ const Banner: React.FC<BannerProp> = ({ changeSearchInfo, searchInfo }) => {
               }
               className={`flex-1 py-[0.75rem] px-[1rem] rounded-[1rem]  border ${
                 track === v.value
-                  ? 'bg-[var(--yellow-primary)] border-[var(--neutral-light-gray)]'
-                  : 'border-[var(--neutral-off-white)]'
+                  ? 'bg-yellow-primary border-neutral-light-gray '
+                  : 'border-neutral-off-white'
               }`}
             >
               <div className="w-[1.5rem] h-[1.5rem] relative">
@@ -48,8 +48,8 @@ const Banner: React.FC<BannerProp> = ({ changeSearchInfo, searchInfo }) => {
               <div
                 className={`text-h5-mob mt-[0.5rem] ${
                   track === v.value
-                    ? 'text-[var(--neutral-off-black)]'
-                    : 'text-[var(--neutral-white)]'
+                    ? 'text-neutral-off-black'
+                    : 'text-neutral-white'
                 }`}
               >
                 {v.label}
