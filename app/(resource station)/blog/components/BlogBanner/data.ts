@@ -1,7 +1,7 @@
 export const searchTabData = [
   {
     label: 'All',
-    value: 'All'
+    value: ''
   },
   {
     value: 'empty'

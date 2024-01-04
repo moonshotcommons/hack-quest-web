@@ -1,14 +1,15 @@
 'use client';
-import Banner from '../Banner';
 import Loading from '@/components/v2/Common/Loading';
-import { bannerTabList } from '../../constants/data';
 import { useEffect, useState } from 'react';
-import { SearchInfoType, LanguageTab } from '../../constants/type';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import webApi from '@/service';
 import { useRequest } from 'ahooks';
-import List from '../List';
-import Filter from '../Filter';
+import { bannerTabList } from '../constants/data';
+import { LanguageTab, SearchInfoType } from '../constants/type';
+import Banner from './Banner';
+import Filter from './Filter';
+import List from './List';
+import PageRetentionTime from '@/components/Common/PageRetentionTime';
 function LearningTrack() {
   const [searchInfo, setSearchInfo] = useState<SearchInfoType>({
     track: bannerTabList[0].value,
@@ -21,12 +22,7 @@ function LearningTrack() {
     setSearchInfo({ ...info });
   };
   const { run, loading } = useRequest(async () => {
-    const param = {
-      ...searchInfo,
-      language:
-        searchInfo.language === LanguageTab.ALL ? '' : searchInfo.language
-    };
-    const list = await webApi.learningTrackApi.getLearningTracks(param);
+    const list = await webApi.learningTrackApi.getLearningTracks(searchInfo);
     setLearningTrackListData(list);
   });
 
@@ -44,6 +40,7 @@ function LearningTrack() {
           <List list={learningTrackListData} loading={loading} />
         </Loading>
       </div>
+      <PageRetentionTime trackName="home-learning-页面留存时间"></PageRetentionTime>
     </div>
   );
 }

@@ -9,6 +9,7 @@ import { LanguageTab, SearchInfoType } from '../constants/type';
 import Banner from './Banner';
 import Filter from './Filter';
 import List from './List';
+import PageRetentionTime from '@/components/Common/PageRetentionTime';
 
 function LearningTrack() {
   const [searchInfo, setSearchInfo] = useState<SearchInfoType>({
@@ -45,6 +46,7 @@ function LearningTrack() {
           <List list={learningTrackListData} loading={loading} />
         </Loading>
       </div>
+      <PageRetentionTime trackName="home-learning-页面留存时间"></PageRetentionTime>
     </div>
   );
 }

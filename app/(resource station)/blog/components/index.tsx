@@ -1,8 +1,8 @@
 'use client';
-import BlogBanner from '../BlogBanner';
-import { searchTabData, sortData } from '../BlogBanner/data';
-import BlogList from '../BlogList';
-import FeatureBlog from '../FeatureBlog';
+import BlogBanner from './BlogBanner';
+import { searchTabData, sortData } from './BlogBanner/data';
+import BlogList from './BlogList';
+import FeatureBlog from './FeatureBlog';
 import Pagination from '@/components/v2/Common/Pagination';
 import React, { useEffect, useState } from 'react';
 import {
@@ -36,17 +36,9 @@ const Blog: React.FC<BlogProp> = () => {
   };
 
   const getBlogList = () => {
-    const param = {
-      ...searchInfo,
-      category:
-        searchInfo.category === searchTabData[0].value
-          ? ''
-          : searchInfo.category
-    };
-
     return new Promise((resolve) => {
       webApi.resourceStationApi
-        .getBlog(param)
+        .getBlog(searchInfo)
         .then((res) => {
           setBlogList(res.data || []);
           setTotalList(res.total);
