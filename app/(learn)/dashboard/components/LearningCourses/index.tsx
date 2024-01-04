@@ -1,3 +1,4 @@
+'use client';
 import PageDescription from '@/components/v2/Business/PageDescription';
 import { AppRootState } from '@/store/redux';
 import { shallowEqual, useSelector } from 'react-redux';

@@ -91,7 +91,7 @@
   }
 
   .caption-12pt {
-    @apply font-Inter font-normal leading-normal text-[12px];
+    @apply font-Inter font-light leading-normal text-[12px];
   }
 
   .caption-10pt {

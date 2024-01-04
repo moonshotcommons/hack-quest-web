@@ -1,6 +1,6 @@
 import React from 'react';
-import { SearchInfoType } from '../type';
-import { filterList } from '../data';
+import { SearchInfoType } from '../../constants/type';
+import { filterList } from '../../constants/data';
 
 interface FilterProp {
   changeSearchInfo: (val: SearchInfoType) => void;

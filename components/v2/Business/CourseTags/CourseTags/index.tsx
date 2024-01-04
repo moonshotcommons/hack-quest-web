@@ -27,18 +27,16 @@ const CourseTags: FC<CourseTagsProps> = (props) => {
     duration,
     size = 'small',
     type = CourseType.GUIDED_PROJECT,
-    className
+    className = ''
   } = props;
-  const tagFont =
-    type === 'learning-track' ? 'text-[14px] text-[#0b0b0b]' : 'text-[#3E3E3E]';
   return (
     <div
       className={cn(
-        'flex gap-[20px] items-center ',
+        'flex gap-[20px] items-center text-[var(--neutral-rich-gray)]',
         `${size === 'large' ? 'gap-[40px]' : ''} ${className}`
       )}
     >
-      <Tag icon={<AltIcon />} size={size} className="tagFont">
+      <Tag icon={<AltIcon />} size={size}>
         {language}
       </Tag>
       {duration && (
@@ -48,8 +46,8 @@ const CourseTags: FC<CourseTagsProps> = (props) => {
       )}
 
       {type === 'learning-track' && (
-        <Tag icon={<CourseIcon />} size={size} className={tagFont}>
-          {unitCount + ' ' + `${unitCount > 1 ? 'Courses' : 'Course'}`}
+        <Tag icon={<CourseIcon />} size={size}>
+          {unitCount + ' ' + `${unitCount > 1 ? 'COURSES' : 'COURSE'}`}
         </Tag>
       )}
       {/* <Tag icon={<CourseIcon />} size={size} className="text-[#3E3E3E]">
@@ -61,11 +59,7 @@ const CourseTags: FC<CourseTagsProps> = (props) => {
           unitCount + ' ' + `${unitCount > 1 ? 'Courses' : 'Course'}`}
       </Tag> */}
       {type !== 'learning-track' && (
-        <CourseLevel
-          level={tagFormate(level)}
-          size={size}
-          className="text-[#3E3E3E]"
-        ></CourseLevel>
+        <CourseLevel level={tagFormate(level)} size={size}></CourseLevel>
       )}
     </div>
   );

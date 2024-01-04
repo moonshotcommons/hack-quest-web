@@ -1,3 +1,4 @@
+'use client';
 import { Menu, QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
 import PageDescription from '@/components/v2/Business/PageDescription';
 import Tab from '@/components/v2/Business/Tab';
