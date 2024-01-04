@@ -40,7 +40,7 @@ const BlogCardFooter: React.FC<FooterProp> = ({
         <BsArrowRightShort size={26} />
       </div>
       <div className={cn('border-r border-r-[#000] px-[10px]', borderColor)}>
-        {moment(blog?.createdAt).format('ll')}
+        {moment(blog?.publishDate).format('ll')}
       </div>
       <div className="pl-[10px]">{blog?.duration} min read</div>
     </div>
