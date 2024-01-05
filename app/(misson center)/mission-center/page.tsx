@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import MissionCenter from './components/MissionCenter';
+import MissionCenter from './components';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {

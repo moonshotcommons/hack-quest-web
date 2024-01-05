@@ -1,6 +1,6 @@
 'use client';
 import PageDescription from '@/components/v2/Business/PageDescription';
-import ProjectsPageBox from '@/components/v2/ProjectsBox';
+import ProjectsPageBox from '../components/ProjectsBox';
 import { BurialPoint } from '@/helper/burialPoint';
 import { useEffect, useRef, useState } from 'react';
 

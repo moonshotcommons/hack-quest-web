@@ -1,10 +1,19 @@
-'use client';
-import React from 'react';
+import { FC } from 'react';
+import Blog from './components';
+import { Metadata } from 'next';
 
-interface BlogProp {}
-
-const Blog: React.FC<BlogProp> = () => {
-  return <div>null</div>;
+export const metadata: Metadata = {
+  title: 'HackQuest Blog'
 };
 
-export default Blog;
+interface BlogPageProps {}
+
+const BlogPage: FC<BlogPageProps> = (props) => {
+  return (
+    <>
+      <Blog />
+    </>
+  );
+};
+
+export default BlogPage;

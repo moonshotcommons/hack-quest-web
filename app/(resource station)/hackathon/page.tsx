@@ -1,21 +1,19 @@
-import React from 'react';
-import HackathonBox from '@/components/v2/ResourceStation/HackathonBox';
-import FeatureProject from '@/components/v2/ResourceStation/FeaturedProject';
-import PageRetentionTime from '@/components/Common/PageRetentionTime';
+import { FC } from 'react';
 import { Metadata } from 'next';
+import HackathonPage from './components';
 
 export const metadata: Metadata = {
-  title: 'Hackathons'
+  title: 'Hackathon'
 };
 
-function Hackathon() {
+interface HackathonProps {}
+
+const Hackathon: FC<HackathonProps> = (props) => {
   return (
-    <div className="font-next-book text-home-default-color">
-      <HackathonBox />
-      <FeatureProject />
-      <PageRetentionTime trackName="hackathon-页面留存时间" />
-    </div>
+    <>
+      <HackathonPage />
+    </>
   );
-}
+};
 
 export default Hackathon;
