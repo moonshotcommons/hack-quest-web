@@ -64,7 +64,7 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
         <div className={`w-full h-full flex flex-col`}>
           {renderBreadcrumb()}
           <div className="w-full flex-1 relative">
-            <main className="absolute left-0 top-0 w-full h-full ">
+            <main className="absolute left-0 top-0 w-full h-full">
               {children}
             </main>
           </div>
