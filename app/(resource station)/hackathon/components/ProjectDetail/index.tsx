@@ -8,7 +8,7 @@ import { FC, useEffect, useMemo, useState } from 'react';
 import YouTube from 'react-youtube';
 import InfoBlock from './InfoBloack';
 import OtherProjects from './OtherProjects';
-import Loading from '@/components/v2/Common/Loading';
+import Loading from '@/components/Common/Loading';
 interface ProjectDetailProps {
   projectId: string;
 }

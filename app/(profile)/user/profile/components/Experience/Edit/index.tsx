@@ -1,4 +1,4 @@
-import Modal from '@/components/v2/Common/Modal';
+import Modal from '@/components/Common/Modal';
 import React, { useContext, useEffect, useState } from 'react';
 import { FiX, FiChevronLeft } from 'react-icons/fi';
 import List from './List';

@@ -8,7 +8,7 @@ import { LanguageTab, SearchInfoType } from '../constants/type';
 import Banner from './Banner';
 import PageRetentionTime from '@/components/Common/PageRetentionTime';
 import MobCourseFilterList from '@/components/Mobile/MobCourseFilterList';
-import { learningTrackFilters as filters } from '@/components/v2/Business/CourseFilterList/constant';
+import { learningTrackFilters as filters } from '@/components/Web/Business/CourseFilterList/constant';
 import MobLearningTrackCard from './MobLearningTrackCard';
 import { cloneDeep } from 'lodash-es';
 
@@ -43,7 +43,6 @@ function LearningTrack() {
             });
           }}
           sort={[]}
-          boxClassName="min-h-[0]"
           listClassName="gap-y-6"
           radio={true}
           filters={cloneDeep(filters)}

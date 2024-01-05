@@ -3,10 +3,10 @@ import {
   ChangeState,
   ScrollContainer,
   ScrollControl
-} from '@/components/v2/Common/ScrollContainer';
-import { menuLink } from '@/components/v2/Business/Breadcrumb/data';
-import { Menu, QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
-import ProjectCard from '@/components/v2/Business/ProjectCard';
+} from '@/components/Common/ScrollContainer';
+import { menuLink } from '@/components/Web/Business/Breadcrumb/data';
+import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
+import ProjectCard from '@/components/Web/Business/ProjectCard';
 import { BurialPoint } from '@/helper/burialPoint';
 import webApi from '@/service';
 import { ProjectType } from '@/service/webApi/resourceStation/type';

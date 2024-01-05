@@ -1,4 +1,4 @@
-import PreviewWorkspace from '@/components/v2/PreviewLessonPage/PreviewWorkspace';
+import PreviewWorkspace from '@/components/Web/PreviewLessonPage/PreviewWorkspace';
 import type { NextPage } from 'next';
 
 interface IProps {}

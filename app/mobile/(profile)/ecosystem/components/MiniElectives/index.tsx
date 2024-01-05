@@ -6,7 +6,7 @@ import {
   ElectiveCourseType
 } from '@/service/webApi/elective/type';
 import { useParams } from 'next/navigation';
-import Loading from '@/components/v2/Common/Loading';
+import Loading from '@/components/Common/Loading';
 import MiniElectiveCard from '../MiniElectiveCard';
 
 interface MiniElectivesProp {}

@@ -1,8 +1,8 @@
 'use client';
-import User from '@/components/v2/User';
+import User from '@/components/Web/User';
 import { Inter } from 'next/font/google';
 import React, { useContext, useEffect } from 'react';
-import Breadcrumb from '@/components/v2/Business/Breadcrumb';
+import Breadcrumb from '@/components/Web/Business/Breadcrumb';
 import NavBar from '@/components/Layout/Navbar';
 import { navbarList } from '@/components/Layout/Navbar/data';
 import { NavbarContext } from '@/components/Provider/Navbar';

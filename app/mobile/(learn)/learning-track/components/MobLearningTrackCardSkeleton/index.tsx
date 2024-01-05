@@ -1,4 +1,4 @@
-import Skeleton from '@/components/v2/Business/Skeleton';
+import Skeleton from '@/components/Web/Business/Skeleton';
 import { FC, ReactNode } from 'react';
 import { FaRegImage } from 'react-icons/fa6';
 

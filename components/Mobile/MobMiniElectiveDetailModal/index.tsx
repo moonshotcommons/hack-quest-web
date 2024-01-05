@@ -1,4 +1,4 @@
-import Button from '@/components/v2/Common/Button';
+import Button from '@/components/Common/Button';
 import { cn, errorMessage } from '@/helper/utils';
 import Image from 'next/image';
 import { forwardRef, useImperativeHandle, useState } from 'react';
@@ -6,7 +6,7 @@ import { HiArrowLeft } from 'react-icons/hi2';
 import { CompleteStateType } from '@/service/webApi/course/type';
 import webApi from '@/service';
 import { useRequest } from 'ahooks';
-import Loading from '@/components/v2/Common/Loading';
+import Loading from '@/components/Common/Loading';
 import {
   ElectiveCourseDetailType,
   ElectiveCourseType,
@@ -16,10 +16,10 @@ import Logo from '@/public/images/logo/logo.svg';
 import { GoCheck } from 'react-icons/go';
 import { FiLock } from 'react-icons/fi';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
-import { QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
+import { QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import { useGetLessonLink } from '@/hooks/useCoursesHooks/useGetLessonLink';
 import { useRedirect } from '@/hooks/useRedirect';
-import { MenuLink } from '@/components/v2/Layout/Navbar/type';
+import { MenuLink } from '@/components/Web/Layout/Navbar/type';
 import Tags from '@/components/Common/Tags';
 import { HiCodeBracket } from 'react-icons/hi2';
 

@@ -4,8 +4,8 @@ import { useRequest } from 'ahooks';
 import webApi from '@/service';
 
 import { FC } from 'react';
-import Loading from '@/components/v2/Common/Loading';
-import Pagination from '@/components/v2/Common/Pagination';
+import Loading from '@/components/Common/Loading';
+import Pagination from '@/components/Common/Pagination';
 import {
   HackathonStatusType,
   HackathonType

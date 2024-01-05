@@ -2,7 +2,7 @@ import {
   CustomComponent,
   NotionComponent,
   NotionType
-} from '@/components/v2/Business/Renderer/type';
+} from '@/components/Web/Business/Renderer/type';
 import { FC } from 'react';
 
 import BulletedListItemRenderer from './NotionRender/BulletedListItem';

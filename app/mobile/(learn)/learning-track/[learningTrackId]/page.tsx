@@ -1,7 +1,7 @@
 'use client';
 
-import Loading from '@/components/v2/Common/Loading';
-import LearningTrackDetail from '@/components/v2/DetailPage/LearningTrackDetail';
+import Loading from '@/components/Common/Loading';
+import LearningTrackDetail from '@/components/Web/DetailPage/LearningTrackDetail';
 import { useGetLearningTrackDetail } from '@/hooks/useLearningTrackHooks/useLearningTrackDetail';
 import type { NextPage } from 'next';
 interface IProps {}

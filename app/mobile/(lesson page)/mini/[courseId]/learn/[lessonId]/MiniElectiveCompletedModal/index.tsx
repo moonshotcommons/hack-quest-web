@@ -1,4 +1,4 @@
-import Button from '@/components/v2/Common/Button';
+import Button from '@/components/Common/Button';
 import { forwardRef, useImperativeHandle, useState } from 'react';
 import BottomImage from './bottom.png';
 interface MiniElectiveCompletedModalProps {}

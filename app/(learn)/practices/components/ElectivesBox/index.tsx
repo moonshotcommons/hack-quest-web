@@ -1,12 +1,12 @@
 import SearchFilter, {
   dealFilterParam
-} from '@/components/v2/Business/SearchFilter';
-import { FilterDataType } from '@/components/v2/Business/SearchFilter/type';
+} from '@/components/Web/Business/SearchFilter';
+import { FilterDataType } from '@/components/Web/Business/SearchFilter/type';
 import { deepClone } from '@/helper/utils';
 import webApi from '@/service';
 import { ProjectCourseType } from '@/service/webApi/course/type';
 import React, { useEffect, useRef, useState } from 'react';
-import Loading from '@/components/v2/Common/Loading';
+import Loading from '@/components/Common/Loading';
 import CourseList from './CourseList';
 import { filterData, initPageInfo } from './data';
 

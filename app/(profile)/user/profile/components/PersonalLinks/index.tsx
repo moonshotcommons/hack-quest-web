@@ -2,12 +2,12 @@ import { FC, useContext, useMemo, useRef } from 'react';
 import { ProfileContext } from '../../constants/type';
 import { getThirdPartyMedia, thirdPartyMedia } from '@/helper/thirdPartyMedia';
 import { RiShareBoxLine } from 'react-icons/ri';
-import Button from '@/components/v2/Common/Button';
+import Button from '@/components/Common/Button';
 import PersonalLinkEditModal, {
   PersonalLinkEditModalRef
 } from './PersonalLinkEditModal';
-import HoverIcon from '@/components/v2/Business/HoverIcon';
-import { IconType } from '@/components/v2/Business/HoverIcon/type';
+import HoverIcon from '@/components/Web/Business/HoverIcon';
+import { IconType } from '@/components/Web/Business/HoverIcon/type';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import Link from 'next/link';

@@ -1,7 +1,7 @@
 'use client';
 import { useRef, useState } from 'react';
 import MobCourseListPageHeader from '@/components/Mobile/MobCourseListPageHeader';
-import { CourseFilterListType } from '@/components/v2/Business/CourseFilterList';
+import { CourseFilterListType } from '@/components/Web/Business/CourseFilterList';
 import webApi from '@/service';
 // import CourseFilterListSearch from '../CourseFilterListSearch';
 // import CourseFilterListDefault from '../CourseFilterListDefault';

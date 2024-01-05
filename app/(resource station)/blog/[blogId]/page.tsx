@@ -7,7 +7,7 @@ import { BurialPoint } from '@/helper/burialPoint';
 import { useParams } from 'next/navigation';
 import { useRequest } from 'ahooks';
 import webApi from '@/service';
-import Loading from '@/components/v2/Common/Loading';
+import Loading from '@/components/Common/Loading';
 import { BlogDetailType } from '@/service/webApi/resourceStation/type';
 
 interface BlogDetailProp {}

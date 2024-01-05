@@ -1,5 +1,5 @@
 'use client';
-import Loading from '@/components/v2/Common/Loading';
+import Loading from '@/components/Common/Loading';
 import webApi from '@/service';
 import { ProjectCourseType, ProcessType } from '@/service/webApi/course/type';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
@@ -7,12 +7,12 @@ import { useEffect, useState } from 'react';
 import LearningTrackList from './LearningTrackList';
 import NoData from './NoData';
 import { courseTab } from './data';
-import Tab from '@/components/v2/Business/Tab';
-import { TabListType } from '@/components/v2/Business/Tab/type';
-import CourseSlider from '@/components/v2/Business/CourseSlider';
-import PracticeCard from '@/components/v2/Business/PracticeCard';
+import Tab from '@/components/Web/Business/Tab';
+import { TabListType } from '@/components/Web/Business/Tab/type';
+import CourseSlider from '@/components/Web/Business/CourseSlider';
+import PracticeCard from '@/components/Web/Business/PracticeCard';
 import { ElectiveCourseType } from '@/service/webApi/elective/type';
-import ElectiveCard from '@/components/v2/Business/ElectiveCard';
+import ElectiveCard from '@/components/Web/Business/ElectiveCard';
 
 function MyCourses() {
   const [curTab, setCurTab] = useState<ProcessType>(ProcessType.IN_PROCESS);

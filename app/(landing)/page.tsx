@@ -1,6 +1,6 @@
-import JoinUs from '@/components/v2/Landing/JoinUs';
-import HackQuestInfo from '@/components/v2/Landing/HackQuestInfo';
-import HomeBanner from '@/components/v2/Landing/HomeBanner';
+import JoinUs from './components/JoinUs';
+import HackQuestInfo from './components/HackQuestInfo';
+import HomeBanner from './components/HomeBanner';
 import { NextPage } from 'next';
 import PageRetentionTime from '@/components/Common/PageRetentionTime';
 

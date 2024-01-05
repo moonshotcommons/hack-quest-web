@@ -2,7 +2,7 @@
 import React, { useMemo } from 'react';
 import { BlogDetailType } from '@/service/webApi/resourceStation/type';
 import ComponentRender from '../components/ComponentRender';
-import { CustomComponent } from '@/components/v2/Business/Renderer/type';
+import { CustomComponent } from '@/components/Web/Business/Renderer/type';
 
 interface BlogContentProp {
   blog: BlogDetailType;

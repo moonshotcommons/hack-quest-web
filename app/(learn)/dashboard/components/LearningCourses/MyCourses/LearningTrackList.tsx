@@ -1,6 +1,6 @@
 import React from 'react';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
-import LearningTrackCard from '@/components/v2/Business/LearningTrackCardNew';
+import LearningTrackCard from '@/components/Web/Business/LearningTrackCardNew';
 interface LearningTrackListProps {
   list: LearningTrackDetailType[];
 }

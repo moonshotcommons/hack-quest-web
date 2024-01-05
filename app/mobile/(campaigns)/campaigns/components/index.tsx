@@ -1,7 +1,7 @@
 'use client';
 import CertificationModal, {
   CertificationModalInstance
-} from '@/components/v2/Business/Certification/CertificationModal';
+} from '@/components/Web/Business/Certification/CertificationModal';
 import { BurialPoint } from '@/helper/burialPoint';
 import Loading from '@/public/images/other/loading.png';
 import webApi from '@/service';

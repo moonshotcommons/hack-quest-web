@@ -1,5 +1,5 @@
-import LearningTrackCard from '@/components/v2/Business/LearningTrackCardNew';
-import LearningTrackCardSkeleton from '@/components/v2/Business/LearningTrackCardSkeleton';
+import LearningTrackCard from '@/components/Web/Business/LearningTrackCardNew';
+import LearningTrackCardSkeleton from '@/components/Web/Business/LearningTrackCardSkeleton';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import React from 'react';
 

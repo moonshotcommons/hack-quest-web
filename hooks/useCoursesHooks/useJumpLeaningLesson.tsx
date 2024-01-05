@@ -1,4 +1,4 @@
-import { QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
+import { QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import { getLessonLink } from '@/helper/utils';
 import webApi from '@/service';
 import {

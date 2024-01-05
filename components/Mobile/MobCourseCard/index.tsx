@@ -1,5 +1,5 @@
-import Button from '@/components/v2/Common/Button';
-import CheckIcon from '@/components/v2/Common/Icon/Check';
+import Button from '@/components/Common/Button';
+import CheckIcon from '@/components/Common/Icon/Check';
 import { BurialPoint } from '@/helper/burialPoint';
 import { computeProgress, tagFormate } from '@/helper/formate';
 import { cn } from '@/helper/utils';
@@ -13,9 +13,9 @@ import { Progress, Typography } from 'antd';
 import Image from 'next/image';
 import { FC, useCallback, useRef } from 'react';
 import { styled } from 'styled-components';
-import { Menu, QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
-import CourseTags from '@/components/v2/Business/CourseTags';
-import { menuLink } from '@/components/v2/Business/Breadcrumb/data';
+import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
+import CourseTags from '@/components/Web/Business/CourseTags';
+import { menuLink } from '@/components/Web/Business/Breadcrumb/data';
 import { useRedirect } from '@/hooks/useRedirect';
 import MiniElectiveDetailModal, {
   MiniElectiveDetailModalRef
@@ -142,7 +142,7 @@ const MobCourseCard: FC<CourseCardProps> = (props) => {
                 process.env.NODE_ENV === 'development'
                   ? ''
                   : process.env.NEXT_PUBLIC_ASSET_PREFIX_FOR_CHINA ?? ''
-              }/images/v2/course/course_cover/${course.type}.svg`}
+              }/images/Web/course/course_cover/${course.type}.svg`}
               fill
               alt="course"
               className="object-contain"

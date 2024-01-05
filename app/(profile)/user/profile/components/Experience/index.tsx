@@ -1,9 +1,9 @@
-import Button from '@/components/v2/Common/Button';
+import Button from '@/components/Common/Button';
 import { FC, useContext, useEffect, useState } from 'react';
 import Box from '../components/Box';
 import Add from '../components/Add';
-import { IconType } from '@/components/v2/Business/HoverIcon/type';
-import HoverIcon from '@/components/v2/Business/HoverIcon';
+import { IconType } from '@/components/Web/Business/HoverIcon/type';
+import HoverIcon from '@/components/Web/Business/HoverIcon';
 import Edit from './Edit';
 import { ProfileContext } from '../../constants/type';
 import { UserExperienceType } from '@/service/webApi/user/type';

@@ -1,4 +1,4 @@
-import ProjectCard from '@/components/v2/Business/ProjectCard';
+import ProjectCard from '@/components/Web/Business/ProjectCard';
 import { ProjectType } from '@/service/webApi/resourceStation/type';
 import React from 'react';
 

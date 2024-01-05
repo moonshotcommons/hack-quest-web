@@ -1,7 +1,7 @@
-import { menuLink } from '@/components/v2/Business/Breadcrumb/data';
-import { Menu, QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
-import ProjectCard from '@/components/v2/Business/ProjectCard';
-import Pagination from '@/components/v2/Common/Pagination';
+import { menuLink } from '@/components/Web/Business/Breadcrumb/data';
+import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
+import ProjectCard from '@/components/Web/Business/ProjectCard';
+import Pagination from '@/components/Common/Pagination';
 import { errorMessage } from '@/helper/utils';
 import webApi from '@/service';
 import { ProjectType } from '@/service/webApi/resourceStation/type';

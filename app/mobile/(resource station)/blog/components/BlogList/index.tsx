@@ -1,4 +1,4 @@
-import BlogCard from '@/components/v2/Business/BlogCard';
+import BlogCard from '@/components/Web/Business/BlogCard';
 import { BlogType } from '@/service/webApi/resourceStation/type';
 import React from 'react';
 

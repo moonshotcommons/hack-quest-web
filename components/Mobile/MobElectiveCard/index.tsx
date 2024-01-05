@@ -1,4 +1,4 @@
-import Button from '@/components/v2/Common/Button';
+import Button from '@/components/Common/Button';
 import { BurialPoint } from '@/helper/burialPoint';
 import { cn } from '@/helper/utils';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
@@ -6,14 +6,14 @@ import { CourseType } from '@/service/webApi/course/type';
 import { Progress } from 'antd';
 import { FC, useCallback, useRef } from 'react';
 import { styled } from 'styled-components';
-import { Menu, QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
-import { Tag } from '@/components/v2/Business/CourseTags';
-import { menuLink } from '@/components/v2/Business/Breadcrumb/data';
+import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
+import { Tag } from '@/components/Web/Business/CourseTags';
+import { menuLink } from '@/components/Web/Business/Breadcrumb/data';
 import { useRedirect } from '@/hooks/useRedirect';
 import MobMiniElectiveDetailModal, {
   MiniElectiveDetailModalRef
 } from '../MobMiniElectiveDetailModal';
-import AltIcon from '@/components/v2/Common/Icon/AltIcon';
+import AltIcon from '@/components/Common/Icon/AltIcon';
 import { ElectiveCourseType } from '@/service/webApi/elective/type';
 
 interface ElectiveCardProps {

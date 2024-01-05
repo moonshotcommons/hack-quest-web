@@ -4,8 +4,8 @@ import {
   courseDefaultFilters as filters,
   mergeFilterParams,
   courseDefaultSort as sort
-} from '@/components/v2/Business/CourseFilterList/constant';
-import { FilterParamsType } from '@/components/v2/Business/CourseFilterList/type';
+} from '@/components/Web/Business/CourseFilterList/constant';
+import { FilterParamsType } from '@/components/Web/Business/CourseFilterList/type';
 import { errorMessage } from '@/helper/utils';
 import webApi from '@/service';
 import { ElectiveCourseType } from '@/service/webApi/elective/type';

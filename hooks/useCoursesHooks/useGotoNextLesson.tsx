@@ -1,4 +1,4 @@
-import { CompleteModalInstance } from '@/components/v2/Business/CompleteModal';
+import { CompleteModalInstance } from '@/components/Web/Business/CompleteModal';
 import { BurialPoint } from '@/helper/burialPoint';
 import webApi from '@/service';
 import { CourseLessonType, CourseType } from '@/service/webApi/course/type';

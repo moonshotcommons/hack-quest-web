@@ -2,9 +2,9 @@ import { BurialPoint } from '@/helper/burialPoint';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
 import { ProjectCourseType } from '@/service/webApi/course/type';
 import { FC } from 'react';
-import { Menu, QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
-import CourseTags from '@/components/v2/Business/CourseTags';
-import { menuLink } from '@/components/v2/Business/Breadcrumb/data';
+import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
+import CourseTags from '@/components/Web/Business/CourseTags';
+import { menuLink } from '@/components/Web/Business/Breadcrumb/data';
 import { useRedirect } from '@/hooks/useRedirect';
 
 interface PracticeCardProps {

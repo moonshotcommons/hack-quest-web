@@ -1,4 +1,4 @@
-import Button from '@/components/v2/Common/Button';
+import Button from '@/components/Common/Button';
 import React, { useContext, useMemo } from 'react';
 import IconHack from '@/public/images/mission-center/icon_hack.png';
 import TargetCard from '../component/TargetCard';

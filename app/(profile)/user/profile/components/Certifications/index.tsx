@@ -1,14 +1,14 @@
 import { FC, useContext, useEffect, useRef, useState } from 'react';
 import { ProfileContext } from '../../constants/type';
 
-import Button from '@/components/v2/Common/Button';
+import Button from '@/components/Common/Button';
 
 import { Typography } from 'antd';
 import Image from 'next/image';
 import Link from 'next/link';
 import CertificationModal, {
   CertificationModalInstance
-} from '@/components/v2/Business/Certification/CertificationModal';
+} from '@/components/Web/Business/Certification/CertificationModal';
 import { CertificationType } from '@/service/webApi/campaigns/type';
 import { cn, errorMessage } from '@/helper/utils';
 import { useMintCertification } from '@/hooks/useMintCertification';

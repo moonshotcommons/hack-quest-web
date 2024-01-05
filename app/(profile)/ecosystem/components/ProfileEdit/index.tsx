@@ -5,7 +5,7 @@ import { useRequest } from 'ahooks';
 import webApi from '@/service';
 import { EcosystemProfileType } from '@/service/webApi/elective/type';
 import { useParams } from 'next/navigation';
-import Loading from '@/components/v2/Common/Loading';
+import Loading from '@/components/Common/Loading';
 
 interface ProfileEditProps {}
 

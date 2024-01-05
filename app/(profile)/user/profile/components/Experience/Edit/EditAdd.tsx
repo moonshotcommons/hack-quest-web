@@ -1,10 +1,10 @@
-import Button from '@/components/v2/Common/Button';
-import Input from '@/components/v2/Common/Input';
-import Select from '@/components/v2/Common/Select';
+import Button from '@/components/Common/Button';
+import Input from '@/components/Common/Input';
+import Select from '@/components/Common/Select';
 import React, { useEffect, useState } from 'react';
 import { employmentTypeList, monthList, yearList } from './data';
-import Checkbox from '@/components/v2/Common/Checkbox';
-import TextArea from '@/components/v2/Common/TextArea';
+import Checkbox from '@/components/Common/Checkbox';
+import TextArea from '@/components/Common/TextArea';
 import { deepClone } from '@/helper/utils';
 import webApi from '@/service';
 import { message } from 'antd';

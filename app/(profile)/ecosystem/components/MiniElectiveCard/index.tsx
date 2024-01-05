@@ -1,16 +1,16 @@
 import React, { useRef, MouseEvent } from 'react';
 import Image from 'next/image';
 import ElectiveTag from '../ElectiveTag';
-import Button from '@/components/v2/Common/Button';
+import Button from '@/components/Common/Button';
 import {
   EcosystemElectiveType,
   ElectiveCourseType
 } from '@/service/webApi/elective/type';
 import MiniElectiveDetailModal, {
   MiniElectiveDetailModalRef
-} from '@/components/v2/Business/MiniElectiveDetailModal';
+} from '@/components/Web/Business/MiniElectiveDetailModal';
 import { BurialPoint } from '@/helper/burialPoint';
-import { QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
+import { QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
 interface MiniElectiveCardProp {
   elective: EcosystemElectiveType & ElectiveCourseType;

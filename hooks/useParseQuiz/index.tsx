@@ -1,4 +1,7 @@
-import { CodeLineType, LineType } from '@/components/v2/Business/Renderer/type';
+import {
+  CodeLineType,
+  LineType
+} from '@/components/Web/Business/Renderer/type';
 import { reservedWords } from '@/constants/solidity';
 import { changeTextareaHeight } from '@/helper/utils';
 import { ReactNode, useEffect, useMemo, useState } from 'react';

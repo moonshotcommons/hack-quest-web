@@ -1,12 +1,12 @@
 'use client';
-import BlogCard from '@/components/v2/Business/BlogCard';
-import Loading from '@/components/v2/Common/Loading';
+import BlogCard from '@/components/Web/Business/BlogCard';
+import Loading from '@/components/Common/Loading';
 import {
   ChangeState,
   ScrollContainer,
   ScrollControl
-} from '@/components/v2/Common/ScrollContainer';
-import { MenuLink } from '@/components/v2/Layout/Navbar/type';
+} from '@/components/Common/ScrollContainer';
+import { MenuLink } from '@/components/Web/Layout/Navbar/type';
 import { BurialPoint } from '@/helper/burialPoint';
 import webApi from '@/service';
 import { BlogType } from '@/service/webApi/resourceStation/type';

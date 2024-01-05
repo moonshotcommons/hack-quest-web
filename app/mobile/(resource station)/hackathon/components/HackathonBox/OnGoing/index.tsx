@@ -7,7 +7,7 @@ import {
 import { useRequest } from 'ahooks';
 import webApi from '@/service';
 import { message } from 'antd';
-import Loading from '@/components/v2/Common/Loading';
+import Loading from '@/components/Common/Loading';
 import NoData from './NoData';
 
 interface OnGoingProp {

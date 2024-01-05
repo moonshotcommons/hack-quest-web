@@ -2,7 +2,7 @@ import { FC, useMemo } from 'react';
 
 import ComponentRenderer from '../../';
 import TextRenderer from '../TextRenderer';
-import { NotionRenderType } from '@/components/v2/Business/NotionRender/type';
+import { NotionRenderType } from '@/components/Web/Business/NotionRender/type';
 
 interface NumberListItemRendererProps {
   component: any;

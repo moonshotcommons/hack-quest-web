@@ -6,7 +6,7 @@ import { UserTreasuresType } from '@/service/webApi/missionCenter/type';
 import { BurialPoint } from '@/helper/burialPoint';
 import TreasureModal, {
   TreasureModalRef
-} from '@/components/v2/Business/TreasureModal';
+} from '@/components/Web/Business/TreasureModal';
 import Loading from '@/public/images/other/loading.png';
 
 interface TreasuresProp {
