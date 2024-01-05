@@ -7,6 +7,7 @@ import { mergeFilterParams } from './constant';
 import FilterButton from './FilterButton';
 import FilterModal, { FilterModalRef } from './FilterModal';
 import Loading from '@/components/v2/Common/Loading';
+import { cn } from '@/helper/utils';
 // import CourseCardSkeleton from '../CourseCardSkeleton';
 
 export enum MobCourseFilterListType {
@@ -15,7 +16,7 @@ export enum MobCourseFilterListType {
 }
 
 interface MobCourseFilterListProps<T extends CourseBaseType> {
-  title: string;
+  title?: string;
   filters: FilterItemType[];
   sort: FilterOptionType[];
   radio?: boolean;
@@ -23,6 +24,8 @@ interface MobCourseFilterListProps<T extends CourseBaseType> {
   courseList: T[];
   loading?: boolean;
   onFilterParamsUpdate: (filterParams: FilterParamsType) => void;
+  boxClassName?: string;
+  listClassName?: string;
 }
 
 const MobCourseFilterList = <T extends CourseBaseType>({
@@ -33,7 +36,9 @@ const MobCourseFilterList = <T extends CourseBaseType>({
   sort: propSort,
   onFilterParamsUpdate,
   loading,
-  radio = false
+  radio = false,
+  boxClassName = '',
+  listClassName = ''
 }: MobCourseFilterListProps<T>) => {
   const [filters, setFilters] = useState(propFilters);
   const [sort, setSort] = useState(propSort);
@@ -58,9 +63,14 @@ const MobCourseFilterList = <T extends CourseBaseType>({
 
       {/* <CourseCardSkeleton.List></CourseCardSkeleton.List> */}
       <Loading loading={!!loading}>
-        <div className="w-full h-fit min-h-[600px]">
+        <div className={cn('w-full h-fit min-h-[600px]', boxClassName)}>
           {/* {!!courseList?.length && ( */}
-          <div className="flex-1 flex flex-wrap gap-x-6 gap-y-8  pb-[20px] h-full">
+          <div
+            className={cn(
+              'flex-1 flex flex-wrap gap-x-6 gap-y-8  pb-[20px] h-full',
+              listClassName
+            )}
+          >
             {courseList?.map((course, index) => {
               return (
                 <div key={course.id + index} className="w-full">
