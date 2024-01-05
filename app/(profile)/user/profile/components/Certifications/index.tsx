@@ -8,7 +8,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import CertificationModal, {
   CertificationModalInstance
-} from '@/components/v2/Business/Certification/CertificationModal';
+} from '@/components/Web/Business/Certification/CertificationModal';
 import { CertificationType } from '@/service/webApi/campaigns/type';
 import { cn, errorMessage } from '@/helper/utils';
 import { useMintCertification } from '@/hooks/useMintCertification';

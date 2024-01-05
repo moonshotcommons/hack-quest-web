@@ -1,7 +1,7 @@
 import SearchFilter, {
   dealFilterParam
-} from '@/components/v2/Business/SearchFilter';
-import { FilterDataType } from '@/components/v2/Business/SearchFilter/type';
+} from '@/components/Web/Business/SearchFilter';
+import { FilterDataType } from '@/components/Web/Business/SearchFilter/type';
 import { deepClone } from '@/helper/utils';
 import webApi from '@/service';
 import { ProjectType } from '@/service/webApi/resourceStation/type';

@@ -1,10 +1,10 @@
 'use client';
 import { useRef, useState } from 'react';
-import CourseListPageHeader from '@/components/v2/Business/CourseListPageHeader';
-import CourseSlider from '@/components/v2/Business/CourseSlider';
-import { CourseFilterListType } from '@/components/v2/Business/CourseFilterList';
+import CourseListPageHeader from '@/components/Web/Business/CourseListPageHeader';
+import CourseSlider from '@/components/Web/Business/CourseSlider';
+import { CourseFilterListType } from '@/components/Web/Business/CourseFilterList';
 import webApi from '@/service';
-import ElectiveCard from '@/components/v2/Business/ElectiveCard';
+import ElectiveCard from '@/components/Web/Business/ElectiveCard';
 import { ElectiveCourseType } from '@/service/webApi/elective/type';
 import CourseFilterListSearch from '../CourseFilterListSearch';
 import CourseFilterListDefault from '../CourseFilterListDefault';

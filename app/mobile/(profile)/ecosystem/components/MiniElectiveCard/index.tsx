@@ -8,9 +8,9 @@ import {
 } from '@/service/webApi/elective/type';
 import MiniElectiveDetailModal, {
   MiniElectiveDetailModalRef
-} from '@/components/v2/Business/MiniElectiveDetailModal';
+} from '@/components/Web/Business/MiniElectiveDetailModal';
 import { BurialPoint } from '@/helper/burialPoint';
-import { QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
+import { QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
 interface MiniElectiveCardProp {
   elective: EcosystemElectiveType & ElectiveCourseType;

@@ -6,9 +6,9 @@ import { CourseType } from '@/service/webApi/course/type';
 import { Progress } from 'antd';
 import { FC, useCallback, useRef } from 'react';
 import { styled } from 'styled-components';
-import { Menu, QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
-import { Tag } from '@/components/v2/Business/CourseTags';
-import { menuLink } from '@/components/v2/Business/Breadcrumb/data';
+import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
+import { Tag } from '@/components/Web/Business/CourseTags';
+import { menuLink } from '@/components/Web/Business/Breadcrumb/data';
 import { useRedirect } from '@/hooks/useRedirect';
 import MobMiniElectiveDetailModal, {
   MiniElectiveDetailModalRef

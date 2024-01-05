@@ -1,5 +1,5 @@
-import HoverIcon from '@/components/v2/Business/HoverIcon';
-import { IconType } from '@/components/v2/Business/HoverIcon/type';
+import HoverIcon from '@/components/Web/Business/HoverIcon';
+import { IconType } from '@/components/Web/Business/HoverIcon/type';
 import ImageCrop, { ImageCropRef } from '@/components/Common/ImageCrop';
 import { cn, errorMessage } from '@/helper/utils';
 import webApi from '@/service';

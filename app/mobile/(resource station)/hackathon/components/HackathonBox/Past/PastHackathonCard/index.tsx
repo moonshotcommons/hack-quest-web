@@ -3,8 +3,8 @@ import { FC } from 'react';
 import moment from 'moment';
 import { HackathonType } from '@/service/webApi/resourceStation/type';
 import Link from 'next/link';
-import { menuLink } from '@/components/v2/Business/Breadcrumb/data';
-import { Menu, QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
+import { menuLink } from '@/components/Web/Business/Breadcrumb/data';
+import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import { Typography } from 'antd';
 
 interface PastHackathonCardProps {

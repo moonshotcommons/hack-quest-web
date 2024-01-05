@@ -2,7 +2,7 @@
 import { FC, useEffect } from 'react';
 import { useRequest } from 'ahooks';
 import { useSearchParams } from 'next/navigation';
-import { QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
+import { QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import webApi from '@/service';
 import Loading from '@/components/Common/Loading';
 import { HackathonType } from '@/service/webApi/resourceStation/type';

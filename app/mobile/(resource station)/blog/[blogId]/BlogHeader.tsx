@@ -1,5 +1,5 @@
 'use client';
-import BlogCardFooter from '@/components/v2/Business/BlogCard/BlogCardFooter';
+import BlogCardFooter from '@/components/Web/Business/BlogCard/BlogCardFooter';
 import { BurialPoint } from '@/helper/burialPoint';
 import { BlogDetailType } from '@/service/webApi/resourceStation/type';
 import { useRouter } from 'next/navigation';

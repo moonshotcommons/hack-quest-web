@@ -1,11 +1,11 @@
 'use client';
 import { useRef, useState } from 'react';
-import CourseListPageHeader from '@/components/v2/Business/CourseListPageHeader';
+import CourseListPageHeader from '@/components/Web/Business/CourseListPageHeader';
 import Image from 'next/image';
-import CourseSlider from '@/components/v2/Business/CourseSlider';
-import { CourseFilterListType } from '@/components/v2/Business/CourseFilterList';
+import CourseSlider from '@/components/Web/Business/CourseSlider';
+import { CourseFilterListType } from '@/components/Web/Business/CourseFilterList';
 import webApi from '@/service';
-import PracticeCard from '@/components/v2/Business/PracticeCard';
+import PracticeCard from '@/components/Web/Business/PracticeCard';
 import { ProjectCourseType } from '@/service/webApi/course/type';
 import CourseFilterListSearch from '../CourseFilterListSearch';
 import CourseFilterListDefault from '../CourseFilterListDefault';

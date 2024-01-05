@@ -1,6 +1,6 @@
-import AvatarUpload from '@/components/v2/Business/AvatarUpload';
-import HoverIcon from '@/components/v2/Business/HoverIcon';
-import { IconType } from '@/components/v2/Business/HoverIcon/type';
+import AvatarUpload from '@/components/Web/Business/AvatarUpload';
+import HoverIcon from '@/components/Web/Business/HoverIcon';
+import { IconType } from '@/components/Web/Business/HoverIcon/type';
 import { cn } from '@/helper/utils';
 import { FC, useContext, useRef, useState } from 'react';
 import { ProfileContext } from '../../../constants/type';

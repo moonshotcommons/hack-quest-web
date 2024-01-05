@@ -6,10 +6,10 @@ import { FC, useContext, useEffect, useMemo, useState } from 'react';
 import {
   NotionComponent,
   NotionType
-} from '@/components/v2/Business/Renderer/type';
-import { LessonContentContext } from '@/components/v2/LessonPage/LessonContent';
+} from '@/components/Web/Business/Renderer/type';
+import { LessonContentContext } from '@/components/Web/LessonPage/LessonContent';
 import TextRenderer from '../TextRenderer';
-import { NotionRenderType } from '@/components/v2/Business/NotionRender/type';
+import { NotionRenderType } from '@/components/Web/Business/NotionRender/type';
 
 type HeaderLevel =
   | NotionRenderType.H1

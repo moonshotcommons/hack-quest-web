@@ -1,8 +1,8 @@
 'use client';
-import { Menu, QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
-import PageDescription from '@/components/v2/Business/PageDescription';
-import Tab from '@/components/v2/Business/Tab';
-import { TabListType } from '@/components/v2/Business/Tab/type';
+import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
+import PageDescription from '@/components/Web/Business/PageDescription';
+import Tab from '@/components/Web/Business/Tab';
+import { TabListType } from '@/components/Web/Business/Tab/type';
 import { BurialPoint } from '@/helper/burialPoint';
 import { HackathonStatusType } from '@/service/webApi/resourceStation/type';
 import { useState } from 'react';
@@ -10,7 +10,7 @@ import OnGoing from './OnGoing';
 import Past from './Past';
 import { hackathonTab } from './data';
 import { useRedirect } from '@/hooks/useRedirect';
-import { MenuLink } from '@/components/v2/Layout/Navbar/type';
+import { MenuLink } from '@/components/Web/Layout/Navbar/type';
 
 function HackathonBox() {
   const { redirectToUrl } = useRedirect();

@@ -1,4 +1,4 @@
-import Tag from '@/components/v2/Business/CourseTags/tag';
+import Tag from '@/components/Web/Business/CourseTags/tag';
 import ClockIcon from '@/components/Common/Icon/Clock';
 import React from 'react';
 import { EcosystemElectiveType } from '@/service/webApi/elective/type';

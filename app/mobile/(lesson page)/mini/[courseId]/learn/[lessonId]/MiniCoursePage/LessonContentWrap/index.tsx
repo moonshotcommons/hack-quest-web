@@ -15,11 +15,11 @@ import { useGetLessonLink } from '@/hooks/useCoursesHooks/useGetLessonLink';
 import { useRequest } from 'ahooks';
 import JSConfetti from 'js-confetti';
 import { useRedirect } from '@/hooks/useRedirect';
-import { RendererContext } from '@/components/v2/Business/Renderer/context';
+import { RendererContext } from '@/components/Web/Business/Renderer/context';
 // import MiniElectiveCompletedModal, {
 //   MiniElectiveCompletedModalRef
 // } from '../../MiniElectiveCompletedModal';
-import { CustomType } from '@/components/v2/Business/Renderer/type';
+import { CustomType } from '@/components/Web/Business/Renderer/type';
 import Button from '@/components/Common/Button';
 import { BsArrowLeft, BsArrowRight } from 'react-icons/bs';
 

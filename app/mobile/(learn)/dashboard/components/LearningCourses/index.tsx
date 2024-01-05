@@ -1,7 +1,7 @@
-import PageDescription from '@/components/v2/Business/PageDescription';
+import PageDescription from '@/components/Web/Business/PageDescription';
 import { AppRootState } from '@/store/redux';
 import { shallowEqual, useSelector } from 'react-redux';
-import InviteCodeCard from '@/components/v2/Business/InviteCodeCard';
+import InviteCodeCard from '@/components/Web/Business/InviteCodeCard';
 import MyCourses from './MyCourses';
 
 function LearningCourses() {

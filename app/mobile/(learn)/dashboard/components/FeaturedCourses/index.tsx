@@ -10,7 +10,7 @@ import { useRequest } from 'ahooks';
 import Link from 'next/link';
 import { FC, useState } from 'react';
 import { LuChevronRight } from 'react-icons/lu';
-import CourseCard from '@/components/v2/Business/CourseCard';
+import CourseCard from '@/components/Web/Business/CourseCard';
 
 interface FeatureCoursesProps {}
 

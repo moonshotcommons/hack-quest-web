@@ -11,7 +11,7 @@ import {
   ScrollControl
 } from '@/components/Common/ScrollContainer';
 
-import PracticeCard from '@/components/v2/Business/PracticeCard';
+import PracticeCard from '@/components/Web/Business/PracticeCard';
 import { cn } from '@/helper/utils';
 
 const CourseList: React.FC<CourseListType> = ({ list, curTab, title }) => {

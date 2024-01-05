@@ -1,8 +1,8 @@
-import BlogCardFooter from '@/components/v2/Business/BlogCard/BlogCardFooter';
+import BlogCardFooter from '@/components/Web/Business/BlogCard/BlogCardFooter';
 import React from 'react';
 import Image from 'next/image';
 import { BlogType } from '@/service/webApi/resourceStation/type';
-import { MenuLink } from '@/components/v2/Layout/Navbar/type';
+import { MenuLink } from '@/components/Web/Layout/Navbar/type';
 import { useRedirect } from '@/hooks/useRedirect';
 import { BurialPoint } from '@/helper/burialPoint';
 

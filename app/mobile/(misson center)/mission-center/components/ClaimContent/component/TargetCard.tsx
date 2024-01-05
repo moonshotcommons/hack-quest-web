@@ -8,11 +8,11 @@ import LeftArrowIcon from '@/components/Common/Icon/LeftArrow';
 import { BurialPoint } from '@/helper/burialPoint';
 import { RewardsCardType } from '../BeginnerRewards/data';
 import webApi from '@/service';
-import PopBox from '@/components/v2/Business/InviteCodeCard/PopBox';
+import PopBox from '@/components/Web/Business/InviteCodeCard/PopBox';
 import {
   ShareWrap,
   shareList
-} from '@/components/v2/Business/InviteCodeCard/constant';
+} from '@/components/Web/Business/InviteCodeCard/constant';
 import { useGetUserInfo } from '@/hooks/useGetUserInfo';
 import { useRedirect } from '@/hooks/useRedirect';
 import { MissionCenterContext } from '../../../constants/type';

@@ -1,5 +1,5 @@
-import { menuLink } from '@/components/v2/Business/Breadcrumb/data';
-import { Menu, QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
+import { menuLink } from '@/components/Web/Business/Breadcrumb/data';
+import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import Button from '@/components/Common/Button';
 import { useRedirect } from '@/hooks/useRedirect';
 interface NoDataType {
