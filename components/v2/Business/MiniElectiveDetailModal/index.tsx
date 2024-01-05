@@ -7,7 +7,6 @@ import { forwardRef, useImperativeHandle, useState } from 'react';
 import { CompleteStateType } from '@/service/webApi/course/type';
 import webApi from '@/service';
 import { useRequest } from 'ahooks';
-import Loading from '../../Common/Loading';
 import {
   ElectiveCourseDetailType,
   ElectiveCourseType,
@@ -24,6 +23,7 @@ import { QueryIdType } from '../Breadcrumb/type';
 import { useGetLessonLink } from '@/hooks/useCoursesHooks/useGetLessonLink';
 import { useRedirect } from '@/hooks/useRedirect';
 import { MenuLink } from '../../Layout/Navbar/type';
+import Loading from '@/components/v2/Common/Loading';
 interface MiniElectiveDetailModalProps {}
 
 export interface MiniElectiveDetailModalRef {
