@@ -11,7 +11,7 @@ import {
   useRef,
   useState
 } from 'react';
-import PassIcon from '@/components/v2/Common/Icon/Pass';
+import PassIcon from '@/components/Common/Icon/Pass';
 
 interface InputProps {
   name: string;

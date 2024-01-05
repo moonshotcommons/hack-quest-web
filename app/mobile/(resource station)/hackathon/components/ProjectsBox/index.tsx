@@ -10,7 +10,7 @@ import { useSearchParams } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react';
 import ProjectsList from './ProjectsList';
 import { filterData, initPageInfo } from './data';
-import Loading from '@/components/v2/Common/Loading';
+import Loading from '@/components/Common/Loading';
 
 interface PageInfoType {
   page: number;

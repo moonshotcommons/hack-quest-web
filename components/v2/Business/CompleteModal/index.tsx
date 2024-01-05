@@ -1,5 +1,5 @@
-import Button from '@/components/v2/Common/Button';
-import Modal from '@/components/v2/Common/Modal';
+import Button from '@/components/Common/Button';
+import Modal from '@/components/Common/Modal';
 import { Theme } from '@/constants/enum';
 import Congrats from '@/public/images/course/congrats.svg';
 import DarkMoonLeft from '@/public/images/other/dark-moon_left.svg';

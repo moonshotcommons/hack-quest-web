@@ -1,7 +1,7 @@
 import React, { useRef, MouseEvent } from 'react';
 import Image from 'next/image';
 import ElectiveTag from '../ElectiveTag';
-import Button from '@/components/v2/Common/Button';
+import Button from '@/components/Common/Button';
 import {
   EcosystemElectiveType,
   ElectiveCourseType

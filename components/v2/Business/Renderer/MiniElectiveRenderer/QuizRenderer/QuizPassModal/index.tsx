@@ -1,4 +1,4 @@
-import Modal from '@/components/v2/Common/Modal';
+import Modal from '@/components/Common/Modal';
 import Image from 'next/image';
 import { FC } from 'react';
 import PassImage from './pass.svg';

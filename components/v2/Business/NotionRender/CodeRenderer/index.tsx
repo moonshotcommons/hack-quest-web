@@ -1,4 +1,4 @@
-import CopyIcon from '@/components/v2/Common/Icon/Copy';
+import CopyIcon from '@/components/Common/Icon/Copy';
 import { ExampleContext } from '@/components/v2/Business/Renderer/ComponentRenderer/ExampleRenderer';
 import { PlaygroundContext } from '@/components/v2/LessonPage/Playground/type';
 import { Theme } from '@/constants/enum';

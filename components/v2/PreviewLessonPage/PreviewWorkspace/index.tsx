@@ -1,5 +1,5 @@
 'use client';
-import Button from '@/components/v2/Common/Button';
+import Button from '@/components/Common/Button';
 import { useRedirect } from '@/hooks/useRedirect';
 import { Input, message } from 'antd';
 import axios from 'axios';

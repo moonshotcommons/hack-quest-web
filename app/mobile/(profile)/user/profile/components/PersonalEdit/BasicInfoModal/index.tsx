@@ -1,6 +1,6 @@
-import Button from '@/components/v2/Common/Button';
-import Input from '@/components/v2/Common/Input';
-import Modal from '@/components/v2/Common/Modal';
+import Button from '@/components/Common/Button';
+import Input from '@/components/Common/Input';
+import Modal from '@/components/Common/Modal';
 import { errorMessage } from '@/helper/utils';
 import webApi from '@/service';
 import { useRequest } from 'ahooks';

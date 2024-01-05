@@ -1,6 +1,6 @@
 import { FC, useContext, useEffect, useMemo, useState } from 'react';
 import { ProfileContext } from '../../constants/type';
-import Button from '@/components/v2/Common/Button';
+import Button from '@/components/Common/Button';
 import { useConnect } from 'wagmi';
 import HoverIcon from '@/components/v2/Business/HoverIcon';
 import { IconType } from '@/components/v2/Business/HoverIcon/type';

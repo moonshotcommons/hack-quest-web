@@ -1,6 +1,6 @@
 'use client';
 import { FC, useMemo, useState } from 'react';
-import Button from '@/components/v2/Common/Button';
+import Button from '@/components/Common/Button';
 import { VscAdd } from 'react-icons/vsc';
 import { ShareWrap, shareList } from './constant';
 import { message } from 'antd';

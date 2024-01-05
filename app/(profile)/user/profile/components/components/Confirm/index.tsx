@@ -1,5 +1,5 @@
-import Modal from '@/components/v2/Common/Modal';
-import Button from '@/components/v2/Common/Button';
+import Modal from '@/components/Common/Modal';
+import Button from '@/components/Common/Button';
 import { FiX } from 'react-icons/fi';
 import { ReactNode } from 'react';
 

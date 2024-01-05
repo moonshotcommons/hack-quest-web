@@ -1,5 +1,5 @@
 'use client';
-import Loading from '@/components/v2/Common/Loading';
+import Loading from '@/components/Common/Loading';
 import { useEffect, useState } from 'react';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import webApi from '@/service';

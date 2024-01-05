@@ -6,7 +6,7 @@ import {
   LessonContent,
   NotionComponent
 } from '@/components/v2/Business/Renderer/type';
-import Button from '@/components/v2/Common/Button';
+import Button from '@/components/Common/Button';
 import { ExpandDataType, useLessonExpand } from '@/hooks/useLessonExpand';
 import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
 import {

@@ -1,4 +1,4 @@
-import Button from '@/components/v2/Common/Button';
+import Button from '@/components/Common/Button';
 import CourseTags from '@/components/v2/Business/CourseTags';
 import { tagFormate } from '@/helper/formate';
 import { CourseDetailType, CourseType } from '@/service/webApi/course/type';

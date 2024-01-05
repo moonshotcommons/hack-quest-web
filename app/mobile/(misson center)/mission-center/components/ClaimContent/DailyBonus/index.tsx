@@ -10,11 +10,11 @@ import Flag from '@/public/images/mission-center/flag.png';
 import Qmark from '@/public/images/mission-center/q_mark.png';
 import Mperson from '@/public/images/mission-center/m_person.png';
 import Image from 'next/image';
-import Button from '@/components/v2/Common/Button';
+import Button from '@/components/Common/Button';
 import {
   ChangeState,
   ScrollContainer
-} from '@/components/v2/Common/ScrollContainer';
+} from '@/components/Common/ScrollContainer';
 import ScrollControl from './ScrollControl';
 import { TabContentType } from '../../../constants/type';
 

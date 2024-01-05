@@ -1,6 +1,6 @@
 import { menuLink } from '@/components/v2/Business/Breadcrumb/data';
 import { Menu, QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
-import Button from '@/components/v2/Common/Button';
+import Button from '@/components/Common/Button';
 import { useRedirect } from '@/hooks/useRedirect';
 interface NoDataType {
   goPast: VoidFunction;

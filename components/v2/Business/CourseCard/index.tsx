@@ -1,5 +1,5 @@
-import Button from '@/components/v2/Common/Button';
-import CheckIcon from '@/components/v2/Common/Icon/Check';
+import Button from '@/components/Common/Button';
+import CheckIcon from '@/components/Common/Icon/Check';
 import { BurialPoint } from '@/helper/burialPoint';
 import { computeProgress, tagFormate } from '@/helper/formate';
 import { cn } from '@/helper/utils';

@@ -43,7 +43,6 @@ function LearningTrack() {
             });
           }}
           sort={[]}
-          boxClassName="min-h-[0]"
           listClassName="gap-y-6"
           radio={true}
           filters={cloneDeep(filters)}

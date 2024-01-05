@@ -1,5 +1,5 @@
-import Checkbox from '@/components/v2/Common/Checkbox';
-import Radio from '@/components/v2/Common/Radio';
+import Checkbox from '@/components/Common/Checkbox';
+import Radio from '@/components/Common/Radio';
 import React from 'react';
 import { ALL, ParamType, FilterDataType, FilterType } from './type';
 import { deepClone } from '@/helper/utils';

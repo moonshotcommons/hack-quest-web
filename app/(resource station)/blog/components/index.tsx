@@ -3,14 +3,14 @@ import BlogBanner from './BlogBanner';
 import { searchTabData, sortData } from './BlogBanner/data';
 import BlogList from './BlogList';
 import FeatureBlog from './FeatureBlog';
-import Pagination from '@/components/v2/Common/Pagination';
+import Pagination from '@/components/Common/Pagination';
 import React, { useEffect, useState } from 'react';
 import {
   BlogSearchType,
   BlogType
 } from '@/service/webApi/resourceStation/type';
 import webApi from '@/service';
-import Loading from '@/components/v2/Common/Loading';
+import Loading from '@/components/Common/Loading';
 import PageRetentionTime from '@/components/Common/PageRetentionTime';
 
 interface BlogProp {}

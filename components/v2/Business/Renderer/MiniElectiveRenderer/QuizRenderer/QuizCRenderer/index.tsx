@@ -3,7 +3,7 @@ import { FC, useContext, useEffect, useState } from 'react';
 // import { QuizContext } from '..';
 
 import TextRenderer from '@/components/v2/Business/NotionRender/TextRenderer';
-import Button from '@/components/v2/Common/Button';
+import Button from '@/components/Common/Button';
 import { cn } from '@/helper/utils';
 import { RendererContext } from '@/components/v2/Business/Renderer/context';
 import ComponentRenderer from '@/components/v2/Business/Renderer/MiniElectiveRenderer';

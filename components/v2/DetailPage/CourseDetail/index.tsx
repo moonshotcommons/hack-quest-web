@@ -1,7 +1,7 @@
 import { CourseDetailType } from '@/service/webApi/course/type';
 import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 
-import Button from '@/components/v2/Common/Button';
+import Button from '@/components/Common/Button';
 import { BurialPoint } from '@/helper/burialPoint';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
 import webApi from '@/service';

@@ -1,5 +1,5 @@
-import Button from '@/components/v2/Common/Button';
-import Modal from '@/components/v2/Common/Modal';
+import Button from '@/components/Common/Button';
+import Modal from '@/components/Common/Modal';
 import { Form, message } from 'antd';
 import {
   forwardRef,

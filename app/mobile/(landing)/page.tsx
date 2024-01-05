@@ -1,7 +1,7 @@
 'use client';
-import JoinUs from '@/components/v2/Landing/JoinUs';
-import HackQuestInfo from '@/components/v2/Landing/HackQuestInfo';
-import HomeBanner from '@/components/v2/Landing/HomeBanner';
+import JoinUs from '@/app/(landing)/components/JoinUs';
+import HackQuestInfo from '@/app/(landing)/components/HackQuestInfo';
+import HomeBanner from '@/app/(landing)/components/HomeBanner';
 import { BurialPoint } from '@/helper/burialPoint';
 import { NextPage } from 'next';
 import { useEffect } from 'react';

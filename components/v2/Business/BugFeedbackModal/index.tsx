@@ -1,6 +1,6 @@
 import { forwardRef, useImperativeHandle, useRef, useState } from 'react';
-import Modal from '../../Common/Modal';
-import Button from '../../Common/Button';
+import Modal from '@/components/Common/Modal';
+import Button from '@/components/Common/Button';
 import { cn } from '@/helper/utils';
 import {
   Checkbox,

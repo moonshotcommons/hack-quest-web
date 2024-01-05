@@ -20,7 +20,7 @@ import { RendererContext } from '@/components/v2/Business/Renderer/context';
 //   MiniElectiveCompletedModalRef
 // } from '../../MiniElectiveCompletedModal';
 import { CustomType } from '@/components/v2/Business/Renderer/type';
-import Button from '@/components/v2/Common/Button';
+import Button from '@/components/Common/Button';
 import { BsArrowLeft, BsArrowRight } from 'react-icons/bs';
 
 interface LessonContentWrapProps {

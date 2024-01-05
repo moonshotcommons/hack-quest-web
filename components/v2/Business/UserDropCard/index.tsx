@@ -1,6 +1,6 @@
 import ProfileIcon from '@/components/Common/Icon/Profile';
-import SettingIcon from '@/components/v2/Common/Icon/Setting';
-import SignOutIcon from '@/components/v2/Common/Icon/SignOut';
+import SettingIcon from '@/components/Common/Icon/Setting';
+import SignOutIcon from '@/components/Common/Icon/SignOut';
 import { BurialPoint } from '@/helper/burialPoint';
 import { useRedirect } from '@/hooks/useRedirect';
 import ArrowUp from '@/public/images/user/arrow_up.png';

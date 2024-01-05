@@ -2,7 +2,7 @@ import {
   ChangeState,
   ScrollContainer,
   ScrollControl
-} from '@/components/v2/Common/ScrollContainer';
+} from '@/components/Common/ScrollContainer';
 import { BurialPoint } from '@/helper/burialPoint';
 import webApi from '@/service';
 import { ProjectCourseType } from '@/service/webApi/course/type';

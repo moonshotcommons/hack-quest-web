@@ -1,4 +1,4 @@
-import Modal from '@/components/v2/Common/Modal';
+import Modal from '@/components/Common/Modal';
 import { forwardRef, useImperativeHandle, useState } from 'react';
 import { FilterItemType, FilterOptionType } from './type';
 import { cloneDeep } from 'lodash-es';

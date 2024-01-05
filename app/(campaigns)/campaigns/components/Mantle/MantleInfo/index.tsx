@@ -1,7 +1,7 @@
 import CertificationModal, {
   CertificationModalInstance
 } from '@/components/v2/Business/Certification/CertificationModal';
-import Button from '@/components/v2/Common/Button';
+import Button from '@/components/Common/Button';
 import { BurialPoint } from '@/helper/burialPoint';
 import Certificate from '@/public/images/campaigns/certificate.png';
 import iconCoin from '@/public/images/mission-center/icon_coin.png';

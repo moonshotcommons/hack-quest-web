@@ -6,7 +6,7 @@ import { FilterItemType, FilterOptionType, FilterParamsType } from './type';
 import { mergeFilterParams } from './constant';
 import FilterButton from './FilterButton';
 import FilterModal, { FilterModalRef } from './FilterModal';
-import Loading from '@/components/v2/Common/Loading';
+import Loading from '@/components/Common/Loading';
 import { cn } from '@/helper/utils';
 // import CourseCardSkeleton from '../CourseCardSkeleton';
 
@@ -24,7 +24,6 @@ interface MobCourseFilterListProps<T extends CourseBaseType> {
   courseList: T[];
   loading?: boolean;
   onFilterParamsUpdate: (filterParams: FilterParamsType) => void;
-  boxClassName?: string;
   listClassName?: string;
 }
 
@@ -37,7 +36,6 @@ const MobCourseFilterList = <T extends CourseBaseType>({
   onFilterParamsUpdate,
   loading,
   radio = false,
-  boxClassName = '',
   listClassName = ''
 }: MobCourseFilterListProps<T>) => {
   const [filters, setFilters] = useState(propFilters);
@@ -63,11 +61,11 @@ const MobCourseFilterList = <T extends CourseBaseType>({
 
       {/* <CourseCardSkeleton.List></CourseCardSkeleton.List> */}
       <Loading loading={!!loading}>
-        <div className={cn('w-full h-fit min-h-[600px]', boxClassName)}>
+        <div className={cn('w-full h-fit min-h-[15rem]')}>
           {/* {!!courseList?.length && ( */}
           <div
             className={cn(
-              'flex-1 flex flex-wrap gap-x-6 gap-y-8  pb-[20px] h-full',
+              'flex flex-col gap-y-[1.25rem] pb-[1.25rem] h-full',
               listClassName
             )}
           >

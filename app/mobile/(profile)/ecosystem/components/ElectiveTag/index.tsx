@@ -1,5 +1,5 @@
 import Tag from '@/components/v2/Business/CourseTags/tag';
-import ClockIcon from '@/components/v2/Common/Icon/Clock';
+import ClockIcon from '@/components/Common/Icon/Clock';
 import React from 'react';
 import { EcosystemElectiveType } from '@/service/webApi/elective/type';
 import { computeTime } from '@/helper/formate';

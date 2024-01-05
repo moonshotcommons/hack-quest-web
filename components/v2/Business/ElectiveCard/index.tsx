@@ -1,4 +1,4 @@
-import Button from '@/components/v2/Common/Button';
+import Button from '@/components/Common/Button';
 import { BurialPoint } from '@/helper/burialPoint';
 import { cn } from '@/helper/utils';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
@@ -14,7 +14,7 @@ import { useRedirect } from '@/hooks/useRedirect';
 import MiniElectiveDetailModal, {
   MiniElectiveDetailModalRef
 } from '../MiniElectiveDetailModal';
-import AltIcon from '@/components/v2/Common/Icon/AltIcon';
+import AltIcon from '@/components/Common/Icon/AltIcon';
 import { ElectiveCourseType } from '@/service/webApi/elective/type';
 
 interface ElectiveCardProps {

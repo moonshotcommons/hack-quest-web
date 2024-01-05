@@ -1,5 +1,5 @@
 'use client';
-import Loading from '@/components/v2/Common/Loading';
+import Loading from '@/components/Common/Loading';
 import CourseDetail from '@/components/v2/DetailPage/CourseDetail';
 import webApi from '@/service';
 import { CourseDetailType } from '@/service/webApi/course/type';

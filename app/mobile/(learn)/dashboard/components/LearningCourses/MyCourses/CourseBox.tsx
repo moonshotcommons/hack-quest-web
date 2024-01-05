@@ -9,7 +9,7 @@ import {
   ChangeState,
   ScrollContainer,
   ScrollControl
-} from '@/components/v2/Common/ScrollContainer';
+} from '@/components/Common/ScrollContainer';
 
 import PracticeCard from '@/components/v2/Business/PracticeCard';
 import { cn } from '@/helper/utils';

@@ -1,5 +1,5 @@
 'use client';
-import { ChangeState } from '@/components/v2/Common/ScrollContainer';
+import { ChangeState } from '@/components/Common/ScrollContainer';
 import { BurialPoint, BurialPointType } from '@/helper/burialPoint';
 import { cn } from '@/helper/utils';
 import React, { useEffect, useRef, useState } from 'react';

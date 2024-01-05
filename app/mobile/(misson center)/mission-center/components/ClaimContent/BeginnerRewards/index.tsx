@@ -1,4 +1,4 @@
-import Button from '@/components/v2/Common/Button';
+import Button from '@/components/Common/Button';
 import { MissionSubType } from '@/service/webApi/missionCenter/type';
 import React, { useContext, useMemo } from 'react';
 

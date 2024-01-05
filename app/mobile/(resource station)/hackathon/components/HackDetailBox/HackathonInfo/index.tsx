@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
-import Button from '@/components/v2/Common/Button';
+import Button from '@/components/Common/Button';
 import {
   HackathonStatusType,
   HackathonType

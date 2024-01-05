@@ -1,4 +1,4 @@
-import Button from '@/components/v2/Common/Button';
+import Button from '@/components/Common/Button';
 import { cn, errorMessage } from '@/helper/utils';
 import Image from 'next/image';
 import { forwardRef, useImperativeHandle, useState } from 'react';
@@ -6,7 +6,7 @@ import { HiArrowLeft } from 'react-icons/hi2';
 import { CompleteStateType } from '@/service/webApi/course/type';
 import webApi from '@/service';
 import { useRequest } from 'ahooks';
-import Loading from '@/components/v2/Common/Loading';
+import Loading from '@/components/Common/Loading';
 import {
   ElectiveCourseDetailType,
   ElectiveCourseType,

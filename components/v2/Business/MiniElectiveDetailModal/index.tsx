@@ -1,5 +1,5 @@
-import Button from '@/components/v2/Common/Button';
-import Modal from '@/components/v2/Common/Modal';
+import Button from '@/components/Common/Button';
+import Modal from '@/components/Common/Modal';
 import { cn, errorMessage } from '@/helper/utils';
 import Image from 'next/image';
 import { forwardRef, useImperativeHandle, useState } from 'react';
@@ -14,7 +14,7 @@ import {
 } from '@/service/webApi/elective/type';
 import Logo from '@/public/images/logo/logo.svg';
 import Tag from '../CourseTags/tag';
-import ClockIcon from '../../Common/Icon/Clock';
+import ClockIcon from '@/components/Common/Icon/Clock';
 import { computeTime } from '@/helper/formate';
 import { GoCheck } from 'react-icons/go';
 import { FiLock } from 'react-icons/fi';
@@ -23,7 +23,7 @@ import { QueryIdType } from '../Breadcrumb/type';
 import { useGetLessonLink } from '@/hooks/useCoursesHooks/useGetLessonLink';
 import { useRedirect } from '@/hooks/useRedirect';
 import { MenuLink } from '../../Layout/Navbar/type';
-import Loading from '@/components/v2/Common/Loading';
+import Loading from '@/components/Common/Loading';
 interface MiniElectiveDetailModalProps {}
 
 export interface MiniElectiveDetailModalRef {

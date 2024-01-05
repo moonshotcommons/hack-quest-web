@@ -1,5 +1,5 @@
 import { MantleContext } from '@/app/(campaigns)/campaigns/constants/type';
-import Button from '@/components/v2/Common/Button';
+import Button from '@/components/Common/Button';
 import { cn, errorMessage } from '@/helper/utils';
 import webApi from '@/service';
 import { useRequest } from 'ahooks';

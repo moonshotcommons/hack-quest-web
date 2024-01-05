@@ -1,6 +1,6 @@
-import EmailFillIcon from '@/components/v2/Common/Icon/EmailFill';
-import UserFillIcon from '@/components/v2/Common/Icon/UserFill';
-import Modal from '@/components/v2/Common/Modal';
+import EmailFillIcon from '@/components/Common/Icon/EmailFill';
+import UserFillIcon from '@/components/Common/Icon/UserFill';
+import Modal from '@/components/Common/Modal';
 import { BurialPoint } from '@/helper/burialPoint';
 import { useGetUserInfo } from '@/hooks/useGetUserInfo';
 import { AppRootState } from '@/store/redux';

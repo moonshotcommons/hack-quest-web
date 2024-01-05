@@ -1,6 +1,6 @@
 import React, { HTMLAttributes, ReactNode } from 'react';
 
-import Tooltip, { TooltipProps } from '@/components/v2/Common/Tooltip';
+import Tooltip, { TooltipProps } from '@/components/Common/Tooltip';
 import { cn } from '@/helper/utils';
 import { hoverIcons } from './data';
 import { IconType } from './type';

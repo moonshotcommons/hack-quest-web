@@ -4,7 +4,7 @@ import { useRequest } from 'ahooks';
 import { useSearchParams } from 'next/navigation';
 import { QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
 import webApi from '@/service';
-import Loading from '@/components/v2/Common/Loading';
+import Loading from '@/components/Common/Loading';
 import { HackathonType } from '@/service/webApi/resourceStation/type';
 import { BurialPoint } from '@/helper/burialPoint';
 import About from '../HackDetailBox/About';

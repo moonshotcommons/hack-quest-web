@@ -6,7 +6,7 @@ import { deepClone } from '@/helper/utils';
 import webApi from '@/service';
 import { ProjectCourseType } from '@/service/webApi/course/type';
 import React, { useEffect, useRef, useState } from 'react';
-import Loading from '../Common/Loading';
+import Loading from '@/components/Common/Loading';
 import CourseList from './CourseList';
 import { filterData, initPageInfo } from './data';
 

@@ -7,7 +7,7 @@ import { CourseType } from '@/service/webApi/course/type';
 import { useGetLessonContent } from '@/hooks/useCoursesHooks/useGetLessenContent';
 import { ElectiveLessonType } from '@/service/webApi/elective/type';
 import LessonContentWrap from './LessonContentWrap';
-import Loading from '@/components/v2/Common/Loading';
+import Loading from '@/components/Common/Loading';
 import ComponentRenderer from '@/components/v2/Business/Renderer/MiniElectiveRenderer';
 export interface ProgressType {
   total: number;

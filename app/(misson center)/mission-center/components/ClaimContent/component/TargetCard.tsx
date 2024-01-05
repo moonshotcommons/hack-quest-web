@@ -1,10 +1,10 @@
-import Button from '@/components/v2/Common/Button';
+import Button from '@/components/Common/Button';
 import { MissionDataType } from '@/service/webApi/missionCenter/type';
 import React, { useContext, useState } from 'react';
 import IconCoin from '@/public/images/mission-center/icon_coin.png';
 import IconXp from '@/public/images/mission-center/icon_xp.png';
 import Image from 'next/image';
-import LeftArrowIcon from '@/components/v2/Common/Icon/LeftArrow';
+import LeftArrowIcon from '@/components/Common/Icon/LeftArrow';
 import { BurialPoint } from '@/helper/burialPoint';
 import { RewardsCardType } from '../BeginnerRewards/data';
 import webApi from '@/service';

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
-import Button from '@/components/v2/Common/Button';
+import Button from '@/components/Common/Button';
 import { Menu, QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
 import { menuLink } from '@/components/v2/Business/Breadcrumb/data';
 import { HackathonType } from '@/service/webApi/resourceStation/type';

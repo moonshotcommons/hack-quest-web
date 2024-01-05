@@ -1,4 +1,4 @@
-import Button from '@/components/v2/Common/Button';
+import Button from '@/components/Common/Button';
 import webApi from '@/service';
 import { CertificationType } from '@/service/webApi/campaigns/type';
 import { useRequest } from 'ahooks';

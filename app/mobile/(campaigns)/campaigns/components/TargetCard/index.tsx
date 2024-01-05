@@ -1,4 +1,4 @@
-import Button from '@/components/v2/Common/Button';
+import Button from '@/components/Common/Button';
 import React, { useContext, useState } from 'react';
 import Image from 'next/image';
 import BIcon from '@/public/images/campaigns/b_icon.png';

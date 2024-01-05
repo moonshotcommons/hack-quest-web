@@ -1,5 +1,5 @@
-import CheckIcon from '@/components/v2/Common/Icon/Check';
-import Button from '@/components/v2/Common/Button';
+import CheckIcon from '@/components/Common/Icon/Check';
+import Button from '@/components/Common/Button';
 import { BurialPoint } from '@/helper/burialPoint';
 import { computeProgress } from '@/helper/formate';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';

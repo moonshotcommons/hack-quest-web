@@ -3,7 +3,7 @@ import { FC, useRef, useState } from 'react';
 
 import HoverIcon from '@/components/v2/Business/HoverIcon';
 import { IconType } from '@/components/v2/Business/HoverIcon/type';
-import ImageCrop, { ImageCropRef } from '@/components/v2/Common/ImageCrop';
+import ImageCrop, { ImageCropRef } from '@/components/Common/ImageCrop';
 import { cn, errorMessage } from '@/helper/utils';
 import { useGetUserInfo } from '@/hooks/useGetUserInfo';
 import webApi from '@/service';

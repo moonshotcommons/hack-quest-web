@@ -5,7 +5,7 @@ import {
   ChangeState,
   ScrollContainer,
   ScrollControl
-} from '@/components/v2/Common/ScrollContainer';
+} from '@/components/Common/ScrollContainer';
 
 import { cn } from '@/helper/utils';
 import CourseCardSkeleton from '../CourseCardSkeleton';
