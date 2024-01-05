@@ -19,7 +19,7 @@ import { menuLink } from '@/components/v2/Business/Breadcrumb/data';
 import { useRedirect } from '@/hooks/useRedirect';
 import MiniElectiveDetailModal, {
   MiniElectiveDetailModalRef
-} from '../MiniElectiveDetailModal';
+} from '../MobMiniElectiveDetailModal';
 import { ElectiveCourseType } from '@/service/webApi/elective/type';
 
 interface CourseCardProps {
@@ -48,7 +48,7 @@ const borderColor: Record<string, string> = {
   [CourseType.Mini]: 'border-[#E5F3FF]'
 };
 
-const CourseCard: FC<CourseCardProps> = (props) => {
+const MobCourseCard: FC<CourseCardProps> = (props) => {
   const {
     course,
     inProgress = false,
@@ -217,4 +217,4 @@ const CourseCard: FC<CourseCardProps> = (props) => {
   );
 };
 
-export default CourseCard;
+export default MobCourseCard;

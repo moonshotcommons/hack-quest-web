@@ -31,7 +31,7 @@ export interface MiniElectiveDetailModalRef {
   open: (course: ElectiveCourseType) => void;
 }
 
-const MiniElectiveDetailModal = forwardRef<
+const MobMiniElectiveDetailModal = forwardRef<
   MiniElectiveDetailModalRef,
   MiniElectiveDetailModalProps
 >((props, ref) => {
@@ -267,6 +267,6 @@ const MiniElectiveDetailModal = forwardRef<
   );
 });
 
-export default MiniElectiveDetailModal;
+export default MobMiniElectiveDetailModal;
 
-MiniElectiveDetailModal.displayName = 'MiniElectiveDetailModal';
+MobMiniElectiveDetailModal.displayName = 'MobMiniElectiveDetailModal';
