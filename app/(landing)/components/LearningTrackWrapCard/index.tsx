@@ -5,7 +5,7 @@ import { Typography } from 'antd';
 import Image from 'next/image';
 import { FC } from 'react';
 import CourseTags from '@/components/Web/Business/CourseTags';
-import LEARNING_TRACK_DARK from '@/public/images/Web/course/course_cover/LEARNING_TRACK_light.png';
+import LEARNING_TRACK_DARK from '@/public/images/v2/course/course_cover/LEARNING_TRACK_light.png';
 
 interface LearningTrackWrapCardProps {
   // children: ReactNode;
