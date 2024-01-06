@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 import HackathonPage from './components';
 
 export const metadata: Metadata = {
-  title: 'Hackathon'
+  title: 'Hackathons'
 };
 
 interface HackathonProps {}
