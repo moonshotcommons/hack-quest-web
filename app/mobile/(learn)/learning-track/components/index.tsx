@@ -23,10 +23,15 @@ function LearningTrack() {
   const changeSearchInfo = (info: SearchInfoType) => {
     setSearchInfo({ ...info });
   };
-  const { run: getLearningTrackList, loading } = useRequest(async (param) => {
-    const list = await webApi.learningTrackApi.getLearningTracks(param);
-    setLearningTrackListData(list);
-  });
+  const { run: getLearningTrackList, loading } = useRequest(
+    async (param) => {
+      const list = await webApi.learningTrackApi.getLearningTracks(param);
+      setLearningTrackListData(list);
+    },
+    {
+      manual: true
+    }
+  );
 
   useEffect(() => {
     getLearningTrackList(searchInfo);
@@ -37,6 +42,7 @@ function LearningTrack() {
       <div className="px-[1.25rem] pt-[1.25rem] mt-[-2.5rem] pb-[1.25rem] bg-neutral-off-white rounded-t-[2rem]">
         <MobCourseFilterList
           onFilterParamsUpdate={(params) => {
+            console.info(1111);
             getLearningTrackList({
               ...searchInfo,
               language: params.language
