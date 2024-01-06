@@ -1,5 +1,5 @@
 import React from 'react';
-import CourseCard from '@/components/v2/Business/CourseCard';
+import CourseCard from '@/components/Web/Business/CourseCard';
 import { ProjectCourseType } from '@/service/webApi/course/type';
 
 interface CourseListProps {

@@ -1,7 +1,7 @@
 'use client';
 import type { NextPage } from 'next';
 
-import MiniCoursePage from '@/components/v2/MiniCoursePage';
+import MiniCoursePage from '@/components/Web/MiniCoursePage';
 import { CourseType } from '@/service/webApi/course/type';
 import { useParams } from 'next/navigation';
 interface IProps {}

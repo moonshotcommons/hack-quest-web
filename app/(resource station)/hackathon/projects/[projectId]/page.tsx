@@ -1,8 +1,8 @@
 'use client';
-import FeatureProjects from '@/components/v2/ResourceStation/FeaturedProject';
-import ProjectDetail from '@/components/v2/ResourceStation/ProjectDetail';
 import { useParams } from 'next/navigation';
 import { FC } from 'react';
+import ProjectDetail from '../../components/ProjectDetail';
+import FeaturedProjects from '../../components/FeaturedProject';
 
 interface ProjectDetailPageProps {}
 
@@ -17,9 +17,9 @@ const ProjectDetailPage: FC<ProjectDetailPageProps> = (props) => {
         )}
       </div>
       <div className="mt-[80px]">
-        <FeatureProjects
+        <FeaturedProjects
           ignoreProjectId={projectId as string}
-        ></FeatureProjects>
+        ></FeaturedProjects>
       </div>
     </div>
   );

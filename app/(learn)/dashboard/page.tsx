@@ -1,22 +1,18 @@
-'use client';
 import LearningCourses from './components/LearningCourses';
-import React, { useEffect } from 'react';
+import React from 'react';
 
-import { BurialPoint } from '@/helper/burialPoint';
+import PageRetentionTime from '@/components/Common/PageRetentionTime';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Dashboard'
+};
 
 const DashboardPage = () => {
-  useEffect(() => {
-    const startTime = new Date().getTime();
-    return () => {
-      const endTime = new Date().getTime();
-      const duration = endTime - startTime;
-      BurialPoint.track('home-页面留存时间', { duration });
-    };
-  }, []);
-
   return (
     <div className="">
       <LearningCourses />
+      <PageRetentionTime trackName="home-页面留存时间"></PageRetentionTime>
       {/* <FeatureCourses></FeatureCourses> */}
     </div>
   );

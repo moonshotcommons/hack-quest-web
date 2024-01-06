@@ -1,6 +1,6 @@
 'use client';
 import type { NextPage } from 'next';
-import PreviewLesson from '@/components/v2/PreviewLessonPage';
+import PreviewLesson from '@/components/Web/PreviewLessonPage';
 import { useSearchParams } from 'next/navigation';
 
 interface IProps {}
