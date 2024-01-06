@@ -1,11 +1,11 @@
-import CourseFilterList from '@/components/v2/Business/CourseFilterList';
+import CourseFilterList from '@/components/Web/Business/CourseFilterList';
 import {
   courseDefaultFilters as filters,
   mergeFilterParams,
   courseDefaultSort as sort
-} from '@/components/v2/Business/CourseFilterList/constant';
-import { FilterParamsType } from '@/components/v2/Business/CourseFilterList/type';
-import ElectiveCard from '@/components/v2/Business/ElectiveCard';
+} from '@/components/Web/Business/CourseFilterList/constant';
+import { FilterParamsType } from '@/components/Web/Business/CourseFilterList/type';
+import ElectiveCard from '@/components/Web/Business/ElectiveCard';
 import { errorMessage } from '@/helper/utils';
 import webApi from '@/service';
 import { ElectiveCourseType } from '@/service/webApi/elective/type';

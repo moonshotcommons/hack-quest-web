@@ -1,4 +1,4 @@
-import { TabItem } from '@/components/v2/Common/Tab';
+import { TabItem } from '@/components/Common/Tab';
 import { CourseType } from '@/service/webApi/course/type';
 import { tomorrowNightBright } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 

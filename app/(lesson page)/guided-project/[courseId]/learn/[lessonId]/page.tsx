@@ -2,7 +2,7 @@
 import { CourseType } from '@/service/webApi/course/type';
 import type { NextPage } from 'next';
 
-import LessonPage from '@/components/v2/LessonPage';
+import LessonPage from '@/components/Web/LessonPage';
 import { useParams } from 'next/navigation';
 
 interface IProps {}

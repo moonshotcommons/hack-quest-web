@@ -2,7 +2,7 @@ import {
   ChangeState,
   ScrollContainer,
   ScrollControl
-} from '@/components/v2/Common/ScrollContainer';
+} from '@/components/Common/ScrollContainer';
 import { BurialPoint } from '@/helper/burialPoint';
 import webApi from '@/service';
 import { ProjectCourseType } from '@/service/webApi/course/type';
@@ -10,7 +10,7 @@ import { useRequest } from 'ahooks';
 import Link from 'next/link';
 import { FC, useState } from 'react';
 import { LuChevronRight } from 'react-icons/lu';
-import CourseCard from '@/components/v2/Business/CourseCard';
+import CourseCard from '@/components/Web/Business/CourseCard';
 
 interface FeatureCoursesProps {}
 

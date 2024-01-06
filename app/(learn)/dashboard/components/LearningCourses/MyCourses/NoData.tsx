@@ -1,4 +1,4 @@
-import Button from '@/components/v2/Common/Button';
+import Button from '@/components/Common/Button';
 import { useRedirect } from '@/hooks/useRedirect';
 import { ProcessType } from '@/service/webApi/course/type';
 interface NoDataType {

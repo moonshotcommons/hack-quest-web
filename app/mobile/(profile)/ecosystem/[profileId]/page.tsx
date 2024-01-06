@@ -1,28 +1,19 @@
-'use client';
-import MiniElectives from '@/components/v2/Profile/MiniElectives';
-import ProfileEdit from '@/components/v2/Profile/ProfileEdit';
-import { BurialPoint } from '@/helper/burialPoint';
-import React, { useEffect } from 'react';
+import { FC } from 'react';
+import { Metadata } from 'next';
+import ProfileId from '../components/ProfileId';
 
-interface ProfileProp {}
+export const metadata: Metadata = {
+  title: 'Ecosystem Profile'
+};
 
-const Profile: React.FC<ProfileProp> = () => {
-  useEffect(() => {
-    const startTime = new Date().getTime();
-    return () => {
-      const endTime = new Date().getTime();
-      const duration = endTime - startTime;
-      BurialPoint.track('ecosystem-profile-页面留存时间', {
-        duration
-      });
-    };
-  }, []);
+interface MissionCenterPageProps {}
+
+const MissionCenterPage: FC<MissionCenterPageProps> = (props) => {
   return (
-    <div className="container mx-auto flex flex-col gap-[60px] py-[40px] font-next-book text-[16px] text-[#0b0b0b]">
-      <ProfileEdit />
-      <MiniElectives />
-    </div>
+    <>
+      <ProfileId />
+    </>
   );
 };
 
-export default Profile;
+export default MissionCenterPage;

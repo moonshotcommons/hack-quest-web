@@ -1,4 +1,4 @@
-import { CustomComponent } from '@/components/v2/Business/Renderer/type';
+import { CustomComponent } from '@/components/Web/Business/Renderer/type';
 
 export enum HackathonStatusType {
   ON_GOING = 'ongoing',

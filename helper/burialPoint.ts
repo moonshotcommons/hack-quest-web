@@ -86,6 +86,7 @@ type HomeBurialPointType =
   | 'home-course卡片resume按钮点击'
   | 'home-course卡片Continue按钮点击'
   | 'home-course卡片View Syllabus按钮点击'
+  | 'home-learning-页面留存时间'
   | 'home-learning track卡片View Syllabus按钮点击'
   | 'home-learning track卡片Enroll按钮点击'
   | 'home-learning track卡片resume按钮点击'
