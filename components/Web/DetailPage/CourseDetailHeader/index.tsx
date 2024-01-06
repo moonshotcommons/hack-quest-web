@@ -50,6 +50,7 @@ const CourseDetailHeader: FC<CourseDetailHeaderProps> = (props) => {
           {learningStatus === LearningStatus.IN_PROGRESS && (
             <div className="mt-[22px]">
               <CourseTags
+                language={courseDetail.language}
                 level={courseDetail.level as string}
                 unitCount={itemCount}
                 duration={courseDetail.duration}
