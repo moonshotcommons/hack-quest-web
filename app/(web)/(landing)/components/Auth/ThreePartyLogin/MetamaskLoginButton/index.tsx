@@ -1,5 +1,5 @@
 import Button from '@/components/Common/Button';
-import TipsModal from '@/app/(landing)/components/TipsModal';
+import TipsModal from '@/app/(web)/(landing)/components/TipsModal';
 import { BurialPoint } from '@/helper/burialPoint';
 import { setToken } from '@/helper/user-token';
 import { errorMessage } from '@/helper/utils';

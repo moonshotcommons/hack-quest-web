@@ -19,7 +19,7 @@ import { message } from 'antd';
 import { omit } from 'lodash-es';
 import { useDispatch } from 'react-redux';
 import useIsPc from '@/hooks/useIsPc';
-import TipsModal from '@/app/(landing)/components/TipsModal';
+import TipsModal from '@/app/(web)/(landing)/components/TipsModal';
 import { useRedirect } from '@/hooks/useRedirect';
 import { useSearchParams } from 'next/navigation';
 

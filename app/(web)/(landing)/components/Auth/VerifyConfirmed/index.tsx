@@ -12,7 +12,7 @@ import Google from '@/public/images/login/google.svg';
 import Github from '@/public/images/login/github.svg';
 import Image from 'next/image';
 import { AuthType } from '@/service/webApi/user/type';
-import TipsModal from '@/app/(landing)/components/TipsModal';
+import TipsModal from '@/app/(web)/(landing)/components/TipsModal';
 import useIsPc from '@/hooks/useIsPc';
 import { useRedirect } from '@/hooks/useRedirect';
 
