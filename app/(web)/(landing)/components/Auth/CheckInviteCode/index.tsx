@@ -10,7 +10,7 @@ import { message } from 'antd';
 import { FC, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useGetUserUnLoginType } from '@/hooks/useGetUserInfo';
-import ContractUs from '@/app/(landing)/components/ContractUs';
+import ContractUs from '@/app/(web)/(landing)/components/ContractUs';
 import { AuthType } from '@/service/webApi/user/type';
 import { setUserInfo } from '@/store/redux/modules/user';
 import { setToken } from '@/helper/user-token';

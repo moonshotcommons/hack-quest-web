@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import MetamaskLoginButton from './MetamaskLoginButton';
 import useIsPc from '@/hooks/useIsPc';
-import TipsModal from '@/app/(landing)/components/TipsModal';
+import TipsModal from '@/app/(web)/(landing)/components/TipsModal';
 
 function ThreePartyLogin() {
   const [isMounted, setIsMounted] = useState(false);

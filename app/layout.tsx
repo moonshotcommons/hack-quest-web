@@ -7,7 +7,6 @@ import { ReduxProvider } from '@/store/redux';
 import ThemeContextProvider from '@/store/context/theme';
 import Script from 'next/script';
 import ConfigProvider from '@/components/Provider/Config';
-import V2Layout from '@/components/Web/Layout';
 
 export const metadata: Metadata = {
   title: 'HackQuest',
@@ -34,9 +33,7 @@ export default function RootLayout({
           <ThemeContextProvider>
             {/* <MobileRedirect> */}
             <InitializeUserProvider>
-              <ConfigProvider>
-                <V2Layout navbarData={{ navList: [] }}>{children}</V2Layout>
-              </ConfigProvider>
+              <ConfigProvider>{children}</ConfigProvider>
             </InitializeUserProvider>
             {/* </MobileRedirect> */}
           </ThemeContextProvider>
