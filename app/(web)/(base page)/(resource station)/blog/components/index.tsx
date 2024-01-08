@@ -88,8 +88,10 @@ const Blog: React.FC<BlogProp> = () => {
         <Loading loading={loading}>
           {searchInfo.keyword ? (
             <div className="text-[#0b0b0b] text-[24px] font-next-book mb-[40px] text-center">
-              {totalList} {totalList > 1 ? 'Results' : 'Result'} for
-              <span className="text-[#8c8c8c]">“{searchInfo.keyword}”</span>
+              {totalList} Results for
+              <span className="text-[#8c8c8c] pl-[4px]">
+                “{searchInfo.keyword}”
+              </span>
             </div>
           ) : (
             <FeatureBlog list={featureBlogList} />
