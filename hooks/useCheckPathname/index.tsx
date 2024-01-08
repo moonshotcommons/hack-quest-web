@@ -1,5 +1,5 @@
-import { excludeLink } from '@/components/Web/Layout/Navbar/data';
-import { MenuLink } from '@/components/Web/Layout/Navbar/type';
+import { excludeLink } from '@/components/Web/Layout/BasePage/Navbar/data';
+import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 import { getCourseLink } from '@/helper/utils';
 import { CourseType } from '@/service/webApi/course/type';
 import { useParams, usePathname } from 'next/navigation';

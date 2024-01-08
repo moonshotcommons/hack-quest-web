@@ -8,6 +8,7 @@ export interface CourseStateType {
   courseList: ProjectCourseType[];
   count: number;
   unitsLessonsList: UnitPagesListType[];
+  learnPageTitle: string;
 }
 
 const courseSlice = createSlice({
@@ -15,7 +16,8 @@ const courseSlice = createSlice({
   initialState: {
     courseList: [],
     count: 0,
-    unitsLessonsList: []
+    unitsLessonsList: [],
+    learnPageTitle: ''
   } as CourseStateType,
   reducers: {
     increment(state, { type, payload }) {
@@ -28,6 +30,9 @@ const courseSlice = createSlice({
 
     setCourseList(state, { type, payload }) {
       state.courseList = payload;
+    },
+    setLearnPageTitle(state, { type, payload }) {
+      state.learnPageTitle = decodeURIComponent(payload);
     }
   }
   // extraReducers: (builder) => {
@@ -57,6 +62,10 @@ const courseSlice = createSlice({
 // });
 
 // 同步的action
-export const { increment, setUnitsLessonsList, setCourseList } =
-  courseSlice.actions;
+export const {
+  increment,
+  setUnitsLessonsList,
+  setCourseList,
+  setLearnPageTitle
+} = courseSlice.actions;
 export default courseSlice.reducer;

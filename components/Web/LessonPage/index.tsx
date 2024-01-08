@@ -14,7 +14,7 @@ import {
   CourseType
 } from '@/service/webApi/course/type';
 import { ConfigProvider, Spin } from 'antd';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import { FC, useCallback, useEffect, useRef, useState } from 'react';
 import Split from 'react-split';
 import LessonContent from './LessonContent';
@@ -29,6 +29,8 @@ import TreasureModal, {
   TreasureModalRef
 } from '@/components/Web/Business/TreasureModal';
 import { useGetUserInfo } from '@/hooks/useGetUserInfo';
+import { useDispatch } from 'react-redux';
+import { setLearnPageTitle } from '@/store/redux/modules/course';
 
 interface LessonPageProps {
   lessonId: string;
@@ -41,9 +43,9 @@ const LessonPage: FC<LessonPageProps> = (props) => {
     lessonId,
     courseType
   );
-  const router = useRouter();
   const { courseId: courseName } = useParams();
   const [nextLoading, setNextLoading] = useState(false);
+  const dispatch = useDispatch();
   const { onNextClick, completeModalRef } = useGotoNextLesson(
     lesson!,
     courseType,
@@ -93,14 +95,9 @@ const LessonPage: FC<LessonPageProps> = (props) => {
 
   const bugFeedbackModalRef = useRef<BugFeedbackModalRef>(null);
 
-  // useEffect(() => {
-  //   if (completeModalRef.current) {
-  //     completeModalRef.current?.open({
-  //       type: 'claim',
-  //       title: courseName as string
-  //     });
-  //   }
-  // }, [lesson]);
+  useEffect(() => {
+    dispatch(setLearnPageTitle(courseName));
+  }, [courseName]);
 
   return (
     <ConfigProvider

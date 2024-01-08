@@ -22,8 +22,8 @@ import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLess
 import { QueryIdType } from '../Breadcrumb/type';
 import { useGetLessonLink } from '@/hooks/useCoursesHooks/useGetLessonLink';
 import { useRedirect } from '@/hooks/useRedirect';
-import { MenuLink } from '../../Layout/Navbar/type';
 import Loading from '@/components/Common/Loading';
+import { MenuLink } from '../../Layout/BasePage/Navbar/type';
 interface MiniElectiveDetailModalProps {}
 
 export interface MiniElectiveDetailModalRef {
