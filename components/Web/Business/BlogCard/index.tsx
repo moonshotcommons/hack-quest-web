@@ -2,7 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import BlogCardFooter from './BlogCardFooter';
 import { BlogType } from '@/service/webApi/resourceStation/type';
-import { MenuLink } from '@/components/Web/Layout/Navbar/type';
+import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 import { useRedirect } from '@/hooks/useRedirect';
 import { BurialPoint } from '@/helper/burialPoint';
 interface BlogCardProp {

@@ -1,4 +1,4 @@
-import { MenuLink } from '@/components/Web/Layout/Navbar/type';
+import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 
 /** 登录页 */
 export const LOGIN_PATHNAME = '/auth/login';
