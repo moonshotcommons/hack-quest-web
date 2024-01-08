@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import BlogBannerBg from '@/public/images/blog/blog_banner_bg.png';
 import { PiSortAscendingBold, PiSortDescendingBold } from 'react-icons/pi';
 import { BiSearch, BiCheck } from 'react-icons/bi';
-import { searchTabData, sortData } from './data';
+import { searchTabData, sortData } from '../../constants/data';
 import { FiX } from 'react-icons/fi';
 import SlideHighlight from '@/components/Common/Navigation/SlideHighlight';
 import { BlogSearchType } from '@/service/webApi/resourceStation/type';

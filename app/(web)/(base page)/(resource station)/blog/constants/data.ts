@@ -38,3 +38,11 @@ export const sortData = [
     value: 'publishDate'
   }
 ];
+
+export const initSearchInfo = {
+  keyword: '',
+  category: searchTabData[0].value,
+  sort: sortData[0].value,
+  page: 1,
+  limit: 12
+};

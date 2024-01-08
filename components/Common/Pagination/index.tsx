@@ -46,6 +46,7 @@ const Pagination: FC<PaginationProps> = (props) => {
             : 'hover:bg-[#000000]/70 hover:border-[#000000]/70 transition'
         )}
         onClick={() => {
+          if (page <= 1) return;
           let decrementPage = page - 1;
           if (decrementPage < 1) decrementPage = 1;
           setCurrentPage(decrementPage);
@@ -79,6 +80,7 @@ const Pagination: FC<PaginationProps> = (props) => {
             : 'hover:bg-[#000000]/70 hover:border-[#000000]/70 transition'
         )}
         onClick={() => {
+          if (page >= total) return;
           let incrementPage = page + 1;
           if (incrementPage > total) incrementPage = total;
           setCurrentPage(incrementPage);
