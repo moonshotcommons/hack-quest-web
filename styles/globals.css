@@ -51,11 +51,11 @@
   }
 
   .body-xl {
-    @apply font-Inter font-normal text-6 leading-normal;
+    @apply font-Inter font-normal text-[24px] leading-normal;
   }
 
   .body-xl-bold {
-    @apply font-Inter font-semibold text-6 leading-normal;
+    @apply font-Inter font-semibold text-[24px] leading-normal;
   }
 
   .body-l {
