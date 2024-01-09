@@ -10,9 +10,10 @@ import Link from 'next/link';
 
 interface BlogCardProp {
   blog: BlogType;
+  isMobile?: boolean;
 }
 
-const BlogCard: React.FC<BlogCardProp> = ({ blog }) => {
+const BlogCard: React.FC<BlogCardProp> = ({ blog, isMobile }) => {
   const goBlogContent = () => {
     BurialPoint.track('blog blogCard 卡片点击');
   };
@@ -20,7 +21,7 @@ const BlogCard: React.FC<BlogCardProp> = ({ blog }) => {
     <Link
       className="w-full font-next-book bg-[#FFF] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)] cursor-pointer hover:-translate-y-1 transition-all duration-300 rounded-[10px] overflow-hidden flex flex-col"
       onClick={goBlogContent}
-      href={`${MenuLink.BLOG}/${blog.id}`}
+      href={`${isMobile ? '/mobile' : ''}${MenuLink.BLOG}/${blog.id}`}
     >
       <div className="w-full h-[0] pt-[56.1%] relative ">
         <Image

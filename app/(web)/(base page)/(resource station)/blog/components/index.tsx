@@ -37,27 +37,27 @@ const Blog: React.FC<BlogProps> = async function ({
     <div>
       <BlogBanner />
       <div className="container mx-auto py-[70px]">
-          {searchParams.keyword ? (
-            <div className="text-[#0b0b0b] text-[24px] font-next-book mb-[40px] text-center">
-              {totalList} Results for
-              <span className="text-[#8c8c8c] pl-[4px]">
-                “{searchParams.keyword}”
-              </span>
-            </div>
-          ) : (
-            <FeatureBlog list={featureBlogList} />
-          )}
-          {blogList.length > 0 ? (
-            <BlogList list={blogList} />
-          ) : (
-            <NoData href="/blog/"></NoData>
-          )}
+        {searchParams.keyword ? (
+          <div className="text-[#0b0b0b] text-[24px] font-next-book mb-[40px] text-center">
+            {totalList} Results for
+            <span className="text-[#8c8c8c] pl-[4px]">
+              “{searchParams.keyword}”
+            </span>
+          </div>
+        ) : (
+          <FeatureBlog list={featureBlogList} />
+        )}
+        {blogList.length > 0 ? (
+          <BlogList list={blogList} />
+        ) : (
+          <NoData href="/blog/"></NoData>
+        )}
 
-          {totalPage > 1 && (
-            <div className="flex justify-center mt-[80px]">
-              <Pagination page={page} total={totalPage} urlPrefix="/blog/p/" />
-            </div>
-          )}
+        {totalPage > 1 && (
+          <div className="flex justify-center mt-[80px]">
+            <Pagination page={page} total={totalPage} urlPrefix="/blog/p/" />
+          </div>
+        )}
       </div>
       <PageRetentionTime trackName="blog-页面留存时间"></PageRetentionTime>
     </div>
