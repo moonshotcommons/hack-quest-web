@@ -12,7 +12,7 @@ const NoData: React.FC<NoDataProp> = ({ href }) => {
         There is no content yet~
       </p>
       <Link
-        className="flex items-center justify-center w-[270px] h-[60px] border border-neutral-black text-neutral-black button-text-l"
+        className="flex items-center justify-center w-[270px] h-[60px] border border-neutral-black text-neutral-black button-text-l rounded-[2.5rem]"
         href={href}
       >
         BACK TO ALL BLOGS

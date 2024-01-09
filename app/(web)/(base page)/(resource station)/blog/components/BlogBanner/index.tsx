@@ -9,16 +9,15 @@ import { FiX } from 'react-icons/fi';
 import SlideHighlight from '@/components/Common/Navigation/SlideHighlight';
 import { BlogSearchType } from '@/service/webApi/resourceStation/type';
 import { useRouter } from 'next/navigation';
+import { cloneDeep } from 'lodash-es';
 
-interface BannerProp {}
+interface BannerProp {
+  searchParams: BlogSearchType;
+}
 
-const BlogBanner: React.FC<BannerProp> = () => {
+const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
   const router = useRouter();
-  const searchInfo = {
-    keyword: '',
-    category: searchTabData[0].value,
-    sort: sortData[0].value
-  };
+  const [searchInfo, setSearchInfo] = useState<BlogSearchType>({});
   const [inputVisible, setInputVisible] = useState(false);
   const [sortVisible, setSortVisible] = useState(false);
   const timeOut = useRef<NodeJS.Timeout | null>(null);
@@ -69,10 +68,13 @@ const BlogBanner: React.FC<BannerProp> = () => {
   };
 
   useEffect(() => {
-    const { category } = searchInfo;
+    const newSearchInfo = cloneDeep(searchParams);
+    newSearchInfo.category = newSearchInfo.category || '';
+    const { category } = newSearchInfo;
     const index = searchTabData.findIndex((v) => v.value === category);
     setCurrentIndex(index);
-  }, [searchInfo]);
+    setSearchInfo(newSearchInfo);
+  }, [searchParams]);
 
   return (
     <div
@@ -141,7 +143,7 @@ const BlogBanner: React.FC<BannerProp> = () => {
                 type={'BLOG_FILTER'}
                 currentIndex={currentIndex}
               >
-                {searchTabData.map((v) => (
+                {searchTabData.map((v, i) => (
                   <div
                     key={v.value}
                     className={`${

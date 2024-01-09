@@ -1,12 +1,12 @@
 'use client';
 
 import { HiArrowLongRight, HiArrowLongLeft } from 'react-icons/hi2';
-import noop from 'lodash/noop';
 import { cn } from '@/helper/utils';
 import { useKeyPress } from 'ahooks';
 import { FC, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { noop } from 'lodash-es';
 
 interface PaginationProps {
   total: number;
@@ -20,7 +20,7 @@ const Pagination: FC<PaginationProps> = (props) => {
   const { page, total, onPageChange = noop, urlPrefix } = props;
   const [currentPage, setCurrentPage] = useState<any>(page);
   const pageInputRef = useRef<HTMLInputElement>(null);
-
+  const [pageSearch, setPageSearch] = useState('');
   const onPageInputValueChange = (value: any) => {
     if (isNaN(value) || value === '') {
       setCurrentPage(props.page);
@@ -31,7 +31,7 @@ const Pagination: FC<PaginationProps> = (props) => {
     if (page < 1) page = 1;
 
     if (urlPrefix) {
-      router.push(`${urlPrefix}${page}`);
+      router.push(`${urlPrefix}${page}${pageSearch}`);
     } else {
       setCurrentPage(page);
       onPageChange(page);
@@ -45,6 +45,9 @@ const Pagination: FC<PaginationProps> = (props) => {
   });
 
   useEffect(() => {
+    if (urlPrefix) {
+      setPageSearch(new URL(window.location.href).search || '');
+    }
     setCurrentPage(page);
   }, [page]);
 
@@ -58,7 +61,7 @@ const Pagination: FC<PaginationProps> = (props) => {
               ? 'bg-transparent text-black cursor-not-allowed'
               : 'hover:bg-[#000000]/70 hover:border-[#000000]/70 transition'
           )}
-          href={`${urlPrefix}${page - 1}`}
+          href={`${urlPrefix}${page - 1}${pageSearch}`}
         >
           <HiArrowLongLeft size={24}></HiArrowLongLeft>
         </Link>
@@ -108,7 +111,7 @@ const Pagination: FC<PaginationProps> = (props) => {
               ? 'bg-transparent text-black cursor-not-allowed'
               : 'hover:bg-[#000000]/70 hover:border-[#000000]/70 transition'
           )}
-          href={`${urlPrefix}${page + 1}`}
+          href={`${urlPrefix}${page + 1}${pageSearch}`}
         >
           <HiArrowLongRight size={24}></HiArrowLongRight>
         </Link>
