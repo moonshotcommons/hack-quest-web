@@ -1,12 +1,12 @@
 'use client';
 
 import { HiArrowLongRight, HiArrowLongLeft } from 'react-icons/hi2';
-import noop from 'lodash/noop';
 import { cn } from '@/helper/utils';
 import { useKeyPress } from 'ahooks';
 import { FC, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { noop } from 'lodash-es';
 
 interface PaginationProps {
   total: number;

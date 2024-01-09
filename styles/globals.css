@@ -278,12 +278,12 @@ input[data-type='changePassword']:-internal-autofill-selected {
     transition: all 0.2s;
   }
 
-  &.slide-navigator-underline::before {
+  &.slide-navigator-fist-navbar::before {
     height: 0.25rem;
   }
-  &.slide-navigator-full::before {
-    top: 0;
-    border-radius: 20px;
+  &.slide-navigator-second-navbar::before {
+    height: 1px;
+    bottom: 12px;
   }
 }
 .slide-blog-navigator {
