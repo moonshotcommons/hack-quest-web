@@ -1,16 +1,23 @@
+'use client';
+
 import { HiArrowLongRight, HiArrowLongLeft } from 'react-icons/hi2';
+import noop from 'lodash/noop';
 import { cn } from '@/helper/utils';
 import { useKeyPress } from 'ahooks';
 import { FC, useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 interface PaginationProps {
   total: number;
-  onPageChange: (page: number) => void;
   page: number;
+  onPageChange?: (page: number) => void;
+  urlPrefix?: string;
 }
 
 const Pagination: FC<PaginationProps> = (props) => {
-  const { page, total, onPageChange } = props;
+  const router = useRouter();
+  const { page, total, onPageChange = noop, urlPrefix } = props;
   const [currentPage, setCurrentPage] = useState<any>(page);
   const pageInputRef = useRef<HTMLInputElement>(null);
 
@@ -22,8 +29,13 @@ const Pagination: FC<PaginationProps> = (props) => {
     let page = Number(value);
     if (page > total) page = total;
     if (page < 1) page = 1;
-    setCurrentPage(page);
-    onPageChange(page);
+
+    if (urlPrefix) {
+      router.push(`${urlPrefix}${page}`);
+    } else {
+      setCurrentPage(page);
+      onPageChange(page);
+    }
   };
 
   useKeyPress('enter', () => {
@@ -38,23 +50,38 @@ const Pagination: FC<PaginationProps> = (props) => {
 
   return (
     <div className="flex gap-x-[50px] items-center">
-      <div
-        className={cn(
-          `flex items-center justify-center p-2 rounded-full border border-solid border-[#000000] bg-[#000000] text-white cursor-pointer scale-[0.835]`,
-          page <= 1
-            ? 'bg-transparent text-black cursor-not-allowed'
-            : 'hover:bg-[#000000]/70 hover:border-[#000000]/70 transition'
-        )}
-        onClick={() => {
-          if (page <= 1) return;
-          let decrementPage = page - 1;
-          if (decrementPage < 1) decrementPage = 1;
-          setCurrentPage(decrementPage);
-          onPageChange(decrementPage);
-        }}
-      >
-        <HiArrowLongLeft size={24}></HiArrowLongLeft>
-      </div>
+      {urlPrefix ? (
+        <Link
+          className={cn(
+            `flex items-center justify-center p-2 rounded-full border border-solid border-[#000000] bg-[#000000] text-white cursor-pointer scale-[0.835]`,
+            page <= 1
+              ? 'bg-transparent text-black cursor-not-allowed'
+              : 'hover:bg-[#000000]/70 hover:border-[#000000]/70 transition'
+          )}
+          href={`${urlPrefix}${page - 1}`}
+        >
+          <HiArrowLongLeft size={24}></HiArrowLongLeft>
+        </Link>
+      ) : (
+        <div
+          className={cn(
+            `flex items-center justify-center p-2 rounded-full border border-solid border-[#000000] bg-[#000000] text-white cursor-pointer scale-[0.835]`,
+            page <= 1
+              ? 'bg-transparent text-black cursor-not-allowed'
+              : 'hover:bg-[#000000]/70 hover:border-[#000000]/70 transition'
+          )}
+          onClick={() => {
+            if (page <= 1) return;
+            let decrementPage = page - 1;
+            if (decrementPage < 1) decrementPage = 1;
+            setCurrentPage(decrementPage);
+            onPageChange(decrementPage);
+          }}
+        >
+          <HiArrowLongLeft size={24}></HiArrowLongLeft>
+        </div>
+      )}
+
       <div className="font-next-book text-[24px] text-[#0b0b0b] leading-[160%] tracking-[0.48px]">
         <span>Page</span>
         <input
@@ -72,23 +99,38 @@ const Pagination: FC<PaginationProps> = (props) => {
         />
         <span>{`of ${total}`}</span>
       </div>
-      <div
-        className={cn(
-          `flex items-center justify-center p-2 rounded-full border border-solid border-[#000000] bg-[#000000] text-white cursor-pointer scale-[0.835]`,
-          page >= total
-            ? 'bg-transparent text-black cursor-not-allowed'
-            : 'hover:bg-[#000000]/70 hover:border-[#000000]/70 transition'
-        )}
-        onClick={() => {
-          if (page >= total) return;
-          let incrementPage = page + 1;
-          if (incrementPage > total) incrementPage = total;
-          setCurrentPage(incrementPage);
-          onPageChange(incrementPage);
-        }}
-      >
-        <HiArrowLongRight size={24}></HiArrowLongRight>
-      </div>
+
+      {urlPrefix ? (
+        <Link
+          className={cn(
+            `flex items-center justify-center p-2 rounded-full border border-solid border-[#000000] bg-[#000000] text-white cursor-pointer scale-[0.835]`,
+            page >= total
+              ? 'bg-transparent text-black cursor-not-allowed'
+              : 'hover:bg-[#000000]/70 hover:border-[#000000]/70 transition'
+          )}
+          href={`${urlPrefix}${page + 1}`}
+        >
+          <HiArrowLongRight size={24}></HiArrowLongRight>
+        </Link>
+      ) : (
+        <div
+          className={cn(
+            `flex items-center justify-center p-2 rounded-full border border-solid border-[#000000] bg-[#000000] text-white cursor-pointer scale-[0.835]`,
+            page >= total
+              ? 'bg-transparent text-black cursor-not-allowed'
+              : 'hover:bg-[#000000]/70 hover:border-[#000000]/70 transition'
+          )}
+          onClick={() => {
+            if (page >= total) return;
+            let incrementPage = page + 1;
+            if (incrementPage > total) incrementPage = total;
+            setCurrentPage(incrementPage);
+            onPageChange(incrementPage);
+          }}
+        >
+          <HiArrowLongRight size={24}></HiArrowLongRight>
+        </div>
+      )}
     </div>
   );
 };

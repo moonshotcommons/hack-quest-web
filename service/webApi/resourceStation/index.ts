@@ -5,6 +5,7 @@ import {
   BlogType,
   HackathonDataType,
   HackathonType,
+  PagedType,
   ProjectDataType,
   ProjectType
 } from './type';
@@ -67,7 +68,7 @@ class ResourceStationApi {
     );
   }
 
-  getBlog(params: BlogSearchType) {
+  getBlog(params: BlogSearchType & PagedType) {
     return this.service.get<{ data: BlogType[]; total: number }>(
       `${ResourceStationApiType.Blogs}`,
       {
