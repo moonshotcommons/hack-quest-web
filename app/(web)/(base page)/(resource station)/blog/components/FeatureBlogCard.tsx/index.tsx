@@ -25,7 +25,7 @@ const FeatureBlogCard: React.FC<FeatureBlogCardProp> = ({ blog }) => {
           src={blog.image}
           fill
           alt="blogImage"
-          className="object-cover"
+          className="object-contain"
         ></Image>
       </div>
       <div className="flex-1 min-w-[460px] h-full flex flex-col justify-between p-[30px]">

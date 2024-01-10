@@ -18,7 +18,8 @@ const Blog: React.FC<BlogProps> = async function ({
   params: { slug = [] }
 }) {
   const limit = 12;
-  const page = slug[0] === 'p' ? Number(slug[1]) : 1;
+  const minPage = Number(slug[1]) < 1 ? 1 : Number(slug[1]);
+  const page = slug[0] === 'p' ? minPage : 1;
 
   const [blogData, featured] = await Promise.all([
     webApi.resourceStationApi.getBlog({

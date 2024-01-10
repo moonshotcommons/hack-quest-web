@@ -61,7 +61,7 @@ const Pagination: FC<PaginationProps> = (props) => {
               ? 'bg-transparent text-black cursor-not-allowed'
               : 'hover:bg-[#000000]/70 hover:border-[#000000]/70 transition'
           )}
-          href={`${urlPrefix}${page - 1}${pageSearch}`}
+          href={`${urlPrefix}${page <= 1 ? 1 : page - 1}${pageSearch}`}
         >
           <HiArrowLongLeft size={24}></HiArrowLongLeft>
         </Link>
@@ -111,7 +111,7 @@ const Pagination: FC<PaginationProps> = (props) => {
               ? 'bg-transparent text-black cursor-not-allowed'
               : 'hover:bg-[#000000]/70 hover:border-[#000000]/70 transition'
           )}
-          href={`${urlPrefix}${page + 1}${pageSearch}`}
+          href={`${urlPrefix}${page >= total ? page : page + 1}${pageSearch}`}
         >
           <HiArrowLongRight size={24}></HiArrowLongRight>
         </Link>
