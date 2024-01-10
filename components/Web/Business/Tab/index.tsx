@@ -23,7 +23,7 @@ const Tab: React.FC<TabType> = ({
   return (
     <SlideHighlight
       className={cn(
-        `flex gap-10 pb-[30px] text-xl leading-5 before:bottom-6`,
+        `flex gap-10 pb-[30px] leading-5 before:bottom-6`,
         className
       )}
       currentIndex={tabList.findIndex((v) => v.value === curTab)}
@@ -33,9 +33,7 @@ const Tab: React.FC<TabType> = ({
           key={tab.value}
           className={cn(
             `cursor-pointer flex items-center ${
-              tab.value === curTab
-                ? 'font-next-book-bold relative'
-                : 'font-next-book'
+              tab.value === curTab ? 'font-semibold relative' : ''
             }`,
             textClassName
           )}

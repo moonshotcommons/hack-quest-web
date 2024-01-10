@@ -1,7 +1,7 @@
 import { LearningTrackCourseType } from '@/service/webApi/course/type';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import CourseTags from '@/components/Web/Business/CourseTags';
 import { menuLink } from '@/components/Web/Business/Breadcrumb/data';
@@ -15,18 +15,11 @@ interface LearningTrackCardProps {
   className?: string;
 }
 const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
-  learningTrack: track,
+  learningTrack,
   isLandingPage,
-  status,
   className
 }) => {
   const { redirectToUrl } = useRedirect();
-  const [learningTrack, setLearningTrack] =
-    useState<LearningTrackDetailType>(track);
-
-  useEffect(() => {
-    setLearningTrack(track);
-  }, [track]);
 
   const goLearningTrackDetail = (e: any) => {
     if (isLandingPage) return;
@@ -44,7 +37,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
       onClick={goLearningTrackDetail}
     >
       <div className="flex-1 h-full flex flex-col flex-shrink-0 justify-between">
-        <div className="caption-12pt w-fit px-[10px] py-[4px] text-[var(--neutral-off-black)] border border-[#3E3E3E] rounded-[20px] ">
+        <div className="body-s w-fit mb-[16px] px-[10px] py-[4px] text-[var(--neutral-off-black)] border border-neutral-off-black rounded-[20px]  ">
           {learningTrack.track}
         </div>
         <div>

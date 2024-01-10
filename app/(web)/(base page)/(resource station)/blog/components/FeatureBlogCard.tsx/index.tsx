@@ -1,5 +1,5 @@
 import BlogCardFooter from '@/components/Web/Business/BlogCard/BlogCardFooter';
-import React, { MouseEvent } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import { BlogType } from '@/service/webApi/resourceStation/type';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
@@ -11,8 +11,7 @@ interface FeatureBlogCardProp {
 }
 
 const FeatureBlogCard: React.FC<FeatureBlogCardProp> = ({ blog }) => {
-  const goBlogContent = (e: MouseEvent<HTMLElement>) => {
-    e.stopPropagation();
+  const goBlogContent = () => {
     BurialPoint.track('blog featureBlogCard 卡片点击');
   };
   return (
