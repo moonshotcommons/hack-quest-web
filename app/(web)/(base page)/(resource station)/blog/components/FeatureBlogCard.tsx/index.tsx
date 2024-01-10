@@ -17,10 +17,13 @@ const FeatureBlogCard: React.FC<FeatureBlogCardProp> = ({ blog }) => {
   };
   return (
     <Link
-      className="w-full font-next-book h-[505px] bg-[#fff] overflow-hidden rounded-[10px]  shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] cursor-pointer"
+      className="w-full font-next-book h-[505px] overflow-hidden rounded-[10px]"
       href={`${MenuLink.BLOG}/${blog.id}`}
     >
-      <div className="w-full h-full flex" onClick={goBlogContent}>
+      <div
+        className="w-full h-full flex bg-[#fff] overflow-hidden rounded-[10px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] cursor-pointer"
+        onClick={goBlogContent}
+      >
         <div className="w-[900px] h-full relative  overflow-hidden">
           <Image
             src={blog.image}
