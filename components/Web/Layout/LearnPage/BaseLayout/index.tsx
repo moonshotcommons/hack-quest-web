@@ -17,7 +17,7 @@ const V2Layout: React.FC<V2LayoutProps> = ({ children }) => {
     if (contentWrap) {
       contentWrap.scrollTo(0, 0);
     }
-  });
+  }, []);
 
   return (
     <div
