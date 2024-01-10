@@ -1,7 +1,16 @@
 import { Metadata } from 'next';
-import Page from './page';
+import { FC, ReactNode } from 'react';
 
 export const metadata: Metadata = {
   title: 'All Projects - Hackathons'
 };
-export default Page;
+
+interface PageLayoutProps {
+  children: ReactNode;
+}
+
+const PageLayout: FC<PageLayoutProps> = ({ children }) => {
+  return <>{children}</>;
+};
+
+export default PageLayout;
