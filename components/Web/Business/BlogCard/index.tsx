@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { MouseEvent } from 'react';
 import Image from 'next/image';
 import BlogCardFooter from './BlogCardFooter';
 import { BlogType } from '@/service/webApi/resourceStation/type';
@@ -14,7 +14,8 @@ interface BlogCardProp {
 }
 
 const BlogCard: React.FC<BlogCardProp> = ({ blog, isMobile }) => {
-  const goBlogContent = () => {
+  const goBlogContent = (e: MouseEvent<HTMLElement>) => {
+    e.stopPropagation();
     BurialPoint.track('blog blogCard 卡片点击');
   };
   return (
