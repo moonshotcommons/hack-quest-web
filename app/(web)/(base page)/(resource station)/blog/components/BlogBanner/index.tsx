@@ -73,6 +73,7 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
     const { category } = newSearchInfo;
     const index = searchTabData.findIndex((v) => v.value === category);
     setCurrentIndex(index);
+
     setSearchInfo(newSearchInfo);
   }, [searchParams]);
 
