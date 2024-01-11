@@ -1,20 +1,21 @@
 import Button from '@/components/Common/Button';
 import { cn } from '@/helper/utils';
-import { useGetUserUnLoginType } from '@/hooks/useGetUserInfo';
 import webApi from '@/service';
-import { UnLoginType, setUnLoginType } from '@/store/redux/modules/user';
+import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useCountDown, useDebounceFn } from 'ahooks';
 import { message } from 'antd';
 import Link from 'next/link';
 import { FC, useEffect, useMemo, useState } from 'react';
-import { useDispatch } from 'react-redux';
-
+import { useShallow } from 'zustand/react/shallow';
 interface EmailVerifyProps {}
 
 const EmailVerify: FC<EmailVerifyProps> = (props) => {
-  const loginRouteType = useGetUserUnLoginType();
-  const dispatch = useDispatch();
-
+  const { setAuthType, authRouteType } = useUserStore(
+    useShallow((state) => ({
+      setAuthType: state.setAuthType,
+      authRouteType: state.authRouteType
+    }))
+  );
   const [targetDate, setTargetDate] = useState<number>();
 
   const [countdown] = useCountDown({
@@ -25,7 +26,7 @@ const EmailVerify: FC<EmailVerifyProps> = (props) => {
     async (email) => {
       if (!email) {
         message.error('Email does not exist!');
-        dispatch(setUnLoginType(UnLoginType.LOGIN));
+        setAuthType(AuthType.LOGIN);
         return;
       }
       const res = await webApi.userApi.forgetPassword(email);
@@ -35,63 +36,64 @@ const EmailVerify: FC<EmailVerifyProps> = (props) => {
   );
 
   const backButtonParams = useMemo(() => {
-    switch (loginRouteType.prevType) {
-      case UnLoginType.LOGIN:
+    switch (authRouteType.prevType) {
+      case AuthType.LOGIN:
         return {
           text: 'Back to Log in',
-          handle: () => dispatch(setUnLoginType(UnLoginType.LOGIN))
+          handle: () => setAuthType(AuthType.LOGIN)
         };
-      case UnLoginType.SIGN_UP:
+      case AuthType.SIGN_UP:
         return {
           text: 'Change Email',
-          handle: () => dispatch(setUnLoginType(UnLoginType.SIGN_UP))
+          handle: () => setAuthType(AuthType.SIGN_UP)
         };
       default:
         return {
           text: 'Back',
-          handle: () => dispatch(setUnLoginType(UnLoginType.LOGIN))
+          handle: () => setAuthType(AuthType.LOGIN)
         };
     }
-  }, [loginRouteType.prevType]);
+  }, [authRouteType.prevType]);
 
   const resendButtonParams = useMemo(() => {
-    switch (loginRouteType.prevType) {
-      case UnLoginType.LOGIN:
+    switch (authRouteType.prevType) {
+      case AuthType.LOGIN:
         return {
           text: 'Log in to Resend',
           handle: () => {
             // setTargetDate(Date.now() + 30 * 1000);
-            dispatch(setUnLoginType(UnLoginType.LOGIN));
+            setAuthType(AuthType.LOGIN);
           }
         };
-      case UnLoginType.SIGN_UP:
+      case AuthType.SIGN_UP:
         return {
           text: 'Log in to Resend',
           handle: () => {
             // setTargetDate(Date.now() + 30 * 1000);
-            dispatch(setUnLoginType(UnLoginType.SIGN_UP));
+            setAuthType(AuthType.SIGN_UP);
           }
         };
-      case UnLoginType.FORGOT_PASSWORD:
+      case AuthType.FORGOT_PASSWORD:
         return {
           text: 'Resend Link',
           handle: () => {
-            sendEmail(loginRouteType.params?.email);
+            sendEmail(authRouteType.params?.email);
           }
         };
       default:
         return {
           text: 'Back',
-          handle: () => dispatch(setUnLoginType(loginRouteType.prevType))
+          handle: () =>
+            authRouteType.prevType && setAuthType(authRouteType.prevType)
         };
     }
-  }, [loginRouteType.prevType]);
+  }, [authRouteType.prevType]);
 
   useEffect(() => {
-    if (loginRouteType.prevType === UnLoginType.FORGOT_PASSWORD) {
+    if (authRouteType.prevType === AuthType.FORGOT_PASSWORD) {
       setTargetDate(Date.now() + 30 * 1000);
     }
-  }, [loginRouteType.prevType]);
+  }, [authRouteType.prevType]);
 
   return (
     <div className="w-full h-full flex-col flex items-center">

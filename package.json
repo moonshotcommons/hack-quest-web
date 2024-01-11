@@ -59,7 +59,8 @@
     "react-syntax-highlighter": "^15.5.0",
     "react-youtube": "^10.1.0",
     "styled-components": "^6.0.2",
-    "wagmi": "^1.4.12"
+    "wagmi": "^1.4.12",
+    "zustand": "^4.4.7"
   },
   "devDependencies": {
     "@babel/eslint-parser": "7.22.5",

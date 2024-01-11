@@ -6,13 +6,12 @@ import { BurialPoint } from '@/helper/burialPoint';
 import { cn } from '@/helper/utils';
 import { useValidator } from '@/hooks/useValidator';
 import webApi from '@/service';
-import { UnLoginType, setUnLoginType } from '@/store/redux/modules/user';
 import { useDebounceFn } from 'ahooks';
 import { message } from 'antd';
 import Link from 'next/link';
 import { FC, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import WhiteListModal from '../WhiteListModal';
+import { AuthType, useUserStore } from '@/store/zustand/userStore';
 
 interface RegisterFormProps {
   email: string;
@@ -34,7 +33,7 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
     reenterPassword: ''
   });
 
-  const dispatch = useDispatch();
+  const setAuthType = useUserStore((state) => state.setAuthType);
 
   const [formState, setFormState] = useState({
     // email: {
@@ -80,7 +79,7 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
             BurialPoint.track('signup-发送注册邮件');
             const res = await webApi.userApi.userRegister(formData);
             BurialPoint.track('signup-注册邮件发送成功');
-            dispatch(setUnLoginType(UnLoginType.EMAIL_VERIFY));
+            setAuthType(AuthType.EMAIL_VERIFY);
           } catch (e: any) {
             BurialPoint.track('signup-注册邮件发送失败', { message: e?.msg });
             console.log(e);
@@ -113,7 +112,7 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
           <span
             className="underline cursor-pointer"
             onClick={() => {
-              dispatch(setUnLoginType(UnLoginType.LOGIN));
+              setAuthType(AuthType.LOGIN);
             }}
           >
             Login

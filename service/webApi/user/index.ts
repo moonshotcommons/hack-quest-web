@@ -4,7 +4,7 @@ import {
   LoginResponse,
   RegisterParamsType,
   RegisterResponse,
-  AuthType,
+  ThirdPartyAuthType,
   UserProfileType,
   UserExperienceType,
   UserPersonalType,
@@ -128,15 +128,15 @@ class UserApi {
 
   /** 获取用户信息 */
   getUserInfo() {
-    return this.service.get(UserApiType.UserInfo);
+    return this.service.get<LoginResponse>(UserApiType.UserInfo);
   }
 
   /**
    * 三方登录
    */
-  getAuthUrl(type: AuthType) {
+  getAuthUrl(type: ThirdPartyAuthType) {
     const url =
-      type === AuthType.GOOGLE
+      type === ThirdPartyAuthType.GOOGLE
         ? UserApiType.AuthGoogle
         : UserApiType.AuthGithub;
     return this.service.get(url);

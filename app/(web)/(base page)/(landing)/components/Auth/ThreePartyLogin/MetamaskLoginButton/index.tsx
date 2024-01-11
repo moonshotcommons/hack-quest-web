@@ -7,27 +7,29 @@ import useIsPc from '@/hooks/useIsPc';
 import { useRedirect } from '@/hooks/useRedirect';
 import Metamask from '@/public/images/login/metamask.svg';
 import webApi from '@/service';
-import { AuthType } from '@/service/webApi/user/type';
-import {
-  UnLoginType,
-  setUnLoginType,
-  setUserInfo
-} from '@/store/redux/modules/user';
+import { ThirdPartyAuthType } from '@/service/webApi/user/type';
 import { useRequest } from 'ahooks';
 import { message } from 'antd';
 import { omit } from 'lodash-es';
 import Image from 'next/image';
 import React, { useEffect, useMemo, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { useConnect } from 'wagmi';
+import { AuthType, useUserStore } from '@/store/zustand/userStore';
+import { useShallow } from 'zustand/react/shallow';
 interface MetamaskLoginButtonProps {}
 
 const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
   const [isMounted, setIsMounted] = useState(false);
-  const dispatch = useDispatch();
   const isPc = useIsPc();
   const [tipsOpen, setTipsOpen] = useState(false);
   const { redirectToUrl } = useRedirect();
+
+  const { setAuthType, setUserInfo } = useUserStore(
+    useShallow((state) => ({
+      setAuthType: state.setAuthType,
+      setUserInfo: state.setUserInfo
+    }))
+  );
 
   const { connectAsync, connectors, error, isLoading, pendingConnector, data } =
     useConnect();
@@ -56,18 +58,16 @@ const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
           if (account) {
             const res = await webApi.userApi.walletVerify(account);
             if (res.status === 'UNACTIVATED') {
-              dispatch(
-                setUnLoginType({
-                  type: UnLoginType.INVITE_CODE,
-                  params: {
-                    registerType: AuthType.METAMASK,
-                    ...res
-                  }
-                })
-              );
+              setAuthType({
+                type: AuthType.INVITE_CODE,
+                params: {
+                  registerType: ThirdPartyAuthType.METAMASK,
+                  ...res
+                }
+              });
             } else {
               BurialPoint.track('signup-Metamask第三方登录code验证成功');
-              dispatch(setUserInfo(omit(res, 'token')));
+              setUserInfo(omit(res, 'token'));
               setToken(res.token);
               redirectToUrl('/dashboard');
             }

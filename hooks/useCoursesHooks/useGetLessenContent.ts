@@ -1,12 +1,11 @@
 import webApi from '@/service';
 import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
 import { ElectiveLessonType } from '@/service/webApi/elective/type';
-import { UnLoginType, setUnLoginType } from '@/store/redux/modules/user';
 import { useRequest } from 'ahooks';
 import { message } from 'antd';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { useRedirect } from '../useRedirect';
+import { AuthType, useUserStore } from '@/store/zustand/userStore';
 
 export const useGetLessonContent = <
   T extends CourseLessonType | ElectiveLessonType
@@ -16,7 +15,7 @@ export const useGetLessonContent = <
 ) => {
   const [lesson, setLesson] = useState<T>();
   const { redirectToUrl } = useRedirect();
-  const dispatch = useDispatch();
+  const setAuthType = useUserStore((state) => state.setAuthType);
   const { run, loading, refresh } = useRequest(
     async (lessonId) => {
       switch (courseType) {
@@ -34,7 +33,7 @@ export const useGetLessonContent = <
       onError(error: any) {
         if (error.code === 401) {
           message.error(error?.msg);
-          dispatch(setUnLoginType(UnLoginType.LOGIN));
+          setAuthType(AuthType.LOGIN);
           redirectToUrl('/');
           return;
         }

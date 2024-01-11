@@ -1,15 +1,13 @@
 import { BurialPoint } from '@/helper/burialPoint';
-import { useGetUserUnLoginType } from '@/hooks/useGetUserInfo';
 import { useValidator } from '@/hooks/useValidator';
-import { UnLoginType, setUnLoginType } from '@/store/redux/modules/user';
 import { motion } from 'framer-motion';
 import { FC, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import RegisterForm from '../RegisterForm';
 import VerifyEmail from '../VerifyEmail';
 import ThreePartyLogin from '../ThreePartyLogin';
 import webApi from '@/service';
-import { AuthType } from '@/service/webApi/user/type';
+import { ThirdPartyAuthType } from '@/service/webApi/user/type';
+import { AuthType, useUserStore } from '@/store/zustand/userStore';
 
 interface SignUpProps {}
 
@@ -17,20 +15,18 @@ const SignUp: FC<SignUpProps> = (props) => {
   const [emailCheckStatus, setEmailCheckStatus] = useState(false);
   const [showRegisterForm, setShowRegisterForm] = useState(false);
   const [email, setEmail] = useState('');
-  const dispatch = useDispatch();
   const { validator } = useValidator(['registerEmail']);
-  const loginRouteType = useGetUserUnLoginType();
-
-  const authInfo = useGetUserUnLoginType();
+  const authRouteType = useUserStore((state) => state.authRouteType);
+  const setAuthType = useUserStore((state) => state.setAuthType);
 
   useEffect(() => {
     if (
-      authInfo &&
-      authInfo.prevType === UnLoginType.INVITE_CODE &&
-      authInfo.params?.email &&
-      authInfo.params?.codeVerify
+      authRouteType &&
+      authRouteType.prevType === AuthType.INVITE_CODE &&
+      authRouteType.params?.email &&
+      authRouteType.params?.codeVerify
     ) {
-      setEmail(authInfo.params?.email);
+      setEmail(authRouteType.params?.email);
       setShowRegisterForm(true);
     }
   }, []);
@@ -41,7 +37,7 @@ const SignUp: FC<SignUpProps> = (props) => {
       <span
         className="underline cursor-pointer"
         onClick={() => {
-          dispatch(setUnLoginType(UnLoginType.LOGIN));
+          setAuthType(AuthType.LOGIN);
         }}
       >
         Login
@@ -61,7 +57,7 @@ const SignUp: FC<SignUpProps> = (props) => {
             emailTitle={EmailTitle}
             validator={validator}
             onStatusChange={(status) => setEmailCheckStatus(status)}
-            type={UnLoginType.SIGN_UP}
+            type={AuthType.SIGN_UP}
             onNext={(email: string) => {
               if (emailCheckStatus) {
                 setEmail(email);
@@ -69,15 +65,13 @@ const SignUp: FC<SignUpProps> = (props) => {
                   // if (res.inWhitelist) {
                   //   setShowRegisterForm(true);
                   // } else {
-                  dispatch(
-                    setUnLoginType({
-                      type: UnLoginType.INVITE_CODE,
-                      params: {
-                        email,
-                        registerType: AuthType.EMAIL
-                      }
-                    })
-                  );
+                  setAuthType({
+                    type: AuthType.INVITE_CODE,
+                    params: {
+                      email,
+                      registerType: ThirdPartyAuthType.EMAIL
+                    }
+                  });
                   // }
                 });
               }
@@ -88,7 +82,7 @@ const SignUp: FC<SignUpProps> = (props) => {
       ) : (
         <RegisterForm
           email={email}
-          inviteCode={authInfo.params?.inviteCode}
+          inviteCode={authRouteType.params?.inviteCode}
           onBack={() => {
             BurialPoint.track('signup-注册返回');
             setShowRegisterForm(false);

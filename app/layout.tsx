@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import '@/styles/globals.css';
 const inter = Inter({ subsets: ['latin'] });
 import InitializeUserProvider from '@/components/Provider/InitializeUser';
-import { ReduxProvider } from '@/store/redux';
+
 import ThemeContextProvider from '@/store/context/theme';
 import Script from 'next/script';
 import ConfigProvider from '@/components/Provider/Config';
@@ -29,15 +29,13 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className}`}>
-        <ReduxProvider>
-          <ThemeContextProvider>
-            {/* <MobileRedirect> */}
-            <InitializeUserProvider>
-              <ConfigProvider>{children}</ConfigProvider>
-            </InitializeUserProvider>
-            {/* </MobileRedirect> */}
-          </ThemeContextProvider>
-        </ReduxProvider>
+        <ThemeContextProvider>
+          {/* <MobileRedirect> */}
+          <InitializeUserProvider>
+            <ConfigProvider>{children}</ConfigProvider>
+          </InitializeUserProvider>
+          {/* </MobileRedirect> */}
+        </ThemeContextProvider>
 
         <Script id="theme-script">
           {`const item = 'light';

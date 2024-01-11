@@ -6,15 +6,14 @@ import React, { ReactNode, useEffect, useLayoutEffect, useState } from 'react';
 import Badge from '@/components/Common/Badge';
 import SlideHighlight from '@/components/Common/Navigation/SlideHighlight';
 import { V2_LANDING_PATH } from '@/constants/nav';
-import { useGetUserInfo } from '@/hooks/useGetUserInfo';
-import { AppRootState } from '@/store/redux';
 import { message } from 'antd';
 import Link from 'next/link';
-import { useSelector } from 'react-redux';
 import { isBadgeIds, navbarList, needLoginPath } from './data';
 import { MenuType, NavbarListType } from './type';
 import { usePathname } from 'next/navigation';
 import { useRedirect } from '@/hooks/useRedirect';
+import { useUserStore } from '@/store/zustand/userStore';
+import { useMissionCenterStore } from '@/store/zustand/missionCenterStore';
 
 export interface NavBarProps {
   navList: NavbarListType[];
@@ -29,7 +28,7 @@ type SlideNavigatorHighlight = React.CSSProperties & {
 };
 
 const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
-  const userInfo = useGetUserInfo();
+  const userInfo = useUserStore((state) => state.userInfo);
   const { navList, children, isFull } = NavBarProps;
   const pathname = usePathname();
   const { redirectToUrl } = useRedirect();
@@ -40,11 +39,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
   const [inSideNav, setInSideNav] = useState<NavbarListType[]>([]);
   const [inSideNavIndex, setInSideNavIndex] = useState<number>(-1);
   const [secondNavIndex, setSecondNavIndex] = useState<number>(-1);
-  const { missionData } = useSelector((state: AppRootState) => {
-    return {
-      missionData: state.missionCenter?.missionData
-    };
-  });
+  const missionData = useMissionCenterStore((state) => state.missionData);
 
   useEffect(() => {
     const outSide = navList.filter((v) => v.type === 'outSide');
