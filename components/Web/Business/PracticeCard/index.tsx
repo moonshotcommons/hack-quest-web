@@ -119,7 +119,7 @@ const PracticeCard: FC<PracticeCardProps> = (props) => {
               from === 'dashboard' ? 'line-clamp-1' : ''
             }`}
           >
-            {course.name}
+            {course.title}
           </h2>
           {inProgress ? (
             <>

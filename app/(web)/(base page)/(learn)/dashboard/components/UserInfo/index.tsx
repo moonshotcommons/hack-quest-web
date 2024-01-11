@@ -5,12 +5,21 @@ import { HiArrowLongRight } from 'react-icons/hi2';
 import Link from 'next/link';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 import { useUserStore } from '@/store/zustand/userStore';
+import { useRequest } from 'ahooks';
+import webApi from '@/service';
+import { UserLearnedCountType } from '@/service/webApi/user/type';
 
 interface UserInfoProp {}
 
 const UserInfo: React.FC<UserInfoProp> = () => {
   const userInfo = useUserStore((state) => state.userInfo);
 
+  const { data: userCount = {} as UserLearnedCountType } = useRequest(
+    async () => {
+      const res = await webApi.userApi.getUserLearnedCount();
+      return res;
+    }
+  );
   return (
     <div>
       <div className="p-[16px] bg-yellow-light rounded-[20px] mb-[16px]">
@@ -32,13 +41,17 @@ const UserInfo: React.FC<UserInfoProp> = () => {
             <p className="mb-[8px] text-neutral-rich-gray text-[10px] font-light">
               Courses Completed
             </p>
-            <p className="body-xl text-neutral-off-black">3</p>
+            <p className="body-xl text-neutral-off-black">
+              {userCount.courseCount || 0}
+            </p>
           </div>
           <div className="">
             <p className="mb-[8px] text-neutral-rich-gray text-[10px] font-light">
               Certification Earned
             </p>
-            <p className="body-xl text-neutral-off-black">3</p>
+            <p className="body-xl text-neutral-off-black">
+              {userCount.certificationCount || 0}
+            </p>
           </div>
         </div>
       </div>

@@ -1,11 +1,9 @@
 'use client';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 import { useGetMissionData } from '@/hooks/useGetMissionData';
-import { AppRootState } from '@/store/redux';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { HiArrowLongRight } from 'react-icons/hi2';
-import { useSelector } from 'react-redux';
 import IconHack from '@/public/images/mission-center/icon_hack.png';
 import Image from 'next/image';
 import IconCoin from '@/public/images/mission-center/icon_coin.png';
@@ -14,17 +12,16 @@ import Button from '@/components/Common/Button';
 import { message } from 'antd';
 import webApi from '@/service';
 import { BurialPoint } from '@/helper/burialPoint';
+import { useMissionCenterStore } from '@/store/zustand/missionCenterStore';
 
 interface DaliyQuestProp {}
 
 const DaliyQuest: React.FC<DaliyQuestProp> = () => {
   const { updateMissionDataAll } = useGetMissionData();
   const [claimIds, setClaimIds] = useState<string[]>([]);
-  const { dailyQuests = [] } = useSelector((state: AppRootState) => {
-    return {
-      dailyQuests: state.missionCenter?.missionData?.dailyQuests
-    };
-  });
+  const dailyQuests = useMissionCenterStore(
+    (state) => state.missionData.dailyQuests
+  );
   const missionClaim = (missionId: string) => {
     if (~claimIds.indexOf(missionId)) return;
     setClaimIds([...claimIds, missionId]);

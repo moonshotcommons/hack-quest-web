@@ -143,7 +143,7 @@ const ElectiveCard: FC<ElectiveCardProps> = (props) => {
               </Tag>
             </div>
             <h2 className="text-h4 line-clamp-1 text-neutral-off-black">
-              {course.name}
+              {course.title}
             </h2>
             {!inProgress && (
               <p className="line-clamp-2 body-s text-neutral-medium-gray ">

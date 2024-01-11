@@ -124,3 +124,8 @@ export interface PersonalLinksType {
   linkedIn: string;
   telegram: string;
 }
+
+export interface UserLearnedCountType {
+  certificationCount: number;
+  courseCount: number;
+}
