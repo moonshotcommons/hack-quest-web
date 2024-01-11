@@ -39,7 +39,7 @@ const config: Config = {
         'Chaney-Extended': ['Chaney-Extended'],
         MiSans: ['MiSans'],
         'MiSans-Semibold': ['MiSans-Semibold'],
-        Inter: ['Inter', 'sans-serif'],
+        Inter: ['Inter'],
         'Space-Mono': ['Space Mono', 'monospace;']
       },
       screens: {

@@ -1,9 +1,10 @@
 html {
   /* 主题黄色 */
-  --yellow-dark: #ffe866;
+  --yellow-dark: #fad81c;
   --yellow-primary: #ffe866;
   --yellow-hover: #fff1a3;
-  --yellow-light: #fffae0;
+  --yellow-light: #fff6c2;
+  --yellow-extra-light: #fffae0;
 
   /* 中性色 */
   --neutral-black: #0b0b0b;

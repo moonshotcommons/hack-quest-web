@@ -19,95 +19,95 @@
   }
 
   .text-h1 {
-    @apply font-Inter font-extrabold text-[54px] leading-[54px] tracking-normal;
+    @apply font-extrabold text-[54px] leading-[54px] tracking-normal;
   }
   .text-h2 {
-    @apply font-Inter font-extrabold text-[40px] leading-[40px] tracking-normal;
+    @apply font-extrabold text-[40px] leading-[40px] tracking-normal;
   }
   .text-h3 {
-    @apply font-Inter font-extrabold text-[28px] leading-normal tracking-normal;
+    @apply font-extrabold text-[28px] leading-normal tracking-normal;
   }
   .text-h4 {
-    @apply font-Inter font-extrabold text-[18px] leading-normal tracking-normal;
+    @apply font-extrabold text-[18px] leading-normal tracking-normal;
   }
   .text-h5 {
-    @apply font-Inter font-extrabold text-[16px] leading-normal tracking-normal;
+    @apply font-extrabold text-[16px] leading-normal tracking-normal;
   }
 
   .text-h1-mob {
-    @apply font-Inter font-extrabold text-[30px] leading-[30px] tracking-normal;
+    @apply font-extrabold text-[30px] leading-[30px] tracking-normal;
   }
   .text-h2-mob {
-    @apply font-Inter font-extrabold  text-[22px] leading-normal tracking-normal;
+    @apply font-extrabold  text-[22px] leading-normal tracking-normal;
   }
   .text-h3-mob {
-    @apply font-Inter font-extrabold text-[18px] leading-normal tracking-normal;
+    @apply font-extrabold text-[18px] leading-normal tracking-normal;
   }
   .text-h4-mob {
-    @apply font-Inter font-extrabold text-[16px] leading-normal tracking-normal;
+    @apply font-extrabold text-[16px] leading-normal tracking-normal;
   }
   .text-h5-mob {
-    @apply font-Inter font-extrabold text-[14px] leading-normal tracking-normal;
+    @apply font-extrabold text-[14px] leading-normal tracking-normal;
   }
 
   .body-xl {
-    @apply font-Inter font-normal text-[24px] leading-normal;
+    @apply font-normal text-[24px] leading-normal;
   }
 
   .body-xl-bold {
-    @apply font-Inter font-semibold text-[24px] leading-normal;
+    @apply font-semibold text-[24px] leading-normal;
   }
 
   .body-l {
-    @apply font-Inter font-normal text-[18px] leading-[160%] tracking-normal;
+    @apply font-normal text-[18px] leading-[160%] tracking-normal;
   }
 
   .body-l-bold {
-    @apply font-Inter font-semibold text-[18px] leading-[160%] tracking-normal;
+    @apply font-semibold text-[18px] leading-[160%] tracking-normal;
   }
 
   .body-m {
-    @apply font-Inter font-normal text-[16px] leading-[160%] tracking-normal;
+    @apply font-normal text-[16px] leading-[160%] tracking-normal;
   }
 
   .body-m-bold {
-    @apply font-Inter font-bold text-[16px] leading-[160%] tracking-normal;
+    @apply font-bold text-[16px] leading-[160%] tracking-normal;
   }
 
   .body-s {
-    @apply font-Inter font-normal text-[14px] leading-[160%] tracking-normal;
+    @apply font-normal text-[14px] leading-[160%] tracking-normal;
   }
 
   .body-s-bold {
-    @apply font-Inter font-semibold text-[14px] leading-[160%] tracking-normal;
+    @apply font-semibold text-[14px] leading-[160%] tracking-normal;
   }
 
   .caption-16pt {
-    @apply font-Inter font-normal leading-normal text-[16px];
+    @apply font-normal leading-normal text-[16px];
   }
 
   .caption-14pt {
-    @apply font-Inter font-normal leading-normal text-[14px];
+    @apply font-normal leading-normal text-[14px];
   }
 
   .caption-12pt {
-    @apply font-Inter font-light leading-normal text-[12px];
+    @apply font-light leading-normal text-[12px];
   }
 
   .caption-10pt {
-    @apply font-Inter font-normal leading-normal text-[12px] scale-[.83] w-[120%];
+    @apply font-normal leading-normal text-[12px];
   }
 
   .button-text-l {
-    @apply font-Inter text-[18px] leading-normal tracking-normal font-medium;
+    @apply text-[18px] leading-normal tracking-normal font-medium;
   }
 
   .button-text-m {
-    @apply font-Inter text-[14px] leading-normal tracking-normal font-medium;
+    @apply text-[14px] leading-normal tracking-normal font-medium;
   }
 
   .button-text-s {
-    @apply font-Inter text-[12px] leading-normal tracking-normal font-medium;
+    @apply text-[12px] leading-normal tracking-normal font-medium;
   }
 
   .code-l {
@@ -121,13 +121,13 @@
   }
 
   .underline-l {
-    @apply font-Inter text-[18px] leading-normal tracking-normal underline;
+    @apply text-[18px] leading-normal tracking-normal underline;
   }
   .underline-m {
-    @apply font-Inter text-[18px] leading-normal tracking-normal underline;
+    @apply text-[18px] leading-normal tracking-normal underline;
   }
   .underline-s {
-    @apply font-Inter text-[18px] leading-normal tracking-normal underline;
+    @apply text-[18px] leading-normal tracking-normal underline;
   }
 }
 

@@ -10,6 +10,7 @@ const isMobile = (ua: string) => {
 
 export function middleware(request: NextRequest) {
   const userAgent = request.headers.get('user-agent');
+  if (!userAgent) return NextResponse.next();
 
   if (isMobile(userAgent!) && !request.nextUrl.pathname.startsWith('/mobile')) {
     const url = `/mobile${request.nextUrl.pathname}${request.nextUrl.search}`;
