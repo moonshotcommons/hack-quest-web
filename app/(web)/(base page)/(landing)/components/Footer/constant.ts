@@ -16,7 +16,7 @@ export const FOOTER_LINKS = [
       },
       {
         title: 'Playground',
-        link: ''
+        link: process.env.IDE_URL || 'https://ide.dev.hackquest.io'
       }
     ]
   },
@@ -25,23 +25,23 @@ export const FOOTER_LINKS = [
     links: [
       {
         title: 'Discord',
-        link: '/learning-track'
+        link: 'https://discord.gg/KkAJHPqywn'
       },
       {
         title: 'X',
-        link: '/electives'
+        link: 'https://x.com/hackquest_?s=21&t=kYetGSBybf-ssFBo7GodGA'
       },
       {
         title: 'Telegram',
-        link: '/practices'
+        link: '/'
       },
       {
         title: 'Instagram',
-        link: ''
+        link: 'https://www.instagram.com/_hackquest/'
       },
       {
         title: 'Linkedin',
-        link: ''
+        link: '/'
       }
     ]
   },
@@ -50,11 +50,11 @@ export const FOOTER_LINKS = [
     links: [
       {
         title: 'Hackathon',
-        link: '/learning-track'
+        link: '/hackathon'
       },
       {
         title: 'Blog',
-        link: '/electives'
+        link: '/blog'
       }
     ]
   }
