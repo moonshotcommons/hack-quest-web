@@ -42,7 +42,7 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
     if (contentWrap) {
       contentWrap.scrollTo(0, 0);
     }
-  });
+  }, []);
 
   return (
     <div
@@ -51,7 +51,7 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
       } ${isNavbarFullPage ? '' : 'min-h-[100vh]'} `}
     >
       <div className="w-full bg-[#0B0B0B] flex items-center">
-        <NavBar {...navbarData} isFull={isNavbarFullPage}>
+        <NavBar {...navbarData}>
           <User></User>
         </NavBar>
       </div>

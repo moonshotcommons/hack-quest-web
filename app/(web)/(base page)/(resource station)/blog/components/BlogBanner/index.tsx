@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useEffect, useRef, useState } from 'react';
 import BlogBannerBg from '@/public/images/blog/blog_banner_bg.png';
 import { PiSortAscendingBold, PiSortDescendingBold } from 'react-icons/pi';
@@ -6,17 +8,31 @@ import { searchTabData, sortData } from '../../constants/data';
 import { FiX } from 'react-icons/fi';
 import SlideHighlight from '@/components/Common/Navigation/SlideHighlight';
 import { BlogSearchType } from '@/service/webApi/resourceStation/type';
+import { useRouter } from 'next/navigation';
+import { cloneDeep } from 'lodash-es';
 
 interface BannerProp {
-  searchInfo: BlogSearchType;
-  changeSearchInfo: (info: BlogSearchType) => void;
+  searchParams: BlogSearchType;
 }
 
-const BlogBanner: React.FC<BannerProp> = ({ searchInfo, changeSearchInfo }) => {
+const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
+  const router = useRouter();
+  const [searchInfo, setSearchInfo] = useState<BlogSearchType>({});
   const [inputVisible, setInputVisible] = useState(false);
   const [sortVisible, setSortVisible] = useState(false);
   const timeOut = useRef<NodeJS.Timeout | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  function changeSearchInfo(searchInfo: BlogSearchType) {
+    const url = new URL('/blog', window.location.href);
+    for (const key in searchInfo) {
+      const value = searchInfo[key as keyof typeof searchInfo];
+      if (!value) continue;
+      url.searchParams.append(key, value);
+    }
+    router.push(url.toString());
+  }
+
   const changeSearch = (val: string) => {
     if (val === searchInfo.category) return;
     changeSearchInfo({
@@ -52,10 +68,14 @@ const BlogBanner: React.FC<BannerProp> = ({ searchInfo, changeSearchInfo }) => {
   };
 
   useEffect(() => {
-    const { category } = searchInfo;
+    const newSearchInfo = cloneDeep(searchParams);
+    newSearchInfo.category = newSearchInfo.category || '';
+    const { category } = newSearchInfo;
     const index = searchTabData.findIndex((v) => v.value === category);
     setCurrentIndex(index);
-  }, [searchInfo]);
+
+    setSearchInfo(newSearchInfo);
+  }, [searchParams]);
 
   return (
     <div
@@ -78,9 +98,6 @@ const BlogBanner: React.FC<BannerProp> = ({ searchInfo, changeSearchInfo }) => {
             Contribute your insights, shaping the conversation in the world of
             decentralized tech.
           </p>
-          {/* <Button className="w-[270px] h-[60px] bg-yellow-primary text-[18px] mt-[30px]">
-            Contribute
-          </Button> */}
         </div>
         <div className="w-full h-[60px] px-[30px] rounded-[100px] bg-[#3E3E3E] flex items-center justify-between">
           {!inputVisible && (
@@ -127,7 +144,7 @@ const BlogBanner: React.FC<BannerProp> = ({ searchInfo, changeSearchInfo }) => {
                 type={'BLOG_FILTER'}
                 currentIndex={currentIndex}
               >
-                {searchTabData.map((v) => (
+                {searchTabData.map((v, i) => (
                   <div
                     key={v.value}
                     className={`${

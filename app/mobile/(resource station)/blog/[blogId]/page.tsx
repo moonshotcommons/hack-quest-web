@@ -1,17 +1,31 @@
 import { FC } from 'react';
 import BlogDetail from '../components/BlogId';
 import { Metadata } from 'next';
+import { BlogDetailType } from '@/service/webApi/resourceStation/type';
+import { getBlogById } from '@/service/blog';
 
-export const metadata: Metadata = {
-  title: 'HackQuest Blog Detail'
-};
+interface BlogPageProps {
+  params: {
+    blogId: string;
+  };
+}
 
-interface BlogPageProps {}
+export async function generateMetadata({
+  params
+}: BlogPageProps): Promise<Metadata> {
+  const blog: BlogDetailType = await getBlogById(params.blogId);
+  return {
+    title: blog.title,
+    description: blog.description
+  };
+}
 
-const BlogPage: FC<BlogPageProps> = (props) => {
+const BlogPage: FC<BlogPageProps> = async ({ params }) => {
+  const blog: BlogDetailType = await getBlogById(params.blogId);
+
   return (
     <>
-      <BlogDetail />
+      <BlogDetail blog={blog} />
     </>
   );
 };

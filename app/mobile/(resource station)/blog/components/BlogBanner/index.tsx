@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useEffect, useRef, useState } from 'react';
 import BlogBannerBg from '@/public/images/blog/blog_banner_bg.png';
 import { PiSortAscendingBold, PiSortDescendingBold } from 'react-icons/pi';
@@ -6,17 +8,32 @@ import { searchTabData, sortData } from './data';
 import { FiX } from 'react-icons/fi';
 import SlideHighlight from '@/components/Common/Navigation/SlideHighlight';
 import { BlogSearchType } from '@/service/webApi/resourceStation/type';
+import { useRouter } from 'next/navigation';
 
-interface BannerProp {
-  searchInfo: BlogSearchType;
-  changeSearchInfo: (info: BlogSearchType) => void;
-}
+interface BannerProp {}
 
-const BlogBanner: React.FC<BannerProp> = ({ searchInfo, changeSearchInfo }) => {
+const BlogBanner: React.FC<BannerProp> = () => {
+  const router = useRouter();
+  const searchInfo = {
+    keyword: '',
+    category: searchTabData[0].value,
+    sort: sortData[0].value
+  };
   const [inputVisible, setInputVisible] = useState(false);
   const [sortVisible, setSortVisible] = useState(false);
   const timeOut = useRef<NodeJS.Timeout | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  function changeSearchInfo(searchInfo: BlogSearchType) {
+    const url = new URL('/blog', window.location.href);
+    for (const key in searchInfo) {
+      const value = searchInfo[key as keyof typeof searchInfo];
+      if (!value) continue;
+      url.searchParams.append(key, value);
+    }
+    router.push(url.toString());
+  }
+
   const changeSearch = (val: string) => {
     if (val === searchInfo.category) return;
     changeSearchInfo({

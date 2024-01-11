@@ -19,7 +19,6 @@ export interface NavBarProps {
   navList: NavbarListType[];
   children?: ReactNode;
   logo?: ReactNode;
-  isFull?: boolean;
 }
 
 type SlideNavigatorHighlight = React.CSSProperties & {
@@ -29,14 +28,13 @@ type SlideNavigatorHighlight = React.CSSProperties & {
 
 const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
   const userInfo = useGetUserInfo();
-  const { navList, children, isFull } = NavBarProps;
+  const { navList, children } = NavBarProps;
   const { redirectToUrl } = useRedirect();
   const pathname = usePathname();
   const [showSecondNav, setShowSecondNav] = useState(false);
   const [secondNavData, setSecondNavData] = useState<MenuType[]>([]);
+  const [secondLabel, setSecondLabel] = useState('');
   const [curNavId, setCurNavId] = useState('');
-  const [outSideNav, setOutSideNav] = useState<NavbarListType[]>([]);
-  const [inSideNav, setInSideNav] = useState<NavbarListType[]>([]);
   const [inSideNavIndex, setInSideNavIndex] = useState<number>(-1);
   const [secondNavIndex, setSecondNavIndex] = useState<number>(-1);
   const { missionData } = useSelector((state: AppRootState) => {
@@ -46,35 +44,26 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
   });
 
   useEffect(() => {
-    const outSide = navList.filter((v) => v.type === 'outSide');
-    setOutSideNav(outSide);
-    const inSide = navList.filter((v) => v.type !== 'outSide');
-    setInSideNav(inSide);
-    if (isFull) {
-      setShowSecondNav?.(false);
-      setSecondNavData(inSide[0].menu as []);
-      setCurNavId(inSide[0].id);
-      return;
-    }
-
-    for (let nav of inSide) {
+    for (let nav of navList) {
       const curNav = nav.menu.find((menu) => pathname.includes(menu.path));
       if (curNav) {
         setShowSecondNav?.(nav.menu.length > 1);
         setSecondNavData(nav.menu as []);
+        setSecondLabel(nav.label);
         setCurNavId(nav.id);
         return;
       }
     }
     setShowSecondNav?.(false);
     setSecondNavData([]);
+    setSecondLabel('');
     setCurNavId('');
   }, [pathname, navList]);
 
   useEffect(() => {
-    const index = inSideNav.findIndex((v) => v.id === curNavId);
+    const index = navList.findIndex((v) => v.id === curNavId);
     setInSideNavIndex(index);
-  }, [inSideNav, curNavId]);
+  }, [curNavId]);
 
   useEffect(() => {
     if (!showSecondNav) return;
@@ -86,6 +75,10 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
     nav: NavbarListType
   ) => {
+    if (nav.type === 'outSide') {
+      e.stopPropagation();
+      window.open(nav.link);
+    }
     const path = nav.menu[0].path;
     if (~needLoginPath.indexOf(path) && !userInfo) {
       e.stopPropagation();
@@ -101,12 +94,8 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
   };
   return (
     <div className="w-full">
-      <div
-        className={`h-[64px] mx-auto  ${
-          isFull ? 'w-full 2xl:px-[40px]' : 'container'
-        }`}
-      >
-        <div className="slab:hidden  h-full flex items-center justify-between font-next-book">
+      <div className={`h-[64px] mx-auto container`}>
+        <div className="h-full flex items-center justify-between font-next-book">
           <nav className="h-full flex items-center text-white">
             <div
               className={`h-full flex items-center ${
@@ -117,15 +106,14 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
               <Image src={DarkLogoActive} alt="logo"></Image>
             </div>
             <SlideHighlight
-              className="flex ml-16 gap-[10px] h-[34px] text-sm rounded-[20px] bg-[#3E3E3E] overflow-hidden tracking-[0.28px]"
+              className="flex h-full ml-[60px] gap-[28px]  body-s text-neutral-off-white"
               currentIndex={inSideNavIndex}
-              type={'BACKGROUND'}
             >
-              {inSideNav.map((nav) => (
+              {navList.map((nav) => (
                 <div
                   key={nav.id}
-                  className={`h-full flex-center px-[14px] rounded-[20px] cursor-pointer ${
-                    curNavId === nav.id ? 'text-[#0b0b0b]' : ''
+                  className={`h-full flex-center  cursor-pointer ${
+                    curNavId === nav.id ? 'text-neutral-white body-s-bold' : ''
                   }`}
                   data-id={nav.id}
                   onClick={(e) => handleClickNav(e, nav)}
@@ -139,41 +127,34 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
                 </div>
               ))}
             </SlideHighlight>
-            <div className="flex ml-[20px] gap-[10px] h-[34px]  text-[14px] rounded-[20px] bg-[#3E3E3E] overflow-hidden tracking-[0.28px]">
-              {outSideNav.map((nav) => (
-                <Link
-                  key={nav.id}
-                  href={nav.link as string}
-                  target="_blank"
-                  className={`h-full flex-center px-[14px] rounded-[20px] cursor-pointer  `}
-                >
-                  {nav.label}
-                </Link>
-              ))}
-            </div>
           </nav>
           {children}
         </div>
-        <nav className="hidden slab:flex-center w-full h-full ">
-          <Image src={DarkLogoActive} height={20} alt="logo"></Image>
-        </nav>
       </div>
       {showSecondNav && (
-        <div className="slab:hidden  text-white tracking-[0.84px]  w-screen h-12 bg-[#0B0B0B]">
-          <SlideHighlight
-            className="container m-auto flex items-end gap-[30px] h-full"
-            currentIndex={secondNavIndex}
-          >
-            {secondNavData.map((menu: MenuType) => (
-              <Link
-                key={menu.path}
-                href={menu.path}
-                className="h-full pb-3 cursor-pointer hover:underline flex items-end"
-              >
-                {menu.label}
-              </Link>
-            ))}
-          </SlideHighlight>
+        <div className="text-neutral-white tracking-[0.84px]  w-screen h-12 bg-neutral-off-black">
+          <div className="container m-auto flex h-full items-center body-s">
+            <div className="flex items-center h-[34px] pr-[20px] border-r-[0.5px] border-r-neutral-white">
+              {secondLabel}
+            </div>
+            <SlideHighlight
+              className="pl-[20px]  flex items-center gap-[30px] h-full"
+              currentIndex={secondNavIndex}
+              type="SECOND_NAVBAR"
+            >
+              {secondNavData.map((menu: MenuType, i: number) => (
+                <Link
+                  key={menu.path}
+                  href={menu.path}
+                  className={`cursor-pointer   ${
+                    secondNavIndex === i ? 'body-s-bold' : ''
+                  }`}
+                >
+                  {menu.label}
+                </Link>
+              ))}
+            </SlideHighlight>
+          </div>
         </div>
       )}
     </div>

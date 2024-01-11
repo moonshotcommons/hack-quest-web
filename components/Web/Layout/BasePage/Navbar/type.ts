@@ -17,6 +17,7 @@ export enum MenuLink {
 export interface MenuType {
   label: string;
   path: MenuLink;
+  needLogin?: boolean;
 }
 export interface NavbarListType {
   label: string;
