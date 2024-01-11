@@ -17,7 +17,7 @@ const UserInfo: React.FC<UserInfoProp> = () => {
     <div>
       <div className="p-[16px] bg-yellow-light rounded-[20px] mb-[16px]">
         <div className="flex items-center gap-[12px] mb-[24px]">
-          <div className="w-[60px] h-[60px] relative">
+          <div className="w-[60px] h-[60px] relative rounded-[50%] overflow-hidden">
             <Image
               src={userInfo?.avatar as string}
               alt="avatar"

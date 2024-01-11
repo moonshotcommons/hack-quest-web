@@ -34,12 +34,12 @@ const SlideHighlight: FC<SlideHighlightProps> = function (props) {
 
   const onClick: MouseEventHandler<HTMLDivElement> = (event) => {
     if (!root.current) return;
-
     const target = Array.from(root.current.children).find((v) =>
       v.contains(event.target as Node)
     ) as HTMLElement;
     const { left } = root.current.getBoundingClientRect();
     const { left: l, width } = target?.getBoundingClientRect() || {};
+    if (!width) return;
     setNavStyle({
       '--highlight-x': `${l - left}px`,
       '--highlight-width': `${width}px`

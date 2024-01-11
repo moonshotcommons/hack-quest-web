@@ -15,17 +15,22 @@ import PracticeImg2 from '@/public/images/home/practices_img2.png';
 import PracticeImg3 from '@/public/images/home/practices_img3.png';
 import PracticeImg4 from '@/public/images/home/practices_img4.png';
 import { useRedirect } from '@/hooks/useRedirect';
+import CardProgress from '../CardProgress';
+import Button from '@/components/Common/Button';
+import { cn } from '@/helper/utils';
 
 interface PracticeCardProps {
   // children: ReactNode;
   course: ProjectCourseType;
+  from?: 'dashboard' | 'project';
+  className?: string;
+  inProgress?: boolean;
 }
 
 const PracticeCard: FC<PracticeCardProps> = (props) => {
-  const { course } = props;
+  const { course, from = 'project', className = '', inProgress } = props;
   const { jumpLearningLesson, loading } = useJumpLeaningLesson();
   const { redirectToUrl } = useRedirect();
-
   const imageRender = (track: CourseTrackType) => {
     switch (track) {
       case CourseTrackType.DeFi:
@@ -68,9 +73,10 @@ const PracticeCard: FC<PracticeCardProps> = (props) => {
   };
   return (
     <div
-      className={
-        'flex  flex-col h-[371px]  rounded-[12px]   bg-white w-[302px] hover:-translate-y-1 transition-all duration-300 mt-1 relative shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)] cursor-pointer'
-      }
+      className={cn(
+        'flex  flex-col h-[371px]  rounded-[12px]   bg-white w-[302px] hover:-translate-y-1 transition-all duration-300 mt-1 relative shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)] cursor-pointer',
+        className
+      )}
       onClick={() => {
         BurialPoint.track('home-practice卡片点击', { practice: course.name });
         redirectToUrl(
@@ -79,7 +85,11 @@ const PracticeCard: FC<PracticeCardProps> = (props) => {
       }}
     >
       {!!course.progress && course.progress >= 1 && (
-        <div className="absolute font-neuemachina-light top-[13px] left-[16px] z-[999]">
+        <div
+          className={`absolute font-neuemachina-light top-[13px]  z-[999] ${
+            from === 'project' ? 'left-[16px]' : 'right-[16px]'
+          }`}
+        >
           <svg
             width="32"
             height="32"
@@ -104,59 +114,62 @@ const PracticeCard: FC<PracticeCardProps> = (props) => {
           <div className="text-[#3e3e3e] w-[fit-content] px-[10px] py-[4px] border border-[#3e3e3e] rounded-[20px] font-next-book  tracking-[0.32px] opacity-60 text-[12px] uppercase">
             {course.track}
           </div>
-          <h2 className="text-[21px] font-next-poster-Bold text-[#000] leading-[21px] tracking-[1.16px] my-[16px]">
+          <h2
+            className={`text-[21px] font-next-poster-Bold text-[#000] leading-[21px] tracking-[1.16px] my-[16px] ${
+              from === 'dashboard' ? 'line-clamp-1' : ''
+            }`}
+          >
             {course.name}
           </h2>
-          {
-            <Typography.Paragraph
-              ellipsis={{ rows: 2 }}
-              className="my-[13px] min-h-[45px]"
-            >
-              <div className="text-[14px] font-next-book-Thin leading-[160%] text-[#8C8C8C]">
-                {course.description}
+          {inProgress ? (
+            <>
+              <div className="my-[16px]">
+                <CardProgress progress={course.progress || 0} />
               </div>
-            </Typography.Paragraph>
-          }
-          {/* {!!course.progress && course.progress > 0 && course.progress < 1 && (
-            <CardProgress
-              progress={course.progress}
-              className="mb-[8px] text-[12px]"
-            />
-          )} */}
-        </div>
-        {
-          <CourseTags
-            language={course.language}
-            level={course.level as string}
-            unitCount={course.unitCount || 0}
-            className="justify-between"
-          ></CourseTags>
-        }
 
-        {/* {!!course.progress && course.progress > 0 && course.progress < 1 && (
-          <div className="flex flex-col gap-y-5">
-            <Button
-              type="primary"
-              className="px-0 py-[12px] flex text-[16px] font-next-book tracking-[0.32] leading-[125%]"
-              block
-              loading={loading}
-              disabled={loading}
-              onClick={(e) => {
-                BurialPoint.track('home-course卡片Continue按钮点击', {
-                  courseName: course.name
-                });
-                e.stopPropagation();
-                jumpLearningLesson(course, {
-                  menu: 'electives',
-                  idTypes: [QueryIdType.MENU_COURSE_ID],
-                  ids: [course.id]
-                });
-              }}
-            >
-              Continue
-            </Button>
-          </div>
-        )} */}
+              <div className="flex flex-col gap-y-5">
+                <Button
+                  type="primary"
+                  className="px-0 py-[12px] h-[48px]  button-text-m text-neutral-off-black"
+                  block
+                  loading={loading}
+                  disabled={loading}
+                  onClick={(e) => {
+                    BurialPoint.track('home-course卡片Continue按钮点击', {
+                      courseName: course.name
+                    });
+                    e.stopPropagation();
+                    jumpLearningLesson(course, {
+                      menu: 'electives',
+                      idTypes: [QueryIdType.MENU_COURSE_ID],
+                      ids: [course.id]
+                    });
+                  }}
+                >
+                  CONTINUE
+                </Button>
+              </div>
+            </>
+          ) : (
+            <>
+              <Typography.Paragraph
+                ellipsis={{ rows: 2 }}
+                className="my-[13px] min-h-[45px]"
+              >
+                <div className="text-[14px] font-next-book-Thin leading-[160%] text-[#8C8C8C]">
+                  {course.description}
+                </div>
+              </Typography.Paragraph>
+              <CourseTags
+                language={course.language}
+                level={course.level as string}
+                unitCount={course.unitCount || 0}
+                className="justify-between"
+              ></CourseTags>
+            </>
+          )}
+        </div>
+
         {/* {!!course.progress && course.progress >= 1 && (
           <div className="flex flex-col gap-y-5">
             <Button

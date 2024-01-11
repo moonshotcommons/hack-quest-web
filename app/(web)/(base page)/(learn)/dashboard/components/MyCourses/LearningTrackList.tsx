@@ -37,12 +37,14 @@ const LearningTrackList: React.FC<LearningTrackListProps> = ({
         ))}
       </div>
       {!isAll && list.length > 2 && (
-        <div
-          className="flex text-neutral-off-black button-text-s items-center mt-[16px] cursor-pointer"
-          onClick={() => setIsAll(true)}
-        >
-          <span>EXPLORE</span>
-          <HiArrowLongRight size={18}></HiArrowLongRight>
+        <div className="flex">
+          <div
+            className="flex text-neutral-off-black button-text-s items-center mt-[16px] cursor-pointer"
+            onClick={() => setIsAll(true)}
+          >
+            <span>EXPLORE</span>
+            <HiArrowLongRight size={18}></HiArrowLongRight>
+          </div>
         </div>
       )}
     </div>

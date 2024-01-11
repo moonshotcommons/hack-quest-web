@@ -3,28 +3,26 @@ import Image from 'next/image';
 import React from 'react';
 import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import CourseTags from '@/components/Web/Business/CourseTags';
-import { useRedirect } from '@/hooks/useRedirect';
 import LearningTrackImg from '@/public/images/home/learningtrack_img.png';
 import { MenuLink } from '@/components/Layout/Navbar/type';
+import Link from 'next/link';
+import { BurialPoint } from '@/helper/burialPoint';
 interface LearningTrackCardCompletedProps {
   learningTrack: LearningTrackDetailType;
 }
 const LearningTrackCardCompleted: React.FC<LearningTrackCardCompletedProps> = ({
   learningTrack
 }) => {
-  const { redirectToUrl } = useRedirect();
-
   const goLearningTrackDetail = () => {
-    redirectToUrl(
-      `${MenuLink.LEARNING_TRACK}/${learningTrack.id}?${QueryIdType.LEARNING_TRACK_ID}=${learningTrack.id}&menu=${Menu.LEARNING_TRACK}`
-    );
+    BurialPoint.track('dashboard-learning track卡片点击');
   };
 
   return (
-    <div
+    <Link
       className={
         'h-[200px] relative w-full  p-[16px] cursor-pointer rounded-[24px] bg-neutral-white overflow-hidden flex items-center gap-[16px] hover:-translate-y-1 transition-all duration-300  hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)]'
       }
+      href={`${MenuLink.LEARNING_TRACK}/${learningTrack.id}?${QueryIdType.LEARNING_TRACK_ID}=${learningTrack.id}&menu=${Menu.LEARNING_TRACK}`}
       onClick={goLearningTrackDetail}
     >
       {learningTrack.progress && learningTrack.progress >= 1 && (
@@ -74,7 +72,7 @@ const LearningTrackCardCompleted: React.FC<LearningTrackCardCompletedProps> = ({
           className="object-cover"
         ></Image>
       </div>
-    </div>
+    </Link>
   );
 };
 
