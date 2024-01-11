@@ -1,19 +1,17 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import webApi from '@/service';
-import { AppRootState } from '@/store/redux';
-import { shallowEqual, useSelector } from 'react-redux';
 import { message } from 'antd';
 import { BurialPoint } from '@/helper/burialPoint';
 import { useGetMissionData } from '@/hooks/useGetMissionData';
 import { MissionCenterContext } from '../constants/type';
 import UserInfo from './UserInfo';
 import ClaimContent from './ClaimContent';
+import { useUserStore } from '@/store/zustand/userStore';
+import { LoginResponse } from '@/service/webApi/user/type';
 
 function MissionCenter() {
-  const userInfo = useSelector((state: AppRootState) => {
-    return state.user.userInfo;
-  }, shallowEqual);
+  const userInfo = useUserStore((state) => state.userInfo);
   const { updateMissionDataAll } = useGetMissionData();
   const [loading, setLoading] = useState(false);
   const [missionIds, setMissionIds] = useState<string[]>([]);
@@ -62,7 +60,7 @@ function MissionCenter() {
           updateMissionDataAll
         }}
       >
-        <UserInfo userInfo={userInfo} />
+        <UserInfo userInfo={userInfo as LoginResponse} />
         <ClaimContent missionClaim={missionClaim} />
       </MissionCenterContext.Provider>
     </div>

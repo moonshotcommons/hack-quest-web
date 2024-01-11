@@ -1,18 +1,16 @@
 'use client';
 import React from 'react';
 import Image from 'next/image';
-import { shallowEqual, useSelector } from 'react-redux';
-import { AppRootState } from '@/store/redux';
 import { HiArrowLongRight } from 'react-icons/hi2';
 import Link from 'next/link';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import { useUserStore } from '@/store/zustand/userStore';
 
 interface UserInfoProp {}
 
 const UserInfo: React.FC<UserInfoProp> = () => {
-  const userInfo = useSelector((state: AppRootState) => {
-    return state.user.userInfo;
-  }, shallowEqual);
+  const userInfo = useUserStore((state) => state.userInfo);
+
   return (
     <div>
       <div className="p-[16px] bg-yellow-light rounded-[20px] mb-[16px]">

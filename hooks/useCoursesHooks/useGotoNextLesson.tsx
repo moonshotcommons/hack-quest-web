@@ -2,14 +2,13 @@ import { CompleteModalInstance } from '@/components/Web/Business/CompleteModal';
 import { BurialPoint } from '@/helper/burialPoint';
 import webApi from '@/service';
 import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
-import { AppRootState } from '@/store/redux';
 import { useDebounceFn } from 'ahooks';
 import { message } from 'antd';
 import { useMemo, useRef, useState } from 'react';
-import { shallowEqual, useSelector } from 'react-redux';
 import { useGetLessonLink } from './useGetLessonLink';
 import { useRedirect } from '../useRedirect';
 import { useParams } from 'next/navigation';
+import { useCourseStore } from '@/store/zustand/courseStore';
 
 export const useGotoNextLesson = (
   lesson: CourseLessonType,
@@ -24,11 +23,7 @@ export const useGotoNextLesson = (
   const [loading, setLoading] = useState(false);
   const completeModalRef = useRef<CompleteModalInstance>(null);
 
-  const { unitsLessonsList } = useSelector((state: AppRootState) => {
-    return {
-      unitsLessonsList: state.course.unitsLessonsList
-    };
-  }, shallowEqual);
+  const unitsLessonsList = useCourseStore((state) => state.unitsLessonsList);
 
   const { run: onNextClick } = useDebounceFn(async (callbackProp?) => {
     setLoading(true);
@@ -97,11 +92,7 @@ export const useBackToPrevLesson = (
   const { redirectToUrl } = useRedirect();
   const { getLink } = useGetLessonLink();
   const params = useParams();
-  const { unitsLessonsList } = useSelector((state: AppRootState) => {
-    return {
-      unitsLessonsList: state.course.unitsLessonsList
-    };
-  }, shallowEqual);
+  const unitsLessonsList = useCourseStore((state) => state.unitsLessonsList);
 
   const isFirst = useMemo(() => {
     return lesson.id === unitsLessonsList[0]?.pages[0]?.id;

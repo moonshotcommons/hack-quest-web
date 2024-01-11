@@ -1,13 +1,13 @@
 import { BurialPoint } from '@/helper/burialPoint';
-import { useGetUserUnLoginType } from '@/hooks/useGetUserInfo';
 import { useValidator } from '@/hooks/useValidator';
 import webApi from '@/service';
-import { UnLoginType, setUnLoginType } from '@/store/redux/modules/user';
+
 import { useDebounceFn } from 'ahooks';
 import { message } from 'antd';
 import { FC, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useShallow } from 'zustand/react/shallow';
 import Button from '@/components/Common/Button';
+import { AuthType, useUserStore } from '@/store/zustand/userStore';
 
 interface ForgotPasswordProps {}
 
@@ -17,11 +17,17 @@ const ForgotPassword: FC<ForgotPasswordProps> = (props) => {
   }>({
     email: ''
   });
-  const loginRouteParams = useGetUserUnLoginType();
+
+  const { authRouteType, setAuthType } = useUserStore(
+    useShallow((state) => ({
+      authRouteType: state.authRouteType,
+      setAuthType: state.setAuthType
+    }))
+  );
   const [status, setStatus] = useState<any>('default');
   const [errorMessage, setErrorMessage] = useState('');
   const { validator } = useValidator(['email']);
-  const dispatch = useDispatch();
+
   const [loading, setLoading] = useState(false);
   const { run: sendEmail } = useDebounceFn(
     () => {
@@ -38,12 +44,11 @@ const ForgotPassword: FC<ForgotPasswordProps> = (props) => {
             setErrorMessage('');
             const res = await webApi.userApi.forgetPassword(formData.email);
             BurialPoint.track('login-忘记密码发送邮件成功');
-            dispatch(
-              setUnLoginType({
-                type: UnLoginType.EMAIL_VERIFY,
-                params: { email: formData.email }
-              })
-            );
+
+            setAuthType({
+              type: AuthType.EMAIL_VERIFY,
+              params: { email: formData.email }
+            });
           } catch (e: any) {
             BurialPoint.track('login-忘记密码发送邮件失败', {
               message: e?.msg
@@ -59,14 +64,14 @@ const ForgotPassword: FC<ForgotPasswordProps> = (props) => {
   );
 
   useEffect(() => {
-    const { params } = loginRouteParams;
+    const { params } = authRouteType;
     if (params?.email) {
       setFormData({ email: params.email });
     } else {
       message.error('email does not exist!');
-      dispatch(setUnLoginType(UnLoginType.LOGIN));
+      setAuthType(AuthType.LOGIN);
     }
-  }, [loginRouteParams]);
+  }, [authRouteType]);
 
   return (
     <div className="h-full max-w-[33.0625rem] flex flex-col items-start gap-y-[25px] text-left ">
@@ -95,7 +100,9 @@ const ForgotPassword: FC<ForgotPasswordProps> = (props) => {
       </Button>
 
       <Button
-        onClick={() => dispatch(setUnLoginType(loginRouteParams.prevType))}
+        onClick={() =>
+          authRouteType.prevType && setAuthType(authRouteType.prevType)
+        }
         block
         className="
           font-next-book

@@ -3,17 +3,17 @@ import UserDropCard from '@/components/Web/Business/UserDropCard';
 import { V2_LANDING_PATH } from '@/constants/nav';
 import { BurialPoint } from '@/helper/burialPoint';
 import { cn } from '@/helper/utils';
-import { useGetUserInfo, useGetUserUnLoginType } from '@/hooks/useGetUserInfo';
 import IconCoin from '@/public/images/mission-center/icon_coin.png';
-import { AppRootState } from '@/store/redux';
-import { UnLoginType, setUnLoginType } from '@/store/redux/modules/user';
 import Image from 'next/image';
 import { FC, useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import Settings from './Settings';
 import { unLoginTab } from './data';
 import { usePathname } from 'next/navigation';
 import { useRedirect } from '@/hooks/useRedirect';
+import { AuthType, useUserStore } from '@/store/zustand/userStore';
+import { useShallow } from 'zustand/react/shallow';
+import { LoginResponse } from '@/service/webApi/user/type';
+import { useMissionCenterStore } from '@/store/zustand/missionCenterStore';
 interface UserProps {}
 
 const User: FC<UserProps> = () => {
@@ -21,20 +21,28 @@ const User: FC<UserProps> = () => {
   const userDropCardRef = useRef();
   const [isLogin, setIsLogin] = useState(false);
   const [tabIndex, setTabIndex] = useState(0);
-  const userInfo = useGetUserInfo();
-  const unLoginType = useGetUserUnLoginType();
-  const dispatch = useDispatch();
+
+  const { userInfo, authRouteType } = useUserStore(
+    useShallow((state) => ({
+      userInfo: state.userInfo,
+      authRouteType: state.authRouteType
+    }))
+  );
+
+  const setAuthType = useUserStore((state) => state.setAuthType);
   const pathname = usePathname();
   const { redirectToUrl } = useRedirect();
-  const { userLevel, userCoin } = useSelector((state: AppRootState) => {
-    return {
-      userLevel: state.missionCenter?.userLevel,
-      userCoin: state.missionCenter?.userCoin
-    };
-  });
 
-  const unLoginTabClick = (value: UnLoginType) => {
-    dispatch(setUnLoginType(value));
+  const { userLevel, userCoin } = useMissionCenterStore(
+    useShallow((state) => ({
+      userLevel: state.userLevel,
+      userCoin: state.userCoin
+    }))
+  );
+
+  const unLoginTabClick = (value: AuthType) => {
+    // dispatch(setUnLoginType(value));
+    setAuthType(value);
     if (pathname !== V2_LANDING_PATH) {
       redirectToUrl(`${V2_LANDING_PATH}?type=${value}`);
     }
@@ -48,14 +56,14 @@ const User: FC<UserProps> = () => {
   }, [userInfo]);
   useEffect(() => {
     if (pathname === V2_LANDING_PATH) {
-      setTabIndex(unLoginTab.findIndex((v) => v.value === unLoginType.type));
+      setTabIndex(unLoginTab.findIndex((v) => v.value === authRouteType.type));
       return;
     }
-    if (unLoginType.type === UnLoginType.INVITE_CODE) {
-      setTabIndex(unLoginTab.findIndex((v) => v.value === UnLoginType.SIGN_UP));
+    if (authRouteType.type === AuthType.INVITE_CODE) {
+      setTabIndex(unLoginTab.findIndex((v) => v.value === AuthType.SIGN_UP));
       return;
     }
-  }, [pathname, unLoginType.type]);
+  }, [pathname, authRouteType.type]);
 
   return (
     <div className="relative h-full">
@@ -131,7 +139,7 @@ const User: FC<UserProps> = () => {
                 {userInfo && showUserDropCard ? (
                   <div className="absolute z-[999] -right-[0.75rem] top-[60px] pt-[20px]">
                     <UserDropCard
-                      userInfo={userInfo || ({} as any)}
+                      userInfo={(userInfo as LoginResponse) || {}}
                       onClose={() => setShowUserDropCard(false)}
                     ></UserDropCard>
                   </div>

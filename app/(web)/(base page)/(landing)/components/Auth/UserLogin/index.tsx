@@ -9,20 +9,15 @@ import { setToken } from '@/helper/user-token';
 import { useValidator } from '@/hooks/useValidator';
 import webApi from '@/service';
 import { LoginParamsType } from '@/service/webApi/user/type';
-import {
-  UnLoginType,
-  setUnLoginType,
-  setUserInfo
-} from '@/store/redux/modules/user';
 import { useDebounceFn, useKeyPress } from 'ahooks';
 import { message } from 'antd';
 import { omit } from 'lodash-es';
-import { useDispatch } from 'react-redux';
 import useIsPc from '@/hooks/useIsPc';
 import TipsModal from '@/app/(web)/(base page)/(landing)/components/TipsModal';
 import { useRedirect } from '@/hooks/useRedirect';
 import { useSearchParams } from 'next/navigation';
-
+import { AuthType, useUserStore } from '@/store/zustand/userStore';
+import { useShallow } from 'zustand/react/shallow';
 interface UserLoginProps {
   // children: ReactNode;
   email: string;
@@ -31,9 +26,12 @@ interface UserLoginProps {
 
 const UserLogin: FC<UserLoginProps> = (props) => {
   const { email, onBack } = props;
-
-  const dispatch = useDispatch();
-
+  const { setAuthType, setUserInfo } = useUserStore(
+    useShallow((state) => ({
+      setAuthType: state.setAuthType,
+      setUserInfo: state.setUserInfo
+    }))
+  );
   const [formData, setFormData] = useState<LoginParamsType>({
     email: email,
     password: '',
@@ -72,7 +70,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
             setLoading(false);
             BurialPoint.track('login-登录成功');
             if (isPc()) {
-              dispatch(setUserInfo(omit(res, 'token')));
+              setUserInfo(omit(res, 'token'));
               setToken(res.token);
               const redirect_url = query.get('redirect_url');
               if (redirect_url) {
@@ -91,7 +89,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
               BurialPoint.track('login-登录失败', { message: e?.msg });
               if (e.status === 'UNACTIVATED') {
                 setTimeout(() => {
-                  dispatch(setUnLoginType(UnLoginType.EMAIL_VERIFY));
+                  setAuthType(AuthType.EMAIL_VERIFY);
                 }, 1000);
               }
               message.error(e?.msg);
@@ -137,7 +135,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
             <span
               className="underline cursor-pointer"
               onClick={() => {
-                dispatch(setUnLoginType(UnLoginType.SIGN_UP));
+                setAuthType(AuthType.SIGN_UP);
               }}
             >
               Create a account
@@ -170,12 +168,10 @@ const UserLogin: FC<UserLoginProps> = (props) => {
           className="w-full underline text-white font-next-book text-[1.125rem] leading-[160%] tracking-[0.36px] text-center cursor-pointer"
           onClick={() => {
             BurialPoint.track('login-忘记密码');
-            dispatch(
-              setUnLoginType({
-                type: UnLoginType.FORGOT_PASSWORD,
-                params: { email }
-              })
-            );
+            setAuthType({
+              type: AuthType.FORGOT_PASSWORD,
+              params: { email }
+            });
           }}
         >
           Forgot Password?

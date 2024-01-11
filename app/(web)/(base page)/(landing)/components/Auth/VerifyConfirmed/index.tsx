@@ -2,20 +2,19 @@ import Button from '@/components/Common/Button';
 import { BurialPoint } from '@/helper/burialPoint';
 import { setToken } from '@/helper/user-token';
 import webApi from '@/service';
-import { setUserInfo } from '@/store/redux/modules/user';
+
 import { omit } from 'lodash-es';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { FC, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { UnLoginType, setUnLoginType } from '@/store/redux/modules/user';
 import Google from '@/public/images/login/google.svg';
 import Github from '@/public/images/login/github.svg';
 import Image from 'next/image';
-import { AuthType } from '@/service/webApi/user/type';
+import { ThirdPartyAuthType } from '@/service/webApi/user/type';
 import TipsModal from '@/app/(web)/(base page)/(landing)/components/TipsModal';
 import useIsPc from '@/hooks/useIsPc';
 import { useRedirect } from '@/hooks/useRedirect';
-
+import { AuthType, useUserStore } from '@/store/zustand/userStore';
+import { useShallow } from 'zustand/react/shallow';
 enum VerifyStateType {
   VERIFYING = 'verifying',
   SUCCESS = 'success',
@@ -24,7 +23,7 @@ enum VerifyStateType {
 
 interface VerifyConfirmedProps {}
 
-const Verifying: React.FC<{ type: AuthType }> = ({ type }) => {
+const Verifying: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
   return (
     <div className="text-center flex flex-col items-center gap-[25px]">
       <h1 className="text-white text-[1.75rem] font-next-book-bold font-bold leading-[125%] -tracking-[0.01924rem]">
@@ -36,7 +35,7 @@ const Verifying: React.FC<{ type: AuthType }> = ({ type }) => {
     </div>
   );
 };
-const Success: React.FC<{ type: AuthType }> = ({ type }) => {
+const Success: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
   const { redirectToUrl } = useRedirect();
 
   const [jump, setJump] = useState(false);
@@ -83,16 +82,21 @@ const Success: React.FC<{ type: AuthType }> = ({ type }) => {
   );
 };
 
-const Fail: React.FC<{ type: AuthType }> = ({ type }) => {
-  const loginThreeParty = async (type: AuthType) => {
+const Fail: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
+  const loginThreeParty = async (type: ThirdPartyAuthType) => {
     const res = (await webApi.userApi.getAuthUrl(type)) as any;
     window.location.href = res?.url;
   };
+
   const { redirectToUrl } = useRedirect();
-  const dispatch = useDispatch();
+  const { setAuthType } = useUserStore(
+    useShallow((state) => ({
+      setAuthType: state.setAuthType
+    }))
+  );
   const renderTextAndBtn = () => {
     switch (type) {
-      case AuthType.EMAIL:
+      case ThirdPartyAuthType.EMAIL:
         return (
           <>
             <div className="text-white font-next-book leading-[160%] tracking-[0.64px] text-[18px]">
@@ -105,7 +109,7 @@ const Fail: React.FC<{ type: AuthType }> = ({ type }) => {
             <Button
               onClick={() => {
                 redirectToUrl('/');
-                dispatch(setUnLoginType(UnLoginType.LOGIN));
+                setAuthType(AuthType.LOGIN);
               }}
               block
               className="
@@ -140,7 +144,7 @@ const Fail: React.FC<{ type: AuthType }> = ({ type }) => {
               onClick={() => loginThreeParty(type)}
             >
               <Image
-                src={type === AuthType.GOOGLE ? Google : Github}
+                src={type === ThirdPartyAuthType.GOOGLE ? Google : Github}
                 width={22}
                 height={22}
                 alt={type}
@@ -151,7 +155,7 @@ const Fail: React.FC<{ type: AuthType }> = ({ type }) => {
             <Button
               onClick={() => {
                 redirectToUrl('/');
-                dispatch(setUnLoginType(UnLoginType.LOGIN));
+                setAuthType(AuthType.LOGIN);
               }}
               block
               className="font-next-book text-[1.125rem] text-[#fff] border border-[#fff]"
@@ -174,7 +178,12 @@ const Fail: React.FC<{ type: AuthType }> = ({ type }) => {
 
 const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
   const { redirectToUrl } = useRedirect();
-  const dispatch = useDispatch();
+  const { setUserInfo, setAuthType } = useUserStore(
+    useShallow((state) => ({
+      setUserInfo: state.setUserInfo,
+      setAuthType: state.setAuthType
+    }))
+  );
   const isPc = useIsPc();
   const [tipsOpen, setTipsOpen] = useState(false);
   const [jump, setJump] = useState(false);
@@ -182,7 +191,9 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
   const query = useSearchParams();
   const router = useRouter();
   const [verifyState, setVerifyState] = useState(VerifyStateType.VERIFYING);
-  const [source, setSource] = useState<AuthType>(AuthType.EMAIL);
+  const [source, setSource] = useState<ThirdPartyAuthType>(
+    ThirdPartyAuthType.EMAIL
+  );
   const verifyEmail = (token: string) => {
     BurialPoint.track('signup-注册邮箱token验证');
     if (token) {
@@ -191,7 +202,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
         .then((res: any) => {
           BurialPoint.track('signup-注册邮箱token验证成功');
           if (isPc()) {
-            dispatch(setUserInfo(omit(res, 'token')));
+            setUserInfo(omit(res, 'token'));
             setToken(res.token || token);
             setVerifyState(VerifyStateType.SUCCESS);
           } else {
@@ -219,19 +230,18 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
         .googleVerify(code)
         .then((res: any) => {
           if (res.status === 'UNACTIVATED') {
-            redirectToUrl(`/?type=${UnLoginType.INVITE_CODE}`, true);
-            dispatch(
-              setUnLoginType({
-                type: UnLoginType.INVITE_CODE,
-                params: {
-                  registerType: AuthType.GOOGLE,
-                  ...res
-                }
-              })
-            );
+            redirectToUrl(`/?type=${AuthType.INVITE_CODE}`, true);
+
+            setAuthType({
+              type: AuthType.INVITE_CODE,
+              params: {
+                registerType: ThirdPartyAuthType.GOOGLE,
+                ...res
+              }
+            });
           } else {
             if (isPc()) {
-              dispatch(setUserInfo(omit(res, 'token')));
+              setUserInfo(omit(res, 'token'));
               setToken(res.token);
               redirectToUrl('/dashboard');
             } else {
@@ -262,20 +272,18 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
         .githubVerify(code)
         .then((res: any) => {
           if (res.status === 'UNACTIVATED') {
-            redirectToUrl(`/?type=${UnLoginType.INVITE_CODE}`, true);
-            dispatch(
-              setUnLoginType({
-                type: UnLoginType.INVITE_CODE,
-                params: {
-                  registerType: AuthType.GITHUB,
-                  ...res
-                }
-              })
-            );
+            redirectToUrl(`/?type=${AuthType.INVITE_CODE}`, true);
+            setAuthType({
+              type: AuthType.INVITE_CODE,
+              params: {
+                registerType: ThirdPartyAuthType.GITHUB,
+                ...res
+              }
+            });
           } else {
             if (isPc()) {
               BurialPoint.track('signup-Github三方登录code验证成功');
-              dispatch(setUserInfo(omit(res, 'token')));
+              setUserInfo(omit(res, 'token'));
               setToken(res.token);
               redirectToUrl('/dashboard');
             } else {
@@ -302,21 +310,21 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
     const token = query.get('token');
     const state = query.get('state');
     let code = query.get('code');
-    let querySource = query.get('source') || AuthType.EMAIL;
+    let querySource = query.get('source') || ThirdPartyAuthType.EMAIL;
     if (state) {
       const verifyData = JSON.parse(atob(state as string));
-      querySource = verifyData?.source || AuthType.GOOGLE;
+      querySource = verifyData?.source || ThirdPartyAuthType.GOOGLE;
     }
     //第一个字母大写 其余小写
     querySource = (querySource as string)
       .toLocaleLowerCase()
       .replace(/^\w/, (s) => s.toLocaleUpperCase());
-    setSource(querySource as AuthType);
+    setSource(querySource as ThirdPartyAuthType);
     switch (querySource) {
-      case AuthType.GOOGLE:
+      case ThirdPartyAuthType.GOOGLE:
         verifyGoogle(code as string);
         break;
-      case AuthType.GITHUB:
+      case ThirdPartyAuthType.GITHUB:
         verifyGithub(code as string);
         break;
       default:

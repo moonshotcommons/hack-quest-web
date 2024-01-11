@@ -5,14 +5,13 @@ import { VscAdd } from 'react-icons/vsc';
 import { ShareWrap, shareList } from './constant';
 import { message } from 'antd';
 import { BurialPoint } from '@/helper/burialPoint';
-import { useGetUserInfo } from '@/hooks/useGetUserInfo';
 import PopBox from './PopBox';
-import { useSelector } from 'react-redux';
-import { AppRootState } from '@/store/redux';
 import { cn } from '@/helper/utils';
 import webApi from '@/service';
 import { useRequest } from 'ahooks';
 import { useGetMissionData } from '@/hooks/useGetMissionData';
+import { useMissionCenterStore } from '@/store/zustand/missionCenterStore';
+import { useUserStore } from '@/store/zustand/userStore';
 
 interface InviteCodeCardProps {}
 
@@ -21,9 +20,9 @@ const InviteCodeCard: FC<InviteCodeCardProps> = (props) => {
   const [showShare, setShowShare] = useState(false);
   const [showDesc, setShowDesc] = useState(false);
 
-  const beginnerRewards = useSelector((state: AppRootState) => {
-    return state.missionCenter?.missionData?.beginnerRewards;
-  });
+  const beginnerRewards = useMissionCenterStore(
+    (state) => state.missionData.beginnerRewards
+  );
 
   const { updateMissionData } = useGetMissionData();
 
@@ -40,7 +39,7 @@ const InviteCodeCard: FC<InviteCodeCardProps> = (props) => {
     };
   }, [beginnerRewards]);
 
-  const userInfo = useGetUserInfo();
+  const userInfo = useUserStore((state) => state.userInfo);
 
   const inviteCode = useMemo(() => {
     return userInfo?.inviteCode;

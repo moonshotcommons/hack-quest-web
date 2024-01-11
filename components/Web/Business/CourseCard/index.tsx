@@ -21,8 +21,8 @@ import MiniElectiveDetailModal, {
   MiniElectiveDetailModalRef
 } from '../MiniElectiveDetailModal';
 import { ElectiveCourseType } from '@/service/webApi/elective/type';
-import { useGetUserInfo } from '@/hooks/useGetUserInfo';
 import { V2_LANDING_PATH } from '@/constants/nav';
+import { useUserStore } from '@/store/zustand/userStore';
 
 interface CourseCardProps {
   // children: ReactNode;
@@ -61,7 +61,7 @@ const CourseCard: FC<CourseCardProps> = (props) => {
   const { jumpLearningLesson, loading } = useJumpLeaningLesson();
   const { redirectToUrl } = useRedirect();
   const miniElectiveDetailInstance = useRef<MiniElectiveDetailModalRef>(null);
-  const userInfo = useGetUserInfo();
+  const userInfo = useUserStore((state) => state.userInfo);
   const onCourseClick = useCallback(() => {
     switch (course.type) {
       case CourseType.Mini:

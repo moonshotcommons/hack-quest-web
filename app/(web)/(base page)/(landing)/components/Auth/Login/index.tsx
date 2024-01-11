@@ -1,12 +1,11 @@
 import { BurialPoint } from '@/helper/burialPoint';
 import { useValidator } from '@/hooks/useValidator';
-import { UnLoginType, setUnLoginType } from '@/store/redux/modules/user';
 import { motion } from 'framer-motion';
 import { FC, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import UserLogin from '../UserLogin';
 import VerifyEmail from '../VerifyEmail';
 import ThreePartyLogin from '../ThreePartyLogin';
+import { AuthType, useUserStore } from '@/store/zustand/userStore';
 
 interface LoginProps {}
 
@@ -15,7 +14,7 @@ const Login: FC<LoginProps> = (props) => {
   const [showLogin, setShowLogin] = useState(false);
   const [email, setEmail] = useState('');
   const { validator } = useValidator(['email']);
-  const dispatch = useDispatch();
+  const setAuthType = useUserStore((state) => state.setAuthType);
 
   const EmailTitle = (
     <div>
@@ -24,7 +23,7 @@ const Login: FC<LoginProps> = (props) => {
         <span
           className="underline cursor-pointer font-next-poster leading-[160%] tracking-[1.26px]"
           onClick={() => {
-            dispatch(setUnLoginType(UnLoginType.SIGN_UP));
+            setAuthType(AuthType.SIGN_UP);
           }}
         >
           Create an account
@@ -48,7 +47,7 @@ const Login: FC<LoginProps> = (props) => {
             validator={validator}
             emailTitle={EmailTitle}
             value={email}
-            type={UnLoginType.LOGIN}
+            type={AuthType.LOGIN}
             onStatusChange={(status) => setEmailCheckStatus(status)}
             onNext={(email: string) => {
               if (emailCheckStatus) {

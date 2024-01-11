@@ -13,9 +13,9 @@ import {
   ShareWrap,
   shareList
 } from '@/components/Web/Business/InviteCodeCard/constant';
-import { useGetUserInfo } from '@/hooks/useGetUserInfo';
 import { useRedirect } from '@/hooks/useRedirect';
 import { MissionCenterContext } from '../../../constants/type';
+import { useUserStore } from '@/store/zustand/userStore';
 
 interface TargetCardProp {
   missionData: MissionDataType;
@@ -35,7 +35,7 @@ const TargetCard: React.FC<TargetCardProp> = ({
   type,
   isScale = true
 }) => {
-  const userInfo = useGetUserInfo();
+  const userInfo = useUserStore((state) => state.userInfo);
   const [showShare, setShowShare] = useState(false);
   const [loading, setLoading] = useState(false);
   const { missionIds, updateMissionDataAll } = useContext(MissionCenterContext);

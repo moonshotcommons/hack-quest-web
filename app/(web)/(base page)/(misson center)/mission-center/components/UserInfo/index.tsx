@@ -3,21 +3,21 @@ import { LoginResponse } from '@/service/webApi/user/type';
 import UserData from './UserData';
 import Treasures from './Treasures';
 import Equity from './Equity';
-import { useSelector } from 'react-redux';
-import { AppRootState } from '@/store/redux';
+import { useShallow } from 'zustand/react/shallow';
+import { useMissionCenterStore } from '@/store/zustand/missionCenterStore';
 
 export interface UserInfoType {
   userInfo: LoginResponse | null;
 }
 const UserInfo: React.FC<UserInfoType> = ({ userInfo }) => {
-  const { userLevel, userCoin, userTreasure } = useSelector(
-    (state: AppRootState) => {
+  const { userLevel, userCoin, userTreasure } = useMissionCenterStore(
+    useShallow((state) => {
       return {
-        userLevel: state.missionCenter?.userLevel,
-        userCoin: state.missionCenter?.userCoin,
-        userTreasure: state.missionCenter?.userTreasure
+        userLevel: state?.userLevel,
+        userCoin: state?.userCoin,
+        userTreasure: state?.userTreasure
       };
-    }
+    })
   );
 
   return (

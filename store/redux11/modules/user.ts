@@ -2,7 +2,7 @@ import { removeToken } from '@/helper/user-token';
 import { LoginResponse } from '@/service/webApi/user/type';
 import { createSlice } from '@reduxjs/toolkit';
 
-export enum UnLoginType {
+export enum AuthType {
   LOGIN = 'login',
   SIGN_UP = 'sign-up',
   EMAIL_VERIFY = 'email-verify',
@@ -15,15 +15,15 @@ export enum UnLoginType {
 }
 
 export const callbackMap = {
-  [UnLoginType.VERIFYING]: UnLoginType.VERIFYING,
-  [UnLoginType.CHANGE_PASSWORD]: UnLoginType.CHANGE_PASSWORD
+  [AuthType.VERIFYING]: AuthType.VERIFYING,
+  [AuthType.CHANGE_PASSWORD]: AuthType.CHANGE_PASSWORD
 };
 export interface UserStateType {
   userInfo: LoginResponse | null;
   settingsOpen: boolean;
   loginRouteType: {
-    type: UnLoginType;
-    prevType: UnLoginType;
+    type: AuthType;
+    prevType: AuthType;
     params: Record<string, any>;
   };
 }
@@ -34,8 +34,8 @@ const userSlice = createSlice({
     userInfo: null,
     settingsOpen: false,
     loginRouteType: {
-      type: UnLoginType.LOGIN,
-      prevType: UnLoginType.LOGIN,
+      type: AuthType.LOGIN,
+      prevType: AuthType.LOGIN,
       params: {}
     }
   } as UserStateType,
@@ -59,7 +59,7 @@ const userSlice = createSlice({
 
     setUnLoginType(state, { type, payload }) {
       if (!payload) return;
-      const types = Object.values(UnLoginType);
+      const types = Object.values(AuthType);
       if (types.includes(payload)) {
         payload = {
           type: payload,
