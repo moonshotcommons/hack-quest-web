@@ -48,7 +48,7 @@ export enum ForgetPasswordErrorStatusType {
   EMAIL_NOT_EXIST = 404
 }
 
-export enum AuthType {
+export enum ThirdPartyAuthType {
   EMAIL = 'Email',
   GOOGLE = 'Google',
   GITHUB = 'Github',

@@ -6,18 +6,13 @@ import DailyQuests from './DailyQuests';
 import Milestones from './Milestones';
 import MoonBg from '@/public/images/mission-center/moon_bg.png';
 import { BurialPoint } from '@/helper/burialPoint';
-import { useSelector } from 'react-redux';
-import { AppRootState } from '@/store/redux';
+import { useMissionCenterStore } from '@/store/zustand/missionCenterStore';
 
 interface ClaimContentProp {
   missionClaim: (missionIds: string[]) => void;
 }
 const ClaimContent: React.FC<ClaimContentProp> = ({ missionClaim }) => {
-  const { missionData } = useSelector((state: AppRootState) => {
-    return {
-      missionData: state.missionCenter?.missionData
-    };
-  });
+  const missionData = useMissionCenterStore((state) => state.missionData);
   const [curIndex, setCurIndex] = useState(0);
 
   const tabList = useMemo(() => {

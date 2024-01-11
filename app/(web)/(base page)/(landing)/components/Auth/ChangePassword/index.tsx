@@ -4,12 +4,11 @@ import { BurialPoint } from '@/helper/burialPoint';
 import { useRedirect } from '@/hooks/useRedirect';
 import { useValidator } from '@/hooks/useValidator';
 import webApi from '@/service';
-import { UnLoginType, setUnLoginType } from '@/store/redux/modules/user';
+import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useDebounceFn } from 'ahooks';
 import { message } from 'antd';
 import { useSearchParams } from 'next/navigation';
 import { FC, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 interface ChangePasswordProps {}
 
 enum ChangeStateType {
@@ -19,11 +18,11 @@ enum ChangeStateType {
 }
 
 const Success = () => {
-  const dispatch = useDispatch();
   const { redirectToUrl } = useRedirect();
 
   const [jump, setJump] = useState(false);
   const [countDown, setCountDown] = useState(5);
+  const setAuthType = useUserStore((state) => state.setAuthType);
 
   useEffect(() => {
     if (countDown > 0) {
@@ -34,7 +33,7 @@ const Success = () => {
         clearInterval(timer);
       };
     } else {
-      dispatch(setUnLoginType(UnLoginType.LOGIN));
+      setAuthType(AuthType.LOGIN);
       redirectToUrl('/');
     }
   }, [countDown]);
@@ -48,7 +47,7 @@ const Success = () => {
       </div>
       <Button
         onClick={() => {
-          dispatch(setUnLoginType(UnLoginType.LOGIN));
+          setAuthType(AuthType.LOGIN);
           redirectToUrl('/');
         }}
         type="primary"
@@ -68,7 +67,7 @@ const Success = () => {
 };
 const Fail = () => {
   const { redirectToUrl } = useRedirect();
-  const dispatch = useDispatch();
+  const setAuthType = useUserStore((state) => state.setAuthType);
   return (
     <div className="flex flex-col gap-8 w-full">
       <h1 className="text-white text-[1.75rem] font-next-book-bold font-bold leading-[125%] -tracking-[0.64px]">
@@ -80,7 +79,7 @@ const Fail = () => {
       <Button
         type="primary"
         onClick={() => {
-          dispatch(setUnLoginType(UnLoginType.LOGIN));
+          setAuthType(AuthType.LOGIN);
           redirectToUrl('/');
         }}
         block
@@ -103,7 +102,6 @@ const ChangeForm = ({
 }: {
   changeState: (state: ChangeStateType) => void;
 }) => {
-  const dispatch = useDispatch();
   const query = useSearchParams();
   const token = query.get('token');
   const [formData, setFormData] = useState<{

@@ -4,23 +4,21 @@ import Input from '@/components/Common/Input';
 import { BurialPoint } from '@/helper/burialPoint';
 import { cn } from '@/helper/utils';
 import webApi from '@/service';
-import { UnLoginType, setUnLoginType } from '@/store/redux/modules/user';
 import { useRequest } from 'ahooks';
 import { message } from 'antd';
 import { FC, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useGetUserUnLoginType } from '@/hooks/useGetUserInfo';
+
 import ContractUs from '@/app/(web)/(base page)/(landing)/components/ContractUs';
-import { AuthType } from '@/service/webApi/user/type';
-import { setUserInfo } from '@/store/redux/modules/user';
+import { LoginResponse, ThirdPartyAuthType } from '@/service/webApi/user/type';
 import { setToken } from '@/helper/user-token';
 import { omit } from 'lodash-es';
 import { useRedirect } from '@/hooks/useRedirect';
-
+import { AuthType, useUserStore } from '@/store/zustand/userStore';
+import { useShallow } from 'zustand/react/shallow';
 interface CheckInviteCodeProps {}
 
 const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
-  const loginRouteParams = useGetUserUnLoginType();
+  const authRouteType = useUserStore((state) => state.authRouteType);
   const { redirectToUrl } = useRedirect();
   const [formData, setFormData] = useState<{
     email: string;
@@ -31,8 +29,12 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
     inviteCode: '',
     token: ''
   });
-
-  const dispatch = useDispatch();
+  const { setAuthType, setUserInfo } = useUserStore(
+    useShallow((state) => ({
+      setAuthType: state.setAuthType,
+      setUserInfo: state.setUserInfo
+    }))
+  );
 
   const [formState, setFormState] = useState({
     inviteCode: {
@@ -49,16 +51,14 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
     {
       onSuccess(res) {
         if (res.valid) {
-          dispatch(
-            setUnLoginType({
-              type: UnLoginType.SIGN_UP,
-              params: {
-                codeVerify: true,
-                email: formData.email,
-                inviteCode: formData.inviteCode
-              }
-            })
-          );
+          setAuthType({
+            type: AuthType.SIGN_UP,
+            params: {
+              codeVerify: true,
+              email: formData.email,
+              inviteCode: formData.inviteCode
+            }
+          });
         } else {
           setFormState({
             ...formState,
@@ -91,7 +91,7 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
     },
     {
       onSuccess(res) {
-        dispatch(setUserInfo(omit(res, 'token')));
+        setUserInfo(omit(res, 'token') as Omit<LoginResponse, 'token'>);
         BurialPoint.track('signup-Google三方登录输入邀请码登录成功');
         setToken(res.token);
         redirectToUrl('/dashboard');
@@ -126,7 +126,7 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
     },
     {
       onSuccess(res: any) {
-        dispatch(setUserInfo(omit(res, 'token')));
+        setUserInfo(omit(res, 'token') as Omit<LoginResponse, 'token'>);
         BurialPoint.track('signup-Google三方登录输入邀请码登录成功');
         setToken(res.token);
         redirectToUrl('/dashboard');
@@ -155,11 +155,11 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
   );
 
   useEffect(() => {
-    if (loginRouteParams.params) {
+    if (authRouteType.params) {
       setFormData({
         ...formData,
-        email: loginRouteParams.params.email,
-        token: loginRouteParams.params?.token || ''
+        email: authRouteType.params.email,
+        token: authRouteType.params?.token || ''
       });
     }
   }, []);
@@ -210,7 +210,9 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
 
         <Button
           onClick={() => {
-            if (loginRouteParams.params?.registerType === AuthType.EMAIL) {
+            if (
+              authRouteType.params?.registerType === ThirdPartyAuthType.EMAIL
+            ) {
               emailVerify();
             } else {
               thirdPartyVerify();
@@ -237,7 +239,7 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
             if (loginRouteParams.params?.registerType === AuthType.EMAIL) {
               dispatch(
                 setUnLoginType({
-                  type: UnLoginType.SIGN_UP,
+                  type: AuthType.SIGN_UP,
                   params: {
                     codeVerify: true,
                     email: formData.email,
@@ -271,18 +273,18 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
         <Button
           onClick={() => {
             // redirectToUrl('/');
-            // dispatch(setUnLoginType(UnLoginType.LOGIN));
-            if (loginRouteParams.params?.registerType === AuthType.EMAIL) {
-              dispatch(
-                setUnLoginType({
-                  type: UnLoginType.SIGN_UP,
-                  params: {
-                    codeVerify: true,
-                    email: formData.email,
-                    inviteCode: ''
-                  }
-                })
-              );
+            // dispatch(setUnLoginType(AuthType.LOGIN));
+            if (
+              authRouteType.params?.registerType === ThirdPartyAuthType.EMAIL
+            ) {
+              setAuthType({
+                type: AuthType.SIGN_UP,
+                params: {
+                  codeVerify: true,
+                  email: formData.email,
+                  inviteCode: ''
+                }
+              });
             } else {
               skipInviteCode();
             }

@@ -1,8 +1,6 @@
 'use client';
-import { AppRootState } from '@/store/redux';
-import { UnLoginType, setUnLoginType } from '@/store/redux/modules/user';
+
 import { FC, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import ChangePassword from './ChangePassword';
 import EmailVerify from './EmailVerify';
 import ForgotPassword from './ForgotPassword';
@@ -11,42 +9,47 @@ import SignUp from './SignUp';
 import VerifyConfirmed from './VerifyConfirmed';
 import CheckInviteCode from './CheckInviteCode';
 import { useSearchParams } from 'next/navigation';
+import { AuthType, useUserStore } from '@/store/zustand/userStore';
+import { useShallow } from 'zustand/react/shallow';
 
 interface AuthProps {}
 
 const Auth: FC<AuthProps> = (props) => {
   const query = useSearchParams();
-  const dispatch = useDispatch();
-  const loginRouteType = useSelector((state: AppRootState) => {
-    return state.user.loginRouteType;
-  });
+
+  const { authRouteType, setAuthType } = useUserStore(
+    useShallow((state) => ({
+      authRouteType: state.authRouteType,
+      setAuthType: state.setAuthType
+    }))
+  );
 
   useEffect(() => {
     const type = query.get('type');
     if (type) {
-      dispatch(setUnLoginType(type));
+      setAuthType(type as AuthType);
     } else {
-      dispatch(setUnLoginType(UnLoginType.LOGIN));
+      setAuthType(AuthType.LOGIN);
     }
   }, []);
 
   if (query.get('state')) {
     return <VerifyConfirmed></VerifyConfirmed>;
   }
-  switch (loginRouteType.type) {
-    case UnLoginType.EMAIL_VERIFY:
+  switch (authRouteType.type) {
+    case AuthType.EMAIL_VERIFY:
       return <EmailVerify></EmailVerify>;
-    case UnLoginType.FORGOT_PASSWORD:
+    case AuthType.FORGOT_PASSWORD:
       return <ForgotPassword></ForgotPassword>;
-    case UnLoginType.CHANGE_PASSWORD:
+    case AuthType.CHANGE_PASSWORD:
       return <ChangePassword></ChangePassword>;
-    case UnLoginType.VERIFYING:
+    case AuthType.VERIFYING:
       return <VerifyConfirmed></VerifyConfirmed>;
-    case UnLoginType.INVITE_CODE:
+    case AuthType.INVITE_CODE:
       return <CheckInviteCode></CheckInviteCode>;
-    case UnLoginType.SIGN_UP:
+    case AuthType.SIGN_UP:
       return <SignUp></SignUp>;
-    case UnLoginType.LOGIN:
+    case AuthType.LOGIN:
     default:
       return <Login></Login>;
   }

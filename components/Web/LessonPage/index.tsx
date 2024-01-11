@@ -28,9 +28,9 @@ import BugFeedbackModal, {
 import TreasureModal, {
   TreasureModalRef
 } from '@/components/Web/Business/TreasureModal';
-import { useGetUserInfo } from '@/hooks/useGetUserInfo';
-import { useDispatch } from 'react-redux';
-import { setLearnPageTitle } from '@/store/redux/modules/course';
+
+import { useUserStore } from '@/store/zustand/userStore';
+import { useCourseStore } from '@/store/zustand/courseStore';
 
 interface LessonPageProps {
   lessonId: string;
@@ -45,7 +45,6 @@ const LessonPage: FC<LessonPageProps> = (props) => {
   );
   const { courseId: courseName } = useParams();
   const [nextLoading, setNextLoading] = useState(false);
-  const dispatch = useDispatch();
   const { onNextClick, completeModalRef } = useGotoNextLesson(
     lesson!,
     courseType,
@@ -91,12 +90,13 @@ const LessonPage: FC<LessonPageProps> = (props) => {
     };
   }, []);
 
-  const userInfo = useGetUserInfo();
+  const userInfo = useUserStore((state) => state.userInfo);
+  const setLearnPageTitle = useCourseStore((state) => state.setLearnPageTitle);
 
   const bugFeedbackModalRef = useRef<BugFeedbackModalRef>(null);
 
   useEffect(() => {
-    dispatch(setLearnPageTitle(courseName));
+    setLearnPageTitle(courseName as string);
   }, [courseName]);
 
   return (

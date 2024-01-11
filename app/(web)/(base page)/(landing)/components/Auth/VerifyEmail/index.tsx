@@ -4,16 +4,16 @@ import Button from '@/components/Common/Button';
 import RightArrowIcon from '@/components/Common/Icon/RightArrow';
 import Input from '@/components/Common/Input';
 import { BurialPoint } from '@/helper/burialPoint';
-import { UnLoginType } from '@/store/redux/modules/user';
 import { useDebounceFn, useKeyPress } from 'ahooks';
 import Schema from 'async-validator';
+import { AuthType } from '@/store/zustand/userStore';
 interface VerifyEmailProps {
   onStatusChange: (status: boolean) => void;
   onNext: (email: string) => void;
   validator: Schema;
   emailTitle?: ReactNode;
   value?: string;
-  type: UnLoginType;
+  type: AuthType;
 }
 
 const VerifyEmail: FC<VerifyEmailProps> = (props) => {
@@ -39,10 +39,10 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
   const { run: verifyEmail } = useDebounceFn(
     () => {
       setLoading(true);
-      if (type === UnLoginType.LOGIN) {
+      if (type === AuthType.LOGIN) {
         BurialPoint.track('login-登录next按钮');
       }
-      if (type === UnLoginType.SIGN_UP) {
+      if (type === AuthType.SIGN_UP) {
         BurialPoint.track('signup-注册next按钮');
       }
 
@@ -50,22 +50,22 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
         if (errors?.[0]) {
           setStatus('error');
           setErrorMessage(errors?.[0].message || '');
-          if (type === UnLoginType.LOGIN) {
+          if (type === AuthType.LOGIN) {
             BurialPoint.track('login-登录邮箱验证失败', {
               message: errors?.[0].message || ''
             });
           }
-          if (type === UnLoginType.SIGN_UP) {
+          if (type === AuthType.SIGN_UP) {
             BurialPoint.track('signup-注册邮箱验证失败', {
               message: errors?.[0].message || ''
             });
           }
           setLoading(false);
         } else {
-          if (type === UnLoginType.LOGIN) {
+          if (type === AuthType.LOGIN) {
             BurialPoint.track('login-登录邮箱验证成功');
           }
-          if (type === UnLoginType.SIGN_UP) {
+          if (type === AuthType.SIGN_UP) {
             BurialPoint.track('signup-注册邮箱验证成功');
           }
           setStatus('success');
@@ -86,10 +86,10 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
     return () => {
       const endTime = new Date().getTime();
       const duration = endTime - startTime;
-      if (type === UnLoginType.LOGIN) {
+      if (type === AuthType.LOGIN) {
         BurialPoint.track('login-登录邮箱验证停留时间', { duration });
       }
-      if (type === UnLoginType.SIGN_UP) {
+      if (type === AuthType.SIGN_UP) {
         BurialPoint.track('signup-注册邮箱验证停留时间', { duration });
       }
     };

@@ -4,10 +4,9 @@ import {
   CourseLessonType,
   UnitPagesListType
 } from '@/service/webApi/course/type';
-import { setUnitsLessonsList } from '@/store/redux/modules/course';
+import { useCourseStore } from '@/store/zustand/courseStore';
 import { useRequest } from 'ahooks';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 
 const formateDropdownData = (
   data: UnitPagesListType[],
@@ -48,7 +47,9 @@ export const useUnitNavList = (lesson: CourseLessonType) => {
   const [unitNavList, setUnitNavList] = useState<UnitPagesListType[]>();
   const [currentUnitIndex, setCurrentUnitIndex] = useState(0);
 
-  const dispatch = useDispatch();
+  const setUnitsLessonsList = useCourseStore(
+    (state) => state.setUnitsLessonsList
+  );
 
   const { run, refresh } = useRequest(
     async () => {
@@ -59,7 +60,7 @@ export const useUnitNavList = (lesson: CourseLessonType) => {
         const formateData = formateDropdownData(data, lesson!);
         const newData = formateData.newData;
         setCurrentUnitIndex(formateData.currentUnitIndex);
-        dispatch(setUnitsLessonsList(data));
+        setUnitsLessonsList(data);
         setUnitNavList(newData);
       }
     },

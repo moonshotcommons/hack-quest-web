@@ -5,12 +5,11 @@ import HoverIcon from '@/components/Web/Business/HoverIcon';
 import { IconType } from '@/components/Web/Business/HoverIcon/type';
 import ImageCrop, { ImageCropRef } from '@/components/Common/ImageCrop';
 import { cn, errorMessage } from '@/helper/utils';
-import { useGetUserInfo } from '@/hooks/useGetUserInfo';
+
 import webApi from '@/service';
-import { setUserInfo } from '@/store/redux/modules/user';
 import { Upload, message } from 'antd';
 import { RcFile } from 'antd/es/upload';
-import { useDispatch } from 'react-redux';
+import { useUserStore } from '@/store/zustand/userStore';
 
 interface AvatarUploadProps {
   edit?: boolean;
@@ -20,9 +19,8 @@ const AvatarUpload: FC<AvatarUploadProps> = (props) => {
   const { edit = false } = props;
   const [showEditIcon, setShowEditIcon] = useState(false);
   const imageCropRef = useRef<ImageCropRef>(null);
-  const userInfo = useGetUserInfo();
-
-  const dispatch = useDispatch();
+  const userInfo = useUserStore((state) => state.userInfo);
+  const setUserInfo = useUserStore((state) => state.setUserInfo);
 
   return (
     <>
@@ -78,7 +76,7 @@ const AvatarUpload: FC<AvatarUploadProps> = (props) => {
           formData.append('fileName', fileName);
           try {
             const res = await webApi.userApi.uploadAvatar(formData);
-            dispatch(setUserInfo({ ...userInfo, avatar: res.avatar || '' }));
+            setUserInfo({ ...userInfo, avatar: res.avatar || '' });
             message.success('Updated avatar successfully');
           } catch (e: any) {
             errorMessage(e);

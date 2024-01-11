@@ -1,21 +1,20 @@
 import Github from '@/public/images/login/github.svg';
 import Google from '@/public/images/login/google.svg';
 import webApi from '@/service';
-import { AuthType } from '@/service/webApi/user/type';
+import { ThirdPartyAuthType } from '@/service/webApi/user/type';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import MetamaskLoginButton from './MetamaskLoginButton';
 import useIsPc from '@/hooks/useIsPc';
 import TipsModal from '@/app/(web)/(base page)/(landing)/components/TipsModal';
 
 function ThreePartyLogin() {
   const [isMounted, setIsMounted] = useState(false);
-  const dispatch = useDispatch();
+
   const isPc = useIsPc();
   const [tipsOpen, setTipsOpen] = useState(false);
 
-  const loginThreeParty = async (type: AuthType) => {
+  const loginThreeParty = async (type: ThirdPartyAuthType) => {
     switch (type) {
       // case AuthType.METAMASK:
       //   loginByMetaMask();
@@ -49,13 +48,13 @@ function ThreePartyLogin() {
       </div>
       <div className="flex gap-[15px] justify-center mt-4">
         <div
-          onClick={() => loginThreeParty(AuthType.GOOGLE)}
+          onClick={() => loginThreeParty(ThirdPartyAuthType.GOOGLE)}
           className="cursor-pointer w-[48px] h-[48px] border flex items-center justify-center rounded-[10px] border-[#8C8C8C] bg-[#0B0B0B]"
         >
           <Image src={Google} width={24} height={24} alt="Google"></Image>
         </div>
         <div
-          onClick={() => loginThreeParty(AuthType.GITHUB)}
+          onClick={() => loginThreeParty(ThirdPartyAuthType.GITHUB)}
           className="cursor-pointer w-[48px] h-[48px] border flex items-center justify-center rounded-[10px] border-[#8C8C8C] bg-[#0B0B0B]"
         >
           <Image src={Github} width={24} height={24} alt="Github"></Image>

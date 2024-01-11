@@ -4,8 +4,9 @@ import { FC, ReactNode } from 'react';
 import { NavBarProps } from './Navbar';
 import { navbarList, dashBoard } from './Navbar/data';
 import BaseLayout from './BaseLayout';
-import { useGetUserInfo } from '@/hooks/useGetUserInfo';
+
 import { deepClone } from '@/helper/utils';
+import { useUserStore } from '@/store/zustand/userStore';
 export interface LayoutProps {
   navbarData: NavBarProps;
   children: ReactNode;
@@ -13,7 +14,7 @@ export interface LayoutProps {
 
 const V2Layout: FC<LayoutProps> = (props) => {
   let { children, navbarData } = props;
-  const userInfo = useGetUserInfo();
+  const userInfo = useUserStore((state) => state.userInfo);
   let navList;
   if (userInfo) {
     navList = deepClone(navbarList);

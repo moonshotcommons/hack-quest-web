@@ -1,30 +1,38 @@
 import webApi from '@/service';
-import { useDispatch } from 'react-redux';
-import {
-  setUserLevel,
-  setUserCoin,
-  setMissionData,
-  setUserTreasure
-} from '@/store/redux/modules/missionCenter';
-
+// import {
+//   setUserLevel,
+//   setUserCoin,
+//   setMissionData,
+//   setUserTreasure
+// } from '@/store/redux/modules/missionCenter';
+import { useMissionCenterStore } from '@/store/zustand/missionCenterStore';
+import { useShallow } from 'zustand/react/shallow';
 export const useGetMissionData = () => {
-  const dispatch = useDispatch();
+  const { setUserLevel, setUserCoin, setMissionData, setUserTreasure } =
+    useMissionCenterStore(
+      useShallow((state) => ({
+        setUserLevel: state.setUserLevel,
+        setUserCoin: state.setUserCoin,
+        setMissionData: state.setMissionData,
+        setUserTreasure: state.setUserTreasure
+      }))
+    );
 
   const updateUserLevel = async () => {
     let res = await webApi.missionCenterApi.getUserLevel();
-    dispatch(setUserLevel(res || {}));
+    setUserLevel(res || {});
   };
   const updateUserCoin = async () => {
     let res = await webApi.missionCenterApi.getUserCoins();
-    dispatch(setUserCoin(res || {}));
+    setUserCoin(res || {});
   };
   const updateMissionData = async () => {
     let res = await webApi.missionCenterApi.getAllMission();
-    dispatch(setMissionData(res || []));
+    setMissionData(res || []);
   };
   const updateTreasures = async () => {
     let res = await webApi.missionCenterApi.getTreasures();
-    dispatch(setUserTreasure(res || []));
+    setUserTreasure(res || []);
   };
   const updateAll = async () => {
     await updateMissionData();

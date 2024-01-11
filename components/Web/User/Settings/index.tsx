@@ -2,31 +2,24 @@ import EmailFillIcon from '@/components/Common/Icon/EmailFill';
 import UserFillIcon from '@/components/Common/Icon/UserFill';
 import Modal from '@/components/Common/Modal';
 import { BurialPoint } from '@/helper/burialPoint';
-import { useGetUserInfo } from '@/hooks/useGetUserInfo';
-import { AppRootState } from '@/store/redux';
-import { setSettingsOpen } from '@/store/redux/modules/user';
+
 import { FC } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import AvatarUpload from './AvatarUpload';
 import ChangePassword from './ChangePassword';
+import { useUserStore } from '@/store/zustand/userStore';
+import { LoginResponse } from '@/service/webApi/user/type';
 
 interface SettingsProps {
   // children: ReactNode;
 }
 
 const Settings: FC<SettingsProps> = (props) => {
-  const { settingsOpen } = useSelector((state: AppRootState) => {
-    return {
-      settingsOpen: state.user.settingsOpen
-    };
-  });
-
-  const dispatch = useDispatch();
+  const settingsOpen = useUserStore((state) => state.settingsOpen);
+  const setSettingsOpen = useUserStore((state) => state.setSettingsOpen);
+  const userInfo = useUserStore((state) => state.userInfo);
   const onClose = () => {
-    dispatch(setSettingsOpen(false));
+    setSettingsOpen(false);
   };
-
-  const userInfo = useGetUserInfo();
 
   return (
     <div>
@@ -42,7 +35,7 @@ const Settings: FC<SettingsProps> = (props) => {
               Settings
             </h1>
             <div className="mt-[4rem] flex flex-col gap-[1.5rem] ">
-              <AvatarUpload userInfo={userInfo}></AvatarUpload>
+              <AvatarUpload userInfo={userInfo as LoginResponse}></AvatarUpload>
               <div
                 className="w-full relative flex flex-col gap-[0.25rem] bottom-line"
                 onClick={() => {
