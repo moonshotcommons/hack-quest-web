@@ -1,3 +1,4 @@
+'use client';
 import React, { FC, ReactNode, useEffect, useRef, useState } from 'react';
 import { cn } from '@/helper/utils';
 type ButtonType = 'default' | 'primary' | 'secondary' | 'text';
@@ -45,7 +46,7 @@ const Button: FC<ButtonProps> = (props) => {
       case 'medium-y':
         return 'px-[1.875rem] py-[1.25rem]';
       case 'small':
-        return 'px-[1rem] py-[.5rem] font-next-book-Thin text-[.625rem]';
+        return 'px-[1rem] py-[.5rem] text-[.625rem]';
       default:
         return 'px-[2rem] py-[1rem]';
     }
@@ -73,7 +74,7 @@ const Button: FC<ButtonProps> = (props) => {
     <button
       ref={buttonRef}
       className={cn(
-        `text-text-default-color flex gap-[.625rem] items-center justify-center h-fit w-fit cursor-pointer relative`,
+        `text-neutral-black flex gap-[.625rem] items-center justify-center h-fit w-fit cursor-pointer relative`,
         type === 'primary' ? 'bg-yellow-primary' : '',
         block && 'w-full',
         ghost && 'bg-transparent border-yellow-primary border',
