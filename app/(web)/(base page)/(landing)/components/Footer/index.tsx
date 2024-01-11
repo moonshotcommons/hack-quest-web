@@ -24,7 +24,7 @@ const Footer: FC<FooterProps> = (props) => {
                 <div className="flex flex-col body-m gap-[.4375rem]">
                   {item.links.map((link, i) => {
                     return (
-                      <Link key={i} href={link.link}>
+                      <Link key={i} href={link.link} target="_blank">
                         {link.title}
                       </Link>
                     );
