@@ -12,7 +12,7 @@ const DashboardPage = () => {
   return (
     <div className="container mx-auto pt-[40px] pb-[30px]">
       <Dashboard />
-      <PageRetentionTime trackName="home-页面留存时间"></PageRetentionTime>
+      <PageRetentionTime trackName="dashboard-页面留存时间"></PageRetentionTime>
     </div>
   );
 };

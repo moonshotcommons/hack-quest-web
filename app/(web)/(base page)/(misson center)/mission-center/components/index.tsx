@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import webApi from '@/service';
 
 import { message } from 'antd';
@@ -26,29 +26,18 @@ function MissionCenter() {
       .missionClaim(missionIds)
       .then(async () => {
         await updateMissionDataAll();
-        cb && cb();
-        setLoading(false);
-        setMissionIds([]);
         message.success('success');
       })
       .catch(async (error) => {
+        message.error(`claim ${error.msg}!`);
+      })
+      .finally(() => {
         cb && cb();
         setLoading(false);
         setMissionIds([]);
-        message.error(`claim ${error.msg}!`);
       });
   };
 
-  useEffect(() => {
-    const startTime = new Date().getTime();
-    return () => {
-      const endTime = new Date().getTime();
-      const duration = endTime - startTime;
-      BurialPoint.track('mission-center-页面留存时间', {
-        duration
-      });
-    };
-  }, []);
   return (
     <div className="container mx-auto flex justify-between h-[calc(100vh-64px)]  text-[#0b0b0b] tracking-[0.3px] bg-[#f4f4f4]  text-[14px] font-next-book">
       <MissionCenterContext.Provider
