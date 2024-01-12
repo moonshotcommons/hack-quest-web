@@ -17,6 +17,7 @@ const LearningTrackList: React.FC<LearningTrackListProps> = ({ list }) => {
           <LearningTrackCard
             key={learningTrack.id}
             learningTrack={learningTrack}
+            className="p-[16px] h-[200px]"
           />
         ))}
       </div>
