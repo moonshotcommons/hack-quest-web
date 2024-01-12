@@ -81,20 +81,20 @@ const FAQS: FC<FAQSProps> = (props) => {
               }`}
               key={index}
             >
-              <div className="flex justify-between items-center">
+              <div
+                className="flex justify-between items-center"
+                onClick={() => {
+                  if (expendIndex.includes(index)) {
+                    setExpendIndex(expendIndex.filter((i) => i !== index));
+                  } else {
+                    setExpendIndex(expendIndex.concat(index));
+                  }
+                }}
+              >
                 <p className="body-l-bold text-neutral-rich-gray">
                   {item.problem}
                 </p>
-                <span
-                  className="cursor-pointer"
-                  onClick={() => {
-                    if (expendIndex.includes(index)) {
-                      setExpendIndex(expendIndex.filter((i) => i !== index));
-                    } else {
-                      setExpendIndex(expendIndex.concat(index));
-                    }
-                  }}
-                >
+                <span className="cursor-pointer">
                   {!expendIndex.includes(index) && (
                     <svg
                       width="24"

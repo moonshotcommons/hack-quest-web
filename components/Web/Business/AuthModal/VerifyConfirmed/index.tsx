@@ -318,6 +318,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
           if (isPc()) {
             setUserInfo(omit(res, 'token'));
             setToken(res.token || token);
+            setAuthModalOpen(false);
             setVerifyState(VerifyStateType.SUCCESS);
           } else {
             setTipsOpen(true);
