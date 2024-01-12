@@ -20,7 +20,11 @@ const LearningTrackList: React.FC<LearningTrackListProps> = ({
         return <LearningTrackCardInProgress learningTrack={learningTrack} />;
       case ProcessType.COMPLETED:
         return (
-          <LearningTrackCard learningTrack={learningTrack} from="dashboard" />
+          <LearningTrackCard
+            learningTrack={learningTrack}
+            from="dashboard"
+            className="p-[16px] h-[200px]"
+          />
         );
     }
   };
