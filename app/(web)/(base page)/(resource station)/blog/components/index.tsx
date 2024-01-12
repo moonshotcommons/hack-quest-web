@@ -25,7 +25,7 @@ const Blog: React.FC<BlogProps> = async function ({
     webApi.resourceStationApi.getBlog({
       limit,
       ...searchParams,
-      ...(page !== 1 && { page })
+      page
     }),
     webApi.resourceStationApi.getFeaturedBlog()
   ]);
@@ -33,7 +33,6 @@ const Blog: React.FC<BlogProps> = async function ({
   const totalList = blogData.total;
   const totalPage = Math.ceil(blogData.total / limit);
   const featureBlogList = featured || [];
-
   return (
     <div>
       <BlogBanner searchParams={searchParams} />
