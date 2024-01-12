@@ -70,7 +70,7 @@ const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
               BurialPoint.track('signup-Metamask第三方登录code验证成功');
               setUserInfo(omit(res, 'token'));
               setToken(res.token);
-
+              setAuthModalOpen(false);
               redirectToUrl('/dashboard');
             }
           }
