@@ -7,6 +7,9 @@ import { useDebounceFn } from 'ahooks';
 import { useSearchParams } from 'next/navigation';
 import { FC, useEffect, useState } from 'react';
 import RightArrowIcon from '@/components/Common/Icon/RightArrow';
+import webApi from '@/service';
+import { BurialPoint } from '@/helper/burialPoint';
+import { message } from 'antd';
 interface ChangePasswordProps {}
 
 enum ChangeStateType {
@@ -163,35 +166,35 @@ const ChangeForm = ({
     () => {
       setLoading(true);
       changeState(ChangeStateType.FAIL);
-      // validator.validate(formData, async (errors, fields) => {
-      //   if (!errors) {
-      //     const status: any = { ...formState };
-      //     for (let key in status) {
-      //       status[key] = { status: 'success', errorMessage: '' };
-      //     }
-      //     try {
-      //       const res = (await webApi.userApi.updatePassword(formData)) as any;
-      //       changeState(ChangeStateType.SUCCESS);
-      //       BurialPoint.track('login-忘记密码重置成功');
-      //     } catch (e: any) {
-      //       BurialPoint.track('login-忘记密码重置失败', { message: e?.msg });
-      //       message.error(e.msg);
-      //       changeState(ChangeStateType.FAIL);
-      //     }
-      //     setLoading(false);
-      //   } else {
-      //     // console.log('产生错误', errors, fields);
-      //     const status: any = { ...formState };
-      //     errors.map((error) => {
-      //       status[error.field as string] = {
-      //         status: 'error',
-      //         errorMessage: error.message
-      //       };
-      //     });
-      //     setFormState(status);
-      //     setLoading(false);
-      //   }
-      // });
+      validator.validate(formData, async (errors, fields) => {
+        if (!errors) {
+          const status: any = { ...formState };
+          for (let key in status) {
+            status[key] = { status: 'success', errorMessage: '' };
+          }
+          try {
+            const res = (await webApi.userApi.updatePassword(formData)) as any;
+            changeState(ChangeStateType.SUCCESS);
+            BurialPoint.track('login-忘记密码重置成功');
+          } catch (e: any) {
+            BurialPoint.track('login-忘记密码重置失败', { message: e?.msg });
+            message.error(e.msg);
+            changeState(ChangeStateType.FAIL);
+          }
+          setLoading(false);
+        } else {
+          // console.log('产生错误', errors, fields);
+          const status: any = { ...formState };
+          errors.map((error) => {
+            status[error.field as string] = {
+              status: 'error',
+              errorMessage: error.message
+            };
+          });
+          setFormState(status);
+          setLoading(false);
+        }
+      });
     },
     { wait: 500 }
   );
