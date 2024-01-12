@@ -165,7 +165,6 @@ const ChangeForm = ({
   const { run: onUpdate } = useDebounceFn(
     () => {
       setLoading(true);
-      changeState(ChangeStateType.FAIL);
       validator.validate(formData, async (errors, fields) => {
         if (!errors) {
           const status: any = { ...formState };
