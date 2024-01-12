@@ -1,4 +1,3 @@
-import SlideHighlight from '@/components/Common/Navigation/SlideHighlight';
 import UserDropCard from '@/components/Web/Business/UserDropCard';
 import { V2_LANDING_PATH } from '@/constants/nav';
 import { BurialPoint } from '@/helper/burialPoint';
@@ -14,6 +13,7 @@ import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
 import { LoginResponse } from '@/service/webApi/user/type';
 import { useMissionCenterStore } from '@/store/zustand/missionCenterStore';
+import Button from '@/components/Common/Button';
 interface UserProps {}
 
 const User: FC<UserProps> = () => {
@@ -30,6 +30,7 @@ const User: FC<UserProps> = () => {
   );
 
   const setAuthType = useUserStore((state) => state.setAuthType);
+  const setAuthModalOpen = useUserStore((state) => state.setAuthModalOpen);
   const pathname = usePathname();
   const { redirectToUrl } = useRedirect();
 
@@ -40,13 +41,13 @@ const User: FC<UserProps> = () => {
     }))
   );
 
-  const unLoginTabClick = (value: AuthType) => {
-    // dispatch(setUnLoginType(value));
-    setAuthType(value);
-    if (pathname !== V2_LANDING_PATH) {
-      redirectToUrl(`${V2_LANDING_PATH}?type=${value}`);
-    }
-  };
+  // const unLoginTabClick = (value: AuthType) => {
+  //   // dispatch(setUnLoginType(value));
+  //   setAuthType(value);
+  //   if (pathname !== V2_LANDING_PATH) {
+  //     redirectToUrl(`${V2_LANDING_PATH}?type=${value}`);
+  //   }
+  // };
   useEffect(() => {
     if (userInfo) {
       setIsLogin(true);
@@ -54,6 +55,7 @@ const User: FC<UserProps> = () => {
       setIsLogin(false);
     }
   }, [userInfo]);
+
   useEffect(() => {
     if (pathname === V2_LANDING_PATH) {
       setTabIndex(unLoginTab.findIndex((v) => v.value === authRouteType.type));
@@ -148,24 +150,28 @@ const User: FC<UserProps> = () => {
             </div>
           )}
           {!isLogin && (
-            <SlideHighlight
-              className="flex gap-[30px] h-full"
-              currentIndex={tabIndex}
-            >
-              {unLoginTab.map((tab, index) => (
-                <div
-                  className={`text-sm h-full flex items-center text-white hover:font-bold tracking-[0.28px] cursor-pointer ${
-                    tabIndex === index
-                      ? 'font-next-book-bold text-text-default-color font-bold'
-                      : 'font-next-book font-normal'
-                  }`}
-                  key={tab.value}
-                  onClick={() => unLoginTabClick(tab.value)}
-                >
-                  {tab.label}
-                </div>
-              ))}
-            </SlideHighlight>
+            <div className="flex gap-4">
+              <Button
+                type="text"
+                className="px-[1.0625rem] py-2 border-transparent text-neutral-white button-text-s uppercase"
+                onClick={() => {
+                  setAuthType(AuthType.LOGIN);
+                  setAuthModalOpen(true);
+                }}
+              >
+                Log in
+              </Button>
+              <Button
+                type="primary"
+                className="px-5 py-[.5rem] text-neutral-black rounded-full button-text-s uppercase"
+                onClick={() => {
+                  setAuthType(AuthType.SIGN_UP);
+                  setAuthModalOpen(true);
+                }}
+              >
+                Sign up
+              </Button>
+            </div>
           )}
         </div>
       </div>
