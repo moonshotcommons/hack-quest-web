@@ -1,6 +1,6 @@
 import React from 'react';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
-import LearningTrackLandingCard from '@/components/Web/Business/LearningTrackCardNew';
+import LearningTrackCard from '@/components/Web/Business/LearningTrackCard';
 interface LearningTrackListProps {
   list: LearningTrackDetailType[];
 }
@@ -14,7 +14,7 @@ const LearningTrackList: React.FC<LearningTrackListProps> = ({ list }) => {
       </h3>
       <div className="mt-6 flex flex-col gap-[24px]">
         {list.map((learningTrack) => (
-          <LearningTrackLandingCard
+          <LearningTrackCard
             key={learningTrack.id}
             learningTrack={learningTrack}
           />

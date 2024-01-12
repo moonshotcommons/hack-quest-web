@@ -11,13 +11,14 @@ import {
 export enum SlideClassName {
   FIST_NAVBAR = 'slide-navigator slide-navigator-fist-navbar',
   SECOND_NAVBAR = 'slide-navigator slide-navigator-second-navbar',
-  BLOG_FILTER = 'slide-blog-navigator'
+  BLOG_FILTER = 'slide-blog-navigator',
+  LEARNING_TRACK = 'slide-navigator slide-learning-track-navbar'
 }
 
 interface SlideHighlightProps {
   children: React.ReactNode;
   className: string;
-  type?: 'FIST_NAVBAR' | 'SECOND_NAVBAR' | 'BLOG_FILTER';
+  type?: 'FIST_NAVBAR' | 'SECOND_NAVBAR' | 'BLOG_FILTER' | 'LEARNING_TRACK';
   currentIndex: number;
 }
 

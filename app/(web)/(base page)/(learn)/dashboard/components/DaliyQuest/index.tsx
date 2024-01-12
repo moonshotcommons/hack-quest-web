@@ -13,6 +13,7 @@ import { message } from 'antd';
 import webApi from '@/service';
 import { BurialPoint } from '@/helper/burialPoint';
 import { useMissionCenterStore } from '@/store/zustand/missionCenterStore';
+import { MissionDataType } from '@/service/webApi/missionCenter/type';
 
 interface DaliyQuestProp {}
 
@@ -22,12 +23,12 @@ const DaliyQuest: React.FC<DaliyQuestProp> = () => {
   const dailyQuests = useMissionCenterStore(
     (state) => state.missionData.dailyQuests
   );
-  const missionClaim = (missionId: string) => {
-    if (~claimIds.indexOf(missionId)) return;
-    setClaimIds([...claimIds, missionId]);
+  const missionClaim = (mission: MissionDataType) => {
+    if (~claimIds.indexOf(mission.id) || mission.progress.claimed) return;
+    setClaimIds([...claimIds, mission.id]);
     BurialPoint.track(`mission-center-claim`);
     webApi.missionCenterApi
-      .missionClaim([missionId])
+      .missionClaim([mission.id])
       .then(async () => {
         await updateMissionDataAll();
         message.success('success');
@@ -36,7 +37,7 @@ const DaliyQuest: React.FC<DaliyQuestProp> = () => {
         message.error(`claim ${error.msg}!`);
       })
       .finally(() => {
-        const newIds = claimIds.filter((v) => v !== missionId);
+        const newIds = claimIds.filter((v) => v !== mission.id);
         setClaimIds(newIds);
       });
   };
@@ -83,13 +84,15 @@ const DaliyQuest: React.FC<DaliyQuestProp> = () => {
                     <span>{v.coin}</span>
                   </div>
                 </div>
-                {v.progress.completed && !v.progress.claimed && (
+                {v.progress.completed && (
                   <Button
-                    className="w-[71px] h-[31px] bg-yellow-primary text-neutral-off-black button-text-s"
+                    className={`w-[71px] h-[31px] bg-yellow-primary text-neutral-off-black button-text-s ${
+                      v.progress.claimed ? 'cursor-not-allowed' : ''
+                    }`}
                     loading={!!~claimIds.indexOf(v.id)}
-                    onClick={() => missionClaim(v.id)}
+                    onClick={() => missionClaim(v)}
                   >
-                    CLAIM
+                    {`${v.progress.claimed ? 'CLAIMED' : 'CLAIM'}`}
                   </Button>
                 )}
               </div>

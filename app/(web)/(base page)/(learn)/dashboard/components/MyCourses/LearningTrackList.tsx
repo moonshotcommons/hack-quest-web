@@ -2,8 +2,8 @@ import React, { useMemo, useState } from 'react';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import { ProcessType } from '@/service/webApi/course/type';
 import LearningTrackCardInProgress from '../LearningTrackCardInProgress';
-import LearningTrackCardCompleted from '../LearningTrackCompleted';
 import { HiArrowLongRight } from 'react-icons/hi2';
+import LearningTrackCard from '@/components/Web/Business/LearningTrackCard';
 interface LearningTrackListProps {
   list: LearningTrackDetailType[];
   curTab: ProcessType;
@@ -19,7 +19,9 @@ const LearningTrackList: React.FC<LearningTrackListProps> = ({
       case ProcessType.IN_PROCESS:
         return <LearningTrackCardInProgress learningTrack={learningTrack} />;
       case ProcessType.COMPLETED:
-        return <LearningTrackCardCompleted learningTrack={learningTrack} />;
+        return (
+          <LearningTrackCard learningTrack={learningTrack} from="dashboard" />
+        );
     }
   };
   const learnList = useMemo(() => {
