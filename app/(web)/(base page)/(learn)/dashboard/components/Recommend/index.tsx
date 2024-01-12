@@ -17,7 +17,11 @@ const Recommend: React.FC<RecommendProp> = () => {
       <div className="mt-[16px] flex flex-wrap gap-[24px]">
         {list.map((learningTrack) => (
           <div key={learningTrack.id} className="w-[calc((100%-24px)/2)]">
-            <LearningTrackCard learningTrack={learningTrack} from="dashboard" />
+            <LearningTrackCard
+              learningTrack={learningTrack}
+              from="dashboard"
+              className="p-[16px] h-[200px]"
+            />
           </div>
         ))}
       </div>
