@@ -86,9 +86,7 @@ const PracticeCard: FC<PracticeCardProps> = (props) => {
     >
       {!!course.progress && course.progress >= 1 && (
         <div
-          className={`absolute font-neuemachina-light top-[13px]  z-[999] ${
-            from === 'project' ? 'left-[16px]' : 'right-[16px]'
-          }`}
+          className={`absolute font-neuemachina-light top-[13px]  z-[999] right-[16px]`}
         >
           <svg
             width="32"
@@ -116,7 +114,7 @@ const PracticeCard: FC<PracticeCardProps> = (props) => {
           </div>
           <h2
             className={`text-[21px] font-next-poster-Bold text-[#000] leading-[21px] tracking-[1.16px] my-[16px] ${
-              from === 'dashboard' ? 'line-clamp-1' : ''
+              from === 'dashboard' ? 'line-clamp-1' : 'line-clamp-2'
             }`}
           >
             {course.title}
@@ -125,29 +123,6 @@ const PracticeCard: FC<PracticeCardProps> = (props) => {
             <>
               <div className="my-[16px]">
                 <CardProgress progress={course.progress || 0} />
-              </div>
-
-              <div className="flex flex-col gap-y-5">
-                <Button
-                  type="primary"
-                  className="px-0 py-[12px] h-[48px]  button-text-m text-neutral-off-black"
-                  block
-                  loading={loading}
-                  disabled={loading}
-                  onClick={(e) => {
-                    BurialPoint.track('home-course卡片Continue按钮点击', {
-                      courseName: course.name
-                    });
-                    e.stopPropagation();
-                    jumpLearningLesson(course, {
-                      menu: 'electives',
-                      idTypes: [QueryIdType.MENU_COURSE_ID],
-                      ids: [course.id]
-                    });
-                  }}
-                >
-                  CONTINUE
-                </Button>
               </div>
             </>
           ) : (
@@ -160,13 +135,40 @@ const PracticeCard: FC<PracticeCardProps> = (props) => {
                   {course.description}
                 </div>
               </Typography.Paragraph>
-              <CourseTags
-                language={course.language}
-                level={course.level as string}
-                unitCount={course.unitCount || 0}
-                className="justify-between"
-              ></CourseTags>
             </>
+          )}
+        </div>
+        <div>
+          {inProgress ? (
+            <div className="flex flex-col gap-y-5">
+              <Button
+                type="primary"
+                className="px-0 py-[12px] h-[48px]  button-text-m text-neutral-off-black"
+                block
+                loading={loading}
+                disabled={loading}
+                onClick={(e) => {
+                  BurialPoint.track('home-course卡片Continue按钮点击', {
+                    courseName: course.name
+                  });
+                  e.stopPropagation();
+                  jumpLearningLesson(course, {
+                    menu: 'electives',
+                    idTypes: [QueryIdType.MENU_COURSE_ID],
+                    ids: [course.id]
+                  });
+                }}
+              >
+                CONTINUE
+              </Button>
+            </div>
+          ) : (
+            <CourseTags
+              language={course.language}
+              level={course.level as string}
+              unitCount={course.unitCount || 0}
+              className="justify-between"
+            ></CourseTags>
           )}
         </div>
 
