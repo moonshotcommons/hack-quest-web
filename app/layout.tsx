@@ -7,6 +7,7 @@ import InitializeUserProvider from '@/components/Provider/InitializeUser';
 import ThemeContextProvider from '@/store/context/theme';
 import Script from 'next/script';
 import ConfigProvider from '@/components/Provider/Config';
+import AuthModal from '@/components/Web/Business/AuthModal';
 
 export const metadata: Metadata = {
   title: 'HackQuest',
@@ -32,7 +33,10 @@ export default function RootLayout({
         <ThemeContextProvider>
           {/* <MobileRedirect> */}
           <InitializeUserProvider>
-            <ConfigProvider>{children}</ConfigProvider>
+            <ConfigProvider>
+              {children}
+              <AuthModal />
+            </ConfigProvider>
           </InitializeUserProvider>
           {/* </MobileRedirect> */}
         </ThemeContextProvider>

@@ -30,15 +30,18 @@ export interface UserStateType {
   userInfo: Partial<LoginResponse> | null;
   settingsOpen: boolean;
   authRouteType: AuthRouteType;
+  authModalOpen: boolean;
   setUserInfo: (payload: Partial<LoginResponse> | null) => void;
   userSignOut: () => void;
   setSettingsOpen: (payload: boolean) => void;
   setAuthType: (payload: AuthRouteType | AuthType) => void;
+  setAuthModalOpen: (open: boolean) => void;
 }
 
 export const useUserStore = create<UserStateType>()((set) => ({
   userInfo: null,
   settingsOpen: false,
+  authModalOpen: false,
   authRouteType: {
     type: AuthType.LOGIN,
     prevType: AuthType.LOGIN,
@@ -47,7 +50,9 @@ export const useUserStore = create<UserStateType>()((set) => ({
   setUserInfo(payload) {
     set((state) => ({ userInfo: payload }));
   },
-
+  setAuthModalOpen(payload) {
+    set((state) => ({ authModalOpen: payload }));
+  },
   userSignOut() {
     removeToken();
     set((state) => ({ userInfo: null }));
