@@ -66,9 +66,7 @@ const ElectiveCard: FC<ElectiveCardProps> = (props) => {
       >
         {
           <div
-            className={`absolute font-neuemachina-light top-6  z-[9] ${
-              from === 'elective' ? 'left-[16px]' : 'right-[16px]'
-            }`}
+            className={`absolute font-neuemachina-light top-6  z-[9] right-[16px]`}
           >
             {/* {course.progress < 1 && course.progress > 0 && (
               <CustomProgress
