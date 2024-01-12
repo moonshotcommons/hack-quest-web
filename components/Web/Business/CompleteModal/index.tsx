@@ -87,7 +87,7 @@ const CompleteModal = forwardRef<CompleteModalInstance, CompleteModalProps>(
             COURSE COMPLETE!
           </h1>
           <p className="font-next-book text-[1.25rem] text-text-default-color mt-[20px] leading-[128%]">
-            {title}
+            {decodeURIComponent(title)}
           </p>
           {type === 'course' && (
             <div className="flex gap-[1.25rem] mt-[100px]">
