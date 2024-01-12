@@ -20,7 +20,7 @@ const FullLayout = (props: FullLayoutProps) => {
     if (contentWrap) {
       contentWrap.scrollTo(0, 0);
     }
-  });
+  }, []);
 
   const { navbarInstance } = useContext(NavbarContext);
 

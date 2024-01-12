@@ -9,11 +9,11 @@ import {
 } from '@/constants/nav';
 import { getToken } from '@/helper/user-token';
 import { usePathname, useSearchParams } from 'next/navigation';
-import { useGetUserInfo } from '../useGetUserInfo';
 import { useRedirect } from '../useRedirect';
+import { useUserStore } from '@/store/zustand/userStore';
 
 function useNavAuth(waitingUserData: boolean) {
-  const userInfo = useGetUserInfo();
+  const userInfo = useUserStore((state) => state.userInfo);
   const { redirectToUrl } = useRedirect();
   const pathname = usePathname();
   const query = useSearchParams();

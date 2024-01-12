@@ -1,11 +1,12 @@
-import { UnLoginType } from '@/store/redux/modules/user';
+import { AuthType } from '@/store/zustand/userStore';
+
 export const unLoginTab = [
   {
     label: 'Log in',
-    value: UnLoginType.LOGIN
+    value: AuthType.LOGIN
   },
   {
     label: 'Sign Up',
-    value: UnLoginType.SIGN_UP
+    value: AuthType.SIGN_UP
   }
 ];

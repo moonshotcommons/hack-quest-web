@@ -1,13 +1,11 @@
 import PageDescription from '@/components/Web/Business/PageDescription';
-import { AppRootState } from '@/store/redux';
-import { shallowEqual, useSelector } from 'react-redux';
+
 import InviteCodeCard from '@/components/Web/Business/InviteCodeCard';
 import MyCourses from './MyCourses';
+import { useUserStore } from '@/store/zustand/userStore';
 
 function LearningCourses() {
-  const userInfo = useSelector((state: AppRootState) => {
-    return state.user.userInfo;
-  }, shallowEqual);
+  const userInfo = useUserStore((state) => state.userInfo);
   return (
     <div className="pb-[70px] font-next-book-Thin text-home-default-color container mx-auto">
       <div className="flex justify-between mt-10">

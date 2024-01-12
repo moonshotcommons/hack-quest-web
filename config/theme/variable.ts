@@ -40,6 +40,7 @@ export const themeColors = {
   'yellow-primary': 'var(--yellow-primary)',
   'yellow-hover': 'var(--yellow-hover)',
   'yellow-light': 'var(--yellow-light)',
+  'yellow-extra-light': 'var(--yellow-extra-light)',
 
   /* 中性色 */
   'neutral-black': 'var(--neutral-black)',
