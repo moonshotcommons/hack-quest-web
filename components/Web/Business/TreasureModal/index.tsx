@@ -13,6 +13,7 @@ import Image from 'next/image';
 import Button from '@/components/Common/Button';
 import webApi from '@/service';
 import { useGetMissionData } from '@/hooks/useGetMissionData';
+import { FiX } from 'react-icons/fi';
 
 export enum TreasureType {
   DIG = 'dig',
@@ -79,7 +80,13 @@ const TreasureModal = forwardRef<TreasureModalRef, TreasureModalProp>(
     });
 
     return (
-      <Modal open={open} onClose={() => resetModal()} showCloseIcon={true}>
+      <Modal
+        open={open}
+        onClose={() => resetModal()}
+        showCloseIcon={true}
+        icon={<FiX size={26} color={'#fff'} />}
+        className="min-w-[75vw]"
+      >
         <div className="w-full h-[750px] flex-center">
           <div
             className="w-[99%] h-[700px] flex flex-col  rounded-[10px] overflow-hidden text-[#fff]"
