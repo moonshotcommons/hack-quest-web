@@ -2,15 +2,15 @@ import webApi from '@/service';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import { useRequest } from 'ahooks';
 import { message } from 'antd';
-import { useGetUserInfo } from '../useGetUserInfo';
 import { useRedirect } from '../useRedirect';
 import { V2_LANDING_PATH } from '@/constants/nav';
+import { useUserStore } from '@/store/zustand/userStore';
 
 export const useEnrollUnEnroll = (
   learningTrackDetail: LearningTrackDetailType | undefined,
   refreshCallback: VoidFunction
 ) => {
-  const userInfo = useGetUserInfo();
+  const userInfo = useUserStore((state) => state.userInfo);
   const { redirectToUrl } = useRedirect();
   const { run: unEnroll, loading: unEnrollLoading } = useRequest(
     async () => {

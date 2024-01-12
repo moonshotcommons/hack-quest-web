@@ -5,17 +5,12 @@ import { BurialPoint } from '@/helper/burialPoint';
 import { useRedirect } from '@/hooks/useRedirect';
 import ArrowUp from '@/public/images/user/arrow_up.png';
 import { LoginResponse } from '@/service/webApi/user/type';
-import {
-  UnLoginType,
-  setSettingsOpen,
-  setUnLoginType,
-  userSignOut
-} from '@/store/redux/modules/user';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useShallow } from 'zustand/react/shallow';
 
 import { FC } from 'react';
-import { useDispatch } from 'react-redux';
+import { AuthType, useUserStore } from '@/store/zustand/userStore';
 interface UserDropCardProps {
   // children: ReactNode;
   userInfo: LoginResponse;
@@ -47,11 +42,17 @@ const UserInfo: FC<Omit<UserDropCardProps, 'onClose'>> = ({ userInfo }) => {
 
 const UserDropCard: FC<UserDropCardProps> = (props) => {
   const { userInfo, onClose } = props;
-  const dispatch = useDispatch();
+  const { setAuthType, userSignOut, setSettingsOpen } = useUserStore(
+    useShallow((state) => ({
+      setAuthType: state.setAuthType,
+      userSignOut: state.userSignOut,
+      setSettingsOpen: state.setSettingsOpen
+    }))
+  );
   const { redirectToUrl } = useRedirect();
   const signOut = () => {
-    dispatch(setUnLoginType(UnLoginType.LOGIN));
-    dispatch(userSignOut());
+    setAuthType(AuthType.LOGIN);
+    userSignOut();
     BurialPoint.track('登出');
     redirectToUrl('/');
   };
@@ -91,7 +92,7 @@ const UserDropCard: FC<UserDropCardProps> = (props) => {
         className="relative w-full py-[2rem] text-setting-drop-handler-color border-t border-setting-drop-user-border flex justify-start items-center gap-[1.25rem] cursor-pointer"
         onClick={() => {
           onClose();
-          dispatch(setSettingsOpen(true));
+          setSettingsOpen(true);
           BurialPoint.track('settings');
         }}
       >

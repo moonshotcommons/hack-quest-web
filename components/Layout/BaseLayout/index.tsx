@@ -21,7 +21,7 @@ const BaseLayout = memo(function (props: BaseLayoutProps) {
     if (contentWrap) {
       contentWrap.scrollTo(0, 0);
     }
-  });
+  }, []);
 
   const { navbarInstance } = useContext(NavbarContext);
 

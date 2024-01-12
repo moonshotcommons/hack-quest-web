@@ -3,10 +3,8 @@ import { BurialPoint } from '@/helper/burialPoint';
 import { cn } from '@/helper/utils';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
 import { CourseType } from '@/service/webApi/course/type';
-import { Progress } from 'antd';
 import Image from 'next/image';
 import { FC, useCallback, useRef } from 'react';
-import { styled } from 'styled-components';
 import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import { Tag } from '@/components/Web/Business/CourseTags';
 import { menuLink } from '@/components/Web/Business/Breadcrumb/data';
@@ -24,16 +22,9 @@ interface ElectiveCardProps {
   inCompleted?: boolean;
   baseProgress?: boolean;
   onCourseClick?: (course: ElectiveCourseType) => void;
+  from?: 'dashboard' | 'project';
+  className?: string;
 }
-
-const CustomProgress = styled(Progress)`
-  .ant-progress-inner {
-    .ant-progress-text {
-      color: #3e3e3e;
-      font-size: 12px;
-    }
-  }
-`;
 
 const ElectiveCard: FC<ElectiveCardProps> = (props) => {
   const {
@@ -41,7 +32,9 @@ const ElectiveCard: FC<ElectiveCardProps> = (props) => {
     inProgress = false,
     inCompleted = false,
     baseProgress = false,
-    onCourseClick: courseClick
+    onCourseClick: courseClick,
+    from = 'elective',
+    className = ''
   } = props;
   const { jumpLearningLesson, loading } = useJumpLeaningLesson();
   const { redirectToUrl } = useRedirect();
@@ -63,7 +56,8 @@ const ElectiveCard: FC<ElectiveCardProps> = (props) => {
     <>
       <div
         className={cn(
-          'flex flex-col rounded-[16px] h-[371px] bg-white w-[302px] card-hover relative cursor-pointer'
+          'flex flex-col rounded-[16px] h-[371px] bg-white w-[302px] card-hover relative cursor-pointer',
+          className
         )}
         onClick={() => {
           BurialPoint.track('home-course卡片点击', { courseName: course.name });
@@ -71,7 +65,11 @@ const ElectiveCard: FC<ElectiveCardProps> = (props) => {
         }}
       >
         {
-          <div className="absolute font-neuemachina-light top-6 left-6 z-[9]">
+          <div
+            className={`absolute font-neuemachina-light top-6  z-[9] ${
+              from === 'elective' ? 'left-[16px]' : 'right-[16px]'
+            }`}
+          >
             {/* {course.progress < 1 && course.progress > 0 && (
               <CustomProgress
                 type="circle"
@@ -145,7 +143,7 @@ const ElectiveCard: FC<ElectiveCardProps> = (props) => {
               </Tag>
             </div>
             <h2 className="text-h4 line-clamp-1 text-neutral-off-black">
-              {course.name}
+              {course.title}
             </h2>
             {!inProgress && (
               <p className="line-clamp-2 body-s text-neutral-medium-gray ">

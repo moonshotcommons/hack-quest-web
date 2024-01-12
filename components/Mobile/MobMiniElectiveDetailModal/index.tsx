@@ -19,7 +19,7 @@ import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLess
 import { QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import { useGetLessonLink } from '@/hooks/useCoursesHooks/useGetLessonLink';
 import { useRedirect } from '@/hooks/useRedirect';
-import { MenuLink } from '@/components/Web/Layout/Navbar/type';
+import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 import Tags from '@/components/Common/Tags';
 import { HiCodeBracket } from 'react-icons/hi2';
 

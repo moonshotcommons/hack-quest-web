@@ -28,7 +28,8 @@ const IconKeys = tuple(
   'Twitter',
   'User',
   'UserFill',
-  'Warning'
+  'Warning',
+  'Telegram'
 );
 
 export type IconKey = (typeof IconKeys)[number];

@@ -14,7 +14,7 @@ import {
   CourseType
 } from '@/service/webApi/course/type';
 import { ConfigProvider, Spin } from 'antd';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import { FC, useCallback, useEffect, useRef, useState } from 'react';
 import Split from 'react-split';
 import LessonContent from './LessonContent';
@@ -28,7 +28,9 @@ import BugFeedbackModal, {
 import TreasureModal, {
   TreasureModalRef
 } from '@/components/Web/Business/TreasureModal';
-import { useGetUserInfo } from '@/hooks/useGetUserInfo';
+
+import { useUserStore } from '@/store/zustand/userStore';
+import { useCourseStore } from '@/store/zustand/courseStore';
 
 interface LessonPageProps {
   lessonId: string;
@@ -41,7 +43,6 @@ const LessonPage: FC<LessonPageProps> = (props) => {
     lessonId,
     courseType
   );
-  const router = useRouter();
   const { courseId: courseName } = useParams();
   const [nextLoading, setNextLoading] = useState(false);
   const { onNextClick, completeModalRef } = useGotoNextLesson(
@@ -89,18 +90,14 @@ const LessonPage: FC<LessonPageProps> = (props) => {
     };
   }, []);
 
-  const userInfo = useGetUserInfo();
+  const userInfo = useUserStore((state) => state.userInfo);
+  const setLearnPageTitle = useCourseStore((state) => state.setLearnPageTitle);
 
   const bugFeedbackModalRef = useRef<BugFeedbackModalRef>(null);
 
-  // useEffect(() => {
-  //   if (completeModalRef.current) {
-  //     completeModalRef.current?.open({
-  //       type: 'claim',
-  //       title: courseName as string
-  //     });
-  //   }
-  // }, [lesson]);
+  useEffect(() => {
+    setLearnPageTitle(courseName as string);
+  }, [courseName]);
 
   return (
     <ConfigProvider

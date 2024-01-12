@@ -34,11 +34,6 @@ export interface HackathonDataType {
   total: number;
 }
 
-export const acquiescePageInfo = {
-  page: 1,
-  limit: 1000
-};
-
 export type ProjectType = {
   id: string;
   name: string;
@@ -60,12 +55,15 @@ export interface ProjectDataType {
 }
 
 export interface BlogSearchType {
-  keyword: string;
-  category: string;
-  sort: string;
-  page: number;
-  limit: number;
+  keyword?: string;
+  category?: string;
+  sort?: string;
 }
+
+export type PagedType = {
+  page?: number;
+  limit?: number;
+};
 
 export interface BlogType {
   id: string;
