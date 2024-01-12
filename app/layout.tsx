@@ -32,12 +32,12 @@ export default function RootLayout({
       <body className={`${inter.className}`}>
         <ThemeContextProvider>
           {/* <MobileRedirect> */}
-          <InitializeUserProvider>
-            <ConfigProvider>
+          <ConfigProvider>
+            <InitializeUserProvider>
               {children}
               <AuthModal />
-            </ConfigProvider>
-          </InitializeUserProvider>
+            </InitializeUserProvider>
+          </ConfigProvider>
           {/* </MobileRedirect> */}
         </ThemeContextProvider>
 

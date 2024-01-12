@@ -24,10 +24,11 @@ const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
   const [tipsOpen, setTipsOpen] = useState(false);
   const { redirectToUrl } = useRedirect();
 
-  const { setAuthType, setUserInfo } = useUserStore(
+  const { setAuthType, setUserInfo, setAuthModalOpen } = useUserStore(
     useShallow((state) => ({
       setAuthType: state.setAuthType,
-      setUserInfo: state.setUserInfo
+      setUserInfo: state.setUserInfo,
+      setAuthModalOpen: state.setAuthModalOpen
     }))
   );
 
@@ -69,6 +70,7 @@ const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
               BurialPoint.track('signup-Metamask第三方登录code验证成功');
               setUserInfo(omit(res, 'token'));
               setToken(res.token);
+
               redirectToUrl('/dashboard');
             }
           }
