@@ -2,8 +2,8 @@ import React, { useMemo, useState } from 'react';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import { ProcessType } from '@/service/webApi/course/type';
 import LearningTrackCardInProgress from '../LearningTrackCardInProgress';
-import LearningTrackCardCompleted from '../LearningTrackCompleted';
 import { HiArrowLongRight } from 'react-icons/hi2';
+import LearningTrackCard from '@/components/Web/Business/LearningTrackCard';
 interface LearningTrackListProps {
   list: LearningTrackDetailType[];
   curTab: ProcessType;
@@ -19,7 +19,13 @@ const LearningTrackList: React.FC<LearningTrackListProps> = ({
       case ProcessType.IN_PROCESS:
         return <LearningTrackCardInProgress learningTrack={learningTrack} />;
       case ProcessType.COMPLETED:
-        return <LearningTrackCardCompleted learningTrack={learningTrack} />;
+        return (
+          <LearningTrackCard
+            learningTrack={learningTrack}
+            from="dashboard"
+            className="p-[16px] h-[200px]"
+          />
+        );
     }
   };
   const learnList = useMemo(() => {
@@ -37,12 +43,14 @@ const LearningTrackList: React.FC<LearningTrackListProps> = ({
         ))}
       </div>
       {!isAll && list.length > 2 && (
-        <div
-          className="flex text-neutral-off-black button-text-s items-center mt-[16px] cursor-pointer"
-          onClick={() => setIsAll(true)}
-        >
-          <span>EXPLORE</span>
-          <HiArrowLongRight size={18}></HiArrowLongRight>
+        <div className="flex">
+          <div
+            className="flex text-neutral-off-black button-text-s items-center mt-[16px] cursor-pointer"
+            onClick={() => setIsAll(true)}
+          >
+            <span>EXPLORE</span>
+            <HiArrowLongRight size={18}></HiArrowLongRight>
+          </div>
         </div>
       )}
     </div>

@@ -1,12 +1,10 @@
 'use client';
 import Button from '@/components/Common/Button';
-import LearningTracksCard from '@/components/Web/Business/LearningTrackCard';
 import { BurialPoint } from '@/helper/burialPoint';
 import { useGetLearningTracks } from '@/hooks/useLearningTrackHooks/useLearningTracks';
 import LightButtonDeg from '@/public/images/home/light-button_deg.svg';
 import TeaserInfo from '@/public/images/home/teaser_info.png';
 import HackquestInfoBg from '@/public/images/landing/hack_quest_info_bg.png';
-import { LearningTrackCourseType } from '@/service/webApi/course/type';
 import { message } from 'antd';
 import Image from 'next/image';
 import { FC, useMemo, useState } from 'react';
@@ -27,6 +25,7 @@ import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import useIsPc from '@/hooks/useIsPc';
 import TipsModal from '../TipsModal';
 import { useRedirect } from '@/hooks/useRedirect';
+import LearningTrackCard from '@/components/Web/Business/LearningTrackCard';
 
 interface HackQuestInfoProps {
   // children: ReactNode;
@@ -158,11 +157,7 @@ export const TopInfo: FC = () => {
             BurialPoint.track('landing-learning track卡片点击');
           }}
         >
-          <LearningTracksCard
-            isLandingPage={true}
-            learningTrack={learningTracks[0] || {}}
-            status={LearningTrackCourseType.UN_ENROLL}
-          />
+          <LearningTrackCard learningTrack={learningTracks[0] || {}} />
         </div>
         <div
           className="hidden slab:flex justify-center"

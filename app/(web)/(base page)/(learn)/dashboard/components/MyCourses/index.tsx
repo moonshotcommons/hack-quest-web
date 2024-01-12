@@ -90,7 +90,7 @@ function MyCourses() {
               list={learningTrackListData[curTab]}
               curTab={curTab}
             />
-            <CourseList list={courseListData[curTab]} />
+            <CourseList list={courseListData[curTab]} curTab={curTab} />
           </div>
         )}
       </Loading>

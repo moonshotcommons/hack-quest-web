@@ -94,6 +94,11 @@ type HomeBurialPointType =
   | 'home-view all点击'
   | 'home-邀请码复制';
 
+type DashboardBurialPointType =
+  | 'dashboard-页面留存时间'
+  | 'dashboard-learning track卡片continue按钮点击'
+  | 'dashboard-learning track卡片点击';
+
 type CourseDetailBurialPointType =
   | 'courseDetail-页面留存时间'
   | 'courseDetail-页面上方按钮点击'
@@ -209,6 +214,7 @@ export type BurialPointType =
   | AuthBurialPointType
   | LandingBurialPointType
   | HomeBurialPointType
+  | DashboardBurialPointType
   | CourseDetailBurialPointType
   | LearningTrackDetailBurialPointType
   | LessonDetailBurialPointType

@@ -63,6 +63,7 @@ export enum CourseTrackType {
 export interface CourseBaseType {
   id: string;
   name: string;
+  title: string;
   description: string;
   type: CourseType;
   level: CourseLevelType;

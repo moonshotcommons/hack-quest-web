@@ -10,7 +10,8 @@ import {
   UserPersonalType,
   PersonalLinksType,
   GithubActivityType,
-  UserHackathonType
+  UserHackathonType,
+  UserLearnedCountType
 } from './type';
 import { transformQueryString } from '@/helper/formate';
 
@@ -30,7 +31,8 @@ export enum UserApiType {
   CheckInViteCode = '/users/verify-inviteCode',
   WalletVerify = '/auth/wallet',
   UserProfile = '/users/profile',
-  PersonalLinks = '/users/profile/personal-links'
+  PersonalLinks = '/users/profile/personal-links',
+  UserLearnedCount = '/users/learned-count'
 }
 
 class UserApi {
@@ -286,6 +288,13 @@ class UserApi {
   /** on-Chain Activity unLink */
   refreshChain() {
     return this.service.get(`${UserApiType.UserProfile}/refresh-chain`);
+  }
+
+  /** dashboard user count */
+  getUserLearnedCount() {
+    return this.service.get<UserLearnedCountType>(
+      `${UserApiType.UserLearnedCount}`
+    );
   }
 }
 

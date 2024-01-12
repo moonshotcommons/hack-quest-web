@@ -288,6 +288,10 @@ input[data-type='changePassword']:-internal-autofill-selected {
     height: 1px;
     bottom: 12px;
   }
+  &.slide-learning-track-navbar::before {
+    height: 3px;
+    background: var(--yellow-dark);
+  }
 }
 .slide-blog-navigator {
   --highlight-x: 0;
