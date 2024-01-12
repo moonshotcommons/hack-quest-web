@@ -18,7 +18,7 @@ const Login: FC<LoginProps> = (props) => {
 
   const EmailTitle = (
     <div>
-      <p className="body-l-boldtext-neutral-rich-gray">
+      <p className="body-l-bold text-neutral-rich-gray">
         {`Don’t have an account?  `}
         <span
           className="underline cursor-pointer"
