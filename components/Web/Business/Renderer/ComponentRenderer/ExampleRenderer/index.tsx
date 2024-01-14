@@ -1,3 +1,4 @@
+'use client';
 import Button from '@/components/Common/Button';
 import { ExampleComponent } from '@/components/Web/Business/Renderer/type';
 import { cn } from '@/helper/utils';

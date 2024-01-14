@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import PageDescription from '@/components/Web/Business/PageDescription';
-import ProjectsPageBox from '../../components/ProjectsBox';
 import PageRetentionTime from '@/components/Common/PageRetentionTime';
 
 interface ProjectsPageProps {
@@ -14,7 +13,7 @@ export const metadata: Metadata = {
     'Welcome to the central repository for accessing all previous projects from our various hackathons.'
 };
 
-async function ProjectsPage({
+function ProjectsPage({
   params: { slug = [] },
   searchParams
 }: ProjectsPageProps) {
@@ -31,8 +30,6 @@ async function ProjectsPage({
           }
           className="pt-0"
         />
-
-        <ProjectsPageBox searchParams={searchParams} page={page} />
       </div>
       <PageRetentionTime trackName="hackathon-all-projects-页面留存时间" />
     </div>

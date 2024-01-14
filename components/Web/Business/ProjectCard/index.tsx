@@ -3,25 +3,22 @@ import Image from 'next/image';
 import { ProjectType } from '@/service/webApi/resourceStation/type';
 import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import { BurialPoint } from '@/helper/burialPoint';
-import { useRedirect } from '@/hooks/useRedirect';
-import { MenuLink } from '../../Layout/BasePage/Navbar/type';
+import Link from 'next/link';
+import { menuLink } from '@/components/Web/Business/Breadcrumb/data';
 
 interface ProjectCardProp {
   project: ProjectType;
 }
 
 const ProjectCard: React.FC<ProjectCardProp> = ({ project }) => {
-  const { redirectToUrl } = useRedirect();
   const goProjectDetail = () => {
     BurialPoint.track(`hackathon projectCard 点击`);
-    redirectToUrl(
-      `${MenuLink.PROJECTS}/${project.id}?${QueryIdType.PROJECT_ID}=${project.id}&menu=${Menu.HACKATHON}`
-    );
   };
   return (
-    <div
+    <Link
       className="flex flex-col rounded-[10px] overflow-hidden  h-[333px] bg-white w-[305px] hover:-translate-y-1 transition-all duration-300 mt-1 relative shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)] cursor-pointer"
       onClick={goProjectDetail}
+      href={`${menuLink.projects}/projects/${project.id}?${QueryIdType.PROJECT_ID}=${project.id}&menu=${Menu.PROJECTS}`}
     >
       <div className="h-[163px] bg-[#d9d9d9]/30 relative">
         <Image
@@ -56,7 +53,7 @@ const ProjectCard: React.FC<ProjectCardProp> = ({ project }) => {
           {project.introduction}
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

@@ -1,4 +1,3 @@
-import SearchFilter from '@/components/Web/Business/SearchFilter/seo';
 import { dealFilterParam } from '@/components/Web/Business/SearchFilter';
 import {
   FilterDataType,
@@ -43,7 +42,6 @@ const ProjectsBox: React.FC<ProjectsBoxProps> = async ({
 
   return (
     <div className="flex justify-between gap-10 h-full">
-      <SearchFilter searchParams={searchParams} />
       <div className="flex-1 pb-5 h-full">
         <ProjectsList list={list} />
         <Pagination
