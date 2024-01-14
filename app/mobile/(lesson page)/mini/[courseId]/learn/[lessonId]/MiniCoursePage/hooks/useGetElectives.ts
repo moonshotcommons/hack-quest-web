@@ -1,4 +1,4 @@
-import { errorMessage } from '@/helper/utils';
+import { errorMessage } from '@/helper/ui';
 import webApi from '@/service';
 import {
   ElectiveLessonType,

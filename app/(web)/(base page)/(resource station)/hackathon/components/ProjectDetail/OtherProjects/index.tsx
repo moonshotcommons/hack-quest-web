@@ -2,7 +2,7 @@ import { menuLink } from '@/components/Web/Business/Breadcrumb/data';
 import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import ProjectCard from '@/components/Web/Business/ProjectCard';
 import Pagination from '@/components/Common/Pagination';
-import { errorMessage } from '@/helper/utils';
+import { errorMessage } from '@/helper/ui';
 import webApi from '@/service';
 import { ProjectType } from '@/service/webApi/resourceStation/type';
 import { useRequest } from 'ahooks';

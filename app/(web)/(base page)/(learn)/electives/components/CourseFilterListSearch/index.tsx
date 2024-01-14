@@ -6,7 +6,7 @@ import {
 } from '@/components/Web/Business/CourseFilterList/constant';
 import { FilterParamsType } from '@/components/Web/Business/CourseFilterList/type';
 import ElectiveCard from '@/components/Web/Business/ElectiveCard';
-import { errorMessage } from '@/helper/utils';
+import { errorMessage } from '@/helper/ui';
 import webApi from '@/service';
 import { ElectiveCourseType } from '@/service/webApi/elective/type';
 import { useRequest } from 'ahooks';

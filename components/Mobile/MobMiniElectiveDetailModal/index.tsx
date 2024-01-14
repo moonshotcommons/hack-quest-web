@@ -1,5 +1,6 @@
 import Button from '@/components/Common/Button';
-import { cn, errorMessage } from '@/helper/utils';
+import { errorMessage } from '@/helper/ui';
+import { cn } from '@/helper/utils';
 import Image from 'next/image';
 import { forwardRef, useImperativeHandle, useState } from 'react';
 import { HiArrowLeft } from 'react-icons/hi2';

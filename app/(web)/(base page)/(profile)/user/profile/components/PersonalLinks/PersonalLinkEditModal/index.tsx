@@ -11,7 +11,7 @@ import {
 import { ProfileContext } from '../../../constants/type';
 import { useRequest } from 'ahooks';
 import webApi from '@/service';
-import { errorMessage } from '@/helper/utils';
+import { errorMessage } from '@/helper/ui';
 import { getThirdPartyMedia, thirdPartyMedia } from '@/helper/thirdPartyMedia';
 
 interface PersonalLinkEditModalProps {}

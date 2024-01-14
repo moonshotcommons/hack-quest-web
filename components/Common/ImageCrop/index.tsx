@@ -22,7 +22,8 @@ import type {
 } from './types';
 import EasyCrop from './EasyCrop';
 import type { CropperProps } from 'react-easy-crop';
-import { errorMessage, urlToBlobAndBase64 } from '@/helper/utils';
+import { errorMessage } from '@/helper/ui';
+import { urlToBlobAndBase64 } from '@/helper/utils';
 import { v4 as uuidV4 } from 'uuid';
 interface ImageCropProps {
   title?: string;

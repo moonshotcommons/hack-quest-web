@@ -1,5 +1,5 @@
 'use client';
-import { errorMessage } from '@/helper/utils';
+import { errorMessage } from '@/helper/ui';
 import webApi from '@/service';
 import { ProjectType } from '@/service/webApi/resourceStation/type';
 import { useRequest } from 'ahooks';
