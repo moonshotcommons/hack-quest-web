@@ -1,3 +1,5 @@
+'use client';
+
 import { cn } from '@/helper/utils';
 import { ClassValue } from 'clsx';
 import { FC, useEffect, useState } from 'react';
