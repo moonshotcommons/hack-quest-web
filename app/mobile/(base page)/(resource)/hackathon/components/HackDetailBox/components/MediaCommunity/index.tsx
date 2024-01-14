@@ -1,3 +1,4 @@
+'use client';
 import { MentorType } from '@/service/webApi/resourceStation/type';
 import React, { useMemo, useState } from 'react';
 import Box from '../Box';
@@ -11,7 +12,7 @@ interface MediaCommunityProp {
   title: string;
 }
 
-const MediaCommunity: React.FC<MediaCommunityProp> = ({ listData, title }) => {
+const MediaCommunity: React.FC<MediaCommunityProp> = ({ listData }) => {
   const [showAll, setShowAll] = useState(false);
   const showList = useMemo(() => {
     return showAll ? deepClone(listData) : listData?.slice(0, 12);

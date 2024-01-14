@@ -1,28 +1,34 @@
+'use client';
 import React from 'react';
 import Image from 'next/image';
 import { ProjectType } from '@/service/webApi/resourceStation/type';
 import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import { BurialPoint } from '@/helper/burialPoint';
-import { useRedirect } from '@/hooks/useRedirect';
 import { MenuLink } from '../../Layout/BasePage/Navbar/type';
 import TrackTag from '@/components/Common/TrackTag';
+import Link from 'next/link';
+import { cn } from '@/helper/utils';
 
 interface ProjectCardProp {
+  className?: string;
   project: ProjectType;
 }
 
-const ProjectCard: React.FC<ProjectCardProp> = ({ project }) => {
-  const { redirectToUrl } = useRedirect();
+const ProjectCard: React.FC<ProjectCardProp> = ({
+  className = '',
+  project
+}) => {
   const goProjectDetail = () => {
     BurialPoint.track(`hackathon projectCard 点击`);
-    redirectToUrl(
-      `${MenuLink.PROJECTS}/${project.id}?${QueryIdType.PROJECT_ID}=${project.id}&menu=${Menu.HACKATHON}`
-    );
   };
   return (
-    <div
-      className="relative mt-1 flex w-[305px]  cursor-pointer flex-col overflow-hidden rounded-[10px] bg-neutral-white shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)]"
+    <Link
+      className={cn(
+        'relative mt-1 flex w-[305px]  cursor-pointer flex-col overflow-hidden rounded-[10px] bg-neutral-white shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)]',
+        className
+      )}
       onClick={goProjectDetail}
+      href={`${MenuLink.PROJECTS}/${project.id}?${QueryIdType.PROJECT_ID}=${project.id}&menu=${Menu.HACKATHON}`}
     >
       <div className="relative h-0 w-full bg-[#d9d9d9]/30 pt-[56%]">
         <Image
@@ -30,6 +36,7 @@ const ProjectCard: React.FC<ProjectCardProp> = ({ project }) => {
           alt="thumbnail"
           fill
           className="object-cover"
+          loading="lazy"
         ></Image>
       </div>
       <div className="flex h-[215px] flex-col justify-between p-[16px]">
@@ -56,7 +63,7 @@ const ProjectCard: React.FC<ProjectCardProp> = ({ project }) => {
           <span>{project.hackathonName}</span>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

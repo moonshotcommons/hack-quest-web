@@ -1,3 +1,4 @@
+'use client';
 import NavBar from '@/components/Layout/Navbar';
 import { navbarList } from '@/components/Layout/Navbar/data';
 import { FC, ReactNode, createContext, useMemo } from 'react';

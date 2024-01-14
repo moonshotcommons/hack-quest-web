@@ -1,5 +1,5 @@
-import { cn } from '@/helper/utils';
 import React from 'react';
+import { cn } from '@/helper/utils';
 
 interface PageDescriptionType {
   title: string;
