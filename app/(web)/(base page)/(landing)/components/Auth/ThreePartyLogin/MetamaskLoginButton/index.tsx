@@ -2,7 +2,7 @@ import Button from '@/components/Common/Button';
 import TipsModal from '@/app/(web)/(base page)/(landing)/components/TipsModal';
 import { BurialPoint } from '@/helper/burialPoint';
 import { setToken } from '@/helper/user-token';
-import { errorMessage } from '@/helper/utils';
+import { errorMessage } from '@/helper/ui';
 import useIsPc from '@/hooks/useIsPc';
 import { useRedirect } from '@/hooks/useRedirect';
 import Metamask from '@/public/images/login/metamask.svg';

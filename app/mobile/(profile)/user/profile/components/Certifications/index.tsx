@@ -10,7 +10,8 @@ import CertificationModal, {
   CertificationModalInstance
 } from '@/components/Web/Business/Certification/CertificationModal';
 import { CertificationType } from '@/service/webApi/campaigns/type';
-import { cn, errorMessage } from '@/helper/utils';
+import { errorMessage } from '@/helper/ui';
+import { cn } from '@/helper/utils';
 import { useMintCertification } from '@/hooks/useMintCertification';
 import { useRequest } from 'ahooks';
 import webApi from '@/service';

@@ -6,7 +6,7 @@ import {
 } from '@/components/Web/Business/CourseFilterList/constant';
 import { FilterParamsType } from '@/components/Web/Business/CourseFilterList/type';
 import PracticeCard from '@/components/Web/Business/PracticeCard';
-import { errorMessage } from '@/helper/utils';
+import { errorMessage } from '@/helper/ui';
 import webApi from '@/service';
 import { ProjectCourseType } from '@/service/webApi/course/type';
 import { useRequest } from 'ahooks';
