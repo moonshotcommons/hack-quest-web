@@ -4,7 +4,8 @@ import { FC, useRef, useState } from 'react';
 import HoverIcon from '@/components/Web/Business/HoverIcon';
 import { IconType } from '@/components/Web/Business/HoverIcon/type';
 import ImageCrop, { ImageCropRef } from '@/components/Common/ImageCrop';
-import { cn, errorMessage } from '@/helper/utils';
+import { errorMessage } from '@/helper/ui';
+import { cn } from '@/helper/utils';
 
 import webApi from '@/service';
 import { Upload, message } from 'antd';

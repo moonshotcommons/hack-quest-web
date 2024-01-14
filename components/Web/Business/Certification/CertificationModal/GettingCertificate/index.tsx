@@ -1,6 +1,6 @@
 import Button from '@/components/Common/Button';
-
-import { cn, errorMessage } from '@/helper/utils';
+import { errorMessage } from '@/helper/ui';
+import { cn } from '@/helper/utils';
 import { useMintCertification } from '@/hooks/useMintCertification';
 import { CertificationType } from '@/service/webApi/campaigns/type';
 import { useRequest } from 'ahooks';

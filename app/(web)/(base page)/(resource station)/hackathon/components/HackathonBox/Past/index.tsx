@@ -10,7 +10,7 @@ import {
   HackathonStatusType,
   HackathonType
 } from '@/service/webApi/resourceStation/type';
-import { errorMessage } from '@/helper/utils';
+import { errorMessage } from '@/helper/ui';
 
 interface PastProps {}
 

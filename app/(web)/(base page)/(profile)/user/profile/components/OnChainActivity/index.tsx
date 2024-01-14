@@ -5,7 +5,7 @@ import { useConnect } from 'wagmi';
 import HoverIcon from '@/components/Web/Business/HoverIcon';
 import { IconType } from '@/components/Web/Business/HoverIcon/type';
 import { useRequest } from 'ahooks';
-import { errorMessage } from '@/helper/utils';
+import { errorMessage } from '@/helper/ui';
 import { message } from 'antd';
 import webApi from '@/service';
 import Confirm from '../components/Confirm';

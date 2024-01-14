@@ -10,7 +10,7 @@ import { ProjectCourseType } from '@/service/webApi/course/type';
 import CourseFilterListSearch from '../CourseFilterListSearch';
 import CourseFilterListDefault from '../CourseFilterListDefault';
 import { useRequest } from 'ahooks';
-import { errorMessage } from '@/helper/utils';
+import { errorMessage } from '@/helper/ui';
 
 function Practices() {
   const selectiveCoursesRef = useRef<HTMLDivElement | null>(null);
