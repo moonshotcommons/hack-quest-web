@@ -9,7 +9,6 @@ import Image from 'next/image';
 import { FC } from 'react';
 import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import CourseTags from '@/components/Web/Business/CourseTags';
-import { menuLink } from '@/components/Web/Business/Breadcrumb/data';
 import PracticeImg1 from '@/public/images/home/practices_img1.png';
 import PracticeImg2 from '@/public/images/home/practices_img2.png';
 import PracticeImg3 from '@/public/images/home/practices_img3.png';
@@ -18,6 +17,7 @@ import { useRedirect } from '@/hooks/useRedirect';
 import CardProgress from '../CardProgress';
 import Button from '@/components/Common/Button';
 import { cn } from '@/helper/utils';
+import { MenuLink } from '@/components/Layout/Navbar/type';
 
 interface PracticeCardProps {
   // children: ReactNode;
@@ -80,7 +80,7 @@ const PracticeCard: FC<PracticeCardProps> = (props) => {
       onClick={() => {
         BurialPoint.track('home-practice卡片点击', { practice: course.name });
         redirectToUrl(
-          `${menuLink.electives}/${course.id}?${QueryIdType.MENU_COURSE_ID}=${course.id}&menu=${Menu.ELECTIVES}`
+          `${MenuLink.ELECTIVES}/${course.id}?${QueryIdType.MENU_COURSE_ID}=${course.id}&menu=${Menu.PRACTICES}`
         );
       }}
     >

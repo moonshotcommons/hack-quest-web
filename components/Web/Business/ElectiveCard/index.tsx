@@ -7,13 +7,13 @@ import Image from 'next/image';
 import { FC, useCallback, useRef } from 'react';
 import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import { Tag } from '@/components/Web/Business/CourseTags';
-import { menuLink } from '@/components/Web/Business/Breadcrumb/data';
 import { useRedirect } from '@/hooks/useRedirect';
 import MiniElectiveDetailModal, {
   MiniElectiveDetailModalRef
 } from '../MiniElectiveDetailModal';
 import AltIcon from '@/components/Common/Icon/AltIcon';
 import { ElectiveCourseType } from '@/service/webApi/elective/type';
+import { MenuLink } from '@/components/Layout/Navbar/type';
 
 interface ElectiveCardProps {
   // children: ReactNode;
@@ -47,7 +47,7 @@ const ElectiveCard: FC<ElectiveCardProps> = (props) => {
         return;
       default:
         redirectToUrl(
-          `${menuLink.electives}/${course.id}?${QueryIdType.MENU_COURSE_ID}=${course.id}&menu=${Menu.ELECTIVES}`
+          `${MenuLink.ELECTIVES}/${course.id}?${QueryIdType.MENU_COURSE_ID}=${course.id}&menu=${Menu.ELECTIVES}`
         );
     }
   }, [course]);
