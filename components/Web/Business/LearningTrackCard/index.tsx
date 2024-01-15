@@ -65,7 +65,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
           {learningTrack.track}
         </div>
         <div>
-          <div className="text-[var(--neutral-off-black)] text-[18px] line-clamp-1">
+          <div className="text-neutral-off-black text-h4 line-clamp-1">
             {learningTrack.name}
           </div>
           <div className="body-s h-[66px] text-neutral-medium-gray  line-clamp-3 mt-[8px]">

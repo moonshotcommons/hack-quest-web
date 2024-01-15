@@ -1,3 +1,5 @@
+import { ElectiveCourseType } from '../elective/type';
+
 export interface Response {
   id: string;
 }
@@ -81,6 +83,13 @@ export interface ProjectCourseType extends CourseBaseType {
 export interface CourseDataType {
   total: number;
   data: ProjectCourseType[];
+}
+
+export type CourseListType = ProjectCourseType | ElectiveCourseType;
+
+export interface CourseDataApiType {
+  total: number;
+  data: CourseListType[];
 }
 
 export interface CourseDetailType extends CourseBaseType {
