@@ -5,6 +5,7 @@ import { cn } from '@/helper/utils';
 import { FC, useContext, useRef, useState } from 'react';
 import { ProfileContext } from '../../../constants/type';
 import BasicInfoModal, { BasicInfoModalRef } from '../BasicInfoModal';
+import { RegisterType } from '@/service/webApi/user/type';
 interface UserProfileProps {
   edit?: boolean;
 }
@@ -51,7 +52,12 @@ const UserProfile: FC<UserProfileProps> = (props) => {
           {profile.user?.nickname}
         </div>
         <div className="mt-[10px] text-[18px] leading-[120%] text-[#8C8C8C] whitespace-pre-line">
-          {profile.user?.email}&nbsp;
+          {[RegisterType.REGISTER, RegisterType.GOOGLE].includes(
+            profile.user.registerType
+          )
+            ? profile.user?.email
+            : profile.user.name}
+          &nbsp;
         </div>
         <div className="flex gap-x-[15px] mt-[31.5px] items-center">
           <span className="text-[21px] tracking-[0.42px] leading-[160%] text-[#8C8C8C]">

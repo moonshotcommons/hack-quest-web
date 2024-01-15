@@ -13,7 +13,7 @@ import MobCourseFilterListDefault from './MobCourseFilterListDefault';
 import MobCourseFilterListSearch from './MobCourseFilterListSearch';
 import MobPracticeCard from '@/components/Mobile/MobPracticeCard';
 import Image from 'next/image';
-import { ProjectCourseType } from '@/service/webApi/course/type';
+import { CourseType, ProjectCourseType } from '@/service/webApi/course/type';
 
 export const metadata: Metadata = {
   title: 'Electives'
@@ -59,7 +59,9 @@ function Electives() {
 
   const { loading } = useRequest(
     () => {
-      return webApi.courseApi.getTopCourses();
+      return webApi.courseApi.getTopCourses<ProjectCourseType>({
+        type: CourseType.GUIDED_PROJECT
+      });
     },
     {
       onSuccess(res) {

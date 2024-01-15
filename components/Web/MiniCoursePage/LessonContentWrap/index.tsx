@@ -77,7 +77,7 @@ const LessonContentWrap: FC<LessonContentWrapProps> = ({
 
   useEffect(() => {
     if (lesson) {
-      webApi.electiveApi.startLesson(lesson.id).catch((e) => {
+      webApi.courseApi.startLesson(lesson.id).catch((e) => {
         console.log('开始学习失败', e);
       });
       if (lesson.state === CompleteStateType.COMPLETED) setNextControl(true);
@@ -87,7 +87,7 @@ const LessonContentWrap: FC<LessonContentWrapProps> = ({
 
   const { run: onNextClick, loading: completedLoading } = useRequest(
     async () => {
-      const res = await webApi.electiveApi.completedLesson(lesson.id);
+      const res = await webApi.courseApi.completeLesson(lesson.id);
       let link = null;
       if (nextLessonId) {
         link = getLink(course?.type || CourseType.Mini, nextLessonId as string);

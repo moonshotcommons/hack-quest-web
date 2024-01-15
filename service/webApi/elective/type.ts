@@ -61,7 +61,7 @@ export interface ElectiveCourseDetailType extends ElectiveCourseType {
 export interface ElectiveLessonType {
   content: Record<string, any>;
   createAt: Date;
-  electiveId: string;
+  courseId: string;
   id: string;
   name: string;
   sequence: number;
