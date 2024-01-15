@@ -18,7 +18,7 @@ const EvaluationCard: FC<EvaluationCardProps> = ({
 }) => {
   return (
     <div
-      className={`rounded-[1.5rem] p-4 flex flex-col gap-4 h-fit bg-neutral-white ${className}`}
+      className={`rounded-[1rem] p-4 flex flex-col gap-4 h-fit bg-neutral-off-white ${className}`}
     >
       <div className="body-s text-neutral-dark-gray break-words whitespace-break-spaces tracking-tight">
         {content}
@@ -27,12 +27,14 @@ const EvaluationCard: FC<EvaluationCardProps> = ({
         <div className="w-8 h-8 rounded-full overflow-hidden relative">
           <Image src={avatar} fill alt={username}></Image>
         </div>
-        <span className="button-text-s font-normal">
-          {!userDesc && username}
+        <span className="button-text-s flex-1 font-normal">
+          {!userDesc && <span className="font-semibold">{username}</span>}
           {userDesc && (
             <span className="flex flex-col">
               <span className="font-semibold">{username}</span>
-              <span>{userDesc}</span>
+              <span className="break-words whitespace-pre-wrap">
+                {userDesc}
+              </span>
             </span>
           )}
         </span>

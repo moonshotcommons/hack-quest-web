@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { FC } from 'react';
 
 const cardData = [
@@ -8,7 +9,7 @@ const cardData = [
       'We love hackathons and organize 20+ a year! Apply what you learned by building exciting projects with like-minded enthusiasts around the 🌎',
     image: '/images/landing/community_card_01.png',
     buttonText: 'Explore Hackathons',
-    link: ''
+    link: '/hackathon'
   },
   {
     title: 'Read and Write Blogs',
@@ -16,7 +17,7 @@ const cardData = [
       'We love sharing! Founder secrets, VC analyses, research reports... Read topics beyond coding and share what you learned with the community 📚',
     image: '/images/landing/community_card_02.png',
     buttonText: 'View Blogs',
-    link: ''
+    link: '/blog'
   },
   {
     title: 'Attend Events',
@@ -24,7 +25,7 @@ const cardData = [
       'We love meeting new frens online & IRL! Join our next meet-up, AMA, co-learning camp, or else. You might meet life-long frens here 😉',
     image: '/images/landing/community_card_03.png',
     buttonText: 'View Events',
-    link: ''
+    link: 'https://moonshotcommons.notion.site/HackQuest-Past-Events-0a39befe0cd643559443d73e945fe0e1?pvs=4'
   },
   {
     title: 'Apply to Join',
@@ -32,7 +33,7 @@ const cardData = [
       'We are always looking for talents! Interested in Web3 and want to help more people succeed? Apply to join our rapidly growing family 🙌',
     image: '/images/landing/community_card_04.png',
     buttonText: 'Join Us',
-    link: ''
+    link: 'https://xsxo494365r.typeform.com/to/p5cEH74M'
   }
 ];
 
@@ -67,7 +68,11 @@ const CommunityIntroduction: FC<{}> = (props) => {
                 <p className="body-s text-neutral-medium-gray">
                   {item.description}
                 </p>
-                <div className="body-m-bold flex gap-2 items-center cursor-pointer">
+                <Link
+                  href={item.link}
+                  target="_blank"
+                  className="body-m-bold flex gap-2 items-center cursor-pointer"
+                >
                   <span className="relative after:h-[2px] after:rounded-full after:absolute after:w-full after:left-0 after:-bottom-[1px] after:bg-yellow-primary">
                     {item.buttonText}
                   </span>
@@ -86,7 +91,7 @@ const CommunityIntroduction: FC<{}> = (props) => {
                       strokeLinejoin="round"
                     />
                   </svg>
-                </div>
+                </Link>
               </div>
             </div>
           );

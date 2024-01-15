@@ -33,15 +33,11 @@ export const FOOTER_LINKS = [
       },
       {
         title: 'Telegram',
-        link: '/'
-      },
-      {
-        title: 'Instagram',
-        link: 'https://www.instagram.com/_hackquest/'
+        link: 'https://t.me/hackquester'
       },
       {
         title: 'Linkedin',
-        link: '/'
+        link: 'https://www.linkedin.com/company/moonshotcommons/'
       }
     ]
   },
