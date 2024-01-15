@@ -69,12 +69,14 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
 
   useEffect(() => {
     const newSearchInfo = cloneDeep(searchParams);
-    newSearchInfo.category = newSearchInfo.category || '';
+    newSearchInfo.sort = newSearchInfo.sort || sortData[0].value;
+    newSearchInfo.category = newSearchInfo.category || searchTabData[0].value;
+    newSearchInfo.keyword = newSearchInfo.keyword || '';
     const { category } = newSearchInfo;
     const index = searchTabData.findIndex((v) => v.value === category);
     setCurrentIndex(index);
-
     setSearchInfo(newSearchInfo);
+    !newSearchInfo.keyword && setInputVisible(false);
   }, [searchParams]);
 
   return (

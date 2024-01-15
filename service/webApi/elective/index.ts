@@ -84,8 +84,8 @@ class ElectiveApi {
   }
 
   /** 获取mini Elective profile */
-  getProfileElective(electiveId: string) {
-    const url = `${ElectiveApiType.EcosystemProfile}/${electiveId}/electives`;
+  getProfileElective(creatorId: string) {
+    const url = `${ElectiveApiType.EcosystemProfile}/${creatorId}/electives`;
     return this.service.get<EcosystemElectiveType[]>(url);
   }
 }

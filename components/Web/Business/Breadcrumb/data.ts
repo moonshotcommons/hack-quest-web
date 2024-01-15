@@ -1,19 +1,22 @@
+import { MenuLink } from '@/components/Layout/Navbar/type';
 import { QueryIdType, MenuNameType, Menu } from './type';
 
 export const menuName: MenuNameType = {
   [Menu.LEARNING_TRACK]: 'learning-track',
   [Menu.ELECTIVES]: 'electives',
+  [Menu.PRACTICES]: 'projects',
   [Menu.RESOURCE_STATION]: 'resource-station',
   [Menu.HACKATHON]: 'hackathon',
   [Menu.PROJECTS]: 'hackathon'
 };
 
 export const menuLink: MenuNameType = {
-  [Menu.LEARNING_TRACK]: `/${menuName[Menu.LEARNING_TRACK]}`,
-  [Menu.ELECTIVES]: `/${menuName[Menu.ELECTIVES]}`,
-  [Menu.RESOURCE_STATION]: `/${menuName[Menu.RESOURCE_STATION]}`,
-  [Menu.HACKATHON]: `/${menuName[Menu.HACKATHON]}`,
-  [Menu.PROJECTS]: `/${menuName[Menu.HACKATHON]}`
+  [Menu.LEARNING_TRACK]: MenuLink.LEARNING_TRACK,
+  [Menu.ELECTIVES]: MenuLink.ELECTIVES,
+  [Menu.PRACTICES]: MenuLink.PRACTICES,
+  [Menu.RESOURCE_STATION]: MenuLink.HACKATHON,
+  [Menu.HACKATHON]: MenuLink.HACKATHON,
+  [Menu.PROJECTS]: MenuLink.PROJECTS
 };
 
 export const navLinks = [
