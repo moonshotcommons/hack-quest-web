@@ -198,8 +198,8 @@ const Fail: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
           <>
             <Button
               onClick={() => {
-                redirectToUrl('/');
                 setAuthType(AuthType.LOGIN);
+                redirectToUrl('/');
               }}
               block
               className="
