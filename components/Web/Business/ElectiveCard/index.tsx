@@ -14,6 +14,7 @@ import MiniElectiveDetailModal, {
 import AltIcon from '@/components/Common/Icon/AltIcon';
 import { ElectiveCourseType } from '@/service/webApi/elective/type';
 import { MenuLink } from '@/components/Layout/Navbar/type';
+import CardProgress from '../CardProgress';
 
 interface ElectiveCardProps {
   // children: ReactNode;
@@ -115,7 +116,11 @@ const ElectiveCard: FC<ElectiveCardProps> = (props) => {
             )}
           </div>
         }
-        <div className="h-[120px] w-full flex items-center justify-center relative rounded-t-2xl overflow-hidden">
+        <div
+          className={`h-[120px] w-full flex items-center flex-shrink-0 justify-center relative rounded-t-2xl overflow-hidden ${
+            from === 'elective' ? 'h-[120px]' : 'h-[150px]'
+          }`}
+        >
           <Image
             src={course.image}
             fill
@@ -123,7 +128,13 @@ const ElectiveCard: FC<ElectiveCardProps> = (props) => {
             className="object-cover"
           ></Image>
         </div>
-        <div className="py-5 px-6 flex flex-col flex-1 justify-between">
+        <div
+          className={`flex flex-col flex-1   ${
+            from === 'elective'
+              ? 'py-5 px-6 justify-between'
+              : 'p-[16px] gap-y-4'
+          }`}
+        >
           {/* <h3 className="text-[#0B0B0B] font-next-book leading-[160%]  tracking-[0.32px] opacity-60 text-base">
             {tagFormate(course.type)}
           </h3> */}
@@ -140,7 +151,7 @@ const ElectiveCard: FC<ElectiveCardProps> = (props) => {
                 {course.language}
               </Tag>
             </div>
-            <h2 className="text-h4 line-clamp-1 text-neutral-off-black">
+            <h2 className="text-h4 line-clamp-1 text-neutral-off-black h-[23px]">
               {course.title}
             </h2>
             {!inProgress && (
@@ -148,17 +159,25 @@ const ElectiveCard: FC<ElectiveCardProps> = (props) => {
                 {course.description}
               </p>
             )}
+            {inProgress && from === 'dashboard' && (
+              <div className="h-[15px] overflow-hidden">
+                <CardProgress progress={course.progress || 0} />
+              </div>
+            )}
           </div>
-          <div className="flex gap-3 items-center">
-            <div className="w-9 h-9 rounded-full relative overflow-hidden">
-              <Image
-                src={course.creator?.profileImage || ''}
-                fill
-                alt="creator"
-              ></Image>
+          {((from === 'dashboard' && !inProgress) || from === 'elective') && (
+            <div className="flex gap-3 items-center">
+              <div className="w-9 h-9 rounded-full relative overflow-hidden">
+                <Image
+                  src={course.creator?.profileImage || ''}
+                  fill
+                  alt="creator"
+                ></Image>
+              </div>
+              <span className="body-s-bold">{course.creator?.name}</span>
             </div>
-            <span className="body-s-bold">{course.creator?.name}</span>
-          </div>
+          )}
+
           {/* <div className="mt-[9px]">
             <CourseTags
               level={course.level as string}
@@ -167,7 +186,7 @@ const ElectiveCard: FC<ElectiveCardProps> = (props) => {
               type={course.type}
             ></CourseTags>
           </div> */}
-          {inProgress && (
+          {inProgress && from === 'elective' && (
             <div className="flex flex-col gap-y-5">
               <div className="w-full h-[20px] border-b border-[#000]"></div>
               <Button
@@ -190,7 +209,6 @@ const ElectiveCard: FC<ElectiveCardProps> = (props) => {
               >
                 Resume
               </Button>
-
               <Button
                 className="border border-[#000] rounded-[32px] px-0 py-[12px] flex text-[16px] font-next-book tracking-[0.32] leading-[125%]"
                 block
@@ -203,6 +221,28 @@ const ElectiveCard: FC<ElectiveCardProps> = (props) => {
                 View Syllabus
               </Button>
             </div>
+          )}
+          {inProgress && from === 'dashboard' && (
+            <Button
+              type="primary"
+              className="px-0 py-[12px] flex button-text-m h-[48px]"
+              block
+              loading={loading}
+              disabled={loading}
+              onClick={(e) => {
+                BurialPoint.track('home-course卡片resume按钮点击', {
+                  courseName: course.name
+                });
+                e.stopPropagation();
+                jumpLearningLesson(course, {
+                  menu: 'electives',
+                  idTypes: [QueryIdType.MENU_COURSE_ID],
+                  ids: [course.id]
+                });
+              }}
+            >
+              CONTINUE
+            </Button>
           )}
         </div>
       </div>

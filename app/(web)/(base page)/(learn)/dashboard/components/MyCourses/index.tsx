@@ -3,11 +3,11 @@ import Loading from '@/components/Common/Loading';
 import webApi from '@/service';
 import {
   ProcessType,
-  CourseDataType,
-  ProjectCourseType
+  CourseListType,
+  CourseDataApiType
 } from '@/service/webApi/course/type';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
-import { useEffect, useState } from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 import LearningTrackList from './LearningTrackList';
 import NoData from './NoData';
 import { courseTab } from './data';
@@ -15,16 +15,31 @@ import Tab from '@/components/Web/Business/Tab';
 import { TabListType } from '@/components/Web/Business/Tab/type';
 import Recommend from '../Recommend';
 import CourseList from './CourseList';
-import {
-  ElectiveCourseType,
-  ElectiveListDataType
-} from '@/service/webApi/elective/type';
 
-function MyCourses() {
+interface MyCoursesProps {
+  setApiStatus: (status: string) => void;
+  apiStatus: string;
+}
+
+export interface MyCoursesRef {
+  getMoreCourse: () => void;
+}
+
+const MyCourses = forwardRef<MyCoursesRef, MyCoursesProps>((props, ref) => {
+  const { setApiStatus } = props;
   const [curTab, setCurTab] = useState<ProcessType>(ProcessType.IN_PROCESS);
   const [loading, setLoading] = useState(false);
+  const [total, setTotal] = useState(0);
+  const [coursePageInfo, setCoursePageInfo] = useState<{
+    page: number;
+    limit: number;
+  }>({
+    page: 1,
+    limit: 9
+  });
+  const [courseDataAll, setCourseDataAll] = useState<CourseListType[]>([]);
   const [courseListData, setCourseListData] = useState<
-    Record<ProcessType, (ProjectCourseType | ElectiveCourseType)[]>
+    Record<ProcessType, CourseListType[]>
   >({
     [ProcessType.IN_PROCESS]: [],
     [ProcessType.COMPLETED]: []
@@ -34,6 +49,24 @@ function MyCourses() {
   >({
     [ProcessType.IN_PROCESS]: [],
     [ProcessType.COMPLETED]: []
+  });
+
+  useImperativeHandle(ref, () => {
+    return {
+      getMoreCourse() {
+        setApiStatus('loading');
+        setLoading(true);
+        const pageInfo = { ...coursePageInfo, page: ++coursePageInfo.page };
+        const data = courseDataAll.slice(
+          pageInfo.limit * (pageInfo.page - 1),
+          pageInfo.limit * pageInfo.page
+        );
+        setTimeout(() => {
+          setLoading(false);
+          mergeCourseList({ data, total });
+        }, 500);
+      }
+    };
   });
 
   const getLearningTrackList = () => {
@@ -50,20 +83,41 @@ function MyCourses() {
     });
   };
 
-  const getCourseList = () => {
+  const getCourseList = (pageInfo: {
+    page: number;
+    limit: number;
+  }): Promise<{
+    data: CourseListType[];
+    total: number;
+  }> => {
+    setCoursePageInfo({ ...pageInfo });
+    setApiStatus('loading');
     return new Promise(async (resolve) => {
-      const res = await webApi.courseApi.getCourseListBySearch<
-        CourseDataType | ElectiveListDataType
-      >({
-        status: curTab
-      });
-      const newData = {
-        ...courseListData,
-        [curTab]: res.data
-      };
-      setCourseListData(newData);
-      resolve(false);
+      const res =
+        await webApi.courseApi.getCourseListBySearch<CourseDataApiType>({
+          status: curTab
+        });
+      setCourseDataAll(res.data);
+      const list = res.data.slice(0, pageInfo.page * pageInfo.limit);
+      resolve({ data: list, total: res.total });
     });
+  };
+
+  const mergeCourseList = (course: CourseDataApiType, init?: boolean) => {
+    const list = course.data;
+    const totalList = course.total ?? total;
+    setTotal(totalList);
+    const coureList = init ? list : [...courseListData[curTab], ...list];
+    const newData = {
+      ...courseListData,
+      [curTab]: coureList
+    };
+    if (coureList.length >= totalList) {
+      setApiStatus('noMre');
+    } else {
+      setApiStatus('init');
+    }
+    setCourseListData(newData);
   };
 
   const changeTab = (tab: TabListType) => {
@@ -72,10 +126,18 @@ function MyCourses() {
 
   useEffect(() => {
     setLoading(true);
-    Promise.all([getLearningTrackList(), getCourseList()]).finally(() => {
-      setLoading(false);
-    });
+    Promise.all([
+      getLearningTrackList(),
+      getCourseList({ ...coursePageInfo, page: 1 })
+    ])
+      .then((res) => {
+        mergeCourseList(res[1], true);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, [curTab]);
+
   return (
     <div className="flex flex-col">
       <h2 className="text-h3 text-neutral-off-black mb-[24px] ">My Courses</h2>
@@ -106,6 +168,7 @@ function MyCourses() {
       </Loading>
     </div>
   );
-}
+});
+MyCourses.displayName = 'MyCourses';
 
 export default MyCourses;
