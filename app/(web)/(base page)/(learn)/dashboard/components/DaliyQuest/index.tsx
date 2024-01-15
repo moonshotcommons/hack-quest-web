@@ -87,7 +87,7 @@ const DaliyQuest: React.FC<DaliyQuestProp> = () => {
                 {v.progress.completed && (
                   <Button
                     className={`w-[71px] h-[31px] bg-yellow-primary text-neutral-off-black button-text-s ${
-                      v.progress.claimed ? 'cursor-not-allowed' : ''
+                      v.progress.claimed ? 'cursor-not-allowed opacity-50' : ''
                     }`}
                     loading={!!~claimIds.indexOf(v.id)}
                     onClick={() => missionClaim(v)}

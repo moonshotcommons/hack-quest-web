@@ -9,6 +9,7 @@ export enum QueryIdType {
 export enum Menu {
   LEARNING_TRACK = 'learningTrack',
   ELECTIVES = 'electives',
+  PRACTICES = 'practices',
   RESOURCE_STATION = 'resourceStation',
   HACKATHON = 'hackathon',
   PROJECTS = 'projects'

@@ -64,7 +64,6 @@ const AuthModal: FC<AuthModalProps> = (props) => {
     }
   }, []);
 
-  console.log(queryState);
   const authComponent = useMemo(() => {
     if (queryState) {
       return <VerifyConfirmed></VerifyConfirmed>;
