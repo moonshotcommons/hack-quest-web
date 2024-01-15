@@ -15,7 +15,7 @@ const MiniElectives: React.FC<MiniElectivesProp> = () => {
   const { profileId } = useParams();
   const { data: elctiveList = [] as EcosystemElectiveType[], loading } =
     useRequest(async () => {
-      const res = webApi.electiveApi.getProfileElective(profileId as string);
+      const res = webApi.courseApi.getProfileElective(profileId as string);
       return res;
     });
   return (

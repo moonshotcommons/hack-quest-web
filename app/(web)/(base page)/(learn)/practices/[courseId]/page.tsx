@@ -17,10 +17,12 @@ const CourseDetailPage: NextPage<IProps> = (props) => {
   const [courseDetail, setCourseDetail] = useState<CourseDetailType>();
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
-    webApi.courseApi.getCourseDetail(courseId as string, true).then((res) => {
-      setCourseDetail(res);
-      setIsLoading(false);
-    });
+    webApi.courseApi
+      .getCourseDetail<CourseDetailType>(courseId as string, true)
+      .then((res) => {
+        setCourseDetail(res);
+        setIsLoading(false);
+      });
   }, [courseId, setCourseDetail]);
 
   return (

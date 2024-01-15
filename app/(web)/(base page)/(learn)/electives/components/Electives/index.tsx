@@ -11,6 +11,7 @@ import CourseFilterListDefault from '../CourseFilterListDefault';
 import { useRequest } from 'ahooks';
 import { errorMessage } from '@/helper/ui';
 import { Metadata } from 'next';
+import { CourseType } from '@/service/webApi/course/type';
 
 export const metadata: Metadata = {
   title: 'Electives'
@@ -49,7 +50,9 @@ function Electives() {
 
   const { loading } = useRequest(
     () => {
-      return webApi.electiveApi.getTopElectives();
+      return webApi.courseApi.getTopCourses<ElectiveCourseType>({
+        type: CourseType.Mini
+      });
     },
     {
       onSuccess(res) {

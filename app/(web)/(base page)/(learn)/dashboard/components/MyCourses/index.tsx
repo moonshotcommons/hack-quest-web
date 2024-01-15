@@ -3,8 +3,8 @@ import Loading from '@/components/Common/Loading';
 import webApi from '@/service';
 import {
   ProcessType,
-  ProjectCourseType,
-  CourseDataType
+  CourseListType,
+  CourseDataApiType
 } from '@/service/webApi/course/type';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
@@ -37,9 +37,9 @@ const MyCourses = forwardRef<MyCoursesRef, MyCoursesProps>((props, ref) => {
     page: 1,
     limit: 9
   });
-  const [courseDataAll, setCourseDataAll] = useState<ProjectCourseType[]>([]);
+  const [courseDataAll, setCourseDataAll] = useState<CourseListType[]>([]);
   const [courseListData, setCourseListData] = useState<
-    Record<ProcessType, ProjectCourseType[]>
+    Record<ProcessType, CourseListType[]>
   >({
     [ProcessType.IN_PROCESS]: [],
     [ProcessType.COMPLETED]: []
@@ -86,20 +86,24 @@ const MyCourses = forwardRef<MyCoursesRef, MyCoursesProps>((props, ref) => {
   const getCourseList = (pageInfo: {
     page: number;
     limit: number;
-  }): Promise<CourseDataType> => {
+  }): Promise<{
+    data: CourseListType[];
+    total: number;
+  }> => {
     setCoursePageInfo({ ...pageInfo });
     setApiStatus('loading');
     return new Promise(async (resolve) => {
-      const res = await webApi.courseApi.getCourseListBySearch({
-        status: curTab
-      });
+      const res =
+        await webApi.courseApi.getCourseListBySearch<CourseDataApiType>({
+          status: curTab
+        });
       setCourseDataAll(res.data);
       const list = res.data.slice(0, pageInfo.page * pageInfo.limit);
       resolve({ data: list, total: res.total });
     });
   };
 
-  const mergeCourseList = (course: CourseDataType, init?: boolean) => {
+  const mergeCourseList = (course: CourseDataApiType, init?: boolean) => {
     const list = course.data;
     const totalList = course.total ?? total;
     setTotal(totalList);
