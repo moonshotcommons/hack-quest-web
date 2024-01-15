@@ -8,7 +8,10 @@ import {
 import { FilterParamsType } from '@/components/Web/Business/CourseFilterList/type';
 import { errorMessage } from '@/helper/ui';
 import webApi from '@/service';
-import { ProjectCourseType } from '@/service/webApi/course/type';
+import {
+  CourseDataType,
+  ProjectCourseType
+} from '@/service/webApi/course/type';
 import { useRequest } from 'ahooks';
 import { cloneDeep } from 'lodash-es';
 import { FC, useEffect, useState } from 'react';
@@ -24,7 +27,9 @@ const MobCourseFilterListSearch: FC<MobCourseFilterListSearchProps> = ({
 
   const { run: getCourseList, loading } = useRequest(
     async (filterParams: FilterParamsType) => {
-      const res = await webApi.courseApi.getCourseListBySearch(filterParams);
+      const res = await webApi.courseApi.getCourseListBySearch<CourseDataType>(
+        filterParams
+      );
       return res;
     },
 

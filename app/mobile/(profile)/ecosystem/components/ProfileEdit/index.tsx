@@ -13,7 +13,7 @@ const ProfileEdit: FC<ProfileEditProps> = (props) => {
   const { profileId } = useParams();
   const { data: profile = {} as EcosystemProfileType, loading } = useRequest(
     async () => {
-      const res = webApi.electiveApi.getElectiveProfile(profileId as string);
+      const res = webApi.courseApi.getElectiveProfile(profileId as string);
       return res;
     }
   );

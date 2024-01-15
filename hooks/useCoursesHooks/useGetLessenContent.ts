@@ -20,14 +20,14 @@ export const useGetLessonContent = <
     async (lessonId) => {
       switch (courseType) {
         case CourseType.Mini:
-          return webApi.electiveApi.getElectiveLessonContent(lessonId);
+          return webApi.courseApi.getLessonContent<T>(lessonId);
         default:
-          return webApi.courseApi.getLessonContent(lessonId);
+          return webApi.courseApi.getLessonContent<T>(lessonId);
       }
     },
     {
       manual: true,
-      onSuccess(res: any) {
+      onSuccess(res) {
         setLesson(res);
       },
       onError(error: any) {

@@ -4,7 +4,10 @@ import SearchFilter, {
 import { FilterDataType } from '@/components/Web/Business/SearchFilter/type';
 import { deepClone } from '@/helper/utils';
 import webApi from '@/service';
-import { ProjectCourseType } from '@/service/webApi/course/type';
+import {
+  CourseDataType,
+  ProjectCourseType
+} from '@/service/webApi/course/type';
 import React, { useEffect, useRef, useState } from 'react';
 import Loading from '@/components/Common/Loading';
 import CourseList from './CourseList';
@@ -50,7 +53,7 @@ const SelectiveCoursesBox: React.FC<SelectiveCoursesBoxProps> = ({
     setPageInfo({ ...pInfo });
     const newFilter = dealFilterParam(searchParam);
     return new Promise(async (resolve) => {
-      const res = await webApi.courseApi.getCourseListBySearch({
+      const res = await webApi.courseApi.getCourseListBySearch<CourseDataType>({
         ...newFilter,
         ...pInfo,
         keyword: inputValue

@@ -13,6 +13,7 @@ import MobElectiveCard from '@/components/Mobile/MobElectiveCard';
 import MobViewMoreList from '@/components/Mobile/MobViewMoreList';
 import MobCourseFilterListDefault from './MobCourseFilterListDefault';
 import MobCourseFilterListSearch from './MobCourseFilterListSearch';
+import { CourseType } from '@/service/webApi/course/type';
 
 export const metadata: Metadata = {
   title: 'Electives'
@@ -51,7 +52,9 @@ function Electives() {
 
   const { loading } = useRequest(
     () => {
-      return webApi.electiveApi.getTopElectives();
+      return webApi.courseApi.getTopCourses<ElectiveCourseType>({
+        type: CourseType.Mini
+      });
     },
     {
       onSuccess(res) {

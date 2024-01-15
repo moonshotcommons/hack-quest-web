@@ -8,7 +8,11 @@ import { FilterParamsType } from '@/components/Web/Business/CourseFilterList/typ
 import PracticeCard from '@/components/Web/Business/PracticeCard';
 import { errorMessage } from '@/helper/ui';
 import webApi from '@/service';
-import { ProjectCourseType } from '@/service/webApi/course/type';
+import {
+  CourseDataType,
+  CourseType,
+  ProjectCourseType
+} from '@/service/webApi/course/type';
 import { useRequest } from 'ahooks';
 import { cloneDeep } from 'lodash-es';
 import { FC, useEffect, useState } from 'react';
@@ -19,7 +23,9 @@ const CourseFilterListDefault: FC<CourseFilterListDefaultProps> = (props) => {
 
   const { run: getCourseList, loading } = useRequest(
     async (filterParams: FilterParamsType) => {
-      const res = await webApi.courseApi.getCourseListBySearch(filterParams);
+      const res = await webApi.courseApi.getCourseListBySearch<CourseDataType>(
+        filterParams
+      );
       return res;
     },
 
@@ -35,7 +41,10 @@ const CourseFilterListDefault: FC<CourseFilterListDefaultProps> = (props) => {
   );
 
   useEffect(() => {
-    getCourseList(mergeFilterParams(filters, sort));
+    getCourseList({
+      ...mergeFilterParams(filters, sort),
+      type: CourseType.GUIDED_PROJECT
+    });
   }, []);
 
   return (

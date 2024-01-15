@@ -4,17 +4,24 @@ import {
   CourseDetailType,
   CourseLessonStateType,
   CourseLessonType,
+  CourseType,
   CourseUnitStateType,
   CourseUnitType,
-  ProjectCourseType,
   UnitPagesListType
 } from './type';
 
+import {
+  EcosystemElectiveType,
+  EcosystemProfileType,
+  ElectiveCourseDetailType,
+  ElectiveLessonType
+} from '../elective/type';
 export enum CourseApiType {
   Course_List = '/courses',
   GetTopCourses = '/courses/featured',
   LessonDetail = '/pages',
-  Support = '/support/suggest'
+  Support = '/support/suggest',
+  EcosystemProfile = '/eco-system-profiles'
 }
 
 class CourseApi {
@@ -30,24 +37,35 @@ class CourseApi {
     return this.service.get<CourseDataType>(url);
   }
 
-  getTopCourses() {
-    return this.service.get<ProjectCourseType[]>(CourseApiType.GetTopCourses);
+  getTopCourses<T>(params: { type: CourseType }) {
+    return this.service.get<T[]>(CourseApiType.GetTopCourses, {
+      params
+    });
   }
 
   /** 获取课程列表信息By search */
-  getCourseListBySearch(params: object) {
-    return this.service.get<CourseDataType>(`${CourseApiType.Course_List}`, {
+  getCourseListBySearch<T>(params: object) {
+    return this.service.get<T>(`${CourseApiType.Course_List}`, {
       params
     });
   }
 
   /** 获取单个课程的详情信息 */
-  getCourseDetail(courseId: string, isIncludeUnits: boolean = false) {
-    return this.service.get<CourseDetailType>(
-      `${CourseApiType.Course_List}/${courseId}${
-        isIncludeUnits ? '?include=units' : ''
-      }`
-    );
+  getCourseDetail<T extends CourseDetailType | ElectiveCourseDetailType>(
+    courseId: string,
+    includeUnits = false,
+    includePages = false
+  ) {
+    let includes = [];
+
+    if (includeUnits) includes.push('units');
+    if (includePages) includes.push('pages');
+
+    return this.service.get<T>(`${CourseApiType.Course_List}/${courseId}`, {
+      params: {
+        include: includes.join(',')
+      }
+    });
   }
 
   /** 获取单个课程下的所有units */
@@ -77,9 +95,11 @@ class CourseApi {
   }
 
   /** 获取单个lesson的内容 */
-  getLessonContent(lessonId: string) {
+  getLessonContent<T extends CourseLessonType | ElectiveLessonType>(
+    lessonId: string
+  ) {
     const url = `${CourseApiType.LessonDetail}/${lessonId}`;
-    return this.service.get<CourseLessonType>(url);
+    return this.service.get<T>(url);
   }
 
   /** 获取单个lesson的内容 */
@@ -123,6 +143,18 @@ class CourseApi {
         'Content-Type': 'multipart/form-data'
       }
     });
+  }
+
+  /** 获取mini Elective profile */
+  getElectiveProfile(electiveId: string) {
+    const url = `${CourseApiType.EcosystemProfile}/${electiveId}`;
+    return this.service.get<EcosystemProfileType>(url);
+  }
+
+  /** 获取mini Elective profile */
+  getProfileElective(electiveId: string) {
+    const url = `${CourseApiType.EcosystemProfile}/${electiveId}/electives`;
+    return this.service.get<EcosystemElectiveType[]>(url);
   }
 }
 

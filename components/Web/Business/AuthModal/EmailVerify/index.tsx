@@ -69,7 +69,7 @@ const EmailVerify: FC<EmailVerifyProps> = (props) => {
           text: 'Log in to Resend',
           handle: () => {
             // setTargetDate(Date.now() + 30 * 1000);
-            setAuthType(AuthType.SIGN_UP);
+            setAuthType(AuthType.LOGIN);
           }
         };
       case AuthType.FORGOT_PASSWORD:

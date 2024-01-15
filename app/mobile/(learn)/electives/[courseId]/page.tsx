@@ -2,7 +2,7 @@
 import Loading from '@/components/Common/Loading';
 import CourseDetail from '@/components/Web/DetailPage/CourseDetail';
 import webApi from '@/service';
-import { CourseDetailType } from '@/service/webApi/course/type';
+import { ElectiveCourseDetailType } from '@/service/webApi/elective/type';
 import type { NextPage } from 'next';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -14,13 +14,15 @@ interface IProps {
 
 const CourseDetailPage: NextPage<IProps> = (props) => {
   const { courseId } = useParams();
-  const [courseDetail, setCourseDetail] = useState<CourseDetailType>();
+  const [courseDetail, setCourseDetail] = useState<ElectiveCourseDetailType>();
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
-    webApi.courseApi.getCourseDetail(courseId as string, true).then((res) => {
-      setCourseDetail(res);
-      setIsLoading(false);
-    });
+    webApi.courseApi
+      .getCourseDetail<ElectiveCourseDetailType>(courseId as string, true)
+      .then((res) => {
+        setCourseDetail(res);
+        setIsLoading(false);
+      });
   }, [courseId, setCourseDetail]);
 
   return (

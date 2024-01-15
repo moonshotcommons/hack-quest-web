@@ -4,11 +4,15 @@ import SearchFilter, {
 import { FilterDataType } from '@/components/Web/Business/SearchFilter/type';
 import { deepClone } from '@/helper/utils';
 import webApi from '@/service';
-import { ProjectCourseType } from '@/service/webApi/course/type';
+import {
+  CourseDataType,
+  ProjectCourseType
+} from '@/service/webApi/course/type';
 import React, { useEffect, useRef, useState } from 'react';
 import Loading from '@/components/Common/Loading';
 import CourseList from './CourseList';
 import { filterData, initPageInfo } from './data';
+import { ElectiveListDataType } from '@/service/webApi/elective/type';
 
 interface PageInfoType {
   page: number;
@@ -50,7 +54,9 @@ const PracticesBox: React.FC<PracticesBoxProps> = ({
     setPageInfo({ ...pInfo });
     const newFilter = dealFilterParam(searchParam);
     return new Promise(async (resolve) => {
-      const res = await webApi.courseApi.getCourseListBySearch({
+      const res = await webApi.courseApi.getCourseListBySearch<
+        ElectiveListDataType | CourseDataType
+      >({
         ...newFilter,
         ...pInfo,
         keyword: inputValue

@@ -61,6 +61,14 @@ export enum WorkExperienceType {
   CONTRACTOR = 'CONTRACTOR',
   INTERNSHIP = 'INTERNSHIP'
 }
+
+export enum RegisterType {
+  REGISTER = 'register',
+  GOOGLE = 'google',
+  GITHUB = 'github',
+  WALLET = 'wallet'
+}
+
 export interface UserExperienceType {
   id: string;
   title: string;
@@ -108,6 +116,7 @@ export interface UserProfileType {
     name: string | null;
     nickname: string;
     inviteCode: string;
+    registerType: RegisterType;
   };
 }
 

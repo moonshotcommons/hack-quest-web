@@ -42,10 +42,12 @@ const MiniElectiveDetailModal = forwardRef<
   const { redirectToUrl } = useRedirect();
   const { run: getCourseDetail, loading } = useRequest(
     async (course) => {
-      const res = await webApi.electiveApi.getElectiveDetailAndPages(
-        course.id,
-        true
-      );
+      const res =
+        await webApi.courseApi.getCourseDetail<ElectiveCourseDetailType>(
+          course.id,
+          false,
+          true
+        );
       return res;
     },
     {

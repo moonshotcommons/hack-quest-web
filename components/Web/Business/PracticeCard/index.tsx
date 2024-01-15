@@ -113,7 +113,7 @@ const PracticeCard: FC<PracticeCardProps> = (props) => {
             {course.track}
           </div>
           <h2
-            className={`text-[21px] font-next-poster-Bold text-[#000] leading-[21px] tracking-[1.16px] my-[16px] ${
+            className={`text-h4 my-[16px] ${
               from === 'dashboard' ? 'line-clamp-1' : 'line-clamp-2'
             }`}
           >
@@ -131,10 +131,13 @@ const PracticeCard: FC<PracticeCardProps> = (props) => {
                 ellipsis={{ rows: 2 }}
                 className="my-[13px] min-h-[45px]"
               >
-                <div className="text-[14px] font-next-book-Thin leading-[160%] text-[#8C8C8C]">
+                <div className="body-s text-neutral-medium-gray">
                   {course.description}
                 </div>
               </Typography.Paragraph>
+              {/* <div className="body-s text-[#8C8C8C] line-clamp-2">
+                {course.description}
+              </div> */}
             </>
           )}
         </div>
