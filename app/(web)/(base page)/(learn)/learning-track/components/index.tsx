@@ -5,14 +5,21 @@ import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import webApi from '@/service';
 import { useRequest } from 'ahooks';
 import { bannerTabList } from '../constants/data';
-import { LanguageTab, SearchInfoType } from '../constants/type';
+import {
+  LanguageTab,
+  LearningTrackTab,
+  SearchInfoType
+} from '../constants/type';
 import Banner from './Banner';
 import Filter from './Filter';
 import List from './List';
 import PageRetentionTime from '@/components/Common/PageRetentionTime';
+import { useSearchParams } from 'next/navigation';
 function LearningTrack() {
+  const query = useSearchParams();
+  const track = query.get('track') as LearningTrackTab;
   const [searchInfo, setSearchInfo] = useState<SearchInfoType>({
-    track: bannerTabList[0].value,
+    track: track || bannerTabList[0].value,
     language: LanguageTab.ALL
   });
   const [learningTrackListData, setLearningTrackListData] = useState<

@@ -2,7 +2,7 @@ import { BurialPoint } from '@/helper/burialPoint';
 import { tagFormate } from '@/helper/formate';
 import webApi from '@/service';
 import Link from 'next/link';
-import { useRouter, useParams, useSearchParams } from 'next/navigation';
+import { useParams, useSearchParams } from 'next/navigation';
 import React, { useCallback, useEffect, useState } from 'react';
 import { menuLink, menuName, navIdType, navLinks } from './data';
 import { MenuNameType, QueryIdType } from './type';
@@ -12,7 +12,6 @@ interface navDataProps {
   link?: string;
 }
 const Breadcrumb: React.FC = () => {
-  const router = useRouter();
   const query = useSearchParams();
   const params = useParams();
 
