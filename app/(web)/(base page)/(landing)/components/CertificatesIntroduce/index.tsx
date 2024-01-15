@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import { FC } from 'react';
 import { icons, leftCardData, rightCardData } from './constant';
+import Link from 'next/link';
+import { LearningTrackTab } from '../../../(learn)/learning-track/constants/type';
 
 interface CertificatesIntroduceProps {}
 
@@ -80,12 +82,16 @@ const CertificatesIntroduce: FC<CertificatesIntroduceProps> = (props) => {
                     </div>
                   );
                 })}
-                <div className="body-m-bold flex gap-2 items-center cursor-pointer">
+                <Link
+                  href={`/learning-track`}
+                  target="_blank"
+                  className="body-m-bold flex gap-2 items-center cursor-pointer"
+                >
                   <span className="relative after:h-[2px] after:rounded-full after:absolute after:w-full after:left-0 after:-bottom-[1px] after:bg-yellow-primary">
                     Explore Basics
                   </span>
                   {icons.rightArrow}
-                </div>
+                </Link>
               </div>
             </div>
           </div>
@@ -111,12 +117,16 @@ const CertificatesIntroduce: FC<CertificatesIntroduceProps> = (props) => {
                     </div>
                   );
                 })}
-                <div className="body-m-bold flex gap-2 items-center cursor-pointer">
+                <Link
+                  href={`/learning-track?track=${LearningTrackTab.SPECIALLIZATION}`}
+                  target="_blank"
+                  className="body-m-bold flex gap-2 items-center cursor-pointer"
+                >
                   <span className="relative after:h-[2px] after:rounded-full after:absolute after:w-full after:left-0 after:-bottom-[1px] after:bg-yellow-primary">
                     Explore Specializations
                   </span>
                   {icons.rightArrow}
-                </div>
+                </Link>
               </div>
             </div>
           </div>

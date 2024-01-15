@@ -18,23 +18,16 @@ const FAQData = [
     problem:
       'Is it possible to enroll in a course if I have no prior coding knowledge?',
     answer:
-      'Depending on the learning paths, most students spend between eight to twenty hours to finish all the course materials and earn the certificate. '
-  },
-  {
-    problem:
-      'Is there any overlap between courses in learning track and electives?',
-    answer:
-      'Depending on the learning paths, most students spend between eight to twenty hours to finish all the course materials and earn the certificate. '
+      'Absolutely. A fundamental aspect of our course design is the Universal Design for Learning (UDL). This approach ensures that learners at all levels, regardless of their initial coding knowledge, can effectively understand and engage with the course materials.'
   },
   {
     problem: 'Are all courses and post-learning support free?',
     answer:
-      'Depending on the learning paths, most students spend between eight to twenty hours to finish all the course materials and earn the certificate. '
+      'Yes! We are dedicated to making Web3.0 programming accessible to everyone, free from financial constraints.'
   },
   {
     problem: 'Where do I ask for help?',
-    answer:
-      'Depending on the learning paths, most students spend between eight to twenty hours to finish all the course materials and earn the certificate. '
+    answer: `At the bottom of each learning page, you'll find a grey button for reporting bugs and submitting suggestions. However, for a more interactive and prompt response, we highly encourage joining our Discord community. Here, our content engineers are readily available to answer all your queries and provide support.`
   }
 ];
 
@@ -76,13 +69,15 @@ const FAQS: FC<FAQSProps> = (props) => {
         {FAQData.map((item, index) => {
           return (
             <div
-              className={`py-5 flex flex-col gap-5 relative ${
-                index !== FAQData.length - 1 ? 'bottom-line' : ''
-              }`}
+              className={cn(
+                `py-5 flex flex-col gap-5 relative`,
+                index !== FAQData.length - 1 ? 'bottom-line' : '',
+                index === 0 ? 'pt-0' : ''
+              )}
               key={index}
             >
               <div
-                className="flex justify-between items-center"
+                className="flex justify-between items-center cursor-pointer"
                 onClick={() => {
                   if (expendIndex.includes(index)) {
                     setExpendIndex(expendIndex.filter((i) => i !== index));
