@@ -2,6 +2,7 @@ import { FC } from 'react';
 import BubbleCard from './BubbleCard';
 import Image from 'next/image';
 import Button from '@/components/Common/Button';
+import Link from 'next/link';
 
 interface TopBannerProps {}
 
@@ -14,12 +15,14 @@ const TopBanner: FC<TopBannerProps> = (props) => {
           <br />
           For <span className="text-yellow-dark">Everyone</span>
         </h1>
-        <Button
-          type="primary"
-          className="py-4 px-11 mt-12 uppercase button-text-l"
-        >
-          Explore
-        </Button>
+        <Link href={'/learning-track'} target="_blank">
+          <Button
+            type="primary"
+            className="py-4 px-11 mt-12 uppercase button-text-l"
+          >
+            Explore
+          </Button>
+        </Link>
 
         <BubbleCard
           direction="right"
@@ -35,7 +38,13 @@ const TopBanner: FC<TopBannerProps> = (props) => {
             <div className="body-m text-yellow-primary text-[12px] font-bold border border-yellow-primary px-2 py-1 w-fit rounded-[.5rem]">
               Certified
             </div>
-            <div className="body-m-bold mt-2 flex gap-2 items-center">
+            <Link
+              href={
+                '/learning-track/6d108f0d-dfb2-4dad-8f38-93b45573bc43?learningTrackId=6d108f0d-dfb2-4dad-8f38-93b45573bc43&menu=learningTrack'
+              }
+              target="_blank"
+              className="body-m-bold mt-2 flex gap-2 items-center"
+            >
               <span className="relative after:h-[2px] after:rounded-full after:absolute after:w-full after:left-0 after:-bottom-[1px] after:bg-yellow-primary">
                 Mantle Learning Track
               </span>
@@ -54,7 +63,7 @@ const TopBanner: FC<TopBannerProps> = (props) => {
                   strokeLinejoin="round"
                 />
               </svg>
-            </div>
+            </Link>
           </div>
         </BubbleCard>
         <BubbleCard

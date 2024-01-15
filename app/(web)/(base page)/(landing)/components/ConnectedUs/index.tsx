@@ -16,6 +16,7 @@ const ConnectedUs: FC<ConnectedUsProps> = (props) => {
         <div className="flex gap-[3.75rem]">
           <Link
             href={'https://discord.gg/KkAJHPqywn'}
+            target="_blank"
             className="hover:scale-[1.1] cursor-pointer"
           >
             <span className="text-text-default-color">
@@ -24,6 +25,7 @@ const ConnectedUs: FC<ConnectedUsProps> = (props) => {
           </Link>
           <Link
             href={'https://x.com/hackquest_?s=21&t=kYetGSBybf-ssFBo7GodGA'}
+            target="_blank"
             className="hover:scale-[1.1] cursor-pointer"
           >
             <span className="text-text-default-color">
@@ -31,7 +33,8 @@ const ConnectedUs: FC<ConnectedUsProps> = (props) => {
             </span>
           </Link>
           <Link
-            href={'https://x.com/hackquest_?s=21&t=kYetGSBybf-ssFBo7GodGA'}
+            href={'https://t.me/hackquester'}
+            target="_blank"
             className="hover:scale-[1.1] cursor-pointer"
           >
             <span className="text-text-default-color">
@@ -39,12 +42,14 @@ const ConnectedUs: FC<ConnectedUsProps> = (props) => {
             </span>
           </Link>
         </div>
-        <Button
-          type="primary"
-          className="px-6 py-4 text-neutral-black uppercase button-text-m"
-        >
-          collab with us
-        </Button>
+        <Link href={'https://xsxo494365r.typeform.com/to/p5cEH74M'}>
+          <Button
+            type="primary"
+            className="px-6 py-4 text-neutral-black uppercase button-text-m"
+          >
+            collab with us
+          </Button>
+        </Link>
         <div className="w-[29.4375rem] h-[30.1875rem] absolute -top-11 -left-[calc(100%+60px)]">
           <Image
             src={'/images/landing/connected_us_left.png'}
