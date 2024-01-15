@@ -9,6 +9,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Loading from '@/components/Common/Loading';
 import CourseList from './CourseList';
 import { filterData, initPageInfo } from './data';
+import { ElectiveListDataType } from '@/service/webApi/elective/type';
 
 interface PageInfoType {
   page: number;
@@ -50,11 +51,12 @@ const SelectiveCoursesBox: React.FC<SelectiveCoursesBoxProps> = ({
     setPageInfo({ ...pInfo });
     const newFilter = dealFilterParam(searchParam);
     return new Promise(async (resolve) => {
-      const res = await webApi.courseApi.getCourseListBySearch({
-        ...newFilter,
-        ...pInfo,
-        keyword: inputValue
-      });
+      const res =
+        await webApi.courseApi.getCourseListBySearch<ElectiveListDataType>({
+          ...newFilter,
+          ...pInfo,
+          keyword: inputValue
+        });
 
       setTotal(res.total);
       resolve(res.data);

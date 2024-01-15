@@ -8,7 +8,11 @@ import {
 import { FilterParamsType } from '@/components/Web/Business/CourseFilterList/type';
 import { errorMessage } from '@/helper/ui';
 import webApi from '@/service';
-import { ElectiveCourseType } from '@/service/webApi/elective/type';
+import { CourseType } from '@/service/webApi/course/type';
+import {
+  ElectiveCourseType,
+  ElectiveListDataType
+} from '@/service/webApi/elective/type';
 import { useRequest } from 'ahooks';
 import { cloneDeep } from 'lodash-es';
 import { FC, useEffect, useState } from 'react';
@@ -24,7 +28,10 @@ const MobCourseFilterListSearch: FC<MobCourseFilterListSearchProps> = ({
 
   const { run: getCourseList, loading } = useRequest(
     async (filterParams: FilterParamsType) => {
-      const res = await webApi.electiveApi.getElectives(filterParams);
+      const res =
+        await webApi.courseApi.getCourseListBySearch<ElectiveListDataType>(
+          filterParams
+        );
       return res;
     },
 
@@ -40,7 +47,10 @@ const MobCourseFilterListSearch: FC<MobCourseFilterListSearchProps> = ({
   );
 
   useEffect(() => {
-    getCourseList(mergeFilterParams(filters, sort, keyword));
+    getCourseList({
+      ...mergeFilterParams(filters, sort, keyword),
+      type: CourseType.Mini
+    });
   }, []);
 
   return (
@@ -49,7 +59,8 @@ const MobCourseFilterListSearch: FC<MobCourseFilterListSearchProps> = ({
       onFilterParamsUpdate={(params) => {
         getCourseList({
           ...params,
-          keyword
+          keyword,
+          type: CourseType.Mini
         });
       }}
       filters={cloneDeep(filters)}

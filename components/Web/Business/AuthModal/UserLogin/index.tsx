@@ -256,7 +256,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
           ></Checkbox>
           <p
             className={cn(
-              'body-s text-neutral-medium-gray',
+              'body-s text-neutral-medium-gray cursor-pointer',
               formData.keepMeLoggedIn ? 'text-neutral-off-black' : ''
             )}
             onClick={() => {

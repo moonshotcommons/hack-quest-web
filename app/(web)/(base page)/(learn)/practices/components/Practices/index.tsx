@@ -6,7 +6,7 @@ import CourseSlider from '@/components/Web/Business/CourseSlider';
 import { CourseFilterListType } from '@/components/Web/Business/CourseFilterList';
 import webApi from '@/service';
 import PracticeCard from '@/components/Web/Business/PracticeCard';
-import { ProjectCourseType } from '@/service/webApi/course/type';
+import { CourseType, ProjectCourseType } from '@/service/webApi/course/type';
 import CourseFilterListSearch from '../CourseFilterListSearch';
 import CourseFilterListDefault from '../CourseFilterListDefault';
 import { useRequest } from 'ahooks';
@@ -52,7 +52,9 @@ function Practices() {
 
   const { loading } = useRequest(
     () => {
-      return webApi.courseApi.getTopCourses();
+      return webApi.courseApi.getTopCourses<ProjectCourseType>({
+        type: CourseType.GUIDED_PROJECT
+      });
     },
     {
       onSuccess(res) {

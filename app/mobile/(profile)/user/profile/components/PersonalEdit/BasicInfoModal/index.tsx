@@ -14,6 +14,7 @@ import {
 } from 'react';
 import { MdCancel } from 'react-icons/md';
 import { ProfileContext } from '../../../constants/type';
+import { RegisterType } from '@/service/webApi/user/type';
 
 interface BasicInfoModalProps {}
 
@@ -79,7 +80,11 @@ const BasicInfoModal = forwardRef<BasicInfoModalRef, BasicInfoModalProps>(
         experience: profile.experience || 0,
         techStack: '',
         nickname: profile.user?.nickname,
-        email: profile.user?.email
+        email: [RegisterType.REGISTER, RegisterType.GOOGLE].includes(
+          profile.user.registerType
+        )
+          ? profile.user?.email
+          : (profile.user.name as string)
       });
 
       setTechStack(profile.techStack || []);
@@ -117,6 +122,19 @@ const BasicInfoModal = forwardRef<BasicInfoModalRef, BasicInfoModalProps>(
         }
       }
     );
+
+    const renderEmailLabel = () => {
+      switch (profile.user.registerType) {
+        case RegisterType.GITHUB:
+          return 'Github Username';
+        case RegisterType.WALLET:
+          return 'Address';
+        case RegisterType.REGISTER:
+        case RegisterType.GOOGLE:
+        default:
+          return 'Email';
+      }
+    };
 
     return (
       <Modal
@@ -202,7 +220,7 @@ const BasicInfoModal = forwardRef<BasicInfoModalRef, BasicInfoModalProps>(
                 >
                   <Input
                     name="email"
-                    label="Email"
+                    label={renderEmailLabel()}
                     type="text"
                     disabled
                     defaultValue={form.getFieldValue('email')}

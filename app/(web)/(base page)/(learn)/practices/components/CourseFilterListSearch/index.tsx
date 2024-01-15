@@ -8,7 +8,11 @@ import { FilterParamsType } from '@/components/Web/Business/CourseFilterList/typ
 import PracticeCard from '@/components/Web/Business/PracticeCard';
 import { errorMessage } from '@/helper/ui';
 import webApi from '@/service';
-import { ProjectCourseType } from '@/service/webApi/course/type';
+import {
+  CourseDataType,
+  CourseType,
+  ProjectCourseType
+} from '@/service/webApi/course/type';
 import { useRequest } from 'ahooks';
 import { cloneDeep } from 'lodash-es';
 import { FC, useEffect, useState } from 'react';
@@ -24,7 +28,9 @@ const CourseFilterListSearch: FC<CourseFilterListSearchProps> = ({
 
   const { run: getCourseList, loading } = useRequest(
     async (filterParams: FilterParamsType) => {
-      const res = await webApi.courseApi.getCourseListBySearch(filterParams);
+      const res = await webApi.courseApi.getCourseListBySearch<CourseDataType>(
+        filterParams
+      );
       return res;
     },
 
@@ -40,7 +46,10 @@ const CourseFilterListSearch: FC<CourseFilterListSearchProps> = ({
   );
 
   useEffect(() => {
-    getCourseList(mergeFilterParams(filters, sort, keyword));
+    getCourseList({
+      ...mergeFilterParams(filters, sort, keyword),
+      type: CourseType.GUIDED_PROJECT
+    });
   }, []);
 
   return (
@@ -49,7 +58,8 @@ const CourseFilterListSearch: FC<CourseFilterListSearchProps> = ({
       onFilterParamsUpdate={(params) => {
         getCourseList({
           ...params,
-          keyword
+          keyword,
+          type: CourseType.GUIDED_PROJECT
         });
       }}
       filters={cloneDeep(filters)}

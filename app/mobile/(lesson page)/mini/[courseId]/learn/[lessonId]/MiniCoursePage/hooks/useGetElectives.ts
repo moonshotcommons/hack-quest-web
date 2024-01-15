@@ -16,8 +16,9 @@ export const useGetElectives = (lesson: ElectiveLessonType) => {
     refresh
   } = useRequest(
     async () => {
-      const res = await webApi.electiveApi.getElectiveDetailAndPages(
-        lesson.electiveId,
+      const res = await webApi.courseApi.getCourseDetail<ElectiveCourseType>(
+        lesson.courseId,
+        false,
         true
       );
       return res;

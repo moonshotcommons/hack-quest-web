@@ -1,7 +1,11 @@
 'use client';
 import Loading from '@/components/Common/Loading';
 import webApi from '@/service';
-import { ProcessType, CourseDetailType } from '@/service/webApi/course/type';
+import {
+  ProcessType,
+  CourseDataType,
+  ProjectCourseType
+} from '@/service/webApi/course/type';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import { useEffect, useState } from 'react';
 import LearningTrackList from './LearningTrackList';
@@ -11,12 +15,16 @@ import Tab from '@/components/Web/Business/Tab';
 import { TabListType } from '@/components/Web/Business/Tab/type';
 import Recommend from '../Recommend';
 import CourseList from './CourseList';
+import {
+  ElectiveCourseType,
+  ElectiveListDataType
+} from '@/service/webApi/elective/type';
 
 function MyCourses() {
   const [curTab, setCurTab] = useState<ProcessType>(ProcessType.IN_PROCESS);
   const [loading, setLoading] = useState(false);
   const [courseListData, setCourseListData] = useState<
-    Record<ProcessType, CourseDetailType[]>
+    Record<ProcessType, (ProjectCourseType | ElectiveCourseType)[]>
   >({
     [ProcessType.IN_PROCESS]: [],
     [ProcessType.COMPLETED]: []
@@ -44,7 +52,9 @@ function MyCourses() {
 
   const getCourseList = () => {
     return new Promise(async (resolve) => {
-      const res = await webApi.courseApi.getCourseListBySearch({
+      const res = await webApi.courseApi.getCourseListBySearch<
+        CourseDataType | ElectiveListDataType
+      >({
         status: curTab
       });
       const newData = {

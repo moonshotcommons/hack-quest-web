@@ -8,7 +8,11 @@ import {
 import { FilterParamsType } from '@/components/Web/Business/CourseFilterList/type';
 import { errorMessage } from '@/helper/ui';
 import webApi from '@/service';
-import { ElectiveCourseType } from '@/service/webApi/elective/type';
+import { CourseType } from '@/service/webApi/course/type';
+import {
+  ElectiveCourseType,
+  ElectiveListDataType
+} from '@/service/webApi/elective/type';
 import { useRequest } from 'ahooks';
 import { cloneDeep } from 'lodash-es';
 import { FC, useEffect, useState } from 'react';
@@ -21,7 +25,10 @@ const MobCourseFilterListDefault: FC<MobCourseFilterListDefaultProps> = (
 
   const { run: getCourseList, loading } = useRequest(
     async (filterParams: FilterParamsType) => {
-      const res = await webApi.electiveApi.getElectives(filterParams);
+      const res =
+        await webApi.courseApi.getCourseListBySearch<ElectiveListDataType>(
+          filterParams
+        );
       return res;
     },
 
@@ -37,14 +44,20 @@ const MobCourseFilterListDefault: FC<MobCourseFilterListDefaultProps> = (
   );
 
   useEffect(() => {
-    getCourseList(mergeFilterParams(filters, sort));
+    getCourseList({
+      ...mergeFilterParams(filters, sort),
+      type: CourseType.Mini
+    });
   }, []);
 
   return (
     <MobCourseFilterList
       title="Explore Web 3"
       onFilterParamsUpdate={(params) => {
-        getCourseList(params);
+        getCourseList({
+          ...params,
+          type: CourseType.Mini
+        });
       }}
       courseList={courseList}
       filters={cloneDeep(filters)}
