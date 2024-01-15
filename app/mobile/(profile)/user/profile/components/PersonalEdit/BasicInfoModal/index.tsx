@@ -124,6 +124,7 @@ const BasicInfoModal = forwardRef<BasicInfoModalRef, BasicInfoModalProps>(
     );
 
     const renderEmailLabel = () => {
+      debugger;
       switch (profile.user.registerType) {
         case RegisterType.GITHUB:
           return 'Github Username';

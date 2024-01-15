@@ -13,6 +13,7 @@ import VerifyConfirmed from './VerifyConfirmed';
 import CheckInviteCode from './CheckInviteCode';
 import { LuX } from 'react-icons/lu';
 import { V2_LANDING_PATH } from '@/constants/nav';
+import { useRedirect } from '@/hooks/useRedirect';
 interface AuthModalProps {}
 
 const logo = (
@@ -46,6 +47,8 @@ const AuthModal: FC<AuthModalProps> = (props) => {
   const query = useSearchParams();
   const pathname = usePathname();
   const queryState = query.get('state');
+  const type = query.get('type');
+  const { redirectToUrl } = useRedirect();
   const { authRouteType, setAuthType, authModalOpen, setAuthModalOpen } =
     useUserStore(
       useShallow((state) => ({
@@ -57,7 +60,6 @@ const AuthModal: FC<AuthModalProps> = (props) => {
     );
 
   useEffect(() => {
-    const type = query.get('type');
     if ((type || queryState) && pathname === V2_LANDING_PATH) {
       setAuthType(type as AuthType);
       setAuthModalOpen(true);
@@ -98,6 +100,10 @@ const AuthModal: FC<AuthModalProps> = (props) => {
           className="absolute top-2 right-2 text-neutral-off-black"
           onClick={() => {
             setAuthModalOpen(false);
+            if ((type || queryState) && pathname === V2_LANDING_PATH) {
+              setAuthType(AuthType.LOGIN);
+              redirectToUrl('/', true);
+            }
           }}
         />
       }
