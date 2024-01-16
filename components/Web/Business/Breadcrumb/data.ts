@@ -16,7 +16,7 @@ export const menuLink: MenuNameType = {
   [Menu.PRACTICES]: MenuLink.PRACTICES,
   [Menu.RESOURCE_STATION]: MenuLink.HACKATHON,
   [Menu.HACKATHON]: MenuLink.HACKATHON,
-  [Menu.PROJECTS]: MenuLink.PROJECTS
+  [Menu.PROJECTS]: MenuLink.HACKATHON
 };
 
 export const navLinks = [
