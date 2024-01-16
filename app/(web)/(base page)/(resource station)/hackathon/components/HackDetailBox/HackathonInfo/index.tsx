@@ -6,10 +6,10 @@ import {
   HackathonType
 } from '@/service/webApi/resourceStation/type';
 import useDealhackathon from '@/hooks/useDealHackathonData';
-import { menuLink } from '@/components/Web/Business/Breadcrumb/data';
 import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import { BurialPoint } from '@/helper/burialPoint';
 import { useRedirect } from '@/hooks/useRedirect';
+import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 
 interface HackathonInfoProp {
   hackathon: HackathonType;
@@ -120,7 +120,7 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
             onClick={() => {
               BurialPoint.track(`hackathon detail View All Projects 按钮点击`);
               redirectToUrl(
-                `${menuLink.projects}/projects?menu=${Menu.PROJECTS}&${QueryIdType.PROJECT_ID}=projects&keyWord=${hackathon.name}`
+                `${MenuLink.PROJECTS}?menu=${Menu.PROJECTS}&${QueryIdType.PROJECT_ID}=projects&keyWord=${hackathon.name}`
               );
             }}
           >

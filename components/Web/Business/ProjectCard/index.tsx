@@ -1,10 +1,10 @@
 import React from 'react';
 import Image from 'next/image';
-import { menuLink } from '@/components/Web/Business/Breadcrumb/data';
 import { ProjectType } from '@/service/webApi/resourceStation/type';
 import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import { BurialPoint } from '@/helper/burialPoint';
 import { useRedirect } from '@/hooks/useRedirect';
+import { MenuLink } from '../../Layout/BasePage/Navbar/type';
 
 interface ProjectCardProp {
   project: ProjectType;
@@ -15,7 +15,7 @@ const ProjectCard: React.FC<ProjectCardProp> = ({ project }) => {
   const goProjectDetail = () => {
     BurialPoint.track(`hackathon projectCard 点击`);
     redirectToUrl(
-      `${menuLink.projects}/projects/${project.id}?${QueryIdType.PROJECT_ID}=${project.id}&menu=${Menu.PROJECTS}`
+      `${MenuLink.PROJECTS}/${project.id}?${QueryIdType.PROJECT_ID}=${project.id}&menu=${Menu.PROJECTS}`
     );
   };
   return (
