@@ -61,7 +61,7 @@ const OtherProjects: FC<OtherProjectsProps> = (props) => {
       <p className="mt-[8px] font-next-book text-[21px] leading-[160%] tracking-[0.42px]">
         {`in `}
         <Link
-          href={`${MenuLink.PROJECTS}?menu=${Menu.PROJECTS}&${QueryIdType.PROJECT_ID}=projects&keyWord=${hackathonName}`}
+          href={`${MenuLink.PROJECTS}?menu=${Menu.HACKATHON}&${QueryIdType.PROJECT_ID}=projects&keyWord=${hackathonName}`}
           className="text-[#0B0B0B] underline hover:opacity-70 hover:text-[#0B0B0B] hover:underline transition-all"
         >
           {hackathonName}
