@@ -1,4 +1,3 @@
-import { menuLink } from '@/components/Web/Business/Breadcrumb/data';
 import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import ProjectCard from '@/components/Web/Business/ProjectCard';
 import Pagination from '@/components/Common/Pagination';
@@ -8,6 +7,7 @@ import { ProjectType } from '@/service/webApi/resourceStation/type';
 import { useRequest } from 'ahooks';
 import Link from 'next/link';
 import { FC, useEffect, useState } from 'react';
+import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 let PROJECTS_LIMIT = 3;
 interface OtherProjectsProps {
   hackathonId: string;
@@ -61,7 +61,7 @@ const OtherProjects: FC<OtherProjectsProps> = (props) => {
       <p className="mt-[8px] font-next-book text-[21px] leading-[160%] tracking-[0.42px]">
         {`in `}
         <Link
-          href={`${menuLink.projects}/projects?menu=${Menu.PROJECTS}&${QueryIdType.PROJECT_ID}=projects&keyWord=${hackathonName}`}
+          href={`${MenuLink.PROJECTS}?menu=${Menu.PROJECTS}&${QueryIdType.PROJECT_ID}=projects&keyWord=${hackathonName}`}
           className="text-[#0B0B0B] underline hover:opacity-70 hover:text-[#0B0B0B] hover:underline transition-all"
         >
           {hackathonName}
