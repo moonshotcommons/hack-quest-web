@@ -91,7 +91,7 @@ const GotoPageButton: React.FC<GotoPageButtonProps> = (props) => {
         } else {
           BurialPoint.track(`landing Explore Projects按钮点击`);
           redirectToUrl(
-            `${MenuLink.PROJECTS}?menu=${Menu.PROJECTS}&${QueryIdType.PROJECT_ID}=projects`
+            `${MenuLink.PROJECTS}?menu=${Menu.HACKATHON}&${QueryIdType.PROJECT_ID}=projects`
           );
         }
     }

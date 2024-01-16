@@ -23,7 +23,7 @@ function HackathonBox() {
       setCurTab(item.value as HackathonStatusType);
     } else {
       redirectToUrl(
-        `${MenuLink.PROJECTS}?menu=${Menu.PROJECTS}&${QueryIdType.PROJECT_ID}=projects`
+        `${MenuLink.PROJECTS}?menu=${Menu.HACKATHON}&${QueryIdType.PROJECT_ID}=projects`
       );
     }
   };
