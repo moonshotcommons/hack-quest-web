@@ -44,7 +44,7 @@ const MobCourseFilterList = <T extends CourseBaseType>({
 
   const isSelectFilter = useMemo(() => {
     return !!filters.find((filter) =>
-      filter.options.find((option) => option.isSelect)
+      filter.options.find((option) => option.isSelect && option.value)
     );
   }, [filters]);
 
