@@ -21,7 +21,7 @@ const NoData: React.FC<NoDataType> = ({ goPast }) => {
       <Button
         onClick={() =>
           redirectToUrl(
-            `${MenuLink.PROJECTS}?menu=${Menu.PROJECTS}&${QueryIdType.PROJECT_ID}=projects`
+            `${MenuLink.PROJECTS}?menu=${Menu.HACKATHON}&${QueryIdType.PROJECT_ID}=projects`
           )
         }
         className="w-[360px] h-[55px] text-[18px] border border-home-learning-track-no-data-button-explore-border text-home-learning-track-no-data-button-explore-color"
