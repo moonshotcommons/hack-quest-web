@@ -1,7 +1,7 @@
-import { menuLink } from '@/components/Web/Business/Breadcrumb/data';
 import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import Button from '@/components/Common/Button';
 import { useRedirect } from '@/hooks/useRedirect';
+import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 interface NoDataType {
   goPast: VoidFunction;
 }
@@ -21,7 +21,7 @@ const NoData: React.FC<NoDataType> = ({ goPast }) => {
       <Button
         onClick={() =>
           redirectToUrl(
-            `${menuLink.projects}/projects?menu=${Menu.PROJECTS}&${QueryIdType.PROJECT_ID}=projects`
+            `${MenuLink.PROJECTS}?menu=${Menu.PROJECTS}&${QueryIdType.PROJECT_ID}=projects`
           )
         }
         className="w-[360px] h-[55px] text-[18px] border border-home-learning-track-no-data-button-explore-border text-home-learning-track-no-data-button-explore-color"

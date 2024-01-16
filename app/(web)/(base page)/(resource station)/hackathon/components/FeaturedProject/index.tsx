@@ -4,9 +4,9 @@ import {
   ScrollContainer,
   ScrollControl
 } from '@/components/Common/ScrollContainer';
-import { menuLink } from '@/components/Web/Business/Breadcrumb/data';
 import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import ProjectCard from '@/components/Web/Business/ProjectCard';
+import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 import { BurialPoint } from '@/helper/burialPoint';
 import webApi from '@/service';
 import { ProjectType } from '@/service/webApi/resourceStation/type';
@@ -28,7 +28,7 @@ const FeaturedProjectsHeader = () => {
         </h2>
       </div>
       <Link
-        href={`${menuLink.projects}/projects?menu=${Menu.PROJECTS}&${QueryIdType.PROJECT_ID}=projects`}
+        href={`${MenuLink.PROJECTS}?menu=${Menu.PROJECTS}&${QueryIdType.PROJECT_ID}=projects`}
         className="flex gap-x-[15px] items-center text-[#0B0B0B] hover:opacity-70 font-next-book tracking-[0.36px] text-[18px]"
         onClick={() => {
           BurialPoint.track('home-view all点击');
