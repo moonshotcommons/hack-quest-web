@@ -25,7 +25,7 @@ export const bannerTabList = [
 
 export const filterList = [
   {
-    label: 'All',
+    label: 'All Languages',
     value: LanguageTab.ALL
   },
   {
