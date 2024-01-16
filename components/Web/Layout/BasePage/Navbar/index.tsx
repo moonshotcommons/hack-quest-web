@@ -21,11 +21,6 @@ export interface NavBarProps {
   logo?: ReactNode;
 }
 
-type SlideNavigatorHighlight = React.CSSProperties & {
-  '--highlight-x'?: string;
-  '--highlight-width'?: string;
-};
-
 const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
   const userInfo = useUserStore((state) => state.userInfo);
 
@@ -92,7 +87,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
   return (
     <div className="w-full">
       <div className={`h-[64px] mx-auto container`}>
-        <div className="h-full flex items-center justify-between font-next-book">
+        <div className="h-full flex items-center justify-between">
           <nav className="h-full flex items-center text-white">
             <div
               className={`h-full flex items-center ${

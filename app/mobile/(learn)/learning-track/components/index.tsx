@@ -42,7 +42,6 @@ function LearningTrack() {
       <div className="px-[1.25rem] pt-[1.25rem] mt-[-2.5rem] pb-[1.25rem] bg-neutral-off-white rounded-t-[2rem]">
         <MobCourseFilterList
           onFilterParamsUpdate={(params) => {
-            console.info(1111);
             getLearningTrackList({
               ...searchInfo,
               language: params.language

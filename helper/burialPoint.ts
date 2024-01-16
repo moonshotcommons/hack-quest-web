@@ -17,7 +17,7 @@ type SettingsBurialPointType =
   | 'settings修改密码成功'
   | 'settings修改密码失败'
   | 'settings取消修改密码'
-  | 'settings修改密码成功Got it按钮点击';
+  | 'settings修改密码成功CLOSE按钮点击';
 
 type AuthBurialPointType =
   | 'login-登录邮箱验证失败'
