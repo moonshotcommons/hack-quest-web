@@ -120,7 +120,7 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
             onClick={() => {
               BurialPoint.track(`hackathon detail View All Projects 按钮点击`);
               redirectToUrl(
-                `${menuLink.projects}/projects?menu=${Menu.PROJECTS}&${QueryIdType.PROJECT_ID}=projects&keyWord=${hackathon.name}`
+                `${menuLink.projects}?menu=${Menu.PROJECTS}&${QueryIdType.PROJECT_ID}=projects&keyWord=${hackathon.name}`
               );
             }}
           >

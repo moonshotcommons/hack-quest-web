@@ -15,7 +15,7 @@ const ProjectCard: React.FC<ProjectCardProp> = ({ project }) => {
   const goProjectDetail = () => {
     BurialPoint.track(`hackathon projectCard 点击`);
     redirectToUrl(
-      `${menuLink.projects}/projects/${project.id}?${QueryIdType.PROJECT_ID}=${project.id}&menu=${Menu.PROJECTS}`
+      `${menuLink.projects}/${project.id}?${QueryIdType.PROJECT_ID}=${project.id}&menu=${Menu.PROJECTS}`
     );
   };
   return (
