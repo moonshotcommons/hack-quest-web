@@ -1,24 +1,14 @@
 'use client';
 import { Inter } from 'next/font/google';
-import React, { ReactNode, useEffect } from 'react';
+import React, { ReactNode } from 'react';
 import NavBar from '../Navbar';
 
-import { useCheckPathname } from '@/hooks/useCheckPathname';
 const inter = Inter({ subsets: ['latin'] });
 export interface V2LayoutProps {
   children: ReactNode;
 }
 
 const V2Layout: React.FC<V2LayoutProps> = ({ children }) => {
-  const { isNavbarFullPage, isExcludeBreadcrumbLink } = useCheckPathname();
-
-  useEffect(() => {
-    const contentWrap = document.querySelector('#content-scroll-wrap');
-    if (contentWrap) {
-      contentWrap.scrollTo(0, 0);
-    }
-  }, []);
-
   return (
     <div
       className={`w-full h-[100vh] flex flex-col overflow-hidden  ${inter.className}`}
@@ -28,7 +18,7 @@ const V2Layout: React.FC<V2LayoutProps> = ({ children }) => {
       </div>
       <div
         id="content-scroll-wrap"
-        className={`m-auto overflow-auto w-full flex-1  bg-neutral-white`}
+        className={`w-full flex-1  bg-neutral-white`}
       >
         <div className={`w-full h-full flex flex-col`}>
           <div className="w-full flex-1 relative">
