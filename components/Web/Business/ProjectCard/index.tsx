@@ -5,18 +5,26 @@ import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import { BurialPoint } from '@/helper/burialPoint';
 import Link from 'next/link';
 import { menuLink } from '@/components/Web/Business/Breadcrumb/data';
+import { cn } from '@/helper/utils';
 
 interface ProjectCardProp {
+  className?: string;
   project: ProjectType;
 }
 
-const ProjectCard: React.FC<ProjectCardProp> = ({ project }) => {
+const ProjectCard: React.FC<ProjectCardProp> = ({
+  className = '',
+  project
+}) => {
   const goProjectDetail = () => {
     BurialPoint.track(`hackathon projectCard 点击`);
   };
   return (
     <Link
-      className="flex flex-col rounded-[10px] overflow-hidden  h-[333px] bg-white w-[305px] hover:-translate-y-1 transition-all duration-300 mt-1 relative shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)] cursor-pointer"
+      className={cn(
+        'flex flex-col rounded-[10px] overflow-hidden h-[330px] bg-white w-[305px] hover:-translate-y-1 transition-all duration-300 relative shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)] cursor-pointer',
+        className
+      )}
       onClick={goProjectDetail}
       href={`${menuLink.projects}/projects/${project.id}?${QueryIdType.PROJECT_ID}=${project.id}&menu=${Menu.PROJECTS}`}
     >
@@ -26,6 +34,7 @@ const ProjectCard: React.FC<ProjectCardProp> = ({ project }) => {
           alt="thumbnail"
           fill
           className="object-cover"
+          loading="lazy"
         ></Image>
         {project.apolloDay && (
           <div className="absolute left-[10px] top-[10px] px-[14px] h-[25px] bg-[#fff] text-[#3E3E3E] text-[12px] flex items-center rounded-[10px]">
@@ -33,7 +42,7 @@ const ProjectCard: React.FC<ProjectCardProp> = ({ project }) => {
           </div>
         )}
       </div>
-      <div className="flex-1 flex flex-col justify-between px-[20px] pt-[10px] pb-[20px]">
+      <div className="flex-1 px-[20px] pt-[10px]">
         <div className="w-full">
           <div className="text-[rgba(11,11,11,0.6)] text-[16px] flex items-center text-ellipsis overflow-hidden whitespace-nowrap">
             {project.tracks.map((v, i) => (
@@ -49,7 +58,7 @@ const ProjectCard: React.FC<ProjectCardProp> = ({ project }) => {
             {project.name}
           </div>
         </div>
-        <div className="font-next-book-Thin line-clamp-3 h-[66px]">
+        <div className="font-next-book-Thin line-clamp-3 mt-2">
           {project.introduction}
         </div>
       </div>

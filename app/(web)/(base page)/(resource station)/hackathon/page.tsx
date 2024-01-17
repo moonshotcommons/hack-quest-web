@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { Metadata } from 'next';
 import HackathonPage from './components';
+import { getFeaturedProjects } from '@/service/hackathon';
 
 export const metadata: Metadata = {
   title: 'Hackathons | HackQuest'
@@ -8,10 +9,13 @@ export const metadata: Metadata = {
 
 interface HackathonProps {}
 
-const Hackathon: FC<HackathonProps> = (props) => {
+const Hackathon: FC<HackathonProps> = async (props) => {
+  // load featured projects
+  const featured = await getFeaturedProjects();
+
   return (
     <>
-      <HackathonPage />
+      <HackathonPage featured={featured} />
     </>
   );
 };

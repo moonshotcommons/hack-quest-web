@@ -8,15 +8,13 @@ import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import ProjectCard from '@/components/Web/Business/ProjectCard';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 import { BurialPoint } from '@/helper/burialPoint';
-import webApi from '@/service';
 import { ProjectType } from '@/service/webApi/resourceStation/type';
-import { useRequest } from 'ahooks';
 import Link from 'next/link';
 import { FC, useState } from 'react';
 import { LuChevronRight } from 'react-icons/lu';
 
 interface FeaturedProjectsProps {
-  ignoreProjectId?: string;
+  projects: ProjectType[];
 }
 
 const FeaturedProjectsHeader = () => {
@@ -41,34 +39,9 @@ const FeaturedProjectsHeader = () => {
   );
 };
 
-const FeaturedProjects: FC<FeaturedProjectsProps> = (props) => {
-  const [projectList, setProjectList] = useState<ProjectType[]>([]);
+const FeaturedProjects: FC<FeaturedProjectsProps> = ({ projects }) => {
   const [scrollContainerState, setScrollContainerState] =
     useState<ChangeState>();
-
-  const { run, loading } = useRequest(
-    async () => {
-      const res = await webApi.resourceStationApi.getProjectsList({
-        featured: true
-      });
-      return res;
-    },
-    {
-      onSuccess(projects) {
-        if (props.ignoreProjectId) {
-          setProjectList(
-            projects.data.filter(
-              (project) => project.id !== props.ignoreProjectId
-            )
-          );
-        } else setProjectList(projects.data);
-      },
-      onError(error: any) {
-        console.log(error);
-        // message.error(error.msg);
-      }
-    }
-  );
 
   return (
     <div className="w-full bg-[#FFF4CE] py-[60px]">
@@ -80,7 +53,7 @@ const FeaturedProjects: FC<FeaturedProjectsProps> = (props) => {
             gap={20}
           >
             <div className="my-[30px] flex gap-[20px] overflow-x-hidden">
-              {projectList.map((project, index) => {
+              {projects.map((project, index) => {
                 return (
                   <ProjectCard key={index} project={project}></ProjectCard>
                 );

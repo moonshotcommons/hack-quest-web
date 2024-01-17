@@ -1,57 +1,31 @@
+'use client';
 import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import ProjectCard from '@/components/Web/Business/ProjectCard';
 import Pagination from '@/components/Common/Pagination';
-import { errorMessage } from '@/helper/ui';
-import webApi from '@/service';
-import { ProjectType } from '@/service/webApi/resourceStation/type';
-import { useRequest } from 'ahooks';
 import Link from 'next/link';
-import { FC, useEffect, useState } from 'react';
+import { FC, useRef, useState } from 'react';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import { ProjectType } from '@/service/webApi/resourceStation/type';
 let PROJECTS_LIMIT = 3;
 interface OtherProjectsProps {
-  hackathonId: string;
   hackathonName: string;
-  activeProjectId: string;
+  projects: ProjectType[];
 }
 
-const OtherProjects: FC<OtherProjectsProps> = (props) => {
-  const { hackathonId, hackathonName, activeProjectId } = props;
+const OtherProjects: FC<OtherProjectsProps> = ({ hackathonName, projects }) => {
   const [page, setPage] = useState(1);
-  const [totalPage, setTotalPage] = useState(1);
-  const [projects, setProjects] = useState<ProjectType[]>([]);
+  const scrollContainer = useRef<HTMLDivElement>(null);
+  const totalPage = projects.length;
 
-  const { run } = useRequest(
-    async () => {
-      const res = await webApi.resourceStationApi.getProjectsList({
-        keyword: hackathonName
-        // page: page,
-        // limit: PROJECTS_LIMIT
-      });
-      return res;
-    },
-    {
-      onSuccess(res) {
-        setProjects(
-          res.data.filter((project) => project.id !== activeProjectId)
-        );
-
-        setTotalPage(res.total);
-      },
-
-      onError(err) {
-        errorMessage(err);
-      }
-    }
-  );
-
-  useEffect(() => {
-    setPage(1);
-  }, [hackathonId, hackathonName, activeProjectId]);
-
-  useEffect(() => {
-    run();
-  }, [page, activeProjectId]);
+  const scrollToPage = (page: number): void => {
+    setPage(page);
+    const position = (page - 1) * PROJECTS_LIMIT;
+    const element = scrollContainer.current?.children[position];
+    element?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+  };
 
   return (
     <>
@@ -68,22 +42,23 @@ const OtherProjects: FC<OtherProjectsProps> = (props) => {
         </Link>
       </p>
       <div className="mt-[30px]">
-        <div className="flex flex-col gap-y-[30px] mb-[30px]">
-          {[...projects]
-            .splice((page - 1) * PROJECTS_LIMIT, PROJECTS_LIMIT)
-            .map((project) => {
-              return (
-                <ProjectCard key={project.id} project={project}></ProjectCard>
-              );
-            })}
+        <div
+          ref={scrollContainer}
+          className="flex flex-col gap-y-[30px] max-h-270 overflow-y-hidden pt-2 px-2"
+        >
+          {projects.map((project) => (
+            <ProjectCard
+              className="flex-none"
+              key={project.id}
+              project={project}
+            />
+          ))}
         </div>
         {totalPage > PROJECTS_LIMIT && (
           <Pagination
             total={Math.ceil((totalPage - 1) / PROJECTS_LIMIT)}
             page={page}
-            onPageChange={(v) => {
-              setPage(v);
-            }}
+            onPageChange={scrollToPage}
           ></Pagination>
         )}
       </div>

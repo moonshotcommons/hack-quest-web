@@ -1,18 +1,18 @@
 import React from 'react';
 import PageRetentionTime from '@/components/Common/PageRetentionTime';
-import { Metadata } from 'next';
 import HackathonBox from './HackathonBox';
 import FeaturedProjects from './FeaturedProject';
+import { ProjectType } from '@/service/webApi/resourceStation/type';
 
-export const metadata: Metadata = {
-  title: 'Hackathons'
-};
+interface HackathonProps {
+  featured: ProjectType[];
+}
 
-function Hackathon() {
+function Hackathon({ featured }: HackathonProps) {
   return (
     <div className="font-next-book text-home-default-color">
       <HackathonBox />
-      <FeaturedProjects />
+      <FeaturedProjects projects={featured} />
       <PageRetentionTime trackName="hackathon-页面留存时间" />
     </div>
   );
