@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 interface HackathonProps {}
 
-const Hackathon: FC<HackathonProps> = async (props) => {
+const Hackathon: FC<HackathonProps> = async () => {
   // load featured projects
   const featured = await getFeaturedProjects();
 

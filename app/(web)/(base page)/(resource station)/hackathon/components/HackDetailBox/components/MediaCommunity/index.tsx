@@ -12,7 +12,7 @@ interface MediaCommunityProp {
   title: string;
 }
 
-const MediaCommunity: React.FC<MediaCommunityProp> = ({ listData, title }) => {
+const MediaCommunity: React.FC<MediaCommunityProp> = ({ listData }) => {
   const [showAll, setShowAll] = useState(false);
   const showList = useMemo(() => {
     return showAll ? deepClone(listData) : listData?.slice(0, 12);

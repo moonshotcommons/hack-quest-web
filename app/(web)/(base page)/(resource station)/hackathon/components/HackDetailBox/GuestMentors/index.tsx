@@ -11,7 +11,7 @@ interface GuestMentorsProp {
   title: string;
 }
 
-const GuestMentors: React.FC<GuestMentorsProp> = ({ listData, title }) => {
+const GuestMentors: React.FC<GuestMentorsProp> = ({ listData }) => {
   const [showAll, setShowAll] = useState(false);
   const showList = useMemo(() => {
     return showAll ? deepClone(listData) : listData?.slice(0, 6);
