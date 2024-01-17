@@ -22,11 +22,17 @@ export const dealFilterParam = (param: FilterDataType[]) => {
 };
 interface SearchFilterProps {
   searchParams: { keyword: string } & Record<string, string>;
+  filterData: FilterDataType[];
+  urlPrefix: string;
 }
-const SearchFilter: React.FC<SearchFilterProps> = ({ searchParams }) => {
+const SearchFilter: React.FC<SearchFilterProps> = ({
+  searchParams,
+  filterData,
+  urlPrefix
+}) => {
   const router = useRouter();
   const [searchParam, setSearchParam] = useState<FilterDataType[]>(
-    deepClone(searchParams)
+    deepClone(filterData)
   );
   const [inputValue, setInputValue] = useState(searchParams.keyword || '');
   const timeOut = useRef<NodeJS.Timeout | null>(null);
@@ -39,7 +45,7 @@ const SearchFilter: React.FC<SearchFilterProps> = ({ searchParams }) => {
   }, [inputValue]);
 
   function applySearchInfo(searchParam: FilterDataType[] = []) {
-    const url = new URL('/blog', window.location.href);
+    const url = new URL(urlPrefix, window.location.href);
     for (const filter of searchParam) {
       const value = filter.value;
       if (!value) continue;
@@ -88,7 +94,6 @@ const SearchFilter: React.FC<SearchFilterProps> = ({ searchParams }) => {
 
   const clearParam = () => {
     const newSearchParam = deepClone(searchParam);
-    applySearchInfo();
     newSearchParam.map((v: FilterDataType) => {
       switch (v.type) {
         case FilterType.RADIO:
@@ -120,7 +125,7 @@ const SearchFilter: React.FC<SearchFilterProps> = ({ searchParams }) => {
 
   const changeInput = (e: any) => {
     const value = e.target.value;
-    applySearchInfo();
+    setInputValue(value);
   };
 
   const {} = useRequest(async () => {

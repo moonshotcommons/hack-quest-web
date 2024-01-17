@@ -7,11 +7,9 @@ import webApi from '@/service';
 import React from 'react';
 import ProjectsList from './ProjectsList';
 import Pagination from '@/components/Common/Pagination';
+import SearchFilter from '@/components/Web/Business/SearchFilter/seo';
+import { filterData } from './data';
 
-interface PageInfoType {
-  page: number;
-  limit: number;
-}
 interface ProjectsBoxProps {
   page: number;
   searchParams: { keyword: string } & Record<string, string>;
@@ -42,6 +40,11 @@ const ProjectsBox: React.FC<ProjectsBoxProps> = async ({
 
   return (
     <div className="flex justify-between gap-10 h-full">
+      <SearchFilter
+        filterData={filterData as FilterDataType[]}
+        searchParams={searchParams}
+        urlPrefix="/hackathon/projects/"
+      />
       <div className="flex-1 pb-5 h-full">
         <ProjectsList list={list} />
         <Pagination
