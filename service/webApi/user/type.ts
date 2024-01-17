@@ -48,7 +48,7 @@ export enum ForgetPasswordErrorStatusType {
   EMAIL_NOT_EXIST = 404
 }
 
-export enum AuthType {
+export enum ThirdPartyAuthType {
   EMAIL = 'Email',
   GOOGLE = 'Google',
   GITHUB = 'Github',
@@ -61,6 +61,14 @@ export enum WorkExperienceType {
   CONTRACTOR = 'CONTRACTOR',
   INTERNSHIP = 'INTERNSHIP'
 }
+
+export enum RegisterType {
+  REGISTER = 'register',
+  GOOGLE = 'google',
+  GITHUB = 'github',
+  WALLET = 'wallet'
+}
+
 export interface UserExperienceType {
   id: string;
   title: string;
@@ -108,6 +116,7 @@ export interface UserProfileType {
     name: string | null;
     nickname: string;
     inviteCode: string;
+    registerType: RegisterType;
   };
 }
 
@@ -123,4 +132,9 @@ export interface PersonalLinksType {
   github: string;
   linkedIn: string;
   telegram: string;
+}
+
+export interface UserLearnedCountType {
+  certificationCount: number;
+  courseCount: number;
 }

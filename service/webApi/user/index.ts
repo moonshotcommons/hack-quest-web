@@ -4,13 +4,14 @@ import {
   LoginResponse,
   RegisterParamsType,
   RegisterResponse,
-  AuthType,
+  ThirdPartyAuthType,
   UserProfileType,
   UserExperienceType,
   UserPersonalType,
   PersonalLinksType,
   GithubActivityType,
-  UserHackathonType
+  UserHackathonType,
+  UserLearnedCountType
 } from './type';
 import { transformQueryString } from '@/helper/formate';
 
@@ -30,7 +31,8 @@ export enum UserApiType {
   CheckInViteCode = '/users/verify-inviteCode',
   WalletVerify = '/auth/wallet',
   UserProfile = '/users/profile',
-  PersonalLinks = '/users/profile/personal-links'
+  PersonalLinks = '/users/profile/personal-links',
+  UserLearnedCount = '/users/learned-count'
 }
 
 class UserApi {
@@ -128,15 +130,15 @@ class UserApi {
 
   /** 获取用户信息 */
   getUserInfo() {
-    return this.service.get(UserApiType.UserInfo);
+    return this.service.get<LoginResponse>(UserApiType.UserInfo);
   }
 
   /**
    * 三方登录
    */
-  getAuthUrl(type: AuthType) {
+  getAuthUrl(type: ThirdPartyAuthType) {
     const url =
-      type === AuthType.GOOGLE
+      type === ThirdPartyAuthType.GOOGLE
         ? UserApiType.AuthGoogle
         : UserApiType.AuthGithub;
     return this.service.get(url);
@@ -286,6 +288,13 @@ class UserApi {
   /** on-Chain Activity unLink */
   refreshChain() {
     return this.service.get(`${UserApiType.UserProfile}/refresh-chain`);
+  }
+
+  /** dashboard user count */
+  getUserLearnedCount() {
+    return this.service.get<UserLearnedCountType>(
+      `${UserApiType.UserLearnedCount}`
+    );
   }
 }
 

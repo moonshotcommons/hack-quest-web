@@ -1,13 +1,12 @@
 import webApi from '@/service';
-import { AppRootState } from '@/store/redux';
-import { setCourseList } from '@/store/redux/modules/course';
+import { useCourseStore } from '@/store/zustand/courseStore';
+
 import { useRequest } from 'ahooks';
 import { useEffect, useState } from 'react';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
 export const useLoadCourseList = () => {
-  const dispatch = useDispatch();
   const [waitingLoadCourseList, setWaitingLoadCourseList] = useState(true);
+  const setCourseList = useCourseStore((state) => state.setCourseList);
 
   const { run } = useRequest(
     async () => {
@@ -17,7 +16,7 @@ export const useLoadCourseList = () => {
     {
       manual: true,
       onSuccess(courseList) {
-        dispatch(setCourseList(courseList));
+        setCourseList(courseList.data);
       },
       onError(error: any) {
         console.log(error);
@@ -34,14 +33,4 @@ export const useLoadCourseList = () => {
   }, [run]);
 
   return { waitingLoadCourseList };
-};
-
-export const useGetCourses = () => {
-  const { courseList } = useSelector((rootState: AppRootState) => {
-    return {
-      courseList: rootState.course.courseList
-    };
-  }, shallowEqual);
-
-  return courseList;
 };

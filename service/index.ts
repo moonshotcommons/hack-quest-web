@@ -2,7 +2,6 @@ import ResourceStationApi from './webApi/resourceStation';
 import WebService from './webService/webService';
 import CampaignsApi from './webApi/campaigns';
 import CourseApi from './webApi/course';
-import ElectiveApi from './webApi/elective';
 import LearningTrackApi from './webApi/learningTrack';
 import MissionCenterApi from './webApi/missionCenter';
 import PreviewApi from './webApi/preview';
@@ -15,7 +14,7 @@ class WebApi {
 
   campaignsApi: CampaignsApi;
   courseApi: CourseApi;
-  electiveApi: ElectiveApi;
+  // electiveApi: ElectiveApi;
   learningTrackApi: LearningTrackApi;
   missionCenterApi: MissionCenterApi;
   previewApi: PreviewApi;
@@ -31,7 +30,7 @@ class WebApi {
     this.resourceStationApi = new ResourceStationApi(this.service);
     this.campaignsApi = new CampaignsApi(this.service);
     this.courseApi = new CourseApi(this.service);
-    this.electiveApi = new ElectiveApi(this.service);
+    // this.electiveApi = new ElectiveApi(this.service);
     this.learningTrackApi = new LearningTrackApi(this.service);
     this.missionCenterApi = new MissionCenterApi(this.service);
     this.previewApi = new PreviewApi(this.service);

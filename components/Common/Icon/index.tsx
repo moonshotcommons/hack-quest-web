@@ -28,6 +28,7 @@ import TwitterIcon from './Twitter';
 import UserIcon from './User';
 import UserFillIcon from './UserFill';
 import WarningIcon from './Warning';
+import Telegram from './Telegram';
 
 import { IconsType } from './type';
 
@@ -59,7 +60,7 @@ const Icons: IconsType = {
   Twitter: <TwitterIcon />,
   User: <UserIcon />,
   UserFill: <UserFillIcon />,
-  Warning: <WarningIcon />
+  Warning: <WarningIcon />,
+  Telegram: <Telegram />
 };
-
 export default Icons;

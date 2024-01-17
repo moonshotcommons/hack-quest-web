@@ -1,15 +1,25 @@
 import { cn } from '@/helper/utils';
+import { ClassValue } from 'clsx';
 import { FC, useEffect, useState } from 'react';
 
 interface CheckboxProps {
   checked?: boolean;
   disabled?: boolean;
   onChange?: (checked: boolean) => void;
-  className?: string;
+  // className?: string;
+  isCircle?: boolean;
+  outClassNames?: ClassValue;
+  innerClassNames?: ClassValue;
 }
 
 const Checkbox: FC<CheckboxProps> = (props) => {
-  const { checked: propsChecked = false, onChange, className } = props;
+  const {
+    checked: propsChecked = false,
+    onChange,
+    outClassNames,
+    innerClassNames,
+    isCircle = false
+  } = props;
 
   const [checked, setChecked] = useState(propsChecked);
 
@@ -25,17 +35,24 @@ const Checkbox: FC<CheckboxProps> = (props) => {
       }}
       className="cursor-pointer"
     >
-      <input type="checkbox" className="hidden" checked={checked} />
-      <span className="w-[1.5rem] h-[1.5rem] border border-solid rounded-full border-auth-input-checkbox-border-color block">
+      <input type="checkbox" className="hidden" checked={checked} readOnly />
+      <div
+        className={cn(
+          'w-[20px] h-[20px] border border-electives-filter-border-color block',
+          isCircle ? 'rounded-full' : 'rounded-[3px]',
+          outClassNames
+        )}
+      >
         {checked ? (
           <span
             className={cn(
-              `rounded-full w-full h-full bg-auth-input-checkbox-bg block scale-50 hover:bg-auth-input-checkbox-hover-bg`,
-              className
+              `w-full h-full bg-learning-track-line-bg block scale-[0.7]`,
+              isCircle ? 'rounded-full' : 'rounded-[3px]',
+              innerClassNames
             )}
           ></span>
         ) : null}
-      </span>
+      </div>
     </div>
   );
 };

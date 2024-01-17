@@ -2,7 +2,7 @@ import {
   CustomComponent,
   NotionComponent,
   NotionType
-} from '@/components/v2/Business/Renderer/type';
+} from '@/components/Web/Business/Renderer/type';
 
 export interface ExpandDataType {
   isExpandAll?: boolean;
@@ -63,9 +63,9 @@ export const useLessonExpand = (
         }
       }
     });
-    const newChildExpand = [
-      ...new Set(childExpand.map((v: any) => JSON.stringify(v)))
-    ]
+    const newChildExpand = Array.from(
+      new Set(childExpand.map((v: any) => JSON.stringify(v)))
+    )
       .map((v: any) => {
         if (v) {
           return JSON.parse(v);

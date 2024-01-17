@@ -1,4 +1,4 @@
-import { MenuLink } from '@/components/v2/Layout/Navbar/type';
+import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 
 /** 登录页 */
 export const LOGIN_PATHNAME = '/auth/login';
@@ -18,7 +18,7 @@ export const ALL_COURSES_PATHNAME = '/courses';
 export const DASHBOARD_PATHNAME = '/dashboard';
 export const MISSION_CENTER = '/mission-center';
 export const V2_LANDING_PATH = '/';
-export const V2_HOME_PATH = '/home';
+export const V2_DASHBOARD_PATH = '/dashboard';
 export const PREVIEW_PATH = '/preview';
 export const LEARNING_TRACK_DETAIL = `${MenuLink.LEARNING_TRACK}/[learningTrackId]`;
 export const ELECTIVE_DETAIL = `${MenuLink.ELECTIVES}/[courseId]`;
@@ -41,6 +41,17 @@ export function isLoginOrRegister(pathname: string) {
   return false;
 }
 
+const isNoNeedUserInfoDetail = (pathname: string) => {
+  return [
+    MenuLink.LEARNING_TRACK,
+    MenuLink.ELECTIVES,
+    MenuLink.HACKATHON,
+    MenuLink.PROJECTS,
+    MenuLink.PRACTICES,
+    MenuLink.BLOG
+  ].some((menu) => pathname.includes(menu));
+};
+
 export function isNoNeedUserInfo(pathname: string) {
   if (
     [
@@ -48,18 +59,10 @@ export function isNoNeedUserInfo(pathname: string) {
       LOGIN_PATHNAME,
       REGISTER_PATHNAME,
       ALL_COURSES_PATHNAME,
-      PREVIEW_PATH,
-      // MenuLink.HOME,
-      // MenuLink.LEARNING_TRACK,
-      // MenuLink.ELECTIVES,
-      // LEARNING_TRACK_DETAIL,
-      // ELECTIVE_DETAIL,
-      MenuLink.HACKATHON,
-      HACKATHON_DETAIL,
-      MenuLink.PROJECTS,
-      PROJECT_DETAIL
+      PREVIEW_PATH
     ].includes(pathname) ||
-    pathname.startsWith(PREVIEW_PATH)
+    pathname.startsWith(PREVIEW_PATH) ||
+    isNoNeedUserInfoDetail(pathname)
   )
     return true;
 

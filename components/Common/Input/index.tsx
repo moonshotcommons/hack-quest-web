@@ -14,12 +14,13 @@ import {
 import CloseIcon from '../Icon/Close';
 import EyeIcon from '../Icon/Eye';
 import PassIcon from '../Icon/Pass';
-import WarningIcon from '../Icon/Warning';
+import { PiWarningCircleFill } from 'react-icons/pi';
 
-interface InputProps {
+export interface InputProps {
   name: string;
-  label: string;
+  label: string | ReactNode;
   type: HTMLInputTypeAttribute;
+  theme?: 'dark' | 'light';
   placeholder?: string;
   state?: 'success' | 'error' | 'warning' | 'default';
   className?: string;
@@ -28,9 +29,10 @@ interface InputProps {
   errorMessage?: string | null | undefined;
   rules?: Rule;
   delay?: number;
-  defaultValue?: string;
+  defaultValue?: string | number;
   clear?: boolean;
   showVisibleIcon?: boolean;
+  rightLabel?: ReactNode;
 }
 
 export interface InputRef {
@@ -45,6 +47,7 @@ const Input = forwardRef<
   const {
     label,
     type: propType,
+    theme = 'dark',
     placeholder,
     prefix,
     description,
@@ -58,6 +61,7 @@ const Input = forwardRef<
     defaultValue = '',
     clear = false,
     showVisibleIcon = propType === 'password' ? true : false,
+    rightLabel,
     ...rest
   } = props;
   const inputRef = useRef<HTMLInputElement>(null);
@@ -101,7 +105,6 @@ const Input = forwardRef<
       if (rules) {
         validator.validate({ [name]: e.target.value }, (errors, fields) => {
           if (errors && errors[0]) {
-            console.log('error');
             setStatus('error');
             setErrorMessage(errors[0].message || '');
           } else {
@@ -118,9 +121,17 @@ const Input = forwardRef<
 
   return (
     <div className="flex flex-col gap-[0.75rem]">
-      <p className="text-[1rem] font-next-book leading-[125%] tracking-[-0.011rem]">
-        {label}
-      </p>
+      <div className="flex justify-between">
+        <p
+          className={cn(
+            'body-l-bold label',
+            theme !== 'dark' ? 'text-neutral-off-black' : ''
+          )}
+        >
+          {label}
+        </p>
+        {rightLabel}
+      </div>
       <div className="relative">
         <input
           ref={inputRef}
@@ -128,14 +139,17 @@ const Input = forwardRef<
           value={value}
           placeholder={placeholder}
           className={cn(
-            `w-full border border-solid border-auth-input-outline-color outline-none bg-auth-input-bg px-[1.5rem] py-[1.12rem] rounded-[2.5rem] text-[#5B5B5B] text-[1.125rem] font-next-book leading-[118.5%] caret-[#5B5B5B] hover:border-auth-input-outline-focus-color focus:border-auth-input-outline-focus-color focus:text-[#5B5B5B] `,
-            type === 'password' &&
-              'bg-auth-password-input-bg focus:bg-auth-password-focus-bg border-auth-password-input-bg focus:border-auth-input-outline-color',
+            `w-full border border-solid outline-none px-[24px] py-[11px] rounded-[2.5rem] body-m text-neutral-medium-gray`,
+            // type === 'password' &&
+            //   'border-auth-password-input-bg focus:border-[#212121]',
+            theme !== 'dark'
+              ? 'border-neutral-light-gray caret-neutral-off-black hover:border-neutral-medium-gray focus:border-neutral-medium-gray focus:text-neutral-off-black'
+              : 'border-[#212121] caret-[#ffffff] hover:border-[#212121] focus:border-[#212121]',
             status === 'success'
-              ? 'border-auth-input-success-color focus:border-auth-input-success-color bg-auth-input-success-bg'
+              ? 'border-status-success focus:border-status-success'
               : '',
             status === 'error'
-              ? 'border-auth-input-error-color focus:border-auth-input-error-color bg-auth-input-error-bg focus:bg-auth-input-error-bg'
+              ? 'border-status-error-dark focus:border-status-error-dark'
               : '',
             className
           )}
@@ -150,12 +164,23 @@ const Input = forwardRef<
 
         <span className="absolute right-[1.4375rem] top-[50%] -translate-y-[50%] flex gap-4 items-center">
           {status === 'error' && (
-            <span className="text-auth-input-error-color flex justify-center items-center">
+            <span
+              className="text-status-error-dark flex justify-center items-center cursor-pointer"
+              onClick={() => {
+                setValue('');
+                setErrorMessage('');
+                setStatus('default');
+                const event = {
+                  target: inputRef.current
+                };
+                onChange?.(event as any);
+              }}
+            >
               <CloseIcon width={20} height={20}></CloseIcon>
             </span>
           )}
           {status === 'success' && (
-            <span className="text-auth-input-success-icon-color">
+            <span className="text-status-success">
               <PassIcon width={19} height={15} color="currentColor"></PassIcon>
             </span>
           )}
@@ -183,14 +208,10 @@ const Input = forwardRef<
           )}
         </span>
       </div>
-      {description && (
-        <p className="ml-[1.5rem] text-  text-[1rem] leading-[150%] tracking-[-0.011rem] font-Sofia-Pro-Light-Az">
-          {description}
-        </p>
-      )}
+      {description && <p className="ml-[1.5rem] body-m">{description}</p>}
       {errorMessage && (
-        <p className="text-auth-input-error-color text-[1rem] leading-[150%] tracking-[-0.011rem] font-Sofia-Pro-Light-Az flex flex-row items-center gap-2">
-          <WarningIcon width={17} height={16}></WarningIcon>
+        <p className="text-status-error-dark body-s flex flex-row items-center gap-2">
+          <PiWarningCircleFill size={20} className="text-status-error-dark" />
           {errorMessage}
         </p>
       )}

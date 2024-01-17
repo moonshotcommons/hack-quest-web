@@ -1,7 +1,7 @@
-import { Menu, QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
+import * as React from 'react';
+import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import { JumpLeaningLessonType } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
 import { CourseType } from '@/service/webApi/course/type';
-import { message } from 'antd';
 
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
@@ -32,7 +32,7 @@ export const getCourseLink = (courseType?: CourseType) => {
 
 export const getLessonLink = (
   courseType: CourseType,
-  courseName: string,
+  courseName: string | undefined,
   lessonId: string,
   menuCourseId: string,
   linkParam?: JumpLeaningLessonType
@@ -105,13 +105,6 @@ export const deepClone = (obj: any) => {
   }
   return result;
 };
-
-export const errorMessage = (err: any) => {
-  const msg = err.msg || err.message;
-  msg && message.error(msg);
-};
-
-import * as React from 'react';
 
 export const { isValidElement } = React;
 
