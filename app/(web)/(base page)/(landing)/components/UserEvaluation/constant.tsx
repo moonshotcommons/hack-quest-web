@@ -39,6 +39,44 @@ export const userEvaluation = [
   },
   // 第二列
   {
+    className: 'mt-[3.5rem]',
+    items: [
+      {
+        content: (
+          <span className="tracking-tight">
+            Trying to get started in web3 can be hard, but{' '}
+            <span className="body-s-bold">
+              HackQuest makes it significantly easier.
+            </span>{' '}
+            I genuinely wish this kind of customizable education existed when I
+            started in the space.
+          </span>
+        ),
+        username: 'Scott Moore',
+        userDesc: 'Co-founder @ Gitcoin',
+        avatar: ''
+      },
+      {
+        content: (
+          <span>
+            I really appreciate{' '}
+            <span className="body-s-bold">
+              the high-quality and easily understandable content on HackQuest.
+            </span>{' '}
+            The user interface is beautifully designed with simplicity and
+            user-friendliness in mind. The concept and coding quizzes are
+            incredibly helpful in reinforcing the theory components.
+          </span>
+        ),
+        username: 'Parth Kumar',
+        userDesc: 'Student',
+        avatar: ''
+      }
+    ]
+  },
+
+  // 第二列
+  {
     className: 'mt-1',
     items: [
       {
@@ -74,41 +112,7 @@ export const userEvaluation = [
     ]
   },
   // 第三列
-  {
-    className: 'mt-9',
-    items: [
-      {
-        content: (
-          <span className="tracking-wide">
-            We co-hosted several hackathons with the HackQuest team including
-            ETH Shanghai. It’s great that HackQuest always brings in new blood
-            to Web3. Both HackQuest and ChainIDE share a common goal:{' '}
-            <span className="body-s-bold">
-              to drive the mass adoption of Web3 by onboarding more developers.
-            </span>
-          </span>
-        ),
-        username: 'Wuxiao',
-        userDesc: 'Founder @ ChainIDE',
-        avatar: ''
-      },
-      {
-        content: (
-          <span className="tracking-wide">
-            I’m super glad to have taken part in HackQuest’s Hackathon.{' '}
-            <span className="body-s-bold">
-              I met a group of insightful instructors and reliable teammates.
-            </span>{' '}
-            Ever since I first joined the community through the Fireside chat, I
-            immediately felt a sense of belonging here.
-          </span>
-        ),
-        username: 'Suneal & Colin',
-        userDesc: 'Founders @ MetaMail',
-        avatar: ''
-      }
-    ]
-  },
+
   // 第四列
   {
     className: 'mt-5',
@@ -140,7 +144,7 @@ export const userEvaluation = [
           </span>
         ),
         username: 'Alex',
-        userDesc: '',
+        userDesc: 'Senior Engineer at Tencent',
         avatar: ''
       }
     ]
@@ -175,6 +179,41 @@ export const userEvaluation = [
         ),
         username: 'Potter',
         userDesc: 'Co-founder @ Ethsign',
+        avatar: ''
+      }
+    ]
+  },
+  {
+    className: 'mt-9',
+    items: [
+      {
+        content: (
+          <span className="tracking-wide">
+            We co-hosted several hackathons with the HackQuest team including
+            ETH Shanghai. It’s great that HackQuest always brings in new blood
+            to Web3. Both HackQuest and ChainIDE share a common goal:{' '}
+            <span className="body-s-bold">
+              to drive the mass adoption of Web3 by onboarding more developers.
+            </span>
+          </span>
+        ),
+        username: 'Wuxiao',
+        userDesc: 'Founder @ ChainIDE',
+        avatar: ''
+      },
+      {
+        content: (
+          <span className="tracking-wide">
+            I’m super glad to have taken part in HackQuest’s Hackathon.{' '}
+            <span className="body-s-bold">
+              I met a group of insightful instructors and reliable teammates.
+            </span>{' '}
+            Ever since I first joined the community through the Fireside chat, I
+            immediately felt a sense of belonging here.
+          </span>
+        ),
+        username: 'Suneal & Colin',
+        userDesc: 'Founders @ MetaMail',
         avatar: ''
       }
     ]
