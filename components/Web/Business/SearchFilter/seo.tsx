@@ -85,11 +85,7 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
     const checkedLen = filterList.filter(
       (v: ParamType) => v.value !== ALL && v.checked
     ).length;
-    if (checkedLen === filterList.length - 1) {
-      filterList[AllIndex].checked = true;
-    } else {
-      filterList[AllIndex].checked = false;
-    }
+    filterList[AllIndex].checked = checkedLen === filterList.length - 1;
   };
 
   const clearParam = () => {
