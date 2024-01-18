@@ -69,7 +69,7 @@ export const lessonTypeData: Record<
   }
 };
 
-export const mockData = {
+export const mockData: unknown = {
   id: '6a3ab921-b5fb-4ac0-961b-4e5d81f99d7a',
   name: 'Fungible Token',
   title: 'Fungible Token',
@@ -417,3 +417,364 @@ export const mockData = {
     }
   ]
 };
+
+export const mockLessonReadingData = {
+  id: 'a7dea7e4-b281-41a1-ab33-ad67b1ee3ba1',
+  name: 'What is Hyper Oracle?',
+  title: 'What is Hyper Oracle?',
+  type: 'READING',
+  content: {
+    type: 'Content',
+    title: 'What is Hyper Oracle?',
+    children: [
+      {
+        id: '1e930bb1-9790-4342-a98b-dd22de663d30',
+        type: 'heading_3',
+        parent: {
+          type: 'page_id',
+          page_id: '008dfcd2-c0c4-4c9a-a1d7-c1c537c02478'
+        },
+        content: {
+          color: 'default',
+          rich_text: [
+            {
+              href: null,
+              text: {
+                link: null,
+                content: 'Concept'
+              },
+              type: 'text',
+              plain_text: 'Concept',
+              annotations: {
+                bold: false,
+                code: false,
+                color: 'default',
+                italic: false,
+                underline: false,
+                strikethrough: false
+              }
+            }
+          ],
+          is_toggleable: false
+        },
+        isToggle: false,
+        isCustomType: false
+      },
+      {
+        id: 'a02b97c7-40cf-4a52-944e-9fb5f4ffc5a5',
+        type: 'paragraph',
+        parent: {
+          type: 'page_id',
+          page_id: '008dfcd2-c0c4-4c9a-a1d7-c1c537c02478'
+        },
+        content: {
+          color: 'default',
+          rich_text: [
+            {
+              href: null,
+              text: {
+                link: null,
+                content:
+                  'Hyper Oracle is a protocol and network for programmable zero-knowledge oracle that preserves blockchain security and decentralization.'
+              },
+              type: 'text',
+              plain_text:
+                'Hyper Oracle is a protocol and network for programmable zero-knowledge oracle that preserves blockchain security and decentralization.',
+              annotations: {
+                bold: false,
+                code: false,
+                color: 'default',
+                italic: false,
+                underline: false,
+                strikethrough: false
+              }
+            }
+          ]
+        },
+        isToggle: false,
+        isCustomType: false
+      },
+      {
+        id: '748047da-470f-4d66-be71-b43167679aee',
+        type: 'paragraph',
+        parent: {
+          type: 'page_id',
+          page_id: '008dfcd2-c0c4-4c9a-a1d7-c1c537c02478'
+        },
+        content: {
+          color: 'default',
+          rich_text: [
+            {
+              href: null,
+              text: {
+                link: null,
+                content:
+                  'From indexing to smart contract automation, Hyper Oracle’s zkGraph Standards make onchain data and onchain-equivalent computation useful and verifiable with fast finality. Hyper Oracle empowers developers to interact with blockchain in new ways.'
+              },
+              type: 'text',
+              plain_text:
+                'From indexing to smart contract automation, Hyper Oracle’s zkGraph Standards make onchain data and onchain-equivalent computation useful and verifiable with fast finality. Hyper Oracle empowers developers to interact with blockchain in new ways.',
+              annotations: {
+                bold: false,
+                code: false,
+                color: 'default',
+                italic: false,
+                underline: false,
+                strikethrough: false
+              }
+            }
+          ]
+        },
+        isToggle: false,
+        isCustomType: false
+      },
+      {
+        id: '59c250bf-660b-4434-a6eb-ec905d88ca75',
+        type: 'paragraph',
+        parent: {
+          type: 'page_id',
+          page_id: '008dfcd2-c0c4-4c9a-a1d7-c1c537c02478'
+        },
+        content: {
+          color: 'default',
+          rich_text: [
+            {
+              href: null,
+              text: {
+                link: null,
+                content:
+                  'Staking is the traditional, incentive-based security mechanism for oracles and other middleware infrastructure. Hyper Oracle replaces this incentive-based system with one based on zero-knowledge proofs (ZKP).'
+              },
+              type: 'text',
+              plain_text:
+                'Staking is the traditional, incentive-based security mechanism for oracles and other middleware infrastructure. Hyper Oracle replaces this incentive-based system with one based on zero-knowledge proofs (ZKP).',
+              annotations: {
+                bold: false,
+                code: false,
+                color: 'default',
+                italic: false,
+                underline: false,
+                strikethrough: false
+              }
+            }
+          ]
+        },
+        isToggle: false,
+        isCustomType: false
+      },
+      {
+        id: 'ea58a0ce-5878-4483-9044-b45fb7fbb83e',
+        type: 'heading_3',
+        parent: {
+          type: 'page_id',
+          page_id: '008dfcd2-c0c4-4c9a-a1d7-c1c537c02478'
+        },
+        content: {
+          color: 'default',
+          rich_text: [
+            {
+              href: null,
+              text: {
+                link: null,
+                content: 'How Hyper Oracle Works'
+              },
+              type: 'text',
+              plain_text: 'How Hyper Oracle Works',
+              annotations: {
+                bold: true,
+                code: false,
+                color: 'default',
+                italic: false,
+                underline: false,
+                strikethrough: false
+              }
+            }
+          ],
+          is_toggleable: false
+        },
+        isToggle: false,
+        isCustomType: false
+      },
+      {
+        id: 'fba4d832-0a22-4c80-97bb-c8bf113fd1a9',
+        type: 'paragraph',
+        parent: {
+          type: 'page_id',
+          page_id: '008dfcd2-c0c4-4c9a-a1d7-c1c537c02478'
+        },
+        content: {
+          color: 'default',
+          rich_text: [
+            {
+              href: null,
+              text: {
+                link: null,
+                content:
+                  'Hyper Oracle provides infrastructure, including automation and indexing, that empowers developers to build end-to-end trustless and decentralized applications.'
+              },
+              type: 'text',
+              plain_text:
+                'Hyper Oracle provides infrastructure, including automation and indexing, that empowers developers to build end-to-end trustless and decentralized applications.',
+              annotations: {
+                bold: false,
+                code: false,
+                color: 'default',
+                italic: false,
+                underline: false,
+                strikethrough: false
+              }
+            }
+          ]
+        },
+        isToggle: false,
+        isCustomType: false
+      },
+      {
+        id: '7ff98e85-f011-44e3-b1c3-f75b3d3fab41',
+        type: 'paragraph',
+        parent: {
+          type: 'page_id',
+          page_id: '008dfcd2-c0c4-4c9a-a1d7-c1c537c02478'
+        },
+        content: {
+          color: 'default',
+          rich_text: [
+            {
+              href: null,
+              text: {
+                link: null,
+                content: 'Hyper Oracle is a decentralized protocol and network:'
+              },
+              type: 'text',
+              plain_text:
+                'Hyper Oracle is a decentralized protocol and network:',
+              annotations: {
+                bold: false,
+                code: false,
+                color: 'default',
+                italic: false,
+                underline: false,
+                strikethrough: false
+              }
+            }
+          ]
+        },
+        isToggle: false,
+        isCustomType: false
+      },
+      {
+        id: 'ca2e601f-9b5e-497a-82bf-6b611e96a096',
+        type: 'bulleted_list_item',
+        parent: {
+          type: 'page_id',
+          page_id: '008dfcd2-c0c4-4c9a-a1d7-c1c537c02478'
+        },
+        content: {
+          color: 'default',
+          rich_text: [
+            {
+              href: null,
+              text: {
+                link: null,
+                content: 'Used by Developers'
+              },
+              type: 'text',
+              plain_text: 'Used by Developers',
+              annotations: {
+                bold: true,
+                code: false,
+                color: 'default',
+                italic: false,
+                underline: false,
+                strikethrough: false
+              }
+            },
+            {
+              href: null,
+              text: {
+                link: null,
+                content:
+                  ': Developers can define custom computations with JavaScript, register those computations to Hyper Oracle protocol, and utilize Hyper Oracle zkGraph standard to automate or supercharge their smart contracts.'
+              },
+              type: 'text',
+              plain_text:
+                ': Developers can define custom computations with JavaScript, register those computations to Hyper Oracle protocol, and utilize Hyper Oracle zkGraph standard to automate or supercharge their smart contracts.',
+              annotations: {
+                bold: false,
+                code: false,
+                color: 'default',
+                italic: false,
+                underline: false,
+                strikethrough: false
+              }
+            }
+          ]
+        },
+        isToggle: false,
+        isCustomType: false
+      },
+      {
+        id: '80334c76-6244-4d33-b514-2e23a1250fff',
+        type: 'bulleted_list_item',
+        parent: {
+          type: 'page_id',
+          page_id: '008dfcd2-c0c4-4c9a-a1d7-c1c537c02478'
+        },
+        content: {
+          color: 'default',
+          rich_text: [
+            {
+              href: null,
+              text: {
+                link: null,
+                content: 'Operated by zkOracle Nodes'
+              },
+              type: 'text',
+              plain_text: 'Operated by zkOracle Nodes',
+              annotations: {
+                bold: true,
+                code: false,
+                color: 'default',
+                italic: false,
+                underline: false,
+                strikethrough: false
+              }
+            },
+            {
+              href: null,
+              text: {
+                link: null,
+                content:
+                  ': Node operators can run zkOracle nodes to execute and generate zero-knowledge proofs for developer-defined computations.'
+              },
+              type: 'text',
+              plain_text:
+                ': Node operators can run zkOracle nodes to execute and generate zero-knowledge proofs for developer-defined computations.',
+              annotations: {
+                bold: false,
+                code: false,
+                color: 'default',
+                italic: false,
+                underline: false,
+                strikethrough: false
+              }
+            }
+          ]
+        },
+        isToggle: false,
+        isCustomType: false
+      }
+    ],
+    isToggle: true,
+    notionType: 'heading_1',
+    isCustomType: true
+  },
+  sequence: 0,
+  createdAt: '2024-01-11T03:12:05.688Z',
+  updatedAt: '2023-12-20T06:58:56.451Z',
+  unitId: 'f2002496-d0c5-43de-8a6c-cf25981ef9a7',
+  courseId: 'dd923df3-6f28-4e2b-b2c3-9418f8d143cb',
+  state: 0
+};
+
+export type LessonReadingData = typeof mockLessonReadingData;

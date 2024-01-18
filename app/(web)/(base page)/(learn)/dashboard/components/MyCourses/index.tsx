@@ -4,7 +4,7 @@ import webApi from '@/service';
 import {
   ProcessType,
   CourseListType,
-  CourseDataApiType
+  ProjectCourseType
 } from '@/service/webApi/course/type';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
@@ -15,6 +15,8 @@ import Tab from '@/components/Web/Business/Tab';
 import { TabListType } from '@/components/Web/Business/Tab/type';
 import Recommend from '../Recommend';
 import CourseList from './CourseList';
+import { PageResult } from '@/service/webApi/type';
+import { ElectiveCourseType } from '@/service/webApi/elective/type';
 
 interface MyCoursesProps {
   setApiStatus: (status: string) => void;
@@ -93,17 +95,21 @@ const MyCourses = forwardRef<MyCoursesRef, MyCoursesProps>((props, ref) => {
     setCoursePageInfo({ ...pageInfo });
     setApiStatus('loading');
     return new Promise(async (resolve) => {
-      const res =
-        await webApi.courseApi.getCourseListBySearch<CourseDataApiType>({
-          status: curTab
-        });
+      const res = await webApi.courseApi.getCourseListBySearch<
+        PageResult<ProjectCourseType | ElectiveCourseType>
+      >({
+        status: curTab
+      });
       setCourseDataAll(res.data);
       const list = res.data.slice(0, pageInfo.page * pageInfo.limit);
       resolve({ data: list, total: res.total });
     });
   };
 
-  const mergeCourseList = (course: CourseDataApiType, init?: boolean) => {
+  const mergeCourseList = (
+    course: PageResult<ProjectCourseType | ElectiveCourseType>,
+    init?: boolean
+  ) => {
     const list = course.data;
     const totalList = course.total ?? total;
     setTotal(totalList);

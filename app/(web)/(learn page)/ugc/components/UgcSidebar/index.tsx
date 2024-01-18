@@ -1,23 +1,26 @@
 'use client';
 import Sidebar, { SidebarItemType } from '@/components/Web/Business/Sidebar';
 import { FC, useContext, useEffect, useMemo } from 'react';
-import { lessonTypeData, mockData } from './constant';
+import { lessonTypeData } from './constant';
+import { UGCCourseType } from '@/service/webApi/course/type';
 import { UgcContext, NavbarDataType } from '../../constants/type';
 import { useCourseStore } from '@/store/zustand/courseStore';
 
-interface UgcSidebarProps {}
+interface UgcSidebarProps {
+  course: UGCCourseType;
+}
 
-const UgcSidebar: FC<UgcSidebarProps> = (props) => {
+const UgcSidebar: FC<UgcSidebarProps> = ({ course }) => {
   const { setNavbarData } = useContext(UgcContext);
   const setLearnPageTitle = useCourseStore((state) => state.setLearnPageTitle);
   const items: SidebarItemType[] = useMemo(() => {
-    return mockData.units.map((unit) => {
+    return course.units!.map((unit) => {
       return {
         key: unit.id,
         label: unit.name,
         data: unit,
         type: 'group',
-        children: unit.pages.map((page) => {
+        children: unit.pages!.map((page) => {
           return {
             key: page.id,
             label: (
@@ -45,24 +48,24 @@ const UgcSidebar: FC<UgcSidebarProps> = (props) => {
 
   const getNavbar = (item: any) => {
     if (!item) return;
-    const unitName = mockData.units.find((unit) =>
+    const unitName = course.units!.find((unit) =>
       unit.pages.find((page) => page.id === item.key)
     )?.name;
     const navbarData = [
-      { label: mockData.name },
+      { label: course.name },
       { label: unitName },
       { label: item.data.name }
     ];
     setNavbarData(navbarData as NavbarDataType[]);
   };
   useEffect(() => {
-    setLearnPageTitle(mockData.name);
+    setLearnPageTitle(course.name);
     getNavbar(items[0]?.children?.[0]);
   }, []);
 
   return (
     <Sidebar
-      title={mockData.name}
+      title={course.name}
       items={items}
       className="w-[18.5rem] h-full"
       defaultSelect={items[0].children![0].key}
