@@ -1,19 +1,22 @@
 'use client';
 import Sidebar, { SidebarItemType } from '@/components/Web/Business/Sidebar';
 import { FC, useMemo } from 'react';
-import { lessonTypeData, mockData } from './constant';
+import { lessonTypeData } from './constant';
+import { UGCCourseType } from '@/service/webApi/course/type';
 
-interface UgcSidebarProps {}
+interface UgcSidebarProps {
+  course: UGCCourseType;
+}
 
-const UgcSidebar: FC<UgcSidebarProps> = (props) => {
+const UgcSidebar: FC<UgcSidebarProps> = ({ course }) => {
   const items: SidebarItemType[] = useMemo(() => {
-    return mockData.units.map((unit) => {
+    return course.units!.map((unit) => {
       return {
         key: unit.id,
         label: unit.name,
         data: unit,
         type: 'group',
-        children: unit.pages.map((page) => {
+        children: unit.pages!.map((page) => {
           return {
             key: page.id,
             label: (
@@ -41,7 +44,7 @@ const UgcSidebar: FC<UgcSidebarProps> = (props) => {
 
   return (
     <Sidebar
-      title={mockData.name}
+      title={course.name}
       items={items}
       className="w-[18.5rem] h-full"
       defaultSelect={items[0].children![0].key}

@@ -1,12 +1,12 @@
 import WebService from '@/service/webService/webService';
 import {
-  CourseDataType,
   CourseDetailType,
   CourseLessonStateType,
   CourseLessonType,
   CourseType,
   CourseUnitStateType,
   CourseUnitType,
+  ProjectCourseType,
   UnitPagesListType
 } from './type';
 
@@ -16,6 +16,7 @@ import {
   ElectiveCourseDetailType,
   ElectiveLessonType
 } from '../elective/type';
+import { PageResult } from '../type';
 export enum CourseApiType {
   Course_List = '/courses',
   GetTopCourses = '/courses/featured',
@@ -34,7 +35,7 @@ class CourseApi {
   getCourseList(searchString?: string) {
     let url: string = CourseApiType.Course_List;
     if (searchString) url = `${url}?${searchString}`;
-    return this.service.get<CourseDataType>(url);
+    return this.service.get<PageResult<ProjectCourseType>>(url);
   }
 
   getTopCourses<T>(params: { type: CourseType }) {

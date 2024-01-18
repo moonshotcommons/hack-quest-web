@@ -1,10 +1,6 @@
 import Loading from '@/components/Common/Loading';
 import webApi from '@/service';
-import {
-  ProjectCourseType,
-  ProcessType,
-  CourseDataType
-} from '@/service/webApi/course/type';
+import { ProjectCourseType, ProcessType } from '@/service/webApi/course/type';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import { useEffect, useState } from 'react';
 import CourseBox from './CourseBox';
@@ -13,7 +9,8 @@ import NoData from './NoData';
 import { courseTab } from './data';
 import Tab from '@/components/Web/Business/Tab';
 import { TabListType } from '@/components/Web/Business/Tab/type';
-import { ElectiveListDataType } from '@/service/webApi/elective/type';
+import { ElectiveCourseType } from '@/service/webApi/elective/type';
+import { PageResult } from '@/service/webApi/type';
 
 function MyCourses() {
   const [curTab, setCurTab] = useState<ProcessType>(ProcessType.IN_PROCESS);
@@ -33,7 +30,7 @@ function MyCourses() {
   const getCourseList = () => {
     return new Promise(async (resolve) => {
       const res = await webApi.courseApi.getCourseListBySearch<
-        ElectiveListDataType | CourseDataType
+        PageResult<ProjectCourseType | ElectiveCourseType>
       >({
         status: curTab
       });
