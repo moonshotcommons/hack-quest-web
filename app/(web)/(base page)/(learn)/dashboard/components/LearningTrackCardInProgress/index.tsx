@@ -32,7 +32,6 @@ const LearningTrackCardInProgress: React.FC<
       learningTrackName: learningTrack.name
     });
     const section = learningTrack.sections.find((v) => (v?.progress || 0) < 1);
-    console.info(section);
     if (section) {
       const course = section.courses.find((v) => {
         const progress = v.progress || 0;
