@@ -47,7 +47,10 @@ const nextConfig = (phase) => {
         'hack-quest-s3-staging.s3.amazonaws.com',
         'hackquest-s3-dev.s3.ap-northeast-1.amazonaws.com',
         'hackquest-s3-staging.s3.ap-northeast-1.amazonaws.com',
-        'hackquest-s3-prod.s3.ap-northeast-1.amazonaws.com'
+        'hackquest-s3-prod.s3.ap-northeast-1.amazonaws.com',
+        'hackquest-s3-dev-apne1.s3.ap-northeast-1.amazonaws.com',
+        'hackquest-s3-staging-apne1.s3.ap-northeast-1.amazonaws.com',
+        'hackquest-s3-prod-apne1.s3.ap-northeast-1.amazonaws.com'
       ]
     },
     output: 'standalone'
