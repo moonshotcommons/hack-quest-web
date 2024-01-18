@@ -3,7 +3,7 @@ import {
   CSSProperties,
   FC,
   MouseEventHandler,
-  useLayoutEffect,
+  useEffect,
   useRef,
   useState
 } from 'react';
@@ -47,7 +47,7 @@ const SlideHighlight: FC<SlideHighlightProps> = function (props) {
     });
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!root.current) return;
 
     if (currentIndex === -1) {
