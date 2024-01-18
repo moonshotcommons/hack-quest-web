@@ -86,7 +86,7 @@ const CourseSlider = <T extends CourseBaseType>({
           <CourseCardSkeleton.List active={loading}>
             {courseGroupList.map((item, index) => {
               return (
-                <div key={index} className="flex gap-[24px] w-[1280px]">
+                <div key={index} className="flex gap-[24px] w-[1280px] p-[2px]">
                   {item.map((course) => {
                     return renderItem(course);
                   })}
