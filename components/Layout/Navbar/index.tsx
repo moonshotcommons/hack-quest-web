@@ -1,69 +1,184 @@
+'use client';
 import DarkLogoActive from '@/public/images/logo/dark-text-Logo-active.svg';
-import LightLogoActive from '@/public/images/logo/light-text-logo-active.svg';
 import Image from 'next/image';
-import React, { ReactNode, useContext } from 'react';
+import React, { ReactNode, useEffect, useLayoutEffect, useState } from 'react';
 
-import { Theme } from '@/constants/enum';
-import { ThemeContext } from '@/store/context/theme';
+import Badge from '@/components/Common/Badge';
+import SlideHighlight from '@/components/Common/Navigation/SlideHighlight';
+import { V2_LANDING_PATH } from '@/constants/nav';
+import { message } from 'antd';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { isBadgeIds, navbarList, needLoginPath } from './data';
+import { MenuType, NavbarListType } from './type';
+import { usePathname } from 'next/navigation';
+import { useRedirect } from '@/hooks/useRedirect';
+import { useUserStore } from '@/store/zustand/userStore';
+import { useMissionCenterStore } from '@/store/zustand/missionCenterStore';
 
 export interface NavBarProps {
-  navList: {
-    name: string;
-    path: string;
-  }[];
+  navList: NavbarListType[];
   children?: ReactNode;
   logo?: ReactNode;
+  isFull?: boolean;
 }
 
-const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
-  const { navList, children, logo } = NavBarProps;
-  const { pathname } = useRouter();
-  const { theme } = useContext(ThemeContext);
+type SlideNavigatorHighlight = React.CSSProperties & {
+  '--highlight-x'?: string;
+  '--highlight-width'?: string;
+};
 
-  const NavBarLogo = () => {
-    // if (!Logo) return null;
-    // if (pathname !== '/') return <Image src={Logo} alt="logo"></Image>;
-    // if (pathname === '/') {
-    switch (theme) {
-      case Theme.Dark:
-        return <Image src={DarkLogoActive} alt="logo"></Image>;
-      case Theme.Light:
-        return <Image src={LightLogoActive} alt="logo"></Image>;
+const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
+  const userInfo = useUserStore((state) => state.userInfo);
+  const { navList, children, isFull } = NavBarProps;
+  const pathname = usePathname();
+  const { redirectToUrl } = useRedirect();
+  const [showSecondNav, setShowSecondNav] = useState(false);
+  const [secondNavData, setSecondNavData] = useState<MenuType[]>([]);
+  const [curNavId, setCurNavId] = useState('');
+  const [outSideNav, setOutSideNav] = useState<NavbarListType[]>([]);
+  const [inSideNav, setInSideNav] = useState<NavbarListType[]>([]);
+  const [inSideNavIndex, setInSideNavIndex] = useState<number>(-1);
+  const [secondNavIndex, setSecondNavIndex] = useState<number>(-1);
+  const missionData = useMissionCenterStore((state) => state.missionData);
+
+  useEffect(() => {
+    const outSide = navList.filter((v) => v.type === 'outSide');
+    setOutSideNav(outSide);
+    const inSide = navList.filter((v) => v.type !== 'outSide');
+    setInSideNav(inSide);
+    if (isFull) {
+      setShowSecondNav?.(false);
+      setSecondNavData(inSide[0].menu as []);
+      setCurNavId(inSide[0].id);
+      return;
     }
-    // }
+
+    for (let nav of inSide) {
+      const curNav = nav.menu.find((menu) => pathname.includes(menu.path));
+      if (curNav) {
+        setShowSecondNav?.(nav.menu.length > 1);
+        setSecondNavData(nav.menu as []);
+        setCurNavId(nav.id);
+        return;
+      }
+    }
+    setShowSecondNav?.(false);
+    setSecondNavData([]);
+    setCurNavId('');
+  }, [pathname, navList]);
+
+  useLayoutEffect(() => {
+    const index = inSideNav.findIndex((v) => v.id === curNavId);
+    setInSideNavIndex(index);
+  }, [inSideNav, curNavId]);
+
+  useEffect(() => {
+    if (!showSecondNav) return;
+    const index = secondNavData.findIndex((v) => pathname.includes(v.path));
+    setSecondNavIndex(index);
+  }, [pathname, showSecondNav, secondNavData]);
+
+  const handleClickNav = (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    nav: NavbarListType
+  ) => {
+    const path = nav.menu[0].path;
+
+    if (~needLoginPath.indexOf(path) && !userInfo) {
+      e.stopPropagation();
+      message.warning('Please login first');
+      redirectToUrl(V2_LANDING_PATH);
+      return;
+    }
+    redirectToUrl(path);
+  };
+  const logoClick = () => {
+    if (userInfo) return;
+    redirectToUrl(V2_LANDING_PATH);
   };
 
   return (
-    <div className="m-auto h-[4.75rem] flex items-center justify-between">
-      <nav className="gap-[4rem] h-full flex items-center">
-        <Link href="/" className="h-full flex items-center">
-          {/* {Logo && pathname !== '/' && <Image src={Logo} alt="logo"></Image>}
-          {DarkLogoActive && pathname === '/' && theme === Theme.Dark && (
-            <Image src={DarkLogoActive} alt="logo"></Image>
-          )} */}
-          <NavBarLogo></NavBarLogo>
-        </Link>
-        {navList.map((nav) => {
-          return (
-            <Link
-              className={`text-sm h-full flex items-center hover:font-next-book-bold hover:text-text-default-color hover:font-bold ${
-                pathname === nav.path
-                  ? 'font-next-book-bold text-text-default-color font-bold'
-                  : 'font-next-book text-[#B2B2B2] font-normal'
+    <div className=" w-full">
+      <div
+        className={`h-[64px] mx-auto  ${
+          isFull ? 'w-full 2xl:px-[40px]' : 'container'
+        }`}
+      >
+        <div className="slab:hidden  h-full flex items-center justify-between font-next-book">
+          <nav className="h-full flex items-center text-white">
+            <div
+              className={`h-full flex items-center ${
+                !userInfo ? 'cursor-pointer' : ''
               }`}
-              key={nav.path}
-              href={nav.path}
+              onClick={logoClick}
             >
-              {nav.name}
-            </Link>
-          );
-        })}
-      </nav>
-      {children}
+              <Image src={DarkLogoActive} alt="logo"></Image>
+            </div>
+            <SlideHighlight
+              className="flex ml-16 gap-[10px] h-[34px] text-sm rounded-[20px] bg-[#3E3E3E] overflow-hidden tracking-[0.28px]"
+              currentIndex={inSideNavIndex}
+            >
+              {inSideNav.map((nav) => (
+                <div
+                  key={nav.id}
+                  className={`h-full flex-center px-[14px] rounded-[20px] cursor-pointer ${
+                    curNavId === nav.id ? 'text-[#0b0b0b]' : ''
+                  }`}
+                  data-id={nav.id}
+                  onClick={(e) => handleClickNav(e, nav)}
+                >
+                  <div className="relative">
+                    <span>{nav.label}</span>
+                    {~isBadgeIds.indexOf(nav.id) && userInfo ? (
+                      <Badge count={missionData?.unClaimAll?.length || 0} />
+                    ) : null}
+                  </div>
+                </div>
+              ))}
+            </SlideHighlight>
+            <div className="flex ml-[20px] gap-[10px] h-[34px]  text-[14px] rounded-[20px] bg-[#3E3E3E] overflow-hidden tracking-[0.28px]">
+              {outSideNav.map((nav) => (
+                <Link
+                  key={nav.id}
+                  href={nav.link as string}
+                  target="_blank"
+                  className={`h-full flex-center px-[14px] rounded-[20px] cursor-pointer  `}
+                >
+                  {nav.label}
+                </Link>
+              ))}
+            </div>
+          </nav>
+          {children}
+        </div>
+        <nav className="hidden slab:flex-center w-full h-full ">
+          <Image src={DarkLogoActive} height={20} alt="logo"></Image>
+        </nav>
+      </div>
+      {showSecondNav && (
+        <div className="slab:hidden  text-white tracking-[0.84px]  w-screen h-12 bg-[#0B0B0B]">
+          <SlideHighlight
+            className="container m-auto flex items-end gap-[30px] h-full"
+            currentIndex={secondNavIndex}
+          >
+            {secondNavData.map((menu: MenuType) => (
+              <div
+                key={menu.path}
+                className="pb-3 cursor-pointer hover:underline"
+                onClick={() => {
+                  redirectToUrl(menu.path);
+                }}
+              >
+                {menu.label}
+              </div>
+            ))}
+          </SlideHighlight>
+        </div>
+      )}
     </div>
   );
 };
+
+export const NavbarInstance = <NavBar navList={navbarList}></NavBar>;
 
 export default NavBar;

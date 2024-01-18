@@ -86,12 +86,18 @@ type HomeBurialPointType =
   | 'home-course卡片resume按钮点击'
   | 'home-course卡片Continue按钮点击'
   | 'home-course卡片View Syllabus按钮点击'
+  | 'home-learning-页面留存时间'
   | 'home-learning track卡片View Syllabus按钮点击'
   | 'home-learning track卡片Enroll按钮点击'
   | 'home-learning track卡片resume按钮点击'
   | 'home-learning track卡片Continue按钮点击'
   | 'home-view all点击'
   | 'home-邀请码复制';
+
+type DashboardBurialPointType =
+  | 'dashboard-页面留存时间'
+  | 'dashboard-learning track卡片continue按钮点击'
+  | 'dashboard-learning track卡片点击';
 
 type CourseDetailBurialPointType =
   | 'courseDetail-页面留存时间'
@@ -167,7 +173,7 @@ type CampaignsBurialPointType =
   | 'campaigns targetCard Go to Profile 按钮点击'
   | 'campaigns targetCard Join Discord 按钮点击';
 
-type UserProfile =
+type UserProfileType =
   | 'user-profile-页面留存时间'
   | 'user-profile Experenice Add Experience按钮点击'
   | 'user-profile Experenice Show More按钮点击'
@@ -189,12 +195,26 @@ type UserProfile =
   | 'user-profile GithubActivity refresh icon按钮点击'
   | 'user-profile GithubActivity Connect to Github按钮点击';
 
-type Profile = 'profile-页面留存时间' | 'profile-Official Website点击';
+type EcosystemProfileType =
+  | 'ecosystem-profile-页面留存时间'
+  | 'ecosystem-profile-Official Website点击'
+  | 'ecosystem-profile miniElectiveCard 点击'
+  | 'ecosystem-profile miniElectiveCard start按钮 点击'
+  | 'blog-content-page-featured blogCard滚动-左'
+  | 'blog-content-page-featured blogCard滚动-右';
 
-type BurialPointType =
+type BlogType =
+  | 'blog-页面留存时间'
+  | 'blog featureBlogCard 卡片点击'
+  | 'blog blogCard 卡片点击'
+  | 'blog-content-page-页面留存时间'
+  | 'blog-content-page Back按钮点击';
+
+export type BurialPointType =
   | AuthBurialPointType
   | LandingBurialPointType
   | HomeBurialPointType
+  | DashboardBurialPointType
   | CourseDetailBurialPointType
   | LearningTrackDetailBurialPointType
   | LessonDetailBurialPointType
@@ -203,8 +223,9 @@ type BurialPointType =
   | MissCenterBurialPointType
   | HackathonBurialPointType
   | CampaignsBurialPointType
-  | UserProfile
-  | Profile;
+  | UserProfileType
+  | EcosystemProfileType
+  | BlogType;
 
 export class BurialPoint {
   static track(

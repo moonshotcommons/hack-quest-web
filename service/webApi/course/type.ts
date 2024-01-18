@@ -1,3 +1,5 @@
+import { ElectiveCourseType } from '../elective/type';
+
 export interface Response {
   id: string;
 }
@@ -28,32 +30,69 @@ export enum CompleteStateType {
 }
 
 /** 课程列表的返回值 */
-export interface CourseResponse {
-  id: string;
-  name: string;
-  description: string;
-  type: CourseType;
-  level?: string | string[];
-  duration: number;
-  aboutDesc: string;
-  unitCount: number;
-  progress: number;
-}
-export interface CourseDataType {
-  total: number;
-  data: CourseResponse[];
+// export interface ProjectCourseType {
+//   id: string;
+//   name: string;
+//   description: string;
+//   type: CourseType;
+//   level?: string | string[];
+//   duration: number;
+//   aboutDesc: string;
+//   unitCount?: number;
+//   progress: number;
+//   pageCount?: number;
+// }
+
+enum CourseLevelType {
+  BEGINNER = 'BEGINNER',
+  INTERMEDIATE = 'INTERMEDIATE',
+  ADVANCED = 'ADVANCED'
 }
 
-export interface CourseDetailType {
+export enum CourseLanguageType {
+  SOLIDITY = 'SOLIDITY',
+  RUST = 'RUST',
+  MOVE = 'MOVE'
+}
+
+export enum CourseTrackType {
+  DeFi = 'DeFi',
+  NFT = 'NFT',
+  Security = 'Security',
+  Gaming = 'Gaming'
+}
+
+export interface CourseBaseType {
   id: string;
   name: string;
+  title: string;
   description: string;
   type: CourseType;
-  level?: string | string[];
+  level: CourseLevelType;
   duration: number;
-  aboutDesc: any[];
-  progress: number;
+  language: CourseLanguageType;
+  track: CourseTrackType;
+  progress?: number;
   peopleJoined: number;
+}
+
+export interface ProjectCourseType extends CourseBaseType {
+  unitCount: number;
+}
+
+export interface CourseDataType {
+  total: number;
+  data: ProjectCourseType[];
+}
+
+export type CourseListType = ProjectCourseType | ElectiveCourseType;
+
+export interface CourseDataApiType {
+  total: number;
+  data: CourseListType[];
+}
+
+export interface CourseDetailType extends CourseBaseType {
   units?: CourseUnitType[];
 }
 

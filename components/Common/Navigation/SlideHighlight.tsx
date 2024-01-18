@@ -1,16 +1,24 @@
+'use client';
 import {
   CSSProperties,
   FC,
   MouseEventHandler,
-  useEffect,
+  useLayoutEffect,
   useRef,
   useState
 } from 'react';
 
+export enum SlideClassName {
+  FIST_NAVBAR = 'slide-navigator slide-navigator-fist-navbar',
+  SECOND_NAVBAR = 'slide-navigator slide-navigator-second-navbar',
+  BLOG_FILTER = 'slide-blog-navigator',
+  LEARNING_TRACK = 'slide-navigator slide-learning-track-navbar'
+}
+
 interface SlideHighlightProps {
   children: React.ReactNode;
   className: string;
-  type?: 'underline' | 'background';
+  type?: 'FIST_NAVBAR' | 'SECOND_NAVBAR' | 'BLOG_FILTER' | 'LEARNING_TRACK';
   currentIndex: number;
 }
 
@@ -20,28 +28,26 @@ type SlideNavigatorHighlight = CSSProperties & {
 };
 
 const SlideHighlight: FC<SlideHighlightProps> = function (props) {
-  const { className, children, type = 'underline', currentIndex } = props;
-  const theClassName = `${className} slide-navigator ${
-    type === 'underline' ? ' slide-navigator-underline' : 'slide-navigator-full'
-  }`;
+  const { className, children, type = 'FIST_NAVBAR', currentIndex } = props;
+  const theClassName = `${className} ${SlideClassName[type]}`;
   const root = useRef<HTMLDivElement>(null);
   const [navStyle, setNavStyle] = useState<SlideNavigatorHighlight>();
 
   const onClick: MouseEventHandler<HTMLDivElement> = (event) => {
     if (!root.current) return;
-
     const target = Array.from(root.current.children).find((v) =>
       v.contains(event.target as Node)
     ) as HTMLElement;
     const { left } = root.current.getBoundingClientRect();
-    const { left: l, width } = target?.getBoundingClientRect();
+    const { left: l, width } = target?.getBoundingClientRect() || {};
+    if (!width) return;
     setNavStyle({
       '--highlight-x': `${l - left}px`,
       '--highlight-width': `${width}px`
     });
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!root.current) return;
 
     if (currentIndex === -1) {
@@ -53,7 +59,7 @@ const SlideHighlight: FC<SlideHighlightProps> = function (props) {
 
     const { left } = root.current.getBoundingClientRect();
     const target = root.current.children[currentIndex] as HTMLElement;
-    const { left: l, width } = target?.getBoundingClientRect();
+    const { left: l, width } = target?.getBoundingClientRect() || {};
     setNavStyle({
       '--highlight-x': `${l - left}px`,
       '--highlight-width': `${width}px`
