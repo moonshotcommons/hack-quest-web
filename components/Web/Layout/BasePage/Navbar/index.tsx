@@ -55,13 +55,13 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
   useEffect(() => {
     const index = navList.findIndex((v) => v.id === curNavId);
     setInSideNavIndex(index);
-  }, [curNavId]);
+  }, [curNavId, navList]);
 
   useEffect(() => {
     if (!showSecondNav) return;
     const index = secondNavData.findIndex((v) => pathname.includes(v.path));
     setSecondNavIndex(index);
-  }, [pathname, showSecondNav, secondNavData]);
+  }, [pathname, showSecondNav, secondNavData, navList]);
 
   const handleClickNav = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
