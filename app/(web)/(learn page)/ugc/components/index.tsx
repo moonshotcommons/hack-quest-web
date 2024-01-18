@@ -18,8 +18,7 @@ const Ugc: React.FC<UgcProp> = () => {
           <div className="flex-1 bg-neutral-white flex justify-center relative">
             <UgcNavbar />
             <div className="w-[50.5rem] h-full flex flex-col">
-              <div className="h-[5.125rem] flex items-center">导航组件</div>
-              <div className="flex-1 overflow-hidden">
+              <div className="flex-1 overflow-hidden pt-[5.125rem]">
                 <LessonContainer
                   lesson={mockLessonReadingData}
                 ></LessonContainer>
