@@ -45,7 +45,7 @@ const borderColor: Record<string, string> = {
   [CourseType.CONCEPT]: 'border-[#DBCDF6]',
   [CourseType.SYNTAX]: 'border-[#E5F3FF]',
   [CourseType.TEASER]: 'border-[#E5F3FF]',
-  [CourseType.Mini]: 'border-[#E5F3FF]'
+  [CourseType.MINI]: 'border-[#E5F3FF]'
 };
 
 const MobCourseCard: FC<CourseCardProps> = (props) => {
@@ -62,7 +62,7 @@ const MobCourseCard: FC<CourseCardProps> = (props) => {
 
   const onCourseClick = useCallback(() => {
     switch (course.type) {
-      case CourseType.Mini:
+      case CourseType.MINI:
         miniElectiveDetailInstance.current?.open(course as ElectiveCourseType);
         return;
       default:
@@ -210,7 +210,7 @@ const MobCourseCard: FC<CourseCardProps> = (props) => {
           </div>
         )}
       </div>
-      {course.type === CourseType.Mini && (
+      {course.type === CourseType.MINI && (
         <MiniElectiveDetailModal ref={miniElectiveDetailInstance} />
       )}
     </>

@@ -14,6 +14,7 @@ export const QuizAContextDefaultValue: QuizAContextType = {
   showAnswer: false,
   setAnswers: () => {}
 };
+
 //#endregion
 
 // #region QuizB

@@ -16,6 +16,7 @@ import {
 import { useRequest } from 'ahooks';
 import { cloneDeep } from 'lodash-es';
 import { FC, useEffect, useState } from 'react';
+import UgcCard from '../UgcCard';
 interface CourseFilterListDefaultProps {}
 
 const CourseFilterListDefault: FC<CourseFilterListDefaultProps> = (props) => {
@@ -44,7 +45,7 @@ const CourseFilterListDefault: FC<CourseFilterListDefaultProps> = (props) => {
   useEffect(() => {
     getCourseList({
       ...mergeFilterParams(filters, sort),
-      type: CourseType.Mini
+      type: `${CourseType.MINI},${CourseType.UGC}`
     });
   }, []);
 
@@ -54,7 +55,7 @@ const CourseFilterListDefault: FC<CourseFilterListDefaultProps> = (props) => {
       onFilterParamsUpdate={(params) => {
         getCourseList({
           ...params,
-          type: CourseType.Mini
+          type: `${CourseType.MINI},${CourseType.UGC}`
         });
       }}
       courseList={courseList}
@@ -62,6 +63,9 @@ const CourseFilterListDefault: FC<CourseFilterListDefaultProps> = (props) => {
       sort={sort}
       loading={loading}
       renderItem={(course) => {
+        if (course.type === CourseType.UGC) {
+          return <UgcCard key={course.id} course={course}></UgcCard>;
+        }
         return <ElectiveCard key={course.id} course={course}></ElectiveCard>;
       }}
     ></CourseFilterList>

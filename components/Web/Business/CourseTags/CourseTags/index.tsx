@@ -53,7 +53,7 @@ const CourseTags: FC<CourseTagsProps> = (props) => {
       {/* <Tag icon={<CourseIcon />} size={size} className="text-[#3E3E3E]">
         {type === CourseType.GUIDED_PROJECT &&
           unitCount + ' ' + `${unitCount > 1 ? 'Units' : 'Unit'}`}
-        {type === CourseType.Mini &&
+        {type === CourseType.MINI &&
           unitCount + ' ' + `${unitCount > 1 ? 'Lessons' : 'Lesson'}`}
         {type === 'learning-track' &&
           unitCount + ' ' + `${unitCount > 1 ? 'Courses' : 'Course'}`}

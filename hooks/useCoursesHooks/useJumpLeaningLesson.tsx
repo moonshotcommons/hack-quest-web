@@ -30,7 +30,7 @@ export const useJumpLeaningLesson = () => {
     ) => {
       let lesson: any;
       switch (courseDetail.type) {
-        case CourseType.Mini:
+        case CourseType.MINI:
           lesson = await webApi.courseApi.getLearningLessonId(courseDetail.id);
           break;
         default:

@@ -30,7 +30,7 @@ export const useCheckPathname = () => {
       pathname.startsWith(`${getCourseLink(CourseType.GUIDED_PROJECT)}`);
 
     const isMiniElectiveLessonPage =
-      isLessonPage && pathname.startsWith(`${getCourseLink(CourseType.Mini)}`);
+      isLessonPage && pathname.startsWith(`${getCourseLink(CourseType.MINI)}`);
 
     const isExcludeBreadcrumbLink =
       isNavbarFullPage ||

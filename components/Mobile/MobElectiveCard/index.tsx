@@ -48,7 +48,7 @@ const MobElectiveCard: FC<ElectiveCardProps> = (props) => {
 
   const onCourseClick = useCallback(() => {
     switch (course.type) {
-      case CourseType.Mini:
+      case CourseType.MINI:
         miniElectiveDetailInstance.current?.open(course);
         return;
       default:
