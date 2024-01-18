@@ -47,7 +47,7 @@ const borderColor: Record<string, string> = {
   [CourseType.CONCEPT]: 'border-[#DBCDF6]',
   [CourseType.SYNTAX]: 'border-[#E5F3FF]',
   [CourseType.TEASER]: 'border-[#E5F3FF]',
-  [CourseType.Mini]: 'border-[#E5F3FF]'
+  [CourseType.MINI]: 'border-[#E5F3FF]'
 };
 
 const CourseCard: FC<CourseCardProps> = (props) => {
@@ -64,7 +64,7 @@ const CourseCard: FC<CourseCardProps> = (props) => {
   const userInfo = useUserStore((state) => state.userInfo);
   const onCourseClick = useCallback(() => {
     switch (course.type) {
-      case CourseType.Mini:
+      case CourseType.MINI:
         if (!userInfo) {
           message.warning('Please login first');
           redirectToUrl(V2_LANDING_PATH);
@@ -218,7 +218,7 @@ const CourseCard: FC<CourseCardProps> = (props) => {
           </div>
         )}
       </div>
-      {course.type === CourseType.Mini && (
+      {course.type === CourseType.MINI && (
         <MiniElectiveDetailModal ref={miniElectiveDetailInstance} />
       )}
     </>

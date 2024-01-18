@@ -20,7 +20,7 @@ const CourseList: React.FC<CourseListProp> = ({ list, curTab }) => {
       curTab === ProcessType.IN_PROCESS ? 'h-[338px]' : 'h-[356px]'
     }`;
     switch (course.type) {
-      case CourseType.Mini:
+      case CourseType.MINI:
         return (
           <ElectiveCard
             course={course as ElectiveCourseType}

@@ -46,7 +46,7 @@ const MobCourseFilterListDefault: FC<MobCourseFilterListDefaultProps> = (
   useEffect(() => {
     getCourseList({
       ...mergeFilterParams(filters, sort),
-      type: CourseType.Mini
+      type: CourseType.MINI
     });
   }, []);
 
@@ -56,7 +56,7 @@ const MobCourseFilterListDefault: FC<MobCourseFilterListDefaultProps> = (
       onFilterParamsUpdate={(params) => {
         getCourseList({
           ...params,
-          type: CourseType.Mini
+          type: CourseType.MINI
         });
       }}
       courseList={courseList}
