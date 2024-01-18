@@ -1,11 +1,10 @@
+'use client';
 import Button from '@/components/Common/Button';
 import React from 'react';
 
-interface UgcFooterProp {
-  onNextClick: VoidFunction;
-}
+interface UgcFooterProp {}
 
-const UgcFooter: React.FC<UgcFooterProp> = ({ onNextClick }) => {
+const UgcFooter: React.FC<UgcFooterProp> = ({}) => {
   const unitNavList = [
     { propgress: 0.5 },
     { propgress: 0.5 },
@@ -13,9 +12,7 @@ const UgcFooter: React.FC<UgcFooterProp> = ({ onNextClick }) => {
     { propgress: 0.5 }
   ];
   const curIndex = 1;
-  const handleNext = () => {
-    onNextClick();
-  };
+  const handleNext = () => {};
   return (
     <div className="h-[68px] bg-neutral-rich-gray flex-center px-[40px] relative transition-all">
       <div className="max-w-[calc((100%-550px))] flex gap-[2px] overflow-auto">

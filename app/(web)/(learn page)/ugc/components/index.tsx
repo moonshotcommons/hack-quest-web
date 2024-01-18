@@ -1,19 +1,25 @@
-'use client';
 import React from 'react';
-import { UgcContext } from '../constants/type';
+
 import UgcFooter from './UgcFooter';
+import UgcProvider from './UgcProvider';
+import UgcSidebar from './UgcSidebar';
 
 interface UgcProp {}
 
 const Ugc: React.FC<UgcProp> = () => {
   const onNextClick = () => {};
   return (
-    <UgcContext.Provider value={{}}>
+    <UgcProvider>
       <div className="h-full flex flex-col">
-        <div className="w-full flex-1"></div>
-        <UgcFooter onNextClick={onNextClick} />
+        <div className="w-full flex-1 flex overflow-hidden">
+          <UgcSidebar />
+          <div className="flex-1 bg-neutral-white flex justify-center">
+            <div className="w-[50.5rem] bg-slate-800"></div>
+          </div>
+        </div>
+        <UgcFooter />
       </div>
-    </UgcContext.Provider>
+    </UgcProvider>
   );
 };
 
