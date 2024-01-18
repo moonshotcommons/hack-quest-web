@@ -33,9 +33,7 @@ const LearningTrackCardInProgress: React.FC<
     });
     const section = learningTrack.sections.find((v) => (v?.progress || 0) < 1);
     if (section) {
-      const course = section.courses.find(
-        (v) => !!v.progress && v.progress < 1
-      );
+      const course = section.courses.find((v) => (v?.progress || 0) < 1);
       if (course)
         jumpLearningLesson(course, {
           menu: Menu.LEARNING_TRACK,
