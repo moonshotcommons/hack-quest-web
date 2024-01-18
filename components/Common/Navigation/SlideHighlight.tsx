@@ -1,9 +1,10 @@
 'use client';
+import { useUserStore } from '@/store/zustand/userStore';
 import {
   CSSProperties,
   FC,
   MouseEventHandler,
-  useLayoutEffect,
+  useEffect,
   useRef,
   useState
 } from 'react';
@@ -28,6 +29,7 @@ type SlideNavigatorHighlight = CSSProperties & {
 };
 
 const SlideHighlight: FC<SlideHighlightProps> = function (props) {
+  const userInfo = useUserStore((state) => state.userInfo);
   const { className, children, type = 'FIST_NAVBAR', currentIndex } = props;
   const theClassName = `${className} ${SlideClassName[type]}`;
   const root = useRef<HTMLDivElement>(null);
@@ -47,7 +49,7 @@ const SlideHighlight: FC<SlideHighlightProps> = function (props) {
     });
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!root.current) return;
 
     if (currentIndex === -1) {
@@ -64,7 +66,7 @@ const SlideHighlight: FC<SlideHighlightProps> = function (props) {
       '--highlight-x': `${l - left}px`,
       '--highlight-width': `${width}px`
     });
-  }, [currentIndex]);
+  }, [currentIndex, userInfo]);
 
   return (
     <div ref={root} className={theClassName} style={navStyle} onClick={onClick}>
