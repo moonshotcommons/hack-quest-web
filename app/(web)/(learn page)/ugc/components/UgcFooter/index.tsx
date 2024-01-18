@@ -14,7 +14,7 @@ const UgcFooter: React.FC<UgcFooterProp> = ({}) => {
   const curIndex = 1;
   const handleNext = () => {};
   return (
-    <div className="h-[68px] bg-neutral-rich-gray flex-center px-[40px] relative transition-all">
+    <div className="h-[68px] bg-neutral-rich-gray flex-center px-[40px] relative transition-all shadow-[0px_-2px_8px_0_rgba(0,0,0,0.12)]">
       <div className="max-w-[calc((100%-550px))] flex gap-[2px] overflow-auto">
         {unitNavList.map((item, i) => (
           <div

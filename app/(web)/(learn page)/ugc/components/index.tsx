@@ -5,6 +5,7 @@ import UgcSidebar from './UgcSidebar';
 import LessonContainer from './LessonContainer';
 import { mockData, mockLessonReadingData } from './UgcSidebar/constant';
 import { UGCCourseType } from '@/service/webApi/course/type';
+import UgcNavbar from './UgcNavbar';
 
 interface UgcProp {}
 
@@ -14,7 +15,8 @@ const Ugc: React.FC<UgcProp> = () => {
       <div className="h-full flex flex-col">
         <div className="w-full flex-1 flex overflow-hidden">
           <UgcSidebar course={mockData as UGCCourseType} />
-          <div className="flex-1 bg-neutral-white flex justify-center">
+          <div className="flex-1 bg-neutral-white flex justify-center relative">
+            <UgcNavbar />
             <div className="w-[50.5rem] h-full flex flex-col">
               <div className="h-[5.125rem] flex items-center">导航组件</div>
               <div className="flex-1 overflow-hidden">

@@ -74,7 +74,7 @@ const Sidebar = <T,>(props: SidebarProps<T>) => {
   );
 
   return (
-    <div className={cn('box-border relative')}>
+    <div className={cn('box-border relative z-10')}>
       {!showList && (
         <div
           className="absolute top-1/2 -translate-y-1/2 w-[2.625rem] h-60 bg-neutral-off-white rounded-r-[.625rem] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] flex justify-center items-center cursor-pointer"

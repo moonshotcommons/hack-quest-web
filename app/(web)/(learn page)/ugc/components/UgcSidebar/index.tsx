@@ -1,14 +1,18 @@
 'use client';
 import Sidebar, { SidebarItemType } from '@/components/Web/Business/Sidebar';
-import { FC, useMemo } from 'react';
+import { FC, useContext, useEffect, useMemo } from 'react';
 import { lessonTypeData } from './constant';
 import { UGCCourseType } from '@/service/webApi/course/type';
+import { UgcContext, NavbarDataType } from '../../constants/type';
+import { useCourseStore } from '@/store/zustand/courseStore';
 
 interface UgcSidebarProps {
   course: UGCCourseType;
 }
 
 const UgcSidebar: FC<UgcSidebarProps> = ({ course }) => {
+  const { setNavbarData } = useContext(UgcContext);
+  const setLearnPageTitle = useCourseStore((state) => state.setLearnPageTitle);
   const items: SidebarItemType[] = useMemo(() => {
     return course.units!.map((unit) => {
       return {
@@ -42,6 +46,23 @@ const UgcSidebar: FC<UgcSidebarProps> = ({ course }) => {
     });
   }, []);
 
+  const getNavbar = (item: any) => {
+    if (!item) return;
+    const unitName = course.units!.find((unit) =>
+      unit.pages.find((page) => page.id === item.key)
+    )?.name;
+    const navbarData = [
+      { label: course.name },
+      { label: unitName },
+      { label: item.data.name }
+    ];
+    setNavbarData(navbarData as NavbarDataType[]);
+  };
+  useEffect(() => {
+    setLearnPageTitle(course.name);
+    getNavbar(items[0]?.children?.[0]);
+  }, []);
+
   return (
     <Sidebar
       title={course.name}
@@ -50,6 +71,7 @@ const UgcSidebar: FC<UgcSidebarProps> = ({ course }) => {
       defaultSelect={items[0].children![0].key}
       onSelect={(key, item) => {
         console.log(key, item);
+        getNavbar(item as SidebarItemType);
       }}
     ></Sidebar>
   );
