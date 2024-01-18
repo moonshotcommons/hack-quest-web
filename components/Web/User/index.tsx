@@ -139,7 +139,7 @@ const User: FC<UserProps> = () => {
                   ></Image>
                 </div>
                 {userInfo && showUserDropCard ? (
-                  <div className="absolute z-[999] -right-[0.75rem] top-[60px] pt-[20px]">
+                  <div className="absolute z-[999] -right-[15px] top-[37px] pt-[20px]">
                     <UserDropCard
                       userInfo={(userInfo as LoginResponse) || {}}
                       onClose={() => setShowUserDropCard(false)}

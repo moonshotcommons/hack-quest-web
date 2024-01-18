@@ -1,11 +1,15 @@
 'use client';
 import Sidebar, { SidebarItemType } from '@/components/Web/Business/Sidebar';
-import { FC, useMemo } from 'react';
+import { FC, useContext, useEffect, useMemo } from 'react';
 import { lessonTypeData, mockData } from './constant';
+import { UgcContext, NavbarDataType } from '../../constants/type';
+import { useCourseStore } from '@/store/zustand/courseStore';
 
 interface UgcSidebarProps {}
 
 const UgcSidebar: FC<UgcSidebarProps> = (props) => {
+  const { setNavbarData } = useContext(UgcContext);
+  const setLearnPageTitle = useCourseStore((state) => state.setLearnPageTitle);
   const items: SidebarItemType[] = useMemo(() => {
     return mockData.units.map((unit) => {
       return {
@@ -39,6 +43,23 @@ const UgcSidebar: FC<UgcSidebarProps> = (props) => {
     });
   }, []);
 
+  const getNavbar = (item: any) => {
+    if (!item) return;
+    const unitName = mockData.units.find((unit) =>
+      unit.pages.find((page) => page.id === item.key)
+    )?.name;
+    const navbarData = [
+      { label: mockData.name },
+      { label: unitName },
+      { label: item.data.name }
+    ];
+    setNavbarData(navbarData as NavbarDataType[]);
+  };
+  useEffect(() => {
+    setLearnPageTitle(mockData.name);
+    getNavbar(items[0]?.children?.[0]);
+  }, []);
+
   return (
     <Sidebar
       title={mockData.name}
@@ -47,6 +68,7 @@ const UgcSidebar: FC<UgcSidebarProps> = (props) => {
       defaultSelect={items[0].children![0].key}
       onSelect={(key, item) => {
         console.log(key, item);
+        getNavbar(item as SidebarItemType);
       }}
     ></Sidebar>
   );

@@ -33,6 +33,8 @@ export interface InputProps {
   clear?: boolean;
   showVisibleIcon?: boolean;
   rightLabel?: ReactNode;
+  labelClassName?: string;
+  initBorderColor?: string;
 }
 
 export interface InputRef {
@@ -62,6 +64,8 @@ const Input = forwardRef<
     clear = false,
     showVisibleIcon = propType === 'password' ? true : false,
     rightLabel,
+    labelClassName = '',
+    initBorderColor = '',
     ...rest
   } = props;
   const inputRef = useRef<HTMLInputElement>(null);
@@ -125,7 +129,9 @@ const Input = forwardRef<
         <p
           className={cn(
             'body-l-bold label',
-            theme !== 'dark' ? 'text-neutral-off-black' : ''
+            `${
+              theme !== 'dark' ? 'text-neutral-off-black' : ''
+            } ${labelClassName} `
           )}
         >
           {label}
@@ -139,7 +145,7 @@ const Input = forwardRef<
           value={value}
           placeholder={placeholder}
           className={cn(
-            `w-full border border-solid outline-none px-[24px] py-[11px] rounded-[2.5rem] body-m text-neutral-medium-gray`,
+            `w-full border border-solid ${initBorderColor} outline-none px-[24px] py-[11px] rounded-[2.5rem] body-m text-neutral-medium-gray`,
             // type === 'password' &&
             //   'border-auth-password-input-bg focus:border-[#212121]',
             theme !== 'dark'
