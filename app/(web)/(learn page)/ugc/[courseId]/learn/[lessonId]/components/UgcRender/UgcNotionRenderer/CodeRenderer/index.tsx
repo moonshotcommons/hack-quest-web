@@ -18,6 +18,7 @@ interface CodeSourceType {
     language: string;
     rich_text: { plain_text: string }[];
   };
+  type: string;
 }
 
 interface CodeRendererProps {
@@ -48,6 +49,7 @@ const CodeRenderer: FC<CodeRendererProps> = (props) => {
       className={`relative rounded-md flex-1 overflow-hidden ${
         isPlayground ? 'flex flex-col' : ''
       }`}
+      data-type={component.type}
     >
       <div className="h-[6px] relative bg-[#fafafa] rounded-t-[4.8px]">
         <div

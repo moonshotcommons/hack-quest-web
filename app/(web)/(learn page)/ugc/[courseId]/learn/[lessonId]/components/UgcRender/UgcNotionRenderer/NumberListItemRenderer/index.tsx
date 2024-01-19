@@ -33,7 +33,7 @@ const NumberListItemRenderer: FC<NumberListItemRendererProps> = (props) => {
   }, [children, component]);
 
   return (
-    <div>
+    <div data-type={component.type}>
       <div className="">
         <span className="inline-flex items-center w-fit h-full text-[14px] py-[0.4rem]">
           {index + 1}.
@@ -41,17 +41,19 @@ const NumberListItemRenderer: FC<NumberListItemRendererProps> = (props) => {
 
         <TextRenderer richTextArr={component.content.rich_text}></TextRenderer>
       </div>
-      <div className="ml-4">
-        {component.children?.map((child: any, index: number) => {
-          return (
-            <ComponentRenderer
-              key={index}
-              component={child}
-              parent={component}
-            ></ComponentRenderer>
-          );
-        })}
-      </div>
+      {!!component.children?.length && (
+        <div className="ml-4 mt-4">
+          {component.children?.map((child: any, index: number) => {
+            return (
+              <ComponentRenderer
+                key={index}
+                component={child}
+                parent={component}
+              ></ComponentRenderer>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 };

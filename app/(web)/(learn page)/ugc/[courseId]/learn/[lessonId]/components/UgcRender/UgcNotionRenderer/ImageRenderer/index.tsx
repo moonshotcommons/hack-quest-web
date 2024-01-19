@@ -15,7 +15,7 @@ const ImageRenderer: FC<ImageRendererProps> = (props) => {
   if (content.external) {
     // return <img src={block.external.url} alt={``} />;
     return (
-      <div className="py-4">
+      <div className="py-4" data-type={component.type}>
         <Image
           src={content.external.url}
           alt="image"
@@ -27,7 +27,7 @@ const ImageRenderer: FC<ImageRendererProps> = (props) => {
   } else if (content.file) {
     // return <img src={block.file.url} alt={``} />;
     return (
-      <div className="py-4">
+      <div className="py-4" data-type={component.type}>
         <Image
           src={content.file.url}
           alt="image"

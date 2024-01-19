@@ -1,5 +1,4 @@
 import ComponentRenderer from '@/components/Web/Business/Renderer/ComponentRenderer';
-import { cn } from '@/helper/utils';
 import { ExpandDataType } from '@/hooks/useLessonExpand';
 import { FC, useContext, useEffect, useMemo, useState } from 'react';
 
@@ -28,12 +27,6 @@ const HeaderRenderer: FC<HeaderRendererProps> = (props) => {
   const { expandData, changeExpandData } = useContext(LessonContentContext);
   const HeadingTag = ('h' + type.slice(-1)) as keyof JSX.IntrinsicElements;
   const [isExpandAll, setIsExpandAll] = useState(false);
-  const className = cn(
-    `font-bold`,
-    type === NotionType.H1 ? 'text-[1.5rem]' : '',
-    type === NotionType.H2 ? 'text-[1.25rem]' : '',
-    type === NotionType.H3 ? 'text-[1rem]' : ''
-  );
 
   const expandIndex = useMemo(() => {
     return expandData?.findIndex((v) => v.id === component.id);
@@ -69,20 +62,18 @@ const HeaderRenderer: FC<HeaderRendererProps> = (props) => {
   }, [expandData]);
 
   return (
-    <div className="pb-[10px] pt-[20px] pr-[4px]">
-      <HeadingTag
-        className={`${className} flex justify-between items-center font-next-poster-Thin tracking-[1.26px]`}
-      >
-        <div>
+    <div className="mt-[50px] mb-5 pr-[4px]" data-type={component.type}>
+      <HeadingTag className={`flex justify-between items-center`}>
+        <div className="flex gap-[10px] items-center">
+          <div className="w-[5px] h-[2.125rem] bg-yellow-dark rounded-full"></div>
           <TextRenderer
             richTextArr={component.content.rich_text}
-            fontSize={'21px'}
-            letterSpacing={'1.68px'}
+            type={type as NotionType}
           />
         </div>
         {expandIndex >= 0 && (
           <span
-            className="cursor-pointer text-[12px] underline font-next-book"
+            className="cursor-pointer underline-m"
             onClick={changeExpandNum}
           >
             {isExpandAll ? 'Fold All' : 'Expand All'}

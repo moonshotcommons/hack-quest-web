@@ -10,6 +10,7 @@ import {
 } from '@/components/Web/Business/Renderer/type';
 import { LessonContentContext } from '@/components/Web/LessonPage/LessonContent';
 import TextRenderer from '../TextRenderer';
+import { cn } from '@/helper/utils';
 interface ToggleRendererProps {
   component: NotionComponent;
   isRenderChildren?: boolean;
@@ -41,7 +42,13 @@ const ToggleRenderer: FC<ToggleRendererProps> = (props) => {
     }
   }, [expandData, component]);
   return (
-    <div className="border-b border-[#676767]  overflow-hidden">
+    <div
+      className={cn(
+        'border-b border-[#676767] overflow-hidden mb-5',
+        showChild ? 'pb-5' : ''
+      )}
+      data-type={component.type}
+    >
       <div
         className="px-[.5rem] flex justify-between items-center my-3 cursor-pointer"
         onClick={() => changeShowChild(!showChild)}

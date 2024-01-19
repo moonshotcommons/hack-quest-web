@@ -15,7 +15,7 @@ const BulletedListItemRenderer: FC<BulletedListItemRendererProps> = (props) => {
   //   ?.filter((child: any) => child.type === NotionRenderType.BULLETED_LIST_ITEM)
   //   .findIndex((child: any) => child.id === source.id);
   return (
-    <div>
+    <div data-type={component.type}>
       <div className="flex items-start gap-2 py-1">
         <span className="leading-[200%]">•</span>
         <div>

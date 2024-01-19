@@ -43,7 +43,11 @@ const UgcProvider: FC<UgcProviderProps> = ({ children, lesson }) => {
     >
       <RendererContext.Provider
         value={{
-          textRenderer: { fontSize: '16px' }
+          textRenderer: {
+            textStyle: 'body-l text-neutral-black',
+            codeStyle:
+              'code-l text-code-red bg-neutral-off-white py-[2px] px-[7px]'
+          }
         }}
       >
         {children}

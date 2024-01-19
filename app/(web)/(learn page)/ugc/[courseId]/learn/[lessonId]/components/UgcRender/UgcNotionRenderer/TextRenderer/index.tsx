@@ -3,11 +3,13 @@ import { cn } from '@/helper/utils';
 import { FC, useContext } from 'react';
 import MathJax from 'react-mathjax';
 import { RendererContext } from '@/components/Web/Business/Renderer/context';
+import { NotionType } from '@/components/Web/Business/Renderer/type';
 
 export interface TextRendererProps {
   richTextArr: any;
   fontSize?: string;
   letterSpacing?: string;
+  type?: NotionType;
 }
 
 export type AnnotationType = {
@@ -19,37 +21,49 @@ export type AnnotationType = {
   color: string;
 };
 
-const getTextClassNames = (annotations: AnnotationType) => {
-  const className = cn(
-    `py-1`,
-    annotations.bold ? 'font-bold' : '',
-    annotations.code
-      ? 'px-[0.2rem] text-[85%] text-[#eb5757] bg-renderer-code-bg mx-[0.25rem]'
-      : '',
-    annotations.italic ? 'italic' : '',
-    annotations.strikethrough ? '' : '',
-    annotations.underline ? 'underline' : '',
-    annotations.color !== 'default'
-      ? `${
-          annotations.color.includes('background')
-            ? `bg-[${annotations.color}]`
-            : `text-${annotations.color}-400`
-        }`
-      : ''
-  );
-  return className;
-};
-
 const TextRenderer: FC<TextRendererProps> = (props) => {
   const {
     richTextArr,
     fontSize: propsFontSize,
-    letterSpacing = '0.28px'
+    letterSpacing = '0.28px',
+    type
   } = props;
 
-  const { fontSize: contextFontSize } = useContext(RendererContext)
-    .textRenderer! || { fontSize: '14px' };
+  const {
+    fontSize: contextFontSize,
+    textStyle,
+    codeStyle
+  } = useContext(RendererContext).textRenderer! || { fontSize: '14px' };
   const fontSize = propsFontSize || contextFontSize;
+
+  const getTextClassNames = (annotations: AnnotationType) => {
+    const className = cn(
+      textStyle &&
+        ![NotionType.H1, NotionType.H2, NotionType.H3].includes(type!)
+        ? textStyle
+        : '',
+      type === NotionType.H1 ? 'text-h1' : '',
+      type === NotionType.H2 ? 'text-h2 ' : '',
+      type === NotionType.H3 ? 'text-h3' : '',
+      annotations.bold ? 'font-bold' : '',
+      annotations.code
+        ? !codeStyle
+          ? 'px-[0.2rem] text-[85%] text-[#eb5757] bg-renderer-code-bg mx-[0.25rem]'
+          : codeStyle
+        : '',
+      annotations.italic ? 'italic' : '',
+      annotations.strikethrough ? '' : '',
+      annotations.underline ? 'underline' : '',
+      annotations.color !== 'default'
+        ? `${
+            annotations.color.includes('background')
+              ? `bg-[${annotations.color}]`
+              : `text-${annotations.color}-400`
+          }`
+        : ''
+    );
+    return className;
+  };
 
   return (
     <>
@@ -73,8 +87,14 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
           );
         }
         //处理blog中 居中的text
-        if (richText.plain_text.indexOf('<<image>>') === 0) {
-          const plain_text = richText.plain_text.replace(/<<image>>/, '');
+        if (
+          richText.plain_text.indexOf('<<image>>') === 0 ||
+          richText.plain_text.indexOf('<<video>>') === 0
+        ) {
+          const plain_text = richText.plain_text.replace(
+            /<<image>>|<<video>>/,
+            ''
+          );
           if (richTextArr[index + 1]) {
             const nextPlainText = richTextArr[index + 1].plain_text;
             richTextArr[
@@ -83,10 +103,10 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
             return null;
           } else {
             return (
-              <p key={index} className="text-center">
+              <p key={index} className="text-center pt-[10px] mb-[30px]">
                 <span
                   key={index}
-                  className={`${className} rounded-md leading-[200%]`}
+                  className={`${className} rounded-md caption-14pt text-neutral-rich-gray`}
                   style={{
                     fontSize,
                     letterSpacing,
@@ -108,8 +128,14 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
             );
           }
         }
-        if (richText.plain_text.indexOf('<<image>>') > 0) {
-          const plain_text = richText.plain_text.replace(/<<image>>/g, '');
+        if (
+          richText.plain_text.indexOf('<<image>>') > 0 ||
+          richText.plain_text.indexOf('<<video>>') > 0
+        ) {
+          const plain_text = richText.plain_text.replace(
+            /<<image>>|<<video>>/g,
+            ''
+          );
           if (richText.href) {
             return (
               <p key={index} className="text-center">
@@ -207,7 +233,7 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
         return (
           <span
             key={index}
-            className={`${className} rounded-md leading-[200%]`}
+            className={`${className} rounded-md `}
             style={{
               fontSize,
               letterSpacing,
