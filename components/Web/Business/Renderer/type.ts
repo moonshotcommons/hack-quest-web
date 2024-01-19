@@ -26,7 +26,8 @@ export enum CustomType {
   Content = 'Content',
   Example = 'Example',
   Reading = 'READING',
-  Video = 'VIDEO'
+  Video = 'VIDEO',
+  QUIZ = 'QUIZ'
 }
 
 export enum LineType {

@@ -29,7 +29,7 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
   const [showAnswer, setShowAnswer] = useState(false);
   const prevQuiz = useRef<any>({});
   const isCompleted = useRef(false);
-  const { lesson, emitter, setFooterBtnDisable } = useContext(UgcContext);
+  const { lesson, emitter, footerBtn, setFooterBtn } = useContext(UgcContext);
   const { onPass } = useContext(QuizContext);
   const { waitingRenderCodes, answerState, answerStateDispatch } = useParseQuiz(
     quiz.lines
@@ -170,14 +170,25 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
       isCompleted.current = quiz.isCompleted as boolean;
       setShowAnswer(false);
     }
-    setFooterBtnDisable(getSubmitDisable());
+    setFooterBtn({
+      ...footerBtn,
+      footerBtnDisable: getSubmitDisable()
+    });
     initCompleteInput();
     dealInputValue(false);
   }, [answerState]);
 
   useEffect(() => {
-    if (showAnswer) setFooterBtnDisable(true);
-    else setFooterBtnDisable(getSubmitDisable());
+    if (showAnswer)
+      setFooterBtn({
+        ...footerBtn,
+        footerBtnDisable: true
+      });
+    else
+      setFooterBtn({
+        ...footerBtn,
+        footerBtnDisable: getSubmitDisable()
+      });
   }, [showAnswer]);
 
   return (

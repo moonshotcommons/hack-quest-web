@@ -3,7 +3,9 @@ import { FC, ReactNode, useEffect, useState } from 'react';
 import {
   UgcContext,
   NavbarDataType,
-  FooterButtonText
+  FooterButtonText,
+  footerBtnType,
+  FooterButtonStatus
 } from '../../constants/type';
 import { RendererContext } from '@/components/Web/Business/Renderer/context';
 import mitt from 'mitt';
@@ -15,9 +17,12 @@ interface UgcProviderProps {
 
 const UgcProvider: FC<UgcProviderProps> = ({ children, lesson }) => {
   const [navbarData, setNavbarData] = useState<NavbarDataType[]>([]);
-  const [footerBtnText, setFooterBtnText] = useState(FooterButtonText.SUBMIT);
-  const [footerBtnDisable, setFooterBtnDisable] = useState(true);
-  const [footerBtnLoading, setFooterBtnLoading] = useState(false);
+  const [footerBtn, setFooterBtn] = useState<footerBtnType>({
+    footerStatus: FooterButtonStatus.SUBMIT,
+    footerBtnText: FooterButtonText.SUBMIT,
+    footerBtnDisable: true,
+    footerBtnLoading: false
+  });
   const emitter = mitt();
 
   useEffect(() => {
@@ -32,13 +37,9 @@ const UgcProvider: FC<UgcProviderProps> = ({ children, lesson }) => {
         navbarData,
         setNavbarData: (data: NavbarDataType[]) => setNavbarData(data),
         lesson,
-        footerBtnText,
-        setFooterBtnDisable: (disable) => setFooterBtnDisable(disable),
-        footerBtnDisable,
-        setFooterBtnText: (text) => setFooterBtnText(text),
         emitter,
-        footerBtnLoading,
-        setFooterBtnLoading: (loading) => setFooterBtnLoading(loading)
+        footerBtn,
+        setFooterBtn: (btn: footerBtnType) => setFooterBtn(btn)
       }}
     >
       <RendererContext.Provider

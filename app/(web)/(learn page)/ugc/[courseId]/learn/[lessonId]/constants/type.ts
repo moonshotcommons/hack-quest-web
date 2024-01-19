@@ -8,31 +8,34 @@ export enum FooterButtonText {
   SUBMIT = 'SUBMIT',
   NEXT = 'NEXT'
 }
-// export type MittEvents = {
-//   submit: string;
-//   bar?: number;
-// };
+export enum FooterButtonStatus {
+  SUBMIT = 'submit',
+  NEXT = 'next'
+}
+export interface footerBtnType {
+  footerStatus: FooterButtonStatus;
+  footerBtnDisable: boolean;
+  footerBtnText: FooterButtonText;
+  footerBtnLoading: boolean;
+}
 export interface UgcContextType {
   navbarData: NavbarDataType[];
   setNavbarData: (data: NavbarDataType[]) => void;
   lesson: any;
-  footerBtnDisable: boolean;
-  setFooterBtnDisable: (disable: boolean) => void;
-  footerBtnText: FooterButtonText;
-  setFooterBtnText: (text: FooterButtonText) => void;
   emitter: any;
-  footerBtnLoading: boolean;
-  setFooterBtnLoading: (loading: boolean) => void;
+  footerBtn: footerBtnType;
+  setFooterBtn: (btn: footerBtnType) => void;
 }
 export const UgcContext = createContext<UgcContextType>({
   navbarData: [],
   setNavbarData: () => {},
   lesson: {},
-  footerBtnDisable: false,
-  setFooterBtnDisable: () => {},
-  footerBtnText: FooterButtonText.SUBMIT,
-  setFooterBtnText: () => {},
   emitter: null,
-  footerBtnLoading: false,
-  setFooterBtnLoading: () => {}
+  footerBtn: {
+    footerStatus: FooterButtonStatus.SUBMIT,
+    footerBtnDisable: false,
+    footerBtnText: FooterButtonText.SUBMIT,
+    footerBtnLoading: false
+  },
+  setFooterBtn: () => {}
 });

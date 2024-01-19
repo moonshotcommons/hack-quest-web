@@ -6,8 +6,7 @@ import { UgcContext } from '../../constants/type';
 interface UgcFooterProp {}
 
 const UgcFooter: React.FC<UgcFooterProp> = ({}) => {
-  const { emitter, footerBtnDisable, footerBtnText, footerBtnLoading } =
-    useContext(UgcContext);
+  const { emitter, footerBtn } = useContext(UgcContext);
   const unitNavList = [
     { propgress: 0.5 },
     { propgress: 0.5 },
@@ -16,8 +15,8 @@ const UgcFooter: React.FC<UgcFooterProp> = ({}) => {
   ];
   const curIndex = 1;
   const handleClick = () => {
-    if (footerBtnDisable) return;
-    emitter.emit(footerBtnText);
+    if (footerBtn.footerBtnDisable) return;
+    emitter.emit(footerBtn.footerStatus);
   };
 
   return (
@@ -42,14 +41,14 @@ const UgcFooter: React.FC<UgcFooterProp> = ({}) => {
       <div className="absolute h-full top-0 right-[40px] flex items-center">
         <Button
           className={`w-[216px] h-[48px] button-text-m   ${
-            footerBtnDisable
+            footerBtn.footerBtnDisable
               ? 'bg-neutral-light-gray text-neutral-medium-gray cursor-not-allowed'
               : 'text-neutral-black bg-yellow-primary'
           }`}
-          loading={footerBtnLoading}
+          loading={footerBtn.footerBtnLoading}
           onClick={handleClick}
         >
-          {footerBtnText}
+          {footerBtn.footerBtnText}
         </Button>
       </div>
     </div>

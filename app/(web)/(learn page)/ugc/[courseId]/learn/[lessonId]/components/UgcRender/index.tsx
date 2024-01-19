@@ -46,7 +46,7 @@ const ComponentRenderer: FC<ComponentRendererProps> = (props) => {
           parent={parent as any}
         ></ContentRenderer>
       );
-    case CustomType.Quiz:
+    case CustomType.QUIZ:
       return (
         <QuizRenderer
           quiz={component as QuizType}
