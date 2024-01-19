@@ -46,6 +46,7 @@
     "next": "14.0.4",
     "next-redux-wrapper": "^8.1.0",
     "next-share": "^0.27.0",
+    "plyr": "^3.7.8",
     "react": "^18.2.0",
     "react-device-detect": "^2.2.3",
     "react-dnd": "^16.0.1",

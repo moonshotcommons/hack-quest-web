@@ -15,7 +15,10 @@ interface QuoteRendererProps {
 const QuoteRenderer: FC<QuoteRendererProps> = (props) => {
   const { component } = props;
   return (
-    <div className="pl-[1.5rem] border-l-2 border-solid border-renderer-quote-border-color text-renderer-quote-text-color text-[.875rem] leading-[128%] font-next-book mb-[1.25rem]">
+    <div
+      className="pl-[1.5rem] border-l-2 border-solid border-renderer-quote-border-color text-renderer-quote-text-color text-[.875rem] leading-[128%] font-next-book mb-[1.25rem]"
+      data-type={component.type}
+    >
       {<TextRenderer richTextArr={component.content.rich_text}></TextRenderer>}
       {component.children?.map((item: any, index: number) => {
         return (

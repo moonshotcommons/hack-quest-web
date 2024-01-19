@@ -31,12 +31,14 @@ html {
   --code-brown: #8e6339;
   --code-wine-red: #8c0f4a;
   --code-rose-red: #d5455e;
-  --code-code-red: #e45050;
-  --code-code-green: #5d8e24;
+  --code-red: #e45050;
+  --code-green: #5d8e24;
 
   --code-dark-green: #9ed600;
   --code-purple: #6b6bf6;
   --text-text-white: #ededed;
+
+  --plyr-color-main: var(--yellow-primary);
 
   --status-error-light: #fff7f5;
   --button-card-card-outline: #5b5b5b;

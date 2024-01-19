@@ -7,25 +7,37 @@ import { UgcContext, NavbarDataType } from '../../constants/type';
 import { useCourseStore } from '@/store/zustand/courseStore';
 import { useRequest } from 'ahooks';
 import webApi from '@/service';
+import { useGetLessonLink } from '@/hooks/useCoursesHooks/useGetLessonLink';
+import { useRedirect } from '@/hooks/useRedirect';
 
 interface UgcSidebarProps {
-  courseId: string;
+  lesson: any;
 }
 
-const UgcSidebar: FC<UgcSidebarProps> = ({ courseId }) => {
+const UgcSidebar: FC<UgcSidebarProps> = ({ lesson }) => {
   const { setNavbarData } = useContext(UgcContext);
   const [course, setCourse] = useState<UGCCourseType>();
   const setLearnPageTitle = useCourseStore((state) => state.setLearnPageTitle);
+  const { getLink } = useGetLessonLink();
+  const { redirectToUrl } = useRedirect();
 
-  const items: SidebarItemType[] = useMemo(() => {
-    if (!course) return [];
-    return course.units!.map((unit) => {
+  const { items, defaultOpenKeys } = useMemo(() => {
+    let defaultOpenKeys: string[] = [];
+    let items: SidebarItemType[] = [];
+    if (!course)
+      return {
+        defaultOpenKeys,
+        items
+      };
+
+    items = course.units!.map((unit) => {
       return {
         key: unit.id,
         label: unit.title,
         data: unit,
         type: 'group',
         children: unit.pages!.map((page) => {
+          if (page.id === lesson.id) defaultOpenKeys.push(unit.id);
           return {
             key: page.id,
             label: (
@@ -49,17 +61,22 @@ const UgcSidebar: FC<UgcSidebarProps> = ({ courseId }) => {
         })
       };
     });
-  }, [course]);
+
+    return {
+      defaultOpenKeys,
+      items: items
+    };
+  }, [lesson, course]);
 
   useRequest(
     () => {
-      return webApi.courseApi.getCourseDetail(courseId, true, true);
+      return webApi.courseApi.getCourseDetail(lesson.courseId, true, true);
     },
     {
       onSuccess(res: unknown) {
         setCourse(res as UGCCourseType);
       },
-      cacheKey: courseId
+      cacheKey: lesson.courseId
     }
   );
 
@@ -88,10 +105,13 @@ const UgcSidebar: FC<UgcSidebarProps> = ({ courseId }) => {
       title={course.title}
       items={items}
       className="w-[18.5rem] h-full"
-      defaultSelect={items[0].children![0].key}
-      onSelect={(key, item) => {
-        console.log(key, item);
-        getNavbar(item as SidebarItemType);
+      defaultSelect={lesson.id}
+      defaultOpenKeys={defaultOpenKeys}
+      onSelect={(key, item: any) => {
+        if (item.id === lesson.id) return;
+        debugger;
+        const link = getLink(course.type, key, course.name);
+        redirectToUrl(link);
       }}
     ></Sidebar>
   );
