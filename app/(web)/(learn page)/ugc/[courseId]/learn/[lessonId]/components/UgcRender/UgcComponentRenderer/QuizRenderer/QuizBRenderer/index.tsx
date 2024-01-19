@@ -212,12 +212,6 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
               {options.map((option) => {
                 if (!option.isRender) return null;
                 return (
-                  // <motion.div
-                  //   key={option.id}
-                  //   initial={{ translateY: 50, opacity: 0 }}
-                  //   animate={{ opacity: 1, translateY: 0 }}
-                  //   transition={{ duration: 0.5 }}
-                  // >
                   <DragAnswer
                     option={option}
                     key={option.id}
@@ -243,7 +237,6 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
                       }
                     )}
                   </DragAnswer>
-                  // </motion.div>
                 );
               })}
             </div>
