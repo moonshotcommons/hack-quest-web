@@ -19,6 +19,7 @@ const UgcProvider: FC<UgcProviderProps> = ({ children, lesson }) => {
   const [footerBtnDisable, setFooterBtnDisable] = useState(true);
   const [footerBtnLoading, setFooterBtnLoading] = useState(false);
   const emitter = mitt();
+
   useEffect(() => {
     return () => {
       emitter.all.clear();
