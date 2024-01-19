@@ -29,7 +29,7 @@ const Ugc: React.FC<UgcProp> = ({ lessonId }) => {
   if (!lesson) return null;
 
   return (
-    <UgcProvider>
+    <UgcProvider lesson={lesson}>
       <div className="h-full flex flex-col">
         <div className="w-full flex-1 flex overflow-hidden">
           <UgcSidebar courseId={lesson.courseId} />

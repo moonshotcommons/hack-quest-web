@@ -3,7 +3,6 @@ import {
   NotionType,
   QuizAType
 } from '@/components/Web/Business/Renderer/type';
-import { PlaygroundContext } from '@/components/Web/LessonPage/Playground/type';
 import { BurialPoint } from '@/helper/burialPoint';
 import {
   adaptWidth,
@@ -18,6 +17,8 @@ import ComponentRenderer from '../../..';
 import QuizFooter from '../QuizFooter';
 import CodeRender from './CodeRender';
 import { RendererContext } from '@/components/Web/Business/Renderer/context';
+import { cloneDeep } from 'lodash-es';
+import { FooterButtonText, UgcContext } from '../../../../../constants/type';
 interface QuizARendererProps {
   parent: CustomType | NotionType;
   quiz: QuizAType;
@@ -26,10 +27,9 @@ interface QuizARendererProps {
 const QuizARenderer: FC<QuizARendererProps> = (props) => {
   const { quiz } = props;
   const [showAnswer, setShowAnswer] = useState(false);
-  const [submitDisable, setSubmitDisable] = useState(true);
   const prevQuiz = useRef<any>({});
   const isCompleted = useRef(false);
-  const { lesson } = useContext(PlaygroundContext);
+  const { lesson, emitter, setFooterBtnDisable } = useContext(UgcContext);
   const { onPass } = useContext(QuizContext);
   const { waitingRenderCodes, answerState, answerStateDispatch } = useParseQuiz(
     quiz.lines
@@ -80,7 +80,7 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
     dealInputValue(show);
   };
 
-  const onSubmit = async () => {
+  emitter.on(FooterButtonText.SUBMIT, async () => {
     BurialPoint.track('lesson-单个quiz提交', { lessonId: lesson.id });
     const newAnswerState = [...answerState];
     let isCurrent = true;
@@ -114,14 +114,12 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
       return;
     }
     onPass();
-  };
+  });
 
   // 自动填充
   const initCompleteInput = () => {
     if (!isCompleted.current) return;
-    const newAnswerState: AnswerState[] = JSON.parse(
-      JSON.stringify(answerState)
-    );
+    const newAnswerState: AnswerState[] = cloneDeep(answerState);
     if (newAnswerState.length) {
       newAnswerState.map((line) => {
         if (line.answers?.length) {
@@ -156,9 +154,6 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
     }
   };
 
-  //submit是否可以点击
-  //!isCompleted.current || !isInitAnswerState()为true 意味这手动输入input 判断value值
-  //否者标识初始化 quiz.isCompleted为true 方法 return false
   const getSubmitDisable = () => {
     return !answerState.some((line) => {
       if (line.answers?.length) {
@@ -175,14 +170,14 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
       isCompleted.current = quiz.isCompleted as boolean;
       setShowAnswer(false);
     }
-    setSubmitDisable(getSubmitDisable());
+    setFooterBtnDisable(getSubmitDisable());
     initCompleteInput();
     dealInputValue(false);
   }, [answerState]);
 
   useEffect(() => {
-    if (showAnswer) setSubmitDisable(true);
-    else setSubmitDisable(getSubmitDisable());
+    if (showAnswer) setFooterBtnDisable(true);
+    else setFooterBtnDisable(getSubmitDisable());
   }, [showAnswer]);
 
   return (
@@ -217,9 +212,7 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
       </div>
       <QuizFooter
         showAnswer={showAnswer}
-        submitDisable={submitDisable}
         setShowAnswer={setAnswers}
-        onSubmit={onSubmit}
       ></QuizFooter>
     </div>
   );

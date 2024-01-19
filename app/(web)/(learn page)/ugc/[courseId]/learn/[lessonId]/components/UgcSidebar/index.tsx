@@ -69,15 +69,15 @@ const UgcSidebar: FC<UgcSidebarProps> = ({ courseId }) => {
       unit.pages.find((page) => page.id === item.key)
     )?.title;
     const navbarData = [
-      { label: course.name },
+      { label: course.title },
       { label: unitName },
-      { label: item.data.name }
+      { label: item.data.title }
     ];
     setNavbarData(navbarData as NavbarDataType[]);
   };
 
   useEffect(() => {
-    course && setLearnPageTitle(course.name);
+    course && setLearnPageTitle(course.title);
     getNavbar(items[0]?.children?.[0]);
   }, [course]);
 

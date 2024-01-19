@@ -8,10 +8,11 @@ interface LessonContainerProps {
 
 const LessonContainer: FC<LessonContainerProps> = (props) => {
   const { lesson } = props;
+
   return (
     <div className="w-full h-full overflow-auto flex flex-col items-center">
       <h2 className="text-h2">{lesson.title}</h2>
-      <div className="flex gap-[.625rem] mt-[.625rem] items-center">
+      <div className="flex gap-[.625rem] mt-[.625rem] items-center mb-[3.125rem]">
         <span>{lessonTypeData[lesson.type].icon}</span>
         <span className="caption-16pt">
           {lessonTypeData[lesson.type].label}

@@ -5,7 +5,8 @@ import {
   NotionComponent,
   NotionType,
   QuizAType,
-  QuizBType
+  QuizBType,
+  QuizType
 } from '@/components/Web/Business/Renderer/type';
 import { FC } from 'react';
 
@@ -24,6 +25,7 @@ import ContentRenderer from './UgcComponentRenderer/ContentRenderer';
 import QuizARenderer from './UgcComponentRenderer/QuizRenderer/QuizARenderer';
 import QuizBRenderer from './UgcComponentRenderer/QuizRenderer/QuizBRenderer';
 import QuizCRenderer from './UgcComponentRenderer/QuizRenderer/QuizCRenderer';
+import QuizRenderer from './UgcComponentRenderer/QuizRenderer';
 
 interface ComponentRendererProps {
   // children: ReactNode
@@ -34,7 +36,6 @@ interface ComponentRendererProps {
 
 const ComponentRenderer: FC<ComponentRendererProps> = (props) => {
   const { parent, component, isRenderChildren = true } = props;
-
   switch (component.type.trim()) {
     case CustomType.Reading:
     case CustomType.Video:
@@ -44,6 +45,13 @@ const ComponentRenderer: FC<ComponentRendererProps> = (props) => {
           component={component as CustomComponent}
           parent={parent as any}
         ></ContentRenderer>
+      );
+    case CustomType.Quiz:
+      return (
+        <QuizRenderer
+          quiz={component as QuizType}
+          parent={parent}
+        ></QuizRenderer>
       );
     case CustomType.QuizA:
       return (

@@ -1,10 +1,13 @@
 'use client';
 import Button from '@/components/Common/Button';
-import React from 'react';
+import React, { useContext } from 'react';
+import { UgcContext } from '../../constants/type';
 
 interface UgcFooterProp {}
 
 const UgcFooter: React.FC<UgcFooterProp> = ({}) => {
+  const { emitter, footerBtnDisable, footerBtnText, footerBtnLoading } =
+    useContext(UgcContext);
   const unitNavList = [
     { propgress: 0.5 },
     { propgress: 0.5 },
@@ -12,7 +15,11 @@ const UgcFooter: React.FC<UgcFooterProp> = ({}) => {
     { propgress: 0.5 }
   ];
   const curIndex = 1;
-  const handleNext = () => {};
+  const handleClick = () => {
+    if (footerBtnDisable) return;
+    emitter.emit(footerBtnText);
+  };
+
   return (
     <div className="h-[68px] bg-neutral-rich-gray flex-center px-[40px] relative transition-all shadow-[0px_-2px_8px_0_rgba(0,0,0,0.12)]">
       <div className="max-w-[calc((100%-550px))] flex gap-[2px] overflow-auto">
@@ -34,10 +41,15 @@ const UgcFooter: React.FC<UgcFooterProp> = ({}) => {
       </div>
       <div className="absolute h-full top-0 right-[40px] flex items-center">
         <Button
-          className="w-[216px] h-[48px] bg-yellow-primary button-text-m text-neutral-black"
-          onClick={handleNext}
+          className={`w-[216px] h-[48px] button-text-m   ${
+            footerBtnDisable
+              ? 'bg-neutral-light-gray text-neutral-medium-gray cursor-not-allowed'
+              : 'text-neutral-black bg-yellow-primary'
+          }`}
+          loading={footerBtnLoading}
+          onClick={handleClick}
         >
-          NEXT
+          {footerBtnText}
         </Button>
       </div>
     </div>

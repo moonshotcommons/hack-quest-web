@@ -41,6 +41,7 @@
     "js-confetti": "^0.11.0",
     "lodash-es": "^4.17.21",
     "lz-string": "^1.5.0",
+    "mitt": "^3.0.1",
     "moment": "^2.29.4",
     "next": "14.0.4",
     "next-redux-wrapper": "^8.1.0",

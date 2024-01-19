@@ -1,4 +1,3 @@
-import Button from '@/components/Common/Button';
 import { BurialPoint } from '@/helper/burialPoint';
 import { cn } from '@/helper/utils';
 import webApi from '@/service';
@@ -12,14 +11,13 @@ import {
   useRef,
   useState
 } from 'react';
-import { FiChevronDown } from 'react-icons/fi';
 import { MdArrowDropDown } from 'react-icons/md';
 import ComponentRenderer from '../..';
 
 import { QuizType } from '@/components/Web/Business/Renderer/type';
-import { PlaygroundContext } from '@/components/Web/LessonPage/Playground/type';
 import QuizDropdown from './QuizDropdwon';
 import QuizPassModal from './QuizPassModal';
+import { UgcContext } from '../../../../constants/type';
 interface QuizRendererProps {
   quiz: QuizType;
   parent: any;
@@ -36,12 +34,12 @@ export const QuizContext = createContext<{
 });
 
 const QuizRenderer: FC<QuizRendererProps> = (props) => {
-  const { quiz: propsQuiz, parent } = props;
+  const { quiz: propsQuiz } = props;
   const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
   const [quizDropdownVisible, setQuizDropdownVisible] = useState(false);
-  const [start, setStart] = useState(parent.right.length <= 1);
   const [passOpen, setPassOpen] = useState(false);
-  const { onCompleted, lesson } = useContext(PlaygroundContext);
+  // const { onCompleted, lesson } = useContext(PlaygroundContext);
+  const { lesson } = useContext(UgcContext);
 
   const containerRef = useRef(null);
 
@@ -87,7 +85,7 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
       if (nextQuizIndex < quiz.children.length) {
         setCurrentQuizIndex(nextQuizIndex);
       } else {
-        onCompleted();
+        // onCompleted();
       }
       setPassOpen(false);
     }, 500);
@@ -123,7 +121,7 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
   const QuizHeader = (
     <div className={`flex justify-between h-fit w-full items-center`}>
       <div
-        className={`inline-flex font-next-poster-Bold items-center relative text-[18px] font-bold tracking-[1.08px] ${
+        className={`inline-flex text-h4 items-center relative ${
           quizDropdownVisible && 'shadow-2xl'
         }`}
       >
@@ -137,12 +135,15 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
             setQuizDropdownVisible(!quizDropdownVisible);
           }}
         >
-          <span>{`${quiz.title ? quiz.title : 'Quest'} ${
+          <span>{`${'Quiz'} ${currentQuizIndex + 1}/${
+            quiz.children.length
+          }`}</span>
+          {/* <span>{`${quiz.title ? quiz.title : 'Quest'} ${
             currentQuizIndex + 1
-          }/${quiz.children.length}`}</span>
+          }/${quiz.children.length}`}</span> */}
 
           <span
-            className={`${
+            className={`text-neutral-medium-gray ${
               quizDropdownVisible ? 'rotate-180' : ''
             } transition-transform`}
           >
@@ -160,57 +161,27 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
           ></QuizDropdown>
         ) : null}
       </div>
-      <div
-        className={`p-[20px]`}
-        onClick={() => {
-          BurialPoint.track('lesson-quiz 收起');
-          setStart(false);
-        }}
-      >
-        <FiChevronDown
-          size={28}
-          color=""
-          className={`rotate-180 cursor-pointer`}
-        ></FiChevronDown>
-      </div>
     </div>
   );
   return (
     <>
-      {start && (
-        <div
-          className={cn(
-            `rounded-[.625rem] pb-[20px] bg-[#E6E6E6] flex w-full flex-1 min-h-[50%] flex-col overflow-hidden`
-          )}
+      <div
+        className={cn(
+          `rounded-[.625rem] pb-[20px] bg-[#E6E6E6] flex w-full flex-1 min-h-[50%] flex-col overflow-hidden`
+        )}
+      >
+        {QuizHeader}
+        <QuizContext.Provider
+          value={{ onPass, currentQuizIndex, parentQuiz: quiz }}
         >
-          {QuizHeader}
-          <QuizContext.Provider
-            value={{ onPass, currentQuizIndex, parentQuiz: quiz }}
-          >
-            <div className={`h-full overflow-hidden px-[20px]`}>
-              <ComponentRenderer
-                parent={quiz}
-                component={quiz.children[currentQuizIndex]}
-              ></ComponentRenderer>
-            </div>
-          </QuizContext.Provider>
-        </div>
-      )}
-      {!start && (
-        <div className="inline-flex h-fit justify-between items-center rounded-[.625rem] bg-[#E6E6E6]  w-full px-[20px] py-[8px]">
-          <h1 className="font-next-poster-Bold text-[18px]">Quest</h1>
-          <Button
-            type="primary"
-            className="py-[8px] px-[40px] font-next-book text-[#0B0B0B] text-[14px]"
-            onClick={() => {
-              BurialPoint.track('lesson-start quiz按钮点击');
-              setStart(true);
-            }}
-          >
-            Start Quest
-          </Button>
-        </div>
-      )}
+          <div className={`h-full overflow-hidden px-[20px]`}>
+            <ComponentRenderer
+              parent={quiz}
+              component={quiz.children[currentQuizIndex]}
+            ></ComponentRenderer>
+          </div>
+        </QuizContext.Provider>
+      </div>
       <QuizPassModal
         open={passOpen}
         onClose={() => setPassOpen(true)}

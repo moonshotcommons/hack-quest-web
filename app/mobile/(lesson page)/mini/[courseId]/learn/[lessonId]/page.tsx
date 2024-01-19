@@ -16,7 +16,6 @@ const MiniLessonPage: NextPage<IProps> = (props) => {
     useRef<MiniElectiveCompletedModalRef>(null);
   const completed = () => {
     miniElectiveCompletedModalInstance.current?.open({});
-    console.info(111);
   };
   if (!lessonId) {
     return null;
