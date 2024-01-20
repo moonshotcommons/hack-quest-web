@@ -1,23 +1,25 @@
 'use client';
 import Button from '@/components/Common/Button';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { UgcContext } from '../../constants/type';
+import { useUnitNavList } from '@/hooks/useUnitNavList';
 
 interface UgcFooterProp {}
 
 const UgcFooter: React.FC<UgcFooterProp> = ({}) => {
-  const { emitter, footerBtn } = useContext(UgcContext);
-  const unitNavList = [
-    { propgress: 0.5 },
-    { propgress: 0.5 },
-    { propgress: 0.5 },
-    { propgress: 0.5 }
-  ];
-  const curIndex = 1;
+  const { emitter, footerBtn, lesson } = useContext(UgcContext);
+  const {
+    unitNavList = [],
+    currentUnitIndex,
+    refreshNavList
+  } = useUnitNavList(lesson);
   const handleClick = () => {
     if (footerBtn.footerBtnDisable) return;
     emitter.emit(footerBtn.footerBtnStatus);
   };
+  useEffect(() => {
+    refreshNavList();
+  }, [lesson]);
 
   return (
     <div className="h-[68px] bg-neutral-rich-gray flex-center px-[40px] relative transition-all shadow-[0px_-2px_8px_0_rgba(0,0,0,0.12)]">
@@ -27,11 +29,13 @@ const UgcFooter: React.FC<UgcFooterProp> = ({}) => {
             key={i}
             className="w-[70px] h-[5px] rounded-[3px] bg-neutral-medium-gray overflow-hidden"
           >
-            {curIndex >= i ? (
+            {currentUnitIndex >= i ? (
               <div
                 className="h-full rounded-[3px] bg-yellow-dark transition-all"
                 style={{
-                  width: `${curIndex === i ? item.propgress * 100 : '100'}%`
+                  width: `${
+                    currentUnitIndex === i ? item.progress * 100 : '100'
+                  }%`
                 }}
               ></div>
             ) : null}

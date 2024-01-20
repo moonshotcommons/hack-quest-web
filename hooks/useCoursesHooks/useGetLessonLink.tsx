@@ -16,7 +16,6 @@ export const useGetLessonLink = () => {
         QueryIdType.LEARNING_TRACK_ID
       ) as string;
       const menuCourseId = query.get(QueryIdType.MENU_COURSE_ID) as string;
-      console.info(params.courseId, 'courseId');
       const link = getLessonLink(
         courseType,
         (params.courseId as string) || courseName,
