@@ -13,7 +13,7 @@ export enum FooterButtonStatus {
   NEXT = 'next'
 }
 export interface footerBtnType {
-  footerStatus: FooterButtonStatus;
+  footerBtnStatus: FooterButtonStatus;
   footerBtnDisable: boolean;
   footerBtnText: FooterButtonText;
   footerBtnLoading: boolean;
@@ -24,7 +24,7 @@ export interface UgcContextType {
   lesson: any;
   emitter: any;
   footerBtn: footerBtnType;
-  setFooterBtn: (btn: footerBtnType) => void;
+  setFooterBtn: (btn: Partial<footerBtnType>) => void;
 }
 export const UgcContext = createContext<UgcContextType>({
   navbarData: [],
@@ -32,7 +32,7 @@ export const UgcContext = createContext<UgcContextType>({
   lesson: {},
   emitter: null,
   footerBtn: {
-    footerStatus: FooterButtonStatus.SUBMIT,
+    footerBtnStatus: FooterButtonStatus.SUBMIT,
     footerBtnDisable: false,
     footerBtnText: FooterButtonText.SUBMIT,
     footerBtnLoading: false

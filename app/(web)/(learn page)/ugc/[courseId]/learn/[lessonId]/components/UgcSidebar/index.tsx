@@ -99,7 +99,6 @@ const UgcSidebar: FC<UgcSidebarProps> = ({ lesson }) => {
   }, [course]);
 
   if (!course) return null;
-
   return (
     <Sidebar
       title={course.title}
@@ -109,7 +108,6 @@ const UgcSidebar: FC<UgcSidebarProps> = ({ lesson }) => {
       defaultOpenKeys={defaultOpenKeys}
       onSelect={(key, item: any) => {
         if (item.id === lesson.id) return;
-        debugger;
         const link = getLink(course.type, key, course.name);
         redirectToUrl(link);
       }}

@@ -1,6 +1,4 @@
 import * as React from 'react';
-import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
-import { JumpLeaningLessonType } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
 import { CourseType } from '@/service/webApi/course/type';
 
 import { clsx, type ClassValue } from 'clsx';
@@ -32,26 +30,35 @@ export const getCourseLink = (courseType?: CourseType) => {
   }
 };
 
+// export const getLessonLink = (
+//   courseType: CourseType,
+//   courseName: string | undefined,
+//   lessonId: string,
+//   menuCourseId: string,
+//   linkParam?: JumpLeaningLessonType
+// ) => {
+//   if (!courseType || !courseName || !lessonId) return '/404';
+//   const lParam = linkParam || {
+//     menu: Menu.ELECTIVES,
+//     idTypes: [QueryIdType.MENU_COURSE_ID],
+//     ids: [menuCourseId]
+//   };
+//   let link = `${getCourseLink(
+//     courseType
+//   )}/${courseName}/learn/${lessonId}?menu=${lParam.menu}`;
+//   lParam.idTypes.map((v: string, i: number) => {
+//     link += `&${v}=${lParam.ids[i]}`;
+//   });
+//   return link;
+// };
+
 export const getLessonLink = (
   courseType: CourseType,
   courseName: string | undefined,
-  lessonId: string,
-  menuCourseId: string,
-  linkParam?: JumpLeaningLessonType
+  lessonId: string
 ) => {
   if (!courseType || !courseName || !lessonId) return '/404';
-  const lParam = linkParam || {
-    menu: Menu.ELECTIVES,
-    idTypes: [QueryIdType.MENU_COURSE_ID],
-    ids: [menuCourseId]
-  };
-  let link = `${getCourseLink(
-    courseType
-  )}/${courseName}/learn/${lessonId}?menu=${lParam.menu}`;
-  lParam.idTypes.map((v: string, i: number) => {
-    link += `&${v}=${lParam.ids[i]}`;
-  });
-  return link;
+  return `${getCourseLink(courseType)}/${courseName}/learn/${lessonId}`;
 };
 
 export const changeTextareaHeight = (target: HTMLTextAreaElement) => {

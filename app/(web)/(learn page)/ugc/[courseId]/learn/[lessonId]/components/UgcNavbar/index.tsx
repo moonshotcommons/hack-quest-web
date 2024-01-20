@@ -7,7 +7,7 @@ interface UgcNavbarProp {}
 const UgcNavbar: React.FC<UgcNavbarProp> = () => {
   const { navbarData } = useContext(UgcContext);
   return (
-    <div className="flex gap-[8px] body-s text-neutral-black absolute left-[20px] top-[30px]">
+    <div className="flex gap-[8px] body-s text-neutral-black absolute left-[20px] top-[30px] bg-neutral-white">
       {navbarData.map((v, i) => (
         <div key={i}>
           {i ? <span className="pr-[8px]">/</span> : null}

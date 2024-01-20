@@ -18,7 +18,7 @@ import QuizFooter from '../QuizFooter';
 import CodeRender from './CodeRender';
 import { RendererContext } from '@/components/Web/Business/Renderer/context';
 import { cloneDeep } from 'lodash-es';
-import { FooterButtonText, UgcContext } from '../../../../../constants/type';
+import { FooterButtonStatus, UgcContext } from '../../../../../constants/type';
 interface QuizARendererProps {
   parent: CustomType | NotionType;
   quiz: QuizAType;
@@ -80,7 +80,7 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
     dealInputValue(show);
   };
 
-  emitter.on(FooterButtonText.SUBMIT, async () => {
+  const submit = async () => {
     BurialPoint.track('lesson-单个quiz提交', { lessonId: lesson.id });
     const newAnswerState = [...answerState];
     let isCurrent = true;
@@ -114,8 +114,9 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
       return;
     }
     onPass();
-  });
+  };
 
+  emitter.on(FooterButtonStatus.SUBMIT, submit);
   // 自动填充
   const initCompleteInput = () => {
     if (!isCompleted.current) return;
@@ -171,8 +172,8 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
       setShowAnswer(false);
     }
     setFooterBtn({
-      ...footerBtn,
-      footerBtnDisable: getSubmitDisable()
+      footerBtnDisable: getSubmitDisable(),
+      footerBtnStatus: FooterButtonStatus.SUBMIT
     });
     initCompleteInput();
     dealInputValue(false);
@@ -181,14 +182,16 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
   useEffect(() => {
     if (showAnswer)
       setFooterBtn({
-        ...footerBtn,
         footerBtnDisable: true
       });
     else
       setFooterBtn({
-        ...footerBtn,
         footerBtnDisable: getSubmitDisable()
       });
+
+    return () => {
+      emitter.off(FooterButtonStatus.SUBMIT, submit);
+    };
   }, [showAnswer]);
 
   return (

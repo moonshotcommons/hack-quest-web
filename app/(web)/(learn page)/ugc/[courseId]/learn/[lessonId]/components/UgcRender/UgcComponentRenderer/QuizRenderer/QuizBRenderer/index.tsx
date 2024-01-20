@@ -13,11 +13,11 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import { QuizContext } from '..';
 import ComponentRenderer from '../../..';
 
-import { PlaygroundContext } from '@/components/Web/LessonPage/Playground/type';
 import QuizFooter from '../QuizFooter';
 import DragAnswer from './DragAnswer';
 import { AnswerType, QuizOptionType } from './type';
 import { RendererContext } from '@/components/Web/Business/Renderer/context';
+import { FooterButtonStatus, UgcContext } from '../../../../../constants/type';
 interface QuizBRendererProps {
   parent: CustomType | NotionType;
   quiz: QuizBType;
@@ -25,16 +25,15 @@ interface QuizBRendererProps {
 
 const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
   const { quiz } = props;
-  const { onPass, parentQuiz } = useContext(QuizContext);
+  const { onPass } = useContext(QuizContext);
   const [options, setOptions] = useState<QuizOptionType[]>(() =>
     quiz.options.map((option) => ({ ...option, isRender: true }))
   );
   const [showAnswer, setShowAnswer] = useState(false);
-  const { lesson } = useContext(PlaygroundContext);
+  const { lesson, emitter, setFooterBtn } = useContext(UgcContext);
   const [answers, setAnswers] = useState<Record<string, AnswerType>>({});
   const mountAnswers = useRef(0);
   const [mountOptionIds, setMountOptionIds] = useState<string[]>([]);
-  const renderState = useRef(false);
   const onDrop = (
     dropAnswer: AnswerType,
     replaceOption?: QuizOptionType | null
@@ -103,6 +102,8 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
     webApi.courseApi.markQuestState(lesson.id, false);
   };
 
+  emitter.on(FooterButtonStatus.SUBMIT, onSubmit);
+
   useEffect(() => {
     const answerOptions = Object.keys(answers)
       .map((key) => answers[key].option?.id)
@@ -152,14 +153,20 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
       });
       mountAnswers.current += 1;
     }
+    const footerBtnDisable =
+      !Object.keys(answers).find((key) => answers[key].option) || showAnswer;
+    setFooterBtn({
+      footerBtnDisable
+    });
+    return () => {
+      emitter.off(FooterButtonStatus.SUBMIT, onSubmit);
+    };
   }, [answers]);
 
   const { quizChildren, parseComponent } = useMemo(() => {
     let parseComponent: NotionComponent | null = null;
-    console.log(quiz.children);
     for (let i = quiz.children.length - 1; i >= 0; i--) {
       let child = quiz.children[i];
-      console.log(child);
       if (child.type === NotionType.TOGGLE) {
         parseComponent = child;
       }
@@ -172,10 +179,6 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
         : quiz.children
     };
   }, [quiz]);
-
-  const quizIndex = useMemo(() => {
-    return parentQuiz.children.findIndex((item: any) => item.id === quiz.id);
-  }, [quiz, parentQuiz]);
 
   return (
     <div className="h-full flex flex-col justify-between">
@@ -261,7 +264,6 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
           if (isShow) BurialPoint.track('lesson-show answer次数');
           setShowAnswer(isShow);
         }}
-        onSubmit={onSubmit}
       ></QuizFooter>
     </div>
   );

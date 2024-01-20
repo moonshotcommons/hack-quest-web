@@ -17,7 +17,11 @@ import ComponentRenderer from '../..';
 import { QuizType } from '@/components/Web/Business/Renderer/type';
 import QuizDropdown from './QuizDropdwon';
 import QuizPassModal from './QuizPassModal';
-import { UgcContext } from '../../../../constants/type';
+import {
+  FooterButtonStatus,
+  FooterButtonText,
+  UgcContext
+} from '../../../../constants/type';
 interface QuizRendererProps {
   quiz: QuizType;
   parent: any;
@@ -38,15 +42,14 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
   const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
   const [quizDropdownVisible, setQuizDropdownVisible] = useState(false);
   const [passOpen, setPassOpen] = useState(false);
-  // const { onCompleted, lesson } = useContext(PlaygroundContext);
-  const { lesson } = useContext(UgcContext);
+  const { lesson, footerBtn, setFooterBtn } = useContext(UgcContext);
 
   const containerRef = useRef(null);
 
   const [quiz, setQuiz] = useState(propsQuiz);
 
   const onPass = () => {
-    webApi.courseApi.completeQuiz(lesson.id, currentQuizIndex).then((res) => {
+    webApi.courseApi.completeQuiz(lesson.id, currentQuizIndex).then(() => {
       quiz.children[currentQuizIndex].isCompleted = true;
       setQuiz({
         ...quiz,
@@ -85,7 +88,10 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
       if (nextQuizIndex < quiz.children.length) {
         setCurrentQuizIndex(nextQuizIndex);
       } else {
-        // onCompleted();
+        setFooterBtn({
+          footerBtnText: FooterButtonText.NEXT,
+          footerBtnStatus: FooterButtonStatus.NEXT
+        });
       }
       setPassOpen(false);
     }, 500);

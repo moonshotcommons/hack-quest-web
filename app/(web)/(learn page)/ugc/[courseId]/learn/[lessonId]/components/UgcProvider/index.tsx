@@ -18,9 +18,9 @@ interface UgcProviderProps {
 const UgcProvider: FC<UgcProviderProps> = ({ children, lesson }) => {
   const [navbarData, setNavbarData] = useState<NavbarDataType[]>([]);
   const [footerBtn, setFooterBtn] = useState<footerBtnType>({
-    footerStatus: FooterButtonStatus.SUBMIT,
-    footerBtnText: FooterButtonText.SUBMIT,
-    footerBtnDisable: true,
+    footerBtnStatus: FooterButtonStatus.NEXT,
+    footerBtnText: FooterButtonText.NEXT,
+    footerBtnDisable: false,
     footerBtnLoading: false
   });
   const emitter = mitt();
@@ -39,7 +39,11 @@ const UgcProvider: FC<UgcProviderProps> = ({ children, lesson }) => {
         lesson,
         emitter,
         footerBtn,
-        setFooterBtn: (btn: footerBtnType) => setFooterBtn(btn)
+        setFooterBtn: (btn: Partial<footerBtnType>) =>
+          setFooterBtn({
+            ...footerBtn,
+            ...btn
+          })
       }}
     >
       <RendererContext.Provider

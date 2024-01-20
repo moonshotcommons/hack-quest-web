@@ -16,7 +16,7 @@ const UgcFooter: React.FC<UgcFooterProp> = ({}) => {
   const curIndex = 1;
   const handleClick = () => {
     if (footerBtn.footerBtnDisable) return;
-    emitter.emit(footerBtn.footerStatus);
+    emitter.emit(footerBtn.footerBtnStatus);
   };
 
   return (

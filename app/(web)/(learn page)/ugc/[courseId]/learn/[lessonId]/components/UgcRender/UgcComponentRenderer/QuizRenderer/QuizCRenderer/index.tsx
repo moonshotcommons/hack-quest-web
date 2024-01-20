@@ -1,15 +1,14 @@
 'use client';
 import { FC, useContext, useEffect, useState } from 'react';
-// import { QuizContext } from '..';
 
 import TextRenderer from '@/components/Web/Business/NotionRender/TextRenderer';
-import Button from '@/components/Common/Button';
 import { cn } from '@/helper/utils';
 import { RendererContext } from '@/components/Web/Business/Renderer/context';
 import ComponentRenderer from '@/components/Web/Business/Renderer/MiniElectiveRenderer';
 import { FiCheck } from 'react-icons/fi';
 import { FiX } from 'react-icons/fi';
-import { CompleteStateType } from '@/service/webApi/course/type';
+import { FooterButtonStatus, UgcContext } from '../../../../../constants/type';
+import { QuizContext } from '..';
 interface QuizCRendererProps {
   parent: any;
   quiz: any;
@@ -23,14 +22,14 @@ enum AnswerState {
 
 const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
   const { quiz, parent } = props;
-  const { onCompleted, onQuizPass } =
-    useContext(RendererContext).globalContext!;
   const [answers, setAnswers] = useState<number[]>([]);
+  const { onPass } = useContext(QuizContext);
+  const { emitter, footerBtn, setFooterBtn } = useContext(UgcContext);
   const [answerState, setAnswerState] = useState<AnswerState>(
     AnswerState.Default
   );
 
-  const onSubmit = () => {
+  const submit = () => {
     let wrongAnswer = answers.find((answer) => !quiz.answers.includes(answer));
     if (wrongAnswer) {
       setAnswerState(AnswerState.Wrong);
@@ -45,25 +44,32 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
       return;
     }
     setAnswerState(AnswerState.Correct);
-    onQuizPass?.();
+    onPass();
   };
 
-  const onTryAgain = () => {
-    setAnswerState(AnswerState.Default);
-    setAnswers([]);
-  };
+  emitter.on(FooterButtonStatus.SUBMIT, submit);
 
   useEffect(() => {
-    if (parent?.state === CompleteStateType.COMPLETED) {
+    if (quiz.isCompleted) {
       setAnswers(quiz.answers);
     } else {
       setAnswers([]);
       setAnswerState(AnswerState.Default);
     }
-  }, [parent, quiz]);
+  }, [quiz]);
+
+  useEffect(() => {
+    setFooterBtn({
+      footerBtnDisable: !answers.length,
+      footerBtnStatus: FooterButtonStatus.SUBMIT
+    });
+    return () => {
+      emitter.off(FooterButtonStatus.SUBMIT, submit);
+    };
+  }, [answers]);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col w-full bg-neutral-off-white rounded-[10px] p-[10px]">
       <RendererContext.Provider
         value={{
           textRenderer: {
@@ -71,7 +77,7 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
           }
         }}
       >
-        <div className="font-next-book-bold leading-[125%] tracking-[0.36px] mt-[32px]">
+        <div className="text-h4 leading-[125%] tracking-[0.36px] mt-[32px]">
           {quiz?.children?.map((child: any, index: number) => {
             return (
               <ComponentRenderer
@@ -125,37 +131,6 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
             </div>
           );
         })}
-      </div>
-      <div className="mt-[32px]">
-        {answerState === AnswerState.Default && (
-          <Button
-            type="primary"
-            className="w-[165px] p-0 py-[11px] font-next-book leading-[125%] tracking-[0.32px] text-[#0B0B0B]"
-            onClick={onSubmit}
-          >
-            Submit
-          </Button>
-        )}
-        {answerState === AnswerState.Wrong && (
-          <Button
-            type="primary"
-            className="w-[165px] p-0 py-[11px] font-next-book leading-[125%] tracking-[0.32px] text-[#0B0B0B]"
-            onClick={onTryAgain}
-          >
-            Try again
-          </Button>
-        )}
-        {answerState === AnswerState.Correct && (
-          <Button
-            type="primary"
-            className="w-[165px] p-0 py-[11px] font-next-book leading-[125%] tracking-[0.32px] text-[#0B0B0B]"
-            onClick={() => {
-              onCompleted?.();
-            }}
-          >
-            Next
-          </Button>
-        )}
       </div>
     </div>
   );

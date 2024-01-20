@@ -17,7 +17,6 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { FC, useContext } from 'react';
 import styled from 'styled-components';
 import { LearningStatus } from '../type';
-import { QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import Button from '@/components/Common/Button';
 
 const CustomProgress = styled(Progress)`
@@ -185,19 +184,19 @@ const UnitCard: FC<UnitCardProps> = (props) => {
               let link = `${getLessonLink(
                 courseType as CourseType,
                 courseDetail?.name as string,
-                lessonId,
-                courseDetail?.id as string,
-                {
-                  menu: query.get('menu') as string,
-                  idTypes: [
-                    QueryIdType.LEARNING_TRACK_ID,
-                    QueryIdType.MENU_COURSE_ID
-                  ],
-                  ids: [
-                    query.get(QueryIdType.LEARNING_TRACK_ID) || '',
-                    query.get(QueryIdType.MENU_COURSE_ID) || ''
-                  ] as string[]
-                }
+                lessonId
+                // courseDetail?.id as string,
+                // {
+                //   menu: query.get('menu') as string,
+                //   idTypes: [
+                //     QueryIdType.LEARNING_TRACK_ID,
+                //     QueryIdType.MENU_COURSE_ID
+                //   ],
+                //   ids: [
+                //     query.get(QueryIdType.LEARNING_TRACK_ID) || '',
+                //     query.get(QueryIdType.MENU_COURSE_ID) || ''
+                //   ] as string[]
+                // }
               )}`;
               router.replace(link);
             }
