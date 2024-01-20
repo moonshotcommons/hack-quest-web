@@ -16,7 +16,6 @@ import {
 import { useRequest } from 'ahooks';
 import { cloneDeep } from 'lodash-es';
 import { FC, useEffect, useState } from 'react';
-import UgcCard from '../UgcCard';
 interface CourseFilterListDefaultProps {}
 
 const CourseFilterListDefault: FC<CourseFilterListDefaultProps> = (props) => {
@@ -63,9 +62,6 @@ const CourseFilterListDefault: FC<CourseFilterListDefaultProps> = (props) => {
       sort={sort}
       loading={loading}
       renderItem={(course) => {
-        if (course.type === CourseType.UGC) {
-          return <UgcCard key={course.id} course={course}></UgcCard>;
-        }
         return <ElectiveCard key={course.id} course={course}></ElectiveCard>;
       }}
     ></CourseFilterList>

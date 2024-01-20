@@ -36,7 +36,7 @@ const Ugc: React.FC<UgcProp> = ({ lessonId }) => {
           <div className="flex-1 bg-neutral-white flex justify-center relative">
             <UgcNavbar />
             <div className="w-full h-full flex flex-col overflow-hidden">
-              <div className="flex-1 pt-[5.125rem] overflow-auto flex justify-center scroll-wrap-y">
+              <div className="flex-1 mt-[5.125rem] overflow-auto flex justify-center scroll-wrap-y">
                 <LessonContainer lesson={lesson}></LessonContainer>
               </div>
             </div>

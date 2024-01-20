@@ -1,85 +1,150 @@
-import { FC, useContext, useEffect, useState } from 'react';
+import { FC, useContext, useEffect, useMemo } from 'react';
 
 import ComponentRenderer from '@/components/Web/Business/Renderer/ComponentRenderer';
-import { ExpandDataType } from '@/hooks/useLessonExpand';
 import { VscAdd, VscChromeMinimize } from 'react-icons/vsc';
 
-import {
-  CustomComponent,
-  NotionComponent
-} from '@/components/Web/Business/Renderer/type';
-import { LessonContentContext } from '@/components/Web/LessonPage/LessonContent';
+import { NotionComponent } from '@/components/Web/Business/Renderer/type';
 import TextRenderer from '../TextRenderer';
 import { cn } from '@/helper/utils';
+import { NotionRenderType } from '@/components/Web/Business/NotionRender/type';
+import { UgcContext } from '../../../../constants/type';
 interface ToggleRendererProps {
   component: NotionComponent;
   isRenderChildren?: boolean;
-  parent: NotionComponent | CustomComponent;
+  parent: any;
 }
 
 const ToggleRenderer: FC<ToggleRendererProps> = (props) => {
-  const { component, isRenderChildren = true } = props;
-  const [showChild, setShowChild] = useState(true);
-  const { expandData, changeExpandData } = useContext(LessonContentContext);
-  const changeShowChild = (status: boolean) => {
-    if (!expandData) {
-      setShowChild(status);
-      return;
+  const { component, isRenderChildren = true, parent } = props;
+  let children = parent?.isRoot ? parent.content : parent.children;
+  const { expandData, updateExpandData } = useContext(UgcContext);
+
+  const { group, firstIndex, lastIndex, currentIndex } = useMemo(() => {
+    const currentIndex: number = children.findIndex(
+      (child: any) => child.id === component.id
+    );
+
+    let firstIndex = 0;
+    let lastIndex = 0;
+    let group = [];
+
+    for (let i = currentIndex; i >= 0; i--) {
+      if (children[i].type !== NotionRenderType.TOGGLE) {
+        break;
+      }
+      firstIndex = i;
     }
-    const newExpandData = [...expandData] as ExpandDataType[];
-    const index = newExpandData?.findIndex((v) => v.id === component.id);
-    newExpandData[index].expandNum = status ? 1 : 0;
-    setShowChild(status);
-    changeExpandData(newExpandData, expandData[0].index);
-  };
+
+    for (let j = firstIndex; j < children.length; j++) {
+      if (children[j].type !== NotionRenderType.TOGGLE) {
+        break;
+      }
+      group.push(j);
+      lastIndex = j;
+    }
+
+    return {
+      currentIndex,
+      index: currentIndex - firstIndex,
+      firstIndex,
+      lastIndex,
+      group
+    };
+  }, [children, component]);
+
   useEffect(() => {
-    const expandNum =
-      expandData?.find((v) => v.id === component.id)?.expandNum || 0;
-    if (expandNum === 1) {
-      setShowChild(true);
-    } else {
-      setShowChild(false);
+    if (currentIndex === firstIndex) {
+      const newExpandData = { ...expandData };
+      newExpandData[component.id] = [];
+      updateExpandData(newExpandData);
     }
-  }, [expandData, component]);
+  }, []);
+
+  const groupExpands = useMemo(() => {
+    return expandData[children[firstIndex].id] || [];
+  }, [expandData, firstIndex, children]);
+
+  const isExpandAll = useMemo(() => {
+    for (let i = 0; i < group.length; i++) {
+      const find = groupExpands?.find((item) => item === group[i]);
+      if (!find) return false;
+    }
+    return true;
+  }, [groupExpands, group]);
+
   return (
-    <div
-      className={cn(
-        'border-b border-[#676767] overflow-hidden mb-5',
-        showChild ? 'pb-5' : ''
-      )}
-      data-type={component.type}
-    >
-      <div
-        className="px-[.5rem] flex justify-between items-center my-3 cursor-pointer"
-        onClick={() => changeShowChild(!showChild)}
-      >
-        <div>
-          <TextRenderer
-            richTextArr={component.content.rich_text}
-            fontSize={'16px'}
-          />
+    <div>
+      {lastIndex !== currentIndex && firstIndex === currentIndex && (
+        <div
+          className="py-[15px] border-b border-neutral-black text-right underline-m text-neutral-black cursor-pointer"
+          onClick={() => {
+            let newExpandData = { ...expandData };
+            let expands: number[] = [];
+            if (!isExpandAll) {
+              group.forEach((item) => {
+                if (!groupExpands.includes(item)) {
+                  expands.push(item);
+                }
+              });
+            }
+            newExpandData[children[firstIndex].id] = expands;
+            updateExpandData(newExpandData);
+          }}
+        >
+          {!isExpandAll ? `Expand All` : `Fold All`}
         </div>
-        <span className={``}>
-          {!showChild ? (
-            <VscAdd size={20}></VscAdd>
-          ) : (
-            <VscChromeMinimize size={20}></VscChromeMinimize>
-          )}
-        </span>
-      </div>
-      {/* 正常渲染子对象 */}
-      <div className="pl-4">
-        {isRenderChildren &&
-          showChild &&
-          component.children?.map((item: any, index: number) => {
-            return (
-              <ComponentRenderer
-                key={index}
-                component={item}
-                parent={component}
-              ></ComponentRenderer>
-            );
-          })}
+      )}
+      <div
+        className={cn(
+          'border-b border-[#676767] overflow-hidden',
+          groupExpands?.includes(currentIndex) ? 'pb-5' : '',
+          lastIndex === currentIndex ? 'mb-5' : ''
+        )}
+        data-type={component.type}
+      >
+        <div
+          className="px-[.5rem] flex justify-between items-center my-[15px] cursor-pointer"
+          onClick={() => {
+            let newExpandData = { ...expandData };
+            let expands = groupExpands;
+            if (!expands?.includes(currentIndex)) {
+              expands = expands.concat(currentIndex);
+            } else {
+              expands = expands.filter((i) => i !== currentIndex);
+            }
+            newExpandData[children[firstIndex].id] = expands;
+
+            updateExpandData(newExpandData);
+          }}
+        >
+          <div>
+            <TextRenderer
+              richTextArr={component.content.rich_text}
+              fontSize={'16px'}
+            />
+          </div>
+          <span className={``}>
+            {!groupExpands?.includes(currentIndex) ? (
+              <VscAdd size={20}></VscAdd>
+            ) : (
+              <VscChromeMinimize size={20}></VscChromeMinimize>
+            )}
+          </span>
+        </div>
+        {/* 正常渲染子对象 */}
+        <div className="pl-4">
+          {isRenderChildren &&
+            groupExpands?.includes(currentIndex) &&
+            component.children?.map((item: any, index: number) => {
+              return (
+                <ComponentRenderer
+                  key={index}
+                  component={item}
+                  parent={component}
+                ></ComponentRenderer>
+              );
+            })}
+        </div>
       </div>
     </div>
   );

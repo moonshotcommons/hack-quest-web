@@ -21,7 +21,7 @@ const VideoRenderer: FC<VideoRendererProps> = (props) => {
     <div className="w-full rounded-[10px] overflow-hidden mt-[30px]">
       <video ref={ref} controls>
         {/* width="400px" */}
-        {<source src={'/test.mp4'} type="video/mp4" />}
+        {<source src={component.content.file.url} type="video/mp4" />}
       </video>
     </div>
     // <ReactPlayer url="/test.mp4" />

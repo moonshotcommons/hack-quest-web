@@ -17,6 +17,7 @@ interface UgcProviderProps {
 
 const UgcProvider: FC<UgcProviderProps> = ({ children, lesson }) => {
   const [navbarData, setNavbarData] = useState<NavbarDataType[]>([]);
+  const [expandData, setExpandData] = useState<Record<string, number[]>>({});
   const [footerBtn, setFooterBtn] = useState<footerBtnType>({
     footerBtnStatus: FooterButtonStatus.NEXT,
     footerBtnText: FooterButtonText.NEXT,
@@ -43,7 +44,11 @@ const UgcProvider: FC<UgcProviderProps> = ({ children, lesson }) => {
           setFooterBtn({
             ...footerBtn,
             ...btn
-          })
+          }),
+        expandData,
+        updateExpandData: (data: Record<string, number[]>) => {
+          setExpandData((state) => ({ ...state, ...data }));
+        }
       }}
     >
       <RendererContext.Provider
