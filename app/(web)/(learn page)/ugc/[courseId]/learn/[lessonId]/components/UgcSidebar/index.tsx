@@ -2,7 +2,7 @@
 import Sidebar, { SidebarItemType } from '@/components/Web/Business/Sidebar';
 import { FC, useContext, useEffect, useMemo, useState } from 'react';
 import { lessonTypeData } from './constant';
-import { UGCCourseType } from '@/service/webApi/course/type';
+import { CompleteStateType, UGCCourseType } from '@/service/webApi/course/type';
 import { UgcContext, NavbarDataType } from '../../constants/type';
 import { useCourseStore } from '@/store/zustand/courseStore';
 import { useRequest } from 'ahooks';
@@ -50,9 +50,27 @@ const UgcSidebar: FC<UgcSidebarProps> = ({ lesson }) => {
                     {lessonTypeData[page.type].label}
                   </span>
                 </div>
-                <div className="w-6 h-6 rounded-full border border-neutral-rich-gray flex justify-center items-center">
-                  {lessonTypeData[page.type].icon}
-                </div>
+                {page.state !== CompleteStateType.COMPLETED && (
+                  <div className="w-6 h-6 rounded-full border border-neutral-rich-gray flex justify-center items-center">
+                    {lessonTypeData[page.type].icon}
+                  </div>
+                )}
+                {page.state === CompleteStateType.COMPLETED && (
+                  <svg
+                    width="24"
+                    height="25"
+                    viewBox="0 0 24 25"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle cx="12" cy="12.5" r="12" fill="#00C365" />
+                    <path
+                      d="M6 12.4999L10.8 17.2999L19.2 8.8999"
+                      stroke="white"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                )}
               </div>
             ),
             type: 'item',

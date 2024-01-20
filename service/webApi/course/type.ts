@@ -107,6 +107,7 @@ export interface UGCCourseType {
       title: string;
       type: LessonType;
       unitId: string;
+      state: CompleteStateType;
       courseId: string;
       sequence: number;
     }[];

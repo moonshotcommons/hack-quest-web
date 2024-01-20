@@ -105,7 +105,7 @@ const Breadcrumb: React.FC = () => {
           if (v) {
             linkIdsStr += `&${navIdType[i]}=${v.id}`;
             return {
-              label: v.name,
+              label: v.title,
               link: !v.menu_
                 ? `${navLinks[i]}/${v.id}?menu=${query.get(
                     'menu'

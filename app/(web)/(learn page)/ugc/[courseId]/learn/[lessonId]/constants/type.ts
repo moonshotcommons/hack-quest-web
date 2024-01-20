@@ -25,6 +25,8 @@ export interface UgcContextType {
   emitter: any;
   footerBtn: footerBtnType;
   setFooterBtn: (btn: Partial<footerBtnType>) => void;
+  expandData: Record<string, number[]>;
+  updateExpandData: (data: Record<string, number[]>) => void;
 }
 export const UgcContext = createContext<UgcContextType>({
   navbarData: [],
@@ -37,5 +39,7 @@ export const UgcContext = createContext<UgcContextType>({
     footerBtnText: FooterButtonText.SUBMIT,
     footerBtnLoading: false
   },
+  expandData: {},
+  updateExpandData: (data: Record<string, number[]>) => {},
   setFooterBtn: () => {}
 });

@@ -80,7 +80,7 @@ const PracticeCard: FC<PracticeCardProps> = (props) => {
       onClick={() => {
         BurialPoint.track('home-practice卡片点击', { practice: course.name });
         redirectToUrl(
-          `${MenuLink.ELECTIVES}/${course.id}?${QueryIdType.MENU_COURSE_ID}=${course.id}&menu=${Menu.PRACTICES}`
+          `${MenuLink.PRACTICES}/${course.id}?${QueryIdType.MENU_COURSE_ID}=${course.id}&menu=${Menu.PRACTICES}`
         );
       }}
     >
