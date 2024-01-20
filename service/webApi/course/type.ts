@@ -12,7 +12,8 @@ export enum CourseType {
   TEASER = 'TEASER',
   HACKATHON = 'HACKATHON',
   LEARNING_TRACK = 'LEARNING_TRACK',
-  Mini = 'MINI'
+  MINI = 'MINI',
+  UGC = 'UGC'
 }
 
 export enum LessonStyleType {
@@ -94,7 +95,7 @@ export interface UGCCourseType {
   creator: CreatorType | null;
   units?: {
     id: string;
-    name: string;
+    title: string;
     description: string;
     sequence: number;
     progress: number;
@@ -103,9 +104,10 @@ export interface UGCCourseType {
     updatedAt: string;
     pages: {
       id: string;
-      name: string;
+      title: string;
       type: LessonType;
       unitId: string;
+      state: CompleteStateType;
       courseId: string;
       sequence: number;
     }[];

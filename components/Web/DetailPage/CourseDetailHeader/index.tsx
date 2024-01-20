@@ -36,7 +36,7 @@ const CourseDetailHeader: FC<CourseDetailHeaderProps> = (props) => {
       <div className="flex gap-[50px] mt-[10px] justify-between">
         <div>
           <h1 className="font-next-poster-Bold text-[40px] text-text-default-color whitespace-nowrap leading-normal">
-            {courseDetail.name}
+            {courseDetail.title}
           </h1>
           <Typography.Paragraph
             // ellipsis={{ rows: 3 }}

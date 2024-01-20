@@ -30,7 +30,7 @@ export const useJumpLeaningLesson = () => {
     ) => {
       let lesson: any;
       switch (courseDetail.type) {
-        case CourseType.Mini:
+        case CourseType.MINI:
           lesson = await webApi.courseApi.getLearningLessonId(courseDetail.id);
           break;
         default:
@@ -58,9 +58,9 @@ export const useJumpLeaningLesson = () => {
         let link = `${getLessonLink(
           courseDetail?.type,
           courseDetail?.title || courseDetail?.name,
-          pageId,
-          courseDetail?.id,
-          linkParam
+          pageId
+          // courseDetail?.id,
+          // linkParam
         )}`;
         redirectToUrl(link);
       },

@@ -54,7 +54,7 @@ const Sidebar = <T,>(props: SidebarProps<T>) => {
     onSelect,
     defaultSelect
   } = props;
-  const [showList, setShowList] = useState(false);
+  const [showList, setShowList] = useState(true);
   const [openKeys, setOpenKeys] = useState<string[]>(defaultOpenKeys);
   const [select, setSelect] = useState<string>(defaultSelect);
 

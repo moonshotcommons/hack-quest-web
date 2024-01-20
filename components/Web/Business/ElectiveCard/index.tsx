@@ -15,7 +15,7 @@ import AltIcon from '@/components/Common/Icon/AltIcon';
 import { ElectiveCourseType } from '@/service/webApi/elective/type';
 import { MenuLink } from '@/components/Layout/Navbar/type';
 import CardProgress from '../CardProgress';
-
+import Logo from '@/public/images/logo/logo.svg';
 interface ElectiveCardProps {
   // children: ReactNode;
   course: ElectiveCourseType;
@@ -43,7 +43,7 @@ const ElectiveCard: FC<ElectiveCardProps> = (props) => {
 
   const onCourseClick = useCallback(() => {
     switch (course.type) {
-      case CourseType.Mini:
+      case CourseType.MINI:
         miniElectiveDetailInstance.current?.open(course);
         return;
       default:
@@ -169,12 +169,14 @@ const ElectiveCard: FC<ElectiveCardProps> = (props) => {
             <div className="flex gap-3 items-center">
               <div className="w-9 h-9 rounded-full relative overflow-hidden">
                 <Image
-                  src={course.creator?.profileImage || ''}
+                  src={course.creator?.profileImage || Logo}
                   fill
                   alt="creator"
                 ></Image>
               </div>
-              <span className="body-s-bold">{course.creator?.name}</span>
+              <span className="body-s-bold">
+                {course.creator?.name || `Hackquest`}
+              </span>
             </div>
           )}
 

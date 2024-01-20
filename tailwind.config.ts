@@ -40,7 +40,7 @@ const config: Config = {
         MiSans: ['MiSans'],
         'MiSans-Semibold': ['MiSans-Semibold'],
         Inter: ['Inter'],
-        'Space-Mono': ['Space Mono', 'monospace;']
+        'Space-Mono': ['Space Mono']
       },
       screens: {
         sm: '640px',

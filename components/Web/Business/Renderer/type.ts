@@ -24,7 +24,10 @@ export enum CustomType {
   QuizB = 'QuizB',
   QuizC = 'QuizC',
   Content = 'Content',
-  Example = 'Example'
+  Example = 'Example',
+  Reading = 'READING',
+  Video = 'VIDEO',
+  QUIZ = 'QUIZ'
 }
 
 export enum LineType {

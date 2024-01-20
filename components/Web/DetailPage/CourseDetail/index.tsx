@@ -97,7 +97,7 @@ const CourseDetail: FC<CourseDetailProps> = (props) => {
         startLoading={jumpLoading}
         onStartCallback={() => {
           BurialPoint.track('courseDetail-页面上方按钮点击', {
-            courseName: courseDetail.name
+            courseName: courseDetail.title
           });
           resumeCallback();
         }}

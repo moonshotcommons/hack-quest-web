@@ -17,7 +17,7 @@ export interface ProgressType {
 
 interface MiniCoursePageProps {
   lessonId: string;
-  courseType: CourseType.Mini;
+  courseType: CourseType.MINI;
   completed: VoidFunction;
 }
 

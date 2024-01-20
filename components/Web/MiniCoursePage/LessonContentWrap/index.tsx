@@ -90,7 +90,7 @@ const LessonContentWrap: FC<LessonContentWrapProps> = ({
       const res = await webApi.courseApi.completeLesson(lesson.id);
       let link = null;
       if (nextLessonId) {
-        link = getLink(course?.type || CourseType.Mini, nextLessonId as string);
+        link = getLink(course?.type || CourseType.MINI, nextLessonId as string);
       }
       return link;
     },
@@ -152,7 +152,7 @@ const LessonContentWrap: FC<LessonContentWrapProps> = ({
           onClick={() => {
             if (!previousLessonId) return;
             const link = getLink(
-              course?.type || CourseType.Mini,
+              course?.type || CourseType.MINI,
               previousLessonId as string
             );
 
@@ -163,6 +163,9 @@ const LessonContentWrap: FC<LessonContentWrapProps> = ({
         </div>
         <RendererContext.Provider
           value={{
+            textRenderer: {
+              fontSize: '18px'
+            },
             globalContext: {
               onCompleted: () => {
                 if (progress.current === progress.total - 1) {

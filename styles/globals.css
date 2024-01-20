@@ -1,3 +1,4 @@
+@import url('./plyr.css');
 @import url('./font.css');
 @import url('./variable.css');
 @import url('./antd.css');
@@ -98,7 +99,7 @@
   }
 
   .caption-10pt {
-    @apply font-normal leading-normal text-[12px];
+    @apply font-normal leading-normal text-[10px];
   }
 
   .button-text-l {
@@ -120,7 +121,7 @@
     @apply font-Space-Mono text-[12px] leading-[150%] tracking-normal font-normal;
   }
   .code-s {
-    @apply font-Space-Mono text-[12px] leading-[150%] tracking-normal font-normal w-[120%] scale-[.83];
+    @apply font-Space-Mono text-[10px] leading-[150%] tracking-normal font-normal;
   }
 
   .underline-l {

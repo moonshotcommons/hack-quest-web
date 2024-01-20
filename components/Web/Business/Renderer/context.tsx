@@ -14,6 +14,7 @@ export const QuizAContextDefaultValue: QuizAContextType = {
   showAnswer: false,
   setAnswers: () => {}
 };
+
 //#endregion
 
 // #region QuizB
@@ -67,7 +68,9 @@ export const GlobalContextDefaultValue: GlobalContextType = {
 
 export interface RendererContextType {
   textRenderer?: {
-    fontSize: string;
+    fontSize?: string;
+    textStyle?: string;
+    codeStyle?: string;
   };
   quizBRendererContext?: QuizBContextType;
   quizARendererContext?: QuizAContextType;
@@ -75,7 +78,7 @@ export interface RendererContextType {
 }
 
 export const RendererContext = createContext<RendererContextType>({
-  textRenderer: { fontSize: '14px' },
+  textRenderer: { fontSize: '14px', textStyle: '' },
   quizBRendererContext: QuizBContextDefaultValue,
   quizARendererContext: QuizAContextDefaultValue,
   globalContext: GlobalContextDefaultValue
