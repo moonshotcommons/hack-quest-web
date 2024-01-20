@@ -17,7 +17,11 @@ import QuizFooter from '../QuizFooter';
 import DragAnswer from './DragAnswer';
 import { AnswerType, QuizOptionType } from './type';
 import { RendererContext } from '@/components/Web/Business/Renderer/context';
-import { FooterButtonStatus, UgcContext } from '../../../../../constants/type';
+import {
+  FooterButtonStatus,
+  FooterButtonText,
+  UgcContext
+} from '../../../../../constants/type';
 interface QuizBRendererProps {
   parent: CustomType | NotionType;
   quiz: QuizBType;
@@ -39,7 +43,6 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
     replaceOption?: QuizOptionType | null
   ) => {
     const newAnswers = { ...answers, [dropAnswer.id]: dropAnswer };
-    console.log(dropAnswer, newAnswers, 'log');
     setAnswers(newAnswers);
     setOptions(
       options.map((option) => {
@@ -121,6 +124,7 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
   }, [quiz]);
 
   useEffect(() => {
+    let footerBtnText = FooterButtonText.NEXT;
     if (
       quiz?.isCompleted &&
       mountOptionIds.length !== Object.keys(answers).length
@@ -152,11 +156,15 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
         return newOptions;
       });
       mountAnswers.current += 1;
+    } else if (!quiz?.isCompleted) {
+      footerBtnText = FooterButtonText.SUBMIT;
     }
     const footerBtnDisable =
       !Object.keys(answers).find((key) => answers[key].option) || showAnswer;
     setFooterBtn({
-      footerBtnDisable
+      footerBtnDisable,
+      footerBtnText,
+      footerBtnStatus: FooterButtonStatus.SUBMIT
     });
     return () => {
       emitter.off(FooterButtonStatus.SUBMIT, onSubmit);

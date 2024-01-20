@@ -7,7 +7,11 @@ import { RendererContext } from '@/components/Web/Business/Renderer/context';
 import ComponentRenderer from '@/components/Web/Business/Renderer/MiniElectiveRenderer';
 import { FiCheck } from 'react-icons/fi';
 import { FiX } from 'react-icons/fi';
-import { FooterButtonStatus, UgcContext } from '../../../../../constants/type';
+import {
+  FooterButtonStatus,
+  FooterButtonText,
+  UgcContext
+} from '../../../../../constants/type';
 import { QuizContext } from '..';
 interface QuizCRendererProps {
   parent: any;
@@ -50,12 +54,17 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
   emitter.on(FooterButtonStatus.SUBMIT, submit);
 
   useEffect(() => {
+    let footerBtnText = FooterButtonText.NEXT;
     if (quiz.isCompleted) {
       setAnswers(quiz.answers);
     } else {
+      footerBtnText = FooterButtonText.SUBMIT;
       setAnswers([]);
       setAnswerState(AnswerState.Default);
     }
+    setFooterBtn({
+      footerBtnText
+    });
   }, [quiz]);
 
   useEffect(() => {

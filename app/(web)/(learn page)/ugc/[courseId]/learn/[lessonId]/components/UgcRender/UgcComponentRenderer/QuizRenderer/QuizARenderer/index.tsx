@@ -18,7 +18,11 @@ import QuizFooter from '../QuizFooter';
 import CodeRender from './CodeRender';
 import { RendererContext } from '@/components/Web/Business/Renderer/context';
 import { cloneDeep } from 'lodash-es';
-import { FooterButtonStatus, UgcContext } from '../../../../../constants/type';
+import {
+  FooterButtonStatus,
+  FooterButtonText,
+  UgcContext
+} from '../../../../../constants/type';
 interface QuizARendererProps {
   parent: CustomType | NotionType;
   quiz: QuizAType;
@@ -193,6 +197,16 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
       emitter.off(FooterButtonStatus.SUBMIT, submit);
     };
   }, [showAnswer]);
+
+  useEffect(() => {
+    let footerBtnText = FooterButtonText.NEXT;
+    if (!quiz.isCompleted) {
+      footerBtnText = FooterButtonText.SUBMIT;
+    }
+    setFooterBtn({
+      footerBtnText
+    });
+  }, [quiz]);
 
   return (
     <div className="h-full flex flex-col justify-between">
