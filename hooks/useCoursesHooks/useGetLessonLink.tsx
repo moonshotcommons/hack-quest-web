@@ -8,9 +8,13 @@ import { useCallback } from 'react';
 export const useGetLessonLink = () => {
   const router = useRouter();
   const params = useParams();
+
   const query = new URLSearchParams(
     typeof window !== 'undefined' ? window.location.search : ''
   );
+  // const menu = query.get('menu');
+  // const learningTrackId = query.get(QueryIdType.LEARNING_TRACK_ID) as string;
+  // const menuCourseId = query.get(QueryIdType.MENU_COURSE_ID) as string;
   const getLink = useCallback(
     (courseType: CourseType, lessonId: string, courseName?: string) => {
       const menu = query.get('menu');

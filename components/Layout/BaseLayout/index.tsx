@@ -1,7 +1,7 @@
 'use client';
 import User from '@/components/Web/User';
 import { Inter } from 'next/font/google';
-import React, { memo, useContext, useEffect } from 'react';
+import React, { Suspense, memo, useContext, useEffect } from 'react';
 import Breadcrumb from '@/components/Web/Business/Breadcrumb';
 import { navbarList } from '@/components/Layout/Navbar/data';
 import { NavbarContext } from '@/components/Provider/Navbar';
@@ -43,7 +43,9 @@ const BaseLayout = memo(function (props: BaseLayoutProps) {
         <div className={`w-full h-full flex flex-col`}>
           {!excludeBreadcrumb && (
             <div className="container mx-auto">
-              <Breadcrumb />
+              <Suspense>
+                <Breadcrumb />
+              </Suspense>
             </div>
           )}
           <div className="w-full flex-1 relative">
