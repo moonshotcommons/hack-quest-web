@@ -36,14 +36,18 @@ const UgcSidebar: FC<UgcSidebarProps> = () => {
         type: 'group',
         children: unit.pages!.map((page, i) => {
           if (page.id === lesson.id) defaultOpenKeys.push(unit.id);
+          const disable =
+            page.state === CompleteStateType.NOT_STARTED &&
+            prevLessonState !== CompleteStateType.COMPLETED;
           const newPage = {
             key: page.id,
-            disable: !!(
-              page.state === CompleteStateType.NOT_STARTED &&
-              prevLessonState !== CompleteStateType.COMPLETED
-            ),
+            disable,
             label: (
-              <div className="flex w-full justify-between items-center">
+              <div
+                className={`flex w-full justify-between items-center ${
+                  disable ? 'cursor-not-allowed' : ''
+                }`}
+              >
                 <div className="flex flex-col pr-5 flex-1 overflow-hidden shrink-0">
                   <span className="w-full body-m text-neutral-black break-words line-clamp-2">
                     {page.title}
