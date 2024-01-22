@@ -15,7 +15,7 @@ import { omit } from 'lodash-es';
 import useIsPc from '@/hooks/useIsPc';
 import TipsModal from '@/app/(web)/(base page)/(landing)/components/TipsModal';
 import { useRedirect } from '@/hooks/useRedirect';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
 import { cn } from '@/helper/utils';
@@ -59,7 +59,9 @@ const UserLogin: FC<UserLoginProps> = (props) => {
   // const { validator: emailValidator } = useValidator(['email']);
   const router = useRouter();
   const { redirectToUrl } = useRedirect();
-  const query = useSearchParams();
+  const query = new URLSearchParams(
+    typeof window !== 'undefined' ? window.location.search : ''
+  );
   const passwordInputRef = useRef<any>(null);
   const [loading, setLoading] = useState(false);
   const { run: onLogin } = useDebounceFn(

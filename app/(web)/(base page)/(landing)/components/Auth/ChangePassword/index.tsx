@@ -7,7 +7,6 @@ import webApi from '@/service';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useDebounceFn } from 'ahooks';
 import { message } from 'antd';
-import { useSearchParams } from 'next/navigation';
 import { FC, useEffect, useState } from 'react';
 interface ChangePasswordProps {}
 
@@ -102,7 +101,9 @@ const ChangeForm = ({
 }: {
   changeState: (state: ChangeStateType) => void;
 }) => {
-  const query = useSearchParams();
+  const query = new URLSearchParams(
+    typeof window !== 'undefined' ? window.location.search : ''
+  );
   const token = query.get('token');
   const [formData, setFormData] = useState<{
     newPassword: string;

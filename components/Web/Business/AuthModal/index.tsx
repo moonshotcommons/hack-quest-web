@@ -1,6 +1,6 @@
 'use client';
 import Modal from '@/components/Common/Modal';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { FC, useEffect, useMemo } from 'react';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
@@ -44,7 +44,9 @@ const logo = (
 );
 
 const AuthModal: FC<AuthModalProps> = (props) => {
-  const query = useSearchParams();
+  const query = new URLSearchParams(
+    typeof window !== 'undefined' ? window.location.search : ''
+  );
   const pathname = usePathname();
   const queryState = query.get('state');
   const type = query.get('type');

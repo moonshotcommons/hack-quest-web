@@ -20,7 +20,6 @@ import { TrackListContext } from '../../LearningTrackDetail';
 import Button from '@/components/Common/Button';
 import { menuLink } from '@/components/Web/Business/Breadcrumb/data';
 import { useRedirect } from '@/hooks/useRedirect';
-import { useSearchParams } from 'next/navigation';
 
 const CustomProgress = styled(Progress)`
   .ant-progress-inner {
@@ -65,7 +64,9 @@ function SectionList(props: {
 }) {
   const { section, enrolled, theme, sectionIndex, sectionList } = props;
   const { redirectToUrl } = useRedirect();
-  const query = useSearchParams();
+  const query = new URLSearchParams(
+    typeof window !== 'undefined' ? window.location.search : ''
+  );
   const { jumpLearningLesson, loading } = useJumpLeaningLesson();
   const [clickIndex, setClickIndex] = useState<null | number>(null);
   const renderLearningButton = (item: CourseDetailType, index: number) => {
