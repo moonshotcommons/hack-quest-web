@@ -1,5 +1,5 @@
 import { FC, ReactNode } from 'react';
-import Layout from '@/components/Mobile/MobLayout';
+import Layout from '@/components/Mobile/MobLayout/BasePage';
 interface WebLayoutProps {
   children: ReactNode;
 }
