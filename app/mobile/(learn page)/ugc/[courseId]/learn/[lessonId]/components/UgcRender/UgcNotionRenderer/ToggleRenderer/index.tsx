@@ -81,11 +81,7 @@ const ToggleRenderer: FC<ToggleRendererProps> = (props) => {
             let newExpandData = { ...expandData };
             let expands: number[] = [];
             if (!isExpandAll) {
-              group.forEach((item) => {
-                if (!groupExpands.includes(item)) {
-                  expands.push(item);
-                }
-              });
+              expands = group;
             }
             newExpandData[children[firstIndex].id] = expands;
             updateExpandData(newExpandData);

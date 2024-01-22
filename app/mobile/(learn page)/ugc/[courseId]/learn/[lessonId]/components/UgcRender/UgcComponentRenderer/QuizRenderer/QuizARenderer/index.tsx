@@ -23,6 +23,7 @@ import {
   FooterButtonText,
   UgcContext
 } from '../../../../../constants/type';
+import emitter from '@/store/emitter';
 interface QuizARendererProps {
   parent: CustomType | NotionType;
   quiz: QuizAType;
@@ -33,7 +34,7 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
   const [showAnswer, setShowAnswer] = useState(false);
   const prevQuiz = useRef<any>({});
   const isCompleted = useRef(false);
-  const { lesson, emitter, footerBtn, setFooterBtn } = useContext(UgcContext);
+  const { lesson, footerBtn, setFooterBtn } = useContext(UgcContext);
   const { onPass } = useContext(QuizContext);
   const { waitingRenderCodes, answerState, answerStateDispatch } = useParseQuiz(
     quiz.lines
@@ -120,7 +121,10 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
     onPass();
   };
 
-  emitter.on(FooterButtonStatus.SUBMIT, submit);
+  if (emitter.all.get(FooterButtonStatus.SUBMIT)) {
+    emitter.all.delete(FooterButtonStatus.SUBMIT);
+    emitter.on(FooterButtonStatus.SUBMIT, submit);
+  }
   // 自动填充
   const initCompleteInput = () => {
     if (!isCompleted.current) return;

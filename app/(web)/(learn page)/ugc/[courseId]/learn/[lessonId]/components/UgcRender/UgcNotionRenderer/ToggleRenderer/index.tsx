@@ -7,7 +7,7 @@ import { NotionComponent } from '@/components/Web/Business/Renderer/type';
 import TextRenderer from '../TextRenderer';
 import { cn } from '@/helper/utils';
 import { NotionRenderType } from '@/components/Web/Business/NotionRender/type';
-import { UgcContext } from '../../../../constants/type';
+import { UgcContext } from '@/app/(web)/(learn page)/ugc/[courseId]/learn/constants/type';
 interface ToggleRendererProps {
   component: NotionComponent;
   isRenderChildren?: boolean;

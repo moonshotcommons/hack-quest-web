@@ -21,7 +21,8 @@ import {
   FooterButtonStatus,
   FooterButtonText,
   UgcContext
-} from '../../../../../constants/type';
+} from '@/app/(web)/(learn page)/ugc/[courseId]/learn/constants/type';
+import emitter from '@/store/emitter';
 interface QuizBRendererProps {
   parent: CustomType | NotionType;
   quiz: QuizBType;
@@ -34,7 +35,7 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
     quiz.options.map((option) => ({ ...option, isRender: true }))
   );
   const [showAnswer, setShowAnswer] = useState(false);
-  const { lesson, emitter, setFooterBtn } = useContext(UgcContext);
+  const { lesson, setFooterBtn } = useContext(UgcContext);
   const [answers, setAnswers] = useState<Record<string, AnswerType>>({});
   const mountAnswers = useRef(0);
   const [mountOptionIds, setMountOptionIds] = useState<string[]>([]);
@@ -105,7 +106,10 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
     webApi.courseApi.markQuestState(lesson.id, false);
   };
 
-  emitter.on(FooterButtonStatus.SUBMIT, onSubmit);
+  if (emitter.all.get(FooterButtonStatus.SUBMIT)) {
+    emitter.all.delete(FooterButtonStatus.SUBMIT);
+    emitter.on(FooterButtonStatus.SUBMIT, onSubmit);
+  }
 
   useEffect(() => {
     const answerOptions = Object.keys(answers)

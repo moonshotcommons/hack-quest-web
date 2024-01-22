@@ -22,7 +22,6 @@ export interface UgcContextType {
   navbarData: NavbarDataType[];
   setNavbarData: (data: NavbarDataType[]) => void;
   lesson: any;
-
   footerBtn: footerBtnType;
   setFooterBtn: (btn: Partial<footerBtnType>) => void;
   expandData: Record<string, number[]>;
@@ -32,7 +31,6 @@ export const UgcContext = createContext<UgcContextType>({
   navbarData: [],
   setNavbarData: () => {},
   lesson: {},
-
   footerBtn: {
     footerBtnStatus: FooterButtonStatus.SUBMIT,
     footerBtnDisable: false,

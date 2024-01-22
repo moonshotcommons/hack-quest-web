@@ -7,6 +7,7 @@ import { CourseType } from '@/service/webApi/course/type';
 import { FooterButtonStatus, UgcContext } from '../../constants/type';
 import CompleteModal from '@/components/Web/Business/CompleteModal';
 import { useUnitNavList } from '@/hooks/useUnitNavList';
+import emitter from '@/store/emitter';
 
 interface LessonContainerProps {
   lesson: LessonReadingData;
@@ -14,7 +15,7 @@ interface LessonContainerProps {
 
 const LessonContainer: FC<LessonContainerProps> = (props) => {
   const { lesson } = props;
-  const { emitter, setFooterBtn } = useContext(UgcContext);
+  const { setFooterBtn } = useContext(UgcContext);
   const { onNextClick, completeModalRef } = useGotoNextLesson(
     lesson!,
     CourseType.UGC,

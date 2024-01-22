@@ -11,8 +11,9 @@ import {
   FooterButtonStatus,
   FooterButtonText,
   UgcContext
-} from '../../../../../constants/type';
+} from '@/app/(web)/(learn page)/ugc/[courseId]/learn/constants/type';
 import { QuizContext } from '..';
+import emitter from '@/store/emitter';
 interface QuizCRendererProps {
   parent: any;
   quiz: any;
@@ -28,7 +29,7 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
   const { quiz, parent } = props;
   const [answers, setAnswers] = useState<number[]>([]);
   const { onPass } = useContext(QuizContext);
-  const { emitter, footerBtn, setFooterBtn } = useContext(UgcContext);
+  const { footerBtn, setFooterBtn } = useContext(UgcContext);
   const [answerState, setAnswerState] = useState<AnswerState>(
     AnswerState.Default
   );
@@ -51,7 +52,12 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
     onPass();
   };
 
-  emitter.on(FooterButtonStatus.SUBMIT, submit);
+  if (emitter.all.get(FooterButtonStatus.SUBMIT)) {
+    emitter.all.delete(FooterButtonStatus.SUBMIT);
+    emitter.on(FooterButtonStatus.SUBMIT, submit);
+  } else {
+    emitter.on(FooterButtonStatus.SUBMIT, submit);
+  }
 
   useEffect(() => {
     let footerBtnText = FooterButtonText.NEXT;
@@ -65,6 +71,10 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
     setFooterBtn({
       footerBtnText
     });
+
+    return () => {
+      emitter.off(FooterButtonStatus.SUBMIT, submit);
+    };
   }, [quiz]);
 
   useEffect(() => {
@@ -72,9 +82,6 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
       footerBtnDisable: !answers.length,
       footerBtnStatus: FooterButtonStatus.SUBMIT
     });
-    return () => {
-      emitter.off(FooterButtonStatus.SUBMIT, submit);
-    };
   }, [answers]);
 
   return (
