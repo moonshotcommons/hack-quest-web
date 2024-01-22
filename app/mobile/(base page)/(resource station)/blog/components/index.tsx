@@ -5,7 +5,7 @@ import React from 'react';
 import { BlogSearchType } from '@/service/webApi/resourceStation/type';
 import webApi from '@/service';
 import PageRetentionTime from '@/components/Common/PageRetentionTime';
-import BlogBanner from '@/app/mobile/(resource station)/blog/components/BlogBanner';
+import BlogBanner from './BlogBanner';
 
 interface BlogProp {
   params: { slug: string[] };
