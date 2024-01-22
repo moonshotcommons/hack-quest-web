@@ -29,7 +29,7 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
   const { quiz, parent } = props;
   const [answers, setAnswers] = useState<number[]>([]);
   const { onPass } = useContext(QuizContext);
-  const { footerBtn, setFooterBtn } = useContext(UgcContext);
+  const { setFooterBtn } = useContext(UgcContext);
   const [answerState, setAnswerState] = useState<AnswerState>(
     AnswerState.Default
   );
@@ -60,16 +60,29 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
   }
 
   useEffect(() => {
-    let footerBtnText = FooterButtonText.NEXT;
+    const isAllNotcompleted = parent.children.some((v: any) => !v?.isCompleted);
+    let footerBtnText = isAllNotcompleted
+      ? FooterButtonText.SUBMIT
+      : FooterButtonText.NEXT;
+    let footerBtnStatus = isAllNotcompleted
+      ? FooterButtonStatus.SUBMIT
+      : FooterButtonStatus.NEXT;
+    let footerBtnDisable = false;
     if (quiz.isCompleted) {
       setAnswers(quiz.answers);
     } else {
       footerBtnText = FooterButtonText.SUBMIT;
+      footerBtnStatus = FooterButtonStatus.SUBMIT;
+      footerBtnDisable = true;
       setAnswers([]);
       setAnswerState(AnswerState.Default);
     }
-    setFooterBtn({
-      footerBtnText
+    setTimeout(() => {
+      setFooterBtn({
+        footerBtnText,
+        footerBtnStatus,
+        footerBtnDisable
+      });
     });
 
     return () => {
@@ -80,8 +93,7 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
   useEffect(() => {
     setFooterBtn({
       footerBtnDisable: !answers.length,
-      footerBtnStatus: FooterButtonStatus.SUBMIT,
-      footerBtnText: FooterButtonText.SUBMIT
+      footerBtnStatus: FooterButtonStatus.SUBMIT
     });
   }, [answers]);
 

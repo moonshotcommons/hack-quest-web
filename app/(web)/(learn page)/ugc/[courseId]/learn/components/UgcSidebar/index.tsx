@@ -27,17 +27,21 @@ const UgcSidebar: FC<UgcSidebarProps> = () => {
         defaultOpenKeys,
         items
       };
-
     items = course.units!.map((unit) => {
+      let prevLessonState = CompleteStateType.COMPLETED;
       return {
         key: unit.id,
         label: unit.title,
         data: unit,
         type: 'group',
-        children: unit.pages!.map((page) => {
+        children: unit.pages!.map((page, i) => {
           if (page.id === lesson.id) defaultOpenKeys.push(unit.id);
-          return {
+          const newPage = {
             key: page.id,
+            disable: !!(
+              page.state === CompleteStateType.NOT_STARTED &&
+              prevLessonState !== CompleteStateType.COMPLETED
+            ),
             label: (
               <div className="flex w-full justify-between items-center">
                 <div className="flex flex-col pr-5 flex-1 overflow-hidden shrink-0">
@@ -74,6 +78,8 @@ const UgcSidebar: FC<UgcSidebarProps> = () => {
             type: 'item',
             data: page
           };
+          prevLessonState = page.state;
+          return newPage as any;
         })
       };
     });

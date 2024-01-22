@@ -125,12 +125,19 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
         return { ...option, isRender: true };
       })
     );
-
+    let footerBtnText = FooterButtonText.NEXT;
+    if (!quiz?.isCompleted) {
+      footerBtnText = FooterButtonText.SUBMIT;
+    }
+    setTimeout(() => {
+      setFooterBtn({
+        footerBtnText
+      });
+    });
     setMountOptionIds([]);
   }, [quiz]);
 
   useEffect(() => {
-    let footerBtnText = FooterButtonText.NEXT;
     if (
       quiz?.isCompleted &&
       mountOptionIds.length !== Object.keys(answers).length
@@ -162,14 +169,11 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
         return newOptions;
       });
       mountAnswers.current += 1;
-    } else if (!quiz?.isCompleted) {
-      footerBtnText = FooterButtonText.SUBMIT;
     }
     const footerBtnDisable =
       !Object.keys(answers).find((key) => answers[key].option) || showAnswer;
     setFooterBtn({
       footerBtnDisable,
-      footerBtnText,
       footerBtnStatus: FooterButtonStatus.SUBMIT
     });
     return () => {

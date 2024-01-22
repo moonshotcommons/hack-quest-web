@@ -11,7 +11,6 @@ import { CourseType } from '@/service/webApi/course/type';
 import { useGotoNextLesson } from '@/hooks/useCoursesHooks/useGotoNextLesson';
 import CompleteModal from '@/components/Web/Business/CompleteModal';
 import emitter from '@/store/emitter';
-import { LessonType } from '../UgcSidebar/constant';
 
 interface UgcFooterProp {}
 
@@ -52,13 +51,11 @@ const UgcFooter: React.FC<UgcFooterProp> = ({}) => {
 
   useEffect(() => {
     refreshNavList();
-    console.log(lesson?.type);
-    if (lesson?.type !== LessonType.QUIZ) {
-      setFooterBtn({
-        footerBtnStatus: FooterButtonStatus.NEXT,
-        footerBtnText: FooterButtonText.NEXT
-      });
-    }
+    setFooterBtn({
+      footerBtnDisable: false,
+      footerBtnStatus: FooterButtonStatus.NEXT,
+      footerBtnText: FooterButtonText.NEXT
+    });
   }, [lesson]);
 
   return (

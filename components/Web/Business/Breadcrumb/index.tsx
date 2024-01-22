@@ -2,7 +2,7 @@ import { BurialPoint } from '@/helper/burialPoint';
 import { tagFormate } from '@/helper/formate';
 import webApi from '@/service';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
+import { useParams, useSearchParams } from 'next/navigation';
 import React, { useCallback, useEffect, useState } from 'react';
 import { menuLink, menuName, navIdType, navLinks } from './data';
 import { MenuNameType, QueryIdType } from './type';
@@ -12,11 +12,9 @@ interface navDataProps {
   link?: string;
 }
 const Breadcrumb: React.FC = () => {
-  const query = new URLSearchParams(
-    typeof window !== 'undefined' ? window.location.search : ''
-  );
-  const params = useParams();
+  const query = useSearchParams();
 
+  const params = useParams();
   const [navData, setNavData] = useState<navDataProps[]>([]);
   const getLearningTrackDetail = (id: string) => {
     return new Promise(async (resolve) => {
@@ -121,7 +119,7 @@ const Breadcrumb: React.FC = () => {
         .filter((v) => v.label);
       setNavData([menuNavData, ...newNavData]);
     });
-  }, [query]);
+  }, []);
 
   useEffect(() => {
     getNavData();

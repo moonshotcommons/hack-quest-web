@@ -34,7 +34,7 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
   const [showAnswer, setShowAnswer] = useState(false);
   const prevQuiz = useRef<any>({});
   const isCompleted = useRef(false);
-  const { lesson, footerBtn, setFooterBtn } = useContext(UgcContext);
+  const { lesson, setFooterBtn } = useContext(UgcContext);
   const { onPass } = useContext(QuizContext);
   const { waitingRenderCodes, answerState, answerStateDispatch } = useParseQuiz(
     quiz.lines
@@ -209,8 +209,10 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
     if (!quiz.isCompleted) {
       footerBtnText = FooterButtonText.SUBMIT;
     }
-    setFooterBtn({
-      footerBtnText
+    setTimeout(() => {
+      setFooterBtn({
+        footerBtnText
+      });
     });
   }, [quiz]);
 

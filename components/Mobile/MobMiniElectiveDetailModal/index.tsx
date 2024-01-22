@@ -99,7 +99,6 @@ const MobMiniElectiveDetailModal = forwardRef<
               state
             )
           ) {
-            debugger;
             const link = getLink(course!.type, item.id, course!.name);
             redirectToUrl(link);
           }

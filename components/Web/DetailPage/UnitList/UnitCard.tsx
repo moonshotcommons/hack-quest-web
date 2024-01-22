@@ -184,7 +184,6 @@ const UnitCard: FC<UnitCardProps> = (props) => {
                 unit.id
               );
               const lessonId = unitPages.pages[0]?.id;
-              debugger;
               let link = `${getLessonLink(
                 courseType as CourseType,
                 courseDetail?.title as string,
