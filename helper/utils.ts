@@ -3,6 +3,8 @@ import { CourseType } from '@/service/webApi/course/type';
 
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
+import { JumpLeaningLessonType } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -30,36 +32,36 @@ export const getCourseLink = (courseType?: CourseType) => {
   }
 };
 
-// export const getLessonLink = (
-//   courseType: CourseType,
-//   courseName: string | undefined,
-//   lessonId: string,
-//   menuCourseId: string,
-//   linkParam?: JumpLeaningLessonType
-// ) => {
-//   if (!courseType || !courseName || !lessonId) return '/404';
-//   const lParam = linkParam || {
-//     menu: Menu.ELECTIVES,
-//     idTypes: [QueryIdType.MENU_COURSE_ID],
-//     ids: [menuCourseId]
-//   };
-//   let link = `${getCourseLink(
-//     courseType
-//   )}/${courseName}/learn/${lessonId}?menu=${lParam.menu}`;
-//   lParam.idTypes.map((v: string, i: number) => {
-//     link += `&${v}=${lParam.ids[i]}`;
-//   });
-//   return link;
-// };
-
 export const getLessonLink = (
   courseType: CourseType,
   courseName: string | undefined,
-  lessonId: string
+  lessonId: string,
+  menuCourseId: string,
+  linkParam?: JumpLeaningLessonType
 ) => {
   if (!courseType || !courseName || !lessonId) return '/404';
-  return `${getCourseLink(courseType)}/${courseName}/learn/${lessonId}`;
+  const lParam = linkParam || {
+    menu: Menu.ELECTIVES,
+    idTypes: [QueryIdType.MENU_COURSE_ID],
+    ids: [menuCourseId]
+  };
+  let link = `${getCourseLink(
+    courseType
+  )}/${courseName}/learn/${lessonId}?menu=${lParam.menu}`;
+  lParam.idTypes.map((v: string, i: number) => {
+    link += `&${v}=${lParam.ids[i]}`;
+  });
+  return link;
 };
+
+// export const getLessonLink = (
+//   courseType: CourseType,
+//   courseName: string | undefined,
+//   lessonId: string
+// ) => {
+//   if (!courseType || !courseName || !lessonId) return '/404';
+//   return `${getCourseLink(courseType)}/${courseName}/learn/${lessonId}`;
+// };
 
 export const changeTextareaHeight = (target: HTMLTextAreaElement) => {
   // 重置textarea的高度为默认值，以便可以正确计算其内容的高度
