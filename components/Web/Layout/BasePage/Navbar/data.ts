@@ -30,8 +30,13 @@ export const navbarList: NavbarListType[] = [
     id: 'missions',
     menu: [
       {
-        label: 'CENTER',
+        label: 'Missions',
         path: MenuLink.MISSION_CENTER,
+        needLogin: true
+      },
+      {
+        label: 'Campaigns',
+        path: MenuLink.CAMPAIGINS,
         needLogin: true
       }
     ]
@@ -47,17 +52,6 @@ export const navbarList: NavbarListType[] = [
       {
         label: 'Blog',
         path: MenuLink.BLOG
-      }
-    ]
-  },
-  {
-    label: 'Campaigns',
-    id: 'Campaigns',
-    menu: [
-      {
-        label: 'Campaigns',
-        path: MenuLink.CAMPAIGINS,
-        needLogin: true
       }
     ]
   },

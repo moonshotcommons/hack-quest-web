@@ -1,4 +1,4 @@
-import { MantleContext } from '@/app/(web)/(base page)/(campaigns)/campaigns/constants/type';
+import { MantleContext } from '@/app/(web)/(base page)/(misson center)/campaigns/constants/type';
 import Button from '@/components/Common/Button';
 import { errorMessage } from '@/helper/ui';
 import { cn } from '@/helper/utils';
