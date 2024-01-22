@@ -58,9 +58,9 @@ export const useJumpLeaningLesson = () => {
         let link = `${getLessonLink(
           courseDetail?.type,
           courseDetail?.title || courseDetail?.name,
-          pageId
-          // courseDetail?.id,
-          // linkParam
+          pageId,
+          courseDetail?.id,
+          linkParam
         )}`;
         redirectToUrl(link);
       },
