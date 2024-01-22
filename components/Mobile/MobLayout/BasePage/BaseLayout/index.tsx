@@ -1,7 +1,7 @@
 'use client';
 import User from '@/components/Web/User';
 import { Inter } from 'next/font/google';
-import React, { ReactNode, useCallback, useEffect } from 'react';
+import React, { ReactNode, useCallback, useEffect, Suspense } from 'react';
 import NavBar, { NavBarProps } from '../Navbar';
 
 import Breadcrumb from '@/components/Web/Business/Breadcrumb';
@@ -32,7 +32,9 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
 
     return (
       <div className="container mx-auto">
-        <Breadcrumb />
+        <Suspense>
+          <Breadcrumb />
+        </Suspense>
       </div>
     );
   }, [pathname, navbarData, isExcludeBreadcrumbLink]);
