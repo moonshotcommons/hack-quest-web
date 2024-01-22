@@ -1,7 +1,6 @@
 'use client';
 import { FC, useEffect } from 'react';
 import { useRequest } from 'ahooks';
-import { useSearchParams } from 'next/navigation';
 import { QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import webApi from '@/service';
 import Loading from '@/components/Common/Loading';
@@ -15,7 +14,9 @@ import HackathonInfo from '../HackDetailBox/HackathonInfo';
 interface HackDetailProps {}
 
 const HackDetail: FC<HackDetailProps> = (props) => {
-  const query = useSearchParams();
+  const query = new URLSearchParams(
+    typeof window !== 'undefined' ? window.location.search : ''
+  );
   const { data: hackathon = {} as HackathonType } = useRequest(async () => {
     const id = query.get(QueryIdType.HACKATHON_ID);
     const res = await webApi.resourceStationApi.getHackathonDetail(

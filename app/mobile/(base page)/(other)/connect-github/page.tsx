@@ -1,7 +1,6 @@
 'use client';
 import webApi from '@/service';
 import { useRequest } from 'ahooks';
-import { useSearchParams } from 'next/navigation';
 import React from 'react';
 import Image from 'next/image';
 import Loading from '@/public/images/other/loading.png';
@@ -9,7 +8,9 @@ import Loading from '@/public/images/other/loading.png';
 interface ConnectGithubProp {}
 
 const ConnectGithub: React.FC<ConnectGithubProp> = () => {
-  const query = useSearchParams();
+  const query = new URLSearchParams(
+    typeof window !== 'undefined' ? window.location.search : ''
+  );
   const code = query.get('code');
   const {} = useRequest(async () => {
     if (code) {

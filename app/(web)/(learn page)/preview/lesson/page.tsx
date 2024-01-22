@@ -1,12 +1,13 @@
 'use client';
 import type { NextPage } from 'next';
 import PreviewLesson from '@/components/Web/PreviewLessonPage';
-import { useSearchParams } from 'next/navigation';
 
 interface IProps {}
 
 const PreviewLessonPage: NextPage<IProps> = (props) => {
-  const query = useSearchParams();
+  const query = new URLSearchParams(
+    typeof window !== 'undefined' ? window.location.search : ''
+  );
   const previewUrl = query.get('previewUrl');
 
   return (
