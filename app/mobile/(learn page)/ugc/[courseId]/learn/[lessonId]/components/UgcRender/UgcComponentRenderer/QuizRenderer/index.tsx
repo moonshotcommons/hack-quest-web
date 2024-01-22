@@ -127,13 +127,13 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
   const QuizHeader = (
     <div className={`flex justify-between h-fit w-full items-center`}>
       <div
-        className={`inline-flex text-h4 items-center relative ${
+        className={`inline-flex text-h4-mob items-center relative ${
           quizDropdownVisible && 'shadow-2xl'
         }`}
       >
         <div
           ref={containerRef as any}
-          className={`inline-flex gap-2 box-content border-b-2 p-[20px] cursor-pointer min-h-fit ${
+          className={`inline-flex gap-2 box-content border-b-2 p-[1.25rem] cursor-pointer min-h-fit ${
             quizDropdownVisible ? ' border-[#8C8C8C]' : ''
           }`}
           onClick={() => {
@@ -153,7 +153,7 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
               quizDropdownVisible ? 'rotate-180' : ''
             } transition-transform`}
           >
-            <MdArrowDropDown size={28} color=""></MdArrowDropDown>
+            <MdArrowDropDown size={24} color=""></MdArrowDropDown>
           </span>
         </div>
 
@@ -173,7 +173,7 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
     <>
       <div
         className={cn(
-          `rounded-[.625rem] pb-[20px] bg-[#E6E6E6] flex w-full flex-1 min-h-[50%] flex-col overflow-hidden mt-[30px]`
+          `rounded-[.625rem] pb-[20px] bg-[#E6E6E6] flex w-full flex-1 min-h-[50%] flex-col overflow-hidden mt-[1.25rem]`
         )}
       >
         {QuizHeader}

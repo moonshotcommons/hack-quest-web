@@ -26,7 +26,7 @@ const UgcFooter: React.FC<UgcFooterProp> = ({}) => {
       <div className="max-w-[calc((100%-550px))] flex gap-[2px] overflow-auto">
         {unitNavList.map((item, i) => (
           <div
-            key={i}
+            key={item.id}
             className="w-[70px] h-[5px] rounded-[3px] bg-neutral-medium-gray overflow-hidden"
           >
             {currentUnitIndex >= i ? (

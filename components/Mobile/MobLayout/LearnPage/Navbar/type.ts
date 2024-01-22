@@ -3,6 +3,7 @@ export enum MenuLink {
   LEARNING_TRACK = '/learning-track',
   PRACTICES = '/practices',
   ELECTIVES = '/electives',
+  UGC = '/ugc',
   MISSION_CENTER = '/mission-center',
   HACKATHON = '/hackathon',
   BLOG = '/blog',

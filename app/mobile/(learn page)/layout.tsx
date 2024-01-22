@@ -1,5 +1,5 @@
 import { FC, ReactNode } from 'react';
-import Layout from '@/components/Web/Layout/LearnPage';
+import Layout from '@/components/Mobile/MobLayout/LearnPage';
 interface WebLayoutProps {
   children: ReactNode;
 }
