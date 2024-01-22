@@ -2,7 +2,7 @@ import { MotionProps } from 'framer-motion';
 
 import { FilterItemType, FilterOptionType, FilterParamsType } from './type';
 import { CourseLanguageType } from '@/service/webApi/course/type';
-import { LanguageTab } from '@/app/mobile/(learn)/learning-track/constants/type';
+import { LanguageTab } from '@/app/mobile/(base page)/(learn)/learning-track/constants/type';
 
 export const animateProps: MotionProps = {
   initial: { scaleY: 0, opacity: 0, translateY: '95%' },
