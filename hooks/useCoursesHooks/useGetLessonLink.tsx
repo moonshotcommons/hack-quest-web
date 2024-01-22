@@ -12,16 +12,16 @@ export const useGetLessonLink = () => {
   const query = new URLSearchParams(
     typeof window !== 'undefined' ? window.location.search : ''
   );
-  // const menu = query.get('menu');
-  // const learningTrackId = query.get(QueryIdType.LEARNING_TRACK_ID) as string;
-  // const menuCourseId = query.get(QueryIdType.MENU_COURSE_ID) as string;
+  const menu = query.get('menu');
+  const learningTrackId = query.get(QueryIdType.LEARNING_TRACK_ID) as string;
+  const menuCourseId = query.get(QueryIdType.MENU_COURSE_ID) as string;
   const getLink = useCallback(
     (courseType: CourseType, lessonId: string, courseName?: string) => {
-      const menu = query.get('menu');
-      const learningTrackId = query.get(
-        QueryIdType.LEARNING_TRACK_ID
-      ) as string;
-      const menuCourseId = query.get(QueryIdType.MENU_COURSE_ID) as string;
+      // const menu = query.get('menu');
+      // const learningTrackId = query.get(
+      //   QueryIdType.LEARNING_TRACK_ID
+      // ) as string;
+      // const menuCourseId = query.get(QueryIdType.MENU_COURSE_ID) as string;
       const link = getLessonLink(
         courseType,
         (params.courseId as string) || courseName,
@@ -39,7 +39,7 @@ export const useGetLessonLink = () => {
       );
       return link;
     },
-    [query, params]
+    [menu, learningTrackId, menuCourseId, params]
   );
 
   return {
