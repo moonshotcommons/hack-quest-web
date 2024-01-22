@@ -122,7 +122,7 @@ const ElectiveCard: FC<ElectiveCardProps> = (props) => {
           }`}
         >
           <Image
-            src={course.image}
+            src={course.image || ''}
             fill
             alt="cover"
             className="object-cover"

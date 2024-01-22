@@ -2,11 +2,11 @@
 import React, { useState } from 'react';
 import UgcFooter from './UgcFooter';
 import UgcProvider from './UgcProvider';
-import UgcSidebar from './UgcSidebar';
 import LessonContainer from './LessonContainer';
 import UgcNavbar from './UgcNavbar';
 import { useRequest } from 'ahooks';
 import webApi from '@/service';
+import UgcProgress from './UgcProgress';
 
 interface UgcProp {
   lessonId: string;
@@ -30,20 +30,19 @@ const Ugc: React.FC<UgcProp> = ({ lessonId }) => {
 
   return (
     <UgcProvider lesson={lesson}>
-      <div className="h-full flex flex-col">
-        <div className="w-full flex-1 flex overflow-hidden">
-          <UgcSidebar lesson={lesson} />
-          <div className="flex-1 bg-neutral-white flex justify-center relative">
-            <UgcNavbar />
-            <div className="w-full h-full flex flex-col overflow-hidden">
-              <div className="flex-1 mt-[5.125rem] overflow-auto flex justify-center scroll-wrap-y">
-                <LessonContainer lesson={lesson}></LessonContainer>
-              </div>
+      <div className="h-full flex flex-col gap-[.9375rem]">
+        <UgcProgress />
+        <div className="flex-1 flex flex-col  relative">
+          <UgcNavbar />
+          <div className="w-full flex-1 mt-[1.875rem] overflow-hidden">
+            <div className="absolute w-full h-full left-0 top-0 overflow-auto scroll-wrap-y px-[1.375rem] pb-[4.875rem]">
+              <LessonContainer lesson={lesson}></LessonContainer>
             </div>
           </div>
+          <UgcFooter />
         </div>
-        <UgcFooter />
       </div>
+      {/* <UgcSidebar lesson={lesson} /> */}
     </UgcProvider>
   );
 };
