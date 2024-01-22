@@ -172,6 +172,8 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
   if (emitter.all.get(FooterButtonStatus.SUBMIT)) {
     emitter.all.delete(FooterButtonStatus.SUBMIT);
     emitter.on(FooterButtonStatus.SUBMIT, submit);
+  } else {
+    emitter.on(FooterButtonStatus.SUBMIT, submit);
   }
 
   useEffect(() => {

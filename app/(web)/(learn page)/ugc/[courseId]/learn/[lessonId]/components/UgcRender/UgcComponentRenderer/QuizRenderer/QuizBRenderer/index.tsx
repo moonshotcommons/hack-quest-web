@@ -109,6 +109,8 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
   if (emitter.all.get(FooterButtonStatus.SUBMIT)) {
     emitter.all.delete(FooterButtonStatus.SUBMIT);
     emitter.on(FooterButtonStatus.SUBMIT, onSubmit);
+  } else {
+    emitter.on(FooterButtonStatus.SUBMIT, onSubmit);
   }
 
   useEffect(() => {
