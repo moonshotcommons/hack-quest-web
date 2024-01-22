@@ -80,7 +80,8 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
   useEffect(() => {
     setFooterBtn({
       footerBtnDisable: !answers.length,
-      footerBtnStatus: FooterButtonStatus.SUBMIT
+      footerBtnStatus: FooterButtonStatus.SUBMIT,
+      footerBtnText: FooterButtonText.SUBMIT
     });
   }, [answers]);
 
