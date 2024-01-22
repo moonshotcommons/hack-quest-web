@@ -1,7 +1,7 @@
 'use client';
 import User from '@/components/Web/User';
 import { Inter } from 'next/font/google';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, Suspense } from 'react';
 import Breadcrumb from '@/components/Web/Business/Breadcrumb';
 import NavBar from '@/components/Layout/Navbar';
 import { navbarList } from '@/components/Layout/Navbar/data';
@@ -42,7 +42,9 @@ const FullLayout = (props: FullLayoutProps) => {
         <div className={`w-full h-full flex flex-col`}>
           {!excludeBreadcrumb && (
             <div className="container mx-auto">
-              <Breadcrumb />
+              <Suspense>
+                <Breadcrumb />
+              </Suspense>
             </div>
           )}
           <div className="w-full flex-1 relative">
