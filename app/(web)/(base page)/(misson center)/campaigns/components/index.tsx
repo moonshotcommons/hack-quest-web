@@ -87,14 +87,6 @@ const Campaigns: React.FC<CampaignsProp> = () => {
   useEffect(() => {
     const campaignId = params?.campaignId as string;
     getCampaignsInfo(campaignId);
-    const startTime = new Date().getTime();
-    return () => {
-      const endTime = new Date().getTime();
-      const duration = endTime - startTime;
-      BurialPoint.track('campaigns-页面留存时间', {
-        duration
-      });
-    };
   }, []);
   return (
     <MantleContext.Provider
@@ -109,7 +101,7 @@ const Campaigns: React.FC<CampaignsProp> = () => {
       }}
     >
       <div
-        className={`container m-auto flex h-[calc(100vh-64px)] font-next-book text-[#0b0b0b] py-[40px] text-[16px]`}
+        className={`container m-auto flex h-full font-next-book text-[#0b0b0b] py-[40px] text-[16px]`}
       >
         <div className="w-[203px]">
           <Tab

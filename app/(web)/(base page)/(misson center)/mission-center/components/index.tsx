@@ -39,7 +39,7 @@ function MissionCenter() {
   };
 
   return (
-    <div className="container mx-auto flex justify-between h-[calc(100vh-64px)]  text-[#0b0b0b] tracking-[0.3px] bg-[#f4f4f4]  text-[14px] font-next-book">
+    <div className="container mx-auto flex justify-between h-full  text-[#0b0b0b] tracking-[0.3px] bg-[#f4f4f4]  text-[14px] font-next-book">
       <MissionCenterContext.Provider
         value={{
           loading,
