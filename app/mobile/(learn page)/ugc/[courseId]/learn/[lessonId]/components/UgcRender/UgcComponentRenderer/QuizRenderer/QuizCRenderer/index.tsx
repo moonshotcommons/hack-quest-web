@@ -13,6 +13,7 @@ import {
   UgcContext
 } from '../../../../../constants/type';
 import { QuizContext } from '..';
+import emitter from '@/store/emitter';
 interface QuizCRendererProps {
   parent: any;
   quiz: any;
@@ -28,7 +29,7 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
   const { quiz, parent } = props;
   const [answers, setAnswers] = useState<number[]>([]);
   const { onPass } = useContext(QuizContext);
-  const { emitter, footerBtn, setFooterBtn } = useContext(UgcContext);
+  const { footerBtn, setFooterBtn } = useContext(UgcContext);
   const [answerState, setAnswerState] = useState<AnswerState>(
     AnswerState.Default
   );
@@ -51,7 +52,10 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
     onPass();
   };
 
-  emitter.on(FooterButtonStatus.SUBMIT, submit);
+  if (emitter.all.has(FooterButtonStatus.SUBMIT)) {
+    emitter.all.delete(FooterButtonStatus.SUBMIT);
+    emitter.on(FooterButtonStatus.SUBMIT, submit);
+  }
 
   useEffect(() => {
     let footerBtnText = FooterButtonText.NEXT;

@@ -8,7 +8,7 @@ import {
   FooterButtonStatus
 } from '../../constants/type';
 import { RendererContext } from '@/components/Web/Business/Renderer/context';
-import mitt from 'mitt';
+import emitter from '@/store/emitter';
 
 interface UgcProviderProps {
   children: ReactNode;
@@ -24,7 +24,6 @@ const UgcProvider: FC<UgcProviderProps> = ({ children, lesson }) => {
     footerBtnDisable: false,
     footerBtnLoading: false
   });
-  const emitter = mitt();
 
   useEffect(() => {
     return () => {
@@ -38,7 +37,7 @@ const UgcProvider: FC<UgcProviderProps> = ({ children, lesson }) => {
         navbarData,
         setNavbarData: (data: NavbarDataType[]) => setNavbarData(data),
         lesson,
-        emitter,
+
         footerBtn,
         setFooterBtn: (btn: Partial<footerBtnType>) =>
           setFooterBtn({

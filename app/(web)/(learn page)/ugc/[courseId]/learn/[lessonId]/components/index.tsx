@@ -1,50 +1,46 @@
 'use client';
-import React, { useState } from 'react';
-import UgcFooter from './UgcFooter';
-import UgcProvider from './UgcProvider';
-import UgcSidebar from './UgcSidebar';
+import React, { useEffect } from 'react';
 import LessonContainer from './LessonContainer';
 import UgcNavbar from './UgcNavbar';
 import { useRequest } from 'ahooks';
 import webApi from '@/service';
+import { useLearnStore } from '@/store/zustand/learnStore';
+import { CourseType } from '@/service/webApi/course/type';
+import Loading from '@/components/Common/Loading';
 
 interface UgcProp {
   lessonId: string;
 }
 
 const Ugc: React.FC<UgcProp> = ({ lessonId }) => {
-  const [lesson, setLesson] = useState<any>();
+  const setLearnLesson = useLearnStore((state) => state.setLearnLesson);
+  const { data: lesson, loading } = useRequest(() => {
+    return webApi.courseApi.getLessonContent(lessonId);
+  });
 
-  useRequest(
-    () => {
-      return webApi.courseApi.getLessonContent(lessonId);
-    },
-    {
-      onSuccess(res: unknown) {
-        setLesson(res as any);
-      }
+  useEffect(() => {
+    if (lesson) {
+      setLearnLesson({
+        courseType: CourseType.UGC,
+        lesson: lesson
+      });
+      console.log('重新设置lesson');
     }
-  );
+  }, [lesson]);
 
   if (!lesson) return null;
 
   return (
-    <UgcProvider lesson={lesson}>
-      <div className="h-full flex flex-col">
-        <div className="w-full flex-1 flex overflow-hidden">
-          <UgcSidebar lesson={lesson} />
-          <div className="flex-1 bg-neutral-white flex justify-center relative">
-            <UgcNavbar />
-            <div className="w-full h-full flex flex-col overflow-hidden">
-              <div className="flex-1 mt-[5.125rem] overflow-auto flex justify-center scroll-wrap-y">
-                <LessonContainer lesson={lesson}></LessonContainer>
-              </div>
-            </div>
-          </div>
+    <div className="flex-1 bg-neutral-white flex justify-center relative">
+      <UgcNavbar />
+      <div className="w-full h-full flex flex-col overflow-hidden">
+        <div className="flex-1 mt-[5.125rem] overflow-auto flex justify-center scroll-wrap-y">
+          <Loading loading={loading}>
+            <LessonContainer lesson={lesson}></LessonContainer>
+          </Loading>
         </div>
-        <UgcFooter />
       </div>
-    </UgcProvider>
+    </div>
   );
 };
 

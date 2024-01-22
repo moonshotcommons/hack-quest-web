@@ -2,11 +2,12 @@
 import Button from '@/components/Common/Button';
 import React, { useContext } from 'react';
 import { UgcContext } from '../../constants/type';
+import emitter from '@/store/emitter';
 
 interface UgcFooterProp {}
 
 const UgcFooter: React.FC<UgcFooterProp> = ({}) => {
-  const { emitter, footerBtn } = useContext(UgcContext);
+  const { footerBtn } = useContext(UgcContext);
   const handleClick = () => {
     if (footerBtn.footerBtnDisable) return;
     emitter.emit(footerBtn.footerBtnStatus);

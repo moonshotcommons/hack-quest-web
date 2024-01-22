@@ -22,7 +22,8 @@ import {
   FooterButtonStatus,
   FooterButtonText,
   UgcContext
-} from '../../../../../constants/type';
+} from '@/app/(web)/(learn page)/ugc/[courseId]/learn/constants/type';
+import emitter from '@/store/emitter';
 interface QuizARendererProps {
   parent: CustomType | NotionType;
   quiz: QuizAType;
@@ -33,7 +34,7 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
   const [showAnswer, setShowAnswer] = useState(false);
   const prevQuiz = useRef<any>({});
   const isCompleted = useRef(false);
-  const { lesson, emitter, footerBtn, setFooterBtn } = useContext(UgcContext);
+  const { lesson, footerBtn, setFooterBtn } = useContext(UgcContext);
   const { onPass } = useContext(QuizContext);
   const { waitingRenderCodes, answerState, answerStateDispatch } = useParseQuiz(
     quiz.lines
@@ -120,7 +121,6 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
     onPass();
   };
 
-  emitter.on(FooterButtonStatus.SUBMIT, submit);
   // 自动填充
   const initCompleteInput = () => {
     if (!isCompleted.current) return;
@@ -169,6 +169,11 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
     });
   };
 
+  if (emitter.all.get(FooterButtonStatus.SUBMIT)) {
+    emitter.all.delete(FooterButtonStatus.SUBMIT);
+    emitter.on(FooterButtonStatus.SUBMIT, submit);
+  }
+
   useEffect(() => {
     if (JSON.stringify(quiz) !== JSON.stringify(prevQuiz.current)) {
       prevQuiz.current = JSON.parse(JSON.stringify(quiz));
@@ -192,7 +197,6 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
       setFooterBtn({
         footerBtnDisable: getSubmitDisable()
       });
-
     return () => {
       emitter.off(FooterButtonStatus.SUBMIT, submit);
     };

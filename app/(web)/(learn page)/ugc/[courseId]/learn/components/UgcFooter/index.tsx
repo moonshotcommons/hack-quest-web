@@ -1,22 +1,50 @@
 'use client';
 import Button from '@/components/Common/Button';
 import React, { useContext, useEffect } from 'react';
-import { UgcContext } from '../../constants/type';
+import { FooterButtonStatus, UgcContext } from '../../constants/type';
 import { useUnitNavList } from '@/hooks/useUnitNavList';
+import { CourseType } from '@/service/webApi/course/type';
+import { useGotoNextLesson } from '@/hooks/useCoursesHooks/useGotoNextLesson';
+import CompleteModal from '@/components/Web/Business/CompleteModal';
+import emitter from '@/store/emitter';
 
 interface UgcFooterProp {}
 
 const UgcFooter: React.FC<UgcFooterProp> = ({}) => {
-  const { emitter, footerBtn, lesson } = useContext(UgcContext);
+  const { footerBtn, lesson, setFooterBtn } = useContext(UgcContext);
+  const {
+    onNextClick,
+    completeModalRef,
+    loading: nextLoading
+  } = useGotoNextLesson(lesson!, CourseType.UGC, true);
+
+  const handleNext = () => {
+    setFooterBtn({
+      footerBtnLoading: true
+    });
+    onNextClick({
+      completedCallback: () => {
+        setFooterBtn({
+          footerBtnLoading: false
+        });
+      }
+    });
+  };
   const {
     unitNavList = [],
     currentUnitIndex,
     refreshNavList
   } = useUnitNavList(lesson);
+
   const handleClick = () => {
-    if (footerBtn.footerBtnDisable) return;
-    emitter.emit(footerBtn.footerBtnStatus);
+    if (footerBtn.footerBtnDisable || nextLoading) return;
+    if (footerBtn.footerBtnStatus !== FooterButtonStatus.NEXT) {
+      emitter.emit(footerBtn.footerBtnStatus);
+    } else {
+      handleNext();
+    }
   };
+
   useEffect(() => {
     refreshNavList();
   }, [lesson]);
@@ -55,6 +83,7 @@ const UgcFooter: React.FC<UgcFooterProp> = ({}) => {
           {footerBtn.footerBtnText}
         </Button>
       </div>
+      <CompleteModal ref={completeModalRef}></CompleteModal>
     </div>
   );
 };

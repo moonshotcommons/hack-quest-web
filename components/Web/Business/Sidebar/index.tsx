@@ -1,6 +1,11 @@
-'use client';
 import { cn } from '@/helper/utils';
-import { ReactNode, createContext, useCallback, useState } from 'react';
+import {
+  ReactNode,
+  createContext,
+  useCallback,
+  useEffect,
+  useState
+} from 'react';
 import { LuChevronsRight } from 'react-icons/lu';
 import { HTMLMotionProps, motion } from 'framer-motion';
 import SidebarGroup from './SidebarGroup';
@@ -72,6 +77,20 @@ const Sidebar = <T,>(props: SidebarProps<T>) => {
     },
     [openKeys, onOpenChange]
   );
+
+  useEffect(() => {
+    setSelect(defaultSelect);
+    items.forEach((item) => {
+      if (item.type === 'group') {
+        const openItem = item.children?.find((child) => {
+          return child.key === defaultSelect && !openKeys.includes(item.key);
+        });
+        if (openItem) {
+          setOpenKeys(openKeys.concat(openItem.key));
+        }
+      }
+    });
+  }, [defaultSelect]);
 
   return (
     <div className={cn('box-border relative z-10')}>

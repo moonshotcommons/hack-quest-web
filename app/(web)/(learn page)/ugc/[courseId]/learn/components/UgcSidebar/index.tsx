@@ -10,12 +10,10 @@ import webApi from '@/service';
 import { useGetLessonLink } from '@/hooks/useCoursesHooks/useGetLessonLink';
 import { useRedirect } from '@/hooks/useRedirect';
 
-interface UgcSidebarProps {
-  lesson: any;
-}
+interface UgcSidebarProps {}
 
-const UgcSidebar: FC<UgcSidebarProps> = ({ lesson }) => {
-  const { setNavbarData } = useContext(UgcContext);
+const UgcSidebar: FC<UgcSidebarProps> = () => {
+  const { setNavbarData, lesson } = useContext(UgcContext);
   const [course, setCourse] = useState<UGCCourseType>();
   const setLearnPageTitle = useCourseStore((state) => state.setLearnPageTitle);
   const { getLink } = useGetLessonLink();
@@ -24,7 +22,7 @@ const UgcSidebar: FC<UgcSidebarProps> = ({ lesson }) => {
   const { items, defaultOpenKeys } = useMemo(() => {
     let defaultOpenKeys: string[] = [];
     let items: SidebarItemType[] = [];
-    if (!course)
+    if (!course || !lesson)
       return {
         defaultOpenKeys,
         items
@@ -86,15 +84,16 @@ const UgcSidebar: FC<UgcSidebarProps> = ({ lesson }) => {
     };
   }, [lesson, course]);
 
-  useRequest(
+  const { run } = useRequest(
     () => {
-      return webApi.courseApi.getCourseDetail(lesson.courseId, true, true);
+      return webApi.courseApi.getCourseDetail(lesson?.courseId, true, true);
     },
     {
+      manual: false,
       onSuccess(res: unknown) {
         setCourse(res as UGCCourseType);
       },
-      cacheKey: lesson.courseId
+      cacheKey: lesson?.courseId
     }
   );
 
@@ -112,11 +111,16 @@ const UgcSidebar: FC<UgcSidebarProps> = ({ lesson }) => {
   };
 
   useEffect(() => {
+    if (lesson) run();
+  }, [lesson]);
+
+  useEffect(() => {
     course && setLearnPageTitle(course.title);
     getNavbar(items[0]?.children?.[0]);
   }, [course]);
 
-  if (!course) return null;
+  if (!lesson || !course) return null;
+
   return (
     <Sidebar
       title={course.title}
