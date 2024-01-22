@@ -8,14 +8,15 @@ import Login from './Login';
 import SignUp from './SignUp';
 import VerifyConfirmed from './VerifyConfirmed';
 import CheckInviteCode from './CheckInviteCode';
-import { useSearchParams } from 'next/navigation';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
 
 interface AuthProps {}
 
 const Auth: FC<AuthProps> = (props) => {
-  const query = useSearchParams();
+  const query = new URLSearchParams(
+    typeof window !== 'undefined' ? window.location.search : ''
+  );
 
   const { authRouteType, setAuthType } = useUserStore(
     useShallow((state) => ({

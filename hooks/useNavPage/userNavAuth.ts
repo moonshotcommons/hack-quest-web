@@ -8,7 +8,7 @@ import {
   isNoNeedUserInfo
 } from '@/constants/nav';
 import { getToken } from '@/helper/user-token';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { useRedirect } from '../useRedirect';
 import { useUserStore } from '@/store/zustand/userStore';
 
@@ -16,7 +16,9 @@ function useNavAuth(waitingUserData: boolean) {
   const userInfo = useUserStore((state) => state.userInfo);
   const { redirectToUrl } = useRedirect();
   const pathname = usePathname();
-  const query = useSearchParams();
+  const query = new URLSearchParams(
+    typeof window !== 'undefined' ? window.location.search : ''
+  );
 
   useEffect(() => {
     if (waitingUserData) return;

@@ -8,7 +8,6 @@ import {
 } from '@/service/webApi/course/type';
 import { ElectiveCourseType } from '@/service/webApi/elective/type';
 import { useRequest } from 'ahooks';
-import { useSearchParams } from 'next/navigation';
 import { useRedirect } from '../useRedirect';
 import { V2_LANDING_PATH } from '@/constants/nav';
 import { message } from 'antd';
@@ -20,7 +19,9 @@ export interface JumpLeaningLessonType {
   ids: string[];
 }
 export const useJumpLeaningLesson = () => {
-  const query = useSearchParams();
+  const query = new URLSearchParams(
+    typeof window !== 'undefined' ? window.location.search : ''
+  );
   const setAuthType = useUserStore((state) => state.setAuthType);
   const { redirectToUrl } = useRedirect();
   const { run: jumpLearningLesson, loading } = useRequest(

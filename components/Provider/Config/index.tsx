@@ -5,7 +5,6 @@ import { Analytics } from '@vercel/analytics/react';
 import { mainnet, optimism, polygon } from 'wagmi/chains';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
-import { useSearchParams } from 'next/navigation';
 import { setToken } from '@/helper/user-token';
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
@@ -36,7 +35,9 @@ const config = createConfig({
 });
 
 const ConfigProvider: FC<ConfigProviderProps> = ({ children }) => {
-  const query = useSearchParams();
+  const query = new URLSearchParams(
+    typeof window !== 'undefined' ? window.location.search : ''
+  );
 
   if (typeof window === 'object') {
     if (query.get('origin') === 'mantle' && query.get('token')) {
