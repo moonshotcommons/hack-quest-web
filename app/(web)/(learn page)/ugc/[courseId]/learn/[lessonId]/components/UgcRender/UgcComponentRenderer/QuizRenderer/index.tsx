@@ -42,7 +42,7 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
   const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
   const [quizDropdownVisible, setQuizDropdownVisible] = useState(false);
   const [passOpen, setPassOpen] = useState(false);
-  const { lesson, footerBtn, setFooterBtn } = useContext(UgcContext);
+  const { lesson, setFooterBtn } = useContext(UgcContext);
 
   const containerRef = useRef(null);
 

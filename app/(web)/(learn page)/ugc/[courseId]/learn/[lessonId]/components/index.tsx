@@ -24,7 +24,6 @@ const Ugc: React.FC<UgcProp> = ({ lessonId }) => {
         courseType: CourseType.UGC,
         lesson: lesson
       });
-      console.log('重新设置lesson');
     }
   }, [lesson]);
 

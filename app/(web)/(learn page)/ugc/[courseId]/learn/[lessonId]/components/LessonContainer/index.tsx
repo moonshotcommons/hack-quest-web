@@ -1,13 +1,10 @@
-import { FC, useContext, useEffect } from 'react';
+import { FC, useEffect } from 'react';
 
 import ComponentRenderer from '../UgcRender';
 import webApi from '@/service';
 
 import { useUnitNavList } from '@/hooks/useUnitNavList';
-import {
-  FooterButtonStatus,
-  UgcContext
-} from '@/app/(web)/(learn page)/ugc/[courseId]/learn/constants/type';
+
 import {
   lessonTypeData,
   LessonReadingData
@@ -19,8 +16,6 @@ interface LessonContainerProps {
 
 const LessonContainer: FC<LessonContainerProps> = (props) => {
   const { lesson } = props;
-  const { setFooterBtn } = useContext(UgcContext);
-
   const { refreshNavList } = useUnitNavList(lesson as any);
   useEffect(() => {
     if (lesson) {
@@ -29,10 +24,6 @@ const LessonContainer: FC<LessonContainerProps> = (props) => {
         console.log('开始学习失败', e);
       });
     }
-    setFooterBtn({
-      footerBtnDisable: false,
-      footerBtnStatus: FooterButtonStatus.NEXT
-    });
   }, [lesson]);
 
   return (

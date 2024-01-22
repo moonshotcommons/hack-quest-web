@@ -83,7 +83,6 @@ const Sidebar = <T,>(props: SidebarProps<T>) => {
     items.forEach((item) => {
       if (item.type === 'group') {
         const openItem = item.children?.find((child) => {
-          debugger;
           return child.key === defaultSelect && !openKeys.includes(item.key);
         });
         if (openItem) {
