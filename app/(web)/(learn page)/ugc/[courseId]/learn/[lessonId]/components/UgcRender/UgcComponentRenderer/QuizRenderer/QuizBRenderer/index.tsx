@@ -22,6 +22,7 @@ import {
   UgcContext
 } from '@/app/(web)/(learn page)/ugc/[courseId]/learn/constants/type';
 import emitter from '@/store/emitter';
+import { useGetQuizsCompleted } from '@/hooks/useCoursesHooks/useGetQuizsCompleted';
 interface QuizBRendererProps {
   parent: any;
   quiz: QuizBType;
@@ -39,6 +40,7 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
   const mountAnswers = useRef(0);
   const initFooterBtn = useRef(true);
   const [mountOptionIds, setMountOptionIds] = useState<string[]>([]);
+  const { getFooterBtnInfo } = useGetQuizsCompleted();
   const onDrop = (
     dropAnswer: AnswerType,
     replaceOption?: QuizOptionType | null
@@ -125,15 +127,9 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
         return { ...option, isRender: true };
       })
     );
-    const isAllNotcompleted = parent.children.some((v: any) => !v?.isCompleted);
+    let { footerBtnText, footerBtnStatus, footerBtnDisable } =
+      getFooterBtnInfo(parent);
     initFooterBtn.current = true;
-    let footerBtnText = isAllNotcompleted
-      ? FooterButtonText.SUBMIT
-      : FooterButtonText.NEXT;
-    let footerBtnStatus = isAllNotcompleted
-      ? FooterButtonStatus.SUBMIT
-      : FooterButtonStatus.NEXT;
-    let footerBtnDisable = false;
     if (!quiz?.isCompleted) {
       initFooterBtn.current = false;
       footerBtnText = FooterButtonText.SUBMIT;
