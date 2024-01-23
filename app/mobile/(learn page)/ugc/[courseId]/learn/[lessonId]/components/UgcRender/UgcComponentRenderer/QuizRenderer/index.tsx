@@ -42,7 +42,7 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
   const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
   const [quizDropdownVisible, setQuizDropdownVisible] = useState(false);
   const [passOpen, setPassOpen] = useState(false);
-  const { lesson, footerBtn, setFooterBtn } = useContext(UgcContext);
+  const { lesson, setFooterBtn } = useContext(UgcContext);
 
   const containerRef = useRef(null);
 
@@ -58,7 +58,6 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
     });
 
     const jsConfetti = new JSConfetti();
-
     jsConfetti.addConfetti({
       confettiColors: [
         '#ff0a54',
@@ -98,26 +97,28 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
   };
 
   useEffect(() => {
-    const notCompleted: number[] = [];
-    propsQuiz.children.forEach((item, index) => {
-      if (!lesson.completedQuiz && !Array.isArray(lesson.completedQuiz)) {
-        item.isCompleted = false;
-        return false;
+    if (lesson) {
+      const notCompleted: number[] = [];
+      propsQuiz.children.forEach((item, index) => {
+        if (!lesson.completedQuiz && !Array.isArray(lesson.completedQuiz)) {
+          item.isCompleted = false;
+          return false;
+        }
+        if (!lesson.completedQuiz.includes(index)) {
+          notCompleted.push(index);
+          item.isCompleted = false;
+        } else {
+          item.isCompleted = true;
+        }
+      });
+      if (notCompleted.length) {
+        setCurrentQuizIndex(notCompleted[0]);
       }
-      if (!lesson.completedQuiz.includes(index)) {
-        notCompleted.push(index);
-        item.isCompleted = false;
-      } else {
-        item.isCompleted = true;
-      }
-    });
-    if (notCompleted.length) {
-      setCurrentQuizIndex(notCompleted[0]);
+      setQuiz({
+        ...propsQuiz,
+        children: propsQuiz.children.map((child) => ({ ...child }))
+      });
     }
-    setQuiz({
-      ...propsQuiz,
-      children: propsQuiz.children.map((child) => ({ ...child }))
-    });
   }, [lesson, propsQuiz]);
 
   useClickAway(() => {

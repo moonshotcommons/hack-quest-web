@@ -19,18 +19,6 @@ const UgcProvider: FC<UgcProviderProps> = ({ children }) => {
   const [navbarData, setNavbarData] = useState<NavbarDataType[]>([]);
   const [expandData, setExpandData] = useState<Record<string, number[]>>({});
   const lesson = useLearnStore((state) => state.learnLesson?.lesson);
-  // const footerBtn = useRef<footerBtnType>({
-  //   footerBtnStatus: FooterButtonStatus.NEXT,
-  //   footerBtnText: FooterButtonText.NEXT,
-  //   footerBtnDisable: false,
-  //   footerBtnLoading: false
-  // });
-  // const setFooterBtn = (btn: Partial<footerBtnType>) => {
-  //   footerBtn.current = {
-  //     ...footerBtn.current,
-  //     ...btn
-  //   };
-  // };
   const [footerBtn, setFooterBtn] = useState<footerBtnType>({
     footerBtnStatus: FooterButtonStatus.NEXT,
     footerBtnText: FooterButtonText.NEXT,

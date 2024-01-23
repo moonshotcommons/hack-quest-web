@@ -1,6 +1,5 @@
 'use client';
 import {
-  CustomType,
   NotionComponent,
   NotionType,
   QuizBType
@@ -21,15 +20,16 @@ import {
   FooterButtonStatus,
   FooterButtonText,
   UgcContext
-} from '@/app/mobile/(learn page)/ugc/[courseId]/learn/constants/type';
+} from '@/app/(web)/(learn page)/ugc/[courseId]/learn/constants/type';
 import emitter from '@/store/emitter';
+import { useGetQuizsCompleted } from '@/hooks/useCoursesHooks/useGetQuizsCompleted';
 interface QuizBRendererProps {
-  parent: CustomType | NotionType;
+  parent: any;
   quiz: QuizBType;
 }
 
 const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
-  const { quiz } = props;
+  const { quiz, parent } = props;
   const { onPass } = useContext(QuizContext);
   const [options, setOptions] = useState<QuizOptionType[]>(() =>
     quiz.options.map((option) => ({ ...option, isRender: true }))
@@ -38,7 +38,9 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
   const { lesson, setFooterBtn } = useContext(UgcContext);
   const [answers, setAnswers] = useState<Record<string, AnswerType>>({});
   const mountAnswers = useRef(0);
+  const initFooterBtn = useRef(true);
   const [mountOptionIds, setMountOptionIds] = useState<string[]>([]);
+  const { getFooterBtnInfo } = useGetQuizsCompleted();
   const onDrop = (
     dropAnswer: AnswerType,
     replaceOption?: QuizOptionType | null
@@ -109,6 +111,8 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
   if (emitter.all.get(FooterButtonStatus.SUBMIT)) {
     emitter.all.delete(FooterButtonStatus.SUBMIT);
     emitter.on(FooterButtonStatus.SUBMIT, onSubmit);
+  } else {
+    emitter.on(FooterButtonStatus.SUBMIT, onSubmit);
   }
 
   useEffect(() => {
@@ -123,12 +127,27 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
         return { ...option, isRender: true };
       })
     );
-
+    let { footerBtnText, footerBtnStatus, footerBtnDisable } =
+      getFooterBtnInfo(parent);
+    initFooterBtn.current = true;
+    if (!quiz?.isCompleted) {
+      initFooterBtn.current = false;
+      footerBtnText = FooterButtonText.SUBMIT;
+      footerBtnStatus = FooterButtonStatus.SUBMIT;
+      footerBtnDisable = true;
+    }
+    setTimeout(() => {
+      initFooterBtn.current = false;
+      setFooterBtn({
+        footerBtnText,
+        footerBtnStatus,
+        footerBtnDisable
+      });
+    }, 10);
     setMountOptionIds([]);
   }, [quiz]);
 
   useEffect(() => {
-    let footerBtnText = FooterButtonText.NEXT;
     if (
       quiz?.isCompleted &&
       mountOptionIds.length !== Object.keys(answers).length
@@ -160,16 +179,16 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
         return newOptions;
       });
       mountAnswers.current += 1;
-    } else if (!quiz?.isCompleted) {
-      footerBtnText = FooterButtonText.SUBMIT;
     }
-    const footerBtnDisable =
-      !Object.keys(answers).find((key) => answers[key].option) || showAnswer;
-    setFooterBtn({
-      footerBtnDisable,
-      footerBtnText,
-      footerBtnStatus: FooterButtonStatus.SUBMIT
-    });
+    if (!initFooterBtn.current) {
+      const footerBtnDisable =
+        !Object.keys(answers).find((key) => answers[key].option) || showAnswer;
+      setFooterBtn({
+        footerBtnDisable,
+        footerBtnStatus: FooterButtonStatus.SUBMIT
+      });
+    }
+
     return () => {
       emitter.off(FooterButtonStatus.SUBMIT, onSubmit);
     };
