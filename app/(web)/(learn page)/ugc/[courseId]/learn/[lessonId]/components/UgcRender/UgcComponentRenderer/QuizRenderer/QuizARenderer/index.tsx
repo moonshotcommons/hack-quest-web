@@ -1,8 +1,4 @@
-import {
-  CustomType,
-  NotionType,
-  QuizAType
-} from '@/components/Web/Business/Renderer/type';
+import { QuizAType } from '@/components/Web/Business/Renderer/type';
 import { BurialPoint } from '@/helper/burialPoint';
 import {
   adaptWidth,
@@ -25,16 +21,17 @@ import {
 } from '@/app/(web)/(learn page)/ugc/[courseId]/learn/constants/type';
 import emitter from '@/store/emitter';
 interface QuizARendererProps {
-  parent: CustomType | NotionType;
+  parent: any;
   quiz: QuizAType;
 }
 
 const QuizARenderer: FC<QuizARendererProps> = (props) => {
-  const { quiz } = props;
+  const { quiz, parent } = props;
   const [showAnswer, setShowAnswer] = useState(false);
   const prevQuiz = useRef<any>({});
   const isCompleted = useRef(false);
   const { lesson, setFooterBtn } = useContext(UgcContext);
+  const initFooterBtn = useRef(true);
   const { onPass } = useContext(QuizContext);
   const { waitingRenderCodes, answerState, answerStateDispatch } = useParseQuiz(
     quiz.lines
@@ -182,10 +179,12 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
       isCompleted.current = quiz.isCompleted as boolean;
       setShowAnswer(false);
     }
-    setFooterBtn({
-      footerBtnDisable: getSubmitDisable(),
-      footerBtnStatus: FooterButtonStatus.SUBMIT
-    });
+    if (!initFooterBtn.current) {
+      setFooterBtn({
+        footerBtnDisable: getSubmitDisable(),
+        footerBtnStatus: FooterButtonStatus.SUBMIT
+      });
+    }
     initCompleteInput();
     dealInputValue(false);
   }, [answerState]);
@@ -205,15 +204,29 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
   }, [showAnswer]);
 
   useEffect(() => {
-    let footerBtnText = FooterButtonText.NEXT;
+    const isAllNotcompleted = parent.children.some((v: any) => !v?.isCompleted);
+    initFooterBtn.current = true;
+    let footerBtnText = isAllNotcompleted
+      ? FooterButtonText.SUBMIT
+      : FooterButtonText.NEXT;
+    let footerBtnStatus = isAllNotcompleted
+      ? FooterButtonStatus.SUBMIT
+      : FooterButtonStatus.NEXT;
+    let footerBtnDisable = false;
     if (!quiz.isCompleted) {
+      initFooterBtn.current = false;
       footerBtnText = FooterButtonText.SUBMIT;
+      footerBtnStatus = FooterButtonStatus.SUBMIT;
+      footerBtnDisable = true;
     }
     setTimeout(() => {
+      initFooterBtn.current = false;
       setFooterBtn({
-        footerBtnText
+        footerBtnText,
+        footerBtnStatus,
+        footerBtnDisable
       });
-    });
+    }, 10);
   }, [quiz]);
 
   return (
