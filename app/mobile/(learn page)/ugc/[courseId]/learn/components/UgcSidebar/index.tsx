@@ -9,14 +9,17 @@ import { useRequest } from 'ahooks';
 import webApi from '@/service';
 import { useGetLessonLink } from '@/hooks/useCoursesHooks/useGetLessonLink';
 import { useRedirect } from '@/hooks/useRedirect';
+import { useLearnStore } from '@/store/zustand/learnStore';
 
-interface UgcSidebarProps {
-  lesson: any;
-}
+interface UgcSidebarProps {}
 
-const UgcSidebar: FC<UgcSidebarProps> = ({ lesson }) => {
-  const { setNavbarData } = useContext(UgcContext);
+const UgcSidebar: FC<UgcSidebarProps> = () => {
+  const { setNavbarData, lesson } = useContext(UgcContext);
   const [course, setCourse] = useState<UGCCourseType>();
+
+  const sidebarOpen = useLearnStore((state) => state.sidebarOpen);
+  const setSidebarOpen = useLearnStore((state) => state.setSidebarOpen);
+
   const setLearnPageTitle = useCourseStore((state) => state.setLearnPageTitle);
   const { getLink } = useGetLessonLink();
   const { redirectToUrl } = useRedirect();
@@ -24,24 +27,32 @@ const UgcSidebar: FC<UgcSidebarProps> = ({ lesson }) => {
   const { items, defaultOpenKeys } = useMemo(() => {
     let defaultOpenKeys: string[] = [];
     let items: SidebarItemType[] = [];
-    if (!course)
+    if (!course || !lesson)
       return {
         defaultOpenKeys,
         items
       };
-
     items = course.units!.map((unit) => {
+      let prevLessonState = CompleteStateType.COMPLETED;
       return {
         key: unit.id,
         label: unit.title,
         data: unit,
         type: 'group',
-        children: unit.pages!.map((page) => {
+        children: unit.pages!.map((page, i) => {
           if (page.id === lesson.id) defaultOpenKeys.push(unit.id);
-          return {
+          const disable =
+            page.state === CompleteStateType.NOT_STARTED &&
+            prevLessonState !== CompleteStateType.COMPLETED;
+          const newPage = {
             key: page.id,
+            disable,
             label: (
-              <div className="flex w-full justify-between items-center">
+              <div
+                className={`flex w-full justify-between items-center ${
+                  disable ? 'cursor-not-allowed' : ''
+                }`}
+              >
                 <div className="flex flex-col pr-5 flex-1 overflow-hidden shrink-0">
                   <span className="w-full body-m text-neutral-black break-words line-clamp-2">
                     {page.title}
@@ -76,6 +87,8 @@ const UgcSidebar: FC<UgcSidebarProps> = ({ lesson }) => {
             type: 'item',
             data: page
           };
+          prevLessonState = page.state;
+          return newPage as any;
         })
       };
     });
@@ -86,15 +99,16 @@ const UgcSidebar: FC<UgcSidebarProps> = ({ lesson }) => {
     };
   }, [lesson, course]);
 
-  useRequest(
+  const { run } = useRequest(
     () => {
-      return webApi.courseApi.getCourseDetail(lesson.courseId, true, true);
+      return webApi.courseApi.getCourseDetail(lesson?.courseId, true, true);
     },
     {
+      manual: true,
       onSuccess(res: unknown) {
         setCourse(res as UGCCourseType);
       },
-      cacheKey: lesson.courseId
+      cacheKey: lesson?.courseId
     }
   );
 
@@ -112,24 +126,39 @@ const UgcSidebar: FC<UgcSidebarProps> = ({ lesson }) => {
   };
 
   useEffect(() => {
+    if (lesson) run();
+  }, [lesson]);
+
+  useEffect(() => {
     course && setLearnPageTitle(course.title);
     getNavbar(items[0]?.children?.[0]);
   }, [course]);
 
-  if (!course) return null;
+  if (!lesson || !course) return null;
+
+  if (!sidebarOpen) return false;
+
   return (
-    <Sidebar
-      title={course.title}
-      items={items}
-      className="w-[18.5rem] h-full"
-      defaultSelect={lesson.id}
-      defaultOpenKeys={defaultOpenKeys}
-      onSelect={(key, item: any) => {
-        if (item.id === lesson.id) return;
-        const link = getLink(course.type, key, course.name);
-        redirectToUrl(link);
-      }}
-    ></Sidebar>
+    <div className="w-full h-full absolute left-0 z-50">
+      <div className="w-full h-full bg-neutral-black opacity-50"></div>
+      <div className="absolute left-0 top-0 h-full w-4/5 overflow-hidden">
+        <Sidebar
+          title={course.title}
+          items={items}
+          className="w-full h-full"
+          defaultSelect={lesson.id}
+          open={sidebarOpen}
+          isCustomOpen={true}
+          defaultOpenKeys={defaultOpenKeys}
+          onSelect={(key, item: any) => {
+            if (item.id === lesson.id) return;
+            const link = getLink(course.type, key, course.name);
+            redirectToUrl(link);
+          }}
+          onShowListChange={(showList) => setSidebarOpen(showList)}
+        ></Sidebar>
+      </div>
+    </div>
   );
 };
 

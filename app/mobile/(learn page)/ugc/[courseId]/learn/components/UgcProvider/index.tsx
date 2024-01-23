@@ -8,16 +8,29 @@ import {
   FooterButtonStatus
 } from '../../constants/type';
 import { RendererContext } from '@/components/Web/Business/Renderer/context';
+import { useLearnStore } from '@/store/zustand/learnStore';
 import emitter from '@/store/emitter';
 
 interface UgcProviderProps {
   children: ReactNode;
-  lesson: any;
 }
 
-const UgcProvider: FC<UgcProviderProps> = ({ children, lesson }) => {
+const UgcProvider: FC<UgcProviderProps> = ({ children }) => {
   const [navbarData, setNavbarData] = useState<NavbarDataType[]>([]);
   const [expandData, setExpandData] = useState<Record<string, number[]>>({});
+  const lesson = useLearnStore((state) => state.learnLesson?.lesson);
+  // const footerBtn = useRef<footerBtnType>({
+  //   footerBtnStatus: FooterButtonStatus.NEXT,
+  //   footerBtnText: FooterButtonText.NEXT,
+  //   footerBtnDisable: false,
+  //   footerBtnLoading: false
+  // });
+  // const setFooterBtn = (btn: Partial<footerBtnType>) => {
+  //   footerBtn.current = {
+  //     ...footerBtn.current,
+  //     ...btn
+  //   };
+  // };
   const [footerBtn, setFooterBtn] = useState<footerBtnType>({
     footerBtnStatus: FooterButtonStatus.NEXT,
     footerBtnText: FooterButtonText.NEXT,
@@ -37,8 +50,7 @@ const UgcProvider: FC<UgcProviderProps> = ({ children, lesson }) => {
         navbarData,
         setNavbarData: (data: NavbarDataType[]) => setNavbarData(data),
         lesson,
-
-        footerBtn,
+        footerBtn: footerBtn,
         setFooterBtn: (btn: Partial<footerBtnType>) =>
           setFooterBtn({
             ...footerBtn,
