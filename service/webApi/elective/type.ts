@@ -31,7 +31,7 @@ export interface ElectiveListDataType {
 //   progress: number;
 //   status: string;
 //   track: string;
-//   type: CourseType.Mini;
+//   type: CourseType.MINI;
 //   completed: boolean;
 //   completedPages: number;
 //   duration: number;
@@ -92,7 +92,7 @@ export interface EcosystemElectiveType {
   name: string;
   description: string;
   image: string;
-  type: CourseType.Mini;
+  type: CourseType.MINI;
   level: string;
   track: string;
   duration: number;

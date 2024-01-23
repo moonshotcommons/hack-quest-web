@@ -13,12 +13,12 @@ import {
 } from '@/service/webApi/course/type';
 import { ThemeContext } from '@/store/context/theme';
 import { Progress, Typography } from 'antd';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { FC, useContext } from 'react';
 import styled from 'styled-components';
 import { LearningStatus } from '../type';
-import { QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import Button from '@/components/Common/Button';
+import { QueryIdType } from '../../Business/Breadcrumb/type';
 
 const CustomProgress = styled(Progress)`
   .ant-progress-inner {
@@ -90,7 +90,9 @@ const UnitCard: FC<UnitCardProps> = (props) => {
   const { jumpLearningLesson, loading } = useJumpLeaningLesson();
   const { theme } = useContext(ThemeContext);
   const router = useRouter();
-  const query = useSearchParams();
+  const query = new URLSearchParams(
+    typeof window !== 'undefined' ? window.location.search : ''
+  );
   return (
     <div className="py-[30px] flex items-center pl-[54px] pr-[50px]">
       {/* <div
@@ -184,7 +186,7 @@ const UnitCard: FC<UnitCardProps> = (props) => {
               const lessonId = unitPages.pages[0]?.id;
               let link = `${getLessonLink(
                 courseType as CourseType,
-                courseDetail?.name as string,
+                courseDetail?.title as string,
                 lessonId,
                 courseDetail?.id as string,
                 {

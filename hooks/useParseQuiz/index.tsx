@@ -2,7 +2,6 @@ import {
   CodeLineType,
   LineType
 } from '@/components/Web/Business/Renderer/type';
-import { reservedWords } from '@/constants/solidity';
 import { changeTextareaHeight } from '@/helper/utils';
 import { ReactNode, useEffect, useMemo, useState } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
@@ -136,19 +135,6 @@ const AnswerInput = (props: {
       }}
     />
   );
-};
-
-const codeRender = (codes: any) => {
-  return codes.map((code: string, index: number) => {
-    if (reservedWords.includes(code) && code.trim()) {
-      return (
-        <span key={index} style={{ color: `var(--solidity-${code})` }}>
-          {code + '\u00A0\u00A0'}
-        </span>
-      );
-    }
-    return code + '\u00A0\u00A0';
-  });
 };
 
 export const useParseQuiz = (lines: CodeLineType[]) => {
@@ -362,7 +348,12 @@ export const useParseQuiz = (lines: CodeLineType[]) => {
       type: 'span',
       render() {
         return (
-          <CustomSyntaxHighlighter style={codeStyle} language={'solidity'}>
+          <CustomSyntaxHighlighter
+            style={{
+              ...codeStyle
+            }}
+            language={'solidity'}
+          >
             {line.content}
           </CustomSyntaxHighlighter>
         );

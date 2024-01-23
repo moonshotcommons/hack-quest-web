@@ -44,7 +44,7 @@ const CourseFilterListDefault: FC<CourseFilterListDefaultProps> = (props) => {
   useEffect(() => {
     getCourseList({
       ...mergeFilterParams(filters, sort),
-      type: CourseType.Mini
+      type: `${CourseType.MINI},${CourseType.UGC}`
     });
   }, []);
 
@@ -54,7 +54,7 @@ const CourseFilterListDefault: FC<CourseFilterListDefaultProps> = (props) => {
       onFilterParamsUpdate={(params) => {
         getCourseList({
           ...params,
-          type: CourseType.Mini
+          type: `${CourseType.MINI},${CourseType.UGC}`
         });
       }}
       courseList={courseList}

@@ -54,7 +54,7 @@ export const useUnitNavList = (lesson: CourseLessonType) => {
   const { run, refresh } = useRequest(
     async () => {
       const data = await webApi.courseApi.getCourseUnitsAndPages(
-        lesson!.courseId
+        lesson?.courseId
       );
       if (data) {
         const formateData = formateDropdownData(data, lesson!);

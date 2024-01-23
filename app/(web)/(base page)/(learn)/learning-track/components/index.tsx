@@ -14,9 +14,10 @@ import Banner from './Banner';
 import Filter from './Filter';
 import List from './List';
 import PageRetentionTime from '@/components/Common/PageRetentionTime';
-import { useSearchParams } from 'next/navigation';
 function LearningTrack() {
-  const query = useSearchParams();
+  const query = new URLSearchParams(
+    typeof window !== 'undefined' ? window.location.search : ''
+  );
   const track = query.get('track') as LearningTrackTab;
   const [searchInfo, setSearchInfo] = useState<SearchInfoType>({
     track: track || bannerTabList[0].value,

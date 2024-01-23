@@ -16,7 +16,8 @@ import {
   useEffect,
   useMemo,
   useRef,
-  useState
+  useState,
+  Suspense
 } from 'react';
 import LessonEvents from '../LessonEvents';
 import { LessonPageContext } from '../type';
@@ -78,7 +79,9 @@ const LessonContentComponent: FC<LessonContentProps> = (props) => {
 
   return (
     <div className="flex flex-shrink-0 flex-col h-[calc(100%-10px)] pl-[20px] pr-[20px]">
-      <Breadcrumb />
+      <Suspense>
+        <Breadcrumb />
+      </Suspense>
 
       <LessonEvents
         isPreview={isPreview}

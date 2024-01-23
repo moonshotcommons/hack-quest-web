@@ -4,7 +4,7 @@ import { setToken } from '@/helper/user-token';
 import webApi from '@/service';
 
 import { omit } from 'lodash-es';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { FC, useEffect, useState } from 'react';
 import Google from '@/public/images/login/google.svg';
 import Github from '@/public/images/login/github.svg';
@@ -302,7 +302,9 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
   const [tipsOpen, setTipsOpen] = useState(false);
   const [jump, setJump] = useState(false);
   const [countDown, setCountDown] = useState(3);
-  const query = useSearchParams();
+  const query = new URLSearchParams(
+    typeof window !== 'undefined' ? window.location.search : ''
+  );
   const router = useRouter();
   const [verifyState, setVerifyState] = useState(VerifyStateType.VERIFYING);
   const [source, setSource] = useState<ThirdPartyAuthType>(

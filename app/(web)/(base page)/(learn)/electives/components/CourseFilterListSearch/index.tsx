@@ -49,7 +49,7 @@ const CourseFilterListSearch: FC<CourseFilterListSearchProps> = ({
   useEffect(() => {
     getCourseList({
       ...mergeFilterParams(filters, sort, keyword),
-      type: CourseType.Mini
+      type: CourseType.MINI
     });
   }, []);
 
@@ -60,7 +60,7 @@ const CourseFilterListSearch: FC<CourseFilterListSearchProps> = ({
         getCourseList({
           ...params,
           keyword,
-          type: CourseType.Mini
+          type: CourseType.MINI
         });
       }}
       filters={cloneDeep(filters)}

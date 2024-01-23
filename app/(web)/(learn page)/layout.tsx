@@ -1,3 +1,4 @@
+'use client';
 import { FC, ReactNode } from 'react';
 import Layout from '@/components/Web/Layout/LearnPage';
 interface WebLayoutProps {

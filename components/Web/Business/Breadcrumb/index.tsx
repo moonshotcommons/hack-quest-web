@@ -13,8 +13,8 @@ interface navDataProps {
 }
 const Breadcrumb: React.FC = () => {
   const query = useSearchParams();
-  const params = useParams();
 
+  const params = useParams();
   const [navData, setNavData] = useState<navDataProps[]>([]);
   const getLearningTrackDetail = (id: string) => {
     return new Promise(async (resolve) => {
@@ -105,7 +105,7 @@ const Breadcrumb: React.FC = () => {
           if (v) {
             linkIdsStr += `&${navIdType[i]}=${v.id}`;
             return {
-              label: v.name,
+              label: v.title,
               link: !v.menu_
                 ? `${navLinks[i]}/${v.id}?menu=${query.get(
                     'menu'
@@ -119,7 +119,7 @@ const Breadcrumb: React.FC = () => {
         .filter((v) => v.label);
       setNavData([menuNavData, ...newNavData]);
     });
-  }, [query]);
+  }, []);
 
   useEffect(() => {
     getNavData();

@@ -19,7 +19,7 @@ export const useGetLessonContent = <
   const { run, loading, refresh } = useRequest(
     async (lessonId) => {
       switch (courseType) {
-        case CourseType.Mini:
+        case CourseType.MINI:
           return webApi.courseApi.getLessonContent<T>(lessonId);
         default:
           return webApi.courseApi.getLessonContent<T>(lessonId);

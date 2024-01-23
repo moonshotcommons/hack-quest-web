@@ -4,7 +4,6 @@ import { useRedirect } from '@/hooks/useRedirect';
 import { useValidator } from '@/hooks/useValidator';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useDebounceFn } from 'ahooks';
-import { useSearchParams } from 'next/navigation';
 import { FC, useEffect, useState } from 'react';
 import RightArrowIcon from '@/components/Common/Icon/RightArrow';
 import webApi from '@/service';
@@ -135,7 +134,9 @@ const ChangeForm = ({
 }: {
   changeState: (state: ChangeStateType) => void;
 }) => {
-  const query = useSearchParams();
+  const query = new URLSearchParams(
+    typeof window !== 'undefined' ? window.location.search : ''
+  );
   const token = query.get('token');
   const [formData, setFormData] = useState<{
     newPassword: string;

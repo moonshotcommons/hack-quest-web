@@ -2,7 +2,7 @@ import { MotionProps } from 'framer-motion';
 
 import { FilterItemType, FilterOptionType, FilterParamsType } from './type';
 import { CourseLanguageType } from '@/service/webApi/course/type';
-import { LanguageTab } from '@/app/mobile/(learn)/learning-track/constants/type';
+import { LanguageTab } from '@/app/mobile/(base page)/(learn)/learning-track/constants/type';
 
 export const animateProps: MotionProps = {
   initial: { scaleY: 0, opacity: 0, translateY: '95%' },
@@ -27,7 +27,7 @@ export const learningTrackFilters = [
     filterName: 'Language',
     filterField: 'language',
     options: [
-      { name: 'All', value: LanguageTab.ALL, isSelect: true },
+      { name: 'All Languages', value: LanguageTab.ALL, isSelect: true },
       { name: 'Solidity', value: CourseLanguageType.SOLIDITY, isSelect: false },
       { name: 'Rust', value: CourseLanguageType.RUST, isSelect: false },
       { name: 'Move ', value: CourseLanguageType.MOVE, isSelect: false }

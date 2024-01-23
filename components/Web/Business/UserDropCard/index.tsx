@@ -1,9 +1,5 @@
-import ProfileIcon from '@/components/Common/Icon/Profile';
-import SettingIcon from '@/components/Common/Icon/Setting';
-import SignOutIcon from '@/components/Common/Icon/SignOut';
 import { BurialPoint } from '@/helper/burialPoint';
 import { useRedirect } from '@/hooks/useRedirect';
-import ArrowUp from '@/public/images/user/arrow_up.png';
 import { LoginResponse } from '@/service/webApi/user/type';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -11,6 +7,7 @@ import { useShallow } from 'zustand/react/shallow';
 
 import { FC } from 'react';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
+import { BiUser, BiLockAlt, BiLogInCircle } from 'react-icons/bi';
 interface UserDropCardProps {
   // children: ReactNode;
   userInfo: LoginResponse;
@@ -20,8 +17,7 @@ interface UserDropCardProps {
 const UserInfo: FC<Omit<UserDropCardProps, 'onClose'>> = ({ userInfo }) => {
   return (
     <div className="w-full flex flex-col items-center">
-      {/* <div className="w-[7.5rem] h-[7.5rem] rounded-full bg-white"> */}
-      <div className="relative w-[7.5rem] bg-[#8d8d8d] h-[7.5rem] overflow-hidden rounded-full">
+      <div className="relative w-[80px] h-[80px]  overflow-hidden rounded-full">
         <Image
           src={userInfo?.avatar}
           alt="avatar"
@@ -29,11 +25,10 @@ const UserInfo: FC<Omit<UserDropCardProps, 'onClose'>> = ({ userInfo }) => {
           className="object-cover"
         ></Image>
       </div>
-      {/* </div> */}
-      <div className="font-next-poster-Bold text-[1.5rem] leading-[110%] tracking-[0.03rem] mt-[0.75rem] text-setting-drop-user-name-color">
+      <div className="text-h5 mt-[10px] text-neutral-black">
         {userInfo?.nickname}
       </div>
-      <div className="text-setting-drop-user-color text-[1rem] font-next-book leading-[120%] mt-[0.5rem]">
+      <div className="body-s text-neutral-medium-gray mt-[5px]">
         {userInfo?.email}
       </div>
     </div>
@@ -58,60 +53,48 @@ const UserDropCard: FC<UserDropCardProps> = (props) => {
   };
 
   return (
-    <div className="w-[25.875rem] relative p-[2.5rem] pb-0 bg-[#0b0b0b] font-next-book shadow-[0_0_6px_rgba(255,255,255,0.7)] rounded-[10px]">
-      {/* <AiFillCaretUp
-        size={40}
-        style={{
-          color: 'red',
-          // filter: 'drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.15))',
-          textShadow: '0px 4px 8px red'
-        }}
-        className="absolute -top-[27px] right-[10px]"
-      /> */}
-      <div className="absolute -top-[21px] right-[10px] ">
-        <Image src={ArrowUp} alt="arrow" width={47}></Image>
-      </div>
-      <div className="absolute top-0 right-[10px] w-[47px] h-[10px] bg-[#0b0b0b]"></div>
-
-      <UserInfo userInfo={userInfo}></UserInfo>
-      <Link href={'/user/profile'}>
+    <div className="relative  py-[20px] bg-neutral-white shadow-[0_4px_4px_0_rgba(0,0,0,0.25)] rounded-[10px]">
+      <div className="min-w-[220px] flex flex-col text-neutral-black body-s">
+        <UserInfo userInfo={userInfo}></UserInfo>
+        <Link href={'/user/profile'} className="w-full">
+          <div
+            className="w-full mt-[8px] py-[12px] px-[30px]  flex items-center gap-[12px] cursor-pointer hover:bg-neutral-off-white"
+            onClick={() => {
+              onClose();
+              BurialPoint.track('profile');
+            }}
+          >
+            <span>
+              <BiUser size={24}></BiUser>
+            </span>
+            <span className="">Profile</span>
+          </div>
+        </Link>
         <div
-          className="relative mt-[2rem] w-full py-[2rem] text-setting-drop-handler-color border-t border-setting-drop-user-border flex justify-start items-center gap-[1.25rem] cursor-pointer"
+          className="w-full py-[12px] px-[30px] flex items-center gap-[12px] cursor-pointer hover:bg-neutral-off-white"
           onClick={() => {
             onClose();
-            BurialPoint.track('profile');
+            setSettingsOpen(true);
+            BurialPoint.track('settings');
           }}
         >
           <span>
-            <ProfileIcon size={24} color="currentColor"></ProfileIcon>
+            <BiLockAlt size={24}></BiLockAlt>
           </span>
-          <span className="text-[1rem] leading-[120%]">Profile</span>
+          <span className="">Change Password</span>
         </div>
-      </Link>
-      <div
-        className="relative w-full py-[2rem] text-setting-drop-handler-color border-t border-setting-drop-user-border flex justify-start items-center gap-[1.25rem] cursor-pointer"
-        onClick={() => {
-          onClose();
-          setSettingsOpen(true);
-          BurialPoint.track('settings');
-        }}
-      >
-        <span>
-          <SettingIcon size={24} color="currentColor"></SettingIcon>
-        </span>
-        <span className="text-[1rem] leading-[120%]">Settings</span>
-      </div>
-      <div
-        className="relative w-full text-setting-drop-handler-color py-[2rem] border-t border-setting-drop-user-border  flex justify-start items-center gap-[1.25rem] cursor-pointer"
-        onClick={() => {
-          signOut();
-          onClose();
-        }}
-      >
-        <span>
-          <SignOutIcon color="currentColor" size={24}></SignOutIcon>
-        </span>
-        <span className="text-[1rem] leading-[120%]">Sign out</span>
+        <div
+          className="w-full py-[12px] px-[30px] flex items-center gap-[12px] cursor-pointer hover:bg-neutral-off-white"
+          onClick={() => {
+            signOut();
+            onClose();
+          }}
+        >
+          <span>
+            <BiLogInCircle size={24}></BiLogInCircle>
+          </span>
+          <span className="">Sign Out</span>
+        </div>
       </div>
     </div>
   );
