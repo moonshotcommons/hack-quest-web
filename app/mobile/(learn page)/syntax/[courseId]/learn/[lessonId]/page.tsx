@@ -1,8 +1,8 @@
 'use client';
 import { CourseType } from '@/service/webApi/course/type';
+import MobLessonPage from '@/components/Mobile/MobLessonPage';
 import type { NextPage } from 'next';
 
-import LessonPage from '@/components/Web/LessonPage';
 import { useParams } from 'next/navigation';
 
 interface IProps {}
@@ -13,10 +13,10 @@ const GuidedProjectLessonPage: NextPage<IProps> = (props) => {
   return (
     <>
       <div className="w-full h-full flex flex-col font-next-book-Thin">
-        <LessonPage
+        <MobLessonPage
           lessonId={lessonId as string}
           courseType={CourseType.SYNTAX}
-        ></LessonPage>
+        ></MobLessonPage>
       </div>
     </>
   );
