@@ -1,10 +1,16 @@
 import { FC, useContext, useEffect } from 'react';
-import { LessonReadingData, lessonTypeData } from '../UgcSidebar/constant';
+import {
+  LessonReadingData,
+  lessonTypeData
+} from '@/app/mobile/(learn page)/ugc/[courseId]/learn/components/UgcSidebar/constant';
 import ComponentRenderer from '../UgcRender';
 import webApi from '@/service';
 import { useGotoNextLesson } from '@/hooks/useCoursesHooks/useGotoNextLesson';
 import { CourseType } from '@/service/webApi/course/type';
-import { FooterButtonStatus, UgcContext } from '../../constants/type';
+import {
+  FooterButtonStatus,
+  UgcContext
+} from '@/app/mobile/(learn page)/ugc/[courseId]/learn/constants/type';
 import CompleteModal from '@/components/Web/Business/CompleteModal';
 import { useUnitNavList } from '@/hooks/useUnitNavList';
 import emitter from '@/store/emitter';

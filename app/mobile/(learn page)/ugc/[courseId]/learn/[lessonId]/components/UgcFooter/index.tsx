@@ -1,7 +1,7 @@
 'use client';
 import Button from '@/components/Common/Button';
 import React, { useContext } from 'react';
-import { UgcContext } from '../../constants/type';
+import { UgcContext } from '@/app/mobile/(learn page)/ugc/[courseId]/learn/constants/type';
 import emitter from '@/store/emitter';
 
 interface UgcFooterProp {}

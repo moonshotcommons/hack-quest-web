@@ -99,7 +99,7 @@ const UgcSidebar: FC<UgcSidebarProps> = () => {
       return webApi.courseApi.getCourseDetail(lesson?.courseId, true, true);
     },
     {
-      manual: false,
+      manual: true,
       onSuccess(res: unknown) {
         setCourse(res as UGCCourseType);
       },

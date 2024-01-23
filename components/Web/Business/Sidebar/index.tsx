@@ -21,6 +21,9 @@ interface SidebarProps<T> {
   defaultOpenKeys?: string[];
   defaultSelect: string;
   onSelect?: (key: string, data: unknown) => void;
+  isCustomOpen?: boolean;
+  open?: boolean;
+  onShowListChange?: (showList: boolean) => void;
 }
 
 export interface SidebarItemType {
@@ -57,9 +60,12 @@ const Sidebar = <T,>(props: SidebarProps<T>) => {
     onOpenChange,
     defaultOpenKeys = [],
     onSelect,
-    defaultSelect
+    defaultSelect,
+    open = true,
+    isCustomOpen = false,
+    onShowListChange
   } = props;
-  const [showList, setShowList] = useState(true);
+  const [showList, setShowList] = useState(open);
   const [openKeys, setOpenKeys] = useState<string[]>(defaultOpenKeys);
   const [select, setSelect] = useState<string>(defaultSelect);
 
@@ -93,8 +99,8 @@ const Sidebar = <T,>(props: SidebarProps<T>) => {
   }, [defaultSelect]);
 
   return (
-    <div className={cn('box-border relative z-10')}>
-      {!showList && (
+    <div className={cn('box-border relative z-10 h-full')}>
+      {!showList && !isCustomOpen && (
         <div
           className="absolute top-1/2 -translate-y-1/2 w-[2.625rem] h-60 bg-neutral-off-white rounded-r-[.625rem] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] flex justify-center items-center cursor-pointer"
           onClick={() => setShowList(true)}
@@ -114,6 +120,7 @@ const Sidebar = <T,>(props: SidebarProps<T>) => {
             className="pl-10 flex items-center h-20 border-b border-neutral-medium-gray cursor-pointer"
             onClick={() => {
               setShowList(false);
+              onShowListChange?.(false);
             }}
           >
             <h3 className="flex-1 text-h3 text-neutral-black truncate">
