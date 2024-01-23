@@ -1,6 +1,5 @@
 'use client';
 import {
-  CustomType,
   NotionComponent,
   NotionType,
   QuizBType
@@ -24,12 +23,12 @@ import {
 } from '@/app/(web)/(learn page)/ugc/[courseId]/learn/constants/type';
 import emitter from '@/store/emitter';
 interface QuizBRendererProps {
-  parent: CustomType | NotionType;
+  parent: any;
   quiz: QuizBType;
 }
 
 const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
-  const { quiz } = props;
+  const { quiz, parent } = props;
   const { onPass } = useContext(QuizContext);
   const [options, setOptions] = useState<QuizOptionType[]>(() =>
     quiz.options.map((option) => ({ ...option, isRender: true }))
@@ -38,6 +37,7 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
   const { lesson, setFooterBtn } = useContext(UgcContext);
   const [answers, setAnswers] = useState<Record<string, AnswerType>>({});
   const mountAnswers = useRef(0);
+  const initFooterBtn = useRef(true);
   const [mountOptionIds, setMountOptionIds] = useState<string[]>([]);
   const onDrop = (
     dropAnswer: AnswerType,
@@ -125,15 +125,29 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
         return { ...option, isRender: true };
       })
     );
-    let footerBtnText = FooterButtonText.NEXT;
+    const isAllNotcompleted = parent.children.some((v: any) => !v?.isCompleted);
+    initFooterBtn.current = true;
+    let footerBtnText = isAllNotcompleted
+      ? FooterButtonText.SUBMIT
+      : FooterButtonText.NEXT;
+    let footerBtnStatus = isAllNotcompleted
+      ? FooterButtonStatus.SUBMIT
+      : FooterButtonStatus.NEXT;
+    let footerBtnDisable = false;
     if (!quiz?.isCompleted) {
+      initFooterBtn.current = false;
       footerBtnText = FooterButtonText.SUBMIT;
+      footerBtnStatus = FooterButtonStatus.SUBMIT;
+      footerBtnDisable = true;
     }
     setTimeout(() => {
+      initFooterBtn.current = false;
       setFooterBtn({
-        footerBtnText
+        footerBtnText,
+        footerBtnStatus,
+        footerBtnDisable
       });
-    });
+    }, 10);
     setMountOptionIds([]);
   }, [quiz]);
 
@@ -170,12 +184,15 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
       });
       mountAnswers.current += 1;
     }
-    const footerBtnDisable =
-      !Object.keys(answers).find((key) => answers[key].option) || showAnswer;
-    setFooterBtn({
-      footerBtnDisable,
-      footerBtnStatus: FooterButtonStatus.SUBMIT
-    });
+    if (!initFooterBtn.current) {
+      const footerBtnDisable =
+        !Object.keys(answers).find((key) => answers[key].option) || showAnswer;
+      setFooterBtn({
+        footerBtnDisable,
+        footerBtnStatus: FooterButtonStatus.SUBMIT
+      });
+    }
+
     return () => {
       emitter.off(FooterButtonStatus.SUBMIT, onSubmit);
     };

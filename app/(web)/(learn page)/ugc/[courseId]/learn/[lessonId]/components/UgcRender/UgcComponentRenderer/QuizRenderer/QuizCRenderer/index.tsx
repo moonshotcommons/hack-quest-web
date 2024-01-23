@@ -1,5 +1,5 @@
 'use client';
-import { FC, useContext, useEffect, useState } from 'react';
+import { FC, useContext, useEffect, useRef, useState } from 'react';
 
 import TextRenderer from '@/components/Web/Business/NotionRender/TextRenderer';
 import { cn } from '@/helper/utils';
@@ -30,6 +30,7 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
   const [answers, setAnswers] = useState<number[]>([]);
   const { onPass } = useContext(QuizContext);
   const { setFooterBtn } = useContext(UgcContext);
+  const initFooterBtn = useRef(true);
   const [answerState, setAnswerState] = useState<AnswerState>(
     AnswerState.Default
   );
@@ -61,6 +62,7 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
 
   useEffect(() => {
     const isAllNotcompleted = parent.children.some((v: any) => !v?.isCompleted);
+    initFooterBtn.current = true;
     let footerBtnText = isAllNotcompleted
       ? FooterButtonText.SUBMIT
       : FooterButtonText.NEXT;
@@ -71,19 +73,22 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
     if (quiz.isCompleted) {
       setAnswers(quiz.answers);
     } else {
+      initFooterBtn.current = false;
       footerBtnText = FooterButtonText.SUBMIT;
       footerBtnStatus = FooterButtonStatus.SUBMIT;
       footerBtnDisable = true;
       setAnswers([]);
       setAnswerState(AnswerState.Default);
     }
+
     setTimeout(() => {
+      initFooterBtn.current = false;
       setFooterBtn({
         footerBtnText,
         footerBtnStatus,
         footerBtnDisable
       });
-    });
+    }, 10);
 
     return () => {
       emitter.off(FooterButtonStatus.SUBMIT, submit);
@@ -91,6 +96,7 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
   }, [quiz]);
 
   useEffect(() => {
+    if (initFooterBtn.current) return;
     setFooterBtn({
       footerBtnDisable: !answers.length,
       footerBtnStatus: FooterButtonStatus.SUBMIT
