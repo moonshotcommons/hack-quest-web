@@ -1,6 +1,6 @@
 'use client';
 import React, { useContext } from 'react';
-import { UgcContext } from '../../constants/type';
+import { UgcContext } from '@/app/mobile/(learn page)/ugc/[courseId]/learn/constants/type';
 
 interface UgcNavbarProp {}
 

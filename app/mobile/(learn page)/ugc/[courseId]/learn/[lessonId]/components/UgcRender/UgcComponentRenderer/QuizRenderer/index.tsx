@@ -21,7 +21,7 @@ import {
   FooterButtonStatus,
   FooterButtonText,
   UgcContext
-} from '../../../../constants/type';
+} from '@/app/mobile/(learn page)/ugc/[courseId]/learn/constants/type';
 interface QuizRendererProps {
   quiz: QuizType;
   parent: any;
