@@ -14,6 +14,7 @@ import {
 } from '@/app/(web)/(learn page)/ugc/[courseId]/learn/constants/type';
 import { QuizContext } from '..';
 import emitter from '@/store/emitter';
+import { useGetQuizsCompleted } from '@/hooks/useCoursesHooks/useGetQuizsCompleted';
 interface QuizCRendererProps {
   parent: any;
   quiz: any;
@@ -31,6 +32,7 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
   const { onPass } = useContext(QuizContext);
   const { setFooterBtn } = useContext(UgcContext);
   const initFooterBtn = useRef(true);
+  const { getFooterBtnInfo } = useGetQuizsCompleted();
   const [answerState, setAnswerState] = useState<AnswerState>(
     AnswerState.Default
   );
@@ -61,15 +63,9 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
   }
 
   useEffect(() => {
-    const isAllNotcompleted = parent.children.some((v: any) => !v?.isCompleted);
+    let { footerBtnText, footerBtnStatus, footerBtnDisable } =
+      getFooterBtnInfo(parent);
     initFooterBtn.current = true;
-    let footerBtnText = isAllNotcompleted
-      ? FooterButtonText.SUBMIT
-      : FooterButtonText.NEXT;
-    let footerBtnStatus = isAllNotcompleted
-      ? FooterButtonStatus.SUBMIT
-      : FooterButtonStatus.NEXT;
-    let footerBtnDisable = false;
     if (quiz.isCompleted) {
       setAnswers(quiz.answers);
     } else {

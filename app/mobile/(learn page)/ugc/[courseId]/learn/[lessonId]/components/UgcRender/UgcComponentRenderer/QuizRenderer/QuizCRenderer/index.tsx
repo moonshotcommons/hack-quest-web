@@ -1,5 +1,5 @@
 'use client';
-import { FC, useContext, useEffect, useState } from 'react';
+import { FC, useContext, useEffect, useRef, useState } from 'react';
 
 import TextRenderer from '@/components/Web/Business/NotionRender/TextRenderer';
 import { cn } from '@/helper/utils';
@@ -11,9 +11,10 @@ import {
   FooterButtonStatus,
   FooterButtonText,
   UgcContext
-} from '@/app/mobile/(learn page)/ugc/[courseId]/learn/constants/type';
+} from '@/app/(web)/(learn page)/ugc/[courseId]/learn/constants/type';
 import { QuizContext } from '..';
 import emitter from '@/store/emitter';
+import { useGetQuizsCompleted } from '@/hooks/useCoursesHooks/useGetQuizsCompleted';
 interface QuizCRendererProps {
   parent: any;
   quiz: any;
@@ -29,7 +30,9 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
   const { quiz, parent } = props;
   const [answers, setAnswers] = useState<number[]>([]);
   const { onPass } = useContext(QuizContext);
-  const { footerBtn, setFooterBtn } = useContext(UgcContext);
+  const { setFooterBtn } = useContext(UgcContext);
+  const initFooterBtn = useRef(true);
+  const { getFooterBtnInfo } = useGetQuizsCompleted();
   const [answerState, setAnswerState] = useState<AnswerState>(
     AnswerState.Default
   );
@@ -52,33 +55,48 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
     onPass();
   };
 
-  if (emitter.all.has(FooterButtonStatus.SUBMIT)) {
+  if (emitter.all.get(FooterButtonStatus.SUBMIT)) {
     emitter.all.delete(FooterButtonStatus.SUBMIT);
+    emitter.on(FooterButtonStatus.SUBMIT, submit);
+  } else {
     emitter.on(FooterButtonStatus.SUBMIT, submit);
   }
 
   useEffect(() => {
-    let footerBtnText = FooterButtonText.NEXT;
+    let { footerBtnText, footerBtnStatus, footerBtnDisable } =
+      getFooterBtnInfo(parent);
+    initFooterBtn.current = true;
     if (quiz.isCompleted) {
       setAnswers(quiz.answers);
     } else {
+      initFooterBtn.current = false;
       footerBtnText = FooterButtonText.SUBMIT;
+      footerBtnStatus = FooterButtonStatus.SUBMIT;
+      footerBtnDisable = true;
       setAnswers([]);
       setAnswerState(AnswerState.Default);
     }
-    setFooterBtn({
-      footerBtnText
-    });
+
+    setTimeout(() => {
+      initFooterBtn.current = false;
+      setFooterBtn({
+        footerBtnText,
+        footerBtnStatus,
+        footerBtnDisable
+      });
+    }, 10);
+
+    return () => {
+      emitter.off(FooterButtonStatus.SUBMIT, submit);
+    };
   }, [quiz]);
 
   useEffect(() => {
+    if (initFooterBtn.current) return;
     setFooterBtn({
       footerBtnDisable: !answers.length,
       footerBtnStatus: FooterButtonStatus.SUBMIT
     });
-    return () => {
-      emitter.off(FooterButtonStatus.SUBMIT, submit);
-    };
   }, [answers]);
 
   return (

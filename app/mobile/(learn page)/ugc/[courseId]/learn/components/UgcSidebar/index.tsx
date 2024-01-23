@@ -140,7 +140,10 @@ const UgcSidebar: FC<UgcSidebarProps> = () => {
 
   return (
     <div className="w-full h-full absolute left-0 z-50">
-      <div className="w-full h-full bg-neutral-black opacity-50"></div>
+      <div
+        className="w-full h-full bg-neutral-black opacity-50"
+        onClick={() => setSidebarOpen(false)}
+      ></div>
       <div className="absolute left-0 top-0 h-full w-4/5 overflow-hidden">
         <Sidebar
           title={course.title}

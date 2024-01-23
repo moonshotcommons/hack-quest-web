@@ -1,19 +1,11 @@
-import { FC, useContext, useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import {
   LessonReadingData,
   lessonTypeData
 } from '@/app/mobile/(learn page)/ugc/[courseId]/learn/components/UgcSidebar/constant';
 import ComponentRenderer from '../UgcRender';
 import webApi from '@/service';
-import { useGotoNextLesson } from '@/hooks/useCoursesHooks/useGotoNextLesson';
-import { CourseType } from '@/service/webApi/course/type';
-import {
-  FooterButtonStatus,
-  UgcContext
-} from '@/app/mobile/(learn page)/ugc/[courseId]/learn/constants/type';
-import CompleteModal from '@/components/Web/Business/CompleteModal';
 import { useUnitNavList } from '@/hooks/useUnitNavList';
-import emitter from '@/store/emitter';
 
 interface LessonContainerProps {
   lesson: LessonReadingData;
@@ -21,26 +13,7 @@ interface LessonContainerProps {
 
 const LessonContainer: FC<LessonContainerProps> = (props) => {
   const { lesson } = props;
-  const { setFooterBtn } = useContext(UgcContext);
-  const { onNextClick, completeModalRef } = useGotoNextLesson(
-    lesson!,
-    CourseType.UGC,
-    true
-  );
   const { refreshNavList } = useUnitNavList(lesson as any);
-  const handleNext = () => {
-    setFooterBtn({
-      footerBtnLoading: true
-    });
-    onNextClick({
-      completedCallback: () => {
-        setFooterBtn({
-          footerBtnLoading: false
-        });
-      }
-    });
-  };
-  emitter.on(FooterButtonStatus.NEXT, handleNext);
   useEffect(() => {
     if (lesson) {
       refreshNavList();
@@ -48,9 +21,6 @@ const LessonContainer: FC<LessonContainerProps> = (props) => {
         console.log('开始学习失败', e);
       });
     }
-    return () => {
-      emitter.off(FooterButtonStatus.NEXT, handleNext);
-    };
   }, [lesson]);
 
   return (
@@ -68,7 +38,6 @@ const LessonContainer: FC<LessonContainerProps> = (props) => {
           component={lesson.content}
         ></ComponentRenderer>
       </div>
-      <CompleteModal ref={completeModalRef}></CompleteModal>
     </div>
   );
 };

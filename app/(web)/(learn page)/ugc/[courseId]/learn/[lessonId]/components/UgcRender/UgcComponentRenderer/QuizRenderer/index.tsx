@@ -14,7 +14,10 @@ import {
 import { MdArrowDropDown } from 'react-icons/md';
 import ComponentRenderer from '../..';
 
-import { QuizType } from '@/components/Web/Business/Renderer/type';
+import {
+  CustomComponent,
+  QuizType
+} from '@/components/Web/Business/Renderer/type';
 import QuizDropdown from './QuizDropdwon';
 import QuizPassModal from './QuizPassModal';
 import {
@@ -24,7 +27,7 @@ import {
 } from '@/app/(web)/(learn page)/ugc/[courseId]/learn/constants/type';
 interface QuizRendererProps {
   quiz: QuizType;
-  parent: any;
+  parent: CustomComponent;
 }
 
 export const QuizContext = createContext<{
