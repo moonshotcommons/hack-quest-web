@@ -118,7 +118,7 @@ const LessonPage: FC<LessonPageProps> = (props) => {
         tip="loading..."
         size="large"
       >
-        {lesson && (
+        {lesson ? (
           <div
             className={`relative w-full ${
               isHandleNext ? 'h-[calc(100vh-145px)]' : 'h-[calc(100vh-95px)]'
@@ -242,7 +242,7 @@ const LessonPage: FC<LessonPageProps> = (props) => {
               <TreasureModal ref={treasureModalRef} />
             </LessonPageContext.Provider>
           </div>
-        )}
+        ) : null}
       </Spin>
     </ConfigProvider>
   );

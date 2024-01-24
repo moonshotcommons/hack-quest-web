@@ -1,5 +1,4 @@
 'use client';
-import CompleteModal from '@/components/Web/Business/CompleteModal';
 import {
   CustomType,
   NotionComponent
@@ -20,17 +19,20 @@ import Split from 'react-split';
 import LessonContent from './LessonContent';
 import LessonFooter from './LessonFooter';
 import Playground from './Playground';
-import { LessonPageContext } from './type';
+import { LessonPageContext, NavbarDataType } from './type';
 
-import BugFeedbackModal, {
-  BugFeedbackModalRef
-} from '@/components/Web/Business/BugFeedbackModal';
+import { BugFeedbackModalRef } from '@/components/Web/Business/BugFeedbackModal';
 import TreasureModal, {
   TreasureModalRef
 } from '@/components/Web/Business/TreasureModal';
 
 import { useUserStore } from '@/store/zustand/userStore';
 import { useCourseStore } from '@/store/zustand/courseStore';
+import LessonSidebar from './LessonSidebar';
+import LessonNavbar from './LessonNavbar';
+import LessonProgress from './LessonProgress';
+import MobCompleteModal from '../MobCompleteModal';
+import MobBugFeedbackModal from '../MobBugFeedbackModal';
 
 interface MobLessonPageProps {
   lessonId: string;
@@ -39,6 +41,7 @@ interface MobLessonPageProps {
 
 const MobLessonPage: FC<MobLessonPageProps> = (props) => {
   const { lessonId, courseType } = props;
+  const [navbarData, setNavbarData] = useState<NavbarDataType[]>([]);
   const { lesson, loading } = useGetLessonContent<CourseLessonType>(
     lessonId,
     courseType
@@ -118,11 +121,9 @@ const MobLessonPage: FC<MobLessonPageProps> = (props) => {
         tip="loading..."
         size="large"
       >
-        {lesson && (
+        {lesson ? (
           <div
-            className={`relative w-full ${
-              isHandleNext ? 'h-[calc(100vh-145px)]' : 'h-[calc(100vh-95px)]'
-            }`}
+            className={`relative w-full h-[calc(100vh-4rem)] flex flex-col overflow-hidden`}
           >
             <LessonPageContext.Provider
               value={{
@@ -139,11 +140,16 @@ const MobLessonPage: FC<MobLessonPageProps> = (props) => {
                   bugFeedbackModalRef.current?.onCommit({
                     lessonId
                   });
-                }
+                },
+                navbarData,
+                setNavbarData: (data: NavbarDataType[]) => setNavbarData(data)
               }}
             >
+              <LessonSidebar lesson={lesson} />
+              <LessonProgress lesson={lesson} />
+              <LessonNavbar />
               <Split
-                className="flex-1 w-full h-full flex justify-between [&>div]:w-[50%] [&>.gutter]:cursor-col-resize font-next-book"
+                className="flex-1 w-full relative"
                 minSize={360}
                 cursor="col-resize"
                 gutter={(index, direction) => {
@@ -164,26 +170,29 @@ const MobLessonPage: FC<MobLessonPageProps> = (props) => {
                   return gutter;
                 }}
               >
-                <LessonContent
-                  lesson={lesson as any}
-                  courseType={courseType}
-                ></LessonContent>
-                <Playground
-                  lesson={lesson! as any}
-                  onCompleted={() => {
-                    if (lesson.state !== CompleteStateType.COMPLETED) {
-                      webApi.missionCenterApi
-                        .digTreasures(lessonId)
-                        .then((res) => {
-                          if (res.success && res.treasureId) {
-                            treasureModalRef.current?.open(res.treasureId);
-                          }
-                        });
-                    }
-                    // 当前lesson完成
-                    setIsHandleNext(true);
-                  }}
-                ></Playground>
+                <div className="absolute left-0 top-0 w-full h-full overflow-auto scroll-wrap-y px-[1.375rem] pb-[4.875rem]">
+                  <LessonContent
+                    lesson={lesson as any}
+                    courseType={courseType}
+                  ></LessonContent>
+                  <Playground
+                    lesson={lesson! as any}
+                    onCompleted={() => {
+                      if (lesson.state !== CompleteStateType.COMPLETED) {
+                        webApi.missionCenterApi
+                          .digTreasures(lessonId)
+                          .then((res) => {
+                            if (res.success && res.treasureId) {
+                              treasureModalRef.current?.open(res.treasureId);
+                            }
+                          });
+                      }
+                      // 当前lesson完成
+                      setIsHandleNext(true);
+                    }}
+                  ></Playground>
+                </div>
+                {null}
               </Split>
               <LessonFooter
                 lesson={lesson as any}
@@ -237,12 +246,12 @@ const MobLessonPage: FC<MobLessonPageProps> = (props) => {
                   }
                 }}
               />
-              <CompleteModal ref={completeModalRef}></CompleteModal>
-              <BugFeedbackModal ref={bugFeedbackModalRef}></BugFeedbackModal>
+              <MobCompleteModal ref={completeModalRef} />
+              <MobBugFeedbackModal ref={bugFeedbackModalRef} />
               <TreasureModal ref={treasureModalRef} />
             </LessonPageContext.Provider>
           </div>
-        )}
+        ) : null}
       </Spin>
     </ConfigProvider>
   );

@@ -51,7 +51,7 @@ const UgcFooter: React.FC<UgcFooterProp> = ({}) => {
   }, [lesson]);
 
   return (
-    <div className="px-[1.375rem] absolute w-full left-0 bottom-[1.25rem] ">
+    <div className="px-[1.375rem] fixed w-full left-0 bottom-[1.25rem] ">
       <Button
         className={`w-full h-[3rem] button-text-m   ${
           footerBtn.footerBtnDisable
