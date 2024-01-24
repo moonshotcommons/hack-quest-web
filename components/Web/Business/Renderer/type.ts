@@ -106,4 +106,5 @@ export interface CodeFileComponent extends CustomComponent {
 export interface ExampleComponent extends CustomComponent {
   renderIdeBtn: boolean;
   codeFiles: CodeFileComponent[];
+  ideUrl?: string;
 }
