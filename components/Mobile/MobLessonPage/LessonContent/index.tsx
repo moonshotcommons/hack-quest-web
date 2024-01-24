@@ -1,5 +1,4 @@
 'use client';
-import Breadcrumb from '@/components/Web/Business/Breadcrumb';
 import ComponentRenderer from '@/components/Web/Business/Renderer/ComponentRenderer';
 import {
   CustomComponent,
@@ -16,10 +15,8 @@ import {
   useEffect,
   useMemo,
   useRef,
-  useState,
-  Suspense
+  useState
 } from 'react';
-import LessonEvents from '../LessonEvents';
 import { LessonPageContext } from '../type';
 
 export const LessonContentContext = createContext<{
@@ -33,7 +30,7 @@ interface LessonContentProps {
 }
 
 const LessonContentComponent: FC<LessonContentProps> = (props) => {
-  const { lesson, isPreview = false, courseType } = props;
+  const { lesson } = props;
   const { onBugCommit } = useContext(LessonPageContext);
   const [components, setComponents] = useState<
     (CustomComponent | NotionComponent)[]
@@ -78,17 +75,7 @@ const LessonContentComponent: FC<LessonContentProps> = (props) => {
   }, [lesson]);
 
   return (
-    <div className="flex flex-shrink-0 flex-col h-[calc(100%-10px)] pl-[20px] pr-[20px]">
-      <Suspense>
-        <Breadcrumb />
-      </Suspense>
-
-      <LessonEvents
-        isPreview={isPreview}
-        lesson={lesson as any}
-        courseType={courseType}
-      />
-
+    <div className="">
       {!!components?.length && (
         <div
           className="flex flex-col mb-[20px] w-full flex-1 shrink-0 h-full scroll-wrap-y scroll-wrap-x"
