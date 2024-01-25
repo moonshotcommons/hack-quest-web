@@ -1,10 +1,9 @@
 'use client';
 import User from '@/components/Web/User';
 import { Inter } from 'next/font/google';
-import React, { Suspense, memo, useContext, useEffect } from 'react';
+import React, { Suspense, memo } from 'react';
 import Breadcrumb from '@/components/Web/Business/Breadcrumb';
 import { navbarList } from '@/components/Layout/Navbar/data';
-import { NavbarContext } from '@/components/Provider/Navbar';
 import Navbar from '@/components/Layout/Navbar';
 const inter = Inter({ subsets: ['latin'] });
 
@@ -15,15 +14,6 @@ interface BaseLayoutProps {
 
 const BaseLayout = memo(function (props: BaseLayoutProps) {
   const { children, excludeBreadcrumb = false } = props;
-
-  useEffect(() => {
-    const contentWrap = document.querySelector('#content-scroll-wrap');
-    if (contentWrap) {
-      contentWrap.scrollTo(0, 0);
-    }
-  }, []);
-
-  const { navbarInstance } = useContext(NavbarContext);
 
   return (
     <div
