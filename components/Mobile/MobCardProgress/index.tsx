@@ -1,11 +1,11 @@
 import { computeProgress } from '@/helper/formate';
 import React, { useMemo } from 'react';
 
-interface CardProgressProp {
+interface MobCardProgressProp {
   progress: number;
 }
 
-const CardProgress: React.FC<CardProgressProp> = ({ progress }) => {
+const MobCardProgress: React.FC<MobCardProgressProp> = ({ progress }) => {
   const percent = useMemo(() => {
     return `${computeProgress(progress)}%`;
   }, [progress]);
@@ -17,11 +17,9 @@ const CardProgress: React.FC<CardProgressProp> = ({ progress }) => {
           style={{ width: percent }}
         ></div>
       </div>
-      <div className="text-neutral-rich-gray button-text-s font-bold">
-        {percent}
-      </div>
+      <div className="caption-10pt text-neutral-rich-gray">{percent}</div>
     </div>
   );
 };
 
-export default CardProgress;
+export default MobCardProgress;

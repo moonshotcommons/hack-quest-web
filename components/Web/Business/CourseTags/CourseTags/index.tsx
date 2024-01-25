@@ -47,7 +47,7 @@ const CourseTags: FC<CourseTagsProps> = (props) => {
 
       {type === 'learning-track' && (
         <Tag icon={<CourseIcon />} size={size}>
-          {unitCount + ' ' + `${unitCount > 1 ? 'COURSES' : 'COURSE'}`}
+          {unitCount + ' ' + `${unitCount > 1 ? 'Courses' : 'Course'}`}
         </Tag>
       )}
       {/* <Tag icon={<CourseIcon />} size={size} className="text-[#3E3E3E]">

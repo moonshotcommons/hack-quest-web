@@ -7,23 +7,23 @@ interface NoDataType {
 const NoData: React.FC<NoDataType> = ({ curTab }) => {
   const { redirectToUrl } = useRedirect();
   return (
-    <div className="flex flex-col items-center pb-[100px] font-next-book">
-      <p className="text-home-learning-track-no-data-color text-[32px]">
+    <div className="flex flex-col items-center pb-[6.25rem] pt-[2.5rem]">
+      <p className="text-neutral-medium-gray body-l">
         {curTab === ProcessType.IN_PROCESS
           ? 'You don’t have any on-going course'
           : 'You don’t have any completed course'}
       </p>
       <Button
         onClick={() => redirectToUrl('learning-track')}
-        className="w-[360px] mt-[30px] text-[18px] mb-[20px] h-[55px] bg-home-learning-track-no-data-button-add-bg text-home-learning-track-no-data-button-add-color"
+        className="w-[212px] p-0 uppercase h-[48px] my-[12px] button-text-m bg-yellow-primary text-neutral-black"
       >
-        Add a New Learning Track
+        Add Learning Tracks
       </Button>
       <Button
         onClick={() => redirectToUrl('electives')}
-        className="w-[360px] h-[55px] text-[18px] border border-home-learning-track-no-data-button-explore-border text-home-learning-track-no-data-button-explore-color"
+        className="w-[212px] p-0 uppercase h-[48px] button-text-m  text-neutral-black border border-neutral-black"
       >
-        Explore Elective Courses
+        Explore Electives
       </Button>
     </div>
   );

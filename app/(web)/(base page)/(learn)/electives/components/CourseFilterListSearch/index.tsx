@@ -68,7 +68,7 @@ const CourseFilterListSearch: FC<CourseFilterListSearchProps> = ({
       courseList={searchList}
       loading={loading}
       renderItem={(course) => {
-        return <ElectiveCard key={course.id} course={course}></ElectiveCard>;
+        return <ElectiveCard course={course}></ElectiveCard>;
       }}
     ></CourseFilterList>
   );
