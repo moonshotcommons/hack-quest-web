@@ -9,6 +9,7 @@ import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import { BurialPoint } from '@/helper/burialPoint';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
 import { useRedirect } from '@/hooks/useRedirect';
+import CourseTags from '@/components/Web/Business/CourseTags';
 import TrackTag from '@/components/Common/TrackTag';
 
 interface LearningTrackCardInProgressProp {
@@ -46,32 +47,36 @@ const LearningTrackCardInProgress: React.FC<
 
   return (
     <div
-      className="h-[228px] w-full p-[16px] flex flex-col justify-between cursor-pointer rounded-[16px] bg-[var(--neutral-white)] overflow-hidden hover:-translate-y-1 transition-all duration-300  hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)]"
+      className="h-[192px] w-full p-[16px] flex items-center gap-[30px]  rounded-[16px] bg-neutral-white overflow-hidden card-hover"
       onClick={goLearningTrackDetail}
     >
-      <div className="flex justify-between">
-        <div className="h-[100px]  flex-1 flex-shrink-0 pr-[30px]">
-          <div className="mb-[10px]">
-            <TrackTag track={learningTrack.track} />
-          </div>
-
-          <div className="text-h4 line-clamp-2 text-neutral-off-black">
-            {learningTrack.name}
-          </div>
+      <div className="w-[160px] h-[160px] relative">
+        <Image
+          src={learningTrack.image || LearningTrackImg}
+          fill
+          alt="learning-track-img"
+          className="object-cover"
+        ></Image>
+      </div>
+      <div className="h-full flex flex-col justify-between py-[16px] flex-1 flex-shrink-0">
+        <TrackTag track={learningTrack.track} />
+        <div className="body-m-bold line-clamp-1 text-neutral-off-black">
+          {learningTrack.name}
         </div>
-        <div className="w-[100px] h-[100px] relative">
-          <Image
-            src={learningTrack.image || LearningTrackImg}
-            fill
-            alt="learning-track-img"
-            className="object-cover"
-          ></Image>
+        <CourseTags
+          language={learningTrack.language}
+          level={learningTrack?.level as string}
+          unitCount={learningTrack?.courseCount}
+          type={'learning-track'}
+        ></CourseTags>
+        <div className="max-w-[318px]">
+          <CardProgress progress={learningTrack.progress || 0} />
         </div>
       </div>
-      <CardProgress progress={learningTrack.progress || 0} />
       <Button
-        className="w-full h-[49px] bg-yellow-primary text-neutral-off-black"
+        className="w-[223px] h-[51px] bg-yellow-primary text-neutral-off-black button-text-m"
         loading={jumpLoading}
+        disabled={jumpLoading}
         onClick={handleContinue}
       >
         CONTINUE

@@ -5,9 +5,9 @@ import {
   ProjectCourseType
 } from '@/service/webApi/course/type';
 import React from 'react';
-import ElectiveCard from '@/components/Web/Business/ElectiveCard';
-import PracticeCard from '@/components/Web/Business/PracticeCard';
 import { ElectiveCourseType } from '@/service/webApi/elective/type';
+import MobElectiveCard from '@/components/Mobile/MobElectiveCard';
+import MobPracticeCard from '@/components/Mobile/MobPracticeCard';
 
 interface CourseListProp {
   list: CourseDetailType[];
@@ -16,22 +16,18 @@ interface CourseListProp {
 
 const CourseList: React.FC<CourseListProp> = ({ list, curTab }) => {
   const card = (course: CourseDetailType) => {
-    const className = `${
-      curTab === ProcessType.IN_PROCESS ? 'h-[338px]' : 'h-[356px]'
-    }`;
     switch (course.type) {
       case CourseType.MINI:
         return (
-          <ElectiveCard
+          <MobElectiveCard
             course={course as ElectiveCourseType}
             from={'dashboard'}
-            className={className}
             inProgress={curTab === ProcessType.IN_PROCESS}
           />
         );
       case CourseType.GUIDED_PROJECT:
         return (
-          <PracticeCard
+          <MobPracticeCard
             course={course as ProjectCourseType}
             from={'dashboard'}
             inProgress={curTab === ProcessType.IN_PROCESS}
@@ -43,9 +39,9 @@ const CourseList: React.FC<CourseListProp> = ({ list, curTab }) => {
   return (
     <div>
       <h3 className="text-h4 text-neutral-off-black">Courses</h3>
-      <div className="mt-[16px] flex flex-wrap gap-[24px]">
+      <div className="mt-[16px] flex flex-col gap-[20px]">
         {list.map((course) => (
-          <div key={course.id} className="w-[calc((100%-48px)/3)]">
+          <div key={course.id} className="w-full">
             {card(course)}
           </div>
         ))}

@@ -9,8 +9,8 @@ import Banner from './Banner';
 import PageRetentionTime from '@/components/Common/PageRetentionTime';
 import MobCourseFilterList from '@/components/Mobile/MobCourseFilterList';
 import { learningTrackFilters as filters } from '@/components/Web/Business/CourseFilterList/constant';
-import MobLearningTrackCard from './MobLearningTrackCard';
 import { cloneDeep } from 'lodash-es';
+import MobLearningTrackCard from '@/components/Mobile/MobLearningTrackCard';
 
 function LearningTrack() {
   const [searchInfo, setSearchInfo] = useState<SearchInfoType>({

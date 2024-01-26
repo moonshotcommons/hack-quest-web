@@ -67,7 +67,7 @@ const Breadcrumb: React.FC = () => {
         if (id === 'projects') {
           resolve({
             menu_: true,
-            name: 'Projects'
+            title: 'Projects'
           });
         } else {
           const res = await webApi.resourceStationApi.getProjectsDetail(id);
