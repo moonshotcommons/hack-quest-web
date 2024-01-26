@@ -3,10 +3,9 @@ import React, { useMemo } from 'react';
 
 interface CardProgressProp {
   progress: number;
-  className?: string;
 }
 
-const CardProgress: React.FC<CardProgressProp> = ({ progress, className }) => {
+const CardProgress: React.FC<CardProgressProp> = ({ progress }) => {
   const percent = useMemo(() => {
     return `${computeProgress(progress)}%`;
   }, [progress]);

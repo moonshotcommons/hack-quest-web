@@ -3,7 +3,6 @@ import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import { useRequest } from 'ahooks';
 import { message } from 'antd';
 import { useRedirect } from '../useRedirect';
-import { V2_LANDING_PATH } from '@/constants/nav';
 import { useUserStore } from '@/store/zustand/userStore';
 
 export const useEnrollUnEnroll = (
@@ -11,6 +10,7 @@ export const useEnrollUnEnroll = (
   refreshCallback: VoidFunction
 ) => {
   const userInfo = useUserStore((state) => state.userInfo);
+  const setAuthModalOpen = useUserStore((state) => state.setAuthModalOpen);
   const { redirectToUrl } = useRedirect();
   const { run: unEnroll, loading: unEnrollLoading } = useRequest(
     async () => {
@@ -38,7 +38,8 @@ export const useEnrollUnEnroll = (
     async () => {
       if (!userInfo) {
         message.warning('Please login first');
-        redirectToUrl(V2_LANDING_PATH);
+        // redirectToUrl(V2_LANDING_PATH);
+        setAuthModalOpen(true);
         return;
       }
       if (learningTrackDetail) {

@@ -4,7 +4,6 @@ import React, { ReactNode, useEffect, useState } from 'react';
 
 import Badge from '@/components/Common/Badge';
 import SlideHighlight from '@/components/Common/Navigation/SlideHighlight';
-import { V2_LANDING_PATH } from '@/constants/nav';
 
 import { message } from 'antd';
 import Link from 'next/link';
@@ -12,7 +11,7 @@ import { isBadgeIds, needLoginPath } from './data';
 import { MenuType, NavbarListType } from './type';
 import { useRedirect } from '@/hooks/useRedirect';
 import { usePathname } from 'next/navigation';
-import { useUserStore } from '@/store/zustand/userStore';
+import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useMissionCenterStore } from '@/store/zustand/missionCenterStore';
 
 export interface NavBarProps {
@@ -23,6 +22,8 @@ export interface NavBarProps {
 
 const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
   const userInfo = useUserStore((state) => state.userInfo);
+  const setAuthModalOpen = useUserStore((state) => state.setAuthModalOpen);
+  const setAuthType = useUserStore((state) => state.setAuthType);
 
   const { navList, children } = NavBarProps;
   const { redirectToUrl } = useRedirect();
@@ -75,14 +76,16 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
     if (~needLoginPath.indexOf(path) && !userInfo) {
       e.stopPropagation();
       message.warning('Please login first');
-      redirectToUrl(V2_LANDING_PATH);
+      setAuthType(AuthType.LOGIN);
+      setAuthModalOpen(true);
       return;
     }
     redirectToUrl(path);
   };
   const logoClick = () => {
     if (userInfo) return;
-    redirectToUrl(V2_LANDING_PATH);
+    setAuthType(AuthType.LOGIN);
+    setAuthModalOpen(true);
   };
   return (
     <div className="w-full">
