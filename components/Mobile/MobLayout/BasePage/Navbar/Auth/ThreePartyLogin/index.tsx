@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import MetamaskLoginButton from './MetamaskLoginButton';
 import useIsPc from '@/hooks/useIsPc';
 import TipsModal from '@/app/(web)/(base page)/(landing)/components/TipsModal';
+import Button from '@/components/Common/Button';
 
 function ThreePartyLogin() {
   const [isMounted, setIsMounted] = useState(false);
@@ -36,29 +37,35 @@ function ThreePartyLogin() {
   if (!isMounted) return null;
 
   return (
-    <div className="">
-      <div className="my-[25px]">
-        <div className="relative flex py-[9px] justify-center">
-          <div className="text-center h-[22px] text-[#fff] text-[18px] tracking-[1.08px]">
-            or continue with
-          </div>
-          <div className="absolute left-0 top-[21px] w-[calc(50%-100px)] h-[1px] bg-white"></div>
-          <div className="absolute right-0 top-[21px] w-[calc(50%-100px)] h-[1px] bg-white"></div>
+    <div className="w-full">
+      <div className="relative flex justify-center">
+        <div className="text-center h-[30px] flex items-center  body-s text-neutral-medium-gray">
+          or continue with
         </div>
+        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[calc(50%-80px)] h-[1px] bg-neutral-medium-gray"></div>
+        <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[calc(50%-80px)] h-[1px] bg-neutral-medium-gray"></div>
       </div>
-      <div className="flex gap-[15px] justify-center mt-4">
-        <div
+      <div className="flex gap-8 justify-center mt-4">
+        <Button
+          ghost
           onClick={() => loginThreeParty(ThirdPartyAuthType.GOOGLE)}
-          className="cursor-pointer w-[48px] h-[48px] border flex items-center justify-center rounded-[10px] border-[#8C8C8C] bg-[#0B0B0B]"
+          className="cursor-pointer rounded-[.75rem] p-3 border border-neutral-light-gray body-m"
         >
           <Image src={Google} width={24} height={24} alt="Google"></Image>
-        </div>
-        <div
+        </Button>
+        <Button
+          ghost
+          onClick={() => loginThreeParty(ThirdPartyAuthType.GITHUB)}
+          className="cursor-pointer rounded-[.75rem] p-3 border border-neutral-light-gray body-m"
+        >
+          <Image src={Github} width={24} height={24} alt="Github"></Image>
+        </Button>
+        {/* <div
           onClick={() => loginThreeParty(ThirdPartyAuthType.GITHUB)}
           className="cursor-pointer w-[48px] h-[48px] border flex items-center justify-center rounded-[10px] border-[#8C8C8C] bg-[#0B0B0B]"
         >
           <Image src={Github} width={24} height={24} alt="Github"></Image>
-        </div>
+        </div> */}
         <MetamaskLoginButton></MetamaskLoginButton>
 
         {/* <div className="text-red-700 flex gap-1 flex-wrap ">

@@ -3,7 +3,6 @@ export enum MenuLink {
   LEARNING_TRACK = '/learning-track',
   PRACTICES = '/practices',
   ELECTIVES = '/electives',
-  UGC = '/ugc',
   MISSION_CENTER = '/mission-center',
   HACKATHON = '/hackathon',
   BLOG = '/blog',
@@ -17,7 +16,6 @@ export enum MenuLink {
 export interface MenuType {
   label: string;
   path: MenuLink;
-  needLogin?: boolean;
 }
 export interface NavbarListType {
   label: string;

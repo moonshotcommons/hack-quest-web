@@ -74,47 +74,65 @@ const ForgotPassword: FC<ForgotPasswordProps> = (props) => {
   }, [authRouteType]);
 
   return (
-    <div className="h-full max-w-[33.0625rem] flex flex-col items-start gap-y-[25px] text-left ">
-      <h1 className="text-[#FFF] text-[32px] font-next-poster leading-[160%] tracking-[0.64px]">
-        Forgot your password?
-      </h1>
-      <p className="text-white font-next-book leading-[160%] -tracking-[0.154px] text-[14px]">
-        We will send you a link to reset your password.{' '}
-      </p>
+    <div className="h-full flex flex-col justify-between ">
+      <div className="flex flex-col gap-6">
+        <svg
+          width="48"
+          height="48"
+          viewBox="0 0 48 48"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M38 21.9998V17.9998C38 10.2678 31.732 3.99976 24 3.99976C16.268 3.99976 10 10.2678 10 17.9998V21.9998C6.68629 21.9998 4 24.686 4 27.9998V37.9998C4 41.3135 6.68629 43.9998 10 43.9998H38C41.3137 43.9998 44 41.3135 44 37.9998V27.9998C44 24.686 41.3137 21.9998 38 21.9998ZM13.9998 17.9995C13.9998 12.4767 18.4769 7.99951 23.9998 7.99951C29.5226 7.99951 33.9998 12.4767 33.9998 17.9995V21.9995H13.9998V17.9995ZM37.9998 39.9995C39.1043 39.9995 39.9998 39.1041 39.9998 37.9995V27.9995C39.9998 26.8949 39.1043 25.9995 37.9998 25.9995H9.99976C8.89519 25.9995 7.99976 26.8949 7.99976 27.9995V37.9995C7.99976 39.1041 8.89519 39.9995 9.99976 39.9995H37.9998Z"
+            fill="#131313"
+          />
+        </svg>
 
-      <Button
-        onClick={sendEmail}
-        block
-        type="primary"
-        loading={loading}
-        disabled={loading}
-        className="
-          font-next-book
-          text-[1.125rem]
+        <h3 className="text-h3-mob font-next-book-bold text-neutral-off-black">
+          Forgot your password?
+        </h3>
+        <div className="flex flex-col gap-1">
+          <p className="body-m font-Nunito text-neutral-medium-gray">
+            We will send you a link to your email to reset password.
+          </p>
+          <p className="text-neutral-rich-gray underline-m font-Nunito">
+            {formData.email}
+          </p>
+        </div>
+      </div>
+      <div className="flex flex-col gap-4 mt-[4rem] w-full">
+        <Button
+          onClick={sendEmail}
+          block
+          type="primary"
+          loading={loading}
+          disabled={loading}
+          className="
+          py-4 uppercase button-text-m font-Nunito 
           bg-auth-primary-button-bg hover:bg-auth-primary-button-hover-bg
           text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
           border-auth-primary-button-border-color hover:border-auth-primary-button-border-hover-color
           "
-      >
-        Send me link
-      </Button>
+        >
+          Send me link
+        </Button>
 
-      <Button
-        onClick={() =>
-          authRouteType.prevType && setAuthType(authRouteType.prevType)
-        }
-        block
-        className="
-          font-next-book
-          text-[1.125rem]
-          border
-          bg-transparent
-          text-white hover:text-auth-ghost-button-text-hover-color
-          border-white hover:border-auth-ghost-button-border-hover-color
+        <Button
+          onClick={() =>
+            authRouteType.prevType && setAuthType(authRouteType.prevType)
+          }
+          ghost
+          block
+          className="
+          py-4 uppercase button-text-m font-Nunito  border-neutral-off-black
     "
-      >
-        Back
-      </Button>
+        >
+          Back
+        </Button>
+      </div>
     </div>
   );
 };

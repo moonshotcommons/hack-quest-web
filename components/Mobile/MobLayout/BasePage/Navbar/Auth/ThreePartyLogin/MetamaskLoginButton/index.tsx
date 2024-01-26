@@ -24,10 +24,11 @@ const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
   const [tipsOpen, setTipsOpen] = useState(false);
   const { redirectToUrl } = useRedirect();
 
-  const { setAuthType, setUserInfo } = useUserStore(
+  const { setAuthType, setUserInfo, setAuthModalOpen } = useUserStore(
     useShallow((state) => ({
       setAuthType: state.setAuthType,
-      setUserInfo: state.setUserInfo
+      setUserInfo: state.setUserInfo,
+      setAuthModalOpen: state.setAuthModalOpen
     }))
   );
 
@@ -69,6 +70,7 @@ const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
               BurialPoint.track('signup-Metamask第三方登录code验证成功');
               setUserInfo(omit(res, 'token'));
               setToken(res.token);
+              setAuthModalOpen(false);
               redirectToUrl('/dashboard');
             }
           }
@@ -88,7 +90,7 @@ const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
 
   return (
     <>
-      <Button
+      {/* <Button
         block
         loading={metamaskLoading}
         disabled={metamaskLoading}
@@ -105,6 +107,25 @@ const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
             }
           }
         }}
+      >
+        <Image src={Metamask} width={24} height={24} alt="MetaMask"></Image>
+      </Button> */}
+      <Button
+        ghost
+        loading={metamaskLoading}
+        disabled={metamaskLoading}
+        onClick={() => {
+          if (!metamaskConnector?.ready) {
+            message.error('Please connect to your metamask plugin!');
+          } else {
+            if (!isPc()) {
+              setTipsOpen(true);
+            } else {
+              loginByMetaMask();
+            }
+          }
+        }}
+        className="cursor-pointer rounded-[.75rem] p-3 border border-neutral-light-gray body-m"
       >
         <Image src={Metamask} width={24} height={24} alt="MetaMask"></Image>
       </Button>

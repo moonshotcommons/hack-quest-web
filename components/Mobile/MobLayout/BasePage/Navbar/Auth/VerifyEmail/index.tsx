@@ -98,19 +98,20 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
   return (
     <div className="h-full w-full flex flex-col items-center">
       {/* <ThirdPartyLogin></ThirdPartyLogin> */}
-      <div className="flex w-full flex-col gap-[25px]">
+      <div className="flex w-full flex-col gap-[32px]">
         {EmailTitle}
-        <div className="text-white">
+        <div className="w-full">
           <Input
             label="Email"
             type="email"
             placeholder="Enter your email"
             name="email"
+            theme="light"
             state={status}
-            className="bg-[#212121] text-white"
             clear
             errorMessage={errorMessage}
             delay={500}
+            isMobile
             onChange={(e) => {
               setStatus('default');
               setErrorMessage('');
@@ -141,12 +142,19 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
           block
           type="primary"
           disabled={loading}
-          icon={<RightArrowIcon></RightArrowIcon>}
+          icon={<RightArrowIcon size={24}></RightArrowIcon>}
           iconPosition="right"
           loading={loading}
-          className="bg-auth-primary-button-bg hover:bg-auth-primary-button-hover-bg text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color border-auth-primary-button-border-color hover:border-auth-primary-button-border-hover-color"
+          className="
+          py-4 uppercase button-text-m font-Nunito
+          bg-auth-primary-button-bg
+          hover:bg-auth-primary-button-hover-bg
+          text-auth-primary-button-text-color
+          hover:text-auth-primary-button-text-hover-color
+          border-auth-primary-button-border-color
+          hover:border-auth-primary-button-border-hover-color"
         >
-          Next
+          Continue
         </Button>
       </div>
     </div>

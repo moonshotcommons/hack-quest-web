@@ -18,52 +18,54 @@ const Login: FC<LoginProps> = (props) => {
 
   const EmailTitle = (
     <div>
-      <p className="text-[#FFF] text-[21px] font-next-poster leading-[160%] tracking-[1px]">
-        {`Don’t have an account? `}
+      <p className="body-l-bold text-neutral-rich-gray text-base">
+        {`Don’t have an account?  `}
         <span
-          className="underline cursor-pointer font-next-poster leading-[160%] tracking-[1.26px]"
+          className="underline cursor-pointer"
           onClick={() => {
             setAuthType(AuthType.SIGN_UP);
           }}
         >
-          Create an account
+          Sign up
         </span>
-        <br />
-        It takes less than a minute.
       </p>
     </div>
   );
 
   return (
-    <div className="w-full  flex flex-col items-center">
-      {!showLogin ? (
+    <div className="w-full flex flex-col flex-1">
+      {!showLogin && (
         <motion.div
           initial={{ translateX: -50, opacity: 0 }}
           animate={{ opacity: 1, translateX: 0 }}
           transition={{ duration: 0.5 }}
-          className="slab:container"
+          className="w-full flex flex-col justify-between h-full"
         >
-          <VerifyEmail
-            validator={validator}
-            emailTitle={EmailTitle}
-            value={email}
-            type={AuthType.LOGIN}
-            onStatusChange={(status) => setEmailCheckStatus(status)}
-            onNext={(email: string) => {
-              if (emailCheckStatus) {
-                setShowLogin(true);
-                setEmail(email);
-              }
-            }}
-          ></VerifyEmail>
-          <ThreePartyLogin />
+          <>
+            <VerifyEmail
+              validator={validator}
+              emailTitle={EmailTitle}
+              value={email}
+              type={AuthType.LOGIN}
+              onStatusChange={(status) => setEmailCheckStatus(status)}
+              onNext={(email: string) => {
+                if (emailCheckStatus) {
+                  setShowLogin(true);
+                  setEmail(email);
+                }
+              }}
+            ></VerifyEmail>
+            <ThreePartyLogin />
+          </>
         </motion.div>
-      ) : (
+      )}
+
+      {showLogin && (
         <motion.div
           initial={{ translateX: -50, opacity: 0 }}
           animate={{ opacity: 1, translateX: 0 }}
           transition={{ duration: 0.5 }}
-          className="slab:container"
+          className="w-full flex flex-col justify-between h-full"
         >
           <UserLogin
             email={email}

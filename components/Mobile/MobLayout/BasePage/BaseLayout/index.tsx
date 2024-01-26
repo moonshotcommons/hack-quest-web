@@ -1,15 +1,15 @@
 'use client';
 import User from '@/components/Web/User';
 import { Inter } from 'next/font/google';
-import React, { ReactNode, useCallback, useEffect, Suspense } from 'react';
-import NavBar, { NavBarProps } from '../Navbar';
+import React, { ReactNode } from 'react';
+import NavBar, { NavbarProps } from '../Navbar';
 
-import Breadcrumb from '@/components/Web/Business/Breadcrumb';
+// import Breadcrumb from '@/components/Web/Business/Breadcrumb';
 import { usePathname } from 'next/navigation';
 import { useCheckPathname } from '@/hooks/useCheckPathname';
 const inter = Inter({ subsets: ['latin'] });
 export interface V2LayoutProps {
-  navbarData: NavBarProps;
+  navbarData: NavbarProps;
   // footerData: IFooterProps;
   children: ReactNode;
 }
@@ -18,33 +18,26 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
   const pathname = usePathname();
   const { isNavbarFullPage, isExcludeBreadcrumbLink } = useCheckPathname();
 
-  const renderBreadcrumb = useCallback(() => {
-    const { navList } = navbarData;
-    if (isExcludeBreadcrumbLink) {
-      return null;
-    }
+  // const renderBreadcrumb = useCallback(() => {
+  //   const { navList } = navbarData;
+  //   if (isExcludeBreadcrumbLink) {
+  //     return null;
+  //   }
 
-    for (let menu of navList) {
-      if (menu.menu.some((v) => v.path === pathname)) {
-        return null;
-      }
-    }
+  //   for (let menu of navList) {
+  //     if (menu.menu.some((v) => v.path === pathname)) {
+  //       return null;
+  //     }
+  //   }
 
-    return (
-      <div className="container mx-auto">
-        <Suspense>
-          <Breadcrumb />
-        </Suspense>
-      </div>
-    );
-  }, [pathname, navbarData, isExcludeBreadcrumbLink]);
-
-  useEffect(() => {
-    const contentWrap = document.querySelector('#content-scroll-wrap');
-    if (contentWrap) {
-      contentWrap.scrollTo(0, 0);
-    }
-  }, []);
+  //   return (
+  //     <div className="container mx-auto">
+  //       <Suspense>
+  //         <Breadcrumb />
+  //       </Suspense>
+  //     </div>
+  //   );
+  // }, [pathname, navbarData, isExcludeBreadcrumbLink]);
 
   return (
     <div
@@ -64,7 +57,7 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
         }`}
       >
         <div className={`w-full h-full flex flex-col`}>
-          {renderBreadcrumb()}
+          {/* {renderBreadcrumb()} */}
           <div className="w-full flex-1 relative">
             <main className="absolute left-0 top-0 w-full h-full">
               {children}

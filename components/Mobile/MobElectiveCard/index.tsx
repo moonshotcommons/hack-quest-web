@@ -92,7 +92,7 @@ const MobElectiveCard: FC<ElectiveCardProps> = (props) => {
         <div className="p-5 flex flex-col flex-1 justify-between">
           <div className="flex flex-col">
             <h2 className="text-h4-mob line-clamp-1 text-neutral-off-black">
-              {course.name}
+              {course.title}
             </h2>
             {!inProgress && (
               <p className="line-clamp-2 caption-12pt text-neutral-medium-gray mt-2">
@@ -100,7 +100,7 @@ const MobElectiveCard: FC<ElectiveCardProps> = (props) => {
               </p>
             )}
 
-            <div className="flex justify-between mt-[1.25rem]">
+            <div className="flex justify-between mt-[1.25rem] items-center">
               <div className="px-[10px] py-1 border border-neutral-rich-gray w-fit rounded-full button-text-s text-neutral-rich-gray uppercase">
                 {course.track}
               </div>

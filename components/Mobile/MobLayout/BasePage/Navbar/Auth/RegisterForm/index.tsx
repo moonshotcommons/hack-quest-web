@@ -104,10 +104,10 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
   );
 
   return (
-    <div className="w-full h-full flex justify-center">
+    <div className="w-full h-full flex flex-col justify-between">
       {/* <ThirdPartyLogin></ThirdPartyLogin> */}
-      <div className="flex w-full flex-col gap-[25px]">
-        <div className="text-[#FFF] text-[21px] font-next-poster leading-[160%] tracking-[1.26px]">
+      <div className="flex w-full flex-col gap-[24px]">
+        {/* <div className="text-[#FFF] text-[21px] font-next-poster leading-[160%] tracking-[1.26px]">
           Already have an account?{' '}
           <span
             className="underline cursor-pointer"
@@ -117,19 +117,20 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
           >
             Login
           </span>
-        </div>
+        </div> */}
 
-        <div className="text-white">
+        <div>
           <Input
             label="Password"
             type="password"
             name="password"
             placeholder="8+characters with a mix of letters & numbers"
-            className="bg-[#212121] text-white"
+            theme="light"
             // description="Use 8 or more characters with a mix of letters & numbers"
             state={formState.password.status as any}
             errorMessage={formState.password.errorMessage}
             delay={500}
+            isMobile
             rules={{
               type: 'string',
               required: true,
@@ -144,13 +145,14 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
             }}
           ></Input>
         </div>
-        <div className="text-white">
+        <div>
           <Input
             label="Re-enter password"
             type="password"
+            theme="light"
             placeholder="Confirm my password"
-            className="bg-[#212121] text-white"
             name="reenterPassword"
+            isMobile
             state={formState.reenterPassword.status as any}
             errorMessage={formState.reenterPassword.errorMessage}
             delay={500}
@@ -182,10 +184,12 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
           <div className="flex gap-[.75rem] items-center">
             <Checkbox
               outClassNames={`${
-                acceptConditions ? 'border-yellow-primary' : 'border-[#8C8C8C]'
+                acceptConditions
+                  ? 'border-neutral-off-black'
+                  : 'border-neutral-medium-gray'
               }`}
               isCircle={true}
-              innerClassNames="bg-yellow-primary"
+              innerClassNames="bg-neutral-off-black"
               onChange={(value) => {
                 if (value) {
                   setAcceptErrorMessage(false);
@@ -196,41 +200,24 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
 
             <p
               className={cn(
-                `text-white text-[14px] font-next-book tracking-[-0.154px]`,
-                acceptErrorMessage ? 'text-[#FF4747]' : ''
+                `text-neutral-medium-gray body-s`,
+                acceptErrorMessage ? 'text-status-error-dark ' : '',
+                acceptConditions ? 'text-neutral-off-black' : ''
               )}
             >
-              {`I agree with HackQuest's `}
+              {`I agree with HackQuest's Terms of Service,  `}
               <Link
                 href={'/hackquest/privacy-policy'}
                 target="_blank"
                 className="underline"
               >
-                Terms of Service, Privacy Policy.
+                Privacy Policy.
               </Link>
             </p>
           </div>
         </div>
 
-        <Button
-          onClick={onRegister}
-          block
-          type="primary"
-          loading={loading}
-          disabled={loading}
-          icon={<RightArrowIcon></RightArrowIcon>}
-          iconPosition="right"
-          className="
-          font-next-book
-          text-[1.125rem]
-          bg-auth-primary-button-bg hover:bg-auth-primary-button-hover-bg
-          text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
-          border-auth-primary-button-border-color hover:border-auth-primary-button-border-hover-color
-          "
-        >
-          Create my account
-        </Button>
-        <Button
+        {/* <Button
           onClick={onBack}
           block
           className="
@@ -243,8 +230,25 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
           "
         >
           Back
-        </Button>
+        </Button> */}
       </div>
+      <Button
+        onClick={onRegister}
+        block
+        type="primary"
+        loading={loading}
+        disabled={loading}
+        icon={<RightArrowIcon></RightArrowIcon>}
+        iconPosition="right"
+        className="
+          py-4 uppercase button-text-m font-Nunito
+          bg-auth-primary-button-bg hover:bg-auth-primary-button-hover-bg
+          text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
+          border-auth-primary-button-border-color hover:border-auth-primary-button-border-hover-color
+          "
+      >
+        Continue
+      </Button>
       <WhiteListModal
         open={showWhiteListModal}
         onClose={() => setShowWhiteListModal(false)}
