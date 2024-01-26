@@ -43,7 +43,7 @@ function useNavAuth(waitingUserData: boolean) {
     } else {
       redirectToUrl(V2_LANDING_PATH);
       setAuthType(AuthType.LOGIN);
-      setAuthModalOpen(true);
+      // setAuthModalOpen(true);
     }
   }, [waitingUserData, userInfo, pathname]);
 }
