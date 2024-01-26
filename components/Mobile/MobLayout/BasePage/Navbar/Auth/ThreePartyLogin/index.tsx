@@ -5,15 +5,10 @@ import { ThirdPartyAuthType } from '@/service/webApi/user/type';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import MetamaskLoginButton from './MetamaskLoginButton';
-import useIsPc from '@/hooks/useIsPc';
-import TipsModal from '@/app/(web)/(base page)/(landing)/components/TipsModal';
 import Button from '@/components/Common/Button';
 
 function ThreePartyLogin() {
   const [isMounted, setIsMounted] = useState(false);
-
-  const isPc = useIsPc();
-  const [tipsOpen, setTipsOpen] = useState(false);
 
   const loginThreeParty = async (type: ThirdPartyAuthType) => {
     switch (type) {
@@ -21,10 +16,10 @@ function ThreePartyLogin() {
       //   loginByMetaMask();
       //   return;
       default:
-        if (!isPc()) {
-          setTipsOpen(true);
-          return;
-        }
+        // if (!isPc()) {
+        //   setTipsOpen(true);
+        //   return;
+        // }
         const res = (await webApi.userApi.getAuthUrl(type)) as any;
         window.location.href = res?.url;
     }
@@ -87,7 +82,7 @@ function ThreePartyLogin() {
           {error && <div>{error.message}</div>}
         </div> */}
       </div>
-      <TipsModal open={tipsOpen} onClose={() => setTipsOpen(false)} />
+      {/* <TipsModal open={tipsOpen} onClose={() => setTipsOpen(false)} /> */}
     </div>
   );
 }
