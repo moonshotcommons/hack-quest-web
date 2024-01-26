@@ -1,11 +1,11 @@
 'use client';
-import ComponentRenderer from '@/components/Web/Business/Renderer/ComponentRenderer';
 import {
   CustomComponent,
   NotionComponent
 } from '@/components/Web/Business/Renderer/type';
 import { FC, useEffect, useMemo, useState } from 'react';
 import { LessonType, PlaygroundContext } from './type';
+import ComponentRenderer from '../../MobRenderer/ComponentRenderer';
 
 interface PlaygroundProps {
   // children: ReactNode
@@ -37,7 +37,7 @@ const Playground: FC<PlaygroundProps> = (props) => {
   }, [lesson]);
 
   return (
-    <div className="p-5 pl-[0px] bg-lesson-code-bg h-full overflow-hidden flex flex-col gap-[20px]">
+    <div className="">
       <PlaygroundContext.Provider
         value={{ lesson, onCompleted, isPreview, isPlayground: true }}
       >

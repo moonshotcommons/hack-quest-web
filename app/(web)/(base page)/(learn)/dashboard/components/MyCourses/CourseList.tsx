@@ -34,7 +34,6 @@ const CourseList: React.FC<CourseListProp> = ({ list, curTab }) => {
           <PracticeCard
             course={course as ProjectCourseType}
             from={'dashboard'}
-            className={className}
             inProgress={curTab === ProcessType.IN_PROCESS}
           />
         );

@@ -40,6 +40,7 @@ const config: Config = {
         MiSans: ['MiSans'],
         'MiSans-Semibold': ['MiSans-Semibold'],
         Inter: ['Inter'],
+        Nunito: ['Nunito'],
         'Space-Mono': ['Space Mono']
       },
       screens: {

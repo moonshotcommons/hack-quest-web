@@ -9,6 +9,7 @@ import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import { BurialPoint } from '@/helper/burialPoint';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
 import { useRedirect } from '@/hooks/useRedirect';
+import TrackTag from '@/components/Common/TrackTag';
 
 interface LearningTrackCardInProgressProp {
   learningTrack: LearningTrackDetailType;
@@ -50,9 +51,10 @@ const LearningTrackCardInProgress: React.FC<
     >
       <div className="flex justify-between">
         <div className="h-[100px]  flex-1 flex-shrink-0 pr-[30px]">
-          <div className="button-text-s w-fit mb-[16px] px-[10px] py-[4px] text-[var(--neutral-off-black)] border border-neutral-off-black rounded-[20px] ">
-            {learningTrack.track}
+          <div className="mb-[10px]">
+            <TrackTag track={learningTrack.track} />
           </div>
+
           <div className="text-h4 line-clamp-2 text-neutral-off-black">
             {learningTrack.name}
           </div>

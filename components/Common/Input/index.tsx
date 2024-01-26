@@ -1,9 +1,9 @@
+import { VariantProps, cva } from 'class-variance-authority';
 import { cn } from '@/helper/utils';
 import { useDebounceFn } from 'ahooks';
 import Schema, { Rule, Rules } from 'async-validator';
 import {
   HTMLInputTypeAttribute,
-  InputHTMLAttributes,
   ReactNode,
   forwardRef,
   useEffect,
@@ -16,25 +16,68 @@ import EyeIcon from '../Icon/Eye';
 import PassIcon from '../Icon/Pass';
 import { PiWarningCircleFill } from 'react-icons/pi';
 
-export interface InputProps {
+const inputVariants = cva(
+  'w-full border border-solid outline-none px-[24px] py-[11px] rounded-[2.5rem] body-m text-neutral-medium-gray',
+  {
+    variants: {
+      theme: {
+        light:
+          'border-neutral-light-gray caret-neutral-off-black hover:border-neutral-medium-gray focus:border-neutral-medium-gray focus:text-neutral-off-black',
+        dark: 'border-[#212121] caret-[#ffffff] hover:border-[#212121] focus:border-[#212121]'
+      },
+      state: {
+        success: 'border-status-success focus:border-status-success',
+        error: 'border-status-error-dark focus:border-status-error-dark',
+        warning: '',
+        default: ''
+      },
+      device: {
+        web: '',
+        mobile: 'body-s font-Nunito '
+      }
+    },
+    defaultVariants: {
+      theme: 'light',
+      state: 'default',
+      device: 'web'
+    }
+  }
+);
+
+const labelVariants = cva('body-l-bold label', {
+  variants: {
+    theme: {
+      light: 'text-neutral-off-black',
+      dark: ''
+    },
+    device: {
+      web: '',
+      mobile: 'body-m-bold font-Nunito'
+    }
+  },
+  defaultVariants: {
+    theme: 'light',
+    device: 'web'
+  }
+});
+
+export interface InputProps
+  extends React.InputHTMLAttributes<HTMLInputElement>,
+    VariantProps<typeof inputVariants>,
+    VariantProps<typeof labelVariants> {
+  label?: string | ReactNode;
   name: string;
-  label: string | ReactNode;
-  type: HTMLInputTypeAttribute;
-  theme?: 'dark' | 'light';
-  placeholder?: string;
-  state?: 'success' | 'error' | 'warning' | 'default';
-  className?: string;
-  prefix?: ReactNode;
+  type?: HTMLInputTypeAttribute;
   description?: string;
   errorMessage?: string | null | undefined;
   rules?: Rule;
   delay?: number;
-  defaultValue?: string | number;
   clear?: boolean;
   showVisibleIcon?: boolean;
   rightLabel?: ReactNode;
   labelClassName?: string;
   initBorderColor?: string;
+  isMobile?: boolean;
 }
 
 export interface InputRef {
@@ -42,13 +85,10 @@ export interface InputRef {
   blur: () => void;
 }
 
-const Input = forwardRef<
-  InputRef,
-  InputProps & InputHTMLAttributes<HTMLInputElement>
->((props, ref) => {
+const Input = forwardRef<InputRef, InputProps>((props, ref) => {
   const {
     label,
-    type: propType,
+    type: propType = 'text',
     theme = 'dark',
     placeholder,
     prefix,
@@ -66,8 +106,10 @@ const Input = forwardRef<
     rightLabel,
     labelClassName = '',
     initBorderColor = '',
+    isMobile = false,
     ...rest
   } = props;
+
   const inputRef = useRef<HTMLInputElement>(null);
 
   const [status, setStatus] = useState(propsState);
@@ -123,21 +165,87 @@ const Input = forwardRef<
     { wait: delay }
   );
 
+  const labelNode = (
+    <div className="flex justify-between">
+      <p
+        className={cn(
+          labelVariants({
+            className: labelClassName,
+            theme,
+            device: isMobile ? 'mobile' : 'web'
+          })
+        )}
+      >
+        {label}
+      </p>
+      {rightLabel}
+    </div>
+  );
+
+  const errorIcon = (
+    <span
+      className="text-status-error-dark flex justify-center items-center cursor-pointer"
+      onClick={() => {
+        setValue('');
+        setErrorMessage('');
+        setStatus('default');
+        const event = {
+          target: inputRef.current
+        };
+        onChange?.(event as any);
+      }}
+    >
+      <CloseIcon width={20} height={20}></CloseIcon>
+    </span>
+  );
+
+  const successIcon = (
+    <span className="text-status-success">
+      <PassIcon width={19} height={15} color="currentColor"></PassIcon>
+    </span>
+  );
+
+  const visibleIcon = (
+    <span
+      className="text-auth-input-visible-icon-color cursor-pointer"
+      onMouseDown={(e) => {
+        if (propType === 'password' && type === 'password') {
+          setType('text');
+        }
+      }}
+      onMouseLeave={(e) => {
+        if (propType === 'password' && type === 'text') {
+          setType('password');
+        }
+      }}
+      onMouseUp={() => {
+        if (propType === 'password' && type === 'text') {
+          setType('password');
+        }
+      }}
+      onTouchStart={(e) => {
+        if (propType === 'password' && type === 'password') {
+          setType('text');
+        }
+      }}
+      onTouchCancel={(e) => {
+        if (propType === 'password' && type === 'text') {
+          setType('password');
+        }
+      }}
+      onTouchEnd={() => {
+        if (propType === 'password' && type === 'text') {
+          setType('password');
+        }
+      }}
+    >
+      <EyeIcon size={20} color="currentColor"></EyeIcon>
+    </span>
+  );
+
   return (
     <div className="flex flex-col gap-[0.75rem]">
-      <div className="flex justify-between">
-        <p
-          className={cn(
-            'body-l-bold label',
-            `${
-              theme !== 'dark' ? 'text-neutral-off-black' : ''
-            } ${labelClassName} `
-          )}
-        >
-          {label}
-        </p>
-        {rightLabel}
-      </div>
+      {labelNode}
       <div className="relative">
         <input
           ref={inputRef}
@@ -145,19 +253,13 @@ const Input = forwardRef<
           value={value}
           placeholder={placeholder}
           className={cn(
-            `w-full border border-solid ${initBorderColor} outline-none px-[24px] py-[11px] rounded-[2.5rem] body-m text-neutral-medium-gray`,
-            // type === 'password' &&
-            //   'border-auth-password-input-bg focus:border-[#212121]',
-            theme !== 'dark'
-              ? 'border-neutral-light-gray caret-neutral-off-black hover:border-neutral-medium-gray focus:border-neutral-medium-gray focus:text-neutral-off-black'
-              : 'border-[#212121] caret-[#ffffff] hover:border-[#212121] focus:border-[#212121]',
-            status === 'success'
-              ? 'border-status-success focus:border-status-success'
-              : '',
-            status === 'error'
-              ? 'border-status-error-dark focus:border-status-error-dark'
-              : '',
-            className
+            inputVariants({
+              className,
+              theme,
+              state: status,
+              device: isMobile ? 'mobile' : 'web'
+            }),
+            initBorderColor
           )}
           onChange={(e) => {
             setValue(e.target.value);
@@ -169,49 +271,9 @@ const Input = forwardRef<
         />
 
         <span className="absolute right-[1.4375rem] top-[50%] -translate-y-[50%] flex gap-4 items-center">
-          {status === 'error' && (
-            <span
-              className="text-status-error-dark flex justify-center items-center cursor-pointer"
-              onClick={() => {
-                setValue('');
-                setErrorMessage('');
-                setStatus('default');
-                const event = {
-                  target: inputRef.current
-                };
-                onChange?.(event as any);
-              }}
-            >
-              <CloseIcon width={20} height={20}></CloseIcon>
-            </span>
-          )}
-          {status === 'success' && (
-            <span className="text-status-success">
-              <PassIcon width={19} height={15} color="currentColor"></PassIcon>
-            </span>
-          )}
-          {showVisibleIcon && value && (
-            <span
-              className="text-auth-input-visible-icon-color cursor-pointer"
-              onMouseDown={(e) => {
-                if (propType === 'password' && type === 'password') {
-                  setType('text');
-                }
-              }}
-              onMouseLeave={(e) => {
-                if (propType === 'password' && type === 'text') {
-                  setType('password');
-                }
-              }}
-              onMouseUp={() => {
-                if (propType === 'password' && type === 'text') {
-                  setType('password');
-                }
-              }}
-            >
-              <EyeIcon size={20} color="currentColor"></EyeIcon>
-            </span>
-          )}
+          {status === 'error' && errorIcon}
+          {status === 'success' && successIcon}
+          {showVisibleIcon && value && visibleIcon}
         </span>
       </div>
       {description && <p className="ml-[1.5rem] body-m">{description}</p>}

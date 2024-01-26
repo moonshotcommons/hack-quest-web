@@ -6,6 +6,7 @@ import { message } from 'antd';
 import { useEffect, useState } from 'react';
 import { useRedirect } from '../useRedirect';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
+import { isMobile } from 'react-device-detect';
 
 export const useGetLessonContent = <
   T extends CourseLessonType | ElectiveLessonType
@@ -16,6 +17,7 @@ export const useGetLessonContent = <
   const [lesson, setLesson] = useState<T>();
   const { redirectToUrl } = useRedirect();
   const setAuthType = useUserStore((state) => state.setAuthType);
+  const setAuthModalOpen = useUserStore((state) => state.setAuthModalOpen);
   const { run, loading, refresh } = useRequest(
     async (lessonId) => {
       switch (courseType) {
@@ -34,7 +36,7 @@ export const useGetLessonContent = <
         if (error.code === 401) {
           message.error(error?.msg);
           setAuthType(AuthType.LOGIN);
-          redirectToUrl('/');
+          if (!isMobile) setAuthModalOpen(true);
           return;
         }
 

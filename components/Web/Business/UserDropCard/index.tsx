@@ -16,7 +16,7 @@ interface UserDropCardProps {
 
 const UserInfo: FC<Omit<UserDropCardProps, 'onClose'>> = ({ userInfo }) => {
   return (
-    <div className="w-full flex flex-col items-center">
+    <div className="w-full flex flex-col items-center px-[30px]">
       <div className="relative w-[80px] h-[80px]  overflow-hidden rounded-full">
         <Image
           src={userInfo?.avatar}
@@ -49,7 +49,6 @@ const UserDropCard: FC<UserDropCardProps> = (props) => {
     setAuthType(AuthType.LOGIN);
     userSignOut();
     BurialPoint.track('登出');
-    redirectToUrl('/');
   };
 
   return (

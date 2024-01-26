@@ -16,7 +16,7 @@ const CourseLevel: FC<CourseLevelProps> = (props) => {
   }, [level]);
 
   return (
-    <div className="flex gap-[5px]">
+    <div className="flex gap-[5px] items-center">
       <div
         className={cn(
           `flex gap-[1px] items-center`,
@@ -40,10 +40,8 @@ const CourseLevel: FC<CourseLevelProps> = (props) => {
       </div>
       <p
         className={cn(
-          'text-[12px] font-neuemachina-light text-[var(--neutral-rich-gray)] uppercase',
-          `${
-            size === 'large' ? 'text-[16px] font-next-book text-black' : ''
-          } ${className}`
+          'body-xs text-neutral-rich-gray',
+          `${size === 'large' ? 'text-[16px]  text-black' : ''} ${className}`
         )}
       >
         {level}

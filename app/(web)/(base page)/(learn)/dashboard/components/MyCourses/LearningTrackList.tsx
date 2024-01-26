@@ -35,7 +35,14 @@ const LearningTrackList: React.FC<LearningTrackListProps> = ({
       <h3 className="text-h4 text-neutral-off-black">Learning Tracks</h3>
       <div className="mt-[16px] flex flex-wrap gap-[24px]">
         {list.map((learningTrack) => (
-          <div key={learningTrack.id} className="w-[calc((100%-24px)/2)]">
+          <div
+            key={learningTrack.id}
+            className={`${
+              curTab === ProcessType.IN_PROCESS
+                ? 'w-[calc((100%-24px)/2)]'
+                : 'w-[calc((100%-24px)/2)]'
+            }`}
+          >
             {card(learningTrack)}
           </div>
         ))}

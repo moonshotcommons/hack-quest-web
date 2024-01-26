@@ -1,28 +1,32 @@
-'use client';
-import JoinUs from '@/app/(web)/(base page)/(landing)/components/JoinUs';
-import HackQuestInfo from '@/app/(web)/(base page)/(landing)/components/HackQuestInfo';
-import HomeBanner from '@/app/(web)/(base page)/(landing)/components/HomeBanner';
-import { BurialPoint } from '@/helper/burialPoint';
 import { NextPage } from 'next';
-import { useEffect } from 'react';
+import PageRetentionTime from '@/components/Common/PageRetentionTime';
+
+import TopBanner from './components/TopBanner';
+import CollaborateList from './components/CollaborateList';
+import CertificatesIntroduce from './components/CertificatesIntroduce';
+import BecomeWeb3 from './components/BecomeWeb3';
+import CommunityIntroduction from './components/CommunityIntroduction';
+import UserEvaluation from './components/UserEvaluation';
+import FAQS from './components/FAQS';
+import ConnectedUs from './components/ConnectedUs';
+import Footer from './components/Footer';
 
 const Landing: NextPage<any> = (props) => {
-  useEffect(() => {
-    const startTime = new Date().getTime();
-    return () => {
-      const endTime = new Date().getTime();
-      const duration = endTime - startTime;
-      BurialPoint.track('landing-页面留存时间', { duration });
-    };
-  }, []);
   return (
-    <div className="flex flex-col justify-center bg-landing-hack-info-bg ">
-      <HomeBanner></HomeBanner>
-      <HackQuestInfo></HackQuestInfo>
-      <div className="mx-auto container slab:w-full slab:px-[20px] py-[150px] slab:py-[80px] flex justify-center">
-        <JoinUs></JoinUs>
+    <>
+      <div className="flex flex-col justify-center w-screen overflow-hidden">
+        <TopBanner />
+        <CollaborateList />
+        <CertificatesIntroduce />
+        <BecomeWeb3 />
+        <CommunityIntroduction />
+        <UserEvaluation />
+        <FAQS />
+        <ConnectedUs />
+        <Footer />
       </div>
-    </div>
+      <PageRetentionTime trackName="landing-页面留存时间" />
+    </>
   );
 };
 

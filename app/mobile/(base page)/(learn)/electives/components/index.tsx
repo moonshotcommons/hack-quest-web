@@ -53,7 +53,7 @@ function Electives() {
   const { loading } = useRequest(
     () => {
       return webApi.courseApi.getTopCourses<ElectiveCourseType>({
-        type: CourseType.MINI
+        type: `${CourseType.MINI},${CourseType.UGC}`
       });
     },
     {

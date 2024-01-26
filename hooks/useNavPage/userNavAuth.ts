@@ -10,10 +10,12 @@ import {
 import { getToken } from '@/helper/user-token';
 import { usePathname } from 'next/navigation';
 import { useRedirect } from '../useRedirect';
-import { useUserStore } from '@/store/zustand/userStore';
+import { AuthType, useUserStore } from '@/store/zustand/userStore';
 
 function useNavAuth(waitingUserData: boolean) {
   const userInfo = useUserStore((state) => state.userInfo);
+  const setAuthType = useUserStore((state) => state.setAuthType);
+  const setAuthModalOpen = useUserStore((state) => state.setAuthModalOpen);
   const { redirectToUrl } = useRedirect();
   const pathname = usePathname();
   const query = new URLSearchParams(
@@ -40,6 +42,8 @@ function useNavAuth(waitingUserData: boolean) {
       return;
     } else {
       redirectToUrl(V2_LANDING_PATH);
+      setAuthType(AuthType.LOGIN);
+      setAuthModalOpen(true);
     }
   }, [waitingUserData, userInfo, pathname]);
 }

@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, useMemo } from 'react';
 
 import { CourseBaseType } from '@/service/webApi/course/type';
 import React, { useState } from 'react';
@@ -20,6 +20,8 @@ interface CourseFilterListProps<T extends CourseBaseType> {
   courseList: T[];
   loading?: boolean;
   onFilterParamsUpdate: (filterParams: FilterParamsType) => void;
+  gap?: number;
+  cardCount?: number;
 }
 
 const CourseFilterList = <T extends CourseBaseType>({
@@ -29,11 +31,15 @@ const CourseFilterList = <T extends CourseBaseType>({
   filters: propFilters,
   sort: propSort,
   onFilterParamsUpdate,
-  loading
+  loading,
+  gap = 24,
+  cardCount = 4
 }: CourseFilterListProps<T>) => {
   const [filters, setFilters] = useState(propFilters);
   const [sort, setSort] = useState(propSort);
-
+  const cardWidth = useMemo(() => {
+    return `w-[calc((100%-${gap * (cardCount - 1)}px)/${cardCount})]`;
+  }, [gap, cardCount]);
   return (
     <div className="flex flex-col gap-y-8">
       <h3 className="text-h3 text-neutral-black">{title}</h3>
@@ -59,7 +65,11 @@ const CourseFilterList = <T extends CourseBaseType>({
             })} */}
           <CourseCardSkeleton.List active={loading as boolean}>
             {courseList?.map((course, index) => {
-              return <div key={course.id + index}>{renderItem(course)}</div>;
+              return (
+                <div key={course.id + index} className={`${cardWidth}`}>
+                  {renderItem(course)}
+                </div>
+              );
             })}
           </CourseCardSkeleton.List>
         </div>

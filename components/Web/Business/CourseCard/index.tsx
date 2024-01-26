@@ -21,8 +21,7 @@ import MiniElectiveDetailModal, {
   MiniElectiveDetailModalRef
 } from '../MiniElectiveDetailModal';
 import { ElectiveCourseType } from '@/service/webApi/elective/type';
-import { V2_LANDING_PATH } from '@/constants/nav';
-import { useUserStore } from '@/store/zustand/userStore';
+import { AuthType, useUserStore } from '@/store/zustand/userStore';
 
 interface CourseCardProps {
   // children: ReactNode;
@@ -62,12 +61,15 @@ const CourseCard: FC<CourseCardProps> = (props) => {
   const { redirectToUrl } = useRedirect();
   const miniElectiveDetailInstance = useRef<MiniElectiveDetailModalRef>(null);
   const userInfo = useUserStore((state) => state.userInfo);
+  const setAuthModalOpen = useUserStore((state) => state.setAuthModalOpen);
+  const setAuthType = useUserStore((state) => state.setAuthType);
   const onCourseClick = useCallback(() => {
     switch (course.type) {
       case CourseType.MINI:
         if (!userInfo) {
           message.warning('Please login first');
-          redirectToUrl(V2_LANDING_PATH);
+          setAuthType(AuthType.LOGIN);
+          setAuthModalOpen(true);
           return;
         }
         miniElectiveDetailInstance.current?.open(course as ElectiveCourseType);
