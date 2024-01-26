@@ -64,6 +64,24 @@ const ElectiveCard: FC<ElectiveCardProps> = (props) => {
           onCourseClick();
         }}
       >
+        {from === 'dashboard' && !!course.progress && course.progress >= 1 ? (
+          <div className={`absolute top-[16px]  right-[16px] z-10`}>
+            <svg
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle cx="16" cy="16" r="16" fill="#00C365" />
+              <path
+                d="M8 15.9999L14.4 22.3999L25.6 11.1999"
+                stroke="white"
+                strokeLinecap="round"
+              />
+            </svg>
+          </div>
+        ) : null}
         <div
           className={`h-[182px] w-full flex items-center flex-shrink-0 justify-center relative rounded-t-2xl overflow-hidden`}
         >
@@ -77,24 +95,6 @@ const ElectiveCard: FC<ElectiveCardProps> = (props) => {
         <div
           className={`flex flex-col flex-1  p-[16px] justify-between relative`}
         >
-          {from === 'dashboard' && !!course.progress && course.progress >= 1 ? (
-            <div className={`absolute top-[16px]  right-[16px]`}>
-              <svg
-                width="32"
-                height="32"
-                viewBox="0 0 32 32"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <circle cx="16" cy="16" r="16" fill="#00C365" />
-                <path
-                  d="M8 15.9999L14.4 22.3999L25.6 11.1999"
-                  stroke="white"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </div>
-          ) : null}
           <div className="flex flex-col gap-[16px]">
             <TrackTag track={course.track} />
             <h2 className={`body-m-bold  line-clamp-2`}>{course.title}</h2>
