@@ -73,7 +73,7 @@ const MobElectiveCard: FC<ElectiveCardProps> = (props) => {
         <div className="caption-12pt h-fit w-fit px-[.75rem] py-[0.25rem] text-neutral-rich-gray  border-[0.5px] border-neutral-rich-gray rounded-[1.25rem] ">
           {course.track}
         </div>
-        <div className="body-m-bold text-neutral-dark-gray">{course.name}</div>
+        <div className="body-m-bold text-neutral-dark-gray">{course.title}</div>
         {from === 'dashboard' && inProgress ? (
           <>
             <MobCardProgress progress={course.progress || 0} />

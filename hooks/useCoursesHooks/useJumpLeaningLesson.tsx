@@ -9,7 +9,6 @@ import {
 import { ElectiveCourseType } from '@/service/webApi/elective/type';
 import { useRequest } from 'ahooks';
 import { useRedirect } from '../useRedirect';
-import { V2_LANDING_PATH } from '@/constants/nav';
 import { message } from 'antd';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 
@@ -23,6 +22,7 @@ export const useJumpLeaningLesson = () => {
     typeof window !== 'undefined' ? window.location.search : ''
   );
   const setAuthType = useUserStore((state) => state.setAuthType);
+  const setAuthModalOpen = useUserStore((state) => state.setAuthModalOpen);
   const { redirectToUrl } = useRedirect();
   const { run: jumpLearningLesson, loading } = useRequest(
     async (
@@ -67,9 +67,9 @@ export const useJumpLeaningLesson = () => {
       },
       onError(err: any) {
         if (err.code === 401) {
-          setAuthType(AuthType.LOGIN);
           message.warning('Please login first');
-          redirectToUrl(V2_LANDING_PATH);
+          setAuthType(AuthType.LOGIN);
+          setAuthModalOpen(true);
         }
       }
     }

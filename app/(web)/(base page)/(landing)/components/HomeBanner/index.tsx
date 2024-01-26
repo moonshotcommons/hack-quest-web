@@ -1,4 +1,3 @@
-import Auth from '../Auth';
 import Astronaut from '@/public/images/landing/astronaut.png';
 import BannerBg from '@/public/images/landing/banner_bg.png';
 import Image from 'next/image';
@@ -27,9 +26,7 @@ const HomeBanner: FC<HomeBannerProps> = (props) => {
             <Image src={Astronaut} alt="astronaut" width={138}></Image>
           </div>
         </div>
-        <div className="w-[400px]">
-          <Auth />
-        </div>
+        <div className="w-[400px]">{/* <Auth /> */}</div>
       </div>
       <div className="hidden slab:block w-full h-full px-[20px] relative max-w-[640px]">
         <h1 className="slab:container mx-auto text-landing-banner-intr-color  font-next-book-bold text-[24px] tracking-[2.4px] leading-[140%] uppercase">
@@ -37,9 +34,7 @@ const HomeBanner: FC<HomeBannerProps> = (props) => {
           <br />
           For<span className="text-yellow-primary"> Everyone</span>
         </h1>
-        <div className="w-full mt-[60px]">
-          <Auth />
-        </div>
+        <div className="w-full mt-[60px]">{/* <Auth /> */}</div>
         <div className="absolute bottom-0 left-[20px]">
           <Image src={Astronaut} alt="astronaut" width={138}></Image>
         </div>

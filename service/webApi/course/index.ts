@@ -3,7 +3,6 @@ import {
   CourseDetailType,
   CourseLessonStateType,
   CourseLessonType,
-  CourseType,
   CourseUnitStateType,
   CourseUnitType,
   ProjectCourseType,
@@ -38,7 +37,7 @@ class CourseApi {
     return this.service.get<PageResult<ProjectCourseType>>(url);
   }
 
-  getTopCourses<T>(params: { type: CourseType }) {
+  getTopCourses<T>(params: { type: string }) {
     return this.service.get<T[]>(CourseApiType.GetTopCourses, {
       params
     });

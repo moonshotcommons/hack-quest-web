@@ -49,7 +49,6 @@ const UserDropCard: FC<UserDropCardProps> = (props) => {
     setAuthType(AuthType.LOGIN);
     userSignOut();
     BurialPoint.track('登出');
-    redirectToUrl('/');
   };
 
   return (
