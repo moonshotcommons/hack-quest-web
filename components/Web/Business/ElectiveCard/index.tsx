@@ -61,14 +61,15 @@ const ElectiveCard: FC<ElectiveCardProps> = (props) => {
         )}
         onClick={() => {
           BurialPoint.track('home-course卡片点击', { courseName: course.name });
+
           onCourseClick();
         }}
       >
         {from === 'dashboard' && !!course.progress && course.progress >= 1 ? (
           <div className={`absolute top-[16px]  right-[16px] z-10`}>
             <svg
-              width="32"
-              height="32"
+              width="24"
+              height="24"
               viewBox="0 0 32 32"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
