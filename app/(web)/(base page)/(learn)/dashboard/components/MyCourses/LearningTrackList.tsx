@@ -39,7 +39,7 @@ const LearningTrackList: React.FC<LearningTrackListProps> = ({
             key={learningTrack.id}
             className={`${
               curTab === ProcessType.IN_PROCESS
-                ? 'w-full'
+                ? 'w-[calc((100%-24px)/2)]'
                 : 'w-[calc((100%-24px)/2)]'
             }`}
           >
