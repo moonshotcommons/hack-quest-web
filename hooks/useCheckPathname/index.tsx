@@ -28,7 +28,7 @@ export const useCheckPathname = () => {
 
     const isPreviewPage = pathname.startsWith('/preview');
 
-    const isLandingPage = pathname === '/';
+    const isLandingPage = ['/', ''].includes(pathname);
 
     const isMobileLink = originPathname.startsWith('/mobile');
 
