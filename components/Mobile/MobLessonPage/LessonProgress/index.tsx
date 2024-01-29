@@ -7,11 +7,7 @@ interface LessonProgressProp {
 }
 
 const LessonProgress: React.FC<LessonProgressProp> = ({ lesson }) => {
-  const {
-    unitNavList = [],
-    currentUnitIndex,
-    refreshNavList
-  } = useUnitNavList(lesson);
+  const { unitNavList = [], refreshNavList } = useUnitNavList(lesson);
   useEffect(() => {
     refreshNavList();
   }, [lesson]);
@@ -19,16 +15,10 @@ const LessonProgress: React.FC<LessonProgressProp> = ({ lesson }) => {
     <div className="w-full flex gap-[1px] h-[.3125rem] ">
       {unitNavList.map((item, i) => (
         <div className="h-full flex-1 bg-neutral-light-gray" key={item.id}>
-          {currentUnitIndex >= i ? (
-            <div
-              className="h-full  bg-yellow-dark transition-all"
-              style={{
-                width: `${
-                  currentUnitIndex === i ? item.progress * 100 : '100'
-                }%`
-              }}
-            ></div>
-          ) : null}
+          <div
+            className="h-full  bg-yellow-dark transition-all"
+            style={{ width: `${item.progress * 100}%` }}
+          ></div>
         </div>
       ))}
     </div>

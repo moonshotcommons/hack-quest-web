@@ -38,7 +38,9 @@ const NavBar: React.FC<NavBarProps> = () => {
           />
         </svg>
       </div>
-      <div className="flex-1 text-center text-h4-mob">{learnPageTitle}</div>
+      <div className="flex-1 text-center text-h4-mob flex-shrink-0 line-clamp-2">
+        {learnPageTitle}
+      </div>
       <div
         className="w-[2.5rem] flex items-center justify-end cursor-pointer"
         onClick={logoClick}

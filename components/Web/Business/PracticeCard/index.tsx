@@ -66,6 +66,15 @@ const PracticeCard: FC<PracticeCardProps> = (props) => {
             className="absolute right-[40px] top-[20px]"
           ></Image>
         );
+      default:
+        return (
+          <Image
+            src={PracticeImg1}
+            width={239}
+            alt="practice"
+            className="absolute right-0 top-0"
+          ></Image>
+        );
     }
   };
   return (
