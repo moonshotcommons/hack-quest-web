@@ -32,24 +32,24 @@ const LessonFooter: React.FC<LessonFooterProps> = ({ lesson, onNextClick }) => {
         height: isHandleNext ? '80px' : '30px'
       }}
     >
-      <div className="w-[calc(100%-380px)] flex-center overflow-auto">
+      <div className="w-[calc(100%-380px)] flex-center overflow-auto gap-[2px]">
         {unitNavList.map((item, i) => (
           <div
             key={i}
-            className={`w-[70px] rounded-[3px]  mx-[1px] ${
-              i < currentUnitIndex
-                ? ' h-[5px] bg-lesson-footer-tab-bg'
-                : i === currentUnitIndex
+            className={`w-[70px]   ${
+              i === currentUnitIndex
                 ? 'h-[7px] border border-lesson-footer-tab-active-border rounded-[5px]'
-                : 'h-[5px] border border-lesson-footer-tab-border'
+                : 'h-[5px] border border-lesson-footer-tab-border rounded-[3px]'
             }`}
           >
-            {i === currentUnitIndex ? (
-              <div
-                className={`relative -top-[1px] h-[7px] bg-lesson-footer-tab-active-bg  rounded-[5px]`}
-                style={{ width: `${item.progress * 100}%` }}
-              ></div>
-            ) : null}
+            <div
+              className={`h-full    ${
+                i === currentUnitIndex
+                  ? 'bg-lesson-footer-tab-active-bg rounded-[2px]'
+                  : 'bg-lesson-footer-tab-bg rounded-[1px]'
+              }`}
+              style={{ width: `${item.progress * 100}%` }}
+            ></div>
           </div>
         ))}
       </div>

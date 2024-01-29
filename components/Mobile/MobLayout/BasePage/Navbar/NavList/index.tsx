@@ -33,21 +33,20 @@ const NavList: FC<NavListProps> = ({ navList, toggleOpen, children }) => {
               variants={itemVariants}
               className="body-xl font-Nunito flex flex-col w-full"
             >
-              <div className="w-full py-[.6875rem] flex justify-between items-center">
+              <div
+                className="w-full py-[.6875rem] flex justify-between items-center"
+                onClick={() => {
+                  if (openNavKeys.includes(item.id)) {
+                    setOpenNavKeys(
+                      openNavKeys.filter((key) => key !== item.id)
+                    );
+                  } else {
+                    setOpenNavKeys(openNavKeys.concat(item.id));
+                  }
+                }}
+              >
                 <span>{item.label}</span>
-                <div
-                  className="h-full px-5"
-                  onClick={() => {
-                    console.log(item.id);
-                    if (openNavKeys.includes(item.id)) {
-                      setOpenNavKeys(
-                        openNavKeys.filter((key) => key !== item.id)
-                      );
-                    } else {
-                      setOpenNavKeys(openNavKeys.concat(item.id));
-                    }
-                  }}
-                >
+                <div className="h-full px-5">
                   {item.menu?.length > 0 && (
                     <svg
                       width="16"
