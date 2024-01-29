@@ -50,7 +50,9 @@ const UgcFooter: React.FC<UgcFooterProp> = ({}) => {
   };
 
   useEffect(() => {
-    refreshNavList();
+    if (lesson?.courseId) {
+      refreshNavList();
+    }
     setFooterBtn({
       footerBtnDisable: false,
       footerBtnStatus: FooterButtonStatus.NEXT,

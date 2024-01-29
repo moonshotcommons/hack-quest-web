@@ -122,7 +122,7 @@ const UgcSidebar: FC<UgcSidebarProps> = () => {
 
   useEffect(() => {
     if (lesson) run();
-  }, [lesson]);
+  }, [lesson, run]);
 
   useEffect(() => {
     course && setLearnPageTitle(course.title);
