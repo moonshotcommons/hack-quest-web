@@ -1,4 +1,4 @@
-import DropAnswer from '@/components/Web/Business/Renderer/ComponentRenderer/QuizRenderer/QuizBRenderer/DropAnswer';
+import DropAnswer from '@/app/(web)/(learn page)/ugc/[courseId]/learn/[lessonId]/components/UgcRender/UgcComponentRenderer/QuizRenderer/QuizBRenderer/DropAnswer';
 import { cn } from '@/helper/utils';
 import { FC, useContext } from 'react';
 import MathJax from 'react-mathjax';

@@ -49,9 +49,10 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
 
   const containerRef = useRef(null);
 
-  const [quiz, setQuiz] = useState(propsQuiz);
+  const [quiz, setQuiz] = useState<QuizType>();
 
   const onPass = () => {
+    if (!quiz) return;
     webApi.courseApi.completeQuiz(lesson.id, currentQuizIndex).then(() => {
       quiz.children[currentQuizIndex].isCompleted = true;
       setQuiz({
@@ -100,33 +101,34 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
   };
 
   useEffect(() => {
-    if (lesson) {
-      const notCompleted: number[] = [];
-      propsQuiz.children.forEach((item, index) => {
-        if (!lesson.completedQuiz && !Array.isArray(lesson.completedQuiz)) {
-          item.isCompleted = false;
-          return false;
-        }
-        if (!lesson.completedQuiz.includes(index)) {
-          notCompleted.push(index);
-          item.isCompleted = false;
-        } else {
-          item.isCompleted = true;
-        }
-      });
-      if (notCompleted.length) {
-        setCurrentQuizIndex(notCompleted[0]);
+    if (!lesson || !propsQuiz) return;
+    const notCompleted: number[] = [];
+    propsQuiz.children.forEach((item, index) => {
+      if (!lesson.completedQuiz && !Array.isArray(lesson.completedQuiz)) {
+        item.isCompleted = false;
+        return false;
       }
-      setQuiz({
-        ...propsQuiz,
-        children: propsQuiz.children.map((child) => ({ ...child }))
-      });
+      if (!lesson.completedQuiz.includes(index)) {
+        notCompleted.push(index);
+        item.isCompleted = false;
+      } else {
+        item.isCompleted = true;
+      }
+    });
+    if (notCompleted.length) {
+      setCurrentQuizIndex(notCompleted[0]);
     }
+    setQuiz({
+      ...propsQuiz,
+      children: propsQuiz.children.map((child) => ({ ...child }))
+    });
   }, [lesson, propsQuiz]);
 
   useClickAway(() => {
     setQuizDropdownVisible(false);
   }, containerRef);
+
+  if (!quiz) return null;
 
   const QuizHeader = (
     <div className={`flex justify-between h-fit w-full items-center`}>

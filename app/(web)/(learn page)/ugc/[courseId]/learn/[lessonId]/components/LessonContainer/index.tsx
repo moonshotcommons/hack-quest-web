@@ -3,8 +3,6 @@ import { FC, useEffect } from 'react';
 import ComponentRenderer from '../UgcRender';
 import webApi from '@/service';
 
-import { useUnitNavList } from '@/hooks/useUnitNavList';
-
 import {
   lessonTypeData,
   LessonReadingData
@@ -16,15 +14,17 @@ interface LessonContainerProps {
 
 const LessonContainer: FC<LessonContainerProps> = (props) => {
   const { lesson } = props;
-  const { refreshNavList } = useUnitNavList(lesson as any);
+  // const { refreshNavList } = useUnitNavList(lesson as any);
   useEffect(() => {
     if (lesson) {
-      refreshNavList();
+      // refreshNavList();
       webApi.courseApi.startLesson(lesson.id).catch((e) => {
         console.log('开始学习失败', e);
       });
     }
   }, [lesson]);
+
+  if (!lesson) return null;
 
   return (
     <div className="w-[50.5rem] h-full flex flex-col items-center ">
