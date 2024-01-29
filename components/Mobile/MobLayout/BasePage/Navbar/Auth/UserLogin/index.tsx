@@ -13,13 +13,12 @@ import { useDebounceFn, useKeyPress } from 'ahooks';
 import { message } from 'antd';
 import { omit } from 'lodash-es';
 import { useRedirect } from '@/hooks/useRedirect';
-import { usePathname } from 'next/navigation';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
 import { cn } from '@/helper/utils';
-import { V2_LANDING_PATH } from '@/constants/nav';
 import { useRouter } from 'next/navigation';
 import { AuthContext } from '..';
+import { useCheckPathname, useCustomPathname } from '@/hooks/useCheckPathname';
 
 interface UserLoginProps {
   // children: ReactNode;
@@ -38,7 +37,8 @@ const UserLogin: FC<UserLoginProps> = (props) => {
 
   const { changeNavState } = useContext(AuthContext);
 
-  const pathname = usePathname();
+  const pathname = useCustomPathname();
+  const { isLandingPage } = useCheckPathname();
   const [formData, setFormData] = useState<LoginParamsType>({
     email: email,
     password: '',
@@ -91,7 +91,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
               ? `${redirect_url}?token=${res.token}`
               : '/dashboard';
             changeNavState();
-            if (!redirect_url && pathname !== V2_LANDING_PATH) router.refresh();
+            if (!redirect_url && !isLandingPage) router.refresh();
             else redirectToUrl(toPageUrl);
           } catch (e: any) {
             if (e.code === 400) {

@@ -1,5 +1,5 @@
 import { FC, useContext, useMemo, useRef } from 'react';
-import { ProfileContext } from '../../constants/type';
+import { ProfileContext, ProfileHandleType } from '../../constants/type';
 import { getThirdPartyMedia, thirdPartyMedia } from '@/helper/thirdPartyMedia';
 import { RiShareBoxLine } from 'react-icons/ri';
 import Button from '@/components/Common/Button';
@@ -11,12 +11,13 @@ import { IconType } from '@/components/Web/Business/HoverIcon/type';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 interface PersonalLinksProps {}
 
 const PersonalLinks: FC<PersonalLinksProps> = (props) => {
   const { profile } = useContext(ProfileContext);
   const personalLinkEditRef = useRef<PersonalLinkEditModalRef>(null);
-
+  const query = useSearchParams();
   const [personLinks, setPersonLinks] = useState<Record<string, string>>({});
 
   const showLinks = useMemo(() => {
@@ -39,6 +40,10 @@ const PersonalLinks: FC<PersonalLinksProps> = (props) => {
     });
 
     setPersonLinks(newValues);
+
+    if (query.get('type') === ProfileHandleType.PERSONAL_EDIT) {
+      personalLinkEditRef.current?.onEdit({});
+    }
   }, [profile]);
 
   return (

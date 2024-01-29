@@ -7,13 +7,13 @@ import Image from 'next/image';
 import { FC, useEffect, useRef, useState } from 'react';
 import Settings from './Settings';
 import { unLoginTab } from './data';
-import { usePathname } from 'next/navigation';
 import { useRedirect } from '@/hooks/useRedirect';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
 import { LoginResponse } from '@/service/webApi/user/type';
 import { useMissionCenterStore } from '@/store/zustand/missionCenterStore';
 import Button from '@/components/Common/Button';
+import { useCustomPathname } from '@/hooks/useCheckPathname';
 interface UserProps {}
 
 const User: FC<UserProps> = () => {
@@ -31,7 +31,7 @@ const User: FC<UserProps> = () => {
 
   const setAuthType = useUserStore((state) => state.setAuthType);
   const setAuthModalOpen = useUserStore((state) => state.setAuthModalOpen);
-  const pathname = usePathname();
+  const pathname = useCustomPathname();
   const { redirectToUrl } = useRedirect();
 
   const { userLevel, userCoin } = useMissionCenterStore(

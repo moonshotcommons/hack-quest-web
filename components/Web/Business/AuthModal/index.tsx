@@ -1,6 +1,5 @@
 'use client';
 import Modal from '@/components/Common/Modal';
-import { usePathname } from 'next/navigation';
 import { FC, useEffect, useMemo } from 'react';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
@@ -14,6 +13,7 @@ import CheckInviteCode from './CheckInviteCode';
 import { LuX } from 'react-icons/lu';
 import { V2_LANDING_PATH } from '@/constants/nav';
 import { useRedirect } from '@/hooks/useRedirect';
+import { useCustomPathname } from '@/hooks/useCheckPathname';
 interface AuthModalProps {}
 
 const logo = (
@@ -47,7 +47,7 @@ const AuthModal: FC<AuthModalProps> = (props) => {
   const query = new URLSearchParams(
     typeof window !== 'undefined' ? window.location.search : ''
   );
-  const pathname = usePathname();
+  const pathname = useCustomPathname();
   const queryState = query.get('state');
   const type = query.get('type');
   const { redirectToUrl } = useRedirect();

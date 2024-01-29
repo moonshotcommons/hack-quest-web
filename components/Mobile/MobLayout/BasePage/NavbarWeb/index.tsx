@@ -11,9 +11,9 @@ import Link from 'next/link';
 import { isBadgeIds, needLoginPath } from './data';
 import { MenuType, NavbarListType } from './type';
 import { useRedirect } from '@/hooks/useRedirect';
-import { usePathname } from 'next/navigation';
 import { useUserStore } from '@/store/zustand/userStore';
 import { useMissionCenterStore } from '@/store/zustand/missionCenterStore';
+import { useCustomPathname } from '@/hooks/useCheckPathname';
 
 export interface NavBarProps {
   navList: NavbarListType[];
@@ -31,7 +31,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
   const userInfo = useUserStore((state) => state.userInfo);
   const { navList, children, isFull } = NavBarProps;
   const { redirectToUrl } = useRedirect();
-  const pathname = usePathname();
+  const pathname = useCustomPathname();
   const [showSecondNav, setShowSecondNav] = useState(false);
   const [secondNavData, setSecondNavData] = useState<MenuType[]>([]);
   const [curNavId, setCurNavId] = useState('');

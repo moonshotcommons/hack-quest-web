@@ -16,6 +16,9 @@ import {
 import { useRedirect } from '@/hooks/useRedirect';
 import { MissionCenterContext } from '../../../constants/type';
 import { useUserStore } from '@/store/zustand/userStore';
+import { message } from 'antd';
+import { ProfileHandleType } from '@/app/(web)/(base page)/(profile)/user/profile/constants/type';
+import { errorMessage } from '@/helper/ui';
 
 interface TargetCardProp {
   missionData: MissionDataType;
@@ -40,14 +43,30 @@ const TargetCard: React.FC<TargetCardProp> = ({
   const [loading, setLoading] = useState(false);
   const { missionIds, updateMissionDataAll } = useContext(MissionCenterContext);
   const { redirectToUrl } = useRedirect();
-  const handleUnClaim = () => {
+  const handleUnClaim = async () => {
     BurialPoint.track(`mission-center-unClaim按钮 点击 点击`, {
       buttonName: unClaimText
     });
     switch (type) {
       case RewardsCardType.DISCORD:
         setLoading(true);
-        handleClaim();
+        // handleClaim();
+        debugger;
+        try {
+          const discordInfo = await webApi.userApi.getDiscordInfo();
+          if (!discordInfo.isConnect) {
+            message.info('Please bind first discord account!');
+            setTimeout(() => {
+              redirectToUrl(
+                `/user/profile?type=${ProfileHandleType.PERSONAL_EDIT}`
+              );
+            }, 1000);
+            return;
+          }
+        } catch (e) {
+          errorMessage(e);
+        }
+
         webApi.missionCenterApi
           .getMissionDiscord()
           .then((res) => {

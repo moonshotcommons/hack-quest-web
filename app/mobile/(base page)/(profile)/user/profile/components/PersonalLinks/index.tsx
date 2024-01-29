@@ -11,10 +11,12 @@ import { IconType } from '@/components/Web/Business/HoverIcon/type';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 interface PersonalLinksProps {}
 
 const PersonalLinks: FC<PersonalLinksProps> = (props) => {
   const { profile } = useContext(ProfileContext);
+  const query = useSearchParams();
   const personalLinkEditRef = useRef<PersonalLinkEditModalRef>(null);
 
   const [personLinks, setPersonLinks] = useState<Record<string, string>>({});

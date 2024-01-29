@@ -5,9 +5,22 @@ import { CourseType } from '@/service/webApi/course/type';
 import { useParams, usePathname } from 'next/navigation';
 import { useMemo } from 'react';
 
+export const useCustomPathname = () => {
+  const originPathname = usePathname();
+
+  const pathname = originPathname.startsWith('/mobile')
+    ? originPathname.replace('/mobile', '')
+    : originPathname;
+  return pathname;
+};
+
 export const useCheckPathname = () => {
   const params = useParams();
-  const pathname = usePathname();
+  const originPathname = usePathname();
+
+  const pathname = originPathname.startsWith('/mobile')
+    ? originPathname.replace('/mobile', '')
+    : originPathname;
 
   return useMemo(() => {
     const isLessonPage =
@@ -17,7 +30,7 @@ export const useCheckPathname = () => {
 
     const isLandingPage = pathname === '/';
 
-    const isMobileLink = pathname.startsWith('/mobile');
+    const isMobileLink = originPathname.startsWith('/mobile');
 
     const isNavbarFullPage = isLessonPage || isPreviewPage;
 
@@ -60,5 +73,5 @@ export const useCheckPathname = () => {
       /** 是否是mini elective的lesson page */
       isMiniElectiveLessonPage
     };
-  }, [params, pathname]);
+  }, [params, pathname, originPathname]);
 };

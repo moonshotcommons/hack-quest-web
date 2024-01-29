@@ -11,8 +11,9 @@ import { useRequest } from 'ahooks';
 import type { NextPage } from 'next';
 import Certifications from './Certifications';
 import { BurialPoint } from '@/helper/burialPoint';
-import { useEffect } from 'react';
+import { useEffect, Suspense } from 'react';
 import { ProfileContext } from '../constants/type';
+import Loading from '@/components/Common/Loading';
 
 interface IProps {}
 
@@ -56,7 +57,9 @@ const UserProfilePage: NextPage<IProps> = (props) => {
             }}
           >
             <OnChainActivity></OnChainActivity>
-            <PersonalLinks></PersonalLinks>
+            <Suspense fallback={<Loading loading></Loading>}>
+              <PersonalLinks></PersonalLinks>
+            </Suspense>
           </div>
         </div>
       </div>

@@ -10,10 +10,10 @@ import { message } from 'antd';
 import Link from 'next/link';
 import { isBadgeIds, navbarList, needLoginPath } from './data';
 import { MenuType, NavbarListType } from './type';
-import { usePathname } from 'next/navigation';
 import { useRedirect } from '@/hooks/useRedirect';
 import { useUserStore } from '@/store/zustand/userStore';
 import { useMissionCenterStore } from '@/store/zustand/missionCenterStore';
+import { useCustomPathname } from '@/hooks/useCheckPathname';
 
 export interface NavBarProps {
   navList: NavbarListType[];
@@ -30,7 +30,7 @@ type SlideNavigatorHighlight = React.CSSProperties & {
 const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
   const userInfo = useUserStore((state) => state.userInfo);
   const { navList, children, isFull } = NavBarProps;
-  const pathname = usePathname();
+  const pathname = useCustomPathname();
   const { redirectToUrl } = useRedirect();
   const [showSecondNav, setShowSecondNav] = useState(false);
   const [secondNavData, setSecondNavData] = useState<MenuType[]>([]);

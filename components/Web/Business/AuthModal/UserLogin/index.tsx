@@ -15,12 +15,12 @@ import { omit } from 'lodash-es';
 import useIsPc from '@/hooks/useIsPc';
 import TipsModal from '@/app/(web)/(base page)/(landing)/components/TipsModal';
 import { useRedirect } from '@/hooks/useRedirect';
-import { usePathname } from 'next/navigation';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
 import { cn } from '@/helper/utils';
 import { V2_LANDING_PATH } from '@/constants/nav';
 import { useRouter } from 'next/navigation';
+import { useCustomPathname } from '@/hooks/useCheckPathname';
 interface UserLoginProps {
   // children: ReactNode;
   email: string;
@@ -36,7 +36,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
       setAuthModalOpen: state.setAuthModalOpen
     }))
   );
-  const pathname = usePathname();
+  const pathname = useCustomPathname();
   const [formData, setFormData] = useState<LoginParamsType>({
     email: email,
     password: '',

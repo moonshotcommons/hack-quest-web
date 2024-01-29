@@ -1,5 +1,4 @@
 'use client';
-import { usePathname } from 'next/navigation';
 import { FC, createContext, useMemo } from 'react';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
@@ -12,6 +11,7 @@ import VerifyConfirmed from './VerifyConfirmed';
 import CheckInviteCode from './CheckInviteCode';
 import { useRedirect } from '@/hooks/useRedirect';
 import { motion } from 'framer-motion';
+import { useCustomPathname } from '@/hooks/useCheckPathname';
 interface AuthModalProps {
   changeNavState: VoidFunction;
 }
@@ -24,7 +24,7 @@ const Auth: FC<AuthModalProps> = ({ changeNavState }) => {
   const query = new URLSearchParams(
     typeof window !== 'undefined' ? window.location.search : ''
   );
-  const pathname = usePathname();
+  const pathname = useCustomPathname();
   const queryState = query.get('state');
   const type = query.get('type');
   const { redirectToUrl } = useRedirect();
