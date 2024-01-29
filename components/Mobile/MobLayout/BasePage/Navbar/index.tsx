@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import React, { ReactNode, useEffect, useState, FC } from 'react';
 import { useCycle } from 'framer-motion';
-import { V2_LANDING_PATH } from '@/constants/nav';
 
 import { NavbarListType } from './type';
 import { useRedirect } from '@/hooks/useRedirect';
@@ -12,7 +11,7 @@ import NavList from './NavList';
 import Auth from './Auth';
 import UserModule from './UserModule';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
-import { useCustomPathname } from '@/hooks/useCheckPathname';
+import { useCheckPathname } from '@/hooks/useCheckPathname';
 
 export interface NavbarProps {
   navList: NavbarListType[];
@@ -28,7 +27,7 @@ const Navbar: FC<NavbarProps> = (props) => {
   const userInfo = useUserStore((state) => state.userInfo);
   const { navList, children } = props;
   const { redirectToUrl } = useRedirect();
-  const pathname = useCustomPathname();
+  const { isLandingPage } = useCheckPathname();
   const missionData = useMissionCenterStore((state) => state.missionData);
   const [isOpen, toggleOpen] = useCycle(false, true);
 
@@ -43,7 +42,7 @@ const Navbar: FC<NavbarProps> = (props) => {
   const [navType, setNavType] = useState<NavType>(NavType.NAV_LIST);
 
   useEffect(() => {
-    if ((type || queryState) && pathname === V2_LANDING_PATH) {
+    if ((type || queryState) && isLandingPage) {
       setAuthType(type as AuthType);
       setNavType(NavType.AUTH);
       toggleOpen();
