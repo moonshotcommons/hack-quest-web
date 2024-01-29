@@ -2,14 +2,20 @@ import { MenuLink, NavbarListType } from './type';
 
 export const navbarList: NavbarListType[] = [
   {
+    label: 'Home',
+    id: 'home',
+    menu: [
+      {
+        label: 'Learner',
+        path: MenuLink.DASHBOARD,
+        needLogin: true
+      }
+    ]
+  },
+  {
     label: 'Learn',
     id: 'learn',
     menu: [
-      {
-        label: 'Dashboard',
-        path: MenuLink.DASHBOARD,
-        needLogin: true
-      },
       {
         label: 'Learning Track',
         path: MenuLink.LEARNING_TRACK
@@ -26,24 +32,24 @@ export const navbarList: NavbarListType[] = [
     ]
   },
   {
-    label: 'Missions',
-    id: 'missions',
+    label: 'Reward',
+    id: 'reward',
     menu: [
       {
-        label: 'Missions',
+        label: 'Mission',
         path: MenuLink.MISSION_CENTER,
         needLogin: true
       },
       {
-        label: 'Campaigns',
+        label: 'Campaign',
         path: MenuLink.CAMPAIGINS,
         needLogin: true
       }
     ]
   },
   {
-    label: 'Resources',
-    id: 'Resources',
+    label: 'Resource',
+    id: 'resource',
     menu: [
       {
         label: 'Hackathon',

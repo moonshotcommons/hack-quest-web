@@ -156,7 +156,6 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
 
   const { quizChildren, parseComponent } = useMemo(() => {
     let parseComponent: NotionComponent | null = null;
-    console.log(quiz.children);
     for (let i = quiz.children.length - 1; i >= 0; i--) {
       let child = quiz.children[i];
       console.log(child);
