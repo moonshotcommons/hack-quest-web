@@ -147,7 +147,9 @@ const MobLessonPage: FC<MobLessonPageProps> = (props) => {
             >
               <LessonSidebar lesson={lesson} />
               <LessonProgress lesson={lesson} />
-              <LessonNavbar />
+              <div className="mb-[.625rem]">
+                <LessonNavbar />
+              </div>
               <Split
                 className="flex-1 w-full relative"
                 minSize={360}
@@ -170,27 +172,29 @@ const MobLessonPage: FC<MobLessonPageProps> = (props) => {
                   return gutter;
                 }}
               >
-                <div className="absolute left-0 top-0 w-full h-full overflow-auto scroll-wrap-y px-[1.375rem] pb-[4.875rem]">
+                <div className="absolute left-0 top-0 w-full h-full overflow-auto scroll-wrap-y pb-[4.875rem]">
                   <LessonContent
                     lesson={lesson as any}
                     courseType={courseType}
                   ></LessonContent>
-                  <Playground
-                    lesson={lesson! as any}
-                    onCompleted={() => {
-                      if (lesson.state !== CompleteStateType.COMPLETED) {
-                        webApi.missionCenterApi
-                          .digTreasures(lessonId)
-                          .then((res) => {
-                            if (res.success && res.treasureId) {
-                              treasureModalRef.current?.open(res.treasureId);
-                            }
-                          });
-                      }
-                      // 当前lesson完成
-                      setIsHandleNext(true);
-                    }}
-                  ></Playground>
+                  <div className="px-[1.375rem]">
+                    <Playground
+                      lesson={lesson! as any}
+                      onCompleted={() => {
+                        if (lesson.state !== CompleteStateType.COMPLETED) {
+                          webApi.missionCenterApi
+                            .digTreasures(lessonId)
+                            .then((res) => {
+                              if (res.success && res.treasureId) {
+                                treasureModalRef.current?.open(res.treasureId);
+                              }
+                            });
+                        }
+                        // 当前lesson完成
+                        setIsHandleNext(true);
+                      }}
+                    ></Playground>
+                  </div>
                 </div>
                 {null}
               </Split>

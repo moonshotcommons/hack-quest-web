@@ -2,9 +2,8 @@ import { BurialPoint } from '@/helper/burialPoint';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
 import { ProjectCourseType } from '@/service/webApi/course/type';
 import { FC } from 'react';
-import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
+import { QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import CourseTags from '@/components/Web/Business/CourseTags';
-import { menuLink } from '@/components/Web/Business/Breadcrumb/data';
 import { useRedirect } from '@/hooks/useRedirect';
 import MobCardProgress from '../MobCardProgress';
 import Button from '@/components/Common/Button';
@@ -26,11 +25,22 @@ const MobPracticeCard: FC<PracticeCardProps> = (props) => {
       className={
         'flex flex-col w-full gap-[1rem] rounded-[1rem] p-[1rem] bg-neutral-white relative'
       }
-      onClick={() => {
-        BurialPoint.track('home-practice卡片点击', { practice: course.name });
-        redirectToUrl(
-          `${menuLink.electives}/${course.id}?${QueryIdType.MENU_COURSE_ID}=${course.id}&menu=${Menu.ELECTIVES}`
-        );
+      // onClick={() => {
+      //   BurialPoint.track('home-practice卡片点击', { practice: course.name });
+      //   redirectToUrl(
+      //     `${menuLink.electives}/${course.id}?${QueryIdType.MENU_COURSE_ID}=${course.id}&menu=${Menu.ELECTIVES}`
+      //   );
+      // }}
+      onClick={(e) => {
+        BurialPoint.track('home-course卡片Continue按钮点击', {
+          courseName: course.name
+        });
+        e.stopPropagation();
+        jumpLearningLesson(course, {
+          menu: 'electives',
+          idTypes: [QueryIdType.MENU_COURSE_ID],
+          ids: [course.id]
+        });
       }}
     >
       {course.progress && course.progress >= 1 ? (
