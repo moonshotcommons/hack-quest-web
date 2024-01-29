@@ -5,7 +5,6 @@ import { V2_LANDING_PATH } from '@/constants/nav';
 
 import { NavbarListType } from './type';
 import { useRedirect } from '@/hooks/useRedirect';
-import { usePathname } from 'next/navigation';
 
 import { useMissionCenterStore } from '@/store/zustand/missionCenterStore';
 import NavContainer from './NavContainer';
@@ -13,6 +12,7 @@ import NavList from './NavList';
 import Auth from './Auth';
 import UserModule from './UserModule';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
+import { useCustomPathname } from '@/hooks/useCheckPathname';
 
 export interface NavbarProps {
   navList: NavbarListType[];
@@ -28,7 +28,7 @@ const Navbar: FC<NavbarProps> = (props) => {
   const userInfo = useUserStore((state) => state.userInfo);
   const { navList, children } = props;
   const { redirectToUrl } = useRedirect();
-  const pathname = usePathname();
+  const pathname = useCustomPathname();
   const missionData = useMissionCenterStore((state) => state.missionData);
   const [isOpen, toggleOpen] = useCycle(false, true);
 

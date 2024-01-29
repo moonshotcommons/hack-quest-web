@@ -13,6 +13,9 @@ import { useRequest } from 'ahooks';
 import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';
 import { getThirdPartyMedia, thirdPartyMedia } from '@/helper/thirdPartyMedia';
+import ConnectIcon from './connect.svg';
+import Image from 'next/image';
+import { useRedirect } from '@/hooks/useRedirect';
 
 interface PersonalLinkEditModalProps {}
 
@@ -34,7 +37,7 @@ const PersonalLinkEditModal = forwardRef<
   const [open, setOpen] = useState(false);
   const [form] = Form.useForm<FormKeyValues>();
   const { profile, refresh } = useContext(ProfileContext);
-
+  const { redirectToUrl } = useRedirect();
   const [personLinks, setPersonLinks] = useState<Record<string, string>>({});
 
   useImperativeHandle(ref, () => {
@@ -50,7 +53,8 @@ const PersonalLinkEditModal = forwardRef<
       x: '',
       github: '',
       linkedIn: '',
-      telegram: ''
+      telegram: '',
+      discord: ''
     };
     Object.keys(profile?.personalLinks || {}).forEach((key: string) => {
       newValues[key] = profile?.personalLinks[key];
@@ -86,6 +90,23 @@ const PersonalLinkEditModal = forwardRef<
       }
     }
   );
+
+  const connectMedia = async (key: string) => {
+    switch (key) {
+      case 'x':
+      case 'github':
+      case 'linkedIn':
+      case 'telegram':
+      case 'discord':
+        webApi.userApi.getConnectUrlByDiscord().then((res) => {
+          window.open(
+            res.url,
+            '_blank',
+            'width=500,height=500,toolbar=no,menubar=no,location=no,status=no'
+          );
+        });
+    }
+  };
 
   return (
     <Modal
@@ -153,10 +174,21 @@ const PersonalLinkEditModal = forwardRef<
                   <input
                     defaultValue={profile?.personalLinks?.[key] || ''}
                     type="url"
+                    disabled={key !== 'x'}
                     placeholder="Please enter personal link"
                     className="flex-1 h-[30px] truncate text-[14px] font-next-book text-[#8C8C8C] leading-[160%] -tracking-[0.154px] outline-none bg-transparent"
                   />
                   <div className="w-[64px]"></div>
+                  {key !== 'x' && (
+                    <div
+                      className="w-[64px] flex justify-end cursor-pointer"
+                      onClick={() => {
+                        connectMedia(key);
+                      }}
+                    >
+                      <Image src={ConnectIcon} alt="connect.svg"></Image>
+                    </div>
+                  )}
                 </div>
               </Form.Item>
             );

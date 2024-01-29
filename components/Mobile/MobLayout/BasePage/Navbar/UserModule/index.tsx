@@ -15,7 +15,7 @@ interface UserModuleProps {
   toggleOpen: VoidFunction;
 }
 
-const UserModule: FC<UserModuleProps> = ({ changeNavType }) => {
+const UserModule: FC<UserModuleProps> = ({ changeNavType, toggleOpen }) => {
   const { setAuthType, userSignOut, userInfo } = useUserStore(
     useShallow((state) => ({
       setAuthType: state.setAuthType,
@@ -28,6 +28,7 @@ const UserModule: FC<UserModuleProps> = ({ changeNavType }) => {
   const signOut = () => {
     setAuthType(AuthType.LOGIN);
     userSignOut();
+    toggleOpen();
     BurialPoint.track('登出');
   };
 

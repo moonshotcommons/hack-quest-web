@@ -13,6 +13,8 @@ import { useRequest } from 'ahooks';
 import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';
 import { getThirdPartyMedia, thirdPartyMedia } from '@/helper/thirdPartyMedia';
+import ConnectIcon from './connect.svg';
+import Image from 'next/image';
 
 interface PersonalLinkEditModalProps {}
 
@@ -157,6 +159,14 @@ const PersonalLinkEditModal = forwardRef<
                     className="flex-1 h-[30px] truncate text-[14px] font-next-book text-[#8C8C8C] leading-[160%] -tracking-[0.154px] outline-none bg-transparent"
                   />
                   <div className="w-[64px]"></div>
+                  <div
+                    className="w-[64px] flex justify-end"
+                    onClick={() => {
+                      console.log(`连接到${key}`);
+                    }}
+                  >
+                    <Image src={ConnectIcon} alt="connect.svg"></Image>
+                  </div>
                 </div>
               </Form.Item>
             );
