@@ -53,6 +53,10 @@ const isNoNeedUserInfoDetail = (pathname: string) => {
 };
 
 export function isNoNeedUserInfo(pathname: string) {
+  if (pathname.startsWith('/mobile')) {
+    pathname = pathname.replace('/mobile', '');
+  }
+
   if (
     [
       HOME_PATHNAME,
