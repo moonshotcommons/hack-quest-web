@@ -30,7 +30,7 @@ const LessonList: React.FC<LessonListType> = ({
   const { redirectToUrl } = useRedirect();
   const { getLink } = useGetLessonLink();
   const getChildren = (item: UnitPagesListType) => {
-    if (!item || item?.disable) return;
+    if (!item || item?.disable || !item?.pages) return;
     setLessonList(item.pages as CourseLessonStateType[]);
     setUnitName(item.name);
   };
@@ -53,6 +53,7 @@ const LessonList: React.FC<LessonListType> = ({
     ) as UnitPagesListType;
     getChildren(unit);
   }, []);
+
   return (
     <div className="max-h-[60vh] overflow-auto w-full font-next-book">
       {!unitName ? (

@@ -100,7 +100,7 @@ const LessonContentComponent: FC<LessonContentProps> = (props) => {
           })}
           <Button
             icon={BugIcon}
-            className="bg-[#8c8c8c] text-white rounded-[10px] px-[16px] py-[14px]"
+            className="bg-[#8c8c8c] text-white rounded-[10px] px-[16px] py-[14px] ml-[1.375rem]"
             onClick={() => {
               onBugCommit?.();
             }}

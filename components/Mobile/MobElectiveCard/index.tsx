@@ -4,8 +4,7 @@ import { cn } from '@/helper/utils';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
 import { CourseType } from '@/service/webApi/course/type';
 import { FC, useCallback, useRef } from 'react';
-import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
-import { menuLink } from '@/components/Web/Business/Breadcrumb/data';
+import { QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import { useRedirect } from '@/hooks/useRedirect';
 import MobMiniElectiveDetailModal, {
   MiniElectiveDetailModalRef
@@ -35,9 +34,14 @@ const MobElectiveCard: FC<ElectiveCardProps> = (props) => {
         miniElectiveDetailInstance.current?.open(course);
         return;
       default:
-        redirectToUrl(
-          `${menuLink.electives}/${course.id}?${QueryIdType.MENU_COURSE_ID}=${course.id}&menu=${Menu.ELECTIVES}`
-        );
+        // redirectToUrl(
+        //   `${menuLink.electives}/${course.id}?${QueryIdType.MENU_COURSE_ID}=${course.id}&menu=${Menu.ELECTIVES}`
+        // );
+        jumpLearningLesson(course, {
+          menu: 'electives',
+          idTypes: [QueryIdType.MENU_COURSE_ID],
+          ids: [course.id]
+        });
     }
   }, [course]);
 

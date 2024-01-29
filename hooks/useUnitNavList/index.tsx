@@ -22,7 +22,7 @@ const formateDropdownData = (
     const newUnit = {
       ...unit,
       disable: !unit.progress && prevUnitProgress < 1,
-      pages: unit.pages.map((page, pageIndex) => {
+      pages: unit.pages?.map((page, pageIndex) => {
         const newPage = {
           ...page,
           disable:
