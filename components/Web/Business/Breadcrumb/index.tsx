@@ -2,8 +2,8 @@ import { BurialPoint } from '@/helper/burialPoint';
 import { tagFormate } from '@/helper/formate';
 import webApi from '@/service';
 import Link from 'next/link';
-import { useParams, usePathname, useSearchParams } from 'next/navigation';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { useParams, useSearchParams } from 'next/navigation';
+import React, { useCallback, useEffect, useState } from 'react';
 import { menuLink, menuName, navIdType, navLinks } from './data';
 import { MenuNameType, QueryIdType } from './type';
 
