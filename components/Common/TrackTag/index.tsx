@@ -6,11 +6,14 @@ interface TrackTagProp {
   className?: string;
 }
 
-const TrackTag: React.FC<TrackTagProp> = ({ track, className }) => {
+const TrackTag: React.FC<TrackTagProp> = ({
+  track,
+  className = 'caption-12pt '
+}) => {
   return (
     <div
       className={cn(
-        'caption-12pt text-neutral-rich-gray w-fit  px-[12px] py-[4px] border-[0.5px] border-neutral-rich-gray rounded-[20px]',
+        'text-neutral-rich-gray w-fit  px-[12px] py-[4px] border-[0.5px] border-neutral-rich-gray rounded-[20px]',
         className
       )}
     >
