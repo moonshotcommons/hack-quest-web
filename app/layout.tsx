@@ -11,7 +11,7 @@ import AuthModal from '@/components/Web/Business/AuthModal';
 
 export const metadata: Metadata = {
   title: 'HackQuest',
-  // description: 'The connected workspace where better, faster work happens.',
+  description: 'Learn and Grow Careers in Web3.',
   icons: {
     icon: [
       {

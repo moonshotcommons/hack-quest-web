@@ -34,6 +34,7 @@ function useNavAuth(waitingUserData: boolean) {
       } else {
         redirectToUrl(V2_DASHBOARD_PATH);
       }
+
       return;
     }
 
