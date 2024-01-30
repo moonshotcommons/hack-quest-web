@@ -14,6 +14,7 @@ import {
   UserLearnedCountType
 } from './type';
 import { transformQueryString } from '@/helper/formate';
+import { ThirdPartyMediaType } from '@/helper/thirdPartyMedia';
 
 export enum UserApiType {
   CheckEmail = '/users/verify-email',
@@ -319,6 +320,10 @@ class UserApi {
     return this.service.get<{ isConnect: boolean; thirdUser: any }>(
       UserApiType.GetDiscordInfo
     );
+  }
+
+  disconnect(type: ThirdPartyMediaType) {
+    return this.service.delete(`/auth/${type}/disconnect`);
   }
 }
 
