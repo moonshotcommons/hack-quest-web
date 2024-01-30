@@ -8,21 +8,18 @@ interface FooterProp {
   className?: string;
   borderColor?: string;
   blog: BlogType;
+  iconSize?: number;
 }
 
 const BlogCardFooter: React.FC<FooterProp> = ({
-  className,
+  className = 'text-[16px] text-[#8C8C8C] leading-[25.6px] tracking-[0.32px]',
   borderColor,
-  blog
+  blog,
+  iconSize = 26
 }) => {
   if (!blog?.id) return null;
   return (
-    <div
-      className={cn(
-        'flex items-center text-[16px] text-[#8C8C8C] leading-[25.6px] tracking-[0.32px] w-full',
-        className
-      )}
-    >
+    <div className={cn('flex items-center  w-full', className)}>
       <div
         className={cn(
           'border-r border-r-[#000] pr-[10px] flex items-center max-w-[42.5%]',
@@ -37,7 +34,7 @@ const BlogCardFooter: React.FC<FooterProp> = ({
           {blog?.creatorName}
         </div>
 
-        <BsArrowRightShort size={26} />
+        <BsArrowRightShort size={iconSize} />
       </div>
       <div className={cn('border-r border-r-[#000] px-[10px]', borderColor)}>
         {moment(blog?.publishDate).format('ll')}
