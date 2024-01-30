@@ -5,6 +5,7 @@ import React from 'react';
 import Image from 'next/image';
 import Loading from '@/public/images/other/loading.png';
 import { ThirdPartyMediaType } from '@/helper/thirdPartyMedia';
+import { errorMessage } from '@/helper/ui';
 
 interface ConnectGithubProp {}
 
@@ -23,11 +24,15 @@ const ConnectGithub: React.FC<ConnectGithubProp> = () => {
         if (!tokenType || !accessToken) {
           return;
         }
-        const res = await webApi.userApi.linkDiscord(tokenType, accessToken);
-        localStorage.setItem('linkDiscord', `${+new Date()}`);
-        localStorage.setItem('linkDiscordData', JSON.stringify(res));
+        try {
+          debugger;
+          const res = await webApi.userApi.linkDiscord(tokenType, accessToken);
+          localStorage.setItem('linkDiscord', `${+new Date()}`);
+          localStorage.setItem('linkDiscordData', JSON.stringify(res));
+        } catch (e) {
+          errorMessage(e);
+        }
         window.close();
-        return res;
       }
 
       case 'disconnect':
@@ -38,7 +43,6 @@ const ConnectGithub: React.FC<ConnectGithubProp> = () => {
     }
   });
 
-  console.log(data);
   return (
     <div className="fixed w-[100vw] h-[100vh] bg-[#fff] left-0 top-0 z-[9999] flex-center">
       <Image
