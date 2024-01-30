@@ -17,6 +17,7 @@ import CardProgress from '../CardProgress';
 import Button from '@/components/Common/Button';
 import { MenuLink } from '@/components/Layout/Navbar/type';
 import TrackTag from '@/components/Common/TrackTag';
+import CompletedIcon from '@/components/Common/Icon/Completed';
 
 interface PracticeCardProps {
   course: ProjectCourseType;
@@ -80,7 +81,7 @@ const PracticeCard: FC<PracticeCardProps> = (props) => {
   return (
     <div
       className={
-        'flex  flex-col h-[398px] relative rounded-[12px] bg-neutral-white w-full shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] card-hover'
+        'flex  flex-col rounded-[12px] bg-neutral-white w-full shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] card-hover'
       }
       onClick={() => {
         BurialPoint.track('home-practice卡片点击', { practice: course.name });
@@ -89,28 +90,15 @@ const PracticeCard: FC<PracticeCardProps> = (props) => {
         );
       }}
     >
-      {from === 'dashboard' && !!course.progress && course.progress >= 1 ? (
-        <div className={`absolute top-[16px]  right-[16px] z-10`}>
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 32 32"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <circle cx="16" cy="16" r="16" fill="#00C365" />
-            <path
-              d="M8 15.9999L14.4 22.3999L25.6 11.1999"
-              stroke="white"
-              strokeLinecap="round"
-            />
-          </svg>
-        </div>
-      ) : null}
-      <div className="w-full relative  h-[182px]">
+      <div className="h-0 w-full pt-[56%] relative">
         {imageRender(course.track)}
       </div>
-      <div className="flex-1 flex flex-col justify-between w-full p-[16px] relative ">
+      <div className="h-[216px] flex flex-col justify-between w-full p-[16px] relative ">
+        {from === 'dashboard' && !!course.progress && course.progress >= 1 ? (
+          <div className={`absolute top-[16px]  right-[16px] z-10`}>
+            <CompletedIcon />
+          </div>
+        ) : null}
         <div className="flex flex-col gap-[16px]">
           <TrackTag track={course.track} />
           <h2 className={`body-m-bold  line-clamp-2`}>{course.title}</h2>
