@@ -144,10 +144,10 @@
     @apply text-[18px] leading-normal tracking-normal underline;
   }
   .underline-m {
-    @apply text-[18px] leading-normal tracking-normal underline;
+    @apply text-[16px] leading-normal tracking-normal underline;
   }
   .underline-s {
-    @apply text-[18px] leading-normal tracking-normal underline;
+    @apply text-[14px] leading-normal tracking-normal underline;
   }
 }
 

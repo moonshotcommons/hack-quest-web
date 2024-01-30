@@ -7,6 +7,7 @@ import { menuLink } from '@/components/Web/Business/Breadcrumb/data';
 import { useRedirect } from '@/hooks/useRedirect';
 import LearningTrackImg from '@/public/images/home/learningtrack_img.png';
 import TrackTag from '@/components/Common/TrackTag';
+import CompletedIcon from '@/components/Common/Icon/Completed';
 interface LearningTrackCardProps {
   learningTrack: LearningTrackDetailType;
   isLandingPage?: boolean;
@@ -39,20 +40,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
       learningTrack.progress &&
       learningTrack.progress >= 1 ? (
         <div className={`absolute  right-[16px] top-[16px]`}>
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 32 32"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <circle cx="16" cy="16" r="16" fill="#00C365" />
-            <path
-              d="M8 15.9999L14.4 22.3999L25.6 11.1999"
-              stroke="white"
-              strokeLinecap="round"
-            />
-          </svg>
+          <CompletedIcon />
         </div>
       ) : null}
 

@@ -68,16 +68,10 @@ const UgcFooter: React.FC<UgcFooterProp> = ({}) => {
             key={item.id}
             className="w-[70px] h-[5px] rounded-[3px] bg-neutral-medium-gray overflow-hidden"
           >
-            {currentUnitIndex >= i ? (
-              <div
-                className="h-full rounded-[3px] bg-yellow-dark transition-all"
-                style={{
-                  width: `${
-                    currentUnitIndex === i ? item.progress * 100 : '100'
-                  }%`
-                }}
-              ></div>
-            ) : null}
+            <div
+              className="h-full rounded-[3px] bg-yellow-dark transition-all"
+              style={{ width: `${item.progress * 100}%` }}
+            ></div>
           </div>
         ))}
       </div>

@@ -52,7 +52,7 @@ const Past: FC<PastProps> = (props) => {
       <div className="flex w-full gap-x-[22px] flex-wrap gap-y-[22px]">
         {hackathonList.map((hackathon, index) => {
           return (
-            <div key={index} className="w-[calc(33.33%-15px)]">
+            <div key={index} className="w-[calc((100%-44px)/3)]">
               <PastHackathonCard hackathon={hackathon}></PastHackathonCard>
             </div>
           );

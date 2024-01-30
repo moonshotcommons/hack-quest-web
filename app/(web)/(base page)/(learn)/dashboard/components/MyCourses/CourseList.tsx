@@ -18,6 +18,7 @@ const CourseList: React.FC<CourseListProp> = ({ list, curTab }) => {
   const card = (course: CourseDetailType) => {
     switch (course.type) {
       case CourseType.MINI:
+      case CourseType.UGC:
         return (
           <ElectiveCard
             course={course as ElectiveCourseType}
