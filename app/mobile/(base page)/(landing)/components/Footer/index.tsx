@@ -20,7 +20,7 @@ const Footer: FC<FooterProps> = (props) => {
         {FOOTER_LINKS.map((item, index) => {
           return (
             <div key={index} className="flex flex-col gap-5">
-              <h4 className="text-h4 font-next-book-bold">{item.group}</h4>
+              <h4 className="text-h4">{item.group}</h4>
               <div className="body-m flex flex-col gap-2">
                 {item.links.map((link, i) => {
                   return (

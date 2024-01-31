@@ -202,21 +202,6 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
             </p>
           </div>
         </div>
-
-        {/* <Button
-          onClick={onBack}
-          block
-          className="
-            font-next-book
-            text-[1.125rem]
-            border
-            bg-transparent
-            text-neutral-white hover:text-auth-ghost-button-text-hover-color
-            border-neutral-white hover:border-auth-ghost-button-border-hover-color
-          "
-        >
-          Back
-        </Button> */}
       </div>
       <Button
         onClick={onRegister}

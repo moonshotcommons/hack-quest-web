@@ -114,7 +114,7 @@ const GithubActivity: FC<GithubActivityProps> = ({ edit = false }) => {
     };
   }, []);
   return (
-    <Box className="group relative flex h-[261px] flex-col justify-between font-next-poster">
+    <Box className="group relative flex h-[261px] flex-col justify-between ">
       {!!githubInfo && edit && (
         <div className="absolute right-[30px] top-[30px] hidden group-hover:block">
           <div className="flex gap-[10px]">
@@ -159,17 +159,13 @@ const GithubActivity: FC<GithubActivityProps> = ({ edit = false }) => {
               <p className="text-[54px] leading-[86px] text-neutral-black">
                 {separationNumber(githubInfo.commit)}
               </p>
-              <p className="tracking-[0.36px] text-neutral-medium-gray">
-                Commits
-              </p>
+              <p className="text-neutral-medium-gray">Commits</p>
             </div>
             <div className="flex w-[47.99%] flex-col justify-between border-l-[0.5px] border-l-[#000] text-center">
               <p className="text-[54px] leading-[86px] text-neutral-black">
                 {separationNumber(githubInfo.start)}
               </p>
-              <p className="tracking-[0.36px] text-neutral-medium-gray">
-                Github Repo Stars
-              </p>
+              <p className="text-neutral-medium-gray">Github Repo Stars</p>
             </div>
           </div>
         </div>

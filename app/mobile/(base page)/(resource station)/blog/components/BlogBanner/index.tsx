@@ -76,7 +76,7 @@ const BlogBanner: React.FC<BannerProp> = () => {
 
   return (
     <div
-      className="h-[487px] pb-[40px] pt-[60px]  font-next-book text-neutral-white"
+      className="h-[487px] pb-[40px] pt-[60px] text-neutral-white"
       style={{
         backgroundColor: '#0B0B0B',
         backgroundImage: `url(${BlogBannerBg.src})`,
@@ -87,9 +87,7 @@ const BlogBanner: React.FC<BannerProp> = () => {
     >
       <div className="container mx-auto flex h-full flex-col justify-between">
         <div>
-          <p className="font-next-book-bold text-[42px] leading-[67px] tracking-[0.84px]">
-            BLOG
-          </p>
+          <p className="text-h2">BLOG</p>
           <p className="w-[528px] text-[21px] leading-[33px] tracking-[0.42px]">
             Explore our Web3 Blog – your hub for news, events, and study notes!
             Contribute your insights, shaping the conversation in the world of

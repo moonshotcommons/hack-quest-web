@@ -81,7 +81,7 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
 
   return (
     <div
-      className="h-[487px] pb-[40px] pt-[60px]  font-next-book text-neutral-white"
+      className="h-[487px] pb-[40px] pt-[60px]  text-neutral-white"
       style={{
         backgroundColor: '#0B0B0B',
         backgroundImage: `url(${BlogBannerBg.src})`,

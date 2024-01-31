@@ -95,7 +95,7 @@ const MiniElectiveCompletedModal = forwardRef<
           <p className="body-m text-center text-neutral-rich-gray">
             You have completed this mini. Continue to claim your Badge.
           </p>
-          <div className="flex w-full flex-col gap-y-[15px] font-next-book text-base leading-[125%] tracking-[0.32px]">
+          <div className="body-m flex w-full flex-col gap-y-[15px]">
             <Button block type="primary" className="py-[11px]">
               Claim Badge
             </Button>

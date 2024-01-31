@@ -26,12 +26,11 @@ const DailyQuests: React.FC<TabContentType> = ({
         </div>
         <Button
           className={`body-l h-[60px] w-[270px] border-auth-primary-button-border-color bg-auth-primary-button-bg
-          tracking-[0.36px]
-          text-auth-primary-button-text-color text-neutral-black ${
-            !allIds.length
-              ? 'cursor-not-allowed opacity-50'
-              : 'hover:border-auth-primary-button-border-hover-color hover:bg-auth-primary-button-hover-bg hover:text-auth-primary-button-text-hover-color'
-          }`}
+           text-neutral-black ${
+             !allIds.length
+               ? 'cursor-not-allowed opacity-50'
+               : 'hover:border-auth-primary-button-border-hover-color hover:bg-auth-primary-button-hover-bg hover:text-auth-primary-button-text-hover-color'
+           }`}
           disabled={!allIds.length}
           loading={missionIds.join() === allIds.join() && missionIds.length > 0}
           onClick={handleAllClaim}

@@ -22,7 +22,7 @@ const UserProfile: FC<UserProfileProps> = ({ profile }) => {
       </div>
       <div
         className={cn(
-          'h-full rounded-b-[10px] px-[30px] pb-[35px] pt-[80px] font-next-book transition-shadow duration-200'
+          'h-full rounded-b-[10px] px-[30px] pb-[35px] pt-[80px] transition-shadow duration-200'
         )}
       >
         <div className="mb-[30px] flex flex-col gap-[10px]">

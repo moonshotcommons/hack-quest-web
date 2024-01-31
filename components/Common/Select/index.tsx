@@ -94,11 +94,7 @@ const Select = forwardRef<
 
   return (
     <div className="relative flex w-full flex-col gap-[0.75rem]">
-      {label ? (
-        <p className="font-next-poster text-[21px] leading-[125%] tracking-[1.26px]">
-          {label}
-        </p>
-      ) : null}
+      {label ? <p className="body-l">{label}</p> : null}
 
       <div className="relative">
         <input
@@ -152,7 +148,7 @@ const Select = forwardRef<
           )}
         </span>
         {visibleOption && (
-          <div className="absolute left-0 top-0 z-[1000] w-full overflow-hidden rounded-[24px] border border-neutral-dark-gray bg-neutral-white pb-[5px] font-next-book text-[21px] text-[#]">
+          <div className="body-l absolute left-0 top-0 z-[1000] w-full overflow-hidden rounded-[24px] border border-neutral-dark-gray bg-neutral-white pb-[5px]">
             <div
               className="mx-[20px] flex h-[48px] cursor-pointer items-center justify-between border-b border-b-[#8C8C8C]"
               onClick={() => {
@@ -189,12 +185,10 @@ const Select = forwardRef<
       </div>
 
       {description && (
-        <p className="text- ml-[1.5rem]  font-Sofia-Pro-Light-Az text-[1rem] leading-[150%] tracking-[-0.011rem]">
-          {description}
-        </p>
+        <p className="text- body-m  ml-[1.5rem]">{description}</p>
       )}
       {errorMessage && (
-        <p className="flex flex-row items-center gap-2 font-Sofia-Pro-Light-Az text-[1rem] leading-[150%] tracking-[-0.011rem] text-auth-input-error-color">
+        <p className="body-m flex flex-row items-center gap-2 text-auth-input-error-color">
           <WarningIcon width={17} height={16}></WarningIcon>
           {errorMessage}
         </p>

@@ -142,7 +142,7 @@ const Breadcrumb: React.FC = () => {
       return (
         <div key={i}>
           <span className="mx-2">/</span>
-          <span className={`font-next-book-bold underline`}>{item.label}</span>
+          <span className={`font-bold underline`}>{item.label}</span>
         </div>
       );
     }

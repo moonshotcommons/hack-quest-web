@@ -23,7 +23,7 @@ const UserProfile: FC<UserProfileProps> = (props) => {
       </div>
       <div
         className={cn(
-          'h-full rounded-b-[10px] px-[30px] pb-[35px] pt-[80px] font-next-book transition-shadow duration-200',
+          'h-full rounded-b-[10px] px-[30px] pb-[35px] pt-[80px] transition-shadow duration-200',
           showEditIcon ? 'shadow-[0px_4px_16px_0px_rgba(0,0,0,0.25)]' : ' '
         )}
         onMouseEnter={() => {
@@ -54,23 +54,19 @@ const UserProfile: FC<UserProfileProps> = (props) => {
           {profile.user?.email}&nbsp;
         </div>
         <div className="mt-[31.5px] flex items-center gap-x-[15px]">
-          <span className="text-[21px] leading-[160%] tracking-[0.42px] text-neutral-medium-gray">
-            Location:
-          </span>
-          <span className="text-[21px] leading-[160%] tracking-[0.063px] text-neutral-black">
+          <span className="body-l text-neutral-medium-gray">Location:</span>
+          <span className="body-l text-neutral-black">
             {profile.location || '-'}
           </span>
         </div>
         <div className="mt-[13px] flex items-center gap-x-[15px]">
-          <span className="text-[21px] leading-[160%] tracking-[0.42px] text-neutral-medium-gray">
-            Experience:
-          </span>
-          <span className="text-[21px] leading-[160%] tracking-[0.063px] text-neutral-black">
+          <span className="body-l text-neutral-medium-gray">Experience:</span>
+          <span className="body-l text-neutral-black">
             {`${profile.experience || 0} Years`}
           </span>
         </div>
         <div className="mt-[11.5px] flex items-start gap-x-[15px]">
-          <span className="whitespace-nowrap text-[21px] leading-[160%] tracking-[0.42px] text-neutral-medium-gray">
+          <span className="body-l whitespace-nowrap text-neutral-medium-gray">
             Tech Stack:
           </span>
           <div className="flex flex-wrap gap-[10px]">

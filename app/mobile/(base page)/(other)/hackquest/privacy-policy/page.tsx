@@ -3,7 +3,7 @@ import Bg from '@/public/images/home/policy_banner.svg';
 
 const PrivacyPolicy = () => {
   return (
-    <div className="w-full text-center font-next-book-bold text-text-default-color">
+    <div className="w-full text-center text-text-default-color">
       <div className="relative h-[60.25rem] w-full bg-default-global-bg">
         <Image src={Bg} alt="bg" className="mt-[3.375rem] w-full"></Image>
         <div className="absolute -top-[3.375rem] left-0 h-full w-full bg-gradient-to-b from-transparent to-default-global-bg">

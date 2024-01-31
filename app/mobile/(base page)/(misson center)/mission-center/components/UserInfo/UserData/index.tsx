@@ -52,11 +52,9 @@ const UserData: React.FC<UserDataType> = ({
       </div>
 
       <div className="flex-col-center mb-[40px] mt-[20px]">
-        <p className="leading-[22.5px]">
+        <p className="">
           <span className="body-l ">{userInfo?.nickname}</span>
-          <span className="body-m ml-[15px] font-next-book-Thin font-[250]">
-            Lv. {userLevel?.level ?? 0}
-          </span>
+          <span className="body-m ml-[15px]">Lv. {userLevel?.level ?? 0}</span>
         </p>
       </div>
 

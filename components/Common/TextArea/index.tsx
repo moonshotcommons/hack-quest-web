@@ -117,9 +117,7 @@ const TextArea = forwardRef<
 
   return (
     <div className="flex flex-col gap-[0.75rem]">
-      <p className="font-next-poster text-[21px] leading-[125%] tracking-[1.26px]">
-        {label}
-      </p>
+      <p className="body-l">{label}</p>
       <div className="relative">
         <textarea
           ref={textareaRef}
@@ -194,12 +192,10 @@ const TextArea = forwardRef<
         </span>
       </div>
       {description && (
-        <p className="text- ml-[1.5rem]  font-Sofia-Pro-Light-Az text-[1rem] leading-[150%] tracking-[-0.011rem]">
-          {description}
-        </p>
+        <p className="text- body-m  ml-[1.5rem]">{description}</p>
       )}
       {errorMessage && (
-        <p className="flex flex-row items-center gap-2 font-Sofia-Pro-Light-Az text-[1rem] leading-[150%] tracking-[-0.011rem] text-auth-input-error-color">
+        <p className="body-m flex flex-row items-center gap-2 text-auth-input-error-color">
           <WarningIcon width={17} height={16}></WarningIcon>
           {errorMessage}
         </p>

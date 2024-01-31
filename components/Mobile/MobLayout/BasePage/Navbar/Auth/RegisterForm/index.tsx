@@ -209,7 +209,7 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
           onClick={onBack}
           block
           className="
-            font-next-book
+            
             text-[1.125rem]
             border
             bg-transparent

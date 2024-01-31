@@ -40,9 +40,7 @@ const FeatureBlogCard: React.FC<FeatureBlogCardProp> = ({ blog }) => {
               />
             ))}
           </div>
-          <div className="line-clamp-2 font-next-book-bold text-[28px] leading-[45px] tracking-[0.56px]">
-            {blog.title}
-          </div>
+          <div className="text-h3 line-clamp-2">{blog.title}</div>
           <div className="body-l line-clamp-5 text-neutral-black">
             {blog.description}
           </div>

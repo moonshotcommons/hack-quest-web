@@ -113,7 +113,7 @@ const MobMiniElectiveDetailModal = forwardRef<
               ? 'cursor-pointer'
               : '',
             state === CompleteStateType.LEARNING
-              ? 'font-next-book-bold text-neutral-off-black'
+              ? 'font-bold text-neutral-off-black'
               : '',
             state === CompleteStateType.NOT_STARTED
               ? 'text-neutral-medium-gray'
@@ -241,7 +241,7 @@ const MobMiniElectiveDetailModal = forwardRef<
                   type="primary"
                   block
                   className={cn(
-                    'h-fit py-[16px] font-next-book',
+                    'h-fit py-[16px] ',
                     jumpLoading ? 'cursor-not-allowed' : 'cursor-pointer'
                   )}
                   loading={jumpLoading}

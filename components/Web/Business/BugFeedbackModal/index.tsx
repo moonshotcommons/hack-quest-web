@@ -234,13 +234,13 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
         markBg="black"
       >
         <div className="w-[1000px] rounded-[10px] bg-neutral-off-white px-[200px] pb-[76px] pt-10">
-          <h1 className="font-next-book text-[32px] leading-[125%] tracking-[0.64px] text-neutral-black">
+          <h1 className="text-h3 text-neutral-black">
             Found a bug? Claim rewards!
           </h1>
           <p className="body-s mt-[10px] text-neutral-black">
             {`HackQuest is currently in beta, and your feedback is crucial. If you come across any bug or error while learning, report it to us. Once verified,  we'll reward you with XP and hack credits. Join us in delivering a better experience! 🐞🚀`}
           </p>
-          <p className="mt-[30px] font-next-book text-base leading-[125%] tracking-[0.32px] text-neutral-black">
+          <p className="body-l mt-[30px] text-neutral-black">
             What kind of bugs have you found?
           </p>
           <Form ref={formRef} name="control-hooks">

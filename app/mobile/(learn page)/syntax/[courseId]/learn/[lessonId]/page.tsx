@@ -12,7 +12,7 @@ const GuidedProjectLessonPage: NextPage<IProps> = (props) => {
 
   return (
     <>
-      <div className="flex h-full w-full flex-col font-next-book-Thin">
+      <div className="flex h-full w-full flex-col">
         <MobLessonPage
           lessonId={lessonId as string}
           courseType={CourseType.SYNTAX}

@@ -57,7 +57,7 @@ const Experience: FC<ExperienceProps> = ({ edit = false }) => {
   };
 
   return (
-    <Box className="group relative font-next-poster">
+    <Box className="group relative ">
       {listData?.length > 0 && edit && (
         <div className="absolute right-[30px] top-[30px] hidden group-hover:block">
           <HoverIcon
@@ -113,7 +113,7 @@ const Experience: FC<ExperienceProps> = ({ edit = false }) => {
                     </div>
                   )}
                   {v.descriptions.length > 1 && (
-                    <div className="flex justify-end font-next-book tracking-[0.1px]  ">
+                    <div className="flex justify-end">
                       <div
                         onClick={() => handleShowMore(i)}
                         className="underline-l cursor-pointer text-neutral-medium-gray"

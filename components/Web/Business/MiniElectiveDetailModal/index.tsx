@@ -111,7 +111,7 @@ const MiniElectiveDetailModal = forwardRef<
               ? 'cursor-pointer'
               : '',
             state === CompleteStateType.LEARNING
-              ? 'font-next-book-bold text-neutral-off-black'
+              ? 'body-l-bold text-neutral-off-black'
               : '',
             state === CompleteStateType.NOT_STARTED
               ? 'text-neutral-medium-gray'
@@ -173,10 +173,8 @@ const MiniElectiveDetailModal = forwardRef<
                   <Image src={course.image} fill alt="cover"></Image>
                 </div>
                 <div>
-                  <h2 className="text-h2 leading-[125%] tracking-[2.4px] text-neutral-black">
-                    {course.name}
-                  </h2>
-                  <p className="body-m mt-[16px] text-neutral-rich-gray">
+                  <h2 className="text-h2 text-neutral-black">{course.name}</h2>
+                  <p className="mt-[16px] text-neutral-rich-gray">
                     {course.description}
                   </p>
                 </div>
@@ -228,7 +226,7 @@ const MiniElectiveDetailModal = forwardRef<
                     type="primary"
                     block
                     className={cn(
-                      'h-fit py-[16px] font-next-book',
+                      'h-fit py-[16px] ',
                       jumpLoading ? 'cursor-not-allowed' : 'cursor-pointer'
                     )}
                     loading={jumpLoading}

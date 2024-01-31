@@ -58,7 +58,7 @@ const Hackathon: FC<HackathonProps> = ({ edit = false }) => {
   };
 
   return (
-    <Box className="group relative font-next-poster">
+    <Box className="group relative ">
       {listData?.length > 0 && edit && (
         <div className="absolute right-[30px] top-[30px] hidden group-hover:block">
           <HoverIcon

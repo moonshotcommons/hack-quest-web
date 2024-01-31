@@ -47,7 +47,7 @@ const CodeRenderer: FC<CodeRendererProps> = (props) => {
     <div className={`relative rounded-md`}>
       <div className="relative h-[6px] rounded-t-[4.8px] bg-[#fafafa]">
         <div
-          className="absolute right-[9px] top-[9px] z-[10] cursor-pointer rounded-[0.5rem] font-next-book text-[0.75rem] text-[#E3E3E3]"
+          className="body-s absolute right-[9px] top-[9px] z-[10] cursor-pointer rounded-[0.5rem] text-[#E3E3E3]"
           onClick={async (e) => {
             try {
               await navigator.clipboard.writeText(

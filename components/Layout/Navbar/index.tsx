@@ -104,7 +104,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
           isFull ? 'w-full 2xl:px-[40px]' : 'container'
         }`}
       >
-        <div className="flex  h-full items-center justify-between font-next-book slab:hidden">
+        <div className="flex  h-full items-center justify-between  slab:hidden">
           <nav className="flex h-full items-center text-neutral-white">
             <div
               className={`flex h-full items-center ${

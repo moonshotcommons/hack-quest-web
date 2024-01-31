@@ -71,7 +71,7 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
           }
         }}
       >
-        <div className="mt-[32px] font-next-book-bold leading-[125%] tracking-[0.36px]">
+        <div className="mt-[32px]">
           {quiz?.children?.map((child: any, index: number) => {
             return (
               <ComponentRenderer

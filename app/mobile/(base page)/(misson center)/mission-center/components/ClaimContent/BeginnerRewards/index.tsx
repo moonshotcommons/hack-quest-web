@@ -27,9 +27,7 @@ const BeginnerRewards: React.FC<TabContentType> = ({
           {`We're here to help you get started on your HackQuest journey while also giving you the chance to earn rewards. Let's embark on this learning journey together! 🚀`}
         </div>
         <Button
-          className={`body-l h-[60px] w-[270px] border-auth-primary-button-border-color bg-auth-primary-button-bg 
-          tracking-[0.36px] 
-          text-auth-primary-button-text-color text-neutral-black ${
+          className={`body-l h-[60px] w-[270px] border-auth-primary-button-border-color bg-auth-primary-button-bg  text-neutral-black ${
             !allIds.length
               ? 'cursor-not-allowed opacity-50'
               : 'hover:border-auth-primary-button-border-hover-color hover:bg-auth-primary-button-hover-bg hover:text-auth-primary-button-text-hover-color'

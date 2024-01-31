@@ -15,7 +15,7 @@ const TipsModal: React.FC<TipsModalProp> = ({ open, onClose }) => {
       showCloseIcon={true}
       icon={<FiX size={26} color="#fff" />}
     >
-      <div className="flex-col-center w-[90vw] rounded-[10px] bg-neutral-rich-gray py-[30px] font-next-book text-neutral-white shadow-[0px_4px_8px_0_rgba(0,0,0,0.12)]">
+      <div className="flex-col-center w-[90vw] rounded-[10px] bg-neutral-rich-gray py-[30px] text-neutral-white shadow-[0px_4px_8px_0_rgba(0,0,0,0.12)]">
         <p className="text-[48px]">😵</p>
         <p className="body-xl-bold mt-[25px]">Laptop is preferred</p>
         <p className="body-s mt-[20px] w-[255px]">

@@ -35,7 +35,7 @@ const MiniElectiveCard: React.FC<MiniElectiveCardProp> = ({ elective }) => {
   return (
     <>
       <div
-        className="flex h-[336px] cursor-pointer overflow-hidden rounded-[10px] bg-neutral-white font-next-book text-neutral-black shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)]"
+        className="flex h-[336px] cursor-pointer overflow-hidden rounded-[10px] bg-neutral-white text-neutral-black shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)]"
         onClick={() => handleClick()}
       >
         <div className="relative h-full w-[597px]">
@@ -49,13 +49,9 @@ const MiniElectiveCard: React.FC<MiniElectiveCardProp> = ({ elective }) => {
         <div className="flex h-full  flex-1 flex-shrink-0 flex-col justify-between px-[40px] py-[20px]">
           <div>
             <p className="body-l text-[rgba(11,11,11,0.6)]">{elective.type}</p>
-            <p className="font-next-book-bold text-[21px] leading-[26px]">
-              {elective.name}
-            </p>
+            <p className="text-h3">{elective.name}</p>
           </div>
-          <div className="line-clamp-3 h-[78px] leading-[25px]">
-            {elective.description}
-          </div>
+          <div className="line-clamp-3 h-[78px]">{elective.description}</div>
           <div>
             <ElectiveTag elective={elective} />
           </div>

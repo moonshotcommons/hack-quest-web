@@ -42,7 +42,7 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
         <p className="body-m">{mantle.description}</p>
       </div>
       <div
-        className={`flex h-fit gap-[40px] rounded-[10px] border border-neutral-medium-gray px-[30px] py-[20px] font-next-book ${
+        className={`flex h-fit gap-[40px] rounded-[10px] border border-neutral-medium-gray px-[30px] py-[20px]  ${
           showAll ? 'w-[567px]' : 'w-[306px]'
         }`}
       >
