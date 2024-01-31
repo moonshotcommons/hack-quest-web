@@ -1,4 +1,5 @@
 'use client';
+import TrackTag from '@/components/Common/TrackTag';
 import BlogCardFooter from '@/components/Web/Business/BlogCard/BlogCardFooter';
 import { BurialPoint } from '@/helper/burialPoint';
 import { BlogDetailType } from '@/service/webApi/resourceStation/type';
@@ -29,12 +30,11 @@ const BlogHeader: React.FC<BlogHeaderProp> = ({ blog }) => {
           <div className="flex justify-between items-center">
             <div className="flex gap-[10px]">
               {blog.categories?.map((v, i) => (
-                <div
+                <TrackTag
                   key={i}
-                  className="px-[14px] py-[3px] rounded-[100px] border border-[#fff]"
-                >
-                  {v}
-                </div>
+                  track={v}
+                  className="px-[16px] py-[6px] caption-16pt border-neutral-white text-neutral-white"
+                />
               ))}
             </div>
 
@@ -43,9 +43,7 @@ const BlogHeader: React.FC<BlogHeaderProp> = ({ blog }) => {
               <CiShare2 size={20} />
             </div> */}
           </div>
-          <div className="font-next-book-bold text-[38px] leading-[60px] mt-[5px]">
-            {blog.title}
-          </div>
+          <div className="text-h3 mt-[10px]">{blog.title}</div>
           <div className="mt-[10px] w-full">
             <BlogCardFooter
               blog={blog}

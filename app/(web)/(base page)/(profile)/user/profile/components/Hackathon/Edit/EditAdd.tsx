@@ -286,7 +286,7 @@ const EditAdd: React.FC<EditAddProp> = ({
             <Select
               name={'startYear'}
               label={<Span text={' '} />}
-              className="border-neutral-medium-gray body-l"
+              className="border-neutral-medium-gray text-[21px]"
               placeholder="Please select"
               state={formData.startYear.status as any}
               errorMessage={formData.startYear.errorMessage}
@@ -310,7 +310,7 @@ const EditAdd: React.FC<EditAddProp> = ({
             <Select
               name={'endMonth'}
               label={<Span text={'End Date*'} />}
-              className="border-neutral-medium-gray body-l"
+              className="border-neutral-medium-gray text-[21px]"
               placeholder="Please select"
               state={formData.endMonth.status as any}
               errorMessage={formData.endMonth.errorMessage}
@@ -333,7 +333,7 @@ const EditAdd: React.FC<EditAddProp> = ({
             <Select
               name={'endYear'}
               label={<Span text={' '} />}
-              className="border-neutral-medium-gray body-l"
+              className="border-neutral-medium-gray text-[21px]"
               placeholder="Please select"
               state={formData.endYear.status as any}
               errorMessage={formData.endYear.errorMessage}

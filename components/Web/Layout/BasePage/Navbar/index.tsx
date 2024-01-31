@@ -88,7 +88,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
     setAuthModalOpen(true);
   };
   return (
-    <div className="w-full">
+    <div className="w-full relative z-[999]">
       <div className={`h-[64px] mx-auto container`}>
         <div className="h-full flex items-center justify-between">
           <nav className="h-full flex items-center text-neutral-white">

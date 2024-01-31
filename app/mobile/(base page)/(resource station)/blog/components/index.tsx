@@ -1,18 +1,19 @@
+import BlogBanner from './BlogBanner';
 import BlogList from './BlogList';
 import FeatureBlog from './FeatureBlog';
-import Pagination from '@/components/Common/Pagination';
+import webApi from '@/service';
 import React from 'react';
 import { BlogSearchType } from '@/service/webApi/resourceStation/type';
-import webApi from '@/service';
 import PageRetentionTime from '@/components/Common/PageRetentionTime';
-import BlogBanner from './BlogBanner';
+import NoData from './NoData';
+import Pagination from '@/components/Common/Pagination';
 
-interface BlogProp {
+interface BlogProps {
   params: { slug: string[] };
   searchParams: BlogSearchType;
 }
 
-const Blog: React.FC<BlogProp> = async function ({
+const Blog: React.FC<BlogProps> = async function ({
   searchParams = {},
   params: { slug = [] }
 }) {
@@ -34,23 +35,27 @@ const Blog: React.FC<BlogProp> = async function ({
   const featureBlogList = featured || [];
   return (
     <div>
-      <BlogBanner />
+      <BlogBanner searchParams={searchParams} />
       <div className="container mx-auto py-[70px]">
         {searchParams.keyword ? (
           <div className="text-neutral-black text-[24px] font-next-book mb-[40px] text-center">
-            {totalList} {totalList > 1 ? 'Results' : 'Result'} for
-            <span className="text-neutral-medium-gray">
+            {totalList} Results for
+            <span className="text-neutral-medium-gray pl-[4px]">
               “{searchParams.keyword}”
             </span>
           </div>
         ) : (
           <FeatureBlog list={featureBlogList} />
         )}
+        {blogList.length > 0 ? (
+          <BlogList list={blogList} />
+        ) : (
+          <NoData href="/blog/"></NoData>
+        )}
 
-        <BlogList list={blogList} />
         {totalPage > 1 && (
           <div className="flex justify-center mt-[80px]">
-            <Pagination page={1} total={totalPage} urlPrefix="/blog/p/" />
+            <Pagination page={page} total={totalPage} urlPrefix="/blog/p/" />
           </div>
         )}
       </div>

@@ -24,7 +24,7 @@ export type AnnotationType = {
 const getTextClassNames = (annotations: AnnotationType) => {
   const className = cn(
     `py-1`,
-    annotations.bold ? 'font-bold' : 'font-next-book',
+    annotations.bold ? 'font-Nunito font-bold' : 'font-Nunito',
     annotations.code
       ? 'px-[0.2rem] text-[85%] text-[#eb5757] bg-renderer-code-bg mx-[0.25rem]'
       : '',
