@@ -3,7 +3,9 @@ import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import { useRequest } from 'ahooks';
 import { message } from 'antd';
 import { useRedirect } from '../useRedirect';
-import { useUserStore } from '@/store/zustand/userStore';
+import { AuthType, useUserStore } from '@/store/zustand/userStore';
+import { isMobile } from 'react-device-detect';
+import { NavType } from '@/components/Mobile/MobLayout/BasePage/Navbar';
 
 export const useEnrollUnEnroll = (
   learningTrackDetail: LearningTrackDetailType | undefined,
@@ -11,6 +13,10 @@ export const useEnrollUnEnroll = (
 ) => {
   const userInfo = useUserStore((state) => state.userInfo);
   const setAuthModalOpen = useUserStore((state) => state.setAuthModalOpen);
+  const setAuthType = useUserStore((state) => state.setAuthType);
+  const mobileAuthToggleOpenHandle = useUserStore(
+    (state) => state.mobileAuthToggleOpenHandle
+  );
   const { redirectToUrl } = useRedirect();
   const { run: unEnroll, loading: unEnrollLoading } = useRequest(
     async () => {
@@ -39,7 +45,13 @@ export const useEnrollUnEnroll = (
       if (!userInfo) {
         message.warning('Please login first');
         // redirectToUrl(V2_LANDING_PATH);
-        setAuthModalOpen(true);
+        setAuthType(AuthType.LOGIN);
+        if (!isMobile) {
+          setAuthModalOpen(true);
+        } else {
+          mobileAuthToggleOpenHandle.setNavType(NavType.AUTH);
+          mobileAuthToggleOpenHandle.toggleOpen();
+        }
         return;
       }
       if (learningTrackDetail) {
