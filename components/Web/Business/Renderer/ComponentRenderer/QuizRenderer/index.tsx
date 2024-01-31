@@ -130,7 +130,7 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
         <div
           ref={containerRef as any}
           className={`inline-flex gap-2 box-content border-b-2 p-[20px] cursor-pointer min-h-fit ${
-            quizDropdownVisible ? ' border-[#8C8C8C]' : ''
+            quizDropdownVisible ? ' border-neutral-medium-gray' : ''
           }`}
           onClick={() => {
             BurialPoint.track('lesson-quiz dropdown点击');
@@ -201,7 +201,7 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
           <h1 className="font-next-poster-Bold text-[18px]">Quest</h1>
           <Button
             type="primary"
-            className="py-[8px] px-[40px] font-next-book text-[#0B0B0B] text-[14px]"
+            className="py-[8px] px-[40px] font-next-book text-neutral-black text-[14px]"
             onClick={() => {
               BurialPoint.track('lesson-start quiz按钮点击');
               setStart(true);

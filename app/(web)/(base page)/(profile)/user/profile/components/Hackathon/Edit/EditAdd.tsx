@@ -18,7 +18,9 @@ interface EditAddProp {
 
 const Span: React.FC<{ text: string }> = ({ text }) => {
   return (
-    <span className="text-[21px] text-[#8c8c8c] h-[25px] block">{text}</span>
+    <span className="text-[21px] text-neutral-medium-gray h-[25px] block">
+      {text}
+    </span>
   );
 };
 
@@ -200,7 +202,7 @@ const EditAdd: React.FC<EditAddProp> = ({
           maxLength={50}
           type="text"
           placeholder="EX: Software Engineer"
-          className="border-[#8c8c8c] text-[21px] caret-[#0b0b0b]"
+          className="border-neutral-medium-gray text-[21px] caret-[#0b0b0b]"
           state={formData.role.status as any}
           errorMessage={formData.role.errorMessage}
           defaultValue={editEx.role}
@@ -221,7 +223,7 @@ const EditAdd: React.FC<EditAddProp> = ({
           maxLength={100}
           type="text"
           placeholder="EX: HackQuest Hackathon"
-          className="border-[#8c8c8c] text-[21px] caret-[#0b0b0b]"
+          className="border-neutral-medium-gray text-[21px] caret-[#0b0b0b]"
           state={formData.hackathonName.status as any}
           errorMessage={formData.hackathonName.errorMessage}
           defaultValue={editEx.hackathonName}
@@ -242,7 +244,7 @@ const EditAdd: React.FC<EditAddProp> = ({
           maxLength={255}
           type="text"
           placeholder="EX: New York, United States"
-          className="border-[#8c8c8c] text-[21px] caret-[#0b0b0b]"
+          className="border-neutral-medium-gray text-[21px] caret-[#0b0b0b]"
           state={formData.location.status as any}
           errorMessage={formData.location.errorMessage}
           defaultValue={editEx.location}
@@ -262,7 +264,7 @@ const EditAdd: React.FC<EditAddProp> = ({
             <Select
               name={'startMonth'}
               label={<Span text={'Start Date*'} />}
-              className="border-[#8c8c8c] text-[21px]"
+              className="border-neutral-medium-gray text-[21px]"
               placeholder="Please select"
               state={formData.startMonth.status as any}
               errorMessage={formData.startMonth.errorMessage}
@@ -284,7 +286,7 @@ const EditAdd: React.FC<EditAddProp> = ({
             <Select
               name={'startYear'}
               label={<Span text={' '} />}
-              className="border-[#8c8c8c] text-[21px]"
+              className="border-neutral-medium-gray body-l"
               placeholder="Please select"
               state={formData.startYear.status as any}
               errorMessage={formData.startYear.errorMessage}
@@ -308,7 +310,7 @@ const EditAdd: React.FC<EditAddProp> = ({
             <Select
               name={'endMonth'}
               label={<Span text={'End Date*'} />}
-              className="border-[#8c8c8c] text-[21px]"
+              className="border-neutral-medium-gray body-l"
               placeholder="Please select"
               state={formData.endMonth.status as any}
               errorMessage={formData.endMonth.errorMessage}
@@ -331,7 +333,7 @@ const EditAdd: React.FC<EditAddProp> = ({
             <Select
               name={'endYear'}
               label={<Span text={' '} />}
-              className="border-[#8c8c8c] text-[21px]"
+              className="border-neutral-medium-gray body-l"
               placeholder="Please select"
               state={formData.endYear.status as any}
               errorMessage={formData.endYear.errorMessage}
@@ -354,7 +356,7 @@ const EditAdd: React.FC<EditAddProp> = ({
         <TextArea
           name={'description'}
           label={<Span text={'Description*'} />}
-          className="border-[#8c8c8c] text-[21px]"
+          className="border-neutral-medium-gray body-l"
           state={formData.description.status as any}
           errorMessage={formData.description.errorMessage}
           defaultValue={editEx.description}
@@ -373,13 +375,13 @@ const EditAdd: React.FC<EditAddProp> = ({
       <div className="flex justify-center gap-[15px]">
         <Button
           onClick={onCancel}
-          className="w-[265px] h-[44px] border border-[#0b0b0b]  text-[#0b0b0b] text-[16px]"
+          className="w-[265px] h-[44px] border border-neutral-black  text-neutral-black body-m"
         >
           Cancel
         </Button>
         <Button
           loading={loading}
-          className="w-[265px] h-[44px] bg-yellow-primary  p-0  text-[16px]"
+          className="w-[265px] h-[44px] bg-yellow-primary  p-0  body-m"
           onClick={handleSubmit}
         >
           Save

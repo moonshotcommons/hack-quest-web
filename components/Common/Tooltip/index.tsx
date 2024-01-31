@@ -61,7 +61,7 @@ const Tooltip: FC<TooltipProps> = (props) => {
       {show && (
         <div
           className={cn(
-            ' font-next-book-Thin text-[#0b0b0b] text-[12px] absolute h-fit p-[20px] whitespace-nowrap rounded-[10px] shadow-[rgba(100,100,111,0.2)_0px_7px_29px_0px]',
+            ' font-next-book-Thin text-neutral-black text-[12px] absolute h-fit p-[20px] whitespace-nowrap rounded-[10px] shadow-[rgba(100,100,111,0.2)_0px_7px_29px_0px]',
             placement === 'topLeft'
               ? '-translate-y-[calc(100%+17px)] -left-[12px]'
               : '',
@@ -86,7 +86,7 @@ const Tooltip: FC<TooltipProps> = (props) => {
         >
           <div
             className={cn(
-              'absolute w-[24px] h-[24px] bg-white self-end shadow-[rgba(0,0,0,0.05)_1.5px_1.5px_1.5px] -z-[99]',
+              'absolute w-[24px] h-[24px] bg-neutral-white self-end shadow-[rgba(0,0,0,0.05)_1.5px_1.5px_1.5px] -z-[99]',
               placement === 'topLeft'
                 ? 'rotate-[45deg] bottom-0 translate-y-[50%] left-[24px]'
                 : '',

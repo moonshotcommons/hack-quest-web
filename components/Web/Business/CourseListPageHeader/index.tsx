@@ -29,7 +29,7 @@ const CourseListPageHeader: FC<CourseListPageHeaderProps> = ({
       <div className="w-[800px] max-w-[800px] pt-[60px]">
         <h2 className="text-h1 text-neutral-black uppercase">{title}</h2>
         <p className="mt-[20px] text-neutral-rich-gray body-l">{description}</p>
-        <div className="py-4 px-5 border mt-[60px] w-full rounded-[56px] border-[#DADADA] bg-white flex gap-5 items-center">
+        <div className="py-4 px-5 border mt-[60px] w-full rounded-[56px] border-neutral-light-gray bg-neutral-white flex gap-5 items-center">
           <span>
             <FiSearch size={20} />
           </span>

@@ -116,8 +116,8 @@ const OnChainActivity: FC<OnChainActivityProps> = (props) => {
   }, [profile?.onChainActivity]);
 
   return (
-    <div className="w-full h-[260px] p-[30px] pb-[40px] bg-white rounded-[10px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] group hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)] hover:-translate-y-1 transition-all duration-300 relative cursor-pointer">
-      <p className="text-black font-next-poster-Bold text-[28px] tracking-[1.68px] leading-[125%]">
+    <div className="w-full h-[260px] p-[30px] pb-[40px] bg-neutral-white rounded-[10px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] group hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)] hover:-translate-y-1 transition-all duration-300 relative cursor-pointer">
+      <p className="text-neutral-black font-next-poster-Bold text-[28px] tracking-[1.68px] leading-[125%]">
         On-Chain Activity
       </p>
       {Object.keys(chainData || {}).length > 0 && (
@@ -142,19 +142,19 @@ const OnChainActivity: FC<OnChainActivityProps> = (props) => {
         <>
           {!refreshChainLoading && (
             <div className="flex mt-[30px]">
-              <div className="flex flex-col items-center flex-1 relative after:absolute after:right-0 after:top-0 after:h-full after:bg-black after:w-[1px] after:scale-x-50">
-                <span className="font-next-book-Thin text-[54px] leading-[160%] tracking-[0.162px] text-black">
+              <div className="flex flex-col items-center flex-1 relative after:absolute after:right-0 after:top-0 after:h-full after:bg-neutral-black after:w-[1px] after:scale-x-50">
+                <span className="font-next-book-Thin text-[54px] leading-[160%] tracking-[0.162px] text-neutral-black">
                   0
                 </span>
-                <p className="mt-5 font-next-book leading-[125%] tracking-[0.32px] text-[16px] text-[#8C8C8C]">
+                <p className="mt-5 font-next-book leading-[125%] tracking-[0.32px] text-[16px] text-neutral-medium-gray">
                   Deployed Contracts
                 </p>
               </div>
               <div className="flex flex-col items-center flex-1">
-                <span className="font-next-book-Thin text-[54px] leading-[160%] tracking-[0.162px] text-black">
+                <span className="font-next-book-Thin text-[54px] leading-[160%] tracking-[0.162px] text-neutral-black">
                   {chainData?.transactionCount}
                 </span>
-                <p className="mt-5 font-next-book leading-[125%] tracking-[0.32px] text-[16px] text-[#8C8C8C]">
+                <p className="mt-5 font-next-book leading-[125%] tracking-[0.32px] text-[16px] text-neutral-medium-gray">
                   Defi Interaction
                 </p>
               </div>
@@ -181,7 +181,7 @@ const OnChainActivity: FC<OnChainActivityProps> = (props) => {
             type="primary"
             disabled={loading}
             loading={loading}
-            className="w-[223px] cursor-pointer px-0 py-[12px] text-[16px] font-next-book leading-[125%] tracking-[0.32px] text-[#0B0B0B] mt-[25px] mb-[10px]"
+            className="w-[223px] cursor-pointer px-0 py-[12px] text-[16px] font-next-book leading-[125%] tracking-[0.32px] text-neutral-black mt-[25px] mb-[10px]"
             onClick={() => connectToMetaMask()}
           >
             Connect to MetaMask

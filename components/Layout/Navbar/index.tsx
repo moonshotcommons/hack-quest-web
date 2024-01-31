@@ -105,7 +105,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
         }`}
       >
         <div className="slab:hidden  h-full flex items-center justify-between font-next-book">
-          <nav className="h-full flex items-center text-white">
+          <nav className="h-full flex items-center text-neutral-white">
             <div
               className={`h-full flex items-center ${
                 !userInfo ? 'cursor-pointer' : ''
@@ -115,14 +115,14 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
               <Image src={DarkLogoActive} alt="logo"></Image>
             </div>
             <SlideHighlight
-              className="flex ml-16 gap-[10px] h-[34px] text-sm rounded-[20px] bg-[#3E3E3E] overflow-hidden tracking-[0.28px]"
+              className="flex ml-16 gap-[10px] h-[34px] text-sm rounded-[20px] bg-neutral-rich-gray overflow-hidden tracking-[0.28px]"
               currentIndex={inSideNavIndex}
             >
               {inSideNav.map((nav) => (
                 <div
                   key={nav.id}
                   className={`h-full flex-center px-[14px] rounded-[20px] cursor-pointer ${
-                    curNavId === nav.id ? 'text-[#0b0b0b]' : ''
+                    curNavId === nav.id ? 'text-neutral-black' : ''
                   }`}
                   data-id={nav.id}
                   onClick={(e) => handleClickNav(e, nav)}
@@ -136,7 +136,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
                 </div>
               ))}
             </SlideHighlight>
-            <div className="flex ml-[20px] gap-[10px] h-[34px]  text-[14px] rounded-[20px] bg-[#3E3E3E] overflow-hidden tracking-[0.28px]">
+            <div className="flex ml-[20px] gap-[10px] h-[34px]  text-[14px] rounded-[20px] bg-neutral-rich-gray overflow-hidden tracking-[0.28px]">
               {outSideNav.map((nav) => (
                 <Link
                   key={nav.id}
@@ -156,7 +156,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
         </nav>
       </div>
       {showSecondNav && (
-        <div className="slab:hidden  text-white tracking-[0.84px]  w-screen h-12 bg-[#0B0B0B]">
+        <div className="slab:hidden  text-neutral-white tracking-[0.84px]  w-screen h-12 bg-neutral-black">
           <SlideHighlight
             className="container m-auto flex items-end gap-[30px] h-full"
             currentIndex={secondNavIndex}

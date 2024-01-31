@@ -23,7 +23,7 @@ const inputVariants = cva(
       theme: {
         light:
           'border-neutral-light-gray caret-neutral-off-black hover:border-neutral-medium-gray focus:border-neutral-medium-gray focus:text-neutral-off-black',
-        dark: 'border-[#212121] caret-[#ffffff] hover:border-[#212121] focus:border-[#212121]'
+        dark: 'border-neutral-dark-gray caret-[#ffffff] hover:border-neutral-dark-gray focus:border-neutral-dark-gray'
       },
       state: {
         success: 'border-status-success focus:border-status-success',
@@ -33,7 +33,7 @@ const inputVariants = cva(
       },
       device: {
         web: '',
-        mobile: 'body-s font-Nunito '
+        mobile: 'body-s'
       }
     },
     defaultVariants: {
@@ -52,7 +52,7 @@ const labelVariants = cva('body-l-bold label', {
     },
     device: {
       web: '',
-      mobile: 'body-m-bold font-Nunito'
+      mobile: 'body-m-bold'
     }
   },
   defaultVariants: {

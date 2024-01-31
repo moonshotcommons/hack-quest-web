@@ -91,7 +91,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
     <div className="w-full">
       <div className={`h-[64px] mx-auto container`}>
         <div className="h-full flex items-center justify-between">
-          <nav className="h-full flex items-center text-white">
+          <nav className="h-full flex items-center text-neutral-white">
             <div
               className={`h-full flex items-center ${
                 !userInfo ? 'cursor-pointer' : ''

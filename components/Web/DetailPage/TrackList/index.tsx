@@ -22,7 +22,7 @@ const TrackList: FC<TrackListProps> = (props) => {
   }, [trackDetail]);
 
   return (
-    <ul className="w-full px-10 py-10 bg-white rounded-[10px] h-fit">
+    <ul className="w-full px-10 py-10 bg-neutral-white rounded-[10px] h-fit">
       {sectionList.map((section, index) => {
         if (index === 0) {
           return (

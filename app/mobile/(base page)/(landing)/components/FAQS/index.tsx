@@ -39,7 +39,7 @@ const FAQS: FC<FAQSProps> = (props) => {
         <p className="text-h2 text-neutral-off-black capitalize text-[1.375rem]">
           FAQs
         </p>
-        <p className="body-l text-neutral-medium-gray tracking-tighter mt-5 body-xs font-Nunito">
+        <p className="text-neutral-medium-gray mt-5 body-xs">
           Can’t find what you’re looking for? Reach out to us!
         </p>
         <div className="flex gap-4 items-center mt-[.625rem]">
@@ -88,7 +88,7 @@ const FAQS: FC<FAQSProps> = (props) => {
                   }
                 }}
               >
-                <p className="body-m-bold text-neutral-rich-gray font-Nunito">
+                <p className="body-m-bold text-neutral-rich-gray">
                   {item.problem}
                 </p>
                 <span className="cursor-pointer">
@@ -125,7 +125,7 @@ const FAQS: FC<FAQSProps> = (props) => {
 
               <p
                 className={cn(
-                  `body-xs text-neutral-rich-gray font-Nunito`,
+                  `body-xs text-neutral-rich-gray`,
                   expendIndex.includes(index) ? 'block' : 'hidden'
                 )}
               >

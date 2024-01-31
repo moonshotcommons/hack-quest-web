@@ -20,7 +20,7 @@ const CourseProgress: FC<CourseProgressProps> = ({ progress }) => {
           )}%`}</span>
         </div>
       </div>
-      <p className="text-[#000] text-[16px] font-next-book tracking-[0.32px]">
+      <p className="text-neutral-black text-[16px] font-next-book tracking-[0.32px]">
         Overall Process
       </p>
     </>

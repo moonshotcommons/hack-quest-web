@@ -21,7 +21,7 @@ const GuestMentors: React.FC<GuestMentorsProp> = ({ listData, title }) => {
         {showList.map((v: MentorType, i: number) => (
           <div
             key={i}
-            className="p-[10px] gap-[10px] flex-row-center w-[calc(50%-10px)] border border-[#8C8C8C] bg-[#F4F4F4] rounded-[100px]"
+            className="p-[10px] gap-[10px] flex-row-center w-[calc(50%-10px)] border border-neutral-medium-gray bg-neutral-off-white rounded-[100px]"
           >
             <div className="w-[65px] h-[65px] rounded-[50%] overflow-hidden relative">
               <Image

@@ -134,8 +134,8 @@ const Breadcrumb: React.FC = () => {
             BurialPoint.track('使用navbar跳转');
           }}
         >
-          {i ? <span className="mx-2 text-[#0b0b0b]">/</span> : ''}
-          <span className=" text-[#0b0b0b]"> {item.label}</span>
+          {i ? <span className="mx-2 text-neutral-black">/</span> : ''}
+          <span className=" text-neutral-black"> {item.label}</span>
         </Link>
       );
     } else {

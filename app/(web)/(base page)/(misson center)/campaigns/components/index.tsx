@@ -101,7 +101,7 @@ const Campaigns: React.FC<CampaignsProp> = () => {
       }}
     >
       <div
-        className={`container m-auto flex h-full font-next-book text-[#0b0b0b] py-[40px] text-[16px]`}
+        className={`container m-auto flex h-full tetx-body-m text-neutral-black py-[40px]`}
       >
         <div className="w-[203px]">
           <Tab

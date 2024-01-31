@@ -106,16 +106,18 @@ const MobMiniElectiveDetailModal = forwardRef<
       >
         <span
           className={cn(
-            'text-[#3E3E3E] text-[18px] font-next-book leading-[125%] tracking-[0.36px]',
+            'text-neutral-rich-gray text-[18px] font-next-book leading-[125%] tracking-[0.36px]',
             [CompleteStateType.COMPLETED, CompleteStateType.LEARNING].includes(
               state
             )
               ? 'cursor-pointer'
               : '',
             state === CompleteStateType.LEARNING
-              ? 'font-next-book-bold text-[#131313]'
+              ? 'font-next-book-bold text-neutral-off-black'
               : '',
-            state === CompleteStateType.NOT_STARTED ? 'text-[#8C8C8C]' : ''
+            state === CompleteStateType.NOT_STARTED
+              ? 'text-neutral-medium-gray'
+              : ''
           )}
         >{`${index + 1 < 10 ? '0' + (index + 1) : index + 1} ${
           item.name
@@ -135,7 +137,7 @@ const MobMiniElectiveDetailModal = forwardRef<
       {open && (
         <Loading loading={loading}>
           <div
-            className={`w-full h-[calc(100vh-64px)] left-0 top-[64px] fixed bg-white px-[24px] py-[12px] overflow-hidden ${inter.className} z-[999] overflow-y-auto`}
+            className={`w-full h-[calc(100vh-64px)] left-0 top-[64px] fixed bg-neutral-white px-[24px] py-[12px] overflow-hidden ${inter.className} z-[999] overflow-y-auto`}
           >
             <div className="w-full">
               <HiArrowLeft
@@ -154,29 +156,29 @@ const MobMiniElectiveDetailModal = forwardRef<
                 <div className="mt-6">
                   <Tags className="px-[10px] py-1 uppercase">Security</Tags>
                 </div>
-                <h2 className="text-[#131313] text-[18px] font-extrabold mt-3">
+                <h2 className="text-neutral-off-black text-[18px] font-extrabold mt-3">
                   {course.name}
                 </h2>
-                <p className="mt-3 font-next-book text-[14px] text-[#8C8C8C] leading-[160%] tracking-[0.32px] line-clamp-3">
+                <p className="mt-3 font-next-book text-[14px] text-neutral-medium-gray leading-[160%] tracking-[0.32px] line-clamp-3">
                   {course.description}
                 </p>
 
                 <div className="flex gap-6 mt-6">
                   <div className="flex-1 flex flex-col gap-y-[12px]">
-                    <span className="font-bold text-[#131313] text-[14px] leading-[160%]">
+                    <span className="font-bold text-neutral-off-black text-[14px] leading-[160%]">
                       Language
                     </span>
                     <div className="flex gap-2">
                       <span>
                         <HiCodeBracket size={20} />
                       </span>
-                      <span className="text-[14px] leading-[160%] text-[#3E3E3E]">
+                      <span className="text-[14px] leading-[160%] text-neutral-rich-gray">
                         {'Solidity'}
                       </span>
                     </div>
                   </div>
                   <div className="flex-1 flex flex-col gap-y-[12px]">
-                    <span className="font-bold text-[#131313] text-[14px] leading-[160%]">
+                    <span className="font-bold text-neutral-off-black text-[14px] leading-[160%]">
                       Created by
                     </span>
                     <div
@@ -195,7 +197,7 @@ const MobMiniElectiveDetailModal = forwardRef<
                           className="object-contain"
                         ></Image>
                       </div>
-                      <span className="text-[14px] leading-[160%] text-[#3E3E3E]">
+                      <span className="text-[14px] leading-[160%] text-neutral-rich-gray">
                         {course.creator?.name || 'HackQuest'}
                       </span>
                     </div>
@@ -217,7 +219,7 @@ const MobMiniElectiveDetailModal = forwardRef<
                 </div>
 
                 <div className="flex flex-col justify-between mt-10">
-                  <p className="text-[21px] font-next-poster-Bold text-[#0B0B0B] tracking-[1.26px]">
+                  <p className="text-[21px] font-next-poster-Bold text-neutral-black tracking-[1.26px]">
                     Overview
                   </p>
                   <ul className="mt-6 mb-4 pb-[112px]">
@@ -225,7 +227,7 @@ const MobMiniElectiveDetailModal = forwardRef<
                       return (
                         <li key={index} className="pr-2">
                           {index !== 0 && (
-                            <div className="h-[1px] w-full bg-[#8C8C8C] my-[24px]"></div>
+                            <div className="h-[1px] w-full bg-neutral-medium-gray my-[24px]"></div>
                           )}
                           {renderCourseListItem(item.state, item, index)}
                         </li>

@@ -146,7 +146,7 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
           iconPosition="right"
           loading={loading}
           className="
-          py-4 uppercase button-text-m font-Nunito
+          py-4 uppercase button-text-m
           bg-auth-primary-button-bg
           hover:bg-auth-primary-button-hover-bg
           text-auth-primary-button-text-color

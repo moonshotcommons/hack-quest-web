@@ -50,7 +50,7 @@ const Navbar: FC<NavbarProps> = (props) => {
   }, []);
 
   return (
-    <div className="text-white h-[4rem] flex items-center justify-between w-full">
+    <div className="text-neutral-white h-[4rem] flex items-center justify-between w-full">
       <NavContainer
         isOpen={isOpen}
         toggleOpen={() => {

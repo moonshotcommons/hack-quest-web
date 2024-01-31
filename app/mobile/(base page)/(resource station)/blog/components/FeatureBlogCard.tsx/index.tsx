@@ -34,7 +34,7 @@ const FeatureBlogCard: React.FC<FeatureBlogCardProp> = ({ blog }) => {
             {blog.categories.map((v, i) => (
               <div
                 key={i}
-                className="w-fit py-[3px] px-[14px] text-[#3E3E3E] text-[18px] leading-[29px] rounded-[100px] border border-[var(--neutral-medium-gray)] bg-[#DADADA]"
+                className="w-fit py-[3px] px-[14px] text-neutral-rich-gray text-[18px] leading-[29px] rounded-[100px] border border-[var(--neutral-medium-gray)] bg-[#DADADA]"
               >
                 {v}
               </div>

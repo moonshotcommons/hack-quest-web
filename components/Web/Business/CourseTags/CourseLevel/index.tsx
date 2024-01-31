@@ -28,7 +28,7 @@ const CourseLevel: FC<CourseLevelProps> = (props) => {
             <div
               key={item}
               className={cn(
-                `w-[12px] h-[12px] border border-[#000]`,
+                `w-[12px] h-[12px] border border-neutral-black`,
                 index === 0 ? 'rounded-l-full' : '',
                 index === levels.length - 1 ? 'rounded-r-full' : '',
                 index <= levelIndex ? 'bg-[#dadada]' : '',
@@ -41,7 +41,9 @@ const CourseLevel: FC<CourseLevelProps> = (props) => {
       <p
         className={cn(
           'body-xs text-neutral-rich-gray',
-          `${size === 'large' ? 'text-[16px]  text-black' : ''} ${className}`
+          `${
+            size === 'large' ? 'text-[16px]  text-neutral-black' : ''
+          } ${className}`
         )}
       >
         {level}

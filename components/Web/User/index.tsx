@@ -80,14 +80,14 @@ const User: FC<UserProps> = () => {
                 className="h-[30px] text-[#fff] flex-row-center"
                 onClick={() => redirectToUrl('/mission-center')}
               >
-                <div className="w-[115px] h-full bg-[#3E3E3E] rounded-[20px] flex-row-center justify-between mr-[20px] pr-[15px]">
+                <div className="w-[115px] h-full bg-neutral-rich-gray rounded-[20px] flex-row-center justify-between mr-[20px] pr-[15px]">
                   <Image src={IconCoin} width={30} alt="iconCredits" />
                   <span>{userCoin.coin}</span>
                 </div>
                 <div className="w-[170px] h-full px-[15px]">
-                  <div className="w-full h-full relative flex-center bg-[#8C8C8C]  ">
+                  <div className="w-full h-full relative flex-center bg-neutral-medium-gray  ">
                     <div
-                      className="absolute left-[0] top-[0] h-full bg-[#3E3E3E] rounded-r-[20px]"
+                      className="absolute left-[0] top-[0] h-full bg-neutral-rich-gray rounded-r-[20px]"
                       style={{
                         width: `${
                           (userLevel.expCurrentLevel / userLevel.expNextLevel) *
@@ -95,7 +95,7 @@ const User: FC<UserProps> = () => {
                         }%`
                       }}
                     ></div>
-                    <div className="absolute w-full h-full flex-row-center justify-between text-[#0b0b0b]">
+                    <div className="absolute w-full h-full flex-row-center justify-between text-neutral-black">
                       <div className="w-[30px] ml-[-15px] h-[30px] flex-center rounded-[50%] bg-yellow-primary">
                         <div className="w-[24px] h-[24px] flex-center rounded-[50%] bg-[#E7A600] ">
                           {userLevel.level}

@@ -149,7 +149,7 @@ const Input = forwardRef<
 
             theme !== 'dark'
               ? 'border-neutral-light-gray caret-neutral-off-black hover:border-neutral-medium-gray focus:border-neutral-medium-gray focus:text-neutral-off-black'
-              : 'border-[#212121] caret-[#ffffff] hover:border-[#212121] focus:border-[#212121]',
+              : 'border-neutral-dark-gray caret-[#ffffff] hover:border-neutral-dark-gray focus:border-neutral-dark-gray',
             status === 'success'
               ? 'border-status-success focus:border-status-success'
               : '',

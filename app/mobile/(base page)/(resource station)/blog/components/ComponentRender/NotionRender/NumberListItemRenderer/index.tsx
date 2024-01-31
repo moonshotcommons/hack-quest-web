@@ -35,13 +35,13 @@ const NumberListItemRenderer: FC<NumberListItemRendererProps> = (props) => {
   return (
     <div>
       <div className="">
-        <span className="inline-flex items-center w-fit h-full text-[18px] text-[#0b0b0b] py-[0.4rem] pr-[4px]">
+        <span className="inline-flex items-center w-fit h-full text-[18px] text-neutral-black py-[0.4rem] pr-[4px]">
           {index + 1}.
         </span>
 
         <TextRenderer
           richTextArr={component.content.rich_text}
-          fontStyle="text-[#0b0b0b]"
+          fontStyle="text-neutral-black"
         ></TextRenderer>
       </div>
       <div className="ml-4">

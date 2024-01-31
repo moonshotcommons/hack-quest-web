@@ -124,8 +124,8 @@ const PersonalLinkEditModal = forwardRef<
       }
       markBg="black"
     >
-      <div className="w-[800px] bg-[#F4F4F4] rounded-[10px] px-[30px] py-[30px]">
-        <div className="font-next-poster-Bold text-[28px] text-black tracking-[1.68px]">
+      <div className="w-[800px] bg-neutral-off-white rounded-[10px] px-[30px] py-[30px]">
+        <div className="font-next-poster-Bold text-[28px] text-neutral-black tracking-[1.68px]">
           Personal Links
         </div>
         <Form className="" form={form}>
@@ -145,10 +145,10 @@ const PersonalLinkEditModal = forwardRef<
                   }
                 ]}
               >
-                <div className="text-black relative flex items-center py-[20px] after:absolute after:h-[1px] after:scale-y-[0.5] after:w-full after:bg-black after:bottom-0">
+                <div className="text-neutral-black relative flex items-center py-[20px] after:absolute after:h-[1px] after:scale-y-[0.5] after:w-full after:bg-neutral-black after:bottom-0">
                   <div className="flex gap-x-[15px] items-center h-full w-[25%]">
                     <span>{media.icon}</span>
-                    <span className="text-[18px] text-[#0B0B0B] font-next-book leading-[160%] tracking-[0.36px]">
+                    <span className="text-[18px] text-neutral-black font-next-book leading-[160%] tracking-[0.36px]">
                       {media.name}
                     </span>
                   </div>
@@ -156,7 +156,7 @@ const PersonalLinkEditModal = forwardRef<
                     defaultValue={profile?.personalLinks?.[key] || ''}
                     type="url"
                     placeholder="Please enter personal link"
-                    className="flex-1 h-[30px] truncate text-[14px] font-next-book text-[#8C8C8C] leading-[160%] -tracking-[0.154px] outline-none bg-transparent"
+                    className="flex-1 h-[30px] truncate text-[14px] font-next-book text-neutral-medium-gray leading-[160%] -tracking-[0.154px] outline-none bg-transparent"
                   />
                   <div className="w-[64px]"></div>
                   <div
@@ -172,10 +172,10 @@ const PersonalLinkEditModal = forwardRef<
             );
           })}
         </Form>
-        <div className="flex gap-x-[15px] font-next-book text-[16px] leading-[125%] tracking-[0.32px] text-[#0B0B0B] justify-center mt-[30px]">
+        <div className="flex gap-x-[15px] font-next-book text-[16px] leading-[125%] tracking-[0.32px] text-neutral-black justify-center mt-[30px]">
           <Button
             ghost
-            className="border-[#0B0B0B] py-[12px] w-[265px] flex items-center justify-center"
+            className="border-neutral-black py-[12px] w-[265px] flex items-center justify-center"
             onClick={() => {
               setOpen(false);
               form.resetFields();

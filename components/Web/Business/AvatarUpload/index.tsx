@@ -46,7 +46,7 @@ const AvatarUpload: FC<AvatarUploadProps> = (props) => {
         </div>
         <div
           className={cn(
-            'absolute w-full h-full top-0 left-0 bg-black/50 rounded-full flex justify-center items-center transition-opacity duration-200',
+            'absolute w-full h-full top-0 left-0 bg-neutral-black/50 rounded-full flex justify-center items-center transition-opacity duration-200',
             showEditIcon ? 'opacity-100' : 'opacity-0'
           )}
         >

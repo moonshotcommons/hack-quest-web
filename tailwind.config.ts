@@ -39,9 +39,9 @@ const config: Config = {
         'Chaney-Extended': ['Chaney-Extended'],
         MiSans: ['MiSans'],
         'MiSans-Semibold': ['MiSans-Semibold'],
-        Inter: ['Inter'],
-        Nunito: ['Nunito'],
-        'Space-Mono': ['Space Mono']
+        Inter: ['var(--font-inter)'],
+        Nunito: ['var(--font-nunito)'],
+        'Space-Mono': ['var(--font-space-mono)']
       },
       screens: {
         sm: '640px',

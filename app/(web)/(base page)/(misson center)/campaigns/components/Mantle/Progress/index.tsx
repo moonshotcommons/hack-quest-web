@@ -26,7 +26,7 @@ const Progress: React.FC<ProgressProp> = () => {
     };
   }, [progress]);
   return (
-    <div className={`text-[#000] ${inter.className} mb-[30px]`}>
+    <div className={`text-neutral-black ${inter.className} mb-[30px]`}>
       <div className="flex gap-[0.5%] relative">
         {schedule.schedulePeriod.map((s, i) => (
           <div key={i} className="w-[19.6%]">

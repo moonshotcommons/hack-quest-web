@@ -20,7 +20,7 @@ const Tab: React.FC<TabProp> = ({ tabList, curIndex, changeTab }) => {
           key={i}
           className={`h-[56px] rounded-l-[10px] pr-[5px] flex-center tracking-[0.28px] border-l-[10px] cursor-pointer ${
             i === curIndex
-              ? 'bg-[#fff] text-[#000] font-next-book-bold border-l-yellow-primary shadow-[0_4px_8px_rgba(0,0,0,0.12)]'
+              ? 'bg-[#fff] text-neutral-black font-next-book-bold border-l-yellow-primary shadow-[0_4px_8px_rgba(0,0,0,0.12)]'
               : 'bg-[#e7e7e7] text-[#888] border-l-transparent'
           }`}
           onClick={() => handleClickTab(i)}

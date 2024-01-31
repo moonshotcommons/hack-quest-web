@@ -23,13 +23,13 @@ const FeaturedProjectsHeader = () => {
   return (
     <div className="flex justify-between">
       <div className="flex flex-col gap-[15px]">
-        <h2 className="font-next-poster-Bold text-[28px] tracking-[1.68px] text-[#000]">
+        <h2 className="font-next-poster-Bold text-[28px] tracking-[1.68px] text-neutral-black">
           Featured Projects
         </h2>
       </div>
       <Link
         href={`${MenuLink.PROJECTS}?menu=${Menu.HACKATHON}&${QueryIdType.PROJECT_ID}=projects`}
-        className="flex gap-x-[15px] items-center text-[#0B0B0B] hover:opacity-70 font-next-book tracking-[0.36px] text-[18px]"
+        className="flex gap-x-[15px] items-center text-neutral-black hover:opacity-70 font-next-book tracking-[0.36px] text-[18px]"
         onClick={() => {
           BurialPoint.track('home-view all点击');
         }}

@@ -21,7 +21,7 @@ const HoverIcon: React.FC<HoverIconProp & HTMLAttributes<HTMLDivElement>> = (
   const iconWrap = (
     <div
       className={cn(
-        'text-[#231F20] flex-center w-[45px] h-[45px] rounded-[50%] bg-[#f4f4f4] cursor-pointer hover:text-[#8c8c8c] hover:bg-[#DADADA]',
+        'text-[#231F20] flex-center w-[45px] h-[45px] rounded-[50%] bg-neutral-off-white cursor-pointer hover:text-neutral-medium-gray hover:bg-[#DADADA]',
         className
       )}
       {...rest}

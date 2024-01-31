@@ -36,13 +36,13 @@ html {
 
   --code-dark-green: #9ed600;
   --code-purple: #6b6bf6;
-  --text-text-white: #ededed;
+  --text-text-neutral-white: #ededed;
 
   --plyr-color-main: var(--yellow-primary);
 
   --status-error-light: #fff7f5;
   --button-card-card-outline: #5b5b5b;
-  --text-text-white-on-dark: #f2f2f2;
+  --text-text-neutral-white-on-dark: #f2f2f2;
   --status-progress-green: #9efa13;
   --text-text-gray: #676767;
   --color-dark-bg: #030303;

@@ -13,7 +13,7 @@ interface BlogHeaderProp {
 const BlogHeader: React.FC<BlogHeaderProp> = ({ blog }) => {
   const router = useRouter();
   return (
-    <div className="bg-[#0b0b0b] text-[#fff] pb-[80px]">
+    <div className="bg-neutral-black text-[#fff] pb-[80px]">
       <div className="container mx-auto flex-col-center">
         <div
           className="flex items-center w-full py-[30px] cursor-pointer"

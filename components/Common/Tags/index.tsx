@@ -3,7 +3,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/helper/utils';
 
 const tagsVariants = cva(
-  'w-fit h-fit border border-[#3E3E3E] rounded-[20px] text-[#3E3E3E]',
+  'w-fit h-fit border border-neutral-rich-gray rounded-[20px] text-neutral-rich-gray',
   {
     variants: {
       size: {

@@ -21,7 +21,7 @@ const ProjectCard: React.FC<ProjectCardProp> = ({ project }) => {
   };
   return (
     <div
-      className="flex flex-col rounded-[10px] overflow-hidden  bg-white w-[305px] hover:-translate-y-1 transition-all duration-300 mt-1 relative shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)] cursor-pointer"
+      className="flex flex-col rounded-[10px] overflow-hidden  bg-neutral-white w-[305px] hover:-translate-y-1 transition-all duration-300 mt-1 relative shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)] cursor-pointer"
       onClick={goProjectDetail}
     >
       <div className="h-0 w-full pt-[56%] relative bg-[#d9d9d9]/30">

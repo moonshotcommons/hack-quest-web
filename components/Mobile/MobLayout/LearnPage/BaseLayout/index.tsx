@@ -13,7 +13,7 @@ const V2Layout: React.FC<V2LayoutProps> = ({ children }) => {
     <div
       className={`w-full h-[100vh] flex flex-col overflow-hidden  ${inter.className}`}
     >
-      <div className="w-full bg-[#0B0B0B] flex items-center">
+      <div className="w-full bg-neutral-black flex items-center">
         <NavBar></NavBar>
       </div>
       <div

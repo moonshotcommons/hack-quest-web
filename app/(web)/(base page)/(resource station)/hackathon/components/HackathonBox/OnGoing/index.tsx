@@ -34,7 +34,7 @@ const OnGoing: React.FC<OnGoingProp> = ({ goPast }) => {
       {!list.length ? (
         <NoData goPast={goPast} />
       ) : (
-        <div className="text-[#0b0b0b] text-[14px]">
+        <div className="text-neutral-black text-[14px]">
           {list.map((hackathon: HackathonType) => (
             <OnGoingHackathonCard hackathon={hackathon} key={hackathon.id} />
           ))}

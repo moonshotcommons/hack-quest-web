@@ -24,7 +24,7 @@ interface CourseCardSkeletonListProps {
 
 const CourseCardSkeletonCard: FC<CourseCardSkeletonCardProps> = (props) => {
   return (
-    <div className="w-[302px] h-[370px] rounded-[16px] bg-white overflow-hidden flex flex-col">
+    <div className="w-[302px] h-[370px] rounded-[16px] bg-neutral-white overflow-hidden flex flex-col">
       <Skeleton className="w-full h-[150px] flex items-center justify-center">
         <FaRegImage size={80} color={'#bdbdbd'} />
       </Skeleton>

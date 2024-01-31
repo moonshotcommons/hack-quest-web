@@ -145,7 +145,7 @@ const Success: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
         <h1 className="text-h3-m font-next-book-bold text-neutral-off-black">
           Email Verified! 🎉
         </h1>
-        <p className="body-m font-Nunito text-neutral-medium-gray">
+        <p className="body-m text-neutral-medium-gray">
           You have been successfully verified the email! You will be directed to
           homepage in 5 seconds.
         </p>
@@ -168,7 +168,7 @@ const Success: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
           onClick={() => {}}
           block
           className={`
-          py-4 uppercase button-text-m font-Nunito
+          py-4 uppercase button-text-m
           bg-auth-primary-button-bg hover:bg-auth-primary-button-hover-bg
           text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
           border-auth-primary-button-border-color hover:border-auth-primary-button-border-hover-color
@@ -205,7 +205,7 @@ const Fail: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
               }}
               block
               className="
-              py-4 uppercase button-text-m font-Nunito
+              py-4 uppercase button-text-m
           bg-auth-primary-button-bg hover:bg-auth-primary-button-hover-bg
           text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
           border-auth-primary-button-border-color hover:border-auth-primary-button-border-hover-color
@@ -218,7 +218,7 @@ const Fail: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
       default:
         return (
           <>
-            {/* <div className="text-white font-next-book leading-[160%] tracking-[0.64px] text-[18px]">
+            {/* <div className="text-neutral-white font-next-book leading-[160%] tracking-[0.64px] text-[18px]">
               <span>
                 Your {type} account verification has failed!
                 <br />
@@ -228,7 +228,7 @@ const Fail: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
             <div className="flex flex-col gap-4">
               <Button
                 block
-                className=" py-4 uppercase button-text-m font-Nunito
+                className=" py-4 uppercase button-text-m
               bg-auth-primary-button-bg hover:bg-auth-primary-button-hover-bg
               text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
               border-auth-primary-button-border-color hover:border-auth-primary-button-border-hover-color relative"
@@ -251,7 +251,7 @@ const Fail: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
                   redirectToUrl('/');
                 }}
                 block
-                className="py-4 uppercase button-text-m font-Nunito border-neutral-off-black"
+                className="py-4 uppercase button-text-m border-neutral-off-black"
               >
                 Back
               </Button>
@@ -282,7 +282,7 @@ const Fail: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
         <h1 className="text-h3-mob font-next-book-bold text-neutral-off-black">
           Verification Failed! 😵
         </h1>
-        <p className="body-m font-Nunito text-neutral-medium-gray">
+        <p className="body-m text-neutral-medium-gray">
           Your verification has failed! Please verify your Email again.
         </p>
       </div>

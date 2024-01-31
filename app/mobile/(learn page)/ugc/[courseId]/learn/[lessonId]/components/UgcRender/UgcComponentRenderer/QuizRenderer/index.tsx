@@ -135,7 +135,7 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
         <div
           ref={containerRef as any}
           className={`inline-flex gap-2 box-content border-b-2 p-[1.25rem] cursor-pointer min-h-fit ${
-            quizDropdownVisible ? ' border-[#8C8C8C]' : ''
+            quizDropdownVisible ? ' border-neutral-medium-gray' : ''
           }`}
           onClick={() => {
             BurialPoint.track('lesson-quiz dropdown点击');

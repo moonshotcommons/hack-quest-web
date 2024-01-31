@@ -117,14 +117,14 @@ const EmailVerify: FC<EmailVerifyProps> = (props) => {
         <h1 className="text-h3-mob font-next-book-bold text-neutral-off-black">
           Verify Your Email
         </h1>
-        <p className="body-m text-neutral-medium-gray font-Nunito">
+        <p className="body-m text-neutral-medium-gray">
           Please verify your account via the link in the e-mail and follow the
           instruction to login
           {/* <p className="whitespace-nowrap">{`If you don't receive an email from us, please check your spam`}</p> */}
           {/* <p>
             <span>folder or</span>
             <Link
-              className="text-white font-next-book -tracking-[0.154px] text-left mt-1 cursor-pointer underline ml-1"
+              className="text-neutral-white font-next-book -tracking-[0.154px] text-left mt-1 cursor-pointer underline ml-1"
               href={'mailto:founder@hackquest.io'}
               target="_blank"
             >
@@ -141,7 +141,7 @@ const EmailVerify: FC<EmailVerifyProps> = (props) => {
           disabled={!!Math.floor(countdown / 1000)}
           className={cn(
             `
-          py-4 uppercase button-text-m font-Nunito
+          py-4 uppercase button-text-m
           bg-auth-primary-button-bg hover:bg-auth-primary-button-hover-bg
           text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
           border-auth-primary-button-border-color hover:border-auth-primary-button-border-hover-color
@@ -163,7 +163,7 @@ const EmailVerify: FC<EmailVerifyProps> = (props) => {
           block
           ghost
           className="
-          py-4 uppercase button-text-m border-neutral-off-black font-Nunito 
+          py-4 uppercase button-text-m border-neutral-off-black 
     "
         >
           {backButtonParams.text}

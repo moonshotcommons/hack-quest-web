@@ -51,7 +51,7 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
         inter.className
       } ${isNavbarFullPage ? '' : 'min-h-[100vh]'} `}
     >
-      <div className="w-full bg-[#0B0B0B] flex items-center">
+      <div className="w-full bg-neutral-black flex items-center">
         <NavBar {...navbarData}>
           <User></User>
         </NavBar>
@@ -59,7 +59,7 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
       <div
         id="content-scroll-wrap"
         className={`m-auto overflow-auto flex-1 w-full  ${
-          isNavbarFullPage ? 'bg-[white]' : 'bg-[#F4F4F4]'
+          isNavbarFullPage ? 'bg-[white]' : 'bg-neutral-off-white'
         }`}
       >
         <div className={`w-full h-full flex flex-col`}>

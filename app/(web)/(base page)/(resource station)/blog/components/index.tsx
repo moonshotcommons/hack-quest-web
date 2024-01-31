@@ -38,9 +38,9 @@ const Blog: React.FC<BlogProps> = async function ({
       <BlogBanner searchParams={searchParams} />
       <div className="container mx-auto py-[70px]">
         {searchParams.keyword ? (
-          <div className="text-[#0b0b0b] text-[24px] font-next-book mb-[40px] text-center">
+          <div className="text-neutral-black text-[24px] font-next-book mb-[40px] text-center">
             {totalList} Results for
-            <span className="text-[#8c8c8c] pl-[4px]">
+            <span className="text-neutral-medium-gray pl-[4px]">
               “{searchParams.keyword}”
             </span>
           </div>

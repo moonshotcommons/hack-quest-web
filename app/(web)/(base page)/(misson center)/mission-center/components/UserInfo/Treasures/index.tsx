@@ -25,7 +25,7 @@ const Treasures: React.FC<TreasuresProp> = ({ userTreasure }) => {
   };
   return (
     <div className="w-full">
-      <div className="leading-[23px] text-[#000] flex mt-[40px]">
+      <div className="leading-[23px] text-neutral-black flex mt-[40px]">
         <div className="relative">
           Your treasures
           <Badge count={userTreasure.length} />
@@ -37,7 +37,7 @@ const Treasures: React.FC<TreasuresProp> = ({ userTreasure }) => {
             key={i}
             className={`w-[60px] h-[60px] rounded-[10px] flex-center ${
               curId === userTreasure[i]?.id
-                ? 'border border-[#8c8c8c]'
+                ? 'border border-neutral-medium-gray'
                 : userTreasure.length <= i
                 ? 'border border-[rgba(218, 218, 218, 0.8)]'
                 : 'cursor-pointer'

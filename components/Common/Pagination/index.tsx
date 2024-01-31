@@ -56,9 +56,9 @@ const Pagination: FC<PaginationProps> = (props) => {
       {urlPrefix ? (
         <Link
           className={cn(
-            `flex items-center justify-center p-2 rounded-full border border-solid border-[#000000] bg-[#000000] text-white cursor-pointer scale-[0.835]`,
+            `flex items-center justify-center p-2 rounded-full border border-solid border-[#000000] bg-[#000000] text-neutral-white cursor-pointer scale-[0.835]`,
             page <= 1
-              ? 'bg-transparent text-black cursor-not-allowed'
+              ? 'bg-transparent text-neutral-black cursor-not-allowed'
               : 'hover:bg-[#000000]/70 hover:border-[#000000]/70 transition'
           )}
           href={`${urlPrefix}${page <= 1 ? 1 : page - 1}${pageSearch}`}
@@ -68,9 +68,9 @@ const Pagination: FC<PaginationProps> = (props) => {
       ) : (
         <div
           className={cn(
-            `flex items-center justify-center p-2 rounded-full border border-solid border-[#000000] bg-[#000000] text-white cursor-pointer scale-[0.835]`,
+            `flex items-center justify-center p-2 rounded-full border border-solid border-[#000000] bg-[#000000] text-neutral-white cursor-pointer scale-[0.835]`,
             page <= 1
-              ? 'bg-transparent text-black cursor-not-allowed'
+              ? 'bg-transparent text-neutral-black cursor-not-allowed'
               : 'hover:bg-[#000000]/70 hover:border-[#000000]/70 transition'
           )}
           onClick={() => {
@@ -85,7 +85,7 @@ const Pagination: FC<PaginationProps> = (props) => {
         </div>
       )}
 
-      <div className="font-next-book text-[24px] text-[#0b0b0b] leading-[160%] tracking-[0.48px]">
+      <div className="font-next-book text-[24px] text-neutral-black leading-[160%] tracking-[0.48px]">
         <span>Page</span>
         <input
           type="text"
@@ -106,9 +106,9 @@ const Pagination: FC<PaginationProps> = (props) => {
       {urlPrefix ? (
         <Link
           className={cn(
-            `flex items-center justify-center p-2 rounded-full border border-solid border-[#000000] bg-[#000000] text-white cursor-pointer scale-[0.835]`,
+            `flex items-center justify-center p-2 rounded-full border border-solid border-[#000000] bg-[#000000] text-neutral-white cursor-pointer scale-[0.835]`,
             page >= total
-              ? 'bg-transparent text-black cursor-not-allowed'
+              ? 'bg-transparent text-neutral-black cursor-not-allowed'
               : 'hover:bg-[#000000]/70 hover:border-[#000000]/70 transition'
           )}
           href={`${urlPrefix}${page >= total ? page : page + 1}${pageSearch}`}
@@ -118,9 +118,9 @@ const Pagination: FC<PaginationProps> = (props) => {
       ) : (
         <div
           className={cn(
-            `flex items-center justify-center p-2 rounded-full border border-solid border-[#000000] bg-[#000000] text-white cursor-pointer scale-[0.835]`,
+            `flex items-center justify-center p-2 rounded-full border border-solid border-[#000000] bg-[#000000] text-neutral-white cursor-pointer scale-[0.835]`,
             page >= total
-              ? 'bg-transparent text-black cursor-not-allowed'
+              ? 'bg-transparent text-neutral-black cursor-not-allowed'
               : 'hover:bg-[#000000]/70 hover:border-[#000000]/70 transition'
           )}
           onClick={() => {

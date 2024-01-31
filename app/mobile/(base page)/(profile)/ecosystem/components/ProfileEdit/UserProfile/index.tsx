@@ -26,11 +26,11 @@ const UserProfile: FC<UserProfileProps> = ({ profile }) => {
         )}
       >
         <div className="flex flex-col gap-[10px] mb-[30px]">
-          <div className="font-next-poster-Bold text-[28px] tracking-[1.68px] text-[#0B0B0B] leading-normal whitespace-pre-wrap">
+          <div className="font-next-poster-Bold text-[28px] tracking-[1.68px] text-neutral-black leading-normal whitespace-pre-wrap">
             {profile.name}
           </div>
           <div className="flex items-center gap-[15px]">
-            <div className="text-[#000]">Official Website</div>
+            <div className="text-neutral-black">Official Website</div>
             <div
               className="flex items-center gap-[10px] cursor-pointer"
               onClick={() => {
@@ -38,7 +38,9 @@ const UserProfile: FC<UserProfileProps> = ({ profile }) => {
                 window.open(profile.website);
               }}
             >
-              <span className="text-[#8C8C8C]">{profile.website}</span>
+              <span className="text-neutral-medium-gray">
+                {profile.website}
+              </span>
               <RiShareBoxLine />
             </div>
           </div>
@@ -58,27 +60,27 @@ const UserProfile: FC<UserProfileProps> = ({ profile }) => {
             })}
           </div>
         </div>
-        <div className="text-[#000] w-[64%] line-clamp-3">
+        <div className="text-neutral-black w-[64%] line-clamp-3">
           {profile.description}
         </div>
         <div className="flex h-[126px] mt-[30px]">
           <div className="h-full w-[265px] pr-[31px] flex flex-col justify-between items-center border-r-[0.5px] border-r-[#000]">
-            <p className="text-[#000] text-[54px] leading-[86px] font-next-book-Thin">
+            <p className="text-neutral-black text-[54px] leading-[86px] font-next-book-Thin">
               {separationNumber(profile.courseCount, 10000)}
             </p>
-            <p className="text-[#8C8C8C]">Total Courses</p>
+            <p className="text-neutral-medium-gray">Total Courses</p>
           </div>
           {/* <div className="h-full w-[295px] px-[31px] flex flex-col justify-between items-center border-r-[0.5px] border-r-[#000]">
-            <p className="text-[#000] text-[54px] leading-[86px] font-next-book-Thin">
+            <p className="text-neutral-black text-[54px] leading-[86px] font-next-book-Thin">
               {separationNumber(100000, 10000)}
             </p>
-            <p className="text-[#8C8C8C]">Total Views</p>
+            <p className="text-neutral-medium-gray">Total Views</p>
           </div> */}
           <div className="h-full w-[265px] pl-[31px] flex flex-col justify-between items-center ">
-            <p className="text-[#000] text-[54px] leading-[86px] font-next-book-Thin">
+            <p className="text-neutral-black text-[54px] leading-[86px] font-next-book-Thin">
               {separationNumber(profile.learnCount, 10000)}
             </p>
-            <p className="text-[#8C8C8C]">Total Learners</p>
+            <p className="text-neutral-medium-gray">Total Learners</p>
           </div>
         </div>
 

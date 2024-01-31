@@ -42,8 +42,8 @@ const CommunityIntroduction: FC<{}> = (props) => {
     <div className="mt-[2.375rem] w-full py-10 px-5">
       <div className="flex flex-col gap-3 items-center text-center">
         <p className="body-s-bold uppercase text-neutral-rich-gray text-[.75rem]">{`what’s next`}</p>
-        <h2 className="text-h2 text-[1.375rem]">We Support Beyond 📖</h2>
-        <p className="body-l text-neutral-medium-gray text-[.75rem] font-Nunito">
+        <h2 className="text-h2-mob">We Support Beyond 📖</h2>
+        <p className="body-xs text-neutral-medium-gray">
           Your learning does not end with courses. Engage with our rapidly
           growing Web3 community!
         </p>
@@ -61,16 +61,16 @@ const CommunityIntroduction: FC<{}> = (props) => {
                 ></Image>
               </div>
               <div className="flex flex-col gap-3">
-                <h4 className="text-h4 text-neutral-off-black font-next-book-bold text-[1rem]">
+                <h4 className="text-h4-mob text-neutral-off-black">
                   {item.title}
                 </h4>
-                <p className="body-s text-neutral-medium-gray text-[.75rem] font-Nunito">
+                <p className="body-xs text-neutral-medium-gray">
                   {item.description}
                 </p>
                 <Link
                   href={item.link}
                   target="_blank"
-                  className="body-m-bold flex gap-2 items-center cursor-pointer text-[.75rem]"
+                  className="body-xs-bold flex gap-2 items-center cursor-pointer"
                 >
                   <span className="relative after:h-[2px] after:rounded-full after:absolute after:w-full after:left-0 after:-bottom-[1px] after:bg-yellow-primary">
                     {item.buttonText}

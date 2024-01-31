@@ -53,7 +53,7 @@ const BackgroundImage: FC<BackgroundImageProps> = (props) => {
         <div
           className={cn(
             'absolute w-full h-full  left-0 top-0 transition-all duration-200 rounded-t-[10px]',
-            showEditIcon ? 'bg-black/50' : 'bg-black/0'
+            showEditIcon ? 'bg-neutral-black/50' : 'bg-neutral-black/0'
           )}
         >
           {showEditIcon && (

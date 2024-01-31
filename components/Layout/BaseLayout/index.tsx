@@ -19,7 +19,7 @@ const BaseLayout = memo(function (props: BaseLayoutProps) {
     <div
       className={`w-full h-[100vh] flex flex-col overflow-hidden  ${inter.className} min-h-[100vh]`}
     >
-      <div className="w-full bg-[#0B0B0B] flex items-center">
+      <div className="w-full bg-neutral-black flex items-center">
         <Navbar navList={navbarList} isFull={false}>
           <User></User>
         </Navbar>
@@ -28,7 +28,7 @@ const BaseLayout = memo(function (props: BaseLayoutProps) {
       </div>
       <div
         id="content-scroll-wrap"
-        className={`m-auto overflow-auto flex-1 w-full bg-[#F4F4F4]`}
+        className={`m-auto overflow-auto flex-1 w-full bg-neutral-off-white`}
       >
         <div className={`w-full h-full flex flex-col`}>
           {!excludeBreadcrumb && (

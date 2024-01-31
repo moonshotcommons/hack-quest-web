@@ -158,16 +158,18 @@ const GithubActivity: FC<GithubActivityProps> = ({ edit = false }) => {
           </div>
           <div className="w-[45%] flex-shrink-0 flex">
             <div className="w-[52.99%] border-l-[0.5px] border-l-[#000] flex flex-col justify-between text-center">
-              <p className="text-[54px] text-[#000] leading-[86px]">
+              <p className="text-[54px] text-neutral-black leading-[86px]">
                 {separationNumber(githubInfo.commit)}
               </p>
-              <p className="text-[#8c8c8c] tracking-[0.36px]">Commits</p>
+              <p className="text-neutral-medium-gray tracking-[0.36px]">
+                Commits
+              </p>
             </div>
             <div className="w-[47.99%] border-l-[0.5px] border-l-[#000] flex flex-col justify-between text-center">
-              <p className="text-[54px] text-[#000] leading-[86px]">
+              <p className="text-[54px] text-neutral-black leading-[86px]">
                 {separationNumber(githubInfo.start)}
               </p>
-              <p className="text-[#8c8c8c] tracking-[0.36px]">
+              <p className="text-neutral-medium-gray tracking-[0.36px]">
                 Github Repo Stars
               </p>
             </div>

@@ -59,18 +59,18 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({
         <div className="relative h-[100px] flex flex-col justify-between pl-[20px]">
           <div className="absolute left-0 top-0 w-[5px] h-full rounded-[10px] bg-yellow-primary"></div>
           <div>
-            <div className="text-[#8C8C8C]">RUNS FROM</div>
+            <div className="text-neutral-medium-gray">RUNS FROM</div>
             <div className="text-[16px]">
               {getRunFromTime(hackathon.startTime, hackathon.endTime)}
             </div>
           </div>
           <div>
-            <div className="text-[#8C8C8C]">HAPPENING</div>
+            <div className="text-neutral-medium-gray">HAPPENING</div>
             <div className="text-[16px]">{hackathon.address}</div>
           </div>
         </div>
         <div className="h-[63px] px-[20px] rounded-[10px] bg-[rgba(255,244,206,0.5)] flex flex-col justify-center ">
-          <div className="text-[#8C8C8C]">APPLICATIONS CLOSE IN</div>
+          <div className="text-neutral-medium-gray">APPLICATIONS CLOSE IN</div>
           <div className="text-[16px]">{closeInTime}</div>
         </div>
         <div className="flex justify-between">
@@ -84,7 +84,7 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({
             Apply Now
           </Button>
           <Button
-            className="w-[245px] h-[60px] text-[18px] border border-[#0B0B0B]"
+            className="w-[245px] h-[60px] text-[18px] border border-neutral-black"
             onClick={goHackathonDetail}
           >
             Learn More

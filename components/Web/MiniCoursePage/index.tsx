@@ -38,11 +38,11 @@ const MiniCoursePage: FC<MiniCoursePageProps> = (props) => {
           <>
             <Sidebar lesson={lesson}></Sidebar>
             <LessonContentWrap lesson={lesson}>
-              <div className="flex-1 max-w-[840px] bg-white h-full rounded-[12px] px-[64px] py-[48px] shadow-[0px_4px_8px_0px_rgba(0,0,0,0.12)] flex flex-col">
-                <h1 className="pb-[24px] text-[28px] font-next-poster-Bold text-[#131313] tracking-[1.68px]">
+              <div className="flex-1 max-w-[840px] bg-neutral-white h-full rounded-[12px] px-[64px] py-[48px] shadow-[0px_4px_8px_0px_rgba(0,0,0,0.12)] flex flex-col">
+                <h1 className="pb-[24px] text-[28px] font-next-poster-Bold text-neutral-off-black tracking-[1.68px]">
                   {lesson.name}
                 </h1>
-                <div className="h-[1px] w-full scale-y-50 bg-black mb-4">
+                <div className="h-[1px] w-full scale-y-50 bg-neutral-black mb-4">
                   &nbsp;
                 </div>
                 <div className="flex-1 overflow-y-auto overflow-x-visible scroll-wrap-y pr-4 pl-1">

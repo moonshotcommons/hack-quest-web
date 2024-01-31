@@ -31,7 +31,7 @@ export const ShareWrap = <T extends React.ForwardRefExoticComponent<any>>(
     >
       <div
         key={props.name}
-        className="flex gap-3 items-center text-[#0B0B0B] hover:text-[#0B0B0B]/60 animate"
+        className="flex gap-3 items-center text-neutral-black hover:text-neutral-black/60 animate"
       >
         <div
           style={{

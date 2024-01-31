@@ -19,13 +19,13 @@ const ElectiveTag: React.FC<ElectiveTagProp> = ({ elective }) => {
       </div> */}
       <Tag
         icon={<ClockIcon size={25} />}
-        className="text-[16px] text-[#0b0b0b]"
+        className="text-[16px] text-neutral-black"
       >
         {computeTime(elective?.duration || 0, 'Hour')}
       </Tag>
       {/* <Tag
         icon={<BadgeIcon color="#000" width={24} height={32} />}
-        className="text-[16px] text-[#0b0b0b]"
+        className="text-[16px] text-neutral-black"
       >
         1 badge
       </Tag> */}

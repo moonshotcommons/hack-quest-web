@@ -176,7 +176,7 @@ const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
       )}
       <div className="mt-[60px] w-full">
         <div className="flex justify-between items-center">
-          <h2 className="mb-[30px] text-[#000] font-next-poster-Bold text-[28px] tracking-[1.68px]">
+          <h2 className="mb-[30px] text-neutral-black font-next-poster-Bold text-[28px] tracking-[1.68px]">
             Syllabus
           </h2>
           <span
@@ -221,7 +221,7 @@ const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
           }}
         >
           <Button
-            className="px-0 w-[270px] py-[16px] leading-[125%] text-[#000] font-next-book text-[18px] tracking-[0.36px]"
+            className="px-0 w-[270px] py-[16px] leading-[125%] text-neutral-black font-next-book text-[18px] tracking-[0.36px]"
             type="primary"
           >
             Enroll

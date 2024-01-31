@@ -23,7 +23,7 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon }) => {
     <Link
       href={`${menuLink.hackathon}/${hackathon.id}?menu=${Menu.HACKATHON}&${QueryIdType.HACKATHON_ID}=${hackathon.id}`}
     >
-      <div className="rounded-[10px] overflow-hidden w-full h-fit flex gap-y-[22px] flex-col bg-white shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] hover:-translate-y-1 transition-all duration-300 hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)] cursor-pointer">
+      <div className="rounded-[10px] overflow-hidden w-full h-fit flex gap-y-[22px] flex-col bg-neutral-white shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] hover:-translate-y-1 transition-all duration-300 hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)] cursor-pointer">
         <div className="w-full bg-[#D9D9D9] rounded-t-[10px] relative pt-[56.25%] h-0">
           {cover && (
             <Image
@@ -35,10 +35,10 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon }) => {
           )}
         </div>
         <div className="pb-[30px] flex flex-col px-[22px]">
-          {/* <h2 className="font-next-book-bold text-[#0b0b0b] text-[18px] leading-[125%] -tracking-[0.185px] min-h-[46px]"> */}
+          {/* <h2 className="font-next-book-bold text-neutral-black text-[18px] leading-[125%] -tracking-[0.185px] min-h-[46px]"> */}
           <Typography.Paragraph
             ellipsis={{ rows: 2 }}
-            className="font-next-book-bold text-[#0b0b0b] text-[18px] leading-[125%] -tracking-[0.185px] min-h-[46px]"
+            className="font-next-book-bold text-neutral-black text-[18px] leading-[125%] -tracking-[0.185px] min-h-[46px]"
             style={{ marginBottom: 0 }}
           >
             {name}
@@ -48,21 +48,21 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon }) => {
             <div className="w-[5px] rounded-full bg-yellow-primary"></div>
             <div className="flex flex-col gap-[15px]">
               <div className="w-full font-next-book leading-[125%]">
-                <p className="text-[12px] tracking-[0.24px] text-[#8C8C8C]">
+                <p className="text-[12px] tracking-[0.24px] text-neutral-medium-gray">
                   RUNS FROM
                 </p>
-                <p className="mt-[5px] text-[14px] text-[#0b0b0b] tracking-[0.28px]">
+                <p className="mt-[5px] text-[14px] text-neutral-black tracking-[0.28px]">
                   {formatTime(startTime, endTime)}
                 </p>
               </div>
               <div className="w-full font-next-book leading-[125%]">
-                <p className="text-[12px] leading-[125%] tracking-[0.24px] text-[#8C8C8C]">
+                <p className="text-[12px] leading-[125%] tracking-[0.24px] text-neutral-medium-gray">
                   HAPPENING
                 </p>
 
                 <Typography.Paragraph
                   ellipsis={{ rows: 2 }}
-                  className="mt-[5px] text-[14px] text-[#0b0b0b] tracking-[0.28px] min-h-[36px]"
+                  className="mt-[5px] text-[14px] text-neutral-black tracking-[0.28px] min-h-[36px]"
                   style={{ marginBottom: 0 }}
                 >
                   {address}

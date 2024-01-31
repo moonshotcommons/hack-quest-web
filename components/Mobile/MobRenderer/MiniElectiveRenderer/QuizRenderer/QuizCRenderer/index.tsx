@@ -89,7 +89,7 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
             <div
               key={index}
               className={cn(
-                'px-6 py-5 flex items-center border border-[#DADADA] rounded-[10px] cursor-pointer gap-[20px] hover:scale-[1.01] transition-all duration-200',
+                'px-6 py-5 flex items-center border border-neutral-light-gray rounded-[10px] cursor-pointer gap-[20px] hover:scale-[1.01] transition-all duration-200',
                 answers.includes(item.index) ? 'bg-[#FFF4CE]' : ''
               )}
               onClick={() => {
@@ -102,7 +102,7 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
                 }
               }}
             >
-              <div className="w-8 h-8 flex flex-center border-[2px] border-[#DADADA] rounded-[4px]">
+              <div className="w-8 h-8 flex flex-center border-[2px] border-neutral-light-gray rounded-[4px]">
                 {item.index}
               </div>
               <div className="flex-1">
@@ -130,7 +130,7 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
         {answerState === AnswerState.Default && (
           <Button
             type="primary"
-            className="w-[165px] p-0 py-[11px] font-next-book leading-[125%] tracking-[0.32px] text-[#0B0B0B]"
+            className="w-[165px] p-0 py-[11px] font-next-book leading-[125%] tracking-[0.32px] text-neutral-black"
             onClick={onSubmit}
           >
             Submit
@@ -139,7 +139,7 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
         {answerState === AnswerState.Wrong && (
           <Button
             type="primary"
-            className="w-[165px] p-0 py-[11px] font-next-book leading-[125%] tracking-[0.32px] text-[#0B0B0B]"
+            className="w-[165px] p-0 py-[11px] font-next-book leading-[125%] tracking-[0.32px] text-neutral-black"
             onClick={onTryAgain}
           >
             Try again
@@ -148,7 +148,7 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
         {answerState === AnswerState.Correct && (
           <Button
             type="primary"
-            className="w-[165px] p-0 py-[11px] font-next-book leading-[125%] tracking-[0.32px] text-[#0B0B0B]"
+            className="w-[165px] p-0 py-[11px] font-next-book leading-[125%] tracking-[0.32px] text-neutral-black"
             onClick={() => {
               onCompleted?.();
             }}

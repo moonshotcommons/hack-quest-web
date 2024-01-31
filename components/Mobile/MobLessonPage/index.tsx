@@ -161,14 +161,14 @@ const MobLessonPage: FC<MobLessonPageProps> = (props) => {
                   const content2 = document.createElement('span');
                   container.className = 'w-full px-[6px] flex justify-between';
                   content1.className =
-                    'w-[2px] h-[12px] bg-[#8C8C8C] rounded-full';
+                    'w-[2px] h-[12px] bg-neutral-medium-gray rounded-full';
                   content2.className =
-                    'w-[2px] h-[12px] bg-[#8C8C8C] rounded-full';
+                    'w-[2px] h-[12px] bg-neutral-medium-gray rounded-full';
 
                   container.appendChild(content1);
                   container.appendChild(content2);
                   gutter.appendChild(container);
-                  gutter.className = `gutter gutter-${direction} flex flex-col justify-center items-center bg-[#F4F4F4] shadow-[-2px_0px_4px_0px_rgba(0,0,0,0.10)] w-[20px!important]`;
+                  gutter.className = `gutter gutter-${direction} flex flex-col justify-center items-center bg-neutral-off-white shadow-[-2px_0px_4px_0px_rgba(0,0,0,0.10)] w-[20px!important]`;
                   return gutter;
                 }}
               >

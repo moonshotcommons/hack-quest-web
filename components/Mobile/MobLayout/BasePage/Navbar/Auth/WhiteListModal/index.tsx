@@ -23,7 +23,7 @@ interface CompleteModalProps {
 //     <Button
 //       padding="px-[2.5rem] py-[1.25rem]"
 //       fontStyle="font-Sofia-Pro-Light-Az font-normal"
-//       textStyle="text-[1rem] text-white leading-[1.25rem]"
+//       textStyle="text-[1rem] text-neutral-white leading-[1.25rem]"
 //       {...props}
 //     >
 //       {children}

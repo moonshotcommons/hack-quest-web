@@ -75,7 +75,9 @@ const TargetCard: React.FC<TargetCardProp> = ({ target }) => {
     <div
       key={target.id}
       className={`h-[82px] rounded-[10px] border  mt-[15px] relative ${
-        target.completed ? 'border-yellow-primary' : 'border-[#8C8C8C]'
+        target.completed
+          ? 'border-yellow-primary'
+          : 'border-neutral-medium-gray'
       }`}
     >
       <div
@@ -86,16 +88,16 @@ const TargetCard: React.FC<TargetCardProp> = ({ target }) => {
       ></div>
       <div className="absolute w-full h-full left-0 top-0 flex justify-between items-center px-[30px] ">
         <div className="flex-row-center gap-[20px]">
-          <span className="text-[16px] tracking-[0.32px]">{target.name}</span>
+          <span className="body-m">{target.name}</span>
         </div>
         <div className="flex-row-center gap-[40px]">
-          <div className="flex-row-center justify-between px-[10px] w-[75px] h-[44px] leading-[40px] text-[#000] text-[16px] border border-[#DADADA] bg-[#F4F4F4] rounded-[100px]">
+          <div className="flex-row-center justify-between px-[10px] w-[75px] h-[44px] leading-[40px] text-neutral-black body-m border border-neutral-light-gray bg-neutral-off-white rounded-[100px]">
             <Image src={BIcon} width={22} alt="icon" className=""></Image>
             <span>{target.reward}</span>
           </div>
           {target.completed ? (
             <Button
-              className={`w-[164px] ml-[-20px] h-[44px] text-[#0b0b0b]
+              className={`w-[164px] ml-[-20px] h-[44px] text-neutral-black
                           bg-auth-primary-button-bg
                           border-auth-primary-button-border-color ${
                             target.claimed
@@ -112,9 +114,9 @@ const TargetCard: React.FC<TargetCardProp> = ({ target }) => {
           ) : (
             <div className="relative">
               <Button
-                className={`w-[164px] p-0 ml-[-20px] h-[44px] text-[14px] text-[#0b0b0b]
+                className={`w-[164px] p-0 ml-[-20px] h-[44px] text-[14px] text-neutral-black
               text-auth-primary-button-text-color  border
-              border-[#0b0b0b]`}
+              border-neutral-black`}
                 loading={unLoading}
                 onClick={() => handleUnClaim(target.type)}
               >

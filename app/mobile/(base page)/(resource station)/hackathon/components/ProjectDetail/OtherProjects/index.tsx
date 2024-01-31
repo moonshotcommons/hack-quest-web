@@ -62,7 +62,7 @@ const OtherProjects: FC<OtherProjectsProps> = (props) => {
         {`in `}
         <Link
           href={`${MenuLink.PROJECTS}?menu=${Menu.HACKATHON}&${QueryIdType.PROJECT_ID}=projects&keyWord=${hackathonName}`}
-          className="text-[#0B0B0B] underline hover:opacity-70 hover:text-[#0B0B0B] hover:underline transition-all"
+          className="text-neutral-black underline hover:opacity-70 hover:text-neutral-black hover:underline transition-all"
         >
           {hackathonName}
         </Link>

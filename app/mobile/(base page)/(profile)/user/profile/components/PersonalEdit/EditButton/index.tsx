@@ -14,7 +14,7 @@ const EditButton: FC<
   return (
     <div
       className={cn(
-        'w-[45px] h-[45px] rounded-full bg-white opacity-100 flex items-center justify-center cursor-pointer',
+        'w-[45px] h-[45px] rounded-full bg-neutral-white opacity-100 flex items-center justify-center cursor-pointer',
         className
       )}
       {...rest}

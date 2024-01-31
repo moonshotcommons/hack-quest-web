@@ -29,9 +29,9 @@ function UnProgressHeaderRight(
   type: 'course' | 'learning-track'
 ) {
   return (
-    <div className="border-t w-[445px] max-w-[445px] border-[#000] flex flex-col">
-      <div className="py-5 px-[15px] border-b border-[#000] flex justify-between items-center">
-        <span className="font-next-book-bold tracking-[0.36px] text-black text-[18px]">
+    <div className="border-t w-[445px] max-w-[445px] border-neutral-black flex flex-col">
+      <div className="py-5 px-[15px] border-b border-neutral-black flex justify-between items-center">
+        <span className="font-next-book-bold tracking-[0.36px] text-neutral-black text-[18px]">
           Experience
         </span>
         <CourseLevel
@@ -39,8 +39,8 @@ function UnProgressHeaderRight(
           size="large"
         ></CourseLevel>
       </div>
-      <div className="py-5 px-[15px] border-b border-[#000] flex justify-between items-center">
-        <span className="font-next-book-bold tracking-[0.36px] text-black text-[18px]">
+      <div className="py-5 px-[15px] border-b border-neutral-black flex justify-between items-center">
+        <span className="font-next-book-bold tracking-[0.36px] text-neutral-black text-[18px]">
           Duration
         </span>
 
@@ -48,14 +48,14 @@ function UnProgressHeaderRight(
           <Tag
             icon={<ClockIcon size={25} />}
             size="large"
-            className="gap-[28px] text-[#0B0B0B] font-next-book text-[16px]"
+            className="gap-[28px] text-neutral-black font-next-book text-[16px]"
           >
             {computeTime(detail.duration, 'Hour')}
           </Tag>
         </div>
       </div>
-      <div className="py-5 px-[15px] border-b border-[#000] flex justify-between items-center">
-        <span className="font-next-book-bold tracking-[0.36px] text-black text-[18px]">
+      <div className="py-5 px-[15px] border-b border-neutral-black flex justify-between items-center">
+        <span className="font-next-book-bold tracking-[0.36px] text-neutral-black text-[18px]">
           {type === 'course' && 'Total Units'}
           {type === 'learning-track' && 'Total Courses'}
         </span>
@@ -63,7 +63,7 @@ function UnProgressHeaderRight(
           <Tag
             icon={<CourseIcon size={23} />}
             size="large"
-            className="gap-[28px] text-[#0B0B0B] font-next-book text-[16px]"
+            className="gap-[28px] text-neutral-black font-next-book text-[16px]"
           >
             {type === 'course' &&
               itemCount + ' ' + `${itemCount > 1 ? 'Units' : 'Unit'}`}
@@ -87,13 +87,13 @@ function InProgressHeaderRight(
 ) {
   return (
     <div className="flex flex-col w-[445px] max-w-[445px]">
-      <p className="text-[#000] text-[28px] font-next-poster-Bold tracking-[1.68px] mb-[12px]">
+      <p className="text-neutral-black text-[28px] font-next-poster-Bold tracking-[1.68px] mb-[12px]">
         Next Up
       </p>
-      <p className="font-next-book-Thin text-[#000] leading-[160%] text-[16px] tracking-[0.32px]">
+      <p className="font-next-book-Thin text-neutral-black leading-[160%] text-[16px] tracking-[0.32px]">
         {nextInfo.title}
       </p>
-      <p className="font-next-book text-[24px] leading-[160%] tracking-[0.48px] text-[#000]">
+      <p className="font-next-book text-[24px] leading-[160%] tracking-[0.48px] text-neutral-black">
         {nextInfo.content}
       </p>
       <div className={'flex gap-[15px] items-center mt-[34px]'}>
@@ -114,7 +114,7 @@ function InProgressHeaderRight(
         <Button
           loading={resumeLoading}
           disabled={resumeLoading}
-          className="px-0 w-[270px] py-[16px] leading-[125%] text-[#000] font-next-book text-[18px] tracking-[0.36px]"
+          className="px-0 w-[270px] py-[16px] leading-[125%] text-neutral-black font-next-book text-[18px] tracking-[0.36px]"
           type="primary"
           onClick={resumeCallback}
         >

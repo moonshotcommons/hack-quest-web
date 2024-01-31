@@ -126,7 +126,7 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
             <div
               key={index}
               className={cn(
-                'px-6 py-5 flex items-center border border-[#DADADA] rounded-[10px] cursor-pointer gap-[20px] hover:scale-[1.01] transition-all duration-200',
+                'px-6 py-5 flex items-center border border-neutral-light-gray rounded-[10px] cursor-pointer gap-[20px] hover:scale-[1.01] transition-all duration-200',
                 answers.includes(item.index) ? 'bg-[#FFF4CE]' : ''
               )}
               onClick={() => {
@@ -139,7 +139,7 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
                 }
               }}
             >
-              <div className="w-8 h-8 flex flex-center border-[2px] border-[#DADADA] rounded-[4px]">
+              <div className="w-8 h-8 flex flex-center border-[2px] border-neutral-light-gray rounded-[4px]">
                 {item.index}
               </div>
               <div className="flex-1">
