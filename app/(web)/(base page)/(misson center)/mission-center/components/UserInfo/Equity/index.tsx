@@ -60,7 +60,7 @@ const Equity: React.FC<EquityProp> = ({ level }) => {
         <div className="flex-center group relative  left-[-15px] h-[40px] w-[40px] cursor-pointer">
           <Image src={IconTip} width={10} alt="iconTip"></Image>
           <div
-            className="absolute right-[-416px] top-[-30px] z-20 hidden w-[415px] rounded-[10px]  bg-[#fff] p-[20px] group-hover:block"
+            className="absolute right-[-416px] top-[-30px] z-20 hidden w-[415px] rounded-[10px]  bg-neutral-white p-[20px] group-hover:block"
             style={{
               boxShadow: `0 1px 6px #dadada`
             }}
@@ -70,7 +70,7 @@ const Equity: React.FC<EquityProp> = ({ level }) => {
               <div className="w-[115px]">Role</div>
               <div className="w-[215px]">Rights</div>
             </div>
-            <div className="font-next-book-Thin text-[12px]">
+            <div className="body-xs">
               {equityTip.map((v, i) => (
                 <div
                   key={i}
@@ -95,7 +95,7 @@ const Equity: React.FC<EquityProp> = ({ level }) => {
       <ul>{equityList.map((v, i) => renderEquity(v, i))}</ul>
       <div className="flex w-full justify-end pt-[4px]">
         <span
-          className="cursor-pointer text-[12px] text-neutral-black underline"
+          className="body-xs cursor-pointer text-neutral-black underline"
           onClick={() => handleShowMore()}
         >
           Show {showMore ? 'Less' : 'More'}

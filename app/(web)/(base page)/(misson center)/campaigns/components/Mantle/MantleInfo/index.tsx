@@ -60,7 +60,7 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
                 fill
               ></Image>
             </div>
-            <div className="flex gap-[10px] text-[14px]">
+            <div className="body-s flex gap-[10px]">
               <div className="flex h-[32px] w-[69px] items-center justify-between rounded-[6px] border border-neutral-light-gray px-[5px]">
                 <Image
                   src={iconCoin}
@@ -86,7 +86,7 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
                 setShowAll(!showAll);
               }}
             >
-              <div className="text-[18px]">{mantle.certification?.name}</div>
+              <div className="body-l">{mantle.certification?.name}</div>
               <div>
                 {showAll ? (
                   <VscChromeMinimize size={20}></VscChromeMinimize>
@@ -96,9 +96,7 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
               </div>
             </div>
             {showAll && (
-              <div
-                className={`mb-[20px] mt-[5px] text-[14px] ${inter.className}`}
-              >
+              <div className={`body-s mb-[20px] mt-[5px] ${inter.className}`}>
                 {mantle.certification?.description}
               </div>
             )}
@@ -122,8 +120,8 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
                 {mantle.certification.claimed ? 'Claimed' : 'Claim'}
               </Button>
               <Button
-                className={`h-[34px] w-[120px] border border-neutral-black p-0
-                          text-[14px] text-neutral-black`}
+                className={`body-s h-[34px] w-[120px] border border-neutral-black
+                          p-0 text-neutral-black`}
                 onClick={learnMore}
               >
                 Learn More

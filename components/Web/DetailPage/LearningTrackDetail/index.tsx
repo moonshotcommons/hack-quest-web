@@ -219,7 +219,7 @@ const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
           }}
         >
           <Button
-            className="w-[270px] px-0 py-[16px] font-next-book text-[18px] leading-[125%] tracking-[0.36px] text-neutral-black"
+            className="body-l w-[270px] px-0 py-[16px] text-neutral-black"
             type="primary"
           >
             Enroll

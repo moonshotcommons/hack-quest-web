@@ -89,7 +89,7 @@ const TreasureModal = forwardRef<TreasureModalRef, TreasureModalProp>(
       >
         <div className="flex-center h-[750px] w-full">
           <div
-            className="flex h-[700px] w-[99%] flex-col  overflow-hidden rounded-[10px] text-[#fff]"
+            className="flex h-[700px] w-[99%] flex-col  overflow-hidden rounded-[10px] text-neutral-white"
             style={{
               boxShadow: `0 0 10px #3e3e3e`
             }}
@@ -102,23 +102,23 @@ const TreasureModal = forwardRef<TreasureModalRef, TreasureModalProp>(
             >
               {type === TreasureType.NOT_DIG && (
                 <>
-                  <p className="mb-[43px] font-next-book-bold text-[24px] tracking-[0.48px]">
+                  <p className="body-xl-bold mb-[43px] tracking-[0.48px]">
                     You found something hidden on your HackQuest Journey!
                   </p>
                   <Button
                     onClick={() => {
                       openTreasures(treasureId);
                     }}
-                    className={`mb-[25px] h-[55px]  w-[400px] border-auth-primary-button-border-color
-                      bg-auth-primary-button-bg p-0 text-[18px] tracking-[0.36px]
+                    className={`body-l mb-[25px]  h-[55px] w-[400px]
+                      border-auth-primary-button-border-color bg-auth-primary-button-bg p-0
                       text-neutral-black
                       hover:border-auth-primary-button-border-hover-color  hover:bg-auth-primary-button-hover-bg hover:text-auth-primary-button-text-hover-color `}
                   >
                     Dig Treasures
                   </Button>
                   <Button
-                    className={`h-[55px] w-[400px]  border border-[#fff]
-                      p-0 text-[18px] tracking-[0.36px] text-[#fff]  `}
+                    className={`body-l h-[55px]  w-[400px] border
+                      border-neutral-white p-0 text-neutral-white text-neutral-white `}
                     onClick={() => resetModal()}
                   >
                     Check Later
@@ -127,7 +127,7 @@ const TreasureModal = forwardRef<TreasureModalRef, TreasureModalProp>(
               )}
               {type === TreasureType.DIG && (
                 <>
-                  <p className="font-next-book-bold text-[24px]  tracking-[0.48px]">
+                  <p className="body-xl-bold  tracking-[0.48px]">
                     The treasures you’ve got are
                   </p>
                   <div className="my-[30px] flex justify-center gap-[30px]">
@@ -145,8 +145,8 @@ const TreasureModal = forwardRef<TreasureModalRef, TreasureModalProp>(
                     </div>
                   </div>
                   <Button
-                    className={`h-[55px] w-[400px]  border border-[#fff]
-                      p-0 text-[18px] tracking-[0.36px] text-[#fff]  `}
+                    className={`body-l h-[55px]  w-[400px] border
+                      border-neutral-white p-0 text-neutral-white  `}
                     onClick={() => resetModal()}
                   >
                     Continue

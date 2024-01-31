@@ -7,13 +7,13 @@ const PrivacyPolicy = () => {
       <div className="relative h-[60.25rem] w-full bg-default-global-bg">
         <Image src={Bg} alt="bg" className="mt-[3.375rem] w-full"></Image>
         <div className="absolute -top-[3.375rem] left-0 h-full w-full bg-gradient-to-b from-transparent to-default-global-bg">
-          <h1 className="mt-[12.5rem] pb-[2.625rem] text-center font-next-poster-Bold text-[3.375rem] font-bold tracking-[.2025rem] text-text-default-color">
+          <h1 className="text-h1 mt-[12.5rem] pb-[2.625rem] text-center text-text-default-color">
             Privacy Policy for HackQuest
           </h1>
-          <h1 className="mt-[23.75rem] text-left font-next-poster-Bold text-[2.5rem] font-bold tracking-[.15rem] text-text-default-color">
+          <h1 className="text-h2 mt-[23.75rem] text-left text-text-default-color">
             Privacy Policy for HackQuest
           </h1>
-          <div className="mt-[4.5rem] flex flex-col gap-[1.875rem] text-left font-next-book text-[1.5rem] leading-[125%] tracking-[.03rem] text-text-default-color">
+          <div className="body-xl mt-[4.5rem] flex flex-col gap-[1.875rem] text-left text-text-default-color">
             <p className="">
               {`This privacy policy ("Policy") will help you understand how
               HackQuest ("us", "we", "our") uses and protects the data you
@@ -26,9 +26,9 @@ const PrivacyPolicy = () => {
           </div>
         </div>
       </div>
-      <div className="mt-[4.5rem] flex flex-col gap-[12.5rem] text-left font-next-book text-[1.5rem] leading-[125%] tracking-[.03rem] text-text-default-color">
+      <div className="body-xl mt-[4.5rem] flex flex-col gap-[12.5rem] text-left text-text-default-color">
         <div className="flex flex-col gap-[1.875rem]">
-          <h1 className="pb-[2.625rem] font-next-poster-Bold text-[2.5rem] font-bold tracking-[.15rem] text-text-default-color">
+          <h1 className="text-h2 pb-[2.625rem] text-text-default-color">
             1. Data We Collect
           </h1>
           <p className="mt-[1.875rem]">
@@ -48,7 +48,7 @@ const PrivacyPolicy = () => {
           </ul>
         </div>
         <div className="flex flex-col gap-[1.875rem]">
-          <h1 className="pb-[2.625rem] font-next-poster-Bold text-[2.5rem] font-bold tracking-[.15rem]  text-text-default-color">
+          <h1 className="text-h2 pb-[2.625rem]  text-text-default-color">
             2. Why We Collect Your Data
           </h1>
           <p className="mt-[1.875rem]">
@@ -72,7 +72,7 @@ const PrivacyPolicy = () => {
           </ul>
         </div>
         <div className="flex flex-col gap-[1.875rem]">
-          <h1 className="pb-[2.625rem] font-next-poster-Bold text-[2.5rem] font-bold tracking-[.15rem]  text-text-default-color">
+          <h1 className="text-h2 pb-[2.625rem]  text-text-default-color">
             5. Restricting the Collection of your Personal Data
           </h1>
           <p className="">
@@ -94,7 +94,7 @@ agree to this privacy policy.`}
           </p>
         </div>
         <div className="flex flex-col gap-[1.875rem]">
-          <h1 className="pb-[2.625rem] font-next-poster-Bold text-[2.5rem] font-bold tracking-[.15rem]  text-text-default-color">
+          <h1 className="text-h2 pb-[2.625rem]  text-text-default-color">
             6. Intellectual Property Rights
           </h1>
           <p className="">

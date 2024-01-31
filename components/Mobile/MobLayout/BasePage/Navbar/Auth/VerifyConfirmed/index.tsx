@@ -218,13 +218,6 @@ const Fail: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
       default:
         return (
           <>
-            {/* <div className="text-neutral-white font-next-book leading-[160%] tracking-[0.64px] text-[18px]">
-              <span>
-                Your {type} account verification has failed!
-                <br />
-                Please try again.
-              </span>
-            </div> */}
             <div className="flex flex-col gap-4">
               <Button
                 block

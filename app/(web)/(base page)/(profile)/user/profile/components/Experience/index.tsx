@@ -70,9 +70,7 @@ const Experience: FC<ExperienceProps> = ({ edit = false }) => {
           />
         </div>
       )}
-      <div className="font-next-book-bold text-[28px] tracking-[1.68px]">
-        Experience ({allData.length})
-      </div>
+      <div className="text-h3">Experience ({allData.length})</div>
       {listData?.length ? (
         <>
           {listData.map((v, i) => (
@@ -80,7 +78,7 @@ const Experience: FC<ExperienceProps> = ({ edit = false }) => {
               key={v.id}
               className="flex gap-[50px] border-b-[0.5px] border-b-[#000] py-[20px]"
             >
-              <div className="w-[270px] font-next-book text-[17px] text-neutral-medium-gray">
+              <div className="body-l w-[270px] text-neutral-medium-gray">
                 <p>
                   {dealDate(v.startDate)} -{' '}
                   {v.endDate ? dealDate(v.endDate) : 'Present'} ·{' '}
@@ -90,11 +88,9 @@ const Experience: FC<ExperienceProps> = ({ edit = false }) => {
               </div>
               <div className="flex-1 text-neutral-black">
                 <div className="w-full break-all">
-                  <span className="font-next-poster-Bold text-[21px]">
-                    {v.title}
-                  </span>
+                  <span className="body-l-bold">{v.title}</span>
                   <span>{` · `}</span>
-                  <span className="font-next-book text-[18px] ">
+                  <span className="body-l ">
                     {v.companyName} · {v.employmentType}
                   </span>
                 </div>

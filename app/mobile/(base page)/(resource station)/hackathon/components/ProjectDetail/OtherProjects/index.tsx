@@ -55,10 +55,8 @@ const OtherProjects: FC<OtherProjectsProps> = (props) => {
 
   return (
     <>
-      <h3 className="font-next-poster-Bold text-[40px] leading-normal tracking-[2.4px]">
-        Other Projects
-      </h3>
-      <p className="mt-[8px] font-next-book text-[21px] leading-[160%] tracking-[0.42px]">
+      <h3 className="text-h2">Other Projects</h3>
+      <p className="body-l mt-[8px]">
         {`in `}
         <Link
           href={`${MenuLink.PROJECTS}?menu=${Menu.HACKATHON}&${QueryIdType.PROJECT_ID}=projects&keyWord=${hackathonName}`}

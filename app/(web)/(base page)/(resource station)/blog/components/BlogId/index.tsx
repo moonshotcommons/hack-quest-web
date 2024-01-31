@@ -11,7 +11,7 @@ interface BlogDetailProp {
 
 const BlogDetail: React.FC<BlogDetailProp> = ({ blog }) => {
   return (
-    <div className="font-next-book text-[16px]">
+    <div className="body-m">
       <BlogHeader blog={blog} />
       <BlogContent blog={blog} />
       <BlogFooter />

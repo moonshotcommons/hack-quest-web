@@ -123,7 +123,7 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
   const QuizHeader = (
     <div className={`flex h-fit w-full items-center justify-between`}>
       <div
-        className={`relative inline-flex items-center font-next-poster-Bold text-[18px] font-bold tracking-[1.08px] ${
+        className={`text-h4 relative inline-flex items-center ${
           quizDropdownVisible && 'shadow-2xl'
         }`}
       >
@@ -198,10 +198,10 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
       )}
       {!start && (
         <div className="inline-flex h-fit w-full items-center justify-between rounded-[.625rem]  bg-[#E6E6E6] px-[20px] py-[8px]">
-          <h1 className="font-next-poster-Bold text-[18px]">Quest</h1>
+          <h1 className="text-h4">Quest</h1>
           <Button
             type="primary"
-            className="px-[40px] py-[8px] font-next-book text-[14px] text-neutral-black"
+            className="button-text-s px-[40px] py-[8px] uppercase text-neutral-black"
             onClick={() => {
               BurialPoint.track('lesson-start quiz按钮点击');
               setStart(true);

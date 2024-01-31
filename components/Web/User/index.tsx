@@ -77,7 +77,7 @@ const User: FC<UserProps> = () => {
           {isLogin && (
             <div className="flex-row-center">
               <div
-                className="flex-row-center h-[30px] text-[#fff]"
+                className="flex-row-center h-[30px] text-neutral-white"
                 onClick={() => redirectToUrl('/mission-center')}
               >
                 <div className="flex-row-center mr-[20px] h-full w-[115px] justify-between rounded-[20px] bg-neutral-rich-gray pr-[15px]">
@@ -101,7 +101,7 @@ const User: FC<UserProps> = () => {
                           {userLevel.level}
                         </div>
                       </div>
-                      <div className="flex-center flex-1 flex-shrink-0 text-[#fff]">
+                      <div className="flex-center flex-1 flex-shrink-0 text-neutral-white">
                         {`${userLevel.expCurrentLevel}/${userLevel.expNextLevel}`}
                       </div>
                       <div className="flex-center  mr-[-15px] h-[30px] w-[30px] rounded-[50%] bg-[rgba(255,216,80,1)]">

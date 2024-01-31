@@ -70,9 +70,7 @@ const HeaderRenderer: FC<HeaderRendererProps> = (props) => {
 
   return (
     <div className="pb-[10px] pr-[4px] pt-[20px]">
-      <HeadingTag
-        className={`${className} flex items-center justify-between font-next-poster-Thin tracking-[1.26px]`}
-      >
+      <HeadingTag className={`${className} flex items-center justify-between`}>
         <div>
           <TextRenderer
             richTextArr={component.content.rich_text}
@@ -82,7 +80,7 @@ const HeaderRenderer: FC<HeaderRendererProps> = (props) => {
         </div>
         {expandIndex >= 0 && (
           <span
-            className="cursor-pointer font-next-book text-[12px] underline"
+            className="body-xs cursor-pointer underline"
             onClick={changeExpandNum}
           >
             {isExpandAll ? 'Fold All' : 'Expand All'}

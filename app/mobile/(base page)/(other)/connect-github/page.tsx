@@ -20,7 +20,7 @@ const ConnectGithub: React.FC<ConnectGithubProp> = () => {
     }
   });
   return (
-    <div className="flex-center fixed left-0 top-0 z-[9999] h-[100vh] w-[100vw] bg-[#fff]">
+    <div className="flex-center fixed left-0 top-0 z-[9999] h-[100vh] w-[100vw] bg-neutral-white">
       <Image
         src={Loading}
         width={40}

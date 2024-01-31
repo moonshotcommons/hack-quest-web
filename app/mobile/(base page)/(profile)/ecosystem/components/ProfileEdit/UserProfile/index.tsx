@@ -26,7 +26,7 @@ const UserProfile: FC<UserProfileProps> = ({ profile }) => {
         )}
       >
         <div className="mb-[30px] flex flex-col gap-[10px]">
-          <div className="whitespace-pre-wrap font-next-poster-Bold text-[28px] leading-normal tracking-[1.68px] text-neutral-black">
+          <div className="text-h3 whitespace-pre-wrap text-neutral-black">
             {profile.name}
           </div>
           <div className="flex items-center gap-[15px]">
@@ -88,7 +88,7 @@ const UserProfile: FC<UserProfileProps> = ({ profile }) => {
           type="primary"
           icon={<RiShareBoxLine />}
           iconPosition="right"
-          className="py-[16px] px-[102px] font-next-book text-[18px] leading-[125%] tracking-[0.36px]"
+          className="py-[16px] px-[102px] body-l"
         >
           Share
         </Button> */}

@@ -82,7 +82,7 @@ const HeaderRenderer: FC<HeaderRendererProps> = (props) => {
         </div>
         {expandIndex >= 0 && (
           <span
-            className="cursor-pointer font-next-book text-[12px] underline"
+            className="body-xs cursor-pointer underline"
             onClick={changeExpandNum}
           >
             {isExpandAll ? 'Fold All' : 'Expand All'}

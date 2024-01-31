@@ -76,9 +76,7 @@ const CertificationModal = forwardRef<
               <>
                 <div className="mt-[20px] flex items-center gap-[30px]">
                   <span className="inline-block h-[1px] flex-1 scale-y-50 bg-neutral-black"></span>
-                  <span className="font-next-poster text-[18px] tracking-[1.08px] text-neutral-black">
-                    and
-                  </span>
+                  <span className="body-l-bold text-neutral-black">and</span>
                   <span className="inline-block h-[1px] flex-1 scale-y-50 bg-neutral-black"></span>
                 </div>
                 <div className="mt-[20px] flex justify-center gap-[20px]">

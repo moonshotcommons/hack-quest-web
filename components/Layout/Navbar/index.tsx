@@ -136,7 +136,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
                 </div>
               ))}
             </SlideHighlight>
-            <div className="ml-[20px] flex h-[34px] gap-[10px]  overflow-hidden rounded-[20px] bg-neutral-rich-gray text-[14px] tracking-[0.28px]">
+            <div className="body-s ml-[20px] flex h-[34px]  gap-[10px] overflow-hidden rounded-[20px] bg-neutral-rich-gray">
               {outSideNav.map((nav) => (
                 <Link
                   key={nav.id}

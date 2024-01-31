@@ -17,7 +17,7 @@ const Tab: React.FC<TabProp> = ({ tabList, curIndex, changeTab }) => {
             !curIndex && curIndex === i
               ? 'bg-[#FFF4CE] text-neutral-black'
               : i === curIndex
-                ? 'bg-[#fff] font-next-book-bold text-neutral-black'
+                ? 'bg-neutral-white font-next-book-bold text-neutral-black'
                 : 'bg-[#DADADA] text-neutral-medium-gray'
           } ${
             curIndex === i

@@ -61,7 +61,7 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
             }}
           >
             <div className="flex-col-center">
-              <div className="text-[24px] text-[#fff] ">{`Day ${i + 1}`}</div>
+              <div className="body-xl text-neutral-white ">{`Day ${i + 1}`}</div>
               <div className="mt-[20px] flex w-[165px] justify-between">
                 <div>
                   <Image src={IconCoin} width={60} alt="iconCredits" />
@@ -78,8 +78,8 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
               </div>
             </div>
             <Button
-              className={`h-[44px] w-[164px]  border-auth-primary-button-border-color bg-auth-primary-button-bg
-                      p-0 text-[16px] text-neutral-black ${
+              className={`body-m h-[44px]  w-[164px] border-auth-primary-button-border-color
+                      bg-auth-primary-button-bg p-0 text-neutral-black ${
                         claimed
                           ? 'cursor-not-allowed opacity-50'
                           : `hover:border-auth-primary-button-border-hover-color
@@ -112,7 +112,7 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
                         alt="iconCredits"
                         className=""
                       />
-                      <span className="text-[16px]">{`X${item.coin}`}</span>
+                      <span className="body-m">{`X${item.coin}`}</span>
                     </div>
                     <div className="flex-row-center mt-[10px] gap-[8px]">
                       <Image
@@ -121,7 +121,7 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
                         alt="iconXP"
                         className=""
                       />
-                      <span className="text-[16px]">{`X${item.exp}`}</span>
+                      <span className="body-m">{`X${item.exp}`}</span>
                     </div>
                   </div>
                 ) : (
@@ -154,17 +154,17 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
               border-neutral-medium-gray bg-[var(--neutral-off-black)] pb-[30px] pt-[30px] `}
         >
           <div className="flex-col-center">
-            <div className="text-[18px] text-[#fff] ">{`Day ${i + 1}`}</div>
+            <div className="body-l text-neutral-white ">{`Day ${i + 1}`}</div>
             <div className="mt-[20px] flex w-[104px] justify-between">
               <div>
                 <Image src={IconCoin} width={40} alt="iconCredits" />
-                <div className="flex-center mt-[8px] h-[20px] w-[40px] rounded-[20px] bg-neutral-off-white text-[12px]">
+                <div className="flex-center body-xs mt-[8px] h-[20px] w-[40px] rounded-[20px] bg-neutral-off-white">
                   {item.coin}
                 </div>
               </div>
               <div>
                 <Image src={IconXp} width={40} alt="iconXp" />
-                <div className="flex-center mt-[8px] h-[20px] w-[40px] rounded-[20px] bg-neutral-off-white text-[12px]">
+                <div className="flex-center body-xs mt-[8px] h-[20px] w-[40px] rounded-[20px] bg-neutral-off-white">
                   {item.exp}
                 </div>
               </div>
@@ -217,12 +217,8 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
       <div className="no-scrollbar w-full flex-1 overflow-y-auto overflow-x-hidden ">
         <div className="w-full overflow-x-hidden pt-[30px]">
           <div className="mb-[20px] flex items-center justify-between px-[30px]">
-            <span className="font-next-book-bold text-[24px]">
-              Daily Login Rewards
-            </span>
-            <span className="text-[18px]">
-              Rewards Refresh In: {refreshTime}
-            </span>
+            <span className="body-xl-bold">Daily Login Rewards</span>
+            <span className="body-l">Rewards Refresh In: {refreshTime}</span>
           </div>
           <div className="relative">
             <ScrollContainer

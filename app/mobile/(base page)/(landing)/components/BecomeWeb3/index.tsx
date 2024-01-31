@@ -62,7 +62,7 @@ const BecomeWeb3: FC<{}> = (props) => {
                   className="object-contain"
                 ></Image>
               </div>
-              <h3 className="text-h4-mob font-next-book-bold text-neutral-off-black">
+              <h3 className="text-h4-mob text-neutral-off-black">
                 {item.title}
               </h3>
               <p className="body-xs text-neutral-medium-gray">
@@ -85,7 +85,7 @@ const BecomeWeb3: FC<{}> = (props) => {
                   className="object-contain"
                 ></Image>
               </div>
-              <h3 className="text-h4-mob font-next-book-bold text-neutral-off-black">
+              <h3 className="text-h4-mob text-neutral-off-black">
                 {item.title}
               </h3>
               <p className="body-l body-xs text-neutral-medium-gray">

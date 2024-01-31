@@ -27,7 +27,7 @@ const BeginnerRewards: React.FC<TabContentType> = ({
           {`We're here to help you get started on your HackQuest journey while also giving you the chance to earn rewards. Let's embark on this learning journey together! 🚀`}
         </div>
         <Button
-          className={`h-[60px] w-[270px] border-auth-primary-button-border-color bg-auth-primary-button-bg text-[18px] 
+          className={`body-l h-[60px] w-[270px] border-auth-primary-button-border-color bg-auth-primary-button-bg 
           tracking-[0.36px] 
           text-auth-primary-button-text-color text-neutral-black ${
             !allIds.length
@@ -43,7 +43,7 @@ const BeginnerRewards: React.FC<TabContentType> = ({
       </div>
 
       <div>
-        <div className="text-[18px] text-neutral-black">Targets to Achieve</div>
+        <div className="body-l text-neutral-black">Targets to Achieve</div>
         <div>
           {missionData.map((v, i) => {
             const subType = v.subType as MissionSubType;

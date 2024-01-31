@@ -47,10 +47,10 @@ const UserProfile: FC<UserProfileProps> = (props) => {
             ></HoverIcon>
           </div>
         )}
-        <div className="whitespace-pre-wrap font-next-poster-Bold text-[28px] leading-normal tracking-[1.68px] text-neutral-black">
+        <div className="text-h3 whitespace-pre-wrap text-neutral-black">
           {profile.user?.nickname}
         </div>
-        <div className="mt-[10px] whitespace-pre-line text-[18px] leading-[120%] text-neutral-medium-gray">
+        <div className="body-l mt-[10px] whitespace-pre-line text-neutral-medium-gray">
           {profile.user?.email}&nbsp;
         </div>
         <div className="mt-[31.5px] flex items-center gap-x-[15px]">
@@ -90,7 +90,7 @@ const UserProfile: FC<UserProfileProps> = (props) => {
           type="primary"
           icon={<RiShareBoxLine />}
           iconPosition="right"
-          className="py-[16px] px-[102px] font-next-book text-[18px] leading-[125%] tracking-[0.36px]"
+          className="py-[16px] px-[102px] body-l"
         >
           Share
         </Button>

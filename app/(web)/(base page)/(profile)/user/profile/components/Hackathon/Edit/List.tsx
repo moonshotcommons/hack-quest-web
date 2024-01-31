@@ -72,7 +72,7 @@ const List: React.FC<ListProp> = ({ onClose, handleEdit, list }) => {
                 <div className="w-full break-all">
                   <span className="body-xl-bold">{v.hackathonName}</span>
                   <span>{` · `}</span>
-                  <span className="font-next-book text-[18px] ">{v.role}</span>
+                  <span className="body-l ">{v.role}</span>
                 </div>
                 <div>
                   {v.descriptions.map((d, j) => (

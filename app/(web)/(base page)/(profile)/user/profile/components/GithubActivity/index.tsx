@@ -139,9 +139,7 @@ const GithubActivity: FC<GithubActivityProps> = ({ edit = false }) => {
           </div>
         </div>
       )}
-      <div className="font-next-book-bold text-[28px] tracking-[1.68px]">
-        GithubActivity
-      </div>
+      <div className="text-h3">GithubActivity</div>
       {loading || refreshLoading ? (
         <div className="flex-center relative w-full flex-1">
           <Image

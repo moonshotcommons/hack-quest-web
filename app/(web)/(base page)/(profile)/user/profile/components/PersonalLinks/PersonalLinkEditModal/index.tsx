@@ -153,7 +153,7 @@ const PersonalLinkEditModal = forwardRef<
         }}
         loading={connectLoading}
         disabled={connectLoading}
-        className="border-neutral-black px-4 py-2 font-next-book leading-[125%]"
+        className="border-neutral-black px-4 py-2"
       >{`Connect with ${key}`}</Button>
     );
   };
@@ -208,7 +208,7 @@ const PersonalLinkEditModal = forwardRef<
       markBg="black"
     >
       <div className="w-[800px] rounded-[10px]  bg-neutral-white px-[30px] py-[30px]">
-        <div className="flex items-center gap-4 font-next-poster-Bold text-[28px] tracking-[1.68px] text-neutral-black">
+        <div className="text-h3 flex items-center gap-4 text-neutral-black">
           {confirmInfo?.show && (
             <svg
               width="10"
@@ -249,7 +249,7 @@ const PersonalLinkEditModal = forwardRef<
                   <div className="relative flex items-center py-[20px] text-neutral-black after:absolute after:bottom-0 after:h-[1px] after:w-full after:scale-y-[0.5] after:bg-neutral-black">
                     <div className="flex h-full w-[25%] items-center gap-x-[15px]">
                       <span>{media.icon}</span>
-                      <span className="font-next-book text-[18px] leading-[160%] tracking-[0.36px] text-neutral-black">
+                      <span className="body-l text-neutral-black">
                         {media.name}
                       </span>
                     </div>
@@ -258,7 +258,7 @@ const PersonalLinkEditModal = forwardRef<
                       type="url"
                       disabled={key === ThirdPartyMediaType.DISCORD}
                       placeholder="Please enter personal link"
-                      className="h-[30px] flex-1 truncate bg-transparent font-next-book text-[14px] leading-[160%] -tracking-[0.154px] text-neutral-medium-gray outline-none"
+                      className="body-s h-[30px] flex-1 truncate bg-transparent text-neutral-medium-gray outline-none"
                     />
                     <div className="w-[64px]"></div>
                     {key === ThirdPartyMediaType.DISCORD &&
@@ -268,7 +268,7 @@ const PersonalLinkEditModal = forwardRef<
               );
             })}
           </Form>
-          <div className="mt-[30px] flex justify-center gap-x-[15px] font-next-book text-[16px] leading-[125%] tracking-[0.32px] text-neutral-black">
+          <div className="body-m mt-[30px] flex justify-center gap-x-[15px] text-neutral-black">
             <Button
               ghost
               className="flex w-[265px] items-center justify-center border-neutral-black py-[12px]"

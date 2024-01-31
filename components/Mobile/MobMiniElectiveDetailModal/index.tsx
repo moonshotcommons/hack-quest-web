@@ -106,7 +106,7 @@ const MobMiniElectiveDetailModal = forwardRef<
       >
         <span
           className={cn(
-            'font-next-book text-[18px] leading-[125%] tracking-[0.36px] text-neutral-rich-gray',
+            'body-l text-neutral-rich-gray',
             [CompleteStateType.COMPLETED, CompleteStateType.LEARNING].includes(
               state
             )
@@ -156,29 +156,29 @@ const MobMiniElectiveDetailModal = forwardRef<
                 <div className="mt-6">
                   <Tags className="px-[10px] py-1 uppercase">Security</Tags>
                 </div>
-                <h2 className="mt-3 text-[18px] font-extrabold text-neutral-off-black">
+                <h2 className="body-l-bold mt-3 text-neutral-off-black">
                   {course.name}
                 </h2>
-                <p className="mt-3 line-clamp-3 font-next-book text-[14px] leading-[160%] tracking-[0.32px] text-neutral-medium-gray">
+                <p className="body-s mt-3 line-clamp-3 text-neutral-medium-gray">
                   {course.description}
                 </p>
 
                 <div className="mt-6 flex gap-6">
                   <div className="flex flex-1 flex-col gap-y-[12px]">
-                    <span className="text-[14px] font-bold leading-[160%] text-neutral-off-black">
+                    <span className="body-s-bold text-neutral-off-black">
                       Language
                     </span>
                     <div className="flex gap-2">
                       <span>
                         <HiCodeBracket size={20} />
                       </span>
-                      <span className="text-[14px] leading-[160%] text-neutral-rich-gray">
+                      <span className="body-s text-neutral-rich-gray">
                         {'Solidity'}
                       </span>
                     </div>
                   </div>
                   <div className="flex flex-1 flex-col gap-y-[12px]">
-                    <span className="text-[14px] font-bold leading-[160%] text-neutral-off-black">
+                    <span className="body-s-bold text-neutral-off-black">
                       Created by
                     </span>
                     <div
@@ -197,7 +197,7 @@ const MobMiniElectiveDetailModal = forwardRef<
                           className="object-contain"
                         ></Image>
                       </div>
-                      <span className="text-[14px] leading-[160%] text-neutral-rich-gray">
+                      <span className="body-s text-neutral-rich-gray">
                         {course.creator?.name || 'HackQuest'}
                       </span>
                     </div>
@@ -219,9 +219,7 @@ const MobMiniElectiveDetailModal = forwardRef<
                 </div>
 
                 <div className="mt-10 flex flex-col justify-between">
-                  <p className="font-next-poster-Bold text-[21px] tracking-[1.26px] text-neutral-black">
-                    Overview
-                  </p>
+                  <p className="text-h4 text-neutral-black">Overview</p>
                   <ul className="mb-4 mt-6 pb-[112px]">
                     {course?.pages!.map((item, index) => {
                       return (

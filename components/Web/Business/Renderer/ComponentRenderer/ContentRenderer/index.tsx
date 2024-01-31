@@ -32,7 +32,7 @@ const ContentRenderer: FC<ContentRendererProps> = (props) => {
           setShowAll(!showAll);
         }}
       >
-        <span className="font-next-poster-Bold text-[21px] tracking-[1.26px]">
+        <span className="text-h4">
           {component.title || (
             <TextRenderer
               richTextArr={component.content.rich_text}

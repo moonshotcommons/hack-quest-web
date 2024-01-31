@@ -90,11 +90,9 @@ const MiniElectiveCompletedModal = forwardRef<
               />
             </svg>
 
-            <span className="text=[#131313] font-next-poster-Bold text-[28px] tracking-[1.68px]">
-              Nice Job!
-            </span>
+            <span className="text=[#131313] text-h3">Nice Job!</span>
           </div>
-          <p className="text-center font-next-book leading-[125%] tracking-[0.32px] text-neutral-rich-gray">
+          <p className="body-m text-center text-neutral-rich-gray">
             You have completed this mini. Continue to claim your Badge.
           </p>
           <div className="flex w-full flex-col gap-y-[15px] font-next-book text-base leading-[125%] tracking-[0.32px]">

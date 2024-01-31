@@ -53,8 +53,8 @@ const WhiteListModal: NextPage<CompleteModalProps> = ({ open, onClose }) => {
         </div>
         <h1
           className="
-          relative mt-[11.6875rem] w-[34.625rem] text-center
-          font-next-poster-Bold text-[2.2021rem] leading-[100%] text-text-default-color
+          text-h2 relative mt-[11.6875rem] w-[34.625rem]
+          text-center text-text-default-color
           before:absolute before:-bottom-[1.3125rem] before:left-0 before:h-[1px] before:w-full before:scale-y-[1] before:bg-lesson-completed-modal-line-color after:absolute
           after:-top-[1.5625rem] after:left-[50%] after:h-[1px] after:w-[27.75rem] after:-translate-x-[50%]  after:scale-y-[1] after:bg-lesson-completed-modal-line-color
             "

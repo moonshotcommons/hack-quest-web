@@ -114,7 +114,7 @@ const Select = forwardRef<
           readOnly
           placeholder={placeholder}
           className={cn(
-            `w-full cursor-pointer rounded-[2.5rem] border border-solid border-neutral-dark-gray px-[25px] py-[15px] font-next-book text-[14px] leading-[118.5%] caret-[#ffffff] outline-none hover:border-neutral-dark-gray focus:border-neutral-dark-gray`,
+            `body-s w-full cursor-pointer rounded-[2.5rem] border border-solid border-neutral-dark-gray px-[25px] py-[15px] caret-[#ffffff] outline-none hover:border-neutral-dark-gray focus:border-neutral-dark-gray`,
             // type === 'password' &&
             //   'border-auth-password-input-bg focus:border-neutral-dark-gray',
             status === 'success'
@@ -152,7 +152,7 @@ const Select = forwardRef<
           )}
         </span>
         {visibleOption && (
-          <div className="absolute left-0 top-0 z-[1000] w-full overflow-hidden rounded-[24px] border border-neutral-dark-gray bg-[#fff] pb-[5px] font-next-book text-[21px] text-[#]">
+          <div className="absolute left-0 top-0 z-[1000] w-full overflow-hidden rounded-[24px] border border-neutral-dark-gray bg-neutral-white pb-[5px] font-next-book text-[21px] text-[#]">
             <div
               className="mx-[20px] flex h-[48px] cursor-pointer items-center justify-between border-b border-b-[#8C8C8C]"
               onClick={() => {
@@ -179,7 +179,7 @@ const Select = forwardRef<
                 >
                   <span>{v.label}</span>
                   {value === v.value && (
-                    <FiCheck className="text-[14px] text-neutral-rich-gray" />
+                    <FiCheck className="body-s text-neutral-rich-gray" />
                   )}
                 </li>
               ))}

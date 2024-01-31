@@ -35,7 +35,7 @@ const MiniElectiveCard: React.FC<MiniElectiveCardProp> = ({ elective }) => {
   return (
     <>
       <div
-        className="flex h-[336px] cursor-pointer overflow-hidden rounded-[10px] bg-[#fff] font-next-book text-neutral-black shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)]"
+        className="flex h-[336px] cursor-pointer overflow-hidden rounded-[10px] bg-neutral-white font-next-book text-neutral-black shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)]"
         onClick={() => handleClick()}
       >
         <div className="relative h-full w-[597px]">
@@ -48,9 +48,7 @@ const MiniElectiveCard: React.FC<MiniElectiveCardProp> = ({ elective }) => {
         </div>
         <div className="flex h-full  flex-1 flex-shrink-0 flex-col justify-between px-[40px] py-[20px]">
           <div>
-            <p className="text-[18px] text-[rgba(11,11,11,0.6)]">
-              {elective.type}
-            </p>
+            <p className="body-l text-[rgba(11,11,11,0.6)]">{elective.type}</p>
             <p className="font-next-book-bold text-[21px] leading-[26px]">
               {elective.name}
             </p>
@@ -64,14 +62,14 @@ const MiniElectiveCard: React.FC<MiniElectiveCardProp> = ({ elective }) => {
           <div className="flex justify-between">
             <Button
               type="primary"
-              className="h-15 w-[calc((100%-15px)/2)] bg-home-learning-track-view-button-bg px-0 text-[18px] text-home-learning-track-view-button-color"
+              className="h-15 body-l w-[calc((100%-15px)/2)] bg-home-learning-track-view-button-bg px-0 text-home-learning-track-view-button-color"
               onClick={handleLearn}
             >
               {!!elective.progress && elective.progress > 0
                 ? 'Resume'
                 : 'Start'}
             </Button>
-            <Button className="h-15 w-[calc((100%-15px)/2)] border border-home-learning-track-view-button-border px-0 text-[18px] text-home-learning-track-view-button-color">
+            <Button className="h-15 body-l w-[calc((100%-15px)/2)] border border-home-learning-track-view-button-border px-0 text-home-learning-track-view-button-color">
               View Syllabus
             </Button>
           </div>

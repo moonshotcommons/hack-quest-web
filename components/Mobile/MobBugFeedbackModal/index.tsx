@@ -184,7 +184,7 @@ const MobBugFeedbackModal = forwardRef<
           fill="white"
         />
       </svg>
-      <span className="font-next-book text-[14px] leading-[118.5%] text-neutral-medium-gray">
+      <span className="body-s text-neutral-medium-gray">
         Add attachments to your report (optional){' '}
       </span>
     </div>
@@ -231,7 +231,7 @@ const MobBugFeedbackModal = forwardRef<
         <h1 className="font-next-book text-[32px] leading-[125%] tracking-[0.64px] text-neutral-black">
           Found a bug? Claim rewards!
         </h1>
-        <p className="mt-[10px] font-next-book text-[14px] leading-[160%] -tracking-[0.154px] text-neutral-black">
+        <p className="body-s mt-[10px] text-neutral-black">
           {`HackQuest is currently in beta, and your feedback is crucial. If you come across any bug or error while learning, report it to us. Once verified,  we'll reward you with XP and hack credits. Join us in delivering a better experience! 🐞🚀`}
         </p>
         <p className="mt-[30px] font-next-book text-base leading-[125%] tracking-[0.32px] text-neutral-black">
@@ -244,7 +244,7 @@ const MobBugFeedbackModal = forwardRef<
                 <Button
                   key={index}
                   className={cn(
-                    `rounded-[10px] bg-[#DADADA] px-[14px] py-[3px] font-next-book text-[12px] text-neutral-medium-gray`,
+                    `body-xs rounded-[10px] bg-[#DADADA] px-[14px] py-[3px] text-neutral-medium-gray`,
                     selectKinds.includes(kind)
                       ? 'bg-yellow-primary text-neutral-black'
                       : ''
@@ -293,7 +293,7 @@ const MobBugFeedbackModal = forwardRef<
           >
             <Input.TextArea
               placeholder="Describe the bugs you found..."
-              className="p-5 font-next-book text-[14px] leading-[118.5%] text-neutral-black"
+              className="body-s p-5 text-neutral-black"
               maxLength={1500}
               styles={{
                 textarea: {
@@ -381,7 +381,7 @@ const MobBugFeedbackModal = forwardRef<
               type="primary"
               loading={loading}
               disabled={loading}
-              className="py-[16px] font-next-book text-[18px] leading-[125%] tracking-[0.36px] text-neutral-black"
+              className="body-l py-[16px] text-neutral-black"
               iconPosition="right"
               icon={
                 <svg

@@ -132,7 +132,7 @@ const EasyCrop = forwardRef<EasyCropRef, EasyCropProps>((props, ref) => {
           className={`${PREFIX}-control ${PREFIX}-control-zoom ${wrapperClass} flex flex-col justify-start px-[128px]`}
           style={{ width: '100%' }}
         >
-          <div className="my-[10px] w-full text-start font-next-book text-[21px] leading-[160%] tracking-[0.42px] text-neutral-medium-gray">
+          <div className="body-l my-[10px] w-full text-start text-neutral-medium-gray">
             Scale
           </div>
           <div className="flex w-full items-center">

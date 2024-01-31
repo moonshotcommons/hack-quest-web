@@ -104,7 +104,7 @@ const MiniElectiveDetailModal = forwardRef<
       >
         <span
           className={cn(
-            'font-next-book text-[18px] leading-[125%] tracking-[0.36px] text-neutral-rich-gray',
+            'body-l text-neutral-rich-gray',
             [CompleteStateType.COMPLETED, CompleteStateType.LEARNING].includes(
               state
             )
@@ -176,11 +176,11 @@ const MiniElectiveDetailModal = forwardRef<
                   <h2 className="text-h2 leading-[125%] tracking-[2.4px] text-neutral-black">
                     {course.name}
                   </h2>
-                  <p className="mt-[16px] font-next-book leading-[125%] tracking-[0.32px] text-neutral-rich-gray">
+                  <p className="body-m mt-[16px] text-neutral-rich-gray">
                     {course.description}
                   </p>
                 </div>
-                <div className="flex items-center gap-[32px] font-next-book text-[14px] leading-[125%] tracking-[0.28px] text-neutral-black">
+                <div className="body-s flex items-center gap-[32px] text-neutral-black">
                   <div className="flex items-center gap-x-[12px]">
                     <span>Created by</span>
                     <div
@@ -209,9 +209,7 @@ const MiniElectiveDetailModal = forwardRef<
               </div>
               <div className="ju flex flex-1 flex-col overflow-hidden">
                 <div className="flex flex-1 flex-col justify-between overflow-hidden">
-                  <p className="font-next-poster-Bold text-[21px] tracking-[1.26px] text-neutral-black">
-                    Overview
-                  </p>
+                  <p className="text-h4 text-neutral-black">Overview</p>
                   <ul className="scroll-wrap-y mb-4 mt-[32px] max-h-[372px] flex-1 overflow-auto">
                     {course?.pages!.map((item, index) => {
                       return (
