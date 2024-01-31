@@ -31,10 +31,10 @@ function ScrollControl({ changeState }: { changeState?: ChangeState }) {
       <div className="flex gap-[10px]">
         <div
           className={cn(
-            `flex items-center justify-center w-[35px] h-[35px] rounded-[50%] border border-solid border-[#FDEAAA] bg-[#FDEAAA] text-[#0b0b0b] cursor-pointer`,
+            `flex h-[35px] w-[35px] cursor-pointer items-center justify-center rounded-[50%] border border-solid border-[#FDEAAA] bg-[#FDEAAA] text-neutral-black`,
             !leftArrowVisible
-              ? 'bg-[#FDEAAA]/40 text-[#0b0b0b]/40 border-[#FDEAAA]/40 cursor-not-allowed'
-              : 'hover:bg-yellow-primary hover:border-yellow-primary transition'
+              ? 'text-neutral-black/40 cursor-not-allowed border-[#FDEAAA]/40 bg-[#FDEAAA]/40'
+              : 'transition hover:border-yellow-primary hover:bg-yellow-primary'
           )}
           onClick={() => {
             BurialPoint.track('mission-center-daily-bonus claim滚动-左');
@@ -45,10 +45,10 @@ function ScrollControl({ changeState }: { changeState?: ChangeState }) {
         </div>
         <div
           className={cn(
-            `flex items-center justify-center w-[35px] h-[35px] rounded-full border border-solid border-[#FDEAAA] bg-[#FDEAAA] text-[#0b0b0b] cursor-pointer`,
+            `flex h-[35px] w-[35px] cursor-pointer items-center justify-center rounded-full border border-solid border-[#FDEAAA] bg-[#FDEAAA] text-neutral-black`,
             !rightArrowVisible
-              ? 'bg-[#FDEAAA]/40 text-[#0b0b0b]/40 border-[#FDEAAA]/40 cursor-not-allowed'
-              : 'hover:bg-yellow-primary hover:border-yellow-primary transition'
+              ? 'text-neutral-black/40 cursor-not-allowed border-[#FDEAAA]/40 bg-[#FDEAAA]/40'
+              : 'transition hover:border-yellow-primary hover:bg-yellow-primary'
           )}
           onClick={() => {
             BurialPoint.track('mission-center-daily-bonus claim滚动-右');
@@ -59,11 +59,11 @@ function ScrollControl({ changeState }: { changeState?: ChangeState }) {
         </div>
       </div>
       <div
-        className=" relative w-[210px] h-[2px] bg-[#DADADA] mt-[15px] shadow-[0px_1px_2px_0_rgba(0,0,0,0.25)]"
+        className=" relative mt-[15px] h-[2px] w-[210px] bg-[#DADADA] shadow-[0px_1px_2px_0_rgba(0,0,0,0.25)]"
         ref={scrollBarRef}
       >
         <div
-          className="h-[3px] bg-[#8C8C8C] absolute left-0 bottom-0 transition-transform"
+          className="absolute bottom-0 left-0 h-[3px] bg-neutral-medium-gray transition-transform"
           ref={scrollBarInstanceRef}
           style={{
             width: `${widthRatio * 100}%`,

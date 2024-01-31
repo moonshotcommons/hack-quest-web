@@ -12,7 +12,7 @@ interface UserProfileProps {
 const UserProfile: FC<UserProfileProps> = ({ profile }) => {
   return (
     <div className="relative z-50">
-      <div className="absolute w-[170px] h-[170px] rounded-full -top-[110px] left-[30px]">
+      <div className="absolute -top-[110px] left-[30px] h-[170px] w-[170px] rounded-full">
         <Image
           src={profile.profileImage}
           alt="profileImage"
@@ -22,23 +22,25 @@ const UserProfile: FC<UserProfileProps> = ({ profile }) => {
       </div>
       <div
         className={cn(
-          'pt-[80px] font-next-book px-[30px] pb-[35px] transition-shadow duration-200 rounded-b-[10px] h-full'
+          'h-full rounded-b-[10px] px-[30px] pb-[35px] pt-[80px] font-next-book transition-shadow duration-200'
         )}
       >
-        <div className="flex flex-col gap-[10px] mb-[30px]">
-          <div className="font-next-poster-Bold text-[28px] tracking-[1.68px] text-[#0B0B0B] leading-normal whitespace-pre-wrap">
+        <div className="mb-[30px] flex flex-col gap-[10px]">
+          <div className="whitespace-pre-wrap font-next-poster-Bold text-[28px] leading-normal tracking-[1.68px] text-neutral-black">
             {profile.name}
           </div>
           <div className="flex items-center gap-[15px]">
-            <div className="text-[#000]">Official Website</div>
+            <div className="text-neutral-black">Official Website</div>
             <div
-              className="flex items-center gap-[10px] cursor-pointer"
+              className="flex cursor-pointer items-center gap-[10px]"
               onClick={() => {
                 BurialPoint.track('ecosystem-profile-Official Website点击');
                 window.open(profile.website);
               }}
             >
-              <span className="text-[#8C8C8C]">{profile.website}</span>
+              <span className="text-neutral-medium-gray">
+                {profile.website}
+              </span>
               <RiShareBoxLine />
             </div>
           </div>
@@ -58,27 +60,27 @@ const UserProfile: FC<UserProfileProps> = ({ profile }) => {
             })}
           </div>
         </div>
-        <div className="text-[#000] w-[64%] line-clamp-3">
+        <div className="line-clamp-3 w-[64%] text-neutral-black">
           {profile.description}
         </div>
-        <div className="flex h-[126px] mt-[30px]">
-          <div className="h-full w-[265px] pr-[31px] flex flex-col justify-between items-center border-r-[0.5px] border-r-[#000]">
-            <p className="text-[#000] text-[54px] leading-[86px] font-next-book-Thin">
+        <div className="mt-[30px] flex h-[126px]">
+          <div className="flex h-full w-[265px] flex-col items-center justify-between border-r-[0.5px] border-r-[#000] pr-[31px]">
+            <p className="font-next-book-Thin text-[54px] leading-[86px] text-neutral-black">
               {separationNumber(profile.courseCount, 10000)}
             </p>
-            <p className="text-[#8C8C8C]">Total Courses</p>
+            <p className="text-neutral-medium-gray">Total Courses</p>
           </div>
           {/* <div className="h-full w-[295px] px-[31px] flex flex-col justify-between items-center border-r-[0.5px] border-r-[#000]">
-            <p className="text-[#000] text-[54px] leading-[86px] font-next-book-Thin">
+            <p className="text-neutral-black text-[54px] leading-[86px] font-next-book-Thin">
               {separationNumber(100000, 10000)}
             </p>
-            <p className="text-[#8C8C8C]">Total Views</p>
+            <p className="text-neutral-medium-gray">Total Views</p>
           </div> */}
-          <div className="h-full w-[265px] pl-[31px] flex flex-col justify-between items-center ">
-            <p className="text-[#000] text-[54px] leading-[86px] font-next-book-Thin">
+          <div className="flex h-full w-[265px] flex-col items-center justify-between pl-[31px] ">
+            <p className="font-next-book-Thin text-[54px] leading-[86px] text-neutral-black">
               {separationNumber(profile.learnCount, 10000)}
             </p>
-            <p className="text-[#8C8C8C]">Total Learners</p>
+            <p className="text-neutral-medium-gray">Total Learners</p>
           </div>
         </div>
 

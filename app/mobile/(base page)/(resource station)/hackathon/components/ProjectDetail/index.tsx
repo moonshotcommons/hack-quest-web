@@ -46,7 +46,7 @@ const ProjectDetail: FC<ProjectDetailProps> = (props) => {
     return (
       <>
         {project?.video && (
-          <div className="mt-[30px] bg-gray-300 rounded-[10px] max-h-[504px] w-full">
+          <div className="mt-[30px] max-h-[504px] w-full rounded-[10px] bg-gray-300">
             {!project.video.includes('youtube') && (
               <video controls className="w-full" key={project.id}>
                 <source src={project.video}></source>
@@ -62,7 +62,7 @@ const ProjectDetail: FC<ProjectDetailProps> = (props) => {
           </div>
         )}
         {!project?.video && project?.thumbnail && (
-          <div className="relative h-[504px] w-full mt-4">
+          <div className="relative mt-4 h-[504px] w-full">
             <Image src={project?.thumbnail} alt="hackquest" fill></Image>
           </div>
         )}
@@ -72,12 +72,12 @@ const ProjectDetail: FC<ProjectDetailProps> = (props) => {
 
   return (
     <Loading loading={loading}>
-      <div className="w-full min-h-[50vh]">
+      <div className="min-h-[50vh] w-full">
         {project && (
           <div className="flex justify-between gap-x-[80px]">
-            <div className="flex flex-col flex-1">
-              <div className="flex gap-x-[15px] items-center">
-                <div className="w-[48px] h-[48px] bg-gray-300 rounded-[10px] relative overflow-hidden flex items-center justify-center">
+            <div className="flex flex-1 flex-col">
+              <div className="flex items-center gap-x-[15px]">
+                <div className="relative flex h-[48px] w-[48px] items-center justify-center overflow-hidden rounded-[10px] bg-gray-300">
                   <Image
                     src={project.thumbnail}
                     width={48}

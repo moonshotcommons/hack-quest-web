@@ -9,8 +9,8 @@ interface LearnLayoutProps {
 const LearnLayout: FC<LearnLayoutProps> = async ({ children }) => {
   return (
     <UgcProvider>
-      <div className="w-full h-full flex flex-col">
-        <div className="w-full flex-1 flex overflow-hidden relative">
+      <div className="flex h-full w-full flex-col">
+        <div className="relative flex w-full flex-1 overflow-hidden">
           <UgcSidebar />
           {children}
         </div>

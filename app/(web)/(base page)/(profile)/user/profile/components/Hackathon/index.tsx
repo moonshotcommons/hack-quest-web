@@ -58,7 +58,7 @@ const Hackathon: FC<HackathonProps> = ({ edit = false }) => {
   };
 
   return (
-    <Box className="font-next-poster relative group">
+    <Box className="group relative font-next-poster">
       {listData?.length > 0 && edit && (
         <div className="absolute right-[30px] top-[30px] hidden group-hover:block">
           <HoverIcon
@@ -71,7 +71,7 @@ const Hackathon: FC<HackathonProps> = ({ edit = false }) => {
           />
         </div>
       )}
-      <div className="text-[28px] font-next-book-bold tracking-[1.68px]">
+      <div className="font-next-book-bold text-[28px] tracking-[1.68px]">
         Hackathon ({allData.length})
       </div>
       {listData?.length ? (
@@ -79,9 +79,9 @@ const Hackathon: FC<HackathonProps> = ({ edit = false }) => {
           {listData.map((v, i) => (
             <div
               key={v.id}
-              className="border-b-[0.5px] border-b-[#000] py-[20px] flex gap-[50px]"
+              className="flex gap-[50px] border-b-[0.5px] border-b-neutral-black py-[20px]"
             >
-              <div className="w-[270px] font-next-book text-[17px] text-[#8C8C8C]">
+              <div className="body-l w-[270px] text-neutral-medium-gray">
                 <p>
                   {dealDate(v.startDate)} -{' '}
                   {v.endDate ? dealDate(v.endDate) : 'Present'} ·{' '}
@@ -89,37 +89,35 @@ const Hackathon: FC<HackathonProps> = ({ edit = false }) => {
                 </p>
                 <p>{v.location}</p>
               </div>
-              <div className="flex-1 text-[#000]">
+              <div className="flex-1 text-neutral-black">
                 <div className="w-full break-all">
-                  <span className="text-[21px] font-next-poster-Bold">
-                    {v.hackathonName}
-                  </span>
+                  <span className="text-h3">{v.hackathonName}</span>
                   <span>{` · `}</span>
-                  <span className="font-next-book text-[18px] ">{v.role}</span>
+                  <span className="body-l ">{v.role}</span>
                 </div>
                 <div>
                   {v.showMore ? (
                     v.descriptions.map((d, j) => (
                       <div className="flex items-start" key={j}>
-                        <span className="w-[5px] h-[5px] rounded-[50%] bg-[#000] relative top-[11px] mr-[7px]"></span>
-                        <span className="break-all flex-1 leading-[26px]">
+                        <span className="relative top-[11px] mr-[7px] h-[5px] w-[5px] rounded-[50%] bg-neutral-black"></span>
+                        <span className="flex-1 break-all leading-[26px]">
                           {d}
                         </span>
                       </div>
                     ))
                   ) : (
                     <div className="flex items-start">
-                      <span className="w-[5px] h-[5px] rounded-[50%] bg-[#000] relative top-[11px] mr-[7px]"></span>
-                      <span className="break-all flex-1 leading-[26px]">
+                      <span className="relative top-[11px] mr-[7px] h-[5px] w-[5px] rounded-[50%] bg-neutral-black"></span>
+                      <span className="flex-1 break-all leading-[26px]">
                         {v.descriptionLess[0]}
                       </span>
                     </div>
                   )}
                   {v.descriptions.length > 1 && (
-                    <div className="flex justify-end font-next-book tracking-[0.1px]  ">
+                    <div className="body-m flex justify-end">
                       <div
                         onClick={() => handleShowMore(i)}
-                        className="underline text-[18px] text-[#8c8c8c] cursor-pointer"
+                        className="underline-l cursor-pointer text-neutral-medium-gray"
                       >
                         Show {v.showMore ? 'Less' : 'More'}
                       </div>
@@ -133,7 +131,7 @@ const Hackathon: FC<HackathonProps> = ({ edit = false }) => {
             <div className="flex justify-center pt-[20px]">
               <Button
                 onClick={() => setShowAll(!showAll)}
-                className="w-[265px] h-[44px] bg-yellow-primary font-next-book text-[16px]"
+                className="body-m h-[44px] w-[265px] bg-yellow-primary"
               >
                 View {showAll ? 'Less' : 'Full'} Hackathon
               </Button>

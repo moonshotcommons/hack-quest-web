@@ -36,22 +36,22 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
     setShowAll(!buttonDisable);
   }, [buttonDisable]);
   return (
-    <div className="flex justify-between gap-[50px] mb-[30px]">
-      <div className={`flex-1 text-[#000] ${inter.className}`}>
-        <p className="text-[24px] font-[500] leading-[25px] mb-[10px]">
+    <div className="mb-[30px] flex justify-between gap-[50px]">
+      <div className={`flex-1 text-neutral-black ${inter.className}`}>
+        <p className="mb-[10px] text-[24px] font-[500] leading-[25px]">
           {mantle.title}
         </p>
         <p className="text-[16px] font-[400]">{mantle.description}</p>
       </div>
       <div
-        className={`h-fit flex gap-[40px] px-[30px] py-[20px] border border-[#8c8c8c] rounded-[10px] font-next-book ${
+        className={`flex h-fit gap-[40px] rounded-[10px] border border-neutral-medium-gray px-[30px] py-[20px] font-next-book ${
           showAll ? 'w-[567px]' : 'w-[306px]'
         }`}
       >
         {showAll && (
           <div className="w-[218px]">
             <div
-              className="w-[218px] h-[121px] relative mb-[8px] bg-white cursor-pointer hover:scale-[1.03] hover:-translate-y-1 transition-transform"
+              className="relative mb-[8px] h-[121px] w-[218px] cursor-pointer bg-neutral-white transition-transform hover:-translate-y-1 hover:scale-[1.03]"
               onClick={() => {
                 certificationModalRef.current?.open();
               }}
@@ -63,7 +63,7 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
               ></Image>
             </div>
             <div className="flex gap-[10px] text-[14px]">
-              <div className="px-[5px] flex items-center justify-between w-[69px] h-[32px] border border-[#DADADA] rounded-[6px]">
+              <div className="flex h-[32px] w-[69px] items-center justify-between rounded-[6px] border border-neutral-light-gray px-[5px]">
                 <Image
                   src={iconCoin}
                   width={22}
@@ -72,17 +72,17 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
                 ></Image>
                 <span>x{mantle.certification?.credits}</span>
               </div>
-              <div className="px-[5px] flex items-center justify-between w-[69px] h-[32px] border border-[#DADADA] rounded-[6px]">
+              <div className="flex h-[32px] w-[69px] items-center justify-between rounded-[6px] border border-neutral-light-gray px-[5px]">
                 <Image src={iconXp} width={22} alt="icon" className=""></Image>
                 <span>x{mantle.certification?.exp}</span>
               </div>
             </div>
           </div>
         )}
-        <div className="flex-1 flex flex-col justify-between">
+        <div className="flex flex-1 flex-col justify-between">
           <div className="">
             <div
-              className="flex-row-center justify-between cursor-pointer"
+              className="flex-row-center cursor-pointer justify-between"
               onClick={() => {
                 BurialPoint.track('campaigns certificateCard show all 点击');
                 setShowAll(!showAll);
@@ -99,7 +99,7 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
             </div>
             {showAll && (
               <div
-                className={`text-[14px] mt-[5px] mb-[20px] ${inter.className}`}
+                className={`mb-[20px] mt-[5px] text-[14px] ${inter.className}`}
               >
                 {mantle.certification?.description}
               </div>
@@ -108,14 +108,14 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
           {showAll && (
             <div className="flex justify-between">
               <Button
-                className={`w-[120px] h-[34px] text-[#0b0b0b] text-[16px] p-0
-                          bg-auth-primary-button-bg
-                          border-auth-primary-button-border-color ${
+                className={`h-[34px] w-[120px] border-auth-primary-button-border-color bg-auth-primary-button-bg p-0
+                          text-[16px]
+                          text-neutral-black ${
                             buttonDisable
-                              ? 'opacity-50 cursor-not-allowed '
+                              ? 'cursor-not-allowed opacity-50 '
                               : `hover:border-auth-primary-button-border-hover-color
-                                  hover:text-auth-primary-button-text-hover-color
-                                  hover:bg-auth-primary-button-hover-bg`
+                                  hover:bg-auth-primary-button-hover-bg
+                                  hover:text-auth-primary-button-text-hover-color`
                           }`}
                 loading={loading}
                 disabled={buttonDisable}
@@ -124,8 +124,8 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
                 {mantle.certification.claimed ? 'Claimed' : 'Claim'}
               </Button>
               <Button
-                className={`w-[120px] h-[34px] text-[#0b0b0b] p-0 text-[14px]
-                          border border-[#0b0b0b]`}
+                className={`h-[34px] w-[120px] border border-neutral-black p-0
+                          text-[14px] text-neutral-black`}
                 onClick={learnMore}
               >
                 Learn More

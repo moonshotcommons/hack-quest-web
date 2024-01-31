@@ -15,14 +15,14 @@ const PopBox: FC<PopBoxProps> = ({
   return (
     <div
       className={cn(
-        `absolute z-[9] flex flex-col items-center -right-[24px] top-[24px]`,
+        `absolute -right-[24px] top-[24px] z-[9] flex flex-col items-center`,
         className
       )}
     >
       {showPopTriangle && (
-        <div className="w-[24px] h-[24px] -rotate-[135deg] bg-white self-end -mb-[12px] mr-[28px] shadow-[rgba(0,0,0,0.05)_1.5px_1.5px_1.5px]"></div>
+        <div className="-mb-[12px] mr-[28px] h-[24px] w-[24px] -rotate-[135deg] self-end bg-neutral-white shadow-[rgba(0,0,0,0.05)_1.5px_1.5px_1.5px]"></div>
       )}
-      <div className="p-5 flex flex-col bg-white rounded-[10px] w-fit gap-y-[15px] shadow-[0px_2px_8px_0px_rgba(99,99,99,0.2)]">
+      <div className="flex w-fit flex-col gap-y-[15px] rounded-[10px] bg-neutral-white p-5 shadow-[0px_2px_8px_0px_rgba(99,99,99,0.2)]">
         {children}
       </div>
     </div>

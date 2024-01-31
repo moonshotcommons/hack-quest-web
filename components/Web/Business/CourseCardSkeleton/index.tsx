@@ -24,22 +24,22 @@ interface CourseCardSkeletonListProps {
 
 const CourseCardSkeletonCard: FC<CourseCardSkeletonCardProps> = (props) => {
   return (
-    <div className="w-[302px] h-[370px] rounded-[16px] bg-white overflow-hidden flex flex-col">
-      <Skeleton className="w-full h-[150px] flex items-center justify-center">
+    <div className="flex h-[370px] w-[302px] flex-col overflow-hidden rounded-[16px] bg-neutral-white">
+      <Skeleton className="flex h-[150px] w-full items-center justify-center">
         <FaRegImage size={80} color={'#bdbdbd'} />
       </Skeleton>
-      <div className="flex flex-col justify-between h-full flex-1 py-5 px-[24px] ">
-        <div className="flex-col flex-1 flex gap-y-4">
-          <Skeleton className="w-[48px] h-[24px] flex items-center justify-center rounded-md"></Skeleton>
-          <Skeleton className="w-1/2 h-[22px] flex items-center justify-center rounded-md"></Skeleton>
+      <div className="flex h-full flex-1 flex-col justify-between px-[24px] py-5 ">
+        <div className="flex flex-1 flex-col gap-y-4">
+          <Skeleton className="flex h-[24px] w-[48px] items-center justify-center rounded-md"></Skeleton>
+          <Skeleton className="flex h-[22px] w-1/2 items-center justify-center rounded-md"></Skeleton>
           <div className="flex flex-col gap-1">
-            <Skeleton className="w-full h-[18px] flex items-center justify-center rounded-md"></Skeleton>
-            <Skeleton className="w-2/3 h-[18px] flex items-center justify-center rounded-md"></Skeleton>
+            <Skeleton className="flex h-[18px] w-full items-center justify-center rounded-md"></Skeleton>
+            <Skeleton className="flex h-[18px] w-2/3 items-center justify-center rounded-md"></Skeleton>
           </div>
         </div>
         <div className="flex justify-between">
-          <Skeleton className="w-[80px] h-[15px] flex items-center justify-center rounded-md"></Skeleton>
-          <Skeleton className="w-[120px] h-[15px] flex items-center justify-center rounded-md"></Skeleton>
+          <Skeleton className="flex h-[15px] w-[80px] items-center justify-center rounded-md"></Skeleton>
+          <Skeleton className="flex h-[15px] w-[120px] items-center justify-center rounded-md"></Skeleton>
         </div>
       </div>
     </div>

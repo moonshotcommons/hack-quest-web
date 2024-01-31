@@ -114,7 +114,7 @@ const GithubActivity: FC<GithubActivityProps> = ({ edit = false }) => {
     };
   }, []);
   return (
-    <Box className="font-next-poster relative group h-[261px] flex flex-col justify-between">
+    <Box className="group relative flex h-[261px] flex-col justify-between font-next-poster">
       {!!githubInfo && edit && (
         <div className="absolute right-[30px] top-[30px] hidden group-hover:block">
           <div className="flex gap-[10px]">
@@ -139,35 +139,37 @@ const GithubActivity: FC<GithubActivityProps> = ({ edit = false }) => {
           </div>
         </div>
       )}
-      <div className="text-[28px] font-next-book-bold tracking-[1.68px]">
+      <div className="font-next-book-bold text-[28px] tracking-[1.68px]">
         GithubActivity
       </div>
       {loading || refreshLoading ? (
-        <div className="relative flex-1 w-full flex-center">
+        <div className="flex-center relative w-full flex-1">
           <Image
             src={Loading}
             width={40}
             alt="loading"
-            className="object-contain animate-spin opacity-100"
+            className="animate-spin object-contain opacity-100"
           ></Image>
         </div>
       ) : githubInfo ? (
         <div className="flex">
-          <div className="w-[55%] flex-center flex-shrink-0">
+          <div className="flex-center w-[55%] flex-shrink-0">
             <Chart optionData={githubInfo?.techStack as []} />
           </div>
-          <div className="w-[45%] flex-shrink-0 flex">
-            <div className="w-[52.99%] border-l-[0.5px] border-l-[#000] flex flex-col justify-between text-center">
-              <p className="text-[54px] text-[#000] leading-[86px]">
+          <div className="flex w-[45%] flex-shrink-0">
+            <div className="flex w-[52.99%] flex-col justify-between border-l-[0.5px] border-l-[#000] text-center">
+              <p className="text-[54px] leading-[86px] text-neutral-black">
                 {separationNumber(githubInfo.commit)}
               </p>
-              <p className="text-[#8c8c8c] tracking-[0.36px]">Commits</p>
+              <p className="tracking-[0.36px] text-neutral-medium-gray">
+                Commits
+              </p>
             </div>
-            <div className="w-[47.99%] border-l-[0.5px] border-l-[#000] flex flex-col justify-between text-center">
-              <p className="text-[54px] text-[#000] leading-[86px]">
+            <div className="flex w-[47.99%] flex-col justify-between border-l-[0.5px] border-l-[#000] text-center">
+              <p className="text-[54px] leading-[86px] text-neutral-black">
                 {separationNumber(githubInfo.start)}
               </p>
-              <p className="text-[#8c8c8c] tracking-[0.36px]">
+              <p className="tracking-[0.36px] text-neutral-medium-gray">
                 Github Repo Stars
               </p>
             </div>

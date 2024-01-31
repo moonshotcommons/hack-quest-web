@@ -36,7 +36,7 @@ function HackathonBox() {
     }
   };
   return (
-    <div className="pb-10  container mx-auto ">
+    <div className="container  mx-auto pb-10 ">
       <PageDescription
         title="Welcome to HackQuest Hackathon!"
         description="Explore ongoing hackathons, uncover past projects, and dive into the world of innovation. Your journey through the realm of creativity begins here! 🚀💡"

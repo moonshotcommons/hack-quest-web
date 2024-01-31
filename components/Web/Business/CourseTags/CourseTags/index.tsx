@@ -32,7 +32,7 @@ const CourseTags: FC<CourseTagsProps> = (props) => {
   return (
     <div
       className={cn(
-        'flex gap-[20px] items-center text-[var(--neutral-rich-gray)]',
+        'flex items-center gap-[20px] text-[var(--neutral-rich-gray)]',
         `${size === 'large' ? 'gap-[40px]' : ''} ${className}`
       )}
     >
@@ -50,7 +50,7 @@ const CourseTags: FC<CourseTagsProps> = (props) => {
           {unitCount + ' ' + `${unitCount > 1 ? 'Courses' : 'Course'}`}
         </Tag>
       )}
-      {/* <Tag icon={<CourseIcon />} size={size} className="text-[#3E3E3E]">
+      {/* <Tag icon={<CourseIcon />} size={size} className="text-neutral-rich-gray">
         {type === CourseType.GUIDED_PROJECT &&
           unitCount + ' ' + `${unitCount > 1 ? 'Units' : 'Unit'}`}
         {type === CourseType.MINI &&

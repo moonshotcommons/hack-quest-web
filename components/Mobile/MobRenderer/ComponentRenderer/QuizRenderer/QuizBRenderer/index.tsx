@@ -156,7 +156,6 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
 
   const { quizChildren, parseComponent } = useMemo(() => {
     let parseComponent: NotionComponent | null = null;
-    console.log(quiz.children);
     for (let i = quiz.children.length - 1; i >= 0; i--) {
       let child = quiz.children[i];
       console.log(child);
@@ -178,8 +177,8 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
   }, [quiz, parentQuiz]);
 
   return (
-    <div className="h-full flex flex-col justify-between">
-      <div className="flex-1 overflow-auto scroll-wrap-y">
+    <div className="flex h-full flex-col justify-between">
+      <div className="scroll-wrap-y flex-1 overflow-auto">
         <DndProvider backend={HTML5Backend}>
           <div className="rounded-lg">
             <RendererContext.Provider
@@ -195,7 +194,7 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
                 }
               }}
             >
-              <div className="py-4 items-center">
+              <div className="items-center py-4">
                 {quizChildren.map((child) => {
                   return (
                     <ComponentRenderer
@@ -208,7 +207,7 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
               </div>
             </RendererContext.Provider>
 
-            <div className=" flex flex-row gap-[30px] flex-wrap pb-4 pt-[52px]">
+            <div className=" flex flex-row flex-wrap gap-[30px] pb-4 pt-[52px]">
               {options.map((option) => {
                 if (!option.isRender) return null;
                 return (

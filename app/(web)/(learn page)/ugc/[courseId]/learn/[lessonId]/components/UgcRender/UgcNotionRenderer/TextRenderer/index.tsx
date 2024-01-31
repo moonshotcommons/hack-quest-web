@@ -1,4 +1,4 @@
-import DropAnswer from '@/components/Web/Business/Renderer/ComponentRenderer/QuizRenderer/QuizBRenderer/DropAnswer';
+import DropAnswer from '@/app/(web)/(learn page)/ugc/[courseId]/learn/[lessonId]/components/UgcRender/UgcComponentRenderer/QuizRenderer/QuizBRenderer/DropAnswer';
 import { cn } from '@/helper/utils';
 import { FC, useContext } from 'react';
 import MathJax from 'react-mathjax';
@@ -97,16 +97,15 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
           );
           if (richTextArr[index + 1]) {
             const nextPlainText = richTextArr[index + 1].plain_text;
-            richTextArr[
-              index + 1
-            ].plain_text = `${plain_text}${nextPlainText}<<image>>`;
+            richTextArr[index + 1].plain_text =
+              `${plain_text}${nextPlainText}<<image>>`;
             return null;
           } else {
             return (
-              <p key={index} className="text-center pt-[10px] mb-[30px]">
+              <p key={index} className="mb-[30px] pt-[10px] text-center">
                 <span
                   key={index}
-                  className={`${className} rounded-md caption-14pt text-neutral-rich-gray`}
+                  className={`${className} caption-14pt rounded-md text-neutral-rich-gray`}
                   style={{
                     fontSize,
                     letterSpacing,
@@ -142,7 +141,7 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
                 <a
                   target="_blank"
                   href={richText.href}
-                  className={`${className} py-1 underline break-words`}
+                  className={`${className} break-words py-1 underline`}
                   style={{
                     fontSize,
                     letterSpacing,
@@ -197,7 +196,7 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
               target="_blank"
               key={index}
               href={richText.href}
-              className={`${className} py-1 underline break-words`}
+              className={`${className} break-words py-1 underline`}
               style={{
                 fontSize,
                 letterSpacing,

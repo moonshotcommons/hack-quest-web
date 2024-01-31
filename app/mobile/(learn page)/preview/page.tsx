@@ -6,7 +6,7 @@ interface IProps {}
 const PreviewPage: NextPage<IProps> = (props) => {
   return (
     <>
-      <div className="w-full h-[calc(100vh-80px)] flex flex-col gap-4 font-next-book-Thin text-text-default-color px-10 py-10">
+      <div className="flex h-[calc(100vh-80px)] w-full flex-col gap-4 px-10 py-10 font-next-book-Thin text-text-default-color">
         <PreviewWorkspace></PreviewWorkspace>
       </div>
     </>

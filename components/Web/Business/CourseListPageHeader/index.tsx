@@ -25,17 +25,17 @@ const CourseListPageHeader: FC<CourseListPageHeaderProps> = ({
 }) => {
   const [searchValue, setSearchValue] = useState('');
   return (
-    <div className="pb-[90px] min-h-[360px] flex justify-between gap-[36px]">
+    <div className="flex min-h-[360px] justify-between gap-[36px] pb-[90px]">
       <div className="w-[800px] max-w-[800px] pt-[60px]">
-        <h2 className="text-h1 text-neutral-black uppercase">{title}</h2>
-        <p className="mt-[20px] text-neutral-rich-gray body-l">{description}</p>
-        <div className="py-4 px-5 border mt-[60px] w-full rounded-[56px] border-[#DADADA] bg-white flex gap-5 items-center">
+        <h2 className="text-h1 uppercase text-neutral-black">{title}</h2>
+        <p className="body-l mt-[20px] text-neutral-rich-gray">{description}</p>
+        <div className="mt-[60px] flex w-full items-center gap-5 rounded-[56px] border border-neutral-light-gray bg-neutral-white px-5 py-4">
           <span>
             <FiSearch size={20} />
           </span>
           <input
             placeholder="Search for keywords, topics, etc..."
-            className="outline-none body-l text-neutral-medium-gray w-full truncate"
+            className="body-l w-full truncate text-neutral-medium-gray outline-none"
             value={searchValue}
             onKeyUp={(e) => {
               if (e.code === 'Enter') {

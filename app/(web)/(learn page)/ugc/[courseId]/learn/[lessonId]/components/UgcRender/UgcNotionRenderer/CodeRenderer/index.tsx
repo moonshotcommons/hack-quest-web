@@ -46,14 +46,14 @@ const CodeRenderer: FC<CodeRendererProps> = (props) => {
 
   return (
     <div
-      className={`relative rounded-md flex-1 overflow-hidden ${
+      className={`relative flex-1 overflow-hidden rounded-md ${
         isPlayground ? 'flex flex-col' : ''
       }`}
       data-type={component.type}
     >
-      <div className="h-[6px] relative bg-[#fafafa] rounded-t-[4.8px]">
+      <div className="relative h-[6px] rounded-t-[4.8px] bg-[#fafafa]">
         <div
-          className="absolute top-[9px] right-[9px] text-[0.75rem] font-next-book text-[#E3E3E3] rounded-[0.5rem] cursor-pointer z-[10]"
+          className="absolute right-[9px] top-[9px] z-[10] cursor-pointer rounded-[0.5rem] font-next-book text-[0.75rem] text-[#E3E3E3]"
           onClick={async (e) => {
             try {
               await navigator.clipboard.writeText(
@@ -75,12 +75,12 @@ const CodeRenderer: FC<CodeRendererProps> = (props) => {
         </div>
       </div>
       {isPlayground ? (
-        <div className="w-full flex-1 relative">
-          <div className="absolute w-full h-full left-0 top-0 overflow-auto">
+        <div className="relative w-full flex-1">
+          <div className="absolute left-0 top-0 h-full w-full overflow-auto">
             <SyntaxHighlighter
               style={theme === Theme.Dark ? oneDark : oneLight}
               language={language}
-              className="scroll-wrap-x scroll-wrap-y font-next-poster-Bold h-full rounded-t-[0!important] mt-[0!important]"
+              className="scroll-wrap-x scroll-wrap-y mt-[0!important] h-full rounded-t-[0!important] font-next-poster-Bold"
               showLineNumbers
             >
               {codeContent}
@@ -91,7 +91,7 @@ const CodeRenderer: FC<CodeRendererProps> = (props) => {
         <SyntaxHighlighter
           style={theme === Theme.Dark ? oneDark : oneLight}
           language={language}
-          className="scroll-wrap-x scroll-wrap-y font-next-poster-Bold h-[calc(100%-20px)] rounded-t-[0!important] mt-[0!important]"
+          className="scroll-wrap-x scroll-wrap-y mt-[0!important] h-[calc(100%-20px)] rounded-t-[0!important] font-next-poster-Bold"
           showLineNumbers
         >
           {codeContent}

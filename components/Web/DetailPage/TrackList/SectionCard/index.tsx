@@ -50,7 +50,7 @@ const renderColorTag = (type: CourseType) => {
     case CourseType.TEASER:
     default:
       return (
-        <div className="w-[0.25rem] left-0 h-[26px] rounded-xl bg-[#8C8C8C]"></div>
+        <div className="left-0 h-[26px] w-[0.25rem] rounded-xl bg-neutral-medium-gray"></div>
       );
   }
 };
@@ -94,14 +94,14 @@ function SectionList(props: {
     return (
       <>
         {enrolled && !!item.progress && item.progress < 1 && (
-          <div className="h-full flex items-center justify-end pr-[50px]">
+          <div className="flex h-full items-center justify-end pr-[50px]">
             <Button
               loading={loading && clickIndex === index}
               disabled={loading && clickIndex === index}
               className="
-              w-[165px] py-[11px] leading-[125%] hover:-translate-y-[1px] hover:shadow-[rgba(0,0,0,0.15)_1.95px_1.95px_2.6px] transition border border-solid
-              bg-course-learning-button-bg border-course-learning-button-border-color rounded-[32px] whitespace-nowrap
-              text-sm text-[#0B0B0B] font-next-book text-[16px] cursor-pointer"
+              body-m w-[165px] cursor-pointer whitespace-nowrap rounded-[32px] border border-solid border-course-learning-button-border-color
+              bg-course-learning-button-bg py-[11px] leading-[125%] text-neutral-black
+              transition hover:-translate-y-[1px] hover:shadow-[rgba(0,0,0,0.15)_1.95px_1.95px_2.6px]"
               onClick={(e) => {
                 e.stopPropagation();
                 BurialPoint.track('learningTrackDetail-course学习按钮', {
@@ -131,7 +131,7 @@ function SectionList(props: {
   };
 
   return (
-    <ul className="pl-[90px] flex flex-col gap-y-5 w-full py-[15px]">
+    <ul className="flex w-full flex-col gap-y-5 py-[15px] pl-[90px]">
       {section.courses.map((item: any, index: number) => {
         return (
           <li
@@ -140,10 +140,10 @@ function SectionList(props: {
               `flex h-[4.25rem] items-center justify-between py-[8px]`
             )}
           >
-            <div className="text-learning-track-progress-text-color w-[40px] h-[40px]">
+            <div className="h-[40px] w-[40px] text-learning-track-progress-text-color">
               {!enrolled && (
-                <div className="w-full h-full relative border border-black rounded-full text-[24px] font-next-poster">
-                  <span className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2">
+                <div className="relative h-full w-full rounded-full border border-neutral-black font-next-poster text-[24px]">
+                  <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
                     {index + 1}
                   </span>
                 </div>
@@ -168,14 +168,14 @@ function SectionList(props: {
               )}
             </div>
 
-            <div className="flex ml-[10%] gap-[10px] items-center ">
+            <div className="ml-[10%] flex items-center gap-[10px] ">
               {renderColorTag(item.type)}
-              <span className="inline-flex text-[16px]  text-black opacity-60 tracking-[0.32px] font-next-book leading-[160%] min-w-[120px]">
+              <span className="body-m inline-flex min-w-[120px] text-neutral-black  opacity-60">
                 {tagFormate(item.type)}
               </span>
             </div>
             <div
-              className="text-learning-track-course-title-color font-next-book-bold leading-[120%] w-[36%] ml-[10%] flex-1 cursor-pointer hover:opacity-70 transition"
+              className="body-m-bold ml-[10%] w-[36%] flex-1 cursor-pointer text-learning-track-course-title-color transition hover:opacity-70"
               onClick={(e) => {
                 redirectToUrl(
                   `${menuLink.electives}/${item.id}?${
@@ -235,7 +235,7 @@ const SectionCard: FC<SectionCardProps> = (props) => {
 
   const SectionTitle = (
     <div
-      className="flex w-full items-center gap-[35px] cursor-pointer"
+      className="flex w-full cursor-pointer items-center gap-[35px]"
       onClick={() => {
         const value = !expand;
         setExpand(value);
@@ -247,10 +247,10 @@ const SectionCard: FC<SectionCardProps> = (props) => {
         }
       }}
     >
-      <div className="w-[55px] h-[55px]">
+      <div className="h-[55px] w-[55px]">
         {!enrolled && (
-          <div className="w-full h-full relative border border-black rounded-full text-[24px] font-next-poster">
-            <span className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2">
+          <div className="relative h-full w-full rounded-full border border-neutral-black font-next-poster text-[24px]">
+            <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
               {sectionIndex + 1}
             </span>
           </div>
@@ -274,18 +274,18 @@ const SectionCard: FC<SectionCardProps> = (props) => {
           ></CustomProgress>
         )}
       </div>
-      <div className="font-next-poster-Bold tracking-[1.26px] leading-normal  text-text-default-color text-[21px] w-[30%] flex mt-2 flex-1">
+      <div className="mt-2 flex w-[30%]  flex-1 font-next-poster-Bold text-[21px] leading-normal tracking-[1.26px] text-text-default-color">
         {`${section.name}`}
       </div>
 
       {!expand && (
-        <div className="p-[10px] w-fit h-fit">
+        <div className="h-fit w-fit p-[10px]">
           <VscAdd size={28}></VscAdd>
         </div>
       )}
       {expand && (
         <div
-          className="p-[10px] w-fit h-fit"
+          className="h-fit w-fit p-[10px]"
           // onClick={() => setExpand(false)}
         >
           <GrSubtract size={28}></GrSubtract>
@@ -295,7 +295,7 @@ const SectionCard: FC<SectionCardProps> = (props) => {
   );
 
   return (
-    <div className="py-5 w-full flex items-start flex-col ">
+    <div className="flex w-full flex-col items-start py-5 ">
       {SectionTitle}
       {expand && (
         <SectionList

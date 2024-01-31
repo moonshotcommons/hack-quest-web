@@ -14,7 +14,7 @@ import Footer from './components/Footer';
 const Landing: NextPage<any> = (props) => {
   return (
     <>
-      <div className="flex flex-col justify-center w-screen overflow-hidden">
+      <div className="flex w-screen flex-col justify-center overflow-hidden">
         <TopBanner />
         <CollaborateList />
         <CertificatesIntroduce />

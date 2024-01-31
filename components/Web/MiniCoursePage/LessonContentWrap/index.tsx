@@ -141,13 +141,13 @@ const LessonContentWrap: FC<LessonContentWrapProps> = ({
   }, [course]);
 
   return (
-    <div className="flex-1 h-[calc(100vh-64px-80px)] flex flex-col justify-center items-center gap-[24px]">
-      <div className="flex-1 w-full flex gap-[60px] h-[calc(100%-24px-6px)] justify-center items-center">
+    <div className="flex h-[calc(100vh-64px-80px)] flex-1 flex-col items-center justify-center gap-[24px]">
+      <div className="flex h-[calc(100%-24px-6px)] w-full flex-1 items-center justify-center gap-[60px]">
         <div
           className={cn(
             previousLessonId
               ? 'cursor-pointer'
-              : 'opacity-20 cursor-not-allowed'
+              : 'cursor-not-allowed opacity-20'
           )}
           onClick={() => {
             if (!previousLessonId) return;
@@ -184,7 +184,7 @@ const LessonContentWrap: FC<LessonContentWrapProps> = ({
           className={cn(
             nextLessonId && nextControl
               ? 'cursor-pointer'
-              : 'opacity-20 cursor-not-allowed'
+              : 'cursor-not-allowed opacity-20'
           )}
           onClick={() => {
             if (!nextLessonId || !nextControl) return;

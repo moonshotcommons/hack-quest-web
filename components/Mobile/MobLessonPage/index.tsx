@@ -117,13 +117,13 @@ const MobLessonPage: FC<MobLessonPageProps> = (props) => {
     >
       <Spin
         spinning={loading}
-        className="h-[100vh] flex justify-center items-center translate-y-[calc(50vh-50%)]"
+        className="flex h-[100vh] translate-y-[calc(50vh-50%)] items-center justify-center"
         tip="loading..."
         size="large"
       >
         {lesson ? (
           <div
-            className={`relative w-full h-[calc(100vh-4rem)] flex flex-col overflow-hidden`}
+            className={`relative flex h-[calc(100vh-4rem)] w-full flex-col overflow-hidden`}
           >
             <LessonPageContext.Provider
               value={{
@@ -147,9 +147,11 @@ const MobLessonPage: FC<MobLessonPageProps> = (props) => {
             >
               <LessonSidebar lesson={lesson} />
               <LessonProgress lesson={lesson} />
-              <LessonNavbar />
+              <div className="mb-[.625rem]">
+                <LessonNavbar />
+              </div>
               <Split
-                className="flex-1 w-full relative"
+                className="relative w-full flex-1"
                 minSize={360}
                 cursor="col-resize"
                 gutter={(index, direction) => {
@@ -159,38 +161,40 @@ const MobLessonPage: FC<MobLessonPageProps> = (props) => {
                   const content2 = document.createElement('span');
                   container.className = 'w-full px-[6px] flex justify-between';
                   content1.className =
-                    'w-[2px] h-[12px] bg-[#8C8C8C] rounded-full';
+                    'w-[2px] h-[12px] bg-neutral-medium-gray rounded-full';
                   content2.className =
-                    'w-[2px] h-[12px] bg-[#8C8C8C] rounded-full';
+                    'w-[2px] h-[12px] bg-neutral-medium-gray rounded-full';
 
                   container.appendChild(content1);
                   container.appendChild(content2);
                   gutter.appendChild(container);
-                  gutter.className = `gutter gutter-${direction} flex flex-col justify-center items-center bg-[#F4F4F4] shadow-[-2px_0px_4px_0px_rgba(0,0,0,0.10)] w-[20px!important]`;
+                  gutter.className = `gutter gutter-${direction} flex flex-col justify-center items-center bg-neutral-off-white shadow-[-2px_0px_4px_0px_rgba(0,0,0,0.10)] w-[20px!important]`;
                   return gutter;
                 }}
               >
-                <div className="absolute left-0 top-0 w-full h-full overflow-auto scroll-wrap-y px-[1.375rem] pb-[4.875rem]">
+                <div className="scroll-wrap-y absolute left-0 top-0 h-full w-full overflow-auto pb-[4.875rem]">
                   <LessonContent
                     lesson={lesson as any}
                     courseType={courseType}
                   ></LessonContent>
-                  <Playground
-                    lesson={lesson! as any}
-                    onCompleted={() => {
-                      if (lesson.state !== CompleteStateType.COMPLETED) {
-                        webApi.missionCenterApi
-                          .digTreasures(lessonId)
-                          .then((res) => {
-                            if (res.success && res.treasureId) {
-                              treasureModalRef.current?.open(res.treasureId);
-                            }
-                          });
-                      }
-                      // 当前lesson完成
-                      setIsHandleNext(true);
-                    }}
-                  ></Playground>
+                  <div className="px-[1.375rem]">
+                    <Playground
+                      lesson={lesson! as any}
+                      onCompleted={() => {
+                        if (lesson.state !== CompleteStateType.COMPLETED) {
+                          webApi.missionCenterApi
+                            .digTreasures(lessonId)
+                            .then((res) => {
+                              if (res.success && res.treasureId) {
+                                treasureModalRef.current?.open(res.treasureId);
+                              }
+                            });
+                        }
+                        // 当前lesson完成
+                        setIsHandleNext(true);
+                      }}
+                    ></Playground>
+                  </div>
                 </div>
                 {null}
               </Split>

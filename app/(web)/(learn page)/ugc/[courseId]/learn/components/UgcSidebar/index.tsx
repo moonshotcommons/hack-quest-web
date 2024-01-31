@@ -44,12 +44,12 @@ const UgcSidebar: FC<UgcSidebarProps> = () => {
             disable,
             label: (
               <div
-                className={`flex w-full justify-between items-center ${
+                className={`flex w-full items-center justify-between ${
                   disable ? 'cursor-not-allowed' : ''
                 }`}
               >
-                <div className="flex flex-col pr-5 flex-1 overflow-hidden shrink-0">
-                  <span className="w-full body-m text-neutral-black break-words line-clamp-2">
+                <div className="flex flex-1 shrink-0 flex-col overflow-hidden pr-5">
+                  <span className="body-m line-clamp-2 w-full break-words text-neutral-black">
                     {page.title}
                   </span>
                   <span className="caption-12pt text-neutral-black">
@@ -57,7 +57,7 @@ const UgcSidebar: FC<UgcSidebarProps> = () => {
                   </span>
                 </div>
                 {page.state !== CompleteStateType.COMPLETED && (
-                  <div className="w-6 h-6 rounded-full border border-neutral-rich-gray flex justify-center items-center">
+                  <div className="flex h-6 w-6 items-center justify-center rounded-full border border-neutral-rich-gray">
                     {lessonTypeData[page.type].icon}
                   </div>
                 )}
@@ -122,7 +122,7 @@ const UgcSidebar: FC<UgcSidebarProps> = () => {
 
   useEffect(() => {
     if (lesson) run();
-  }, [lesson]);
+  }, [lesson, run]);
 
   useEffect(() => {
     course && setLearnPageTitle(course.title);
@@ -135,7 +135,7 @@ const UgcSidebar: FC<UgcSidebarProps> = () => {
     <Sidebar
       title={course.title}
       items={items}
-      className="w-[18.5rem] h-full"
+      className="h-full w-[18.5rem]"
       defaultSelect={lesson.id}
       defaultOpenKeys={defaultOpenKeys}
       onSelect={(key, item: any) => {

@@ -55,15 +55,15 @@ const FilterSelect: FC<FilterSelectProps> = ({
   return (
     <div className="flex justify-between">
       {!!filters?.length && (
-        <div className="flex flex-1 gap-4 pr-8 flex-wrap">
+        <div className="flex flex-1 flex-wrap gap-4 pr-8">
           {filters.map((filter, filterIndex) => {
             return (
               <div
                 key={filter.filterField}
                 className={cn(
-                  'px-6 py-[10px] body-l rounded-full border border-neutral-rich-gray w-fit flex gap-x-[10px] items-center relative cursor-pointer',
+                  'body-l relative flex w-fit cursor-pointer items-center gap-x-[10px] rounded-full border border-neutral-rich-gray px-6 py-[10px]',
                   hoverFilter === filter.filterName
-                    ? 'bg-yellow-light border-transparent transition-all'
+                    ? 'border-transparent bg-yellow-light transition-all'
                     : ''
                 )}
                 onMouseEnter={() => {
@@ -86,13 +86,13 @@ const FilterSelect: FC<FilterSelectProps> = ({
                 {hoverFilter === filter.filterName && (
                   <motion.ul
                     {...animateProps}
-                    className="absolute min-w-[160px] w-full bg-neutral-white left-0 -bottom-[3px] translate-y-[100%] z-[99] border border-neutral-light-gray rounded-[10px] py-4 shadow-sm"
+                    className="absolute -bottom-[3px] left-0 z-[99] w-full min-w-[160px] translate-y-[100%] rounded-[10px] border border-neutral-light-gray bg-neutral-white py-4 shadow-sm"
                   >
                     {filter.options.map((option, optionIndex) => {
                       return (
                         <li
                           key={option.name}
-                          className="px-3 py-2 body-m text-neutral-black cursor-pointer hover:bg-yellow-light flex justify-between items-center"
+                          className="body-m flex cursor-pointer items-center justify-between px-3 py-2 text-neutral-black hover:bg-yellow-light"
                           onClick={() => {
                             filters[filterIndex].options[optionIndex].isSelect =
                               !option.isSelect;
@@ -134,7 +134,7 @@ const FilterSelect: FC<FilterSelectProps> = ({
             return (
               <div
                 key={index}
-                className="px-6 py-[10px] body-l bg-yellow-primary rounded-full flex gap-[10px] items-center"
+                className="body-l flex items-center gap-[10px] rounded-full bg-yellow-primary px-6 py-[10px]"
               >
                 <span>{item.name}</span>
                 <span
@@ -167,7 +167,7 @@ const FilterSelect: FC<FilterSelectProps> = ({
           }}
           onMouseLeave={mouseLeaveSort}
         >
-          <div className="flex gap-[10px] items-center px-3 py-[10px] cursor-pointer relative">
+          <div className="relative flex cursor-pointer items-center gap-[10px] px-3 py-[10px]">
             <span>
               <PiSortAscendingLight size={20} />
             </span>
@@ -176,13 +176,13 @@ const FilterSelect: FC<FilterSelectProps> = ({
           {hoverSort && (
             <motion.ul
               {...animateProps}
-              className="absolute min-w-[160px]  w-fit bg-neutral-white right-0 -bottom-[4px] z-[99] border border-neutral-light-gray rounded-[10px] py-4 shadow-sm"
+              className="absolute -bottom-[4px]  right-0 z-[99] w-fit min-w-[160px] rounded-[10px] border border-neutral-light-gray bg-neutral-white py-4 shadow-sm"
             >
               {sort.map((option, optionIndex) => {
                 return (
                   <li
                     key={option.name}
-                    className="px-3 py-2 body-m text-neutral-black cursor-pointer hover:bg-yellow-light flex justify-between items-center"
+                    className="body-m flex cursor-pointer items-center justify-between px-3 py-2 text-neutral-black hover:bg-yellow-light"
                     onClick={() => {
                       const newSort = cloneDeep(sort).map((item) => {
                         item.isSelect = false;

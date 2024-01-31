@@ -1,13 +1,22 @@
-import { CourseTrackType } from '@/service/webApi/course/type';
+import { cn } from '@/helper/utils';
 import React from 'react';
 
 interface TrackTagProp {
-  track: CourseTrackType;
+  track: string;
+  className?: string;
 }
 
-const TrackTag: React.FC<TrackTagProp> = ({ track }) => {
+const TrackTag: React.FC<TrackTagProp> = ({
+  track,
+  className = 'caption-12pt '
+}) => {
   return (
-    <div className="caption-12pt text-neutral-rich-gray w-fit  px-[12px] py-[4px] border-[0.5px] border-neutral-rich-gray rounded-[20px] ">
+    <div
+      className={cn(
+        'w-fit rounded-[20px]  border-[0.5px] border-neutral-rich-gray px-[12px] py-[4px] text-neutral-rich-gray',
+        className
+      )}
+    >
       {track}
     </div>
   );

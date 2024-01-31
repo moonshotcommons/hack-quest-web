@@ -20,7 +20,7 @@ const ContentRenderer: FC<ContentRendererProps> = (props) => {
       }`}
     >
       <div
-        className={`flex  justify-between items-center ${
+        className={`flex  items-center justify-between ${
           leftLength > 1 ? 'cursor-pointer' : ''
         }`}
         onClick={() => {

@@ -16,7 +16,7 @@ const NavBar: React.FC<NavBarProps> = () => {
     redirectToUrl(MenuLink.DASHBOARD);
   };
   return (
-    <nav className="w-full h-[64px] flex items-center px-[40px] text-neutral-white">
+    <nav className="flex h-[64px] w-full items-center px-[40px] text-neutral-white">
       <Image
         src={DarkLogoActive}
         alt="log"
@@ -24,13 +24,13 @@ const NavBar: React.FC<NavBarProps> = () => {
         className="cursor-pointer"
         onClick={logoClick}
       ></Image>
-      <div className="flex-1 text-center text-h4">{learnPageTitle}</div>
+      <div className="text-h4 flex-1 text-center">{learnPageTitle}</div>
       <div
-        className="w-[123px] flex items-center justify-end cursor-pointer"
+        className="flex w-[123px] cursor-pointer items-center justify-end"
         onClick={logoClick}
       >
         <IoExitOutline size={24} />
-        <span className="ml-[7px] body-l">Exit</span>
+        <span className="body-l ml-[7px]">Exit</span>
       </div>
     </nav>
   );

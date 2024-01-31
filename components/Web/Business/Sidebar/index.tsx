@@ -99,10 +99,10 @@ const Sidebar = <T,>(props: SidebarProps<T>) => {
   }, [defaultSelect]);
 
   return (
-    <div className={cn('box-border relative z-10 h-full')}>
+    <div className={cn('relative z-10 box-border h-full')}>
       {!showList && !isCustomOpen && (
         <div
-          className="absolute top-1/2 -translate-y-1/2 w-[2.625rem] h-60 bg-neutral-off-white rounded-r-[.625rem] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] flex justify-center items-center cursor-pointer"
+          className="absolute top-1/2 flex h-60 w-[2.625rem] -translate-y-1/2 cursor-pointer items-center justify-center rounded-r-[.625rem] bg-neutral-off-white shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)]"
           onClick={() => setShowList(true)}
         >
           <LuChevronsRight size={24} />
@@ -112,21 +112,21 @@ const Sidebar = <T,>(props: SidebarProps<T>) => {
         <motion.div
           {...ani}
           className={cn(
-            'h-full flex flex-col bg-neutral-off-white shadow-[2px_0px_4px_0px_rgba(0,0,0,0.12)] overflow-hidden',
+            'flex h-full flex-col overflow-hidden bg-neutral-off-white shadow-[2px_0px_4px_0px_rgba(0,0,0,0.12)]',
             className
           )}
         >
           <div
-            className="pl-10 flex items-center h-20 border-b border-neutral-medium-gray cursor-pointer"
+            className="flex h-20 cursor-pointer items-center border-b border-neutral-medium-gray pl-10"
             onClick={() => {
               setShowList(false);
               onShowListChange?.(false);
             }}
           >
-            <h3 className="flex-1 text-h3 text-neutral-black truncate">
+            <h3 className="text-h3 flex-1 truncate text-neutral-black">
               {title}
             </h3>
-            <div className="w-10 flex justify-center items-center">
+            <div className="flex w-10 items-center justify-center">
               {/* <LuChevronsLeft size={24} /> */}
               <svg
                 width="12"
@@ -148,7 +148,7 @@ const Sidebar = <T,>(props: SidebarProps<T>) => {
               </svg>
             </div>
           </div>
-          <div className="flex flex-col h-full overflow-y-auto scroll-wrap-y">
+          <div className="scroll-wrap-y flex h-full flex-col overflow-y-auto">
             {items.map((item) => {
               if (item.type === 'group') {
                 return (

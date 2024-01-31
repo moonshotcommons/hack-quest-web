@@ -12,16 +12,16 @@ interface BannerProp {
 const Banner: React.FC<BannerProp> = ({ changeSearchInfo, searchInfo }) => {
   const { track } = searchInfo;
   return (
-    <div className="pt-[1.5rem] pb-[5rem] bg-neutral-off-black">
+    <div className="bg-neutral-off-black pb-[5rem] pt-[1.5rem]">
       <div className="relative h-[0] pt-[19.1%]">
         <Image
           src={BannerImg}
           alt="BannerImg"
-          className="absolute left-0 top-0 w-full h-full"
+          className="absolute left-0 top-0 h-full w-full"
         ></Image>
       </div>
-      <div className="px-[1.25rem] mt-[1.5rem]">
-        <div className="text-h1-mob text-neutral-white mb-[2.5rem]">
+      <div className="mt-[1.5rem] px-[1.25rem]">
+        <div className="text-h1-mob mb-[2.5rem] text-neutral-white">
           LEARNING TRACKS
         </div>
         <div className="flex gap-[1rem]">
@@ -31,13 +31,13 @@ const Banner: React.FC<BannerProp> = ({ changeSearchInfo, searchInfo }) => {
               onClick={() =>
                 changeSearchInfo({ ...searchInfo, track: v.value })
               }
-              className={`flex-1 py-[0.75rem] px-[1rem] rounded-[1rem]  border ${
+              className={`flex-1 rounded-[1rem] border px-[1rem]  py-[0.75rem] ${
                 track === v.value
-                  ? 'bg-yellow-primary border-neutral-light-gray '
+                  ? 'border-neutral-light-gray bg-yellow-primary '
                   : 'border-neutral-off-white'
               }`}
             >
-              <div className="w-[1.5rem] h-[1.5rem] relative">
+              <div className="relative h-[1.5rem] w-[1.5rem]">
                 <Image
                   src={track === v.value ? v.imgActive : v.img}
                   alt="tab-img"

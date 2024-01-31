@@ -25,7 +25,7 @@ const Treasures: React.FC<TreasuresProp> = ({ userTreasure }) => {
   };
   return (
     <div className="w-full">
-      <div className="leading-[23px] text-[#000] flex mt-[40px]">
+      <div className="mt-[40px] flex leading-[23px] text-neutral-black">
         <div className="relative">
           Your treasures
           <Badge count={userTreasure.length} />
@@ -35,12 +35,12 @@ const Treasures: React.FC<TreasuresProp> = ({ userTreasure }) => {
         {Array.from({ length: 5 }).map((_, i) => (
           <div
             key={i}
-            className={`w-[60px] h-[60px] rounded-[10px] flex-center ${
+            className={`flex-center h-[60px] w-[60px] rounded-[10px] ${
               curId === userTreasure[i]?.id
-                ? 'border border-[#8c8c8c]'
+                ? 'border border-neutral-medium-gray'
                 : userTreasure.length <= i
-                ? 'border border-[rgba(218, 218, 218, 0.8)]'
-                : 'cursor-pointer'
+                  ? 'border-[rgba(218, 218, 218, 0.8)] border'
+                  : 'cursor-pointer'
             }`}
             onClick={() => openChest(i)}
           >
@@ -49,7 +49,7 @@ const Treasures: React.FC<TreasuresProp> = ({ userTreasure }) => {
                 src={Loading}
                 width={40}
                 alt="loading"
-                className="object-contain animate-spin opacity-100"
+                className="animate-spin object-contain opacity-100"
               ></Image>
             ) : userTreasure.length > i ? (
               <Image src={ChestImg} width={60} alt="chestImg"></Image>

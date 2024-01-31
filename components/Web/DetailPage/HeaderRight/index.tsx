@@ -29,9 +29,9 @@ function UnProgressHeaderRight(
   type: 'course' | 'learning-track'
 ) {
   return (
-    <div className="border-t w-[445px] max-w-[445px] border-[#000] flex flex-col">
-      <div className="py-5 px-[15px] border-b border-[#000] flex justify-between items-center">
-        <span className="font-next-book-bold tracking-[0.36px] text-black text-[18px]">
+    <div className="flex w-[445px] max-w-[445px] flex-col border-t border-neutral-black">
+      <div className="flex items-center justify-between border-b border-neutral-black px-[15px] py-5">
+        <span className="font-next-book-bold text-[18px] tracking-[0.36px] text-neutral-black">
           Experience
         </span>
         <CourseLevel
@@ -39,31 +39,31 @@ function UnProgressHeaderRight(
           size="large"
         ></CourseLevel>
       </div>
-      <div className="py-5 px-[15px] border-b border-[#000] flex justify-between items-center">
-        <span className="font-next-book-bold tracking-[0.36px] text-black text-[18px]">
+      <div className="flex items-center justify-between border-b border-neutral-black px-[15px] py-5">
+        <span className="font-next-book-bold text-[18px] tracking-[0.36px] text-neutral-black">
           Duration
         </span>
 
-        <div className="w-[151px] flex items-center pl-[21px]">
+        <div className="flex w-[151px] items-center pl-[21px]">
           <Tag
             icon={<ClockIcon size={25} />}
             size="large"
-            className="gap-[28px] text-[#0B0B0B] font-next-book text-[16px]"
+            className="body-m gap-[28px] text-neutral-black"
           >
             {computeTime(detail.duration, 'Hour')}
           </Tag>
         </div>
       </div>
-      <div className="py-5 px-[15px] border-b border-[#000] flex justify-between items-center">
-        <span className="font-next-book-bold tracking-[0.36px] text-black text-[18px]">
+      <div className="flex items-center justify-between border-b border-neutral-black px-[15px] py-5">
+        <span className="font-next-book-bold text-[18px] tracking-[0.36px] text-neutral-black">
           {type === 'course' && 'Total Units'}
           {type === 'learning-track' && 'Total Courses'}
         </span>
-        <div className="w-[151px] flex items-center pl-[21px]">
+        <div className="flex w-[151px] items-center pl-[21px]">
           <Tag
             icon={<CourseIcon size={23} />}
             size="large"
-            className="gap-[28px] text-[#0B0B0B] font-next-book text-[16px]"
+            className="body-m gap-[28px] text-neutral-black"
           >
             {type === 'course' &&
               itemCount + ' ' + `${itemCount > 1 ? 'Units' : 'Unit'}`}
@@ -86,17 +86,13 @@ function InProgressHeaderRight(
   resumeLoading = false
 ) {
   return (
-    <div className="flex flex-col w-[445px] max-w-[445px]">
-      <p className="text-[#000] text-[28px] font-next-poster-Bold tracking-[1.68px] mb-[12px]">
+    <div className="flex w-[445px] max-w-[445px] flex-col">
+      <p className="mb-[12px] font-next-poster-Bold text-[28px] tracking-[1.68px] text-neutral-black">
         Next Up
       </p>
-      <p className="font-next-book-Thin text-[#000] leading-[160%] text-[16px] tracking-[0.32px]">
-        {nextInfo.title}
-      </p>
-      <p className="font-next-book text-[24px] leading-[160%] tracking-[0.48px] text-[#000]">
-        {nextInfo.content}
-      </p>
-      <div className={'flex gap-[15px] items-center mt-[34px]'}>
+      <p className="body-m text-neutral-black">{nextInfo.title}</p>
+      <p className="body-xl text-neutral-black">{nextInfo.content}</p>
+      <div className={'mt-[34px] flex items-center gap-[15px]'}>
         {/* <CourseLevel
           level={tagFormate(courseDetail.level as string)}
         ></CourseLevel>
@@ -114,7 +110,7 @@ function InProgressHeaderRight(
         <Button
           loading={resumeLoading}
           disabled={resumeLoading}
-          className="px-0 w-[270px] py-[16px] leading-[125%] text-[#000] font-next-book text-[18px] tracking-[0.36px]"
+          className="body-l w-[270px] px-0 py-[16px] text-neutral-black"
           type="primary"
           onClick={resumeCallback}
         >

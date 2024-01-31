@@ -42,7 +42,8 @@ let webApi = null;
 
 if (!webApi) {
   webApi = new WebApi(
-    process.env.BACKEND_BASE_URL || 'https://api.dev.hackquest.io/'
+    // 'https://api.staging.hackquest.io/v1/'
+    process.env.BACKEND_BASE_URL || 'https://api.dev.hackquest.io/v1/'
   );
 }
 

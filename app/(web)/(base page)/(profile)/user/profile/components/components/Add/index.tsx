@@ -9,10 +9,10 @@ interface AddProp {
 
 const Add: React.FC<AddProp> = ({ addText, buttonText, handleClick }) => {
   return (
-    <div className="flex flex-col items-center font-next-book p-[46px]">
-      <p className="text-[#000] text-[18px] mb-[24px]">{addText}</p>
+    <div className="flex flex-col items-center p-[46px] font-next-book">
+      <p className="body-l mb-[24px] text-neutral-black">{addText}</p>
       <Button
-        className="w-[265px] h-[44px] bg-yellow-primary  text-[16px] p-0"
+        className="body-m h-[44px] w-[265px]  bg-yellow-primary p-0"
         onClick={handleClick}
       >
         {buttonText}

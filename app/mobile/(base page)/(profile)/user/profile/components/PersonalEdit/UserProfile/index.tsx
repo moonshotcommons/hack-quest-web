@@ -17,13 +17,13 @@ const UserProfile: FC<UserProfileProps> = (props) => {
   const { profile } = useContext(ProfileContext);
 
   return (
-    <div className="relative h-full z-50">
-      <div className="absolute w-[170px] h-[170px] rounded-full -top-[110px] left-[30px]">
+    <div className="relative z-50 h-full">
+      <div className="absolute -top-[110px] left-[30px] h-[170px] w-[170px] rounded-full">
         <AvatarUpload edit={edit}></AvatarUpload>
       </div>
       <div
         className={cn(
-          'pt-[80px] font-next-book px-[30px] pb-[35px] transition-shadow duration-200 rounded-b-[10px] h-full',
+          'h-full rounded-b-[10px] px-[30px] pb-[35px] pt-[80px] font-next-book transition-shadow duration-200',
           showEditIcon ? 'shadow-[0px_4px_16px_0px_rgba(0,0,0,0.25)]' : ' '
         )}
         onMouseEnter={() => {
@@ -47,39 +47,35 @@ const UserProfile: FC<UserProfileProps> = (props) => {
             ></HoverIcon>
           </div>
         )}
-        <div className="font-next-poster-Bold text-[28px] tracking-[1.68px] text-[#0B0B0B] leading-normal whitespace-pre-wrap">
+        <div className="whitespace-pre-wrap font-next-poster-Bold text-[28px] leading-normal tracking-[1.68px] text-neutral-black">
           {profile.user?.nickname}
         </div>
-        <div className="mt-[10px] text-[18px] leading-[120%] text-[#8C8C8C] whitespace-pre-line">
+        <div className="mt-[10px] whitespace-pre-line text-[18px] leading-[120%] text-neutral-medium-gray">
           {profile.user?.email}&nbsp;
         </div>
-        <div className="flex gap-x-[15px] mt-[31.5px] items-center">
-          <span className="text-[21px] tracking-[0.42px] leading-[160%] text-[#8C8C8C]">
-            Location:
-          </span>
-          <span className="text-[21px] tracking-[0.063px] leading-[160%] text-black">
+        <div className="mt-[31.5px] flex items-center gap-x-[15px]">
+          <span className="body-xl text-neutral-medium-gray">Location:</span>
+          <span className="body-xl leading-[160%] tracking-[0.063px] text-neutral-black">
             {profile.location || '-'}
           </span>
         </div>
-        <div className="flex gap-x-[15px] mt-[13px] items-center">
-          <span className="text-[21px] tracking-[0.42px] leading-[160%] text-[#8C8C8C]">
-            Experience:
-          </span>
-          <span className="text-[21px] tracking-[0.063px] leading-[160%] text-black">
+        <div className="mt-[13px] flex items-center gap-x-[15px]">
+          <span className="body-xl text-neutral-medium-gray">Experience:</span>
+          <span className="body-xl text-neutral-black">
             {`${profile.experience || 0} Years`}
           </span>
         </div>
-        <div className="flex gap-x-[15px] mt-[11.5px] items-start">
-          <span className="text-[21px] tracking-[0.42px] leading-[160%] text-[#8C8C8C] whitespace-nowrap">
+        <div className="mt-[11.5px] flex items-start gap-x-[15px]">
+          <span className="body-xl whitespace-nowrap text-neutral-medium-gray">
             Tech Stack:
           </span>
-          <div className="flex gap-[10px] flex-wrap">
+          <div className="flex flex-wrap gap-[10px]">
             {profile.techStack?.length > 0 &&
               profile.techStack.map((item, index) => {
                 return (
                   <div
                     key={index}
-                    className="px-[14px] py-[3px] rounded-[10px] border border-[#3E3E3E] bg-[#F4F4F4] relative overflow-hidden text-[16px] text-[#0B0B0B] leading-[160%] tracking-[0.32px]"
+                    className="body-m relative overflow-hidden rounded-[10px] border border-neutral-rich-gray bg-neutral-off-white px-[14px] py-[3px] text-neutral-black"
                   >
                     {item}
                   </div>

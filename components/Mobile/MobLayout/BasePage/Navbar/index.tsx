@@ -1,11 +1,9 @@
 import Image from 'next/image';
 import React, { ReactNode, useEffect, useState, FC } from 'react';
 import { useCycle } from 'framer-motion';
-import { V2_LANDING_PATH } from '@/constants/nav';
 
 import { NavbarListType } from './type';
 import { useRedirect } from '@/hooks/useRedirect';
-import { usePathname } from 'next/navigation';
 
 import { useMissionCenterStore } from '@/store/zustand/missionCenterStore';
 import NavContainer from './NavContainer';
@@ -13,6 +11,7 @@ import NavList from './NavList';
 import Auth from './Auth';
 import UserModule from './UserModule';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
+import { useCheckPathname } from '@/hooks/useCheckPathname';
 
 export interface NavbarProps {
   navList: NavbarListType[];
@@ -26,9 +25,12 @@ export enum NavType {
 
 const Navbar: FC<NavbarProps> = (props) => {
   const userInfo = useUserStore((state) => state.userInfo);
+  const setMobileAuthToggleOpenHandle = useUserStore(
+    (state) => state.setMobileAuthToggleOpenHandle
+  );
   const { navList, children } = props;
   const { redirectToUrl } = useRedirect();
-  const pathname = usePathname();
+  const { isLandingPage } = useCheckPathname();
   const missionData = useMissionCenterStore((state) => state.missionData);
   const [isOpen, toggleOpen] = useCycle(false, true);
 
@@ -43,15 +45,23 @@ const Navbar: FC<NavbarProps> = (props) => {
   const [navType, setNavType] = useState<NavType>(NavType.NAV_LIST);
 
   useEffect(() => {
-    if ((type || queryState) && pathname === V2_LANDING_PATH) {
+    if ((type || queryState) && isLandingPage) {
       setAuthType(type as AuthType);
       setNavType(NavType.AUTH);
       toggleOpen();
     }
   }, []);
 
+  useEffect(() => {
+    setMobileAuthToggleOpenHandle({
+      isOpen,
+      toggleOpen: toggleOpen,
+      setNavType: (type) => setNavType(type)
+    });
+  }, [isOpen, toggleOpen, setNavType, setMobileAuthToggleOpenHandle]);
+
   return (
-    <div className="text-white h-[4rem] flex items-center justify-between w-full">
+    <div className="flex h-[4rem] w-full items-center justify-between text-neutral-white">
       <NavContainer
         isOpen={isOpen}
         toggleOpen={() => {
@@ -85,7 +95,7 @@ const Navbar: FC<NavbarProps> = (props) => {
           ></Auth>
         )}
       </NavContainer>
-      <div className="relative flex flex-1 justify-center items-center">
+      <div className="relative flex flex-1 items-center justify-center">
         <Image
           src={'/images/logo/dark-footer-logo.svg'}
           alt="logo"

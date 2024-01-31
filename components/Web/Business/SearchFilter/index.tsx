@@ -107,10 +107,10 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
   };
 
   return (
-    <div className="text-electives-filter-color w-[272px] ">
-      <div className="flex mb-[15px] items-center justify-between border-b border-electives-filter-border-color pb-[6px]">
+    <div className="w-[272px] text-electives-filter-color ">
+      <div className="mb-[15px] flex items-center justify-between border-b border-electives-filter-border-color pb-[6px]">
         {isShowResult && (
-          <span className="text-[24px] leading-[24px] font-next-book-bold">
+          <span className="font-next-book-bold text-[24px] leading-[24px]">
             {resultsLen} Results
           </span>
         )}
@@ -120,7 +120,7 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
             <input
               type="text"
               placeholder="search"
-              className="bg-[transparent] outline-none ml-[5px] "
+              className="ml-[5px] bg-[transparent] outline-none "
               value={inputValue}
               onInput={changeInput}
             />
@@ -133,18 +133,18 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
       <div>
         {searchParam.map((v: FilterDataType, i: number) => (
           <div key={i}>
-            <div className="font-next-book-bold text-[24px] mb-[15px]">
+            <div className="mb-[15px] font-next-book-bold text-[24px]">
               {v.title}
             </div>
             <div className="mb-10">
               {v.filterList.map((filter: ParamType, j: number) => (
                 <div
                   key={j}
-                  className="mb-[10px] flex items-center cursor-pointer"
+                  className="mb-[10px] flex cursor-pointer items-center"
                   onClick={() => changeFilterParam(i, j)}
                 >
                   {renderType(i, j)}
-                  <span className="text-[18px] pl-[15px]">{filter.label}</span>
+                  <span className="pl-[15px] text-[18px]">{filter.label}</span>
                 </div>
               ))}
             </div>

@@ -23,7 +23,7 @@ const IconClose: FC<{ icon?: ReactNode }> = (props) => {
       {icon}
     </div>
   ) : (
-    <div className="absolute right-[2.25rem] top-[2.5rem] z-[999] cursor-pointer rounded-full p-[0.66rem] border border-solid border-neutral-off-white">
+    <div className="absolute right-[2.25rem] top-[2.5rem] z-[999] cursor-pointer rounded-full border border-solid border-neutral-off-white p-[0.66rem]">
       <CloseIcon width={20} height={19} color={'currentColor'} />
     </div>
   );
@@ -43,7 +43,7 @@ const Modal: React.FC<ModalProps> = (props) => {
   return (
     <Transition show={open} appear as={Fragment}>
       <Dialog as="div" className="relative z-[999]" onClose={onClose}>
-        <div className={cn(`fixed inset-0 bg-opacity-50 bg-black`)} />
+        <div className={cn(`fixed inset-0 bg-black bg-opacity-50`)} />
         <div className="fixed inset-0 overflow-y-auto">
           <div className="flex min-h-full items-center justify-center p-4 text-center">
             <Transition.Child
@@ -61,7 +61,7 @@ const Modal: React.FC<ModalProps> = (props) => {
                   className
                 )}
               >
-                <div className="relative flex justify-center  items-center overflow-y-scroll no-scrollbar shadow-2xl">
+                <div className="no-scrollbar relative flex  items-center justify-center overflow-y-scroll shadow-2xl">
                   {showCloseIcon ? (
                     <div onClick={onClose}>
                       <IconClose icon={icon}></IconClose>

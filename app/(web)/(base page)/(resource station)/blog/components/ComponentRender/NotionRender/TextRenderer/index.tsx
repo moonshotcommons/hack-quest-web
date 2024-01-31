@@ -97,7 +97,7 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
               target="_blank"
               key={index}
               href={richText.href}
-              className={`${className} py-1 underline break-words ${fontStyle}`}
+              className={`${className} break-words py-1 underline ${fontStyle}`}
               style={{
                 fontSize,
                 letterSpacing,

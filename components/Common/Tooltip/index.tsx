@@ -47,7 +47,7 @@ const Tooltip: FC<TooltipProps> = (props) => {
 
   return (
     <div
-      className="relative w-fit h-fit"
+      className="relative h-fit w-fit"
       onMouseEnter={() => {
         if (customize) return;
         handleMouseLeave.cancel();
@@ -61,24 +61,24 @@ const Tooltip: FC<TooltipProps> = (props) => {
       {show && (
         <div
           className={cn(
-            ' font-next-book-Thin text-[#0b0b0b] text-[12px] absolute h-fit p-[20px] whitespace-nowrap rounded-[10px] shadow-[rgba(100,100,111,0.2)_0px_7px_29px_0px]',
+            ' absolute h-fit whitespace-nowrap rounded-[10px] p-[20px] font-next-book-Thin text-[12px] text-neutral-black shadow-[rgba(100,100,111,0.2)_0px_7px_29px_0px]',
             placement === 'topLeft'
-              ? '-translate-y-[calc(100%+17px)] -left-[12px]'
+              ? '-left-[12px] -translate-y-[calc(100%+17px)]'
               : '',
             placement === 'top'
-              ? '-translate-y-[calc(100%+17px)] left-[50%] -translate-x-[50%]'
+              ? 'left-[50%] -translate-x-[50%] -translate-y-[calc(100%+17px)]'
               : '',
             placement === 'topRight'
-              ? '-translate-y-[calc(100%+17px)] -right-[12px]'
+              ? '-right-[12px] -translate-y-[calc(100%+17px)]'
               : '',
             placement == 'bottomLeft'
-              ? 'translate-y-[calc(100%+2px)] -left-[12px]'
+              ? '-left-[12px] translate-y-[calc(100%+2px)]'
               : '',
             placement == 'bottom'
-              ? 'translate-y-[calc(100%+2px)] left-[50%] -translate-x-[50%]'
+              ? 'left-[50%] -translate-x-[50%] translate-y-[calc(100%+2px)]'
               : '',
             placement === 'bottomRight'
-              ? 'translate-y-[calc(100%+2px)] -right-[12px]'
+              ? '-right-[12px] translate-y-[calc(100%+2px)]'
               : '',
             className
           )}
@@ -86,24 +86,24 @@ const Tooltip: FC<TooltipProps> = (props) => {
         >
           <div
             className={cn(
-              'absolute w-[24px] h-[24px] bg-white self-end shadow-[rgba(0,0,0,0.05)_1.5px_1.5px_1.5px] -z-[99]',
+              'absolute -z-[99] h-[24px] w-[24px] self-end bg-neutral-white shadow-[rgba(0,0,0,0.05)_1.5px_1.5px_1.5px]',
               placement === 'topLeft'
-                ? 'rotate-[45deg] bottom-0 translate-y-[50%] left-[24px]'
+                ? 'bottom-0 left-[24px] translate-y-[50%] rotate-[45deg]'
                 : '',
               placement === 'top'
-                ? 'rotate-[45deg] bottom-0 translate-y-[50%] left-[50%] -translate-x-[50%]'
+                ? 'bottom-0 left-[50%] -translate-x-[50%] translate-y-[50%] rotate-[45deg]'
                 : '',
               placement == 'topRight'
-                ? 'rotate-[45deg] bottom-0 translate-y-[50%] right-[24px]'
+                ? 'bottom-0 right-[24px] translate-y-[50%] rotate-[45deg]'
                 : '',
               placement == 'bottomLeft'
-                ? '-rotate-[135deg] top-0 -translate-y-[50%] left-[24px]'
+                ? 'left-[24px] top-0 -translate-y-[50%] -rotate-[135deg]'
                 : '',
               placement == 'bottom'
-                ? '-rotate-[135deg] top-0 -translate-y-[50%] left-[50%] -translate-x-[50%]'
+                ? 'left-[50%] top-0 -translate-x-[50%] -translate-y-[50%] -rotate-[135deg]'
                 : '',
               placement == 'bottomRight'
-                ? '-rotate-[135deg] top-0 -translate-y-[50%] right-[24px]'
+                ? 'right-[24px] top-0 -translate-y-[50%] -rotate-[135deg]'
                 : ''
             )}
           ></div>

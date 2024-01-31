@@ -4,7 +4,7 @@ import { FC, ReactNode } from 'react';
 interface LoadingProps {
   loading: boolean;
   loadingText?: string;
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 const Loading: FC<LoadingProps & SpinProps> = ({

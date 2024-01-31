@@ -26,15 +26,15 @@ const Progress: React.FC<ProgressProp> = () => {
     };
   }, [progress]);
   return (
-    <div className={`text-[#000] ${inter.className} mb-[30px]`}>
-      <div className="flex gap-[0.5%] relative">
+    <div className={`text-neutral-black ${inter.className} mb-[30px]`}>
+      <div className="relative flex gap-[0.5%]">
         {schedule.schedulePeriod.map((s, i) => (
           <div key={i} className="w-[19.6%]">
             <div className="relative h-[25px]">
               {(schedule.curPeriod === i ||
                 (i === periodNum - 1 && s[0] === s[1])) && (
                 <div
-                  className="absolute h-[40px] top-0 translate-x-[-100%] transition-all border-r border-r-yellow-primary pr-[2px]"
+                  className="absolute top-0 h-[40px] translate-x-[-100%] border-r border-r-yellow-primary pr-[2px] transition-all"
                   style={{
                     left: `${(s[0] / s[1]) * 100}%`
                   }}
@@ -43,7 +43,7 @@ const Progress: React.FC<ProgressProp> = () => {
                 </div>
               )}
             </div>
-            <div className="w-full h-[15px] bg-[#DADADA] mb-[14px]">
+            <div className="mb-[14px] h-[15px] w-full bg-[#DADADA]">
               <div
                 className="h-[15px] bg-yellow-primary shadow-[0_0_8px_#ffd850] transition-all"
                 style={{
@@ -58,7 +58,7 @@ const Progress: React.FC<ProgressProp> = () => {
           src={BIcon}
           width={22}
           alt="icon"
-          className="absolute left-0 bottom-[4px]"
+          className="absolute bottom-[4px] left-0"
         ></Image>
       </div>
     </div>

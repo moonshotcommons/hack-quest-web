@@ -95,7 +95,7 @@ const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
         loading={metamaskLoading}
         disabled={metamaskLoading}
         ghost
-        className="px-0 py-[0px] text-[#fff] relative rounded-[10px] w-[48px] h-[48px] border-[#8C8C8C] bg-[#0B0B0B]"
+        className="px-0 py-[0px] text-[#fff] relative rounded-[10px] w-[48px] h-[48px] border-neutral-medium-gray bg-neutral-black"
         onClick={() => {
           if (!metamaskConnector?.ready) {
             message.error('Please connect to your metamask plugin!');
@@ -125,7 +125,7 @@ const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
             }
           }
         }}
-        className="cursor-pointer rounded-[.75rem] p-3 border border-neutral-light-gray body-m"
+        className="body-m cursor-pointer rounded-[.75rem] border border-neutral-light-gray p-3"
       >
         <Image src={Metamask} width={24} height={24} alt="MetaMask"></Image>
       </Button>

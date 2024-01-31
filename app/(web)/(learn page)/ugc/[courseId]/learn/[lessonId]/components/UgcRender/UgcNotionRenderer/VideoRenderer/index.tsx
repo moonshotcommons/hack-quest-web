@@ -18,7 +18,7 @@ const VideoRenderer: FC<VideoRendererProps> = (props) => {
     }
   }, []);
   return (
-    <div className="w-full rounded-[10px] overflow-hidden mt-[30px]">
+    <div className="mt-[30px] w-full overflow-hidden rounded-[10px]">
       <video ref={ref} controls>
         {/* width="400px" */}
         {<source src={component.content.file.url} type="video/mp4" />}

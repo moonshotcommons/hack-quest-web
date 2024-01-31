@@ -192,3 +192,17 @@ export const thirdPartyMedia = {
 export const getThirdPartyMedia = (key: keyof typeof thirdPartyMedia) => {
   return thirdPartyMedia[key];
 };
+
+export enum ThirdPartyMediaType {
+  X = 'x',
+  FACEBOOK = 'facebook',
+  TWITTER = 'twitter',
+  GITHUB = 'github',
+  DISCORD = 'discord',
+  LINKEDIN = 'linkedIn',
+  INSTAGRAM = 'instagram',
+  TELEGRAM = 'telegram',
+  WHATSAPP = 'whatsApp',
+  MESSENGER = 'messenger',
+  REDDIT = 'reddit'
+}

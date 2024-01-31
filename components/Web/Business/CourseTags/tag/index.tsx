@@ -16,8 +16,8 @@ const Tag: React.FC<
   return (
     <span
       className={cn(
-        `flex gap-2 items-center button-text-s  whitespace-nowrap`,
-        size === 'large' ? 'text-base gap-[10px]' : '',
+        `button-text-s flex items-center gap-2  whitespace-nowrap`,
+        size === 'large' ? 'gap-[10px] text-base' : '',
         className
       )}
       {...rest}

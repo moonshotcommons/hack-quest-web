@@ -27,35 +27,35 @@ const LessonFooter: React.FC<LessonFooterProps> = ({ lesson, onNextClick }) => {
   }, [lesson]);
   return (
     <div
-      className="fixed flex-center w-full transition-all left-0 bottom-0 bg-lesson-footer-bg"
+      className="flex-center fixed bottom-0 left-0 w-full bg-lesson-footer-bg transition-all"
       style={{
         height: isHandleNext ? '80px' : '30px'
       }}
     >
-      <div className="w-[calc(100%-380px)] flex-center overflow-auto">
+      <div className="flex-center w-[calc(100%-380px)] gap-[2px] overflow-auto">
         {unitNavList.map((item, i) => (
           <div
             key={i}
-            className={`w-[70px] rounded-[3px]  mx-[1px] ${
-              i < currentUnitIndex
-                ? ' h-[5px] bg-lesson-footer-tab-bg'
-                : i === currentUnitIndex
-                ? 'h-[7px] border border-lesson-footer-tab-active-border rounded-[5px]'
-                : 'h-[5px] border border-lesson-footer-tab-border'
+            className={`w-[70px]   ${
+              i === currentUnitIndex
+                ? 'h-[7px] rounded-[5px] border border-lesson-footer-tab-active-border'
+                : 'h-[5px] rounded-[3px] border border-lesson-footer-tab-border'
             }`}
           >
-            {i === currentUnitIndex ? (
-              <div
-                className={`relative -top-[1px] h-[7px] bg-lesson-footer-tab-active-bg  rounded-[5px]`}
-                style={{ width: `${item.progress * 100}%` }}
-              ></div>
-            ) : null}
+            <div
+              className={`h-full    ${
+                i === currentUnitIndex
+                  ? 'rounded-[2px] bg-lesson-footer-tab-active-bg'
+                  : 'rounded-[1px] bg-lesson-footer-tab-bg'
+              }`}
+              style={{ width: `${item.progress * 100}%` }}
+            ></div>
           </div>
         ))}
       </div>
       {isHandleNext && (
         <div
-          className=" flex items-center fixed right-10 bottom-0"
+          className=" fixed bottom-0 right-10 flex items-center"
           style={{
             height: isHandleNext ? '80px' : '30px'
           }}
@@ -64,8 +64,8 @@ const LessonFooter: React.FC<LessonFooterProps> = ({ lesson, onNextClick }) => {
             loading={nextLoading}
             type="primary"
             disabled={!isHandleNext || nextLoading}
-            className={`w-[140px] h-[44px] bg-lesson-primary-button-bg text-lesson-primary-button-text-color ${
-              !isHandleNext && 'opacity-40 cursor-not-allowed'
+            className={`h-[44px] w-[140px] bg-lesson-primary-button-bg text-lesson-primary-button-text-color ${
+              !isHandleNext && 'cursor-not-allowed opacity-40'
             }`}
             onClick={handleNext}
           >

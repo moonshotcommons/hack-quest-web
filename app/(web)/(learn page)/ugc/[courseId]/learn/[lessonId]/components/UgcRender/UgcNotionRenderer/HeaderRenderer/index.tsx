@@ -62,10 +62,10 @@ const HeaderRenderer: FC<HeaderRendererProps> = (props) => {
   }, [expandData]);
 
   return (
-    <div className="mt-[50px] mb-5 pr-[4px]" data-type={component.type}>
-      <HeadingTag className={`flex justify-between items-center`}>
-        <div className="flex gap-[10px] items-center">
-          <div className="w-[5px] h-[2.125rem] bg-yellow-dark rounded-full"></div>
+    <div className="mb-5 mt-[50px] pr-[4px]" data-type={component.type}>
+      <HeadingTag className={`flex items-center justify-between`}>
+        <div className="flex items-center gap-[10px]">
+          <div className="h-[2.125rem] w-[5px] rounded-full bg-yellow-dark"></div>
           <TextRenderer
             richTextArr={component.content.rich_text}
             type={type as NotionType}
@@ -73,7 +73,7 @@ const HeaderRenderer: FC<HeaderRendererProps> = (props) => {
         </div>
         {expandIndex >= 0 && (
           <span
-            className="cursor-pointer underline-m"
+            className="underline-m cursor-pointer"
             onClick={changeExpandNum}
           >
             {isExpandAll ? 'Fold All' : 'Expand All'}

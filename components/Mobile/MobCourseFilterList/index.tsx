@@ -61,11 +61,11 @@ const MobCourseFilterList = <T extends CourseBaseType>({
 
       {/* <CourseCardSkeleton.List></CourseCardSkeleton.List> */}
       <Loading loading={!!loading}>
-        <div className={cn('w-full h-fit min-h-[15rem]')}>
+        <div className={cn('h-fit min-h-[15rem] w-full')}>
           {/* {!!courseList?.length && ( */}
           <div
             className={cn(
-              'flex flex-col gap-y-[1.25rem] pb-[1.25rem] h-full',
+              'flex h-full flex-col gap-y-[1.25rem] pb-[1.25rem]',
               listClassName
             )}
           >

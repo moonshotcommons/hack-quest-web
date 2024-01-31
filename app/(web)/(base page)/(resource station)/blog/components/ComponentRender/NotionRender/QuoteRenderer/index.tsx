@@ -15,7 +15,7 @@ interface QuoteRendererProps {
 const QuoteRenderer: FC<QuoteRendererProps> = (props) => {
   const { component } = props;
   return (
-    <div className="pl-[20px] border-l-[3px] border-solid border-[#3E3E3E] text-renderer-quote-text-color text-[16px] leading-[160%]  mb-[36px]">
+    <div className="mb-[36px] border-l-[3px] border-solid border-neutral-rich-gray pl-[20px] text-[16px] leading-[160%]  text-renderer-quote-text-color">
       {
         <TextRenderer
           richTextArr={component.content.rich_text}

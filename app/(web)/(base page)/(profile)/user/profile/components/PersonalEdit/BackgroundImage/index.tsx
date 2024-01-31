@@ -22,9 +22,9 @@ const BackgroundImage: FC<BackgroundImageProps> = (props) => {
   const { profile, refresh } = useContext(ProfileContext);
 
   return (
-    <div className="w-full z-50 overflow-hidden rounded-t-[10px]">
+    <div className="z-50 w-full overflow-hidden rounded-t-[10px]">
       <div
-        className="w-full h-[210px] relative"
+        className="relative h-[210px] w-full"
         onMouseEnter={() => {
           if (edit) {
             setShowEditIcon(true);
@@ -32,7 +32,7 @@ const BackgroundImage: FC<BackgroundImageProps> = (props) => {
         }}
         onMouseLeave={() => setShowEditIcon(false)}
       >
-        <div className="w-full h-full">
+        <div className="h-full w-full">
           {Object.keys(profile).includes('backgroundImage') &&
             !profile?.backgroundImage && (
               <Image
@@ -52,8 +52,8 @@ const BackgroundImage: FC<BackgroundImageProps> = (props) => {
         </div>
         <div
           className={cn(
-            'absolute w-full h-full  left-0 top-0 transition-all duration-200 rounded-t-[10px]',
-            showEditIcon ? 'bg-black/50' : 'bg-black/0'
+            'absolute left-0 top-0  h-full w-full rounded-t-[10px] transition-all duration-200',
+            showEditIcon ? 'bg-neutral-black/50' : 'bg-neutral-black/0'
           )}
         >
           {showEditIcon && (

@@ -31,10 +31,10 @@ const SignUp: FC<SignUpProps> = (props) => {
   }, []);
 
   const EmailTitle = (
-    <p className="body-l-bold text-neutral-rich-gray text-base">
+    <p className="body-l-bold text-base text-neutral-rich-gray">
       Already have an account?{' '}
       <span
-        className="underline cursor-pointer"
+        className="cursor-pointer underline"
         onClick={() => {
           setAuthType(AuthType.LOGIN);
         }}
@@ -45,13 +45,13 @@ const SignUp: FC<SignUpProps> = (props) => {
   );
 
   return (
-    <div className="w-full flex flex-col flex-1">
+    <div className="flex w-full flex-1 flex-col">
       {!showRegisterForm && (
         <motion.div
           initial={{ translateX: -50, opacity: 0 }}
           animate={{ opacity: 1, translateX: 0 }}
           transition={{ duration: 0.5 }}
-          className="w-full flex flex-col justify-between h-full"
+          className="flex h-full w-full flex-col justify-between"
         >
           <>
             <VerifyEmail
@@ -88,7 +88,7 @@ const SignUp: FC<SignUpProps> = (props) => {
           initial={{ translateX: -50, opacity: 0 }}
           animate={{ opacity: 1, translateX: 0 }}
           transition={{ duration: 0.5 }}
-          className="w-full flex flex-col justify-between h-full"
+          className="flex h-full w-full flex-col justify-between"
         >
           <RegisterForm
             email={email}

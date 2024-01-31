@@ -5,8 +5,7 @@ import React, { ReactNode, useCallback, useEffect, Suspense } from 'react';
 import NavBar, { NavBarProps } from '../Navbar';
 
 import Breadcrumb from '@/components/Web/Business/Breadcrumb';
-import { usePathname } from 'next/navigation';
-import { useCheckPathname } from '@/hooks/useCheckPathname';
+import { useCheckPathname, useCustomPathname } from '@/hooks/useCheckPathname';
 const inter = Inter({ subsets: ['latin'] });
 export interface V2LayoutProps {
   navbarData: NavBarProps;
@@ -15,7 +14,7 @@ export interface V2LayoutProps {
 }
 
 const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
-  const pathname = usePathname();
+  const pathname = useCustomPathname();
   const { isNavbarFullPage, isExcludeBreadcrumbLink } = useCheckPathname();
 
   const renderBreadcrumb = useCallback(() => {
@@ -48,25 +47,25 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
 
   return (
     <div
-      className={`w-full h-[100vh] flex flex-col overflow-hidden  ${
+      className={`flex h-[100vh] w-full flex-col overflow-hidden  ${
         inter.className
       } ${isNavbarFullPage ? '' : 'min-h-[100vh]'} `}
     >
-      <div className="w-full bg-[#0B0B0B] flex items-center">
+      <div className="flex w-full items-center bg-neutral-black">
         <NavBar {...navbarData}>
           <User></User>
         </NavBar>
       </div>
       <div
         id="content-scroll-wrap"
-        className={`m-auto overflow-auto flex-1 w-full  ${
-          isNavbarFullPage ? 'bg-[white]' : 'bg-[#F4F4F4]'
+        className={`m-auto w-full flex-1 overflow-auto  ${
+          isNavbarFullPage ? 'bg-[white]' : 'bg-neutral-off-white'
         }`}
       >
-        <div className={`w-full h-full flex flex-col`}>
+        <div className={`flex h-full w-full flex-col`}>
           {renderBreadcrumb()}
-          <div className="w-full flex-1 relative">
-            <main className="absolute left-0 top-0 w-full h-full">
+          <div className="relative w-full flex-1">
+            <main className="absolute left-0 top-0 h-full w-full">
               {children}
             </main>
           </div>

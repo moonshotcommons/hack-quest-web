@@ -17,13 +17,13 @@ const GuestMentors: React.FC<GuestMentorsProp> = ({ listData, title }) => {
   }, [showAll, listData]);
   return listData.length > 0 ? (
     <Box>
-      <div className="flex flex-wrap gap-[20px] mb-[30px]">
+      <div className="mb-[30px] flex flex-wrap gap-[20px]">
         {showList.map((v: MentorType, i: number) => (
           <div
             key={i}
-            className="p-[10px] gap-[10px] flex-row-center w-[calc(50%-10px)] border border-[#8C8C8C] bg-[#F4F4F4] rounded-[100px]"
+            className="flex-row-center w-[calc(50%-10px)] gap-[10px] rounded-[100px] border border-neutral-medium-gray bg-neutral-off-white p-[10px]"
           >
-            <div className="w-[65px] h-[65px] rounded-[50%] overflow-hidden relative">
+            <div className="relative h-[65px] w-[65px] overflow-hidden rounded-[50%]">
               <Image
                 src={v.picture as string}
                 alt="picture"
@@ -31,8 +31,8 @@ const GuestMentors: React.FC<GuestMentorsProp> = ({ listData, title }) => {
                 className="object-cover"
               ></Image>
             </div>
-            <div className="h-[65px] flex-1 flex-shrink-0 flex flex-col justify-center">
-              <p className="text-[18px] tracking-[0.36px] font-next-book-bold">
+            <div className="flex h-[65px] flex-1 flex-shrink-0 flex-col justify-center">
+              <p className="font-next-book-bold text-[18px] tracking-[0.36px]">
                 {v.name}
               </p>
               <p className="line-clamp-2">{v.title}</p>
@@ -43,12 +43,12 @@ const GuestMentors: React.FC<GuestMentorsProp> = ({ listData, title }) => {
       {listData.length > 6 && (
         <div className="flex justify-end text-[18px]">
           <div
-            className="flex items-center cursor-pointer"
+            className="flex cursor-pointer items-center"
             onClick={() => setShowAll(!showAll)}
           >
             <span>Show {showAll ? 'Less' : 'All'}</span>
             <VscChevronDown
-              className={`transition text-[24px] ${
+              className={`text-[24px] transition ${
                 showAll ? 'rotate-180' : ''
               }`}
             />

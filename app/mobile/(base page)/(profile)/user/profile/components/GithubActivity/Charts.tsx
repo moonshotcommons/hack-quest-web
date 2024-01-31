@@ -54,7 +54,7 @@ const Charts: React.FC<ChartsProp> = ({ optionData }) => {
     option.series[0].data = optionData as [];
     myChart.setOption(option);
   }, [optionData]);
-  return <div id="github" className="w-full h-[136px]"></div>;
+  return <div id="github" className="h-[136px] w-full"></div>;
 };
 
 export default Charts;

@@ -11,14 +11,17 @@ import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLess
 import { useRedirect } from '@/hooks/useRedirect';
 import CourseTags from '@/components/Web/Business/CourseTags';
 import TrackTag from '@/components/Common/TrackTag';
+import CompletedIcon from '@/components/Common/Icon/Completed';
 
-interface LearningTrackCardInProgressProp {
+interface LearningTrackCardProp {
   learningTrack: LearningTrackDetailType;
+  inProgress: Boolean;
 }
 
-const LearningTrackCardInProgress: React.FC<
-  LearningTrackCardInProgressProp
-> = ({ learningTrack }) => {
+const LearningTrackCard: React.FC<LearningTrackCardProp> = ({
+  learningTrack,
+  inProgress
+}) => {
   const { jumpLearningLesson, loading: jumpLoading } = useJumpLeaningLesson();
   const { redirectToUrl } = useRedirect();
   const goLearningTrackDetail = () => {
@@ -47,10 +50,15 @@ const LearningTrackCardInProgress: React.FC<
 
   return (
     <div
-      className="h-[192px] w-full p-[16px] flex items-center gap-[30px]  rounded-[16px] bg-neutral-white overflow-hidden card-hover"
+      className="card-hover relative flex h-[192px] w-full items-center gap-[30px]  overflow-hidden rounded-[16px] bg-neutral-white p-[16px]"
       onClick={goLearningTrackDetail}
     >
-      <div className="w-[160px] h-[160px] relative">
+      {!inProgress && (
+        <div className="absolute right-[16px] top-[16px] z-10">
+          <CompletedIcon />
+        </div>
+      )}
+      <div className="relative h-[160px] w-[160px]">
         <Image
           src={learningTrack.image || LearningTrackImg}
           fill
@@ -58,31 +66,43 @@ const LearningTrackCardInProgress: React.FC<
           className="object-cover"
         ></Image>
       </div>
-      <div className="h-full flex flex-col justify-between py-[16px] flex-1 flex-shrink-0">
+      <div className="flex h-full flex-1 flex-shrink-0  flex-col justify-between">
         <TrackTag track={learningTrack.track} />
-        <div className="body-m-bold line-clamp-1 text-neutral-off-black">
-          {learningTrack.name}
+        <div>
+          <div className="body-m-bold line-clamp-1 text-neutral-off-black">
+            {learningTrack.name}
+          </div>
+          {!inProgress && (
+            <div className="body-s mt-[8px] line-clamp-2 text-neutral-medium-gray">
+              {learningTrack.description}
+            </div>
+          )}
         </div>
+
         <CourseTags
           language={learningTrack.language}
           level={learningTrack?.level as string}
           unitCount={learningTrack?.courseCount}
           type={'learning-track'}
         ></CourseTags>
-        <div className="max-w-[318px]">
-          <CardProgress progress={learningTrack.progress || 0} />
-        </div>
+        {inProgress && (
+          <div className="max-w-[318px]">
+            <CardProgress progress={learningTrack.progress || 0} />
+          </div>
+        )}
       </div>
-      <Button
-        className="w-[223px] h-[51px] bg-yellow-primary text-neutral-off-black button-text-m"
-        loading={jumpLoading}
-        disabled={jumpLoading}
-        onClick={handleContinue}
-      >
-        CONTINUE
-      </Button>
+      {inProgress && (
+        <Button
+          className="button-text-m h-[51px] w-[223px] bg-yellow-primary text-neutral-off-black"
+          loading={jumpLoading}
+          disabled={jumpLoading}
+          onClick={handleContinue}
+        >
+          CONTINUE
+        </Button>
+      )}
     </div>
   );
 };
 
-export default LearningTrackCardInProgress;
+export default LearningTrackCard;

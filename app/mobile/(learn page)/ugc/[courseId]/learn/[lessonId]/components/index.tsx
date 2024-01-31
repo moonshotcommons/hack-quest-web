@@ -31,12 +31,12 @@ const Ugc: React.FC<UgcProp> = ({ lessonId }) => {
   if (!lesson) return null;
 
   return (
-    <div className="h-full flex flex-col gap-[.9375rem] w-full">
+    <div className="flex h-full w-full flex-col gap-[.9375rem]">
       <UgcProgress />
-      <div className="flex-1 flex flex-col ">
+      <div className="flex flex-1 flex-col ">
         <UgcNavbar />
-        <div className="w-full flex-1 mt-[1.875rem] overflow-hidden relative">
-          <div className="absolute w-full h-full left-0 top-0 overflow-auto scroll-wrap-y px-[1.375rem] pb-[4.875rem]">
+        <div className="relative mt-[1.875rem] w-full flex-1 overflow-hidden">
+          <div className="scroll-wrap-y absolute left-0 top-0 h-full w-full overflow-auto px-[1.375rem] pb-[4.875rem]">
             <LessonContainer lesson={lesson}></LessonContainer>
           </div>
         </div>

@@ -1,5 +1,5 @@
 import { FC, useContext, useMemo, useRef } from 'react';
-import { ProfileContext } from '../../constants/type';
+import { ProfileContext, ProfileHandleType } from '../../constants/type';
 import { getThirdPartyMedia, thirdPartyMedia } from '@/helper/thirdPartyMedia';
 import { RiShareBoxLine } from 'react-icons/ri';
 import Button from '@/components/Common/Button';
@@ -11,12 +11,13 @@ import { IconType } from '@/components/Web/Business/HoverIcon/type';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 interface PersonalLinksProps {}
 
 const PersonalLinks: FC<PersonalLinksProps> = (props) => {
   const { profile } = useContext(ProfileContext);
   const personalLinkEditRef = useRef<PersonalLinkEditModalRef>(null);
-
+  const query = useSearchParams();
   const [personLinks, setPersonLinks] = useState<Record<string, string>>({});
 
   const showLinks = useMemo(() => {
@@ -39,11 +40,15 @@ const PersonalLinks: FC<PersonalLinksProps> = (props) => {
     });
 
     setPersonLinks(newValues);
+
+    if (query.get('type') === ProfileHandleType.PERSONAL_EDIT) {
+      personalLinkEditRef.current?.onEdit({});
+    }
   }, [profile]);
 
   return (
-    <div className="w-[420px] p-[30px] pb-[40px] bg-white rounded-[10px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] group hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)] hover:-translate-y-1 transition-all duration-300 relative cursor-pointer">
-      <p className="text-black font-next-poster-Bold text-[28px] tracking-[1.68px] leading-[125%]">
+    <div className="group relative w-[420px] cursor-pointer rounded-[10px] bg-neutral-white p-[30px] pb-[40px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)]">
+      <p className="font-next-poster-Bold text-[28px] leading-[125%] tracking-[1.68px] text-neutral-black">
         Personal Links
       </p>
       {showLinks && (
@@ -68,23 +73,23 @@ const PersonalLinks: FC<PersonalLinksProps> = (props) => {
             return (
               <li
                 key={index}
-                className="text-black relative flex items-center py-[20px] after:absolute after:h-[1px] after:scale-y-[0.5] after:w-full after:bg-black after:bottom-0"
+                className="relative flex items-center py-[20px] text-neutral-black after:absolute after:bottom-0 after:h-[1px] after:w-full after:scale-y-[0.5] after:bg-neutral-black"
               >
-                <div className="flex gap-x-[15px] items-center h-full flex-1">
+                <div className="flex h-full flex-1 items-center gap-x-[15px]">
                   <span>{media.icon}</span>
-                  <span className="text-[18px] text-[#0B0B0B] font-next-book leading-[160%] tracking-[0.36px]">
+                  <span className="font-next-book text-[18px] leading-[160%] tracking-[0.36px] text-neutral-black">
                     {media.name}
                   </span>
                 </div>
-                <div className="flex gap-[10px] items-center">
-                  <p className="w-[140px] flex-1 truncate text-[14px] font-next-book text-[#8C8C8C] leading-[160%] -tracking-[0.154px]">
+                <div className="flex items-center gap-[10px]">
+                  <p className="w-[140px] flex-1 truncate font-next-book text-[14px] leading-[160%] -tracking-[0.154px] text-neutral-medium-gray">
                     {personLinks[key]}
                   </p>
                   {personLinks[key] && (
                     <Link
                       href={personLinks[key]}
                       target="_blank"
-                      className="hover:text-black/40 transition duration-200"
+                      className="hover:text-neutral-black/40 transition duration-200"
                     >
                       <RiShareBoxLine
                         size={20}
@@ -105,7 +110,7 @@ const PersonalLinks: FC<PersonalLinksProps> = (props) => {
           </p>
           <Button
             type="primary"
-            className="w-[223px] px-0 py-[12px] text-[16px] font-next-book leading-[125%] tracking-[0.32px] text-[#0B0B0B] mt-[25px] mb-[30px]"
+            className="mb-[30px] mt-[25px] w-[223px] px-0 py-[12px] font-next-book text-[16px] leading-[125%] tracking-[0.32px] text-neutral-black"
             onClick={() => personalLinkEditRef.current?.onEdit({})}
           >
             Add Personal links

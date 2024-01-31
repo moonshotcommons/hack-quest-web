@@ -90,10 +90,10 @@ const ClaimContent: React.FC<ClaimContentProp> = ({ missionClaim }) => {
         };
   }, [curIndex]);
   return (
-    <div className="w-[calc(100%-360px)] h-full flex flex-col pt-[40px] pb-[20px]">
+    <div className="flex h-full w-[calc(100%-360px)] flex-col pb-[20px] pt-[40px]">
       <Tab curIndex={curIndex} tabList={tabList} changeTab={changeTab} />
       <div
-        className="relative z-10 w-full overflow-x-hidden overflow-y-auto no-scrollbar rounded-b-[10px] rounded-r-[10px]"
+        className="no-scrollbar relative z-10 w-full overflow-y-auto overflow-x-hidden rounded-b-[10px] rounded-r-[10px]"
         style={{
           ...contentStyle,
           boxShadow: `0 5px 6px #dadada`

@@ -33,14 +33,14 @@ const CourseDetailHeader: FC<CourseDetailHeaderProps> = (props) => {
 
   return (
     <div className="flex flex-col">
-      <div className="flex gap-[50px] mt-[10px] justify-between">
+      <div className="mt-[10px] flex justify-between gap-[50px]">
         <div>
-          <h1 className="font-next-poster-Bold text-[40px] text-text-default-color whitespace-nowrap leading-normal">
-            {courseDetail.title}
+          <h1 className="text-h2 whitespace-nowrap text-neutral-black">
+            {courseDetail.name}
           </h1>
           <Typography.Paragraph
             // ellipsis={{ rows: 3 }}
-            className="max-w-[775px] w-[775px] min-h-[78px] text-course-detail-desc-text-color font-next-book mt-[10px] leading-[160%] text-base"
+            className="body-m mt-[10px] min-h-[78px] w-[775px] max-w-[775px] text-neutral-off-black"
             style={{ marginBottom: 0 }}
           >
             {courseDetail.description}
@@ -70,7 +70,7 @@ const CourseDetailHeader: FC<CourseDetailHeaderProps> = (props) => {
           )}
           {/* 进度条 */}
           {learningStatus === LearningStatus.COMPLETED && (
-            <div className="mt-[58px] text-[#0B0B0B] font-next-book text-[21px] tracking-[0.42px] leading-[160%]">
+            <div className="body-xl mt-[58px] text-neutral-black">
               {`You’ve finished this ${tagFormate(courseDetail.type)}.`}
             </div>
           )}
@@ -80,7 +80,7 @@ const CourseDetailHeader: FC<CourseDetailHeaderProps> = (props) => {
               <Button
                 loading={startLoading}
                 disabled={startLoading}
-                className="px-0 w-[270px] py-[16px] leading-[125%] text-[#000] font-next-book text-[18px] tracking-[0.36px]"
+                className="body-l w-[270px] px-0 py-[16px] text-neutral-black "
                 type="primary"
                 onClick={onStartCallback}
               >
@@ -93,7 +93,7 @@ const CourseDetailHeader: FC<CourseDetailHeaderProps> = (props) => {
 
         {/* 中间竖线 */}
         {learningStatus === LearningStatus.IN_PROGRESS && (
-          <div className="h-[185px] w-[1px] scale-x-50 bg-[#000] mt-[29px]">
+          <div className="mt-[29px] h-[185px] w-[1px] scale-x-50 bg-neutral-black">
             &nbsp;
           </div>
         )}

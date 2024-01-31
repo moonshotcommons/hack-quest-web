@@ -17,8 +17,8 @@ const CalloutRenderer: FC<CalloutRendererProps> = (props) => {
   if (!visible) return null;
 
   return (
-    <div className="p-[15px] bg-[#FFF7F5] border border-solid rounded-[5px] border-[#FF624D] text-renderer-quote-text-color text-[.875rem] leading-[128%] font-next-book mb-[1.25rem]">
-      <div className="flex gap-[15px] justify-between items-center">
+    <div className="mb-[1.25rem] rounded-[5px] border border-solid border-[#FF624D] bg-[#FFF7F5] p-[15px] font-next-book text-[.875rem] leading-[128%] text-renderer-quote-text-color">
+      <div className="flex items-center justify-between gap-[15px]">
         <div className="text-[20px]">{component.content.icon?.emoji}</div>
         <div className="flex-1">
           <TextRenderer

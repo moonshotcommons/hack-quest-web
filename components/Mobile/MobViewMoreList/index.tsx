@@ -22,7 +22,7 @@ const MobViewMoreList = <T,>({
   }, [propList, limit]);
 
   return (
-    <div className="flex flex-col w-full gap-5">
+    <div className="flex w-full flex-col gap-5">
       {list.map((item, index) => {
         return (
           <div key={index} className="w-full">
@@ -32,7 +32,7 @@ const MobViewMoreList = <T,>({
       })}
       {!!originList.length && (
         <div
-          className="flex body-s items-center gap-[.375rem]"
+          className="body-s flex items-center gap-[.375rem]"
           onClick={() => {
             const tempOriginList = [...originList];
             const pushList = tempOriginList.splice(0, limit);

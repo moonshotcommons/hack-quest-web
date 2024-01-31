@@ -7,9 +7,9 @@ interface FooterProps {}
 
 const Footer: FC<FooterProps> = (props) => {
   return (
-    <div className="py-20 px-5 w-full bg-neutral-black">
-      <div className="w-full flex flex-col text-neutral-white gap-20">
-        <div className="w-[8.25rem] h-[.875rem] relative">
+    <div className="w-full bg-neutral-black px-5 py-20">
+      <div className="flex w-full flex-col gap-20 text-neutral-white">
+        <div className="relative h-[.875rem] w-[8.25rem]">
           <Image
             src={'/images/logo/home_nav_logo.svg'}
             alt="hackquest"
@@ -21,7 +21,7 @@ const Footer: FC<FooterProps> = (props) => {
           return (
             <div key={index} className="flex flex-col gap-5">
               <h4 className="text-h4 font-next-book-bold">{item.group}</h4>
-              <div className="flex flex-col body-m gap-2 font-Nunito">
+              <div className="body-m flex flex-col gap-2">
                 {item.links.map((link, i) => {
                   return (
                     <Link key={i} href={link.link} target="_blank">

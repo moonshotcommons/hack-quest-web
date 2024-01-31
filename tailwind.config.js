@@ -1,4 +1,4 @@
-import type { Config } from 'tailwindcss';
+/** @type {import('tailwindcss').Config} */
 
 import {
   themeColors,
@@ -7,7 +7,7 @@ import {
   borderColor
 } from './config/theme/variable';
 
-const config: Config = {
+module.exports = {
   // corePlugins: {
   //   preflight: false
   // },
@@ -39,9 +39,9 @@ const config: Config = {
         'Chaney-Extended': ['Chaney-Extended'],
         MiSans: ['MiSans'],
         'MiSans-Semibold': ['MiSans-Semibold'],
-        Inter: ['Inter'],
-        Nunito: ['Nunito'],
-        'Space-Mono': ['Space Mono']
+        Inter: ['var(--font-inter)'],
+        Nunito: ['var(--font-nunito)'],
+        'Space-Mono': ['var(--font-space-mono)']
       },
       screens: {
         sm: '640px',
@@ -86,5 +86,3 @@ const config: Config = {
   },
   plugins: []
 };
-
-export default config;

@@ -51,40 +51,40 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
       return (
         <div
           key={i}
-          className="w-[293px]  flex-col-center h-full justify-between pb-[20px]"
+          className="flex-col-center  h-full w-[293px] justify-between pb-[20px]"
         >
           <div
-            className={`border rounded-[20px]  bg-[var(--neutral-off-black)] w-[240px] h-[300px]
-                  border-[#E7A600] flex-col-center justify-between pt-[30px] pb-[20px] `}
+            className={`flex-col-center h-[300px]  w-[240px] justify-between rounded-[20px]
+                  border border-[#E7A600] bg-[var(--neutral-off-black)] pb-[20px] pt-[30px] `}
             style={{
               boxShadow: `0 0 10px var(--yellow-primary)`
             }}
           >
             <div className="flex-col-center">
               <div className="text-[24px] text-[#fff] ">{`Day ${i + 1}`}</div>
-              <div className="w-[165px] flex justify-between mt-[20px]">
+              <div className="mt-[20px] flex w-[165px] justify-between">
                 <div>
                   <Image src={IconCoin} width={60} alt="iconCredits" />
-                  <div className="w-[60px] h-[28px] rounded-[20px] mt-[10px] flex-center bg-[#F4F4F4]">
+                  <div className="flex-center mt-[10px] h-[28px] w-[60px] rounded-[20px] bg-neutral-off-white">
                     {item.coin}
                   </div>
                 </div>
                 <div>
                   <Image src={IconXp} width={60} alt="iconXp" />
-                  <div className="w-[60px] h-[28px] rounded-[20px] mt-[10px] flex-center bg-[#F4F4F4]">
+                  <div className="flex-center mt-[10px] h-[28px] w-[60px] rounded-[20px] bg-neutral-off-white">
                     {item.exp}
                   </div>
                 </div>
               </div>
             </div>
             <Button
-              className={`w-[164px] text-[16px]  h-[44px] bg-auth-primary-button-bg
-                      border-auth-primary-button-border-color p-0 text-[#0b0b0b] ${
+              className={`body-m h-[44px]  w-[164px] border-auth-primary-button-border-color
+                      bg-auth-primary-button-bg p-0 text-neutral-black ${
                         claimed
                           ? 'cursor-not-allowed opacity-50'
                           : `hover:border-auth-primary-button-border-hover-color
-                            hover:text-auth-primary-button-text-hover-color
-                            hover:bg-auth-primary-button-hover-bg  `
+                            hover:bg-auth-primary-button-hover-bg
+                            hover:text-auth-primary-button-text-hover-color  `
                       }`}
               disabled={claimed}
               loading={curIndex === i}
@@ -94,7 +94,7 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
             </Button>
           </div>
           <div
-            className="w-[293px] h-[104px] relative"
+            className="relative h-[104px] w-[293px]"
             style={{
               backgroundImage: `url(${!claimed ? PitM.src : Pit.src})`,
               backgroundSize: `100% 100%`
@@ -112,16 +112,16 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
                         alt="iconCredits"
                         className=""
                       />
-                      <span className="text-[16px]">{`X${item.coin}`}</span>
+                      <span className="body-m">{`X${item.coin}`}</span>
                     </div>
-                    <div className="flex-row-center gap-[8px] mt-[10px]">
+                    <div className="flex-row-center mt-[10px] gap-[8px]">
                       <Image
                         src={IconXp}
                         width={20}
                         alt="iconXP"
                         className=""
                       />
-                      <span className="text-[16px]">{`X${item.exp}`}</span>
+                      <span className="body-m">{`X${item.exp}`}</span>
                     </div>
                   </div>
                 ) : (
@@ -150,21 +150,21 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
       return (
         <div
           key={i}
-          className={`border rounded-[20px]  bg-[var(--neutral-off-black)] w-[184px] h-[230px] border-[#8C8C8C]
-              flex-col-center justify-between pt-[30px] pb-[30px] `}
+          className={`flex-col-center h-[230px]  w-[184px] justify-between rounded-[20px] border
+              border-neutral-medium-gray bg-[var(--neutral-off-black)] pb-[30px] pt-[30px] `}
         >
           <div className="flex-col-center">
             <div className="text-[18px] text-[#fff] ">{`Day ${i + 1}`}</div>
-            <div className="w-[104px] flex justify-between mt-[20px]">
+            <div className="mt-[20px] flex w-[104px] justify-between">
               <div>
                 <Image src={IconCoin} width={40} alt="iconCredits" />
-                <div className="w-[40px] h-[20px] text-[12px] rounded-[20px] mt-[8px] flex-center bg-[#F4F4F4]">
+                <div className="flex-center mt-[8px] h-[20px] w-[40px] rounded-[20px] bg-neutral-off-white text-[12px]">
                   {item.coin}
                 </div>
               </div>
               <div>
                 <Image src={IconXp} width={40} alt="iconXp" />
-                <div className="w-[40px] h-[20px] text-[12px] rounded-[20px] mt-[8px] flex-center bg-[#F4F4F4]">
+                <div className="flex-center mt-[8px] h-[20px] w-[40px] rounded-[20px] bg-neutral-off-white text-[12px]">
                   {item.exp}
                 </div>
               </div>
@@ -213,11 +213,11 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
   }, [missionData]);
 
   return (
-    <div className="h-full flex flex-col overflow-hidden">
-      <div className="w-full flex-1 overflow-y-auto overflow-x-hidden no-scrollbar ">
-        <div className="pt-[30px] w-full overflow-x-hidden">
-          <div className="flex px-[30px] items-center justify-between mb-[20px]">
-            <span className="text-[24px] font-next-book-bold">
+    <div className="flex h-full flex-col overflow-hidden">
+      <div className="no-scrollbar w-full flex-1 overflow-y-auto overflow-x-hidden ">
+        <div className="w-full overflow-x-hidden pt-[30px]">
+          <div className="mb-[20px] flex items-center justify-between px-[30px]">
+            <span className="font-next-book-bold text-[24px]">
               Daily Login Rewards
             </span>
             <span className="text-[18px]">
@@ -230,7 +230,7 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
               onChange={(state: any) => setScrollContainerState(state)}
             >
               <div
-                className={`py-[10px] pl-[10px]  flex gap-[20px] overflow-x-hidden h-[619px] ${
+                className={`flex h-[619px]  gap-[20px] overflow-x-hidden py-[10px] pl-[10px] ${
                   dealedMissionData.completedLen === missionData.length
                     ? 'pr-[250px]'
                     : 'pr-[30px]'
@@ -247,7 +247,7 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
                 )}
               </div>
             </ScrollContainer>
-            <div className="absolute left-[33px] bottom-[25px] z-40">
+            <div className="absolute bottom-[25px] left-[33px] z-40">
               <ScrollControl changeState={scrollContainerState}></ScrollControl>
             </div>
           </div>

@@ -16,6 +16,9 @@ import {
 import { useRedirect } from '@/hooks/useRedirect';
 import { MissionCenterContext } from '../../../constants/type';
 import { useUserStore } from '@/store/zustand/userStore';
+import { ProfileHandleType } from '@/app/(web)/(base page)/(profile)/user/profile/constants/type';
+import { message } from 'antd';
+import { errorMessage } from '@/helper/ui';
 
 interface TargetCardProp {
   missionData: MissionDataType;
@@ -40,14 +43,31 @@ const TargetCard: React.FC<TargetCardProp> = ({
   const [loading, setLoading] = useState(false);
   const { missionIds, updateMissionDataAll } = useContext(MissionCenterContext);
   const { redirectToUrl } = useRedirect();
-  const handleUnClaim = () => {
+  const handleUnClaim = async () => {
     BurialPoint.track(`mission-center-unClaim按钮 点击 点击`, {
       buttonName: unClaimText
     });
     switch (type) {
       case RewardsCardType.DISCORD:
         setLoading(true);
-        handleClaim();
+        // handleClaim();
+        debugger;
+        try {
+          const discordInfo = await webApi.userApi.getDiscordInfo();
+          if (!discordInfo.isConnect) {
+            message.info('Please bind first discord account!');
+            setTimeout(() => {
+              redirectToUrl(
+                `/user/profile?type=${ProfileHandleType.PERSONAL_EDIT}`
+              );
+            }, 1000);
+
+            return;
+          }
+        } catch (e) {
+          errorMessage(e);
+        }
+
         webApi.missionCenterApi
           .getMissionDiscord()
           .then((res) => {
@@ -85,14 +105,14 @@ const TargetCard: React.FC<TargetCardProp> = ({
   return (
     <div
       key={missionData.id}
-      className={`h-[84px] rounded-[10px] border  mt-[15px] relative ${
+      className={`relative mt-[15px] h-[84px]  rounded-[10px] border ${
         missionData.progress?.completed
           ? 'border-yellow-primary'
-          : 'border-[#8C8C8C]'
+          : 'border-neutral-medium-gray'
       }`}
     >
       <div
-        className="h-full bg-auth-primary-button-bg opacity-40 absolute left-0 top-0 rounded-[10px]"
+        className="absolute left-0 top-0 h-full rounded-[10px] bg-auth-primary-button-bg opacity-40"
         style={{
           width: `${
             (missionData.progress.progress[0] /
@@ -101,7 +121,7 @@ const TargetCard: React.FC<TargetCardProp> = ({
           }%`
         }}
       ></div>
-      <div className="absolute w-full h-full left-0 top-0 flex justify-between items-center px-[30px] ">
+      <div className="absolute left-0 top-0 flex h-full w-full items-center justify-between px-[30px] ">
         <div className="flex-row-center gap-[20px]">
           <Image src={targetIcon} width={40} alt="icon"></Image>
           <span className="text-[16px]">
@@ -111,34 +131,34 @@ const TargetCard: React.FC<TargetCardProp> = ({
           </span>
         </div>
         <div className="flex-row-center gap-[40px]">
-          <div className="w-[76px] h-[40px] leading-[40px] text-[18px] border border-[#DADADA] bg-[#F4F4F4] rounded-r-[20px] relative pr-[15px] text-right">
+          <div className="relative h-[40px] w-[76px] rounded-r-[20px] border border-neutral-light-gray bg-neutral-off-white pr-[15px] text-right text-[18px] leading-[40px]">
             <Image
               src={IconCoin}
               width={40}
               alt="icon"
-              className="absolute top-[-1px] left-[-20px]"
+              className="absolute left-[-20px] top-[-1px]"
             ></Image>
             <span>{missionData.coin}</span>
           </div>
-          <div className="w-[76px] h-[40px] leading-[40px] text-[18px] border border-[#DADADA] bg-[#F4F4F4] rounded-r-[20px] relative pr-[15px] text-right">
+          <div className="relative h-[40px] w-[76px] rounded-r-[20px] border border-neutral-light-gray bg-neutral-off-white pr-[15px] text-right text-[18px] leading-[40px]">
             <Image
               src={IconXp}
               width={40}
               alt="icon"
-              className="absolute top-[-1px] left-[-20px]"
+              className="absolute left-[-20px] top-[-1px]"
             ></Image>
             <span>{missionData.exp}</span>
           </div>
           {missionData.progress?.completed ? (
             <Button
-              className={`w-[164px] ml-[-20px] h-[44px] text-[#0b0b0b]
+              className={`ml-[-20px] h-[44px] w-[164px] border-auth-primary-button-border-color
                           bg-auth-primary-button-bg
-                          border-auth-primary-button-border-color ${
+                          text-neutral-black ${
                             missionData.progress.claimed
-                              ? 'opacity-50 cursor-not-allowed '
+                              ? 'cursor-not-allowed opacity-50 '
                               : `hover:border-auth-primary-button-border-hover-color
-                                  hover:text-auth-primary-button-text-hover-color
-                                  hover:bg-auth-primary-button-hover-bg`
+                                  hover:bg-auth-primary-button-hover-bg
+                                  hover:text-auth-primary-button-text-hover-color`
                           }`}
               disabled={missionData.progress.claimed}
               loading={missionIds.includes(missionData.id)}
@@ -149,9 +169,9 @@ const TargetCard: React.FC<TargetCardProp> = ({
           ) : (
             <div className="relative">
               <Button
-                className={`w-[164px] p-0 ml-[-20px] h-[44px] text-[14px] text-[#0b0b0b]
-              text-auth-primary-button-text-color  border
-              border-[#0b0b0b]`}
+                className={`ml-[-20px] h-[44px] w-[164px] border border-neutral-black p-0
+              text-[14px]  text-auth-primary-button-text-color
+              text-neutral-black`}
                 loading={loading}
                 onClick={() => handleUnClaim()}
               >
@@ -167,7 +187,7 @@ const TargetCard: React.FC<TargetCardProp> = ({
                 </div>
               </Button>
               {type === RewardsCardType.SHARE && showShare && (
-                <PopBox className="top-[-260px] left-[-45px]">
+                <PopBox className="left-[-45px] top-[-260px]">
                   {shareList(userInfo?.inviteCode || '').map((item) => {
                     return (
                       <ShareWrap

@@ -49,9 +49,10 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
 
   const containerRef = useRef(null);
 
-  const [quiz, setQuiz] = useState(propsQuiz);
+  const [quiz, setQuiz] = useState<QuizType>();
 
   const onPass = () => {
+    if (!quiz) return;
     webApi.courseApi.completeQuiz(lesson.id, currentQuizIndex).then(() => {
       quiz.children[currentQuizIndex].isCompleted = true;
       setQuiz({
@@ -100,45 +101,46 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
   };
 
   useEffect(() => {
-    if (lesson) {
-      const notCompleted: number[] = [];
-      propsQuiz.children.forEach((item, index) => {
-        if (!lesson.completedQuiz && !Array.isArray(lesson.completedQuiz)) {
-          item.isCompleted = false;
-          return false;
-        }
-        if (!lesson.completedQuiz.includes(index)) {
-          notCompleted.push(index);
-          item.isCompleted = false;
-        } else {
-          item.isCompleted = true;
-        }
-      });
-      if (notCompleted.length) {
-        setCurrentQuizIndex(notCompleted[0]);
+    if (!lesson || !propsQuiz) return;
+    const notCompleted: number[] = [];
+    propsQuiz.children.forEach((item, index) => {
+      if (!lesson.completedQuiz && !Array.isArray(lesson.completedQuiz)) {
+        item.isCompleted = false;
+        return false;
       }
-      setQuiz({
-        ...propsQuiz,
-        children: propsQuiz.children.map((child) => ({ ...child }))
-      });
+      if (!lesson.completedQuiz.includes(index)) {
+        notCompleted.push(index);
+        item.isCompleted = false;
+      } else {
+        item.isCompleted = true;
+      }
+    });
+    if (notCompleted.length) {
+      setCurrentQuizIndex(notCompleted[0]);
     }
+    setQuiz({
+      ...propsQuiz,
+      children: propsQuiz.children.map((child) => ({ ...child }))
+    });
   }, [lesson, propsQuiz]);
 
   useClickAway(() => {
     setQuizDropdownVisible(false);
   }, containerRef);
 
+  if (!quiz) return null;
+
   const QuizHeader = (
-    <div className={`flex justify-between h-fit w-full items-center`}>
+    <div className={`flex h-fit w-full items-center justify-between`}>
       <div
-        className={`inline-flex text-h4 items-center relative ${
+        className={`text-h4 relative inline-flex items-center ${
           quizDropdownVisible && 'shadow-2xl'
         }`}
       >
         <div
           ref={containerRef as any}
-          className={`inline-flex gap-2 box-content border-b-2 p-[20px] cursor-pointer min-h-fit ${
-            quizDropdownVisible ? ' border-[#8C8C8C]' : ''
+          className={`box-content inline-flex min-h-fit cursor-pointer gap-2 border-b-2 p-[20px] ${
+            quizDropdownVisible ? ' border-neutral-medium-gray' : ''
           }`}
           onClick={() => {
             BurialPoint.track('lesson-quiz dropdown点击');
@@ -177,7 +179,7 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
     <>
       <div
         className={cn(
-          `rounded-[.625rem] pb-[20px] bg-[#E6E6E6] flex w-full flex-1 min-h-[50%] flex-col overflow-hidden mt-[30px]`
+          `mt-[30px] flex min-h-[50%] w-full flex-1 flex-col overflow-hidden rounded-[.625rem] bg-[#E6E6E6] pb-[20px]`
         )}
       >
         {QuizHeader}

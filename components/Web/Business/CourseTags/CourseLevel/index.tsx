@@ -16,10 +16,10 @@ const CourseLevel: FC<CourseLevelProps> = (props) => {
   }, [level]);
 
   return (
-    <div className="flex gap-[5px] items-center">
+    <div className="flex items-center gap-[5px]">
       <div
         className={cn(
-          `flex gap-[1px] items-center`,
+          `flex items-center gap-[1px]`,
           size === 'large' ? 'gap-[2px]' : ''
         )}
       >
@@ -28,11 +28,11 @@ const CourseLevel: FC<CourseLevelProps> = (props) => {
             <div
               key={item}
               className={cn(
-                `w-[12px] h-[12px] border border-[#000]`,
+                `h-[12px] w-[12px] border border-neutral-black`,
                 index === 0 ? 'rounded-l-full' : '',
                 index === levels.length - 1 ? 'rounded-r-full' : '',
                 index <= levelIndex ? 'bg-[#dadada]' : '',
-                size === 'large' ? 'w-[20px] h-[20px]' : ''
+                size === 'large' ? 'h-[20px] w-[20px]' : ''
               )}
             ></div>
           );
@@ -41,7 +41,7 @@ const CourseLevel: FC<CourseLevelProps> = (props) => {
       <p
         className={cn(
           'body-xs text-neutral-rich-gray',
-          `${size === 'large' ? 'text-[16px]  text-black' : ''} ${className}`
+          `${size === 'large' ? 'body-m  text-neutral-black' : ''} ${className}`
         )}
       >
         {level}

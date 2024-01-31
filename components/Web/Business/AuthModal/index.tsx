@@ -1,6 +1,5 @@
 'use client';
 import Modal from '@/components/Common/Modal';
-import { usePathname } from 'next/navigation';
 import { FC, useEffect, useMemo } from 'react';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
@@ -14,6 +13,7 @@ import CheckInviteCode from './CheckInviteCode';
 import { LuX } from 'react-icons/lu';
 import { V2_LANDING_PATH } from '@/constants/nav';
 import { useRedirect } from '@/hooks/useRedirect';
+import { useCustomPathname } from '@/hooks/useCheckPathname';
 interface AuthModalProps {}
 
 const logo = (
@@ -47,7 +47,7 @@ const AuthModal: FC<AuthModalProps> = (props) => {
   const query = new URLSearchParams(
     typeof window !== 'undefined' ? window.location.search : ''
   );
-  const pathname = usePathname();
+  const pathname = useCustomPathname();
   const queryState = query.get('state');
   const type = query.get('type');
   const { redirectToUrl } = useRedirect();
@@ -99,7 +99,7 @@ const AuthModal: FC<AuthModalProps> = (props) => {
       icon={
         <LuX
           size={24}
-          className="absolute top-2 right-2 text-neutral-off-black"
+          className="absolute right-2 top-2 text-neutral-off-black"
           onClick={() => {
             setAuthModalOpen(false);
             if ((type || queryState) && pathname === V2_LANDING_PATH) {
@@ -110,8 +110,8 @@ const AuthModal: FC<AuthModalProps> = (props) => {
         />
       }
     >
-      <div className="w-[31.5rem] h-[34rem] p-[3rem] box-content bg-neutral-white border border-neutral-light-gray rounded-[2rem] flex flex-col">
-        <div className="w-full flex justify-center mb-[3rem]">{logo}</div>
+      <div className="box-content flex h-[34rem] w-[31.5rem] flex-col rounded-[2rem] border border-neutral-light-gray bg-neutral-white p-[3rem]">
+        <div className="mb-[3rem] flex w-full justify-center">{logo}</div>
         {authComponent}
       </div>
     </Modal>

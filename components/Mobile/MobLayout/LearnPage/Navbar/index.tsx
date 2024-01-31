@@ -16,9 +16,9 @@ const NavBar: React.FC<NavBarProps> = () => {
     redirectToUrl(MenuLink.DASHBOARD);
   };
   return (
-    <nav className="w-full h-[64px] flex items-center px-[1.25rem] text-neutral-white">
+    <nav className="flex h-[64px] w-full items-center px-[1.25rem] text-neutral-white">
       <div
-        className="w-[2.5rem] h-full flex items-center"
+        className="flex h-full w-[2.5rem] items-center"
         onClick={() => {
           setSidebarOpen(true);
         }}
@@ -38,9 +38,11 @@ const NavBar: React.FC<NavBarProps> = () => {
           />
         </svg>
       </div>
-      <div className="flex-1 text-center text-h4-mob">{learnPageTitle}</div>
+      <div className="text-h4-mob line-clamp-2 flex-1 flex-shrink-0 text-center">
+        {learnPageTitle}
+      </div>
       <div
-        className="w-[2.5rem] flex items-center justify-end cursor-pointer"
+        className="flex w-[2.5rem] cursor-pointer items-center justify-end"
         onClick={logoClick}
       >
         <IoExitOutline size={28} />

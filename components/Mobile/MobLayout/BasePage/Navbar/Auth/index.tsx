@@ -1,5 +1,4 @@
 'use client';
-import { usePathname } from 'next/navigation';
 import { FC, createContext, useMemo } from 'react';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
@@ -12,6 +11,7 @@ import VerifyConfirmed from './VerifyConfirmed';
 import CheckInviteCode from './CheckInviteCode';
 import { useRedirect } from '@/hooks/useRedirect';
 import { motion } from 'framer-motion';
+import { useCustomPathname } from '@/hooks/useCheckPathname';
 interface AuthModalProps {
   changeNavState: VoidFunction;
 }
@@ -24,19 +24,15 @@ const Auth: FC<AuthModalProps> = ({ changeNavState }) => {
   const query = new URLSearchParams(
     typeof window !== 'undefined' ? window.location.search : ''
   );
-  const pathname = usePathname();
+  const pathname = useCustomPathname();
   const queryState = query.get('state');
   const type = query.get('type');
   const { redirectToUrl } = useRedirect();
-  const { authRouteType, setAuthType, authModalOpen, setAuthModalOpen } =
-    useUserStore(
-      useShallow((state) => ({
-        authModalOpen: state.authModalOpen,
-        authRouteType: state.authRouteType,
-        setAuthType: state.setAuthType,
-        setAuthModalOpen: state.setAuthModalOpen
-      }))
-    );
+  const { authRouteType } = useUserStore(
+    useShallow((state) => ({
+      authRouteType: state.authRouteType
+    }))
+  );
 
   const authComponent = useMemo(() => {
     if (queryState) {
@@ -75,7 +71,7 @@ const Auth: FC<AuthModalProps> = ({ changeNavState }) => {
           pointerEvents: 'none'
         }
       }}
-      className="absolute top-[4rem] px-5 py-[30px] bottom-0 w-screen bg-neutral-white border border-neutral-light-gray flex flex-col"
+      className="absolute bottom-0 top-[4rem] flex w-screen flex-col border border-neutral-light-gray bg-neutral-white px-5 py-[30px]"
     >
       <AuthContext.Provider value={{ changeNavState }}>
         {authComponent}

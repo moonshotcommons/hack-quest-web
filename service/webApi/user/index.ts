@@ -14,6 +14,7 @@ import {
   UserLearnedCountType
 } from './type';
 import { transformQueryString } from '@/helper/formate';
+import { ThirdPartyMediaType } from '@/helper/thirdPartyMedia';
 
 export enum UserApiType {
   CheckEmail = '/users/verify-email',
@@ -26,13 +27,18 @@ export enum UserApiType {
   UserInfo = '/users/info',
   AuthGoogle = 'auth/google',
   AuthGithub = 'auth/github',
+  AuthDiscord = '/auth/discord',
   googleVerify = 'auth/google/callback',
   githubVerify = 'auth/github/callback',
   CheckInViteCode = '/users/verify-inviteCode',
   WalletVerify = '/auth/wallet',
   UserProfile = '/users/profile',
   PersonalLinks = '/users/profile/personal-links',
-  UserLearnedCount = '/users/learned-count'
+  UserLearnedCount = '/users/learned-count',
+  /** 绑定discord */
+  DiscordVerify = '/auth/discord/callback',
+  /* 获取discord的绑定信息 */
+  GetDiscordInfo = '/auth/discord/info'
 }
 
 class UserApi {
@@ -295,6 +301,29 @@ class UserApi {
     return this.service.get<UserLearnedCountType>(
       `${UserApiType.UserLearnedCount}`
     );
+  }
+
+  getConnectUrlByDiscord() {
+    return this.service.get<{ url: string }>(UserApiType.AuthDiscord);
+  }
+
+  linkDiscord(type: string, accessToken: string) {
+    return this.service.get(UserApiType.DiscordVerify, {
+      params: {
+        type,
+        token: accessToken
+      }
+    });
+  }
+
+  getDiscordInfo() {
+    return this.service.get<{ isConnect: boolean; thirdUser: any }>(
+      UserApiType.GetDiscordInfo
+    );
+  }
+
+  disconnect(type: ThirdPartyMediaType) {
+    return this.service.delete(`/auth/${type}/disconnect`);
   }
 }
 

@@ -5,6 +5,7 @@ import { BlogType } from '@/service/webApi/resourceStation/type';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 import { BurialPoint } from '@/helper/burialPoint';
 import Link from 'next/link';
+import TrackTag from '@/components/Common/TrackTag';
 
 interface FeatureBlogCardProp {
   blog: BlogType;
@@ -16,11 +17,11 @@ const FeatureBlogCard: React.FC<FeatureBlogCardProp> = ({ blog }) => {
   };
   return (
     <Link
-      className="w-full font-next-book h-[505px] flex bg-[#fff] overflow-hidden rounded-[10px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] cursor-pointer"
+      className="flex h-[425px] w-full cursor-pointer overflow-hidden rounded-[10px] bg-[#fff] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)]"
       onClick={goBlogContent}
       href={`${MenuLink.BLOG}/${blog.id}`}
     >
-      <div className="w-[900px] h-full relative  overflow-hidden">
+      <div className="relative h-full w-[756px]  overflow-hidden">
         <Image
           src={blog.image}
           fill
@@ -28,26 +29,29 @@ const FeatureBlogCard: React.FC<FeatureBlogCardProp> = ({ blog }) => {
           className="object-cover"
         ></Image>
       </div>
-      <div className="flex-1 min-w-[460px] h-full flex flex-col justify-between p-[30px]">
-        <div className="flex flex-col gap-[15px] ">
+      <div className="flex h-full min-w-[604px] flex-1 flex-col justify-between p-[30px]">
+        <div className="flex flex-col gap-[20px] ">
           <div className="flex gap-[10px]">
             {blog.categories.map((v, i) => (
-              <div
+              <TrackTag
                 key={i}
-                className="w-fit py-[3px] px-[14px] text-[#3E3E3E] text-[18px] leading-[29px] rounded-[100px] border border-[var(--neutral-medium-gray)] bg-[#DADADA]"
-              >
-                {v}
-              </div>
+                track={v}
+                className="caption-16pt px-[16px] py-[6px]"
+              />
             ))}
           </div>
-          <div className="text-[28px] leading-[45px] tracking-[0.56px] line-clamp-3">
+          <div className="line-clamp-2 font-next-book-bold text-[28px] leading-[45px] tracking-[0.56px]">
             {blog.title}
           </div>
-          <div className="text-[18px] leading-[28.8px] tracking-[0.36px] line-clamp-6">
+          <div className="body-l line-clamp-5 text-neutral-black">
             {blog.description}
           </div>
         </div>
-        <BlogCardFooter blog={blog} />
+        <BlogCardFooter
+          blog={blog}
+          className="body-m text-neutral-medium-gray "
+          borderColor="border-r-[#8c8c8c]"
+        />
       </div>
     </Link>
   );

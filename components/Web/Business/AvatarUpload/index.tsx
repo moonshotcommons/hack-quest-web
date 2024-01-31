@@ -26,7 +26,7 @@ const AvatarUpload: FC<AvatarUploadProps> = (props) => {
   return (
     <>
       <div
-        className="relative w-full h-full"
+        className="relative h-full w-full"
         onMouseEnter={() => {
           if (edit) {
             setShowEditIcon(true);
@@ -34,7 +34,7 @@ const AvatarUpload: FC<AvatarUploadProps> = (props) => {
         }}
         onMouseLeave={() => setShowEditIcon(false)}
       >
-        <div className="relative w-full h-full bg-[#8d8d8d] overflow-hidden rounded-full flex justify-center items-center">
+        <div className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-full bg-[#8d8d8d]">
           {userInfo?.avatar && (
             <Image
               fill
@@ -46,7 +46,7 @@ const AvatarUpload: FC<AvatarUploadProps> = (props) => {
         </div>
         <div
           className={cn(
-            'absolute w-full h-full top-0 left-0 bg-black/50 rounded-full flex justify-center items-center transition-opacity duration-200',
+            'bg-neutral-black/50 absolute left-0 top-0 flex h-full w-full items-center justify-center rounded-full transition-opacity duration-200',
             showEditIcon ? 'opacity-100' : 'opacity-0'
           )}
         >

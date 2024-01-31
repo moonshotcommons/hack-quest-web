@@ -35,13 +35,13 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
 
   return (
     <div
-      className={`rounded-[.5rem] py-[12px] px-[1.25rem] bg-neutral-light-gray w-full`}
+      className={`w-full rounded-[.5rem] bg-neutral-light-gray px-[1.25rem] py-[12px]`}
     >
       <div
-        className="flex justify-between items-center"
+        className="flex items-center justify-between"
         onClick={() => setExpand(!expand)}
       >
-        <span className="inline-flex font-next-book-bold items-center relative text-[18px] tracking-[1.08px]">
+        <span className="relative inline-flex items-center font-next-book-bold text-[18px] tracking-[1.08px]">
           {component.title || 'Example'}
         </span>
         <span>
@@ -50,7 +50,7 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
             color=""
             className={`${
               expand ? 'rotate-180' : '0'
-            } transition-transform cursor-pointer`}
+            } cursor-pointer transition-transform`}
           ></FiChevronDown>
         </span>
       </div>
@@ -73,14 +73,14 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
             })}
           </ExampleContext.Provider>
           {!!component.codeFiles?.length && (
-            <div className="flex flex-col h-full">
-              <div className="w-full flex gap-[5px]">
+            <div className="flex h-full flex-col">
+              <div className="flex w-full gap-[5px]">
                 {component.codeFiles?.map((codeFile, index) => {
                   return (
                     <div
                       key={`${codeFile.filename}-${index}`}
                       className={cn(
-                        'py-[3px] px-[10px]  rounded-t-[10px] cursor-pointer',
+                        'cursor-pointer rounded-t-[10px]  px-[10px] py-[3px]',
                         index === activeFileIndex
                           ? 'bg-[#fafafa]'
                           : 'bg-[#ececec]'
@@ -92,7 +92,7 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
                   );
                 })}
               </div>
-              <div className="relative flex flex-col bg-[#fafafa] mb-[20px] rounded-[10px] rounded-tl-[0px]">
+              <div className="relative mb-[20px] flex flex-col rounded-[10px] rounded-tl-[0px] bg-[#fafafa]">
                 <ExampleContext.Provider
                   value={{
                     updateExampleContent: (value: string) =>
@@ -126,7 +126,7 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
         >
           <Button
             ghost
-            className="text-[#0b0b0b] font-next-book text-[14px] leading-[125%] tracking-[0.28px] border py-[8px] px-[40px] border-black  hover:bg-white/50 transition"
+            className="hover:bg-neutral-white/50 border border-neutral-black px-[40px] py-[8px] font-next-book text-[14px] leading-[125%] tracking-[0.28px]  text-neutral-black transition"
           >
             Try It Out
           </Button>

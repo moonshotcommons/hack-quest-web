@@ -79,7 +79,7 @@ const DropAnswer: FC<DropAnswerProps> = (props) => {
   }, [answers]);
 
   return (
-    <div ref={drop} className="inline-block relative">
+    <div ref={drop} className="relative inline-block">
       {(!currentAnswer?.option || showAnswer) && (
         <motion.span
           animate={{
@@ -89,25 +89,25 @@ const DropAnswer: FC<DropAnswerProps> = (props) => {
           transition={{
             duration: currentAnswer?.status === 'error' ? 0.5 : 0 // 动画持续时间
           }}
-          className={`inline-flex relative min-w-[110px] mx-[10px] h-[34px] rounded-[3px] border-[0.5px] my-1 border-[#8C8C8C] bg-[#F4F4F4] justify-center items-center font-next-book text-[14px] leading-[125%] ${
+          className={`relative mx-[10px] my-1 inline-flex h-[34px] min-w-[110px] items-center justify-center rounded-[3px] border-[0.5px] border-neutral-medium-gray bg-neutral-off-white font-next-book text-[14px] leading-[125%] ${
             currentAnswer?.status === 'error'
-              ? 'bg-[#FFF7F5] border-[#C73333]'
+              ? 'border-[#C73333] bg-[#FFF7F5]'
               : ''
           }`}
         >
-          <div className="inline-flex relative items-center px-5">
+          <div className="relative inline-flex items-center px-5">
             &nbsp;{showAnswer && currentAnswer?.answer}&nbsp;
           </div>
         </motion.span>
       )}
       {!!currentAnswer?.option && !showAnswer && (
         <span
-          className="inline-flex relative min-w-[110px] mx-[10px] h-[34px] my-1 bg-[#FFF4CE] cursor-move border-[0.5px] border-[#8C8C8C] rounded-[3px] text-[#000] font-next-book text-[14px] tracking-[0.28px] leading-[125%]"
+          className="relative mx-[10px] my-1 inline-flex h-[34px] min-w-[110px] cursor-move rounded-[3px] border-[0.5px] border-neutral-medium-gray bg-[#FFF4CE] font-next-book text-[14px] leading-[125%] tracking-[0.28px] text-neutral-black"
           onMouseEnter={() => setClearVisible(true)}
           onMouseLeave={() => setClearVisible(false)}
         >
-          <span className="inline-flex items-center relative w-full">
-            <span className="leading-[125%] px-[7px]">
+          <span className="relative inline-flex w-full items-center">
+            <span className="px-[7px] leading-[125%]">
               <svg
                 width="14"
                 height="8"
@@ -129,7 +129,7 @@ const DropAnswer: FC<DropAnswerProps> = (props) => {
                 />
               </svg>
             </span>
-            <span className="text-center flex-1 overflow-hidden text-ellipsis px-5">
+            <span className="flex-1 overflow-hidden text-ellipsis px-5 text-center">
               {currentAnswer.option.content.rich_text.map(
                 (richText: any, index: number) => {
                   return <span key={index}>{richText.plain_text}</span>;
@@ -140,7 +140,7 @@ const DropAnswer: FC<DropAnswerProps> = (props) => {
 
           {clearVisible && (
             <span
-              className={`absolute w-full h-full top-0 left-0 bg-white flex items-center justify-center bg-opacity-90`}
+              className={`absolute left-0 top-0 flex h-full w-full items-center justify-center bg-white bg-opacity-90`}
               onClick={() => {
                 const curAnswer: AnswerType = {
                   ...currentAnswer,

@@ -23,7 +23,7 @@ const inputVariants = cva(
       theme: {
         light:
           'border-neutral-light-gray caret-neutral-off-black hover:border-neutral-medium-gray focus:border-neutral-medium-gray focus:text-neutral-off-black',
-        dark: 'border-[#212121] caret-[#ffffff] hover:border-[#212121] focus:border-[#212121]'
+        dark: 'border-neutral-dark-gray caret-[#ffffff] hover:border-neutral-dark-gray focus:border-neutral-dark-gray'
       },
       state: {
         success: 'border-status-success focus:border-status-success',
@@ -33,7 +33,7 @@ const inputVariants = cva(
       },
       device: {
         web: '',
-        mobile: 'body-s font-Nunito '
+        mobile: 'body-s'
       }
     },
     defaultVariants: {
@@ -52,7 +52,7 @@ const labelVariants = cva('body-l-bold label', {
     },
     device: {
       web: '',
-      mobile: 'body-m-bold font-Nunito'
+      mobile: 'body-m-bold'
     }
   },
   defaultVariants: {
@@ -184,7 +184,7 @@ const Input = forwardRef<InputRef, InputProps>((props, ref) => {
 
   const errorIcon = (
     <span
-      className="text-status-error-dark flex justify-center items-center cursor-pointer"
+      className="flex cursor-pointer items-center justify-center text-status-error-dark"
       onClick={() => {
         setValue('');
         setErrorMessage('');
@@ -207,7 +207,7 @@ const Input = forwardRef<InputRef, InputProps>((props, ref) => {
 
   const visibleIcon = (
     <span
-      className="text-auth-input-visible-icon-color cursor-pointer"
+      className="cursor-pointer text-auth-input-visible-icon-color"
       onMouseDown={(e) => {
         if (propType === 'password' && type === 'password') {
           setType('text');
@@ -270,15 +270,15 @@ const Input = forwardRef<InputRef, InputProps>((props, ref) => {
           {...rest}
         />
 
-        <span className="absolute right-[1.4375rem] top-[50%] -translate-y-[50%] flex gap-4 items-center">
+        <span className="absolute right-[1.4375rem] top-[50%] flex -translate-y-[50%] items-center gap-4">
           {status === 'error' && errorIcon}
           {status === 'success' && successIcon}
           {showVisibleIcon && value && visibleIcon}
         </span>
       </div>
-      {description && <p className="ml-[1.5rem] body-m">{description}</p>}
+      {description && <p className="body-m ml-[1.5rem]">{description}</p>}
       {errorMessage && (
-        <p className="text-status-error-dark body-s flex flex-row items-center gap-2">
+        <p className="body-s flex flex-row items-center gap-2 text-status-error-dark">
           <PiWarningCircleFill size={20} className="text-status-error-dark" />
           {errorMessage}
         </p>

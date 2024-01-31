@@ -4,20 +4,19 @@ import { useEffect } from 'react';
 import {
   V2_DASHBOARD_PATH,
   V2_LANDING_PATH,
-  isLoginOrRegister,
   isNoNeedUserInfo
 } from '@/constants/nav';
 import { getToken } from '@/helper/user-token';
-import { usePathname } from 'next/navigation';
 import { useRedirect } from '../useRedirect';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
+import { useCheckPathname, useCustomPathname } from '../useCheckPathname';
 
 function useNavAuth(waitingUserData: boolean) {
   const userInfo = useUserStore((state) => state.userInfo);
   const setAuthType = useUserStore((state) => state.setAuthType);
-  const setAuthModalOpen = useUserStore((state) => state.setAuthModalOpen);
   const { redirectToUrl } = useRedirect();
-  const pathname = usePathname();
+  const pathname = useCustomPathname();
+  const { isLandingPage } = useCheckPathname();
   const query = new URLSearchParams(
     typeof window !== 'undefined' ? window.location.search : ''
   );
@@ -27,13 +26,14 @@ function useNavAuth(waitingUserData: boolean) {
     const redirect_url = query.get('redirect_url');
     // 已经登录了
     if (userInfo) {
-      if (!isLoginOrRegister(pathname)) return;
+      if (!isLandingPage) return;
       const token = getToken();
       if (redirect_url && token) {
         redirectToUrl(`${redirect_url}?token=${token}`);
       } else {
         redirectToUrl(V2_DASHBOARD_PATH);
       }
+
       return;
     }
 
@@ -43,7 +43,6 @@ function useNavAuth(waitingUserData: boolean) {
     } else {
       redirectToUrl(V2_LANDING_PATH);
       setAuthType(AuthType.LOGIN);
-      // setAuthModalOpen(true);
     }
   }, [waitingUserData, userInfo, pathname]);
 }

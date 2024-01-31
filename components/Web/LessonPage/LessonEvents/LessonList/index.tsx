@@ -30,7 +30,7 @@ const LessonList: React.FC<LessonListType> = ({
   const { redirectToUrl } = useRedirect();
   const { getLink } = useGetLessonLink();
   const getChildren = (item: UnitPagesListType) => {
-    if (!item || item?.disable) return;
+    if (!item || item?.disable || !item?.pages) return;
     setLessonList(item.pages as CourseLessonStateType[]);
     setUnitName(item.name);
   };
@@ -53,13 +53,14 @@ const LessonList: React.FC<LessonListType> = ({
     ) as UnitPagesListType;
     getChildren(unit);
   }, []);
+
   return (
-    <div className="max-h-[60vh] overflow-auto w-full font-next-book">
+    <div className="max-h-[60vh] w-full overflow-auto font-next-book">
       {!unitName ? (
         unitData.map((v) => (
           <div
             key={v.id}
-            className={`h-[54px] px-5 text-[21px] w-full  flex items-center tracking-[0.42px]   ${
+            className={`flex h-[54px] w-full items-center  px-5 text-[21px] tracking-[0.42px]   ${
               v.id === lesson.unitId
                 ? 'bg-lesson-events-toggle-list-active-bg'
                 : ''
@@ -77,18 +78,18 @@ const LessonList: React.FC<LessonListType> = ({
       ) : (
         <div className="w-full">
           <div
-            className="flex items-center w-full text-[21px] tracking-[0.42px] h-[64px] px-5 cursor-pointer"
+            className="flex h-[64px] w-full cursor-pointer items-center px-5 text-[21px] tracking-[0.42px]"
             onClick={() => setUnitName('')}
             title={unitName}
           >
             <Image src={ArrowLeft} alt="arrow-left" width={8} height={16} />
-            <p className="pl-[10px] truncate w-[calc(100%-8px)]">{unitName}</p>
+            <p className="w-[calc(100%-8px)] truncate pl-[10px]">{unitName}</p>
           </div>
           <div className="w-full">
             {lessonList.map((v) => (
               <div
                 key={v.id}
-                className={`h-[54px] w-full  flex-row-center justify-between px-5 ${
+                className={`flex-row-center h-[54px]  w-full justify-between px-5 ${
                   v.id === lesson.id
                     ? 'bg-lesson-events-toggle-list-active-bg'
                     : ''
@@ -100,7 +101,7 @@ const LessonList: React.FC<LessonListType> = ({
                 title={v.name}
                 onClick={() => handleUnit(v)}
               >
-                <p className="font-next-book-bold text-[14px] w-[100%] truncate">
+                <p className="w-[100%] truncate font-next-book-bold text-[14px]">
                   {v.name}
                 </p>
                 <Image

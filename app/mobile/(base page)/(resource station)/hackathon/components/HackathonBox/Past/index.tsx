@@ -49,7 +49,7 @@ const Past: FC<PastProps> = (props) => {
 
   return (
     <Loading loading={loading}>
-      <div className="flex w-full gap-x-[22px] flex-wrap gap-y-[22px]">
+      <div className="flex w-full flex-wrap gap-x-[22px] gap-y-[22px]">
         {hackathonList.map((hackathon, index) => {
           return (
             <div key={index} className="w-[calc(33.33%-15px)]">
@@ -58,7 +58,7 @@ const Past: FC<PastProps> = (props) => {
           );
         })}
       </div>
-      <div className="w-full flex justify-center pt-[50px]">
+      <div className="flex w-full justify-center pt-[50px]">
         {totalPage > PROJECTS_LIMIT && (
           <Pagination
             page={page}

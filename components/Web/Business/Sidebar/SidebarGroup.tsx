@@ -39,13 +39,13 @@ const SidebarGroup = <T,>(props: SidebarGroupProps<T>) => {
 
   return (
     <div
-      className="flex flex-col transition-all duration-300 relative
-     after:absolute after:w-[calc(100%-80px)] after:h-[1px] after:bg-neutral-medium-gray after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:z-[1]
+      className="relative flex flex-col transition-all duration-300
+     after:absolute after:bottom-0 after:left-1/2 after:z-[1] after:h-[1px] after:w-[calc(100%-80px)] after:-translate-x-1/2 after:bg-neutral-medium-gray
      "
     >
       <div
         className={cn(
-          'px-10 w-full py-[.9375rem] flex justify-between items-center cursor-pointer'
+          'flex w-full cursor-pointer items-center justify-between px-10 py-[.9375rem]'
         )}
         onClick={() => {
           onOpenChange(item.key);
