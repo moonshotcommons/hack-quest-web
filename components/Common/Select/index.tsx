@@ -114,7 +114,7 @@ const Select = forwardRef<
           readOnly
           placeholder={placeholder}
           className={cn(
-            `w-full cursor-pointer rounded-[2.5rem] border border-solid border-neutral-dark-gray px-[25px] py-[15px] font-next-book text-[14px] leading-[118.5%] caret-[#ffffff] outline-none hover:border-neutral-dark-gray focus:border-neutral-dark-gray`,
+            `body-m w-full cursor-pointer rounded-[2.5rem] border border-solid border-neutral-dark-gray px-[25px] py-[15px]  caret-[#ffffff] outline-none hover:border-neutral-dark-gray focus:border-neutral-dark-gray`,
             // type === 'password' &&
             //   'border-auth-password-input-bg focus:border-neutral-dark-gray',
             status === 'success'
