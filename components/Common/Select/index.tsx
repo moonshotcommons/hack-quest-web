@@ -18,7 +18,7 @@ import { OptionType } from './type';
 
 interface SelectProps {
   name: string;
-  label: string | ReactNode;
+  label?: string | ReactNode;
   placeholder?: string;
   state?: 'success' | 'error' | 'warning' | 'default';
   className?: string;
@@ -94,9 +94,12 @@ const Select = forwardRef<
 
   return (
     <div className="flex flex-col gap-[0.75rem] w-full relative">
-      <p className="text-[21px] font-next-poster leading-[125%] tracking-[1.26px]">
-        {label}
-      </p>
+      {label ? (
+        <p className="text-[21px] font-next-poster leading-[125%] tracking-[1.26px]">
+          {label}
+        </p>
+      ) : null}
+
       <div className="relative">
         <input
           ref={inputRef}
@@ -148,42 +151,42 @@ const Select = forwardRef<
             </span>
           )}
         </span>
-      </div>
-      {visibleOption && (
-        <div className="absolute w-full top-[37px] z-[1000] text-[21px] text-[#] bg-[#fff] left-0 border border-neutral-dark-gray rounded-[24px] pb-[5px] font-next-book overflow-hidden">
-          <div
-            className="flex items-center justify-between mx-[20px] h-[48px] border-b border-b-[#8C8C8C] cursor-pointer"
-            onClick={() => {
-              setVisibleOption(false);
-            }}
-          >
-            <span>{selectLabel}</span>
-            <AiFillCaretDown className=" text-neutral-medium-gray text-[20px] rotate-180" />
+        {visibleOption && (
+          <div className="absolute w-full top-0 z-[1000] text-[21px] text-[#] bg-[#fff] left-0 border border-neutral-dark-gray rounded-[24px] pb-[5px] font-next-book overflow-hidden">
+            <div
+              className="flex items-center justify-between mx-[20px] h-[48px] border-b border-b-[#8C8C8C] cursor-pointer"
+              onClick={() => {
+                setVisibleOption(false);
+              }}
+            >
+              <span>{selectLabel}</span>
+              <AiFillCaretDown className=" text-neutral-medium-gray text-[20px] rotate-180" />
+            </div>
+            <ul className="w-full max-h-[250px] overflow-auto">
+              {options.map((v: OptionType) => (
+                <li
+                  key={v.value}
+                  className={`leading-[34px] px-[20px] flex items-center justify-between mt-[5px] cursor-pointer ${
+                    value === v.value ? 'bg-neutral-off-white' : ''
+                  }`}
+                  onClick={() => {
+                    setValue(v.value);
+                    setErrorMessage('');
+                    setStatus('default');
+                    setVisibleOption(false);
+                    onChange?.(v.value);
+                  }}
+                >
+                  <span>{v.label}</span>
+                  {value === v.value && (
+                    <FiCheck className="text-neutral-rich-gray text-[14px]" />
+                  )}
+                </li>
+              ))}
+            </ul>
           </div>
-          <ul className="w-full max-h-[250px] overflow-auto">
-            {options.map((v: OptionType) => (
-              <li
-                key={v.value}
-                className={`leading-[34px] px-[20px] flex items-center justify-between mt-[5px] cursor-pointer ${
-                  value === v.value ? 'bg-neutral-off-white' : ''
-                }`}
-                onClick={() => {
-                  setValue(v.value);
-                  setErrorMessage('');
-                  setStatus('default');
-                  setVisibleOption(false);
-                  onChange?.(v.value);
-                }}
-              >
-                <span>{v.label}</span>
-                {value === v.value && (
-                  <FiCheck className="text-neutral-rich-gray text-[14px]" />
-                )}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+        )}
+      </div>
 
       {description && (
         <p className="ml-[1.5rem] text-  text-[1rem] leading-[150%] tracking-[-0.011rem] font-Sofia-Pro-Light-Az">
