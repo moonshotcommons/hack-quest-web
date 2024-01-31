@@ -1,6 +1,7 @@
 import { FC, ReactNode } from 'react';
-import UgcProvider from './components/UgcProvider';
 import UgcSidebar from './components/UgcSidebar';
+import UgcProvider from '@/app/(web)/(learn page)/ugc/[courseId]/learn/components/UgcProvider';
+import UgcFooter from './components/UgcFooter';
 
 interface LearnLayoutProps {
   children: ReactNode;
@@ -14,6 +15,7 @@ const LearnLayout: FC<LearnLayoutProps> = async ({ children }) => {
           <UgcSidebar />
           {children}
         </div>
+        <UgcFooter />
       </div>
     </UgcProvider>
   );

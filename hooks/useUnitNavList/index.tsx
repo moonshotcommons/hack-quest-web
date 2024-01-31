@@ -53,7 +53,6 @@ export const useUnitNavList = (lesson: CourseLessonType) => {
 
   const { run, refresh } = useRequest(
     async () => {
-      debugger;
       const data = await webApi.courseApi.getCourseUnitsAndPages(
         lesson?.courseId
       );
