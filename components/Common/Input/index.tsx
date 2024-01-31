@@ -33,7 +33,7 @@ const inputVariants = cva(
       },
       device: {
         web: '',
-        mobile: 'body-s'
+        mobile: ''
       }
     },
     defaultVariants: {
