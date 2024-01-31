@@ -1,13 +1,12 @@
 'use client';
 import React, { useEffect } from 'react';
-import UgcFooter from './UgcFooter';
 import LessonContainer from './LessonContainer';
 import UgcNavbar from './UgcNavbar';
 import { useRequest } from 'ahooks';
 import webApi from '@/service';
-import UgcProgress from './UgcProgress';
 import { useLearnStore } from '@/store/zustand/learnStore';
 import { CourseType } from '@/service/webApi/course/type';
+import UgcProgress from './UgcProgress';
 
 interface UgcProp {
   lessonId: string;
@@ -40,7 +39,6 @@ const Ugc: React.FC<UgcProp> = ({ lessonId }) => {
             <LessonContainer lesson={lesson}></LessonContainer>
           </div>
         </div>
-        <UgcFooter />
       </div>
     </div>
   );
