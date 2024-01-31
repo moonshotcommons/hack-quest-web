@@ -223,8 +223,8 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
             text-[1.125rem]
             border
             bg-transparent
-            text-white hover:text-auth-ghost-button-text-hover-color
-            border-white hover:border-auth-ghost-button-border-hover-color
+            text-neutral-white hover:text-auth-ghost-button-text-hover-color
+            border-neutral-white hover:border-auth-ghost-button-border-hover-color
           "
         >
           Back

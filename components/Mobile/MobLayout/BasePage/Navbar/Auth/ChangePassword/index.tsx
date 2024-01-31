@@ -59,7 +59,7 @@ const Success = () => {
         <h3 className="text-h3-m font-next-book-bold text-neutral-off-black">
           Password Changed
         </h3>
-        <p className="body-m font-Nunito text-neutral-medium-gray">
+        <p className="body-m text-neutral-medium-gray">
           Your password has been changed successfully
         </p>
       </div>
@@ -71,7 +71,7 @@ const Success = () => {
         type="primary"
         block
         className="
-        py-4 uppercase button-text-m font-Nunito
+        py-4 uppercase button-text-m
       bg-auth-primary-button-bg hover:bg-auth-primary-button-hover-bg
       text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
       border-auth-primary-button-border-color hover:border-auth-primary-button-border-hover-color
@@ -107,7 +107,7 @@ const Fail = () => {
         <h3 className="text-h3-m font-next-book-bold text-neutral-off-black">
           Verification Failed! 😵
         </h3>
-        <p className="body-m font-Nunito  text-neutral-medium-gray">
+        <p className="body-m  text-neutral-medium-gray">
           Your token has expired! Please try again.
         </p>
       </div>
@@ -119,7 +119,7 @@ const Fail = () => {
         }}
         block
         className="
-        py-4 uppercase button-text-m font-Nunito
+        py-4 uppercase button-text-m
           bg-auth-primary-button-bg hover:bg-auth-primary-button-hover-bg
           text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
           border-auth-primary-button-border-color hover:border-auth-primary-button-border-hover-color
@@ -273,7 +273,7 @@ const ChangeForm = ({
         iconPosition="right"
         icon={<RightArrowIcon></RightArrowIcon>}
         className="
-        py-4 uppercase button-text-m font-Nunito
+        py-4 uppercase button-text-m
               bg-auth-primary-button-bg hover:bg-auth-primary-button-hover-bg
               text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
               border-auth-primary-button-border-color hover:border-auth-primary-button-border-hover-color

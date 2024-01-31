@@ -82,20 +82,22 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
       <div className="relative h-[100px] flex flex-col justify-between pl-[20px]">
         <div className="absolute left-0 top-0 w-[5px] h-full rounded-[10px] bg-yellow-primary"></div>
         <div>
-          <div className="text-[#8C8C8C]">RUNS FROM</div>
+          <div className="text-neutral-medium-gray">RUNS FROM</div>
           <div className="text-[16px]">
             {getRunFromTime(hackathon.startTime, hackathon.endTime)}
           </div>
         </div>
         <div>
-          <div className="text-[#8C8C8C]">HAPPENING</div>
+          <div className="text-neutral-medium-gray">HAPPENING</div>
           <div className="text-[16px]">{hackathon.address}</div>
         </div>
       </div>
       {status === HackathonStatusType.ON_GOING ? (
         <>
           <div className="h-[63px] px-[20px] rounded-[10px] bg-[rgba(255,244,206,0.5)] flex flex-col justify-center ">
-            <div className="text-[#8C8C8C]">APPLICATIONS CLOSE IN</div>
+            <div className="text-neutral-medium-gray">
+              APPLICATIONS CLOSE IN
+            </div>
             <div className="text-[16px]">{closeInTime}</div>
           </div>
           <Button
@@ -111,12 +113,12 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
       ) : (
         <>
           <div className="h-[63px] px-[20px] rounded-[10px] bg-[rgba(218,218,218,0.5)] flex flex-col justify-center ">
-            <div className="text-[#8C8C8C] text-[21px]">
+            <div className="text-neutral-medium-gray text-[21px]">
               This hackathon is not available now.
             </div>
           </div>
           <Button
-            className="w-full h-[60px] text-[18px] border border-[#0b0b0b]"
+            className="w-full h-[60px] text-[18px] border border-neutral-black"
             onClick={() => {
               BurialPoint.track(`hackathon detail View All Projects 按钮点击`);
               redirectToUrl(

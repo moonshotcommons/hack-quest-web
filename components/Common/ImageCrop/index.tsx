@@ -372,7 +372,7 @@ const ImageCrop = forwardRef<ImageCropRef, ImageCropProps>((props, ref) => {
           ) : (
             <Button
               ghost
-              className="border-[#0B0B0B] w-[265px] flex items-center justify-center  py-[12px]"
+              className="border-neutral-black w-[265px] flex items-center justify-center  py-[12px]"
             >
               Change Image
             </Button>
@@ -423,8 +423,8 @@ const ImageCrop = forwardRef<ImageCropRef, ImageCropProps>((props, ref) => {
       }
       markBg="black"
     >
-      <div className="w-[800px] bg-white rounded-[10px] pt-[30px] pb-[40px]">
-        <div className="font-next-book text-[28px] text-black leading-[125%] tracking-[0.64px] px-[30px] pb-[40px]">
+      <div className="w-[800px] bg-neutral-white rounded-[10px] pt-[30px] pb-[40px]">
+        <div className="font-next-book text-[28px] text-neutral-black leading-[125%] tracking-[0.64px] px-[30px] pb-[40px]">
           {title}
         </div>
         <EasyCrop
@@ -443,7 +443,7 @@ const ImageCrop = forwardRef<ImageCropRef, ImageCropProps>((props, ref) => {
           showGrid={showGrid}
           cropperProps={cropperProps}
         />
-        <div className="flex gap-x-[15px] font-next-book text-[16px] leading-[125%] tracking-[0.32px] text-[#0B0B0B] justify-center mt-[30px]">
+        <div className="flex gap-x-[15px] font-next-book text-[16px] leading-[125%] tracking-[0.32px] text-neutral-black justify-center mt-[30px]">
           {getNewUpload(children)}
           <Button
             className="w-[265px] flex items-center justify-center py-[12px]"

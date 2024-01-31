@@ -54,15 +54,17 @@ const Sidebar: FC<SidebarProps> = ({ lesson }) => {
       >
         <span
           className={cn(
-            'text-[#3E3E3E] text-[14px] font-next-book leading-[125%] tracking-[0.28px] pr-4',
-            item.id === lesson.id ? 'font-next-book-bold text-[#212121]' : '',
+            'text-[14px] font-next-book leading-[125%] tracking-[0.28px] pr-4',
+            item.id === lesson.id
+              ? 'font-next-book-bold text-neutral-dark-gray'
+              : '',
             [CompleteStateType.COMPLETED, CompleteStateType.LEARNING].includes(
               state
             ) && item.id !== lesson.id
               ? 'cursor-pointer'
               : '',
             state === CompleteStateType.NOT_STARTED
-              ? 'text-[#8C8C8C] cursor-not-allowed'
+              ? 'text-neutral-medium-gray cursor-not-allowed'
               : ''
           )}
         >{`${index + 1 < 10 ? '0' + (index + 1) : index + 1} ${

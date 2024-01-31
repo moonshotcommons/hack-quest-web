@@ -225,8 +225,8 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
             text-[1.125rem]
             border
             bg-transparent
-            text-white hover:text-auth-ghost-button-text-hover-color
-            border-white hover:border-auth-ghost-button-border-hover-color
+            text-neutral-white hover:text-auth-ghost-button-text-hover-color
+            border-neutral-white hover:border-auth-ghost-button-border-hover-color
           "
         >
           Back
@@ -241,7 +241,7 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
         icon={<RightArrowIcon></RightArrowIcon>}
         iconPosition="right"
         className="
-          py-4 uppercase button-text-m font-Nunito
+          py-4 uppercase button-text-m
           bg-auth-primary-button-bg hover:bg-auth-primary-button-hover-bg
           text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
           border-auth-primary-button-border-color hover:border-auth-primary-button-border-hover-color

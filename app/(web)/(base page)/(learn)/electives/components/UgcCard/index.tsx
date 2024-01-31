@@ -14,7 +14,7 @@ const UgcCard: FC<UgcCardProps> = ({ course }) => {
         jumpLearningLesson(course);
       }}
     >
-      <div className="w-[6.25rem] h-20 text-black bg-gray-500">
+      <div className="w-[6.25rem] h-20 text-neutral-black bg-gray-500">
         {course.title}
       </div>
       <p>UGC卡片</p>

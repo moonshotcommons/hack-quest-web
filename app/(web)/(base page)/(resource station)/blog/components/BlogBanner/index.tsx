@@ -101,13 +101,13 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
             decentralized tech.
           </p>
         </div>
-        <div className="w-full h-[60px] px-[30px] rounded-[100px] bg-[#3E3E3E] flex items-center justify-between">
+        <div className="w-full h-[60px] px-[30px] rounded-[100px] bg-neutral-rich-gray flex items-center justify-between">
           {!inputVisible && (
             <div className="flex items-center gap-[30px]">
               <div
                 tabIndex={0}
                 className={`cursor-pointer relative px-[20px] py-[6px] rounded-[100px] ${
-                  sortVisible ? 'bg-[#f4f4f4] text-[#0b0b0b]' : ''
+                  sortVisible ? 'bg-neutral-off-white text-neutral-black' : ''
                 }`}
                 onClick={() => setSortVisible(!sortVisible)}
                 onBlur={() => {
@@ -123,13 +123,15 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
                 )}
 
                 {sortVisible && (
-                  <div className="absolute bottom-[-100px] left-0 rounded-[10px] border border-[var(--neutral-medium-gray)] bg-[#fff] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] text-[#0b0b0b] text-[14px] overflow-hidden">
+                  <div className="absolute bottom-[-100px] left-0 rounded-[10px] border border-[var(--neutral-medium-gray)] bg-[#fff] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] text-neutral-black text-[14px] overflow-hidden">
                     {sortData.map((v) => (
                       <div
                         key={v.value}
                         onClick={() => changeSort(v.value)}
                         className={`h-[40px] flex items-center px-[20px] ${
-                          searchInfo.sort === v.value ? 'bg-[#F4F4F4]' : ''
+                          searchInfo.sort === v.value
+                            ? 'bg-neutral-off-white'
+                            : ''
                         }`}
                       >
                         <div className="mr-[30px] whitespace-nowrap">
@@ -153,7 +155,7 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
                       v.value !== 'empty'
                         ? `px-[20px] py-[7px] rounded-[100px] cursor-pointer relative ${
                             searchInfo.category === v.value
-                              ? 'text-[#0b0b0b]'
+                              ? 'text-neutral-black'
                               : ''
                           }`
                         : 'w-[30px] h-[41px]'

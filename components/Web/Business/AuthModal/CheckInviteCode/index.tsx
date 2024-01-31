@@ -8,7 +8,7 @@ import { useRequest } from 'ahooks';
 import { message } from 'antd';
 import { FC, useEffect, useState } from 'react';
 
-import ContractUs from '@/app/(web)/(base page)/(landing)/components/ContractUs';
+// import ContractUs from '@/app/(web)/(base page)/(landing)/components/ContractUs';
 import { LoginResponse, ThirdPartyAuthType } from '@/service/webApi/user/type';
 import { setToken } from '@/helper/user-token';
 import { omit } from 'lodash-es';
@@ -176,13 +176,13 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
           user to sign up.
         </div>
 
-        <div className="text-white">
+        <div className="text-neutral-white">
           <Input
             label="Invite Code"
             type="text"
             name="invite code"
             placeholder="Enter your invite code"
-            className="bg-[#212121] text-white"
+            className="bg-[#212121] text-neutral-white"
             // description="Use 8 or more characters with a mix of letters & numbers"
             state={formState.inviteCode.status as any}
             errorMessage={formState.inviteCode.errorMessage}
@@ -297,24 +297,24 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
           text-[1.125rem]
           border
           bg-transparent
-          text-white hover:text-auth-ghost-button-text-hover-color
-          border-white hover:border-auth-ghost-button-border-hover-color`,
+          text-neutral-white hover:text-auth-ghost-button-text-hover-color
+          border-neutral-white hover:border-auth-ghost-button-border-hover-color`,
             skipInviteCodeLoading ? 'cursor-not-allowed opacity-70' : ''
           )}
         >
           Skip
         </Button>
         <div className="py-[12px] flex justify-between items-center">
-          <div className="h-[1px] w-[20.5%] bg-white"></div>
+          <div className="h-[1px] w-[20.5%] bg-neutral-white"></div>
           <span className="text-[#FFF] text-[14px] font-next-book tracking-[0.28px]">
             Don’t have an invite code?
           </span>
-          <div className="h-[1px] w-[20.5%] bg-white"></div>
+          <div className="h-[1px] w-[20.5%] bg-neutral-white"></div>
         </div>
         <p className="text-[#FFF] text-[14px] font-next-book leading-[160%] tracking-[0.28px] text-center">
           Follow HackQuest on social media for latest updates:
         </p>
-        <ContractUs className="gap-[30px] justify-center"></ContractUs>
+        {/* <ContractUs className="gap-[30px] justify-center"></ContractUs> */}
       </div>
       {/* <WhiteListModal
         open={showWhiteListModal}

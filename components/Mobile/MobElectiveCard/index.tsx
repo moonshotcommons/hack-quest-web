@@ -49,7 +49,7 @@ const MobElectiveCard: FC<ElectiveCardProps> = (props) => {
     <>
       <div
         className={cn(
-          'flex flex-col gap-[1rem] p-[1rem] rounded-[1rem] w-full bg-white relative cursor-pointer overflow-hidden'
+          'flex flex-col gap-[1rem] p-[1rem] rounded-[1rem] w-full bg-neutral-white relative cursor-pointer overflow-hidden'
         )}
         onClick={() => {
           BurialPoint.track('home-course卡片点击', { courseName: course.name });

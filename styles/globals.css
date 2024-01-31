@@ -2,7 +2,6 @@
 @import url('./font.css');
 @import url('./variable.css');
 @import url('./antd.css');
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;0,1000;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900;1,1000&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -16,118 +15,118 @@
   } */
   body {
     /* background: red; */
-    @apply bg-[#0b0b0b];
+    @apply bg-neutral-black;
   }
   a:hover {
     scroll-behavior: auto !important;
   }
 
   .text-h1 {
-    @apply font-extrabold text-[54px] leading-[54px] tracking-normal;
+    @apply font-next-book-bold font-extrabold text-[54px] leading-[54px] tracking-normal;
   }
   .text-h2 {
-    @apply font-extrabold text-[40px] leading-[40px] tracking-normal;
+    @apply font-next-book-bold font-extrabold text-[40px] leading-[40px] tracking-normal;
   }
   .text-h3 {
-    @apply font-extrabold text-[28px] leading-normal tracking-normal;
+    @apply font-next-book-bold font-extrabold text-[28px] leading-normal tracking-normal;
   }
   .text-h4 {
-    @apply font-extrabold text-[18px] leading-normal tracking-normal;
+    @apply font-next-book-bold font-extrabold text-[18px] leading-normal tracking-normal;
   }
   .text-h5 {
-    @apply font-extrabold text-[16px] leading-normal tracking-normal;
+    @apply font-next-book-bold font-extrabold text-[16px] leading-normal tracking-normal;
   }
 
   .text-h1-mob {
-    @apply font-extrabold text-[30px] leading-[30px] tracking-normal;
+    @apply font-next-book-bold font-extrabold text-[30px] leading-[30px] tracking-normal;
   }
   .text-h2-mob {
-    @apply font-extrabold  text-[22px] leading-normal tracking-normal;
+    @apply font-next-book-bold font-extrabold text-[22px] leading-normal tracking-normal;
   }
   .text-h3-mob {
-    @apply font-extrabold text-[18px] leading-normal tracking-normal;
+    @apply font-next-book-bold font-extrabold text-[18px] leading-normal tracking-normal;
   }
   .text-h4-mob {
-    @apply font-extrabold text-[16px] leading-normal tracking-normal;
+    @apply font-next-book-bold font-extrabold text-[16px] leading-normal tracking-normal;
   }
   .text-h5-mob {
-    @apply font-extrabold text-[14px] leading-normal tracking-normal;
+    @apply font-next-book-bold font-extrabold text-[14px] leading-normal tracking-normal;
   }
 
   .body-xl {
-    @apply font-normal text-[24px] leading-normal;
+    @apply font-Nunito font-normal text-[24px] leading-normal;
   }
 
   .body-xl-bold {
-    @apply font-semibold text-[24px] leading-normal;
+    @apply font-Nunito font-semibold text-[24px] leading-normal;
   }
 
   .body-l {
-    @apply font-normal text-[18px] leading-[160%] tracking-normal;
+    @apply font-Nunito font-normal text-[18px] leading-[160%] tracking-normal;
   }
 
   .body-l-bold {
-    @apply font-semibold text-[18px] leading-[160%] tracking-normal;
+    @apply font-Nunito font-semibold text-[18px] leading-[160%] tracking-normal;
   }
 
   .body-m {
-    @apply font-normal text-[16px] leading-[160%] tracking-normal;
+    @apply font-Nunito font-normal text-[16px] leading-[160%] tracking-normal;
   }
 
   .body-m-bold {
-    @apply font-bold text-[16px] leading-[160%] tracking-normal;
+    @apply font-Nunito font-bold text-[16px] leading-[160%] tracking-normal;
   }
 
   .body-s {
-    @apply font-normal text-[14px] leading-[160%] tracking-normal;
+    @apply font-Nunito font-normal text-[14px] leading-[160%] tracking-normal;
   }
 
   .body-s-bold {
-    @apply font-bold text-[14px] leading-[160%] tracking-normal;
+    @apply font-Nunito font-bold text-[14px] leading-[160%] tracking-normal;
   }
 
   .body-xs {
-    @apply font-normal text-[12px] leading-[160%] tracking-normal;
+    @apply font-Nunito font-normal text-[12px] leading-[160%] tracking-normal;
   }
 
   .body-xs-bold {
-    @apply font-bold text-[12px] leading-[160%] tracking-normal;
+    @apply font-Nunito font-bold text-[12px] leading-[160%] tracking-normal;
   }
 
   .body-xs {
-    @apply font-normal text-[12px] leading-[160%] tracking-normal;
+    @apply font-Nunito font-normal text-[12px] leading-[160%] tracking-normal;
   }
 
   .body-xs-bold {
-    @apply font-bold text-[12px] leading-[160%] tracking-normal;
+    @apply font-Nunito font-bold text-[12px] leading-[160%] tracking-normal;
   }
 
   .caption-16pt {
-    @apply font-normal leading-normal text-[16px];
+    @apply font-Nunito font-normal leading-normal text-[16px];
   }
 
   .caption-14pt {
-    @apply font-normal leading-normal text-[14px];
+    @apply font-Nunito font-normal leading-normal text-[14px];
   }
 
   .caption-12pt {
-    @apply font-light leading-normal text-[12px];
+    @apply font-Nunito font-light leading-normal text-[12px];
   }
 
   .caption-10pt {
-    @apply font-normal leading-normal text-[10px];
+    @apply font-Nunito font-normal leading-normal text-[10px];
   }
 
   .button-text-l {
-    @apply text-[18px] leading-normal tracking-normal font-medium;
+    @apply font-Nunito text-[18px] leading-normal tracking-normal font-medium;
   }
 
   .button-text-m {
-    @apply text-[14px] leading-normal tracking-normal font-medium;
+    @apply font-Nunito text-[14px] leading-normal tracking-normal font-medium;
   }
 
   .button-text-s {
-    @apply text-[12px] leading-normal tracking-normal font-medium;
+    @apply font-Nunito text-[12px] leading-normal tracking-normal font-medium;
   }
 
   .code-l {
@@ -141,13 +140,13 @@
   }
 
   .underline-l {
-    @apply text-[18px] leading-normal tracking-normal underline;
+    @apply font-Nunito text-[18px] leading-normal tracking-normal underline;
   }
   .underline-m {
-    @apply text-[16px] leading-normal tracking-normal underline;
+    @apply font-Nunito text-[16px] leading-normal tracking-normal underline;
   }
   .underline-s {
-    @apply text-[14px] leading-normal tracking-normal underline;
+    @apply font-Nunito text-[14px] leading-normal tracking-normal underline;
   }
 }
 

@@ -29,7 +29,7 @@ const MobCourseListPageHeader: FC<CourseListPageHeaderProps> = ({
     <div className="pb-[5.625rem] min-h-[18rem] px-[1.25rem] bg-yellow-primary">
       <div className="pt-[7.5rem]">
         <h2 className="text-h1-mob text-neutral-black uppercase">{title}</h2>
-        <div className="py-2 px-3 border mt-[1.25rem] w-full rounded-[3.5rem] border-[#DADADA] bg-white flex gap-3 items-center">
+        <div className="py-2 px-3 border mt-[1.25rem] w-full rounded-[3.5rem] border-neutral-light-gray bg-neutral-white flex gap-3 items-center">
           <span>
             <FiSearch size={20} />
           </span>

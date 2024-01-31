@@ -122,7 +122,7 @@ const EmailVerify: FC<EmailVerifyProps> = (props) => {
           {/* <p>
             <span>folder or</span>
             <Link
-              className="text-white font-next-book -tracking-[0.154px] text-left mt-1 cursor-pointer underline ml-1"
+              className="text-neutral-white font-next-book -tracking-[0.154px] text-left mt-1 cursor-pointer underline ml-1"
               href={'mailto:founder@hackquest.io'}
               target="_blank"
             >

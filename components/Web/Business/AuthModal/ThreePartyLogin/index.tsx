@@ -62,7 +62,7 @@ function ThreePartyLogin() {
         </Button>
         {/* <div
           onClick={() => loginThreeParty(ThirdPartyAuthType.GITHUB)}
-          className="cursor-pointer w-[48px] h-[48px] border flex items-center justify-center rounded-[10px] border-[#8C8C8C] bg-[#0B0B0B]"
+          className="cursor-pointer w-[48px] h-[48px] border flex items-center justify-center rounded-[10px] border-neutral-medium-gray bg-neutral-black"
         >
           <Image src={Github} width={24} height={24} alt="Github"></Image>
         </div> */}

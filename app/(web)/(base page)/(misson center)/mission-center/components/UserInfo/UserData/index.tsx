@@ -24,8 +24,8 @@ const UserData: React.FC<UserDataType> = ({
     <>
       <div className="relative  mx-[auto] flex-center w-[150px] h-[150px] ">
         <div className="absolute w-[70px] right-[-73px] top-[12px] text-center">
-          <span className="text-[#000]">{`${userLevel.expCurrentLevel}`}</span>
-          <span className="text-[#8C8C8C]">{`/${userLevel.expNextLevel}`}</span>
+          <span className="text-neutral-black">{`${userLevel.expCurrentLevel}`}</span>
+          <span className="text-neutral-medium-gray">{`/${userLevel.expNextLevel}`}</span>
         </div>
         <Image
           src={BrokenLine}
@@ -54,14 +54,12 @@ const UserData: React.FC<UserDataType> = ({
       <div className="flex-col-center mt-[20px] mb-[40px]">
         <p className="leading-[22.5px]">
           <span className="text-[18px] ">{userInfo?.nickname}</span>
-          <span className="ml-[15px] text-[16px] font-[250] font-next-book-Thin">
-            Lv. {userLevel?.level ?? 0}
-          </span>
+          <span className="ml-[15px] body-m">Lv. {userLevel?.level ?? 0}</span>
         </p>
       </div>
 
-      <div className="text-[#000] flex w-full justify-between mb-5 h-[114px]">
-        <div className=" pt-[20px] pb-[16px] h-full w-[155px] flex-col-center justify-between rounded-[10px] border border-[#8C8C8C] bg-[#fff]">
+      <div className="text-neutral-black flex w-full justify-between mb-5 h-[114px]">
+        <div className=" pt-[20px] pb-[16px] h-full w-[155px] flex-col-center justify-between rounded-[10px] border border-neutral-medium-gray bg-[#fff]">
           <p>Total XP</p>
           <div className="text-[28px] pt-1  flex-row-center">
             <Image
@@ -76,7 +74,7 @@ const UserData: React.FC<UserDataType> = ({
           </div>
         </div>
 
-        <div className=" pt-[20px] pb-[16px] h-full  w-[155px] flex-col-center justify-between rounded-[10px] border border-[#8C8C8C] bg-[#fff]">
+        <div className=" pt-[20px] pb-[16px] h-full  w-[155px] flex-col-center justify-between rounded-[10px] border border-neutral-medium-gray bg-[#fff]">
           <p>Total Hack Credits</p>
           <div className="text-[28px] pt-1  flex-row-center">
             <Image

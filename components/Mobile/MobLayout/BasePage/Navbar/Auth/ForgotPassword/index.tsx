@@ -95,12 +95,10 @@ const ForgotPassword: FC<ForgotPasswordProps> = (props) => {
           Forgot your password?
         </h3>
         <div className="flex flex-col gap-1">
-          <p className="body-m font-Nunito text-neutral-medium-gray">
+          <p className="body-m text-neutral-medium-gray">
             We will send you a link to your email to reset password.
           </p>
-          <p className="text-neutral-rich-gray underline-m font-Nunito">
-            {formData.email}
-          </p>
+          <p className="text-neutral-rich-gray underline-m">{formData.email}</p>
         </div>
       </div>
       <div className="flex flex-col gap-4 mt-[4rem] w-full">
@@ -111,7 +109,7 @@ const ForgotPassword: FC<ForgotPasswordProps> = (props) => {
           loading={loading}
           disabled={loading}
           className="
-          py-4 uppercase button-text-m font-Nunito 
+          py-4 uppercase button-text-m 
           bg-auth-primary-button-bg hover:bg-auth-primary-button-hover-bg
           text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
           border-auth-primary-button-border-color hover:border-auth-primary-button-border-hover-color
@@ -127,7 +125,7 @@ const ForgotPassword: FC<ForgotPasswordProps> = (props) => {
           ghost
           block
           className="
-          py-4 uppercase button-text-m font-Nunito  border-neutral-off-black
+          py-4 uppercase button-text-m  border-neutral-off-black
     "
         >
           Back

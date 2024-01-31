@@ -48,7 +48,7 @@ const List: React.FC<ListProp> = ({ onClose, handleEdit, list }) => {
     <div className="">
       <div
         onClick={() => handleEdit()}
-        className="h-[63px] rounded-[10px] border-[0.5px] border-dashed border-[#8C8C8C] text-[#8c8c8c] flex items-center justify-center gap-[5px] cursor-pointer"
+        className="h-[63px] rounded-[10px] border-[0.5px] border-dashed border-neutral-medium-gray text-neutral-medium-gray flex items-center justify-center gap-[5px] cursor-pointer"
       >
         <IoIosAddCircle size={24} />
         <span>Add new experience</span>
@@ -60,7 +60,7 @@ const List: React.FC<ListProp> = ({ onClose, handleEdit, list }) => {
               key={i}
               className="border-b-[0.5px] border-b-[#000] py-[20px] flex"
             >
-              <div className="w-[270px] font-next-book text-[17px] text-[#8C8C8C]">
+              <div className="w-[270px] font-next-book text-[17px] text-neutral-medium-gray">
                 <p>
                   {dealDate(v.startDate)} -{' '}
                   {v.endDate ? dealDate(v.endDate) : 'Present'} ·{' '}
@@ -68,7 +68,7 @@ const List: React.FC<ListProp> = ({ onClose, handleEdit, list }) => {
                 </p>
                 <p>{v.location}</p>
               </div>
-              <div className="flex-1 text-[#000] ml-[35px] mr-[20px]">
+              <div className="flex-1 text-neutral-black ml-[35px] mr-[20px]">
                 <div className="w-full break-all">
                   <span className="text-[21px] font-next-poster-Bold">
                     {v.title}
@@ -81,7 +81,7 @@ const List: React.FC<ListProp> = ({ onClose, handleEdit, list }) => {
                 <div>
                   {v.descriptions.map((d, j) => (
                     <div className="flex items-start" key={j}>
-                      <span className="w-[5px] h-[5px] rounded-[50%] bg-[#000] relative top-[11px] mr-[7px]"></span>
+                      <span className="w-[5px] h-[5px] rounded-[50%] bg-neutral-black relative top-[11px] mr-[7px]"></span>
                       <span className="break-all flex-1 leading-[26px]">
                         {d}
                       </span>
@@ -108,7 +108,7 @@ const List: React.FC<ListProp> = ({ onClose, handleEdit, list }) => {
       <div className="flex justify-center gap-[15px]">
         <Button
           onClick={onClose}
-          className="w-[265px] h-[44px] border border-[#0b0b0b]  text-[#0b0b0b] text-[16px]"
+          className="w-[265px] h-[44px] border border-neutral-black  text-neutral-black body-m"
         >
           Close
         </Button>

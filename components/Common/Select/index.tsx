@@ -111,9 +111,9 @@ const Select = forwardRef<
           readOnly
           placeholder={placeholder}
           className={cn(
-            `w-full border cursor-pointer border-solid border-[#212121] outline-none px-[25px] py-[15px] rounded-[2.5rem] text-[14px] font-next-book leading-[118.5%] caret-[#ffffff] hover:border-[#212121] focus:border-[#212121]`,
+            `w-full border cursor-pointer border-solid border-neutral-dark-gray outline-none px-[25px] py-[15px] rounded-[2.5rem] text-[14px] font-next-book leading-[118.5%] caret-[#ffffff] hover:border-neutral-dark-gray focus:border-neutral-dark-gray`,
             // type === 'password' &&
-            //   'border-auth-password-input-bg focus:border-[#212121]',
+            //   'border-auth-password-input-bg focus:border-neutral-dark-gray',
             status === 'success'
               ? 'border-auth-input-success-color focus:border-auth-input-success-color'
               : '',
@@ -127,7 +127,7 @@ const Select = forwardRef<
 
         <span className="absolute right-[1.4375rem] top-[50%] -translate-y-[50%] flex gap-4 items-center">
           {status === 'default' && (
-            <AiFillCaretDown className=" text-[#8c8c8c] text-[20px]" />
+            <AiFillCaretDown className=" text-neutral-medium-gray text-[20px]" />
           )}
           {status === 'error' && (
             <span
@@ -150,7 +150,7 @@ const Select = forwardRef<
         </span>
       </div>
       {visibleOption && (
-        <div className="absolute w-full top-[37px] z-[1000] text-[21px] text-[#] bg-[#fff] left-0 border border-[#212121] rounded-[24px] pb-[5px] font-next-book overflow-hidden">
+        <div className="absolute w-full top-[37px] z-[1000] text-[21px] text-[#] bg-[#fff] left-0 border border-neutral-dark-gray rounded-[24px] pb-[5px] font-next-book overflow-hidden">
           <div
             className="flex items-center justify-between mx-[20px] h-[48px] border-b border-b-[#8C8C8C] cursor-pointer"
             onClick={() => {
@@ -158,14 +158,14 @@ const Select = forwardRef<
             }}
           >
             <span>{selectLabel}</span>
-            <AiFillCaretDown className=" text-[#8c8c8c] text-[20px] rotate-180" />
+            <AiFillCaretDown className=" text-neutral-medium-gray text-[20px] rotate-180" />
           </div>
           <ul className="w-full max-h-[250px] overflow-auto">
             {options.map((v: OptionType) => (
               <li
                 key={v.value}
                 className={`leading-[34px] px-[20px] flex items-center justify-between mt-[5px] cursor-pointer ${
-                  value === v.value ? 'bg-[#F4F4F4]' : ''
+                  value === v.value ? 'bg-neutral-off-white' : ''
                 }`}
                 onClick={() => {
                   setValue(v.value);
@@ -177,7 +177,7 @@ const Select = forwardRef<
               >
                 <span>{v.label}</span>
                 {value === v.value && (
-                  <FiCheck className="text-[#3E3E3E] text-[14px]" />
+                  <FiCheck className="text-neutral-rich-gray text-[14px]" />
                 )}
               </li>
             ))}

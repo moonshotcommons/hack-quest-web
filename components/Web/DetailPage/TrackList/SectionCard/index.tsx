@@ -50,7 +50,7 @@ const renderColorTag = (type: CourseType) => {
     case CourseType.TEASER:
     default:
       return (
-        <div className="w-[0.25rem] left-0 h-[26px] rounded-xl bg-[#8C8C8C]"></div>
+        <div className="w-[0.25rem] left-0 h-[26px] rounded-xl bg-neutral-medium-gray"></div>
       );
   }
 };
@@ -101,7 +101,7 @@ function SectionList(props: {
               className="
               w-[165px] py-[11px] leading-[125%] hover:-translate-y-[1px] hover:shadow-[rgba(0,0,0,0.15)_1.95px_1.95px_2.6px] transition border border-solid
               bg-course-learning-button-bg border-course-learning-button-border-color rounded-[32px] whitespace-nowrap
-              text-sm text-[#0B0B0B] font-next-book text-[16px] cursor-pointer"
+              text-sm text-neutral-black font-next-book text-[16px] cursor-pointer"
               onClick={(e) => {
                 e.stopPropagation();
                 BurialPoint.track('learningTrackDetail-course学习按钮', {
@@ -142,7 +142,7 @@ function SectionList(props: {
           >
             <div className="text-learning-track-progress-text-color w-[40px] h-[40px]">
               {!enrolled && (
-                <div className="w-full h-full relative border border-black rounded-full text-[24px] font-next-poster">
+                <div className="w-full h-full relative border border-neutral-black rounded-full text-[24px] font-next-poster">
                   <span className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2">
                     {index + 1}
                   </span>
@@ -170,7 +170,7 @@ function SectionList(props: {
 
             <div className="flex ml-[10%] gap-[10px] items-center ">
               {renderColorTag(item.type)}
-              <span className="inline-flex text-[16px]  text-black opacity-60 tracking-[0.32px] font-next-book leading-[160%] min-w-[120px]">
+              <span className="inline-flex text-[16px]  text-neutral-black opacity-60 tracking-[0.32px] font-next-book leading-[160%] min-w-[120px]">
                 {tagFormate(item.type)}
               </span>
             </div>
@@ -249,7 +249,7 @@ const SectionCard: FC<SectionCardProps> = (props) => {
     >
       <div className="w-[55px] h-[55px]">
         {!enrolled && (
-          <div className="w-full h-full relative border border-black rounded-full text-[24px] font-next-poster">
+          <div className="w-full h-full relative border border-neutral-black rounded-full text-[24px] font-next-poster">
             <span className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2">
               {sectionIndex + 1}
             </span>

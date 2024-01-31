@@ -45,7 +45,7 @@ const ConnectedUs: FC<ConnectedUsProps> = (props) => {
         <Link href={'https://xsxo494365r.typeform.com/to/p5cEH74M'}>
           <Button
             type="primary"
-            className="px-6 py-4 text-neutral-black uppercase button-text-m font-Nunito"
+            className="px-6 py-4 text-neutral-black uppercase button-text-m"
           >
             collab with us
           </Button>

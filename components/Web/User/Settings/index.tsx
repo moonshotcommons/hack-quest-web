@@ -32,7 +32,9 @@ const Settings: FC<SettingsProps> = (props) => {
         showCloseIcon={true}
       >
         <div className="relative w-[800px] p-[30px] rounded-[10px] body-l text-neutral-medium-gray bg-neutral-white shadow-[0_4px_8px_0_rgba(0,0,0,0.12)] z-[99]">
-          <div className="text-h3 text-[#000] mb-[30px]">Change Password</div>
+          <div className="text-h3 text-neutral-black mb-[30px]">
+            Change Password
+          </div>
           {!changeSeccessVisible && (
             <ChangePassword
               onClose={() => setSettingsOpen(false)}

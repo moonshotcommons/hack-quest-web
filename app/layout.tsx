@@ -1,13 +1,27 @@
-import { Inter } from 'next/font/google';
 import type { Metadata } from 'next';
+
 import '@/styles/globals.css';
-const inter = Inter({ subsets: ['latin'] });
 import InitializeUserProvider from '@/components/Provider/InitializeUser';
 
 import ThemeContextProvider from '@/store/context/theme';
 import Script from 'next/script';
 import ConfigProvider from '@/components/Provider/Config';
 import AuthModal from '@/components/Web/Business/AuthModal';
+
+import { Nunito, Space_Mono } from 'next/font/google';
+
+const nunito = Nunito({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-nunito'
+});
+
+const space_mono = Space_Mono({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  display: 'swap',
+  variable: '--font-space-mono'
+});
 
 export const metadata: Metadata = {
   title: 'HackQuest',
@@ -28,8 +42,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className}`}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${nunito.variable} ${space_mono.variable}`}
+    >
+      <body className={`${nunito.className}`}>
         <ThemeContextProvider>
           {/* <MobileRedirect> */}
           <ConfigProvider>

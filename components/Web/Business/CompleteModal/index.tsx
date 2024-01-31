@@ -100,13 +100,13 @@ const CompleteModal = forwardRef<CompleteModalInstance, CompleteModalProps>(
           )}
           {type === 'claim' && (
             <div className="w-full flex flex-col items-center">
-              <p className="w-[297px] font-next-book leading-[125%] tracking-[0.32px] text-center mt-[10px] text-[#3E3E3E]">
+              <p className="w-[297px] font-next-book leading-[125%] tracking-[0.32px] text-center mt-[10px] text-neutral-rich-gray">
                 You have completed this learning track. Continue to claim your
                 Badge.
               </p>
               <Button
                 type="primary"
-                className="mt-[30px] w-[260px] px-0 py-[11px] flex justify-center items-center font-next-book leading-[125%] tracking-[0.32px] text-[#0B0B0B]"
+                className="mt-[30px] w-[260px] px-0 py-[11px] flex justify-center items-center font-next-book leading-[125%] tracking-[0.32px] text-neutral-black"
               >
                 Claim Certificate
               </Button>

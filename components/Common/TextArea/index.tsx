@@ -127,9 +127,9 @@ const TextArea = forwardRef<
           placeholder={placeholder}
           rows={row}
           className={cn(
-            `w-full border border-solid min-h-[150px] max-h-[300px] border-[#212121] outline-none px-[25px] py-[15px] rounded-[24px] text-[14px] font-next-book leading-[118.5%]  hover:border-[#212121] focus:border-[#212121]`,
+            `w-full border border-solid min-h-[150px] max-h-[300px] border-neutral-dark-gray outline-none px-[25px] py-[15px] rounded-[24px] text-[14px] font-next-book leading-[118.5%]  hover:border-neutral-dark-gray focus:border-neutral-dark-gray`,
             // type === 'password' &&
-            //   'border-auth-password-input-bg focus:border-[#212121]',
+            //   'border-auth-password-input-bg focus:border-neutral-dark-gray',
             status === 'success'
               ? 'border-auth-input-success-color focus:border-auth-input-success-color'
               : '',

@@ -35,7 +35,7 @@ const MiniElectiveCard: React.FC<MiniElectiveCardProp> = ({ elective }) => {
   return (
     <>
       <div
-        className="cursor-pointer overflow-hidden flex h-[336px] bg-[#fff] font-next-book text-[#0b0b0b] rounded-[10px] hover:-translate-y-1 transition-all duration-300 shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)]"
+        className="cursor-pointer overflow-hidden flex h-[336px] bg-[#fff] font-next-book text-neutral-black rounded-[10px] hover:-translate-y-1 transition-all duration-300 shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)]"
         onClick={() => handleClick()}
       >
         <div className="w-[597px] h-full relative">

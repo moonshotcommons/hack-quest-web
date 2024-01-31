@@ -110,7 +110,7 @@ const TreasureModal = forwardRef<TreasureModalRef, TreasureModalProp>(
                       openTreasures(treasureId);
                     }}
                     className={`w-[400px] text-[18px]  h-[55px] bg-auth-primary-button-bg
-                      border-auth-primary-button-border-color p-0 text-[#0b0b0b] hover:border-auth-primary-button-border-hover-color
+                      border-auth-primary-button-border-color p-0 text-neutral-black hover:border-auth-primary-button-border-hover-color
                       hover:text-auth-primary-button-text-hover-color
                       hover:bg-auth-primary-button-hover-bg  mb-[25px] tracking-[0.36px] `}
                   >
@@ -133,13 +133,13 @@ const TreasureModal = forwardRef<TreasureModalRef, TreasureModalProp>(
                   <div className="flex justify-center gap-[30px] my-[30px]">
                     <div>
                       <Image src={IconCoin} width={60} alt="iconCredits" />
-                      <p className="w-[60px] h-[30px] rounded-[20px] bg-[#3E3E3E] flex-center mt-[10px]">
+                      <p className="w-[60px] h-[30px] rounded-[20px] bg-neutral-rich-gray flex-center mt-[10px]">
                         {treasureContent.treasureCoin}
                       </p>
                     </div>
                     <div>
                       <Image src={IconXp} width={60} alt="iconXp" />
-                      <p className="w-[60px] h-[30px] rounded-[20px] bg-[#3E3E3E] flex-center mt-[10px]">
+                      <p className="w-[60px] h-[30px] rounded-[20px] bg-neutral-rich-gray flex-center mt-[10px]">
                         {treasureContent.treasureXp}
                       </p>
                     </div>

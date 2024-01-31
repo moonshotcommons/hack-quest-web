@@ -70,7 +70,7 @@ const CourseDetailHeader: FC<CourseDetailHeaderProps> = (props) => {
           )}
           {/* 进度条 */}
           {learningStatus === LearningStatus.COMPLETED && (
-            <div className="mt-[58px] text-[#0B0B0B] font-next-book text-[21px] tracking-[0.42px] leading-[160%]">
+            <div className="mt-[58px] text-neutral-black font-next-book text-[21px] tracking-[0.42px] leading-[160%]">
               {`You’ve finished this ${tagFormate(courseDetail.type)}.`}
             </div>
           )}
@@ -80,7 +80,7 @@ const CourseDetailHeader: FC<CourseDetailHeaderProps> = (props) => {
               <Button
                 loading={startLoading}
                 disabled={startLoading}
-                className="px-0 w-[270px] py-[16px] leading-[125%] text-[#000] font-next-book text-[18px] tracking-[0.36px]"
+                className="px-0 w-[270px] py-[16px] leading-[125%] text-neutral-black font-next-book text-[18px] tracking-[0.36px]"
                 type="primary"
                 onClick={onStartCallback}
               >
@@ -93,7 +93,7 @@ const CourseDetailHeader: FC<CourseDetailHeaderProps> = (props) => {
 
         {/* 中间竖线 */}
         {learningStatus === LearningStatus.IN_PROGRESS && (
-          <div className="h-[185px] w-[1px] scale-x-50 bg-[#000] mt-[29px]">
+          <div className="h-[185px] w-[1px] scale-x-50 bg-neutral-black mt-[29px]">
             &nbsp;
           </div>
         )}

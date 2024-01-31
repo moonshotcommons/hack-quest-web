@@ -190,7 +190,7 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
             fill="white"
           />
         </svg>
-        <span className="text-[14px] font-next-book leading-[118.5%] text-[#8C8C8C]">
+        <span className="text-[14px] font-next-book leading-[118.5%] text-neutral-medium-gray">
           Add attachments to your report (optional){' '}
         </span>
       </div>
@@ -233,14 +233,14 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
         }
         markBg="black"
       >
-        <div className="w-[1000px] bg-[#F4F4F4] rounded-[10px] pt-10 px-[200px] pb-[76px]">
-          <h1 className="font-next-book text-[32px] text-black leading-[125%] tracking-[0.64px]">
+        <div className="w-[1000px] bg-neutral-off-white rounded-[10px] pt-10 px-[200px] pb-[76px]">
+          <h1 className="font-next-book text-[32px] text-neutral-black leading-[125%] tracking-[0.64px]">
             Found a bug? Claim rewards!
           </h1>
-          <p className="mt-[10px] font-next-book text-[14px] text-black leading-[160%] -tracking-[0.154px]">
+          <p className="mt-[10px] font-next-book text-[14px] text-neutral-black leading-[160%] -tracking-[0.154px]">
             {`HackQuest is currently in beta, and your feedback is crucial. If you come across any bug or error while learning, report it to us. Once verified,  we'll reward you with XP and hack credits. Join us in delivering a better experience! 🐞🚀`}
           </p>
-          <p className="font-next-book text-base leading-[125%] tracking-[0.32px] text-black mt-[30px]">
+          <p className="font-next-book text-base leading-[125%] tracking-[0.32px] text-neutral-black mt-[30px]">
             What kind of bugs have you found?
           </p>
           <Form ref={formRef} name="control-hooks">
@@ -250,9 +250,9 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
                   <Button
                     key={index}
                     className={cn(
-                      `px-[14px] py-[3px] bg-[#DADADA] text-[12px] font-next-book text-[#8C8C8C] rounded-[10px]`,
+                      `px-[14px] py-[3px] bg-[#DADADA] text-[12px] font-next-book text-neutral-medium-gray rounded-[10px]`,
                       selectKinds.includes(kind)
-                        ? 'bg-yellow-primary text-[#0B0B0B]'
+                        ? 'bg-yellow-primary text-neutral-black'
                         : ''
                     )}
                     onClick={() => {
@@ -299,7 +299,7 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
             >
               <Input.TextArea
                 placeholder="Describe the bugs you found..."
-                className="font-next-book text-[#0B0B0B] text-[14px] leading-[118.5%] p-5"
+                className="font-next-book text-neutral-black text-[14px] leading-[118.5%] p-5"
                 maxLength={1500}
                 styles={{
                   textarea: {
@@ -319,7 +319,7 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
                 itemRender={(originNode, file, fileList, actions) => {
                   return (
                     <div className="w-[64px] h-[64px] relative">
-                      <div className="w-full h-full border border-[#8C8C8C] rounded-[10px] overflow-hidden">
+                      <div className="w-full h-full border border-neutral-medium-gray rounded-[10px] overflow-hidden">
                         <Image
                           alt={file.fileName}
                           src={file.thumbUrl}
@@ -387,7 +387,7 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
                 type="primary"
                 loading={loading}
                 disabled={loading}
-                className="py-[16px] text-[18px] font-next-book leading-[125%] tracking-[0.36px] text-[#0b0b0b]"
+                className="py-[16px] text-[18px] font-next-book leading-[125%] tracking-[0.36px] text-neutral-black"
                 iconPosition="right"
                 icon={
                   <svg

@@ -65,21 +65,21 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
               <div className="w-[165px] flex justify-between mt-[20px]">
                 <div>
                   <Image src={IconCoin} width={60} alt="iconCredits" />
-                  <div className="w-[60px] h-[28px] rounded-[20px] mt-[10px] flex-center bg-[#F4F4F4]">
+                  <div className="w-[60px] h-[28px] rounded-[20px] mt-[10px] flex-center bg-neutral-off-white">
                     {item.coin}
                   </div>
                 </div>
                 <div>
                   <Image src={IconXp} width={60} alt="iconXp" />
-                  <div className="w-[60px] h-[28px] rounded-[20px] mt-[10px] flex-center bg-[#F4F4F4]">
+                  <div className="w-[60px] h-[28px] rounded-[20px] mt-[10px] flex-center bg-neutral-off-white">
                     {item.exp}
                   </div>
                 </div>
               </div>
             </div>
             <Button
-              className={`w-[164px] text-[16px]  h-[44px] bg-auth-primary-button-bg
-                      border-auth-primary-button-border-color p-0 text-[#0b0b0b] ${
+              className={`w-[164px] body-m  h-[44px] bg-auth-primary-button-bg
+                      border-auth-primary-button-border-color p-0 text-neutral-black ${
                         claimed
                           ? 'cursor-not-allowed opacity-50'
                           : `hover:border-auth-primary-button-border-hover-color
@@ -112,7 +112,7 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
                         alt="iconCredits"
                         className=""
                       />
-                      <span className="text-[16px]">{`X${item.coin}`}</span>
+                      <span className="body-m">{`X${item.coin}`}</span>
                     </div>
                     <div className="flex-row-center gap-[8px] mt-[10px]">
                       <Image
@@ -121,7 +121,7 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
                         alt="iconXP"
                         className=""
                       />
-                      <span className="text-[16px]">{`X${item.exp}`}</span>
+                      <span className="body-m">{`X${item.exp}`}</span>
                     </div>
                   </div>
                 ) : (
@@ -150,7 +150,7 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
       return (
         <div
           key={i}
-          className={`border rounded-[20px]  bg-[var(--neutral-off-black)] w-[184px] h-[230px] border-[#8C8C8C]
+          className={`border rounded-[20px]  bg-[var(--neutral-off-black)] w-[184px] h-[230px] border-neutral-medium-gray
               flex-col-center justify-between pt-[30px] pb-[30px] `}
         >
           <div className="flex-col-center">
@@ -158,13 +158,13 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
             <div className="w-[104px] flex justify-between mt-[20px]">
               <div>
                 <Image src={IconCoin} width={40} alt="iconCredits" />
-                <div className="w-[40px] h-[20px] text-[12px] rounded-[20px] mt-[8px] flex-center bg-[#F4F4F4]">
+                <div className="w-[40px] h-[20px] text-[12px] rounded-[20px] mt-[8px] flex-center bg-neutral-off-white">
                   {item.coin}
                 </div>
               </div>
               <div>
                 <Image src={IconXp} width={40} alt="iconXp" />
-                <div className="w-[40px] h-[20px] text-[12px] rounded-[20px] mt-[8px] flex-center bg-[#F4F4F4]">
+                <div className="w-[40px] h-[20px] text-[12px] rounded-[20px] mt-[8px] flex-center bg-neutral-off-white">
                   {item.exp}
                 </div>
               </div>

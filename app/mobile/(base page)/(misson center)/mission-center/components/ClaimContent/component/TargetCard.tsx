@@ -108,7 +108,7 @@ const TargetCard: React.FC<TargetCardProp> = ({
       className={`h-[84px] rounded-[10px] border  mt-[15px] relative ${
         missionData.progress?.completed
           ? 'border-yellow-primary'
-          : 'border-[#8C8C8C]'
+          : 'border-neutral-medium-gray'
       }`}
     >
       <div
@@ -131,7 +131,7 @@ const TargetCard: React.FC<TargetCardProp> = ({
           </span>
         </div>
         <div className="flex-row-center gap-[40px]">
-          <div className="w-[76px] h-[40px] leading-[40px] text-[18px] border border-[#DADADA] bg-[#F4F4F4] rounded-r-[20px] relative pr-[15px] text-right">
+          <div className="w-[76px] h-[40px] leading-[40px] text-[18px] border border-neutral-light-gray bg-neutral-off-white rounded-r-[20px] relative pr-[15px] text-right">
             <Image
               src={IconCoin}
               width={40}
@@ -140,7 +140,7 @@ const TargetCard: React.FC<TargetCardProp> = ({
             ></Image>
             <span>{missionData.coin}</span>
           </div>
-          <div className="w-[76px] h-[40px] leading-[40px] text-[18px] border border-[#DADADA] bg-[#F4F4F4] rounded-r-[20px] relative pr-[15px] text-right">
+          <div className="w-[76px] h-[40px] leading-[40px] text-[18px] border border-neutral-light-gray bg-neutral-off-white rounded-r-[20px] relative pr-[15px] text-right">
             <Image
               src={IconXp}
               width={40}
@@ -151,7 +151,7 @@ const TargetCard: React.FC<TargetCardProp> = ({
           </div>
           {missionData.progress?.completed ? (
             <Button
-              className={`w-[164px] ml-[-20px] h-[44px] text-[#0b0b0b]
+              className={`w-[164px] ml-[-20px] h-[44px] text-neutral-black
                           bg-auth-primary-button-bg
                           border-auth-primary-button-border-color ${
                             missionData.progress.claimed
@@ -169,9 +169,9 @@ const TargetCard: React.FC<TargetCardProp> = ({
           ) : (
             <div className="relative">
               <Button
-                className={`w-[164px] p-0 ml-[-20px] h-[44px] text-[14px] text-[#0b0b0b]
+                className={`w-[164px] p-0 ml-[-20px] h-[44px] text-[14px] text-neutral-black
               text-auth-primary-button-text-color  border
-              border-[#0b0b0b]`}
+              border-neutral-black`}
                 loading={loading}
                 onClick={() => handleUnClaim()}
               >

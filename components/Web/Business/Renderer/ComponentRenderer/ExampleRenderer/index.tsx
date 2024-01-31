@@ -125,7 +125,7 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
         >
           <Button
             ghost
-            className="text-[#0b0b0b] font-next-book text-[14px] leading-[125%] tracking-[0.28px] border py-[8px] px-[40px] border-black  hover:bg-white/50 transition"
+            className="text-neutral-black font-next-book text-[14px] leading-[125%] tracking-[0.28px] border py-[8px] px-[40px] border-neutral-black  hover:bg-neutral-white/50 transition"
           >
             Try It Out
           </Button>

@@ -31,9 +31,9 @@ function ScrollControl({ changeState }: { changeState?: ChangeState }) {
       <div className="flex gap-[10px]">
         <div
           className={cn(
-            `flex items-center justify-center w-[35px] h-[35px] rounded-[50%] border border-solid border-[#FDEAAA] bg-[#FDEAAA] text-[#0b0b0b] cursor-pointer`,
+            `flex items-center justify-center w-[35px] h-[35px] rounded-[50%] border border-solid border-[#FDEAAA] bg-[#FDEAAA] text-neutral-black cursor-pointer`,
             !leftArrowVisible
-              ? 'bg-[#FDEAAA]/40 text-[#0b0b0b]/40 border-[#FDEAAA]/40 cursor-not-allowed'
+              ? 'bg-[#FDEAAA]/40 text-neutral-black/40 border-[#FDEAAA]/40 cursor-not-allowed'
               : 'hover:bg-yellow-primary hover:border-yellow-primary transition'
           )}
           onClick={() => {
@@ -45,9 +45,9 @@ function ScrollControl({ changeState }: { changeState?: ChangeState }) {
         </div>
         <div
           className={cn(
-            `flex items-center justify-center w-[35px] h-[35px] rounded-full border border-solid border-[#FDEAAA] bg-[#FDEAAA] text-[#0b0b0b] cursor-pointer`,
+            `flex items-center justify-center w-[35px] h-[35px] rounded-full border border-solid border-[#FDEAAA] bg-[#FDEAAA] text-neutral-black cursor-pointer`,
             !rightArrowVisible
-              ? 'bg-[#FDEAAA]/40 text-[#0b0b0b]/40 border-[#FDEAAA]/40 cursor-not-allowed'
+              ? 'bg-[#FDEAAA]/40 text-neutral-black/40 border-[#FDEAAA]/40 cursor-not-allowed'
               : 'hover:bg-yellow-primary hover:border-yellow-primary transition'
           )}
           onClick={() => {
@@ -63,7 +63,7 @@ function ScrollControl({ changeState }: { changeState?: ChangeState }) {
         ref={scrollBarRef}
       >
         <div
-          className="h-[3px] bg-[#8C8C8C] absolute left-0 bottom-0 transition-transform"
+          className="h-[3px] bg-neutral-medium-gray absolute left-0 bottom-0 transition-transform"
           ref={scrollBarInstanceRef}
           style={{
             width: `${widthRatio * 100}%`,

@@ -58,7 +58,7 @@ const UnitButton: FC<
         loading={loading}
         disabled={loading}
         className="w-[165px] px-0 hover:-translate-y-[1px] hover:shadow-[rgba(0,0,0,0.15)_1.95px_1.95px_2.6px] transition py-[11px]
-         border border-solid bg-course-learning-button-bg border-course-learning-button-border-color rounded-[32px] whitespace-nowrap text-[16px] text-[#0B0B0B] font-next-book cursor-pointer leading-[125%]"
+         border border-solid bg-course-learning-button-bg border-course-learning-button-border-color rounded-[32px] whitespace-nowrap text-[16px] text-neutral-black font-next-book cursor-pointer leading-[125%]"
         {...rest}
       >
         Start
@@ -70,7 +70,7 @@ const UnitButton: FC<
     <Button
       loading={loading}
       disabled={loading}
-      className="w-[165px] py-[11px] hover:-translate-y-[1px] hover:shadow-[rgba(0,0,0,0.15)_1.95px_1.95px_2.6px] transition border border-solid bg-course-learning-button-bg border-course-learning-button-border-color rounded-[32px] whitespace-nowrap text-[#0B0B0B] font-next-book text-[16px] cursor-pointer leading-[125%]"
+      className="w-[165px] py-[11px] hover:-translate-y-[1px] hover:shadow-[rgba(0,0,0,0.15)_1.95px_1.95px_2.6px] transition border border-solid bg-course-learning-button-bg border-course-learning-button-border-color rounded-[32px] whitespace-nowrap text-neutral-black font-next-book text-[16px] cursor-pointer leading-[125%]"
       {...rest}
     >
       Resume
@@ -163,7 +163,7 @@ const UnitCard: FC<UnitCardProps> = (props) => {
         )}
 
         {learningStatus === LearningStatus.UN_START && (
-          <div className="w-[65px] h-[65px] border-2 border-[#000] rounded-full relative">
+          <div className="w-[65px] h-[65px] border-2 border-neutral-black rounded-full relative">
             <span className="absolute text-[32px] font-next-poster text-[#000 tracking-[1.92px] left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2">
               {index + 1}
             </span>

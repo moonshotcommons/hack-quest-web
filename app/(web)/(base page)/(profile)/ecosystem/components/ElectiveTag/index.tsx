@@ -10,22 +10,19 @@ interface ElectiveTagProp {
 
 const ElectiveTag: React.FC<ElectiveTagProp> = ({ elective }) => {
   return (
-    <div className="flex items-center gap-[33px] text-[16px]">
+    <div className="flex items-center gap-[33px] body-m">
       {/* <div className="flex items-center gap-[10px]">
         <div className="w-[39px] h-[39px] relative overflow-hidden rounded-[50%]">
           <Image src={logo} fill alt="logo" className="object-contain"></Image>
         </div>
         <span className="underline ">Sui Foundation</span>
       </div> */}
-      <Tag
-        icon={<ClockIcon size={25} />}
-        className="text-[16px] text-[#0b0b0b]"
-      >
+      <Tag icon={<ClockIcon size={25} />} className="body-m text-neutral-black">
         {computeTime(elective?.duration || 0, 'Hour')}
       </Tag>
       {/* <Tag
         icon={<BadgeIcon color="#000" width={24} height={32} />}
-        className="text-[16px] text-[#0b0b0b]"
+        className="body-m text-neutral-black"
       >
         1 badge
       </Tag> */}

@@ -55,7 +55,7 @@ const MintButton = (props: {
       block
       loading={loading}
       className={cn(
-        'p-0 my-[10px] h-[28px] font-next-book text-[#0B0B0B] rounded-[10px] text-[14px] leading-[125%] tracking-[0.32px] outline-none',
+        'p-0 my-[10px] h-[28px] text-neutral-black rounded-[10px] text-[14px] leading-[125%] tracking-[0.32px] outline-none',
         certification.mint ? 'cursor-not-allowed opacity-40' : ''
       )}
       onClick={async () => {
@@ -87,8 +87,8 @@ const Certifications: FC<PersonalLinksProps> = (props) => {
   }, [selectCertification]);
 
   return (
-    <div className="p-[30px] pb-[40px] bg-white rounded-[10px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] group hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)] hover:-translate-y-1 transition-all duration-300 relative cursor-pointer">
-      <p className="text-black font-next-poster-Bold text-[28px] tracking-[1.68px] leading-[125%]">
+    <div className="p-[30px] pb-[40px] bg-neutral-white rounded-[10px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] group hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)] hover:-translate-y-1 transition-all duration-300 relative cursor-pointer">
+      <p className="text-neutral-black  text-h3">
         {`Certifications (${profile?.certifications?.length || 0})`}
       </p>
       {/* {showLinks && (
@@ -129,7 +129,7 @@ const Certifications: FC<PersonalLinksProps> = (props) => {
                 ></MintButton>
                 <Typography.Paragraph
                   ellipsis={{ rows: 2 }}
-                  className="text-center font-next-book text-black leading-[125%] tracking-[0.32px]"
+                  className="text-center body-m"
                   style={{ marginBottom: '0px' }}
                 >
                   {item.name}
@@ -141,13 +141,13 @@ const Certifications: FC<PersonalLinksProps> = (props) => {
       )}
       {!profile?.certifications?.length && (
         <div className="flex flex-col items-center">
-          <p className="mt-[56.2px] text-center font-next-book text-[18px] leading-[160%] tracking-[0.054px]">
+          <p className="mt-[56.2px] text-center body-l">
             You don’t have any certificate yet~
           </p>
           <Link href={'/dashboard'}>
             <Button
               type="primary"
-              className="w-[265px] px-0 py-[12px] text-[16px] font-next-book leading-[125%] tracking-[0.32px] text-[#0B0B0B] mt-[25px] mb-[30px]"
+              className="w-[265px] px-0 py-[12px] body-m leading-[125%] tracking-[0.32px] text-neutral-black mt-[25px] mb-[30px]"
               // onClick={() => personalLinkEditRef.current?.onEdit({})}
             >
               Go to Learning

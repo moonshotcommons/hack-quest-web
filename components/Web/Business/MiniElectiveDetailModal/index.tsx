@@ -104,16 +104,18 @@ const MiniElectiveDetailModal = forwardRef<
       >
         <span
           className={cn(
-            'text-[#3E3E3E] text-[18px] font-next-book leading-[125%] tracking-[0.36px]',
+            'text-neutral-rich-gray text-[18px] font-next-book leading-[125%] tracking-[0.36px]',
             [CompleteStateType.COMPLETED, CompleteStateType.LEARNING].includes(
               state
             )
               ? 'cursor-pointer'
               : '',
             state === CompleteStateType.LEARNING
-              ? 'font-next-book-bold text-[#131313]'
+              ? 'font-next-book-bold text-neutral-off-black'
               : '',
-            state === CompleteStateType.NOT_STARTED ? 'text-[#8C8C8C]' : ''
+            state === CompleteStateType.NOT_STARTED
+              ? 'text-neutral-medium-gray'
+              : ''
           )}
         >{`${index + 1 < 10 ? '0' + (index + 1) : index + 1} ${
           item.name
@@ -163,7 +165,7 @@ const MiniElectiveDetailModal = forwardRef<
       markBg="black"
     >
       <Loading loading={loading}>
-        <div className="w-[1000px] h-[625px] bg-white rounded-[16px] p-[32px] overflow-hidden">
+        <div className="w-[1000px] h-[625px] bg-neutral-white rounded-[16px] p-[32px] overflow-hidden">
           {course && (
             <div className="flex justify-between max-h-[625px] p-[24px] mt-[24px] gap-x-[96px]">
               <div className="w-[400px] flex flex-col gap-[32px]">
@@ -171,18 +173,18 @@ const MiniElectiveDetailModal = forwardRef<
                   <Image src={course.image} fill alt="cover"></Image>
                 </div>
                 <div>
-                  <h2 className="text-[#0B0B0B] text-h2 tracking-[2.4px] leading-[125%]">
+                  <h2 className="text-neutral-black text-h2 tracking-[2.4px] leading-[125%]">
                     {course.name}
                   </h2>
-                  <p className="mt-[16px] font-next-book text-[#3E3E3E] leading-[125%] tracking-[0.32px]">
+                  <p className="mt-[16px] font-next-book text-neutral-rich-gray leading-[125%] tracking-[0.32px]">
                     {course.description}
                   </p>
                 </div>
-                <div className="flex gap-[32px] items-center font-next-book text-[14px] leading-[125%] tracking-[0.28px] text-[#0B0B0B]">
+                <div className="flex gap-[32px] items-center font-next-book text-[14px] leading-[125%] tracking-[0.28px] text-neutral-black">
                   <div className="flex gap-x-[12px] items-center">
                     <span>Created by</span>
                     <div
-                      className="px-[8px] py-[4px] flex gap-[10px] items-center border border-[#8C8C8C] rounded-[17px] cursor-pointer"
+                      className="px-[8px] py-[4px] flex gap-[10px] items-center border border-neutral-medium-gray rounded-[17px] cursor-pointer"
                       onClick={() =>
                         redirectToUrl(
                           `${MenuLink.ECOSYSTEM}/${course.creatorId}`
@@ -207,7 +209,7 @@ const MiniElectiveDetailModal = forwardRef<
               </div>
               <div className="flex-1 flex flex-col ju overflow-hidden">
                 <div className="flex-1 flex flex-col justify-between overflow-hidden">
-                  <p className="text-[21px] font-next-poster-Bold text-[#0B0B0B] tracking-[1.26px]">
+                  <p className="text-[21px] font-next-poster-Bold text-neutral-black tracking-[1.26px]">
                     Overview
                   </p>
                   <ul className="mt-[32px] flex-1 overflow-auto max-h-[372px] scroll-wrap-y mb-4">
@@ -215,7 +217,7 @@ const MiniElectiveDetailModal = forwardRef<
                       return (
                         <li key={index} className="pr-2">
                           {index !== 0 && (
-                            <div className="h-[1px] w-full bg-[#8C8C8C] my-[24px]"></div>
+                            <div className="h-[1px] w-full bg-neutral-medium-gray my-[24px]"></div>
                           )}
                           {renderCourseListItem(item.state, item, index)}
                         </li>

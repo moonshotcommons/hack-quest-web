@@ -65,7 +65,7 @@ const BecomeWeb3: FC<{}> = (props) => {
               <h3 className="text-h4-mob font-next-book-bold text-neutral-off-black">
                 {item.title}
               </h3>
-              <p className="text-neutral-medium-gray body-xs font-Nunito">
+              <p className="text-neutral-medium-gray body-xs">
                 {item.description}
               </p>
             </div>
@@ -88,7 +88,7 @@ const BecomeWeb3: FC<{}> = (props) => {
               <h3 className="text-h4-mob font-next-book-bold text-neutral-off-black">
                 {item.title}
               </h3>
-              <p className="body-l text-neutral-medium-gray body-xs font-Nunito">
+              <p className="body-l text-neutral-medium-gray body-xs">
                 {item.description}
               </p>
             </div>

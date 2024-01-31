@@ -89,7 +89,7 @@ const DropAnswer: FC<DropAnswerProps> = (props) => {
           transition={{
             duration: currentAnswer?.status === 'error' ? 0.5 : 0 // 动画持续时间
           }}
-          className={`inline-flex relative min-w-[110px] mx-[10px] h-[34px] rounded-[3px] border-[0.5px] my-1 border-[#8C8C8C] bg-[#F4F4F4] justify-center items-center font-next-book text-[14px] leading-[125%] ${
+          className={`inline-flex relative min-w-[110px] mx-[10px] h-[34px] rounded-[3px] border-[0.5px] my-1 border-neutral-medium-gray bg-neutral-off-white justify-center items-center font-next-book text-[14px] leading-[125%] ${
             currentAnswer?.status === 'error'
               ? 'bg-[#FFF7F5] border-[#C73333]'
               : ''
@@ -102,7 +102,7 @@ const DropAnswer: FC<DropAnswerProps> = (props) => {
       )}
       {!!currentAnswer?.option && !showAnswer && (
         <span
-          className="inline-flex relative min-w-[110px] mx-[10px] h-[34px] my-1 bg-[#FFF4CE] cursor-move border-[0.5px] border-[#8C8C8C] rounded-[3px] text-[#000] font-next-book text-[14px] tracking-[0.28px] leading-[125%]"
+          className="inline-flex relative min-w-[110px] mx-[10px] h-[34px] my-1 bg-[#FFF4CE] cursor-move border-[0.5px] border-neutral-medium-gray rounded-[3px] text-neutral-black font-next-book text-[14px] tracking-[0.28px] leading-[125%]"
           onMouseEnter={() => setClearVisible(true)}
           onMouseLeave={() => setClearVisible(false)}
         >

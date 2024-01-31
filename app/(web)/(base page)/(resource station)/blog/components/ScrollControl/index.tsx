@@ -48,7 +48,7 @@ const ScrollControl: React.FC<ScrollControlType> = ({
       <div className="flex gap-[10px]">
         <div
           className={cn(
-            `flex items-center justify-center w-[35px] h-[35px] rounded-full bg-[#fff] shadow-[0px_0px_0px_rgba(0.12)] text-[#0b0b0b] cursor-pointer`
+            `flex items-center justify-center w-[35px] h-[35px] rounded-full bg-[#fff] shadow-[0px_0px_0px_rgba(0.12)] text-neutral-black cursor-pointer`
           )}
           onClick={() => {
             BurialPoint.track(burialPointType[0]);
@@ -59,7 +59,7 @@ const ScrollControl: React.FC<ScrollControlType> = ({
         </div>
         <div
           className={cn(
-            `flex items-center justify-center w-[35px] h-[35px] rounded-full bg-[#fff] shadow-[0px_0px_0px_rgba(0.12)]  text-[#0b0b0b] cursor-pointer`
+            `flex items-center justify-center w-[35px] h-[35px] rounded-full bg-[#fff] shadow-[0px_0px_0px_rgba(0.12)]  text-neutral-black cursor-pointer`
           )}
           onClick={() => {
             BurialPoint.track(burialPointType[1]);
@@ -80,7 +80,7 @@ const ScrollControl: React.FC<ScrollControlType> = ({
           ))}
         </div>
         <div
-          className="h-full bg-[#8C8C8C] absolute left-0 bottom-0 transition-transform"
+          className="h-full bg-neutral-medium-gray absolute left-0 bottom-0 transition-transform"
           ref={scrollBarInstanceRef}
           style={{
             width: `${paginationWidth}px`,

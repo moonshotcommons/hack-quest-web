@@ -178,7 +178,7 @@ html[data-theme='light'] {
   --auth-input-error-bg: var(--status-error-light);
   --auth-input-focus-bg: var(--neutral-white);
   --auth-input-bg: var(--neutral-white);
-  --auth-password-input-bg: var(--text-text-white-on-dark);
+  --auth-password-input-bg: var(--text-text-neutral-white-on-dark);
   --auth-password-focus-bg: var(--neutral-white);
   --auth-input-clear-icon-color: var(--status-error);
   --auth-input-success-icon-color: #fcc409;
@@ -321,7 +321,7 @@ html[data-theme='light'] {
   --setting-drop-user-border: #282828;
   --setting-drop-handler-color: var(--neutral-off-white);
   --setting-drop-setting-modal-border: var(--button-card-card-outline);
-  --setting-drop-setting-change-color: var(--text-text-white-on-dark);
+  --setting-drop-setting-change-color: var(--text-text-neutral-white-on-dark);
   --setting-drop-setting-input-label: var(--neutral-off-white);
   --setting-close-icon-color-v2: var(--neutral-white);
   --setting-drop-change-password-input-bg: var(--neutral-dark-gray);

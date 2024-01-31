@@ -52,9 +52,9 @@ function ScrollControl({
       <div className="flex gap-[10px]">
         <div
           className={cn(
-            `flex items-center justify-center rounded-full border border-solid border-[#000000] bg-[#000000] text-white cursor-pointer scale-[0.835]`,
+            `flex items-center justify-center rounded-full border border-solid border-[#000000] bg-[#000000] text-neutral-white cursor-pointer scale-[0.835]`,
             !leftArrowVisible
-              ? 'bg-transparent text-black cursor-not-allowed'
+              ? 'bg-transparent text-neutral-black cursor-not-allowed'
               : 'hover:bg-[#000000]/70 hover:border-[#000000]/70 transition',
             !controlWrapSize ? 'p-2' : ''
           )}
@@ -72,9 +72,9 @@ function ScrollControl({
         </div>
         <div
           className={cn(
-            `flex items-center justify-center p-2 rounded-full border border-solid border-[#000000] bg-[#000000] text-white cursor-pointer scale-[0.835]`,
+            `flex items-center justify-center p-2 rounded-full border border-solid border-[#000000] bg-[#000000] text-neutral-white cursor-pointer scale-[0.835]`,
             !rightArrowVisible
-              ? 'bg-transparent text-black cursor-not-allowed'
+              ? 'bg-transparent text-neutral-black cursor-not-allowed'
               : 'hover:bg-[#000000]/70 hover:border-[#000000]/70 transition',
             !controlWrapSize ? 'p-2' : ''
           )}
@@ -97,7 +97,7 @@ function ScrollControl({
           ref={scrollBarRef}
         >
           <div
-            className="h-[3px] bg-[#8C8C8C] absolute left-0 bottom-0 transition-transform"
+            className="h-[3px] bg-neutral-medium-gray absolute left-0 bottom-0 transition-transform"
             ref={scrollBarInstanceRef}
             style={{
               width: `${widthRatio * 100}%`,

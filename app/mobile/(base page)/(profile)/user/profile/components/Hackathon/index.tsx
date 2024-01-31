@@ -81,7 +81,7 @@ const Hackathon: FC<HackathonProps> = ({ edit = false }) => {
               key={v.id}
               className="border-b-[0.5px] border-b-[#000] py-[20px] flex gap-[50px]"
             >
-              <div className="w-[270px] font-next-book text-[17px] text-[#8C8C8C]">
+              <div className="w-[270px] font-next-book text-[17px] text-neutral-medium-gray">
                 <p>
                   {dealDate(v.startDate)} -{' '}
                   {v.endDate ? dealDate(v.endDate) : 'Present'} ·{' '}
@@ -89,7 +89,7 @@ const Hackathon: FC<HackathonProps> = ({ edit = false }) => {
                 </p>
                 <p>{v.location}</p>
               </div>
-              <div className="flex-1 text-[#000]">
+              <div className="flex-1 text-neutral-black">
                 <div className="w-full break-all">
                   <span className="text-[21px] font-next-poster-Bold">
                     {v.hackathonName}
@@ -101,7 +101,7 @@ const Hackathon: FC<HackathonProps> = ({ edit = false }) => {
                   {v.showMore ? (
                     v.descriptions.map((d, j) => (
                       <div className="flex items-start" key={j}>
-                        <span className="w-[5px] h-[5px] rounded-[50%] bg-[#000] relative top-[11px] mr-[7px]"></span>
+                        <span className="w-[5px] h-[5px] rounded-[50%] bg-neutral-black relative top-[11px] mr-[7px]"></span>
                         <span className="break-all flex-1 leading-[26px]">
                           {d}
                         </span>
@@ -109,7 +109,7 @@ const Hackathon: FC<HackathonProps> = ({ edit = false }) => {
                     ))
                   ) : (
                     <div className="flex items-start">
-                      <span className="w-[5px] h-[5px] rounded-[50%] bg-[#000] relative top-[11px] mr-[7px]"></span>
+                      <span className="w-[5px] h-[5px] rounded-[50%] bg-neutral-black relative top-[11px] mr-[7px]"></span>
                       <span className="break-all flex-1 leading-[26px]">
                         {v.descriptionLess[0]}
                       </span>
@@ -119,7 +119,7 @@ const Hackathon: FC<HackathonProps> = ({ edit = false }) => {
                     <div className="flex justify-end font-next-book tracking-[0.1px]  ">
                       <div
                         onClick={() => handleShowMore(i)}
-                        className="underline text-[18px] text-[#8c8c8c] cursor-pointer"
+                        className="underline text-[18px] text-neutral-medium-gray cursor-pointer"
                       >
                         Show {v.showMore ? 'Less' : 'More'}
                       </div>

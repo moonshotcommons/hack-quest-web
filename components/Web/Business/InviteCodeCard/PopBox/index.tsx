@@ -20,9 +20,9 @@ const PopBox: FC<PopBoxProps> = ({
       )}
     >
       {showPopTriangle && (
-        <div className="w-[24px] h-[24px] -rotate-[135deg] bg-white self-end -mb-[12px] mr-[28px] shadow-[rgba(0,0,0,0.05)_1.5px_1.5px_1.5px]"></div>
+        <div className="w-[24px] h-[24px] -rotate-[135deg] bg-neutral-white self-end -mb-[12px] mr-[28px] shadow-[rgba(0,0,0,0.05)_1.5px_1.5px_1.5px]"></div>
       )}
-      <div className="p-5 flex flex-col bg-white rounded-[10px] w-fit gap-y-[15px] shadow-[0px_2px_8px_0px_rgba(99,99,99,0.2)]">
+      <div className="p-5 flex flex-col bg-neutral-white rounded-[10px] w-fit gap-y-[15px] shadow-[0px_2px_8px_0px_rgba(99,99,99,0.2)]">
         {children}
       </div>
     </div>

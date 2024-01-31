@@ -23,7 +23,7 @@ const Switch: FC<SwitchProps> = (props) => {
       <span
         className={`${
           enabled ? 'translate-x-[.875rem]' : 'translate-x-1'
-        } inline-block h-[.875rem] w-[.875rem] transform rounded-full bg-white transition`}
+        } inline-block h-[.875rem] w-[.875rem] transform rounded-full bg-neutral-white transition`}
       />
     </BaseSwitch>
   );

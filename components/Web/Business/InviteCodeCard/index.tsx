@@ -63,7 +63,7 @@ const InviteCodeCard: FC<InviteCodeCardProps> = (props) => {
   );
 
   return (
-    <div className="w-[380px] bg-white shadow-md rounded-[10px] p-5">
+    <div className="w-[380px] bg-neutral-white shadow-md rounded-[10px] p-5">
       <div className="h-fit flex justify-between ">
         <div className="flex items-center gap-[6px]">
           <span className="font-next-book text-[18px] tracking-[1.08pxx] leading-[120%]">
@@ -78,7 +78,7 @@ const InviteCodeCard: FC<InviteCodeCardProps> = (props) => {
             <span className="cursor-pointer">{icons.descIcon}</span>
             {showDesc && (
               <PopBox className="-right-[34px]">
-                <p className="w-[340px] text-[12px] font-next-book leading-[160%] -tracking-[0.132px] text-[#0B0B0B]">
+                <p className="w-[340px] text-[12px] font-next-book leading-[160%] -tracking-[0.132px] text-neutral-black">
                   HackQuest is currently in beta. Share your invite code to help
                   new users sign up. Rewards are available at Mission Center
                   after two users register with your invite code.
@@ -92,17 +92,17 @@ const InviteCodeCard: FC<InviteCodeCardProps> = (props) => {
           onClick={() => setExpand(!expand)}
         >
           {expand && (
-            <span className="block w-full h-[2px] bg-black rounded-full"></span>
+            <span className="block w-full h-[2px] bg-neutral-black rounded-full"></span>
           )}
           {!expand && <VscAdd size={24}></VscAdd>}
         </div>
       </div>
       {expand && (
         <>
-          <div className="px-[15px] h-[40px] bg-[#F4F4F4] rounded-[50px] mt-[15px] flex justify-between items-center">
+          <div className="px-[15px] h-[40px] bg-neutral-off-white rounded-[50px] mt-[15px] flex justify-between items-center">
             <div className="flex items-center gap-[6px]">
               {icons.inviteIcon}
-              <span className="font-next-book text-[14px] leading-[120%] text-[#0B0B0B]">
+              <span className="font-next-book text-[14px] leading-[120%] text-neutral-black">
                 {inviteCode}
               </span>
             </div>
@@ -122,7 +122,7 @@ const InviteCodeCard: FC<InviteCodeCardProps> = (props) => {
                 }}
               >
                 {icons.copyIcon}
-                <span className="font-next-book text-[12px] leading-[120%] hover:text-[#0B0B0B] text-[#8C8C8C] relative animate">
+                <span className="font-next-book text-[12px] leading-[120%] hover:text-neutral-black text-neutral-medium-gray relative animate">
                   Copy
                 </span>
               </div>
@@ -133,7 +133,7 @@ const InviteCodeCard: FC<InviteCodeCardProps> = (props) => {
               >
                 {icons.shareIcon}
 
-                <div className="font-next-book text-[12px] leading-[120%] hover:text-[#0B0B0B] text-[#8C8C8C] relative cursor-pointer animate">
+                <div className="font-next-book text-[12px] leading-[120%] hover:text-neutral-black text-neutral-medium-gray relative cursor-pointer animate">
                   <span>Share</span>
                   <div>
                     {showShare && (
@@ -158,7 +158,7 @@ const InviteCodeCard: FC<InviteCodeCardProps> = (props) => {
           </div>
           <div className="mt-5 flex justify-between gap-x-4 items-center">
             <div className="flex-1 flex flex-col gap-[13px]">
-              <div className="leading-[100%] font-next-book text-[#0B0B0B] text-[14px] tracking-[0.28px]">
+              <div className="leading-[100%] font-next-book text-neutral-black text-[14px] tracking-[0.28px]">
                 {`Users you invited (${inviteProgress.progress[0] || 0}/${
                   inviteProgress.progress[1] || 0
                 })`}

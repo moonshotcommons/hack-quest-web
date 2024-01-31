@@ -31,7 +31,7 @@ const NavList: FC<NavListProps> = ({ navList, toggleOpen, children }) => {
             <motion.li
               key={index}
               variants={itemVariants}
-              className="body-xl font-Nunito flex flex-col w-full"
+              className="body-xl flex flex-col w-full"
             >
               <div
                 className="w-full py-[.6875rem] flex justify-between items-center"
@@ -83,7 +83,7 @@ const NavList: FC<NavListProps> = ({ navList, toggleOpen, children }) => {
                     return (
                       <Link
                         key={m.label}
-                        className="body-l font-Nunito mb-[.625rem]"
+                        className="body-l mb-[.625rem]"
                         href={m.path}
                         onClick={() => {
                           toggleOpen();

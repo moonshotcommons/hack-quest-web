@@ -37,21 +37,19 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
   }, [buttonDisable]);
   return (
     <div className="flex justify-between gap-[50px] mb-[30px]">
-      <div className={`flex-1 text-[#000] ${inter.className}`}>
-        <p className="text-[24px] font-[500] leading-[25px] mb-[10px]">
-          {mantle.title}
-        </p>
-        <p className="text-[16px] font-[400]">{mantle.description}</p>
+      <div className={`flex-1 text-neutral-black ${inter.className}`}>
+        <p className="body-xl-bold leading-[25px] mb-[10px]">{mantle.title}</p>
+        <p className="body-m">{mantle.description}</p>
       </div>
       <div
-        className={`h-fit flex gap-[40px] px-[30px] py-[20px] border border-[#8c8c8c] rounded-[10px] font-next-book ${
+        className={`h-fit flex gap-[40px] px-[30px] py-[20px] border border-neutral-medium-gray rounded-[10px] ${
           showAll ? 'w-[567px]' : 'w-[306px]'
         }`}
       >
         {showAll && (
           <div className="w-[218px]">
             <div
-              className="w-[218px] h-[121px] relative mb-[8px] bg-white cursor-pointer hover:scale-[1.03] hover:-translate-y-1 transition-transform"
+              className="w-[218px] h-[121px] relative mb-[8px] bg-neutral-white cursor-pointer hover:scale-[1.03] hover:-translate-y-1 transition-transform"
               onClick={() => {
                 certificationModalRef.current?.open();
               }}
@@ -63,7 +61,7 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
               ></Image>
             </div>
             <div className="flex gap-[10px] text-[14px]">
-              <div className="px-[5px] flex items-center justify-between w-[69px] h-[32px] border border-[#DADADA] rounded-[6px]">
+              <div className="px-[5px] flex items-center justify-between w-[69px] h-[32px] border border-neutral-light-gray rounded-[6px]">
                 <Image
                   src={iconCoin}
                   width={22}
@@ -72,7 +70,7 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
                 ></Image>
                 <span>x{mantle.certification?.credits}</span>
               </div>
-              <div className="px-[5px] flex items-center justify-between w-[69px] h-[32px] border border-[#DADADA] rounded-[6px]">
+              <div className="px-[5px] flex items-center justify-between w-[69px] h-[32px] border border-neutral-light-gray rounded-[6px]">
                 <Image src={iconXp} width={22} alt="icon" className=""></Image>
                 <span>x{mantle.certification?.exp}</span>
               </div>
@@ -108,7 +106,7 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
           {showAll && (
             <div className="flex justify-between">
               <Button
-                className={`w-[120px] h-[34px] text-[#0b0b0b] text-[16px] p-0
+                className={`w-[120px] h-[34px] text-neutral-black body-m p-0
                           bg-auth-primary-button-bg
                           border-auth-primary-button-border-color ${
                             buttonDisable
@@ -124,8 +122,8 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
                 {mantle.certification.claimed ? 'Claimed' : 'Claim'}
               </Button>
               <Button
-                className={`w-[120px] h-[34px] text-[#0b0b0b] p-0 text-[14px]
-                          border border-[#0b0b0b]`}
+                className={`w-[120px] h-[34px] text-neutral-black p-0 text-[14px]
+                          border border-neutral-black`}
                 onClick={learnMore}
               >
                 Learn More
