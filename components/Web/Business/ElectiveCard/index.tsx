@@ -54,7 +54,7 @@ const ElectiveCard: FC<ElectiveCardProps> = (props) => {
     <>
       <div
         className={cn(
-          'flex flex-col rounded-[16px] bg-neutral-white w-full card-hover',
+          'card-hover flex w-full flex-col rounded-[16px] bg-neutral-white',
           className
         )}
         onClick={() => {
@@ -63,7 +63,7 @@ const ElectiveCard: FC<ElectiveCardProps> = (props) => {
         }}
       >
         <div
-          className={`h-0 w-full pt-[56%] relative rounded-t-2xl overflow-hidden`}
+          className={`relative h-0 w-full overflow-hidden rounded-t-2xl pt-[56%]`}
         >
           <Image
             src={course.image || ''}
@@ -73,10 +73,10 @@ const ElectiveCard: FC<ElectiveCardProps> = (props) => {
           ></Image>
         </div>
         <div
-          className={`flex flex-col h-[216px]  p-[16px] justify-between relative`}
+          className={`relative flex h-[216px]  flex-col justify-between p-[16px]`}
         >
           {from === 'dashboard' && !!course.progress && course.progress >= 1 ? (
-            <div className={`absolute top-[16px]  right-[16px] z-10`}>
+            <div className={`absolute right-[16px]  top-[16px] z-10`}>
               <CompletedIcon />
             </div>
           ) : null}
@@ -84,7 +84,7 @@ const ElectiveCard: FC<ElectiveCardProps> = (props) => {
             <TrackTag track={course.track} />
             <h2 className={`body-m-bold  line-clamp-2`}>{course.title}</h2>
             {!inProgress && (
-              <div className="body-s text-neutral-medium-gray line-clamp-2">
+              <div className="body-s line-clamp-2 text-neutral-medium-gray">
                 {course.description}
               </div>
             )}
@@ -95,7 +95,7 @@ const ElectiveCard: FC<ElectiveCardProps> = (props) => {
                 <CardProgress progress={course.progress || 0} />
                 <Button
                   type="primary"
-                  className="px-0 h-[48px]  button-text-m text-neutral-off-black"
+                  className="button-text-m h-[48px]  px-0 text-neutral-off-black"
                   loading={loading}
                   disabled={loading}
                   block
@@ -115,8 +115,8 @@ const ElectiveCard: FC<ElectiveCardProps> = (props) => {
                 </Button>
               </>
             ) : (
-              <div className="flex gap-3 items-center">
-                <div className="w-[16px] h-[16px] rounded-full relative overflow-hidden">
+              <div className="flex items-center gap-3">
+                <div className="relative h-[16px] w-[16px] overflow-hidden rounded-full">
                   <Image
                     src={course.creator?.profileImage || Logo}
                     fill

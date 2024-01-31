@@ -8,7 +8,7 @@ interface MobFilterButtonProp {
 const MobFilterButton: React.FC<MobFilterButtonProp> = ({ onClick }) => {
   return (
     <div
-      className="flex items-center button-text-s h-[2.125rem] gap-[0.75rem] justify-center bg-yellow-primary rounded-[1.0625rem]"
+      className="button-text-s flex h-[2.125rem] items-center justify-center gap-[0.75rem] rounded-[1.0625rem] bg-yellow-primary"
       onClick={onClick}
     >
       <TbAdjustmentsHorizontal size={14} />

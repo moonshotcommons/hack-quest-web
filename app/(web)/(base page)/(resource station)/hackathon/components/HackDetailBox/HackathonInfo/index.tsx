@@ -44,30 +44,30 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
   }, [hackathon]);
   return (
     <div className="flex flex-col gap-[25px] ">
-      <div className="text-[21px] leading-[21px] font-next-book-bold">
+      <div className="font-next-book-bold text-[21px] leading-[21px]">
         {hackathon.name}
       </div>
       <div>
-        <div className="text-[18px] font-next-book-bold leading-[22.5px] mb-[5px]">
+        <div className="mb-[5px] font-next-book-bold text-[18px] leading-[22.5px]">
           THEME
         </div>
         <pre className="text-[16px] leading-[20px]">{hackathon.theme}</pre>
       </div>
       <div>
-        <div className="text-[18px] font-next-book-bold leading-[22.5px] mb-[5px]">
+        <div className="mb-[5px] font-next-book-bold text-[18px] leading-[22.5px]">
           PARTICIPANTS
         </div>
-        <div className="text-[16px] leading-[20px] break-words">
+        <div className="break-words text-[16px] leading-[20px]">
           {getParticipantsStr(hackathon.participants)}
         </div>
       </div>
       <div>
-        <div className="text-[18px] font-next-book-bold leading-[22.5px] mb-[5px]">
+        <div className="mb-[5px] font-next-book-bold text-[18px] leading-[22.5px]">
           HOST
         </div>
         {hackathon.hosts.map((v, i) => (
-          <div key={i} className="h-[30px] mb-[10px] flex-row-center">
-            <div className="w-[30px] h-[30px] relative">
+          <div key={i} className="flex-row-center mb-[10px] h-[30px]">
+            <div className="relative h-[30px] w-[30px]">
               <Image
                 src={v.picture}
                 alt="hackathonHost"
@@ -79,8 +79,8 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
           </div>
         ))}
       </div>
-      <div className="relative h-[100px] flex flex-col justify-between pl-[20px]">
-        <div className="absolute left-0 top-0 w-[5px] h-full rounded-[10px] bg-yellow-primary"></div>
+      <div className="relative flex h-[100px] flex-col justify-between pl-[20px]">
+        <div className="absolute left-0 top-0 h-full w-[5px] rounded-[10px] bg-yellow-primary"></div>
         <div>
           <div className="text-neutral-medium-gray">RUNS FROM</div>
           <div className="text-[16px]">
@@ -94,14 +94,14 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
       </div>
       {status === HackathonStatusType.ON_GOING ? (
         <>
-          <div className="h-[63px] px-[20px] rounded-[10px] bg-[rgba(255,244,206,0.5)] flex flex-col justify-center ">
+          <div className="flex h-[63px] flex-col justify-center rounded-[10px] bg-[rgba(255,244,206,0.5)] px-[20px] ">
             <div className="text-neutral-medium-gray">
               APPLICATIONS CLOSE IN
             </div>
             <div className="text-[16px]">{closeInTime}</div>
           </div>
           <Button
-            className="w-full h-[60px] text-[18px] bg-yellow-primary"
+            className="h-[60px] w-full bg-yellow-primary text-[18px]"
             onClick={() => {
               BurialPoint.track(`hackathon detail Apply Now 按钮点击`);
               window.open(hackathon.applyLink);
@@ -112,13 +112,13 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
         </>
       ) : (
         <>
-          <div className="h-[63px] px-[20px] rounded-[10px] bg-[rgba(218,218,218,0.5)] flex flex-col justify-center ">
-            <div className="text-neutral-medium-gray text-[21px]">
+          <div className="flex h-[63px] flex-col justify-center rounded-[10px] bg-[rgba(218,218,218,0.5)] px-[20px] ">
+            <div className="text-[21px] text-neutral-medium-gray">
               This hackathon is not available now.
             </div>
           </div>
           <Button
-            className="w-full h-[60px] text-[18px] border border-neutral-black"
+            className="h-[60px] w-full border border-neutral-black text-[18px]"
             onClick={() => {
               BurialPoint.track(`hackathon detail View All Projects 按钮点击`);
               redirectToUrl(

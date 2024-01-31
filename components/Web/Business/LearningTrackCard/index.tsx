@@ -32,7 +32,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
   return (
     <div
       className={
-        'h-[207px] w-full relative  p-[16px] rounded-[16px] bg-neutral-white overflow-hidden flex items-center gap-[30px] card-hover'
+        'card-hover relative flex  h-[207px] w-full items-center gap-[30px] overflow-hidden rounded-[16px] bg-neutral-white p-[16px]'
       }
       onClick={goLearningTrackDetail}
     >
@@ -44,12 +44,12 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
         </div>
       ) : null}
 
-      <div className="flex-1 h-full flex flex-col flex-shrink-0 justify-between">
+      <div className="flex h-full flex-1 flex-shrink-0 flex-col justify-between">
         <TrackTag track={learningTrack.track} />
         <div className="body-m-bold line-clamp-1 text-neutral-off-black">
           {learningTrack.name}
         </div>
-        <div className="body-s h-[66px] text-neutral-medium-gray  line-clamp-3">
+        <div className="body-s line-clamp-3 h-[66px]  text-neutral-medium-gray">
           {learningTrack.description}
         </div>
         <div>
@@ -61,7 +61,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
           ></CourseTags>
         </div>
       </div>
-      <div className={`relative  w-[160px] h-[160px]`}>
+      <div className={`relative  h-[160px] w-[160px]`}>
         <Image
           src={learningTrack.image || LearningTrackImg}
           fill

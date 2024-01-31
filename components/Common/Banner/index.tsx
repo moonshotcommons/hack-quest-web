@@ -5,7 +5,7 @@ interface BannerProps {
 }
 
 const Banner: FC<BannerProps> = (props) => {
-  return <div className="w-full h-[11.72rem]">Banner</div>;
+  return <div className="h-[11.72rem] w-full">Banner</div>;
 };
 
 export default Banner;

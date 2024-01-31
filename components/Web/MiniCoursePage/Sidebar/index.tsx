@@ -54,7 +54,7 @@ const Sidebar: FC<SidebarProps> = ({ lesson }) => {
       >
         <span
           className={cn(
-            'text-[14px] font-next-book leading-[125%] tracking-[0.28px] pr-4',
+            'pr-4 font-next-book text-[14px] leading-[125%] tracking-[0.28px]',
             item.id === lesson.id
               ? 'font-next-book-bold text-neutral-dark-gray'
               : '',
@@ -64,7 +64,7 @@ const Sidebar: FC<SidebarProps> = ({ lesson }) => {
               ? 'cursor-pointer'
               : '',
             state === CompleteStateType.NOT_STARTED
-              ? 'text-neutral-medium-gray cursor-not-allowed'
+              ? 'cursor-not-allowed text-neutral-medium-gray'
               : ''
           )}
         >{`${index + 1 < 10 ? '0' + (index + 1) : index + 1} ${
@@ -88,7 +88,7 @@ const Sidebar: FC<SidebarProps> = ({ lesson }) => {
       </div>
       <div className={cn('w-[352px] pr-[32px]', showList ? 'flex' : 'hidden')}>
         {course && (
-          <ul className="py-[40px] flex flex-col gap-[16px]">
+          <ul className="flex flex-col gap-[16px] py-[40px]">
             {course.pages!.map((item, index) => {
               return (
                 <li key={index}>

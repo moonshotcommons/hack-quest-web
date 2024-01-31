@@ -22,8 +22,8 @@ const UserData: React.FC<UserDataType> = ({
 }) => {
   return (
     <>
-      <div className="relative  mx-[auto] flex-center w-[150px] h-[150px] ">
-        <div className="absolute w-[70px] right-[-73px] top-[12px] text-center">
+      <div className="flex-center  relative mx-[auto] h-[150px] w-[150px] ">
+        <div className="absolute right-[-73px] top-[12px] w-[70px] text-center">
           <span className="text-neutral-black">{`${userLevel.expCurrentLevel}`}</span>
           <span className="text-neutral-medium-gray">{`/${userLevel.expNextLevel}`}</span>
         </div>
@@ -33,13 +33,13 @@ const UserData: React.FC<UserDataType> = ({
           alt="vrokenLine"
           className="absolute right-[-72px] top-[30px] z-10"
         ></Image>
-        <div className="absolute w-full flex-center h-full left-0 top-0 pointer-events-none">
+        <div className="flex-center pointer-events-none absolute left-0 top-0 h-full w-full">
           <Ring
             radius={75}
             percent={userLevel.expCurrentLevel / userLevel.expNextLevel}
           />
         </div>
-        <div className="relative  rounded-[50%] w-[102px] h-[102px] overflow-hidden">
+        <div className="relative  h-[102px] w-[102px] overflow-hidden rounded-[50%]">
           {userInfo?.avatar && (
             <Image
               src={userInfo?.avatar as string}
@@ -51,39 +51,39 @@ const UserData: React.FC<UserDataType> = ({
         </div>
       </div>
 
-      <div className="flex-col-center mt-[20px] mb-[40px]">
+      <div className="flex-col-center mb-[40px] mt-[20px]">
         <p className="leading-[22.5px]">
           <span className="text-[18px] ">{userInfo?.nickname}</span>
-          <span className="ml-[15px] body-m">Lv. {userLevel?.level ?? 0}</span>
+          <span className="body-m ml-[15px]">Lv. {userLevel?.level ?? 0}</span>
         </p>
       </div>
 
-      <div className="text-neutral-black flex w-full justify-between mb-5 h-[114px]">
-        <div className=" pt-[20px] pb-[16px] h-full w-[155px] flex-col-center justify-between rounded-[10px] border border-neutral-medium-gray bg-[#fff]">
+      <div className="mb-5 flex h-[114px] w-full justify-between text-neutral-black">
+        <div className=" flex-col-center h-full w-[155px] justify-between rounded-[10px] border border-neutral-medium-gray bg-[#fff] pb-[16px] pt-[20px]">
           <p>Total XP</p>
-          <div className="text-[28px] pt-1  flex-row-center">
+          <div className="flex-row-center pt-1  text-[28px]">
             <Image
               src={IconXp}
               width={30}
               alt="iconCredits"
               className="object-cover"
             ></Image>
-            <span className=" leading-[45px] ml-[10px]">
+            <span className=" ml-[10px] leading-[45px]">
               {userLevel?.exp ?? 0}
             </span>
           </div>
         </div>
 
-        <div className=" pt-[20px] pb-[16px] h-full  w-[155px] flex-col-center justify-between rounded-[10px] border border-neutral-medium-gray bg-[#fff]">
+        <div className=" flex-col-center h-full w-[155px]  justify-between rounded-[10px] border border-neutral-medium-gray bg-[#fff] pb-[16px] pt-[20px]">
           <p>Total Hack Credits</p>
-          <div className="text-[28px] pt-1  flex-row-center">
+          <div className="flex-row-center pt-1  text-[28px]">
             <Image
               src={IconCoin}
               width={30}
               alt="iconXp"
               className="object-cover"
             ></Image>
-            <span className=" leading-[45px] ml-[10px]">
+            <span className=" ml-[10px] leading-[45px]">
               {userCoin?.coin ?? 0}
             </span>
           </div>

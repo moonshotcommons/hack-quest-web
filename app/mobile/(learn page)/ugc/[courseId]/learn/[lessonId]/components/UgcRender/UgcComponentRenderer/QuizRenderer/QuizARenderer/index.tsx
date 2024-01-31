@@ -226,8 +226,8 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
   }, [quiz]);
 
   return (
-    <div className="h-full flex flex-col justify-between">
-      <div className="flex-1 flex flex-col overflow-hidden">
+    <div className="flex h-full flex-col justify-between">
+      <div className="flex flex-1 flex-col overflow-hidden">
         <div className="h-fit">
           {quiz.children.map((child) => {
             return (
@@ -240,7 +240,7 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
           })}
         </div>
         {quiz.lines?.length > 0 && (
-          <div className="max-h-[100%] py-4 flex-1 w-full overflow-hidden flex flex-col">
+          <div className="flex max-h-[100%] w-full flex-1 flex-col overflow-hidden py-4">
             <RendererContext.Provider
               value={{
                 quizARendererContext: {

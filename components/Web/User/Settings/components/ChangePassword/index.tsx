@@ -179,7 +179,7 @@ const ChangePassword: React.FC<ChangePasswordProp> = ({
         }}
       ></Input>
       <div
-        className={`flex gap-[.75rem] items-center  body-m cursor-pointer w-fit ${
+        className={`body-m flex w-fit  cursor-pointer items-center gap-[.75rem] ${
           isAgree ? 'text-neutral-black' : 'text-neutral-medium-gray'
         }`}
         onClick={(e) => {}}
@@ -205,9 +205,9 @@ const ChangePassword: React.FC<ChangePasswordProp> = ({
           {`I agree with HackQuest's Terms of Service, Privacy Policy;`}
         </p>
       </div>
-      <div className="flex gap-[15px] justify-center pt-[20px]">
+      <div className="flex justify-center gap-[15px] pt-[20px]">
         <Button
-          className="w-[240px] h-[48px] text-neutral-black border border-neutral-black  button-text-m"
+          className="button-text-m h-[48px] w-[240px] border border-neutral-black  text-neutral-black"
           onClick={(e) => {
             BurialPoint.track('settings取消修改密码');
             onClose();
@@ -217,7 +217,7 @@ const ChangePassword: React.FC<ChangePasswordProp> = ({
         </Button>
         <Button
           loading={loading}
-          className={`w-[240px] h-[48px]  button-text-m  ${
+          className={`button-text-m h-[48px]  w-[240px]  ${
             updateDisable
               ? 'cursor-not-allowed bg-neutral-light-gray text-neutral-medium-gray'
               : 'bg-yellow-primary text-neutral-black'

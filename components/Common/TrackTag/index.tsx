@@ -13,7 +13,7 @@ const TrackTag: React.FC<TrackTagProp> = ({
   return (
     <div
       className={cn(
-        'text-neutral-rich-gray w-fit  px-[12px] py-[4px] border-[0.5px] border-neutral-rich-gray rounded-[20px]',
+        'w-fit rounded-[20px]  border-[0.5px] border-neutral-rich-gray px-[12px] py-[4px] text-neutral-rich-gray',
         className
       )}
     >

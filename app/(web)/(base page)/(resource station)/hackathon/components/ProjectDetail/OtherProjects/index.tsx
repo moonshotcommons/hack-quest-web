@@ -55,20 +55,20 @@ const OtherProjects: FC<OtherProjectsProps> = (props) => {
 
   return (
     <>
-      <h3 className="font-next-poster-Bold text-[40px] tracking-[2.4px] leading-normal">
+      <h3 className="font-next-poster-Bold text-[40px] leading-normal tracking-[2.4px]">
         Other Projects
       </h3>
       <p className="mt-[8px] font-next-book text-[21px] leading-[160%] tracking-[0.42px]">
         {`in `}
         <Link
           href={`${MenuLink.PROJECTS}?menu=${Menu.HACKATHON}&${QueryIdType.PROJECT_ID}=projects&keyWord=${hackathonName}`}
-          className="text-neutral-black underline hover:opacity-70 hover:text-neutral-black hover:underline transition-all"
+          className="text-neutral-black underline transition-all hover:text-neutral-black hover:underline hover:opacity-70"
         >
           {hackathonName}
         </Link>
       </p>
       <div className="mt-[30px]">
-        <div className="flex flex-col gap-y-[30px] mb-[30px]">
+        <div className="mb-[30px] flex flex-col gap-y-[30px]">
           {[...projects]
             .splice((page - 1) * PROJECTS_LIMIT, PROJECTS_LIMIT)
             .map((project) => {

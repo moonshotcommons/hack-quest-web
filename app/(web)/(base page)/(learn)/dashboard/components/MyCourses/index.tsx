@@ -146,13 +146,13 @@ const MyCourses = forwardRef<MyCoursesRef, MyCoursesProps>((props, ref) => {
 
   return (
     <div className="flex flex-col">
-      <h2 className="text-h3 text-neutral-off-black mb-[24px] ">My Courses</h2>
+      <h2 className="text-h3 mb-[24px] text-neutral-off-black ">My Courses</h2>
       <div className="w-fit">
         <Tab
           tabList={courseTab}
           curTab={curTab}
           changeTab={changeTab}
-          className="pb-10 gap-[30px] body-l before:bottom-[32px]"
+          className="body-l gap-[30px] pb-10 before:bottom-[32px]"
         />
       </div>
       <Loading loading={loading}>

@@ -17,9 +17,9 @@ const BaseLayout = memo(function (props: BaseLayoutProps) {
 
   return (
     <div
-      className={`w-full h-[100vh] flex flex-col overflow-hidden  ${inter.className} min-h-[100vh]`}
+      className={`flex h-[100vh] w-full flex-col overflow-hidden  ${inter.className} min-h-[100vh]`}
     >
-      <div className="w-full bg-neutral-black flex items-center">
+      <div className="flex w-full items-center bg-neutral-black">
         <Navbar navList={navbarList} isFull={false}>
           <User></User>
         </Navbar>
@@ -28,9 +28,9 @@ const BaseLayout = memo(function (props: BaseLayoutProps) {
       </div>
       <div
         id="content-scroll-wrap"
-        className={`m-auto overflow-auto flex-1 w-full bg-neutral-off-white`}
+        className={`m-auto w-full flex-1 overflow-auto bg-neutral-off-white`}
       >
-        <div className={`w-full h-full flex flex-col`}>
+        <div className={`flex h-full w-full flex-col`}>
           {!excludeBreadcrumb && (
             <div className="container mx-auto">
               <Suspense>
@@ -38,8 +38,8 @@ const BaseLayout = memo(function (props: BaseLayoutProps) {
               </Suspense>
             </div>
           )}
-          <div className="w-full flex-1 relative">
-            <main className="absolute left-0 top-0 w-full h-full ">
+          <div className="relative w-full flex-1">
+            <main className="absolute left-0 top-0 h-full w-full ">
               {children}
             </main>
           </div>

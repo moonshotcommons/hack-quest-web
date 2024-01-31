@@ -13,7 +13,7 @@ const ParagraphRenderer: FC<ParagraphRendererProps> = (props) => {
   const { component, isRenderChildren = true } = props;
 
   return (
-    <div className="pt-[5px] mb-[36px]">
+    <div className="mb-[36px] pt-[5px]">
       <TextRenderer richTextArr={component.content.rich_text}></TextRenderer>
       <div className="ml-4">
         {component.children?.map((item: any, index: number) => {

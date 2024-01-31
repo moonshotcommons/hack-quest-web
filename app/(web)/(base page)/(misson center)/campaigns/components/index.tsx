@@ -101,7 +101,7 @@ const Campaigns: React.FC<CampaignsProp> = () => {
       }}
     >
       <div
-        className={`container m-auto flex h-full tetx-body-m text-neutral-black py-[40px]`}
+        className={`tetx-body-m container m-auto flex h-full py-[40px] text-neutral-black`}
       >
         <div className="w-[203px]">
           <Tab
@@ -113,16 +113,16 @@ const Campaigns: React.FC<CampaignsProp> = () => {
             }}
           />
         </div>
-        <div className="flex-1 h-full no-scrollbar  overflow-auto bg-[#fff] rounded-b-[10px] rounded-r-[10px] shadow-[5px_5px_5px_#dadada]">
+        <div className="no-scrollbar h-full flex-1  overflow-auto rounded-b-[10px] rounded-r-[10px] bg-[#fff] shadow-[5px_5px_5px_#dadada]">
           {mantles[curIndex]?.id ? (
             <Mantle />
           ) : (
-            <div className="w-full h-full flex-center">
+            <div className="flex-center h-full w-full">
               <Image
                 src={Loading}
                 width={40}
                 alt="loading"
-                className="object-contain animate-spin opacity-100 absolute"
+                className="absolute animate-spin object-contain opacity-100"
               ></Image>
             </div>
           )}

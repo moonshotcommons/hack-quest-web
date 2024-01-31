@@ -39,7 +39,7 @@ function LearningTrack() {
   return (
     <div className="">
       <Banner changeSearchInfo={changeSearchInfo} searchInfo={searchInfo} />
-      <div className="px-[1.25rem] pt-[1.25rem] mt-[-2.5rem] pb-[1.25rem] bg-neutral-off-white rounded-t-[2rem]">
+      <div className="mt-[-2.5rem] rounded-t-[2rem] bg-neutral-off-white px-[1.25rem] pb-[1.25rem] pt-[1.25rem]">
         <MobCourseFilterList
           onFilterParamsUpdate={(params) => {
             getLearningTrackList({

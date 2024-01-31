@@ -12,7 +12,7 @@ const Badge: React.FC<BadgeProp> = ({ count, className }) => {
       return (
         <div
           className={cn(
-            `w-[18px] font-next-book h-[18px] rounded-[50%] flex-center bg-[#FCC409] text-[#fff] text-[11px] absolute right-[-16px] top-[-6px]`,
+            `flex-center absolute right-[-16px] top-[-6px] h-[18px] w-[18px] rounded-[50%] bg-[#FCC409] font-next-book text-[11px] text-[#fff]`,
             className
           )}
         >

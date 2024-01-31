@@ -63,22 +63,22 @@ const InviteCodeCard: FC<InviteCodeCardProps> = (props) => {
   );
 
   return (
-    <div className="w-[380px] bg-neutral-white shadow-md rounded-[10px] p-5">
-      <div className="h-fit flex justify-between ">
+    <div className="w-[380px] rounded-[10px] bg-neutral-white p-5 shadow-md">
+      <div className="flex h-fit justify-between ">
         <div className="flex items-center gap-[6px]">
-          <span className="font-next-book text-[18px] tracking-[1.08pxx] leading-[120%]">
+          <span className="font-next-book text-[18px] leading-[120%] tracking-[1.08pxx]">
             INVITE CODE
           </span>
 
           <div
-            className="relative h-full flex items-center justify-center pl-1"
+            className="relative flex h-full items-center justify-center pl-1"
             onMouseEnter={(e) => setShowDesc(true)}
             onMouseLeave={(e) => setShowDesc(false)}
           >
             <span className="cursor-pointer">{icons.descIcon}</span>
             {showDesc && (
               <PopBox className="-right-[34px]">
-                <p className="w-[340px] text-[12px] font-next-book leading-[160%] -tracking-[0.132px] text-neutral-black">
+                <p className="w-[340px] font-next-book text-[12px] leading-[160%] -tracking-[0.132px] text-neutral-black">
                   HackQuest is currently in beta. Share your invite code to help
                   new users sign up. Rewards are available at Mission Center
                   after two users register with your invite code.
@@ -88,27 +88,27 @@ const InviteCodeCard: FC<InviteCodeCardProps> = (props) => {
           </div>
         </div>
         <div
-          className="w-5 h-5 flex items-center justify-center cursor-pointer"
+          className="flex h-5 w-5 cursor-pointer items-center justify-center"
           onClick={() => setExpand(!expand)}
         >
           {expand && (
-            <span className="block w-full h-[2px] bg-neutral-black rounded-full"></span>
+            <span className="block h-[2px] w-full rounded-full bg-neutral-black"></span>
           )}
           {!expand && <VscAdd size={24}></VscAdd>}
         </div>
       </div>
       {expand && (
         <>
-          <div className="px-[15px] h-[40px] bg-neutral-off-white rounded-[50px] mt-[15px] flex justify-between items-center">
+          <div className="mt-[15px] flex h-[40px] items-center justify-between rounded-[50px] bg-neutral-off-white px-[15px]">
             <div className="flex items-center gap-[6px]">
               {icons.inviteIcon}
               <span className="font-next-book text-[14px] leading-[120%] text-neutral-black">
                 {inviteCode}
               </span>
             </div>
-            <div className="flex gap-[8.5px] h-full">
+            <div className="flex h-full gap-[8.5px]">
               <div
-                className="flex gap-[5px] items-center cursor-pointer h-full"
+                className="flex h-full cursor-pointer items-center gap-[5px]"
                 onClick={async (e) => {
                   try {
                     await navigator.clipboard.writeText(inviteCode || '');
@@ -122,18 +122,18 @@ const InviteCodeCard: FC<InviteCodeCardProps> = (props) => {
                 }}
               >
                 {icons.copyIcon}
-                <span className="font-next-book text-[12px] leading-[120%] hover:text-neutral-black text-neutral-medium-gray relative animate">
+                <span className="animate relative font-next-book text-[12px] leading-[120%] text-neutral-medium-gray hover:text-neutral-black">
                   Copy
                 </span>
               </div>
               <div
-                className="flex gap-[5px] items-center cursor-pointer h-full"
+                className="flex h-full cursor-pointer items-center gap-[5px]"
                 onMouseEnter={(e) => setShowShare(true)}
                 onMouseLeave={(e) => setShowShare(false)}
               >
                 {icons.shareIcon}
 
-                <div className="font-next-book text-[12px] leading-[120%] hover:text-neutral-black text-neutral-medium-gray relative cursor-pointer animate">
+                <div className="animate relative cursor-pointer font-next-book text-[12px] leading-[120%] text-neutral-medium-gray hover:text-neutral-black">
                   <span>Share</span>
                   <div>
                     {showShare && (
@@ -156,14 +156,14 @@ const InviteCodeCard: FC<InviteCodeCardProps> = (props) => {
               </div>
             </div>
           </div>
-          <div className="mt-5 flex justify-between gap-x-4 items-center">
-            <div className="flex-1 flex flex-col gap-[13px]">
-              <div className="leading-[100%] font-next-book text-neutral-black text-[14px] tracking-[0.28px]">
+          <div className="mt-5 flex items-center justify-between gap-x-4">
+            <div className="flex flex-1 flex-col gap-[13px]">
+              <div className="font-next-book text-[14px] leading-[100%] tracking-[0.28px] text-neutral-black">
                 {`Users you invited (${inviteProgress.progress[0] || 0}/${
                   inviteProgress.progress[1] || 0
                 })`}
               </div>
-              <div className="flex gap-[3px] w-full">
+              <div className="flex w-full gap-[3px]">
                 {new Array(inviteProgress.progress[1] || 0)
                   .fill('')
                   .map((item, index) => {
@@ -171,7 +171,7 @@ const InviteCodeCard: FC<InviteCodeCardProps> = (props) => {
                       <div
                         key={index}
                         className={cn(
-                          `w-1/2 h-[7px] rounded-[3px]`,
+                          `h-[7px] w-1/2 rounded-[3px]`,
                           index < inviteProgress.progress[0]
                             ? 'bg-[#FCC409]'
                             : 'bg-[#DADADA]'
@@ -193,7 +193,7 @@ const InviteCodeCard: FC<InviteCodeCardProps> = (props) => {
                 inviteProgress.claimed || !inviteProgress.completed || loading
               }
               className={cn(
-                `px-5 py-2 font-next-book text-[14px] text-[0B0B0B] leading-[125%] tracking-[0.28px]`,
+                `px-5 py-2 font-next-book text-[14px] leading-[125%] tracking-[0.28px] text-[0B0B0B]`,
                 inviteProgress.claimed || !inviteProgress.completed
                   ? 'opacity-40'
                   : ''

@@ -125,7 +125,7 @@ const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
             }
           }
         }}
-        className="cursor-pointer rounded-[.75rem] p-3 border border-neutral-light-gray body-m"
+        className="body-m cursor-pointer rounded-[.75rem] border border-neutral-light-gray p-3"
       >
         <Image src={Metamask} width={24} height={24} alt="MetaMask"></Image>
       </Button>

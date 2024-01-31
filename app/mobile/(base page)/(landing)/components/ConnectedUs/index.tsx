@@ -10,14 +10,14 @@ interface ConnectedUsProps {}
 
 const ConnectedUs: FC<ConnectedUsProps> = (props) => {
   return (
-    <div className="w-full py-[3.75rem] bg-neutral-black flex items-center justify-center overflow-hidden relative">
-      <div className="flex flex-col h-full justify-center items-center gap-10 text-neutral-white relative">
+    <div className="relative flex w-full items-center justify-center overflow-hidden bg-neutral-black py-[3.75rem]">
+      <div className="relative flex h-full flex-col items-center justify-center gap-10 text-neutral-white">
         <h2 className="text-h2 text-[1.375rem]">Stay Connected with us</h2>
         <div className="flex gap-10">
           <Link
             href={'https://discord.gg/KkAJHPqywn'}
             target="_blank"
-            className="hover:scale-[1.1] cursor-pointer"
+            className="cursor-pointer hover:scale-[1.1]"
           >
             <span className="text-text-default-color">
               <DiscordIcon color={'white'} />
@@ -26,7 +26,7 @@ const ConnectedUs: FC<ConnectedUsProps> = (props) => {
           <Link
             href={'https://x.com/hackquest_?s=21&t=kYetGSBybf-ssFBo7GodGA'}
             target="_blank"
-            className="hover:scale-[1.1] cursor-pointer"
+            className="cursor-pointer hover:scale-[1.1]"
           >
             <span className="text-text-default-color">
               <TwitterIcon color={'white'} />
@@ -35,7 +35,7 @@ const ConnectedUs: FC<ConnectedUsProps> = (props) => {
           <Link
             href={'https://t.me/hackquester'}
             target="_blank"
-            className="hover:scale-[1.1] cursor-pointer"
+            className="cursor-pointer hover:scale-[1.1]"
           >
             <span className="text-text-default-color">
               <TelegramIcon color={'white'} />
@@ -45,7 +45,7 @@ const ConnectedUs: FC<ConnectedUsProps> = (props) => {
         <Link href={'https://xsxo494365r.typeform.com/to/p5cEH74M'}>
           <Button
             type="primary"
-            className="px-6 py-4 text-neutral-black uppercase button-text-m"
+            className="button-text-m px-6 py-4 uppercase text-neutral-black"
           >
             collab with us
           </Button>
@@ -58,7 +58,7 @@ const ConnectedUs: FC<ConnectedUsProps> = (props) => {
           ></Image>
         </div> */}
       </div>
-      <div className="w-[13.125rem] h-[12.5rem] absolute bottom-[1.0625rem] left-[53%]">
+      <div className="absolute bottom-[1.0625rem] left-[53%] h-[12.5rem] w-[13.125rem]">
         <Image
           src={'/images/landing/connected_us_right.png'}
           alt="hackquest"

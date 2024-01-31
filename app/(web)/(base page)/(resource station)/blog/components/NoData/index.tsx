@@ -7,12 +7,12 @@ interface NoDataProp {
 
 const NoData: React.FC<NoDataProp> = ({ href }) => {
   return (
-    <div className="flex flex-col gap-[40px] items-center">
+    <div className="flex flex-col items-center gap-[40px]">
       <p className="body-xl text-neutral-medium-gray">
         There is no content yet~
       </p>
       <Link
-        className="flex items-center justify-center w-[270px] h-[60px] border border-neutral-black text-neutral-black button-text-l rounded-[2.5rem]"
+        className="button-text-l flex h-[60px] w-[270px] items-center justify-center rounded-[2.5rem] border border-neutral-black text-neutral-black"
         href={href}
       >
         BACK TO ALL BLOGS

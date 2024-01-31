@@ -29,7 +29,7 @@ const LearningTrackList: React.FC<LearningTrackListProps> = ({
         ))}
       </div>
       <Link className="flex" href={MenuLink.LEARNING_TRACK}>
-        <div className="flex text-neutral-off-black button-text-s items-center mt-[16px] cursor-pointer">
+        <div className="button-text-s mt-[16px] flex cursor-pointer items-center text-neutral-off-black">
           <span>EXPLORE</span>
           <HiArrowLongRight size={18}></HiArrowLongRight>
         </div>

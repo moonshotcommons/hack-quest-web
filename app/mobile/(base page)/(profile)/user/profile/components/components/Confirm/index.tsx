@@ -31,25 +31,25 @@ const Confirm: React.FC<ConfirmProp> = ({
       showCloseIcon={true}
       icon={<FiX size={26} />}
     >
-      <div className="w-[800px] h-[400px] bg-[#fff] rounded-[10px] p-[30px] flex flex-col">
-        <div className="text-[28px] font-next-book-bold tracking-[1.68px]">
+      <div className="flex h-[400px] w-[800px] flex-col rounded-[10px] bg-[#fff] p-[30px]">
+        <div className="font-next-book-bold text-[28px] tracking-[1.68px]">
           {title}
         </div>
-        <div className="flex-1 flex flex-col items-center justify-center gap-[35px]">
-          <div className="text-neutral-black text-[18px] font-next-book tracking-[0.063px] leading-[160%]">
+        <div className="flex flex-1 flex-col items-center justify-center gap-[35px]">
+          <div className="font-next-book text-[18px] leading-[160%] tracking-[0.063px] text-neutral-black">
             {content}
           </div>
           <div className="flex justify-center gap-[15px]">
             <Button
               onClick={onClose}
-              className="w-[265px] h-[44px] border border-neutral-black  text-neutral-black text-[16px] font-next-book"
+              className="h-[44px] w-[265px] border border-neutral-black  font-next-book text-[16px] text-neutral-black"
             >
               {cancleText}
             </Button>
             <Button
               loading={loading}
               onClick={handleConfirm}
-              className="w-[265px] h-[44px] bg-yellow-primary font-next-book text-[16px]"
+              className="h-[44px] w-[265px] bg-yellow-primary font-next-book text-[16px]"
             >
               {confirmText}
             </Button>

@@ -15,9 +15,9 @@ const LessonFooter: React.FC<LessonFooterProps> = ({ lesson, onNextClick }) => {
   };
 
   return (
-    <div className="px-[1.375rem] fixed w-full left-0 bottom-[1.25rem] ">
+    <div className="fixed bottom-[1.25rem] left-0 w-full px-[1.375rem] ">
       <Button
-        className={`w-full h-[3rem] button-text-m text-neutral-black bg-yellow-primary`}
+        className={`button-text-m h-[3rem] w-full bg-yellow-primary text-neutral-black`}
         loading={nextLoading}
         onClick={handleNext}
       >

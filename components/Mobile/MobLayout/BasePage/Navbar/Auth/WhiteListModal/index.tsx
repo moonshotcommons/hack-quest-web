@@ -35,7 +35,7 @@ const WhiteListModal: NextPage<CompleteModalProps> = ({ open, onClose }) => {
   const { theme } = useContext(ThemeContext);
   return (
     <Modal open={open} onClose={onClose}>
-      <div className="w-[74.0625rem] h-[35.6875rem] bg-lesson-completed-modal-bg rounded-[2.5rem] m-auto flex flex-col items-center relative overflow-hidden">
+      <div className="relative m-auto flex h-[35.6875rem] w-[74.0625rem] flex-col items-center overflow-hidden rounded-[2.5rem] bg-lesson-completed-modal-bg">
         <div className="absolute left-0 top-0">
           {theme === Theme.Dark && <Image src={DarkMoonLeft} alt="bg"></Image>}
           {theme === Theme.Light && (
@@ -48,20 +48,20 @@ const WhiteListModal: NextPage<CompleteModalProps> = ({ open, onClose }) => {
             <Image src={LightMoonRight} alt="bg"></Image>
           )}
         </div>
-        <div className="absolute top-[7.375rem] left-[50%] -translate-x-[50%]">
+        <div className="absolute left-[50%] top-[7.375rem] -translate-x-[50%]">
           <Image src={Robot} alt="completed" width={45} height={50}></Image>
         </div>
         <h1
           className="
-          relative text-center w-[34.625rem] font-next-poster-Bold
-          text-[2.2021rem] leading-[100%] text-text-default-color mt-[11.6875rem]
-          after:absolute after:h-[1px] after:scale-y-[1] after:w-[27.75rem] after:bg-lesson-completed-modal-line-color after:-top-[1.5625rem] after:left-[50%] after:-translate-x-[50%]
-          before:absolute before:h-[1px] before:scale-y-[1] before:w-full before:bg-lesson-completed-modal-line-color  before:-bottom-[1.3125rem] before:left-0
+          relative mt-[11.6875rem] w-[34.625rem] text-center
+          font-next-poster-Bold text-[2.2021rem] leading-[100%] text-text-default-color
+          before:absolute before:-bottom-[1.3125rem] before:left-0 before:h-[1px] before:w-full before:scale-y-[1] before:bg-lesson-completed-modal-line-color after:absolute
+          after:-top-[1.5625rem] after:left-[50%] after:h-[1px] after:w-[27.75rem] after:-translate-x-[50%]  after:scale-y-[1] after:bg-lesson-completed-modal-line-color
             "
         >
           MVP Invitation Needed
         </h1>
-        <p className="w-[29.1875rem] font-next-book text-center text-[1.25rem] text-text-default-color mt-[2.375rem] leading-[110%] z-[51]">
+        <p className="z-[51] mt-[2.375rem] w-[29.1875rem] text-center font-next-book text-[1.25rem] leading-[110%] text-text-default-color">
           Sorry our site is currently only available for invited MVP user. If
           you’d like to join our whitelist, please email us at
           <a
@@ -72,9 +72,9 @@ const WhiteListModal: NextPage<CompleteModalProps> = ({ open, onClose }) => {
             founder@hackquest.io.
           </a>
         </p>
-        <div className="flex gap-[1.25rem] mt-[3.75rem]">
+        <div className="mt-[3.75rem] flex gap-[1.25rem]">
           <Button
-            className="bg-lesson-ghost-button-bg text-lesson-ghost-button-text-color border border-lesson-ghost-border-color px-[3rem] py-[1rem]"
+            className="border border-lesson-ghost-border-color bg-lesson-ghost-button-bg px-[3rem] py-[1rem] text-lesson-ghost-button-text-color"
             onClick={onClose}
           >
             Close
@@ -84,7 +84,7 @@ const WhiteListModal: NextPage<CompleteModalProps> = ({ open, onClose }) => {
             onClick={onClose}
             target="_blank"
           >
-            <Button className="bg-lesson-primary-button-bg text-lesson-primary-button-text-color border border-lesson-primary-button-border-color font-next-book px-[3rem] py-[1rem]">
+            <Button className="border border-lesson-primary-button-border-color bg-lesson-primary-button-bg px-[3rem] py-[1rem] font-next-book text-lesson-primary-button-text-color">
               Email Us
             </Button>
           </Link>

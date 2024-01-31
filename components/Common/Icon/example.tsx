@@ -20,7 +20,7 @@ const CopyWrap = (props: { children: ReactNode; copyText: string }) => {
             message.error('Error in copying text: ', err);
           });
       }}
-      className="cursor-pointer w-[5rem] h-[5rem] flex justify-center items-center"
+      className="flex h-[5rem] w-[5rem] cursor-pointer items-center justify-center"
     >
       {props.children}
     </div>
@@ -31,12 +31,12 @@ const ButtonExample: FC<ButtonExampleProps> = (props) => {
   return (
     <div>
       <div>
-        <h1 className="text-text-default-color text-[24px] pb-8 ">图标</h1>
-        <div className="flex flex-row gap-8 flex-wrap items-center">
+        <h1 className="pb-8 text-[24px] text-text-default-color ">图标</h1>
+        <div className="flex flex-row flex-wrap items-center gap-8">
           {Object.keys(icons).map((key: any, index) => {
             return (
               <CopyWrap key={index} copyText={`<${key}Icon />`}>
-                <span className="flex justify-center items-center">
+                <span className="flex items-center justify-center">
                   {cloneElement(icons[key as keyof IconsType] as ReactElement, {
                     color: 'red'
                   })}

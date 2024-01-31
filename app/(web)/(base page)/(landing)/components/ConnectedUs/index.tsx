@@ -10,14 +10,14 @@ interface ConnectedUsProps {}
 
 const ConnectedUs: FC<ConnectedUsProps> = (props) => {
   return (
-    <div className="w-full h-[30rem] bg-neutral-black flex items-center justify-center overflow-hidden">
-      <div className="flex flex-col h-full justify-center items-center gap-[3.75rem] text-neutral-white relative">
+    <div className="flex h-[30rem] w-full items-center justify-center overflow-hidden bg-neutral-black">
+      <div className="relative flex h-full flex-col items-center justify-center gap-[3.75rem] text-neutral-white">
         <h2 className="text-h2">Stay Connected with us</h2>
         <div className="flex gap-[3.75rem]">
           <Link
             href={'https://discord.gg/KkAJHPqywn'}
             target="_blank"
-            className="hover:scale-[1.1] cursor-pointer"
+            className="cursor-pointer hover:scale-[1.1]"
           >
             <span className="text-text-default-color">
               <DiscordIcon color={'white'} />
@@ -26,7 +26,7 @@ const ConnectedUs: FC<ConnectedUsProps> = (props) => {
           <Link
             href={'https://x.com/hackquest_?s=21&t=kYetGSBybf-ssFBo7GodGA'}
             target="_blank"
-            className="hover:scale-[1.1] cursor-pointer"
+            className="cursor-pointer hover:scale-[1.1]"
           >
             <span className="text-text-default-color">
               <TwitterIcon color={'white'} />
@@ -35,7 +35,7 @@ const ConnectedUs: FC<ConnectedUsProps> = (props) => {
           <Link
             href={'https://t.me/hackquester'}
             target="_blank"
-            className="hover:scale-[1.1] cursor-pointer"
+            className="cursor-pointer hover:scale-[1.1]"
           >
             <span className="text-text-default-color">
               <TelegramIcon color={'white'} />
@@ -45,19 +45,19 @@ const ConnectedUs: FC<ConnectedUsProps> = (props) => {
         <Link href={'https://xsxo494365r.typeform.com/to/p5cEH74M'}>
           <Button
             type="primary"
-            className="px-6 py-4 text-neutral-black uppercase button-text-m"
+            className="button-text-m px-6 py-4 uppercase text-neutral-black"
           >
             collab with us
           </Button>
         </Link>
-        <div className="w-[29.4375rem] h-[30.1875rem] absolute -top-11 -left-[calc(100%+60px)]">
+        <div className="absolute -left-[calc(100%+60px)] -top-11 h-[30.1875rem] w-[29.4375rem]">
           <Image
             src={'/images/landing/connected_us_left.png'}
             alt="hackquest"
             fill
           ></Image>
         </div>
-        <div className="w-[24.5625rem] h-[23.4375rem] absolute bottom-0 left-[calc(100%+130px)]">
+        <div className="absolute bottom-0 left-[calc(100%+130px)] h-[23.4375rem] w-[24.5625rem]">
           <Image
             src={'/images/landing/connected_us_right.png'}
             alt="hackquest"

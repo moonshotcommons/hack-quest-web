@@ -43,12 +43,12 @@ const DaliyQuest: React.FC<DaliyQuestProp> = () => {
   };
   return (
     <div>
-      <div className="text-neutral-black text-h4 mb-[24px]">Daily Quests</div>
+      <div className="text-h4 mb-[24px] text-neutral-black">Daily Quests</div>
       <div>
         {dailyQuests.map((v) => (
           <div
             key={v.id}
-            className="h-[87px] rounded-[10px] bg-neutral-white relative mb-[16px] p-[12px] overflow-hidden"
+            className="relative mb-[16px] h-[87px] overflow-hidden rounded-[10px] bg-neutral-white p-[12px]"
           >
             <div
               className="absolute left-0 top-0 h-full rounded-[10px] bg-yellow-light"
@@ -58,14 +58,14 @@ const DaliyQuest: React.FC<DaliyQuestProp> = () => {
                 }%`
               }}
             ></div>
-            <div className="relative z-2">
-              <div className="flex items-center gap-[8px] mb-[9px]">
+            <div className="z-2 relative">
+              <div className="mb-[9px] flex items-center gap-[8px]">
                 <Image src={IconHack} alt="IconHack" width={24}></Image>
                 <span className="body-s text-neutral-black">{`${v.name}(${v.progress?.progress?.[0]}/${v.progress?.progress?.[1]})`}</span>
               </div>
-              <div className="flex items-center justify-between h-[31px]">
+              <div className="flex h-[31px] items-center justify-between">
                 <div className="flex gap-[20px] pl-[12px]">
-                  <div className="w-[45px] h-[24px] flex items-center pl-[18px]  body-s text-neutral-off-black  bg-neutral-off-white rounded-r-[20px] relative ">
+                  <div className="body-s relative flex h-[24px] w-[45px]  items-center rounded-r-[20px]  bg-neutral-off-white pl-[18px] text-neutral-off-black ">
                     <Image
                       src={IconXp}
                       width={24}
@@ -74,7 +74,7 @@ const DaliyQuest: React.FC<DaliyQuestProp> = () => {
                     ></Image>
                     <span>{v.exp}</span>
                   </div>
-                  <div className="w-[45px] h-[24px] flex items-center pl-[18px]  body-s text-neutral-off-black  bg-neutral-off-white rounded-r-[20px] relative ">
+                  <div className="body-s relative flex h-[24px] w-[45px]  items-center rounded-r-[20px]  bg-neutral-off-white pl-[18px] text-neutral-off-black ">
                     <Image
                       src={IconCoin}
                       width={24}
@@ -86,7 +86,7 @@ const DaliyQuest: React.FC<DaliyQuestProp> = () => {
                 </div>
                 {v.progress.completed && (
                   <Button
-                    className={`w-[71px] h-[31px] bg-yellow-primary text-neutral-off-black button-text-s ${
+                    className={`button-text-s h-[31px] w-[71px] bg-yellow-primary text-neutral-off-black ${
                       v.progress.claimed ? 'cursor-not-allowed opacity-50' : ''
                     }`}
                     loading={!!~claimIds.indexOf(v.id)}
@@ -101,7 +101,7 @@ const DaliyQuest: React.FC<DaliyQuestProp> = () => {
         ))}
       </div>
       <Link
-        className="flex text-neutral-off-black button-text-s items-center  cursor-pointer"
+        className="button-text-s flex cursor-pointer items-center  text-neutral-off-black"
         href={MenuLink.MISSION_CENTER}
       >
         <span className="uppercase">Mission center</span>

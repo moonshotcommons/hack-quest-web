@@ -16,11 +16,11 @@ const FeatureBlogCard: React.FC<FeatureBlogCardProp> = ({ blog }) => {
   };
   return (
     <Link
-      className="w-full font-next-book h-[505px] bg-[#fff] overflow-hidden rounded-[10px]  flex shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] cursor-pointer"
+      className="flex h-[505px] w-full cursor-pointer overflow-hidden rounded-[10px]  bg-[#fff] font-next-book shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)]"
       onClick={goBlogContent}
       href={`/mobile${MenuLink.BLOG}/${blog.id}`}
     >
-      <div className="w-[900px] h-full relative  overflow-hidden">
+      <div className="relative h-full w-[900px]  overflow-hidden">
         <Image
           src={blog.image}
           fill
@@ -28,22 +28,22 @@ const FeatureBlogCard: React.FC<FeatureBlogCardProp> = ({ blog }) => {
           className="object-cover"
         ></Image>
       </div>
-      <div className="flex-1 min-w-[460px] h-full flex flex-col justify-between p-[30px]">
+      <div className="flex h-full min-w-[460px] flex-1 flex-col justify-between p-[30px]">
         <div className="flex flex-col gap-[15px] ">
           <div className="flex gap-[10px]">
             {blog.categories.map((v, i) => (
               <div
                 key={i}
-                className="w-fit py-[3px] px-[14px] text-neutral-rich-gray text-[18px] leading-[29px] rounded-[100px] border border-[var(--neutral-medium-gray)] bg-[#DADADA]"
+                className="w-fit rounded-[100px] border border-[var(--neutral-medium-gray)] bg-[#DADADA] px-[14px] py-[3px] text-[18px] leading-[29px] text-neutral-rich-gray"
               >
                 {v}
               </div>
             ))}
           </div>
-          <div className="text-[28px] leading-[45px] tracking-[0.56px] line-clamp-3">
+          <div className="line-clamp-3 text-[28px] leading-[45px] tracking-[0.56px]">
             {blog.title}
           </div>
-          <div className="text-[18px] leading-[28.8px] tracking-[0.36px] line-clamp-6">
+          <div className="line-clamp-6 text-[18px] leading-[28.8px] tracking-[0.36px]">
             {blog.description}
           </div>
         </div>

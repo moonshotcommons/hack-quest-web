@@ -45,12 +45,12 @@ const LearningTrackCardInProgress: React.FC<
 
   return (
     <div
-      className="w-full p-[1rem] flex flex-col gap-[1rem] relative rounded-[16px] bg-neutral-white overflow-hidden"
+      className="relative flex w-full flex-col gap-[1rem] overflow-hidden rounded-[16px] bg-neutral-white p-[1rem]"
       // onClick={goLearningTrackDetail}
       onClick={handleContinue}
     >
-      <div className="absolute top-[1rem] right-[16px]">
-        <div className="w-[3rem] h-[3rem] relative">
+      <div className="absolute right-[16px] top-[1rem]">
+        <div className="relative h-[3rem] w-[3rem]">
           <Image
             src={learningTrack.image || LearningTrackImg}
             fill
@@ -59,16 +59,16 @@ const LearningTrackCardInProgress: React.FC<
           ></Image>
         </div>
       </div>
-      <div className="caption-12pt h-fit w-fit px-[.75rem] py-[0.25rem] text-neutral-rich-gray  border-[0.5px] border-neutral-rich-gray rounded-[1.25rem]">
+      <div className="caption-12pt h-fit w-fit rounded-[1.25rem] border-[0.5px] border-neutral-rich-gray  px-[.75rem] py-[0.25rem] text-neutral-rich-gray">
         {learningTrack.track}
       </div>
-      <div className="body-m-bold line-clamp-1 text-neutral-off-black w-[calc(100%-3.125rem)]">
+      <div className="body-m-bold line-clamp-1 w-[calc(100%-3.125rem)] text-neutral-off-black">
         {learningTrack.name}
       </div>
 
       <MobCardProgress progress={learningTrack.progress || 0} />
       <Button
-        className="w-full h-[48px] bg-yellow-primary text-neutral-off-black"
+        className="h-[48px] w-full bg-yellow-primary text-neutral-off-black"
         loading={jumpLoading}
         disabled={jumpLoading}
         onClick={handleContinue}

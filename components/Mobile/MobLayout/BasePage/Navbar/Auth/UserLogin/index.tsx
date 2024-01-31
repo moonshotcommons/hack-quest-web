@@ -135,14 +135,14 @@ const UserLogin: FC<UserLoginProps> = (props) => {
   }, []);
 
   return (
-    <div className="w-full h-full flex flex-col justify-between">
+    <div className="flex h-full w-full flex-col justify-between">
       {/* <ThirdPartyLogin></ThirdPartyLogin> */}
-      <div className="flex flex-col gap-[24px] w-full text-base">
+      <div className="flex w-full flex-col gap-[24px] text-base">
         <div>
           <p className="body-l-bold text-neutral-rich-gray">
             {`Don’t have an account? `}
             <span
-              className="body-l-bold underline cursor-pointer"
+              className="body-l-bold cursor-pointer underline"
               onClick={() => {
                 setAuthType(AuthType.SIGN_UP);
               }}
@@ -216,7 +216,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
             delay={500}
             rightLabel={
               <div
-                className="underline-m text-neutral-off-black cursor-pointer text-[.875rem]"
+                className="underline-m cursor-pointer text-[.875rem] text-neutral-off-black"
                 onClick={() => {
                   BurialPoint.track('login-忘记密码');
                   setAuthType({
@@ -237,7 +237,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
           ></Input>
         </div>
 
-        <div className="flex gap-[.75rem] items-center" onClick={(e) => {}}>
+        <div className="flex items-center gap-[.75rem]" onClick={(e) => {}}>
           <Checkbox
             outClassNames={`${
               formData.keepMeLoggedIn
@@ -257,7 +257,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
           ></Checkbox>
           <p
             className={cn(
-              'body-s text-neutral-medium-gray cursor-pointer',
+              'body-s cursor-pointer text-neutral-medium-gray',
               formData.keepMeLoggedIn ? 'text-neutral-off-black' : ''
             )}
             onClick={() => {
@@ -271,7 +271,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
           </p>
         </div>
       </div>
-      <div className="w-full flex flex-col gap-4">
+      <div className="flex w-full flex-col gap-4">
         <Button
           onClick={onLogin}
           block
@@ -281,10 +281,10 @@ const UserLogin: FC<UserLoginProps> = (props) => {
           iconPosition="right"
           type="primary"
           className="
-          py-4 uppercase button-text-l text-[.875rem]
-          bg-auth-primary-button-bg hover:bg-auth-primary-button-hover-bg
-          text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
-          border-auth-primary-button-border-color hover:border-auth-primary-button-border-hover-color
+          button-text-l border-auth-primary-button-border-color bg-auth-primary-button-bg py-4
+          text-[.875rem] uppercase
+          text-auth-primary-button-text-color hover:border-auth-primary-button-border-hover-color
+          hover:bg-auth-primary-button-hover-bg hover:text-auth-primary-button-text-hover-color
           "
         >
           Continue
@@ -294,7 +294,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
           block
           ghost
           className="
-          py-4 uppercase button-text-l border-neutral-off-black text-[.875rem]
+          button-text-l border-neutral-off-black py-4 text-[.875rem] uppercase
           "
         >
           Back

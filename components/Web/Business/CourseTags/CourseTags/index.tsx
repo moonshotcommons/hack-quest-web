@@ -32,7 +32,7 @@ const CourseTags: FC<CourseTagsProps> = (props) => {
   return (
     <div
       className={cn(
-        'flex gap-[20px] items-center text-[var(--neutral-rich-gray)]',
+        'flex items-center gap-[20px] text-[var(--neutral-rich-gray)]',
         `${size === 'large' ? 'gap-[40px]' : ''} ${className}`
       )}
     >

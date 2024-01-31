@@ -13,14 +13,14 @@ const Recommend: React.FC<RecommendProp> = () => {
 
   return (
     <div>
-      <div className="text-neutral-off-black text-h4">Recommended For You</div>
+      <div className="text-h4 text-neutral-off-black">Recommended For You</div>
       <div className="mt-[16px] flex flex-wrap gap-[24px]">
         {list.map((learningTrack) => (
           <div key={learningTrack.id} className="w-[calc((100%-24px)/2)]">
             <LearningTrackCard
               learningTrack={learningTrack}
               from="dashboard"
-              className="p-[16px] h-[200px]"
+              className="h-[200px] p-[16px]"
             />
           </div>
         ))}

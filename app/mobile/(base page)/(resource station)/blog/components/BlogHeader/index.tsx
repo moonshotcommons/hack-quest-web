@@ -13,25 +13,25 @@ interface BlogHeaderProp {
 const BlogHeader: React.FC<BlogHeaderProp> = ({ blog }) => {
   const router = useRouter();
   return (
-    <div className="bg-neutral-black text-[#fff] pb-[80px]">
-      <div className="container mx-auto flex-col-center">
+    <div className="bg-neutral-black pb-[80px] text-[#fff]">
+      <div className="flex-col-center container mx-auto">
         <div
-          className="flex items-center w-full py-[30px] cursor-pointer"
+          className="flex w-full cursor-pointer items-center py-[30px]"
           onClick={() => {
             BurialPoint.track('blog-content-page Back按钮点击');
             router.back();
           }}
         >
           <BsArrowLeft size={26} />
-          <span className="text-[18px] ml-[10px]">Back</span>
+          <span className="ml-[10px] text-[18px]">Back</span>
         </div>
         <div className="w-[808px]">
-          <div className="flex justify-between items-center">
+          <div className="flex items-center justify-between">
             <div className="flex gap-[10px]">
               {blog.categories?.map((v, i) => (
                 <div
                   key={i}
-                  className="px-[14px] py-[3px] rounded-[100px] border border-[#fff]"
+                  className="rounded-[100px] border border-[#fff] px-[14px] py-[3px]"
                 >
                   {v}
                 </div>
@@ -43,7 +43,7 @@ const BlogHeader: React.FC<BlogHeaderProp> = ({ blog }) => {
               <CiShare2 size={20} />
             </div> */}
           </div>
-          <div className="font-next-book-bold text-[38px] leading-[60px] mt-[5px]">
+          <div className="mt-[5px] font-next-book-bold text-[38px] leading-[60px]">
             {blog.title}
           </div>
           <div className="mt-[10px] w-full">

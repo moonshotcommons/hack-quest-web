@@ -148,7 +148,7 @@ const Breadcrumb: React.FC = () => {
     }
   };
   return (
-    <div className="text-[14px] font-next-book text-lesson-preview-color flex h-[50px] items-center ">
+    <div className="flex h-[50px] items-center font-next-book text-[14px] text-lesson-preview-color ">
       {navData?.map((nav: navDataProps, i: number) => {
         return (
           <div key={i} className="max-w-[30%] truncate">

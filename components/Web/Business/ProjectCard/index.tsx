@@ -21,10 +21,10 @@ const ProjectCard: React.FC<ProjectCardProp> = ({ project }) => {
   };
   return (
     <div
-      className="flex flex-col rounded-[10px] overflow-hidden  bg-neutral-white w-[305px] hover:-translate-y-1 transition-all duration-300 mt-1 relative shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)] cursor-pointer"
+      className="relative mt-1 flex w-[305px]  cursor-pointer flex-col overflow-hidden rounded-[10px] bg-neutral-white shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)]"
       onClick={goProjectDetail}
     >
-      <div className="h-0 w-full pt-[56%] relative bg-[#d9d9d9]/30">
+      <div className="relative h-0 w-full bg-[#d9d9d9]/30 pt-[56%]">
         <Image
           src={project.thumbnail}
           alt="thumbnail"
@@ -32,27 +32,27 @@ const ProjectCard: React.FC<ProjectCardProp> = ({ project }) => {
           className="object-cover"
         ></Image>
       </div>
-      <div className="flex flex-col justify-between h-[215px] p-[16px]">
-        <div className="w-full flex flex-col gap-[16px]">
-          <div className="flex gap-[8px] w-full overflow-hidden">
+      <div className="flex h-[215px] flex-col justify-between p-[16px]">
+        <div className="flex w-full flex-col gap-[16px]">
+          <div className="flex w-full gap-[8px] overflow-hidden">
             {project.apolloDay && (
               <TrackTag
                 track={'Apollo Day'}
-                className="bg-yellow-primary border-yellow-primary flex-shrink-0"
+                className="flex-shrink-0 border-yellow-primary bg-yellow-primary"
               />
             )}
             {project.tracks.map((v, i) => (
               <TrackTag key={i} track={v} className="flex-shrink-0" />
             ))}
           </div>
-          <div className="text-neutral-off-black truncate body-m-bold">
+          <div className="body-m-bold truncate text-neutral-off-black">
             {project.name}
           </div>
-          <div className="body-s text-neutral-rich-gray line-clamp-2">
+          <div className="body-s line-clamp-2 text-neutral-rich-gray">
             {project.introduction}
           </div>
         </div>
-        <div className="flex text-neutral-rich-gray caption-12pt">
+        <div className="caption-12pt flex text-neutral-rich-gray">
           <span>{project.hackathonName}</span>
         </div>
       </div>

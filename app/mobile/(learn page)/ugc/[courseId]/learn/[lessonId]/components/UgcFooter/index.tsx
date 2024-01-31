@@ -51,12 +51,12 @@ const UgcFooter: React.FC<UgcFooterProp> = ({}) => {
   }, [lesson]);
 
   return (
-    <div className="px-[1.375rem] fixed w-full left-0 bottom-[1.25rem] ">
+    <div className="fixed bottom-[1.25rem] left-0 w-full px-[1.375rem] ">
       <Button
-        className={`w-full h-[3rem] button-text-m   ${
+        className={`button-text-m h-[3rem] w-full   ${
           footerBtn.footerBtnDisable
-            ? 'bg-neutral-light-gray text-neutral-medium-gray cursor-not-allowed'
-            : 'text-neutral-black bg-yellow-primary'
+            ? 'cursor-not-allowed bg-neutral-light-gray text-neutral-medium-gray'
+            : 'bg-yellow-primary text-neutral-black'
         }`}
         loading={footerBtn.footerBtnLoading}
         onClick={handleClick}

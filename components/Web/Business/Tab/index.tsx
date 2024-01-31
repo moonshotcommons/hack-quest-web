@@ -32,8 +32,8 @@ const Tab: React.FC<TabType> = ({
         <div
           key={tab.value}
           className={cn(
-            `cursor-pointer flex items-center ${
-              tab.value === curTab ? 'font-semibold relative' : ''
+            `flex cursor-pointer items-center ${
+              tab.value === curTab ? 'relative font-semibold' : ''
             }`,
             textClassName
           )}

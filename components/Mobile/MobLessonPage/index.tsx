@@ -117,13 +117,13 @@ const MobLessonPage: FC<MobLessonPageProps> = (props) => {
     >
       <Spin
         spinning={loading}
-        className="h-[100vh] flex justify-center items-center translate-y-[calc(50vh-50%)]"
+        className="flex h-[100vh] translate-y-[calc(50vh-50%)] items-center justify-center"
         tip="loading..."
         size="large"
       >
         {lesson ? (
           <div
-            className={`relative w-full h-[calc(100vh-4rem)] flex flex-col overflow-hidden`}
+            className={`relative flex h-[calc(100vh-4rem)] w-full flex-col overflow-hidden`}
           >
             <LessonPageContext.Provider
               value={{
@@ -151,7 +151,7 @@ const MobLessonPage: FC<MobLessonPageProps> = (props) => {
                 <LessonNavbar />
               </div>
               <Split
-                className="flex-1 w-full relative"
+                className="relative w-full flex-1"
                 minSize={360}
                 cursor="col-resize"
                 gutter={(index, direction) => {
@@ -172,7 +172,7 @@ const MobLessonPage: FC<MobLessonPageProps> = (props) => {
                   return gutter;
                 }}
               >
-                <div className="absolute left-0 top-0 w-full h-full overflow-auto scroll-wrap-y pb-[4.875rem]">
+                <div className="scroll-wrap-y absolute left-0 top-0 h-full w-full overflow-auto pb-[4.875rem]">
                   <LessonContent
                     lesson={lesson as any}
                     courseType={courseType}

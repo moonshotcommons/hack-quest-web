@@ -20,12 +20,12 @@ const ShowAll: React.FC<ShowAllProp> = ({
       {isShowAllButton && (
         <div className="flex justify-end text-[18px]">
           <div
-            className="flex items-center cursor-pointer"
+            className="flex cursor-pointer items-center"
             onClick={changeShowAll}
           >
             <span>Show {showAll ? 'Less' : 'All'}</span>
             <VscChevronDown
-              className={`transition text-[24px] ${
+              className={`text-[24px] transition ${
                 showAll ? 'rotate-180' : ''
               }`}
             />

@@ -14,7 +14,7 @@ const MiniLessonPage: NextPage<IProps> = (props) => {
 
   return (
     <>
-      <div className="w-full h-full flex flex-col font-next-book px-[40px] bg-neutral-off-white">
+      <div className="flex h-full w-full flex-col bg-neutral-off-white px-[40px] font-next-book">
         <MiniCoursePage
           lessonId={lessonId as string}
           courseType={CourseType.MINI}

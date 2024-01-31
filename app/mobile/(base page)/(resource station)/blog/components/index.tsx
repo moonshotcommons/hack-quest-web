@@ -37,7 +37,7 @@ const Blog: React.FC<BlogProp> = async function ({
       <BlogBanner />
       <div className="container mx-auto py-[70px]">
         {searchParams.keyword ? (
-          <div className="text-neutral-black text-[24px] font-next-book mb-[40px] text-center">
+          <div className="mb-[40px] text-center font-next-book text-[24px] text-neutral-black">
             {totalList} {totalList > 1 ? 'Results' : 'Result'} for
             <span className="text-neutral-medium-gray">
               “{searchParams.keyword}”
@@ -49,7 +49,7 @@ const Blog: React.FC<BlogProp> = async function ({
 
         <BlogList list={blogList} />
         {totalPage > 1 && (
-          <div className="flex justify-center mt-[80px]">
+          <div className="mt-[80px] flex justify-center">
             <Pagination page={1} total={totalPage} urlPrefix="/blog/p/" />
           </div>
         )}

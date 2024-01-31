@@ -50,7 +50,7 @@ const Navbar: FC<NavbarProps> = (props) => {
   }, []);
 
   return (
-    <div className="text-neutral-white h-[4rem] flex items-center justify-between w-full">
+    <div className="flex h-[4rem] w-full items-center justify-between text-neutral-white">
       <NavContainer
         isOpen={isOpen}
         toggleOpen={() => {
@@ -84,7 +84,7 @@ const Navbar: FC<NavbarProps> = (props) => {
           ></Auth>
         )}
       </NavContainer>
-      <div className="relative flex flex-1 justify-center items-center">
+      <div className="relative flex flex-1 items-center justify-center">
         <Image
           src={'/images/logo/dark-footer-logo.svg'}
           alt="logo"

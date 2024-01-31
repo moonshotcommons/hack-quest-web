@@ -50,7 +50,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProp> = ({
 
   return (
     <div
-      className="h-[192px] w-full p-[16px] relative flex items-center gap-[30px]  rounded-[16px] bg-neutral-white overflow-hidden card-hover"
+      className="card-hover relative flex h-[192px] w-full items-center gap-[30px]  overflow-hidden rounded-[16px] bg-neutral-white p-[16px]"
       onClick={goLearningTrackDetail}
     >
       {!inProgress && (
@@ -58,7 +58,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProp> = ({
           <CompletedIcon />
         </div>
       )}
-      <div className="w-[160px] h-[160px] relative">
+      <div className="relative h-[160px] w-[160px]">
         <Image
           src={learningTrack.image || LearningTrackImg}
           fill
@@ -66,14 +66,14 @@ const LearningTrackCard: React.FC<LearningTrackCardProp> = ({
           className="object-cover"
         ></Image>
       </div>
-      <div className="h-full flex flex-col justify-between  flex-1 flex-shrink-0">
+      <div className="flex h-full flex-1 flex-shrink-0  flex-col justify-between">
         <TrackTag track={learningTrack.track} />
         <div>
           <div className="body-m-bold line-clamp-1 text-neutral-off-black">
             {learningTrack.name}
           </div>
           {!inProgress && (
-            <div className="body-s text-neutral-medium-gray line-clamp-2 mt-[8px]">
+            <div className="body-s mt-[8px] line-clamp-2 text-neutral-medium-gray">
               {learningTrack.description}
             </div>
           )}
@@ -93,7 +93,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProp> = ({
       </div>
       {inProgress && (
         <Button
-          className="w-[223px] h-[51px] bg-yellow-primary text-neutral-off-black button-text-m"
+          className="button-text-m h-[51px] w-[223px] bg-yellow-primary text-neutral-off-black"
           loading={jumpLoading}
           disabled={jumpLoading}
           onClick={handleContinue}

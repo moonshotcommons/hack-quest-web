@@ -11,7 +11,7 @@ const QuizPassModal: FC<QuizPassModalProps> = (props) => {
   const { open, onClose } = props;
   return (
     <Modal open={open} onClose={onClose} markBg="transparent">
-      <div className="w-full h-full flex items-center justify-center">
+      <div className="flex h-full w-full items-center justify-center">
         <Image src={PassImage} alt="good job"></Image>
       </div>
     </Modal>

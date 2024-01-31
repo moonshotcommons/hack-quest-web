@@ -34,27 +34,27 @@ const horizontalCardData = [
 
 const BecomeWeb3: FC<{}> = (props) => {
   return (
-    <div className="w-full mx-auto py-10 px-5">
-      <div className="flex flex-col gap-3 items-center text-center mx-auto">
-        <p className="body-s-bold uppercase text-neutral-rich-gray text-[.75rem]">
+    <div className="mx-auto w-full px-5 py-10">
+      <div className="mx-auto flex flex-col items-center gap-3 text-center">
+        <p className="body-s-bold text-[.75rem] uppercase text-neutral-rich-gray">
           Why us
         </p>
         <h2 className="text-h2 text-[1.375rem]">Become a Web3 👩🏻‍💻👨🏽‍💻 </h2>
-        <p className="body-l text-neutral-medium-gray text-[.75rem]">
+        <p className="body-l text-[.75rem] text-neutral-medium-gray">
           Kickstart your Web3 learning journey with{' '}
           <span className="font-bold">100% FREE</span> courses built by experts,
           certified by leading ecosystems, and supported by a variety of
           post-learning resources!
         </p>
       </div>
-      <div className="flex flex-col gap-6 mt-10">
+      <div className="mt-10 flex flex-col gap-6">
         {verticalCardData.map((item, index) => {
           return (
             <div
               key={index}
-              className="flex flex-col gap-4 w-full bg-neutral-white rounded-[1rem] p-4"
+              className="flex w-full flex-col gap-4 rounded-[1rem] bg-neutral-white p-4"
             >
-              <div className="w-full h-[12.6875rem] relative">
+              <div className="relative h-[12.6875rem] w-full">
                 <Image
                   src={item.image}
                   fill
@@ -65,7 +65,7 @@ const BecomeWeb3: FC<{}> = (props) => {
               <h3 className="text-h4-mob font-next-book-bold text-neutral-off-black">
                 {item.title}
               </h3>
-              <p className="text-neutral-medium-gray body-xs">
+              <p className="body-xs text-neutral-medium-gray">
                 {item.description}
               </p>
             </div>
@@ -75,9 +75,9 @@ const BecomeWeb3: FC<{}> = (props) => {
           return (
             <div
               key={index}
-              className="flex flex-col gap-4 w-full bg-neutral-white rounded-[1rem] p-4"
+              className="flex w-full flex-col gap-4 rounded-[1rem] bg-neutral-white p-4"
             >
-              <div className="w-full h-[12.6875rem] relative">
+              <div className="relative h-[12.6875rem] w-full">
                 <Image
                   src={item.image}
                   fill
@@ -88,7 +88,7 @@ const BecomeWeb3: FC<{}> = (props) => {
               <h3 className="text-h4-mob font-next-book-bold text-neutral-off-black">
                 {item.title}
               </h3>
-              <p className="body-l text-neutral-medium-gray body-xs">
+              <p className="body-l body-xs text-neutral-medium-gray">
                 {item.description}
               </p>
             </div>

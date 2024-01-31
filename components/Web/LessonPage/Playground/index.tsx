@@ -37,7 +37,7 @@ const Playground: FC<PlaygroundProps> = (props) => {
   }, [lesson]);
 
   return (
-    <div className="p-5 pl-[0px] bg-lesson-code-bg h-full overflow-hidden flex flex-col gap-[20px]">
+    <div className="flex h-full flex-col gap-[20px] overflow-hidden bg-lesson-code-bg p-5 pl-[0px]">
       <PlaygroundContext.Provider
         value={{ lesson, onCompleted, isPreview, isPlayground: true }}
       >
