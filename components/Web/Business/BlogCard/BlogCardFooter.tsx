@@ -26,9 +26,9 @@ const BlogCardFooter: React.FC<FooterProp> = ({
           borderColor
         )}
       >
-        <div className="pr-[5px]">by</div>
+        <div className="pr-[5px]">By</div>
         <div
-          className="underline overflow-hidden whitespace-nowrap text-ellipsis flex-1"
+          className="overflow-hidden whitespace-nowrap text-ellipsis flex-1"
           title={blog?.creatorName}
         >
           {blog?.creatorName}
