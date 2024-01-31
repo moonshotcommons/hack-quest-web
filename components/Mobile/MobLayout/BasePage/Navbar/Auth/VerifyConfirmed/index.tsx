@@ -293,11 +293,9 @@ const Fail: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
 
 const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
   const { redirectToUrl } = useRedirect();
-  const { setUserInfo, setAuthType, setAuthModalOpen } = useUserStore(
+  const { setUserInfo } = useUserStore(
     useShallow((state) => ({
-      setUserInfo: state.setUserInfo,
-      setAuthType: state.setAuthType,
-      setAuthModalOpen: state.setAuthModalOpen
+      setUserInfo: state.setUserInfo
     }))
   );
   const { changeNavState } = useContext(AuthContext);

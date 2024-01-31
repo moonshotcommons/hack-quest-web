@@ -25,6 +25,9 @@ export enum NavType {
 
 const Navbar: FC<NavbarProps> = (props) => {
   const userInfo = useUserStore((state) => state.userInfo);
+  const setMobileAuthToggleOpenHandle = useUserStore(
+    (state) => state.setMobileAuthToggleOpenHandle
+  );
   const { navList, children } = props;
   const { redirectToUrl } = useRedirect();
   const { isLandingPage } = useCheckPathname();
@@ -48,6 +51,14 @@ const Navbar: FC<NavbarProps> = (props) => {
       toggleOpen();
     }
   }, []);
+
+  useEffect(() => {
+    setMobileAuthToggleOpenHandle({
+      isOpen,
+      toggleOpen: toggleOpen,
+      setNavType: (type) => setNavType(type)
+    });
+  }, [isOpen, toggleOpen, setNavType, setMobileAuthToggleOpenHandle]);
 
   return (
     <div className="text-neutral-white h-[4rem] flex items-center justify-between w-full">
