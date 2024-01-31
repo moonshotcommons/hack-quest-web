@@ -3,13 +3,16 @@ import Sidebar, { SidebarItemType } from '@/components/Web/Business/Sidebar';
 import { FC, useContext, useEffect, useMemo, useState } from 'react';
 import { lessonTypeData } from './constant';
 import { CompleteStateType, UGCCourseType } from '@/service/webApi/course/type';
-import { UgcContext, NavbarDataType } from '../../constants/type';
 import { useCourseStore } from '@/store/zustand/courseStore';
 import { useRequest } from 'ahooks';
 import webApi from '@/service';
 import { useGetLessonLink } from '@/hooks/useCoursesHooks/useGetLessonLink';
 import { useRedirect } from '@/hooks/useRedirect';
 import { useLearnStore } from '@/store/zustand/learnStore';
+import {
+  NavbarDataType,
+  UgcContext
+} from '@/app/(web)/(learn page)/ugc/[courseId]/learn/constants/type';
 
 interface UgcSidebarProps {}
 
