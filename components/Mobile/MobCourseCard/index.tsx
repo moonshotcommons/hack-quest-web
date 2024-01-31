@@ -76,7 +76,7 @@ const MobCourseCard: FC<CourseCardProps> = (props) => {
     <>
       <div
         className={cn(
-          'flex px-5 pb-5 flex-col border-t-[10px] rounded-[10px]  h-fit bg-neutral-white w-[305px] hover:-translate-y-1 transition-all duration-300 mt-1 relative shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)] cursor-pointer',
+          'relative mt-1 flex h-fit w-[305px] cursor-pointer  flex-col rounded-[10px] border-t-[10px] bg-neutral-white px-5 pb-5 shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)]',
           borderColor[course.type as any]
         )}
         onClick={() => {
@@ -85,7 +85,7 @@ const MobCourseCard: FC<CourseCardProps> = (props) => {
         }}
       >
         {(inProgress || inCompleted || baseProgress) && (
-          <div className="absolute font-neuemachina-light top-[13px] left-[16px]">
+          <div className="absolute left-[16px] top-[13px]">
             {!!course.progress &&
               course.progress < 1 &&
               course.progress > 0 && (
@@ -99,7 +99,7 @@ const MobCourseCard: FC<CourseCardProps> = (props) => {
                   format={(percent: any) => {
                     if (percent === 100) {
                       return (
-                        <span className="flex justify-center items-center align-middle text-neutral-rich-gray">
+                        <span className="flex items-center justify-center align-middle text-neutral-rich-gray">
                           <CheckIcon
                             width={32}
                             height={32}
@@ -109,9 +109,9 @@ const MobCourseCard: FC<CourseCardProps> = (props) => {
                       );
                     }
                     return (
-                      <p className="flex justify-center relative top-[1px] items-end text-[12px] text-neutral-rich-gray   font-neuemachina-light whitespace-nowrap">
+                      <p className="body-s relative top-[1px] flex items-end justify-center whitespace-nowrap text-neutral-rich-gray">
                         <span className="relative left-[3px]">{`${percent}`}</span>
-                        <span className="scale-50 relative top-[1px] ">%</span>
+                        <span className="relative top-[1px] scale-50 ">%</span>
                       </p>
                     );
                   }}
@@ -135,8 +135,8 @@ const MobCourseCard: FC<CourseCardProps> = (props) => {
             )}
           </div>
         )}
-        <div className="h-[148px] w-[265px] flex items-center justify-center">
-          <div className="h-[87px] relative  w-[150px]">
+        <div className="flex h-[148px] w-[265px] items-center justify-center">
+          <div className="relative h-[87px] w-[150px]">
             <Image
               src={`${
                 process.env.NODE_ENV === 'development'
@@ -149,10 +149,10 @@ const MobCourseCard: FC<CourseCardProps> = (props) => {
             ></Image>
           </div>
         </div>
-        <h3 className="text-neutral-black font-next-book leading-[160%]  tracking-[0.32px] opacity-60 text-base">
+        <h3 className="body-m text-neutral-black opacity-60">
           {tagFormate(course.type)}
         </h3>
-        <h2 className="text-[18px] line-clamp-1 font-next-poster-Bold text-neutral-black tracking-[1.08px] mt-[5px] mb-[9px]">
+        <h2 className="text-h3-mob mb-[9px] mt-[5px] line-clamp-1 text-neutral-black">
           {course.name}
         </h2>
         {!inProgress && (
@@ -160,7 +160,7 @@ const MobCourseCard: FC<CourseCardProps> = (props) => {
             ellipsis={{ rows: 2 }}
             className="my-[13px] min-h-[45px]"
           >
-            <div className="text-[14px] font-next-book-Thin leading-[160%] text-neutral-black">
+            <div className="body-s text-neutral-black">
               {course.description}
             </div>
           </Typography.Paragraph>
@@ -175,10 +175,10 @@ const MobCourseCard: FC<CourseCardProps> = (props) => {
         </div>
         {inProgress && (
           <div className="flex flex-col gap-y-5">
-            <div className="w-full h-[20px] border-b border-neutral-black"></div>
+            <div className="h-[20px] w-full border-b border-neutral-black"></div>
             <Button
               type="primary"
-              className="px-0 py-[12px] flex text-[16px] font-next-book tracking-[0.32] leading-[125%]"
+              className="body-m flex px-0 py-[12px]"
               block
               loading={loading}
               disabled={loading}
@@ -197,7 +197,7 @@ const MobCourseCard: FC<CourseCardProps> = (props) => {
               Resume
             </Button>
             <Button
-              className="border border-neutral-black rounded-[32px] px-0 py-[12px] flex text-[16px] font-next-book tracking-[0.32] leading-[125%]"
+              className="body-m flex rounded-[32px] border border-neutral-black px-0 py-[12px]"
               block
               onClick={() => {
                 BurialPoint.track('home-course卡片View Syllabus按钮点击', {

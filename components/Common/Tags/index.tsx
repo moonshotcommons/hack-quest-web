@@ -7,9 +7,9 @@ const tagsVariants = cva(
   {
     variants: {
       size: {
-        sm: 'px-[14px] py-[5px] text-[12px]',
-        md: 'px-[16px] py-[6px] text-[14px]',
-        lg: 'px-[18px] py-[7px] text-[16px]'
+        sm: 'px-[14px] py-[5px] body-xs',
+        md: 'px-[16px] py-[6px] body-s',
+        lg: 'px-[18px] py-[7px] body-m'
       }
     },
     defaultVariants: {

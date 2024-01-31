@@ -20,9 +20,10 @@ const CourseFilterListDefault: FC<CourseFilterListDefaultProps> = (props) => {
 
   const { run: getCourseList, loading } = useRequest(
     async (filterParams: FilterParamsType) => {
-      const res = await webApi.courseApi.getCourseListBySearch<
-        PageResult<ProjectCourseType>
-      >(filterParams);
+      const res =
+        await webApi.courseApi.getCourseListBySearch<
+          PageResult<ProjectCourseType>
+        >(filterParams);
       return res;
     },
 

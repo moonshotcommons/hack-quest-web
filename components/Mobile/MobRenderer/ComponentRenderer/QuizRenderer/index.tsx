@@ -18,8 +18,8 @@ export const QuizContext = createContext<{
 
 const QuizRenderer: FC<QuizRendererProps> = (props) => {
   return (
-    <div className="rounded-[.5rem] px-[1.25rem] py-[1.125rem] bg-neutral-light-gray  w-full text-neutral-black">
-      <p className="font-next-book-bold text-[18px] mb-[.625rem]">Quiz</p>
+    <div className="w-full rounded-[.5rem] bg-neutral-light-gray px-[1.25rem]  py-[1.125rem] text-neutral-black">
+      <p className="mb-[.625rem] font-next-book-bold text-[18px]">Quiz</p>
       <p className="caption-12pt">This is only available on desktop.</p>
     </div>
   );

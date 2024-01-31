@@ -70,24 +70,24 @@ const User: FC<UserProps> = () => {
   return (
     <div className="relative h-full">
       <div
-        className="h-full  flex items-center justify-end relative"
+        className="relative  flex h-full items-center justify-end"
         ref={userDropCardRef as any}
       >
-        <div className="cursor-pointer h-full flex items-center justify-end">
+        <div className="flex h-full cursor-pointer items-center justify-end">
           {isLogin && (
             <div className="flex-row-center">
               <div
-                className="h-[30px] text-[#fff] flex-row-center"
+                className="flex-row-center h-[30px] text-[#fff]"
                 onClick={() => redirectToUrl('/mission-center')}
               >
-                <div className="w-[115px] h-full bg-neutral-rich-gray rounded-[20px] flex-row-center justify-between mr-[20px] pr-[15px]">
+                <div className="flex-row-center mr-[20px] h-full w-[115px] justify-between rounded-[20px] bg-neutral-rich-gray pr-[15px]">
                   <Image src={IconCoin} width={30} alt="iconCredits" />
                   <span>{userCoin.coin}</span>
                 </div>
-                <div className="w-[170px] h-full px-[15px]">
-                  <div className="w-full h-full relative flex-center bg-neutral-medium-gray  ">
+                <div className="h-full w-[170px] px-[15px]">
+                  <div className="flex-center relative h-full w-full bg-neutral-medium-gray  ">
                     <div
-                      className="absolute left-[0] top-[0] h-full bg-neutral-rich-gray rounded-r-[20px]"
+                      className="absolute left-[0] top-[0] h-full rounded-r-[20px] bg-neutral-rich-gray"
                       style={{
                         width: `${
                           (userLevel.expCurrentLevel / userLevel.expNextLevel) *
@@ -95,16 +95,16 @@ const User: FC<UserProps> = () => {
                         }%`
                       }}
                     ></div>
-                    <div className="absolute w-full h-full flex-row-center justify-between text-neutral-black">
-                      <div className="w-[30px] ml-[-15px] h-[30px] flex-center rounded-[50%] bg-yellow-primary">
-                        <div className="w-[24px] h-[24px] flex-center rounded-[50%] bg-[#E7A600] ">
+                    <div className="flex-row-center absolute h-full w-full justify-between text-neutral-black">
+                      <div className="flex-center ml-[-15px] h-[30px] w-[30px] rounded-[50%] bg-yellow-primary">
+                        <div className="flex-center h-[24px] w-[24px] rounded-[50%] bg-[#E7A600] ">
                           {userLevel.level}
                         </div>
                       </div>
-                      <div className="flex-1 flex-shrink-0 flex-center text-[#fff]">
+                      <div className="flex-center flex-1 flex-shrink-0 text-[#fff]">
                         {`${userLevel.expCurrentLevel}/${userLevel.expNextLevel}`}
                       </div>
-                      <div className="w-[30px]  mr-[-15px] h-[30px] flex-center rounded-[50%] bg-[rgba(255,216,80,1)]">
+                      <div className="flex-center  mr-[-15px] h-[30px] w-[30px] rounded-[50%] bg-[rgba(255,216,80,1)]">
                         <span className="text-[rgba(11,11,11,0.5)]">
                           {userLevel.level + 1}
                         </span>
@@ -114,15 +114,15 @@ const User: FC<UserProps> = () => {
                 </div>
               </div>
               <div
-                className="relative w-[54px] h-[64px] flex items-center justify-end"
+                className="relative flex h-[64px] w-[54px] items-center justify-end"
                 onMouseEnter={() => setShowUserDropCard(true)}
                 onMouseLeave={() => setShowUserDropCard(false)}
               >
                 <div
                   className={cn(
-                    'relative w-[34px] h-[34px] bg-[#8d8d8d] overflow-hidden rounded-full flex justify-center items-center',
+                    'relative flex h-[34px] w-[34px] items-center justify-center overflow-hidden rounded-full bg-[#8d8d8d]',
                     pathname === '/user/profile'
-                      ? 'border-[5px] border-[#ffd952] box-content'
+                      ? 'box-content border-[5px] border-[#ffd952]'
                       : ''
                   )}
                 >
@@ -139,7 +139,7 @@ const User: FC<UserProps> = () => {
                   ></Image>
                 </div>
                 {userInfo && showUserDropCard ? (
-                  <div className="absolute z-[999] -right-[15px] top-[37px] pt-[20px]">
+                  <div className="absolute -right-[15px] top-[37px] z-[999] pt-[20px]">
                     <UserDropCard
                       userInfo={(userInfo as LoginResponse) || {}}
                       onClose={() => setShowUserDropCard(false)}
@@ -153,7 +153,7 @@ const User: FC<UserProps> = () => {
             <div className="flex gap-4">
               <Button
                 type="text"
-                className="px-[1.0625rem] py-2 border-transparent text-neutral-white button-text-s uppercase"
+                className="button-text-s border-transparent px-[1.0625rem] py-2 uppercase text-neutral-white"
                 onClick={() => {
                   setAuthType(AuthType.LOGIN);
                   setAuthModalOpen(true);
@@ -163,7 +163,7 @@ const User: FC<UserProps> = () => {
               </Button>
               <Button
                 type="primary"
-                className="px-5 py-[.5rem] text-neutral-black rounded-full button-text-s uppercase"
+                className="button-text-s rounded-full px-5 py-[.5rem] uppercase text-neutral-black"
                 onClick={() => {
                   setAuthType(AuthType.SIGN_UP);
                   setAuthModalOpen(true);

@@ -23,8 +23,8 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon }) => {
     <Link
       href={`${menuLink.hackathon}/${hackathon.id}?menu=${Menu.HACKATHON}&${QueryIdType.HACKATHON_ID}=${hackathon.id}`}
     >
-      <div className="rounded-[10px] overflow-hidden w-full h-fit flex gap-y-[22px] flex-col bg-neutral-white shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] hover:-translate-y-1 transition-all duration-300 hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)] cursor-pointer">
-        <div className="w-full bg-[#D9D9D9] rounded-t-[10px] relative pt-[56.25%] h-0">
+      <div className="flex h-fit w-full cursor-pointer flex-col gap-y-[22px] overflow-hidden rounded-[10px] bg-neutral-white shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)]">
+        <div className="relative h-0 w-full rounded-t-[10px] bg-[#D9D9D9] pt-[56.25%]">
           {cover && (
             <Image
               src={cover}
@@ -34,24 +34,24 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon }) => {
             ></Image>
           )}
         </div>
-        <div className="pb-[30px] flex flex-col px-[22px]">
+        <div className="flex flex-col px-[22px] pb-[30px]">
           {/* <h2 className="font-next-book-bold text-neutral-black text-[18px] leading-[125%] -tracking-[0.185px] min-h-[46px]"> */}
           <Typography.Paragraph
             ellipsis={{ rows: 2 }}
-            className="font-next-book-bold text-neutral-black text-[18px] leading-[125%] -tracking-[0.185px] min-h-[46px]"
+            className="min-h-[46px] font-next-book-bold text-[18px] leading-[125%] -tracking-[0.185px] text-neutral-black"
             style={{ marginBottom: 0 }}
           >
             {name}
           </Typography.Paragraph>
           {/* </h2> */}
-          <div className="mt-[15px] flex w-full h-fit gap-[15px]">
+          <div className="mt-[15px] flex h-fit w-full gap-[15px]">
             <div className="w-[5px] rounded-full bg-yellow-primary"></div>
             <div className="flex flex-col gap-[15px]">
               <div className="w-full font-next-book leading-[125%]">
                 <p className="text-[12px] tracking-[0.24px] text-neutral-medium-gray">
                   RUNS FROM
                 </p>
-                <p className="mt-[5px] text-[14px] text-neutral-black tracking-[0.28px]">
+                <p className="mt-[5px] text-[14px] tracking-[0.28px] text-neutral-black">
                   {formatTime(startTime, endTime)}
                 </p>
               </div>
@@ -62,7 +62,7 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon }) => {
 
                 <Typography.Paragraph
                   ellipsis={{ rows: 2 }}
-                  className="mt-[5px] text-[14px] text-neutral-black tracking-[0.28px] min-h-[36px]"
+                  className="mt-[5px] min-h-[36px] text-[14px] tracking-[0.28px] text-neutral-black"
                   style={{ marginBottom: 0 }}
                 >
                   {address}

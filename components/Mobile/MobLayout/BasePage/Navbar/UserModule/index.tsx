@@ -49,10 +49,10 @@ const UserModule: FC<UserModuleProps> = ({ changeNavType, toggleOpen }) => {
 
   if (!userInfo) {
     return (
-      <div className="text-[1.125rem] font-Nunito leading-[160%] capitalize text-neutral-white w-full">
+      <div className="w-full font-Nunito text-[1.125rem] capitalize leading-[160%] text-neutral-white">
         <motion.div
           variants={itemVariants}
-          className="py-[.7813rem] flex gap-2 items-center"
+          className="flex items-center gap-2 py-[.7813rem]"
           onClick={() => {
             setAuthType(AuthType.LOGIN);
             changeNavType(NavType.AUTH);
@@ -62,7 +62,7 @@ const UserModule: FC<UserModuleProps> = ({ changeNavType, toggleOpen }) => {
         </motion.div>
         <motion.div
           variants={itemVariants}
-          className="py-[.7813rem] flex gap-2 items-center"
+          className="flex items-center gap-2 py-[.7813rem]"
           onClick={() => {
             setAuthType(AuthType.SIGN_UP);
             changeNavType(NavType.AUTH);
@@ -75,11 +75,11 @@ const UserModule: FC<UserModuleProps> = ({ changeNavType, toggleOpen }) => {
   }
 
   return (
-    <div className="text-[1.125rem] font-Nunito leading-[160%] capitalize text-neutral-white w-full">
+    <div className="w-full font-Nunito text-[1.125rem] capitalize leading-[160%] text-neutral-white">
       <Link href={'/user/profile'}>
         <motion.div
           variants={itemVariants}
-          className="py-[.7813rem] flex gap-2 items-center"
+          className="flex items-center gap-2 py-[.7813rem]"
           onClick={() => {
             setAuthType(AuthType.LOGIN);
             changeNavType(NavType.AUTH);
@@ -93,7 +93,7 @@ const UserModule: FC<UserModuleProps> = ({ changeNavType, toggleOpen }) => {
       </Link>
       <motion.div
         variants={itemVariants}
-        className="py-[.7813rem] flex gap-2 items-center"
+        className="flex items-center gap-2 py-[.7813rem]"
         onClick={() => {
           message.error(
             'Do not support mobile terminal to change the password, please go to the PC terminal operation.'
@@ -109,7 +109,7 @@ const UserModule: FC<UserModuleProps> = ({ changeNavType, toggleOpen }) => {
       </motion.div>
       <motion.div
         variants={itemVariants}
-        className="py-[.7813rem] flex gap-2 items-center"
+        className="flex items-center gap-2 py-[.7813rem]"
         onClick={() => {
           signOut();
         }}

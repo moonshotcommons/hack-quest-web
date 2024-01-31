@@ -18,12 +18,12 @@ const ContentRenderer: FC<ContentRendererProps> = (props) => {
   const { isPlayground } = useContext(PlaygroundContext);
   return (
     <div
-      className={`px-[20px] py-[15px] rounded-[10px]  mb-5 ${
+      className={`mb-5 rounded-[10px] px-[20px]  py-[15px] ${
         leftLength > 1 ? 'border border-lesson-title-box-border-color' : ''
-      } ${isPlayground ? 'flex-1 flex flex-col' : ''}`}
+      } ${isPlayground ? 'flex flex-1 flex-col' : ''}`}
     >
       <div
-        className={`flex  justify-between items-center ${
+        className={`flex  items-center justify-between ${
           leftLength > 1 ? 'cursor-pointer' : ''
         }`}
         onClick={() => {

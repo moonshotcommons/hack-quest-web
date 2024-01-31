@@ -31,21 +31,21 @@ const MiniCoursePage: FC<MiniCoursePageProps> = (props) => {
   return (
     <Loading
       loading={loading}
-      className="h-[100vh] flex justify-center items-center translate-y-[calc(50vh-50%)]"
+      className="flex h-[100vh] translate-y-[calc(50vh-50%)] items-center justify-center"
     >
-      <div className="py-[40px] flex h-full">
+      <div className="flex h-full py-[40px]">
         {lesson && (
           <>
             <Sidebar lesson={lesson}></Sidebar>
             <LessonContentWrap lesson={lesson}>
-              <div className="flex-1 max-w-[840px] bg-neutral-white h-full rounded-[12px] px-[64px] py-[48px] shadow-[0px_4px_8px_0px_rgba(0,0,0,0.12)] flex flex-col">
-                <h1 className="pb-[24px] text-[28px] font-next-poster-Bold text-neutral-off-black tracking-[1.68px]">
+              <div className="flex h-full max-w-[840px] flex-1 flex-col rounded-[12px] bg-neutral-white px-[64px] py-[48px] shadow-[0px_4px_8px_0px_rgba(0,0,0,0.12)]">
+                <h1 className="pb-[24px] font-next-poster-Bold text-[28px] tracking-[1.68px] text-neutral-off-black">
                   {lesson.name}
                 </h1>
-                <div className="h-[1px] w-full scale-y-50 bg-neutral-black mb-4">
+                <div className="mb-4 h-[1px] w-full scale-y-50 bg-neutral-black">
                   &nbsp;
                 </div>
-                <div className="flex-1 overflow-y-auto overflow-x-visible scroll-wrap-y pr-4 pl-1">
+                <div className="scroll-wrap-y flex-1 overflow-y-auto overflow-x-visible pl-1 pr-4">
                   <ComponentRenderer
                     parent={lesson}
                     component={lesson.content as any}

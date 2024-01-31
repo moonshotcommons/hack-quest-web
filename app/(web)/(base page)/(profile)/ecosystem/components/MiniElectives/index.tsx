@@ -20,7 +20,7 @@ const MiniElectives: React.FC<MiniElectivesProp> = () => {
     });
   return (
     <div>
-      <p className="text-h3 text-neutral-black mb-[30px]">Minis</p>
+      <p className="text-h3 mb-[30px] text-neutral-black">Minis</p>
       <div className="flex flex-col gap-[30px]">
         <Loading loading={loading}>
           {elctiveList.map((elective) => (

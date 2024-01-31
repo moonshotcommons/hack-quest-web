@@ -39,8 +39,8 @@ const cardData = [
 
 const CommunityIntroduction: FC<{}> = (props) => {
   return (
-    <div className="mt-[6.25rem] container mx-auto">
-      <div className="flex flex-col gap-3 items-center text-center w-[50rem] mx-auto">
+    <div className="container mx-auto mt-[6.25rem]">
+      <div className="mx-auto flex w-[50rem] flex-col items-center gap-3 text-center">
         <p className="body-s-bold uppercase text-neutral-rich-gray">{`what’s next`}</p>
         <h2 className="text-h2">We Support Beyond 📖</h2>
         <p className="body-l text-neutral-medium-gray">
@@ -48,14 +48,14 @@ const CommunityIntroduction: FC<{}> = (props) => {
           growing Web3 community!
         </p>
       </div>
-      <div className="flex gap-6 mt-[3.75rem]">
+      <div className="mt-[3.75rem] flex gap-6">
         {cardData.map((item, index) => {
           return (
             <div
               key={index}
-              className="w-[18.875rem] h-[25.5rem] rounded-[1.5rem] bg-neutral-white flex flex-col"
+              className="flex h-[25.5rem] w-[18.875rem] flex-col rounded-[1.5rem] bg-neutral-white"
             >
-              <div className="w-full h-[12.5rem] relative rounded-t-[1.5rem] overflow-hidden">
+              <div className="relative h-[12.5rem] w-full overflow-hidden rounded-t-[1.5rem]">
                 <Image
                   src={item.image}
                   alt="hackquest"
@@ -63,7 +63,7 @@ const CommunityIntroduction: FC<{}> = (props) => {
                   className="object-cover"
                 ></Image>
               </div>
-              <div className="flex-1 p-6 flex flex-col gap-3">
+              <div className="flex flex-1 flex-col gap-3 p-6">
                 <h4 className="text-h4 text-neutral-off-black">{item.title}</h4>
                 <p className="body-s text-neutral-medium-gray">
                   {item.description}
@@ -71,9 +71,9 @@ const CommunityIntroduction: FC<{}> = (props) => {
                 <Link
                   href={item.link}
                   target="_blank"
-                  className="body-m-bold flex gap-2 items-center cursor-pointer"
+                  className="body-m-bold flex cursor-pointer items-center gap-2"
                 >
-                  <span className="relative after:h-[2px] after:rounded-full after:absolute after:w-full after:left-0 after:-bottom-[1px] after:bg-yellow-primary">
+                  <span className="relative after:absolute after:-bottom-[1px] after:left-0 after:h-[2px] after:w-full after:rounded-full after:bg-yellow-primary">
                     {item.buttonText}
                   </span>
                   <svg

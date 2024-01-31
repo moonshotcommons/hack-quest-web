@@ -96,7 +96,7 @@ const EmailVerify: FC<EmailVerifyProps> = (props) => {
   }, [authRouteType.prevType]);
 
   return (
-    <div className="w-full h-full flex-col flex justify-between">
+    <div className="flex h-full w-full flex-col justify-between">
       <div className="flex flex-col gap-6">
         <svg
           width="64"
@@ -132,20 +132,20 @@ const EmailVerify: FC<EmailVerifyProps> = (props) => {
           {/* <Image src={Logo} alt="logo" width={191} className="mt-[2rem]"></Image> */}
         </p>
       </div>
-      <div className="flex flex-col gap-4 mt-[4rem] w-full">
+      <div className="mt-[4rem] flex w-full flex-col gap-4">
         <Button
           onClick={resendButtonParams.handle}
           block
           disabled={!!Math.floor(countdown / 1000)}
           className={cn(
             `
-          py-4 uppercase button-text-l
-          bg-auth-primary-button-bg hover:bg-auth-primary-button-hover-bg
-          text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
-          border-auth-primary-button-border-color hover:border-auth-primary-button-border-hover-color
+          button-text-l border-auth-primary-button-border-color bg-auth-primary-button-bg
+          py-4 uppercase
+          text-auth-primary-button-text-color hover:border-auth-primary-button-border-hover-color
+          hover:bg-auth-primary-button-hover-bg hover:text-auth-primary-button-text-hover-color
           `,
             !!Math.floor(countdown / 1000)
-              ? 'opacity-60 cursor-not-allowed'
+              ? 'cursor-not-allowed opacity-60'
               : ''
           )}
         >
@@ -161,7 +161,7 @@ const EmailVerify: FC<EmailVerifyProps> = (props) => {
           block
           ghost
           className="
-          py-4 uppercase button-text-l border-neutral-off-black
+          button-text-l border-neutral-off-black py-4 uppercase
     "
         >
           {backButtonParams.text}

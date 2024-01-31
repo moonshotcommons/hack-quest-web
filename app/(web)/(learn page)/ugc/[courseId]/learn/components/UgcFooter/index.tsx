@@ -61,12 +61,12 @@ const UgcFooter: React.FC<UgcFooterProp> = ({}) => {
   }, [lesson]);
 
   return (
-    <div className="h-[68px] bg-neutral-rich-gray flex-center px-[40px] relative transition-all shadow-[0px_-2px_8px_0_rgba(0,0,0,0.12)]">
-      <div className="max-w-[calc((100%-550px))] flex gap-[2px] overflow-auto">
+    <div className="flex-center relative h-[68px] bg-neutral-rich-gray px-[40px] shadow-[0px_-2px_8px_0_rgba(0,0,0,0.12)] transition-all">
+      <div className="flex max-w-[calc((100%-550px))] gap-[2px] overflow-auto">
         {unitNavList.map((item, i) => (
           <div
             key={item.id}
-            className="w-[70px] h-[5px] rounded-[3px] bg-neutral-medium-gray overflow-hidden"
+            className="h-[5px] w-[70px] overflow-hidden rounded-[3px] bg-neutral-medium-gray"
           >
             <div
               className="h-full rounded-[3px] bg-yellow-dark transition-all"
@@ -75,12 +75,12 @@ const UgcFooter: React.FC<UgcFooterProp> = ({}) => {
           </div>
         ))}
       </div>
-      <div className="absolute h-full top-0 right-[40px] flex items-center">
+      <div className="absolute right-[40px] top-0 flex h-full items-center">
         <Button
-          className={`w-[216px] h-[48px] button-text-m   ${
+          className={`button-text-m h-[48px] w-[216px]   ${
             footerBtn.footerBtnDisable
-              ? 'bg-neutral-light-gray text-neutral-medium-gray cursor-not-allowed'
-              : 'text-neutral-black bg-yellow-primary'
+              ? 'cursor-not-allowed bg-neutral-light-gray text-neutral-medium-gray'
+              : 'bg-yellow-primary text-neutral-black'
           }`}
           loading={footerBtn.footerBtnLoading}
           onClick={handleClick}

@@ -372,7 +372,7 @@ const ImageCrop = forwardRef<ImageCropRef, ImageCropProps>((props, ref) => {
           ) : (
             <Button
               ghost
-              className="border-neutral-black w-[265px] flex items-center justify-center  py-[12px]"
+              className="flex w-[265px] items-center justify-center border-neutral-black py-[12px]"
             >
               Change Image
             </Button>
@@ -396,7 +396,7 @@ const ImageCrop = forwardRef<ImageCropRef, ImageCropProps>((props, ref) => {
       }}
       showCloseIcon
       icon={
-        <div className="absolute -top-2 -right-2 cursor-pointer">
+        <div className="absolute -right-2 -top-2 cursor-pointer">
           <svg
             width="30"
             height="30"
@@ -423,8 +423,8 @@ const ImageCrop = forwardRef<ImageCropRef, ImageCropProps>((props, ref) => {
       }
       markBg="black"
     >
-      <div className="w-[800px] bg-neutral-white rounded-[10px] pt-[30px] pb-[40px]">
-        <div className="font-next-book text-[28px] text-neutral-black leading-[125%] tracking-[0.64px] px-[30px] pb-[40px]">
+      <div className="w-[800px] rounded-[10px] bg-neutral-white pb-[40px] pt-[30px]">
+        <div className="text-h3 px-[30px] pb-[40px] leading-[125%] text-neutral-black">
           {title}
         </div>
         <EasyCrop
@@ -443,10 +443,10 @@ const ImageCrop = forwardRef<ImageCropRef, ImageCropProps>((props, ref) => {
           showGrid={showGrid}
           cropperProps={cropperProps}
         />
-        <div className="flex gap-x-[15px] font-next-book text-[16px] leading-[125%] tracking-[0.32px] text-neutral-black justify-center mt-[30px]">
+        <div className="body-m mt-[30px] flex justify-center gap-x-[15px] text-neutral-black">
           {getNewUpload(children)}
           <Button
-            className="w-[265px] flex items-center justify-center py-[12px]"
+            className="flex w-[265px] items-center justify-center py-[12px]"
             type="primary"
             loading={loading}
             disabled={loading}

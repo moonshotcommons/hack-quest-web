@@ -89,11 +89,11 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
   };
   return (
     <div className="w-full">
-      <div className={`h-[64px] mx-auto container`}>
-        <div className="h-full flex items-center justify-between">
-          <nav className="h-full flex items-center text-neutral-white">
+      <div className={`container mx-auto h-[64px]`}>
+        <div className="flex h-full items-center justify-between">
+          <nav className="flex h-full items-center text-neutral-white">
             <div
-              className={`h-full flex items-center ${
+              className={`flex h-full items-center ${
                 !userInfo ? 'cursor-pointer' : ''
               }`}
               onClick={logoClick}
@@ -101,14 +101,14 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
               <Image src={DarkLogoActive} alt="logo"></Image>
             </div>
             <SlideHighlight
-              className="flex h-full ml-[60px] gap-[28px]  body-s text-neutral-off-white"
+              className="body-s ml-[60px] flex h-full  gap-[28px] text-neutral-off-white"
               currentIndex={inSideNavIndex}
             >
               {navList.map((nav) => (
                 <div
                   key={nav.id}
-                  className={`h-full flex-center  cursor-pointer ${
-                    curNavId === nav.id ? 'text-neutral-white body-s-bold' : ''
+                  className={`flex-center h-full  cursor-pointer ${
+                    curNavId === nav.id ? 'body-s-bold text-neutral-white' : ''
                   }`}
                   data-id={nav.id}
                   onClick={(e) => handleClickNav(e, nav)}
@@ -127,13 +127,13 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
         </div>
       </div>
       {showSecondNav && (
-        <div className="text-neutral-white tracking-[0.84px]  w-screen h-12 bg-neutral-off-black">
-          <div className="container m-auto flex h-full items-center body-s">
-            <div className="flex items-center h-[34px] pr-[20px] border-r-[0.5px] border-r-neutral-white">
+        <div className="h-12 w-screen  bg-neutral-off-black tracking-[0.84px] text-neutral-white">
+          <div className="body-s container m-auto flex h-full items-center">
+            <div className="flex h-[34px] items-center border-r-[0.5px] border-r-neutral-white pr-[20px]">
               {secondLabel}
             </div>
             <SlideHighlight
-              className="pl-[20px]  flex items-center gap-[30px] h-full"
+              className="flex  h-full items-center gap-[30px] pl-[20px]"
               currentIndex={secondNavIndex}
               type="SECOND_NAVBAR"
             >

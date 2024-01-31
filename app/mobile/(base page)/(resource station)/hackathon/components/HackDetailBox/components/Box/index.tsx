@@ -10,7 +10,7 @@ const Box: React.FC<BoxProp> = ({ children, className }) => {
   return (
     <div
       className={cn(
-        `shadow-[0px_0px_8px_0px_rgba(0,0,0,0.12)] bg-[#fff] rounded-[10px] mb-[30px] py-[30px] px-[25px]`,
+        `mb-[30px] rounded-[10px] bg-[#fff] px-[25px] py-[30px] shadow-[0px_0px_8px_0px_rgba(0,0,0,0.12)]`,
         className
       )}
     >

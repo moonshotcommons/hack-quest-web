@@ -28,14 +28,14 @@ const Nav: FC<NavProps> = ({ children, isOpen, toggleOpen }) => {
       animate={isOpen ? 'open' : 'closed'}
       custom={height}
       ref={containerRef}
-      className="absolute top-0 bottom-0 left-0 z-[100] bg-red-800"
+      className="absolute bottom-0 left-0 top-0 z-[100] bg-red-800"
     >
       <motion.div
-        className="absolute w-screen top-[4rem] bg-neutral-black bottom-0 left-0 pointer-events-none"
+        className="pointer-events-none absolute bottom-0 left-0 top-[4rem] w-screen bg-neutral-black"
         variants={sidebar}
       />
       {children}
-      <button className="absolute left-0 top-0 w-[64px] h-[64px] outline-none flex justify-center items-center rounded-full bg-transparent">
+      <button className="absolute left-0 top-0 flex h-[64px] w-[64px] items-center justify-center rounded-full bg-transparent outline-none">
         <svg
           width="23"
           height="23"

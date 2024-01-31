@@ -22,7 +22,7 @@ const Banner: React.FC<BannerProp> = ({ changeSearchInfo, searchInfo }) => {
         backgroundColor: 'var(--neutral-off-black)'
       }}
     >
-      <div className="container mx-auto h-full flex flex-col justify-between">
+      <div className="container mx-auto flex h-full flex-col justify-between">
         <div className="text-h1 text-[var(--neutral-white)]">
           LEARNING TRACKS
         </div>
@@ -33,14 +33,14 @@ const Banner: React.FC<BannerProp> = ({ changeSearchInfo, searchInfo }) => {
               onClick={() =>
                 changeSearchInfo({ ...searchInfo, track: v.value })
               }
-              className={`w-[380px] p-[24px] rounded-[24px] cursor-pointer border ${
+              className={`w-[380px] cursor-pointer rounded-[24px] border p-[24px] ${
                 track === v.value
-                  ? 'bg-[var(--yellow-primary)] border-[var(--neutral-light-gray)]'
+                  ? 'border-[var(--neutral-light-gray)] bg-[var(--yellow-primary)]'
                   : 'border-[var(--neutral-off-white)]'
               }`}
             >
               <div
-                className={`flex justify-between items-center ${
+                className={`flex items-center justify-between ${
                   track === v.value
                     ? 'text-[var(--neutral-off-black)]'
                     : 'text-[var(--neutral-white)]'

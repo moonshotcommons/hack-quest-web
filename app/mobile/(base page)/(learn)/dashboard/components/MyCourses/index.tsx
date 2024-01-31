@@ -146,7 +146,7 @@ const MyCourses = forwardRef<MyCoursesRef, MyCoursesProps>((props, ref) => {
 
   return (
     <div className="flex flex-col">
-      <h2 className="text-h2-mob text-neutral-off-black mb-[1.5rem] ">
+      <h2 className="text-h2-mob mb-[1.5rem] text-neutral-off-black ">
         My Courses
       </h2>
       <div className="w-fit">
@@ -154,7 +154,7 @@ const MyCourses = forwardRef<MyCoursesRef, MyCoursesProps>((props, ref) => {
           tabList={courseTab}
           curTab={curTab}
           changeTab={changeTab}
-          className="pb-10 gap-[1.875rem] body-l before:bottom-[32px]"
+          className="body-l gap-[1.875rem] pb-10 before:bottom-[32px]"
         />
       </div>
       <Loading loading={loading}>

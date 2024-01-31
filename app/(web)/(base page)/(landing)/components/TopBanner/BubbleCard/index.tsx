@@ -13,12 +13,12 @@ const BubbleCard: FC<BubbleCardProps> = ({
 }) => {
   return (
     <div
-      className={`bg-neutral-black shadow-[3px_3px_0px_0px_#FFF] rounded-[24px] ${
+      className={`rounded-[24px] bg-neutral-black shadow-[3px_3px_0px_0px_#FFF] ${
         direction === 'left' ? 'rounded-br-[8px]' : 'rounded-bl-[8px]'
       } ${className}`}
     >
       <div
-        className={`border border-neutral-white w-full h-full rounded-[24px] translate-x-[1px] translate-y-[1px] py-5 px-6 flex gap-4 items-center ${
+        className={`flex h-full w-full translate-x-[1px] translate-y-[1px] items-center gap-4 rounded-[24px] border border-neutral-white px-6 py-5 ${
           direction === 'left' ? 'rounded-br-[8px]' : 'rounded-bl-[8px]'
         }`}
       >

@@ -53,10 +53,10 @@ const CertificationModal = forwardRef<
       icon={closeIcon}
       markBg="black"
     >
-      <div className="w-[1080px] bg-neutral-white rounded-[10px] p-[60px]">
-        <div className="flex gap-x-[60px] items-center">
+      <div className="w-[1080px] rounded-[10px] bg-neutral-white p-[60px]">
+        <div className="flex items-center gap-x-[60px]">
           <div className="flex flex-col">
-            <div className="w-[452px] h-[250px] relative">
+            <div className="relative h-[250px] w-[452px]">
               <Image
                 src={certification.image || ''}
                 fill
@@ -65,8 +65,8 @@ const CertificationModal = forwardRef<
               ></Image>
               {!certification.claimed && (
                 <>
-                  <div className="absolute w-full h-full bg-neutral-black/10 rounded-[15px] flex justify-center items-center"></div>
-                  <div className="absolute  w-full flex py-[25px] bg-neutral-white/70 justify-center items-center top-1/2 -translate-y-1/2 text-h2 tracking-[2.4px] text-neutral-off-black">
+                  <div className="bg-neutral-black/10 absolute flex h-full w-full items-center justify-center rounded-[15px]"></div>
+                  <div className="bg-neutral-white/70  text-h2 absolute top-1/2 flex w-full -translate-y-1/2 items-center justify-center py-[25px] tracking-[2.4px] text-neutral-off-black">
                     NOT CERTIFIED
                   </div>
                 </>
@@ -74,15 +74,15 @@ const CertificationModal = forwardRef<
             </div>
             {showCoin && (
               <>
-                <div className="flex items-center gap-[30px] mt-[20px]">
-                  <span className="inline-block h-[1px] flex-1 bg-neutral-black scale-y-50"></span>
-                  <span className="text-[18px] font-next-poster text-neutral-black tracking-[1.08px]">
+                <div className="mt-[20px] flex items-center gap-[30px]">
+                  <span className="inline-block h-[1px] flex-1 scale-y-50 bg-neutral-black"></span>
+                  <span className="font-next-poster text-[18px] tracking-[1.08px] text-neutral-black">
                     and
                   </span>
-                  <span className="inline-block h-[1px] flex-1 bg-neutral-black scale-y-50"></span>
+                  <span className="inline-block h-[1px] flex-1 scale-y-50 bg-neutral-black"></span>
                 </div>
-                <div className="flex mt-[20px] gap-[20px] justify-center">
-                  <div className="px-[15px] flex items-center justify-between box-border w-[125px] h-[60px] border-[2px] border-neutral-light-gray rounded-[15px]">
+                <div className="mt-[20px] flex justify-center gap-[20px]">
+                  <div className="box-border flex h-[60px] w-[125px] items-center justify-between rounded-[15px] border-[2px] border-neutral-light-gray px-[15px]">
                     <Image
                       src={iconCoin}
                       width={40}
@@ -91,7 +91,7 @@ const CertificationModal = forwardRef<
                     ></Image>
                     <span>x{certification?.credits}</span>
                   </div>
-                  <div className="px-[15px] flex items-center justify-between box-border w-[125px] h-[60px] border-[2px] border-neutral-light-gray rounded-[15px]">
+                  <div className="box-border flex h-[60px] w-[125px] items-center justify-between rounded-[15px] border-[2px] border-neutral-light-gray px-[15px]">
                     <Image
                       src={iconXp}
                       width={40}
@@ -125,7 +125,7 @@ const CertificationModal = forwardRef<
 });
 
 const closeIcon = (
-  <div className="absolute -top-[4px] -right-[4px] cursor-pointer">
+  <div className="absolute -right-[4px] -top-[4px] cursor-pointer">
     <svg
       width="30"
       height="30"

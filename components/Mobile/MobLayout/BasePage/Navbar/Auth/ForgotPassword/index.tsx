@@ -74,7 +74,7 @@ const ForgotPassword: FC<ForgotPasswordProps> = (props) => {
   }, [authRouteType]);
 
   return (
-    <div className="h-full flex flex-col justify-between ">
+    <div className="flex h-full flex-col justify-between ">
       <div className="flex flex-col gap-6">
         <svg
           width="48"
@@ -98,10 +98,10 @@ const ForgotPassword: FC<ForgotPasswordProps> = (props) => {
           <p className="body-m text-neutral-medium-gray">
             We will send you a link to your email to reset password.
           </p>
-          <p className="text-neutral-rich-gray underline-m">{formData.email}</p>
+          <p className="underline-m text-neutral-rich-gray">{formData.email}</p>
         </div>
       </div>
-      <div className="flex flex-col gap-4 mt-[4rem] w-full">
+      <div className="mt-[4rem] flex w-full flex-col gap-4">
         <Button
           onClick={sendEmail}
           block
@@ -109,10 +109,10 @@ const ForgotPassword: FC<ForgotPasswordProps> = (props) => {
           loading={loading}
           disabled={loading}
           className="
-          py-4 uppercase button-text-m 
-          bg-auth-primary-button-bg hover:bg-auth-primary-button-hover-bg
-          text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
-          border-auth-primary-button-border-color hover:border-auth-primary-button-border-hover-color
+          button-text-m border-auth-primary-button-border-color bg-auth-primary-button-bg 
+          py-4 uppercase
+          text-auth-primary-button-text-color hover:border-auth-primary-button-border-hover-color
+          hover:bg-auth-primary-button-hover-bg hover:text-auth-primary-button-text-hover-color
           "
         >
           Send me link
@@ -125,7 +125,7 @@ const ForgotPassword: FC<ForgotPasswordProps> = (props) => {
           ghost
           block
           className="
-          py-4 uppercase button-text-m  border-neutral-off-black
+          button-text-m border-neutral-off-black py-4  uppercase
     "
         >
           Back

@@ -34,18 +34,18 @@ const FAQData = [
 const FAQS: FC<FAQSProps> = (props) => {
   const [expendIndex, setExpendIndex] = useState<number[]>([]);
   return (
-    <div className="py-10 px-5 w-full flex flex-col gap-10">
-      <div className="w-fit flex flex-col">
-        <p className="text-h2 text-neutral-off-black capitalize text-[1.375rem]">
+    <div className="flex w-full flex-col gap-10 px-5 py-10">
+      <div className="flex w-fit flex-col">
+        <p className="text-h2 text-[1.375rem] capitalize text-neutral-off-black">
           FAQs
         </p>
-        <p className="text-neutral-medium-gray mt-5 body-xs">
+        <p className="body-xs mt-5 text-neutral-medium-gray">
           Can’t find what you’re looking for? Reach out to us!
         </p>
-        <div className="flex gap-4 items-center mt-[.625rem]">
+        <div className="mt-[.625rem] flex items-center gap-4">
           <Link
             href={'https://discord.gg/KkAJHPqywn'}
-            className="hover:scale-[1.1] cursor-pointer"
+            className="cursor-pointer hover:scale-[1.1]"
             // onClick={() => {
             //   BurialPoint.track('landing-discord按钮点击');
             // }}
@@ -56,7 +56,7 @@ const FAQS: FC<FAQSProps> = (props) => {
           </Link>
           <Link
             href={'https://x.com/hackquest_?s=21&t=kYetGSBybf-ssFBo7GodGA'}
-            className="hover:scale-[1.1] cursor-pointer"
+            className="cursor-pointer hover:scale-[1.1]"
             // onClick={() => {
             //   BurialPoint.track('landing-推特按钮点击');
             // }}
@@ -72,14 +72,14 @@ const FAQS: FC<FAQSProps> = (props) => {
           return (
             <div
               className={cn(
-                `py-5 flex flex-col gap-5 relative`,
+                `relative flex flex-col gap-5 py-5`,
                 index !== FAQData.length - 1 ? 'bottom-line' : '',
                 index === 0 ? 'pt-0' : ''
               )}
               key={index}
             >
               <div
-                className="flex justify-between items-center cursor-pointer"
+                className="flex cursor-pointer items-center justify-between"
                 onClick={() => {
                   if (expendIndex.includes(index)) {
                     setExpendIndex(expendIndex.filter((i) => i !== index));

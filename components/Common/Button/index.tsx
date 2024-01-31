@@ -74,17 +74,17 @@ const Button: FC<ButtonProps> = (props) => {
     <button
       ref={buttonRef}
       className={cn(
-        `text-neutral-black flex gap-[.625rem] items-center justify-center h-fit w-fit cursor-pointer relative`,
+        `relative flex h-fit w-fit cursor-pointer items-center justify-center gap-[.625rem] text-neutral-black`,
         type === 'primary' ? 'bg-yellow-primary' : '',
-        type === 'text' ? 'bg-transparent border-none' : '',
+        type === 'text' ? 'border-none bg-transparent' : '',
         block && 'w-full',
         mergeSize(),
         mergeRounded(),
-        loading ? 'opacity-70 cursor-not-allowed' : '',
+        loading ? 'cursor-not-allowed opacity-70' : '',
         loading && type === 'primary'
           ? 'bg-[#FFF4CE] opacity-100 hover:bg-[#FFF4CE]'
           : '',
-        ghost && 'bg-transparent border-yellow-primary border',
+        ghost && 'border border-yellow-primary bg-transparent',
         rest.disabled ? 'cursor-pointer' : '',
         className
       )}
@@ -111,7 +111,7 @@ const Button: FC<ButtonProps> = (props) => {
             width={loadingSize[0]}
             height={loadingSize[1]}
             alt="loading"
-            className="object-contain animate-spin opacity-100 absolute"
+            className="absolute animate-spin object-contain opacity-100"
           ></Image>
         </>
       )}

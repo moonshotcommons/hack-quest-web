@@ -96,7 +96,7 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
   }, []);
 
   return (
-    <div className="h-full w-full flex flex-col items-center">
+    <div className="flex h-full w-full flex-col items-center">
       {/* <ThirdPartyLogin></ThirdPartyLogin> */}
       <div className="flex w-full flex-col gap-[32px]">
         {EmailTitle}
@@ -146,13 +146,13 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
           iconPosition="right"
           loading={loading}
           className="
-          py-4 uppercase button-text-m
-          bg-auth-primary-button-bg
-          hover:bg-auth-primary-button-hover-bg
+          button-text-m border-auth-primary-button-border-color bg-auth-primary-button-bg
+          py-4
+          uppercase
           text-auth-primary-button-text-color
-          hover:text-auth-primary-button-text-hover-color
-          border-auth-primary-button-border-color
-          hover:border-auth-primary-button-border-hover-color"
+          hover:border-auth-primary-button-border-hover-color
+          hover:bg-auth-primary-button-hover-bg
+          hover:text-auth-primary-button-text-hover-color"
         >
           Continue
         </Button>

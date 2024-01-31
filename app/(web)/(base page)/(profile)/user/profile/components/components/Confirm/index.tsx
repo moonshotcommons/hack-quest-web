@@ -31,21 +31,21 @@ const Confirm: React.FC<ConfirmProp> = ({
       showCloseIcon={true}
       icon={<FiX size={26} />}
     >
-      <div className="w-[800px] h-[400px] bg-[#fff] rounded-[10px] p-[30px] flex flex-col">
+      <div className="flex h-[400px] w-[800px] flex-col rounded-[10px] bg-[#fff] p-[30px]">
         <div className="text-h3">{title}</div>
-        <div className="flex-1 flex flex-col items-center justify-center gap-[35px]">
-          <div className="text-neutral-black body-l">{content}</div>
+        <div className="flex flex-1 flex-col items-center justify-center gap-[35px]">
+          <div className="body-l text-neutral-black">{content}</div>
           <div className="flex justify-center gap-[15px]">
             <Button
               onClick={onClose}
-              className="w-[265px] h-[44px] border border-neutral-black  text-neutral-black body-m"
+              className="body-m h-[44px] w-[265px] border  border-neutral-black text-neutral-black"
             >
               {cancleText}
             </Button>
             <Button
               loading={loading}
               onClick={handleConfirm}
-              className="w-[265px] h-[44px] bg-yellow-primary body-m"
+              className="body-m h-[44px] w-[265px] bg-yellow-primary"
             >
               {confirmText}
             </Button>

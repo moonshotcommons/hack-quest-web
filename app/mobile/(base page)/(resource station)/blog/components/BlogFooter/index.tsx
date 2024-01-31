@@ -36,7 +36,7 @@ const BlogFooter: React.FC<BlogFooterProp> = () => {
           </div>
           <Link
             href={MenuLink.BLOG}
-            className="flex gap-x-[15px] items-center text-neutral-black hover:opacity-70 font-next-book tracking-[0.36px] text-[18px]"
+            className="flex items-center gap-x-[15px] font-next-book text-[18px] tracking-[0.36px] text-neutral-black hover:opacity-70"
             onClick={() => {
               BurialPoint.track('home-view all点击');
             }}

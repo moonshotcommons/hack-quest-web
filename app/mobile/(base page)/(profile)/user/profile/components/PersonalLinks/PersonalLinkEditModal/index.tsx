@@ -97,7 +97,7 @@ const PersonalLinkEditModal = forwardRef<
       }}
       showCloseIcon
       icon={
-        <div className="absolute -top-2 -right-2 cursor-pointer">
+        <div className="absolute -right-2 -top-2 cursor-pointer">
           <svg
             width="30"
             height="30"
@@ -124,8 +124,8 @@ const PersonalLinkEditModal = forwardRef<
       }
       markBg="black"
     >
-      <div className="w-[800px] bg-neutral-off-white rounded-[10px] px-[30px] py-[30px]">
-        <div className="font-next-poster-Bold text-[28px] text-neutral-black tracking-[1.68px]">
+      <div className="w-[800px] rounded-[10px] bg-neutral-off-white px-[30px] py-[30px]">
+        <div className="text-h3 text-[28px] text-neutral-black">
           Personal Links
         </div>
         <Form className="" form={form}>
@@ -145,10 +145,10 @@ const PersonalLinkEditModal = forwardRef<
                   }
                 ]}
               >
-                <div className="text-neutral-black relative flex items-center py-[20px] after:absolute after:h-[1px] after:scale-y-[0.5] after:w-full after:bg-neutral-black after:bottom-0">
-                  <div className="flex gap-x-[15px] items-center h-full w-[25%]">
+                <div className="relative flex items-center py-[20px] text-neutral-black after:absolute after:bottom-0 after:h-[1px] after:w-full after:scale-y-[0.5] after:bg-neutral-black">
+                  <div className="flex h-full w-[25%] items-center gap-x-[15px]">
                     <span>{media.icon}</span>
-                    <span className="text-[18px] text-neutral-black font-next-book leading-[160%] tracking-[0.36px]">
+                    <span className="body-l text-neutral-black">
                       {media.name}
                     </span>
                   </div>
@@ -156,11 +156,11 @@ const PersonalLinkEditModal = forwardRef<
                     defaultValue={profile?.personalLinks?.[key] || ''}
                     type="url"
                     placeholder="Please enter personal link"
-                    className="flex-1 h-[30px] truncate text-[14px] font-next-book text-neutral-medium-gray leading-[160%] -tracking-[0.154px] outline-none bg-transparent"
+                    className="body-s h-[30px] flex-1  truncate bg-transparent text-neutral-medium-gray outline-none"
                   />
                   <div className="w-[64px]"></div>
                   <div
-                    className="w-[64px] flex justify-end"
+                    className="flex w-[64px] justify-end"
                     onClick={() => {
                       console.log(`连接到${key}`);
                     }}
@@ -172,10 +172,10 @@ const PersonalLinkEditModal = forwardRef<
             );
           })}
         </Form>
-        <div className="flex gap-x-[15px] font-next-book text-[16px] leading-[125%] tracking-[0.32px] text-neutral-black justify-center mt-[30px]">
+        <div className="body-m mt-[30px] flex justify-center gap-x-[15px] text-neutral-black">
           <Button
             ghost
-            className="border-neutral-black py-[12px] w-[265px] flex items-center justify-center"
+            className="flex w-[265px] items-center justify-center border-neutral-black py-[12px]"
             onClick={() => {
               setOpen(false);
               form.resetFields();
@@ -184,7 +184,7 @@ const PersonalLinkEditModal = forwardRef<
             Cancel
           </Button>
           <Button
-            className=" py-[12px] w-[265px] flex items-center justify-center"
+            className=" flex w-[265px] items-center justify-center py-[12px]"
             type="primary"
             loading={loading}
             disabled={loading}

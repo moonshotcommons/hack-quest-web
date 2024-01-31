@@ -11,18 +11,18 @@ export interface V2LayoutProps {
 const V2Layout: React.FC<V2LayoutProps> = ({ children }) => {
   return (
     <div
-      className={`w-full h-[100vh] flex flex-col overflow-hidden  ${inter.className}`}
+      className={`flex h-[100vh] w-full flex-col overflow-hidden  ${inter.className}`}
     >
-      <div className="w-full bg-neutral-black flex items-center">
+      <div className="flex w-full items-center bg-neutral-black">
         <NavBar></NavBar>
       </div>
       <div
         id="content-scroll-wrap"
         className={`w-full flex-1  bg-neutral-white`}
       >
-        <div className={`w-full h-full flex flex-col`}>
-          <div className="w-full flex-1 relative">
-            <main className="absolute left-0 top-0 w-full h-full">
+        <div className={`flex h-full w-full flex-col`}>
+          <div className="relative w-full flex-1">
+            <main className="absolute left-0 top-0 h-full w-full">
               {children}
             </main>
           </div>

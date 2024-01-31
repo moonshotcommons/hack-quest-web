@@ -35,7 +35,7 @@ const horizontalCardData = [
 const BecomeWeb3: FC<{}> = (props) => {
   return (
     <div className="container mx-auto pt-[6.25rem]">
-      <div className="flex flex-col gap-3 items-center text-center w-[50rem] mx-auto">
+      <div className="mx-auto flex w-[50rem] flex-col items-center gap-3 text-center">
         <p className="body-s-bold uppercase text-neutral-rich-gray">Why us</p>
         <h2 className="text-h2">Become a Web3 👩🏻‍💻👨🏽‍💻 </h2>
         <p className="body-l text-neutral-medium-gray">
@@ -45,14 +45,14 @@ const BecomeWeb3: FC<{}> = (props) => {
           post-learning resources!
         </p>
       </div>
-      <div className="flex flex-col gap-[2rem] mt-[3.75rem]">
+      <div className="mt-[3.75rem] flex flex-col gap-[2rem]">
         {verticalCardData.map((item, index) => {
           return (
             <div
               key={index}
-              className="flex gap-[60px] w-full bg-neutral-white rounded-[24px] p-6"
+              className="flex w-full gap-[60px] rounded-[24px] bg-neutral-white p-6"
             >
-              <div className="w-[31.25rem] h-[20.125rem] relative">
+              <div className="relative h-[20.125rem] w-[31.25rem]">
                 <Image
                   src={item.image}
                   fill
@@ -60,7 +60,7 @@ const BecomeWeb3: FC<{}> = (props) => {
                   className="object-contain"
                 ></Image>
               </div>
-              <div className="flex flex-1 flex-col gap-6 justify-center">
+              <div className="flex flex-1 flex-col justify-center gap-6">
                 <h3 className="text-h3 text-neutral-off-black">{item.title}</h3>
                 <p className="body-l text-neutral-medium-gray">
                   {item.description}
@@ -70,14 +70,14 @@ const BecomeWeb3: FC<{}> = (props) => {
           );
         })}
       </div>
-      <div className="flex gap-[2rem] mt-[2rem]">
+      <div className="mt-[2rem] flex gap-[2rem]">
         {horizontalCardData.map((item, index) => {
           return (
             <div
               key={index}
-              className="flex flex-col flex-1 gap-[1.5rem] w-full bg-neutral-white rounded-[24px] p-6"
+              className="flex w-full flex-1 flex-col gap-[1.5rem] rounded-[24px] bg-neutral-white p-6"
             >
-              <div className="w-[36rem] h-[23.125rem] relative">
+              <div className="relative h-[23.125rem] w-[36rem]">
                 <Image
                   src={item.image}
                   fill

@@ -38,7 +38,7 @@ const FilterModal = forwardRef<FilterModalRef, FilterModalProps>(
         showCloseIcon
         icon={closeIcon}
       >
-        <div className="flex flex-col gap-8 w-[18.75rem] px-5 py-8 bg-neutral-white rounded-[24px]">
+        <div className="flex w-[18.75rem] flex-col gap-8 rounded-[24px] bg-neutral-white px-5 py-8">
           {filters.map((filter, filterIndex) => {
             return (
               <div key={filter.filterName} className="flex flex-col gap-4">
@@ -48,7 +48,7 @@ const FilterModal = forwardRef<FilterModalRef, FilterModalProps>(
                 {filter.options.map((option, optionIndex) => (
                   <div
                     key={optionIndex}
-                    className="flex gap-[.625rem] body-s"
+                    className="body-s flex gap-[.625rem]"
                     onClick={() => {
                       if (radio) {
                         filters[filterIndex].options.map((option) => {
@@ -64,9 +64,9 @@ const FilterModal = forwardRef<FilterModalRef, FilterModalProps>(
                       updateFilters(cloneDeep(filters));
                     }}
                   >
-                    <div className="w-[22px] h-[22px] border border-neutral-black flex items-center justify-center rounded-[1px]">
+                    <div className="flex h-[22px] w-[22px] items-center justify-center rounded-[1px] border border-neutral-black">
                       {option.isSelect && (
-                        <div className="bg-neutral-black w-[16px] h-[16px] box-border rounded-[1px]"></div>
+                        <div className="box-border h-[16px] w-[16px] rounded-[1px] bg-neutral-black"></div>
                       )}
                     </div>
                     <span>{option.name}</span>
@@ -82,7 +82,7 @@ const FilterModal = forwardRef<FilterModalRef, FilterModalProps>(
 );
 
 const closeIcon = (
-  <div className="absolute -top-7 -right-6 cursor-pointer">
+  <div className="absolute -right-6 -top-7 cursor-pointer">
     <svg
       width="30"
       height="30"

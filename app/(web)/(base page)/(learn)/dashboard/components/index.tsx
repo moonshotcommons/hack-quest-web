@@ -22,11 +22,11 @@ const Dashboard: React.FC<DashboardProp> = () => {
   };
   return (
     <div
-      className="h-full overflow-auto pt-[40px] pb-[30px] "
+      className="h-full overflow-auto pb-[30px] pt-[40px] "
       onScroll={handleScroll}
       ref={ProjectsPageRef}
     >
-      <div className="flex gap-[48px] container mx-auto">
+      <div className="container mx-auto flex gap-[48px]">
         <div className="flex-1">
           <MyCourses
             ref={coursesRef}
@@ -34,7 +34,7 @@ const Dashboard: React.FC<DashboardProp> = () => {
             apiStatus={apiStatus}
           />
         </div>
-        <div className="w-[286px] flex flex-col gap-[24px]">
+        <div className="flex w-[286px] flex-col gap-[24px]">
           <UserInfo />
           <DaliyQuest />
         </div>

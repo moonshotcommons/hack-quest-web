@@ -57,9 +57,9 @@ const CourseFilterList = <T extends CourseBaseType>({
       ></FilterSelect>
       {/* <CourseCardSkeleton.List></CourseCardSkeleton.List> */}
       {/* <Loading loading={!!loading}> */}
-      <div className="w-full h-fit min-h-[600px]">
+      <div className="h-fit min-h-[600px] w-full">
         {/* {!!courseList?.length && ( */}
-        <div className="flex-1 flex flex-wrap gap-x-6 gap-y-8  pb-[20px] h-full">
+        <div className="flex h-full flex-1 flex-wrap gap-x-6  gap-y-8 pb-[20px]">
           {/* {courseList?.map((course, index) => {
               return <div key={course.id + index}>{renderItem(course)}</div>;
             })} */}

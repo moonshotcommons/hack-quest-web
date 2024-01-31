@@ -46,11 +46,11 @@ const Edit: React.FC<EditProp> = ({ open, onClose, list }) => {
       showCloseIcon={true}
       icon={<FiX size={26} />}
     >
-      <div className="w-[1000px] bg-[#fff] rounded-[10px] p-[30px]">
-        <div className="text-[28px] font-next-book-bold tracking-[1.68px] flex items-center mb-[20px]">
+      <div className="w-[1000px] rounded-[10px] bg-[#fff] p-[30px]">
+        <div className="mb-[20px] flex items-center font-next-book-bold text-[28px] tracking-[1.68px]">
           {status === 'edit' ? (
             <div
-              className="flex items-center cursor-pointer "
+              className="flex cursor-pointer items-center "
               onClick={() => setStatus('list')}
             >
               <FiChevronLeft />

@@ -80,17 +80,17 @@ export const SliderContainer: React.FC<SliderContainerProps> = ({
   return (
     <div
       ref={containerRef}
-      className={`flex overflow-hidden relative w-auto h-auto`}
+      className={`relative flex h-auto w-auto overflow-hidden`}
     >
       {leftArrowVisible && (
         <>
           <div
-            className="absolute left-0 top-1/2 -translate-y-1/2 arrow z-20 bg-course-banner-arrow-bg  text-course-banner-arrow-color"
+            className="arrow absolute left-0 top-1/2 z-20 -translate-y-1/2 bg-course-banner-arrow-bg  text-course-banner-arrow-color"
             onClick={() => handleArrowClick(LEFT)}
           >
             <LeftArrowIcon></LeftArrowIcon>
           </div>
-          <div className="absolute w-20 h-full top-0 -left-4 bg-gradient-to-l from-transparent to-default-global-bg  z-[18] select-none"></div>
+          <div className="absolute -left-4 top-0 z-[18] h-full w-20 select-none bg-gradient-to-l  from-transparent to-default-global-bg"></div>
         </>
       )}
 
@@ -103,11 +103,11 @@ export const SliderContainer: React.FC<SliderContainerProps> = ({
       >
         {children}
       </div>
-      <div className="absolute w-20 h-full top-0 -right-[1.25rem] bg-gradient-to-r from-transparent to-default-global-bg"></div>
+      <div className="absolute -right-[1.25rem] top-0 h-full w-20 bg-gradient-to-r from-transparent to-default-global-bg"></div>
       {rightArrowVisible && (
         <>
           <div
-            className="absolute right-0 top-1/2 -translate-y-1/2 arrow z-20 bg-course-banner-arrow-bg  text-course-banner-arrow-color"
+            className="arrow absolute right-0 top-1/2 z-20 -translate-y-1/2 bg-course-banner-arrow-bg  text-course-banner-arrow-color"
             onClick={() => handleArrowClick(RIGHT)}
           >
             <RightArrowIcon></RightArrowIcon>

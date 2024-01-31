@@ -145,7 +145,7 @@ const Input = forwardRef<
           value={value}
           placeholder={placeholder}
           className={cn(
-            `w-full border border-solid outline-none px-[24px] py-[11px] rounded-[2.5rem] body-m text-neutral-medium-gray`,
+            `body-m w-full rounded-[2.5rem] border border-solid px-[24px] py-[11px] text-neutral-medium-gray outline-none`,
 
             theme !== 'dark'
               ? 'border-neutral-light-gray caret-neutral-off-black hover:border-neutral-medium-gray focus:border-neutral-medium-gray focus:text-neutral-off-black'
@@ -168,10 +168,10 @@ const Input = forwardRef<
           {...rest}
         />
 
-        <span className="absolute right-[1.4375rem] top-[50%] -translate-y-[50%] flex gap-4 items-center">
+        <span className="absolute right-[1.4375rem] top-[50%] flex -translate-y-[50%] items-center gap-4">
           {status === 'error' && (
             <span
-              className="text-status-error-dark flex justify-center items-center cursor-pointer"
+              className="flex cursor-pointer items-center justify-center text-status-error-dark"
               onClick={() => {
                 setValue('');
                 setErrorMessage('');
@@ -192,7 +192,7 @@ const Input = forwardRef<
           )}
           {showVisibleIcon && value && (
             <span
-              className="text-auth-input-visible-icon-color cursor-pointer"
+              className="cursor-pointer text-auth-input-visible-icon-color"
               onMouseDown={(e) => {
                 if (propType === 'password' && type === 'password') {
                   setType('text');
@@ -214,9 +214,9 @@ const Input = forwardRef<
           )}
         </span>
       </div>
-      {description && <p className="ml-[1.5rem] body-m">{description}</p>}
+      {description && <p className="body-m ml-[1.5rem]">{description}</p>}
       {errorMessage && (
-        <p className="text-status-error-dark body-s flex flex-row items-center gap-2">
+        <p className="body-s flex flex-row items-center gap-2 text-status-error-dark">
           <PiWarningCircleFill size={20} className="text-status-error-dark" />
           {errorMessage}
         </p>

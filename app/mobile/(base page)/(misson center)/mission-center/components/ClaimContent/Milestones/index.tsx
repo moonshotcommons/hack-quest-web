@@ -20,17 +20,17 @@ const Milestones: React.FC<TabContentType> = ({
   };
   return (
     <div>
-      <div className="flex  justify-between mb-[40px]">
-        <div className="text-neutral-black w-[62%]">
+      <div className="mb-[40px]  flex justify-between">
+        <div className="w-[62%] text-neutral-black">
           {`Celebrate your progress as you complete courses. Each achievement is a step towards your success in Web 3 coding. Let's make every milestone memorable! 🚀`}
         </div>
         <Button
-          className={`w-[270px] h-[60px] text-[18px] text-neutral-black bg-auth-primary-button-bg
-          text-auth-primary-button-text-color
-          border-auth-primary-button-border-color tracking-[0.36px] ${
+          className={`h-[60px] w-[270px] border-auth-primary-button-border-color bg-auth-primary-button-bg text-[18px]
+          tracking-[0.36px]
+          text-auth-primary-button-text-color text-neutral-black ${
             !allIds.length
-              ? 'opacity-50 cursor-not-allowed'
-              : 'hover:border-auth-primary-button-border-hover-color hover:text-auth-primary-button-text-hover-color hover:bg-auth-primary-button-hover-bg'
+              ? 'cursor-not-allowed opacity-50'
+              : 'hover:border-auth-primary-button-border-hover-color hover:bg-auth-primary-button-hover-bg hover:text-auth-primary-button-text-hover-color'
           }`}
           disabled={!allIds.length}
           loading={missionIds.join() === allIds.join() && missionIds.length > 0}

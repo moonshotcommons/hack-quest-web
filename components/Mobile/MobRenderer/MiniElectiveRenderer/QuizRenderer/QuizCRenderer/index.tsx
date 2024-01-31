@@ -71,7 +71,7 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
           }
         }}
       >
-        <div className="font-next-book-bold leading-[125%] tracking-[0.36px] mt-[32px]">
+        <div className="mt-[32px] font-next-book-bold leading-[125%] tracking-[0.36px]">
           {quiz?.children?.map((child: any, index: number) => {
             return (
               <ComponentRenderer
@@ -89,7 +89,7 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
             <div
               key={index}
               className={cn(
-                'px-6 py-5 flex items-center border border-neutral-light-gray rounded-[10px] cursor-pointer gap-[20px] hover:scale-[1.01] transition-all duration-200',
+                'flex cursor-pointer items-center gap-[20px] rounded-[10px] border border-neutral-light-gray px-6 py-5 transition-all duration-200 hover:scale-[1.01]',
                 answers.includes(item.index) ? 'bg-[#FFF4CE]' : ''
               )}
               onClick={() => {
@@ -102,7 +102,7 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
                 }
               }}
             >
-              <div className="w-8 h-8 flex flex-center border-[2px] border-neutral-light-gray rounded-[4px]">
+              <div className="flex-center flex h-8 w-8 rounded-[4px] border-[2px] border-neutral-light-gray">
                 {item.index}
               </div>
               <div className="flex-1">

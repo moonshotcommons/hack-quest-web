@@ -15,20 +15,20 @@ interface LessonEventsProps {
 const PreviewLessonEvent = () => {
   return (
     <div
-      className={`mb-[30px] text-lesson-preview-color relative z-10 ${
+      className={`relative z-10 mb-[30px] text-lesson-preview-color ${
         false ? 'w-[322px] shadow-2xl' : 'w-fit'
       }`}
       tabIndex={1}
     >
-      <div className="absolute left-0 top-0 w-[5px] h-[70px] rounded-[5px] bg-lesson-events-left-border-bg mr-[15px]"></div>
+      <div className="absolute left-0 top-0 mr-[15px] h-[70px] w-[5px] rounded-[5px] bg-lesson-events-left-border-bg"></div>
       <div
-        className={`w-full flex items-center h-[70px] rounded-t-[5px] cursor-pointer ${
+        className={`flex h-[70px] w-full cursor-pointer items-center rounded-t-[5px] ${
           false ? ' bg-lesson-events-toggle-bg' : ''
         }`}
       >
         <div className="flex-1 px-5">
           <div className="flex items-center justify-between">
-            <span className="font-next-poster-Bold text-[28px] mr-[7px] tracking-[1.68px] leading-[28px]">
+            <span className="mr-[7px] font-next-poster-Bold text-[28px] leading-[28px] tracking-[1.68px]">
               Event
             </span>
             <Image
@@ -65,7 +65,7 @@ const LessonEvents: React.FC<LessonEventsProps> = (props) => {
   if (isPreview) return <PreviewLessonEvent></PreviewLessonEvent>;
   return (
     <div
-      className={`mb-[30px] text-lesson-preview-color relative z-10 ${
+      className={`relative z-10 mb-[30px] text-lesson-preview-color ${
         isToggle ? 'shadow-2xl' : 'w-fit'
       }`}
       style={
@@ -79,9 +79,9 @@ const LessonEvents: React.FC<LessonEventsProps> = (props) => {
       ref={eventsRef}
       onBlur={() => setIsToggle(false)}
     >
-      <div className="absolute left-0 top-0 w-[5px] h-[70px] rounded-[5px] bg-lesson-events-left-border-bg mr-[15px]"></div>
+      <div className="absolute left-0 top-0 mr-[15px] h-[70px] w-[5px] rounded-[5px] bg-lesson-events-left-border-bg"></div>
       <div
-        className={`w-full flex items-center h-[70px] rounded-t-[5px] cursor-pointer ${
+        className={`flex h-[70px] w-full cursor-pointer items-center rounded-t-[5px] ${
           isToggle ? ' bg-lesson-events-toggle-bg' : ''
         }`}
         onClick={() => {
@@ -93,7 +93,7 @@ const LessonEvents: React.FC<LessonEventsProps> = (props) => {
       >
         <div className="flex-1 px-5">
           <div className="flex items-center justify-between">
-            <span className="font-next-poster-Bold text-[28px] mr-[7px] tracking-[1.68px] leading-[28px]">
+            <span className="mr-[7px] font-next-poster-Bold text-[28px] leading-[28px] tracking-[1.68px]">
               {lesson?.name}
             </span>
             <Image
@@ -107,7 +107,7 @@ const LessonEvents: React.FC<LessonEventsProps> = (props) => {
         </div>
       </div>
       {isToggle ? (
-        <div className="absolute z-100 left-0 top-[70px] w-full overflow-auto bg-lesson-events-toggle-list-bg rounded-b-[5px] shadow-2xl">
+        <div className="z-100 absolute left-0 top-[70px] w-full overflow-auto rounded-b-[5px] bg-lesson-events-toggle-list-bg shadow-2xl">
           <LessonList
             unitData={unitNavList}
             lesson={lesson}

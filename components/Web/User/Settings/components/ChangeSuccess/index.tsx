@@ -18,13 +18,13 @@ const ChangeSuccess: React.FC<ChangeSuccessProp> = ({ show, onClose }) => {
       leaveFrom="opacity-100"
       leaveTo="opacity-0"
     >
-      <div className="w-full flex flex-col text-neutral-black items-center transition-all duration-500 ease-in-out">
+      <div className="flex w-full flex-col items-center text-neutral-black transition-all duration-500 ease-in-out">
         <p className="body-xl-bold  mb-[30px]">Password Changed! 🎉</p>
-        <p className="mb-[60px] body-s">
+        <p className="body-s mb-[60px]">
           Your password has been changed successfully.
         </p>
         <Button
-          className="w-[240px] mb-[30px] h-[48px] text-neutral-black border border-neutral-black button-text-m"
+          className="button-text-m mb-[30px] h-[48px] w-[240px] border border-neutral-black text-neutral-black"
           onClick={(e) => {
             BurialPoint.track('settings修改密码成功CLOSE按钮点击');
             onClose();

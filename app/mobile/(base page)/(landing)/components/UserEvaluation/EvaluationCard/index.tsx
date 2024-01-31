@@ -18,13 +18,13 @@ const EvaluationCard: FC<EvaluationCardProps> = ({
 }) => {
   return (
     <div
-      className={`rounded-[1rem] p-4 flex flex-col gap-4 h-fit bg-neutral-off-white ${className}`}
+      className={`flex h-fit flex-col gap-4 rounded-[1rem] bg-neutral-off-white p-4 ${className}`}
     >
-      <div className="body-s text-neutral-dark-gray break-words whitespace-break-spaces tracking-tight">
+      <div className="body-s whitespace-break-spaces break-words tracking-tight text-neutral-dark-gray">
         {content}
       </div>
-      <div className="flex gap-2 items-center">
-        <div className="w-8 h-8 rounded-full overflow-hidden relative">
+      <div className="flex items-center gap-2">
+        <div className="relative h-8 w-8 overflow-hidden rounded-full">
           <Image src={avatar} fill alt={username}></Image>
         </div>
         <span className="button-text-s flex-1 font-normal">
@@ -32,7 +32,7 @@ const EvaluationCard: FC<EvaluationCardProps> = ({
           {userDesc && (
             <span className="flex flex-col">
               <span className="font-semibold">{username}</span>
-              <span className="break-words whitespace-pre-wrap">
+              <span className="whitespace-pre-wrap break-words">
                 {userDesc}
               </span>
             </span>

@@ -12,7 +12,7 @@ const Progress: FC<ProgressProps> = ({ total, current }) => {
   }, [total]);
 
   return (
-    <div className="flex gap-x-[10px] justify-center">
+    <div className="flex justify-center gap-x-[10px]">
       {list.map((item, index) => {
         return (
           <div

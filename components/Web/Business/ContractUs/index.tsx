@@ -26,7 +26,7 @@ const ContractUs: FC<ContractUsProps> = (props) => {
     >
       <Link
         href={'https://twitter.com/_hackquest'}
-        className="hover:scale-[1.1] cursor-pointer"
+        className="cursor-pointer hover:scale-[1.1]"
       >
         <span className="text-text-default-color">
           <TwitterIcon />
@@ -34,7 +34,7 @@ const ContractUs: FC<ContractUsProps> = (props) => {
       </Link>
       <Link
         href={'https://discord.gg/KkAJHPqywn'}
-        className="hover:scale-[1.1] cursor-pointer"
+        className="cursor-pointer hover:scale-[1.1]"
       >
         <span className="text-text-default-color">
           <DiscordIcon />
@@ -42,7 +42,7 @@ const ContractUs: FC<ContractUsProps> = (props) => {
       </Link>
       <Link
         href={'https://www.instagram.com/_hackquest/'}
-        className="hover:scale-[1.1] cursor-pointer"
+        className="cursor-pointer hover:scale-[1.1]"
       >
         <span>
           {theme === Theme.Dark && <DarkInstagramIcon />}

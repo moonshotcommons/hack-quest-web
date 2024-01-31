@@ -21,10 +21,10 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon }) => {
   return (
     <Link
       href={`${menuLink.hackathon}/${hackathon.id}?menu=${Menu.HACKATHON}&${QueryIdType.HACKATHON_ID}=${hackathon.id}`}
-      className="w-full block"
+      className="block w-full"
     >
-      <div className="rounded-[10px] overflow-hidden text-neutral-off-black w-full h-fit  bg-white card-hover">
-        <div className="w-full bg-[#D9D9D9] rounded-t-[10px] relative pt-[56.25%] h-0">
+      <div className="card-hover h-fit w-full overflow-hidden rounded-[10px]  bg-white text-neutral-off-black">
+        <div className="relative h-0 w-full rounded-t-[10px] bg-[#D9D9D9] pt-[56.25%]">
           {cover && (
             <Image
               src={cover}
@@ -34,21 +34,21 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon }) => {
             ></Image>
           )}
         </div>
-        <div className="py-[20px] px-[24px] flex flex-col  gap-[16px]">
-          <div className="line-clamp-2 h-[44px] font-next-book-bold text-neutral-off-black text-[18px] leading-[125%] -tracking-[0.185px]">
+        <div className="flex flex-col gap-[16px] px-[24px]  py-[20px]">
+          <div className="line-clamp-2 h-[44px] font-next-book-bold text-[18px] leading-[125%] -tracking-[0.185px] text-neutral-off-black">
             {name}
           </div>
-          <div className="flex w-full h-[48px] gap-[8px]">
-            <div className="w-[5px] h-full rounded-full bg-neutral-light-gray flex-shrink-0"></div>
-            <div className="flex flex-col justify-between flex-1">
+          <div className="flex h-[48px] w-full gap-[8px]">
+            <div className="h-full w-[5px] flex-shrink-0 rounded-full bg-neutral-light-gray"></div>
+            <div className="flex flex-1 flex-col justify-between">
               <div className="flex items-center gap-[8px]">
                 <p className="body-xs text-neutral-medium-gray">RUNS FROM</p>
                 <p className="body-s">{formatTime(startTime, endTime)}</p>
               </div>
-              <div className="flex items-center gap-[8px] w-full">
+              <div className="flex w-full items-center gap-[8px]">
                 <p className="body-xs text-neutral-medium-gray">HAPPENING</p>
-                <div className=" flex-1 h-[22px] relative">
-                  <div className="absolute left-0 top-0 w-full h-full underline-s truncate">
+                <div className=" relative h-[22px] flex-1">
+                  <div className="underline-s absolute left-0 top-0 h-full w-full truncate">
                     {address}
                   </div>
                 </div>

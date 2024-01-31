@@ -66,7 +66,7 @@ const ScrollContainer: FC<ScrollContainerProps> = ({ className, children }) => {
 
   return (
     <div
-      className={'relative whitespace-nowrap overflow-hidden'}
+      className={'relative overflow-hidden whitespace-nowrap'}
       ref={scrollContainerInstance}
     >
       <div

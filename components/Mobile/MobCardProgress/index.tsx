@@ -10,10 +10,10 @@ const MobCardProgress: React.FC<MobCardProgressProp> = ({ progress }) => {
     return `${computeProgress(progress)}%`;
   }, [progress]);
   return (
-    <div className="w-full flex items-center justify-between gap-[8px]">
-      <div className="w-full bg-neutral-off-white rounded-[3px] h-[6px] overflow-hidden">
+    <div className="flex w-full items-center justify-between gap-[8px]">
+      <div className="h-[6px] w-full overflow-hidden rounded-[3px] bg-neutral-off-white">
         <div
-          className="h-full bg-yellow-primary rounded-[3px]"
+          className="h-full rounded-[3px] bg-yellow-primary"
           style={{ width: percent }}
         ></div>
       </div>

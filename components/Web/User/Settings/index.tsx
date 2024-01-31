@@ -31,8 +31,8 @@ const Settings: FC<SettingsProps> = (props) => {
         icon={<FiX size={26} />}
         showCloseIcon={true}
       >
-        <div className="relative w-[800px] p-[30px] rounded-[10px] body-l text-neutral-medium-gray bg-neutral-white shadow-[0_4px_8px_0_rgba(0,0,0,0.12)] z-[99]">
-          <div className="text-h3 text-neutral-black mb-[30px]">
+        <div className="body-l relative z-[99] w-[800px] rounded-[10px] bg-neutral-white p-[30px] text-neutral-medium-gray shadow-[0_4px_8px_0_rgba(0,0,0,0.12)]">
+          <div className="text-h3 mb-[30px] text-neutral-black">
             Change Password
           </div>
           {!changeSeccessVisible && (

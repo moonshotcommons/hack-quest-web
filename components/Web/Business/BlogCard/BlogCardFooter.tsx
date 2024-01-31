@@ -12,23 +12,23 @@ interface FooterProp {
 }
 
 const BlogCardFooter: React.FC<FooterProp> = ({
-  className = 'text-[16px] text-[#8C8C8C] leading-[25.6px] tracking-[0.32px]',
+  className = 'body-m text-neutral-medium-gray',
   borderColor,
   blog,
   iconSize = 26
 }) => {
   if (!blog?.id) return null;
   return (
-    <div className={cn('flex items-center  w-full', className)}>
+    <div className={cn('flex w-full items-center', className)}>
       <div
         className={cn(
-          'border-r border-r-[#000] pr-[10px] flex items-center max-w-[42.5%]',
+          'flex max-w-[42.5%] items-center border-r border-r-[#000] pr-[10px]',
           borderColor
         )}
       >
         <div className="pr-[5px]">By</div>
         <div
-          className="overflow-hidden whitespace-nowrap text-ellipsis flex-1"
+          className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap underline"
           title={blog?.creatorName}
         >
           {blog?.creatorName}

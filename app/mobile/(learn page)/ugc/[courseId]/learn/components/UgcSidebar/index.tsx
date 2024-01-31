@@ -49,12 +49,12 @@ const UgcSidebar: FC<UgcSidebarProps> = () => {
             disable,
             label: (
               <div
-                className={`flex w-full justify-between items-center ${
+                className={`flex w-full items-center justify-between ${
                   disable ? 'cursor-not-allowed' : ''
                 }`}
               >
-                <div className="flex flex-col pr-5 flex-1 overflow-hidden shrink-0">
-                  <span className="w-full body-m text-neutral-black break-words line-clamp-2">
+                <div className="flex flex-1 shrink-0 flex-col overflow-hidden pr-5">
+                  <span className="body-m line-clamp-2 w-full break-words text-neutral-black">
                     {page.title}
                   </span>
                   <span className="caption-12pt text-neutral-black">
@@ -62,7 +62,7 @@ const UgcSidebar: FC<UgcSidebarProps> = () => {
                   </span>
                 </div>
                 {page.state !== CompleteStateType.COMPLETED && (
-                  <div className="w-6 h-6 rounded-full border border-neutral-rich-gray flex justify-center items-center">
+                  <div className="flex h-6 w-6 items-center justify-center rounded-full border border-neutral-rich-gray">
                     {lessonTypeData[page.type].icon}
                   </div>
                 )}
@@ -139,16 +139,16 @@ const UgcSidebar: FC<UgcSidebarProps> = () => {
   if (!sidebarOpen) return false;
 
   return (
-    <div className="w-full h-full absolute left-0 z-50">
+    <div className="absolute left-0 z-50 h-full w-full">
       <div
-        className="w-full h-full bg-neutral-black opacity-50"
+        className="h-full w-full bg-neutral-black opacity-50"
         onClick={() => setSidebarOpen(false)}
       ></div>
       <div className="absolute left-0 top-0 h-full w-4/5 overflow-hidden">
         <Sidebar
           title={course.title}
           items={items}
-          className="w-full h-full"
+          className="h-full w-full"
           defaultSelect={lesson.id}
           open={sidebarOpen}
           isCustomOpen={true}

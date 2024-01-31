@@ -20,11 +20,11 @@ const BlogCard: React.FC<BlogCardProp> = ({ blog, isMobile }) => {
   };
   return (
     <Link
-      className="w-full bg-[#FFF] text-neutral-off-black rounded-[10px] overflow-hidden flex flex-col card-hover"
+      className="card-hover flex w-full flex-col overflow-hidden rounded-[10px] bg-[#FFF] text-neutral-off-black"
       onClick={goBlogContent}
       href={`${isMobile ? '/mobile' : ''}${MenuLink.BLOG}/${blog.id}`}
     >
-      <div className="w-full h-[0] pt-[56%] relative ">
+      <div className="relative h-[0] w-full pt-[56%] ">
         <Image
           src={blog.image}
           alt="blogImage"
@@ -32,7 +32,7 @@ const BlogCard: React.FC<BlogCardProp> = ({ blog, isMobile }) => {
           className="object-cover"
         ></Image>
       </div>
-      <div className="h-[215px] p-[16px] flex flex-col justify-between">
+      <div className="flex h-[215px] flex-col justify-between p-[16px]">
         <div className="flex flex-col gap-[16px]">
           <div className="flex gap-[10px] overflow-hidden">
             {blog.categories.map((v, i) => (
@@ -47,7 +47,7 @@ const BlogCard: React.FC<BlogCardProp> = ({ blog, isMobile }) => {
 
         <BlogCardFooter
           blog={blog}
-          className="text-neutral-rich-gray caption-12pt "
+          className="caption-12pt text-neutral-rich-gray "
           borderColor="border-r-[#3e3e3e]"
           iconSize={18}
         />

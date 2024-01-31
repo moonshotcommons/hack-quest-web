@@ -19,10 +19,10 @@ const MediaCommunity: React.FC<MediaCommunityProp> = ({ listData, title }) => {
 
   return listData?.length > 0 ? (
     <Box>
-      <div className="flex flex-wrap gap-[20px] mb-[30px]">
+      <div className="mb-[30px] flex flex-wrap gap-[20px]">
         {showList.map((v: MentorType, i: number) => (
-          <div key={i} className="w-[calc(25%-15px)] h-[72px]">
-            <div className="w-full h-full relative">
+          <div key={i} className="h-[72px] w-[calc(25%-15px)]">
+            <div className="relative h-full w-full">
               <Image
                 src={v.picture as string}
                 alt="picture"
@@ -36,7 +36,7 @@ const MediaCommunity: React.FC<MediaCommunityProp> = ({ listData, title }) => {
       {listData.length > 12 && (
         <div className="flex justify-end text-[18px]">
           <div
-            className="flex items-center cursor-pointer"
+            className="flex cursor-pointer items-center"
             onClick={() => {
               setShowAll(!showAll);
               BurialPoint.track(`hackathonDetail show all 按钮点击`);
@@ -44,7 +44,7 @@ const MediaCommunity: React.FC<MediaCommunityProp> = ({ listData, title }) => {
           >
             <span>Show {showAll ? 'Less' : 'All'}</span>
             <VscChevronDown
-              className={`transition text-[24px] ${
+              className={`text-[24px] transition ${
                 showAll ? 'rotate-180' : ''
               }`}
             />
