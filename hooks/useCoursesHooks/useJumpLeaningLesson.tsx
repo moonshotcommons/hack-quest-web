@@ -11,6 +11,8 @@ import { useRequest } from 'ahooks';
 import { useRedirect } from '../useRedirect';
 import { message } from 'antd';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
+import { isMobile } from 'react-device-detect';
+import { NavType } from '@/components/Mobile/MobLayout/BasePage/Navbar';
 
 export interface JumpLeaningLessonType {
   menu: string;
@@ -23,6 +25,9 @@ export const useJumpLeaningLesson = () => {
   );
   const setAuthType = useUserStore((state) => state.setAuthType);
   const setAuthModalOpen = useUserStore((state) => state.setAuthModalOpen);
+  const mobileAuthToggleOpenHandle = useUserStore(
+    (state) => state.mobileAuthToggleOpenHandle
+  );
   const { redirectToUrl } = useRedirect();
   const { run: jumpLearningLesson, loading } = useRequest(
     async (
@@ -69,7 +74,12 @@ export const useJumpLeaningLesson = () => {
         if (err.code === 401) {
           message.warning('Please login first');
           setAuthType(AuthType.LOGIN);
-          setAuthModalOpen(true);
+          if (!isMobile) {
+            setAuthModalOpen(true);
+          } else {
+            mobileAuthToggleOpenHandle.setNavType(NavType.AUTH);
+            mobileAuthToggleOpenHandle.toggleOpen();
+          }
         }
       }
     }

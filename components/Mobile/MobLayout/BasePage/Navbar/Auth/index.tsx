@@ -28,15 +28,11 @@ const Auth: FC<AuthModalProps> = ({ changeNavState }) => {
   const queryState = query.get('state');
   const type = query.get('type');
   const { redirectToUrl } = useRedirect();
-  const { authRouteType, setAuthType, authModalOpen, setAuthModalOpen } =
-    useUserStore(
-      useShallow((state) => ({
-        authModalOpen: state.authModalOpen,
-        authRouteType: state.authRouteType,
-        setAuthType: state.setAuthType,
-        setAuthModalOpen: state.setAuthModalOpen
-      }))
-    );
+  const { authRouteType } = useUserStore(
+    useShallow((state) => ({
+      authRouteType: state.authRouteType
+    }))
+  );
 
   const authComponent = useMemo(() => {
     if (queryState) {

@@ -14,7 +14,6 @@ import { useCheckPathname, useCustomPathname } from '../useCheckPathname';
 function useNavAuth(waitingUserData: boolean) {
   const userInfo = useUserStore((state) => state.userInfo);
   const setAuthType = useUserStore((state) => state.setAuthType);
-  const setAuthModalOpen = useUserStore((state) => state.setAuthModalOpen);
   const { redirectToUrl } = useRedirect();
   const pathname = useCustomPathname();
   const { isLandingPage } = useCheckPathname();
@@ -44,7 +43,6 @@ function useNavAuth(waitingUserData: boolean) {
     } else {
       redirectToUrl(V2_LANDING_PATH);
       setAuthType(AuthType.LOGIN);
-      // setAuthModalOpen(true);
     }
   }, [waitingUserData, userInfo, pathname]);
 }
