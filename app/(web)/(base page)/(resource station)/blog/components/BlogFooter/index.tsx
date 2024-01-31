@@ -31,13 +31,13 @@ const BlogFooter: React.FC<BlogFooterProp> = ({ backTop }) => {
   return (
     <div className="w-full bg-yellow-extra-light py-[60px]">
       <div className="container mx-auto">
-        <div className="flex justify-between mb-[30px]">
+        <div className="mb-[30px] flex justify-between">
           <div className="flex flex-col gap-[15px]">
             <h2 className="text-h3 text-neutral-off-black">Featured Blog</h2>
           </div>
           <Link
             href={MenuLink.BLOG}
-            className="flex gap-x-[7px] items-center text-neutral-black hover:opacity-70 body-m"
+            className="body-m flex items-center gap-x-[7px] text-neutral-black hover:opacity-70"
             onClick={() => {
               BurialPoint.track('home-view all点击');
             }}
@@ -73,9 +73,9 @@ const BlogFooter: React.FC<BlogFooterProp> = ({ backTop }) => {
             ]}
           ></ScrollControl> */}
         </Loading>
-        <div className="w-full flex justify-center pt-[60px] button-text-l">
+        <div className="button-text-l flex w-full justify-center pt-[60px]">
           <Button
-            className="w-[270px] h-[60px] border border-neutral-black text-neutral-black"
+            className="h-[60px] w-[270px] border border-neutral-black text-neutral-black"
             onClick={backTop}
           >
             BACK TO TOP

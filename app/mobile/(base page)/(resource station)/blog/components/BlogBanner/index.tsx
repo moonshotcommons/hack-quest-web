@@ -83,9 +83,9 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
 
   return (
     <>
-      <div className="text-neutral-off-black px-[1.25rem] py-[1.875rem]  bg-neutral-white body-l relative z-[10] flex flex-col gap-[1rem]">
+      <div className="body-l relative z-[10]  flex flex-col gap-[1rem] bg-neutral-white px-[1.25rem] py-[1.875rem] text-neutral-off-black">
         <p className="text-h2-mob">BLOG</p>
-        <p className="body-s text-neutral-rich-gray w-full">
+        <p className="body-s w-full text-neutral-rich-gray">
           Explore our Web3 Blog – your hub for news, events, and study notes!
           Contribute your insights, shaping the conversation in the world of
           decentralized tech.
@@ -97,15 +97,15 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
         >
           <Button
             type="primary"
-            className="w-[10.3125rem] h-[3rem] button-text-m"
+            className="button-text-m h-[3rem] w-[10.3125rem]"
           >
             CONTRIBUTE
           </Button>
         </Link>
-        <div className="w-full mt-[.75rem] h-[48px] flex items-center relative">
+        <div className="relative mt-[.75rem] flex h-[48px] w-full items-center">
           <div
             tabIndex={0}
-            className={`cursor-pointer relative w-[3rem] h-[3rem] flex-center  rounded-full ${
+            className={`flex-center relative h-[3rem] w-[3rem] cursor-pointer  rounded-full ${
               sortVisible
                 ? 'bg-neutral-light-gray text-neutral-medium-gray'
                 : 'text-neutral-black'
@@ -124,12 +124,12 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
             )}
 
             {sortVisible && (
-              <div className="absolute bottom-[-5.625rem] left-0 rounded-[10px] bg-neutral-off-white shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] text-neutral-black body-s overflow-hidden">
+              <div className="body-s absolute bottom-[-5.625rem] left-0 overflow-hidden rounded-[10px] bg-neutral-off-white text-neutral-black shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)]">
                 {sortData.map((v) => (
                   <div
                     key={v.value}
                     onClick={() => changeSort(v.value)}
-                    className={`h-[40px] flex items-center px-[20px] ${
+                    className={`flex h-[40px] items-center px-[20px] ${
                       searchInfo.sort === v.value ? 'bg-neutral-light-gray' : ''
                     }`}
                   >
@@ -140,12 +140,12 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
               </div>
             )}
           </div>
-          <div className="flex-1 ml-[.0625rem] mr-[.9375rem]">
+          <div className="ml-[.0625rem] mr-[.9375rem] flex-1">
             <Select
               label=""
               name=""
               state="default"
-              className="bg-neutral-off-white border-neutral-off-white body-m"
+              className="body-m border-neutral-off-white bg-neutral-off-white"
               placeholder="Please select"
               defaultValue={searchInfo.category}
               options={searchTabData}
@@ -161,7 +161,7 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
         </div>
       </div>
       <div
-        className={`fixed w-full h-full left-0 top-0 bg-neutral-black opacity-50 z-[9] ${
+        className={`fixed left-0 top-0 z-[9] h-full w-full bg-neutral-black opacity-50 ${
           !keyWord && inputVisible ? 'block' : 'hidden'
         }`}
       ></div>

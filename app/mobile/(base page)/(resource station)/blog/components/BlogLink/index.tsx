@@ -8,13 +8,13 @@ interface BlogLinkProp {}
 
 const BlogLink: React.FC<BlogLinkProp> = () => {
   return (
-    <div className="container mx-auto flex justify-between text-neutral-medium-gray body-m mb-[80px]">
+    <div className="body-m container mx-auto mb-[80px] flex justify-between text-neutral-medium-gray">
       <span>Stay connected with us</span>
       <div className="flex items-center gap-[16px]">
         <Link
           href={'https://discord.gg/KkAJHPqywn'}
           target="_blank"
-          className="hover:scale-[1.1] cursor-pointer"
+          className="cursor-pointer hover:scale-[1.1]"
         >
           <span className="text-text-default-color">
             <DiscordIcon color={'#8c8c8c'} isMobile={true} />
@@ -23,7 +23,7 @@ const BlogLink: React.FC<BlogLinkProp> = () => {
         <Link
           href={'https://x.com/hackquest_?s=21&t=kYetGSBybf-ssFBo7GodGA'}
           target="_blank"
-          className="hover:scale-[1.1] cursor-pointer"
+          className="cursor-pointer hover:scale-[1.1]"
         >
           <span className="text-text-default-color">
             <TwitterIcon color={'#8c8c8c'} isMobile={true} />
@@ -32,7 +32,7 @@ const BlogLink: React.FC<BlogLinkProp> = () => {
         <Link
           href={'https://t.me/hackquester'}
           target="_blank"
-          className="hover:scale-[1.1] cursor-pointer"
+          className="cursor-pointer hover:scale-[1.1]"
         >
           <span className="text-text-default-color">
             <TelegramIcon color={'#8c8c8c'} isMobile />

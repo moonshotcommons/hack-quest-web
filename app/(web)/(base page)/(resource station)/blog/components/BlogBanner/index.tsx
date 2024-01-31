@@ -86,7 +86,7 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
   return (
     <>
       <div
-        className="h-[400px] text-neutral-off-black  pt-[60px] pb-[40px] body-l relative z-[10]"
+        className="body-l relative  z-[10] h-[400px] pb-[40px] pt-[60px] text-neutral-off-black"
         style={{
           backgroundColor: '#fff',
           backgroundImage: `url(${BlogBannerBg.src})`,
@@ -95,10 +95,10 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
           backgroundRepeat: 'no-repeat'
         }}
       >
-        <div className="container mx-auto h-full flex flex-col justify-between">
+        <div className="container mx-auto flex h-full flex-col justify-between">
           <div className="flex flex-col gap-[20px]">
             <p className="text-h2">BLOG</p>
-            <p className="w-[686px] body-l text-neutral-rich-gray">
+            <p className="body-l w-[686px] text-neutral-rich-gray">
               Explore our Web3 Blog – your hub for news, events, and study
               notes! Contribute your insights, shaping the conversation in the
               world of decentralized tech.
@@ -110,18 +110,18 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
             >
               <Button
                 type="primary"
-                className="w-[270px] h-[60px] button-text-l"
+                className="button-text-l h-[60px] w-[270px]"
               >
                 CONTRIBUTE
               </Button>
             </Link>
           </div>
-          <div className="w-full h-[60px] px-[30px] rounded-[100px] bg-neutral-off-white text-neutral-black flex items-center justify-between">
+          <div className="flex h-[60px] w-full items-center justify-between rounded-[100px] bg-neutral-off-white px-[30px] text-neutral-black">
             {!inputVisible && (
               <div className="flex items-center gap-[30px]">
                 <div
                   tabIndex={0}
-                  className={`cursor-pointer relative px-[20px] py-[6px] rounded-[100px] ${
+                  className={`relative cursor-pointer rounded-[100px] px-[20px] py-[6px] ${
                     sortVisible
                       ? 'bg-neutral-light-gray text-neutral-medium-gray'
                       : 'text-neutral-black'
@@ -140,12 +140,12 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
                   )}
 
                   {sortVisible && (
-                    <div className="absolute bottom-[-100px] left-0 rounded-[10px] bg-neutral-off-white shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] text-neutral-black body-s overflow-hidden">
+                    <div className="body-s absolute bottom-[-100px] left-0 overflow-hidden rounded-[10px] bg-neutral-off-white text-neutral-black shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)]">
                       {sortData.map((v) => (
                         <div
                           key={v.value}
                           onClick={() => changeSort(v.value)}
-                          className={`h-[40px] flex items-center px-[20px] ${
+                          className={`flex h-[40px] items-center px-[20px] ${
                             searchInfo.sort === v.value
                               ? 'bg-neutral-light-gray'
                               : ''
@@ -161,7 +161,7 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
                   )}
                 </div>
                 <SlideHighlight
-                  className="text-[18px] flex items-center "
+                  className="flex items-center text-[18px] "
                   type={'BLOG_FILTER'}
                   currentIndex={currentIndex}
                 >
@@ -170,12 +170,12 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
                       key={v.value}
                       className={`${
                         v.value !== 'empty'
-                          ? `px-[20px] py-[7px] rounded-[100px] cursor-pointer relative ${
+                          ? `relative cursor-pointer rounded-[100px] px-[20px] py-[7px] ${
                               searchInfo.category === v.value
                                 ? 'text-neutral-white'
                                 : ''
                             }`
-                          : 'w-[30px] h-[41px]'
+                          : 'h-[41px] w-[30px]'
                       }`}
                       style={
                         v.value === 'empty'
@@ -201,14 +201,14 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
             )}
             <div
               className={` flex items-center ${
-                inputVisible ? 'justify-between flex-1' : ''
+                inputVisible ? 'flex-1 justify-between' : ''
               }`}
             >
               {inputVisible ? (
                 <>
                   <input
                     type="text"
-                    className="flex-1 h-[38px] text-[24px] bg-[transparent] outline-none"
+                    className="h-[38px] flex-1 bg-[transparent] text-[24px] outline-none"
                     placeholder="Search"
                     onInput={changeInput}
                   />
@@ -221,7 +221,7 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
               ) : (
                 <div
                   onClick={() => setInputVisible(true)}
-                  className="flex items-center  cursor-pointer"
+                  className="flex cursor-pointer  items-center"
                 >
                   <span className="mr-[6px] text-[24px]">Search</span>
                   <BiSearch size={32} />
@@ -232,7 +232,7 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
         </div>
       </div>
       <div
-        className={`fixed w-full h-full left-0 top-0 bg-neutral-black opacity-50 z-[9] ${
+        className={`fixed left-0 top-0 z-[9] h-full w-full bg-neutral-black opacity-50 ${
           !keyWord && inputVisible ? 'block' : 'hidden'
         }`}
       ></div>
