@@ -39,20 +39,20 @@ const cardData = [
 
 const CommunityIntroduction: FC<{}> = (props) => {
   return (
-    <div className="mt-[2.375rem] w-full py-10 px-5">
-      <div className="flex flex-col gap-3 items-center text-center">
-        <p className="body-s-bold uppercase text-neutral-rich-gray text-[.75rem]">{`what’s next`}</p>
+    <div className="mt-[2.375rem] w-full px-5 py-10">
+      <div className="flex flex-col items-center gap-3 text-center">
+        <p className="body-s-bold text-[.75rem] uppercase text-neutral-rich-gray">{`what’s next`}</p>
         <h2 className="text-h2-mob">We Support Beyond 📖</h2>
         <p className="body-xs text-neutral-medium-gray">
           Your learning does not end with courses. Engage with our rapidly
           growing Web3 community!
         </p>
       </div>
-      <div className="flex flex-col gap-10 mt-10">
+      <div className="mt-10 flex flex-col gap-10">
         {cardData.map((item, index) => {
           return (
-            <div key={index} className="w-full h-fit flex flex-col gap-6">
-              <div className="w-full h-[12.5rem] relative rounded-[.5rem] overflow-hidden">
+            <div key={index} className="flex h-fit w-full flex-col gap-6">
+              <div className="relative h-[12.5rem] w-full overflow-hidden rounded-[.5rem]">
                 <Image
                   src={item.image}
                   alt="hackquest"
@@ -70,9 +70,9 @@ const CommunityIntroduction: FC<{}> = (props) => {
                 <Link
                   href={item.link}
                   target="_blank"
-                  className="body-xs-bold flex gap-2 items-center cursor-pointer"
+                  className="body-xs-bold flex cursor-pointer items-center gap-2"
                 >
-                  <span className="relative after:h-[2px] after:rounded-full after:absolute after:w-full after:left-0 after:-bottom-[1px] after:bg-yellow-primary">
+                  <span className="relative after:absolute after:-bottom-[1px] after:left-0 after:h-[2px] after:w-full after:rounded-full after:bg-yellow-primary">
                     {item.buttonText}
                   </span>
                   <svg

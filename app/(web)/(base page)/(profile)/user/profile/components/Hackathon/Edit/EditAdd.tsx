@@ -18,7 +18,7 @@ interface EditAddProp {
 
 const Span: React.FC<{ text: string }> = ({ text }) => {
   return (
-    <span className="text-[21px] text-neutral-medium-gray h-[25px] block">
+    <span className="body-l block h-[25px] text-neutral-medium-gray">
       {text}
     </span>
   );
@@ -195,14 +195,14 @@ const EditAdd: React.FC<EditAddProp> = ({
 
   return (
     <div className="">
-      <div className="mb-[20px] flex flex-col gap-[20px] max-h-[60vh] overflow-auto">
+      <div className="mb-[20px] flex max-h-[60vh] flex-col gap-[20px] overflow-auto">
         <Input
           name={'role'}
           label={<Span text={'Role*'} />}
           maxLength={50}
           type="text"
           placeholder="EX: Software Engineer"
-          className="border-neutral-medium-gray text-[21px] caret-[#0b0b0b]"
+          className="body-l border-neutral-medium-gray caret-[#0b0b0b]"
           state={formData.role.status as any}
           errorMessage={formData.role.errorMessage}
           defaultValue={editEx.role}
@@ -223,7 +223,7 @@ const EditAdd: React.FC<EditAddProp> = ({
           maxLength={100}
           type="text"
           placeholder="EX: HackQuest Hackathon"
-          className="border-neutral-medium-gray text-[21px] caret-[#0b0b0b]"
+          className="body-l border-neutral-medium-gray caret-[#0b0b0b]"
           state={formData.hackathonName.status as any}
           errorMessage={formData.hackathonName.errorMessage}
           defaultValue={editEx.hackathonName}
@@ -244,7 +244,7 @@ const EditAdd: React.FC<EditAddProp> = ({
           maxLength={255}
           type="text"
           placeholder="EX: New York, United States"
-          className="border-neutral-medium-gray text-[21px] caret-[#0b0b0b]"
+          className="body-l border-neutral-medium-gray caret-[#0b0b0b]"
           state={formData.location.status as any}
           errorMessage={formData.location.errorMessage}
           defaultValue={editEx.location}
@@ -264,7 +264,7 @@ const EditAdd: React.FC<EditAddProp> = ({
             <Select
               name={'startMonth'}
               label={<Span text={'Start Date*'} />}
-              className="border-neutral-medium-gray text-[21px]"
+              className="body-l border-neutral-medium-gray"
               placeholder="Please select"
               state={formData.startMonth.status as any}
               errorMessage={formData.startMonth.errorMessage}
@@ -286,7 +286,7 @@ const EditAdd: React.FC<EditAddProp> = ({
             <Select
               name={'startYear'}
               label={<Span text={' '} />}
-              className="border-neutral-medium-gray text-[21px]"
+              className="body-l border-neutral-medium-gray"
               placeholder="Please select"
               state={formData.startYear.status as any}
               errorMessage={formData.startYear.errorMessage}
@@ -310,7 +310,7 @@ const EditAdd: React.FC<EditAddProp> = ({
             <Select
               name={'endMonth'}
               label={<Span text={'End Date*'} />}
-              className="border-neutral-medium-gray text-[21px]"
+              className="body-l border-neutral-medium-gray"
               placeholder="Please select"
               state={formData.endMonth.status as any}
               errorMessage={formData.endMonth.errorMessage}
@@ -333,7 +333,7 @@ const EditAdd: React.FC<EditAddProp> = ({
             <Select
               name={'endYear'}
               label={<Span text={' '} />}
-              className="border-neutral-medium-gray text-[21px]"
+              className="body-l border-neutral-medium-gray"
               placeholder="Please select"
               state={formData.endYear.status as any}
               errorMessage={formData.endYear.errorMessage}
@@ -356,7 +356,7 @@ const EditAdd: React.FC<EditAddProp> = ({
         <TextArea
           name={'description'}
           label={<Span text={'Description*'} />}
-          className="border-neutral-medium-gray body-l"
+          className="body-l border-neutral-medium-gray"
           state={formData.description.status as any}
           errorMessage={formData.description.errorMessage}
           defaultValue={editEx.description}
@@ -375,13 +375,13 @@ const EditAdd: React.FC<EditAddProp> = ({
       <div className="flex justify-center gap-[15px]">
         <Button
           onClick={onCancel}
-          className="w-[265px] h-[44px] border border-neutral-black  text-neutral-black body-m"
+          className="body-m h-[44px] w-[265px] border  border-neutral-black text-neutral-black"
         >
           Cancel
         </Button>
         <Button
           loading={loading}
-          className="w-[265px] h-[44px] bg-yellow-primary  p-0  body-m"
+          className="body-m h-[44px] w-[265px]  bg-yellow-primary  p-0"
           onClick={handleSubmit}
         >
           Save

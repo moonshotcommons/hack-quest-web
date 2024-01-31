@@ -26,14 +26,14 @@ interface VerifyConfirmedProps {}
 
 const Verifying: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
   return (
-    <div className="text-center flex flex-col justify-center gap-8 h-[18.5rem]">
+    <div className="flex h-[18.5rem] flex-col justify-center gap-8 text-center">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         // style="margin: auto; background: #f1f2f3; display: block; shape-rendering: auto;"
         // className="m-auto block"
         // width="224px"
         // height="224px"
-        className="w-[224px] h-[40px]"
+        className="h-[40px] w-[224px]"
         viewBox="0 40 100 20"
         preserveAspectRatio="xMidYMid"
       >
@@ -124,7 +124,7 @@ const Success: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
   }, [countDown]);
 
   return (
-    <div className="w-full h-full flex-col flex justify-between">
+    <div className="flex h-full w-full flex-col justify-between">
       <div className="flex flex-col gap-6">
         <svg
           width="48"
@@ -163,15 +163,15 @@ const Success: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
       >
         {`Continue to Homepage (${countDown}s)`}
       </Button> */}
-      <div className="flex flex-col gap-4 mt-[4rem] w-full">
+      <div className="mt-[4rem] flex w-full flex-col gap-4">
         <Button
           onClick={() => {}}
           block
           className={`
-          py-4 uppercase button-text-m
-          bg-auth-primary-button-bg hover:bg-auth-primary-button-hover-bg
-          text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
-          border-auth-primary-button-border-color hover:border-auth-primary-button-border-hover-color
+          button-text-m border-auth-primary-button-border-color bg-auth-primary-button-bg
+          py-4 uppercase
+          text-auth-primary-button-text-color hover:border-auth-primary-button-border-hover-color
+          hover:bg-auth-primary-button-hover-bg hover:text-auth-primary-button-text-hover-color
           `}
         >
           {`Continue to Homepage (${countDown}s)`}
@@ -205,10 +205,10 @@ const Fail: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
               }}
               block
               className="
-              py-4 uppercase button-text-m
-          bg-auth-primary-button-bg hover:bg-auth-primary-button-hover-bg
-          text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
-          border-auth-primary-button-border-color hover:border-auth-primary-button-border-hover-color
+              button-text-m border-auth-primary-button-border-color bg-auth-primary-button-bg
+          py-4 uppercase
+          text-auth-primary-button-text-color hover:border-auth-primary-button-border-hover-color
+          hover:bg-auth-primary-button-hover-bg hover:text-auth-primary-button-text-hover-color
           "
             >
               try login
@@ -228,10 +228,10 @@ const Fail: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
             <div className="flex flex-col gap-4">
               <Button
                 block
-                className=" py-4 uppercase button-text-m
-              bg-auth-primary-button-bg hover:bg-auth-primary-button-hover-bg
-              text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
-              border-auth-primary-button-border-color hover:border-auth-primary-button-border-hover-color relative"
+                className=" button-text-m relative border-auth-primary-button-border-color
+              bg-auth-primary-button-bg py-4
+              uppercase text-auth-primary-button-text-color
+              hover:border-auth-primary-button-border-hover-color hover:bg-auth-primary-button-hover-bg hover:text-auth-primary-button-text-hover-color"
                 onClick={() => loginThreeParty(type)}
                 icon={
                   <Image
@@ -251,7 +251,7 @@ const Fail: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
                   redirectToUrl('/');
                 }}
                 block
-                className="py-4 uppercase button-text-m border-neutral-off-black"
+                className="button-text-m border-neutral-off-black py-4 uppercase"
               >
                 Back
               </Button>
@@ -261,7 +261,7 @@ const Fail: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
     }
   };
   return (
-    <div className="flex flex-col gap-8 w-full h-full justify-between">
+    <div className="flex h-full w-full flex-col justify-between gap-8">
       <div className="flex flex-col gap-6">
         <svg
           width="48"
@@ -293,11 +293,9 @@ const Fail: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
 
 const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
   const { redirectToUrl } = useRedirect();
-  const { setUserInfo, setAuthType, setAuthModalOpen } = useUserStore(
+  const { setUserInfo } = useUserStore(
     useShallow((state) => ({
-      setUserInfo: state.setUserInfo,
-      setAuthType: state.setAuthType,
-      setAuthModalOpen: state.setAuthModalOpen
+      setUserInfo: state.setUserInfo
     }))
   );
   const { changeNavState } = useContext(AuthContext);
@@ -474,7 +472,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
   }, []);
 
   return (
-    <div className="w-full h-full flex flex-col items-center">
+    <div className="flex h-full w-full flex-col items-center">
       {verifyState === VerifyStateType.VERIFYING && (
         <Verifying type={source}></Verifying>
       )}

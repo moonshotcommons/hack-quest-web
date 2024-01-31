@@ -37,22 +37,22 @@ const NotCertified: FC<NotCertifiedProps> = (props) => {
 
   return (
     <div className="flex-1">
-      <h3 className="font-next-poster-Bold text-[28px] text-neutral-off-black tracking-[1.68px]">
+      <h3 className="font-next-poster-Bold text-[28px] tracking-[1.68px] text-neutral-off-black">
         Become a Certified Mantle Developer!
       </h3>
-      <p className="mt-[20px] font-next-book text-[16px] leading-[160%] tracking-[0.32px] text-neutral-black">
+      <p className="body-m mt-[20px] text-neutral-black">
         You are just one step away from becoming the inaugural group of
         Certified Mantle Developers. Complete the learning track and claim your
         non-transferable SBT proof-of-completion certificate now to elevate your
         skills and demonstrate your expertise!
       </p>
-      <div className="flex gap-x-[10px] mt-[40px]">
+      <div className="mt-[40px] flex gap-x-[10px]">
         <Button
           type="primary"
           disabled={!completed || loading}
           loading={loading}
           className={cn(
-            'w-[210px] py-[11px] px-0 font-next-book text-neutral-black text-[16px] leading-[125%] tracking-[0.32px]',
+            'body-m w-[210px] px-0  py-[11px] text-neutral-black',
             !completed ? 'opacity-40' : ''
           )}
           onClick={() => {
@@ -63,7 +63,7 @@ const NotCertified: FC<NotCertifiedProps> = (props) => {
         </Button>
         <Button
           ghost
-          className="w-[210px] py-[11px] px-0 font-next-book text-neutral-black text-[16px] leading-[125%] tracking-[0.32px] border-neutral-black"
+          className="body-m w-[210px] border-neutral-black  px-0 py-[11px] text-neutral-black"
           onClick={() => onClose()}
         >
           Close

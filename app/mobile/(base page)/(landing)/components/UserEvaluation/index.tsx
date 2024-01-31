@@ -7,8 +7,8 @@ import { cn } from '@/helper/utils';
 const UserEvaluation: FC<{}> = (props) => {
   return (
     <div className="w-full bg-neutral-white py-10">
-      <div className="flex flex-col gap-3 items-center text-center">
-        <p className="body-s-bold uppercase text-neutral-rich-gray text-[.875rem]">{`testimonial`}</p>
+      <div className="flex flex-col items-center gap-3 text-center">
+        <p className="body-s-bold text-[.875rem] uppercase text-neutral-rich-gray">{`testimonial`}</p>
         <h2 className="text-h2-mob">
           Students and Partners like You{' '}
           <span className="text-status-error">❤</span> us ️
@@ -26,7 +26,7 @@ const UserEvaluation: FC<{}> = (props) => {
                 <div
                   key={index}
                   className={cn(
-                    'w-[17.5rem] flex flex-col gap-6 h-full shrink-0'
+                    'flex h-full w-[17.5rem] shrink-0 flex-col gap-6'
                   )}
                 >
                   {col.items.map((item, i) => {

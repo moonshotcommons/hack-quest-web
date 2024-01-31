@@ -76,7 +76,7 @@ const ToggleRenderer: FC<ToggleRendererProps> = (props) => {
     <div>
       {lastIndex !== currentIndex && firstIndex === currentIndex && (
         <div
-          className="py-[15px] border-b border-neutral-black text-right underline-m text-neutral-black cursor-pointer"
+          className="underline-m cursor-pointer border-b border-neutral-black py-[15px] text-right text-neutral-black"
           onClick={() => {
             let newExpandData = { ...expandData };
             let expands: number[] = [];
@@ -96,14 +96,14 @@ const ToggleRenderer: FC<ToggleRendererProps> = (props) => {
       )}
       <div
         className={cn(
-          'border-b border-[#676767] overflow-hidden',
+          'overflow-hidden border-b border-[#676767]',
           groupExpands?.includes(currentIndex) ? 'pb-5' : '',
           lastIndex === currentIndex ? 'mb-5' : ''
         )}
         data-type={component.type}
       >
         <div
-          className="px-[.5rem] flex justify-between items-center my-[15px] cursor-pointer"
+          className="my-[15px] flex cursor-pointer items-center justify-between px-[.5rem]"
           onClick={() => {
             let newExpandData = { ...expandData };
             let expands = groupExpands;

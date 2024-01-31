@@ -49,7 +49,7 @@ const MobElectiveCard: FC<ElectiveCardProps> = (props) => {
     <>
       <div
         className={cn(
-          'flex flex-col gap-[1rem] p-[1rem] rounded-[1rem] w-full bg-neutral-white relative cursor-pointer overflow-hidden'
+          'relative flex w-full cursor-pointer flex-col gap-[1rem] overflow-hidden rounded-[1rem] bg-neutral-white p-[1rem]'
         )}
         onClick={() => {
           BurialPoint.track('home-course卡片点击', { courseName: course.name });
@@ -74,7 +74,7 @@ const MobElectiveCard: FC<ElectiveCardProps> = (props) => {
             </svg>
           </div>
         ) : null}
-        <div className="caption-12pt h-fit w-fit px-[.75rem] py-[0.25rem] text-neutral-rich-gray  border-[0.5px] border-neutral-rich-gray rounded-[1.25rem] ">
+        <div className="caption-12pt h-fit w-fit rounded-[1.25rem] border-[0.5px] border-neutral-rich-gray  px-[.75rem] py-[0.25rem] text-neutral-rich-gray ">
           {course.track}
         </div>
         <div className="body-m-bold text-neutral-dark-gray">{course.title}</div>
@@ -82,7 +82,7 @@ const MobElectiveCard: FC<ElectiveCardProps> = (props) => {
           <>
             <MobCardProgress progress={course.progress || 0} />
             <Button
-              className="w-full h-[48px] bg-yellow-primary text-neutral-off-black"
+              className="h-[48px] w-full bg-yellow-primary text-neutral-off-black"
               loading={loading}
               disabled={loading}
               onClick={(e) => {
@@ -102,7 +102,7 @@ const MobElectiveCard: FC<ElectiveCardProps> = (props) => {
           </>
         ) : (
           <>
-            <p className="line-clamp-2  body-xs text-neutral-medium-gray">
+            <p className="body-xs  line-clamp-2 text-neutral-medium-gray">
               {course.description}
             </p>
           </>

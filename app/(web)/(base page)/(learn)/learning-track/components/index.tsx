@@ -40,7 +40,7 @@ function LearningTrack() {
   return (
     <div className="">
       <Banner changeSearchInfo={changeSearchInfo} searchInfo={searchInfo} />
-      <div className="container mx-auto pt-[40px] pb-[100px] bg-[var(--neutral-off-white)]">
+      <div className="container mx-auto bg-[var(--neutral-off-white)] pb-[100px] pt-[40px]">
         <div className="mb-[32px]">
           <Filter changeSearchInfo={changeSearchInfo} searchInfo={searchInfo} />
         </div>

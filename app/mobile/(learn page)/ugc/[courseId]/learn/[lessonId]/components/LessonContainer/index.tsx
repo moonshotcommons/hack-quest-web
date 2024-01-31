@@ -24,15 +24,15 @@ const LessonContainer: FC<LessonContainerProps> = (props) => {
   }, [lesson]);
 
   return (
-    <div className="w-full flex flex-col items-center">
+    <div className="flex w-full flex-col items-center">
       <h2 className="text-h2-mob">{lesson.title}</h2>
-      <div className="flex gap-[.625rem] mt-[.625rem] items-center">
+      <div className="mt-[.625rem] flex items-center gap-[.625rem]">
         <span>{lessonTypeData[lesson.type].icon}</span>
         <span className="caption-12pt">
           {lessonTypeData[lesson.type].label}
         </span>
       </div>
-      <div className="pb-10 w-full">
+      <div className="w-full pb-10">
         <ComponentRenderer
           parent={lesson}
           component={lesson.content}

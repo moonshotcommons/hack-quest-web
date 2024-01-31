@@ -41,9 +41,9 @@ const ToggleRenderer: FC<ToggleRendererProps> = (props) => {
     }
   }, [expandData, component]);
   return (
-    <div className="border-b border-[#676767]  overflow-hidden">
+    <div className="overflow-hidden border-b  border-[#676767]">
       <div
-        className="px-[.5rem] flex justify-between items-center my-3 cursor-pointer"
+        className="my-3 flex cursor-pointer items-center justify-between px-[.5rem]"
         onClick={() => changeShowChild(!showChild)}
       >
         <div>

@@ -22,9 +22,9 @@ const UserInfo: React.FC<UserInfoProp> = () => {
   );
   return (
     <div>
-      <div className="p-[16px] bg-yellow-light rounded-[20px] mb-[16px]">
-        <div className="flex items-center gap-[12px] mb-[24px]">
-          <div className="w-[60px] h-[60px] relative rounded-[50%] overflow-hidden">
+      <div className="mb-[16px] rounded-[20px] bg-yellow-light p-[16px]">
+        <div className="mb-[24px] flex items-center gap-[12px]">
+          <div className="relative h-[60px] w-[60px] overflow-hidden rounded-[50%]">
             <Image
               src={userInfo?.avatar as string}
               alt="avatar"
@@ -38,7 +38,7 @@ const UserInfo: React.FC<UserInfoProp> = () => {
         </div>
         <div className="flex justify-between p-[12px]">
           <div className="">
-            <p className="mb-[8px] text-neutral-rich-gray text-[10px] font-light">
+            <p className="mb-[8px] text-[10px] font-light text-neutral-rich-gray">
               Courses Completed
             </p>
             <p className="body-xl text-neutral-off-black">
@@ -46,7 +46,7 @@ const UserInfo: React.FC<UserInfoProp> = () => {
             </p>
           </div>
           <div className="">
-            <p className="mb-[8px] text-neutral-rich-gray text-[10px] font-light">
+            <p className="mb-[8px] text-[10px] font-light text-neutral-rich-gray">
               Certification Earned
             </p>
             <p className="body-xl text-neutral-off-black">
@@ -56,7 +56,7 @@ const UserInfo: React.FC<UserInfoProp> = () => {
         </div>
       </div>
       <Link
-        className="flex text-neutral-off-black button-text-s items-center  cursor-pointer"
+        className="button-text-s flex cursor-pointer items-center  text-neutral-off-black"
         href={MenuLink.USER_PROFILE}
       >
         <span className="uppercase">Profile</span>

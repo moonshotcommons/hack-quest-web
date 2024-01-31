@@ -68,11 +68,11 @@ function Electives() {
 
   return (
     <div
-      className="w-full h-full overflow-auto"
+      className="h-full w-full overflow-auto"
       onScroll={handleScroll}
       ref={selectiveCoursesRef}
     >
-      <div className="w-full mx-auto relative">
+      <div className="relative mx-auto w-full">
         <MobCourseListPageHeader
           title="Electives"
           description="Each elective course is relatively short and independent, with a focused topic. You will  learn how to build a project step by step."
@@ -83,10 +83,10 @@ function Electives() {
           coverHeight={120}
           onSearch={onSearch}
         />
-        <div className="flex flex-col w-full px-[1.25rem] py-[2.5rem] rounded-t-[2rem] absolute top-[15.5rem] left-0 z-[99] bg-neutral-off-white">
+        <div className="absolute left-0 top-[15.5rem] z-[99] flex w-full flex-col rounded-t-[2rem] bg-neutral-off-white px-[1.25rem] py-[2.5rem]">
           {type === CourseFilterListType.DEFAULT && (
             <div className="flex flex-col">
-              <h2 className="text-h2-mob text-neutral-black mb-5">
+              <h2 className="text-h2-mob mb-5 text-neutral-black">
                 Top Courses
               </h2>
               <MobViewMoreList

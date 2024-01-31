@@ -114,7 +114,7 @@ const LessonPage: FC<LessonPageProps> = (props) => {
     >
       <Spin
         spinning={loading}
-        className="h-[100vh] flex justify-center items-center translate-y-[calc(50vh-50%)]"
+        className="flex h-[100vh] translate-y-[calc(50vh-50%)] items-center justify-center"
         tip="loading..."
         size="large"
       >
@@ -143,7 +143,7 @@ const LessonPage: FC<LessonPageProps> = (props) => {
               }}
             >
               <Split
-                className="flex-1 w-full h-full flex justify-between [&>div]:w-[50%] [&>.gutter]:cursor-col-resize font-next-book"
+                className="flex h-full w-full flex-1 justify-between font-next-book [&>.gutter]:cursor-col-resize [&>div]:w-[50%]"
                 minSize={360}
                 cursor="col-resize"
                 gutter={(index, direction) => {

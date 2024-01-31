@@ -131,15 +131,15 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
   if (!quiz) return null;
 
   const QuizHeader = (
-    <div className={`flex justify-between h-fit w-full items-center`}>
+    <div className={`flex h-fit w-full items-center justify-between`}>
       <div
-        className={`inline-flex text-h4 items-center relative ${
+        className={`text-h4 relative inline-flex items-center ${
           quizDropdownVisible && 'shadow-2xl'
         }`}
       >
         <div
           ref={containerRef as any}
-          className={`inline-flex gap-2 box-content border-b-2 p-[20px] cursor-pointer min-h-fit ${
+          className={`box-content inline-flex min-h-fit cursor-pointer gap-2 border-b-2 p-[20px] ${
             quizDropdownVisible ? ' border-neutral-medium-gray' : ''
           }`}
           onClick={() => {
@@ -179,7 +179,7 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
     <>
       <div
         className={cn(
-          `rounded-[.625rem] pb-[20px] bg-[#E6E6E6] flex w-full flex-1 min-h-[50%] flex-col overflow-hidden mt-[30px]`
+          `mt-[30px] flex min-h-[50%] w-full flex-1 flex-col overflow-hidden rounded-[.625rem] bg-[#E6E6E6] pb-[20px]`
         )}
       >
         {QuizHeader}

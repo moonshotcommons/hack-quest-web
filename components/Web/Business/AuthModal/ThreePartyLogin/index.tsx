@@ -39,24 +39,24 @@ function ThreePartyLogin() {
   return (
     <div className="w-full">
       <div className="relative flex justify-center">
-        <div className="text-center h-[30px] flex items-center  body-m text-neutral-medium-gray">
+        <div className="body-m flex h-[30px] items-center  text-center text-neutral-medium-gray">
           or continue with
         </div>
-        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[calc(50%-80px)] h-[1px] bg-neutral-medium-gray"></div>
-        <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[calc(50%-80px)] h-[1px] bg-neutral-medium-gray"></div>
+        <div className="absolute left-0 top-1/2 h-[1px] w-[calc(50%-80px)] -translate-y-1/2 bg-neutral-medium-gray"></div>
+        <div className="absolute right-0 top-1/2 h-[1px] w-[calc(50%-80px)] -translate-y-1/2 bg-neutral-medium-gray"></div>
       </div>
-      <div className="flex gap-8 justify-center mt-4">
+      <div className="mt-4 flex justify-center gap-8">
         <Button
           ghost
           onClick={() => loginThreeParty(ThirdPartyAuthType.GOOGLE)}
-          className="cursor-pointer rounded-[.75rem] p-3 border border-neutral-light-gray body-m"
+          className="body-m cursor-pointer rounded-[.75rem] border border-neutral-light-gray p-3"
         >
           <Image src={Google} width={24} height={24} alt="Google"></Image>
         </Button>
         <Button
           ghost
           onClick={() => loginThreeParty(ThirdPartyAuthType.GITHUB)}
-          className="cursor-pointer rounded-[.75rem] p-3 border border-neutral-light-gray body-m"
+          className="body-m cursor-pointer rounded-[.75rem] border border-neutral-light-gray p-3"
         >
           <Image src={Github} width={24} height={24} alt="Github"></Image>
         </Button>

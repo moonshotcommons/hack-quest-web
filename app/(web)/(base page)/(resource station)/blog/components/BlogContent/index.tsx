@@ -16,7 +16,7 @@ const BlogContent: React.FC<BlogContentProp> = ({ blog }) => {
     };
   }, [blog]);
   return (
-    <div className="py-[80px] w-[808px] mx-auto">
+    <div className="mx-auto w-[808px] py-[80px]">
       {blog?.content?.map((component: CustomComponent) => (
         <ComponentRender
           key={component.id}

@@ -18,16 +18,16 @@ const SidebarItem: FC<SidebarItemProps> = ({
   return (
     <div
       className={cn(
-        'px-10 py-[10px] flex items-center cursor-pointer relative',
+        'relative flex cursor-pointer items-center px-10 py-[10px]',
         select === item.key
-          ? 'bg-neutral-white before:absolute before:h-full before:left-0 before:top-0 before:w-[15px] before:bg-yellow-dark before:rounded-l-[5px] z-50'
+          ? 'z-50 bg-neutral-white before:absolute before:left-0 before:top-0 before:h-full before:w-[15px] before:rounded-l-[5px] before:bg-yellow-dark'
           : ''
       )}
       onClick={() => {
         if (!item.disable) onSelect(item.key, item);
       }}
     >
-      <div className="line-clamp-1 w-full flex items-center justify-center">
+      <div className="line-clamp-1 flex w-full items-center justify-center">
         {children}
       </div>
     </div>

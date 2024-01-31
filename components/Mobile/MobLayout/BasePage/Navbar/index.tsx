@@ -25,6 +25,9 @@ export enum NavType {
 
 const Navbar: FC<NavbarProps> = (props) => {
   const userInfo = useUserStore((state) => state.userInfo);
+  const setMobileAuthToggleOpenHandle = useUserStore(
+    (state) => state.setMobileAuthToggleOpenHandle
+  );
   const { navList, children } = props;
   const { redirectToUrl } = useRedirect();
   const { isLandingPage } = useCheckPathname();
@@ -49,8 +52,16 @@ const Navbar: FC<NavbarProps> = (props) => {
     }
   }, []);
 
+  useEffect(() => {
+    setMobileAuthToggleOpenHandle({
+      isOpen,
+      toggleOpen: toggleOpen,
+      setNavType: (type) => setNavType(type)
+    });
+  }, [isOpen, toggleOpen, setNavType, setMobileAuthToggleOpenHandle]);
+
   return (
-    <div className="text-neutral-white h-[4rem] flex items-center justify-between w-full">
+    <div className="flex h-[4rem] w-full items-center justify-between text-neutral-white">
       <NavContainer
         isOpen={isOpen}
         toggleOpen={() => {
@@ -84,7 +95,7 @@ const Navbar: FC<NavbarProps> = (props) => {
           ></Auth>
         )}
       </NavContainer>
-      <div className="relative flex flex-1 justify-center items-center">
+      <div className="relative flex flex-1 items-center justify-center">
         <Image
           src={'/images/logo/dark-footer-logo.svg'}
           alt="logo"

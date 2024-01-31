@@ -25,7 +25,7 @@ const UnitList: FC<UnitListProps> = (props) => {
       {units.map((unit, index) => {
         if (index === 0) {
           return (
-            <li key={unit.id} className="w-full relative top-line bottom-line">
+            <li key={unit.id} className="top-line bottom-line relative w-full">
               <UnitCard
                 unit={unit}
                 isLock={false}
@@ -38,7 +38,7 @@ const UnitList: FC<UnitListProps> = (props) => {
           );
         }
         return (
-          <li key={unit.id} className="w-full relative bottom-line">
+          <li key={unit.id} className="bottom-line relative w-full">
             <UnitCard
               unit={unit}
               isLock={

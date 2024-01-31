@@ -8,7 +8,7 @@ interface ProfileIdProp {}
 
 const ProfileId: React.FC<ProfileIdProp> = () => {
   return (
-    <div className="container mx-auto flex flex-col gap-[60px] py-[40px] body-m">
+    <div className="body-m container mx-auto flex flex-col gap-[60px] py-[40px]">
       <ProfileEdit />
       <MiniElectives />
       <PageRetentionTime trackName="ecosystem-profile-页面留存时间"></PageRetentionTime>

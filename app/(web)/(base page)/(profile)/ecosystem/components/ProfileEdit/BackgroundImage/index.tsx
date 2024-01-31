@@ -7,9 +7,9 @@ interface BackgroundImageProps {
 
 const BackgroundImage: FC<BackgroundImageProps> = ({ url }) => {
   return (
-    <div className="w-full z-50 overflow-hidden rounded-t-[10px]">
-      <div className="w-full h-[210px] relative">
-        <div className="w-full h-full">
+    <div className="z-50 w-full overflow-hidden rounded-t-[10px]">
+      <div className="relative h-[210px] w-full">
+        <div className="h-full w-full">
           <Image fill alt="background image" src={url}></Image>
         </div>
       </div>

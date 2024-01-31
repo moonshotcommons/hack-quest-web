@@ -104,7 +104,7 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
   );
 
   return (
-    <div className="w-full h-full flex flex-col justify-between">
+    <div className="flex h-full w-full flex-col justify-between">
       {/* <ThirdPartyLogin></ThirdPartyLogin> */}
       <div className="flex w-full flex-col gap-[24px]">
         {/* <div className="text-[#FFF] text-[21px] font-next-poster leading-[160%] tracking-[1.26px]">
@@ -179,7 +179,7 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
           ></Input>
         </div>
         <div className="flex flex-col gap-[.5rem]">
-          <div className="flex gap-[.75rem] items-center">
+          <div className="flex items-center gap-[.75rem]">
             <Checkbox
               outClassNames={`${
                 acceptConditions
@@ -198,7 +198,7 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
 
             <p
               className={cn(
-                `text-neutral-medium-gray body-s`,
+                `body-s text-neutral-medium-gray`,
                 acceptErrorMessage ? 'text-status-error-dark ' : '',
                 acceptConditions ? 'text-neutral-off-black' : ''
               )}
@@ -239,10 +239,10 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
         icon={<RightArrowIcon></RightArrowIcon>}
         iconPosition="right"
         className="
-          py-4 uppercase button-text-l
-          bg-auth-primary-button-bg hover:bg-auth-primary-button-hover-bg
-          text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
-          border-auth-primary-button-border-color hover:border-auth-primary-button-border-hover-color
+          button-text-l border-auth-primary-button-border-color bg-auth-primary-button-bg
+          py-4 uppercase
+          text-auth-primary-button-text-color hover:border-auth-primary-button-border-hover-color
+          hover:bg-auth-primary-button-hover-bg hover:text-auth-primary-button-text-hover-color
           "
       >
         Continue

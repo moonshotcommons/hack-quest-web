@@ -93,9 +93,9 @@ const Select = forwardRef<
   });
 
   return (
-    <div className="flex flex-col gap-[0.75rem] w-full relative">
+    <div className="relative flex w-full flex-col gap-[0.75rem]">
       {label ? (
-        <p className="text-[21px] font-next-poster leading-[125%] tracking-[1.26px]">
+        <p className="font-next-poster text-[21px] leading-[125%] tracking-[1.26px]">
           {label}
         </p>
       ) : null}
@@ -114,7 +114,7 @@ const Select = forwardRef<
           readOnly
           placeholder={placeholder}
           className={cn(
-            `w-full border cursor-pointer border-solid border-neutral-dark-gray outline-none px-[25px] py-[15px] rounded-[2.5rem] text-[14px] font-next-book leading-[118.5%] caret-[#ffffff] hover:border-neutral-dark-gray focus:border-neutral-dark-gray`,
+            `w-full cursor-pointer rounded-[2.5rem] border border-solid border-neutral-dark-gray px-[25px] py-[15px] font-next-book text-[14px] leading-[118.5%] caret-[#ffffff] outline-none hover:border-neutral-dark-gray focus:border-neutral-dark-gray`,
             // type === 'password' &&
             //   'border-auth-password-input-bg focus:border-neutral-dark-gray',
             status === 'success'
@@ -128,13 +128,13 @@ const Select = forwardRef<
           {...rest}
         />
 
-        <span className="absolute right-[1.4375rem] top-[50%] -translate-y-[50%] flex gap-4 items-center">
+        <span className="absolute right-[1.4375rem] top-[50%] flex -translate-y-[50%] items-center gap-4">
           {status === 'default' && (
-            <AiFillCaretDown className=" text-neutral-medium-gray text-[20px]" />
+            <AiFillCaretDown className=" text-[20px] text-neutral-medium-gray" />
           )}
           {status === 'error' && (
             <span
-              className="text-auth-input-error-color flex justify-center items-center cursor-pointer"
+              className="flex cursor-pointer items-center justify-center text-auth-input-error-color"
               onClick={() => {
                 setValue('');
                 setErrorMessage('');
@@ -152,21 +152,21 @@ const Select = forwardRef<
           )}
         </span>
         {visibleOption && (
-          <div className="absolute w-full top-0 z-[1000] text-[21px] text-[#] bg-[#fff] left-0 border border-neutral-dark-gray rounded-[24px] pb-[5px] font-next-book overflow-hidden">
+          <div className="absolute left-0 top-0 z-[1000] w-full overflow-hidden rounded-[24px] border border-neutral-dark-gray bg-[#fff] pb-[5px] font-next-book text-[21px] text-[#]">
             <div
-              className="flex items-center justify-between mx-[20px] h-[48px] border-b border-b-[#8C8C8C] cursor-pointer"
+              className="mx-[20px] flex h-[48px] cursor-pointer items-center justify-between border-b border-b-[#8C8C8C]"
               onClick={() => {
                 setVisibleOption(false);
               }}
             >
               <span>{selectLabel}</span>
-              <AiFillCaretDown className=" text-neutral-medium-gray text-[20px] rotate-180" />
+              <AiFillCaretDown className=" rotate-180 text-[20px] text-neutral-medium-gray" />
             </div>
-            <ul className="w-full max-h-[250px] overflow-auto">
+            <ul className="max-h-[250px] w-full overflow-auto">
               {options.map((v: OptionType) => (
                 <li
                   key={v.value}
-                  className={`leading-[34px] px-[20px] flex items-center justify-between mt-[5px] cursor-pointer ${
+                  className={`mt-[5px] flex cursor-pointer items-center justify-between px-[20px] leading-[34px] ${
                     value === v.value ? 'bg-neutral-off-white' : ''
                   }`}
                   onClick={() => {
@@ -179,7 +179,7 @@ const Select = forwardRef<
                 >
                   <span>{v.label}</span>
                   {value === v.value && (
-                    <FiCheck className="text-neutral-rich-gray text-[14px]" />
+                    <FiCheck className="text-[14px] text-neutral-rich-gray" />
                   )}
                 </li>
               ))}
@@ -189,12 +189,12 @@ const Select = forwardRef<
       </div>
 
       {description && (
-        <p className="ml-[1.5rem] text-  text-[1rem] leading-[150%] tracking-[-0.011rem] font-Sofia-Pro-Light-Az">
+        <p className="text- ml-[1.5rem]  font-Sofia-Pro-Light-Az text-[1rem] leading-[150%] tracking-[-0.011rem]">
           {description}
         </p>
       )}
       {errorMessage && (
-        <p className="text-auth-input-error-color text-[1rem] leading-[150%] tracking-[-0.011rem] font-Sofia-Pro-Light-Az flex flex-row items-center gap-2">
+        <p className="flex flex-row items-center gap-2 font-Sofia-Pro-Light-Az text-[1rem] leading-[150%] tracking-[-0.011rem] text-auth-input-error-color">
           <WarningIcon width={17} height={16}></WarningIcon>
           {errorMessage}
         </p>

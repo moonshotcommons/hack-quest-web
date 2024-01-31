@@ -65,7 +65,7 @@ const CourseSlider = <T extends CourseBaseType>({
 
   return (
     <div>
-      <div className="flex justify-between items-center">
+      <div className="flex items-center justify-between">
         <h3 className="text-h3 text-neutral-black">{title}</h3>
         {courseGroupList.length > 1 && (
           <ScrollControl
@@ -86,7 +86,7 @@ const CourseSlider = <T extends CourseBaseType>({
           <CourseCardSkeleton.List active={loading}>
             {courseGroupList.map((item, index) => {
               return (
-                <div key={index} className="flex gap-[24px] w-[1280px] p-[2px]">
+                <div key={index} className="flex w-[1280px] gap-[24px] p-[2px]">
                   {item.map((course) => {
                     return renderItem(course);
                   })}
@@ -97,13 +97,13 @@ const CourseSlider = <T extends CourseBaseType>({
         </div>
       </ScrollContainer>
       {courseGroupList.length > 1 && (
-        <div className="flex justify-center items-center gap-[10px]">
+        <div className="flex items-center justify-center gap-[10px]">
           {courseGroupList.map((item, index) => {
             return (
               <div
                 key={index}
                 className={cn(
-                  'w-8 h-1 rounded-sm',
+                  'h-1 w-8 rounded-sm',
                   currentPage === index ? 'bg-[#FCC409]' : 'bg-[#DADADA]'
                 )}
               ></div>

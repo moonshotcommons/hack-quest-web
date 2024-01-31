@@ -35,10 +35,10 @@ const MiniElectiveCard: React.FC<MiniElectiveCardProp> = ({ elective }) => {
   return (
     <>
       <div
-        className="cursor-pointer overflow-hidden flex h-[336px] bg-[#fff] font-next-book text-neutral-black rounded-[10px] hover:-translate-y-1 transition-all duration-300 shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)]"
+        className="flex h-[336px] cursor-pointer overflow-hidden rounded-[10px] bg-[#fff] font-next-book text-neutral-black shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)]"
         onClick={() => handleClick()}
       >
-        <div className="w-[597px] h-full relative">
+        <div className="relative h-full w-[597px]">
           <Image
             src={elective.image}
             fill
@@ -46,16 +46,16 @@ const MiniElectiveCard: React.FC<MiniElectiveCardProp> = ({ elective }) => {
             className="object-cover"
           ></Image>
         </div>
-        <div className="flex-1 flex-shrink-0  flex flex-col justify-between h-full px-[40px] py-[20px]">
+        <div className="flex h-full  flex-1 flex-shrink-0 flex-col justify-between px-[40px] py-[20px]">
           <div>
-            <p className="text-[rgba(11,11,11,0.6)] text-[18px]">
+            <p className="text-[18px] text-[rgba(11,11,11,0.6)]">
               {elective.type}
             </p>
             <p className="font-next-book-bold text-[21px] leading-[26px]">
               {elective.name}
             </p>
           </div>
-          <div className="leading-[25px] h-[78px] line-clamp-3">
+          <div className="line-clamp-3 h-[78px] leading-[25px]">
             {elective.description}
           </div>
           <div>
@@ -64,14 +64,14 @@ const MiniElectiveCard: React.FC<MiniElectiveCardProp> = ({ elective }) => {
           <div className="flex justify-between">
             <Button
               type="primary"
-              className="w-[calc((100%-15px)/2)] h-15 text-[18px] text-home-learning-track-view-button-color bg-home-learning-track-view-button-bg px-0"
+              className="h-15 w-[calc((100%-15px)/2)] bg-home-learning-track-view-button-bg px-0 text-[18px] text-home-learning-track-view-button-color"
               onClick={handleLearn}
             >
               {!!elective.progress && elective.progress > 0
                 ? 'Resume'
                 : 'Start'}
             </Button>
-            <Button className="w-[calc((100%-15px)/2)] h-15 text-[18px] border border-home-learning-track-view-button-border text-home-learning-track-view-button-color px-0">
+            <Button className="h-15 w-[calc((100%-15px)/2)] border border-home-learning-track-view-button-border px-0 text-[18px] text-home-learning-track-view-button-color">
               View Syllabus
             </Button>
           </div>

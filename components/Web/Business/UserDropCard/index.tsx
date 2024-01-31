@@ -16,8 +16,8 @@ interface UserDropCardProps {
 
 const UserInfo: FC<Omit<UserDropCardProps, 'onClose'>> = ({ userInfo }) => {
   return (
-    <div className="w-full flex flex-col items-center px-[30px]">
-      <div className="relative w-[80px] h-[80px]  overflow-hidden rounded-full">
+    <div className="flex w-full flex-col items-center px-[30px]">
+      <div className="relative h-[80px] w-[80px]  overflow-hidden rounded-full">
         <Image
           src={userInfo?.avatar}
           alt="avatar"
@@ -28,7 +28,7 @@ const UserInfo: FC<Omit<UserDropCardProps, 'onClose'>> = ({ userInfo }) => {
       <div className="text-h5 mt-[10px] text-neutral-black">
         {userInfo?.nickname}
       </div>
-      <div className="body-s text-neutral-medium-gray mt-[5px]">
+      <div className="body-s mt-[5px] text-neutral-medium-gray">
         {userInfo?.email}
       </div>
     </div>
@@ -52,12 +52,12 @@ const UserDropCard: FC<UserDropCardProps> = (props) => {
   };
 
   return (
-    <div className="relative  py-[20px] bg-neutral-white shadow-[0_4px_4px_0_rgba(0,0,0,0.25)] rounded-[10px]">
-      <div className="min-w-[220px] flex flex-col text-neutral-black body-s">
+    <div className="relative  rounded-[10px] bg-neutral-white py-[20px] shadow-[0_4px_4px_0_rgba(0,0,0,0.25)]">
+      <div className="body-s flex min-w-[220px] flex-col text-neutral-black">
         <UserInfo userInfo={userInfo}></UserInfo>
         <Link href={'/user/profile'} className="w-full">
           <div
-            className="w-full mt-[8px] py-[12px] px-[30px]  flex items-center gap-[12px] cursor-pointer hover:bg-neutral-off-white"
+            className="mt-[8px] flex w-full cursor-pointer  items-center gap-[12px] px-[30px] py-[12px] hover:bg-neutral-off-white"
             onClick={() => {
               onClose();
               BurialPoint.track('profile');
@@ -70,7 +70,7 @@ const UserDropCard: FC<UserDropCardProps> = (props) => {
           </div>
         </Link>
         <div
-          className="w-full py-[12px] px-[30px] flex items-center gap-[12px] cursor-pointer hover:bg-neutral-off-white"
+          className="flex w-full cursor-pointer items-center gap-[12px] px-[30px] py-[12px] hover:bg-neutral-off-white"
           onClick={() => {
             onClose();
             setSettingsOpen(true);
@@ -83,7 +83,7 @@ const UserDropCard: FC<UserDropCardProps> = (props) => {
           <span className="">Change Password</span>
         </div>
         <div
-          className="w-full py-[12px] px-[30px] flex items-center gap-[12px] cursor-pointer hover:bg-neutral-off-white"
+          className="flex w-full cursor-pointer items-center gap-[12px] px-[30px] py-[12px] hover:bg-neutral-off-white"
           onClick={() => {
             signOut();
             onClose();

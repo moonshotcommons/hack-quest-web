@@ -5,12 +5,12 @@ interface CollaborateListProps {}
 
 const CollaborateList: FC<CollaborateListProps> = (props) => {
   return (
-    <div className="w-full h-[385px] bg-neutral-off-white relative">
-      <div className="absolute top-0 container p-[3.75rem] left-1/2 -translate-x-1/2 bg-neutral-white rounded-[2rem] ">
-        <p className="text-center body-l-bold text-neutral-medium-gray">
+    <div className="relative h-[385px] w-full bg-neutral-off-white">
+      <div className="container absolute left-1/2 top-0 -translate-x-1/2 rounded-[2rem] bg-neutral-white p-[3.75rem] ">
+        <p className="body-l-bold text-center text-neutral-medium-gray">
           We collaborate with 100+ leading Web3 ecosystems and projects
         </p>
-        <div className="mt-[1.5rem] w-full h-[272px] relative">
+        <div className="relative mt-[1.5rem] h-[272px] w-full">
           <Image
             src={'/images/landing/cooperation_list.png'}
             alt="cooperation"

@@ -11,7 +11,7 @@ const CopyButton: React.FC<CopyButtonType> = ({ copyText }) => {
     <div>
       <Button
         type="primary"
-        className="bg-[#e3e3e3] w-[30px] h-[30px] rounded-[10px]"
+        className="h-[30px] w-[30px] rounded-[10px] bg-[#e3e3e3]"
         size="small"
         onClick={async (e) => {
           try {

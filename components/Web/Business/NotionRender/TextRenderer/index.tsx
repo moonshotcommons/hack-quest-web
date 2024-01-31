@@ -77,9 +77,8 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
           const plain_text = richText.plain_text.replace(/<<image>>/, '');
           if (richTextArr[index + 1]) {
             const nextPlainText = richTextArr[index + 1].plain_text;
-            richTextArr[
-              index + 1
-            ].plain_text = `${plain_text}${nextPlainText}<<image>>`;
+            richTextArr[index + 1].plain_text =
+              `${plain_text}${nextPlainText}<<image>>`;
             return null;
           } else {
             return (
@@ -116,7 +115,7 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
                 <a
                   target="_blank"
                   href={richText.href}
-                  className={`${className} py-1 underline break-words`}
+                  className={`${className} break-words py-1 underline`}
                   style={{
                     fontSize,
                     letterSpacing,
@@ -171,7 +170,7 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
               target="_blank"
               key={index}
               href={richText.href}
-              className={`${className} py-1 underline break-words`}
+              className={`${className} break-words py-1 underline`}
               style={{
                 fontSize,
                 letterSpacing,

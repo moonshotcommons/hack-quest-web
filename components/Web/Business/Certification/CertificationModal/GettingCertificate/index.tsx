@@ -100,19 +100,19 @@ const GettingCertificate: FC<GettingCertificateProps> = ({
 
   return (
     <div className="flex-1">
-      <div className="flex items-center gap-x-5 h-fit">
+      <div className="flex h-fit items-center gap-x-5">
         <div>{badge}</div>
-        <h3 className="font-next-poster-Bold leading-[125%] text-[28px] tracking-[1.68px] text-neutral-off-black">
+        <h3 className="text-h3 text-neutral-off-black">
           Congratulations! You are now a Certified Mantle Developer.
         </h3>
       </div>
 
-      <p className="mt-5 text-neutral-black font-next-book text-[16px] leading-[160%] tracking-[0.32px]">
+      <p className="body-m mt-5 text-neutral-black">
         {`This certificate, co-issued by Mantle Network and HackQuest, certifies that you have successfully completed the Mantle Learning Track. It attests that you have acquired foundational skills and understanding in Solidity Development, Deploying to Mantle, Mantle Architecture, and EVM Concepts. Share your accomplishment with the world!`}
       </p>
 
       <div
-        className="flex gap-x-[10px] mt-[30px]"
+        className="mt-[30px] flex gap-x-[10px]"
         onMouseLeave={() => {
           if (showShare) setShowShare(false);
         }}
@@ -144,7 +144,7 @@ const GettingCertificate: FC<GettingCertificateProps> = ({
             type="primary"
             icon={<RiShareBoxLine />}
             iconPosition="left"
-            className="w-[210px] py-[11px] px-0 font-next-book text-neutral-black text-[16px] leading-[125%] tracking-[0.32px] outline-none"
+            className="w-[210px] py-[11px] px-0 text-neutral-black body-m outline-none"
             onClick={() => setShowShare(true)}
           >
             Share
@@ -154,7 +154,7 @@ const GettingCertificate: FC<GettingCertificateProps> = ({
           type="primary"
           loading={loading}
           className={cn(
-            'w-[210px] py-[11px] px-0 font-next-book text-neutral-black text-[16px] leading-[125%] tracking-[0.32px] outline-none',
+            'body-m w-[210px] px-0 py-[11px] text-neutral-black outline-none',
             certification.mint ? 'cursor-not-allowed opacity-40' : ''
           )}
           onClick={() => {
@@ -173,7 +173,7 @@ const GettingCertificate: FC<GettingCertificateProps> = ({
         <Link href={'/user/profile'}>
           <Button
             ghost
-            className="w-[210px] py-[11px] px-0 font-next-book text-neutral-black text-[16px] leading-[125%] tracking-[0.32px] border-neutral-black"
+            className="body-m w-[210px] border-neutral-black  px-0 py-[11px] text-neutral-black"
             onClick={() => closeModal?.()}
           >
             Check Profile

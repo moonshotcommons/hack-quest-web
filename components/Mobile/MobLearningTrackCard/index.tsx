@@ -55,14 +55,14 @@ const MobLearningTrackCard: React.FC<MobLearningTrackCardProps> = ({
   return (
     <div
       className={cn(
-        ' w-full  p-[1.25rem] flex flex-col gap-[1.25rem] rounded-[1rem] bg-neutral-white overflow-hidden',
+        ' flex  w-full flex-col gap-[1.25rem] overflow-hidden rounded-[1rem] bg-neutral-white p-[1.25rem]',
         className
       )}
       // onClick={goLearningTrackDetail}
       onClick={handleContinue}
     >
       <div className="flex w-full justify-between">
-        <div className="caption-12pt h-fit w-fit px-[.75rem] py-[0.25rem] text-neutral-rich-gray  border-[0.5px] border-neutral-rich-gray rounded-[1.25rem] ">
+        <div className="caption-12pt h-fit w-fit rounded-[1.25rem] border-[0.5px] border-neutral-rich-gray  px-[.75rem] py-[0.25rem] text-neutral-rich-gray ">
           {learningTrack.track}
         </div>
         {from === 'dashboard' && learningTrack.progress === 1 && (
@@ -83,7 +83,7 @@ const MobLearningTrackCard: React.FC<MobLearningTrackCardProps> = ({
             </svg>
           </div>
         )}
-        <div className="w-[3rem] h-[3rem] relative">
+        <div className="relative h-[3rem] w-[3rem]">
           <Image
             src={learningTrack.image || LearningTrackImg}
             fill
@@ -92,10 +92,10 @@ const MobLearningTrackCard: React.FC<MobLearningTrackCardProps> = ({
           ></Image>
         </div>
       </div>
-      <div className="w-[calc(100%-3rem)] text-neutral-off-black body-m-bold line-clamp-1 mt-[-1.8rem]">
+      <div className="body-m-bold mt-[-1.8rem] line-clamp-1 w-[calc(100%-3rem)] text-neutral-off-black">
         {learningTrack.name}
       </div>
-      <div className="body-xs text-neutral-medium-gray  line-clamp-2">
+      <div className="body-xs line-clamp-2  text-neutral-medium-gray">
         {learningTrack.description}
       </div>
       <div>
@@ -104,7 +104,7 @@ const MobLearningTrackCard: React.FC<MobLearningTrackCardProps> = ({
           level={learningTrack?.level as string}
           unitCount={learningTrack?.courseCount}
           type={'learning-track'}
-          className="justify-between body-xs  text-neutral-rich-gray"
+          className="body-xs justify-between  text-neutral-rich-gray"
         ></CourseTags>
       </div>
     </div>

@@ -116,10 +116,8 @@ const OnChainActivity: FC<OnChainActivityProps> = (props) => {
   }, [profile?.onChainActivity]);
 
   return (
-    <div className="w-full h-[260px] p-[30px] pb-[40px] bg-neutral-white rounded-[10px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] group hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)] hover:-translate-y-1 transition-all duration-300 relative cursor-pointer">
-      <p className="text-neutral-black font-next-poster-Bold text-[28px] tracking-[1.68px] leading-[125%]">
-        On-Chain Activity
-      </p>
+    <div className="group relative h-[260px] w-full cursor-pointer rounded-[10px] bg-neutral-white p-[30px] pb-[40px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)]">
+      <p className="text-h3 text-neutral-black">On-Chain Activity</p>
       {Object.keys(chainData || {}).length > 0 && (
         <div className="absolute right-[30px] top-[25px] hidden group-hover:block">
           <div className="flex gap-[10px]">
@@ -141,32 +139,32 @@ const OnChainActivity: FC<OnChainActivityProps> = (props) => {
       {Object.keys(chainData || {}).length > 0 && (
         <>
           {!refreshChainLoading && (
-            <div className="flex mt-[30px]">
-              <div className="flex flex-col items-center flex-1 relative after:absolute after:right-0 after:top-0 after:h-full after:bg-neutral-black after:w-[1px] after:scale-x-50">
-                <span className="font-next-book-Thin text-[54px] leading-[160%] tracking-[0.162px] text-neutral-black">
+            <div className="mt-[30px] flex">
+              <div className="relative flex flex-1 flex-col items-center after:absolute after:right-0 after:top-0 after:h-full after:w-[1px] after:scale-x-50 after:bg-neutral-black">
+                <span className="text-[54px] leading-[160%] tracking-[0.162px] text-neutral-black">
                   0
                 </span>
-                <p className="mt-5 font-next-book leading-[125%] tracking-[0.32px] text-[16px] text-neutral-medium-gray">
+                <p className="body-m mt-5 text-neutral-medium-gray">
                   Deployed Contracts
                 </p>
               </div>
-              <div className="flex flex-col items-center flex-1">
-                <span className="font-next-book-Thin text-[54px] leading-[160%] tracking-[0.162px] text-neutral-black">
+              <div className="flex flex-1 flex-col items-center">
+                <span className="text-[54px] leading-[160%] tracking-[0.162px] text-neutral-black">
                   {chainData?.transactionCount}
                 </span>
-                <p className="mt-5 font-next-book leading-[125%] tracking-[0.32px] text-[16px] text-neutral-medium-gray">
+                <p className="body-m mt-5 text-neutral-medium-gray">
                   Defi Interaction
                 </p>
               </div>
             </div>
           )}
           {refreshChainLoading && (
-            <div className="relative flex-1 w-full h-full flex-center">
+            <div className="flex-center relative h-full w-full flex-1">
               <Image
                 src={Loading}
                 width={40}
                 alt="loading"
-                className="object-contain animate-spin opacity-100"
+                className="animate-spin object-contain opacity-100"
               ></Image>
             </div>
           )}
@@ -174,14 +172,14 @@ const OnChainActivity: FC<OnChainActivityProps> = (props) => {
       )}
       {Object.keys(chainData || {}).length <= 0 && (
         <div className="flex flex-col items-center">
-          <p className="mt-[48px] text-center font-next-book text-[18px] leading-[160%] tracking-[0.054px]">
+          <p className="body-l mt-[48px] text-center">
             Share your on-chain activities
           </p>
           <Button
             type="primary"
             disabled={loading}
             loading={loading}
-            className="w-[223px] cursor-pointer px-0 py-[12px] text-[16px] font-next-book leading-[125%] tracking-[0.32px] text-neutral-black mt-[25px] mb-[10px]"
+            className="body-m mb-[10px] mt-[25px] w-[223px] cursor-pointer px-0 py-[12px] text-neutral-black"
             onClick={() => connectToMetaMask()}
           >
             Connect to MetaMask

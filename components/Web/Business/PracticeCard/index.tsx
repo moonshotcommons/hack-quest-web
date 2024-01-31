@@ -81,7 +81,7 @@ const PracticeCard: FC<PracticeCardProps> = (props) => {
   return (
     <div
       className={
-        'flex  flex-col rounded-[12px] bg-neutral-white w-full shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] card-hover'
+        'card-hover  flex w-full flex-col rounded-[12px] bg-neutral-white shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)]'
       }
       onClick={() => {
         BurialPoint.track('home-practice卡片点击', { practice: course.name });
@@ -90,12 +90,12 @@ const PracticeCard: FC<PracticeCardProps> = (props) => {
         );
       }}
     >
-      <div className="h-0 w-full pt-[56%] relative">
+      <div className="relative h-0 w-full pt-[56%]">
         {imageRender(course.track)}
       </div>
-      <div className="h-[216px] flex flex-col justify-between w-full p-[16px] relative ">
+      <div className="relative flex h-[216px] w-full flex-col justify-between p-[16px] ">
         {from === 'dashboard' && !!course.progress && course.progress >= 1 ? (
-          <div className={`absolute top-[16px]  right-[16px] z-10`}>
+          <div className={`absolute right-[16px]  top-[16px] z-10`}>
             <CompletedIcon />
           </div>
         ) : null}
@@ -103,7 +103,7 @@ const PracticeCard: FC<PracticeCardProps> = (props) => {
           <TrackTag track={course.track} />
           <h2 className={`body-m-bold  line-clamp-2`}>{course.title}</h2>
           {!inProgress && (
-            <div className="body-s text-neutral-medium-gray line-clamp-2">
+            <div className="body-s line-clamp-2 text-neutral-medium-gray">
               {course.description}
             </div>
           )}
@@ -115,7 +115,7 @@ const PracticeCard: FC<PracticeCardProps> = (props) => {
               <CardProgress progress={course.progress || 0} />
               <Button
                 type="primary"
-                className="px-0 py-[12px] h-[48px]  button-text-m text-neutral-off-black"
+                className="button-text-m h-[48px] px-0  py-[12px] text-neutral-off-black"
                 block
                 loading={loading}
                 disabled={loading}

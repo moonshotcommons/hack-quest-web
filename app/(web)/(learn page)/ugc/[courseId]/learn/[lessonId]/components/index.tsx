@@ -30,10 +30,10 @@ const Ugc: React.FC<UgcProp> = ({ lessonId }) => {
   if (!lesson) return null;
 
   return (
-    <div className="flex-1 bg-neutral-white flex justify-center relative">
+    <div className="relative flex flex-1 justify-center bg-neutral-white">
       <UgcNavbar />
-      <div className="w-full h-full flex flex-col overflow-hidden">
-        <div className="flex-1 mt-[5.125rem] overflow-auto flex justify-center scroll-wrap-y">
+      <div className="flex h-full w-full flex-col overflow-hidden">
+        <div className="scroll-wrap-y mt-[5.125rem] flex flex-1 justify-center overflow-auto">
           <Loading loading={loading}>
             <LessonContainer lesson={lesson}></LessonContainer>
           </Loading>

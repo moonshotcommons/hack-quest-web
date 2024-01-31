@@ -10,7 +10,7 @@ interface ElectiveTagProp {
 
 const ElectiveTag: React.FC<ElectiveTagProp> = ({ elective }) => {
   return (
-    <div className="flex items-center gap-[33px] body-m">
+    <div className="body-m flex items-center gap-[33px]">
       {/* <div className="flex items-center gap-[10px]">
         <div className="w-[39px] h-[39px] relative overflow-hidden rounded-[50%]">
           <Image src={logo} fill alt="logo" className="object-contain"></Image>

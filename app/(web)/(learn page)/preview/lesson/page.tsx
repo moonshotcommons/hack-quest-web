@@ -12,7 +12,7 @@ const PreviewLessonPage: NextPage<IProps> = (props) => {
 
   return (
     <>
-      <div className="w-full h-full flex flex-col font-next-book-Thin">
+      <div className="flex h-full w-full flex-col font-next-book-Thin">
         <PreviewLesson previewUrl={previewUrl as string}></PreviewLesson>
       </div>
     </>

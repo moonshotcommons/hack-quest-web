@@ -137,7 +137,7 @@ const PersonalLinkEditModal = forwardRef<
     if (discordInfo?.isConnect) {
       return (
         <div
-          className="w-[64px] flex justify-end cursor-pointer"
+          className="flex w-[64px] cursor-pointer justify-end"
           onClick={() => setConfirmInfo({ key, show: true })}
         >
           <Image src={ConnectIcon} alt="connect.svg"></Image>
@@ -153,7 +153,7 @@ const PersonalLinkEditModal = forwardRef<
         }}
         loading={connectLoading}
         disabled={connectLoading}
-        className="font-next-book leading-[125%] px-4 py-2 border-neutral-black"
+        className="border-neutral-black px-4 py-2 font-next-book leading-[125%]"
       >{`Connect with ${key}`}</Button>
     );
   };
@@ -180,7 +180,7 @@ const PersonalLinkEditModal = forwardRef<
       }}
       showCloseIcon
       icon={
-        <div className="absolute -top-2 -right-2 cursor-pointer">
+        <div className="absolute -right-2 -top-2 cursor-pointer">
           <svg
             width="30"
             height="30"
@@ -207,8 +207,8 @@ const PersonalLinkEditModal = forwardRef<
       }
       markBg="black"
     >
-      <div className="w-[800px] bg-neutral-white  rounded-[10px] px-[30px] py-[30px]">
-        <div className="font-next-poster-Bold text-[28px] text-neutral-black tracking-[1.68px] flex gap-4 items-center">
+      <div className="w-[800px] rounded-[10px]  bg-neutral-white px-[30px] py-[30px]">
+        <div className="flex items-center gap-4 font-next-poster-Bold text-[28px] tracking-[1.68px] text-neutral-black">
           {confirmInfo?.show && (
             <svg
               width="10"
@@ -246,10 +246,10 @@ const PersonalLinkEditModal = forwardRef<
                     }
                   ]}
                 >
-                  <div className="text-neutral-black relative flex items-center py-[20px] after:absolute after:h-[1px] after:scale-y-[0.5] after:w-full after:bg-neutral-black after:bottom-0">
-                    <div className="flex gap-x-[15px] items-center h-full w-[25%]">
+                  <div className="relative flex items-center py-[20px] text-neutral-black after:absolute after:bottom-0 after:h-[1px] after:w-full after:scale-y-[0.5] after:bg-neutral-black">
+                    <div className="flex h-full w-[25%] items-center gap-x-[15px]">
                       <span>{media.icon}</span>
-                      <span className="text-[18px] text-neutral-black font-next-book leading-[160%] tracking-[0.36px]">
+                      <span className="font-next-book text-[18px] leading-[160%] tracking-[0.36px] text-neutral-black">
                         {media.name}
                       </span>
                     </div>
@@ -258,7 +258,7 @@ const PersonalLinkEditModal = forwardRef<
                       type="url"
                       disabled={key === ThirdPartyMediaType.DISCORD}
                       placeholder="Please enter personal link"
-                      className="flex-1 h-[30px] truncate text-[14px] font-next-book text-neutral-medium-gray leading-[160%] -tracking-[0.154px] outline-none bg-transparent"
+                      className="h-[30px] flex-1 truncate bg-transparent font-next-book text-[14px] leading-[160%] -tracking-[0.154px] text-neutral-medium-gray outline-none"
                     />
                     <div className="w-[64px]"></div>
                     {key === ThirdPartyMediaType.DISCORD &&
@@ -268,10 +268,10 @@ const PersonalLinkEditModal = forwardRef<
               );
             })}
           </Form>
-          <div className="flex gap-x-[15px] font-next-book text-[16px] leading-[125%] tracking-[0.32px] text-neutral-black justify-center mt-[30px]">
+          <div className="mt-[30px] flex justify-center gap-x-[15px] font-next-book text-[16px] leading-[125%] tracking-[0.32px] text-neutral-black">
             <Button
               ghost
-              className="border-neutral-black py-[12px] w-[265px] flex items-center justify-center"
+              className="flex w-[265px] items-center justify-center border-neutral-black py-[12px]"
               onClick={() => {
                 setOpen(false);
                 form.resetFields();
@@ -280,7 +280,7 @@ const PersonalLinkEditModal = forwardRef<
               Cancel
             </Button>
             <Button
-              className=" py-[12px] w-[265px] flex items-center justify-center"
+              className=" flex w-[265px] items-center justify-center py-[12px]"
               type="primary"
               loading={loading}
               disabled={loading}
@@ -292,13 +292,13 @@ const PersonalLinkEditModal = forwardRef<
             </Button>
           </div>
           {confirmInfo?.show && (
-            <div className="absolute top-0 bottom-0 left-0 right-0 bg-neutral-white">
-              <p className="mt-[7.875rem] text-center body-l text-neutral-black">
+            <div className="absolute bottom-0 left-0 right-0 top-0 bg-neutral-white">
+              <p className="body-l mt-[7.875rem] text-center text-neutral-black">
                 Do you want to disconnect from {confirmInfo.key}?
               </p>
-              <div className="flex justify-center items-center gap-[14px] mt-[45px]">
+              <div className="mt-[45px] flex items-center justify-center gap-[14px]">
                 <Button
-                  className="w-[265px] py-4 button-text-m uppercase border-neutral-black"
+                  className="button-text-m w-[265px] border-neutral-black py-4 uppercase"
                   ghost
                   onClick={() => setConfirmInfo(undefined)}
                 >
@@ -308,7 +308,7 @@ const PersonalLinkEditModal = forwardRef<
                   type="primary"
                   loading={disconnectLoading}
                   disabled={disconnectLoading}
-                  className="w-[265px] py-4 button-text-m uppercase"
+                  className="button-text-m w-[265px] py-4 uppercase"
                   onClick={async () => {
                     try {
                       await disconnect(confirmInfo.key);

@@ -62,14 +62,14 @@ const PreviewLessonPage: FC<PreviewLessonPageProps> = (props) => {
     >
       <Spin
         spinning={loading}
-        className="h-[100vh] flex justify-center items-center translate-y-[calc(50vh-50%)]"
+        className="flex h-[100vh] translate-y-[calc(50vh-50%)] items-center justify-center"
         tip="loading..."
         size="large"
       >
         {lesson && (
-          <div className="relative w-full h-[calc(100vh-115px)] pl-[20px]">
+          <div className="relative h-[calc(100vh-115px)] w-full pl-[20px]">
             <Split
-              className="flex-1 w-full h-full flex justify-between [&>div]:w-[50%] [&>.gutter]:cursor-col-resize"
+              className="flex h-full w-full flex-1 justify-between [&>.gutter]:cursor-col-resize [&>div]:w-[50%]"
               minSize={80}
               cursor="col-resize"
             >

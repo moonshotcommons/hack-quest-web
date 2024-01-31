@@ -28,15 +28,11 @@ const Auth: FC<AuthModalProps> = ({ changeNavState }) => {
   const queryState = query.get('state');
   const type = query.get('type');
   const { redirectToUrl } = useRedirect();
-  const { authRouteType, setAuthType, authModalOpen, setAuthModalOpen } =
-    useUserStore(
-      useShallow((state) => ({
-        authModalOpen: state.authModalOpen,
-        authRouteType: state.authRouteType,
-        setAuthType: state.setAuthType,
-        setAuthModalOpen: state.setAuthModalOpen
-      }))
-    );
+  const { authRouteType } = useUserStore(
+    useShallow((state) => ({
+      authRouteType: state.authRouteType
+    }))
+  );
 
   const authComponent = useMemo(() => {
     if (queryState) {
@@ -75,7 +71,7 @@ const Auth: FC<AuthModalProps> = ({ changeNavState }) => {
           pointerEvents: 'none'
         }
       }}
-      className="absolute top-[4rem] px-5 py-[30px] bottom-0 w-screen bg-neutral-white border border-neutral-light-gray flex flex-col"
+      className="absolute bottom-0 top-[4rem] flex w-screen flex-col border border-neutral-light-gray bg-neutral-white px-5 py-[30px]"
     >
       <AuthContext.Provider value={{ changeNavState }}>
         {authComponent}

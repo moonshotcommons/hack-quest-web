@@ -11,7 +11,7 @@ const UgcProgress: React.FC<UgcProgressProp> = () => {
     refreshNavList();
   }, [lesson]);
   return (
-    <div className="w-full flex gap-[1px] h-[.3125rem]">
+    <div className="flex h-[.3125rem] w-full gap-[1px]">
       {unitNavList.map((item, i) => (
         <div className="h-full flex-1 bg-neutral-light-gray" key={item.id}>
           <div

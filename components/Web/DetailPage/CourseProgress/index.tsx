@@ -9,20 +9,16 @@ const CourseProgress: FC<CourseProgressProps> = ({ progress }) => {
     <>
       <div>
         <div className="flex items-center gap-[20px]">
-          <div className="max-w-[715px] w-[715px] h-[10px] bg-[#DADADA] rounded-[10px]">
+          <div className="h-[10px] w-[715px] max-w-[715px] rounded-[10px] bg-[#DADADA]">
             <div
-              className="bg-[#FCC409] h-[10px] rounded-[10px]"
+              className="h-[10px] rounded-[10px] bg-yellow-dark"
               style={{ width: `${Math.floor(progress)}%` }}
             ></div>
           </div>
-          <span className="text-[21px] font-next-book leading-[160%] tracking-[0.42px]">{`${Math.floor(
-            progress
-          )}%`}</span>
+          <span className="body-xl">{`${Math.floor(progress)}%`}</span>
         </div>
       </div>
-      <p className="text-neutral-black text-[16px] font-next-book tracking-[0.32px]">
-        Overall Process
-      </p>
+      <p className="body-m text-neutral-black">Overall Process</p>
     </>
   );
 };

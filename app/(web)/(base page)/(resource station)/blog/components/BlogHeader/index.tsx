@@ -14,26 +14,26 @@ interface BlogHeaderProp {
 const BlogHeader: React.FC<BlogHeaderProp> = ({ blog }) => {
   const router = useRouter();
   return (
-    <div className="bg-neutral-black text-[#fff] pb-[80px]">
-      <div className="container mx-auto flex-col-center">
+    <div className="bg-neutral-black pb-[80px] text-[#fff]">
+      <div className="flex-col-center container mx-auto">
         <div
-          className="flex items-center w-full py-[30px] cursor-pointer"
+          className="flex w-full cursor-pointer items-center py-[30px]"
           onClick={() => {
             BurialPoint.track('blog-content-page Back按钮点击');
             router.back();
           }}
         >
           <BsArrowLeft size={26} />
-          <span className="text-[18px] ml-[10px]">Back</span>
+          <span className="ml-[10px] text-[18px]">Back</span>
         </div>
         <div className="w-[808px]">
-          <div className="flex justify-between items-center">
+          <div className="flex items-center justify-between">
             <div className="flex gap-[10px]">
               {blog.categories?.map((v, i) => (
                 <TrackTag
                   key={i}
                   track={v}
-                  className="px-[16px] py-[6px] caption-16pt border-neutral-white text-neutral-white"
+                  className="caption-16pt border-neutral-white px-[16px] py-[6px] text-neutral-white"
                 />
               ))}
             </div>

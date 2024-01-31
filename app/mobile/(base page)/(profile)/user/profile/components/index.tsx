@@ -43,15 +43,15 @@ const UserProfilePage: NextPage<IProps> = (props) => {
         <div className="mt-[40px]">
           <PersonalEdit edit={true}></PersonalEdit>
         </div>
-        <div className="flex justify-between gap-x-[40px] mt-[40px]">
-          <div className="flex-1 flex flex-col gap-y-[40px] z-10">
+        <div className="mt-[40px] flex justify-between gap-x-[40px]">
+          <div className="z-10 flex flex-1 flex-col gap-y-[40px]">
             <GithubActivity edit={true}></GithubActivity>
             <Experience edit={true} />
             <Hackathon edit={true} />
             <Certifications></Certifications>
           </div>
           <div
-            className="flex flex-col gap-y-[40px] z-0"
+            className="z-0 flex flex-col gap-y-[40px]"
             style={{
               width: `${(420 / 1280) * 100}%`
             }}
