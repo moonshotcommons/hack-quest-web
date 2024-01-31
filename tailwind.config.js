@@ -1,4 +1,4 @@
-import type { Config } from 'tailwindcss';
+/** @type {import('tailwindcss').Config} */
 
 import {
   themeColors,
@@ -7,7 +7,7 @@ import {
   borderColor
 } from './config/theme/variable';
 
-const config: Config = {
+module.exports = {
   // corePlugins: {
   //   preflight: false
   // },
@@ -86,5 +86,3 @@ const config: Config = {
   },
   plugins: []
 };
-
-export default config;

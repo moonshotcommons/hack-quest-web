@@ -38,9 +38,8 @@ const LessonContentComponent: FC<LessonContentProps> = (props) => {
     return lesson.content.left;
   });
   const { getLessonExpand } = useLessonExpand(lesson.content.left);
-  const [expandData, setExpandData] = useState<ExpandDataType[][]>(
-    getLessonExpand()
-  );
+  const [expandData, setExpandData] =
+    useState<ExpandDataType[][]>(getLessonExpand());
 
   const changeExpandData = (data: ExpandDataType[], index: number) => {
     expandData[index] = data;
@@ -78,7 +77,7 @@ const LessonContentComponent: FC<LessonContentProps> = (props) => {
     <div className="">
       {!!components?.length && (
         <div
-          className="flex flex-col mb-[20px] w-full flex-1 shrink-0 h-full scroll-wrap-y scroll-wrap-x"
+          className="scroll-wrap-y scroll-wrap-x mb-[20px] flex h-full w-full flex-1 shrink-0 flex-col"
           ref={componentsWrapRef}
         >
           {components.map((component, i) => {
@@ -100,14 +99,12 @@ const LessonContentComponent: FC<LessonContentProps> = (props) => {
           })}
           <Button
             icon={BugIcon}
-            className="bg-neutral-medium-gray text-neutral-white rounded-[10px] px-[16px] py-[14px] ml-[1.375rem]"
+            className="ml-[1.375rem] rounded-[10px] bg-neutral-medium-gray px-[16px] py-[14px] text-neutral-white"
             onClick={() => {
               onBugCommit?.();
             }}
           >
-            <span className="ml-[0.5] leading-[125%] tracking-[0.32px] font-next-book text-[16px]">
-              Found a bug?
-            </span>
+            <span className="body-m ml-[0.5]">Found a bug?</span>
           </Button>
         </div>
       )}

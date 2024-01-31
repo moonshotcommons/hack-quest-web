@@ -87,38 +87,38 @@ const TreasureModal = forwardRef<TreasureModalRef, TreasureModalProp>(
         icon={<FiX size={26} color={'#fff'} />}
         className="min-w-[75vw]"
       >
-        <div className="w-full h-[750px] flex-center">
+        <div className="flex-center h-[750px] w-full">
           <div
-            className="w-[99%] h-[700px] flex flex-col  rounded-[10px] overflow-hidden text-[#fff]"
+            className="flex h-[700px] w-[99%] flex-col  overflow-hidden rounded-[10px] text-[#fff]"
             style={{
               boxShadow: `0 0 10px #3e3e3e`
             }}
           >
             <div
-              className="w-full flex-1 flex-col-center justify-center pb-[20px]"
+              className="flex-col-center w-full flex-1 justify-center pb-[20px]"
               style={{
                 background: `url(${BannerBg.src}) center  / 100% auto`
               }}
             >
               {type === TreasureType.NOT_DIG && (
                 <>
-                  <p className="text-[24px] font-next-book-bold mb-[43px] tracking-[0.48px]">
+                  <p className="mb-[43px] font-next-book-bold text-[24px] tracking-[0.48px]">
                     You found something hidden on your HackQuest Journey!
                   </p>
                   <Button
                     onClick={() => {
                       openTreasures(treasureId);
                     }}
-                    className={`w-[400px] text-[18px]  h-[55px] bg-auth-primary-button-bg
-                      border-auth-primary-button-border-color p-0 text-neutral-black hover:border-auth-primary-button-border-hover-color
-                      hover:text-auth-primary-button-text-hover-color
-                      hover:bg-auth-primary-button-hover-bg  mb-[25px] tracking-[0.36px] `}
+                    className={`mb-[25px] h-[55px]  w-[400px] border-auth-primary-button-border-color
+                      bg-auth-primary-button-bg p-0 text-[18px] tracking-[0.36px]
+                      text-neutral-black
+                      hover:border-auth-primary-button-border-hover-color  hover:bg-auth-primary-button-hover-bg hover:text-auth-primary-button-text-hover-color `}
                   >
                     Dig Treasures
                   </Button>
                   <Button
-                    className={`w-[400px] text-[18px]  h-[55px] border
-                      border-[#fff] p-0 text-[#fff] tracking-[0.36px]  `}
+                    className={`h-[55px] w-[400px]  border border-[#fff]
+                      p-0 text-[18px] tracking-[0.36px] text-[#fff]  `}
                     onClick={() => resetModal()}
                   >
                     Check Later
@@ -127,26 +127,26 @@ const TreasureModal = forwardRef<TreasureModalRef, TreasureModalProp>(
               )}
               {type === TreasureType.DIG && (
                 <>
-                  <p className="text-[24px] font-next-book-bold  tracking-[0.48px]">
+                  <p className="font-next-book-bold text-[24px]  tracking-[0.48px]">
                     The treasures you’ve got are
                   </p>
-                  <div className="flex justify-center gap-[30px] my-[30px]">
+                  <div className="my-[30px] flex justify-center gap-[30px]">
                     <div>
                       <Image src={IconCoin} width={60} alt="iconCredits" />
-                      <p className="w-[60px] h-[30px] rounded-[20px] bg-neutral-rich-gray flex-center mt-[10px]">
+                      <p className="flex-center mt-[10px] h-[30px] w-[60px] rounded-[20px] bg-neutral-rich-gray">
                         {treasureContent.treasureCoin}
                       </p>
                     </div>
                     <div>
                       <Image src={IconXp} width={60} alt="iconXp" />
-                      <p className="w-[60px] h-[30px] rounded-[20px] bg-neutral-rich-gray flex-center mt-[10px]">
+                      <p className="flex-center mt-[10px] h-[30px] w-[60px] rounded-[20px] bg-neutral-rich-gray">
                         {treasureContent.treasureXp}
                       </p>
                     </div>
                   </div>
                   <Button
-                    className={`w-[400px] text-[18px]  h-[55px] border
-                      border-[#fff] p-0 text-[#fff] tracking-[0.36px]  `}
+                    className={`h-[55px] w-[400px]  border border-[#fff]
+                      p-0 text-[18px] tracking-[0.36px] text-[#fff]  `}
                     onClick={() => resetModal()}
                   >
                     Continue
@@ -155,7 +155,7 @@ const TreasureModal = forwardRef<TreasureModalRef, TreasureModalProp>(
               )}
             </div>
             <div
-              className="w-full h-[154px] flex-center relative"
+              className="flex-center relative h-[154px] w-full"
               style={{
                 backgroundImage: `url(${MoonFace.src})`,
                 backgroundPosition: `0 bottom`,
@@ -180,7 +180,7 @@ const TreasureModal = forwardRef<TreasureModalRef, TreasureModalProp>(
               <div className="absolute left-[calc(50%+66px)] top-[-166px]">
                 <Image src={Mperson} width={190} alt="Mperson" className="" />
                 {type === TreasureType.DIG && (
-                  <div className="absolute right-[-35px] top-[25px] font-next-book">
+                  <div className="absolute right-[-35px] top-[25px]">
                     <div className="flex-row-center gap-[8px]">
                       <Image
                         src={IconCoin}
@@ -188,16 +188,16 @@ const TreasureModal = forwardRef<TreasureModalRef, TreasureModalProp>(
                         alt="iconCredits"
                         className=""
                       />
-                      <span className="text-[16px]">{`X${treasureContent.treasureCoin}`}</span>
+                      <span className="body-m">{`X${treasureContent.treasureCoin}`}</span>
                     </div>
-                    <div className="flex-row-center gap-[8px] mt-[10px]">
+                    <div className="flex-row-center mt-[10px] gap-[8px]">
                       <Image
                         src={IconXp}
                         width={20}
                         alt="iconXp"
                         className=""
                       />
-                      <span className="text-[16px]">{`X${treasureContent.treasureXp}`}</span>
+                      <span className="body-m">{`X${treasureContent.treasureXp}`}</span>
                     </div>
                   </div>
                 )}

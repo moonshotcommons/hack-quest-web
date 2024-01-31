@@ -168,19 +168,17 @@ const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
         }}
       ></CourseDetailHeader>
       {learningTrackDetail.certificationId && (
-        <div className="mt-[80px] mb-[20px]">
+        <div className="mb-[20px] mt-[80px]">
           <CertificationCard
             certificationId={learningTrackDetail.certificationId}
           ></CertificationCard>
         </div>
       )}
       <div className="mt-[60px] w-full">
-        <div className="flex justify-between items-center">
-          <h2 className="mb-[30px] text-neutral-black font-next-poster-Bold text-[28px] tracking-[1.68px]">
-            Syllabus
-          </h2>
+        <div className="flex items-center justify-between">
+          <h2 className="text-h3 mb-[30px] text-neutral-black">Syllabus</h2>
           <span
-            className="font-next-book leading-[125%] tracking-[0.32px] text-[16px] underline cursor-pointer"
+            className="underline-m cursor-pointer"
             onClick={() => {
               if (expandAll) {
                 setExpandList([]);
@@ -221,7 +219,7 @@ const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
           }}
         >
           <Button
-            className="px-0 w-[270px] py-[16px] leading-[125%] text-neutral-black font-next-book text-[18px] tracking-[0.36px]"
+            className="w-[270px] px-0 py-[16px] font-next-book text-[18px] leading-[125%] tracking-[0.36px] text-neutral-black"
             type="primary"
           >
             Enroll
