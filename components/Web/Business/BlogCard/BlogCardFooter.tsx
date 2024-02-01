@@ -24,9 +24,10 @@ const BlogCardFooter: React.FC<FooterProp> = ({
     <div className={cn('flex w-full items-center', className)}>
       <div
         className={cn(
-          'flex max-w-[42.5%] items-center border-r border-r-[#000] pr-[10px]',
+          'flex max-w-[42.5%] items-center border-r border-r-[#000]',
           borderColor
         )}
+        style={{ paddingRight: `${gap}px` }}
       >
         <div style={{ paddingRight: `${gap}px` }}>By</div>
         <div

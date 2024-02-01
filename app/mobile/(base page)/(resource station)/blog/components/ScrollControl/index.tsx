@@ -31,7 +31,7 @@ const ScrollControl: React.FC<ScrollControlType> = ({
   const [paginationNum, setPaginationNum] = useState(0);
 
   const paginationWidth = useMemo(() => {
-    return (boxWidth - 130 - (paginationNum - 1) * 3) / paginationNum;
+    return (boxWidth - 110 - (paginationNum - 1) * 3) / paginationNum;
   }, [boxWidth, paginationNum]);
 
   useEffect(() => {

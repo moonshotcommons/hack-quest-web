@@ -14,44 +14,40 @@ interface BlogHeaderProp {
 const BlogHeader: React.FC<BlogHeaderProp> = ({ blog }) => {
   const router = useRouter();
   return (
-    <div className="bg-neutral-black pb-[80px] text-neutral-white">
-      <div className="flex-col-center container mx-auto">
-        <div
-          className="flex w-full cursor-pointer items-center py-[30px]"
-          onClick={() => {
-            BurialPoint.track('blog-content-page Back按钮点击');
-            router.back();
-          }}
-        >
-          <BsArrowLeft size={26} />
-          <span className="body-l ml-[10px]">Back</span>
+    <div className="bg-neutral-black px-[1.25rem] pb-[1.875rem] pt-[1.25rem] text-neutral-white">
+      <div
+        className="mb-[1.875rem] flex w-full cursor-pointer items-center"
+        onClick={() => {
+          BurialPoint.track('blog-content-page Back按钮点击');
+          router.back();
+        }}
+      >
+        <BsArrowLeft size={14} />
+        <span className="body-s ml-[10px]">Back</span>
+      </div>
+      <div className="flex items-center justify-between">
+        <div className="flex gap-[10px]">
+          {blog.categories?.map((v, i) => (
+            <TrackTag
+              key={i}
+              track={v}
+              className="caption-14pt border-neutral-white px-[14px] py-[6px] text-neutral-white"
+            />
+          ))}
         </div>
-        <div className="w-[808px]">
-          <div className="flex items-center justify-between">
-            <div className="flex gap-[10px]">
-              {blog.categories?.map((v, i) => (
-                <TrackTag
-                  key={i}
-                  track={v}
-                  className="caption-16pt border-neutral-white px-[16px] py-[6px] text-neutral-white"
-                />
-              ))}
-            </div>
 
-            {/* <div className="flex items-center">
+        {/* <div className="flex items-center">
               <span className="mr-[10px]">Share</span>
               <CiShare2 size={20} />
             </div> */}
-          </div>
-          <div className="text-h3 mt-[10px]">{blog.title}</div>
-          <div className="mt-[10px] w-full">
-            <BlogCardFooter
-              blog={blog}
-              className="text-[#DADADA]"
-              borderColor="border-r-[#DADADA]"
-            />
-          </div>
-        </div>
+      </div>
+      <div className="text-h3-mob my-[.9375rem]">{blog.title}</div>
+      <div className="w-full">
+        <BlogCardFooter
+          blog={blog}
+          className="text-[#DADADA]"
+          borderColor="border-r-[#DADADA]"
+        />
       </div>
     </div>
   );

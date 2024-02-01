@@ -51,7 +51,7 @@ const MobBlogCard: React.FC<MobBlogCardProp> = ({ blog, isMobile }) => {
             <BlogCardFooter
               blog={blog}
               className="caption-12pt text-neutral-rich-gray "
-              borderColor="border-r-[#3e3e3e] pr-[4px]"
+              borderColor="border-r-[#3e3e3e] pr-[4px] max-w-[37%]"
               gap={4}
               iconSize={18}
             />

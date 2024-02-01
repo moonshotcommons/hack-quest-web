@@ -86,7 +86,7 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
   return (
     <>
       <div className="body-l relative z-[10]  flex flex-col gap-[1rem] bg-neutral-white px-[1.25rem] py-[1.875rem] text-neutral-off-black">
-        <p className="text-h2-mob">BLOG</p>
+        <p className="text-h2-mob">Blog</p>
         <p className="body-s w-full text-neutral-rich-gray">
           Explore our Web3 Blog – your hub for news, events, and study notes!
           Contribute your insights, shaping the conversation in the world of

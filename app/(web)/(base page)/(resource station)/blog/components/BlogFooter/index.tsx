@@ -15,19 +15,30 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 import { BsArrowRight } from 'react-icons/bs';
 import Button from '@/components/Common/Button';
+import { useRedirect } from '@/hooks/useRedirect';
 
 interface BlogFooterProp {
-  backTop: VoidFunction;
+  backTop?: VoidFunction;
+  type?: 'link' | 'top';
 }
 
-const BlogFooter: React.FC<BlogFooterProp> = ({ backTop }) => {
+const BlogFooter: React.FC<BlogFooterProp> = ({ backTop, type = 'top' }) => {
   // const [scrollContainerState, setScrollContainerState] =
   //   useState<ChangeState>();
   const [featureBlogList, setFeatureBlogList] = useState<BlogType[]>([]);
+  const { redirectToUrl } = useRedirect();
   const { loading } = useRequest(async () => {
     const res = await webApi.resourceStationApi.getFeaturedBlog();
     setFeatureBlogList(res?.slice(0, 4) || []);
   });
+
+  const handleClick = () => {
+    if (type === 'top') {
+      backTop?.();
+    } else {
+      redirectToUrl(MenuLink.BLOG);
+    }
+  };
   return (
     <div className="w-full bg-yellow-extra-light py-[60px]">
       <div className="container mx-auto">
@@ -76,9 +87,9 @@ const BlogFooter: React.FC<BlogFooterProp> = ({ backTop }) => {
         <div className="button-text-l flex w-full justify-center pt-[60px]">
           <Button
             className="h-[60px] w-[270px] border border-neutral-black text-neutral-black"
-            onClick={backTop}
+            onClick={handleClick}
           >
-            BACK TO TOP
+            {`BACK TO ${type === 'top' ? 'TOP' : 'ALL BLOGS'}`}
           </Button>
         </div>
       </div>

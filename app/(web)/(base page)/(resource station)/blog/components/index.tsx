@@ -7,6 +7,7 @@ import { BlogSearchType } from '@/service/webApi/resourceStation/type';
 import PageRetentionTime from '@/components/Common/PageRetentionTime';
 import NoData from './NoData';
 import Pagination from '@/components/Common/Pagination';
+import BlogFooter from './BlogFooter';
 
 interface BlogProps {
   params: { slug: string[] };
@@ -44,9 +45,9 @@ const Blog: React.FC<BlogProps> = async function ({
               “{searchParams.keyword}”
             </span>
           </div>
-        ) : (
+        ) : !searchParams.category ? (
           <FeatureBlog list={featureBlogList} />
-        )}
+        ) : null}
         {blogList.length > 0 ? (
           <BlogList list={blogList} />
         ) : (
@@ -59,6 +60,7 @@ const Blog: React.FC<BlogProps> = async function ({
           </div>
         )}
       </div>
+      {blogList.length === 0 ? <BlogFooter type="link" /> : null}
       <PageRetentionTime trackName="blog-页面留存时间"></PageRetentionTime>
     </div>
   );

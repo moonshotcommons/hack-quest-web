@@ -35,7 +35,7 @@ const BlogLink: React.FC<BlogLinkProp> = () => {
           className="cursor-pointer hover:scale-[1.1]"
         >
           <span className="text-text-default-color">
-            <TelegramIcon color={'#8c8c8c'} isMobile />
+            <TelegramIcon color={'#8c8c8c'} isMobile={true} />
           </span>
         </Link>
       </div>

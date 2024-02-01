@@ -97,7 +97,7 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
       >
         <div className="container mx-auto flex h-full flex-col justify-between">
           <div className="flex flex-col gap-[20px]">
-            <p className="text-h2">BLOG</p>
+            <p className="text-h2">Blog</p>
             <p className="body-l w-[686px] text-neutral-rich-gray">
               Explore our Web3 Blog – your hub for news, events, and study
               notes! Contribute your insights, shaping the conversation in the

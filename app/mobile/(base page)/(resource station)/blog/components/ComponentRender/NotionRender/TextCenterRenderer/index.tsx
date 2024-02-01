@@ -7,7 +7,7 @@ const TextCenterRenderer: React.FC<TextRendererProps> = (props) => {
       <TextRenderer
         {...props}
         fontStyle="text-neutral-rich-gray"
-        fontSize="16px"
+        fontSize="12px"
       />
     </p>
   );
