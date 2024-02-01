@@ -13,10 +13,10 @@ const Banner: React.FC<BannerProp> = ({ changeSearchInfo, searchInfo }) => {
   const { track } = searchInfo;
   return (
     <div
-      className="h-[400px] py-[60px] "
+      className="h-[400px] pb-[74px] pt-[60px]"
       style={{
         backgroundImage: `url(${BannerImg.src})`,
-        backgroundSize: '500px',
+        backgroundSize: '400px',
         backgroundPosition: 'top right',
         backgroundRepeat: 'no-repeat',
         backgroundColor: 'var(--neutral-off-black)'
