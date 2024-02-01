@@ -162,6 +162,7 @@ const PersonalLinkEditModal = forwardRef<
     const refreshLinks = (e: StorageEvent) => {
       if (e.key === 'linkDiscord') {
         refresh();
+        message.success('Connect Discord success!');
         refreshDiscordInfo();
       }
     };
@@ -243,7 +244,8 @@ const PersonalLinkEditModal = forwardRef<
                   name={key}
                   rules={[
                     {
-                      type: 'url'
+                      type:
+                        key === ThirdPartyMediaType.DISCORD ? 'string' : 'url'
                     }
                   ]}
                 >
@@ -256,7 +258,9 @@ const PersonalLinkEditModal = forwardRef<
                     </div>
                     <input
                       defaultValue={profile?.personalLinks?.[key] || ''}
-                      type="url"
+                      type={
+                        key === ThirdPartyMediaType.DISCORD ? 'text' : 'url'
+                      }
                       disabled={key === ThirdPartyMediaType.DISCORD}
                       placeholder="Please enter personal link"
                       className="body-s h-[30px] flex-1 truncate bg-transparent text-neutral-medium-gray outline-none"
