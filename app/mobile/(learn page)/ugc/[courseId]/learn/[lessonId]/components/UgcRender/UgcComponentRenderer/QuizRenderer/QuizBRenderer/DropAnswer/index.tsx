@@ -22,7 +22,6 @@ const DropAnswer: FC<DropAnswerProps> = (props) => {
     setAnswers,
     quiz
   } = useContext(RendererContext).quizBRendererContext!;
-
   const { currentQuizIndex } = useContext(QuizContext);
   const [clearVisible, setClearVisible] = useState(false);
   const [currentAnswer, setCurrentAnswer] = useState<AnswerType>();

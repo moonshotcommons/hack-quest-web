@@ -7,7 +7,7 @@ import { NotionComponent } from '@/components/Web/Business/Renderer/type';
 import TextRenderer from '../TextRenderer';
 import { cn } from '@/helper/utils';
 import { NotionRenderType } from '@/components/Web/Business/NotionRender/type';
-import { UgcContext } from '@/app/mobile/(learn page)/ugc/[courseId]/learn/constants/type';
+import { UgcContext } from '@/app/(web)/(learn page)/ugc/[courseId]/learn/constants/type';
 interface ToggleRendererProps {
   component: NotionComponent;
   isRenderChildren?: boolean;
@@ -81,7 +81,11 @@ const ToggleRenderer: FC<ToggleRendererProps> = (props) => {
             let newExpandData = { ...expandData };
             let expands: number[] = [];
             if (!isExpandAll) {
-              expands = group;
+              group.forEach((item) => {
+                if (!groupExpands.includes(item)) {
+                  expands.push(item);
+                }
+              });
             }
             newExpandData[children[firstIndex].id] = expands;
             updateExpandData(newExpandData);
