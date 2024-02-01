@@ -1,8 +1,9 @@
 import DropAnswer from '@/components/Web/Business/Renderer/ComponentRenderer/QuizRenderer/QuizBRenderer/DropAnswer';
 import { cn, deepClone } from '@/helper/utils';
-import { FC } from 'react';
+import { FC, useContext } from 'react';
 import MathJax from 'react-mathjax';
 import TextCenterRenderer from '../TextCenterRenderer';
+import { RendererContext } from '@/components/Web/Business/Renderer/context';
 
 export interface TextRendererProps {
   richTextArr: any;
@@ -51,9 +52,9 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
     fontFamily
   } = props;
 
-  // const { fontSize: contextFontSize } = useContext(RendererContext)
-  //   .textRenderer! || { fontSize: '14px' };
-  const fontSize = propsFontSize || '18px';
+  const { fontSize: contextFontSize } = useContext(RendererContext)
+    .textRenderer! || { fontSize: '14px' };
+  const fontSize = propsFontSize || contextFontSize || '18px';
 
   //处理blog居中的text
   if (richTextArr[0]?.plain_text?.includes('<<image>>')) {
