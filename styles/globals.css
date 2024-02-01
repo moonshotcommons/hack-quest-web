@@ -21,35 +21,35 @@
   }
 
   .text-h1 {
-    @apply font-next-book-bold text-[54px] font-extrabold leading-[54px] tracking-normal;
+    @apply font-next-book-bold text-[54px] font-bold leading-[54px] tracking-normal;
   }
   .text-h2 {
-    @apply font-next-book-bold text-[40px] font-extrabold leading-[40px] tracking-normal;
+    @apply font-next-book-bold text-[40px] font-bold leading-[40px] tracking-normal;
   }
   .text-h3 {
-    @apply font-next-book-bold text-[28px] font-extrabold leading-normal tracking-normal;
+    @apply font-next-book-bold text-[28px] font-bold leading-normal tracking-normal;
   }
   .text-h4 {
-    @apply font-next-book-bold text-[18px] font-extrabold leading-normal tracking-normal;
+    @apply font-next-book-bold text-[18px] font-bold leading-normal tracking-normal;
   }
   .text-h5 {
-    @apply font-next-book-bold text-[16px] font-extrabold leading-normal tracking-normal;
+    @apply font-next-book-bold text-[16px] font-bold leading-normal tracking-normal;
   }
 
   .text-h1-mob {
-    @apply font-next-book-bold text-[30px] font-extrabold leading-[30px] tracking-normal;
+    @apply font-next-book-bold text-[30px] font-bold leading-[30px] tracking-normal;
   }
   .text-h2-mob {
-    @apply font-next-book-bold text-[22px] font-extrabold leading-normal tracking-normal;
+    @apply font-next-book-bold text-[22px] font-bold leading-normal tracking-normal;
   }
   .text-h3-mob {
-    @apply font-next-book-bold text-[18px] font-extrabold leading-normal tracking-normal;
+    @apply font-next-book-bold text-[18px] font-bold leading-normal tracking-normal;
   }
   .text-h4-mob {
-    @apply font-next-book-bold text-[16px] font-extrabold leading-normal tracking-normal;
+    @apply font-next-book-bold text-[16px] font-bold leading-normal tracking-normal;
   }
   .text-h5-mob {
-    @apply font-next-book-bold text-[14px] font-extrabold leading-normal tracking-normal;
+    @apply font-next-book-bold text-[14px] font-bold leading-normal tracking-normal;
   }
 
   .body-xl {
@@ -162,7 +162,7 @@
     @apply after:absolute after:-bottom-1 after:h-[1px] after:w-full after:scale-y-[1] after:bg-line-color;
   }
 
-  .arrow {
+  .hq-arrow {
     @apply flex cursor-pointer items-center justify-center rounded-full border border-solid border-course-banner-arrow-border-color p-2 hover:bg-course-banner-arrow-hover-bg;
   }
 
@@ -323,7 +323,7 @@ input[data-type='changePassword']:-internal-autofill-selected {
     bottom: 0;
     left: var(--highlight-x);
     width: var(--highlight-width);
-    background: #fff;
+    background: #3e3e3e;
     transition: all 0.2s;
     border-radius: 20px;
   }

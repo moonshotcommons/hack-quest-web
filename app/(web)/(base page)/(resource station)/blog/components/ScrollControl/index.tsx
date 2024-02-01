@@ -48,25 +48,25 @@ const ScrollControl: React.FC<ScrollControlType> = ({
       <div className="flex gap-[10px]">
         <div
           className={cn(
-            `flex h-[35px] w-[35px] cursor-pointer items-center justify-center rounded-full bg-neutral-white text-neutral-black shadow-[0px_0px_0px_rgba(0.12)]`
+            `flex h-[35px] w-[35px] cursor-pointer items-center justify-center rounded-full bg-neutral-white text-neutral-black shadow-[0px_0px_8px_rgba(0,0,0,0.12)]`
           )}
           onClick={() => {
             BurialPoint.track(burialPointType[0]);
             handleArrowClick?.('left');
           }}
         >
-          <HiArrowLongLeft size={24}></HiArrowLongLeft>
+          <HiArrowLongLeft size={20}></HiArrowLongLeft>
         </div>
         <div
           className={cn(
-            `flex h-[35px] w-[35px] cursor-pointer items-center justify-center rounded-full bg-neutral-white  text-neutral-black shadow-[0px_0px_0px_rgba(0.12)]`
+            `flex h-[35px] w-[35px] cursor-pointer items-center justify-center rounded-full bg-neutral-white  text-neutral-black shadow-[0px_0px_8px_rgba(0,0,0,0.12)]`
           )}
           onClick={() => {
             BurialPoint.track(burialPointType[1]);
             handleArrowClick?.('right');
           }}
         >
-          <HiArrowLongRight size={24}></HiArrowLongRight>
+          <HiArrowLongRight size={20}></HiArrowLongRight>
         </div>
       </div>
       <div className="relative  h-[3px]" ref={scrollBarRef}>
@@ -74,13 +74,13 @@ const ScrollControl: React.FC<ScrollControlType> = ({
           {Array.from({ length: paginationNum }).map((_, i) => (
             <div
               key={i}
-              className="h-full bg-[#DADADA]"
+              className="h-full bg-neutral-light-gray"
               style={{ width: `${paginationWidth}px` }}
             ></div>
           ))}
         </div>
         <div
-          className="absolute bottom-0 left-0 h-full bg-neutral-medium-gray transition-transform"
+          className="absolute bottom-0 left-0 h-full bg-yellow-dark transition-transform"
           ref={scrollBarInstanceRef}
           style={{
             width: `${paginationWidth}px`,

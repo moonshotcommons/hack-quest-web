@@ -245,7 +245,7 @@ const Input = forwardRef<InputRef, InputProps>((props, ref) => {
 
   return (
     <div className="flex flex-col gap-[0.75rem]">
-      {labelNode}
+      {label ? labelNode : null}
       <div className="relative">
         <input
           ref={inputRef}

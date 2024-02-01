@@ -14,7 +14,7 @@ interface FeatureBlogProp {
 }
 
 const FeatureBlog: React.FC<FeatureBlogProp> = ({ list }) => {
-  const scrollContainerRef = useRef<any>();
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [scrollContainerState, setScrollContainerState] =
     useState<ChangeState>();
   return (

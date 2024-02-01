@@ -1,10 +1,10 @@
 import { FC } from 'react';
-import BlogDetail from '../components/BlogId';
 import { Metadata } from 'next';
+import BlogDetail from '../components/BlogId';
 import { BlogDetailType } from '@/service/webApi/resourceStation/type';
 import { getBlogById } from '@/service/blog';
 
-interface BlogPageProps {
+interface BlogDetailProp {
   params: {
     blogId: string;
   };
@@ -12,7 +12,7 @@ interface BlogPageProps {
 
 export async function generateMetadata({
   params
-}: BlogPageProps): Promise<Metadata> {
+}: BlogDetailProp): Promise<Metadata> {
   const blog: BlogDetailType = await getBlogById(params.blogId);
   return {
     title: blog.title,
@@ -20,7 +20,7 @@ export async function generateMetadata({
   };
 }
 
-const BlogPage: FC<BlogPageProps> = async ({ params }) => {
+const BlogPage: FC<BlogDetailProp> = async ({ params }) => {
   const blog: BlogDetailType = await getBlogById(params.blogId);
 
   return (
