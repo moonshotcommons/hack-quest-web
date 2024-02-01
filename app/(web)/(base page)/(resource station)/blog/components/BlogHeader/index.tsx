@@ -14,7 +14,7 @@ interface BlogHeaderProp {
 const BlogHeader: React.FC<BlogHeaderProp> = ({ blog }) => {
   const router = useRouter();
   return (
-    <div className="bg-neutral-black pb-[80px] text-[#fff]">
+    <div className="bg-neutral-black pb-[80px] text-neutral-white">
       <div className="flex-col-center container mx-auto">
         <div
           className="flex w-full cursor-pointer items-center py-[30px]"
@@ -24,7 +24,7 @@ const BlogHeader: React.FC<BlogHeaderProp> = ({ blog }) => {
           }}
         >
           <BsArrowLeft size={26} />
-          <span className="ml-[10px] text-[18px]">Back</span>
+          <span className="body-l ml-[10px]">Back</span>
         </div>
         <div className="w-[808px]">
           <div className="flex items-center justify-between">

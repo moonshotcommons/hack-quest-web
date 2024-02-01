@@ -34,7 +34,7 @@ const MediaCommunity: React.FC<MediaCommunityProp> = ({ listData, title }) => {
         ))}
       </div>
       {listData.length > 12 && (
-        <div className="flex justify-end text-[18px]">
+        <div className="body-l flex justify-end">
           <div
             className="flex cursor-pointer items-center"
             onClick={() => {
@@ -44,9 +44,7 @@ const MediaCommunity: React.FC<MediaCommunityProp> = ({ listData, title }) => {
           >
             <span>Show {showAll ? 'Less' : 'All'}</span>
             <VscChevronDown
-              className={`text-[24px] transition ${
-                showAll ? 'rotate-180' : ''
-              }`}
+              className={`body-xl transition ${showAll ? 'rotate-180' : ''}`}
             />
           </div>
         </div>

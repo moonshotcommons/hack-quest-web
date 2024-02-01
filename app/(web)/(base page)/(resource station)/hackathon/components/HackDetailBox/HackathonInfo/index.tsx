@@ -44,27 +44,19 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
   }, [hackathon]);
   return (
     <div className="flex flex-col gap-[25px] ">
-      <div className="font-next-book-bold text-[21px] leading-[21px]">
-        {hackathon.name}
+      <div className="text-h3">{hackathon.name}</div>
+      <div>
+        <div className="body-l-bold mb-[5px]">THEME</div>
+        <pre className="body-m">{hackathon.theme}</pre>
       </div>
       <div>
-        <div className="mb-[5px] font-next-book-bold text-[18px] leading-[22.5px]">
-          THEME
-        </div>
-        <pre className="text-[16px] leading-[20px]">{hackathon.theme}</pre>
-      </div>
-      <div>
-        <div className="mb-[5px] font-next-book-bold text-[18px] leading-[22.5px]">
-          PARTICIPANTS
-        </div>
-        <div className="break-words text-[16px] leading-[20px]">
+        <div className="body-l-bold mb-[5px]">PARTICIPANTS</div>
+        <div className="body-m break-words">
           {getParticipantsStr(hackathon.participants)}
         </div>
       </div>
       <div>
-        <div className="mb-[5px] font-next-book-bold text-[18px] leading-[22.5px]">
-          HOST
-        </div>
+        <div className="body-l-bold mb-[5px]">HOST</div>
         {hackathon.hosts.map((v, i) => (
           <div key={i} className="flex-row-center mb-[10px] h-[30px]">
             <div className="relative h-[30px] w-[30px]">
@@ -83,13 +75,13 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
         <div className="absolute left-0 top-0 h-full w-[5px] rounded-[10px] bg-yellow-primary"></div>
         <div>
           <div className="text-neutral-medium-gray">RUNS FROM</div>
-          <div className="text-[16px]">
+          <div className="body-m">
             {getRunFromTime(hackathon.startTime, hackathon.endTime)}
           </div>
         </div>
         <div>
           <div className="text-neutral-medium-gray">HAPPENING</div>
-          <div className="text-[16px]">{hackathon.address}</div>
+          <div className="body-m">{hackathon.address}</div>
         </div>
       </div>
       {status === HackathonStatusType.ON_GOING ? (
@@ -98,10 +90,10 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
             <div className="text-neutral-medium-gray">
               APPLICATIONS CLOSE IN
             </div>
-            <div className="text-[16px]">{closeInTime}</div>
+            <div className="body-m">{closeInTime}</div>
           </div>
           <Button
-            className="h-[60px] w-full bg-yellow-primary text-[18px]"
+            className="body-l h-[60px] w-full bg-yellow-primary"
             onClick={() => {
               BurialPoint.track(`hackathon detail Apply Now 按钮点击`);
               window.open(hackathon.applyLink);
@@ -118,7 +110,7 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
             </div>
           </div>
           <Button
-            className="h-[60px] w-full border border-neutral-black text-[18px]"
+            className="body-l h-[60px] w-full border border-neutral-black"
             onClick={() => {
               BurialPoint.track(`hackathon detail View All Projects 按钮点击`);
               redirectToUrl(

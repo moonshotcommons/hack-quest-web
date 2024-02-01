@@ -33,11 +33,11 @@ const BlogFooter: React.FC<BlogFooterProp> = ({ backTop }) => {
       <div className="container mx-auto">
         <div className="mb-[30px] flex justify-between">
           <div className="flex flex-col gap-[15px]">
-            <h2 className="text-h3 text-neutral-off-black">Featured Blog</h2>
+            <h2 className="text-h3 text-neutral-black">Featured Blog</h2>
           </div>
           <Link
             href={MenuLink.BLOG}
-            className="body-m flex items-center gap-x-[7px] text-neutral-black hover:opacity-70"
+            className="body-l flex items-center gap-x-[15px] text-neutral-black hover:opacity-70"
             onClick={() => {
               BurialPoint.track('home-view all点击');
             }}

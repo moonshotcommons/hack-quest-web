@@ -20,7 +20,7 @@ const BlogCard: React.FC<BlogCardProp> = ({ blog, isMobile }) => {
   };
   return (
     <Link
-      className="card-hover flex w-full flex-col overflow-hidden rounded-[10px] bg-[#FFF] text-neutral-off-black"
+      className="card-hover flex w-full flex-col overflow-hidden rounded-[10px] bg-neutral-white text-neutral-off-black"
       onClick={goBlogContent}
       href={`${isMobile ? '/mobile' : ''}${MenuLink.BLOG}/${blog.id}`}
     >

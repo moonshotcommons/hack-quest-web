@@ -32,25 +32,21 @@ const GuestMentors: React.FC<GuestMentorsProp> = ({ listData, title }) => {
               ></Image>
             </div>
             <div className="flex h-[65px] flex-1 flex-shrink-0 flex-col justify-center">
-              <p className="font-next-book-bold text-[18px] tracking-[0.36px]">
-                {v.name}
-              </p>
+              <p className="body-l-bold">{v.name}</p>
               <p className="line-clamp-2">{v.title}</p>
             </div>
           </div>
         ))}
       </div>
       {listData.length > 6 && (
-        <div className="flex justify-end text-[18px]">
+        <div className="body-l flex justify-end">
           <div
             className="flex cursor-pointer items-center"
             onClick={() => setShowAll(!showAll)}
           >
             <span>Show {showAll ? 'Less' : 'All'}</span>
             <VscChevronDown
-              className={`text-[24px] transition ${
-                showAll ? 'rotate-180' : ''
-              }`}
+              className={`body-xl transition ${showAll ? 'rotate-180' : ''}`}
             />
           </div>
         </div>

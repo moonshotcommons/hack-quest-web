@@ -91,9 +91,7 @@ const PreviewLessonPage: FC<PreviewLessonPageProps> = (props) => {
           </div>
         )}
         {!lesson && !!errorMessage && (
-          <div className="text-[18px] text-text-default-color">
-            {errorMessage}
-          </div>
+          <div className="body-l text-text-default-color">{errorMessage}</div>
         )}
       </Spin>
     </ConfigProvider>

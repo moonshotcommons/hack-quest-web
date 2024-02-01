@@ -113,7 +113,7 @@ const Campaigns: React.FC<CampaignsProp> = () => {
             }}
           />
         </div>
-        <div className="no-scrollbar h-full flex-1  overflow-auto rounded-b-[10px] rounded-r-[10px] bg-[#fff] shadow-[5px_5px_5px_#dadada]">
+        <div className="no-scrollbar h-full flex-1  overflow-auto rounded-b-[10px] rounded-r-[10px] bg-neutral-white shadow-[5px_5px_5px_#dadada]">
           {mantles[curIndex]?.id ? (
             <Mantle />
           ) : (

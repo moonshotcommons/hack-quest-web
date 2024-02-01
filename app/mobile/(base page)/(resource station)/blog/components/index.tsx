@@ -17,7 +17,7 @@ const Blog: React.FC<BlogProps> = async function ({
   searchParams = {},
   params: { slug = [] }
 }) {
-  const limit = 12;
+  const limit = 8;
   const minPage = Number(slug[1]) < 1 ? 1 : Number(slug[1]);
   const page = slug[0] === 'p' ? minPage : 1;
 
@@ -36,11 +36,11 @@ const Blog: React.FC<BlogProps> = async function ({
   return (
     <div>
       <BlogBanner searchParams={searchParams} />
-      <div className="container mx-auto py-[70px]">
+      <div className="px-[1.25rem] py-[3.25rem]">
         {searchParams.keyword ? (
-          <div className="mb-[40px] text-center font-next-book text-[24px] text-neutral-black">
-            {totalList} Results for
-            <span className="pl-[4px] text-neutral-medium-gray">
+          <div className="body-xl mb-[2.5rem] text-center text-neutral-black">
+            {totalList} {totalList > 1 ? 'Results' : 'Result'} for
+            <span className="text-neutral-medium-gray">
               “{searchParams.keyword}”
             </span>
           </div>

@@ -55,7 +55,7 @@ const MintButton = (props: {
       block
       loading={loading}
       className={cn(
-        'my-[10px] h-[28px] rounded-[10px] p-0 text-[14px] leading-[125%] tracking-[0.32px] text-neutral-black outline-none',
+        'body-s my-[10px] h-[28px] rounded-[10px] p-0 text-neutral-black outline-none',
         certification.mint ? 'cursor-not-allowed opacity-40' : ''
       )}
       onClick={async () => {

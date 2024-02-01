@@ -21,7 +21,7 @@ const BlogDetail: React.FC<BlogDetailProp> = ({ blog }) => {
     });
   };
   return (
-    <div className="h-full overflow-auto" ref={boxRef}>
+    <div className="body-m h-full overflow-auto" ref={boxRef}>
       <BlogHeader blog={blog} />
       <BlogContent blog={blog} />
       <BlogLink />

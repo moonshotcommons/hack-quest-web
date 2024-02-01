@@ -114,24 +114,12 @@ const EmailVerify: FC<EmailVerifyProps> = (props) => {
           />
         </svg>
 
-        <h1 className="text-h3-mob font-next-book-bold text-neutral-off-black">
+        <h1 className="text-h3-mob text-neutral-off-black">
           Verify Your Email
         </h1>
         <p className="body-m text-neutral-medium-gray">
           Please verify your account via the link in the e-mail and follow the
           instruction to login
-          {/* <p className="whitespace-nowrap">{`If you don't receive an email from us, please check your spam`}</p> */}
-          {/* <p>
-            <span>folder or</span>
-            <Link
-              className="text-neutral-white font-next-book -tracking-[0.154px] text-left mt-1 cursor-pointer underline ml-1"
-              href={'mailto:founder@hackquest.io'}
-              target="_blank"
-            >
-              Contact customer support
-            </Link>
-          </p> */}
-          {/* <Image src={Logo} alt="logo" width={191} className="mt-[2rem]"></Image> */}
         </p>
       </div>
       <div className="mt-[4rem] flex w-full flex-col gap-4">

@@ -9,6 +9,8 @@ import Link from 'next/link';
 import Button from '@/components/Common/Button';
 import Select from '@/components/Common/Select';
 import { searchTabData, sortData } from '../../constants/data';
+import { FiX } from 'react-icons/fi';
+import { motion } from 'framer-motion';
 
 interface BannerProp {
   searchParams: BlogSearchType;
@@ -145,7 +147,7 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
               label=""
               name=""
               state="default"
-              className="body-m border-neutral-off-white bg-neutral-off-white"
+              className="body-m h-[48px] border-neutral-off-white bg-neutral-off-white"
               placeholder="Please select"
               defaultValue={searchInfo.category}
               options={searchTabData}
@@ -154,10 +156,33 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
               }}
             ></Select>
           </div>
-
-          <div>
-            <BiSearch size={24} />
-          </div>
+          <motion.div
+            animate={inputVisible ? 'open' : 'closed'}
+            className="absolute h-full overflow-hidden "
+            variants={{
+              open: { width: '100%' },
+              closed: { width: 0 }
+            }}
+          >
+            <input
+              type="text"
+              className="body-m h-full w-full rounded-[1.5rem] bg-neutral-off-white pl-[1.375rem]  outline-none"
+              placeholder="Search"
+              onInput={changeInput}
+            />
+          </motion.div>
+          {inputVisible ? (
+            <div
+              className="flex-center absolute right-[1.375rem] top-0 h-full w-[1.5rem]"
+              onClick={changeInputVisible}
+            >
+              <FiX size={24} />
+            </div>
+          ) : (
+            <div onClick={() => setInputVisible(true)}>
+              <BiSearch size={24} />
+            </div>
+          )}
         </div>
       </div>
       <div

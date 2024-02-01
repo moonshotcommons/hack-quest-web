@@ -40,7 +40,7 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
       }`}
     >
       <div className="flex items-center justify-between">
-        <span className="relative inline-flex items-center font-next-poster-Bold text-[18px] font-bold tracking-[1.08px]">
+        <span className="text-h4 relative inline-flex items-center">
           {component.title || 'Example'}
         </span>
         <span onClick={() => setExpand(!expand)}>
@@ -125,7 +125,7 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
         >
           <Button
             ghost
-            className="hover:bg-neutral-white/50 border border-neutral-black px-[40px] py-[8px] font-next-book text-[14px] leading-[125%] tracking-[0.28px]  text-neutral-black transition"
+            className="hover:bg-neutral-white/50 body-s border border-neutral-black px-[40px] py-[8px]  text-neutral-black transition"
           >
             Try It Out
           </Button>

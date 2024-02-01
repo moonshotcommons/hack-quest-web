@@ -198,7 +198,7 @@ const BasicInfoModal = forwardRef<BasicInfoModalRef, BasicInfoModalProps>(
                     type="text"
                     disabled
                     defaultValue={form.getFieldValue('email')}
-                    className="cursor-not-allowed border-none border-neutral-medium-gray bg-[#DADADA] px-[30px] py-[7px] font-next-book text-[21px] leading-[160%] tracking-[0.063px] text-neutral-medium-gray caret-gray-500 hover:border-none"
+                    className="body-l cursor-not-allowed border-none border-neutral-medium-gray bg-[#DADADA] px-[30px] py-[7px] text-neutral-medium-gray caret-gray-500 hover:border-none"
                     onChange={(e) => {
                       let value: any = (e.target as HTMLInputElement).value;
                       if (Number(value) > 99) value = 99;
@@ -218,10 +218,7 @@ const BasicInfoModal = forwardRef<BasicInfoModalRef, BasicInfoModalProps>(
               <Form.Item name="location" rules={[{ max: 240 }]}>
                 <div
                   className="
-                  [&>div>.label]:font-next-book
-              [&>div>.label]:text-[21px]
-              [&>div>.label]:leading-[160%]
-              [&>div>.label]:tracking-[0.42px]
+                  [&>div>.label]:body-l
               [&>div>.label]:text-neutral-medium-gray
               [&>div]:gap-y-[5px]
               "
@@ -231,19 +228,16 @@ const BasicInfoModal = forwardRef<BasicInfoModalRef, BasicInfoModalProps>(
                     defaultValue={form.getFieldValue('location')}
                     label="Location"
                     type="text"
-                    className="w-[497px] border-neutral-medium-gray px-[30px] py-[7px] font-next-book text-[21px] leading-[160%] tracking-[0.063px] caret-gray-500"
+                    className="body-l w-[497px] border-neutral-medium-gray px-[30px] py-[7px] caret-gray-500"
                   ></Input>
                 </div>
               </Form.Item>
               <Form.Item name="experience">
                 <div
                   className="
+              [&>div>.label]:body-l
               flex
               gap-x-[16px]
-              [&>div>.label]:font-next-book
-              [&>div>.label]:text-[21px]
-              [&>div>.label]:leading-[160%]
-              [&>div>.label]:tracking-[0.42px]
               [&>div>.label]:text-neutral-medium-gray [&>div]:gap-y-[5px]
               "
                 >
@@ -254,7 +248,7 @@ const BasicInfoModal = forwardRef<BasicInfoModalRef, BasicInfoModalProps>(
                     min={0}
                     max={99}
                     defaultValue={form.getFieldValue('experience')}
-                    className="border-neutral-medium-gray px-[30px] py-[7px] font-next-book text-[21px] leading-[160%] tracking-[0.063px] caret-gray-500"
+                    className="body-l border-neutral-medium-gray px-[30px] py-[7px] caret-gray-500"
                     onChange={(e) => {
                       let value: any = (e.target as HTMLInputElement).value;
                       if (Number(value) > 99) value = 99;
@@ -267,7 +261,7 @@ const BasicInfoModal = forwardRef<BasicInfoModalRef, BasicInfoModalProps>(
                       form.setFieldValue('experience', value);
                     }}
                   ></Input>
-                  <span className="mt-[46px] font-next-book text-[21px] leading-[160%] tracking-[0.063px] text-neutral-black">
+                  <span className="body-l mt-[46px] text-neutral-black">
                     Years
                   </span>
                 </div>
@@ -277,10 +271,7 @@ const BasicInfoModal = forwardRef<BasicInfoModalRef, BasicInfoModalProps>(
               <div className="flex flex-col">
                 <div
                   className="
-              [&>div>.label]:font-next-book
-              [&>div>.label]:text-[21px]
-              [&>div>.label]:leading-[160%]
-              [&>div>.label]:tracking-[0.42px]
+              [&>div>.label]:body-l
               [&>div>.label]:text-neutral-medium-gray
               [&>div]:gap-y-[5px]
               "
@@ -290,12 +281,12 @@ const BasicInfoModal = forwardRef<BasicInfoModalRef, BasicInfoModalProps>(
                     label="Tech Stack"
                     placeholder="Python / JavaScript / C# / ..."
                     type="text"
-                    className="border-neutral-medium-gray px-[30px] py-[7px] pr-[106px] font-next-book font-next-book text-[21px] leading-[160%] tracking-[0.063px] caret-gray-500"
+                    className="body-l border-neutral-medium-gray px-[30px] py-[7px] pr-[106px] caret-gray-500"
                   ></Input>
-                  <div className="absolute right-2 top-11">
+                  <div className="absolute right-2 top-[38px]">
                     <Button
                       type="primary"
-                      className="px-6 py-2"
+                      className="px-6 py-[5px]"
                       onClick={() => {
                         const value = form.getFieldValue('techStack');
                         if (!value) return;
@@ -340,7 +331,7 @@ const BasicInfoModal = forwardRef<BasicInfoModalRef, BasicInfoModalProps>(
               </div>
             </Form.Item>
           </Form>
-          <div className="mt-[100px] flex justify-center gap-x-[15px] font-next-book text-[16px] leading-[125%] tracking-[0.32px] text-neutral-black">
+          <div className="body-m mt-[100px] flex justify-center gap-x-[15px] text-neutral-black">
             <Button
               ghost
               className="flex w-[265px] items-center justify-center border-neutral-black py-[12px]"

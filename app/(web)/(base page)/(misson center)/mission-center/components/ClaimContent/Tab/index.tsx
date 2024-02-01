@@ -13,11 +13,11 @@ const Tab: React.FC<TabProp> = ({ tabList, curIndex, changeTab }) => {
       {tabList.map((v, i) => (
         <div
           key={v.label}
-          className={`flex-center relative h-[56px] w-[200px] cursor-pointer overflow-hidden rounded-t-[10px]  ${
+          className={`flex-center body-s relative h-[56px] w-[200px] cursor-pointer overflow-hidden rounded-t-[10px]  ${
             !curIndex && curIndex === i
               ? 'bg-[#FFF4CE] text-neutral-black'
               : i === curIndex
-                ? 'bg-[#fff] font-next-book-bold text-neutral-black'
+                ? 'body-s-bold bg-neutral-white text-neutral-black'
                 : 'bg-[#DADADA] text-neutral-medium-gray'
           } ${
             curIndex === i

@@ -48,9 +48,7 @@ const PersonalLinks: FC<PersonalLinksProps> = (props) => {
 
   return (
     <div className="group relative w-[420px] cursor-pointer rounded-[10px] bg-neutral-white p-[30px] pb-[40px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)]">
-      <p className="font-next-poster-Bold text-[28px] leading-[125%] tracking-[1.68px] text-neutral-black">
-        Personal Links
-      </p>
+      <p className="text-h3 text-neutral-black">Personal Links</p>
       {showLinks && (
         <div className="absolute right-[30px] top-[25px] hidden group-hover:block">
           <HoverIcon
@@ -77,12 +75,12 @@ const PersonalLinks: FC<PersonalLinksProps> = (props) => {
               >
                 <div className="flex h-full flex-1 items-center gap-x-[15px]">
                   <span>{media.icon}</span>
-                  <span className="font-next-book text-[18px] leading-[160%] tracking-[0.36px] text-neutral-black">
+                  <span className="body-l text-neutral-black">
                     {media.name}
                   </span>
                 </div>
                 <div className="flex items-center gap-[10px]">
-                  <p className="w-[140px] flex-1 truncate font-next-book text-[14px] leading-[160%] -tracking-[0.154px] text-neutral-medium-gray">
+                  <p className="body-s w-[140px] flex-1 truncate text-neutral-medium-gray">
                     {personLinks[key]}
                   </p>
                   {personLinks[key] && (
@@ -105,12 +103,12 @@ const PersonalLinks: FC<PersonalLinksProps> = (props) => {
       )}
       {!showLinks && (
         <div className="flex flex-col items-center">
-          <p className="mt-[56.2px] text-center font-next-book text-[18px] leading-[160%] tracking-[0.054px]">
+          <p className="body-l mt-[56.2px] text-center">
             Share your social media information
           </p>
           <Button
             type="primary"
-            className="mb-[30px] mt-[25px] w-[223px] px-0 py-[12px] font-next-book text-[16px] leading-[125%] tracking-[0.32px] text-neutral-black"
+            className="body-m mb-[30px] mt-[25px] w-[223px] px-0 py-[12px] text-neutral-black"
             onClick={() => personalLinkEditRef.current?.onEdit({})}
           >
             Add Personal links

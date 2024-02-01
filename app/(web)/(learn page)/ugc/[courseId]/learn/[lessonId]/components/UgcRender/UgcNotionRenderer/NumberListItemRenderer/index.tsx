@@ -35,7 +35,7 @@ const NumberListItemRenderer: FC<NumberListItemRendererProps> = (props) => {
   return (
     <div data-type={component.type}>
       <div className="">
-        <span className="inline-flex h-full w-fit items-center py-[0.4rem] text-[14px]">
+        <span className="body-s inline-flex h-full w-fit items-center py-[0.4rem]">
           {index + 1}.
         </span>
 

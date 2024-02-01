@@ -2,13 +2,14 @@
 import { ChangeState } from '@/components/Common/ScrollContainer';
 import { BurialPoint, BurialPointType } from '@/helper/burialPoint';
 import { cn } from '@/helper/utils';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { HiArrowLongRight, HiArrowLongLeft } from 'react-icons/hi2';
-import { paginationWidth } from './data';
+// import { paginationWidth } from './data';
 
 interface ScrollControlType {
   changeState?: ChangeState;
   burialPointType?: BurialPointType[];
+  boxWidth: number;
 }
 
 const ScrollControl: React.FC<ScrollControlType> = ({
@@ -16,7 +17,8 @@ const ScrollControl: React.FC<ScrollControlType> = ({
   burialPointType = [
     'home-featured course滚动-左',
     'home-featured course滚动-右'
-  ]
+  ],
+  boxWidth
 }) => {
   const { handleArrowClick, rightArrowVisible, leftArrowVisible } =
     changeState || {};
@@ -27,6 +29,11 @@ const ScrollControl: React.FC<ScrollControlType> = ({
   const scrollBarInstanceRef = useRef<HTMLDivElement>(null);
   const [paginationIndex, setPaginationIndex] = useState(0);
   const [paginationNum, setPaginationNum] = useState(0);
+
+  const paginationWidth = useMemo(() => {
+    return (boxWidth - 130 - (paginationNum - 1) * 3) / paginationNum;
+  }, [boxWidth, paginationNum]);
+
   useEffect(() => {
     if (!changeState) return;
     const { containerWidth, listWidth, translateX } = changeState;
@@ -48,25 +55,25 @@ const ScrollControl: React.FC<ScrollControlType> = ({
       <div className="flex gap-[10px]">
         <div
           className={cn(
-            `flex h-[35px] w-[35px] cursor-pointer items-center justify-center rounded-full bg-[#fff] text-neutral-black shadow-[0px_0px_0px_rgba(0.12)]`
+            `flex h-[35px] w-[35px] cursor-pointer items-center justify-center rounded-full bg-neutral-white text-neutral-black shadow-[0px_0px_8px_rgba(0,0,0,0.12)]`
           )}
           onClick={() => {
             BurialPoint.track(burialPointType[0]);
             handleArrowClick?.('left');
           }}
         >
-          <HiArrowLongLeft size={24}></HiArrowLongLeft>
+          <HiArrowLongLeft size={20}></HiArrowLongLeft>
         </div>
         <div
           className={cn(
-            `flex h-[35px] w-[35px] cursor-pointer items-center justify-center rounded-full bg-[#fff]  text-neutral-black shadow-[0px_0px_0px_rgba(0.12)]`
+            `flex h-[35px] w-[35px] cursor-pointer items-center justify-center rounded-full bg-neutral-white  text-neutral-black shadow-[0px_0px_8px_rgba(0,0,0,0.12)]`
           )}
           onClick={() => {
             BurialPoint.track(burialPointType[1]);
             handleArrowClick?.('right');
           }}
         >
-          <HiArrowLongRight size={24}></HiArrowLongRight>
+          <HiArrowLongRight size={20}></HiArrowLongRight>
         </div>
       </div>
       <div className="relative  h-[3px]" ref={scrollBarRef}>
@@ -74,13 +81,13 @@ const ScrollControl: React.FC<ScrollControlType> = ({
           {Array.from({ length: paginationNum }).map((_, i) => (
             <div
               key={i}
-              className="h-full bg-[#DADADA]"
+              className="h-full bg-neutral-light-gray"
               style={{ width: `${paginationWidth}px` }}
             ></div>
           ))}
         </div>
         <div
-          className="absolute bottom-0 left-0 h-full bg-neutral-medium-gray transition-transform"
+          className="absolute bottom-0 left-0 h-full bg-yellow-dark transition-transform"
           ref={scrollBarInstanceRef}
           style={{
             width: `${paginationWidth}px`,

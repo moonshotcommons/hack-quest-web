@@ -23,7 +23,7 @@ const UserProfile: FC<UserProfileProps> = (props) => {
       </div>
       <div
         className={cn(
-          'h-full rounded-b-[10px] px-[30px] pb-[35px] pt-[80px] font-next-book transition-shadow duration-200',
+          'h-full rounded-b-[10px] px-[30px] pb-[35px] pt-[80px] transition-shadow duration-200',
           showEditIcon ? 'shadow-[0px_4px_16px_0px_rgba(0,0,0,0.25)]' : ' '
         )}
         onMouseEnter={() => {
@@ -47,26 +47,26 @@ const UserProfile: FC<UserProfileProps> = (props) => {
             ></HoverIcon>
           </div>
         )}
-        <div className="whitespace-pre-wrap font-next-poster-Bold text-[28px] leading-normal tracking-[1.68px] text-neutral-black">
+        <div className="text-h3 whitespace-pre-wrap text-neutral-black">
           {profile.user?.nickname}
         </div>
-        <div className="mt-[10px] whitespace-pre-line text-[18px] leading-[120%] text-neutral-medium-gray">
+        <div className="body-l mt-[10px] whitespace-pre-line text-neutral-medium-gray">
           {profile.user?.email}&nbsp;
         </div>
         <div className="mt-[31.5px] flex items-center gap-x-[15px]">
-          <span className="body-xl text-neutral-medium-gray">Location:</span>
-          <span className="body-xl leading-[160%] tracking-[0.063px] text-neutral-black">
+          <span className="body-l text-neutral-medium-gray">Location:</span>
+          <span className="body-l text-neutral-black">
             {profile.location || '-'}
           </span>
         </div>
         <div className="mt-[13px] flex items-center gap-x-[15px]">
-          <span className="body-xl text-neutral-medium-gray">Experience:</span>
-          <span className="body-xl text-neutral-black">
+          <span className="body-l text-neutral-medium-gray">Experience:</span>
+          <span className="body-l text-neutral-black">
             {`${profile.experience || 0} Years`}
           </span>
         </div>
         <div className="mt-[11.5px] flex items-start gap-x-[15px]">
-          <span className="body-xl whitespace-nowrap text-neutral-medium-gray">
+          <span className="body-l whitespace-nowrap text-neutral-medium-gray">
             Tech Stack:
           </span>
           <div className="flex flex-wrap gap-[10px]">
@@ -90,7 +90,7 @@ const UserProfile: FC<UserProfileProps> = (props) => {
           type="primary"
           icon={<RiShareBoxLine />}
           iconPosition="right"
-          className="py-[16px] px-[102px] font-next-book text-[18px] leading-[125%] tracking-[0.36px]"
+          className="py-[16px] px-[102px] body-l"
         >
           Share
         </Button>

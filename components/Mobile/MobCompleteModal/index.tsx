@@ -56,19 +56,19 @@ const MobCompleteModal = forwardRef<
           className="
                    
                      
-                  relative mt-[20px] w-[34.625rem] py-[23px] text-center
-font-next-poster text-[2.2021rem] leading-[100%] text-text-default-color before:absolute before:left-[50%] before:top-[0px] before:h-[1px] before:w-[27.75rem] before:-translate-x-[50%] before:scale-y-[1] before:bg-lesson-completed-modal-line-color after:absolute
+                  body-xl relative mt-[20px] w-[34.625rem] py-[23px]
+text-center text-text-default-color before:absolute before:left-[50%] before:top-[0px] before:h-[1px] before:w-[27.75rem] before:-translate-x-[50%] before:scale-y-[1] before:bg-lesson-completed-modal-line-color after:absolute
 after:-bottom-[0px] after:left-0 after:h-[1px] after:w-full after:scale-y-[1] after:bg-lesson-completed-modal-line-color "
         >
           COURSE COMPLETE!
         </h1>
-        <p className="mt-[20px] font-next-book text-[1.25rem] leading-[128%] text-text-default-color">
+        <p className="body-l mt-[20px] text-text-default-color">
           {decodeURIComponent(title)}
         </p>
         {type === 'course' && (
           <div className="mt-[100px] flex gap-[1.25rem]">
             <Link href={'/dashboard'} onClick={() => setOpen(false)}>
-              <Button className="border border-lesson-primary-button-border-color bg-lesson-primary-button-bg px-[3rem] py-[1rem] font-next-book text-[18px] text-lesson-primary-button-text-color">
+              <Button className="body-l border border-lesson-primary-button-border-color bg-lesson-primary-button-bg px-[3rem] py-[1rem] text-lesson-primary-button-text-color">
                 Back to Homepage
               </Button>
             </Link>
@@ -76,13 +76,13 @@ after:-bottom-[0px] after:left-0 after:h-[1px] after:w-full after:scale-y-[1] af
         )}
         {type === 'claim' && (
           <div className="flex w-full flex-col items-center">
-            <p className="mt-[10px] w-[297px] text-center font-next-book leading-[125%] tracking-[0.32px] text-neutral-rich-gray">
+            <p className="body-m mt-[10px] w-[297px] text-center text-neutral-rich-gray">
               You have completed this learning track. Continue to claim your
               Badge.
             </p>
             <Button
               type="primary"
-              className="mt-[30px] flex w-[260px] items-center justify-center px-0 py-[11px] font-next-book leading-[125%] tracking-[0.32px] text-neutral-black"
+              className="body-m mt-[30px] flex w-[260px] items-center justify-center px-0 py-[11px] text-neutral-black"
             >
               Claim Certificate
             </Button>

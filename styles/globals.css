@@ -14,7 +14,6 @@
     overflow: auto;
   } */
   body {
-    /* background: red; */
     @apply bg-neutral-black;
   }
   a:hover {
@@ -22,121 +21,121 @@
   }
 
   .text-h1 {
-    @apply font-next-book-bold font-bold text-[54px] leading-[54px] tracking-normal;
+    @apply font-next-book-bold text-[54px] font-bold leading-[54px] tracking-normal;
   }
   .text-h2 {
-    @apply font-next-book-bold font-bold text-[40px] leading-[40px] tracking-normal;
+    @apply font-next-book-bold text-[40px] font-bold leading-[40px] tracking-normal;
   }
   .text-h3 {
-    @apply font-next-book-bold font-bold text-[28px] leading-normal tracking-normal;
+    @apply font-next-book-bold text-[28px] font-bold leading-normal tracking-normal;
   }
   .text-h4 {
-    @apply font-next-book-bold font-bold text-[18px] leading-normal tracking-normal;
+    @apply font-next-book-bold text-[18px] font-bold leading-normal tracking-normal;
   }
   .text-h5 {
-    @apply font-next-book-bold font-bold text-[16px] leading-normal tracking-normal;
+    @apply font-next-book-bold text-[16px] font-bold leading-normal tracking-normal;
   }
 
   .text-h1-mob {
-    @apply font-next-book-bold font-bold text-[30px] leading-[30px] tracking-normal;
+    @apply font-next-book-bold text-[30px] font-bold leading-[30px] tracking-normal;
   }
   .text-h2-mob {
-    @apply font-next-book-bold font-bold text-[22px] leading-normal tracking-normal;
+    @apply font-next-book-bold text-[22px] font-bold leading-normal tracking-normal;
   }
   .text-h3-mob {
-    @apply font-next-book-bold font-bold text-[18px] leading-normal tracking-normal;
+    @apply font-next-book-bold text-[18px] font-bold leading-normal tracking-normal;
   }
   .text-h4-mob {
-    @apply font-next-book-bold font-bold text-[16px] leading-normal tracking-normal;
+    @apply font-next-book-bold text-[16px] font-bold leading-normal tracking-normal;
   }
   .text-h5-mob {
-    @apply font-next-book-bold font-bold text-[14px] leading-normal tracking-normal;
+    @apply font-next-book-bold text-[14px] font-bold leading-normal tracking-normal;
   }
 
   .body-xl {
-    @apply font-Nunito font-normal text-[24px] leading-normal;
+    @apply font-Nunito text-[24px] font-normal leading-normal;
   }
 
   .body-xl-bold {
-    @apply font-Nunito font-semibold text-[24px] leading-normal;
+    @apply font-Nunito text-[24px] font-semibold leading-normal;
   }
 
   .body-l {
-    @apply font-Nunito font-normal text-[18px] leading-[160%] tracking-normal;
+    @apply font-Nunito text-[18px] font-normal leading-[160%] tracking-normal;
   }
 
   .body-l-bold {
-    @apply font-Nunito font-semibold text-[18px] leading-[160%] tracking-normal;
+    @apply font-Nunito text-[18px] font-semibold leading-[160%] tracking-normal;
   }
 
   .body-m {
-    @apply font-Nunito font-normal text-[16px] leading-[160%] tracking-normal;
+    @apply font-Nunito text-[16px] font-normal leading-[160%] tracking-normal;
   }
 
   .body-m-bold {
-    @apply font-Nunito font-bold text-[16px] leading-[160%] tracking-normal;
+    @apply font-Nunito text-[16px] font-bold leading-[160%] tracking-normal;
   }
 
   .body-s {
-    @apply font-Nunito font-normal text-[14px] leading-[160%] tracking-normal;
+    @apply font-Nunito text-[14px] font-normal leading-[160%] tracking-normal;
   }
 
   .body-s-bold {
-    @apply font-Nunito font-bold text-[14px] leading-[160%] tracking-normal;
+    @apply font-Nunito text-[14px] font-bold leading-[160%] tracking-normal;
   }
 
   .body-xs {
-    @apply font-Nunito font-normal text-[12px] leading-[160%] tracking-normal;
+    @apply font-Nunito text-[12px] font-normal leading-[160%] tracking-normal;
   }
 
   .body-xs-bold {
-    @apply font-Nunito font-bold text-[12px] leading-[160%] tracking-normal;
+    @apply font-Nunito text-[12px] font-bold leading-[160%] tracking-normal;
   }
 
   .body-xs {
-    @apply font-Nunito font-normal text-[12px] leading-[160%] tracking-normal;
+    @apply font-Nunito text-[12px] font-normal leading-[160%] tracking-normal;
   }
 
   .body-xs-bold {
-    @apply font-Nunito font-bold text-[12px] leading-[160%] tracking-normal;
+    @apply font-Nunito text-[12px] font-bold leading-[160%] tracking-normal;
   }
 
   .caption-16pt {
-    @apply font-Nunito font-normal leading-normal text-[16px];
+    @apply font-Nunito text-[16px] font-normal leading-normal;
   }
 
   .caption-14pt {
-    @apply font-Nunito font-normal leading-normal text-[14px];
+    @apply font-Nunito text-[14px] font-normal leading-normal;
   }
 
   .caption-12pt {
-    @apply font-Nunito font-light leading-normal text-[12px];
+    @apply font-Nunito text-[12px] font-light leading-normal;
   }
 
   .caption-10pt {
-    @apply font-Nunito font-normal leading-normal text-[10px];
+    @apply font-Nunito text-[10px] font-normal leading-normal;
   }
 
   .button-text-l {
-    @apply font-Nunito text-[18px] leading-normal tracking-normal font-medium;
+    @apply font-Nunito text-[18px] font-medium leading-normal tracking-normal;
   }
 
   .button-text-m {
-    @apply font-Nunito text-[14px] leading-normal tracking-normal font-medium;
+    @apply font-Nunito text-[14px] font-medium leading-normal tracking-normal;
   }
 
   .button-text-s {
-    @apply font-Nunito text-[12px] leading-normal tracking-normal font-medium;
+    @apply font-Nunito text-[12px] font-medium leading-normal tracking-normal;
   }
 
   .code-l {
-    @apply font-Space-Mono text-[14px] leading-[150%] tracking-normal font-normal;
+    @apply font-Space-Mono text-[14px] font-normal leading-[150%] tracking-normal;
   }
   .code-m {
-    @apply font-Space-Mono text-[12px] leading-[150%] tracking-normal font-normal;
+    @apply font-Space-Mono text-[12px] font-normal leading-[150%] tracking-normal;
   }
   .code-s {
-    @apply font-Space-Mono text-[10px] leading-[150%] tracking-normal font-normal;
+    @apply font-Space-Mono text-[10px] font-normal leading-[150%] tracking-normal;
   }
 
   .underline-l {
@@ -152,19 +151,19 @@
 
 @layer components {
   .card-hover {
-    @apply cursor-pointer hover:-translate-y-1 transition-all duration-300 hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)];
+    @apply cursor-pointer shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)];
   }
 
   .top-line {
-    @apply before:absolute before:h-[1px] before:scale-y-[1] before:w-full before:bg-line-color before:-top-1;
+    @apply before:absolute before:-top-1 before:h-[1px] before:w-full before:scale-y-[1] before:bg-line-color;
   }
 
   .bottom-line {
-    @apply after:absolute after:h-[1px] after:scale-y-[1] after:w-full after:bg-line-color after:-bottom-1;
+    @apply after:absolute after:-bottom-1 after:h-[1px] after:w-full after:scale-y-[1] after:bg-line-color;
   }
 
   .arrow {
-    @apply flex items-center justify-center p-2 rounded-full border border-solid border-course-banner-arrow-border-color hover:bg-course-banner-arrow-hover-bg cursor-pointer;
+    @apply flex cursor-pointer items-center justify-center rounded-full border border-solid border-course-banner-arrow-border-color p-2 hover:bg-course-banner-arrow-hover-bg;
   }
 
   .flex-col-center {
@@ -261,8 +260,10 @@ body {
   z-index: -1;
   background-color: #cd9df2;
   border-radius: 50px;
-  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
-    7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+  box-shadow:
+    inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.1),
+    4px 4px 5px 0px rgba(0, 0, 0, 0.1);
   transition: all 0.5s ease;
 }
 .btn-hover:hover {

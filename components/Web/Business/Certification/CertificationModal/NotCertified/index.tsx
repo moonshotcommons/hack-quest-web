@@ -37,7 +37,7 @@ const NotCertified: FC<NotCertifiedProps> = (props) => {
 
   return (
     <div className="flex-1">
-      <h3 className="font-next-poster-Bold text-[28px] tracking-[1.68px] text-neutral-off-black">
+      <h3 className="text-h3 text-neutral-off-black">
         Become a Certified Mantle Developer!
       </h3>
       <p className="body-m mt-[20px] text-neutral-black">

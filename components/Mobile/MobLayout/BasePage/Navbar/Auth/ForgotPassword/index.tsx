@@ -91,7 +91,7 @@ const ForgotPassword: FC<ForgotPasswordProps> = (props) => {
           />
         </svg>
 
-        <h3 className="text-h3-mob font-next-book-bold text-neutral-off-black">
+        <h3 className="text-h3-mob text-neutral-off-black">
           Forgot your password?
         </h3>
         <div className="flex flex-col gap-1">

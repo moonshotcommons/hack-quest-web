@@ -9,13 +9,15 @@ interface FooterProp {
   borderColor?: string;
   blog: BlogType;
   iconSize?: number;
+  gap?: number;
 }
 
 const BlogCardFooter: React.FC<FooterProp> = ({
   className = 'body-m text-neutral-medium-gray',
   borderColor,
   blog,
-  iconSize = 26
+  iconSize = 26,
+  gap = 10
 }) => {
   if (!blog?.id) return null;
   return (
@@ -26,7 +28,7 @@ const BlogCardFooter: React.FC<FooterProp> = ({
           borderColor
         )}
       >
-        <div className="pr-[5px]">By</div>
+        <div style={{ paddingRight: `${gap}px` }}>By</div>
         <div
           className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap underline"
           title={blog?.creatorName}
@@ -36,10 +38,15 @@ const BlogCardFooter: React.FC<FooterProp> = ({
 
         <BsArrowRightShort size={iconSize} />
       </div>
-      <div className={cn('border-r border-r-[#000] px-[10px]', borderColor)}>
+      <div
+        className={cn('border-r border-r-[#000]', borderColor)}
+        style={{
+          padding: `0 ${gap}px`
+        }}
+      >
         {moment(blog?.publishDate).format('ll')}
       </div>
-      <div className="pl-[10px]">{blog?.duration} min read</div>
+      <div style={{ paddingLeft: `${gap}px` }}>{blog?.duration} min read</div>
     </div>
   );
 };

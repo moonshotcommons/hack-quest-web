@@ -25,7 +25,7 @@ const DragAnswer: FC<DragAnswerProps> = memo(function DragAnswer(props) {
   return (
     <div
       ref={drag}
-      className="inline-flex h-[34px] cursor-move items-center gap-[28px]  rounded-[3px] border-[0.5px] border-neutral-medium-gray bg-[#FFF4CE] py-[8px] pl-[8px] font-next-book text-[14px] leading-[125%] tracking-[0.28px] text-neutral-black"
+      className="body-s inline-flex h-[34px] cursor-move items-center  gap-[28px] rounded-[3px] border-[0.5px] border-neutral-medium-gray bg-[#FFF4CE] py-[8px] pl-[8px] text-neutral-black"
       style={{ opacity }}
       onClick={onClick}
     >

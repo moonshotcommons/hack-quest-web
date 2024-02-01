@@ -1,4 +1,3 @@
-import DarkLogoActive from '@/public/images/logo/dark-text-Logo-active.svg';
 import Image from 'next/image';
 import React, { ReactNode, useEffect, useState } from 'react';
 
@@ -13,6 +12,7 @@ import { useRedirect } from '@/hooks/useRedirect';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useMissionCenterStore } from '@/store/zustand/missionCenterStore';
 import { useCustomPathname } from '@/hooks/useCheckPathname';
+import HackLogo from '@/public/images/logo/hack_logo.png';
 
 export interface NavBarProps {
   navList: NavbarListType[];
@@ -98,7 +98,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
               }`}
               onClick={logoClick}
             >
-              <Image src={DarkLogoActive} alt="logo"></Image>
+              <Image src={HackLogo} width={133} alt="logo"></Image>
             </div>
             <SlideHighlight
               className="body-s ml-[60px] flex h-full  gap-[28px] text-neutral-off-white"

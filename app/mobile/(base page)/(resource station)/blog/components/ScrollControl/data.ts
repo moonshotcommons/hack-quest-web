@@ -1,1 +1,1 @@
-export const paginationWidth = 80;
+export const paginationWidth = 35;

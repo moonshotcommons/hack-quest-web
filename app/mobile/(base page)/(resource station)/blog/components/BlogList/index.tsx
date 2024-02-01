@@ -1,4 +1,4 @@
-import BlogCard from '@/components/Web/Business/BlogCard';
+import MobBlogCard from '@/components/Mobile/MobBlogCard';
 import { BlogType } from '@/service/webApi/resourceStation/type';
 import React from 'react';
 
@@ -8,10 +8,10 @@ interface BlogListProp {
 
 const BlogList: React.FC<BlogListProp> = ({ list }) => {
   return (
-    <div className="flex flex-wrap gap-x-[20px] gap-y-[40px]">
+    <div className="flex flex-col gap-y-[1rem]">
       {list.map((blog) => (
-        <div className="w-[calc((100%-40px)/3)]" key={blog.id}>
-          <BlogCard blog={blog} />
+        <div className="w-full" key={blog.id}>
+          <MobBlogCard blog={blog} isMobile={true} />
         </div>
       ))}
     </div>

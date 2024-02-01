@@ -15,17 +15,15 @@ const TipsModal: React.FC<TipsModalProp> = ({ open, onClose }) => {
       showCloseIcon={true}
       icon={<FiX size={26} color="#fff" />}
     >
-      <div className="flex-col-center w-[90vw] rounded-[10px] bg-neutral-rich-gray py-[30px] font-next-book text-[#fff] shadow-[0px_4px_8px_0_rgba(0,0,0,0.12)]">
+      <div className="flex-col-center w-[90vw] rounded-[10px] bg-neutral-rich-gray py-[30px] text-neutral-white shadow-[0px_4px_8px_0_rgba(0,0,0,0.12)]">
         <p className="text-[48px]">😵</p>
-        <p className="mt-[25px] font-next-book-bold text-[20px]">
-          Laptop is preferred
-        </p>
-        <p className="mt-[20px] w-[255px] text-[14px]">
+        <p className="body-xl-bold mt-[25px]">Laptop is preferred</p>
+        <p className="body-s mt-[20px] w-[255px]">
           Please learn courses with a laptop or desktop computer for a complete
           and feature-rich experience.
         </p>
         <Button
-          className="mt-[20px] h-[34px] w-[140px] bg-[#fff] text-neutral-black"
+          className="mt-[20px] h-[34px] w-[140px] bg-neutral-white text-neutral-black"
           onClick={onClose}
         >
           Close

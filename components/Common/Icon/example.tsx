@@ -31,7 +31,7 @@ const ButtonExample: FC<ButtonExampleProps> = (props) => {
   return (
     <div>
       <div>
-        <h1 className="pb-8 text-[24px] text-text-default-color ">图标</h1>
+        <h1 className="body-xl pb-8 text-text-default-color ">图标</h1>
         <div className="flex flex-row flex-wrap items-center gap-8">
           {Object.keys(icons).map((key: any, index) => {
             return (
