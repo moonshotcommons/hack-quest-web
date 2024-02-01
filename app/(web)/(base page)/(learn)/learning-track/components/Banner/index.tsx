@@ -23,9 +23,7 @@ const Banner: React.FC<BannerProp> = ({ changeSearchInfo, searchInfo }) => {
       }}
     >
       <div className="container mx-auto flex h-full flex-col justify-between">
-        <div className="text-h1 text-[var(--neutral-white)]">
-          LEARNING TRACKS
-        </div>
+        <div className="text-h2 text-neutral-white">Learning Tracks</div>
         <div className="flex gap-[40px]">
           {bannerTabList.map((v) => (
             <div
