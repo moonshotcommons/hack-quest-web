@@ -13,19 +13,17 @@ const Banner: React.FC<BannerProp> = ({ changeSearchInfo, searchInfo }) => {
   const { track } = searchInfo;
   return (
     <div
-      className="h-[400px] py-[60px] "
+      className="h-[400px] pb-[74px] pt-[60px]"
       style={{
         backgroundImage: `url(${BannerImg.src})`,
-        backgroundSize: '500px',
+        backgroundSize: '400px',
         backgroundPosition: 'top right',
         backgroundRepeat: 'no-repeat',
         backgroundColor: 'var(--neutral-off-black)'
       }}
     >
       <div className="container mx-auto flex h-full flex-col justify-between">
-        <div className="text-h1 text-[var(--neutral-white)]">
-          LEARNING TRACKS
-        </div>
+        <div className="text-h2 text-neutral-white">Learning Tracks</div>
         <div className="flex gap-[40px]">
           {bannerTabList.map((v) => (
             <div

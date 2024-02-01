@@ -27,7 +27,7 @@ const CourseListPageHeader: FC<CourseListPageHeaderProps> = ({
   return (
     <div className="flex min-h-[360px] justify-between gap-[36px] pb-[90px]">
       <div className="w-[800px] max-w-[800px] pt-[60px]">
-        <h2 className="text-h1 uppercase text-neutral-black">{title}</h2>
+        <h2 className="text-h2 text-neutral-black">{title}</h2>
         <p className="body-l mt-[20px] text-neutral-rich-gray">{description}</p>
         <div className="mt-[60px] flex w-full items-center gap-5 rounded-[56px] border border-neutral-light-gray bg-neutral-white px-5 py-4">
           <span>
