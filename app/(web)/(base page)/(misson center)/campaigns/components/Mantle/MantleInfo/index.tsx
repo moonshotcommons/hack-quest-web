@@ -6,15 +6,10 @@ import { BurialPoint } from '@/helper/burialPoint';
 import Certificate from '@/public/images/campaigns/certificate.png';
 import iconCoin from '@/public/images/mission-center/icon_coin.png';
 import iconXp from '@/public/images/mission-center/icon_xp.png';
-import { DM_Sans } from 'next/font/google';
 import Image from 'next/image';
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { VscAdd, VscChromeMinimize } from 'react-icons/vsc';
 import { MantleContext } from '../../../constants/type';
-const inter = DM_Sans({
-  weight: ['400', '700', '500'],
-  subsets: ['latin', 'latin-ext']
-});
 
 interface MantleInfoProp {}
 
@@ -37,7 +32,7 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
   }, [buttonDisable]);
   return (
     <div className="mb-[30px] flex justify-between gap-[50px]">
-      <div className={`flex-1 text-neutral-black ${inter.className}`}>
+      <div className={`flex-1 text-neutral-black`}>
         <p className="body-xl-bold mb-[10px] leading-[25px]">{mantle.title}</p>
         <p className="body-m">{mantle.description}</p>
       </div>
@@ -96,7 +91,7 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
               </div>
             </div>
             {showAll && (
-              <div className={`body-s mb-[20px] mt-[5px] ${inter.className}`}>
+              <div className={`body-s mb-[20px] mt-[5px]`}>
                 {mantle.certification?.description}
               </div>
             )}

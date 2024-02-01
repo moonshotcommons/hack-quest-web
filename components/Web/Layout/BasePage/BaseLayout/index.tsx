@@ -1,12 +1,11 @@
 'use client';
 import User from '@/components/Web/User';
-import { Inter } from 'next/font/google';
 import React, { ReactNode, useCallback, useEffect, Suspense } from 'react';
 import NavBar, { NavBarProps } from '../Navbar';
 
 import Breadcrumb from '@/components/Web/Business/Breadcrumb';
 import { useCheckPathname, useCustomPathname } from '@/hooks/useCheckPathname';
-const inter = Inter({ subsets: ['latin'] });
+
 export interface V2LayoutProps {
   navbarData: NavBarProps;
   // footerData: IFooterProps;
@@ -47,9 +46,7 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
 
   return (
     <div
-      className={`flex h-[100vh] w-full flex-col overflow-hidden  ${
-        inter.className
-      } ${isNavbarFullPage ? '' : 'min-h-[100vh]'} `}
+      className={`flex h-[100vh] w-full flex-col overflow-hidden  ${isNavbarFullPage ? '' : 'min-h-[100vh]'} `}
     >
       <div className="flex w-full items-center bg-neutral-black">
         <NavBar {...navbarData}>

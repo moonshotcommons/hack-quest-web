@@ -50,6 +50,7 @@ const ToggleRenderer: FC<ToggleRendererProps> = (props) => {
           <TextRenderer
             richTextArr={component.content.rich_text}
             fontSize={'16px'}
+            className="body-m"
           />
         </div>
         <span className={``}>

@@ -353,3 +353,9 @@ input[data-type='changePassword']:-internal-autofill-selected {
     transform: translateY(0);
   }
 }
+
+.language-solidity {
+  font-family: var(--font-space-mono) !important;
+  font-size: 14px;
+  line-height: 150%;
+}
