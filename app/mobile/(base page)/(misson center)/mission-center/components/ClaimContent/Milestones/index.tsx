@@ -25,9 +25,7 @@ const Milestones: React.FC<TabContentType> = ({
           {`Celebrate your progress as you complete courses. Each achievement is a step towards your success in Web 3 coding. Let's make every milestone memorable! 🚀`}
         </div>
         <Button
-          className={`h-[60px] w-[270px] border-auth-primary-button-border-color bg-auth-primary-button-bg text-[18px]
-          tracking-[0.36px]
-          text-auth-primary-button-text-color text-neutral-black ${
+          className={`body-l h-[60px] w-[270px] border-auth-primary-button-border-color bg-auth-primary-button-bg text-neutral-black ${
             !allIds.length
               ? 'cursor-not-allowed opacity-50'
               : 'hover:border-auth-primary-button-border-hover-color hover:bg-auth-primary-button-hover-bg hover:text-auth-primary-button-text-hover-color'
@@ -41,7 +39,7 @@ const Milestones: React.FC<TabContentType> = ({
       </div>
 
       <div>
-        <div className="text-[18px] text-neutral-black">Targets to Achieve</div>
+        <div className="body-l text-neutral-black">Targets to Achieve</div>
         <div>
           {missionData.map((v, i) => (
             <TargetCard

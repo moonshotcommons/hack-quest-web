@@ -148,19 +148,6 @@ const Success: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
           homepage in 5 seconds.
         </p>
       </div>
-      {/* <Button
-        // onClick={onLogin}
-        block
-        className="
-          font-next-book
-          text-[1.125rem]
-          bg-auth-primary-button-bg hover:bg-auth-primary-button-hover-bg
-          text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
-          border-auth-primary-button-border-color hover:border-auth-primary-button-border-hover-color
-          "
-      >
-        {`Continue to Homepage (${countDown}s)`}
-      </Button> */}
       <div className="mt-[4rem] flex w-full flex-col gap-4">
         <Button
           onClick={() => {}}
@@ -216,13 +203,6 @@ const Fail: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
       default:
         return (
           <>
-            {/* <div className="text-neutral-white font-next-book leading-[160%] tracking-[0.64px] text-[18px]">
-              <span>
-                Your {type} account verification has failed!
-                <br />
-                Please try again.
-              </span>
-            </div> */}
             <div className="flex flex-col gap-4">
               <Button
                 block

@@ -5,11 +5,7 @@ interface TitleProp {
 }
 
 const Title: React.FC<TitleProp> = ({ title }) => {
-  return (
-    <div className="mb-[20px] font-next-book-bold text-[40px] leading-[46px] tracking-[2.4px] text-neutral-black">
-      {title}
-    </div>
-  );
+  return <div className="text-h2 mb-[20px] text-neutral-black">{title}</div>;
 };
 
 export default Title;

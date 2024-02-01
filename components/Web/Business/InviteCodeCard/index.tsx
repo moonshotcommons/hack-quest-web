@@ -66,9 +66,7 @@ const InviteCodeCard: FC<InviteCodeCardProps> = (props) => {
     <div className="w-[380px] rounded-[10px] bg-neutral-white p-5 shadow-md">
       <div className="flex h-fit justify-between ">
         <div className="flex items-center gap-[6px]">
-          <span className="font-next-book text-[18px] leading-[120%] tracking-[1.08pxx]">
-            INVITE CODE
-          </span>
+          <span className="body-l">INVITE CODE</span>
 
           <div
             className="relative flex h-full items-center justify-center pl-1"
@@ -78,7 +76,7 @@ const InviteCodeCard: FC<InviteCodeCardProps> = (props) => {
             <span className="cursor-pointer">{icons.descIcon}</span>
             {showDesc && (
               <PopBox className="-right-[34px]">
-                <p className="w-[340px] font-next-book text-[12px] leading-[160%] -tracking-[0.132px] text-neutral-black">
+                <p className="body-xs w-[340px] text-neutral-black">
                   HackQuest is currently in beta. Share your invite code to help
                   new users sign up. Rewards are available at Mission Center
                   after two users register with your invite code.
@@ -102,9 +100,7 @@ const InviteCodeCard: FC<InviteCodeCardProps> = (props) => {
           <div className="mt-[15px] flex h-[40px] items-center justify-between rounded-[50px] bg-neutral-off-white px-[15px]">
             <div className="flex items-center gap-[6px]">
               {icons.inviteIcon}
-              <span className="font-next-book text-[14px] leading-[120%] text-neutral-black">
-                {inviteCode}
-              </span>
+              <span className="body-s text-neutral-black">{inviteCode}</span>
             </div>
             <div className="flex h-full gap-[8.5px]">
               <div
@@ -122,7 +118,7 @@ const InviteCodeCard: FC<InviteCodeCardProps> = (props) => {
                 }}
               >
                 {icons.copyIcon}
-                <span className="animate relative font-next-book text-[12px] leading-[120%] text-neutral-medium-gray hover:text-neutral-black">
+                <span className="animate body-xs relative text-neutral-medium-gray hover:text-neutral-black">
                   Copy
                 </span>
               </div>
@@ -133,7 +129,7 @@ const InviteCodeCard: FC<InviteCodeCardProps> = (props) => {
               >
                 {icons.shareIcon}
 
-                <div className="animate relative cursor-pointer font-next-book text-[12px] leading-[120%] text-neutral-medium-gray hover:text-neutral-black">
+                <div className="animate body-xs relative cursor-pointer text-neutral-medium-gray hover:text-neutral-black">
                   <span>Share</span>
                   <div>
                     {showShare && (
@@ -158,7 +154,7 @@ const InviteCodeCard: FC<InviteCodeCardProps> = (props) => {
           </div>
           <div className="mt-5 flex items-center justify-between gap-x-4">
             <div className="flex flex-1 flex-col gap-[13px]">
-              <div className="font-next-book text-[14px] leading-[100%] tracking-[0.28px] text-neutral-black">
+              <div className="body-s text-neutral-black">
                 {`Users you invited (${inviteProgress.progress[0] || 0}/${
                   inviteProgress.progress[1] || 0
                 })`}
@@ -193,7 +189,7 @@ const InviteCodeCard: FC<InviteCodeCardProps> = (props) => {
                 inviteProgress.claimed || !inviteProgress.completed || loading
               }
               className={cn(
-                `px-5 py-2 font-next-book text-[14px] leading-[125%] tracking-[0.28px] text-[0B0B0B]`,
+                `body-s px-5 py-2 text-[0B0B0B]`,
                 inviteProgress.claimed || !inviteProgress.completed
                   ? 'opacity-40'
                   : ''

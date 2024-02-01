@@ -55,9 +55,7 @@ const Tab: FC<TabProps> = (props) => {
           <div
             key={item.type}
             className={`relative ${classes} test-wrap-item flex h-full cursor-pointer items-center text-course-card-title-text-color ${
-              selectTab === item.type
-                ? 'font-next-poster-Bold text-base'
-                : 'font-next-poster-Thin text-base font-thin'
+              selectTab === item.type ? 'body-m-bold' : 'body-m'
             }`}
             onClick={() => {
               setSelectTab(item.type);

@@ -114,8 +114,8 @@ const TargetCard: React.FC<TargetCardProp> = ({ target }) => {
           ) : (
             <div className="relative">
               <Button
-                className={`ml-[-20px] h-[44px] w-[164px] border border-neutral-black p-0
-              text-[14px]  text-auth-primary-button-text-color
+                className={`body-s ml-[-20px] h-[44px] w-[164px] border border-neutral-black
+              p-0  text-auth-primary-button-text-color
               text-neutral-black`}
                 loading={unLoading}
                 onClick={() => handleUnClaim(target.type)}

@@ -35,10 +35,9 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon }) => {
           )}
         </div>
         <div className="flex flex-col px-[22px] pb-[30px]">
-          {/* <h2 className="font-next-book-bold text-neutral-black text-[18px] leading-[125%] -tracking-[0.185px] min-h-[46px]"> */}
           <Typography.Paragraph
             ellipsis={{ rows: 2 }}
-            className="min-h-[46px] font-next-book-bold text-[18px] leading-[125%] -tracking-[0.185px] text-neutral-black"
+            className="body-l-bold min-h-[46px] text-neutral-black"
             style={{ marginBottom: 0 }}
           >
             {name}
@@ -47,22 +46,18 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon }) => {
           <div className="mt-[15px] flex h-fit w-full gap-[15px]">
             <div className="w-[5px] rounded-full bg-yellow-primary"></div>
             <div className="flex flex-col gap-[15px]">
-              <div className="w-full font-next-book leading-[125%]">
-                <p className="text-[12px] tracking-[0.24px] text-neutral-medium-gray">
-                  RUNS FROM
-                </p>
-                <p className="mt-[5px] text-[14px] tracking-[0.28px] text-neutral-black">
+              <div className="w-full">
+                <p className="body-xs text-neutral-medium-gray">RUNS FROM</p>
+                <p className="body-s mt-[5px] text-neutral-black">
                   {formatTime(startTime, endTime)}
                 </p>
               </div>
-              <div className="w-full font-next-book leading-[125%]">
-                <p className="text-[12px] leading-[125%] tracking-[0.24px] text-neutral-medium-gray">
-                  HAPPENING
-                </p>
+              <div className="w-full">
+                <p className="body-xs text-neutral-medium-gray">HAPPENING</p>
 
                 <Typography.Paragraph
                   ellipsis={{ rows: 2 }}
-                  className="mt-[5px] min-h-[36px] text-[14px] tracking-[0.28px] text-neutral-black"
+                  className="body-s mt-[5px] min-h-[36px] text-neutral-black"
                   style={{ marginBottom: 0 }}
                 >
                   {address}

@@ -153,7 +153,7 @@ const OnChainActivity: FC<OnChainActivityProps> = (props) => {
                   {chainData?.transactionCount}
                 </span>
                 <p className="body-m mt-5 text-neutral-medium-gray">
-                  Defi Interaction
+                  DeFi Interaction
                 </p>
               </div>
             </div>

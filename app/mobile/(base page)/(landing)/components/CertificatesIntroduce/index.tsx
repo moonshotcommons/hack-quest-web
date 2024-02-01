@@ -41,9 +41,7 @@ const CertificatesIntroduce: FC<CertificatesIntroduceProps> = (props) => {
       </div>
       <div className="relative z-10 mt-10 w-full">
         <div className="z-[99] flex w-full flex-col items-center gap-6 rounded-[16px] bg-neutral-white px-4 py-6">
-          <h3 className="text-h4-mob font-next-book-bold">
-            Start from the Basics
-          </h3>
+          <h3 className="text-h4-mob">Start from the Basics</h3>
           <div className="flex w-full flex-col items-center gap-6">
             {leftCardData.map((item, index) => {
               return (
@@ -93,9 +91,7 @@ const CertificatesIntroduce: FC<CertificatesIntroduceProps> = (props) => {
       </div>
       <div className="relative z-10 mt-10 h-fit w-full">
         <div className="z-[99] flex  h-full w-full flex-col items-center gap-4 rounded-[1rem] bg-neutral-white px-4 py-6">
-          <h3 className="text-h4-mob font-next-book-bold">
-            Become Specialized
-          </h3>
+          <h3 className="text-h4-mob">Become Specialized</h3>
           <div className="flex w-full flex-wrap items-center justify-center gap-4">
             {rightCardData.map((item, index) => {
               return (

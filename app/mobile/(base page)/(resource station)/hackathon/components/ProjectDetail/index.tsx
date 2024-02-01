@@ -86,15 +86,11 @@ const ProjectDetail: FC<ProjectDetailProps> = (props) => {
                     className="object-cover"
                   ></Image>
                 </div>
-                <h1 className="font-next-poster-Bold text-[40px] tracking-[2.4px]">
-                  {project.name}
-                </h1>
+                <h1 className="text-h2">{project.name}</h1>
               </div>
-              <p className="mt-[8px] font-next-book text-[21px] leading-[160%] tracking-[0.42px]">
-                {project.description}
-              </p>
+              <p className="body-l mt-[8px]">{project.description}</p>
               {Video}
-              <p className="mt-[30px] font-next-book text-[18px] leading-[160%] tracking-[0.36px] opacity-[0.6]">
+              <p className="body-l mt-[30px] opacity-[0.6]">
                 {`${project.hackathonName} · ${project.tracks.join(' · ')}`}
               </p>
               <div className="mt-[30px]">

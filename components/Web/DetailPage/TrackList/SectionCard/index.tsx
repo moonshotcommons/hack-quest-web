@@ -142,7 +142,7 @@ function SectionList(props: {
           >
             <div className="h-[40px] w-[40px] text-learning-track-progress-text-color">
               {!enrolled && (
-                <div className="relative h-full w-full rounded-full border border-neutral-black font-next-poster text-[24px]">
+                <div className="body-xl relative h-full w-full rounded-full border border-neutral-black">
                   <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
                     {index + 1}
                   </span>
@@ -249,7 +249,7 @@ const SectionCard: FC<SectionCardProps> = (props) => {
     >
       <div className="h-[55px] w-[55px]">
         {!enrolled && (
-          <div className="relative h-full w-full rounded-full border border-neutral-black font-next-poster text-[24px]">
+          <div className="body-xl relative h-full w-full rounded-full border border-neutral-black">
             <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
               {sectionIndex + 1}
             </span>
@@ -274,7 +274,7 @@ const SectionCard: FC<SectionCardProps> = (props) => {
           ></CustomProgress>
         )}
       </div>
-      <div className="mt-2 flex w-[30%]  flex-1 font-next-poster-Bold text-[21px] leading-normal tracking-[1.26px] text-text-default-color">
+      <div className="b mt-2 flex  w-[30%] flex-1 text-text-default-color">
         {`${section.name}`}
       </div>
 

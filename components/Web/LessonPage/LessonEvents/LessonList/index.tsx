@@ -55,7 +55,7 @@ const LessonList: React.FC<LessonListType> = ({
   }, []);
 
   return (
-    <div className="max-h-[60vh] w-full overflow-auto font-next-book">
+    <div className="max-h-[60vh] w-full overflow-auto">
       {!unitName ? (
         unitData.map((v) => (
           <div
@@ -101,9 +101,7 @@ const LessonList: React.FC<LessonListType> = ({
                 title={v.name}
                 onClick={() => handleUnit(v)}
               >
-                <p className="w-[100%] truncate font-next-book-bold text-[14px]">
-                  {v.name}
-                </p>
+                <p className="body-s-bold w-[100%] truncate">{v.name}</p>
                 <Image
                   src={
                     v.state === CompleteStateType.COMPLETED

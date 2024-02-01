@@ -39,7 +39,7 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({
   }, [hackathon]);
   return (
     <div
-      className="mb-[20px] flex h-[400px] cursor-pointer overflow-hidden rounded-[10px] bg-[#fff]  font-next-book shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)] "
+      className="mb-[20px] flex h-[400px] cursor-pointer overflow-hidden rounded-[10px] bg-neutral-white shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)] "
       onClick={goHackathonDetail}
     >
       <div className="relative h-full w-[711px] bg-[#d9d9d9]/30">

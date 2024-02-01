@@ -55,7 +55,7 @@ const MintButton = (props: {
       block
       loading={loading}
       className={cn(
-        'my-[10px] h-[28px] rounded-[10px] p-0 font-next-book text-[14px] leading-[125%] tracking-[0.32px] text-neutral-black outline-none',
+        'body-s my-[10px] h-[28px] rounded-[10px] p-0 tracking-[0.32px] text-neutral-black outline-none',
         certification.mint ? 'cursor-not-allowed opacity-40' : ''
       )}
       onClick={async () => {
@@ -88,7 +88,7 @@ const Certifications: FC<PersonalLinksProps> = (props) => {
 
   return (
     <div className="group relative cursor-pointer rounded-[10px] bg-neutral-white p-[30px] pb-[40px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)]">
-      <p className="font-next-poster-Bold text-[28px] leading-[125%] tracking-[1.68px] text-neutral-black">
+      <p className="text-h3 text-neutral-black">
         {`Certifications (${profile?.certifications?.length || 0})`}
       </p>
       {/* {showLinks && (
@@ -129,7 +129,7 @@ const Certifications: FC<PersonalLinksProps> = (props) => {
                 ></MintButton>
                 <Typography.Paragraph
                   ellipsis={{ rows: 2 }}
-                  className="text-center font-next-book leading-[125%] tracking-[0.32px] text-neutral-black"
+                  className="body-m text-center text-neutral-black"
                   style={{ marginBottom: '0px' }}
                 >
                   {item.name}
@@ -141,13 +141,13 @@ const Certifications: FC<PersonalLinksProps> = (props) => {
       )}
       {!profile?.certifications?.length && (
         <div className="flex flex-col items-center">
-          <p className="mt-[56.2px] text-center font-next-book text-[18px] leading-[160%] tracking-[0.054px]">
+          <p className="body-l mt-[56.2px] text-center">
             You don’t have any certificate yet~
           </p>
           <Link href={'/dashboard'}>
             <Button
               type="primary"
-              className="mb-[30px] mt-[25px] w-[265px] px-0 py-[12px] font-next-book text-[16px] leading-[125%] tracking-[0.32px] text-neutral-black"
+              className="body-m mb-[30px] mt-[25px] w-[265px] px-0 py-[12px] text-neutral-black"
               // onClick={() => personalLinkEditRef.current?.onEdit({})}
             >
               Go to Learning

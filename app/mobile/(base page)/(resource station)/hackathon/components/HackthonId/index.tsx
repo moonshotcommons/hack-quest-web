@@ -35,12 +35,12 @@ const HackDetail: FC<HackDetailProps> = (props) => {
     };
   }, []);
   return (
-    <div className="container mx-auto font-next-book tracking-[0.36px]">
+    <div className="container mx-auto">
       <Loading loading={!hackathon.id}>
         <div className="min-h-[50vh] w-full">
           {hackathon.id && (
             <>
-              <div className="flex justify-between font-next-book">
+              <div className="flex justify-between">
                 <div className="w-[58%]">
                   <About hackathon={hackathon} />
                   <GuestMentors

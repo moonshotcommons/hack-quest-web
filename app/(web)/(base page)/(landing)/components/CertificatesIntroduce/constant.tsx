@@ -153,9 +153,9 @@ export const rightCardData = [
     alt: 'DAO'
   },
   {
-    name: 'Defi',
+    name: 'DeFi',
     image: '/images/landing/currency.png',
-    alt: 'Defi'
+    alt: 'DeFi'
   },
   {
     name: 'Security',

@@ -24,7 +24,7 @@ const QuizDropdown: FC<QuizDropdownProps> = (props) => {
                   onChange?.(index);
               }}
               className={cn(
-                `flex cursor-pointer items-center gap-[20px] bg-neutral-white px-[20px] py-[8px] font-next-book text-[14px] leading-[125%] tracking-[0.28px]`,
+                `body-s flex cursor-pointer items-center gap-[20px] bg-neutral-white px-[20px] py-[8px]`,
                 index === quiz.children.length - 1 && 'rounded-b-lg',
                 currentQuizIndex === index && 'bg-neutral-off-white',
                 !quizChild.isCompleted && !quiz.children[index - 1]?.isCompleted

@@ -16,7 +16,7 @@ const FeatureBlogCard: React.FC<FeatureBlogCardProp> = ({ blog }) => {
   };
   return (
     <Link
-      className="flex h-[505px] w-full cursor-pointer overflow-hidden rounded-[10px]  bg-[#fff] font-next-book shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)]"
+      className="flex h-[505px] w-full cursor-pointer overflow-hidden rounded-[10px]  bg-neutral-white shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)]"
       onClick={goBlogContent}
       href={`/mobile${MenuLink.BLOG}/${blog.id}`}
     >
@@ -34,18 +34,14 @@ const FeatureBlogCard: React.FC<FeatureBlogCardProp> = ({ blog }) => {
             {blog.categories.map((v, i) => (
               <div
                 key={i}
-                className="w-fit rounded-[100px] border border-[var(--neutral-medium-gray)] bg-[#DADADA] px-[14px] py-[3px] text-[18px] leading-[29px] text-neutral-rich-gray"
+                className="body-l w-fit rounded-[100px] border border-[var(--neutral-medium-gray)] bg-[#DADADA] px-[14px] py-[3px] text-neutral-rich-gray"
               >
                 {v}
               </div>
             ))}
           </div>
-          <div className="line-clamp-3 text-[28px] leading-[45px] tracking-[0.56px]">
-            {blog.title}
-          </div>
-          <div className="line-clamp-6 text-[18px] leading-[28.8px] tracking-[0.36px]">
-            {blog.description}
-          </div>
+          <div className="text-h3 line-clamp-3">{blog.title}</div>
+          <div className="body-l line-clamp-6">{blog.description}</div>
         </div>
         <BlogCardFooter blog={blog} />
       </div>

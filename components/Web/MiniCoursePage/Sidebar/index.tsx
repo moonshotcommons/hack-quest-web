@@ -54,10 +54,8 @@ const Sidebar: FC<SidebarProps> = ({ lesson }) => {
       >
         <span
           className={cn(
-            'pr-4 font-next-book text-[14px] leading-[125%] tracking-[0.28px]',
-            item.id === lesson.id
-              ? 'font-next-book-bold text-neutral-dark-gray'
-              : '',
+            'body-s pr-4',
+            item.id === lesson.id ? 'body-s-bold text-neutral-dark-gray' : '',
             [CompleteStateType.COMPLETED, CompleteStateType.LEARNING].includes(
               state
             ) && item.id !== lesson.id

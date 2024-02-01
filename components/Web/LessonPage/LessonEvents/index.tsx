@@ -28,9 +28,7 @@ const PreviewLessonEvent = () => {
       >
         <div className="flex-1 px-5">
           <div className="flex items-center justify-between">
-            <span className="mr-[7px] font-next-poster-Bold text-[28px] leading-[28px] tracking-[1.68px]">
-              Event
-            </span>
+            <span className="text-h3 mr-[7px]">Event</span>
             <Image
               src={ArrowBottom}
               alt="arrow-bottom"
@@ -93,9 +91,7 @@ const LessonEvents: React.FC<LessonEventsProps> = (props) => {
       >
         <div className="flex-1 px-5">
           <div className="flex items-center justify-between">
-            <span className="mr-[7px] font-next-poster-Bold text-[28px] leading-[28px] tracking-[1.68px]">
-              {lesson?.name}
-            </span>
+            <span className="text-h3 mr-[7px]">{lesson?.name}</span>
             <Image
               src={ArrowBottom}
               alt="arrow-bottom"

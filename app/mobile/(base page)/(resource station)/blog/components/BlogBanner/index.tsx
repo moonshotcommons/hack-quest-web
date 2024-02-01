@@ -76,7 +76,7 @@ const BlogBanner: React.FC<BannerProp> = () => {
 
   return (
     <div
-      className="h-[487px] pb-[40px] pt-[60px]  font-next-book text-[#fff]"
+      className="h-[487px] pb-[40px] pt-[60px] text-neutral-white"
       style={{
         backgroundColor: '#0B0B0B',
         backgroundImage: `url(${BlogBannerBg.src})`,
@@ -87,15 +87,13 @@ const BlogBanner: React.FC<BannerProp> = () => {
     >
       <div className="container mx-auto flex h-full flex-col justify-between">
         <div>
-          <p className="font-next-book-bold text-[42px] leading-[67px] tracking-[0.84px]">
-            BLOG
-          </p>
+          <p className="text-h2">BLOG</p>
           <p className="w-[528px] text-[21px] leading-[33px] tracking-[0.42px]">
             Explore our Web3 Blog – your hub for news, events, and study notes!
             Contribute your insights, shaping the conversation in the world of
             decentralized tech.
           </p>
-          {/* <Button className="w-[270px] h-[60px] bg-yellow-primary text-[18px] mt-[30px]">
+          {/* <Button className="w-[270px] h-[60px] bg-yellow-primary body-l mt-[30px]">
             Contribute
           </Button> */}
         </div>
@@ -121,7 +119,7 @@ const BlogBanner: React.FC<BannerProp> = () => {
                 )}
 
                 {sortVisible && (
-                  <div className="absolute bottom-[-100px] left-0 overflow-hidden rounded-[10px] border border-[var(--neutral-medium-gray)] bg-[#fff] text-[14px] text-neutral-black shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)]">
+                  <div className="body-s absolute bottom-[-100px] left-0 overflow-hidden rounded-[10px] border border-[var(--neutral-medium-gray)] bg-neutral-white text-neutral-black shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)]">
                     {sortData.map((v) => (
                       <div
                         key={v.value}
@@ -142,7 +140,7 @@ const BlogBanner: React.FC<BannerProp> = () => {
                 )}
               </div>
               <SlideHighlight
-                className="flex items-center text-[18px]"
+                className="body-l flex items-center"
                 type={'BLOG_FILTER'}
                 currentIndex={currentIndex}
               >
@@ -189,7 +187,7 @@ const BlogBanner: React.FC<BannerProp> = () => {
               <>
                 <input
                   type="text"
-                  className="h-[38px] flex-1 bg-[transparent] text-[24px] outline-none"
+                  className="body-xl h-[38px] flex-1 bg-[transparent] outline-none"
                   placeholder="Search"
                   onInput={changeInput}
                 />
@@ -204,7 +202,7 @@ const BlogBanner: React.FC<BannerProp> = () => {
                 onClick={() => setInputVisible(true)}
                 className="flex cursor-pointer  items-center"
               >
-                <span className="mr-[6px] text-[24px]">Search</span>
+                <span className="body-xl mr-[6px]">Search</span>
                 <BiSearch size={32} />
               </div>
             )}

@@ -8,9 +8,7 @@ const UserPage: NextPage<IProps> = (props) => {
 
   return (
     <>
-      <div className="flex h-full w-full flex-col font-next-book-Thin">
-        {userId}
-      </div>
+      <div className="flex h-full w-full flex-col ">{userId}</div>
     </>
   );
 };

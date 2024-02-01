@@ -51,7 +51,7 @@ const CodeRenderer: FC<CodeRendererProps> = (props) => {
     >
       <div className="relative h-[6px] rounded-t-[4.8px] bg-[#fafafa]">
         <div
-          className="absolute right-[9px] top-[9px] z-[10] cursor-pointer rounded-[0.5rem] font-next-book text-[0.75rem] text-[#E3E3E3]"
+          className="absolute right-[9px] top-[9px] z-[10] cursor-pointer rounded-[0.5rem] text-[#E3E3E3]"
           onClick={async (e) => {
             try {
               await navigator.clipboard.writeText(
@@ -78,7 +78,7 @@ const CodeRenderer: FC<CodeRendererProps> = (props) => {
             <SyntaxHighlighter
               style={theme === Theme.Dark ? oneDark : oneLight}
               language={language}
-              className="scroll-wrap-x scroll-wrap-y mt-[0!important] h-full rounded-t-[0!important] font-next-poster-Bold"
+              className="scroll-wrap-x scroll-wrap-y code-l mt-[0!important] h-full rounded-t-[0!important]"
               showLineNumbers
             >
               {codeContent}
@@ -89,7 +89,7 @@ const CodeRenderer: FC<CodeRendererProps> = (props) => {
         <SyntaxHighlighter
           style={theme === Theme.Dark ? oneDark : oneLight}
           language={language}
-          className="scroll-wrap-x scroll-wrap-y mt-[0!important] h-[calc(100%-20px)] rounded-t-[0!important] font-next-poster-Bold"
+          className="scroll-wrap-x scroll-wrap-y code-l mt-[0!important] h-[calc(100%-20px)] rounded-t-[0!important]"
           showLineNumbers
         >
           {codeContent}
