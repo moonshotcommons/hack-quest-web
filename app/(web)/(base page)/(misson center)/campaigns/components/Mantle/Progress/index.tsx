@@ -1,12 +1,7 @@
 import React, { useContext, useMemo } from 'react';
 import Image from 'next/image';
 import BIcon from '@/public/images/campaigns/b_icon.png';
-import { DM_Sans } from 'next/font/google';
 import { MantleContext } from '../../../constants/type';
-const inter = DM_Sans({
-  weight: ['400', '700', '500'],
-  subsets: ['latin', 'latin-ext']
-});
 interface ProgressProp {}
 
 const Progress: React.FC<ProgressProp> = () => {
@@ -26,7 +21,7 @@ const Progress: React.FC<ProgressProp> = () => {
     };
   }, [progress]);
   return (
-    <div className={`text-neutral-black ${inter.className} mb-[30px]`}>
+    <div className={`mb-[30px] text-neutral-black`}>
       <div className="relative flex gap-[0.5%]">
         {schedule.schedulePeriod.map((s, i) => (
           <div key={i} className="w-[19.6%]">

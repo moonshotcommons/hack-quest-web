@@ -125,7 +125,7 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
         >
           <Button
             ghost
-            className="hover:bg-neutral-white/50 body-s border border-neutral-black px-[40px] py-[8px]  text-neutral-black transition"
+            className="hover:bg-neutral-white/50 body-s mt-2 border border-neutral-black px-[40px] py-[8px] text-neutral-black transition"
           >
             Try It Out
           </Button>

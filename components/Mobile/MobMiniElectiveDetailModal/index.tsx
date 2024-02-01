@@ -24,8 +24,6 @@ import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 import Tags from '@/components/Common/Tags';
 import { HiCodeBracket } from 'react-icons/hi2';
 
-import { Inter } from 'next/font/google';
-const inter = Inter({ subsets: ['latin'] });
 interface MiniElectiveDetailModalProps {}
 
 export interface MiniElectiveDetailModalRef {
@@ -137,7 +135,7 @@ const MobMiniElectiveDetailModal = forwardRef<
       {open && (
         <Loading loading={loading}>
           <div
-            className={`fixed left-0 top-[64px] h-[calc(100vh-64px)] w-full overflow-hidden bg-neutral-white px-[24px] py-[12px] ${inter.className} z-[999] overflow-y-auto`}
+            className={`fixed left-0 top-[64px] z-[999] h-[calc(100vh-64px)] w-full overflow-hidden overflow-y-auto bg-neutral-white px-[24px] py-[12px]`}
           >
             <div className="w-full">
               <HiArrowLeft

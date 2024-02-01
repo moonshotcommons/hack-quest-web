@@ -60,6 +60,7 @@ const AnswerInputTextarea = (props: {
         overflow: 'hidden' /* 隐藏溢出的内容 */,
         ...borderAndBg
       }}
+      className="code-l"
       data-uuid={props.uuid}
       onInput={(e) => {
         const textarea = e.target as HTMLTextAreaElement;

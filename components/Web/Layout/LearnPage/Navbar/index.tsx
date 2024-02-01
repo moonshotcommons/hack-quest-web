@@ -1,4 +1,5 @@
-import DarkLogoActive from '@/public/images/logo/dark-text-Logo-active.svg';
+// import DarkLogoActive from '@/public/images/logo/dark-text-Logo-active.svg';
+import HackLogo from '@/public/images/logo/hack_logo.png';
 import Image from 'next/image';
 import React from 'react';
 
@@ -18,9 +19,9 @@ const NavBar: React.FC<NavBarProps> = () => {
   return (
     <nav className="flex h-[64px] w-full items-center px-[40px] text-neutral-white">
       <Image
-        src={DarkLogoActive}
+        src={HackLogo}
         alt="log"
-        width={123}
+        width={133}
         className="cursor-pointer"
         onClick={logoClick}
       ></Image>
