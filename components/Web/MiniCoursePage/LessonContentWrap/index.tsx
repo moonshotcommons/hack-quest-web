@@ -90,7 +90,7 @@ const LessonContentWrap: FC<LessonContentWrapProps> = ({
       const res = await webApi.courseApi.completeLesson(lesson.id);
       let link = null;
       if (nextLessonId) {
-        link = getLink(course?.type || CourseType.Mini, nextLessonId as string);
+        link = getLink(course?.type || CourseType.MINI, nextLessonId as string);
       }
       return link;
     },
@@ -141,18 +141,18 @@ const LessonContentWrap: FC<LessonContentWrapProps> = ({
   }, [course]);
 
   return (
-    <div className="flex-1 h-[calc(100vh-64px-80px)] flex flex-col justify-center items-center gap-[24px]">
-      <div className="flex-1 w-full flex gap-[60px] h-[calc(100%-24px-6px)] justify-center items-center">
+    <div className="flex h-[calc(100vh-64px-80px)] flex-1 flex-col items-center justify-center gap-[24px]">
+      <div className="flex h-[calc(100%-24px-6px)] w-full flex-1 items-center justify-center gap-[60px]">
         <div
           className={cn(
             previousLessonId
               ? 'cursor-pointer'
-              : 'opacity-20 cursor-not-allowed'
+              : 'cursor-not-allowed opacity-20'
           )}
           onClick={() => {
             if (!previousLessonId) return;
             const link = getLink(
-              course?.type || CourseType.Mini,
+              course?.type || CourseType.MINI,
               previousLessonId as string
             );
 
@@ -163,6 +163,9 @@ const LessonContentWrap: FC<LessonContentWrapProps> = ({
         </div>
         <RendererContext.Provider
           value={{
+            textRenderer: {
+              fontSize: '18px'
+            },
             globalContext: {
               onCompleted: () => {
                 if (progress.current === progress.total - 1) {
@@ -181,7 +184,7 @@ const LessonContentWrap: FC<LessonContentWrapProps> = ({
           className={cn(
             nextLessonId && nextControl
               ? 'cursor-pointer'
-              : 'opacity-20 cursor-not-allowed'
+              : 'cursor-not-allowed opacity-20'
           )}
           onClick={() => {
             if (!nextLessonId || !nextControl) return;

@@ -20,18 +20,17 @@ const DailyQuests: React.FC<TabContentType> = ({
   };
   return (
     <div>
-      <div className="flex  justify-between mb-[40px]">
-        <div className="text-[#000] w-[62%]">
+      <div className="mb-[40px]  flex justify-between">
+        <div className="w-[62%] text-neutral-black">
           {`Finish tasks and receive daily rewards. Keep that momentum going and discover what lies ahead! 💡`}
         </div>
         <Button
-          className={`w-[270px] h-[60px] text-[18px] text-[#0b0b0b] bg-auth-primary-button-bg
-          text-auth-primary-button-text-color
-          border-auth-primary-button-border-color tracking-[0.36px] ${
-            !allIds.length
-              ? 'opacity-50 cursor-not-allowed'
-              : 'hover:border-auth-primary-button-border-hover-color hover:text-auth-primary-button-text-hover-color hover:bg-auth-primary-button-hover-bg'
-          }`}
+          className={`body-l h-[60px] w-[270px] border-auth-primary-button-border-color bg-auth-primary-button-bg
+           text-neutral-black ${
+             !allIds.length
+               ? 'cursor-not-allowed opacity-50'
+               : 'hover:border-auth-primary-button-border-hover-color hover:bg-auth-primary-button-hover-bg hover:text-auth-primary-button-text-hover-color'
+           }`}
           disabled={!allIds.length}
           loading={missionIds.join() === allIds.join() && missionIds.length > 0}
           onClick={handleAllClaim}
@@ -41,7 +40,7 @@ const DailyQuests: React.FC<TabContentType> = ({
       </div>
 
       <div>
-        <div className="text-[18px] text-[#000]">Targets to Achieve</div>
+        <div className="body-l text-neutral-black">Targets to Achieve</div>
         <div>
           {missionData.map((v, i) => (
             <TargetCard

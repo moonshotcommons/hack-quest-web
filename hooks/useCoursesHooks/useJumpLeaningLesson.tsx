@@ -9,9 +9,10 @@ import {
 import { ElectiveCourseType } from '@/service/webApi/elective/type';
 import { useRequest } from 'ahooks';
 import { useRedirect } from '../useRedirect';
-import { V2_LANDING_PATH } from '@/constants/nav';
 import { message } from 'antd';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
+import { isMobile } from 'react-device-detect';
+import { NavType } from '@/components/Mobile/MobLayout/BasePage/Navbar';
 
 export interface JumpLeaningLessonType {
   menu: string;
@@ -23,6 +24,10 @@ export const useJumpLeaningLesson = () => {
     typeof window !== 'undefined' ? window.location.search : ''
   );
   const setAuthType = useUserStore((state) => state.setAuthType);
+  const setAuthModalOpen = useUserStore((state) => state.setAuthModalOpen);
+  const mobileAuthToggleOpenHandle = useUserStore(
+    (state) => state.mobileAuthToggleOpenHandle
+  );
   const { redirectToUrl } = useRedirect();
   const { run: jumpLearningLesson, loading } = useRequest(
     async (
@@ -31,7 +36,7 @@ export const useJumpLeaningLesson = () => {
     ) => {
       let lesson: any;
       switch (courseDetail.type) {
-        case CourseType.Mini:
+        case CourseType.MINI:
           lesson = await webApi.courseApi.getLearningLessonId(courseDetail.id);
           break;
         default:
@@ -67,9 +72,14 @@ export const useJumpLeaningLesson = () => {
       },
       onError(err: any) {
         if (err.code === 401) {
-          setAuthType(AuthType.LOGIN);
           message.warning('Please login first');
-          redirectToUrl(V2_LANDING_PATH);
+          setAuthType(AuthType.LOGIN);
+          if (!isMobile) {
+            setAuthModalOpen(true);
+          } else {
+            mobileAuthToggleOpenHandle.setNavType(NavType.AUTH);
+            mobileAuthToggleOpenHandle.toggleOpen();
+          }
         }
       }
     }

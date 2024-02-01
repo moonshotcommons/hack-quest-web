@@ -1,10 +1,9 @@
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useCallback } from 'react';
 import useGetDevice from '../useGetDevice';
 
 export const useRedirect = () => {
   const router = useRouter();
-  const pathname = usePathname();
   const isMobile = useGetDevice();
   const redirectToUrl = useCallback((url: string, isReplace = false) => {
     if (isMobile) {

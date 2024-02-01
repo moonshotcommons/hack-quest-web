@@ -157,13 +157,13 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
     );
 
     const UploadButton = (
-      <div className="w-full h-full flex justify-center items-center bg-transparent">
+      <div className="flex h-full w-full items-center justify-center bg-transparent">
         <IoMdAddCircle size={24} color="#8c8c8c"></IoMdAddCircle>
       </div>
     );
 
     const FullUploadButton = (
-      <div className="w-full flex justify-center items-center gap-[8px]">
+      <div className="flex w-full items-center justify-center gap-[8px]">
         <svg
           width="23"
           height="23"
@@ -190,7 +190,7 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
             fill="white"
           />
         </svg>
-        <span className="text-[14px] font-next-book leading-[118.5%] text-[#8C8C8C]">
+        <span className="body-s text-neutral-medium-gray">
           Add attachments to your report (optional){' '}
         </span>
       </div>
@@ -233,26 +233,26 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
         }
         markBg="black"
       >
-        <div className="w-[1000px] bg-[#F4F4F4] rounded-[10px] pt-10 px-[200px] pb-[76px]">
-          <h1 className="font-next-book text-[32px] text-black leading-[125%] tracking-[0.64px]">
+        <div className="w-[1000px] rounded-[10px] bg-neutral-off-white px-[200px] pb-[76px] pt-10">
+          <h1 className="text-h3 text-neutral-black">
             Found a bug? Claim rewards!
           </h1>
-          <p className="mt-[10px] font-next-book text-[14px] text-black leading-[160%] -tracking-[0.154px]">
+          <p className="body-s mt-[10px] text-neutral-black">
             {`HackQuest is currently in beta, and your feedback is crucial. If you come across any bug or error while learning, report it to us. Once verified,  we'll reward you with XP and hack credits. Join us in delivering a better experience! 🐞🚀`}
           </p>
-          <p className="font-next-book text-base leading-[125%] tracking-[0.32px] text-black mt-[30px]">
+          <p className="body-l mt-[30px] text-neutral-black">
             What kind of bugs have you found?
           </p>
           <Form ref={formRef} name="control-hooks">
-            <div className="flex gap-x-[10px] mt-[10px] relative">
+            <div className="relative mt-[10px] flex gap-x-[10px]">
               {kinds.map((kind, index) => {
                 return (
                   <Button
                     key={index}
                     className={cn(
-                      `px-[14px] py-[3px] bg-[#DADADA] text-[12px] font-next-book text-[#8C8C8C] rounded-[10px]`,
+                      `body-xs rounded-[10px] bg-[#DADADA] px-[14px] py-[3px] text-neutral-medium-gray`,
                       selectKinds.includes(kind)
-                        ? 'bg-yellow-primary text-[#0B0B0B]'
+                        ? 'bg-yellow-primary text-neutral-black'
                         : ''
                     )}
                     onClick={() => {
@@ -299,7 +299,7 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
             >
               <Input.TextArea
                 placeholder="Describe the bugs you found..."
-                className="font-next-book text-[#0B0B0B] text-[14px] leading-[118.5%] p-5"
+                className="body-s p-5 text-neutral-black"
                 maxLength={1500}
                 styles={{
                   textarea: {
@@ -318,17 +318,17 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
                 beforeUpload={beforeUpload}
                 itemRender={(originNode, file, fileList, actions) => {
                   return (
-                    <div className="w-[64px] h-[64px] relative">
-                      <div className="w-full h-full border border-[#8C8C8C] rounded-[10px] overflow-hidden">
+                    <div className="relative h-[64px] w-[64px]">
+                      <div className="h-full w-full overflow-hidden rounded-[10px] border border-neutral-medium-gray">
                         <Image
                           alt={file.fileName}
                           src={file.thumbUrl}
-                          className="block w-full h-full"
+                          className="block h-full w-full"
                         ></Image>
                       </div>
 
                       <svg
-                        className="absolute -top-2 -right-2 cursor-pointer"
+                        className="absolute -right-2 -top-2 cursor-pointer"
                         width="22"
                         height="23"
                         viewBox="0 0 22 23"
@@ -371,12 +371,12 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
                 }}
                 className={`${
                   !fileList.length
-                    ? 'w-full [&>.ant-upload-list-picture-card]:w-full [&>.ant-upload-list-picture-card>.ant-upload-select]:w-[100%!important]'
+                    ? 'w-full [&>.ant-upload-list-picture-card>.ant-upload-select]:w-[100%!important] [&>.ant-upload-list-picture-card]:w-full'
                     : `
-                    [&>.ant-upload-list-picture-card>.ant-upload-list-item-container]:w-[64px!important]
                     [&>.ant-upload-list-picture-card>.ant-upload-list-item-container]:h-[64px!important]
-                    [&>.ant-upload-list-picture-card>.ant-upload-select]:w-[64px!important]
-                    [&>.ant-upload-list-picture-card>.ant-upload-select]:h-[64px!important]`
+                    [&>.ant-upload-list-picture-card>.ant-upload-list-item-container]:w-[64px!important]
+                    [&>.ant-upload-list-picture-card>.ant-upload-select]:h-[64px!important]
+                    [&>.ant-upload-list-picture-card>.ant-upload-select]:w-[64px!important]`
                 }`}
               >
                 {!fileList.length ? FullUploadButton : UploadButton}
@@ -387,7 +387,7 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
                 type="primary"
                 loading={loading}
                 disabled={loading}
-                className="py-[16px] text-[18px] font-next-book leading-[125%] tracking-[0.36px] text-[#0b0b0b]"
+                className="body-l py-[16px] text-neutral-black"
                 iconPosition="right"
                 icon={
                   <svg

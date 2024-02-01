@@ -121,16 +121,16 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
   }, containerRef);
 
   const QuizHeader = (
-    <div className={`flex justify-between h-fit w-full items-center`}>
+    <div className={`flex h-fit w-full items-center justify-between`}>
       <div
-        className={`inline-flex font-next-poster-Bold items-center relative text-[18px] font-bold tracking-[1.08px] ${
+        className={`text-h4 relative inline-flex items-center ${
           quizDropdownVisible && 'shadow-2xl'
         }`}
       >
         <div
           ref={containerRef as any}
-          className={`inline-flex gap-2 box-content border-b-2 p-[20px] cursor-pointer min-h-fit ${
-            quizDropdownVisible ? ' border-[#8C8C8C]' : ''
+          className={`box-content inline-flex min-h-fit cursor-pointer gap-2 border-b-2 p-[20px] ${
+            quizDropdownVisible ? ' border-neutral-medium-gray' : ''
           }`}
           onClick={() => {
             BurialPoint.track('lesson-quiz dropdown点击');
@@ -180,7 +180,7 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
       {start && (
         <div
           className={cn(
-            `rounded-[.625rem] pb-[20px] bg-[#E6E6E6] flex w-full flex-1 min-h-[50%] flex-col overflow-hidden`
+            `flex min-h-[50%] w-full flex-1 flex-col overflow-hidden rounded-[.625rem] bg-[#E6E6E6] pb-[20px]`
           )}
         >
           {QuizHeader}
@@ -197,11 +197,11 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
         </div>
       )}
       {!start && (
-        <div className="inline-flex h-fit justify-between items-center rounded-[.625rem] bg-[#E6E6E6]  w-full px-[20px] py-[8px]">
-          <h1 className="font-next-poster-Bold text-[18px]">Quest</h1>
+        <div className="inline-flex h-fit w-full items-center justify-between rounded-[.625rem]  bg-[#E6E6E6] px-[20px] py-[8px]">
+          <h1 className="text-h4">Quest</h1>
           <Button
             type="primary"
-            className="py-[8px] px-[40px] font-next-book text-[#0B0B0B] text-[14px]"
+            className="button-text-s px-[40px] py-[8px] uppercase text-neutral-black"
             onClick={() => {
               BurialPoint.track('lesson-start quiz按钮点击');
               setStart(true);

@@ -49,7 +49,7 @@ const CourseFilterListSearch: FC<CourseFilterListSearchProps> = ({
   useEffect(() => {
     getCourseList({
       ...mergeFilterParams(filters, sort, keyword),
-      type: CourseType.Mini
+      type: `${CourseType.MINI},${CourseType.UGC}`
     });
   }, []);
 
@@ -60,7 +60,7 @@ const CourseFilterListSearch: FC<CourseFilterListSearchProps> = ({
         getCourseList({
           ...params,
           keyword,
-          type: CourseType.Mini
+          type: `${CourseType.MINI},${CourseType.UGC}`
         });
       }}
       filters={cloneDeep(filters)}
@@ -68,7 +68,7 @@ const CourseFilterListSearch: FC<CourseFilterListSearchProps> = ({
       courseList={searchList}
       loading={loading}
       renderItem={(course) => {
-        return <ElectiveCard key={course.id} course={course}></ElectiveCard>;
+        return <ElectiveCard course={course}></ElectiveCard>;
       }}
     ></CourseFilterList>
   );

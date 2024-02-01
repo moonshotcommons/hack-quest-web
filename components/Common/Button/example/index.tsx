@@ -11,13 +11,11 @@ const ButtonExample: FC<ButtonExampleProps> = (props) => {
   return (
     <div>
       <div>
-        <h1 className="text-text-default-color text-[24px] pb-8 ">
-          Base Button
-        </h1>
-        <div className="flex flex-row gap-8 items-center">
+        <h1 className="body-xl pb-8 text-text-default-color ">Base Button</h1>
+        <div className="flex flex-row items-center gap-8">
           <Button
             type="primary"
-            className="bg-course-progress-button-bg text-course-progress-text-bg"
+            className="text-course-progress-text-bg bg-course-progress-button-bg"
             size="small"
             icon={
               <i className="text-course-progress-icon-bg">
@@ -29,7 +27,7 @@ const ButtonExample: FC<ButtonExampleProps> = (props) => {
           </Button>
           <Button
             type="primary"
-            className="bg-course-progress-button-bg text-course-progress-text-bg px-[2rem] py-[.75rem]"
+            className="text-course-progress-text-bg bg-course-progress-button-bg px-[2rem] py-[.75rem]"
             icon={<RightIcon />}
             iconPosition="right"
           >

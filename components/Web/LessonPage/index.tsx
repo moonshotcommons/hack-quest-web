@@ -114,11 +114,11 @@ const LessonPage: FC<LessonPageProps> = (props) => {
     >
       <Spin
         spinning={loading}
-        className="h-[100vh] flex justify-center items-center translate-y-[calc(50vh-50%)]"
+        className="flex h-[100vh] translate-y-[calc(50vh-50%)] items-center justify-center"
         tip="loading..."
         size="large"
       >
-        {lesson && (
+        {lesson ? (
           <div
             className={`relative w-full ${
               isHandleNext ? 'h-[calc(100vh-145px)]' : 'h-[calc(100vh-95px)]'
@@ -143,7 +143,7 @@ const LessonPage: FC<LessonPageProps> = (props) => {
               }}
             >
               <Split
-                className="flex-1 w-full h-full flex justify-between [&>div]:w-[50%] [&>.gutter]:cursor-col-resize font-next-book"
+                className="flex h-full w-full flex-1 justify-between [&>.gutter]:cursor-col-resize [&>div]:w-[50%]"
                 minSize={360}
                 cursor="col-resize"
                 gutter={(index, direction) => {
@@ -153,14 +153,14 @@ const LessonPage: FC<LessonPageProps> = (props) => {
                   const content2 = document.createElement('span');
                   container.className = 'w-full px-[6px] flex justify-between';
                   content1.className =
-                    'w-[2px] h-[12px] bg-[#8C8C8C] rounded-full';
+                    'w-[2px] h-[12px] bg-neutral-medium-gray rounded-full';
                   content2.className =
-                    'w-[2px] h-[12px] bg-[#8C8C8C] rounded-full';
+                    'w-[2px] h-[12px] bg-neutral-medium-gray rounded-full';
 
                   container.appendChild(content1);
                   container.appendChild(content2);
                   gutter.appendChild(container);
-                  gutter.className = `gutter gutter-${direction} flex flex-col justify-center items-center bg-[#F4F4F4] shadow-[-2px_0px_4px_0px_rgba(0,0,0,0.10)] w-[20px!important]`;
+                  gutter.className = `gutter gutter-${direction} flex flex-col justify-center items-center bg-neutral-off-white shadow-[-2px_0px_4px_0px_rgba(0,0,0,0.10)] w-[20px!important]`;
                   return gutter;
                 }}
               >
@@ -242,7 +242,7 @@ const LessonPage: FC<LessonPageProps> = (props) => {
               <TreasureModal ref={treasureModalRef} />
             </LessonPageContext.Provider>
           </div>
-        )}
+        ) : null}
       </Spin>
     </ConfigProvider>
   );

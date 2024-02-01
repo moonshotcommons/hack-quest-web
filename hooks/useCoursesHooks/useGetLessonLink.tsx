@@ -1,12 +1,11 @@
 import { QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import { getLessonLink } from '@/helper/utils';
 import { CourseType } from '@/service/webApi/course/type';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import { useCallback } from 'react';
 
 /** lesson页面跳转到其他lesson时获取跳转参数 */
 export const useGetLessonLink = () => {
-  const router = useRouter();
   const params = useParams();
 
   const query = new URLSearchParams(

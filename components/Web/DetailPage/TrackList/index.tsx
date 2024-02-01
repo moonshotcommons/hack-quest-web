@@ -22,11 +22,11 @@ const TrackList: FC<TrackListProps> = (props) => {
   }, [trackDetail]);
 
   return (
-    <ul className="w-full px-10 py-10 bg-white rounded-[10px] h-fit">
+    <ul className="h-fit w-full rounded-[10px] bg-neutral-white px-10 py-10">
       {sectionList.map((section, index) => {
         if (index === 0) {
           return (
-            <li key={index} className="w-full relative ">
+            <li key={index} className="relative w-full ">
               <SectionCard
                 section={section}
                 enrolled={trackDetail.enrolled}
@@ -39,7 +39,7 @@ const TrackList: FC<TrackListProps> = (props) => {
           );
         }
         return (
-          <li key={index} className="w-full relative top-line">
+          <li key={index} className="top-line relative w-full">
             <SectionCard
               section={section}
               enrolled={trackDetail.enrolled}

@@ -12,7 +12,8 @@ export enum CourseType {
   TEASER = 'TEASER',
   HACKATHON = 'HACKATHON',
   LEARNING_TRACK = 'LEARNING_TRACK',
-  Mini = 'MINI'
+  MINI = 'MINI',
+  UGC = 'UGC'
 }
 
 export enum LessonStyleType {
@@ -62,6 +63,58 @@ export enum CourseTrackType {
   Gaming = 'Gaming'
 }
 
+export enum LessonType {
+  READING = 'READING',
+  VIDEO = 'VIDEO',
+  QUIZ = 'QUIZ'
+}
+
+export interface CreatorType {
+  id: string;
+  name: string;
+  nickname: string;
+  profileImage: string;
+}
+
+//! UGC临时课程类型，可能是课程通用类型，后面需要更改
+export interface UGCCourseType {
+  id: string;
+  name: string;
+  title: string;
+  subTitle: null | string;
+  description: string;
+  type: CourseType;
+  level: CourseLevelType;
+  duration: number;
+  language: CourseLanguageType;
+  track: CourseTrackType;
+  progress?: number;
+  peopleJoined: number;
+  optional: object;
+  image: string | null;
+  creator: CreatorType | null;
+  units?: {
+    id: string;
+    title: string;
+    description: string;
+    sequence: number;
+    progress: number;
+    courseId: string;
+    createdAt: string;
+    updatedAt: string;
+    pages: {
+      id: string;
+      title: string;
+      type: LessonType;
+      unitId: string;
+      state: CompleteStateType;
+      courseId: string;
+      sequence: number;
+    }[];
+  }[];
+}
+
+/** 课程基础字段 */
 export interface CourseBaseType {
   id: string;
   name: string;
@@ -76,21 +129,12 @@ export interface CourseBaseType {
   peopleJoined: number;
 }
 
+/** Project类型的课程 */
 export interface ProjectCourseType extends CourseBaseType {
   unitCount: number;
 }
 
-export interface CourseDataType {
-  total: number;
-  data: ProjectCourseType[];
-}
-
 export type CourseListType = ProjectCourseType | ElectiveCourseType;
-
-export interface CourseDataApiType {
-  total: number;
-  data: CourseListType[];
-}
 
 export interface CourseDetailType extends CourseBaseType {
   units?: CourseUnitType[];

@@ -52,14 +52,14 @@ const Pagination: FC<PaginationProps> = (props) => {
   }, [page]);
 
   return (
-    <div className="flex gap-x-[50px] items-center">
+    <div className="flex items-center gap-x-[50px]">
       {urlPrefix ? (
         <Link
           className={cn(
-            `flex items-center justify-center p-2 rounded-full border border-solid border-[#000000] bg-[#000000] text-white cursor-pointer scale-[0.835]`,
+            `flex scale-[0.835] cursor-pointer items-center justify-center rounded-full border border-solid border-[#000000] bg-[#000000] p-2 text-neutral-white`,
             page <= 1
-              ? 'bg-transparent text-black cursor-not-allowed'
-              : 'hover:bg-[#000000]/70 hover:border-[#000000]/70 transition'
+              ? 'cursor-not-allowed bg-transparent text-neutral-black'
+              : 'transition hover:border-[#000000]/70 hover:bg-[#000000]/70'
           )}
           href={`${urlPrefix}${page <= 1 ? 1 : page - 1}${pageSearch}`}
         >
@@ -68,10 +68,10 @@ const Pagination: FC<PaginationProps> = (props) => {
       ) : (
         <div
           className={cn(
-            `flex items-center justify-center p-2 rounded-full border border-solid border-[#000000] bg-[#000000] text-white cursor-pointer scale-[0.835]`,
+            `flex scale-[0.835] cursor-pointer items-center justify-center rounded-full border border-solid border-[#000000] bg-[#000000] p-2 text-neutral-white`,
             page <= 1
-              ? 'bg-transparent text-black cursor-not-allowed'
-              : 'hover:bg-[#000000]/70 hover:border-[#000000]/70 transition'
+              ? 'cursor-not-allowed bg-transparent text-neutral-black'
+              : 'transition hover:border-[#000000]/70 hover:bg-[#000000]/70'
           )}
           onClick={() => {
             if (page <= 1) return;
@@ -85,7 +85,7 @@ const Pagination: FC<PaginationProps> = (props) => {
         </div>
       )}
 
-      <div className="font-next-book text-[24px] text-[#0b0b0b] leading-[160%] tracking-[0.48px]">
+      <div className="body-xl text-neutral-black">
         <span>Page</span>
         <input
           type="text"
@@ -98,7 +98,7 @@ const Pagination: FC<PaginationProps> = (props) => {
             onPageInputValueChange(value);
           }}
           value={currentPage}
-          className="bg-transparent outline-none appearance-none text-center w-[26px] underline"
+          className="w-[26px] appearance-none bg-transparent text-center underline outline-none"
         />
         <span>{`of ${total}`}</span>
       </div>
@@ -106,10 +106,10 @@ const Pagination: FC<PaginationProps> = (props) => {
       {urlPrefix ? (
         <Link
           className={cn(
-            `flex items-center justify-center p-2 rounded-full border border-solid border-[#000000] bg-[#000000] text-white cursor-pointer scale-[0.835]`,
+            `flex scale-[0.835] cursor-pointer items-center justify-center rounded-full border border-solid border-[#000000] bg-[#000000] p-2 text-neutral-white`,
             page >= total
-              ? 'bg-transparent text-black cursor-not-allowed'
-              : 'hover:bg-[#000000]/70 hover:border-[#000000]/70 transition'
+              ? 'cursor-not-allowed bg-transparent text-neutral-black'
+              : 'transition hover:border-[#000000]/70 hover:bg-[#000000]/70'
           )}
           href={`${urlPrefix}${page >= total ? page : page + 1}${pageSearch}`}
         >
@@ -118,10 +118,10 @@ const Pagination: FC<PaginationProps> = (props) => {
       ) : (
         <div
           className={cn(
-            `flex items-center justify-center p-2 rounded-full border border-solid border-[#000000] bg-[#000000] text-white cursor-pointer scale-[0.835]`,
+            `flex scale-[0.835] cursor-pointer items-center justify-center rounded-full border border-solid border-[#000000] bg-[#000000] p-2 text-neutral-white`,
             page >= total
-              ? 'bg-transparent text-black cursor-not-allowed'
-              : 'hover:bg-[#000000]/70 hover:border-[#000000]/70 transition'
+              ? 'cursor-not-allowed bg-transparent text-neutral-black'
+              : 'transition hover:border-[#000000]/70 hover:bg-[#000000]/70'
           )}
           onClick={() => {
             if (page >= total) return;

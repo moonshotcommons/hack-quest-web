@@ -7,26 +7,26 @@ import { cn } from '@/helper/utils';
 const UserEvaluation: FC<{}> = (props) => {
   return (
     <div className="mt-[7.5rem] w-full bg-neutral-white py-10">
-      <div className="flex flex-col gap-3 items-center text-center w-[50rem] mx-auto">
+      <div className="mx-auto flex w-[50rem] flex-col items-center gap-3 text-center">
         <p className="body-s-bold uppercase text-neutral-rich-gray">{`testimonial`}</p>
         <h2 className="text-h2">
           Students and Partners like You{' '}
           <span className="text-status-error">❤</span> us ️
         </h2>
-        <p className="body-l text-neutral-medium-gray tracking-tight">
+        <p className="body-l tracking-tight text-neutral-medium-gray">
           Don’t take our words for it. See what others say about HackQuest!
         </p>
       </div>
       <div className="mt-[3.75rem]">
         <ScrollContainer>
-          <div className="flex justify-center gap-6 h-[35.75rem]">
+          <div className="flex h-[35.75rem] justify-center gap-6">
             {/* 第一列 */}
             {userEvaluation.map((col, index) => {
               return (
                 <div
                   key={index}
                   className={cn(
-                    'w-[19.4375rem] flex flex-col gap-6 h-full shrink-0',
+                    'flex h-full w-[19.4375rem] shrink-0 flex-col gap-6',
                     col.className
                   )}
                 >

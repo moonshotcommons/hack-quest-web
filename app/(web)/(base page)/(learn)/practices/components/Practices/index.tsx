@@ -91,10 +91,11 @@ function Practices() {
             loading={loading}
             renderItem={(course) => {
               return (
-                <PracticeCard
-                  key={course.id}
-                  course={course as ProjectCourseType}
-                ></PracticeCard>
+                <div key={course.id} className="w-[calc((100%-72px)/4)]">
+                  <PracticeCard
+                    course={course as ProjectCourseType}
+                  ></PracticeCard>
+                </div>
               );
             }}
             list={topProjects}

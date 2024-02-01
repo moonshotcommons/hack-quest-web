@@ -10,17 +10,17 @@ const CodeRender: React.FC<CodeRenderType> = ({ waitingRenderCodes }) => {
     return index < 10 ? `0${index}` : index;
   };
   return (
-    <div className="w-full bg-renderer-code-bg relative rounded-[10px] pr-[20px] overflow-auto scroll-wrap-x scroll-wrap-y">
-      <ul className="p-[15px] max-w-full">
+    <div className="scroll-wrap-x scroll-wrap-y relative w-full overflow-auto rounded-[10px] bg-renderer-code-bg pr-[20px]">
+      <ul className="max-w-full p-[15px]">
         {waitingRenderCodes.map((line, lineIndex) => (
           <li
-            className="list-decimal w-full text-text-default-color font-thin whitespace-nowrap flex items-center justify-start"
+            className="flex w-full list-decimal items-center justify-start whitespace-nowrap font-thin text-text-default-color"
             key={lineIndex}
           >
-            <span className="mr-[1.875rem] text-lesson-code-index text-[12px] font-mono">
+            <span className="code-l mr-[1.875rem] text-lesson-code-index">
               {fillStr(lineIndex + 1)}
             </span>
-            <div className="flex-1 flex flex-shrink-0 items-center break-all whitespace-pre-wrap">
+            <div className="flex flex-1 flex-shrink-0 items-center whitespace-pre-wrap break-all">
               {line.render(answers)}
             </div>
           </li>

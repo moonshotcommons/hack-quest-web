@@ -26,16 +26,16 @@ const MobCourseListPageHeader: FC<CourseListPageHeaderProps> = ({
 }) => {
   const [searchValue, setSearchValue] = useState('');
   return (
-    <div className="pb-[5.625rem] min-h-[18rem] px-[1.25rem] bg-yellow-primary">
+    <div className="min-h-[18rem] bg-yellow-primary px-[1.25rem] pb-[5.625rem]">
       <div className="pt-[7.5rem]">
-        <h2 className="text-h1-mob text-neutral-black uppercase">{title}</h2>
-        <div className="py-2 px-3 border mt-[1.25rem] w-full rounded-[3.5rem] border-[#DADADA] bg-white flex gap-3 items-center">
+        <h2 className="text-h1-mob text-neutral-black">{title}</h2>
+        <div className="mt-[1.25rem] flex w-full items-center gap-3 rounded-[3.5rem] border border-neutral-light-gray bg-neutral-white px-3 py-2">
           <span>
             <FiSearch size={20} />
           </span>
           <input
             placeholder="Search for keywords, topics, etc..."
-            className="outline-none body-s text-neutral-medium-gray w-full truncate"
+            className="body-s w-full truncate text-neutral-medium-gray outline-none"
             value={searchValue}
             onKeyUp={(e) => {
               if (e.code === 'Enter') {
@@ -66,7 +66,7 @@ const MobCourseListPageHeader: FC<CourseListPageHeaderProps> = ({
           )}
         </div>
       </div>
-      <div className="absolute top-0 right-0">
+      <div className="absolute right-0 top-0">
         {coverImage}
         {!coverImage && coverImageUrl && (
           <Image

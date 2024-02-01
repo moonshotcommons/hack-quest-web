@@ -31,7 +31,7 @@ export const ShareWrap = <T extends React.ForwardRefExoticComponent<any>>(
     >
       <div
         key={props.name}
-        className="flex gap-3 items-center text-[#0B0B0B] hover:text-[#0B0B0B]/60 animate"
+        className="hover:text-neutral-black/60 animate flex items-center gap-3 text-neutral-black"
       >
         <div
           style={{
@@ -45,7 +45,7 @@ export const ShareWrap = <T extends React.ForwardRefExoticComponent<any>>(
           })}
         </div>
         {showName && (
-          <span className="font-next-book text-[14px] leading-[160%] -tracking-[0.154px] whitespace-nowrap ">{`Share on ${name}`}</span>
+          <span className="body-s whitespace-nowrap ">{`Share on ${name}`}</span>
         )}
       </div>
     </ShareButton>

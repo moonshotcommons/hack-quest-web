@@ -51,7 +51,7 @@ function Electives() {
   const { loading } = useRequest(
     () => {
       return webApi.courseApi.getTopCourses<ElectiveCourseType>({
-        type: CourseType.Mini
+        type: `${CourseType.MINI},${CourseType.UGC}`
       });
     },
     {
@@ -85,10 +85,11 @@ function Electives() {
             loading={loading}
             renderItem={(course) => {
               return (
-                <ElectiveCard
-                  key={course.id}
-                  course={course as ElectiveCourseType}
-                ></ElectiveCard>
+                <div key={course.id} className="w-[calc((100%-72px)/4)]">
+                  <ElectiveCard
+                    course={course as ElectiveCourseType}
+                  ></ElectiveCard>
+                </div>
               );
             }}
             list={topElectives}

@@ -67,7 +67,7 @@ const Breadcrumb: React.FC = () => {
         if (id === 'projects') {
           resolve({
             menu_: true,
-            name: 'Projects'
+            title: 'Projects'
           });
         } else {
           const res = await webApi.resourceStationApi.getProjectsDetail(id);
@@ -105,7 +105,7 @@ const Breadcrumb: React.FC = () => {
           if (v) {
             linkIdsStr += `&${navIdType[i]}=${v.id}`;
             return {
-              label: v.name,
+              label: v.title || v.name,
               link: !v.menu_
                 ? `${navLinks[i]}/${v.id}?menu=${query.get(
                     'menu'
@@ -134,21 +134,21 @@ const Breadcrumb: React.FC = () => {
             BurialPoint.track('使用navbar跳转');
           }}
         >
-          {i ? <span className="mx-2 text-[#0b0b0b]">/</span> : ''}
-          <span className=" text-[#0b0b0b]"> {item.label}</span>
+          {i ? <span className="mx-2 text-neutral-black">/</span> : ''}
+          <span className=" text-neutral-black"> {item.label}</span>
         </Link>
       );
     } else {
       return (
         <div key={i}>
           <span className="mx-2">/</span>
-          <span className={`font-next-book-bold underline`}>{item.label}</span>
+          <span className={`font-bold underline`}>{item.label}</span>
         </div>
       );
     }
   };
   return (
-    <div className="text-[14px] font-next-book text-lesson-preview-color flex h-[50px] items-center ">
+    <div className="body-s flex h-[50px] items-center text-lesson-preview-color ">
       {navData?.map((nav: navDataProps, i: number) => {
         return (
           <div key={i} className="max-w-[30%] truncate">

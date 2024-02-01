@@ -21,9 +21,8 @@ const CertificationCard: FC<CertificationCardProps> = (props) => {
 
   const { refresh } = useRequest(
     async () => {
-      const res = await webApi.campaignsApi.getCertificationDetail(
-        certificationId
-      );
+      const res =
+        await webApi.campaignsApi.getCertificationDetail(certificationId);
       return res;
     },
     {
@@ -34,20 +33,18 @@ const CertificationCard: FC<CertificationCardProps> = (props) => {
   );
 
   return (
-    <div className="w-full relative">
-      <div className="w-full h-fit flex justify-end relative">
-        <div className="w-full h-fit absolute -z-1 top-1/2 -translate-y-1/2 py-[24px] px-[30px] bg-[#FFF4CE] rounded-[10px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)]">
-          <p className="text-[21px] font-next-poster-Bold tracking-[1.26px] text-[#0B0B0B]">
-            {certification?.name}
-          </p>
+    <div className="relative w-full">
+      <div className="relative flex h-fit w-full justify-end">
+        <div className="-z-1 absolute top-1/2 h-fit w-full -translate-y-1/2 rounded-[10px] bg-[#FFF4CE] px-[30px] py-[24px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)]">
+          <p className="text-h4 text-neutral-black">{certification?.name}</p>
           <Typography.Paragraph ellipsis={{ rows: 2 }}>
-            <p className="mt-[10px] mb-[20px] w-[46.5%] text-[18px] font-next-book leading-[160%] tracking-[0.36px] text-[#0B0B0B]">
+            <p className="body-l mb-[20px] mt-[10px] w-[46.5%] text-neutral-black">
               {certification?.description}
             </p>
           </Typography.Paragraph>
           <Button
             ghost
-            className="py-2 w-[140px] flex justify-center items-center px-0 border-[#0B0B0B] font-next-book text-[14px] leading-[125%] tracking-[0.28px]"
+            className="body-s flex w-[140px] items-center justify-center border-neutral-black px-0 py-2"
             onClick={() => {
               CertificationModalRef.current?.open();
             }}
@@ -55,7 +52,7 @@ const CertificationCard: FC<CertificationCardProps> = (props) => {
             Learn More
           </Button>
         </div>
-        <div className="w-[421px] h-[233px] relative mr-[20px]">
+        <div className="relative mr-[20px] h-[233px] w-[421px]">
           {certification?.image && (
             <Image
               fill

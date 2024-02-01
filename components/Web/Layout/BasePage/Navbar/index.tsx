@@ -1,19 +1,18 @@
-import DarkLogoActive from '@/public/images/logo/dark-text-Logo-active.svg';
 import Image from 'next/image';
 import React, { ReactNode, useEffect, useState } from 'react';
 
 import Badge from '@/components/Common/Badge';
 import SlideHighlight from '@/components/Common/Navigation/SlideHighlight';
-import { V2_LANDING_PATH } from '@/constants/nav';
 
 import { message } from 'antd';
 import Link from 'next/link';
 import { isBadgeIds, needLoginPath } from './data';
 import { MenuType, NavbarListType } from './type';
 import { useRedirect } from '@/hooks/useRedirect';
-import { usePathname } from 'next/navigation';
-import { useUserStore } from '@/store/zustand/userStore';
+import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useMissionCenterStore } from '@/store/zustand/missionCenterStore';
+import { useCustomPathname } from '@/hooks/useCheckPathname';
+import HackLogo from '@/public/images/logo/hack_logo.png';
 
 export interface NavBarProps {
   navList: NavbarListType[];
@@ -21,17 +20,14 @@ export interface NavBarProps {
   logo?: ReactNode;
 }
 
-type SlideNavigatorHighlight = React.CSSProperties & {
-  '--highlight-x'?: string;
-  '--highlight-width'?: string;
-};
-
 const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
   const userInfo = useUserStore((state) => state.userInfo);
+  const setAuthModalOpen = useUserStore((state) => state.setAuthModalOpen);
+  const setAuthType = useUserStore((state) => state.setAuthType);
 
   const { navList, children } = NavBarProps;
   const { redirectToUrl } = useRedirect();
-  const pathname = usePathname();
+  const pathname = useCustomPathname();
   const [showSecondNav, setShowSecondNav] = useState(false);
   const [secondNavData, setSecondNavData] = useState<MenuType[]>([]);
   const [secondLabel, setSecondLabel] = useState('');
@@ -80,37 +76,39 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
     if (~needLoginPath.indexOf(path) && !userInfo) {
       e.stopPropagation();
       message.warning('Please login first');
-      redirectToUrl(V2_LANDING_PATH);
+      setAuthType(AuthType.LOGIN);
+      setAuthModalOpen(true);
       return;
     }
     redirectToUrl(path);
   };
   const logoClick = () => {
     if (userInfo) return;
-    redirectToUrl(V2_LANDING_PATH);
+    setAuthType(AuthType.LOGIN);
+    setAuthModalOpen(true);
   };
   return (
     <div className="w-full">
-      <div className={`h-[64px] mx-auto container`}>
-        <div className="h-full flex items-center justify-between font-next-book">
-          <nav className="h-full flex items-center text-white">
+      <div className={`container mx-auto h-[64px]`}>
+        <div className="flex h-full items-center justify-between">
+          <nav className="flex h-full items-center text-neutral-white">
             <div
-              className={`h-full flex items-center ${
+              className={`flex h-full items-center ${
                 !userInfo ? 'cursor-pointer' : ''
               }`}
               onClick={logoClick}
             >
-              <Image src={DarkLogoActive} alt="logo"></Image>
+              <Image src={HackLogo} width={133} alt="logo"></Image>
             </div>
             <SlideHighlight
-              className="flex h-full ml-[60px] gap-[28px]  body-s text-neutral-off-white"
+              className="body-s ml-[60px] flex h-full  gap-[28px] text-neutral-off-white"
               currentIndex={inSideNavIndex}
             >
               {navList.map((nav) => (
                 <div
                   key={nav.id}
-                  className={`h-full flex-center  cursor-pointer ${
-                    curNavId === nav.id ? 'text-neutral-white body-s-bold' : ''
+                  className={`flex-center h-full  cursor-pointer ${
+                    curNavId === nav.id ? 'body-s-bold text-neutral-white' : ''
                   }`}
                   data-id={nav.id}
                   onClick={(e) => handleClickNav(e, nav)}
@@ -129,13 +127,13 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
         </div>
       </div>
       {showSecondNav && (
-        <div className="text-neutral-white tracking-[0.84px]  w-screen h-12 bg-neutral-off-black">
-          <div className="container m-auto flex h-full items-center body-s">
-            <div className="flex items-center h-[34px] pr-[20px] border-r-[0.5px] border-r-neutral-white">
+        <div className="h-12 w-screen  bg-neutral-off-black tracking-[0.84px] text-neutral-white">
+          <div className="body-s container m-auto flex h-full items-center">
+            <div className="flex h-[34px] items-center border-r-[0.5px] border-r-neutral-white pr-[20px]">
               {secondLabel}
             </div>
             <SlideHighlight
-              className="pl-[20px]  flex items-center gap-[30px] h-full"
+              className="flex  h-full items-center gap-[30px] pl-[20px]"
               currentIndex={secondNavIndex}
               type="SECOND_NAVBAR"
             >

@@ -1,7 +1,7 @@
 import { UserProfileType } from '@/service/webApi/user/type';
 import { createContext } from 'react';
 
-export enum BoxType {
+export enum ProfileHandleType {
   PERSONAL_EDIT = 'PersonalEdit',
   GITHUB_ACTIVITY = 'GithubActivity',
   EXPERIENCE = 'Experience',
@@ -12,7 +12,7 @@ export enum BoxType {
 export interface ProfileType {
   profile: UserProfileType;
   refresh: VoidFunction;
-  // loadingType: BoxType | '';
+  // loadingType: ProfileHandleType | '';
   loading: boolean;
 }
 export const ProfileContext = createContext<ProfileType>({

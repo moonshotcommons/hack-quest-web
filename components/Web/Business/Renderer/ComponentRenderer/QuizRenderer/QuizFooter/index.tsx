@@ -11,9 +11,9 @@ interface QuizFooterProps {
 const QuizFooter: FC<QuizFooterProps> = (props) => {
   const { showAnswer, setShowAnswer, onSubmit, submitDisable = false } = props;
   return (
-    <div className="flex justify-between items-center">
+    <div className="flex items-center justify-between">
       <div
-        className="underline font-next-book text-[#3E3E3E] hover:text-black transition tracking-[0.28px] leading-[125%] cursor-pointer"
+        className="cursor-pointer text-neutral-rich-gray underline transition hover:text-neutral-black"
         onClick={() => setShowAnswer(!showAnswer)}
       >
         {showAnswer && 'Hide'}
@@ -21,8 +21,8 @@ const QuizFooter: FC<QuizFooterProps> = (props) => {
       </div>
       <Button
         type="primary"
-        className={`py-[8px] px-[40px] font-next-book text-[#0B0B0B] text-[14px] ${
-          submitDisable ? 'opacity-40 cursor-not-allowed' : ''
+        className={`body-s px-[40px] py-[8px] text-neutral-black ${
+          submitDisable ? 'cursor-not-allowed opacity-40' : ''
         }`}
         disabled={submitDisable}
         onClick={() => onSubmit()}

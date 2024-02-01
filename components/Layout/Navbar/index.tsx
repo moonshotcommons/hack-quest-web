@@ -10,10 +10,10 @@ import { message } from 'antd';
 import Link from 'next/link';
 import { isBadgeIds, navbarList, needLoginPath } from './data';
 import { MenuType, NavbarListType } from './type';
-import { usePathname } from 'next/navigation';
 import { useRedirect } from '@/hooks/useRedirect';
 import { useUserStore } from '@/store/zustand/userStore';
 import { useMissionCenterStore } from '@/store/zustand/missionCenterStore';
+import { useCustomPathname } from '@/hooks/useCheckPathname';
 
 export interface NavBarProps {
   navList: NavbarListType[];
@@ -30,7 +30,7 @@ type SlideNavigatorHighlight = React.CSSProperties & {
 const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
   const userInfo = useUserStore((state) => state.userInfo);
   const { navList, children, isFull } = NavBarProps;
-  const pathname = usePathname();
+  const pathname = useCustomPathname();
   const { redirectToUrl } = useRedirect();
   const [showSecondNav, setShowSecondNav] = useState(false);
   const [secondNavData, setSecondNavData] = useState<MenuType[]>([]);
@@ -100,14 +100,14 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
   return (
     <div className=" w-full">
       <div
-        className={`h-[64px] mx-auto  ${
+        className={`mx-auto h-[64px]  ${
           isFull ? 'w-full 2xl:px-[40px]' : 'container'
         }`}
       >
-        <div className="slab:hidden  h-full flex items-center justify-between font-next-book">
-          <nav className="h-full flex items-center text-white">
+        <div className="flex  h-full items-center justify-between  slab:hidden">
+          <nav className="flex h-full items-center text-neutral-white">
             <div
-              className={`h-full flex items-center ${
+              className={`flex h-full items-center ${
                 !userInfo ? 'cursor-pointer' : ''
               }`}
               onClick={logoClick}
@@ -115,14 +115,14 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
               <Image src={DarkLogoActive} alt="logo"></Image>
             </div>
             <SlideHighlight
-              className="flex ml-16 gap-[10px] h-[34px] text-sm rounded-[20px] bg-[#3E3E3E] overflow-hidden tracking-[0.28px]"
+              className="ml-16 flex h-[34px] gap-[10px] overflow-hidden rounded-[20px] bg-neutral-rich-gray text-sm tracking-[0.28px]"
               currentIndex={inSideNavIndex}
             >
               {inSideNav.map((nav) => (
                 <div
                   key={nav.id}
-                  className={`h-full flex-center px-[14px] rounded-[20px] cursor-pointer ${
-                    curNavId === nav.id ? 'text-[#0b0b0b]' : ''
+                  className={`flex-center h-full cursor-pointer rounded-[20px] px-[14px] ${
+                    curNavId === nav.id ? 'text-neutral-black' : ''
                   }`}
                   data-id={nav.id}
                   onClick={(e) => handleClickNav(e, nav)}
@@ -136,13 +136,13 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
                 </div>
               ))}
             </SlideHighlight>
-            <div className="flex ml-[20px] gap-[10px] h-[34px]  text-[14px] rounded-[20px] bg-[#3E3E3E] overflow-hidden tracking-[0.28px]">
+            <div className="body-s ml-[20px] flex h-[34px]  gap-[10px] overflow-hidden rounded-[20px] bg-neutral-rich-gray">
               {outSideNav.map((nav) => (
                 <Link
                   key={nav.id}
                   href={nav.link as string}
                   target="_blank"
-                  className={`h-full flex-center px-[14px] rounded-[20px] cursor-pointer  `}
+                  className={`flex-center h-full cursor-pointer rounded-[20px] px-[14px]  `}
                 >
                   {nav.label}
                 </Link>
@@ -151,20 +151,20 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
           </nav>
           {children}
         </div>
-        <nav className="hidden slab:flex-center w-full h-full ">
+        <nav className="slab:flex-center hidden h-full w-full ">
           <Image src={DarkLogoActive} height={20} alt="logo"></Image>
         </nav>
       </div>
       {showSecondNav && (
-        <div className="slab:hidden  text-white tracking-[0.84px]  w-screen h-12 bg-[#0B0B0B]">
+        <div className="h-12  w-screen bg-neutral-black  tracking-[0.84px] text-neutral-white slab:hidden">
           <SlideHighlight
-            className="container m-auto flex items-end gap-[30px] h-full"
+            className="container m-auto flex h-full items-end gap-[30px]"
             currentIndex={secondNavIndex}
           >
             {secondNavData.map((menu: MenuType) => (
               <div
                 key={menu.path}
-                className="pb-3 cursor-pointer hover:underline"
+                className="cursor-pointer pb-3 hover:underline"
                 onClick={() => {
                   redirectToUrl(menu.path);
                 }}

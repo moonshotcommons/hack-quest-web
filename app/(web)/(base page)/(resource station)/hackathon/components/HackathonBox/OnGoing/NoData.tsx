@@ -8,13 +8,13 @@ interface NoDataType {
 const NoData: React.FC<NoDataType> = ({ goPast }) => {
   const { redirectToUrl } = useRedirect();
   return (
-    <div className="flex flex-col items-center pb-[100px] font-next-book">
-      <p className="text-home-learning-track-no-data-color text-[32px]">
+    <div className="flex flex-col items-center pb-[100px]">
+      <p className="text-[32px] text-home-learning-track-no-data-color">
         There is no ongoing hackathon
       </p>
       <Button
         onClick={goPast}
-        className="w-[360px] mt-[30px] text-[18px] mb-[20px] h-[55px] bg-home-learning-track-no-data-button-add-bg text-home-learning-track-no-data-button-add-color"
+        className="body-l mb-[20px] mt-[30px] h-[55px] w-[360px] bg-home-learning-track-no-data-button-add-bg text-home-learning-track-no-data-button-add-color"
       >
         Check Past Hackathon
       </Button>
@@ -24,7 +24,7 @@ const NoData: React.FC<NoDataType> = ({ goPast }) => {
             `${MenuLink.PROJECTS}?menu=${Menu.HACKATHON}&${QueryIdType.PROJECT_ID}=projects`
           )
         }
-        className="w-[360px] h-[55px] text-[18px] border border-home-learning-track-no-data-button-explore-border text-home-learning-track-no-data-button-explore-color"
+        className="body-l h-[55px] w-[360px] border border-home-learning-track-no-data-button-explore-border text-home-learning-track-no-data-button-explore-color"
       >
         Check All Projects
       </Button>

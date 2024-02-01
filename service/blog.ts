@@ -5,8 +5,7 @@ import webApi from '@/service/index';
 export const getBlogById = cache(async function (
   id: string
 ): Promise<BlogDetailType> {
-  const blog: BlogDetailType = await webApi.resourceStationApi.getBlogDetail(
-    id
-  );
+  const blog: BlogDetailType =
+    await webApi.resourceStationApi.getBlogDetail(id);
   return blog;
 });

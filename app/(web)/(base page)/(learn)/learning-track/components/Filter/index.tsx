@@ -21,7 +21,7 @@ const Filter: React.FC<FilterProp> = ({ changeSearchInfo, searchInfo }) => {
         <div
           key={v.value}
           onClick={() => changeSearchInfo({ ...searchInfo, language: v.value })}
-          className={`body-l text-[#000]  cursor-pointer ${
+          className={`body-l cursor-pointer  text-neutral-black ${
             searchInfo.language === v.value ? '  body-l-bold ' : ' '
           }`}
         >

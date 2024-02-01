@@ -8,7 +8,7 @@ import { useRequest } from 'ahooks';
 import { message } from 'antd';
 import { FC, useEffect, useState } from 'react';
 
-import ContractUs from '@/app/(web)/(base page)/(landing)/components/ContractUs';
+// import ContractUs from '@/app/(web)/(base page)/(landing)/components/ContractUs';
 import { LoginResponse, ThirdPartyAuthType } from '@/service/webApi/user/type';
 import { setToken } from '@/helper/user-token';
 import { omit } from 'lodash-es';
@@ -165,24 +165,22 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
   }, []);
 
   return (
-    <div className="w-full h-full flex justify-center">
+    <div className="flex h-full w-full justify-center">
       {/* <ThirdPartyLogin></ThirdPartyLogin> */}
       <div className="flex w-full flex-col gap-[25px]">
-        <h1 className="text-[#FFF] text-[32px] font-next-book leading-[125%] tracking-[0.64px]">
-          Got an Invite Code?
-        </h1>
-        <div className="text-[#FFF] text-[14px] font-next-book leading-[160%] -tracking-[0.154px]">
+        <h1 className="text-h3 text-neutral-white">Got an Invite Code?</h1>
+        <div className="body-s text-neutral-white">
           HackQuest is currently in beta. Get an invite code from an existing
           user to sign up.
         </div>
 
-        <div className="text-white">
+        <div className="text-neutral-white">
           <Input
             label="Invite Code"
             type="text"
             name="invite code"
             placeholder="Enter your invite code"
-            className="bg-[#212121] text-white"
+            className="bg-[#212121] text-neutral-white"
             // description="Use 8 or more characters with a mix of letters & numbers"
             state={formState.inviteCode.status as any}
             errorMessage={formState.inviteCode.errorMessage}
@@ -225,11 +223,11 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
           loading={emailLoading || thirdPartyLoading}
           iconPosition="right"
           className="
-          font-next-book
-          text-[1.125rem]
-          bg-auth-primary-button-bg hover:bg-auth-primary-button-hover-bg
-          text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
-          border-auth-primary-button-border-color hover:border-auth-primary-button-border-hover-color
+          button-text-l
+          border-auth-primary-button-border-color
+          bg-auth-primary-button-bg
+          text-auth-primary-button-text-color hover:border-auth-primary-button-border-hover-color
+          hover:bg-auth-primary-button-hover-bg hover:text-auth-primary-button-text-hover-color
           "
         >
           Next
@@ -261,8 +259,6 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
           loading={emailLoading || thirdPartyLoading}
           iconPosition="right"
           className="
-          font-next-book
-          text-[1.125rem]
           bg-auth-primary-button-bg hover:bg-auth-primary-button-hover-bg
           text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
           border-auth-primary-button-border-color hover:border-auth-primary-button-border-hover-color
@@ -293,28 +289,28 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
           loading={skipInviteCodeLoading}
           disabled={skipInviteCodeLoading}
           className={cn(
-            `font-next-book
-          text-[1.125rem]
+            `hover:text-auth-ghost-button-text-hover-color
+          hover:border-auth-ghost-button-border-hover-color
           border
+          border-neutral-white
           bg-transparent
-          text-white hover:text-auth-ghost-button-text-hover-color
-          border-white hover:border-auth-ghost-button-border-hover-color`,
+          text-[1.125rem] text-neutral-white`,
             skipInviteCodeLoading ? 'cursor-not-allowed opacity-70' : ''
           )}
         >
           Skip
         </Button>
-        <div className="py-[12px] flex justify-between items-center">
-          <div className="h-[1px] w-[20.5%] bg-white"></div>
-          <span className="text-[#FFF] text-[14px] font-next-book tracking-[0.28px]">
+        <div className="flex items-center justify-between py-[12px]">
+          <div className="h-[1px] w-[20.5%] bg-neutral-white"></div>
+          <span className="body-s text-neutral-white">
             Don’t have an invite code?
           </span>
-          <div className="h-[1px] w-[20.5%] bg-white"></div>
+          <div className="h-[1px] w-[20.5%] bg-neutral-white"></div>
         </div>
-        <p className="text-[#FFF] text-[14px] font-next-book leading-[160%] tracking-[0.28px] text-center">
+        <p className="body-s text-center text-neutral-white">
           Follow HackQuest on social media for latest updates:
         </p>
-        <ContractUs className="gap-[30px] justify-center"></ContractUs>
+        {/* <ContractUs className="gap-[30px] justify-center"></ContractUs> */}
       </div>
       {/* <WhiteListModal
         open={showWhiteListModal}

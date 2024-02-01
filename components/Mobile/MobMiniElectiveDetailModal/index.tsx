@@ -24,8 +24,6 @@ import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 import Tags from '@/components/Common/Tags';
 import { HiCodeBracket } from 'react-icons/hi2';
 
-import { Inter } from 'next/font/google';
-const inter = Inter({ subsets: ['latin'] });
 interface MiniElectiveDetailModalProps {}
 
 export interface MiniElectiveDetailModalRef {
@@ -99,7 +97,6 @@ const MobMiniElectiveDetailModal = forwardRef<
               state
             )
           ) {
-            debugger;
             const link = getLink(course!.type, item.id, course!.name);
             redirectToUrl(link);
           }
@@ -107,16 +104,18 @@ const MobMiniElectiveDetailModal = forwardRef<
       >
         <span
           className={cn(
-            'text-[#3E3E3E] text-[18px] font-next-book leading-[125%] tracking-[0.36px]',
+            'body-l text-neutral-rich-gray',
             [CompleteStateType.COMPLETED, CompleteStateType.LEARNING].includes(
               state
             )
               ? 'cursor-pointer'
               : '',
             state === CompleteStateType.LEARNING
-              ? 'font-next-book-bold text-[#131313]'
+              ? 'font-bold text-neutral-off-black'
               : '',
-            state === CompleteStateType.NOT_STARTED ? 'text-[#8C8C8C]' : ''
+            state === CompleteStateType.NOT_STARTED
+              ? 'text-neutral-medium-gray'
+              : ''
           )}
         >{`${index + 1 < 10 ? '0' + (index + 1) : index + 1} ${
           item.name
@@ -136,7 +135,7 @@ const MobMiniElectiveDetailModal = forwardRef<
       {open && (
         <Loading loading={loading}>
           <div
-            className={`w-full h-[calc(100vh-64px)] left-0 top-[64px] fixed bg-white px-[24px] py-[12px] overflow-hidden ${inter.className} z-[999] overflow-y-auto`}
+            className={`fixed left-0 top-[64px] z-[999] h-[calc(100vh-64px)] w-full overflow-hidden overflow-y-auto bg-neutral-white px-[24px] py-[12px]`}
           >
             <div className="w-full">
               <HiArrowLeft
@@ -148,47 +147,47 @@ const MobMiniElectiveDetailModal = forwardRef<
               />
             </div>
             {course && (
-              <div className="flex flex-col h-fit">
-                <div className="w-full h-[192px] relative mt-3">
+              <div className="flex h-fit flex-col">
+                <div className="relative mt-3 h-[192px] w-full">
                   <Image src={course.image} fill alt="cover"></Image>
                 </div>
                 <div className="mt-6">
                   <Tags className="px-[10px] py-1 uppercase">Security</Tags>
                 </div>
-                <h2 className="text-[#131313] text-[18px] font-extrabold mt-3">
+                <h2 className="body-l-bold mt-3 text-neutral-off-black">
                   {course.name}
                 </h2>
-                <p className="mt-3 font-next-book text-[14px] text-[#8C8C8C] leading-[160%] tracking-[0.32px] line-clamp-3">
+                <p className="body-s mt-3 line-clamp-3 text-neutral-medium-gray">
                   {course.description}
                 </p>
 
-                <div className="flex gap-6 mt-6">
-                  <div className="flex-1 flex flex-col gap-y-[12px]">
-                    <span className="font-bold text-[#131313] text-[14px] leading-[160%]">
+                <div className="mt-6 flex gap-6">
+                  <div className="flex flex-1 flex-col gap-y-[12px]">
+                    <span className="body-s-bold text-neutral-off-black">
                       Language
                     </span>
                     <div className="flex gap-2">
                       <span>
                         <HiCodeBracket size={20} />
                       </span>
-                      <span className="text-[14px] leading-[160%] text-[#3E3E3E]">
+                      <span className="body-s text-neutral-rich-gray">
                         {'Solidity'}
                       </span>
                     </div>
                   </div>
-                  <div className="flex-1 flex flex-col gap-y-[12px]">
-                    <span className="font-bold text-[#131313] text-[14px] leading-[160%]">
+                  <div className="flex flex-1 flex-col gap-y-[12px]">
+                    <span className="body-s-bold text-neutral-off-black">
                       Created by
                     </span>
                     <div
-                      className="px-[8px] py-[4px] flex gap-[10px] items-center cursor-pointer"
+                      className="flex cursor-pointer items-center gap-[10px] px-[8px] py-[4px]"
                       onClick={() =>
                         redirectToUrl(
                           `${MenuLink.ECOSYSTEM}/${course.creatorId}`
                         )
                       }
                     >
-                      <div className="w-[24px] h-[24px] rounded-full bg-[#D9D9D9] relative overflow-hidden">
+                      <div className="relative h-[24px] w-[24px] overflow-hidden rounded-full bg-[#D9D9D9]">
                         <Image
                           src={course.creator?.profileImage || Logo}
                           fill
@@ -196,7 +195,7 @@ const MobMiniElectiveDetailModal = forwardRef<
                           className="object-contain"
                         ></Image>
                       </div>
-                      <span className="text-[14px] leading-[160%] text-[#3E3E3E]">
+                      <span className="body-s text-neutral-rich-gray">
                         {course.creator?.name || 'HackQuest'}
                       </span>
                     </div>
@@ -204,29 +203,27 @@ const MobMiniElectiveDetailModal = forwardRef<
                 </div>
 
                 <div className="mt-8">
-                  <p className="font-bold leading-[160%] #131313">
+                  <p className="#131313 font-bold leading-[160%]">
                     Part of learning tracks
                   </p>
                   <div className="mt-3 flex flex-col gap-2">
-                    <div className="px-[10px] py-1 rounded-[20px] bg-[#FFFAE0] w-fit">
+                    <div className="w-fit rounded-[20px] bg-[#FFFAE0] px-[10px] py-1">
                       Specialize in NFT
                     </div>
-                    <div className="px-[10px] py-1 rounded-[20px] bg-[#FFFAE0] w-fit">
+                    <div className="w-fit rounded-[20px] bg-[#FFFAE0] px-[10px] py-1">
                       Specialize in Data
                     </div>
                   </div>
                 </div>
 
-                <div className="flex flex-col justify-between mt-10">
-                  <p className="text-[21px] font-next-poster-Bold text-[#0B0B0B] tracking-[1.26px]">
-                    Overview
-                  </p>
-                  <ul className="mt-6 mb-4 pb-[112px]">
+                <div className="mt-10 flex flex-col justify-between">
+                  <p className="text-h4 text-neutral-black">Overview</p>
+                  <ul className="mb-4 mt-6 pb-[112px]">
                     {course?.pages!.map((item, index) => {
                       return (
                         <li key={index} className="pr-2">
                           {index !== 0 && (
-                            <div className="h-[1px] w-full bg-[#8C8C8C] my-[24px]"></div>
+                            <div className="my-[24px] h-[1px] w-full bg-neutral-medium-gray"></div>
                           )}
                           {renderCourseListItem(item.state, item, index)}
                         </li>
@@ -237,12 +234,12 @@ const MobMiniElectiveDetailModal = forwardRef<
               </div>
             )}
             {course && (
-              <div className="fixed bottom-3 left-1/2 -translate-x-1/2 w-full px-6">
+              <div className="fixed bottom-3 left-1/2 w-full -translate-x-1/2 px-6">
                 <Button
                   type="primary"
                   block
                   className={cn(
-                    'py-[16px] font-next-book h-fit',
+                    'h-fit py-[16px] ',
                     jumpLoading ? 'cursor-not-allowed' : 'cursor-pointer'
                   )}
                   loading={jumpLoading}

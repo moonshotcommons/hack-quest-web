@@ -6,6 +6,8 @@ import { message } from 'antd';
 import { useEffect, useState } from 'react';
 import { useRedirect } from '../useRedirect';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
+import { isMobile } from 'react-device-detect';
+import { NavType } from '@/components/Mobile/MobLayout/BasePage/Navbar';
 
 export const useGetLessonContent = <
   T extends CourseLessonType | ElectiveLessonType
@@ -16,10 +18,14 @@ export const useGetLessonContent = <
   const [lesson, setLesson] = useState<T>();
   const { redirectToUrl } = useRedirect();
   const setAuthType = useUserStore((state) => state.setAuthType);
+  const setAuthModalOpen = useUserStore((state) => state.setAuthModalOpen);
+  const mobileAuthToggleOpenHandle = useUserStore(
+    (state) => state.mobileAuthToggleOpenHandle
+  );
   const { run, loading, refresh } = useRequest(
     async (lessonId) => {
       switch (courseType) {
-        case CourseType.Mini:
+        case CourseType.MINI:
           return webApi.courseApi.getLessonContent<T>(lessonId);
         default:
           return webApi.courseApi.getLessonContent<T>(lessonId);
@@ -34,7 +40,12 @@ export const useGetLessonContent = <
         if (error.code === 401) {
           message.error(error?.msg);
           setAuthType(AuthType.LOGIN);
-          redirectToUrl('/');
+          if (!isMobile) {
+            setAuthModalOpen(true);
+          } else {
+            mobileAuthToggleOpenHandle.setNavType(NavType.AUTH);
+            mobileAuthToggleOpenHandle.toggleOpen();
+          }
           return;
         }
 

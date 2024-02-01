@@ -104,16 +104,18 @@ const MiniElectiveDetailModal = forwardRef<
       >
         <span
           className={cn(
-            'text-[#3E3E3E] text-[18px] font-next-book leading-[125%] tracking-[0.36px]',
+            'body-l text-neutral-rich-gray',
             [CompleteStateType.COMPLETED, CompleteStateType.LEARNING].includes(
               state
             )
               ? 'cursor-pointer'
               : '',
             state === CompleteStateType.LEARNING
-              ? 'font-next-book-bold text-[#131313]'
+              ? 'body-l-bold text-neutral-off-black'
               : '',
-            state === CompleteStateType.NOT_STARTED ? 'text-[#8C8C8C]' : ''
+            state === CompleteStateType.NOT_STARTED
+              ? 'text-neutral-medium-gray'
+              : ''
           )}
         >{`${index + 1 < 10 ? '0' + (index + 1) : index + 1} ${
           item.name
@@ -163,33 +165,31 @@ const MiniElectiveDetailModal = forwardRef<
       markBg="black"
     >
       <Loading loading={loading}>
-        <div className="w-[1000px] h-[625px] bg-white rounded-[16px] p-[32px] overflow-hidden">
+        <div className="h-[625px] w-[1000px] overflow-hidden rounded-[16px] bg-neutral-white p-[32px]">
           {course && (
-            <div className="flex justify-between max-h-[625px] p-[24px] mt-[24px] gap-x-[96px]">
-              <div className="w-[400px] flex flex-col gap-[32px]">
-                <div className="w-full h-[225px] relative">
+            <div className="mt-[24px] flex max-h-[625px] justify-between gap-x-[96px] p-[24px]">
+              <div className="flex w-[400px] flex-col gap-[32px]">
+                <div className="relative h-[225px] w-full">
                   <Image src={course.image} fill alt="cover"></Image>
                 </div>
                 <div>
-                  <h2 className="text-[#0B0B0B] text-h2 tracking-[2.4px] leading-[125%]">
-                    {course.name}
-                  </h2>
-                  <p className="mt-[16px] font-next-book text-[#3E3E3E] leading-[125%] tracking-[0.32px]">
+                  <h2 className="text-h2 text-neutral-black">{course.name}</h2>
+                  <p className="mt-[16px] text-neutral-rich-gray">
                     {course.description}
                   </p>
                 </div>
-                <div className="flex gap-[32px] items-center font-next-book text-[14px] leading-[125%] tracking-[0.28px] text-[#0B0B0B]">
-                  <div className="flex gap-x-[12px] items-center">
+                <div className="body-s flex items-center gap-[32px] text-neutral-black">
+                  <div className="flex items-center gap-x-[12px]">
                     <span>Created by</span>
                     <div
-                      className="px-[8px] py-[4px] flex gap-[10px] items-center border border-[#8C8C8C] rounded-[17px] cursor-pointer"
+                      className="flex cursor-pointer items-center gap-[10px] rounded-[17px] border border-neutral-medium-gray px-[8px] py-[4px]"
                       onClick={() =>
                         redirectToUrl(
                           `${MenuLink.ECOSYSTEM}/${course.creatorId}`
                         )
                       }
                     >
-                      <div className="w-[24px] h-[24px] rounded-full bg-[#D9D9D9] relative overflow-hidden">
+                      <div className="relative h-[24px] w-[24px] overflow-hidden rounded-full bg-[#D9D9D9]">
                         <Image
                           src={course.creator?.profileImage || Logo}
                           fill
@@ -205,17 +205,15 @@ const MiniElectiveDetailModal = forwardRef<
                   </Tag>
                 </div>
               </div>
-              <div className="flex-1 flex flex-col ju overflow-hidden">
-                <div className="flex-1 flex flex-col justify-between overflow-hidden">
-                  <p className="text-[21px] font-next-poster-Bold text-[#0B0B0B] tracking-[1.26px]">
-                    Overview
-                  </p>
-                  <ul className="mt-[32px] flex-1 overflow-auto max-h-[372px] scroll-wrap-y mb-4">
+              <div className="ju flex flex-1 flex-col overflow-hidden">
+                <div className="flex flex-1 flex-col justify-between overflow-hidden">
+                  <p className="text-h4 text-neutral-black">Overview</p>
+                  <ul className="scroll-wrap-y mb-4 mt-[32px] max-h-[372px] flex-1 overflow-auto">
                     {course?.pages!.map((item, index) => {
                       return (
                         <li key={index} className="pr-2">
                           {index !== 0 && (
-                            <div className="h-[1px] w-full bg-[#8C8C8C] my-[24px]"></div>
+                            <div className="my-[24px] h-[1px] w-full bg-neutral-medium-gray"></div>
                           )}
                           {renderCourseListItem(item.state, item, index)}
                         </li>
@@ -228,7 +226,7 @@ const MiniElectiveDetailModal = forwardRef<
                     type="primary"
                     block
                     className={cn(
-                      'py-[16px] font-next-book h-fit',
+                      'h-fit py-[16px] ',
                       jumpLoading ? 'cursor-not-allowed' : 'cursor-pointer'
                     )}
                     loading={jumpLoading}

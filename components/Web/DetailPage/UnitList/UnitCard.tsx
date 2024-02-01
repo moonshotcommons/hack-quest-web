@@ -17,8 +17,8 @@ import { useRouter } from 'next/navigation';
 import { FC, useContext } from 'react';
 import styled from 'styled-components';
 import { LearningStatus } from '../type';
-import { QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import Button from '@/components/Common/Button';
+import { QueryIdType } from '../../Business/Breadcrumb/type';
 
 const CustomProgress = styled(Progress)`
   .ant-progress-inner {
@@ -57,8 +57,8 @@ const UnitButton: FC<
       <Button
         loading={loading}
         disabled={loading}
-        className="w-[165px] px-0 hover:-translate-y-[1px] hover:shadow-[rgba(0,0,0,0.15)_1.95px_1.95px_2.6px] transition py-[11px]
-         border border-solid bg-course-learning-button-bg border-course-learning-button-border-color rounded-[32px] whitespace-nowrap text-[16px] text-[#0B0B0B] font-next-book cursor-pointer leading-[125%]"
+        className="body-m w-[165px] cursor-pointer whitespace-nowrap rounded-[32px] border
+         border-solid border-course-learning-button-border-color bg-course-learning-button-bg px-0 py-[11px] text-neutral-black transition hover:-translate-y-[1px] hover:shadow-[rgba(0,0,0,0.15)_1.95px_1.95px_2.6px]"
         {...rest}
       >
         Start
@@ -70,7 +70,7 @@ const UnitButton: FC<
     <Button
       loading={loading}
       disabled={loading}
-      className="w-[165px] py-[11px] hover:-translate-y-[1px] hover:shadow-[rgba(0,0,0,0.15)_1.95px_1.95px_2.6px] transition border border-solid bg-course-learning-button-bg border-course-learning-button-border-color rounded-[32px] whitespace-nowrap text-[#0B0B0B] font-next-book text-[16px] cursor-pointer leading-[125%]"
+      className="body-m w-[165px] cursor-pointer whitespace-nowrap rounded-[32px] border border-solid border-course-learning-button-border-color bg-course-learning-button-bg py-[11px] text-neutral-black transition hover:-translate-y-[1px] hover:shadow-[rgba(0,0,0,0.15)_1.95px_1.95px_2.6px]"
       {...rest}
     >
       Resume
@@ -94,7 +94,7 @@ const UnitCard: FC<UnitCardProps> = (props) => {
     typeof window !== 'undefined' ? window.location.search : ''
   );
   return (
-    <div className="py-[30px] flex items-center pl-[54px] pr-[50px]">
+    <div className="flex items-center py-[30px] pl-[54px] pr-[50px]">
       {/* <div
         className={`w-[23.25rem] h-[9.8125rem] rounded-[1.25rem] overflow-hidden flex justify-center ${
           unit.progress === 1 ? 'cursor-pointer' : ''
@@ -114,9 +114,9 @@ const UnitCard: FC<UnitCardProps> = (props) => {
           }
         }}
       ></div> */}
-      <div className="w-[65px] h-[65px] flex items-center justify-center">
+      <div className="flex h-[65px] w-[65px] items-center justify-center">
         {learningStatus !== LearningStatus.UN_START && (
-          <div className="text-text-default-color flex items-center justify-center">
+          <div className="flex items-center justify-center text-text-default-color">
             {isLock ? (
               <span className="text-course-unit-lock-icon-color">
                 <LockIcon
@@ -144,7 +144,7 @@ const UnitCard: FC<UnitCardProps> = (props) => {
                 format={(percent: any) => {
                   if (percent === 100) {
                     return (
-                      <span className="flex justify-center items-center align-middle text-course-progress-icon-color">
+                      <span className="flex items-center justify-center align-middle text-course-progress-icon-color">
                         <CheckIcon
                           width={32}
                           height={32}
@@ -163,15 +163,15 @@ const UnitCard: FC<UnitCardProps> = (props) => {
         )}
 
         {learningStatus === LearningStatus.UN_START && (
-          <div className="w-[65px] h-[65px] border-2 border-[#000] rounded-full relative">
-            <span className="absolute text-[32px] font-next-poster text-[#000 tracking-[1.92px] left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2">
+          <div className="relative h-[65px] w-[65px] rounded-full border-2 border-neutral-black">
+            <span className="text-[#000 text-h3 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
               {index + 1}
             </span>
           </div>
         )}
       </div>
 
-      <div className="ml-[60px] lg:ml-[120px] xl:ml-[335px] flex-1">
+      <div className="ml-[60px] flex-1 lg:ml-[120px] xl:ml-[335px]">
         <div
           className={cn(
             'max-w-[450px]',
@@ -186,7 +186,7 @@ const UnitCard: FC<UnitCardProps> = (props) => {
               const lessonId = unitPages.pages[0]?.id;
               let link = `${getLessonLink(
                 courseType as CourseType,
-                courseDetail?.name as string,
+                courseDetail?.title as string,
                 lessonId,
                 courseDetail?.id as string,
                 {
@@ -205,13 +205,11 @@ const UnitCard: FC<UnitCardProps> = (props) => {
             }
           }}
         >
-          <h2 className="font-next-book-bold font-bold text-[1.5rem] text-text-default-color leading-[120%]">
-            {unit.name}
-          </h2>
+          <h2 className="body-xl-bold text-text-default-color">{unit.name}</h2>
           <div>
             <Typography.Paragraph
               ellipsis={{ rows: 3 }}
-              className="text-course-unit-desc-text-color font-next-book leading-[120%] text-base mt-4"
+              className="body-m mt-4 text-course-unit-desc-text-color"
             >
               {unit.description}
             </Typography.Paragraph>

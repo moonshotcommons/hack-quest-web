@@ -7,7 +7,7 @@ interface CourseListProps {
 }
 const CourseList: React.FC<CourseListProps> = ({ list }) => {
   return (
-    <div className="flex-1 flex flex-wrap gap-[20px] pb-[20px]">
+    <div className="flex flex-1 flex-wrap gap-[20px] pb-[20px]">
       {list.map((course) => (
         <PracticeCard key={course?.id} course={course}></PracticeCard>
       ))}

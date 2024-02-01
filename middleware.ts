@@ -38,12 +38,11 @@ export const config = {
      * - /images
      */
     {
-      source:
-        '/((?!api|_next/static|_next/image|_vercel|images|favicon.ico).*)',
-      missing: [
-        { type: 'header', key: 'next-router-prefetch' },
-        { type: 'header', key: 'purpose', value: 'prefetch' }
-      ]
+      source: '/((?!api|_next/static|_next/image|_vercel|images|favicon.ico).*)'
+      // missing: [
+      //   { type: 'header', key: 'next-router-prefetch' },
+      //   { type: 'header', key: 'purpose', value: 'prefetch' }
+      // ]
     }
   ]
 };

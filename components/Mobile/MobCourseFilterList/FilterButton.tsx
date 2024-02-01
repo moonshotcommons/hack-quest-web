@@ -15,12 +15,12 @@ const MobFilterButton: React.FC<MobFilterButtonProp> = ({
   return (
     <>
       <div
-        className="flex items-center button-text-s h-[2.125rem] gap-[0.75rem] justify-center bg-yellow-primary rounded-[1.0625rem]"
+        className="button-text-s flex h-[2.125rem] items-center justify-center gap-[0.75rem] rounded-[1.0625rem] bg-yellow-primary"
         onClick={onClick}
       >
         {!isSelectFilter && <TbAdjustmentsHorizontal size={14} />}
         {isSelectFilter && (
-          <div className="w-6 h-6 body-s-bold bg-neutral-off-black text-neutral-white flex items-center justify-center rounded-full">
+          <div className="body-s-bold flex h-6 w-6 items-center justify-center rounded-full bg-neutral-off-black text-neutral-white">
             {count}
           </div>
         )}

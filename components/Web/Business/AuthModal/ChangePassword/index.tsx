@@ -69,10 +69,10 @@ const Success = () => {
         type="primary"
         block
         className="
-        py-4 uppercase button-text-l
-      bg-auth-primary-button-bg hover:bg-auth-primary-button-hover-bg
-      text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
-      border-auth-primary-button-border-color hover:border-auth-primary-button-border-hover-color
+        button-text-l border-auth-primary-button-border-color bg-auth-primary-button-bg
+      py-4 uppercase
+      text-auth-primary-button-text-color hover:border-auth-primary-button-border-hover-color
+      hover:bg-auth-primary-button-hover-bg hover:text-auth-primary-button-text-hover-color
       "
       >
         {`Back to Log in (${countDown}s)`}
@@ -84,7 +84,7 @@ const Fail = () => {
   const { redirectToUrl } = useRedirect();
   const setAuthType = useUserStore((state) => state.setAuthType);
   return (
-    <div className="flex flex-col h-full gap-8 w-full justify-between">
+    <div className="flex h-full w-full flex-col justify-between gap-8">
       <div className="flex flex-col gap-6">
         <svg
           width="64"
@@ -117,10 +117,10 @@ const Fail = () => {
         }}
         block
         className="
-        py-4 uppercase button-text-l
-          bg-auth-primary-button-bg hover:bg-auth-primary-button-hover-bg
-          text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
-          border-auth-primary-button-border-color hover:border-auth-primary-button-border-hover-color
+        button-text-l border-auth-primary-button-border-color bg-auth-primary-button-bg
+          py-4 uppercase
+          text-auth-primary-button-text-color hover:border-auth-primary-button-border-hover-color
+          hover:bg-auth-primary-button-hover-bg hover:text-auth-primary-button-text-hover-color
           "
       >
         Back to Log in
@@ -200,7 +200,7 @@ const ChangeForm = ({
   );
 
   return (
-    <div className="h-full w-full flex flex-col justify-between">
+    <div className="flex h-full w-full flex-col justify-between">
       <div className="flex w-full flex-col gap-[24px]">
         <Input
           label="Password"
@@ -269,10 +269,10 @@ const ChangeForm = ({
         iconPosition="right"
         icon={<RightArrowIcon></RightArrowIcon>}
         className="
-        py-4 uppercase button-text-l
-              bg-auth-primary-button-bg hover:bg-auth-primary-button-hover-bg
-              text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
-              border-auth-primary-button-border-color hover:border-auth-primary-button-border-hover-color
+        button-text-l border-auth-primary-button-border-color bg-auth-primary-button-bg
+              py-4 uppercase
+              text-auth-primary-button-text-color hover:border-auth-primary-button-border-hover-color
+              hover:bg-auth-primary-button-hover-bg hover:text-auth-primary-button-text-hover-color
               "
       >
         Continue

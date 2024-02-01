@@ -19,19 +19,19 @@ const renderSelectState = (type: CourseType) => {
   switch (type) {
     case CourseType.SYNTAX:
       return (
-        <div className="absolute w-full -top-2 left-0 h-1 rounded-xl bg-gradient-to-t from-[#0891D5] to-[#38C1A5]"></div>
+        <div className="absolute -top-2 left-0 h-1 w-full rounded-xl bg-gradient-to-t from-[#0891D5] to-[#38C1A5]"></div>
       );
     case CourseType.GUIDED_PROJECT:
       return (
-        <div className="absolute w-full -top-2 left-0 h-1 rounded-xl bg-gradient-to-t from-[#5C1DE6] to-[#1B7DEC]"></div>
+        <div className="absolute -top-2 left-0 h-1 w-full rounded-xl bg-gradient-to-t from-[#5C1DE6] to-[#1B7DEC]"></div>
       );
     case CourseType.CONCEPT:
       return (
-        <div className="absolute w-full -top-2 left-0 h-1 rounded-xl bg-gradient-to-t from-[#EB3E1C] to-[#E0AD38]"></div>
+        <div className="absolute -top-2 left-0 h-1 w-full rounded-xl bg-gradient-to-t from-[#EB3E1C] to-[#E0AD38]"></div>
       );
     case CourseType.TEASER:
       return (
-        <div className="absolute w-full -top-2 left-0 h-1 rounded-xl bg-gradient-to-t from-[#8E8E8E] to-[#FFF]"></div>
+        <div className="absolute -top-2 left-0 h-1 w-full rounded-xl bg-gradient-to-t from-[#8E8E8E] to-[#FFF]"></div>
       );
   }
 };
@@ -43,7 +43,7 @@ const Tab: FC<TabProps> = (props) => {
   );
 
   return (
-    <div className="relative w-[102%] flex gap-[5rem] items-center h-16 top-line bottom-line test-wrap">
+    <div className="top-line bottom-line test-wrap relative flex h-16 w-[102%] items-center gap-[5rem]">
       {tabs.map((item) => {
         const classes = classNames({
           // 'left-0': item.type === CourseType.SYNTAX,
@@ -54,10 +54,8 @@ const Tab: FC<TabProps> = (props) => {
         return (
           <div
             key={item.type}
-            className={`relative ${classes} h-full flex items-center cursor-pointer text-course-card-title-text-color test-wrap-item ${
-              selectTab === item.type
-                ? 'font-next-poster-Bold text-base'
-                : 'font-next-poster-Thin font-thin text-base'
+            className={`relative ${classes} test-wrap-item flex h-full cursor-pointer items-center text-course-card-title-text-color ${
+              selectTab === item.type ? 'body-m-bold' : 'body-m'
             }`}
             onClick={() => {
               setSelectTab(item.type);

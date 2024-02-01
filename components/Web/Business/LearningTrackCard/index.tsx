@@ -5,8 +5,9 @@ import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import CourseTags from '@/components/Web/Business/CourseTags';
 import { menuLink } from '@/components/Web/Business/Breadcrumb/data';
 import { useRedirect } from '@/hooks/useRedirect';
-import { cn } from '@/helper/utils';
 import LearningTrackImg from '@/public/images/home/learningtrack_img.png';
+import TrackTag from '@/components/Common/TrackTag';
+import CompletedIcon from '@/components/Common/Icon/Completed';
 interface LearningTrackCardProps {
   learningTrack: LearningTrackDetailType;
   isLandingPage?: boolean;
@@ -30,47 +31,26 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
 
   return (
     <div
-      className={cn(
-        'h-[264px] w-full relative  p-[32px] cursor-pointer rounded-[24px] bg-[var(--neutral-white)] overflow-hidden flex items-center gap-[16px] hover:-translate-y-1 transition-all duration-300  hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)]',
-        className
-      )}
+      className={
+        'card-hover relative flex  h-[207px] w-full items-center gap-[30px] overflow-hidden rounded-[16px] bg-neutral-white p-[16px]'
+      }
       onClick={goLearningTrackDetail}
     >
-      {learningTrack.progress && learningTrack.progress >= 1 ? (
-        <div
-          className={`absolute  ${
-            from === 'learningTrack'
-              ? 'right-[32px] top-[32px]'
-              : 'right-[16px] top-[16px]'
-          }`}
-        >
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 32 32"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <circle cx="16" cy="16" r="16" fill="#00C365" />
-            <path
-              d="M8 15.9999L14.4 22.3999L25.6 11.1999"
-              stroke="white"
-              strokeLinecap="round"
-            />
-          </svg>
+      {from === 'dashboard' &&
+      learningTrack.progress &&
+      learningTrack.progress >= 1 ? (
+        <div className={`absolute  right-[16px] top-[16px]`}>
+          <CompletedIcon />
         </div>
       ) : null}
-      <div className="flex-1 h-full flex flex-col flex-shrink-0 justify-between">
-        <div className="button-text-s w-fit uppercase  px-[10px] py-[4px] text-neutral-off-black border border-neutral-off-black rounded-[20px]  ">
-          {learningTrack.track}
+
+      <div className="flex h-full flex-1 flex-shrink-0 flex-col justify-between">
+        <TrackTag track={learningTrack.track} />
+        <div className="body-m-bold line-clamp-1 text-neutral-off-black">
+          {learningTrack.name}
         </div>
-        <div>
-          <div className="text-neutral-off-black text-h4 line-clamp-1">
-            {learningTrack.name}
-          </div>
-          <div className="body-s h-[66px] text-neutral-medium-gray  line-clamp-3 mt-[8px]">
-            {learningTrack.description}
-          </div>
+        <div className="body-s line-clamp-3 h-[66px]  text-neutral-medium-gray">
+          {learningTrack.description}
         </div>
         <div>
           <CourseTags
@@ -81,13 +61,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
           ></CourseTags>
         </div>
       </div>
-      <div
-        className={` relative ${
-          from === 'learningTrack'
-            ? 'w-[200px] h-[200px]'
-            : 'w-[100px] h-[100px]'
-        }`}
-      >
+      <div className={`relative  h-[160px] w-[160px]`}>
         <Image
           src={learningTrack.image || LearningTrackImg}
           fill

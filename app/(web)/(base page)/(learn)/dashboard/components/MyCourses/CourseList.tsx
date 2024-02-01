@@ -16,16 +16,13 @@ interface CourseListProp {
 
 const CourseList: React.FC<CourseListProp> = ({ list, curTab }) => {
   const card = (course: CourseDetailType) => {
-    const className = `${
-      curTab === ProcessType.IN_PROCESS ? 'h-[338px]' : 'h-[356px]'
-    }`;
     switch (course.type) {
-      case CourseType.Mini:
+      case CourseType.MINI:
+      case CourseType.UGC:
         return (
           <ElectiveCard
             course={course as ElectiveCourseType}
             from={'dashboard'}
-            className={className}
             inProgress={curTab === ProcessType.IN_PROCESS}
           />
         );
@@ -34,7 +31,6 @@ const CourseList: React.FC<CourseListProp> = ({ list, curTab }) => {
           <PracticeCard
             course={course as ProjectCourseType}
             from={'dashboard'}
-            className={className}
             inProgress={curTab === ProcessType.IN_PROCESS}
           />
         );

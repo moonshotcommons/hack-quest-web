@@ -71,9 +71,9 @@ const MiniElectiveCompletedModal = forwardRef<
       }
       markBg="black"
     >
-      <div className="w-[840px] bg-white rounded-[16px] relative flex flex-col items-center justify-end">
-        <div className="w-[260px] items-center mb-[112px] mt-[125px] flex flex-col gap-10">
-          <div className="flex gap-4 items-center">
+      <div className="relative flex w-[840px] flex-col items-center justify-end rounded-[16px] bg-neutral-white">
+        <div className="mb-[112px] mt-[125px] flex w-[260px] flex-col items-center gap-10">
+          <div className="flex items-center gap-4">
             <svg
               width="33"
               height="24"
@@ -90,14 +90,12 @@ const MiniElectiveCompletedModal = forwardRef<
               />
             </svg>
 
-            <span className="text-[28px] font-next-poster-Bold text=[#131313] tracking-[1.68px]">
-              Nice Job!
-            </span>
+            <span className="text=[#131313] text-h3">Nice Job!</span>
           </div>
-          <p className="text-center font-next-book leading-[125%] tracking-[0.32px] text-[#3E3E3E]">
+          <p className="body-m text-center text-neutral-rich-gray">
             You have completed this mini. Continue to claim your Badge.
           </p>
-          <div className="flex w-full flex-col gap-y-[15px] font-next-book leading-[125%] text-base tracking-[0.32px]">
+          <div className="body-m flex w-full flex-col gap-y-[15px]">
             <Button block type="primary" className="py-[11px]">
               Claim Badge
             </Button>
@@ -105,14 +103,14 @@ const MiniElectiveCompletedModal = forwardRef<
               block
               ghost
               type="primary"
-              className="py-[11px] border-black"
+              className="border-neutral-black py-[11px]"
               onClick={() => setOpen(false)}
             >
               Close
             </Button>
           </div>
         </div>
-        <div className="w-[629px] h-[186px] relative">
+        <div className="relative h-[186px] w-[629px]">
           <Image src={BottomImage} fill alt=""></Image>
         </div>
       </div>

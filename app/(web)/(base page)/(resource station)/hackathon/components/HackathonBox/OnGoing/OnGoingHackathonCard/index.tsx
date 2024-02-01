@@ -39,10 +39,10 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({
   }, [hackathon]);
   return (
     <div
-      className="h-[400px] cursor-pointer font-next-book rounded-[10px] bg-[#fff] overflow-hidden flex  mb-[20px] hover:-translate-y-1 transition-all duration-300 shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)] "
+      className="card-hover mb-[20px] flex  h-[322px] cursor-pointer overflow-hidden rounded-[10px]  bg-neutral-white text-neutral-off-black"
       onClick={goHackathonDetail}
     >
-      <div className="h-full w-[711px] relative bg-[#d9d9d9]/30">
+      <div className="relative h-full w-[571px] bg-[#d9d9d9]/30">
         <Image
           src={hackathon.image}
           fill
@@ -50,44 +50,42 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({
           className="object-cover"
         ></Image>
       </div>
-      <div className="flex-1 h-full flex flex-col justify-between p-[30px]">
-        <div className="flex">
-          <div className="text-[21px] leading-[21px] font-next-book-bold">
-            {hackathon.name}
-          </div>
-        </div>
-        <div className="relative h-[100px] flex flex-col justify-between pl-[20px]">
-          <div className="absolute left-0 top-0 w-[5px] h-full rounded-[10px] bg-yellow-primary"></div>
-          <div>
-            <div className="text-[#8C8C8C]">RUNS FROM</div>
-            <div className="text-[16px]">
+      <div className="flex h-full flex-1 flex-col justify-between px-[24px] py-[20px]">
+        <div className="text-h3">{hackathon.name}</div>
+        <div className="relative flex h-[60px] flex-col justify-between pl-[20px]">
+          <div className="absolute left-0 top-0 h-full w-[5px] rounded-[10px] bg-yellow-dark"></div>
+          <div className="flex items-center gap-[16px]">
+            <div className="body-s text-neutral-medium-gray">RUNS FROM</div>
+            <div className="body-m">
               {getRunFromTime(hackathon.startTime, hackathon.endTime)}
             </div>
           </div>
-          <div>
-            <div className="text-[#8C8C8C]">HAPPENING</div>
-            <div className="text-[16px]">{hackathon.address}</div>
+          <div className="flex items-center gap-[16px]">
+            <div className="body-s text-neutral-medium-gray">HAPPENING</div>
+            <div className="underline-m">{hackathon.address}</div>
           </div>
         </div>
-        <div className="h-[63px] px-[20px] rounded-[10px] bg-[rgba(255,244,206,0.5)] flex flex-col justify-center ">
-          <div className="text-[#8C8C8C]">APPLICATIONS CLOSE IN</div>
-          <div className="text-[16px]">{closeInTime}</div>
+        <div className="flex h-[42px] items-center  gap-[16px] rounded-[10px] bg-yellow-extra-light px-[20px]">
+          <div className="body-s text-neutral-medium-gray">
+            APPLICATIONS CLOSE IN
+          </div>
+          <div className="body-m">{closeInTime}</div>
         </div>
-        <div className="flex justify-between">
+        <div className="flex gap-[16px]">
           <Button
-            className="w-[245px] h-[60px] text-[18px] bg-yellow-primary"
+            className="body-l h-[60px] flex-1 bg-yellow-primary"
             onClick={() => {
               BurialPoint.track(`hackathon onGoingCard Apply Now 按钮点击`);
               window.open(hackathon.applyLink);
             }}
           >
-            Apply Now
+            APPLY NOW
           </Button>
           <Button
-            className="w-[245px] h-[60px] text-[18px] border border-[#0B0B0B]"
+            className="body-l h-[60px] flex-1 border border-neutral-black"
             onClick={goHackathonDetail}
           >
-            Learn More
+            LEARN MORE
           </Button>
         </div>
       </div>

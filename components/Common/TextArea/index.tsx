@@ -117,9 +117,7 @@ const TextArea = forwardRef<
 
   return (
     <div className="flex flex-col gap-[0.75rem]">
-      <p className="text-[21px] font-next-poster leading-[125%] tracking-[1.26px]">
-        {label}
-      </p>
+      <p className="body-l">{label}</p>
       <div className="relative">
         <textarea
           ref={textareaRef}
@@ -127,9 +125,9 @@ const TextArea = forwardRef<
           placeholder={placeholder}
           rows={row}
           className={cn(
-            `w-full border border-solid min-h-[150px] max-h-[300px] border-[#212121] outline-none px-[25px] py-[15px] rounded-[24px] text-[14px] font-next-book leading-[118.5%]  hover:border-[#212121] focus:border-[#212121]`,
+            `body-m max-h-[300px] min-h-[150px] w-full rounded-[24px] border border-solid border-neutral-dark-gray px-[25px] py-[15px]  outline-none  hover:border-neutral-dark-gray focus:border-neutral-dark-gray`,
             // type === 'password' &&
-            //   'border-auth-password-input-bg focus:border-[#212121]',
+            //   'border-auth-password-input-bg focus:border-neutral-dark-gray',
             status === 'success'
               ? 'border-auth-input-success-color focus:border-auth-input-success-color'
               : '',
@@ -147,10 +145,10 @@ const TextArea = forwardRef<
           {...rest}
         />
 
-        <span className="absolute right-[1.4375rem] top-[50%] -translate-y-[50%] flex gap-4 items-center">
+        <span className="absolute right-[1.4375rem] top-[50%] flex -translate-y-[50%] items-center gap-4">
           {status === 'error' && (
             <span
-              className="text-auth-input-error-color flex justify-center items-center cursor-pointer"
+              className="flex cursor-pointer items-center justify-center text-auth-input-error-color"
               onClick={() => {
                 setValue('');
                 setErrorMessage('');
@@ -171,7 +169,7 @@ const TextArea = forwardRef<
           )}
           {showVisibleIcon && value && (
             <span
-              className="text-auth-input-visible-icon-color cursor-pointer"
+              className="cursor-pointer text-auth-input-visible-icon-color"
               onMouseDown={(e) => {
                 if (propType === 'password' && type === 'password') {
                   setType('text');
@@ -194,12 +192,10 @@ const TextArea = forwardRef<
         </span>
       </div>
       {description && (
-        <p className="ml-[1.5rem] text-  text-[1rem] leading-[150%] tracking-[-0.011rem] font-Sofia-Pro-Light-Az">
-          {description}
-        </p>
+        <p className="text- body-m  ml-[1.5rem]">{description}</p>
       )}
       {errorMessage && (
-        <p className="text-auth-input-error-color text-[1rem] leading-[150%] tracking-[-0.011rem] font-Sofia-Pro-Light-Az flex flex-row items-center gap-2">
+        <p className="body-m flex flex-row items-center gap-2 text-auth-input-error-color">
           <WarningIcon width={17} height={16}></WarningIcon>
           {errorMessage}
         </p>

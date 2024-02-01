@@ -9,6 +9,7 @@ import { useGetLessonLink } from './useGetLessonLink';
 import { useRedirect } from '../useRedirect';
 import { useParams } from 'next/navigation';
 import { useCourseStore } from '@/store/zustand/courseStore';
+import { useShallow } from 'zustand/react/shallow';
 
 export const useGotoNextLesson = (
   lesson: CourseLessonType,
@@ -17,13 +18,19 @@ export const useGotoNextLesson = (
 ) => {
   const { redirectToUrl } = useRedirect();
   const params = useParams();
-  const { courseId: courseName } = params;
+  // const { courseId: courseName } = params;
   // const [completeModalOpen, setCompleteModalOpen] = useState(false);
+
   const { getLink } = useGetLessonLink();
   const [loading, setLoading] = useState(false);
   const completeModalRef = useRef<CompleteModalInstance>(null);
 
-  const unitsLessonsList = useCourseStore((state) => state.unitsLessonsList);
+  const { unitsLessonsList, courseName } = useCourseStore(
+    useShallow((state) => ({
+      unitsLessonsList: state.unitsLessonsList,
+      courseName: state.learnPageTitle
+    }))
+  );
 
   const { run: onNextClick } = useDebounceFn(async (callbackProp?) => {
     setLoading(true);

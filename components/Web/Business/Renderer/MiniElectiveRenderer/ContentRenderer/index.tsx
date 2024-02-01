@@ -15,12 +15,12 @@ const ContentRenderer: FC<ContentRendererProps> = (props) => {
   const { leftLength } = useContext(LessonPageContext);
   return (
     <div
-      className={`rounded-[10px]  mb-5 ${
+      className={`mb-5  rounded-[10px] ${
         leftLength > 1 ? 'border border-lesson-title-box-border-color' : ''
       }`}
     >
       <div
-        className={`flex  justify-between items-center ${
+        className={`flex  items-center justify-between ${
           leftLength > 1 ? 'cursor-pointer' : ''
         }`}
         onClick={() => {
@@ -29,13 +29,6 @@ const ContentRenderer: FC<ContentRendererProps> = (props) => {
           setShowAll(!showAll);
         }}
       >
-        {/* <span className="font-next-poster-Bold text-[21px] tracking-[1.26px]">
-          {component.title || (
-            <TextRenderer
-              richTextArr={component.content.rich_text}
-            ></TextRenderer>
-          )}
-        </span> */}
         {leftLength > 1 ? (
           <span
             className={`${

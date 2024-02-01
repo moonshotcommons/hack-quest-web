@@ -129,13 +129,13 @@ const EasyCrop = forwardRef<EasyCropRef, EasyCropProps>((props, ref) => {
 
       {zoomSlider && (
         <section
-          className={`${PREFIX}-control ${PREFIX}-control-zoom ${wrapperClass} px-[128px] flex flex-col justify-start`}
+          className={`${PREFIX}-control ${PREFIX}-control-zoom ${wrapperClass} flex flex-col justify-start px-[128px]`}
           style={{ width: '100%' }}
         >
-          <div className="text-start w-full font-next-book text-[#8C8C8C] my-[10px] text-[21px] leading-[160%] tracking-[0.42px]">
+          <div className="body-l my-[10px] w-full text-start text-neutral-medium-gray">
             Scale
           </div>
-          <div className="w-full flex items-center">
+          <div className="flex w-full items-center">
             <button
               className={buttonClass}
               onClick={() => setZoom(zoom - ZOOM_STEP)}
@@ -158,7 +158,7 @@ const EasyCrop = forwardRef<EasyCropRef, EasyCropProps>((props, ref) => {
                 <path d="M7 12L17 12" stroke="#0B0B0B" strokeLinecap="round" />
               </svg>
             </button>
-            <div className="w-full mx-[15px] -mt-[4px]">
+            <div className="mx-[15px] -mt-[4px] w-full">
               <CustomSlider
                 className={sliderClass}
                 min={minZoom}

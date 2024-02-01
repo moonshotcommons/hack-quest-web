@@ -21,8 +21,8 @@ const UserInfo: React.FC<UserInfoType> = ({ userInfo }) => {
   );
 
   return (
-    <div className="flex justify-center flex-shrink-0 w-[360px] py-[40px] h-full">
-      <div className="w-full h-full flex-col">
+    <div className="flex h-full w-[360px] flex-shrink-0 justify-center py-[40px]">
+      <div className="flex h-full w-full flex-col">
         <div className="w-[320px] pb-[30px]">
           <UserData
             userInfo={userInfo}

@@ -97,15 +97,13 @@ const CourseDetail: FC<CourseDetailProps> = (props) => {
         startLoading={jumpLoading}
         onStartCallback={() => {
           BurialPoint.track('courseDetail-页面上方按钮点击', {
-            courseName: courseDetail.name
+            courseName: courseDetail.title
           });
           resumeCallback();
         }}
       ></CourseDetailHeader>
       <div className="mt-[60px] w-full">
-        <h2 className="mb-[30px] text-[#000] font-next-poster-Bold text-[28px] tracking-[1.68px]">
-          Syllabus
-        </h2>
+        <h2 className="text-h3 mb-[30px] text-neutral-black">Syllabus</h2>
         <UnitList
           courseDetail={courseDetail}
           learningStatus={learningStatus}
@@ -122,7 +120,7 @@ const CourseDetail: FC<CourseDetailProps> = (props) => {
           }}
         >
           <Button
-            className="px-0 w-[270px] py-[16px] leading-[125%] text-[#000] font-next-book text-[18px] tracking-[0.36px]"
+            className="body-l w-[270px] px-0 py-[16px] text-neutral-black"
             type="primary"
           >
             Start

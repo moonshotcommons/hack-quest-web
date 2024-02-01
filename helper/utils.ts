@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
-import { JumpLeaningLessonType } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
 import { CourseType } from '@/service/webApi/course/type';
 
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
+import { JumpLeaningLessonType } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -25,7 +25,9 @@ export const getCourseLink = (courseType?: CourseType) => {
       return `/hackathon`;
     case CourseType.TEASER:
       return `/teaser`;
-    case CourseType.Mini:
+    case CourseType.UGC:
+      return `/ugc`;
+    case CourseType.MINI:
       return `/mini`;
   }
 };
@@ -51,6 +53,15 @@ export const getLessonLink = (
   });
   return link;
 };
+
+// export const getLessonLink = (
+//   courseType: CourseType,
+//   courseName: string | undefined,
+//   lessonId: string
+// ) => {
+//   if (!courseType || !courseName || !lessonId) return '/404';
+//   return `${getCourseLink(courseType)}/${courseName}/learn/${lessonId}`;
+// };
 
 export const changeTextareaHeight = (target: HTMLTextAreaElement) => {
   // 重置textarea的高度为默认值，以便可以正确计算其内容的高度
