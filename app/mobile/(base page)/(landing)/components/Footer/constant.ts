@@ -1,3 +1,10 @@
+import {
+  HACKQUEST_DISCORD,
+  HACKQUEST_LINKEDIN,
+  HACKQUEST_TELEGRAM,
+  HACKQUEST_TWITTER
+} from '@/constants/links';
+
 export const FOOTER_LINKS = [
   {
     group: 'LEARN',
@@ -25,19 +32,19 @@ export const FOOTER_LINKS = [
     links: [
       {
         title: 'Discord',
-        link: 'https://discord.gg/KkAJHPqywn'
+        link: HACKQUEST_DISCORD
       },
       {
         title: 'X',
-        link: 'https://x.com/hackquest_?s=21&t=kYetGSBybf-ssFBo7GodGA'
+        link: HACKQUEST_TWITTER
       },
       {
         title: 'Telegram',
-        link: 'https://t.me/hackquester'
+        link: HACKQUEST_TELEGRAM
       },
       {
         title: 'Linkedin',
-        link: 'https://www.linkedin.com/company/moonshotcommons/'
+        link: HACKQUEST_LINKEDIN
       }
     ]
   },
