@@ -1,11 +1,9 @@
 'use client';
 import User from '@/components/Web/User';
-import { Inter } from 'next/font/google';
 import React, { Suspense, memo } from 'react';
 import Breadcrumb from '@/components/Web/Business/Breadcrumb';
 import { navbarList } from '@/components/Layout/Navbar/data';
 import Navbar from '@/components/Layout/Navbar';
-const inter = Inter({ subsets: ['latin'] });
 
 interface BaseLayoutProps {
   children: React.ReactNode;
@@ -17,7 +15,7 @@ const BaseLayout = memo(function (props: BaseLayoutProps) {
 
   return (
     <div
-      className={`flex h-[100vh] w-full flex-col overflow-hidden  ${inter.className} min-h-[100vh]`}
+      className={`flex h-[100vh] min-h-[100vh] w-full flex-col  overflow-hidden`}
     >
       <div className="flex w-full items-center bg-neutral-black">
         <Navbar navList={navbarList} isFull={false}>

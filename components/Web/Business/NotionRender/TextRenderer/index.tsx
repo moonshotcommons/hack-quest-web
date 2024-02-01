@@ -8,6 +8,7 @@ interface TextRendererProps {
   richTextArr: any;
   fontSize?: string;
   letterSpacing?: string;
+  className?: string;
 }
 
 export type AnnotationType = {
@@ -19,9 +20,13 @@ export type AnnotationType = {
   color: string;
 };
 
-const getTextClassNames = (annotations: AnnotationType) => {
+const getTextClassNames = (
+  annotations: AnnotationType,
+  propClassName: string
+) => {
   const className = cn(
     `py-1`,
+    propClassName ? propClassName : 'body-s',
     annotations.bold ? 'font-bold' : '',
     annotations.code
       ? 'px-[0.2rem] text-[85%] text-[#eb5757] bg-renderer-code-bg mx-[0.25rem]'
@@ -44,7 +49,8 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
   const {
     richTextArr,
     fontSize: propsFontSize,
-    letterSpacing = '0.28px'
+    letterSpacing = '0.28px',
+    className: propClassName = ''
   } = props;
 
   const { fontSize: contextFontSize } = useContext(RendererContext)
@@ -55,7 +61,7 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
     <>
       {richTextArr.map((richText: any, index: number) => {
         const annotations = richText.annotations;
-        const className = getTextClassNames(annotations);
+        const className = getTextClassNames(annotations, propClassName);
 
         if (
           richText.annotations.code &&
@@ -206,7 +212,7 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
         return (
           <span
             key={index}
-            className={`${className} rounded-md leading-[200%]`}
+            className={`${className} rounded-md`}
             style={{
               fontSize,
               letterSpacing,
