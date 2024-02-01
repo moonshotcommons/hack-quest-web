@@ -74,13 +74,13 @@ const HeaderRenderer: FC<HeaderRendererProps> = (props) => {
         <div>
           <TextRenderer
             richTextArr={component.content.rich_text}
-            fontSize={'21px'}
-            letterSpacing={'1.68px'}
+            fontSize={'18px'}
+            className="text-h4"
           />
         </div>
         {expandIndex >= 0 && (
           <span
-            className="body-xs cursor-pointer underline"
+            className="underline-s cursor-pointer"
             onClick={changeExpandNum}
           >
             {isExpandAll ? 'Fold All' : 'Expand All'}

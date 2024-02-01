@@ -1,12 +1,11 @@
 'use client';
 import User from '@/components/Web/User';
-import { Inter } from 'next/font/google';
 import React, { useContext, useEffect, Suspense } from 'react';
 import Breadcrumb from '@/components/Web/Business/Breadcrumb';
 import NavBar from '@/components/Layout/Navbar';
 import { navbarList } from '@/components/Layout/Navbar/data';
 import { NavbarContext } from '@/components/Provider/Navbar';
-const inter = Inter({ subsets: ['latin'] });
+
 interface FullLayoutProps {
   children: React.ReactNode;
   excludeBreadcrumb?: boolean;
@@ -26,7 +25,7 @@ const FullLayout = (props: FullLayoutProps) => {
 
   return (
     <div
-      className={`flex h-[100vh] w-full flex-col overflow-hidden  ${inter.className} min-h-[100vh]`}
+      className={`flex h-[100vh] min-h-[100vh] w-full flex-col  overflow-hidden`}
     >
       <div className="flex w-full items-center bg-neutral-black">
         <NavBar navList={navbarList} isFull={true}>

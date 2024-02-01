@@ -42,7 +42,12 @@ const CodeRenderer: FC<CodeRendererProps> = (props) => {
       updateExampleContent(code);
     }
   }, [component.content.rich_text, updateExampleContent]);
-
+  console.log(language);
+  console.log(
+    component.content.rich_text
+      .map((richText: any) => richText.plain_text)
+      .join('')
+  );
   return (
     <div
       className={`relative flex-1 overflow-hidden rounded-md ${
