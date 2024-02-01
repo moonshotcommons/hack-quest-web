@@ -162,6 +162,7 @@ const PersonalLinkEditModal = forwardRef<
     const refreshLinks = (e: StorageEvent) => {
       if (e.key === 'linkDiscord') {
         refresh();
+        refreshDiscordInfo();
       }
     };
     window.addEventListener('storage', refreshLinks);

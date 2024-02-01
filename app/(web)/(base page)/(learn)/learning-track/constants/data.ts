@@ -10,14 +10,14 @@ export const bannerTabList = [
     label: 'Basic',
     value: LearningTrackTab.BASIC,
     description:
-      'Master one Web3 coding language and learn how to deploy On Chain!',
+      'Master one Web3 coding language and learn how to deploy On Chain',
     img: Basic,
     imgActive: BasicActive
   },
   {
     label: 'Specialization',
     value: LearningTrackTab.SPECIALLIZATION,
-    description: 'Focus on one specific area and become an expert!',
+    description: 'Focus on one specific area and become an expert',
     img: Specialization,
     imgActive: SpecializationActive
   }
