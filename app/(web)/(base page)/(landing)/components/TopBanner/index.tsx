@@ -35,7 +35,7 @@ const TopBanner: FC<TopBannerProps> = (props) => {
             height={48}
           ></Image>
           <div className="text-neutral-off-white">
-            <div className="body-m w-fit rounded-[.5rem] border border-yellow-primary px-2 py-1 text-[12px] font-bold text-yellow-primary">
+            <div className="body-m body-xs-bold w-fit rounded-[.5rem] border border-yellow-primary px-2 py-1 text-yellow-primary">
               Certified
             </div>
             <Link

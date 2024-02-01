@@ -11,9 +11,7 @@ const ButtonExample: FC<ButtonExampleProps> = (props) => {
   return (
     <div>
       <div>
-        <h1 className="pb-8 text-[24px] text-text-default-color ">
-          Base Button
-        </h1>
+        <h1 className="body-xl pb-8 text-text-default-color ">Base Button</h1>
         <div className="flex flex-row items-center gap-8">
           <Button
             type="primary"

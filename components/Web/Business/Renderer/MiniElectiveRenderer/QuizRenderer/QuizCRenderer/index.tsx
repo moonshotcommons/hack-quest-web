@@ -71,7 +71,7 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
           }
         }}
       >
-        <div className="mt-[32px] font-next-book-bold leading-[125%] tracking-[0.36px]">
+        <div className="mt-[32px]">
           {quiz?.children?.map((child: any, index: number) => {
             return (
               <ComponentRenderer
@@ -130,7 +130,7 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
         {answerState === AnswerState.Default && (
           <Button
             type="primary"
-            className="w-[165px] p-0 py-[11px] font-next-book leading-[125%] tracking-[0.32px] text-neutral-black"
+            className="body-m w-[165px] p-0 py-[11px] text-neutral-black"
             onClick={onSubmit}
           >
             Submit
@@ -139,7 +139,7 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
         {answerState === AnswerState.Wrong && (
           <Button
             type="primary"
-            className="w-[165px] p-0 py-[11px] font-next-book leading-[125%] tracking-[0.32px] text-neutral-black"
+            className="body-m w-[165px] p-0 py-[11px] text-neutral-black"
             onClick={onTryAgain}
           >
             Try again
@@ -148,7 +148,7 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
         {answerState === AnswerState.Correct && (
           <Button
             type="primary"
-            className="w-[165px] p-0 py-[11px] font-next-book leading-[125%] tracking-[0.32px] text-neutral-black"
+            className="body-m w-[165px] p-0 py-[11px] text-neutral-black"
             onClick={() => {
               onCompleted?.();
             }}

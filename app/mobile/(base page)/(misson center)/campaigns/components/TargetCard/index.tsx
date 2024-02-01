@@ -88,10 +88,10 @@ const TargetCard: React.FC<TargetCardProp> = ({ target }) => {
       ></div>
       <div className="absolute left-0 top-0 flex h-full w-full items-center justify-between px-[30px] ">
         <div className="flex-row-center gap-[20px]">
-          <span className="text-[16px] tracking-[0.32px]">{target.name}</span>
+          <span className="body-m">{target.name}</span>
         </div>
         <div className="flex-row-center gap-[40px]">
-          <div className="flex-row-center h-[44px] w-[75px] justify-between rounded-[100px] border border-neutral-light-gray bg-neutral-off-white px-[10px] text-[16px] leading-[40px] text-neutral-black">
+          <div className="flex-row-center body-m h-[44px] w-[75px] justify-between rounded-[100px] border border-neutral-light-gray bg-neutral-off-white px-[10px] leading-[40px] text-neutral-black">
             <Image src={BIcon} width={22} alt="icon" className=""></Image>
             <span>{target.reward}</span>
           </div>
@@ -114,8 +114,8 @@ const TargetCard: React.FC<TargetCardProp> = ({ target }) => {
           ) : (
             <div className="relative">
               <Button
-                className={`ml-[-20px] h-[44px] w-[164px] border border-neutral-black p-0
-              text-[14px]  text-auth-primary-button-text-color
+                className={`body-s ml-[-20px] h-[44px] w-[164px] border border-neutral-black
+              p-0  text-auth-primary-button-text-color
               text-neutral-black`}
                 loading={unLoading}
                 onClick={() => handleUnClaim(target.type)}

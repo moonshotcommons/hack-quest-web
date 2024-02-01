@@ -61,7 +61,7 @@ const Tooltip: FC<TooltipProps> = (props) => {
       {show && (
         <div
           className={cn(
-            ' absolute h-fit whitespace-nowrap rounded-[10px] p-[20px] font-next-book-Thin text-[12px] text-neutral-black shadow-[rgba(100,100,111,0.2)_0px_7px_29px_0px]',
+            ' body-xs absolute h-fit whitespace-nowrap rounded-[10px] p-[20px] text-neutral-black shadow-[rgba(100,100,111,0.2)_0px_7px_29px_0px]',
             placement === 'topLeft'
               ? '-left-[12px] -translate-y-[calc(100%+17px)]'
               : '',

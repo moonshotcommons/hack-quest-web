@@ -104,7 +104,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
           isFull ? 'w-full 2xl:px-[40px]' : 'container'
         }`}
       >
-        <div className="flex  h-full items-center justify-between font-next-book slab:hidden">
+        <div className="flex  h-full items-center justify-between  slab:hidden">
           <nav className="flex h-full items-center text-neutral-white">
             <div
               className={`flex h-full items-center ${
@@ -136,7 +136,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
                 </div>
               ))}
             </SlideHighlight>
-            <div className="ml-[20px] flex h-[34px] gap-[10px]  overflow-hidden rounded-[20px] bg-neutral-rich-gray text-[14px] tracking-[0.28px]">
+            <div className="body-s ml-[20px] flex h-[34px]  gap-[10px] overflow-hidden rounded-[20px] bg-neutral-rich-gray">
               {outSideNav.map((nav) => (
                 <Link
                   key={nav.id}

@@ -85,7 +85,7 @@ const Pagination: FC<PaginationProps> = (props) => {
         </div>
       )}
 
-      <div className="font-next-book text-[24px] leading-[160%] tracking-[0.48px] text-neutral-black">
+      <div className="body-xl text-neutral-black">
         <span>Page</span>
         <input
           type="text"

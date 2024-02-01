@@ -18,16 +18,14 @@ const ShowAll: React.FC<ShowAllProp> = ({
     <>
       <div className="flex flex-wrap gap-[1.25%]">{children}</div>
       {isShowAllButton && (
-        <div className="flex justify-end text-[18px]">
+        <div className="body-l flex justify-end">
           <div
             className="flex cursor-pointer items-center"
             onClick={changeShowAll}
           >
             <span>Show {showAll ? 'Less' : 'All'}</span>
             <VscChevronDown
-              className={`text-[24px] transition ${
-                showAll ? 'rotate-180' : ''
-              }`}
+              className={`body-xl transition ${showAll ? 'rotate-180' : ''}`}
             />
           </div>
         </div>

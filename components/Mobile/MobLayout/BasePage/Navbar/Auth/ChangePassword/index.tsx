@@ -56,9 +56,7 @@ const Success = () => {
           />
         </svg>
 
-        <h3 className="text-h3-m font-next-book-bold text-neutral-off-black">
-          Password Changed
-        </h3>
+        <h3 className="text-h3-m text-neutral-off-black">Password Changed</h3>
         <p className="body-m text-neutral-medium-gray">
           Your password has been changed successfully
         </p>
@@ -104,7 +102,7 @@ const Fail = () => {
           />
         </svg>
 
-        <h3 className="text-h3-m font-next-book-bold text-neutral-off-black">
+        <h3 className="text-h3-m text-neutral-off-black">
           Verification Failed! 😵
         </h3>
         <p className="body-m  text-neutral-medium-gray">

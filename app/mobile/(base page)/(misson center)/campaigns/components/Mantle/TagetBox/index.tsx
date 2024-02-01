@@ -8,7 +8,7 @@ const TargetBox: React.FC<TargetBoxProp> = () => {
   const { targetList } = useContext(MantleContext);
   return (
     <div>
-      <div className="text-[18px]">Targets to Achieve</div>
+      <div className="body-l">Targets to Achieve</div>
       {targetList.map((target) => (
         <TargetCard key={target.id} target={target} />
       ))}

@@ -31,18 +31,14 @@ function UnProgressHeaderRight(
   return (
     <div className="flex w-[445px] max-w-[445px] flex-col border-t border-neutral-black">
       <div className="flex items-center justify-between border-b border-neutral-black px-[15px] py-5">
-        <span className="font-next-book-bold text-[18px] tracking-[0.36px] text-neutral-black">
-          Experience
-        </span>
+        <span className="body-l-bold">Experience</span>
         <CourseLevel
           level={tagFormate(detail.level as string)}
           size="large"
         ></CourseLevel>
       </div>
       <div className="flex items-center justify-between border-b border-neutral-black px-[15px] py-5">
-        <span className="font-next-book-bold text-[18px] tracking-[0.36px] text-neutral-black">
-          Duration
-        </span>
+        <span className="body-l-bold">Duration</span>
 
         <div className="flex w-[151px] items-center pl-[21px]">
           <Tag
@@ -55,7 +51,7 @@ function UnProgressHeaderRight(
         </div>
       </div>
       <div className="flex items-center justify-between border-b border-neutral-black px-[15px] py-5">
-        <span className="font-next-book-bold text-[18px] tracking-[0.36px] text-neutral-black">
+        <span className="body-l-bold">
           {type === 'course' && 'Total Units'}
           {type === 'learning-track' && 'Total Courses'}
         </span>
@@ -87,9 +83,7 @@ function InProgressHeaderRight(
 ) {
   return (
     <div className="flex w-[445px] max-w-[445px] flex-col">
-      <p className="mb-[12px] font-next-poster-Bold text-[28px] tracking-[1.68px] text-neutral-black">
-        Next Up
-      </p>
+      <p className="text-h3 mb-[12px] text-neutral-black">Next Up</p>
       <p className="body-m text-neutral-black">{nextInfo.title}</p>
       <p className="body-xl text-neutral-black">{nextInfo.content}</p>
       <div className={'mt-[34px] flex items-center gap-[15px]'}>

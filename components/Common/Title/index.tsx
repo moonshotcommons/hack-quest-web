@@ -12,7 +12,7 @@ const Title: React.FC<
 
   return (
     <h2
-      className={`mb-[2.5rem] mt-[2.88rem] font-next-poster-Bold text-lg text-course-card-title-text-color ${className}`}
+      className={`text-h3 mb-[2.5rem] mt-[2.88rem] text-course-card-title-text-color ${className}`}
       {...rest}
     >
       {props.children}

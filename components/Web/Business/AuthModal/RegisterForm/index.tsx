@@ -107,18 +107,6 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
     <div className="flex h-full w-full flex-col justify-between">
       {/* <ThirdPartyLogin></ThirdPartyLogin> */}
       <div className="flex w-full flex-col gap-[24px]">
-        {/* <div className="text-[#FFF] text-[21px] font-next-poster leading-[160%] tracking-[1.26px]">
-          Already have an account?{' '}
-          <span
-            className="underline cursor-pointer"
-            onClick={() => {
-              setAuthType(AuthType.LOGIN);
-            }}
-          >
-            Login
-          </span>
-        </div> */}
-
         <div>
           <Input
             label="Password"
@@ -214,21 +202,6 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
             </p>
           </div>
         </div>
-
-        {/* <Button
-          onClick={onBack}
-          block
-          className="
-            font-next-book
-            text-[1.125rem]
-            border
-            bg-transparent
-            text-neutral-white hover:text-auth-ghost-button-text-hover-color
-            border-neutral-white hover:border-auth-ghost-button-border-hover-color
-          "
-        >
-          Back
-        </Button> */}
       </div>
       <Button
         onClick={onRegister}

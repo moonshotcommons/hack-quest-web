@@ -39,7 +39,7 @@ const MiniCoursePage: FC<MiniCoursePageProps> = (props) => {
             <Sidebar lesson={lesson}></Sidebar>
             <LessonContentWrap lesson={lesson}>
               <div className="flex h-full max-w-[840px] flex-1 flex-col rounded-[12px] bg-neutral-white px-[64px] py-[48px] shadow-[0px_4px_8px_0px_rgba(0,0,0,0.12)]">
-                <h1 className="pb-[24px] font-next-poster-Bold text-[28px] tracking-[1.68px] text-neutral-off-black">
+                <h1 className="text-h3 pb-[24px] text-neutral-off-black">
                   {lesson.name}
                 </h1>
                 <div className="mb-4 h-[1px] w-full scale-y-50 bg-neutral-black">

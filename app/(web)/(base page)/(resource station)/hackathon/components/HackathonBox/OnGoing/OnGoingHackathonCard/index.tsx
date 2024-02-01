@@ -39,7 +39,7 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({
   }, [hackathon]);
   return (
     <div
-      className="card-hover mb-[20px] flex  h-[322px] cursor-pointer overflow-hidden rounded-[10px]  bg-[#fff] text-neutral-off-black"
+      className="card-hover mb-[20px] flex  h-[322px] cursor-pointer overflow-hidden rounded-[10px]  bg-neutral-white text-neutral-off-black"
       onClick={goHackathonDetail}
     >
       <div className="relative h-full w-[571px] bg-[#d9d9d9]/30">
@@ -51,9 +51,7 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({
         ></Image>
       </div>
       <div className="flex h-full flex-1 flex-col justify-between px-[24px] py-[20px]">
-        <div className="font-next-book-bold text-[21px] leading-[21px]">
-          {hackathon.name}
-        </div>
+        <div className="text-h3">{hackathon.name}</div>
         <div className="relative flex h-[60px] flex-col justify-between pl-[20px]">
           <div className="absolute left-0 top-0 h-full w-[5px] rounded-[10px] bg-yellow-dark"></div>
           <div className="flex items-center gap-[16px]">
@@ -75,7 +73,7 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({
         </div>
         <div className="flex gap-[16px]">
           <Button
-            className="h-[60px] flex-1 bg-yellow-primary text-[18px]"
+            className="body-l h-[60px] flex-1 bg-yellow-primary"
             onClick={() => {
               BurialPoint.track(`hackathon onGoingCard Apply Now 按钮点击`);
               window.open(hackathon.applyLink);
@@ -84,7 +82,7 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({
             APPLY NOW
           </Button>
           <Button
-            className="h-[60px] flex-1 border border-neutral-black text-[18px]"
+            className="body-l h-[60px] flex-1 border border-neutral-black"
             onClick={goHackathonDetail}
           >
             LEARN MORE

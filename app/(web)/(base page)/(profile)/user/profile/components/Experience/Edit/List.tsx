@@ -60,7 +60,7 @@ const List: React.FC<ListProp> = ({ onClose, handleEdit, list }) => {
               key={i}
               className="flex border-b-[0.5px] border-b-[#000] py-[20px]"
             >
-              <div className="w-[270px] font-next-book text-[17px] text-neutral-medium-gray">
+              <div className="body-l w-[270px] text-neutral-medium-gray">
                 <p>
                   {dealDate(v.startDate)} -{' '}
                   {v.endDate ? dealDate(v.endDate) : 'Present'} ·{' '}
@@ -70,11 +70,9 @@ const List: React.FC<ListProp> = ({ onClose, handleEdit, list }) => {
               </div>
               <div className="ml-[35px] mr-[20px] flex-1 text-neutral-black">
                 <div className="w-full break-all">
-                  <span className="font-next-poster-Bold text-[21px]">
-                    {v.title}
-                  </span>
+                  <span className="body-l-bold">{v.title}</span>
                   <span>{` · `}</span>
-                  <span className="font-next-book text-[18px] ">
+                  <span className="body-l ">
                     {v.companyName} · {v.employmentType}
                   </span>
                 </div>

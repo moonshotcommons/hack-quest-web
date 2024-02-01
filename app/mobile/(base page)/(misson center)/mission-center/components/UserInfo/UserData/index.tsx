@@ -52,16 +52,14 @@ const UserData: React.FC<UserDataType> = ({
       </div>
 
       <div className="flex-col-center mb-[40px] mt-[20px]">
-        <p className="leading-[22.5px]">
-          <span className="text-[18px] ">{userInfo?.nickname}</span>
-          <span className="ml-[15px] font-next-book-Thin text-[16px] font-[250]">
-            Lv. {userLevel?.level ?? 0}
-          </span>
+        <p className="">
+          <span className="body-l ">{userInfo?.nickname}</span>
+          <span className="body-m ml-[15px]">Lv. {userLevel?.level ?? 0}</span>
         </p>
       </div>
 
       <div className="mb-5 flex h-[114px] w-full justify-between text-neutral-black">
-        <div className=" flex-col-center h-full w-[155px] justify-between rounded-[10px] border border-neutral-medium-gray bg-[#fff] pb-[16px] pt-[20px]">
+        <div className=" flex-col-center h-full w-[155px] justify-between rounded-[10px] border border-neutral-medium-gray bg-neutral-white pb-[16px] pt-[20px]">
           <p>Total XP</p>
           <div className="flex-row-center pt-1  text-[28px]">
             <Image
@@ -76,7 +74,7 @@ const UserData: React.FC<UserDataType> = ({
           </div>
         </div>
 
-        <div className=" flex-col-center h-full w-[155px]  justify-between rounded-[10px] border border-neutral-medium-gray bg-[#fff] pb-[16px] pt-[20px]">
+        <div className=" flex-col-center h-full w-[155px]  justify-between rounded-[10px] border border-neutral-medium-gray bg-neutral-white pb-[16px] pt-[20px]">
           <p>Total Hack Credits</p>
           <div className="flex-row-center pt-1  text-[28px]">
             <Image

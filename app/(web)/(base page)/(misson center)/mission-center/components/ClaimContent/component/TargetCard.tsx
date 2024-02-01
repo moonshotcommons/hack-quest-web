@@ -130,7 +130,7 @@ const TargetCard: React.FC<TargetCardProp> = ({
           </span>
         </div>
         <div className="flex-row-center gap-[40px]">
-          <div className="relative h-[40px] w-[76px] rounded-r-[20px] border border-neutral-light-gray bg-neutral-off-white pr-[15px] text-right text-[18px] leading-[40px]">
+          <div className="body-l relative h-[40px] w-[76px] rounded-r-[20px] border border-neutral-light-gray bg-neutral-off-white pr-[15px] text-right leading-[40px]">
             <Image
               src={IconCoin}
               width={40}
@@ -139,7 +139,7 @@ const TargetCard: React.FC<TargetCardProp> = ({
             ></Image>
             <span>{missionData.coin}</span>
           </div>
-          <div className="relative h-[40px] w-[76px] rounded-r-[20px] border border-neutral-light-gray bg-neutral-off-white pr-[15px] text-right text-[18px] leading-[40px]">
+          <div className="body-l relative h-[40px] w-[76px] rounded-r-[20px] border border-neutral-light-gray bg-neutral-off-white pr-[15px] text-right leading-[40px]">
             <Image
               src={IconXp}
               width={40}
@@ -168,8 +168,8 @@ const TargetCard: React.FC<TargetCardProp> = ({
           ) : (
             <div className="relative">
               <Button
-                className={`ml-[-20px] h-[44px] w-[164px] border border-neutral-black p-0
-              text-[14px]  text-auth-primary-button-text-color
+                className={`body-s ml-[-20px] h-[44px] w-[164px] border border-neutral-black
+              p-0  text-auth-primary-button-text-color
               text-neutral-black`}
                 loading={loading}
                 onClick={() => handleUnClaim()}

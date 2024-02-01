@@ -35,7 +35,7 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon }) => {
           )}
         </div>
         <div className="flex flex-col gap-[16px] px-[24px]  py-[20px]">
-          <div className="line-clamp-2 h-[44px] font-next-book-bold text-[18px] leading-[125%] -tracking-[0.185px] text-neutral-off-black">
+          <div className="body-l-bold line-clamp-2 h-[44px] text-neutral-off-black">
             {name}
           </div>
           <div className="flex h-[48px] w-full gap-[8px]">

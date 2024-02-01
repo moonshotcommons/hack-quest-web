@@ -142,9 +142,7 @@ const Success: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
           />
         </svg>
 
-        <h1 className="text-h3-m font-next-book-bold text-neutral-off-black">
-          Email Verified! 🎉
-        </h1>
+        <h1 className="text-h3-m text-neutral-off-black">Email Verified! 🎉</h1>
         <p className="body-m text-neutral-medium-gray">
           You have been successfully verified the email! You will be directed to
           homepage in 5 seconds.
@@ -154,7 +152,7 @@ const Success: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
         // onClick={onLogin}
         block
         className="
-          font-next-book
+          
           text-[1.125rem]
           bg-auth-primary-button-bg hover:bg-auth-primary-button-hover-bg
           text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
@@ -218,13 +216,6 @@ const Fail: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
       default:
         return (
           <>
-            {/* <div className="text-neutral-white font-next-book leading-[160%] tracking-[0.64px] text-[18px]">
-              <span>
-                Your {type} account verification has failed!
-                <br />
-                Please try again.
-              </span>
-            </div> */}
             <div className="flex flex-col gap-4">
               <Button
                 block
@@ -279,7 +270,7 @@ const Fail: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
           />
         </svg>
 
-        <h1 className="text-h3-mob font-next-book-bold text-neutral-off-black">
+        <h1 className="text-h3-mob text-neutral-off-black">
           Verification Failed! 😵
         </h1>
         <p className="body-m text-neutral-medium-gray">

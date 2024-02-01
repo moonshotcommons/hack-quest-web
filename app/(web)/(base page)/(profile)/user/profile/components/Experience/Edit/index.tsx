@@ -46,8 +46,8 @@ const Edit: React.FC<EditProp> = ({ open, onClose, list }) => {
       showCloseIcon={true}
       icon={<FiX size={26} />}
     >
-      <div className="w-[1000px] rounded-[10px] bg-[#fff] p-[30px]">
-        <div className="mb-[20px] flex items-center font-next-book-bold text-[28px] tracking-[1.68px]">
+      <div className="w-[1000px] rounded-[10px] bg-neutral-white p-[30px]">
+        <div className="text-h3 mb-[20px] flex items-center">
           {status === 'edit' ? (
             <div
               className="flex cursor-pointer items-center "

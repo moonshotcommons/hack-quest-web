@@ -17,20 +17,6 @@ interface CompleteModalProps {
   // title: string;
 }
 
-// const CustomButton: FC<ButtonProps> = (props) => {
-//   const { children } = props;
-//   return (
-//     <Button
-//       padding="px-[2.5rem] py-[1.25rem]"
-//       fontStyle="font-Sofia-Pro-Light-Az font-normal"
-//       textStyle="text-[1rem] text-neutral-white leading-[1.25rem]"
-//       {...props}
-//     >
-//       {children}
-//     </Button>
-//   );
-// };
-
 const WhiteListModal: NextPage<CompleteModalProps> = ({ open, onClose }) => {
   const { theme } = useContext(ThemeContext);
   return (
@@ -53,15 +39,15 @@ const WhiteListModal: NextPage<CompleteModalProps> = ({ open, onClose }) => {
         </div>
         <h1
           className="
-          relative mt-[11.6875rem] w-[34.625rem] text-center
-          font-next-poster-Bold text-[2.2021rem] leading-[100%] text-text-default-color
+          text-h2 relative mt-[11.6875rem] w-[34.625rem]
+          text-center text-text-default-color
           before:absolute before:-bottom-[1.3125rem] before:left-0 before:h-[1px] before:w-full before:scale-y-[1] before:bg-lesson-completed-modal-line-color after:absolute
           after:-top-[1.5625rem] after:left-[50%] after:h-[1px] after:w-[27.75rem] after:-translate-x-[50%]  after:scale-y-[1] after:bg-lesson-completed-modal-line-color
             "
         >
           MVP Invitation Needed
         </h1>
-        <p className="z-[51] mt-[2.375rem] w-[29.1875rem] text-center font-next-book text-[1.25rem] leading-[110%] text-text-default-color">
+        <p className="body-l z-[51] mt-[2.375rem] w-[29.1875rem] text-center text-text-default-color">
           Sorry our site is currently only available for invited MVP user. If
           you’d like to join our whitelist, please email us at
           <a
@@ -84,7 +70,7 @@ const WhiteListModal: NextPage<CompleteModalProps> = ({ open, onClose }) => {
             onClick={onClose}
             target="_blank"
           >
-            <Button className="border border-lesson-primary-button-border-color bg-lesson-primary-button-bg px-[3rem] py-[1rem] font-next-book text-lesson-primary-button-text-color">
+            <Button className="border border-lesson-primary-button-border-color bg-lesson-primary-button-bg px-[3rem] py-[1rem]  text-lesson-primary-button-text-color">
               Email Us
             </Button>
           </Link>

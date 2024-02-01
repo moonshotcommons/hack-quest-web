@@ -164,7 +164,7 @@ const UnitCard: FC<UnitCardProps> = (props) => {
 
         {learningStatus === LearningStatus.UN_START && (
           <div className="relative h-[65px] w-[65px] rounded-full border-2 border-neutral-black">
-            <span className="text-[#000 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 font-next-poster text-[32px] tracking-[1.92px]">
+            <span className="text-[#000 text-h3 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
               {index + 1}
             </span>
           </div>
@@ -205,13 +205,11 @@ const UnitCard: FC<UnitCardProps> = (props) => {
             }
           }}
         >
-          <h2 className="font-next-book-bold text-[1.5rem] font-bold leading-[120%] text-text-default-color">
-            {unit.name}
-          </h2>
+          <h2 className="body-xl-bold text-text-default-color">{unit.name}</h2>
           <div>
             <Typography.Paragraph
               ellipsis={{ rows: 3 }}
-              className="mt-4 font-next-book text-base leading-[120%] text-course-unit-desc-text-color"
+              className="body-m mt-4 text-course-unit-desc-text-color"
             >
               {unit.description}
             </Typography.Paragraph>

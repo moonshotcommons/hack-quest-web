@@ -86,7 +86,7 @@ const DropAnswer: FC<DropAnswerProps> = (props) => {
           transition={{
             duration: currentAnswer?.status === 'error' ? 0.5 : 0 // 动画持续时间
           }}
-          className={`relative mx-[10px] my-1 inline-flex h-[34px] min-w-[110px] items-center justify-center rounded-[3px] border-[0.5px] border-neutral-medium-gray bg-neutral-off-white font-next-book text-[14px] leading-[125%] ${
+          className={`body-s relative mx-[10px] my-1 inline-flex h-[34px] min-w-[110px] items-center justify-center rounded-[3px] border-[0.5px] border-neutral-medium-gray bg-neutral-off-white ${
             currentAnswer?.status === 'error'
               ? 'border-[#C73333] bg-[#FFF7F5]'
               : ''
@@ -99,7 +99,7 @@ const DropAnswer: FC<DropAnswerProps> = (props) => {
       )}
       {!!currentAnswer?.option && !showAnswer && (
         <span
-          className="relative mx-[10px] my-1 inline-flex h-[34px] min-w-[110px] cursor-move rounded-[3px] border-[0.5px] border-neutral-medium-gray bg-[#FFF4CE] font-next-book text-[14px] leading-[125%] tracking-[0.28px] text-neutral-black"
+          className="body-s relative mx-[10px] my-1 inline-flex h-[34px] min-w-[110px] cursor-move rounded-[3px] border-[0.5px] border-neutral-medium-gray bg-[#FFF4CE] text-neutral-black"
           onMouseEnter={() => setClearVisible(true)}
           onMouseLeave={() => setClearVisible(false)}
         >

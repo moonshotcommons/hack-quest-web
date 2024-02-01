@@ -17,7 +17,7 @@ const FeatureBlogCard: React.FC<FeatureBlogCardProp> = ({ blog }) => {
   };
   return (
     <Link
-      className="flex h-[425px] w-full cursor-pointer overflow-hidden rounded-[10px] bg-[#fff] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)]"
+      className="flex h-[425px] w-full cursor-pointer overflow-hidden rounded-[10px] bg-neutral-white shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)]"
       onClick={goBlogContent}
       href={`${MenuLink.BLOG}/${blog.id}`}
     >
@@ -40,9 +40,7 @@ const FeatureBlogCard: React.FC<FeatureBlogCardProp> = ({ blog }) => {
               />
             ))}
           </div>
-          <div className="line-clamp-2 font-next-book-bold text-[28px] leading-[45px] tracking-[0.56px]">
-            {blog.title}
-          </div>
+          <div className="text-h3 line-clamp-2">{blog.title}</div>
           <div className="body-l line-clamp-5 text-neutral-black">
             {blog.description}
           </div>

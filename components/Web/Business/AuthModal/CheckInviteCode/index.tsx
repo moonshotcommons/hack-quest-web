@@ -168,10 +168,8 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
     <div className="flex h-full w-full justify-center">
       {/* <ThirdPartyLogin></ThirdPartyLogin> */}
       <div className="flex w-full flex-col gap-[25px]">
-        <h1 className="font-next-book text-[32px] leading-[125%] tracking-[0.64px] text-[#FFF]">
-          Got an Invite Code?
-        </h1>
-        <div className="font-next-book text-[14px] leading-[160%] -tracking-[0.154px] text-[#FFF]">
+        <h1 className="text-h3 text-neutral-white">Got an Invite Code?</h1>
+        <div className="body-s text-neutral-white">
           HackQuest is currently in beta. Get an invite code from an existing
           user to sign up.
         </div>
@@ -225,9 +223,9 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
           loading={emailLoading || thirdPartyLoading}
           iconPosition="right"
           className="
+          button-text-l
           border-auth-primary-button-border-color
           bg-auth-primary-button-bg
-          font-next-book text-[1.125rem]
           text-auth-primary-button-text-color hover:border-auth-primary-button-border-hover-color
           hover:bg-auth-primary-button-hover-bg hover:text-auth-primary-button-text-hover-color
           "
@@ -261,8 +259,6 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
           loading={emailLoading || thirdPartyLoading}
           iconPosition="right"
           className="
-          font-next-book
-          text-[1.125rem]
           bg-auth-primary-button-bg hover:bg-auth-primary-button-hover-bg
           text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
           border-auth-primary-button-border-color hover:border-auth-primary-button-border-hover-color
@@ -297,7 +293,7 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
           hover:border-auth-ghost-button-border-hover-color
           border
           border-neutral-white
-          bg-transparent font-next-book
+          bg-transparent
           text-[1.125rem] text-neutral-white`,
             skipInviteCodeLoading ? 'cursor-not-allowed opacity-70' : ''
           )}
@@ -306,12 +302,12 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
         </Button>
         <div className="flex items-center justify-between py-[12px]">
           <div className="h-[1px] w-[20.5%] bg-neutral-white"></div>
-          <span className="font-next-book text-[14px] tracking-[0.28px] text-[#FFF]">
+          <span className="body-s text-neutral-white">
             Don’t have an invite code?
           </span>
           <div className="h-[1px] w-[20.5%] bg-neutral-white"></div>
         </div>
-        <p className="text-center font-next-book text-[14px] leading-[160%] tracking-[0.28px] text-[#FFF]">
+        <p className="body-s text-center text-neutral-white">
           Follow HackQuest on social media for latest updates:
         </p>
         {/* <ContractUs className="gap-[30px] justify-center"></ContractUs> */}

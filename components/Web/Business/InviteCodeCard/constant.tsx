@@ -45,7 +45,7 @@ export const ShareWrap = <T extends React.ForwardRefExoticComponent<any>>(
           })}
         </div>
         {showName && (
-          <span className="whitespace-nowrap font-next-book text-[14px] leading-[160%] -tracking-[0.154px] ">{`Share on ${name}`}</span>
+          <span className="body-s whitespace-nowrap ">{`Share on ${name}`}</span>
         )}
       </div>
     </ShareButton>
