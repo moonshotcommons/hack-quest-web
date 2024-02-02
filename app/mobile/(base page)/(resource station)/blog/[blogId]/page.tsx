@@ -1,8 +1,9 @@
+'use client';
 import { FC } from 'react';
-import BlogDetail from '../components/BlogId';
 import { Metadata } from 'next';
 import { BlogDetailType } from '@/service/webApi/resourceStation/type';
 import { getBlogById } from '@/service/blog';
+import { useNeedPCRedirect } from '@/hooks/useNeedPCRedirect';
 
 interface BlogPageProps {
   params: {
@@ -21,13 +22,11 @@ export async function generateMetadata({
 }
 
 const BlogPage: FC<BlogPageProps> = async ({ params }) => {
-  const blog: BlogDetailType = await getBlogById(params.blogId);
+  // const blog: BlogDetailType = await getBlogById(params.blogId);
 
-  return (
-    <>
-      <BlogDetail blog={blog} />
-    </>
-  );
+  useNeedPCRedirect();
+
+  return <>{/* <BlogDetail blog={blog} /> */}</>;
 };
 
 export default BlogPage;

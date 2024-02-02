@@ -18,6 +18,7 @@ export interface MenuType {
   label: string;
   path: MenuLink;
   needLogin?: boolean;
+  needPC?: boolean;
 }
 export interface NavbarListType {
   label: string;
@@ -25,4 +26,5 @@ export interface NavbarListType {
   type?: 'outSide';
   link?: string;
   menu: MenuType[];
+  needPC?: boolean;
 }

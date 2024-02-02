@@ -10,13 +10,13 @@ import Google from '@/public/images/login/google.svg';
 import Github from '@/public/images/login/github.svg';
 import Image from 'next/image';
 import { LoginResponse, ThirdPartyAuthType } from '@/service/webApi/user/type';
-import TipsModal from '@/app/(web)/(base page)/(landing)/components/TipsModal';
 import useIsPc from '@/hooks/useIsPc';
 import { useRedirect } from '@/hooks/useRedirect';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
 import { useRequest } from 'ahooks';
 import { message } from 'antd';
+import { useGlobalStore } from '@/store/zustand/globalStore';
 enum VerifyStateType {
   VERIFYING = 'verifying',
   SUCCESS = 'success',
@@ -279,7 +279,9 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
     }))
   );
   const isPc = useIsPc();
-  const [tipsOpen, setTipsOpen] = useState(false);
+  const setTipsModalOpenState = useGlobalStore(
+    (state) => state.setTipsModalOpenState
+  );
   const [jump, setJump] = useState(false);
   const [countDown, setCountDown] = useState(3);
   const query = new URLSearchParams(
@@ -303,7 +305,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
             setAuthModalOpen(false);
             setVerifyState(VerifyStateType.SUCCESS);
           } else {
-            setTipsOpen(true);
+            setTipsModalOpenState(true);
           }
         })
         .catch((err) => {
@@ -373,7 +375,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
               setAuthModalOpen(false);
               redirectToUrl('/dashboard');
             } else {
-              setTipsOpen(true);
+              setTipsModalOpenState(true);
             }
           }
         })
@@ -417,7 +419,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
               setAuthModalOpen(false);
               redirectToUrl('/dashboard');
             } else {
-              setTipsOpen(true);
+              setTipsModalOpenState(true);
             }
           }
         })
@@ -471,7 +473,6 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
         <Success type={source}></Success>
       )}
       {verifyState === VerifyStateType.FAIL && <Fail type={source}></Fail>}
-      <TipsModal open={tipsOpen} onClose={() => setTipsOpen(false)} />
     </div>
   );
 };
