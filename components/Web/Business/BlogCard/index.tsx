@@ -19,7 +19,9 @@ const BlogCard: React.FC<BlogCardProp> = ({
   from = ResourceFrom.BLOG
 }) => {
   const goBlogContent = () => {
-    BurialPoint.track(`${ResourceFrom.BLOG} blogCard 卡片点击`);
+    BurialPoint.track(
+      `${from === ResourceFrom.BLOG ? 'blog' : 'glossary'} blogCard 卡片点击`
+    );
   };
   return (
     <Link
