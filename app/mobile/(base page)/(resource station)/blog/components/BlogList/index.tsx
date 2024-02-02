@@ -11,7 +11,7 @@ const BlogList: React.FC<BlogListProp> = ({ list }) => {
     <div className="flex flex-col gap-y-[1rem]">
       {list.map((blog) => (
         <div className="w-full" key={blog.id}>
-          <MobBlogCard blog={blog} isMobile={true} />
+          <MobBlogCard blog={blog} />
         </div>
       ))}
     </div>

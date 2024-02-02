@@ -23,7 +23,8 @@ const isNoNeedUserInfoDetail = (pathname: string) => {
     MenuLink.HACKATHON,
     MenuLink.PROJECTS,
     MenuLink.PRACTICES,
-    MenuLink.BLOG
+    MenuLink.BLOG,
+    MenuLink.GLOSSARY
   ].some((menu) => pathname.includes(menu));
 };
 

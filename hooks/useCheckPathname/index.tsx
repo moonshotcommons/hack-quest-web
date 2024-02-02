@@ -38,6 +38,8 @@ export const useCheckPathname = () => {
 
     const isBlog = ~pathname.indexOf(MenuLink.BLOG);
 
+    const isGlossary = ~pathname.indexOf(MenuLink.GLOSSARY);
+
     const isGuidedProjectLessonPage =
       isLessonPage &&
       pathname.startsWith(`${getCourseLink(CourseType.GUIDED_PROJECT)}`);
@@ -51,6 +53,7 @@ export const useCheckPathname = () => {
       isLandingPage ||
       isEcosystem ||
       isBlog ||
+      isGlossary ||
       !!~excludeLink.indexOf(pathname as MenuLink);
 
     return {

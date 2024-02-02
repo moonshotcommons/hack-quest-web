@@ -11,6 +11,8 @@ interface CourseListPageHeaderProps {
   coverWidth?: number;
   coverHeight?: number;
   onSearch: (value: string) => void;
+  coverImgClassName?: string;
+  buttonNode?: ReactNode;
   // onSearchInput:
 }
 
@@ -21,7 +23,9 @@ const CourseListPageHeader: FC<CourseListPageHeaderProps> = ({
   coverImageUrl,
   coverWidth,
   coverHeight,
-  onSearch
+  onSearch,
+  coverImgClassName = '',
+  buttonNode
 }) => {
   const [searchValue, setSearchValue] = useState('');
   return (
@@ -29,6 +33,7 @@ const CourseListPageHeader: FC<CourseListPageHeaderProps> = ({
       <div className="w-[800px] max-w-[800px] pt-[60px]">
         <h2 className="text-h2 text-neutral-black">{title}</h2>
         <p className="body-l mt-[20px] text-neutral-rich-gray">{description}</p>
+        {buttonNode && <div className="mb-[60px] mt-[20px]">{buttonNode}</div>}
         <div className="mt-[60px] flex w-full items-center gap-5 rounded-[56px] border border-neutral-light-gray bg-neutral-white px-5 py-4">
           <span>
             <FiSearch size={20} />
@@ -66,7 +71,7 @@ const CourseListPageHeader: FC<CourseListPageHeaderProps> = ({
           )}
         </div>
       </div>
-      <div>
+      <div className={coverImgClassName}>
         {coverImage}
         {!coverImage && coverImageUrl && (
           <Image

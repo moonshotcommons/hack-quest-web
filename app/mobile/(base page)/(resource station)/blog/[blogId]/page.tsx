@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Metadata } from 'next';
 import BlogDetail from '../components/BlogId';
 import { BlogDetailType } from '@/service/webApi/resourceStation/type';
-import { getBlogById } from '@/service/blog';
+import { getBlogById } from '@/service/catch/resource';
 
 interface BlogDetailProp {
   params: {

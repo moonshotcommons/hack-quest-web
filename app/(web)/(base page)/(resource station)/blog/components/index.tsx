@@ -8,6 +8,7 @@ import PageRetentionTime from '@/components/Common/PageRetentionTime';
 import NoData from './NoData';
 import Pagination from '@/components/Common/Pagination';
 import BlogFooter from './BlogFooter';
+import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 
 interface BlogProps {
   params: { slug: string[] };
@@ -51,12 +52,16 @@ const Blog: React.FC<BlogProps> = async function ({
         {blogList.length > 0 ? (
           <BlogList list={blogList} />
         ) : (
-          <NoData href="/blog/"></NoData>
+          <NoData href={MenuLink.BLOG}></NoData>
         )}
 
         {totalPage > 1 && (
           <div className="mt-[80px] flex justify-center">
-            <Pagination page={page} total={totalPage} urlPrefix="/blog/p/" />
+            <Pagination
+              page={page}
+              total={totalPage}
+              urlPrefix={`${MenuLink.BLOG}/p/`}
+            />
           </div>
         )}
       </div>
