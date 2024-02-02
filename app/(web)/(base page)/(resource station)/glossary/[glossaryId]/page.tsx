@@ -1,31 +1,31 @@
 import { FC } from 'react';
 import { Metadata } from 'next';
-import BlogDetail from '../components/BlogId';
 import { BlogDetailType } from '@/service/webApi/resourceStation/type';
-import { getBlogById } from '@/service/catch/resource';
+import BlogDetail from '../../blog/components/BlogId';
+import { getGlossaryById } from '@/service/catch/resource';
 
 interface BlogDetailProp {
   params: {
-    blogId: string;
+    glossaryId: string;
   };
 }
 
 export async function generateMetadata({
   params
 }: BlogDetailProp): Promise<Metadata> {
-  const blog: BlogDetailType = await getBlogById(params.blogId);
+  const glossary: BlogDetailType = await getGlossaryById(params.glossaryId);
   return {
-    title: blog.title,
-    description: blog.description
+    title: glossary.title,
+    description: glossary.description
   };
 }
 
 const BlogPage: FC<BlogDetailProp> = async ({ params }) => {
-  const blog: BlogDetailType = await getBlogById(params.blogId);
+  const glossary: BlogDetailType = await getGlossaryById(params.glossaryId);
 
   return (
     <>
-      <BlogDetail blog={blog} />
+      <BlogDetail blog={glossary} />
     </>
   );
 };

@@ -9,3 +9,11 @@ export const getBlogById = cache(async function (
     await webApi.resourceStationApi.getBlogDetail(id);
   return blog;
 });
+
+export const getGlossaryById = cache(async function (
+  id: string
+): Promise<BlogDetailType> {
+  const blog: BlogDetailType =
+    await webApi.resourceStationApi.getGlossaryDetail(id);
+  return blog;
+});

@@ -210,6 +210,13 @@ type BlogType =
   | 'blog-content-page-页面留存时间'
   | 'blog-content-page Back按钮点击';
 
+type GlossaryType =
+  | 'glossary-页面留存时间'
+  | 'glossary featureBlogCard 卡片点击'
+  | 'glossary blogCard 卡片点击'
+  | 'glossary-content-page-页面留存时间'
+  | 'glossary-content-page Back按钮点击';
+
 export type BurialPointType =
   | AuthBurialPointType
   | LandingBurialPointType
@@ -225,7 +232,8 @@ export type BurialPointType =
   | CampaignsBurialPointType
   | UserProfileType
   | EcosystemProfileType
-  | BlogType;
+  | BlogType
+  | GlossaryType;
 
 export class BurialPoint {
   static track(

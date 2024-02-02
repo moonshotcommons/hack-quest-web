@@ -32,7 +32,7 @@ const FeatureBlog: React.FC<FeatureBlogProp> = ({ list }) => {
         <div className="flex">
           {list.map((blog) => (
             <div className="w-[calc(100vw-2.5rem)] p-[.3125rem]" key={blog.id}>
-              <BlogCard blog={blog} isMobile={true} />
+              <BlogCard blog={blog} />
             </div>
           ))}
         </div>

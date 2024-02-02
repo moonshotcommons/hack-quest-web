@@ -3,15 +3,22 @@ import React, { useRef } from 'react';
 import BlogHeader from '../BlogHeader';
 import BlogContent from '../BlogContent';
 import BlogFooter from '../BlogFooter';
-import { BlogDetailType } from '@/service/webApi/resourceStation/type';
+import {
+  BlogDetailType,
+  ResourceFrom
+} from '@/service/webApi/resourceStation/type';
 import PageRetentionTime from '@/components/Common/PageRetentionTime';
 import BlogLink from '../BlogLink';
 
 interface BlogDetailProp {
   blog: BlogDetailType;
+  from?: ResourceFrom;
 }
 
-const BlogDetail: React.FC<BlogDetailProp> = ({ blog }) => {
+const BlogDetail: React.FC<BlogDetailProp> = ({
+  blog,
+  from = ResourceFrom.BLOG
+}) => {
   const boxRef = useRef<HTMLDivElement>(null);
 
   const backTop = () => {
@@ -25,7 +32,7 @@ const BlogDetail: React.FC<BlogDetailProp> = ({ blog }) => {
       <BlogHeader blog={blog} />
       <BlogContent blog={blog} />
       <BlogLink />
-      <BlogFooter backTop={backTop} />
+      <BlogFooter backTop={backTop} from={from} />
       <PageRetentionTime trackName="blog-content-page-页面留存时间"></PageRetentionTime>
     </div>
   );
