@@ -14,12 +14,18 @@ interface ModalProps {
   icon?: ReactNode;
   markBg?: string;
   className?: string;
+  iconClassName?: string;
 }
 
-const IconClose: FC<{ icon?: ReactNode }> = (props) => {
-  const { icon, ...rest } = props;
+const IconClose: FC<{ icon?: ReactNode; className?: string }> = (props) => {
+  const { icon, className, ...rest } = props;
   return icon ? (
-    <div className="absolute right-[2.25rem] top-[2.5rem] z-[999] cursor-pointer">
+    <div
+      className={cn(
+        'absolute right-[2.25rem] top-[2.5rem] z-[999] cursor-pointer',
+        className
+      )}
+    >
       {icon}
     </div>
   ) : (
@@ -37,7 +43,8 @@ const Modal: React.FC<ModalProps> = (props) => {
     showCloseIcon = false,
     icon,
     markBg = 'black',
-    className
+    className,
+    iconClassName
   } = props;
   // const closeIcon =
   return (
@@ -64,7 +71,10 @@ const Modal: React.FC<ModalProps> = (props) => {
                 <div className="no-scrollbar relative flex  items-center justify-center overflow-y-scroll shadow-2xl">
                   {showCloseIcon ? (
                     <div onClick={onClose}>
-                      <IconClose icon={icon}></IconClose>
+                      <IconClose
+                        icon={icon}
+                        className={iconClassName}
+                      ></IconClose>
                     </div>
                   ) : null}
                   {children}

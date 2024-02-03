@@ -85,3 +85,8 @@ export type BlogContentType = {
 };
 
 export type BlogDetailType = BlogType & BlogContentType;
+
+export enum ResourceFrom {
+  BLOG = 'blog',
+  GLOSSARY = 'glossary'
+}

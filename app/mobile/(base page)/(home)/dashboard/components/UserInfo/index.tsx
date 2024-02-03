@@ -22,9 +22,9 @@ const UserInfo: React.FC<UserInfoProp> = () => {
   );
   return (
     <div>
-      <div className="mb-[16px] rounded-[20px] bg-yellow-light p-[16px]">
+      <div className="mb-[16px] rounded-[20px] bg-neutral-white p-[16px]">
         <div className="mb-[24px] flex items-center gap-[12px]">
-          <div className="relative h-[60px] w-[60px] overflow-hidden rounded-[50%]">
+          <div className="relative h-[48px] w-[48px] overflow-hidden rounded-[50%]">
             <Image
               src={userInfo?.avatar as string}
               alt="avatar"
@@ -32,13 +32,13 @@ const UserInfo: React.FC<UserInfoProp> = () => {
               className="object-cover"
             ></Image>
           </div>
-          <div className="body-m text-neutral-off-black">
+          <div className="body-m-bold text-neutral-off-black">
             {userInfo?.nickname}
           </div>
         </div>
         <div className="flex justify-between p-[12px]">
           <div className="">
-            <p className="mb-[8px] text-[10px] font-light text-neutral-rich-gray">
+            <p className="caption-10pt mb-[8px] font-light text-neutral-rich-gray">
               Courses Completed
             </p>
             <p className="body-xl text-neutral-off-black">
@@ -46,7 +46,7 @@ const UserInfo: React.FC<UserInfoProp> = () => {
             </p>
           </div>
           <div className="">
-            <p className="mb-[8px] text-[10px] font-light text-neutral-rich-gray">
+            <p className="caption-10pt mb-[8px] font-light text-neutral-rich-gray">
               Certification Earned
             </p>
             <p className="body-xl text-neutral-off-black">

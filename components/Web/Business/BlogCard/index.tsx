@@ -3,7 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import BlogCardFooter from './BlogCardFooter';
-import { BlogType } from '@/service/webApi/resourceStation/type';
+import { BlogType, ResourceFrom } from '@/service/webApi/resourceStation/type';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 import { BurialPoint } from '@/helper/burialPoint';
 import Link from 'next/link';
@@ -11,18 +11,23 @@ import TrackTag from '@/components/Common/TrackTag';
 
 interface BlogCardProp {
   blog: BlogType;
-  isMobile?: boolean;
+  from?: ResourceFrom;
 }
 
-const BlogCard: React.FC<BlogCardProp> = ({ blog, isMobile }) => {
+const BlogCard: React.FC<BlogCardProp> = ({
+  blog,
+  from = ResourceFrom.BLOG
+}) => {
   const goBlogContent = () => {
-    BurialPoint.track('blog blogCard 卡片点击');
+    BurialPoint.track(
+      `${from === ResourceFrom.BLOG ? 'blog' : 'glossary'} blogCard 卡片点击`
+    );
   };
   return (
     <Link
       className="card-hover flex w-full flex-col overflow-hidden rounded-[10px] bg-neutral-white text-neutral-off-black"
       onClick={goBlogContent}
-      href={`${isMobile ? '/mobile' : ''}${MenuLink.BLOG}/${blog.id}`}
+      href={`${from === ResourceFrom.BLOG ? MenuLink.BLOG : MenuLink.GLOSSARY}/${blog.id}`}
     >
       <div className="relative h-[0] w-full pt-[56%] ">
         <Image

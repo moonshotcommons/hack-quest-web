@@ -4,6 +4,7 @@ import MyCourses from './MyCourses';
 import UserInfo from './UserInfo';
 import DaliyQuest from './DaliyQuest';
 import { MyCoursesRef } from './MyCourses';
+import JoinDiscordCard from './JoinDiscordCard';
 
 interface DashboardProp {}
 
@@ -34,9 +35,10 @@ const Dashboard: React.FC<DashboardProp> = () => {
             apiStatus={apiStatus}
           />
         </div>
-        <div className="flex w-[286px] flex-col gap-[24px]">
+        <div className="flex w-[289px] flex-col gap-[48px]">
           <UserInfo />
           <DaliyQuest />
+          <JoinDiscordCard />
         </div>
       </div>
     </div>

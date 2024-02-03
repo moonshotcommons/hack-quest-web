@@ -13,6 +13,7 @@ import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useMissionCenterStore } from '@/store/zustand/missionCenterStore';
 import { useCustomPathname } from '@/hooks/useCheckPathname';
 import HackLogo from '@/public/images/logo/hack_logo.png';
+import { useGlobalStore } from '@/store/zustand/globalStore';
 
 export interface NavBarProps {
   navList: NavbarListType[];
@@ -35,6 +36,10 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
   const [inSideNavIndex, setInSideNavIndex] = useState<number>(-1);
   const [secondNavIndex, setSecondNavIndex] = useState<number>(-1);
   const missionData = useMissionCenterStore((state) => state.missionData);
+
+  const setPlaygroundSelectModalOpen = useGlobalStore(
+    (state) => state.setPlaygroundSelectModalOpen
+  );
 
   useEffect(() => {
     for (let nav of navList) {
@@ -70,9 +75,15 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
   ) => {
     if (nav.type === 'outSide') {
       e.stopPropagation();
-      window.open(nav.link);
+      if (nav.id === 'playground') {
+        setPlaygroundSelectModalOpen(true);
+        return;
+      } else {
+        window.open(nav.link);
+      }
     }
-    const path = nav.menu[0].path;
+
+    const path = nav.menu[0]?.path;
     if (~needLoginPath.indexOf(path) && !userInfo) {
       e.stopPropagation();
       message.warning('Please login first');
