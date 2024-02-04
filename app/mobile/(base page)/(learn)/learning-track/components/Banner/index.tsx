@@ -5,8 +5,6 @@ import Image from 'next/image';
 import { bannerTabList } from '../../constants/data';
 import { SearchInfoType } from '../../constants/type';
 import { useRouter } from 'next/navigation';
-import { getSearchParamsUrl } from '@/helper/utils';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 
 interface BannerProp {
   changeSearchInfo: (val: SearchInfoType) => void;

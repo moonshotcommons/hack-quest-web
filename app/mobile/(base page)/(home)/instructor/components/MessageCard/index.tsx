@@ -1,7 +1,6 @@
 import React from 'react';
 // import errorIcon from '@/components/Common/Icon/UnRead';
 import CompletedIcon from '@/components/Common/Icon/Completed';
-import Image from 'next/image';
 import moment from 'moment';
 
 interface MessageCardProp {

@@ -1,5 +1,4 @@
 import { cn, separationNumber } from '@/helper/utils';
-import Image from 'next/image';
 import React from 'react';
 import { BiUser } from 'react-icons/bi';
 
