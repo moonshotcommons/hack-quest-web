@@ -11,6 +11,7 @@ import { useRouter } from 'next/navigation';
 import { cloneDeep } from 'lodash-es';
 import Link from 'next/link';
 import Button from '@/components/Common/Button';
+import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 
 interface BannerProp {
   searchParams: BlogSearchType;
@@ -26,7 +27,7 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
   const [keyWord, setKeyWord] = useState('');
 
   function changeSearchInfo(searchInfo: BlogSearchType) {
-    const url = new URL('/blog', window.location.href);
+    const url = new URL(MenuLink.BLOG, window.location.href);
     for (const key in searchInfo) {
       const value = searchInfo[key as keyof typeof searchInfo];
       if (!value) continue;
@@ -84,11 +85,10 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
   }, [searchParams]);
 
   return (
-    <>
+    <div className="bg-neutral-white">
       <div
-        className="body-l relative  z-[10] h-[400px] pb-[40px] pt-[60px] text-neutral-off-black"
+        className="body-l container relative z-[10]  mx-auto h-[400px] pb-[40px] pt-[60px] text-neutral-off-black"
         style={{
-          backgroundColor: '#fff',
           backgroundImage: `url(${BlogBannerBg.src})`,
           backgroundSize: 'auto 100%',
           backgroundPosition: 'right top',
@@ -236,7 +236,7 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
           !keyWord && inputVisible ? 'block' : 'hidden'
         }`}
       ></div>
-    </>
+    </div>
   );
 };
 

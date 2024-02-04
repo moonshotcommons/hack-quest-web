@@ -1,6 +1,7 @@
 import Button from '@/components/Common/Button';
 import Input from '@/components/Common/Input';
 import Modal from '@/components/Common/Modal';
+import { HACKQUEST_DISCORD } from '@/constants/links';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { FiX } from 'react-icons/fi';
@@ -85,7 +86,11 @@ const SubmitWordModal: React.FC<SubmitWordModalProp> = ({ open, onClose }) => {
         )}
         <div className="caption-14pt flex cursor-pointer justify-center gap-[16px] pt-[1rem] text-neutral-black">
           <span>Hear followup?</span>
-          <Link href={'11'} className="flex items-center gap-[6px]">
+          <Link
+            href={HACKQUEST_DISCORD}
+            target="_blank"
+            className="flex items-center gap-[6px]"
+          >
             <span>Join Discord</span>
             <HiArrowLongRight size={20}></HiArrowLongRight>
           </Link>

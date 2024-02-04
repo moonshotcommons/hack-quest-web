@@ -4,7 +4,6 @@ interface BaseIconProps {
   size?: number | string;
   color?: string;
   hoverColor?: string;
-  children?: React.ReactNode;
   width?: number | string;
   height?: number | string;
 }
