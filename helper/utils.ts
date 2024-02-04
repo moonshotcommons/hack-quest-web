@@ -5,6 +5,7 @@ import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import { JumpLeaningLessonType } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
+import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -184,8 +185,27 @@ export async function urlToBlobAndBase64(url: string) {
   );
 }
 
-export const separationNumber = (num: number, maxNum = 9999) => {
-  const sNum = num > maxNum ? maxNum : num;
+export const separationNumber = (num: number, maxNum?: number) => {
+  const isMaxNum = maxNum && num > maxNum;
+  let sNum;
+  if (isMaxNum) {
+    sNum = maxNum;
+  } else {
+    sNum = num;
+  }
   const str = String(sNum).replace(/(?!^)(?=(\d{3})+$)/g, ',');
-  return num > maxNum ? `${str}+` : str;
+  return isMaxNum ? `${str}+` : str;
+};
+
+export const getSearchParamsUrl = (
+  info: Record<string, any>,
+  path: MenuLink
+) => {
+  const url = new URL(MenuLink.LEARNING_TRACK, window.location.href);
+  for (const key in info) {
+    const value = info[key as keyof typeof info];
+    if (!value) continue;
+    url.searchParams.append(key, value);
+  }
+  return url.toString();
 };

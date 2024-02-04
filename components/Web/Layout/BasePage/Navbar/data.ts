@@ -10,6 +10,10 @@ export const navbarList: NavbarListType[] = [
         path: MenuLink.DASHBOARD,
         needLogin: true
       }
+      // {
+      //   label: 'Instructor',
+      //   path: MenuLink.INSTRUCTOR
+      // }
     ]
   },
   {

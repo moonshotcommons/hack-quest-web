@@ -12,7 +12,8 @@ export enum MenuLink {
   USER_PROFILE = '/user/profile',
   CONNECT_GITHUB = '/connect-github',
   ECOSYSTEM = '/ecosystem',
-  GLOSSARY = '/glossary'
+  GLOSSARY = '/glossary',
+  INSTRUCTOR = '/instructor'
 }
 
 export interface MenuType {
