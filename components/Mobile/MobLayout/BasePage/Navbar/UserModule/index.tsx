@@ -7,8 +7,8 @@ import { motion } from 'framer-motion';
 import { itemVariants } from '../constant';
 import { NavType } from '..';
 import { BiUser, BiLockAlt, BiLogInCircle } from 'react-icons/bi';
-import { message } from 'antd';
 import Link from 'next/link';
+import { useGlobalStore } from '@/store/zustand/globalStore';
 
 interface UserModuleProps {
   changeNavType: (type: NavType) => void;
@@ -23,6 +23,11 @@ const UserModule: FC<UserModuleProps> = ({ changeNavType, toggleOpen }) => {
       userInfo: state.userInfo
     }))
   );
+
+  const setTipsModalOpenState = useGlobalStore(
+    (state) => state.setTipsModalOpenState
+  );
+
   const { redirectToUrl } = useRedirect();
 
   const signOut = () => {
@@ -81,8 +86,9 @@ const UserModule: FC<UserModuleProps> = ({ changeNavType, toggleOpen }) => {
           variants={itemVariants}
           className="flex items-center gap-2 py-[.7813rem]"
           onClick={() => {
-            setAuthType(AuthType.LOGIN);
-            changeNavType(NavType.AUTH);
+            // setAuthType(AuthType.LOGIN);
+            // changeNavType(NavType.AUTH);
+            setTipsModalOpenState(true);
           }}
         >
           <span>
@@ -95,11 +101,12 @@ const UserModule: FC<UserModuleProps> = ({ changeNavType, toggleOpen }) => {
         variants={itemVariants}
         className="flex items-center gap-2 py-[.7813rem]"
         onClick={() => {
-          message.error(
-            'Do not support mobile terminal to change the password, please go to the PC terminal operation.'
-          );
-          return;
-          BurialPoint.track('settings');
+          // message.error(
+          //   'Do not support mobile terminal to change the password, please go to the PC terminal operation.'
+          // );
+          // return;
+          // BurialPoint.track('settings');
+          setTipsModalOpenState(true);
         }}
       >
         <span>

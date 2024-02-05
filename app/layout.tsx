@@ -6,9 +6,9 @@ import InitializeUserProvider from '@/components/Provider/InitializeUser';
 import ThemeContextProvider from '@/store/context/theme';
 import Script from 'next/script';
 import ConfigProvider from '@/components/Provider/Config';
-import AuthModal from '@/components/Web/Business/AuthModal';
 
 import { Nunito, Space_Mono } from 'next/font/google';
+import GlobalModal from '@/components/Web/GlobalModal';
 
 const nunito = Nunito({
   subsets: ['latin'],
@@ -53,7 +53,7 @@ export default function RootLayout({
           <ConfigProvider>
             <InitializeUserProvider>
               {children}
-              <AuthModal />
+              <GlobalModal />
             </InitializeUserProvider>
           </ConfigProvider>
           {/* </MobileRedirect> */}

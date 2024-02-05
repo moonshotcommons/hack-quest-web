@@ -1,19 +1,17 @@
+'use client';
 import { FC } from 'react';
-import { Metadata } from 'next';
-import UserProfilePage from './components';
+// import UserProfilePage from './components';
+import { useNeedPCRedirect } from '@/hooks/useNeedPCRedirect';
 
-export const metadata: Metadata = {
-  title: 'User Profile'
-};
+// export const metadata: Metadata = {
+//   title: 'User Profile'
+// };
 
 interface MissionCenterPageProps {}
 
 const MissionCenterPage: FC<MissionCenterPageProps> = (props) => {
-  return (
-    <>
-      <UserProfilePage />
-    </>
-  );
+  useNeedPCRedirect();
+  return <>{/* <UserProfilePage /> */}</>;
 };
 
 export default MissionCenterPage;
