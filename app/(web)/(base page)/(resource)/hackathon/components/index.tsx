@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 function Hackathon() {
   return (
-    <div className=" text-home-default-color">
+    <div className="text-home-default-color">
       <HackathonBox />
       <FeaturedProjects />
       <PageRetentionTime trackName="hackathon-页面留存时间" />
