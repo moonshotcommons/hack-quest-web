@@ -1,13 +1,16 @@
+'use client';
+
 import Checkbox from '@/components/Common/Checkbox';
 import Radio from '@/components/Common/Radio';
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ALL, ParamType, FilterDataType, FilterType } from './type';
 import { deepClone } from '@/helper/utils';
 import { BiSearch } from 'react-icons/bi';
+import { useRouter } from 'next/navigation';
+import { useRequest } from 'ahooks';
+import webApi from '@/service';
 
 export const dealFilterParam = (param: FilterDataType[]) => {
-  if (!param.length) return {};
-
   const paramObj: any = {};
   param.map((v: FilterDataType) => {
     paramObj[v.value] = v.filterList
@@ -18,23 +21,40 @@ export const dealFilterParam = (param: FilterDataType[]) => {
   return paramObj;
 };
 interface SearchFilterProps {
-  searchParam: FilterDataType[];
-  changeParam: (param: any) => void;
-  changeInputValue?: (value: string) => void;
-  isShowResult?: boolean;
-  resultsLen?: number;
-  isShowInput?: boolean;
-  inputValue?: string;
+  searchParams: { keyword: string } & Record<string, string>;
+  filterData: FilterDataType[];
+  urlPrefix: string;
 }
 const SearchFilter: React.FC<SearchFilterProps> = ({
-  searchParam,
-  changeParam,
-  changeInputValue,
-  isShowResult = false,
-  resultsLen = 0,
-  isShowInput = false,
-  inputValue
+  searchParams,
+  filterData,
+  urlPrefix
 }) => {
+  const router = useRouter();
+  const [searchParam, setSearchParam] = useState<FilterDataType[]>(
+    deepClone(filterData)
+  );
+  const [inputValue, setInputValue] = useState(searchParams.keyword || '');
+  const timeOut = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    if (timeOut.current) clearTimeout(timeOut.current);
+    timeOut.current = setTimeout(() => {
+      applySearchInfo();
+    }, 300);
+  }, [inputValue]);
+
+  function applySearchInfo(searchParam: FilterDataType[] = []) {
+    const url = new URL(urlPrefix, window.location.href);
+    for (const filter of searchParam) {
+      const value = filter.value;
+      if (!value) continue;
+      url.searchParams.append(filter.title, value);
+    }
+    if (inputValue) url.searchParams.append('keyword', inputValue);
+    router.push(url.toString());
+  }
+
   const changeFilterParam = (i: number, j: number) => {
     const newSearchParam = deepClone(searchParam);
     const { type } = newSearchParam[i];
@@ -56,7 +76,8 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
         }
         break;
     }
-    changeParam(newSearchParam);
+    setSearchParam(newSearchParam);
+    applySearchInfo();
   };
 
   const isAllChecked = (newSearchParam: FilterDataType[], i: number) => {
@@ -65,16 +86,11 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
     const checkedLen = filterList.filter(
       (v: ParamType) => v.value !== ALL && v.checked
     ).length;
-    if (checkedLen === filterList.length - 1) {
-      filterList[AllIndex].checked = true;
-    } else {
-      filterList[AllIndex].checked = false;
-    }
+    filterList[AllIndex].checked = checkedLen === filterList.length - 1;
   };
 
   const clearParam = () => {
     const newSearchParam = deepClone(searchParam);
-    changeInputValue?.('');
     newSearchParam.map((v: FilterDataType) => {
       switch (v.type) {
         case FilterType.RADIO:
@@ -89,7 +105,8 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
           });
       }
     });
-    changeParam(newSearchParam);
+    setSearchParam(newSearchParam);
+    applySearchInfo();
   };
 
   const renderType = (i: number, j: number) => {
@@ -105,29 +122,35 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
 
   const changeInput = (e: any) => {
     const value = e.target.value;
-    changeInputValue?.(value);
+    setInputValue(value);
   };
+
+  const {} = useRequest(async () => {
+    const res = await webApi.resourceStationApi.getProjectTracksDict();
+    const tracksDict = res.map((v: string) => ({
+      label: v,
+      value: v,
+      checked: true
+    }));
+    const newSearchParam = deepClone(searchParam);
+    newSearchParam[2].filterList =
+      newSearchParam[2].filterList.concat(tracksDict);
+    setSearchParam(newSearchParam);
+  });
 
   return (
     <div className="w-[272px] text-electives-filter-color ">
       <div className="mb-[15px] flex items-center justify-between border-b border-electives-filter-border-color pb-[6px]">
-        {isShowResult && (
-          <span className="body-xl-bold leading-[24px]">
-            {resultsLen} Results
-          </span>
-        )}
-        {isShowInput && (
-          <div className="flex-row-center body-l ">
-            <BiSearch />
-            <input
-              type="text"
-              placeholder="search"
-              className="ml-[5px] bg-[transparent] outline-none "
-              value={inputValue}
-              onInput={changeInput}
-            />
-          </div>
-        )}
+        <div className="flex-row-center body-l">
+          <BiSearch />
+          <input
+            type="text"
+            placeholder="search"
+            className="ml-[5px] bg-[transparent] outline-none "
+            value={inputValue}
+            onInput={changeInput}
+          />
+        </div>
         <span className="cursor-pointer underline" onClick={() => clearParam()}>
           Clear
         </span>
