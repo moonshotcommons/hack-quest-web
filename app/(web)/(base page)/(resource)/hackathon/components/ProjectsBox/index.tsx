@@ -23,7 +23,7 @@ const ProjectsBox: React.FC<ProjectsBoxProps> = ({
       <SearchFilter
         searchParams={searchParams}
         filterData={deepClone(filterData)}
-        urlPrefix="/hackathon/projects/p/"
+        urlPrefix="/hackathon/projects/"
       />
       <div className="h-full flex-1 pb-5">
         <ProjectsList list={list} />
