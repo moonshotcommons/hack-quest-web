@@ -74,7 +74,7 @@ const BlogFooter: React.FC<BlogFooterProp> = ({
           <div className="flex gap-[20px]">
             {featureBlogList.map((blog) => (
               <div key={blog.id} className="flex-1">
-                <BlogCard blog={blog} from={from} />
+                <BlogCard blog={blog} from={from} isFeatrued={true} />
               </div>
             ))}
           </div>
@@ -84,7 +84,7 @@ const BlogFooter: React.FC<BlogFooterProp> = ({
             className="h-[60px] w-[270px] border border-neutral-black p-0 text-neutral-black"
             onClick={handleClick}
           >
-            BACK TP {`${type === 'top' ? 'TOP' : `${business.text}`}`}
+            BACK TO {`${type === 'top' ? 'TOP' : `${business.text}`}`}
           </Button>
         </div>
       </div>
