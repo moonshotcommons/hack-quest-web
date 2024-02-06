@@ -29,7 +29,7 @@ const CourseListPageHeader: FC<CourseListPageHeaderProps> = ({
 }) => {
   const [searchValue, setSearchValue] = useState('');
   return (
-    <div className="flex min-h-[360px] justify-between gap-[36px] pb-[90px]">
+    <div className="relative flex min-h-[360px] justify-between gap-[36px] pb-[90px]">
       <div className="w-[800px] max-w-[800px] pt-[60px]">
         <h2 className="text-h2 text-neutral-black">{title}</h2>
         <p className="body-l mt-[20px] text-neutral-rich-gray">{description}</p>

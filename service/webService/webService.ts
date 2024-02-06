@@ -11,8 +11,10 @@ import { RequestConfig, RequestInterceptors } from './webServiceTypes';
 class WebService {
   instance: AxiosInstance;
   interceptors?: RequestInterceptors;
+  public readonly baseURL: string;
   constructor(config: CreateAxiosDefaults) {
     this.instance = axios.create(config);
+    this.baseURL = config.baseURL!;
     // this.interceptors = config.interceptors
     this.addInterceptors();
   }

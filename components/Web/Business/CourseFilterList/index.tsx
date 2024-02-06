@@ -32,7 +32,7 @@ const CourseFilterList = <T extends CourseBaseType>({
   sort: propSort,
   onFilterParamsUpdate,
   loading,
-  gap = 24,
+  gap = 20,
   cardCount = 4
 }: CourseFilterListProps<T>) => {
   const [filters, setFilters] = useState(propFilters);
@@ -59,11 +59,14 @@ const CourseFilterList = <T extends CourseBaseType>({
       {/* <Loading loading={!!loading}> */}
       <div className="h-fit min-h-[600px] w-full">
         {/* {!!courseList?.length && ( */}
-        <div className="flex h-full flex-1 flex-wrap gap-x-6  gap-y-8 pb-[20px]">
+        <div className="flex h-full flex-1 flex-wrap gap-x-5 gap-y-8 pb-[20px]">
           {/* {courseList?.map((course, index) => {
               return <div key={course.id + index}>{renderItem(course)}</div>;
             })} */}
-          <CourseCardSkeleton.List active={loading as boolean}>
+          <CourseCardSkeleton.List
+            itemWidth={cardWidth}
+            active={loading as boolean}
+          >
             {courseList?.map((course, index) => {
               return (
                 <div key={course.id + index} className={`${cardWidth}`}>

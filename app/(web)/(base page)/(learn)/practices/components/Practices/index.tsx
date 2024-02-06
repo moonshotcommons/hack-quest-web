@@ -72,7 +72,7 @@ function Practices() {
       onScroll={handleScroll}
       ref={selectiveCoursesRef}
     >
-      <div className="container mx-auto ">
+      <div className="container mx-auto">
         <CourseListPageHeader
           title="Projects"
           description="Practice makes perfect. Find all real-world projects here."
@@ -91,7 +91,7 @@ function Practices() {
             loading={loading}
             renderItem={(course) => {
               return (
-                <div key={course.id} className="w-[calc((100%-72px)/4)]">
+                <div key={course.id} className="w-[calc((100%-60px)/4)]">
                   <PracticeCard
                     course={course as ProjectCourseType}
                   ></PracticeCard>
