@@ -66,7 +66,9 @@ const LearningTrackCard: React.FC<LearningTrackCardProp> = ({
           className="object-cover"
         ></Image>
       </div>
-      <div className="flex h-full flex-1 flex-shrink-0  flex-col justify-between">
+      <div
+        className={`flex h-full flex-1 flex-shrink-0  flex-col justify-between ${inProgress ? 'py-[16px]' : ''}`}
+      >
         <TrackTag track={learningTrack.track} />
         <div>
           <div className="body-m-bold line-clamp-1 text-neutral-off-black">

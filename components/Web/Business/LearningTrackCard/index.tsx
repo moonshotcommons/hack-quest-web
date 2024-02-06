@@ -11,13 +11,11 @@ import CompletedIcon from '@/components/Common/Icon/Completed';
 interface LearningTrackCardProps {
   learningTrack: LearningTrackDetailType;
   isLandingPage?: boolean;
-  className?: string;
   from?: 'dashboard' | 'learningTrack';
 }
 const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
   learningTrack,
   isLandingPage,
-  className,
   from = 'learningTrack'
 }) => {
   const { redirectToUrl } = useRedirect();

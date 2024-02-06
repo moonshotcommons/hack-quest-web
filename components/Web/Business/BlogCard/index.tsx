@@ -12,14 +12,18 @@ import TrackTag from '@/components/Common/TrackTag';
 interface BlogCardProp {
   blog: BlogType;
   from?: ResourceFrom;
+  isFeatrued?: boolean;
 }
 
 const BlogCard: React.FC<BlogCardProp> = ({
   blog,
-  from = ResourceFrom.BLOG
+  from = ResourceFrom.BLOG,
+  isFeatrued = false
 }) => {
   const goBlogContent = () => {
-    BurialPoint.track(`${ResourceFrom.BLOG} blogCard 卡片点击`);
+    BurialPoint.track(
+      `${from === ResourceFrom.BLOG ? 'blog' : 'glossary'} blogCard 卡片点击`
+    );
   };
   return (
     <Link
@@ -52,6 +56,7 @@ const BlogCard: React.FC<BlogCardProp> = ({
           blog={blog}
           className="caption-12pt text-neutral-rich-gray "
           borderColor="border-r-[#3e3e3e]"
+          gap={isFeatrued ? 4 : 10}
           iconSize={18}
         />
       </div>

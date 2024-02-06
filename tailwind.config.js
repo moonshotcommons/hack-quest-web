@@ -82,6 +82,9 @@ module.exports = {
           xl: '1280px',
           '2xl': '1360px'
         }
+      },
+      maxHeight: {
+        270: '67.5rem'
       }
     }
   },

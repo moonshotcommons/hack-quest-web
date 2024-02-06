@@ -1,3 +1,4 @@
+'use client';
 import { QuizBType } from '@/components/Web/Business/Renderer/type';
 import { Dispatch, SetStateAction, createContext } from 'react';
 import { AnswerState } from '@/hooks/useParseQuiz';

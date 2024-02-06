@@ -137,32 +137,51 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
           {children}
         </div>
       </div>
-      {showSecondNav && (
-        <div className="h-12 w-screen  bg-neutral-off-black tracking-[0.84px] text-neutral-white">
+      {navList.map((nav, i) => (
+        <div
+          key={nav.id}
+          className={` h-12  w-screen bg-neutral-off-black tracking-[0.84px] text-neutral-white ${inSideNavIndex === i && nav.menu?.length > 1 ? 'block' : 'hidden'}`}
+        >
           <div className="body-s container m-auto flex h-full items-center">
             <div className="flex h-[34px] items-center border-r-[0.5px] border-r-neutral-white pr-[20px]">
-              {secondLabel}
+              {nav.label}
             </div>
-            <SlideHighlight
-              className="flex  h-full items-center gap-[30px] pl-[20px]"
-              currentIndex={secondNavIndex}
-              type="SECOND_NAVBAR"
-            >
-              {secondNavData.map((menu: MenuType, i: number) => (
-                <Link
-                  key={menu.path}
-                  href={menu.path}
-                  className={`cursor-pointer   ${
-                    secondNavIndex === i ? 'body-s-bold' : ''
-                  }`}
-                >
-                  {menu.label}
-                </Link>
-              ))}
-            </SlideHighlight>
+            {inSideNavIndex === i && nav.menu?.length > 1 ? (
+              <SlideHighlight
+                className="flex  h-full items-center gap-[30px] pl-[20px]"
+                currentIndex={secondNavIndex}
+                type="SECOND_NAVBAR"
+              >
+                {nav.menu.map((menu: MenuType, i: number) => (
+                  <Link
+                    key={menu.path}
+                    href={menu.path}
+                    className={`cursor-pointer   ${
+                      secondNavIndex === i ? 'body-s-bold' : ''
+                    }`}
+                  >
+                    {menu.label}
+                  </Link>
+                ))}
+              </SlideHighlight>
+            ) : (
+              <div className="flex  h-full items-center gap-[30px] pl-[20px]">
+                {nav.menu.map((menu: MenuType, i: number) => (
+                  <Link
+                    key={menu.path}
+                    href={menu.path}
+                    className={`cursor-pointer   ${
+                      secondNavIndex === i ? 'body-s-bold' : ''
+                    }`}
+                  >
+                    {menu.label}
+                  </Link>
+                ))}
+              </div>
+            )}
           </div>
         </div>
-      )}
+      ))}
     </div>
   );
 };
