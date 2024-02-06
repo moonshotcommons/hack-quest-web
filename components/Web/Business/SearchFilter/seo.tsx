@@ -51,6 +51,7 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
       if (!value) continue;
       url.searchParams.append(filter.title, value);
     }
+    if (inputValue) url.searchParams.append('keyword', inputValue);
     router.push(url.toString());
   }
 
