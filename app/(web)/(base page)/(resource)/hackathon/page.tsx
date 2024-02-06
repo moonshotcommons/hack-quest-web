@@ -1,16 +1,19 @@
-'use client';
 import { FC } from 'react';
-import { useNeedPCRedirect } from '@/hooks/useNeedPCRedirect';
+import { Metadata } from 'next';
+import HackathonPage from './components';
 
-// export const metadata: Metadata = {
-//   title: 'Hackathons'
-// };
+export const metadata: Metadata = {
+  title: 'Hackathons'
+};
 
 interface HackathonProps {}
 
 const Hackathon: FC<HackathonProps> = (props) => {
-  useNeedPCRedirect();
-  return <>{/* <HackathonPage /> */}</>;
+  return (
+    <>
+      <HackathonPage />
+    </>
+  );
 };
 
 export default Hackathon;
