@@ -1,59 +1,128 @@
-import { dealFilterParam } from '@/components/Web/Business/SearchFilter';
-import {
-  FilterDataType,
-  FilterType
-} from '@/components/Web/Business/SearchFilter/type';
+import SearchFilter, {
+  dealFilterParam
+} from '@/components/Web/Business/SearchFilter';
+import { FilterDataType } from '@/components/Web/Business/SearchFilter/type';
+import { deepClone } from '@/helper/utils';
 import webApi from '@/service';
-import React from 'react';
+import { ProjectType } from '@/service/webApi/resourceStation/type';
+import { useRequest } from 'ahooks';
+import React, { useEffect, useRef, useState } from 'react';
 import ProjectsList from './ProjectsList';
-import Pagination from '@/components/Common/Pagination';
-import SearchFilter from '@/components/Web/Business/SearchFilter/seo';
-import { filterData } from './data';
+import { filterData, initPageInfo } from './data';
+import Loading from '@/components/Common/Loading';
 
-interface ProjectsBoxProps {
+interface PageInfoType {
   page: number;
-  searchParams: { keyword: string } & Record<string, string>;
+  limit: number;
 }
-const ProjectsBox: React.FC<ProjectsBoxProps> = async ({
-  searchParams,
-  page
+interface ProjectsBoxProps {
+  loadNum: number;
+  setApiStatus: (status: string) => void;
+  apiStatus: string;
+}
+const ProjectsBox: React.FC<ProjectsBoxProps> = ({
+  loadNum,
+  setApiStatus,
+  apiStatus
 }) => {
-  const limit = 12;
-  const { keyword, ...filter } = searchParams;
+  const query = new URLSearchParams(
+    typeof window !== 'undefined' ? window.location.search : ''
+  );
+  const [searchParam, setSearchParam] = useState<FilterDataType[]>(
+    deepClone(filterData)
+  );
+  const timeOut = useRef<NodeJS.Timeout | null>(null);
+  const [inputValue, setInputValue] = useState(query.get('keyword') || '');
+  const [pageInfo, setPageInfo] = useState<PageInfoType>(initPageInfo);
+  const [list, setList] = useState<ProjectType[]>([]);
+  const [runNum, setRunNum] = useState(0);
+  const [total, setTotal] = useState(0);
 
-  const newFilter = Object.entries(filter).reduce((acc, [key, value]) => {
-    acc.push({
-      type: key as FilterType,
-      title: '',
-      value: value as string,
-      filterList: []
+  const changeParam = (newSearchParam: FilterDataType[]) => {
+    setSearchParam(newSearchParam);
+  };
+
+  const initList = () => {
+    getProjectList(initPageInfo).then((newList) => {
+      setApiStatus('init');
+      setList([...(newList as ProjectType[])]);
     });
-    return acc;
-  }, [] as FilterDataType[]);
-  const res = await webApi.resourceStationApi.getProjectsList({
-    ...dealFilterParam(newFilter),
-    keyword,
-    page,
-    limit
-  });
-  const { total, data: list } = res;
+  };
 
+  const getProjectList = (pInfo: PageInfoType) => {
+    setApiStatus('loading');
+    setPageInfo({ ...pInfo });
+    const newFilter = dealFilterParam(searchParam);
+    return new Promise(async (resolve) => {
+      const res = await webApi.resourceStationApi.getProjectsList({
+        ...newFilter,
+        ...pInfo,
+        keyword: inputValue
+      });
+      setTotal(res.total);
+      resolve(res.data);
+    });
+  };
+
+  const {} = useRequest(async () => {
+    const res = await webApi.resourceStationApi.getProjectTracksDict();
+    const tracksDict = res.map((v: string) => ({
+      label: v,
+      value: v,
+      checked: true
+    }));
+    const newSearchParam = deepClone(searchParam);
+    newSearchParam[2].filterList =
+      newSearchParam[2].filterList.concat(tracksDict);
+    setSearchParam(newSearchParam);
+  });
+
+  useEffect(() => {
+    initList();
+  }, [searchParam]);
+
+  useEffect(() => {
+    if (timeOut.current) clearTimeout(timeOut.current);
+    timeOut.current = setTimeout(() => {
+      initList();
+    }, 300);
+  }, [inputValue]);
+
+  useEffect(() => {
+    if (
+      loadNum > runNum &&
+      list.length < total &&
+      total > 0 &&
+      apiStatus === 'init'
+    ) {
+      setRunNum(loadNum);
+      getProjectList({
+        ...pageInfo,
+        page: pageInfo.page + 1
+      }).then((newList) => {
+        const l = [...list, ...(newList as ProjectType[])];
+        setList(l);
+        if (l.length >= total) {
+          setApiStatus('noMre');
+        } else {
+          setApiStatus('init');
+        }
+      });
+    }
+  }, [loadNum]);
   return (
-    <div className="flex justify-between gap-10 h-full">
-      <SearchFilter
-        filterData={filterData as FilterDataType[]}
-        searchParams={searchParams}
-        urlPrefix="/hackathon/projects/"
-      />
-      <div className="flex-1 pb-5 h-full">
-        <ProjectsList list={list} />
-        <Pagination
-          total={total}
-          page={page}
-          urlPrefix="/hackathon/projects/p/"
+    <Loading loading={apiStatus === 'loading'}>
+      <div className="flex h-full justify-between gap-10">
+        <SearchFilter
+          searchParam={searchParam}
+          changeParam={changeParam}
+          changeInputValue={(value) => setInputValue(value)}
+          isShowInput={true}
+          inputValue={inputValue as string}
         />
+        <ProjectsList list={list} />
       </div>
-    </div>
+    </Loading>
   );
 };
 

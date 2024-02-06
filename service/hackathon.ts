@@ -27,3 +27,13 @@ export const getFeaturedProjects = cache(async function (
     ? res.data.filter((project) => project.id !== projectId)
     : res.data;
 });
+
+export const getOtherProjects = cache(async function (
+  keyword: string,
+  activeProjectId: string
+) {
+  const res = await webApi.resourceStationApi.getProjectsList({
+    keyword
+  });
+  return res.data.filter((project) => project.id !== activeProjectId);
+});

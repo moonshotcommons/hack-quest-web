@@ -1,3 +1,4 @@
+'use client';
 import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Button from '@/components/Common/Button';
@@ -8,15 +9,14 @@ import {
 import useDealhackathon from '@/hooks/useDealHackathonData';
 import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import { BurialPoint } from '@/helper/burialPoint';
-import { useRedirect } from '@/hooks/useRedirect';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import Link from 'next/link';
 
 interface HackathonInfoProp {
   hackathon: HackathonType;
 }
 
 const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
-  const { redirectToUrl } = useRedirect();
   const closeInTimeOut = useRef<NodeJS.Timeout | null>(null);
   const [status, setStatus] = useState<HackathonStatusType>(
     HackathonStatusType.ON_GOING
@@ -109,17 +109,15 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
               This hackathon is not available now.
             </div>
           </div>
-          <Button
+          <Link
             className="body-l h-[60px] w-full border border-neutral-black"
             onClick={() => {
               BurialPoint.track(`hackathon detail View All Projects 按钮点击`);
-              redirectToUrl(
-                `${MenuLink.PROJECTS}?menu=${Menu.HACKATHON}&${QueryIdType.PROJECT_ID}=projects&keyWord=${hackathon.name}`
-              );
             }}
+            href={`${MenuLink.PROJECTS}?menu=${Menu.HACKATHON}&${QueryIdType.PROJECT_ID}=projects&keyWord=${hackathon.name}`}
           >
             View All Projects
-          </Button>
+          </Link>
         </>
       )}
     </div>

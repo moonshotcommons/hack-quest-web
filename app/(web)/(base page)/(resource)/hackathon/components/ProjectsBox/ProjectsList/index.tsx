@@ -7,7 +7,7 @@ interface ProjectsListProps {
 }
 const ProjectsList: React.FC<ProjectsListProps> = ({ list }) => {
   return (
-    <div className="flex h-full flex-1 flex-wrap gap-[20px] pb-[20px]">
+    <div className="flex flex-wrap gap-[20px]">
       {list.map((project) => (
         <ProjectCard project={project} key={project.id}></ProjectCard>
       ))}

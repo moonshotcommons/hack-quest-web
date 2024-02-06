@@ -17,7 +17,7 @@ const ProjectVideo: FC<ProjectVideoProps> = function ProjectVideo({ project }) {
   return (
     <>
       {project?.video && (
-        <div className="mt-[30px] bg-gray-300 rounded-[10px] max-h-[504px] w-full">
+        <div className="mt-[30px] max-h-[504px] w-full rounded-[10px] bg-gray-300">
           {!project.video.includes('youtube') && (
             <video controls className="w-full" key={project.id}>
               <source src={project.video}></source>
@@ -33,7 +33,7 @@ const ProjectVideo: FC<ProjectVideoProps> = function ProjectVideo({ project }) {
         </div>
       )}
       {!project?.video && project?.thumbnail && (
-        <div className="relative h-[504px] w-full mt-4">
+        <div className="relative mt-4 h-[504px] w-full">
           <Image src={project?.thumbnail} alt="hackquest" fill></Image>
         </div>
       )}

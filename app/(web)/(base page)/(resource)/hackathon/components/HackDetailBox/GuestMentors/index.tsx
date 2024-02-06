@@ -1,3 +1,4 @@
+'use client';
 import { MentorType } from '@/service/webApi/resourceStation/type';
 import React, { useMemo, useState } from 'react';
 import Box from '../components/Box';

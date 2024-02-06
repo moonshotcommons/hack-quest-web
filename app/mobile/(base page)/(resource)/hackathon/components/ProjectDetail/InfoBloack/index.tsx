@@ -1,4 +1,3 @@
-'use client';
 import { Typography } from 'antd';
 import { FC } from 'react';
 import { MdKeyboardArrowDown } from 'react-icons/md';

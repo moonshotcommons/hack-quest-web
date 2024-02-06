@@ -1,17 +1,31 @@
 import { FC } from 'react';
 import { Metadata } from 'next';
 import HackathonIdPage from '../components/HackthonId';
+import { getHackathonById } from '@/service/hackathon';
 
-export const metadata: Metadata = {
-  title: 'Hackathon Detail'
-};
+interface HackathonIdProps {
+  params: {
+    hackathonId: string;
+  };
+}
 
-interface HackathonIdProps {}
+export async function generateMetadata({
+  params
+}: HackathonIdProps): Promise<Metadata> {
+  const hackathon = await getHackathonById(params.hackathonId);
+  return {
+    title: hackathon.name,
+    description: hackathon.about
+  };
+}
 
-const HackathonId: FC<HackathonIdProps> = (props) => {
+const HackathonId: FC<HackathonIdProps> = async function ({
+  params
+}: HackathonIdProps) {
+  const hackathon = await getHackathonById(params.hackathonId);
   return (
     <>
-      <HackathonIdPage />
+      <HackathonIdPage hackathon={hackathon} />
     </>
   );
 };
