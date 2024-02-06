@@ -13,7 +13,6 @@ import { useDebounceFn, useKeyPress } from 'ahooks';
 import { message } from 'antd';
 import { omit } from 'lodash-es';
 import useIsPc from '@/hooks/useIsPc';
-import TipsModal from '@/app/(web)/(base page)/(landing)/components/TipsModal';
 import { useRedirect } from '@/hooks/useRedirect';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
@@ -21,6 +20,7 @@ import { cn } from '@/helper/utils';
 import { V2_LANDING_PATH } from '@/constants/nav';
 import { useRouter } from 'next/navigation';
 import { useCustomPathname } from '@/hooks/useCheckPathname';
+import { useGlobalStore } from '@/store/zustand/globalStore';
 interface UserLoginProps {
   // children: ReactNode;
   email: string;
@@ -54,8 +54,10 @@ const UserLogin: FC<UserLoginProps> = (props) => {
     }
   });
   const isPc = useIsPc();
-  const [tipsOpen, setTipsOpen] = useState(false);
   const { validator } = useValidator(['email', 'password']);
+  const setTipsModalOpenState = useGlobalStore(
+    (state) => state.setTipsModalOpenState
+  );
   // const { validator: emailValidator } = useValidator(['email']);
   const router = useRouter();
   const { redirectToUrl } = useRedirect();
@@ -93,7 +95,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
                 router.refresh();
               else redirectToUrl(toPageUrl);
             } else {
-              setTipsOpen(true);
+              setTipsModalOpenState(true);
             }
           } catch (e: any) {
             if (e.code === 400) {
@@ -301,8 +303,6 @@ const UserLogin: FC<UserLoginProps> = (props) => {
           Back
         </Button>
       </div>
-
-      <TipsModal open={tipsOpen} onClose={() => setTipsOpen(false)} />
     </div>
   );
 };
