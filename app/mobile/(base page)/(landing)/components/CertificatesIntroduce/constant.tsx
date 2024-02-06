@@ -136,7 +136,7 @@ export const leftCardData = [
     name: 'Build on Solona',
     image: '/images/landing/solana_icon.png',
     alt: 'solana',
-    language: 'Solidity',
+    language: 'Rust  ',
     course: '10 Courses'
   }
 ];

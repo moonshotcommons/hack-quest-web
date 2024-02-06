@@ -1,5 +1,5 @@
 import Button from '@/components/Common/Button';
-import TipsModal from '@/app/(web)/(base page)/(landing)/components/TipsModal';
+
 import { BurialPoint } from '@/helper/burialPoint';
 import { setToken } from '@/helper/user-token';
 import { errorMessage } from '@/helper/ui';
@@ -16,12 +16,12 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useConnect } from 'wagmi';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
+import { useGlobalStore } from '@/store/zustand/globalStore';
 interface MetamaskLoginButtonProps {}
 
 const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
   const [isMounted, setIsMounted] = useState(false);
   const isPc = useIsPc();
-  const [tipsOpen, setTipsOpen] = useState(false);
   const { redirectToUrl } = useRedirect();
 
   const { setAuthType, setUserInfo, setAuthModalOpen } = useUserStore(
@@ -30,6 +30,10 @@ const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
       setUserInfo: state.setUserInfo,
       setAuthModalOpen: state.setAuthModalOpen
     }))
+  );
+
+  const setTipsModalOpenState = useGlobalStore(
+    (state) => state.setTipsModalOpenState
   );
 
   const { connectAsync, connectors, error, isLoading, pendingConnector, data } =
@@ -119,7 +123,7 @@ const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
             message.error('Please connect to your metamask plugin!');
           } else {
             if (!isPc()) {
-              setTipsOpen(true);
+              setTipsModalOpenState(true);
             } else {
               loginByMetaMask();
             }
@@ -129,7 +133,6 @@ const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
       >
         <Image src={Metamask} width={24} height={24} alt="MetaMask"></Image>
       </Button>
-      <TipsModal open={tipsOpen} onClose={() => setTipsOpen(false)} />
     </>
   );
 };

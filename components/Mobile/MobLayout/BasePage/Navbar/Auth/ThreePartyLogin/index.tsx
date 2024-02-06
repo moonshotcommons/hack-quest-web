@@ -82,7 +82,6 @@ function ThreePartyLogin() {
           {error && <div>{error.message}</div>}
         </div> */}
       </div>
-      {/* <TipsModal open={tipsOpen} onClose={() => setTipsOpen(false)} /> */}
     </div>
   );
 }

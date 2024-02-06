@@ -24,7 +24,6 @@ export const navbarList: NavbarListType[] = [
         label: 'Learning Track',
         path: MenuLink.LEARNING_TRACK
       },
-
       {
         label: 'Electives',
         path: MenuLink.ELECTIVES
@@ -42,12 +41,14 @@ export const navbarList: NavbarListType[] = [
       {
         label: 'Mission',
         path: MenuLink.MISSION_CENTER,
-        needLogin: true
+        needLogin: true,
+        needPC: true
       },
       {
         label: 'Campaign',
         path: MenuLink.CAMPAIGINS,
-        needLogin: true
+        needLogin: true,
+        needPC: true
       }
     ]
   },
@@ -57,11 +58,13 @@ export const navbarList: NavbarListType[] = [
     menu: [
       {
         label: 'Hackathon',
-        path: MenuLink.HACKATHON
+        path: MenuLink.HACKATHON,
+        needPC: true
       },
       {
         label: 'Blog',
-        path: MenuLink.BLOG
+        path: MenuLink.BLOG,
+        needPC: true
       }
       // {
       //   label: 'Glossary',
@@ -74,7 +77,8 @@ export const navbarList: NavbarListType[] = [
     id: 'playground',
     type: 'outSide',
     link: process.env.IDE_URL || 'https://ide.dev.hackquest.io',
-    menu: []
+    menu: [],
+    needPC: true
   }
 ];
 

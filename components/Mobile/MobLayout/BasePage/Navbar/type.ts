@@ -13,16 +13,3 @@ export enum MenuLink {
   CONNECT_GITHUB = '/connect-github',
   ECOSYSTEM = '/ecosystem'
 }
-
-export interface MenuType {
-  label: string;
-  path: MenuLink;
-  needLogin?: boolean;
-}
-export interface NavbarListType {
-  label: string;
-  id: string;
-  type?: 'outSide';
-  link?: string;
-  menu: MenuType[];
-}
