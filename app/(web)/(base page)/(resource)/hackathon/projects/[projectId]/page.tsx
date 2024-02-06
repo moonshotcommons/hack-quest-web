@@ -1,17 +1,17 @@
 'use client';
+import { useParams } from 'next/navigation';
 import { FC } from 'react';
-import { useNeedPCRedirect } from '@/hooks/useNeedPCRedirect';
+import ProjectDetail from '../../components/ProjectDetail';
+import FeaturedProjects from '../../components/FeaturedProject';
 
 interface ProjectDetailPageProps {}
 
 const ProjectDetailPage: FC<ProjectDetailPageProps> = (props) => {
-  // const { projectId } = useParams();
-
-  useNeedPCRedirect();
+  const { projectId } = useParams();
 
   return (
     <div>
-      {/* <div className="container mx-auto">
+      <div className="container mx-auto">
         {projectId && (
           <ProjectDetail projectId={projectId as string}></ProjectDetail>
         )}
@@ -20,7 +20,7 @@ const ProjectDetailPage: FC<ProjectDetailPageProps> = (props) => {
         <FeaturedProjects
           ignoreProjectId={projectId as string}
         ></FeaturedProjects>
-      </div> */}
+      </div>
     </div>
   );
 };
