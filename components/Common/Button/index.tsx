@@ -5,6 +5,7 @@ type ButtonType = 'default' | 'primary' | 'secondary' | 'text';
 type SizeType = 'default' | 'large' | 'medium-x' | 'medium-y' | 'small';
 import Loading from '@/public/images/other/loading.png';
 import Image from 'next/image';
+
 interface BaseButtonProps {
   type?: ButtonType;
   icon?: ReactNode;
@@ -75,7 +76,7 @@ const Button: FC<ButtonProps> = (props) => {
       ref={buttonRef}
       className={cn(
         `relative flex h-fit w-fit cursor-pointer items-center justify-center gap-[.625rem] text-neutral-black`,
-        type === 'primary' ? 'bg-yellow-primary' : '',
+        type === 'primary' ? 'bg-yellow-primary hover:bg-yellow-hover' : '',
         type === 'text' ? 'border-none bg-transparent' : '',
         block && 'w-full',
         mergeSize(),
@@ -84,7 +85,8 @@ const Button: FC<ButtonProps> = (props) => {
         loading && type === 'primary'
           ? 'bg-[#FFF4CE] opacity-100 hover:bg-[#FFF4CE]'
           : '',
-        ghost && 'border border-yellow-primary bg-transparent',
+        ghost &&
+          'border border-yellow-primary bg-transparent hover:bg-neutral-off-white',
         rest.disabled ? 'cursor-pointer' : '',
         className
       )}

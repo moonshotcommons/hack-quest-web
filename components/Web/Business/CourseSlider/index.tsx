@@ -64,7 +64,7 @@ const CourseSlider = <T extends CourseBaseType>({
   if (!list?.length && !loading) return null;
 
   return (
-    <div>
+    <div className="w-full">
       <div className="flex items-center justify-between">
         <h3 className="text-h3 text-neutral-black">{title}</h3>
         {courseGroupList.length > 1 && (
@@ -79,14 +79,17 @@ const CourseSlider = <T extends CourseBaseType>({
       </div>
       <ScrollContainer
         onChange={(state: any) => setScrollContainerState(state)}
-        gap={24}
-        className="py-8"
+        gap={20}
+        className="w-full py-8"
       >
-        <div className="flex gap-[24px]">
-          <CourseCardSkeleton.List active={loading}>
+        <div className="flex gap-[20px]">
+          <CourseCardSkeleton.List
+            active={loading}
+            itemWidth={`w-[calc((1360px-60px)/4)]`}
+          >
             {courseGroupList.map((item, index) => {
               return (
-                <div key={index} className="flex w-[1280px] gap-[24px] p-[2px]">
+                <div key={index} className="flex w-[1360px] gap-[20px] p-[2px]">
                   {item.map((course) => {
                     return renderItem(course);
                   })}

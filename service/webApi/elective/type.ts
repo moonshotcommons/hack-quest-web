@@ -1,5 +1,10 @@
 import { thirdPartyMedia } from '@/helper/thirdPartyMedia';
-import { CompleteStateType, CourseBaseType, CourseType } from '../course/type';
+import {
+  CompleteStateType,
+  CourseBaseType,
+  CourseType,
+  CourseUnitType
+} from '../course/type';
 
 export interface CreatorType {
   id: string;
@@ -13,6 +18,7 @@ export interface PageType {
   id: string;
   name: string;
   state: CompleteStateType;
+  description: string;
 }
 
 export interface ElectiveListDataType {
@@ -49,6 +55,7 @@ export interface ElectiveCourseType extends CourseBaseType {
   creator: null | CreatorType;
   status: string;
   isRegistered: boolean;
+  units: CourseUnitType[];
   pages?: PageType[];
   totalPages: number;
 }

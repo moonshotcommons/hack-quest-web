@@ -27,7 +27,7 @@ const Dashboard: React.FC<DashboardProp> = () => {
       onScroll={handleScroll}
       ref={ProjectsPageRef}
     >
-      <div className="container mx-auto flex gap-[48px]">
+      <div className="container mx-auto flex max-w-[1280px] gap-[48px]">
         <div className="flex-1">
           <MyCourses
             ref={coursesRef}

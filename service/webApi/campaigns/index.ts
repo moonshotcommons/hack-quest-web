@@ -73,6 +73,22 @@ class CampaignsApi {
     );
   }
 
+  /** 获取证书的详情 */
+  async fetchCertificationDetail(
+    certificationId: string
+  ): Promise<CertificationType> {
+    const url = `${this.service.baseURL.slice(0, -1)}${CampaignsApiType.Certifications}/${certificationId}`;
+    const certificationDetail = await fetch(url, {
+      method: 'get'
+    });
+
+    if (!certificationDetail.ok) {
+      throw new Error('Failed to fetch learning track data!');
+    }
+
+    return certificationDetail.json();
+  }
+
   /** 保存mint状态 */
   savaMintState(params: { certificationId: string; txId: string }) {
     return this.service.patch(

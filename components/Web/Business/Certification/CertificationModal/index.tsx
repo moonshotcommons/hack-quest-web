@@ -1,3 +1,4 @@
+'use client';
 import Modal from '@/components/Common/Modal';
 import { cn } from '@/helper/utils';
 import iconCoin from '@/public/images/mission-center/icon_coin.png';

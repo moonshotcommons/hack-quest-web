@@ -75,8 +75,9 @@ function Electives() {
           title="Electives"
           description="Each elective course is relatively short and independent, with a focused topic. You will  learn how to build a project step by step."
           coverImageUrl={'/images/course/course_cover/elective_cover.png'}
-          coverWidth={523}
-          coverHeight={277}
+          coverImgClassName="mt-[50px]"
+          coverWidth={394}
+          coverHeight={300}
           onSearch={onSearch}
         ></CourseListPageHeader>
         {type === CourseFilterListType.DEFAULT && (
@@ -85,7 +86,7 @@ function Electives() {
             loading={loading}
             renderItem={(course) => {
               return (
-                <div key={course.id} className="w-[calc((100%-72px)/4)]">
+                <div key={course.id} className="w-[calc((100%-60px)/4)]">
                   <ElectiveCard
                     course={course as ElectiveCourseType}
                   ></ElectiveCard>

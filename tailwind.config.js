@@ -56,7 +56,7 @@ module.exports = {
         xl: '1280px',
         // => @media (min-width: 1280px) { ... }
 
-        '2xl': '1352px',
+        '2xl': '1360px',
         // => @media (min-width: 1352px) { ... }
         slab: {
           raw: '(max-width: 1024px)'
@@ -77,9 +77,10 @@ module.exports = {
       container: {
         screens: {
           sm: '640px',
-          lg: '768px',
-          xl: '1024px',
-          '2xl': '1280px'
+          md: '768px',
+          lg: '1024px',
+          xl: '1280px',
+          '2xl': '1360px'
         }
       },
       maxHeight: {

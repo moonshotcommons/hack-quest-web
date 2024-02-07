@@ -24,7 +24,7 @@ const ProjectCard: React.FC<ProjectCardProp> = ({
   return (
     <Link
       className={cn(
-        'relative mt-1 flex w-[305px]  cursor-pointer flex-col overflow-hidden rounded-[10px] bg-neutral-white shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)]',
+        'relative mt-1 flex  cursor-pointer flex-col overflow-hidden rounded-[10px] bg-neutral-white shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)] sm:w-[calc((640px-60px)/4)] md:w-[calc((768px-60px)/4)] lg:w-[calc((1024px-60px)/4)] xl:w-[calc((1280px-60px)/4)] 2xl:w-[calc((1360px-60px)/4)]',
         className
       )}
       onClick={goProjectDetail}

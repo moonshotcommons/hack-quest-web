@@ -105,6 +105,12 @@ type CourseDetailBurialPointType =
   | 'courseDetail-unit按钮'
   | 'courseDetail-页面下方按钮点击';
 
+type ElectiveDetailBurialPointType =
+  | 'electiveDetail-页面留存时间'
+  | 'electiveDetail-页面上方按钮点击'
+  | 'electiveDetail-lesson按钮'
+  | 'electiveDetail-页面下方按钮点击';
+
 type LearningTrackDetailBurialPointType =
   | 'learningTrackDetail-页面留存时间'
   | 'learningTrackDetail-页面上方Enroll按钮'
@@ -235,7 +241,8 @@ export type BurialPointType =
   | UserProfileType
   | EcosystemProfileType
   | BlogType
-  | GlossaryType;
+  | GlossaryType
+  | ElectiveDetailBurialPointType;
 
 export class BurialPoint {
   static track(
