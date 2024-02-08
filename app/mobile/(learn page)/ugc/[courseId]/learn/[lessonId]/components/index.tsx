@@ -15,7 +15,7 @@ interface UgcProp {
 const Ugc: React.FC<UgcProp> = ({ lessonId }) => {
   const setLearnLesson = useLearnStore((state) => state.setLearnLesson);
   const { data: lesson, loading } = useRequest(() => {
-    return webApi.courseApi.getLessonContent(lessonId);
+    return webApi.courseApi.getLessonContentMob(lessonId);
   });
 
   useEffect(() => {

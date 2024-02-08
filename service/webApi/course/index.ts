@@ -122,6 +122,13 @@ class CourseApi {
     const url = `${CourseApiType.LessonDetail}/${lessonId}`;
     return this.service.get<T>(url);
   }
+  /** 获取单个lesson的内容Mob */
+  getLessonContentMob<T extends CourseLessonType | ElectiveLessonType>(
+    lessonId: string
+  ) {
+    const url = `${CourseApiType.LessonDetail}/${lessonId}/v2`;
+    return this.service.get<T>(url);
+  }
 
   /** 获取单个lesson的内容 */
   getLearningLessonId(courseId: string) {
