@@ -12,13 +12,15 @@ export enum MenuLink {
   USER_PROFILE = '/user/profile',
   CONNECT_GITHUB = '/connect-github',
   ECOSYSTEM = '/ecosystem',
-  GLOSSARY = '/glossary'
+  GLOSSARY = '/glossary',
+  INSTRUCTOR = '/instructor'
 }
 
 export interface MenuType {
   label: string;
   path: MenuLink;
   needLogin?: boolean;
+  needPC?: boolean;
 }
 export interface NavbarListType {
   label: string;
@@ -26,4 +28,5 @@ export interface NavbarListType {
   type?: 'outSide';
   link?: string;
   menu: MenuType[];
+  needPC?: boolean;
 }

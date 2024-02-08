@@ -14,7 +14,7 @@ export enum ResourceStationApiType {
   Hackathon = '/hackathons',
   Projects = '/projects',
   Blogs = '/blogs',
-  Glossary = '/blogs'
+  Glossary = '/glossaries'
 }
 
 class ResourceStationApi {

@@ -1,19 +1,8 @@
-import { FC } from 'react';
 import { Metadata } from 'next';
-import LearningTrack from './components';
+import LearninTrack from './components';
 
 export const metadata: Metadata = {
-  title: 'Learning Tracks'
+  title: 'HackQuest Learnin Track'
 };
 
-interface LearningTrackPageProps {}
-
-const LearningTrackPage: FC<LearningTrackPageProps> = (props) => {
-  return (
-    <>
-      <LearningTrack />
-    </>
-  );
-};
-
-export default LearningTrackPage;
+export default LearninTrack;

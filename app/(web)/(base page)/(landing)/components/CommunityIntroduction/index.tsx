@@ -39,7 +39,7 @@ const cardData = [
 
 const CommunityIntroduction: FC<{}> = (props) => {
   return (
-    <div className="container mx-auto mt-[6.25rem]">
+    <div className="container mx-auto mt-[6.25rem] max-w-[1280px]">
       <div className="mx-auto flex w-[50rem] flex-col items-center gap-3 text-center">
         <p className="body-s-bold uppercase text-neutral-rich-gray">{`what’s next`}</p>
         <h2 className="text-h2">We Support Beyond 📖</h2>

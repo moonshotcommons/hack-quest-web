@@ -68,6 +68,27 @@ class CourseApi {
     });
   }
 
+  /** 获取单个课程的详情信息 */
+  async fetchCourseDetail<
+    T extends CourseDetailType | ElectiveCourseDetailType
+  >(courseId: string, includeUnits = false, includePages = false): Promise<T> {
+    let includes = [];
+
+    if (includeUnits) includes.push('units');
+    if (includePages) includes.push('pages');
+
+    const url = `${this.service.baseURL.slice(0, -1)}${CourseApiType.Course_List}/${courseId}?include=${includes.join(',')}`;
+    const courseDetail = await fetch(url, {
+      method: 'get'
+    });
+
+    if (!courseDetail.ok) {
+      throw new Error('Failed to fetch course data!');
+    }
+
+    return courseDetail.json();
+  }
+
   /** 获取单个课程下的所有units */
   getCourseUnits(courseId: string) {
     const url = `${CourseApiType.Course_List}/${courseId}/units`;
@@ -99,6 +120,13 @@ class CourseApi {
     lessonId: string
   ) {
     const url = `${CourseApiType.LessonDetail}/${lessonId}`;
+    return this.service.get<T>(url);
+  }
+  /** 获取单个lesson的内容Mob */
+  getLessonContentMob<T extends CourseLessonType | ElectiveLessonType>(
+    lessonId: string
+  ) {
+    const url = `${CourseApiType.LessonDetail}/${lessonId}/v2`;
     return this.service.get<T>(url);
   }
 

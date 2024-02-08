@@ -1,19 +1,19 @@
+'use client';
 import { FC } from 'react';
-import MissionCenter from './components';
-import { Metadata } from 'next';
-import PageRetentionTime from '@/components/Common/PageRetentionTime';
+import { useNeedPCRedirect } from '@/hooks/useNeedPCRedirect';
 
-export const metadata: Metadata = {
-  title: 'Mission Center'
-};
+// export const metadata: Metadata = {
+//   title: 'Mission Center'
+// };
 
 interface MissionCenterPageProps {}
 
 const MissionCenterPage: FC<MissionCenterPageProps> = (props) => {
+  useNeedPCRedirect();
   return (
     <>
-      <MissionCenter />
-      <PageRetentionTime trackName="mission-center-页面留存时间"></PageRetentionTime>
+      {/* <MissionCenter />
+      <PageRetentionTime trackName="mission-center-页面留存时间"></PageRetentionTime> */}
     </>
   );
 };

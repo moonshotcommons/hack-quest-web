@@ -14,17 +14,24 @@ export { Skeleton };
 
 interface CourseCardSkeletonCardProps {
   // children: ReactNode;
+  itemWidth: string;
 }
 
 interface CourseCardSkeletonListProps {
   size?: number;
   children?: ReactNode;
   active: boolean;
+  itemWidth: string;
 }
 
 const CourseCardSkeletonCard: FC<CourseCardSkeletonCardProps> = (props) => {
   return (
-    <div className="flex h-[370px] w-[302px] flex-col overflow-hidden rounded-[16px] bg-neutral-white">
+    <div
+      className={cn(
+        'flex h-[370px] flex-col overflow-hidden rounded-[16px] bg-neutral-white',
+        props.itemWidth
+      )}
+    >
       <Skeleton className="flex h-[150px] w-full items-center justify-center">
         <FaRegImage size={80} color={'#bdbdbd'} />
       </Skeleton>
@@ -49,11 +56,17 @@ const CourseCardSkeletonCard: FC<CourseCardSkeletonCardProps> = (props) => {
 const CourseCardSkeletonList: FC<CourseCardSkeletonListProps> = ({
   size = 4,
   children,
-  active
+  active,
+  itemWidth
 }) => {
   return active
     ? new Array(size).fill('').map((item, index) => {
-        return <CourseCardSkeletonCard key={index}></CourseCardSkeletonCard>;
+        return (
+          <CourseCardSkeletonCard
+            key={index}
+            itemWidth={itemWidth}
+          ></CourseCardSkeletonCard>
+        );
       })
     : children;
 };

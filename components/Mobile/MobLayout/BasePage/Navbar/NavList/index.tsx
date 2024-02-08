@@ -1,8 +1,9 @@
 import { FC, ReactNode, useState } from 'react';
 import { motion } from 'framer-motion';
-import { NavbarListType } from '../type';
 import Link from 'next/link';
 import { itemVariants } from '../constant';
+import { NavbarListType } from '@/components/Web/Layout/BasePage/Navbar/type';
+import { useGlobalStore } from '@/store/zustand/globalStore';
 interface NavListProps {
   navList: NavbarListType[];
   toggleOpen: VoidFunction;
@@ -11,6 +12,11 @@ interface NavListProps {
 
 const NavList: FC<NavListProps> = ({ navList, toggleOpen, children }) => {
   const [openNavKeys, setOpenNavKeys] = useState<string[]>([]);
+
+  const setTipsModalOpenState = useGlobalStore(
+    (state) => state.setTipsModalOpenState
+  );
+
   return (
     <motion.div
       variants={{
@@ -42,6 +48,13 @@ const NavList: FC<NavListProps> = ({ navList, toggleOpen, children }) => {
                     );
                   } else {
                     setOpenNavKeys(openNavKeys.concat(item.id));
+                  }
+                  if (item.link) {
+                    if (item.needPC) {
+                      setTipsModalOpenState(true);
+                    } else {
+                      window.open(item.link, '_blank');
+                    }
                   }
                 }}
               >
@@ -85,8 +98,13 @@ const NavList: FC<NavListProps> = ({ navList, toggleOpen, children }) => {
                         key={m.label}
                         className="body-l mb-[.625rem]"
                         href={m.path}
-                        onClick={() => {
-                          toggleOpen();
+                        onClick={(e) => {
+                          if (m.needPC) {
+                            e.preventDefault();
+                            setTipsModalOpenState(true);
+                          } else {
+                            toggleOpen();
+                          }
                         }}
                       >
                         {m.label}

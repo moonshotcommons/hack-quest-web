@@ -8,7 +8,7 @@ interface NoDataType {
 const NoData: React.FC<NoDataType> = ({ goPast }) => {
   const { redirectToUrl } = useRedirect();
   return (
-    <div className="flex flex-col items-center pb-[100px] ">
+    <div className="flex flex-col items-center pb-[100px]">
       <p className="text-[32px] text-home-learning-track-no-data-color">
         There is no ongoing hackathon
       </p>

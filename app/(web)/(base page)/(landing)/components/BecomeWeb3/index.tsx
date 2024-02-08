@@ -34,7 +34,7 @@ const horizontalCardData = [
 
 const BecomeWeb3: FC<{}> = (props) => {
   return (
-    <div className="container mx-auto pt-[6.25rem]">
+    <div className="container mx-auto max-w-[1280px] pt-[6.25rem]">
       <div className="mx-auto flex w-[50rem] flex-col items-center gap-3 text-center">
         <p className="body-s-bold uppercase text-neutral-rich-gray">Why us</p>
         <h2 className="text-h2">Become a Web3 👩🏻‍💻👨🏽‍💻 </h2>

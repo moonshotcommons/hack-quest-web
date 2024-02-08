@@ -4,6 +4,8 @@ import { cn } from '@/helper/utils';
 import { useMintCertification } from '@/hooks/useMintCertification';
 import { CertificationType } from '@/service/webApi/campaigns/type';
 import { useRequest } from 'ahooks';
+import { message } from 'antd';
+
 import Link from 'next/link';
 import { FC, useState } from 'react';
 interface GettingCertificateProps {
@@ -103,12 +105,12 @@ const GettingCertificate: FC<GettingCertificateProps> = ({
       <div className="flex h-fit items-center gap-x-5">
         <div>{badge}</div>
         <h3 className="text-h3 text-neutral-off-black">
-          Congratulations! You are now a Certified Mantle Developer.
+          Congratulations! You are now a certified developer.
         </h3>
       </div>
 
       <p className="body-m mt-5 text-neutral-black">
-        {`This certificate, co-issued by Mantle Network and HackQuest, certifies that you have successfully completed the Mantle Learning Track. It attests that you have acquired foundational skills and understanding in Solidity Development, Deploying to Mantle, Mantle Architecture, and EVM Concepts. Share your accomplishment with the world!`}
+        {`This learning track, co-issued by ecosystem and HackQuest, certifies that you have successfully completed the learning track. Share your accomplishments with the world!`}
       </p>
 
       <div
@@ -158,6 +160,10 @@ const GettingCertificate: FC<GettingCertificateProps> = ({
             certification.mint ? 'cursor-not-allowed opacity-40' : ''
           )}
           onClick={() => {
+            if (certification.id === '51909b45-65b7-4864-9367-dcc38e0c381c') {
+              message.info('Solana NFT will open for minting soon!');
+              return;
+            }
             if (certification.mint) {
               return;
             }
