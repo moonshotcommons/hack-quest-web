@@ -26,9 +26,13 @@ export const useGetLessonContent = <
     async (lessonId) => {
       switch (courseType) {
         case CourseType.MINI:
-          return webApi.courseApi.getLessonContent<T>(lessonId);
+          return isMobile
+            ? webApi.courseApi.getLessonContentMob<T>(lessonId)
+            : webApi.courseApi.getLessonContent<T>(lessonId);
         default:
-          return webApi.courseApi.getLessonContent<T>(lessonId);
+          return isMobile
+            ? webApi.courseApi.getLessonContentMob<T>(lessonId)
+            : webApi.courseApi.getLessonContent<T>(lessonId);
       }
     },
     {

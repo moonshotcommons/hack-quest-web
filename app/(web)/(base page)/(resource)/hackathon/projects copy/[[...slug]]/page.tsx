@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import PageDescription from '@/components/Web/Business/PageDescription';
-import ProjectsPageBox from '../../components/ProjectsBox';
 import PageRetentionTime from '@/components/Common/PageRetentionTime';
 import webApi from '@/service';
 import { dealFilterParam } from '@/components/Web/Business/SearchFilter';
@@ -46,12 +45,12 @@ async function ProjectsPage({
           }
           className="pt-0"
         />
-        <ProjectsPageBox
+        {/* <ProjectsPageBox
           searchParams={searchParams}
           page={page}
           total={total}
           list={list}
-        />
+        /> */}
       </div>
       <PageRetentionTime trackName="hackathon-all-projects-页面留存时间" />
     </div>

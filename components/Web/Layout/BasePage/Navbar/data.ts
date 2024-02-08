@@ -65,11 +65,11 @@ export const navbarList: NavbarListType[] = [
         label: 'Blog',
         path: MenuLink.BLOG,
         needPC: true
-      },
-      {
-        label: 'Glossary',
-        path: MenuLink.GLOSSARY
       }
+      // {
+      //   label: 'Glossary',
+      //   path: MenuLink.GLOSSARY
+      // }
     ]
   },
   {
