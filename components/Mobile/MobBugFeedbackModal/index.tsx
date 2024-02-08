@@ -34,10 +34,11 @@ export interface MobBugFeedbackModalRef {
 }
 
 const kinds = [
-  'Factual Errors',
-  'Clarity and Comprehension',
-  'Enhancement Suggestions',
-  'Others'
+  'Bug Report 反馈 Bug',
+  'Improvement 改进意见',
+  'UI advice UI建议',
+  'New Feature 新功能建议',
+  '其他意见 Other'
 ];
 
 type A = (typeof kinds)[number];
@@ -238,7 +239,7 @@ const MobBugFeedbackModal = forwardRef<
           What kind of bugs have you found1111?
         </p>
         <Form ref={formRef} name="control-hooks">
-          <div className="relative mt-[10px] flex gap-x-[10px]">
+          <div className="relative mt-[10px] flex flex-wrap gap-[10px]">
             {kinds.map((kind, index) => {
               return (
                 <Button

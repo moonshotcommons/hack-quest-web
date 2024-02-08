@@ -13,7 +13,8 @@ export enum MenuLink {
   CONNECT_GITHUB = '/connect-github',
   ECOSYSTEM = '/ecosystem',
   GLOSSARY = '/glossary',
-  INSTRUCTOR = '/instructor'
+  INSTRUCTOR = '/instructor',
+  ADVOCATE = '/advocate'
 }
 
 export interface MenuType {
