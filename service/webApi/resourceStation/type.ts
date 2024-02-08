@@ -90,3 +90,7 @@ export enum ResourceFrom {
   BLOG = 'blog',
   GLOSSARY = 'glossary'
 }
+
+export enum CoustomKeywordType {
+  GLOSSARY = 'Glossary'
+}

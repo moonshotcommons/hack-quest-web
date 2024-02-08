@@ -3,6 +3,7 @@ import {
   BlogDetailType,
   BlogSearchType,
   BlogType,
+  CoustomKeywordType,
   HackathonDataType,
   HackathonType,
   PagedType,
@@ -109,6 +110,12 @@ class ResourceStationApi {
     return this.service.get<BlogDetailType>(
       `${ResourceStationApiType.Glossary}/${id}`
     );
+  }
+
+  customKeyword(data: { type: CoustomKeywordType; keyword: string }) {
+    return this.service.post(`custom-keywords`, {
+      data
+    });
   }
 }
 
