@@ -11,7 +11,7 @@ import {
 
 import Button from '@/components/Common/Button';
 import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
-import CertificationCard from '@/components/Web/Business/Certification/CertificationCard';
+import CertificationCard from '@/components/Web/Business/Certification/CertificationCardClient';
 import { BurialPoint } from '@/helper/burialPoint';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
 import { useEnrollUnEnroll } from '@/hooks/useLearningTrackHooks/useEnrollUnEnroll';
