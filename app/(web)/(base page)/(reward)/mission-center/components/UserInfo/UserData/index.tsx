@@ -9,6 +9,7 @@ import { LoginResponse } from '@/service/webApi/user/type';
 import Image from 'next/image';
 import React from 'react';
 import Ring from './Ring';
+import Tooltip from '@/components/Common/Tooltip';
 
 export interface UserDataType {
   userInfo: LoginResponse | null;
@@ -75,7 +76,12 @@ const UserData: React.FC<UserDataType> = ({
         </div>
 
         <div className=" flex-col-center h-full w-[155px]  justify-between rounded-[10px] border border-neutral-medium-gray bg-neutral-white pb-[16px] pt-[20px]">
-          <p>Total Hack Credits</p>
+          <Tooltip
+            title="HackQuest Credits has no internal relation with HackQuest token in the future"
+            className="z-[999]"
+          >
+            <p className="cursor-pointer">Total Hack Credits</p>
+          </Tooltip>
           <div className="flex-row-center pt-1  text-[28px]">
             <Image
               src={IconCoin}
