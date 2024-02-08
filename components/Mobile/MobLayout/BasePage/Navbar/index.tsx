@@ -2,7 +2,6 @@ import Image from 'next/image';
 import React, { ReactNode, useEffect, useState, FC } from 'react';
 import { useCycle } from 'framer-motion';
 
-import { NavbarListType } from './type';
 import { useRedirect } from '@/hooks/useRedirect';
 
 import { useMissionCenterStore } from '@/store/zustand/missionCenterStore';
@@ -12,6 +11,7 @@ import Auth from './Auth';
 import UserModule from './UserModule';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useCheckPathname } from '@/hooks/useCheckPathname';
+import { NavbarListType } from '@/components/Web/Layout/BasePage/Navbar/type';
 
 export interface NavbarProps {
   navList: NavbarListType[];

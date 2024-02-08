@@ -8,7 +8,7 @@ interface FooterProps {}
 const Footer: FC<FooterProps> = (props) => {
   return (
     <div className="w-full bg-neutral-black py-[7.5rem]">
-      <div className="container mx-auto flex justify-between">
+      <div className="container mx-auto flex max-w-[1280px] justify-between">
         <div className="relative h-[.875rem] w-[8.25rem]">
           <Image
             src={'/images/logo/home_nav_logo.svg'}

@@ -111,7 +111,7 @@ export const ScrollContainer = forwardRef<unknown, ScrollContainerProps>(
       <div
         ref={containerRef}
         className={cn(
-          `relative flex h-auto w-auto overflow-x-hidden`,
+          `container relative flex h-auto overflow-x-hidden`,
           className
         )}
       >

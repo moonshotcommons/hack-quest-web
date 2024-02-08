@@ -5,6 +5,7 @@ import { HackathonType } from '@/service/webApi/resourceStation/type';
 import Link from 'next/link';
 import { menuLink } from '@/components/Web/Business/Breadcrumb/data';
 import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
+import { Typography } from 'antd';
 
 interface PastHackathonCardProps {
   hackathon: HackathonType;
@@ -21,9 +22,8 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon }) => {
   return (
     <Link
       href={`${menuLink.hackathon}/${hackathon.id}?menu=${Menu.HACKATHON}&${QueryIdType.HACKATHON_ID}=${hackathon.id}`}
-      className="block w-full"
     >
-      <div className="card-hover h-fit w-full overflow-hidden rounded-[10px]  bg-white text-neutral-off-black">
+      <div className="flex h-fit w-full cursor-pointer flex-col gap-y-[22px] overflow-hidden rounded-[10px] bg-neutral-white shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)]">
         <div className="relative h-0 w-full rounded-t-[10px] bg-[#D9D9D9] pt-[56.25%]">
           {cover && (
             <Image
@@ -34,24 +34,34 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon }) => {
             ></Image>
           )}
         </div>
-        <div className="flex flex-col gap-[16px] px-[24px]  py-[20px]">
-          <div className="body-l-bold line-clamp-2 h-[44px] text-neutral-off-black">
+        <div className="flex flex-col px-[22px] pb-[30px]">
+          <Typography.Paragraph
+            ellipsis={{ rows: 2 }}
+            className="body-l-bold min-h-[46px] text-neutral-black"
+            style={{ marginBottom: 0 }}
+          >
             {name}
-          </div>
-          <div className="flex h-[48px] w-full gap-[8px]">
-            <div className="h-full w-[5px] flex-shrink-0 rounded-full bg-neutral-light-gray"></div>
-            <div className="flex flex-1 flex-col justify-between">
-              <div className="flex items-center gap-[8px]">
+          </Typography.Paragraph>
+          {/* </h2> */}
+          <div className="mt-[15px] flex h-fit w-full gap-[15px]">
+            <div className="w-[5px] rounded-full bg-yellow-primary"></div>
+            <div className="flex flex-col gap-[15px]">
+              <div className="w-full">
                 <p className="body-xs text-neutral-medium-gray">RUNS FROM</p>
-                <p className="body-s">{formatTime(startTime, endTime)}</p>
+                <p className="body-s mt-[5px] text-neutral-black">
+                  {formatTime(startTime, endTime)}
+                </p>
               </div>
-              <div className="flex w-full items-center gap-[8px]">
+              <div className="w-full">
                 <p className="body-xs text-neutral-medium-gray">HAPPENING</p>
-                <div className=" relative h-[22px] flex-1">
-                  <div className="underline-s absolute left-0 top-0 h-full w-full truncate">
-                    {address}
-                  </div>
-                </div>
+
+                <Typography.Paragraph
+                  ellipsis={{ rows: 2 }}
+                  className="body-s mt-[5px] min-h-[36px] text-neutral-black"
+                  style={{ marginBottom: 0 }}
+                >
+                  {address}
+                </Typography.Paragraph>
               </div>
             </div>
           </div>

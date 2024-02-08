@@ -6,6 +6,8 @@ import { deepClone } from '@/helper/utils';
 import { BiSearch } from 'react-icons/bi';
 
 export const dealFilterParam = (param: FilterDataType[]) => {
+  if (!param.length) return {};
+
   const paramObj: any = {};
   param.map((v: FilterDataType) => {
     paramObj[v.value] = v.filterList

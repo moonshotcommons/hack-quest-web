@@ -44,7 +44,7 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
   }, [hackathon]);
   return (
     <div className="flex flex-col gap-[25px] ">
-      <div className="text-h4">{hackathon.name}</div>
+      <div className="text-h3">{hackathon.name}</div>
       <div>
         <div className="body-l-bold mb-[5px]">THEME</div>
         <pre className="body-m">{hackathon.theme}</pre>
@@ -105,7 +105,7 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
       ) : (
         <>
           <div className="flex h-[63px] flex-col justify-center rounded-[10px] bg-[rgba(218,218,218,0.5)] px-[20px] ">
-            <div className="body-xl text-neutral-medium-gray">
+            <div className="text-[21px] text-neutral-medium-gray">
               This hackathon is not available now.
             </div>
           </div>

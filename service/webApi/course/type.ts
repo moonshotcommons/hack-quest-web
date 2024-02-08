@@ -1,4 +1,4 @@
-import { ElectiveCourseType } from '../elective/type';
+import { ElectiveCourseType, PageType } from '../elective/type';
 
 export interface Response {
   id: string;
@@ -127,6 +127,7 @@ export interface CourseBaseType {
   track: CourseTrackType;
   progress?: number;
   peopleJoined: number;
+  lessonCount: number;
 }
 
 /** Project类型的课程 */
@@ -149,6 +150,7 @@ export interface CourseUnitType {
   courseId: string;
   createdAt: string;
   updatedAt: string;
+  pages?: PageType[];
 }
 
 export interface CourseUnitStateType {

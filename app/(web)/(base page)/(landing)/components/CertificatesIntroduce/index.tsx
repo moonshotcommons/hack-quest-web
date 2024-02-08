@@ -9,7 +9,7 @@ interface CertificatesIntroduceProps {}
 const CertificatesIntroduce: FC<CertificatesIntroduceProps> = (props) => {
   return (
     <div className="flex h-[1072px] w-full flex-col bg-yellow-light">
-      <div className="container mx-auto mt-[6.25rem] flex justify-between">
+      <div className="container mx-auto mt-[6.25rem] flex max-w-[1280px] justify-between">
         <div className="flex w-[38.375rem] flex-col justify-center gap-10 ">
           <h2 className="text-h2 capitalize text-neutral-off-black">
             Earn certificates issued by leading Web3 ecosystems
@@ -45,7 +45,7 @@ const CertificatesIntroduce: FC<CertificatesIntroduceProps> = (props) => {
       </div>
       <div className="relative mt-10 w-full">
         <div className="absolute left-1/2 top-[126px] z-[99] w-full -translate-x-1/2 border-b-[2px] border-dashed border-neutral-dark-gray"></div>
-        <div className="container mx-auto flex justify-between">
+        <div className="container mx-auto flex max-w-[1280px] justify-between">
           <div className="relative h-[30.875rem] w-[37.5rem]">
             <div className="absolute -right-2 top-2 h-full w-full rounded-[32px] bg-yellow-primary"></div>
             <div className="absolute flex h-full  w-full flex-col gap-[32px] rounded-[32px] bg-neutral-white p-10">
