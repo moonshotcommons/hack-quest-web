@@ -1,11 +1,7 @@
 'use client';
 import { useEffect } from 'react';
 
-import {
-  V2_DASHBOARD_PATH,
-  V2_LANDING_PATH,
-  isNoNeedUserInfo
-} from '@/constants/nav';
+import { V2_LANDING_PATH, isNoNeedUserInfo } from '@/constants/nav';
 import { getToken } from '@/helper/user-token';
 import { useRedirect } from '../useRedirect';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
@@ -31,7 +27,7 @@ function useNavAuth(waitingUserData: boolean) {
       if (redirect_url && token) {
         redirectToUrl(`${redirect_url}?token=${token}`);
       } else {
-        redirectToUrl(V2_DASHBOARD_PATH);
+        // redirectToUrl(V2_DASHBOARD_PATH);
       }
 
       return;
