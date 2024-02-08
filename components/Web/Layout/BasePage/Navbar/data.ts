@@ -72,6 +72,18 @@ export const navbarList: NavbarListType[] = [
     ]
   },
   {
+    label: 'Advocate',
+    id: 'advocate',
+    menu: [
+      {
+        label: 'advocate',
+        path: MenuLink.ADVOCATE
+      }
+    ],
+    link: '/advocate',
+    needPC: true
+  },
+  {
     label: 'Playground',
     id: 'playground',
     type: 'outSide',
