@@ -94,9 +94,10 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
     redirectToUrl(path);
   };
   const logoClick = () => {
-    if (userInfo) return;
-    setAuthType(AuthType.LOGIN);
-    setAuthModalOpen(true);
+    // if (userInfo) return;
+    // setAuthType(AuthType.LOGIN);
+    // setAuthModalOpen(true);
+    redirectToUrl('/');
   };
   return (
     <div className="relative z-[999] w-full">
@@ -104,9 +105,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
         <div className="flex h-full items-center justify-between">
           <nav className="flex h-full items-center text-neutral-white">
             <div
-              className={`flex h-full items-center ${
-                !userInfo ? 'cursor-pointer' : ''
-              }`}
+              className={`flex h-full cursor-pointer items-center`}
               onClick={logoClick}
             >
               <Image src={HackLogo} width={133} alt="logo"></Image>

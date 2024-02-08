@@ -359,3 +359,16 @@ input[data-type='changePassword']:-internal-autofill-selected {
   font-size: 14px;
   line-height: 150%;
 }
+
+/* @font-face {
+  font-family: 'color-emoji';
+  src: local('Apple Color Emoji'), local('Segoe UI Emoji'),
+    local('Segoe UI Symbol'), local('Noto Color Emoji');
+} */
+.emoji {
+  font-family:
+    Apple Color Emoji,
+    Segoe UI Emoji,
+    Segoe UI Symbol,
+    Noto Color Emoji;
+}
