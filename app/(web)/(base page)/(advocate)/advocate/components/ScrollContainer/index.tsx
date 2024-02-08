@@ -92,7 +92,7 @@ const ScrollContainer: FC<ScrollContainerProps> = ({
 
     return () => {
       bs.destroy();
-      // clear();
+      clear();
     };
   }, []);
 
