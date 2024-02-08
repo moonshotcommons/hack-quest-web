@@ -63,8 +63,7 @@ export const navbarList: NavbarListType[] = [
       },
       {
         label: 'Blog',
-        path: MenuLink.BLOG,
-        needPC: true
+        path: MenuLink.BLOG
       }
       // {
       //   label: 'Glossary',
