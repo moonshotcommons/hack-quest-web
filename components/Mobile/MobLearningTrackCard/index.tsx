@@ -1,3 +1,4 @@
+'use client';
 import { LearningTrackCourseType } from '@/service/webApi/course/type';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import Image from 'next/image';

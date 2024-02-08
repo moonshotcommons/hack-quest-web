@@ -13,6 +13,7 @@ import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useMissionCenterStore } from '@/store/zustand/missionCenterStore';
 import { useCustomPathname } from '@/hooks/useCheckPathname';
 import HackLogo from '@/public/images/logo/hack_logo.png';
+import { useGlobalStore } from '@/store/zustand/globalStore';
 
 export interface NavBarProps {
   navList: NavbarListType[];
@@ -35,6 +36,10 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
   const [inSideNavIndex, setInSideNavIndex] = useState<number>(-1);
   const [secondNavIndex, setSecondNavIndex] = useState<number>(-1);
   const missionData = useMissionCenterStore((state) => state.missionData);
+
+  const setPlaygroundSelectModalOpen = useGlobalStore(
+    (state) => state.setPlaygroundSelectModalOpen
+  );
 
   useEffect(() => {
     for (let nav of navList) {
@@ -70,9 +75,15 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
   ) => {
     if (nav.type === 'outSide') {
       e.stopPropagation();
-      window.open(nav.link);
+      if (nav.id === 'playground') {
+        setPlaygroundSelectModalOpen(true);
+        return;
+      } else {
+        window.open(nav.link);
+      }
     }
-    const path = nav.menu[0].path;
+
+    const path = nav.menu[0]?.path;
     if (~needLoginPath.indexOf(path) && !userInfo) {
       e.stopPropagation();
       message.warning('Please login first');
@@ -88,7 +99,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
     setAuthModalOpen(true);
   };
   return (
-    <div className="w-full">
+    <div className="relative z-[999] w-full">
       <div className={`container mx-auto h-[64px]`}>
         <div className="flex h-full items-center justify-between">
           <nav className="flex h-full items-center text-neutral-white">
@@ -126,32 +137,51 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
           {children}
         </div>
       </div>
-      {showSecondNav && (
-        <div className="h-12 w-screen  bg-neutral-off-black tracking-[0.84px] text-neutral-white">
+      {navList.map((nav, i) => (
+        <div
+          key={nav.id}
+          className={` h-12  w-screen bg-neutral-off-black tracking-[0.84px] text-neutral-white ${inSideNavIndex === i && nav.menu?.length > 1 ? 'block' : 'hidden'}`}
+        >
           <div className="body-s container m-auto flex h-full items-center">
             <div className="flex h-[34px] items-center border-r-[0.5px] border-r-neutral-white pr-[20px]">
-              {secondLabel}
+              {nav.label}
             </div>
-            <SlideHighlight
-              className="flex  h-full items-center gap-[30px] pl-[20px]"
-              currentIndex={secondNavIndex}
-              type="SECOND_NAVBAR"
-            >
-              {secondNavData.map((menu: MenuType, i: number) => (
-                <Link
-                  key={menu.path}
-                  href={menu.path}
-                  className={`cursor-pointer   ${
-                    secondNavIndex === i ? 'body-s-bold' : ''
-                  }`}
-                >
-                  {menu.label}
-                </Link>
-              ))}
-            </SlideHighlight>
+            {inSideNavIndex === i && nav.menu?.length > 1 ? (
+              <SlideHighlight
+                className="flex  h-full items-center gap-[30px] pl-[20px]"
+                currentIndex={secondNavIndex}
+                type="SECOND_NAVBAR"
+              >
+                {nav.menu.map((menu: MenuType, i: number) => (
+                  <Link
+                    key={menu.path}
+                    href={menu.path}
+                    className={`cursor-pointer   ${
+                      secondNavIndex === i ? 'body-s-bold' : ''
+                    }`}
+                  >
+                    {menu.label}
+                  </Link>
+                ))}
+              </SlideHighlight>
+            ) : (
+              <div className="flex  h-full items-center gap-[30px] pl-[20px]">
+                {nav.menu.map((menu: MenuType, i: number) => (
+                  <Link
+                    key={menu.path}
+                    href={menu.path}
+                    className={`cursor-pointer   ${
+                      secondNavIndex === i ? 'body-s-bold' : ''
+                    }`}
+                  >
+                    {menu.label}
+                  </Link>
+                ))}
+              </div>
+            )}
           </div>
         </div>
-      )}
+      ))}
     </div>
   );
 };

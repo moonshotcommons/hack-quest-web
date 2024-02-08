@@ -1,16 +1,19 @@
+'use client';
 import React from 'react';
 import BannerImg from '@/public/images/home/learning_track_banner.png';
 import { bannerTabList } from '../../constants/data';
 import { SearchInfoType } from '../../constants/type';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 interface BannerProp {
   changeSearchInfo: (val: SearchInfoType) => void;
   searchInfo: SearchInfoType;
 }
 
-const Banner: React.FC<BannerProp> = ({ changeSearchInfo, searchInfo }) => {
+const Banner: React.FC<BannerProp> = ({ searchInfo, changeSearchInfo }) => {
   const { track } = searchInfo;
+  const router = useRouter();
   return (
     <div
       className="h-[400px] pb-[74px] pt-[60px]"

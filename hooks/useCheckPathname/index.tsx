@@ -38,6 +38,8 @@ export const useCheckPathname = () => {
 
     const isBlog = ~pathname.indexOf(MenuLink.BLOG);
 
+    const isGlossary = ~pathname.indexOf(MenuLink.GLOSSARY);
+
     const isGuidedProjectLessonPage =
       isLessonPage &&
       pathname.startsWith(`${getCourseLink(CourseType.GUIDED_PROJECT)}`);
@@ -45,12 +47,37 @@ export const useCheckPathname = () => {
     const isMiniElectiveLessonPage =
       isLessonPage && pathname.startsWith(`${getCourseLink(CourseType.MINI)}`);
 
+    const isSyntaxDetailPage =
+      /^\/syntax\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
+        pathname
+      );
+    const isPracticesDetailPage =
+      /^\/practices\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
+        pathname
+      );
+    const isElectiveDetailPage =
+      /^\/electives\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
+        pathname
+      );
+    const isLearningTrackDetailPage =
+      /^\/learning-track\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
+        pathname
+      );
+
+    const isCourseDetailPage = false;
+    // isSyntaxDetailPage ||
+    // isPracticesDetailPage ||
+    // isElectiveDetailPage ||
+    // isLearningTrackDetailPage;
+
     const isExcludeBreadcrumbLink =
       isNavbarFullPage ||
+      isCourseDetailPage ||
       isMobileLink ||
       isLandingPage ||
       isEcosystem ||
       isBlog ||
+      isGlossary ||
       !!~excludeLink.indexOf(pathname as MenuLink);
 
     return {

@@ -2,6 +2,11 @@ import Button from '@/components/Common/Button';
 import DiscordIcon from '@/components/Common/Icon/Discord';
 import TelegramIcon from '@/components/Common/Icon/Telegram';
 import TwitterIcon from '@/components/Common/Icon/Twitter';
+import {
+  HACKQUEST_DISCORD,
+  HACKQUEST_TELEGRAM,
+  HACKQUEST_TWITTER
+} from '@/constants/links';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FC } from 'react';
@@ -15,7 +20,7 @@ const ConnectedUs: FC<ConnectedUsProps> = (props) => {
         <h2 className="text-h2">Stay Connected with us</h2>
         <div className="flex gap-[3.75rem]">
           <Link
-            href={'https://discord.gg/KkAJHPqywn'}
+            href={HACKQUEST_DISCORD}
             target="_blank"
             className="cursor-pointer hover:scale-[1.1]"
           >
@@ -24,7 +29,7 @@ const ConnectedUs: FC<ConnectedUsProps> = (props) => {
             </span>
           </Link>
           <Link
-            href={'https://x.com/hackquest_?s=21&t=kYetGSBybf-ssFBo7GodGA'}
+            href={HACKQUEST_TWITTER}
             target="_blank"
             className="cursor-pointer hover:scale-[1.1]"
           >
@@ -33,7 +38,7 @@ const ConnectedUs: FC<ConnectedUsProps> = (props) => {
             </span>
           </Link>
           <Link
-            href={'https://t.me/hackquester'}
+            href={HACKQUEST_TELEGRAM}
             target="_blank"
             className="cursor-pointer hover:scale-[1.1]"
           >

@@ -105,6 +105,12 @@ type CourseDetailBurialPointType =
   | 'courseDetail-unit按钮'
   | 'courseDetail-页面下方按钮点击';
 
+type ElectiveDetailBurialPointType =
+  | 'electiveDetail-页面留存时间'
+  | 'electiveDetail-页面上方按钮点击'
+  | 'electiveDetail-lesson按钮'
+  | 'electiveDetail-页面下方按钮点击';
+
 type LearningTrackDetailBurialPointType =
   | 'learningTrackDetail-页面留存时间'
   | 'learningTrackDetail-页面上方Enroll按钮'
@@ -199,16 +205,25 @@ type EcosystemProfileType =
   | 'ecosystem-profile-页面留存时间'
   | 'ecosystem-profile-Official Website点击'
   | 'ecosystem-profile miniElectiveCard 点击'
-  | 'ecosystem-profile miniElectiveCard start按钮 点击'
-  | 'blog-content-page-featured blogCard滚动-左'
-  | 'blog-content-page-featured blogCard滚动-右';
+  | 'ecosystem-profile miniElectiveCard start按钮 点击';
 
 type BlogType =
   | 'blog-页面留存时间'
   | 'blog featureBlogCard 卡片点击'
   | 'blog blogCard 卡片点击'
   | 'blog-content-page-页面留存时间'
-  | 'blog-content-page Back按钮点击';
+  | 'blog-content-page Back按钮点击'
+  | 'blog-content-page-featured blogCard滚动-左'
+  | 'blog-content-page-featured blogCard滚动-右';
+
+type GlossaryType =
+  | 'glossary-页面留存时间'
+  | 'glossary featureBlogCard 卡片点击'
+  | 'glossary blogCard 卡片点击'
+  | 'glossary-content-page-页面留存时间'
+  | 'glossary-content-page Back按钮点击'
+  | 'glossary-content-page-featured blogCard滚动-左'
+  | 'glossary-content-page-featured blogCard滚动-右';
 
 export type BurialPointType =
   | AuthBurialPointType
@@ -225,7 +240,9 @@ export type BurialPointType =
   | CampaignsBurialPointType
   | UserProfileType
   | EcosystemProfileType
-  | BlogType;
+  | BlogType
+  | GlossaryType
+  | ElectiveDetailBurialPointType;
 
 export class BurialPoint {
   static track(

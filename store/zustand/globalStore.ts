@@ -7,7 +7,9 @@ interface TipsModalOpenStateType {
 
 export interface GlobalStateType {
   tipsModalOpenState: TipsModalOpenStateType;
+  playgroundSelectModalOpen: boolean;
   setTipsModalOpenState: (open: TipsModalOpenStateType | boolean) => void;
+  setPlaygroundSelectModalOpen: (open: boolean) => void;
 }
 
 export const useGlobalStore = create<GlobalStateType>()((set) => ({
@@ -15,6 +17,7 @@ export const useGlobalStore = create<GlobalStateType>()((set) => ({
     open: false,
     isRedirect: false
   },
+  playgroundSelectModalOpen: false,
   setTipsModalOpenState(payload) {
     set((state) => {
       if (typeof payload === 'boolean') {
@@ -32,5 +35,8 @@ export const useGlobalStore = create<GlobalStateType>()((set) => ({
         }
       };
     });
+  },
+  setPlaygroundSelectModalOpen(payload) {
+    set((state) => ({ playgroundSelectModalOpen: payload }));
   }
 }));

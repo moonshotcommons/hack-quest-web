@@ -10,6 +10,10 @@ export const navbarList: NavbarListType[] = [
         path: MenuLink.DASHBOARD,
         needLogin: true
       }
+      // {
+      //   label: 'Instructor',
+      //   path: MenuLink.INSTRUCTOR
+      // }
     ]
   },
   {
@@ -59,9 +63,12 @@ export const navbarList: NavbarListType[] = [
       },
       {
         label: 'Blog',
-        path: MenuLink.BLOG,
-        needPC: true
+        path: MenuLink.BLOG
       }
+      // {
+      //   label: 'Glossary',
+      //   path: MenuLink.GLOSSARY
+      // }
     ]
   },
   {

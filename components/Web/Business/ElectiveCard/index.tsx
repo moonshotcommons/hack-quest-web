@@ -2,14 +2,11 @@ import Button from '@/components/Common/Button';
 import { BurialPoint } from '@/helper/burialPoint';
 import { cn } from '@/helper/utils';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
-import { CourseType } from '@/service/webApi/course/type';
 import Image from 'next/image';
 import { FC, useCallback, useRef } from 'react';
 import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import { useRedirect } from '@/hooks/useRedirect';
-import MiniElectiveDetailModal, {
-  MiniElectiveDetailModalRef
-} from '../MiniElectiveDetailModal';
+import { MiniElectiveDetailModalRef } from '../MiniElectiveDetailModal';
 import { ElectiveCourseType } from '@/service/webApi/elective/type';
 import { MenuLink } from '@/components/Layout/Navbar/type';
 import CardProgress from '../CardProgress';
@@ -40,9 +37,9 @@ const ElectiveCard: FC<ElectiveCardProps> = (props) => {
 
   const onCourseClick = useCallback(() => {
     switch (course.type) {
-      case CourseType.MINI:
-        miniElectiveDetailInstance.current?.open(course);
-        return;
+      // case CourseType.MINI:
+      //   miniElectiveDetailInstance.current?.open(course);
+      //   return;
       default:
         redirectToUrl(
           `${MenuLink.ELECTIVES}/${course.id}?${QueryIdType.MENU_COURSE_ID}=${course.id}&menu=${Menu.ELECTIVES}`
@@ -131,7 +128,7 @@ const ElectiveCard: FC<ElectiveCardProps> = (props) => {
           </div>
         </div>
       </div>
-      <MiniElectiveDetailModal ref={miniElectiveDetailInstance} />
+      {/* <MiniElectiveDetailModal ref={miniElectiveDetailInstance} /> */}
     </>
   );
 };

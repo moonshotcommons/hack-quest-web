@@ -4,7 +4,7 @@ import { LearningStatus } from '../type';
 import UnitCard from './UnitCard';
 
 interface UnitListProps {
-  courseDetail?: CourseDetailType;
+  courseDetail: CourseDetailType;
   learningStatus?: LearningStatus;
 }
 
@@ -22,7 +22,7 @@ const UnitList: FC<UnitListProps> = (props) => {
 
   return (
     <ul className="flex flex-col">
-      {units.map((unit, index) => {
+      {courseDetail.units!.map((unit, index) => {
         if (index === 0) {
           return (
             <li key={unit.id} className="top-line bottom-line relative w-full">

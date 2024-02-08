@@ -13,7 +13,8 @@ import {
 export enum ResourceStationApiType {
   Hackathon = '/hackathons',
   Projects = '/projects',
-  Blogs = '/blogs'
+  Blogs = '/blogs',
+  Glossary = '/glossaries'
 }
 
 class ResourceStationApi {
@@ -86,6 +87,27 @@ class ResourceStationApi {
   getBlogDetail(id: string) {
     return this.service.get<BlogDetailType>(
       `${ResourceStationApiType.Blogs}/${id}`
+    );
+  }
+
+  getGlossaryList(params: BlogSearchType & PagedType) {
+    return this.service.get<{ data: BlogType[]; total: number }>(
+      `${ResourceStationApiType.Glossary}`,
+      {
+        params
+      }
+    );
+  }
+
+  getFeaturedGlossary() {
+    return this.service.get<BlogType[]>(
+      `${ResourceStationApiType.Glossary}/featured`
+    );
+  }
+
+  getGlossaryDetail(id: string) {
+    return this.service.get<BlogDetailType>(
+      `${ResourceStationApiType.Glossary}/${id}`
     );
   }
 }
