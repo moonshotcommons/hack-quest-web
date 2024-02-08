@@ -25,7 +25,8 @@ const isNoNeedUserInfoDetail = (pathname: string) => {
     MenuLink.PRACTICES,
     MenuLink.BLOG,
     MenuLink.GLOSSARY,
-    MenuLink.INSTRUCTOR
+    MenuLink.INSTRUCTOR,
+    MenuLink.ADVOCATE
   ].some((menu) => pathname.includes(menu));
 };
 
