@@ -1,50 +1,51 @@
 import { FC } from 'react';
-import ScrollContainer from '../ScrollContainer';
 import CommunityIRLCard from './CommunityIRLCard';
 import { bottomDataList, topDataList } from './constant';
 import Link from 'next/link';
+import ScrollArea from './ScrollArea';
 
 interface CommunityIRLProps {}
 
 const CommunityIRL: FC<CommunityIRLProps> = (props) => {
+  const leftContent = (
+    <div className="flex justify-center gap-5">
+      {topDataList.map((item, index) => {
+        return (
+          <CommunityIRLCard
+            key={index}
+            title={item.title}
+            image={item.image}
+            place={item.place}
+            date={item.date}
+          ></CommunityIRLCard>
+          // </div>
+        );
+      })}
+    </div>
+  );
+
+  const rightContent = (
+    <div className="flex justify-center gap-5">
+      {bottomDataList.map((item, index) => {
+        return (
+          <CommunityIRLCard
+            key={index}
+            title={item.title}
+            image={item.image}
+            place={item.place}
+            date={item.date}
+          ></CommunityIRLCard>
+        );
+      })}
+    </div>
+  );
+
   return (
     <div className="mt-[100px]">
       <h2 className="text-h2 text-center text-neutral-off-black">
         HackQuest Community IRL 👀
       </h2>
-      <div className="my-[60px]">
-        <ScrollContainer>
-          <div className="flex justify-center gap-5">
-            {topDataList.map((item, index) => {
-              return (
-                <CommunityIRLCard
-                  key={index}
-                  title={item.title}
-                  image={item.image}
-                  place={item.place}
-                  date={item.date}
-                ></CommunityIRLCard>
-                // </div>
-              );
-            })}
-          </div>
-        </ScrollContainer>
-        <ScrollContainer dir="right">
-          <div className="flex justify-center gap-5">
-            {bottomDataList.map((item, index) => {
-              return (
-                <CommunityIRLCard
-                  key={index}
-                  title={item.title}
-                  image={item.image}
-                  place={item.place}
-                  date={item.date}
-                ></CommunityIRLCard>
-              );
-            })}
-          </div>
-        </ScrollContainer>
-      </div>
+      <ScrollArea leftContent={leftContent} rightContent={rightContent} />
       <div className="container mx-auto flex justify-center">
         <Link
           href={

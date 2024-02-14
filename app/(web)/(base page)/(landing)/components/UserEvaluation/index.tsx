@@ -18,7 +18,7 @@ const UserEvaluation: FC<{}> = (props) => {
         </p>
       </div>
       <div className="mt-[3.75rem]">
-        <ScrollContainer>
+        <ScrollContainer allowPausing>
           <div className="flex h-[35.75rem] justify-center gap-6">
             {userEvaluation.map((col, index) => {
               return (

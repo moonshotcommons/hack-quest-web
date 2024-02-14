@@ -1,22 +1,37 @@
 'use client';
-import { FC, ReactNode, useEffect, useRef, useState } from 'react';
+import {
+  ForwardRefRenderFunction,
+  ReactNode,
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState
+} from 'react';
 import BScroll from '@better-scroll/core';
 import { useInterval } from 'ahooks';
 interface ScrollContainerProps {
   className?: string;
   children: ReactNode;
   dir?: 'left' | 'right';
+  interval?: number;
+  /** 允许hover暂停，移出继续, 默认false */
+  allowPausing?: boolean;
 }
 
-const ScrollContainer: FC<ScrollContainerProps> = ({
-  className,
-  children,
-  dir = 'left'
-}) => {
+export interface ScrollContainerRef {
+  stop: () => void;
+  continue: () => void;
+}
+
+const ScrollContainer: ForwardRefRenderFunction<
+  ScrollContainerRef,
+  ScrollContainerProps
+> = ({ className, children, dir = 'left', allowPausing = false }, ref) => {
   const scrollContainerInstance = useRef<HTMLDivElement>(null);
   const contentInstance = useRef<HTMLDivElement>(null);
-
-  const [startX, setStartX] = useState(dir === 'left' ? 0 : -704);
+  const [interval, setInterval] = useState<number>(30);
+  const [startX, setStartX] = useState(0);
   const add = useRef(1);
 
   const clear = useInterval(() => {
@@ -51,7 +66,20 @@ const ScrollContainer: FC<ScrollContainerProps> = ({
 
       return state;
     });
-  }, 30);
+  }, interval);
+
+  useImperativeHandle(
+    ref,
+    () => {
+      return {
+        stop: clear,
+        continue() {
+          setInterval(interval > 30 ? 30 : 31);
+        }
+      };
+    },
+    [clear, interval]
+  );
 
   useEffect(() => {
     let bs: BScroll;
@@ -72,7 +100,7 @@ const ScrollContainer: FC<ScrollContainerProps> = ({
         startX = diff;
       }
 
-      // setStartX(startX);
+      setStartX(startX);
 
       bs = new BScroll(scrollContainerInstance.current, {
         scrollX: true,
@@ -100,6 +128,15 @@ const ScrollContainer: FC<ScrollContainerProps> = ({
     <div
       className={'relative overflow-hidden whitespace-nowrap'}
       ref={scrollContainerInstance}
+      onMouseEnter={() => {
+        if (!allowPausing) return;
+        clear();
+        // setInterval(0);
+      }}
+      onMouseLeave={() => {
+        if (!allowPausing) return;
+        setInterval(interval > 30 ? 30 : 31);
+      }}
     >
       <div
         className="inline-block min-w-full"
@@ -112,4 +149,4 @@ const ScrollContainer: FC<ScrollContainerProps> = ({
   );
 };
 
-export default ScrollContainer;
+export default forwardRef(ScrollContainer);
