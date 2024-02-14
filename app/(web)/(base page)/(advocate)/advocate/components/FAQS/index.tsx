@@ -40,7 +40,7 @@ const FAQS: FC<FAQSProps> = (props) => {
   const [expendIndex, setExpendIndex] = useState<number[]>([]);
   return (
     <div className="container mx-auto flex max-w-[1280px] justify-between gap-20 py-[6.25rem]">
-      <div className="flex w-fit flex-col gap-10">
+      <div className="flex w-[400px] max-w-[400px] flex-col gap-10">
         <p className="text-h2 capitalize text-neutral-off-black">FAQs</p>
         <p className="body-l tracking-tighter text-neutral-medium-gray">
           For more questions, join our Discord / Telegram and DM your question
