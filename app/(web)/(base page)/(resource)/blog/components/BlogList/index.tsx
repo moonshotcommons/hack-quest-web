@@ -5,19 +5,17 @@ import React from 'react';
 interface BlogListProp {
   list: BlogType[];
   from?: ResourceFrom;
-  isFeatrued?: boolean;
 }
 
 const BlogList: React.FC<BlogListProp> = ({
   list,
-  from = ResourceFrom.BLOG,
-  isFeatrued = false
+  from = ResourceFrom.BLOG
 }) => {
   return (
     <div className="flex flex-wrap gap-x-[20px] gap-y-[40px]">
       {list.map((blog) => (
-        <div className="w-[calc((100%-40px)/3)]" key={blog.id}>
-          <BlogCard blog={blog} from={from} isFeatrued={isFeatrued} />
+        <div className="w-[calc((100%-60px)/4)]" key={blog.id}>
+          <BlogCard blog={blog} from={from} isFeatrued={true} />
         </div>
       ))}
     </div>
