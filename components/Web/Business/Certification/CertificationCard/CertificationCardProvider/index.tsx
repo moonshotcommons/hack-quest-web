@@ -21,7 +21,7 @@ const CertificationCardProvider: FC<CertificationCardProviderProps> = ({
   children
 }) => {
   const { data, refresh } = useRequest(async () => {
-    return webApi.campaignsApi.fetchCertificationDetail(certification.id);
+    return webApi.campaignsApi.getCertificationDetail(certification.id);
   });
 
   return (
