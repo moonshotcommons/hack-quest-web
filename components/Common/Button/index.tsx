@@ -34,6 +34,7 @@ const Button: FC<ButtonProps> = (props) => {
     ghost,
     size,
     loading = false,
+    disabled: propDisabled,
     ...rest
   } = props;
   // const classNames = ;
@@ -71,12 +72,15 @@ const Button: FC<ButtonProps> = (props) => {
     }
   }, [buttonRef]);
 
+  const disabled = propDisabled || loading;
+
   return (
     <button
       ref={buttonRef}
       className={cn(
         `relative flex h-fit w-fit cursor-pointer items-center justify-center gap-[.625rem] text-neutral-black`,
-        type === 'primary' ? 'bg-yellow-primary hover:bg-yellow-hover' : '',
+        type === 'primary' ? 'bg-yellow-primary' : '',
+        type === 'primary' && !disabled ? 'hover:bg-yellow-hover' : '',
         type === 'text' ? 'border-none bg-transparent' : '',
         block && 'w-full',
         mergeSize(),
@@ -85,11 +89,12 @@ const Button: FC<ButtonProps> = (props) => {
         loading && type === 'primary'
           ? 'bg-[#FFF4CE] opacity-100 hover:bg-[#FFF4CE]'
           : '',
-        ghost &&
-          'border border-yellow-primary bg-transparent hover:bg-neutral-off-white',
-        rest.disabled ? 'cursor-pointer' : '',
+        ghost && 'border border-yellow-primary bg-transparent',
+        ghost && !disabled ? 'hover:bg-neutral-off-white' : '',
+        disabled ? 'cursor-not-allowed opacity-40' : '',
         className
       )}
+      disabled={disabled}
       {...rest}
     >
       {icon && iconPosition === 'left' && (

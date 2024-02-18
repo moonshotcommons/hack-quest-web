@@ -262,7 +262,11 @@ const PersonalLinkEditModal = forwardRef<
                         key === ThirdPartyMediaType.DISCORD ? 'text' : 'url'
                       }
                       disabled={key === ThirdPartyMediaType.DISCORD}
-                      placeholder="Please enter personal link"
+                      placeholder={
+                        key === ThirdPartyMediaType.DISCORD
+                          ? 'Please connect to discord'
+                          : 'Please enter personal link'
+                      }
                       className="body-s h-[30px] flex-1 truncate bg-transparent text-neutral-medium-gray outline-none"
                     />
                     <div className="w-[64px]"></div>
