@@ -65,6 +65,7 @@ const SubmitWordModal: React.FC<SubmitWordModalProp> = ({ open, onClose }) => {
                   </span>
                 }
                 name=""
+                theme="light"
                 placeholder="Any words about Web3 are welcome..."
                 className="border-neutral-medium-gray"
                 maxLength={60}

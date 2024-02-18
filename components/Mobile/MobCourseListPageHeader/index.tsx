@@ -1,7 +1,8 @@
+'use client';
 import { cn } from '@/helper/utils';
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import Image from 'next/image';
-import { FC, ReactNode, useState } from 'react';
+import { FC, ReactNode, useEffect, useRef, useState } from 'react';
 import { FiSearch } from 'react-icons/fi';
 import { GoX } from 'react-icons/go';
 
@@ -16,6 +17,7 @@ interface CourseListPageHeaderProps {
   buttonNode?: ReactNode;
   className?: string;
   coverImgClassName?: string;
+  defaultValue?: string;
   // onSearchInput:
 }
 
@@ -28,9 +30,14 @@ const MobCourseListPageHeader: FC<CourseListPageHeaderProps> = ({
   onSearch,
   buttonNode,
   className,
-  coverImgClassName
+  coverImgClassName,
+  defaultValue = ''
 }) => {
   const [searchValue, setSearchValue] = useState('');
+  const timeOut = useRef<NodeJS.Timeout | null>(null);
+  useEffect(() => {
+    setSearchValue(defaultValue);
+  }, [defaultValue]);
   return (
     <div
       className={cn(
@@ -49,20 +56,28 @@ const MobCourseListPageHeader: FC<CourseListPageHeaderProps> = ({
             placeholder="Search for keywords, topics, etc..."
             className="body-m w-full truncate text-neutral-medium-gray outline-none"
             value={searchValue}
-            onKeyUp={(e) => {
-              if (e.code === 'Enter') {
-                const value = (e.target as HTMLInputElement).value;
-                setSearchValue(value);
+            // onKeyUp={(e) => {
+            //   if (e.code === 'Enter') {
+            //     const value = (e.target as HTMLInputElement).value;
+            //     setSearchValue(value);
+            //     onSearch(value);
+            //   }
+            // }}
+            // onChange={(e) => {
+            //   setSearchValue(e.target.value);
+            //   if (!e.target.value) onSearch(e.target.value);
+            // }}
+            // onBlur={(e) => {
+            //   setSearchValue(e.target.value);
+            //   onSearch(e.target.value);
+            // }}
+            onInput={(e) => {
+              const value = (e.target as HTMLInputElement).value;
+              setSearchValue(value);
+              if (timeOut.current) clearTimeout(timeOut.current);
+              timeOut.current = setTimeout(() => {
                 onSearch(value);
-              }
-            }}
-            onChange={(e) => {
-              setSearchValue(e.target.value);
-              if (!e.target.value) onSearch(e.target.value);
-            }}
-            onBlur={(e) => {
-              setSearchValue(e.target.value);
-              onSearch(e.target.value);
+              }, 1000);
             }}
           ></input>
 

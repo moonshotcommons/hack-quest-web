@@ -25,6 +25,8 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
   const timeOut = useRef<NodeJS.Timeout | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [keyWord, setKeyWord] = useState('');
+  const inputRef = useRef<HTMLInputElement>(null);
+  const isInit = useRef(true);
 
   function changeSearchInfo(searchInfo: BlogSearchType) {
     const url = new URL(MenuLink.BLOG, window.location.href);
@@ -83,7 +85,16 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
     setSearchInfo(newSearchInfo);
     setKeyWord(newSearchInfo.keyword);
     setInputVisible(!!newSearchInfo.keyword);
+    setTimeout(() => {
+      isInit.current = false;
+    }, 1000);
   }, [searchParams]);
+
+  useEffect(() => {
+    if (inputVisible && !isInit.current) {
+      inputRef.current?.focus();
+    }
+  }, [inputVisible]);
 
   return (
     <>
@@ -216,6 +227,7 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
                       placeholder="Search"
                       value={keyWord}
                       onInput={changeInput}
+                      ref={inputRef}
                     />
                     <FiX
                       size={32}
