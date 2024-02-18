@@ -115,6 +115,26 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
             onChange={(e) => {
               setStatus('default');
               setErrorMessage('');
+              // validator.validate(
+              //   { email: e.target.value },
+              //   (errors, fields) => {
+              //     if (errors?.[0]) {
+              //       setStatus('error');
+              //       setErrorMessage(errors?.[0].message || '');
+              //       onStatusChange(false);
+              //     } else {
+              //       setStatus('success');
+              //       setErrorMessage('');
+              //       onStatusChange(true);
+              //     }
+              //   }
+              // );
+              setFormData({
+                ...formData,
+                email: e.target.value
+              });
+            }}
+            onBlur={(e) => {
               validator.validate(
                 { email: e.target.value },
                 (errors, fields) => {
@@ -129,10 +149,6 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
                   }
                 }
               );
-              setFormData({
-                ...formData,
-                email: e.target.value
-              });
             }}
             defaultValue={formData.email}
           ></Input>

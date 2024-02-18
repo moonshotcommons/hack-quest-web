@@ -52,14 +52,14 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
   };
   const changeInput = (e: any) => {
     const keyword = e.target.value;
+    setKeyWord(keyword);
     if (timeOut.current) clearTimeout(timeOut.current);
     timeOut.current = setTimeout(() => {
-      setKeyWord(keyword);
       changeSearchInfo({
         ...searchInfo,
         keyword
       });
-    }, 300);
+    }, 1000);
   };
 
   const changeInputVisible = () => {
@@ -80,7 +80,8 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
     const index = searchTabData.findIndex((v) => v.value === category);
     setCurrentIndex(index);
     setSearchInfo(newSearchInfo);
-    !newSearchInfo.keyword && setInputVisible(false);
+    setKeyWord(newSearchInfo.keyword);
+    setInputVisible(!!newSearchInfo.keyword);
   }, [searchParams]);
 
   return (
@@ -168,6 +169,7 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
               type="text"
               className="body-m h-full w-full rounded-[1.5rem] bg-neutral-off-white pl-[1.375rem]  outline-none"
               placeholder="Search"
+              value={keyWord}
               onInput={changeInput}
             />
           </motion.div>
