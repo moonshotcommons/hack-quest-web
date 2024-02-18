@@ -91,9 +91,9 @@ const UserLogin: FC<UserLoginProps> = (props) => {
                 ? `${redirect_url}?token=${res.token}`
                 : '/dashboard';
               setAuthModalOpen(false);
-              if (!redirect_url && pathname !== V2_LANDING_PATH)
-                router.refresh();
-              else redirectToUrl(toPageUrl);
+              if (!redirect_url && pathname !== V2_LANDING_PATH) {
+                window.location.reload();
+              } else redirectToUrl(toPageUrl);
             } else {
               setTipsModalOpenState(true);
             }
