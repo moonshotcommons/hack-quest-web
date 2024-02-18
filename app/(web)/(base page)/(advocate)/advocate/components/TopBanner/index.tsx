@@ -64,7 +64,10 @@ const TopBanner: FC<TopBannerProps> = (props) => {
               </span>
             </Link>
           </div>
-          <Link href={'https://xsxo494365r.typeform.com/to/X1n7gsPH'}>
+          <Link
+            href={'https://xsxo494365r.typeform.com/to/X1n7gsPH'}
+            target="_blank"
+          >
             <Button
               type="primary"
               className="button-text-l px-[55px] py-[19px] uppercase text-neutral-black"

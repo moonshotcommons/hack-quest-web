@@ -53,7 +53,7 @@ const TagAndProgress: FC<TagAndProgressProps> = ({
             ></div>
           </div>
           <span className="body-s text-neutral-rich-gray">
-            {progress * 100}%
+            {Math.floor(progress * 100)}%
           </span>
         </div>
       );
