@@ -8,6 +8,9 @@ import { useShallow } from 'zustand/react/shallow';
 import { FC } from 'react';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { BiUser, BiLockAlt, BiLogInCircle } from 'react-icons/bi';
+import { V2_LANDING_PATH, isNoNeedUserInfo } from '@/constants/nav';
+import { useCustomPathname } from '@/hooks/useCheckPathname';
+import { useRouter } from 'next/navigation';
 interface UserDropCardProps {
   // children: ReactNode;
   userInfo: LoginResponse;
@@ -37,6 +40,8 @@ const UserInfo: FC<Omit<UserDropCardProps, 'onClose'>> = ({ userInfo }) => {
 
 const UserDropCard: FC<UserDropCardProps> = (props) => {
   const { userInfo, onClose } = props;
+  const pathname = useCustomPathname();
+  const router = useRouter();
   const { setAuthType, userSignOut, setSettingsOpen } = useUserStore(
     useShallow((state) => ({
       setAuthType: state.setAuthType,
@@ -49,6 +54,13 @@ const UserDropCard: FC<UserDropCardProps> = (props) => {
     setAuthType(AuthType.LOGIN);
     userSignOut();
     BurialPoint.track('登出');
+    // // 未登录
+    if (isNoNeedUserInfo(pathname)) {
+      window.location.reload();
+      router.refresh();
+    } else {
+      redirectToUrl(V2_LANDING_PATH);
+    }
   };
 
   return (

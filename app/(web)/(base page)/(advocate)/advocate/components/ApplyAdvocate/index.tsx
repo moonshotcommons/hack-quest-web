@@ -14,7 +14,10 @@ const ApplyAdvocate: FC<ApplyAdvocateProps> = (props) => {
       <div className="relative h-[420px] w-[900px]">
         <Image src={'/images/advocate/map.webp'} fill alt="hackquest"></Image>
       </div>
-      <Link href={'https://xsxo494365r.typeform.com/to/X1n7gsPH'}>
+      <Link
+        href={'https://xsxo494365r.typeform.com/to/X1n7gsPH'}
+        target="_blank"
+      >
         <Button className="w-[165px] py-4 uppercase" type="primary">
           apply NOW
         </Button>
