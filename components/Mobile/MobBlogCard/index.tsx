@@ -29,7 +29,7 @@ const MobBlogCard: React.FC<MobBlogCardProp> = ({
       onClick={goBlogContent}
       href={`${from === ResourceFrom.BLOG ? MenuLink.BLOG : MenuLink.GLOSSARY}/${blog.id}`}
     >
-      <div className="relative h-[7.75rem] w-[8.125rem] flex-shrink-0">
+      <div className="relative h-full w-[8.125rem] flex-shrink-0">
         <Image
           src={blog.image}
           alt="blogImage"

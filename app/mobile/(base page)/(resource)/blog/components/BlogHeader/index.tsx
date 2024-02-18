@@ -31,7 +31,7 @@ const BlogHeader: React.FC<BlogHeaderProp> = ({ blog }) => {
             <TrackTag
               key={i}
               track={v}
-              className="caption-14pt border-neutral-white px-[14px] py-[6px] text-neutral-white"
+              className="caption-14pt border-[1px] border-neutral-white px-[14px] py-[6px] text-neutral-white"
             />
           ))}
         </div>

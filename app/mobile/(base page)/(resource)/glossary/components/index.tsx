@@ -32,9 +32,10 @@ const Glossary: React.FC<GlossaryProp> = async ({
   const galossaryList = glossaryData.data || [];
   const totalList = glossaryData.total;
   const totalPage = Math.ceil(glossaryData.total / limit);
+  console.info(searchParams, 'searchParams');
   return (
     <div>
-      <GlossaryHeader />
+      <GlossaryHeader keyword={searchParams.keyword || ''} />
       <div className="px-[1.25rem] py-[2.5rem]">
         {searchParams.keyword ? (
           <div className="body-m mb-[2.5rem] text-center text-neutral-black">
