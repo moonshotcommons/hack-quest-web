@@ -22,8 +22,9 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
   const [inputVisible, setInputVisible] = useState(false);
   const [sortVisible, setSortVisible] = useState(false);
   const timeOut = useRef<NodeJS.Timeout | null>(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
   const [keyWord, setKeyWord] = useState('');
+  const inputRef = useRef<HTMLInputElement>(null);
+  const isInit = useRef(true);
 
   function changeSearchInfo(searchInfo: BlogSearchType) {
     const url = new URL('/blog', window.location.href);
@@ -76,13 +77,19 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
     newSearchInfo.sort = newSearchInfo.sort || sortData[0].value;
     newSearchInfo.category = newSearchInfo.category || searchTabData[0].value;
     newSearchInfo.keyword = newSearchInfo.keyword || '';
-    const { category } = newSearchInfo;
-    const index = searchTabData.findIndex((v) => v.value === category);
-    setCurrentIndex(index);
     setSearchInfo(newSearchInfo);
     setKeyWord(newSearchInfo.keyword);
     setInputVisible(!!newSearchInfo.keyword);
+    setTimeout(() => {
+      isInit.current = false;
+    }, 1000);
   }, [searchParams]);
+
+  useEffect(() => {
+    if (inputVisible && !isInit.current) {
+      inputRef.current?.focus();
+    }
+  }, [inputVisible]);
 
   return (
     <>

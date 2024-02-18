@@ -6,9 +6,11 @@ import { HiArrowLongRight } from 'react-icons/hi2';
 import { useRouter } from 'next/navigation';
 import SubmitWordModal from '../SubmitWordModal';
 
-interface GlossaryHeaderProp {}
+interface GlossaryHeaderProp {
+  keyword: string;
+}
 
-const GlossaryHeader: React.FC<GlossaryHeaderProp> = () => {
+const GlossaryHeader: React.FC<GlossaryHeaderProp> = ({ keyword = '' }) => {
   const router = useRouter();
   const [submitVisible, setSubmitVisible] = useState(false);
   const buttonNode = () => {
@@ -23,9 +25,8 @@ const GlossaryHeader: React.FC<GlossaryHeaderProp> = () => {
       </div>
     );
   };
-  const onSearch = (val: string) => {
+  const onSearch = (val = '') => {
     const url = new URL(MenuLink.GLOSSARY, window.location.href);
-    if (!val) return;
     url.searchParams.append('keyword', val);
     router.push(url.toString());
   };
@@ -40,6 +41,7 @@ const GlossaryHeader: React.FC<GlossaryHeaderProp> = () => {
         buttonNode={buttonNode()}
         coverImgClassName={'pt-[33px]'}
         onSearch={onSearch}
+        defaultValue={keyword}
       />
       <SubmitWordModal
         open={submitVisible}

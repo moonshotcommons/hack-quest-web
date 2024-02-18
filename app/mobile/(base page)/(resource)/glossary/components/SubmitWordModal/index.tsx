@@ -64,6 +64,7 @@ const SubmitWordModal: React.FC<SubmitWordModalProp> = ({ open, onClose }) => {
                     This is a required question*
                   </span>
                 }
+                theme="light"
                 name=""
                 placeholder="Any words about Web3 are welcome..."
                 className="border-neutral-medium-gray"
