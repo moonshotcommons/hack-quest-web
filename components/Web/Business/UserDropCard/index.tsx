@@ -57,7 +57,6 @@ const UserDropCard: FC<UserDropCardProps> = (props) => {
     // // 未登录
     if (isNoNeedUserInfo(pathname)) {
       window.location.reload();
-      router.refresh();
     } else {
       redirectToUrl(V2_LANDING_PATH);
     }

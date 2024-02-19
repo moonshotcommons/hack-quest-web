@@ -161,9 +161,9 @@ const PersonalLinkEditModal = forwardRef<
                   <div className="w-[64px]"></div>
                   <div
                     className="flex w-[64px] justify-end"
-                    onClick={() => {
-                      console.log(`连接到${key}`);
-                    }}
+                    // onClick={() => {
+                    //   console.log(`连接到${key}`);
+                    // }}
                   >
                     <Image src={ConnectIcon} alt="connect.svg"></Image>
                   </div>

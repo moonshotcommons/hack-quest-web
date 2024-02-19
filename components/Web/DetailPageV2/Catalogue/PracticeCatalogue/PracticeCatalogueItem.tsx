@@ -30,7 +30,7 @@ const PracticeCatalogueItem: FC<PracticeCatalogueItemProps> = (props) => {
           </Suspense>
         </div>
 
-        <div className="flex w-[165px] max-w-[165px] justify-end">
+        <div className="flex w-[322px] max-w-[322px] justify-end">
           <UnitStatusButton
             courseDetail={courseDetail!}
             unit={unit}

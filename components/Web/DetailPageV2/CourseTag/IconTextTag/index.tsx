@@ -9,7 +9,6 @@ interface IconTextTagProps {
 
 const IconTextTag: FC<IconTextTagProps> = (props) => {
   const { type, icon: propIcon, text: propText } = props;
-  console.log(propText);
   const icon = propIcon ?? tagConfig[type].icon;
   const text = propText ?? tagConfig[type].text;
   return (

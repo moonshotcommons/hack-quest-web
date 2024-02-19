@@ -52,7 +52,7 @@ export interface ElectiveCourseType extends CourseBaseType {
   image: string;
   pageCount: number;
   creatorId: string;
-  creator: null | CreatorType;
+  creator?: CreatorType;
   status: string;
   isRegistered: boolean;
   units: CourseUnitType[];
