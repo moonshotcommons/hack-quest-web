@@ -53,10 +53,10 @@ const LearningTrackDetailPage: FC<LearningTrackDetailPageProps> = async (
             {`Learning Track · ${learningTrackDetail.track}`}
           </Tags>
           <h1 className="text-h1-mob my-6">{learningTrackDetail.name}</h1>
-          <div className="body-xs flex items-center gap-2">
+          {/* <div className="body-xs flex items-center gap-2">
             <span>Certified by</span>
             <span>Mantle</span>
-          </div>
+          </div> */}
           <p className="body-s my-5 text-neutral-rich-gray">
             {learningTrackDetail.description}
           </p>

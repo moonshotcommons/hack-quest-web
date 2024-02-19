@@ -45,10 +45,10 @@ const PracticePage: FC<PracticePageProps> = async (props) => {
               </Tags>
               <div className="mt-4 flex items-center gap-6">
                 <h2 className="text-h2">{courseDetail.name}</h2>
-                <div className="flex items-center gap-2">
+                {/* <div className="flex items-center gap-2">
                   <span>Certified by</span>
                   <span>Mantle</span>
-                </div>
+                </div> */}
               </div>
               <p className="body-m mt-8 text-neutral-rich-gray">
                 {courseDetail.description}

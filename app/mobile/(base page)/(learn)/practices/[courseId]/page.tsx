@@ -52,10 +52,10 @@ const ElectiveDetailPage: FC<ElectiveDetailPageProps> = async (props) => {
             {`Elective`}
           </Tags>
           <h1 className="text-h1-mob my-6">{courseDetail.name}</h1>
-          <div className="body-xs flex items-center gap-2">
+          {/* <div className="body-xs flex items-center gap-2">
             <span>Certified by</span>
             <span>Mantle</span>
-          </div>
+          </div> */}
           <p className="body-s my-5 text-neutral-rich-gray">
             {courseDetail.description}
           </p>
