@@ -34,8 +34,6 @@ const LearningTrackDetailPage: FC<LearningTrackDetailPageProps> = async (
       learningTrackId
     );
 
-  console.log(learningTrackDetail);
-
   return (
     <LearningTrackDetailProvider learningTrackDetail={learningTrackDetail}>
       <div className="relative w-full bg-neutral-white">
@@ -79,9 +77,11 @@ const LearningTrackDetailPage: FC<LearningTrackDetailPageProps> = async (
             </div>
 
             <div className="mt-20  flex flex-col gap-20">
-              <CertificationCard
-                certificationId={learningTrackDetail.certificationId!}
-              ></CertificationCard>
+              {learningTrackDetail.certificationId && (
+                <CertificationCard
+                  certificationId={learningTrackDetail.certificationId}
+                />
+              )}
               <IntendedLearners />
               <WillLearn />
               <Syllabus />

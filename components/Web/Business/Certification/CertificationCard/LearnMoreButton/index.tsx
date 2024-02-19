@@ -26,8 +26,8 @@ const LearnMoreButton: FC<LearnMoreButtonProps> = ({
 
   const certification = contextCertification ?? propCertification;
 
-  console.log(certification);
-  console.log(learningTrackDetail);
+  // console.log(certification);
+  // console.log(learningTrackDetail);
 
   // console.log(certification);
   // progress小于1显示disable状态的claim

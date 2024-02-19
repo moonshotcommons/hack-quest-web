@@ -53,7 +53,6 @@ const MobMiniElectiveDetailModal = forwardRef<
       manual: true,
       onSuccess(res) {
         setCourse(res);
-        console.log(res);
       },
       onError(err) {
         errorMessage(err);

@@ -40,7 +40,6 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
     replaceOption?: QuizOptionType | null
   ) => {
     const newAnswers = { ...answers, [dropAnswer.id]: dropAnswer };
-    console.log(dropAnswer, newAnswers, 'log');
     setAnswers(newAnswers);
     setOptions(
       options.map((option) => {
@@ -158,7 +157,6 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
     let parseComponent: NotionComponent | null = null;
     for (let i = quiz.children.length - 1; i >= 0; i--) {
       let child = quiz.children[i];
-      console.log(child);
       if (child.type === NotionType.TOGGLE) {
         parseComponent = child;
       }

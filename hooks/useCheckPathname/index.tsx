@@ -64,11 +64,11 @@ export const useCheckPathname = () => {
         pathname
       );
 
-    const isCourseDetailPage = false;
-    // isSyntaxDetailPage ||
-    // isPracticesDetailPage ||
-    // isElectiveDetailPage ||
-    // isLearningTrackDetailPage;
+    const isCourseDetailPage =
+      isSyntaxDetailPage ||
+      isPracticesDetailPage ||
+      isElectiveDetailPage ||
+      isLearningTrackDetailPage;
 
     const isExcludeBreadcrumbLink =
       isNavbarFullPage ||
