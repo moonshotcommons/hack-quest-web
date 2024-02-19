@@ -7,7 +7,7 @@ const tagsVariants = cva(
   {
     variants: {
       size: {
-        sm: 'px-[12px] py-[4px] caption-12px',
+        sm: 'px-[12px] py-[4px] caption-12pt',
         md: 'px-[14px] py-[6px] caption-14pt',
         lg: 'px-[16px] py-[6px] caption-16pt'
       }

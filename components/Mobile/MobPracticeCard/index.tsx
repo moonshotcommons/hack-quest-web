@@ -2,11 +2,12 @@ import { BurialPoint } from '@/helper/burialPoint';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
 import { ProjectCourseType } from '@/service/webApi/course/type';
 import { FC } from 'react';
-import { QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
+import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import CourseTags from '@/components/Web/Business/CourseTags';
 import { useRedirect } from '@/hooks/useRedirect';
 import MobCardProgress from '../MobCardProgress';
 import Button from '@/components/Common/Button';
+import { menuLink } from '@/components/Web/Business/Breadcrumb/data';
 
 interface PracticeCardProps {
   // children: ReactNode;
@@ -25,23 +26,24 @@ const MobPracticeCard: FC<PracticeCardProps> = (props) => {
       className={
         'relative flex w-full flex-col gap-[1rem] rounded-[1rem] bg-neutral-white p-[1rem]'
       }
-      // onClick={() => {
-      //   BurialPoint.track('home-practice卡片点击', { practice: course.name });
-      //   redirectToUrl(
-      //     `${menuLink.electives}/${course.id}?${QueryIdType.MENU_COURSE_ID}=${course.id}&menu=${Menu.ELECTIVES}`
-      //   );
-      // }}
       onClick={(e) => {
-        BurialPoint.track('home-course卡片Continue按钮点击', {
-          courseName: course.name
-        });
+        BurialPoint.track('home-practice卡片点击', { practice: course.name });
         e.stopPropagation();
-        jumpLearningLesson(course, {
-          menu: 'electives',
-          idTypes: [QueryIdType.MENU_COURSE_ID],
-          ids: [course.id]
-        });
+        redirectToUrl(
+          `${menuLink.electives}/${course.id}?${QueryIdType.MENU_COURSE_ID}=${course.id}&menu=${Menu.ELECTIVES}`
+        );
       }}
+      // onClick={(e) => {
+      //   BurialPoint.track('home-course卡片Continue按钮点击', {
+      //     courseName: course.name
+      //   });
+      //   e.stopPropagation();
+      //   jumpLearningLesson(course, {
+      //     menu: 'electives',
+      //     idTypes: [QueryIdType.MENU_COURSE_ID],
+      //     ids: [course.id]
+      //   });
+      // }}
     >
       {course.progress && course.progress >= 1 ? (
         <div className="absolute right-[1rem] top-[1rem]">

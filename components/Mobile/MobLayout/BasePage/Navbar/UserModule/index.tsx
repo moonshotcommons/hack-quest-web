@@ -9,6 +9,8 @@ import { NavType } from '..';
 import { BiUser, BiLockAlt, BiLogInCircle } from 'react-icons/bi';
 import Link from 'next/link';
 import { useGlobalStore } from '@/store/zustand/globalStore';
+import { V2_LANDING_PATH, isNoNeedUserInfo } from '@/constants/nav';
+import { useCustomPathname } from '@/hooks/useCheckPathname';
 
 interface UserModuleProps {
   changeNavType: (type: NavType) => void;
@@ -23,6 +25,7 @@ const UserModule: FC<UserModuleProps> = ({ changeNavType, toggleOpen }) => {
       userInfo: state.userInfo
     }))
   );
+  const pathname = useCustomPathname();
 
   const setTipsModalOpenState = useGlobalStore(
     (state) => state.setTipsModalOpenState
@@ -35,6 +38,11 @@ const UserModule: FC<UserModuleProps> = ({ changeNavType, toggleOpen }) => {
     userSignOut();
     toggleOpen();
     BurialPoint.track('登出');
+    if (isNoNeedUserInfo(pathname)) {
+      window.location.reload();
+    } else {
+      redirectToUrl(V2_LANDING_PATH);
+    }
   };
 
   const arrowIcon = (

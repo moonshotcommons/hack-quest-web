@@ -290,7 +290,6 @@ const BasicInfoModal = forwardRef<BasicInfoModalRef, BasicInfoModalProps>(
                       onClick={() => {
                         const value = form.getFieldValue('techStack');
                         if (!value) return;
-                        console.log(value);
                         let values: string[] = value.trim().split('/');
                         values = values.filter((item: string) => {
                           if (!item.trim()) {

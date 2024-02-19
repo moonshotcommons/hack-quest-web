@@ -78,6 +78,7 @@ class CampaignsApi {
     certificationId: string
   ): Promise<CertificationType> {
     const url = `${this.service.baseURL.slice(0, -1)}${CampaignsApiType.Certifications}/${certificationId}`;
+
     const certificationDetail = await fetch(url, {
       method: 'get'
     });

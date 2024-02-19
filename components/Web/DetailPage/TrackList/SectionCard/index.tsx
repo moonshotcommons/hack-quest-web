@@ -46,8 +46,6 @@ const renderColorTag = (type: CourseType) => {
   switch (type) {
     case CourseType.SYNTAX:
     case CourseType.GUIDED_PROJECT:
-    case CourseType.CONCEPT:
-    case CourseType.TEASER:
     default:
       return (
         <div className="left-0 h-[26px] w-[0.25rem] rounded-xl bg-neutral-medium-gray"></div>

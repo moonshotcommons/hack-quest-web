@@ -6,6 +6,7 @@ import { useRedirect } from '../useRedirect';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { isMobile } from 'react-device-detect';
 import { NavType } from '@/components/Mobile/MobLayout/BasePage/Navbar';
+import { errorMessage } from '@/helper/ui';
 
 export const useEnrollUnEnroll = (
   learningTrackDetail: LearningTrackDetailType | undefined,
@@ -58,13 +59,18 @@ export const useEnrollUnEnroll = (
         await webApi.learningTrackApi.enrollLearningTrack(
           learningTrackDetail?.id
         );
-        refreshCallback();
-        message.success('enroll success!');
       }
     },
     {
       manual: true,
-      debounceWait: 300
+      debounceWait: 300,
+      onSuccess() {
+        refreshCallback();
+        message.success('enroll success!');
+      },
+      onError(e: any) {
+        errorMessage(e);
+      }
     }
   );
   return { enroll, enrollLoading, unEnroll, unEnrollLoading };
