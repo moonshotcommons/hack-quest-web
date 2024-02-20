@@ -20,9 +20,10 @@ const MediaCommunity: React.FC<MediaCommunityProp> = ({ listData, title }) => {
 
   return listData?.length > 0 ? (
     <Box>
+      <div className="text-h3 mb-[16px] text-neutral-off-black">{title}</div>
       <div className="mb-[30px] flex flex-wrap gap-[20px]">
         {showList.map((v: MentorType, i: number) => (
-          <div key={i} className="h-[72px] w-[calc(25%-15px)]">
+          <div key={i} className="h-[72px] w-[calc((100%-60px)/4)]">
             <div className="relative h-full w-full">
               <Image
                 src={v.picture as string}

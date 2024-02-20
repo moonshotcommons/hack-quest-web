@@ -6,6 +6,7 @@ import React from 'react';
 import { BsArrowRightShort } from 'react-icons/bs';
 interface FooterProp {
   className?: string;
+  maxWidth?: string;
   borderColor?: string;
   blog: BlogType;
   iconSize?: number;
@@ -14,7 +15,8 @@ interface FooterProp {
 
 const BlogCardFooter: React.FC<FooterProp> = ({
   className = 'body-m text-neutral-medium-gray',
-  borderColor,
+  maxWidth,
+  borderColor = '#000',
   blog,
   iconSize = 26,
   gap = 10
@@ -23,10 +25,7 @@ const BlogCardFooter: React.FC<FooterProp> = ({
   return (
     <div className={cn('flex w-full items-center', className)}>
       <div
-        className={cn(
-          'flex max-w-[42.5%] items-center border-r border-r-[#000]',
-          borderColor
-        )}
+        className={cn('flex max-w-[42.5%] items-center', `${maxWidth}`)}
         style={{ paddingRight: `${gap}px` }}
       >
         <div style={{ paddingRight: `${gap}px` }}>By</div>
@@ -40,7 +39,7 @@ const BlogCardFooter: React.FC<FooterProp> = ({
         <BsArrowRightShort size={iconSize} />
       </div>
       <div
-        className={cn('border-r border-r-[#000]', borderColor)}
+        className={cn('border-l  border-r ', `${borderColor}`)}
         style={{
           padding: `0 ${gap}px`
         }}
