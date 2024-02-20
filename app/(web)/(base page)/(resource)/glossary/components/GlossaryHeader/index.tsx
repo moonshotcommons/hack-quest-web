@@ -27,7 +27,7 @@ const GlossaryHeader: React.FC<GlossaryHeaderProp> = ({ keyword = '' }) => {
   };
   const onSearch = (val = '') => {
     const url = new URL(MenuLink.GLOSSARY, window.location.href);
-    url.searchParams.append('keyword', val);
+    val && url.searchParams.append('keyword', val);
     router.push(url.toString());
   };
   return (
