@@ -31,7 +31,7 @@ function ProjectsPage() {
   }, []);
   return (
     <div
-      className="h-full overflow-auto"
+      className="h-full overflow-auto pt-[40px]"
       onScroll={handleScroll}
       ref={ProjectsPageRef}
     >

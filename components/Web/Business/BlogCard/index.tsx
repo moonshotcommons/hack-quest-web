@@ -55,7 +55,7 @@ const BlogCard: React.FC<BlogCardProp> = ({
         <BlogCardFooter
           blog={blog}
           className="caption-12pt text-neutral-rich-gray "
-          borderColor="border-r-[#3e3e3e]"
+          borderColor="border-neutral-rich-gray "
           gap={isFeatrued ? 4 : 10}
           iconSize={18}
         />

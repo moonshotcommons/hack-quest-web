@@ -30,7 +30,7 @@ const validImageType = [
 ];
 
 export interface BugFeedbackModalRef {
-  onCommit: (params: Record<string, any>) => void;
+  onCommit: (params?: Record<string, any>) => void;
 }
 
 const kinds = [
@@ -47,6 +47,7 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
   (props, ref) => {
     const [open, setOpen] = useState(false);
     const [selectKinds, setSelectKinds] = useState<string[]>([]);
+    const [descLength, setDescLength] = useState(0);
     const formRef = useRef<
       FormInstance<{
         kind: string[];
@@ -54,15 +55,14 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
         files: { file: UploadFile; fileList: UploadFile[] };
       }>
     >(null);
-    const [lessonId, setLessonId] = useState('');
+    const [params, setParams] = useState<Record<string, any>>({});
     const [fileList, setFileList] = useState<UploadFile[]>([]);
     // const [loading, setLoading] = useState(false);
     useImperativeHandle(ref, () => {
       return {
         onCommit(params) {
           setOpen(true);
-
-          setLessonId(params.lessonId);
+          if (params) setParams(params);
         }
       };
     });
@@ -129,8 +129,14 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
           formData.append('type[]', k);
         });
         formData.append('content', description);
-        formData.append('lessonId', lessonId);
+        // formData.append('lessonId', lessonId);
         formData.append('link', window.location.href);
+
+        for (const key in params) {
+          if (params.hasOwnProperty(key)) {
+            formData.append(key, params[key]);
+          }
+        }
 
         files?.fileList?.forEach((file) => {
           formData.append('file', file.originFileObj as RcFile);
@@ -149,6 +155,7 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
           formRef.current?.resetFields();
           setFileList([]);
           setSelectKinds([]);
+          setDescLength(0);
           setOpen(false);
           message.success('Commit success!');
         },
@@ -164,7 +171,7 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
     );
 
     const FullUploadButton = (
-      <div className="flex w-full items-center justify-center gap-[8px]">
+      <div className="flex h-[80px] w-full items-center justify-center gap-[8px]">
         <svg
           width="23"
           height="23"
@@ -196,6 +203,9 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
         </span>
       </div>
     );
+
+    const submitDisable = loading || descLength <= 0 || !selectKinds.length;
+
     return (
       <Modal
         open={open}
@@ -203,11 +213,12 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
           formRef.current?.resetFields();
           setFileList([]);
           setSelectKinds([]);
+          setDescLength(0);
           setOpen(false);
         }}
         showCloseIcon
         icon={
-          <div className="absolute right-[15px] top-[15px] cursor-pointer">
+          <div className="absolute -right-[16px] -top-[16px] cursor-pointer">
             <svg
               width="30"
               height="30"
@@ -234,24 +245,21 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
         }
         markBg="black"
       >
-        <div className="w-[1000px] rounded-[10px] bg-neutral-off-white px-[200px] pb-[76px] pt-10">
-          <h1 className="text-h3 text-neutral-black">
-            Found a bug? Claim rewards!
+        <div className="max-w-[1084px ] w-[1084px] rounded-[16px] bg-neutral-off-white px-[139px] py-[64px]">
+          <h1 className="text-h3 mb-4 text-center text-neutral-black">
+            Report a Bug
           </h1>
-          <p className="body-s mt-[10px] text-neutral-black">
-            {`HackQuest is currently in beta, and your feedback is crucial. If you come across any bug or error while learning, report it to us. Once verified,  we'll reward you with XP and hack credits. Join us in delivering a better experience! 🐞🚀`}
-          </p>
-          <p className="body-l mt-[30px] text-neutral-black">
+          <p className="body-l text-neutral-medium-gray ">
             What kind of bugs have you found?
           </p>
           <Form ref={formRef} name="control-hooks">
-            <div className="relative mt-[10px] flex flex-wrap gap-[10px]">
+            <div className="relative mt-[12px] flex flex-wrap gap-4">
               {kinds.map((kind, index) => {
                 return (
                   <Button
                     key={index}
                     className={cn(
-                      `body-xs rounded-[10px] bg-[#DADADA] px-[14px] py-[3px] text-neutral-medium-gray`,
+                      `caption-16pt bg-[#DADADA] px-4 py-[6px] text-neutral-medium-gray`,
                       selectKinds.includes(kind)
                         ? 'bg-yellow-primary text-neutral-black'
                         : ''
@@ -287,8 +295,8 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
                   message: 'This field is required!'
                 },
                 {
-                  max: 1500,
-                  message: `This field can only contain a maximum of 1500 characters!`
+                  max: 500,
+                  message: `This field can only contain a maximum of 500 characters!`
                 },
                 {
                   pattern: /\S+/,
@@ -296,20 +304,38 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
                 }
               ]}
               name={'description'}
-              className="mt-[20px]"
+              className="mb-[16px!important] mt-[16px]"
             >
+              <p className="body-l mb-[10px] text-neutral-medium-gray">
+                Describe the bugs you found
+              </p>
               <Input.TextArea
-                placeholder="Describe the bugs you found..."
-                className="body-s p-5 text-neutral-black"
-                maxLength={1500}
+                placeholder="Please provide details that will help our team find the bugs correctly... "
+                className="body-m text-neutral-black"
+                // maxLength={500}
+                onChange={(e) => {
+                  setDescLength(e.target.value.length || 0);
+                  formRef.current?.setFieldValue('description', e.target.value);
+                }}
                 styles={{
                   textarea: {
-                    height: '200px'
+                    height: '180px',
+                    borderRadius: '24px',
+                    padding: '12px 24px'
                   }
                 }}
               ></Input.TextArea>
+              <p className="mt-[8px] text-right">
+                <span className={descLength > 500 ? 'text-status-error' : ''}>
+                  {descLength || 0}
+                </span>
+                /500
+              </p>
             </Form.Item>
-            <Form.Item name={'files'}>
+            <Form.Item
+              name={'files'}
+              className="mt-[16 px] mb-[16px!important]"
+            >
               <Upload
                 {...uploadProps}
                 accept="image/*"
@@ -319,7 +345,7 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
                 beforeUpload={beforeUpload}
                 itemRender={(originNode, file, fileList, actions) => {
                   return (
-                    <div className="relative h-[64px] w-[64px]">
+                    <div className="relative h-[80px] w-[80px]">
                       <div className="h-full w-full overflow-hidden rounded-[10px] border border-neutral-medium-gray">
                         <Image
                           alt={file.fileName}
@@ -372,12 +398,12 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
                 }}
                 className={`${
                   !fileList.length
-                    ? 'w-full [&>.ant-upload-list-picture-card>.ant-upload-select]:w-[100%!important] [&>.ant-upload-list-picture-card]:w-full'
+                    ? 'w-full [&>.ant-upload-list-picture-card>.ant-upload-select]:h-[80px!important] [&>.ant-upload-list-picture-card>.ant-upload-select]:w-[100%!important] [&>.ant-upload-list-picture-card]:w-full'
                     : `
-                    [&>.ant-upload-list-picture-card>.ant-upload-list-item-container]:h-[64px!important]
-                    [&>.ant-upload-list-picture-card>.ant-upload-list-item-container]:w-[64px!important]
-                    [&>.ant-upload-list-picture-card>.ant-upload-select]:h-[64px!important]
-                    [&>.ant-upload-list-picture-card>.ant-upload-select]:w-[64px!important]`
+                    [&>.ant-upload-list-picture-card>.ant-upload-list-item-container]:h-[80px!important]
+                    [&>.ant-upload-list-picture-card>.ant-upload-list-item-container]:w-[80px!important]
+                    [&>.ant-upload-list-picture-card>.ant-upload-select]:h-[80px!important]
+                    [&>.ant-upload-list-picture-card>.ant-upload-select]:w-[80px!important]`
                 }`}
               >
                 {!fileList.length ? FullUploadButton : UploadButton}
@@ -387,26 +413,13 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
               <Button
                 type="primary"
                 loading={loading}
-                disabled={loading}
-                className="body-l py-[16px] text-neutral-black"
-                iconPosition="right"
-                icon={
-                  <svg
-                    width="14"
-                    height="17"
-                    viewBox="0 0 14 17"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M3 3L10.5 8.29412L3 13.5882"
-                      stroke="#0B0B0B"
-                      strokeWidth="1.76471"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                }
+                disabled={submitDisable}
+                className={cn(
+                  'button-text-m mx-auto w-[256px] py-[16px] uppercase text-neutral-black',
+                  submitDisable
+                    ? 'bg- cursor-not-allowed bg-neutral-light-gray opacity-100'
+                    : ''
+                )}
                 block
                 onClick={() => submit()}
               >

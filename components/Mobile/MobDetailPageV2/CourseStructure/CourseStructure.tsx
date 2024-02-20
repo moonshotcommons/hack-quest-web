@@ -21,10 +21,6 @@ const CourseStructure: FC<CourseStructureProps> = ({ detail }) => {
           type={IconTextTagType.LESSONS_COUNT}
           text={`${detail.totalPages} lessons`}
         ></IconTextTag>
-        <IconTextTag
-          type={IconTextTagType.VIDEO_COUNT}
-          text={`7.5 hours video`}
-        ></IconTextTag>
         <IconTextTag type={IconTextTagType.DEVICE_ACCESS}></IconTextTag>
         {detail.certificationId && (
           <IconTextTag type={IconTextTagType.CERTIFICATION}></IconTextTag>

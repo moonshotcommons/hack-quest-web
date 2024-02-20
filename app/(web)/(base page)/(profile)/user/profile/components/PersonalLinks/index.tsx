@@ -47,7 +47,7 @@ const PersonalLinks: FC<PersonalLinksProps> = (props) => {
   }, [profile]);
 
   return (
-    <div className="group relative w-[420px] cursor-pointer rounded-[10px] bg-neutral-white p-[30px] pb-[40px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)]">
+    <div className="group relative w-full cursor-pointer rounded-[10px] bg-neutral-white p-[30px] pb-[40px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)]">
       <p className="text-h3 text-neutral-black">Personal Links</p>
       {showLinks && (
         <div className="absolute right-[30px] top-[25px] hidden group-hover:block">
@@ -83,7 +83,7 @@ const PersonalLinks: FC<PersonalLinksProps> = (props) => {
                   <p className="body-s w-[140px] flex-1 truncate text-neutral-medium-gray">
                     {personLinks[key]}
                   </p>
-                  {personLinks[key] && (
+                  {personLinks[key] && key !== 'discord' && (
                     <Link
                       href={personLinks[key]}
                       target="_blank"
