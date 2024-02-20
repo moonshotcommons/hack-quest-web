@@ -39,10 +39,10 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({
   }, [hackathon]);
   return (
     <div
-      className="card-hover mb-[20px] flex  h-[322px] cursor-pointer overflow-hidden rounded-[10px]  bg-neutral-white text-neutral-off-black"
+      className="overflow-hidden rounded-[16px] bg-neutral-white "
       onClick={goHackathonDetail}
     >
-      <div className="relative h-full w-[571px] bg-[#d9d9d9]/30">
+      <div className="relative h-0 w-full bg-[#d9d9d9]/30 pt-[56.28%]">
         <Image
           src={hackathon.image}
           fill
@@ -50,42 +50,51 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({
           className="object-cover"
         ></Image>
       </div>
-      <div className="flex h-full flex-1 flex-col justify-between px-[24px] py-[20px]">
-        <div className="text-h3">{hackathon.name}</div>
-        <div className="relative flex h-[60px] flex-col justify-between pl-[20px]">
-          <div className="absolute left-0 top-0 h-full w-[5px] rounded-[10px] bg-yellow-dark"></div>
-          <div className="flex items-center gap-[16px]">
-            <div className="body-s text-neutral-medium-gray">RUNS FROM</div>
-            <div className="body-m">
-              {getRunFromTime(hackathon.startTime, hackathon.endTime)}
+      <div className="flex h-[15.75rem] flex-col justify-between p-[20px] text-neutral-off-black">
+        <div className="flex flex-col gap-[1rem]">
+          <div className="flex">
+            <div className="text-h3-mob line-clamp-2 font-next-book-bold ">
+              {hackathon.name}
             </div>
           </div>
-          <div className="flex items-center gap-[16px]">
-            <div className="body-s text-neutral-medium-gray">HAPPENING</div>
-            <div className="underline-m">{hackathon.address}</div>
+          <div className="relative flex h-[3rem] flex-col justify-between pl-[20px] ">
+            <div className="absolute left-0 top-0 h-full w-[5px] rounded-[10px] bg-yellow-primary"></div>
+            <div className="flex items-center gap-[16px]">
+              <div className="body-xs text-neutral-medium-gray">RUNS FROM</div>
+              <div className="body-s">
+                {getRunFromTime(hackathon.startTime, hackathon.endTime)}
+              </div>
+            </div>
+            <div className="flex items-center gap-[16px]">
+              <div className="body-xs text-neutral-medium-gray">HAPPENING</div>
+              <div className="body-s w-0 flex-1 truncate underline">
+                {hackathon.address}
+              </div>
+            </div>
+          </div>
+          <div className="flex h-[2.375rem] items-center gap-[15px] rounded-[8px] bg-yellow-extra-light px-[20px]">
+            <div className="body-xs text-neutral-medium-gray">
+              APPLICATIONS CLOSE IN
+            </div>
+            <div className="body-s">{closeInTime}</div>
           </div>
         </div>
-        <div className="flex h-[42px] items-center  gap-[16px] rounded-[10px] bg-yellow-extra-light px-[20px]">
-          <div className="body-s text-neutral-medium-gray">
-            APPLICATIONS CLOSE IN
-          </div>
-          <div className="body-m">{closeInTime}</div>
-        </div>
-        <div className="flex gap-[16px]">
+
+        <div className="flex gap-[.75rem]">
           <Button
-            className="body-l h-[60px] flex-1 bg-yellow-primary"
+            className="button-text-s h-[2.125rem] flex-1 bg-yellow-primary uppercase"
             onClick={() => {
               BurialPoint.track(`hackathon onGoingCard Apply Now 按钮点击`);
               window.open(hackathon.applyLink);
             }}
           >
-            APPLY NOW
+            Apply Now
           </Button>
           <Button
-            className="body-l h-[60px] flex-1 border border-neutral-black"
+            className="button-text-s h-[2.125rem] flex-1 border border-neutral-black uppercase"
             onClick={goHackathonDetail}
           >
-            LEARN MORE
+            Learn More
           </Button>
         </div>
       </div>

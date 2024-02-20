@@ -1,4 +1,4 @@
-import { MenuLink } from '@/components/Layout/Navbar/type';
+import { MenuLink } from '../../Layout/BasePage/Navbar/type';
 import { QueryIdType, MenuNameType, Menu } from './type';
 
 export const menuName: MenuNameType = {

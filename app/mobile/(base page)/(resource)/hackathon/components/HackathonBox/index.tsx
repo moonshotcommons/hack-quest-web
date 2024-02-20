@@ -1,56 +1,71 @@
 'use client';
 import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
-import PageDescription from '@/components/Web/Business/PageDescription';
-import Tab from '@/components/Web/Business/Tab';
-import { TabListType } from '@/components/Web/Business/Tab/type';
 import { BurialPoint } from '@/helper/burialPoint';
 import { HackathonStatusType } from '@/service/webApi/resourceStation/type';
-import { useState } from 'react';
 import OnGoing from './OnGoing';
 import Past from './Past';
-import { hackathonTab } from './data';
 import { useRedirect } from '@/hooks/useRedirect';
+import Button from '@/components/Common/Button';
+import Tab from './Tab';
+import { useRouter } from 'next/navigation';
+import { getSearchParamsUrl } from '@/helper/utils';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MobCourseListPageHeader from '@/components/Mobile/MobCourseListPageHeader';
 
-function HackathonBox() {
+interface HackathonBoxProp {
+  page: number;
+  curTab: HackathonStatusType;
+}
+const HackathonBox: React.FC<HackathonBoxProp> = ({ page, curTab }) => {
   const { redirectToUrl } = useRedirect();
-  const [curTab, setCurTab] = useState<HackathonStatusType>(
-    HackathonStatusType.ON_GOING
-  );
-  const changeTab = (item: TabListType) => {
+  const router = useRouter();
+  // const [curTab, setCurTab] = useState<HackathonStatusType>(
+  //   HackathonStatusType.ON_GOING
+  // );
+  const changeTab = (tab: HackathonStatusType) => {
     BurialPoint.track(`hackathon page tab 点击`);
-    if (item.type === 'tab') {
-      setCurTab(item.value as HackathonStatusType);
-    } else {
-      redirectToUrl(
-        `${MenuLink.PROJECTS}?menu=${Menu.HACKATHON}&${QueryIdType.PROJECT_ID}=projects`
-      );
-    }
+    if (tab === curTab) return;
+    router.push(getSearchParamsUrl({ curTab: tab }, MenuLink.HACKATHON));
   };
   const renderHackathon = () => {
     switch (curTab) {
       case HackathonStatusType.ON_GOING:
-        return <OnGoing goPast={() => setCurTab(HackathonStatusType.PAST)} />;
+        return <OnGoing goPast={() => changeTab(HackathonStatusType.PAST)} />;
       case HackathonStatusType.PAST:
-        return <Past />;
+        return <Past page={page} />;
     }
   };
+  const buttonNode = () => {
+    return (
+      <Button
+        ghost
+        className="button-text-m h-[3rem] w-full border-neutral-black p-0 uppercase"
+        onClick={() => {
+          redirectToUrl(
+            `${MenuLink.PROJECTS}?menu=${Menu.HACKATHON}&${QueryIdType.PROJECT_ID}=projects`
+          );
+        }}
+      >
+        View hackathon projects
+      </Button>
+    );
+  };
   return (
-    <div className="container  mx-auto pb-10 ">
-      <PageDescription
-        title="Welcome to HackQuest Hackathon!"
-        description="Explore ongoing hackathons, uncover past projects, and dive into the world of innovation. Your journey through the realm of creativity begins here! 🚀💡"
+    <div className=" pb-10 ">
+      <MobCourseListPageHeader
+        title="Hackathon"
+        coverImageUrl={'/images/hackathon/mob_hackathon_cover.png'}
+        coverWidth={218}
+        coverHeight={210}
+        buttonNode={buttonNode()}
+        className="bg-transparent pb-[40px]"
       />
-      <Tab
-        tabList={hackathonTab}
-        curTab={curTab}
-        changeTab={changeTab}
-        className="pb-10 text-2xl leading-6 before:bottom-9"
-        textClassName="pb-[2px]"
-      />
-      <div className="mb-[40px]">{renderHackathon()}</div>
+      <div className="px-[1.25rem]">
+        <Tab curTab={curTab} changeTab={changeTab} />
+        <div className="mb-[40px]">{renderHackathon()}</div>
+      </div>
     </div>
   );
-}
+};
 
 export default HackathonBox;

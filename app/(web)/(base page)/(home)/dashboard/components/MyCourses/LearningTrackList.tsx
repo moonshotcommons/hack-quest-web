@@ -3,8 +3,8 @@ import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import { ProcessType } from '@/service/webApi/course/type';
 import { HiArrowLongRight } from 'react-icons/hi2';
 import Link from 'next/link';
-import { MenuLink } from '@/components/Layout/Navbar/type';
 import LearningTrackCard from '../LearningTrackCard';
+import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 interface LearningTrackListProps {
   list: LearningTrackDetailType[];
   curTab: ProcessType;

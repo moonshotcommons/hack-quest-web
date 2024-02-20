@@ -36,7 +36,9 @@ const OnGoing: React.FC<OnGoingProp> = ({ goPast }) => {
       ) : (
         <div className="body-s text-neutral-black">
           {list.map((hackathon: HackathonType) => (
-            <OnGoingHackathonCard hackathon={hackathon} key={hackathon.id} />
+            <div key={hackathon.id} className="mb-[40px]">
+              <OnGoingHackathonCard hackathon={hackathon} />
+            </div>
           ))}
         </div>
       )}

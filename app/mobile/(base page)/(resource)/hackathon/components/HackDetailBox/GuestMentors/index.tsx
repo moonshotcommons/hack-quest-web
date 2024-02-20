@@ -1,3 +1,4 @@
+'use client';
 import { MentorType } from '@/service/webApi/resourceStation/type';
 import React, { useMemo, useState } from 'react';
 import Box from '../components/Box';
@@ -17,6 +18,7 @@ const GuestMentors: React.FC<GuestMentorsProp> = ({ listData, title }) => {
   }, [showAll, listData]);
   return listData.length > 0 ? (
     <Box>
+      <div className="text-h3 mb-[16px] text-neutral-off-black">{title}</div>
       <div className="mb-[30px] flex flex-wrap gap-[20px]">
         {showList.map((v: MentorType, i: number) => (
           <div
@@ -32,8 +34,8 @@ const GuestMentors: React.FC<GuestMentorsProp> = ({ listData, title }) => {
               ></Image>
             </div>
             <div className="flex h-[65px] flex-1 flex-shrink-0 flex-col justify-center">
-              <p className="body-l-bold">{v.name}</p>
-              <p className="line-clamp-2">{v.title}</p>
+              <p className="body-m-bold">{v.name}</p>
+              <p className="body-xs line-clamp-2 pr-[40px]">{v.title}</p>
             </div>
           </div>
         ))}

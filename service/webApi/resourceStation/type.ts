@@ -2,8 +2,7 @@ import { CustomComponent } from '@/components/Web/Business/Renderer/type';
 
 export enum HackathonStatusType {
   ON_GOING = 'ongoing',
-  PAST = 'past',
-  ALL_PROJECT = '/hackathon/projects'
+  PAST = 'past'
 }
 
 export interface MentorType {

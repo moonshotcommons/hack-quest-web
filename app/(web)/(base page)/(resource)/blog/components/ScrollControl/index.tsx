@@ -2,9 +2,9 @@
 import { ChangeState } from '@/components/Common/ScrollContainer';
 import { BurialPoint, BurialPointType } from '@/helper/burialPoint';
 import { cn } from '@/helper/utils';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { HiArrowLongRight, HiArrowLongLeft } from 'react-icons/hi2';
-import { paginationWidth } from './data';
+import { paginationWidth, MaxpaginationBoxWidth } from './data';
 
 interface ScrollControlType {
   changeState?: ChangeState;
@@ -27,20 +27,27 @@ const ScrollControl: React.FC<ScrollControlType> = ({
   const scrollBarInstanceRef = useRef<HTMLDivElement>(null);
   const [paginationIndex, setPaginationIndex] = useState(0);
   const [paginationNum, setPaginationNum] = useState(0);
+
+  const paginatWidth = useMemo(() => {
+    let w = paginationWidth;
+    if (paginationNum > 7) {
+      w = MaxpaginationBoxWidth / paginationNum;
+    }
+    return w;
+  }, [paginationNum]);
+
   useEffect(() => {
     if (!changeState) return;
     const { containerWidth, listWidth, translateX } = changeState;
     if (containerWidth / listWidth) {
       setPaginationNum(Math.ceil(1 / (containerWidth / listWidth)));
     }
-    if (scrollBarRef.current && scrollBarInstanceRef.current) {
-      const scrollbarInstanceWidth = scrollBarInstanceRef.current.clientWidth;
-      setTranslateX(translateX * (scrollbarInstanceWidth / containerWidth));
-    }
+    setPaginationIndex(Math.ceil(-translateX / containerWidth));
   }, [changeState]);
+
   useEffect(() => {
-    setPaginationIndex((0 - translateX) / paginationWidth);
-  }, [translateX]);
+    setTranslateX(paginatWidth * paginationIndex + paginationIndex * 3);
+  }, [paginationIndex, paginatWidth]);
 
   if (!leftArrowVisible && !rightArrowVisible) return null;
   return (
@@ -75,7 +82,7 @@ const ScrollControl: React.FC<ScrollControlType> = ({
             <div
               key={i}
               className="h-full bg-neutral-light-gray"
-              style={{ width: `${paginationWidth}px` }}
+              style={{ width: `${paginatWidth}px` }}
             ></div>
           ))}
         </div>
@@ -83,8 +90,8 @@ const ScrollControl: React.FC<ScrollControlType> = ({
           className="absolute bottom-0 left-0 h-full bg-yellow-dark transition-transform"
           ref={scrollBarInstanceRef}
           style={{
-            width: `${paginationWidth}px`,
-            transform: `translateX(${-(translateX - paginationIndex * 3)}px)`
+            width: `${paginatWidth}px`,
+            transform: `translateX(${translateX}px)`
           }}
         ></div>
       </div>
