@@ -21,10 +21,6 @@ import LessonContent from './LessonContent';
 import LessonFooter from './LessonFooter';
 import Playground from './Playground';
 import { LessonPageContext } from './type';
-
-import BugFeedbackModal, {
-  BugFeedbackModalRef
-} from '@/components/Web/Business/BugFeedbackModal';
 import TreasureModal, {
   TreasureModalRef
 } from '@/components/Web/Business/TreasureModal';
@@ -93,8 +89,6 @@ const LessonPage: FC<LessonPageProps> = (props) => {
   const userInfo = useUserStore((state) => state.userInfo);
   const setLearnPageTitle = useCourseStore((state) => state.setLearnPageTitle);
 
-  const bugFeedbackModalRef = useRef<BugFeedbackModalRef>(null);
-
   useEffect(() => {
     setLearnPageTitle(courseName as string);
   }, [courseName]);
@@ -134,11 +128,6 @@ const LessonPage: FC<LessonPageProps> = (props) => {
                     allowNextButtonClickTime.current = new Date().getTime();
                   }
                   setIsHandleNext(handle);
-                },
-                onBugCommit() {
-                  bugFeedbackModalRef.current?.onCommit({
-                    lessonId
-                  });
                 }
               }}
             >
@@ -238,7 +227,6 @@ const LessonPage: FC<LessonPageProps> = (props) => {
                 }}
               />
               <CompleteModal ref={completeModalRef}></CompleteModal>
-              <BugFeedbackModal ref={bugFeedbackModalRef}></BugFeedbackModal>
               <TreasureModal ref={treasureModalRef} />
             </LessonPageContext.Provider>
           </div>
