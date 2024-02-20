@@ -45,8 +45,8 @@ const BlogHeader: React.FC<BlogHeaderProp> = ({ blog }) => {
       <div className="w-full">
         <BlogCardFooter
           blog={blog}
-          className="text-[#DADADA]"
-          borderColor="border-r-[#DADADA]"
+          className="text-neutral-light-gray"
+          borderColor="border-neutral-light-gray"
         />
       </div>
     </div>
