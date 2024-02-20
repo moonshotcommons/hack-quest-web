@@ -57,7 +57,7 @@
   }
 
   .body-xl-bold {
-    @apply font-Nunito text-[24px] font-semibold leading-normal;
+    @apply font-Nunito text-[24px] font-bold leading-normal;
   }
 
   .body-l {
@@ -65,7 +65,7 @@
   }
 
   .body-l-bold {
-    @apply font-Nunito text-[18px] font-semibold leading-[160%] tracking-normal;
+    @apply font-Nunito text-[18px] font-bold leading-[160%] tracking-normal;
   }
 
   .body-m {

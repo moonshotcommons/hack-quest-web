@@ -104,20 +104,20 @@ const GettingCertificate: FC<GettingCertificateProps> = ({
     <div className="flex-1">
       <div className="flex h-fit items-center gap-x-5">
         <div>{badge}</div>
-        <h3 className="text-h3 text-neutral-off-black">
+        <p className="body-xl-bold text-neutral-off-black">
           Congratulations! You are now a certified developer.
-        </h3>
+        </p>
       </div>
 
-      <p className="body-m mt-5 text-neutral-black">
+      <p className="body-m mt-6 text-neutral-black">
         {`This learning track, co-issued by ecosystem and HackQuest, certifies that you have successfully completed the learning track. Share your accomplishments with the world!`}
       </p>
 
       <div
-        className="mt-[30px] flex gap-x-[10px]"
-        onMouseLeave={() => {
-          if (showShare) setShowShare(false);
-        }}
+        className="mt-6 flex gap-4"
+        // onMouseLeave={() => {
+        //   if (showShare) setShowShare(false);
+        // }}
       >
         {/* <Tooltip
           show={showShare}
@@ -156,7 +156,7 @@ const GettingCertificate: FC<GettingCertificateProps> = ({
           type="primary"
           loading={loading}
           className={cn(
-            'body-m w-[210px] px-0 py-[11px] text-neutral-black outline-none',
+            'button-text-m w-[200px] px-0 py-[11px] uppercase text-neutral-black outline-none',
             certification.mint ? 'cursor-not-allowed opacity-40' : ''
           )}
           onClick={() => {
@@ -179,10 +179,10 @@ const GettingCertificate: FC<GettingCertificateProps> = ({
         <Link href={'/user/profile'}>
           <Button
             ghost
-            className="body-m w-[210px] border-neutral-black  px-0 py-[11px] text-neutral-black"
+            className="button-text-m w-[200px] border-neutral-black  px-0 py-[11px] uppercase text-neutral-black"
             onClick={() => closeModal?.()}
           >
-            Check Profile
+            View Profile
           </Button>
         </Link>
       </div>

@@ -97,6 +97,12 @@ class CampaignsApi {
     return cacheFn();
   }
 
+  claimCertification(certificationId: string) {
+    return this.service.get(
+      `${CampaignsApiType.Certifications}/${certificationId}/claim`
+    );
+  }
+
   /** 保存mint状态 */
   savaMintState(params: { certificationId: string; txId: string }) {
     return this.service.patch(

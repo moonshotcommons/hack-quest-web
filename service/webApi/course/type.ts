@@ -111,6 +111,15 @@ export interface UGCCourseType {
   }[];
 }
 
+export interface IntendedLearnersType {
+  audience?: string[];
+  requirements?: string[];
+}
+export interface KnowledgeGainType {
+  description?: string[];
+  tags?: string[];
+}
+
 /** 课程基础字段 */
 export interface CourseBaseType {
   id: string;
@@ -125,6 +134,8 @@ export interface CourseBaseType {
   track: CourseTrackType;
   progress?: number;
   peopleJoined: number;
+  intendedLearners: IntendedLearnersType | null;
+  knowledgeGain: KnowledgeGainType | null;
   totalPages: number;
   certificationId?: string;
   creator?: CreatorType;

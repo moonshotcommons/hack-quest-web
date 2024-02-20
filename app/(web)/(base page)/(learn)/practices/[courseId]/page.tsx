@@ -8,7 +8,7 @@ import { FC } from 'react';
 
 import BackButton from '@/components/Web/DetailPageV2/BackButton';
 import IntendedLearners from '@/components/Web/DetailPageV2/IntendedLearners';
-import WillLearn from '@/components/Web/DetailPageV2/WillLearn';
+import KnowledgeGain from '@/components/Web/DetailPageV2/KnowledgeGain';
 import { PracticeDetailCard } from '@/components/Web/DetailPageV2/DetailCard';
 import PracticeDetailProvider from '@/components/Web/DetailPageV2/Provider/PracticeDetailProvider';
 
@@ -31,10 +31,10 @@ const PracticePage: FC<PracticePageProps> = async (props) => {
 
   return (
     <PracticeDetailProvider courseId={courseId}>
-      <div className="relative w-full bg-neutral-white">
+      <div className="relative h-full w-full bg-neutral-white">
         <div className="absolute left-0 top-0 min-h-[400px] w-full bg-neutral-off-white py-5"></div>
         <div className="container relative mx-auto flex h-fit pb-[100px]">
-          <div className="max-w-[900px]">
+          <div className="w-[900px] max-w-[900px]">
             <div className="h-[400px] w-full py-5">
               <BackButton type="practices"></BackButton>
               <Tags
@@ -73,8 +73,14 @@ const PracticePage: FC<PracticePageProps> = async (props) => {
 
             <div className="mt-20  flex flex-col gap-20">
               {/* <CertificationCard  /> */}
-              <IntendedLearners />
-              <WillLearn />
+              {courseDetail.intendedLearners && (
+                <IntendedLearners
+                  intendedLearners={courseDetail.intendedLearners}
+                />
+              )}
+              {courseDetail.knowledgeGain && (
+                <KnowledgeGain knowledgeGain={courseDetail.knowledgeGain} />
+              )}
               <Syllabus />
             </div>
           </div>

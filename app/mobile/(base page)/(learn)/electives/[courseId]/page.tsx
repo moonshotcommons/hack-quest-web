@@ -7,7 +7,7 @@ import webApi from '@/service';
 import { FC } from 'react';
 import BackButton from '@/components/Mobile/MobDetailPageV2/BackButton';
 import ElectiveDetailProvider from '@/components/Mobile/MobDetailPageV2/Provider/ElectiveDetailProvider';
-import WillLearn from '@/components/Mobile/MobDetailPageV2/WillLearn';
+import KnowledgeGain from '@/components/Mobile/MobDetailPageV2/KnowledgeGain';
 import IntendedLearners from '@/components/Mobile/MobDetailPageV2/IntendedLearners';
 import Image from 'next/image';
 import { CourseStructure } from '@/components/Mobile/MobDetailPageV2/CourseStructure';
@@ -84,9 +84,15 @@ const ElectiveDetailPage: FC<ElectiveDetailPageProps> = async (props) => {
           </div>
         </div>
         <div className="flex flex-col gap-10 px-5 pb-[8.75rem] pt-10">
-          <IntendedLearners />
+          {courseDetail.intendedLearners && (
+            <IntendedLearners
+              intendedLearners={courseDetail.intendedLearners}
+            />
+          )}
           <CourseStructure detail={courseDetail} />
-          <WillLearn />
+          {courseDetail.knowledgeGain && (
+            <KnowledgeGain knowledgeGain={courseDetail.knowledgeGain} />
+          )}
           <Syllabus />
         </div>
         <div className="fixed bottom-10 w-full px-5">
