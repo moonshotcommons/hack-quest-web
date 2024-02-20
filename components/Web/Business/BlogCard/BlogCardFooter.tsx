@@ -35,7 +35,6 @@ const BlogCardFooter: React.FC<FooterProp> = ({
         >
           {blog?.creatorName}
         </div>
-
         <BsArrowRightShort size={iconSize} />
       </div>
       <div
