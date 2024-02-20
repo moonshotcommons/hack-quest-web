@@ -9,7 +9,7 @@ import { FC } from 'react';
 import BackButton from '@/components/Mobile/MobDetailPageV2/BackButton';
 import ExpandAllButton from './components/ExpandAllButton';
 import LearningTrackDetailProvider from '@/components/Mobile/MobDetailPageV2/Provider/LearningTrackDetailProvider';
-import WillLearn from '@/components/Mobile/MobDetailPageV2/WillLearn';
+import KnowledgeGain from '@/components/Mobile/MobDetailPageV2/KnowledgeGain';
 import IntendedLearners from '@/components/Mobile/MobDetailPageV2/IntendedLearners';
 import Image from 'next/image';
 import { LearningTrackStructure } from '@/components/Mobile/MobDetailPageV2/CourseStructure';
@@ -81,9 +81,15 @@ const LearningTrackDetailPage: FC<LearningTrackDetailPageProps> = async (
               certificationId={learningTrackDetail.certificationId}
             />
           )}
-          <IntendedLearners />
+          {learningTrackDetail.intendedLearners && (
+            <IntendedLearners
+              intendedLearners={learningTrackDetail.intendedLearners}
+            />
+          )}
           <LearningTrackStructure detail={learningTrackDetail} />
-          <WillLearn />
+          {learningTrackDetail.knowledgeGain && (
+            <KnowledgeGain knowledgeGain={learningTrackDetail.knowledgeGain} />
+          )}
           <Syllabus />
         </div>
         <div className="fixed bottom-10 z-[99] w-full px-5">

@@ -34,11 +34,10 @@ const TagAndProgress: FC<TagAndProgressProps> = ({
             type={IconTextTagType.COURSES_COUNT}
             text={`${learningTrackDetail.courseCount} courses`}
           ></IconTextTag>
-          <IconTextTag
-            type={IconTextTagType.VIDEO_COUNT}
-            text={`7.5 hours video`}
-          ></IconTextTag>
           <IconTextTag type={IconTextTagType.DEVICE_ACCESS}></IconTextTag>
+          {learningTrackDetail.certificationId && (
+            <IconTextTag type={IconTextTagType.CERTIFICATION}></IconTextTag>
+          )}
         </>
       );
     case LearningStatus.IN_PROGRESS:

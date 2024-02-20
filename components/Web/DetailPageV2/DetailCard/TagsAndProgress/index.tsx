@@ -8,6 +8,7 @@ import {
   LearningStatus,
   useGetLearningTrackLearnStatus
 } from '../../hooks/useGetLearnStatus';
+import { CertificationCardContext } from '@/components/Web/Business/Certification/CertificationCard/CertificationCardProvider';
 
 interface TagAndProgressProps {
   learningTrackDetail: LearningTrackDetailType;
@@ -21,10 +22,17 @@ const TagAndProgress: FC<TagAndProgressProps> = ({
   );
   const learningTrackDetail =
     contextLearningTrackDetail ?? propLearningTrackDetail;
-  const learningStatus = useGetLearningTrackLearnStatus(learningTrackDetail);
+  let learningStatus = useGetLearningTrackLearnStatus(learningTrackDetail);
 
   const enrolled = learningTrackDetail.enrolled;
   const progress = learningTrackDetail?.progress || 0;
+
+  // 没有证书显示tags列表
+  if (!learningTrackDetail.certificationId) {
+    learningStatus = LearningStatus.UN_START;
+  }
+
+  const { certification } = useContext(CertificationCardContext);
 
   switch (learningStatus) {
     case LearningStatus.UN_START:
@@ -33,10 +41,6 @@ const TagAndProgress: FC<TagAndProgressProps> = ({
           <IconTextTag
             type={IconTextTagType.COURSES_COUNT}
             text={`${learningTrackDetail.courseCount} courses`}
-          ></IconTextTag>
-          <IconTextTag
-            type={IconTextTagType.VIDEO_COUNT}
-            text={`7.5 hours video`}
           ></IconTextTag>
           <IconTextTag type={IconTextTagType.DEVICE_ACCESS}></IconTextTag>
           {learningTrackDetail.certificationId && (
@@ -61,13 +65,20 @@ const TagAndProgress: FC<TagAndProgressProps> = ({
         </div>
       );
     case LearningStatus.COMPLETED:
-      //!TODO 要分学完可以获取证书和已经获取证书
-      return (
-        <p className="body-m text-neutral-rich-gray">
-          Congratulation! You’ve completed all the courses. Claim your Web3
-          certification 🎉
-        </p>
-      );
+      if (!certification?.claimed) {
+        return (
+          <p className="body-m text-neutral-rich-gray">
+            Congratulation! You’ve completed all the courses. Claim your Web3
+            certification 🎉
+          </p>
+        );
+      } else {
+        return (
+          <p className="body-m text-neutral-rich-gray">
+            You are a certified Mantle Builder 🎉
+          </p>
+        );
+      }
   }
 };
 
