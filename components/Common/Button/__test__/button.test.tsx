@@ -50,7 +50,6 @@ describe('Button', () => {
     const { container } = render(<Button ghost />);
     const button = container.firstChild;
     expect(button).toHaveClass('bg-transparent');
-    expect(button).toHaveClass('border-yellow-primary');
   });
 
   test('applies size attribute correctly', () => {

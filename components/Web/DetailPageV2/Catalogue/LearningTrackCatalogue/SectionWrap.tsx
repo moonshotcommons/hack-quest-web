@@ -69,7 +69,7 @@ const SectionWrap: FC<SectionWrapProps> = ({
       >
         {title}
         <div className="flex">
-          {enrolled && !!section?.progress && <SectionProgress />}
+          {/* {enrolled && !!section?.progress && <SectionProgress />} */}
           <ExpandButton />
         </div>
       </div>

@@ -29,24 +29,22 @@ const TopBanner: FC<TopBannerProps> = (props) => {
           className="-mt-[13px] translate-x-[calc(50%+134px+84px)]"
         >
           <Image
-            src="/images/landing/mantle_icon.png"
-            alt="code"
-            width={48}
-            height={48}
+            src="/images/landing/solana_icon.png"
+            alt="solana"
+            width={60}
+            height={60}
           ></Image>
           <div className="text-neutral-off-white">
             <div className="body-m body-xs-bold w-fit rounded-[.5rem] border border-yellow-primary px-2 py-1 text-yellow-primary">
               Certified
             </div>
             <Link
-              href={
-                '/learning-track/6d108f0d-dfb2-4dad-8f38-93b45573bc43?learningTrackId=6d108f0d-dfb2-4dad-8f38-93b45573bc43&menu=learningTrack'
-              }
+              href={'/learning-track?track=Basic&language=RUST'}
               target="_blank"
               className="body-m-bold mt-2 flex items-center gap-2"
             >
               <span className="relative after:absolute after:-bottom-[1px] after:left-0 after:h-[2px] after:w-full after:rounded-full after:bg-yellow-primary">
-                Mantle Learning Track
+                Solana Learning Track
               </span>
               <svg
                 width="13"

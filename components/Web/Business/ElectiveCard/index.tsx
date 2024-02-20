@@ -12,6 +12,7 @@ import CardProgress from '../CardProgress';
 import Logo from '@/public/images/logo/logo.svg';
 import TrackTag from '@/components/Common/TrackTag';
 import CompletedIcon from '@/components/Common/Icon/Completed';
+import { CourseType } from '@/service/webApi/course/type';
 import { MenuLink } from '../../Layout/BasePage/Navbar/type';
 interface ElectiveCardProps {
   // children: ReactNode;
@@ -40,6 +41,11 @@ const ElectiveCard: FC<ElectiveCardProps> = (props) => {
       // case CourseType.MINI:
       //   miniElectiveDetailInstance.current?.open(course);
       //   return;
+      case CourseType.UGC:
+        redirectToUrl(
+          `${MenuLink.PRACTICES}/${course.id}?${QueryIdType.MENU_COURSE_ID}=${course.id}&menu=${Menu.ELECTIVES}`
+        );
+        return;
       default:
         redirectToUrl(
           `${MenuLink.ELECTIVES}/${course.id}?${QueryIdType.MENU_COURSE_ID}=${course.id}&menu=${Menu.ELECTIVES}`

@@ -59,8 +59,8 @@ const MobLearningTrackCard: React.FC<MobLearningTrackCardProps> = ({
         ' flex  w-full flex-col gap-[1.25rem] overflow-hidden rounded-[1rem] bg-neutral-white p-[1.25rem]',
         className
       )}
-      // onClick={goLearningTrackDetail}
-      onClick={handleContinue}
+      onClick={goLearningTrackDetail}
+      // onClick={handleContinue}
     >
       <div className="flex w-full justify-between">
         <div className="caption-12pt h-fit w-fit rounded-[1.25rem] border-[0.5px] border-neutral-rich-gray  px-[.75rem] py-[0.25rem] text-neutral-rich-gray ">

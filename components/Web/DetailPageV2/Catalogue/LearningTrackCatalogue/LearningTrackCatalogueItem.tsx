@@ -1,7 +1,7 @@
 'use client';
 import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import { tagFormate } from '@/helper/formate';
-import { cn, getCourseLink } from '@/helper/utils';
+import { cn, getCoursePrefixByCourseType } from '@/helper/utils';
 
 import {
   LearningTrackDetailType,
@@ -29,10 +29,6 @@ const LearningTrackCatalogueItem: FC<LearningTrackCatalogueItemProps> = (
     <div className="body-l-bold text-neutral-black">{`${section.name}`}</div>
   );
 
-  const generateCourseLink = () => {
-    getCourseLink();
-  };
-
   return (
     <SectionProvider section={section} sectionIndex={sectionIndex}>
       <SectionWrap title={sectionTitle} sectionIndex={sectionIndex}>
@@ -49,7 +45,7 @@ const LearningTrackCatalogueItem: FC<LearningTrackCatalogueItemProps> = (
                   </div>
                 </div>
                 <Link
-                  href={`${getCourseLink(course.type)}/${course.id}?${QueryIdType.LEARNING_TRACK_ID}=${learningTrackDetail.id}&${QueryIdType.MENU_COURSE_ID}=${course.id}&menu=${Menu.LEARNING_TRACK}`}
+                  href={`${getCoursePrefixByCourseType(course.type)}/${course.id}?${QueryIdType.LEARNING_TRACK_ID}=${learningTrackDetail.id}&${QueryIdType.MENU_COURSE_ID}=${course.id}&menu=${Menu.LEARNING_TRACK}`}
                   className="body-s ml-[10%] w-[36%] flex-1 cursor-pointer text-neutral-black transition hover:opacity-70"
                 >
                   {course.name}

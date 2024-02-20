@@ -3,7 +3,6 @@ import React from 'react';
 import { SearchInfoType } from '../../constants/type';
 import { filterList } from '../../constants/data';
 import SlideHighlight from '@/components/Common/Navigation/SlideHighlight';
-import { useRouter } from 'next/navigation';
 
 interface FilterProp {
   changeSearchInfo: (val: SearchInfoType) => void;
@@ -11,7 +10,6 @@ interface FilterProp {
 }
 
 const Filter: React.FC<FilterProp> = ({ searchInfo, changeSearchInfo }) => {
-  const router = useRouter();
   return (
     <SlideHighlight
       className={`flex gap-[30px] pb-[2px]`}

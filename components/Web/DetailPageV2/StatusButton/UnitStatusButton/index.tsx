@@ -93,7 +93,7 @@ const StatusButton: FC<
           loading={loading}
           disabled={loading}
           type="primary"
-          className="button-text-m w-[165px] py-4 uppercase text-neutral-black transition hover:-translate-y-[1px] hover:shadow-[rgba(0,0,0,0.15)_1.95px_1.95px_2.6px]"
+          className="button-text-s w-[140px] py-4 uppercase text-neutral-black transition hover:-translate-y-[1px] hover:shadow-[rgba(0,0,0,0.15)_1.95px_1.95px_2.6px]"
           {...rest}
           onClick={learnHandle}
         >
@@ -102,15 +102,30 @@ const StatusButton: FC<
       );
     case StatusButtonType.RESUME:
       return (
-        <Button
-          loading={loading}
-          disabled={loading}
-          className="body-m w-[165px] cursor-pointer whitespace-nowrap rounded-[32px] border border-solid border-course-learning-button-border-color bg-course-learning-button-bg py-[11px] text-neutral-black transition hover:-translate-y-[1px] hover:shadow-[rgba(0,0,0,0.15)_1.95px_1.95px_2.6px]"
-          {...rest}
-          onClick={learnHandle}
-        >
-          Resume
-        </Button>
+        <div className="flex w-full items-center justify-between gap-8">
+          <div className="flex items-center gap-2">
+            <div className="relative h-[6px] w-[120px] max-w-[7.5rem] rounded-[3px] bg-neutral-off-white">
+              <div
+                className="absolute left-0 top-0 h-full rounded-[3px] bg-yellow-primary"
+                style={{
+                  width: `${unit.progress * 100}%`
+                }}
+              ></div>
+            </div>
+            <span className="caption-10pt text-neutral-rich-gray">
+              {Math.floor(unit.progress * 100)}%
+            </span>
+          </div>
+          <Button
+            loading={loading}
+            disabled={loading}
+            className="button-text-s w-[140px] cursor-pointer whitespace-nowrap rounded-[32px] border border-solid border-course-learning-button-border-color bg-course-learning-button-bg py-[11px] text-neutral-black transition hover:-translate-y-[1px] hover:shadow-[rgba(0,0,0,0.15)_1.95px_1.95px_2.6px]"
+            {...rest}
+            onClick={learnHandle}
+          >
+            Continue
+          </Button>
+        </div>
       );
     default:
       return null;

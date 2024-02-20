@@ -1,6 +1,7 @@
 import WebService from '@/service/webService/webService';
 import { LearningTrackDetailType } from './type';
 import { ProjectCourseType } from '../course/type';
+import { cache } from 'react';
 
 export enum LearningTrackApiType {
   GetLearningTrack = '/learning-tracks'
@@ -40,16 +41,21 @@ class LearningTrackApi {
   async fetchLearningTrackDetailAndCourses(
     learningTrackId: string
   ): Promise<LearningTrackDetailType> {
-    const url = `${this.service.baseURL.slice(0, -1)}${LearningTrackApiType.GetLearningTrack}/${learningTrackId}?include=courses`;
-    const learnTrackDetail = await fetch(url, {
-      method: 'get'
+    // const url = `${this.service.baseURL.slice(0, -1)}${LearningTrackApiType.GetLearningTrack}/${learningTrackId}?include=courses`;
+    // const learnTrackDetail = await fetch(url, {
+    //   method: 'get'
+    // });
+
+    // if (!learnTrackDetail.ok) {
+    //   throw new Error('Failed to fetch learning track data!');
+    // }
+
+    // return learnTrackDetail.json();
+    const cacheFn = cache(async () => {
+      return this.getLearningTrackDetailAndCourses(learningTrackId);
     });
 
-    if (!learnTrackDetail.ok) {
-      throw new Error('Failed to fetch learning track data!');
-    }
-
-    return learnTrackDetail.json();
+    return cacheFn();
   }
 
   /** 订阅课程路线 */

@@ -5,7 +5,7 @@ export const menuName: MenuNameType = {
   [Menu.LEARNING_TRACK]: 'learning-track',
   [Menu.ELECTIVES]: 'electives',
   [Menu.PRACTICES]: 'projects',
-  [Menu.RESOURCE_STATION]: 'resource-station',
+  [Menu.RESOURCE_STATION]: 'resource',
   [Menu.HACKATHON]: 'hackathon',
   [Menu.PROJECTS]: 'hackathon'
 };

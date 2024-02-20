@@ -1,22 +1,16 @@
 import { BurialPoint } from '@/helper/burialPoint';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
-import {
-  CourseTrackType,
-  ProjectCourseType
-} from '@/service/webApi/course/type';
-import Image from 'next/image';
+import { ProjectCourseType } from '@/service/webApi/course/type';
 import { FC } from 'react';
 import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import CourseTags from '@/components/Web/Business/CourseTags';
-import PracticeImg1 from '@/public/images/home/practices_img1.png';
-import PracticeImg2 from '@/public/images/home/practices_img2.png';
-import PracticeImg3 from '@/public/images/home/practices_img3.png';
-import PracticeImg4 from '@/public/images/home/practices_img4.png';
+
 import { useRedirect } from '@/hooks/useRedirect';
 import CardProgress from '../CardProgress';
 import Button from '@/components/Common/Button';
 import TrackTag from '@/components/Common/TrackTag';
 import CompletedIcon from '@/components/Common/Icon/Completed';
+import { getCoverImageByTrack } from '@/helper/utils';
 import { MenuLink } from '../../Layout/BasePage/Navbar/type';
 
 interface PracticeCardProps {
@@ -29,55 +23,7 @@ const PracticeCard: FC<PracticeCardProps> = (props) => {
   const { course, from = 'project', inProgress = false } = props;
   const { jumpLearningLesson, loading } = useJumpLeaningLesson();
   const { redirectToUrl } = useRedirect();
-  const imageRender = (track: CourseTrackType) => {
-    switch (track) {
-      case CourseTrackType.DeFi:
-        return (
-          <Image
-            src={PracticeImg1}
-            width={239}
-            alt="practice"
-            className="absolute right-0 top-0"
-          ></Image>
-        );
-      case CourseTrackType.NFT:
-        return (
-          <Image
-            src={PracticeImg2}
-            width={126}
-            alt="practice"
-            className="absolute right-[32px] top-[32px]"
-          ></Image>
-        );
-      case CourseTrackType.Gaming:
-        return (
-          <Image
-            src={PracticeImg3}
-            width={178}
-            alt="practice"
-            className="absolute right-[40px] top-[24px]"
-          ></Image>
-        );
-      case CourseTrackType.Security:
-        return (
-          <Image
-            src={PracticeImg4}
-            width={123}
-            alt="practice"
-            className="absolute right-[40px] top-[20px]"
-          ></Image>
-        );
-      default:
-        return (
-          <Image
-            src={PracticeImg1}
-            width={239}
-            alt="practice"
-            className="absolute right-0 top-0"
-          ></Image>
-        );
-    }
-  };
+
   return (
     <div
       className={
@@ -91,7 +37,7 @@ const PracticeCard: FC<PracticeCardProps> = (props) => {
       }}
     >
       <div className="relative h-0 w-full pt-[56%]">
-        {imageRender(course.track)}
+        {getCoverImageByTrack(course.track)}
       </div>
       <div className="relative flex h-[216px] w-full flex-col justify-between p-[16px] ">
         {from === 'dashboard' && !!course.progress && course.progress >= 1 ? (
