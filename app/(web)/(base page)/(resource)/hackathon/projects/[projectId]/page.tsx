@@ -35,7 +35,7 @@ const ProjectDetailPage: FC<ProjectDetailPageProps> = async ({ params }) => {
   );
 
   return (
-    <div>
+    <div className="pt-[40px]">
       <div className="container mx-auto">
         <ProjectDetail project={project} others={otherProjects} />
       </div>

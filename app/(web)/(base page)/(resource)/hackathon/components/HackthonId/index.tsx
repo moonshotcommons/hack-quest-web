@@ -12,7 +12,7 @@ interface HackDetailProps {
 
 const HackDetail: FC<HackDetailProps> = ({ hackathon }) => {
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto pt-[40px]">
       <div className="min-h-[50vh] w-full">
         {hackathon.id && (
           <>
