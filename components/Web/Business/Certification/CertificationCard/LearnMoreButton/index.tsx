@@ -36,13 +36,6 @@ const LearnMoreButton: FC<LearnMoreButtonProps> = ({
   const enrolled = learningTrackDetail?.enrolled;
   const mint = certification?.mint;
   const claimed = certification?.claimed;
-  // console.log(certification);
-  // console.log(learningTrackDetail);
-
-  // console.log(certification);
-  // progress小于1显示disable状态的claim
-  // progress大于等于1显示允许点击的claim
-  // mint以后显示view more
 
   const { run: claim, loading: claimLoading } = useRequest(
     async () => {

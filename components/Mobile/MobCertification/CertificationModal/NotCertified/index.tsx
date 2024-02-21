@@ -46,13 +46,14 @@ const NotCertified: FC<NotCertifiedProps> = (props) => {
         proof-of-completion certificate now to elevate your skills and
         demonstrate your expertise.
       </p>
-      <div className="mt-[40px] flex gap-x-[10px]">
+      <div className="mt-5 flex flex-col gap-4">
         <Button
           type="primary"
+          block
           disabled={!completed || loading}
           loading={loading}
           className={cn(
-            'body-m w-[210px] px-0  py-[11px] text-neutral-black',
+            'body-m px-0  py-[11px] text-neutral-black',
             !completed ? 'opacity-40' : ''
           )}
           onClick={() => {
@@ -63,7 +64,8 @@ const NotCertified: FC<NotCertifiedProps> = (props) => {
         </Button>
         <Button
           ghost
-          className="body-m w-[210px] border-neutral-black  px-0 py-[11px] text-neutral-black"
+          block
+          className="body-m border-neutral-black  px-0 py-[11px] text-neutral-black"
           onClick={() => onClose()}
         >
           Close

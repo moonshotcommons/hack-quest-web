@@ -8,6 +8,7 @@ import { message } from 'antd';
 
 import Link from 'next/link';
 import { FC, useState } from 'react';
+import { isMobile } from 'react-device-detect';
 interface GettingCertificateProps {
   certification: CertificationType;
   refreshCertification?: VoidFunction;
@@ -104,17 +105,17 @@ const GettingCertificate: FC<GettingCertificateProps> = ({
     <div className="flex-1">
       <div className="flex h-fit items-center gap-x-5">
         <div>{badge}</div>
-        <h3 className="text-h3 text-neutral-off-black">
+        <h3 className="body-xl-bold text-neutral-off-black">
           Congratulations! You are now a certified developer.
         </h3>
       </div>
 
-      <p className="body-m mt-5 text-neutral-black">
+      <p className="body-s mt-5 text-neutral-black">
         {`This learning track, co-issued by ecosystem and HackQuest, certifies that you have successfully completed the learning track. Share your accomplishments with the world!`}
       </p>
 
       <div
-        className="mt-[30px] flex gap-x-[10px]"
+        className="mt-5 flex flex-col gap-4"
         onMouseLeave={() => {
           if (showShare) setShowShare(false);
         }}
@@ -155,11 +156,17 @@ const GettingCertificate: FC<GettingCertificateProps> = ({
         <Button
           type="primary"
           loading={loading}
+          block
           className={cn(
-            'body-m w-[210px] px-0 py-[11px] text-neutral-black outline-none',
+            'body-m px-0 py-[11px] text-neutral-black outline-none',
             certification.mint ? 'cursor-not-allowed opacity-40' : ''
           )}
           onClick={() => {
+            if (isMobile) {
+              message.info('Minting is not available on mobile devices');
+              return;
+            }
+
             if (certification.id === '51909b45-65b7-4864-9367-dcc38e0c381c') {
               message.info('Solana NFT will open for minting soon!');
               return;
@@ -179,10 +186,11 @@ const GettingCertificate: FC<GettingCertificateProps> = ({
         <Link href={'/user/profile'}>
           <Button
             ghost
-            className="body-m w-[210px] border-neutral-black  px-0 py-[11px] text-neutral-black"
+            block
+            className="body-m border-neutral-black  px-0 py-[11px] text-neutral-black"
             onClick={() => closeModal?.()}
           >
-            Check Profile
+            View Profile
           </Button>
         </Link>
       </div>

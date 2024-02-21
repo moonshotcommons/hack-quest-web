@@ -15,6 +15,7 @@ interface ModalProps {
   markBg?: string;
   className?: string;
   iconClassName?: string;
+  block?: boolean;
 }
 
 const IconClose: FC<{ icon?: ReactNode; className?: string }> = (props) => {
@@ -44,15 +45,31 @@ const Modal: React.FC<ModalProps> = (props) => {
     icon,
     markBg = 'black',
     className,
-    iconClassName
+    iconClassName,
+    block = false
   } = props;
   // const closeIcon =
   return (
     <Transition show={open} appear as={Fragment}>
       <Dialog as="div" className="relative z-[999]" onClose={onClose}>
-        <div className={cn(`fixed inset-0 bg-black bg-opacity-50`)} />
-        <div className="fixed inset-0 overflow-y-auto">
-          <div className="flex min-h-full items-center justify-center p-4 text-center">
+        <div
+          className={cn(
+            `fixed bg-black bg-opacity-50`,
+            block ? 'inset-x-0 bottom-0 top-[64px]' : 'inset-0'
+          )}
+        />
+        <div
+          className={cn(
+            'fixed  overflow-y-auto',
+            block ? 'inset-x-0 bottom-0 top-[64px]' : 'inset-0'
+          )}
+        >
+          <div
+            className={cn(
+              'flex min-h-full items-center justify-center text-center',
+              block ? '' : 'p-4'
+            )}
+          >
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"

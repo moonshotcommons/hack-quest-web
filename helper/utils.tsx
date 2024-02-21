@@ -240,7 +240,9 @@ export const getCoverImageByTrack = (track: CourseTrackType) => {
           src={PracticeImg2}
           width={126}
           alt="practice"
-          className="absolute right-[32px] top-[32px]"
+          // className="absolute right-[32px] top-[32px]"
+          // className="absolute right-[32px] top-[36px]"
+          className="absolute right-[40px] top-[30px]"
         ></Image>
       );
     case CourseTrackType.Gaming:
