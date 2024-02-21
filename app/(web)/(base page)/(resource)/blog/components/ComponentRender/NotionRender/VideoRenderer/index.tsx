@@ -11,7 +11,7 @@ const VideoRenderer: FC<VideoRendererProps> = (props) => {
 
   return (
     <div>
-      <video controls className="w-[80%]">
+      <video controls className="w-full">
         {/* width="400px" */}
         {<source src={component.content.file.url} />}
       </video>
