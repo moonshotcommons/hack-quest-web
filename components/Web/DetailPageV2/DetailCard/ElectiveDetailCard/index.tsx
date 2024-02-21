@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import { FC } from 'react';
-// import Cover from '../image 405.png';
 import { ElectiveStatusButton } from '../../StatusButton';
 import { ElectiveCourseDetailType } from '@/service/webApi/elective/type';
 import TagsAndProgress from './TagsAndProgress';

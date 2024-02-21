@@ -7,6 +7,8 @@ export const metadata: Metadata = {
   title: 'Hackathons | HackQuest'
 };
 
+export const revalidate = 60;
+
 interface HackathonProps {}
 
 const Hackathon: FC<HackathonProps> = async () => {
