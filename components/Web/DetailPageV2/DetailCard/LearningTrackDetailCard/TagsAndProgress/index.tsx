@@ -1,20 +1,22 @@
 'use client';
 import { FC, useContext } from 'react';
-import IconTextTag from '../../CourseTag/IconTextTag';
-import { IconTextTagType } from '../../CourseTag/IconTextTag/constant';
+
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
-import { LearningTrackDetailContext } from '../../Provider/LearningTrackDetailProvider';
+
+import { CertificationCardContext } from '@/components/Web/Business/Certification/CertificationCard/CertificationCardProvider';
+import { LearningTrackDetailContext } from '@/components/Web/DetailPageV2/Provider/LearningTrackDetailProvider';
 import {
   LearningStatus,
   useGetLearningTrackLearnStatus
-} from '../../hooks/useGetLearnStatus';
-import { CertificationCardContext } from '@/components/Web/Business/Certification/CertificationCard/CertificationCardProvider';
+} from '@/components/Web/DetailPageV2/hooks/useGetLearnStatus';
+import IconTextTag from '@/components/Web/DetailPageV2/CourseTag/IconTextTag';
+import { IconTextTagType } from '@/components/Web/DetailPageV2/CourseTag/IconTextTag/constant';
 
-interface TagAndProgressProps {
+interface TagsAndProgressProps {
   learningTrackDetail: LearningTrackDetailType;
 }
 
-const TagAndProgress: FC<TagAndProgressProps> = ({
+const TagsAndProgress: FC<TagsAndProgressProps> = ({
   learningTrackDetail: propLearningTrackDetail
 }) => {
   const { learningTrackDetail: contextLearningTrackDetail } = useContext(
@@ -24,11 +26,12 @@ const TagAndProgress: FC<TagAndProgressProps> = ({
     contextLearningTrackDetail ?? propLearningTrackDetail;
   let learningStatus = useGetLearningTrackLearnStatus(learningTrackDetail);
 
-  const enrolled = learningTrackDetail.enrolled;
   const progress = learningTrackDetail?.progress || 0;
 
-  // 没有证书显示tags列表
-  if (!learningTrackDetail.certificationId) {
+  if (
+    learningStatus === LearningStatus.COMPLETED &&
+    !learningTrackDetail.certificationId
+  ) {
     learningStatus = LearningStatus.UN_START;
   }
 
@@ -82,4 +85,4 @@ const TagAndProgress: FC<TagAndProgressProps> = ({
   }
 };
 
-export default TagAndProgress;
+export default TagsAndProgress;

@@ -14,8 +14,6 @@ const CertificationCard: FC<CertificationCardProps> = async (props) => {
   const certification =
     await webApi.campaignsApi.fetchCertificationDetail(certificationId);
 
-  if (!certification) return null;
-
   return (
     <CertificationCardProvider certification={certification}>
       <div className="flex flex-col items-center justify-between gap-5 rounded-[16px] bg-yellow-extra-light p-4">

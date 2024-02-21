@@ -9,26 +9,28 @@ interface CertificationCardProviderProps {
 }
 
 export const CertificationCardContext = createContext<{
-  certification: CertificationType | null;
+  certification?: CertificationType;
   refreshCertification: VoidFunction;
+  refreshCertificationAsync: () => Promise<CertificationType | void>;
 }>({
-  certification: null,
-  refreshCertification: () => {}
+  refreshCertification: () => {},
+  refreshCertificationAsync: async () => {}
 });
 
 const CertificationCardProvider: FC<CertificationCardProviderProps> = ({
   certification,
   children
 }) => {
-  const { data, refresh } = useRequest(async () => {
+  const { data, refresh, refreshAsync } = useRequest(async () => {
     return webApi.campaignsApi.getCertificationDetail(certification.id);
   });
 
   return (
     <CertificationCardContext.Provider
       value={{
-        certification: data ?? certification,
-        refreshCertification: refresh
+        certification: data || certification,
+        refreshCertification: refresh,
+        refreshCertificationAsync: refreshAsync
       }}
     >
       {children}

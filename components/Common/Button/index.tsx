@@ -91,7 +91,7 @@ const Button: FC<ButtonProps> = (props) => {
           : '',
         ghost && 'border border-neutral-black bg-transparent',
         ghost && !disabled ? 'hover:bg-neutral-off-white' : '',
-        // disabled ? 'cursor-not-allowed opacity-40' : '',
+        disabled ? 'cursor-not-allowed opacity-40' : '',
         className
       )}
       disabled={disabled}
