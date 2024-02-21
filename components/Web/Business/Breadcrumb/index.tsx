@@ -1,7 +1,5 @@
-import { BurialPoint } from '@/helper/burialPoint';
 import { tagFormate } from '@/helper/formate';
 import webApi from '@/service';
-import Link from 'next/link';
 import { useParams, useSearchParams } from 'next/navigation';
 import React, { useCallback, useEffect, useState } from 'react';
 import { menuLink, menuName, navIdType, navLinks } from './data';
@@ -127,16 +125,20 @@ const Breadcrumb: React.FC = () => {
   const renderNav = (item: navDataProps, i: number) => {
     if (i < navData.length - 1) {
       return (
-        <Link
-          key={i}
-          href={item.link || ''}
-          onClick={() => {
-            BurialPoint.track('使用navbar跳转');
-          }}
-        >
+        // <Link
+        //   key={i}
+        //   href={item.link || ''}
+        //   onClick={() => {
+        //     BurialPoint.track('使用navbar跳转');
+        //   }}
+        // >
+        //   {i ? <span className="mx-2 text-neutral-black">/</span> : ''}
+        //   <span className=" text-neutral-black"> {item.label}</span>
+        // </Link>
+        <div key={i}>
           {i ? <span className="mx-2 text-neutral-black">/</span> : ''}
-          <span className=" text-neutral-black"> {item.label}</span>
-        </Link>
+          <span className={`text-neutral-black`}>{item.label}</span>
+        </div>
       );
     } else {
       return (

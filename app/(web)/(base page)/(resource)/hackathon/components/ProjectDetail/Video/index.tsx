@@ -17,7 +17,7 @@ const ProjectVideo: FC<ProjectVideoProps> = function ProjectVideo({ project }) {
   return (
     <>
       {project?.video && (
-        <div className="mt-[30px] max-h-[504px] w-full rounded-[10px] bg-gray-300">
+        <div className="mt-[30px] w-full rounded-[10px] bg-gray-300">
           {!project.video.includes('youtube') && (
             <video controls className="w-full" key={project.id}>
               <source src={project.video}></source>
