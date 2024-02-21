@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 import ProjectDetail from '../../components/ProjectDetail';
 import FeaturedProjects from '../../components/FeaturedProject';
 import {
-  getFeaturedProjects,
+  getFeaturedProjectsById,
   getHackathonProjectById,
   getOtherProjects
 } from '@/service/hackathon';
@@ -27,7 +27,7 @@ const ProjectDetailPage: FC<ProjectDetailPageProps> = async ({ params }) => {
   const { projectId } = params;
   const [project, featuredProjects] = await Promise.all([
     getHackathonProjectById(projectId),
-    getFeaturedProjects(projectId)
+    getFeaturedProjectsById(projectId)
   ]);
   const otherProjects = await getOtherProjects(
     project.hackathonName,

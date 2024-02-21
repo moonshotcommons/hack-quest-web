@@ -5,7 +5,6 @@ import {
   LessonContent,
   NotionComponent
 } from '@/components/Web/Business/Renderer/type';
-import Button from '@/components/Common/Button';
 import { ExpandDataType, useLessonExpand } from '@/hooks/useLessonExpand';
 import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
 import {
@@ -97,7 +96,7 @@ const LessonContentComponent: FC<LessonContentProps> = (props) => {
               </div>
             );
           })}
-          <Button
+          {/* <Button
             icon={BugIcon}
             className="ml-[1.375rem] rounded-[10px] bg-neutral-medium-gray px-[16px] py-[14px] text-neutral-white"
             onClick={() => {
@@ -105,7 +104,7 @@ const LessonContentComponent: FC<LessonContentProps> = (props) => {
             }}
           >
             <span className="body-m ml-[0.5]">Found a bug?</span>
-          </Button>
+          </Button> */}
         </div>
       )}
     </div>
