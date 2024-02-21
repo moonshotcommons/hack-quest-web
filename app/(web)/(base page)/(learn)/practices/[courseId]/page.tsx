@@ -31,7 +31,7 @@ const PracticePage: FC<PracticePageProps> = async (props) => {
 
   return (
     <PracticeDetailProvider courseId={courseId}>
-      <div className="relative h-full w-full bg-neutral-white">
+      <div className="relative min-h-[100%] w-full bg-neutral-white">
         <div className="absolute left-0 top-0 min-h-[400px] w-full bg-neutral-off-white py-5"></div>
         <div className="container relative mx-auto flex h-fit pb-[100px]">
           <div className="w-[900px] max-w-[900px]">

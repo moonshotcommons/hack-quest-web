@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { FC, useContext } from 'react';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import LearningTrackStatusButton from '../../StatusButton/LearningTrackStatusButton';
-import TagAndProgress from '../TagsAndProgress';
+import TagsAndProgress from './TagsAndProgress';
 import {
   LearningStatus,
   useGetLearningTrackLearnStatus
@@ -42,7 +42,7 @@ const LearningTrackDetailCard: FC<LearningTrackDetailCardProps> = ({
             certificationIcon}
         </div>
         <div className="flex flex-col gap-4">
-          <TagAndProgress learningTrackDetail={learningTrackDetail} />
+          <TagsAndProgress learningTrackDetail={learningTrackDetail} />
         </div>
         <LearningTrackStatusButton learningTrackDetail={learningTrackDetail} />
       </div>

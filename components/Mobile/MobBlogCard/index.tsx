@@ -27,7 +27,7 @@ const MobBlogCard: React.FC<MobBlogCardProp> = ({
     <Link
       className="flex h-[8.125rem] w-full overflow-hidden rounded-[.75rem] border border-neutral-light-gray bg-neutral-white text-neutral-off-black"
       onClick={goBlogContent}
-      href={`${from === ResourceFrom.BLOG ? MenuLink.BLOG : MenuLink.GLOSSARY}/${blog.id}`}
+      href={`${from === ResourceFrom.BLOG ? MenuLink.BLOG : MenuLink.GLOSSARY}/${blog.alias}`}
     >
       <div className="relative h-full w-[8.125rem] flex-shrink-0">
         <Image
@@ -44,7 +44,9 @@ const MobBlogCard: React.FC<MobBlogCardProp> = ({
               <TrackTag key={i} track={v} className="caption-10pt" />
             ))}
           </div>
-          <div className="body-xs mt-[.5rem] line-clamp-2">{blog.title}</div>
+          <div className="body-xs mt-[.5rem] line-clamp-2 text-neutral-off-black">
+            {blog.title}
+          </div>
         </div>
         <BlogCardFooter
           blog={blog}

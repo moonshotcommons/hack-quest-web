@@ -32,9 +32,9 @@ const CourseCatalogue: FC<CourseCatalogueProps> = (props) => {
           );
         }
         return (
-          <>
+          <li key={unit.id}>
             <hr className="my-4"></hr>
-            <li key={unit.id} className="relative w-full">
+            <div className="relative w-full">
               <PracticeCatalogueItem
                 unit={unit}
                 // isLock={
@@ -44,8 +44,8 @@ const CourseCatalogue: FC<CourseCatalogueProps> = (props) => {
                 index={index}
                 courseDetail={courseDetail}
               ></PracticeCatalogueItem>
-            </li>
-          </>
+            </div>
+          </li>
         );
       })}
     </ul>

@@ -34,7 +34,8 @@ const nextConfig = (phase) => {
           protocol: 'https',
           hostname: '**'
         }
-      ]
+      ],
+      minimumCacheTTL: 60
     },
     output: 'standalone'
   });
