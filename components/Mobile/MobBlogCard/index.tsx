@@ -27,7 +27,7 @@ const MobBlogCard: React.FC<MobBlogCardProp> = ({
     <Link
       className="flex h-[8.125rem] w-full overflow-hidden rounded-[.75rem] border border-neutral-light-gray bg-neutral-white text-neutral-off-black"
       onClick={goBlogContent}
-      href={`${from === ResourceFrom.BLOG ? MenuLink.BLOG : MenuLink.GLOSSARY}/${blog.id}`}
+      href={`${from === ResourceFrom.BLOG ? MenuLink.BLOG : MenuLink.GLOSSARY}/${blog.alias}`}
     >
       <div className="relative h-full w-[8.125rem] flex-shrink-0">
         <Image

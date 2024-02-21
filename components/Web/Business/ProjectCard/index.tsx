@@ -28,7 +28,7 @@ const ProjectCard: React.FC<ProjectCardProp> = ({
         className
       )}
       onClick={goProjectDetail}
-      href={`${MenuLink.PROJECTS}/${project.id}?${QueryIdType.PROJECT_ID}=${project.id}&menu=${Menu.HACKATHON}`}
+      href={`${MenuLink.PROJECTS}/${project.alias}?${QueryIdType.PROJECT_ID}=${project.id}&menu=${Menu.HACKATHON}`}
     >
       <div className="relative h-0 w-full bg-[#d9d9d9]/30 pt-[56%]">
         <Image

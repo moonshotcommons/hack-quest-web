@@ -21,7 +21,7 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({
   const goHackathonDetail = () => {
     BurialPoint.track(`hackathon onGoingCard 点击`);
     redirectToUrl(
-      `${menuLink.hackathon}/${hackathon.id}?menu=${Menu.HACKATHON}&${QueryIdType.HACKATHON_ID}=${hackathon.id}`
+      `${menuLink.hackathon}/${hackathon.alias}?menu=${Menu.HACKATHON}&${QueryIdType.HACKATHON_ID}=${hackathon.id}`
     );
   };
   const { getRunFromTime, getCloseInTime } = useDealHackathonData();
