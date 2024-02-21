@@ -2,14 +2,14 @@
 import { LearningTrackCourseType } from '@/service/webApi/course/type';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import Image from 'next/image';
-import React, { useEffect, useState, MouseEvent } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import CourseTags from '@/components/Web/Business/CourseTags';
-import { menuLink } from '@/components/Web/Business/Breadcrumb/data';
 import { useRedirect } from '@/hooks/useRedirect';
 import { cn } from '@/helper/utils';
 import LearningTrackImg from '@/public/images/home/learningtrack_img.png';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
+import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 interface MobLearningTrackCardProps {
   learningTrack: LearningTrackDetailType;
   isLandingPage?: boolean;
@@ -35,23 +35,23 @@ const MobLearningTrackCard: React.FC<MobLearningTrackCardProps> = ({
   const goLearningTrackDetail = (e: any) => {
     if (isLandingPage) return;
     redirectToUrl(
-      `${menuLink.learningTrack}/${learningTrack.id}?${QueryIdType.LEARNING_TRACK_ID}=${learningTrack.id}&menu=${Menu.LEARNING_TRACK}`
+      `${MenuLink.LEARNING_TRACK}/${learningTrack.id}?${QueryIdType.LEARNING_TRACK_ID}=${learningTrack.id}&menu=${Menu.LEARNING_TRACK}`
     );
   };
 
-  const handleContinue = (e: MouseEvent<HTMLElement>) => {
-    e.stopPropagation();
-    const section = learningTrack.sections.find((v) => (v?.progress || 0) < 1);
-    if (section) {
-      const course = section.courses.find((v) => (v?.progress || 0) < 1);
-      if (course)
-        jumpLearningLesson(course, {
-          menu: Menu.LEARNING_TRACK,
-          idTypes: [QueryIdType.LEARNING_TRACK_ID, QueryIdType.MENU_COURSE_ID],
-          ids: [learningTrack.id, course.id]
-        });
-    }
-  };
+  // const handleContinue = (e: MouseEvent<HTMLElement>) => {
+  //   e.stopPropagation();
+  //   const section = learningTrack.sections.find((v) => (v?.progress || 0) < 1);
+  //   if (section) {
+  //     const course = section.courses.find((v) => (v?.progress || 0) < 1);
+  //     if (course)
+  //       jumpLearningLesson(course, {
+  //         menu: Menu.LEARNING_TRACK,
+  //         idTypes: [QueryIdType.LEARNING_TRACK_ID, QueryIdType.MENU_COURSE_ID],
+  //         ids: [learningTrack.id, course.id]
+  //       });
+  //   }
+  // };
 
   return (
     <div
@@ -59,8 +59,7 @@ const MobLearningTrackCard: React.FC<MobLearningTrackCardProps> = ({
         ' flex  w-full flex-col gap-[1.25rem] overflow-hidden rounded-[1rem] bg-neutral-white p-[1.25rem]',
         className
       )}
-      // onClick={goLearningTrackDetail}
-      onClick={handleContinue}
+      onClick={goLearningTrackDetail}
     >
       <div className="flex w-full justify-between">
         <div className="caption-12pt h-fit w-fit rounded-[1.25rem] border-[0.5px] border-neutral-rich-gray  px-[.75rem] py-[0.25rem] text-neutral-rich-gray ">

@@ -54,10 +54,10 @@ const CertificationModal = forwardRef<
       icon={closeIcon}
       markBg="black"
     >
-      <div className="w-[1080px] rounded-[10px] bg-neutral-white p-[60px]">
-        <div className="flex items-center gap-x-[60px]">
+      <div className="w-[960px] rounded-[10px] bg-neutral-white px-8 py-[60px]">
+        <div className="flex items-center gap-x-[48px]">
           <div className="flex flex-col">
-            <div className="relative h-[250px] w-[452px]">
+            <div className="relative h-[240px] w-[434px]">
               <Image
                 src={certification.image || ''}
                 fill
@@ -75,29 +75,31 @@ const CertificationModal = forwardRef<
             </div>
             {showCoin && (
               <>
-                <div className="mt-[20px] flex items-center gap-[30px]">
+                {/* <div className="mt-[20px] flex items-center gap-[30px]">
                   <span className="inline-block h-[1px] flex-1 scale-y-50 bg-neutral-black"></span>
                   <span className="body-l-bold text-neutral-black">and</span>
                   <span className="inline-block h-[1px] flex-1 scale-y-50 bg-neutral-black"></span>
-                </div>
-                <div className="mt-[20px] flex justify-center gap-[20px]">
-                  <div className="box-border flex h-[60px] w-[125px] items-center justify-between rounded-[15px] border-[2px] border-neutral-light-gray px-[15px]">
+                </div> */}
+                <div className="mt-6 flex justify-center gap-[20px]">
+                  <div className="flex items-center justify-between gap-2 rounded-[8px] bg-neutral-off-white px-[8px] py-[6px]">
                     <Image
                       src={iconCoin}
-                      width={40}
+                      width={32}
                       alt="icon"
                       className=""
                     ></Image>
-                    <span>x{certification?.credits}</span>
+                    <span className="body-s-bold">
+                      x{certification?.credits}
+                    </span>
                   </div>
-                  <div className="box-border flex h-[60px] w-[125px] items-center justify-between rounded-[15px] border-[2px] border-neutral-light-gray px-[15px]">
+                  <div className="flex items-center justify-between gap-2 rounded-[8px] bg-neutral-off-white px-[8px] py-[6px]">
                     <Image
                       src={iconXp}
-                      width={40}
+                      width={32}
                       alt="icon"
                       className=""
                     ></Image>
-                    <span>x{certification?.exp}</span>
+                    <span className="body-s-bold">x{certification?.exp}</span>
                   </div>
                 </div>
               </>

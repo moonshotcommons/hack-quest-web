@@ -31,7 +31,7 @@ const BlogHeader: React.FC<BlogHeaderProp> = ({ blog }) => {
             <TrackTag
               key={i}
               track={v}
-              className="caption-14pt border-neutral-white px-[14px] py-[6px] text-neutral-white"
+              className="caption-14pt border-[1px] border-neutral-white px-[14px] py-[6px] text-neutral-white"
             />
           ))}
         </div>
@@ -45,8 +45,8 @@ const BlogHeader: React.FC<BlogHeaderProp> = ({ blog }) => {
       <div className="w-full">
         <BlogCardFooter
           blog={blog}
-          className="text-[#DADADA]"
-          borderColor="border-r-[#DADADA]"
+          className="text-neutral-light-gray"
+          borderColor="border-neutral-light-gray"
         />
       </div>
     </div>

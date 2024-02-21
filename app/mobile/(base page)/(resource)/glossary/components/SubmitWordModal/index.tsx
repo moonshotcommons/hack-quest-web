@@ -2,6 +2,9 @@ import Button from '@/components/Common/Button';
 import Input from '@/components/Common/Input';
 import Modal from '@/components/Common/Modal';
 import { HACKQUEST_DISCORD } from '@/constants/links';
+import webApi from '@/service';
+import { CoustomKeywordType } from '@/service/webApi/resourceStation/type';
+import { message } from 'antd';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { FiX } from 'react-icons/fi';
@@ -18,7 +21,21 @@ const SubmitWordModal: React.FC<SubmitWordModalProp> = ({ open, onClose }) => {
   const [isSuccess, setIsSuccess] = useState(false);
   const onSubmit = () => {
     if (!keyword || loading) return;
-    setIsSuccess(true);
+    setLoading(true);
+    webApi.resourceStationApi
+      .customKeyword({
+        type: CoustomKeywordType.GLOSSARY,
+        keyword
+      })
+      .then(() => {
+        setIsSuccess(true);
+      })
+      .catch((err) => {
+        message.error(err.msg);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
   useEffect(() => {
     if (open) {
@@ -47,6 +64,7 @@ const SubmitWordModal: React.FC<SubmitWordModalProp> = ({ open, onClose }) => {
                     This is a required question*
                   </span>
                 }
+                theme="light"
                 name=""
                 placeholder="Any words about Web3 are welcome..."
                 className="border-neutral-medium-gray"

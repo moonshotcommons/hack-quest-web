@@ -16,6 +16,7 @@ import {
   ElectiveLessonType
 } from '../elective/type';
 import { PageResult } from '../type';
+import { cache } from 'react';
 export enum CourseApiType {
   Course_List = '/courses',
   GetTopCourses = '/courses/featured',
@@ -72,21 +73,27 @@ class CourseApi {
   async fetchCourseDetail<
     T extends CourseDetailType | ElectiveCourseDetailType
   >(courseId: string, includeUnits = false, includePages = false): Promise<T> {
-    let includes = [];
+    //   let includes = [];
 
-    if (includeUnits) includes.push('units');
-    if (includePages) includes.push('pages');
+    //   if (includeUnits) includes.push('units');
+    //   if (includePages) includes.push('pages');
 
-    const url = `${this.service.baseURL.slice(0, -1)}${CourseApiType.Course_List}/${courseId}?include=${includes.join(',')}`;
-    const courseDetail = await fetch(url, {
-      method: 'get'
+    //   const url = `${this.service.baseURL.slice(0, -1)}${CourseApiType.Course_List}/${courseId}?include=${includes.join(',')}`;
+    //   const courseDetail = await fetch(url, {
+    //     method: 'get'
+    //   });
+
+    //   if (!courseDetail.ok) {
+    //     throw new Error('Failed to fetch course data!');
+    //   }
+
+    //   return courseDetail.json();
+
+    const cacheFn = cache(async () => {
+      return this.getCourseDetail<T>(courseId, includeUnits, includePages);
     });
 
-    if (!courseDetail.ok) {
-      throw new Error('Failed to fetch course data!');
-    }
-
-    return courseDetail.json();
+    return cacheFn();
   }
 
   /** 获取单个课程下的所有units */

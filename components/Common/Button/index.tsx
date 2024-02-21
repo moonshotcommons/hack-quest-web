@@ -17,6 +17,7 @@ interface BaseButtonProps {
   ghost?: boolean;
   size?: SizeType;
   loading?: boolean;
+  htmlType?: 'button' | 'submit' | 'reset';
 }
 
 export type ButtonProps = BaseButtonProps &
@@ -35,6 +36,7 @@ const Button: FC<ButtonProps> = (props) => {
     size,
     loading = false,
     disabled: propDisabled,
+    htmlType,
     ...rest
   } = props;
   // const classNames = ;
@@ -89,11 +91,12 @@ const Button: FC<ButtonProps> = (props) => {
         loading && type === 'primary'
           ? 'bg-[#FFF4CE] opacity-100 hover:bg-[#FFF4CE]'
           : '',
-        ghost && 'border border-yellow-primary bg-transparent',
+        ghost && 'border border-neutral-black bg-transparent',
         ghost && !disabled ? 'hover:bg-neutral-off-white' : '',
         disabled ? 'cursor-not-allowed opacity-40' : '',
         className
       )}
+      type={htmlType}
       disabled={disabled}
       {...rest}
     >

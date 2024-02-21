@@ -21,7 +21,6 @@ import LessonFooter from './LessonFooter';
 import Playground from './Playground';
 import { LessonPageContext, NavbarDataType } from './type';
 
-import { BugFeedbackModalRef } from '@/components/Web/Business/BugFeedbackModal';
 import TreasureModal, {
   TreasureModalRef
 } from '@/components/Web/Business/TreasureModal';
@@ -32,7 +31,6 @@ import LessonSidebar from './LessonSidebar';
 import LessonNavbar from './LessonNavbar';
 import LessonProgress from './LessonProgress';
 import MobCompleteModal from '../MobCompleteModal';
-import MobBugFeedbackModal from '../MobBugFeedbackModal';
 
 interface MobLessonPageProps {
   lessonId: string;
@@ -96,7 +94,7 @@ const MobLessonPage: FC<MobLessonPageProps> = (props) => {
   const userInfo = useUserStore((state) => state.userInfo);
   const setLearnPageTitle = useCourseStore((state) => state.setLearnPageTitle);
 
-  const bugFeedbackModalRef = useRef<BugFeedbackModalRef>(null);
+  // const bugFeedbackModalRef = useRef<MobBugFeedbackModalRef>(null);
 
   useEffect(() => {
     setLearnPageTitle(courseName as string);
@@ -137,9 +135,9 @@ const MobLessonPage: FC<MobLessonPageProps> = (props) => {
                   setIsHandleNext(handle);
                 },
                 onBugCommit() {
-                  bugFeedbackModalRef.current?.onCommit({
-                    lessonId
-                  });
+                  // bugFeedbackModalRef.current?.onCommit({
+                  //   lessonId
+                  // });
                 },
                 navbarData,
                 setNavbarData: (data: NavbarDataType[]) => setNavbarData(data)
@@ -251,7 +249,7 @@ const MobLessonPage: FC<MobLessonPageProps> = (props) => {
                 }}
               />
               <MobCompleteModal ref={completeModalRef} />
-              <MobBugFeedbackModal ref={bugFeedbackModalRef} />
+              {/* <MobBugFeedbackModal ref={bugFeedbackModalRef} /> */}
               <TreasureModal ref={treasureModalRef} />
             </LessonPageContext.Provider>
           </div>

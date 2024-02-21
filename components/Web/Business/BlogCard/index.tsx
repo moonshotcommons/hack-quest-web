@@ -29,7 +29,7 @@ const BlogCard: React.FC<BlogCardProp> = ({
     <Link
       className="card-hover flex w-full flex-col overflow-hidden rounded-[10px] bg-neutral-white text-neutral-off-black"
       onClick={goBlogContent}
-      href={`${from === ResourceFrom.BLOG ? MenuLink.BLOG : MenuLink.GLOSSARY}/${blog.id}`}
+      href={`${from === ResourceFrom.BLOG ? MenuLink.BLOG : MenuLink.GLOSSARY}/${blog.alias}`}
     >
       <div className="relative h-[0] w-full pt-[56%] ">
         <Image
@@ -46,7 +46,9 @@ const BlogCard: React.FC<BlogCardProp> = ({
               <TrackTag key={i} track={v} />
             ))}
           </div>
-          <div className="body-m-bold line-clamp-2">{blog.title}</div>
+          <div className="body-m-bold line-clamp-2 text-neutral-off-black">
+            {blog.title}
+          </div>
           <div className="body-s line-clamp-2 text-neutral-rich-gray">
             {blog.description}
           </div>
@@ -55,7 +57,7 @@ const BlogCard: React.FC<BlogCardProp> = ({
         <BlogCardFooter
           blog={blog}
           className="caption-12pt text-neutral-rich-gray "
-          borderColor="border-r-[#3e3e3e]"
+          borderColor="border-neutral-rich-gray "
           gap={isFeatrued ? 4 : 10}
           iconSize={18}
         />

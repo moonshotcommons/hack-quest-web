@@ -107,10 +107,10 @@ const BlogFooter: React.FC<BlogFooterProp> = ({
         </Loading>
         <div className="button-text-m flex w-full justify-center pt-[1.875rem]">
           <Button
-            className="h-[3rem] w-[13rem] border border-neutral-black text-neutral-black"
+            className="h-[3rem] w-[13rem] border border-neutral-black p-0 text-neutral-black"
             onClick={handleClick}
           >
-            BACK TP {`${type === 'top' ? 'TOP' : `${business.text}`}`}
+            BACK TO {`${type === 'top' ? 'TOP' : `${business.text}`}`}
           </Button>
         </div>
       </div>

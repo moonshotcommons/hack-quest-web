@@ -8,9 +8,6 @@ export interface Response {
 export enum CourseType {
   SYNTAX = 'SYNTAX',
   GUIDED_PROJECT = 'GUIDED_PROJECT',
-  CONCEPT = 'CONCEPT',
-  TEASER = 'TEASER',
-  HACKATHON = 'HACKATHON',
   LEARNING_TRACK = 'LEARNING_TRACK',
   MINI = 'MINI',
   UGC = 'UGC'
@@ -92,7 +89,7 @@ export interface UGCCourseType {
   peopleJoined: number;
   optional: object;
   image: string | null;
-  creator: CreatorType | null;
+  creator?: CreatorType;
   units?: {
     id: string;
     title: string;
@@ -114,6 +111,15 @@ export interface UGCCourseType {
   }[];
 }
 
+export interface IntendedLearnersType {
+  audience?: string[];
+  requirements?: string[];
+}
+export interface KnowledgeGainType {
+  description?: string[];
+  tags?: string[];
+}
+
 /** 课程基础字段 */
 export interface CourseBaseType {
   id: string;
@@ -122,12 +128,17 @@ export interface CourseBaseType {
   description: string;
   type: CourseType;
   level: CourseLevelType;
+  image?: string;
   duration: number;
   language: CourseLanguageType;
   track: CourseTrackType;
   progress?: number;
   peopleJoined: number;
-  lessonCount: number;
+  intendedLearners: IntendedLearnersType | null;
+  knowledgeGain: KnowledgeGainType | null;
+  totalPages: number;
+  certificationId?: string;
+  creator?: CreatorType;
 }
 
 /** Project类型的课程 */

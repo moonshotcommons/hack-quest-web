@@ -113,7 +113,7 @@ const MobBugFeedbackModal = forwardRef<
       // }
     },
     onDrop(e) {
-      console.log('Dropped files', e.dataTransfer.files);
+      // console.log('Dropped files', e.dataTransfer.files);
     }
   };
 

@@ -26,7 +26,7 @@ const TopBanner: FC<TopBannerProps> = (props) => {
         <div className="mt-[3rem] flex w-[18.4375rem] gap-4 rounded-[1rem] border border-neutral-off-white p-4">
           <div className="h-fit w-fit">
             <Image
-              src="/images/landing/mantle_icon.png"
+              src="/images/landing/sonala_icon.png"
               alt="code"
               width={48}
               height={48}
@@ -37,14 +37,12 @@ const TopBanner: FC<TopBannerProps> = (props) => {
               Certified
             </div>
             <Link
-              href={
-                '/learning-track/6d108f0d-dfb2-4dad-8f38-93b45573bc43?learningTrackId=6d108f0d-dfb2-4dad-8f38-93b45573bc43&menu=learningTrack'
-              }
+              href={'/learning-track?track=Basic&language=RUST'}
               target="_blank"
               className="body-m-bold mt-2 flex items-center gap-2 text-[.75rem]"
             >
               <span className="relative after:absolute after:-bottom-[1px] after:left-0 after:h-[2px] after:w-full after:rounded-full after:bg-yellow-primary">
-                Mantle Learning Track
+                Solana Learning Track
               </span>
               <svg
                 width="13"

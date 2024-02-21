@@ -6,6 +6,7 @@ import {
   SignatureData,
   TargetsType
 } from './type';
+import { cache } from 'react';
 
 export enum CampaignsApiType {
   Campaigns = '/campaigns',
@@ -77,16 +78,29 @@ class CampaignsApi {
   async fetchCertificationDetail(
     certificationId: string
   ): Promise<CertificationType> {
-    const url = `${this.service.baseURL.slice(0, -1)}${CampaignsApiType.Certifications}/${certificationId}`;
-    const certificationDetail = await fetch(url, {
-      method: 'get'
+    // const url = `${this.service.baseURL.slice(0, -1)}${CampaignsApiType.Certifications}/${certificationId}`;
+
+    // const certificationDetail = await fetch(url, {
+    //   method: 'get'
+    // });
+
+    // if (!certificationDetail.ok) {
+    //   throw new Error('Failed to fetch learning track data!');
+    // }
+
+    // return certificationDetail.json();
+
+    const cacheFn = cache(() => {
+      return this.getCertificationDetail(certificationId);
     });
 
-    if (!certificationDetail.ok) {
-      throw new Error('Failed to fetch learning track data!');
-    }
+    return cacheFn();
+  }
 
-    return certificationDetail.json();
+  claimCertification(certificationId: string) {
+    return this.service.get(
+      `${CampaignsApiType.Certifications}/${certificationId}/claim`
+    );
   }
 
   /** 保存mint状态 */

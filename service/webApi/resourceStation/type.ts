@@ -27,6 +27,7 @@ export interface HackathonType {
   mediaPartners: MentorType[];
   communityPartners: MentorType[];
   status: HackathonStatusType;
+  alias: string;
 }
 
 export interface HackathonDataType {
@@ -47,6 +48,7 @@ export type ProjectType = {
   featured: boolean;
   apolloDay: boolean;
   thumbnail: string;
+  alias: string;
 };
 
 export interface ProjectDataType {
@@ -78,6 +80,7 @@ export interface BlogType {
   publishDate: string;
   createdAt: string;
   updatedAt: string;
+  alias: string;
 }
 
 export type BlogContentType = {

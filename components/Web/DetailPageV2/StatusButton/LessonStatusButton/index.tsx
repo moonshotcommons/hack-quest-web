@@ -119,7 +119,7 @@ const StatusButton: FC<
           {...rest}
           onClick={learnHandle}
         >
-          Resume
+          Continue
         </Button>
       );
     default:

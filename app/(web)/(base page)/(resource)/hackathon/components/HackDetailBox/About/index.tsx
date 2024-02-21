@@ -18,9 +18,8 @@ const About: React.FC<AboutProp> = ({ hackathon }) => {
         ></Image> */}
       </Box>
       <Box>
-        <div className="text-[21px] leading-[33px] tracking-[0.42px]">
-          {hackathon.about}
-        </div>
+        <div className="text-h3 mb-[16px] text-neutral-off-black">About</div>
+        <div className="body-l ">{hackathon.about}</div>
       </Box>
     </div>
   );

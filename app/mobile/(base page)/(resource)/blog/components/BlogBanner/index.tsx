@@ -22,8 +22,9 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
   const [inputVisible, setInputVisible] = useState(false);
   const [sortVisible, setSortVisible] = useState(false);
   const timeOut = useRef<NodeJS.Timeout | null>(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
   const [keyWord, setKeyWord] = useState('');
+  const inputRef = useRef<HTMLInputElement>(null);
+  const isInit = useRef(true);
 
   function changeSearchInfo(searchInfo: BlogSearchType) {
     const url = new URL('/blog', window.location.href);
@@ -52,14 +53,14 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
   };
   const changeInput = (e: any) => {
     const keyword = e.target.value;
+    setKeyWord(keyword);
     if (timeOut.current) clearTimeout(timeOut.current);
     timeOut.current = setTimeout(() => {
-      setKeyWord(keyword);
       changeSearchInfo({
         ...searchInfo,
         keyword
       });
-    }, 300);
+    }, 1000);
   };
 
   const changeInputVisible = () => {
@@ -76,12 +77,19 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
     newSearchInfo.sort = newSearchInfo.sort || sortData[0].value;
     newSearchInfo.category = newSearchInfo.category || searchTabData[0].value;
     newSearchInfo.keyword = newSearchInfo.keyword || '';
-    const { category } = newSearchInfo;
-    const index = searchTabData.findIndex((v) => v.value === category);
-    setCurrentIndex(index);
     setSearchInfo(newSearchInfo);
-    !newSearchInfo.keyword && setInputVisible(false);
+    setKeyWord(newSearchInfo.keyword);
+    setInputVisible(!!newSearchInfo.keyword);
+    setTimeout(() => {
+      isInit.current = false;
+    }, 1000);
   }, [searchParams]);
+
+  useEffect(() => {
+    if (inputVisible && !isInit.current) {
+      inputRef.current?.focus();
+    }
+  }, [inputVisible]);
 
   return (
     <>
@@ -168,6 +176,7 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
               type="text"
               className="body-m h-full w-full rounded-[1.5rem] bg-neutral-off-white pl-[1.375rem]  outline-none"
               placeholder="Search"
+              value={keyWord}
               onInput={changeInput}
             />
           </motion.div>
