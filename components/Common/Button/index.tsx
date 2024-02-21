@@ -17,6 +17,7 @@ interface BaseButtonProps {
   ghost?: boolean;
   size?: SizeType;
   loading?: boolean;
+  htmlType?: 'button' | 'submit' | 'reset';
 }
 
 export type ButtonProps = BaseButtonProps &
@@ -35,6 +36,7 @@ const Button: FC<ButtonProps> = (props) => {
     size,
     loading = false,
     disabled: propDisabled,
+    htmlType,
     ...rest
   } = props;
   // const classNames = ;
@@ -94,6 +96,7 @@ const Button: FC<ButtonProps> = (props) => {
         disabled ? 'cursor-not-allowed opacity-40' : '',
         className
       )}
+      type={htmlType}
       disabled={disabled}
       {...rest}
     >
