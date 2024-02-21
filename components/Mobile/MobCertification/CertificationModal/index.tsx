@@ -53,11 +53,12 @@ const CertificationModal = forwardRef<
       showCloseIcon
       icon={closeIcon}
       markBg="black"
+      block
     >
-      <div className="w-[1080px] rounded-[10px] bg-neutral-white p-[60px]">
-        <div className="flex items-center gap-x-[60px]">
+      <div className="h-[calc(100vh-64px)] w-screen bg-neutral-white p-[20px] pt-[64px]">
+        <div className="flex flex-col items-center gap-10">
           <div className="flex flex-col">
-            <div className="relative h-[250px] w-[452px]">
+            <div className="relative h-0 w-[calc(100vw-40px)] pt-[50%]">
               <Image
                 src={certification.image || ''}
                 fill
@@ -75,25 +76,25 @@ const CertificationModal = forwardRef<
             </div>
             {showCoin && (
               <>
-                <div className="mt-[20px] flex items-center gap-[30px]">
+                {/* <div className="mt-[20px] flex items-center gap-[30px]">
                   <span className="inline-block h-[1px] flex-1 scale-y-50 bg-neutral-black"></span>
                   <span className="body-l-bold text-neutral-black">and</span>
                   <span className="inline-block h-[1px] flex-1 scale-y-50 bg-neutral-black"></span>
-                </div>
+                </div> */}
                 <div className="mt-[20px] flex justify-center gap-[20px]">
-                  <div className="box-border flex h-[60px] w-[125px] items-center justify-between rounded-[15px] border-[2px] border-neutral-light-gray px-[15px]">
+                  <div className="box-border flex  items-center gap-2 px-[8px] py-[6px]">
                     <Image
                       src={iconCoin}
-                      width={40}
+                      width={32}
                       alt="icon"
                       className=""
                     ></Image>
                     <span>x{certification?.credits}</span>
                   </div>
-                  <div className="box-border flex h-[60px] w-[125px] items-center justify-between rounded-[15px] border-[2px] border-neutral-light-gray px-[15px]">
+                  <div className="box-border flex  items-center gap-2 px-[8px] py-[6px]">
                     <Image
                       src={iconXp}
-                      width={40}
+                      width={32}
                       alt="icon"
                       className=""
                     ></Image>
@@ -124,7 +125,7 @@ const CertificationModal = forwardRef<
 });
 
 const closeIcon = (
-  <div className="absolute -right-[4px] -top-[4px] cursor-pointer">
+  <div className="absolute -right-[24px] -top-[24px] cursor-pointer">
     <svg
       width="30"
       height="30"

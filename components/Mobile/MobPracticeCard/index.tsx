@@ -7,7 +7,7 @@ import CourseTags from '@/components/Web/Business/CourseTags';
 import { useRedirect } from '@/hooks/useRedirect';
 import MobCardProgress from '../MobCardProgress';
 import Button from '@/components/Common/Button';
-import { menuLink } from '@/components/Web/Business/Breadcrumb/data';
+import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 
 interface PracticeCardProps {
   // children: ReactNode;
@@ -30,7 +30,7 @@ const MobPracticeCard: FC<PracticeCardProps> = (props) => {
         BurialPoint.track('home-practice卡片点击', { practice: course.name });
         e.stopPropagation();
         redirectToUrl(
-          `${menuLink.electives}/${course.id}?${QueryIdType.MENU_COURSE_ID}=${course.id}&menu=${Menu.ELECTIVES}`
+          `${MenuLink.ELECTIVES}/${course.id}?${QueryIdType.MENU_COURSE_ID}=${course.id}&menu=${Menu.ELECTIVES}`
         );
       }}
       // onClick={(e) => {

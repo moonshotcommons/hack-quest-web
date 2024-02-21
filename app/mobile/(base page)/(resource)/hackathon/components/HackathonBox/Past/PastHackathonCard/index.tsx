@@ -3,8 +3,8 @@ import { FC } from 'react';
 import moment from 'moment';
 import { HackathonType } from '@/service/webApi/resourceStation/type';
 import Link from 'next/link';
-import { menuLink } from '@/components/Web/Business/Breadcrumb/data';
 import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
+import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 import { Typography } from 'antd';
 
 interface PastHackathonCardProps {
@@ -21,7 +21,7 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon }) => {
   const { name, startTime, address, image: cover, endTime } = hackathon;
   return (
     <Link
-      href={`${menuLink.hackathon}/${hackathon.alias}?menu=${Menu.HACKATHON}&${QueryIdType.HACKATHON_ID}=${hackathon.id}`}
+      href={`${MenuLink.HACKATHON}/${hackathon.alias}?menu=${Menu.HACKATHON}&${QueryIdType.HACKATHON_ID}=${hackathon.id}`}
       className="block w-full"
     >
       <div className="flex h-[7.5rem]  w-full overflow-hidden rounded-[.75rem] bg-neutral-white ">
