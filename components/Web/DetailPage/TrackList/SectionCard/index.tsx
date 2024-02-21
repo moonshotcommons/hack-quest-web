@@ -18,8 +18,8 @@ import { VscAdd } from 'react-icons/vsc';
 import styled from 'styled-components';
 import { TrackListContext } from '../../LearningTrackDetail';
 import Button from '@/components/Common/Button';
-import { menuLink } from '@/components/Web/Business/Breadcrumb/data';
 import { useRedirect } from '@/hooks/useRedirect';
+import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 
 const CustomProgress = styled(Progress)`
   .ant-progress-inner {
@@ -176,7 +176,7 @@ function SectionList(props: {
               className="body-m-bold ml-[10%] w-[36%] flex-1 cursor-pointer text-learning-track-course-title-color transition hover:opacity-70"
               onClick={(e) => {
                 redirectToUrl(
-                  `${menuLink.electives}/${item.id}?${
+                  `${MenuLink.ELECTIVES}/${item.id}?${
                     QueryIdType.LEARNING_TRACK_ID
                   }=${query.get(QueryIdType.LEARNING_TRACK_ID)}&${
                     QueryIdType.MENU_COURSE_ID

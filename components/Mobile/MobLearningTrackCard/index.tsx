@@ -5,11 +5,11 @@ import Image from 'next/image';
 import React, { useEffect, useState, MouseEvent } from 'react';
 import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import CourseTags from '@/components/Web/Business/CourseTags';
-import { menuLink } from '@/components/Web/Business/Breadcrumb/data';
 import { useRedirect } from '@/hooks/useRedirect';
 import { cn } from '@/helper/utils';
 import LearningTrackImg from '@/public/images/home/learningtrack_img.png';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
+import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 interface MobLearningTrackCardProps {
   learningTrack: LearningTrackDetailType;
   isLandingPage?: boolean;
@@ -35,7 +35,7 @@ const MobLearningTrackCard: React.FC<MobLearningTrackCardProps> = ({
   const goLearningTrackDetail = (e: any) => {
     if (isLandingPage) return;
     redirectToUrl(
-      `${menuLink.learningTrack}/${learningTrack.id}?${QueryIdType.LEARNING_TRACK_ID}=${learningTrack.id}&menu=${Menu.LEARNING_TRACK}`
+      `${MenuLink.LEARNING_TRACK}/${learningTrack.id}?${QueryIdType.LEARNING_TRACK_ID}=${learningTrack.id}&menu=${Menu.LEARNING_TRACK}`
     );
   };
 
