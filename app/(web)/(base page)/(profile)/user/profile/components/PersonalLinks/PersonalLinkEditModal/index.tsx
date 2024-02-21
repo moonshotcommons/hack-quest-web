@@ -69,7 +69,7 @@ const PersonalLinkEditModal = forwardRef<
     });
     setPersonLinks(newValues);
     form.setFieldsValue(newValues);
-  }, [profile.personalLinks]);
+  }, [profile, form]);
 
   const { run: onSubmit, loading } = useRequest(
     async () => {
