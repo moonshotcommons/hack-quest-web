@@ -46,8 +46,7 @@ const LearningTrackCardInProgress: React.FC<
   return (
     <div
       className="relative flex w-full flex-col gap-[1rem] overflow-hidden rounded-[16px] bg-neutral-white p-[1rem]"
-      // onClick={goLearningTrackDetail}
-      onClick={handleContinue}
+      onClick={goLearningTrackDetail}
     >
       <div className="absolute right-[16px] top-[1rem]">
         <div className="relative h-[3rem] w-[3rem]">

@@ -2,7 +2,7 @@
 import { LearningTrackCourseType } from '@/service/webApi/course/type';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import Image from 'next/image';
-import React, { useEffect, useState, MouseEvent } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import CourseTags from '@/components/Web/Business/CourseTags';
 import { useRedirect } from '@/hooks/useRedirect';
@@ -39,19 +39,19 @@ const MobLearningTrackCard: React.FC<MobLearningTrackCardProps> = ({
     );
   };
 
-  const handleContinue = (e: MouseEvent<HTMLElement>) => {
-    e.stopPropagation();
-    const section = learningTrack.sections.find((v) => (v?.progress || 0) < 1);
-    if (section) {
-      const course = section.courses.find((v) => (v?.progress || 0) < 1);
-      if (course)
-        jumpLearningLesson(course, {
-          menu: Menu.LEARNING_TRACK,
-          idTypes: [QueryIdType.LEARNING_TRACK_ID, QueryIdType.MENU_COURSE_ID],
-          ids: [learningTrack.id, course.id]
-        });
-    }
-  };
+  // const handleContinue = (e: MouseEvent<HTMLElement>) => {
+  //   e.stopPropagation();
+  //   const section = learningTrack.sections.find((v) => (v?.progress || 0) < 1);
+  //   if (section) {
+  //     const course = section.courses.find((v) => (v?.progress || 0) < 1);
+  //     if (course)
+  //       jumpLearningLesson(course, {
+  //         menu: Menu.LEARNING_TRACK,
+  //         idTypes: [QueryIdType.LEARNING_TRACK_ID, QueryIdType.MENU_COURSE_ID],
+  //         ids: [learningTrack.id, course.id]
+  //       });
+  //   }
+  // };
 
   return (
     <div
@@ -60,7 +60,6 @@ const MobLearningTrackCard: React.FC<MobLearningTrackCardProps> = ({
         className
       )}
       onClick={goLearningTrackDetail}
-      // onClick={handleContinue}
     >
       <div className="flex w-full justify-between">
         <div className="caption-12pt h-fit w-fit rounded-[1.25rem] border-[0.5px] border-neutral-rich-gray  px-[.75rem] py-[0.25rem] text-neutral-rich-gray ">
