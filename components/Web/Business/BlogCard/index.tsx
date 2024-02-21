@@ -46,7 +46,9 @@ const BlogCard: React.FC<BlogCardProp> = ({
               <TrackTag key={i} track={v} />
             ))}
           </div>
-          <div className="body-m-bold line-clamp-2">{blog.title}</div>
+          <div className="body-m-bold line-clamp-2 text-neutral-off-black">
+            {blog.title}
+          </div>
           <div className="body-s line-clamp-2 text-neutral-rich-gray">
             {blog.description}
           </div>

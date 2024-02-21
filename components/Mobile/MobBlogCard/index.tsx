@@ -44,7 +44,9 @@ const MobBlogCard: React.FC<MobBlogCardProp> = ({
               <TrackTag key={i} track={v} className="caption-10pt" />
             ))}
           </div>
-          <div className="body-xs mt-[.5rem] line-clamp-2">{blog.title}</div>
+          <div className="body-xs mt-[.5rem] line-clamp-2 text-neutral-off-black">
+            {blog.title}
+          </div>
         </div>
         <BlogCardFooter
           blog={blog}
