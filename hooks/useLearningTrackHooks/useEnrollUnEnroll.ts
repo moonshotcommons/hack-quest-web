@@ -44,7 +44,6 @@ export const useEnrollUnEnroll = (
   const { run: enroll, loading: enrollLoading } = useRequest(
     async () => {
       if (!userInfo) {
-        message.warning('Please login first');
         // redirectToUrl(V2_LANDING_PATH);
         setAuthType(AuthType.LOGIN);
         if (!isMobile) {
@@ -53,7 +52,7 @@ export const useEnrollUnEnroll = (
           mobileAuthToggleOpenHandle.setNavType(NavType.AUTH);
           mobileAuthToggleOpenHandle.toggleOpen();
         }
-        return;
+        throw new Error('Please login first');
       }
       if (learningTrackDetail) {
         await webApi.learningTrackApi.enrollLearningTrack(
