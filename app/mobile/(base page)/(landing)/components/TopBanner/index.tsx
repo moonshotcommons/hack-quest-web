@@ -26,8 +26,8 @@ const TopBanner: FC<TopBannerProps> = (props) => {
         <div className="mt-[3rem] flex w-[18.4375rem] gap-4 rounded-[1rem] border border-neutral-off-white p-4">
           <div className="h-fit w-fit">
             <Image
-              src="/images/landing/sonala_icon.png"
-              alt="code"
+              src="/images/landing/solana_icon.png"
+              alt="solana"
               width={48}
               height={48}
             ></Image>
