@@ -37,8 +37,8 @@ const MobBlogCard: React.FC<MobBlogCardProp> = ({
           className="object-cover"
         ></Image>
       </div>
-      <div className="flex h-full flex-1 flex-col justify-between p-[.75rem]">
-        <div>
+      <div className="flex h-full flex-1 flex-shrink-0 flex-col justify-between p-[.75rem]">
+        <div className="w-full">
           <div className="flex gap-[.3125rem] overflow-hidden">
             {blog.categories.map((v, i) => (
               <TrackTag key={i} track={v} className="caption-10pt" />
@@ -50,9 +50,9 @@ const MobBlogCard: React.FC<MobBlogCardProp> = ({
         </div>
         <BlogCardFooter
           blog={blog}
-          className="caption-10pt text-neutral-rich-gray "
+          className="caption-10pt w-full text-neutral-rich-gray"
           borderColor="border-neutral-rich-gray"
-          maxWidth="max-w-[33%]"
+          maxWidth="max-w-[33%] wapMin:max-w-[23%]"
           gap={3}
           iconSize={16}
         />

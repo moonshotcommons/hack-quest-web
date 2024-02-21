@@ -25,16 +25,16 @@ const ElectiveCatalogue: FC<ElectiveCatalogueProps> = (props) => {
           );
         }
         return (
-          <>
+          <li key={lesson.id}>
             <hr className="my-5"></hr>
-            <li key={lesson.id} className="relative w-full">
+            <div className="relative w-full">
               <ElectiveCatalogueItem
                 lesson={lesson}
                 index={index}
                 courseDetail={courseDetail}
               ></ElectiveCatalogueItem>
-            </li>
-          </>
+            </div>
+          </li>
         );
       })}
     </ul>

@@ -41,18 +41,20 @@ const OtherProjects: FC<OtherProjectsProps> = ({ hackathonName, projects }) => {
       </p>
       <div className="mt-[30px]">
         <div className="mb-[30px] flex flex-col gap-y-[30px]">
-          {projects.map((project) => {
-            return (
-              <ProjectCard key={project.id} project={project}></ProjectCard>
-            );
-          })}
+          {[...projects]
+            .splice((page - 1) * PROJECTS_LIMIT, PROJECTS_LIMIT)
+            .map((project) => {
+              return (
+                <ProjectCard key={project.id} project={project}></ProjectCard>
+              );
+            })}
         </div>
         {totalPage > PROJECTS_LIMIT && (
           <Pagination
             total={Math.ceil((totalPage - 1) / PROJECTS_LIMIT)}
             page={page}
             onPageChange={(v) => {
-              scrollToPage(v);
+              setPage(v);
             }}
           ></Pagination>
         )}

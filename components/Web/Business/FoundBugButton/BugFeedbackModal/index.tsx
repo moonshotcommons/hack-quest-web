@@ -209,16 +209,19 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
     return (
       <Modal
         open={open}
-        onClose={() => {
-          formRef.current?.resetFields();
-          setFileList([]);
-          setSelectKinds([]);
-          setDescLength(0);
-          setOpen(false);
-        }}
+        onClose={() => {}}
         showCloseIcon
         icon={
-          <div className="absolute -right-[16px] -top-[16px] cursor-pointer">
+          <div
+            className="absolute -right-[16px] -top-[16px] cursor-pointer"
+            onClick={() => {
+              formRef.current?.resetFields();
+              setFileList([]);
+              setSelectKinds([]);
+              setDescLength(0);
+              setOpen(false);
+            }}
+          >
             <svg
               width="30"
               height="30"
@@ -256,10 +259,10 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
             <div className="relative mt-[12px] flex flex-wrap gap-4">
               {kinds.map((kind, index) => {
                 return (
-                  <Button
+                  <div
                     key={index}
                     className={cn(
-                      `caption-16pt bg-[#DADADA] px-4 py-[6px] text-neutral-medium-gray`,
+                      `caption-16pt cursor-pointer rounded-full bg-[#DADADA] px-4 py-[6px] text-neutral-medium-gray`,
                       selectKinds.includes(kind)
                         ? 'bg-yellow-primary text-neutral-black'
                         : ''
@@ -276,7 +279,7 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
                     }}
                   >
                     {kind}
-                  </Button>
+                  </div>
                 );
               })}
               <Form.Item
@@ -304,7 +307,7 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
                 }
               ]}
               name={'description'}
-              className="mb-[16px!important] mt-[16px]"
+              className="mb-[20px!important] mt-[16px] [&_.ant-form-item-explain-error]:-mt-5"
             >
               <p className="body-l mb-[10px] text-neutral-medium-gray">
                 Describe the bugs you found
@@ -316,6 +319,7 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
                 onChange={(e) => {
                   setDescLength(e.target.value.length || 0);
                   formRef.current?.setFieldValue('description', e.target.value);
+                  formRef.current?.validateFields();
                 }}
                 styles={{
                   textarea: {
@@ -414,6 +418,7 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
                 type="primary"
                 loading={loading}
                 disabled={submitDisable}
+                htmlType="submit"
                 className={cn(
                   'button-text-m mx-auto w-[256px] py-[16px] uppercase text-neutral-black',
                   submitDisable
