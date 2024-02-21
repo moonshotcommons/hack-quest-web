@@ -17,8 +17,15 @@ export const getHackathonProjectById = cache(function (
   return webApi.resourceStationApi.getProjectsDetail(projectId);
 });
 
-export const getFeaturedProjects = cache(async function (
-  projectId?: string
+export const getFeaturedProjects = async function (): Promise<ProjectType[]> {
+  const res = await webApi.resourceStationApi.getProjectsList({
+    featured: true
+  });
+  return res.data;
+};
+
+export const getFeaturedProjectsById = cache(async function (
+  projectId: string
 ): Promise<ProjectType[]> {
   const res = await webApi.resourceStationApi.getProjectsList({
     featured: true
