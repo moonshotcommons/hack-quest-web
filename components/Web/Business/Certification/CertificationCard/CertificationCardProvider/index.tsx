@@ -4,31 +4,34 @@ import { CertificationType } from '@/service/webApi/campaigns/type';
 import { useRequest } from 'ahooks';
 import webApi from '@/service';
 interface CertificationCardProviderProps {
-  certification: CertificationType;
+  certificationId?: string;
   children: ReactNode;
 }
 
 export const CertificationCardContext = createContext<{
-  certification: CertificationType | null;
+  certification?: CertificationType;
   refreshCertification: VoidFunction;
+  refreshCertificationAsync: () => Promise<CertificationType | void>;
 }>({
-  certification: null,
-  refreshCertification: () => {}
+  refreshCertification: () => {},
+  refreshCertificationAsync: async () => {}
 });
 
 const CertificationCardProvider: FC<CertificationCardProviderProps> = ({
-  certification,
+  certificationId,
   children
 }) => {
-  const { data, refresh } = useRequest(async () => {
-    return webApi.campaignsApi.getCertificationDetail(certification.id);
+  const { data, refresh, refreshAsync } = useRequest(async () => {
+    if (!certificationId) return;
+    return webApi.campaignsApi.getCertificationDetail(certificationId);
   });
 
   return (
     <CertificationCardContext.Provider
       value={{
-        certification: data ?? certification,
-        refreshCertification: refresh
+        certification: data,
+        refreshCertification: refresh,
+        refreshCertificationAsync: refreshAsync
       }}
     >
       {children}

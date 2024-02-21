@@ -19,7 +19,7 @@ const FeatureBlogCard: React.FC<FeatureBlogCardProp> = ({ blog }) => {
     <Link
       className="flex h-[425px] w-full cursor-pointer overflow-hidden rounded-[10px] bg-neutral-white shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)]"
       onClick={goBlogContent}
-      href={`${MenuLink.BLOG}/${blog.id}`}
+      href={`${MenuLink.BLOG}/${blog.alias}`}
     >
       <div className="relative h-full w-[756px]  overflow-hidden">
         <Image

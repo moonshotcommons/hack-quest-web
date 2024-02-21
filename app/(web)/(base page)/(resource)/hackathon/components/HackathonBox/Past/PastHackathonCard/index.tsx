@@ -21,7 +21,7 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon }) => {
   const { name, startTime, address, image: cover, endTime } = hackathon;
   return (
     <Link
-      href={`${menuLink.hackathon}/${hackathon.id}?menu=${Menu.HACKATHON}&${QueryIdType.HACKATHON_ID}=${hackathon.id}`}
+      href={`${menuLink.hackathon}/${hackathon.alias}?menu=${Menu.HACKATHON}&${QueryIdType.HACKATHON_ID}=${hackathon.id}`}
     >
       <div className="card-hover flex  w-full flex-col overflow-hidden rounded-[16px] bg-neutral-white ">
         <div className="relative h-0 w-full rounded-t-[10px] bg-[#D9D9D9] pt-[56.25%]">

@@ -22,11 +22,10 @@ const PracticeDetailCard: FC<PracticeDetailCardProps> = ({ courseDetail }) => {
             type={IconTextTagType.LESSONS_COUNT}
             text={`${courseDetail.totalPages} lessons`}
           ></IconTextTag>
-          <IconTextTag
-            type={IconTextTagType.VIDEO_COUNT}
-            text={`7.5 hours video`}
-          ></IconTextTag>
           <IconTextTag type={IconTextTagType.DEVICE_ACCESS}></IconTextTag>
+          {courseDetail.certificationId && (
+            <IconTextTag type={IconTextTagType.CERTIFICATION}></IconTextTag>
+          )}
         </div>
         <PracticeStatusButton courseDetail={courseDetail} />
       </div>

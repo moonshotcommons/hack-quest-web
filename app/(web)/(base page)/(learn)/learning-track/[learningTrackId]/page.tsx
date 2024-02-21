@@ -9,9 +9,10 @@ import { FC } from 'react';
 import BackButton from '@/components/Web/DetailPageV2/BackButton';
 import ExpandAllButton from './components/ExpandAllButton';
 import LearningTrackDetailProvider from '@/components/Web/DetailPageV2/Provider/LearningTrackDetailProvider';
-import WillLearn from '@/components/Web/DetailPageV2/WillLearn';
+import KnowledgeGain from '@/components/Web/DetailPageV2/KnowledgeGain';
 import IntendedLearners from '@/components/Web/DetailPageV2/IntendedLearners';
 import { LearningTrackDetailCard } from '@/components/Web/DetailPageV2/DetailCard';
+import CertificationCardProvider from '@/components/Web/Business/Certification/CertificationCard/CertificationCardProvider';
 
 interface LearningTrackDetailPageProps {
   params: {
@@ -34,66 +35,82 @@ const LearningTrackDetailPage: FC<LearningTrackDetailPageProps> = async (
       learningTrackId
     );
 
+  let certification;
+
+  if (learningTrackDetail.certificationId) {
+    certification = await webApi.campaignsApi.fetchCertificationDetail(
+      learningTrackDetail.certificationId
+    );
+  }
+
   return (
     <LearningTrackDetailProvider learningTrackDetail={learningTrackDetail}>
-      <div className="relative w-full bg-neutral-white">
-        <div className="absolute left-0 top-0 min-h-[400px] w-full bg-neutral-off-white py-5"></div>
-        <div className="container relative mx-auto flex h-fit pb-[100px]">
-          <div className="max-w-[900px]">
-            <div className="h-[400px] w-full py-5">
-              <BackButton type="learningTrack"></BackButton>
-              <Tags
-                size="lg"
-                className="body-m mt-[2rem] text-neutral-rich-gray"
-              >
-                {`Learning Track · ${learningTrackDetail.track}`}
-              </Tags>
-              <div className="mt-4 flex items-center gap-6">
-                <h2 className="text-h2">{learningTrackDetail.name}</h2>
-                {/* <div className="flex items-center gap-2">
+      <CertificationCardProvider certificationId={certification?.id}>
+        <div className="relative w-full bg-neutral-white">
+          <div className="absolute left-0 top-0 min-h-[400px] w-full bg-neutral-off-white py-5"></div>
+          <div className="container relative mx-auto flex h-fit pb-[100px]">
+            <div className="w-[900px] max-w-[900px]">
+              <div className="h-[400px] w-full py-5">
+                <BackButton type="learningTrack"></BackButton>
+                <Tags
+                  size="lg"
+                  className="body-m mt-[2rem] text-neutral-rich-gray"
+                >
+                  {`Learning Track · ${learningTrackDetail.track}`}
+                </Tags>
+                <div className="mt-4 flex items-center gap-6">
+                  <h2 className="text-h2">{learningTrackDetail.name}</h2>
+                  {/* <div className="flex items-center gap-2">
                   <span>Certified by</span>
                   <span>Mantle</span>
                 </div> */}
+                </div>
+                <p className="body-m mt-8 text-neutral-rich-gray">
+                  {learningTrackDetail.description}
+                </p>
+                <div className="mt-8 flex gap-8">
+                  <CourseTag
+                    type={CourseTagType.LANGUAGE}
+                    value={learningTrackDetail.language}
+                  ></CourseTag>
+                  <div className="h-[45px] w-[1px] bg-neutral-rich-gray"></div>
+                  <CourseTag
+                    type={CourseTagType.LEVEL}
+                    value={learningTrackDetail.level}
+                  ></CourseTag>
+                  <div className="h-[45px] w-[1px] bg-neutral-rich-gray"></div>
+                  <CourseTag
+                    type={CourseTagType.DURATION}
+                    value={learningTrackDetail.duration + ''}
+                  ></CourseTag>
+                </div>
               </div>
-              <p className="body-m mt-8 text-neutral-rich-gray">
-                {learningTrackDetail.description}
-              </p>
-              <div className="mt-8 flex gap-8">
-                <CourseTag
-                  type={CourseTagType.LANGUAGE}
-                  value={learningTrackDetail.language}
-                ></CourseTag>
-                <div className="h-[45px] w-[1px] bg-neutral-rich-gray"></div>
-                <CourseTag
-                  type={CourseTagType.LEVEL}
-                  value={learningTrackDetail.level}
-                ></CourseTag>
-                <div className="h-[45px] w-[1px] bg-neutral-rich-gray"></div>
-                <CourseTag
-                  type={CourseTagType.DURATION}
-                  value={learningTrackDetail.duration + ''}
-                ></CourseTag>
-              </div>
-            </div>
 
-            <div className="mt-20  flex flex-col gap-20">
-              {learningTrackDetail.certificationId && (
-                <CertificationCard
-                  certificationId={learningTrackDetail.certificationId}
-                />
-              )}
-              <IntendedLearners />
-              <WillLearn />
-              <Syllabus />
+              <div className="mt-20  flex flex-col gap-20">
+                {certification && (
+                  <CertificationCard certification={certification} />
+                )}
+                {learningTrackDetail.intendedLearners && (
+                  <IntendedLearners
+                    intendedLearners={learningTrackDetail.intendedLearners}
+                  />
+                )}
+                {learningTrackDetail.knowledgeGain && (
+                  <KnowledgeGain
+                    knowledgeGain={learningTrackDetail.knowledgeGain}
+                  />
+                )}
+                <Syllabus />
+              </div>
             </div>
-          </div>
-          <div className="relative flex-1">
-            <LearningTrackDetailCard
-              learningTrackDetail={learningTrackDetail}
-            />
+            <div className="relative flex-1">
+              <LearningTrackDetailCard
+                learningTrackDetail={learningTrackDetail}
+              />
+            </div>
           </div>
         </div>
-      </div>
+      </CertificationCardProvider>
     </LearningTrackDetailProvider>
   );
 
