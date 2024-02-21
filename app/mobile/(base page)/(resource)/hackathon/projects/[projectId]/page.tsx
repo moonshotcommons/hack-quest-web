@@ -26,7 +26,7 @@ const ProjectDetailPage: FC<ProjectDetailPageProps> = async ({ params }) => {
   const { projectId } = params;
   const [project, featuredProjects] = await Promise.all([
     getHackathonProjectById(projectId),
-    getFeaturedProjects(projectId)
+    getFeaturedProjects()
   ]);
   const otherProjects = await getOtherProjects(
     project.hackathonName,

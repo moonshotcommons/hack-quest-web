@@ -30,7 +30,7 @@ const MobPracticeCard: FC<PracticeCardProps> = (props) => {
         BurialPoint.track('home-practice卡片点击', { practice: course.name });
         e.stopPropagation();
         redirectToUrl(
-          `${MenuLink.ELECTIVES}/${course.id}?${QueryIdType.MENU_COURSE_ID}=${course.id}&menu=${Menu.ELECTIVES}`
+          `${MenuLink.PRACTICES}/${course.id}?${QueryIdType.MENU_COURSE_ID}=${course.id}&menu=${Menu.PRACTICES}`
         );
       }}
       // onClick={(e) => {
