@@ -75,10 +75,10 @@ const LearnMoreButton: FC<LearnMoreButtonProps> = ({
     } else {
       return (
         <Button
-          // ghost={!enrolled || progress < 1}
-          type={enrolled && progress <= 1 ? 'primary' : 'default'}
+          ghost={!enrolled || progress < 1}
+          type={enrolled && progress >= 1 ? 'primary' : 'default'}
           className="button-text-s flex w-[140px] items-center justify-center border-neutral-black px-0 py-2 uppercase"
-          // disabled={!enrolled || progress <= 1 || claimed || claimLoading}
+          disabled={!enrolled || progress <= 1 || claimed || claimLoading}
           loading={claimLoading}
           onClick={() => {
             if (learningTrackDetail?.campaignId) {
