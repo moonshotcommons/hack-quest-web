@@ -74,7 +74,7 @@ const LearnMoreButton: FC<LearnMoreButtonProps> = ({
       return (
         <Button
           ghost={!enrolled || progress < 1}
-          type={enrolled && progress <= 1 ? 'primary' : 'default'}
+          type={enrolled && progress >= 1 ? 'primary' : 'default'}
           className="body-s flex w-[140px] items-center justify-center border-neutral-black px-0 py-2 uppercase"
           disabled={!enrolled || progress <= 1 || claimed || claimLoading}
           loading={claimLoading}
