@@ -29,7 +29,7 @@ const BlogCard: React.FC<BlogCardProp> = ({
     <Link
       className="card-hover flex w-full flex-col overflow-hidden rounded-[10px] bg-neutral-white text-neutral-off-black"
       onClick={goBlogContent}
-      href={`${from === ResourceFrom.BLOG ? MenuLink.BLOG : MenuLink.GLOSSARY}/${blog.id}`}
+      href={`${from === ResourceFrom.BLOG ? MenuLink.BLOG : MenuLink.GLOSSARY}/${blog.alias}`}
     >
       <div className="relative h-[0] w-full pt-[56%] ">
         <Image
