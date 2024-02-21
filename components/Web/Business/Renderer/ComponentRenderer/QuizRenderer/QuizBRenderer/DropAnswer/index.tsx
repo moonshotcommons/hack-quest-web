@@ -7,6 +7,7 @@ import { v4 as uuid } from 'uuid';
 import { QuizContext } from '../..';
 import { AnswerType, QuizOptionType } from '../type';
 import { RendererContext } from '@/components/Web/Business/Renderer/context';
+import { cn } from '@/helper/utils';
 interface DropAnswerProps {
   answer: string;
 }
@@ -89,11 +90,12 @@ const DropAnswer: FC<DropAnswerProps> = (props) => {
           transition={{
             duration: currentAnswer?.status === 'error' ? 0.5 : 0 // 动画持续时间
           }}
-          className={`body-s relative mx-[10px] my-1 inline-flex h-[34px] min-w-[110px] items-center justify-center rounded-[3px] border-[0.5px] border-neutral-medium-gray bg-neutral-off-white ${
+          className={cn(
+            `body-s relative mx-[10px] my-1 inline-flex h-[34px] min-w-[110px] items-center justify-center rounded-[3px] border-[0.5px] border-neutral-medium-gray bg-neutral-off-white`,
             currentAnswer?.status === 'error'
-              ? 'border-[#C73333] bg-[#FFF7F5]'
+              ? 'border-status-error bg-[#FFF7F5]'
               : ''
-          }`}
+          )}
         >
           <div className="relative inline-flex items-center px-5">
             &nbsp;{showAnswer && currentAnswer?.answer}&nbsp;
