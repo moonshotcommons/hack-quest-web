@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: 'Hackathons | HackQuest'
 };
 
-export const revalidate = 60;
+export const dynamic = 'force-dynamic';
 
 interface HackathonProps {}
 
