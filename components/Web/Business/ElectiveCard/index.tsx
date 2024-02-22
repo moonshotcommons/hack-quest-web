@@ -8,12 +8,12 @@ import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import { useRedirect } from '@/hooks/useRedirect';
 import { MiniElectiveDetailModalRef } from '../MiniElectiveDetailModal';
 import { ElectiveCourseType } from '@/service/webApi/elective/type';
-import { MenuLink } from '@/components/Layout/Navbar/type';
 import CardProgress from '../CardProgress';
 import Logo from '@/public/images/logo/logo.svg';
 import TrackTag from '@/components/Common/TrackTag';
 import CompletedIcon from '@/components/Common/Icon/Completed';
 import { CourseType } from '@/service/webApi/course/type';
+import { MenuLink } from '../../Layout/BasePage/Navbar/type';
 interface ElectiveCardProps {
   // children: ReactNode;
   course: ElectiveCourseType;

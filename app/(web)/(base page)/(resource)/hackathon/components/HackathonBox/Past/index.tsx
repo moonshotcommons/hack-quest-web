@@ -11,13 +11,16 @@ import {
   HackathonType
 } from '@/service/webApi/resourceStation/type';
 import { errorMessage } from '@/helper/ui';
+import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 
-interface PastProps {}
+interface PastProps {
+  page: number;
+}
 
-let PROJECTS_LIMIT = 9;
+let PROJECTS_LIMIT = 12;
 
-const Past: FC<PastProps> = (props) => {
-  const [page, setPage] = useState(1);
+const Past: FC<PastProps> = ({ page }) => {
+  // const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
   const [hackathonList, setHackathonList] = useState<HackathonType[]>([]);
 
@@ -49,10 +52,10 @@ const Past: FC<PastProps> = (props) => {
 
   return (
     <Loading loading={loading}>
-      <div className="flex w-full flex-wrap gap-x-[22px] gap-y-[22px]">
-        {hackathonList.map((hackathon, index) => {
+      <div className="flex w-full flex-wrap gap-x-[20px] gap-y-[40px]">
+        {hackathonList.map((hackathon) => {
           return (
-            <div key={index} className="w-[calc(33.33%-15px)]">
+            <div key={hackathon.id} className="w-[calc((100%-60px)/4)]">
               <PastHackathonCard hackathon={hackathon}></PastHackathonCard>
             </div>
           );
@@ -63,9 +66,7 @@ const Past: FC<PastProps> = (props) => {
           <Pagination
             page={page}
             total={Math.ceil(totalPage / PROJECTS_LIMIT)}
-            onPageChange={(value) => {
-              setPage(value);
-            }}
+            urlPrefix={`${MenuLink.HACKATHON}/p/`}
           ></Pagination>
         )}
       </div>

@@ -58,8 +58,7 @@ export const navbarList: NavbarListType[] = [
     menu: [
       {
         label: 'Hackathon',
-        path: MenuLink.HACKATHON,
-        needPC: true
+        path: MenuLink.HACKATHON
       },
       {
         label: 'Blog',

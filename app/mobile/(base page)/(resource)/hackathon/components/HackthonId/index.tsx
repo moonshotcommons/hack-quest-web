@@ -1,69 +1,39 @@
-'use client';
-import { FC, useEffect } from 'react';
-import { useRequest } from 'ahooks';
-import { QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
-import webApi from '@/service';
-import Loading from '@/components/Common/Loading';
+import React, { FC } from 'react';
 import { HackathonType } from '@/service/webApi/resourceStation/type';
-import { BurialPoint } from '@/helper/burialPoint';
 import About from '../HackDetailBox/About';
 import GuestMentors from '../HackDetailBox/GuestMentors';
 import MediaCommunity from '../HackDetailBox/components/MediaCommunity';
 import HackathonInfo from '../HackDetailBox/HackathonInfo';
+import PageRetentionTime from '@/components/Common/PageRetentionTime';
+import HackathonImg from '../HackDetailBox/HackathonImg';
 
-interface HackDetailProps {}
+interface HackDetailProps {
+  hackathon: HackathonType;
+}
 
-const HackDetail: FC<HackDetailProps> = (props) => {
-  const query = new URLSearchParams(
-    typeof window !== 'undefined' ? window.location.search : ''
-  );
-  const { data: hackathon = {} as HackathonType } = useRequest(async () => {
-    const id = query.get(QueryIdType.HACKATHON_ID);
-    const res = await webApi.resourceStationApi.getHackathonDetail(
-      id as string
-    );
-    return res;
-  });
-  useEffect(() => {
-    const startTime = new Date().getTime();
-    return () => {
-      const endTime = new Date().getTime();
-      const duration = endTime - startTime;
-      BurialPoint.track('hackathon-detail-页面留存时间', {
-        duration
-      });
-    };
-  }, []);
+const HackDetail: FC<HackDetailProps> = ({ hackathon }) => {
   return (
-    <div className="container mx-auto">
-      <Loading loading={!hackathon.id}>
-        <div className="min-h-[50vh] w-full">
-          {hackathon.id && (
-            <>
-              <div className="flex justify-between">
-                <div className="w-[58%]">
-                  <About hackathon={hackathon} />
-                  <GuestMentors
-                    listData={hackathon.guestsAndMentors}
-                    title="Guests and Mentors"
-                  />
-                  <MediaCommunity
-                    listData={hackathon.mediaPartners}
-                    title="Media Partners"
-                  />
-                  <MediaCommunity
-                    listData={hackathon.communityPartners}
-                    title="Community Partners"
-                  />
-                </div>
-                <div className="w-[39%]">
-                  <HackathonInfo hackathon={hackathon} />
-                </div>
-              </div>
-            </>
-          )}
-        </div>
-      </Loading>
+    <div className="flex flex-col gap-[1.5rem] p-[1.25rem] pb-[5rem]">
+      {hackathon.id && (
+        <>
+          <HackathonImg hackathon={hackathon} />
+          <HackathonInfo hackathon={hackathon} />
+          <About hackathon={hackathon} />
+          <GuestMentors
+            listData={hackathon.guestsAndMentors}
+            title="Guests and Mentors"
+          />
+          <MediaCommunity
+            listData={hackathon.mediaPartners}
+            title="Media Partners"
+          />
+          <MediaCommunity
+            listData={hackathon.communityPartners}
+            title="Community Partners"
+          />
+        </>
+      )}
+      <PageRetentionTime trackName="hackathon-detail-页面留存时间"></PageRetentionTime>
     </div>
   );
 };
