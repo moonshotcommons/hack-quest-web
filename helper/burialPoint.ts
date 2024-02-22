@@ -17,7 +17,7 @@ type SettingsBurialPointType =
   | 'settings修改密码成功'
   | 'settings修改密码失败'
   | 'settings取消修改密码'
-  | 'settings修改密码成功Got it按钮点击';
+  | 'settings修改密码成功CLOSE按钮点击';
 
 type AuthBurialPointType =
   | 'login-登录邮箱验证失败'
@@ -86,6 +86,7 @@ type HomeBurialPointType =
   | 'home-course卡片resume按钮点击'
   | 'home-course卡片Continue按钮点击'
   | 'home-course卡片View Syllabus按钮点击'
+  | 'home-learning-页面留存时间'
   | 'home-learning track卡片View Syllabus按钮点击'
   | 'home-learning track卡片Enroll按钮点击'
   | 'home-learning track卡片resume按钮点击'
@@ -93,11 +94,22 @@ type HomeBurialPointType =
   | 'home-view all点击'
   | 'home-邀请码复制';
 
+type DashboardBurialPointType =
+  | 'dashboard-页面留存时间'
+  | 'dashboard-learning track卡片continue按钮点击'
+  | 'dashboard-learning track卡片点击';
+
 type CourseDetailBurialPointType =
   | 'courseDetail-页面留存时间'
   | 'courseDetail-页面上方按钮点击'
   | 'courseDetail-unit按钮'
   | 'courseDetail-页面下方按钮点击';
+
+type ElectiveDetailBurialPointType =
+  | 'electiveDetail-页面留存时间'
+  | 'electiveDetail-页面上方按钮点击'
+  | 'electiveDetail-lesson按钮'
+  | 'electiveDetail-页面下方按钮点击';
 
 type LearningTrackDetailBurialPointType =
   | 'learningTrackDetail-页面留存时间'
@@ -116,7 +128,7 @@ type LessonDetailBurialPointType =
   | 'lesson-单个quiz提交通过'
   | 'lesson-单个quiz提交未通过'
   | 'lesson-show answer次数'
-  | 'lesson-底部next按钮亮起到点击所消耗的时间'
+  | 'lesson-底部next按钮亮起到点击所消耗的时间(用户lesson完成时间)'
   | 'lesson-底部next按钮点击'
   | 'lesson-completed course'
   | 'lesson-lesson dropdown点击'
@@ -167,7 +179,7 @@ type CampaignsBurialPointType =
   | 'campaigns targetCard Go to Profile 按钮点击'
   | 'campaigns targetCard Join Discord 按钮点击';
 
-type UserProfile =
+type UserProfileType =
   | 'user-profile-页面留存时间'
   | 'user-profile Experenice Add Experience按钮点击'
   | 'user-profile Experenice Show More按钮点击'
@@ -189,12 +201,35 @@ type UserProfile =
   | 'user-profile GithubActivity refresh icon按钮点击'
   | 'user-profile GithubActivity Connect to Github按钮点击';
 
-type Profile = 'profile-页面留存时间' | 'profile-Official Website点击';
+type EcosystemProfileType =
+  | 'ecosystem-profile-页面留存时间'
+  | 'ecosystem-profile-Official Website点击'
+  | 'ecosystem-profile miniElectiveCard 点击'
+  | 'ecosystem-profile miniElectiveCard start按钮 点击';
 
-type BurialPointType =
+type BlogType =
+  | 'blog-页面留存时间'
+  | 'blog featureBlogCard 卡片点击'
+  | 'blog blogCard 卡片点击'
+  | 'blog-content-page-页面留存时间'
+  | 'blog-content-page Back按钮点击'
+  | 'blog-content-page-featured blogCard滚动-左'
+  | 'blog-content-page-featured blogCard滚动-右';
+
+type GlossaryType =
+  | 'glossary-页面留存时间'
+  | 'glossary featureBlogCard 卡片点击'
+  | 'glossary blogCard 卡片点击'
+  | 'glossary-content-page-页面留存时间'
+  | 'glossary-content-page Back按钮点击'
+  | 'glossary-content-page-featured blogCard滚动-左'
+  | 'glossary-content-page-featured blogCard滚动-右';
+
+export type BurialPointType =
   | AuthBurialPointType
   | LandingBurialPointType
   | HomeBurialPointType
+  | DashboardBurialPointType
   | CourseDetailBurialPointType
   | LearningTrackDetailBurialPointType
   | LessonDetailBurialPointType
@@ -203,8 +238,11 @@ type BurialPointType =
   | MissCenterBurialPointType
   | HackathonBurialPointType
   | CampaignsBurialPointType
-  | UserProfile
-  | Profile;
+  | UserProfileType
+  | EcosystemProfileType
+  | BlogType
+  | GlossaryType
+  | ElectiveDetailBurialPointType;
 
 export class BurialPoint {
   static track(

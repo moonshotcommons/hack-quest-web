@@ -1,4 +1,4 @@
-import { FC, ReactNode, useState } from 'react';
+import { FC, useState } from 'react';
 import { Switch as BaseSwitch } from '@headlessui/react';
 interface SwitchProps {
   // children: ReactNode;
@@ -17,13 +17,13 @@ const Switch: FC<SwitchProps> = (props) => {
         onChange(!enabled);
       }}
       className={`${
-        enabled ? 'bg-primary-color' : 'bg-neutral-dark-gray'
+        enabled ? 'bg-yellow-primary' : 'bg-neutral-dark-gray'
       } relative inline-flex h-[1.25rem] w-[2rem] items-center rounded-full`}
     >
       <span
         className={`${
           enabled ? 'translate-x-[.875rem]' : 'translate-x-1'
-        } inline-block h-[.875rem] w-[.875rem] transform rounded-full bg-white transition`}
+        } inline-block h-[.875rem] w-[.875rem] transform rounded-full bg-neutral-white transition`}
       />
     </BaseSwitch>
   );

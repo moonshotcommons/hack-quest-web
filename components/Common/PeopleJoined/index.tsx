@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { FC, ReactNode } from 'react';
+import { FC } from 'react';
 
 interface PeopleJoinedProps {
   avatars?: { id: string; url: string }[];

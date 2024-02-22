@@ -4,10 +4,9 @@ import {
   CourseLessonType,
   UnitPagesListType
 } from '@/service/webApi/course/type';
-import { setUnitsLessonsList } from '@/store/redux/modules/course';
+import { useCourseStore } from '@/store/zustand/courseStore';
 import { useRequest } from 'ahooks';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 
 const formateDropdownData = (
   data: UnitPagesListType[],
@@ -23,7 +22,7 @@ const formateDropdownData = (
     const newUnit = {
       ...unit,
       disable: !unit.progress && prevUnitProgress < 1,
-      pages: unit.pages.map((page, pageIndex) => {
+      pages: unit.pages?.map((page, pageIndex) => {
         const newPage = {
           ...page,
           disable:
@@ -48,18 +47,20 @@ export const useUnitNavList = (lesson: CourseLessonType) => {
   const [unitNavList, setUnitNavList] = useState<UnitPagesListType[]>();
   const [currentUnitIndex, setCurrentUnitIndex] = useState(0);
 
-  const dispatch = useDispatch();
+  const setUnitsLessonsList = useCourseStore(
+    (state) => state.setUnitsLessonsList
+  );
 
   const { run, refresh } = useRequest(
     async () => {
       const data = await webApi.courseApi.getCourseUnitsAndPages(
-        lesson!.courseId
+        lesson?.courseId
       );
       if (data) {
         const formateData = formateDropdownData(data, lesson!);
         const newData = formateData.newData;
         setCurrentUnitIndex(formateData.currentUnitIndex);
-        dispatch(setUnitsLessonsList(data));
+        setUnitsLessonsList(data);
         setUnitNavList(newData);
       }
     },

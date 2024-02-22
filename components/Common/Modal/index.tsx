@@ -2,10 +2,9 @@
 
 import { Dialog, Transition } from '@headlessui/react';
 
-import { cn } from '@/helper/utils';
 import { FC, Fragment, ReactNode } from 'react';
 import CloseIcon from '../Icon/Close';
-import { BsXLg } from 'react-icons/bs';
+import { cn } from '@/helper/utils';
 
 interface ModalProps {
   open: boolean;
@@ -14,16 +13,25 @@ interface ModalProps {
   showCloseIcon?: boolean;
   icon?: ReactNode;
   markBg?: string;
+  className?: string;
+  iconClassName?: string;
+  block?: boolean;
 }
 
-const IconClose: FC<{ icon?: ReactNode }> = (props) => {
-  const { icon, ...rest } = props;
+const IconClose: FC<{ icon?: ReactNode; className?: string }> = (props) => {
+  const { icon, className, ...rest } = props;
   return icon ? (
-    icon
+    <div
+      className={cn(
+        'absolute right-[2.25rem] top-[2.5rem] z-[999] cursor-pointer',
+        className
+      )}
+    >
+      {icon}
+    </div>
   ) : (
-    <div className="absolute right-[2.25rem] top-[2.5rem] z-[999] cursor-pointer  p-[0.66rem] text-setting-close-icon-color-v2">
-      {/* <CloseIcon width={20} height={19} color={'currentColor'} /> */}
-      <BsXLg size={22} />
+    <div className="absolute right-[2.25rem] top-[2.5rem] z-[999] cursor-pointer rounded-full border border-solid border-neutral-off-white p-[0.66rem]">
+      <CloseIcon width={20} height={19} color={'currentColor'} />
     </div>
   );
 };
@@ -35,7 +43,10 @@ const Modal: React.FC<ModalProps> = (props) => {
     children,
     showCloseIcon = false,
     icon,
-    markBg = 'black'
+    markBg = 'black',
+    className,
+    iconClassName,
+    block = false
   } = props;
   // const closeIcon =
   return (
@@ -43,12 +54,22 @@ const Modal: React.FC<ModalProps> = (props) => {
       <Dialog as="div" className="relative z-[999]" onClose={onClose}>
         <div
           className={cn(
-            `fixed inset-0 bg-opacity-50`,
-            markBg === 'transparent' ? 'bg-transparent' : 'bg-black'
+            `fixed bg-black bg-opacity-50`,
+            block ? 'inset-x-0 bottom-0 top-[64px]' : 'inset-0'
           )}
         />
-        <div className="fixed inset-0 overflow-y-auto">
-          <div className="flex min-h-full items-center justify-center p-4 text-center">
+        <div
+          className={cn(
+            'fixed  overflow-y-auto',
+            block ? 'inset-x-0 bottom-0 top-[64px]' : 'inset-0'
+          )}
+        >
+          <div
+            className={cn(
+              'flex min-h-full items-center justify-center text-center',
+              block ? '' : 'p-4'
+            )}
+          >
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -58,11 +79,19 @@ const Modal: React.FC<ModalProps> = (props) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-[74.0625rem] overflow-hidden text-left align-middle">
-                <div className="relative flex  items-center overflow-y-scroll no-scrollbar shadow-2xl">
+              <Dialog.Panel
+                className={cn(
+                  'w-fit overflow-hidden text-left align-middle',
+                  className
+                )}
+              >
+                <div className="no-scrollbar relative flex  items-center justify-center overflow-y-scroll shadow-2xl">
                   {showCloseIcon ? (
                     <div onClick={onClose}>
-                      <IconClose icon={icon}></IconClose>
+                      <IconClose
+                        icon={icon}
+                        className={iconClassName}
+                      ></IconClose>
                     </div>
                   ) : null}
                   {children}

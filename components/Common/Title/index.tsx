@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import React from 'react';
 
 interface TitleProps {
@@ -13,7 +12,7 @@ const Title: React.FC<
 
   return (
     <h2
-      className={`text-course-card-title-text-color font-next-poster-Bold text-lg mt-[2.88rem] mb-[2.5rem] ${className}`}
+      className={`text-h3 mb-[2.5rem] mt-[2.88rem] text-course-card-title-text-color ${className}`}
       {...rest}
     >
       {props.children}

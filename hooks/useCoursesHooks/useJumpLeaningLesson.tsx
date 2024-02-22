@@ -1,11 +1,18 @@
-import { QueryIdType } from '@/components/v2/Business/Breadcrumb/type';
+import { QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import { getLessonLink } from '@/helper/utils';
 import webApi from '@/service';
-import { CourseDetailType, CourseResponse } from '@/service/webApi/course/type';
-import { UnLoginType, setUnLoginType } from '@/store/redux/modules/user';
+import {
+  CourseDetailType,
+  ProjectCourseType,
+  CourseType
+} from '@/service/webApi/course/type';
+import { ElectiveCourseType } from '@/service/webApi/elective/type';
 import { useRequest } from 'ahooks';
-import { useRouter } from 'next/router';
-import { useDispatch } from 'react-redux';
+import { useRedirect } from '../useRedirect';
+import { message } from 'antd';
+import { AuthType, useUserStore } from '@/store/zustand/userStore';
+import { isMobile } from 'react-device-detect';
+import { NavType } from '@/components/Mobile/MobLayout/BasePage/Navbar';
 
 export interface JumpLeaningLessonType {
   menu: string;
@@ -13,17 +20,30 @@ export interface JumpLeaningLessonType {
   ids: string[];
 }
 export const useJumpLeaningLesson = () => {
-  const router = useRouter();
-  const { query } = router;
-  const dispatch = useDispatch();
+  const query = new URLSearchParams(
+    typeof window !== 'undefined' ? window.location.search : ''
+  );
+  const setAuthType = useUserStore((state) => state.setAuthType);
+  const setAuthModalOpen = useUserStore((state) => state.setAuthModalOpen);
+  const mobileAuthToggleOpenHandle = useUserStore(
+    (state) => state.mobileAuthToggleOpenHandle
+  );
+  const { redirectToUrl } = useRedirect();
   const { run: jumpLearningLesson, loading } = useRequest(
     async (
-      courseDetail: CourseDetailType | CourseResponse,
+      courseDetail: CourseDetailType | ProjectCourseType | ElectiveCourseType,
       lParam?: JumpLeaningLessonType
     ) => {
-      const lesson = await webApi.courseApi.getLearningLessonId(
-        courseDetail?.id as string
-      );
+      let lesson: any;
+      switch (courseDetail.type) {
+        case CourseType.MINI:
+          lesson = await webApi.courseApi.getLearningLessonId(courseDetail.id);
+          break;
+        default:
+          lesson = await webApi.courseApi.getLearningLessonId(
+            courseDetail?.id as string
+          );
+      }
       return {
         courseDetail,
         pageId: lesson?.pageId,
@@ -34,26 +54,32 @@ export const useJumpLeaningLesson = () => {
       manual: true,
       onSuccess({ courseDetail, pageId, lParam }) {
         const linkParam = lParam || {
-          menu: query.menu as string,
+          menu: query.get('menu') as string,
           idTypes: [QueryIdType.LEARNING_TRACK_ID, QueryIdType.MENU_COURSE_ID],
           ids: [
-            query[QueryIdType.LEARNING_TRACK_ID] || '',
-            query[QueryIdType.MENU_COURSE_ID] || ''
+            query.get(QueryIdType.LEARNING_TRACK_ID) || '',
+            query.get(QueryIdType.MENU_COURSE_ID) || ''
           ] as string[]
         };
         let link = `${getLessonLink(
           courseDetail?.type,
-          courseDetail?.name,
+          courseDetail?.title || courseDetail?.name,
           pageId,
           courseDetail?.id,
           linkParam
         )}`;
-        router.push(link);
+        redirectToUrl(link);
       },
       onError(err: any) {
         if (err.code === 401) {
-          dispatch(setUnLoginType(UnLoginType.LOGIN));
-          router.push('/');
+          message.warning('Please login first');
+          setAuthType(AuthType.LOGIN);
+          if (!isMobile) {
+            setAuthModalOpen(true);
+          } else {
+            mobileAuthToggleOpenHandle.setNavType(NavType.AUTH);
+            mobileAuthToggleOpenHandle.toggleOpen();
+          }
         }
       }
     }

@@ -1,8 +1,12 @@
+@import url('./plyr.css');
 @import url('./font.css');
 @import url('./variable.css');
 @import url('./antd.css');
 
 @tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @layer base {
   /* html,
   body {
@@ -10,124 +14,181 @@
     overflow: auto;
   } */
   body {
-    /* background: red; */
-    @apply bg-[#0b0b0b];
+    @apply bg-neutral-black;
   }
-}
-@tailwind components;
-@tailwind utilities;
-
-@layer components {
-  .button-hover {
-    @apply font-next-book text-base font-bold text-white;
-  }
-
-  .gray-1 {
-    @apply text-[#F2F2F2];
-  }
-  .gray-2 {
-    @apply text-[#B2B2B2];
-  }
-
-  .gray-3 {
-    @apply text-[#676767];
-  }
-
-  .gray-4 {
-    @apply text-[#282828];
-  }
-
-  .card-bg {
-    @apply bg-[#131313];
+  a:hover {
+    scroll-behavior: auto !important;
   }
 
   .text-h1 {
-    @apply text-[#EDEDED] font-next-book-bold text-[5rem] font-bold leading-[100%];
+    @apply font-next-book-bold text-[54px] font-bold leading-[54px] tracking-normal;
+  }
+  .text-h2 {
+    @apply font-next-book-bold text-[40px] font-bold leading-[40px] tracking-normal;
+  }
+  .text-h3 {
+    @apply font-next-book-bold text-[28px] font-bold leading-normal tracking-normal;
+  }
+  .text-h4 {
+    @apply font-next-book-bold text-[18px] font-bold leading-normal tracking-normal;
+  }
+  .text-h5 {
+    @apply font-next-book-bold text-[16px] font-bold leading-normal tracking-normal;
   }
 
-  .text-title {
-    @apply text-[#EDEDED]  font-next-book-bold font-bold leading-[100%] text-[1.125rem];
+  .text-h1-mob {
+    @apply font-next-book-bold text-[30px] font-bold leading-[30px] tracking-normal;
+  }
+  .text-h2-mob {
+    @apply font-next-book-bold text-[22px] font-bold leading-normal tracking-normal;
+  }
+  .text-h3-mob {
+    @apply font-next-book-bold text-[18px] font-bold leading-normal tracking-normal;
+  }
+  .text-h4-mob {
+    @apply font-next-book-bold text-[16px] font-bold leading-normal tracking-normal;
+  }
+  .text-h5-mob {
+    @apply font-next-book-bold text-[14px] font-bold leading-normal tracking-normal;
   }
 
-  .text-des-lg {
-    @apply w-[29.25rem] text-[#EDEDED] font-next-book font-normal text-[1rem] leading-[120%];
+  .body-xl {
+    @apply font-Nunito text-[24px] font-normal leading-normal;
   }
 
-  .text-des-sm {
-    @apply w-[16.625rem] text-[#EDEDED] font-next-book font-normal text-[.875rem] leading-[128%];
+  .body-xl-bold {
+    @apply font-Nunito text-[24px] font-bold leading-normal;
   }
 
-  .text-des-sx {
-    @apply w-[29.25rem] text-[#EDEDED] font-next-book-Thin text-[.75rem] leading-[120%];
+  .body-l {
+    @apply font-Nunito text-[18px] font-normal leading-[160%] tracking-normal;
   }
 
-  .button-disable {
-    @apply font-next-book text-base font-bold text-white;
+  .body-l-bold {
+    @apply font-Nunito text-[18px] font-bold leading-[160%] tracking-normal;
   }
 
-  .title {
-    @apply font-next-book text-base font-bold;
+  .body-m {
+    @apply font-Nunito text-[16px] font-normal leading-[160%] tracking-normal;
+  }
+
+  .body-m-bold {
+    @apply font-Nunito text-[16px] font-bold leading-[160%] tracking-normal;
+  }
+
+  .body-s {
+    @apply font-Nunito text-[14px] font-normal leading-[160%] tracking-normal;
+  }
+
+  .body-s-bold {
+    @apply font-Nunito text-[14px] font-bold leading-[160%] tracking-normal;
+  }
+
+  .body-xs {
+    @apply font-Nunito text-[12px] font-normal leading-[160%] tracking-normal;
+  }
+
+  .body-xs-bold {
+    @apply font-Nunito text-[12px] font-bold leading-[160%] tracking-normal;
+  }
+
+  .body-xs {
+    @apply font-Nunito text-[12px] font-normal leading-[160%] tracking-normal;
+  }
+
+  .body-xs-bold {
+    @apply font-Nunito text-[12px] font-bold leading-[160%] tracking-normal;
+  }
+
+  .caption-16pt {
+    @apply font-Nunito text-[16px] font-normal leading-normal;
+  }
+
+  .caption-14pt {
+    @apply font-Nunito text-[14px] font-normal leading-normal;
+  }
+
+  .caption-12pt {
+    @apply font-Nunito text-[12px] font-light leading-normal;
+  }
+
+  .caption-10pt {
+    @apply font-Nunito text-[10px] font-normal leading-normal;
+  }
+
+  .button-text-l {
+    @apply font-Nunito text-[18px] font-medium leading-normal tracking-normal;
+  }
+
+  .button-text-m {
+    @apply font-Nunito text-[14px] font-medium leading-normal tracking-normal;
+  }
+
+  .button-text-s {
+    @apply font-Nunito text-[12px] font-medium leading-normal tracking-normal;
+  }
+
+  .code-l {
+    @apply font-Space-Mono text-[14px] font-normal leading-[150%] tracking-normal;
+  }
+  .code-m {
+    @apply font-Space-Mono text-[12px] font-normal leading-[150%] tracking-normal;
+  }
+  .code-s {
+    @apply font-Space-Mono text-[10px] font-normal leading-[150%] tracking-normal;
+  }
+
+  .underline-l {
+    @apply font-Nunito text-[18px] leading-normal tracking-normal underline;
+  }
+  .underline-m {
+    @apply font-Nunito text-[16px] leading-normal tracking-normal underline;
+  }
+  .underline-s {
+    @apply font-Nunito text-[14px] leading-normal tracking-normal underline;
+  }
+}
+
+@layer components {
+  .card-hover {
+    @apply cursor-pointer shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)];
   }
 
   .top-line {
-    @apply before:absolute before:h-[1px] before:scale-y-[1] before:w-full before:bg-line-color before:-top-1;
+    @apply before:absolute before:-top-1 before:h-[1px] before:w-full before:scale-y-[1] before:bg-line-color;
   }
 
   .bottom-line {
-    @apply after:absolute after:h-[1px] after:scale-y-[1] after:w-full after:bg-line-color after:-bottom-1;
+    @apply after:absolute after:-bottom-1 after:h-[1px] after:w-full after:scale-y-[1] after:bg-line-color;
   }
 
-  .top-line-default {
-    @apply before:absolute before:h-[1px] before:scale-y-[1] before:w-full before:-top-1;
-  }
-
-  .bottom-line-default {
-    @apply after:absolute after:h-[1px] after:scale-y-[1] after:w-full after:-bottom-1;
-  }
-
-  .description {
-    @apply w-[21.5rem] text-xs font-normal not-italic;
-  }
-
-  .arrow {
-    @apply flex items-center justify-center p-2 rounded-full border border-solid border-course-banner-arrow-border-color hover:bg-course-banner-arrow-hover-bg cursor-pointer;
-  }
-  .primary-button-hover {
-    @apply hover:bg-white hover:text-black;
+  .hq-arrow {
+    @apply flex cursor-pointer items-center justify-center rounded-full border border-solid border-course-banner-arrow-border-color p-2 hover:bg-course-banner-arrow-hover-bg;
   }
 
   .flex-col-center {
     @apply flex flex-col items-center;
   }
+
   .flex-row-center {
     @apply flex flex-row items-center;
   }
+
   .flex-center {
     @apply flex items-center justify-center;
-  }
-  .base-btn {
-    @apply w-[145px] h-[40px] flex items-center justify-center text-[14px] rounded-[12px]  text-center;
-  }
-  .base-btn-bg {
-    @apply base-btn bg-mission-center-gradient-radial;
-  }
-  .base-btn-adapt {
-    @apply h-[40px] flex items-center justify-center text-[14px] rounded-[12px]  text-center;
   }
 }
 
 @layer utilities {
-  @variants responsive {
-    /* Hide scrollbar for Chrome, Safari and Opera */
-    .no-scrollbar::-webkit-scrollbar {
-      display: none;
-    }
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
 
-    /* Hide scrollbar for IE, Edge and Firefox */
-    .no-scrollbar {
-      -ms-overflow-style: none; /* IE and Edge */
-      scrollbar-width: none; /* Firefox */
-    }
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
   }
 }
 
@@ -199,8 +260,10 @@ body {
   z-index: -1;
   background-color: #cd9df2;
   border-radius: 50px;
-  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
-    7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+  box-shadow:
+    inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.1),
+    4px 4px 5px 0px rgba(0, 0, 0, 0.1);
   transition: all 0.5s ease;
 }
 .btn-hover:hover {
@@ -231,15 +294,37 @@ input[data-type='changePassword']:-internal-autofill-selected {
     bottom: 0;
     left: var(--highlight-x);
     width: var(--highlight-width);
-    background: #ffd850;
+    background: var(--yellow-primary);
     transition: all 0.2s;
   }
 
-  &.slide-navigator-underline::before {
+  &.slide-navigator-fist-navbar::before {
     height: 0.25rem;
   }
-  &.slide-navigator-full::before {
+  &.slide-navigator-second-navbar::before {
+    height: 1px;
+    bottom: 12px;
+  }
+  &.slide-learning-track-navbar::before {
+    height: 3px;
+    background: var(--yellow-dark);
+  }
+}
+.slide-blog-navigator {
+  --highlight-x: 0;
+  --highlight-width: 0;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    z-index: 0;
     top: 0;
+    bottom: 0;
+    left: var(--highlight-x);
+    width: var(--highlight-width);
+    background: #3e3e3e;
+    transition: all 0.2s;
     border-radius: 20px;
   }
 }
@@ -267,4 +352,23 @@ input[data-type='changePassword']:-internal-autofill-selected {
   100% {
     transform: translateY(0);
   }
+}
+
+.language-solidity {
+  font-family: var(--font-space-mono) !important;
+  font-size: 14px;
+  line-height: 150%;
+}
+
+/* @font-face {
+  font-family: 'color-emoji';
+  src: local('Apple Color Emoji'), local('Segoe UI Emoji'),
+    local('Segoe UI Symbol'), local('Noto Color Emoji');
+} */
+.emoji {
+  font-family:
+    Apple Color Emoji,
+    Segoe UI Emoji,
+    Segoe UI Symbol,
+    Noto Color Emoji;
 }

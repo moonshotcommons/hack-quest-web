@@ -1,4 +1,2 @@
 User-agent: *
-Disallow: /courses
-Disallow: /learning-track
-Disallow: /mission-center
+Sitemap: https://www.hackquest.io/sitemap.xml

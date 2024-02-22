@@ -1,22 +1,48 @@
 html {
-  --neutral-dark-gray: #212121;
-  --neutral-off-white: #f4f4f4;
-  --neutral-rich-gray: #3e3e3e;
-  --neutral-off-black: #131313;
-  --neutral-white: #fff;
-  --neutral-light-gray: #dadada;
-  --neutral-medium-gray: #8c8c8c;
+  /* 主题黄色 */
+  --yellow-dark: #fad81c;
+  --yellow-primary: #ffe866;
+  --yellow-hover: #fff1a3;
+  --yellow-light: #fff6c2;
+  --yellow-extra-light: #fffae0;
+
+  /* 中性色 */
   --neutral-black: #0b0b0b;
-  --neutral-white-black: #000;
+  --neutral-off-black: #131313;
+  --neutral-dark-gray: #212121;
+  --neutral-rich-gray: #3e3e3e;
+  --neutral-medium-gray: #8c8c8c;
+  --neutral-light-gray: #dadada;
+  --neutral-off-white: #f4f4f4;
+  --neutral-white: #fff;
+
+  /* 状态色 */
+  --status-success-dark: #06884a;
+  --status-success: #00c365;
+  --status-success-light: #e2fff7;
+  --status-error-dark: #c73333;
+  --status-error: #ff624c;
+  --status-error-light: #fff7f5;
+
+  /* Code */
+  --code-gray: #8e8e8e;
+  --code-dark-blue: #657584;
+  --code-blue: #126b9d;
+  --code-brown: #8e6339;
+  --code-wine-red: #8c0f4a;
+  --code-rose-red: #d5455e;
+  --code-red: #e45050;
+  --code-green: #5d8e24;
+
   --code-dark-green: #9ed600;
   --code-purple: #6b6bf6;
-  --text-text-white: #ededed;
-  --status-error-default: #ff624d;
-  --status-error: #ff4747;
+  --text-text-neutral-white: #ededed;
+
+  --plyr-color-main: var(--yellow-primary);
 
   --status-error-light: #fff7f5;
   --button-card-card-outline: #5b5b5b;
-  --text-text-white-on-dark: #f2f2f2;
+  --text-text-neutral-white-on-dark: #f2f2f2;
   --status-progress-green: #9efa13;
   --text-text-gray: #676767;
   --color-dark-bg: #030303;
@@ -24,90 +50,4 @@ html {
   --codedesbg: #1e1e1e;
   --color-black: #000;
   --button-card-dark-gray-button: #2a2a2a;
-
-  /* solidity */
-
-  --solidity-abstract: #2253b7;
-  --solidity-constant: #2253b7;
-  --solidity-emit: #2253b7;
-  --solidity-enum: #2253b7;
-  --solidity-event: #2253b7;
-  --solidity-false: #2253b7;
-  --solidity-import: #2253b7;
-  --solidity-contract: #2253b7;
-  --solidity-function: #2253b7;
-  --solidity-is: #2253b7;
-  --solidity-library: #2253b7;
-  --solidity-let: #2253b7;
-  --solidity-mapping: #2253b7;
-  --solidity-new: #2253b7;
-  --solidity-pragma: #2253b7;
-  --solidity-: #2253b7;
-  --solidity-struct: #2253b7;
-  --solidity-true: #2253b7;
-  --solidity-var: #2253b7;
-  --solidity-using: #2253b7;
-  --solidity-uint: #2253b7;
-  --solidity-type: #2253b7;
-  --solidity-uint256: #2253b7;
-
-  --solidity-revert: #166ca6;
-  --solidity-virtual: #1c54b5;
-
-  --solidity-external: #28ac89;
-  --solidity-internal: #28ac89;
-  --solidity-private: #28ac89;
-  --solidity-public: #28ac89;
-  --solidity-pure: #28ac89;
-
-  --solidity-fallback: #f294da;
-  --solidity-constructor: #f294da;
-
-  --solidity-else: #745900;
-  --solidity-indexed: #745900;
-  --solidity-if: #745900;
-
-  --solidity-continue: #ffaf71;
-  --solidity-for: #ffaf71;
-  --solidity-do: #ffaf71;
-  --solidity-while: #ffaf71;
-
-  --solidity-catch: #fa8328;
-  --solidity-throw: #fa8328;
-  --solidity-: #fa8328;
-  --solidity-try: #fa8328;
-
-  --solidity-memory: #5c4f02;
-  --solidity-storage: #5c4f02;
-
-  --solidity-after: #acacac;
-  --solidity-alias: #acacac;
-  --solidity-apply: #acacac;
-  --solidity-auto: #acacac;
-  --solidity-case: #acacac;
-  --solidity-debug: #acacac;
-  --solidity-default: #acacac;
-  --solidity-define: #acacac;
-  --solidity-div: #acacac;
-  --solidity-end: #acacac;
-  --solidity-error: #acacac;
-  --solidity-finally: #acacac;
-  --solidity-from: #acacac;
-  --solidity-get: #acacac;
-  --solidity-hex: #acacac;
-  --solidity-inherit: #acacac;
-  --solidity-inline: #acacac;
-  --solidity-interface: #acacac;
-  --solidity-log: #acacac;
-  --solidity-modify: #acacac;
-  --solidity-null: #acacac;
-  --solidity-of: #acacac;
-  --solidity-or: #acacac;
-  --solidity-sizeof: #acacac;
-  --solidity-sub: #acacac;
-  --solidity-switch: #acacac;
-  --solidity-typeid: #acacac;
-  --solidity-typeof: #acacac;
-  --solidity-with: #acacac;
-  --solidity-xor: #acacac;
 }

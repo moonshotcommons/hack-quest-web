@@ -1,23 +1,28 @@
 import WebService from '@/service/webService/webService';
 import {
-  CourseDataType,
   CourseDetailType,
   CourseLessonStateType,
   CourseLessonType,
   CourseUnitStateType,
   CourseUnitType,
-  GetSignatureParams,
-  SignatureData,
-  SuggestCommitParams,
+  ProjectCourseType,
   UnitPagesListType
 } from './type';
-import { CertificationType } from '../campagins/type';
 
+import {
+  EcosystemElectiveType,
+  EcosystemProfileType,
+  ElectiveCourseDetailType,
+  ElectiveLessonType
+} from '../elective/type';
+import { PageResult } from '../type';
+import { cache } from 'react';
 export enum CourseApiType {
   Course_List = '/courses',
+  GetTopCourses = '/courses/featured',
   LessonDetail = '/pages',
   Support = '/support/suggest',
-  GetSignature = '/ethers/signature'
+  EcosystemProfile = '/eco-system-profiles'
 }
 
 class CourseApi {
@@ -30,23 +35,65 @@ class CourseApi {
   getCourseList(searchString?: string) {
     let url: string = CourseApiType.Course_List;
     if (searchString) url = `${url}?${searchString}`;
-    return this.service.get<CourseDataType>(url);
+    return this.service.get<PageResult<ProjectCourseType>>(url);
+  }
+
+  getTopCourses<T>(params: { type: string }) {
+    return this.service.get<T[]>(CourseApiType.GetTopCourses, {
+      params
+    });
   }
 
   /** 获取课程列表信息By search */
-  getCourseListBySearch(params: object) {
-    return this.service.get<CourseDataType>(`${CourseApiType.Course_List}`, {
+  getCourseListBySearch<T>(params: object) {
+    return this.service.get<T>(`${CourseApiType.Course_List}`, {
       params
     });
   }
 
   /** 获取单个课程的详情信息 */
-  getCourseDetail(courseId: string, isIncludeUnits: boolean = false) {
-    return this.service.get<CourseDetailType>(
-      `${CourseApiType.Course_List}/${courseId}${
-        isIncludeUnits ? '?include=units' : ''
-      }`
-    );
+  getCourseDetail<T extends CourseDetailType | ElectiveCourseDetailType>(
+    courseId: string,
+    includeUnits = false,
+    includePages = false
+  ) {
+    let includes = [];
+
+    if (includeUnits) includes.push('units');
+    if (includePages) includes.push('pages');
+
+    return this.service.get<T>(`${CourseApiType.Course_List}/${courseId}`, {
+      params: {
+        include: includes.join(',')
+      }
+    });
+  }
+
+  /** 获取单个课程的详情信息 */
+  async fetchCourseDetail<
+    T extends CourseDetailType | ElectiveCourseDetailType
+  >(courseId: string, includeUnits = false, includePages = false): Promise<T> {
+    //   let includes = [];
+
+    //   if (includeUnits) includes.push('units');
+    //   if (includePages) includes.push('pages');
+
+    //   const url = `${this.service.baseURL.slice(0, -1)}${CourseApiType.Course_List}/${courseId}?include=${includes.join(',')}`;
+    //   const courseDetail = await fetch(url, {
+    //     method: 'get'
+    //   });
+
+    //   if (!courseDetail.ok) {
+    //     throw new Error('Failed to fetch course data!');
+    //   }
+
+    //   return courseDetail.json();
+
+    const cacheFn = cache(async () => {
+      return this.getCourseDetail<T>(courseId, includeUnits, includePages);
+    });
+
+    return cacheFn();
   }
 
   /** 获取单个课程下的所有units */
@@ -76,9 +123,18 @@ class CourseApi {
   }
 
   /** 获取单个lesson的内容 */
-  getLessonContent(lessonId: string) {
+  getLessonContent<T extends CourseLessonType | ElectiveLessonType>(
+    lessonId: string
+  ) {
     const url = `${CourseApiType.LessonDetail}/${lessonId}`;
-    return this.service.get<CourseLessonType>(url);
+    return this.service.get<T>(url);
+  }
+  /** 获取单个lesson的内容Mob */
+  getLessonContentMob<T extends CourseLessonType | ElectiveLessonType>(
+    lessonId: string
+  ) {
+    const url = `${CourseApiType.LessonDetail}/${lessonId}/v2`;
+    return this.service.get<T>(url);
   }
 
   /** 获取单个lesson的内容 */
@@ -124,18 +180,16 @@ class CourseApi {
     });
   }
 
-  /** 获取certification 密钥 */
-  getSignature(params: GetSignatureParams) {
-    return this.service.post<SignatureData>(CourseApiType.GetSignature, {
-      data: params
-    });
+  /** 获取mini Elective profile */
+  getElectiveProfile(electiveId: string) {
+    const url = `${CourseApiType.EcosystemProfile}/${electiveId}`;
+    return this.service.get<EcosystemProfileType>(url);
   }
 
-  /** 获取证书的详情 */
-  getCertificationDetail(certificationId: string) {
-    return this.service.get<CertificationType>(
-      `/certifications/${certificationId}`
-    );
+  /** 获取mini Elective profile */
+  getProfileElective(electiveId: string) {
+    const url = `${CourseApiType.EcosystemProfile}/${electiveId}/electives`;
+    return this.service.get<EcosystemElectiveType[]>(url);
   }
 }
 

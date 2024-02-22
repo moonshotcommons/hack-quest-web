@@ -1,3 +1,5 @@
+import { ElectiveCourseType, PageType } from '../elective/type';
+
 export interface Response {
   id: string;
 }
@@ -6,11 +8,9 @@ export interface Response {
 export enum CourseType {
   SYNTAX = 'SYNTAX',
   GUIDED_PROJECT = 'GUIDED_PROJECT',
-  CONCEPT = 'CONCEPT',
-  TEASER = 'TEASER',
-  HACKATHON = 'HACKATHON',
   LEARNING_TRACK = 'LEARNING_TRACK',
-  Mini = 'MINI'
+  MINI = 'MINI',
+  UGC = 'UGC'
 }
 
 export enum LessonStyleType {
@@ -28,32 +28,127 @@ export enum CompleteStateType {
 }
 
 /** 课程列表的返回值 */
-export interface CourseResponse {
-  id: string;
-  name: string;
-  description: string;
-  type: CourseType;
-  level?: string | string[];
-  duration: number;
-  aboutDesc: string;
-  unitCount: number;
-  progress: number;
-}
-export interface CourseDataType {
-  total: number;
-  data: CourseResponse[];
+// export interface ProjectCourseType {
+//   id: string;
+//   name: string;
+//   description: string;
+//   type: CourseType;
+//   level?: string | string[];
+//   duration: number;
+//   aboutDesc: string;
+//   unitCount?: number;
+//   progress: number;
+//   pageCount?: number;
+// }
+
+enum CourseLevelType {
+  BEGINNER = 'BEGINNER',
+  INTERMEDIATE = 'INTERMEDIATE',
+  ADVANCED = 'ADVANCED'
 }
 
-export interface CourseDetailType {
+export enum CourseLanguageType {
+  SOLIDITY = 'SOLIDITY',
+  RUST = 'RUST',
+  MOVE = 'MOVE'
+}
+
+export enum CourseTrackType {
+  DeFi = 'DeFi',
+  NFT = 'NFT',
+  Security = 'Security',
+  Gaming = 'Gaming'
+}
+
+export enum LessonType {
+  READING = 'READING',
+  VIDEO = 'VIDEO',
+  QUIZ = 'QUIZ'
+}
+
+export interface CreatorType {
   id: string;
   name: string;
+  nickname: string;
+  profileImage: string;
+}
+
+//! UGC临时课程类型，可能是课程通用类型，后面需要更改
+export interface UGCCourseType {
+  id: string;
+  name: string;
+  title: string;
+  subTitle: null | string;
   description: string;
   type: CourseType;
-  level?: string | string[];
+  level: CourseLevelType;
   duration: number;
-  aboutDesc: any[];
-  progress: number;
+  language: CourseLanguageType;
+  track: CourseTrackType;
+  progress?: number;
   peopleJoined: number;
+  optional: object;
+  image: string | null;
+  creator?: CreatorType;
+  units?: {
+    id: string;
+    title: string;
+    description: string;
+    sequence: number;
+    progress: number;
+    courseId: string;
+    createdAt: string;
+    updatedAt: string;
+    pages: {
+      id: string;
+      title: string;
+      type: LessonType;
+      unitId: string;
+      state: CompleteStateType;
+      courseId: string;
+      sequence: number;
+    }[];
+  }[];
+}
+
+export interface IntendedLearnersType {
+  audience?: string[];
+  requirements?: string[];
+}
+export interface KnowledgeGainType {
+  description?: string[];
+  tags?: string[];
+}
+
+/** 课程基础字段 */
+export interface CourseBaseType {
+  id: string;
+  name: string;
+  title: string;
+  description: string;
+  type: CourseType;
+  level: CourseLevelType;
+  image?: string;
+  duration: number;
+  language: CourseLanguageType;
+  track: CourseTrackType;
+  progress?: number;
+  peopleJoined: number;
+  intendedLearners: IntendedLearnersType | null;
+  knowledgeGain: KnowledgeGainType | null;
+  totalPages: number;
+  certificationId?: string;
+  creator?: CreatorType;
+}
+
+/** Project类型的课程 */
+export interface ProjectCourseType extends CourseBaseType {
+  unitCount: number;
+}
+
+export type CourseListType = ProjectCourseType | ElectiveCourseType;
+
+export interface CourseDetailType extends CourseBaseType {
   units?: CourseUnitType[];
 }
 
@@ -66,6 +161,7 @@ export interface CourseUnitType {
   courseId: string;
   createdAt: string;
   updatedAt: string;
+  pages?: PageType[];
 }
 
 export interface CourseUnitStateType {
@@ -117,19 +213,4 @@ export interface SuggestCommitParams {
   // file: FormData;
   lessonId: string;
   link: string;
-}
-
-export interface GetSignatureParams {
-  sourceType: 'Certification';
-  sourceId: string;
-  userAddress: string;
-}
-
-export interface SignatureData {
-  hashResult: string;
-  sig: {
-    v: number;
-    r: string;
-    s: string;
-  };
 }
