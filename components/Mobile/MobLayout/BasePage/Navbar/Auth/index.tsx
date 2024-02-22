@@ -71,7 +71,7 @@ const Auth: FC<AuthModalProps> = ({ changeNavState }) => {
           pointerEvents: 'none'
         }
       }}
-      className="absolute bottom-0 top-[4rem] flex w-screen flex-col border border-neutral-light-gray bg-neutral-white px-5 py-[30px]"
+      className="absolute bottom-0 top-[4rem] flex h-[calc(100vh-4rem)] w-screen flex-col border border-neutral-light-gray bg-neutral-white px-5 py-[30px] pb-[10rem]"
     >
       <AuthContext.Provider value={{ changeNavState }}>
         {authComponent}

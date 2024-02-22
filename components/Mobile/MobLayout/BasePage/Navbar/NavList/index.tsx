@@ -29,7 +29,7 @@ const NavList: FC<NavListProps> = ({ navList, toggleOpen, children }) => {
           pointerEvents: 'none'
         }
       }}
-      className="absolute bottom-0 top-[4rem] w-screen px-5 pt-[1.875rem]"
+      className="absolute bottom-0 top-[4rem] h-[calc(100vh-64px)] w-screen px-5 pt-[1.875rem]"
     >
       <motion.ul className={`w-full`}>
         {navList.map((item, index) => {
