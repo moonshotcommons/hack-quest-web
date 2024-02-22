@@ -3,6 +3,7 @@ import HackathonPage from './components';
 import { getFeaturedProjects } from '@/service/hackathon';
 import { HackathonStatusType } from '@/service/webApi/resourceStation/type';
 
+export const dynamic = 'force-dynamic';
 interface HackathonProps {
   params: { slug: string[] };
   searchParams: { curTab?: HackathonStatusType };
