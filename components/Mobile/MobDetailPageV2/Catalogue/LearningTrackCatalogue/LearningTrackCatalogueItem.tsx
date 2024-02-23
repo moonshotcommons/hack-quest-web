@@ -26,7 +26,7 @@ const LearningTrackCatalogueItem: FC<LearningTrackCatalogueItemProps> = (
   const { section, index: sectionIndex, learningTrackDetail } = props;
 
   const sectionTitle = (
-    <div className="body-l-bold text-neutral-black">{`${section.name}`}</div>
+    <span className="body-m-bold min-fit break-all text-neutral-black">{`${section.name}`}</span>
   );
 
   return (

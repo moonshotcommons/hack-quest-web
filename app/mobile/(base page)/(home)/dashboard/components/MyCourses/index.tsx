@@ -37,7 +37,7 @@ const MyCourses = forwardRef<MyCoursesRef, MyCoursesProps>((props, ref) => {
     limit: number;
   }>({
     page: 1,
-    limit: 9
+    limit: 4
   });
   const [courseDataAll, setCourseDataAll] = useState<CourseListType[]>([]);
   const [courseListData, setCourseListData] = useState<
