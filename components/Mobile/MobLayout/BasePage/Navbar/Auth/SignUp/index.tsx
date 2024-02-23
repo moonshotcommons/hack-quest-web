@@ -14,6 +14,7 @@ const SignUp: FC<SignUpProps> = (props) => {
   const [emailCheckStatus, setEmailCheckStatus] = useState(false);
   const [showRegisterForm, setShowRegisterForm] = useState(false);
   const [email, setEmail] = useState('');
+  const [inviteCode, setInviteCode] = useState('');
   const { validator } = useValidator(['registerEmail']);
   const authRouteType = useUserStore((state) => state.authRouteType);
   const setAuthType = useUserStore((state) => state.setAuthType);
@@ -59,9 +60,10 @@ const SignUp: FC<SignUpProps> = (props) => {
               validator={validator}
               onStatusChange={(status) => setEmailCheckStatus(status)}
               type={AuthType.SIGN_UP}
-              onNext={(email: string) => {
+              onNext={(email, inviteCode) => {
                 if (emailCheckStatus) {
                   setEmail(email);
+                  setInviteCode(inviteCode!);
                   webApi.userApi.checkEmailExists(email).then((res) => {
                     // if (res.inWhitelist) {
                     setShowRegisterForm(true);
@@ -92,7 +94,7 @@ const SignUp: FC<SignUpProps> = (props) => {
         >
           <RegisterForm
             email={email}
-            inviteCode={authRouteType.params?.inviteCode}
+            inviteCode={inviteCode}
             onBack={() => {
               BurialPoint.track('signup-注册返回');
               setShowRegisterForm(false);
