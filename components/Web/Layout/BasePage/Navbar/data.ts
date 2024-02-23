@@ -47,8 +47,7 @@ export const navbarList: NavbarListType[] = [
       {
         label: 'Campaign',
         path: MenuLink.CAMPAIGINS,
-        needLogin: true,
-        needPC: true
+        needLogin: true
       }
     ]
   },

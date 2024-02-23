@@ -1,18 +1,18 @@
-'use client';
 import { FC } from 'react';
-import { useNeedPCRedirect } from '@/hooks/useNeedPCRedirect';
+import Campaigns from './components';
+import { Metadata } from 'next';
+import PageRetentionTime from '@/components/Common/PageRetentionTime';
 
-// export const metadata: Metadata = {
-//   title: 'Campaigns'
-// };
+export const metadata: Metadata = {
+  title: 'Campaigns'
+};
 interface CampaignsPageProps {}
 
 const CampaignsPage: FC<CampaignsPageProps> = (props) => {
-  useNeedPCRedirect();
   return (
     <>
-      {/* <Campaigns></Campaigns>
-      <PageRetentionTime trackName="campaigns-页面留存时间"></PageRetentionTime> */}
+      <Campaigns></Campaigns>
+      <PageRetentionTime trackName="campaigns-页面留存时间"></PageRetentionTime>
     </>
   );
 };

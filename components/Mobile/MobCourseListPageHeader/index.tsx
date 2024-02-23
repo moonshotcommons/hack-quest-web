@@ -23,6 +23,7 @@ interface CourseListPageHeaderProps {
 
 const MobCourseListPageHeader: FC<CourseListPageHeaderProps> = ({
   title,
+  description,
   coverImage,
   coverImageUrl,
   coverWidth,
@@ -47,7 +48,12 @@ const MobCourseListPageHeader: FC<CourseListPageHeaderProps> = ({
     >
       <div className="pt-[7.5rem]">
         <h2 className="text-h1-mob text-neutral-black">{title}</h2>
-        {buttonNode ? <div className="mt-[1.25rem]">{buttonNode}</div> : null}
+        {description ? (
+          <div className="bdy-m mt-[1rem] text-neutral-rich-gray">
+            {description}
+          </div>
+        ) : null}
+        {buttonNode ? <div className="mt-[2.5rem]">{buttonNode}</div> : null}
         {onSearch ? (
           <div className="mt-[1.25rem] flex w-full items-center gap-3 rounded-[3.5rem] border border-neutral-light-gray bg-neutral-white px-3 py-2">
             <span>

@@ -45,11 +45,15 @@ const ProjectCard: React.FC<ProjectCardProp> = ({
             {project.apolloDay && (
               <TrackTag
                 track={'Apollo Day'}
-                className="flex-shrink-0 border-yellow-primary bg-yellow-primary"
+                className="body-m caption-12pt flex-shrink-0 border-yellow-primary bg-yellow-primary"
               />
             )}
             {project.tracks.map((v, i) => (
-              <TrackTag key={i} track={v} className="flex-shrink-0" />
+              <TrackTag
+                key={i}
+                track={v}
+                className="caption-12pt flex-shrink-0"
+              />
             ))}
           </div>
           <div className="body-m-bold truncate text-neutral-off-black">
