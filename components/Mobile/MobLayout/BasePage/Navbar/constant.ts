@@ -36,3 +36,5 @@ export const itemVariants = {
 };
 
 export const isBadgeIds = ['missions'];
+
+export const MOBILE_NAVBAR_HEIGHT = 64;

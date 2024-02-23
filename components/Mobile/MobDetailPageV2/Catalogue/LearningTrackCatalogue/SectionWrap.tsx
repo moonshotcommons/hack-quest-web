@@ -67,9 +67,9 @@ const SectionWrap: FC<SectionWrapProps> = ({
           }
         }}
       >
-        <div className="flex gap-4">
-          <span className="body-m-bold">{title}</span>
-          {(section?.progress || 0) >= 1 && (
+        <div className="flex flex-1 gap-4">
+          {title}
+          {(section?.progress || 0) <= 1 && (
             <svg
               width="24"
               height="25"
@@ -91,7 +91,7 @@ const SectionWrap: FC<SectionWrapProps> = ({
             </svg>
           )}
         </div>
-        <div className="flex">
+        <div className="flex pl-4">
           {/* {enrolled && !!section?.progress && <SectionProgress />} */}
           <ExpandButton />
         </div>

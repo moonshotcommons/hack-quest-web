@@ -31,7 +31,7 @@ const Nav: FC<NavProps> = ({ children, isOpen, toggleOpen }) => {
       className="absolute bottom-0 left-0 top-0 z-[100]"
     >
       <motion.div
-        className="pointer-events-none absolute left-0 top-[4rem] h-[calc(100vh-4rem)] w-screen bg-neutral-black"
+        className="pointer-events-none absolute left-0 top-[4rem] h-[calc(100vh-4rem)] w-screen overflow-hidden bg-blue-700 bg-neutral-black"
         variants={sidebar}
       />
       {children}
