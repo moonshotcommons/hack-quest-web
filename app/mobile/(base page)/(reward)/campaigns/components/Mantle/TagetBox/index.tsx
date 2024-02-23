@@ -7,8 +7,8 @@ interface TargetBoxProp {}
 const TargetBox: React.FC<TargetBoxProp> = () => {
   const { targetList } = useContext(MantleContext);
   return (
-    <div>
-      <div className="body-l">Targets to Achieve</div>
+    <div className="mt-[1.75rem]">
+      <div className="body-l text-neutral-off-black">Targets to Achieve</div>
       {targetList.map((target) => (
         <TargetCard key={target.id} target={target} />
       ))}

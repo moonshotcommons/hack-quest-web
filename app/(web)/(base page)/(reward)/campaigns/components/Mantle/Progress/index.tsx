@@ -21,7 +21,7 @@ const Progress: React.FC<ProgressProp> = () => {
     };
   }, [progress]);
   return (
-    <div className={`mb-[30px] text-neutral-black`}>
+    <div className={`body-m mb-[30px] text-neutral-black`}>
       <div className="relative flex gap-[0.5%]">
         {schedule.schedulePeriod.map((s, i) => (
           <div key={i} className="w-[19.6%]">
@@ -38,9 +38,9 @@ const Progress: React.FC<ProgressProp> = () => {
                 </div>
               )}
             </div>
-            <div className="mb-[14px] h-[15px] w-full bg-[#DADADA]">
+            <div className="mb-[13px] h-[15px] w-full bg-neutral-light-gray">
               <div
-                className="h-[15px] bg-yellow-primary shadow-[0_0_8px_#ffd850] transition-all"
+                className="h-[15px] bg-yellow-dark shadow-[0_0_4px_#F9D81C] transition-all"
                 style={{
                   width: `${(s[0] / s[1]) * 100}%`
                 }}
@@ -51,7 +51,7 @@ const Progress: React.FC<ProgressProp> = () => {
         ))}
         <Image
           src={BIcon}
-          width={22}
+          width={21}
           alt="icon"
           className="absolute bottom-[4px] left-0"
         ></Image>
