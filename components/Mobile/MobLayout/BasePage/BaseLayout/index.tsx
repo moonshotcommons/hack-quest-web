@@ -39,28 +39,28 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
 
   return (
     <div
-      className={`flex h-[100vh] w-full flex-col overflow-hidden  ${isNavbarFullPage ? '' : 'min-h-[100vh]'} `}
+      className={`relative w-full ${isNavbarFullPage ? '' : 'min-h-[100vh]'} `}
     >
-      <div className="flex w-full items-center bg-neutral-black">
+      <div className="fixed top-0 z-50 flex w-full items-center bg-neutral-black">
         <NavBar {...navbarData}>
           <User></User>
         </NavBar>
       </div>
       <div
         id="content-scroll-wrap"
-        className={`m-auto w-full flex-1 overflow-auto  ${
+        className={`m-auto w-full pt-[64px]  ${
           isNavbarFullPage ? 'bg-[white]' : 'bg-neutral-off-white'
         }`}
       >
-        <div className={`flex h-full w-full flex-col`}>
-          {/* {renderBreadcrumb()} */}
-          <div className="relative w-full flex-1">
-            <main className="absolute left-0 top-0 h-full w-full">
-              {children}
-            </main>
-          </div>
-        </div>
+        {children}
       </div>
+
+      {/* <div
+        id="content-scroll-wrap"
+        className={`m-auto w-full flex-1 overflow-auto  ${
+          isNavbarFullPage ? 'bg-[white]' : 'bg-neutral-off-white'
+        }`}
+      ></div> */}
     </div>
   );
 };

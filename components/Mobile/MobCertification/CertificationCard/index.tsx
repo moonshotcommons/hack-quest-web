@@ -22,7 +22,7 @@ const CertificationCard: FC<CertificationCardProps> = async (props) => {
             // fill
             src={certification?.image || ''}
             alt="certification"
-            className="z-50 w-full object-contain"
+            className="z-40 w-full object-contain"
           ></img>
         )}
 

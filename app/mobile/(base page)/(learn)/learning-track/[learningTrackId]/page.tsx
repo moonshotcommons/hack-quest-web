@@ -92,7 +92,7 @@ const LearningTrackDetailPage: FC<LearningTrackDetailPageProps> = async (
           )}
           <Syllabus />
         </div>
-        <div className="fixed bottom-10 z-[99] w-full px-5">
+        <div className="fixed bottom-10 z-[41] w-full px-5">
           <LearningTrackStatusButton
             learningTrackDetail={learningTrackDetail}
           />
