@@ -6,11 +6,11 @@ import OnGoing from './OnGoing';
 import Past from './Past';
 import { useRedirect } from '@/hooks/useRedirect';
 import CourseListPageHeader from '@/components/Web/Business/CourseListPageHeader';
-import Button from '@/components/Common/Button';
 import Tab from './Tab';
 import { useRouter } from 'next/navigation';
 import { getSearchParamsUrl } from '@/helper/utils';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import { BsArrowRight } from 'react-icons/bs';
 
 interface HackathonBoxProp {
   page: number;
@@ -37,17 +37,17 @@ const HackathonBox: React.FC<HackathonBoxProp> = ({ page, curTab }) => {
   };
   const buttonNode = () => {
     return (
-      <Button
-        ghost
-        className="button-text-m h-[48px] w-[249px] border-neutral-black p-0 uppercase"
-        onClick={() => {
+      <div
+        className="body-l flex w-fit items-center gap-[7px] border-b-[2px] border-b-yellow-primary pt-[40px] text-neutral-black"
+        onClick={() =>
           redirectToUrl(
             `${MenuLink.PROJECTS}?menu=${Menu.HACKATHON}&${QueryIdType.PROJECT_ID}=projects`
-          );
-        }}
+          )
+        }
       >
-        View hackathon projects
-      </Button>
+        <span>View hackathon projects</span>
+        <BsArrowRight size={18}></BsArrowRight>
+      </div>
     );
   };
   return (

@@ -5,12 +5,12 @@ import { HackathonStatusType } from '@/service/webApi/resourceStation/type';
 import OnGoing from './OnGoing';
 import Past from './Past';
 import { useRedirect } from '@/hooks/useRedirect';
-import Button from '@/components/Common/Button';
 import Tab from './Tab';
 import { useRouter } from 'next/navigation';
 import { getSearchParamsUrl } from '@/helper/utils';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 import MobCourseListPageHeader from '@/components/Mobile/MobCourseListPageHeader';
+import { BsArrowRight } from 'react-icons/bs';
 
 interface HackathonBoxProp {
   page: number;
@@ -37,23 +37,24 @@ const HackathonBox: React.FC<HackathonBoxProp> = ({ page, curTab }) => {
   };
   const buttonNode = () => {
     return (
-      <Button
-        ghost
-        className="button-text-m h-[3rem] w-full border-neutral-black p-0 uppercase"
-        onClick={() => {
+      <div
+        className="body-m flex w-fit items-center gap-[7px] border-b-[2px] border-b-yellow-primary text-neutral-black"
+        onClick={() =>
           redirectToUrl(
             `${MenuLink.PROJECTS}?menu=${Menu.HACKATHON}&${QueryIdType.PROJECT_ID}=projects`
-          );
-        }}
+          )
+        }
       >
-        View hackathon projects
-      </Button>
+        <span>View hackathon projects</span>
+        <BsArrowRight size={16}></BsArrowRight>
+      </div>
     );
   };
   return (
     <div className=" pb-10 ">
       <MobCourseListPageHeader
         title="Hackathon"
+        description={`Explore ongoing hackathons, uncover past projects, and dive into the world of innovation. Your journey through the realm of creativity begins here! 🚀💡`}
         coverImageUrl={'/images/hackathon/mob_hackathon_cover.png'}
         coverWidth={218}
         coverHeight={210}

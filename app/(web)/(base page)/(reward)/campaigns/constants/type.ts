@@ -3,6 +3,7 @@ import { createContext } from 'react';
 
 export interface TabListType {
   label: string;
+  value: string;
   count?: number;
 }
 

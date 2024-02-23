@@ -32,19 +32,21 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
   }, [buttonDisable]);
   return (
     <div className="mb-[30px] flex justify-between gap-[50px]">
-      <div className={`flex-1 text-neutral-black`}>
-        <p className="body-xl-bold mb-[10px] leading-[25px]">{mantle.title}</p>
-        <p className="body-m">{mantle.description}</p>
+      <div className={`max-w-[470px] flex-1`}>
+        <p className="text-h3 mb-[10px] font-next-book-bold text-neutral-off-black">
+          {mantle.title}
+        </p>
+        <p className="body-l text-neutral-rich-gray">{mantle.description}</p>
       </div>
       <div
-        className={`flex h-fit gap-[40px] rounded-[10px] border border-neutral-medium-gray px-[30px] py-[20px] ${
-          showAll ? 'w-[567px]' : 'w-[306px]'
+        className={`flex h-fit gap-[32px] rounded-[16px] border border-neutral-medium-gray p-[20px] ${
+          showAll ? 'w-[547px]' : 'w-[306px]'
         }`}
       >
         {showAll && (
-          <div className="w-[218px]">
+          <div className="flex w-[187px] flex-col justify-between">
             <div
-              className="relative mb-[8px] h-[121px] w-[218px] cursor-pointer bg-neutral-white transition-transform hover:-translate-y-1 hover:scale-[1.03]"
+              className="relative mb-[8px] h-[103px] w-full cursor-pointer bg-neutral-white transition-transform hover:-translate-y-1 hover:scale-[1.03]"
               onClick={() => {
                 certificationModalRef.current?.open();
               }}
@@ -55,8 +57,8 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
                 fill
               ></Image>
             </div>
-            <div className="body-s flex gap-[10px]">
-              <div className="flex h-[32px] w-[69px] items-center justify-between rounded-[6px] border border-neutral-light-gray px-[5px]">
+            <div className="body-s flex gap-[10px] text-neutral-black">
+              <div className="flex h-[34px] w-[74px] items-center gap-[5px] rounded-[6px] border border-neutral-light-gray px-[5px]">
                 <Image
                   src={iconCoin}
                   width={22}
@@ -65,7 +67,7 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
                 ></Image>
                 <span>x{mantle.certification?.credits}</span>
               </div>
-              <div className="flex h-[32px] w-[69px] items-center justify-between rounded-[6px] border border-neutral-light-gray px-[5px]">
+              <div className="flex h-[34px] w-[74px] items-center gap-[5px] rounded-[6px] border border-neutral-light-gray px-[5px]">
                 <Image src={iconXp} width={22} alt="icon" className=""></Image>
                 <span>x{mantle.certification?.exp}</span>
               </div>
@@ -81,7 +83,7 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
                 setShowAll(!showAll);
               }}
             >
-              <div className="body-l">{mantle.certification?.name}</div>
+              <div className="body-l-bold">{mantle.certification?.name}</div>
               <div>
                 {showAll ? (
                   <VscChromeMinimize size={20}></VscChromeMinimize>
@@ -91,23 +93,24 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
               </div>
             </div>
             {showAll && (
-              <div className={`body-s mb-[20px] mt-[5px]`}>
+              <div
+                className={`body-s mb-[20px] mt-[5px] line-clamp-3 text-neutral-rich-gray`}
+              >
                 {mantle.certification?.description}
               </div>
             )}
           </div>
           {showAll && (
-            <div className="flex justify-between">
+            <div className="flex gap-[8px]">
               <Button
-                className={`body-m h-[34px] w-[120px] border-auth-primary-button-border-color bg-auth-primary-button-bg
-                          p-0
-                          text-neutral-black ${
-                            buttonDisable
-                              ? 'cursor-not-allowed opacity-50 '
-                              : `hover:border-auth-primary-button-border-hover-color
-                                  hover:bg-auth-primary-button-hover-bg
-                                  hover:text-auth-primary-button-text-hover-color`
-                          }`}
+                className={`button-text-s h-[34px] flex-1 uppercase
+                           ${
+                             !mantle.completed
+                               ? 'cursor-not-allowed bg-neutral-light-gray text-neutral-light-gray'
+                               : !buttonDisable
+                                 ? 'bg-yellow-primary text-neutral-black'
+                                 : 'cursor-not-allowed bg-yellow-primary text-neutral-black opacity-50'
+                           }`}
                 loading={loading}
                 disabled={buttonDisable}
                 onClick={campaignsClaim}
@@ -115,8 +118,8 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
                 {mantle.certification.claimed ? 'Claimed' : 'Claim'}
               </Button>
               <Button
-                className={`body-s h-[34px] w-[120px] border border-neutral-black
-                          p-0 text-neutral-black`}
+                ghost
+                className={`button-text-s h-[34px] flex-1  border-neutral-black uppercase text-neutral-black`}
                 onClick={learnMore}
               >
                 Learn More

@@ -1,11 +1,6 @@
 import { MantleType, TargetsType } from '@/service/webApi/campaigns/type';
 import { createContext } from 'react';
 
-export interface TabListType {
-  label: string;
-  count?: number;
-}
-
 export interface MantleContextType {
   mantle: MantleType;
   targetList: TargetsType[];
