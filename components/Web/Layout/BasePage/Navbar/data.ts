@@ -32,6 +32,11 @@ export const navbarList: NavbarListType[] = [
         label: 'Projects',
         path: MenuLink.PRACTICES
       }
+      // {
+      //   label: 'Course Market',
+      //   path: MenuLink.COURSE_MARKET,
+      //   needPC: true
+      // }
     ]
   },
   {

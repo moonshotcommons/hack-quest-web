@@ -17,6 +17,7 @@ interface CourseListPageHeaderProps {
   className?: string;
   buttonNode?: ReactNode;
   defaultValue?: string;
+  delay?: number;
   // onSearchInput:
 }
 
@@ -31,7 +32,8 @@ const CourseListPageHeader: FC<CourseListPageHeaderProps> = ({
   coverImgClassName = '',
   className = '',
   buttonNode,
-  defaultValue = ''
+  defaultValue = '',
+  delay = 1000
 }) => {
   const [searchValue, setSearchValue] = useState('');
   const timeOut = useRef<NodeJS.Timeout | null>(null);
@@ -75,7 +77,7 @@ const CourseListPageHeader: FC<CourseListPageHeaderProps> = ({
                 if (timeOut.current) clearTimeout(timeOut.current);
                 timeOut.current = setTimeout(() => {
                   onSearch(value);
-                }, 1000);
+                }, delay);
               }}
               // onBlur={(e) => {
               //   setSearchValue(e.target.value);

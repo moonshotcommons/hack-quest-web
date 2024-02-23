@@ -14,7 +14,8 @@ export enum MenuLink {
   ECOSYSTEM = '/ecosystem',
   GLOSSARY = '/glossary',
   INSTRUCTOR = '/instructor',
-  ADVOCATE = '/advocate'
+  ADVOCATE = '/advocate',
+  COURSE_MARKET = '/course-market'
 }
 
 export interface MenuType {

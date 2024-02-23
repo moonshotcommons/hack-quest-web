@@ -11,6 +11,8 @@ import Select from '@/components/Common/Select';
 import { searchTabData, sortData } from '../../constants/data';
 import { FiX } from 'react-icons/fi';
 import { motion } from 'framer-motion';
+import { getSearchParamsUrl } from '@/helper/utils';
+import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 
 interface BannerProp {
   searchParams: BlogSearchType;
@@ -27,13 +29,8 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
   const isInit = useRef(true);
 
   function changeSearchInfo(searchInfo: BlogSearchType) {
-    const url = new URL('/blog', window.location.href);
-    for (const key in searchInfo) {
-      const value = searchInfo[key as keyof typeof searchInfo];
-      if (!value) continue;
-      url.searchParams.append(key, value);
-    }
-    router.push(url.toString());
+    const url = getSearchParamsUrl(searchInfo, MenuLink.BLOG);
+    router.push(url);
   }
 
   const changeSearch = (val: string) => {
