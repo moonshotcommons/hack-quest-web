@@ -68,7 +68,7 @@ function Electives() {
 
   return (
     <div
-      className="h-full w-full overflow-auto"
+      className="h-full w-full"
       onScroll={handleScroll}
       ref={selectiveCoursesRef}
     >
@@ -83,7 +83,7 @@ function Electives() {
           coverHeight={120}
           onSearch={onSearch}
         />
-        <div className="absolute left-0 top-[15.5rem] z-[99] flex w-full flex-col rounded-t-[2rem] bg-neutral-off-white px-[1.25rem] py-[2.5rem]">
+        <div className="absolute left-0 top-[15.5rem] z-[10] flex w-full flex-col rounded-t-[2rem] bg-neutral-off-white px-[1.25rem] py-[2.5rem]">
           {type === CourseFilterListType.DEFAULT && (
             <div className="flex flex-col">
               <h2 className="text-h2-mob mb-5 text-neutral-black">

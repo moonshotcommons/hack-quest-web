@@ -10,7 +10,7 @@ const ElectiveCatalogue: FC<ElectiveCatalogueProps> = (props) => {
   const { courseDetail } = props;
 
   return (
-    <div className="flex flex-col">
+    <div className="flex list-none flex-col">
       {courseDetail.pages!.map((lesson, index) => {
         if (index === 0) {
           return (
@@ -25,7 +25,7 @@ const ElectiveCatalogue: FC<ElectiveCatalogueProps> = (props) => {
           );
         }
         return (
-          <li key={lesson.id}>
+          <li key={lesson.id} className="relative w-full">
             <hr className="my-4"></hr>
             <div className="relative w-full">
               <ElectiveCatalogueItem
