@@ -20,8 +20,6 @@ const NavList: FC<NavListProps> = ({ navList, toggleOpen, children }) => {
     (state) => state.setTipsModalOpenState
   );
 
-  alert(pageInfo.windowHeight);
-
   return (
     <motion.div
       variants={{
