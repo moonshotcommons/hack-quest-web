@@ -1,14 +1,16 @@
 import React from 'react';
 import Image from 'next/image';
-import InstructorCover from '@/public/images/home/instructor_cover.png';
 import TrackTag from '@/components/Common/TrackTag';
-import InstructorCardFooter from './InstructorCardFooter';
-import { CourseTab } from '../../constants/type';
 import Button from '@/components/Common/Button';
+import { CourseTab } from '@/app/(web)/(base page)/(home)/instructor/constants/type';
+import UgcTags from './UgcTags';
+import InstructorCover from '@/public/images/home/instructor_cover.png';
 
-interface InstructorCardProp {}
+interface UgcCourseCardProp {
+  isPublic?: boolean;
+}
 
-const InstructorCard: React.FC<InstructorCardProp> = () => {
+const UgcCourseCard: React.FC<UgcCourseCardProp> = ({ isPublic = true }) => {
   const type = CourseTab.PUBLISHED;
   const renderButton = () => {
     switch (type) {
@@ -84,14 +86,22 @@ const InstructorCard: React.FC<InstructorCardProp> = () => {
         <div className="flex flex-col gap-[16px]">
           <TrackTag track="track" />
           <div className="body-m-bold line-clamp-2">
-            Course Name Course Name Course Name Course Name
+            Course Name Course Name
           </div>
-          <InstructorCardFooter />
+          <div className="body-s line-clamp-2 text-neutral-medium-gray">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed Lorem
+            ipsum dolor sit...
+          </div>
+          {!isPublic && <UgcTags isPublic={isPublic} />}
         </div>
-        <div className="flex justify-between gap-[8px]">{renderButton()}</div>
+        {!isPublic ? (
+          <div className="flex justify-between gap-[8px]">{renderButton()}</div>
+        ) : (
+          <UgcTags isPublic={isPublic} />
+        )}
       </div>
     </div>
   );
 };
 
-export default InstructorCard;
+export default UgcCourseCard;
