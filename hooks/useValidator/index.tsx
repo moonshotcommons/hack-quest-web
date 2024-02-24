@@ -74,10 +74,10 @@ const checkRegisterEmailRules: Rule = [
           })
           .catch((e) => {
             if (e.code) {
-              e.msg && message.error(e.msg);
+              // e.msg && message.error(e.msg);
               reject(e.msg);
             } else {
-              e.message && message.error(e.message);
+              // e.message && message.error(e.message);
               reject(e.message);
             }
           });
