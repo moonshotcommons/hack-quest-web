@@ -22,7 +22,7 @@ const BlogDetail: React.FC<BlogDetailProp> = ({
   const boxRef = useRef<HTMLDivElement>(null);
 
   const backTop = () => {
-    boxRef.current?.scrollTo({
+    window.scrollTo({
       top: 0,
       behavior: 'smooth'
     });
