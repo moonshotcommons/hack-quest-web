@@ -4,7 +4,6 @@ import Image from 'next/image';
 import React, { MouseEvent } from 'react';
 import CardProgress from '@/components/Web/Business/CardProgress';
 import Button from '@/components/Common/Button';
-import { MenuLink } from '@/components/Layout/Navbar/type';
 import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import { BurialPoint } from '@/helper/burialPoint';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
@@ -12,6 +11,7 @@ import { useRedirect } from '@/hooks/useRedirect';
 import CourseTags from '@/components/Web/Business/CourseTags';
 import TrackTag from '@/components/Common/TrackTag';
 import CompletedIcon from '@/components/Common/Icon/Completed';
+import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 
 interface LearningTrackCardProp {
   learningTrack: LearningTrackDetailType;

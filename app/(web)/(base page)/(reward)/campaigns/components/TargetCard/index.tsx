@@ -74,55 +74,48 @@ const TargetCard: React.FC<TargetCardProp> = ({ target }) => {
   return (
     <div
       key={target.id}
-      className={`relative mt-[15px] h-[82px]  rounded-[10px] border ${
+      className={`relative mt-[15px] h-[66px]  rounded-[8px] border ${
         target.completed
-          ? 'border-yellow-primary'
+          ? 'border-yellow-dark bg-yellow-extra-light shadow-[0px_0px_4px_0px_#FFE866]'
           : 'border-neutral-medium-gray'
       }`}
     >
       <div
-        className="absolute left-0 top-0 h-full rounded-[10px] bg-[rgba(255,244,206,0.4)] opacity-40"
+        className="absolute left-0 top-0 h-full rounded-[8px] bg-[rgba(255,244,206,0.4)]"
         style={{
           width: `${(target.progress[0] / target.progress[1]) * 100}%`
         }}
       ></div>
-      <div className="absolute left-0 top-0 flex h-full w-full items-center justify-between px-[30px] ">
+      <div className="absolute left-0 top-0 flex h-full w-full items-center justify-between px-[24px] ">
         <div className="flex-row-center gap-[20px]">
-          <span className="body-m">{target.name}</span>
+          <span className="body-m text-neutral-black">{target.name}</span>
         </div>
-        <div className="flex-row-center gap-[40px]">
-          <div className="flex-row-center body-m h-[44px] w-[75px] justify-between rounded-[100px] border border-neutral-light-gray bg-neutral-off-white px-[10px] leading-[40px] text-neutral-black">
+        <div className="flex-row-center gap-[24px]">
+          <div className="flex-row-center body-m h-[34px] w-[75px] gap-[10px] rounded-[100px] border border-neutral-light-gray bg-neutral-off-white px-[10px] leading-[40px] text-neutral-black">
             <Image src={BIcon} width={22} alt="icon" className=""></Image>
             <span>{target.reward}</span>
           </div>
           {target.completed ? (
             <Button
-              className={`ml-[-20px] h-[44px] w-[164px] border-auth-primary-button-border-color
-                          bg-auth-primary-button-bg
-                          text-neutral-black ${
-                            target.claimed
-                              ? 'cursor-not-allowed opacity-50 '
-                              : `hover:border-auth-primary-button-border-hover-color
-                                  hover:bg-auth-primary-button-hover-bg
-                                  hover:text-auth-primary-button-text-hover-color`
-                          }`}
+              type="primary"
+              className={`button-text-s  h-[34px] w-[140px] uppercase text-neutral-black ${
+                target.claimed ? 'cursor-not-allowed opacity-50 ' : ``
+              }`}
+              disabled={target.claimed}
               loading={claimIds.includes(target.id)}
               onClick={targerClaim}
             >
               {target.claimed ? 'Claimed' : 'Claim'}
             </Button>
           ) : (
-            <div className="relative">
-              <Button
-                className={`body-s ml-[-20px] h-[44px] w-[164px] border border-neutral-black
-              p-0  text-auth-primary-button-text-color
-              text-neutral-black`}
-                loading={unLoading}
-                onClick={() => handleUnClaim(target.type)}
-              >
-                {renderUnText(target.type)}
-              </Button>
-            </div>
+            <Button
+              ghost
+              className={`button-text-s h-[34px] w-[140px]  border-neutral-black  p-0 uppercase text-neutral-black`}
+              loading={unLoading}
+              onClick={() => handleUnClaim(target.type)}
+            >
+              {renderUnText(target.type)}
+            </Button>
           )}
         </div>
       </div>

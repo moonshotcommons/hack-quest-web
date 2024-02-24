@@ -12,6 +12,7 @@ import { cloneDeep } from 'lodash-es';
 import Link from 'next/link';
 import Button from '@/components/Common/Button';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import { getSearchParamsUrl } from '@/helper/utils';
 
 interface BannerProp {
   searchParams: BlogSearchType;
@@ -29,13 +30,8 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
   const isInit = useRef(true);
 
   function changeSearchInfo(searchInfo: BlogSearchType) {
-    const url = new URL(MenuLink.BLOG, window.location.href);
-    for (const key in searchInfo) {
-      const value = searchInfo[key as keyof typeof searchInfo];
-      if (!value) continue;
-      url.searchParams.append(key, value);
-    }
-    router.push(url.toString());
+    const url = getSearchParamsUrl(searchInfo, MenuLink.BLOG);
+    router.push(url);
   }
 
   const changeSearch = (val: string) => {

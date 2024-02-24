@@ -41,7 +41,7 @@ const ScrollControl: React.FC<ScrollControlType> = ({
     if (containerWidth / listWidth) {
       setPaginationNum(Math.ceil(1 / (containerWidth / listWidth)));
     }
-    setPaginationIndex(Math.floor(-translateX / containerWidth));
+    setPaginationIndex(Math.ceil(-translateX / containerWidth));
   }, [changeState]);
 
   useEffect(() => {

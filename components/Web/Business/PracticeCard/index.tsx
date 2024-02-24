@@ -8,10 +8,10 @@ import CourseTags from '@/components/Web/Business/CourseTags';
 import { useRedirect } from '@/hooks/useRedirect';
 import CardProgress from '../CardProgress';
 import Button from '@/components/Common/Button';
-import { MenuLink } from '@/components/Layout/Navbar/type';
 import TrackTag from '@/components/Common/TrackTag';
 import CompletedIcon from '@/components/Common/Icon/Completed';
 import { getCoverImageByTrack } from '@/helper/utils';
+import { MenuLink } from '../../Layout/BasePage/Navbar/type';
 
 interface PracticeCardProps {
   course: ProjectCourseType;

@@ -8,37 +8,28 @@ import webApi from '@/service';
 import { MantleType, TargetsType } from '@/service/webApi/campaigns/type';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
-import React, { useEffect, useRef, useState } from 'react';
-import { MantleContext, TabListType } from '../constants/type';
-import Tab from './Tab';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { MantleContext } from '../constants/type';
 import Mantle from './Mantle';
+import Select from '@/components/Common/Select';
+import { OptionType } from '@/components/Common/Select/type';
 
 interface CampaignsProp {}
 
 const Campaigns: React.FC<CampaignsProp> = () => {
   const params = useParams();
-  const [curIndex, setCurIndex] = useState(0);
+  const [curId, setCurId] = useState('');
   const [mantles, setMantles] = useState<MantleType[]>([]);
   const [targetList, setTargetList] = useState<TargetsType[]>([]);
-  const [tabList, setTabList] = useState<TabListType[]>([]);
+  const [tabList, setTabList] = useState<OptionType[]>([]);
   const [claimIds, setClaimIds] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const certificationModalRef = useRef<CertificationModalInstance>(null);
   const getCampaignsInfo = async (campaignId?: string) => {
     return new Promise(async (resolve) => {
       const res = await webApi.campaignsApi.getCampaigns();
-      let id;
-      if (campaignId) {
-        const index = res.findIndex((v) => v.id === campaignId);
-        if (index < 0) {
-          id = res[curIndex].id;
-        } else {
-          setCurIndex(index);
-          id = campaignId;
-        }
-      } else {
-        id = res[curIndex].id;
-      }
+      let id = campaignId || curId || res[0].id;
+      setCurId(id);
       setLoading(false);
       setMantles(res);
       getTabList(res);
@@ -47,11 +38,17 @@ const Campaigns: React.FC<CampaignsProp> = () => {
     });
   };
 
+  const curIndex = useMemo(() => {
+    return mantles.findIndex((v) => v.id === curId) || 0;
+  }, [curId, mantles]);
+
   const getTabList = (list: MantleType[]) => {
-    const tList: TabListType[] = list.map((v) => {
+    console.info(list);
+    const tList: OptionType[] = list.map((v) => {
       const count = 0;
       return {
         label: v.name,
+        value: v.id,
         count
       };
     });
@@ -68,7 +65,7 @@ const Campaigns: React.FC<CampaignsProp> = () => {
     BurialPoint.track('campaigns certificateCard claim 按钮点击');
     setLoading(true);
     await webApi.campaignsApi.campaignsClaim({
-      campaignId: mantles[curIndex].id
+      campaignId: curId
     });
     getCampaignsInfo().then(() => {
       certificationModalRef.current?.open();
@@ -78,7 +75,7 @@ const Campaigns: React.FC<CampaignsProp> = () => {
   const campaignsTargetClaim = async (ids: string[]) => {
     BurialPoint.track('campaigns targetCard claim 按钮点击');
     setClaimIds(ids);
-    await webApi.campaignsApi.campaignsTargetClaim(mantles[curIndex].id, {
+    await webApi.campaignsApi.campaignsTargetClaim(curId, {
       targetIds: ids
     });
     getCampaignsInfo();
@@ -100,24 +97,22 @@ const Campaigns: React.FC<CampaignsProp> = () => {
         claimIds
       }}
     >
-      <div
-        className={`body-m container m-auto flex h-full py-[40px] text-neutral-black`}
-      >
-        <div className="w-[203px]">
-          <Tab
-            tabList={tabList}
-            curIndex={curIndex}
-            changeTab={(index) => {
-              BurialPoint.track('campaigns tab 点击');
-              setCurIndex(index);
-            }}
+      <div className={`p-[1.25rem] text-neutral-black`}>
+        {curId && (
+          <Select
+            name=""
+            state="default"
+            defaultValue={curId}
+            options={tabList}
+            className="h-[3rem] bg-neutral-off-white"
+            onChange={(id) => setCurId(id as string)}
           />
-        </div>
-        <div className="no-scrollbar h-full flex-1  overflow-auto rounded-b-[10px] rounded-r-[10px] bg-neutral-white shadow-[5px_5px_5px_#dadada]">
-          {mantles[curIndex]?.id ? (
+        )}
+        <div className="">
+          {curId ? (
             <Mantle />
           ) : (
-            <div className="flex-center h-full w-full">
+            <div className="flex-center fixed left-0 top-0 h-[100vh] w-[100vw] ">
               <Image
                 src={Loading}
                 width={40}

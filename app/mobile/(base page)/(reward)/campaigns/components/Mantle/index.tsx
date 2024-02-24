@@ -7,10 +7,10 @@ interface MantleProp {}
 
 const Mantle: React.FC<MantleProp> = ({}) => {
   return (
-    <div className="p-[30px]">
+    <div className="pb-[6.25rem]">
       <MantleInfo />
-      <Progress />
       <TargetBox />
+      <Progress />
     </div>
   );
 };

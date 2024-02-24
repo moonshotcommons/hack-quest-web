@@ -32,6 +32,11 @@ export const navbarList: NavbarListType[] = [
         label: 'Projects',
         path: MenuLink.PRACTICES
       }
+      // {
+      //   label: 'Course Market',
+      //   path: MenuLink.COURSE_MARKET,
+      //   needPC: true
+      // }
     ]
   },
   {
@@ -47,8 +52,7 @@ export const navbarList: NavbarListType[] = [
       {
         label: 'Campaign',
         path: MenuLink.CAMPAIGINS,
-        needLogin: true,
-        needPC: true
+        needLogin: true
       }
     ]
   },
@@ -58,8 +62,7 @@ export const navbarList: NavbarListType[] = [
     menu: [
       {
         label: 'Hackathon',
-        path: MenuLink.HACKATHON,
-        needPC: true
+        path: MenuLink.HACKATHON
       },
       {
         label: 'Blog',

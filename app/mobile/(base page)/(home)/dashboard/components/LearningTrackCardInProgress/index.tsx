@@ -3,12 +3,12 @@ import LearningTrackImg from '@/public/images/home/learningtrack_img.png';
 import Image from 'next/image';
 import React, { MouseEvent } from 'react';
 import Button from '@/components/Common/Button';
-import { MenuLink } from '@/components/Layout/Navbar/type';
 import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import { BurialPoint } from '@/helper/burialPoint';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
 import { useRedirect } from '@/hooks/useRedirect';
 import MobCardProgress from '@/components/Mobile/MobCardProgress';
+import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 
 interface LearningTrackCardInProgressProp {
   learningTrack: LearningTrackDetailType;
