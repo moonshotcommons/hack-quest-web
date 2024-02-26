@@ -4,11 +4,9 @@ import Button from '@/components/Common/Button';
 import RightArrowIcon from '@/components/Common/Icon/RightArrow';
 import Input from '@/components/Common/Input';
 import { BurialPoint } from '@/helper/burialPoint';
-import { useDebounceFn, useKeyPress, useRequest } from 'ahooks';
+import { useDebounceFn, useKeyPress } from 'ahooks';
 import Schema from 'async-validator';
 import { AuthType } from '@/store/zustand/userStore';
-import webApi from '@/service';
-import { errorMessage } from '@/helper/ui';
 interface VerifyEmailProps {
   onStatusChange: (status: boolean) => void;
   onNext: (email: string, inviteCode?: string) => void;
@@ -51,32 +49,32 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
   // const [errorMessage, setErrorMessage] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const { run: inviteCodeVerify, loading: inviteLoading } = useRequest(
-    async () => {
-      const res = await webApi.userApi.checkInviteCode(formData.inviteCode!);
-      return res;
-    },
-    {
-      onSuccess(res) {
-        if (res.valid) {
-          onNext(formData.email, formData.inviteCode!);
-        } else {
-          setFormState({
-            ...formState,
-            inviteCode: {
-              status: 'error',
-              errorMessage: 'Invalid invite code'
-            }
-          });
-        }
-      },
-      onError(e: any) {
-        errorMessage(e);
-      },
-      manual: true,
-      debounceWait: 500
-    }
-  );
+  // const { run: inviteCodeVerify, loading: inviteLoading } = useRequest(
+  //   async () => {
+  //     const res = await webApi.userApi.checkInviteCode(formData.inviteCode!);
+  //     return res;
+  //   },
+  //   {
+  //     onSuccess(res) {
+  //       if (res.valid) {
+  //         onNext(formData.email, formData.inviteCode!);
+  //       } else {
+  //         setFormState({
+  //           ...formState,
+  //           inviteCode: {
+  //             status: 'error',
+  //             errorMessage: 'Invalid invite code'
+  //           }
+  //         });
+  //       }
+  //     },
+  //     onError(e: any) {
+  //       errorMessage(e);
+  //     },
+  //     manual: true,
+  //     debounceWait: 500
+  //   }
+  // );
 
   const { run: verifyEmail } = useDebounceFn(
     () => {
@@ -123,8 +121,7 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
               errorMessage: ''
             }
           });
-          if (formData.inviteCode) inviteCodeVerify();
-          else onNext(formData.email);
+          onNext(formData.email, formData.inviteCode || '');
           setLoading(false);
         }
       });
@@ -248,10 +245,10 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
           onClick={verifyEmail}
           block
           type="primary"
-          disabled={loading || inviteLoading}
+          disabled={loading}
           icon={<RightArrowIcon size={24}></RightArrowIcon>}
           iconPosition="right"
-          loading={loading || inviteLoading}
+          loading={loading}
           className="
           button-text-l border-auth-primary-button-border-color bg-auth-primary-button-bg
           py-4
