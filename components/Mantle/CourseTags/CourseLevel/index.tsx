@@ -18,7 +18,7 @@ const CourseLevel: FC<CourseLevelProps> = (props) => {
     <div className="flex gap-[5px]">
       <div
         className={cn(
-          `flex gap-[1px] items-center`,
+          `flex items-center gap-[1px]`,
           size === 'large' ? 'gap-[2px]' : ''
         )}
       >
@@ -27,11 +27,11 @@ const CourseLevel: FC<CourseLevelProps> = (props) => {
             <div
               key={item}
               className={cn(
-                `w-[12px] h-[12px] border border-white`,
+                `h-[12px] w-[12px] border border-white`,
                 index === 0 ? 'rounded-l-full' : '',
                 index === levels.length - 1 ? 'rounded-r-full' : '',
                 index <= levelIndex ? 'bg-white' : '',
-                size === 'large' ? 'w-[20px] h-[20px]' : ''
+                size === 'large' ? 'h-[20px] w-[20px]' : ''
               )}
             ></div>
           );

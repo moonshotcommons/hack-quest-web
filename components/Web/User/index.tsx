@@ -153,7 +153,7 @@ const User: FC<UserProps> = () => {
             <div className="abc flex gap-4">
               <Button
                 type="text"
-                className="button-text-s border-transparent px-[1.0625rem] py-2 uppercase text-neutral-white"
+                className="border-transparent px-[1.0625rem] py-2 font-GT-Walsheim-Trial text-[14px] uppercase leading-[140%] text-neutral-white"
                 onClick={() => {
                   setAuthType(AuthType.LOGIN);
                   setAuthModalOpen(true);
@@ -162,8 +162,8 @@ const User: FC<UserProps> = () => {
                 Log in
               </Button>
               <Button
-                type="primary"
-                className="button-text-s rounded-full px-5 py-[.5rem] uppercase text-neutral-black"
+                type="mantle"
+                className="rounded-[10px] px-5 py-[.5rem] font-GT-Walsheim-Trial text-[14px] uppercase leading-[140%] text-neutral-black"
                 onClick={() => {
                   setAuthType(AuthType.SIGN_UP);
                   setAuthModalOpen(true);
