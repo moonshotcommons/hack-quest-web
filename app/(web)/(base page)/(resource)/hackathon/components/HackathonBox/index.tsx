@@ -38,7 +38,7 @@ const HackathonBox: React.FC<HackathonBoxProp> = ({ page, curTab }) => {
   const buttonNode = () => {
     return (
       <div
-        className="body-l flex w-fit items-center gap-[7px] border-b-[2px] border-b-yellow-primary pt-[40px] text-neutral-black"
+        className="body-l flex w-fit cursor-pointer items-center gap-[7px] border-b-[2px] border-b-yellow-primary pt-[40px] text-neutral-black"
         onClick={() =>
           redirectToUrl(
             `${MenuLink.PROJECTS}?menu=${Menu.HACKATHON}&${QueryIdType.PROJECT_ID}=projects`

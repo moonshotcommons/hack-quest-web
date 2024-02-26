@@ -146,7 +146,7 @@ const MyCourses = forwardRef<MyCoursesRef, MyCoursesProps>((props, ref) => {
 
   return (
     <div className="flex flex-col">
-      <h2 className="text-h3 mb-[24px] text-neutral-off-black ">My Courses</h2>
+      <h1 className="text-h3 mb-[24px] text-neutral-off-black ">My Courses</h1>
       <div className="w-fit">
         <Tab
           tabList={courseTab}

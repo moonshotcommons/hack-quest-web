@@ -48,7 +48,7 @@ const CourseListPageHeader: FC<CourseListPageHeaderProps> = ({
       )}
     >
       <div className="w-[800px] max-w-[800px] pt-[60px]">
-        <h2 className="text-h2 text-neutral-black">{title}</h2>
+        <h1 className="text-h2 text-neutral-black">{title}</h1>
         <p className="body-l mt-[20px] text-neutral-rich-gray">{description}</p>
         {buttonNode && <div className="mt-[20px]">{buttonNode}</div>}
         {onSearch && (
