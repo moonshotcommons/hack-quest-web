@@ -24,9 +24,9 @@ const Banner: React.FC<BannerProp> = ({ searchInfo, changeSearchInfo }) => {
         ></Image>
       </div>
       <div className="mt-[1.5rem] px-[1.25rem]">
-        <div className="text-h1-mob mb-[2.5rem] text-neutral-white">
+        <h1 className="text-h1-mob mb-[2.5rem] text-neutral-white">
           Learning Tracks
-        </div>
+        </h1>
         <div className="flex gap-[1rem]">
           {bannerTabList.map((v) => (
             <div
