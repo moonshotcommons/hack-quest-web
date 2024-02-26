@@ -7,6 +7,7 @@ import ConnectDiscordModal, {
 } from './ConnectDiscordModal';
 import { useRequest } from 'ahooks';
 import webApi from '@/service';
+import SuccessfulModal, { SuccessfulModalRef } from './SuccessfulModal';
 
 interface FoundBugButtonProps {
   params?: Record<string, any>;
@@ -15,6 +16,7 @@ interface FoundBugButtonProps {
 const FoundBugButton: FC<FoundBugButtonProps> = ({ params }) => {
   const bugFeedbackModalRef = useRef<BugFeedbackModalRef>(null);
   const connectDiscordModalRef = useRef<ConnectDiscordModalRef>(null);
+  const successfulModalRef = useRef<SuccessfulModalRef>(null);
 
   const { data: discordInfo, refresh: refreshDiscordInfo } = useRequest(() => {
     return webApi.userApi.getDiscordInfo();
@@ -45,7 +47,13 @@ const FoundBugButton: FC<FoundBugButtonProps> = ({ params }) => {
           bugFeedbackModalRef.current?.onCommit(params);
         }}
       />
-      <BugFeedbackModal ref={bugFeedbackModalRef} />
+      <SuccessfulModal ref={successfulModalRef} />
+      <BugFeedbackModal
+        ref={bugFeedbackModalRef}
+        onSubmitSuccess={() => {
+          successfulModalRef.current?.open();
+        }}
+      />
     </>
   );
 };
