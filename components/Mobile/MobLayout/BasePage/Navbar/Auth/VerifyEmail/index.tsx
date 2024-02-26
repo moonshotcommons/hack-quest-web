@@ -4,12 +4,14 @@ import Button from '@/components/Common/Button';
 import RightArrowIcon from '@/components/Common/Icon/RightArrow';
 import Input from '@/components/Common/Input';
 import { BurialPoint } from '@/helper/burialPoint';
-import { useDebounceFn, useKeyPress } from 'ahooks';
+import { useDebounceFn, useKeyPress, useRequest } from 'ahooks';
 import Schema from 'async-validator';
 import { AuthType } from '@/store/zustand/userStore';
+import webApi from '@/service';
+import { errorMessage } from '@/helper/ui';
 interface VerifyEmailProps {
   onStatusChange: (status: boolean) => void;
-  onNext: (email: string) => void;
+  onNext: (email: string, inviteCode?: string) => void;
   validator: Schema;
   emailTitle?: ReactNode;
   value?: string;
@@ -28,13 +30,53 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
 
   const [formData, setFormData] = useState<{
     email: string;
+    inviteCode: string | null;
   }>({
-    email: value || ''
+    email: value || '',
+    inviteCode: null
   });
 
-  const [status, setStatus] = useState<any>('default');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [formState, setFormState] = useState({
+    inviteCode: {
+      status: 'default',
+      errorMessage: ''
+    },
+    email: {
+      status: 'default',
+      errorMessage: ''
+    }
+  });
+
+  // const [status, setStatus] = useState<any>('default');
+  // const [errorMessage, setErrorMessage] = useState('');
   const [loading, setLoading] = useState(false);
+
+  const { run: inviteCodeVerify, loading: emailLoading } = useRequest(
+    async () => {
+      const res = await webApi.userApi.checkInviteCode(formData.inviteCode!);
+      return res;
+    },
+    {
+      onSuccess(res) {
+        if (res.valid) {
+          onNext(formData.email, formData.inviteCode!);
+        } else {
+          setFormState({
+            ...formState,
+            inviteCode: {
+              status: 'error',
+              errorMessage: 'Invalid invite code'
+            }
+          });
+        }
+      },
+      onError(e: any) {
+        errorMessage(e);
+      },
+      manual: true,
+      debounceWait: 500
+    }
+  );
 
   const { run: verifyEmail } = useDebounceFn(
     () => {
@@ -48,8 +90,14 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
 
       validator.validate(formData, (errors, fields) => {
         if (errors?.[0]) {
-          setStatus('error');
-          setErrorMessage(errors?.[0].message || '');
+          setFormState({
+            ...formState,
+            email: {
+              status: 'error',
+              errorMessage: errors?.[0].message || ''
+            }
+          });
+          // setErrorMessage(errors?.[0].message || '');
           if (type === AuthType.LOGIN) {
             BurialPoint.track('login-登录邮箱验证失败', {
               message: errors?.[0].message || ''
@@ -68,9 +116,15 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
           if (type === AuthType.SIGN_UP) {
             BurialPoint.track('signup-注册邮箱验证成功');
           }
-          setStatus('success');
-          setErrorMessage('');
-          onNext(formData.email);
+          setFormState({
+            ...formState,
+            email: {
+              status: 'success',
+              errorMessage: ''
+            }
+          });
+          if (formData.inviteCode) inviteCodeVerify();
+          else onNext(formData.email);
           setLoading(false);
         }
       });
@@ -100,59 +154,97 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
       {/* <ThirdPartyLogin></ThirdPartyLogin> */}
       <div className="flex w-full flex-col gap-[32px]">
         {EmailTitle}
-        <div className="w-full">
+        <Input
+          label="Email"
+          type="email"
+          placeholder="Enter your email"
+          name="email"
+          theme="light"
+          clear
+          state={formState.email.status as any}
+          errorMessage={formState.email.errorMessage}
+          delay={500}
+          isMobile
+          onChange={(e) => {
+            setFormState({
+              ...formState,
+              email: {
+                status: 'default',
+                errorMessage: ''
+              }
+            });
+            // validator.validate(
+            //   { email: e.target.value },
+            //   (errors, fields) => {
+            //     if (errors?.[0]) {
+            //       setStatus('error');
+            //       setErrorMessage(errors?.[0].message || '');
+            //       onStatusChange(false);
+            //     } else {
+            //       setStatus('success');
+            //       setErrorMessage('');
+            //       onStatusChange(true);
+            //     }
+            //   }
+            // );
+            setFormData({
+              ...formData,
+              email: e.target.value
+            });
+          }}
+          onBlur={(e) => {
+            validator.validate({ email: e.target.value }, (errors, fields) => {
+              if (errors?.[0]) {
+                setFormState({
+                  ...formState,
+                  email: {
+                    status: 'error',
+                    errorMessage: errors?.[0].message || ''
+                  }
+                });
+                onStatusChange(false);
+              } else {
+                setFormState({
+                  ...formState,
+                  email: {
+                    status: 'success',
+                    errorMessage: ''
+                  }
+                });
+                onStatusChange(true);
+              }
+            });
+          }}
+          defaultValue={formData.email}
+        ></Input>
+        {type === AuthType.SIGN_UP && (
           <Input
-            label="Email"
-            type="email"
-            placeholder="Enter your email"
-            name="email"
+            label="Invite Code (Optional)"
+            type="text"
+            placeholder="Enter your invite code"
+            name="inviteCode"
             theme="light"
-            state={status}
-            clear
-            errorMessage={errorMessage}
-            delay={500}
             isMobile
+            state={formState.inviteCode.status as any}
+            clear
+            errorMessage={formState.inviteCode.errorMessage}
+            delay={500}
             onChange={(e) => {
-              setStatus('default');
-              setErrorMessage('');
-              // validator.validate(
-              //   { email: e.target.value },
-              //   (errors, fields) => {
-              //     if (errors?.[0]) {
-              //       setStatus('error');
-              //       setErrorMessage(errors?.[0].message || '');
-              //       onStatusChange(false);
-              //     } else {
-              //       setStatus('success');
-              //       setErrorMessage('');
-              //       onStatusChange(true);
-              //     }
-              //   }
-              // );
               setFormData({
                 ...formData,
-                email: e.target.value
+                inviteCode: e.target.value
+              });
+              setFormState({
+                ...formState,
+                inviteCode: {
+                  status: 'default',
+                  errorMessage: ''
+                }
               });
             }}
-            onBlur={(e) => {
-              validator.validate(
-                { email: e.target.value },
-                (errors, fields) => {
-                  if (errors?.[0]) {
-                    setStatus('error');
-                    setErrorMessage(errors?.[0].message || '');
-                    onStatusChange(false);
-                  } else {
-                    setStatus('success');
-                    setErrorMessage('');
-                    onStatusChange(true);
-                  }
-                }
-              );
-            }}
-            defaultValue={formData.email}
+            defaultValue={formData.inviteCode || ''}
           ></Input>
-        </div>
+        )}
         <Button
           onClick={verifyEmail}
           block

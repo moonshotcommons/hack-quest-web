@@ -37,7 +37,7 @@ const Glossary: React.FC<GlossaryProp> = async ({
       <div className="container mx-auto">
         <GlossaryHeader keyword={searchParams.keyword || ''} />
       </div>
-      <div className="container mx-auto py-[70px]">
+      <div className="container mx-auto pb-[70px]">
         {searchParams.keyword ? (
           <div className="body-xl mb-[40px] text-center text-neutral-black">
             {totalList} Results for

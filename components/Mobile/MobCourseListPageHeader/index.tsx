@@ -47,7 +47,7 @@ const MobCourseListPageHeader: FC<CourseListPageHeaderProps> = ({
       )}
     >
       <div className="pt-[7.5rem]">
-        <h2 className="text-h1-mob text-neutral-black">{title}</h2>
+        <h1 className="text-h1-mob text-neutral-black">{title}</h1>
         {description ? (
           <div className="bdy-m mt-[1rem] text-neutral-rich-gray">
             {description}

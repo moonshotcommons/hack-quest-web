@@ -37,7 +37,7 @@ const MyCourses = forwardRef<MyCoursesRef, MyCoursesProps>((props, ref) => {
     limit: number;
   }>({
     page: 1,
-    limit: 1
+    limit: 4
   });
   const [courseDataAll, setCourseDataAll] = useState<CourseListType[]>([]);
   const [courseListData, setCourseListData] = useState<
@@ -146,9 +146,9 @@ const MyCourses = forwardRef<MyCoursesRef, MyCoursesProps>((props, ref) => {
 
   return (
     <div className="flex flex-col">
-      <h2 className="text-h2-mob mb-[1.5rem] text-neutral-off-black ">
+      <h1 className="text-h2-mob mb-[1.5rem] text-neutral-off-black ">
         My Courses
-      </h2>
+      </h1>
       <div className="w-fit">
         <Tab
           tabList={courseTab}

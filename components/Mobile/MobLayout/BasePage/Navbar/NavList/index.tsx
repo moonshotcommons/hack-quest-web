@@ -26,7 +26,8 @@ const NavList: FC<NavListProps> = ({ navList, toggleOpen, children }) => {
         open: {
           transition: { staggerChildren: 0.07, delayChildren: 0.2 },
           pointerEvents: 'auto',
-          overflow: 'scroll'
+          overflow: 'scroll',
+          height: `${pageInfo.windowHeight - MOBILE_NAVBAR_HEIGHT}px`
         },
         closed: {
           // transition: { staggerChildren: 0.05, staggerDirection: -1 },

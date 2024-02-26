@@ -39,18 +39,18 @@ const FilterSelect: FC<FilterSelectProps> = ({
     { wait: 100 }
   );
 
-  // const selectFilterOptions = useMemo(() => {
-  //   const options = filters.flatMap((filter) => filter.options);
-  //   return options.filter((option) => option.isSelect);
-  // }, [filters]);
+  const selectFilterOptions = useMemo(() => {
+    const options = filters.flatMap((filter) => filter.options);
+    return options.filter((option) => option.isSelect);
+  }, [filters]);
 
-  const [selectFilterOptions, setSelectFilterOptions] = useState<
-    FilterOptionType[]
-  >([]);
+  // const [selectFilterOptions, setSelectFilterOptions] = useState<
+  //   FilterOptionType[]
+  // >([]);
 
-  const selectSort = useMemo(() => {
-    return sort?.find((item) => item.isSelect);
-  }, [sort]);
+  // const selectSort = useMemo(() => {
+  //   return sort?.find((item) => item.isSelect);
+  // }, [sort]);
 
   return (
     <div className="flex justify-between">
@@ -96,23 +96,23 @@ const FilterSelect: FC<FilterSelectProps> = ({
                           onClick={() => {
                             filters[filterIndex].options[optionIndex].isSelect =
                               !option.isSelect;
-                            const select =
-                              filters[filterIndex].options[optionIndex];
-                            if (
-                              selectFilterOptions.find(
-                                (item) => item.name === select.name
-                              )
-                            ) {
-                              setSelectFilterOptions(
-                                selectFilterOptions.filter(
-                                  (item) => item.name !== select.name
-                                )
-                              );
-                            } else {
-                              setSelectFilterOptions(
-                                selectFilterOptions.concat(select)
-                              );
-                            }
+                            // const select =
+                            //   filters[filterIndex].options[optionIndex];
+                            // if (
+                            //   selectFilterOptions.find(
+                            //     (item) => item.name === select.name
+                            //   )
+                            // ) {
+                            //   setSelectFilterOptions(
+                            //     selectFilterOptions.filter(
+                            //       (item) => item.name !== select.name
+                            //     )
+                            //   );
+                            // } else {
+                            //   setSelectFilterOptions(
+                            //     selectFilterOptions.concat(select)
+                            //   );
+                            // }
                             updateFilters(cloneDeep(filters));
                           }}
                         >
@@ -145,9 +145,9 @@ const FilterSelect: FC<FilterSelectProps> = ({
                         if (option.name === item.name) option.isSelect = false;
                       });
                     });
-                    setSelectFilterOptions(
-                      selectFilterOptions.filter((o) => o.name !== item.name)
-                    );
+                    // setSelectFilterOptions(
+                    //   selectFilterOptions.filter((o) => o.name !== item.name)
+                    // );
                     updateFilters(cloneDeep(filters));
                   }}
                 >

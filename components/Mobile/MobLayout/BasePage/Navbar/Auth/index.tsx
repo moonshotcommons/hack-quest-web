@@ -12,6 +12,8 @@ import CheckInviteCode from './CheckInviteCode';
 import { useRedirect } from '@/hooks/useRedirect';
 import { motion } from 'framer-motion';
 import { useCustomPathname } from '@/hooks/useCheckPathname';
+import { useGetPageInfo } from '@/hooks/useGetPageInfo';
+import { MOBILE_NAVBAR_HEIGHT } from '../constant';
 interface AuthModalProps {
   changeNavState: VoidFunction;
 }
@@ -57,6 +59,8 @@ const Auth: FC<AuthModalProps> = ({ changeNavState }) => {
     }
   }, [queryState, authRouteType.type]);
 
+  const pageInfo = useGetPageInfo();
+
   return (
     <motion.div
       variants={{
@@ -71,7 +75,10 @@ const Auth: FC<AuthModalProps> = ({ changeNavState }) => {
           pointerEvents: 'none'
         }
       }}
-      className="absolute bottom-0 top-[4rem] flex h-[calc(100vh-4rem)] w-screen flex-col border border-neutral-light-gray bg-neutral-white px-5 py-[30px] pb-[10rem]"
+      className="absolute bottom-0 top-[4rem] flex w-screen flex-col border border-neutral-light-gray bg-neutral-white px-5 py-[30px]"
+      style={{
+        height: `${pageInfo.windowHeight - MOBILE_NAVBAR_HEIGHT}px`
+      }}
     >
       <AuthContext.Provider value={{ changeNavState }}>
         {authComponent}

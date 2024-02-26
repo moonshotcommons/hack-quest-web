@@ -44,7 +44,7 @@ const PracticePage: FC<PracticePageProps> = async (props) => {
                 Project
               </Tags>
               <div className="mt-4 flex items-center gap-6">
-                <h2 className="text-h2">{courseDetail.name}</h2>
+                <h1 className="text-h2">{courseDetail.title}</h1>
                 {/* <div className="flex items-center gap-2">
                   <span>Certified by</span>
                   <span>Mantle</span>

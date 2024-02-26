@@ -12,6 +12,7 @@ import { cloneDeep } from 'lodash-es';
 import Link from 'next/link';
 import Button from '@/components/Common/Button';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import { getSearchParamsUrl } from '@/helper/utils';
 
 interface BannerProp {
   searchParams: BlogSearchType;
@@ -24,18 +25,13 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
   const [sortVisible, setSortVisible] = useState(false);
   const timeOut = useRef<NodeJS.Timeout | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [keyWord, setKeyWord] = useState('');
+  const [keyword, setKeyword] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
   const isInit = useRef(true);
 
   function changeSearchInfo(searchInfo: BlogSearchType) {
-    const url = new URL(MenuLink.BLOG, window.location.href);
-    for (const key in searchInfo) {
-      const value = searchInfo[key as keyof typeof searchInfo];
-      if (!value) continue;
-      url.searchParams.append(key, value);
-    }
-    router.push(url.toString());
+    const url = getSearchParamsUrl(searchInfo, MenuLink.BLOG);
+    router.push(url);
   }
 
   const changeSearch = (val: string) => {
@@ -54,20 +50,20 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
     });
   };
   const changeInput = (e: any) => {
-    const keyword = e.target.value;
-    setKeyWord(keyword);
+    const newKeyword = e.target.value;
+    setKeyword(newKeyword);
     if (timeOut.current) clearTimeout(timeOut.current);
     timeOut.current = setTimeout(() => {
       changeSearchInfo({
         ...searchInfo,
-        keyword
+        keyword: newKeyword
       });
     }, 1000);
   };
 
   const changeInputVisible = () => {
     setInputVisible(!inputVisible);
-    setKeyWord('');
+    setKeyword('');
     changeSearchInfo({
       ...searchInfo,
       keyword: ''
@@ -83,7 +79,7 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
     const index = searchTabData.findIndex((v) => v.value === category);
     setCurrentIndex(index);
     setSearchInfo(newSearchInfo);
-    setKeyWord(newSearchInfo.keyword);
+    setKeyword(newSearchInfo.keyword);
     setInputVisible(!!newSearchInfo.keyword);
     setTimeout(() => {
       isInit.current = false;
@@ -110,7 +106,7 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
         >
           <div className="container mx-auto flex h-full flex-col justify-between">
             <div className="flex flex-col gap-[20px]">
-              <p className="text-h2">Blog</p>
+              <h1 className="text-h2">Blog</h1>
               <p className="body-l w-[686px] text-neutral-rich-gray">
                 Explore our Web3 Blog – your hub for news, events, and study
                 notes! Contribute your insights, shaping the conversation in the
@@ -225,7 +221,7 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
                       type="text"
                       className="h-[38px] flex-1 bg-[transparent] text-[24px] outline-none"
                       placeholder="Search"
-                      value={keyWord}
+                      value={keyword}
                       onInput={changeInput}
                       ref={inputRef}
                     />
@@ -251,7 +247,7 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
       </div>
       <div
         className={`fixed left-0 top-0 z-[9] h-full w-full bg-neutral-black opacity-50 ${
-          !keyWord && inputVisible ? 'block' : 'hidden'
+          !keyword && inputVisible ? 'block' : 'hidden'
         }`}
       ></div>
     </>
