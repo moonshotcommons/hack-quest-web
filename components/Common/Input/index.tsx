@@ -31,6 +31,10 @@ const inputVariants = cva(
         warning: '',
         default: ''
       },
+      source: {
+        default: '',
+        mantle: 'bg-[#333] text-[1.125rem] text-[#C4C4C4] rounded-[10px]'
+      },
       device: {
         web: '',
         mobile: ''
@@ -39,7 +43,8 @@ const inputVariants = cva(
     defaultVariants: {
       theme: 'light',
       state: 'default',
-      device: 'web'
+      device: 'web',
+      source: 'default'
     }
   }
 );
@@ -78,6 +83,7 @@ export interface InputProps
   labelClassName?: string;
   initBorderColor?: string;
   isMobile?: boolean;
+  source?: 'default' | 'mantle';
 }
 
 export interface InputRef {
@@ -107,6 +113,7 @@ const Input = forwardRef<InputRef, InputProps>((props, ref) => {
     labelClassName = '',
     initBorderColor = '',
     isMobile = false,
+    source = 'default',
     ...rest
   } = props;
 
@@ -256,6 +263,7 @@ const Input = forwardRef<InputRef, InputProps>((props, ref) => {
             inputVariants({
               className,
               theme,
+              source,
               state: status,
               device: isMobile ? 'mobile' : 'web'
             }),

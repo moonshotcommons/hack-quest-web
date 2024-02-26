@@ -41,7 +41,8 @@ module.exports = {
         'MiSans-Semibold': ['MiSans-Semibold'],
         Inter: ['var(--font-inter)'],
         Nunito: ['var(--font-nunito)'],
-        'Space-Mono': ['var(--font-space-mono)']
+        'Space-Mono': ['var(--font-space-mono)'],
+        'GT-Walsheim-Trial': ['GT Walsheim Trial']
       },
       screens: {
         sm: '640px',

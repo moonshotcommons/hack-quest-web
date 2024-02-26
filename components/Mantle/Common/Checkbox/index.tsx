@@ -38,7 +38,7 @@ const Checkbox: FC<CheckboxProps> = (props) => {
       <input type="checkbox" className="hidden" checked={checked} readOnly />
       <div
         className={cn(
-          'w-[20px] h-[20px] border border-[#CCE9E7] block',
+          'block h-[20px] w-[20px] border border-[#CCE9E7]',
           isCircle ? 'rounded-full' : 'rounded-[3px]',
           outClassNames
         )}
@@ -46,7 +46,7 @@ const Checkbox: FC<CheckboxProps> = (props) => {
         {checked ? (
           <span
             className={cn(
-              `w-full h-full bg-[#CCE9E7] block scale-[0.7]`,
+              `block h-full w-full scale-[0.7] bg-[#CCE9E7]`,
               isCircle ? 'rounded-full' : 'rounded-[3px]',
               innerClassNames
             )}

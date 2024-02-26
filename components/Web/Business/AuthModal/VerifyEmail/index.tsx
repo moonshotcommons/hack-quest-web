@@ -98,17 +98,17 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
   return (
     <div className="flex h-full w-full flex-col items-center">
       {/* <ThirdPartyLogin></ThirdPartyLogin> */}
-      <div className="flex w-full flex-col gap-[25px]">
+      <div className="flex w-full flex-col gap-[20px]">
         {EmailTitle}
         <div>
           <Input
-            label="Email"
             type="email"
-            placeholder="Enter your email"
+            placeholder="Email Address"
             name="email"
-            theme="light"
+            theme="dark"
             state={status}
             clear
+            source="mantle"
             errorMessage={errorMessage}
             delay={500}
             onChange={(e) => {
@@ -155,19 +155,12 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
         <Button
           onClick={verifyEmail}
           block
-          type="primary"
+          type="mantle"
           disabled={loading}
           icon={<RightArrowIcon size={24}></RightArrowIcon>}
           iconPosition="right"
           loading={loading}
-          className="
-          button-text-l border-auth-primary-button-border-color bg-auth-primary-button-bg
-          py-4
-          uppercase
-          text-auth-primary-button-text-color
-          hover:border-auth-primary-button-border-hover-color
-          hover:bg-auth-primary-button-hover-bg
-          hover:text-auth-primary-button-text-hover-color"
+          className="gap-[15px] rounded-[10px] font-GT-Walsheim-Trial text-[18px] leading-[140%]"
         >
           Continue
         </Button>

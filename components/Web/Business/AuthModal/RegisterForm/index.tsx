@@ -106,11 +106,13 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
   return (
     <div className="flex h-full w-full flex-col justify-between">
       {/* <ThirdPartyLogin></ThirdPartyLogin> */}
-      <div className="flex w-full flex-col gap-[24px]">
+      <div className="flex w-full flex-col gap-[20px]">
         <div>
           <Input
+            labelClassName="text-white font-GT-Walsheim-Trial"
             label="Password"
             type="password"
+            source="mantle"
             name="password"
             placeholder="8+characters with a mix of letters & numbers"
             theme="light"
@@ -134,9 +136,11 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
         </div>
         <div>
           <Input
+            labelClassName="text-white font-GT-Walsheim-Trial"
             label="Re-enter password"
             type="password"
-            theme="light"
+            theme="dark"
+            source="mantle"
             placeholder="Confirm my password"
             name="reenterPassword"
             state={formState.reenterPassword.status as any}
@@ -206,17 +210,12 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
       <Button
         onClick={onRegister}
         block
-        type="primary"
+        type="mantle"
         loading={loading}
         disabled={loading}
         icon={<RightArrowIcon></RightArrowIcon>}
         iconPosition="right"
-        className="
-          button-text-l border-auth-primary-button-border-color bg-auth-primary-button-bg
-          py-4 uppercase
-          text-auth-primary-button-text-color hover:border-auth-primary-button-border-hover-color
-          hover:bg-auth-primary-button-hover-bg hover:text-auth-primary-button-text-hover-color
-          "
+        className="gap-[15px] rounded-[10px] font-GT-Walsheim-Trial text-[18px] leading-[140%]"
       >
         Continue
       </Button>

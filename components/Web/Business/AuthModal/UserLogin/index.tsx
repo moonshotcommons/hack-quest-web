@@ -141,12 +141,12 @@ const UserLogin: FC<UserLoginProps> = (props) => {
   return (
     <div className="flex h-full w-full flex-col justify-between">
       {/* <ThirdPartyLogin></ThirdPartyLogin> */}
-      <div className="flex w-full flex-col gap-[24px]">
+      <div className="flex w-full flex-col gap-[20px]">
         <div>
-          <p className="body-l-bold text-neutral-rich-gray">
+          <p className="text-center font-GT-Walsheim-Trial text-[1.375rem] leading-[140%] text-[#C4C4C4]">
             {`Don’t have an account? `}
             <span
-              className="body-l-bold cursor-pointer underline"
+              className="cursor-pointer underline"
               onClick={() => {
                 setAuthType(AuthType.SIGN_UP);
               }}
@@ -209,17 +209,19 @@ const UserLogin: FC<UserLoginProps> = (props) => {
         <div>
           <Input
             ref={passwordInputRef}
+            labelClassName="text-white font-GT-Walsheim-Trial"
             label="Password"
             type="password"
             name="password"
             placeholder="Password"
-            theme="light"
+            theme="dark"
+            source="mantle"
             state={formState.password.status as any}
             errorMessage={formState.password.errorMessage}
             delay={500}
             rightLabel={
               <div
-                className="underline-m cursor-pointer text-neutral-off-black "
+                className="cursor-pointer font-GT-Walsheim-Trial text-white "
                 onClick={() => {
                   BurialPoint.track('login-忘记密码');
                   setAuthType({
@@ -282,13 +284,8 @@ const UserLogin: FC<UserLoginProps> = (props) => {
           disabled={loading}
           icon={<RightArrowIcon></RightArrowIcon>}
           iconPosition="right"
-          type="primary"
-          className="
-          button-text-l border-auth-primary-button-border-color bg-auth-primary-button-bg
-          py-4 uppercase
-          text-auth-primary-button-text-color hover:border-auth-primary-button-border-hover-color
-          hover:bg-auth-primary-button-hover-bg hover:text-auth-primary-button-text-hover-color
-          "
+          type="mantle"
+          className="gap-[15px] rounded-[10px] font-GT-Walsheim-Trial text-[18px] leading-[140%]"
         >
           Continue
         </Button>
@@ -297,7 +294,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
           block
           ghost
           className="
-          button-text-l border-neutral-off-black py-4 uppercase
+          gap-[15px] rounded-[10px] border-white font-GT-Walsheim-Trial text-[18px] leading-[140%] text-white
           "
         >
           Back

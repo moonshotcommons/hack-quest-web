@@ -27,9 +27,9 @@ function useNavAuth(waitingUserData: boolean) {
       if (redirect_url && token) {
         redirectToUrl(`${redirect_url}?token=${token}`);
       } else {
-        router.push(
-          `https://www.hackquest.io/learning-track/6d108f0d-dfb2-4dad-8f38-93b45573bc43?learningTrackId=6d108f0d-dfb2-4dad-8f38-93b45573bc43&menu=learningTrack&origin=mantle&token=${token}`
-        );
+        // router.push(
+        //   `https://www.hackquest.io/learning-track/6d108f0d-dfb2-4dad-8f38-93b45573bc43?learningTrackId=6d108f0d-dfb2-4dad-8f38-93b45573bc43&menu=learningTrack&origin=mantle&token=${token}`
+        // );
       }
 
       return;

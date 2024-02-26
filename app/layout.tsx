@@ -26,9 +26,9 @@ const space_mono = Space_Mono({
 export const metadata: Metadata = {
   title: 'HackQuest',
   description: 'Learn and Grow Careers in Web3.',
-  // alternates: {
-  //   canonical: 'https://www.hackquest.io'
-  // },
+  alternates: {
+    canonical: 'https://www.hackquest.io'
+  },
   icons: {
     icon: [
       {
