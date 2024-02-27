@@ -355,7 +355,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
         .googleVerify(code)
         .then((res: any) => {
           if (res.status === 'UNACTIVATED') {
-            // redirectToUrl(`/?type=${AuthType.INVITE_CODE}`, true);
+            redirectToUrl(`/?type=${AuthType.INVITE_CODE}`, true);
             setAuthType({
               type: AuthType.INVITE_CODE,
               params: {
@@ -393,7 +393,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
         .githubVerify(code)
         .then((res: any) => {
           if (res.status === 'UNACTIVATED') {
-            // redirectToUrl(`/?type=${AuthType.INVITE_CODE}`, true);
+            redirectToUrl(`/?type=${AuthType.INVITE_CODE}`, true);
             setAuthType({
               type: AuthType.INVITE_CODE,
               params: {
