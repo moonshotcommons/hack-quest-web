@@ -284,9 +284,10 @@ const Fail: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
 
 const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
   const { redirectToUrl } = useRedirect();
-  const { setUserInfo } = useUserStore(
+  const { setUserInfo, setAuthType } = useUserStore(
     useShallow((state) => ({
-      setUserInfo: state.setUserInfo
+      setUserInfo: state.setUserInfo,
+      setAuthType: state.setAuthType
     }))
   );
   const { changeNavState } = useContext(AuthContext);
@@ -366,14 +367,14 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
         .then((res: any) => {
           if (res.status === 'UNACTIVATED') {
             // redirectToUrl(`/?type=${AuthType.INVITE_CODE}`, true);
-            // setAuthType({
-            //   type: AuthType.INVITE_CODE,
-            //   params: {
-            //     registerType: ThirdPartyAuthType.GOOGLE,
-            //     ...res
-            //   }
-            // });
-            skipInviteCode(res.token);
+            setAuthType({
+              type: AuthType.INVITE_CODE,
+              params: {
+                registerType: ThirdPartyAuthType.GOOGLE,
+                ...res
+              }
+            });
+            // skipInviteCode(res.token);
           } else {
             setUserInfo(omit(res, 'token'));
             setToken(res.token);
@@ -405,14 +406,14 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
         .then((res: any) => {
           if (res.status === 'UNACTIVATED') {
             // redirectToUrl(`/?type=${AuthType.INVITE_CODE}`, true);
-            // setAuthType({
-            //   type: AuthType.INVITE_CODE,
-            //   params: {
-            //     registerType: ThirdPartyAuthType.GITHUB,
-            //     ...res
-            //   }
-            // });
-            skipInviteCode(res.token);
+            setAuthType({
+              type: AuthType.INVITE_CODE,
+              params: {
+                registerType: ThirdPartyAuthType.GITHUB,
+                ...res
+              }
+            });
+            // skipInviteCode(res.token);
           } else {
             BurialPoint.track('signup-Github三方登录code验证成功');
             setUserInfo(omit(res, 'token'));

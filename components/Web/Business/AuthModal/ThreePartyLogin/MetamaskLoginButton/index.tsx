@@ -6,14 +6,14 @@ import useIsPc from '@/hooks/useIsPc';
 import { useRedirect } from '@/hooks/useRedirect';
 import Metamask from '@/public/images/login/metamask.svg';
 import webApi from '@/service';
-import { LoginResponse } from '@/service/webApi/user/type';
+import { LoginResponse, ThirdPartyAuthType } from '@/service/webApi/user/type';
 import { useRequest } from 'ahooks';
 import { message } from 'antd';
 import { omit } from 'lodash-es';
 import Image from 'next/image';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useConnect } from 'wagmi';
-import { useUserStore } from '@/store/zustand/userStore';
+import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
 import { useGlobalStore } from '@/store/zustand/globalStore';
 interface MetamaskLoginButtonProps {}
@@ -92,14 +92,14 @@ const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
           if (account) {
             const res = await webApi.userApi.walletVerify(account);
             if (res.status === 'UNACTIVATED') {
-              // setAuthType({
-              //   type: AuthType.INVITE_CODE,
-              //   params: {
-              //     registerType: ThirdPartyAuthType.METAMASK,
-              //     ...res
-              //   }
-              // });
-              skipInviteCode(res.token);
+              setAuthType({
+                type: AuthType.INVITE_CODE,
+                params: {
+                  registerType: ThirdPartyAuthType.METAMASK,
+                  ...res
+                }
+              });
+              // skipInviteCode(res.token);
             } else {
               BurialPoint.track('signup-Metamask第三方登录code验证成功');
               setUserInfo(omit(res, 'token'));
