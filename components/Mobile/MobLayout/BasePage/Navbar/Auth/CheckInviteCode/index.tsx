@@ -5,7 +5,7 @@ import { BurialPoint } from '@/helper/burialPoint';
 import webApi from '@/service';
 import { useRequest } from 'ahooks';
 import { message } from 'antd';
-import { FC, useEffect, useState } from 'react';
+import { FC, useContext, useEffect, useState } from 'react';
 
 // import ContractUs from '@/app/(web)/(base page)/(landing)/components/ContractUs';
 import { LoginResponse, ThirdPartyAuthType } from '@/service/webApi/user/type';
@@ -14,6 +14,7 @@ import { omit } from 'lodash-es';
 import { useRedirect } from '@/hooks/useRedirect';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
+import { AuthContext } from '..';
 interface CheckInviteCodeProps {}
 
 const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
@@ -34,6 +35,8 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
       setUserInfo: state.setUserInfo
     }))
   );
+
+  const { changeNavState } = useContext(AuthContext);
 
   const [formState, setFormState] = useState({
     inviteCode: {
@@ -90,6 +93,7 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
     },
     {
       onSuccess(res) {
+        changeNavState();
         setUserInfo(omit(res, 'token') as Omit<LoginResponse, 'token'>);
         BurialPoint.track('signup-Google三方登录输入邀请码登录成功');
         setToken(res.token);
@@ -125,6 +129,7 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
     },
     {
       onSuccess(res: any) {
+        changeNavState();
         setUserInfo(omit(res, 'token') as Omit<LoginResponse, 'token'>);
         BurialPoint.track('signup-Google三方登录输入邀请码登录成功');
         setToken(res.token);
