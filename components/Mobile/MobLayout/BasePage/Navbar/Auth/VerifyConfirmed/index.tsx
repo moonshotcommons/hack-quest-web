@@ -366,14 +366,16 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
         .googleVerify(code)
         .then((res: any) => {
           if (res.status === 'UNACTIVATED') {
-            // redirectToUrl(`/?type=${AuthType.INVITE_CODE}`, true);
-            setAuthType({
-              type: AuthType.INVITE_CODE,
-              params: {
-                registerType: ThirdPartyAuthType.GOOGLE,
-                ...res
-              }
-            });
+            redirectToUrl(`/?type=${AuthType.INVITE_CODE}`, true);
+            setTimeout(() => {
+              setAuthType({
+                type: AuthType.INVITE_CODE,
+                params: {
+                  registerType: ThirdPartyAuthType.GOOGLE,
+                  ...res
+                }
+              });
+            }, 1000);
             // skipInviteCode(res.token);
           } else {
             setUserInfo(omit(res, 'token'));
@@ -405,14 +407,16 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
         .githubVerify(code)
         .then((res: any) => {
           if (res.status === 'UNACTIVATED') {
-            // redirectToUrl(`/?type=${AuthType.INVITE_CODE}`, true);
-            setAuthType({
-              type: AuthType.INVITE_CODE,
-              params: {
-                registerType: ThirdPartyAuthType.GITHUB,
-                ...res
-              }
-            });
+            redirectToUrl(`/?type=${AuthType.INVITE_CODE}`, true);
+            setTimeout(() => {
+              setAuthType({
+                type: AuthType.INVITE_CODE,
+                params: {
+                  registerType: ThirdPartyAuthType.GITHUB,
+                  ...res
+                }
+              });
+            }, 1000);
             // skipInviteCode(res.token);
           } else {
             BurialPoint.track('signup-Github三方登录code验证成功');
