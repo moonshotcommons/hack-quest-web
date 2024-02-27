@@ -66,13 +66,13 @@ const AuthModal: FC<AuthModalProps> = (props) => {
       setAuthType(type as AuthType);
       setAuthModalOpen(true);
     }
-  }, []);
+  }, [type, queryState, pathname]);
 
   const authComponent = useMemo(() => {
     if (queryState) {
       return <VerifyConfirmed></VerifyConfirmed>;
     }
-    console.log('authRouteType', authRouteType);
+
     switch (authRouteType.type) {
       case AuthType.EMAIL_VERIFY:
         return <EmailVerify></EmailVerify>;
