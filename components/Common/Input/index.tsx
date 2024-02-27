@@ -107,6 +107,7 @@ const Input = forwardRef<InputRef, InputProps>((props, ref) => {
     labelClassName = '',
     initBorderColor = '',
     isMobile = false,
+    onBlur,
     ...rest
   } = props;
 
@@ -160,7 +161,7 @@ const Input = forwardRef<InputRef, InputProps>((props, ref) => {
         });
       }
 
-      onChange?.(e);
+      onBlur?.(e);
     },
     { wait: delay }
   );
@@ -265,6 +266,9 @@ const Input = forwardRef<InputRef, InputProps>((props, ref) => {
             setValue(e.target.value);
             setErrorMessage('');
             setStatus('default');
+            onChange?.(e);
+          }}
+          onBlur={(e) => {
             run(e);
           }}
           {...rest}

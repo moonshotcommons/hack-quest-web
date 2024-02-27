@@ -4,11 +4,9 @@ import Button from '@/components/Common/Button';
 import RightArrowIcon from '@/components/Common/Icon/RightArrow';
 import Input from '@/components/Common/Input';
 import { BurialPoint } from '@/helper/burialPoint';
-import { useDebounceFn, useKeyPress, useRequest } from 'ahooks';
+import { useDebounceFn, useKeyPress } from 'ahooks';
 import Schema from 'async-validator';
 import { AuthType } from '@/store/zustand/userStore';
-import webApi from '@/service';
-import { errorMessage } from '@/helper/ui';
 interface VerifyEmailProps {
   onStatusChange: (status: boolean) => void;
   onNext: (email: string, inviteCode?: string) => void;
@@ -30,53 +28,18 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
 
   const [formData, setFormData] = useState<{
     email: string;
-    inviteCode: string | null;
   }>({
-    email: value || '',
-    inviteCode: null
+    email: value || ''
   });
 
   const [formState, setFormState] = useState({
-    inviteCode: {
-      status: 'default',
-      errorMessage: ''
-    },
     email: {
       status: 'default',
       errorMessage: ''
     }
   });
 
-  // const [status, setStatus] = useState<any>('default');
-  // const [errorMessage, setErrorMessage] = useState('');
   const [loading, setLoading] = useState(false);
-
-  const { run: inviteCodeVerify, loading: emailLoading } = useRequest(
-    async () => {
-      const res = await webApi.userApi.checkInviteCode(formData.inviteCode!);
-      return res;
-    },
-    {
-      onSuccess(res) {
-        if (res.valid) {
-          onNext(formData.email, formData.inviteCode!);
-        } else {
-          setFormState({
-            ...formState,
-            inviteCode: {
-              status: 'error',
-              errorMessage: 'Invalid invite code'
-            }
-          });
-        }
-      },
-      onError(e: any) {
-        errorMessage(e);
-      },
-      manual: true,
-      debounceWait: 500
-    }
-  );
 
   const { run: verifyEmail } = useDebounceFn(
     () => {
@@ -123,8 +86,7 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
               errorMessage: ''
             }
           });
-          if (formData.inviteCode) inviteCodeVerify();
-          else onNext(formData.email);
+          onNext(formData.email);
           setLoading(false);
         }
       });
@@ -166,6 +128,10 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
           delay={500}
           isMobile
           onChange={(e) => {
+            setFormData({
+              ...formData,
+              email: e.target.value
+            });
             setFormState({
               ...formState,
               email: {
@@ -173,23 +139,13 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
                 errorMessage: ''
               }
             });
-            // validator.validate(
-            //   { email: e.target.value },
-            //   (errors, fields) => {
-            //     if (errors?.[0]) {
-            //       setStatus('error');
-            //       setErrorMessage(errors?.[0].message || '');
-            //       onStatusChange(false);
-            //     } else {
-            //       setStatus('success');
-            //       setErrorMessage('');
-            //       onStatusChange(true);
-            //     }
-            //   }
-            // );
-            setFormData({
-              ...formData,
-              email: e.target.value
+
+            validator.validate({ email: e.target.value }, (errors, fields) => {
+              if (errors?.[0]) {
+                onStatusChange(false);
+              } else {
+                onStatusChange(true);
+              }
             });
           }}
           onBlur={(e) => {
@@ -217,34 +173,7 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
           }}
           defaultValue={formData.email}
         ></Input>
-        {type === AuthType.SIGN_UP && (
-          <Input
-            label="Invite Code (Optional)"
-            type="text"
-            placeholder="Enter your invite code"
-            name="inviteCode"
-            theme="light"
-            isMobile
-            state={formState.inviteCode.status as any}
-            clear
-            errorMessage={formState.inviteCode.errorMessage}
-            delay={500}
-            onChange={(e) => {
-              setFormData({
-                ...formData,
-                inviteCode: e.target.value
-              });
-              setFormState({
-                ...formState,
-                inviteCode: {
-                  status: 'default',
-                  errorMessage: ''
-                }
-              });
-            }}
-            defaultValue={formData.inviteCode || ''}
-          ></Input>
-        )}
+
         <Button
           onClick={verifyEmail}
           block
