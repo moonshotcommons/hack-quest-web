@@ -356,13 +356,15 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
         .then((res: any) => {
           if (res.status === 'UNACTIVATED') {
             redirectToUrl(`/?type=${AuthType.INVITE_CODE}`, true);
-            setAuthType({
-              type: AuthType.INVITE_CODE,
-              params: {
-                registerType: ThirdPartyAuthType.GOOGLE,
-                ...res
-              }
-            });
+            setTimeout(() => {
+              setAuthType({
+                type: AuthType.INVITE_CODE,
+                params: {
+                  registerType: ThirdPartyAuthType.GOOGLE,
+                  ...res
+                }
+              });
+            }, 1000);
           } else {
             setUserInfo(omit(res, 'token'));
             setToken(res.token);
@@ -394,13 +396,15 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
         .then((res: any) => {
           if (res.status === 'UNACTIVATED') {
             redirectToUrl(`/?type=${AuthType.INVITE_CODE}`, true);
-            setAuthType({
-              type: AuthType.INVITE_CODE,
-              params: {
-                registerType: ThirdPartyAuthType.GITHUB,
-                ...res
-              }
-            });
+            setTimeout(() => {
+              setAuthType({
+                type: AuthType.INVITE_CODE,
+                params: {
+                  registerType: ThirdPartyAuthType.GITHUB,
+                  ...res
+                }
+              });
+            }, 1000);
             // skipInviteCode(res.token);
           } else {
             BurialPoint.track('signup-Github三方登录code验证成功');

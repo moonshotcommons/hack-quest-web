@@ -66,7 +66,7 @@ const AuthModal: FC<AuthModalProps> = (props) => {
       setAuthType(type as AuthType);
       setAuthModalOpen(true);
     }
-  }, [type, queryState, pathname]);
+  }, []);
 
   const authComponent = useMemo(() => {
     if (queryState) {
