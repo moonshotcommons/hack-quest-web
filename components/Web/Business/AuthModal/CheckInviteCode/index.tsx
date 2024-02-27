@@ -28,10 +28,11 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
     inviteCode: '',
     token: ''
   });
-  const { setAuthType, setUserInfo } = useUserStore(
+  const { setAuthType, setUserInfo, setAuthModalOpen } = useUserStore(
     useShallow((state) => ({
       setAuthType: state.setAuthType,
-      setUserInfo: state.setUserInfo
+      setUserInfo: state.setUserInfo,
+      setAuthModalOpen: state.setAuthModalOpen
     }))
   );
 
@@ -90,6 +91,7 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
     },
     {
       onSuccess(res) {
+        setAuthModalOpen(false);
         setUserInfo(omit(res, 'token') as Omit<LoginResponse, 'token'>);
         BurialPoint.track('signup-Google三方登录输入邀请码登录成功');
         setToken(res.token);
@@ -125,6 +127,7 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
     },
     {
       onSuccess(res: any) {
+        setAuthModalOpen(false);
         setUserInfo(omit(res, 'token') as Omit<LoginResponse, 'token'>);
         BurialPoint.track('signup-Google三方登录输入邀请码登录成功');
         setToken(res.token);
