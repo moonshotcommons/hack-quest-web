@@ -298,14 +298,11 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
         .tokenVerify({ token: token as string })
         .then((res: any) => {
           BurialPoint.track('signup-注册邮箱token验证成功');
-          // if (isPc()) {
+
           setUserInfo(omit(res, 'token'));
           setToken(res.token || token);
           setAuthModalOpen(false);
           setVerifyState(VerifyStateType.SUCCESS);
-          // } else {
-          //   setTipsModalOpenState(true);
-          // }
         })
         .catch((err) => {
           BurialPoint.track('signup-注册邮箱token验证失败', {
@@ -358,24 +355,21 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
         .googleVerify(code)
         .then((res: any) => {
           if (res.status === 'UNACTIVATED') {
-            // redirectToUrl(`/?type=${AuthType.INVITE_CODE}`, true);
-            // setAuthType({
-            //   type: AuthType.INVITE_CODE,
-            //   params: {
-            //     registerType: ThirdPartyAuthType.GOOGLE,
-            //     ...res
-            //   }
-            // });
-            skipInviteCode(res.token);
+            redirectToUrl(`/?type=${AuthType.INVITE_CODE}`, true);
+            setTimeout(() => {
+              setAuthType({
+                type: AuthType.INVITE_CODE,
+                params: {
+                  registerType: ThirdPartyAuthType.GOOGLE,
+                  ...res
+                }
+              });
+            }, 1000);
           } else {
-            // if (isPc()) {
             setUserInfo(omit(res, 'token'));
             setToken(res.token);
             setAuthModalOpen(false);
             redirectToUrl('/dashboard');
-            // } else {
-            //   setTipsModalOpenState(true);
-            // }
           }
         })
         .catch((err) => {
@@ -401,25 +395,23 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
         .githubVerify(code)
         .then((res: any) => {
           if (res.status === 'UNACTIVATED') {
-            // redirectToUrl(`/?type=${AuthType.INVITE_CODE}`, true);
-            // setAuthType({
-            //   type: AuthType.INVITE_CODE,
-            //   params: {
-            //     registerType: ThirdPartyAuthType.GITHUB,
-            //     ...res
-            //   }
-            // });
-            skipInviteCode(res.token);
+            redirectToUrl(`/?type=${AuthType.INVITE_CODE}`, true);
+            setTimeout(() => {
+              setAuthType({
+                type: AuthType.INVITE_CODE,
+                params: {
+                  registerType: ThirdPartyAuthType.GITHUB,
+                  ...res
+                }
+              });
+            }, 1000);
+            // skipInviteCode(res.token);
           } else {
-            // if (isPc()) {
             BurialPoint.track('signup-Github三方登录code验证成功');
             setUserInfo(omit(res, 'token'));
             setToken(res.token);
             setAuthModalOpen(false);
             redirectToUrl('/dashboard');
-            // } else {
-            //   setTipsModalOpenState(true);
-            // }
           }
         })
         .catch((err) => {
