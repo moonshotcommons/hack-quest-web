@@ -1,5 +1,4 @@
 import Button from '@/components/Common/Button';
-import RightArrowIcon from '@/components/Common/Icon/RightArrow';
 import Input from '@/components/Common/Input';
 import { BurialPoint } from '@/helper/burialPoint';
 import webApi from '@/service';
@@ -181,7 +180,7 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
       return false;
     }
 
-    if (!/[\w%&*!#-]/.test(formData.inviteCode)) {
+    if (!/^[\w%&!#-_?@]+$/g.test(formData.inviteCode)) {
       setFormState({
         ...formState,
         inviteCode: {
@@ -206,12 +205,12 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
   }, []);
 
   return (
-    <div className="flex h-full w-full justify-center">
+    <div className="flex h-full w-full flex-col justify-between">
       {/* <ThirdPartyLogin></ThirdPartyLogin> */}
       {/* <ThirdPartyLogin></ThirdPartyLogin> */}
-      <div className="flex w-full flex-col gap-[24px]">
-        <p className="body-l-bold text-neutral-rich-gray">
-          Got an Invite Code?
+      <div className="flex w-full flex-col gap-8">
+        <p className="body-m-bold text-neutral-rich-gray">
+          Do you have an invite code?
         </p>
         {/* <div className="body-s text-neutral-black">
           HackQuest is currently in beta. Get an invite code from an existing
@@ -219,9 +218,10 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
         </div> */}
 
         <Input
-          label="Invite Code"
+          label="Invite Code (Optional)"
           type="text"
           name="invite code"
+          isMobile
           placeholder="Enter your invite code"
           state={formState.inviteCode.status as any}
           errorMessage={formState.inviteCode.errorMessage}
@@ -242,6 +242,9 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
           }}
         ></Input>
 
+        {/* <ContractUs className="gap-[30px] justify-center"></ContractUs> */}
+      </div>
+      <div className="flex w-full flex-col gap-4">
         <Button
           onClick={() => {
             if (!verifyInviteCode()) return;
@@ -262,58 +265,14 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
           }}
           block
           type="primary"
-          icon={<RightArrowIcon></RightArrowIcon>}
           disabled={emailLoading || thirdPartyLoading}
           loading={emailLoading || thirdPartyLoading}
-          iconPosition="right"
           className="
-          button-text-l border-auth-primary-button-border-color bg-auth-primary-button-bg
-          py-4
-          uppercase
-          text-auth-primary-button-text-color
-          hover:border-auth-primary-button-border-hover-color
-          hover:bg-auth-primary-button-hover-bg
-          hover:text-auth-primary-button-text-hover-color
+          button-text-m py-4 uppercase
           "
         >
-          Next
+          submit
         </Button>
-        {/* <Button
-          onClick={() => {
-            if (loginRouteParams.params?.registerType === AuthType.EMAIL) {
-              dispatch(
-                setUnLoginType({
-                  type: AuthType.SIGN_UP,
-                  params: {
-                    codeVerify: true,
-                    email: formData.email,
-                    inviteCode: ''
-                  }
-                })
-              );
-            } else {
-              // dispatch(setUserInfo(omit(res, 'token')));
-
-              setToken(formData.token);
-              redirectToUrl('/dashboard');
-            }
-          }}
-          block
-          type="primary"
-          icon={<RightArrowIcon></RightArrowIcon>}
-          disabled={emailLoading || thirdPartyLoading}
-          loading={emailLoading || thirdPartyLoading}
-          iconPosition="right"
-          className="
-          
-          text-[1.125rem]
-          bg-auth-primary-button-bg hover:bg-auth-primary-button-hover-bg
-          text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
-          border-auth-primary-button-border-color hover:border-auth-primary-button-border-hover-color
-          "
-        >
-          Skip
-        </Button> */}
         <Button
           onClick={() => {
             // redirectToUrl('/');
@@ -337,21 +296,10 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
           loading={skipInviteCodeLoading}
           disabled={skipInviteCodeLoading}
           ghost
-          className="button-text-l border-neutral-off-black py-4 uppercase"
+          className="button-text-m border-neutral-off-black py-4 uppercase"
         >
           Skip
         </Button>
-        <div className="flex items-center justify-between py-[12px]">
-          <div className="h-[1px] w-[20.5%] bg-neutral-black"></div>
-          <span className="body-s text-neutral-black">
-            Don’t have an invite code?
-          </span>
-          <div className="h-[1px] w-[20.5%] bg-neutral-black"></div>
-        </div>
-        <p className="body-s text-center text-neutral-black">
-          Follow HackQuest on social media for latest updates:
-        </p>
-        {/* <ContractUs className="gap-[30px] justify-center"></ContractUs> */}
       </div>
       {/* <WhiteListModal
         open={showWhiteListModal}
