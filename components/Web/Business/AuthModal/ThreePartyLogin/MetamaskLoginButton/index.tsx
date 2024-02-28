@@ -6,7 +6,7 @@ import useIsPc from '@/hooks/useIsPc';
 import { useRedirect } from '@/hooks/useRedirect';
 import Metamask from '@/public/images/login/metamask.svg';
 import webApi from '@/service';
-import { ThirdPartyAuthType } from '@/service/webApi/user/type';
+import { LoginResponse, ThirdPartyAuthType } from '@/service/webApi/user/type';
 import { useRequest } from 'ahooks';
 import { message } from 'antd';
 import { omit } from 'lodash-es';
@@ -34,6 +34,35 @@ const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
 
   const setTipsModalOpenState = useGlobalStore(
     (state) => state.setTipsModalOpenState
+  );
+
+  const { run: skipInviteCode, loading: skipInviteCodeLoading } = useRequest(
+    async (token: string) => {
+      const res = await webApi.userApi.activateUser(token);
+      return res;
+    },
+    {
+      onSuccess(res: any) {
+        setUserInfo(omit(res, 'token') as Omit<LoginResponse, 'token'>);
+        BurialPoint.track('signup-Google三方登录输入邀请码登录成功');
+        setToken(res.token);
+        setAuthModalOpen(false);
+        redirectToUrl('/dashboard');
+      },
+      onError(e: any) {
+        let msg = '';
+        if (e.msg) {
+          message.error(e.msg);
+          msg = e.msg;
+        } else {
+          message.error(e.message);
+          msg = e.message;
+        }
+      },
+
+      manual: true,
+      debounceWait: 500
+    }
   );
 
   const { connectAsync, connectors, error, isLoading, pendingConnector, data } =
@@ -70,6 +99,7 @@ const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
                   ...res
                 }
               });
+              // skipInviteCode(res.token);
             } else {
               BurialPoint.track('signup-Metamask第三方登录code验证成功');
               setUserInfo(omit(res, 'token'));

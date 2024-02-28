@@ -67,6 +67,7 @@ const AuthModal: FC<AuthModalProps> = (props) => {
     if (queryState) {
       return <VerifyConfirmed></VerifyConfirmed>;
     }
+
     switch (authRouteType.type) {
       case AuthType.EMAIL_VERIFY:
         return <EmailVerify></EmailVerify>;

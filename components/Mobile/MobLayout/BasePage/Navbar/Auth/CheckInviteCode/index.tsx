@@ -2,11 +2,10 @@ import Button from '@/components/Common/Button';
 import RightArrowIcon from '@/components/Common/Icon/RightArrow';
 import Input from '@/components/Common/Input';
 import { BurialPoint } from '@/helper/burialPoint';
-import { cn } from '@/helper/utils';
 import webApi from '@/service';
 import { useRequest } from 'ahooks';
 import { message } from 'antd';
-import { FC, useEffect, useState } from 'react';
+import { FC, useContext, useEffect, useState } from 'react';
 
 // import ContractUs from '@/app/(web)/(base page)/(landing)/components/ContractUs';
 import { LoginResponse, ThirdPartyAuthType } from '@/service/webApi/user/type';
@@ -15,6 +14,7 @@ import { omit } from 'lodash-es';
 import { useRedirect } from '@/hooks/useRedirect';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
+import { AuthContext } from '..';
 interface CheckInviteCodeProps {}
 
 const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
@@ -35,6 +35,8 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
       setUserInfo: state.setUserInfo
     }))
   );
+
+  const { changeNavState } = useContext(AuthContext);
 
   const [formState, setFormState] = useState({
     inviteCode: {
@@ -91,6 +93,7 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
     },
     {
       onSuccess(res) {
+        changeNavState();
         setUserInfo(omit(res, 'token') as Omit<LoginResponse, 'token'>);
         BurialPoint.track('signup-Google三方登录输入邀请码登录成功');
         setToken(res.token);
@@ -126,6 +129,7 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
     },
     {
       onSuccess(res: any) {
+        changeNavState();
         setUserInfo(omit(res, 'token') as Omit<LoginResponse, 'token'>);
         BurialPoint.track('signup-Google三方登录输入邀请码登录成功');
         setToken(res.token);
@@ -154,6 +158,43 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
     }
   );
 
+  const verifyInviteCode = () => {
+    if (!formData.inviteCode) {
+      setFormState({
+        ...formState,
+        inviteCode: {
+          status: 'error',
+          errorMessage: 'Please enter the invite code'
+        }
+      });
+      return false;
+    }
+
+    if (formData.inviteCode.length > 40) {
+      setFormState({
+        ...formState,
+        inviteCode: {
+          status: 'error',
+          errorMessage: 'The length of the invite code should be 40 or less'
+        }
+      });
+      return false;
+    }
+
+    if (!/[\w%&*!#-]/.test(formData.inviteCode)) {
+      setFormState({
+        ...formState,
+        inviteCode: {
+          status: 'error',
+          errorMessage: 'Invite code can only be letters, numbers, %&*! Etc.'
+        }
+      });
+      return false;
+    }
+
+    return true;
+  };
+
   useEffect(() => {
     if (authRouteType.params) {
       setFormData({
@@ -167,51 +208,54 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
   return (
     <div className="flex h-full w-full justify-center">
       {/* <ThirdPartyLogin></ThirdPartyLogin> */}
-      <div className="flex w-full flex-col gap-[25px]">
-        <h1 className="text-h3 text-neutral-white">Got an Invite Code?</h1>
-        <div className="body-s text-neutral-white">
+      {/* <ThirdPartyLogin></ThirdPartyLogin> */}
+      <div className="flex w-full flex-col gap-[24px]">
+        <p className="body-l-bold text-neutral-rich-gray">
+          Got an Invite Code?
+        </p>
+        {/* <div className="body-s text-neutral-black">
           HackQuest is currently in beta. Get an invite code from an existing
           user to sign up.
-        </div>
+        </div> */}
 
-        <div className="text-neutral-white">
-          <Input
-            label="Invite Code"
-            type="text"
-            name="invite code"
-            placeholder="Enter your invite code"
-            className="bg-[#212121] text-neutral-white"
-            // description="Use 8 or more characters with a mix of letters & numbers"
-            state={formState.inviteCode.status as any}
-            errorMessage={formState.inviteCode.errorMessage}
-            delay={500}
-            // rules={{
-            //   type: 'string',
-            //   required: true,
-            //   len: 10
-            // }}
-            onChange={(e) => {
-              setFormData({
-                ...formData,
-                inviteCode: e.target.value
-              });
-              setFormState({
-                ...formState,
-                inviteCode: {
-                  status: 'default',
-                  errorMessage: ''
-                }
-              });
-            }}
-          ></Input>
-        </div>
+        <Input
+          label="Invite Code"
+          type="text"
+          name="invite code"
+          placeholder="Enter your invite code"
+          state={formState.inviteCode.status as any}
+          errorMessage={formState.inviteCode.errorMessage}
+          delay={500}
+          theme={'light'}
+          onChange={(e) => {
+            setFormData({
+              ...formData,
+              inviteCode: e.target.value
+            });
+            setFormState({
+              ...formState,
+              inviteCode: {
+                status: 'default',
+                errorMessage: ''
+              }
+            });
+          }}
+        ></Input>
 
         <Button
           onClick={() => {
+            if (!verifyInviteCode()) return;
             if (
               authRouteType.params?.registerType === ThirdPartyAuthType.EMAIL
             ) {
-              emailVerify();
+              setAuthType({
+                type: AuthType.SIGN_UP,
+                params: {
+                  codeVerify: true,
+                  email: formData.email,
+                  inviteCode: formData.inviteCode
+                }
+              });
             } else {
               thirdPartyVerify();
             }
@@ -223,11 +267,13 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
           loading={emailLoading || thirdPartyLoading}
           iconPosition="right"
           className="
-          button-text-l
-          border-auth-primary-button-border-color
-          bg-auth-primary-button-bg
-          text-auth-primary-button-text-color hover:border-auth-primary-button-border-hover-color
-          hover:bg-auth-primary-button-hover-bg hover:text-auth-primary-button-text-hover-color
+          button-text-l border-auth-primary-button-border-color bg-auth-primary-button-bg
+          py-4
+          uppercase
+          text-auth-primary-button-text-color
+          hover:border-auth-primary-button-border-hover-color
+          hover:bg-auth-primary-button-hover-bg
+          hover:text-auth-primary-button-text-hover-color
           "
         >
           Next
@@ -290,26 +336,19 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
           block
           loading={skipInviteCodeLoading}
           disabled={skipInviteCodeLoading}
-          className={cn(
-            `hover:text-auth-ghost-button-text-hover-color
-          hover:border-auth-ghost-button-border-hover-color
-          border
-          border-neutral-white
-          bg-transparent
-          text-[1.125rem] text-neutral-white`,
-            skipInviteCodeLoading ? 'cursor-not-allowed opacity-70' : ''
-          )}
+          ghost
+          className="button-text-l border-neutral-off-black py-4 uppercase"
         >
           Skip
         </Button>
         <div className="flex items-center justify-between py-[12px]">
-          <div className="h-[1px] w-[20.5%] bg-neutral-white"></div>
-          <span className="body-s text-neutral-white">
+          <div className="h-[1px] w-[20.5%] bg-neutral-black"></div>
+          <span className="body-s text-neutral-black">
             Don’t have an invite code?
           </span>
-          <div className="h-[1px] w-[20.5%] bg-neutral-white"></div>
+          <div className="h-[1px] w-[20.5%] bg-neutral-black"></div>
         </div>
-        <p className="body-s text-center text-neutral-white">
+        <p className="body-s text-center text-neutral-black">
           Follow HackQuest on social media for latest updates:
         </p>
         {/* <ContractUs className="gap-[30px] justify-center"></ContractUs> */}

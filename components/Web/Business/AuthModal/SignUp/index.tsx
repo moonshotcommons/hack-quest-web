@@ -7,6 +7,7 @@ import VerifyEmail from '../VerifyEmail';
 import ThreePartyLogin from '../ThreePartyLogin';
 import webApi from '@/service';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
+import { ThirdPartyAuthType } from '@/service/webApi/user/type';
 
 interface SignUpProps {}
 
@@ -60,21 +61,21 @@ const SignUp: FC<SignUpProps> = (props) => {
               validator={validator}
               onStatusChange={(status) => setEmailCheckStatus(status)}
               type={AuthType.SIGN_UP}
-              onNext={(email, inviteCode) => {
+              onNext={(email) => {
                 if (emailCheckStatus) {
                   setEmail(email);
-                  setInviteCode(inviteCode!);
+                  // setInviteCode(inviteCode!);
                   webApi.userApi.checkEmailExists(email).then((res) => {
                     // if (res.inWhitelist) {
-                    setShowRegisterForm(true);
+                    // setShowRegisterForm(true);
                     // } else {
-                    // setAuthType({
-                    //   type: AuthType.INVITE_CODE,
-                    //   params: {
-                    //     email,
-                    //     registerType: ThirdPartyAuthType.EMAIL
-                    //   }
-                    // });
+                    setAuthType({
+                      type: AuthType.INVITE_CODE,
+                      params: {
+                        email,
+                        registerType: ThirdPartyAuthType.EMAIL
+                      }
+                    });
                     // }
                   });
                 }
@@ -94,7 +95,7 @@ const SignUp: FC<SignUpProps> = (props) => {
         >
           <RegisterForm
             email={email}
-            inviteCode={inviteCode}
+            inviteCode={authRouteType.params?.inviteCode}
             onBack={() => {
               BurialPoint.track('signup-注册返回');
               setShowRegisterForm(false);

@@ -25,10 +25,6 @@ function ThreePartyLogin() {
       //   loginByMetaMask();
       //   return;
       default:
-        if (!isPc()) {
-          setTipsModalOpenState(true);
-          return;
-        }
         const res = (await webApi.userApi.getAuthUrl(type)) as any;
         window.location.href = res?.url;
     }
