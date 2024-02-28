@@ -17,6 +17,7 @@ export interface PageType {
   electiveId: string;
   id: string;
   name: string;
+  title: string;
   state: CompleteStateType;
   description: string;
 }

@@ -1,16 +1,24 @@
+'use client';
 import { FC, ReactNode } from 'react';
 import UgcSidebar from './components/UgcSidebar';
 import UgcProvider from '@/app/(web)/(learn page)/ugc/[courseId]/learn/components/UgcProvider';
 import UgcFooter from './components/UgcFooter';
+// import { useGetPageInfo } from '@/hooks/useGetPageInfo';
+// import { MOBILE_NAVBAR_HEIGHT } from '@/components/Mobile/MobLayout/BasePage/Navbar/constant';
 
 interface LearnLayoutProps {
   children: ReactNode;
 }
 
-const LearnLayout: FC<LearnLayoutProps> = async ({ children }) => {
+const LearnLayout: FC<LearnLayoutProps> = ({ children }) => {
+  // const pageInfo = useGetPageInfo();
+  // const boxHeight = useMemo(() => {
+  //   console.info(pageInfo.windowHeight, '22222');
+  //   return pageInfo.windowHeight - MOBILE_NAVBAR_HEIGHT;
+  // }, [pageInfo]);
   return (
     <UgcProvider>
-      <div className="flex h-full w-full flex-col">
+      <div className="flex h-[calc(100vh-64px)] w-full flex-col">
         <div className="relative flex w-full flex-1 overflow-hidden">
           <UgcSidebar />
           {children}
