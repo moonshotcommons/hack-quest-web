@@ -104,16 +104,18 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
   );
 
   return (
-    <div className="flex h-full w-full flex-col justify-between">
+    <div className="flex h-full w-full flex-col justify-between px-5">
       {/* <ThirdPartyLogin></ThirdPartyLogin> */}
       <div className="flex w-full flex-col gap-[24px]">
         <div>
           <Input
+            labelClassName="text-white font-GT-Walsheim-Trial"
             label="Password"
             type="password"
             name="password"
+            source="mantle"
             placeholder="8+characters with a mix of letters & numbers"
-            theme="light"
+            theme="dark"
             // description="Use 8 or more characters with a mix of letters & numbers"
             state={formState.password.status as any}
             errorMessage={formState.password.errorMessage}
@@ -135,12 +137,14 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
         </div>
         <div>
           <Input
+            labelClassName="text-white font-GT-Walsheim-Trial"
             label="Re-enter password"
             type="password"
-            theme="light"
+            theme="dark"
             placeholder="Confirm my password"
             name="reenterPassword"
             isMobile
+            source="mantle"
             state={formState.reenterPassword.status as any}
             errorMessage={formState.reenterPassword.errorMessage}
             delay={500}
@@ -173,11 +177,11 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
             <Checkbox
               outClassNames={`${
                 acceptConditions
-                  ? 'border-neutral-off-black'
+                  ? 'border-neutral-off-white'
                   : 'border-neutral-medium-gray'
               }`}
               isCircle={true}
-              innerClassNames="bg-neutral-off-black"
+              innerClassNames="bg-neutral-off-white"
               onChange={(value) => {
                 if (value) {
                   setAcceptErrorMessage(false);
@@ -190,7 +194,7 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
               className={cn(
                 `body-s text-neutral-medium-gray`,
                 acceptErrorMessage ? 'text-status-error-dark ' : '',
-                acceptConditions ? 'text-neutral-off-black' : ''
+                acceptConditions ? 'text-neutral-off-white' : ''
               )}
             >
               {`I agree with HackQuest's Terms of Service,  `}
@@ -223,17 +227,12 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
       <Button
         onClick={onRegister}
         block
-        type="primary"
+        type="mantle"
         loading={loading}
         disabled={loading}
         icon={<RightArrowIcon></RightArrowIcon>}
         iconPosition="right"
-        className="
-          button-text-m border-auth-primary-button-border-color bg-auth-primary-button-bg
-          py-4 uppercase
-          text-auth-primary-button-text-color hover:border-auth-primary-button-border-hover-color
-          hover:bg-auth-primary-button-hover-bg hover:text-auth-primary-button-text-hover-color
-          "
+        className="gap-[15px] rounded-[10px] font-GT-Walsheim-Trial text-[18px] leading-[140%]"
       >
         Continue
       </Button>

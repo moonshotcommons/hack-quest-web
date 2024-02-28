@@ -2,7 +2,7 @@ import { FC, useContext, useEffect, useRef, useState } from 'react';
 
 import Button from '@/components/Common/Button';
 import RightArrowIcon from '@/components/Common/Icon/RightArrow';
-import Checkbox from '@/components/Common/Checkbox';
+import Checkbox from '@/components/Mantle/Common/Checkbox';
 import Input from '@/components/Common/Input';
 import { BurialPoint } from '@/helper/burialPoint';
 import { setToken } from '@/helper/user-token';
@@ -135,11 +135,11 @@ const UserLogin: FC<UserLoginProps> = (props) => {
   }, []);
 
   return (
-    <div className="flex h-full w-full flex-col justify-between">
+    <div className="flex h-full w-full flex-col justify-between px-5">
       {/* <ThirdPartyLogin></ThirdPartyLogin> */}
-      <div className="flex w-full flex-col gap-[24px] text-base">
+      <div className="flex w-full flex-col gap-[20px] text-base">
         <div>
-          <p className="body-l-bold text-neutral-rich-gray">
+          <p className="text-center font-GT-Walsheim-Trial text-[1rem] leading-[140%] text-[#C4C4C4]">
             {`Don’t have an account? `}
             <span
               className="body-l-bold cursor-pointer underline"
@@ -209,7 +209,8 @@ const UserLogin: FC<UserLoginProps> = (props) => {
             type="password"
             name="password"
             placeholder="Password"
-            theme="light"
+            theme="dark"
+            source="mantle"
             isMobile
             state={formState.password.status as any}
             errorMessage={formState.password.errorMessage}
@@ -241,10 +242,10 @@ const UserLogin: FC<UserLoginProps> = (props) => {
           <Checkbox
             outClassNames={`${
               formData.keepMeLoggedIn
-                ? 'border-neutral-off-black'
+                ? 'border-neutral-off-white'
                 : 'border-neutral-medium-gray'
             }`}
-            innerClassNames="bg-neutral-off-black"
+            innerClassNames="bg-neutral-off-white"
             checked={formData.keepMeLoggedIn}
             onChange={(value) => {
               BurialPoint.track('login-保存登录状态');
@@ -258,7 +259,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
           <p
             className={cn(
               'body-s cursor-pointer text-neutral-medium-gray',
-              formData.keepMeLoggedIn ? 'text-neutral-off-black' : ''
+              formData.keepMeLoggedIn ? 'text-neutral-off-white' : ''
             )}
             onClick={() => {
               setFormData({
@@ -279,13 +280,8 @@ const UserLogin: FC<UserLoginProps> = (props) => {
           disabled={loading}
           icon={<RightArrowIcon></RightArrowIcon>}
           iconPosition="right"
-          type="primary"
-          className="
-          button-text-m border-auth-primary-button-border-color bg-auth-primary-button-bg py-4
-          text-[.875rem] uppercase
-          text-auth-primary-button-text-color hover:border-auth-primary-button-border-hover-color
-          hover:bg-auth-primary-button-hover-bg hover:text-auth-primary-button-text-hover-color
-          "
+          type="mantle"
+          className="gap-[15px] rounded-[10px] font-GT-Walsheim-Trial text-[18px] leading-[140%]"
         >
           Continue
         </Button>
@@ -294,7 +290,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
           block
           ghost
           className="
-          button-text-m border-neutral-off-black py-4 text-[.875rem] uppercase
+          gap-[15px] rounded-[10px] border-white font-GT-Walsheim-Trial text-[18px] leading-[140%] text-white
           "
         >
           Back

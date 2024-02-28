@@ -6,6 +6,7 @@ import Button from '@/components/Common/Button';
 
 import MantleBgLogo from '@/public/images/mantle/mantle_bg_mobile.webp';
 import { useUserStore } from '@/store/zustand/userStore';
+import { NavType } from '@/components/Mobile/MobLayout/BasePage/Navbar';
 // import MantleBgLogo from '@/public/images/mantle/mantle_bg_logo.png';
 
 interface TopBannerProps {}
@@ -33,7 +34,9 @@ const logo = (
 );
 
 const TopBanner: FC<TopBannerProps> = (props) => {
-  const setAuthModalOpen = useUserStore((state) => state.setAuthModalOpen);
+  const { setNavType, toggleOpen } = useUserStore(
+    (state) => state.mobileAuthToggleOpenHandle
+  );
 
   return (
     <div
@@ -95,7 +98,10 @@ const TopBanner: FC<TopBannerProps> = (props) => {
                   />
                 </svg>
               }
-              onClick={() => setAuthModalOpen(true)}
+              onClick={() => {
+                toggleOpen();
+                setNavType(NavType.AUTH);
+              }}
             >
               Get Started
             </Button>

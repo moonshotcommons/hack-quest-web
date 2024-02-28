@@ -33,7 +33,7 @@ const SignUp: FC<SignUpProps> = (props) => {
   }, []);
 
   const EmailTitle = (
-    <p className="body-l-bold text-base text-neutral-rich-gray">
+    <p className="text-center font-GT-Walsheim-Trial text-[1rem] leading-[140%] text-[#C4C4C4]">
       Already have an account?{' '}
       <span
         className="cursor-pointer underline"

@@ -105,17 +105,19 @@ const EmailVerify: FC<EmailVerifyProps> = (props) => {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <rect width="64" height="64" fill="white" />
+          {/* <rect width="64" height="64" fill="white" /> */}
           <path
             fillRule="evenodd"
             clipRule="evenodd"
             d="M57.3063 14.187C55.8162 11.9824 53.3273 10.663 50.6663 10.667H13.333C8.91473 10.667 5.33301 14.2487 5.33301 18.667V45.3337C5.33301 49.7519 8.91473 53.3337 13.333 53.3337H50.6663C55.0846 53.3337 58.6663 49.7519 58.6663 45.3337V18.667C58.6699 17.0715 58.1963 15.5113 57.3063 14.187ZM13.3327 16H50.666C51.432 16.001 52.1605 16.3312 52.666 16.9067L31.9994 28.9867L11.3594 16.88C11.8635 16.3214 12.5802 16.0018 13.3327 16ZM50.666 48.0006C52.1388 48.0006 53.3327 46.8067 53.3327 45.334V22.6406L34.666 33.5739C33.8558 34.044 32.936 34.2923 31.9993 34.2939C31.0651 34.3004 30.1455 34.0613 29.3327 33.6006L10.666 22.6406V45.334C10.666 46.8067 11.8599 48.0006 13.3327 48.0006H50.666Z"
-            fill="#131313"
+            fill="white"
           />
         </svg>
 
-        <h1 className="text-h3 text-neutral-off-black">Verify Your Email</h1>
-        <p className="body-l text-neutral-medium-gray">
+        <h1 className="text-h3 font-GT-Walsheim-Trial text-neutral-off-white">
+          Verify Your Email
+        </h1>
+        <p className="body-l font-GT-Walsheim-Trial text-neutral-light-gray">
           Please verify your account via the link in the e-mail and follow the
           instruction to login
         </p>
@@ -124,13 +126,11 @@ const EmailVerify: FC<EmailVerifyProps> = (props) => {
         <Button
           onClick={resendButtonParams.handle}
           block
+          type="mantle"
           disabled={!!Math.floor(countdown / 1000)}
           className={cn(
             `
-          button-text-l border-auth-primary-button-border-color bg-auth-primary-button-bg
-          py-4 uppercase
-          text-auth-primary-button-text-color hover:border-auth-primary-button-border-hover-color
-          hover:bg-auth-primary-button-hover-bg hover:text-auth-primary-button-text-hover-color
+           gap-[15px] rounded-[10px] font-GT-Walsheim-Trial text-[18px] leading-[140%]
           `,
             !!Math.floor(countdown / 1000)
               ? 'cursor-not-allowed opacity-60'
@@ -149,7 +149,7 @@ const EmailVerify: FC<EmailVerifyProps> = (props) => {
           block
           ghost
           className="
-          button-text-l border-neutral-off-black py-4 uppercase
+          gap-[15px] rounded-[10px] border-white font-GT-Walsheim-Trial text-[18px] leading-[140%] text-white
     "
         >
           {backButtonParams.text}

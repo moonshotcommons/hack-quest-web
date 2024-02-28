@@ -2,7 +2,7 @@ import { FC, useEffect, useRef, useState } from 'react';
 
 import Button from '@/components/Common/Button';
 import RightArrowIcon from '@/components/Common/Icon/RightArrow';
-import Checkbox from '@/components/Common/Checkbox';
+import Checkbox from '@/components/Mantle/Common/Checkbox';
 import Input from '@/components/Common/Input';
 import { BurialPoint } from '@/helper/burialPoint';
 import { setToken } from '@/helper/user-token';
@@ -93,7 +93,9 @@ const UserLogin: FC<UserLoginProps> = (props) => {
               setAuthModalOpen(false);
               if (!redirect_url && pathname !== V2_LANDING_PATH) {
                 window.location.reload();
-              } else redirectToUrl(toPageUrl);
+              } else {
+                // redirectToUrl(toPageUrl);
+              }
             } else {
               setTipsModalOpenState(true);
             }
@@ -246,10 +248,10 @@ const UserLogin: FC<UserLoginProps> = (props) => {
           <Checkbox
             outClassNames={`${
               formData.keepMeLoggedIn
-                ? 'border-neutral-off-black'
+                ? 'border-neutral-off-white'
                 : 'border-neutral-medium-gray'
             }`}
-            innerClassNames="bg-neutral-off-black"
+            innerClassNames="bg-neutral-off-white"
             checked={formData.keepMeLoggedIn}
             onChange={(value) => {
               BurialPoint.track('login-保存登录状态');
@@ -263,7 +265,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
           <p
             className={cn(
               'body-s cursor-pointer text-neutral-medium-gray',
-              formData.keepMeLoggedIn ? 'text-neutral-off-black' : ''
+              formData.keepMeLoggedIn ? 'text-neutral-off-white' : ''
             )}
             onClick={() => {
               setFormData({

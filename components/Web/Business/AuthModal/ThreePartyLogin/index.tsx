@@ -38,8 +38,8 @@ function ThreePartyLogin() {
 
   return (
     <div className="w-full">
-      <div className="relative flex justify-center">
-        <div className="flex h-[30px] items-center text-center font-GT-Walsheim-Trial  text-[18px] text-white">
+      <div className="relative flex h-[39px] items-center justify-center">
+        <div className="flex items-center text-center font-GT-Walsheim-Trial  text-[18px] text-white">
           or continue with
         </div>
         <div className="absolute left-0 top-1/2 h-[1px] w-[calc(50%-80px)] -translate-y-1/2 bg-white"></div>

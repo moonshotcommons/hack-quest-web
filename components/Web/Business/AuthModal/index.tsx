@@ -106,7 +106,7 @@ const AuthModal: FC<AuthModalProps> = (props) => {
         />
       }
     >
-      <div className="box-content flex h-[37.5rem] w-[25.625rem] flex-col rounded-[10px] border border-[#202020] bg-[#202020] p-10 font-GT-Walsheim-Trial">
+      <div className="flex h-[37.5rem] w-[30.625rem] flex-col rounded-[10px] border border-[#202020] bg-[#202020] p-10 font-GT-Walsheim-Trial">
         {/* <div className="mb-[3rem] flex w-full justify-center">{logo}</div> */}
         <div className="mb-8 flex flex-col items-center gap-[10px]">
           <h1 className="text-[30px] font-medium leading-[110%] -tracking-[1.92px] text-white">

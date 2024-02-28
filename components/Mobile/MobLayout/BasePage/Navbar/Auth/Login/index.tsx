@@ -17,19 +17,17 @@ const Login: FC<LoginProps> = (props) => {
   const setAuthType = useUserStore((state) => state.setAuthType);
 
   const EmailTitle = (
-    <div>
-      <p className="body-l-bold text-base text-neutral-rich-gray">
-        {`Don’t have an account?  `}
-        <span
-          className="cursor-pointer underline"
-          onClick={() => {
-            setAuthType(AuthType.SIGN_UP);
-          }}
-        >
-          Sign up
-        </span>
-      </p>
-    </div>
+    <p className="text-center font-GT-Walsheim-Trial text-[1rem] leading-[140%] text-[#C4C4C4]">
+      {`Don’t have an account?  `}
+      <span
+        className="cursor-pointer underline"
+        onClick={() => {
+          setAuthType(AuthType.SIGN_UP);
+        }}
+      >
+        Sign up
+      </span>
+    </p>
   );
 
   return (

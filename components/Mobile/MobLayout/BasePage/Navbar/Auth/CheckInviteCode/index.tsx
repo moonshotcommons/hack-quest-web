@@ -205,11 +205,11 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
   }, []);
 
   return (
-    <div className="flex h-full w-full flex-col justify-between">
+    <div className="flex h-full w-full flex-col justify-between px-5">
       {/* <ThirdPartyLogin></ThirdPartyLogin> */}
       {/* <ThirdPartyLogin></ThirdPartyLogin> */}
       <div className="flex w-full flex-col gap-8">
-        <p className="body-m-bold text-neutral-rich-gray">
+        <p className="text-center font-GT-Walsheim-Trial text-[1rem] leading-[140%] text-[#C4C4C4]">
           Do you have an invite code?
         </p>
         {/* <div className="body-s text-neutral-black">
@@ -218,15 +218,16 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
         </div> */}
 
         <Input
-          label="Invite Code (Optional)"
+          // label="Invite Code (Optional)"
           type="text"
           name="invite code"
           isMobile
+          source="mantle"
           placeholder="Enter your invite code"
           state={formState.inviteCode.status as any}
           errorMessage={formState.inviteCode.errorMessage}
           delay={500}
-          theme={'light'}
+          theme={'dark'}
           onChange={(e) => {
             setFormData({
               ...formData,
@@ -264,14 +265,12 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
             }
           }}
           block
-          type="primary"
+          type="mantle"
           disabled={emailLoading || thirdPartyLoading}
           loading={emailLoading || thirdPartyLoading}
-          className="
-          button-text-m py-4 uppercase
-          "
+          className="gap-[15px] rounded-[10px] font-GT-Walsheim-Trial text-[18px] leading-[140%]"
         >
-          submit
+          Submit
         </Button>
         <Button
           onClick={() => {
@@ -296,7 +295,9 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
           loading={skipInviteCodeLoading}
           disabled={skipInviteCodeLoading}
           ghost
-          className="button-text-m border-neutral-off-black py-4 uppercase"
+          className="
+          gap-[15px] rounded-[10px] border-white font-GT-Walsheim-Trial text-[18px] leading-[140%] text-white
+          "
         >
           Skip
         </Button>

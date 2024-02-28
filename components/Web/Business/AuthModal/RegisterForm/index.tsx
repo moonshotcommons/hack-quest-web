@@ -1,6 +1,6 @@
 import Button from '@/components/Common/Button';
 import RightArrowIcon from '@/components/Common/Icon/RightArrow';
-import Checkbox from '@/components/Common/Checkbox';
+import Checkbox from '@/components/Mantle/Common/Checkbox';
 import Input from '@/components/Common/Input';
 import { BurialPoint } from '@/helper/burialPoint';
 import { cn } from '@/helper/utils';
@@ -115,7 +115,7 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
             source="mantle"
             name="password"
             placeholder="8+characters with a mix of letters & numbers"
-            theme="light"
+            theme="dark"
             // description="Use 8 or more characters with a mix of letters & numbers"
             state={formState.password.status as any}
             errorMessage={formState.password.errorMessage}
@@ -175,11 +175,11 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
             <Checkbox
               outClassNames={`${
                 acceptConditions
-                  ? 'border-neutral-off-black'
+                  ? 'border-neutral-off-white'
                   : 'border-neutral-medium-gray'
               }`}
               isCircle={true}
-              innerClassNames="bg-neutral-off-black"
+              innerClassNames="bg-neutral-off-white"
               onChange={(value) => {
                 if (value) {
                   setAcceptErrorMessage(false);
@@ -192,7 +192,7 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
               className={cn(
                 `body-s text-neutral-medium-gray`,
                 acceptErrorMessage ? 'text-status-error-dark ' : '',
-                acceptConditions ? 'text-neutral-off-black' : ''
+                acceptConditions ? 'text-neutral-off-white' : ''
               )}
             >
               {`I agree with HackQuest's Terms of Service,  `}
