@@ -281,7 +281,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
           iconPosition="right"
           type="primary"
           className="
-          button-text-l border-auth-primary-button-border-color bg-auth-primary-button-bg py-4
+          button-text-m border-auth-primary-button-border-color bg-auth-primary-button-bg py-4
           text-[.875rem] uppercase
           text-auth-primary-button-text-color hover:border-auth-primary-button-border-hover-color
           hover:bg-auth-primary-button-hover-bg hover:text-auth-primary-button-text-hover-color
@@ -294,7 +294,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
           block
           ghost
           className="
-          button-text-l border-neutral-off-black py-4 text-[.875rem] uppercase
+          button-text-m border-neutral-off-black py-4 text-[.875rem] uppercase
           "
         >
           Back
