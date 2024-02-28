@@ -115,7 +115,7 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
             onClick={() => {
               BurialPoint.track(`hackathon detail View All Projects 按钮点击`);
             }}
-            href={`${MenuLink.PROJECTS}?menu=${Menu.HACKATHON}&${QueryIdType.PROJECT_ID}=projects&keyWord=${hackathon.name}`}
+            href={`${MenuLink.PROJECTS}?menu=${Menu.HACKATHON}&${QueryIdType.PROJECT_ID}=projects&keyword=${hackathon.name}`}
           >
             <Button className="button-text-m fixed bottom-[1.25rem] left-[1.25rem] z-[10] h-[3rem] w-[calc(100vw-2.5rem)] bg-neutral-black uppercase text-neutral-white">
               View All Projects

@@ -24,7 +24,7 @@ const ElectiveCatalogueItem: FC<ElectiveCatalogueItemProps> = (props) => {
         <div className="flex-1">
           <Suspense fallback={<div>loading...</div>}>
             <LinkWrap lesson={lesson} courseDetail={courseDetail!}>
-              <h2 className="body-m-bold text-neutral-black">{lesson.name}</h2>
+              <h2 className="body-m-bold text-neutral-black">{lesson.title}</h2>
               <p className="body-s mt-1 line-clamp-3  text-neutral-medium-gray">
                 {lesson.description}
               </p>

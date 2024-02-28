@@ -18,7 +18,9 @@ import { RcFile } from 'antd/es/upload';
 import webApi from '@/service';
 import { useRequest } from 'ahooks';
 
-interface BugFeedbackModalProps {}
+interface BugFeedbackModalProps {
+  onSubmitSuccess?: VoidFunction;
+}
 
 const validImageType = [
   'image/jpeg',
@@ -44,7 +46,7 @@ const kinds = [
 type A = (typeof kinds)[number];
 
 const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
-  (props, ref) => {
+  ({ onSubmitSuccess }, ref) => {
     const [open, setOpen] = useState(false);
     const [selectKinds, setSelectKinds] = useState<string[]>([]);
     const [descLength, setDescLength] = useState(0);
@@ -157,7 +159,12 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
           setSelectKinds([]);
           setDescLength(0);
           setOpen(false);
-          message.success('Commit success!');
+
+          if (onSubmitSuccess) {
+            onSubmitSuccess();
+          } else {
+            message.success('Commit success!');
+          }
         },
         manual: true,
         debounceWait: 500

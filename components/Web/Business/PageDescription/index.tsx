@@ -13,9 +13,7 @@ const PageDescription: React.FC<PageDescriptionType> = ({
 }) => {
   return (
     <div className={cn(`pb-[60px] pt-[20px]`, className)}>
-      <p className="text-h2 leading-[120%] tracking-[2.4px] text-neutral-off-black">
-        {title}
-      </p>
+      <h1 className="text-h2  text-neutral-off-black">{title}</h1>
       <p className="body-l mt-5 w-[763px] text-neutral-medium-gray">
         {description}
       </p>
