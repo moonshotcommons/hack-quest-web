@@ -150,30 +150,30 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
               }
             });
           }}
-          onBlur={(e) => {
-            validator.validate({ email: e.target.value }, (errors, fields) => {
-              if (errors?.[0]) {
-                setFormState({
-                  ...formState,
-                  email: {
-                    status: 'error',
-                    errorMessage: errors?.[0].message || ''
-                  }
-                });
-                onStatusChange(false);
-              } else {
-                setFormState({
-                  ...formState,
-                  email: {
-                    status: 'success',
-                    errorMessage: ''
-                  }
-                });
-                onStatusChange(true);
-              }
-            });
-          }}
-          defaultValue={formData.email || ''}
+          // onBlur={(e) => {
+          //   validator.validate({ email: e.target.value }, (errors, fields) => {
+          //     if (errors?.[0]) {
+          //       setFormState({
+          //         ...formState,
+          //         email: {
+          //           status: 'error',
+          //           errorMessage: errors?.[0].message || ''
+          //         }
+          //       });
+          //       onStatusChange(false);
+          //     } else {
+          //       setFormState({
+          //         ...formState,
+          //         email: {
+          //           status: 'success',
+          //           errorMessage: ''
+          //         }
+          //       });
+          //       onStatusChange(true);
+          //     }
+          //   });
+          // }}
+          defaultValue={formData.email}
         ></Input>
         <Button
           onClick={verifyEmail}
