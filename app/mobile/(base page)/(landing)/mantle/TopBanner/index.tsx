@@ -4,7 +4,7 @@ import { FC } from 'react';
 import Image from 'next/image';
 import Button from '@/components/Common/Button';
 
-import MantleBgLogo from '@/public/images/mantle/mantle_bg.png';
+import MantleBgLogo from '@/public/images/mantle/mantle_bg_mobile.webp';
 import { useUserStore } from '@/store/zustand/userStore';
 // import MantleBgLogo from '@/public/images/mantle/mantle_bg_logo.png';
 
@@ -37,7 +37,7 @@ const TopBanner: FC<TopBannerProps> = (props) => {
 
   return (
     <div
-      className="relative flex h-[38.75rem] w-full flex-col justify-between overflow-hidden bg-neutral-black bg-cover"
+      className="relative flex h-[21.375rem] w-full flex-col justify-between overflow-hidden bg-neutral-black bg-cover"
       style={{
         background:
           'radial-gradient(51.73% 51.73% at 52.94% 31.85%, #05251E 0%, #000 100%)'
@@ -51,8 +51,8 @@ const TopBanner: FC<TopBannerProps> = (props) => {
           className="object-cover"
         ></Image> */}
       </div>
-      <div className="container relative mx-auto  flex max-w-[77.5rem] justify-center">
-        <div className="absolute -left-[939px] -top-[765px] h-[132.5625rem] w-[133.75rem]">
+      <div className="container relative mx-auto  flex justify-center">
+        <div className="absolute -left-[392px] -top-[346px] h-[57.5rem] w-[58rem]">
           <Image src={MantleBgLogo} fill alt="mantle"></Image>
         </div>
         {/* <div className="absolute -left-[658px] -top-[466px] h-[95.1875rem] w-[98.75rem] rotate-[31deg] ">
@@ -61,22 +61,22 @@ const TopBanner: FC<TopBannerProps> = (props) => {
         {/* <div className="absolute left-[44px] top-[82px] h-[240px] w-[200px] -rotate-[13deg]">
           <Image src={TopBannerPerson} alt="mantle"></Image>
         </div> */}
-        <div className="relative z-[1] mt-[11.25rem] flex h-full flex-col items-center">
+        <div className="relative z-[1] mt-[9.25rem] flex h-full flex-col items-center">
           <div className="flex flex-col items-center gap-[10px]">
-            <h1 className="text-[48px]  font-medium leading-[110%] -tracking-[1.92px] text-white">
+            <h1 className="text-[36px] font-medium leading-[110%] -tracking-[1.92px] text-white">
               Mantle University
             </h1>
             <div className="flex items-center">
-              <p className="pr-[12px] text-[18px] leading-[130%] text-[#C4C4C4]">
+              <p className="pr-[12px] text-[16px] leading-[140%] text-[#C4C4C4]">
                 - Powered by{' '}
               </p>
               {logo}
             </div>
           </div>
-          <div className="mt-[3.75rem] flex items-center gap-x-[10px]">
+          <div className="mt-8 flex items-center gap-x-[10px]">
             <Button
               type="mantle"
-              className="w-[21.5rem] gap-[15px] rounded-[10px]"
+              className="w-[15.6875rem] gap-[15px] rounded-[10px] font-GT-Walsheim-Trial text-[1.125rem] leading-[140%]"
               iconPosition="right"
               icon={
                 <svg

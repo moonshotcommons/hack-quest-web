@@ -20,7 +20,7 @@ export function middleware(request: NextRequest) {
     host && (host.includes(MANTLE_HOST) || host.includes('localhost:3000'));
   const isLanding = ['/', '/mobile'].includes(request.nextUrl.pathname);
 
-  if (isMantle) {
+  if (isMantle && !isLanding) {
     // host = host.replace(MANTLE_HOST, 'hackquest.io');
     host = host.replace('localhost:3000', 'hackquest.io');
   }

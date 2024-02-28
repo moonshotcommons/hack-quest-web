@@ -37,29 +37,25 @@ const WhyMantleUniversity: FC<WhyMantleUniversityProps> = (props) => {
   ];
 
   return (
-    <div className="container mx-auto flex max-w-[77.5rem] flex-col items-center gap-4 text-center">
-      <h3 className="text-[48px] font-medium leading-[110%] -tracking-[1.92px] text-white">
+    <div className="mx-auto flex w-full max-w-[77.5rem] flex-col items-center gap-4 px-5 text-center">
+      <h3 className="text-[36px] font-medium leading-[110%] -tracking-[1.92px] text-white">
         Why Mantle University?
       </h3>
-      <div className="mt-8 flex w-full flex-wrap gap-8 [&>div]:w-[calc((100%-32px)/2)]">
+      <div className="mt-4 flex w-full flex-col gap-4">
         {infoList.map((item) => {
           return (
             <div
               key={item.title}
-              className="h-[33.375rem] rounded-[15px] border border-[#202020]"
+              className="w-full rounded-[15px] border border-[#202020]"
             >
-              <div className="relative h-[324px] w-full">
-                <Image
-                  src={item.image}
-                  alt="image"
-                  className="object-contain"
-                ></Image>
+              <div className="relative w-full pt-[calc(44.87178%+40px)]">
+                <Image src={item.image} alt="image" fill></Image>
               </div>
-              <div className="px-[1.6875rem] pb-[1.625rem] pt-[1.875rem]">
-                <h3 className="text-[2rem] leading-[110%] -tracking-[.12rem] text-white">
+              <div className="p-4">
+                <h3 className="text-[1.375rem] leading-[110%] -tracking-[.12rem] text-white">
                   {item.title}
                 </h3>
-                <p className="mt-[1.375rem] text-[1.375rem] leading-[140%] text-[#C4C4C4]">
+                <p className="mt-[.625rem] text-[1.125rem] leading-[140%] text-[#C4C4C4]">
                   {item.description}
                 </p>
               </div>

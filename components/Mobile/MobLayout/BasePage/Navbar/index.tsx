@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import React, { ReactNode, useEffect, useState, FC } from 'react';
 import { useCycle } from 'framer-motion';
 
@@ -95,14 +94,14 @@ const Navbar: FC<NavbarProps> = (props) => {
           ></Auth>
         )}
       </NavContainer>
-      <div className="relative flex flex-1 items-center justify-center">
+      {/* <div className="relative flex flex-1 items-center justify-center">
         <Image
           src={'/images/logo/dark-footer-logo.svg'}
           alt="logo"
           width={184}
           height={22}
         ></Image>
-      </div>
+      </div> */}
     </div>
   );
 };

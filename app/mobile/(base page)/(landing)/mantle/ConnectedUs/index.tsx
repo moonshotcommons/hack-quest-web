@@ -15,12 +15,12 @@ interface ConnectedUsProps {}
 
 const ConnectedUs: FC<ConnectedUsProps> = (props) => {
   return (
-    <div className="w-full overflow-hidden">
-      <div className="container relative mx-auto flex h-[30rem] max-w-[77.5rem] flex-col items-center justify-center gap-[3.75rem]">
-        <h2 className="mt-[3.125rem] text-[3rem] font-medium leading-[110%] -tracking-[1.92px] text-white">
+    <div className="relative flex w-full items-center justify-center overflow-hidden px-5 py-[3.75rem]">
+      <div className="relative flex h-full flex-col items-center justify-center gap-10 text-neutral-white">
+        <h2 className="text-[2.25rem] font-medium leading-[110%] -tracking-[1.92px] text-white">
           Stay Connected with us
         </h2>
-        <div className="flex gap-[3.75rem]">
+        <div className="flex gap-10">
           <Link
             href={HACKQUEST_DISCORD}
             target="_blank"
@@ -52,25 +52,25 @@ const ConnectedUs: FC<ConnectedUsProps> = (props) => {
         <Link href={'https://xsxo494365r.typeform.com/to/tJymzU8a'}>
           <Button
             type="mantle"
-            className="w-[18.75rem] rounded-[.625rem] px-0 py-4 text-neutral-black"
+            className="w-[12.125rem] rounded-[.625rem] px-0 py-4 text-[1.125rem] text-neutral-black"
           >
             Collab with Us
           </Button>
         </Link>
-        <div className="absolute -left-[9.375rem] top-0 h-[30.1875rem] w-[29.4375rem]">
+        {/* <div className="w-[29.4375rem] h-[30.1875rem] absolute -top-11 -left-[calc(100%+60px)]">
           <Image
-            src={'/images/mantle/connected_us_left.svg'}
+            src={'/images/landing/connected_us_left.png'}
             alt="hackquest"
             fill
           ></Image>
-        </div>
-        <div className="absolute -right-[calc(9.125rem)] bottom-0 h-[12.5rem] w-[13.125rem]">
-          <Image
-            src={'/images/mantle/connected_us_right.svg'}
-            alt="hackquest"
-            fill
-          ></Image>
-        </div>
+        </div> */}
+      </div>
+      <div className="absolute bottom-[1.0625rem] left-[53%] h-[12.5rem] w-[13.125rem]">
+        <Image
+          src={'/images/mantle/connected_us_right.svg'}
+          alt="hackquest"
+          fill
+        ></Image>
       </div>
     </div>
   );

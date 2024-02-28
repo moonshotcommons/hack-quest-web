@@ -31,11 +31,11 @@ const Nav: FC<NavProps> = ({ children, isOpen, toggleOpen }) => {
       className="absolute bottom-0 left-0 top-0 z-[100]"
     >
       <motion.div
-        className="pointer-events-none absolute left-0 top-[4rem] h-[calc(100vh-4rem)] w-screen overflow-hidden bg-blue-700 bg-neutral-black"
+        className="pointer-events-none absolute left-0 top-[4rem] h-[calc(100vh-4rem)] w-screen overflow-hidden bg-neutral-black"
         variants={sidebar}
       />
       {children}
-      <button className="absolute left-0 top-0 flex h-[64px] w-[64px] items-center justify-center rounded-full bg-transparent outline-none">
+      <button className="absolute left-[100%] top-0 flex h-[64px] w-[64px] items-center justify-center rounded-full bg-transparent outline-none">
         <svg
           width="23"
           height="23"

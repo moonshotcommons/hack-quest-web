@@ -35,9 +35,9 @@ const NavList: FC<NavListProps> = ({ navList, toggleOpen, children }) => {
         }
       }}
       className="absolute top-[4rem] w-screen  px-5 pt-[1.875rem]"
-      style={{
-        height: `${pageInfo.windowHeight - MOBILE_NAVBAR_HEIGHT}px`
-      }}
+      // style={{
+      //   height: `${pageInfo.windowHeight - MOBILE_NAVBAR_HEIGHT}px`
+      // }}
     >
       <motion.ul className={`w-full`}>
         {navList.map((item, index) => {
