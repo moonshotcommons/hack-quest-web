@@ -1,7 +1,6 @@
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import Image from 'next/image';
 import React from 'react';
-import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import CourseTags from '@/components/Web/Business/CourseTags';
 import { useRedirect } from '@/hooks/useRedirect';
 import LearningTrackImg from '@/public/images/home/learningtrack_img.png';
@@ -22,9 +21,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
 
   const goLearningTrackDetail = (e: any) => {
     if (isLandingPage) return;
-    redirectToUrl(
-      `${MenuLink.LEARNING_TRACK}/${learningTrack.id}?${QueryIdType.LEARNING_TRACK_ID}=${learningTrack.id}&menu=${Menu.LEARNING_TRACK}`
-    );
+    redirectToUrl(`${MenuLink.LEARNING_TRACK}/${learningTrack.id}`);
   };
 
   return (

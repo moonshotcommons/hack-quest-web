@@ -1,5 +1,4 @@
 'use client';
-import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import { tagFormate } from '@/helper/formate';
 import { cn, getCoursePrefixByCourseType } from '@/helper/utils';
 
@@ -45,7 +44,7 @@ const LearningTrackCatalogueItem: FC<LearningTrackCatalogueItemProps> = (
                   </div>
                 </div>
                 <Link
-                  href={`${getCoursePrefixByCourseType(course.type)}/${course.id}?${QueryIdType.LEARNING_TRACK_ID}=${learningTrackDetail.id}&${QueryIdType.MENU_COURSE_ID}=${course.id}&menu=${Menu.LEARNING_TRACK}`}
+                  href={`${getCoursePrefixByCourseType(course.type)}/${course.id}`}
                   className="body-s ml-[10%] w-[36%] flex-1 cursor-pointer text-neutral-black transition hover:opacity-70"
                 >
                   {course.name}

@@ -4,7 +4,7 @@ import { cn } from '@/helper/utils';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
 import { CourseType } from '@/service/webApi/course/type';
 import { FC, useCallback, useRef } from 'react';
-import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
+import { QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import { useRedirect } from '@/hooks/useRedirect';
 import MobMiniElectiveDetailModal, {
   MiniElectiveDetailModalRef
@@ -35,14 +35,10 @@ const MobElectiveCard: FC<ElectiveCardProps> = (props) => {
       //   miniElectiveDetailInstance.current?.open(course);
       //   return;
       case CourseType.UGC:
-        redirectToUrl(
-          `${MenuLink.PRACTICES}/${course.id}?${QueryIdType.MENU_COURSE_ID}=${course.id}&menu=${Menu.ELECTIVES}`
-        );
+        redirectToUrl(`${MenuLink.PRACTICES}/${course.id}`);
         return;
       default:
-        redirectToUrl(
-          `${MenuLink.ELECTIVES}/${course.id}?${QueryIdType.MENU_COURSE_ID}=${course.id}&menu=${Menu.ELECTIVES}`
-        );
+        redirectToUrl(`${MenuLink.ELECTIVES}/${course.id}`);
         return;
       // jumpLearningLesson(course, {
       //   menu: 'electives',
