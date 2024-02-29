@@ -13,6 +13,7 @@ import Image from 'next/image';
 import { CourseStructure } from '@/components/Mobile/MobDetailPageV2/CourseStructure';
 import { ElectiveStatusButton } from '@/components/Mobile/MobDetailPageV2/StatusButton';
 import { ElectiveCourseDetailType } from '@/service/webApi/elective/type';
+import { Metadata } from 'next';
 
 interface ElectiveDetailPageProps {
   params: {
@@ -22,6 +23,28 @@ interface ElectiveDetailPageProps {
     menuCourseId: string;
     menu: string;
   };
+}
+
+export async function generateMetadata(
+  { params, searchParams }: ElectiveDetailPageProps,
+  parent: any
+): Promise<Metadata> {
+  // 读取路由参数
+  const courseId = params.courseId;
+
+  const courseDetail =
+    await webApi.courseApi.fetchCourseDetail<ElectiveCourseDetailType>(
+      courseId
+    );
+
+  const metadata: Metadata = {
+    title: courseDetail.title,
+    alternates: {
+      canonical: `https://www.hackquest.io/electives/${courseId}`
+    }
+  };
+
+  return metadata;
 }
 
 const ElectiveDetailPage: FC<ElectiveDetailPageProps> = async (props) => {

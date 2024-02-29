@@ -5,7 +5,10 @@ import { Metadata } from 'next';
 import Dashboard from './components';
 
 export const metadata: Metadata = {
-  title: 'Dashboard'
+  title: 'Dashboard',
+  alternates: {
+    canonical: 'https://www.hackquest.io/dashboard'
+  }
 };
 
 const DashboardPage = () => {
