@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import HackathonPage from './components';
-import { getFeaturedProjects } from '@/service/hackathon';
+import { getFeaturedProjects } from '@/service/catch/resource/hackathon';
 import { HackathonStatusType } from '@/service/webApi/resourceStation/type';
 
 interface HackathonProps {
