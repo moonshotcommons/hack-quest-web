@@ -3,7 +3,10 @@ import Electives from './components/Electives';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Electives'
+  title: 'Electives',
+  alternates: {
+    canonical: 'https://www.hackquest.io/electives'
+  }
 };
 
 interface ElectivesPageProps {}

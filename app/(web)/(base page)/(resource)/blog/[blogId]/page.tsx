@@ -16,7 +16,10 @@ export async function generateMetadata({
   const blog: BlogDetailType = await getBlogById(params.blogId);
   return {
     title: blog.title,
-    description: blog.description
+    description: blog.description,
+    alternates: {
+      canonical: `https://www.hackquest.io/blog/${params.blogId}`
+    }
   };
 }
 

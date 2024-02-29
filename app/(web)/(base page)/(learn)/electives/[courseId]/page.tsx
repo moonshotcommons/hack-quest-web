@@ -13,6 +13,7 @@ import KnowledgeGain from '@/components/Web/DetailPageV2/KnowledgeGain';
 import { ElectiveDetailCard } from '@/components/Web/DetailPageV2/DetailCard';
 import { ElectiveCourseDetailType } from '@/service/webApi/elective/type';
 import ElectiveDetailProvider from '@/components/Web/DetailPageV2/Provider/ElectiveDetailProvider';
+import { Metadata } from 'next';
 
 interface ElectivePageProps {
   params: {
@@ -22,6 +23,28 @@ interface ElectivePageProps {
     menuCourseId: string;
     menu: string;
   };
+}
+
+export async function generateMetadata(
+  { params, searchParams }: ElectivePageProps,
+  parent: any
+): Promise<Metadata> {
+  // 读取路由参数
+  const courseId = params.courseId;
+
+  const courseDetail =
+    await webApi.courseApi.fetchCourseDetail<ElectiveCourseDetailType>(
+      courseId
+    );
+
+  const metadata: Metadata = {
+    title: courseDetail.title,
+    alternates: {
+      canonical: `https://www.hackquest.io/electives/${courseId}`
+    }
+  };
+
+  return metadata;
 }
 
 const ElectivePage: FC<ElectivePageProps> = async (props) => {

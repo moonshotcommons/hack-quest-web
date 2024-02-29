@@ -13,6 +13,7 @@ import KnowledgeGain from '@/components/Web/DetailPageV2/KnowledgeGain';
 import IntendedLearners from '@/components/Web/DetailPageV2/IntendedLearners';
 import { LearningTrackDetailCard } from '@/components/Web/DetailPageV2/DetailCard';
 import CertificationCardProvider from '@/components/Web/Business/Certification/CertificationCard/CertificationCardProvider';
+import { Metadata } from 'next';
 
 interface LearningTrackDetailPageProps {
   params: {
@@ -22,6 +23,26 @@ interface LearningTrackDetailPageProps {
     learningTrackId: string;
     menu: string;
   };
+}
+
+export async function generateMetadata(
+  { params, searchParams }: LearningTrackDetailPageProps,
+  parent: any
+): Promise<Metadata> {
+  // 读取路由参数
+  const learningTrackId = params.learningTrackId;
+
+  const courseDetail =
+    await webApi.learningTrackApi.fetchLearningTrackDetail(learningTrackId);
+
+  const metadata: Metadata = {
+    title: courseDetail.name,
+    alternates: {
+      canonical: `https://www.hackquest.io/learning-track/${learningTrackId}`
+    }
+  };
+
+  return metadata;
 }
 
 const LearningTrackDetailPage: FC<LearningTrackDetailPageProps> = async (

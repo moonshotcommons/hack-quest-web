@@ -3,7 +3,6 @@ import { LearningTrackCourseType } from '@/service/webApi/course/type';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
-import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import CourseTags from '@/components/Web/Business/CourseTags';
 import { useRedirect } from '@/hooks/useRedirect';
 import { cn } from '@/helper/utils';
@@ -34,9 +33,7 @@ const MobLearningTrackCard: React.FC<MobLearningTrackCardProps> = ({
 
   const goLearningTrackDetail = (e: any) => {
     if (isLandingPage) return;
-    redirectToUrl(
-      `${MenuLink.LEARNING_TRACK}/${learningTrack.id}?${QueryIdType.LEARNING_TRACK_ID}=${learningTrack.id}&menu=${Menu.LEARNING_TRACK}`
-    );
+    redirectToUrl(`${MenuLink.LEARNING_TRACK}/${learningTrack.id}`);
   };
 
   // const handleContinue = (e: MouseEvent<HTMLElement>) => {
