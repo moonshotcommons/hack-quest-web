@@ -1,6 +1,6 @@
 'use client';
-import NavBar from '@/components/Layout/Navbar';
-import { navbarList } from '@/components/Layout/Navbar/data';
+import NavBar from '@/components/Web/Layout/BasePage/Navbar';
+import { navbarList } from '@/components/Web/Layout/BasePage/Navbar/data';
 import { FC, ReactNode, createContext, useMemo } from 'react';
 export const NavbarContext = createContext({
   navbarInstance: <NavBar navList={navbarList} />

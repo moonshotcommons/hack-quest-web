@@ -2,16 +2,16 @@ import { BurialPoint } from '@/helper/burialPoint';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
 import { ProjectCourseType } from '@/service/webApi/course/type';
 import { FC } from 'react';
-import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
+import { QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import CourseTags from '@/components/Web/Business/CourseTags';
 
 import { useRedirect } from '@/hooks/useRedirect';
 import CardProgress from '../CardProgress';
 import Button from '@/components/Common/Button';
-import { MenuLink } from '@/components/Layout/Navbar/type';
 import TrackTag from '@/components/Common/TrackTag';
 import CompletedIcon from '@/components/Common/Icon/Completed';
 import { getCoverImageByTrack } from '@/helper/utils';
+import { MenuLink } from '../../Layout/BasePage/Navbar/type';
 
 interface PracticeCardProps {
   course: ProjectCourseType;
@@ -31,9 +31,7 @@ const PracticeCard: FC<PracticeCardProps> = (props) => {
       }
       onClick={() => {
         BurialPoint.track('home-practice卡片点击', { practice: course.name });
-        redirectToUrl(
-          `${MenuLink.PRACTICES}/${course.id}?${QueryIdType.MENU_COURSE_ID}=${course.id}&menu=${Menu.PRACTICES}`
-        );
+        redirectToUrl(`${MenuLink.PRACTICES}/${course.id}`);
       }}
     >
       <div className="relative h-0 w-full pt-[56%]">

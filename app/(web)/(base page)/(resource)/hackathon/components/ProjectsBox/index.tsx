@@ -25,14 +25,11 @@ const ProjectsBox: React.FC<ProjectsBoxProps> = ({
   setApiStatus,
   apiStatus
 }) => {
-  const query = new URLSearchParams(
-    typeof window !== 'undefined' ? window.location.search : ''
-  );
   const [searchParam, setSearchParam] = useState<FilterDataType[]>(
     deepClone(filterData)
   );
   const timeOut = useRef<NodeJS.Timeout | null>(null);
-  const [inputValue, setInputValue] = useState(query.get('keyword') || '');
+  const [inputValue, setInputValue] = useState('');
   const [pageInfo, setPageInfo] = useState<PageInfoType>(initPageInfo);
   const [list, setList] = useState<ProjectType[]>([]);
   const [runNum, setRunNum] = useState(0);
@@ -87,6 +84,13 @@ const ProjectsBox: React.FC<ProjectsBoxProps> = ({
       initList();
     }, 300);
   }, [inputValue]);
+
+  useEffect(() => {
+    const query = new URLSearchParams(
+      typeof window !== 'undefined' ? window.location.search : ''
+    );
+    setInputValue(query.get('keyword') || '');
+  }, []);
 
   useEffect(() => {
     if (

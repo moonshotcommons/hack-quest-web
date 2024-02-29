@@ -3,7 +3,10 @@ import MobPractices from './components';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Projects'
+  title: 'HackQuest Projects',
+  alternates: {
+    canonical: 'https://www.hackquest.io/practices'
+  }
 };
 
 interface PracticesPageProps {}

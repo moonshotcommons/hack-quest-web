@@ -12,14 +12,7 @@ function ThreePartyLogin() {
 
   const loginThreeParty = async (type: ThirdPartyAuthType) => {
     switch (type) {
-      // case AuthType.METAMASK:
-      //   loginByMetaMask();
-      //   return;
       default:
-        // if (!isPc()) {
-        //   setTipsOpen(true);
-        //   return;
-        // }
         const res = (await webApi.userApi.getAuthUrl(type)) as any;
         window.location.href = res?.url;
     }

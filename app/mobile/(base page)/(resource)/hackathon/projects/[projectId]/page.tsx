@@ -1,26 +1,44 @@
-'use client';
 import { FC } from 'react';
-import { useNeedPCRedirect } from '@/hooks/useNeedPCRedirect';
+import { Metadata } from 'next';
+import ProjectDetail from '../../components/ProjectDetail';
+import {
+  getFeaturedProjects,
+  getHackathonProjectById,
+  getOtherProjects
+} from '@/service/hackathon';
 
-interface ProjectDetailPageProps {}
+interface ProjectDetailPageProps {
+  params: {
+    projectId: string;
+  };
+}
+export async function generateMetadata({
+  params
+}: ProjectDetailPageProps): Promise<Metadata> {
+  const hackathon = await getHackathonProjectById(params.projectId);
+  return {
+    title: hackathon.name,
+    description: hackathon.description,
+    alternates: {
+      canonical: `https://www.hackquest.io/project/${params.projectId}`
+    }
+  };
+}
 
-const ProjectDetailPage: FC<ProjectDetailPageProps> = (props) => {
-  // const { projectId } = useParams();
-
-  useNeedPCRedirect();
+const ProjectDetailPage: FC<ProjectDetailPageProps> = async ({ params }) => {
+  const { projectId } = params;
+  const [project, featuredProjects] = await Promise.all([
+    getHackathonProjectById(projectId),
+    getFeaturedProjects()
+  ]);
+  const otherProjects = await getOtherProjects(
+    project.hackathonName,
+    projectId
+  );
 
   return (
-    <div>
-      {/* <div className="container mx-auto">
-        {projectId && (
-          <ProjectDetail projectId={projectId as string}></ProjectDetail>
-        )}
-      </div>
-      <div className="mt-[80px]">
-        <FeaturedProjects
-          ignoreProjectId={projectId as string}
-        ></FeaturedProjects>
-      </div> */}
+    <div className="container mx-auto">
+      <ProjectDetail />
     </div>
   );
 };

@@ -11,6 +11,8 @@ import IntendedLearners from '@/components/Web/DetailPageV2/IntendedLearners';
 import KnowledgeGain from '@/components/Web/DetailPageV2/KnowledgeGain';
 import { PracticeDetailCard } from '@/components/Web/DetailPageV2/DetailCard';
 import PracticeDetailProvider from '@/components/Web/DetailPageV2/Provider/PracticeDetailProvider';
+import { Metadata } from 'next';
+import { CourseDetailType } from '@/service/webApi/course/type';
 
 interface PracticePageProps {
   params: {
@@ -20,6 +22,26 @@ interface PracticePageProps {
     menuCourseId: string;
     menu: string;
   };
+}
+
+export async function generateMetadata(
+  { params, searchParams }: PracticePageProps,
+  parent: any
+): Promise<Metadata> {
+  // 读取路由参数
+  const courseId = params.courseId;
+
+  const courseDetail =
+    await webApi.courseApi.fetchCourseDetail<CourseDetailType>(courseId);
+
+  const metadata: Metadata = {
+    title: courseDetail.title,
+    alternates: {
+      canonical: `https://www.hackquest.io/practices/${courseId}`
+    }
+  };
+
+  return metadata;
 }
 
 const PracticePage: FC<PracticePageProps> = async (props) => {
@@ -44,7 +66,7 @@ const PracticePage: FC<PracticePageProps> = async (props) => {
                 Project
               </Tags>
               <div className="mt-4 flex items-center gap-6">
-                <h2 className="text-h2">{courseDetail.name}</h2>
+                <h1 className="text-h2">{courseDetail.title}</h1>
                 {/* <div className="flex items-center gap-2">
                   <span>Certified by</span>
                   <span>Mantle</span>

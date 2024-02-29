@@ -2,10 +2,10 @@ import React, { useContext, useMemo } from 'react';
 import Image from 'next/image';
 import BIcon from '@/public/images/campaigns/b_icon.png';
 import { MantleContext } from '../../../constants/type';
-
 interface ProgressProp {}
 
 const Progress: React.FC<ProgressProp> = () => {
+  const mantle = useContext(MantleContext).mantle;
   const { progress } = useContext(MantleContext).mantle;
   const periodNum = 5;
   const schedule = useMemo(() => {
@@ -22,15 +22,20 @@ const Progress: React.FC<ProgressProp> = () => {
     };
   }, [progress]);
   return (
-    <div className={`mb-[30px] text-neutral-black`}>
-      <div className="relative flex gap-[0.5%]">
+    <div
+      className={`body-m fixed bottom-0 left-0  w-full bg-neutral-off-white px-[1.25rem] py-[.5rem] text-neutral-black shadow-[0_-4px_8px_0_rgba(0,0,0,0.12)]`}
+    >
+      <p className="caption-12pt mb-[.375rem] text-neutral-off-black">
+        {`Your journey to ${mantle.certification?.name}`}
+      </p>
+      <div className="caption-10pt relative flex gap-[0.5%]">
         {schedule.schedulePeriod.map((s, i) => (
           <div key={i} className="w-[19.6%]">
-            <div className="relative h-[25px]">
+            <div className="relative h-[1.0625rem]">
               {(schedule.curPeriod === i ||
                 (i === periodNum - 1 && s[0] === s[1])) && (
                 <div
-                  className="absolute top-0 h-[40px] translate-x-[-100%] border-r border-r-yellow-primary pr-[2px] transition-all"
+                  className="absolute top-0 h-full translate-x-[-100%] border-r border-r-yellow-primary pr-[2px] transition-all"
                   style={{
                     left: `${(s[0] / s[1]) * 100}%`
                   }}
@@ -39,9 +44,9 @@ const Progress: React.FC<ProgressProp> = () => {
                 </div>
               )}
             </div>
-            <div className="mb-[14px] h-[15px] w-full bg-[#DADADA]">
+            <div className="mb-[.25rem] h-[0.5rem] w-full bg-neutral-light-gray">
               <div
-                className="h-[15px] bg-yellow-primary shadow-[0_0_8px_#ffd850] transition-all"
+                className="h-[.5rem] bg-yellow-dark shadow-[0_0_2px_#F9D81C] transition-all"
                 style={{
                   width: `${(s[0] / s[1]) * 100}%`
                 }}
@@ -52,9 +57,9 @@ const Progress: React.FC<ProgressProp> = () => {
         ))}
         <Image
           src={BIcon}
-          width={22}
+          width={14}
           alt="icon"
-          className="absolute bottom-[4px] left-0"
+          className="absolute bottom-[0px] left-0"
         ></Image>
       </div>
     </div>

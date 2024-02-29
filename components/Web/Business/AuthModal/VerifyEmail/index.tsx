@@ -28,53 +28,18 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
 
   const [formData, setFormData] = useState<{
     email: string;
-    inviteCode: string | null;
   }>({
-    email: value || '',
-    inviteCode: null
+    email: value || ''
   });
 
   const [formState, setFormState] = useState({
-    inviteCode: {
-      status: 'default',
-      errorMessage: ''
-    },
     email: {
       status: 'default',
       errorMessage: ''
     }
   });
 
-  // const [status, setStatus] = useState<any>('default');
-  // const [errorMessage, setErrorMessage] = useState('');
   const [loading, setLoading] = useState(false);
-
-  // const { run: inviteCodeVerify, loading: inviteLoading } = useRequest(
-  //   async () => {
-  //     const res = await webApi.userApi.checkInviteCode(formData.inviteCode!);
-  //     return res;
-  //   },
-  //   {
-  //     onSuccess(res) {
-  //       if (res.valid) {
-  //         onNext(formData.email, formData.inviteCode!);
-  //       } else {
-  //         setFormState({
-  //           ...formState,
-  //           inviteCode: {
-  //             status: 'error',
-  //             errorMessage: 'Invalid invite code'
-  //           }
-  //         });
-  //       }
-  //     },
-  //     onError(e: any) {
-  //       errorMessage(e);
-  //     },
-  //     manual: true,
-  //     debounceWait: 500
-  //   }
-  // );
 
   const { run: verifyEmail } = useDebounceFn(
     () => {
@@ -121,7 +86,8 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
               errorMessage: ''
             }
           });
-          onNext(formData.email, formData.inviteCode || '');
+
+          onNext(formData.email);
           setLoading(false);
         }
       });
@@ -162,6 +128,11 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
           errorMessage={formState.email.errorMessage}
           delay={500}
           onChange={(e) => {
+            setFormData({
+              ...formData,
+              email: e.target.value
+            });
+
             setFormState({
               ...formState,
               email: {
@@ -170,77 +141,39 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
               }
             });
 
-            // validator.validate(
-            //   { email: e.target.value },
-            //   (errors, fields) => {
-            //     if (errors?.[0]) {
-            //       setStatus('error');
-            //       setErrorMessage(errors?.[0].message || '');
-            //       onStatusChange(false);
-            //     } else {
-            //       setStatus('success');
-            //       setErrorMessage('');
-            //       onStatusChange(true);
-            //     }
-            //   }
-            // );
-            setFormData({
-              ...formData,
-              email: e.target.value
-            });
-          }}
-          onBlur={(e) => {
             validator.validate({ email: e.target.value }, (errors, fields) => {
               if (errors?.[0]) {
-                setFormState({
-                  ...formState,
-                  email: {
-                    status: 'error',
-                    errorMessage: errors?.[0].message || ''
-                  }
-                });
                 onStatusChange(false);
               } else {
-                setFormState({
-                  ...formState,
-                  email: {
-                    status: 'success',
-                    errorMessage: ''
-                  }
-                });
                 onStatusChange(true);
               }
             });
           }}
+          // onBlur={(e) => {
+          //   validator.validate({ email: e.target.value }, (errors, fields) => {
+          //     if (errors?.[0]) {
+          //       setFormState({
+          //         ...formState,
+          //         email: {
+          //           status: 'error',
+          //           errorMessage: errors?.[0].message || ''
+          //         }
+          //       });
+          //       onStatusChange(false);
+          //     } else {
+          //       setFormState({
+          //         ...formState,
+          //         email: {
+          //           status: 'success',
+          //           errorMessage: ''
+          //         }
+          //       });
+          //       onStatusChange(true);
+          //     }
+          //   });
+          // }}
           defaultValue={formData.email}
         ></Input>
-        {type === AuthType.SIGN_UP && (
-          <Input
-            label="Invite Code (Optional)"
-            type="text"
-            placeholder="Enter your invite code"
-            name="inviteCode"
-            theme="light"
-            state={formState.inviteCode.status as any}
-            clear
-            errorMessage={formState.inviteCode.errorMessage}
-            delay={500}
-            onChange={(e) => {
-              setFormData({
-                ...formData,
-                inviteCode: e.target.value
-              });
-              setFormState({
-                ...formState,
-                inviteCode: {
-                  status: 'default',
-                  errorMessage: ''
-                }
-              });
-            }}
-            defaultValue={formData.inviteCode || ''}
-          ></Input>
-        )}
         <Button
           onClick={verifyEmail}
           block
