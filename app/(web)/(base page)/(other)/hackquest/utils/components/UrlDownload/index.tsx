@@ -2,30 +2,35 @@
 import Button from '@/components/Common/Button';
 import { useRequest } from 'ahooks';
 import { FC, useState } from 'react';
+import { URLDownloadType, dataMap } from './constants';
+import { errorMessage } from '@/helper/ui';
 
 interface UrlDownloadProps {}
 
-async function getUrlJsonData(type = 'projects') {
-  const res = await fetch(`/api/utils/url-download?type=${type}`);
-  return res.json();
-}
+async function getURLData(type: { api: string; route: string }) {
+  const response = await fetch('https://api.hackquest.io/v1/' + type.api);
+  if (!response.ok) return [];
+  const json = await response.json();
+  const data = json.data || [];
 
-export enum URLDownloadType {
-  BLOG = 'blog',
-  HACKATHON = 'hackathon',
-  GLOSSARY = 'glossary',
-  PROJECT = 'project'
+  return data.map((item: { alias: string }) => {
+    const { alias } = item;
+    return 'https://www.hackquest.io/' + type.route + '/' + alias;
+  });
 }
 
 const UrlDownload: FC<UrlDownloadProps> = (props) => {
   const [indexType, setIndexType] = useState<URLDownloadType | null>(null);
 
   const { runAsync, loading } = useRequest(
-    async (type: any) => {
-      return getUrlJsonData(type);
+    async (type: URLDownloadType) => {
+      return getURLData(dataMap[type]);
     },
     {
-      manual: true
+      manual: true,
+      onError(e) {
+        errorMessage(e);
+      }
     }
   );
 
