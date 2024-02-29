@@ -6,9 +6,7 @@ import { FC, useState } from 'react';
 interface UrlDownloadProps {}
 
 async function getUrlJsonData(type = 'projects') {
-  const res = await fetch(
-    `http://localhost:3000/api/utils/url-download?type=${type}`
-  );
+  const res = await fetch(`/api/utils/url-download?type=${type}`);
   return res.json();
 }
 
