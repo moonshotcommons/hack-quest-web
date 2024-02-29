@@ -66,16 +66,20 @@ const Sidebar: FC<SidebarProps> = ({ lesson }) => {
               : ''
           )}
         >{`${index + 1 < 10 ? '0' + (index + 1) : index + 1} ${
-          item.name
+          item.title
         }`}</span>
-        {state === CompleteStateType.COMPLETED && <GoCheck color="#00C365" />}
-        {state === CompleteStateType.NOT_STARTED && <FiLock color="#8C8C8C" />}
+        <div className="flex-shrink-0">
+          {state === CompleteStateType.COMPLETED && <GoCheck color="#00C365" />}
+          {state === CompleteStateType.NOT_STARTED && (
+            <FiLock color="#8C8C8C" />
+          )}
+        </div>
       </div>
     );
   };
 
   return (
-    <div className="relative">
+    <div className="relative h-full ">
       <div
         className="absolute -top-2"
         onClick={() => {
@@ -86,7 +90,7 @@ const Sidebar: FC<SidebarProps> = ({ lesson }) => {
       </div>
       <div className={cn('w-[352px] pr-[32px]', showList ? 'flex' : 'hidden')}>
         {course && (
-          <ul className="flex flex-col gap-[16px] py-[40px]">
+          <ul className="mt-[40px] flex h-[calc(100vh-144px)] flex-col gap-[16px] overflow-auto pb-[40px] pr-[10px]">
             {course.pages!.map((item, index) => {
               return (
                 <li key={index}>

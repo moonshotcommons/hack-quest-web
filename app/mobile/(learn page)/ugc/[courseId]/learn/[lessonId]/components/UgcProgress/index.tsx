@@ -12,7 +12,7 @@ const UgcProgress: React.FC<UgcProgressProp> = () => {
   }, [lesson]);
   return (
     <div className="flex h-[.3125rem] w-full gap-[1px]">
-      {unitNavList.map((item, i) => (
+      {unitNavList.map((item) => (
         <div className="h-full flex-1 bg-neutral-light-gray" key={item.id}>
           <div
             className="h-full  bg-yellow-dark transition-all"

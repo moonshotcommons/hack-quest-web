@@ -101,10 +101,10 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
             </div>
             <div className="mt-[16px] flex gap-[.5rem]">
               <Button
-                className={`button-text-s h-[34px] flex-1 uppercase
+                className={`button-text-s h-[34px] flex-1 flex-shrink-0 p-0 uppercase
                            ${
                              !mantle.completed
-                               ? 'cursor-not-allowed bg-neutral-light-gray text-neutral-light-gray'
+                               ? 'cursor-not-allowed bg-neutral-light-gray text-neutral-medium-gray'
                                : !buttonDisable
                                  ? 'bg-yellow-primary text-neutral-black'
                                  : 'cursor-not-allowed bg-yellow-primary text-neutral-black opacity-50'
@@ -117,7 +117,7 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
               </Button>
               <Button
                 ghost
-                className={`button-text-s h-[34px] flex-1  border-neutral-black uppercase text-neutral-black`}
+                className={`button-text-s h-[34px] flex-1 flex-shrink-0 border-neutral-black  p-0 uppercase text-neutral-black`}
                 onClick={learnMore}
               >
                 Learn More

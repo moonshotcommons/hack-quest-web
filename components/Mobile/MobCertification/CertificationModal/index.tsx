@@ -8,6 +8,8 @@ import Image from 'next/image';
 import { forwardRef, useImperativeHandle, useState } from 'react';
 import GettingCertificate from './GettingCertificate';
 import NotCertified from './NotCertified';
+import { useGetPageInfo } from '@/hooks/useGetPageInfo';
+import { MOBILE_NAVBAR_HEIGHT } from '../../MobLayout/BasePage/Navbar/constant';
 
 interface CertificationModalProps {
   certification: CertificationType;
@@ -35,6 +37,7 @@ const CertificationModal = forwardRef<
     refreshCertification
   } = props;
   const [open, setOpen] = useState(false);
+  const pageInfo = useGetPageInfo();
   useImperativeHandle(ref, () => {
     return {
       open() {
@@ -55,7 +58,12 @@ const CertificationModal = forwardRef<
       markBg="black"
       block
     >
-      <div className="h-[calc(100vh-64px)] w-screen bg-neutral-white p-[20px] pt-[64px]">
+      <div
+        className="w-screen overflow-auto bg-neutral-white p-[20px] pt-[64px]"
+        style={{
+          height: `${pageInfo.windowHeight - MOBILE_NAVBAR_HEIGHT}px`
+        }}
+      >
         <div className="flex flex-col items-center gap-10">
           <div className="flex flex-col">
             <div className="relative h-0 w-[calc(100vw-40px)] pt-[50%]">

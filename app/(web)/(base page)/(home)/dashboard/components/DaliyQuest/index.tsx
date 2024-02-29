@@ -101,7 +101,7 @@ const DaliyQuest: React.FC<DaliyQuestProp> = () => {
         ))}
       </div>
       <Link
-        className="button-text-s flex cursor-pointer items-center  text-neutral-off-black"
+        className="button-text-s flex cursor-pointer items-center  pl-[16px] text-neutral-off-black"
         href={MenuLink.MISSION_CENTER}
       >
         <span className="uppercase">Mission center</span>

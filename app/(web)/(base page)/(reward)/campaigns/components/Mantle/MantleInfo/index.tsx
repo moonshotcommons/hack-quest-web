@@ -106,7 +106,7 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
                 className={`button-text-s h-[34px] flex-1 uppercase
                            ${
                              !mantle.completed
-                               ? 'cursor-not-allowed bg-neutral-light-gray text-neutral-light-gray'
+                               ? 'cursor-not-allowed bg-neutral-light-gray text-neutral-medium-gray'
                                : !buttonDisable
                                  ? 'bg-yellow-primary text-neutral-black'
                                  : 'cursor-not-allowed bg-yellow-primary text-neutral-black opacity-50'
