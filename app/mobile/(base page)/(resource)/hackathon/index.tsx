@@ -16,10 +16,11 @@ const Hackathon: FC<HackathonProps> = async ({
   const featured = await getFeaturedProjects();
   const minPage = Number(slug[1]) < 1 ? 1 : Number(slug[1]);
   const page = slug[0] === 'p' ? minPage : 1;
+  const f = featured.length > 30 ? featured.slice(0, 30) : featured;
   return (
     <>
       <HackathonPage
-        featured={featured}
+        featured={f}
         page={page}
         curTab={searchParams.curTab || HackathonStatusType.ON_GOING}
       />
