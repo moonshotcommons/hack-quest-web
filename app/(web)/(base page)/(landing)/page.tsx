@@ -1,4 +1,4 @@
-import { NextPage } from 'next';
+import { Metadata, NextPage } from 'next';
 import PageRetentionTime from '@/components/Common/PageRetentionTime';
 
 import TopBanner from './components/TopBanner';
@@ -10,6 +10,12 @@ import UserEvaluation from './components/UserEvaluation';
 import FAQS from './components/FAQS';
 import ConnectedUs from './components/ConnectedUs';
 import Footer from './components/Footer';
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: 'https://www.hackquest.io'
+  }
+};
 
 const Landing: NextPage<any> = (props) => {
   return (

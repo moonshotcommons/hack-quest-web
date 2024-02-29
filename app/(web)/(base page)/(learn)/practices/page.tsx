@@ -3,7 +3,10 @@ import Practices from './components/Practices';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Electives'
+  title: 'HackQuest Projects',
+  alternates: {
+    canonical: 'https://www.hackquest.io/practices'
+  }
 };
 
 interface PracticesPageProps {}

@@ -2,7 +2,7 @@ import { BurialPoint } from '@/helper/burialPoint';
 import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
 import { ProjectCourseType } from '@/service/webApi/course/type';
 import { FC } from 'react';
-import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
+import { QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import CourseTags from '@/components/Web/Business/CourseTags';
 import { useRedirect } from '@/hooks/useRedirect';
 import MobCardProgress from '../MobCardProgress';
@@ -29,9 +29,7 @@ const MobPracticeCard: FC<PracticeCardProps> = (props) => {
       onClick={(e) => {
         BurialPoint.track('home-practice卡片点击', { practice: course.name });
         e.stopPropagation();
-        redirectToUrl(
-          `${MenuLink.PRACTICES}/${course.id}?${QueryIdType.MENU_COURSE_ID}=${course.id}&menu=${Menu.PRACTICES}`
-        );
+        redirectToUrl(`${MenuLink.PRACTICES}/${course.id}`);
       }}
       // onClick={(e) => {
       //   BurialPoint.track('home-course卡片Continue按钮点击', {
