@@ -59,7 +59,7 @@ const HackathonBox: React.FC<HackathonBoxProp> = ({ page, curTab }) => {
         coverWidth={218}
         coverHeight={210}
         buttonNode={buttonNode()}
-        className="bg-transparent pb-[40px]"
+        className=" bg-transparent pb-[40px]"
       />
       <div className="px-[1.25rem]">
         <Tab curTab={curTab} changeTab={changeTab} />
