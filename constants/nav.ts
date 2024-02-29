@@ -28,7 +28,7 @@ const isNoNeedUserInfoDetail = (pathname: string) => {
     MenuLink.INSTRUCTOR,
     MenuLink.ADVOCATE,
     MenuLink.COURSE_MARKET,
-    '/hackquest/privacy-policy'
+    '/hackquest/'
   ].some((menu) => pathname.includes(menu));
 };
 
