@@ -9,7 +9,14 @@ import ApplyAdvocate from './components/ApplyAdvocate';
 import FAQS from './components/FAQS';
 import Footer from './components/Footer';
 import ConnectedUs from './components/ConnectedUs';
+import { Metadata } from 'next';
 interface AdvocatePageProps {}
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: 'https://www.hackquest.io/advocate'
+  }
+};
 
 const AdvocatePage: FC<AdvocatePageProps> = (props) => {
   return (

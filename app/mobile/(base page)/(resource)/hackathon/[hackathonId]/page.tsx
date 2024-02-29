@@ -15,7 +15,10 @@ export async function generateMetadata({
   const hackathon = await getHackathonById(params.hackathonId);
   return {
     title: hackathon.name,
-    description: hackathon.about
+    description: hackathon.about,
+    alternates: {
+      canonical: `https://www.hackquest.io/hackathon/${params.hackathonId}`
+    }
   };
 }
 
