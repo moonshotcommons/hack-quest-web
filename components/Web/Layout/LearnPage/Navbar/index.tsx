@@ -28,11 +28,14 @@ const NavBar: React.FC<NavBarProps> = () => {
       ></Image>
       <div className="text-h4 flex-1 text-center">{learnPageTitle}</div>
       {learnPageType === LearnPageType.UGC_CREATE ? (
-        <div className="flex w-[123px] items-center justify-end gap-[20px]">
+        <div className="flex w-[123px] cursor-pointer items-center justify-end gap-[20px]">
           <FiSave size={26} />
           <IoPlayOutline size={26} />
           <div className="h-[24px] w-[0.5px] bg-neutral-white"></div>
-          <IoExitOutline size={26} />
+          <IoExitOutline
+            size={26}
+            onClick={() => redirectToUrl(MenuLink.INSTRUCTOR)}
+          />
         </div>
       ) : (
         <div
