@@ -14,6 +14,7 @@ import TrackTag from '@/components/Common/TrackTag';
 import CompletedIcon from '@/components/Common/Icon/Completed';
 import { CourseType } from '@/service/webApi/course/type';
 import { MenuLink } from '../../Layout/BasePage/Navbar/type';
+import Link from 'next/link';
 interface ElectiveCardProps {
   // children: ReactNode;
   course: ElectiveCourseType;
@@ -36,29 +37,25 @@ const ElectiveCard: FC<ElectiveCardProps> = (props) => {
   const { redirectToUrl } = useRedirect();
   const miniElectiveDetailInstance = useRef<MiniElectiveDetailModalRef>(null);
 
-  const onCourseClick = useCallback(() => {
+  const getCourseDetailLink = useCallback(() => {
     switch (course.type) {
-      // case CourseType.MINI:
-      //   miniElectiveDetailInstance.current?.open(course);
-      //   return;
       case CourseType.UGC:
-        redirectToUrl(`${MenuLink.PRACTICES}/${course.id}`);
-        return;
+        return `${MenuLink.PRACTICES}/${course.id}`;
       default:
-        redirectToUrl(`${MenuLink.ELECTIVES}/${course.id}`);
+        return `${MenuLink.ELECTIVES}/${course.id}`;
     }
   }, [course]);
 
   return (
     <>
-      <div
+      <Link
+        href={getCourseDetailLink()}
         className={cn(
           'card-hover flex w-full flex-col rounded-[16px] bg-neutral-white',
           className
         )}
         onClick={() => {
           BurialPoint.track('home-course卡片点击', { courseName: course.name });
-          onCourseClick();
         }}
       >
         <div
@@ -129,7 +126,7 @@ const ElectiveCard: FC<ElectiveCardProps> = (props) => {
             )}
           </div>
         </div>
-      </div>
+      </Link>
       {/* <MiniElectiveDetailModal ref={miniElectiveDetailInstance} /> */}
     </>
   );
