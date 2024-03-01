@@ -21,9 +21,7 @@ const LearningTrackCardInProgress: React.FC<
   const { redirectToUrl } = useRedirect();
   const goLearningTrackDetail = () => {
     BurialPoint.track('dashboard-learning track卡片点击');
-    redirectToUrl(
-      `${MenuLink.LEARNING_TRACK}/${learningTrack.id}?${QueryIdType.LEARNING_TRACK_ID}=${learningTrack.id}&menu=${Menu.LEARNING_TRACK}`
-    );
+    redirectToUrl(`${MenuLink.LEARNING_TRACK}/${learningTrack.id}`);
   };
 
   const handleContinue = (e: MouseEvent<HTMLElement>) => {

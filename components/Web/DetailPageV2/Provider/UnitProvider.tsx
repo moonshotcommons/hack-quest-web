@@ -1,7 +1,7 @@
 'use client';
 import { FC, ReactNode, createContext, useContext, useMemo } from 'react';
-import { CourseUnitType } from '@/service/webApi/course/type';
-import { PracticeDetailContext } from './PracticeDetailProvider';
+import { CourseDetailType, CourseUnitType } from '@/service/webApi/course/type';
+import { CourseDetailContext } from '@/components/Web/DetailPageV2/Provider/CourseDetailProvider';
 
 interface UnitProviderProps {
   unit: CourseUnitType;
@@ -13,8 +13,8 @@ export const UnitContext = createContext<{ unit: CourseUnitType | null }>({
 });
 
 const UnitProvider: FC<UnitProviderProps> = ({ unit: propUnit, children }) => {
-  const { courseDetail } = useContext(PracticeDetailContext);
-
+  const { courseDetail: contextCourseDetail } = useContext(CourseDetailContext);
+  const courseDetail = contextCourseDetail as CourseDetailType;
   const unit = useMemo(() => {
     const units = courseDetail?.units;
     if (units?.length) {

@@ -1,4 +1,3 @@
-import UgcCourseCard from '@/components/Web/Business/UgcCourseCard';
 import React from 'react';
 
 interface CourseListProp {
@@ -10,7 +9,7 @@ const CourseList: React.FC<CourseListProp> = ({ list }) => {
     <div className="flex flex-wrap gap-[24px]">
       {list.map((v: any) => (
         <div key={v.id} className="w-[calc((100%-48px)/3)]">
-          <UgcCourseCard isPublic={false} />
+          {/* <UgcCourseCard isPublic={false} /> */}
         </div>
       ))}
     </div>

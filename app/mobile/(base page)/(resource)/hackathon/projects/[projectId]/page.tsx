@@ -5,7 +5,7 @@ import {
   getFeaturedProjects,
   getHackathonProjectById,
   getOtherProjects
-} from '@/service/hackathon';
+} from '@/service/catch/resource/hackathon';
 
 interface ProjectDetailPageProps {
   params: {

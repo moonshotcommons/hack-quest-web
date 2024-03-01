@@ -75,12 +75,13 @@ function Electives() {
       <div className="relative mx-auto w-full">
         <MobCourseListPageHeader
           title="Electives"
-          description="Each elective course is relatively short and independent, with a focused topic. You will  learn how to build a project step by step."
+          // description="Each elective course is relatively short and independent, with a focused topic. You will  learn how to build a project step by step."
           coverImageUrl={
-            '/images/course/course_cover/elective_mobile_cover.png'
+            '/images/course/course_cover/elective_mobile_cover.svg'
           }
-          coverWidth={218}
-          coverHeight={120}
+          coverWidth={120}
+          coverImgClassName="top-[30px] right-4"
+          coverHeight={92}
           onSearch={onSearch}
         />
         <div className="absolute left-0 top-[15.5rem] z-[10] flex w-full flex-col rounded-t-[2rem] bg-neutral-off-white px-[1.25rem] py-[2.5rem]">

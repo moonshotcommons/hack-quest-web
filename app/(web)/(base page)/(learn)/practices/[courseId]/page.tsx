@@ -1,5 +1,5 @@
 import Tags from '@/components/Common/Tags';
-import { PracticeCatalogue } from '@/components/Web/DetailPageV2/Catalogue';
+import { UnitCatalogue } from '@/components/Web/DetailPageV2/Catalogue';
 import CourseTag, {
   CourseTagType
 } from '@/components/Web/DetailPageV2/CourseTag';
@@ -9,8 +9,8 @@ import { FC } from 'react';
 import BackButton from '@/components/Web/DetailPageV2/BackButton';
 import IntendedLearners from '@/components/Web/DetailPageV2/IntendedLearners';
 import KnowledgeGain from '@/components/Web/DetailPageV2/KnowledgeGain';
-import { PracticeDetailCard } from '@/components/Web/DetailPageV2/DetailCard';
-import PracticeDetailProvider from '@/components/Web/DetailPageV2/Provider/PracticeDetailProvider';
+import PracticeDetailCard from './components/PracticeDetailCard';
+import CourseDetailProvider from '@/components/Web/DetailPageV2/Provider/CourseDetailProvider';
 import { Metadata } from 'next';
 import { CourseDetailType } from '@/service/webApi/course/type';
 
@@ -52,7 +52,7 @@ const PracticePage: FC<PracticePageProps> = async (props) => {
   // console.log(courseDetail);
 
   return (
-    <PracticeDetailProvider courseId={courseId}>
+    <CourseDetailProvider courseId={courseId} includeUnits>
       <div className="relative min-h-[100%] w-full bg-neutral-white">
         <div className="absolute left-0 top-0 min-h-[400px] w-full bg-neutral-off-white py-5"></div>
         <div className="container relative mx-auto flex h-fit pb-[100px]">
@@ -111,7 +111,7 @@ const PracticePage: FC<PracticePageProps> = async (props) => {
           </div>
         </div>
       </div>
-    </PracticeDetailProvider>
+    </CourseDetailProvider>
   );
 
   function Syllabus() {
@@ -121,7 +121,7 @@ const PracticePage: FC<PracticePageProps> = async (props) => {
           <div className="h-[34px] w-[5px] rounded-full bg-yellow-dark"></div>
           <h3 className="text-h3 text-neutral-black">{`Syllabus`}</h3>
         </div>
-        <PracticeCatalogue courseDetail={courseDetail} />
+        <UnitCatalogue courseDetail={courseDetail} />
       </div>
     );
   }
