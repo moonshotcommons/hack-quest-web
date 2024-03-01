@@ -1,5 +1,4 @@
 'use client';
-import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import { BurialPoint } from '@/helper/burialPoint';
 import { HackathonStatusType } from '@/service/webApi/resourceStation/type';
 import OnGoing from './OnGoing';
@@ -39,11 +38,7 @@ const HackathonBox: React.FC<HackathonBoxProp> = ({ page, curTab }) => {
     return (
       <div
         className="body-m flex w-fit items-center gap-[7px] border-b-[2px] border-b-yellow-primary text-neutral-black"
-        onClick={() =>
-          redirectToUrl(
-            `${MenuLink.PROJECTS}?menu=${Menu.HACKATHON}&${QueryIdType.PROJECT_ID}=projects`
-          )
-        }
+        onClick={() => redirectToUrl(`${MenuLink.PROJECTS}`)}
       >
         <span>View hackathon projects</span>
         <BsArrowRight size={16}></BsArrowRight>

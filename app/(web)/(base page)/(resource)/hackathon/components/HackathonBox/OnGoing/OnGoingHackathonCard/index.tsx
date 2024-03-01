@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Button from '@/components/Common/Button';
-import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import { HackathonType } from '@/service/webApi/resourceStation/type';
 import useDealHackathonData from '@/hooks/useDealHackathonData';
 import { BurialPoint } from '@/helper/burialPoint';
@@ -20,9 +19,7 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({
   const [closeInTime, setCloseInTime] = useState('');
   const goHackathonDetail = () => {
     BurialPoint.track(`hackathon onGoingCard 点击`);
-    redirectToUrl(
-      `${MenuLink.HACKATHON}/${hackathon.alias}?menu=${Menu.HACKATHON}&${QueryIdType.HACKATHON_ID}=${hackathon.id}`
-    );
+    redirectToUrl(`${MenuLink.HACKATHON}/${hackathon.alias}`);
   };
   const { getRunFromTime, getCloseInTime } = useDealHackathonData();
   const getCloseIn = () => {
