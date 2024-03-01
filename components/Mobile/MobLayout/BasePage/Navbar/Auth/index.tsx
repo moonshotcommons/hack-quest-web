@@ -67,7 +67,8 @@ const Auth: FC<AuthModalProps> = ({ changeNavState }) => {
         open: {
           transition: { staggerChildren: 0.07, delayChildren: 0.2 },
           opacity: 1,
-          pointerEvents: 'auto'
+          pointerEvents: 'auto',
+          height: `${pageInfo.windowHeight - MOBILE_NAVBAR_HEIGHT}px`
         },
         closed: {
           transition: { staggerChildren: 0.05, staggerDirection: -1 },
@@ -76,9 +77,6 @@ const Auth: FC<AuthModalProps> = ({ changeNavState }) => {
         }
       }}
       className="absolute bottom-0 top-[4rem] flex w-screen flex-col border border-neutral-light-gray bg-neutral-white px-5 py-[30px]"
-      style={{
-        height: `${pageInfo.windowHeight - MOBILE_NAVBAR_HEIGHT}px`
-      }}
     >
       <AuthContext.Provider value={{ changeNavState }}>
         {authComponent}
