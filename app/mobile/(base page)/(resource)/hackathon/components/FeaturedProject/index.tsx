@@ -1,5 +1,4 @@
 'use client';
-import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 import { BurialPoint } from '@/helper/burialPoint';
 import { ProjectType } from '@/service/webApi/resourceStation/type';
@@ -30,7 +29,7 @@ const FeaturedProjects: FC<FeaturedProjectsProps> = ({ projectList }) => {
             </h2>
           </div>
           <Link
-            href={`${MenuLink.PROJECTS}?menu=${Menu.HACKATHON}&${QueryIdType.PROJECT_ID}=projects`}
+            href={`${MenuLink.PROJECTS}`}
             className="body-s flex items-center gap-x-[7px] text-neutral-black"
             onClick={() => {
               BurialPoint.track('home-view all点击');

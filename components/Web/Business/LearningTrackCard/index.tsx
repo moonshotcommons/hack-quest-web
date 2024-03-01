@@ -7,6 +7,7 @@ import LearningTrackImg from '@/public/images/home/learningtrack_img.png';
 import TrackTag from '@/components/Common/TrackTag';
 import CompletedIcon from '@/components/Common/Icon/Completed';
 import { MenuLink } from '../../Layout/BasePage/Navbar/type';
+import Link from 'next/link';
 interface LearningTrackCardProps {
   learningTrack: LearningTrackDetailType;
   isLandingPage?: boolean;
@@ -25,11 +26,12 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
   };
 
   return (
-    <div
+    <Link
+      href={`${MenuLink.LEARNING_TRACK}/${learningTrack.id}`}
       className={
         'card-hover relative flex  h-[207px] w-full items-center gap-[30px] overflow-hidden rounded-[16px] bg-neutral-white p-[16px]'
       }
-      onClick={goLearningTrackDetail}
+      // onClick={goLearningTrackDetail}
     >
       {from === 'dashboard' &&
       learningTrack.progress &&
@@ -64,7 +66,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
           className="object-cover"
         ></Image>
       </div>
-    </div>
+    </Link>
   );
 };
 

@@ -38,9 +38,7 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
   // }, [pathname, navbarData, isExcludeBreadcrumbLink]);
 
   return (
-    <div
-      className={`relative w-full ${isNavbarFullPage ? '' : 'min-h-[100vh]'} `}
-    >
+    <div className={`relative w-full  `}>
       <div className="fixed top-0 z-50 flex w-full items-center bg-neutral-black">
         <NavBar {...navbarData}>
           <User></User>

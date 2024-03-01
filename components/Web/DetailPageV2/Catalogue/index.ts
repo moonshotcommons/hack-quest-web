@@ -1,3 +1,3 @@
-export { default as PracticeCatalogue } from './PracticeCatalogue';
-export { default as LearningTrackCatalogue } from './LearningTrackCatalogue';
-export { default as ElectiveCatalogue } from './ElectiveCatalogue';
+export { default as UnitCatalogue } from './UnitCatalogue';
+export { default as SectionCatalogue } from './SectionCatalogue';
+export { default as LessonCatalogue } from './LessonCatalogue';
