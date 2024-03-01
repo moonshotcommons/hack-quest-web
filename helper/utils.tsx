@@ -85,6 +85,7 @@ export const changeTextareaHeight = (target: HTMLTextAreaElement) => {
   // 将textarea的高度设置为内容高度
   target.style.height = height + 'px';
 };
+
 //元素抖动
 export const elementVibration = (ele: HTMLElement) => {
   ele.classList.add('input-quiver');

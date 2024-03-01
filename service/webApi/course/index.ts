@@ -73,22 +73,6 @@ class CourseApi {
   async fetchCourseDetail<
     T extends CourseDetailType | ElectiveCourseDetailType
   >(courseId: string, includeUnits = false, includePages = false): Promise<T> {
-    //   let includes = [];
-
-    //   if (includeUnits) includes.push('units');
-    //   if (includePages) includes.push('pages');
-
-    //   const url = `${this.service.baseURL.slice(0, -1)}${CourseApiType.Course_List}/${courseId}?include=${includes.join(',')}`;
-    //   const courseDetail = await fetch(url, {
-    //     method: 'get'
-    //   });
-
-    //   if (!courseDetail.ok) {
-    //     throw new Error('Failed to fetch course data!');
-    //   }
-
-    //   return courseDetail.json();
-
     const cacheFn = cache(async () => {
       return this.getCourseDetail<T>(courseId, includeUnits, includePages);
     });
@@ -190,6 +174,19 @@ class CourseApi {
   getProfileElective(electiveId: string) {
     const url = `${CourseApiType.EcosystemProfile}/${electiveId}/electives`;
     return this.service.get<EcosystemElectiveType[]>(url);
+  }
+
+  getCoursesByCreator(courseId: string) {
+    const url = `/${CourseApiType.Course_List}/${courseId}/creator-others`;
+    return this.service.get<ProjectCourseType[]>(url);
+  }
+
+  fetchCoursesByCreator(courseId: string) {
+    const cacheFn = cache(async () => {
+      return this.getCoursesByCreator(courseId);
+    });
+
+    return cacheFn();
   }
 }
 

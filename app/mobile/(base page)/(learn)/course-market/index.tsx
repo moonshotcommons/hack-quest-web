@@ -1,3 +1,4 @@
+'use client';
 import { useNeedPCRedirect } from '@/hooks/useNeedPCRedirect';
 import React from 'react';
 
