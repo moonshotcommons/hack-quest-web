@@ -5,6 +5,8 @@ import Button from '@/components/Common/Button';
 import { CourseTab } from '@/app/(web)/(base page)/(home)/instructor/constants/type';
 import UgcTags from './UgcTags';
 import { ProjectCourseType } from '@/service/webApi/course/type';
+import Link from 'next/link';
+import { MenuLink } from '../../Layout/BasePage/Navbar/type';
 
 interface UgcCourseCardProp {
   isPublic?: boolean;
@@ -77,7 +79,10 @@ const UgcCourseCard: React.FC<UgcCourseCardProp> = ({
     }
   };
   return (
-    <div className="card-hover overflow-hidden rounded-[16px] bg-neutral-white text-neutral-off-black">
+    <Link
+      href={`${MenuLink.COURSE_MARKET}/${course.id}`}
+      className="card-hover block overflow-hidden rounded-[16px] bg-neutral-white text-neutral-off-black"
+    >
       <div className="relative h-0 w-full pt-[56%]">
         <Image
           src={course.image || ''}
@@ -101,7 +106,7 @@ const UgcCourseCard: React.FC<UgcCourseCardProp> = ({
           <UgcTags isPublic={isPublic} course={course} />
         )}
       </div>
-    </div>
+    </Link>
   );
 };
 
