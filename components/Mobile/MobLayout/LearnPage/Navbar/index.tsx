@@ -11,6 +11,7 @@ export interface NavBarProps {}
 const NavBar: React.FC<NavBarProps> = () => {
   const { redirectToUrl } = useRedirect();
   const learnPageTitle = useCourseStore((state) => state.learnPageTitle);
+
   const setSidebarOpen = useLearnStore((state) => state.setSidebarOpen);
   const logoClick = () => {
     redirectToUrl(MenuLink.DASHBOARD);

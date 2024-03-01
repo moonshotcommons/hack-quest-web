@@ -24,6 +24,7 @@ interface SidebarProps<T> {
   isCustomOpen?: boolean;
   open?: boolean;
   onShowListChange?: (showList: boolean) => void;
+  handleButton?: ReactNode;
 }
 
 export interface SidebarItemType {
@@ -63,7 +64,8 @@ const Sidebar = <T,>(props: SidebarProps<T>) => {
     defaultSelect,
     open = true,
     isCustomOpen = false,
-    onShowListChange
+    onShowListChange,
+    handleButton
   } = props;
   const [showList, setShowList] = useState(open);
   const [openKeys, setOpenKeys] = useState<string[]>(defaultOpenKeys);
@@ -186,6 +188,7 @@ const Sidebar = <T,>(props: SidebarProps<T>) => {
               }
             })}
           </div>
+          {handleButton && <>{handleButton}</>}
         </motion.div>
       )}
     </div>

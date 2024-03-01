@@ -4,6 +4,7 @@ export enum MenuLink {
   PRACTICES = '/practices',
   ELECTIVES = '/electives',
   UGC = '/ugc',
+  UGC_CREATE = '/ugc-create',
   MISSION_CENTER = '/mission-center',
   HACKATHON = '/hackathon',
   BLOG = '/blog',
