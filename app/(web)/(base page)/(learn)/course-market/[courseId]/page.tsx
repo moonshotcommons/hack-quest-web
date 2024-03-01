@@ -5,14 +5,15 @@ import CourseTag, {
 } from '@/components/Web/DetailPageV2/CourseTag';
 import webApi from '@/service';
 import { FC } from 'react';
-
+import Logo from '@/public/images/logo/logo.svg';
 import BackButton from '@/components/Web/DetailPageV2/BackButton';
 import IntendedLearners from '@/components/Web/DetailPageV2/IntendedLearners';
 import KnowledgeGain from '@/components/Web/DetailPageV2/KnowledgeGain';
-import PracticeDetailCard from './components/PracticeDetailCard';
+import PracticeDetailCard from './components/CourseMarketDetailCard';
 import CourseDetailProvider from '@/components/Web/DetailPageV2/Provider/CourseDetailProvider';
 import { Metadata } from 'next';
 import { CourseDetailType } from '@/service/webApi/course/type';
+import Image from 'next/image';
 
 interface PracticePageProps {
   params: {
@@ -76,6 +77,20 @@ const PracticePage: FC<PracticePageProps> = async (props) => {
                 {courseDetail.description}
               </p>
               <div className="mt-8 flex gap-8">
+                <CourseTag
+                  icon={
+                    <div className="relative h-8 w-8">
+                      <Image
+                        fill
+                        src={courseDetail.creator?.profileImage || Logo}
+                        alt={courseDetail.creator?.name || `Hackquest`}
+                      ></Image>
+                    </div>
+                  }
+                  type={CourseTagType.CREATE_BY}
+                  value={courseDetail.creator?.name}
+                ></CourseTag>
+                <div className="h-[45px] w-[1px] bg-neutral-rich-gray"></div>
                 <CourseTag
                   type={CourseTagType.LANGUAGE}
                   value={courseDetail.language}

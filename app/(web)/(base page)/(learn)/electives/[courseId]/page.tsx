@@ -1,5 +1,5 @@
 import Tags from '@/components/Common/Tags';
-import { ElectiveCatalogue } from '@/components/Web/DetailPageV2/Catalogue';
+import { LessonCatalogue } from '@/components/Web/DetailPageV2/Catalogue';
 import CourseTag, {
   CourseTagType
 } from '@/components/Web/DetailPageV2/CourseTag';
@@ -10,9 +10,9 @@ import { FC } from 'react';
 import BackButton from '@/components/Web/DetailPageV2/BackButton';
 import IntendedLearners from '@/components/Web/DetailPageV2/IntendedLearners';
 import KnowledgeGain from '@/components/Web/DetailPageV2/KnowledgeGain';
-import { ElectiveDetailCard } from '@/components/Web/DetailPageV2/DetailCard';
+import ElectiveDetailCard from './components/ElectiveDetailCard';
 import { ElectiveCourseDetailType } from '@/service/webApi/elective/type';
-import ElectiveDetailProvider from '@/components/Web/DetailPageV2/Provider/ElectiveDetailProvider';
+import CourseDetailProvider from '@/components/Web/DetailPageV2/Provider/CourseDetailProvider';
 import { Metadata } from 'next';
 
 interface ElectivePageProps {
@@ -59,7 +59,7 @@ const ElectivePage: FC<ElectivePageProps> = async (props) => {
     );
 
   return (
-    <ElectiveDetailProvider courseId={courseId}>
+    <CourseDetailProvider courseId={courseId}>
       <div className="relative min-h-[100%] w-full bg-neutral-white">
         <div className="absolute left-0 top-0 min-h-[400px] w-full bg-neutral-off-white py-5"></div>
         <div className="container relative mx-auto flex h-fit pb-[100px]">
@@ -127,7 +127,7 @@ const ElectivePage: FC<ElectivePageProps> = async (props) => {
           </div>
         </div>
       </div>
-    </ElectiveDetailProvider>
+    </CourseDetailProvider>
   );
 
   function Syllabus() {
@@ -137,7 +137,7 @@ const ElectivePage: FC<ElectivePageProps> = async (props) => {
           <div className="h-[34px] w-[5px] rounded-full bg-yellow-dark"></div>
           <h3 className="text-h3 text-neutral-black">{`Syllabus`}</h3>
         </div>
-        <ElectiveCatalogue courseDetail={courseDetail} />
+        <LessonCatalogue courseDetail={courseDetail} />
       </div>
     );
   }

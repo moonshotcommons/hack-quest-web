@@ -1,6 +1,6 @@
 import Tags from '@/components/Common/Tags';
 import CertificationCard from '@/components/Web/Business/Certification/CertificationCard';
-import { LearningTrackCatalogue } from '@/components/Web/DetailPageV2/Catalogue';
+import { SectionCatalogue } from '@/components/Web/DetailPageV2/Catalogue';
 import CourseTag, {
   CourseTagType
 } from '@/components/Web/DetailPageV2/CourseTag';
@@ -11,7 +11,7 @@ import ExpandAllButton from './components/ExpandAllButton';
 import LearningTrackDetailProvider from '@/components/Web/DetailPageV2/Provider/LearningTrackDetailProvider';
 import KnowledgeGain from '@/components/Web/DetailPageV2/KnowledgeGain';
 import IntendedLearners from '@/components/Web/DetailPageV2/IntendedLearners';
-import { LearningTrackDetailCard } from '@/components/Web/DetailPageV2/DetailCard';
+import LearningTrackDetailCard from './components/LearningTrackDetailCard';
 import CertificationCardProvider from '@/components/Web/Business/Certification/CertificationCard/CertificationCardProvider';
 import { Metadata } from 'next';
 
@@ -145,7 +145,7 @@ const LearningTrackDetailPage: FC<LearningTrackDetailPageProps> = async (
           </div>
           <ExpandAllButton />
         </div>
-        <LearningTrackCatalogue learningTrackDetail={learningTrackDetail} />
+        <SectionCatalogue learningTrackDetail={learningTrackDetail} />
       </div>
     );
   }
