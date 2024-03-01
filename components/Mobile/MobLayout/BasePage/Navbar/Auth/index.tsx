@@ -12,6 +12,7 @@ import CheckInviteCode from './CheckInviteCode';
 import { useRedirect } from '@/hooks/useRedirect';
 import { motion } from 'framer-motion';
 import { useCustomPathname } from '@/hooks/useCheckPathname';
+import useGetHeight from '@/hooks/useGetHeight';
 interface AuthModalProps {
   changeNavState: VoidFunction;
 }
@@ -33,6 +34,8 @@ const Auth: FC<AuthModalProps> = ({ changeNavState }) => {
       authRouteType: state.authRouteType
     }))
   );
+
+  const { pageHeight } = useGetHeight();
 
   const authComponent = useMemo(() => {
     if (queryState) {
@@ -62,7 +65,8 @@ const Auth: FC<AuthModalProps> = ({ changeNavState }) => {
         open: {
           transition: { staggerChildren: 0.07, delayChildren: 0.2 },
           opacity: 1,
-          pointerEvents: 'auto'
+          pointerEvents: 'auto',
+          height: pageHeight
         },
         closed: {
           transition: { staggerChildren: 0.05, staggerDirection: -1 },

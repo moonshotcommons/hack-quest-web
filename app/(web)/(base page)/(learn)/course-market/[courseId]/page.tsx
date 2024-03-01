@@ -1,21 +1,21 @@
 import Tags from '@/components/Common/Tags';
-import { LessonCatalogue } from '@/components/Web/DetailPageV2/Catalogue';
+import { UnitCatalogue } from '@/components/Web/DetailPageV2/Catalogue';
 import CourseTag, {
   CourseTagType
 } from '@/components/Web/DetailPageV2/CourseTag';
 import webApi from '@/service';
-import Image from 'next/image';
 import { FC } from 'react';
-
+import Logo from '@/public/images/logo/logo.svg';
 import BackButton from '@/components/Web/DetailPageV2/BackButton';
 import IntendedLearners from '@/components/Web/DetailPageV2/IntendedLearners';
 import KnowledgeGain from '@/components/Web/DetailPageV2/KnowledgeGain';
-import ElectiveDetailCard from './components/ElectiveDetailCard';
-import { ElectiveCourseDetailType } from '@/service/webApi/elective/type';
+import PracticeDetailCard from './components/CourseMarketDetailCard';
 import CourseDetailProvider from '@/components/Web/DetailPageV2/Provider/CourseDetailProvider';
 import { Metadata } from 'next';
+import { CourseDetailType } from '@/service/webApi/course/type';
+import Image from 'next/image';
 
-interface ElectivePageProps {
+interface PracticePageProps {
   params: {
     courseId: string;
   };
@@ -26,51 +26,45 @@ interface ElectivePageProps {
 }
 
 export async function generateMetadata(
-  { params, searchParams }: ElectivePageProps,
+  { params, searchParams }: PracticePageProps,
   parent: any
 ): Promise<Metadata> {
   // 读取路由参数
   const courseId = params.courseId;
 
   const courseDetail =
-    await webApi.courseApi.fetchCourseDetail<ElectiveCourseDetailType>(
-      courseId
-    );
+    await webApi.courseApi.fetchCourseDetail<CourseDetailType>(courseId);
 
   const metadata: Metadata = {
     title: courseDetail.title,
     alternates: {
-      canonical: `https://www.hackquest.io/electives/${courseId}`
+      canonical: `https://www.hackquest.io/practices/${courseId}`
     }
   };
 
   return metadata;
 }
 
-const ElectivePage: FC<ElectivePageProps> = async (props) => {
+const PracticePage: FC<PracticePageProps> = async (props) => {
   const { params, searchParams } = props;
   const courseId = params.courseId;
 
-  const courseDetail =
-    await webApi.courseApi.fetchCourseDetail<ElectiveCourseDetailType>(
-      courseId,
-      false,
-      true
-    );
+  const courseDetail = await webApi.courseApi.fetchCourseDetail(courseId, true);
+  // console.log(courseDetail);
 
   return (
-    <CourseDetailProvider courseId={courseId} includePages>
+    <CourseDetailProvider courseId={courseId}>
       <div className="relative min-h-[100%] w-full bg-neutral-white">
         <div className="absolute left-0 top-0 min-h-[400px] w-full bg-neutral-off-white py-5"></div>
         <div className="container relative mx-auto flex h-fit pb-[100px]">
           <div className="w-[900px] max-w-[900px]">
             <div className="h-[400px] w-full py-5">
-              <BackButton type="electives"></BackButton>
+              <BackButton type="practices"></BackButton>
               <Tags
                 size="lg"
                 className="body-m mt-[2rem] text-neutral-rich-gray"
               >
-                {`Elective`}
+                Project
               </Tags>
               <div className="mt-4 flex items-center gap-6">
                 <h1 className="text-h2">{courseDetail.title}</h1>
@@ -84,22 +78,27 @@ const ElectivePage: FC<ElectivePageProps> = async (props) => {
               </p>
               <div className="mt-8 flex gap-8">
                 <CourseTag
-                  type={CourseTagType.LANGUAGE}
-                  value={courseDetail.language}
-                ></CourseTag>
-                <div className="h-[45px] w-[1px] bg-neutral-rich-gray"></div>
-                <CourseTag
                   icon={
                     <div className="relative h-8 w-8">
                       <Image
                         fill
-                        src={courseDetail.creator?.profileImage || ''}
-                        alt={courseDetail.creator?.name || ''}
+                        src={courseDetail.creator?.profileImage || Logo}
+                        alt={courseDetail.creator?.name || `Hackquest`}
                       ></Image>
                     </div>
                   }
                   type={CourseTagType.CREATE_BY}
                   value={courseDetail.creator?.name}
+                ></CourseTag>
+                <div className="h-[45px] w-[1px] bg-neutral-rich-gray"></div>
+                <CourseTag
+                  type={CourseTagType.LANGUAGE}
+                  value={courseDetail.language}
+                ></CourseTag>
+                <div className="h-[45px] w-[1px] bg-neutral-rich-gray"></div>
+                <CourseTag
+                  type={CourseTagType.LEVEL}
+                  value={courseDetail.level}
                 ></CourseTag>
                 <div className="h-[45px] w-[1px] bg-neutral-rich-gray"></div>
                 <CourseTag
@@ -123,7 +122,7 @@ const ElectivePage: FC<ElectivePageProps> = async (props) => {
             </div>
           </div>
           <div className="relative flex-1">
-            <ElectiveDetailCard courseDetail={courseDetail} />
+            <PracticeDetailCard courseDetail={courseDetail} />
           </div>
         </div>
       </div>
@@ -137,10 +136,10 @@ const ElectivePage: FC<ElectivePageProps> = async (props) => {
           <div className="h-[34px] w-[5px] rounded-full bg-yellow-dark"></div>
           <h3 className="text-h3 text-neutral-black">{`Syllabus`}</h3>
         </div>
-        <LessonCatalogue courseDetail={courseDetail} />
+        <UnitCatalogue courseDetail={courseDetail} />
       </div>
     );
   }
 };
 
-export default ElectivePage;
+export default PracticePage;

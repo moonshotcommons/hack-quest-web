@@ -4,7 +4,7 @@ import {
   ElectiveCourseDetailType,
   PageType
 } from '@/service/webApi/elective/type';
-import { ElectiveDetailContext } from './ElectiveDetailProvider';
+import { CourseDetailContext } from '@/components/Web/DetailPageV2/Provider/CourseDetailProvider';
 
 interface LessonProviderProps {
   lesson: PageType;
@@ -23,11 +23,10 @@ const LessonProvider: FC<LessonProviderProps> = ({
   lesson: propLesson,
   children
 }) => {
-  const { courseDetail: contextCourseDetail } = useContext(
-    ElectiveDetailContext
-  );
+  const { courseDetail: contextCourseDetail } = useContext(CourseDetailContext);
 
-  const courseDetail = contextCourseDetail ?? propCourseDetail;
+  const courseDetail = (contextCourseDetail ??
+    propCourseDetail) as ElectiveCourseDetailType;
 
   // const lessons = useMemo(() => {
   //   let list: PageType[][] = [];

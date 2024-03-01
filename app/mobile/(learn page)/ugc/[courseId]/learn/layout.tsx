@@ -25,6 +25,14 @@ const LearnLayout: FC<LearnLayoutProps> = ({ children }) => {
         </div>
         <UgcFooter />
       </div>
+      {/* <div
+        className="flex h-[calc(100vh-64px)] w-full flex-col"
+        style={{
+          height: `${info.windowHeight - MOBILE_NAVBAR_HEIGHT}px`
+        }}
+      >
+
+      </div> */}
     </UgcProvider>
   );
 };
