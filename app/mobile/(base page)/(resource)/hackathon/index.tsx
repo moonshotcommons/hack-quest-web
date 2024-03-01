@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import HackathonPage from './components';
-import { getFeaturedProjects } from '@/service/hackathon';
+import { getFeaturedProjects } from '@/service/catch/resource/hackathon';
 import { HackathonStatusType } from '@/service/webApi/resourceStation/type';
 
 interface HackathonProps {
@@ -16,10 +16,11 @@ const Hackathon: FC<HackathonProps> = async ({
   const featured = await getFeaturedProjects();
   const minPage = Number(slug[1]) < 1 ? 1 : Number(slug[1]);
   const page = slug[0] === 'p' ? minPage : 1;
+  const f = featured.length > 30 ? featured.slice(0, 30) : featured;
   return (
     <>
       <HackathonPage
-        featured={featured}
+        featured={f}
         page={page}
         curTab={searchParams.curTab || HackathonStatusType.ON_GOING}
       />

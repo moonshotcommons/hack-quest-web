@@ -7,12 +7,12 @@ import CourseList from './CourseList';
 import { getSearchParamsUrl } from '@/helper/utils';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 import { useRouter } from 'next/navigation';
+import { CourseMarketApiType } from '@/service/catch/learn/course-market';
 
 interface CourseMarketPageProp {
   page: number;
   searchParams: SearchParamsType;
-  // courseList: CourseBaseType[];
-  courseList: any[];
+  course: CourseMarketApiType;
 }
 
 const CourseMarketPage: React.FC<CourseMarketPageProp> = (props) => {

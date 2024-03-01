@@ -10,19 +10,19 @@ import { cloneDeep } from 'lodash-es';
 import UgcCourseCard from '@/components/Web/Business/UgcCourseCard';
 import Pagination from '@/components/Common/Pagination';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import { CourseMarketApiType } from '@/service/catch/learn/course-market';
 
 interface CourseListProp {
   page: number;
   searchParams: SearchParamsType;
-  // courseList: CourseBaseType[];
-  courseList: any[];
+  course: CourseMarketApiType;
   handleSearch: (searchInfo: SearchParamsType) => void;
 }
 
 const CourseList: React.FC<CourseListProp> = ({
   page,
   searchParams,
-  courseList,
+  course,
   handleSearch
 }) => {
   const { filters, sort } = useMemo(() => {
@@ -63,19 +63,21 @@ const CourseList: React.FC<CourseListProp> = ({
         }}
       ></FilterSelect>
       <div className="flex w-full flex-wrap gap-x-[20px] gap-y-[32px]">
-        {courseList.map((v) => (
-          <div className="w-[calc((100%-60px)/4)]" key={v.id}>
-            <UgcCourseCard />
+        {course.data.map((course) => (
+          <div className="w-[calc((100%-60px)/4)]" key={course.id}>
+            <UgcCourseCard course={course} />
           </div>
         ))}
       </div>
-      <div className="mt-[40px] flex justify-center">
-        <Pagination
-          page={page}
-          total={5}
-          urlPrefix={`${MenuLink.COURSE_MARKET}/p/`}
-        />
-      </div>
+      {course.total > 12 && (
+        <div className="mt-[40px] flex justify-center">
+          <Pagination
+            page={page}
+            total={course.total || 0}
+            urlPrefix={`${MenuLink.COURSE_MARKET}/p/`}
+          />
+        </div>
+      )}
     </div>
   );
 };
