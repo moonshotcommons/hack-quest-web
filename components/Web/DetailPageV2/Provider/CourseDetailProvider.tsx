@@ -7,6 +7,8 @@ import { FC, ReactNode, createContext } from 'react';
 interface CourseDetailProviderProps {
   courseId: string;
   children: ReactNode;
+  includeUnits?: boolean;
+  includePages?: boolean;
 }
 
 export const CourseDetailContext = createContext<{
@@ -19,10 +21,16 @@ export const CourseDetailContext = createContext<{
 
 const CourseDetailProvider: FC<CourseDetailProviderProps> = ({
   courseId,
-  children
+  children,
+  includeUnits = false,
+  includePages = false
 }) => {
   const { data, refresh } = useRequest(() => {
-    return webApi.courseApi.getCourseDetail(courseId, true);
+    return webApi.courseApi.getCourseDetail(
+      courseId,
+      includeUnits,
+      includePages
+    );
   });
 
   return (

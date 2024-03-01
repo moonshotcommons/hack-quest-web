@@ -59,7 +59,7 @@ const ElectivePage: FC<ElectivePageProps> = async (props) => {
     );
 
   return (
-    <CourseDetailProvider courseId={courseId}>
+    <CourseDetailProvider courseId={courseId} includePages>
       <div className="relative min-h-[100%] w-full bg-neutral-white">
         <div className="absolute left-0 top-0 min-h-[400px] w-full bg-neutral-off-white py-5"></div>
         <div className="container relative mx-auto flex h-fit pb-[100px]">
