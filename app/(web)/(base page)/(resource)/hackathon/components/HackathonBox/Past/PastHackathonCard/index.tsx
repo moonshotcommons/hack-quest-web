@@ -3,7 +3,6 @@ import { FC } from 'react';
 import moment from 'moment';
 import { HackathonType } from '@/service/webApi/resourceStation/type';
 import Link from 'next/link';
-import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import { Typography } from 'antd';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 
@@ -20,9 +19,7 @@ const formatTime = (startTime: string, endTime: string) => {
 const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon }) => {
   const { name, startTime, address, image: cover, endTime } = hackathon;
   return (
-    <Link
-      href={`${MenuLink.HACKATHON}/${hackathon.alias}?menu=${Menu.HACKATHON}&${QueryIdType.HACKATHON_ID}=${hackathon.id}`}
-    >
+    <Link href={`${MenuLink.HACKATHON}/${hackathon.alias}`}>
       <div className="card-hover flex  w-full flex-col overflow-hidden rounded-[16px] bg-neutral-white ">
         <div className="relative h-0 w-full rounded-t-[10px] bg-[#D9D9D9] pt-[56.25%]">
           {cover && (

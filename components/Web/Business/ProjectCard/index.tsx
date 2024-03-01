@@ -2,7 +2,6 @@
 import React from 'react';
 import Image from 'next/image';
 import { ProjectType } from '@/service/webApi/resourceStation/type';
-import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import { BurialPoint } from '@/helper/burialPoint';
 import { MenuLink } from '../../Layout/BasePage/Navbar/type';
 import TrackTag from '@/components/Common/TrackTag';
@@ -28,7 +27,7 @@ const ProjectCard: React.FC<ProjectCardProp> = ({
         className
       )}
       onClick={goProjectDetail}
-      href={`${MenuLink.PROJECTS}/${project.alias}?${QueryIdType.PROJECT_ID}=${project.id}&menu=${Menu.HACKATHON}`}
+      href={`${MenuLink.PROJECTS}/${project.alias}`}
     >
       <div className="relative h-0 w-full bg-[#d9d9d9]/30 pt-[56%]">
         <Image

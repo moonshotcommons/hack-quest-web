@@ -1,28 +1,30 @@
+'use client';
 import { FC, ReactNode } from 'react';
 import UgcSidebar from './components/UgcSidebar';
 import UgcProvider from '@/app/(web)/(learn page)/ugc/[courseId]/learn/components/UgcProvider';
 import UgcFooter from './components/UgcFooter';
-import UgcContainer from './components/UgcContainer';
+import useGetHeight from '@/hooks/useGetHeight';
 
 interface LearnLayoutProps {
   children: ReactNode;
 }
 
 const LearnLayout: FC<LearnLayoutProps> = ({ children }) => {
-  // const boxHeight = useMemo(() => {
-  //   console.info(pageInfo.windowHeight, '22222');
-  //   return pageInfo.windowHeight - MOBILE_NAVBAR_HEIGHT;
-  // }, [pageInfo]);
-
+  const { pageHeight } = useGetHeight();
   return (
     <UgcProvider>
-      <UgcContainer>
+      <div
+        className="flex  w-full flex-col"
+        style={{
+          height: pageHeight
+        }}
+      >
         <div className="relative flex w-full flex-1 overflow-hidden">
           <UgcSidebar />
           {children}
         </div>
         <UgcFooter />
-      </UgcContainer>
+      </div>
       {/* <div
         className="flex h-[calc(100vh-64px)] w-full flex-col"
         style={{
