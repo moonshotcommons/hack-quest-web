@@ -20,8 +20,8 @@ const LearnLayout: FC<LearnLayoutProps> = ({ children }) => {
     <UgcCreateProvider>
       <div className="flex h-full w-full">
         <UgcSidebar />
-        <div className="flex h-full flex-1 justify-center overflow-auto py-[40px]">
-          <div className="w-[808px]">{children}</div>
+        <div className="scroll-wrap-y relative h-full w-full py-[40px] text-center">
+          <div className="inline-block w-[808px] text-left">{children}</div>
         </div>
       </div>
     </UgcCreateProvider>

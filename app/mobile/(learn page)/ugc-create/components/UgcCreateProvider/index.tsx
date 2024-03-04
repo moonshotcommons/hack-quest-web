@@ -1,5 +1,5 @@
 'use client';
-import { FC, ReactNode, useEffect, useState } from 'react';
+import { FC, ReactNode, useEffect } from 'react';
 import { UgcCreateContext } from '../../constants/type';
 import { RendererContext } from '@/components/Web/Business/Renderer/context';
 import emitter from '@/store/emitter';
@@ -9,7 +9,6 @@ interface UgcProviderProps {
 }
 
 const UgcProvider: FC<UgcProviderProps> = ({ children }) => {
-  const [loading, setLoaing] = useState(false);
   useEffect(() => {
     return () => {
       emitter.all.clear();
@@ -17,12 +16,7 @@ const UgcProvider: FC<UgcProviderProps> = ({ children }) => {
   }, []);
 
   return (
-    <UgcCreateContext.Provider
-      value={{
-        loading,
-        setLoaing: (val) => setLoaing(val)
-      }}
-    >
+    <UgcCreateContext.Provider value={{}}>
       <RendererContext.Provider
         value={{
           textRenderer: {

@@ -1,5 +1,5 @@
 import { VariantProps, cva } from 'class-variance-authority';
-import { cn } from '@/helper/utils';
+import { changeTextareaHeight, cn } from '@/helper/utils';
 import { useDebounceFn } from 'ahooks';
 import Schema, { Rule, Rules } from 'async-validator';
 import {
@@ -17,7 +17,7 @@ import PassIcon from '../Icon/Pass';
 import { PiWarningCircleFill } from 'react-icons/pi';
 
 const inputVariants = cva(
-  'w-full border border-solid outline-none px-[24px] py-[11px] rounded-[2.5rem] body-m text-neutral-medium-gray',
+  'w-full border no-scrollbar border-solid outline-none px-[24px] py-[11px] rounded-[1.5rem] body-m text-neutral-medium-gray',
   {
     variants: {
       theme: {
@@ -61,8 +61,8 @@ const labelVariants = cva('body-l-bold label', {
   }
 });
 
-export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement>,
+export interface TextAreaProps
+  extends React.TextareaHTMLAttributes<HTMLTextAreaElement>,
     VariantProps<typeof inputVariants>,
     VariantProps<typeof labelVariants> {
   label?: string | ReactNode;
@@ -79,18 +79,19 @@ export interface InputProps
   initBorderColor?: string;
   isMobile?: boolean;
   isShowCount?: boolean;
+  textAreaMinHeight?: number;
 }
 
-export interface InputRef {
+export interface TextAreaRef {
   focus: () => void;
   blur: () => void;
 }
 
-const Input = forwardRef<InputRef, InputProps>((props, ref) => {
+const TextArea = forwardRef<TextAreaRef, TextAreaProps>((props, ref) => {
   const {
     label,
     type: propType = 'text',
-    theme = 'dark',
+    theme = 'light',
     placeholder,
     prefix,
     description,
@@ -110,10 +111,11 @@ const Input = forwardRef<InputRef, InputProps>((props, ref) => {
     isMobile = false,
     onBlur,
     isShowCount,
+    textAreaMinHeight = 100,
     ...rest
   } = props;
 
-  const inputRef = useRef<HTMLInputElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const [status, setStatus] = useState(propsState);
   const [errorMessage, setErrorMessage] = useState('');
@@ -135,10 +137,10 @@ const Input = forwardRef<InputRef, InputProps>((props, ref) => {
   useImperativeHandle(ref, () => {
     return {
       focus: () => {
-        inputRef.current?.focus();
+        textareaRef.current?.focus();
       },
       blur: () => {
-        inputRef.current?.blur();
+        textareaRef.current?.blur();
       },
       setStatus(value: any) {
         setStatus(value);
@@ -193,7 +195,7 @@ const Input = forwardRef<InputRef, InputProps>((props, ref) => {
         setErrorMessage('');
         setStatus('default');
         const event = {
-          target: inputRef.current
+          target: textareaRef.current
         };
         onChange?.(event as any);
       }}
@@ -250,11 +252,14 @@ const Input = forwardRef<InputRef, InputProps>((props, ref) => {
     <div className="flex flex-col gap-[0.75rem]">
       {label ? labelNode : null}
       <div className="relative">
-        <input
-          ref={inputRef}
+        <textarea
+          ref={textareaRef}
           type={type}
           value={value}
           placeholder={placeholder}
+          style={{
+            minHeight: `${textAreaMinHeight}px`
+          }}
           className={cn(
             inputVariants({
               className,
@@ -270,6 +275,10 @@ const Input = forwardRef<InputRef, InputProps>((props, ref) => {
             setStatus('default');
             onChange?.(e);
           }}
+          onInput={(e) => {
+            const textarea = e.target as HTMLTextAreaElement;
+            changeTextareaHeight(textarea, textAreaMinHeight);
+          }}
           onBlur={(e) => {
             run(e);
           }}
@@ -281,7 +290,6 @@ const Input = forwardRef<InputRef, InputProps>((props, ref) => {
           {showVisibleIcon && value && visibleIcon}
         </span>
       </div>
-      {description && <p className="body-m ml-[1.5rem]">{description}</p>}
       <div className="flex items-center justify-between">
         <p
           className={`body-m flex flex-1 flex-row items-center gap-2 text-status-error-dark ${errorMessage ? '' : 'hidden'}`}
@@ -299,6 +307,6 @@ const Input = forwardRef<InputRef, InputProps>((props, ref) => {
   );
 });
 
-Input.displayName = 'Input';
+TextArea.displayName = 'TextArea';
 
-export default Input;
+export default TextArea;

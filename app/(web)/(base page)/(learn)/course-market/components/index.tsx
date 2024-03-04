@@ -7,7 +7,7 @@ import CourseList from './CourseList';
 import { getSearchParamsUrl } from '@/helper/utils';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 import { useRouter } from 'next/navigation';
-import { CourseMarketApiType } from '@/service/catch/learn/course-market';
+import { CourseMarketApiType } from '@/service/cach/learn/course-market';
 
 interface CourseMarketPageProp {
   page: number;

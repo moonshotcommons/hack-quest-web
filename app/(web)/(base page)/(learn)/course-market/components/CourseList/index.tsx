@@ -10,7 +10,7 @@ import { cloneDeep } from 'lodash-es';
 import UgcCourseCard from '@/components/Web/Business/UgcCourseCard';
 import Pagination from '@/components/Common/Pagination';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
-import { CourseMarketApiType } from '@/service/catch/learn/course-market';
+import { CourseMarketApiType } from '@/service/cach/learn/course-market';
 
 interface CourseListProp {
   page: number;
