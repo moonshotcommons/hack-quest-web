@@ -14,6 +14,7 @@ import ElectiveDetailCard from './components/ElectiveDetailCard';
 import { ElectiveCourseDetailType } from '@/service/webApi/elective/type';
 import CourseDetailProvider from '@/components/Web/DetailPageV2/Provider/CourseDetailProvider';
 import { Metadata } from 'next';
+import HeaderBg from '@/components/Web/DetailPageV2/HeaderBg';
 
 interface ElectivePageProps {
   params: {
@@ -61,10 +62,11 @@ const ElectivePage: FC<ElectivePageProps> = async (props) => {
   return (
     <CourseDetailProvider courseId={courseId} includePages>
       <div className="relative min-h-[100%] w-full bg-neutral-white">
-        <div className="absolute left-0 top-0 min-h-[400px] w-full bg-neutral-off-white py-5"></div>
+        {/* <div className="absolute left-0 top-0 min-h-[400px] w-full bg-neutral-off-white py-5"></div> */}
+        <HeaderBg />
         <div className="container relative mx-auto flex h-fit pb-[100px]">
           <div className="w-[900px] max-w-[900px]">
-            <div className="h-[400px] w-full py-5">
+            <div className="min-h-[400px] w-full py-5" id="detail-header">
               <BackButton type="electives"></BackButton>
               <Tags
                 size="lg"
