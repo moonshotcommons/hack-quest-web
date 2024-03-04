@@ -13,6 +13,7 @@ import KnowledgeGain from '@/components/Web/DetailPageV2/KnowledgeGain';
 import IntendedLearners from '@/components/Web/DetailPageV2/IntendedLearners';
 import { LearningTrackDetailCard } from '@/components/Web/DetailPageV2/DetailCard';
 import CertificationCardProvider from '@/components/Web/Business/Certification/CertificationCard/CertificationCardProvider';
+import HeaderBg from '@/components/Web/DetailPageV2/HeaderBg';
 
 interface LearningTrackDetailPageProps {
   params: {
@@ -47,10 +48,11 @@ const LearningTrackDetailPage: FC<LearningTrackDetailPageProps> = async (
     <LearningTrackDetailProvider learningTrackDetail={learningTrackDetail}>
       <CertificationCardProvider certificationId={certification?.id}>
         <div className="relative w-full bg-neutral-white">
-          <div className="absolute left-0 top-0 min-h-[400px] w-full bg-neutral-off-white py-5"></div>
+          {/* <div className="absolute left-0 top-0 min-h-[400px] w-full bg-neutral-off-white py-5"></div> */}
+          <HeaderBg />
           <div className="container relative mx-auto flex h-fit pb-[100px]">
             <div className="w-[900px] max-w-[900px]">
-              <div className="h-[400px] w-full py-5">
+              <div className="min-h-[400px] w-full py-5" id="detail-header">
                 <BackButton type="learningTrack"></BackButton>
                 <Tags
                   size="lg"
