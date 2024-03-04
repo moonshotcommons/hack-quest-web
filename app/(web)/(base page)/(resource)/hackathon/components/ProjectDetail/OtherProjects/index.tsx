@@ -1,5 +1,4 @@
 'use client';
-import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import ProjectCard from '@/components/Web/Business/ProjectCard';
 import Pagination from '@/components/Common/Pagination';
 import { ProjectType } from '@/service/webApi/resourceStation/type';
@@ -33,7 +32,7 @@ const OtherProjects: FC<OtherProjectsProps> = ({ hackathonName, projects }) => {
       <p className="body-l mt-[8px]">
         {`in `}
         <Link
-          href={`${MenuLink.PROJECTS}?menu=${Menu.HACKATHON}&${QueryIdType.PROJECT_ID}=projects&keyWord=${hackathonName}`}
+          href={`${MenuLink.PROJECTS}?keyword=${hackathonName}`}
           className="text-neutral-black underline transition-all hover:text-neutral-black hover:underline hover:opacity-70"
         >
           {hackathonName}

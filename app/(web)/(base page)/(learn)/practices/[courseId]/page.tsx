@@ -1,5 +1,5 @@
 import Tags from '@/components/Common/Tags';
-import { PracticeCatalogue } from '@/components/Web/DetailPageV2/Catalogue';
+import { UnitCatalogue } from '@/components/Web/DetailPageV2/Catalogue';
 import CourseTag, {
   CourseTagType
 } from '@/components/Web/DetailPageV2/CourseTag';
@@ -9,8 +9,10 @@ import { FC } from 'react';
 import BackButton from '@/components/Web/DetailPageV2/BackButton';
 import IntendedLearners from '@/components/Web/DetailPageV2/IntendedLearners';
 import KnowledgeGain from '@/components/Web/DetailPageV2/KnowledgeGain';
-import { PracticeDetailCard } from '@/components/Web/DetailPageV2/DetailCard';
-import PracticeDetailProvider from '@/components/Web/DetailPageV2/Provider/PracticeDetailProvider';
+import PracticeDetailCard from './components/PracticeDetailCard';
+import CourseDetailProvider from '@/components/Web/DetailPageV2/Provider/CourseDetailProvider';
+import { Metadata } from 'next';
+import { CourseDetailType } from '@/service/webApi/course/type';
 import HeaderBg from '@/components/Web/DetailPageV2/HeaderBg';
 
 interface PracticePageProps {
@@ -23,6 +25,26 @@ interface PracticePageProps {
   };
 }
 
+export async function generateMetadata(
+  { params, searchParams }: PracticePageProps,
+  parent: any
+): Promise<Metadata> {
+  // 读取路由参数
+  const courseId = params.courseId;
+
+  const courseDetail =
+    await webApi.courseApi.fetchCourseDetail<CourseDetailType>(courseId);
+
+  const metadata: Metadata = {
+    title: courseDetail.title,
+    alternates: {
+      canonical: `https://www.hackquest.io/practices/${courseId}`
+    }
+  };
+
+  return metadata;
+}
+
 const PracticePage: FC<PracticePageProps> = async (props) => {
   const { params, searchParams } = props;
   const courseId = params.courseId;
@@ -31,7 +53,7 @@ const PracticePage: FC<PracticePageProps> = async (props) => {
   // console.log(courseDetail);
 
   return (
-    <PracticeDetailProvider courseId={courseId}>
+    <CourseDetailProvider courseId={courseId} includeUnits>
       <div className="relative min-h-[100%] w-full bg-neutral-white">
         <HeaderBg />
         <div className="container relative mx-auto flex h-fit pb-[100px]">
@@ -45,7 +67,7 @@ const PracticePage: FC<PracticePageProps> = async (props) => {
                 Project
               </Tags>
               <div className="mt-4 flex items-center gap-6">
-                <h2 className="text-h2">{courseDetail.name}</h2>
+                <h1 className="text-h2">{courseDetail.title}</h1>
                 {/* <div className="flex items-center gap-2">
                   <span>Certified by</span>
                   <span>Mantle</span>
@@ -90,7 +112,7 @@ const PracticePage: FC<PracticePageProps> = async (props) => {
           </div>
         </div>
       </div>
-    </PracticeDetailProvider>
+    </CourseDetailProvider>
   );
 
   function Syllabus() {
@@ -100,7 +122,7 @@ const PracticePage: FC<PracticePageProps> = async (props) => {
           <div className="h-[34px] w-[5px] rounded-full bg-yellow-dark"></div>
           <h3 className="text-h3 text-neutral-black">{`Syllabus`}</h3>
         </div>
-        <PracticeCatalogue courseDetail={courseDetail} />
+        <UnitCatalogue courseDetail={courseDetail} />
       </div>
     );
   }

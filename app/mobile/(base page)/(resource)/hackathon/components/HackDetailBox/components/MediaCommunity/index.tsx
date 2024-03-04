@@ -1,3 +1,4 @@
+'use client';
 import { MentorType } from '@/service/webApi/resourceStation/type';
 import React, { useMemo, useState } from 'react';
 import Box from '../Box';
@@ -14,14 +15,17 @@ interface MediaCommunityProp {
 const MediaCommunity: React.FC<MediaCommunityProp> = ({ listData, title }) => {
   const [showAll, setShowAll] = useState(false);
   const showList = useMemo(() => {
-    return showAll ? deepClone(listData) : listData?.slice(0, 12);
+    return showAll ? deepClone(listData) : listData?.slice(0, 6);
   }, [showAll, listData]);
 
   return listData?.length > 0 ? (
     <Box>
-      <div className="mb-[30px] flex flex-wrap gap-[20px]">
+      <div className="text-h3-mob mb-[.5rem] text-neutral-off-black">
+        {title}
+      </div>
+      <div className="mb-[.5rem] flex flex-wrap gap-[8px]">
         {showList.map((v: MentorType, i: number) => (
-          <div key={i} className="h-[72px] w-[calc(25%-15px)]">
+          <div key={i} className="h-[4.4375rem] w-[calc((100%-8px)/2)]">
             <div className="relative h-full w-full">
               <Image
                 src={v.picture as string}
@@ -33,8 +37,8 @@ const MediaCommunity: React.FC<MediaCommunityProp> = ({ listData, title }) => {
           </div>
         ))}
       </div>
-      {listData.length > 12 && (
-        <div className="body-l flex justify-end">
+      {listData.length > 6 && (
+        <div className="body-s flex justify-end">
           <div
             className="flex cursor-pointer items-center"
             onClick={() => {
@@ -44,7 +48,7 @@ const MediaCommunity: React.FC<MediaCommunityProp> = ({ listData, title }) => {
           >
             <span>Show {showAll ? 'Less' : 'All'}</span>
             <VscChevronDown
-              className={`body-xl transition ${showAll ? 'rotate-180' : ''}`}
+              className={`body-s transition ${showAll ? 'rotate-180' : ''}`}
             />
           </div>
         </div>

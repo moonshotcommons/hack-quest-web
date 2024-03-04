@@ -12,8 +12,7 @@ import CheckInviteCode from './CheckInviteCode';
 import { useRedirect } from '@/hooks/useRedirect';
 import { motion } from 'framer-motion';
 import { useCustomPathname } from '@/hooks/useCheckPathname';
-import { useGetPageInfo } from '@/hooks/useGetPageInfo';
-import { MOBILE_NAVBAR_HEIGHT } from '../constant';
+import useGetHeight from '@/hooks/useGetHeight';
 interface AuthModalProps {
   changeNavState: VoidFunction;
 }
@@ -35,6 +34,8 @@ const Auth: FC<AuthModalProps> = ({ changeNavState }) => {
       authRouteType: state.authRouteType
     }))
   );
+
+  const { pageHeight } = useGetHeight();
 
   const authComponent = useMemo(() => {
     if (queryState) {
@@ -58,16 +59,14 @@ const Auth: FC<AuthModalProps> = ({ changeNavState }) => {
         return <Login></Login>;
     }
   }, [queryState, authRouteType.type]);
-
-  const pageInfo = useGetPageInfo();
-
   return (
     <motion.div
       variants={{
         open: {
           transition: { staggerChildren: 0.07, delayChildren: 0.2 },
           opacity: 1,
-          pointerEvents: 'auto'
+          pointerEvents: 'auto',
+          height: pageHeight
         },
         closed: {
           transition: { staggerChildren: 0.05, staggerDirection: -1 },
@@ -75,10 +74,7 @@ const Auth: FC<AuthModalProps> = ({ changeNavState }) => {
           pointerEvents: 'none'
         }
       }}
-      className="absolute bottom-0 top-[4rem] flex w-screen flex-col border border-neutral-light-gray bg-neutral-white px-5 py-[30px]"
-      style={{
-        height: `${pageInfo.windowHeight - MOBILE_NAVBAR_HEIGHT}px`
-      }}
+      className="fixed bottom-0 left-0 top-[64px] flex  w-screen  flex-col border border-neutral-light-gray bg-neutral-white px-5 pb-[30px] pt-[94px]"
     >
       <AuthContext.Provider value={{ changeNavState }}>
         {authComponent}

@@ -1,6 +1,3 @@
-import CertificationModal, {
-  CertificationModalInstance
-} from '@/components/Web/Business/Certification/CertificationModal';
 import Button from '@/components/Common/Button';
 import { BurialPoint } from '@/helper/burialPoint';
 import Certificate from '@/public/images/campaigns/certificate.png';
@@ -10,6 +7,9 @@ import Image from 'next/image';
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { VscAdd, VscChromeMinimize } from 'react-icons/vsc';
 import { MantleContext } from '../../../constants/type';
+import CertificationModal, {
+  CertificationModalInstance
+} from '@/components/Mobile/MobCertification/CertificationModal';
 
 interface MantleInfoProp {}
 
@@ -31,83 +31,84 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
     setShowAll(!buttonDisable);
   }, [buttonDisable]);
   return (
-    <div className="mb-[30px] flex justify-between gap-[50px]">
-      <div className={`flex-1 text-neutral-black`}>
-        <p className="mb-[10px]   font-[500] leading-[25px]">{mantle.title}</p>
-        <p className="body-m">{mantle.description}</p>
+    <div className="mt-[1rem]">
+      <div className={`mb-[1.75rem]`}>
+        <p className="text-h2-mob mb-[.5rem] font-next-book-bold text-neutral-off-black">
+          {mantle.title}
+        </p>
+        <p className="body-s  text-neutral-rich-gray">{mantle.description}</p>
       </div>
       <div
-        className={`flex h-fit gap-[40px] rounded-[10px] border border-neutral-medium-gray px-[30px] py-[20px]  ${
-          showAll ? 'w-[567px]' : 'w-[306px]'
-        }`}
+        className={`h-fit rounded-[1rem] border border-neutral-medium-gray p-[1.25rem]`}
       >
-        {showAll && (
-          <div className="w-[218px]">
-            <div
-              className="relative mb-[8px] h-[121px] w-[218px] cursor-pointer bg-neutral-white transition-transform hover:-translate-y-1 hover:scale-[1.03]"
-              onClick={() => {
-                certificationModalRef.current?.open();
-              }}
-            >
-              <Image
-                src={mantle.certification?.image || Certificate}
-                alt="certificate"
-                fill
-              ></Image>
-            </div>
-            <div className="body-s flex gap-[10px]">
-              <div className="flex h-[32px] w-[69px] items-center justify-between rounded-[6px] border border-neutral-light-gray px-[5px]">
-                <Image
-                  src={iconCoin}
-                  width={22}
-                  alt="icon"
-                  className=""
-                ></Image>
-                <span>x{mantle.certification?.credits}</span>
-              </div>
-              <div className="flex h-[32px] w-[69px] items-center justify-between rounded-[6px] border border-neutral-light-gray px-[5px]">
-                <Image src={iconXp} width={22} alt="icon" className=""></Image>
-                <span>x{mantle.certification?.exp}</span>
-              </div>
-            </div>
-          </div>
-        )}
-        <div className="flex flex-1 flex-col justify-between">
-          <div className="">
-            <div
-              className="flex-row-center cursor-pointer justify-between"
-              onClick={() => {
-                BurialPoint.track('campaigns certificateCard show all 点击');
-                setShowAll(!showAll);
-              }}
-            >
-              <div className="body-l">{mantle.certification?.name}</div>
-              <div>
-                {showAll ? (
-                  <VscChromeMinimize size={20}></VscChromeMinimize>
-                ) : (
-                  <VscAdd size={20}></VscAdd>
-                )}
-              </div>
-            </div>
-            {showAll && (
-              <div className={`body-s mb-[20px] mt-[5px]`}>
-                {mantle.certification?.description}
-              </div>
+        <div
+          className="flex-row-center cursor-pointer justify-between text-neutral-off-black"
+          onClick={() => {
+            BurialPoint.track('campaigns certificateCard show all 点击');
+            setShowAll(!showAll);
+          }}
+        >
+          <div className="body-m-bold">{mantle.certification?.name}</div>
+          <div>
+            {showAll ? (
+              <VscChromeMinimize size={20}></VscChromeMinimize>
+            ) : (
+              <VscAdd size={20}></VscAdd>
             )}
           </div>
-          {showAll && (
-            <div className="flex justify-between">
+        </div>
+        {showAll && (
+          <>
+            <div className="mt-[.5rem] flex gap-[1rem]">
+              <div
+                className="flex-1"
+                onClick={() => {
+                  certificationModalRef.current?.open();
+                }}
+              >
+                <div className="relative h-0 w-full  overflow-hidden  bg-neutral-white pt-[55.45%]">
+                  <Image
+                    src={mantle.certification?.image || Certificate}
+                    alt="certificate"
+                    fill
+                    className="object-cover"
+                  ></Image>
+                </div>
+              </div>
+              <div className="body-s  flex-shrink-0 text-neutral-black">
+                <div className="flex h-[34px] w-[74px] items-center gap-[5px] rounded-[6px] border border-neutral-light-gray px-[5px]">
+                  <Image
+                    src={iconCoin}
+                    width={22}
+                    alt="icon"
+                    className=""
+                  ></Image>
+                  <span>x{mantle.certification?.credits}</span>
+                </div>
+                <div className="mt-[.625rem] flex h-[34px] w-[74px] items-center gap-[5px] rounded-[6px] border border-neutral-light-gray px-[5px]">
+                  <Image
+                    src={iconXp}
+                    width={22}
+                    alt="icon"
+                    className=""
+                  ></Image>
+                  <span>x{mantle.certification?.exp}</span>
+                </div>
+              </div>
+            </div>
+            <div className={`body-s mt-[.5rem]  text-neutral-rich-gray`}>
+              {mantle.certification?.description}
+            </div>
+            <div className="mt-[16px] flex gap-[.5rem]">
               <Button
-                className={`body-m h-[34px] w-[120px] border-auth-primary-button-border-color bg-auth-primary-button-bg
-                          p-0
-                          text-neutral-black ${
-                            buttonDisable
-                              ? 'cursor-not-allowed opacity-50 '
-                              : `hover:border-auth-primary-button-border-hover-color
-                                  hover:bg-auth-primary-button-hover-bg
-                                  hover:text-auth-primary-button-text-hover-color`
-                          }`}
+                className={`button-text-s h-[34px] flex-1 flex-shrink-0 p-0 uppercase
+                           ${
+                             !mantle.completed
+                               ? 'cursor-not-allowed bg-neutral-light-gray text-neutral-medium-gray'
+                               : !buttonDisable
+                                 ? 'bg-yellow-primary text-neutral-black'
+                                 : 'cursor-not-allowed bg-yellow-primary text-neutral-black opacity-50'
+                           }`}
                 loading={loading}
                 disabled={buttonDisable}
                 onClick={campaignsClaim}
@@ -115,15 +116,15 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
                 {mantle.certification.claimed ? 'Claimed' : 'Claim'}
               </Button>
               <Button
-                className={`body-s h-[34px] w-[120px] border border-neutral-black
-                          p-0 text-neutral-black`}
+                ghost
+                className={`button-text-s h-[34px] flex-1 flex-shrink-0 border-neutral-black  p-0 uppercase text-neutral-black`}
                 onClick={learnMore}
               >
                 Learn More
               </Button>
             </div>
-          )}
-        </div>
+          </>
+        )}
       </div>
       <CertificationModal
         ref={certificationModalRef}

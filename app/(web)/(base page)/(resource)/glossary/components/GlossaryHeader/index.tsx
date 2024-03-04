@@ -42,6 +42,7 @@ const GlossaryHeader: React.FC<GlossaryHeaderProp> = ({ keyword = '' }) => {
         coverImgClassName={'pt-[33px]'}
         onSearch={onSearch}
         defaultValue={keyword}
+        className="pb-[75px]"
       />
       <SubmitWordModal
         open={submitVisible}

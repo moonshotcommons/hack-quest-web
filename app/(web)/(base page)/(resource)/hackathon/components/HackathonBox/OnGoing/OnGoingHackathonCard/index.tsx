@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Button from '@/components/Common/Button';
-import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import { HackathonType } from '@/service/webApi/resourceStation/type';
 import useDealHackathonData from '@/hooks/useDealHackathonData';
 import { BurialPoint } from '@/helper/burialPoint';
@@ -20,9 +19,7 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({
   const [closeInTime, setCloseInTime] = useState('');
   const goHackathonDetail = () => {
     BurialPoint.track(`hackathon onGoingCard 点击`);
-    redirectToUrl(
-      `${MenuLink.HACKATHON}/${hackathon.alias}?menu=${Menu.HACKATHON}&${QueryIdType.HACKATHON_ID}=${hackathon.id}`
-    );
+    redirectToUrl(`${MenuLink.HACKATHON}/${hackathon.alias}`);
   };
   const { getRunFromTime, getCloseInTime } = useDealHackathonData();
   const getCloseIn = () => {
@@ -39,10 +36,10 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({
   }, [hackathon]);
   return (
     <div
-      className="mb-[20px] flex h-[400px] cursor-pointer overflow-hidden rounded-[10px] bg-neutral-white shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)] "
+      className="card-hover flex h-[322px] overflow-hidden rounded-[10px] bg-neutral-white "
       onClick={goHackathonDetail}
     >
-      <div className="relative h-full w-[711px] bg-[#d9d9d9]/30">
+      <div className="relative h-full w-[571px] bg-[#d9d9d9]/30">
         <Image
           src={hackathon.image}
           fill
@@ -50,32 +47,36 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({
           className="object-cover"
         ></Image>
       </div>
-      <div className="flex h-full flex-1 flex-col justify-between p-[30px]">
+      <div className="flex h-full flex-1 flex-col justify-between p-[20px] text-neutral-off-black">
         <div className="flex">
-          <div className="text-h3 text-neutral-off-black">{hackathon.name}</div>
+          <div className="text-h3 line-clamp-1 font-next-book-bold ">
+            {hackathon.name}
+          </div>
         </div>
-        <div className="relative flex h-[100px] flex-col justify-between pl-[20px]">
+        <div className="relative flex h-[60px] flex-col justify-between pl-[20px] ">
           <div className="absolute left-0 top-0 h-full w-[5px] rounded-[10px] bg-yellow-primary"></div>
-          <div>
+          <div className="flex items-center gap-[16px]">
             <div className="body-s text-neutral-medium-gray">RUNS FROM</div>
             <div className="body-m">
               {getRunFromTime(hackathon.startTime, hackathon.endTime)}
             </div>
           </div>
-          <div>
+          <div className="flex items-center gap-[16px]">
             <div className="body-s text-neutral-medium-gray">HAPPENING</div>
-            <div className="body-m">{hackathon.address}</div>
+            <div className="body-m w-0 flex-1 truncate underline">
+              {hackathon.address}
+            </div>
           </div>
         </div>
-        <div className="flex h-[63px] flex-col justify-center rounded-[10px] bg-[rgba(255,244,206,0.5)] px-[20px] ">
+        <div className="flex h-[42px] items-center gap-[15px] rounded-[8px] bg-yellow-extra-light px-[20px]">
           <div className="body-s text-neutral-medium-gray">
             APPLICATIONS CLOSE IN
           </div>
           <div className="body-m">{closeInTime}</div>
         </div>
-        <div className="flex justify-between">
+        <div className="flex gap-[16px]">
           <Button
-            className="button-l h-[60px] w-[245px] bg-yellow-primary"
+            className="button-text-l h-[60px] flex-1 bg-yellow-primary uppercase"
             onClick={() => {
               BurialPoint.track(`hackathon onGoingCard Apply Now 按钮点击`);
               window.open(hackathon.applyLink);
@@ -84,7 +85,7 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({
             Apply Now
           </Button>
           <Button
-            className="button-l h-[60px] w-[245px] border border-neutral-black"
+            className="button-text-l h-[60px] flex-1 border border-neutral-black uppercase"
             onClick={goHackathonDetail}
           >
             Learn More

@@ -5,7 +5,7 @@ import {
   ResourceFrom
 } from '@/service/webApi/resourceStation/type';
 import BlogDetail from '../../blog/components/BlogId';
-import { getGlossaryById } from '@/service/catch/resource';
+import { getGlossaryById } from '@/service/catch/resource/blog';
 
 interface BlogDetailProp {
   params: {
@@ -19,7 +19,10 @@ export async function generateMetadata({
   const glossary: BlogDetailType = await getGlossaryById(params.glossaryId);
   return {
     title: glossary.title,
-    description: glossary.description
+    description: glossary.description,
+    alternates: {
+      canonical: `https://www.hackquest.io/glossary/${params.glossaryId}`
+    }
   };
 }
 

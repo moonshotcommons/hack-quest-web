@@ -14,6 +14,7 @@ import { CourseStructure } from '@/components/Mobile/MobDetailPageV2/CourseStruc
 import { PracticeStatusButton } from '@/components/Mobile/MobDetailPageV2/StatusButton';
 import { CourseDetailType } from '@/service/webApi/course/type';
 import { getCoverImageByTrack } from '@/helper/utils';
+import { Metadata } from 'next';
 
 interface ElectiveDetailPageProps {
   params: {
@@ -23,6 +24,26 @@ interface ElectiveDetailPageProps {
     menuCourseId: string;
     menu: string;
   };
+}
+
+export async function generateMetadata(
+  { params, searchParams }: ElectiveDetailPageProps,
+  parent: any
+): Promise<Metadata> {
+  // 读取路由参数
+  const courseId = params.courseId;
+
+  const courseDetail =
+    await webApi.courseApi.fetchCourseDetail<CourseDetailType>(courseId);
+
+  const metadata: Metadata = {
+    title: courseDetail.title,
+    alternates: {
+      canonical: `https://www.hackquest.io/practices/${courseId}`
+    }
+  };
+
+  return metadata;
 }
 
 const ElectiveDetailPage: FC<ElectiveDetailPageProps> = async (props) => {

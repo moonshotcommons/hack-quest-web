@@ -1,10 +1,10 @@
 'use client';
 import User from '@/components/Web/User';
-import React, { ReactNode, useCallback, useEffect, Suspense } from 'react';
+import React, { ReactNode, useEffect } from 'react';
 import NavBar, { NavBarProps } from '../Navbar';
 
-import Breadcrumb from '@/components/Web/Business/Breadcrumb';
-import { useCheckPathname, useCustomPathname } from '@/hooks/useCheckPathname';
+// import Breadcrumb from '@/components/Web/Business/Breadcrumb';
+import { useCheckPathname } from '@/hooks/useCheckPathname';
 
 export interface V2LayoutProps {
   navbarData: NavBarProps;
@@ -13,29 +13,29 @@ export interface V2LayoutProps {
 }
 
 const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
-  const pathname = useCustomPathname();
+  // const pathname = useCustomPathname();
   const { isNavbarFullPage, isExcludeBreadcrumbLink } = useCheckPathname();
 
-  const renderBreadcrumb = useCallback(() => {
-    const { navList } = navbarData;
-    if (isExcludeBreadcrumbLink) {
-      return null;
-    }
+  // const renderBreadcrumb = useCallback(() => {
+  //   const { navList } = navbarData;
+  //   if (isExcludeBreadcrumbLink) {
+  //     return null;
+  //   }
 
-    for (let menu of navList) {
-      if (menu.menu.some((v) => v.path === pathname)) {
-        return null;
-      }
-    }
+  //   for (let menu of navList) {
+  //     if (menu.menu.some((v) => v.path === pathname)) {
+  //       return null;
+  //     }
+  //   }
 
-    return (
-      <div className="container mx-auto">
-        <Suspense>
-          <Breadcrumb />
-        </Suspense>
-      </div>
-    );
-  }, [pathname, navbarData, isExcludeBreadcrumbLink]);
+  //   return (
+  //     <div className="container mx-auto">
+  //       <Suspense>
+  //         <Breadcrumb />
+  //       </Suspense>
+  //     </div>
+  //   );
+  // }, [pathname, navbarData, isExcludeBreadcrumbLink]);
 
   useEffect(() => {
     const contentWrap = document.querySelector('#content-scroll-wrap');

@@ -38,6 +38,26 @@ class LearningTrackApi {
   }
 
   /** 获取单个课程的详情信息 */
+  async fetchLearningTrackDetail(
+    learningTrackId: string
+  ): Promise<LearningTrackDetailType> {
+    // const url = `${this.service.baseURL.slice(0, -1)}${LearningTrackApiType.GetLearningTrack}/${learningTrackId}?include=courses`;
+    // const learnTrackDetail = await fetch(url, {
+    //   method: 'get'
+    // });
+
+    // if (!learnTrackDetail.ok) {
+    //   throw new Error('Failed to fetch learning track data!');
+    // }
+
+    // return learnTrackDetail.json();
+    const cacheFn = cache(async () => {
+      return this.getLearningTrackDetail(learningTrackId);
+    });
+
+    return cacheFn();
+  }
+  /** 获取单个课程的详情信息 */
   async fetchLearningTrackDetailAndCourses(
     learningTrackId: string
   ): Promise<LearningTrackDetailType> {

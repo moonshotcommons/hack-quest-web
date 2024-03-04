@@ -1,4 +1,3 @@
-import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import Button from '@/components/Common/Button';
 import { useRedirect } from '@/hooks/useRedirect';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
@@ -9,7 +8,7 @@ const NoData: React.FC<NoDataType> = ({ goPast }) => {
   const { redirectToUrl } = useRedirect();
   return (
     <div className="flex flex-col items-center pb-[100px] ">
-      <p className="text-[32px] text-home-learning-track-no-data-color">
+      <p className="text-h3 text-home-learning-track-no-data-color">
         There is no ongoing hackathon
       </p>
       <Button
@@ -19,11 +18,7 @@ const NoData: React.FC<NoDataType> = ({ goPast }) => {
         Check Past Hackathon
       </Button>
       <Button
-        onClick={() =>
-          redirectToUrl(
-            `${MenuLink.PROJECTS}?menu=${Menu.HACKATHON}&${QueryIdType.PROJECT_ID}=projects`
-          )
-        }
+        onClick={() => redirectToUrl(`${MenuLink.PROJECTS}`)}
         className="body-l h-[55px] w-[360px] border border-home-learning-track-no-data-button-explore-border text-home-learning-track-no-data-button-explore-color"
       >
         Check All Projects

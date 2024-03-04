@@ -7,7 +7,6 @@ import {
   HackathonType
 } from '@/service/webApi/resourceStation/type';
 import useDealhackathon from '@/hooks/useDealHackathonData';
-import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import { BurialPoint } from '@/helper/burialPoint';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 import Link from 'next/link';
@@ -115,7 +114,7 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
             onClick={() => {
               BurialPoint.track(`hackathon detail View All Projects 按钮点击`);
             }}
-            href={`${MenuLink.PROJECTS}?menu=${Menu.HACKATHON}&${QueryIdType.PROJECT_ID}=projects&keyWord=${hackathon.name}`}
+            href={`${MenuLink.PROJECTS}?keyword=${hackathon.name}`}
           >
             <Button
               ghost

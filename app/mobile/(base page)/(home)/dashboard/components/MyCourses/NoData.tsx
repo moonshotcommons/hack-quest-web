@@ -1,4 +1,5 @@
 import Button from '@/components/Common/Button';
+import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 import { useRedirect } from '@/hooks/useRedirect';
 import { ProcessType } from '@/service/webApi/course/type';
 interface NoDataType {
@@ -14,13 +15,13 @@ const NoData: React.FC<NoDataType> = ({ curTab }) => {
           : 'You don’t have any completed course'}
       </p>
       <Button
-        onClick={() => redirectToUrl('/learning-track')}
+        onClick={() => redirectToUrl(MenuLink.LEARNING_TRACK)}
         className="button-text-m my-[12px] h-[48px] w-[212px] bg-yellow-primary p-0 uppercase text-neutral-black"
       >
         Add Learning Tracks
       </Button>
       <Button
-        onClick={() => redirectToUrl('/electives')}
+        onClick={() => redirectToUrl(MenuLink.ELECTIVES)}
         className="button-text-m h-[48px] w-[212px] border border-neutral-black  p-0 uppercase text-neutral-black"
       >
         Explore Electives

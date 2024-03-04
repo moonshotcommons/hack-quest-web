@@ -54,16 +54,17 @@ const Pagination: FC<PaginationProps> = (props) => {
   return (
     <div className="flex items-center gap-x-[50px]">
       {urlPrefix ? (
-        <Link
-          className={cn(
-            `flex scale-[0.835] cursor-pointer items-center justify-center rounded-full border border-solid border-[#000000] bg-[#000000] p-2 text-neutral-white`,
-            page <= 1
-              ? 'cursor-not-allowed bg-transparent text-neutral-black'
-              : 'transition hover:border-[#000000]/70 hover:bg-[#000000]/70'
-          )}
-          href={`${urlPrefix}${page <= 1 ? 1 : page - 1}${pageSearch}`}
-        >
-          <HiArrowLongLeft size={24}></HiArrowLongLeft>
+        <Link href={`${urlPrefix}${page <= 1 ? 1 : page - 1}${pageSearch}`}>
+          <div
+            className={cn(
+              `flex scale-[0.835] cursor-pointer items-center justify-center rounded-full border border-solid border-[#000000] bg-[#000000] p-2 text-neutral-white`,
+              page <= 1
+                ? 'cursor-not-allowed bg-transparent text-neutral-black'
+                : 'transition hover:border-[#000000]/70 hover:bg-[#000000]/70'
+            )}
+          >
+            <HiArrowLongLeft size={24}></HiArrowLongLeft>
+          </div>
         </Link>
       ) : (
         <div
@@ -105,15 +106,18 @@ const Pagination: FC<PaginationProps> = (props) => {
 
       {urlPrefix ? (
         <Link
-          className={cn(
-            `flex scale-[0.835] cursor-pointer items-center justify-center rounded-full border border-solid border-[#000000] bg-[#000000] p-2 text-neutral-white`,
-            page >= total
-              ? 'cursor-not-allowed bg-transparent text-neutral-black'
-              : 'transition hover:border-[#000000]/70 hover:bg-[#000000]/70'
-          )}
           href={`${urlPrefix}${page >= total ? page : page + 1}${pageSearch}`}
         >
-          <HiArrowLongRight size={24}></HiArrowLongRight>
+          <div
+            className={cn(
+              `flex scale-[0.835] cursor-pointer items-center justify-center rounded-full border border-solid border-[#000000] bg-[#000000] p-2 text-neutral-white`,
+              page >= total
+                ? 'cursor-not-allowed bg-transparent text-neutral-black'
+                : 'transition hover:border-[#000000]/70 hover:bg-[#000000]/70'
+            )}
+          >
+            <HiArrowLongRight size={24}></HiArrowLongRight>
+          </div>
         </Link>
       ) : (
         <div

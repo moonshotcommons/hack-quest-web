@@ -214,7 +214,7 @@ export const getSearchParamsUrl = (
   info: Record<string, any>,
   path: MenuLink
 ) => {
-  const url = new URL(MenuLink.LEARNING_TRACK, window.location.href);
+  const url = new URL(path, window.location.href);
   for (const key in info) {
     const value = info[key as keyof typeof info];
     if (!value) continue;

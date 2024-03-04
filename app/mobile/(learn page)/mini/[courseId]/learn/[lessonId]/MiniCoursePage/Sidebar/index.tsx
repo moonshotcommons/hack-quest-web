@@ -65,10 +65,14 @@ const Sidebar: FC<SidebarProps> = ({ lesson }) => {
               : ''
           )}
         >{`${index + 1 < 10 ? '0' + (index + 1) : index + 1} ${
-          item.name
+          item.title
         }`}</span>
-        {state === CompleteStateType.COMPLETED && <GoCheck color="#00C365" />}
-        {state === CompleteStateType.NOT_STARTED && <FiLock color="#8C8C8C" />}
+        <div className="flex-shrink-0">
+          {state === CompleteStateType.COMPLETED && <GoCheck color="#00C365" />}
+          {state === CompleteStateType.NOT_STARTED && (
+            <FiLock color="#8C8C8C" />
+          )}
+        </div>
       </div>
     );
   };
@@ -86,7 +90,7 @@ const Sidebar: FC<SidebarProps> = ({ lesson }) => {
       </div>
       <div
         className={cn(
-          'fixed left-[20px] top-[50px] w-[273px]  rounded-[12px] bg-[#F4F4F4] shadow-[0px_2px_2px_0px_rgba(0,0,0,0.12)]',
+          'fixed left-[20px] top-[50px] h-[88vh] w-[273px] overflow-auto  rounded-[12px] bg-[#F4F4F4] shadow-[0px_2px_2px_0px_rgba(0,0,0,0.12)]',
           showList ? 'flex' : 'hidden'
         )}
       >

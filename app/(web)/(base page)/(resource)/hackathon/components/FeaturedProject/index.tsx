@@ -1,17 +1,16 @@
 'use client';
-import {
-  ChangeState,
-  ScrollContainer,
-  ScrollControl
-} from '@/components/Common/ScrollContainer';
-import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import ProjectCard from '@/components/Web/Business/ProjectCard';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 import { BurialPoint } from '@/helper/burialPoint';
 import { ProjectType } from '@/service/webApi/resourceStation/type';
 import Link from 'next/link';
-import { FC, useState } from 'react';
-import { LuChevronRight } from 'react-icons/lu';
+import { FC, useRef, useState } from 'react';
+import { BsArrowRight } from 'react-icons/bs';
+import ScrollControl from '../../../blog/components/ScrollControl';
+import {
+  ChangeState,
+  ScrollContainer
+} from '@/components/Common/ScrollContainer';
 
 interface FeaturedProjectsProps {
   projectList: ProjectType[];
@@ -21,17 +20,19 @@ const FeaturedProjectsHeader = () => {
   return (
     <div className="flex justify-between">
       <div className="flex flex-col gap-[15px]">
-        <h2 className="text-h3 text-neutral-black">Featured Projects</h2>
+        <h2 className="text-h3 font-next-book-bold text-neutral-black">
+          Featured Projects
+        </h2>
       </div>
       <Link
-        href={`${MenuLink.PROJECTS}?menu=${Menu.HACKATHON}&${QueryIdType.PROJECT_ID}=projects`}
-        className="body-l flex items-center gap-x-[15px] text-neutral-black hover:opacity-70"
+        href={`${MenuLink.PROJECTS}`}
+        className="body-l flex items-center gap-x-[7px] text-neutral-off-black hover:opacity-70"
         onClick={() => {
           BurialPoint.track('home-view all点击');
         }}
       >
         <span>View All</span>
-        <LuChevronRight size={32}></LuChevronRight>
+        <BsArrowRight size={16}></BsArrowRight>
       </Link>
     </div>
   );
@@ -40,25 +41,25 @@ const FeaturedProjectsHeader = () => {
 const FeaturedProjects: FC<FeaturedProjectsProps> = ({ projectList }) => {
   const [scrollContainerState, setScrollContainerState] =
     useState<ChangeState>();
-
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
   return (
     <div className="w-full bg-[#FFF4CE] py-[60px]">
       <div className="container mx-auto">
         <FeaturedProjectsHeader></FeaturedProjectsHeader>
         <div>
           <ScrollContainer
+            ref={scrollContainerRef}
             onChange={(state: any) => setScrollContainerState(state)}
-            gap={20}
           >
-            <div className="my-[30px] flex gap-[20px] overflow-x-hidden">
-              {projectList.map((project, index) => {
-                return (
-                  <ProjectCard key={index} project={project}></ProjectCard>
-                );
-              })}
+            <div className="mt-[30px] flex gap-[20px]">
+              {projectList.map((project) => (
+                <ProjectCard key={project.id} project={project}></ProjectCard>
+              ))}
             </div>
           </ScrollContainer>
-          <ScrollControl changeState={scrollContainerState}></ScrollControl>
+          <div className="mt-[30px]">
+            <ScrollControl changeState={scrollContainerState}></ScrollControl>
+          </div>
         </div>
       </div>
     </div>

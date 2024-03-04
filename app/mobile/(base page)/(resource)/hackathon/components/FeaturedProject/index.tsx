@@ -1,92 +1,62 @@
 'use client';
-import {
-  ChangeState,
-  ScrollContainer,
-  ScrollControl
-} from '@/components/Common/ScrollContainer';
-import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
-import ProjectCard from '@/components/Web/Business/ProjectCard';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 import { BurialPoint } from '@/helper/burialPoint';
-import webApi from '@/service';
 import { ProjectType } from '@/service/webApi/resourceStation/type';
-import { useRequest } from 'ahooks';
 import Link from 'next/link';
 import { FC, useState } from 'react';
-import { LuChevronRight } from 'react-icons/lu';
+import { BsArrowRight } from 'react-icons/bs';
+import ScrollControl from '../../../blog/components/ScrollControl';
+import {
+  ChangeState,
+  ScrollContainer
+} from '@/components/Common/ScrollContainer';
+import MobProjectCard from '@/components/Mobile/MobProjectCard';
 
 interface FeaturedProjectsProps {
-  ignoreProjectId?: string;
+  projectList: ProjectType[];
 }
 
-const FeaturedProjectsHeader = () => {
-  return (
-    <div className="flex justify-between">
-      <div className="flex flex-col gap-[15px]">
-        <h2 className="text-h3 text-neutral-black">Featured Projects</h2>
-      </div>
-      <Link
-        href={`${MenuLink.PROJECTS}?menu=${Menu.HACKATHON}&${QueryIdType.PROJECT_ID}=projects`}
-        className="body-l flex items-center gap-x-[15px] text-neutral-black hover:opacity-70"
-        onClick={() => {
-          BurialPoint.track('home-view all点击');
-        }}
-      >
-        <span>View All</span>
-        <LuChevronRight size={32}></LuChevronRight>
-      </Link>
-    </div>
-  );
-};
-
-const FeaturedProjects: FC<FeaturedProjectsProps> = (props) => {
-  const [projectList, setProjectList] = useState<ProjectType[]>([]);
+const FeaturedProjects: FC<FeaturedProjectsProps> = ({ projectList }) => {
   const [scrollContainerState, setScrollContainerState] =
     useState<ChangeState>();
-
-  const { run, loading } = useRequest(
-    async () => {
-      const res = await webApi.resourceStationApi.getProjectsList({
-        featured: true
-      });
-      return res;
-    },
-    {
-      onSuccess(projects) {
-        if (props.ignoreProjectId) {
-          setProjectList(
-            projects.data.filter(
-              (project) => project.id !== props.ignoreProjectId
-            )
-          );
-        } else setProjectList(projects.data);
-      },
-      onError(error: any) {
-        console.log(error);
-        // message.error(error.msg);
-      }
-    }
-  );
-
   return (
-    <div className="w-full bg-[#FFF4CE] py-[60px]">
-      <div className="container mx-auto">
-        <FeaturedProjectsHeader></FeaturedProjectsHeader>
-        <div>
-          <ScrollContainer
-            onChange={(state: any) => setScrollContainerState(state)}
-            gap={20}
+    <div className="w-full bg-yellow-extra-light px-[1.25rem] py-[1.875rem]">
+      <div>
+        <div className="flex justify-between">
+          <div className="flex flex-col gap-[15px]">
+            <h2 className="text-h3-mob text-neutral-off-black">
+              Featured Projects
+            </h2>
+          </div>
+          <Link
+            href={`${MenuLink.PROJECTS}`}
+            className="body-s flex items-center gap-x-[7px] text-neutral-black"
+            onClick={() => {
+              BurialPoint.track('home-view all点击');
+            }}
           >
-            <div className="my-[30px] flex gap-[20px] overflow-x-hidden">
-              {projectList.map((project, index) => {
-                return (
-                  <ProjectCard key={index} project={project}></ProjectCard>
-                );
-              })}
-            </div>
-          </ScrollContainer>
-          <ScrollControl changeState={scrollContainerState}></ScrollControl>
+            <span>View All</span>
+            <BsArrowRight size={12}></BsArrowRight>
+          </Link>
         </div>
+        <ScrollContainer
+          onChange={(state: any) => setScrollContainerState(state)}
+        >
+          <div className="my-[1.875rem] flex overflow-x-hidden">
+            {projectList.map((project) => (
+              <div
+                key={project.id}
+                className="w-[calc(100vw-2.5rem)] p-[.25rem]"
+              >
+                <MobProjectCard
+                  key={project.id}
+                  project={project}
+                ></MobProjectCard>
+              </div>
+            ))}
+          </div>
+        </ScrollContainer>
+        <ScrollControl changeState={scrollContainerState}></ScrollControl>
       </div>
     </div>
   );

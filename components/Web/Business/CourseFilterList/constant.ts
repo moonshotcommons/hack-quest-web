@@ -66,6 +66,10 @@ export const courseDefaultFilters = [
   }
 ];
 
+export const ugcCourseDefaultFilters = courseDefaultFilters.filter(
+  (v) => v.filterField !== 'language'
+);
+
 export const courseDefaultSort = [
   { name: 'Most Popular', value: '-peopleJoined', isSelect: false },
   { name: 'Newest', value: '-createdAt', isSelect: true }

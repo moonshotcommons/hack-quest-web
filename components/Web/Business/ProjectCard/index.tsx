@@ -2,7 +2,6 @@
 import React from 'react';
 import Image from 'next/image';
 import { ProjectType } from '@/service/webApi/resourceStation/type';
-import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import { BurialPoint } from '@/helper/burialPoint';
 import { MenuLink } from '../../Layout/BasePage/Navbar/type';
 import TrackTag from '@/components/Common/TrackTag';
@@ -24,11 +23,11 @@ const ProjectCard: React.FC<ProjectCardProp> = ({
   return (
     <Link
       className={cn(
-        'relative mt-1 flex  cursor-pointer flex-col overflow-hidden rounded-[10px] bg-neutral-white shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)] sm:w-[calc((640px-60px)/4)] md:w-[calc((768px-60px)/4)] lg:w-[calc((1024px-60px)/4)] xl:w-[calc((1280px-60px)/4)] 2xl:w-[calc((1360px-60px)/4)]',
+        'card-hover relative  flex cursor-pointer flex-col overflow-hidden rounded-[10px] bg-neutral-white sm:w-[calc((640px-60px)/4)] md:w-[calc((768px-60px)/4)] lg:w-[calc((1024px-60px)/4)] xl:w-[calc((1280px-60px)/4)] 2xl:w-[calc((1360px-60px)/4)]',
         className
       )}
       onClick={goProjectDetail}
-      href={`${MenuLink.PROJECTS}/${project.alias}?${QueryIdType.PROJECT_ID}=${project.id}&menu=${Menu.HACKATHON}`}
+      href={`${MenuLink.PROJECTS}/${project.alias}`}
     >
       <div className="relative h-0 w-full bg-[#d9d9d9]/30 pt-[56%]">
         <Image
@@ -45,11 +44,15 @@ const ProjectCard: React.FC<ProjectCardProp> = ({
             {project.apolloDay && (
               <TrackTag
                 track={'Apollo Day'}
-                className="flex-shrink-0 border-yellow-primary bg-yellow-primary"
+                className="body-m caption-12pt flex-shrink-0 border-yellow-primary bg-yellow-primary"
               />
             )}
             {project.tracks.map((v, i) => (
-              <TrackTag key={i} track={v} className="flex-shrink-0" />
+              <TrackTag
+                key={i}
+                track={v}
+                className="caption-12pt flex-shrink-0"
+              />
             ))}
           </div>
           <div className="body-m-bold truncate text-neutral-off-black">

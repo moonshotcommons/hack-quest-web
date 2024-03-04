@@ -8,6 +8,7 @@ import Image from 'next/image';
 import { forwardRef, useImperativeHandle, useState } from 'react';
 import GettingCertificate from './GettingCertificate';
 import NotCertified from './NotCertified';
+import useGetHeight from '@/hooks/useGetHeight';
 
 interface CertificationModalProps {
   certification: CertificationType;
@@ -35,6 +36,7 @@ const CertificationModal = forwardRef<
     refreshCertification
   } = props;
   const [open, setOpen] = useState(false);
+  const { pageHeight } = useGetHeight();
   useImperativeHandle(ref, () => {
     return {
       open() {
@@ -55,7 +57,12 @@ const CertificationModal = forwardRef<
       markBg="black"
       block
     >
-      <div className="h-[calc(100vh-64px)] w-screen bg-neutral-white p-[20px] pt-[64px]">
+      <div
+        className="w-screen overflow-auto bg-neutral-white p-[20px] pt-[64px]"
+        style={{
+          height: pageHeight
+        }}
+      >
         <div className="flex flex-col items-center gap-10">
           <div className="flex flex-col">
             <div className="relative h-0 w-[calc(100vw-40px)] pt-[50%]">
@@ -68,7 +75,7 @@ const CertificationModal = forwardRef<
               {!certification.claimed && (
                 <>
                   <div className="bg-neutral-black/10 absolute flex h-full w-full items-center justify-center rounded-[15px]"></div>
-                  <div className="bg-neutral-white/70  text-h2 absolute top-1/2 flex w-full -translate-y-1/2 items-center justify-center py-[25px] tracking-[2.4px] text-neutral-off-black">
+                  <div className="bg-neutral-white/70 text-h2 absolute top-1/2 flex w-full -translate-y-1/2 items-center justify-center py-[25px] tracking-[2.4px] text-neutral-off-black wapMin:text-[34px]">
                     NOT CERTIFIED
                   </div>
                 </>
