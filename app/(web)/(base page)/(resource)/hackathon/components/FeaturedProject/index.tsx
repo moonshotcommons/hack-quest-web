@@ -49,6 +49,7 @@ const FeaturedProjects: FC<FeaturedProjectsProps> = ({ projectList }) => {
         <div>
           <ScrollContainer
             ref={scrollContainerRef}
+            gap={20}
             onChange={(state: any) => setScrollContainerState(state)}
           >
             <div className="mt-[30px] flex gap-[20px]">

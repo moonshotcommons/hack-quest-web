@@ -41,7 +41,7 @@ export enum CompleteStateType {
 //   pageCount?: number;
 // }
 
-enum CourseLevelType {
+export enum CourseLevelType {
   BEGINNER = 'BEGINNER',
   INTERMEDIATE = 'INTERMEDIATE',
   ADVANCED = 'ADVANCED'
