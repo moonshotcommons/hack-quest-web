@@ -20,7 +20,7 @@ export async function generateMetadata({
     title: hackathon.name,
     description: hackathon.description,
     alternates: {
-      canonical: `https://www.hackquest.io/project/${params.projectId}`
+      canonical: `https://www.hackquest.io/projects/${encodeURIComponent(params.projectId)}`
     }
   };
 }

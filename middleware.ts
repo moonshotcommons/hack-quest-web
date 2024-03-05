@@ -12,13 +12,15 @@ export function middleware(request: NextRequest) {
   const userAgent = request.headers.get('user-agent');
   if (!userAgent) return NextResponse.next();
 
-  if (isMobile(userAgent!) && !request.nextUrl.pathname.startsWith('/mobile')) {
-    const url = `/mobile${request.nextUrl.pathname}${request.nextUrl.search}`;
+  const pathname = request.nextUrl.pathname;
+
+  if (isMobile(userAgent!) && !pathname.startsWith('/mobile')) {
+    const url = `/mobile${pathname}${request.nextUrl.search}`;
     return NextResponse.redirect(new URL(url, request.url));
   }
 
-  if (!isMobile(userAgent!) && request.nextUrl.pathname.startsWith('/mobile')) {
-    const newPathname = request.nextUrl.pathname.replace(/^\/mobile/, '');
+  if (!isMobile(userAgent!) && pathname.startsWith('/mobile')) {
+    const newPathname = pathname.replace(/^\/mobile/, '');
     const url = `${newPathname}${request.nextUrl.search}`;
     return NextResponse.redirect(new URL(url, request.url));
   }
