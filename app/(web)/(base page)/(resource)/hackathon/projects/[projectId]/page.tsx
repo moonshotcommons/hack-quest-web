@@ -7,6 +7,9 @@ import {
   getHackathonProjectById,
   getOtherProjects
 } from '@/service/catch/resource/hackathon';
+import { isUuid } from '@/helper/utils';
+import { permanentRedirect } from 'next/navigation';
+import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 
 interface ProjectDetailPageProps {
   params: {
@@ -32,6 +35,9 @@ const ProjectDetailPage: FC<ProjectDetailPageProps> = async ({ params }) => {
     getHackathonProjectById(projectId),
     getFeaturedProjectsById(projectId)
   ]);
+  if (isUuid(projectId)) {
+    permanentRedirect(`${MenuLink.PROJECTS}/${project.alias}`);
+  }
   const otherProjects = await getOtherProjects(
     project.hackathonName,
     projectId
