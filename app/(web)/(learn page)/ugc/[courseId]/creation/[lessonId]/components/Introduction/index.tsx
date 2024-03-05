@@ -5,13 +5,13 @@ import { courseDefaultFilters } from '@/components/Web/Business/CourseFilterList
 import { OptionType } from '@/components/Common/Select/type';
 import TextArea from '@/components/Common/TextArea/indexTextArea';
 import { cloneDeep } from 'lodash-es';
-import { UgcCreateContext } from '../../../constants/type';
 import webApi from '@/service';
+import { UgcCreateContext } from '../../../components/UgcCreateProvider';
 
 interface IntroductionProp {}
 
 const Introduction: React.FC<IntroductionProp> = () => {
-  const { loading, setLoaing } = useContext(UgcCreateContext);
+  const { loading, setLoading } = useContext(UgcCreateContext);
   const options = useMemo(() => {
     return {
       trackOptions: courseDefaultFilters

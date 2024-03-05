@@ -1,23 +1,17 @@
-'use client';
-import { FC, ReactNode, useEffect } from 'react';
+import { FC, ReactNode } from 'react';
 import UgcCreateProvider from './components/UgcCreateProvider';
 import UgcSidebar from './components/UgcSidebar';
-import { LearnPageType, useCourseStore } from '@/store/zustand/courseStore';
 
 interface LearnLayoutProps {
   children: ReactNode;
+  params: {
+    courseId: string;
+  };
 }
 
-const LearnLayout: FC<LearnLayoutProps> = ({ children }) => {
-  const setLearnPageTitle = useCourseStore((state) => state.setPageType);
-  useEffect(() => {
-    setLearnPageTitle(LearnPageType.UGC_CREATE);
-    return () => {
-      setLearnPageTitle(null);
-    };
-  }, []);
+const LearnLayout: FC<LearnLayoutProps> = ({ params, children }) => {
   return (
-    <UgcCreateProvider>
+    <UgcCreateProvider courseId={params.courseId}>
       <div className="flex h-full w-full">
         <UgcSidebar />
         <div className="scroll-wrap-y relative h-full w-full py-[40px] text-center">
