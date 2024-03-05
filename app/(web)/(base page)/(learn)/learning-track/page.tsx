@@ -2,9 +2,9 @@ import { Metadata } from 'next';
 import LearninTrack from './components';
 
 export const metadata: Metadata = {
-  title: 'HackQuest Learnin Track',
+  title: 'HackQuest Learning Track',
   alternates: {
-    canonical: 'https://www.hackquest.io/electives'
+    canonical: 'https://www.hackquest.io/learning-track'
   }
 };
 

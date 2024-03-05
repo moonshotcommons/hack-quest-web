@@ -103,7 +103,7 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
           {showAll && (
             <div className="flex gap-[8px]">
               <Button
-                className={`button-text-s h-[34px] flex-1 uppercase
+                className={`button-text-s h-[34px] flex-1 flex-shrink-0 p-0 uppercase
                            ${
                              !mantle.completed
                                ? 'cursor-not-allowed bg-neutral-light-gray text-neutral-medium-gray'
@@ -115,11 +115,11 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
                 disabled={buttonDisable}
                 onClick={campaignsClaim}
               >
-                {mantle.certification.claimed ? 'minted' : 'Claim'}
+                {mantle.certification.claimed ? 'minted' : 'mint'}
               </Button>
               <Button
                 ghost
-                className={`button-text-s h-[34px] flex-1 border-neutral-black  p-0 uppercase text-neutral-black`}
+                className={`button-text-s h-[34px] flex-1 flex-shrink-0 border-neutral-black p-0 uppercase text-neutral-black`}
                 onClick={learnMore}
               >
                 Learn More

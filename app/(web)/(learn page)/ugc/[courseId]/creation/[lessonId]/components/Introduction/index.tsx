@@ -1,17 +1,16 @@
 import Input from '@/components/Common/Input';
 import Select from '@/components/Common/Select';
-import React, { useContext, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { courseDefaultFilters } from '@/components/Web/Business/CourseFilterList/constant';
 import { OptionType } from '@/components/Common/Select/type';
 import TextArea from '@/components/Common/TextArea/indexTextArea';
 import { cloneDeep } from 'lodash-es';
 import webApi from '@/service';
-import { UgcCreateContext } from '../../../components/UgcCreateProvider';
 
 interface IntroductionProp {}
 
 const Introduction: React.FC<IntroductionProp> = () => {
-  const { loading, setLoading } = useContext(UgcCreateContext);
+  // const { loading, setLoading } = useContext(UgcCreateContext);
   const options = useMemo(() => {
     return {
       trackOptions: courseDefaultFilters
@@ -79,7 +78,6 @@ const Introduction: React.FC<IntroductionProp> = () => {
 
   return (
     <div className="[&>div:w-full] flex h-full flex-col gap-[30px] text-neutral-black">
-      <div onClick={handleSubmit}>click</div>
       <div className="text-h3 text-center font-next-book-bold">
         Introduction
       </div>
