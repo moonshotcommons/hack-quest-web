@@ -86,7 +86,7 @@ export const useUgcCreationStore = create<UgcCreationStateType>()((set) => ({
       switch (key) {
         case InformationKey.Introduction:
           if (
-            [
+            ![
               !courseInformation[key].courseTrack,
               !courseInformation[key].difficulty,
               !courseInformation[key].description,
@@ -94,12 +94,24 @@ export const useUgcCreationStore = create<UgcCreationStateType>()((set) => ({
               !courseInformation[key].title
             ].includes(true)
           ) {
-            courseInformation[key].completed = false;
-          } else {
             courseInformation[key].completed = true;
           }
           break;
         case InformationKey.IntendedLearners:
+          if (
+            (courseInformation[key].audience?.length || 0) > 0 &&
+            (courseInformation[key].requirements?.length || 0) > 0
+          ) {
+            courseInformation[key].completed = true;
+          }
+          break;
+        case InformationKey.KnowledgeGain:
+          if (
+            (courseInformation[key].description?.length || 0) > 0 &&
+            (courseInformation[key].tags?.length || 0) > 0
+          ) {
+            courseInformation[key].completed = true;
+          }
       }
     }
     set((state) => ({ courseInformation }));

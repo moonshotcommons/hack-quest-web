@@ -1,5 +1,6 @@
 import { cn } from '@/helper/utils';
 import {
+  CSSProperties,
   ReactNode,
   createContext,
   useCallback,
@@ -25,6 +26,7 @@ interface SidebarProps<T> {
   open?: boolean;
   onShowListChange?: (showList: boolean) => void;
   handleButton?: ReactNode;
+  selectStyle?: CSSProperties;
 }
 
 export interface SidebarItemType {
@@ -65,7 +67,8 @@ const Sidebar = <T,>(props: SidebarProps<T>) => {
     open = true,
     isCustomOpen = false,
     onShowListChange,
-    handleButton
+    handleButton,
+    selectStyle = {}
   } = props;
   const [showList, setShowList] = useState(open);
   const [openKeys, setOpenKeys] = useState<string[]>(defaultOpenKeys);
@@ -165,6 +168,7 @@ const Sidebar = <T,>(props: SidebarProps<T>) => {
                       setSelect(key);
                       onSelect?.(key, data);
                     }}
+                    selectStyle={selectStyle}
                   >
                     {item.label}
                   </SidebarGroup>
@@ -181,6 +185,7 @@ const Sidebar = <T,>(props: SidebarProps<T>) => {
                     }}
                     select={select}
                     item={item}
+                    selectStyle={selectStyle}
                   >
                     {item.label}
                   </SidebarItem>
