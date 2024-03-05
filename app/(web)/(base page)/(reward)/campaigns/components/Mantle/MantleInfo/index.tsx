@@ -115,11 +115,11 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
                 disabled={buttonDisable}
                 onClick={campaignsClaim}
               >
-                {mantle.certification.claimed ? 'Claimed' : 'Claim'}
+                {mantle.certification.claimed ? 'minted' : 'Claim'}
               </Button>
               <Button
                 ghost
-                className={`button-text-s h-[34px] flex-1  border-neutral-black uppercase text-neutral-black`}
+                className={`button-text-s h-[34px] flex-1 border-neutral-black  p-0 uppercase text-neutral-black`}
                 onClick={learnMore}
               >
                 Learn More

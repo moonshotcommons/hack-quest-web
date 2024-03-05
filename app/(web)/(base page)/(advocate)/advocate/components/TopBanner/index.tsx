@@ -26,9 +26,9 @@ const TopBanner: FC<TopBannerProps> = (props) => {
         <div className="mx-auto flex w-[800px] max-w-[800px] flex-col items-center gap-[60px] text-center">
           <div>
             <h2 className="text-h2 text-neutral-white">❤️ HackQuest? </h2>
-            <h2 className="text-h2 mt-2 text-neutral-white">
+            <h1 className="text-h2 mt-2 text-neutral-white">
               Join our rapidly growing Community!
-            </h2>
+            </h1>
           </div>
           <p className="body-m text-neutral-light-gray">
             HackQuest advocates are your local Web3 superheroes: empowering
