@@ -13,6 +13,7 @@ import PracticeDetailCard from './components/PracticeDetailCard';
 import CourseDetailProvider from '@/components/Web/DetailPageV2/Provider/CourseDetailProvider';
 import { Metadata } from 'next';
 import { CourseDetailType } from '@/service/webApi/course/type';
+import HeaderBg from '@/components/Web/DetailPageV2/HeaderBg';
 
 interface PracticePageProps {
   params: {
@@ -54,10 +55,10 @@ const PracticePage: FC<PracticePageProps> = async (props) => {
   return (
     <CourseDetailProvider courseId={courseId} includeUnits>
       <div className="relative min-h-[100%] w-full bg-neutral-white">
-        <div className="absolute left-0 top-0 min-h-[400px] w-full bg-neutral-off-white py-5"></div>
+        <HeaderBg />
         <div className="container relative mx-auto flex h-fit pb-[100px]">
           <div className="w-[900px] max-w-[900px]">
-            <div className="h-[400px] w-full py-5">
+            <div className="min-h-[400px] w-full py-5" id="detail-header">
               <BackButton type="practices"></BackButton>
               <Tags
                 size="lg"
