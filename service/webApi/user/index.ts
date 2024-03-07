@@ -4,15 +4,17 @@ import {
   LoginResponse,
   RegisterParamsType,
   RegisterResponse,
-  AuthType,
+  ThirdPartyAuthType,
   UserProfileType,
   UserExperienceType,
   UserPersonalType,
   PersonalLinksType,
   GithubActivityType,
-  UserHackathonType
+  UserHackathonType,
+  UserLearnedCountType
 } from './type';
 import { transformQueryString } from '@/helper/formate';
+import { ThirdPartyMediaType } from '@/helper/thirdPartyMedia';
 
 export enum UserApiType {
   CheckEmail = '/users/verify-email',
@@ -25,12 +27,18 @@ export enum UserApiType {
   UserInfo = '/users/info',
   AuthGoogle = 'auth/google',
   AuthGithub = 'auth/github',
+  AuthDiscord = '/auth/discord',
   googleVerify = 'auth/google/callback',
   githubVerify = 'auth/github/callback',
   CheckInViteCode = '/users/verify-inviteCode',
   WalletVerify = '/auth/wallet',
   UserProfile = '/users/profile',
-  PersonalLinks = '/users/profile/personal-links'
+  PersonalLinks = '/users/profile/personal-links',
+  UserLearnedCount = '/users/learned-count',
+  /** 绑定discord */
+  DiscordVerify = '/auth/discord/callback',
+  /* 获取discord的绑定信息 */
+  GetDiscordInfo = '/auth/discord/info'
 }
 
 class UserApi {
@@ -128,15 +136,15 @@ class UserApi {
 
   /** 获取用户信息 */
   getUserInfo() {
-    return this.service.get(UserApiType.UserInfo);
+    return this.service.get<LoginResponse>(UserApiType.UserInfo);
   }
 
   /**
    * 三方登录
    */
-  getAuthUrl(type: AuthType) {
+  getAuthUrl(type: ThirdPartyAuthType) {
     const url =
-      type === AuthType.GOOGLE
+      type === ThirdPartyAuthType.GOOGLE
         ? UserApiType.AuthGoogle
         : UserApiType.AuthGithub;
     return this.service.get(url);
@@ -286,6 +294,36 @@ class UserApi {
   /** on-Chain Activity unLink */
   refreshChain() {
     return this.service.get(`${UserApiType.UserProfile}/refresh-chain`);
+  }
+
+  /** dashboard user count */
+  getUserLearnedCount() {
+    return this.service.get<UserLearnedCountType>(
+      `${UserApiType.UserLearnedCount}`
+    );
+  }
+
+  getConnectUrlByDiscord() {
+    return this.service.get<{ url: string }>(UserApiType.AuthDiscord);
+  }
+
+  linkDiscord(type: string, accessToken: string) {
+    return this.service.get(UserApiType.DiscordVerify, {
+      params: {
+        type,
+        token: accessToken
+      }
+    });
+  }
+
+  getDiscordInfo() {
+    return this.service.get<{ isConnect: boolean; thirdUser: any }>(
+      UserApiType.GetDiscordInfo
+    );
+  }
+
+  disconnect(type: ThirdPartyMediaType) {
+    return this.service.delete(`/auth/${type}/disconnect`);
   }
 }
 

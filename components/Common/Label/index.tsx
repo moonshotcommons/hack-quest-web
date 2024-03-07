@@ -1,4 +1,4 @@
-import React, { HTMLAttributes } from 'react';
+import React from 'react';
 
 interface LabelProps {
   icon?: React.ReactNode;
@@ -13,7 +13,7 @@ const Label: React.FC<
 
   return (
     <span
-      className={`flex gap-2 items-center text-text-default-color text-xs not-italic font-normal ${className} whitespace-nowrap`}
+      className={`flex items-center gap-2 text-xs font-normal not-italic text-text-default-color ${className} whitespace-nowrap`}
       {...rest}
     >
       <span className="text-course-card-title-text-color">{icon}</span>

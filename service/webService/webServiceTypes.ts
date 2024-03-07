@@ -1,9 +1,5 @@
 import { AxiosResponse } from 'axios';
-import {
-  AxiosRequestConfig,
-  AxiosInterceptorManager,
-  InternalAxiosRequestConfig
-} from 'axios';
+import { AxiosRequestConfig } from 'axios';
 
 export interface RequestInterceptors<T = AxiosResponse> {
   requestInterceptor: (

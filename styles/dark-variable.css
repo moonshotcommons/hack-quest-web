@@ -1,8 +1,8 @@
 html[data-theme='dark'] {
-  --primary-green-yellow: #fcc409;
+  --yellow-primary: #fcc409;
   --default-global-bg: var(--neutral-black);
   /* 默认文字颜色 */
-  --text-default-color: var(--text-text-white-on-dark);
+  --text-default-color: var(--text-text-neutral-white-on-dark);
   --text-second-color: var(--neutral-light-gray);
   /* 默认文字hover颜色 */
   --text-default-hover-color: var(--neutral-white);
@@ -25,9 +25,9 @@ html[data-theme='dark'] {
   /* 课程进度button背景色 */
   --course-progress-button-bg: var(--neutral-dark-gray);
   /* 课程进度icon颜色 */
-  --course-progress-button-icon-color: var(--primary-green-yellow);
+  --course-progress-button-icon-color: var(--yellow-primary);
   /* 课程进度文字颜色 */
-  --course-progress-button-text-color: var(--primary-green-yellow);
+  --course-progress-button-text-color: var(--yellow-primary);
   --course-tag-learning-track-border-color: var(--neutral-medium-gray);
   /* learning track 主题色*/
   --course-tag-learning-track-text-color: var(--neutral-medium-gray);
@@ -40,34 +40,34 @@ html[data-theme='dark'] {
   --course-banner-arrow-color: var(--neutral-white);
   --course-banner-arrow-hover-color: var(--neutral-white);
   /* syntax 主题色 */
-  --course-syntax-primary-color: ;
+  --course-syntax-yellow-primary: ;
   /* learning track 主题色 */
-  --course-learning-track-primary-color: ;
+  --course-learning-track-yellow-primary: ;
   /* concept 主题色 */
-  --course-concept-primary-color: ;
+  --course-concept-yellow-primary: ;
   /* guided project 主题色 */
-  --course-guided-primary-color: ;
+  --course-guided-yellow-primary: ;
   /* teaser 主题色 */
-  --course-teaser-primary-color: ;
+  --course-teaser-yellow-primary: ;
   /* hackathon 主题色 */
-  --course-hackathon-primary-color: ;
+  --course-hackathon-yellow-primary: ;
   --course-learning-button-bg: transparent;
-  --course-learning-button-text-color: var(--text-text-white-on-dark);
-  --course-learning-button-border-color: var(--text-text-white-on-dark);
+  --course-learning-button-text-color: var(--text-text-neutral-white-on-dark);
+  --course-learning-button-border-color: var(--text-text-neutral-white-on-dark);
   --course-progress-border-color: var(--status-progress-green);
   --course-progress-icon-color: var(--status-progress-green);
-  --course-progress-text-color: var(--text-text-white);
+  --course-progress-text-color: var(--text-text-neutral-white);
   --course-detail-desc-text-color: var(--text-text-gray);
   --course-detail-desc-border-color: var(--text-text-gray);
   --course-unit-desc-text-color: var(--text-text-gray);
-  --course-unit-lock-icon-color: var(--text-text-white-on-dark);
+  --course-unit-lock-icon-color: var(--text-text-neutral-white-on-dark);
   --course-detail-type-text-color: var(--text-text-gray);
 
   /* learning track */
   --learning-track-progress-border-color: #ededed;
-  --learning-track-progress-text-color: var(--text-text-white);
+  --learning-track-progress-text-color: var(--text-text-neutral-white);
   --learning-track-course-hover-bg: #151515;
-  --learning-track-course-title-color: var(--text-text-white);
+  --learning-track-course-title-color: var(--text-text-neutral-white);
   --learning-track-course-type-color: #b2b2b2;
 
   /* lesson */
@@ -77,16 +77,16 @@ html[data-theme='dark'] {
   --lesson-header-back-button-hover-bg: var(--neutral-rich-gray);
   --lesson-header-back-button-border-color: var(--button-card-card-outline);
   --lesson-header-back-button-border-hover-color: var(--neutral-rich-gray);
-  --lesson-header-back-icon-color: var(--text-text-white-on-dark);
+  --lesson-header-back-icon-color: var(--text-text-neutral-white-on-dark);
   --lesson-header-back-icon-hover-color: var(--neutral-white);
   --lesson-left-session-bg: #202020;
-  --lesson-left-session-text-color: var(--text-text-white);
+  --lesson-left-session-text-color: var(--text-text-neutral-white);
   --lesson-right-session-bg: transparent;
   --lesson-right-session-border-color: var(--neutral-white);
-  --lesson-right-session-hover-bg: var(--text-text-white);
+  --lesson-right-session-hover-bg: var(--text-text-neutral-white);
   --lesson-right-session-text-color: var(--text-text-whit);
   --lesson-right-session-hover-text-color: var(--color-black);
-  --lesson-right-session-hover-border-color: var(--text-text-white);
+  --lesson-right-session-hover-border-color: var(--text-text-neutral-white);
   --lesson-dropdown-text-color: #d9d9d9;
   --lesson-dropdown-border-color: #505050;
   --lesson-dropdown-select-line-color: #404040;
@@ -125,7 +125,7 @@ html[data-theme='dark'] {
   --renderer-description-more-text-color: var(--text-text-gray);
 
   /* layout */
-  --navbar-login-button-bg: var(--primary-green-yellow);
+  --navbar-login-button-bg: var(--yellow-primary);
   --navbar-login-button-text-color: var(--neutral-black);
 
   /* landing*/
@@ -142,7 +142,7 @@ html[data-theme='dark'] {
   --landing-tab-text-color: var(--neutral-white);
   --landing-tab-hover-text-color: var(--neutral-black);
   --landing-card-login-button-bg: transparent;
-  --landing-card-login-button-text-color: var(--text-text-white);
+  --landing-card-login-button-text-color: var(--text-text-neutral-white);
   --landing-card-login-button-border-color: #f5f5f5;
 
   /* setting */
@@ -153,18 +153,20 @@ html[data-theme='dark'] {
   --setting-modal-bg: var(--neutral-off-black);
   --setting-modal-border-color: var(--button-card-card-outline);
   --setting-upload-button-bg: transparent;
-  --setting-upload-button-text-color: var(--text-text-white-on-dark);
+  --setting-upload-button-text-color: var(--text-text-neutral-white-on-dark);
   --setting-upload-button-border-color: var(--neutral-white);
   --setting-input-title-color: var(--text-text-gray);
-  --setting-input-text-color: var(--text-text-white);
+  --setting-input-text-color: var(--text-text-neutral-white);
   --setting-input-line-color: var(--button-card-card-outline);
   --setting-input--border-hover-color: var(--neutral-white);
   --setting-input-icon-color: #676767;
   --setting-transparent-button-bg: transparent;
-  --setting-transparent-button-text-color: var(--text-text-white-on-dark);
+  --setting-transparent-button-text-color: var(
+    --text-text-neutral-white-on-dark
+  );
   --setting-transparent-button-border-color: var(--neutral-white);
   --setting-close-icon-border-color: var(--button-card-card-outline);
-  --setting-close-icon-color: var(--text-text-white-on-dark);
+  --setting-close-icon-color: var(--text-text-neutral-white-on-dark);
 
   /* auth */
   --auth-global-bg: var(--neutral-black);
@@ -196,8 +198,8 @@ html[data-theme='dark'] {
   --auth-ghost-button-hover-bg: #111;
   --auth-ghost-button-text-color: #fff;
   --auth-ghost-button-hover-text-color: #fff;
-  --auth-ghost-button-border-color: var(--text-text-white);
-  --auth-ghost-button-hover-border-color: var(--text-text-white);
+  --auth-ghost-button-border-color: var(--text-text-neutral-white);
+  --auth-ghost-button-hover-border-color: var(--text-text-neutral-white);
   --auth-description-text-color: #676767;
 
   /* mission center */

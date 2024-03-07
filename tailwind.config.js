@@ -1,10 +1,12 @@
 /** @type {import('tailwindcss').Config} */
-const {
+
+import {
   themeColors,
   backgroundImage,
   backgroundColor,
   borderColor
-} = require('./config/theme/variable.js');
+} from './config/theme/variable';
+
 module.exports = {
   // corePlugins: {
   //   preflight: false
@@ -36,7 +38,11 @@ module.exports = {
         Chaney: ['Chaney'],
         'Chaney-Extended': ['Chaney-Extended'],
         MiSans: ['MiSans'],
-        'MiSans-Semibold': ['MiSans-Semibold']
+        'MiSans-Semibold': ['MiSans-Semibold'],
+        Inter: ['var(--font-inter)'],
+        Nunito: ['var(--font-nunito)'],
+        'Space-Mono': ['var(--font-space-mono)'],
+        'GT-Walsheim-Trial': ['GT Walsheim Trial']
       },
       screens: {
         sm: '640px',
@@ -51,13 +57,16 @@ module.exports = {
         xl: '1280px',
         // => @media (min-width: 1280px) { ... }
 
-        '2xl': '1352px',
+        '2xl': '1360px',
         // => @media (min-width: 1352px) { ... }
         slab: {
           raw: '(max-width: 1024px)'
         },
         wap: {
           raw: '(max-width: 768px)'
+        },
+        wapMin: {
+          raw: '(max-width: 375px)'
         }
       },
       colors: {
@@ -72,10 +81,14 @@ module.exports = {
       container: {
         screens: {
           sm: '640px',
-          lg: '768px',
-          xl: '1024px',
-          '2xl': '1280px'
+          md: '768px',
+          lg: '1024px',
+          xl: '1280px',
+          '2xl': '1360px'
         }
+      },
+      maxHeight: {
+        270: '67.5rem'
       }
     }
   },

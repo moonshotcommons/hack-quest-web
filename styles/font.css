@@ -92,3 +92,43 @@
   src: url('../fonts/MiSans/MiSans-Semibold.ttf');
   font-display: 'swap';
 }
+
+@font-face {
+  font-weight: normal;
+  font-family: 'GT Walsheim Trial';
+  font-style: normal;
+  src: url('../fonts/GT-Walsheim-Trial/GT-Walsheim-Regular-Trial.woff2');
+  font-display: 'swap';
+}
+
+@font-face {
+  font-weight: 500;
+  font-family: 'GT Walsheim Trial';
+  font-style: normal;
+  src: url('../fonts/GT-Walsheim-Trial/GT-Walsheim-Medium-Trial.woff2');
+  font-display: 'swap';
+}
+
+@font-face {
+  font-weight: 300;
+  font-family: 'GT Walsheim Trial';
+  font-style: normal;
+  src: url('../fonts/GT-Walsheim-Trial/GT-Walsheim-Light-Trial.woff2');
+  font-display: 'swap';
+}
+
+@font-face {
+  font-weight: 200;
+  font-family: 'GT Walsheim Trial';
+  font-style: normal;
+  src: url('../fonts/GT-Walsheim-Trial/GT-Walsheim-Thin-Trial.woff2');
+  font-display: 'swap';
+}
+
+@font-face {
+  font-weight: 700;
+  font-family: 'GT Walsheim Trial';
+  font-style: normal;
+  src: url('../fonts/GT-Walsheim-Trial/GT-Walsheim-Bold-Trial.woff2');
+  font-display: 'swap';
+}

@@ -1,36 +1,40 @@
-import { CompleteModalInstance } from '@/components/v2/Business/CompleteModal';
+import { CompleteModalInstance } from '@/components/Web/Business/CompleteModal';
 import { BurialPoint } from '@/helper/burialPoint';
 import webApi from '@/service';
 import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
-import { AppRootState } from '@/store/redux';
-import { useDebounceFn, useRequest } from 'ahooks';
+import { useDebounceFn } from 'ahooks';
 import { message } from 'antd';
-import { useRouter } from 'next/router';
 import { useMemo, useRef, useState } from 'react';
-import { shallowEqual, useSelector } from 'react-redux';
 import { useGetLessonLink } from './useGetLessonLink';
+import { useRedirect } from '../useRedirect';
+import { useParams } from 'next/navigation';
+import { useCourseStore } from '@/store/zustand/courseStore';
+import { useShallow } from 'zustand/react/shallow';
 
 export const useGotoNextLesson = (
   lesson: CourseLessonType,
   courseType: CourseType,
   completed = false
 ) => {
-  const router = useRouter();
-  const { courseId: courseName } = router.query;
+  const { redirectToUrl } = useRedirect();
+  const params = useParams();
+  // const { courseId: courseName } = params;
   // const [completeModalOpen, setCompleteModalOpen] = useState(false);
+
   const { getLink } = useGetLessonLink();
   const [loading, setLoading] = useState(false);
   const completeModalRef = useRef<CompleteModalInstance>(null);
 
-  const { unitsLessonsList } = useSelector((state: AppRootState) => {
-    return {
-      unitsLessonsList: state.course.unitsLessonsList
-    };
-  }, shallowEqual);
+  const { unitsLessonsList, courseName } = useCourseStore(
+    useShallow((state) => ({
+      unitsLessonsList: state.unitsLessonsList,
+      courseName: state.learnPageTitle
+    }))
+  );
 
   const { run: onNextClick } = useDebounceFn(async (callbackProp?) => {
     setLoading(true);
-    const { courseId } = router.query;
+    const { courseId } = params;
     let nextLesson;
 
     let currentUnitIndex = unitsLessonsList.findIndex((unit) => {
@@ -59,7 +63,7 @@ export const useGotoNextLesson = (
     }
 
     if (isLastUnit && isLastLesson) {
-      // router.push(`${getCourseLink(courseType)}/${lesson.courseId}/completed`);
+      // redirectToUrl(`${getCourseLink(courseType)}/${lesson.courseId}/completed`);
       BurialPoint.track('lesson-课程完成', {
         courseName: courseId as string
       });
@@ -79,7 +83,7 @@ export const useGotoNextLesson = (
       nextLesson = unitsLessonsList[currentUnitIndex + 1].pages[0];
     }
     const link = getLink(courseType, nextLesson?.id as string);
-    router.push(link);
+    redirectToUrl(link);
     if (callbackProp?.completedCallback) {
       callbackProp?.completedCallback();
     }
@@ -92,20 +96,17 @@ export const useBackToPrevLesson = (
   lesson: CourseLessonType,
   courseType: CourseType
 ) => {
-  const router = useRouter();
+  const { redirectToUrl } = useRedirect();
   const { getLink } = useGetLessonLink();
-  const { unitsLessonsList } = useSelector((state: AppRootState) => {
-    return {
-      unitsLessonsList: state.course.unitsLessonsList
-    };
-  }, shallowEqual);
+  const params = useParams();
+  const unitsLessonsList = useCourseStore((state) => state.unitsLessonsList);
 
   const isFirst = useMemo(() => {
     return lesson.id === unitsLessonsList[0]?.pages[0]?.id;
   }, [lesson, unitsLessonsList]);
 
   const { run: onBackClick } = useDebounceFn(async () => {
-    const { courseId } = router.query;
+    const { courseId } = params;
     let prevLesson;
 
     let currentUnitIndex = unitsLessonsList.findIndex((unit) => {
@@ -118,7 +119,7 @@ export const useBackToPrevLesson = (
     const isLastLesson = currentLessonIndex === 0;
 
     if (isLastUnit && isLastLesson) {
-      // router.push(`${getCourseLink(courseType)}/${lesson.courseId}/completed`);
+      // redirectToUrl(`${getCourseLink(courseType)}/${lesson.courseId}/completed`);
       message.warning(`There's no more to it!`);
       return;
     }
@@ -131,7 +132,7 @@ export const useBackToPrevLesson = (
     }
 
     const link = getLink(courseType, prevLesson?.id as string);
-    router.push(link);
+    redirectToUrl(link);
   });
 
   return { onBackClick, isFirst };

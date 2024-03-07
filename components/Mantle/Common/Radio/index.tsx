@@ -14,7 +14,7 @@ const Radio: FC<RadioProps> = (props) => {
   return (
     <div
       className={`${
-        disabled ? 'cursor-not-allowed pointer-events-none' : 'cursor-pointer'
+        disabled ? 'pointer-events-none cursor-not-allowed' : 'cursor-pointer'
       }`}
       onClick={() => onChange?.()}
     >
@@ -24,11 +24,11 @@ const Radio: FC<RadioProps> = (props) => {
         checked={checked}
         onChange={() => {}}
       />
-      <span className="w-[20px] h-[20px] border border-solid rounded-full border-electives-filter-border-color block">
+      <span className="block h-[20px] w-[20px] rounded-full border border-solid border-electives-filter-border-color">
         {checked ? (
           <span
             className={cn(
-              `rounded-full w-full h-full bg-learning-track-line-bg block scale-[0.7]`,
+              `block h-full w-full scale-[0.7] rounded-full bg-learning-track-line-bg`,
               className
             )}
           ></span>
