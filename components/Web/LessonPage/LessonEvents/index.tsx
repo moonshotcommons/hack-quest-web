@@ -57,15 +57,8 @@ const LessonEvents: React.FC<LessonEventsProps> = (props) => {
   const learnPageTitle = useCourseStore((state) => state.learnPageTitle);
   const [isToggle, setIsToggle] = useState(false);
   const eventsRef = useRef<HTMLDivElement | null>(null);
-  const [headerTextWidth, setHeaderTextWidth] = useState(0);
-  const initHeaderTextWidth = () => {
-    const width = eventsRef.current?.clientWidth || 0;
-    const textWidth = width < 322 ? 322 : width;
-    setHeaderTextWidth(textWidth);
-  };
   useEffect(() => {
     refreshNavList();
-    initHeaderTextWidth();
   }, [lesson]);
 
   useEffect(() => {
@@ -86,16 +79,9 @@ const LessonEvents: React.FC<LessonEventsProps> = (props) => {
   if (isPreview) return <PreviewLessonEvent></PreviewLessonEvent>;
   return (
     <div
-      className={`relative z-10 mb-[30px] text-lesson-preview-color ${
-        isToggle ? 'shadow-2xl' : 'w-fit'
+      className={`relative z-10 mb-[30px] w-fit min-w-[322px] text-lesson-preview-color ${
+        isToggle ? 'shadow-2xl' : ''
       }`}
-      style={
-        isToggle
-          ? {
-              width: `${headerTextWidth}px`
-            }
-          : {}
-      }
       tabIndex={1}
       ref={eventsRef}
       onBlur={() => setIsToggle(false)}
