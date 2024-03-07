@@ -5,20 +5,38 @@ import { courseDefaultFilters } from '@/components/Web/Business/CourseFilterList
 import { OptionType } from '@/components/Common/Select/type';
 import TextArea from '@/components/Common/TextArea/indexTextArea';
 import { cloneDeep } from 'lodash-es';
-import { useUgcCreationStore } from '@/store/zustand/ugcCreationStore';
+import {
+  CreationHandle,
+  useUgcCreationStore
+} from '@/store/zustand/ugcCreationStore';
 import { CourseLanguageType, CourseType } from '@/service/webApi/course/type';
+import webApi from '@/service';
+import { useShallow } from 'zustand/react/shallow';
+import { message } from 'antd';
+import { useRedirect } from '@/hooks/useRedirect';
+import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 
 interface IntroductionProp {}
 
 const Introduction: React.FC<IntroductionProp> = () => {
-  // const { loading, setLoading } = useContext(UgcCreateContext);
-  const introduction = useUgcCreationStore(
-    (state) => state.courseInformation.introduction
+  const {
+    introduction,
+    setLoading,
+    handle,
+    setHandle,
+    courseId,
+    selectLessonId
+  } = useUgcCreationStore(
+    useShallow((state) => ({
+      introduction: state.courseInformation.introduction,
+      setLoading: state.setLoading,
+      handle: state.handle,
+      setHandle: state.setHandle,
+      courseId: state.courseId,
+      selectLessonId: state.selectLessonId
+    }))
   );
-  const setCourseFormData = useUgcCreationStore(
-    (state) => state.setCourseFormData
-  );
-  const courseId = useUgcCreationStore((state) => state.courseId);
+  const { redirectToUrl } = useRedirect();
   const options = useMemo(() => {
     return {
       trackOptions: courseDefaultFilters
@@ -77,11 +95,30 @@ const Introduction: React.FC<IntroductionProp> = () => {
     }
     if (!isValidate) {
       setFormData(newFormData);
+      setHandle(CreationHandle.UN_SAVE);
       return;
     }
     param.language = CourseLanguageType.SOLIDITY;
     param.type = CourseType.UGC;
-    // await webApi.ugcCreateApi.introductionAdd(param);
+    setLoading(true);
+    try {
+      if (courseId !== '-1') {
+        await webApi.ugcCreateApi.informationEdit(courseId, param);
+      } else {
+        await webApi.ugcCreateApi.introductionAdd(param);
+      }
+      message.success('success');
+      redirectToUrl(
+        `${MenuLink.UGC}/${courseId}/creation/${selectLessonId}`,
+        true
+      );
+      setLoading(false);
+      setHandle(CreationHandle.UN_SAVE);
+    } catch (error) {
+      setLoading(false);
+      setHandle(CreationHandle.UN_SAVE);
+      message.error(error as string);
+    }
   };
 
   useEffect(() => {
@@ -94,7 +131,11 @@ const Introduction: React.FC<IntroductionProp> = () => {
     }
   }, [introduction]);
 
-  useEffect(() => {}, [formData]);
+  useEffect(() => {
+    if (handle === CreationHandle.ON_SAVE) {
+      handleSubmit();
+    }
+  }, [handle]);
 
   return (
     <div className="[&>div:w-full] flex h-full flex-col gap-[30px] text-neutral-black">

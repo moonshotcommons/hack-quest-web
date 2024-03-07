@@ -28,6 +28,7 @@ interface SelectProps {
   rules?: Rule;
   defaultValue?: string;
   options: OptionType[];
+  value?: string;
 }
 
 export interface InputRef {
@@ -58,7 +59,7 @@ const Select = forwardRef<
 
   const [status, setStatus] = useState(propsState);
   const [errorMessage, setErrorMessage] = useState('');
-  const [value, setValue] = useState(defaultValue);
+  const [value, setValue] = useState(defaultValue || props.value || '');
   const [selectLabel, setSelectLabel] = useState('');
   const [visibleOption, setVisibleOption] = useState(false);
 

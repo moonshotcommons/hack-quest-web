@@ -23,6 +23,7 @@ const useUgcInformation = () => {
     };
     setCourseInformation(information as CourseInformationType);
   };
+
   return {
     setStoreInformation
   };

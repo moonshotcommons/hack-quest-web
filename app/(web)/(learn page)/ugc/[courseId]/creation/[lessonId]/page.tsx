@@ -11,6 +11,7 @@ import ContentCreate from './components/ContentCreate';
 import { useRequest } from 'ahooks';
 import webApi from '@/service';
 import useUgcInformation from '@/hooks/useUgcInformation';
+import { useShallow } from 'zustand/react/shallow';
 
 interface UgcCreatePageProps {
   params: { lessonId: string; courseId: string };
@@ -18,8 +19,10 @@ interface UgcCreatePageProps {
 
 const UgcCreatePage: FC<UgcCreatePageProps> = ({ params }) => {
   const { lessonId, courseId } = params;
-  const setSelectLessonId = useUgcCreationStore(
-    (state) => state.setSelectLessonId
+  const { setSelectLessonId } = useUgcCreationStore(
+    useShallow((state) => ({
+      setSelectLessonId: state.setSelectLessonId
+    }))
   );
 
   const { setStoreInformation } = useUgcInformation();

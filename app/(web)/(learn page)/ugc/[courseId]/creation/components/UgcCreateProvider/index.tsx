@@ -23,7 +23,7 @@ const UgcProvider: FC<UgcProviderProps> = ({ children, courseId }) => {
   const setLearnPageTitle = useCourseStore((state) => state.setPageType);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
-    setLearnPageTitle(LearnPageType.UGC_CREATE);
+    setLearnPageTitle(LearnPageType.UGC_CREATION);
     return () => {
       setLearnPageTitle(null);
     };

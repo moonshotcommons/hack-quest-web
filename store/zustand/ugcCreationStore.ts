@@ -20,6 +20,11 @@ export interface CourseInformationType {
   knowledgeGain: KnowledgeGainType & { completed: boolean };
 }
 
+export enum CreationHandle {
+  UN_SAVE = 'unSave',
+  ON_SAVE = 'onSave'
+}
+
 export interface CourseFormDataType {
   introduction: IntroductionType;
   intendedLearners: IntendedLearnersType;
@@ -34,16 +39,18 @@ export enum InformationKey {
 
 export interface UgcCreationStateType {
   courseInformation: CourseInformationType;
-  courseFormData: CourseFormDataType;
   selectLessonId: string | InformationKey;
   courseId: string;
   units: any[];
   setCourseInformation: (payload: CourseInformationType) => void;
-  setCourseFormData: (payload: CourseInformationType) => void;
   setSelectLessonId: (
     courseId: string,
     lessonId: string | InformationKey
   ) => void;
+  loading: boolean;
+  setLoading: (loading: boolean) => void;
+  handle: CreationHandle;
+  setHandle: (save: CreationHandle) => void;
 }
 
 const defaultCourseInformation: CourseInformationType = {
@@ -69,11 +76,9 @@ const defaultCourseInformation: CourseInformationType = {
 
 export const useUgcCreationStore = create<UgcCreationStateType>()((set) => ({
   courseInformation: defaultCourseInformation,
-  courseFormData: defaultCourseInformation,
   selectLessonId: '',
   courseId: '',
   units: [],
-
   async setSelectLessonId(courseId, lessonId) {
     set((state) => {
       return { selectLessonId: lessonId, courseId };
@@ -113,29 +118,34 @@ export const useUgcCreationStore = create<UgcCreationStateType>()((set) => ({
           break;
         case InformationKey.IntendedLearners:
           if (
-            !courseInformation[key]?.audience?.length ||
-            !courseInformation[key]?.requirements?.length
+            courseInformation[key]?.audience?.length ||
+            courseInformation[key]?.requirements?.length
           ) {
-            courseInformation[key].completed = false;
-          } else {
             courseInformation[key].completed = true;
+          } else {
+            courseInformation[key].completed = false;
           }
           break;
         case InformationKey.KnowledgeGain:
           if (
-            !courseInformation[key].description?.length ||
-            !courseInformation[key].tags?.length
+            courseInformation[key].description?.length ||
+            courseInformation[key].tags?.length
           ) {
-            courseInformation[key]!.completed = false;
-          } else {
             courseInformation[key]!.completed = true;
+          } else {
+            courseInformation[key]!.completed = false;
           }
           break;
       }
     }
     set((state) => ({ courseInformation }));
   },
-  setCourseFormData(courseFormData) {
-    set((state) => ({ courseFormData }));
+  loading: false,
+  setLoading(loading) {
+    set((state) => ({ loading }));
+  },
+  handle: CreationHandle.UN_SAVE,
+  setHandle(handle) {
+    set((state) => ({ handle }));
   }
 }));

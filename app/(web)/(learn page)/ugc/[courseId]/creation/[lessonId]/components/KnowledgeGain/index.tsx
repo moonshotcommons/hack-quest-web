@@ -1,38 +1,60 @@
 import Button from '@/components/Common/Button';
 import Input from '@/components/Common/Input';
 import TextArea from '@/components/Common/TextArea/indexTextArea';
-import { changeInputWidth } from '@/helper/utils';
-import { message } from 'antd';
-import { FC, useState } from 'react';
+import { changeInputWidth, isNull } from '@/helper/utils';
+import { FC, useEffect, useState } from 'react';
 import { FiTrash2 } from 'react-icons/fi';
 import { IoMdAddCircle } from 'react-icons/io';
 import { v4 } from 'uuid';
+import { defaultFormLi } from '../../../constant/data';
+import { cloneDeep } from 'lodash-es';
+import {
+  CreationHandle,
+  useUgcCreationStore
+} from '@/store/zustand/ugcCreationStore';
+import { useShallow } from 'zustand/react/shallow';
+import webApi from '@/service';
+import { useRedirect } from '@/hooks/useRedirect';
+import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import message from 'antd/es/message';
 
 interface KnowledgeGainProps {}
 
 const KnowledgeGain: FC<KnowledgeGainProps> = (props) => {
+  const formLi = cloneDeep(defaultFormLi);
+  const {
+    knowledgeGain,
+    setLoading,
+    handle,
+    setHandle,
+    courseId,
+    selectLessonId
+  } = useUgcCreationStore(
+    useShallow((state) => ({
+      knowledgeGain: state.courseInformation.knowledgeGain,
+      setLoading: state.setLoading,
+      handle: state.handle,
+      setHandle: state.setHandle,
+      courseId: state.courseId,
+      selectLessonId: state.selectLessonId
+    }))
+  );
+  const { redirectToUrl } = useRedirect();
   const [descriptionList, setDescriptionList] = useState<Record<string, any>[]>(
     [
       {
-        value: '',
-        status: 'default',
-        errorMessage: '',
+        ...formLi,
         id: v4()
       }
     ]
   );
-  const [tagList, setTagList] = useState<Record<string, any>[]>([
-    {
-      label: '',
-      id: v4()
-    }
-  ]);
+  const [tagList, setTagList] = useState<Record<string, any>[]>([]);
   const handleAdd = (type = 'description') => {
     let list, setList, initData;
     if (type === 'description') {
       list = descriptionList;
       setList = setDescriptionList;
-      initData = { value: '', status: 'default', errorMessage: '', id: v4() };
+      initData = { ...formLi, id: v4() };
     } else {
       list = tagList;
       setList = setTagList;
@@ -74,6 +96,77 @@ const KnowledgeGain: FC<KnowledgeGainProps> = (props) => {
     const newList = list.filter((v) => v.id !== id);
     setList(newList);
   };
+  const handleSubmit = () => {
+    let newDescriptionList = descriptionList.filter(
+      (v) => v.value || !isNull(v.value)
+    );
+    let newrTagList = tagList.filter((v) => v.label || !isNull(v.label));
+    if (!newDescriptionList.length && !newrTagList.length) {
+      message.error(`It can't all be empty`);
+      setHandle(CreationHandle.UN_SAVE);
+      return;
+    }
+    const param = {
+      knowledgeGain: {
+        description: newDescriptionList.map((v) => v.value),
+        tags: newrTagList.map((v) => v.label)
+      }
+    };
+    setLoading(true);
+    webApi.ugcCreateApi
+      .informationEdit(courseId, param)
+      .then(() => {
+        message.success('success');
+        newDescriptionList = newDescriptionList.length
+          ? newDescriptionList
+          : [{ ...formLi, id: v4() }];
+        setDescriptionList(newDescriptionList);
+        setTagList(newrTagList);
+        redirectToUrl(
+          `${MenuLink.UGC}/${courseId}/creation/${selectLessonId}`,
+          true
+        );
+      })
+      .catch((err) => {
+        message.error(err as string);
+      })
+      .finally(() => {
+        setLoading(false);
+        setHandle(CreationHandle.UN_SAVE);
+      });
+  };
+
+  useEffect(() => {
+    if (knowledgeGain) {
+      let newDescriptionList =
+        knowledgeGain?.description?.map((v) => ({
+          ...formLi,
+          value: v,
+          id: v4()
+        })) || [];
+      let newTagList =
+        knowledgeGain?.tags?.map((v) => ({
+          label: v,
+          id: v4()
+        })) || [];
+      newDescriptionList = newDescriptionList.length
+        ? newDescriptionList
+        : [
+            {
+              ...formLi,
+              id: v4()
+            }
+          ];
+      setDescriptionList(newDescriptionList);
+      setTagList(newTagList);
+    }
+  }, [knowledgeGain]);
+
+  useEffect(() => {
+    if (handle === CreationHandle.ON_SAVE) {
+      handleSubmit();
+    }
+  }, [handle]);
   return (
     <div className="[&>div:w-full] flex h-full flex-col gap-[30px] text-neutral-black">
       <div className="text-center ">
@@ -94,13 +187,14 @@ const KnowledgeGain: FC<KnowledgeGainProps> = (props) => {
                 <TextArea
                   name=""
                   className=" text-neutral-black"
-                  placeholder="Enter your course."
+                  placeholder="Describe the knowledge students will learn."
                   initBorderColor="border-neutral-medium-gray"
                   textAreaMinHeight={48}
                   maxLength={180}
                   isShowCount
                   state={v.status as any}
                   errorMessage={v.errorMessage}
+                  value={v.value}
                   onChange={(e: any) => {
                     handleChange(e.target.value, index);
                   }}

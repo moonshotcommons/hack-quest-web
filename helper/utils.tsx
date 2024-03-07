@@ -286,8 +286,13 @@ export const getCoverImageByTrack = (track: CourseTrackType) => {
       );
   }
 };
-
-export const isUuid = (uuid: string) => {
-  const regx = /[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}/;
-  return regx.test(uuid);
+const checkByRegExp = (regExp: RegExp) => {
+  return function (str: string) {
+    return regExp.test(str);
+  };
 };
+export const isUuid = checkByRegExp(
+  /[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}/
+);
+
+export const isNull = checkByRegExp(/^\s*$/);

@@ -100,7 +100,7 @@ const UgcSidebar: FC<UgcSidebarProps> = () => {
     <Sidebar
       title={'未命名课程'}
       items={items}
-      className="h-full w-[296px] "
+      className="h-full w-[296px]"
       defaultSelect={selectLessonId}
       defaultOpenKeys={[defaultOpenKeys]}
       // handleButton={

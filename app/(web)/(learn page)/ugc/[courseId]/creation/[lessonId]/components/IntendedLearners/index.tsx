@@ -1,26 +1,55 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { v4 } from 'uuid';
 import TextArea from '@/components/Common/TextArea/indexTextArea';
 import Button from '@/components/Common/Button';
 import { IoMdAddCircle } from 'react-icons/io';
 import { FiTrash2 } from 'react-icons/fi';
+import {
+  CreationHandle,
+  useUgcCreationStore
+} from '@/store/zustand/ugcCreationStore';
+import { useShallow } from 'zustand/react/shallow';
+import { useRedirect } from '@/hooks/useRedirect';
+import { cloneDeep } from 'lodash-es';
+import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import webApi from '@/service';
+import { defaultFormLi } from '../../../constant/data';
+import { isNull } from '@/helper/utils';
+import message from 'antd/es/message';
 
 interface IntendedLearnersProp {}
 
 const IntendedLearners: React.FC<IntendedLearnersProp> = () => {
-  const [audienceList, setAudienceList] = useState([
+  const formLi = cloneDeep(defaultFormLi);
+  const {
+    intendedLearners,
+    setLoading,
+    handle,
+    setHandle,
+    courseId,
+    selectLessonId
+  } = useUgcCreationStore(
+    useShallow((state) => ({
+      intendedLearners: state.courseInformation.intendedLearners,
+      setLoading: state.setLoading,
+      handle: state.handle,
+      setHandle: state.setHandle,
+      courseId: state.courseId,
+      selectLessonId: state.selectLessonId
+    }))
+  );
+  const { redirectToUrl } = useRedirect();
+  const [audienceList, setAudienceList] = useState<Record<string, any>[]>([
     {
-      value: '',
-      status: 'default',
-      errorMessage: '',
+      ...formLi,
       id: v4()
     }
   ]);
-  const [requirementsList, setRequirementsList] = useState([
+  const [requirementsList, setRequirementsList] = useState<
+    Record<string, any>[]
+  >([
     {
-      value: '',
-      status: 'default',
-      errorMessage: '',
+      ...formLi,
       id: v4()
     }
   ]);
@@ -33,10 +62,7 @@ const IntendedLearners: React.FC<IntendedLearnersProp> = () => {
       list = requirementsList;
       setList = setRequirementsList;
     }
-    setList([
-      ...list,
-      { value: '', status: 'default', errorMessage: '', id: v4() }
-    ]);
+    setList([...list, { ...formLi, id: v4() }]);
   };
   const handleChange = (value: string, index: number, type = 'audience') => {
     let list, setList;
@@ -67,6 +93,92 @@ const IntendedLearners: React.FC<IntendedLearnersProp> = () => {
     const newList = list.filter((v) => v.id !== id);
     setList(newList);
   };
+
+  const handleSubmit = () => {
+    let newAudienceList = audienceList.filter(
+      (v) => v.value || !isNull(v.value)
+    );
+    let newRequirementsList = requirementsList.filter(
+      (v) => v.value || !isNull(v.value)
+    );
+    if (!newAudienceList.length && !newRequirementsList.length) {
+      message.error(`It can't all be empty`);
+      setHandle(CreationHandle.UN_SAVE);
+      return;
+    }
+    const param = {
+      intendedLearners: {
+        audience: newAudienceList.map((v) => v.value),
+        requirements: newRequirementsList.map((v) => v.value)
+      }
+    };
+    setLoading(true);
+    webApi.ugcCreateApi
+      .informationEdit(courseId, param)
+      .then(() => {
+        message.success('success');
+        newAudienceList = newAudienceList.length
+          ? newAudienceList
+          : [{ ...formLi, id: v4() }];
+        newRequirementsList = newRequirementsList.length
+          ? newAudienceList
+          : [{ ...formLi, id: v4() }];
+        setAudienceList(newAudienceList);
+        setRequirementsList(newRequirementsList);
+        redirectToUrl(
+          `${MenuLink.UGC}/${courseId}/creation/${selectLessonId}`,
+          true
+        );
+      })
+      .catch((err) => {
+        message.error(err as string);
+      })
+      .finally(() => {
+        setLoading(false);
+        setHandle(CreationHandle.UN_SAVE);
+      });
+  };
+
+  useEffect(() => {
+    if (intendedLearners) {
+      let newAudienceList =
+        intendedLearners?.audience?.map((v) => ({
+          ...formLi,
+          value: v,
+          id: v4()
+        })) || [];
+      let newRequirementsList =
+        intendedLearners?.requirements?.map((v) => ({
+          ...formLi,
+          value: v,
+          id: v4()
+        })) || [];
+      newAudienceList = newAudienceList.length
+        ? newAudienceList
+        : [
+            {
+              ...formLi,
+              id: v4()
+            }
+          ];
+      newRequirementsList = newRequirementsList.length
+        ? newRequirementsList
+        : [
+            {
+              ...formLi,
+              id: v4()
+            }
+          ];
+      setAudienceList(newAudienceList);
+      setRequirementsList(newRequirementsList);
+    }
+  }, [intendedLearners]);
+
+  useEffect(() => {
+    if (handle === CreationHandle.ON_SAVE) {
+      handleSubmit();
+    }
+  }, [handle]);
   return (
     <div className="[&>div:w-full] flex h-full flex-col gap-[30px] text-neutral-black">
       <div className="text-center ">
@@ -87,13 +199,14 @@ const IntendedLearners: React.FC<IntendedLearnersProp> = () => {
                 <TextArea
                   name=""
                   className=" text-neutral-black"
-                  placeholder="Enter your course."
+                  placeholder="Describe your main audience."
                   initBorderColor="border-neutral-medium-gray"
                   textAreaMinHeight={48}
                   maxLength={180}
                   isShowCount
                   state={v.status as any}
                   errorMessage={v.errorMessage}
+                  value={v.value}
                   onChange={(e: any) => {
                     handleChange(e.target.value, index);
                   }}
@@ -127,13 +240,14 @@ const IntendedLearners: React.FC<IntendedLearnersProp> = () => {
                 <TextArea
                   name=""
                   className=" text-neutral-black"
-                  placeholder="Enter your course."
+                  placeholder="Describe your main requirements."
                   initBorderColor="border-neutral-medium-gray"
                   textAreaMinHeight={48}
                   maxLength={180}
                   isShowCount
                   state={v.status as any}
                   errorMessage={v.errorMessage}
+                  value={v.value}
                   onChange={(e: any) => {
                     handleChange(e.target.value, index, 'require');
                   }}

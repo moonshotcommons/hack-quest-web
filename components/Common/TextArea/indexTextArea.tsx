@@ -123,7 +123,7 @@ const TextArea = forwardRef<TextAreaRef, TextAreaProps>((props, ref) => {
     [name]: rules || {}
   };
   const validator = new Schema(descriptor);
-  const [value, setValue] = useState(defaultValue);
+  const [value, setValue] = useState(defaultValue || props.value || '');
   const [type, setType] = useState(propType);
 
   useEffect(() => {

@@ -25,8 +25,8 @@ class UgcCreateApi {
       }
     );
   }
-  /** 新增intendedLearners/knowledgeGain */
-  learnerAndKnowlegeAdd(courseId: string, data: object) {
+  /** 修改infoamation */
+  informationEdit(courseId: string, data: object) {
     return this.service.patch(`${UgcCreateApiType.COURSE_CREATE}/${courseId}`, {
       data
     });
