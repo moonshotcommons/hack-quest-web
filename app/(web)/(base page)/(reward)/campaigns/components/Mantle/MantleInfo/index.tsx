@@ -106,7 +106,7 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
                 className={`button-text-s h-[34px] flex-1 uppercase
                            ${
                              !mantle.completed
-                               ? 'cursor-not-allowed bg-neutral-light-gray text-neutral-light-gray'
+                               ? 'cursor-not-allowed bg-neutral-light-gray text-neutral-medium-gray'
                                : !buttonDisable
                                  ? 'bg-yellow-primary text-neutral-black'
                                  : 'cursor-not-allowed bg-yellow-primary text-neutral-black opacity-50'
@@ -115,11 +115,11 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
                 disabled={buttonDisable}
                 onClick={campaignsClaim}
               >
-                {mantle.certification.claimed ? 'Claimed' : 'Claim'}
+                {mantle.certification.claimed ? 'minted' : 'Claim'}
               </Button>
               <Button
                 ghost
-                className={`button-text-s h-[34px] flex-1  border-neutral-black uppercase text-neutral-black`}
+                className={`button-text-s h-[34px] flex-1 border-neutral-black  p-0 uppercase text-neutral-black`}
                 onClick={learnMore}
               >
                 Learn More

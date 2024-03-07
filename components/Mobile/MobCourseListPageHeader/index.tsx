@@ -42,7 +42,7 @@ const MobCourseListPageHeader: FC<CourseListPageHeaderProps> = ({
   return (
     <div
       className={cn(
-        'min-h-[18rem] bg-yellow-primary px-[1.25rem] pb-[5.625rem]',
+        'relative min-h-[18rem] bg-yellow-primary px-[1.25rem] pb-[5.625rem]',
         className
       )}
     >

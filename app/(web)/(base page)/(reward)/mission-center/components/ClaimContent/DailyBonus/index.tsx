@@ -205,7 +205,8 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
           a?.progress?.progress?.[0] - b?.progress?.progress?.[0]
       ) || [];
     const completedLen = missionData.filter((v) => v.progress.completed).length;
-    setRefreshTime(`${6 - completedLen}d${24 - new Date().getHours()}h`);
+    const day = 7 - completedLen > 0 ? `${7 - completedLen}d` : '';
+    setRefreshTime(`${day}${24 - new Date().getHours()}h`);
     setDealedMissionData({
       mData,
       completedLen

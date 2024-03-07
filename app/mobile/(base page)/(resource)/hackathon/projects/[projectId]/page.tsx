@@ -5,7 +5,7 @@ import {
   getFeaturedProjects,
   getHackathonProjectById,
   getOtherProjects
-} from '@/service/hackathon';
+} from '@/service/catch/resource/hackathon';
 
 interface ProjectDetailPageProps {
   params: {
@@ -18,7 +18,10 @@ export async function generateMetadata({
   const hackathon = await getHackathonProjectById(params.projectId);
   return {
     title: hackathon.name,
-    description: hackathon.description
+    description: hackathon.description,
+    alternates: {
+      canonical: `https://www.hackquest.io/projects/${encodeURIComponent(params.projectId)}`
+    }
   };
 }
 

@@ -1,5 +1,4 @@
 'use client';
-import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import { BurialPoint } from '@/helper/burialPoint';
 import { HackathonStatusType } from '@/service/webApi/resourceStation/type';
 import OnGoing from './OnGoing';
@@ -19,9 +18,6 @@ interface HackathonBoxProp {
 const HackathonBox: React.FC<HackathonBoxProp> = ({ page, curTab }) => {
   const { redirectToUrl } = useRedirect();
   const router = useRouter();
-  // const [curTab, setCurTab] = useState<HackathonStatusType>(
-  //   HackathonStatusType.ON_GOING
-  // );
   const changeTab = (tab: HackathonStatusType) => {
     BurialPoint.track(`hackathon page tab 点击`);
     if (tab === curTab) return;
@@ -39,11 +35,7 @@ const HackathonBox: React.FC<HackathonBoxProp> = ({ page, curTab }) => {
     return (
       <div
         className="body-l flex w-fit cursor-pointer items-center gap-[7px] border-b-[2px] border-b-yellow-primary pt-[40px] text-neutral-black"
-        onClick={() =>
-          redirectToUrl(
-            `${MenuLink.PROJECTS}?menu=${Menu.HACKATHON}&${QueryIdType.PROJECT_ID}=projects`
-          )
-        }
+        onClick={() => redirectToUrl(`${MenuLink.PROJECTS}`)}
       >
         <span>View hackathon projects</span>
         <BsArrowRight size={18}></BsArrowRight>

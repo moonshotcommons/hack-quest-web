@@ -6,7 +6,10 @@ import {
   getFeaturedProjectsById,
   getHackathonProjectById,
   getOtherProjects
-} from '@/service/hackathon';
+} from '@/service/catch/resource/hackathon';
+import { isUuid } from '@/helper/utils';
+import { permanentRedirect } from 'next/navigation';
+import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 
 interface ProjectDetailPageProps {
   params: {
@@ -19,7 +22,10 @@ export async function generateMetadata({
   const hackathon = await getHackathonProjectById(params.projectId);
   return {
     title: hackathon.name,
-    description: hackathon.description
+    description: hackathon.description,
+    alternates: {
+      canonical: `https://www.hackquest.io/projects/${encodeURIComponent(params.projectId)}`
+    }
   };
 }
 
@@ -29,6 +35,9 @@ const ProjectDetailPage: FC<ProjectDetailPageProps> = async ({ params }) => {
     getHackathonProjectById(projectId),
     getFeaturedProjectsById(projectId)
   ]);
+  if (isUuid(projectId)) {
+    permanentRedirect(`${MenuLink.PROJECTS}/${project.alias}`);
+  }
   const otherProjects = await getOtherProjects(
     project.hackathonName,
     projectId

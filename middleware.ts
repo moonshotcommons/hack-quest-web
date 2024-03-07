@@ -25,13 +25,15 @@ export function middleware(request: NextRequest) {
     host = host.replace('localhost:3000', 'hackquest.io');
   }
 
-  if (isMobile(userAgent!) && !request.nextUrl.pathname.startsWith('/mobile')) {
-    const url = `/mobile${request.nextUrl.pathname}${request.nextUrl.search}`;
+  const pathname = request.nextUrl.pathname;
+
+  if (isMobile(userAgent!) && !pathname.startsWith('/mobile')) {
+    const url = `/mobile${pathname}${request.nextUrl.search}`;
     return NextResponse.redirect(new URL(url, host));
   }
 
-  if (!isMobile(userAgent!) && request.nextUrl.pathname.startsWith('/mobile')) {
-    const newPathname = request.nextUrl.pathname.replace(/^\/mobile/, '');
+  if (!isMobile(userAgent!) && pathname.startsWith('/mobile')) {
+    const newPathname = pathname.replace(/^\/mobile/, '');
     const url = `${newPathname}${request.nextUrl.search}`;
     return NextResponse.redirect(new URL(url, host));
   }

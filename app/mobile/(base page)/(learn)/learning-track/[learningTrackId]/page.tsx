@@ -14,6 +14,7 @@ import IntendedLearners from '@/components/Mobile/MobDetailPageV2/IntendedLearne
 import Image from 'next/image';
 import { LearningTrackStructure } from '@/components/Mobile/MobDetailPageV2/CourseStructure';
 import { LearningTrackStatusButton } from '@/components/Mobile/MobDetailPageV2/StatusButton';
+import { Metadata } from 'next';
 
 interface LearningTrackDetailPageProps {
   params: {
@@ -23,6 +24,26 @@ interface LearningTrackDetailPageProps {
     learningTrackId: string;
     menu: string;
   };
+}
+
+export async function generateMetadata(
+  { params, searchParams }: LearningTrackDetailPageProps,
+  parent: any
+): Promise<Metadata> {
+  // 读取路由参数
+  const learningTrackId = params.learningTrackId;
+
+  const courseDetail =
+    await webApi.learningTrackApi.fetchLearningTrackDetail(learningTrackId);
+
+  const metadata: Metadata = {
+    title: courseDetail.name,
+    alternates: {
+      canonical: `https://www.hackquest.io/learning-track/${encodeURIComponent(learningTrackId)}`
+    }
+  };
+
+  return metadata;
 }
 
 const LearningTrackDetailPage: FC<LearningTrackDetailPageProps> = async (

@@ -1,4 +1,4 @@
-import { NextPage } from 'next';
+import { Metadata, NextPage } from 'next';
 import PageRetentionTime from '@/components/Common/PageRetentionTime';
 
 import TopBanner from './mantle//TopBanner';
@@ -9,6 +9,12 @@ import BecomeSolidityDeveloper from './mantle/BecomeSolidityDeveloper';
 import MantleDeveloperJourney from './mantle/MantleDeveloperJourney';
 import WhyMantleUniversity from './mantle/WhyMantleUniversity';
 import StillNotSure from './mantle/StillNotSure';
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: 'https://www.hackquest.io'
+  }
+};
 
 const Landing: NextPage<any> = (props) => {
   return (

@@ -1,10 +1,10 @@
 import { FC, ReactNode, useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { MOBILE_NAVBAR_HEIGHT, itemVariants } from '../constant';
+import { itemVariants } from '../constant';
 import { NavbarListType } from '@/components/Web/Layout/BasePage/Navbar/type';
 import { useGlobalStore } from '@/store/zustand/globalStore';
-import { useGetPageInfo } from '@/hooks/useGetPageInfo';
+import useGetHeight from '@/hooks/useGetHeight';
 interface NavListProps {
   navList: NavbarListType[];
   toggleOpen: VoidFunction;
@@ -14,7 +14,7 @@ interface NavListProps {
 const NavList: FC<NavListProps> = ({ navList, toggleOpen, children }) => {
   const [openNavKeys, setOpenNavKeys] = useState<string[]>([]);
 
-  const pageInfo = useGetPageInfo();
+  const { pageHeight } = useGetHeight();
 
   const setTipsModalOpenState = useGlobalStore(
     (state) => state.setTipsModalOpenState
@@ -27,7 +27,7 @@ const NavList: FC<NavListProps> = ({ navList, toggleOpen, children }) => {
           transition: { staggerChildren: 0.07, delayChildren: 0.2 },
           pointerEvents: 'auto',
           overflow: 'scroll',
-          height: `${pageInfo.windowHeight - MOBILE_NAVBAR_HEIGHT}px`
+          height: pageHeight
         },
         closed: {
           // transition: { staggerChildren: 0.05, staggerDirection: -1 },
@@ -35,9 +35,9 @@ const NavList: FC<NavListProps> = ({ navList, toggleOpen, children }) => {
         }
       }}
       className="absolute top-[4rem] w-screen  px-5 pt-[1.875rem]"
-      // style={{
-      //   height: `${pageInfo.windowHeight - MOBILE_NAVBAR_HEIGHT}px`
-      // }}
+      style={{
+        height: pageHeight
+      }}
     >
       <motion.ul className={`w-full`}>
         {navList.map((item, index) => {

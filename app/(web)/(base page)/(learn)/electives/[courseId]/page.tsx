@@ -1,5 +1,5 @@
 import Tags from '@/components/Common/Tags';
-import { ElectiveCatalogue } from '@/components/Web/DetailPageV2/Catalogue';
+import { LessonCatalogue } from '@/components/Web/DetailPageV2/Catalogue';
 import CourseTag, {
   CourseTagType
 } from '@/components/Web/DetailPageV2/CourseTag';
@@ -10,9 +10,11 @@ import { FC } from 'react';
 import BackButton from '@/components/Web/DetailPageV2/BackButton';
 import IntendedLearners from '@/components/Web/DetailPageV2/IntendedLearners';
 import KnowledgeGain from '@/components/Web/DetailPageV2/KnowledgeGain';
-import { ElectiveDetailCard } from '@/components/Web/DetailPageV2/DetailCard';
+import ElectiveDetailCard from './components/ElectiveDetailCard';
 import { ElectiveCourseDetailType } from '@/service/webApi/elective/type';
-import ElectiveDetailProvider from '@/components/Web/DetailPageV2/Provider/ElectiveDetailProvider';
+import CourseDetailProvider from '@/components/Web/DetailPageV2/Provider/CourseDetailProvider';
+import { Metadata } from 'next';
+import HeaderBg from '@/components/Web/DetailPageV2/HeaderBg';
 
 interface ElectivePageProps {
   params: {
@@ -22,6 +24,28 @@ interface ElectivePageProps {
     menuCourseId: string;
     menu: string;
   };
+}
+
+export async function generateMetadata(
+  { params, searchParams }: ElectivePageProps,
+  parent: any
+): Promise<Metadata> {
+  // 读取路由参数
+  const courseId = params.courseId;
+
+  const courseDetail =
+    await webApi.courseApi.fetchCourseDetail<ElectiveCourseDetailType>(
+      courseId
+    );
+
+  const metadata: Metadata = {
+    title: courseDetail.title,
+    alternates: {
+      canonical: `https://www.hackquest.io/electives/${encodeURIComponent(courseId)}`
+    }
+  };
+
+  return metadata;
 }
 
 const ElectivePage: FC<ElectivePageProps> = async (props) => {
@@ -36,12 +60,13 @@ const ElectivePage: FC<ElectivePageProps> = async (props) => {
     );
 
   return (
-    <ElectiveDetailProvider courseId={courseId}>
+    <CourseDetailProvider courseId={courseId} includePages>
       <div className="relative min-h-[100%] w-full bg-neutral-white">
-        <div className="absolute left-0 top-0 min-h-[400px] w-full bg-neutral-off-white py-5"></div>
+        {/* <div className="absolute left-0 top-0 min-h-[400px] w-full bg-neutral-off-white py-5"></div> */}
+        <HeaderBg />
         <div className="container relative mx-auto flex h-fit pb-[100px]">
           <div className="w-[900px] max-w-[900px]">
-            <div className="h-[400px] w-full py-5">
+            <div className="min-h-[400px] w-full py-5" id="detail-header">
               <BackButton type="electives"></BackButton>
               <Tags
                 size="lg"
@@ -104,7 +129,7 @@ const ElectivePage: FC<ElectivePageProps> = async (props) => {
           </div>
         </div>
       </div>
-    </ElectiveDetailProvider>
+    </CourseDetailProvider>
   );
 
   function Syllabus() {
@@ -114,7 +139,7 @@ const ElectivePage: FC<ElectivePageProps> = async (props) => {
           <div className="h-[34px] w-[5px] rounded-full bg-yellow-dark"></div>
           <h3 className="text-h3 text-neutral-black">{`Syllabus`}</h3>
         </div>
-        <ElectiveCatalogue courseDetail={courseDetail} />
+        <LessonCatalogue courseDetail={courseDetail} />
       </div>
     );
   }

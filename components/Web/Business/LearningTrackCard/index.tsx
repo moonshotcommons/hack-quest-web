@@ -1,13 +1,13 @@
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import Image from 'next/image';
 import React from 'react';
-import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import CourseTags from '@/components/Web/Business/CourseTags';
 import { useRedirect } from '@/hooks/useRedirect';
 import LearningTrackImg from '@/public/images/home/learningtrack_img.png';
 import TrackTag from '@/components/Common/TrackTag';
 import CompletedIcon from '@/components/Common/Icon/Completed';
 import { MenuLink } from '../../Layout/BasePage/Navbar/type';
+import Link from 'next/link';
 interface LearningTrackCardProps {
   learningTrack: LearningTrackDetailType;
   isLandingPage?: boolean;
@@ -22,17 +22,16 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
 
   const goLearningTrackDetail = (e: any) => {
     if (isLandingPage) return;
-    redirectToUrl(
-      `${MenuLink.LEARNING_TRACK}/${learningTrack.id}?${QueryIdType.LEARNING_TRACK_ID}=${learningTrack.id}&menu=${Menu.LEARNING_TRACK}`
-    );
+    redirectToUrl(`${MenuLink.LEARNING_TRACK}/${learningTrack.id}`);
   };
 
   return (
-    <div
+    <Link
+      href={`${MenuLink.LEARNING_TRACK}/${learningTrack.id}`}
       className={
         'card-hover relative flex  h-[207px] w-full items-center gap-[30px] overflow-hidden rounded-[16px] bg-neutral-white p-[16px]'
       }
-      onClick={goLearningTrackDetail}
+      // onClick={goLearningTrackDetail}
     >
       {from === 'dashboard' &&
       learningTrack.progress &&
@@ -67,7 +66,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
           className="object-cover"
         ></Image>
       </div>
-    </div>
+    </Link>
   );
 };
 

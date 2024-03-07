@@ -82,7 +82,7 @@ function Electives() {
       <div className="relative mx-auto w-full">
         <MobCourseListPageHeader
           title="Projects"
-          description="Each elective course is relatively short and independent, with a focused topic. You will  learn how to build a project step by step."
+          // description="Each elective course is relatively short and independent, with a focused topic. You will  learn how to build a project step by step."
           coverImage={coverImage}
           coverWidth={218}
           coverHeight={120}

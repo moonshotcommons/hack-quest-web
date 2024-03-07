@@ -11,7 +11,7 @@ interface TabProp {
 const Tab: React.FC<TabProp> = ({ curTab, changeTab }) => {
   return (
     <SlideHighlight
-      className={`mb-[40px] flex gap-[1.875rem] pb-[2px]`}
+      className={`mb-[40px] flex gap-[1.875rem] pb-[2px] wapMin:gap-[.75rem]`}
       type="LEARNING_TRACK"
       currentIndex={hackathonTab.findIndex((v) => v.value === curTab)}
     >
@@ -21,8 +21,8 @@ const Tab: React.FC<TabProp> = ({ curTab, changeTab }) => {
           onClick={() => {
             changeTab(v.value);
           }}
-          className={`body-l cursor-pointer  text-neutral-black ${
-            curTab === v.value ? '  body-l-bold ' : ' '
+          className={`body-l wapMin:body-m cursor-pointer  text-neutral-black ${
+            curTab === v.value ? '  body-l-bold  wapMin:body-m-bold' : ' '
           }`}
         >
           {v.label}

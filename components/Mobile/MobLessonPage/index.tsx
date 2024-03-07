@@ -31,8 +31,7 @@ import LessonSidebar from './LessonSidebar';
 import LessonNavbar from './LessonNavbar';
 import LessonProgress from './LessonProgress';
 import MobCompleteModal from '../MobCompleteModal';
-import { useGetPageInfo } from '@/hooks/useGetPageInfo';
-import { MOBILE_NAVBAR_HEIGHT } from '../MobLayout/BasePage/Navbar/constant';
+import useGetHeight from '@/hooks/useGetHeight';
 
 interface MobLessonPageProps {
   lessonId: string;
@@ -53,7 +52,7 @@ const MobLessonPage: FC<MobLessonPageProps> = (props) => {
     courseType,
     true
   );
-  const pageInfo = useGetPageInfo();
+  const { pageHeight } = useGetHeight();
   const [isHandleNext, setIsHandleNext] = useState(false);
   const allowNextButtonClickTime = useRef(0);
   const treasureModalRef = useRef<TreasureModalRef>(null);
@@ -107,7 +106,7 @@ const MobLessonPage: FC<MobLessonPageProps> = (props) => {
     <div
       className="overflow-hidden"
       style={{
-        height: `${pageInfo.windowHeight - MOBILE_NAVBAR_HEIGHT}px`
+        height: pageHeight
       }}
     >
       <ConfigProvider
@@ -132,7 +131,7 @@ const MobLessonPage: FC<MobLessonPageProps> = (props) => {
             <div
               className={`relative flex h-full w-full flex-col overflow-hidden`}
               style={{
-                height: `${pageInfo.windowHeight - MOBILE_NAVBAR_HEIGHT}px`
+                height: pageHeight
               }}
             >
               <LessonPageContext.Provider

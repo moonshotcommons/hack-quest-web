@@ -4,13 +4,17 @@ import TrackTag from '@/components/Common/TrackTag';
 import Button from '@/components/Common/Button';
 import { CourseTab } from '@/app/(web)/(base page)/(home)/instructor/constants/type';
 import UgcTags from './UgcTags';
-import InstructorCover from '@/public/images/home/instructor_cover.png';
+import { ProjectCourseType } from '@/service/webApi/course/type';
 
 interface UgcCourseCardProp {
   isPublic?: boolean;
+  course: ProjectCourseType;
 }
 
-const UgcCourseCard: React.FC<UgcCourseCardProp> = ({ isPublic = true }) => {
+const UgcCourseCard: React.FC<UgcCourseCardProp> = ({
+  isPublic = true,
+  course
+}) => {
   const type = CourseTab.PUBLISHED;
   const renderButton = () => {
     switch (type) {
@@ -76,7 +80,7 @@ const UgcCourseCard: React.FC<UgcCourseCardProp> = ({ isPublic = true }) => {
     <div className="card-hover overflow-hidden rounded-[16px] bg-neutral-white text-neutral-off-black">
       <div className="relative h-0 w-full pt-[56%]">
         <Image
-          src={InstructorCover}
+          src={course.image || ''}
           alt="instructorCover"
           fill
           className="object-cover"
@@ -84,20 +88,17 @@ const UgcCourseCard: React.FC<UgcCourseCardProp> = ({ isPublic = true }) => {
       </div>
       <div className="flex h-[216px] flex-col justify-between p-[16px]">
         <div className="flex flex-col gap-[16px]">
-          <TrackTag track="track" />
-          <div className="body-m-bold line-clamp-2">
-            Course Name Course Name
-          </div>
+          <TrackTag track={course.track} />
+          <div className="body-m-bold line-clamp-2">{course.title}</div>
           <div className="body-s line-clamp-2 text-neutral-medium-gray">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed Lorem
-            ipsum dolor sit...
+            {course.description}
           </div>
-          {!isPublic && <UgcTags isPublic={isPublic} />}
+          {!isPublic && <UgcTags isPublic={isPublic} course={course} />}
         </div>
         {!isPublic ? (
           <div className="flex justify-between gap-[8px]">{renderButton()}</div>
         ) : (
-          <UgcTags isPublic={isPublic} />
+          <UgcTags isPublic={isPublic} course={course} />
         )}
       </div>
     </div>

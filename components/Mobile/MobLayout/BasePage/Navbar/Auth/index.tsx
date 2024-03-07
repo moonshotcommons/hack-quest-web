@@ -12,8 +12,7 @@ import CheckInviteCode from './CheckInviteCode';
 import { useRedirect } from '@/hooks/useRedirect';
 import { motion } from 'framer-motion';
 import { useCustomPathname } from '@/hooks/useCheckPathname';
-import { useGetPageInfo } from '@/hooks/useGetPageInfo';
-import { MOBILE_NAVBAR_HEIGHT } from '../constant';
+import useGetHeight from '@/hooks/useGetHeight';
 interface AuthModalProps {
   changeNavState: VoidFunction;
 }
@@ -58,6 +57,8 @@ const Auth: FC<AuthModalProps> = ({ changeNavState }) => {
     }))
   );
 
+  const { pageHeight } = useGetHeight();
+
   const authComponent = useMemo(() => {
     if (queryState) {
       return <VerifyConfirmed></VerifyConfirmed>;
@@ -80,9 +81,6 @@ const Auth: FC<AuthModalProps> = ({ changeNavState }) => {
         return <Login></Login>;
     }
   }, [queryState, authRouteType.type]);
-
-  const pageInfo = useGetPageInfo();
-
   return (
     <motion.div
       variants={{
@@ -90,7 +88,7 @@ const Auth: FC<AuthModalProps> = ({ changeNavState }) => {
           transition: { staggerChildren: 0.07, delayChildren: 0.2 },
           opacity: 1,
           pointerEvents: 'auto',
-          height: `${pageInfo.windowHeight - MOBILE_NAVBAR_HEIGHT}px`
+          height: pageHeight
         },
         closed: {
           transition: { staggerChildren: 0.05, staggerDirection: -1 },

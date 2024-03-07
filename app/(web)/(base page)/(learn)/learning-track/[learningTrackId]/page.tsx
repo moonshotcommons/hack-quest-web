@@ -1,6 +1,6 @@
 import Tags from '@/components/Common/Tags';
 import CertificationCard from '@/components/Web/Business/Certification/CertificationCard';
-import { LearningTrackCatalogue } from '@/components/Web/DetailPageV2/Catalogue';
+import { SectionCatalogue } from '@/components/Web/DetailPageV2/Catalogue';
 import CourseTag, {
   CourseTagType
 } from '@/components/Web/DetailPageV2/CourseTag';
@@ -11,8 +11,10 @@ import ExpandAllButton from './components/ExpandAllButton';
 import LearningTrackDetailProvider from '@/components/Web/DetailPageV2/Provider/LearningTrackDetailProvider';
 import KnowledgeGain from '@/components/Web/DetailPageV2/KnowledgeGain';
 import IntendedLearners from '@/components/Web/DetailPageV2/IntendedLearners';
-import { LearningTrackDetailCard } from '@/components/Web/DetailPageV2/DetailCard';
+import LearningTrackDetailCard from './components/LearningTrackDetailCard';
 import CertificationCardProvider from '@/components/Web/Business/Certification/CertificationCard/CertificationCardProvider';
+import { Metadata } from 'next';
+import HeaderBg from '@/components/Web/DetailPageV2/HeaderBg';
 
 interface LearningTrackDetailPageProps {
   params: {
@@ -22,6 +24,26 @@ interface LearningTrackDetailPageProps {
     learningTrackId: string;
     menu: string;
   };
+}
+
+export async function generateMetadata(
+  { params, searchParams }: LearningTrackDetailPageProps,
+  parent: any
+): Promise<Metadata> {
+  // 读取路由参数
+  const learningTrackId = params.learningTrackId;
+
+  const courseDetail =
+    await webApi.learningTrackApi.fetchLearningTrackDetail(learningTrackId);
+
+  const metadata: Metadata = {
+    title: courseDetail.name,
+    alternates: {
+      canonical: `https://www.hackquest.io/learning-track/${encodeURIComponent(learningTrackId)}`
+    }
+  };
+
+  return metadata;
 }
 
 const LearningTrackDetailPage: FC<LearningTrackDetailPageProps> = async (
@@ -47,10 +69,11 @@ const LearningTrackDetailPage: FC<LearningTrackDetailPageProps> = async (
     <LearningTrackDetailProvider learningTrackDetail={learningTrackDetail}>
       <CertificationCardProvider certificationId={certification?.id}>
         <div className="relative w-full bg-neutral-white">
-          <div className="absolute left-0 top-0 min-h-[400px] w-full bg-neutral-off-white py-5"></div>
+          {/* <div className="absolute left-0 top-0 min-h-[400px] w-full bg-neutral-off-white py-5"></div> */}
+          <HeaderBg />
           <div className="container relative mx-auto flex h-fit pb-[100px]">
             <div className="w-[900px] max-w-[900px]">
-              <div className="h-[400px] w-full py-5">
+              <div className="min-h-[400px] w-full py-5" id="detail-header">
                 <BackButton type="learningTrack"></BackButton>
                 <Tags
                   size="lg"
@@ -124,7 +147,7 @@ const LearningTrackDetailPage: FC<LearningTrackDetailPageProps> = async (
           </div>
           <ExpandAllButton />
         </div>
-        <LearningTrackCatalogue learningTrackDetail={learningTrackDetail} />
+        <SectionCatalogue learningTrackDetail={learningTrackDetail} />
       </div>
     );
   }
