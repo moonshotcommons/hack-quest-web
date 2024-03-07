@@ -6,8 +6,10 @@ import { getToken } from '@/helper/user-token';
 import { useRedirect } from '../useRedirect';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useCheckPathname, useCustomPathname } from '../useCheckPathname';
+import { useRouter } from 'next/navigation';
 
 function useNavAuth(waitingUserData: boolean) {
+  const router = useRouter();
   const userInfo = useUserStore((state) => state.userInfo);
   const setAuthType = useUserStore((state) => state.setAuthType);
   const { redirectToUrl } = useRedirect();
@@ -27,9 +29,9 @@ function useNavAuth(waitingUserData: boolean) {
       if (redirect_url && token) {
         redirectToUrl(`${redirect_url}?token=${token}`);
       } else {
-        // router.push(
-        //   `https://www.hackquest.io/learning-track/6d108f0d-dfb2-4dad-8f38-93b45573bc43?learningTrackId=6d108f0d-dfb2-4dad-8f38-93b45573bc43&menu=learningTrack&origin=mantle&token=${token}`
-        // );
+        router.push(
+          `https://www.hackquest.io/learning-track/6d108f0d-dfb2-4dad-8f38-93b45573bc43?learningTrackId=6d108f0d-dfb2-4dad-8f38-93b45573bc43&menu=learningTrack&origin=mantle&token=${token}`
+        );
       }
 
       return;
