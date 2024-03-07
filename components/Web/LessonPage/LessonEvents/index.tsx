@@ -3,8 +3,10 @@ import { useUnitNavList } from '@/hooks/useUnitNavList';
 import ArrowBottom from '@/public/images/lesson/arrow_bottom.svg';
 import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
 import Image from 'next/image';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import LessonList from './LessonList';
+import { LessonPageContext } from '../type';
+import { useCourseStore } from '@/store/zustand/courseStore';
 
 interface LessonEventsProps {
   lesson: CourseLessonType;
@@ -46,8 +48,13 @@ const PreviewLessonEvent = () => {
 const LessonEvents: React.FC<LessonEventsProps> = (props) => {
   const { lesson, courseType, isPreview = false } = props;
 
-  const { unitNavList = [], refreshNavList } = useUnitNavList(lesson);
-
+  const {
+    unitNavList = [],
+    refreshNavList,
+    currentUnitIndex
+  } = useUnitNavList(lesson);
+  const { setNavbarData } = useContext(LessonPageContext);
+  const learnPageTitle = useCourseStore((state) => state.learnPageTitle);
   const [isToggle, setIsToggle] = useState(false);
   const eventsRef = useRef<HTMLDivElement | null>(null);
   const [headerTextWidth, setHeaderTextWidth] = useState(0);
@@ -60,6 +67,22 @@ const LessonEvents: React.FC<LessonEventsProps> = (props) => {
     refreshNavList();
     initHeaderTextWidth();
   }, [lesson]);
+
+  useEffect(() => {
+    const unitName = unitNavList[currentUnitIndex]?.name;
+    const navbarData = [
+      {
+        label: learnPageTitle
+      },
+      {
+        label: unitName
+      },
+      {
+        label: lesson?.name
+      }
+    ];
+    unitName && setNavbarData([...navbarData]);
+  }, [unitNavList]);
   if (isPreview) return <PreviewLessonEvent></PreviewLessonEvent>;
   return (
     <div

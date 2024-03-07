@@ -1,5 +1,4 @@
 'use client';
-import Breadcrumb from '@/components/Web/Business/Breadcrumb';
 import ComponentRenderer from '@/components/Web/Business/Renderer/ComponentRenderer';
 import {
   CustomComponent,
@@ -19,6 +18,7 @@ import {
 } from 'react';
 import LessonEvents from '../LessonEvents';
 import FoundBugButton from '../../Business/FoundBugButton';
+import LessonNavbar from '../LessonNavbar';
 
 export const LessonContentContext = createContext<{
   expandData: ExpandDataType[];
@@ -76,7 +76,7 @@ const LessonContentComponent: FC<LessonContentProps> = (props) => {
   return (
     <div className="flex h-[calc(100%-10px)] flex-shrink-0 flex-col pl-[20px] pr-[20px]">
       <Suspense>
-        <Breadcrumb />
+        <LessonNavbar />
       </Suspense>
 
       <LessonEvents

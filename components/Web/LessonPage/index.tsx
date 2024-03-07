@@ -20,7 +20,7 @@ import Split from 'react-split';
 import LessonContent from './LessonContent';
 import LessonFooter from './LessonFooter';
 import Playground from './Playground';
-import { LessonPageContext } from './type';
+import { LessonPageContext, NavbarDataType } from './type';
 import TreasureModal, {
   TreasureModalRef
 } from '@/components/Web/Business/TreasureModal';
@@ -46,6 +46,7 @@ const LessonPage: FC<LessonPageProps> = (props) => {
     courseType,
     true
   );
+  const [navbarData, setNavbarData] = useState<NavbarDataType[]>([]);
   const [isHandleNext, setIsHandleNext] = useState(false);
   const allowNextButtonClickTime = useRef(0);
   const treasureModalRef = useRef<TreasureModalRef>(null);
@@ -120,6 +121,8 @@ const LessonPage: FC<LessonPageProps> = (props) => {
           >
             <LessonPageContext.Provider
               value={{
+                navbarData,
+                setNavbarData: (data: NavbarDataType[]) => setNavbarData(data),
                 nextLoading,
                 isHandleNext,
                 leftLength: lesson?.content?.left?.length || 0,
