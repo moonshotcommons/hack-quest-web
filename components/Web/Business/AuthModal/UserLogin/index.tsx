@@ -146,7 +146,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
       <div className="flex w-full flex-col gap-[20px]">
         <div>
           <p className="text-center font-GT-Walsheim-Trial text-[1.375rem] leading-[140%] text-[#C4C4C4]">
-            {`Don’t have an account? `}
+            {`Don't have an account? `}
             <span
               className="cursor-pointer underline"
               onClick={() => {

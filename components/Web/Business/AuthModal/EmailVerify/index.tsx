@@ -114,9 +114,9 @@ const EmailVerify: FC<EmailVerifyProps> = (props) => {
           />
         </svg>
 
-        <h1 className="text-h3 font-GT-Walsheim-Trial text-neutral-off-white">
+        <h3 className="text-h3 font-GT-Walsheim-Trial text-neutral-off-white">
           Verify Your Email
-        </h1>
+        </h3>
         <p className="body-l font-GT-Walsheim-Trial text-neutral-light-gray">
           Please verify your account via the link in the e-mail and follow the
           instruction to login

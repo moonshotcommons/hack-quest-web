@@ -8,13 +8,16 @@ import Button from '@/components/Common/Button';
 import Link from 'next/link';
 import { useUserStore } from '@/store/zustand/userStore';
 import { useRouter } from 'next/navigation';
+import { NavType } from '@/components/Mobile/MobLayout/BasePage/Navbar';
 interface LearningTrackCardProps {
   learningTrack: LearningTrackDetailType;
 }
 
 const LearningTrackCard: FC<LearningTrackCardProps> = ({ learningTrack }) => {
   const userInfo = useUserStore((state) => state.userInfo);
-  const setAuthModalOpen = useUserStore((state) => state.setAuthModalOpen);
+  const { setNavType, toggleOpen } = useUserStore(
+    (state) => state.mobileAuthToggleOpenHandle
+  );
   const router = useRouter();
 
   return (
@@ -51,7 +54,8 @@ const LearningTrackCard: FC<LearningTrackCardProps> = ({ learningTrack }) => {
           className="flex-1 rounded-[10px] px-0 text-[14px] leading-[140%] text-neutral-black"
           onClick={() => {
             if (!userInfo) {
-              setAuthModalOpen(true);
+              toggleOpen();
+              setNavType(NavType.AUTH);
             } else {
               router.push(`/learning-track/${learningTrack.id}`);
             }

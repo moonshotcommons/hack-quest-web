@@ -23,7 +23,7 @@ const StillNotSure: FC = () => {
           </Button>
         </Link>
 
-        <Link href={'/electives'}>
+        <Link href={'/practices'}>
           <Button
             ghost
             className="w-[18.75rem] rounded-[10px] border-[#CCE9E7] text-[18px] leading-[140%] text-[#CCE9E7] hover:bg-[#CCE9E7] hover:text-neutral-black"

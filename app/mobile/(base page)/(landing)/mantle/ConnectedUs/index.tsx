@@ -49,7 +49,10 @@ const ConnectedUs: FC<ConnectedUsProps> = (props) => {
             </span>
           </Link>
         </div>
-        <Link href={'https://xsxo494365r.typeform.com/to/tJymzU8a'}>
+        <Link
+          target="_blank"
+          href={'https://xsxo494365r.typeform.com/to/tJymzU8a'}
+        >
           <Button
             type="mantle"
             className="w-[12.125rem] rounded-[.625rem] px-0 py-4 text-[1.125rem] text-neutral-black"

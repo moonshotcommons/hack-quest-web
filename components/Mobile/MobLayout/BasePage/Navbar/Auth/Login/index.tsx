@@ -18,7 +18,7 @@ const Login: FC<LoginProps> = (props) => {
 
   const EmailTitle = (
     <p className="text-center font-GT-Walsheim-Trial text-[1rem] leading-[140%] text-[#C4C4C4]">
-      {`Don’t have an account?  `}
+      {`Don't have an account? `}
       <span
         className="cursor-pointer underline"
         onClick={() => {
@@ -31,7 +31,7 @@ const Login: FC<LoginProps> = (props) => {
   );
 
   return (
-    <div className="flex w-full flex-1 flex-col">
+    <div className="flex w-full flex-1 flex-col justify-between">
       {!showLogin && (
         <motion.div
           initial={{ translateX: -50, opacity: 0 }}

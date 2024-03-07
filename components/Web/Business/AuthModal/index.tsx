@@ -98,9 +98,9 @@ const AuthModal: FC<AuthModalProps> = (props) => {
           className="absolute -right-[20px] -top-[20px] text-white"
           onClick={() => {
             setAuthModalOpen(false);
+            setAuthType(AuthType.LOGIN);
             if ((type || queryState) && pathname === V2_LANDING_PATH) {
-              setAuthType(AuthType.LOGIN);
-              redirectToUrl('/', true);
+              if (queryState || type) redirectToUrl('/', true);
             }
           }}
         />

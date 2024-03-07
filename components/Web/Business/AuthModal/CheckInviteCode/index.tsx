@@ -206,7 +206,7 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
     <div className="flex h-full w-full flex-col justify-between ">
       {/* <ThirdPartyLogin></ThirdPartyLogin> */}
       <div className="flex w-full flex-col gap-8">
-        <p className="body-l-bold text-neutral-off-black">
+        <p className="text-center font-GT-Walsheim-Trial text-[1.375rem] leading-[140%] text-[#C4C4C4]">
           Do you have an invite code?
         </p>
         {/* <div className="body-s text-neutral-black">
@@ -218,13 +218,14 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
           label="Invite Code (Optional)"
           type="text"
           name="invite code"
-          labelClassName=""
+          theme="dark"
+          source="mantle"
+          labelClassName="text-white font-GT-Walsheim-Trial"
           placeholder="Enter your invite code"
           state={formState.inviteCode.status as any}
           errorMessage={formState.inviteCode.errorMessage}
           delay={500}
           clear
-          theme={'light'}
           onChange={(e) => {
             setFormData({
               ...formData,
@@ -263,12 +264,10 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
             }
           }}
           block
-          type="primary"
+          type="mantle"
           disabled={emailLoading || thirdPartyLoading}
           loading={emailLoading || thirdPartyLoading}
-          className="
-          button-text-l py-4 uppercase
-          "
+          className="gap-[15px] rounded-[10px] font-GT-Walsheim-Trial text-[18px] leading-[140%]"
         >
           submit
         </Button>
@@ -295,7 +294,9 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
           loading={skipInviteCodeLoading}
           disabled={skipInviteCodeLoading}
           ghost
-          className="button-text-l border-neutral-off-black py-4 uppercase"
+          className="
+          gap-[15px] rounded-[10px] border-white font-GT-Walsheim-Trial text-[18px] leading-[140%] text-white
+          "
         >
           Skip
         </Button>

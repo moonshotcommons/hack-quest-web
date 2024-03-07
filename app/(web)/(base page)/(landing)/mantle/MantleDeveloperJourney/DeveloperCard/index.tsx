@@ -16,7 +16,7 @@ const DeveloperCard: FC<DeveloperCardProps> = ({ data }) => {
         ></Image>
       </div>
       <div className="flex flex-1 flex-col gap-4">
-        <p className="text-[1.125rem] font-medium leading-[110%] text-white">
+        <p className="flex h-10 items-center justify-center text-[1.125rem] font-medium leading-[110%] text-white">
           {data.title}
         </p>
         <div className="rounded-[.625rem] bg-[#202020] p-[.625rem] text-base leading-[140%] text-[#C4C4C4]">

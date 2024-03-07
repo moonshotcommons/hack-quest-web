@@ -26,7 +26,7 @@ const StillNotSure: FC = () => {
             </Button>
           </Link>
 
-          <Link href={'/electives'}>
+          <Link href={'/practices'}>
             <Button
               ghost
               block

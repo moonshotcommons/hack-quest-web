@@ -25,8 +25,8 @@ const WhyMantleUniversity: FC<WhyMantleUniversityProps> = (props) => {
       image: HackquestoInfo3
     },
     {
-      title: 'Personalized learning experience',
-      description: `Complete quests and unlock exciting rewards: tokens, NFT learning certificates, and even airdrop qualification!`,
+      title: 'Personalized Learning Experience',
+      description: `Customize your Web3 learning experience by choosing among extended, standard, or concise modes for each learning quest based on your skill level.`,
       image: HackquestoInfo4
     }
     // {
@@ -39,7 +39,7 @@ const WhyMantleUniversity: FC<WhyMantleUniversityProps> = (props) => {
   return (
     <div className="mx-auto flex w-full max-w-[77.5rem] flex-col items-center gap-4 px-5 text-center">
       <h3 className="text-[36px] font-medium leading-[110%] -tracking-[1.92px] text-white">
-        Why Mantle University?
+        Why Mantle Learn?
       </h3>
       <div className="mt-4 flex w-full flex-col gap-4">
         {infoList.map((item) => {

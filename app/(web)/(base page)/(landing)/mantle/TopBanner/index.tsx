@@ -6,6 +6,7 @@ import Button from '@/components/Common/Button';
 
 import MantleBgLogo from '@/public/images/mantle/mantle_bg.png';
 import { useUserStore } from '@/store/zustand/userStore';
+import Link from 'next/link';
 // import MantleBgLogo from '@/public/images/mantle/mantle_bg_logo.png';
 
 interface TopBannerProps {}
@@ -64,7 +65,7 @@ const TopBanner: FC<TopBannerProps> = (props) => {
         <div className="relative z-[1] mt-[11.25rem] flex h-full flex-col items-center">
           <div className="flex flex-col items-center gap-[10px]">
             <h1 className="text-[48px]  font-medium leading-[110%] -tracking-[1.92px] text-white">
-              Mantle University
+              Mantle Learn
             </h1>
             <div className="flex items-center">
               <p className="pr-[12px] text-[18px] leading-[130%] text-[#C4C4C4]">
@@ -72,11 +73,31 @@ const TopBanner: FC<TopBannerProps> = (props) => {
               </p>
               {logo}
             </div>
+            <Link
+              href="https://www.mantle.xyz/"
+              target="_blank"
+              className="flex items-center gap-[6px] font-GT-Walsheim-Trial text-[18px] text-[#C4C4C4]"
+            >
+              <span className="underline">Visit Mantle main site</span>
+              <svg
+                width="17"
+                height="9"
+                viewBox="0 0 17 9"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M1 4C0.723858 4 0.5 4.22386 0.5 4.5C0.5 4.77614 0.723858 5 1 5L1 4ZM16.3536 4.85355C16.5488 4.65829 16.5488 4.34171 16.3536 4.14645L13.1716 0.964467C12.9763 0.769205 12.6597 0.769205 12.4645 0.964467C12.2692 1.15973 12.2692 1.47631 12.4645 1.67157L15.2929 4.5L12.4645 7.32843C12.2692 7.52369 12.2692 7.84027 12.4645 8.03553C12.6597 8.2308 12.9763 8.2308 13.1716 8.03553L16.3536 4.85355ZM1 5L16 5L16 4L1 4L1 5Z"
+                  fill="white"
+                />
+              </svg>
+            </Link>
           </div>
-          <div className="mt-[3.75rem] flex items-center gap-x-[10px]">
+
+          <div className="mt-[38px] flex items-center gap-x-[10px]">
             <Button
               type="mantle"
-              className="w-[21.5rem] gap-[15px] rounded-[10px]"
+              className="w-[21.5rem] gap-[15px] rounded-[10px] hover:scale-[1.02]"
               iconPosition="right"
               icon={
                 <svg

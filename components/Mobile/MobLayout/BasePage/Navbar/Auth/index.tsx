@@ -81,14 +81,15 @@ const Auth: FC<AuthModalProps> = ({ changeNavState }) => {
         return <Login></Login>;
     }
   }, [queryState, authRouteType.type]);
+  console.log(pageHeight);
   return (
     <motion.div
       variants={{
         open: {
           transition: { staggerChildren: 0.07, delayChildren: 0.2 },
           opacity: 1,
-          pointerEvents: 'auto',
-          height: pageHeight
+          pointerEvents: 'auto'
+          // height: pageHeight
         },
         closed: {
           transition: { staggerChildren: 0.05, staggerDirection: -1 },
@@ -97,6 +98,9 @@ const Auth: FC<AuthModalProps> = ({ changeNavState }) => {
         }
       }}
       className="absolute bottom-0 top-[4rem] flex w-screen flex-col bg-[#202020]"
+      style={{
+        height: pageHeight
+      }}
     >
       <div className="flex h-full flex-col px-4 py-[3.75rem]">
         <div className="mb-8 flex flex-col items-center gap-[10px]">

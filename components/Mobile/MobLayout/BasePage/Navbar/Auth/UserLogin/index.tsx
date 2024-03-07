@@ -140,7 +140,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
       <div className="flex w-full flex-col gap-[20px] text-base">
         <div>
           <p className="text-center font-GT-Walsheim-Trial text-[1rem] leading-[140%] text-[#C4C4C4]">
-            {`Don’t have an account? `}
+            {`Don't have an account? `}
             <span
               className="body-l-bold cursor-pointer underline"
               onClick={() => {
@@ -151,56 +151,6 @@ const UserLogin: FC<UserLoginProps> = (props) => {
             </span>
           </p>
         </div>
-        {/* <div>
-          <Input
-            label="Email"
-            type="email"
-            placeholder="Enter your email"
-            name="email"
-            theme="light"
-            state={formState.email.status as any}
-            clear
-            errorMessage={formState.email.errorMessage}
-            delay={500}
-            onChange={(e) => {
-              setFormData({
-                ...formData,
-                email: e.target.value
-              });
-              setFormState({
-                ...formState,
-                email: {
-                  status: 'default',
-                  errorMessage: ''
-                }
-              });
-              emailValidator.validate(
-                { email: e.target.value },
-                (errors, fields) => {
-                  console.log(errors, fields);
-                  if (errors?.[0]) {
-                    setFormState({
-                      ...formState,
-                      email: {
-                        status: 'error',
-                        errorMessage: errors?.[0].message || ''
-                      }
-                    });
-                  } else {
-                    setFormState({
-                      ...formState,
-                      email: {
-                        status: 'success',
-                        errorMessage: ''
-                      }
-                    });
-                  }
-                }
-              );
-            }}
-            defaultValue={formData.email}
-          ></Input>
-        </div> */}
 
         <div>
           <Input
@@ -217,7 +167,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
             delay={500}
             rightLabel={
               <div
-                className="underline-m cursor-pointer text-[.875rem] text-neutral-off-black"
+                className="underline-m cursor-pointer text-[.875rem] text-neutral-off-white"
                 onClick={() => {
                   BurialPoint.track('login-忘记密码');
                   setAuthType({
