@@ -43,7 +43,7 @@ const BlogHeader: React.FC<BlogHeaderProp> = ({ blog }) => {
               <CiShare2 size={20} />
             </div> */}
           </div>
-          <div className="text-h3 mt-[10px]">{blog.title}</div>
+          <h1 className="text-h3 mt-[10px]">{blog.title}</h1>
           <div className="mt-[10px] w-full">
             <BlogCardFooter
               blog={blog}

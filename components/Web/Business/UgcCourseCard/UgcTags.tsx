@@ -2,11 +2,11 @@ import React from 'react';
 import { CourseLevel, CourseUser, CourseUserCount } from '../CourseTags';
 import { tagFormate } from '@/helper/formate';
 import InstructorCover from '@/public/images/home/instructor_cover.png';
-import { ProjectCourseType } from '@/service/webApi/course/type';
+import { UGCCourseType } from '@/service/webApi/course/type';
 
 interface UgcTagsProp {
   isPublic: boolean;
-  course: ProjectCourseType;
+  course: UGCCourseType;
 }
 
 const UgcTags: React.FC<UgcTagsProp> = ({ isPublic, course }) => {

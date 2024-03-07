@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import HackathonPage from './components';
 import { HackathonStatusType } from '@/service/webApi/resourceStation/type';
-import { getFeaturedProjects } from '@/service/catch/resource/hackathon';
+import { getFeaturedProjects } from '@/service/cach/resource/hackathon';
 
 export const dynamic = 'force-dynamic';
 interface HackathonProps {

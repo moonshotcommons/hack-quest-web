@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { SearchParamsType } from './constant/type';
 import CourseMarketPage from './components';
-import { getCourseMarket } from '@/service/catch/learn/course-market';
+import { getCourseMarket } from '@/service/cach/learn/course-market';
 import { CourseType } from '@/service/webApi/course/type';
 
 export const dynamic = 'force-dynamic';

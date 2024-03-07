@@ -6,6 +6,7 @@ import LearningTrackApi from './webApi/learningTrack';
 import MissionCenterApi from './webApi/missionCenter';
 import PreviewApi from './webApi/preview';
 import UserApi from './webApi/user';
+import UgcCreateApi from './webApi/ugcCreate';
 
 class WebApi {
   protected baseURL: string;
@@ -20,6 +21,7 @@ class WebApi {
   previewApi: PreviewApi;
   userApi: UserApi;
   resourceStationApi: ResourceStationApi;
+  ugcCreateApi: UgcCreateApi;
 
   constructor(baseURL: string) {
     this.baseURL = baseURL;
@@ -35,6 +37,7 @@ class WebApi {
     this.missionCenterApi = new MissionCenterApi(this.service);
     this.previewApi = new PreviewApi(this.service);
     this.userApi = new UserApi(this.service);
+    this.ugcCreateApi = new UgcCreateApi(this.service);
   }
 }
 

@@ -1,8 +1,8 @@
 export enum CourseTab {
-  PUBLISHED = 'Published',
-  DRAFT = 'Draft',
+  PUBLISHED = 'published',
+  DRAFT = 'draft',
   UNDER_REVIEW = 'under Review',
-  UNPUBLISHED = 'Unpublished'
+  UNPUBLISHED = 'unpublished'
 }
 
 export enum MessageTab {
