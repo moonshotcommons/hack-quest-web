@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import React, { ReactNode, useEffect, useState } from 'react';
 
 import Badge from '@/components/Common/Badge';
@@ -12,7 +11,6 @@ import { useRedirect } from '@/hooks/useRedirect';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useMissionCenterStore } from '@/store/zustand/missionCenterStore';
 import { useCustomPathname } from '@/hooks/useCheckPathname';
-import HackLogo from '@/public/images/logo/hack_logo.png';
 import { useGlobalStore } from '@/store/zustand/globalStore';
 
 export interface NavBarProps {
@@ -105,10 +103,11 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
         <div className="flex h-full items-center justify-between">
           <nav className="flex h-full items-center text-neutral-white">
             <div
-              className={`flex h-full cursor-pointer items-center`}
+              className={`flex h-full cursor-pointer items-center font-GT-Walsheim-Trial text-[22px] font-bold`}
               onClick={logoClick}
             >
-              <Image src={HackLogo} width={133} alt="logo"></Image>
+              {/* <Image src={HackLogo} width={133} alt="logo"></Image> */}
+              Mantle Learn
             </div>
             <SlideHighlight
               className="body-s ml-[60px] flex h-full  gap-[28px] text-neutral-off-white"
