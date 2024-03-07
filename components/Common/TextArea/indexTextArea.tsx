@@ -258,7 +258,8 @@ const TextArea = forwardRef<TextAreaRef, TextAreaProps>((props, ref) => {
           value={value}
           placeholder={placeholder}
           style={{
-            minHeight: `${textAreaMinHeight}px`
+            minHeight: `${textAreaMinHeight}px`,
+            height: `${textAreaMinHeight}px`
           }}
           className={cn(
             inputVariants({

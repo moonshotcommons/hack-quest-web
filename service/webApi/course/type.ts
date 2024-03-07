@@ -1,3 +1,4 @@
+import { CourseTab } from '@/app/(web)/(base page)/(home)/instructor/constants/type';
 import { ElectiveCourseType, PageType } from '../elective/type';
 
 export interface Response {
@@ -25,6 +26,14 @@ export enum CompleteStateType {
   NOT_STARTED = 0,
   LEARNING = 1,
   COMPLETED = 2
+}
+export interface IntendedLearnersType {
+  audience?: string[];
+  requirements?: string[];
+}
+export interface KnowledgeGainType {
+  description?: string[];
+  tags?: string[];
 }
 
 /** 课程列表的返回值 */
@@ -87,6 +96,8 @@ export interface UGCCourseType {
   track: CourseTrackType;
   progress?: number;
   peopleJoined: number;
+  status: CourseTab;
+  completed: boolean;
   optional: object;
   image: string | null;
   creator?: CreatorType;
@@ -109,20 +120,14 @@ export interface UGCCourseType {
       sequence: number;
     }[];
   }[];
-}
-
-export interface IntendedLearnersType {
-  audience?: string[];
-  requirements?: string[];
-}
-export interface KnowledgeGainType {
-  description?: string[];
-  tags?: string[];
+  intendedLearners: IntendedLearnersType & { completed: boolean };
+  knowledgeGain: KnowledgeGainType & { completed: boolean };
 }
 
 /** 课程基础字段 */
 export interface CourseBaseType {
   id: string;
+
   name: string;
   title: string;
   description: string;

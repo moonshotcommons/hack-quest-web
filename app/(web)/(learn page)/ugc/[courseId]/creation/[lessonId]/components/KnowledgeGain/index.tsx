@@ -1,9 +1,186 @@
-import { FC } from 'react';
+import Button from '@/components/Common/Button';
+import Input from '@/components/Common/Input';
+import TextArea from '@/components/Common/TextArea/indexTextArea';
+import { changeInputWidth } from '@/helper/utils';
+import { message } from 'antd';
+import { FC, useState } from 'react';
+import { FiTrash2 } from 'react-icons/fi';
+import { IoMdAddCircle } from 'react-icons/io';
+import { v4 } from 'uuid';
 
 interface KnowledgeGainProps {}
 
 const KnowledgeGain: FC<KnowledgeGainProps> = (props) => {
-  return <div>KnowledgeGain</div>;
+  const [descriptionList, setDescriptionList] = useState<Record<string, any>[]>(
+    [
+      {
+        value: '',
+        status: 'default',
+        errorMessage: '',
+        id: v4()
+      }
+    ]
+  );
+  const [tagList, setTagList] = useState<Record<string, any>[]>([
+    {
+      label: '',
+      id: v4()
+    }
+  ]);
+  const handleAdd = (type = 'description') => {
+    let list, setList, initData;
+    if (type === 'description') {
+      list = descriptionList;
+      setList = setDescriptionList;
+      initData = { value: '', status: 'default', errorMessage: '', id: v4() };
+    } else {
+      list = tagList;
+      setList = setTagList;
+      initData = { label: '', id: v4() };
+    }
+    setList([...list, initData]);
+  };
+  const handleChange = (value: string, index: number, type = 'description') => {
+    let list, setList, changeData;
+    if (type === 'description') {
+      list = descriptionList;
+      setList = setDescriptionList;
+      changeData = {
+        ...list[index],
+        value,
+        status: 'default',
+        errorMessage: ''
+      };
+    } else {
+      list = tagList;
+      setList = setTagList;
+      changeData = {
+        ...list[index],
+        label: value
+      };
+    }
+    list[index] = changeData;
+    setList([...list]);
+  };
+  const handleDelete = (id: string, type = 'description') => {
+    let list, setList;
+    if (type === 'description') {
+      list = descriptionList;
+      setList = setDescriptionList;
+    } else {
+      list = tagList;
+      setList = setTagList;
+    }
+    const newList = list.filter((v) => v.id !== id);
+    setList(newList);
+  };
+  return (
+    <div className="[&>div:w-full] flex h-full flex-col gap-[30px] text-neutral-black">
+      <div className="text-center ">
+        <span className="text-h3 font-next-book-bold">Knowledge Gain </span>
+        <span className="body-xl">(Optional)</span>
+      </div>
+      <div className="body-m">
+        {`While optional, this step enhances transparency, aiding students in gauging the course's relevance to their goals. By showcasing the specific knowledge gained, you spark anticipation and excitement about the valuable insights awaiting participants. Consider it a brief yet impactful way to set expectations and engage your audience.`}
+      </div>
+      <div>
+        <p className="text-h4 mb-[20px] font-next-book-bold">
+          What You Will Learn
+        </p>
+        <div className="flex flex-col gap-[20px]">
+          {descriptionList.map((v, index) => (
+            <div key={v.id} className="group relative w-[calc(100%+63px)]">
+              <div className="w-[calc(100%-63px)] ">
+                <TextArea
+                  name=""
+                  className=" text-neutral-black"
+                  placeholder="Enter your course."
+                  initBorderColor="border-neutral-medium-gray"
+                  textAreaMinHeight={48}
+                  maxLength={180}
+                  isShowCount
+                  state={v.status as any}
+                  errorMessage={v.errorMessage}
+                  onChange={(e: any) => {
+                    handleChange(e.target.value, index);
+                  }}
+                />
+              </div>
+              {descriptionList.length > 1 && (
+                <div
+                  className="absolute right-0 top-0 hidden h-[48px] w-[40px] cursor-pointer items-center justify-center rounded-[3px] bg-yellow-extra-light text-neutral-medium-gray group-hover:flex"
+                  onClick={() => handleDelete(v.id)}
+                >
+                  <FiTrash2 size={20} />
+                </div>
+              )}
+            </div>
+          ))}
+          <Button
+            onClick={() => handleAdd()}
+            icon={<IoMdAddCircle size={24} />}
+            className="body-s h-[48px] w-full border-[0.5px] border-dashed border-neutral-medium-gray text-neutral-medium-gray"
+          >
+            Add more
+          </Button>
+        </div>
+      </div>
+      <div>
+        <p className="text-h4 mb-[20px] font-next-book-bold">
+          What You Will Gain
+        </p>
+        <div className="flex flex-wrap gap-[20px]">
+          {tagList.map((v, index) => (
+            <div key={v.id}>
+              {v.label ? (
+                <div className="body-m group relative flex h-[48px] cursor-pointer items-center overflow-hidden rounded-[24px] border border-neutral-medium-gray px-[24px] hover:border-yellow-extra-light">
+                  {v.label}
+                  <div
+                    className="absolute left-0 top-0 hidden h-full w-full items-center justify-center bg-yellow-extra-light text-neutral-medium-gray group-hover:flex"
+                    onClick={() => handleDelete(v.id, 'gain')}
+                  >
+                    <FiTrash2 size={20} />
+                  </div>
+                </div>
+              ) : (
+                <Input
+                  theme={'light'}
+                  name=""
+                  maxLength={41}
+                  className="body-m h-[48px] w-[150px]"
+                  onInput={(e) => {
+                    const input = e.target as HTMLInputElement;
+                    const len = input.value.length;
+                    if (len > 40) {
+                      message.warning('40 characters maximum');
+                      input.value = input.value.slice(0, 40);
+                    }
+                    changeInputWidth(input, 150);
+                  }}
+                  onKeyUp={(e) => {
+                    const target = e.target as HTMLInputElement;
+                    if (e.code === 'Enter') {
+                      handleChange(target.value, index, 'gain');
+                    }
+                  }}
+                  onBlur={(e) => {
+                    handleChange(e.target.value, index, 'gain');
+                  }}
+                />
+              )}
+            </div>
+          ))}
+          <Button
+            onClick={() => handleAdd('gain')}
+            icon={<IoMdAddCircle size={24} />}
+            className="body-s h-[48px] w-[142px] border-[0.5px] border-dashed border-neutral-medium-gray p-0 text-neutral-medium-gray"
+          >
+            Add more
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default KnowledgeGain;

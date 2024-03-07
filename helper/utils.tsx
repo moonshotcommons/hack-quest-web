@@ -79,10 +79,10 @@ export const getLessonLink = (
 
 export const changeTextareaHeight = (
   target: HTMLTextAreaElement,
-  minHeight = 0
+  minHeight = 40
 ) => {
   // 重置textarea的高度为默认值，以便可以正确计算其内容的高度
-  target.style.height = '40px';
+  target.style.height = `${minHeight}px`;
   // 获取textarea的内容高度，并加上padding和border的高度
   let height =
     target.scrollHeight < minHeight ? minHeight : target.scrollHeight;
@@ -98,14 +98,21 @@ export const elementVibration = (ele: HTMLElement) => {
   }, 300);
 };
 
-export const adaptWidth = (target: HTMLInputElement) => {
+export const adaptWidth = (target: HTMLInputElement, minWidth = 110) => {
   const parentEleWidth =
     target.parentElement?.getBoundingClientRect().width || 0;
-  const minWidth = 110;
   const len = target.value.length;
   let width = len * 7.6;
   if (width < minWidth) width = minWidth;
   else if (width > parentEleWidth / 2) width = parentEleWidth / 2;
+  target.style.width = `${width}px`;
+};
+
+export const changeInputWidth = (target: HTMLInputElement, minWidth = 110) => {
+  target.style.width = `${minWidth}px`;
+  // 获取input的内容宽度，并加上padding和border的高度
+  let width = target.scrollWidth < minWidth ? minWidth : target.scrollWidth;
+  // 将input的宽度设置为内容宽度
   target.style.width = `${width}px`;
 };
 

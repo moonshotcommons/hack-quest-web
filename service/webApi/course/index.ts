@@ -6,6 +6,7 @@ import {
   CourseUnitStateType,
   CourseUnitType,
   ProjectCourseType,
+  UGCCourseType,
   UnitPagesListType
 } from './type';
 
@@ -178,7 +179,7 @@ class CourseApi {
 
   getCoursesByCreator(courseId: string) {
     const url = `/${CourseApiType.Course_List}/${courseId}/creator-others`;
-    return this.service.get<ProjectCourseType[]>(url);
+    return this.service.get<UGCCourseType[]>(url);
   }
 
   fetchCoursesByCreator(courseId: string) {

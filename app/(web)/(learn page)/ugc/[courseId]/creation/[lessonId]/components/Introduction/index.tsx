@@ -1,16 +1,24 @@
 import Input from '@/components/Common/Input';
 import Select from '@/components/Common/Select';
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { courseDefaultFilters } from '@/components/Web/Business/CourseFilterList/constant';
 import { OptionType } from '@/components/Common/Select/type';
 import TextArea from '@/components/Common/TextArea/indexTextArea';
 import { cloneDeep } from 'lodash-es';
-import webApi from '@/service';
+import { useUgcCreationStore } from '@/store/zustand/ugcCreationStore';
+import { CourseLanguageType, CourseType } from '@/service/webApi/course/type';
 
 interface IntroductionProp {}
 
 const Introduction: React.FC<IntroductionProp> = () => {
   // const { loading, setLoading } = useContext(UgcCreateContext);
+  const introduction = useUgcCreationStore(
+    (state) => state.courseInformation.introduction
+  );
+  const setCourseFormData = useUgcCreationStore(
+    (state) => state.setCourseFormData
+  );
+  const courseId = useUgcCreationStore((state) => state.courseId);
   const options = useMemo(() => {
     return {
       trackOptions: courseDefaultFilters
@@ -27,7 +35,7 @@ const Introduction: React.FC<IntroductionProp> = () => {
         })) as OptionType[]
     };
   }, []);
-  const [formData, setFormData] = useState<any>({
+  const [formData, setFormData] = useState<Record<string, any>>({
     track: {
       value: '',
       status: 'default',
@@ -71,10 +79,22 @@ const Introduction: React.FC<IntroductionProp> = () => {
       setFormData(newFormData);
       return;
     }
-    param.language = 'SOLIDITY';
-    param.type = 'UGC';
-    await webApi.ugcCreateApi.introductionAdd(param);
+    param.language = CourseLanguageType.SOLIDITY;
+    param.type = CourseType.UGC;
+    // await webApi.ugcCreateApi.introductionAdd(param);
   };
+
+  useEffect(() => {
+    if (courseId !== '-1') {
+      for (let key in formData) {
+        const value = introduction[key as keyof typeof introduction];
+        formData[key].value = value;
+      }
+      setFormData({ ...formData });
+    }
+  }, [introduction]);
+
+  useEffect(() => {}, [formData]);
 
   return (
     <div className="[&>div:w-full] flex h-full flex-col gap-[30px] text-neutral-black">
@@ -100,6 +120,7 @@ const Introduction: React.FC<IntroductionProp> = () => {
             }
             state={formData.track.status as any}
             errorMessage={formData.track.errorMessage}
+            value={formData.track.value || ''}
             className="h-[48px] "
             placeholder="Please Select"
             options={options.trackOptions}
@@ -125,6 +146,7 @@ const Introduction: React.FC<IntroductionProp> = () => {
             }
             state={formData.level.status as any}
             errorMessage={formData.level.errorMessage}
+            value={formData.level.value || ''}
             className="h-[48px]"
             placeholder="Please Select"
             options={options.levelOptions}
@@ -157,6 +179,7 @@ const Introduction: React.FC<IntroductionProp> = () => {
           }
           state={formData.title.status as any}
           errorMessage={formData.title.errorMessage}
+          value={formData.title.value || ''}
           onChange={(e) => {
             setFormData({
               ...formData,
@@ -184,6 +207,7 @@ const Introduction: React.FC<IntroductionProp> = () => {
           }
           state={formData.subTitle.status as any}
           errorMessage={formData.subTitle.errorMessage}
+          value={formData.subTitle.value || ''}
           onChange={(e) => {
             setFormData({
               ...formData,
@@ -210,7 +234,8 @@ const Introduction: React.FC<IntroductionProp> = () => {
             </span>
           }
           state={formData.description.status as any}
-          errorMessage={formData.subTitle.errorMessage}
+          errorMessage={formData.description.errorMessage}
+          value={formData.description.value || ''}
           onChange={(e) => {
             setFormData({
               ...formData,
