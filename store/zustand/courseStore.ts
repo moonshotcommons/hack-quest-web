@@ -5,7 +5,7 @@ import {
 } from '@/service/webApi/course/type';
 
 export enum LearnPageType {
-  UGC_CREATE = 'ugc-create'
+  UGC_CREATION = 'ugc-creation'
 }
 export interface CourseStateType {
   courseList: ProjectCourseType[];

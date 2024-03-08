@@ -26,9 +26,11 @@ const LessonList: React.FC<LessonListType> = ({
   changeToggle
 }) => {
   const [lessonList, setLessonList] = useState<CourseLessonStateType[]>([]);
+
   const [unitName, setUnitName] = useState('');
   const { redirectToUrl } = useRedirect();
   const { getLink } = useGetLessonLink();
+
   const getChildren = (item: UnitPagesListType) => {
     if (!item || item?.disable || !item?.pages) return;
     setLessonList(item.pages as CourseLessonStateType[]);

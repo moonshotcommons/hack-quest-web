@@ -12,7 +12,9 @@ export const navbarList: NavbarListType[] = [
       },
       {
         label: 'Instructor',
-        path: MenuLink.INSTRUCTOR
+        path: MenuLink.INSTRUCTOR,
+        needLogin: true,
+        needPC: true
       }
     ]
   },
@@ -31,12 +33,12 @@ export const navbarList: NavbarListType[] = [
       {
         label: 'Projects',
         path: MenuLink.PRACTICES
+      },
+      {
+        label: 'Course Market',
+        path: MenuLink.COURSE_MARKET,
+        needPC: true
       }
-      // {
-      //   label: 'Course Market',
-      //   path: MenuLink.COURSE_MARKET,
-      //   needPC: true
-      // }
     ]
   },
   {

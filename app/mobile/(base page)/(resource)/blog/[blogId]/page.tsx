@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Metadata } from 'next';
 import BlogDetail from '../components/BlogId';
 import { BlogDetailType } from '@/service/webApi/resourceStation/type';
-import { getBlogById } from '@/service/catch/resource/blog';
+import { getBlogById } from '@/service/cach/resource/blog';
 
 interface BlogDetailProp {
   params: {
@@ -18,7 +18,7 @@ export async function generateMetadata({
     title: blog.title,
     description: blog.description,
     alternates: {
-      canonical: `https://www.hackquest.io/blog/${params.blogId}`
+      canonical: `https://www.hackquest.io/blog/${encodeURIComponent(params.blogId)}`
     }
   };
 }

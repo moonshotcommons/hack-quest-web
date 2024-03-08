@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Metadata } from 'next';
 import HackathonIdPage from '../components/HackthonId';
-import { getHackathonById } from '@/service/catch/resource/hackathon';
+import { getHackathonById } from '@/service/cach/resource/hackathon';
 
 interface HackathonIdProps {
   params: {
@@ -17,7 +17,7 @@ export async function generateMetadata({
     title: hackathon.name,
     description: hackathon.about,
     alternates: {
-      canonical: `https://www.hackquest.io/hackathon/${params.hackathonId}`
+      canonical: `https://www.hackquest.io/hackathon/${encodeURIComponent(params.hackathonId)}`
     }
   };
 }

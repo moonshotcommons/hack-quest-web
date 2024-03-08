@@ -116,7 +116,7 @@ const UgcSidebar: FC<UgcSidebarProps> = () => {
     <Sidebar
       title={'未命名课程'}
       items={items}
-      className="h-full w-[296px] bg-neutral-white"
+      className="w-[296px]bg-neutral-white h-full"
       defaultSelect={selectLessonId}
       defaultOpenKeys={[defaultOpenKeys]}
       selectStyle={{

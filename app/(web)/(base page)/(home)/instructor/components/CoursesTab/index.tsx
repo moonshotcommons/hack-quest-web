@@ -1,9 +1,9 @@
 'use client';
 import React from 'react';
-import { CourseTab } from '../../constants/type';
+import { CourseTab, TabType } from '../../constants/type';
 import SlideHighlight from '@/components/Common/Navigation/SlideHighlight';
 import Button from '@/components/Common/Button';
-import { courseTab } from '../../constants/data';
+
 import { useRedirect } from '@/hooks/useRedirect';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 import { InformationKey } from '@/store/zustand/ugcCreationStore';
@@ -11,9 +11,14 @@ import { InformationKey } from '@/store/zustand/ugcCreationStore';
 interface CoursesTabProp {
   curTab: CourseTab;
   changeTab: (val: CourseTab) => void;
+  courseTab: TabType[];
 }
 
-const CoursesTab: React.FC<CoursesTabProp> = ({ curTab, changeTab }) => {
+const CoursesTab: React.FC<CoursesTabProp> = ({
+  curTab,
+  changeTab,
+  courseTab
+}) => {
   const { redirectToUrl } = useRedirect();
 
   return (

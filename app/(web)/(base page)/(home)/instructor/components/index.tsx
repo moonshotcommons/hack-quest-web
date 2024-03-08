@@ -1,13 +1,24 @@
 import React from 'react';
 import Content from './Content';
 import Apply from './Apply';
+import { CourseTab } from '../constants/type';
 
 interface InstructorProp {
-  searchParams: any;
+  searchParams: {
+    status: CourseTab;
+  };
 }
 
 const Instructor: React.FC<InstructorProp> = ({ searchParams }) => {
-  return <>{false ? <Apply /> : <Content />}</>;
+  return (
+    <>
+      {false ? (
+        <Apply />
+      ) : (
+        <Content status={searchParams.status || CourseTab.DRAFT} />
+      )}
+    </>
+  );
 };
 
 export default Instructor;
