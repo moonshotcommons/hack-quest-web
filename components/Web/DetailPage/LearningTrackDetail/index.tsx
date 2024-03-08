@@ -99,7 +99,7 @@ const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
         .then((res) => {
           setLearningInfo({
             learningLessonName: res.pageName,
-            learningSectionAndCourseName: `${learningSection.name}/${learningCourse.name}`
+            learningSectionAndCourseName: `${learningSection.name}/${learningCourse.title}`
           });
         })
         .catch((error) => {

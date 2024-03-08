@@ -205,7 +205,7 @@ const UnitCard: FC<UnitCardProps> = (props) => {
             }
           }}
         >
-          <h2 className="body-xl-bold text-text-default-color">{unit.name}</h2>
+          <h2 className="body-xl-bold text-text-default-color">{unit.title}</h2>
           <div>
             <Typography.Paragraph
               ellipsis={{ rows: 3 }}
@@ -225,8 +225,8 @@ const UnitCard: FC<UnitCardProps> = (props) => {
           loading={loading}
           onClick={() => {
             BurialPoint.track('courseDetail-unit按钮', {
-              courseName: courseDetail?.name || '',
-              unitName: unit.name
+              courseName: courseDetail?.title || '',
+              unitName: unit.title
             });
             courseDetail && jumpLearningLesson(courseDetail);
           }}

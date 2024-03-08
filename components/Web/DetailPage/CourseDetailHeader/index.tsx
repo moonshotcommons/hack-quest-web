@@ -36,7 +36,8 @@ const CourseDetailHeader: FC<CourseDetailHeaderProps> = (props) => {
       <div className="mt-[10px] flex justify-between gap-[50px]">
         <div>
           <h1 className="text-h2 whitespace-nowrap text-neutral-black">
-            {courseDetail.name}
+            {(courseDetail as LearningTrackDetailType).name ||
+              (courseDetail as CourseDetailType).title}
           </h1>
           <Typography.Paragraph
             // ellipsis={{ rows: 3 }}

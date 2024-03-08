@@ -25,7 +25,7 @@ const CourseDetailPage: NextPage<IProps> = (props) => {
         setIsLoading(false);
 
         // update title and description
-        document.title = res.name;
+        document.title = res.title;
         document
           .querySelector('meta[name="description"]')
           ?.setAttribute('content', res.description);
