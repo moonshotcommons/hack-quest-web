@@ -87,7 +87,7 @@ const LearningTrackCourseStatusButton: FC<
               e.stopPropagation();
               BurialPoint.track('learningTrackDetail-course学习按钮', {
                 sectionName: section?.name || '',
-                courseName: course.name
+                courseName: course.title
               });
               setClickIndex(courseIndex);
               jumpLearningLesson(course, {

@@ -104,7 +104,7 @@ function SectionList(props: {
                 e.stopPropagation();
                 BurialPoint.track('learningTrackDetail-course学习按钮', {
                   sectionName: section.name,
-                  courseName: item.name
+                  courseName: item.title
                 });
                 setClickIndex(index);
                 jumpLearningLesson(item, {

@@ -47,7 +47,7 @@ const CourseDetail: FC<CourseDetailProps> = (props) => {
       const duration = endTime - startTime;
       BurialPoint.track('courseDetail-页面留存时间', {
         duration,
-        courseName: courseDetail?.name || ''
+        courseName: courseDetail?.title || ''
       });
     };
   }, []);
@@ -63,7 +63,7 @@ const CourseDetail: FC<CourseDetailProps> = (props) => {
 
           setLearningInfo({
             learningLessonName: res.pageName,
-            learningUnitName: learningUnit?.name || ''
+            learningUnitName: learningUnit?.title || ''
           });
         });
     }
@@ -114,7 +114,7 @@ const CourseDetail: FC<CourseDetailProps> = (props) => {
           className="mt-[60px] self-center"
           onClick={() => {
             BurialPoint.track('courseDetail-页面下方按钮点击', {
-              courseName: courseDetail.name
+              courseName: courseDetail.title
             });
             resumeCallback();
           }}

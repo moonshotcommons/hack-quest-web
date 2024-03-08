@@ -96,7 +96,7 @@ const MobMiniElectiveDetailModal = forwardRef<
               state
             )
           ) {
-            const link = getLink(course!.type, item.id, course!.name);
+            const link = getLink(course!.type, item.id, course!.title);
             redirectToUrl(link);
           }
         }}
@@ -117,7 +117,7 @@ const MobMiniElectiveDetailModal = forwardRef<
               : ''
           )}
         >{`${index + 1 < 10 ? '0' + (index + 1) : index + 1} ${
-          item.name
+          item.title
         }`}</span>
         {state === CompleteStateType.COMPLETED && (
           <GoCheck color="#00C365" size={20} />
@@ -154,7 +154,7 @@ const MobMiniElectiveDetailModal = forwardRef<
                   <Tags className="px-[10px] py-1 uppercase">Security</Tags>
                 </div>
                 <h2 className="body-l-bold mt-3 text-neutral-off-black">
-                  {course.name}
+                  {course.title}
                 </h2>
                 <p className="body-s mt-3 line-clamp-3 text-neutral-medium-gray">
                   {course.description}

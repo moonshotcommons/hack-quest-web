@@ -62,7 +62,7 @@ const ElectiveDetailPage: FC<ElectiveDetailPageProps> = async (props) => {
             {courseDetail.image && (
               <Image
                 src={courseDetail.image}
-                alt={courseDetail.name}
+                alt={courseDetail.title}
                 fill
                 className="object-cover"
               ></Image>
@@ -72,7 +72,7 @@ const ElectiveDetailPage: FC<ElectiveDetailPageProps> = async (props) => {
           <Tags size="sm" className="caption-12pt text-neutral-rich-gray">
             {`Elective`}
           </Tags>
-          <h1 className="text-h1-mob my-6">{courseDetail.name}</h1>
+          <h1 className="text-h1-mob my-6">{courseDetail.title}</h1>
           {/* <div className="body-xs flex items-center gap-2">
             <span>Certified by</span>
             <span>Mantle</span>

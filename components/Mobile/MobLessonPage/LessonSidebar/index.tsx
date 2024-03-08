@@ -160,7 +160,7 @@ const LessonSidebar: FC<LessonSidebarProps> = ({ lesson }) => {
           onSelect={(key, item: any) => {
             if (item.id === lesson.id) return;
             BurialPoint.track('lesson-使用lesson dropdown跳转lesson');
-            const link = getLink(course.type, key, course.name);
+            const link = getLink(course.type, key, course.title);
             redirectToUrl(link);
           }}
           onShowListChange={(showList) => setSidebarOpen(showList)}

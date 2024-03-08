@@ -85,7 +85,6 @@ export interface CreatorType {
 //! UGC临时课程类型，可能是课程通用类型，后面需要更改
 export interface UGCCourseType {
   id: string;
-  name: string;
   title: string;
   subTitle: null | string;
   description: string;
@@ -127,8 +126,6 @@ export interface UGCCourseType {
 /** 课程基础字段 */
 export interface CourseBaseType {
   id: string;
-
-  name: string;
   title: string;
   description: string;
   type: CourseType;
@@ -159,7 +156,8 @@ export interface CourseDetailType extends CourseBaseType {
 
 export interface CourseUnitType {
   id: string;
-  name: string;
+  // name: string;
+  title: string;
   description: string;
   sequence: number;
   progress: number;

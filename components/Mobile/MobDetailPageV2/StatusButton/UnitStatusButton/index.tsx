@@ -42,8 +42,8 @@ const StatusButton: FC<
 
   const learnHandle = () => {
     BurialPoint.track('courseDetail-unit按钮', {
-      courseName: courseDetail?.name || '',
-      unitName: unit.name
+      courseName: courseDetail?.title || '',
+      unitName: unit.title
     });
     courseDetail && jumpLearningLesson(courseDetail);
   };
