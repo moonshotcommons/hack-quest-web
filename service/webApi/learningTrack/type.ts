@@ -27,7 +27,8 @@ export type SectionType = {
 //   language: string;
 // }
 
-export interface LearningTrackDetailType extends CourseBaseType {
+export interface LearningTrackDetailType extends Omit<CourseBaseType, 'title'> {
+  name: string;
   courseCount: number;
   unitCount: number;
   campaignId?: string;

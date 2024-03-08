@@ -123,7 +123,6 @@ export interface KnowledgeGainType {
 /** 课程基础字段 */
 export interface CourseBaseType {
   id: string;
-  name: string;
   title: string;
   description: string;
   type: CourseType;
@@ -154,7 +153,8 @@ export interface CourseDetailType extends CourseBaseType {
 
 export interface CourseUnitType {
   id: string;
-  name: string;
+  // name: string;
+  title: string;
   description: string;
   sequence: number;
   progress: number;

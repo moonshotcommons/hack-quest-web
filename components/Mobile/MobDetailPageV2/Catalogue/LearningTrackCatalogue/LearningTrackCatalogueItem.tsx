@@ -48,7 +48,7 @@ const LearningTrackCatalogueItem: FC<LearningTrackCatalogueItemProps> = (
                       href={`${getCoursePrefixByCourseType(course.type)}/${course.id}`}
                       className="body-s inline-block flex-1 cursor-pointer text-neutral-black transition hover:opacity-70"
                     >
-                      {course.name}
+                      {course.title}
                     </Link>
                   </div>
                 </div>

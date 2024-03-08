@@ -55,8 +55,8 @@ const StatusButton: FC<
 
   const learnHandle = () => {
     BurialPoint.track('electiveDetail-lesson按钮', {
-      electiveName: courseDetail?.name || '',
-      lessonName: lesson.name
+      electiveName: courseDetail?.title || '',
+      lessonName: lesson.title
     });
     courseDetail && jumpLearningLesson(courseDetail);
   };

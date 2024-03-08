@@ -97,7 +97,7 @@ const MiniElectiveDetailModal = forwardRef<
               state
             )
           ) {
-            const link = getLink(course!.type, item.id, course?.name);
+            const link = getLink(course!.type, item.id, course?.title);
             redirectToUrl(link);
           }
         }}
@@ -118,7 +118,7 @@ const MiniElectiveDetailModal = forwardRef<
               : ''
           )}
         >{`${index + 1 < 10 ? '0' + (index + 1) : index + 1} ${
-          item.name
+          item.title
         }`}</span>
         {state === CompleteStateType.COMPLETED && (
           <GoCheck color="#00C365" size={20} />
@@ -173,7 +173,7 @@ const MiniElectiveDetailModal = forwardRef<
                   <Image src={course.image} fill alt="cover"></Image>
                 </div>
                 <div>
-                  <h2 className="text-h2 text-neutral-black">{course.name}</h2>
+                  <h2 className="text-h2 text-neutral-black">{course.title}</h2>
                   <p className="mt-[16px] text-neutral-rich-gray">
                     {course.description}
                   </p>
