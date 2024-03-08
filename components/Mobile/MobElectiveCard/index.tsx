@@ -55,7 +55,9 @@ const MobElectiveCard: FC<ElectiveCardProps> = (props) => {
           'relative flex w-full cursor-pointer flex-col gap-[1rem] overflow-hidden rounded-[1rem] bg-neutral-white p-[1rem]'
         )}
         onClick={() => {
-          BurialPoint.track('home-course卡片点击', { courseName: course.name });
+          BurialPoint.track('home-course卡片点击', {
+            courseName: course.title
+          });
           onCourseClick();
         }}
       >
@@ -90,7 +92,7 @@ const MobElectiveCard: FC<ElectiveCardProps> = (props) => {
               disabled={loading}
               onClick={(e) => {
                 BurialPoint.track('home-course卡片resume按钮点击', {
-                  courseName: course.name
+                  courseName: course.title
                 });
                 e.stopPropagation();
                 jumpLearningLesson(course, {

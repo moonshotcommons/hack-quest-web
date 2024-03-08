@@ -32,7 +32,7 @@ const PracticeCard: FC<PracticeCardProps> = (props) => {
         'card-hover  flex w-full flex-col rounded-[12px] bg-neutral-white shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)]'
       }
       onClick={() => {
-        BurialPoint.track('home-practice卡片点击', { practice: course.name });
+        BurialPoint.track('home-practice卡片点击', { practice: course.title });
       }}
     >
       <div className="relative h-0 w-full pt-[56%]">
@@ -66,7 +66,7 @@ const PracticeCard: FC<PracticeCardProps> = (props) => {
                 disabled={loading}
                 onClick={(e) => {
                   BurialPoint.track('home-course卡片Continue按钮点击', {
-                    courseName: course.name
+                    courseName: course.title
                   });
                   e.stopPropagation();
                   jumpLearningLesson(course, {
