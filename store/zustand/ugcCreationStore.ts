@@ -111,8 +111,6 @@ export const useUgcCreationStore = create<UgcCreationStateType>()((set) => ({
               !courseInformation[key].title
             ].includes(true)
           ) {
-            courseInformation[key].completed = false;
-          } else {
             courseInformation[key].completed = true;
           }
           break;

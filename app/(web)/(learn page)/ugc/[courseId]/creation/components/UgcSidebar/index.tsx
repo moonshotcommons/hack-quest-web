@@ -8,6 +8,7 @@ import {
 } from '@/store/zustand/ugcCreationStore';
 import { FC, useContext, useMemo } from 'react';
 import { UgcCreateContext } from '../UgcCreateProvider';
+import Button from '@/components/Common/Button';
 
 interface UgcSidebarProps {}
 
@@ -34,11 +35,26 @@ const UgcSidebar: FC<UgcSidebarProps> = () => {
       return {
         key: key,
         label: (
-          <div className="flex justify-between">
+          <div className="body-m flex w-full justify-between">
             <div className="flex flex-1 shrink-0 flex-col overflow-hidden pr-5">
               {key}
             </div>
-            <div></div>
+            <div>
+              {!courseInformation[key as InformationKey].completed && (
+                <div className="h-6 w-6 rounded-full border border-neutral-black"></div>
+              )}
+              {courseInformation[key as InformationKey].completed && (
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle cx="12" cy="12" r="12" fill="#00C365" />
+                </svg>
+              )}
+            </div>
           </div>
         ),
         data: courseInformation[key as keyof typeof courseInformation],
@@ -100,25 +116,28 @@ const UgcSidebar: FC<UgcSidebarProps> = () => {
     <Sidebar
       title={'未命名课程'}
       items={items}
-      className="h-full w-[296px]"
+      className="w-[296px]bg-neutral-white h-full"
       defaultSelect={selectLessonId}
       defaultOpenKeys={[defaultOpenKeys]}
-      // handleButton={
-      //   <div className="flex flex-shrink-0 flex-col items-center gap-[10px] p-[40px]">
-      //     <Button
-      //       ghost
-      //       className={`button-text-m h-[48px] w-full border-neutral-black uppercase text-neutral-black ${true ? '' : 'cursor-not-allowed opacity-50'}`}
-      //     >
-      //       back
-      //     </Button>
-      //     <Button
-      //       type="primary"
-      //       className={`button-text-m h-[48px] w-full uppercase text-neutral-black ${true ? '' : 'cursor-not-allowed opacity-50'}`}
-      //     >
-      //       next
-      //     </Button>
-      //   </div>
-      // }
+      selectStyle={{
+        backgroundColor: 'var(--neutral-off-white)'
+      }}
+      handleButton={
+        <div className="flex flex-shrink-0 flex-col items-center gap-[10px] p-[40px]">
+          <Button
+            ghost
+            className={`button-text-m h-[48px] w-full border-neutral-black uppercase text-neutral-black ${true ? '' : 'cursor-not-allowed opacity-50'}`}
+          >
+            back
+          </Button>
+          <Button
+            type="primary"
+            className={`button-text-m h-[48px] w-full uppercase text-neutral-black ${true ? '' : 'cursor-not-allowed opacity-50'}`}
+          >
+            next
+          </Button>
+        </div>
+      }
       onSelect={(key, item: any) => {
         redirectToUrl(`${MenuLink.UGC}/${courseId}/creation/${key}`);
       }}
