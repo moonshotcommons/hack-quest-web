@@ -105,7 +105,7 @@ const CertificatesIntroduce: FC<CertificatesIntroduceProps> = (props) => {
                   return (
                     <div
                       key={index}
-                      className="flex w-[15.5rem] items-center justify-between rounded-[16px] border border-neutral-light-gray p-6 pr-4"
+                      className="flex w-[calc(50%-24px)] items-center justify-between rounded-[16px] border border-neutral-light-gray p-6 pr-4"
                     >
                       <h4 className="text-h4">{item.name}</h4>
                       <Image
