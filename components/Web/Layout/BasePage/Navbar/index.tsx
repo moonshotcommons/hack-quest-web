@@ -2,7 +2,6 @@ import Image from 'next/image';
 import React, { ReactNode, useEffect, useState } from 'react';
 
 import Badge from '@/components/Common/Badge';
-import SlideHighlight from '@/components/Common/Navigation/SlideHighlight';
 
 import { message } from 'antd';
 import Link from 'next/link';
@@ -12,8 +11,9 @@ import { useRedirect } from '@/hooks/useRedirect';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useMissionCenterStore } from '@/store/zustand/missionCenterStore';
 import { useCustomPathname } from '@/hooks/useCheckPathname';
-import HackLogo from '@/public/images/logo/hack_logo.png';
+import HackLogo from '@/public/images/logo/light-footer-logo.svg';
 import { useGlobalStore } from '@/store/zustand/globalStore';
+import { LuChevronDown } from 'react-icons/lu';
 
 export interface NavBarProps {
   navList: NavbarListType[];
@@ -100,8 +100,8 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
     redirectToUrl('/');
   };
   return (
-    <div className="relative z-[999] w-full">
-      <div className={`container mx-auto h-[64px]`}>
+    <div className="relative z-[999] h-[64px]  w-full border-b border-neutral-light-gray bg-neutral-white text-neutral-off-black">
+      <div className={`container mx-auto h-full`}>
         <div className="flex h-full items-center justify-between">
           <nav className="flex h-full items-center text-neutral-white">
             <div
@@ -110,77 +110,59 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
             >
               <Image src={HackLogo} width={133} alt="logo"></Image>
             </div>
-            <SlideHighlight
-              className="body-s ml-[60px] flex h-full  gap-[28px] text-neutral-off-white"
-              currentIndex={inSideNavIndex}
-            >
+            <div className="body-s ml-[60px] flex h-full gap-[28px] text-neutral-off-black">
               {navList.map((nav) => (
                 <div
                   key={nav.id}
-                  className={`flex-center h-full  cursor-pointer ${
-                    curNavId === nav.id ? 'body-s-bold text-neutral-white' : ''
-                  }`}
+                  className={`group  relative flex  h-full items-center  `}
                   data-id={nav.id}
                   onClick={(e) => handleClickNav(e, nav)}
                 >
-                  <div className="relative">
-                    <span>{nav.label}</span>
-                    {~isBadgeIds.indexOf(nav.id) && userInfo ? (
-                      <Badge count={missionData?.unClaimAll?.length || 0} />
-                    ) : null}
+                  <div
+                    className={`group-hover:body-s-bold  flex cursor-pointer items-center gap-[4px] rounded-[32px] px-[16px]  py-[4px]  ${
+                      curNavId === nav.id
+                        ? 'body-s-bold bg-yellow-light'
+                        : 'group-hover:bg-neutral-off-white'
+                    }`}
+                  >
+                    <div className="relative">
+                      <span>{nav.label}</span>
+                      {~isBadgeIds.indexOf(nav.id) && userInfo ? (
+                        <Badge count={missionData?.unClaimAll?.length || 0} />
+                      ) : null}
+                    </div>
+                    {nav.menu.length > 1 && (
+                      <LuChevronDown
+                        size={16}
+                        className="transition-all group-hover:rotate-180"
+                      />
+                    )}
                   </div>
+                  {nav.menu.length > 1 && (
+                    <div className="absolute left-0 top-[60px] hidden  w-[268px] rounded-[16px] border border-neutral-light-gray bg-neutral-white p-[12px] shadow-[0_2px_2px_0_rgba(19,19,19,0.15)] group-hover:block">
+                      {nav.menu.map((nav, navIndex) => (
+                        <Link
+                          key={nav.path}
+                          href={nav.path}
+                          className={`mb-[8px] cursor-pointer rounded-[8px] px-[12px] py-[8px] hover:bg-neutral-off-white ${secondNavIndex === navIndex ? 'bg-neutral-off-white' : ''}`}
+                        >
+                          <p className="body-s-bold text-neutral-rich-gray">
+                            {nav.label}
+                          </p>
+                          <p className="body-xs text-neutral-medium-gray">
+                            {nav.label}
+                          </p>
+                        </Link>
+                      ))}
+                    </div>
+                  )}
                 </div>
               ))}
-            </SlideHighlight>
+            </div>
           </nav>
           {children}
         </div>
       </div>
-      {navList.map((nav, i) => (
-        <div
-          key={nav.id}
-          className={` h-12  w-screen bg-neutral-off-black tracking-[0.84px] text-neutral-white ${inSideNavIndex === i && nav.menu?.length > 1 ? 'block' : 'hidden'}`}
-        >
-          <div className="body-s container m-auto flex h-full items-center">
-            <div className="flex h-[34px] items-center border-r-[0.5px] border-r-neutral-white pr-[20px]">
-              {nav.label}
-            </div>
-            {inSideNavIndex === i && nav.menu?.length > 1 ? (
-              <SlideHighlight
-                className="flex  h-full items-center gap-[30px] pl-[20px]"
-                currentIndex={secondNavIndex}
-                type="SECOND_NAVBAR"
-              >
-                {nav.menu.map((menu: MenuType, i: number) => (
-                  <Link
-                    key={menu.path}
-                    href={menu.path}
-                    className={`cursor-pointer   ${
-                      secondNavIndex === i ? 'body-s-bold' : ''
-                    }`}
-                  >
-                    {menu.label}
-                  </Link>
-                ))}
-              </SlideHighlight>
-            ) : (
-              <div className="flex  h-full items-center gap-[30px] pl-[20px]">
-                {nav.menu.map((menu: MenuType, i: number) => (
-                  <Link
-                    key={menu.path}
-                    href={menu.path}
-                    className={`cursor-pointer   ${
-                      secondNavIndex === i ? 'body-s-bold' : ''
-                    }`}
-                  >
-                    {menu.label}
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
-      ))}
     </div>
   );
 };

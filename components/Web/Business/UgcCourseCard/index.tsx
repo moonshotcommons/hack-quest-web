@@ -7,6 +7,7 @@ import UgcTags from './UgcTags';
 import { UGCCourseType } from '@/service/webApi/course/type';
 import Link from 'next/link';
 import { MenuLink } from '../../Layout/BasePage/Navbar/type';
+import UgcCardCover from '@/public/images/home/instructor_cover.png';
 
 interface UgcCourseCardProp {
   isPublic?: boolean;
@@ -85,7 +86,7 @@ const UgcCourseCard: React.FC<UgcCourseCardProp> = ({
     >
       <div className="relative h-0 w-full pt-[56%]">
         <Image
-          src={course.image || ''}
+          src={course.image || UgcCardCover}
           alt="instructorCover"
           fill
           className="object-cover"
