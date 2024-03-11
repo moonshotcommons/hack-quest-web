@@ -97,10 +97,8 @@ const KnowledgeGain: FC<KnowledgeGainProps> = (props) => {
     setList(newList);
   };
   const handleSubmit = () => {
-    let newDescriptionList = descriptionList.filter(
-      (v) => v.value || !isNull(v.value)
-    );
-    let newrTagList = tagList.filter((v) => v.label || !isNull(v.label));
+    let newDescriptionList = descriptionList.filter((v) => !isNull(v.value));
+    let newrTagList = tagList.filter((v) => !isNull(v.label));
     if (!newDescriptionList.length && !newrTagList.length) {
       message.error(`It can't all be empty`);
       setHandle(CreationHandle.UN_SAVE);

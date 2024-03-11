@@ -95,12 +95,8 @@ const IntendedLearners: React.FC<IntendedLearnersProp> = () => {
   };
 
   const handleSubmit = () => {
-    let newAudienceList = audienceList.filter(
-      (v) => v.value || !isNull(v.value)
-    );
-    let newRequirementsList = requirementsList.filter(
-      (v) => v.value || !isNull(v.value)
-    );
+    let newAudienceList = audienceList.filter((v) => !isNull(v.value));
+    let newRequirementsList = requirementsList.filter((v) => !isNull(v.value));
     if (!newAudienceList.length && !newRequirementsList.length) {
       message.error(`It can't all be empty`);
       setHandle(CreationHandle.UN_SAVE);

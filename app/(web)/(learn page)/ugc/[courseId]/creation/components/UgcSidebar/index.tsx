@@ -3,7 +3,7 @@ import Sidebar, { SidebarItemType } from '@/components/Web/Business/Sidebar';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 import { useRedirect } from '@/hooks/useRedirect';
 import {
-  InformationKey,
+  CreationPageKey,
   useUgcCreationStore
 } from '@/store/zustand/ugcCreationStore';
 import { FC, useContext, useMemo } from 'react';
@@ -40,10 +40,12 @@ const UgcSidebar: FC<UgcSidebarProps> = () => {
               {key}
             </div>
             <div>
-              {!courseInformation[key as InformationKey].completed && (
+              {!courseInformation[key as keyof typeof courseInformation]
+                .completed && (
                 <div className="h-6 w-6 rounded-full border border-neutral-black"></div>
               )}
-              {courseInformation[key as InformationKey].completed && (
+              {courseInformation[key as keyof typeof courseInformation]
+                .completed && (
                 <svg
                   width="24"
                   height="24"
@@ -101,10 +103,10 @@ const UgcSidebar: FC<UgcSidebarProps> = () => {
   const defaultOpenKeys = useMemo(() => {
     if (
       [
-        InformationKey.Introduction,
-        InformationKey.IntendedLearners,
-        InformationKey.KnowledgeGain
-      ].includes(selectLessonId as InformationKey)
+        CreationPageKey.Introduction,
+        CreationPageKey.IntendedLearners,
+        CreationPageKey.KnowledgeGain
+      ].includes(selectLessonId as CreationPageKey)
     ) {
       return INFORMATION_KEY;
     }

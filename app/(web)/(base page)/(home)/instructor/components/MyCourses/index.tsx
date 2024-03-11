@@ -8,7 +8,7 @@ import { getSearchParamsUrl } from '@/helper/utils';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 import { useRequest } from 'ahooks';
 import webApi from '@/service';
-import { CourseType, UGCCourseType } from '@/service/webApi/course/type';
+import { UGCCourseType } from '@/service/webApi/course/type';
 import { PageResult } from '@/service/webApi/type';
 import { courseTab } from '../../constants/data';
 
@@ -31,10 +31,9 @@ const MyCourses: React.FC<MyCoursesProp> = ({ status }) => {
   };
   const { run } = useRequest(
     async () => {
-      const res = await webApi.courseApi.getCourseListBySearch<
+      const res = await webApi.courseApi.getUgcCourseListBySearch<
         PageResult<UGCCourseType>
       >({
-        type: CourseType.UGC,
         status
       });
       setList(res.data);
