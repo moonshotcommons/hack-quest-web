@@ -2,7 +2,7 @@
 import { FC, useEffect } from 'react';
 import Introduction from './components/Introduction';
 import {
-  InformationKey,
+  CreationPageKey,
   useUgcCreationStore
 } from '@/store/zustand/ugcCreationStore';
 import IntendedLearners from './components/IntendedLearners';
@@ -12,6 +12,7 @@ import { useRequest } from 'ahooks';
 import webApi from '@/service';
 import useUgcInformation from '@/hooks/useUgcInformation';
 import { useShallow } from 'zustand/react/shallow';
+import ChooseLesson from './components/ChooseLesson';
 
 interface UgcCreatePageProps {
   params: { lessonId: string; courseId: string };
@@ -40,12 +41,14 @@ const UgcCreatePage: FC<UgcCreatePageProps> = ({ params }) => {
   }, [lessonId, courseId]);
 
   switch (lessonId) {
-    case InformationKey.Introduction:
+    case CreationPageKey.Introduction:
       return <Introduction />;
-    case InformationKey.IntendedLearners:
+    case CreationPageKey.IntendedLearners:
       return <IntendedLearners />;
-    case InformationKey.KnowledgeGain:
+    case CreationPageKey.KnowledgeGain:
       return <KnowledgeGain />;
+    case CreationPageKey.ChooseLesson:
+      return <ChooseLesson />;
     default:
       return <ContentCreate />;
   }

@@ -295,4 +295,8 @@ export const isUuid = checkByRegExp(
   /[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}/
 );
 
-export const isNull = checkByRegExp(/^\s*$/);
+export const isNullByRegExp = checkByRegExp(/^\s*$/);
+
+export const isNull = (str: any) => {
+  return !!(!str || isNullByRegExp(str as string));
+};

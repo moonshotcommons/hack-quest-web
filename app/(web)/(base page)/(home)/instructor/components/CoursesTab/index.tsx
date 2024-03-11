@@ -6,7 +6,7 @@ import Button from '@/components/Common/Button';
 
 import { useRedirect } from '@/hooks/useRedirect';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
-import { InformationKey } from '@/store/zustand/ugcCreationStore';
+import { CreationPageKey } from '@/store/zustand/ugcCreationStore';
 
 interface CoursesTabProp {
   curTab: CourseTab;
@@ -45,7 +45,7 @@ const CoursesTab: React.FC<CoursesTabProp> = ({
         className="button-text-m h-[48px] w-[165px] uppercase"
         onClick={() =>
           redirectToUrl(
-            `${MenuLink.UGC}/-1/creation/${InformationKey.Introduction}`
+            `${MenuLink.UGC}/-1/creation/${CreationPageKey.Introduction}`
           )
         }
       >

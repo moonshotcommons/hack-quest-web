@@ -1,5 +1,5 @@
 import {
-  InformationKey,
+  CreationPageKey,
   useUgcCreationStore
 } from '@/store/zustand/ugcCreationStore';
 
@@ -7,7 +7,7 @@ const useWorkspace = () => {
   const selectLessonId = useUgcCreationStore((state) => state.selectLessonId);
   const save = () => {
     switch (selectLessonId) {
-      case InformationKey.Introduction:
+      case CreationPageKey.Introduction:
         // 调保存introduction的接口
         break;
       default:

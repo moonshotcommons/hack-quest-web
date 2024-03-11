@@ -2,7 +2,8 @@ import {
   CourseLevelType,
   CourseTrackType,
   IntendedLearnersType,
-  KnowledgeGainType
+  KnowledgeGainType,
+  LessonType
 } from '@/service/webApi/course/type';
 import { create } from 'zustand';
 
@@ -31,26 +32,31 @@ export interface CourseFormDataType {
   knowledgeGain: KnowledgeGainType;
 }
 
-export enum InformationKey {
+export enum CreationPageKey {
   Introduction = 'introduction',
   IntendedLearners = 'intendedLearners',
-  KnowledgeGain = 'knowledgeGain'
+  KnowledgeGain = 'knowledgeGain',
+  ChooseLesson = 'chooseLesson'
 }
 
 export interface UgcCreationStateType {
   courseInformation: CourseInformationType;
-  selectLessonId: string | InformationKey;
+  selectLessonId: string | CreationPageKey;
   courseId: string;
   units: any[];
   setCourseInformation: (payload: CourseInformationType) => void;
   setSelectLessonId: (
     courseId: string,
-    lessonId: string | InformationKey
+    lessonId: string | CreationPageKey
   ) => void;
   loading: boolean;
   setLoading: (loading: boolean) => void;
   handle: CreationHandle;
   setHandle: (save: CreationHandle) => void;
+  selectUnitMenuId: string;
+  setSelectUnitMenuId: (id: string) => void;
+  lessonType: LessonType | null;
+  setLessonType: (type: LessonType) => void;
 }
 
 const defaultCourseInformation: CourseInformationType = {
@@ -87,9 +93,9 @@ export const useUgcCreationStore = create<UgcCreationStateType>()((set) => ({
     if (courseId === '-1') {
     } else {
       switch (lessonId) {
-        case InformationKey.Introduction:
-        case InformationKey.IntendedLearners:
-        case InformationKey.KnowledgeGain:
+        case CreationPageKey.Introduction:
+        case CreationPageKey.IntendedLearners:
+        case CreationPageKey.KnowledgeGain:
           // TODO 请求information数据设置进去
           break;
         default:
@@ -101,7 +107,7 @@ export const useUgcCreationStore = create<UgcCreationStateType>()((set) => ({
   setCourseInformation(courseInformation) {
     for (let key in courseInformation) {
       switch (key) {
-        case InformationKey.Introduction:
+        case CreationPageKey.Introduction:
           if (
             [
               !courseInformation[key].track,
@@ -114,7 +120,7 @@ export const useUgcCreationStore = create<UgcCreationStateType>()((set) => ({
             courseInformation[key].completed = true;
           }
           break;
-        case InformationKey.IntendedLearners:
+        case CreationPageKey.IntendedLearners:
           if (
             courseInformation[key]?.audience?.length ||
             courseInformation[key]?.requirements?.length
@@ -124,7 +130,7 @@ export const useUgcCreationStore = create<UgcCreationStateType>()((set) => ({
             courseInformation[key].completed = false;
           }
           break;
-        case InformationKey.KnowledgeGain:
+        case CreationPageKey.KnowledgeGain:
           if (
             courseInformation[key].description?.length ||
             courseInformation[key].tags?.length
@@ -145,5 +151,13 @@ export const useUgcCreationStore = create<UgcCreationStateType>()((set) => ({
   handle: CreationHandle.UN_SAVE,
   setHandle(handle) {
     set((state) => ({ handle }));
+  },
+  selectUnitMenuId: '',
+  setSelectUnitMenuId(selectUnitMenuId) {
+    set((state) => ({ selectUnitMenuId }));
+  },
+  lessonType: null,
+  setLessonType(lessonType) {
+    set((state) => ({ lessonType }));
   }
 }));

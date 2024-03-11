@@ -52,6 +52,13 @@ class CourseApi {
     });
   }
 
+  /** 获取UGC课程列表信息By search */
+  getUgcCourseListBySearch<T>(params: object) {
+    return this.service.get<T>(`${CourseApiType.Course_List}/ugc`, {
+      params
+    });
+  }
+
   /** 获取单个课程的详情信息 */
   getCourseDetail<T extends CourseDetailType | ElectiveCourseDetailType>(
     courseId: string,
