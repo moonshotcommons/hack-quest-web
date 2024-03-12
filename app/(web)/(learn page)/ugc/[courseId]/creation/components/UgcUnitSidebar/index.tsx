@@ -1,19 +1,14 @@
-import {
-  CreationPageKey,
-  useUgcCreationStore
-} from '@/store/zustand/ugcCreationStore';
-import React from 'react';
-import { useShallow } from 'zustand/react/shallow';
+import React, { useContext } from 'react';
 import UgcUnit from '../UgcUnit';
+import { CreationPageKey, UgcCreateContext } from '../../constant/type';
 
 interface UgcUnitSidebarProp {}
 
 const UgcUnitSidebar: React.FC<UgcUnitSidebarProp> = () => {
-  const { selectLessonId } = useUgcCreationStore(
-    useShallow((state) => ({
-      selectLessonId: state.selectLessonId
-    }))
-  );
+  const { selectLessonId, courseInformation } = useContext(UgcCreateContext);
+  if (!courseInformation.introduction.completed) {
+    return null;
+  }
   switch (selectLessonId) {
     case CreationPageKey.Introduction:
     case CreationPageKey.IntendedLearners:

@@ -40,14 +40,14 @@ const Unit: React.FC<UnitProp> = ({
           {unit?.isInput ? (
             <input
               className="body-m w-full border-b border-neutral-medium-gray bg-transparent text-neutral-black outline-none"
-              value={unit?.value}
+              value={unit?.title}
               placeholder="Add a unit"
               onChange={(e) => {
                 const target = e.target as HTMLInputElement;
                 const value = target.value;
                 setUnit({
                   ...unit,
-                  value
+                  title: value
                 });
               }}
               onKeyUp={(e) => {
@@ -64,7 +64,7 @@ const Unit: React.FC<UnitProp> = ({
               }}
             />
           ) : (
-            <div className="body-m max-w-full break-all">{unit?.value}</div>
+            <div className="body-m max-w-full break-all">{unit?.title}</div>
           )}
         </div>
         <div

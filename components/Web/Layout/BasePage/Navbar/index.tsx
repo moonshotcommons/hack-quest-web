@@ -6,7 +6,7 @@ import Badge from '@/components/Common/Badge';
 import { message } from 'antd';
 import Link from 'next/link';
 import { isBadgeIds, needLoginPath } from './data';
-import { MenuType, NavbarListType } from './type';
+import { MenuLink, MenuType, NavbarListType } from './type';
 import { useRedirect } from '@/hooks/useRedirect';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useMissionCenterStore } from '@/store/zustand/missionCenterStore';
@@ -14,6 +14,8 @@ import { useCustomPathname } from '@/hooks/useCheckPathname';
 import HackLogo from '@/public/images/logo/light-footer-logo.svg';
 import { useGlobalStore } from '@/store/zustand/globalStore';
 import { LuChevronDown } from 'react-icons/lu';
+import { useDebounceFn } from 'ahooks';
+import DropDownMotion from '@/components/Common/DropDownMotion';
 
 export interface NavBarProps {
   navList: NavbarListType[];
@@ -37,13 +39,23 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
   const [secondNavIndex, setSecondNavIndex] = useState<number>(-1);
   const missionData = useMissionCenterStore((state) => state.missionData);
 
+  const [hoverNavId, setHoverNavId] = useState<null | string>(null);
+  const { run: mouseLeaveNav } = useDebounceFn(
+    () => {
+      setHoverNavId(null);
+    },
+    { wait: 100 }
+  );
+
   const setPlaygroundSelectModalOpen = useGlobalStore(
     (state) => state.setPlaygroundSelectModalOpen
   );
 
   useEffect(() => {
     for (let nav of navList) {
-      const curNav = nav.menu.find((menu) => pathname.includes(menu.path));
+      const curNav = nav.menu.find((menu) =>
+        pathname.includes(menu.path as MenuLink)
+      );
       if (curNav) {
         setShowSecondNav?.(nav.menu.length > 1);
         setSecondNavData(nav.menu as []);
@@ -65,7 +77,9 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
 
   useEffect(() => {
     if (!showSecondNav) return;
-    const index = secondNavData.findIndex((v) => pathname.includes(v.path));
+    const index = secondNavData.findIndex((v) =>
+      pathname.includes(v.path as MenuLink)
+    );
     setSecondNavIndex(index);
   }, [pathname, showSecondNav, secondNavData, navList]);
 
@@ -73,19 +87,9 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
     nav: NavbarListType
   ) => {
-    if (nav.type === 'outSide') {
-      e.stopPropagation();
-      if (nav.id === 'playground') {
-        setPlaygroundSelectModalOpen(true);
-        return;
-      } else {
-        window.open(nav.link);
-      }
-    }
-
-    const path = nav.menu[0]?.path;
+    if (nav.type === 'outSide') return;
+    const path = nav.menu[0]?.path!;
     if (~needLoginPath.indexOf(path) && !userInfo) {
-      e.stopPropagation();
       message.warning('Please login first');
       setAuthType(AuthType.LOGIN);
       setAuthModalOpen(true);
@@ -110,13 +114,18 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
             >
               <Image src={HackLogo} width={133} alt="logo"></Image>
             </div>
-            <div className="body-s ml-[60px] flex h-full gap-[28px] text-neutral-off-black">
+            <div className="body-s ml-[60px] flex h-full gap-[12px] text-neutral-off-black">
               {navList.map((nav) => (
                 <div
                   key={nav.id}
                   className={`group  relative flex  h-full items-center  `}
                   data-id={nav.id}
                   onClick={(e) => handleClickNav(e, nav)}
+                  onMouseEnter={() => {
+                    mouseLeaveNav.cancel();
+                    setHoverNavId(nav.id);
+                  }}
+                  onMouseLeave={mouseLeaveNav}
                 >
                   <div
                     className={`group-hover:body-s-bold  flex cursor-pointer items-center gap-[4px] rounded-[32px] px-[16px]  py-[4px]  ${
@@ -138,24 +147,72 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
                       />
                     )}
                   </div>
-                  {nav.menu.length > 1 && (
-                    <div className="absolute left-0 top-[60px] hidden  w-[268px] rounded-[16px] border border-neutral-light-gray bg-neutral-white p-[12px] shadow-[0_2px_2px_0_rgba(19,19,19,0.15)] group-hover:block">
-                      {nav.menu.map((nav, navIndex) => (
-                        <Link
-                          key={nav.path}
-                          href={nav.path}
-                          className={`mb-[8px] cursor-pointer rounded-[8px] px-[12px] py-[8px] hover:bg-neutral-off-white ${secondNavIndex === navIndex ? 'bg-neutral-off-white' : ''}`}
-                        >
-                          <p className="body-s-bold text-neutral-rich-gray">
-                            {nav.label}
-                          </p>
-                          <p className="body-xs text-neutral-medium-gray">
-                            {nav.label}
-                          </p>
-                        </Link>
-                      ))}
-                    </div>
-                  )}
+                  {
+                    <DropDownMotion
+                      open={nav.menu.length > 1 && hoverNavId === nav.id}
+                      className=" left-0  rounded-[16px] border border-neutral-light-gray bg-neutral-white p-[12px] shadow-[0_2px_2px_0_rgba(19,19,19,0.15)]"
+                    >
+                      {nav.type === 'outSide' ? (
+                        <div className="flex gap-[24px]">
+                          {nav.menu.map((menu) => (
+                            <div
+                              key={menu.id}
+                              className=" body-s-bold text-neutral-medium-gray"
+                            >
+                              <p className="px-[12px] py-[8px]">{menu.label}</p>
+                              {menu.outSide?.map((outside) =>
+                                outside.id === 'playground' ? (
+                                  <div
+                                    key={outside.link}
+                                    className="mt-[8px] cursor-pointer px-[12px] py-[8px] text-neutral-rich-gray"
+                                    onClick={() =>
+                                      setPlaygroundSelectModalOpen(true)
+                                    }
+                                  >
+                                    {outside.label}
+                                  </div>
+                                ) : (
+                                  <Link
+                                    key={outside.link}
+                                    href={outside.link!}
+                                    target="_blank"
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                    }}
+                                  >
+                                    <p className="mt-[8px] px-[12px] py-[8px]  text-neutral-rich-gray">
+                                      {outside.label}
+                                    </p>
+                                  </Link>
+                                )
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        nav.menu.map((menu, menuIndex) => (
+                          <Link
+                            key={menu.path}
+                            href={menu.path!}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                            }}
+                          >
+                            <div
+                              className={`mb-[8px]  whitespace-nowrap  rounded-[8px] px-[12px] py-[8px] hover:bg-neutral-off-white ${secondNavIndex === menuIndex ? 'bg-neutral-off-white' : ''}`}
+                            >
+                              <p className="body-s-bold text-neutral-rich-gray">
+                                {menu.label}
+                              </p>
+                              <p className="body-xs text-neutral-medium-gray">
+                                {menu.description}
+                              </p>
+                            </div>
+                          </Link>
+                        ))
+                      )}
+                    </DropDownMotion>
+                  }
                 </div>
               ))}
             </div>

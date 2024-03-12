@@ -40,14 +40,14 @@ const UnitLesson: React.FC<UnitLessonProp> = ({
         {lesson?.isInput ? (
           <input
             className="body-s w-full border-b border-neutral-medium-gray bg-transparent text-neutral-black outline-none"
-            value={lesson?.value}
+            value={lesson?.title}
             placeholder="Add a unit"
             onChange={(e) => {
               const target = e.target as HTMLInputElement;
               const value = target.value;
               setLesson({
                 ...lesson,
-                value
+                title: value
               });
             }}
             onKeyUp={(e) => {
@@ -69,7 +69,7 @@ const UnitLesson: React.FC<UnitLessonProp> = ({
             onClick={handleClickLesson}
           >
             <span className="relative max-w-full">
-              {lesson?.value}
+              {lesson?.title}
               {curLessonId === lesson?.id && (
                 <span className="absolute bottom-[-2px] left-0 h-[3px] w-full rounded-[100px] bg-yellow-dark"></span>
               )}

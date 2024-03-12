@@ -1,6 +1,11 @@
 import DiscordIcon from '@/components/Common/Icon/Discord';
 import TelegramIcon from '@/components/Common/Icon/Telegram';
 import TwitterIcon from '@/components/Common/Icon/Twitter';
+import {
+  HACKQUEST_DISCORD,
+  HACKQUEST_TELEGRAM,
+  HACKQUEST_TWITTER
+} from '@/constants/links';
 import Link from 'next/link';
 import React from 'react';
 
@@ -12,7 +17,7 @@ const BlogLink: React.FC<BlogLinkProp> = () => {
       <span>Stay connected with us</span>
       <div className="flex items-center gap-[16px]">
         <Link
-          href={'https://discord.gg/KkAJHPqywn'}
+          href={HACKQUEST_DISCORD}
           target="_blank"
           className="cursor-pointer hover:scale-[1.1]"
         >
@@ -21,7 +26,7 @@ const BlogLink: React.FC<BlogLinkProp> = () => {
           </span>
         </Link>
         <Link
-          href={'https://x.com/hackquest_?s=21&t=kYetGSBybf-ssFBo7GodGA'}
+          href={HACKQUEST_TWITTER}
           target="_blank"
           className="cursor-pointer hover:scale-[1.1]"
         >
@@ -30,7 +35,7 @@ const BlogLink: React.FC<BlogLinkProp> = () => {
           </span>
         </Link>
         <Link
-          href={'https://t.me/hackquester'}
+          href={HACKQUEST_TELEGRAM}
           target="_blank"
           className="cursor-pointer hover:scale-[1.1]"
         >

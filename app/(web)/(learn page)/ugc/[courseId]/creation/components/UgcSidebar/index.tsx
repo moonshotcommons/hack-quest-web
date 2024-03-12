@@ -2,13 +2,9 @@
 import Sidebar, { SidebarItemType } from '@/components/Web/Business/Sidebar';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 import { useRedirect } from '@/hooks/useRedirect';
-import {
-  CreationPageKey,
-  useUgcCreationStore
-} from '@/store/zustand/ugcCreationStore';
 import { FC, useContext, useMemo } from 'react';
-import { UgcCreateContext } from '../UgcCreateProvider';
 import Button from '@/components/Common/Button';
+import { CreationPageKey, UgcCreateContext } from '../../constant/type';
 
 interface UgcSidebarProps {}
 
@@ -17,25 +13,28 @@ const CONTENT_KEY = 'content';
 const PUBLISH_KEY = 'publish';
 
 const UgcSidebar: FC<UgcSidebarProps> = () => {
-  const courseInformation = useUgcCreationStore(
-    (state) => state.courseInformation
-  );
-
-  const { courseId } = useContext(UgcCreateContext);
+  const { courseId, courseInformation, selectLessonId } =
+    useContext(UgcCreateContext);
 
   const { redirectToUrl } = useRedirect();
-
-  const units = useUgcCreationStore((state) => state.units);
-  const selectLessonId = useUgcCreationStore((state) => state.selectLessonId);
-
+  const disableAll = (key: string) => {
+    if (key === 'introduction') {
+      return false;
+    } else {
+      return !courseInformation.introduction.completed;
+    }
+  };
   const items: SidebarItemType[] = useMemo(() => {
     const informationChildren: SidebarItemType[] = Object.keys(
       courseInformation
     ).map((key) => {
       return {
         key: key,
+        disable: disableAll(key),
         label: (
-          <div className="body-m flex w-full justify-between">
+          <div
+            className={`body-m flex w-full justify-between ${disableAll(key) ? 'cursor-not-allowed' : ''}`}
+          >
             <div className="flex flex-1 shrink-0 flex-col overflow-hidden pr-5">
               {key}
             </div>
@@ -64,24 +63,6 @@ const UgcSidebar: FC<UgcSidebarProps> = () => {
       };
     });
 
-    let unitsChildren: SidebarItemType[] = units.map((unit) => {
-      return {
-        key: unit.title,
-        label: <div>{unit.title}</div>,
-        data: unit,
-        type: 'item'
-      };
-    });
-
-    // 在结尾插入一个添加按钮
-    unitsChildren = unitsChildren.concat({
-      key: 'insert',
-      label: <div>insert</div>,
-      data: null,
-      type: 'item',
-      children: []
-    });
-
     return [
       {
         key: INFORMATION_KEY,
@@ -90,15 +71,8 @@ const UgcSidebar: FC<UgcSidebarProps> = () => {
         data: courseInformation,
         children: informationChildren
       }
-      // {
-      //   key: CONTENT_KEY,
-      //   label: 'content',
-      //   type: 'group',
-      //   data: units,
-      //   children: unitsChildren
-      // }
     ];
-  }, [units, courseInformation]);
+  }, [courseInformation]);
 
   const defaultOpenKeys = useMemo(() => {
     if (

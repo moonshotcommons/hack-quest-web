@@ -2,7 +2,7 @@ import Button from '@/components/Common/Button';
 import Input from '@/components/Common/Input';
 import TextArea from '@/components/Common/TextArea/indexTextArea';
 import { changeInputWidth, isNull } from '@/helper/utils';
-import { FC, useEffect, useState } from 'react';
+import { FC, useContext, useEffect, useState } from 'react';
 import { FiTrash2 } from 'react-icons/fi';
 import { IoMdAddCircle } from 'react-icons/io';
 import { v4 } from 'uuid';
@@ -17,29 +17,27 @@ import webApi from '@/service';
 import { useRedirect } from '@/hooks/useRedirect';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 import message from 'antd/es/message';
+import { UgcCreateContext } from '../../../constant/type';
+import useUgcCreationDataHanlde from '@/hooks/useUgcCreationDataHanlde';
 
 interface KnowledgeGainProps {}
 
 const KnowledgeGain: FC<KnowledgeGainProps> = (props) => {
   const formLi = cloneDeep(defaultFormLi);
-  const {
-    knowledgeGain,
-    setLoading,
-    handle,
-    setHandle,
-    courseId,
-    selectLessonId
-  } = useUgcCreationStore(
+  const { setLoading, handle, setHandle } = useUgcCreationStore(
     useShallow((state) => ({
-      knowledgeGain: state.courseInformation.knowledgeGain,
       setLoading: state.setLoading,
       handle: state.handle,
-      setHandle: state.setHandle,
-      courseId: state.courseId,
-      selectLessonId: state.selectLessonId
+      setHandle: state.setHandle
     }))
   );
+  const {
+    courseInformation: { knowledgeGain },
+    courseId,
+    selectLessonId
+  } = useContext(UgcCreateContext);
   const { redirectToUrl } = useRedirect();
+  const { setInformation } = useUgcCreationDataHanlde();
   const [descriptionList, setDescriptionList] = useState<Record<string, any>[]>(
     [
       {
@@ -115,11 +113,7 @@ const KnowledgeGain: FC<KnowledgeGainProps> = (props) => {
       .informationEdit(courseId, param)
       .then(() => {
         message.success('success');
-        newDescriptionList = newDescriptionList.length
-          ? newDescriptionList
-          : [{ ...formLi, id: v4() }];
-        setDescriptionList(newDescriptionList);
-        setTagList(newrTagList);
+        setInformation(courseId);
         redirectToUrl(
           `${MenuLink.UGC}/${courseId}/creation/${selectLessonId}`,
           true

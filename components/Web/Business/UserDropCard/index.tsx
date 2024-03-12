@@ -11,6 +11,7 @@ import { BiUser, BiLockAlt, BiLogInCircle } from 'react-icons/bi';
 import { V2_LANDING_PATH, isNoNeedUserInfo } from '@/constants/nav';
 import { useCustomPathname } from '@/hooks/useCheckPathname';
 import { useRouter } from 'next/navigation';
+import { MenuLink } from '../../Layout/BasePage/Navbar/type';
 interface UserDropCardProps {
   // children: ReactNode;
   userInfo: LoginResponse;
@@ -63,10 +64,10 @@ const UserDropCard: FC<UserDropCardProps> = (props) => {
   };
 
   return (
-    <div className="relative  rounded-[10px] bg-neutral-white py-[20px] shadow-[0_4px_4px_0_rgba(0,0,0,0.25)]">
+    <div className="relative  rounded-[10px] bg-neutral-white py-[20px] shadow-[0_0px_4px_0_rgba(0,0,0,0.25)]">
       <div className="body-s flex min-w-[220px] flex-col text-neutral-black">
         <UserInfo userInfo={userInfo}></UserInfo>
-        <Link href={'/user/profile'} className="w-full">
+        <Link href={MenuLink.USER_PROFILE} className="w-full">
           <div
             className="mt-[8px] flex w-full cursor-pointer  items-center gap-[12px] px-[30px] py-[12px] hover:bg-neutral-off-white"
             onClick={() => {

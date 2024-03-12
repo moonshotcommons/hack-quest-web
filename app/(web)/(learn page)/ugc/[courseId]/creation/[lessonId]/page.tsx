@@ -1,18 +1,13 @@
 'use client';
-import { FC, useEffect } from 'react';
+import { FC, useContext, useEffect } from 'react';
 import Introduction from './components/Introduction';
-import {
-  CreationPageKey,
-  useUgcCreationStore
-} from '@/store/zustand/ugcCreationStore';
 import IntendedLearners from './components/IntendedLearners';
 import KnowledgeGain from './components/KnowledgeGain';
 import ContentCreate from './components/ContentCreate';
 import { useRequest } from 'ahooks';
-import webApi from '@/service';
-import useUgcInformation from '@/hooks/useUgcInformation';
-import { useShallow } from 'zustand/react/shallow';
+import useUgcCreationDataHanlde from '@/hooks/useUgcCreationDataHanlde';
 import ChooseLesson from './components/ChooseLesson';
+import { CreationPageKey, UgcCreateContext } from '../constant/type';
 
 interface UgcCreatePageProps {
   params: { lessonId: string; courseId: string };
@@ -20,25 +15,24 @@ interface UgcCreatePageProps {
 
 const UgcCreatePage: FC<UgcCreatePageProps> = ({ params }) => {
   const { lessonId, courseId } = params;
-  const { setSelectLessonId } = useUgcCreationStore(
-    useShallow((state) => ({
-      setSelectLessonId: state.setSelectLessonId
-    }))
-  );
 
-  const { setStoreInformation } = useUgcInformation();
+  const { setSelectLessonId, setCourseId } = useContext(UgcCreateContext);
+
+  const { setInformation } = useUgcCreationDataHanlde(courseId);
   const { run } = useRequest(async () => {
     if (courseId !== '-1') {
-      const info = await webApi.ugcCreateApi.getUgcInformationDetail(courseId);
-      setStoreInformation(info);
+      setInformation();
     }
   });
   useEffect(() => {
     if (lessonId) {
-      setSelectLessonId(courseId, lessonId);
+      setCourseId(courseId);
+      setSelectLessonId(lessonId);
       run();
     }
   }, [lessonId, courseId]);
+
+  useEffect(() => {}, []);
 
   switch (lessonId) {
     case CreationPageKey.Introduction:

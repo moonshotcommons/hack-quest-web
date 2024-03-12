@@ -1,6 +1,6 @@
 import Input from '@/components/Common/Input';
 import Select from '@/components/Common/Select';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { courseDefaultFilters } from '@/components/Web/Business/CourseFilterList/constant';
 import { OptionType } from '@/components/Common/Select/type';
 import TextArea from '@/components/Common/TextArea/indexTextArea';
@@ -15,27 +15,25 @@ import { useShallow } from 'zustand/react/shallow';
 import { message } from 'antd';
 import { useRedirect } from '@/hooks/useRedirect';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import { UgcCreateContext } from '../../../constant/type';
+import useUgcCreationDataHanlde from '@/hooks/useUgcCreationDataHanlde';
 
 interface IntroductionProp {}
 
 const Introduction: React.FC<IntroductionProp> = () => {
-  const {
-    introduction,
-    setLoading,
-    handle,
-    setHandle,
-    courseId,
-    selectLessonId
-  } = useUgcCreationStore(
+  const { setLoading, handle, setHandle } = useUgcCreationStore(
     useShallow((state) => ({
-      introduction: state.courseInformation.introduction,
       setLoading: state.setLoading,
       handle: state.handle,
-      setHandle: state.setHandle,
-      courseId: state.courseId,
-      selectLessonId: state.selectLessonId
+      setHandle: state.setHandle
     }))
   );
+  const {
+    courseInformation: { introduction },
+    courseId,
+    selectLessonId
+  } = useContext(UgcCreateContext);
+  const { setInformation } = useUgcCreationDataHanlde();
   const { redirectToUrl } = useRedirect();
   const options = useMemo(() => {
     return {
@@ -101,18 +99,21 @@ const Introduction: React.FC<IntroductionProp> = () => {
     param.language = CourseLanguageType.SOLIDITY;
     param.type = CourseType.UGC;
     setLoading(true);
+    let res: Record<string, any>;
     try {
       if (courseId !== '-1') {
-        await webApi.ugcCreateApi.informationEdit(courseId, param);
+        res = await webApi.ugcCreateApi.informationEdit(courseId, param);
       } else {
-        await webApi.ugcCreateApi.introductionAdd(param);
+        res = await webApi.ugcCreateApi.introductionAdd(param);
       }
       message.success('success');
+      setInformation(res.id);
       redirectToUrl(
-        `${MenuLink.UGC}/${courseId}/creation/${selectLessonId}`,
+        `${MenuLink.UGC}/${res.id}/creation/${selectLessonId}`,
         true
       );
       setLoading(false);
+
       setHandle(CreationHandle.UN_SAVE);
     } catch (error) {
       setLoading(false);
