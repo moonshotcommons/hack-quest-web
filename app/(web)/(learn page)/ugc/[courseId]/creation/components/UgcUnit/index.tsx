@@ -1,17 +1,18 @@
 import Button from '@/components/Common/Button';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { IoMdAddCircle } from 'react-icons/io';
 import { v4 } from 'uuid';
 import DeleteModal from './DeleteModal';
-import { CreationHandleKey, UnitMenuType } from '../../constant/type';
+import {
+  CreationHandleKey,
+  CreationPageKey,
+  LessonMenuType,
+  UgcCreateContext,
+  UnitMenuType
+} from '../../constant/type';
 import { cloneDeep } from 'lodash-es';
 import { isNull } from '@/helper/utils';
 import emitter from '@/store/emitter';
-import {
-  CreationPageKey,
-  useUgcCreationStore
-} from '@/store/zustand/ugcCreationStore';
-import { useShallow } from 'zustand/react/shallow';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 import { useRedirect } from '@/hooks/useRedirect';
 import { LessonType } from '../UgcSidebar/constant';
@@ -23,6 +24,7 @@ import DragUnit from './DragUnit';
 import DropUnit from './DropUnit';
 import DropLesson from './DropLesson';
 import DrapLesson from './DrapLesson';
+import useUgcCreationDataHanlde from '@/hooks/useUgcCreationDataHanlde';
 
 interface UgcUnitProp {}
 
@@ -37,45 +39,38 @@ const UgcUnit: React.FC<UgcUnitProp> = () => {
     selectLessonId,
     selectUnitMenuId,
     setSelectUnitMenuId,
-    setLessonType
-  } = useUgcCreationStore(
-    useShallow((state) => ({
-      courseId: state.courseId,
-      selectLessonId: state.selectLessonId,
-      selectUnitMenuId: state.selectUnitMenuId,
-      setSelectUnitMenuId: state.setSelectUnitMenuId,
-      setLessonType: state.setLessonType
-    }))
-  );
+    courseInformation
+  } = useContext(UgcCreateContext);
+  const { getUnitList } = useUgcCreationDataHanlde();
   const handleAddUit = () => {
     const unit = {
       id: v4(),
-      value: '',
+      title: '',
       isInput: true,
       isToggle: true,
       lessonInputValue: '',
       isDragging: false,
-      lesson: []
+      pages: []
     };
-    setUnitList([...unitList, unit]);
+    setUnitList([...unitList, unit] as UnitMenuType[]);
   };
   const handleAddLesson = (type: any) => {
     const index = unitList.findIndex((v) => v.id === selectUnitMenuId);
-    const value = unitList[index]?.lessonInputValue;
-    if (isNull(value)) {
+    const title = unitList[index]?.lessonInputValue;
+    if (isNull(title)) {
       message.warning('Enter lesson name');
       return;
     }
     const lesson = {
       id: v4(),
-      value: value,
+      title,
       type,
       icon: getLessonIconData(15)[type as LessonType],
       isInput: false,
       isDragging: false
     };
     const newUnitList = cloneDeep(unitList);
-    newUnitList[index].lesson.push(lesson);
+    newUnitList[index].pages.push(lesson as LessonMenuType);
     newUnitList[index].lessonInputValue = '';
     setUnitList(newUnitList);
   };
@@ -89,19 +84,19 @@ const UgcUnit: React.FC<UgcUnitProp> = () => {
         id: unitList[unitIndex].id,
         type: 'unit',
         title: 'Do you want to delete the unit bellow?',
-        content: unitList[unitIndex].value
+        content: unitList[unitIndex].title
       });
     } else {
       setHandleInfo({
-        id: unitList[unitIndex].lesson[lessonIndex].id,
+        id: unitList[unitIndex].pages[lessonIndex].id,
         type: 'lesson',
         title: 'Do you want to delete the session bellow?',
         content: (
           <div className="flex items-center gap-[7px]">
             <div className="flex-center h-[20px] w-[20px] rounded-[50%] border border-neutral-medium-gray">
-              {unitList[unitIndex].lesson[lessonIndex].icon}
+              {unitList[unitIndex].pages[lessonIndex].icon}
             </div>
-            <span>{unitList[unitIndex].lesson[lessonIndex].value}</span>
+            <span>{unitList[unitIndex].pages[lessonIndex].title}</span>
           </div>
         )
       });
@@ -111,7 +106,6 @@ const UgcUnit: React.FC<UgcUnitProp> = () => {
   };
   const handleDelete = (id: string, type: string) => {
     if (type === 'unit') {
-      console.info(unitList, id);
       const newUnitList = unitList.filter((unit) => unit.id !== id);
       setUnitList(newUnitList);
       /**
@@ -127,7 +121,7 @@ const UgcUnit: React.FC<UgcUnitProp> = () => {
           const unitIndex = unitList.findIndex((unit) => unit.id !== id);
           const lessonIdIndex = !unitIndex ? unitIndex : unitIndex - 1;
           toPathLessonId =
-            newUnitList[unitIndex].lesson[lessonIdIndex]?.id ||
+            newUnitList[unitIndex].pages[lessonIdIndex]?.id ||
             CreationPageKey.ChooseLesson;
         }
         redirectToUrl(`${MenuLink.UGC}/${courseId}/creation/${toPathLessonId}`);
@@ -135,12 +129,12 @@ const UgcUnit: React.FC<UgcUnitProp> = () => {
     } else {
       const newUnitList = cloneDeep(unitList);
       const unitIndex = unitList.findIndex((unit) =>
-        unit.lesson.some((lesson) => lesson.id === id)
+        unit.pages.some((lesson) => lesson.id === id)
       );
-      const newLesson = unitList[unitIndex].lesson.filter(
+      const newLesson = unitList[unitIndex].pages.filter(
         (lesson) => lesson.id !== id
       );
-      newUnitList[unitIndex].lesson = newLesson;
+      newUnitList[unitIndex].pages = newLesson;
       setUnitList(newUnitList);
       /** 如果当前展示的lesson被删除  则需要跳转新的lesson
        * 删除后的lesson如果为空 默认跳转选择lesson页面
@@ -151,12 +145,12 @@ const UgcUnit: React.FC<UgcUnitProp> = () => {
         if (!newLesson.length) {
           toPathLessonId = CreationPageKey.ChooseLesson;
         } else {
-          const lessonIndex = unitList[unitIndex].lesson.findIndex(
+          const lessonIndex = unitList[unitIndex].pages.findIndex(
             (lesson) => lesson.id !== id
           );
           const lessonIdIndex = !lessonIndex ? lessonIndex : lessonIndex - 1;
           toPathLessonId =
-            newUnitList[unitIndex].lesson[lessonIdIndex]?.id ||
+            newUnitList[unitIndex].pages[lessonIdIndex]?.id ||
             CreationPageKey.ChooseLesson;
         }
         redirectToUrl(`${MenuLink.UGC}/${courseId}/creation/${toPathLessonId}`);
@@ -171,10 +165,19 @@ const UgcUnit: React.FC<UgcUnitProp> = () => {
     );
   };
 
+  const getUnit = async () => {
+    const list = await getUnitList();
+    setUnitList(list as UnitMenuType[]);
+  };
+
   if (emitter.all.get(CreationHandleKey.ADD_LESSON)) {
     emitter.all.delete(CreationHandleKey.ADD_LESSON);
   }
   emitter.on(CreationHandleKey.ADD_LESSON, handleAddLesson);
+
+  useEffect(() => {
+    getUnit();
+  }, [courseInformation]);
 
   useEffect(() => {
     return () => {
@@ -206,12 +209,12 @@ const UgcUnit: React.FC<UgcUnitProp> = () => {
               />
             </DropUnit>
             <div
-              className={`${!unitDraging && unit.value ? 'block' : 'hidden'}`}
+              className={`${!unitDraging && unit.title ? 'block' : 'hidden'}`}
             >
               <div
                 className={`body-s  flex-col gap-[15px] pt-[15px] ${unit.isToggle ? 'flex' : 'hidden'}`}
               >
-                {unit.lesson.map((lesson, lessonIndex) => (
+                {unit.pages?.map((lesson, lessonIndex) => (
                   <DropLesson
                     key={lesson.id}
                     changeUnitList={(list) => setUnitList(list)}

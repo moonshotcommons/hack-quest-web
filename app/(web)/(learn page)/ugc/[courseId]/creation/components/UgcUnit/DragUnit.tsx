@@ -40,14 +40,13 @@ const DragUnit: React.FC<DragUnitProp> = ({
     changeUnitList(newUnitList);
   };
   const handleEditUnit = (val: string) => {
-    if (isNull(val) && isNull(unitList[unitIndex].value)) {
+    if (isNull(val) && isNull(unitList[unitIndex].title)) {
       handleDelete(unitList[unitIndex].id, 'unit');
-      console.info(2222);
       return;
     }
     const newUnitList = cloneDeep(unitList);
-    newUnitList[unitIndex].value = isNull(val)
-      ? newUnitList[unitIndex].value
+    newUnitList[unitIndex].title = isNull(val)
+      ? newUnitList[unitIndex].title
       : val;
     newUnitList[unitIndex].isInput = false;
     changeUnitList(newUnitList);

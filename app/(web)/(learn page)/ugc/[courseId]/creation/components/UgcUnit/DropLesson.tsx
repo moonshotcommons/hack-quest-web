@@ -20,17 +20,17 @@ const DropLesson: React.FC<DropLessonProp> = ({
 }) => {
   const [{}, drop] = useDrop(
     () => ({
-      accept: unitList[unitIndex].lesson?.map((v) => v.id),
+      accept: unitList[unitIndex].pages?.map((v) => v.id),
       drop: (item: LessonMenuType) => {
         const newUnitList = cloneDeep(unitList);
-        const curIndex = unitList[unitIndex].lesson.findIndex(
+        const curIndex = unitList[unitIndex].pages.findIndex(
           (v) => v.id === item.id
         );
-        newUnitList[unitIndex].lesson.splice(curIndex, 1);
-        newUnitList[unitIndex].lesson.splice(
+        newUnitList[unitIndex].pages.splice(curIndex, 1);
+        newUnitList[unitIndex].pages.splice(
           targetIndex,
           0,
-          unitList[unitIndex].lesson[curIndex]
+          unitList[unitIndex].pages[curIndex]
         );
         changeUnitList(newUnitList);
       },

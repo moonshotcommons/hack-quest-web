@@ -2,7 +2,7 @@ import UserDropCard from '@/components/Web/Business/UserDropCard';
 import { V2_LANDING_PATH } from '@/constants/nav';
 import { BurialPoint } from '@/helper/burialPoint';
 import { cn } from '@/helper/utils';
-import IconCoin from '@/public/images/mission-center/icon_coin.png';
+import IconCoin from '@/public/images/mission-center/icon_coin_new.png';
 import Image from 'next/image';
 import { FC, useEffect, useRef, useState } from 'react';
 import Settings from './Settings';
@@ -14,6 +14,8 @@ import { LoginResponse } from '@/service/webApi/user/type';
 import { useMissionCenterStore } from '@/store/zustand/missionCenterStore';
 import Button from '@/components/Common/Button';
 import { useCustomPathname } from '@/hooks/useCheckPathname';
+import { MenuLink } from '../Layout/BasePage/Navbar/type';
+import DropDownMotion from '@/components/Common/DropDownMotion';
 interface UserProps {}
 
 const User: FC<UserProps> = () => {
@@ -75,19 +77,19 @@ const User: FC<UserProps> = () => {
       >
         <div className="flex h-full cursor-pointer items-center justify-end">
           {isLogin && (
-            <div className="flex-row-center">
+            <div className="flex-row-center body-s text-neutral-off-black">
               <div
-                className="flex-row-center h-[30px] text-neutral-white"
-                onClick={() => redirectToUrl('/mission-center')}
+                className="flex-row-center h-[30px]"
+                onClick={() => redirectToUrl(MenuLink.MISSION_CENTER)}
               >
-                <div className="flex-row-center mr-[20px] h-full w-[115px] justify-between rounded-[20px] bg-neutral-rich-gray pr-[15px]">
+                <div className="flex-row-center body-s mr-[20px] h-full justify-between gap-[10px] rounded-[20px] bg-neutral-off-white pr-[15px]">
                   <Image src={IconCoin} width={30} alt="iconCredits" />
                   <span>{userCoin.coin}</span>
                 </div>
-                <div className="h-full w-[170px] px-[15px]">
-                  <div className="flex-center relative h-full w-full bg-neutral-medium-gray  ">
+                <div className="h-full w-[170px] pl-[15px]">
+                  <div className="flex-center relative h-full w-full rounded-r-[20px]  bg-neutral-off-white ">
                     <div
-                      className="absolute left-[0] top-[0] h-full rounded-r-[20px] bg-neutral-rich-gray"
+                      className="absolute left-[0] top-[0] h-full rounded-r-[20px] bg-yellow-light"
                       style={{
                         width: `${
                           (userLevel.expCurrentLevel / userLevel.expNextLevel) *
@@ -95,19 +97,14 @@ const User: FC<UserProps> = () => {
                         }%`
                       }}
                     ></div>
-                    <div className="flex-row-center absolute h-full w-full justify-between text-neutral-black">
+                    <div className="flex-row-center absolute h-full w-full justify-between pr-[15px] text-neutral-off-black">
                       <div className="flex-center ml-[-15px] h-[30px] w-[30px] rounded-[50%] bg-yellow-primary">
-                        <div className="flex-center h-[24px] w-[24px] rounded-[50%] bg-[#E7A600] ">
+                        <div className="flex-center h-[24px] w-[24px] rounded-[50%] bg-yellow-dark ">
                           {userLevel.level}
                         </div>
                       </div>
-                      <div className="flex-center flex-1 flex-shrink-0 text-neutral-white">
+                      <div className="flex-center flex-1 flex-shrink-0 ">
                         {`${userLevel.expCurrentLevel}/${userLevel.expNextLevel}`}
-                      </div>
-                      <div className="flex-center  mr-[-15px] h-[30px] w-[30px] rounded-[50%] bg-[rgba(255,216,80,1)]">
-                        <span className="text-[rgba(11,11,11,0.5)]">
-                          {userLevel.level + 1}
-                        </span>
                       </div>
                     </div>
                   </div>
@@ -120,8 +117,8 @@ const User: FC<UserProps> = () => {
               >
                 <div
                   className={cn(
-                    'relative flex h-[34px] w-[34px] items-center justify-center overflow-hidden rounded-full bg-[#8d8d8d]',
-                    pathname === '/user/profile'
+                    'relative flex h-[36px] w-[36px] items-center justify-center overflow-hidden rounded-full bg-[#8d8d8d]',
+                    pathname === MenuLink.USER_PROFILE
                       ? 'box-content border-[5px] border-[#ffd952]'
                       : ''
                   )}
@@ -138,22 +135,23 @@ const User: FC<UserProps> = () => {
                     }}
                   ></Image>
                 </div>
-                {userInfo && showUserDropCard ? (
-                  <div className="absolute -right-[15px] top-[37px] z-[999] pt-[20px]">
-                    <UserDropCard
-                      userInfo={(userInfo as LoginResponse) || {}}
-                      onClose={() => setShowUserDropCard(false)}
-                    ></UserDropCard>
-                  </div>
-                ) : null}
+                <DropDownMotion
+                  open={!!(userInfo && showUserDropCard)}
+                  className={'-right-[15px]'}
+                >
+                  <UserDropCard
+                    userInfo={(userInfo as LoginResponse) || {}}
+                    onClose={() => setShowUserDropCard(false)}
+                  ></UserDropCard>
+                </DropDownMotion>
               </div>
             </div>
           )}
           {!isLogin && (
             <div className="abc flex gap-4">
               <Button
-                type="text"
-                className="button-text-s border-transparent px-[1.0625rem] py-2 uppercase text-neutral-white"
+                ghost
+                className="button-text-s  border-neutral-black px-[1.0625rem] py-[7px] uppercase text-neutral-black"
                 onClick={() => {
                   setAuthType(AuthType.LOGIN);
                   setAuthModalOpen(true);

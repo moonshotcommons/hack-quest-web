@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { MouseEvent } from 'react';
 import Image from 'next/image';
 import TrackTag from '@/components/Common/TrackTag';
 import Button from '@/components/Common/Button';
 import { CourseTab } from '@/app/(web)/(base page)/(home)/instructor/constants/type';
 import UgcTags from './UgcTags';
 import { UGCCourseType } from '@/service/webApi/course/type';
-import Link from 'next/link';
 import { MenuLink } from '../../Layout/BasePage/Navbar/type';
+import UgcCardCover from '@/public/images/home/instructor_cover.png';
+import { useRedirect } from '@/hooks/useRedirect';
+import { CreationPageKey } from '@/app/(web)/(learn page)/ugc/[courseId]/creation/constant/type';
 
 interface UgcCourseCardProp {
   isPublic?: boolean;
@@ -18,6 +20,16 @@ const UgcCourseCard: React.FC<UgcCourseCardProp> = ({
   course
 }) => {
   const status = course.status;
+  const { redirectToUrl } = useRedirect();
+  const goEdit = (e: MouseEvent<HTMLElement>) => {
+    e.stopPropagation();
+    redirectToUrl(
+      `${MenuLink.UGC}/${course.id}/creation/${CreationPageKey.Introduction}`
+    );
+  };
+  const goDetail = () => {
+    redirectToUrl(` ${MenuLink.COURSE_MARKET}/${course.id}`);
+  };
   const renderButton = () => {
     switch (status) {
       case CourseTab.PUBLISHED:
@@ -31,6 +43,7 @@ const UgcCourseCard: React.FC<UgcCourseCardProp> = ({
             </Button>
             <Button
               ghost
+              onClick={goEdit}
               className="button-text-s h-[34px] flex-1 border-neutral-black uppercase"
             >
               edit
@@ -42,6 +55,7 @@ const UgcCourseCard: React.FC<UgcCourseCardProp> = ({
           <>
             <Button
               type="primary"
+              onClick={goEdit}
               className="button-text-s h-[34px] flex-1 uppercase"
             >
               edit & publish
@@ -70,6 +84,7 @@ const UgcCourseCard: React.FC<UgcCourseCardProp> = ({
             </Button>
             <Button
               ghost
+              onClick={goEdit}
               className="button-text-s h-[34px] flex-1 border-neutral-black p-0 uppercase"
             >
               edit & publish
@@ -79,13 +94,13 @@ const UgcCourseCard: React.FC<UgcCourseCardProp> = ({
     }
   };
   return (
-    <Link
-      href={`${MenuLink.COURSE_MARKET}/${course.id}`}
+    <div
+      onClick={goDetail}
       className="card-hover block overflow-hidden rounded-[16px] bg-neutral-white text-neutral-off-black"
     >
       <div className="relative h-0 w-full pt-[56%]">
         <Image
-          src={course.image || ''}
+          src={course.image || UgcCardCover}
           alt="instructorCover"
           fill
           className="object-cover"
@@ -112,7 +127,7 @@ const UgcCourseCard: React.FC<UgcCourseCardProp> = ({
           <UgcTags isPublic={isPublic} course={course} />
         )}
       </div>
-    </Link>
+    </div>
   );
 };
 

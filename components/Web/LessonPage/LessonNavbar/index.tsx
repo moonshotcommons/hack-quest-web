@@ -6,7 +6,6 @@ interface UgcNavbarProp {}
 
 const UgcNavbar: React.FC<UgcNavbarProp> = () => {
   const { navbarData } = useContext(LessonPageContext);
-  console.info(navbarData, 1111111);
   return (
     <div className="body-s flex h-[50px] items-center text-neutral-off-black">
       {navbarData.map((v, i) => (

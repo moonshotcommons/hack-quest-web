@@ -1,27 +1,28 @@
 'use client';
-import { FC, ReactNode, createContext, useEffect, useState } from 'react';
+import { FC, ReactNode, useEffect, useState } from 'react';
 
 import emitter from '@/store/emitter';
 import { LearnPageType, useCourseStore } from '@/store/zustand/courseStore';
-interface UgcProviderProps {
+import {
+  UgcCreateContext,
+  defaultCourseInformation
+} from '../../constant/type';
+interface UgcCreateProviderProps {
   children: ReactNode;
   courseId: string;
 }
 
-export interface UgcCreateContextType {
-  courseId: string;
-  loading: boolean;
-  setLoading: (val: boolean) => void;
-}
-export const UgcCreateContext = createContext<UgcCreateContextType>({
-  courseId: '-1',
-  loading: false,
-  setLoading: () => {}
-});
-
-const UgcProvider: FC<UgcProviderProps> = ({ children, courseId }) => {
+const UgcCreateProvider: FC<UgcCreateProviderProps> = ({
+  children,
+  courseId: cId
+}) => {
   const setLearnPageTitle = useCourseStore((state) => state.setPageType);
-  const [loading, setLoading] = useState(false);
+  const [courseInformation, setCourseInformation] = useState(
+    defaultCourseInformation
+  );
+  const [selectLessonId, setSelectLessonId] = useState('');
+  const [courseId, setCourseId] = useState('');
+  const [selectUnitMenuId, setSelectUnitMenuId] = useState('');
   useEffect(() => {
     setLearnPageTitle(LearnPageType.UGC_CREATION);
     return () => {
@@ -38,9 +39,14 @@ const UgcProvider: FC<UgcProviderProps> = ({ children, courseId }) => {
   return (
     <UgcCreateContext.Provider
       value={{
+        courseInformation,
+        setCourseInformation,
+        selectLessonId,
+        setSelectLessonId,
         courseId,
-        loading,
-        setLoading: (val: boolean) => setLoading(val)
+        setCourseId,
+        selectUnitMenuId,
+        setSelectUnitMenuId
       }}
     >
       {children}
@@ -48,4 +54,4 @@ const UgcProvider: FC<UgcProviderProps> = ({ children, courseId }) => {
   );
 };
 
-export default UgcProvider;
+export default UgcCreateProvider;

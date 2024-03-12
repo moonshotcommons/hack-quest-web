@@ -6,7 +6,7 @@ import Button from '@/components/Common/Button';
 
 import { useRedirect } from '@/hooks/useRedirect';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
-import { CreationPageKey } from '@/store/zustand/ugcCreationStore';
+import { CreationPageKey } from '@/app/(web)/(learn page)/ugc/[courseId]/creation/constant/type';
 
 interface CoursesTabProp {
   curTab: CourseTab;

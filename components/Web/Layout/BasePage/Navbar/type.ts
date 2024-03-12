@@ -18,18 +18,24 @@ export enum MenuLink {
   ADVOCATE = '/advocate',
   COURSE_MARKET = '/course-market'
 }
+export interface OutSideType {
+  label: string;
+  link: string;
+  id?: string;
+}
 
 export interface MenuType {
   label: string;
-  path: MenuLink;
+  path?: MenuLink;
+  id?: string;
+  description?: string;
   needLogin?: boolean;
   needPC?: boolean;
+  outSide?: OutSideType[];
 }
 export interface NavbarListType {
   label: string;
   id: string;
   type?: 'outSide';
-  link?: string;
   menu: MenuType[];
-  needPC?: boolean;
 }

@@ -1,15 +1,13 @@
 'use client';
-import { FC, ReactNode } from 'react';
+import { FC, ReactNode, useContext } from 'react';
 import UgcCreateProvider from './components/UgcCreateProvider';
 import UgcSidebar from './components/UgcSidebar';
 import Loading from '@/components/Common/Loading';
-import {
-  CreationPageKey,
-  useUgcCreationStore
-} from '@/store/zustand/ugcCreationStore';
+import { useUgcCreationStore } from '@/store/zustand/ugcCreationStore';
 import { useShallow } from 'zustand/react/shallow';
 import UgcUnitSidebar from './components/UgcUnitSidebar';
 import { SuggestText } from './[lessonId]/components/ChooseLesson';
+import { CreationPageKey, UgcCreateContext } from './constant/type';
 
 interface LearnLayoutProps {
   children: ReactNode;
@@ -19,10 +17,10 @@ interface LearnLayoutProps {
 }
 
 const LearnLayout: FC<LearnLayoutProps> = ({ params, children }) => {
-  const { loading, selectLessonId } = useUgcCreationStore(
+  const { selectLessonId } = useContext(UgcCreateContext);
+  const { loading } = useUgcCreationStore(
     useShallow((state) => ({
-      loading: state.loading,
-      selectLessonId: state.selectLessonId
+      loading: state.loading
     }))
   );
   return (

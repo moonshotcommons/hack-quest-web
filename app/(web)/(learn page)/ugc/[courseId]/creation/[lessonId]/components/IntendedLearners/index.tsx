@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { v4 } from 'uuid';
 import TextArea from '@/components/Common/TextArea/indexTextArea';
 import Button from '@/components/Common/Button';
@@ -16,29 +16,27 @@ import webApi from '@/service';
 import { defaultFormLi } from '../../../constant/data';
 import { isNull } from '@/helper/utils';
 import message from 'antd/es/message';
+import { UgcCreateContext } from '../../../constant/type';
+import useUgcCreationDataHanlde from '@/hooks/useUgcCreationDataHanlde';
 
 interface IntendedLearnersProp {}
 
 const IntendedLearners: React.FC<IntendedLearnersProp> = () => {
   const formLi = cloneDeep(defaultFormLi);
-  const {
-    intendedLearners,
-    setLoading,
-    handle,
-    setHandle,
-    courseId,
-    selectLessonId
-  } = useUgcCreationStore(
+  const { setLoading, handle, setHandle } = useUgcCreationStore(
     useShallow((state) => ({
-      intendedLearners: state.courseInformation.intendedLearners,
       setLoading: state.setLoading,
       handle: state.handle,
-      setHandle: state.setHandle,
-      courseId: state.courseId,
-      selectLessonId: state.selectLessonId
+      setHandle: state.setHandle
     }))
   );
+  const {
+    courseInformation: { intendedLearners },
+    courseId,
+    selectLessonId
+  } = useContext(UgcCreateContext);
   const { redirectToUrl } = useRedirect();
+  const { setInformation } = useUgcCreationDataHanlde();
   const [audienceList, setAudienceList] = useState<Record<string, any>[]>([
     {
       ...formLi,
@@ -113,14 +111,7 @@ const IntendedLearners: React.FC<IntendedLearnersProp> = () => {
       .informationEdit(courseId, param)
       .then(() => {
         message.success('success');
-        newAudienceList = newAudienceList.length
-          ? newAudienceList
-          : [{ ...formLi, id: v4() }];
-        newRequirementsList = newRequirementsList.length
-          ? newAudienceList
-          : [{ ...formLi, id: v4() }];
-        setAudienceList(newAudienceList);
-        setRequirementsList(newRequirementsList);
+        setInformation(courseId);
         redirectToUrl(
           `${MenuLink.UGC}/${courseId}/creation/${selectLessonId}`,
           true
