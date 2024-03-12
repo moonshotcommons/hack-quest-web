@@ -1,3 +1,4 @@
+'use client';
 import { ReactNode, createContext } from 'react';
 import {
   CompleteStateType,

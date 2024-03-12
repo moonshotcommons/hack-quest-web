@@ -1,3 +1,4 @@
+'use client';
 import React, { MouseEvent } from 'react';
 import Image from 'next/image';
 import TrackTag from '@/components/Common/TrackTag';
