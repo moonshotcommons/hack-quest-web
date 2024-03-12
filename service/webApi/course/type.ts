@@ -179,6 +179,7 @@ export interface CourseLessonType {
   style: LessonStyleType;
   sequence: number;
   unitId: string;
+  title: string;
   courseId: string;
   content?: Record<string, any>;
   state: CompleteStateType;
@@ -188,6 +189,7 @@ export interface CourseLessonType {
 export interface CourseLessonStateType {
   id: string;
   name: string;
+  title: string;
   unitId: string;
   state: CompleteStateType;
   disable: boolean;
