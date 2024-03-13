@@ -18,7 +18,7 @@ export async function generateMetadata({
     title: blog.title,
     description: blog.description,
     alternates: {
-      canonical: `https://www.hackquest.io/blog/${encodeURIComponent(params.blogId)}`
+      canonical: `https://www.hackquest.io/blog/${params.blogId}`
     }
   };
 }

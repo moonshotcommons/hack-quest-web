@@ -20,7 +20,7 @@ export async function generateMetadata({
     title: hackathon.name,
     description: hackathon.about,
     alternates: {
-      canonical: `https://www.hackquest.io/hackathon/${encodeURIComponent(params.hackathonId)}`
+      canonical: `https://www.hackquest.io/hackathon/${params.hackathonId}`
     }
   };
 }
