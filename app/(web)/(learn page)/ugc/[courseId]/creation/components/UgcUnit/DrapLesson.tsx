@@ -10,6 +10,10 @@ import { useRedirect } from '@/hooks/useRedirect';
 import { cloneDeep } from 'lodash-es';
 import { useDrag } from 'react-dnd';
 import { isNull } from '@/helper/utils';
+import webApi from '@/service';
+import { message } from 'antd';
+import { useUgcCreationStore } from '@/store/zustand/ugcCreationStore';
+import { useShallow } from 'zustand/react/shallow';
 
 interface DrapLessonProp {
   unitList: UnitMenuType[];
@@ -22,6 +26,7 @@ interface DrapLessonProp {
   changeUnitList: (list: UnitMenuType[]) => void;
   unitIndex: number;
   lessonIndex: number;
+  refreshUnit: VoidFunction;
 }
 
 const DrapLesson: React.FC<DrapLessonProp> = ({
@@ -30,11 +35,17 @@ const DrapLesson: React.FC<DrapLessonProp> = ({
   showDeleteModal,
   changeUnitList,
   unitIndex,
-  lessonIndex
+  lessonIndex,
+  refreshUnit
 }) => {
   const { redirectToUrl } = useRedirect();
   const { courseId, selectLessonId, setSelectUnitMenuId } =
     useContext(UgcCreateContext);
+  const { setLoading } = useUgcCreationStore(
+    useShallow((state) => ({
+      setLoading: state.setLoading
+    }))
+  );
   const [{ isDragging }, drop] = useDrag(
     () => ({
       type: lesson.id,
@@ -50,13 +61,30 @@ const DrapLesson: React.FC<DrapLessonProp> = ({
     lessonIndex: number,
     val: string
   ) => {
-    const lesson = unitList[unitIndex].pages[lessonIndex];
-    const newUnitList = cloneDeep(unitList);
-    newUnitList[unitIndex].pages[lessonIndex].title = isNull(val)
-      ? lesson.title
-      : val;
-    newUnitList[unitIndex].pages[lessonIndex].isInput = false;
-    changeUnitList(newUnitList);
+    if (isNull(val)) {
+      const newUnitList = cloneDeep(unitList);
+      newUnitList[unitIndex].pages[lessonIndex].title = lesson.title;
+      newUnitList[unitIndex].pages[lessonIndex].isInput = false;
+      changeUnitList(newUnitList);
+    } else {
+      //编辑
+      setLoading(true);
+      webApi.ugcCreateApi
+        .editLesson(lesson.id, {
+          title: val,
+          sequence: lessonIndex,
+          type: lesson.type,
+          courseId,
+          unitId: lesson.unitId
+        })
+        .then(() => {
+          message.success('success');
+          refreshUnit();
+        })
+        .catch(() => {
+          setLoading(true);
+        });
+    }
   };
   const handleClickLesson = (lesson: LessonMenuType) => {
     setSelectUnitMenuId(unitList[unitIndex].id);

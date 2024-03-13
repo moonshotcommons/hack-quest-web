@@ -50,6 +50,12 @@ class UgcCreateApi {
       }
     );
   }
+  /** 删除units */
+  delelteUnit(courseId: string, unitId: string) {
+    return this.service.delete(
+      `${UgcCreateApiType.COURSES}/${courseId}/units/${unitId}`
+    );
+  }
   /** 新增lesson */
   addLesson(data: object) {
     return this.service.post(`${UgcCreateApiType.PAGES}`, {
@@ -57,10 +63,14 @@ class UgcCreateApi {
     });
   }
   /** 编辑lesson */
-  editLesson(id: string, data: object) {
-    return this.service.patch(`${UgcCreateApiType.PAGES}/${id}`, {
+  editLesson(lessonId: string, data: object) {
+    return this.service.patch(`${UgcCreateApiType.PAGES}/${lessonId}`, {
       data
     });
+  }
+  /** 删除lesson */
+  delelteLesson(lessonId: string) {
+    return this.service.delete(`${UgcCreateApiType.PAGES}/${lessonId}`);
   }
 }
 

@@ -4,14 +4,26 @@ import {
   UgcCreateContext
 } from '@/app/(web)/(learn page)/ugc/[courseId]/creation/constant/type';
 import webApi from '@/service';
+import { useUgcCreationStore } from '@/store/zustand/ugcCreationStore';
 import { useContext } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 
 const useUgcCreationDataHanlde = (cId?: string) => {
+  const { setLoading } = useUgcCreationStore(
+    useShallow((state) => ({
+      setLoading: state.setLoading
+    }))
+  );
   const { setCourseInformation, courseId } = useContext(UgcCreateContext);
   const getCourseInfo = (id?: string) => {
-    return webApi.ugcCreateApi.getUgcInformationDetail(id || cId || courseId, {
-      include: 'pages,units'
-    });
+    setLoading(true);
+    return webApi.ugcCreateApi
+      .getUgcInformationDetail(id || cId || courseId, {
+        include: 'pages,units'
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
   const setInformation = async (id?: string) => {
     const info = await getCourseInfo(id);
@@ -51,7 +63,7 @@ const useUgcCreationDataHanlde = (cId?: string) => {
       isToggle: true,
       lessonInputValue: '',
       isDragging: false,
-      pages: unit.pages.map((lesson) => ({
+      pages: unit.pages?.map((lesson) => ({
         ...lesson,
         icon: getLessonIconData(15)[lesson.type],
         isInput: false,

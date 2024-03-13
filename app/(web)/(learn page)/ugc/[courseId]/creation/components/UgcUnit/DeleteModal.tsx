@@ -7,12 +7,14 @@ interface DeleteModalProp {
   open: boolean;
   handleDelete: VoidFunction;
   deleteInfo: Record<string, any>;
+  loading: boolean;
 }
 
 const DeleteModal: React.FC<DeleteModalProp> = ({
   open: isOpen,
   handleDelete,
-  deleteInfo
+  deleteInfo,
+  loading
 }) => {
   const [open, setOpen] = useState(false);
   useEffect(() => {
@@ -37,6 +39,7 @@ const DeleteModal: React.FC<DeleteModalProp> = ({
             cancel
           </Button>
           <Button
+            loading={loading}
             type="primary"
             className="button-text-m h-[48px] w-[165px]  uppercase"
             onClick={handleDelete}
