@@ -1,14 +1,15 @@
 import React, { ReactNode } from 'react';
 import { useDrop } from 'react-dnd';
 import { LessonMenuType, UnitMenuType } from '../../constant/type';
-import { cloneDeep } from 'lodash-es';
+import { useUgcCreationStore } from '@/store/zustand/ugcCreationStore';
+import { useShallow } from 'zustand/react/shallow';
+import webApi from '@/service';
 
 interface DropLessonProp {
   unitList: UnitMenuType[];
   children: ReactNode;
   unitIndex: number;
   lessonIndex: number;
-  changeUnitList: (list: UnitMenuType[]) => void;
   refreshUnit: VoidFunction;
 }
 
@@ -17,24 +18,32 @@ const DropLesson: React.FC<DropLessonProp> = ({
   children,
   unitIndex,
   lessonIndex: targetIndex,
-  changeUnitList,
   refreshUnit
 }) => {
+  const { setLoading } = useUgcCreationStore(
+    useShallow((state) => ({
+      setLoading: state.setLoading
+    }))
+  );
   const [{}, drop] = useDrop(
     () => ({
       accept: unitList[unitIndex].pages?.map((v) => v.id),
       drop: (item: LessonMenuType) => {
-        const newUnitList = cloneDeep(unitList);
         const curIndex = unitList[unitIndex].pages.findIndex(
           (v) => v.id === item.id
         );
-        newUnitList[unitIndex].pages.splice(curIndex, 1);
-        newUnitList[unitIndex].pages.splice(
-          targetIndex,
-          0,
-          unitList[unitIndex].pages[curIndex]
-        );
-        changeUnitList(newUnitList);
+        setLoading(true);
+        webApi.ugcCreateApi
+          .sortLesson(item.id, {
+            from: curIndex,
+            to: targetIndex
+          })
+          .then(() => {
+            refreshUnit();
+          })
+          .catch(() => {
+            setLoading(false);
+          });
       },
       collect: () => ({})
     }),
