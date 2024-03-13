@@ -42,7 +42,7 @@ export async function generateMetadata(
   const metadata: Metadata = {
     title: courseDetail.title,
     alternates: {
-      canonical: `https://www.hackquest.io/practices/${encodeURIComponent(courseId)}`
+      canonical: `https://www.hackquest.io/practices/${courseId}`
     }
   };
 
