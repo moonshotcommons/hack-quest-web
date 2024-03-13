@@ -238,6 +238,7 @@ const UgcUnit: React.FC<UgcUnitProp> = () => {
                 unitList={unitList}
                 changeUnitList={(list) => setUnitList(list)}
                 index={unitIndex}
+                refreshUnit={refreshUnit}
               >
                 <DragUnit
                   unit={unit}
@@ -263,6 +264,7 @@ const UgcUnit: React.FC<UgcUnitProp> = () => {
                       lessonIndex={lessonIndex}
                       unitIndex={unitIndex}
                       unitList={unitList}
+                      refreshUnit={refreshUnit}
                     >
                       <DrapLesson
                         unitIndex={unitIndex}

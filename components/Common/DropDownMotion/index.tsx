@@ -7,12 +7,14 @@ interface DropDownMotionProp {
   className?: string;
   children: ReactNode;
   open: boolean;
+  isNav?: boolean;
 }
 
 const DropDownMotion: React.FC<DropDownMotionProp> = ({
   className = '',
   children,
-  open
+  open,
+  isNav = false
 }) => {
   return open ? (
     <motion.ul
@@ -21,6 +23,8 @@ const DropDownMotion: React.FC<DropDownMotionProp> = ({
     >
       {children}
     </motion.ul>
+  ) : isNav ? (
+    <div className="hidden">{children}</div>
   ) : null;
 };
 

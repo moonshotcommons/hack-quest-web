@@ -9,6 +9,7 @@ interface DropLessonProp {
   unitIndex: number;
   lessonIndex: number;
   changeUnitList: (list: UnitMenuType[]) => void;
+  refreshUnit: VoidFunction;
 }
 
 const DropLesson: React.FC<DropLessonProp> = ({
@@ -16,7 +17,8 @@ const DropLesson: React.FC<DropLessonProp> = ({
   children,
   unitIndex,
   lessonIndex: targetIndex,
-  changeUnitList
+  changeUnitList,
+  refreshUnit
 }) => {
   const [{}, drop] = useDrop(
     () => ({

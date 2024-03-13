@@ -8,13 +8,15 @@ interface DropUnitProp {
   children: ReactNode;
   index: number;
   changeUnitList: (list: UnitMenuType[]) => void;
+  refreshUnit: VoidFunction;
 }
 
 const DropUnit: React.FC<DropUnitProp> = ({
   unitList,
   children,
   changeUnitList,
-  index: targetIndex
+  index: targetIndex,
+  refreshUnit
 }) => {
   const [{}, drop] = useDrop(
     () => ({

@@ -201,6 +201,7 @@ export interface CourseLessonStateType {
 
 export type UnitPagesListType = CourseUnitStateType & {
   pages: CourseLessonStateType[];
+  title: string;
 };
 
 export enum ProcessType {

@@ -4,7 +4,7 @@ import Banner from '../Banner';
 import Filter from '../Filter';
 import List from '../List';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
-import { SearchInfoType } from '../../constants/type';
+import { LearningTrackTab, SearchInfoType } from '../../constants/type';
 import { useRouter } from 'next/navigation';
 import { getSearchParamsUrl } from '@/helper/utils';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
@@ -20,7 +20,11 @@ const RenderPage: React.FC<RenderPageProp> = ({
 }) => {
   const router = useRouter();
   const changeSearchInfo = (info: SearchInfoType) => {
-    router.push(getSearchParamsUrl(info, MenuLink.LEARNING_TRACK));
+    const param = {
+      ...info,
+      track: info.track === LearningTrackTab.BASIC ? '' : info.track
+    };
+    router.push(getSearchParamsUrl(param, MenuLink.LEARNING_TRACK));
   };
   return (
     <>
