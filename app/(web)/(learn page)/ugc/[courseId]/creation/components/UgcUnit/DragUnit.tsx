@@ -1,9 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useDrag } from 'react-dnd';
-import { UnitMenuType } from '../../constant/type';
+import { UgcCreateContext, UnitMenuType } from '../../constant/type';
 import Unit from './Unit';
 import { cloneDeep } from 'lodash-es';
 import { isNull } from '@/helper/utils';
+import webApi from '@/service';
+import { message } from 'antd';
+import { useUgcCreationStore } from '@/store/zustand/ugcCreationStore';
+import { useShallow } from 'zustand/react/shallow';
 
 interface DragUnitProp {
   unit: UnitMenuType;
@@ -13,6 +17,7 @@ interface DragUnitProp {
   handleDelete: (id: string, type: string) => void;
   showDeleteModal: (type: string, index: number) => void;
   changeDraging: (draging: boolean) => void;
+  refreshUnit: VoidFunction;
 }
 
 const DragUnit: React.FC<DragUnitProp> = ({
@@ -22,8 +27,15 @@ const DragUnit: React.FC<DragUnitProp> = ({
   changeUnitList,
   handleDelete,
   showDeleteModal,
-  changeDraging
+  changeDraging,
+  refreshUnit
 }) => {
+  const { courseId } = useContext(UgcCreateContext);
+  const { setLoading } = useUgcCreationStore(
+    useShallow((state) => ({
+      setLoading: state.setLoading
+    }))
+  );
   const [{ isDragging }, drop] = useDrag(
     () => ({
       type: unit.id,
@@ -39,17 +51,49 @@ const DragUnit: React.FC<DragUnitProp> = ({
     newUnitList[unitIndex].isToggle = !unitList[unitIndex].isToggle;
     changeUnitList(newUnitList);
   };
-  const handleEditUnit = (val: string) => {
+  const handleEditUnit = async (val: string) => {
     if (isNull(val) && isNull(unitList[unitIndex].title)) {
       handleDelete(unitList[unitIndex].id, 'unit');
       return;
     }
-    const newUnitList = cloneDeep(unitList);
-    newUnitList[unitIndex].title = isNull(val)
-      ? newUnitList[unitIndex].title
-      : val;
-    newUnitList[unitIndex].isInput = false;
-    changeUnitList(newUnitList);
+
+    if (isNull(unitList[unitIndex].title)) {
+      //新增
+      setLoading(true);
+      webApi.ugcCreateApi
+        .addUnit(courseId, {
+          title: val,
+          sequence: unitIndex
+        })
+        .then(() => {
+          message.success('success');
+          refreshUnit();
+        })
+        .catch(() => {
+          setLoading(false);
+        });
+    } else {
+      if (isNull(val)) {
+        const newUnitList = cloneDeep(unitList);
+        newUnitList[unitIndex].title = unit.title;
+        newUnitList[unitIndex].isInput = false;
+        changeUnitList(newUnitList);
+      } else {
+        //编辑
+        webApi.ugcCreateApi
+          .editUnit(courseId, unit.id, {
+            title: val,
+            sequence: unitIndex
+          })
+          .then(() => {
+            message.success('success');
+            refreshUnit();
+          })
+          .catch(() => {
+            setLoading(false);
+          });
+      }
+    }
   };
   useEffect(() => {
     changeDraging(isDragging);

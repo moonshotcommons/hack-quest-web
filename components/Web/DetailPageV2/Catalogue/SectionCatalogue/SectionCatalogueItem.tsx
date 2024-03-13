@@ -12,6 +12,7 @@ import SectionProvider from '../../Provider/SectionProvider';
 import SectionWrap from './SectionWrap';
 import LearningTrackCourseStatusButton from './LearningTrackCourseStatusButton';
 import Link from 'next/link';
+import { CourseType } from '@/service/webApi/course/type';
 
 interface LearningTrackCatalogueItemProps {
   section: SectionType;
@@ -40,7 +41,11 @@ const LearningTrackCatalogueItem: FC<LearningTrackCatalogueItemProps> = (
               >
                 <div className="min-w-[6.25rem]">
                   <div className="body-xs flex w-fit items-center justify-center rounded-[8px] border border-neutral-off-black px-2 py-[2px]">
-                    {tagFormate(course.type)}
+                    {tagFormate(
+                      course.type !== CourseType.UGC
+                        ? course.type
+                        : CourseType.CONCEPT
+                    )}
                   </div>
                 </div>
                 <Link

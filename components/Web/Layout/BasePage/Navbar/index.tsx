@@ -147,72 +147,71 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
                       />
                     )}
                   </div>
-                  {
-                    <DropDownMotion
-                      open={nav.menu.length > 1 && hoverNavId === nav.id}
-                      className=" left-0  rounded-[16px] border border-neutral-light-gray bg-neutral-white p-[12px] shadow-[0_2px_2px_0_rgba(19,19,19,0.15)]"
-                    >
-                      {nav.type === 'outSide' ? (
-                        <div className="flex gap-[24px]">
-                          {nav.menu.map((menu) => (
-                            <div
-                              key={menu.id}
-                              className=" body-s-bold text-neutral-medium-gray"
-                            >
-                              <p className="px-[12px] py-[8px]">{menu.label}</p>
-                              {menu.outSide?.map((outside) =>
-                                outside.id === 'playground' ? (
-                                  <div
-                                    key={outside.link}
-                                    className="mt-[8px] cursor-pointer px-[12px] py-[8px] text-neutral-rich-gray"
-                                    onClick={() =>
-                                      setPlaygroundSelectModalOpen(true)
-                                    }
-                                  >
-                                    {outside.label}
-                                  </div>
-                                ) : (
-                                  <Link
-                                    key={outside.link}
-                                    href={outside.link!}
-                                    target="_blank"
-                                    onClick={(e) => {
-                                      e.stopPropagation();
-                                    }}
-                                  >
-                                    <p className="mt-[8px] px-[12px] py-[8px]  text-neutral-rich-gray">
-                                      {outside.label}
-                                    </p>
-                                  </Link>
-                                )
-                              )}
-                            </div>
-                          ))}
-                        </div>
-                      ) : (
-                        nav.menu.map((menu, menuIndex) => (
-                          <Link
-                            key={menu.path}
-                            href={menu.path!}
-                            onClick={(e) => {
-                              e.stopPropagation();
-                            }}
+                  <DropDownMotion
+                    open={nav.menu.length > 1 && hoverNavId === nav.id}
+                    isNav={true}
+                    className=" left-0  rounded-[16px] border border-neutral-light-gray bg-neutral-white p-[12px] shadow-[0_2px_2px_0_rgba(19,19,19,0.15)]"
+                  >
+                    {nav.type === 'outSide' ? (
+                      <div className="flex gap-[24px]">
+                        {nav.menu.map((menu) => (
+                          <div
+                            key={menu.id}
+                            className=" body-s-bold text-neutral-medium-gray"
                           >
-                            <div
-                              className={`mb-[8px]  whitespace-nowrap  rounded-[8px] px-[12px] py-[8px] hover:bg-neutral-off-white ${secondNavIndex === menuIndex ? 'bg-neutral-off-white' : ''}`}
-                            >
-                              <p className="body-s-bold text-neutral-rich-gray">
-                                {menu.label}
-                              </p>
-                              <p className="body-xs text-neutral-medium-gray">
-                                {menu.description}
-                              </p>
-                            </div>
-                          </Link>
-                        ))
-                      )}
-                    </DropDownMotion>
-                  }
+                            <p className="px-[12px] py-[8px]">{menu.label}</p>
+                            {menu.outSide?.map((outside) =>
+                              outside.id === 'playground' ? (
+                                <div
+                                  key={outside.link}
+                                  className="mt-[8px] cursor-pointer rounded-[8px]  px-[12px] py-[8px] text-neutral-rich-gray hover:bg-neutral-off-white"
+                                  onClick={() =>
+                                    setPlaygroundSelectModalOpen(true)
+                                  }
+                                >
+                                  {outside.label}
+                                </div>
+                              ) : (
+                                <Link
+                                  key={outside.link}
+                                  href={outside.link!}
+                                  target="_blank"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                  }}
+                                >
+                                  <p className="mt-[8px] cursor-pointer rounded-[8px] px-[12px]  py-[8px] text-neutral-rich-gray hover:bg-neutral-off-white">
+                                    {outside.label}
+                                  </p>
+                                </Link>
+                              )
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      nav.menu.map((menu, menuIndex) => (
+                        <Link
+                          key={menu.path}
+                          href={menu.path!}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                          }}
+                        >
+                          <div
+                            className={`mb-[8px] whitespace-nowrap rounded-[8px] px-[12px] py-[8px] hover:bg-neutral-off-white ${secondNavIndex === menuIndex ? 'bg-neutral-off-white' : ''}`}
+                          >
+                            <p className="body-s-bold text-neutral-rich-gray">
+                              {menu.label}
+                            </p>
+                            <p className="body-xs text-neutral-medium-gray">
+                              {menu.description}
+                            </p>
+                          </div>
+                        </Link>
+                      ))
+                    )}
+                  </DropDownMotion>
                 </div>
               ))}
             </div>

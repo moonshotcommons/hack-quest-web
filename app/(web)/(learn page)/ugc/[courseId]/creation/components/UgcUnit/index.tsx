@@ -6,7 +6,6 @@ import DeleteModal from './DeleteModal';
 import {
   CreationHandleKey,
   CreationPageKey,
-  LessonMenuType,
   UgcCreateContext,
   UnitMenuType
 } from '../../constant/type';
@@ -15,8 +14,6 @@ import { isNull } from '@/helper/utils';
 import emitter from '@/store/emitter';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 import { useRedirect } from '@/hooks/useRedirect';
-import { LessonType } from '../UgcSidebar/constant';
-import { getLessonIconData } from '../../constant/data';
 import { message } from 'antd';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
@@ -25,6 +22,10 @@ import DropUnit from './DropUnit';
 import DropLesson from './DropLesson';
 import DrapLesson from './DrapLesson';
 import useUgcCreationDataHanlde from '@/hooks/useUgcCreationDataHanlde';
+import { useUgcCreationStore } from '@/store/zustand/ugcCreationStore';
+import { useShallow } from 'zustand/react/shallow';
+import Loading from '@/components/Common/Loading';
+import webApi from '@/service';
 
 interface UgcUnitProp {}
 
@@ -34,6 +35,12 @@ const UgcUnit: React.FC<UgcUnitProp> = () => {
   const [deleteModal, setDeleteModal] = useState(false);
   const [unitDraging, setUnitDraging] = useState(false);
   const { redirectToUrl } = useRedirect();
+  const { loading, setLoading } = useUgcCreationStore(
+    useShallow((state) => ({
+      loading: state.loading,
+      setLoading: state.setLoading
+    }))
+  );
   const {
     courseId,
     selectLessonId,
@@ -43,6 +50,10 @@ const UgcUnit: React.FC<UgcUnitProp> = () => {
   } = useContext(UgcCreateContext);
   const { getUnitList } = useUgcCreationDataHanlde();
   const handleAddUit = () => {
+    if (unitList.some((v) => isNull(v.title))) {
+      message.warning('Please enter unit first');
+      return;
+    }
     const unit = {
       id: v4(),
       title: '',
@@ -61,18 +72,23 @@ const UgcUnit: React.FC<UgcUnitProp> = () => {
       message.warning('Enter lesson name');
       return;
     }
-    const lesson = {
-      id: v4(),
-      title,
-      type,
-      icon: getLessonIconData(15)[type as LessonType],
-      isInput: false,
-      isDragging: false
-    };
-    const newUnitList = cloneDeep(unitList);
-    newUnitList[index].pages.push(lesson as LessonMenuType);
-    newUnitList[index].lessonInputValue = '';
-    setUnitList(newUnitList);
+    setLoading(true);
+    webApi.ugcCreateApi
+      .addLesson({
+        title,
+        sequence: unitList[index].pages?.length || 0,
+        type,
+        courseId,
+        unitId: unitList[index].id,
+        content: {}
+      })
+      .then(() => {
+        message.success('success');
+        refreshUnit();
+      })
+      .catch(() => {
+        setLoading(false);
+      });
   };
   const showDeleteModal = (
     type: string,
@@ -105,58 +121,82 @@ const UgcUnit: React.FC<UgcUnitProp> = () => {
     setDeleteModal(true);
   };
   const handleDelete = (id: string, type: string) => {
+    setLoading(true);
     if (type === 'unit') {
-      const newUnitList = unitList.filter((unit) => unit.id !== id);
-      setUnitList(newUnitList);
-      /**
-       * 如果当前展示的lesson所在的unit被删除 则需要跳转新的lesson
-       * 删除后的unit如果为空 默认跳转选择lesson页面
-       * 删除第一个unit 默认跳转删除后第一个unit第一个的lesson 其余为默认跳转上一个unit的第一个lesson
-       */
-      if (unitList.some((unit) => unit.id === selectUnitMenuId)) {
-        let toPathLessonId;
-        if (!newUnitList.length) {
-          toPathLessonId = CreationPageKey.ChooseLesson;
-        } else {
-          const unitIndex = unitList.findIndex((unit) => unit.id !== id);
-          const lessonIdIndex = !unitIndex ? unitIndex : unitIndex - 1;
-          toPathLessonId =
-            newUnitList[unitIndex].pages[lessonIdIndex]?.id ||
-            CreationPageKey.ChooseLesson;
-        }
-        redirectToUrl(`${MenuLink.UGC}/${courseId}/creation/${toPathLessonId}`);
-      }
+      webApi.ugcCreateApi
+        .delelteUnit(courseId, id)
+        .then(() => {
+          message.success('success');
+          refreshUnit();
+          setDeleteModal(false);
+          const newUnitList = unitList.filter((unit) => unit.id !== id);
+          /**
+           * 如果当前展示的lesson所在的unit被删除 则需要跳转新的lesson
+           * 删除后的unit如果为空 默认跳转选择lesson页面
+           * 删除第一个unit 默认跳转删除后第一个unit第一个的lesson 其余为默认跳转上一个unit的第一个lesson
+           */
+          if (unitList.some((unit) => unit.id === selectUnitMenuId)) {
+            let toPathLessonId;
+            if (!newUnitList.length) {
+              toPathLessonId = CreationPageKey.ChooseLesson;
+            } else {
+              const unitIndex = unitList.findIndex((unit) => unit.id !== id);
+              const lessonIdIndex = !unitIndex ? unitIndex : unitIndex - 1;
+              toPathLessonId =
+                newUnitList[unitIndex].pages[lessonIdIndex]?.id ||
+                CreationPageKey.ChooseLesson;
+            }
+            redirectToUrl(
+              `${MenuLink.UGC}/${courseId}/creation/${toPathLessonId}`
+            );
+          }
+        })
+        .catch(() => {
+          setLoading(false);
+        });
     } else {
-      const newUnitList = cloneDeep(unitList);
-      const unitIndex = unitList.findIndex((unit) =>
-        unit.pages.some((lesson) => lesson.id === id)
-      );
-      const newLesson = unitList[unitIndex].pages.filter(
-        (lesson) => lesson.id !== id
-      );
-      newUnitList[unitIndex].pages = newLesson;
-      setUnitList(newUnitList);
-      /** 如果当前展示的lesson被删除  则需要跳转新的lesson
-       * 删除后的lesson如果为空 默认跳转选择lesson页面
-       * 删除第一个lesson 默认跳转删除后第一个的lesson 其余为默认跳转个lesson
-       */
-      if (selectLessonId === id) {
-        let toPathLessonId;
-        if (!newLesson.length) {
-          toPathLessonId = CreationPageKey.ChooseLesson;
-        } else {
-          const lessonIndex = unitList[unitIndex].pages.findIndex(
+      webApi.ugcCreateApi
+        .delelteLesson(id)
+        .then(() => {
+          message.success('success');
+          refreshUnit();
+          setDeleteModal(false);
+          const newUnitList = cloneDeep(unitList);
+          const unitIndex = unitList.findIndex((unit) =>
+            unit.pages.some((lesson) => lesson.id === id)
+          );
+          const newLesson = unitList[unitIndex].pages.filter(
             (lesson) => lesson.id !== id
           );
-          const lessonIdIndex = !lessonIndex ? lessonIndex : lessonIndex - 1;
-          toPathLessonId =
-            newUnitList[unitIndex].pages[lessonIdIndex]?.id ||
-            CreationPageKey.ChooseLesson;
-        }
-        redirectToUrl(`${MenuLink.UGC}/${courseId}/creation/${toPathLessonId}`);
-      }
+          newUnitList[unitIndex].pages = newLesson;
+          /** 如果当前展示的lesson被删除  则需要跳转新的lesson
+           * 删除后的lesson如果为空 默认跳转选择lesson页面
+           * 删除第一个lesson 默认跳转删除后第一个的lesson 其余为默认跳转个lesson
+           */
+          if (selectLessonId === id) {
+            let toPathLessonId;
+            if (!newLesson.length) {
+              toPathLessonId = CreationPageKey.ChooseLesson;
+            } else {
+              const lessonIndex = unitList[unitIndex].pages.findIndex(
+                (lesson) => lesson.id !== id
+              );
+              const lessonIdIndex = !lessonIndex
+                ? lessonIndex
+                : lessonIndex - 1;
+              toPathLessonId =
+                newUnitList[unitIndex].pages[lessonIdIndex]?.id ||
+                CreationPageKey.ChooseLesson;
+            }
+            redirectToUrl(
+              `${MenuLink.UGC}/${courseId}/creation/${toPathLessonId}`
+            );
+          }
+        })
+        .catch(() => {
+          setLoading(false);
+        });
     }
-    setDeleteModal(false);
   };
   const chooseLesson = (id: string) => {
     setSelectUnitMenuId(id);
@@ -165,7 +205,7 @@ const UgcUnit: React.FC<UgcUnitProp> = () => {
     );
   };
 
-  const getUnit = async () => {
+  const refreshUnit = async () => {
     const list = await getUnitList();
     setUnitList(list as UnitMenuType[]);
   };
@@ -176,7 +216,7 @@ const UgcUnit: React.FC<UgcUnitProp> = () => {
   emitter.on(CreationHandleKey.ADD_LESSON, handleAddLesson);
 
   useEffect(() => {
-    getUnit();
+    refreshUnit();
   }, [courseInformation]);
 
   useEffect(() => {
@@ -187,87 +227,94 @@ const UgcUnit: React.FC<UgcUnitProp> = () => {
 
   return (
     <div className="scroll-wrap-y relative z-[10] h-full w-[296px] flex-shrink-0 border-l-[1px] border-neutral-light-gray bg-neutral-off-white px-[40px] py-[30px] text-neutral-black shadow-[2px_0_4px_0_rgba(0,0,0,0.12)]">
-      <DndProvider backend={HTML5Backend}>
-        {unitList.map((unit, unitIndex) => (
-          <div
-            key={unit.id}
-            className={`mb-[20px] border-b border-neutral-medium-gray pb-[20px]`}
-          >
-            <DropUnit
-              unitList={unitList}
-              changeUnitList={(list) => setUnitList(list)}
-              index={unitIndex}
+      <Loading loading={loading}>
+        <DndProvider backend={HTML5Backend}>
+          {unitList.map((unit, unitIndex) => (
+            <div
+              key={unit.id}
+              className={`mb-[20px] border-b border-neutral-medium-gray pb-[20px]`}
             >
-              <DragUnit
-                unit={unit}
-                unitIndex={unitIndex}
+              <DropUnit
                 unitList={unitList}
                 changeUnitList={(list) => setUnitList(list)}
-                handleDelete={handleDelete}
-                showDeleteModal={showDeleteModal}
-                changeDraging={(isDragging) => setUnitDraging(isDragging)}
-              />
-            </DropUnit>
-            <div
-              className={`${!unitDraging && unit.title ? 'block' : 'hidden'}`}
-            >
-              <div
-                className={`body-s  flex-col gap-[15px] pt-[15px] ${unit.isToggle ? 'flex' : 'hidden'}`}
+                index={unitIndex}
+                refreshUnit={refreshUnit}
               >
-                {unit.pages?.map((lesson, lessonIndex) => (
-                  <DropLesson
-                    key={lesson.id}
-                    changeUnitList={(list) => setUnitList(list)}
-                    lessonIndex={lessonIndex}
-                    unitIndex={unitIndex}
-                    unitList={unitList}
-                  >
-                    <DrapLesson
-                      unitIndex={unitIndex}
-                      lessonIndex={lessonIndex}
+                <DragUnit
+                  unit={unit}
+                  refreshUnit={refreshUnit}
+                  unitIndex={unitIndex}
+                  unitList={unitList}
+                  changeUnitList={(list) => setUnitList(list)}
+                  handleDelete={handleDelete}
+                  showDeleteModal={showDeleteModal}
+                  changeDraging={(isDragging) => setUnitDraging(isDragging)}
+                />
+              </DropUnit>
+              <div
+                className={`${!unitDraging && unit.title ? 'block' : 'hidden'}`}
+              >
+                <div
+                  className={`body-s  flex-col gap-[15px] pt-[15px] ${unit.isToggle ? 'flex' : 'hidden'}`}
+                >
+                  {unit.pages?.map((lesson, lessonIndex) => (
+                    <DropLesson
+                      key={lesson.id}
                       changeUnitList={(list) => setUnitList(list)}
+                      lessonIndex={lessonIndex}
+                      unitIndex={unitIndex}
                       unitList={unitList}
-                      lesson={lesson}
-                      showDeleteModal={showDeleteModal}
-                    ></DrapLesson>
-                  </DropLesson>
-                ))}
-                <div className="flex items-center gap-[7px]">
-                  <IoMdAddCircle
-                    size={24}
-                    className=" flex-shrink-0  text-neutral-medium-gray"
-                  />
+                      refreshUnit={refreshUnit}
+                    >
+                      <DrapLesson
+                        unitIndex={unitIndex}
+                        lessonIndex={lessonIndex}
+                        changeUnitList={(list) => setUnitList(list)}
+                        unitList={unitList}
+                        lesson={lesson}
+                        showDeleteModal={showDeleteModal}
+                        refreshUnit={refreshUnit}
+                      ></DrapLesson>
+                    </DropLesson>
+                  ))}
+                  <div className="flex items-center gap-[7px]">
+                    <IoMdAddCircle
+                      size={24}
+                      className=" flex-shrink-0  text-neutral-medium-gray"
+                    />
 
-                  <input
-                    type="text"
-                    placeholder="Add a lesson / quiz"
-                    className="flex-1  bg-transparent text-neutral-black outline-none"
-                    value={unit.lessonInputValue}
-                    onChange={(e) => {
-                      const target = e.target as HTMLInputElement;
-                      const value = target.value;
-                      const newUnitList = cloneDeep(unitList);
-                      newUnitList[unitIndex].lessonInputValue = value;
-                      setUnitList(newUnitList);
-                    }}
-                    onClick={() => chooseLesson(unit.id)}
-                  />
+                    <input
+                      type="text"
+                      placeholder="Add a lesson / quiz"
+                      className="flex-1  bg-transparent text-neutral-black outline-none"
+                      value={unit.lessonInputValue}
+                      onChange={(e) => {
+                        const target = e.target as HTMLInputElement;
+                        const value = target.value;
+                        const newUnitList = cloneDeep(unitList);
+                        newUnitList[unitIndex].lessonInputValue = value;
+                        setUnitList(newUnitList);
+                      }}
+                      onClick={() => chooseLesson(unit.id)}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
 
-        <Button
-          onClick={() => handleAddUit()}
-          icon={<IoMdAddCircle size={24} />}
-          className="body-s  h-[48px] w-full bg-neutral-white text-neutral-medium-gray"
-        >
-          Add an unit
-        </Button>
-      </DndProvider>
+          <Button
+            onClick={() => handleAddUit()}
+            icon={<IoMdAddCircle size={24} />}
+            className="body-s  h-[48px] w-full bg-neutral-white text-neutral-medium-gray"
+          >
+            Add an unit
+          </Button>
+        </DndProvider>
+      </Loading>
 
       <DeleteModal
+        loading={loading}
         open={deleteModal}
         handleDelete={() => handleDelete(handleInfo.id, handleInfo.type)}
         deleteInfo={handleInfo}
