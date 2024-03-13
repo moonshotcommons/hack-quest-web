@@ -236,7 +236,6 @@ const UgcUnit: React.FC<UgcUnitProp> = () => {
             >
               <DropUnit
                 unitList={unitList}
-                changeUnitList={(list) => setUnitList(list)}
                 index={unitIndex}
                 refreshUnit={refreshUnit}
               >
@@ -260,7 +259,6 @@ const UgcUnit: React.FC<UgcUnitProp> = () => {
                   {unit.pages?.map((lesson, lessonIndex) => (
                     <DropLesson
                       key={lesson.id}
-                      changeUnitList={(list) => setUnitList(list)}
                       lessonIndex={lessonIndex}
                       unitIndex={unitIndex}
                       unitList={unitList}
