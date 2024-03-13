@@ -10,7 +10,8 @@ export enum CourseType {
   GUIDED_PROJECT = 'GUIDED_PROJECT',
   LEARNING_TRACK = 'LEARNING_TRACK',
   MINI = 'MINI',
-  UGC = 'UGC'
+  UGC = 'UGC',
+  CONCEPT = 'CONCEPT'
 }
 
 export enum LessonStyleType {

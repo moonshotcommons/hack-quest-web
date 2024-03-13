@@ -24,7 +24,7 @@ export async function generateMetadata({
     title: glossary.title,
     description: glossary.description,
     alternates: {
-      canonical: `https://www.hackquest.io/glossary/${encodeURIComponent(params.glossaryId)}`
+      canonical: `https://www.hackquest.io/glossary/${params.glossaryId}`
     }
   };
 }
