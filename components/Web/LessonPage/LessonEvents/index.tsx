@@ -62,7 +62,7 @@ const LessonEvents: React.FC<LessonEventsProps> = (props) => {
   }, [lesson]);
 
   useEffect(() => {
-    const unitName = unitNavList[currentUnitIndex]?.name;
+    const unitName = unitNavList[currentUnitIndex]?.title;
     const navbarData = [
       {
         label: learnPageTitle
@@ -71,7 +71,7 @@ const LessonEvents: React.FC<LessonEventsProps> = (props) => {
         label: unitName
       },
       {
-        label: lesson?.name || lesson?.title
+        label: lesson?.title
       }
     ];
     unitName && setNavbarData([...navbarData]);
@@ -100,9 +100,7 @@ const LessonEvents: React.FC<LessonEventsProps> = (props) => {
       >
         <div className="flex-1 px-5">
           <div className="flex items-center justify-between">
-            <span className="text-h3 mr-[7px]">
-              {lesson?.name || lesson?.title}
-            </span>
+            <span className="text-h3 mr-[7px]">{lesson?.title}</span>
             <Image
               src={ArrowBottom}
               alt="arrow-bottom"
