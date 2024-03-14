@@ -1,8 +1,6 @@
 import type { Metadata } from 'next';
 
 import '@/styles/globals.css';
-// import '@moonshotcommons/hackquest-editor/publish/style/globals.css';
-// import '@moonshotcommons/hackquest-editor/publish/style/index.css';
 import InitializeUserProvider from '@/components/Provider/InitializeUser';
 
 import ThemeContextProvider from '@/store/context/theme';
