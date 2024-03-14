@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import HandleDot from './HandleDot';
 import { LessonMenuType } from '../../constant/type';
+import { message } from 'antd';
 
 interface UnitLessonProp {
   lesson: LessonMenuType;
@@ -8,6 +9,7 @@ interface UnitLessonProp {
   handleDelete: VoidFunction;
   handleClickLesson: VoidFunction;
   curLessonId: string;
+  isShowDelete: boolean;
 }
 
 const UnitLesson: React.FC<UnitLessonProp> = ({
@@ -15,7 +17,8 @@ const UnitLesson: React.FC<UnitLessonProp> = ({
   handleEdit,
   handleDelete,
   handleClickLesson,
-  curLessonId
+  curLessonId,
+  isShowDelete
 }) => {
   const [lesson, setLesson] = useState<LessonMenuType | null>(null);
   const handleInput = () => {
@@ -42,6 +45,7 @@ const UnitLesson: React.FC<UnitLessonProp> = ({
             className="body-s w-full border-b border-neutral-medium-gray bg-transparent text-neutral-black outline-none"
             value={lesson?.title}
             placeholder="Add a unit"
+            maxLength={121}
             onChange={(e) => {
               const target = e.target as HTMLInputElement;
               const value = target.value;
@@ -62,13 +66,22 @@ const UnitLesson: React.FC<UnitLessonProp> = ({
               const value = target.value;
               handleEdit(value);
             }}
+            onInput={(e) => {
+              const input = e.target as HTMLInputElement;
+              const len = input.value.length;
+              if (len > 120) {
+                message.warning('120 characters maximum');
+                input.value = input.value.slice(0, 120);
+              }
+            }}
           />
         ) : (
           <div
-            className={`w-[calc(100%-40px)] cursor-pointer break-all ${curLessonId === lesson?.id ? 'body-s-bold' : 'body-s '}`}
+            className={`w-[calc(100%-40px)] cursor-pointer truncate break-all ${curLessonId === lesson?.id ? 'body-s-bold' : 'body-s '}`}
             onClick={handleClickLesson}
+            onDoubleClick={handleInput}
           >
-            <span className="relative max-w-full">
+            <span className="relative max-w-full ">
               {lesson?.title}
               {curLessonId === lesson?.id && (
                 <span className="absolute bottom-[-2px] left-0 h-[3px] w-full rounded-[100px] bg-yellow-dark"></span>
@@ -78,7 +91,11 @@ const UnitLesson: React.FC<UnitLessonProp> = ({
         )}
       </div>
       {!lesson?.isInput && (
-        <HandleDot handleEdit={handleInput} handleDelete={handleDelete} />
+        <HandleDot
+          showDelete={isShowDelete}
+          handleEdit={handleInput}
+          handleDelete={handleDelete}
+        />
       )}
     </div>
   );

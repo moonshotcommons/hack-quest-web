@@ -1,12 +1,15 @@
 'use client';
-import { FC, ReactNode } from 'react';
 import { useNeedPCRedirect } from '@/hooks/useNeedPCRedirect';
+import { FC, ReactNode } from 'react';
 
 interface LearnLayoutProps {
   children: ReactNode;
+  params: {
+    courseId: string;
+  };
 }
 
-const LearnLayout: FC<LearnLayoutProps> = ({ children }) => {
+const LearnLayout: FC<LearnLayoutProps> = ({ params, children }) => {
   useNeedPCRedirect();
   return <></>;
 };
