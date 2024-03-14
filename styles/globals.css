@@ -323,7 +323,7 @@ input[data-type='changePassword']:-internal-autofill-selected {
     bottom: 0;
     left: var(--highlight-x);
     width: var(--highlight-width);
-    background: #3e3e3e;
+    background: var(--yellow-primary);
     transition: all 0.2s;
     border-radius: 20px;
   }
