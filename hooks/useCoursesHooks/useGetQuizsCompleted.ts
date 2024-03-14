@@ -1,7 +1,7 @@
 import {
   FooterButtonStatus,
   FooterButtonText
-} from '@/app/(web)/(learn page)/ugc/[courseId]/learn/constants/type';
+} from '@/app/[lang]/(web)/(learn page)/ugc/[courseId]/learn/constants/type';
 import { CustomComponent } from '@/components/Web/Business/Renderer/type';
 
 export const useGetQuizsCompleted = () => {
