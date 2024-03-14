@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Modal from '@/components/Common/Modal';
 import Button from '@/components/Common/Button';
 import { FiX } from 'react-icons/fi';
@@ -8,22 +8,20 @@ interface DeleteModalProp {
   handleDelete: VoidFunction;
   deleteInfo: Record<string, any>;
   loading: boolean;
+  onClose: VoidFunction;
 }
 
 const DeleteModal: React.FC<DeleteModalProp> = ({
-  open: isOpen,
+  open,
   handleDelete,
   deleteInfo,
-  loading
+  loading,
+  onClose
 }) => {
-  const [open, setOpen] = useState(false);
-  useEffect(() => {
-    setOpen(isOpen);
-  }, [isOpen]);
   return (
     <Modal
       open={open}
-      onClose={() => setOpen(false)}
+      onClose={onClose}
       showCloseIcon={true}
       icon={<FiX size={26} />}
     >
@@ -34,7 +32,7 @@ const DeleteModal: React.FC<DeleteModalProp> = ({
           <Button
             ghost
             className="button-text-m h-[48px] w-[165px] border-neutral-black uppercase"
-            onClick={() => setOpen(false)}
+            onClick={onClose}
           >
             cancel
           </Button>

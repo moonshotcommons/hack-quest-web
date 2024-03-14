@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useMemo } from 'react';
 import { useDrag } from 'react-dnd';
 import { UgcCreateContext, UnitMenuType } from '../../constant/type';
 import Unit from './Unit';
@@ -95,6 +95,15 @@ const DragUnit: React.FC<DragUnitProp> = ({
       }
     }
   };
+  const isShowDelete = useMemo(() => {
+    const otherUnits = unitList.filter((v) => v.id !== unit.id);
+    let lessonCount = 0;
+    otherUnits.map((unit) => {
+      const len = unit.pages?.length || 0;
+      lessonCount += len;
+    });
+    return lessonCount > 0;
+  }, [unitList]);
   useEffect(() => {
     changeDraging(isDragging);
   }, [isDragging]);
@@ -105,6 +114,7 @@ const DragUnit: React.FC<DragUnitProp> = ({
         handleDelete={() => showDeleteModal('unit', unitIndex)}
         handleEdit={(val) => handleEditUnit(val)}
         handleToggle={() => toggleLesson()}
+        isShowDelete={isShowDelete}
       />
     </div>
   );

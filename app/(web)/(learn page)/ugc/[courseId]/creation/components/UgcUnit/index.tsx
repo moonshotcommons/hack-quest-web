@@ -1,5 +1,5 @@
 import Button from '@/components/Common/Button';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { IoMdAddCircle } from 'react-icons/io';
 import { v4 } from 'uuid';
 import DeleteModal from './DeleteModal';
@@ -41,6 +41,14 @@ const UgcUnit: React.FC<UgcUnitProp> = () => {
       setLoading: state.setLoading
     }))
   );
+  const isShowDeleteLesson = useMemo(() => {
+    let lessonCount = 0;
+    unitList.map((unit) => {
+      const len = unit.pages?.length || 0;
+      lessonCount += len;
+    });
+    return lessonCount > 1;
+  }, [unitList]);
   const {
     courseId,
     selectLessonId,
@@ -266,6 +274,7 @@ const UgcUnit: React.FC<UgcUnitProp> = () => {
                     >
                       <DrapLesson
                         unitIndex={unitIndex}
+                        isShowDelete={isShowDeleteLesson}
                         lessonIndex={lessonIndex}
                         changeUnitList={(list) => setUnitList(list)}
                         unitList={unitList}
@@ -312,6 +321,7 @@ const UgcUnit: React.FC<UgcUnitProp> = () => {
       </Loading>
 
       <DeleteModal
+        onClose={() => setDeleteModal(false)}
         loading={loading}
         open={deleteModal}
         handleDelete={() => handleDelete(handleInfo.id, handleInfo.type)}
