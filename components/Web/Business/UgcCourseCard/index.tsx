@@ -3,13 +3,13 @@ import React, { MouseEvent } from 'react';
 import Image from 'next/image';
 import TrackTag from '@/components/Common/TrackTag';
 import Button from '@/components/Common/Button';
-import { CourseTab } from '@/app/(web)/(base page)/(home)/instructor/constants/type';
+import { CourseTab } from '@/app/[lang]/(web)/(base page)/(home)/instructor/constants/type';
 import UgcTags from './UgcTags';
 import { UGCCourseType } from '@/service/webApi/course/type';
 import { MenuLink } from '../../Layout/BasePage/Navbar/type';
 import UgcCardCover from '@/public/images/home/instructor_cover.png';
 import { useRedirect } from '@/hooks/useRedirect';
-import { CreationPageKey } from '@/app/(web)/(learn page)/ugc/[courseId]/creation/constant/type';
+import { CreationPageKey } from '@/app/[lang]/(web)/(learn page)/ugc/[courseId]/creation/constant/type';
 
 interface UgcCourseCardProp {
   isPublic?: boolean;

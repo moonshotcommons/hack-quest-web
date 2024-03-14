@@ -1,6 +1,6 @@
 import WebService from '@/service/webService/webService';
 import { UGCCourseType } from '../course/type';
-import { CourseInformationType } from '@/app/(web)/(learn page)/ugc/[courseId]/creation/constant/type';
+import { CourseInformationType } from '@/app/[lang]/(web)/(learn page)/ugc/[courseId]/creation/constant/type';
 export enum UgcCreateApiType {
   COURSES = '/courses',
   PAGES = 'pages'

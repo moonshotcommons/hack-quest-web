@@ -1,4 +1,4 @@
-import { CourseTab } from '@/app/(web)/(base page)/(home)/instructor/constants/type';
+import { CourseTab } from '@/app/[lang]/(web)/(base page)/(home)/instructor/constants/type';
 import { ElectiveCourseType, PageType } from '../elective/type';
 
 export interface Response {

@@ -6,7 +6,7 @@ import { useRequest } from 'ahooks';
 import { message } from 'antd';
 import { FC, useEffect, useState } from 'react';
 
-// import ContractUs from '@/app/(web)/(base page)/(landing)/components/ContractUs';
+// import ContractUs from '@/app/[lang]/(web)/(base page)/(landing)/components/ContractUs';
 import { LoginResponse, ThirdPartyAuthType } from '@/service/webApi/user/type';
 import { setToken } from '@/helper/user-token';
 import { omit } from 'lodash-es';
