@@ -30,6 +30,7 @@ export interface MenuType {
   label: string;
   path?: MenuLink;
   id?: string;
+  link?: string;
   description?: string;
   needLogin?: boolean;
   needPC?: boolean;

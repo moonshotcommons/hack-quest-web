@@ -27,6 +27,8 @@ const isNoNeedUserInfoDetail = (pathname: string) => {
     MenuLink.GLOSSARY,
     MenuLink.ADVOCATE,
     MenuLink.COURSE_MARKET,
+    MenuLink.LANUNCH,
+    MenuLink.LANUNCH_DETAIL,
     '/hackquest/'
   ].some((menu) => pathname.includes(menu));
 };
