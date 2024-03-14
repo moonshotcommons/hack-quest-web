@@ -1,4 +1,6 @@
+'use client';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import { locales } from '@/i18n/config';
 
 export const HOME_PATHNAME = '/';
 export const ALL_COURSES_PATHNAME = '/courses';
@@ -33,6 +35,20 @@ const isNoNeedUserInfoDetail = (pathname: string) => {
 };
 
 export function isNoNeedUserInfo(pathname: string) {
+  // let lang = getLang();
+
+  // if (lang && pathname.startsWith(`/${lang}`)) {
+  //   pathname = pathname.replace(`/${lang}`, '');
+  // } else if (!lang) {
+  const lang = locales.find(
+    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
+  );
+
+  if (lang && pathname.startsWith(`/${lang}`)) {
+    pathname = pathname.replace(`/${lang}`, '');
+  }
+  // }
+
   if (pathname.startsWith('/mobile')) {
     pathname = pathname.replace('/mobile', '');
   }

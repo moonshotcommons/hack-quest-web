@@ -62,3 +62,13 @@ export function useTranslation(lng: string = 'en', ns?: string, options = {}) {
   }
   return ret;
 }
+
+export function getLang() {
+  if (runsOnServerSide) return defaultLocale;
+  let lang = localStorage.getItem('lang');
+  if (lang && locales.includes(lang)) return lang;
+  else {
+    lang = document.getElementsByTagName('html')[0].lang;
+    localStorage.setItem('lang', lang);
+  }
+}
