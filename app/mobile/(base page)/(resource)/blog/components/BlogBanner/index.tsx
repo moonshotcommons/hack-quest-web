@@ -6,13 +6,13 @@ import { BlogSearchType } from '@/service/webApi/resourceStation/type';
 import { useRouter } from 'next/navigation';
 import { cloneDeep } from 'lodash-es';
 import Link from 'next/link';
-import Button from '@/components/Common/Button';
 import Select from '@/components/Common/Select';
 import { searchTabData, sortData } from '../../constants/data';
 import { FiX } from 'react-icons/fi';
 import { motion } from 'framer-motion';
 import { getSearchParamsUrl } from '@/helper/utils';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import { HiArrowLongRight } from 'react-icons/hi2';
 
 interface BannerProp {
   searchParams: BlogSearchType;
@@ -90,25 +90,24 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
 
   return (
     <>
-      <div className="body-l relative z-[10]  flex flex-col gap-[1rem] bg-neutral-white px-[1.25rem] py-[1.875rem] text-neutral-off-black">
+      <div className="body-l relative z-[10]  flex flex-col gap-[1rem] bg-neutral-off-white px-[1.25rem] py-[1.875rem] text-neutral-off-black">
         <h1 className="text-h2-mob">Blog</h1>
         <p className="body-s w-full text-neutral-rich-gray">
           Explore our Web3 Blog – your hub for news, events, and study notes!
           Contribute your insights, shaping the conversation in the world of
           decentralized tech.
         </p>
+
         <Link
+          className="caption-14pt relative flex w-fit  items-center gap-[6px] text-neutral-off-black"
           href="https://xsxo494365r.typeform.com/to/RwN08ht9"
           target="_blank"
-          className="w-fit"
         >
-          <Button
-            type="primary"
-            className="button-text-m h-[3rem] w-[10.3125rem]"
-          >
-            CONTRIBUTE
-          </Button>
+          <span>Contribute Blogs to HackQuest</span>
+          <HiArrowLongRight size={16}></HiArrowLongRight>
+          <div className="absolute bottom-0 left-0 h-[3px] w-full rounded-[5px] bg-yellow-dark"></div>
         </Link>
+
         <div className="relative mt-[.75rem] flex h-[48px] w-full items-center">
           <div
             tabIndex={0}
@@ -152,7 +151,7 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
               label=""
               name=""
               state="default"
-              className="body-m h-[48px] border-neutral-off-white bg-neutral-off-white"
+              className="body-m h-[48px] border-neutral-light-gray bg-neutral-white"
               placeholder="Please select"
               defaultValue={searchInfo.category}
               options={searchTabData}
@@ -171,7 +170,7 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
           >
             <input
               type="text"
-              className="body-m h-full w-full rounded-[1.5rem] bg-neutral-off-white pl-[1.375rem]  outline-none"
+              className="body-m h-full w-full rounded-[1.5rem] bg-neutral-white pl-[1.375rem]  outline-none"
               placeholder="Search"
               value={keyword}
               onInput={changeInput}
