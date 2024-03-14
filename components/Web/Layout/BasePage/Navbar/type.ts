@@ -17,8 +17,7 @@ export enum MenuLink {
   INSTRUCTOR = '/instructor',
   ADVOCATE = '/advocate',
   COURSE_MARKET = '/course-market',
-  LANUNCH = '/launch',
-  LANUNCH_DETAIL = '/launch-detail'
+  LANUNCH = '/launch-pool'
 }
 export interface OutSideType {
   label: string;

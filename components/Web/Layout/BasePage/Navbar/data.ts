@@ -127,11 +127,6 @@ export const navbarList: NavbarListType[] = [
         label: 'launch pool',
         path: MenuLink.LANUNCH,
         needPC: true
-      },
-      {
-        label: 'detail',
-        path: MenuLink.LANUNCH_DETAIL,
-        needPC: true
       }
     ]
   },
