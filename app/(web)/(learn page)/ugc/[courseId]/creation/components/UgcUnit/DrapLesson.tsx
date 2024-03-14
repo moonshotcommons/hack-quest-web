@@ -27,6 +27,7 @@ interface DrapLessonProp {
   unitIndex: number;
   lessonIndex: number;
   refreshUnit: VoidFunction;
+  isShowDelete: boolean;
 }
 
 const DrapLesson: React.FC<DrapLessonProp> = ({
@@ -36,7 +37,8 @@ const DrapLesson: React.FC<DrapLessonProp> = ({
   changeUnitList,
   unitIndex,
   lessonIndex,
-  refreshUnit
+  refreshUnit,
+  isShowDelete
 }) => {
   const { redirectToUrl } = useRedirect();
   const { courseId, selectLessonId, setSelectUnitMenuId } =
@@ -90,6 +92,7 @@ const DrapLesson: React.FC<DrapLessonProp> = ({
     setSelectUnitMenuId(unitList[unitIndex].id);
     redirectToUrl(`${MenuLink.UGC}/${courseId}/creation/${lesson.id}`);
   };
+
   return (
     <div ref={drop}>
       <UnitLesson
@@ -98,6 +101,7 @@ const DrapLesson: React.FC<DrapLessonProp> = ({
         handleDelete={() => showDeleteModal('lesson', unitIndex, lessonIndex)}
         handleEdit={(val) => handleEditLesson(unitIndex, lessonIndex, val)}
         handleClickLesson={() => handleClickLesson(lesson)}
+        isShowDelete={isShowDelete}
       />
     </div>
   );

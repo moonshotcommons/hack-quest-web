@@ -7,9 +7,14 @@ import { CiEdit } from 'react-icons/ci';
 interface HandleDotProp {
   handleEdit: VoidFunction;
   handleDelete: VoidFunction;
+  showDelete?: boolean;
 }
 
-const HandleDot: React.FC<HandleDotProp> = ({ handleEdit, handleDelete }) => {
+const HandleDot: React.FC<HandleDotProp> = ({
+  handleEdit,
+  handleDelete,
+  showDelete
+}) => {
   const [isShowHandle, setIsShowHandle] = useState(false);
   return (
     <div className="absolute  right-[10px] top-0 z-[10] hidden text-neutral-black group-hover:block">
@@ -31,13 +36,15 @@ const HandleDot: React.FC<HandleDotProp> = ({ handleEdit, handleDelete }) => {
             <CiEdit size={20} />
             <span>Edit name</span>
           </div>
-          <div
-            className="flex cursor-pointer items-center gap-[12px] py-[11px] pl-[20px] hover:bg-neutral-light-gray"
-            onClick={handleDelete}
-          >
-            <FiTrash2 size={20} />
-            <span>Delete</span>
-          </div>
+          {showDelete && (
+            <div
+              className="flex cursor-pointer items-center gap-[12px] py-[11px] pl-[20px] hover:bg-neutral-light-gray"
+              onClick={handleDelete}
+            >
+              <FiTrash2 size={20} />
+              <span>Delete</span>
+            </div>
+          )}
         </div>
       </div>
     </div>
