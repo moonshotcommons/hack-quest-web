@@ -33,7 +33,9 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
   const pathname = useCustomPathname();
   const [showSecondNav, setShowSecondNav] = useState(false);
   const [secondNavData, setSecondNavData] = useState<MenuType[]>([]);
+  const [secondLabel, setSecondLabel] = useState('');
   const [curNavId, setCurNavId] = useState('');
+  const [inSideNavIndex, setInSideNavIndex] = useState<number>(-1);
   const [secondNavIndex, setSecondNavIndex] = useState<number>(-1);
   const missionData = useMissionCenterStore((state) => state.missionData);
 
@@ -57,19 +59,21 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
       if (curNav) {
         setShowSecondNav?.(nav.menu.length > 1);
         setSecondNavData(nav.menu as []);
+        setSecondLabel(nav.label);
         setCurNavId(nav.id);
         return;
       }
     }
     setShowSecondNav?.(false);
     setSecondNavData([]);
+    setSecondLabel('');
     setCurNavId('');
   }, [pathname, navList]);
 
-  // useEffect(() => {
-  //   const index = navList.findIndex((v) => v.id === curNavId);
-  //   setInSideNavIndex(index);
-  // }, [curNavId, navList]);
+  useEffect(() => {
+    const index = navList.findIndex((v) => v.id === curNavId);
+    setInSideNavIndex(index);
+  }, [curNavId, navList]);
 
   useEffect(() => {
     if (!showSecondNav) return;
@@ -195,7 +199,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
                           }}
                         >
                           <div
-                            className={`mb-[8px] whitespace-nowrap rounded-[8px] px-[12px] py-[8px] hover:bg-neutral-off-white ${secondNavIndex === menuIndex && curNavId === nav.id ? 'bg-neutral-off-white' : ''}`}
+                            className={`mb-[8px] whitespace-nowrap rounded-[8px] px-[12px] py-[8px] hover:bg-neutral-off-white ${secondNavIndex === menuIndex ? 'bg-neutral-off-white' : ''}`}
                           >
                             <p className="body-s-bold text-neutral-rich-gray">
                               {menu.label}
