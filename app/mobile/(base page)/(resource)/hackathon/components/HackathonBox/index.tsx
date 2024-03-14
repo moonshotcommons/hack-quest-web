@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 import { getSearchParamsUrl } from '@/helper/utils';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 import MobCourseListPageHeader from '@/components/Mobile/MobCourseListPageHeader';
-import { BsArrowRight } from 'react-icons/bs';
+import { HiArrowLongRight } from 'react-icons/hi2';
 
 interface HackathonBoxProp {
   page: number;
@@ -34,17 +34,20 @@ const HackathonBox: React.FC<HackathonBoxProp> = ({ page, curTab }) => {
         return <Past page={page} />;
     }
   };
+
   const buttonNode = () => {
     return (
       <div
-        className="body-m flex w-fit items-center gap-[7px] border-b-[2px] border-b-yellow-primary text-neutral-black"
+        className="caption-14pt relative flex w-fit  items-center gap-[6px] text-neutral-off-black"
         onClick={() => redirectToUrl(`${MenuLink.PROJECTS}`)}
       >
         <span>View hackathon projects</span>
-        <BsArrowRight size={16}></BsArrowRight>
+        <HiArrowLongRight size={16}></HiArrowLongRight>
+        <div className="absolute bottom-0 left-0 h-[3px] w-full rounded-[5px] bg-yellow-dark"></div>
       </div>
     );
   };
+
   return (
     <div className=" pb-10 ">
       <MobCourseListPageHeader

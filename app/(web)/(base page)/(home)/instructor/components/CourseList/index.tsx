@@ -1,15 +1,17 @@
+import UgcCourseCard from '@/components/Web/Business/UgcCourseCard';
+import { UGCCourseType } from '@/service/webApi/course/type';
 import React from 'react';
 
 interface CourseListProp {
-  list: any;
+  list: UGCCourseType[];
 }
 
 const CourseList: React.FC<CourseListProp> = ({ list }) => {
   return (
     <div className="flex flex-wrap gap-[24px]">
-      {list.map((v: any) => (
-        <div key={v.id} className="w-[calc((100%-48px)/3)]">
-          {/* <UgcCourseCard isPublic={false} /> */}
+      {list.map((course) => (
+        <div key={course.id} className="w-[calc((100%-48px)/3)]">
+          <UgcCourseCard isPublic={false} course={course} />
         </div>
       ))}
     </div>

@@ -1,16 +1,26 @@
 'use client';
 import React from 'react';
-import { CourseTab } from '../../constants/type';
+import { CourseTab, TabType } from '../../constants/type';
 import SlideHighlight from '@/components/Common/Navigation/SlideHighlight';
 import Button from '@/components/Common/Button';
-import { courseTab } from '../../constants/data';
 
-interface CousesTabProp {
+import { useRedirect } from '@/hooks/useRedirect';
+import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import { CreationPageKey } from '@/app/(web)/(learn page)/ugc/[courseId]/creation/constant/type';
+
+interface CoursesTabProp {
   curTab: CourseTab;
   changeTab: (val: CourseTab) => void;
+  courseTab: TabType[];
 }
 
-const CousesTab: React.FC<CousesTabProp> = ({ curTab, changeTab }) => {
+const CoursesTab: React.FC<CoursesTabProp> = ({
+  curTab,
+  changeTab,
+  courseTab
+}) => {
+  const { redirectToUrl } = useRedirect();
+
   return (
     <div className="mb-[32px] flex items-center justify-between">
       <SlideHighlight
@@ -33,6 +43,11 @@ const CousesTab: React.FC<CousesTabProp> = ({ curTab, changeTab }) => {
       <Button
         type="primary"
         className="button-text-m h-[48px] w-[165px] uppercase"
+        onClick={() =>
+          redirectToUrl(
+            `${MenuLink.UGC}/-1/creation/${CreationPageKey.Introduction}`
+          )
+        }
       >
         create new
       </Button>
@@ -40,4 +55,4 @@ const CousesTab: React.FC<CousesTabProp> = ({ curTab, changeTab }) => {
   );
 };
 
-export default CousesTab;
+export default CoursesTab;

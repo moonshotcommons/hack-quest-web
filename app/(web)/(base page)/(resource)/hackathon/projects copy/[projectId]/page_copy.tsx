@@ -6,7 +6,7 @@ import {
   getFeaturedProjectsById,
   getHackathonProjectById,
   getOtherProjects
-} from '@/service/catch/resource/hackathon';
+} from '@/service/cach/resource/hackathon';
 
 interface ProjectDetailPageProps {
   params: {

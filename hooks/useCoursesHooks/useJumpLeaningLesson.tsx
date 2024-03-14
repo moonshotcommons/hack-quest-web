@@ -63,7 +63,7 @@ export const useJumpLeaningLesson = () => {
         };
         let link = `${getLessonLink(
           courseDetail?.type,
-          courseDetail?.title || courseDetail?.name,
+          courseDetail?.title,
           pageId,
           courseDetail?.id,
           linkParam

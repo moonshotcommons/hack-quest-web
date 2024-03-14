@@ -1,24 +1,32 @@
-import { FC, ReactNode, useState } from 'react';
+import { FC, ReactNode, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { itemVariants } from '../constant';
-import { NavbarListType } from '@/components/Web/Layout/BasePage/Navbar/type';
+import {
+  MenuLink,
+  NavbarListType
+} from '@/components/Web/Layout/BasePage/Navbar/type';
 import { useGlobalStore } from '@/store/zustand/globalStore';
 import useGetHeight from '@/hooks/useGetHeight';
+import { useRedirect } from '@/hooks/useRedirect';
 interface NavListProps {
   navList: NavbarListType[];
   toggleOpen: VoidFunction;
   children: ReactNode;
 }
 
-const NavList: FC<NavListProps> = ({ navList, toggleOpen, children }) => {
+const NavList: FC<NavListProps> = ({ navList: list, toggleOpen, children }) => {
   const [openNavKeys, setOpenNavKeys] = useState<string[]>([]);
-
+  const { redirectToUrl } = useRedirect();
   const { pageHeight } = useGetHeight();
 
   const setTipsModalOpenState = useGlobalStore(
     (state) => state.setTipsModalOpenState
   );
+
+  const navList = useMemo(() => {
+    return list.filter((nav) => nav.id !== 'more');
+  }, [list]);
 
   return (
     <motion.div
@@ -50,25 +58,30 @@ const NavList: FC<NavListProps> = ({ navList, toggleOpen, children }) => {
               <div
                 className="flex w-full items-center justify-between py-[.6875rem]"
                 onClick={() => {
-                  if (openNavKeys.includes(item.id)) {
-                    setOpenNavKeys(
-                      openNavKeys.filter((key) => key !== item.id)
-                    );
-                  } else {
-                    setOpenNavKeys(openNavKeys.concat(item.id));
-                  }
-                  if (item.link) {
-                    if (item.needPC) {
-                      setTipsModalOpenState(true);
+                  if (item.menu.length > 1) {
+                    if (openNavKeys.includes(item.id)) {
+                      setOpenNavKeys(
+                        openNavKeys.filter((key) => key !== item.id)
+                      );
                     } else {
-                      window.open(item.link, '_blank');
+                      setOpenNavKeys(openNavKeys.concat(item.id));
+                    }
+                  } else {
+                    const menu = item.menu[0];
+                    if (menu) {
+                      if (menu.needPC) {
+                        setTipsModalOpenState(true);
+                      } else {
+                        redirectToUrl(menu.path!);
+                        toggleOpen();
+                      }
                     }
                   }
                 }}
               >
                 <span>{item.label}</span>
                 <div className="h-full px-5">
-                  {item.menu?.length > 0 &&
+                  {item.menu?.length > 1 &&
                     (openNavKeys.includes(item.id) ? (
                       <svg
                         width="16"
@@ -98,14 +111,14 @@ const NavList: FC<NavListProps> = ({ navList, toggleOpen, children }) => {
                     ))}
                 </div>
               </div>
-              {item.menu?.length > 0 && openNavKeys.includes(item.id) && (
+              {item.menu?.length > 1 && openNavKeys.includes(item.id) && (
                 <ul className="flex flex-col pb-8">
-                  {item.menu.map((m, i) => {
+                  {item.menu.map((m) => {
                     return (
                       <Link
                         key={m.label}
                         className="body-l mb-[.625rem]"
-                        href={m.path}
+                        href={m.path as MenuLink}
                         onClick={(e) => {
                           if (m.needPC) {
                             e.preventDefault();

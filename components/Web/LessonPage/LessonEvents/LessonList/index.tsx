@@ -26,13 +26,15 @@ const LessonList: React.FC<LessonListType> = ({
   changeToggle
 }) => {
   const [lessonList, setLessonList] = useState<CourseLessonStateType[]>([]);
+
   const [unitName, setUnitName] = useState('');
   const { redirectToUrl } = useRedirect();
   const { getLink } = useGetLessonLink();
+
   const getChildren = (item: UnitPagesListType) => {
     if (!item || item?.disable || !item?.pages) return;
     setLessonList(item.pages as CourseLessonStateType[]);
-    setUnitName(item.name);
+    setUnitName(item.title);
   };
 
   const handleUnit = (item: CourseLessonStateType) => {
@@ -70,9 +72,9 @@ const LessonList: React.FC<LessonListType> = ({
                 : 'cursor-not-allowed'
             }`}
             onClick={() => getChildren(v)}
-            title={v.name}
+            title={v.title}
           >
-            <p className="w-full truncate">{v.name}</p>
+            <p className="w-full truncate">{v.title}</p>
           </div>
         ))
       ) : (
@@ -98,10 +100,10 @@ const LessonList: React.FC<LessonListType> = ({
                     ? 'cursor-pointer hover:bg-lesson-events-toggle-list-active-bg'
                     : 'cursor-not-allowed'
                 }`}
-                title={v.name}
+                title={v.title}
                 onClick={() => handleUnit(v)}
               >
-                <p className="body-s-bold w-[100%] truncate">{v.name}</p>
+                <p className="body-s-bold w-[100%] truncate">{v.title}</p>
                 <Image
                   src={
                     v.state === CompleteStateType.COMPLETED

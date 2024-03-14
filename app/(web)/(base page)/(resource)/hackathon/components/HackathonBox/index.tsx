@@ -9,7 +9,7 @@ import Tab from './Tab';
 import { useRouter } from 'next/navigation';
 import { getSearchParamsUrl } from '@/helper/utils';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
-import { BsArrowRight } from 'react-icons/bs';
+import { HiArrowLongRight } from 'react-icons/hi2';
 
 interface HackathonBoxProp {
   page: number;
@@ -21,7 +21,12 @@ const HackathonBox: React.FC<HackathonBoxProp> = ({ page, curTab }) => {
   const changeTab = (tab: HackathonStatusType) => {
     BurialPoint.track(`hackathon page tab 点击`);
     if (tab === curTab) return;
-    router.push(getSearchParamsUrl({ curTab: tab }, MenuLink.HACKATHON));
+    router.push(
+      getSearchParamsUrl(
+        { curTab: tab === HackathonStatusType.ON_GOING ? '' : tab },
+        MenuLink.HACKATHON
+      )
+    );
   };
   const renderHackathon = () => {
     switch (curTab) {
@@ -34,11 +39,12 @@ const HackathonBox: React.FC<HackathonBoxProp> = ({ page, curTab }) => {
   const buttonNode = () => {
     return (
       <div
-        className="body-l flex w-fit cursor-pointer items-center gap-[7px] border-b-[2px] border-b-yellow-primary pt-[40px] text-neutral-black"
+        className="body-m relative flex w-fit cursor-pointer items-center gap-[7px] text-neutral-off-black"
         onClick={() => redirectToUrl(`${MenuLink.PROJECTS}`)}
       >
         <span>View hackathon projects</span>
-        <BsArrowRight size={18}></BsArrowRight>
+        <HiArrowLongRight size={16}></HiArrowLongRight>
+        <div className="absolute bottom-0 left-0 h-[3px] w-full rounded-[2px] bg-yellow-dark"></div>
       </div>
     );
   };

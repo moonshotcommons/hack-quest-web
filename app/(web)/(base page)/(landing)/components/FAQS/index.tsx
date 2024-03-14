@@ -1,6 +1,7 @@
 'use client';
 import DiscordIcon from '@/components/Common/Icon/Discord';
 import TwitterIcon from '@/components/Common/Icon/Twitter';
+import { HACKQUEST_DISCORD, HACKQUEST_TWITTER } from '@/constants/links';
 import { cn } from '@/helper/utils';
 import Link from 'next/link';
 import { FC, useState } from 'react';
@@ -42,7 +43,7 @@ const FAQS: FC<FAQSProps> = (props) => {
         </p>
         <div className="flex items-center gap-8">
           <Link
-            href={'https://discord.gg/KkAJHPqywn'}
+            href={HACKQUEST_DISCORD}
             className="cursor-pointer hover:scale-[1.1]"
             // onClick={() => {
             //   BurialPoint.track('landing-discord按钮点击');
@@ -53,7 +54,7 @@ const FAQS: FC<FAQSProps> = (props) => {
             </span>
           </Link>
           <Link
-            href={'https://x.com/hackquest_?s=21&t=kYetGSBybf-ssFBo7GodGA'}
+            href={HACKQUEST_TWITTER}
             className="cursor-pointer hover:scale-[1.1]"
             // onClick={() => {
             //   BurialPoint.track('landing-推特按钮点击');

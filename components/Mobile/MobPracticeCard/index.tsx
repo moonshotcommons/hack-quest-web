@@ -27,7 +27,7 @@ const MobPracticeCard: FC<PracticeCardProps> = (props) => {
         'relative flex w-full flex-col gap-[1rem] rounded-[1rem] bg-neutral-white p-[1rem]'
       }
       onClick={(e) => {
-        BurialPoint.track('home-practice卡片点击', { practice: course.name });
+        BurialPoint.track('home-practice卡片点击', { practice: course.title });
         e.stopPropagation();
         redirectToUrl(`${MenuLink.PRACTICES}/${course.id}`);
       }}
@@ -64,7 +64,7 @@ const MobPracticeCard: FC<PracticeCardProps> = (props) => {
       <div className="caption-12pt h-fit w-fit rounded-[1.25rem] border-[0.5px] border-neutral-rich-gray  px-[.75rem] py-[0.25rem] text-neutral-rich-gray ">
         {course.track}
       </div>
-      <div className="body-m-bold text-neutral-dark-gray">{course.name}</div>
+      <div className="body-m-bold text-neutral-dark-gray">{course.title}</div>
       {from === 'dashboard' && inProgress ? (
         <>
           <MobCardProgress progress={course.progress || 0} />
@@ -74,7 +74,7 @@ const MobPracticeCard: FC<PracticeCardProps> = (props) => {
             disabled={loading}
             onClick={(e) => {
               BurialPoint.track('home-course卡片Continue按钮点击', {
-                courseName: course.name
+                courseName: course.title
               });
               e.stopPropagation();
               jumpLearningLesson(course, {

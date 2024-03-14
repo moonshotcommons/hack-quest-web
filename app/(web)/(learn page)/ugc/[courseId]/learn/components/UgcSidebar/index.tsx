@@ -107,15 +107,19 @@ const UgcSidebar: FC<UgcSidebarProps> = () => {
     }
   );
 
-  const getNavbar = (item: any) => {
+  const getNavbar = () => {
     if (!course) return;
-    const unitName = course.units!.find((unit) =>
-      unit.pages.find((page) => page.id === item.key)
+    const units = course.units!.find((unit) =>
+      unit.pages.find((page) => page.id === lesson.id)
+    );
+    const unitName = units?.title;
+    const lessonName = units?.pages.find(
+      (page) => page.id === lesson.id
     )?.title;
     const navbarData = [
       { label: course.title },
       { label: unitName },
-      { label: item.data.title }
+      { label: lessonName }
     ];
     setNavbarData(navbarData as NavbarDataType[]);
   };
@@ -126,7 +130,7 @@ const UgcSidebar: FC<UgcSidebarProps> = () => {
 
   useEffect(() => {
     course && setLearnPageTitle(course.title);
-    getNavbar(items[0]?.children?.[0]);
+    getNavbar();
   }, [course]);
 
   if (!lesson || !course) return null;
@@ -140,7 +144,7 @@ const UgcSidebar: FC<UgcSidebarProps> = () => {
       defaultOpenKeys={defaultOpenKeys}
       onSelect={(key, item: any) => {
         if (item.id === lesson.id) return;
-        const link = getLink(course.type, key, course.name);
+        const link = getLink(course.type, key, course.title);
         redirectToUrl(link);
       }}
     ></Sidebar>

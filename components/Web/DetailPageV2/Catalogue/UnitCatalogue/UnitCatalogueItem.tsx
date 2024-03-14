@@ -22,7 +22,7 @@ const UnitCatalogueItem: FC<UnitCatalogueItemProps> = (props) => {
         <div className="flex-1">
           <Suspense fallback={<div>loading...</div>}>
             <LinkWrap unit={unit} courseDetail={courseDetail!}>
-              <h2 className="body-l-bold text-neutral-black">{unit.name}</h2>
+              <h2 className="body-l-bold text-neutral-black">{unit.title}</h2>
               <p className="body-s mt-1 line-clamp-3  text-neutral-medium-gray">
                 {unit.description}
               </p>

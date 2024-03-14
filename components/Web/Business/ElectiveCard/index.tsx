@@ -55,7 +55,9 @@ const ElectiveCard: FC<ElectiveCardProps> = (props) => {
           className
         )}
         onClick={() => {
-          BurialPoint.track('home-course卡片点击', { courseName: course.name });
+          BurialPoint.track('home-course卡片点击', {
+            courseName: course.title
+          });
         }}
       >
         <div
@@ -97,7 +99,7 @@ const ElectiveCard: FC<ElectiveCardProps> = (props) => {
                   block
                   onClick={(e) => {
                     BurialPoint.track('home-course卡片resume按钮点击', {
-                      courseName: course.name
+                      courseName: course.title
                     });
                     e.stopPropagation();
                     jumpLearningLesson(course, {

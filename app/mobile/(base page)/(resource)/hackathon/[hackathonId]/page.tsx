@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Metadata } from 'next';
 import HackathonIdPage from '../components/HackthonId';
-import { getHackathonById } from '@/service/catch/resource/hackathon';
+import { getHackathonById } from '@/service/cach/resource/hackathon';
 
 interface HackathonIdProps {
   params: {

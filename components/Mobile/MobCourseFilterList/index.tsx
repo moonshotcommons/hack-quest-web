@@ -15,7 +15,12 @@ export enum MobCourseFilterListType {
   SEARCH = 'search'
 }
 
-interface MobCourseFilterListProps<T extends CourseBaseType> {
+type CourseAndTrackType = Omit<CourseBaseType, 'title'> & {
+  name?: string;
+  title?: string;
+};
+
+interface MobCourseFilterListProps<T extends { id: string }> {
   title?: string;
   filters: FilterItemType[];
   sort: FilterOptionType[];
@@ -27,7 +32,7 @@ interface MobCourseFilterListProps<T extends CourseBaseType> {
   listClassName?: string;
 }
 
-const MobCourseFilterList = <T extends CourseBaseType>({
+const MobCourseFilterList = <T extends { id: string }>({
   renderItem,
   courseList,
   title,

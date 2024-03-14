@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { CSSProperties, ReactNode } from 'react';
 import { LuChevronDown } from 'react-icons/lu';
 import SidebarItem from './SidebarItem';
 import { HTMLMotionProps, motion } from 'framer-motion';
@@ -13,6 +13,7 @@ interface SidebarGroupProps<T> {
   open: boolean;
   select: string;
   onSelect: (key: string, data: unknown) => void;
+  selectStyle?: CSSProperties;
 }
 
 const ani: HTMLMotionProps<'div'> = {
@@ -35,7 +36,16 @@ const ani: HTMLMotionProps<'div'> = {
 };
 
 const SidebarGroup = <T,>(props: SidebarGroupProps<T>) => {
-  const { children, items, onOpenChange, item, open, onSelect, select } = props;
+  const {
+    children,
+    items,
+    onOpenChange,
+    item,
+    open,
+    onSelect,
+    select,
+    selectStyle
+  } = props;
 
   return (
     <div
@@ -65,6 +75,7 @@ const SidebarGroup = <T,>(props: SidebarGroupProps<T>) => {
                 item={item}
                 onSelect={onSelect}
                 select={select}
+                selectStyle={selectStyle}
               >
                 {item.label}
               </SidebarItem>

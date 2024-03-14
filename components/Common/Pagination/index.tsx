@@ -54,7 +54,14 @@ const Pagination: FC<PaginationProps> = (props) => {
   return (
     <div className="flex items-center gap-x-[50px]">
       {urlPrefix ? (
-        <Link href={`${urlPrefix}${page <= 1 ? 1 : page - 1}${pageSearch}`}>
+        <Link
+          href={`${urlPrefix}${page <= 1 ? 1 : page - 1}${pageSearch}`}
+          onClick={(e) => {
+            if (page <= 1) {
+              e.preventDefault();
+            }
+          }}
+        >
           <div
             className={cn(
               `flex scale-[0.835] cursor-pointer items-center justify-center rounded-full border border-solid border-[#000000] bg-[#000000] p-2 text-neutral-white`,

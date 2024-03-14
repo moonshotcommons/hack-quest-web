@@ -5,7 +5,7 @@ import {
   ResourceFrom
 } from '@/service/webApi/resourceStation/type';
 import BlogDetail from '../../blog/components/BlogId';
-import { getGlossaryById } from '@/service/catch/resource/blog';
+import { getGlossaryById } from '@/service/cach/resource/blog';
 
 interface BlogDetailProp {
   params: {

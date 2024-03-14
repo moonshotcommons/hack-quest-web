@@ -1,3 +1,4 @@
+import { CourseTab } from '@/app/(web)/(base page)/(home)/instructor/constants/type';
 import { ElectiveCourseType, PageType } from '../elective/type';
 
 export interface Response {
@@ -10,7 +11,8 @@ export enum CourseType {
   GUIDED_PROJECT = 'GUIDED_PROJECT',
   LEARNING_TRACK = 'LEARNING_TRACK',
   MINI = 'MINI',
-  UGC = 'UGC'
+  UGC = 'UGC',
+  CONCEPT = 'CONCEPT'
 }
 
 export enum LessonStyleType {
@@ -25,6 +27,14 @@ export enum CompleteStateType {
   NOT_STARTED = 0,
   LEARNING = 1,
   COMPLETED = 2
+}
+export interface IntendedLearnersType {
+  audience?: string[];
+  requirements?: string[];
+}
+export interface KnowledgeGainType {
+  description?: string[];
+  tags?: string[];
 }
 
 /** 课程列表的返回值 */
@@ -41,7 +51,7 @@ export enum CompleteStateType {
 //   pageCount?: number;
 // }
 
-enum CourseLevelType {
+export enum CourseLevelType {
   BEGINNER = 'BEGINNER',
   INTERMEDIATE = 'INTERMEDIATE',
   ADVANCED = 'ADVANCED'
@@ -76,7 +86,6 @@ export interface CreatorType {
 //! UGC临时课程类型，可能是课程通用类型，后面需要更改
 export interface UGCCourseType {
   id: string;
-  name: string;
   title: string;
   subTitle: null | string;
   description: string;
@@ -87,6 +96,8 @@ export interface UGCCourseType {
   track: CourseTrackType;
   progress?: number;
   peopleJoined: number;
+  status: CourseTab;
+  completed: boolean;
   optional: object;
   image: string | null;
   creator?: CreatorType;
@@ -109,21 +120,13 @@ export interface UGCCourseType {
       sequence: number;
     }[];
   }[];
-}
-
-export interface IntendedLearnersType {
-  audience?: string[];
-  requirements?: string[];
-}
-export interface KnowledgeGainType {
-  description?: string[];
-  tags?: string[];
+  intendedLearners: IntendedLearnersType & { completed: boolean };
+  knowledgeGain: KnowledgeGainType & { completed: boolean };
 }
 
 /** 课程基础字段 */
 export interface CourseBaseType {
   id: string;
-  name: string;
   title: string;
   description: string;
   type: CourseType;
@@ -154,7 +157,8 @@ export interface CourseDetailType extends CourseBaseType {
 
 export interface CourseUnitType {
   id: string;
-  name: string;
+  // name: string;
+  title: string;
   description: string;
   sequence: number;
   progress: number;
@@ -179,6 +183,7 @@ export interface CourseLessonType {
   style: LessonStyleType;
   sequence: number;
   unitId: string;
+  title: string;
   courseId: string;
   content?: Record<string, any>;
   state: CompleteStateType;
@@ -188,6 +193,7 @@ export interface CourseLessonType {
 export interface CourseLessonStateType {
   id: string;
   name: string;
+  title: string;
   unitId: string;
   state: CompleteStateType;
   disable: boolean;
@@ -195,6 +201,7 @@ export interface CourseLessonStateType {
 
 export type UnitPagesListType = CourseUnitStateType & {
   pages: CourseLessonStateType[];
+  title: string;
 };
 
 export enum ProcessType {

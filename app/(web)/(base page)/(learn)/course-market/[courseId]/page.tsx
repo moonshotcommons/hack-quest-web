@@ -14,6 +14,10 @@ import CourseDetailProvider from '@/components/Web/DetailPageV2/Provider/CourseD
 import { Metadata } from 'next';
 import { CourseDetailType } from '@/service/webApi/course/type';
 import Image from 'next/image';
+import UgcCourseCard from '@/components/Web/Business/UgcCourseCard';
+import LinkArrow from '@/components/Common/LinkArrow';
+import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import Link from 'next/link';
 
 interface PracticePageProps {
   params: {
@@ -50,10 +54,14 @@ const PracticePage: FC<PracticePageProps> = async (props) => {
   const courseId = params.courseId;
 
   const courseDetail = await webApi.courseApi.fetchCourseDetail(courseId, true);
-  // console.log(courseDetail);
+  let otherCourses = null;
+
+  try {
+    otherCourses = await webApi.courseApi.fetchCoursesByCreator(courseId);
+  } catch (e) {}
 
   return (
-    <CourseDetailProvider courseId={courseId}>
+    <CourseDetailProvider courseId={courseId} includeUnits>
       <div className="relative min-h-[100%] w-full bg-neutral-white">
         <div className="absolute left-0 top-0 min-h-[400px] w-full bg-neutral-off-white py-5"></div>
         <div className="container relative mx-auto flex h-fit pb-[100px]">
@@ -64,7 +72,7 @@ const PracticePage: FC<PracticePageProps> = async (props) => {
                 size="lg"
                 className="body-m mt-[2rem] text-neutral-rich-gray"
               >
-                Project
+                Development
               </Tags>
               <div className="mt-4 flex items-center gap-6">
                 <h1 className="text-h2">{courseDetail.title}</h1>
@@ -88,7 +96,7 @@ const PracticePage: FC<PracticePageProps> = async (props) => {
                     </div>
                   }
                   type={CourseTagType.CREATE_BY}
-                  value={courseDetail.creator?.name}
+                  value={courseDetail.creator?.name || `Hackquest`}
                 ></CourseTag>
                 <div className="h-[45px] w-[1px] bg-neutral-rich-gray"></div>
                 <CourseTag
@@ -125,6 +133,37 @@ const PracticePage: FC<PracticePageProps> = async (props) => {
             <PracticeDetailCard courseDetail={courseDetail} />
           </div>
         </div>
+        {courseDetail.creator?.name && !!otherCourses?.length && (
+          <div className="w-full bg-neutral-off-white py-[60px]">
+            <div className="container mx-auto flex flex-col gap-[30px] ">
+              <div className="flex items-center justify-between">
+                <h3 className="text-h3 text-neutral-black">
+                  More Courses By {courseDetail.creator?.name || `Hackquest`}
+                </h3>
+                <Link
+                  href={`${MenuLink.COURSE_MARKET}?keyword=${courseDetail.creator?.name}`}
+                >
+                  <LinkArrow size="lg" direction="right">
+                    View More
+                  </LinkArrow>
+                </Link>
+              </div>
+              <div className="flex w-full gap-5 [&>a]:w-[calc((100%-60px)/4)]">
+                {/* <UgcCourseCard /> */}
+                {[
+                  ...otherCourses,
+                  ...otherCourses,
+                  ...otherCourses,
+                  ...otherCourses
+                ]?.map((item, index) => {
+                  return (
+                    <UgcCourseCard course={item} key={index}></UgcCourseCard>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </CourseDetailProvider>
   );

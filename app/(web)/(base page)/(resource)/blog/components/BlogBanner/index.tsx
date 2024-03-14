@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useRef, useState } from 'react';
-import BlogBannerBg from '@/public/images/blog/blog_banner_bg.png';
+import BlogBannerBg from '@/public/images/blog/blog_banner_bg.svg';
 import { PiSortAscendingBold, PiSortDescendingBold } from 'react-icons/pi';
 import { BiSearch, BiCheck } from 'react-icons/bi';
 import { searchTabData, sortData } from '../../constants/data';
@@ -10,9 +10,9 @@ import { BlogSearchType } from '@/service/webApi/resourceStation/type';
 import { useRouter } from 'next/navigation';
 import { cloneDeep } from 'lodash-es';
 import Link from 'next/link';
-import Button from '@/components/Common/Button';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 import { getSearchParamsUrl } from '@/helper/utils';
+import { HiArrowLongRight } from 'react-icons/hi2';
 
 interface BannerProp {
   searchParams: BlogSearchType;
@@ -94,9 +94,9 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
 
   return (
     <>
-      <div className="relative z-[10] bg-neutral-white">
+      <div className="relative z-[10] bg-neutral-off-white">
         <div
-          className="body-l container   mx-auto h-[400px] pb-[40px] pt-[60px] text-neutral-off-black"
+          className="body-l container  mx-auto h-[400px] pb-[40px] pt-[60px] text-neutral-off-black"
           style={{
             backgroundImage: `url(${BlogBannerBg.src})`,
             backgroundSize: 'auto 100%',
@@ -112,20 +112,18 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
                 notes! Contribute your insights, shaping the conversation in the
                 world of decentralized tech.
               </p>
+
               <Link
-                href="https://xsxo494365r.typeform.com/to/RwN08ht9"
                 target="_blank"
-                className="w-fit"
+                href="https://xsxo494365r.typeform.com/to/RwN08ht9"
+                className="body-m relative flex w-fit cursor-pointer items-center gap-[7px] text-neutral-off-black"
               >
-                <Button
-                  type="primary"
-                  className="button-text-l h-[60px] w-[270px]"
-                >
-                  CONTRIBUTE
-                </Button>
+                <span>Contribute Blogs to HackQuest</span>
+                <HiArrowLongRight size={16}></HiArrowLongRight>
+                <div className="absolute bottom-0 left-0 h-[3px] w-full rounded-[2px] bg-yellow-dark"></div>
               </Link>
             </div>
-            <div className="flex h-[60px] w-full items-center justify-between rounded-[100px] bg-neutral-off-white px-[30px] text-neutral-black">
+            <div className="flex h-[60px] w-full items-center justify-between rounded-[100px] bg-neutral-white px-[30px] text-neutral-black">
               {!inputVisible && (
                 <div className="flex items-center gap-[30px]">
                   <div
@@ -183,7 +181,7 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
                           v.value !== 'empty'
                             ? `relative cursor-pointer rounded-[100px] px-[20px] py-[7px] ${
                                 searchInfo.category === v.value
-                                  ? 'text-neutral-white'
+                                  ? 'text-neutral-black'
                                   : ''
                               }`
                             : 'h-[41px] w-[30px]'
@@ -192,7 +190,7 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
                           v.value === 'empty'
                             ? {
                                 background:
-                                  'linear-gradient(to left, var(--neutral-off-white) 14px,var(--neutral-black) 1px,var(--neutral-off-white) 15px)'
+                                  'linear-gradient(to left, var(--neutral-white) 14px,var(--neutral-black) 1px,var(--neutral-white) 15px)'
                               }
                             : {}
                         }

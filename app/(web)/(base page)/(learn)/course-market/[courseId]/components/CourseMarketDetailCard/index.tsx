@@ -5,11 +5,13 @@ import { CourseDetailType } from '@/service/webApi/course/type';
 import { getCoverImageByTrack } from '@/helper/utils';
 import TagsAndProgress from './TagsAndProgress';
 import { CourseStatusButton } from '@/components/Web/DetailPageV2/StatusButton';
-interface PracticeDetailCardProps {
+interface CourseMarketDetailCardProps {
   courseDetail: CourseDetailType;
 }
 
-const PracticeDetailCard: FC<PracticeDetailCardProps> = ({ courseDetail }) => {
+const CourseMarketDetailCard: FC<CourseMarketDetailCardProps> = ({
+  courseDetail
+}) => {
   return (
     <div className="sticky left-full top-5 w-[380px] rounded-[16px] border border-neutral-light-gray bg-neutral-white">
       <div className="relative h-[212px] w-full overflow-hidden rounded-t-[16px]">
@@ -29,4 +31,4 @@ const PracticeDetailCard: FC<PracticeDetailCardProps> = ({ courseDetail }) => {
   );
 };
 
-export default PracticeDetailCard;
+export default CourseMarketDetailCard;

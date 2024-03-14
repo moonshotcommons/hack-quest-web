@@ -7,6 +7,7 @@ import { cn } from '@/helper/utils';
 import { ThemeContext } from '@/store/context/theme';
 import { Theme } from '@/constants/enum';
 import LightInstagramIcon from '@/components/Common/Icon/LightInstagram';
+import { HACKQUEST_DISCORD } from '@/constants/links';
 interface ContractUsProps {
   // children: ReactNode;
   className?: string;
@@ -33,7 +34,7 @@ const ContractUs: FC<ContractUsProps> = (props) => {
         </span>
       </Link>
       <Link
-        href={'https://discord.gg/KkAJHPqywn'}
+        href={HACKQUEST_DISCORD}
         className="cursor-pointer hover:scale-[1.1]"
       >
         <span className="text-text-default-color">
