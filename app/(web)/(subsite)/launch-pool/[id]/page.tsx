@@ -1,9 +1,16 @@
-import { FC } from 'react';
+import React from 'react';
+import Nav from './components/Nav';
+import Content from './components/Content';
 
-interface LaunchPoolDetailPageProps {}
+interface LaunchDetailProp {}
 
-const LaunchPoolDetailPage: FC<LaunchPoolDetailPageProps> = (props) => {
-  return <div>LaunchPoolDetailPage</div>;
+const LaunchDetail: React.FC<LaunchDetailProp> = () => {
+  return (
+    <div className="container mx-auto flex h-full gap-[20px] py-[40px]">
+      <Nav />
+      <Content />
+    </div>
+  );
 };
 
-export default LaunchPoolDetailPage;
+export default LaunchDetail;

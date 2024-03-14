@@ -1,10 +1,8 @@
 'use client';
-import User from '@/components/Web/User';
 import React, { ReactNode, useEffect } from 'react';
 import NavBar, { NavBarProps } from '../Navbar';
 
 // import Breadcrumb from '@/components/Web/Business/Breadcrumb';
-import { useCheckPathname } from '@/hooks/useCheckPathname';
 
 export interface V2LayoutProps {
   navbarData: NavBarProps;
@@ -13,8 +11,6 @@ export interface V2LayoutProps {
 }
 
 const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
-  const { isNavbarFullPage, isExcludeBreadcrumbLink } = useCheckPathname();
-
   useEffect(() => {
     const contentWrap = document.querySelector('#content-scroll-wrap');
     if (contentWrap) {
@@ -24,14 +20,10 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
 
   return (
     <div className={`flex h-[100vh] w-full flex-col overflow-hidden   `}>
-      <NavBar {...navbarData}>
-        <User></User>
-      </NavBar>
+      <NavBar {...navbarData}></NavBar>
       <div
         id="content-scroll-wrap"
-        className={`m-auto w-full flex-1 overflow-auto  ${
-          isNavbarFullPage ? 'bg-[white]' : 'bg-neutral-off-white'
-        }`}
+        className={`m-auto w-full flex-1 overflow-auto bg-neutral-off-white`}
       >
         <div className={`flex h-full w-full flex-col`}>
           <div className="relative w-full flex-1">
