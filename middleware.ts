@@ -24,17 +24,22 @@ function getLocale(request: NextRequest) {
 
 export function middleware(request: NextRequest) {
   let pathname = request.nextUrl.pathname;
-  let locale = locales.find(
+  let userSelectLocale = locales.find(
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
   );
   let pathnameHasLocale = false;
+  let supportI18n = pathname.includes('/launch-pool');
 
-  if (locale) {
+  let locale = userSelectLocale;
+
+  if (userSelectLocale) {
     // 如果url带语言，先把语言替换为空字符串，方便后面mobile判断
-    pathname = pathname.replace(`/${locale}`, '');
+    pathname = pathname.replace(`/${userSelectLocale}`, '');
+    if (!supportI18n) locale = defaultLocale;
     pathnameHasLocale = true;
   } else {
-    locale = getLocale(request);
+    if (!supportI18n) locale = defaultLocale;
+    else locale = getLocale(request) || defaultLocale;
     request.nextUrl.pathname = `/${locale}${pathname}`;
   }
 
@@ -65,7 +70,8 @@ export function middleware(request: NextRequest) {
   }
 
   // 带了语言的url 直接返回
-  if (pathnameHasLocale) return NextResponse.next();
+  if (pathnameHasLocale && userSelectLocale === locale)
+    return NextResponse.next();
   // 不带语言的url 重定向到带语言的url
   else return NextResponse.redirect(request.nextUrl);
 }

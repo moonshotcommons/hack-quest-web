@@ -39,14 +39,20 @@ export const metadata: Metadata = {
   }
 };
 
-export default function RootLayout({
-  children
-}: {
+interface RootLayoutProps {
   children: React.ReactNode;
-}) {
+  params: {
+    lang: string;
+  };
+}
+
+export default function RootLayout({
+  children,
+  params: { lang }
+}: RootLayoutProps) {
   return (
     <html
-      lang="en"
+      lang={lang}
       suppressHydrationWarning
       className={`${nunito.variable} ${space_mono.variable}`}
     >
