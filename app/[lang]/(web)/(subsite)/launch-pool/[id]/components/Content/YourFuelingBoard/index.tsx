@@ -6,12 +6,14 @@ import StakeFuel from './StakeFuel';
 import InvitationFuel from './InvitationFuel';
 import TargetFuel from './TargetFuel';
 import UnstakeModal from './UnstakeModal';
+import StakeModal from './StakeModal';
 
 interface YourFuelingBoardProp {}
 
 const YourFuelingBoard: React.FC<YourFuelingBoardProp> = () => {
   const [modalName, setModalName] = useState('');
   const hanleStake = () => {};
+  const hanleUnstake = () => {};
   return (
     <div className="mt-[120px]">
       <p className="text-h3 text-neutral-off-black">{titleTxtData[2]}</p>
@@ -22,13 +24,18 @@ const YourFuelingBoard: React.FC<YourFuelingBoardProp> = () => {
       <StakeFuel />
       <InvitationFuel />
       <TargetFuel />
-      {/* <StakeModal
+      <StakeModal
         open={modalName === 'stake'}
         onClose={() => setModalName('')}
         loading={false}
         hanleStake={hanleStake}
-      /> */}
-      <UnstakeModal />
+      />
+      <UnstakeModal
+        open={modalName === 'stake'}
+        onClose={() => setModalName('')}
+        loading={false}
+        hanleUnstake={hanleUnstake}
+      />
     </div>
   );
 };

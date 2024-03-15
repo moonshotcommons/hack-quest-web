@@ -77,7 +77,11 @@ const InvitationFuel: React.FC<InvitationFuelProp> = () => {
                 }
               }}
             >
-              <CopyIcon width={17} height={21} color={'#8C8C8C'} />
+              <CopyIcon
+                width={17}
+                height={21}
+                color={'var(--neutral-light-gray)'}
+              />
               <span>Copy</span>
             </div>
           </div>
