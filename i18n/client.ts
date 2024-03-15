@@ -8,7 +8,7 @@ import {
 import { useCookies } from 'react-cookie';
 import resourcesToBackend from 'i18next-resources-to-backend';
 import LanguageDetector from 'i18next-browser-languagedetector';
-import { locales, defaultLocale } from './config';
+import { locales, defaultLocale, defaultNs, Lang, TransNs } from './config';
 export const cookieName = 'i18next';
 
 const runsOnServerSide = typeof window === 'undefined';
@@ -26,49 +26,55 @@ i18next
     supportedLngs: locales,
     fallbackLng: defaultLocale,
     lng: defaultLocale,
-    fallbackNS: 'basic',
-    defaultNS: 'basic',
-    ns: 'basic',
+    fallbackNS: defaultNs,
+    defaultNS: defaultNs,
+    ns: defaultNs,
     detection: {
       order: ['path', 'htmlTag', 'cookie', 'navigator']
     },
     preload: runsOnServerSide ? locales : []
   });
 
-export function useTranslation(lng: string = 'en', ns?: string, options = {}) {
+export function useTranslation(
+  lng: Lang = Lang.EN,
+  ns?: TransNs.BASIC,
+  options = {}
+) {
   const [cookies, setCookie] = useCookies([cookieName]);
   const ret = useTranslationOrg(ns, options);
   const { i18n } = ret;
 
-  const [activeLng, setActiveLng] = useState(i18n.resolvedLanguage);
-
-  useEffect(() => {
-    if (activeLng === i18n.resolvedLanguage) return;
-    setActiveLng(i18n.resolvedLanguage);
-  }, [activeLng, i18n.resolvedLanguage]);
-
-  useEffect(() => {
-    if (!lng || i18n.resolvedLanguage === lng) return;
-    i18n.changeLanguage(lng);
-  }, [lng, i18n]);
-
-  useEffect(() => {
-    if (cookies.i18next === lng) return;
-    setCookie(cookieName, lng, { path: '/' });
-  }, [lng, cookies.i18next]);
-
   if (runsOnServerSide && lng && i18n.resolvedLanguage !== lng) {
     i18n.changeLanguage(lng);
+  } else {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const [activeLng, setActiveLng] = useState(i18n.resolvedLanguage);
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useEffect(() => {
+      if (activeLng === i18n.resolvedLanguage) return;
+      setActiveLng(i18n.resolvedLanguage);
+    }, [activeLng, i18n.resolvedLanguage]);
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useEffect(() => {
+      if (!lng || i18n.resolvedLanguage === lng) return;
+      i18n.changeLanguage(lng);
+    }, [lng, i18n]);
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useEffect(() => {
+      if (cookies.i18next === lng) return;
+      setCookie(cookieName, lng, { path: '/' });
+    }, [lng, cookies.i18next]);
   }
   return ret;
 }
 
 export function getLang() {
   if (runsOnServerSide) return defaultLocale;
-  let lang = localStorage.getItem('lang');
-  if (lang && locales.includes(lang)) return lang;
-  else {
-    lang = document.getElementsByTagName('html')[0].lang;
-    localStorage.setItem('lang', lang);
+
+  let lang = document.getElementsByTagName('html')[0].lang as Lang;
+  if (lang && locales.includes(lang)) {
+    return lang;
   }
+
+  return defaultLocale;
 }

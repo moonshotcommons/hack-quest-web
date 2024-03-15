@@ -1,5 +1,5 @@
+import { Lang } from '@/i18n/config';
 import { NavbarListType } from '../../BasePage/Navbar/type';
-import { IntlEnum } from './type';
 
 export const navbarList: NavbarListType[] = [
   {
@@ -27,10 +27,10 @@ export const navbarList: NavbarListType[] = [
 export const inltData = [
   {
     label: 'English',
-    value: IntlEnum.EN
+    value: Lang.EN
   },
   {
     label: '简体中文',
-    value: IntlEnum.ZH_CN
+    value: Lang.ZH
   }
 ];
