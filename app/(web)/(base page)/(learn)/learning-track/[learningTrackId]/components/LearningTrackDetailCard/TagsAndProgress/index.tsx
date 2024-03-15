@@ -37,9 +37,6 @@ const TagsAndProgress: FC<TagsAndProgressProps> = ({
 
   const { certification } = useContext(CertificationCardContext);
 
-  certification &&
-    console.log(certification.name.replace(' Learning Track', ''));
-
   switch (learningStatus) {
     case LearningStatus.UN_START:
       return (
