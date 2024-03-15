@@ -78,7 +78,8 @@ const TagsAndProgress: FC<TagsAndProgressProps> = ({
       } else {
         return (
           <p className="body-m text-neutral-rich-gray">
-            You are a certified Mantle Builder 🎉
+            You are a certified{' '}
+            {certification.name.replace(' Learning Track', '')} Builder 🎉
           </p>
         );
       }
