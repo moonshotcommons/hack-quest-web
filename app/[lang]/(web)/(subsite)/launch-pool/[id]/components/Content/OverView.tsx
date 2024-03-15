@@ -54,11 +54,15 @@ const OverView: React.FC<OverViewProp> = () => {
           </div>
           <div className="flex [&>div]:flex-1">
             <div className="">Total Airdrop Amount</div>
-            <div className="text-neutral-black">{`2% / ${separationNumber(200000)} $hqt`}</div>
+            <div className="text-neutral-black">{`${2}% / ${separationNumber(2000000)} $HQT`}</div>
           </div>
           <div className="flex [&>div]:flex-1">
             <div className="">Current Stakings</div>
-            <div className="text-neutral-black">{`${separationNumber(1000000)} $MNT`}</div>
+            <div className="text-neutral-black">{`${separationNumber(10000000)} $MNT`}</div>
+          </div>
+          <div className="flex [&>div]:flex-1">
+            <div className="">Blockchain Network</div>
+            <div className="text-neutral-black">Manta Network</div>
           </div>
           <div className="flex [&>div]:flex-1">
             <div className="">Your Fuel</div>
