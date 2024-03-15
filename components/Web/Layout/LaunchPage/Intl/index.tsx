@@ -17,7 +17,6 @@ const Intl: React.FC<IntlProp> = () => {
   const orgPathname = usePathname();
   // const lang = getLang();
   const { lang } = useContext(LangContext);
-  console.log('context lang', lang);
   const { t } = useTranslation(lang);
   const { run: mouseLeaveFilter } = useDebounceFn(
     () => {
