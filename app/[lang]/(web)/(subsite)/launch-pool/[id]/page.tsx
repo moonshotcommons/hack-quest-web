@@ -11,9 +11,13 @@ const LaunchDetail: React.FC<LaunchDetailProp> = async ({ params }) => {
   const { lang } = params;
   const { t } = await useTranslation(lang);
   return (
-    <div className="container mx-auto flex h-full gap-[20px] py-[40px]">
-      <Nav />
-      <Content />
+    <div className="scroll-wrap-y h-full py-[40px]">
+      <div className="container  mx-auto flex">
+        <div className="relative w-[345px]">
+          <Nav />
+        </div>
+        <Content />
+      </div>
     </div>
   );
 };
