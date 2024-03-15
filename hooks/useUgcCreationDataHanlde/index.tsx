@@ -1,8 +1,8 @@
-import { getLessonIconData } from '@/app/(web)/(learn page)/ugc/[courseId]/creation/constant/data';
+import { getLessonIconData } from '@/app/[lang]/(web)/(learn page)/ugc/[courseId]/creation/constant/data';
 import {
   CourseInformationType,
   UgcCreateContext
-} from '@/app/(web)/(learn page)/ugc/[courseId]/creation/constant/type';
+} from '@/app/[lang]/(web)/(learn page)/ugc/[courseId]/creation/constant/type';
 import webApi from '@/service';
 import { useUgcCreationStore } from '@/store/zustand/ugcCreationStore';
 import { useContext } from 'react';

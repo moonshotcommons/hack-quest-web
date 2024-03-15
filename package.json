@@ -59,6 +59,7 @@
     "react-split": "^2.0.14",
     "react-syntax-highlighter": "^15.5.0",
     "react-youtube": "^10.1.0",
+    "server-only": "^0.0.1",
     "sharp": "^0.33.2",
     "styled-components": "^6.0.2",
     "wagmi": "^1.4.12",

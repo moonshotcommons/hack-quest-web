@@ -33,13 +33,13 @@ export const navbarList: NavbarListType[] = [
         label: 'Learner',
         path: MenuLink.DASHBOARD,
         needLogin: true
-      },
-      {
-        label: 'Instructor',
-        path: MenuLink.INSTRUCTOR,
-        needLogin: true,
-        needPC: true
       }
+      // {
+      //   label: 'Instructor',
+      //   path: MenuLink.INSTRUCTOR,
+      //   needLogin: true,
+      //   needPC: true
+      // }
     ]
   },
   {
@@ -60,12 +60,12 @@ export const navbarList: NavbarListType[] = [
         label: 'Projects',
         path: MenuLink.PRACTICES,
         description: 'Learn how to build a project step by step'
-      },
-      {
-        label: 'Course Market',
-        path: MenuLink.COURSE_MARKET,
-        needPC: true
       }
+      // {
+      //   label: 'Course Market',
+      //   path: MenuLink.COURSE_MARKET,
+      //   needPC: true
+      // }
     ]
   },
   {
@@ -119,17 +119,17 @@ export const navbarList: NavbarListType[] = [
       }
     ]
   },
-  {
-    label: 'Launch',
-    id: 'launch',
-    menu: [
-      {
-        label: 'launch pool',
-        path: MenuLink.LANUNCH,
-        needPC: true
-      }
-    ]
-  },
+  // {
+  //   label: 'Launch',
+  //   id: 'launch',
+  //   menu: [
+  //     {
+  //       label: 'launch pool',
+  //       path: MenuLink.LANUNCH,
+  //       needPC: true
+  //     }
+  //   ]
+  // },
   {
     label: 'More',
     id: 'more',
