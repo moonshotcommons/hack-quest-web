@@ -160,8 +160,9 @@ const GettingCertificate: FC<GettingCertificateProps> = ({
             certification.mint ? 'cursor-not-allowed opacity-40' : ''
           )}
           onClick={() => {
-            if (certification.id === '51909b45-65b7-4864-9367-dcc38e0c381c') {
-              message.info('Solana NFT will open for minting soon!');
+            if (!certification.name.toLowerCase().startsWith('mantle')) {
+              const zoology = certification.name.replace(' Learning Track', '');
+              message.info(`${zoology} NFT will open for minting soon!`);
               return;
             }
             if (certification.mint) {
