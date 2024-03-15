@@ -6,6 +6,7 @@ import {
   CourseUnitStateType,
   CourseUnitType,
   ProjectCourseType,
+  UGCCourseType,
   UnitPagesListType
 } from './type';
 
@@ -51,6 +52,13 @@ class CourseApi {
     });
   }
 
+  /** 获取UGC课程列表信息By search */
+  getUgcCourseListBySearch<T>(params: object) {
+    return this.service.get<T>(`${CourseApiType.Course_List}/ugc`, {
+      params
+    });
+  }
+
   /** 获取单个课程的详情信息 */
   getCourseDetail<T extends CourseDetailType | ElectiveCourseDetailType>(
     courseId: string,
@@ -73,22 +81,6 @@ class CourseApi {
   async fetchCourseDetail<
     T extends CourseDetailType | ElectiveCourseDetailType
   >(courseId: string, includeUnits = false, includePages = false): Promise<T> {
-    //   let includes = [];
-
-    //   if (includeUnits) includes.push('units');
-    //   if (includePages) includes.push('pages');
-
-    //   const url = `${this.service.baseURL.slice(0, -1)}${CourseApiType.Course_List}/${courseId}?include=${includes.join(',')}`;
-    //   const courseDetail = await fetch(url, {
-    //     method: 'get'
-    //   });
-
-    //   if (!courseDetail.ok) {
-    //     throw new Error('Failed to fetch course data!');
-    //   }
-
-    //   return courseDetail.json();
-
     const cacheFn = cache(async () => {
       return this.getCourseDetail<T>(courseId, includeUnits, includePages);
     });
@@ -190,6 +182,19 @@ class CourseApi {
   getProfileElective(electiveId: string) {
     const url = `${CourseApiType.EcosystemProfile}/${electiveId}/electives`;
     return this.service.get<EcosystemElectiveType[]>(url);
+  }
+
+  getCoursesByCreator(courseId: string) {
+    const url = `/${CourseApiType.Course_List}/${courseId}/creator-others`;
+    return this.service.get<UGCCourseType[]>(url);
+  }
+
+  fetchCoursesByCreator(courseId: string) {
+    const cacheFn = cache(async () => {
+      return this.getCoursesByCreator(courseId);
+    });
+
+    return cacheFn();
   }
 }
 

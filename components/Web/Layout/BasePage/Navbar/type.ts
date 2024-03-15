@@ -4,6 +4,7 @@ export enum MenuLink {
   PRACTICES = '/practices',
   ELECTIVES = '/electives',
   UGC = '/ugc',
+  UGC_CREATE = '/ugc-create',
   MISSION_CENTER = '/mission-center',
   HACKATHON = '/hackathon',
   BLOG = '/blog',
@@ -15,20 +16,28 @@ export enum MenuLink {
   GLOSSARY = '/glossary',
   INSTRUCTOR = '/instructor',
   ADVOCATE = '/advocate',
-  COURSE_MARKET = '/course-market'
+  COURSE_MARKET = '/course-market',
+  LANUNCH = '/launch-pool'
+}
+export interface OutSideType {
+  label: string;
+  link: string;
+  id?: string;
 }
 
 export interface MenuType {
   label: string;
-  path: MenuLink;
+  path?: MenuLink;
+  id?: string;
+  link?: string;
+  description?: string;
   needLogin?: boolean;
   needPC?: boolean;
+  outSide?: OutSideType[];
 }
 export interface NavbarListType {
   label: string;
   id: string;
   type?: 'outSide';
-  link?: string;
   menu: MenuType[];
-  needPC?: boolean;
 }

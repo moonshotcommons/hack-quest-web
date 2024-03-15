@@ -1,5 +1,6 @@
 import { cn } from '@/helper/utils';
 import {
+  CSSProperties,
   ReactNode,
   createContext,
   useCallback,
@@ -24,6 +25,8 @@ interface SidebarProps<T> {
   isCustomOpen?: boolean;
   open?: boolean;
   onShowListChange?: (showList: boolean) => void;
+  handleButton?: ReactNode;
+  selectStyle?: CSSProperties;
 }
 
 export interface SidebarItemType {
@@ -63,7 +66,9 @@ const Sidebar = <T,>(props: SidebarProps<T>) => {
     defaultSelect,
     open = true,
     isCustomOpen = false,
-    onShowListChange
+    onShowListChange,
+    handleButton,
+    selectStyle = {}
   } = props;
   const [showList, setShowList] = useState(open);
   const [openKeys, setOpenKeys] = useState<string[]>(defaultOpenKeys);
@@ -99,10 +104,10 @@ const Sidebar = <T,>(props: SidebarProps<T>) => {
   }, [defaultSelect]);
 
   return (
-    <div className={cn('relative z-10 box-border h-full')}>
+    <div className={cn('relative  z-[12] box-border h-full')}>
       {!showList && !isCustomOpen && (
         <div
-          className="absolute top-1/2 flex h-60 w-[2.625rem] -translate-y-1/2 cursor-pointer items-center justify-center rounded-r-[.625rem] bg-neutral-off-white shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)]"
+          className="absolute top-1/2 flex h-60 w-[2.125rem] -translate-y-1/2 cursor-pointer items-center justify-center rounded-r-[.625rem] bg-neutral-off-white shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)]"
           onClick={() => setShowList(true)}
         >
           <LuChevronsRight size={24} />
@@ -163,6 +168,7 @@ const Sidebar = <T,>(props: SidebarProps<T>) => {
                       setSelect(key);
                       onSelect?.(key, data);
                     }}
+                    selectStyle={selectStyle}
                   >
                     {item.label}
                   </SidebarGroup>
@@ -179,6 +185,7 @@ const Sidebar = <T,>(props: SidebarProps<T>) => {
                     }}
                     select={select}
                     item={item}
+                    selectStyle={selectStyle}
                   >
                     {item.label}
                   </SidebarItem>
@@ -186,6 +193,7 @@ const Sidebar = <T,>(props: SidebarProps<T>) => {
               }
             })}
           </div>
+          {handleButton && <>{handleButton}</>}
         </motion.div>
       )}
     </div>
