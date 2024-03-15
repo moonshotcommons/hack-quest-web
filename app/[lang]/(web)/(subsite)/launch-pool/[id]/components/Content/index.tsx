@@ -12,7 +12,7 @@ interface ContentProp {}
 
 const Content: React.FC<ContentProp> = () => {
   return (
-    <div className="scroll-wrap-y  flex h-full flex-1 flex-col pr-[3px]">
+    <div className="flex-1">
       <OverView />
       <TimeLine />
       <YourFuelingBoard />

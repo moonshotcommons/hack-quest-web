@@ -7,7 +7,7 @@ interface NavProp {}
 const Nav: React.FC<NavProp> = () => {
   const [curIndex, setCurIndex] = useState(0);
   return (
-    <div className="body-l w-[325px] pr-[20px] ">
+    <div className="body-l sticky left-0 top-0 w-[325px] pr-[20px] ">
       {titleTxtData.map((v, i) => (
         <div
           key={i}

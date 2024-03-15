@@ -3,9 +3,9 @@ import React from 'react';
 import LaunchImg from '@/public/images/launch/launch_frame.png';
 import HackLogo from '@/public/images/logo/light-footer-logo.svg';
 import { separationNumber } from '@/helper/utils';
-import { MdArrowForwardIos } from 'react-icons/md';
 import Button from '@/components/Common/Button';
 import { linksIcon } from '../../constants/data';
+import { IoIosArrowForward } from 'react-icons/io';
 
 interface OverViewProp {}
 
@@ -71,7 +71,7 @@ const OverView: React.FC<OverViewProp> = () => {
                 Check Your Fueling Board
                 <div className="absolute bottom-0 left-0 h-[2px] w-full bg-yellow-primary"></div>
               </div>
-              <MdArrowForwardIos />
+              <IoIosArrowForward size={18} />
             </div>
           </div>
           <div className="flex [&>div]:flex-1">
