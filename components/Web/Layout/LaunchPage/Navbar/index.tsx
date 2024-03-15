@@ -20,6 +20,8 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
   const pathname = useCustomPathname();
   const [curNavId, setCurNavId] = useState('');
 
+  const [mounted, setMounted] = useState(false);
+
   useEffect(() => {
     for (let nav of navList) {
       const curNav = nav.menu.find((menu) =>
@@ -41,9 +43,14 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
     } else {
     }
   };
+
   const logoClick = () => {
     redirectToUrl('/');
   };
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   return (
     <div className="relative z-[999] h-[64px]  w-full border-b border-neutral-light-gray bg-neutral-white text-neutral-off-black">
       <div className={`container mx-auto h-full`}>
@@ -82,7 +89,11 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
             </div>
           </nav>
           <div className="flex items-center">
-            <Intl />
+            {mounted && <Intl />}
+
+            {/* <Suspense fallback={null}>
+              <Intl />
+            </Suspense> */}
             <div className="mx-[16px] h-[34px] w-[1px] bg-neutral-light-gray"></div>
             <User />
           </div>

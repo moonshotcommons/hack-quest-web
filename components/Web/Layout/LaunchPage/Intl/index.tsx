@@ -1,24 +1,21 @@
+'use client';
 import DropDownMotion from '@/components/Common/DropDownMotion';
-import { useGlobalStore } from '@/store/zustand/globalStore';
 import { useDebounceFn } from 'ahooks';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { FiChevronDown } from 'react-icons/fi';
-import { useShallow } from 'zustand/react/shallow';
-import { inltData } from '../Navbar/data';
-import { IntlEnum } from '../Navbar/type';
+import { inltData as orgInltData } from '../Navbar/data';
+import Link from 'next/link';
+import { Lang } from '@/i18n/config';
+import { usePathname } from 'next/navigation';
+import { getLang, useTranslation } from '@/i18n/client';
 
 interface IntlProp {}
 
 const Intl: React.FC<IntlProp> = () => {
   const [hoverFilter, setHoverFilter] = useState(false);
-  const { intl, setIntl } = useGlobalStore(
-    useShallow((state) => {
-      return {
-        intl: state?.intl,
-        setIntl: state?.setIntl
-      };
-    })
-  );
+  const orgPathname = usePathname();
+  const lang = getLang();
+  const { t } = useTranslation(lang);
   const { run: mouseLeaveFilter } = useDebounceFn(
     () => {
       setHoverFilter(false);
@@ -26,21 +23,31 @@ const Intl: React.FC<IntlProp> = () => {
     { wait: 100 }
   );
 
-  const changeIntl = (val: IntlEnum) => {
-    setIntl(val);
-  };
+  const { inltData, pathname, inltVal } = useMemo(() => {
+    let inltData = orgInltData;
+    if (!orgPathname.includes('/launch-pool')) {
+      inltData = orgInltData.filter((item) => item.value === Lang.EN);
+    }
+
+    const pathname = orgPathname.replace(`/${lang}`, '');
+
+    const inltVal = inltData.find((item) => item.value === lang);
+
+    return { inltData, pathname, inltVal };
+  }, [orgPathname, lang]);
+
   return (
     <div
-      className="button-text-s relative flex h-[34px] cursor-pointer items-center gap-[8px] rounded-[17px] bg-neutral-off-white px-[17px] text-neutral-black"
+      className="button-text-s relative flex h-[34px] w-[120px] cursor-pointer items-center justify-between gap-[8px] rounded-[17px] bg-neutral-off-white px-[17px] text-neutral-black"
       onMouseEnter={() => {
         mouseLeaveFilter.cancel();
         setHoverFilter(true);
       }}
       onMouseLeave={mouseLeaveFilter}
     >
-      {intl}
+      {inltVal?.label}
       <span>
-        <FiChevronDown size={24} />
+        <FiChevronDown size={20} />
       </span>
       <DropDownMotion
         open={hoverFilter}
@@ -49,13 +56,18 @@ const Intl: React.FC<IntlProp> = () => {
         }
       >
         {inltData.map((v) => (
-          <div
+          <Link
+            href={`/${v.value}${pathname}`}
             key={v.value}
-            onClick={() => changeIntl(v.value)}
-            className={`mb-[8px] cursor-pointer rounded-[8px] p-[12px] hover:bg-neutral-off-white ${intl === v.value ? 'bg-neutral-off-white' : ''}`}
+            onClick={(e) => {
+              if (v.value === lang) {
+                e.preventDefault();
+              }
+            }}
+            className={`mb-[8px] block cursor-pointer rounded-[8px] p-[12px] hover:bg-neutral-off-white ${lang === v.value ? 'bg-neutral-off-white' : ''}`}
           >
             {v.label}
-          </div>
+          </Link>
         ))}
       </DropDownMotion>
     </div>

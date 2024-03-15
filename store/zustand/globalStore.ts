@@ -1,4 +1,3 @@
-import { IntlEnum } from '@/components/Web/Layout/LaunchPage/Navbar/type';
 import { create } from 'zustand';
 
 interface TipsModalOpenStateType {
@@ -11,8 +10,6 @@ export interface GlobalStateType {
   playgroundSelectModalOpen: boolean;
   setTipsModalOpenState: (open: TipsModalOpenStateType | boolean) => void;
   setPlaygroundSelectModalOpen: (open: boolean) => void;
-  intl: IntlEnum;
-  setIntl: (intl: IntlEnum) => void;
 }
 
 export const useGlobalStore = create<GlobalStateType>()((set) => ({
@@ -41,9 +38,5 @@ export const useGlobalStore = create<GlobalStateType>()((set) => ({
   },
   setPlaygroundSelectModalOpen(payload) {
     set((state) => ({ playgroundSelectModalOpen: payload }));
-  },
-  intl: IntlEnum.EN,
-  setIntl(intl) {
-    set(() => ({ intl }));
   }
 }));
