@@ -15,7 +15,7 @@ const YourFuelingBoard: React.FC<YourFuelingBoardProp> = () => {
   const hanleStake = () => {};
   const hanleUnstake = () => {};
   return (
-    <div className="mt-[120px]">
+    <div>
       <p className="text-h3 text-neutral-off-black">{titleTxtData[2]}</p>
       <p className="body-l my-[24px] text-neutral-black">
         Congratulations! It’s time to claim your token!

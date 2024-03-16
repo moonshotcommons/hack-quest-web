@@ -6,7 +6,7 @@ interface TimeLineProp {}
 
 const TimeLine: React.FC<TimeLineProp> = () => {
   return (
-    <div className="mt-[40px]">
+    <div>
       <p className="text-h3 text-neutral-off-black">{titleTxtData[1]}</p>
       <div className="my-[24px] flex gap-[20px] [&>div]:flex-1">
         <div className="rounded-[16px] border border-neutral-light-gray px-[20px] py-[16px]">
