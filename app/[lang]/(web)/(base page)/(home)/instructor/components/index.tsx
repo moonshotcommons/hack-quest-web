@@ -12,7 +12,7 @@ interface InstructorProp {
 const Instructor: React.FC<InstructorProp> = ({ searchParams }) => {
   return (
     <>
-      {true ? (
+      {false ? (
         <Apply />
       ) : (
         <Content status={searchParams.status || CourseTab.DRAFT} />
