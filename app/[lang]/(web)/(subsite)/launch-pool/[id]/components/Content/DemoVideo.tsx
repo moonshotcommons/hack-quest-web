@@ -5,7 +5,7 @@ interface DemoVideoProp {}
 
 const DemoVideo: React.FC<DemoVideoProp> = () => {
   return (
-    <div className="mt-[120px]">
+    <div>
       <p className="text-h3 text-neutral-off-black">{titleTxtData[4]}</p>
       <video controls className="mt-[24px] w-full">
         {/* <source src={project.video}></source> */}

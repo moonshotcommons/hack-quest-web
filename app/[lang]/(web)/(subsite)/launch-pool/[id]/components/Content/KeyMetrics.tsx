@@ -6,7 +6,7 @@ interface KeyMetricsProp {}
 
 const KeyMetrics: React.FC<KeyMetricsProp> = () => {
   return (
-    <div className="mt-[120px]">
+    <div>
       <p className="text-h3 text-neutral-off-black">{titleTxtData[5]}</p>
       <div className="body-xl text-neutral-medium-gray [&>div]:flex [&>div]:justify-between [&>div]:border-b [&>div]:border-neutral-light-gray [&>div]:py-[24px]">
         <div>
