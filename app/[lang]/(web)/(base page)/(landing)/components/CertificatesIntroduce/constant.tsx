@@ -133,7 +133,7 @@ export const leftCardData = [
     course: '10 Courses'
   },
   {
-    name: 'Build on Solona',
+    name: 'Build on Solana',
     image: '/images/landing/solana_icon.png',
     alt: 'solana',
     language: 'Rust',
