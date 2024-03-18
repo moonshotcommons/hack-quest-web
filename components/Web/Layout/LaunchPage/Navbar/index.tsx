@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { ReactNode, Suspense, useEffect, useState } from 'react';
 
 import { useRedirect } from '@/hooks/useRedirect';
 import { useCustomPathname } from '@/hooks/useCheckPathname';
@@ -89,11 +89,11 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
             </div>
           </nav>
           <div className="flex items-center">
-            {mounted && <Intl />}
-
-            {/* <Suspense fallback={null}>
+            {/* {mounted && } */}
+            {/* <Intl /> */}
+            <Suspense fallback={null}>
               <Intl />
-            </Suspense> */}
+            </Suspense>
             <div className="mx-[16px] h-[34px] w-[1px] bg-neutral-light-gray"></div>
             <User />
           </div>

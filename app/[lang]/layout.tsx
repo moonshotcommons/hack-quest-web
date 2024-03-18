@@ -9,6 +9,8 @@ import ConfigProvider from '@/components/Provider/Config';
 
 import { Nunito, Space_Mono } from 'next/font/google';
 import GlobalModal from '@/components/Web/GlobalModal';
+import LangProvider from '@/components/Provider/Lang';
+import { Lang } from '@/i18n/config';
 const nunito = Nunito({
   subsets: ['latin'],
   display: 'swap',
@@ -45,7 +47,7 @@ export const metadata: Metadata = {
 interface RootLayoutProps {
   children: React.ReactNode;
   params: {
-    lang: string;
+    lang: Lang;
   };
 }
 
@@ -60,16 +62,18 @@ export default function RootLayout({
       className={`${nunito.variable} ${space_mono.variable}`}
     >
       <body className={`${nunito.className}`}>
-        <ThemeContextProvider>
-          {/* <MobileRedirect> */}
-          <ConfigProvider>
-            <InitializeUserProvider>
-              {children}
-              <GlobalModal />
-            </InitializeUserProvider>
-          </ConfigProvider>
-          {/* </MobileRedirect> */}
-        </ThemeContextProvider>
+        <LangProvider lang={lang}>
+          <ThemeContextProvider>
+            {/* <MobileRedirect> */}
+            <ConfigProvider>
+              <InitializeUserProvider>
+                {children}
+                <GlobalModal />
+              </InitializeUserProvider>
+            </ConfigProvider>
+            {/* </MobileRedirect> */}
+          </ThemeContextProvider>
+        </LangProvider>
 
         <Script id="theme-script">
           {`const item = 'light';

@@ -151,7 +151,7 @@ const Input = forwardRef<InputRef, InputProps>((props, ref) => {
 
   const { run } = useDebounceFn(
     (e) => {
-      if (rules) {
+      if (rules && e.target.value) {
         validator.validate({ [name]: e.target.value }, (errors, fields) => {
           if (errors && errors[0]) {
             setStatus('error');

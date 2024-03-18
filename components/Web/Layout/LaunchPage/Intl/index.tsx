@@ -1,20 +1,22 @@
 'use client';
 import DropDownMotion from '@/components/Common/DropDownMotion';
 import { useDebounceFn } from 'ahooks';
-import React, { useMemo, useState } from 'react';
+import React, { useContext, useMemo, useState } from 'react';
 import { FiChevronDown } from 'react-icons/fi';
 import { inltData as orgInltData } from '../Navbar/data';
 import Link from 'next/link';
 import { Lang } from '@/i18n/config';
 import { usePathname } from 'next/navigation';
-import { getLang, useTranslation } from '@/i18n/client';
+import { useTranslation } from '@/i18n/client';
+import { LangContext } from '@/components/Provider/Lang';
 
 interface IntlProp {}
 
 const Intl: React.FC<IntlProp> = () => {
   const [hoverFilter, setHoverFilter] = useState(false);
   const orgPathname = usePathname();
-  const lang = getLang();
+  // const lang = getLang();
+  const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang);
   const { run: mouseLeaveFilter } = useDebounceFn(
     () => {
@@ -38,14 +40,14 @@ const Intl: React.FC<IntlProp> = () => {
 
   return (
     <div
-      className="button-text-s relative flex h-[34px] w-[120px] cursor-pointer items-center justify-between gap-[8px] rounded-[17px] bg-neutral-off-white px-[17px] text-neutral-black"
+      className="button-text-s relative flex h-[34px] cursor-pointer items-center gap-[8px] rounded-[17px] bg-neutral-off-white px-[17px] text-neutral-black"
       onMouseEnter={() => {
         mouseLeaveFilter.cancel();
         setHoverFilter(true);
       }}
       onMouseLeave={mouseLeaveFilter}
     >
-      {inltVal?.label}
+      {lang.toUpperCase()}
       <span>
         <FiChevronDown size={20} />
       </span>
