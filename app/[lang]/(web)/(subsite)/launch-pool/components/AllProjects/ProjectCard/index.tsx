@@ -4,6 +4,7 @@ import { VariantProps, cva } from 'class-variance-authority';
 import { cn } from '@/helper/utils';
 import HandleButton from './HandleButton';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export enum ProjectStatus {
   UPCOMING = 'upcoming',
@@ -12,7 +13,7 @@ export enum ProjectStatus {
 }
 
 const projectCardVariants = cva(
-  'rounded-[24px] w-full p-16 flex justify-between h-[644px]',
+  'rounded-[24px] w-full p-16 flex justify-between h-[644px] card-hover',
   {
     variants: {
       status: {
@@ -114,52 +115,60 @@ const ProjectCard: FC<ProjectCardProps> = ({
   title
 }) => {
   return (
-    <div className={cn(projectCardVariants({ className, status }))}>
-      <div className="flex flex-col justify-center gap-6">
-        <div>{logo}</div>
-        <div className="flex flex-col gap-8">
-          <p className="body-xl-bold text-neutral-off-black">{title}</p>
-          {status === ProjectStatus.UPCOMING && (
-            <StatusTag status={status!} text="UPCOMING" />
-          )}
-          {status === ProjectStatus.LIVE_NOW && (
-            <StatusTag status={status!} text="LIVE NOW" />
-          )}
-          {status === ProjectStatus.CLOSED && (
-            <StatusTag status={status!} text="CLOSED MAR 9, 2024" />
-          )}
-          {status === ProjectStatus.LIVE_NOW && (
-            <StatisticsCard totalFul={588496} totalUser={35120} />
-          )}
-
-          <div className="flex flex-col gap-5">
-            <LabelWrapper label="Project Token" value="$HQT" />
-            {status === ProjectStatus.LIVE_NOW && (
-              <LabelWrapper label="Offerings Close in" value="5D 4H 48M 21MM" />
-            )}
+    <Link href={'/launch-pool/1'}>
+      <div className={cn(projectCardVariants({ className, status }))}>
+        <div className="flex flex-col justify-center gap-6">
+          <div>{logo}</div>
+          <div className="flex flex-col gap-8">
+            <p className="body-xl-bold text-neutral-off-black">{title}</p>
             {status === ProjectStatus.UPCOMING && (
-              <LabelWrapper label="IDO Open in" value="5D 4H 48M 21MM" />
+              <StatusTag status={status!} text="UPCOMING" />
             )}
-            <LabelWrapper
-              label="Total Airdrop Amount"
-              value="2% / 2,000,000 $hqt"
-            />
-            {status !== ProjectStatus.LIVE_NOW && (
-              <LabelWrapper label="Current Stakings" value="10,000,000 $MNT" />
+            {status === ProjectStatus.LIVE_NOW && (
+              <StatusTag status={status!} text="LIVE NOW" />
             )}
+            {status === ProjectStatus.CLOSED && (
+              <StatusTag status={status!} text="CLOSED MAR 9, 2024" />
+            )}
+            {status === ProjectStatus.LIVE_NOW && (
+              <StatisticsCard totalFul={588496} totalUser={35120} />
+            )}
+
+            <div className="flex flex-col gap-5">
+              <LabelWrapper label="Project Token" value="$HQT" />
+              {status === ProjectStatus.LIVE_NOW && (
+                <LabelWrapper
+                  label="Offerings Close in"
+                  value="5D 4H 48M 21MM"
+                />
+              )}
+              {status === ProjectStatus.UPCOMING && (
+                <LabelWrapper label="IDO Open in" value="5D 4H 48M 21MM" />
+              )}
+              <LabelWrapper
+                label="Total Airdrop Amount"
+                value="2% / 2,000,000 $hqt"
+              />
+              {status !== ProjectStatus.LIVE_NOW && (
+                <LabelWrapper
+                  label="Current Stakings"
+                  value="10,000,000 $MNT"
+                />
+              )}
+            </div>
+            <HandleButton status={status!} />
           </div>
-          <HandleButton status={status!} />
+        </div>
+        <div className="flex h-full items-center">
+          <Image
+            src={'/images/launch/launch_frame.png'}
+            alt=""
+            width={424}
+            height={400}
+          ></Image>
         </div>
       </div>
-      <div className="flex h-full items-center">
-        <Image
-          src={'/images/launch/launch_frame.png'}
-          alt=""
-          width={424}
-          height={400}
-        ></Image>
-      </div>
-    </div>
+    </Link>
   );
 };
 

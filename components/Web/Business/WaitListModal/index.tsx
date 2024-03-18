@@ -45,7 +45,7 @@ const logo = (
 );
 
 export interface WaitListModalInstance {
-  onJoin: (eamil?: string) => void;
+  onJoin: (email?: string) => void;
 }
 
 export enum JoinStatus {

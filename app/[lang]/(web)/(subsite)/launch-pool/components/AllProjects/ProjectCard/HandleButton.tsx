@@ -6,13 +6,17 @@ import WaitListModal, {
   WaitListModalInstance
 } from '@/components/Web/Business/WaitListModal';
 import { useUserStore } from '@/store/zustand/userStore';
+import ConnectModal, {
+  ConnectModalInstance
+} from '@/components/Web/Business/ConnectModal';
 
 interface HandleButtonProps {
   status: ProjectStatus;
 }
 
 const HandleButton: FC<HandleButtonProps> = ({ status }) => {
-  const ref = useRef<WaitListModalInstance>(null);
+  const waitListRef = useRef<WaitListModalInstance>(null);
+  const connectModalRef = useRef<ConnectModalInstance>(null);
   const userInfo = useUserStore((state) => state.userInfo);
 
   const renderButton = () => {
@@ -22,8 +26,10 @@ const HandleButton: FC<HandleButtonProps> = ({ status }) => {
           <Button
             type="primary"
             className="button-text-l w-[270px] max-w-[270px] py-4 uppercase"
-            onClick={() => {
-              ref.current?.onJoin();
+            onClick={(e) => {
+              e.stopPropagation();
+              e.preventDefault();
+              waitListRef.current?.onJoin(userInfo?.email);
             }}
           >
             Join waitlist
@@ -34,6 +40,11 @@ const HandleButton: FC<HandleButtonProps> = ({ status }) => {
           <Button
             type="primary"
             className="button-text-l w-[270px] max-w-[270px] py-4 uppercase"
+            onClick={(e) => {
+              e.stopPropagation();
+              e.preventDefault();
+              connectModalRef.current?.onConnect();
+            }}
           >
             Participate now
           </Button>
@@ -52,7 +63,8 @@ const HandleButton: FC<HandleButtonProps> = ({ status }) => {
   return (
     <>
       {renderButton()}
-      <WaitListModal ref={ref} />
+      <WaitListModal ref={waitListRef} />
+      <ConnectModal ref={connectModalRef} />
     </>
   );
 };
