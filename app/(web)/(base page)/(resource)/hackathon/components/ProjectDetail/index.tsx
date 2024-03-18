@@ -24,7 +24,7 @@ const ProjectDetail: FC<ProjectDetailProps> = (props) => {
                   src={project.thumbnail}
                   width={48}
                   height={48}
-                  alt="thumbnail"
+                  alt={project.alias}
                   className="object-cover"
                 ></Image>
               </div>

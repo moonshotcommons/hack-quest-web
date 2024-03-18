@@ -32,7 +32,7 @@ const MobBlogCard: React.FC<MobBlogCardProp> = ({
       <div className="relative h-full w-[8.125rem] flex-shrink-0">
         <Image
           src={blog.image}
-          alt="blogImage"
+          alt={blog.alias}
           fill
           className="object-cover"
         ></Image>

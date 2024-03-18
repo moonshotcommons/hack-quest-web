@@ -26,7 +26,7 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon }) => {
             <Image
               src={cover}
               fill
-              alt="hackathon cover"
+              alt={hackathon.alias}
               className="object-cover"
             ></Image>
           )}
