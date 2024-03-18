@@ -43,7 +43,7 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({
         <Image
           src={hackathon.image}
           fill
-          alt="hackathonImage"
+          alt={hackathon.alias}
           className="object-cover"
         ></Image>
       </div>

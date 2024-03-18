@@ -34,7 +34,7 @@ const BlogCard: React.FC<BlogCardProp> = ({
       <div className="relative h-[0] w-full pt-[56%] ">
         <Image
           src={blog.image}
-          alt="blogImage"
+          alt={blog.alias}
           fill
           className="object-cover"
         ></Image>

@@ -9,7 +9,7 @@ interface HackathonImgProp {
 const HackathonImg: React.FC<HackathonImgProp> = ({ hackathon }) => {
   return (
     <Box className="relative w-full overflow-hidden p-0">
-      <img src={hackathon.image} className="w-full" />
+      <img src={hackathon.image} className="w-full" alt={hackathon.alias} />
     </Box>
   );
 };

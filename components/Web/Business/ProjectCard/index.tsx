@@ -32,7 +32,7 @@ const ProjectCard: React.FC<ProjectCardProp> = ({
       <div className="relative h-0 w-full bg-[#d9d9d9]/30 pt-[56%]">
         <Image
           src={project.thumbnail}
-          alt="thumbnail"
+          alt={project.alias}
           fill
           className="object-cover"
           loading="lazy"
