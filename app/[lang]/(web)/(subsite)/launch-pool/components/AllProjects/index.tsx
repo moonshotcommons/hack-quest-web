@@ -13,7 +13,7 @@ const AllProjects: FC<AllProjectsProps> = ({ lang }) => {
         All Projects
       </h2>
       <ProjectCard
-        status={ProjectStatus.LIVE_NOW}
+        status={ProjectStatus.CLOSED}
         lang={lang}
         title="Web3.0 Programing For Everyone"
       />

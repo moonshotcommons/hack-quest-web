@@ -14,6 +14,7 @@ import ConnectDiscord from './ConnectDiscord';
 import ConnectProgress from './ConnectProcess';
 import { ConnectType } from './constant';
 import Button from '@/components/Common/Button';
+import EnterInviteCode from './EnterInviteCode';
 
 interface ConnectModalProps {}
 
@@ -27,7 +28,7 @@ const ConnectModal: ForwardRefRenderFunction<
 > = (props, ref) => {
   const [open, setOpen] = useState(false);
   const [currentConnectType, setCurrentConnectType] = useState(
-    ConnectType.DISCORD
+    ConnectType.INVITE_CODE
   );
 
   useImperativeHandle(
@@ -54,6 +55,8 @@ const ConnectModal: ForwardRefRenderFunction<
         return <ConnectTwitter />;
       case ConnectType.DISCORD:
         return <ConnectDiscord />;
+      case ConnectType.INVITE_CODE:
+        return <EnterInviteCode />;
     }
   }, [currentConnectType]);
 

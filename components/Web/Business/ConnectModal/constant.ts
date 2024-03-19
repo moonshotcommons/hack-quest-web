@@ -1,7 +1,8 @@
 export enum ConnectType {
   WALLET = 'wallet',
   TWITTER = 'twitter',
-  DISCORD = 'discord'
+  DISCORD = 'discord',
+  INVITE_CODE = 'invite code'
 }
 
 export const connectKeyMap = [
@@ -18,6 +19,11 @@ export const connectKeyMap = [
   {
     key: ConnectType.DISCORD,
     label: 'Connect Discord',
+    connected: false
+  },
+  {
+    key: ConnectType.INVITE_CODE,
+    label: 'Enter Invite Code',
     connected: false
   }
 ];
