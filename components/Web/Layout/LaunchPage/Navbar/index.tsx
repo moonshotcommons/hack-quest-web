@@ -1,13 +1,22 @@
+'use client';
 import Image from 'next/image';
-import React, { ReactNode, Suspense, useEffect, useState } from 'react';
+import React, {
+  ReactNode,
+  Suspense,
+  useContext,
+  useEffect,
+  useState
+} from 'react';
 
 import { useRedirect } from '@/hooks/useRedirect';
 import { useCustomPathname } from '@/hooks/useCheckPathname';
 import HackLogo from '@/public/images/logo/light-footer-logo.svg';
-import LaunchLogo from '@/public/images/launch/launch_pool_log.png';
 import { MenuLink, NavbarListType } from '../../BasePage/Navbar/type';
 import User from '../User';
 import Intl from '../Intl';
+import { TransNs } from '@/i18n/config';
+import { useTranslation } from '@/i18n/client';
+import { LangContext } from '@/components/Provider/Lang';
 
 export interface NavBarProps {
   navList: NavbarListType[];
@@ -16,6 +25,8 @@ export interface NavBarProps {
 
 const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
   const { navList } = NavBarProps;
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
   const { redirectToUrl } = useRedirect();
   const pathname = useCustomPathname();
   const [curNavId, setCurNavId] = useState('');
@@ -62,8 +73,10 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
             >
               <Image src={HackLogo} width={133} alt="logo"></Image>
             </div>
-            <div className={`ml-[8px] flex h-full cursor-pointer items-center`}>
-              <Image src={LaunchLogo} width={108} alt="logo"></Image>
+            <div
+              className={`text-h5 ml-[8px] flex h-full cursor-pointer items-center uppercase text-neutral-black`}
+            >
+              {t('launchpool')}
             </div>
             <div className="body-s ml-[60px] flex h-full gap-[12px] text-neutral-off-black">
               {navList.map((nav) => (
@@ -81,7 +94,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
                     }`}
                   >
                     <div className="relative">
-                      <span>{nav.label}</span>
+                      <span>{t(nav.id)}</span>
                     </div>
                   </div>
                 </div>

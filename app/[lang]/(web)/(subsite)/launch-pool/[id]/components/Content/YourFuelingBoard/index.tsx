@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 
 import { titleTxtData } from '../../../constants/data';
 import Info from './Info';
@@ -7,18 +7,23 @@ import InvitationFuel from './InvitationFuel';
 import TargetFuel from './TargetFuel';
 import UnstakeModal from './UnstakeModal';
 import StakeModal from './StakeModal';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
+import { LangContext } from '@/components/Provider/Lang';
 
 interface YourFuelingBoardProp {}
 
 const YourFuelingBoard: React.FC<YourFuelingBoardProp> = () => {
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
   const [modalName, setModalName] = useState('');
   const hanleStake = () => {};
   const hanleUnstake = () => {};
   return (
     <div>
-      <p className="text-h3 text-neutral-off-black">{titleTxtData[2]}</p>
+      <p className="text-h3 text-neutral-off-black">{t(titleTxtData[2])}</p>
       <p className="body-l my-[24px] text-neutral-black">
-        Congratulations! It’s time to claim your token!
+        {t('fuelCongratulations')}
       </p>
       <Info />
       <StakeFuel />

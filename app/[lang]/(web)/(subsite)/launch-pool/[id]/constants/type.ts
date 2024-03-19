@@ -1,9 +1,9 @@
 export enum TitleTxt {
-  OVERVIEW = 'Overview',
-  TIME_LINE = 'Timeline',
-  YOUR_FUELING_BOARD = 'Your Fueling Board',
-  ABOUT = 'About',
-  DEMO_VIDEO = 'Demo Video',
-  KEY_METRICS = 'Key Metrics',
-  TRACTIONS = 'Tractions'
+  OVERVIEW = 'overview',
+  TIME_LINE = 'timeline',
+  YOUR_FUELING_BOARD = 'yourFuelingBoard',
+  ABOUT = 'about',
+  DEMO_VIDEO = 'demoDideo',
+  KEY_METRICS = 'keyMetrics',
+  TRACTIONS = 'tractions'
 }

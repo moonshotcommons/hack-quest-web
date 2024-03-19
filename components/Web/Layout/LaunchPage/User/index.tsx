@@ -1,8 +1,7 @@
-import UserDropCard from '@/components/Web/Business/UserDropCard';
 import { BurialPoint } from '@/helper/burialPoint';
 import { cn } from '@/helper/utils';
 import Image from 'next/image';
-import { FC, useEffect, useRef, useState } from 'react';
+import { FC, useContext, useEffect, useRef, useState } from 'react';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
 import { LoginResponse } from '@/service/webApi/user/type';
@@ -11,9 +10,15 @@ import { useCustomPathname } from '@/hooks/useCheckPathname';
 import DropDownMotion from '@/components/Common/DropDownMotion';
 import { MenuLink } from '../../BasePage/Navbar/type';
 import Settings from '@/components/Web/User/Settings';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
+import UserDropCard from '../UserDropCard';
 interface UserProps {}
 
 const User: FC<UserProps> = () => {
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
   const [showUserDropCard, setShowUserDropCard] = useState(false);
   const userDropCardRef = useRef();
   const [isLogin, setIsLogin] = useState(false);
@@ -44,7 +49,7 @@ const User: FC<UserProps> = () => {
         ref={userDropCardRef as any}
       >
         <div className="flex h-full cursor-pointer items-center justify-end">
-          {isLogin && (
+          {isLogin ? (
             <div className="flex-row-center body-s text-neutral-off-black">
               <div
                 className="relative flex h-[64px] w-[54px] items-center justify-end"
@@ -82,8 +87,7 @@ const User: FC<UserProps> = () => {
                 </DropDownMotion>
               </div>
             </div>
-          )}
-          {!isLogin && (
+          ) : (
             <div className="abc flex gap-4">
               <Button
                 ghost
@@ -93,7 +97,7 @@ const User: FC<UserProps> = () => {
                   setAuthModalOpen(true);
                 }}
               >
-                Log in
+                {t('logIn')}
               </Button>
               <Button
                 type="primary"
@@ -103,7 +107,7 @@ const User: FC<UserProps> = () => {
                   setAuthModalOpen(true);
                 }}
               >
-                Sign up
+                {t('signUp')}
               </Button>
             </div>
           )}
