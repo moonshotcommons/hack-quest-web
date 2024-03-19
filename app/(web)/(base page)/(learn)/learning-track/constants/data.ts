@@ -35,9 +35,9 @@ export const filterList = [
   {
     label: 'Rust',
     value: CourseLanguageType.RUST
-  },
-  {
-    label: 'Move',
-    value: CourseLanguageType.MOVE
   }
+  // {
+  //   label: 'Move',
+  //   value: CourseLanguageType.MOVE
+  // }
 ];
