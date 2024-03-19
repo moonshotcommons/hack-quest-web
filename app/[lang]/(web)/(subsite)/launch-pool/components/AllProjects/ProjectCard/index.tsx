@@ -5,6 +5,7 @@ import { cn } from '@/helper/utils';
 import HandleButton from './HandleButton';
 import Image from 'next/image';
 import Link from 'next/link';
+import CountDown from './CountDown';
 
 export enum ProjectStatus {
   UPCOMING = 'upcoming',
@@ -54,11 +55,11 @@ const logo = (
 
 const LabelWrapper = ({ label, value }: { label: string; value: string }) => {
   return (
-    <div>
-      <span className="body-l inline-block w-[236px] max-w-[236px] text-neutral-rich-gray">
+    <div className="flex min-w-[250px] max-w-[300px] flex-col gap-1">
+      <span className="body-s inline-block w-[236px] max-w-[236px] text-neutral-rich-gray">
         {label}
       </span>
-      <span className="body-l-bold inline-block w-[236px] max-w-[236px] text-neutral-black">
+      <span className="body-xl-bold inline-block w-[236px] max-w-[236px] text-neutral-black">
         {value}
       </span>
     </div>
@@ -130,21 +131,16 @@ const ProjectCard: FC<ProjectCardProps> = ({
             {status === ProjectStatus.CLOSED && (
               <StatusTag status={status!} text="CLOSED MAR 9, 2024" />
             )}
-            {status === ProjectStatus.LIVE_NOW && (
-              <StatisticsCard totalFul={588496} totalUser={35120} />
-            )}
+            {status !== ProjectStatus.CLOSED && <CountDown status={status!} />}
 
-            <div className="flex flex-col gap-5">
-              <LabelWrapper label="Project Token" value="$HQT" />
+            <div className="flex max-w-[600px] flex-wrap gap-5">
               {status === ProjectStatus.LIVE_NOW && (
-                <LabelWrapper
-                  label="Offerings Close in"
-                  value="5D 4H 48M 21MM"
-                />
+                <LabelWrapper label="Total Participated Users" value="35,120" />
               )}
-              {status === ProjectStatus.UPCOMING && (
-                <LabelWrapper label="IDO Open in" value="5D 4H 48M 21MM" />
+              {status === ProjectStatus.LIVE_NOW && (
+                <LabelWrapper label="Total Fuel" value="588,496" />
               )}
+              <LabelWrapper label="Project Token" value="$HQT" />
               <LabelWrapper
                 label="Total Airdrop Amount"
                 value="2% / 2,000,000 $hqt"
