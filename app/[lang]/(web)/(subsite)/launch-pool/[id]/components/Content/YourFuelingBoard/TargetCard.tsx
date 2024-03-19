@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Image from 'next/image';
 import IconHack from '@/public/images/mission-center/icon_hack.png';
 import { separationNumber } from '@/helper/utils';
 import Button from '@/components/Common/Button';
+import { TransNs } from '@/i18n/config';
+import { useTranslation } from '@/i18n/client';
+import { LangContext } from '@/components/Provider/Lang';
 
 interface TargetCardProp {}
 
 const TargetCard: React.FC<TargetCardProp> = () => {
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
   const completed = true;
   const claimed = true;
   return (

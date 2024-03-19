@@ -1,14 +1,15 @@
 import React from 'react';
-import { useTranslation } from '@/i18n/server';
 import LaunchDetailPage from './components';
+import { Lang } from '@/i18n/config';
 
 interface LaunchDetailProp {
-  params: any;
+  params: {
+    lang: Lang;
+  };
 }
 
 const LaunchDetail: React.FC<LaunchDetailProp> = async ({ params }) => {
   const { lang } = params;
-  const { t } = await useTranslation(lang);
   return <LaunchDetailPage />;
 };
 

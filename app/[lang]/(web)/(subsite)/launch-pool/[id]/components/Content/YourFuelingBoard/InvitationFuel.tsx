@@ -1,5 +1,5 @@
 import { separationNumber } from '@/helper/utils';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 import Image from 'next/image';
 import { useUserStore } from '@/store/zustand/userStore';
@@ -7,10 +7,15 @@ import { FaUser } from 'react-icons/fa6';
 import CopyIcon from '@/components/Common/Icon/Copy';
 import InviteCodeIcon from '@/components/Common/Icon/InviteCodeIcon';
 import message from 'antd/es/message';
+import { TransNs } from '@/i18n/config';
+import { useTranslation } from '@/i18n/client';
+import { LangContext } from '@/components/Provider/Lang';
 
 interface InvitationFuelProp {}
 
 const InvitationFuel: React.FC<InvitationFuelProp> = () => {
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
   const { userInfo } = useUserStore(
     useShallow((state) => ({
       userInfo: state.userInfo
@@ -18,7 +23,7 @@ const InvitationFuel: React.FC<InvitationFuelProp> = () => {
   );
   return (
     <div className="mt-[24px]">
-      <p className="body-l text-neutral-black">Invitation Fuel</p>
+      <p className="body-l text-neutral-black">{t('invitationFuel')}</p>
       <div className="body-m mt-[16px] flex  justify-between gap-[40px] rounded-[16px] border border-neutral-light-gray bg-neutral-white px-[30px] py-[22px] text-neutral-black">
         <div className="flex flex-1 gap-[19px]">
           <div className="relative h-[40px] w-[40px] flex-shrink-0 overflow-hidden rounded-[50%]">
@@ -30,12 +35,9 @@ const InvitationFuel: React.FC<InvitationFuelProp> = () => {
             ></Image>
           </div>
           <div className="pt-[7px]">
-            <p>Share Your Invite Code to Earn Fuel</p>
+            <p>{t('shareYourInviteCodetoEarnFuel')}</p>
             <p className="body-s text-neutral-medium-gray">
-              Every time when invitee uses invite code to participate in this
-              project, both the inviter and the invitee can receive 500 fuel.
-              Moreover, the inviter will receive 1% of the total fuel from all
-              invitees.
+              {t('shareDescription')}
             </p>
           </div>
         </div>
@@ -56,7 +58,7 @@ const InvitationFuel: React.FC<InvitationFuelProp> = () => {
                   <FaUser size={20} />
                 </div>
               </div>
-              <span>0 Inv.</span>
+              <span>0 {t('inv')}</span>
             </div>
           </div>
           <div className="relative left-[-20px] flex h-[40px] w-[calc(100%+20px)] items-center justify-between rounded-[20px] border border-neutral-light-gray bg-neutral-off-white p-[15px]">
@@ -82,7 +84,7 @@ const InvitationFuel: React.FC<InvitationFuelProp> = () => {
                 height={21}
                 color={'var(--neutral-light-gray)'}
               />
-              <span>Copy</span>
+              <span>{t('copy')}</span>
             </div>
           </div>
         </div>
