@@ -80,7 +80,9 @@ const ElectiveCard: FC<ElectiveCardProps> = (props) => {
           ) : null}
           <div className="flex flex-col gap-[16px]">
             <TrackTag track={course.track} />
-            <h2 className={`body-m-bold  line-clamp-2`}>{course.title}</h2>
+            <h2 className={`body-m-bold line-clamp-2 text-neutral-off-black`}>
+              {course.title}
+            </h2>
             {!inProgress && (
               <div className="body-s line-clamp-2 text-neutral-medium-gray">
                 {course.description}
