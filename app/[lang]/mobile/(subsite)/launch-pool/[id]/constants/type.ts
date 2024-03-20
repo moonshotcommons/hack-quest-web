@@ -1,3 +1,5 @@
+import { createContext } from 'react';
+
 export enum TitleTxt {
   OVERVIEW = 'Overview',
   TIME_LINE = 'Timeline',
@@ -7,3 +9,11 @@ export enum TitleTxt {
   KEY_METRICS = 'Key Metrics',
   TRACTIONS = 'Tractions'
 }
+
+export interface LaunchDetailContextType {
+  launch: any;
+}
+
+export const LaunchDetailContext = createContext<LaunchDetailContextType>({
+  launch: {}
+});

@@ -10,10 +10,13 @@ import message from 'antd/es/message';
 import { TransNs } from '@/i18n/config';
 import { useTranslation } from '@/i18n/client';
 import { LangContext } from '@/components/Provider/Lang';
+import LockMask from '../../LockMask';
+import { LaunchDetailContext } from '../../../constants/type';
 
 interface InvitationFuelProp {}
 
 const InvitationFuel: React.FC<InvitationFuelProp> = () => {
+  const { launchInfo } = useContext(LaunchDetailContext);
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
   const { userInfo } = useUserStore(
@@ -24,7 +27,8 @@ const InvitationFuel: React.FC<InvitationFuelProp> = () => {
   return (
     <div className="mt-[24px]">
       <p className="body-l text-neutral-black">{t('invitationFuel')}</p>
-      <div className="body-m mt-[16px] flex  justify-between gap-[40px] rounded-[16px] border border-neutral-light-gray bg-neutral-white px-[30px] py-[22px] text-neutral-black">
+      <div className="body-m relative  mt-[16px] flex  justify-between gap-[40px] rounded-[16px] border border-neutral-light-gray bg-neutral-white px-[30px] py-[22px] text-neutral-black">
+        {!launchInfo.stakeManta && <LockMask />}
         <div className="flex flex-1 gap-[19px]">
           <div className="relative h-[40px] w-[40px] flex-shrink-0 overflow-hidden rounded-[50%]">
             <Image
@@ -67,7 +71,7 @@ const InvitationFuel: React.FC<InvitationFuelProp> = () => {
               <span>HJJKWERCS654982168</span>
             </div>
             <div
-              className="caption-14pt flex cursor-pointer items-center gap-[6px] text-neutral-medium-gray"
+              className="caption-14pt flex cursor-pointer  items-center gap-[6px] text-neutral-medium-gray"
               onClick={async (e) => {
                 try {
                   await navigator.clipboard.writeText('1111');
@@ -82,7 +86,7 @@ const InvitationFuel: React.FC<InvitationFuelProp> = () => {
               <CopyIcon
                 width={17}
                 height={21}
-                color={'var(--neutral-light-gray)'}
+                color={'var(--neutral-medium-gray)'}
               />
               <span>{t('copy')}</span>
             </div>

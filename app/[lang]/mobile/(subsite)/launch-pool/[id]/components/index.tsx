@@ -2,10 +2,12 @@
 import React, { useRef, useState } from 'react';
 import Nav from './Nav';
 import Content from './Content';
+import { LaunchDetailContext } from '../constants/type';
 
 interface LaunchDetailPageProp {}
 
 const LaunchDetailPage: React.FC<LaunchDetailPageProp> = () => {
+  const [launch, setLaunch] = useState({});
   const boxRef = useRef<HTMLDivElement>(null);
   const [curAnchorIndex, setCurAnchorIndex] = useState(0);
   const [anchorOffsetTops, setAnchorOffsetTops] = useState<number[]>([]);
@@ -38,21 +40,27 @@ const LaunchDetailPage: React.FC<LaunchDetailPageProp> = () => {
     }
   };
   return (
-    <div
-      className="scroll-wrap-y h-full py-[40px]"
-      ref={boxRef}
-      onScroll={handleScoll}
+    <LaunchDetailContext.Provider
+      value={{
+        launch
+      }}
     >
-      <div className="container  mx-auto flex">
-        <div className="relative w-[345px]">
-          <Nav
-            curAnchorIndex={curAnchorIndex}
-            handleClickAnchor={handleClickAnchor}
-          />
+      <div
+        className="scroll-wrap-y h-full py-[40px]"
+        ref={boxRef}
+        onScroll={handleScoll}
+      >
+        <div className="container  mx-auto flex">
+          <div className="relative w-[345px]">
+            <Nav
+              curAnchorIndex={curAnchorIndex}
+              handleClickAnchor={handleClickAnchor}
+            />
+          </div>
+          <Content setAllTops={(tops) => setAnchorOffsetTops(tops)} />
         </div>
-        <Content setAllTops={(tops) => setAnchorOffsetTops(tops)} />
       </div>
-    </div>
+    </LaunchDetailContext.Provider>
   );
 };
 

@@ -9,10 +9,12 @@ import { MdOutlineAccessTimeFilled } from 'react-icons/md';
 import { Lang, TransNs } from '@/i18n/config';
 import { useTranslation } from '@/i18n/client';
 import { LangContext } from '@/components/Provider/Lang';
+import { LaunchDetailContext } from '../../../constants/type';
 
 interface StakeFuelProp {}
 
 const StakeFuel: React.FC<StakeFuelProp> = () => {
+  const { launchInfo } = useContext(LaunchDetailContext);
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
   const { userInfo } = useUserStore(
@@ -24,13 +26,15 @@ const StakeFuel: React.FC<StakeFuelProp> = () => {
     <div className="mt-[24px]">
       <div className="flex items-center gap-[24px]">
         <p className="body-l text-neutral-black">{t('stakeFuel')}</p>
-        <div className="body-m flex cursor-pointer items-center gap-[5px] text-neutral-medium-gray">
-          <IoMdAddCircle size={24} />
-          <span>{t('addNewStake')}</span>
-        </div>
+        {launchInfo.stakeManta && (
+          <div className="body-m flex cursor-pointer items-center gap-[5px] text-neutral-medium-gray">
+            <IoMdAddCircle size={24} />
+            <span>{t('addNewStake')}</span>
+          </div>
+        )}
       </div>
 
-      {false ? (
+      {launchInfo.stakeManta ? (
         <div className="body-m mt-[16px] flex items-center justify-between rounded-[16px] border border-neutral-light-gray bg-neutral-white px-[30px] py-[22px] text-neutral-black">
           <div className="flex items-center gap-[19px]">
             <div className="relative h-[40px] w-[40px] overflow-hidden rounded-[50%]">
