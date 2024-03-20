@@ -1,8 +1,11 @@
 'use client';
-import { FC, useEffect, useMemo, useState } from 'react';
+import { FC, useContext, useEffect, useMemo, useState } from 'react';
 import { useCountDown } from 'ahooks';
 import { ProjectStatus } from '.';
 import { cn } from '@/helper/utils';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 
 interface CountDownItemProps {
   count: number;
@@ -69,6 +72,8 @@ interface CountDownProps {
 
 const CountDown: FC<CountDownProps> = ({ status }) => {
   const [mount, setMount] = useState(false);
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
   const [countdown, formattedRes] = useCountDown({
     targetDate: `${new Date().getFullYear()}-3-29 23:59:59`
   });
@@ -81,11 +86,11 @@ const CountDown: FC<CountDownProps> = ({ status }) => {
   console.log(days, hours, minutes, seconds, milliseconds);
   return (
     <div className="flex flex-col gap-2">
-      <p className="body-s text-neutral-medium-gray">Offerings Close in</p>
+      <p className="body-s text-neutral-medium-gray">{t('closeIn')}</p>
       <div className="flex gap-4">
         <CountItem
           count={days}
-          format="D"
+          format={t('day')}
           className={
             status === ProjectStatus.UPCOMING
               ? 'bg-neutral-white'
@@ -94,7 +99,7 @@ const CountDown: FC<CountDownProps> = ({ status }) => {
         />
         <CountItem
           count={hours}
-          format="H"
+          format={t('hour')}
           className={
             status === ProjectStatus.UPCOMING
               ? 'bg-neutral-white'
@@ -103,7 +108,7 @@ const CountDown: FC<CountDownProps> = ({ status }) => {
         />
         <CountItem
           count={minutes}
-          format="M"
+          format={t('minutes')}
           className={
             status === ProjectStatus.UPCOMING
               ? 'bg-neutral-white'
@@ -112,7 +117,7 @@ const CountDown: FC<CountDownProps> = ({ status }) => {
         />
         <CountItem
           count={seconds}
-          format="S"
+          format={t('seconds')}
           className={
             status === ProjectStatus.UPCOMING
               ? 'bg-neutral-white'
