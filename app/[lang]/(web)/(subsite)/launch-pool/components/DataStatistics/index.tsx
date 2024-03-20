@@ -1,11 +1,13 @@
 import { FC } from 'react';
 import CountUp from './CountUp';
-import { Lang } from '@/i18n/config';
+import { Lang, TransNs } from '@/i18n/config';
+import { useTranslation } from '@/i18n/server';
 interface DataStatisticsProps {
   lang: Lang;
 }
 
-const DataStatistics: FC<DataStatisticsProps> = ({ lang }) => {
+const DataStatistics: FC<DataStatisticsProps> = async ({ lang }) => {
+  const { t } = await useTranslation(lang, TransNs.LAUNCH_POOL);
   return (
     <div className="container relative mx-auto h-[114.5px]">
       <div className="container absolute bottom-0 left-0 h-[220px] max-w-[1350px] gap-[32px] rounded-sm border border-dashed border-neutral-black bg-[#EDEDED]">
@@ -21,7 +23,7 @@ const DataStatistics: FC<DataStatisticsProps> = ({ lang }) => {
               +
             </p>
             <p className="body-l w-[234px] text-center text-neutral-medium-gray">
-              Total Users
+              {t('totalUsers')}
             </p>
           </div>
           <div className="mt-[58px] flex flex-1 flex-col items-center gap-4">
@@ -35,7 +37,7 @@ const DataStatistics: FC<DataStatisticsProps> = ({ lang }) => {
               +
             </p>
             <p className="body-l w-[234px] text-center text-neutral-medium-gray">
-              Total Staked Value
+              {t('totalStakedValue')}
             </p>
           </div>
           <div className="mt-[58px] flex flex-1 flex-col items-center gap-4">
@@ -49,7 +51,7 @@ const DataStatistics: FC<DataStatisticsProps> = ({ lang }) => {
               +
             </p>
             <p className="body-l w-[234px] text-center text-neutral-medium-gray">
-              Total Fuel
+              {t('totalFuel')}
             </p>
           </div>
           <div className="mt-[58px] flex flex-1 flex-col items-center gap-4">
@@ -63,7 +65,7 @@ const DataStatistics: FC<DataStatisticsProps> = ({ lang }) => {
               +
             </p>
             <p className="body-l w-[234px] text-center text-neutral-medium-gray">
-              Total Airdrop Token
+              {t('totalAirdropToken')}
             </p>
           </div>
         </div>

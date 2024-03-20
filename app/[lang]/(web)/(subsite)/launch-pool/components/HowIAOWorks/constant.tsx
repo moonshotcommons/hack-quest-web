@@ -1,8 +1,8 @@
 export const data = [
   {
-    title: 'Fueling Period',
-    desc: 'Fueling Period is when the project is officially open for airdrop subscription on our platform. Anyone who has gone through the login process can join the fueling pool. How many airdrop token you get from project depends on your fuel. For detailed fuel calculation rules, check out this doc:',
-    buttonText: 'Allocation Calculation ',
+    title: 'fuelingPeriod',
+    desc: 'fuelingPeriodDesc',
+    buttonText: 'fuelingPeriodBtnText',
     buttonLink: '',
     icon: (
       <svg
@@ -30,8 +30,8 @@ export const data = [
     )
   },
   {
-    title: 'Allocation Period',
-    desc: 'Once the fueling period is over, the smart contract will be calculating each user’s token allocation for a given amount of time. Then you will have a clear timetable for the number of tokens you get and when can you get them.',
+    title: 'allocationPeriod',
+    desc: 'allocationPeriodDesc',
     buttonText: '',
     buttonLink: '',
     icon: (
@@ -65,8 +65,8 @@ export const data = [
     )
   },
   {
-    title: 'Airdrop Period',
-    desc: `Finally, after the project's tge(token generation event), you will get your token allocation. Usually these tokens will be directly airdroped to your wallet address you connected on this platform.`,
+    title: 'airdropPeriod',
+    desc: `airdropPeriodDesc`,
     buttonText: '',
     buttonLink: '',
     icon: (

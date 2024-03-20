@@ -1,4 +1,4 @@
-import { Lang } from '@/i18n/config';
+import { Lang, TransNs } from '@/i18n/config';
 import { FC } from 'react';
 import { VariantProps, cva } from 'class-variance-authority';
 import { cn } from '@/helper/utils';
@@ -6,6 +6,7 @@ import HandleButton from './HandleButton';
 import Image from 'next/image';
 import Link from 'next/link';
 import CountDown from './CountDown';
+import { useTranslation } from '@/i18n/server';
 
 export enum ProjectStatus {
   UPCOMING = 'upcoming',
@@ -59,7 +60,7 @@ const LabelWrapper = ({ label, value }: { label: string; value: string }) => {
       <span className="body-s inline-block w-[236px] max-w-[236px] text-neutral-rich-gray">
         {label}
       </span>
-      <span className="body-xl-bold inline-block w-[236px] max-w-[236px] text-neutral-black">
+      <span className="body-xl-bold inline-block w-[236px] max-w-[236px] uppercase text-neutral-black">
         {value}
       </span>
     </div>
@@ -109,45 +110,55 @@ const StatisticsCard = (props: { totalFul: number; totalUser: number }) => {
   );
 };
 
-const ProjectCard: FC<ProjectCardProps> = ({
+const ProjectCard: FC<ProjectCardProps> = async ({
   lang,
   status = ProjectStatus.UPCOMING,
   className,
   title
 }) => {
+  const { t } = await useTranslation(lang, TransNs.LAUNCH_POOL);
+  // const t = (a: string) => a;
   return (
     <Link href={'/launch-pool/1'}>
       <div className={cn(projectCardVariants({ className, status }))}>
         <div className="flex flex-col justify-center gap-6">
           <div>{logo}</div>
           <div className="flex flex-col gap-8">
-            <p className="body-xl-bold text-neutral-off-black">{title}</p>
+            <p className="body-xl-bold text-neutral-off-black">
+              {t('projectCardDesc')}
+            </p>
             {status === ProjectStatus.UPCOMING && (
-              <StatusTag status={status!} text="UPCOMING" />
+              <StatusTag status={status!} text={t('upComing')} />
             )}
             {status === ProjectStatus.LIVE_NOW && (
-              <StatusTag status={status!} text="LIVE NOW" />
+              <StatusTag status={status!} text={t('liveNow')} />
             )}
             {status === ProjectStatus.CLOSED && (
-              <StatusTag status={status!} text="CLOSED MAR 9, 2024" />
+              <StatusTag
+                status={status!}
+                text={`${t('closed')} MAR 9, 2024"`}
+              />
             )}
             {status !== ProjectStatus.CLOSED && <CountDown status={status!} />}
 
             <div className="flex max-w-[600px] flex-wrap gap-5">
               {status === ProjectStatus.LIVE_NOW && (
-                <LabelWrapper label="Total Participated Users" value="35,120" />
+                <LabelWrapper
+                  label={t('totalParticipatedUsers')}
+                  value="35,120"
+                />
               )}
               {status === ProjectStatus.LIVE_NOW && (
-                <LabelWrapper label="Total Fuel" value="588,496" />
+                <LabelWrapper label={t('totalFuel')} value="588,496" />
               )}
-              <LabelWrapper label="Project Token" value="$HQT" />
+              <LabelWrapper label={t('projectToken')} value="$HQT" />
               <LabelWrapper
-                label="Total Airdrop Amount"
+                label={t('totalAirdropAmount')}
                 value="2% / 2,000,000 $hqt"
               />
               {status !== ProjectStatus.LIVE_NOW && (
                 <LabelWrapper
-                  label="Current Stakings"
+                  label={t('currentStakings')}
                   value="10,000,000 $MNT"
                 />
               )}

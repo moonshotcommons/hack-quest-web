@@ -15,11 +15,11 @@ const TopBanner: FC<TopBannerProps> = async ({ lang }) => {
     <div className="flex h-[796px] w-full flex-col items-center bg-neutral-black">
       <div className="mt-[231px] flex flex-col items-center gap-12">
         <h1 className="text-h1 uppercase text-neutral-white">
-          {t('topBannerTitle')}
+          {`HackQuest ${t('launchpool')}`}
         </h1>
         <div className="flex gap-6">
           <span className="body-l-bold text-neutral-light-gray">
-            Powered by
+            {t('poweredBy')}
           </span>
           <Image
             src={'/images/launch/powerd_by.webp'}
@@ -28,9 +28,7 @@ const TopBanner: FC<TopBannerProps> = async ({ lang }) => {
             height={32}
           ></Image>
         </div>
-        <p className="body-l-bold text-yellow-primary">
-          No.1 Airdrop Launchpool for Manta Network Projects
-        </p>
+        <p className="body-l-bold text-yellow-primary">{t('topBannerDesc')}</p>
       </div>
       <div className="mt-16 flex gap-4">
         <Button
