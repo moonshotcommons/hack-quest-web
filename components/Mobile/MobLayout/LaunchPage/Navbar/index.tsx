@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import React, { ReactNode, useEffect, useState, FC } from 'react';
+import React, { ReactNode, useEffect, useState, FC, useContext } from 'react';
 import { useCycle } from 'framer-motion';
 
 import { useRedirect } from '@/hooks/useRedirect';
@@ -12,7 +12,10 @@ import UserModule from './UserModule';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useCheckPathname } from '@/hooks/useCheckPathname';
 import { NavbarListType } from '@/components/Web/Layout/BasePage/Navbar/type';
-
+import HackLogo from '@/public/images/logo/light-footer-logo.svg';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 export interface NavbarProps {
   navList: NavbarListType[];
   children?: ReactNode;
@@ -24,6 +27,9 @@ export enum NavType {
 }
 
 const Navbar: FC<NavbarProps> = (props) => {
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.BASIC);
+  const [openNavKeys, setOpenNavKeys] = useState<string[]>([]);
   const userInfo = useUserStore((state) => state.userInfo);
   const setMobileAuthToggleOpenHandle = useUserStore(
     (state) => state.setMobileAuthToggleOpenHandle
@@ -95,13 +101,11 @@ const Navbar: FC<NavbarProps> = (props) => {
           ></Auth>
         )}
       </NavContainer>
-      <div className="relative flex h-full w-full justify-center">
-        <Image
-          src={'/images/launch/nav_mob_logo.svg'}
-          alt="logo"
-          width={246}
-          height={22}
-        ></Image>
+      <div className="relative flex h-full w-full items-center justify-center gap-[8px]">
+        <Image src={HackLogo} alt="logo" width={134}></Image>
+        <span className="text-h5-mob font-Chaney text-neutral-black">
+          {t('launchpool')}
+        </span>
       </div>
     </div>
   );

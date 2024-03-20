@@ -26,7 +26,7 @@ export interface NavBarProps {
 const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
   const { navList } = NavBarProps;
   const { lang } = useContext(LangContext);
-  const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
+  const { t } = useTranslation(lang, TransNs.BASIC);
   const { redirectToUrl } = useRedirect();
   const pathname = useCustomPathname();
   const [curNavId, setCurNavId] = useState('');
@@ -74,7 +74,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
               <Image src={HackLogo} width={133} alt="logo"></Image>
             </div>
             <div
-              className={`text-h5 ml-[8px] flex h-full cursor-pointer items-center uppercase text-neutral-black`}
+              className={`text-h5 ml-[8px] flex h-full cursor-pointer items-center font-Chaney uppercase text-neutral-black`}
             >
               {t('launchpool')}
             </div>

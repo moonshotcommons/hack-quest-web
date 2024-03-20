@@ -54,6 +54,10 @@ const KnowledgeGain: FC<KnowledgeGainProps> = (props) => {
       setList = setDescriptionList;
       initData = { ...formLi, id: v4() };
     } else {
+      if (tagList.some((v) => isNull(v.label))) {
+        message.warning('Please fill in first');
+        return;
+      }
       list = tagList;
       setList = setTagList;
       initData = { label: '', id: v4() };

@@ -1,6 +1,7 @@
 {
   "test": "测试",
   "languageSwitcher": "语言从 <1>{{lng}}</1> 切换到: ",
+  "launchpool":"发布池",
   "projects":"项目",
   "faq":"常见问题解答",
   "login":"登录",
@@ -9,5 +10,6 @@
   "disConnect":"断开链接",
   "profile":"个人主页",
   "changePassword":"变更密码",
-  "signOut":"退出登录"
+  "signOut":"退出登录",
+  "changeLanguage":"切换语言"
 }

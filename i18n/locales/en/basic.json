@@ -1,6 +1,7 @@
 {
   "test": "test",
   "languageSwitcher": "Switch from <1>{{lng}}</1> to: ",
+  "launchpool":"launchpool",
   "projects":"Projects",
   "faq":"FAQ",
   "login":"Log In",
@@ -9,5 +10,6 @@
   "disConnect":"Disconnect",
   "profile":"Profile",
   "changePassword":"Change Password",
-  "signOut":"Sign Out"
+  "signOut":"Sign Out",
+  "changeLanguage":"Switch Language"
 }
