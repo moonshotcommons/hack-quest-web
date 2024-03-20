@@ -40,7 +40,14 @@ function useNavAuth(waitingUserData: boolean) {
       redirectToUrl(V2_LANDING_PATH);
       setAuthType(AuthType.LOGIN);
     }
-  }, [waitingUserData, userInfo, pathname]);
+  }, [
+    waitingUserData,
+    userInfo,
+    pathname,
+    isLandingPage,
+    redirectToUrl,
+    setAuthType
+  ]);
 }
 
 export default useNavAuth;

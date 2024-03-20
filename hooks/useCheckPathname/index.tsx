@@ -1,6 +1,7 @@
 import { excludeLink } from '@/components/Web/Layout/BasePage/Navbar/data';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 import { getCourseLink } from '@/helper/utils';
+import { locales } from '@/i18n/config';
 import { CourseType } from '@/service/webApi/course/type';
 import { useParams, usePathname } from 'next/navigation';
 import { useMemo } from 'react';
@@ -8,19 +9,37 @@ import { useMemo } from 'react';
 export const useCustomPathname = () => {
   const originPathname = usePathname();
 
-  const pathname = originPathname.startsWith('/mobile')
-    ? originPathname.replace('/mobile', '')
-    : originPathname;
+  let pathname = originPathname;
+  const lang = locales.find(
+    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
+  );
+
+  if (lang && pathname.startsWith(`/${lang}`)) {
+    pathname = pathname.replace(`/${lang}`, '');
+  }
+
+  pathname = pathname.startsWith('/mobile')
+    ? pathname.replace('/mobile', '')
+    : pathname;
+
   return pathname;
 };
 
 export const useCheckPathname = () => {
   const params = useParams();
   const originPathname = usePathname();
+  let pathname = originPathname;
+  const lang = locales.find(
+    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
+  );
 
-  const pathname = originPathname.startsWith('/mobile')
-    ? originPathname.replace('/mobile', '')
-    : originPathname;
+  if (lang && pathname.startsWith(`/${lang}`)) {
+    pathname = pathname.replace(`/${lang}`, '');
+  }
+
+  pathname = pathname.startsWith('/mobile')
+    ? pathname.replace('/mobile', '')
+    : pathname;
 
   return useMemo(() => {
     const isLessonPage =
