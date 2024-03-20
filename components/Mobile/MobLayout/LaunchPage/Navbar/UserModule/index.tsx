@@ -1,5 +1,5 @@
 import { BurialPoint } from '@/helper/burialPoint';
-import { FC, Suspense } from 'react';
+import { FC, Suspense, useContext } from 'react';
 import { useRedirect } from '@/hooks/useRedirect';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
@@ -12,6 +12,9 @@ import { useGlobalStore } from '@/store/zustand/globalStore';
 import { V2_LANDING_PATH, isNoNeedUserInfo } from '@/constants/nav';
 import { useCustomPathname } from '@/hooks/useCheckPathname';
 import Intl from '../Intl';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 
 interface UserModuleProps {
   changeNavType: (type: NavType) => void;
@@ -19,6 +22,8 @@ interface UserModuleProps {
 }
 
 const UserModule: FC<UserModuleProps> = ({ changeNavType, toggleOpen }) => {
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.BASIC);
   const { setAuthType, userSignOut, userInfo } = useUserStore(
     useShallow((state) => ({
       setAuthType: state.setAuthType,
@@ -79,7 +84,7 @@ const UserModule: FC<UserModuleProps> = ({ changeNavType, toggleOpen }) => {
           {/* <span>
           <BiLockAlt size={24}></BiLockAlt>
         </span> */}
-          <span className="">Switch Language</span>
+          <span className="">{t('changeLanguage')}</span>
           <Suspense fallback={null}>
             <Intl />
           </Suspense>
@@ -92,7 +97,7 @@ const UserModule: FC<UserModuleProps> = ({ changeNavType, toggleOpen }) => {
             changeNavType(NavType.AUTH);
           }}
         >
-          <span>Log in</span> {arrowIcon}
+          <span>{t('login')}</span> {arrowIcon}
         </motion.div>
         <motion.div
           variants={itemVariants}
@@ -102,7 +107,7 @@ const UserModule: FC<UserModuleProps> = ({ changeNavType, toggleOpen }) => {
             changeNavType(NavType.AUTH);
           }}
         >
-          <span>Sign up</span> {arrowIcon}
+          <span>{t('signUp')}</span> {arrowIcon}
         </motion.div>
       </div>
     );
@@ -125,7 +130,7 @@ const UserModule: FC<UserModuleProps> = ({ changeNavType, toggleOpen }) => {
         {/* <span>
           <BiLockAlt size={24}></BiLockAlt>
         </span> */}
-        <span className="">Switch Language</span>
+        <span className="">{t('changeLanguage')}</span>
         <Suspense fallback={null}>
           <Intl />
         </Suspense>
@@ -143,7 +148,7 @@ const UserModule: FC<UserModuleProps> = ({ changeNavType, toggleOpen }) => {
           <span>
             <BiUser size={24}></BiUser>
           </span>
-          <span className="">Profile</span>
+          <span className="">{t('profile')}</span>
         </motion.div>
       </Link>
       <motion.div
@@ -161,7 +166,7 @@ const UserModule: FC<UserModuleProps> = ({ changeNavType, toggleOpen }) => {
         <span>
           <BiLockAlt size={24}></BiLockAlt>
         </span>
-        <span className="">Change Password</span>
+        <span className="">{t('changePassword')}</span>
       </motion.div>
       <motion.div
         variants={itemVariants}
@@ -173,7 +178,7 @@ const UserModule: FC<UserModuleProps> = ({ changeNavType, toggleOpen }) => {
         <span>
           <BiLogInCircle size={24}></BiLogInCircle>
         </span>
-        <span className="">Sign Out</span>
+        <span className="">{t('signOut')}</span>
       </motion.div>
     </div>
   );
