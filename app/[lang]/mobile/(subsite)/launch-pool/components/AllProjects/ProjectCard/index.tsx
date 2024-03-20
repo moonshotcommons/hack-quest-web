@@ -1,4 +1,4 @@
-import { Lang } from '@/i18n/config';
+import { Lang, TransNs } from '@/i18n/config';
 import { FC } from 'react';
 import { VariantProps, cva } from 'class-variance-authority';
 import { cn } from '@/helper/utils';
@@ -6,6 +6,7 @@ import HandleButton from './HandleButton';
 import Image from 'next/image';
 import Link from 'next/link';
 import CountDown from './CountDown';
+import { useTranslation } from '@/i18n/server';
 
 export enum ProjectStatus {
   UPCOMING = 'upcoming',
@@ -14,7 +15,7 @@ export enum ProjectStatus {
 }
 
 const projectCardVariants = cva(
-  'rounded-[24px] w-full p-16 flex justify-between h-[644px] card-hover',
+  'rounded-[24px] w-full p-6 flex-col card-hover',
   {
     variants: {
       status: {
@@ -40,16 +41,23 @@ interface ProjectCardProps
 
 const logo = (
   <svg
-    width="268"
-    height="33"
-    viewBox="0 0 268 33"
+    width="168"
+    height="20"
+    viewBox="0 0 168 20"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <path
-      d="M126.523 28.2991H118.524V4.77369H126.523V28.2991ZM142.576 4.77369H133.138L126.523 15.1614V16.5364L133.823 28.2991H143.261L134.521 15.8489L142.576 4.77369ZM55.746 4.77369V13.3807H49.4302V4.77369H41.4318V28.2991H49.4302V19.5701H55.746V28.2991H63.7444V4.77369H55.746ZM107.121 22.1202C103.967 22.1202 101.809 19.6121 101.809 16.5364C101.809 13.4606 103.967 10.9525 107.121 10.9525C109.411 10.9525 111.054 12.1803 111.498 12.7626L115.471 7.26498C114.384 6.25795 111.029 3.97269 106.245 3.97269C97.7645 3.97269 93.4205 10.593 93.4205 16.5364C93.4205 22.4797 97.7645 29.1001 106.245 29.1001C111.031 29.1001 114.384 26.8148 115.471 25.8078L111.498 20.3101C111.054 20.8925 109.411 22.1202 107.121 22.1202ZM85.1036 28.3033C83.8819 26.1652 81.6398 25.3852 79.5003 25.3852C77.3608 25.3852 75.1186 26.1652 73.897 28.3033H66.3176L75.1501 4.76948H83.8547L92.6871 28.3033H85.1078H85.1036ZM82.5492 20.1987L79.4982 11.7577L76.4472 20.1987C76.4472 20.1987 77.6605 19.6773 79.4081 19.6773H79.5841C81.3338 19.6773 82.545 20.1987 82.545 20.1987H82.5492ZM85.1036 28.3033C83.8819 26.1652 81.6398 25.3852 79.5003 25.3852C77.3608 25.3852 75.1186 26.1652 73.897 28.3033H66.3176L75.1501 4.76948H83.8547L92.6871 28.3033H85.1078H85.1036ZM82.5492 20.1987L79.4982 11.7577L76.4472 20.1987C76.4472 20.1987 77.6605 19.6773 79.4081 19.6773H79.5841C81.3338 19.6773 82.545 20.1987 82.545 20.1987H82.5492ZM267.967 4.77369H246.524V10.921H253.247V28.2991H261.245V10.921H267.967V4.77369ZM219.111 10.921V4.77369H198.771V28.2991H206.769V28.2907H219.111V22.1434H206.769V19.1959H219.111V13.8706H206.769V10.9231H219.111V10.921ZM236.6 13.4627H232.003C231.305 13.4627 230.739 12.8951 230.739 12.195C230.739 11.4949 231.305 10.9273 232.003 10.9273H243.279V4.77999H230.132C226.016 4.77999 222.686 8.15428 222.741 12.2938C222.793 16.3703 226.179 19.6121 230.243 19.6121H234.84C235.538 19.6121 236.104 20.1798 236.104 20.8799C236.104 21.5799 235.538 22.1476 234.84 22.1476H223.569V28.2949H236.711C240.827 28.2949 244.157 24.9206 244.102 20.781C244.05 16.7046 240.663 13.4627 236.6 13.4627ZM186.504 4.77369V18.3003C186.504 20.0368 185.1 21.4454 183.369 21.4454C181.638 21.4454 180.234 20.0368 180.234 18.3003V4.77369H172.236V19.1685C172.236 25.3284 177.145 29.058 183.285 29.1043C189.473 29.1505 194.504 25.5071 194.504 19.3094V4.77369H186.506H186.504ZM165.019 22.8729L170.044 20.9492L169.62 27.5548C169.62 27.5548 163.141 29.1001 156.084 29.1001C147.203 29.1001 143.259 21.8932 143.259 16.139C143.259 10.3849 147.603 3.97479 156.084 3.97479C164.564 3.97479 168.426 9.72264 168.191 15.542C168.066 18.6829 166.473 21.4685 165.019 22.6669V22.8729ZM156.086 22.1202C158.954 22.1202 160.52 19.4503 160.52 16.5448C160.52 13.6393 158.954 10.9546 156.086 10.9546C153.217 10.9546 151.652 13.6393 151.652 16.5448C151.652 19.4503 153.217 22.1202 156.086 22.1202ZM27.2244 5.19836C30.112 8.09541 31.8953 12.092 31.8953 16.5112L31.1514 31.8647L15.9487 32.5101C11.544 32.5101 7.55838 30.7189 4.67291 27.8239C1.78535 24.929 0 20.9324 0 16.5133L0.643311 1.25854L15.9487 0.512207C20.3534 0.512207 24.339 2.30342 27.2244 5.19836ZM22.5327 10.1095C20.873 8.44441 18.5806 7.41215 16.0493 7.41215C10.9845 7.41215 6.87735 11.5328 6.87735 16.6142C6.87735 19.1538 7.90623 21.4538 9.56585 23.1189C11.2255 24.7839 13.5179 25.8162 16.0493 25.8162C21.1119 25.8162 25.2191 21.6977 25.2212 16.6142C25.2212 14.0745 24.1923 11.7745 22.5327 10.1095Z"
-      fill="#0B0B0B"
-    />
+    <g clipPath="url(#clip0_0_31390)">
+      <path
+        d="M79.0767 17.3668H74.0777V2.66343H79.0767V17.3668ZM89.1102 2.66343H83.2114L79.0767 9.15577V10.0151L83.6396 17.3668H89.5384L84.0758 9.58544L89.1102 2.66343ZM34.8412 2.66343V8.04283H30.8939V2.66343H25.8949V17.3668H30.8939V11.9112H34.8412V17.3668H39.8403V2.66343H34.8412ZM66.9505 13.505C64.9794 13.505 63.6305 11.9375 63.6305 10.0151C63.6305 8.09277 64.9794 6.52519 66.9505 6.52519C68.382 6.52519 69.4087 7.29256 69.6864 7.65653L72.1695 4.22048C71.4898 3.59109 69.393 2.1628 66.403 2.1628C61.1028 2.1628 58.3878 6.30051 58.3878 10.0151C58.3878 13.7297 61.1028 17.8674 66.403 17.8674C69.3943 17.8674 71.4898 16.4391 72.1695 15.8097L69.6864 12.3737C69.4087 12.7377 68.382 13.505 66.9505 13.505ZM53.1898 17.3694C52.4262 16.0331 51.0249 15.5456 49.6877 15.5456C48.3505 15.5456 46.9492 16.0331 46.1856 17.3694H41.4485L46.9688 2.6608H52.4092L57.9295 17.3694H53.1924H53.1898ZM51.5933 12.3041L49.6864 7.02845L47.7795 12.3041C47.7795 12.3041 48.5378 11.9782 49.6301 11.9782H49.7401C50.8336 11.9782 51.5906 12.3041 51.5906 12.3041H51.5933ZM53.1898 17.3694C52.4262 16.0331 51.0249 15.5456 49.6877 15.5456C48.3505 15.5456 46.9492 16.0331 46.1856 17.3694H41.4485L46.9688 2.6608H52.4092L57.9295 17.3694H53.1924H53.1898ZM51.5933 12.3041L49.6864 7.02845L47.7795 12.3041C47.7795 12.3041 48.5378 11.9782 49.6301 11.9782H49.7401C50.8336 11.9782 51.5906 12.3041 51.5906 12.3041H51.5933ZM167.48 2.66343H154.078V6.50549H158.279V17.3668H163.278V6.50549H167.48V2.66343ZM136.945 6.50549V2.66343H124.232V17.3668H129.231V17.3615H136.945V13.5195H129.231V11.6773H136.945V8.34899H129.231V6.5068H136.945V6.50549ZM147.875 8.09408H145.002C144.566 8.09408 144.212 7.73931 144.212 7.30175C144.212 6.8642 144.566 6.50943 145.002 6.50943H152.049V2.66737H143.832C141.26 2.66737 139.179 4.7763 139.213 7.36351C139.246 9.91131 141.362 11.9375 143.902 11.9375H146.775C147.211 11.9375 147.565 12.2922 147.565 12.7298C147.565 13.1673 147.211 13.5221 146.775 13.5221H139.73V17.3642H147.945C150.517 17.3642 152.598 15.2552 152.564 12.668C152.531 10.1202 150.415 8.09408 147.875 8.09408ZM116.565 2.66343V11.1175C116.565 12.2029 115.687 13.0832 114.606 13.0832C113.524 13.0832 112.646 12.2029 112.646 11.1175V2.66343H107.647V11.6602C107.647 15.5101 110.716 17.8411 114.553 17.87C118.421 17.899 121.565 15.6218 121.565 11.7482V2.66343H116.566H116.565ZM103.137 13.9754L106.277 12.7731L106.013 16.9016C106.013 16.9016 101.963 17.8674 97.5523 17.8674C92.0019 17.8674 89.5371 13.3631 89.5371 9.76677C89.5371 6.17042 92.2521 2.16411 97.5523 2.16411C102.853 2.16411 105.266 5.75652 105.12 9.3936C105.041 11.3567 104.046 13.0977 103.137 13.8467V13.9754ZM97.5536 13.505C99.3466 13.505 100.325 11.8363 100.325 10.0204C100.325 8.20445 99.3466 6.52651 97.5536 6.52651C95.7607 6.52651 94.7823 8.20445 94.7823 10.0204C94.7823 11.8363 95.7607 13.505 97.5536 13.505ZM17.0153 2.92885C18.82 4.7395 19.9345 7.23737 19.9345 9.99934L19.4696 19.5953L9.96792 19.9987C7.21499 19.9987 4.72399 18.8792 2.92057 17.0698C1.11584 15.2605 0 12.7626 0 10.0007L0.40207 0.466461L9.96792 0C12.7209 0 15.2119 1.11951 17.0153 2.92885ZM14.0829 5.99829C13.0457 4.95762 11.6129 4.31246 10.0308 4.31246C6.86531 4.31246 4.29835 6.88785 4.29835 10.0637C4.29835 11.651 4.9414 13.0885 5.97866 14.1292C7.01592 15.1698 8.4487 15.815 10.0308 15.815C13.195 15.815 15.7619 13.2409 15.7632 10.0637C15.7632 8.47645 15.1202 7.03896 14.0829 5.99829Z"
+        fill="#0B0B0B"
+      />
+    </g>
+    <defs>
+      <clipPath id="clip0_0_31390">
+        <rect width="167.48" height="20" fill="white" />
+      </clipPath>
+    </defs>
   </svg>
 );
 
@@ -59,7 +67,7 @@ const LabelWrapper = ({ label, value }: { label: string; value: string }) => {
       <span className="body-s inline-block w-[236px] max-w-[236px] text-neutral-rich-gray">
         {label}
       </span>
-      <span className="body-xl-bold inline-block w-[236px] max-w-[236px] text-neutral-black">
+      <span className="body-m-bold inline-block w-[236px] max-w-[236px] uppercase text-neutral-black">
         {value}
       </span>
     </div>
@@ -76,7 +84,7 @@ const StatusTag = ({
   return (
     <div
       className={cn(
-        'body-l-bold w-fit rounded-[8px] border-[2px] px-3 py-1',
+        'body-m-bold w-fit rounded-[8px] border-[2px] px-3 py-1',
         status === ProjectStatus.LIVE_NOW
           ? 'border-status-success text-status-success'
           : 'border-neutral-medium-gray text-neutral-medium-gray'
@@ -109,59 +117,69 @@ const StatisticsCard = (props: { totalFul: number; totalUser: number }) => {
   );
 };
 
-const ProjectCard: FC<ProjectCardProps> = ({
+const ProjectCard: FC<ProjectCardProps> = async ({
   lang,
   status = ProjectStatus.UPCOMING,
   className,
   title
 }) => {
+  const { t } = await useTranslation(lang, TransNs.LAUNCH_POOL);
+  // const t = (a: string) => a;
   return (
     <Link href={'/launch-pool/1'}>
       <div className={cn(projectCardVariants({ className, status }))}>
-        <div className="flex flex-col justify-center gap-6">
+        <div className="flex flex-col justify-center gap-3">
           <div>{logo}</div>
-          <div className="flex flex-col gap-8">
-            <p className="body-xl-bold text-neutral-off-black">{title}</p>
+          <div className="flex flex-col gap-6">
+            <p className="body-s text-neutral-off-black">
+              {t('projectCardDesc')}
+            </p>
             {status === ProjectStatus.UPCOMING && (
-              <StatusTag status={status!} text="UPCOMING" />
+              <StatusTag status={status!} text={t('upComing')} />
             )}
             {status === ProjectStatus.LIVE_NOW && (
-              <StatusTag status={status!} text="LIVE NOW" />
+              <StatusTag status={status!} text={t('liveNow')} />
             )}
             {status === ProjectStatus.CLOSED && (
-              <StatusTag status={status!} text="CLOSED MAR 9, 2024" />
+              <StatusTag
+                status={status!}
+                text={`${t('closed')} MAR 9, 2024"`}
+              />
             )}
+            <div className="flex h-full items-center">
+              <Image
+                src={'/images/launch/launch_frame.png'}
+                alt=""
+                width={300}
+                height={283}
+              ></Image>
+            </div>
             {status !== ProjectStatus.CLOSED && <CountDown status={status!} />}
 
-            <div className="flex max-w-[600px] flex-wrap gap-5">
+            <div className="flex flex-col  gap-4">
               {status === ProjectStatus.LIVE_NOW && (
-                <LabelWrapper label="Total Participated Users" value="35,120" />
+                <LabelWrapper
+                  label={t('totalParticipatedUsers')}
+                  value="35,120"
+                />
               )}
               {status === ProjectStatus.LIVE_NOW && (
-                <LabelWrapper label="Total Fuel" value="588,496" />
+                <LabelWrapper label={t('totalFuel')} value="588,496" />
               )}
-              <LabelWrapper label="Project Token" value="$HQT" />
+              <LabelWrapper label={t('projectToken')} value="$HQT" />
               <LabelWrapper
-                label="Total Airdrop Amount"
+                label={t('totalAirdropAmount')}
                 value="2% / 2,000,000 $hqt"
               />
               {status !== ProjectStatus.LIVE_NOW && (
                 <LabelWrapper
-                  label="Current Stakings"
+                  label={t('currentStakings')}
                   value="10,000,000 $MNT"
                 />
               )}
             </div>
             <HandleButton status={status!} />
           </div>
-        </div>
-        <div className="flex h-full items-center">
-          <Image
-            src={'/images/launch/launch_frame.png'}
-            alt=""
-            width={424}
-            height={400}
-          ></Image>
         </div>
       </div>
     </Link>

@@ -23,8 +23,10 @@ const HowIAOWorks: FC<HowIAOWorksProps> = async ({ lang }) => {
               <div key={item.title} className="flex-1 px-6">
                 <span className="">{item.icon}</span>
                 <div className="mt-4 flex flex-col gap-6 py-6">
-                  <p>{t(item.title)}</p>
-                  <p>{t(item.desc)}</p>
+                  <p className="body-xl-bold text-neutral-off-black">
+                    {t(item.title)}
+                  </p>
+                  <p className="body-s text-neutral-black">{t(item.desc)}</p>
                   {item.buttonText && (
                     <Link
                       href={item.buttonLink}

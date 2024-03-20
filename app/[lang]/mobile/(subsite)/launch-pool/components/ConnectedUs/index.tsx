@@ -15,10 +15,10 @@ interface ConnectedUsProps {}
 
 const ConnectedUs: FC<ConnectedUsProps> = (props) => {
   return (
-    <div className="flex h-[30rem] w-full items-center justify-center overflow-hidden bg-neutral-black">
-      <div className="relative flex h-full flex-col items-center justify-center gap-[3.75rem] text-neutral-white">
-        <h2 className="text-h2">Stay Connected with us</h2>
-        <div className="flex gap-[3.75rem]">
+    <div className="relative flex w-full items-center justify-center overflow-hidden bg-neutral-black py-[3.75rem]">
+      <div className="relative flex h-full flex-col items-center justify-center gap-10 text-neutral-white">
+        <h2 className="text-h2 text-[1.375rem]">Stay Connected with us</h2>
+        <div className="flex gap-10">
           <Link
             href={HACKQUEST_DISCORD}
             target="_blank"
@@ -55,20 +55,20 @@ const ConnectedUs: FC<ConnectedUsProps> = (props) => {
             collab with us
           </Button>
         </Link>
-        <div className="absolute -left-[calc(100%+60px)] -top-11 h-[30.1875rem] w-[29.4375rem]">
+        {/* <div className="w-[29.4375rem] h-[30.1875rem] absolute -top-11 -left-[calc(100%+60px)]">
           <Image
             src={'/images/landing/connected_us_left.png'}
             alt="hackquest"
             fill
           ></Image>
-        </div>
-        <div className="absolute bottom-0 left-[calc(100%+130px)] h-[23.4375rem] w-[24.5625rem]">
-          <Image
-            src={'/images/landing/connected_us_right.png'}
-            alt="hackquest"
-            fill
-          ></Image>
-        </div>
+        </div> */}
+      </div>
+      <div className="absolute bottom-[1.0625rem] left-[53%] h-[12.5rem] w-[13.125rem]">
+        <Image
+          src={'/images/landing/connected_us_right.png'}
+          alt="hackquest"
+          fill
+        ></Image>
       </div>
     </div>
   );

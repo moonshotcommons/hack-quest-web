@@ -83,7 +83,6 @@ const CountDown: FC<CountDownProps> = ({ status }) => {
   }, []);
 
   if (!mount) return null;
-  console.log(days, hours, minutes, seconds, milliseconds);
   return (
     <div className="flex flex-col gap-2">
       <p className="body-s text-neutral-medium-gray">{t('closeIn')}</p>

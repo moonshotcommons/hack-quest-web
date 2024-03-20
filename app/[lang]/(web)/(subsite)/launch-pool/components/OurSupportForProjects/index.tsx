@@ -17,7 +17,7 @@ const OurSupportForProjects: FC<OurSupportForProjectsProps> = async ({
       <h2 className="text-h2 mb-6 text-center text-neutral-black">
         {t('projectsSupport')}
       </h2>
-      <p className="body-m mx-auto w-[960px] max-w-[960px] text-center">
+      <p className="body-m mx-auto w-[960px] max-w-[960px] text-center text-neutral-off-black">
         {t('projectsSupportDesc')}
       </p>
       <div className="flex flex-wrap justify-center gap-6 py-10">

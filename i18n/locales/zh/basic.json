@@ -1,13 +1,14 @@
 {
   "test": "测试",
   "languageSwitcher": "语言从 <1>{{lng}}</1> 切换到: ",
-  "projects":"项目",
-  "faq":"常见问题解答",
-  "login":"登录",
-  "signUp":"注册",
-  "connectWallet":"链接钱包",
-  "disConnect":"断开链接",
-  "profile":"个人主页",
-  "changePassword":"变更密码",
-  "signOut":"退出登录"
+  "projects": "项目",
+  "faq": "常见问题解答",
+  "login": "登录",
+  "signUp": "注册",
+  "connectWallet": "链接钱包",
+  "disConnect": "断开链接",
+  "profile": "个人主页",
+  "changePassword": "变更密码",
+  "signOut": "退出登录",
+  "allProjects": "所有项目"
 }

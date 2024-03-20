@@ -1,38 +1,37 @@
-import { Lang } from '@/i18n/config';
+import { Lang, TransNs } from '@/i18n/config';
 import { FC } from 'react';
 import { data } from './constant';
 import Button from '@/components/Common/Button';
+import { useTranslation } from '@/i18n/server';
 
 interface OurSupportForProjectsProps {
   lang: Lang;
 }
 
-const OurSupportForProjects: FC<OurSupportForProjectsProps> = ({ lang }) => {
+const OurSupportForProjects: FC<OurSupportForProjectsProps> = async ({
+  lang
+}) => {
+  const { t } = await useTranslation(lang, TransNs.LAUNCH_POOL);
   return (
-    <div className="container relative mx-auto mt-5 flex w-full flex-col items-center py-20">
-      <h2 className="text-h2 mb-6 text-center text-neutral-black">
-        Our Support For Projects
+    <div className="relative mx-auto flex w-full flex-col items-center px-5 py-10">
+      <h2 className="text-h2-mob mb-6 text-center text-neutral-black">
+        {t('projectsSupport')}
       </h2>
-      <p className="body-m mx-auto w-[960px] max-w-[960px] text-center">
-        Many talented founders capable of delivering high-quality products often
-        lack the experience needed to build a crypto community. We address this
-        critical need by offering our support, and allowing them solely focusing
-        on delivering good products.
-      </p>
-      <div className="flex flex-wrap justify-center gap-6 py-10">
+      <p className="body-s mx-auto text-center">{t('projectsSupportDesc')}</p>
+      <div className="flex flex-wrap justify-center gap-4 py-10">
         {data.map((item) => {
           return (
             <div
               key={item}
-              className="body-m-bold rounded-[24px] bg-neutral-white p-6 tracking-tight  text-neutral-black"
+              className="body-xs-bold rounded-[16px] bg-neutral-white p-3 tracking-tight  text-neutral-black"
             >
-              {item}
+              {t(item)}
             </div>
           );
         })}
       </div>
-      <Button ghost className="px-6 py-4 uppercase">
-        Submit an IDO Project
+      <Button ghost className="button-text-m px-6 py-4 uppercase">
+        {t('projectsSupportSubmitBtnText')}
       </Button>
     </div>
   );

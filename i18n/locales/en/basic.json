@@ -1,13 +1,14 @@
 {
   "test": "test",
   "languageSwitcher": "Switch from <1>{{lng}}</1> to: ",
-  "projects":"Projects",
-  "faq":"FAQ",
-  "login":"Log In",
-  "signUp":"Sign Up",
-  "connectWallet":"Connect Wallet",
-  "disConnect":"Disconnect",
-  "profile":"Profile",
-  "changePassword":"Change Password",
-  "signOut":"Sign Out"
+  "projects": "Projects",
+  "faq": "FAQ",
+  "login": "Log In",
+  "signUp": "Sign Up",
+  "connectWallet": "Connect Wallet",
+  "disConnect": "Disconnect",
+  "profile": "Profile",
+  "changePassword": "Change Password",
+  "signOut": "Sign Out",
+  "allProjects": "所有项目"
 }

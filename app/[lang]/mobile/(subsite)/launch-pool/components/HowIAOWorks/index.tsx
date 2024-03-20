@@ -1,28 +1,34 @@
-import { Lang } from '@/i18n/config';
+import { Lang, TransNs } from '@/i18n/config';
 import { FC } from 'react';
 import { data } from './constant';
 import Link from 'next/link';
+import { useTranslation } from '@/i18n/server';
 
 interface HowIAOWorksProps {
   lang: Lang;
 }
 
-const HowIAOWorks: FC<HowIAOWorksProps> = ({ lang }) => {
+const HowIAOWorks: FC<HowIAOWorksProps> = async ({ lang }) => {
+  const { t } = await useTranslation(lang, TransNs.LAUNCH_POOL);
   return (
-    <div className="mt-5 w-full py-20">
-      <h2 className="text-h2 mb-10 text-center text-neutral-black">
-        How IAO works?
+    <div className="mt-5 w-full py-10">
+      <h2 className="text-h2-to-setting-modal-bg mb-10 text-center text-neutral-black">
+        {t('howIAOWorks')}
       </h2>
-      <div className="relative w-full">
-        <div className="absolute left-1/2 top-[12px] w-full -translate-x-1/2 border-b-[2px] border-dashed border-neutral-dark-gray"></div>
-        <div className="container relative z-10 mx-auto flex gap-8">
+      <div className="relative h-fit w-full">
+        <div className="absolute left-[36px] top-0 h-full border-l-[2px] border-dashed border-neutral-dark-gray"></div>
+        <div className="relative z-10 mx-auto flex w-full flex-col gap-5">
           {data.map((item) => {
             return (
-              <div key={item.title} className="flex-1 px-6">
-                <span className="">{item.icon}</span>
-                <div className="mt-4 flex flex-col gap-6 py-6">
-                  <p>{item.title}</p>
-                  <p>{item.desc}</p>
+              <div key={item.title} className="flex flex-1 gap-4 px-6">
+                <span className="inline-block pt-5">{item.icon}</span>
+                <div className="flex flex-col gap-5 py-5">
+                  <p className="body-l-bold text-neutral-off-black">
+                    {t(item.title)}
+                  </p>
+                  <p className="body-s text-neutral-medium-gray">
+                    {t(item.desc)}
+                  </p>
                   {item.buttonText && (
                     <Link
                       href={item.buttonLink}
@@ -30,7 +36,7 @@ const HowIAOWorks: FC<HowIAOWorksProps> = ({ lang }) => {
                       className="body-m-bold flex cursor-pointer items-center gap-2"
                     >
                       <span className="relative after:absolute after:-bottom-[1px] after:left-0 after:h-[2px] after:w-full after:rounded-full after:bg-yellow-primary">
-                        {item.buttonText}
+                        {t(item.buttonText)}
                       </span>
                       <svg
                         width="13"
