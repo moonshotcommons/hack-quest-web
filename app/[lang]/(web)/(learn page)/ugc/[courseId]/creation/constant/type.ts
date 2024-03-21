@@ -6,7 +6,8 @@ import {
   CourseTrackType,
   IntendedLearnersType,
   KnowledgeGainType,
-  LessonType
+  LessonType,
+  UGCCourseUnitType
 } from '@/service/webApi/course/type';
 
 export interface LessonTypeDataType {
@@ -112,8 +113,8 @@ export interface UgcCreateContextType {
   selectLessonId: string | CreationPageKey;
   setSelectLessonId: (id: string) => void;
   courseId: string;
-  units: any[];
-  setUnits: (units: any[]) => void;
+  units: UGCCourseUnitType[];
+  setUnits: (units: UGCCourseUnitType[]) => void;
   setCourseId: (id: string) => void;
   selectUnitMenuId: string;
   setSelectUnitMenuId: (id: string) => void;

@@ -1,6 +1,5 @@
 'use client';
 import { FC, ReactNode, useEffect, useState } from 'react';
-
 import emitter from '@/store/emitter';
 import { LearnPageType, useCourseStore } from '@/store/zustand/courseStore';
 import {
@@ -11,6 +10,7 @@ import {
 import { lessonIdKeys } from '../../constant/data';
 import { useRedirect } from '@/hooks/useRedirect';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import { UGCCourseUnitType } from '@/service/webApi/course/type';
 interface UgcCreateProviderProps {
   children: ReactNode;
   courseId: string;
@@ -21,7 +21,7 @@ const UgcCreateProvider: FC<UgcCreateProviderProps> = ({
   courseId: cId
 }) => {
   const setLearnPageTitle = useCourseStore((state) => state.setPageType);
-  const [units, setUnits] = useState<any[]>([]);
+  const [units, setUnits] = useState<UGCCourseUnitType[]>([]);
   const [courseInformation, setCourseInformation] = useState(
     defaultCourseInformation
   );
@@ -43,6 +43,7 @@ const UgcCreateProvider: FC<UgcCreateProviderProps> = ({
     }
     redirectToUrl(lessonPage);
   };
+
   useEffect(() => {
     setLearnPageTitle(LearnPageType.UGC_CREATION);
     return () => {

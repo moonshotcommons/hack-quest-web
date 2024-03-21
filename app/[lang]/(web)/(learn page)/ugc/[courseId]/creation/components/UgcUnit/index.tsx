@@ -98,6 +98,7 @@ const UgcUnit: React.FC<UgcUnitProp> = () => {
         setLoading(false);
       });
   };
+
   const showDeleteModal = (
     type: string,
     unitIndex: number,
@@ -128,6 +129,7 @@ const UgcUnit: React.FC<UgcUnitProp> = () => {
 
     setDeleteModal(true);
   };
+
   const handleDelete = (id: string, type: string) => {
     setLoading(true);
     if (type === 'unit') {
@@ -206,6 +208,7 @@ const UgcUnit: React.FC<UgcUnitProp> = () => {
         });
     }
   };
+
   const chooseLesson = (id: string) => {
     setSelectUnitMenuId(id);
     redirectToUrl(
@@ -221,6 +224,7 @@ const UgcUnit: React.FC<UgcUnitProp> = () => {
   if (emitter.all.get(CreationHandleKey.ADD_LESSON)) {
     emitter.all.delete(CreationHandleKey.ADD_LESSON);
   }
+
   emitter.on(CreationHandleKey.ADD_LESSON, handleAddLesson);
 
   useEffect(() => {
