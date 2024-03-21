@@ -5,7 +5,6 @@ import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
 import { motion } from 'framer-motion';
 import { itemVariants } from '../constant';
-import { NavType } from '..';
 import { BiUser, BiLockAlt, BiLogInCircle } from 'react-icons/bi';
 import Link from 'next/link';
 import { useGlobalStore } from '@/store/zustand/globalStore';
@@ -15,6 +14,7 @@ import Intl from '../Intl';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
+import { NavType } from '@/components/Mobile/MobLayout/constant';
 
 interface UserModuleProps {
   changeNavType: (type: NavType) => void;
@@ -72,18 +72,7 @@ const UserModule: FC<UserModuleProps> = ({ changeNavType, toggleOpen }) => {
         <motion.div
           variants={itemVariants}
           className="flex items-center justify-between gap-2 py-[.7813rem]"
-          onClick={() => {
-            // message.error(
-            //   'Do not support mobile terminal to change the password, please go to the PC terminal operation.'
-            // );
-            // return;
-            // BurialPoint.track('settings');
-            // setTipsModalOpenState(true);
-          }}
         >
-          {/* <span>
-          <BiLockAlt size={24}></BiLockAlt>
-        </span> */}
           <span className="">{t('changeLanguage')}</span>
           <Suspense fallback={null}>
             <Intl />

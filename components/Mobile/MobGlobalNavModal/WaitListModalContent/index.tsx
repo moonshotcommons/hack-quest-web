@@ -1,21 +1,17 @@
 'use client';
-import Modal from '@/components/Common/Modal';
-import {
-  ForwardRefRenderFunction,
-  forwardRef,
-  useImperativeHandle,
-  useMemo,
-  useState
-} from 'react';
-import { LuX } from 'react-icons/lu';
+import { FC, createContext, useEffect, useMemo, useState } from 'react';
+
+import { motion } from 'framer-motion';
+import useGetHeight from '@/hooks/useGetHeight';
 import { useRequest } from 'ahooks';
 import { errorMessage } from '@/helper/ui';
 import InputEmail from './InputEmail';
 import JoinedSuccess from './JoinedSuccess';
 import Image from 'next/image';
 import Loading from '@/public/images/other/loading.png';
-
-interface WaitListModalProps {}
+import { useUserStore } from '@/store/zustand/userStore';
+import { useGlobalStore } from '@/store/zustand/globalStore';
+import { NavType } from '../../MobLayout/constant';
 
 const logo = (
   <svg
@@ -44,22 +40,28 @@ const logo = (
   </svg>
 );
 
-export interface WaitListModalInstance {
-  onJoin: (email?: string) => void;
-}
-
 export enum JoinStatus {
   InputEmail = 'input',
   Joined = 'joined'
 }
 
-const WaitListModal: ForwardRefRenderFunction<
-  WaitListModalInstance,
-  WaitListModalProps
-> = (props, ref) => {
-  const [open, setOpen] = useState(false);
-  const [joinStatus, setJoinStatus] = useState(JoinStatus.InputEmail);
+interface WaitListModalContentProps {
+  changeNavState: VoidFunction;
+}
 
+export const WaitListModalContentContext = createContext({
+  changeNavState: () => {}
+});
+
+const WaitListModalContent: FC<WaitListModalContentProps> = ({
+  changeNavState
+}) => {
+  const { pageHeight } = useGetHeight();
+  const [joinStatus, setJoinStatus] = useState(JoinStatus.InputEmail);
+  const userInfo = useUserStore((state) => state.userInfo);
+  const mobileNavModalToggleOpenHandle = useGlobalStore(
+    (state) => state.mobileNavModalToggleOpenHandle
+  );
   const { loading, run: joinHandle } = useRequest(
     (email: string) => {
       return new Promise((resolve, reject) => {
@@ -79,20 +81,11 @@ const WaitListModal: ForwardRefRenderFunction<
     }
   );
 
-  useImperativeHandle(
-    ref,
-    () => {
-      return {
-        onJoin(email) {
-          setOpen(true);
-          if (email) {
-            joinHandle('');
-          }
-        }
-      };
-    },
-    [joinHandle]
-  );
+  const reset = () => {
+    setTimeout(() => {
+      setJoinStatus(JoinStatus.InputEmail);
+    }, 500);
+  };
 
   const SlotComponent = useMemo(() => {
     switch (joinStatus) {
@@ -108,42 +101,39 @@ const WaitListModal: ForwardRefRenderFunction<
         return (
           <JoinedSuccess
             onClose={() => {
-              setOpen(false);
               reset();
+              mobileNavModalToggleOpenHandle.toggleOpen();
+              mobileNavModalToggleOpenHandle.setNavType(NavType.NAV_LIST);
             }}
           />
         );
     }
-  }, [joinStatus, joinHandle]);
+  }, [joinStatus, joinHandle, mobileNavModalToggleOpenHandle]);
 
-  const reset = () => {
-    setTimeout(() => {
-      setJoinStatus(JoinStatus.InputEmail);
-    }, 500);
-  };
+  useEffect(() => {
+    if (userInfo?.email) {
+      false && joinHandle(userInfo?.email!);
+    }
+  }, [userInfo]);
 
   return (
-    <Modal
-      open={open}
-      onClose={() => {
-        setOpen(false);
-        reset();
+    <motion.div
+      variants={{
+        open: {
+          transition: { staggerChildren: 0.07, delayChildren: 0.2 },
+          opacity: 1,
+          pointerEvents: 'auto',
+          height: pageHeight
+        },
+        closed: {
+          transition: { staggerChildren: 0.05, staggerDirection: -1 },
+          opacity: 0,
+          pointerEvents: 'none'
+        }
       }}
-      showCloseIcon
-      icon={
-        <LuX
-          size={24}
-          className="absolute right-2 top-2 text-neutral-off-black"
-          onClick={() => {
-            setOpen(false);
-            reset();
-          }}
-        />
-      }
+      className="fixed bottom-0 left-0 top-[64px] flex  w-screen  flex-col border border-neutral-light-gray bg-neutral-white px-5 py-8"
     >
-      <div className="box-content flex h-[34rem] w-[31.5rem] flex-col rounded-[2rem] border border-neutral-light-gray bg-neutral-white p-[3rem]">
-        <div className="mb-10 flex w-full justify-center">{logo}</div>
-
+      <WaitListModalContentContext.Provider value={{ changeNavState }}>
         <div className="flex h-full w-full items-center justify-center">
           {loading && (
             <Image
@@ -155,9 +145,9 @@ const WaitListModal: ForwardRefRenderFunction<
           )}
           {!loading && SlotComponent}
         </div>
-      </div>
-    </Modal>
+      </WaitListModalContentContext.Provider>
+    </motion.div>
   );
 };
 
-export default forwardRef(WaitListModal);
+export default WaitListModalContent;

@@ -67,7 +67,7 @@ const LabelWrapper = ({ label, value }: { label: string; value: string }) => {
       <span className="body-s inline-block w-[236px] max-w-[236px] text-neutral-rich-gray">
         {label}
       </span>
-      <span className="body-m-bold inline-block w-[236px] max-w-[236px] uppercase text-neutral-black">
+      <span className="body-m-bold inline-block uppercase text-neutral-black">
         {value}
       </span>
     </div>

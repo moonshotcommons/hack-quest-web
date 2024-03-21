@@ -14,11 +14,23 @@ const AllProjects: FC<AllProjectsProps> = async ({ lang }) => {
       <h2 className="text-h2 mb-20 text-center text-neutral-black">
         {t('allProjects')}
       </h2>
-      <ProjectCard
-        status={ProjectStatus.LIVE_NOW}
-        lang={lang}
-        title="Web3.0 Programing For Everyone"
-      />
+      <div className="flex flex-col gap-10">
+        <ProjectCard
+          status={ProjectStatus.UPCOMING}
+          lang={lang}
+          title="Web3.0 Programing For Everyone"
+        />
+        <ProjectCard
+          status={ProjectStatus.LIVE_NOW}
+          lang={lang}
+          title="Web3.0 Programing For Everyone"
+        />
+        <ProjectCard
+          status={ProjectStatus.CLOSED}
+          lang={lang}
+          title="Web3.0 Programing For Everyone"
+        />
+      </div>
     </div>
   );
 };

@@ -7,7 +7,8 @@ import { useEffect, useState } from 'react';
 import { useRedirect } from '../useRedirect';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { isMobile } from 'react-device-detect';
-import { NavType } from '@/components/Mobile/MobLayout/BasePage/Navbar';
+import { NavType } from '@/components/Mobile/MobLayout/constant';
+import { useGlobalStore } from '@/store/zustand/globalStore';
 
 export const useGetLessonContent = <
   T extends CourseLessonType | ElectiveLessonType
@@ -19,8 +20,8 @@ export const useGetLessonContent = <
   const { redirectToUrl } = useRedirect();
   const setAuthType = useUserStore((state) => state.setAuthType);
   const setAuthModalOpen = useUserStore((state) => state.setAuthModalOpen);
-  const mobileAuthToggleOpenHandle = useUserStore(
-    (state) => state.mobileAuthToggleOpenHandle
+  const mobileNavModalToggleOpenHandle = useGlobalStore(
+    (state) => state.mobileNavModalToggleOpenHandle
   );
   const { run, loading, refresh } = useRequest(
     async (lessonId) => {
@@ -47,8 +48,8 @@ export const useGetLessonContent = <
           if (!isMobile) {
             setAuthModalOpen(true);
           } else {
-            mobileAuthToggleOpenHandle.setNavType(NavType.AUTH);
-            mobileAuthToggleOpenHandle.toggleOpen();
+            mobileNavModalToggleOpenHandle.setNavType(NavType.AUTH);
+            mobileNavModalToggleOpenHandle.toggleOpen();
           }
           return;
         }

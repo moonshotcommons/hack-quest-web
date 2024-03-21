@@ -12,7 +12,8 @@ import { useRedirect } from '../useRedirect';
 import { message } from 'antd';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { isMobile } from 'react-device-detect';
-import { NavType } from '@/components/Mobile/MobLayout/BasePage/Navbar';
+import { NavType } from '@/components/Mobile/MobLayout/constant';
+import { useGlobalStore } from '@/store/zustand/globalStore';
 
 export interface JumpLeaningLessonType {
   menu: string;
@@ -25,8 +26,8 @@ export const useJumpLeaningLesson = () => {
   );
   const setAuthType = useUserStore((state) => state.setAuthType);
   const setAuthModalOpen = useUserStore((state) => state.setAuthModalOpen);
-  const mobileAuthToggleOpenHandle = useUserStore(
-    (state) => state.mobileAuthToggleOpenHandle
+  const mobileNavModalToggleOpenHandle = useGlobalStore(
+    (state) => state.mobileNavModalToggleOpenHandle
   );
   const { redirectToUrl } = useRedirect();
   const { run: jumpLearningLesson, loading } = useRequest(
@@ -77,8 +78,8 @@ export const useJumpLeaningLesson = () => {
           if (!isMobile) {
             setAuthModalOpen(true);
           } else {
-            mobileAuthToggleOpenHandle.setNavType(NavType.AUTH);
-            mobileAuthToggleOpenHandle.toggleOpen();
+            mobileNavModalToggleOpenHandle.setNavType(NavType.AUTH);
+            mobileNavModalToggleOpenHandle.toggleOpen();
           }
         }
       }

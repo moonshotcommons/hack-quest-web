@@ -8,8 +8,14 @@ import {
 import { useCookies } from 'react-cookie';
 import resourcesToBackend from 'i18next-resources-to-backend';
 import LanguageDetector from 'i18next-browser-languagedetector';
-import { locales, defaultLocale, defaultNs, Lang, TransNs } from './config';
-export const cookieName = 'i18next';
+import {
+  locales,
+  defaultLocale,
+  defaultNs,
+  Lang,
+  TransNs,
+  cookieName
+} from './config';
 
 const runsOnServerSide = typeof window === 'undefined';
 
@@ -25,7 +31,7 @@ i18next
   .init({
     supportedLngs: locales,
     fallbackLng: defaultLocale,
-    lng: defaultLocale,
+    lng: undefined,
     fallbackNS: defaultNs,
     defaultNS: defaultNs,
     ns: defaultNs,
