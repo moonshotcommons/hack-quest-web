@@ -186,26 +186,28 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
                         ))}
                       </div>
                     ) : (
-                      nav.menu.map((menu, menuIndex) => (
-                        <Link
-                          key={menu.path}
-                          href={menu.path!}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                          }}
-                        >
-                          <div
-                            className={`mb-[8px] whitespace-nowrap rounded-[8px] px-[12px] py-[8px] hover:bg-neutral-off-white ${secondNavIndex === menuIndex && curNavId === nav.id ? 'bg-neutral-off-white' : ''}`}
+                      <div className="flex w-full flex-col gap-[8px]">
+                        {nav.menu.map((menu, menuIndex) => (
+                          <Link
+                            key={menu.path}
+                            href={menu.path!}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                            }}
                           >
-                            <p className="body-s-bold text-neutral-rich-gray">
-                              {menu.label}
-                            </p>
-                            <p className="body-xs text-neutral-medium-gray">
-                              {menu.description}
-                            </p>
-                          </div>
-                        </Link>
-                      ))
+                            <div
+                              className={` whitespace-nowrap rounded-[8px] px-[12px] py-[8px] hover:bg-neutral-off-white ${secondNavIndex === menuIndex && curNavId === nav.id ? 'bg-neutral-off-white' : ''}`}
+                            >
+                              <p className="body-s-bold text-neutral-rich-gray">
+                                {menu.label}
+                              </p>
+                              <p className="body-xs text-neutral-medium-gray">
+                                {menu.description}
+                              </p>
+                            </div>
+                          </Link>
+                        ))}
+                      </div>
                     )}
                   </DropDownMotion>
                 </div>

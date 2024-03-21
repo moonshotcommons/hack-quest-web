@@ -123,7 +123,7 @@ const OverView: React.FC<OverViewProp> = () => {
           ),
           time: (
             <div className="flex [&>div]:flex-1">
-              <div className=""> {t('fuelingStartsIn')}</div>
+              <div className=""> {t('airdropClosesin')}</div>
               <div className="text-neutral-black">5D 4H 48M 21MM</div>
             </div>
           ),
