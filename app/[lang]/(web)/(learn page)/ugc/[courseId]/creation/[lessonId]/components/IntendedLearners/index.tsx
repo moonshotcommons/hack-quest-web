@@ -17,7 +17,7 @@ import { defaultFormLi } from '../../../constant/data';
 import { isNull } from '@/helper/utils';
 import message from 'antd/es/message';
 import { UgcCreateContext } from '../../../constant/type';
-import useUgcCreationDataHanlde from '@/hooks/useUgcCreationDataHanlde';
+import useUgcCreationDataHandle from '@/hooks/useUgcCreationDataHandle';
 
 interface IntendedLearnersProp {}
 
@@ -33,10 +33,11 @@ const IntendedLearners: React.FC<IntendedLearnersProp> = () => {
   const {
     courseInformation: { intendedLearners },
     courseId,
-    selectLessonId
+    selectLessonId,
+    handleNext
   } = useContext(UgcCreateContext);
   const { redirectToUrl } = useRedirect();
-  const { setInformation } = useUgcCreationDataHanlde();
+  const { setInformation } = useUgcCreationDataHandle();
   const [audienceList, setAudienceList] = useState<Record<string, any>[]>([
     {
       ...formLi,
@@ -112,10 +113,14 @@ const IntendedLearners: React.FC<IntendedLearnersProp> = () => {
       .then(() => {
         message.success('success');
         setInformation(courseId);
-        redirectToUrl(
-          `${MenuLink.UGC}/${courseId}/creation/${selectLessonId}`,
-          true
-        );
+        if (handle === CreationHandle.ON_NEXT) {
+          handleNext();
+        } else {
+          redirectToUrl(
+            `${MenuLink.UGC}/${courseId}/creation/${selectLessonId}`,
+            true
+          );
+        }
       })
       .catch((err) => {
         message.error(err as string);
@@ -162,7 +167,10 @@ const IntendedLearners: React.FC<IntendedLearnersProp> = () => {
   }, [intendedLearners]);
 
   useEffect(() => {
-    if (handle === CreationHandle.ON_SAVE) {
+    if (
+      handle === CreationHandle.ON_SAVE ||
+      handle === CreationHandle.ON_NEXT
+    ) {
       handleSubmit();
     }
   }, [handle]);

@@ -1,13 +1,14 @@
 'use client';
-import { FC, useContext, useEffect } from 'react';
+import { FC, useContext, useEffect, useState } from 'react';
 import Introduction from './components/Introduction';
 import IntendedLearners from './components/IntendedLearners';
 import KnowledgeGain from './components/KnowledgeGain';
 import ContentCreate from './components/ContentCreate';
 import { useRequest } from 'ahooks';
-import useUgcCreationDataHanlde from '@/hooks/useUgcCreationDataHanlde';
+import useUgcCreationDataHandle from '@/hooks/useUgcCreationDataHandle';
 import ChooseLesson from './components/ChooseLesson';
 import { CreationPageKey, UgcCreateContext } from '../constant/type';
+import { lessonIdKeys } from '../constant/data';
 
 interface UgcCreatePageProps {
   params: { lessonId: string; courseId: string };
@@ -15,24 +16,41 @@ interface UgcCreatePageProps {
 
 const UgcCreatePage: FC<UgcCreatePageProps> = ({ params }) => {
   const { lessonId, courseId } = params;
-
+  const [lesson, setLesson] = useState<any>(null);
   const { setSelectLessonId, setCourseId } = useContext(UgcCreateContext);
 
-  const { setInformation } = useUgcCreationDataHanlde(courseId);
+  const { setInformation, getUnitList, getLessonDetail } =
+    useUgcCreationDataHandle(courseId);
   const { run } = useRequest(async () => {
     if (courseId !== '-1') {
-      setInformation();
+      await setInformation();
+      await getUnitList();
     }
   });
+
   useEffect(() => {
-    if (lessonId) {
+    run();
+  }, []);
+
+  useEffect(() => {
+    if (!lessonId) return;
+    if (
+      lessonIdKeys
+        .concat(CreationPageKey.ChooseLesson)
+        .includes(lessonId as any)
+    ) {
       setCourseId(courseId);
       setSelectLessonId(lessonId);
-      run();
+    } else {
+      getLessonDetail(lessonId).then((l) => {
+        if (l) {
+          setLesson(l);
+          setCourseId(courseId);
+          setSelectLessonId(lessonId);
+        }
+      });
     }
   }, [lessonId, courseId]);
-
-  useEffect(() => {}, []);
 
   switch (lessonId) {
     case CreationPageKey.Introduction:
@@ -44,6 +62,7 @@ const UgcCreatePage: FC<UgcCreatePageProps> = ({ params }) => {
     case CreationPageKey.ChooseLesson:
       return <ChooseLesson />;
     default:
+      // if (!lesson) return null;
       return <ContentCreate />;
   }
 };

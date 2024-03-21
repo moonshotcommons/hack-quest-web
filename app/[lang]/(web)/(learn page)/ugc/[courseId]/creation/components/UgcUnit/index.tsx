@@ -21,7 +21,7 @@ import DragUnit from './DragUnit';
 import DropUnit from './DropUnit';
 import DropLesson from './DropLesson';
 import DrapLesson from './DrapLesson';
-import useUgcCreationDataHanlde from '@/hooks/useUgcCreationDataHanlde';
+import useUgcCreationDataHandle from '@/hooks/useUgcCreationDataHandle';
 import { useUgcCreationStore } from '@/store/zustand/ugcCreationStore';
 import { useShallow } from 'zustand/react/shallow';
 import Loading from '@/components/Common/Loading';
@@ -56,7 +56,7 @@ const UgcUnit: React.FC<UgcUnitProp> = () => {
     setSelectUnitMenuId,
     courseInformation
   } = useContext(UgcCreateContext);
-  const { getUnitList } = useUgcCreationDataHanlde();
+  const { getUnitList } = useUgcCreationDataHandle();
   const handleAddUit = () => {
     if (unitList.some((v) => isNull(v.title))) {
       message.warning('Please enter unit first');
@@ -98,6 +98,7 @@ const UgcUnit: React.FC<UgcUnitProp> = () => {
         setLoading(false);
       });
   };
+
   const showDeleteModal = (
     type: string,
     unitIndex: number,
@@ -128,11 +129,12 @@ const UgcUnit: React.FC<UgcUnitProp> = () => {
 
     setDeleteModal(true);
   };
+
   const handleDelete = (id: string, type: string) => {
     setLoading(true);
     if (type === 'unit') {
       webApi.ugcCreateApi
-        .delelteUnit(courseId, id)
+        .deleteUnit(courseId, id)
         .then(() => {
           message.success('success');
           refreshUnit();
@@ -164,7 +166,7 @@ const UgcUnit: React.FC<UgcUnitProp> = () => {
         });
     } else {
       webApi.ugcCreateApi
-        .delelteLesson(id)
+        .deleteLesson(id)
         .then(() => {
           message.success('success');
           refreshUnit();
@@ -206,6 +208,7 @@ const UgcUnit: React.FC<UgcUnitProp> = () => {
         });
     }
   };
+
   const chooseLesson = (id: string) => {
     setSelectUnitMenuId(id);
     redirectToUrl(
@@ -221,6 +224,7 @@ const UgcUnit: React.FC<UgcUnitProp> = () => {
   if (emitter.all.get(CreationHandleKey.ADD_LESSON)) {
     emitter.all.delete(CreationHandleKey.ADD_LESSON);
   }
+
   emitter.on(CreationHandleKey.ADD_LESSON, handleAddLesson);
 
   useEffect(() => {

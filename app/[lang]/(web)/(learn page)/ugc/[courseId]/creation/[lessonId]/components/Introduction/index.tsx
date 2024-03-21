@@ -16,7 +16,7 @@ import { message } from 'antd';
 import { useRedirect } from '@/hooks/useRedirect';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 import { UgcCreateContext } from '../../../constant/type';
-import useUgcCreationDataHanlde from '@/hooks/useUgcCreationDataHanlde';
+import useUgcCreationDataHandle from '@/hooks/useUgcCreationDataHandle';
 
 interface IntroductionProp {}
 
@@ -31,9 +31,10 @@ const Introduction: React.FC<IntroductionProp> = () => {
   const {
     courseInformation: { introduction },
     courseId,
-    selectLessonId
+    selectLessonId,
+    handleNext
   } = useContext(UgcCreateContext);
-  const { setInformation } = useUgcCreationDataHanlde();
+  const { setInformation } = useUgcCreationDataHandle();
   const { redirectToUrl } = useRedirect();
   const options = useMemo(() => {
     return {
@@ -108,13 +109,16 @@ const Introduction: React.FC<IntroductionProp> = () => {
       }
       message.success('success');
       setInformation(res.id);
-      redirectToUrl(
-        `${MenuLink.UGC}/${res.id}/creation/${selectLessonId}`,
-        true
-      );
       setLoading(false);
-
       setHandle(CreationHandle.UN_SAVE);
+      if (handle === CreationHandle.ON_NEXT) {
+        handleNext(res.id);
+      } else {
+        redirectToUrl(
+          `${MenuLink.UGC}/${res.id}/creation/${selectLessonId}`,
+          true
+        );
+      }
     } catch (error) {
       setLoading(false);
       setHandle(CreationHandle.UN_SAVE);
@@ -133,7 +137,10 @@ const Introduction: React.FC<IntroductionProp> = () => {
   }, [introduction]);
 
   useEffect(() => {
-    if (handle === CreationHandle.ON_SAVE) {
+    if (
+      handle === CreationHandle.ON_SAVE ||
+      handle === CreationHandle.ON_NEXT
+    ) {
       handleSubmit();
     }
   }, [handle]);
