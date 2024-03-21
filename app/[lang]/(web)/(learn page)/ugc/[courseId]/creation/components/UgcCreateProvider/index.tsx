@@ -7,6 +7,8 @@ import {
   UgcCreateContext,
   defaultCourseInformation
 } from '../../constant/type';
+import { useUgcCreationStore } from '@/store/zustand/ugcCreationStore';
+import { useShallow } from 'zustand/react/shallow';
 interface UgcCreateProviderProps {
   children: ReactNode;
   courseId: string;
@@ -24,6 +26,17 @@ const UgcCreateProvider: FC<UgcCreateProviderProps> = ({
   const [selectLessonId, setSelectLessonId] = useState('');
   const [courseId, setCourseId] = useState('');
   const [selectUnitMenuId, setSelectUnitMenuId] = useState('');
+
+  const { loading, setHandle, handle } = useUgcCreationStore(
+    useShallow((state) => ({
+      loading: state.loading,
+      setHandle: state.setHandle,
+      handle: state.handle
+    }))
+  );
+
+  const handleBack = () => {};
+  const handleNext = () => {};
   useEffect(() => {
     setLearnPageTitle(LearnPageType.UGC_CREATION);
     return () => {

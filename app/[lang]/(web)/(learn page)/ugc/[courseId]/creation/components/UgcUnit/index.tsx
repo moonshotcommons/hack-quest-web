@@ -132,7 +132,7 @@ const UgcUnit: React.FC<UgcUnitProp> = () => {
     setLoading(true);
     if (type === 'unit') {
       webApi.ugcCreateApi
-        .delelteUnit(courseId, id)
+        .deleteUnit(courseId, id)
         .then(() => {
           message.success('success');
           refreshUnit();
@@ -164,7 +164,7 @@ const UgcUnit: React.FC<UgcUnitProp> = () => {
         });
     } else {
       webApi.ugcCreateApi
-        .delelteLesson(id)
+        .deleteLesson(id)
         .then(() => {
           message.success('success');
           refreshUnit();

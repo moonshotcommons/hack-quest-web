@@ -50,6 +50,8 @@ export enum CreationPageKey {
   Introduction = 'introduction',
   IntendedLearners = 'intendedLearners',
   KnowledgeGain = 'knowledgeGain',
+  GetYourReady = 'getYourReady',
+  Curriculum = 'curriculum',
   ChooseLesson = 'chooseLesson'
 }
 

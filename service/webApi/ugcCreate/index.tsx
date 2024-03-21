@@ -51,7 +51,7 @@ class UgcCreateApi {
     );
   }
   /** 删除units */
-  delelteUnit(courseId: string, unitId: string) {
+  deleteUnit(courseId: string, unitId: string) {
     return this.service.delete(
       `${UgcCreateApiType.COURSES}/${courseId}/units/${unitId}`
     );
@@ -78,7 +78,7 @@ class UgcCreateApi {
     });
   }
   /** 删除lesson */
-  delelteLesson(lessonId: string) {
+  deleteLesson(lessonId: string) {
     return this.service.delete(`${UgcCreateApiType.PAGES}/${lessonId}`);
   }
   /** lesson 排序 */

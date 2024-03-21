@@ -11,6 +11,8 @@ import {
 } from '../../constant/type';
 import { labelMaps } from './constant';
 import useUgcCreationDataHandle from '@/hooks/useUgcCreationDataHandle';
+import { useUgcCreationStore } from '@/store/zustand/ugcCreationStore';
+import { useShallow } from 'zustand/react/shallow';
 
 interface UgcSidebarProps {}
 
@@ -39,6 +41,14 @@ const UgcSidebar: FC<UgcSidebarProps> = () => {
       return !courseInformation.introduction.completed;
     }
   };
+
+  const { loading, setHandle, handle } = useUgcCreationStore(
+    useShallow((state) => ({
+      loading: state.loading,
+      setHandle: state.setHandle,
+      handle: state.handle
+    }))
+  );
 
   const items: SidebarItemType[] = useMemo(() => {
     const informationChildren: SidebarItemType[] = Object.keys(
@@ -139,6 +149,16 @@ const UgcSidebar: FC<UgcSidebarProps> = () => {
     return CONTENT_KEY;
   }, [selectLessonId]);
 
+  const isCanBack = useMemo(() => {
+    return selectLessonId !== CreationPageKey.Introduction;
+  }, [selectLessonId]);
+
+  const hanldeBack = () => {
+    if (!isCanBack) return;
+  };
+
+  const handleNext = () => {};
+
   return (
     <Sidebar
       title={'未命名课程'}
@@ -153,12 +173,15 @@ const UgcSidebar: FC<UgcSidebarProps> = () => {
         <div className="flex flex-shrink-0 flex-col items-center gap-[10px] p-[40px]">
           <Button
             ghost
+            onClick={hanldeBack}
             className={`button-text-m h-[48px] w-full border-neutral-black uppercase text-neutral-black ${true ? '' : 'cursor-not-allowed opacity-50'}`}
           >
             back
           </Button>
           <Button
             type="primary"
+            loading={loading}
+            onClick={handleNext}
             className={`button-text-m h-[48px] w-full uppercase text-neutral-black ${true ? '' : 'cursor-not-allowed opacity-50'}`}
           >
             next

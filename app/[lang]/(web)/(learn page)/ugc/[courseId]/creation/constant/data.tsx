@@ -1,5 +1,5 @@
 import { LessonType } from '../components/UgcSidebar/constant';
-import { LessonTypeDataType } from './type';
+import { CreationPageKey, LessonTypeDataType } from './type';
 
 export const defaultFormLi = {
   value: '',
@@ -82,4 +82,12 @@ export const lessonTypeData: LessonTypeDataType[] = [
     description:
       'You assess student understanding by creating questions and answers, adding an interactive element to reinforce key concepts.'
   }
+];
+
+export const lessonIdKeys = [
+  CreationPageKey.Introduction,
+  CreationPageKey.IntendedLearners,
+  CreationPageKey.KnowledgeGain,
+  CreationPageKey.GetYourReady,
+  CreationPageKey.Curriculum
 ];
