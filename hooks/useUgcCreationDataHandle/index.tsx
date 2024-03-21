@@ -18,7 +18,7 @@ const useUgcCreationDataHandle = (cId?: string) => {
     }))
   );
   const { redirectToUrl } = useRedirect();
-  const { setCourseInformation, courseId, setUnits } =
+  const { setCourseInformation, courseId, setUnits, units } =
     useContext(UgcCreateContext);
 
   const getCourseInfo = (id?: string) => {
@@ -99,9 +99,34 @@ const useUgcCreationDataHandle = (cId?: string) => {
     }
   };
 
+  const getLessonDetail = async (id: string) => {
+    try {
+      const lessonDetail = await webApi.ugcCreateApi.getLessonDetail(id);
+      return lessonDetail;
+    } catch (err: any) {
+      if (err.code === 404) {
+        redirectToUrl(MenuLink.INSTRUCTOR);
+      }
+      errorMessage(err);
+      return null;
+    }
+  };
+
+  const findLastLesson = () => {
+    if (!units.length) return null;
+    const lastUnit = units[units.length - 1];
+    const pageLength = lastUnit.pages?.length;
+    if (!pageLength) return null;
+
+    const lastLesson = lastUnit.pages[pageLength - 1];
+    return lastLesson;
+  };
+
   return {
     setInformation,
-    getUnitList
+    getUnitList,
+    getLessonDetail,
+    findLastLesson
   };
 };
 export default useUgcCreationDataHandle;

@@ -1,6 +1,5 @@
 'use client';
 import { FC, ReactNode, useEffect, useState } from 'react';
-
 import emitter from '@/store/emitter';
 import { LearnPageType, useCourseStore } from '@/store/zustand/courseStore';
 import {
@@ -9,6 +8,7 @@ import {
 } from '../../constant/type';
 import { useUgcCreationStore } from '@/store/zustand/ugcCreationStore';
 import { useShallow } from 'zustand/react/shallow';
+import { UGCCourseUnitType } from '@/service/webApi/course/type';
 interface UgcCreateProviderProps {
   children: ReactNode;
   courseId: string;
@@ -19,7 +19,7 @@ const UgcCreateProvider: FC<UgcCreateProviderProps> = ({
   courseId: cId
 }) => {
   const setLearnPageTitle = useCourseStore((state) => state.setPageType);
-  const [units, setUnits] = useState<any[]>([]);
+  const [units, setUnits] = useState<UGCCourseUnitType[]>([]);
   const [courseInformation, setCourseInformation] = useState(
     defaultCourseInformation
   );
@@ -37,6 +37,7 @@ const UgcCreateProvider: FC<UgcCreateProviderProps> = ({
 
   const handleBack = () => {};
   const handleNext = () => {};
+
   useEffect(() => {
     setLearnPageTitle(LearnPageType.UGC_CREATION);
     return () => {

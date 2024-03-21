@@ -1,5 +1,5 @@
 'use client';
-import { FC, useContext, useEffect } from 'react';
+import { FC, useContext, useEffect, useState } from 'react';
 import Introduction from './components/Introduction';
 import IntendedLearners from './components/IntendedLearners';
 import KnowledgeGain from './components/KnowledgeGain';
@@ -8,6 +8,7 @@ import { useRequest } from 'ahooks';
 import useUgcCreationDataHandle from '@/hooks/useUgcCreationDataHandle';
 import ChooseLesson from './components/ChooseLesson';
 import { CreationPageKey, UgcCreateContext } from '../constant/type';
+import { lessonIdKeys } from '../constant/data';
 
 interface UgcCreatePageProps {
   params: { lessonId: string; courseId: string };
@@ -15,10 +16,11 @@ interface UgcCreatePageProps {
 
 const UgcCreatePage: FC<UgcCreatePageProps> = ({ params }) => {
   const { lessonId, courseId } = params;
-
+  const [lesson, setLesson] = useState<any>(null);
   const { setSelectLessonId, setCourseId } = useContext(UgcCreateContext);
 
-  const { setInformation, getUnitList } = useUgcCreationDataHandle(courseId);
+  const { setInformation, getUnitList, getLessonDetail } =
+    useUgcCreationDataHandle(courseId);
   const { run } = useRequest(async () => {
     if (courseId !== '-1') {
       await setInformation();
@@ -28,12 +30,25 @@ const UgcCreatePage: FC<UgcCreatePageProps> = ({ params }) => {
 
   useEffect(() => {
     run();
-  }, [run]);
+  }, []);
 
   useEffect(() => {
-    if (lessonId) {
+    if (!lessonId) return;
+    if (
+      lessonIdKeys
+        .concat(CreationPageKey.ChooseLesson)
+        .includes(lessonId as any)
+    ) {
       setCourseId(courseId);
       setSelectLessonId(lessonId);
+    } else {
+      getLessonDetail(lessonId).then((l) => {
+        if (l) {
+          setLesson(l);
+          setCourseId(courseId);
+          setSelectLessonId(lessonId);
+        }
+      });
     }
   }, [lessonId, courseId]);
 
@@ -47,6 +62,7 @@ const UgcCreatePage: FC<UgcCreatePageProps> = ({ params }) => {
     case CreationPageKey.ChooseLesson:
       return <ChooseLesson />;
     default:
+      // if (!lesson) return null;
       return <ContentCreate />;
   }
 };

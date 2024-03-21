@@ -84,6 +84,27 @@ export interface CreatorType {
 }
 
 //! UGC临时课程类型，可能是课程通用类型，后面需要更改
+
+export interface UGCCourseUnitType {
+  id: string;
+  title: string;
+  description: string;
+  sequence: number;
+  progress: number;
+  courseId: string;
+  createdAt: string;
+  updatedAt: string;
+  pages: {
+    id: string;
+    title: string;
+    type: LessonType;
+    unitId: string;
+    state: CompleteStateType;
+    courseId: string;
+    sequence: number;
+  }[];
+}
+
 export interface UGCCourseType {
   id: string;
   title: string;
@@ -101,25 +122,7 @@ export interface UGCCourseType {
   optional: object;
   image: string | null;
   creator?: CreatorType;
-  units?: {
-    id: string;
-    title: string;
-    description: string;
-    sequence: number;
-    progress: number;
-    courseId: string;
-    createdAt: string;
-    updatedAt: string;
-    pages: {
-      id: string;
-      title: string;
-      type: LessonType;
-      unitId: string;
-      state: CompleteStateType;
-      courseId: string;
-      sequence: number;
-    }[];
-  }[];
+  units?: UGCCourseUnitType[];
   intendedLearners: IntendedLearnersType & { completed: boolean };
   knowledgeGain: KnowledgeGainType & { completed: boolean };
 }
