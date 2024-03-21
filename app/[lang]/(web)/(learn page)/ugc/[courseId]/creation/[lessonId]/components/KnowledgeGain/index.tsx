@@ -18,7 +18,7 @@ import { useRedirect } from '@/hooks/useRedirect';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 import message from 'antd/es/message';
 import { UgcCreateContext } from '../../../constant/type';
-import useUgcCreationDataHanlde from '@/hooks/useUgcCreationDataHanlde';
+import useUgcCreationDataHandle from '@/hooks/useUgcCreationDataHandle';
 
 interface KnowledgeGainProps {}
 
@@ -37,7 +37,7 @@ const KnowledgeGain: FC<KnowledgeGainProps> = (props) => {
     selectLessonId
   } = useContext(UgcCreateContext);
   const { redirectToUrl } = useRedirect();
-  const { setInformation } = useUgcCreationDataHanlde();
+  const { setInformation } = useUgcCreationDataHandle();
   const [descriptionList, setDescriptionList] = useState<Record<string, any>[]>(
     [
       {

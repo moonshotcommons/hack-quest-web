@@ -18,6 +18,7 @@ export interface NavbarProps {
   children?: ReactNode;
   logo?: ReactNode;
 }
+
 export enum NavType {
   NAV_LIST = 'NavList',
   AUTH = 'Auth'

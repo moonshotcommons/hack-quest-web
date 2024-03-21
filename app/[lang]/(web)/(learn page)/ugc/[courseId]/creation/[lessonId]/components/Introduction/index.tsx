@@ -16,7 +16,7 @@ import { message } from 'antd';
 import { useRedirect } from '@/hooks/useRedirect';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 import { UgcCreateContext } from '../../../constant/type';
-import useUgcCreationDataHanlde from '@/hooks/useUgcCreationDataHanlde';
+import useUgcCreationDataHandle from '@/hooks/useUgcCreationDataHandle';
 
 interface IntroductionProp {}
 
@@ -33,7 +33,7 @@ const Introduction: React.FC<IntroductionProp> = () => {
     courseId,
     selectLessonId
   } = useContext(UgcCreateContext);
-  const { setInformation } = useUgcCreationDataHanlde();
+  const { setInformation } = useUgcCreationDataHandle();
   const { redirectToUrl } = useRedirect();
   const options = useMemo(() => {
     return {

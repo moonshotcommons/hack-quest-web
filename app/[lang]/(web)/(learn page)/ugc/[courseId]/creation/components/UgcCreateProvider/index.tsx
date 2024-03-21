@@ -17,6 +17,7 @@ const UgcCreateProvider: FC<UgcCreateProviderProps> = ({
   courseId: cId
 }) => {
   const setLearnPageTitle = useCourseStore((state) => state.setPageType);
+  const [units, setUnits] = useState<any[]>([]);
   const [courseInformation, setCourseInformation] = useState(
     defaultCourseInformation
   );
@@ -43,6 +44,8 @@ const UgcCreateProvider: FC<UgcCreateProviderProps> = ({
         setCourseInformation,
         selectLessonId,
         setSelectLessonId,
+        units,
+        setUnits,
         courseId,
         setCourseId,
         selectUnitMenuId,
