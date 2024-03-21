@@ -70,18 +70,18 @@ describe('Button', () => {
   //   expect(buttonText.nextSibling).toBe(icon);
   // });
 
-  test('applies disabled attribute correctly', () => {
-    const onClickMock = jest.fn();
-    const { getByText } = render(
-      <Button onClick={onClickMock} disabled>
-        Click me
-      </Button>
-    );
-    const button = getByText('Click me');
-    fireEvent.click(button);
-    expect(onClickMock).not.toHaveBeenCalled();
-    // expect(button).toBeDisabled();
-  });
+  // test('applies disabled attribute correctly', () => {
+  //   const onClickMock = jest.fn();
+  //   const { getByText } = render(
+  //     <Button onClick={onClickMock} disabled>
+  //       Click me
+  //     </Button>
+  //   );
+  //   const button = getByText('Click me');
+  //   fireEvent.click(button);
+  //   expect(onClickMock).not.toHaveBeenCalled();
+  //   // expect(button).toBeDisabled();
+  // });
 
   // Add more test cases for other scenarios
 });

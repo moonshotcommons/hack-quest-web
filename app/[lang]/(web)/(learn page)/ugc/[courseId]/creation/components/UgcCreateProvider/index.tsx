@@ -4,11 +4,13 @@ import { FC, ReactNode, useEffect, useState } from 'react';
 import emitter from '@/store/emitter';
 import { LearnPageType, useCourseStore } from '@/store/zustand/courseStore';
 import {
+  CreationPageKey,
   UgcCreateContext,
   defaultCourseInformation
 } from '../../constant/type';
-import { useUgcCreationStore } from '@/store/zustand/ugcCreationStore';
-import { useShallow } from 'zustand/react/shallow';
+import { lessonIdKeys } from '../../constant/data';
+import { useRedirect } from '@/hooks/useRedirect';
+import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 interface UgcCreateProviderProps {
   children: ReactNode;
   courseId: string;
@@ -23,20 +25,24 @@ const UgcCreateProvider: FC<UgcCreateProviderProps> = ({
   const [courseInformation, setCourseInformation] = useState(
     defaultCourseInformation
   );
+  const { redirectToUrl } = useRedirect();
   const [selectLessonId, setSelectLessonId] = useState('');
-  const [courseId, setCourseId] = useState('');
+  const [courseId, setCourseId] = useState(cId);
   const [selectUnitMenuId, setSelectUnitMenuId] = useState('');
 
-  const { loading, setHandle, handle } = useUgcCreationStore(
-    useShallow((state) => ({
-      loading: state.loading,
-      setHandle: state.setHandle,
-      handle: state.handle
-    }))
-  );
-
-  const handleBack = () => {};
-  const handleNext = () => {};
+  const handleNext = (id?: string) => {
+    const index = lessonIdKeys.findIndex((v) => v === selectLessonId);
+    let lessonPage = '';
+    if (index < 0 || selectLessonId === CreationPageKey.ChooseLesson) {
+      //publish页面
+    } else if (selectLessonId === CreationPageKey.GetYourReady) {
+      //unit lesson
+    } else {
+      lessonPage =
+        lessonPage = `${MenuLink.UGC}/${id || courseId}/creation/${lessonIdKeys[index + 1]}`;
+    }
+    redirectToUrl(lessonPage);
+  };
   useEffect(() => {
     setLearnPageTitle(LearnPageType.UGC_CREATION);
     return () => {
@@ -62,7 +68,8 @@ const UgcCreateProvider: FC<UgcCreateProviderProps> = ({
         courseId,
         setCourseId,
         selectUnitMenuId,
-        setSelectUnitMenuId
+        setSelectUnitMenuId,
+        handleNext
       }}
     >
       {children}

@@ -117,6 +117,7 @@ export interface UgcCreateContextType {
   setCourseId: (id: string) => void;
   selectUnitMenuId: string;
   setSelectUnitMenuId: (id: string) => void;
+  handleNext: (id?: string) => void;
 }
 
 export const UgcCreateContext = createContext<UgcCreateContextType>({
@@ -129,5 +130,6 @@ export const UgcCreateContext = createContext<UgcCreateContextType>({
   setUnits: (units: any) => {},
   setCourseId: () => {},
   selectUnitMenuId: '',
-  setSelectUnitMenuId: () => {}
+  setSelectUnitMenuId: () => {},
+  handleNext: () => {}
 });
