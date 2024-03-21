@@ -97,7 +97,10 @@ const Button: FC<ButtonProps> = (props) => {
         className
       )}
       type={htmlType}
-      disabled={disabled}
+      onClick={(e) => {
+        if (disabled) return;
+        props.onClick?.(e);
+      }}
       {...rest}
     >
       {icon && iconPosition === 'left' && (

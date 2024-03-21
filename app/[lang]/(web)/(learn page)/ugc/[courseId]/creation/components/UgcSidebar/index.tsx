@@ -11,8 +11,12 @@ import {
 } from '../../constant/type';
 import { labelMaps } from './constant';
 import useUgcCreationDataHandle from '@/hooks/useUgcCreationDataHandle';
-import { useUgcCreationStore } from '@/store/zustand/ugcCreationStore';
+import {
+  CreationHandle,
+  useUgcCreationStore
+} from '@/store/zustand/ugcCreationStore';
 import { useShallow } from 'zustand/react/shallow';
+import { lessonIdKeys } from '../../constant/data';
 
 interface UgcSidebarProps {}
 
@@ -168,15 +172,29 @@ const UgcSidebar: FC<UgcSidebarProps> = () => {
     };
   }, [selectLessonId]);
 
-  const isCanBack = useMemo(() => {
-    return selectLessonId !== CreationPageKey.Introduction;
+  const buttonDisable = useMemo(() => {
+    return {
+      back: selectLessonId === lessonIdKeys[0],
+      next: selectLessonId === lessonIdKeys[lessonIdKeys.length - 1]
+    };
   }, [selectLessonId]);
 
   const hanldeBack = () => {
-    if (!isCanBack) return;
+    if (buttonDisable.back) return;
+    const index = lessonIdKeys.findIndex((v) => v === selectLessonId);
+    let lessonPage = '';
+    if (selectLessonId === CreationPageKey.ChooseLesson || index < 0) {
+      lessonPage = `${MenuLink.UGC}/${courseId}/creation/${CreationPageKey.GetYourReady}`;
+    } else {
+      lessonPage = `${MenuLink.UGC}/${courseId}/creation/${lessonIdKeys[index - 1]}`;
+    }
+    redirectToUrl(lessonPage);
   };
 
-  const handleNext = () => {};
+  const handleNext = () => {
+    if (buttonDisable.next) return;
+    setHandle(CreationHandle.ON_NEXT);
+  };
 
   return (
     <Sidebar
@@ -192,6 +210,7 @@ const UgcSidebar: FC<UgcSidebarProps> = () => {
         <div className="flex flex-shrink-0 flex-col items-center gap-[10px] p-[40px]">
           <Button
             ghost
+            disabled={buttonDisable.back}
             onClick={hanldeBack}
             className={`button-text-m h-[48px] w-full border-neutral-black uppercase text-neutral-black ${true ? '' : 'cursor-not-allowed opacity-50'}`}
           >
@@ -199,6 +218,7 @@ const UgcSidebar: FC<UgcSidebarProps> = () => {
           </Button>
           <Button
             type="primary"
+            disabled={buttonDisable.next}
             loading={loading}
             onClick={handleNext}
             className={`button-text-m h-[48px] w-full uppercase text-neutral-black ${true ? '' : 'cursor-not-allowed opacity-50'}`}
