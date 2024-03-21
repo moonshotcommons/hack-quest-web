@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { CourseContentType, CourseInformationType } from '../../constant/type';
 
 export enum LessonType {
   READING = 'READING',
@@ -775,6 +776,17 @@ export const mockLessonReadingData: any = {
   unitId: 'f2002496-d0c5-43de-8a6c-cf25981ef9a7',
   courseId: 'dd923df3-6f28-4e2b-b2c3-9418f8d143cb',
   state: 0
+};
+
+export const labelMaps: Record<
+  keyof CourseInformationType | keyof CourseContentType,
+  string
+> = {
+  introduction: 'Introduction',
+  intendedLearners: 'Intended Learners',
+  knowledgeGain: 'Knowledge Gain',
+  getYourReady: 'Get Yourself Ready ',
+  curriculum: 'Curriculum'
 };
 
 export type LessonReadingData = typeof mockLessonReadingData;

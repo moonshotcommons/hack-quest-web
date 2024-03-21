@@ -21,7 +21,7 @@ import DragUnit from './DragUnit';
 import DropUnit from './DropUnit';
 import DropLesson from './DropLesson';
 import DrapLesson from './DrapLesson';
-import useUgcCreationDataHanlde from '@/hooks/useUgcCreationDataHanlde';
+import useUgcCreationDataHandle from '@/hooks/useUgcCreationDataHandle';
 import { useUgcCreationStore } from '@/store/zustand/ugcCreationStore';
 import { useShallow } from 'zustand/react/shallow';
 import Loading from '@/components/Common/Loading';
@@ -56,7 +56,7 @@ const UgcUnit: React.FC<UgcUnitProp> = () => {
     setSelectUnitMenuId,
     courseInformation
   } = useContext(UgcCreateContext);
-  const { getUnitList } = useUgcCreationDataHanlde();
+  const { getUnitList } = useUgcCreationDataHandle();
   const handleAddUit = () => {
     if (unitList.some((v) => isNull(v.title))) {
       message.warning('Please enter unit first');

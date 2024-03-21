@@ -30,6 +30,16 @@ export interface CourseInformationType {
   knowledgeGain: KnowledgeGainType & { completed: boolean };
 }
 
+export interface CourseContentType {
+  getYourReady: {
+    completed: boolean;
+  };
+  curriculum: {
+    completed: boolean;
+    units: any[];
+  };
+}
+
 export interface CourseFormDataType {
   introduction: IntroductionType;
   intendedLearners: IntendedLearnersType;
@@ -93,22 +103,28 @@ export const defaultCourseInformation: CourseInformationType = {
     completed: false
   }
 };
+
 export interface UgcCreateContextType {
   courseInformation: CourseInformationType;
   setCourseInformation: (payload: CourseInformationType) => void;
   selectLessonId: string | CreationPageKey;
   setSelectLessonId: (id: string) => void;
   courseId: string;
+  units: any[];
+  setUnits: (units: any[]) => void;
   setCourseId: (id: string) => void;
   selectUnitMenuId: string;
   setSelectUnitMenuId: (id: string) => void;
 }
+
 export const UgcCreateContext = createContext<UgcCreateContextType>({
   courseInformation: defaultCourseInformation,
   setCourseInformation: () => {},
   selectLessonId: '',
   setSelectLessonId: () => {},
   courseId: '',
+  units: [],
+  setUnits: (units: any) => {},
   setCourseId: () => {},
   selectUnitMenuId: '',
   setSelectUnitMenuId: () => {}
