@@ -31,7 +31,8 @@ const Introduction: React.FC<IntroductionProp> = () => {
   const {
     courseInformation: { introduction },
     courseId,
-    selectLessonId
+    selectLessonId,
+    handleNext
   } = useContext(UgcCreateContext);
   const { setInformation } = useUgcCreationDataHandle();
   const { redirectToUrl } = useRedirect();
@@ -108,13 +109,16 @@ const Introduction: React.FC<IntroductionProp> = () => {
       }
       message.success('success');
       setInformation(res.id);
-      redirectToUrl(
-        `${MenuLink.UGC}/${res.id}/creation/${selectLessonId}`,
-        true
-      );
       setLoading(false);
-
       setHandle(CreationHandle.UN_SAVE);
+      if (handle === CreationHandle.ON_NEXT) {
+        handleNext(res.id);
+      } else {
+        redirectToUrl(
+          `${MenuLink.UGC}/${res.id}/creation/${selectLessonId}`,
+          true
+        );
+      }
     } catch (error) {
       setLoading(false);
       setHandle(CreationHandle.UN_SAVE);
@@ -133,7 +137,10 @@ const Introduction: React.FC<IntroductionProp> = () => {
   }, [introduction]);
 
   useEffect(() => {
-    if (handle === CreationHandle.ON_SAVE) {
+    if (
+      handle === CreationHandle.ON_SAVE ||
+      handle === CreationHandle.ON_NEXT
+    ) {
       handleSubmit();
     }
   }, [handle]);

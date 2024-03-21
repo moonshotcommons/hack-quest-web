@@ -13,6 +13,7 @@ const UgcUnitSidebar: React.FC<UgcUnitSidebarProp> = () => {
     case CreationPageKey.Introduction:
     case CreationPageKey.IntendedLearners:
     case CreationPageKey.KnowledgeGain:
+    case CreationPageKey.GetYourReady:
       return null;
     default:
       return <UgcUnit />;

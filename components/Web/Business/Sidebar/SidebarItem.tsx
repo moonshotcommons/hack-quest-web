@@ -17,7 +17,6 @@ const SidebarItem: FC<SidebarItemProps> = ({
   select,
   selectStyle = {}
 }) => {
-  console.log(item);
   return (
     <div
       className={cn(

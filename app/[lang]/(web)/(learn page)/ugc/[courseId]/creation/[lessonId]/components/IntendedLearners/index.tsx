@@ -33,7 +33,8 @@ const IntendedLearners: React.FC<IntendedLearnersProp> = () => {
   const {
     courseInformation: { intendedLearners },
     courseId,
-    selectLessonId
+    selectLessonId,
+    handleNext
   } = useContext(UgcCreateContext);
   const { redirectToUrl } = useRedirect();
   const { setInformation } = useUgcCreationDataHandle();
@@ -112,10 +113,14 @@ const IntendedLearners: React.FC<IntendedLearnersProp> = () => {
       .then(() => {
         message.success('success');
         setInformation(courseId);
-        redirectToUrl(
-          `${MenuLink.UGC}/${courseId}/creation/${selectLessonId}`,
-          true
-        );
+        if (handle === CreationHandle.ON_NEXT) {
+          handleNext();
+        } else {
+          redirectToUrl(
+            `${MenuLink.UGC}/${courseId}/creation/${selectLessonId}`,
+            true
+          );
+        }
       })
       .catch((err) => {
         message.error(err as string);
@@ -162,7 +167,10 @@ const IntendedLearners: React.FC<IntendedLearnersProp> = () => {
   }, [intendedLearners]);
 
   useEffect(() => {
-    if (handle === CreationHandle.ON_SAVE) {
+    if (
+      handle === CreationHandle.ON_SAVE ||
+      handle === CreationHandle.ON_NEXT
+    ) {
       handleSubmit();
     }
   }, [handle]);

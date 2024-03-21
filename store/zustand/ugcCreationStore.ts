@@ -3,7 +3,7 @@ import { create } from 'zustand';
 export enum CreationHandle {
   UN_SAVE = 'unSave',
   ON_SAVE = 'onSave',
-  ON_NEXT = 'onSave'
+  ON_NEXT = 'onNext'
 }
 
 export interface UgcCreationStateType {

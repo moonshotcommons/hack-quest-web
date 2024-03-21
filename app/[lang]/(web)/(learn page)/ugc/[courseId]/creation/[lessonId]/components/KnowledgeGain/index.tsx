@@ -34,7 +34,8 @@ const KnowledgeGain: FC<KnowledgeGainProps> = (props) => {
   const {
     courseInformation: { knowledgeGain },
     courseId,
-    selectLessonId
+    selectLessonId,
+    handleNext
   } = useContext(UgcCreateContext);
   const { redirectToUrl } = useRedirect();
   const { setInformation } = useUgcCreationDataHandle();
@@ -118,10 +119,14 @@ const KnowledgeGain: FC<KnowledgeGainProps> = (props) => {
       .then(() => {
         message.success('success');
         setInformation(courseId);
-        redirectToUrl(
-          `${MenuLink.UGC}/${courseId}/creation/${selectLessonId}`,
-          true
-        );
+        if (handle === CreationHandle.ON_NEXT) {
+          handleNext();
+        } else {
+          redirectToUrl(
+            `${MenuLink.UGC}/${courseId}/creation/${selectLessonId}`,
+            true
+          );
+        }
       })
       .catch((err) => {
         message.error(err as string);
@@ -159,7 +164,10 @@ const KnowledgeGain: FC<KnowledgeGainProps> = (props) => {
   }, [knowledgeGain]);
 
   useEffect(() => {
-    if (handle === CreationHandle.ON_SAVE) {
+    if (
+      handle === CreationHandle.ON_SAVE ||
+      handle === CreationHandle.ON_NEXT
+    ) {
       handleSubmit();
     }
   }, [handle]);
