@@ -6,18 +6,22 @@ import Button from '@/components/Common/Button';
 import { TransNs } from '@/i18n/config';
 import { useTranslation } from '@/i18n/client';
 import { LangContext } from '@/components/Provider/Lang';
+import LockMask from '../../LockMask';
+import { LaunchDetailContext } from '../../../constants/type';
 
 interface TargetCardProp {}
 
 const TargetCard: React.FC<TargetCardProp> = () => {
+  const { launchInfo } = useContext(LaunchDetailContext);
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
   const completed = true;
   const claimed = true;
   return (
     <div
-      className={`body-m item-center mt-[16px] flex justify-between gap-[40px] rounded-[16px] border  px-[30px] py-[22px] text-neutral-black ${completed ? 'border-yellow-dark bg-yellow-light' : 'border-neutral-light-gray bg-neutral-white'}`}
+      className={`body-m item-center relative mt-[16px] flex justify-between gap-[40px] rounded-[16px] border  px-[30px] py-[22px] text-neutral-black ${completed ? 'border-yellow-dark bg-yellow-light' : 'border-neutral-light-gray bg-neutral-white'}`}
     >
+      {!launchInfo.stakeManta && <LockMask />}
       <div className="flex items-center gap-[19px]">
         <div className="relative h-[40px] w-[40px] overflow-hidden">
           <Image
