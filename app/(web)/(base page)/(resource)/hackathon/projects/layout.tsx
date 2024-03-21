@@ -2,12 +2,12 @@ import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 import { Metadata } from 'next';
 import { FC, ReactNode } from 'react';
 
-interface SearchParamsType {
-  searchParams: {};
-}
+// interface SearchParamsType {
+//   searchParams: {};
+// }
 export async function generateMetadata({
   searchParams
-}: SearchParamsType): Promise<Metadata> {
+}: any): Promise<Metadata> {
   let query = new URLSearchParams(searchParams).toString();
   query = query ? '?' + query : '';
 
