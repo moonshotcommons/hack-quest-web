@@ -17,13 +17,15 @@ const SidebarItem: FC<SidebarItemProps> = ({
   select,
   selectStyle = {}
 }) => {
+  console.log(item);
   return (
     <div
       className={cn(
-        'relative flex cursor-pointer items-center px-10 py-[10px]',
+        'relative flex items-center px-10 py-[10px]',
         select === item.key
           ? 'z-50 bg-neutral-white before:absolute before:left-0 before:top-0 before:h-full before:w-[15px] before:rounded-l-[5px] before:bg-yellow-dark'
-          : ''
+          : '',
+        item.disable ? 'cursor-not-allowed' : 'cursor-pointer'
       )}
       style={select === item.key ? selectStyle : {}}
       onClick={() => {

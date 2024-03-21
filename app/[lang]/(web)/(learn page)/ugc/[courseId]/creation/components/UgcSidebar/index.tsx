@@ -4,18 +4,33 @@ import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 import { useRedirect } from '@/hooks/useRedirect';
 import { FC, useContext, useMemo } from 'react';
 import Button from '@/components/Common/Button';
-import { CreationPageKey, UgcCreateContext } from '../../constant/type';
+import {
+  CourseContentType,
+  CreationPageKey,
+  UgcCreateContext
+} from '../../constant/type';
+import { labelMaps } from './constant';
+import useUgcCreationDataHandle from '@/hooks/useUgcCreationDataHandle';
 
 interface UgcSidebarProps {}
 
 const INFORMATION_KEY = 'courseInformation';
 const CONTENT_KEY = 'content';
 const PUBLISH_KEY = 'publish';
+const content: CourseContentType = {
+  getYourReady: {
+    completed: false
+  },
+  curriculum: {
+    completed: false,
+    units: []
+  }
+};
 
 const UgcSidebar: FC<UgcSidebarProps> = () => {
   const { courseId, courseInformation, selectLessonId } =
     useContext(UgcCreateContext);
-
+  const { getUnitList } = useUgcCreationDataHandle(courseId);
   const { redirectToUrl } = useRedirect();
   const disableAll = (key: string) => {
     if (key === 'introduction') {
@@ -24,6 +39,7 @@ const UgcSidebar: FC<UgcSidebarProps> = () => {
       return !courseInformation.introduction.completed;
     }
   };
+
   const items: SidebarItemType[] = useMemo(() => {
     const informationChildren: SidebarItemType[] = Object.keys(
       courseInformation
@@ -32,11 +48,9 @@ const UgcSidebar: FC<UgcSidebarProps> = () => {
         key: key,
         disable: disableAll(key),
         label: (
-          <div
-            className={`body-m flex w-full justify-between ${disableAll(key) ? 'cursor-not-allowed' : ''}`}
-          >
+          <div className={`body-m flex w-full justify-between`}>
             <div className="flex flex-1 shrink-0 flex-col overflow-hidden pr-5">
-              {key}
+              {labelMaps[key as keyof typeof courseInformation]}
             </div>
             <div>
               {!courseInformation[key as keyof typeof courseInformation]
@@ -70,9 +84,46 @@ const UgcSidebar: FC<UgcSidebarProps> = () => {
         type: 'group',
         data: courseInformation,
         children: informationChildren
+      },
+      {
+        key: CONTENT_KEY,
+        label: <h4 className="text-h4">Content</h4>,
+        type: 'group',
+        data: content,
+        children: Object.keys(content).map((key) => {
+          return {
+            key,
+            disable: disableAll(key),
+            label: (
+              <div className={`body-m flex w-full justify-between`}>
+                <div className="flex flex-1 shrink-0 flex-col overflow-hidden pr-5">
+                  {labelMaps[key as keyof CourseContentType]}
+                </div>
+                <div>
+                  {!content[key as keyof CourseContentType].completed && (
+                    <div className="h-6 w-6 rounded-full border border-neutral-black"></div>
+                  )}
+                  {content[key as keyof CourseContentType].completed && (
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <circle cx="12" cy="12" r="12" fill="#00C365" />
+                    </svg>
+                  )}
+                </div>
+              </div>
+            ),
+            data: content[key as keyof typeof content],
+            type: 'item'
+          };
+        })
       }
     ];
-  }, [courseInformation]);
+  }, [courseInformation, content, disableAll]);
 
   const defaultOpenKeys = useMemo(() => {
     if (
@@ -92,7 +143,7 @@ const UgcSidebar: FC<UgcSidebarProps> = () => {
     <Sidebar
       title={'未命名课程'}
       items={items}
-      className="w-[296px]bg-neutral-white h-full"
+      className="h-full w-[296px] bg-neutral-white"
       defaultSelect={selectLessonId}
       defaultOpenKeys={[defaultOpenKeys]}
       selectStyle={{
@@ -115,7 +166,13 @@ const UgcSidebar: FC<UgcSidebarProps> = () => {
         </div>
       }
       onSelect={(key, item: any) => {
-        redirectToUrl(`${MenuLink.UGC}/${courseId}/creation/${key}`);
+        console.log(key);
+        if (selectLessonId !== key) {
+          if (key !== CONTENT_KEY) {
+            redirectToUrl(`${MenuLink.UGC}/${courseId}/creation/${key}`);
+          } else {
+          }
+        }
       }}
     ></Sidebar>
   );

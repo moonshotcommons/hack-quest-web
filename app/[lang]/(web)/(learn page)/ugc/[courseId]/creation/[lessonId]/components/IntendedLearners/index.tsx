@@ -17,7 +17,7 @@ import { defaultFormLi } from '../../../constant/data';
 import { isNull } from '@/helper/utils';
 import message from 'antd/es/message';
 import { UgcCreateContext } from '../../../constant/type';
-import useUgcCreationDataHanlde from '@/hooks/useUgcCreationDataHanlde';
+import useUgcCreationDataHandle from '@/hooks/useUgcCreationDataHandle';
 
 interface IntendedLearnersProp {}
 
@@ -36,7 +36,7 @@ const IntendedLearners: React.FC<IntendedLearnersProp> = () => {
     selectLessonId
   } = useContext(UgcCreateContext);
   const { redirectToUrl } = useRedirect();
-  const { setInformation } = useUgcCreationDataHanlde();
+  const { setInformation } = useUgcCreationDataHandle();
   const [audienceList, setAudienceList] = useState<Record<string, any>[]>([
     {
       ...formLi,

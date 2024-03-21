@@ -5,7 +5,7 @@ import IntendedLearners from './components/IntendedLearners';
 import KnowledgeGain from './components/KnowledgeGain';
 import ContentCreate from './components/ContentCreate';
 import { useRequest } from 'ahooks';
-import useUgcCreationDataHanlde from '@/hooks/useUgcCreationDataHanlde';
+import useUgcCreationDataHandle from '@/hooks/useUgcCreationDataHandle';
 import ChooseLesson from './components/ChooseLesson';
 import { CreationPageKey, UgcCreateContext } from '../constant/type';
 
@@ -18,21 +18,24 @@ const UgcCreatePage: FC<UgcCreatePageProps> = ({ params }) => {
 
   const { setSelectLessonId, setCourseId } = useContext(UgcCreateContext);
 
-  const { setInformation } = useUgcCreationDataHanlde(courseId);
+  const { setInformation, getUnitList } = useUgcCreationDataHandle(courseId);
   const { run } = useRequest(async () => {
     if (courseId !== '-1') {
-      setInformation();
+      await setInformation();
+      await getUnitList();
     }
   });
+
+  useEffect(() => {
+    run();
+  }, [run]);
+
   useEffect(() => {
     if (lessonId) {
       setCourseId(courseId);
       setSelectLessonId(lessonId);
-      run();
     }
   }, [lessonId, courseId]);
-
-  useEffect(() => {}, []);
 
   switch (lessonId) {
     case CreationPageKey.Introduction:
