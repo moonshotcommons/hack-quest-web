@@ -7,18 +7,18 @@ interface ConnectProgressProps {
 
 const ConnectProgress: FC<ConnectProgressProps> = ({ connectType }) => {
   const [connectState, setConnectState] = useState(connectKeyMap);
-  console.log(connectType);
+
   const connectIndex = useMemo(() => {
     return connectKeyMap.findIndex((item) => item.key === connectType);
   }, [connectType]);
-  console.log(connectIndex);
+
   return (
-    <div className="flex gap-6">
+    <div className="flex w-full gap-[10px]">
       {connectKeyMap.map((item, index) => {
         return (
           <div
             key={item.key}
-            className="body-l-bold flex w-[200px] flex-col gap-2"
+            className="body-l-bold flex w-[calc((100%-30px)/4)] flex-col gap-2"
           >
             <div
               className={cn(
@@ -28,13 +28,13 @@ const ConnectProgress: FC<ConnectProgressProps> = ({ connectType }) => {
                   : 'bg-neutral-light-gray'
               )}
             ></div>
-            <span
+            {/* <span
               className={cn(
                 index <= connectIndex
                   ? 'text-neutral-rich-gray'
                   : 'text-neutral-light-gray'
               )}
-            >{`${index + 1} ${item.label}`}</span>
+            >{`${index + 1} ${item.label}`}</span> */}
           </div>
         );
       })}

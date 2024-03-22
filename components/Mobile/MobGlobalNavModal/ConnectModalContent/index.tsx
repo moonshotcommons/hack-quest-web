@@ -1,6 +1,8 @@
 'use client';
-import { FC, createContext, useMemo, useState } from 'react';
-
+import { FC, createContext, useMemo, useState, useContext } from 'react';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 import { motion } from 'framer-motion';
 import useGetHeight from '@/hooks/useGetHeight';
 import ConnectWallet from './ConnectWallet';
@@ -27,9 +29,11 @@ export const ConnectModalContentContext = createContext({
 const ConnectModalContent: FC<ConnectModalContentProps> = ({
   changeNavState
 }) => {
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
   const { pageHeight } = useGetHeight();
   const [currentConnectType, setCurrentConnectType] = useState(
-    ConnectType.INVITE_CODE
+    ConnectType.DISCORD
   );
 
   const reset = () => {
@@ -64,20 +68,17 @@ const ConnectModalContent: FC<ConnectModalContentProps> = ({
           pointerEvents: 'none'
         }
       }}
-      className="fixed bottom-0 left-0 top-[64px] flex  w-screen  flex-col border border-neutral-light-gray bg-neutral-white px-5 pb-[30px] pt-[94px]"
+      className="fixed bottom-0 left-0 top-[64px] flex w-screen  flex-col border border-neutral-light-gray bg-neutral-white px-5 py-8"
     >
       <ConnectModalContentContext.Provider value={{ changeNavState }}>
-        <div>
+        <div className="flex flex-1 flex-col">
           <div>
             <ConnectProgress connectType={currentConnectType} />
           </div>
-          <div>{SlotComponent}</div>
+          <div className="w-full flex-1">{SlotComponent}</div>
         </div>
-        <Button
-          type="primary"
-          className="button-text-l w-[270px] self-end py-4 uppercase"
-        >
-          Continue
+        <Button type="primary" block className="button-text-l py-4 uppercase">
+          {t('continue')}
         </Button>
       </ConnectModalContentContext.Provider>
     </motion.div>

@@ -1,30 +1,32 @@
 import Input from '@/components/Common/Input';
 import { HACKQUEST_TWITTER } from '@/constants/links';
 import Link from 'next/link';
-import { FC } from 'react';
+import { FC, useContext } from 'react';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { Lang, TransNs } from '@/i18n/config';
+import { cn } from '@/helper/utils';
 
 interface EnterInviteCodeProps {}
 
 const EnterInviteCode: FC<EnterInviteCodeProps> = (props) => {
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
   return (
     <div className="flex flex-col gap-8 py-[32px]">
-      <h3 className="text-h3 text-neutral-rich-gray">Enter Invite Code</h3>
+      <h3 className="text-h3 text-neutral-rich-gray">{t('inputInviteCode')}</h3>
       <div className="body-m flex items-center gap-4 rounded-[16px] bg-neutral-off-white p-4 text-neutral-off-black">
-        <div className="flex flex-col gap-4">
-          <p>
-            An invite code is required to participate a project. Both the
-            invitee and the inviter can get 500 fuel reward if the invite code
-            is applied here.
-          </p>
-          <div className="flex gap-6">
-            <span>Don’t have an invite code? Ask for one on Twitter.</span>
+        <div className={cn('flex flex-col', lang === Lang.ZH ? '' : 'gap-4')}>
+          <p>{t('inputInviteCodeDesc')}</p>
+          <div className="flex">
+            <span>{t('noInviteCodeDesc')}</span>
             <Link
               href={HACKQUEST_TWITTER}
               target="_blank"
               className="body-m flex cursor-pointer items-center gap-2 text-neutral-off-black"
             >
               <span className="relative after:absolute after:-bottom-[1px] after:left-0 after:h-[2px] after:w-full after:rounded-full after:bg-yellow-primary">
-                Go to Twitter
+                {t('goTwitter')}
               </span>
               <svg
                 width="13"
@@ -85,11 +87,11 @@ const EnterInviteCode: FC<EnterInviteCodeProps> = (props) => {
       </div>
       <div className="[&>div]:gap-[10px]">
         <Input
-          label="Enter an invite code*"
+          label={t('inputAnInviteCode') + '*'}
           type="text"
           name="invite code"
           labelClassName="text-neutral-medium-gray body-l font-normal"
-          placeholder="Enter an invite code*"
+          placeholder={t('inputAnInviteCode')}
           className="body-m"
           // state={formState.inviteCode.status as any}
           // errorMessage={formState.inviteCode.errorMessage}

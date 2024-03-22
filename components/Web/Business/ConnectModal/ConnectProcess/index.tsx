@@ -1,19 +1,22 @@
-import { FC, useMemo, useState } from 'react';
+import { FC, useMemo, useState, useContext } from 'react';
 import { ConnectType, connectKeyMap } from '../constant';
 import { cn } from '@/helper/utils';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 interface ConnectProgressProps {
   connectType: ConnectType;
 }
 
 const ConnectProgress: FC<ConnectProgressProps> = ({ connectType }) => {
   const [connectState, setConnectState] = useState(connectKeyMap);
-  console.log(connectType);
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
   const connectIndex = useMemo(() => {
     return connectKeyMap.findIndex((item) => item.key === connectType);
   }, [connectType]);
-  console.log(connectIndex);
   return (
-    <div className="flex gap-6">
+    <div className="flex gap-[10px]">
       {connectKeyMap.map((item, index) => {
         return (
           <div
@@ -34,7 +37,7 @@ const ConnectProgress: FC<ConnectProgressProps> = ({ connectType }) => {
                   ? 'text-neutral-rich-gray'
                   : 'text-neutral-light-gray'
               )}
-            >{`${index + 1} ${item.label}`}</span>
+            >{`${index + 1} ${t(item.label)}`}</span>
           </div>
         );
       })}

@@ -14,8 +14,9 @@
   "changeLanguage": "切换语言",
   "email": "邮箱",
   "continue": "继续",
-  "close": "close",
-  "connect": "connect",
-  "disconnect": "disconnect",
-  "connected": "connected"
+  "close": "关闭",
+  "connect": "链接",
+  "disconnect": "断开链接",
+  "connected": "已链接",
+  "follow": "关注"
 }

@@ -1,15 +1,20 @@
 import Button from '@/components/Common/Button';
-import { FC } from 'react';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
+import { FC, useContext } from 'react';
 
 interface ConnectWalletProps {}
 
 const ConnectWallet: FC<ConnectWalletProps> = (props) => {
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
   return (
-    <div className="py-[64px]">
-      <div className="flex justify-between gap-4 rounded-[16px] bg-neutral-off-white p-4">
-        <p className="body-m">
-          {`Warning：As we require you stake $Manta Token in order to get airdrop share, please use wallet that has $Manta asset so you don't have to transfer assets later.`}
-        </p>
+    <div className="flex h-full  flex-col gap-5 py-5">
+      <h2 className="text-h2-mob text-neutral-off-black">
+        {t('connectWallet')}
+      </h2>
+      <div className="flex flex-col gap-4 rounded-[16px] bg-neutral-off-white p-4">
         <svg
           width="59"
           height="34"
@@ -48,12 +53,16 @@ const ConnectWallet: FC<ConnectWalletProps> = (props) => {
             strokeDasharray="6 6"
           />
         </svg>
+        <p className="body-m text-neutral-off-black">
+          {t('connectWalletWarn')}
+        </p>
       </div>
+
       <Button
         type="primary"
-        className="button-text-l mt-[64px] px-[53px] py-4 uppercase text-neutral-black"
+        className="button-text-m w-[165px] px-0 py-4 uppercase text-neutral-black"
       >
-        Connect wallet
+        {t('connectWallet')}
       </Button>
     </div>
   );

@@ -112,7 +112,7 @@ const WaitListModalContent: FC<WaitListModalContentProps> = ({
 
   useEffect(() => {
     if (userInfo?.email) {
-      false && joinHandle(userInfo?.email!);
+      joinHandle(userInfo.email);
     }
   }, [userInfo]);
 

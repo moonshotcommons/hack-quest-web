@@ -19,44 +19,39 @@ const CountItem: FC<CountDownItemProps> = ({ count, format, className }) => {
     if (countString.length === 1) {
       return (
         <>
+          {/* <span
+            className={cn(
+              'body-l-bold inline-block rounded-[4px] px-2 py-1 text-neutral-rich-gray',
+              className
+            )}
+          >
+            
+          </span> */}
           <span
             className={cn(
               'body-l-bold inline-block rounded-[4px] px-2 py-1 text-neutral-rich-gray',
               className
             )}
           >
-            0
-          </span>
-          <span
-            className={cn(
-              'body-l-bold inline-block rounded-[4px] px-2 py-1 text-neutral-rich-gray',
-              className
-            )}
-          >
-            {countString[0]}
+            0{countString[0]}
           </span>
         </>
       );
     } else {
       return (
         <>
-          {countString.map((item, index) => {
-            return (
-              <span
-                key={index}
-                className={cn(
-                  'body-l-bold inline-block rounded-[4px] px-2 py-1 text-neutral-rich-gray',
-                  className
-                )}
-              >
-                {item}
-              </span>
-            );
-          })}
+          <span
+            className={cn(
+              'body-l-bold inline-block rounded-[4px] px-2 py-1 text-neutral-rich-gray',
+              className
+            )}
+          >
+            {countString.join('')}
+          </span>
         </>
       );
     }
-  }, [count]);
+  }, [count, className]);
 
   return (
     <div className="flex items-center gap-1">

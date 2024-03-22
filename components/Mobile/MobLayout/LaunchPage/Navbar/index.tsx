@@ -26,6 +26,7 @@ import { TransNs } from '@/i18n/config';
 import WaitListModalContent from '@/components/Mobile/MobGlobalNavModal/WaitListModalContent';
 import { useGlobalStore } from '@/store/zustand/globalStore';
 import { NavType } from '../../constant';
+import ConnectModalContent from '@/components/Mobile/MobGlobalNavModal/ConnectModalContent';
 export interface NavbarProps {
   navList: NavbarListType[];
   children?: ReactNode;
@@ -101,15 +102,6 @@ const Navbar: FC<NavbarProps> = (props) => {
             }}
           ></Auth>
         );
-      case NavType.AUTH:
-        return (
-          <Auth
-            changeNavState={() => {
-              toggleOpen();
-              setNavType(NavType.NAV_LIST);
-            }}
-          ></Auth>
-        );
       case NavType.JOIN_WAIT_LIST:
         return (
           <WaitListModalContent
@@ -119,14 +111,14 @@ const Navbar: FC<NavbarProps> = (props) => {
             }}
           ></WaitListModalContent>
         );
-      case NavType.JOIN_WAIT_LIST:
+      case NavType.CONNECT:
         return (
-          <WaitListModalContent
+          <ConnectModalContent
             changeNavState={() => {
               toggleOpen();
               setNavType(NavType.NAV_LIST);
             }}
-          ></WaitListModalContent>
+          ></ConnectModalContent>
         );
     }
   }, [navType, navList, toggleOpen]);

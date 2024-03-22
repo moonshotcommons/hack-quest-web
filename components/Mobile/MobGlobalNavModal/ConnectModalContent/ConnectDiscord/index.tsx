@@ -1,58 +1,63 @@
 import Button from '@/components/Common/Button';
 import Image from 'next/image';
-import { FC } from 'react';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
+import { FC, useContext } from 'react';
 
 interface ConnectDiscordProps {}
 
 const ConnectDiscord: FC<ConnectDiscordProps> = (props) => {
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
   return (
-    <div className="flex flex-col gap-8 py-8">
-      <h3 className="text-h3 text-neutral-rich-gray">Join HACKQUEST Discord</h3>
-      <div className="flex justify-between gap-8">
-        <div className="flex flex-1 items-center gap-6 rounded-[16px] bg-neutral-off-white p-6">
-          <svg
-            width="32"
-            height="32"
-            viewBox="0 0 32 32"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M27.0894 5.54142C25.0498 4.60557 22.8626 3.91609 20.5759 3.52119C20.5342 3.51357 20.4926 3.53261 20.4712 3.57071C20.1899 4.07099 19.8783 4.72366 19.6601 5.23665C17.2005 4.86842 14.7536 4.86842 12.3444 5.23665C12.1262 4.71225 11.8033 4.07099 11.5208 3.57071C11.4993 3.53388 11.4577 3.51484 11.4161 3.52119C9.13055 3.91482 6.94341 4.60431 4.90258 5.54142C4.88491 5.54903 4.86977 5.56174 4.85972 5.57824C0.711189 11.7761 -0.425267 17.8215 0.13224 23.7921C0.134763 23.8213 0.15116 23.8492 0.173864 23.867C2.91095 25.877 5.56228 27.0973 8.16437 27.9061C8.20602 27.9188 8.25014 27.9036 8.27664 27.8693C8.89217 27.0287 9.44086 26.1424 9.9113 25.2104C9.93906 25.1558 9.91256 25.091 9.85582 25.0694C8.98551 24.7393 8.1568 24.3368 7.35964 23.8797C7.29659 23.8428 7.29154 23.7527 7.34954 23.7095C7.5173 23.5838 7.68509 23.453 7.84527 23.3209C7.87425 23.2968 7.91464 23.2917 7.94871 23.307C13.1857 25.698 18.8554 25.698 24.0306 23.307C24.0647 23.2905 24.1051 23.2956 24.1353 23.3197C24.2955 23.4517 24.4633 23.5838 24.6323 23.7095C24.6903 23.7527 24.6865 23.8428 24.6235 23.8797C23.8263 24.3457 22.9976 24.7393 22.126 25.0682C22.0693 25.0898 22.044 25.1558 22.0718 25.2104C22.5523 26.1411 23.101 27.0274 23.7052 27.868C23.7304 27.9036 23.7758 27.9188 23.8175 27.9061C26.4322 27.0973 29.0835 25.877 31.8206 23.867C31.8446 23.8492 31.8597 23.8225 31.8622 23.7933C32.5294 16.8907 30.7447 10.8948 27.131 5.5795C27.1221 5.56174 27.107 5.54903 27.0894 5.54142ZM10.6934 20.1566C9.11666 20.1566 7.81751 18.7091 7.81751 16.9314C7.81751 15.1537 9.09147 13.7061 10.6934 13.7061C12.3078 13.7061 13.5944 15.1664 13.5692 16.9314C13.5692 18.7091 12.2952 20.1566 10.6934 20.1566ZM21.3263 20.1566C19.7497 20.1566 18.4505 18.7091 18.4505 16.9314C18.4505 15.1537 19.7244 13.7061 21.3263 13.7061C22.9408 13.7061 24.2274 15.1664 24.2022 16.9314C24.2022 18.7091 22.9408 20.1566 21.3263 20.1566Z"
-              fill="#131313"
-            />
-          </svg>
+    <div className="flex flex-col gap-5 pt-5">
+      <h3 className="text-h3 text-neutral-rich-gray">
+        {t('joinHackquestDiscord', { hackquest: 'HACKQUEST' })}
+      </h3>
+      <div className="flex flex-1 items-center gap-6 rounded-[16px] bg-neutral-off-white p-6">
+        <svg
+          width="48"
+          height="48"
+          viewBox="0 0 48 48"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M35.0894 13.5414C33.0498 12.6056 30.8626 11.9161 28.5759 11.5212C28.5342 11.5136 28.4926 11.5326 28.4712 11.5707C28.1899 12.071 27.8783 12.7237 27.6601 13.2366C25.2005 12.8684 22.7536 12.8684 20.3444 13.2366C20.1262 12.7123 19.8033 12.071 19.5208 11.5707C19.4993 11.5339 19.4577 11.5148 19.4161 11.5212C17.1305 11.9148 14.9434 12.6043 12.9026 13.5414C12.8849 13.549 12.8698 13.5617 12.8597 13.5782C8.71119 19.7761 7.57473 25.8215 8.13224 31.7921C8.13476 31.8213 8.15116 31.8492 8.17386 31.867C10.9109 33.877 13.5623 35.0973 16.1644 35.9061C16.206 35.9188 16.2501 35.9036 16.2766 35.8693C16.8922 35.0287 17.4409 34.1424 17.9113 33.2104C17.9391 33.1558 17.9126 33.091 17.8558 33.0694C16.9855 32.7393 16.1568 32.3368 15.3596 31.8797C15.2966 31.8428 15.2915 31.7527 15.3495 31.7095C15.5173 31.5838 15.6851 31.453 15.8453 31.3209C15.8743 31.2968 15.9146 31.2917 15.9487 31.307C21.1857 33.698 26.8554 33.698 32.0306 31.307C32.0647 31.2905 32.1051 31.2956 32.1353 31.3197C32.2955 31.4517 32.4633 31.5838 32.6323 31.7095C32.6903 31.7527 32.6865 31.8428 32.6235 31.8797C31.8263 32.3457 30.9976 32.7393 30.126 33.0682C30.0693 33.0898 30.044 33.1558 30.0718 33.2104C30.5523 34.1411 31.101 35.0274 31.7052 35.868C31.7304 35.9036 31.7758 35.9188 31.8175 35.9061C34.4322 35.0973 37.0835 33.877 39.8206 31.867C39.8446 31.8492 39.8597 31.8225 39.8622 31.7933C40.5294 24.8907 38.7447 18.8948 35.131 13.5795C35.1221 13.5617 35.107 13.549 35.0894 13.5414ZM18.6934 28.1566C17.1167 28.1566 15.8175 26.7091 15.8175 24.9314C15.8175 23.1537 17.0915 21.7061 18.6934 21.7061C20.3078 21.7061 21.5944 23.1664 21.5692 24.9314C21.5692 26.7091 20.2952 28.1566 18.6934 28.1566ZM29.3263 28.1566C27.7497 28.1566 26.4505 26.7091 26.4505 24.9314C26.4505 23.1537 27.7244 21.7061 29.3263 21.7061C30.9408 21.7061 32.2274 23.1664 32.2022 24.9314C32.2022 26.7091 30.9408 28.1566 29.3263 28.1566Z"
+            fill="#131313"
+          />
+        </svg>
 
-          <div className="flex flex-col gap-2">
-            <p className="body-m-bold text-neutral-rich-gray">
-              Authorize Discord Account
-            </p>
-            <Button
-              type="primary"
-              className="button-text-s w-[140px] py-2 uppercase text-neutral-black "
-            >
-              Connect
-            </Button>
-          </div>
+        <div className="flex flex-col gap-2">
+          <p className="body-m-bold text-neutral-rich-gray">
+            {t('authDiscordAccount')}
+          </p>
+          <Button
+            type="primary"
+            className="button-text-s w-[140px] py-2 uppercase text-neutral-black "
+          >
+            {t('connect')}
+          </Button>
         </div>
-        <div className="flex flex-1 items-center gap-6 rounded-[16px] bg-neutral-off-white p-6">
-          <Image
-            src={'/images/logo/hackquest_twitter_avatar.webp'}
-            alt="hackquest Discord"
-            width={48}
-            height={48}
-          ></Image>
-          <div className="flex flex-col gap-2">
-            <p className="body-m-bold text-neutral-rich-gray">
-              Join Hackquest Discord
-            </p>
-            <Button
-              type="primary"
-              className="button-text-s w-[140px] py-2 uppercase text-neutral-black "
-            >
-              Join
-            </Button>
-          </div>
+      </div>
+      <div className="flex flex-1 items-center gap-6 rounded-[16px] bg-neutral-off-white p-6">
+        <Image
+          src={'/images/logo/hackquest_twitter_avatar.webp'}
+          alt="hackquest Discord"
+          width={48}
+          height={48}
+        ></Image>
+        <div className="flex flex-col gap-2">
+          <p className="body-m-bold text-neutral-rich-gray">
+            {t('joinHackquestDiscord', { hackquest: 'Hackquest' })}
+          </p>
+          <Button
+            type="primary"
+            className="button-text-s w-[140px] py-2 uppercase text-neutral-black "
+          >
+            {t('join')}
+          </Button>
         </div>
       </div>
     </div>

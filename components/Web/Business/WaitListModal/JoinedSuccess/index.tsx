@@ -1,11 +1,15 @@
 import Button from '@/components/Common/Button';
-import { FC } from 'react';
-
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
+import { FC, useContext } from 'react';
 interface JoinedSuccessProps {
   onClose: VoidFunction;
 }
 
 const JoinedSuccess: FC<JoinedSuccessProps> = ({ onClose }) => {
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
   return (
     <div className="flex h-full w-full flex-col justify-between">
       <div className="flex flex-col gap-6">
@@ -26,7 +30,7 @@ const JoinedSuccess: FC<JoinedSuccessProps> = ({ onClose }) => {
         </svg>
 
         <h1 className="text-h3 flex gap-2 text-neutral-off-black">
-          <span>Waitlist Joined</span>
+          <span>{t('waitListJoined')}</span>
           <svg
             width="32"
             height="32"
@@ -41,7 +45,7 @@ const JoinedSuccess: FC<JoinedSuccessProps> = ({ onClose }) => {
           </svg>
         </h1>
         <p className="body-l text-neutral-medium-gray">
-          We’ll notify by email when IDO starts
+          {t('waitListJoinedDesc')}
         </p>
       </div>
       <Button
@@ -54,7 +58,7 @@ const JoinedSuccess: FC<JoinedSuccessProps> = ({ onClose }) => {
           button-text-l py-4 uppercase
           "
       >
-        close
+        {t('close')}
       </Button>
     </div>
   );

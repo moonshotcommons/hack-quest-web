@@ -60,7 +60,7 @@ const HandleButton: FC<HandleButtonProps> = ({ status }) => {
             ghost
             className="button-text-l w-[270px] max-w-[270px] py-4 uppercase"
           >
-            {t('participateNow')}
+            {t('seeMore')}
           </Button>
         );
     }

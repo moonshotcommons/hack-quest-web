@@ -47,7 +47,8 @@ const HandleButton: FC<HandleButtonProps> = ({ status }) => {
             onClick={(e) => {
               e.stopPropagation();
               e.preventDefault();
-              // connectModalRef.current?.onConnect();
+              mobileNavModalToggleOpenHandle.setNavType(NavType.CONNECT);
+              mobileNavModalToggleOpenHandle.toggleOpen();
             }}
           >
             {t('participateNow')}
@@ -56,7 +57,7 @@ const HandleButton: FC<HandleButtonProps> = ({ status }) => {
       case ProjectStatus.CLOSED:
         return (
           <Button ghost block className="button-text-l  py-4 uppercase">
-            {t('participateNow')}
+            {t('seeMore')}
           </Button>
         );
     }
