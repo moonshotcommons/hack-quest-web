@@ -1,23 +1,24 @@
 'use client';
-import { FC, useRef } from 'react';
+import { FC, useContext } from 'react';
 import { ProjectStatus } from '.';
 import Button from '@/components/Common/Button';
-import WaitListModal, {
-  WaitListModalInstance
-} from '@/components/Web/Business/WaitListModal';
-import { useUserStore } from '@/store/zustand/userStore';
-import ConnectModal, {
-  ConnectModalInstance
-} from '@/components/Web/Business/ConnectModal';
+
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
+import { useGlobalStore } from '@/store/zustand/globalStore';
+import { NavType } from '@/components/Mobile/MobLayout/constant';
 
 interface HandleButtonProps {
   status: ProjectStatus;
 }
 
 const HandleButton: FC<HandleButtonProps> = ({ status }) => {
-  const waitListRef = useRef<WaitListModalInstance>(null);
-  const connectModalRef = useRef<ConnectModalInstance>(null);
-  const userInfo = useUserStore((state) => state.userInfo);
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
+  const mobileNavModalToggleOpenHandle = useGlobalStore(
+    (state) => state.mobileNavModalToggleOpenHandle
+  );
 
   const renderButton = () => {
     switch (status) {
@@ -25,48 +26,43 @@ const HandleButton: FC<HandleButtonProps> = ({ status }) => {
         return (
           <Button
             type="primary"
-            className="button-text-l w-[270px] max-w-[270px] py-4 uppercase"
+            block
+            className="button-text-l  py-4 uppercase"
             onClick={(e) => {
               e.stopPropagation();
               e.preventDefault();
-              waitListRef.current?.onJoin(userInfo?.email);
+              mobileNavModalToggleOpenHandle.setNavType(NavType.JOIN_WAIT_LIST);
+              mobileNavModalToggleOpenHandle.toggleOpen();
             }}
           >
-            Join waitlist
+            {t('joinWaitlist')}
           </Button>
         );
       case ProjectStatus.LIVE_NOW:
         return (
           <Button
             type="primary"
-            className="button-text-l w-[270px] max-w-[270px] py-4 uppercase"
+            block
+            className="button-text-l  py-4 uppercase"
             onClick={(e) => {
               e.stopPropagation();
               e.preventDefault();
-              connectModalRef.current?.onConnect();
+              mobileNavModalToggleOpenHandle.setNavType(NavType.CONNECT);
+              mobileNavModalToggleOpenHandle.toggleOpen();
             }}
           >
-            Participate now
+            {t('participateNow')}
           </Button>
         );
       case ProjectStatus.CLOSED:
         return (
-          <Button
-            ghost
-            className="button-text-l w-[270px] max-w-[270px] py-4 uppercase"
-          >
-            See more
+          <Button ghost block className="button-text-l  py-4 uppercase">
+            {t('seeMore')}
           </Button>
         );
     }
   };
-  return (
-    <>
-      {renderButton()}
-      <WaitListModal ref={waitListRef} />
-      <ConnectModal ref={connectModalRef} />
-    </>
-  );
+  return <>{renderButton()}</>;
 };
 
 export default HandleButton;

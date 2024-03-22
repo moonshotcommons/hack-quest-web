@@ -18,7 +18,7 @@ const DataStatistics: FC<DataStatisticsProps> = async ({ lang }) => {
                 start={0}
                 end={10}
                 duration={3}
-                enableScrollSpy
+                // enableScrollSpy
               ></CountUp>
               +
             </p>
@@ -32,7 +32,7 @@ const DataStatistics: FC<DataStatisticsProps> = async ({ lang }) => {
                 start={0}
                 end={20}
                 duration={3}
-                enableScrollSpy
+                // enableScrollSpy
               ></CountUp>
               +
             </p>
@@ -46,7 +46,7 @@ const DataStatistics: FC<DataStatisticsProps> = async ({ lang }) => {
                 start={0}
                 end={30}
                 duration={3}
-                enableScrollSpy
+                // enableScrollSpy
               ></CountUp>
               +
             </p>
@@ -60,7 +60,7 @@ const DataStatistics: FC<DataStatisticsProps> = async ({ lang }) => {
                 start={0}
                 end={30}
                 duration={3}
-                enableScrollSpy
+                // enableScrollSpy
               ></CountUp>
               +
             </p>

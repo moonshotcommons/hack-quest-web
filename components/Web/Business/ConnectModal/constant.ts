@@ -8,22 +8,22 @@ export enum ConnectType {
 export const connectKeyMap = [
   {
     key: ConnectType.WALLET,
-    label: 'Connect Wallet',
+    label: 'connectWallet',
     connected: false
   },
   {
     key: ConnectType.TWITTER,
-    label: 'Connect Twitter',
+    label: 'twitterVerify',
     connected: false
   },
   {
     key: ConnectType.DISCORD,
-    label: 'Connect Discord',
+    label: 'connectDiscord',
     connected: false
   },
   {
     key: ConnectType.INVITE_CODE,
-    label: 'Enter Invite Code',
+    label: 'inputInviteCode',
     connected: false
   }
 ];

@@ -5,8 +5,12 @@ import {
   forwardRef,
   useImperativeHandle,
   useMemo,
-  useState
+  useState,
+  useContext
 } from 'react';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 import { LuX } from 'react-icons/lu';
 import ConnectWallet from './ConnectWallet';
 import ConnectTwitter from './ConnectTwitter';
@@ -26,6 +30,8 @@ const ConnectModal: ForwardRefRenderFunction<
   ConnectModalInstance,
   ConnectModalProps
 > = (props, ref) => {
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
   const [open, setOpen] = useState(false);
   const [currentConnectType, setCurrentConnectType] = useState(
     ConnectType.INVITE_CODE
@@ -90,7 +96,7 @@ const ConnectModal: ForwardRefRenderFunction<
           type="primary"
           className="button-text-l w-[270px] self-end py-4 uppercase"
         >
-          Continue
+          {t('continue')}
         </Button>
       </div>
     </Modal>

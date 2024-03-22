@@ -8,9 +8,9 @@ import {
   useState
 } from 'react';
 import { LuX } from 'react-icons/lu';
-import InputEmail from './InputEmail';
 import { useRequest } from 'ahooks';
 import { errorMessage } from '@/helper/ui';
+import InputEmail from './InputEmail';
 import JoinedSuccess from './JoinedSuccess';
 import Image from 'next/image';
 import Loading from '@/public/images/other/loading.png';

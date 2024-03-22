@@ -12,6 +12,8 @@ import UserModule from './UserModule';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useCheckPathname } from '@/hooks/useCheckPathname';
 import { NavbarListType } from '@/components/Web/Layout/BasePage/Navbar/type';
+import { useGlobalStore } from '@/store/zustand/globalStore';
+import { NavType } from '../../constant';
 
 export interface NavbarProps {
   navList: NavbarListType[];
@@ -19,15 +21,10 @@ export interface NavbarProps {
   logo?: ReactNode;
 }
 
-export enum NavType {
-  NAV_LIST = 'NavList',
-  AUTH = 'Auth'
-}
-
 const Navbar: FC<NavbarProps> = (props) => {
   const userInfo = useUserStore((state) => state.userInfo);
-  const setMobileAuthToggleOpenHandle = useUserStore(
-    (state) => state.setMobileAuthToggleOpenHandle
+  const setMobileNavModalToggleOpenHandle = useGlobalStore(
+    (state) => state.setMobileNavModalToggleOpenHandle
   );
   const { navList, children } = props;
   const { redirectToUrl } = useRedirect();
@@ -54,12 +51,12 @@ const Navbar: FC<NavbarProps> = (props) => {
   }, []);
 
   useEffect(() => {
-    setMobileAuthToggleOpenHandle({
+    setMobileNavModalToggleOpenHandle({
       isOpen,
       toggleOpen: toggleOpen,
       setNavType: (type) => setNavType(type)
     });
-  }, [isOpen, toggleOpen, setNavType, setMobileAuthToggleOpenHandle]);
+  }, [isOpen, toggleOpen, setNavType, setMobileNavModalToggleOpenHandle]);
 
   return (
     <div className="flex h-[4rem] w-full items-center justify-between overflow-hidden text-neutral-white">

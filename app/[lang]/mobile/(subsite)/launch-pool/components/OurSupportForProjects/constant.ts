@@ -1,10 +1,10 @@
 export const data = [
-  `🔥 KOL Network`,
-  `💰 Fundraising support`,
-  `🔧 Press Release support`,
-  `🪙 Advisory Network for tokenomics, listing, GTM`,
-  `🌍 Ecosystem support`,
-  `📢 Market Making Service after TGE`,
-  `👋 Support from a community of token holders`,
-  `❤️ Join a close founders community with committed founders`
+  'projectsSupportItem1',
+  'projectsSupportItem2',
+  'projectsSupportItem3',
+  'projectsSupportItem4',
+  'projectsSupportItem5',
+  'projectsSupportItem6',
+  'projectsSupportItem7',
+  'projectsSupportMobItem8'
 ];

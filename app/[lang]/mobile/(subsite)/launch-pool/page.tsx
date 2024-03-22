@@ -31,7 +31,7 @@ const Launch: React.FC<LaunchProp> = async ({ params: { lang } }) => {
 
   return (
     <>
-      <div className="flex flex-col justify-center">
+      <div className="max-w-screen flex w-screen flex-col justify-center overflow-hidden">
         <TopBanner lang={lang} />
         <DataStatistics lang={lang} />
         <AllProjects lang={lang} />

@@ -1,8 +1,11 @@
 'use client';
-import { FC, useEffect, useMemo, useState } from 'react';
+import { FC, useContext, useEffect, useMemo, useState } from 'react';
 import { useCountDown } from 'ahooks';
 import { ProjectStatus } from '.';
 import { cn } from '@/helper/utils';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 
 interface CountDownItemProps {
   count: number;
@@ -16,49 +19,44 @@ const CountItem: FC<CountDownItemProps> = ({ count, format, className }) => {
     if (countString.length === 1) {
       return (
         <>
-          <span
+          {/* <span
             className={cn(
-              'body-xl-bold inline-block rounded-[4px] px-2 py-1 text-neutral-rich-gray',
+              'body-l-bold inline-block rounded-[4px] px-2 py-1 text-neutral-rich-gray',
               className
             )}
           >
-            0
-          </span>
+            
+          </span> */}
           <span
             className={cn(
-              'body-xl-bold inline-block rounded-[4px] px-2 py-1 text-neutral-rich-gray',
+              'body-l-bold inline-block rounded-[4px] px-2 py-1 text-neutral-rich-gray',
               className
             )}
           >
-            {countString[0]}
+            0{countString[0]}
           </span>
         </>
       );
     } else {
       return (
         <>
-          {countString.map((item, index) => {
-            return (
-              <span
-                key={index}
-                className={cn(
-                  'body-xl-bold inline-block rounded-[4px] px-2 py-1 text-neutral-rich-gray',
-                  className
-                )}
-              >
-                {item}
-              </span>
-            );
-          })}
+          <span
+            className={cn(
+              'body-l-bold inline-block rounded-[4px] px-2 py-1 text-neutral-rich-gray',
+              className
+            )}
+          >
+            {countString.join('')}
+          </span>
         </>
       );
     }
-  }, [count]);
+  }, [count, className]);
 
   return (
     <div className="flex items-center gap-1">
       {countNode}
-      <span className="body-l uppercase text-neutral-rich-gray">{format}</span>
+      <span className="body-m uppercase text-neutral-rich-gray">{format}</span>
     </div>
   );
 };
@@ -69,6 +67,8 @@ interface CountDownProps {
 
 const CountDown: FC<CountDownProps> = ({ status }) => {
   const [mount, setMount] = useState(false);
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
   const [countdown, formattedRes] = useCountDown({
     targetDate: `${new Date().getFullYear()}-3-29 23:59:59`
   });
@@ -78,14 +78,13 @@ const CountDown: FC<CountDownProps> = ({ status }) => {
   }, []);
 
   if (!mount) return null;
-  console.log(days, hours, minutes, seconds, milliseconds);
   return (
     <div className="flex flex-col gap-2">
-      <p className="body-s text-neutral-medium-gray">Offerings Close in</p>
+      <p className="body-s text-neutral-medium-gray">{t('closeIn')}</p>
       <div className="flex gap-4">
         <CountItem
           count={days}
-          format="D"
+          format={t('day')}
           className={
             status === ProjectStatus.UPCOMING
               ? 'bg-neutral-white'
@@ -94,7 +93,7 @@ const CountDown: FC<CountDownProps> = ({ status }) => {
         />
         <CountItem
           count={hours}
-          format="H"
+          format={t('hour')}
           className={
             status === ProjectStatus.UPCOMING
               ? 'bg-neutral-white'
@@ -103,7 +102,7 @@ const CountDown: FC<CountDownProps> = ({ status }) => {
         />
         <CountItem
           count={minutes}
-          format="M"
+          format={t('minutes')}
           className={
             status === ProjectStatus.UPCOMING
               ? 'bg-neutral-white'
@@ -112,7 +111,7 @@ const CountDown: FC<CountDownProps> = ({ status }) => {
         />
         <CountItem
           count={seconds}
-          format="S"
+          format={t('seconds')}
           className={
             status === ProjectStatus.UPCOMING
               ? 'bg-neutral-white'

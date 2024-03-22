@@ -8,7 +8,7 @@ export const data = [
     desc: `chooseBestProjectSection2Desc`
   },
   {
-    title: 'chooseBestProjectSection2Title',
+    title: 'chooseBestProjectSection3Title',
     desc: `chooseBestProjectSection3Desc`
   }
 ];

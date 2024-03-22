@@ -35,13 +35,15 @@ const FAQData = [
 const FAQS: FC<FAQSProps> = (props) => {
   const [expendIndex, setExpendIndex] = useState<number[]>([]);
   return (
-    <div className="container mx-auto flex justify-between gap-20 py-[6.25rem]">
-      <div className="flex w-fit flex-col gap-10">
-        <p className="text-h2 capitalize text-neutral-off-black">FAQs</p>
-        <p className="body-l tracking-tighter text-neutral-medium-gray">
+    <div className="flex w-full flex-col gap-10 px-5 py-10">
+      <div className="flex w-fit flex-col">
+        <p className="text-h2 text-[1.375rem] capitalize text-neutral-off-black">
+          FAQs
+        </p>
+        <p className="body-xs mt-5 text-neutral-medium-gray">
           Can’t find what you’re looking for? Reach out to us!
         </p>
-        <div className="flex items-center gap-8">
+        <div className="mt-[.625rem] flex items-center gap-4">
           <Link
             href={HACKQUEST_DISCORD}
             className="cursor-pointer hover:scale-[1.1]"
@@ -50,7 +52,7 @@ const FAQS: FC<FAQSProps> = (props) => {
             // }}
           >
             <span className="text-text-default-color">
-              <DiscordIcon color={'#131313'} />
+              <DiscordIcon color={'#131313'} isMobile />
             </span>
           </Link>
           <Link
@@ -61,7 +63,7 @@ const FAQS: FC<FAQSProps> = (props) => {
             // }}
           >
             <span className="text-text-default-color">
-              <TwitterIcon color={'#131313'} />
+              <TwitterIcon color={'#131313'} isMobile />
             </span>
           </Link>
         </div>
@@ -87,7 +89,7 @@ const FAQS: FC<FAQSProps> = (props) => {
                   }
                 }}
               >
-                <p className="body-l-bold text-neutral-rich-gray">
+                <p className="body-m-bold text-neutral-rich-gray">
                   {item.problem}
                 </p>
                 <span className="cursor-pointer">
@@ -124,7 +126,7 @@ const FAQS: FC<FAQSProps> = (props) => {
 
               <p
                 className={cn(
-                  `body-s text-neutral-rich-gray`,
+                  `body-xs text-neutral-rich-gray`,
                   expendIndex.includes(index) ? 'block' : 'hidden'
                 )}
               >

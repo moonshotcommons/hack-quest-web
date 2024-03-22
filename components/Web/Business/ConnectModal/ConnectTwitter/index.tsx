@@ -1,14 +1,19 @@
 import Button from '@/components/Common/Button';
 import Image from 'next/image';
-import { FC } from 'react';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
+import { FC, useContext } from 'react';
 
 interface ConnectTwitterProps {}
 
 const ConnectTwitter: FC<ConnectTwitterProps> = (props) => {
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
   return (
     <div className="flex flex-col gap-8 py-8">
       <h3 className="text-h3 text-neutral-rich-gray">
-        Follow @HACKQUEST on Twitter
+        {t('followHackquestTwitter', { hackquest: 'HACKQUEST' })}
       </h3>
       <div className="flex justify-between gap-8">
         <div className="flex flex-1 items-center gap-6 rounded-[16px] bg-neutral-off-white p-6">
@@ -26,13 +31,13 @@ const ConnectTwitter: FC<ConnectTwitterProps> = (props) => {
           </svg>
           <div className="flex flex-col gap-2">
             <p className="body-m-bold text-neutral-rich-gray">
-              Authorize Twitter Account
+              {t('authTwitterAccount')}
             </p>
             <Button
               type="primary"
               className="button-text-s w-[140px] py-2 uppercase text-neutral-black "
             >
-              Connect
+              {t('connect')}
             </Button>
           </div>
         </div>
@@ -45,13 +50,13 @@ const ConnectTwitter: FC<ConnectTwitterProps> = (props) => {
           ></Image>
           <div className="flex flex-col gap-2">
             <p className="body-m-bold text-neutral-rich-gray">
-              Follow @Hackquest on Twitter
+              {t('followHackquestTwitter', { hackquest: 'Hackquest' })}
             </p>
             <Button
               type="primary"
               className="button-text-s w-[140px] py-2 uppercase text-neutral-black "
             >
-              Follow{' '}
+              {t('follow')}
             </Button>
           </div>
         </div>

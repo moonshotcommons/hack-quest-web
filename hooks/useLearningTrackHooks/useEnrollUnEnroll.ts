@@ -5,8 +5,9 @@ import { message } from 'antd';
 import { useRedirect } from '../useRedirect';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { isMobile } from 'react-device-detect';
-import { NavType } from '@/components/Mobile/MobLayout/BasePage/Navbar';
+import { NavType } from '@/components/Mobile/MobLayout/constant';
 import { errorMessage } from '@/helper/ui';
+import { useGlobalStore } from '@/store/zustand/globalStore';
 
 export const useEnrollUnEnroll = (
   learningTrackDetail: LearningTrackDetailType | undefined,
@@ -15,8 +16,8 @@ export const useEnrollUnEnroll = (
   const userInfo = useUserStore((state) => state.userInfo);
   const setAuthModalOpen = useUserStore((state) => state.setAuthModalOpen);
   const setAuthType = useUserStore((state) => state.setAuthType);
-  const mobileAuthToggleOpenHandle = useUserStore(
-    (state) => state.mobileAuthToggleOpenHandle
+  const mobileNavModalToggleOpenHandle = useGlobalStore(
+    (state) => state.mobileNavModalToggleOpenHandle
   );
   const { redirectToUrl } = useRedirect();
   const { run: unEnroll, loading: unEnrollLoading } = useRequest(
@@ -49,8 +50,8 @@ export const useEnrollUnEnroll = (
         if (!isMobile) {
           setAuthModalOpen(true);
         } else {
-          mobileAuthToggleOpenHandle.setNavType(NavType.AUTH);
-          mobileAuthToggleOpenHandle.toggleOpen();
+          mobileNavModalToggleOpenHandle.setNavType(NavType.AUTH);
+          mobileNavModalToggleOpenHandle.toggleOpen();
         }
         throw new Error('Please login first');
       }

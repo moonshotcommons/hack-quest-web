@@ -29,7 +29,6 @@ export function middleware(request: NextRequest) {
   );
   let pathnameHasLocale = false;
   let supportI18n = pathname.includes('/launch-pool');
-
   let locale = userSelectLocale;
 
   if (userSelectLocale) {

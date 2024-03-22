@@ -1,7 +1,10 @@
 import Button from '@/components/Common/Button';
 import Input from '@/components/Common/Input';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 import Schema, { RuleItem } from 'async-validator';
-import { FC, useState } from 'react';
+import { FC, useContext, useState } from 'react';
 interface InputEmailProps {
   onSubmit: (email: string) => void;
 }
@@ -12,6 +15,9 @@ const InputEmail: FC<InputEmailProps> = ({ onSubmit }) => {
     status: 'default',
     errorMessage: ''
   });
+
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
 
   const validateRule: RuleItem = {
     type: 'string',
@@ -60,17 +66,17 @@ const InputEmail: FC<InputEmailProps> = ({ onSubmit }) => {
           />
         </svg>
 
-        <h1 className="text-h3 text-neutral-off-black">Join Waitlist</h1>
+        <h1 className="text-h3 text-neutral-off-black"> {t('joinWaitlist')}</h1>
 
         <Input
-          label="Email"
+          label={t('email')}
           type="email"
           name="email"
           rules={validateRule}
           state={formStatus.status as any}
           errorMessage={formStatus.errorMessage}
           labelClassName=""
-          placeholder="email"
+          placeholder={t('email')}
           delay={300}
           clear
           theme={'light'}
@@ -89,7 +95,7 @@ const InputEmail: FC<InputEmailProps> = ({ onSubmit }) => {
           button-text-l py-4 uppercase
           "
       >
-        Continue
+        {t('continue')}
       </Button>
     </div>
   );

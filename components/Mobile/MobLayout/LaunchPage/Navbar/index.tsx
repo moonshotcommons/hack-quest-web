@@ -1,5 +1,12 @@
 import Image from 'next/image';
-import React, { ReactNode, useEffect, useState, FC, useContext } from 'react';
+import React, {
+  ReactNode,
+  useEffect,
+  useState,
+  FC,
+  useContext,
+  useMemo
+} from 'react';
 import { useCycle } from 'framer-motion';
 
 import { useRedirect } from '@/hooks/useRedirect';
@@ -16,14 +23,14 @@ import HackLogo from '@/public/images/logo/light-footer-logo.svg';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
+import WaitListModalContent from '@/components/Mobile/MobGlobalNavModal/WaitListModalContent';
+import { useGlobalStore } from '@/store/zustand/globalStore';
+import { NavType } from '../../constant';
+import ConnectModalContent from '@/components/Mobile/MobGlobalNavModal/ConnectModalContent';
 export interface NavbarProps {
   navList: NavbarListType[];
   children?: ReactNode;
   logo?: ReactNode;
-}
-export enum NavType {
-  NAV_LIST = 'NavList',
-  AUTH = 'Auth'
 }
 
 const Navbar: FC<NavbarProps> = (props) => {
@@ -31,8 +38,8 @@ const Navbar: FC<NavbarProps> = (props) => {
   const { t } = useTranslation(lang, TransNs.BASIC);
   const [openNavKeys, setOpenNavKeys] = useState<string[]>([]);
   const userInfo = useUserStore((state) => state.userInfo);
-  const setMobileAuthToggleOpenHandle = useUserStore(
-    (state) => state.setMobileAuthToggleOpenHandle
+  const setMobileNavModalToggleOpenHandle = useGlobalStore(
+    (state) => state.setMobileNavModalToggleOpenHandle
   );
   const { navList, children } = props;
   const { redirectToUrl } = useRedirect();
@@ -59,12 +66,62 @@ const Navbar: FC<NavbarProps> = (props) => {
   }, []);
 
   useEffect(() => {
-    setMobileAuthToggleOpenHandle({
+    setMobileNavModalToggleOpenHandle({
       isOpen,
       toggleOpen: toggleOpen,
       setNavType: (type) => setNavType(type)
     });
-  }, [isOpen, toggleOpen, setNavType, setMobileAuthToggleOpenHandle]);
+  }, [isOpen, toggleOpen, setNavType, setMobileNavModalToggleOpenHandle]);
+
+  const NavContentNode = useMemo(() => {
+    switch (navType) {
+      case NavType.NAV_LIST:
+        return (
+          <NavList
+            navList={navList}
+            toggleOpen={() => {
+              toggleOpen();
+            }}
+          >
+            <UserModule
+              changeNavType={(type) => {
+                setNavType(type);
+              }}
+              toggleOpen={() => {
+                toggleOpen();
+              }}
+            ></UserModule>
+          </NavList>
+        );
+      case NavType.AUTH:
+        return (
+          <Auth
+            changeNavState={() => {
+              toggleOpen();
+              setNavType(NavType.NAV_LIST);
+            }}
+          ></Auth>
+        );
+      case NavType.JOIN_WAIT_LIST:
+        return (
+          <WaitListModalContent
+            changeNavState={() => {
+              toggleOpen();
+              setNavType(NavType.NAV_LIST);
+            }}
+          ></WaitListModalContent>
+        );
+      case NavType.CONNECT:
+        return (
+          <ConnectModalContent
+            changeNavState={() => {
+              toggleOpen();
+              setNavType(NavType.NAV_LIST);
+            }}
+          ></ConnectModalContent>
+        );
+    }
+  }, [navType, navList, toggleOpen]);
 
   return (
     <div className="flex h-[4rem] w-screen items-center overflow-hidden text-neutral-off-black">
@@ -75,7 +132,7 @@ const Navbar: FC<NavbarProps> = (props) => {
           toggleOpen();
         }}
       >
-        {navType === NavType.NAV_LIST && (
+        {/* {navType === NavType.NAV_LIST && (
           <NavList
             navList={navList}
             toggleOpen={() => {
@@ -99,7 +156,8 @@ const Navbar: FC<NavbarProps> = (props) => {
               setNavType(NavType.NAV_LIST);
             }}
           ></Auth>
-        )}
+        )} */}
+        {NavContentNode}
       </NavContainer>
       <div className="relative flex h-full w-full items-center justify-center gap-[8px]">
         <Image src={HackLogo} alt="logo" width={134}></Image>

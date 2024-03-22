@@ -5,7 +5,7 @@ import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
 import { motion } from 'framer-motion';
 import { itemVariants } from '../constant';
-import { NavType } from '..';
+import { NavType } from '@/components/Mobile/MobLayout/constant';
 import { BiUser, BiLockAlt, BiLogInCircle } from 'react-icons/bi';
 import Link from 'next/link';
 import { useGlobalStore } from '@/store/zustand/globalStore';
