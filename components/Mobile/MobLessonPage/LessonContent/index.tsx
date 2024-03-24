@@ -5,7 +5,10 @@ import {
   LessonContent,
   NotionComponent
 } from '@/components/Web/Business/Renderer/type';
-import { ExpandDataType, useLessonExpand } from '@/hooks/useLessonExpand';
+import {
+  ExpandDataType,
+  useLessonExpand
+} from '@/hooks/courses/useLessonExpand';
 import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
 import {
   FC,

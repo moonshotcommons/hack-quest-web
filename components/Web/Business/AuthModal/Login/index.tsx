@@ -1,5 +1,5 @@
 import { BurialPoint } from '@/helper/burialPoint';
-import { useValidator } from '@/hooks/useValidator';
+import { useValidator } from '@/hooks/auth/useValidator';
 import { motion } from 'framer-motion';
 import { FC, useState } from 'react';
 import UserLogin from '../UserLogin';

@@ -3,9 +3,12 @@ import { useEffect } from 'react';
 
 import { V2_LANDING_PATH, isNoNeedUserInfo } from '@/constants/nav';
 import { getToken } from '@/helper/user-token';
-import { useRedirect } from '../useRedirect';
+import { useRedirect } from '../router/useRedirect';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
-import { useCheckPathname, useCustomPathname } from '../useCheckPathname';
+import {
+  useCheckPathname,
+  useCustomPathname
+} from '@/hooks/router/useCheckPathname';
 
 function useNavAuth(waitingUserData: boolean) {
   const userInfo = useUserStore((state) => state.userInfo);

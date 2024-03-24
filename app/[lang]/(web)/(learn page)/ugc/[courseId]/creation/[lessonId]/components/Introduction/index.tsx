@@ -13,10 +13,10 @@ import { CourseLanguageType, CourseType } from '@/service/webApi/course/type';
 import webApi from '@/service';
 import { useShallow } from 'zustand/react/shallow';
 import { message } from 'antd';
-import { useRedirect } from '@/hooks/useRedirect';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 import { UgcCreateContext } from '../../../constant/type';
-import useUgcCreationDataHandle from '@/hooks/useUgcCreationDataHandle';
+import useUgcCreationDataHandle from '@/hooks/courses/useUgcCreationDataHandle';
 
 interface IntroductionProp {}
 

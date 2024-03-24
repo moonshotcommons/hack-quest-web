@@ -6,19 +6,22 @@ import Checkbox from '@/components/Common/Checkbox';
 import Input from '@/components/Common/Input';
 import { BurialPoint } from '@/helper/burialPoint';
 import { setToken } from '@/helper/user-token';
-import { useValidator } from '@/hooks/useValidator';
+import { useValidator } from '@/hooks/auth/useValidator';
 import webApi from '@/service';
 import { LoginParamsType } from '@/service/webApi/user/type';
 import { useDebounceFn, useKeyPress } from 'ahooks';
 import { message } from 'antd';
 import { omit } from 'lodash-es';
-import { useRedirect } from '@/hooks/useRedirect';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
 import { cn } from '@/helper/utils';
 import { useRouter } from 'next/navigation';
 import { AuthContext } from '..';
-import { useCheckPathname, useCustomPathname } from '@/hooks/useCheckPathname';
+import {
+  useCheckPathname,
+  useCustomPathname
+} from '@/hooks/router/useCheckPathname';
 
 interface UserLoginProps {
   // children: ReactNode;

@@ -1,7 +1,7 @@
 'use client';
 import { FC } from 'react';
 import { useRouter } from 'next/navigation';
-import { useRedirect } from '@/hooks/useRedirect';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import LinkArrow from '@/components/Common/LinkArrow';
 interface BackButtonProps {
   type: 'learningTrack' | 'practices' | 'electives';

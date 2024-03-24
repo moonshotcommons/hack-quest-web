@@ -8,7 +8,7 @@ import {
 } from '@/service/webApi/course/type';
 import { ElectiveCourseType } from '@/service/webApi/elective/type';
 import { useRequest } from 'ahooks';
-import { useRedirect } from '../useRedirect';
+import { useRedirect } from '../router/useRedirect';
 import { message } from 'antd';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { isMobile } from 'react-device-detect';

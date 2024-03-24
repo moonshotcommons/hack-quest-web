@@ -1,7 +1,7 @@
 'use client';
 import Button from '@/components/Common/Button';
 import { BurialPoint } from '@/helper/burialPoint';
-import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
+import { useJumpLeaningLesson } from '@/hooks/courses/useJumpLeaningLesson';
 import { CourseDetailType, CourseUnitType } from '@/service/webApi/course/type';
 import { FC, useContext, useMemo } from 'react';
 import { StatusButtonType } from '@/components/Web/DetailPageV2/StatusButton/type';

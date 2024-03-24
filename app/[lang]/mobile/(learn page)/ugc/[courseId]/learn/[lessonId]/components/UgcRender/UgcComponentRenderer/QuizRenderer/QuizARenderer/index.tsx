@@ -5,7 +5,7 @@ import {
   changeTextareaHeight,
   elementVibration
 } from '@/helper/utils';
-import { AnswerState, useParseQuiz } from '@/hooks/useParseQuiz';
+import { AnswerState, useParseQuiz } from '@/hooks/courses/useParseQuiz';
 import webApi from '@/service';
 import { FC, useContext, useEffect, useRef, useState } from 'react';
 import { QuizContext } from '..';
@@ -20,7 +20,7 @@ import {
   UgcContext
 } from '@/app/[lang]/(web)/(learn page)/ugc/[courseId]/learn/constants/type';
 import emitter from '@/store/emitter';
-import { useGetQuizsCompleted } from '@/hooks/useCoursesHooks/useGetQuizsCompleted';
+import { useGetQuizsCompleted } from '@/hooks/courses/useGetQuizsCompleted';
 interface QuizARendererProps {
   parent: any;
   quiz: QuizAType;

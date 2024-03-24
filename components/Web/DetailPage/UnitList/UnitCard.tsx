@@ -4,7 +4,7 @@ import { Theme } from '@/constants/enum';
 import { BurialPoint } from '@/helper/burialPoint';
 import { computeProgress } from '@/helper/formate';
 import { cn, getLessonLink } from '@/helper/utils';
-import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
+import { useJumpLeaningLesson } from '@/hooks/courses/useJumpLeaningLesson';
 import webApi from '@/service';
 import {
   CourseDetailType,

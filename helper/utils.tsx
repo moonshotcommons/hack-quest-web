@@ -4,7 +4,7 @@ import { CourseTrackType, CourseType } from '@/service/webApi/course/type';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
-import { JumpLeaningLessonType } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
+import { JumpLeaningLessonType } from '@/hooks/courses/useJumpLeaningLesson';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 import PracticeImg1 from '@/public/images/home/practices_img1.png';
 import PracticeImg2 from '@/public/images/home/practices_img2.png';

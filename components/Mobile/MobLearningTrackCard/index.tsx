@@ -4,10 +4,10 @@ import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import CourseTags from '@/components/Web/Business/CourseTags';
-import { useRedirect } from '@/hooks/useRedirect';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import { cn } from '@/helper/utils';
 import LearningTrackImg from '@/public/images/home/learningtrack_img.png';
-import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
+import { useJumpLeaningLesson } from '@/hooks/courses/useJumpLeaningLesson';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 interface MobLearningTrackCardProps {
   learningTrack: LearningTrackDetailType;

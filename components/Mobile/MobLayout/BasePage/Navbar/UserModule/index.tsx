@@ -1,6 +1,6 @@
 import { BurialPoint } from '@/helper/burialPoint';
 import { FC } from 'react';
-import { useRedirect } from '@/hooks/useRedirect';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
 import { motion } from 'framer-motion';
@@ -10,7 +10,7 @@ import { BiUser, BiLockAlt, BiLogInCircle } from 'react-icons/bi';
 import Link from 'next/link';
 import { useGlobalStore } from '@/store/zustand/globalStore';
 import { V2_LANDING_PATH, isNoNeedUserInfo } from '@/constants/nav';
-import { useCustomPathname } from '@/hooks/useCheckPathname';
+import { useCustomPathname } from '@/hooks/router/useCheckPathname';
 
 interface UserModuleProps {
   changeNavType: (type: NavType) => void;

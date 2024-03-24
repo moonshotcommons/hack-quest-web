@@ -14,7 +14,7 @@ import {
 } from '@/app/[lang]/(web)/(learn page)/ugc/[courseId]/learn/constants/type';
 import { QuizContext } from '..';
 import emitter from '@/store/emitter';
-import { useGetQuizsCompleted } from '@/hooks/useCoursesHooks/useGetQuizsCompleted';
+import { useGetQuizsCompleted } from '@/hooks/courses/useGetQuizsCompleted';
 interface QuizCRendererProps {
   parent: any;
   quiz: any;

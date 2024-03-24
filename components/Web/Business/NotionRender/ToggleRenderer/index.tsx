@@ -1,7 +1,7 @@
 import { FC, useContext, useEffect, useState } from 'react';
 
 import ComponentRenderer from '@/components/Web/Business/Renderer/ComponentRenderer';
-import { ExpandDataType } from '@/hooks/useLessonExpand';
+import { ExpandDataType } from '@/hooks/courses/useLessonExpand';
 import { VscAdd, VscChromeMinimize } from 'react-icons/vsc';
 
 import {

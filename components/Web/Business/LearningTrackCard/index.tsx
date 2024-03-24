@@ -2,7 +2,7 @@ import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import Image from 'next/image';
 import React from 'react';
 import CourseTags from '@/components/Web/Business/CourseTags';
-import { useRedirect } from '@/hooks/useRedirect';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import LearningTrackImg from '@/public/images/home/learningtrack_img.png';
 import TrackTag from '@/components/Common/TrackTag';
 import CompletedIcon from '@/components/Common/Icon/Completed';

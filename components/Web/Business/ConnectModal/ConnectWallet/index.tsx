@@ -1,4 +1,4 @@
-import Button from '@/components/Common/Button';
+import { ConnectButton } from '@/components/Common/ConnectButton';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
@@ -10,7 +10,7 @@ const ConnectWallet: FC<ConnectWalletProps> = (props) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
   return (
-    <div className="py-[64px]">
+    <div className="flex flex-col gap-16 py-[64px]">
       <div className="flex justify-between gap-4 rounded-[16px] bg-neutral-off-white p-4">
         <p className="body-m">{t('connectWalletWarn')}</p>
         <svg
@@ -52,12 +52,13 @@ const ConnectWallet: FC<ConnectWalletProps> = (props) => {
           />
         </svg>
       </div>
-      <Button
+      {/* <Button
         type="primary"
         className="button-text-l mt-[64px] w-[270px] px-0 py-4 font-medium uppercase text-neutral-black"
       >
         {t('connectWallet')}
-      </Button>
+      </Button> */}
+      <ConnectButton t={t} />
     </div>
   );
 };

@@ -6,8 +6,8 @@ import { GoCheck } from 'react-icons/go';
 import { FiLock } from 'react-icons/fi';
 import { ElectiveLessonType, PageType } from '@/service/webApi/elective/type';
 import { useGetElectives } from '../hooks/useGetElectives';
-import { useGetLessonLink } from '@/hooks/useCoursesHooks/useGetLessonLink';
-import { useRedirect } from '@/hooks/useRedirect';
+import { useGetLessonLink } from '@/hooks/courses/useGetLessonLink';
+import { useRedirect } from '@/hooks/router/useRedirect';
 
 interface SidebarProps {
   lesson: ElectiveLessonType;

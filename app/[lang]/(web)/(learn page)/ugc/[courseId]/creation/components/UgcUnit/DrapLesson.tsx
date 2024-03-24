@@ -6,7 +6,7 @@ import {
   UnitMenuType
 } from '../../constant/type';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
-import { useRedirect } from '@/hooks/useRedirect';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import { cloneDeep } from 'lodash-es';
 import { useDrag } from 'react-dnd';
 import { isNull } from '@/helper/utils';

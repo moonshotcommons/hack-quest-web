@@ -9,7 +9,7 @@ import React, {
 } from 'react';
 import { useCycle } from 'framer-motion';
 
-import { useRedirect } from '@/hooks/useRedirect';
+import { useRedirect } from '@/hooks/router/useRedirect';
 
 import { useMissionCenterStore } from '@/store/zustand/missionCenterStore';
 import NavContainer from './NavContainer';
@@ -17,7 +17,7 @@ import NavList from './NavList';
 import Auth from './Auth';
 import UserModule from './UserModule';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
-import { useCheckPathname } from '@/hooks/useCheckPathname';
+import { useCheckPathname } from '@/hooks/router/useCheckPathname';
 import { NavbarListType } from '@/components/Web/Layout/BasePage/Navbar/type';
 import HackLogo from '@/public/images/logo/light-footer-logo.svg';
 import { LangContext } from '@/components/Provider/Lang';

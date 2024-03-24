@@ -5,7 +5,7 @@ import IntendedLearners from './components/IntendedLearners';
 import KnowledgeGain from './components/KnowledgeGain';
 import ContentCreate from './components/ContentCreate';
 import { useRequest } from 'ahooks';
-import useUgcCreationDataHandle from '@/hooks/useUgcCreationDataHandle';
+import useUgcCreationDataHandle from '@/hooks/courses/useUgcCreationDataHandle';
 import ChooseLesson from './components/ChooseLesson';
 import { CreationPageKey, UgcCreateContext } from '../constant/type';
 import { lessonIdKeys } from '../constant/data';

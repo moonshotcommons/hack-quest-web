@@ -7,7 +7,7 @@ import {
 import Button from '@/components/Common/Button';
 import { ElectiveCourseDetailType } from '@/service/webApi/elective/type';
 import { ElectiveDetailContext } from '../../Provider/ElectiveDetailProvider';
-import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
+import { useJumpLeaningLesson } from '@/hooks/courses/useJumpLeaningLesson';
 
 interface ElectiveStatusButtonProps {
   courseDetail: ElectiveCourseDetailType;

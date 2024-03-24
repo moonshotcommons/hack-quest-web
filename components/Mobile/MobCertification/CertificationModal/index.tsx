@@ -8,7 +8,7 @@ import Image from 'next/image';
 import { forwardRef, useImperativeHandle, useState } from 'react';
 import GettingCertificate from './GettingCertificate';
 import NotCertified from './NotCertified';
-import useGetHeight from '@/hooks/useGetHeight';
+import useGetHeight from '@/hooks/dom/useGetHeight';
 
 interface CertificationModalProps {
   certification: CertificationType;

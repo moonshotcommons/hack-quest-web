@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useRedirect } from '@/hooks/useRedirect';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import { IoExitOutline } from 'react-icons/io5';
 import { MenuLink } from '../../BasePage/Navbar/type';
 import { useCourseStore } from '@/store/zustand/courseStore';

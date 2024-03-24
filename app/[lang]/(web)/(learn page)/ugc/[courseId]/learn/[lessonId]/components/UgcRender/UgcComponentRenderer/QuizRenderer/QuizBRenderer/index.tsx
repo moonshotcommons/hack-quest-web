@@ -22,7 +22,7 @@ import {
   UgcContext
 } from '@/app/[lang]/(web)/(learn page)/ugc/[courseId]/learn/constants/type';
 import emitter from '@/store/emitter';
-import { useGetQuizsCompleted } from '@/hooks/useCoursesHooks/useGetQuizsCompleted';
+import { useGetQuizsCompleted } from '@/hooks/courses/useGetQuizsCompleted';
 interface QuizBRendererProps {
   parent: any;
   quiz: QuizBType;

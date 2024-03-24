@@ -8,7 +8,7 @@ import {
   defaultCourseInformation
 } from '../../constant/type';
 import { lessonIdKeys } from '../../constant/data';
-import { useRedirect } from '@/hooks/useRedirect';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 import { UGCCourseUnitType } from '@/service/webApi/course/type';
 interface UgcCreateProviderProps {

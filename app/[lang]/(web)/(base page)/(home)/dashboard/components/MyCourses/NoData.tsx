@@ -1,5 +1,5 @@
 import Button from '@/components/Common/Button';
-import { useRedirect } from '@/hooks/useRedirect';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import { ProcessType } from '@/service/webApi/course/type';
 interface NoDataType {
   curTab: ProcessType;

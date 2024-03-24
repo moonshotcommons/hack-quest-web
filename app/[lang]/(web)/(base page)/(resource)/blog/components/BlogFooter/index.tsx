@@ -10,7 +10,7 @@ import Link from 'next/link';
 import React, { useMemo, useState } from 'react';
 import { BsArrowRight } from 'react-icons/bs';
 import Button from '@/components/Common/Button';
-import { useRedirect } from '@/hooks/useRedirect';
+import { useRedirect } from '@/hooks/router/useRedirect';
 
 interface BlogFooterProp {
   backTop?: VoidFunction;

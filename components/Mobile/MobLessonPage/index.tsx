@@ -4,8 +4,8 @@ import {
   NotionComponent
 } from '@/components/Web/Business/Renderer/type';
 import { BurialPoint } from '@/helper/burialPoint';
-import { useGetLessonContent } from '@/hooks/useCoursesHooks/useGetLessenContent';
-import { useGotoNextLesson } from '@/hooks/useCoursesHooks/useGotoNextLesson';
+import { useGetLessonContent } from '@/hooks/courses/useGetLessenContent';
+import { useGotoNextLesson } from '@/hooks/courses/useGotoNextLesson';
 import webApi from '@/service';
 import {
   CompleteStateType,
@@ -31,7 +31,7 @@ import LessonSidebar from './LessonSidebar';
 import LessonNavbar from './LessonNavbar';
 import LessonProgress from './LessonProgress';
 import MobCompleteModal from '../MobCompleteModal';
-import useGetHeight from '@/hooks/useGetHeight';
+import useGetHeight from '@/hooks/dom/useGetHeight';
 
 interface MobLessonPageProps {
   lessonId: string;

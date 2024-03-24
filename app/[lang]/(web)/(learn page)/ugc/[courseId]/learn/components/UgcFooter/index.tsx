@@ -6,9 +6,9 @@ import {
   FooterButtonText,
   UgcContext
 } from '../../constants/type';
-import { useUnitNavList } from '@/hooks/useUnitNavList';
+import { useUnitNavList } from '@/hooks/courses/useUnitNavList';
 import { CourseType } from '@/service/webApi/course/type';
-import { useGotoNextLesson } from '@/hooks/useCoursesHooks/useGotoNextLesson';
+import { useGotoNextLesson } from '@/hooks/courses/useGotoNextLesson';
 import CompleteModal from '@/components/Web/Business/CompleteModal';
 import emitter from '@/store/emitter';
 

@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 
 import '@/styles/globals.css';
 import InitializeUserProvider from '@/components/Provider/InitializeUser';
-
+import '@rainbow-me/rainbowkit/styles.css';
 import ThemeContextProvider from '@/store/context/theme';
 import Script from 'next/script';
 import ConfigProvider from '@/components/Provider/Config';

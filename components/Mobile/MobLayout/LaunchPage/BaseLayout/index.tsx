@@ -4,7 +4,10 @@ import React, { ReactNode } from 'react';
 import NavBar, { NavbarProps } from '../Navbar';
 
 // import Breadcrumb from '@/components/Web/Business/Breadcrumb';
-import { useCheckPathname, useCustomPathname } from '@/hooks/useCheckPathname';
+import {
+  useCheckPathname,
+  useCustomPathname
+} from '@/hooks/router/useCheckPathname';
 
 export interface V2LayoutProps {
   navbarData: NavbarProps;

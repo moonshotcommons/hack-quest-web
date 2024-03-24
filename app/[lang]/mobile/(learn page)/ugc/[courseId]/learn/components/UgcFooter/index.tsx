@@ -2,7 +2,7 @@
 import Button from '@/components/Common/Button';
 import React, { useContext, useEffect } from 'react';
 import { CourseType } from '@/service/webApi/course/type';
-import { useGotoNextLesson } from '@/hooks/useCoursesHooks/useGotoNextLesson';
+import { useGotoNextLesson } from '@/hooks/courses/useGotoNextLesson';
 import emitter from '@/store/emitter';
 import MobCompleteModal from '@/components/Mobile/MobCompleteModal';
 import {

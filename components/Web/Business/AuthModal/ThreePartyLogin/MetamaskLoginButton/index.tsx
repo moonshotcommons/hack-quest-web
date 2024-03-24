@@ -1,9 +1,8 @@
 import Button from '@/components/Common/Button';
 import { BurialPoint } from '@/helper/burialPoint';
 import { setToken } from '@/helper/user-token';
-import { errorMessage } from '@/helper/ui';
-import useIsPc from '@/hooks/useIsPc';
-import { useRedirect } from '@/hooks/useRedirect';
+import useIsPc from '@/hooks/utils/useIsPc';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import Metamask from '@/public/images/login/metamask.svg';
 import webApi from '@/service';
 import { LoginResponse, ThirdPartyAuthType } from '@/service/webApi/user/type';
@@ -11,18 +10,18 @@ import { useRequest } from 'ahooks';
 import { message } from 'antd';
 import { omit } from 'lodash-es';
 import Image from 'next/image';
-import React, { useEffect, useMemo, useState } from 'react';
-import { useConnect } from 'wagmi';
+import React, { useState } from 'react';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
 import { useGlobalStore } from '@/store/zustand/globalStore';
+import { ConnectButton } from '@rainbow-me/rainbowkit';
+// import { ConnectButton } from '@/components/Common/ConnectButton';
 interface MetamaskLoginButtonProps {}
 
 const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
-  const [isMounted, setIsMounted] = useState(false);
   const isPc = useIsPc();
-  const [tipsOpen, setTipsOpen] = useState(false);
   const { redirectToUrl } = useRedirect();
+  const userInfo = useUserStore((state) => state.userInfo);
 
   const { setAuthType, setUserInfo, setAuthModalOpen } = useUserStore(
     useShallow((state) => ({
@@ -65,62 +64,85 @@ const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
     }
   );
 
-  const { connectAsync, connectors, error, isLoading, pendingConnector, data } =
-    useConnect();
+  // const { connectAsync, connectors, error, data } = useConnect();
 
-  const metamaskConnector = useMemo(() => {
-    return connectors.find((item) => item.id === 'metaMask');
-  }, [connectors]);
+  // const metamaskConnector = useMemo(() => {
+  //   return connectors.find((item) => item.id === 'metaMask');
+  // }, [connectors]);
 
-  const { run: loginByMetaMask, loading: metamaskLoading } = useRequest(
-    async () => {
-      if (metamaskConnector) {
-        try {
-          const isAccount = await metamaskConnector.isAuthorized();
+  // const { run: loginByMetaMask, loading: metamaskLoading } = useRequest(
+  //   async () => {
+  //     if (metamaskConnector) {
+  //       try {
+  //         const isAccount = await metamaskConnector.isAuthorized();
 
-          let account = null;
-          if (isAccount) {
-            account = await metamaskConnector.getAccount();
+  //         let account = null;
+  //         if (isAccount) {
+  //           account = await metamaskConnector.getAccount();
+  //         }
+
+  //         if (!account) {
+  //           const connectRes = await connectAsync({
+  //             connector: metamaskConnector
+  //           });
+  //           account = connectRes.account;
+  //         }
+  //         if (account) {
+  //           const res = await webApi.userApi.walletVerify(account);
+  //           if (res.status === 'UNACTIVATED') {
+  //             setAuthType({
+  //               type: AuthType.INVITE_CODE,
+  //               params: {
+  //                 registerType: ThirdPartyAuthType.METAMASK,
+  //                 ...res
+  //               }
+  //             });
+  //             // skipInviteCode(res.token);
+  //           } else {
+  //             BurialPoint.track('signup-Metamask第三方登录code验证成功');
+  //             setUserInfo(omit(res, 'token'));
+  //             setToken(res.token);
+  //             setAuthModalOpen(false);
+  //             redirectToUrl('/dashboard');
+  //           }
+  //         }
+  //       } catch (err) {
+  //         errorMessage(err);
+  //       }
+  //     } else {
+  //       message.error('No metaMask connector found!');
+  //     }
+  //   },
+  //   { manual: true }
+  // );
+
+  // useEffect(() => {
+  //   error?.message && message.error(error?.message);
+  // }, [error]);
+
+  const [loginPending, setLoginPending] = useState(false);
+
+  const login = (address: string) => {
+    webApi.userApi.walletVerify(address).then((res) => {
+      console.log(res);
+      if (res.status === 'UNACTIVATED') {
+        setAuthType({
+          type: AuthType.INVITE_CODE,
+          params: {
+            registerType: ThirdPartyAuthType.METAMASK,
+            ...res
           }
-
-          if (!account) {
-            const connectRes = await connectAsync({
-              connector: metamaskConnector
-            });
-            account = connectRes.account;
-          }
-          if (account) {
-            const res = await webApi.userApi.walletVerify(account);
-            if (res.status === 'UNACTIVATED') {
-              setAuthType({
-                type: AuthType.INVITE_CODE,
-                params: {
-                  registerType: ThirdPartyAuthType.METAMASK,
-                  ...res
-                }
-              });
-              // skipInviteCode(res.token);
-            } else {
-              BurialPoint.track('signup-Metamask第三方登录code验证成功');
-              setUserInfo(omit(res, 'token'));
-              setToken(res.token);
-              setAuthModalOpen(false);
-              redirectToUrl('/dashboard');
-            }
-          }
-        } catch (err) {
-          errorMessage(err);
-        }
+        });
+        // skipInviteCode(res.token);
       } else {
-        message.error('No metaMask connector found!');
+        BurialPoint.track('signup-Metamask第三方登录code验证成功');
+        setUserInfo(omit(res, 'token'));
+        setToken(res.token);
+        setAuthModalOpen(false);
+        redirectToUrl('/dashboard');
       }
-    },
-    { manual: true }
-  );
-
-  useEffect(() => {
-    error?.message && message.error(error?.message);
-  }, [error]);
+    });
+  };
 
   return (
     <>
@@ -144,7 +166,7 @@ const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
       >
         <Image src={Metamask} width={24} height={24} alt="MetaMask"></Image>
       </Button> */}
-      <Button
+      {/* <Button
         ghost
         loading={metamaskLoading}
         disabled={metamaskLoading}
@@ -162,7 +184,118 @@ const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
         className="body-m cursor-pointer rounded-[.75rem] border border-neutral-light-gray p-3"
       >
         <Image src={Metamask} width={24} height={24} alt="MetaMask"></Image>
-      </Button>
+      </Button> */}
+      <ConnectButton.Custom>
+        {({
+          account,
+          chain,
+          openAccountModal,
+          openChainModal,
+          openConnectModal,
+          authenticationStatus,
+          mounted
+        }) => {
+          // Note: If your app doesn't use authentication, you
+          // can remove all 'authenticationStatus' checks
+          const ready = mounted && authenticationStatus !== 'loading';
+          const connected =
+            ready &&
+            account &&
+            chain &&
+            (!authenticationStatus || authenticationStatus === 'authenticated');
+
+          return (
+            <div
+              {...(!ready && {
+                'aria-hidden': true,
+                style: {
+                  opacity: 0,
+                  pointerEvents: 'none',
+                  userSelect: 'none'
+                }
+              })}
+            >
+              {(() => {
+                if (!connected || !userInfo) {
+                  if (loginPending && connected) {
+                    login(account.address);
+                    setLoginPending(false);
+                  }
+                  return (
+                    <Button
+                      ghost
+                      loading={authenticationStatus === 'loading'}
+                      disabled={authenticationStatus === 'loading'}
+                      onClick={() => {
+                        if (connected) {
+                          login(account.address);
+                        } else {
+                          setLoginPending(true);
+                          openConnectModal();
+                        }
+                      }}
+                      className="body-m cursor-pointer rounded-[.75rem] border border-neutral-light-gray p-3"
+                    >
+                      <Image
+                        src={Metamask}
+                        width={24}
+                        height={24}
+                        alt="MetaMask"
+                      ></Image>
+                    </Button>
+                  );
+                }
+                // if (chain.unsupported) {
+                //   return (
+                //     <button onClick={openChainModal} type="button">
+                //       Wrong network
+                //     </button>
+                //   );
+                // }
+
+                // return (
+                //   <div style={{ display: 'flex', gap: 12 }}>
+                //     <button
+                //       onClick={openChainModal}
+                //       style={{ display: 'flex', alignItems: 'center' }}
+                //       type="button"
+                //     >
+                //       {chain.hasIcon && (
+                //         <div
+                //           style={{
+                //             background: chain.iconBackground,
+                //             width: 12,
+                //             height: 12,
+                //             borderRadius: 999,
+                //             overflow: 'hidden',
+                //             marginRight: 4
+                //           }}
+                //         >
+                //           {chain.iconUrl && (
+                //             <img
+                //               alt={chain.name ?? 'Chain icon'}
+                //               src={chain.iconUrl}
+                //               style={{ width: 12, height: 12 }}
+                //             />
+                //           )}
+                //         </div>
+                //       )}
+                //       {chain.name}
+                //     </button>
+
+                //     <button onClick={openAccountModal} type="button">
+                //       {account.displayName}
+                //       {account.displayBalance
+                //         ? ` (${account.displayBalance})`
+                //         : ''}
+                //     </button>
+                //   </div>
+                // );
+              })()}
+            </div>
+          );
+        }}
+      </ConnectButton.Custom>
     </>
   );
 };

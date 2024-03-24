@@ -9,10 +9,10 @@ import Login from './Login';
 import SignUp from './SignUp';
 import VerifyConfirmed from './VerifyConfirmed';
 import CheckInviteCode from './CheckInviteCode';
-import { useRedirect } from '@/hooks/useRedirect';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import { motion } from 'framer-motion';
-import { useCustomPathname } from '@/hooks/useCheckPathname';
-import useGetHeight from '@/hooks/useGetHeight';
+import { useCustomPathname } from '@/hooks/router/useCheckPathname';
+import useGetHeight from '@/hooks/dom/useGetHeight';
 interface AuthModalProps {
   changeNavState: VoidFunction;
 }

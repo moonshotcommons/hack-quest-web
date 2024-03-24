@@ -11,7 +11,7 @@ import MiniElectiveDetailModal, {
 } from '@/components/Web/Business/MiniElectiveDetailModal';
 import { BurialPoint } from '@/helper/burialPoint';
 import { QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
-import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
+import { useJumpLeaningLesson } from '@/hooks/courses/useJumpLeaningLesson';
 interface MiniElectiveCardProp {
   elective: EcosystemElectiveType & ElectiveCourseType;
 }

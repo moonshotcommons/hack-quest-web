@@ -2,7 +2,7 @@
 import { FC, createContext, useEffect, useMemo, useState } from 'react';
 
 import { motion } from 'framer-motion';
-import useGetHeight from '@/hooks/useGetHeight';
+import useGetHeight from '@/hooks/dom/useGetHeight';
 import { useRequest } from 'ahooks';
 import { errorMessage } from '@/helper/ui';
 import InputEmail from './InputEmail';

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useGetPageInfo } from '../useGetPageInfo';
+import { useGetPageInfo } from '@/hooks/dom/useGetPageInfo';
 import { MOBILE_NAVBAR_HEIGHT } from '@/components/Mobile/MobLayout/BasePage/Navbar/constant';
 
 const useGetHeight = () => {

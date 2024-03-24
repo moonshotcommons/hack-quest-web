@@ -1,7 +1,7 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { useCallback } from 'react';
-import useGetDevice from '../useGetDevice';
+import useGetDevice from '../utils/useGetDevice';
 
 export const useRedirect = () => {
   const router = useRouter();

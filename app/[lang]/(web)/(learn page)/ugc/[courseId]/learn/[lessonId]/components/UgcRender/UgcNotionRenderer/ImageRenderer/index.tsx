@@ -1,5 +1,5 @@
 import { NotionComponent } from '@/components/Web/Business/Renderer/type';
-import useGetDevice from '@/hooks/useGetDevice';
+import useGetDevice from '@/hooks/utils/useGetDevice';
 import { Image } from 'antd';
 import { FC } from 'react';
 

@@ -3,7 +3,7 @@ import { FC, ReactNode } from 'react';
 import UgcSidebar from './components/UgcSidebar';
 import UgcProvider from '@/app/[lang]/(web)/(learn page)/ugc/[courseId]/learn/components/UgcProvider';
 import UgcFooter from './components/UgcFooter';
-import useGetHeight from '@/hooks/useGetHeight';
+import useGetHeight from '@/hooks/dom/useGetHeight';
 
 interface LearnLayoutProps {
   children: ReactNode;

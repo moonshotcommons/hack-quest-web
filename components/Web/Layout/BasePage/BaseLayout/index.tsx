@@ -4,7 +4,7 @@ import React, { ReactNode, useEffect } from 'react';
 import NavBar, { NavBarProps } from '../Navbar';
 
 // import Breadcrumb from '@/components/Web/Business/Breadcrumb';
-import { useCheckPathname } from '@/hooks/useCheckPathname';
+import { useCheckPathname } from '@/hooks/router/useCheckPathname';
 
 export interface V2LayoutProps {
   navbarData: NavBarProps;

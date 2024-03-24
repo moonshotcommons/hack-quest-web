@@ -1,5 +1,5 @@
 'use client';
-import { useNeedPCRedirect } from '@/hooks/useNeedPCRedirect';
+import { useNeedPCRedirect } from '@/hooks/router/useNeedPCRedirect';
 import { FC, ReactNode } from 'react';
 
 interface LearnLayoutProps {

@@ -1,4 +1,4 @@
-import { useUnitNavList } from '@/hooks/useUnitNavList';
+import { useUnitNavList } from '@/hooks/courses/useUnitNavList';
 import React, { useEffect } from 'react';
 import { CourseLessonType } from '@/service/webApi/course/type';
 

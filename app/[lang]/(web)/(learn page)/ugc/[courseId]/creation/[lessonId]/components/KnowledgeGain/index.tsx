@@ -14,11 +14,11 @@ import {
 } from '@/store/zustand/ugcCreationStore';
 import { useShallow } from 'zustand/react/shallow';
 import webApi from '@/service';
-import { useRedirect } from '@/hooks/useRedirect';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 import message from 'antd/es/message';
 import { UgcCreateContext } from '../../../constant/type';
-import useUgcCreationDataHandle from '@/hooks/useUgcCreationDataHandle';
+import useUgcCreationDataHandle from '@/hooks/courses/useUgcCreationDataHandle';
 
 interface KnowledgeGainProps {}
 

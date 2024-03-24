@@ -6,7 +6,7 @@ import {
   HackathonStatusType,
   HackathonType
 } from '@/service/webApi/resourceStation/type';
-import useDealhackathon from '@/hooks/useDealHackathonData';
+import useDealhackathon from '@/hooks/resource/useDealHackathonData';
 import { BurialPoint } from '@/helper/burialPoint';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 import Link from 'next/link';

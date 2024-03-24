@@ -3,7 +3,7 @@ import { Theme } from '@/constants/enum';
 import { BurialPoint } from '@/helper/burialPoint';
 import { computeProgress, tagFormate } from '@/helper/formate';
 import { cn } from '@/helper/utils';
-import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
+import { useJumpLeaningLesson } from '@/hooks/courses/useJumpLeaningLesson';
 import {
   CourseDetailType,
   ProjectCourseType,
@@ -18,7 +18,7 @@ import { VscAdd } from 'react-icons/vsc';
 import styled from 'styled-components';
 import { TrackListContext } from '../../LearningTrackDetail';
 import Button from '@/components/Common/Button';
-import { useRedirect } from '@/hooks/useRedirect';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 
 const CustomProgress = styled(Progress)`

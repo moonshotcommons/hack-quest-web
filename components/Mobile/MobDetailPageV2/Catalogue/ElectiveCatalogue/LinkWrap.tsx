@@ -3,7 +3,7 @@ import { cn, getLessonLink } from '@/helper/utils';
 import { CompleteStateType, CourseType } from '@/service/webApi/course/type';
 import { FC, ReactNode, useContext } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { useRedirect } from '@/hooks/useRedirect';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import {
   ElectiveCourseDetailType,
   PageType

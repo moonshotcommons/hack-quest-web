@@ -12,8 +12,8 @@ import VerifyConfirmed from './VerifyConfirmed';
 import CheckInviteCode from './CheckInviteCode';
 import { LuX } from 'react-icons/lu';
 import { V2_LANDING_PATH } from '@/constants/nav';
-import { useRedirect } from '@/hooks/useRedirect';
-import { useCustomPathname } from '@/hooks/useCheckPathname';
+import { useRedirect } from '@/hooks/router/useRedirect';
+import { useCustomPathname } from '@/hooks/router/useCheckPathname';
 interface AuthModalProps {}
 
 const logo = (

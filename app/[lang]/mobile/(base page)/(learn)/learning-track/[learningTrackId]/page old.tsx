@@ -2,7 +2,7 @@
 
 import Loading from '@/components/Common/Loading';
 import LearningTrackDetail from '@/components/Web/DetailPage/LearningTrackDetail';
-import { useGetLearningTrackDetail } from '@/hooks/useLearningTrackHooks/useLearningTrackDetail';
+import { useGetLearningTrackDetail } from '@/hooks/courses/useLearningTrackDetail';
 import type { NextPage } from 'next';
 interface IProps {}
 

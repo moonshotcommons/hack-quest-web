@@ -4,7 +4,7 @@ import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import { motion } from 'framer-motion';
-import useGetHeight from '@/hooks/useGetHeight';
+import useGetHeight from '@/hooks/dom/useGetHeight';
 import ConnectWallet from './ConnectWallet';
 import ConnectTwitter from './ConnectTwitter';
 import ConnectDiscord from './ConnectDiscord';

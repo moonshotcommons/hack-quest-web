@@ -8,7 +8,7 @@ import UgcTags from './UgcTags';
 import { UGCCourseType } from '@/service/webApi/course/type';
 import { MenuLink } from '../../Layout/BasePage/Navbar/type';
 import UgcCardCover from '@/public/images/home/instructor_cover.png';
-import { useRedirect } from '@/hooks/useRedirect';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import { CreationPageKey } from '@/app/[lang]/(web)/(learn page)/ugc/[courseId]/creation/constant/type';
 
 interface UgcCourseCardProp {

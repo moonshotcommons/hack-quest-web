@@ -4,7 +4,7 @@ import Checkbox from '@/components/Common/Checkbox';
 import Input from '@/components/Common/Input';
 import { BurialPoint } from '@/helper/burialPoint';
 import { cn } from '@/helper/utils';
-import { useValidator } from '@/hooks/useValidator';
+import { useValidator } from '@/hooks/auth/useValidator';
 import webApi from '@/service';
 import { useDebounceFn } from 'ahooks';
 import { message } from 'antd';

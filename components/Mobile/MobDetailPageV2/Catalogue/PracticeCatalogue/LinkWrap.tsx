@@ -9,7 +9,7 @@ import {
 import { FC, ReactNode, useContext, useMemo } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { UnitContext } from '../../Provider/UnitProvider';
-import { useRedirect } from '@/hooks/useRedirect';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import { QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import { PracticeDetailContext } from '../../Provider/PracticeDetailProvider';
 interface LinkWrapProps {

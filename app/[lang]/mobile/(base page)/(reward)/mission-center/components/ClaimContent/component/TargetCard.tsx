@@ -13,7 +13,7 @@ import {
   ShareWrap,
   shareList
 } from '@/components/Web/Business/InviteCodeCard/constant';
-import { useRedirect } from '@/hooks/useRedirect';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import { MissionCenterContext } from '../../../constants/type';
 import { useUserStore } from '@/store/zustand/userStore';
 import { ProfileHandleType } from '@/app/[lang]/(web)/(base page)/(profile)/user/profile/constants/type';
