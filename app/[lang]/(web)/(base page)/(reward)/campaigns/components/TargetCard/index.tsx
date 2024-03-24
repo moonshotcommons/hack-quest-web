@@ -6,7 +6,7 @@ import webApi from '@/service';
 import { TargetsType, TargetType } from '@/service/webApi/campaigns/type';
 import { MantleContext } from '../../constants/type';
 import { BurialPoint } from '@/helper/burialPoint';
-import { useRedirect } from '@/hooks/useRedirect';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 
 interface TargetCardProp {

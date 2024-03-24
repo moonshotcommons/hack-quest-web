@@ -12,7 +12,7 @@ import Mperson from '@/public/images/mission-center/m_person.png';
 import Image from 'next/image';
 import Button from '@/components/Common/Button';
 import webApi from '@/service';
-import { useGetMissionData } from '@/hooks/useGetMissionData';
+import { useGetMissionData } from '@/hooks/mission/useGetMissionData';
 import { FiX } from 'react-icons/fi';
 
 export enum TreasureType {

@@ -34,7 +34,7 @@ const ConnectModal: ForwardRefRenderFunction<
   const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
   const [open, setOpen] = useState(false);
   const [currentConnectType, setCurrentConnectType] = useState(
-    ConnectType.INVITE_CODE
+    ConnectType.WALLET
   );
 
   useImperativeHandle(

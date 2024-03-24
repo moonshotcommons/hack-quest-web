@@ -9,7 +9,7 @@ import PopBox from './PopBox';
 import { cn } from '@/helper/utils';
 import webApi from '@/service';
 import { useRequest } from 'ahooks';
-import { useGetMissionData } from '@/hooks/useGetMissionData';
+import { useGetMissionData } from '@/hooks/mission/useGetMissionData';
 import { useMissionCenterStore } from '@/store/zustand/missionCenterStore';
 import { useUserStore } from '@/store/zustand/userStore';
 

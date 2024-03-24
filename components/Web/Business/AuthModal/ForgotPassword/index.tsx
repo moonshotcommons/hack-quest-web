@@ -1,5 +1,5 @@
 import { BurialPoint } from '@/helper/burialPoint';
-import { useValidator } from '@/hooks/useValidator';
+import { useValidator } from '@/hooks/auth/useValidator';
 import webApi from '@/service';
 
 import { useDebounceFn } from 'ahooks';

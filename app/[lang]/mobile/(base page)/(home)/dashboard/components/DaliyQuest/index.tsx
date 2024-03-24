@@ -1,6 +1,6 @@
 'use client';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
-import { useGetMissionData } from '@/hooks/useGetMissionData';
+import { useGetMissionData } from '@/hooks/mission/useGetMissionData';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { HiArrowLongRight } from 'react-icons/hi2';

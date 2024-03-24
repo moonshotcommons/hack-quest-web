@@ -16,10 +16,10 @@ import {
 import Logo from '@/public/images/logo/logo.svg';
 import { GoCheck } from 'react-icons/go';
 import { FiLock } from 'react-icons/fi';
-import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
+import { useJumpLeaningLesson } from '@/hooks/courses/useJumpLeaningLesson';
 import { QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
-import { useGetLessonLink } from '@/hooks/useCoursesHooks/useGetLessonLink';
-import { useRedirect } from '@/hooks/useRedirect';
+import { useGetLessonLink } from '@/hooks/courses/useGetLessonLink';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 import Tags from '@/components/Common/Tags';
 import { HiCodeBracket } from 'react-icons/hi2';

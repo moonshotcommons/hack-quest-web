@@ -7,7 +7,7 @@ import Button from '@/components/Common/Button';
 import { CertificationCardContext } from '../CertificationCardProvider';
 import { CertificationType } from '@/service/webApi/campaigns/type';
 import { LearningTrackDetailContext } from '@/components/Mobile/MobDetailPageV2/Provider/LearningTrackDetailProvider';
-import { useRedirect } from '@/hooks/useRedirect';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import webApi from '@/service';
 import { useRequest } from 'ahooks';
 import { errorMessage } from '@/helper/ui';

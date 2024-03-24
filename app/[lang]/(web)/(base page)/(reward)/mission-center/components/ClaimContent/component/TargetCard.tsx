@@ -13,7 +13,7 @@ import {
   ShareWrap,
   shareList
 } from '@/components/Web/Business/InviteCodeCard/constant';
-import { useRedirect } from '@/hooks/useRedirect';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import { MissionCenterContext } from '../../../constants/type';
 import { useUserStore } from '@/store/zustand/userStore';
 import { message } from 'antd';

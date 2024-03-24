@@ -1,11 +1,11 @@
 import Button from '@/components/Common/Button';
 import { BurialPoint } from '@/helper/burialPoint';
 import { cn } from '@/helper/utils';
-import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
+import { useJumpLeaningLesson } from '@/hooks/courses/useJumpLeaningLesson';
 import { CourseType } from '@/service/webApi/course/type';
 import { FC, useCallback, useRef } from 'react';
 import { QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
-import { useRedirect } from '@/hooks/useRedirect';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import MobMiniElectiveDetailModal, {
   MiniElectiveDetailModalRef
 } from '../MobMiniElectiveDetailModal';

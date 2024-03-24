@@ -7,8 +7,8 @@ import {
   NavbarListType
 } from '@/components/Web/Layout/BasePage/Navbar/type';
 import { useGlobalStore } from '@/store/zustand/globalStore';
-import useGetHeight from '@/hooks/useGetHeight';
-import { useRedirect } from '@/hooks/useRedirect';
+import useGetHeight from '@/hooks/dom/useGetHeight';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';

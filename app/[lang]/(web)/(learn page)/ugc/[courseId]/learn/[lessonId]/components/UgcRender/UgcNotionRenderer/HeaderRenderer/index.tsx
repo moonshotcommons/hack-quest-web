@@ -1,5 +1,5 @@
 import ComponentRenderer from '@/components/Web/Business/Renderer/ComponentRenderer';
-import { ExpandDataType } from '@/hooks/useLessonExpand';
+import { ExpandDataType } from '@/hooks/courses/useLessonExpand';
 import { FC, useContext, useEffect, useMemo, useState } from 'react';
 
 import {

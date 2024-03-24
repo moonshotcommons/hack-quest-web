@@ -7,13 +7,13 @@ import Image from 'next/image';
 import { FC, useEffect, useRef, useState } from 'react';
 import Settings from './Settings';
 import { unLoginTab } from './data';
-import { useRedirect } from '@/hooks/useRedirect';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
 import { LoginResponse } from '@/service/webApi/user/type';
 import { useMissionCenterStore } from '@/store/zustand/missionCenterStore';
 import Button from '@/components/Common/Button';
-import { useCustomPathname } from '@/hooks/useCheckPathname';
+import { useCustomPathname } from '@/hooks/router/useCheckPathname';
 import { MenuLink } from '../Layout/BasePage/Navbar/type';
 import DropDownMotion from '@/components/Common/DropDownMotion';
 interface UserProps {}

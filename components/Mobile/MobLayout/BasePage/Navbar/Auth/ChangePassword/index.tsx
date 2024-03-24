@@ -1,7 +1,7 @@
 import Button from '@/components/Common/Button';
 import Input from '@/components/Common/Input';
-import { useRedirect } from '@/hooks/useRedirect';
-import { useValidator } from '@/hooks/useValidator';
+import { useRedirect } from '@/hooks/router/useRedirect';
+import { useValidator } from '@/hooks/auth/useValidator';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useDebounceFn } from 'ahooks';
 import { FC, useEffect, useState } from 'react';

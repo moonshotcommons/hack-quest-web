@@ -11,10 +11,10 @@ import Progress from '../Progress';
 import { useGetElectives } from '../hooks/useGetElectives';
 import { CompleteStateType, CourseType } from '@/service/webApi/course/type';
 import webApi from '@/service';
-import { useGetLessonLink } from '@/hooks/useCoursesHooks/useGetLessonLink';
+import { useGetLessonLink } from '@/hooks/courses/useGetLessonLink';
 import { useRequest } from 'ahooks';
 import JSConfetti from 'js-confetti';
-import { useRedirect } from '@/hooks/useRedirect';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import { RendererContext } from '@/components/Web/Business/Renderer/context';
 // import MiniElectiveCompletedModal, {
 //   MiniElectiveCompletedModalRef

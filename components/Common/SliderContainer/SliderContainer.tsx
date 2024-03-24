@@ -1,7 +1,7 @@
 import type { ReactElement } from 'react';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 
-import useResizeObserver from '@/hooks/useDomHooks/useResizeObserver';
+import useResizeObserver from '@/hooks/dom/useResizeObserver';
 import LeftArrowIcon from '../Icon/LeftArrow';
 import RightArrowIcon from '../Icon/RightArrow';
 

@@ -6,7 +6,7 @@ import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
 import { LoginResponse } from '@/service/webApi/user/type';
 import Button from '@/components/Common/Button';
-import { useCustomPathname } from '@/hooks/useCheckPathname';
+import { useCustomPathname } from '@/hooks/router/useCheckPathname';
 import DropDownMotion from '@/components/Common/DropDownMotion';
 import { MenuLink } from '../../BasePage/Navbar/type';
 import Settings from '@/components/Web/User/Settings';

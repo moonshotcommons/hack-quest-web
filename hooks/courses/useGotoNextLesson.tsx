@@ -6,7 +6,7 @@ import { useDebounceFn } from 'ahooks';
 import { message } from 'antd';
 import { useMemo, useRef, useState } from 'react';
 import { useGetLessonLink } from './useGetLessonLink';
-import { useRedirect } from '../useRedirect';
+import { useRedirect } from '../router/useRedirect';
 import { useParams } from 'next/navigation';
 import { useCourseStore } from '@/store/zustand/courseStore';
 import { useShallow } from 'zustand/react/shallow';

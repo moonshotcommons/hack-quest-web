@@ -8,7 +8,7 @@ import webApi from '@/service';
 import { useUgcCreationStore } from '@/store/zustand/ugcCreationStore';
 import { useContext } from 'react';
 import { useShallow } from 'zustand/react/shallow';
-import { useRedirect } from '../useRedirect';
+import { useRedirect } from '../router/useRedirect';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 
 const useUgcCreationDataHandle = (cId?: string) => {

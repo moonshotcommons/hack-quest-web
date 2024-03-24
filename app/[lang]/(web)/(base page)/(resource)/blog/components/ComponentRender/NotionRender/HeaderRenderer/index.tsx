@@ -1,6 +1,6 @@
 import ComponentRenderer from '../../';
 import { cn } from '@/helper/utils';
-import { ExpandDataType } from '@/hooks/useLessonExpand';
+import { ExpandDataType } from '@/hooks/courses/useLessonExpand';
 import { FC, useContext, useEffect, useMemo, useState } from 'react';
 
 import {

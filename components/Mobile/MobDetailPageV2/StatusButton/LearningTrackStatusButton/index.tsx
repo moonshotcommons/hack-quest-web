@@ -7,9 +7,9 @@ import {
   useGetLearningTrackLearnStatus
 } from '../../hooks/useGetLearnStatus';
 import Button from '@/components/Common/Button';
-import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
+import { useJumpLeaningLesson } from '@/hooks/courses/useJumpLeaningLesson';
 import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
-import { useEnrollUnEnroll } from '@/hooks/useLearningTrackHooks/useEnrollUnEnroll';
+import { useEnrollUnEnroll } from '@/hooks/courses/useEnrollUnEnroll';
 
 interface LearningTrackStatusButtonProps {
   learningTrackDetail: LearningTrackDetailType;

@@ -1,5 +1,5 @@
 import { BurialPoint } from '@/helper/burialPoint';
-import { useUnitNavList } from '@/hooks/useUnitNavList';
+import { useUnitNavList } from '@/hooks/courses/useUnitNavList';
 import ArrowBottom from '@/public/images/lesson/arrow_bottom.svg';
 import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
 import Image from 'next/image';

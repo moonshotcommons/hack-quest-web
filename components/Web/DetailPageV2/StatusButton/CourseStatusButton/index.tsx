@@ -7,7 +7,7 @@ import {
 import { CourseDetailType } from '@/service/webApi/course/type';
 import Button from '@/components/Common/Button';
 
-import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
+import { useJumpLeaningLesson } from '@/hooks/courses/useJumpLeaningLesson';
 import { CourseDetailContext } from '@/components/Web/DetailPageV2/Provider/CourseDetailProvider';
 
 interface CourseStatusButtonProps {

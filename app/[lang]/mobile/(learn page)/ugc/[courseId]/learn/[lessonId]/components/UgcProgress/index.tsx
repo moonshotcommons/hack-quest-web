@@ -1,5 +1,5 @@
 import { UgcContext } from '@/app/[lang]/(web)/(learn page)/ugc/[courseId]/learn/constants/type';
-import { useUnitNavList } from '@/hooks/useUnitNavList';
+import { useUnitNavList } from '@/hooks/courses/useUnitNavList';
 import React, { useContext, useEffect } from 'react';
 
 interface UgcProgressProp {}

@@ -1,7 +1,7 @@
 'use client';
 import { FC, ReactNode, useEffect, useState } from 'react';
 import UgcProvider from '@/app/[lang]/(web)/(learn page)/ugc/[courseId]/learn/components/UgcProvider';
-import { useGetPageInfo } from '@/hooks/useGetPageInfo';
+import { useGetPageInfo } from '@/hooks/dom/useGetPageInfo';
 import { MOBILE_NAVBAR_HEIGHT } from '@/components/Mobile/MobLayout/BasePage/Navbar/constant';
 
 interface UgcContainerProps {

@@ -1,5 +1,5 @@
 import { BurialPoint } from '@/helper/burialPoint';
-import { useRedirect } from '@/hooks/useRedirect';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import { LoginResponse } from '@/service/webApi/user/type';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -9,7 +9,7 @@ import { FC } from 'react';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { BiUser, BiLockAlt, BiLogInCircle } from 'react-icons/bi';
 import { V2_LANDING_PATH, isNoNeedUserInfo } from '@/constants/nav';
-import { useCustomPathname } from '@/hooks/useCheckPathname';
+import { useCustomPathname } from '@/hooks/router/useCheckPathname';
 import { useRouter } from 'next/navigation';
 import { MenuLink } from '../../Layout/BasePage/Navbar/type';
 interface UserDropCardProps {

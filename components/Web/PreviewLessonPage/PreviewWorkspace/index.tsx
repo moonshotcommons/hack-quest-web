@@ -1,6 +1,6 @@
 'use client';
 import Button from '@/components/Common/Button';
-import { useRedirect } from '@/hooks/useRedirect';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import { Input, message } from 'antd';
 import axios from 'axios';
 import { FC, useState } from 'react';

@@ -1,6 +1,6 @@
 import { LessonContent } from '@/components/Web/Business/Renderer/type';
 import Button from '@/components/Common/Button';
-import { useUnitNavList } from '@/hooks/useUnitNavList';
+import { useUnitNavList } from '@/hooks/courses/useUnitNavList';
 import { CourseLessonType } from '@/service/webApi/course/type';
 import React, { useContext, useEffect } from 'react';
 import { LessonPageContext } from '../type';

@@ -5,8 +5,8 @@ import {
   NotionComponent
 } from '@/components/Web/Business/Renderer/type';
 import { BurialPoint } from '@/helper/burialPoint';
-import { useGetLessonContent } from '@/hooks/useCoursesHooks/useGetLessenContent';
-import { useGotoNextLesson } from '@/hooks/useCoursesHooks/useGotoNextLesson';
+import { useGetLessonContent } from '@/hooks/courses/useGetLessenContent';
+import { useGotoNextLesson } from '@/hooks/courses/useGotoNextLesson';
 import webApi from '@/service';
 import {
   CompleteStateType,

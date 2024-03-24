@@ -5,7 +5,7 @@ import {
 } from '@/app/[lang]/mobile/(learn page)/ugc/[courseId]/learn/components/UgcSidebar/constant';
 import ComponentRenderer from '../UgcRender';
 import webApi from '@/service';
-import { useUnitNavList } from '@/hooks/useUnitNavList';
+import { useUnitNavList } from '@/hooks/courses/useUnitNavList';
 
 interface LessonContainerProps {
   lesson: LessonReadingData;

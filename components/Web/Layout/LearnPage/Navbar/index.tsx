@@ -2,7 +2,7 @@ import HackLogo from '@/public/images/logo/hack_logo.png';
 import Image from 'next/image';
 import React from 'react';
 
-import { useRedirect } from '@/hooks/useRedirect';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import { IoExitOutline, IoPlayOutline } from 'react-icons/io5';
 import { MenuLink } from '../../BasePage/Navbar/type';
 import { LearnPageType, useCourseStore } from '@/store/zustand/courseStore';

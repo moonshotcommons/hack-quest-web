@@ -2,7 +2,7 @@ import webApi from '@/service';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import { useRequest } from 'ahooks';
 import { message } from 'antd';
-import { useRedirect } from '../useRedirect';
+import { useRedirect } from '../router/useRedirect';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { isMobile } from 'react-device-detect';
 import { NavType } from '@/components/Mobile/MobLayout/constant';

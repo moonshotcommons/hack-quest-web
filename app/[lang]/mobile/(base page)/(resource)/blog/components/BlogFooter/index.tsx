@@ -20,7 +20,7 @@ import {
 } from '@/components/Common/ScrollContainer';
 import ScrollControl from '../ScrollControl';
 import MobBlogCard from '@/components/Mobile/MobBlogCard';
-import { useRedirect } from '@/hooks/useRedirect';
+import { useRedirect } from '@/hooks/router/useRedirect';
 
 interface BlogFooterProp {
   backTop?: VoidFunction;

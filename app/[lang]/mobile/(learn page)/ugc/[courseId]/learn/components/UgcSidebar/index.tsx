@@ -6,8 +6,8 @@ import { CompleteStateType, UGCCourseType } from '@/service/webApi/course/type';
 import { useCourseStore } from '@/store/zustand/courseStore';
 import { useRequest } from 'ahooks';
 import webApi from '@/service';
-import { useGetLessonLink } from '@/hooks/useCoursesHooks/useGetLessonLink';
-import { useRedirect } from '@/hooks/useRedirect';
+import { useGetLessonLink } from '@/hooks/courses/useGetLessonLink';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import { useLearnStore } from '@/store/zustand/learnStore';
 import {
   NavbarDataType,

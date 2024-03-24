@@ -1,5 +1,5 @@
 import { BurialPoint } from '@/helper/burialPoint';
-import { useRedirect } from '@/hooks/useRedirect';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import { LoginResponse } from '@/service/webApi/user/type';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -9,13 +9,14 @@ import { FC, useContext } from 'react';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { BiUser, BiLockAlt, BiLogInCircle } from 'react-icons/bi';
 import { V2_LANDING_PATH, isNoNeedUserInfo } from '@/constants/nav';
-import { useCustomPathname } from '@/hooks/useCheckPathname';
+import { useCustomPathname } from '@/hooks/router/useCheckPathname';
 import { useRouter } from 'next/navigation';
 import { MenuLink } from '../../BasePage/Navbar/type';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import { LangContext } from '@/components/Provider/Lang';
-import { AiOutlineWallet } from 'react-icons/ai';
+
+import ConnectButton from './ConnectButton';
 interface UserDropCardProps {
   // children: ReactNode;
   userInfo: LoginResponse;
@@ -73,23 +74,8 @@ const UserDropCard: FC<UserDropCardProps> = (props) => {
     <div className="relative  rounded-[10px] bg-neutral-white py-[20px] shadow-[0_0px_4px_0_rgba(0,0,0,0.25)]">
       <div className="body-s flex min-w-[220px] flex-col text-neutral-black">
         <UserInfo userInfo={userInfo}></UserInfo>
-        <div className="group mt-[8px] flex w-full cursor-pointer items-center gap-[12px] px-[30px] py-[12px] hover:bg-neutral-off-white">
-          <span>
-            <AiOutlineWallet size={24} />
-          </span>
-          {false ? (
-            <span>{t('connectWallet')}</span>
-          ) : (
-            <div>
-              <div className="flex items-center">
-                <span>0x238c...22b2</span>
-              </div>
-              <p className="body-xs hidden text-status-error-dark group-hover:block">
-                {t('disConnect')}
-              </p>
-            </div>
-          )}
-        </div>
+        <ConnectButton t={t} />
+
         <Link href={MenuLink.USER_PROFILE} className="w-full">
           <div
             className="flex w-full cursor-pointer  items-center gap-[12px] px-[30px] py-[12px] hover:bg-neutral-off-white"

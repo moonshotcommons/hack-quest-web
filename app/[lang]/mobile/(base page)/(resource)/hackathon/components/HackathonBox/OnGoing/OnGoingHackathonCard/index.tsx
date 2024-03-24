@@ -2,9 +2,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Button from '@/components/Common/Button';
 import { HackathonType } from '@/service/webApi/resourceStation/type';
-import useDealHackathonData from '@/hooks/useDealHackathonData';
+import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 import { BurialPoint } from '@/helper/burialPoint';
-import { useRedirect } from '@/hooks/useRedirect';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 
 interface OnGoingHackathonCardProp {

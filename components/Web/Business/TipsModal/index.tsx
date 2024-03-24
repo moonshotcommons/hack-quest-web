@@ -1,7 +1,7 @@
 'use client';
 import Button from '@/components/Common/Button';
 import Modal from '@/components/Common/Modal';
-import { useRedirect } from '@/hooks/useRedirect';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import { useGlobalStore } from '@/store/zustand/globalStore';
 import { useUserStore } from '@/store/zustand/userStore';
 import React from 'react';

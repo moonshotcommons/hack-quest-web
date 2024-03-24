@@ -10,7 +10,7 @@ import {
   changeTextareaHeight,
   elementVibration
 } from '@/helper/utils';
-import { AnswerState, useParseQuiz } from '@/hooks/useParseQuiz';
+import { AnswerState, useParseQuiz } from '@/hooks/courses/useParseQuiz';
 import webApi from '@/service';
 import { FC, useContext, useEffect, useRef, useState } from 'react';
 import { QuizContext } from '..';

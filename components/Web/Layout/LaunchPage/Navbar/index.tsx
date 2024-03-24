@@ -8,8 +8,8 @@ import React, {
   useState
 } from 'react';
 
-import { useRedirect } from '@/hooks/useRedirect';
-import { useCustomPathname } from '@/hooks/useCheckPathname';
+import { useRedirect } from '@/hooks/router/useRedirect';
+import { useCustomPathname } from '@/hooks/router/useCheckPathname';
 import HackLogo from '@/public/images/logo/light-footer-logo.svg';
 import { MenuLink, NavbarListType } from '../../BasePage/Navbar/type';
 import User from '../User';

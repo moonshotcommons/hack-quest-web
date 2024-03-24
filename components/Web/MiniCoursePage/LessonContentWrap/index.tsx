@@ -15,14 +15,14 @@ import { cn } from '@/helper/utils';
 import { CustomType } from '../../Business/Renderer/type';
 import { CompleteStateType, CourseType } from '@/service/webApi/course/type';
 import webApi from '@/service';
-import { useGetLessonLink } from '@/hooks/useCoursesHooks/useGetLessonLink';
+import { useGetLessonLink } from '@/hooks/courses/useGetLessonLink';
 import { useRequest } from 'ahooks';
 import { RendererContext } from '../../Business/Renderer/context';
 import JSConfetti from 'js-confetti';
 import MiniElectiveCompletedModal, {
   MiniElectiveCompletedModalRef
 } from '../../Business/MiniElectiveCompletedModal';
-import { useRedirect } from '@/hooks/useRedirect';
+import { useRedirect } from '@/hooks/router/useRedirect';
 
 interface LessonContentWrapProps {
   children: ReactNode;

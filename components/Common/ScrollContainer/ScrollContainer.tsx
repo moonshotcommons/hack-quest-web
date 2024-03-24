@@ -1,7 +1,7 @@
 import type { ReactElement } from 'react';
 import { forwardRef, useEffect, useMemo, useRef, useState } from 'react';
 
-import useResizeObserver from '@/hooks/useDomHooks/useResizeObserver';
+import useResizeObserver from '@/hooks/dom/useResizeObserver';
 import { cn } from '@/helper/utils';
 
 export interface ScrollContainerProps {

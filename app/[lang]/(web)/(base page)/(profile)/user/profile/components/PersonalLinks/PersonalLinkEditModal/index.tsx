@@ -19,7 +19,7 @@ import {
 } from '@/helper/thirdPartyMedia';
 import ConnectIcon from './connect.svg';
 import Image from 'next/image';
-import { useRedirect } from '@/hooks/useRedirect';
+import { useRedirect } from '@/hooks/router/useRedirect';
 
 interface PersonalLinkEditModalProps {}
 

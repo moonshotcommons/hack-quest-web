@@ -3,8 +3,8 @@ import { FC, useContext, useMemo, useState } from 'react';
 
 import { ProjectCourseType } from '@/service/webApi/course/type';
 import { ElectiveCourseType } from '@/service/webApi/elective/type';
-import { useRedirect } from '@/hooks/useRedirect';
-import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
+import { useRedirect } from '@/hooks/router/useRedirect';
+import { useJumpLeaningLesson } from '@/hooks/courses/useJumpLeaningLesson';
 import { SectionContext } from '../../Provider/SectionProvider';
 import { LearningTrackDetailContext } from '../../Provider/LearningTrackDetailProvider';
 

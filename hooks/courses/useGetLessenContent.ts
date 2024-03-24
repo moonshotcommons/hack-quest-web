@@ -4,7 +4,7 @@ import { ElectiveLessonType } from '@/service/webApi/elective/type';
 import { useRequest } from 'ahooks';
 import { message } from 'antd';
 import { useEffect, useState } from 'react';
-import { useRedirect } from '../useRedirect';
+import { useRedirect } from '../router/useRedirect';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { isMobile } from 'react-device-detect';
 import { NavType } from '@/components/Mobile/MobLayout/constant';

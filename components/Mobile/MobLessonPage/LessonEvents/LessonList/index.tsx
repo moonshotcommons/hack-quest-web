@@ -1,6 +1,6 @@
 import { BurialPoint } from '@/helper/burialPoint';
-import { useGetLessonLink } from '@/hooks/useCoursesHooks/useGetLessonLink';
-import { useRedirect } from '@/hooks/useRedirect';
+import { useGetLessonLink } from '@/hooks/courses/useGetLessonLink';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import ArrowLeft from '@/public/images/lesson/arrow_left_line.svg';
 import Complete from '@/public/images/lesson/complete.svg';
 import CompleteActive from '@/public/images/lesson/complete_active.svg';

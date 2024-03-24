@@ -5,7 +5,7 @@ import { ThirdPartyAuthType } from '@/service/webApi/user/type';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import MetamaskLoginButton from './MetamaskLoginButton';
-import useIsPc from '@/hooks/useIsPc';
+import useIsPc from '@/hooks/utils/useIsPc';
 
 import Button from '@/components/Common/Button';
 import { useGlobalStore } from '@/store/zustand/globalStore';

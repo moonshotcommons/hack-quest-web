@@ -1,7 +1,7 @@
 'use client';
 import Sidebar, { SidebarItemType } from '@/components/Web/Business/Sidebar';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
-import { useRedirect } from '@/hooks/useRedirect';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import { FC, useContext, useMemo } from 'react';
 import Button from '@/components/Common/Button';
 import {
@@ -10,7 +10,7 @@ import {
   UgcCreateContext
 } from '../../constant/type';
 import { labelMaps } from './constant';
-import useUgcCreationDataHandle from '@/hooks/useUgcCreationDataHandle';
+import useUgcCreationDataHandle from '@/hooks/courses/useUgcCreationDataHandle';
 import {
   CreationHandle,
   useUgcCreationStore
