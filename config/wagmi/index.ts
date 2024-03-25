@@ -1,12 +1,14 @@
 import { http } from 'wagmi';
-import { mainnet, mantle } from 'wagmi/chains';
+import { mainnet, mantle, manta } from 'wagmi/chains';
 import { getDefaultConfig } from '@rainbow-me/rainbowkit';
-
 import { mantaTestnet } from './chains';
+
+console.log(manta);
+
 export const config = getDefaultConfig({
   appName: 'Hackquest',
   projectId: 'YOUR_PROJECT_ID',
-  chains: [mainnet, mantle, mantaTestnet],
+  chains: [mainnet, mantle, manta, mantaTestnet],
   transports: {
     [mainnet.id]: http(),
     [mantle.id]: http()

@@ -12,6 +12,7 @@ import {
   ProjectStatus
 } from '@/service/webApi/launchPool/type';
 import moment from 'moment';
+import ProjectLabels from './ProjectLabels';
 
 const projectCardVariants = cva(
   'rounded-[24px] w-full p-16 flex justify-between h-[644px] card-hover',
@@ -52,19 +53,6 @@ const logo = (
   </svg>
 );
 
-const LabelWrapper = ({ label, value }: { label: string; value: string }) => {
-  return (
-    <div className="flex min-w-[250px] max-w-[300px] flex-col gap-1">
-      <span className="body-s inline-block w-[236px] max-w-[236px] text-neutral-rich-gray">
-        {label}
-      </span>
-      <span className="body-xl-bold inline-block uppercase text-neutral-black">
-        {value}
-      </span>
-    </div>
-  );
-};
-
 const StatusTag = ({
   status,
   text
@@ -86,28 +74,6 @@ const StatusTag = ({
   );
 };
 
-const StatisticsCard = (props: { totalFul: number; totalUser: number }) => {
-  const { totalFul, totalUser } = props;
-  return (
-    <div className="flex w-[477px] max-w-[477px] gap-10 rounded-[12px] bg-yellow-extra-light px-6 py-2">
-      <div className="flex flex-1 flex-col gap-1">
-        <span className="body-s text-neutral-medium-gray">
-          Total Participated Users
-        </span>
-        <span className="body-xl-bold">
-          {Number(totalFul).toLocaleString('en-US')}
-        </span>
-      </div>
-      <div className="flex flex-1 flex-col gap-1">
-        <span className="body-s text-neutral-medium-gray">Total Fuel</span>
-        <span className="body-xl-bold">
-          {Number(totalUser).toLocaleString('en-US')}
-        </span>
-      </div>
-    </div>
-  );
-};
-
 const ProjectCard: FC<ProjectCardProps> = async ({
   lang,
   project,
@@ -116,8 +82,25 @@ const ProjectCard: FC<ProjectCardProps> = async ({
   const { t } = await useTranslation(lang, TransNs.LAUNCH_POOL);
   const { status } = project;
 
+  if (lang === Lang.ZH) {
+    moment.locale('zh-cn', {
+      longDateFormat: {
+        LT: 'HH:mm',
+        LTS: 'HH:mm:ss',
+        L: 'YYYY-MM-DD',
+        LL: 'YYYY年MM月DD日',
+        LLL: 'YYYY年MM月DD日Ah点mm分',
+        LLLL: 'YYYY年MM月DD日ddddAh点mm分',
+        l: 'YYYY-M-D',
+        ll: 'YYYY年M月D日',
+        lll: 'YYYY年M月D日 HH:mm',
+        llll: 'YYYY年M月D日dddd HH:mm'
+      }
+    });
+  }
+
   return (
-    <Link href={'/launch-pool/1'}>
+    <Link href={`/launch-pool/${project.id}`}>
       <div className={cn(projectCardVariants({ className, status }))}>
         <div className="flex flex-col justify-center gap-6">
           <div>{logo}</div>
@@ -135,36 +118,12 @@ const ProjectCard: FC<ProjectCardProps> = async ({
               <StatusTag
                 status={status!}
                 text={t('closedDate', {
-                  date: moment(project.airdropEnd)
-                    .locale(lang === Lang.ZH ? 'zh-cn' : lang)
-                    .format('LL')
+                  date: moment(project.airdropEnd).format('LL')
                 })}
               />
             )}
             {status !== ProjectStatus.END && <CountDown project={project} />}
-
-            <div className="flex max-w-[600px] flex-wrap gap-5">
-              {status === ProjectStatus.PENDING && (
-                <LabelWrapper
-                  label={t('totalParticipatedUsers')}
-                  value="35,120"
-                />
-              )}
-              {status === ProjectStatus.PENDING && (
-                <LabelWrapper label={t('totalFuel')} value="588,496" />
-              )}
-              <LabelWrapper label={t('projectToken')} value="$HQT" />
-              <LabelWrapper
-                label={t('totalAirdropAmount')}
-                value="2% / 2,000,000 $hqt"
-              />
-              {status !== ProjectStatus.PENDING && (
-                <LabelWrapper
-                  label={t('currentStakings')}
-                  value="10,000,000 $MNT"
-                />
-              )}
-            </div>
+            <ProjectLabels project={project} />
             <HandleButton project={project} />
           </div>
         </div>

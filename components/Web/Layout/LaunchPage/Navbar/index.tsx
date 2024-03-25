@@ -17,6 +17,7 @@ import Intl from '../Intl';
 import { TransNs } from '@/i18n/config';
 import { useTranslation } from '@/i18n/client';
 import { LangContext } from '@/components/Provider/Lang';
+import Link from 'next/link';
 
 export interface NavBarProps {
   navList: NavbarListType[];
@@ -67,12 +68,13 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
       <div className={`container mx-auto h-full`}>
         <div className="flex h-full items-center justify-between">
           <nav className="flex h-full items-center text-neutral-white">
-            <div
+            <Link
+              href={MenuLink.LAUNCH}
               className={`flex h-full cursor-pointer items-center`}
               onClick={logoClick}
             >
               <Image src={HackLogo} width={133} alt="logo"></Image>
-            </div>
+            </Link>
             <div
               className={`text-h5 ml-[8px] flex h-full cursor-pointer items-center font-Chaney uppercase text-neutral-black`}
             >
@@ -80,11 +82,12 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
             </div>
             <div className="body-s ml-[60px] flex h-full gap-[12px] text-neutral-off-black">
               {navList.map((nav) => (
-                <div
+                <Link
                   key={nav.id}
                   className={`group  relative flex  h-full items-center  `}
                   data-id={nav.id}
-                  onClick={(e) => handleClickNav(e, nav)}
+                  href={`${nav.menu[0].link}`}
+                  // onClick={(e) => handleClickNav(e, nav)}
                 >
                   <div
                     className={`group-hover:body-s-bold  flex cursor-pointer items-center gap-[4px] rounded-[32px] px-[16px]  py-[4px]  ${
@@ -97,7 +100,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
                       <span>{t(nav.id)}</span>
                     </div>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </nav>
