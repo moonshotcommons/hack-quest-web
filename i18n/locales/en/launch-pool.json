@@ -8,7 +8,7 @@
   "totalAirdropToken": "Total Airdrop Token",
   "allProjects": "All Projects",
   "projectCardDesc": "Web3.0 Programing For Everyone",
-  "closed": "CLOSED",
+  "closedDate": "CLOSED {{date}}",
   "closeIn": "Offerings Close in",
   "year": "Y",
   "month": "M",

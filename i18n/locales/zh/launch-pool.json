@@ -8,7 +8,7 @@
   "totalAirdropToken": "总空投量",
   "allProjects": "所有项目",
   "projectCardDesc": "面向所有人的Web3.0编程",
-  "closed": "关闭",
+  "closedDate": "{{date}}关闭",
   "closeIn": "离项目开始还有",
   "year": "年",
   "month": "月",

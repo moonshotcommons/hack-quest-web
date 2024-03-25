@@ -1,6 +1,5 @@
 'use client';
 import { FC, useContext, useRef } from 'react';
-import { ProjectStatus } from '.';
 import Button from '@/components/Common/Button';
 import WaitListModal, {
   WaitListModalInstance
@@ -12,12 +11,16 @@ import ConnectModal, {
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
+import {
+  LaunchPoolProjectType,
+  ProjectStatus
+} from '@/service/webApi/launchPool/type';
 
 interface HandleButtonProps {
-  status: ProjectStatus;
+  project: LaunchPoolProjectType;
 }
 
-const HandleButton: FC<HandleButtonProps> = ({ status }) => {
+const HandleButton: FC<HandleButtonProps> = ({ project }) => {
   const waitListRef = useRef<WaitListModalInstance>(null);
   const connectModalRef = useRef<ConnectModalInstance>(null);
   const userInfo = useUserStore((state) => state.userInfo);
@@ -25,8 +28,8 @@ const HandleButton: FC<HandleButtonProps> = ({ status }) => {
   const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
 
   const renderButton = () => {
-    switch (status) {
-      case ProjectStatus.UPCOMING:
+    switch (project.status) {
+      case ProjectStatus.START:
         return (
           <Button
             type="primary"
@@ -40,7 +43,7 @@ const HandleButton: FC<HandleButtonProps> = ({ status }) => {
             {t('joinWaitlist')}
           </Button>
         );
-      case ProjectStatus.LIVE_NOW:
+      case ProjectStatus.PENDING:
         return (
           <Button
             type="primary"
@@ -54,7 +57,7 @@ const HandleButton: FC<HandleButtonProps> = ({ status }) => {
             {t('participateNow')}
           </Button>
         );
-      case ProjectStatus.CLOSED:
+      case ProjectStatus.END:
         return (
           <Button
             ghost

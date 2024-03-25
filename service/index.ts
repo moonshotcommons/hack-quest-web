@@ -7,6 +7,7 @@ import MissionCenterApi from './webApi/missionCenter';
 import PreviewApi from './webApi/preview';
 import UserApi from './webApi/user';
 import UgcCreateApi from './webApi/ugcCreate';
+import LaunchPoolApi from './webApi/launchPool';
 
 class WebApi {
   protected baseURL: string;
@@ -22,6 +23,7 @@ class WebApi {
   userApi: UserApi;
   resourceStationApi: ResourceStationApi;
   ugcCreateApi: UgcCreateApi;
+  launchPoolApi: LaunchPoolApi;
 
   constructor(baseURL: string) {
     this.baseURL = baseURL;
@@ -38,6 +40,7 @@ class WebApi {
     this.previewApi = new PreviewApi(this.service);
     this.userApi = new UserApi(this.service);
     this.ugcCreateApi = new UgcCreateApi(this.service);
+    this.launchPoolApi = new LaunchPoolApi(this.service);
   }
 }
 

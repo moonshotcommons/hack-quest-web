@@ -1,11 +1,14 @@
 'use client';
 import { FC, useContext, useEffect, useMemo, useState } from 'react';
 import { useCountDown } from 'ahooks';
-import { ProjectStatus } from '.';
 import { cn } from '@/helper/utils';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
+import {
+  LaunchPoolProjectType,
+  ProjectStatus
+} from '@/service/webApi/launchPool/type';
 
 interface CountDownItemProps {
   count: number;
@@ -54,16 +57,17 @@ const CountItem: FC<CountDownItemProps> = ({ count, format, className }) => {
 };
 
 interface CountDownProps {
-  status: ProjectStatus;
+  project: LaunchPoolProjectType;
 }
 
-const CountDown: FC<CountDownProps> = ({ status }) => {
+const CountDown: FC<CountDownProps> = ({ project }) => {
   const [mount, setMount] = useState(false);
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
   const [countdown, formattedRes] = useCountDown({
     targetDate: `${new Date().getFullYear()}-3-29 23:59:59`
   });
+  const status = project.status;
   const { days, hours, minutes, seconds, milliseconds } = formattedRes;
   useEffect(() => {
     setMount(true);
@@ -78,7 +82,7 @@ const CountDown: FC<CountDownProps> = ({ status }) => {
           count={days}
           format={t('day')}
           className={
-            status === ProjectStatus.UPCOMING
+            status === ProjectStatus.START
               ? 'bg-neutral-white'
               : 'bg-neutral-off-white'
           }
@@ -87,7 +91,7 @@ const CountDown: FC<CountDownProps> = ({ status }) => {
           count={hours}
           format={t('hour')}
           className={
-            status === ProjectStatus.UPCOMING
+            status === ProjectStatus.START
               ? 'bg-neutral-white'
               : 'bg-neutral-off-white'
           }
@@ -96,7 +100,7 @@ const CountDown: FC<CountDownProps> = ({ status }) => {
           count={minutes}
           format={t('minutes')}
           className={
-            status === ProjectStatus.UPCOMING
+            status === ProjectStatus.START
               ? 'bg-neutral-white'
               : 'bg-neutral-off-white'
           }
@@ -105,7 +109,7 @@ const CountDown: FC<CountDownProps> = ({ status }) => {
           count={seconds}
           format={t('seconds')}
           className={
-            status === ProjectStatus.UPCOMING
+            status === ProjectStatus.START
               ? 'bg-neutral-white'
               : 'bg-neutral-off-white'
           }

@@ -49,10 +49,10 @@ const renderApiModule = () => {
     `../service/webApi/${moduleName.toLowerCase()}`
   );
 
-  const nextApiPath = path.resolve(
-    __dirname,
-    `../pages/api/${moduleName.toLowerCase()}`
-  );
+  // const nextApiPath = path.resolve(
+  //   __dirname,
+  //   `../pages/api/${moduleName.toLowerCase()}`
+  // );
 
   const nextApiTemplate = fs.readFileSync(
     path.resolve(__dirname, 'template/apiModule/nextApi.ejs'),
