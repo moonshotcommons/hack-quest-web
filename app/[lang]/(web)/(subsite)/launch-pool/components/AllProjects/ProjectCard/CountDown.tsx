@@ -7,7 +7,7 @@ import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import {
   LaunchPoolProjectType,
-  ProjectStatus
+  LaunchPoolProjectStatus
 } from '@/service/webApi/launchPool/type';
 
 interface CountDownItemProps {
@@ -82,7 +82,7 @@ const CountDown: FC<CountDownProps> = ({ project }) => {
           count={days}
           format={t('day')}
           className={
-            status === ProjectStatus.START
+            status === LaunchPoolProjectStatus.UPCOMING
               ? 'bg-neutral-white'
               : 'bg-neutral-off-white'
           }
@@ -91,7 +91,7 @@ const CountDown: FC<CountDownProps> = ({ project }) => {
           count={hours}
           format={t('hour')}
           className={
-            status === ProjectStatus.START
+            status === LaunchPoolProjectStatus.UPCOMING
               ? 'bg-neutral-white'
               : 'bg-neutral-off-white'
           }
@@ -100,7 +100,7 @@ const CountDown: FC<CountDownProps> = ({ project }) => {
           count={minutes}
           format={t('minutes')}
           className={
-            status === ProjectStatus.START
+            status === LaunchPoolProjectStatus.UPCOMING
               ? 'bg-neutral-white'
               : 'bg-neutral-off-white'
           }
@@ -109,7 +109,7 @@ const CountDown: FC<CountDownProps> = ({ project }) => {
           count={seconds}
           format={t('seconds')}
           className={
-            status === ProjectStatus.START
+            status === LaunchPoolProjectStatus.UPCOMING
               ? 'bg-neutral-white'
               : 'bg-neutral-off-white'
           }

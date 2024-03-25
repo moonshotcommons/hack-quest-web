@@ -1,9 +1,3 @@
-export enum ProjectStatus {
-  PENDING = 'pending',
-  START = 'start',
-  END = 'end'
-}
-
 export enum LaunchPoolProjectStatus {
   UPCOMING = 'upcoming',
   FUELING = 'fueling',
@@ -12,6 +6,11 @@ export enum LaunchPoolProjectStatus {
   END = 'end'
 }
 
+export const LIVE_NOW_STATUS = [
+  LaunchPoolProjectStatus.FUELING,
+  LaunchPoolProjectStatus.ALLOCATION,
+  LaunchPoolProjectStatus.AIRDROP
+];
 export interface LaunchPoolProjectType {
   id: string;
   name: string;
@@ -32,7 +31,7 @@ export interface LaunchPoolProjectType {
   video: {};
   keyMtrics: [];
   tractions: [];
-  status: LaunchPoolProjectStatus | ProjectStatus;
+  status: LaunchPoolProjectStatus;
   createdAt: Date;
   updatedAt: Date;
 }
