@@ -11,6 +11,7 @@ import { Nunito, Space_Mono } from 'next/font/google';
 import GlobalModal from '@/components/Web/GlobalModal';
 import LangProvider from '@/components/Provider/Lang';
 import { Lang } from '@/i18n/config';
+
 const nunito = Nunito({
   subsets: ['latin'],
   display: 'swap',

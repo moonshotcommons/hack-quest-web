@@ -12,7 +12,7 @@ interface AllProjectsProps {
 const AllProjects: FC<AllProjectsProps> = async ({ lang, projects }) => {
   const { t } = await useTranslation(lang, TransNs.LAUNCH_POOL);
   return (
-    <div className="container mx-auto mt-5 py-20 ">
+    <div className="container mx-auto mt-5 py-20" id="all-projects">
       <h2 className="text-h2 mb-20 text-center text-neutral-black">
         {t('allProjects')}
       </h2>

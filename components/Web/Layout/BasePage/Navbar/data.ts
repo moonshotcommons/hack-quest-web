@@ -125,7 +125,7 @@ export const navbarList: NavbarListType[] = [
     menu: [
       {
         label: 'launch pool',
-        path: MenuLink.LANUNCH,
+        path: MenuLink.LAUNCH,
         needPC: true
       }
     ]

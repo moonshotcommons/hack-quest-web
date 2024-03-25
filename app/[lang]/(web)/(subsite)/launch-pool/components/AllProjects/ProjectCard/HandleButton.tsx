@@ -26,7 +26,6 @@ const HandleButton: FC<HandleButtonProps> = ({ project }) => {
   const userInfo = useUserStore((state) => state.userInfo);
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
-
   const renderButton = () => {
     switch (project.status) {
       case ProjectStatus.START:
