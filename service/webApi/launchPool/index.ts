@@ -1,6 +1,11 @@
 import WebService from '@/service/webService/webService';
 import { PageResult } from '../type';
-import { LaunchPoolProjectType, StakeInfo } from './type';
+import {
+  FuelInfo,
+  LaunchPoolProjectType,
+  ParticipateInfo,
+  StakeInfo
+} from './type';
 import { cache } from 'react';
 
 export enum LaunchPoolApiType {
@@ -37,7 +42,13 @@ class LaunchPoolApi {
   /* 获取用户参与信息 */
   getParticipateInfo(projectId: string) {
     const url = `${LaunchPoolApiType.GetProjects}/${projectId}/me`;
-    return this.service.get<LaunchPoolProjectType>(url);
+    return this.service.get<ParticipateInfo>(url);
+  }
+
+  /* 获取fuels信息 */
+  getFuelsInfo(projectId: string) {
+    const url = `${LaunchPoolApiType.GetProjects}/${projectId}/fuels`;
+    return this.service.get<FuelInfo[]>(url);
   }
 
   /* 加入project */

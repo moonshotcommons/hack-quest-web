@@ -147,7 +147,7 @@ const OverView: React.FC<OverViewProp> = () => {
             {statusRender().topTag}
           </div>
           <h1 className="body-l mt-[4px] text-neutral-off-black">
-            {t('overviewDescription')}
+            {launchInfo.name}
           </h1>
         </div>
 

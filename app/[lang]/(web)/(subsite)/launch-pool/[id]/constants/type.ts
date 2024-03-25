@@ -1,3 +1,8 @@
+import {
+  FuelInfo,
+  LaunchPoolProjectType,
+  ParticipateInfo
+} from '@/service/webApi/launchPool/type';
 import { createContext } from 'react';
 
 export enum TitleTxt {
@@ -18,18 +23,15 @@ export enum LaunchStatus {
   ENDED = 'ended'
 }
 
+export interface LaunchInfoType extends LaunchPoolProjectType {
+  participateInfo: ParticipateInfo | null;
+  fuelsInfo: FuelInfo[];
+}
+
 export interface LaunchDetailContextType {
-  launchInfo: {
-    status: LaunchStatus;
-    participate: Boolean;
-    stakeManta: Boolean;
-  };
+  launchInfo: any;
 }
 
 export const LaunchDetailContext = createContext<LaunchDetailContextType>({
-  launchInfo: {
-    status: LaunchStatus.UN_FUELING,
-    participate: false,
-    stakeManta: false
-  }
+  launchInfo: {} as LaunchInfoType
 });
