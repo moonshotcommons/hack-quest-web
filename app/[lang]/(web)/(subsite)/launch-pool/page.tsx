@@ -13,6 +13,7 @@ import AllProjects from './components/AllProjects';
 import HowIAOWorks from './components/HowIAOWorks';
 import OnlyChooseBestProjects from './components/OnlyChooseBestProjects';
 import OurSupportForProjects from './components/OurSupportForProjects';
+import webApi from '@/service';
 
 export const metadata: Metadata = {
   alternates: {
@@ -29,12 +30,13 @@ interface LaunchProp {
 const Launch: React.FC<LaunchProp> = async ({ params: { lang } }) => {
   const { t } = await useTranslation(lang, TransNs.LAUNCH_POOL);
 
+  const projects = await webApi.launchPoolApi.getProjectsFromCache();
   return (
     <>
       <div className="flex flex-col justify-center">
         <TopBanner lang={lang} />
         <DataStatistics lang={lang} />
-        <AllProjects lang={lang} />
+        <AllProjects lang={lang} projects={(await projects).data} />
         <HowIAOWorks lang={lang} />
         <OnlyChooseBestProjects lang={lang} />
         <OurSupportForProjects lang={lang} />

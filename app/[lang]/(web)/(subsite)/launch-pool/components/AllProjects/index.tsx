@@ -1,13 +1,15 @@
 import { Lang, TransNs } from '@/i18n/config';
 import { FC } from 'react';
-import ProjectCard, { ProjectStatus } from './ProjectCard';
+import ProjectCard from './ProjectCard';
 import { useTranslation } from '@/i18n/server';
+import { LaunchPoolProjectType } from '@/service/webApi/launchPool/type';
 
 interface AllProjectsProps {
   lang: Lang;
+  projects: LaunchPoolProjectType[];
 }
 
-const AllProjects: FC<AllProjectsProps> = async ({ lang }) => {
+const AllProjects: FC<AllProjectsProps> = async ({ lang, projects }) => {
   const { t } = await useTranslation(lang, TransNs.LAUNCH_POOL);
   return (
     <div className="container mx-auto mt-5 py-20 ">
@@ -15,21 +17,9 @@ const AllProjects: FC<AllProjectsProps> = async ({ lang }) => {
         {t('allProjects')}
       </h2>
       <div className="flex flex-col gap-10">
-        <ProjectCard
-          status={ProjectStatus.UPCOMING}
-          lang={lang}
-          title="Web3.0 Programing For Everyone"
-        />
-        <ProjectCard
-          status={ProjectStatus.LIVE_NOW}
-          lang={lang}
-          title="Web3.0 Programing For Everyone"
-        />
-        <ProjectCard
-          status={ProjectStatus.CLOSED}
-          lang={lang}
-          title="Web3.0 Programing For Everyone"
-        />
+        {projects.map((project) => {
+          return <ProjectCard key={project.id} lang={lang} project={project} />;
+        })}
       </div>
     </div>
   );

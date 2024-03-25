@@ -108,7 +108,12 @@ const ConnectButton: FC<ConnectButtonProps> = ({ t }) => {
                     <span>
                       <AiOutlineWallet size={24} />
                     </span>
-                    <span>{account.displayName}</span>
+                    <div className="flex flex-col">
+                      <p>{account.displayName}</p>
+                      <p className="body-xs hidden text-status-error-dark group-hover:block">
+                        {t('disConnect')}
+                      </p>
+                    </div>
                     {/* {account.displayBalance
                       ? ` (${account.displayBalance})`
                       : ''} */}

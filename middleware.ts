@@ -2,7 +2,7 @@ import { match } from '@formatjs/intl-localematcher';
 import Negotiator from 'negotiator';
 import { NextResponse } from 'next/server';
 import { NextRequest } from 'next/server';
-import { locales, defaultLocale } from './config';
+import { locales, defaultLocale, Lang } from '@/i18n/config';
 
 const isMobile = (ua: string) => {
   return Boolean(
@@ -12,14 +12,14 @@ const isMobile = (ua: string) => {
   );
 };
 
-function getLocale(request: NextRequest) {
+function getLocale(request: NextRequest): Lang {
   const headers = {
     'accept-language': request.headers.get('accept-language') || ''
   };
   // 这里不能直接传入 request，有更简单的写法欢迎评论留言
   const languages = new Negotiator({ headers }).languages();
 
-  return match(languages, locales, defaultLocale);
+  return match(languages, locales, defaultLocale) as Lang;
 }
 
 export function middleware(request: NextRequest) {
