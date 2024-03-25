@@ -4,6 +4,14 @@ export enum ProjectStatus {
   END = 'end'
 }
 
+export enum LaunchPoolProjectStatus {
+  UPCOMING = 'upcoming',
+  FUELING = 'fueling',
+  ALLOCATION = 'allocation',
+  AIRDROP = 'airdrop',
+  END = 'end'
+}
+
 export interface LaunchPoolProjectType {
   id: string;
   name: string;
@@ -24,7 +32,7 @@ export interface LaunchPoolProjectType {
   video: {};
   keyMtrics: [];
   tractions: [];
-  status: ProjectStatus;
+  status: LaunchPoolProjectStatus | ProjectStatus;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -33,6 +41,8 @@ export interface ParticipateInfo {
   totalFuel: number;
   inviteCount: number;
   inviteBy: string;
+  rank: number;
+  estimatedToken: number;
 }
 
 export interface StakeInfo {

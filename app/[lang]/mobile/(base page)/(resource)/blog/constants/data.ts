@@ -4,8 +4,8 @@ export const searchTabData = [
     value: ''
   },
   {
-    label: 'News & Announcement',
-    value: 'News & Announcement'
+    label: 'News & Announcements',
+    value: 'News & Announcements'
   },
   {
     label: 'Events',
