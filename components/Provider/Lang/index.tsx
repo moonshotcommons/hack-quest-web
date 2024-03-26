@@ -1,7 +1,6 @@
 'use client';
-import { FC, ReactNode, createContext, useEffect } from 'react';
+import { FC, ReactNode, createContext } from 'react';
 import { Lang, defaultLocale } from '@/i18n/config';
-import { usePathname } from 'next/navigation';
 
 export const LangContext = createContext({
   lang: defaultLocale
@@ -12,15 +11,15 @@ interface LangProviderProps {
 }
 
 const LangProvider: FC<LangProviderProps> = ({ children, lang }) => {
-  const pathname = usePathname();
-  useEffect(() => {
-    const pattern = new RegExp(`^\\/${lang}(\\/.*)?`);
-    window.history.pushState(
-      null,
-      '',
-      pathname.replace(pattern, (_, group) => (group ? group : '/'))
-    );
-  }, [pathname, lang]);
+  // const pathname = usePathname();
+  // useEffect(() => {
+  //   const pattern = new RegExp(`^\\/${lang}(\\/.*)?`);
+  //   window.history.pushState(
+  //     null,
+  //     '',
+  //     pathname.replace(pattern, (_, group) => (group ? group : '/'))
+  //   );
+  // }, [pathname, lang]);
 
   return (
     <LangContext.Provider value={{ lang }}>{children}</LangContext.Provider>

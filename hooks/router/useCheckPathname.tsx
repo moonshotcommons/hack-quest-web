@@ -22,6 +22,9 @@ export const useCustomPathname = () => {
     ? pathname.replace('/mobile', '')
     : pathname;
 
+  if (!pathname.startsWith('/')) {
+    pathname = '/' + pathname;
+  }
   return pathname;
 };
 
@@ -40,6 +43,10 @@ export const useCheckPathname = () => {
   pathname = pathname.startsWith('/mobile')
     ? pathname.replace('/mobile', '')
     : pathname;
+
+  if (!pathname.startsWith('/')) {
+    pathname = '/' + pathname;
+  }
 
   return useMemo(() => {
     const isLessonPage =

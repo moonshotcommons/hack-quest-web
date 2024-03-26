@@ -1,12 +1,8 @@
 'use client';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import Nav from './Nav';
 import Content from './Content';
-import {
-  LaunchDetailContext,
-  LaunchInfoType,
-  LaunchStatus
-} from '../constants/type';
+import { LaunchDetailContext, LaunchInfoType } from '../constants/type';
 import {
   FuelInfo,
   LaunchPoolProjectType,
