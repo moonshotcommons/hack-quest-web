@@ -274,7 +274,7 @@ class UserApi {
   }
 
   /** on-Chain Activity  link*/
-  linkChain(address: string) {
+  linkChain(address: `0x${string}`) {
     return this.service.post<{
       address: string;
       balance: number;

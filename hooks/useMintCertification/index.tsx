@@ -1,4 +1,12 @@
+import { ChainConfigContext } from '@/components/Provider/Config';
+import { ChainType } from '@/config/wagmi';
+import { useWriteSbtManagerSafeMint } from '@/lib/generated';
+import webApi from '@/service';
+import { useConnectModal } from '@rainbow-me/rainbowkit';
 import { useRequest } from 'ahooks';
+import { useContext } from 'react';
+import { parseUnits } from 'viem';
+import { useAccount, useChainId, useSwitchChain } from 'wagmi';
 
 const CONTRACT_ADDRESS = '0x8eDBf22b97f7bddC7F78AE13b348949DFa0731D3';
 const FUNCTION_NAME = 'safeMint';
@@ -16,6 +24,12 @@ export const useMintCertification = (onSuccess?: (res: any) => void) => {
   // const metamaskConnector = useMemo(() => {
   //   return connectors.find((item) => item.id === 'metaMask');
   // }, [connectors]);
+  const chainId = useChainId();
+  const { switchChainAsync } = useSwitchChain();
+  const { openConnectModal } = useConnectModal();
+  const { updateInitialChainId } = useContext(ChainConfigContext);
+  const { writeContractAsync } = useWriteSbtManagerSafeMint();
+  const account = useAccount();
 
   const {
     run: safeMint,
@@ -27,6 +41,46 @@ export const useMintCertification = (onSuccess?: (res: any) => void) => {
       sourceId: string;
       signatureId: number;
     }) => {
+      if (!account?.isConnected && openConnectModal) {
+        updateInitialChainId(ChainType.MANTLE);
+        openConnectModal();
+        throw new Error('Please connect your wallet first!');
+      }
+
+      if (chainId !== ChainType.MANTLE) {
+        await switchChainAsync({ chainId: ChainType.MANTLE });
+      }
+
+      console.log(
+        parseUnits(params.signatureId.toString(), 0),
+        params.signatureId
+      );
+
+      const res = await webApi.campaignsApi.getSignature({
+        sourceId: params.sourceId,
+        sourceType: params.sourceType,
+        address: account.address!
+      });
+
+      const data = await writeContractAsync({
+        address: CONTRACT_ADDRESS,
+        account: account.address,
+        args: [
+          account.address!,
+          parseUnits(params.signatureId.toString(), 0),
+          res.sig.v,
+          res.sig.r,
+          res.sig.s
+        ]
+      });
+
+      const result = await webApi.campaignsApi.savaMintState({
+        certificationId: params.sourceId,
+        txId: data
+      });
+
+      return result;
+
       // if (metamaskConnector) {
       //   const isAccount = await metamaskConnector.isAuthorized();
       //   let account = null;
@@ -73,7 +127,6 @@ export const useMintCertification = (onSuccess?: (res: any) => void) => {
 
   return {
     safeMint,
-    // loading,
     safeMintAsync
   };
 };

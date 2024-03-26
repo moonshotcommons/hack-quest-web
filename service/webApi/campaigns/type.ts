@@ -54,7 +54,7 @@ export interface SignatureData {
   hashResult: string;
   sig: {
     v: number;
-    r: string;
-    s: string;
+    r: `0x${string}`;
+    s: `0x${string}`;
   };
 }
