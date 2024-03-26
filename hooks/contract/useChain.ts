@@ -2,7 +2,6 @@
 import { useChains } from 'wagmi';
 export const useChain = (chainId: number) => {
   const chains = useChains();
-  console.log(chains);
   const chain = chains.find((c) => c.id === chainId);
   if (!chain) return null;
   return chain;

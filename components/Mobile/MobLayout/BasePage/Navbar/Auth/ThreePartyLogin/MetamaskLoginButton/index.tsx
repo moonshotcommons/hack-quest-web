@@ -265,7 +265,6 @@ const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
 
   const login = (address: string) => {
     webApi.userApi.walletVerify(address).then((res) => {
-      console.log(res);
       if (res.status === 'UNACTIVATED') {
         setAuthType({
           type: AuthType.INVITE_CODE,

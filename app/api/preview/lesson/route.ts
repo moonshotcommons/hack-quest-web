@@ -8,6 +8,7 @@ export async function POST(request: NextRequest, context: any) {
     const lesson = await webApi.previewApi.getPreviewLesson(
       notionPageUrl as string
     );
+
     return NextResponse.json(lesson, { status: 200 });
   } catch (error: any) {
     return NextResponse.json(

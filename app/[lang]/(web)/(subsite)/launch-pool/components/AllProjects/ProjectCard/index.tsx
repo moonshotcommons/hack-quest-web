@@ -87,6 +87,8 @@ const ProjectCard: FC<ProjectCardProps> = async ({
   const { t } = await useTranslation(lang, TransNs.LAUNCH_POOL);
   const { status } = project;
 
+  console.log(project);
+
   if (lang === Lang.ZH) {
     moment.locale('zh-cn', {
       longDateFormat: {
@@ -114,7 +116,7 @@ const ProjectCard: FC<ProjectCardProps> = async ({
               {project.name}
             </p>
             {status === LaunchPoolProjectStatus.UPCOMING && (
-              <StatusTag status={status!} text={t('START')} />
+              <StatusTag status={status!} text={t('upComing')} />
             )}
             {LIVE_NOW_STATUS.includes(status) && (
               <StatusTag status={status!} text={t('liveNow')} />

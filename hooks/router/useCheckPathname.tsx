@@ -30,23 +30,8 @@ export const useCustomPathname = () => {
 
 export const useCheckPathname = () => {
   const params = useParams();
+  const pathname = useCustomPathname();
   const originPathname = usePathname();
-  let pathname = originPathname;
-  const lang = locales.find(
-    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
-  );
-
-  if (lang && pathname.startsWith(`/${lang}`)) {
-    pathname = pathname.replace(`/${lang}`, '');
-  }
-
-  pathname = pathname.startsWith('/mobile')
-    ? pathname.replace('/mobile', '')
-    : pathname;
-
-  if (!pathname.startsWith('/')) {
-    pathname = '/' + pathname;
-  }
 
   return useMemo(() => {
     const isLessonPage =
@@ -56,7 +41,7 @@ export const useCheckPathname = () => {
 
     const isLandingPage = ['/', ''].includes(pathname);
 
-    const isMobileLink = originPathname.startsWith('/mobile');
+    const isMobileLink = originPathname.includes('/mobile');
 
     const isNavbarFullPage = isLessonPage || isPreviewPage;
 

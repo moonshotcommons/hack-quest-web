@@ -171,7 +171,7 @@ const PersonalLinkEditModal = forwardRef<
       window.removeEventListener('storage', refreshLinks);
       window.localStorage.removeItem('linkDiscord');
     };
-  }, []);
+  }, [refreshDiscordInfo, refresh]);
 
   return (
     <Modal

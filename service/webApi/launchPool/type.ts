@@ -34,6 +34,8 @@ export interface LaunchPoolProjectType {
   status: LaunchPoolProjectStatus;
   createdAt: Date;
   updatedAt: Date;
+  totalFuel: number;
+  userCount: number;
 }
 
 export interface ParticipateInfo {

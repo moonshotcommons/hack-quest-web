@@ -111,7 +111,7 @@ export const ConnectButton = ({ t }: ConnectButtonProps) => {
                 return (
                   <Button
                     type="primary"
-                    className="button-text-l mt-[64px] w-[270px] px-0 py-4 font-medium uppercase text-neutral-black"
+                    className="button-text-l w-[270px] px-0 py-4 font-medium uppercase text-neutral-black"
                     loading={
                       authenticationStatus === 'loading' ||
                       skipInviteCodeLoading ||

@@ -41,10 +41,16 @@ const ProjectLabels: FC<ProjectLabelsProps> = ({ project }) => {
   return (
     <div className="flex max-w-[600px] flex-wrap gap-5">
       {LIVE_NOW_STATUS.includes(status) && (
-        <LabelWrapper label={t('totalParticipatedUsers')} value="35,120" />
+        <LabelWrapper
+          label={t('totalParticipatedUsers')}
+          value={project.userCount.toLocaleString('en-US')}
+        />
       )}
       {LIVE_NOW_STATUS.includes(status) && (
-        <LabelWrapper label={t('totalFuel')} value="588,496" />
+        <LabelWrapper
+          label={t('totalFuel')}
+          value={project.totalFuel.toLocaleString('en-US')}
+        />
       )}
       <LabelWrapper
         label={t('projectToken')}

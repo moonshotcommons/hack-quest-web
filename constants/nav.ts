@@ -52,13 +52,16 @@ export function isNoNeedUserInfo(pathname: string) {
   if (pathname.startsWith('/mobile')) {
     pathname = pathname.replace('/mobile', '');
   }
-  console.log(pathname);
+
+  if (!pathname.startsWith('/')) {
+    pathname = '/' + pathname;
+  }
+
   if (
     [HOME_PATHNAME, ALL_COURSES_PATHNAME, PREVIEW_PATH].includes(pathname) ||
     pathname.startsWith(PREVIEW_PATH) ||
     isNoNeedUserInfoDetail(pathname)
   ) {
-    console.log('---------------------');
     return true;
   }
 

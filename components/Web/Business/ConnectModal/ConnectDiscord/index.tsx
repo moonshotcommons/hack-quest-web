@@ -1,14 +1,52 @@
+'use client';
 import Button from '@/components/Common/Button';
 import Image from 'next/image';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
-import { FC, useContext } from 'react';
+import { FC, useContext, useEffect } from 'react';
+import { useRequest } from 'ahooks';
+import webApi from '@/service';
+import { message } from 'antd';
 interface ConnectDiscordProps {}
 
 const ConnectDiscord: FC<ConnectDiscordProps> = (props) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
+
+  const { data: discordInfo, refresh: refreshDiscordInfo } = useRequest(() => {
+    return webApi.userApi.getDiscordInfo();
+  });
+
+  const { run: connectMedia, loading: connectLoading } = useRequest(
+    async () => {
+      const res = await webApi.userApi.getConnectUrlByDiscord();
+      window.open(
+        res.url,
+        '_blank',
+        'width=500,height=500,toolbar=no,menubar=no,location=no,status=no'
+      );
+      return res;
+    },
+    {
+      manual: true
+    }
+  );
+
+  useEffect(() => {
+    const refreshDiscordConnect = (e: StorageEvent) => {
+      if (e.key === 'linkDiscord') {
+        message.success('Connect Discord success!');
+        refreshDiscordInfo();
+      }
+    };
+    window.addEventListener('storage', refreshDiscordConnect);
+    return () => {
+      window.removeEventListener('storage', refreshDiscordConnect);
+      window.localStorage.removeItem('linkDiscord');
+    };
+  }, [refreshDiscordInfo]);
+
   return (
     <div className="flex flex-col gap-8 py-8">
       <h3 className="text-h3 text-neutral-rich-gray">
@@ -33,12 +71,33 @@ const ConnectDiscord: FC<ConnectDiscordProps> = (props) => {
             <p className="body-m-bold text-neutral-rich-gray">
               {t('authDiscordAccount')}
             </p>
-            <Button
-              type="primary"
-              className="button-text-s w-[140px] py-2 uppercase text-neutral-black "
-            >
-              {t('connect')}
-            </Button>
+            {!discordInfo?.isConnect && (
+              <Button
+                loading={!discordInfo}
+                type="primary"
+                className="button-text-s w-[140px] py-2 uppercase text-neutral-black "
+              >
+                {t('connect')}
+              </Button>
+            )}
+            {discordInfo?.isConnect && (
+              <div className="body-m-bold flex items-center py-1 text-status-success-dark">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M14.4871 3.78628L5.82045 13.1196C5.6948 13.2551 5.51856 13.3323 5.33378 13.3329C5.15658 13.334 4.98626 13.2644 4.86045 13.1396L1.52712 9.80628C1.2657 9.54486 1.2657 9.12102 1.52712 8.85961C1.78853 8.59819 2.21237 8.59819 2.47378 8.85961L5.33378 11.7063L13.5138 2.87961C13.6707 2.68612 13.9224 2.59625 14.1663 2.64659C14.4103 2.69693 14.6058 2.87908 14.6733 3.11887C14.7408 3.35866 14.669 3.61607 14.4871 3.78628Z"
+                    fill="#06884A"
+                  />
+                </svg>
+
+                <span className="capitalize">{t('connected')}</span>
+              </div>
+            )}
           </div>
         </div>
         <div className="flex flex-1 items-center gap-6 rounded-[16px] bg-neutral-off-white p-6">

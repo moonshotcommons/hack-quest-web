@@ -51,11 +51,6 @@ export const useMintCertification = (onSuccess?: (res: any) => void) => {
         await switchChainAsync({ chainId: ChainType.MANTLE });
       }
 
-      console.log(
-        parseUnits(params.signatureId.toString(), 0),
-        params.signatureId
-      );
-
       const res = await webApi.campaignsApi.getSignature({
         sourceId: params.sourceId,
         sourceType: params.sourceType,

@@ -325,6 +325,10 @@ class UserApi {
   disconnect(type: ThirdPartyMediaType) {
     return this.service.delete(`/auth/${type}/disconnect`);
   }
+
+  getConnectInfo() {
+    return this.service.get(`/auth/:type/info`);
+  }
 }
 
 export default UserApi;
