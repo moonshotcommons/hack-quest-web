@@ -1,6 +1,5 @@
 import React from 'react';
 import LaunchDetailPage from './components';
-import { Lang } from '@/i18n/config';
 import { LaunchPoolProjectType } from '@/service/webApi/launchPool/type';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 import webApi from '@/service';
@@ -20,7 +19,7 @@ export async function generateMetadata({
   return {
     title: project.name,
     alternates: {
-      canonical: `https://www.hackquest.io/${MenuLink.LANUNCH}/${params.id}`
+      canonical: `https://www.hackquest.io/${MenuLink.LAUNCH}/${params.id}`
     }
   };
 }

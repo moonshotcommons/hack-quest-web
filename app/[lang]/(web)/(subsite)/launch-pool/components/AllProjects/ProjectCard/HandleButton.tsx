@@ -13,7 +13,7 @@ import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import {
   LaunchPoolProjectType,
-  ProjectStatus
+  LaunchPoolProjectStatus
 } from '@/service/webApi/launchPool/type';
 
 interface HandleButtonProps {
@@ -28,7 +28,7 @@ const HandleButton: FC<HandleButtonProps> = ({ project }) => {
   const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
   const renderButton = () => {
     switch (project.status) {
-      case ProjectStatus.START:
+      case LaunchPoolProjectStatus.UPCOMING:
         return (
           <Button
             type="primary"
@@ -42,7 +42,9 @@ const HandleButton: FC<HandleButtonProps> = ({ project }) => {
             {t('joinWaitlist')}
           </Button>
         );
-      case ProjectStatus.PENDING:
+      case LaunchPoolProjectStatus.FUELING:
+      case LaunchPoolProjectStatus.AIRDROP:
+      case LaunchPoolProjectStatus.ALLOCATION:
         return (
           <Button
             type="primary"
@@ -56,7 +58,7 @@ const HandleButton: FC<HandleButtonProps> = ({ project }) => {
             {t('participateNow')}
           </Button>
         );
-      case ProjectStatus.END:
+      case LaunchPoolProjectStatus.END:
         return (
           <Button
             ghost

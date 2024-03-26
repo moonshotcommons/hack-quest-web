@@ -9,7 +9,8 @@ import CountDown from './CountDown';
 import { useTranslation } from '@/i18n/server';
 import {
   LaunchPoolProjectType,
-  ProjectStatus
+  LaunchPoolProjectStatus,
+  LIVE_NOW_STATUS
 } from '@/service/webApi/launchPool/type';
 import moment from 'moment';
 import ProjectLabels from './ProjectLabels';
@@ -19,15 +20,19 @@ const projectCardVariants = cva(
   {
     variants: {
       status: {
-        [ProjectStatus.START]:
+        [LaunchPoolProjectStatus.UPCOMING]:
           'bg-neutral-off-white border border-dashed border-neutral-rich-gray',
-        [ProjectStatus.PENDING]:
+        [LaunchPoolProjectStatus.AIRDROP]:
           'bg-neutral-white border border-neutral-rich-gray',
-        [ProjectStatus.END]: 'bg-yellow-extra-light'
+        [LaunchPoolProjectStatus.ALLOCATION]:
+          'bg-neutral-white border border-neutral-rich-gray',
+        [LaunchPoolProjectStatus.FUELING]:
+          'bg-neutral-white border border-neutral-rich-gray',
+        [LaunchPoolProjectStatus.END]: 'bg-yellow-extra-light'
       }
     },
     defaultVariants: {
-      status: ProjectStatus.START
+      status: LaunchPoolProjectStatus.UPCOMING
     }
   }
 );
@@ -57,14 +62,14 @@ const StatusTag = ({
   status,
   text
 }: {
-  status: ProjectStatus;
+  status: LaunchPoolProjectStatus;
   text: string;
 }) => {
   return (
     <div
       className={cn(
         'body-l-bold w-fit rounded-[8px] border-[2px] px-3 py-1',
-        status === ProjectStatus.PENDING
+        LIVE_NOW_STATUS.includes(status)
           ? 'border-status-success text-status-success'
           : 'border-neutral-medium-gray text-neutral-medium-gray'
       )}
@@ -108,13 +113,13 @@ const ProjectCard: FC<ProjectCardProps> = async ({
             <p className="body-xl-bold text-neutral-off-black">
               {project.name}
             </p>
-            {status === ProjectStatus.START && (
+            {status === LaunchPoolProjectStatus.UPCOMING && (
               <StatusTag status={status!} text={t('START')} />
             )}
-            {status === ProjectStatus.PENDING && (
+            {LIVE_NOW_STATUS.includes(status) && (
               <StatusTag status={status!} text={t('liveNow')} />
             )}
-            {status === ProjectStatus.END && (
+            {status === LaunchPoolProjectStatus.END && (
               <StatusTag
                 status={status!}
                 text={t('closedDate', {
@@ -122,7 +127,9 @@ const ProjectCard: FC<ProjectCardProps> = async ({
                 })}
               />
             )}
-            {status !== ProjectStatus.END && <CountDown project={project} />}
+            {status !== LaunchPoolProjectStatus.END && (
+              <CountDown project={project} />
+            )}
             <ProjectLabels project={project} />
             <HandleButton project={project} />
           </div>
