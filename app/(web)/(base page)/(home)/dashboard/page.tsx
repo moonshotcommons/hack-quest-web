@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 const DashboardPage = () => {
   return (
-    <div className="h-full">
+    <div className="h-full w-full">
       <Dashboard />
       <PageRetentionTime trackName="dashboard-页面留存时间"></PageRetentionTime>
     </div>
