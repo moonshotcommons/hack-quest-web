@@ -1,12 +1,10 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 
 import { titleTxtData } from '../../../constants/data';
 import Info from './Info';
 import StakeFuel from './StakeFuel';
 import InvitationFuel from './InvitationFuel';
 import TargetFuel from './TargetFuel';
-import UnstakeModal from './UnstakeModal';
-import StakeModal from './StakeModal';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import { LangContext } from '@/components/Provider/Lang';
@@ -28,9 +26,7 @@ const YourFuelingBoard: React.FC<YourFuelingBoardProp> = () => {
         };
       case LaunchPoolProjectStatus.AIRDROP:
         return {
-          titleDesc: launchInfo.isParticipate ? (
-            <p>{t('fuelCongratulations')}</p>
-          ) : null
+          titleDesc: launchInfo.isParticipate ? <p>{t('fuelCongratulations')}</p> : null
         };
       default:
         return null;
@@ -39,18 +35,15 @@ const YourFuelingBoard: React.FC<YourFuelingBoardProp> = () => {
   return (
     <div className="relative overflow-hidden">
       <p className="text-h3 text-neutral-off-black">{t(titleTxtData[2])}</p>
-      <p className="body-l my-[24px] text-neutral-black">
-        {statusRender()?.titleDesc}
-      </p>
+      <p className="body-l my-[24px] text-neutral-black">{statusRender()?.titleDesc}</p>
       <Info />
-      {launchInfo.status === LaunchPoolProjectStatus.FUELING &&
-        launchInfo.isParticipate && (
-          <>
-            <StakeFuel />
-            <InvitationFuel />
-            <TargetFuel />
-          </>
-        )}
+      {launchInfo.status === LaunchPoolProjectStatus.FUELING && launchInfo.isParticipate && (
+        <>
+          <StakeFuel />
+          <InvitationFuel />
+          <TargetFuel />
+        </>
+      )}
     </div>
   );
 };

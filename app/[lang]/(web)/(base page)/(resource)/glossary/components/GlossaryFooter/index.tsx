@@ -1,14 +1,10 @@
 'use client';
-import BlogCard from '@/components/Web/Business/BlogCard';
 import Loading from '@/components/Common/Loading';
 import MenuLink from '@/constants/MenuLink';
-import { BurialPoint } from '@/helper/burialPoint';
 import webApi from '@/service';
-import { BlogType, ResourceFrom } from '@/service/webApi/resourceStation/type';
+import { BlogType } from '@/service/webApi/resourceStation/type';
 import { useRequest } from 'ahooks';
-import Link from 'next/link';
-import React, { useMemo, useState } from 'react';
-import { BsArrowRight } from 'react-icons/bs';
+import React, { useState } from 'react';
 import Button from '@/components/Common/Button';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import GlossaryCard from '@/components/Web/Business/GlossaryCard';
@@ -18,10 +14,7 @@ interface GlossaryFooterProp {
   type?: 'link' | 'top';
 }
 
-const GlossaryFooter: React.FC<GlossaryFooterProp> = ({
-  backTop,
-  type = 'top'
-}) => {
+const GlossaryFooter: React.FC<GlossaryFooterProp> = ({ backTop, type = 'top' }) => {
   const [featureBlogList, setFeatureBlogList] = useState<BlogType[]>([]);
   const { redirectToUrl } = useRedirect();
   const { loading } = useRequest(async () => {
@@ -54,10 +47,7 @@ const GlossaryFooter: React.FC<GlossaryFooterProp> = ({
           </div>
         </Loading>
         <div className="button-text-l flex w-full justify-center pt-[60px]">
-          <Button
-            className="h-[60px] w-[270px] border border-neutral-black p-0 text-neutral-black"
-            onClick={handleClick}
-          >
+          <Button className="h-[60px] w-[270px] border border-neutral-black p-0 text-neutral-black" onClick={handleClick}>
             BACK TO ALL GLOSSARY
           </Button>
         </div>

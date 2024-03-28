@@ -15,51 +15,31 @@ interface UserInfoProp {}
 const UserInfo: React.FC<UserInfoProp> = () => {
   const userInfo = useUserStore((state) => state.userInfo);
 
-  const { data: userCount = {} as UserLearnedCountType } = useRequest(
-    async () => {
-      const res = await webApi.userApi.getUserLearnedCount();
-      return res;
-    }
-  );
+  const { data: userCount = {} as UserLearnedCountType } = useRequest(async () => {
+    const res = await webApi.userApi.getUserLearnedCount();
+    return res;
+  });
   return (
     <div>
       <div className="mb-[16px] rounded-[20px] bg-neutral-white p-[16px]">
         <div className="mb-[24px] flex items-center gap-[12px]">
           <div className="relative h-[60px] w-[60px] overflow-hidden rounded-[50%]">
-            <Image
-              src={userInfo?.avatar as string}
-              alt="avatar"
-              fill
-              className="object-cover"
-            ></Image>
+            <Image src={userInfo?.avatar as string} alt="avatar" fill className="object-cover"></Image>
           </div>
-          <div className="body-m-bold text-neutral-off-black">
-            {userInfo?.nickname}
-          </div>
+          <div className="body-m-bold text-neutral-off-black">{userInfo?.nickname}</div>
         </div>
         <div className="flex justify-between p-[12px]">
           <div className="">
-            <p className="caption-10pt mb-[8px] text-neutral-rich-gray">
-              Courses Completed
-            </p>
-            <p className="body-xl text-neutral-off-black">
-              {separationNumber(userCount.courseCount || 0)}
-            </p>
+            <p className="caption-10pt mb-[8px] text-neutral-rich-gray">Courses Completed</p>
+            <p className="body-xl text-neutral-off-black">{separationNumber(userCount.courseCount || 0)}</p>
           </div>
           <div className="">
-            <p className="caption-10pt mb-[8px] text-neutral-rich-gray">
-              Certification Earned
-            </p>
-            <p className="body-xl text-neutral-off-black">
-              {separationNumber(userCount.certificationCount || 0)}
-            </p>
+            <p className="caption-10pt mb-[8px] text-neutral-rich-gray">Certification Earned</p>
+            <p className="body-xl text-neutral-off-black">{separationNumber(userCount.certificationCount || 0)}</p>
           </div>
         </div>
       </div>
-      <Link
-        className="button-text-s flex cursor-pointer items-center  pl-[16px] text-neutral-off-black"
-        href={MenuLink.USER_PROFILE}
-      >
+      <Link className="button-text-s flex cursor-pointer items-center  pl-[16px] text-neutral-off-black" href={MenuLink.USER_PROFILE}>
         <span className="uppercase">Profile</span>
         <HiArrowLongRight size={18}></HiArrowLongRight>
       </Link>

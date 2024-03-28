@@ -14,9 +14,7 @@ const TargetFuel: React.FC<TargetFuelProp> = () => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
   const targetList = useMemo(() => {
-    return launchInfo.fuelsInfo.filter(
-      (v: any) => ~isNotDefaultTargetType.indexOf(v.type)
-    );
+    return launchInfo.fuelsInfo.filter((v: any) => ~isNotDefaultTargetType.indexOf(v.type));
   }, [launchInfo]);
   return (
     <div className="mt-[24px]">

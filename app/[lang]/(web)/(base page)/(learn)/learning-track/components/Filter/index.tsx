@@ -23,20 +23,11 @@ const Filter: React.FC<FilterProp> = ({ searchInfo }) => {
     <SlideHighlight
       className={`flex gap-[30px] pb-[2px]`}
       type="LEARNING_TRACK"
-      currentIndex={filterList.findIndex(
-        (v) => v.value === searchInfo.language
-      )}
+      currentIndex={filterList.findIndex((v) => v.value === searchInfo.language)}
     >
       {filterList.map((v) => (
-        <Link
-          key={v.value}
-          href={getSearchInfo({ ...searchInfo, language: v.value })}
-        >
-          <div
-            className={`body-l cursor-pointer  text-neutral-black ${
-              searchInfo.language === v.value ? '  body-l-bold ' : ' '
-            }`}
-          >
+        <Link key={v.value} href={getSearchInfo({ ...searchInfo, language: v.value })}>
+          <div className={`body-l cursor-pointer  text-neutral-black ${searchInfo.language === v.value ? '  body-l-bold ' : ' '}`}>
             {v.label}
           </div>
         </Link>

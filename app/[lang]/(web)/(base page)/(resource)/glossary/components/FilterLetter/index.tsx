@@ -1,7 +1,7 @@
 import SlideHighlight from '@/components/Common/Navigation/SlideHighlight';
 import MenuLink from '@/constants/MenuLink';
 import { useRouter } from 'next/navigation';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface FilterLetterProp {
   letterData: string[];
@@ -10,12 +10,7 @@ interface FilterLetterProp {
   letter: string;
 }
 
-const FilterLetter: React.FC<FilterLetterProp> = ({
-  letterData,
-  letterClick,
-  isSticky,
-  letter
-}) => {
+const FilterLetter: React.FC<FilterLetterProp> = ({ letterData, letterClick, isSticky, letter }) => {
   const router = useRouter();
   const [currentIndex, setCurrentIndex] = useState(0);
   const handleClick = (v: string) => {
@@ -27,14 +22,8 @@ const FilterLetter: React.FC<FilterLetterProp> = ({
     setCurrentIndex(index);
   }, [letter]);
   return (
-    <div
-      className={`w-full bg-neutral-white py-[5px] ${isSticky ? 'shadow-[0_0px_4px_0_rgba(0,0,0,0.25)]' : ''}`}
-    >
-      <SlideHighlight
-        className="container mx-auto flex items-center text-[18px]"
-        type={'GLOSSARY_FILTER'}
-        currentIndex={currentIndex}
-      >
+    <div className={`w-full bg-neutral-white py-[5px] ${isSticky ? 'shadow-[0_0px_4px_0_rgba(0,0,0,0.25)]' : ''}`}>
+      <SlideHighlight className="container mx-auto flex items-center text-[18px]" type={'GLOSSARY_FILTER'} currentIndex={currentIndex}>
         {letterData.map((v) => (
           <div
             key={v}

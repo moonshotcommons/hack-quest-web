@@ -52,52 +52,31 @@ const Content: React.FC<ContentProp> = ({ loading, setOffsetTop }) => {
       <Loading loading={loading} className="w-full">
         <div ref={boxRef} className="[&>div]:relative">
           <div ref={overViewRef}>
-            <div
-              className="absolute left-0 top-[-40px]"
-              id={`launch-${titleTxtData[0]}`}
-            ></div>
+            <div className="absolute left-0 top-[-40px]" id={`launch-${titleTxtData[0]}`}></div>
             <OverView />
           </div>
           <div ref={timeLineRef} className="mt-[40px]">
-            <div
-              className="absolute left-0 top-[-40px]"
-              id={`launch-${titleTxtData[1]}`}
-            ></div>
+            <div className="absolute left-0 top-[-40px]" id={`launch-${titleTxtData[1]}`}></div>
             <TimeLine />
           </div>
           <div ref={yourFuelingBoardRef} className="mt-[120px]">
-            <div
-              className="absolute left-0 top-[-40px]"
-              id={`launch-${titleTxtData[2]}`}
-            ></div>
+            <div className="absolute left-0 top-[-40px]" id={`launch-${titleTxtData[2]}`}></div>
             <YourFuelingBoard />
           </div>
           <div ref={aboutRef} className="mt-[120px]">
-            <div
-              className="absolute left-0 top-[-40px]"
-              id={`launch-${titleTxtData[3]}`}
-            ></div>
+            <div className="absolute left-0 top-[-40px]" id={`launch-${titleTxtData[3]}`}></div>
             <About />
           </div>
           <div ref={demoVideoRef} className="mt-[120px]">
-            <div
-              className="absolute left-0 top-[-40px]"
-              id={`launch-${titleTxtData[4]}`}
-            ></div>
+            <div className="absolute left-0 top-[-40px]" id={`launch-${titleTxtData[4]}`}></div>
             <DemoVideo />
           </div>
           <div ref={keyMetricsRef} className="mt-[120px]">
-            <div
-              className="absolute left-0 top-[-40px]"
-              id={`launch-${titleTxtData[5]}`}
-            ></div>
+            <div className="absolute left-0 top-[-40px]" id={`launch-${titleTxtData[5]}`}></div>
             <KeyMetrics />
           </div>
           <div ref={tractionsRef} className="mt-[120px]">
-            <div
-              className="absolute left-0 top-[-40px]"
-              id={`launch-${titleTxtData[6]}`}
-            ></div>
+            <div className="absolute left-0 top-[-40px]" id={`launch-${titleTxtData[6]}`}></div>
             <Tractions />
           </div>
         </div>

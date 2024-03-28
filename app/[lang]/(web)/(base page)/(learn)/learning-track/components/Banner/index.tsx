@@ -35,30 +35,17 @@ const Banner: React.FC<BannerProp> = ({ searchInfo }) => {
         <h1 className="text-h2 text-neutral-black">Learning Tracks</h1>
         <div className="flex gap-[40px]">
           {bannerTabList.map((v) => (
-            <Link
-              key={v.value}
-              href={getSearchInfo({ ...searchInfo, track: v.value })}
-            >
+            <Link key={v.value} href={getSearchInfo({ ...searchInfo, track: v.value })}>
               <div
                 className={`h-[152px] w-[380px] cursor-pointer rounded-[16px] border p-[20px] ${
-                  track === v.value
-                    ? 'border-transparent bg-yellow-primary'
-                    : 'bg-neutral-white hover:border-neutral-medium-gray'
+                  track === v.value ? 'border-transparent bg-yellow-primary' : 'bg-neutral-white hover:border-neutral-medium-gray'
                 }`}
               >
-                <div
-                  className={`flex items-center justify-between ${
-                    track === v.value
-                      ? 'text-neutral-off-black'
-                      : 'text-neutral-black'
-                  }`}
-                >
+                <div className={`flex items-center justify-between ${track === v.value ? 'text-neutral-off-black' : 'text-neutral-black'}`}>
                   <span className="body-xl-bold">{v.label}</span>
                   <Image src={v.imgActive} alt="tab-img" width={48}></Image>
                 </div>
-                <div className={`body-s mt-[20px] text-neutral-rich-gray`}>
-                  {v.description}
-                </div>
+                <div className={`body-s mt-[20px] text-neutral-rich-gray`}>{v.description}</div>
               </div>
             </Link>
           ))}

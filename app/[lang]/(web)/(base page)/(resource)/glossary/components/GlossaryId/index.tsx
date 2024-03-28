@@ -1,9 +1,6 @@
 'use client';
 import React, { useRef } from 'react';
-import {
-  BlogDetailType,
-  ResourceFrom
-} from '@/service/webApi/resourceStation/type';
+import { BlogDetailType, ResourceFrom } from '@/service/webApi/resourceStation/type';
 import PageRetentionTime from '@/components/Common/PageRetentionTime';
 import BlogLink from '../../../blog/components/BlogLink';
 import BlogContent from '../../../blog/components/BlogContent';
@@ -15,10 +12,7 @@ interface BlogDetailProp {
   from?: ResourceFrom;
 }
 
-const BlogDetail: React.FC<BlogDetailProp> = ({
-  blog,
-  from = ResourceFrom.BLOG
-}) => {
+const BlogDetail: React.FC<BlogDetailProp> = ({ blog, from = ResourceFrom.BLOG }) => {
   const boxRef = useRef<HTMLDivElement>(null);
 
   const backTop = () => {

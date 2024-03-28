@@ -1,6 +1,6 @@
 import { BlogType } from '@/service/webApi/resourceStation/type';
 import Link from 'next/link';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import TrackTag from '@/components/Common/TrackTag';
 import { BsArrowRightShort } from 'react-icons/bs';
 import MenuLink from '@/constants/MenuLink';
@@ -26,15 +26,10 @@ const GlossaryCard: React.FC<GlossaryCardProp> = ({ glossary }) => {
               <TrackTag key={i} track={v} />
             ))}
           </div>
-          <h2
-            ref={titleRef}
-            className="body-xl-bold line-clamp-2 text-neutral-off-black"
-          >
+          <h2 ref={titleRef} className="body-xl-bold line-clamp-2 text-neutral-off-black">
             {glossary.title}
           </h2>
-          <div
-            className={`body-s mt-[4px] text-neutral-rich-gray ${islineClamp2 ? 'truncate' : 'line-clamp-3'}`}
-          >
+          <div className={`body-s mt-[4px] text-neutral-rich-gray ${islineClamp2 ? 'truncate' : 'line-clamp-3'}`}>
             {glossary.description}
           </div>
         </div>

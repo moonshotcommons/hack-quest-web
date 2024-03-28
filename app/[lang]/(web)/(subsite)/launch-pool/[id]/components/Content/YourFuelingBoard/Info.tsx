@@ -1,5 +1,5 @@
 import { useUserStore } from '@/store/zustand/userStore';
-import React, { useContext, useMemo } from 'react';
+import React, { useContext } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 import Image from 'next/image';
 import { separationNumber } from '@/helper/utils';
@@ -29,11 +29,7 @@ const Info: React.FC<InfoProp> = () => {
     switch (launchInfo.status) {
       case LaunchPoolProjectStatus.UPCOMING:
         return {
-          desc: (
-            <p className="body-l my-[40px] text-neutral-rich-gray">
-              {t('fuelingDescription')}
-            </p>
-          ),
+          desc: <p className="body-l my-[40px] text-neutral-rich-gray">{t('fuelingDescription')}</p>,
           button: (
             <div className="flex justify-center">
               <Button type="primary" className="h-[60px] w-[477px] uppercase">
@@ -45,11 +41,7 @@ const Info: React.FC<InfoProp> = () => {
       case LaunchPoolProjectStatus.FUELING:
         if (launchInfo.isParticipate) return null;
         return {
-          desc: (
-            <p className="body-l my-[40px] text-neutral-rich-gray">
-              {t('fuelingDescription')}
-            </p>
-          ),
+          desc: <p className="body-l my-[40px] text-neutral-rich-gray">{t('fuelingDescription')}</p>,
           button: (
             <div className="flex justify-center">
               <Button type="primary" className="h-[60px] w-[477px] uppercase">
@@ -89,16 +81,10 @@ const Info: React.FC<InfoProp> = () => {
       {(launchInfo.status === LaunchPoolProjectStatus.ALLOCATION ||
         launchInfo.status === LaunchPoolProjectStatus.AIRDROP ||
         launchInfo.status === LaunchPoolProjectStatus.END) &&
-        !launchInfo.isParticipate && (
-          <LockMask text={t('dontParticipateText')} />
-        )}
-      {launchInfo.status === LaunchPoolProjectStatus.ALLOCATION &&
-        launchInfo.isParticipate && (
-          <FaLock
-            size={20}
-            className="absolute left-[12px] top-[12px] text-neutral-rich-gray"
-          />
-        )}
+        !launchInfo.isParticipate && <LockMask text={t('dontParticipateText')} />}
+      {launchInfo.status === LaunchPoolProjectStatus.ALLOCATION && launchInfo.isParticipate && (
+        <FaLock size={20} className="absolute left-[12px] top-[12px] text-neutral-rich-gray" />
+      )}
       <div className="flex items-center justify-between">
         <div className="flex flex-col items-center">
           <div className="relative h-[74px] w-[74px] overflow-hidden rounded-[50%]">
@@ -107,46 +93,28 @@ const Info: React.FC<InfoProp> = () => {
                 <BiUser size={40}></BiUser>
               </div>
             ) : (
-              <Image
-                src={userInfo?.avatar as string}
-                alt="avatar"
-                fill
-                className="object-cover"
-              ></Image>
+              <Image src={userInfo?.avatar as string} alt="avatar" fill className="object-cover"></Image>
             )}
           </div>
-          <p className="mt-[8px] text-neutral-black">
-            {!launchInfo.isParticipate ? 'N/A' : userInfo?.nickname}
-          </p>
+          <p className="mt-[8px] text-neutral-black">{!launchInfo.isParticipate ? 'N/A' : userInfo?.nickname}</p>
         </div>
         <div className="flex-1 border-r border-neutral-light-gray text-center">
           <p className="text-h2 text-neutral-off-black">
             {' '}
-            {!launchInfo.isParticipate
-              ? 'N/A'
-              : separationNumber(launchInfo.participateInfo?.totalFuel || 0)}
+            {!launchInfo.isParticipate ? 'N/A' : separationNumber(launchInfo.participateInfo?.totalFuel || 0)}
           </p>
           <p className="mt-[22px] text-neutral-medium-gray">{t('totalFuel')}</p>
         </div>
         <div className="flex-1 border-r border-neutral-light-gray text-center">
-          <p className="text-h2 text-neutral-off-black">
-            {' '}
-            {!launchInfo.isParticipate
-              ? 'N/A'
-              : `#${launchInfo.participateInfo?.rank}`}
-          </p>
+          <p className="text-h2 text-neutral-off-black"> {!launchInfo.isParticipate ? 'N/A' : `#${launchInfo.participateInfo?.rank}`}</p>
           <p className="mt-[22px] text-neutral-medium-gray">{t('fuelRank')}</p>
         </div>
         <div className="flex-1 text-center">
           <p className="text-h2 text-neutral-off-black">
             {' '}
-            {!launchInfo.isParticipate
-              ? 'N/A'
-              : `${launchInfo.participateInfo?.estimatedToken} #HQT`}
+            {!launchInfo.isParticipate ? 'N/A' : `${launchInfo.participateInfo?.estimatedToken} #HQT`}
           </p>
-          <p className="mt-[22px] text-neutral-medium-gray">
-            {t('finalTokenShare')}
-          </p>
+          <p className="mt-[22px] text-neutral-medium-gray">{t('finalTokenShare')}</p>
         </div>
       </div>
       {statusRender()?.desc}

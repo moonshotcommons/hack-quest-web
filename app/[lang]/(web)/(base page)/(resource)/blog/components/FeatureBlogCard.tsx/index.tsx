@@ -22,34 +22,19 @@ const FeatureBlogCard: React.FC<FeatureBlogCardProp> = ({ blog }) => {
       href={`${MenuLink.BLOG}/${blog.alias}`}
     >
       <div className="relative h-full w-[756px]  overflow-hidden">
-        <Image
-          src={blog.image}
-          fill
-          alt="blogImage"
-          className="object-cover"
-        ></Image>
+        <Image src={blog.image} fill alt="blogImage" className="object-cover"></Image>
       </div>
       <div className="flex h-full min-w-[604px] flex-1 flex-col justify-between p-[30px]">
         <div className="flex flex-col gap-[20px] ">
           <div className="flex gap-[10px]">
             {blog.categories.map((v, i) => (
-              <TrackTag
-                key={i}
-                track={v}
-                className="caption-16pt px-[16px] py-[6px]"
-              />
+              <TrackTag key={i} track={v} className="caption-16pt px-[16px] py-[6px]" />
             ))}
           </div>
           <h2 className="text-h3 line-clamp-2">{blog.title}</h2>
-          <div className="body-l line-clamp-5 text-neutral-black">
-            {blog.description}
-          </div>
+          <div className="body-l line-clamp-5 text-neutral-black">{blog.description}</div>
         </div>
-        <BlogCardFooter
-          blog={blog}
-          className="body-m text-neutral-medium-gray "
-          borderColor="border-neutral-medium-gray"
-        />
+        <BlogCardFooter blog={blog} className="body-m text-neutral-medium-gray " borderColor="border-neutral-medium-gray" />
       </div>
     </Link>
   );

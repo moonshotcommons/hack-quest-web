@@ -8,10 +8,7 @@ interface GlossaryProp {
   searchParams: { keyword?: string };
 }
 
-const Glossary: React.FC<GlossaryProp> = async ({
-  searchParams = {},
-  params: { slug = [] }
-}) => {
+const Glossary: React.FC<GlossaryProp> = async ({ searchParams = {}, params: { slug = [] } }) => {
   // const limit = 100000;
   const minPage = Number(slug[1]) < 1 ? 1 : Number(slug[1]);
   const page = slug[0] === 'p' ? minPage : 1;
