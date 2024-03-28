@@ -58,14 +58,18 @@ class LaunchPoolApi {
     return this.service.post<StakeInfo>(url);
   }
 
+  /** 加入白名单 */
   joinWaitList(projectId: string, email: string) {
     return this.service.post(`${LaunchPoolApiType.LaunchPoolProjects}/${projectId}/wait-list`, {
       data: { email }
     });
   }
 
+  /** 检查是否在白名单 */
   checkJoinWaitList(projectId: string) {
-    return this.service.get<{ isJoin: boolean; email: string }>(`${LaunchPoolApiType.LaunchPoolProjects}/${projectId}/check-wait-list`);
+    return this.service.get<{ isJoin: boolean; email: string }>(
+      `${LaunchPoolApiType.LaunchPoolProjects}/${projectId}/check-wait-list`
+    );
   }
 }
 
