@@ -42,6 +42,8 @@ const ConnectGithub: React.FC<ConnectGithubProp> = () => {
           localStorage.setItem('linkTwitterData', JSON.stringify(res));
         } catch (err) {
           errorMessage(err);
+        } finally {
+          window.close();
         }
 
         break;

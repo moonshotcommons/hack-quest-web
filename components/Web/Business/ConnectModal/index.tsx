@@ -142,7 +142,14 @@ const ConnectModal: ForwardRefRenderFunction<ConnectModalInstance, ConnectModalP
       case ParticipationStatus.INVITE_CODE:
         return (
           <EnterInviteCode
-            refreshConnectState={getConnectStateAsync}
+            refreshConnectState={async () => {
+              try {
+                await getConnectStateAsync();
+                setCurrentConnectType(ParticipationStatus.SUCCESS);
+              } catch (err) {
+                errorMessage(err);
+              }
+            }}
             connectState={connectState[3]}
             projectId={projectId.current!}
           />
