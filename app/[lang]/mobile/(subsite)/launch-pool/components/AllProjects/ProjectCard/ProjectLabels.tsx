@@ -16,7 +16,7 @@ export const LabelWrapper = ({ label, value }: LabelWrapperProps) => {
   return (
     <div className="flex min-w-[250px] max-w-[300px] flex-col gap-1">
       <span className="body-s inline-block w-[236px] max-w-[236px] text-neutral-rich-gray">{label}</span>
-      <span className="body-xl-bold inline-block uppercase text-neutral-black">{value}</span>
+      <span className="body-m-bold inline-block uppercase text-neutral-black">{value}</span>
     </div>
   );
 };
@@ -32,7 +32,7 @@ const ProjectLabels: FC<ProjectLabelsProps> = ({ project }) => {
   const status = project.status;
 
   return (
-    <div className="flex max-w-[600px] flex-wrap gap-5">
+    <div className="flex flex-col gap-4">
       {LIVE_NOW_STATUS.includes(status) && (
         <LabelWrapper label={t('totalParticipatedUsers')} value={project.userCount.toLocaleString('en-US')} />
       )}

@@ -1,11 +1,6 @@
 import WebService from '@/service/webService/webService';
 import { PageResult } from '../type';
-import {
-  FuelInfo,
-  LaunchPoolProjectType,
-  ParticipateInfo,
-  StakeInfo
-} from './type';
+import { FuelInfo, LaunchPoolProjectType, ParticipateInfo, StakeInfo } from './type';
 import { cache } from 'react';
 
 export enum LaunchPoolApiType {
@@ -20,9 +15,7 @@ class LaunchPoolApi {
 
   /* 获取projects列表 */
   getProjects() {
-    return this.service.get<PageResult<LaunchPoolProjectType>>(
-      LaunchPoolApiType.GetProjects
-    );
+    return this.service.get<PageResult<LaunchPoolProjectType>>(LaunchPoolApiType.GetProjects);
   }
 
   getProjectsFromCache() {
@@ -64,6 +57,8 @@ class LaunchPoolApi {
     const url = `${LaunchPoolApiType.GetProjects}/${projectId}/stake`;
     return this.service.post<StakeInfo>(url);
   }
+
+  joinWaitList(email: string) {}
 }
 
 export default LaunchPoolApi;

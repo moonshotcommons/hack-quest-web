@@ -1,20 +1,13 @@
 'use client';
 import { FC, useContext, useRef } from 'react';
 import Button from '@/components/Common/Button';
-import WaitListModal, {
-  WaitListModalInstance
-} from '@/components/Web/Business/WaitListModal';
-import { useUserStore } from '@/store/zustand/userStore';
-import ConnectModal, {
-  ConnectModalInstance
-} from '@/components/Web/Business/ConnectModal';
+import WaitListModal, { WaitListModalInstance } from '@/components/Web/Business/WaitListModal';
+import { AuthType, useUserStore } from '@/store/zustand/userStore';
+import ConnectModal, { ConnectModalInstance } from '@/components/Web/Business/ConnectModal';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
-import {
-  LaunchPoolProjectType,
-  LaunchPoolProjectStatus
-} from '@/service/webApi/launchPool/type';
+import { LaunchPoolProjectType, LaunchPoolProjectStatus } from '@/service/webApi/launchPool/type';
 
 interface HandleButtonProps {
   project: LaunchPoolProjectType;
@@ -23,7 +16,11 @@ interface HandleButtonProps {
 const HandleButton: FC<HandleButtonProps> = ({ project }) => {
   const waitListRef = useRef<WaitListModalInstance>(null);
   const connectModalRef = useRef<ConnectModalInstance>(null);
+
   const userInfo = useUserStore((state) => state.userInfo);
+  const setAuthType = useUserStore((state) => state.setAuthType);
+  const setAuthModalOpen = useUserStore((state) => state.setAuthModalOpen);
+
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
   const renderButton = () => {
@@ -52,7 +49,12 @@ const HandleButton: FC<HandleButtonProps> = ({ project }) => {
             onClick={(e) => {
               e.stopPropagation();
               e.preventDefault();
-              connectModalRef.current?.onConnect();
+              if (!userInfo) {
+                setAuthType(AuthType.LOGIN);
+                setAuthModalOpen(true);
+                return;
+              }
+              connectModalRef.current?.onConnect(project.id);
             }}
           >
             {t('participateNow')}
@@ -60,10 +62,7 @@ const HandleButton: FC<HandleButtonProps> = ({ project }) => {
         );
       case LaunchPoolProjectStatus.END:
         return (
-          <Button
-            ghost
-            className="button-text-l w-[270px] max-w-[270px] py-4 uppercase"
-          >
+          <Button ghost className="button-text-l w-[270px] max-w-[270px] py-4 uppercase">
             {t('seeMore')}
           </Button>
         );

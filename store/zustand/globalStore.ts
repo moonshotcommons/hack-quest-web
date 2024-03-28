@@ -14,11 +14,13 @@ export interface GlobalStateType {
     toggleOpen: () => void;
     isOpen: boolean;
     setNavType: (payload: NavType) => void;
+    setModuleProps: (payload: object) => void;
   };
   setMobileNavModalToggleOpenHandle: (payload: {
     toggleOpen: () => void;
     isOpen: boolean;
     setNavType: (payload: NavType) => void;
+    setModuleProps: (payload: object) => void;
   }) => void;
 }
 
@@ -31,6 +33,7 @@ export const useGlobalStore = create<GlobalStateType>()((set) => ({
   mobileNavModalToggleOpenHandle: {
     isOpen: false,
     setNavType() {},
+    setModuleProps() {},
     toggleOpen() {}
   },
   setTipsModalOpenState(payload) {
