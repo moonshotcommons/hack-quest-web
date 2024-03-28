@@ -69,10 +69,7 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon })
           >
             Apply Now
           </Button>
-          <Button
-            className="button-text-s h-[2.125rem] flex-1 border border-neutral-black uppercase"
-            onClick={goHackathonDetail}
-          >
+          <Button className="button-text-s h-[2.125rem] flex-1 border border-neutral-black uppercase" onClick={goHackathonDetail}>
             Learn More
           </Button>
         </div>
