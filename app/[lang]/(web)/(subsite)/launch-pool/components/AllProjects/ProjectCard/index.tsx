@@ -77,7 +77,7 @@ const ProjectCard: FC<ProjectCardProps> = async ({ lang, project, className }) =
   }
 
   return (
-    <Link href={`${lang}/launch-pool/${project.id}`}>
+    <Link href={`/${lang}/launch-pool/${project.id}`}>
       <div className={cn(projectCardVariants({ className, status }))}>
         <div className="flex flex-col justify-center gap-6">
           <div>{logo}</div>
