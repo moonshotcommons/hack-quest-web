@@ -5,7 +5,7 @@ import { LearnPageType, useCourseStore } from '@/store/zustand/courseStore';
 import { CreationPageKey, UgcCreateContext, defaultCourseInformation } from '../../constant/type';
 import { lessonIdKeys } from '../../constant/data';
 import { useRedirect } from '@/hooks/router/useRedirect';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 import { UGCCourseUnitType } from '@/service/webApi/course/type';
 interface UgcCreateProviderProps {
   children: ReactNode;

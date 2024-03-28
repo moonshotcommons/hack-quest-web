@@ -5,7 +5,7 @@ import { BlogDetailType } from '@/service/webApi/resourceStation/type';
 import { getBlogById } from '@/service/cach/resource/blog';
 import { permanentRedirect } from 'next/navigation';
 import { isUuid } from '@/helper/utils';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 
 interface BlogDetailProp {
   params: {

@@ -63,7 +63,7 @@ const SubmitWordModal: React.FC<SubmitWordModalProp> = ({ open, onClose }) => {
             </div>
             <Button
               loading={loading}
-              className={`button-text-m h-[2.125rem] w-[8.75rem] uppercase ${keyword ? 'bg-yellow-primary text-neutral-black' : 'cursor-not-allowed bg-neutral-light-gray text-neutral-medium-gray'}`}
+              className={`button-text-s h-[2.125rem] w-[8.75rem] uppercase ${keyword ? 'bg-yellow-primary text-neutral-black' : 'cursor-not-allowed bg-neutral-light-gray text-neutral-medium-gray'}`}
               onClick={onSubmit}
             >
               submit
@@ -76,7 +76,11 @@ const SubmitWordModal: React.FC<SubmitWordModalProp> = ({ open, onClose }) => {
               Thank you for your word submission! Our team will review it, and if approved, it will be added to our
               Glossary shortly. Stay tuned for updates, and keep exploring the world of Web3 with us!
             </p>
-            <Button ghost onClick={onClose} className="button-text-m h-[48px] w-[256px] border-neutral-black uppercase">
+            <Button
+              ghost
+              onClick={onClose}
+              className="button-text-s  h-[2.125rem] w-[8.75rem] border-neutral-black uppercase"
+            >
               Close
             </Button>
           </>

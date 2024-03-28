@@ -1,5 +1,5 @@
 import Button from '@/components/Common/Button';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 import Link from 'next/link';
 import React from 'react';
 

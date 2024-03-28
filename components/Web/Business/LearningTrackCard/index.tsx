@@ -6,8 +6,8 @@ import { useRedirect } from '@/hooks/router/useRedirect';
 import LearningTrackImg from '@/public/images/home/learningtrack_img.png';
 import TrackTag from '@/components/Common/TrackTag';
 import CompletedIcon from '@/components/Common/Icon/Completed';
-import { MenuLink } from '../../Layout/BasePage/Navbar/type';
 import Link from 'next/link';
+import MenuLink from '@/constants/MenuLink';
 interface LearningTrackCardProps {
   learningTrack: LearningTrackDetailType;
   isLandingPage?: boolean;

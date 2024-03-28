@@ -16,7 +16,7 @@ import { useJumpLeaningLesson } from '@/hooks/courses/useJumpLeaningLesson';
 import { QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import { useGetLessonLink } from '@/hooks/courses/useGetLessonLink';
 import { useRedirect } from '@/hooks/router/useRedirect';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 import Tags from '@/components/Common/Tags';
 import { HiCodeBracket } from 'react-icons/hi2';
 

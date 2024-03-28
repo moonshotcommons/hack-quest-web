@@ -4,11 +4,11 @@ import React from 'react';
 
 import { useRedirect } from '@/hooks/router/useRedirect';
 import { IoExitOutline, IoPlayOutline } from 'react-icons/io5';
-import { MenuLink } from '../../BasePage/Navbar/type';
 import { LearnPageType, useCourseStore } from '@/store/zustand/courseStore';
 import { FiSave } from 'react-icons/fi';
 import { useShallow } from 'zustand/react/shallow';
 import { CreationHandle, useUgcCreationStore } from '@/store/zustand/ugcCreationStore';
+import MenuLink from '@/constants/MenuLink';
 
 export interface NavBarProps {}
 

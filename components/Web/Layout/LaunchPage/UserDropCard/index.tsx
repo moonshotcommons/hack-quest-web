@@ -11,12 +11,12 @@ import { BiUser, BiLockAlt, BiLogInCircle } from 'react-icons/bi';
 import { V2_LANDING_PATH, isNoNeedUserInfo } from '@/constants/nav';
 import { useCustomPathname } from '@/hooks/router/useCheckPathname';
 import { useRouter } from 'next/navigation';
-import { MenuLink } from '../../BasePage/Navbar/type';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import { LangContext } from '@/components/Provider/Lang';
 
 import ConnectButton from './ConnectButton';
+import MenuLink from '@/constants/MenuLink';
 interface UserDropCardProps {
   // children: ReactNode;
   userInfo: LoginResponse;

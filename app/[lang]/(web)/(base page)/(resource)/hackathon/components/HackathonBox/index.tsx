@@ -8,7 +8,7 @@ import CourseListPageHeader from '@/components/Web/Business/CourseListPageHeader
 import Tab from './Tab';
 import { useRouter } from 'next/navigation';
 import { getSearchParamsUrl } from '@/helper/utils';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 import { HiArrowLongRight } from 'react-icons/hi2';
 
 interface HackathonBoxProp {

@@ -26,6 +26,8 @@ export interface UgcContextType {
   setFooterBtn: (btn: Partial<footerBtnType>) => void;
   expandData: Record<string, number[]>;
   updateExpandData: (data: Record<string, number[]>) => void;
+  mounted: boolean;
+  setMounted: (mounted: boolean) => void;
 }
 export const UgcContext = createContext<UgcContextType>({
   navbarData: [],
@@ -39,5 +41,7 @@ export const UgcContext = createContext<UgcContextType>({
   },
   expandData: {},
   updateExpandData: (data: Record<string, number[]>) => {},
-  setFooterBtn: () => {}
+  setFooterBtn: () => {},
+  mounted: false,
+  setMounted: () => {}
 });

@@ -9,7 +9,7 @@ import {
 import { cloneDeep } from 'lodash-es';
 import UgcCourseCard from '@/components/Web/Business/UgcCourseCard';
 import Pagination from '@/components/Common/Pagination';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 import { CourseMarketApiType } from '@/service/cach/learn/course-market';
 
 interface CourseListProp {

@@ -6,10 +6,10 @@ import Button from '@/components/Common/Button';
 import { CourseTab } from '@/app/[lang]/(web)/(base page)/(home)/instructor/constants/type';
 import UgcTags from './UgcTags';
 import { UGCCourseType } from '@/service/webApi/course/type';
-import { MenuLink } from '../../Layout/BasePage/Navbar/type';
 import UgcCardCover from '@/public/images/home/instructor_cover.png';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import { CreationPageKey } from '@/app/[lang]/(web)/(learn page)/ugc/[courseId]/creation/constant/type';
+import MenuLink from '@/constants/MenuLink';
 
 interface UgcCourseCardProp {
   isPublic?: boolean;

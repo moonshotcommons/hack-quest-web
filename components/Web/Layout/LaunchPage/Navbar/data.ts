@@ -1,5 +1,6 @@
 import { Lang } from '@/i18n/config';
-import { MenuLink, NavbarListType } from '../../BasePage/Navbar/type';
+import { NavbarListType } from '../../BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 
 export const navbarList: NavbarListType[] = [
   {

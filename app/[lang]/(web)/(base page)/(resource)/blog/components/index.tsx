@@ -8,7 +8,7 @@ import PageRetentionTime from '@/components/Common/PageRetentionTime';
 import NoData from './NoData';
 import Pagination from '@/components/Common/Pagination';
 import BlogFooter from './BlogFooter';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 
 interface BlogProps {
   params: { slug: string[] };

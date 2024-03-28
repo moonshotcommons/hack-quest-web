@@ -4,7 +4,8 @@ import moment from 'moment';
 import { TransNs } from '@/i18n/config';
 import { useTranslation } from '@/i18n/client';
 import { LangContext } from '@/components/Provider/Lang';
-import { LaunchDetailContext, LaunchStatus } from '../../constants/type';
+import { LaunchDetailContext } from '../../constants/type';
+import { LaunchPoolProjectStatus } from '@/service/webApi/launchPool/type';
 
 interface TimeLineProp {}
 
@@ -17,13 +18,13 @@ const TimeLine: React.FC<TimeLineProp> = () => {
     switch (type) {
       case 'fueling':
         switch (launchInfo.status) {
-          case LaunchStatus.UN_FUELING:
+          case LaunchPoolProjectStatus.UPCOMING:
             return (
               <div className="caption-12pt rounded-[20px] border border-neutral-rich-gray px-[12px] py-[4px] text-neutral-rich-gray">
                 {t('upComing')}
               </div>
             );
-          case LaunchStatus.FUELING:
+          case LaunchPoolProjectStatus.FUELING:
             return (
               <div className="caption-12pt rounded-[20px] border border-status-success-dark px-[12px] py-[4px] text-status-success-dark">
                 {t('liveNow')}
@@ -38,14 +39,14 @@ const TimeLine: React.FC<TimeLineProp> = () => {
         }
       case 'allocation':
         switch (launchInfo.status) {
-          case LaunchStatus.UN_FUELING:
-          case LaunchStatus.FUELING:
+          case LaunchPoolProjectStatus.UPCOMING:
+          case LaunchPoolProjectStatus.FUELING:
             return (
               <div className="caption-12pt rounded-[20px] border border-neutral-rich-gray px-[12px] py-[4px] text-neutral-rich-gray">
                 {t('upComing')}
               </div>
             );
-          case LaunchStatus.ALLOCATIONING:
+          case LaunchPoolProjectStatus.ALLOCATION:
             return (
               <div className="caption-12pt rounded-[20px] border border-status-success-dark px-[12px] py-[4px] text-status-success-dark">
                 {t('liveNow')}
@@ -60,15 +61,15 @@ const TimeLine: React.FC<TimeLineProp> = () => {
         }
       case 'airdrop':
         switch (launchInfo.status) {
-          case LaunchStatus.UN_FUELING:
-          case LaunchStatus.FUELING:
-          case LaunchStatus.ALLOCATIONING:
+          case LaunchPoolProjectStatus.UPCOMING:
+          case LaunchPoolProjectStatus.FUELING:
+          case LaunchPoolProjectStatus.ALLOCATION:
             return (
               <div className="caption-12pt rounded-[20px] border border-neutral-rich-gray px-[12px] py-[4px] text-neutral-rich-gray">
                 {t('upComing')}
               </div>
             );
-          case LaunchStatus.AIRDROPING:
+          case LaunchPoolProjectStatus.AIRDROP:
             return (
               <div className="caption-12pt rounded-[20px] border border-status-success-dark px-[12px] py-[4px] text-status-success-dark">
                 {t('liveNow')}
@@ -85,8 +86,8 @@ const TimeLine: React.FC<TimeLineProp> = () => {
   };
   const descriptionRender = () => {
     switch (launchInfo.status) {
-      case LaunchStatus.UN_FUELING:
-      case LaunchStatus.FUELING:
+      case LaunchPoolProjectStatus.UPCOMING:
+      case LaunchPoolProjectStatus.FUELING:
         return (
           <div>
             <p>{t('fuelingDescriptionTop')}</p>
@@ -101,7 +102,7 @@ const TimeLine: React.FC<TimeLineProp> = () => {
             </p>
           </div>
         );
-      case LaunchStatus.ALLOCATIONING:
+      case LaunchPoolProjectStatus.ALLOCATION:
         return <p>{t('allocationDescription')}</p>;
       default:
         return <p>{t('airdropDescription')}</p>;
@@ -112,7 +113,7 @@ const TimeLine: React.FC<TimeLineProp> = () => {
       <p className="text-h3 text-neutral-off-black">{t(titleTxtData[1])}</p>
       <div className="my-[24px] flex gap-[20px] [&>div]:flex-1">
         <div
-          className={`rounded-[16px] border  px-[20px] py-[16px] ${launchInfo.status === LaunchStatus.FUELING ? 'border-neutral-medium-gray bg-neutral-white' : 'border-neutral-light-gray'}`}
+          className={`rounded-[16px] border  px-[20px] py-[16px] ${launchInfo.status === LaunchPoolProjectStatus.FUELING ? 'border-neutral-medium-gray bg-neutral-white' : 'border-neutral-light-gray'}`}
         >
           <div className="flex items-center justify-between">
             <span className="text-h4 text-neutral-off-black">{t('fueling')}</span>
@@ -122,7 +123,7 @@ const TimeLine: React.FC<TimeLineProp> = () => {
         </div>
 
         <div
-          className={`rounded-[16px] border  px-[20px] py-[16px] ${launchInfo.status === LaunchStatus.ALLOCATIONING ? 'border-neutral-medium-gray bg-neutral-white' : 'border-neutral-light-gray'}`}
+          className={`rounded-[16px] border  px-[20px] py-[16px] ${launchInfo.status === LaunchPoolProjectStatus.ALLOCATION ? 'border-neutral-medium-gray bg-neutral-white' : 'border-neutral-light-gray'}`}
         >
           <div className="flex items-center justify-between">
             <span className="text-h4 text-neutral-off-black">{t('allocation')}</span>
@@ -132,7 +133,7 @@ const TimeLine: React.FC<TimeLineProp> = () => {
         </div>
 
         <div
-          className={`rounded-[16px] border  px-[20px] py-[16px] ${launchInfo.status === LaunchStatus.AIRDROPING || launchInfo.status === LaunchStatus.ENDED ? 'border-neutral-medium-gray bg-neutral-white' : 'border-neutral-light-gray'}`}
+          className={`rounded-[16px] border  px-[20px] py-[16px] ${launchInfo.status === LaunchPoolProjectStatus.AIRDROP || launchInfo.status === LaunchPoolProjectStatus.END ? 'border-neutral-medium-gray bg-neutral-white' : 'border-neutral-light-gray'}`}
         >
           <div className="flex items-center justify-between">
             <span className="text-h4 text-neutral-off-black">{t('airdrop')}</span>

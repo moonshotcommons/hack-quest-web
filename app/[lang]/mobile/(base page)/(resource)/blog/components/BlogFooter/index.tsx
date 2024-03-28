@@ -5,7 +5,7 @@ import Loading from '@/components/Common/Loading';
 //   ScrollContainer,
 //   ScrollControl
 // } from '@/components/Common/ScrollContainer';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 import { BurialPoint } from '@/helper/burialPoint';
 import webApi from '@/service';
 import { BlogType, ResourceFrom } from '@/service/webApi/resourceStation/type';

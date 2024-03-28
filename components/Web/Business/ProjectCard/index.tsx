@@ -3,10 +3,10 @@ import React from 'react';
 import Image from 'next/image';
 import { ProjectType } from '@/service/webApi/resourceStation/type';
 import { BurialPoint } from '@/helper/burialPoint';
-import { MenuLink } from '../../Layout/BasePage/Navbar/type';
 import TrackTag from '@/components/Common/TrackTag';
 import Link from 'next/link';
 import { cn } from '@/helper/utils';
+import MenuLink from '@/constants/MenuLink';
 
 interface ProjectCardProp {
   className?: string;

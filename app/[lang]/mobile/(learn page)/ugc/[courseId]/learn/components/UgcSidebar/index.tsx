@@ -132,6 +132,7 @@ const UgcSidebar: FC<UgcSidebarProps> = () => {
           onSelect={(key, item: any) => {
             if (item.id === lesson.id) return;
             const link = getLink(course.type, key, course.title);
+            setSidebarOpen(false);
             redirectToUrl(link);
           }}
           onShowListChange={(showList) => setSidebarOpen(showList)}

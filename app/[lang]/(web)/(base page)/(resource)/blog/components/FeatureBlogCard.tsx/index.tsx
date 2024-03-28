@@ -2,7 +2,7 @@ import BlogCardFooter from '@/components/Web/Business/BlogCard/BlogCardFooter';
 import React from 'react';
 import Image from 'next/image';
 import { BlogType } from '@/service/webApi/resourceStation/type';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 import { BurialPoint } from '@/helper/burialPoint';
 import Link from 'next/link';
 import TrackTag from '@/components/Common/TrackTag';
@@ -31,7 +31,7 @@ const FeatureBlogCard: React.FC<FeatureBlogCardProp> = ({ blog }) => {
               <TrackTag key={i} track={v} className="caption-16pt px-[16px] py-[6px]" />
             ))}
           </div>
-          <div className="text-h3 line-clamp-2">{blog.title}</div>
+          <h2 className="text-h3 line-clamp-2">{blog.title}</h2>
           <div className="body-l line-clamp-5 text-neutral-black">{blog.description}</div>
         </div>
         <BlogCardFooter

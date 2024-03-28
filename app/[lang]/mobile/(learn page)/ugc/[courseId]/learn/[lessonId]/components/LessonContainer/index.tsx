@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import { FC, useContext, useEffect } from 'react';
 import {
   LessonReadingData,
   lessonTypeData
@@ -6,6 +6,7 @@ import {
 import ComponentRenderer from '../UgcRender';
 import webApi from '@/service';
 import { useUnitNavList } from '@/hooks/courses/useUnitNavList';
+import { UgcContext } from '@/app/[lang]/(web)/(learn page)/ugc/[courseId]/learn/constants/type';
 
 interface LessonContainerProps {
   lesson: LessonReadingData;
@@ -14,6 +15,7 @@ interface LessonContainerProps {
 const LessonContainer: FC<LessonContainerProps> = (props) => {
   const { lesson } = props;
   const { refreshNavList } = useUnitNavList(lesson as any);
+  const { setMounted } = useContext(UgcContext);
   useEffect(() => {
     if (lesson) {
       refreshNavList();
@@ -22,6 +24,10 @@ const LessonContainer: FC<LessonContainerProps> = (props) => {
       });
     }
   }, [lesson]);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <div className="flex w-full flex-col items-center">

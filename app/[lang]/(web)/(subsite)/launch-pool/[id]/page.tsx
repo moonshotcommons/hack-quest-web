@@ -1,7 +1,7 @@
 import React from 'react';
 import LaunchDetailPage from './components';
 import { LaunchPoolProjectType } from '@/service/webApi/launchPool/type';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 import webApi from '@/service';
 import { Metadata } from 'next';
 

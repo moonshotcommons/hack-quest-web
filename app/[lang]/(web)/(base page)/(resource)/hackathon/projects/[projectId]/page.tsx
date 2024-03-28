@@ -5,7 +5,7 @@ import FeaturedProjects from '../../components/FeaturedProject';
 import { getFeaturedProjectsById, getHackathonProjectById, getOtherProjects } from '@/service/cach/resource/hackathon';
 import { isUuid } from '@/helper/utils';
 import { permanentRedirect } from 'next/navigation';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 
 interface ProjectDetailPageProps {
   params: {
