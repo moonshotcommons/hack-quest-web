@@ -28,11 +28,12 @@ export function middleware(request: NextRequest) {
   let pathnameHasLocale = false;
   let supportI18n = pathname.includes('/launch-pool');
   let locale = userSelectLocale;
-
+  let isRedirect = false;
   // 如果是 public 文件，不重定向
   if (/\.(.*)$/.test(pathname)) return;
-  if (!/^(https?:\/\/)?(www\.)/.test(request.nextUrl.href)) {
+  if (!/^(https?:\/\/)?(www\.)/.test(request.nextUrl.href) && request.nextUrl.hostname !== 'localhost') {
     request.nextUrl.hostname = `www.${request.nextUrl.hostname}`;
+    isRedirect = true;
   }
   // 'https://www.dev.hackquest.io/'.replace(/^(https?:\/\/)([^/]+)/, "$1www.$2");
   // /^(https?:\/\/)?(www\.)/.test('https://dev.hackquest.io/');
@@ -50,8 +51,10 @@ export function middleware(request: NextRequest) {
   const userAgent = request.headers.get('user-agent');
 
   if (!userAgent) {
-    if (pathnameHasLocale) return NextResponse.redirect(request.nextUrl);
-    else return NextResponse.redirect(request.nextUrl);
+    if (pathnameHasLocale) {
+      if (isRedirect) return NextResponse.redirect(request.nextUrl);
+      else NextResponse.next();
+    } else return NextResponse.redirect(request.nextUrl);
   }
 
   // 移动设备访问，但是url不带/mobile，重定向到/mobile
@@ -71,7 +74,10 @@ export function middleware(request: NextRequest) {
   }
 
   // 带了语言的url 直接返回
-  if (pathnameHasLocale && userSelectLocale === locale) return NextResponse.redirect(request.nextUrl);
+  if (pathnameHasLocale && userSelectLocale === locale) {
+    if (isRedirect) return NextResponse.redirect(request.nextUrl);
+    else NextResponse.next();
+  }
   // 不带语言的url 重定向到带语言的url
   else return NextResponse.redirect(request.nextUrl);
 }
