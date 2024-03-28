@@ -77,7 +77,7 @@ const ConnectModal: ForwardRefRenderFunction<ConnectModalInstance, ConnectModalP
       manual: true,
       onSuccess({ connectInfo, isInit, isParticipate, twitterFollow, discordJoin }) {
         const newConnectState = connectState.map((connectItem) => {
-          let itemInfo = connectInfo.find((item) => item.thirdPartyName === connectItem.type) || {};
+          let itemInfo = connectInfo.find((item) => item.thirdPartyName === connectItem.type) as object;
           let isConnect = connectItem.isConnect;
 
           switch (connectItem.type) {
@@ -85,11 +85,11 @@ const ConnectModal: ForwardRefRenderFunction<ConnectModalInstance, ConnectModalP
               return { ...connectItem, isConnect: isParticipate };
             case ConnectType.TWITTER:
               isConnect = !!itemInfo && twitterFollow.isFollow;
-              itemInfo = { ...itemInfo, isFollow: twitterFollow.isFollow };
+              itemInfo = { ...(itemInfo || {}), isFollow: twitterFollow.isFollow };
               break;
             case ConnectType.DISCORD:
               isConnect = !!itemInfo && discordJoin.isJoin;
-              itemInfo = { ...itemInfo, isJoin: discordJoin.isJoin };
+              itemInfo = { ...(itemInfo || {}), isJoin: discordJoin.isJoin };
               break;
             default:
               isConnect = !!itemInfo;

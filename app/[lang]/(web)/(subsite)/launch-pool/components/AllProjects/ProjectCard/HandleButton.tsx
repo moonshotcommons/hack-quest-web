@@ -1,5 +1,5 @@
 'use client';
-import { FC, useContext, useRef } from 'react';
+import { FC, useContext, useEffect, useRef, useState } from 'react';
 import Button from '@/components/Common/Button';
 import WaitListModal, { WaitListModalInstance } from '@/components/Web/Business/WaitListModal';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
@@ -8,6 +8,9 @@ import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import { LaunchPoolProjectType, LaunchPoolProjectStatus } from '@/service/webApi/launchPool/type';
+import { useRequest } from 'ahooks';
+import webApi from '@/service';
+import { errorMessage } from '@/helper/ui';
 
 interface HandleButtonProps {
   project: LaunchPoolProjectType;
@@ -23,25 +26,70 @@ const HandleButton: FC<HandleButtonProps> = ({ project }) => {
 
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
+
+  const [joined, setJoined] = useState(false);
+
+  const { run, refreshAsync } = useRequest(
+    async () => {
+      return webApi.launchPoolApi.checkJoinWaitList(project.id);
+    },
+    {
+      manual: true,
+      onSuccess(res) {
+        if (res?.isJoin) {
+          setJoined(true);
+        }
+      },
+      onError(err) {
+        errorMessage(err);
+      }
+    }
+  );
+
+  useEffect(() => {
+    if (userInfo) run();
+  }, [run, userInfo]);
+
   const renderButton = () => {
     switch (project.status) {
       case LaunchPoolProjectStatus.UPCOMING:
         return (
-          <Button
-            type="primary"
-            className="button-text-l w-[270px] max-w-[270px] py-4 uppercase"
-            onClick={(e) => {
-              e.stopPropagation();
-              e.preventDefault();
-              waitListRef.current?.onJoin(userInfo?.email);
-            }}
-          >
-            {t('joinWaitlist')}
-          </Button>
+          <>
+            {!joined && (
+              <Button
+                type="primary"
+                className="button-text-l w-[270px] max-w-[270px] py-4 uppercase"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  e.preventDefault();
+                  if (!userInfo) {
+                    setAuthType(AuthType.LOGIN);
+                    setAuthModalOpen(true);
+                    return;
+                  }
+                  waitListRef.current?.onJoin(project.id, refreshAsync, '');
+                }}
+              >
+                {t('joinWaitlist')}
+              </Button>
+            )}
+            {joined && (
+              <Button
+                ghost
+                className="button-text-l w-[270px] max-w-[270px] py-4 uppercase"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  e.preventDefault();
+                }}
+              >
+                {t('waitListJoined')}
+              </Button>
+            )}
+          </>
         );
       case LaunchPoolProjectStatus.FUELING:
       case LaunchPoolProjectStatus.AIRDROP:
-      case LaunchPoolProjectStatus.ALLOCATION:
+      case LaunchPoolProjectStatus.END:
         return (
           <Button
             type="primary"
@@ -60,12 +108,12 @@ const HandleButton: FC<HandleButtonProps> = ({ project }) => {
             {t('participateNow')}
           </Button>
         );
-      case LaunchPoolProjectStatus.END:
-        return (
-          <Button ghost className="button-text-l w-[270px] max-w-[270px] py-4 uppercase">
-            {t('seeMore')}
-          </Button>
-        );
+      // case LaunchPoolProjectStatus.END:
+      //   return (
+      //     <Button ghost className="button-text-l w-[270px] max-w-[270px] py-4 uppercase">
+      //       {t('seeMore')}
+      //     </Button>
+      //   );
     }
   };
   return (

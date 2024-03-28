@@ -1,6 +1,6 @@
 'use client';
 import Modal from '@/components/Common/Modal';
-import { ForwardRefRenderFunction, forwardRef, useImperativeHandle, useMemo, useState } from 'react';
+import { ForwardRefRenderFunction, forwardRef, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { LuX } from 'react-icons/lu';
 import { useRequest } from 'ahooks';
 import { errorMessage } from '@/helper/ui';
@@ -8,6 +8,7 @@ import InputEmail from './InputEmail';
 import JoinedSuccess from './JoinedSuccess';
 import Image from 'next/image';
 import Loading from '@/public/images/other/loading.png';
+import webApi from '@/service';
 
 interface WaitListModalProps {}
 
@@ -28,7 +29,7 @@ const logo = (
 );
 
 export interface WaitListModalInstance {
-  onJoin: (email?: string) => void;
+  onJoin: (projectId: string, refreshJoinStatus: () => Promise<unknown>, email?: string) => void;
 }
 
 export enum JoinStatus {
@@ -39,14 +40,12 @@ export enum JoinStatus {
 const WaitListModal: ForwardRefRenderFunction<WaitListModalInstance, WaitListModalProps> = (props, ref) => {
   const [open, setOpen] = useState(false);
   const [joinStatus, setJoinStatus] = useState(JoinStatus.InputEmail);
-
+  const projectId = useRef<string>();
+  const refreshFunction = useRef(() => {});
   const { loading, run: joinHandle } = useRequest(
-    (email: string) => {
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve(true);
-        }, 1500);
-      });
+    async (email: string) => {
+      await webApi.launchPoolApi.joinWaitList(projectId.current!, email);
+      await refreshFunction.current();
     },
     {
       manual: true,
@@ -63,10 +62,12 @@ const WaitListModal: ForwardRefRenderFunction<WaitListModalInstance, WaitListMod
     ref,
     () => {
       return {
-        onJoin(email) {
+        onJoin(id, refresh, email) {
           setOpen(true);
+          projectId.current = id;
+          refreshFunction.current = refresh;
           if (email) {
-            joinHandle('');
+            joinHandle(email);
           }
         }
       };
