@@ -6,9 +6,7 @@ import { FC, useContext } from 'react';
 interface ExpandAllButtonProps {}
 
 const ExpandAllButton: FC<ExpandAllButtonProps> = (props) => {
-  const { expandAll, setExpandList, learningTrackDetail } = useContext(
-    LearningTrackDetailContext
-  );
+  const { expandAll, setExpandList, learningTrackDetail } = useContext(LearningTrackDetailContext);
 
   return (
     <div
@@ -17,9 +15,7 @@ const ExpandAllButton: FC<ExpandAllButtonProps> = (props) => {
         if (expandAll) {
           setExpandList([]);
         } else {
-          setExpandList(
-            learningTrackDetail?.sections.map((item, index) => index) || []
-          );
+          setExpandList(learningTrackDetail?.sections.map((item, index) => index) || []);
         }
 
         BurialPoint.track('learningTrackDetail-Expand All 按钮点击');

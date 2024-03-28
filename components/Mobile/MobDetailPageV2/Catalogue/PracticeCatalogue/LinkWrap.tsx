@@ -1,11 +1,7 @@
 'use client';
 import { cn, getLessonLink } from '@/helper/utils';
 import webApi from '@/service';
-import {
-  CourseDetailType,
-  CourseType,
-  CourseUnitType
-} from '@/service/webApi/course/type';
+import { CourseDetailType, CourseType, CourseUnitType } from '@/service/webApi/course/type';
 import { FC, ReactNode, useContext, useMemo } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { UnitContext } from '../../Provider/UnitProvider';
@@ -19,28 +15,19 @@ interface LinkWrapProps {
   index: number;
 }
 
-const LinkWrap: FC<LinkWrapProps> = ({
-  unit: propUnit,
-  courseDetail: propCourseDetail,
-  children,
-  index
-}) => {
+const LinkWrap: FC<LinkWrapProps> = ({ unit: propUnit, courseDetail: propCourseDetail, children, index }) => {
   const { unit: contextUnit } = useContext(UnitContext);
   const unit = contextUnit ?? propUnit;
   const query = useSearchParams();
   const { redirectToUrl } = useRedirect();
 
-  const { courseDetail: contextCourseDetail } = useContext(
-    PracticeDetailContext
-  );
+  const { courseDetail: contextCourseDetail } = useContext(PracticeDetailContext);
   const courseDetail = contextCourseDetail ?? propCourseDetail;
   const { type: courseType } = courseDetail || {};
 
   const isLock = useMemo(() => {
     if (index === 0) return false;
-    return (
-      courseDetail.units![index - 1].progress < 1 || unit.progress === undefined
-    );
+    return courseDetail.units![index - 1].progress < 1 || unit.progress === undefined;
   }, [unit, courseDetail, index]);
 
   return (
@@ -48,28 +35,13 @@ const LinkWrap: FC<LinkWrapProps> = ({
       className={cn(unit.progress === 1 ? 'cursor-pointer' : '')}
       onClick={async (e) => {
         if (unit.progress === 1) {
-          const unitPages = await webApi.courseApi.getCourseUnitLessons(
-            courseDetail?.id || '',
-            unit.id
-          );
+          const unitPages = await webApi.courseApi.getCourseUnitLessons(courseDetail?.id || '', unit.id);
           const lessonId = unitPages.pages[0]?.id;
-          let link = `${getLessonLink(
-            courseType as CourseType,
-            courseDetail?.title as string,
-            lessonId,
-            courseDetail?.id as string,
-            {
-              menu: query.get('menu') as string,
-              idTypes: [
-                QueryIdType.LEARNING_TRACK_ID,
-                QueryIdType.MENU_COURSE_ID
-              ],
-              ids: [
-                query.get(QueryIdType.LEARNING_TRACK_ID) || '',
-                query.get(QueryIdType.MENU_COURSE_ID) || ''
-              ] as string[]
-            }
-          )}`;
+          let link = `${getLessonLink(courseType as CourseType, courseDetail?.title as string, lessonId, courseDetail?.id as string, {
+            menu: query.get('menu') as string,
+            idTypes: [QueryIdType.LEARNING_TRACK_ID, QueryIdType.MENU_COURSE_ID],
+            ids: [query.get(QueryIdType.LEARNING_TRACK_ID) || '', query.get(QueryIdType.MENU_COURSE_ID) || ''] as string[]
+          })}`;
           redirectToUrl(link);
         }
       }}
@@ -85,9 +57,7 @@ const LinkWrap: FC<LinkWrapProps> = ({
               }}
             ></div>
           </div>
-          <span className="caption-10pt text-neutral-rich-gray">
-            {Math.floor(unit.progress * 100)}%
-          </span>
+          <span className="caption-10pt text-neutral-rich-gray">{Math.floor(unit.progress * 100)}%</span>
         </div>
       )}
     </div>

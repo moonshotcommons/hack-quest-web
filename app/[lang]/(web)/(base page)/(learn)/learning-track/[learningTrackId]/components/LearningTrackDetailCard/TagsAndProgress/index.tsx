@@ -5,10 +5,7 @@ import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 
 import { CertificationCardContext } from '@/components/Web/Business/Certification/CertificationCard/CertificationCardProvider';
 import { LearningTrackDetailContext } from '@/components/Web/DetailPageV2/Provider/LearningTrackDetailProvider';
-import {
-  LearningStatus,
-  useGetLearningTrackLearnStatus
-} from '@/components/Web/DetailPageV2/hooks/useGetLearnStatus';
+import { LearningStatus, useGetLearningTrackLearnStatus } from '@/components/Web/DetailPageV2/hooks/useGetLearnStatus';
 import IconTextTag from '@/components/Web/DetailPageV2/CourseTag/IconTextTag';
 import { IconTextTagType } from '@/components/Web/DetailPageV2/CourseTag/IconTextTag/constant';
 
@@ -16,22 +13,14 @@ interface TagsAndProgressProps {
   learningTrackDetail: LearningTrackDetailType;
 }
 
-const TagsAndProgress: FC<TagsAndProgressProps> = ({
-  learningTrackDetail: propLearningTrackDetail
-}) => {
-  const { learningTrackDetail: contextLearningTrackDetail } = useContext(
-    LearningTrackDetailContext
-  );
-  const learningTrackDetail =
-    contextLearningTrackDetail ?? propLearningTrackDetail;
+const TagsAndProgress: FC<TagsAndProgressProps> = ({ learningTrackDetail: propLearningTrackDetail }) => {
+  const { learningTrackDetail: contextLearningTrackDetail } = useContext(LearningTrackDetailContext);
+  const learningTrackDetail = contextLearningTrackDetail ?? propLearningTrackDetail;
   let learningStatus = useGetLearningTrackLearnStatus(learningTrackDetail);
 
   const progress = learningTrackDetail?.progress || 0;
 
-  if (
-    learningStatus === LearningStatus.COMPLETED &&
-    !learningTrackDetail.certificationId
-  ) {
+  if (learningStatus === LearningStatus.COMPLETED && !learningTrackDetail.certificationId) {
     learningStatus = LearningStatus.UN_START;
   }
 
@@ -41,14 +30,9 @@ const TagsAndProgress: FC<TagsAndProgressProps> = ({
     case LearningStatus.UN_START:
       return (
         <>
-          <IconTextTag
-            type={IconTextTagType.COURSES_COUNT}
-            text={`${learningTrackDetail.courseCount} courses`}
-          ></IconTextTag>
+          <IconTextTag type={IconTextTagType.COURSES_COUNT} text={`${learningTrackDetail.courseCount} courses`}></IconTextTag>
           <IconTextTag type={IconTextTagType.DEVICE_ACCESS}></IconTextTag>
-          {learningTrackDetail.certificationId && (
-            <IconTextTag type={IconTextTagType.CERTIFICATION}></IconTextTag>
-          )}
+          {learningTrackDetail.certificationId && <IconTextTag type={IconTextTagType.CERTIFICATION}></IconTextTag>}
         </>
       );
     case LearningStatus.IN_PROGRESS:
@@ -62,24 +46,20 @@ const TagsAndProgress: FC<TagsAndProgressProps> = ({
               }}
             ></div>
           </div>
-          <span className="body-s text-neutral-rich-gray">
-            {Math.floor(progress * 100)}%
-          </span>
+          <span className="body-s text-neutral-rich-gray">{Math.floor(progress * 100)}%</span>
         </div>
       );
     case LearningStatus.COMPLETED:
       if (!certification?.claimed) {
         return (
           <p className="body-m text-neutral-rich-gray">
-            Congratulation! You’ve completed all the courses. Claim your Web3
-            certification 🎉
+            Congratulation! You’ve completed all the courses. Claim your Web3 certification 🎉
           </p>
         );
       } else {
         return (
           <p className="body-m text-neutral-rich-gray">
-            You are a certified{' '}
-            {certification.name.replace(' Learning Track', '')} Builder 🎉
+            You are a certified {certification.name.replace(' Learning Track', '')} Builder 🎉
           </p>
         );
       }

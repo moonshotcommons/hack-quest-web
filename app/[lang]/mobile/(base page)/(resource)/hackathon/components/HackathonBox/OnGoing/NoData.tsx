@@ -8,9 +8,7 @@ const NoData: React.FC<NoDataType> = ({ goPast }) => {
   const { redirectToUrl } = useRedirect();
   return (
     <div className="flex flex-col items-center pb-[100px] ">
-      <p className="text-h2-mob text-neutral-off-black">
-        There is no ongoing hackathon
-      </p>
+      <p className="text-h2-mob text-neutral-off-black">There is no ongoing hackathon</p>
       <Button
         onClick={goPast}
         className="body-l mb-[20px] mt-[30px] h-[55px] w-full bg-home-learning-track-no-data-button-add-bg text-home-learning-track-no-data-button-add-color"

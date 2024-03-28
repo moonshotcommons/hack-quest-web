@@ -126,13 +126,7 @@ const Success: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
   return (
     <div className="flex h-full w-full flex-col justify-between">
       <div className="flex flex-col gap-6">
-        <svg
-          width="48"
-          height="48"
-          viewBox="0 0 48 48"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect width="48" height="48" fill="white" />
           <path
             fillRule="evenodd"
@@ -144,8 +138,7 @@ const Success: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
 
         <h1 className="text-h3-m text-neutral-off-black">Email Verified! 🎉</h1>
         <p className="body-m text-neutral-medium-gray">
-          You have been successfully verified the email! You will be directed to
-          homepage in 5 seconds.
+          You have been successfully verified the email! You will be directed to homepage in 5 seconds.
         </p>
       </div>
       {/* <Button
@@ -224,14 +217,7 @@ const Fail: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
               uppercase text-auth-primary-button-text-color
               hover:border-auth-primary-button-border-hover-color hover:bg-auth-primary-button-hover-bg hover:text-auth-primary-button-text-hover-color"
                 onClick={() => loginThreeParty(type)}
-                icon={
-                  <Image
-                    src={type === ThirdPartyAuthType.GOOGLE ? Google : Github}
-                    width={22}
-                    height={22}
-                    alt={type}
-                  ></Image>
-                }
+                icon={<Image src={type === ThirdPartyAuthType.GOOGLE ? Google : Github} width={22} height={22} alt={type}></Image>}
               >
                 Continue with {type}
               </Button>
@@ -254,13 +240,7 @@ const Fail: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
   return (
     <div className="flex h-full w-full flex-col justify-between gap-8">
       <div className="flex flex-col gap-6">
-        <svg
-          width="48"
-          height="48"
-          viewBox="0 0 48 48"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect width="48" height="48" fill="white" />
           <path
             fillRule="evenodd"
@@ -270,12 +250,8 @@ const Fail: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
           />
         </svg>
 
-        <h1 className="text-h3-mob text-neutral-off-black">
-          Verification Failed! 😵
-        </h1>
-        <p className="body-m text-neutral-medium-gray">
-          Your verification has failed! Please verify your Email again.
-        </p>
+        <h1 className="text-h3-mob text-neutral-off-black">Verification Failed! 😵</h1>
+        <p className="body-m text-neutral-medium-gray">Your verification has failed! Please verify your Email again.</p>
       </div>
       {renderTextAndBtn()}
     </div>
@@ -294,14 +270,10 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
   const [tipsOpen, setTipsOpen] = useState(false);
   const [jump, setJump] = useState(false);
   const [countDown, setCountDown] = useState(3);
-  const query = new URLSearchParams(
-    typeof window !== 'undefined' ? window.location.search : ''
-  );
+  const query = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
   const router = useRouter();
   const [verifyState, setVerifyState] = useState(VerifyStateType.VERIFYING);
-  const [source, setSource] = useState<ThirdPartyAuthType>(
-    ThirdPartyAuthType.EMAIL
-  );
+  const [source, setSource] = useState<ThirdPartyAuthType>(ThirdPartyAuthType.EMAIL);
   const verifyEmail = (token: string) => {
     BurialPoint.track('signup-注册邮箱token验证');
     if (token) {
@@ -451,9 +423,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
       querySource = verifyData?.source || ThirdPartyAuthType.GOOGLE;
     }
     //第一个字母大写 其余小写
-    querySource = (querySource as string)
-      .toLocaleLowerCase()
-      .replace(/^\w/, (s) => s.toLocaleUpperCase());
+    querySource = (querySource as string).toLocaleLowerCase().replace(/^\w/, (s) => s.toLocaleUpperCase());
     setSource(querySource as ThirdPartyAuthType);
     switch (querySource) {
       case ThirdPartyAuthType.GOOGLE:
@@ -469,12 +439,8 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
 
   return (
     <div className="flex h-full w-full flex-col items-center">
-      {verifyState === VerifyStateType.VERIFYING && (
-        <Verifying type={source}></Verifying>
-      )}
-      {verifyState === VerifyStateType.SUCCESS && (
-        <Success type={source}></Success>
-      )}
+      {verifyState === VerifyStateType.VERIFYING && <Verifying type={source}></Verifying>}
+      {verifyState === VerifyStateType.SUCCESS && <Success type={source}></Success>}
       {verifyState === VerifyStateType.FAIL && <Fail type={source}></Fail>}
     </div>
   );

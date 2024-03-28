@@ -7,19 +7,14 @@ import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 export const useGetLearningTrackDetail = (trackId?: string) => {
-  const [learningTrackDetail, setLearningTracks] = useState<
-    LearningTrackDetailType & { courses: ProjectCourseType[] }
-  >();
+  const [learningTrackDetail, setLearningTracks] = useState<LearningTrackDetailType & { courses: ProjectCourseType[] }>();
 
   const router = useRouter();
   const params = useParams();
   const learningTrackId = trackId || params.learningTrackId;
   const { run, loading, refresh } = useRequest(
     async (id) => {
-      const res =
-        await webApi.learningTrackApi.getLearningTrackDetailAndCourses(
-          id as string
-        );
+      const res = await webApi.learningTrackApi.getLearningTrackDetailAndCourses(id as string);
       return res;
     },
     {

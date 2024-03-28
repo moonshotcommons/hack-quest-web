@@ -21,9 +21,7 @@ const Tab: React.FC<TabProp> = ({ curTab, changeTab }) => {
           onClick={() => {
             changeTab(v.value);
           }}
-          className={`body-xl cursor-pointer  text-neutral-black ${
-            curTab === v.value ? '  body-xl-bold ' : ' '
-          }`}
+          className={`body-xl cursor-pointer  text-neutral-black ${curTab === v.value ? '  body-xl-bold ' : ' '}`}
         >
           {v.label}
         </div>

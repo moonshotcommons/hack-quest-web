@@ -17,14 +17,7 @@ interface VerifyEmailProps {
 }
 
 const VerifyEmail: FC<VerifyEmailProps> = (props) => {
-  const {
-    onStatusChange,
-    onNext,
-    value,
-    emailTitle: EmailTitle,
-    validator,
-    type
-  } = props;
+  const { onStatusChange, onNext, value, emailTitle: EmailTitle, validator, type } = props;
 
   const [formData, setFormData] = useState<{
     email: string;

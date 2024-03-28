@@ -9,10 +9,7 @@ import ElectiveCard from '@/components/Web/Business/ElectiveCard';
 import { errorMessage } from '@/helper/ui';
 import webApi from '@/service';
 import { CourseType } from '@/service/webApi/course/type';
-import {
-  ElectiveCourseType,
-  ElectiveListDataType
-} from '@/service/webApi/elective/type';
+import { ElectiveCourseType, ElectiveListDataType } from '@/service/webApi/elective/type';
 import { useRequest } from 'ahooks';
 import { cloneDeep } from 'lodash-es';
 import { FC, useEffect, useState } from 'react';
@@ -21,17 +18,12 @@ interface CourseFilterListSearchProps {
   keyword: string;
 }
 
-const CourseFilterListSearch: FC<CourseFilterListSearchProps> = ({
-  keyword
-}) => {
+const CourseFilterListSearch: FC<CourseFilterListSearchProps> = ({ keyword }) => {
   const [searchList, setSearchList] = useState<ElectiveCourseType[]>([]);
 
   const { run: getCourseList, loading } = useRequest(
     async (filterParams: FilterParamsType) => {
-      const res =
-        await webApi.courseApi.getCourseListBySearch<ElectiveListDataType>(
-          filterParams
-        );
+      const res = await webApi.courseApi.getCourseListBySearch<ElectiveListDataType>(filterParams);
       return res;
     },
 

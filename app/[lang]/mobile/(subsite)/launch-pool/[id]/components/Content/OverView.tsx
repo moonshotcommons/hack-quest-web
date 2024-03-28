@@ -23,23 +23,17 @@ const OverView: React.FC<OverViewProp> = () => {
               LIVE NOW
             </div>
           </div>
-          <h1 className="body-l mt-[4px] text-neutral-off-black">
-            Web3.0 Programing For Everyone
-          </h1>
+          <h1 className="body-l mt-[4px] text-neutral-off-black">Web3.0 Programing For Everyone</h1>
         </div>
 
         <div className="body-s flex text-neutral-medium-gray">
           <div className="flex-1 ">
             <p>Total Participated Users</p>
-            <p className="body-xl-bold mt-[4px] text-neutral-black">
-              {separationNumber(35120)}
-            </p>
+            <p className="body-xl-bold mt-[4px] text-neutral-black">{separationNumber(35120)}</p>
           </div>
           <div className="flex-1 ">
             <p>Total Fuel</p>
-            <p className="body-xl-bold mt-[4px] text-neutral-black">
-              {separationNumber(588496)}
-            </p>
+            <p className="body-xl-bold mt-[4px] text-neutral-black">{separationNumber(588496)}</p>
           </div>
         </div>
 
@@ -79,10 +73,7 @@ const OverView: React.FC<OverViewProp> = () => {
             <div className="text-neutral-black">Manta Network</div>
           </div>
         </div>
-        <Button
-          type="primary"
-          className="button-text-l h-[60px] w-full uppercase"
-        >
+        <Button type="primary" className="button-text-l h-[60px] w-full uppercase">
           claim token
         </Button>
         <div className="my-[10px] h-[1px] w-full bg-neutral-light-gray"></div>

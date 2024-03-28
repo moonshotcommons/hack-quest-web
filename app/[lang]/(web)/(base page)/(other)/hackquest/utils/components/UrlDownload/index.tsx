@@ -47,12 +47,7 @@ const UrlDownload: FC<UrlDownloadProps> = (props) => {
     URL.revokeObjectURL(url);
   };
 
-  const downloads = [
-    URLDownloadType.BLOG,
-    URLDownloadType.HACKATHON,
-    URLDownloadType.GLOSSARY,
-    URLDownloadType.PROJECT
-  ];
+  const downloads = [URLDownloadType.BLOG, URLDownloadType.HACKATHON, URLDownloadType.GLOSSARY, URLDownloadType.PROJECT];
 
   return (
     <div className="gap- flex flex-col gap-3">

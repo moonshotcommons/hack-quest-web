@@ -17,18 +17,14 @@ const CourseDetailPage: NextPage<IProps> = (props) => {
   const [courseDetail, setCourseDetail] = useState<ElectiveCourseDetailType>();
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
-    webApi.courseApi
-      .getCourseDetail<ElectiveCourseDetailType>(courseId as string, true)
-      .then((res) => {
-        setCourseDetail(res);
-        setIsLoading(false);
+    webApi.courseApi.getCourseDetail<ElectiveCourseDetailType>(courseId as string, true).then((res) => {
+      setCourseDetail(res);
+      setIsLoading(false);
 
-        // update title and description
-        document.title = res.title;
-        document
-          .querySelector('meta[name="description"]')
-          ?.setAttribute('content', res.description);
-      });
+      // update title and description
+      document.title = res.title;
+      document.querySelector('meta[name="description"]')?.setAttribute('content', res.description);
+    });
   }, [courseId, setCourseDetail]);
 
   return (

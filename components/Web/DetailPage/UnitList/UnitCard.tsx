@@ -6,11 +6,7 @@ import { computeProgress } from '@/helper/formate';
 import { cn, getLessonLink } from '@/helper/utils';
 import { useJumpLeaningLesson } from '@/hooks/courses/useJumpLeaningLesson';
 import webApi from '@/service';
-import {
-  CourseDetailType,
-  CourseType,
-  CourseUnitType
-} from '@/service/webApi/course/type';
+import { CourseDetailType, CourseType, CourseUnitType } from '@/service/webApi/course/type';
 import { ThemeContext } from '@/store/context/theme';
 import { Progress, Typography } from 'antd';
 import { useRouter } from 'next/navigation';
@@ -39,10 +35,7 @@ interface UnitCardProps {
   loading?: boolean;
 }
 
-const UnitButton: FC<
-  UnitCardProps &
-    Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'className' | 'type'>
-> = (props) => {
+const UnitButton: FC<UnitCardProps & Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'className' | 'type'>> = (props) => {
   const { unit, isLock, loading = false, ...rest } = props;
   if (isLock) {
     return null;
@@ -79,20 +72,11 @@ const UnitButton: FC<
 };
 
 const UnitCard: FC<UnitCardProps> = (props) => {
-  const {
-    unit,
-    isLock = true,
-    courseDetail,
-    courseType,
-    index,
-    learningStatus = LearningStatus.UN_START
-  } = props;
+  const { unit, isLock = true, courseDetail, courseType, index, learningStatus = LearningStatus.UN_START } = props;
   const { jumpLearningLesson, loading } = useJumpLeaningLesson();
   const { theme } = useContext(ThemeContext);
   const router = useRouter();
-  const query = new URLSearchParams(
-    typeof window !== 'undefined' ? window.location.search : ''
-  );
+  const query = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
   return (
     <div className="flex items-center py-[30px] pl-[54px] pr-[50px]">
       {/* <div
@@ -119,43 +103,25 @@ const UnitCard: FC<UnitCardProps> = (props) => {
           <div className="flex items-center justify-center text-text-default-color">
             {isLock ? (
               <span className="text-course-unit-lock-icon-color">
-                <LockIcon
-                  width={16}
-                  height={21}
-                  color="currentColor"
-                ></LockIcon>
+                <LockIcon width={16} height={21} color="currentColor"></LockIcon>
               </span>
             ) : (
               <CustomProgress
                 type="circle"
                 percent={Math.floor(computeProgress(unit.progress))}
                 strokeWidth={2}
-                strokeColor={
-                  (theme === Theme.Dark && '#9EFA13') ||
-                  (theme === Theme.Light && '#FCC409') ||
-                  '#9EFA13'
-                }
-                trailColor={
-                  (theme === Theme.Dark && '#676767') ||
-                  (theme === Theme.Light && '#DADADA') ||
-                  '#676767'
-                }
+                strokeColor={(theme === Theme.Dark && '#9EFA13') || (theme === Theme.Light && '#FCC409') || '#9EFA13'}
+                trailColor={(theme === Theme.Dark && '#676767') || (theme === Theme.Light && '#DADADA') || '#676767'}
                 size={80}
                 format={(percent: any) => {
                   if (percent === 100) {
                     return (
                       <span className="flex items-center justify-center align-middle text-course-progress-icon-color">
-                        <CheckIcon
-                          width={32}
-                          height={32}
-                          color="currentColor"
-                        />
+                        <CheckIcon width={32} height={32} color="currentColor" />
                       </span>
                     );
                   }
-                  return (
-                    <span className="text-text-default-color">{`${percent} %`}</span>
-                  );
+                  return <span className="text-text-default-color">{`${percent} %`}</span>;
                 }}
               ></CustomProgress>
             )}
@@ -164,53 +130,30 @@ const UnitCard: FC<UnitCardProps> = (props) => {
 
         {learningStatus === LearningStatus.UN_START && (
           <div className="relative h-[65px] w-[65px] rounded-full border-2 border-neutral-black">
-            <span className="text-[#000 text-h3 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-              {index + 1}
-            </span>
+            <span className="text-[#000 text-h3 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">{index + 1}</span>
           </div>
         )}
       </div>
 
       <div className="ml-[60px] flex-1 lg:ml-[120px] xl:ml-[335px]">
         <div
-          className={cn(
-            'max-w-[450px]',
-            unit.progress === 1 ? 'cursor-pointer' : ''
-          )}
+          className={cn('max-w-[450px]', unit.progress === 1 ? 'cursor-pointer' : '')}
           onClick={async (e) => {
             if (unit.progress === 1) {
-              const unitPages = await webApi.courseApi.getCourseUnitLessons(
-                courseDetail?.id || '',
-                unit.id
-              );
+              const unitPages = await webApi.courseApi.getCourseUnitLessons(courseDetail?.id || '', unit.id);
               const lessonId = unitPages.pages[0]?.id;
-              let link = `${getLessonLink(
-                courseType as CourseType,
-                courseDetail?.title as string,
-                lessonId,
-                courseDetail?.id as string,
-                {
-                  menu: query.get('menu') as string,
-                  idTypes: [
-                    QueryIdType.LEARNING_TRACK_ID,
-                    QueryIdType.MENU_COURSE_ID
-                  ],
-                  ids: [
-                    query.get(QueryIdType.LEARNING_TRACK_ID) || '',
-                    query.get(QueryIdType.MENU_COURSE_ID) || ''
-                  ] as string[]
-                }
-              )}`;
+              let link = `${getLessonLink(courseType as CourseType, courseDetail?.title as string, lessonId, courseDetail?.id as string, {
+                menu: query.get('menu') as string,
+                idTypes: [QueryIdType.LEARNING_TRACK_ID, QueryIdType.MENU_COURSE_ID],
+                ids: [query.get(QueryIdType.LEARNING_TRACK_ID) || '', query.get(QueryIdType.MENU_COURSE_ID) || ''] as string[]
+              })}`;
               router.replace(link);
             }
           }}
         >
           <h2 className="body-xl-bold text-text-default-color">{unit.title}</h2>
           <div>
-            <Typography.Paragraph
-              ellipsis={{ rows: 3 }}
-              className="body-m mt-4 text-course-unit-desc-text-color"
-            >
+            <Typography.Paragraph ellipsis={{ rows: 3 }} className="body-m mt-4 text-course-unit-desc-text-color">
               {unit.description}
             </Typography.Paragraph>
           </div>

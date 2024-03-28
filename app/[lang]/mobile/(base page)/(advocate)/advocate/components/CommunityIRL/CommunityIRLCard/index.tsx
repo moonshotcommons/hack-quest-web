@@ -8,12 +8,7 @@ interface CommunityIRLCardProps {
   place: ReactNode;
 }
 
-const CommunityIRLCard: FC<CommunityIRLCardProps> = ({
-  title,
-  date,
-  image,
-  place
-}) => {
+const CommunityIRLCard: FC<CommunityIRLCardProps> = ({ title, date, image, place }) => {
   return (
     <div className="w-[325px]">
       <div className="relative h-[182px] w-[325px]">

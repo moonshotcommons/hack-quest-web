@@ -12,13 +12,9 @@ interface LearningTrackCourseStatusButtonProps {
   course: ProjectCourseType | ElectiveCourseType;
 }
 
-const LearningTrackCourseStatusButton: FC<
-  LearningTrackCourseStatusButtonProps
-> = ({ course: propCourse }) => {
+const LearningTrackCourseStatusButton: FC<LearningTrackCourseStatusButtonProps> = ({ course: propCourse }) => {
   const { redirectToUrl } = useRedirect();
-  const query = new URLSearchParams(
-    typeof window !== 'undefined' ? window.location.search : ''
-  );
+  const query = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
 
   const { learningTrackDetail } = useContext(LearningTrackDetailContext);
 
@@ -69,9 +65,7 @@ const LearningTrackCourseStatusButton: FC<
               }}
             ></div>
           </div>
-          <span className="caption-10pt text-neutral-rich-gray">
-            {Math.floor(course.progress * 100)}%
-          </span>
+          <span className="caption-10pt text-neutral-rich-gray">{Math.floor(course.progress * 100)}%</span>
         </div>
       </div>
     );

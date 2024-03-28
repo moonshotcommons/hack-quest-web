@@ -13,34 +13,17 @@ interface UnstakeModalProp {
   onClose: VoidFunction;
 }
 
-const UnstakeModal: React.FC<UnstakeModalProp> = ({
-  open,
-  hanleUnstake,
-  loading,
-  onClose
-}) => {
+const UnstakeModal: React.FC<UnstakeModalProp> = ({ open, hanleUnstake, loading, onClose }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
   return (
-    <Modal
-      open={open}
-      onClose={onClose}
-      showCloseIcon={true}
-      icon={<FiX size={26} />}
-    >
+    <Modal open={open} onClose={onClose} showCloseIcon={true} icon={<FiX size={26} />}>
       <div className=" scroll-wrap-y  w-[808px] rounded-[10px] bg-neutral-white px-[137px]  pb-[40px] pt-[60px]  text-neutral-black">
         <div className="">
           <div className="text-h3 text-center">{t('unStake')} $Manta</div>
-          <p className="body-m my-[24px]  text-neutral-off-black">
-            {t('unStakeWarning')}
-          </p>
+          <p className="body-m my-[24px]  text-neutral-off-black">{t('unStakeWarning')}</p>
           <div className="flex justify-center gap-[16px]">
-            <Button
-              loading={loading}
-              type="primary"
-              className="button-text-m  h-[48px]  w-[165px] p-0 uppercase"
-              onClick={hanleUnstake}
-            >
+            <Button loading={loading} type="primary" className="button-text-m  h-[48px]  w-[165px] p-0 uppercase" onClick={hanleUnstake}>
               {t('unStakeNow')}
             </Button>
             <Button

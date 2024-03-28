@@ -3,23 +3,10 @@ import Modal from '@/components/Common/Modal';
 import { message } from 'antd';
 import type CropperRef from 'react-easy-crop';
 import type { RcFile, UploadFile } from 'antd/es/upload/interface';
-import {
-  MouseEvent,
-  ReactNode,
-  forwardRef,
-  useCallback,
-  useImperativeHandle,
-  useRef,
-  useState
-} from 'react';
+import { MouseEvent, ReactNode, forwardRef, useCallback, useImperativeHandle, useRef, useState } from 'react';
 
 import { PREFIX, ROTATION_INITIAL } from './constants';
-import type {
-  BeforeUpload,
-  BeforeUploadReturnType,
-  EasyCropRef,
-  ImgCropProps
-} from './types';
+import type { BeforeUpload, BeforeUploadReturnType, EasyCropRef, ImgCropProps } from './types';
 import EasyCrop from './EasyCrop';
 import type { CropperProps } from 'react-easy-crop';
 import { errorMessage } from '@/helper/ui';
@@ -122,9 +109,7 @@ const ImageCrop = forwardRef<ImageCropRef, ImageCropProps>((props, ref) => {
   const easyCropRef = useRef<EasyCropRef>(null);
   const cropperRef = useRef<CropperRef>(null);
 
-  const cb = useRef<
-    Pick<ImgCropProps, 'onModalOk' | 'onModalCancel' | 'beforeCrop'>
-  >({});
+  const cb = useRef<Pick<ImgCropProps, 'onModalOk' | 'onModalCancel' | 'beforeCrop'>>({});
   cb.current.onModalOk = onModalOk;
   cb.current.onModalCancel = onModalCancel;
   cb.current.beforeCrop = beforeCrop;
@@ -197,17 +182,9 @@ const ImageCrop = forwardRef<ImageCropRef, ImageCropProps>((props, ref) => {
 
       const imgSource = context.querySelector(`.${PREFIX}-media`) as ImgSource;
 
-      const {
-        width: cropWidth,
-        height: cropHeight,
-        x: cropX,
-        y: cropY
-      } = easyCropRef.current!.cropPixelsRef.current;
+      const { width: cropWidth, height: cropHeight, x: cropX, y: cropY } = easyCropRef.current!.cropPixelsRef.current;
 
-      if (
-        rotationSlider &&
-        easyCropRef.current!.rotation !== ROTATION_INITIAL
-      ) {
+      if (rotationSlider && easyCropRef.current!.rotation !== ROTATION_INITIAL) {
         const { naturalWidth: imgWidth, naturalHeight: imgHeight } = imgSource;
         const angle = easyCropRef.current!.rotation * (Math.PI / 180);
 
@@ -232,17 +209,7 @@ const ImageCrop = forwardRef<ImageCropRef, ImageCropProps>((props, ref) => {
         // draw rotated image
         const imgX = (squareWidth - imgWidth) / 2;
         const imgY = (squareHeight - imgHeight) / 2;
-        ctx.drawImage(
-          imgSource,
-          0,
-          0,
-          imgWidth,
-          imgHeight,
-          imgX,
-          imgY,
-          imgWidth,
-          imgHeight
-        );
+        ctx.drawImage(imgSource, 0, 0, imgWidth, imgHeight, imgX, imgY, imgWidth, imgHeight);
 
         // crop rotated image
         const imgData = ctx.getImageData(0, 0, squareWidth, squareHeight);
@@ -255,17 +222,7 @@ const ImageCrop = forwardRef<ImageCropRef, ImageCropProps>((props, ref) => {
         ctx.fillStyle = fillColor;
         ctx.fillRect(0, 0, cropWidth, cropHeight);
 
-        ctx.drawImage(
-          imgSource,
-          cropX,
-          cropY,
-          cropWidth,
-          cropHeight,
-          0,
-          0,
-          cropWidth,
-          cropHeight
-        );
+        ctx.drawImage(imgSource, cropX, cropY, cropWidth, cropHeight, 0, 0, cropWidth, cropHeight);
       }
 
       return canvas;
@@ -302,23 +259,11 @@ const ImageCrop = forwardRef<ImageCropRef, ImageCropProps>((props, ref) => {
     (beforeUpload: BeforeUpload) => {
       return ((file, fileList) => {
         return new Promise(async (resolve, reject) => {
-          const validImageType = [
-            'image/jpeg',
-            'image/png',
-            'image/gif',
-            'image/bmp',
-            'image/webp',
-            'image/svg+xml'
-          ];
+          const validImageType = ['image/jpeg', 'image/png', 'image/gif', 'image/bmp', 'image/webp', 'image/svg+xml'];
 
           if (!validImageType.includes(file.type)) {
-            let validFileTypeString = validImageType
-              .map((item) => item.replace('image/', ''))
-              .join(',');
-            message.error(
-              `Unsupported image types. Currently supported image types are ${validFileTypeString}!`,
-              3
-            );
+            let validFileTypeString = validImageType.map((item) => item.replace('image/', '')).join(',');
+            message.error(`Unsupported image types. Currently supported image types are ${validFileTypeString}!`, 3);
             return false;
           }
 
@@ -329,10 +274,7 @@ const ImageCrop = forwardRef<ImageCropRef, ImageCropProps>((props, ref) => {
                 return runRawBeforeUpload(beforeUpload, file, resolve, reject);
               }
             } catch (err) {
-              return (
-                beforeUpload &&
-                runRawBeforeUpload(beforeUpload, file, resolve, reject)
-              );
+              return beforeUpload && runRawBeforeUpload(beforeUpload, file, resolve, reject);
             }
           }
 
@@ -354,12 +296,7 @@ const ImageCrop = forwardRef<ImageCropRef, ImageCropProps>((props, ref) => {
   const getNewUpload = useCallback(
     (children: ReactNode) => {
       const upload = Array.isArray(children) ? children[0] : children;
-      const {
-        beforeUpload,
-        accept,
-        children: child,
-        ...restUploadProps
-      } = upload.props;
+      const { beforeUpload, accept, children: child, ...restUploadProps } = upload.props;
 
       return {
         ...upload,
@@ -370,10 +307,7 @@ const ImageCrop = forwardRef<ImageCropRef, ImageCropProps>((props, ref) => {
           children: child ? (
             child
           ) : (
-            <Button
-              ghost
-              className="flex w-[265px] items-center justify-center border-neutral-black py-[12px]"
-            >
+            <Button ghost className="flex w-[265px] items-center justify-center border-neutral-black py-[12px]">
               Change Image
             </Button>
           ),
@@ -397,36 +331,16 @@ const ImageCrop = forwardRef<ImageCropRef, ImageCropProps>((props, ref) => {
       showCloseIcon
       icon={
         <div className="absolute -right-2 -top-2 cursor-pointer">
-          <svg
-            width="30"
-            height="30"
-            viewBox="0 0 30 30"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <line
-              x1="22.2734"
-              y1="22.2745"
-              x2="7.42416"
-              y2="7.42521"
-              stroke="#0B0B0B"
-            />
-            <line
-              x1="7.42574"
-              y1="22.2744"
-              x2="22.275"
-              y2="7.42513"
-              stroke="#0B0B0B"
-            />
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="22.2734" y1="22.2745" x2="7.42416" y2="7.42521" stroke="#0B0B0B" />
+            <line x1="7.42574" y1="22.2744" x2="22.275" y2="7.42513" stroke="#0B0B0B" />
           </svg>
         </div>
       }
       markBg="black"
     >
       <div className="w-[800px] rounded-[10px] bg-neutral-white pb-[40px] pt-[30px]">
-        <div className="text-h3 px-[30px] pb-[40px] leading-[125%] text-neutral-black">
-          {title}
-        </div>
+        <div className="text-h3 px-[30px] pb-[40px] leading-[125%] text-neutral-black">{title}</div>
         <EasyCrop
           ref={easyCropRef}
           cropperRef={cropperRef}

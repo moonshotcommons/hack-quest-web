@@ -13,13 +13,7 @@ interface DropLessonProp {
   refreshUnit: VoidFunction;
 }
 
-const DropLesson: React.FC<DropLessonProp> = ({
-  unitList,
-  children,
-  unitIndex,
-  lessonIndex: targetIndex,
-  refreshUnit
-}) => {
+const DropLesson: React.FC<DropLessonProp> = ({ unitList, children, unitIndex, lessonIndex: targetIndex, refreshUnit }) => {
   const { setLoading } = useUgcCreationStore(
     useShallow((state) => ({
       setLoading: state.setLoading
@@ -29,9 +23,7 @@ const DropLesson: React.FC<DropLessonProp> = ({
     () => ({
       accept: unitList[unitIndex].pages?.map((v) => v.id),
       drop: (item: LessonMenuType) => {
-        const curIndex = unitList[unitIndex].pages.findIndex(
-          (v) => v.id === item.id
-        );
+        const curIndex = unitList[unitIndex].pages.findIndex((v) => v.id === item.id);
         setLoading(true);
         webApi.ugcCreateApi
           .sortLesson(item.id, {

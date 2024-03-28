@@ -23,41 +23,23 @@ const ContentRenderer: FC<ContentRendererProps> = (props) => {
       } ${isPlayground ? 'flex flex-1 flex-col' : ''}`}
     >
       <div
-        className={`flex  items-center justify-between ${
-          leftLength > 1 ? 'cursor-pointer' : ''
-        }`}
+        className={`flex  items-center justify-between ${leftLength > 1 ? 'cursor-pointer' : ''}`}
         onClick={() => {
           if (leftLength <= 1) return;
           BurialPoint.track('lesson-content展开');
           setShowAll(!showAll);
         }}
       >
-        <span className="text-h4">
-          {component.title || (
-            <TextRenderer
-              richTextArr={component.content.rich_text}
-            ></TextRenderer>
-          )}
-        </span>
+        <span className="text-h4">{component.title || <TextRenderer richTextArr={component.content.rich_text}></TextRenderer>}</span>
         {leftLength > 1 ? (
-          <span
-            className={`${
-              showAll ? 'rotate-180' : 'rotate-0'
-            } transition-transform duration-150 ease-in-out`}
-          >
+          <span className={`${showAll ? 'rotate-180' : 'rotate-0'} transition-transform duration-150 ease-in-out`}>
             <VscChevronDown size={24} />
           </span>
         ) : null}
       </div>
       {showAll &&
         component?.children?.map((child) => {
-          return (
-            <ComponentRenderer
-              key={child.id}
-              component={child}
-              parent={component}
-            ></ComponentRenderer>
-          );
+          return <ComponentRenderer key={child.id} component={child} parent={component}></ComponentRenderer>;
         })}
     </div>
   );

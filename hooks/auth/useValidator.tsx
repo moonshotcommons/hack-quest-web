@@ -100,15 +100,7 @@ const checkReenterPasswordRules: Rule = {
   // message: 'Incorrect Password'
 };
 
-export const useValidator = (
-  types: (
-    | 'email'
-    | 'password'
-    | 'newPassword'
-    | 'reenterPassword'
-    | 'registerEmail'
-  )[]
-) => {
+export const useValidator = (types: ('email' | 'password' | 'newPassword' | 'reenterPassword' | 'registerEmail')[]) => {
   const [status, setStatus] = useState<FormStatusType>('default');
   const [errorMessage, setErrorMessage] = useState('');
   let descriptor: Record<string, Rule> = {};
@@ -128,8 +120,7 @@ export const useValidator = (
         break;
       case 'password':
         descriptor[type] = checkPasswordRules;
-        cn.pattern!.mismatch =
-          '8 or more characters with a mix of letters & numbers';
+        cn.pattern!.mismatch = '8 or more characters with a mix of letters & numbers';
         break;
       case 'newPassword':
         descriptor[type] = checkPasswordRules;

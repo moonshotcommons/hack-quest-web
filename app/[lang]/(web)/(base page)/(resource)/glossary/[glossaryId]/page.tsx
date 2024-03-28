@@ -1,9 +1,6 @@
 import { FC } from 'react';
 import { Metadata } from 'next';
-import {
-  BlogDetailType,
-  ResourceFrom
-} from '@/service/webApi/resourceStation/type';
+import { BlogDetailType, ResourceFrom } from '@/service/webApi/resourceStation/type';
 import BlogDetail from '../../blog/components/BlogId';
 import { getGlossaryById } from '@/service/cach/resource/blog';
 import { isUuid } from '@/helper/utils';
@@ -16,9 +13,7 @@ interface BlogDetailProp {
   };
 }
 
-export async function generateMetadata({
-  params
-}: BlogDetailProp): Promise<Metadata> {
+export async function generateMetadata({ params }: BlogDetailProp): Promise<Metadata> {
   const glossary: BlogDetailType = await getGlossaryById(params.glossaryId);
   return {
     title: glossary.title,

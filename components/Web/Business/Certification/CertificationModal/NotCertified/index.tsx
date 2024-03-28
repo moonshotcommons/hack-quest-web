@@ -37,35 +37,24 @@ const NotCertified: FC<NotCertifiedProps> = (props) => {
 
   return (
     <div className="flex-1">
-      <h3 className="text-h3 text-neutral-off-black">
-        Become a Certified Developer
-      </h3>
+      <h3 className="text-h3 text-neutral-off-black">Become a Certified Developer</h3>
       <p className="body-m mt-[20px] text-neutral-black">
-        You are just one step away from becoming a certified Web3 Developers.
-        Complete the learning track and claim your NFT or SBT
-        proof-of-completion certificate now to elevate your skills and
-        demonstrate your expertise.
+        You are just one step away from becoming a certified Web3 Developers. Complete the learning track and claim your NFT or SBT
+        proof-of-completion certificate now to elevate your skills and demonstrate your expertise.
       </p>
       <div className="mt-[40px] flex gap-x-[10px]">
         <Button
           type="primary"
           disabled={!completed || loading}
           loading={loading}
-          className={cn(
-            'body-m w-[210px] px-0  py-[11px] text-neutral-black',
-            !completed ? 'opacity-40' : ''
-          )}
+          className={cn('body-m w-[210px] px-0  py-[11px] text-neutral-black', !completed ? 'opacity-40' : '')}
           onClick={() => {
             if (campaignId) run(campaignId);
           }}
         >
           Claim
         </Button>
-        <Button
-          ghost
-          className="body-m w-[210px] border-neutral-black  px-0 py-[11px] text-neutral-black"
-          onClick={() => onClose()}
-        >
+        <Button ghost className="body-m w-[210px] border-neutral-black  px-0 py-[11px] text-neutral-black" onClick={() => onClose()}>
           Close
         </Button>
       </div>

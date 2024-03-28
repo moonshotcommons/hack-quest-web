@@ -9,23 +9,11 @@ interface ConnectButtonProps {
 const ConnectButton: FC<ConnectButtonProps> = ({ t }) => {
   return (
     <RainbowConnectButton.Custom>
-      {({
-        account,
-        chain,
-        openAccountModal,
-        openChainModal,
-        openConnectModal,
-        authenticationStatus,
-        mounted
-      }) => {
+      {({ account, chain, openAccountModal, openChainModal, openConnectModal, authenticationStatus, mounted }) => {
         // Note: If your app doesn't use authentication, you
         // can remove all 'authenticationStatus' checks
         const ready = mounted && authenticationStatus !== 'loading';
-        const connected =
-          ready &&
-          account &&
-          chain &&
-          (!authenticationStatus || authenticationStatus === 'authenticated');
+        const connected = ready && account && chain && (!authenticationStatus || authenticationStatus === 'authenticated');
 
         return (
           <div
@@ -110,9 +98,7 @@ const ConnectButton: FC<ConnectButtonProps> = ({ t }) => {
                     </span>
                     <div className="flex flex-col">
                       <p>{account.displayName}</p>
-                      <p className="body-xs hidden text-status-error-dark group-hover:block">
-                        {t('disConnect')}
-                      </p>
+                      <p className="body-xs hidden text-status-error-dark group-hover:block">{t('disConnect')}</p>
                     </div>
                     {/* {account.displayBalance
                       ? ` (${account.displayBalance})`

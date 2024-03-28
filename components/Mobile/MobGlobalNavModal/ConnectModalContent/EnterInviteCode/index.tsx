@@ -16,13 +16,7 @@ const EnterInviteCode: FC<EnterInviteCodeProps> = (props) => {
       <h3 className="text-h3 text-neutral-rich-gray">{t('inputInviteCode')}</h3>
       <div className="body-m flex items-center gap-4 rounded-[16px] bg-neutral-off-white p-4 text-neutral-off-black">
         <div className="flex flex-col gap-4">
-          <svg
-            width="59"
-            height="34"
-            viewBox="0 0 59 34"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
+          <svg width="59" height="34" viewBox="0 0 59 34" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M42.0597 33C50.8634 33 58.0003 25.8366 58.0003 17C58.0003 8.16344 50.8634 1 42.0597 1C33.256 1 26.1191 8.16344 26.1191 17C26.1191 25.8366 33.256 33 42.0597 33Z"
               fill="white"
@@ -57,21 +51,11 @@ const EnterInviteCode: FC<EnterInviteCodeProps> = (props) => {
           <p>{t('inputInviteCodeDesc')}</p>
 
           <span>{t('noInviteCodeDesc')}</span>
-          <Link
-            href={HACKQUEST_TWITTER}
-            target="_blank"
-            className="body-m flex cursor-pointer items-center gap-2 text-neutral-off-black"
-          >
+          <Link href={HACKQUEST_TWITTER} target="_blank" className="body-m flex cursor-pointer items-center gap-2 text-neutral-off-black">
             <span className="relative after:absolute after:-bottom-[1px] after:left-0 after:h-[2px] after:w-full after:rounded-full after:bg-yellow-primary">
               {t('goTwitter')}
             </span>
-            <svg
-              width="13"
-              height="18"
-              viewBox="0 0 13 18"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
+            <svg width="13" height="18" viewBox="0 0 13 18" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M2.5 3.5L10 8.79412L2.5 14.0882"
                 stroke="#131313"

@@ -17,25 +17,13 @@ const YourFuelingBoard: React.FC<YourFuelingBoardProp> = () => {
   return (
     <div>
       <p className="text-h3 text-neutral-off-black">{titleTxtData[2]}</p>
-      <p className="body-l my-[24px] text-neutral-black">
-        Congratulations! It’s time to claim your token!
-      </p>
+      <p className="body-l my-[24px] text-neutral-black">Congratulations! It’s time to claim your token!</p>
       <Info />
       <StakeFuel />
       <InvitationFuel />
       <TargetFuel />
-      <StakeModal
-        open={modalName === 'stake'}
-        onClose={() => setModalName('')}
-        loading={false}
-        hanleStake={hanleStake}
-      />
-      <UnstakeModal
-        open={modalName === 'stake'}
-        onClose={() => setModalName('')}
-        loading={false}
-        hanleUnstake={hanleUnstake}
-      />
+      <StakeModal open={modalName === 'stake'} onClose={() => setModalName('')} loading={false} hanleStake={hanleStake} />
+      <UnstakeModal open={modalName === 'stake'} onClose={() => setModalName('')} loading={false} hanleUnstake={hanleUnstake} />
     </div>
   );
 };

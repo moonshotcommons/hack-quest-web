@@ -75,9 +75,7 @@ const TargetCard: React.FC<TargetCardProp> = ({ target }) => {
     <div
       key={target.id}
       className={`relative mt-[15px] h-[66px]  rounded-[8px] border ${
-        target.completed
-          ? 'border-yellow-dark bg-yellow-extra-light shadow-[0px_0px_4px_0px_#FFE866]'
-          : 'border-neutral-medium-gray'
+        target.completed ? 'border-yellow-dark bg-yellow-extra-light shadow-[0px_0px_4px_0px_#FFE866]' : 'border-neutral-medium-gray'
       }`}
     >
       <div

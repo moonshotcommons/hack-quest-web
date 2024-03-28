@@ -9,10 +9,7 @@ import { BurialPoint } from '@/helper/burialPoint';
 import { RewardsCardType } from '../BeginnerRewards/data';
 import webApi from '@/service';
 import PopBox from '@/components/Web/Business/InviteCodeCard/PopBox';
-import {
-  ShareWrap,
-  shareList
-} from '@/components/Web/Business/InviteCodeCard/constant';
+import { ShareWrap, shareList } from '@/components/Web/Business/InviteCodeCard/constant';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import { MissionCenterContext } from '../../../constants/type';
 import { useUserStore } from '@/store/zustand/userStore';
@@ -57,9 +54,7 @@ const TargetCard: React.FC<TargetCardProp> = ({
           if (!discordInfo.isConnect) {
             message.info('Please bind first discord account!');
             setTimeout(() => {
-              redirectToUrl(
-                `/user/profile?type=${ProfileHandleType.PERSONAL_EDIT}`
-              );
+              redirectToUrl(`/user/profile?type=${ProfileHandleType.PERSONAL_EDIT}`);
             }, 1000);
 
             return;
@@ -82,9 +77,7 @@ const TargetCard: React.FC<TargetCardProp> = ({
         setShowShare(!showShare);
         break;
       default:
-        unClaimPath.includes('http')
-          ? window.open(unClaimPath)
-          : redirectToUrl(unClaimPath);
+        unClaimPath.includes('http') ? window.open(unClaimPath) : redirectToUrl(unClaimPath);
     }
   };
 
@@ -106,19 +99,13 @@ const TargetCard: React.FC<TargetCardProp> = ({
     <div
       key={missionData.id}
       className={`relative mt-[15px] h-[84px]  rounded-[10px] border ${
-        missionData.progress?.completed
-          ? 'border-yellow-primary'
-          : 'border-neutral-medium-gray'
+        missionData.progress?.completed ? 'border-yellow-primary' : 'border-neutral-medium-gray'
       }`}
     >
       <div
         className="absolute left-0 top-0 h-full rounded-[10px] bg-auth-primary-button-bg opacity-40"
         style={{
-          width: `${
-            (missionData.progress.progress[0] /
-              missionData.progress.progress[1]) *
-            100
-          }%`
+          width: `${(missionData.progress.progress[0] / missionData.progress.progress[1]) * 100}%`
         }}
       ></div>
       <div className="absolute left-0 top-0 flex h-full w-full items-center justify-between px-[30px] ">
@@ -126,27 +113,16 @@ const TargetCard: React.FC<TargetCardProp> = ({
           <Image src={targetIcon} width={40} alt="icon"></Image>
           <span className="body-m">
             {missionData.name}
-            {(isScale || type === RewardsCardType.SHARE) &&
-              `(${missionData.progress.progress[0]}/${missionData.progress.progress[1]})`}
+            {(isScale || type === RewardsCardType.SHARE) && `(${missionData.progress.progress[0]}/${missionData.progress.progress[1]})`}
           </span>
         </div>
         <div className="flex-row-center gap-[40px]">
           <div className="body-l relative h-[40px] w-[76px] rounded-r-[20px] border border-neutral-light-gray bg-neutral-off-white pr-[15px] text-right leading-[40px]">
-            <Image
-              src={IconCoin}
-              width={40}
-              alt="icon"
-              className="absolute left-[-20px] top-[-1px]"
-            ></Image>
+            <Image src={IconCoin} width={40} alt="icon" className="absolute left-[-20px] top-[-1px]"></Image>
             <span>{missionData.coin}</span>
           </div>
           <div className="body-l relative h-[40px] w-[76px] rounded-r-[20px] border border-neutral-light-gray bg-neutral-off-white pr-[15px] text-right leading-[40px]">
-            <Image
-              src={IconXp}
-              width={40}
-              alt="icon"
-              className="absolute left-[-20px] top-[-1px]"
-            ></Image>
+            <Image src={IconXp} width={40} alt="icon" className="absolute left-[-20px] top-[-1px]"></Image>
             <span>{missionData.exp}</span>
           </div>
           {missionData.progress?.completed ? (
@@ -178,9 +154,7 @@ const TargetCard: React.FC<TargetCardProp> = ({
                 <div className="flex items-center">
                   {unClaimText}
                   {type === RewardsCardType.SHARE && (
-                    <div
-                      className={`${showShare ? 'rotate-90' : '-rotate-90'}`}
-                    >
+                    <div className={`${showShare ? 'rotate-90' : '-rotate-90'}`}>
                       <LeftArrowIcon />
                     </div>
                   )}

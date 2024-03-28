@@ -22,9 +22,7 @@ export const AuthContext = createContext({
 });
 
 const Auth: FC<AuthModalProps> = ({ changeNavState }) => {
-  const query = new URLSearchParams(
-    typeof window !== 'undefined' ? window.location.search : ''
-  );
+  const query = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
   const pathname = useCustomPathname();
   const queryState = query.get('state');
   const type = query.get('type');
@@ -76,9 +74,7 @@ const Auth: FC<AuthModalProps> = ({ changeNavState }) => {
       }}
       className="fixed bottom-0 left-0 top-[64px] flex  w-screen  flex-col border border-neutral-light-gray bg-neutral-white px-5 pb-[30px] pt-[94px]"
     >
-      <AuthContext.Provider value={{ changeNavState }}>
-        {authComponent}
-      </AuthContext.Provider>
+      <AuthContext.Provider value={{ changeNavState }}>{authComponent}</AuthContext.Provider>
     </motion.div>
   );
 };

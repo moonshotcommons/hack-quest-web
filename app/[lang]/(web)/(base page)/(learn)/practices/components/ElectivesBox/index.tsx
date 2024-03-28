@@ -1,6 +1,4 @@
-import SearchFilter, {
-  dealFilterParam
-} from '@/components/Web/Business/SearchFilter';
+import SearchFilter, { dealFilterParam } from '@/components/Web/Business/SearchFilter';
 import { FilterDataType } from '@/components/Web/Business/SearchFilter/type';
 import { deepClone } from '@/helper/utils';
 import webApi from '@/service';
@@ -20,14 +18,8 @@ interface SelectiveCoursesBoxProps {
   setApiStatus: (status: string) => void;
   apiStatus: string;
 }
-const SelectiveCoursesBox: React.FC<SelectiveCoursesBoxProps> = ({
-  loadNum,
-  setApiStatus,
-  apiStatus
-}) => {
-  const [searchParam, setSearchParam] = useState<FilterDataType[]>(
-    deepClone(filterData)
-  );
+const SelectiveCoursesBox: React.FC<SelectiveCoursesBoxProps> = ({ loadNum, setApiStatus, apiStatus }) => {
+  const [searchParam, setSearchParam] = useState<FilterDataType[]>(deepClone(filterData));
   const timeOut = useRef<NodeJS.Timeout | null>(null);
   const [pageInfo, setPageInfo] = useState<PageInfoType>(initPageInfo);
   const [inputValue, setInputValue] = useState('');
@@ -51,9 +43,7 @@ const SelectiveCoursesBox: React.FC<SelectiveCoursesBoxProps> = ({
     setPageInfo({ ...pInfo });
     const newFilter = dealFilterParam(searchParam);
     return new Promise(async (resolve) => {
-      const res = await webApi.courseApi.getCourseListBySearch<
-        PageResult<ProjectCourseType>
-      >({
+      const res = await webApi.courseApi.getCourseListBySearch<PageResult<ProjectCourseType>>({
         ...newFilter,
         ...pInfo,
         keyword: inputValue
@@ -76,12 +66,7 @@ const SelectiveCoursesBox: React.FC<SelectiveCoursesBoxProps> = ({
   }, [searchParam]);
 
   useEffect(() => {
-    if (
-      loadNum > runNum &&
-      list.length < total &&
-      total > 0 &&
-      apiStatus === 'init'
-    ) {
+    if (loadNum > runNum && list.length < total && total > 0 && apiStatus === 'init') {
       setRunNum(loadNum);
       getCourseList({
         ...pageInfo,

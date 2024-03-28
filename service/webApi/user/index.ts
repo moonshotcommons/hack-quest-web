@@ -11,7 +11,8 @@ import {
   PersonalLinksType,
   GithubActivityType,
   UserHackathonType,
-  UserLearnedCountType
+  UserLearnedCountType,
+  ConnectType
 } from './type';
 import { transformQueryString } from '@/helper/formate';
 import { ThirdPartyMediaType } from '@/helper/thirdPartyMedia';
@@ -38,7 +39,12 @@ export enum UserApiType {
   /** 绑定discord */
   DiscordVerify = '/auth/discord/callback',
   /* 获取discord的绑定信息 */
-  GetDiscordInfo = '/auth/discord/info'
+  GetDiscordInfo = '/auth/discord/info',
+  BindWallet = '/auth/wallet/bind',
+  GetTwitterAuthLink = '/auth/twitter',
+  TwitterVerify = '/auth/twitter/callback',
+  CheckDiscordJoin = '/auth/discord/check-join',
+  CheckTwitterFollow = '/auth/twitter/check-follow'
 }
 
 class UserApi {
@@ -90,12 +96,9 @@ class UserApi {
   /** 用户登录 */
   userLogin(params: LoginParamsType) {
     const url = `${UserApiType.UserLogin}`;
-    return this.service.post<LoginResponse | { isFail: boolean; msg: string }>(
-      url,
-      {
-        data: params
-      }
-    );
+    return this.service.post<LoginResponse | { isFail: boolean; msg: string }>(url, {
+      data: params
+    });
   }
 
   /** 邮箱链接点击以后验证token */
@@ -106,13 +109,7 @@ class UserApi {
   }
 
   /** 更新密码 */
-  updatePassword(params: {
-    token?: string;
-    password?: string;
-    newPassword: string;
-    reenterPassword: string;
-    isForgot?: boolean;
-  }) {
+  updatePassword(params: { token?: string; password?: string; newPassword: string; reenterPassword: string; isForgot?: boolean }) {
     return this.service.post(UserApiType.UpdatePassword, {
       data: params
     });
@@ -143,25 +140,18 @@ class UserApi {
    * 三方登录
    */
   getAuthUrl(type: ThirdPartyAuthType) {
-    const url =
-      type === ThirdPartyAuthType.GOOGLE
-        ? UserApiType.AuthGoogle
-        : UserApiType.AuthGithub;
+    const url = type === ThirdPartyAuthType.GOOGLE ? UserApiType.AuthGoogle : UserApiType.AuthGithub;
     return this.service.get(url);
   }
 
   /** 谷歌验证 */
   googleVerify(code: string) {
-    return this.service.get<LoginResponse>(
-      `${UserApiType.googleVerify}?code=${code}`
-    );
+    return this.service.get<LoginResponse>(`${UserApiType.googleVerify}?code=${code}`);
   }
 
   /** github验证 */
   githubVerify(code: string) {
-    return this.service.get<LoginResponse>(
-      `${UserApiType.githubVerify}?code=${code}`
-    );
+    return this.service.get<LoginResponse>(`${UserApiType.githubVerify}?code=${code}`);
   }
 
   /** metamask验证 */
@@ -198,62 +188,44 @@ class UserApi {
 
   /**新增ex */
   addExperience(data: Omit<UserExperienceType, 'id'>) {
-    return this.service.post<UserExperienceType>(
-      `${UserApiType.UserProfile}/work-experience`,
-      {
-        data
-      }
-    );
+    return this.service.post<UserExperienceType>(`${UserApiType.UserProfile}/work-experience`, {
+      data
+    });
   }
 
   /**编辑ex */
   editExperience(id: string, data: Omit<UserExperienceType, 'id'>) {
-    return this.service.put<UserExperienceType>(
-      `${UserApiType.UserProfile}/work-experience/${id}`,
-      {
-        data
-      }
-    );
+    return this.service.put<UserExperienceType>(`${UserApiType.UserProfile}/work-experience/${id}`, {
+      data
+    });
   }
 
   /**删除ex */
   deleteExperience(id: string) {
-    return this.service.delete(
-      `${UserApiType.UserProfile}/work-experience/${id}`
-    );
+    return this.service.delete(`${UserApiType.UserProfile}/work-experience/${id}`);
   }
 
   /**新增hackathon */
   addHackathon(data: Omit<UserHackathonType, 'id'>) {
-    return this.service.post<UserHackathonType>(
-      `${UserApiType.UserProfile}/hackathon-experience`,
-      {
-        data
-      }
-    );
+    return this.service.post<UserHackathonType>(`${UserApiType.UserProfile}/hackathon-experience`, {
+      data
+    });
   }
 
   /**编辑hackathon */
   editHackathon(id: string, data: Omit<UserHackathonType, 'id'>) {
-    return this.service.put<UserHackathonType>(
-      `${UserApiType.UserProfile}/hackathon-experience/${id}`,
-      {
-        data
-      }
-    );
+    return this.service.put<UserHackathonType>(`${UserApiType.UserProfile}/hackathon-experience/${id}`, {
+      data
+    });
   }
 
   /**删除hackathon */
   deleteHackathon(id: string) {
-    return this.service.delete(
-      `${UserApiType.UserProfile}/hackathon-experience/${id}`
-    );
+    return this.service.delete(`${UserApiType.UserProfile}/hackathon-experience/${id}`);
   }
   /** 获取user profile github 授权url */
   getGithubConnectUrl() {
-    return this.service.get<{ url: string }>(
-      `${UserApiType.AuthGithub}?type=connect`
-    );
+    return this.service.get<{ url: string }>(`${UserApiType.AuthGithub}?type=connect`);
   }
 
   /** 更新personal links */
@@ -264,9 +236,7 @@ class UserApi {
   }
 
   linkGithub(code: string) {
-    return this.service.get<GithubActivityType>(
-      `${UserApiType.UserProfile}/link-github?code=${code}`
-    );
+    return this.service.get<GithubActivityType>(`${UserApiType.UserProfile}/link-github?code=${code}`);
   }
 
   unLinkGithub() {
@@ -274,7 +244,7 @@ class UserApi {
   }
 
   /** on-Chain Activity  link*/
-  linkChain(address: string) {
+  linkChain(address: `0x${string}`) {
     return this.service.post<{
       address: string;
       balance: number;
@@ -298,9 +268,7 @@ class UserApi {
 
   /** dashboard user count */
   getUserLearnedCount() {
-    return this.service.get<UserLearnedCountType>(
-      `${UserApiType.UserLearnedCount}`
-    );
+    return this.service.get<UserLearnedCountType>(`${UserApiType.UserLearnedCount}`);
   }
 
   getConnectUrlByDiscord() {
@@ -317,13 +285,40 @@ class UserApi {
   }
 
   getDiscordInfo() {
-    return this.service.get<{ isConnect: boolean; thirdUser: any }>(
-      UserApiType.GetDiscordInfo
-    );
+    return this.service.get<{ isConnect: boolean; thirdUser: any }>(UserApiType.GetDiscordInfo);
   }
 
   disconnect(type: ThirdPartyMediaType) {
     return this.service.delete(`/auth/${type}/disconnect`);
+  }
+
+  getConnectInfo() {
+    return this.service.get<{ username: string; thirdPartyName: ConnectType }[]>(`/auth`);
+  }
+
+  /** 绑定钱包 */
+  connectWallet(address: `0x${string}`) {
+    return this.service.get(`${UserApiType.BindWallet}`, {
+      params: { address }
+    });
+  }
+
+  /** 获取推特授权链接 */
+  getConnectUrlByTwitter() {
+    return this.service.get<{ url: string }>(UserApiType.GetTwitterAuthLink);
+  }
+
+  /** 绑定推特 */
+  connectTwitter(code: string) {
+    return this.service.get(UserApiType.TwitterVerify, { params: { code } });
+  }
+
+  checkDiscordJoin() {
+    return this.service.get<{ isJoin: boolean }>(UserApiType.CheckDiscordJoin);
+  }
+
+  checkTwitterFollow() {
+    return this.service.get<{ isFollow: boolean }>(UserApiType.CheckTwitterFollow);
   }
 }
 

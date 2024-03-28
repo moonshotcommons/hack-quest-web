@@ -1,9 +1,4 @@
-import {
-  HACKQUEST_DISCORD,
-  HACKQUEST_LINKEDIN,
-  HACKQUEST_TELEGRAM,
-  HACKQUEST_TWITTER
-} from '@/constants/links';
+import { HACKQUEST_DISCORD, HACKQUEST_LINKEDIN, HACKQUEST_TELEGRAM, HACKQUEST_TWITTER } from '@/constants/links';
 
 export const FOOTER_LINKS = [
   {

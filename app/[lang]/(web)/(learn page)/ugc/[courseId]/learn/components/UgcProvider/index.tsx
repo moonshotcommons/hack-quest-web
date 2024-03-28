@@ -1,12 +1,6 @@
 'use client';
 import { FC, ReactNode, useEffect, useState } from 'react';
-import {
-  UgcContext,
-  NavbarDataType,
-  FooterButtonText,
-  footerBtnType,
-  FooterButtonStatus
-} from '../../constants/type';
+import { UgcContext, NavbarDataType, FooterButtonText, footerBtnType, FooterButtonStatus } from '../../constants/type';
 import { RendererContext } from '@/components/Web/Business/Renderer/context';
 import { useLearnStore } from '@/store/zustand/learnStore';
 import emitter from '@/store/emitter';
@@ -57,8 +51,7 @@ const UgcProvider: FC<UgcProviderProps> = ({ children }) => {
         value={{
           textRenderer: {
             textStyle: 'body-l text-neutral-black',
-            codeStyle:
-              'code-l text-code-red bg-neutral-off-white py-[2px] px-[7px]'
+            codeStyle: 'code-l text-code-red bg-neutral-off-white py-[2px] px-[7px]'
           }
         }}
       >

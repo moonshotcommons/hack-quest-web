@@ -1,15 +1,7 @@
 import { cn } from '@/helper/utils';
 import { useDebounceFn } from 'ahooks';
 import Schema, { Rule, Rules } from 'async-validator';
-import {
-  TextareaHTMLAttributes,
-  ReactNode,
-  forwardRef,
-  useEffect,
-  useImperativeHandle,
-  useRef,
-  useState
-} from 'react';
+import { TextareaHTMLAttributes, ReactNode, forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import CloseIcon from '../Icon/Close';
 import EyeIcon from '../Icon/Eye';
 import PassIcon from '../Icon/Pass';
@@ -37,10 +29,7 @@ export interface TextAreaRef {
   blur: () => void;
 }
 
-const TextArea = forwardRef<
-  TextAreaRef,
-  TextAreaProps & TextareaHTMLAttributes<HTMLTextAreaElement>
->((props, ref) => {
+const TextArea = forwardRef<TextAreaRef, TextAreaProps & TextareaHTMLAttributes<HTMLTextAreaElement>>((props, ref) => {
   const {
     label,
     type: propType,
@@ -128,12 +117,8 @@ const TextArea = forwardRef<
             `body-m max-h-[300px] min-h-[150px] w-full rounded-[24px] border border-solid border-neutral-dark-gray px-[25px] py-[15px]  outline-none  hover:border-neutral-dark-gray focus:border-neutral-dark-gray`,
             // type === 'password' &&
             //   'border-auth-password-input-bg focus:border-neutral-dark-gray',
-            status === 'success'
-              ? 'border-auth-input-success-color focus:border-auth-input-success-color'
-              : '',
-            status === 'error'
-              ? 'border-auth-input-error-color focus:border-auth-input-error-color'
-              : '',
+            status === 'success' ? 'border-auth-input-success-color focus:border-auth-input-success-color' : '',
+            status === 'error' ? 'border-auth-input-error-color focus:border-auth-input-error-color' : '',
             className
           )}
           onChange={(e) => {
@@ -191,9 +176,7 @@ const TextArea = forwardRef<
           )}
         </span>
       </div>
-      {description && (
-        <p className="text- body-m  ml-[1.5rem]">{description}</p>
-      )}
+      {description && <p className="text- body-m  ml-[1.5rem]">{description}</p>}
       {errorMessage && (
         <p className="body-m flex flex-row items-center gap-2 text-auth-input-error-color">
           <WarningIcon width={17} height={16}></WarningIcon>

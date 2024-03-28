@@ -12,15 +12,9 @@ interface MobLearningTrackCardSkeletonListProps {
   active: boolean;
 }
 
-const MobLearningTrackCardSkeletonCard: FC<
-  MobLearningTrackCardSkeletonCardProps
-> = () => {
+const MobLearningTrackCardSkeletonCard: FC<MobLearningTrackCardSkeletonCardProps> = () => {
   return (
-    <div
-      className={
-        'flex  w-full flex-col gap-[1.25rem] rounded-[1rem]  bg-neutral-white p-[1.25rem]  '
-      }
-    >
+    <div className={'flex  w-full flex-col gap-[1.25rem] rounded-[1rem]  bg-neutral-white p-[1.25rem]  '}>
       <div className="flex w-full justify-between">
         <Skeleton className="h-[1.75rem] w-[3.375rem] rounded-[1.25rem] "></Skeleton>
         <div className="relative h-[3rem] w-[3rem]">
@@ -34,16 +28,10 @@ const MobLearningTrackCardSkeletonCard: FC<
   );
 };
 
-const MobLearningTrackCardSkeletonList: FC<
-  MobLearningTrackCardSkeletonListProps
-> = ({ size = 1, children, active }) => {
+const MobLearningTrackCardSkeletonList: FC<MobLearningTrackCardSkeletonListProps> = ({ size = 1, children, active }) => {
   return active
     ? new Array(size).fill('').map((_, index) => {
-        return (
-          <MobLearningTrackCardSkeletonCard
-            key={index}
-          ></MobLearningTrackCardSkeletonCard>
-        );
+        return <MobLearningTrackCardSkeletonCard key={index}></MobLearningTrackCardSkeletonCard>;
       })
     : children;
 };

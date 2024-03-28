@@ -20,9 +20,7 @@ const MesTab: React.FC<MesTabProp> = ({ curTab, changeTab }) => {
         <div
           key={v.value}
           onClick={() => changeTab(v.value as MessageTab)}
-          className={`body-l cursor-pointer  text-neutral-black ${
-            curTab === v.value ? '  body-l-bold ' : ' '
-          }`}
+          className={`body-l cursor-pointer  text-neutral-black ${curTab === v.value ? '  body-l-bold ' : ' '}`}
         >
           {`${v.label} (${v.count})`}
         </div>

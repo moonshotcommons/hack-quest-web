@@ -10,46 +10,33 @@ export const useCustomPathname = () => {
   const originPathname = usePathname();
 
   let pathname = originPathname;
-  const lang = locales.find(
-    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
-  );
+  const lang = locales.find((locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`);
 
   if (lang && pathname.startsWith(`/${lang}`)) {
     pathname = pathname.replace(`/${lang}`, '');
   }
 
-  pathname = pathname.startsWith('/mobile')
-    ? pathname.replace('/mobile', '')
-    : pathname;
+  pathname = pathname.startsWith('/mobile') ? pathname.replace('/mobile', '') : pathname;
 
+  if (!pathname.startsWith('/')) {
+    pathname = '/' + pathname;
+  }
   return pathname;
 };
 
 export const useCheckPathname = () => {
   const params = useParams();
+  const pathname = useCustomPathname();
   const originPathname = usePathname();
-  let pathname = originPathname;
-  const lang = locales.find(
-    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
-  );
-
-  if (lang && pathname.startsWith(`/${lang}`)) {
-    pathname = pathname.replace(`/${lang}`, '');
-  }
-
-  pathname = pathname.startsWith('/mobile')
-    ? pathname.replace('/mobile', '')
-    : pathname;
 
   return useMemo(() => {
-    const isLessonPage =
-      !!params?.courseId && !!params.lessonId && pathname.includes('/learn/');
+    const isLessonPage = !!params?.courseId && !!params.lessonId && pathname.includes('/learn/');
 
     const isPreviewPage = pathname.startsWith('/preview');
 
     const isLandingPage = ['/', ''].includes(pathname);
 
-    const isMobileLink = originPathname.startsWith('/mobile');
+    const isMobileLink = originPathname.includes('/mobile');
 
     const isNavbarFullPage = isLessonPage || isPreviewPage;
 
@@ -59,35 +46,16 @@ export const useCheckPathname = () => {
 
     const isGlossary = ~pathname.indexOf(MenuLink.GLOSSARY);
 
-    const isGuidedProjectLessonPage =
-      isLessonPage &&
-      pathname.startsWith(`${getCourseLink(CourseType.GUIDED_PROJECT)}`);
+    const isGuidedProjectLessonPage = isLessonPage && pathname.startsWith(`${getCourseLink(CourseType.GUIDED_PROJECT)}`);
 
-    const isMiniElectiveLessonPage =
-      isLessonPage && pathname.startsWith(`${getCourseLink(CourseType.MINI)}`);
+    const isMiniElectiveLessonPage = isLessonPage && pathname.startsWith(`${getCourseLink(CourseType.MINI)}`);
 
-    const isSyntaxDetailPage =
-      /^\/syntax\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
-        pathname
-      );
-    const isPracticesDetailPage =
-      /^\/practices\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
-        pathname
-      );
-    const isElectiveDetailPage =
-      /^\/electives\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
-        pathname
-      );
-    const isLearningTrackDetailPage =
-      /^\/learning-track\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
-        pathname
-      );
+    const isSyntaxDetailPage = /^\/syntax\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(pathname);
+    const isPracticesDetailPage = /^\/practices\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(pathname);
+    const isElectiveDetailPage = /^\/electives\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(pathname);
+    const isLearningTrackDetailPage = /^\/learning-track\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(pathname);
 
-    const isCourseDetailPage =
-      isSyntaxDetailPage ||
-      isPracticesDetailPage ||
-      isElectiveDetailPage ||
-      isLearningTrackDetailPage;
+    const isCourseDetailPage = isSyntaxDetailPage || isPracticesDetailPage || isElectiveDetailPage || isLearningTrackDetailPage;
 
     const isExcludeBreadcrumbLink =
       isNavbarFullPage ||

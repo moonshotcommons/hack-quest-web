@@ -1,11 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const {
-  getComponentName,
-  render,
-  checkExists,
-  getFileName
-} = require('./util');
+const { getComponentName, render, checkExists, getFileName } = require('./util');
 
 const fileName = getFileName();
 
@@ -26,9 +21,7 @@ const generateTypeRenderData = (iconPath) => {
     const iconName = getComponentName(file);
     const importStringItem = `import ${iconName}Icon from './${file}'`;
     importString.push(importStringItem);
-    const icon = `  ${
-      file.indexOf('-') === -1 ? file : `'${file}'`
-    }: <${iconName}Icon />`;
+    const icon = `  ${file.indexOf('-') === -1 ? file : `'${file}'`}: <${iconName}Icon />`;
     iconsMapString.push(icon);
   });
 
@@ -41,14 +34,8 @@ const generateTypeRenderData = (iconPath) => {
 
 const renderComponent = () => {
   const IconName = getComponentName(fileName);
-  const iconTemplate = fs.readFileSync(
-    path.resolve(__dirname, 'template/icon/iconTemplate.ejs'),
-    'utf8'
-  );
-  const filePath = path.resolve(
-    __dirname,
-    `../components/Common/Icon/${IconName}`
-  );
+  const iconTemplate = fs.readFileSync(path.resolve(__dirname, 'template/icon/iconTemplate.ejs'), 'utf8');
+  const filePath = path.resolve(__dirname, `../components/Common/Icon/${IconName}`);
 
   checkExists(filePath);
 
@@ -58,26 +45,14 @@ const renderComponent = () => {
 };
 
 const renderType = (renderData) => {
-  const typeTemplate = fs.readFileSync(
-    path.resolve(__dirname, 'template/icon/type.ejs'),
-    'utf8'
-  );
-  const typeFilePath = path.resolve(
-    __dirname,
-    `../components/Common/Icon/type.tsx`
-  );
+  const typeTemplate = fs.readFileSync(path.resolve(__dirname, 'template/icon/type.ejs'), 'utf8');
+  const typeFilePath = path.resolve(__dirname, `../components/Common/Icon/type.tsx`);
   render(typeTemplate, typeFilePath, { type: renderData.type });
 };
 
 const renderIconImport = (renderData) => {
-  const indexTemplate = fs.readFileSync(
-    path.resolve(__dirname, 'template/icon/index.ejs'),
-    'utf8'
-  );
-  const indexFilePath = path.resolve(
-    __dirname,
-    `../components/Common/Icon/index.tsx`
-  );
+  const indexTemplate = fs.readFileSync(path.resolve(__dirname, 'template/icon/index.ejs'), 'utf8');
+  const indexFilePath = path.resolve(__dirname, `../components/Common/Icon/index.tsx`);
   render(indexTemplate, indexFilePath, {
     icons: renderData.icons,
     iconsImport: renderData.iconImport

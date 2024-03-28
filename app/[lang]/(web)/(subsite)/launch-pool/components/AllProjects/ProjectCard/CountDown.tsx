@@ -5,10 +5,7 @@ import { cn } from '@/helper/utils';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
-import {
-  LaunchPoolProjectType,
-  ProjectStatus
-} from '@/service/webApi/launchPool/type';
+import { LaunchPoolProjectType, LaunchPoolProjectStatus } from '@/service/webApi/launchPool/type';
 
 interface CountDownItemProps {
   count: number;
@@ -22,12 +19,7 @@ const CountItem: FC<CountDownItemProps> = ({ count, format, className }) => {
     if (countString.length === 1) {
       return (
         <>
-          <span
-            className={cn(
-              'body-xl-bold inline-block rounded-[4px] px-2 py-1 text-neutral-rich-gray',
-              className
-            )}
-          >
+          <span className={cn('body-xl-bold inline-block rounded-[4px] px-2 py-1 text-neutral-rich-gray', className)}>
             0{countString[0]}
           </span>
         </>
@@ -35,12 +27,7 @@ const CountItem: FC<CountDownItemProps> = ({ count, format, className }) => {
     } else {
       return (
         <>
-          <span
-            className={cn(
-              'body-xl-bold inline-block rounded-[4px] px-2 py-1 text-neutral-rich-gray',
-              className
-            )}
-          >
+          <span className={cn('body-xl-bold inline-block rounded-[4px] px-2 py-1 text-neutral-rich-gray', className)}>
             {countString.join('')}
           </span>
         </>
@@ -81,38 +68,22 @@ const CountDown: FC<CountDownProps> = ({ project }) => {
         <CountItem
           count={days}
           format={t('day')}
-          className={
-            status === ProjectStatus.START
-              ? 'bg-neutral-white'
-              : 'bg-neutral-off-white'
-          }
+          className={status === LaunchPoolProjectStatus.UPCOMING ? 'bg-neutral-white' : 'bg-neutral-off-white'}
         />
         <CountItem
           count={hours}
           format={t('hour')}
-          className={
-            status === ProjectStatus.START
-              ? 'bg-neutral-white'
-              : 'bg-neutral-off-white'
-          }
+          className={status === LaunchPoolProjectStatus.UPCOMING ? 'bg-neutral-white' : 'bg-neutral-off-white'}
         />
         <CountItem
           count={minutes}
           format={t('minutes')}
-          className={
-            status === ProjectStatus.START
-              ? 'bg-neutral-white'
-              : 'bg-neutral-off-white'
-          }
+          className={status === LaunchPoolProjectStatus.UPCOMING ? 'bg-neutral-white' : 'bg-neutral-off-white'}
         />
         <CountItem
           count={seconds}
           format={t('seconds')}
-          className={
-            status === ProjectStatus.START
-              ? 'bg-neutral-white'
-              : 'bg-neutral-off-white'
-          }
+          className={status === LaunchPoolProjectStatus.UPCOMING ? 'bg-neutral-white' : 'bg-neutral-off-white'}
         />
       </div>
     </div>

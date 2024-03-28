@@ -1,8 +1,4 @@
-import {
-  FuelInfo,
-  LaunchPoolProjectType,
-  ParticipateInfo
-} from '@/service/webApi/launchPool/type';
+import { FuelInfo, LaunchPoolProjectType, ParticipateInfo } from '@/service/webApi/launchPool/type';
 import { createContext } from 'react';
 
 export enum TitleTxt {

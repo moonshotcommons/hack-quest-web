@@ -59,9 +59,7 @@ export const getLessonLink = (
     idTypes: [QueryIdType.MENU_COURSE_ID],
     ids: [menuCourseId]
   };
-  let link = `${getCourseLink(
-    courseType
-  )}/${courseName}/learn/${lessonId}?menu=${lParam.menu}`;
+  let link = `${getCourseLink(courseType)}/${courseName}/learn/${lessonId}?menu=${lParam.menu}`;
   lParam.idTypes.map((v: string, i: number) => {
     link += `&${v}=${lParam.ids[i]}`;
   });
@@ -77,15 +75,11 @@ export const getLessonLink = (
 //   return `${getCourseLink(courseType)}/${courseName}/learn/${lessonId}`;
 // };
 
-export const changeTextareaHeight = (
-  target: HTMLTextAreaElement,
-  minHeight = 40
-) => {
+export const changeTextareaHeight = (target: HTMLTextAreaElement, minHeight = 40) => {
   // 重置textarea的高度为默认值，以便可以正确计算其内容的高度
   target.style.height = `${minHeight}px`;
   // 获取textarea的内容高度，并加上padding和border的高度
-  let height =
-    target.scrollHeight < minHeight ? minHeight : target.scrollHeight;
+  let height = target.scrollHeight < minHeight ? minHeight : target.scrollHeight;
   // 将textarea的高度设置为内容高度
   target.style.height = height + 'px';
 };
@@ -99,8 +93,7 @@ export const elementVibration = (ele: HTMLElement) => {
 };
 
 export const adaptWidth = (target: HTMLInputElement, minWidth = 110) => {
-  const parentEleWidth =
-    target.parentElement?.getBoundingClientRect().width || 0;
+  const parentEleWidth = target.parentElement?.getBoundingClientRect().width || 0;
   const len = target.value.length;
   let width = len * 7.6;
   if (width < minWidth) width = minWidth;
@@ -153,61 +146,49 @@ type AnyObject = Record<PropertyKey, any>;
 
 type RenderProps = AnyObject | ((originProps: AnyObject) => AnyObject | void);
 
-export function replaceElement(
-  element: React.ReactNode,
-  replacement: React.ReactNode,
-  props?: RenderProps
-): React.ReactNode {
+export function replaceElement(element: React.ReactNode, replacement: React.ReactNode, props?: RenderProps): React.ReactNode {
   if (!isValidElement(element)) {
     return replacement;
   }
-  return React.cloneElement(
-    element,
-    typeof props === 'function' ? props(element.props || {}) : props
-  );
+  return React.cloneElement(element, typeof props === 'function' ? props(element.props || {}) : props);
 }
 
-export function cloneElement(
-  element: React.ReactNode,
-  props?: RenderProps
-): React.ReactElement {
+export function cloneElement(element: React.ReactNode, props?: RenderProps): React.ReactElement {
   return replaceElement(element, element, props) as React.ReactElement;
 }
 
 export async function urlToBlobAndBase64(url: string) {
-  return new Promise<{ base64: string; blob: BlobPart }>(
-    async (resolve, reject) => {
-      try {
-        let blob: Blob;
-        if (!url.startsWith('/')) {
-          const response = await fetch('/api/helper/fetch-image', {
-            body: JSON.stringify({ url }),
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            cache: 'force-cache'
-          });
+  return new Promise<{ base64: string; blob: BlobPart }>(async (resolve, reject) => {
+    try {
+      let blob: Blob;
+      if (!url.startsWith('/')) {
+        const response = await fetch('/api/helper/fetch-image', {
+          body: JSON.stringify({ url }),
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          cache: 'force-cache'
+        });
 
-          blob = await response.blob();
-        } else {
-          const response = await fetch(url);
-          blob = await response.blob();
-        }
-        const reader = new FileReader();
-        reader.readAsDataURL(blob);
-        reader.onload = () => {
-          const base64 = reader.result as string;
-          resolve({
-            base64,
-            blob
-          });
-        };
-      } catch (err) {
-        reject(err);
+        blob = await response.blob();
+      } else {
+        const response = await fetch(url);
+        blob = await response.blob();
       }
+      const reader = new FileReader();
+      reader.readAsDataURL(blob);
+      reader.onload = () => {
+        const base64 = reader.result as string;
+        resolve({
+          base64,
+          blob
+        });
+      };
+    } catch (err) {
+      reject(err);
     }
-  );
+  });
 }
 
 export const separationNumber = (num: number, maxNum?: number) => {
@@ -223,10 +204,7 @@ export const separationNumber = (num: number, maxNum?: number) => {
   return isMaxNum ? `${str}+` : str;
 };
 
-export const getSearchParamsUrl = (
-  info: Record<string, any>,
-  path: MenuLink
-) => {
+export const getSearchParamsUrl = (info: Record<string, any>, path: MenuLink) => {
   const url = new URL(path, window.location.href);
   for (const key in info) {
     const value = info[key as keyof typeof info];
@@ -239,14 +217,7 @@ export const getSearchParamsUrl = (
 export const getCoverImageByTrack = (track: CourseTrackType) => {
   switch (track) {
     case CourseTrackType.DeFi:
-      return (
-        <Image
-          src={PracticeImg1}
-          width={239}
-          alt="practice"
-          className="absolute right-0 top-0"
-        ></Image>
-      );
+      return <Image src={PracticeImg1} width={239} alt="practice" className="absolute right-0 top-0"></Image>;
     case CourseTrackType.NFT:
       return (
         <Image
@@ -259,32 +230,11 @@ export const getCoverImageByTrack = (track: CourseTrackType) => {
         ></Image>
       );
     case CourseTrackType.Gaming:
-      return (
-        <Image
-          src={PracticeImg3}
-          width={178}
-          alt="practice"
-          className="absolute right-[40px] top-[24px]"
-        ></Image>
-      );
+      return <Image src={PracticeImg3} width={178} alt="practice" className="absolute right-[40px] top-[24px]"></Image>;
     case CourseTrackType.Security:
-      return (
-        <Image
-          src={PracticeImg4}
-          width={123}
-          alt="practice"
-          className="absolute right-[40px] top-[20px]"
-        ></Image>
-      );
+      return <Image src={PracticeImg4} width={123} alt="practice" className="absolute right-[40px] top-[20px]"></Image>;
     default:
-      return (
-        <Image
-          src={PracticeImg1}
-          width={239}
-          alt="practice"
-          className="absolute right-0 top-0"
-        ></Image>
-      );
+      return <Image src={PracticeImg1} width={239} alt="practice" className="absolute right-0 top-0"></Image>;
   }
 };
 const checkByRegExp = (regExp: RegExp) => {
@@ -292,9 +242,7 @@ const checkByRegExp = (regExp: RegExp) => {
     return regExp.test(str);
   };
 };
-export const isUuid = checkByRegExp(
-  /[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}/
-);
+export const isUuid = checkByRegExp(/[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}/);
 
 export const isNullByRegExp = checkByRegExp(/^\s*$/);
 

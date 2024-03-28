@@ -24,13 +24,7 @@ const NavBar: React.FC<NavBarProps> = () => {
           setSidebarOpen(true);
         }}
       >
-        <svg
-          width="20"
-          height="19"
-          viewBox="0 0 20 19"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+        <svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             fillRule="evenodd"
             clipRule="evenodd"
@@ -39,13 +33,8 @@ const NavBar: React.FC<NavBarProps> = () => {
           />
         </svg>
       </div>
-      <div className="text-h4-mob line-clamp-2 flex-1 flex-shrink-0 text-center">
-        {learnPageTitle}
-      </div>
-      <div
-        className="flex w-[2.5rem] cursor-pointer items-center justify-end"
-        onClick={logoClick}
-      >
+      <div className="text-h4-mob line-clamp-2 flex-1 flex-shrink-0 text-center">{learnPageTitle}</div>
+      <div className="flex w-[2.5rem] cursor-pointer items-center justify-end" onClick={logoClick}>
         <IoExitOutline size={28} />
       </div>
     </nav>

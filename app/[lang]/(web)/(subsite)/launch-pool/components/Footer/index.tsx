@@ -10,11 +10,7 @@ const Footer: FC<FooterProps> = (props) => {
     <div className="w-full bg-neutral-black py-[7.5rem]">
       <div className="container mx-auto flex justify-between">
         <div className="relative h-[.875rem] w-[8.25rem]">
-          <Image
-            src={'/images/logo/home_nav_logo.svg'}
-            alt="hackquest"
-            fill
-          ></Image>
+          <Image src={'/images/logo/home_nav_logo.svg'} alt="hackquest" fill></Image>
         </div>
         <div className="flex gap-[7.5rem] text-neutral-white">
           {FOOTER_LINKS.map((item, index) => {

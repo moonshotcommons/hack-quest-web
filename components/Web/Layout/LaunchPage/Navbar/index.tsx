@@ -1,12 +1,6 @@
 'use client';
 import Image from 'next/image';
-import React, {
-  ReactNode,
-  Suspense,
-  useContext,
-  useEffect,
-  useState
-} from 'react';
+import React, { ReactNode, Suspense, useContext, useEffect, useState } from 'react';
 
 import { useRedirect } from '@/hooks/router/useRedirect';
 import { useCustomPathname } from '@/hooks/router/useCheckPathname';
@@ -37,9 +31,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
 
   useEffect(() => {
     for (let nav of navList) {
-      const curNav = nav.menu.find((menu) =>
-        pathname.includes(menu.path as MenuLink)
-      );
+      const curNav = nav.menu.find((menu) => pathname.includes(menu.path as MenuLink));
       if (curNav) {
         setCurNavId(nav.id);
         return;
@@ -47,15 +39,6 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
     }
     setCurNavId('');
   }, [pathname, navList]);
-
-  const handleClickNav = (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    nav: NavbarListType
-  ) => {
-    if (nav.id === 'projects') {
-    } else {
-    }
-  };
 
   const logoClick = () => {
     redirectToUrl('/');
@@ -69,16 +52,10 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
       <div className={`container mx-auto h-full`}>
         <div className="flex h-full items-center justify-between">
           <nav className="flex h-full items-center text-neutral-white">
-            <Link
-              href={MenuLink.LAUNCH}
-              className={`flex h-full cursor-pointer items-center`}
-              onClick={logoClick}
-            >
+            <Link href={MenuLink.LAUNCH} className={`flex h-full cursor-pointer items-center`} onClick={logoClick}>
               <Image src={HackLogo} width={133} alt="logo"></Image>
             </Link>
-            <div
-              className={`text-h5 ml-[8px] flex h-full cursor-pointer items-center font-Chaney uppercase text-neutral-black`}
-            >
+            <div className={`text-h5 ml-[8px] flex h-full cursor-pointer items-center font-Chaney uppercase text-neutral-black`}>
               {t('launchpool')}
             </div>
             <div className="body-s ml-[60px] flex h-full gap-[12px] text-neutral-off-black">
@@ -92,9 +69,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
                 >
                   <div
                     className={`group-hover:body-s-bold  flex cursor-pointer items-center gap-[4px] rounded-[32px] px-[16px]  py-[4px]  ${
-                      curNavId === nav.id
-                        ? 'body-s-bold bg-yellow-light'
-                        : 'group-hover:bg-neutral-off-white'
+                      curNavId === nav.id ? 'body-s-bold bg-yellow-light' : 'group-hover:bg-neutral-off-white'
                     }`}
                   >
                     <div className="relative">

@@ -11,8 +11,7 @@ interface CertificationCardProps {
 const CertificationCard: FC<CertificationCardProps> = async (props) => {
   const { certificationId } = props;
 
-  const certification =
-    await webApi.campaignsApi.fetchCertificationDetail(certificationId);
+  const certification = await webApi.campaignsApi.fetchCertificationDetail(certificationId);
 
   return (
     <CertificationCardProvider certification={certification}>

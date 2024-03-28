@@ -27,9 +27,7 @@ function ThreePartyLogin() {
   return (
     <div className="w-full">
       <div className="relative flex justify-center">
-        <div className="body-s flex h-[30px] items-center  text-center text-neutral-medium-gray">
-          or continue with
-        </div>
+        <div className="body-s flex h-[30px] items-center  text-center text-neutral-medium-gray">or continue with</div>
         <div className="absolute left-0 top-1/2 h-[1px] w-[calc(50%-80px)] -translate-y-1/2 bg-neutral-medium-gray"></div>
         <div className="absolute right-0 top-1/2 h-[1px] w-[calc(50%-80px)] -translate-y-1/2 bg-neutral-medium-gray"></div>
       </div>

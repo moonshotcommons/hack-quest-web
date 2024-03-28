@@ -1,14 +1,9 @@
 'use client';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import Nav from './Nav';
 import Content, { OffsetTopsType } from './Content';
 import { LaunchDetailContext, LaunchInfoType } from '../constants/type';
-import {
-  FuelInfo,
-  LaunchPoolProjectStatus,
-  LaunchPoolProjectType,
-  ParticipateInfo
-} from '@/service/webApi/launchPool/type';
+import { FuelInfo, LaunchPoolProjectStatus, LaunchPoolProjectType, ParticipateInfo } from '@/service/webApi/launchPool/type';
 import { useRequest } from 'ahooks';
 import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';
@@ -21,11 +16,8 @@ interface LaunchDetailPageProp {
 
 const LaunchDetailPage: React.FC<LaunchDetailPageProp> = ({ id }) => {
   const router = useRouter();
-  const [projectInfo, setProjectInfo] = useState<LaunchPoolProjectType | null>(
-    null
-  );
-  const [participateInfo, setParticipateInfo] =
-    useState<ParticipateInfo | null>(null);
+  const [projectInfo, setProjectInfo] = useState<LaunchPoolProjectType | null>(null);
+  const [participateInfo, setParticipateInfo] = useState<ParticipateInfo | null>(null);
   const [fuelsInfo, setfFelsInfo] = useState<FuelInfo[]>([]);
   const boxRef = useRef<HTMLDivElement>(null);
   const [curAnchorIndex, setCurAnchorIndex] = useState(0);
@@ -115,10 +107,7 @@ const LaunchDetailPage: React.FC<LaunchDetailPageProp> = ({ id }) => {
       if (scrollTop >= offsetTops[offsetTops.length - 1].offsetTop - 40) {
         setCurAnchorIndex(offsetTops.length - 1);
         break;
-      } else if (
-        scrollTop >= offsetTops[i].offsetTop - 40 &&
-        scrollTop < offsetTops[i + 1].offsetTop - 40
-      ) {
+      } else if (scrollTop >= offsetTops[i].offsetTop - 40 && scrollTop < offsetTops[i + 1].offsetTop - 40) {
         setCurAnchorIndex(i);
         break;
       }
@@ -134,22 +123,12 @@ const LaunchDetailPage: React.FC<LaunchDetailPageProp> = ({ id }) => {
         setLoading
       }}
     >
-      <div
-        className="scroll-wrap-y h-full py-[40px]"
-        ref={boxRef}
-        onScroll={handleScoll}
-      >
+      <div className="scroll-wrap-y h-full py-[40px]" ref={boxRef} onScroll={handleScoll}>
         <div className="container  mx-auto flex">
           <div className="relative w-[345px]">
-            <Nav
-              curAnchorIndex={curAnchorIndex}
-              handleClickAnchor={handleClickAnchor}
-            />
+            <Nav curAnchorIndex={curAnchorIndex} handleClickAnchor={handleClickAnchor} />
           </div>
-          <Content
-            loading={loading}
-            setOffsetTop={(tops: OffsetTopsType[]) => setOffsetTops(tops)}
-          />
+          <Content loading={loading} setOffsetTop={(tops: OffsetTopsType[]) => setOffsetTops(tops)} />
         </div>
       </div>
     </LaunchDetailContext.Provider>

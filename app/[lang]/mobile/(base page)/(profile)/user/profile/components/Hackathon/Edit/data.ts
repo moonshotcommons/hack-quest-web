@@ -38,9 +38,7 @@ export const monthList = months.map((v, i) => ({
   label: v,
   value: v
 }));
-export const yearList = Array.from({ length: curYear - yearStart + 1 }).map(
-  (_, i) => ({
-    label: String(curYear - i),
-    value: String(curYear - i)
-  })
-);
+export const yearList = Array.from({ length: curYear - yearStart + 1 }).map((_, i) => ({
+  label: String(curYear - i),
+  value: String(curYear - i)
+}));

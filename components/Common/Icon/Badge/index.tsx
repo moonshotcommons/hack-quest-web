@@ -15,13 +15,7 @@ const BadgeIcon: React.FC<IconProps> = (props) => {
   const { size = 24, width, height, color = '#333' } = props;
 
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width={width ?? size}
-      height={height ?? size}
-      viewBox="0 0 26 34"
-      fill="none"
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" width={width ?? size} height={height ?? size} viewBox="0 0 26 34" fill="none">
       <g id="Silver Medal">
         <path
           id="Rectangle 8"
@@ -33,25 +27,14 @@ const BadgeIcon: React.FC<IconProps> = (props) => {
           d="M10.9648 18.8639L11.3979 19.1139L10.8979 19.9799L10.4648 19.7299L10.9648 18.8639ZM7.50966 17.4464L7.07665 17.1964L7.32665 16.7633L7.75966 17.0133L7.50966 17.4464ZM1.00095 28.7198L1.0519 29.2172L0.078876 29.3169L0.567937 28.4698L1.00095 28.7198ZM5.49223 27.757C5.76694 27.7289 6.01244 27.9288 6.04058 28.2035C6.06873 28.4782 5.86885 28.7237 5.59414 28.7518L5.49223 27.757ZM10.4648 19.7299L7.25966 17.8794L7.75966 17.0133L10.9648 18.8639L10.4648 19.7299ZM7.94267 17.6964L1.43396 28.9698L0.567937 28.4698L7.07665 17.1964L7.94267 17.6964ZM0.949994 28.2224L5.49223 27.757L5.59414 28.7518L1.0519 29.2172L0.949994 28.2224Z"
           fill="#3E3E3E"
         />
-        <path
-          id="Rectangle 10"
-          d="M15.2852 19.2969L12.08 21.1474L18.5887 32.4208L20.4568 28.2544"
-          stroke="#3E3E3E"
-        />
+        <path id="Rectangle 10" d="M15.2852 19.2969L12.08 21.1474L18.5887 32.4208L20.4568 28.2544" stroke="#3E3E3E" />
         <path
           id="Rectangle 11"
           d="M15.2852 19.2969L18.4903 17.4464L24.9991 28.7198L20.4568 28.2544"
           stroke="#3E3E3E"
           strokeLinecap="round"
         />
-        <circle
-          id="Ellipse 3"
-          cx="12.9958"
-          cy="11.5348"
-          r="11.0348"
-          fill="#F4F4F4"
-          stroke="#3E3E3E"
-        />
+        <circle id="Ellipse 3" cx="12.9958" cy="11.5348" r="11.0348" fill="#F4F4F4" stroke="#3E3E3E" />
         <g id="Mask Group">
           <g id="Group 482351">
             <path

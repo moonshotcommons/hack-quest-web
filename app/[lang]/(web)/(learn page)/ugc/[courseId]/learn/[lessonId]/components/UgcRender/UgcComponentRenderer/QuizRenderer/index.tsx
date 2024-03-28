@@ -3,29 +3,14 @@ import { cn } from '@/helper/utils';
 import webApi from '@/service';
 import { useClickAway } from 'ahooks';
 import JSConfetti from 'js-confetti';
-import {
-  FC,
-  createContext,
-  useContext,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState
-} from 'react';
+import { FC, createContext, useContext, useEffect, useRef, useState } from 'react';
 import { MdArrowDropDown } from 'react-icons/md';
 import ComponentRenderer from '../..';
 
-import {
-  CustomComponent,
-  QuizType
-} from '@/components/Web/Business/Renderer/type';
+import { CustomComponent, QuizType } from '@/components/Web/Business/Renderer/type';
 import QuizDropdown from './QuizDropdwon';
 import QuizPassModal from './QuizPassModal';
-import {
-  FooterButtonStatus,
-  FooterButtonText,
-  UgcContext
-} from '@/app/[lang]/(web)/(learn page)/ugc/[courseId]/learn/constants/type';
+import { FooterButtonStatus, FooterButtonText, UgcContext } from '@/app/[lang]/(web)/(learn page)/ugc/[courseId]/learn/constants/type';
 interface QuizRendererProps {
   quiz: QuizType;
   parent: CustomComponent;
@@ -132,11 +117,7 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
 
   const QuizHeader = (
     <div className={`flex h-fit w-full items-center justify-between`}>
-      <div
-        className={`text-h4 relative inline-flex items-center ${
-          quizDropdownVisible && 'shadow-2xl'
-        }`}
-      >
+      <div className={`text-h4 relative inline-flex items-center ${quizDropdownVisible && 'shadow-2xl'}`}>
         <div
           ref={containerRef as any}
           className={`box-content inline-flex min-h-fit cursor-pointer gap-2 border-b-2 p-[20px] ${
@@ -147,18 +128,12 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
             setQuizDropdownVisible(!quizDropdownVisible);
           }}
         >
-          <span>{`${'Quiz'} ${currentQuizIndex + 1}/${
-            quiz.children.length
-          }`}</span>
+          <span>{`${'Quiz'} ${currentQuizIndex + 1}/${quiz.children.length}`}</span>
           {/* <span>{`${quiz.title ? quiz.title : 'Quest'} ${
             currentQuizIndex + 1
           }/${quiz.children.length}`}</span> */}
 
-          <span
-            className={`text-neutral-medium-gray ${
-              quizDropdownVisible ? 'rotate-180' : ''
-            } transition-transform`}
-          >
+          <span className={`text-neutral-medium-gray ${quizDropdownVisible ? 'rotate-180' : ''} transition-transform`}>
             <MdArrowDropDown size={28} color=""></MdArrowDropDown>
           </span>
         </div>
@@ -177,27 +152,15 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
   );
   return (
     <>
-      <div
-        className={cn(
-          `mt-[30px] flex min-h-[50%] w-full flex-1 flex-col overflow-hidden rounded-[.625rem] bg-[#E6E6E6] pb-[20px]`
-        )}
-      >
+      <div className={cn(`mt-[30px] flex min-h-[50%] w-full flex-1 flex-col overflow-hidden rounded-[.625rem] bg-[#E6E6E6] pb-[20px]`)}>
         {QuizHeader}
-        <QuizContext.Provider
-          value={{ onPass, currentQuizIndex, parentQuiz: quiz }}
-        >
+        <QuizContext.Provider value={{ onPass, currentQuizIndex, parentQuiz: quiz }}>
           <div className={`h-full overflow-hidden px-[20px]`}>
-            <ComponentRenderer
-              parent={quiz}
-              component={quiz.children[currentQuizIndex]}
-            ></ComponentRenderer>
+            <ComponentRenderer parent={quiz} component={quiz.children[currentQuizIndex]}></ComponentRenderer>
           </div>
         </QuizContext.Provider>
       </div>
-      <QuizPassModal
-        open={passOpen}
-        onClose={() => setPassOpen(true)}
-      ></QuizPassModal>
+      <QuizPassModal open={passOpen} onClose={() => setPassOpen(true)}></QuizPassModal>
     </>
   );
 };

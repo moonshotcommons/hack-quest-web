@@ -2,13 +2,8 @@ import React, { useRef, MouseEvent } from 'react';
 import Image from 'next/image';
 import ElectiveTag from '../ElectiveTag';
 import Button from '@/components/Common/Button';
-import {
-  EcosystemElectiveType,
-  ElectiveCourseType
-} from '@/service/webApi/elective/type';
-import MiniElectiveDetailModal, {
-  MiniElectiveDetailModalRef
-} from '@/components/Web/Business/MiniElectiveDetailModal';
+import { EcosystemElectiveType, ElectiveCourseType } from '@/service/webApi/elective/type';
+import MiniElectiveDetailModal, { MiniElectiveDetailModalRef } from '@/components/Web/Business/MiniElectiveDetailModal';
 import { BurialPoint } from '@/helper/burialPoint';
 import { QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import { useJumpLeaningLesson } from '@/hooks/courses/useJumpLeaningLesson';
@@ -39,21 +34,14 @@ const MiniElectiveCard: React.FC<MiniElectiveCardProp> = ({ elective }) => {
         onClick={() => handleClick()}
       >
         <div className="relative h-full w-[597px]">
-          <Image
-            src={elective.image}
-            fill
-            alt="electiveImg"
-            className="object-cover"
-          ></Image>
+          <Image src={elective.image} fill alt="electiveImg" className="object-cover"></Image>
         </div>
         <div className="flex h-full  flex-1 flex-shrink-0 flex-col justify-between px-[40px] py-[20px]">
           <div>
             <p className="body-l text-[rgba(11,11,11,0.6)]">{elective.type}</p>
             <p className="text-h3">{elective.name}</p>
           </div>
-          <div className="line-clamp-3 h-[78px] leading-[25px]">
-            {elective.description}
-          </div>
+          <div className="line-clamp-3 h-[78px] leading-[25px]">{elective.description}</div>
           <div>
             <ElectiveTag elective={elective} />
           </div>
@@ -63,9 +51,7 @@ const MiniElectiveCard: React.FC<MiniElectiveCardProp> = ({ elective }) => {
               className="h-15 body-l w-[calc((100%-15px)/2)] bg-home-learning-track-view-button-bg px-0 text-home-learning-track-view-button-color"
               onClick={handleLearn}
             >
-              {!!elective.progress && elective.progress > 0
-                ? 'Resume'
-                : 'Start'}
+              {!!elective.progress && elective.progress > 0 ? 'Resume' : 'Start'}
             </Button>
             <Button className="h-15 body-l w-[calc((100%-15px)/2)] border border-home-learning-track-view-button-border px-0 text-home-learning-track-view-button-color">
               View Syllabus

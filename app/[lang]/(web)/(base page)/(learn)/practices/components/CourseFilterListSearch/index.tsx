@@ -18,17 +18,12 @@ interface CourseFilterListSearchProps {
   keyword: string;
 }
 
-const CourseFilterListSearch: FC<CourseFilterListSearchProps> = ({
-  keyword
-}) => {
+const CourseFilterListSearch: FC<CourseFilterListSearchProps> = ({ keyword }) => {
   const [searchList, setSearchList] = useState<ProjectCourseType[]>([]);
 
   const { run: getCourseList, loading } = useRequest(
     async (filterParams: FilterParamsType) => {
-      const res =
-        await webApi.courseApi.getCourseListBySearch<
-          PageResult<ProjectCourseType>
-        >(filterParams);
+      const res = await webApi.courseApi.getCourseListBySearch<PageResult<ProjectCourseType>>(filterParams);
       return res;
     },
 

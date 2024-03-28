@@ -1,25 +1,34 @@
-import { ConnectButton } from '@/components/Common/ConnectButton';
+import { ConnectButton } from './ConnectButton';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
-import { FC, useContext } from 'react';
+import { ConnectType } from '@/service/webApi/user/type';
+import { useContext } from 'react';
 
-interface ConnectWalletProps {}
+export interface WalletConnectState {
+  type: ConnectType.WALLET;
+  isConnect: boolean;
+  connectInfo: {
+    thirdPartyName: 'wallet';
+    username: `0x${string}`;
+  };
+}
 
-const ConnectWallet: FC<ConnectWalletProps> = (props) => {
+interface ConnectWalletProps<T> {
+  refreshConnectState: () => Promise<unknown>;
+  connectState: T;
+}
+
+const ConnectWallet = <T,>(props: ConnectWalletProps<T>) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
+  const { connectState: propConnectState, refreshConnectState } = props;
+  const connectState = propConnectState as WalletConnectState;
   return (
     <div className="flex flex-col gap-16 py-[64px]">
       <div className="flex justify-between gap-4 rounded-[16px] bg-neutral-off-white p-4">
         <p className="body-m">{t('connectWalletWarn')}</p>
-        <svg
-          width="59"
-          height="34"
-          viewBox="0 0 59 34"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+        <svg width="59" height="34" viewBox="0 0 59 34" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M42.0595 33C50.8632 33 58 25.8366 58 17C58 8.16344 50.8632 1 42.0595 1C33.2557 1 26.1189 8.16344 26.1189 17C26.1189 25.8366 33.2557 33 42.0595 33Z"
             fill="white"
@@ -58,7 +67,7 @@ const ConnectWallet: FC<ConnectWalletProps> = (props) => {
       >
         {t('connectWallet')}
       </Button> */}
-      <ConnectButton t={t} />
+      <ConnectButton t={t} connectState={connectState} refreshConnectState={refreshConnectState} />
     </div>
   );
 };

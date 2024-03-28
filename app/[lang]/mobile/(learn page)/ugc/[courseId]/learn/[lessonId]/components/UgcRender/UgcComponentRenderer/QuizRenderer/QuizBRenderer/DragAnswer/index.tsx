@@ -30,25 +30,9 @@ const DragAnswer: FC<DragAnswerProps> = memo(function DragAnswer(props) {
       onClick={onClick}
     >
       <span>
-        <svg
-          width="14"
-          height="8"
-          viewBox="0 0 14 8"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M1 1H13"
-            stroke="#8C8C8C"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-          />
-          <path
-            d="M1 7H13"
-            stroke="#8C8C8C"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-          />
+        <svg width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M1 1H13" stroke="#8C8C8C" strokeWidth="1.5" strokeLinecap="round" />
+          <path d="M1 7H13" stroke="#8C8C8C" strokeWidth="1.5" strokeLinecap="round" />
         </svg>
       </span>
       <span className="pr-[28px]">{children}</span>

@@ -29,20 +29,10 @@ const Equity: React.FC<EquityProp> = ({ level }) => {
       );
     } else {
       return (
-        <li
-          key={i}
-          className={`flex items-center pl-[20px] leading-[23px] text-neutral-medium-gray ${
-            !showMore && 'hidden'
-          }`}
-        >
+        <li key={i} className={`flex items-center pl-[20px] leading-[23px] text-neutral-medium-gray ${!showMore && 'hidden'}`}>
           <div className="relative h-[5px] w-[5px]">
             <div className="absolute  bottom-[-2.5px] left-[-2.5px] w-[10px]">
-              <Image
-                src={IconLock}
-                width={10}
-                alt="iconLock"
-                className=""
-              ></Image>
+              <Image src={IconLock} width={10} alt="iconLock" className=""></Image>
             </div>
           </div>
           <span className="ml-[10px]">
@@ -72,12 +62,7 @@ const Equity: React.FC<EquityProp> = ({ level }) => {
             </div>
             <div className="body-xs">
               {equityTip.map((v, i) => (
-                <div
-                  key={i}
-                  className={`flex py-[5px] ${
-                    i && ' border-t-[0.5px] border-neutral-medium-gray'
-                  }`}
-                >
+                <div key={i} className={`flex py-[5px] ${i && ' border-t-[0.5px] border-neutral-medium-gray'}`}>
                   <div className="w-[45px]">{v.level}</div>
                   <div className="w-[115px]">{v.role}</div>
                   <div className="w-[215px]">
@@ -94,10 +79,7 @@ const Equity: React.FC<EquityProp> = ({ level }) => {
       </div>
       <ul>{equityList.map((v, i) => renderEquity(v, i))}</ul>
       <div className="flex w-full justify-end pt-[4px]">
-        <span
-          className="body-xs cursor-pointer text-neutral-black underline"
-          onClick={() => handleShowMore()}
-        >
+        <span className="body-xs cursor-pointer text-neutral-black underline" onClick={() => handleShowMore()}>
           Show {showMore ? 'Less' : 'More'}
         </span>
       </div>

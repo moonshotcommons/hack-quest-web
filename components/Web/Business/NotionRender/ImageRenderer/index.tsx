@@ -32,9 +32,7 @@ const ImageRenderer: FC<ImageRendererProps> = (props) => {
           src={content.file.url}
           alt="image"
           // width={400}
-          className={`rounded-xl object-contain ${
-            isMobile ? 'w-full' : 'w-[400px]'
-          }`}
+          className={`rounded-xl object-contain ${isMobile ? 'w-full' : 'w-[400px]'}`}
         />
       </div>
     );

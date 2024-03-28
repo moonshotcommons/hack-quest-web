@@ -19,18 +19,9 @@ const HackDetail: FC<HackDetailProps> = ({ hackathon }) => {
             <div className="flex justify-between">
               <div className="w-[58%]">
                 <About hackathon={hackathon} />
-                <GuestMentors
-                  listData={hackathon.guestsAndMentors}
-                  title="Guests and Mentors"
-                />
-                <MediaCommunity
-                  listData={hackathon.mediaPartners}
-                  title="Media Partners"
-                />
-                <MediaCommunity
-                  listData={hackathon.communityPartners}
-                  title="Community Partners"
-                />
+                <GuestMentors listData={hackathon.guestsAndMentors} title="Guests and Mentors" />
+                <MediaCommunity listData={hackathon.mediaPartners} title="Media Partners" />
+                <MediaCommunity listData={hackathon.communityPartners} title="Community Partners" />
               </div>
               <div className="w-[39%]">
                 <HackathonInfo hackathon={hackathon} />

@@ -138,3 +138,9 @@ export interface UserLearnedCountType {
   certificationCount: number;
   courseCount: number;
 }
+
+export enum ConnectType {
+  WALLET = 'wallet',
+  TWITTER = 'twitter',
+  DISCORD = 'discord'
+}

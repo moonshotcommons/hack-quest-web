@@ -1,12 +1,5 @@
 import Image from 'next/image';
-import React, {
-  ReactNode,
-  useEffect,
-  useState,
-  FC,
-  useContext,
-  useMemo
-} from 'react';
+import React, { ReactNode, useEffect, useState, FC, useContext, useMemo } from 'react';
 import { useCycle } from 'framer-motion';
 
 import { useRedirect } from '@/hooks/router/useRedirect';
@@ -38,9 +31,7 @@ const Navbar: FC<NavbarProps> = (props) => {
   const { t } = useTranslation(lang, TransNs.BASIC);
   const [openNavKeys, setOpenNavKeys] = useState<string[]>([]);
   const userInfo = useUserStore((state) => state.userInfo);
-  const setMobileNavModalToggleOpenHandle = useGlobalStore(
-    (state) => state.setMobileNavModalToggleOpenHandle
-  );
+  const setMobileNavModalToggleOpenHandle = useGlobalStore((state) => state.setMobileNavModalToggleOpenHandle);
   const { navList, children } = props;
   const { redirectToUrl } = useRedirect();
   const { isLandingPage } = useCheckPathname();
@@ -49,13 +40,12 @@ const Navbar: FC<NavbarProps> = (props) => {
 
   const setAuthType = useUserStore((state) => state.setAuthType);
 
-  const query = new URLSearchParams(
-    typeof window !== 'undefined' ? window.location.search : ''
-  );
+  const query = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
   const queryState = query.get('state');
   const type = query.get('type');
-
   const [navType, setNavType] = useState<NavType>(NavType.NAV_LIST);
+
+  const [moduleProps, setModuleProps] = useState<object>({});
 
   useEffect(() => {
     if ((type || queryState) && isLandingPage) {
@@ -69,7 +59,8 @@ const Navbar: FC<NavbarProps> = (props) => {
     setMobileNavModalToggleOpenHandle({
       isOpen,
       toggleOpen: toggleOpen,
-      setNavType: (type) => setNavType(type)
+      setNavType: (type) => setNavType(type),
+      setModuleProps: (p) => setModuleProps(p)
     });
   }, [isOpen, toggleOpen, setNavType, setMobileNavModalToggleOpenHandle]);
 
@@ -82,6 +73,7 @@ const Navbar: FC<NavbarProps> = (props) => {
             toggleOpen={() => {
               toggleOpen();
             }}
+            {...moduleProps}
           >
             <UserModule
               changeNavType={(type) => {
@@ -90,6 +82,7 @@ const Navbar: FC<NavbarProps> = (props) => {
               toggleOpen={() => {
                 toggleOpen();
               }}
+              {...moduleProps}
             ></UserModule>
           </NavList>
         );
@@ -100,6 +93,7 @@ const Navbar: FC<NavbarProps> = (props) => {
               toggleOpen();
               setNavType(NavType.NAV_LIST);
             }}
+            {...moduleProps}
           ></Auth>
         );
       case NavType.JOIN_WAIT_LIST:
@@ -109,6 +103,7 @@ const Navbar: FC<NavbarProps> = (props) => {
               toggleOpen();
               setNavType(NavType.NAV_LIST);
             }}
+            {...moduleProps}
           ></WaitListModalContent>
         );
       case NavType.CONNECT:
@@ -118,10 +113,11 @@ const Navbar: FC<NavbarProps> = (props) => {
               toggleOpen();
               setNavType(NavType.NAV_LIST);
             }}
+            {...moduleProps}
           ></ConnectModalContent>
         );
     }
-  }, [navType, navList, toggleOpen]);
+  }, [navType, navList, toggleOpen, moduleProps]);
 
   return (
     <div className="flex h-[4rem] w-screen items-center overflow-hidden text-neutral-off-black">
@@ -161,9 +157,7 @@ const Navbar: FC<NavbarProps> = (props) => {
       </NavContainer>
       <div className="relative flex h-full w-full items-center justify-center gap-[8px]">
         <Image src={HackLogo} alt="logo" width={134}></Image>
-        <span className="text-h5-mob font-Chaney text-neutral-black">
-          {t('launchpool')}
-        </span>
+        <span className="text-h5-mob font-Chaney text-neutral-black">{t('launchpool')}</span>
       </div>
     </div>
   );

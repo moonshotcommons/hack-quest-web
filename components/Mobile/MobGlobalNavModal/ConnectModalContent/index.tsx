@@ -26,15 +26,12 @@ export const ConnectModalContentContext = createContext({
   changeNavState: () => {}
 });
 
-const ConnectModalContent: FC<ConnectModalContentProps> = ({
-  changeNavState
-}) => {
+const ConnectModalContent: FC<ConnectModalContentProps> = ({ changeNavState, ...props }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
   const { pageHeight } = useGetHeight();
-  const [currentConnectType, setCurrentConnectType] = useState(
-    ConnectType.DISCORD
-  );
+  const [currentConnectType, setCurrentConnectType] = useState(ConnectType.DISCORD);
+  const { projectId } = props as { projectId: string };
 
   const reset = () => {
     setTimeout(() => {}, 500);

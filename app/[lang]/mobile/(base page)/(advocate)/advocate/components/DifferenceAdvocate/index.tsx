@@ -11,8 +11,7 @@ const dataList = [
   },
   {
     title: 'Organize Events',
-    description:
-      'Spark exciting online and IRL HackQuest events - meetups, hackathons, co-learning camps... let’s BUIDL together 🛠️'
+    description: 'Spark exciting online and IRL HackQuest events - meetups, hackathons, co-learning camps... let’s BUIDL together 🛠️'
   },
   {
     title: 'Educate the Community',
@@ -29,33 +28,15 @@ const dataList = [
 const DifferenceAdvocate: FC<DifferenceAdvocateProps> = (props) => {
   return (
     <div className="container mx-auto mt-[100px] flex flex-col items-center">
-      <h2 className="text-h2 text-neutral-off-black">
-        Make a Difference as an Advocate 💪
-      </h2>
+      <h2 className="text-h2 text-neutral-off-black">Make a Difference as an Advocate 💪</h2>
       <div className="mt-[3.75rem] flex items-center justify-between gap-20">
-        <Image
-          src={'/images/advocate/difference_advocate.webp'}
-          alt="hackquest"
-          width={600}
-          height={600}
-        ></Image>
+        <Image src={'/images/advocate/difference_advocate.webp'} alt="hackquest" width={600} height={600}></Image>
         <ul className="flex-1">
           {dataList.map((item, index) => {
             return (
-              <li
-                key={item.title}
-                className={
-                  index !== 0
-                    ? 'mt-8 border-t border-dashed border-neutral-black pt-8'
-                    : ''
-                }
-              >
-                <p className="body-xl-bold pl-3 text-neutral-off-black">
-                  {item.title}
-                </p>
-                <p className="body-s mt-3 pl-3 text-neutral-medium-gray">
-                  {item.description}
-                </p>
+              <li key={item.title} className={index !== 0 ? 'mt-8 border-t border-dashed border-neutral-black pt-8' : ''}>
+                <p className="body-xl-bold pl-3 text-neutral-off-black">{item.title}</p>
+                <p className="body-s mt-3 pl-3 text-neutral-medium-gray">{item.description}</p>
               </li>
             );
           })}

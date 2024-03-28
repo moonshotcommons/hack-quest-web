@@ -9,9 +9,7 @@ describe('Button', () => {
   });
 
   test('renders button with provided icon', () => {
-    const { getByTestId } = render(
-      <Button icon={<i data-testid="icon" className="fa fa-star" />} />
-    );
+    const { getByTestId } = render(<Button icon={<i data-testid="icon" className="fa fa-star" />} />);
     const icon = getByTestId('icon');
     expect(icon).toBeInTheDocument();
   });
@@ -25,9 +23,7 @@ describe('Button', () => {
 
   test('calls onClick callback when clicked', () => {
     const onClickMock = jest.fn();
-    const { getByText } = render(
-      <Button onClick={onClickMock}>Click me</Button>
-    );
+    const { getByText } = render(<Button onClick={onClickMock}>Click me</Button>);
     const button = getByText('Click me');
     fireEvent.click(button);
     expect(onClickMock).toHaveBeenCalledTimes(1);

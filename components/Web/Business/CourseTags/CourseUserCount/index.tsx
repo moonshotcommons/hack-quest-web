@@ -8,18 +8,9 @@ interface CourseUserCountProp {
   className?: string;
 }
 
-const CourseUserCount: React.FC<CourseUserCountProp> = ({
-  count = 0,
-  size = 16,
-  className
-}) => {
+const CourseUserCount: React.FC<CourseUserCountProp> = ({ count = 0, size = 16, className }) => {
   return (
-    <div
-      className={cn(
-        'body-xs flex items-center gap-[4px] text-neutral-rich-gray',
-        className
-      )}
-    >
+    <div className={cn('body-xs flex items-center gap-[4px] text-neutral-rich-gray', className)}>
       <BiUser size={size}></BiUser>
       <span>{separationNumber(count)}</span>
     </div>

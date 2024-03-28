@@ -1,8 +1,8 @@
-export enum ConnectType {
-  WALLET = 'wallet',
-  TWITTER = 'twitter',
-  DISCORD = 'discord',
-  INVITE_CODE = 'invite code'
+import { ConnectType } from '@/service/webApi/user/type';
+
+export enum ParticipationStatus {
+  INVITE_CODE = 'invite code',
+  SUCCESS = 'success'
 }
 
 export const connectKeyMap = [
@@ -22,7 +22,7 @@ export const connectKeyMap = [
     connected: false
   },
   {
-    key: ConnectType.INVITE_CODE,
+    key: ParticipationStatus.INVITE_CODE,
     label: 'inputInviteCode',
     connected: false
   }

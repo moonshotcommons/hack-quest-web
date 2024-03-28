@@ -17,10 +17,7 @@ export const PracticeDetailContext = createContext<{
   refreshLearningTrackDetail: () => {}
 });
 
-const PracticeDetailProvider: FC<PracticeDetailProviderProps> = ({
-  courseId,
-  children
-}) => {
+const PracticeDetailProvider: FC<PracticeDetailProviderProps> = ({ courseId, children }) => {
   const { data, refresh } = useRequest(() => {
     return webApi.courseApi.getCourseDetail(courseId, true);
   });

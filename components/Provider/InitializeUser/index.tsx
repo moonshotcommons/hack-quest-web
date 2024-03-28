@@ -9,9 +9,7 @@ interface InitializeUserProviderProps {
   children: ReactNode;
 }
 
-const InitializeUserProvider: FC<InitializeUserProviderProps> = ({
-  children
-}) => {
+const InitializeUserProvider: FC<InitializeUserProviderProps> = ({ children }) => {
   const { waitingLoadUserInfo } = useLoadUserInfo();
   useNavAuth(waitingLoadUserInfo);
   const userInfo = useUserStore((state) => state.userInfo);

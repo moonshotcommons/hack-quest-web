@@ -50,13 +50,7 @@ const InputEmail: FC<InputEmailProps> = ({ onSubmit }) => {
   return (
     <div className="flex h-full w-full flex-col justify-between">
       <div className="flex flex-col gap-6">
-        <svg
-          width="64"
-          height="64"
-          viewBox="0 0 64 64"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+        <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect width="64" height="64" fill="white" />
           <path
             fillRule="evenodd"

@@ -13,12 +13,9 @@ class UgcCreateApi {
   }
   /**获取ugc information 详情 */
   getUgcInformationDetail(courseId: string, params: object) {
-    return this.service.get<UGCCourseType>(
-      `${UgcCreateApiType.COURSES}/${courseId}`,
-      {
-        params
-      }
-    );
+    return this.service.get<UGCCourseType>(`${UgcCreateApiType.COURSES}/${courseId}`, {
+      params
+    });
   }
   /** 创建introduction */
   introductionAdd(data: object) {
@@ -29,12 +26,9 @@ class UgcCreateApi {
 
   /** 修改infoamation */
   informationEdit(courseId: string, data: object) {
-    return this.service.patch<CourseInformationType>(
-      `${UgcCreateApiType.COURSES}/${courseId}`,
-      {
-        data
-      }
-    );
+    return this.service.patch<CourseInformationType>(`${UgcCreateApiType.COURSES}/${courseId}`, {
+      data
+    });
   }
 
   /** 新增units */
@@ -46,29 +40,21 @@ class UgcCreateApi {
 
   /** 修改units */
   editUnit(courseId: string, unitId: string, data: object) {
-    return this.service.patch(
-      `${UgcCreateApiType.COURSES}/${courseId}/units/${unitId}`,
-      {
-        data
-      }
-    );
+    return this.service.patch(`${UgcCreateApiType.COURSES}/${courseId}/units/${unitId}`, {
+      data
+    });
   }
 
   /** 删除units */
   deleteUnit(courseId: string, unitId: string) {
-    return this.service.delete(
-      `${UgcCreateApiType.COURSES}/${courseId}/units/${unitId}`
-    );
+    return this.service.delete(`${UgcCreateApiType.COURSES}/${courseId}/units/${unitId}`);
   }
 
   /** 删除units */
   sortUnit(courseId: string, unitId: string, data: object) {
-    return this.service.patch(
-      `${UgcCreateApiType.COURSES}/${courseId}/units/${unitId}/sequence`,
-      {
-        data
-      }
-    );
+    return this.service.patch(`${UgcCreateApiType.COURSES}/${courseId}/units/${unitId}/sequence`, {
+      data
+    });
   }
 
   /** 新增lesson */
@@ -92,12 +78,9 @@ class UgcCreateApi {
 
   /** lesson 排序 */
   sortLesson(lessonId: string, data: object) {
-    return this.service.patch(
-      `${UgcCreateApiType.PAGES}/${lessonId}/sequence`,
-      {
-        data
-      }
-    );
+    return this.service.patch(`${UgcCreateApiType.PAGES}/${lessonId}/sequence`, {
+      data
+    });
   }
 
   getLessonDetail(lessonId: string) {

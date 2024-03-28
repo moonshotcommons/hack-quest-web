@@ -41,12 +41,7 @@ const CourseListPageHeader: FC<CourseListPageHeaderProps> = ({
     setSearchValue(defaultValue);
   }, [defaultValue]);
   return (
-    <div
-      className={cn(
-        'relative flex min-h-[360px] justify-between gap-[36px] pb-[90px]',
-        className
-      )}
-    >
+    <div className={cn('relative flex min-h-[360px] justify-between gap-[36px] pb-[90px]', className)}>
       <div className="w-[800px] max-w-[800px] pt-[60px]">
         <h1 className="text-h2 text-neutral-black">{title}</h1>
         <p className="body-l mt-[20px] text-neutral-rich-gray">{description}</p>
@@ -100,14 +95,7 @@ const CourseListPageHeader: FC<CourseListPageHeaderProps> = ({
       </div>
       <div className={coverImgClassName}>
         {coverImage}
-        {!coverImage && coverImageUrl && (
-          <Image
-            src={coverImageUrl}
-            alt={`${title} cover`}
-            width={coverWidth}
-            height={coverHeight}
-          ></Image>
-        )}
+        {!coverImage && coverImageUrl && <Image src={coverImageUrl} alt={`${title} cover`} width={coverWidth} height={coverHeight}></Image>}
       </div>
     </div>
   );

@@ -15,10 +15,7 @@ interface BlogProps {
   searchParams: BlogSearchType;
 }
 
-const Blog: React.FC<BlogProps> = async function ({
-  searchParams = {},
-  params: { slug = [] }
-}) {
+const Blog: React.FC<BlogProps> = async function ({ searchParams = {}, params: { slug = [] } }) {
   const limit = 12;
   const minPage = Number(slug[1]) < 1 ? 1 : Number(slug[1]);
   const page = slug[0] === 'p' ? minPage : 1;
@@ -42,26 +39,16 @@ const Blog: React.FC<BlogProps> = async function ({
         {searchParams.keyword ? (
           <div className="body-xl mb-[40px] text-center text-neutral-black">
             {totalList} Results for
-            <span className="pl-[4px] text-neutral-medium-gray">
-              “{searchParams.keyword}”
-            </span>
+            <span className="pl-[4px] text-neutral-medium-gray">“{searchParams.keyword}”</span>
           </div>
         ) : !searchParams.category ? (
           <FeatureBlog list={featureBlogList} />
         ) : null}
-        {blogList.length > 0 ? (
-          <BlogList list={blogList} />
-        ) : (
-          <NoData href={MenuLink.BLOG}></NoData>
-        )}
+        {blogList.length > 0 ? <BlogList list={blogList} /> : <NoData href={MenuLink.BLOG}></NoData>}
 
         {totalPage > 1 && (
           <div className="mt-[80px] flex justify-center">
-            <Pagination
-              page={page}
-              total={totalPage}
-              urlPrefix={`${MenuLink.BLOG}/p/`}
-            />
+            <Pagination page={page} total={totalPage} urlPrefix={`${MenuLink.BLOG}/p/`} />
           </div>
         )}
       </div>

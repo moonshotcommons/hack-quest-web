@@ -12,11 +12,7 @@ import { useCourseStore } from '@/store/zustand/courseStore';
 import { useShallow } from 'zustand/react/shallow';
 import { UgcContext } from '@/app/[lang]/(web)/(learn page)/ugc/[courseId]/learn/constants/type';
 
-export const useGotoNextLesson = (
-  lesson: CourseLessonType,
-  courseType: CourseType,
-  completed = false
-) => {
+export const useGotoNextLesson = (lesson: CourseLessonType, courseType: CourseType, completed = false) => {
   const { redirectToUrl } = useRedirect();
   const params = useParams();
   // const { courseId: courseName } = params;
@@ -44,11 +40,9 @@ export const useGotoNextLesson = (
       return unit.id === lesson.unitId;
     });
     const currentUnit = unitsLessonsList[currentUnitIndex];
-    const currentLessonIndex =
-      currentUnit?.pages.findIndex((page) => page.id === lesson.id) || 0;
+    const currentLessonIndex = currentUnit?.pages.findIndex((page) => page.id === lesson.id) || 0;
     const isLastUnit = currentUnitIndex === (unitsLessonsList.length || 1) - 1;
-    const isLastLesson =
-      currentLessonIndex === (currentUnit?.pages.length || 1) - 1;
+    const isLastLesson = currentLessonIndex === (currentUnit?.pages.length || 1) - 1;
     if (callbackProp?.callback && isLastLesson) {
       callbackProp.callback();
       if (callbackProp?.completedCallback) {
@@ -97,10 +91,7 @@ export const useGotoNextLesson = (
   return { onNextClick, completeModalRef, loading };
 };
 
-export const useBackToPrevLesson = (
-  lesson: CourseLessonType,
-  courseType: CourseType
-) => {
+export const useBackToPrevLesson = (lesson: CourseLessonType, courseType: CourseType) => {
   const { redirectToUrl } = useRedirect();
   const { getLink } = useGetLessonLink();
   const params = useParams();
@@ -118,8 +109,7 @@ export const useBackToPrevLesson = (
       return unit.id === lesson.unitId;
     });
     const currentUnit = unitsLessonsList[currentUnitIndex];
-    const currentLessonIndex =
-      currentUnit?.pages.findIndex((page) => page.id === lesson.id) || 0;
+    const currentLessonIndex = currentUnit?.pages.findIndex((page) => page.id === lesson.id) || 0;
     const isLastUnit = currentUnitIndex === 0;
     const isLastLesson = currentLessonIndex === 0;
 

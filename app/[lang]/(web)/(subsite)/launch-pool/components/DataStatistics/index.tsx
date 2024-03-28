@@ -22,9 +22,7 @@ const DataStatistics: FC<DataStatisticsProps> = async ({ lang }) => {
               ></CountUp>
               +
             </p>
-            <p className="body-l w-[234px] text-center text-neutral-medium-gray">
-              {t('totalUsers')}
-            </p>
+            <p className="body-l w-[234px] text-center text-neutral-medium-gray">{t('totalUsers')}</p>
           </div>
           <div className="mt-[58px] flex flex-1 flex-col items-center gap-4">
             <p className="text-h2 text-neutral-off-black">
@@ -36,9 +34,7 @@ const DataStatistics: FC<DataStatisticsProps> = async ({ lang }) => {
               ></CountUp>
               +
             </p>
-            <p className="body-l w-[234px] text-center text-neutral-medium-gray">
-              {t('totalStakedValue')}
-            </p>
+            <p className="body-l w-[234px] text-center text-neutral-medium-gray">{t('totalStakedValue')}</p>
           </div>
           <div className="mt-[58px] flex flex-1 flex-col items-center gap-4">
             <p className="text-h2 text-neutral-off-black">
@@ -50,9 +46,7 @@ const DataStatistics: FC<DataStatisticsProps> = async ({ lang }) => {
               ></CountUp>
               +
             </p>
-            <p className="body-l w-[234px] text-center text-neutral-medium-gray">
-              {t('totalFuel')}
-            </p>
+            <p className="body-l w-[234px] text-center text-neutral-medium-gray">{t('totalFuel')}</p>
           </div>
           <div className="mt-[58px] flex flex-1 flex-col items-center gap-4">
             <p className="text-h2 text-neutral-off-black">
@@ -64,9 +58,7 @@ const DataStatistics: FC<DataStatisticsProps> = async ({ lang }) => {
               ></CountUp>
               +
             </p>
-            <p className="body-l w-[234px] text-center text-neutral-medium-gray">
-              {t('totalAirdropToken')}
-            </p>
+            <p className="body-l w-[234px] text-center text-neutral-medium-gray">{t('totalAirdropToken')}</p>
           </div>
         </div>
       </div>

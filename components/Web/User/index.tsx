@@ -71,17 +71,11 @@ const User: FC<UserProps> = () => {
 
   return (
     <div className="relative h-full">
-      <div
-        className="relative  flex h-full items-center justify-end"
-        ref={userDropCardRef as any}
-      >
+      <div className="relative  flex h-full items-center justify-end" ref={userDropCardRef as any}>
         <div className="flex h-full cursor-pointer items-center justify-end">
           {isLogin && (
             <div className="flex-row-center body-s text-neutral-off-black">
-              <div
-                className="flex-row-center h-[30px]"
-                onClick={() => redirectToUrl(MenuLink.MISSION_CENTER)}
-              >
+              <div className="flex-row-center h-[30px]" onClick={() => redirectToUrl(MenuLink.MISSION_CENTER)}>
                 <div className="flex-row-center body-s mr-[20px] h-full justify-between gap-[10px] rounded-[20px] bg-neutral-off-white pr-[15px]">
                   <Image src={IconCoin} width={30} alt="iconCredits" />
                   <span>{userCoin.coin}</span>
@@ -91,21 +85,14 @@ const User: FC<UserProps> = () => {
                     <div
                       className="absolute left-[0] top-[0] h-full rounded-r-[20px] bg-yellow-light"
                       style={{
-                        width: `${
-                          (userLevel.expCurrentLevel / userLevel.expNextLevel) *
-                          100
-                        }%`
+                        width: `${(userLevel.expCurrentLevel / userLevel.expNextLevel) * 100}%`
                       }}
                     ></div>
                     <div className="flex-row-center absolute h-full w-full justify-between pr-[15px] text-neutral-off-black">
                       <div className="flex-center ml-[-15px] h-[30px] w-[30px] rounded-[50%] bg-yellow-primary">
-                        <div className="flex-center h-[24px] w-[24px] rounded-[50%] bg-yellow-dark ">
-                          {userLevel.level}
-                        </div>
+                        <div className="flex-center h-[24px] w-[24px] rounded-[50%] bg-yellow-dark ">{userLevel.level}</div>
                       </div>
-                      <div className="flex-center flex-1 flex-shrink-0 ">
-                        {`${userLevel.expCurrentLevel}/${userLevel.expNextLevel}`}
-                      </div>
+                      <div className="flex-center flex-1 flex-shrink-0 ">{`${userLevel.expCurrentLevel}/${userLevel.expNextLevel}`}</div>
                     </div>
                   </div>
                 </div>
@@ -118,9 +105,7 @@ const User: FC<UserProps> = () => {
                 <div
                   className={cn(
                     'relative flex h-[36px] w-[36px] items-center justify-center overflow-hidden rounded-full bg-[#8d8d8d]',
-                    pathname === MenuLink.USER_PROFILE
-                      ? 'box-content border-[5px] border-[#ffd952]'
-                      : ''
+                    pathname === MenuLink.USER_PROFILE ? 'box-content border-[5px] border-[#ffd952]' : ''
                   )}
                 >
                   <Image
@@ -135,14 +120,8 @@ const User: FC<UserProps> = () => {
                     }}
                   ></Image>
                 </div>
-                <DropDownMotion
-                  open={!!(userInfo && showUserDropCard)}
-                  className={'-right-[15px]'}
-                >
-                  <UserDropCard
-                    userInfo={(userInfo as LoginResponse) || {}}
-                    onClose={() => setShowUserDropCard(false)}
-                  ></UserDropCard>
+                <DropDownMotion open={!!(userInfo && showUserDropCard)} className={'-right-[15px]'}>
+                  <UserDropCard userInfo={(userInfo as LoginResponse) || {}} onClose={() => setShowUserDropCard(false)}></UserDropCard>
                 </DropDownMotion>
               </div>
             </div>

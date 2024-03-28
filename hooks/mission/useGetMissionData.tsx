@@ -8,15 +8,14 @@ import webApi from '@/service';
 import { useMissionCenterStore } from '@/store/zustand/missionCenterStore';
 import { useShallow } from 'zustand/react/shallow';
 export const useGetMissionData = () => {
-  const { setUserLevel, setUserCoin, setMissionData, setUserTreasure } =
-    useMissionCenterStore(
-      useShallow((state) => ({
-        setUserLevel: state.setUserLevel,
-        setUserCoin: state.setUserCoin,
-        setMissionData: state.setMissionData,
-        setUserTreasure: state.setUserTreasure
-      }))
-    );
+  const { setUserLevel, setUserCoin, setMissionData, setUserTreasure } = useMissionCenterStore(
+    useShallow((state) => ({
+      setUserLevel: state.setUserLevel,
+      setUserCoin: state.setUserCoin,
+      setMissionData: state.setMissionData,
+      setUserTreasure: state.setUserTreasure
+    }))
+  );
 
   const updateUserLevel = async () => {
     let res = await webApi.missionCenterApi.getUserLevel();

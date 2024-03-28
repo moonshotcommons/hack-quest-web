@@ -15,12 +15,9 @@ class LearningTrackApi {
 
   /** 获取学习路线列表 */
   getLearningTracks(params?: object) {
-    return this.service.get<LearningTrackDetailType[]>(
-      LearningTrackApiType.GetLearningTrack,
-      {
-        params
-      }
-    );
+    return this.service.get<LearningTrackDetailType[]>(LearningTrackApiType.GetLearningTrack, {
+      params
+    });
   }
 
   /** 获取单个学习路线的详情信息 */
@@ -32,15 +29,11 @@ class LearningTrackApi {
   /** 获取单个学习路线信息以及所包含的课程列表信息 */
   getLearningTrackDetailAndCourses(learningTrackId: string) {
     const url = `${LearningTrackApiType.GetLearningTrack}/${learningTrackId}?include=courses`;
-    return this.service.get<
-      LearningTrackDetailType & { courses: ProjectCourseType[] }
-    >(url);
+    return this.service.get<LearningTrackDetailType & { courses: ProjectCourseType[] }>(url);
   }
 
   /** 获取单个课程的详情信息 */
-  async fetchLearningTrackDetail(
-    learningTrackId: string
-  ): Promise<LearningTrackDetailType> {
+  async fetchLearningTrackDetail(learningTrackId: string): Promise<LearningTrackDetailType> {
     // const url = `${this.service.baseURL.slice(0, -1)}${LearningTrackApiType.GetLearningTrack}/${learningTrackId}?include=courses`;
     // const learnTrackDetail = await fetch(url, {
     //   method: 'get'
@@ -58,9 +51,7 @@ class LearningTrackApi {
     return cacheFn();
   }
   /** 获取单个课程的详情信息 */
-  async fetchLearningTrackDetailAndCourses(
-    learningTrackId: string
-  ): Promise<LearningTrackDetailType> {
+  async fetchLearningTrackDetailAndCourses(learningTrackId: string): Promise<LearningTrackDetailType> {
     // const url = `${this.service.baseURL.slice(0, -1)}${LearningTrackApiType.GetLearningTrack}/${learningTrackId}?include=courses`;
     // const learnTrackDetail = await fetch(url, {
     //   method: 'get'

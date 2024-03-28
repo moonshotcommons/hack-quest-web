@@ -15,17 +15,12 @@ import { cloneDeep } from 'lodash-es';
 import { FC, useEffect, useState } from 'react';
 interface MobCourseFilterListDefaultProps {}
 
-const MobCourseFilterListDefault: FC<MobCourseFilterListDefaultProps> = (
-  props
-) => {
+const MobCourseFilterListDefault: FC<MobCourseFilterListDefaultProps> = (props) => {
   const [courseList, setCourseList] = useState<ProjectCourseType[]>([]);
 
   const { run: getCourseList, loading } = useRequest(
     async (filterParams: FilterParamsType) => {
-      const res =
-        await webApi.courseApi.getCourseListBySearch<
-          PageResult<ProjectCourseType>
-        >(filterParams);
+      const res = await webApi.courseApi.getCourseListBySearch<PageResult<ProjectCourseType>>(filterParams);
       return res;
     },
 

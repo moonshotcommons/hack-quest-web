@@ -28,11 +28,7 @@ const BlogHeader: React.FC<BlogHeaderProp> = ({ blog }) => {
       <div className="flex items-center justify-between">
         <div className="flex gap-[10px]">
           {blog.categories?.map((v, i) => (
-            <TrackTag
-              key={i}
-              track={v}
-              className="caption-14pt border-[1px] border-neutral-white px-[14px] py-[6px] text-neutral-white"
-            />
+            <TrackTag key={i} track={v} className="caption-14pt border-[1px] border-neutral-white px-[14px] py-[6px] text-neutral-white" />
           ))}
         </div>
 
@@ -43,11 +39,7 @@ const BlogHeader: React.FC<BlogHeaderProp> = ({ blog }) => {
       </div>
       <h1 className="text-h3-mob my-[.9375rem]">{blog.title}</h1>
       <div className="w-full">
-        <BlogCardFooter
-          blog={blog}
-          className="text-neutral-light-gray"
-          borderColor="border-neutral-light-gray"
-        />
+        <BlogCardFooter blog={blog} className="text-neutral-light-gray" borderColor="border-neutral-light-gray" />
       </div>
     </div>
   );

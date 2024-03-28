@@ -1,10 +1,6 @@
 import { errorMessage } from '@/helper/ui';
 import webApi from '@/service';
-import {
-  ElectiveLessonType,
-  ElectiveCourseType,
-  ElectiveCourseDetailType
-} from '@/service/webApi/elective/type';
+import { ElectiveLessonType, ElectiveCourseType, ElectiveCourseDetailType } from '@/service/webApi/elective/type';
 import { useRequest } from 'ahooks';
 import { useEffect, useState } from 'react';
 
@@ -17,12 +13,7 @@ export const useGetElectives = (lesson: ElectiveLessonType) => {
     refresh
   } = useRequest(
     async () => {
-      const res =
-        await webApi.courseApi.getCourseDetail<ElectiveCourseDetailType>(
-          lesson.courseId,
-          false,
-          true
-        );
+      const res = await webApi.courseApi.getCourseDetail<ElectiveCourseDetailType>(lesson.courseId, false, true);
       return res;
     },
     {

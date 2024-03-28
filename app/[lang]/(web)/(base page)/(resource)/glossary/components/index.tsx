@@ -1,12 +1,9 @@
 'use client';
 import React, { useEffect, useRef, useState } from 'react';
 import GlossaryHeader from './GlossaryHeader';
-import PageRetentionTime from '@/components/Common/PageRetentionTime';
 import NoData from './NoData';
 import MenuLink from '@/constants/MenuLink';
-import BlogList from '../../blog/components/BlogList';
-import BlogFooter from '../../blog/components/BlogFooter';
-import { BlogType, ResourceFrom } from '@/service/webApi/resourceStation/type';
+import { BlogType } from '@/service/webApi/resourceStation/type';
 import FilterLetter from './FilterLetter';
 import FilterTrack from './FilterTrack';
 import GlossaryList, { GlossaryListType, OffsetTopsType } from './GlossaryList';
@@ -17,10 +14,7 @@ interface GlossaryPageProp {
   searchParams: { keyword?: string };
 }
 
-const GlossaryPage: React.FC<GlossaryPageProp> = ({
-  galossaryList,
-  searchParams
-}) => {
+const GlossaryPage: React.FC<GlossaryPageProp> = ({ galossaryList, searchParams }) => {
   const [list, setList] = useState<GlossaryListType[]>([]);
   const [tracks, setTracks] = useState<string[]>([]);
   const [letter, setLetter] = useState('');
@@ -56,9 +50,7 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({
           };
           newGlossaryList.push(obj);
         } else {
-          const index = newGlossaryList.findIndex(
-            (g) => g.letter === firstLetter
-          );
+          const index = newGlossaryList.findIndex((g) => g.letter === firstLetter);
           newGlossaryList[index].list.push(v);
         }
       }
@@ -80,10 +72,7 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({
         if (boxScrollTop >= offsetTops[offsetTops.length - 1].offsetTop - 80) {
           setLetter(offsetTops[offsetTops.length - 1].letter);
           break;
-        } else if (
-          boxScrollTop >= offsetTops[i].offsetTop - 80 &&
-          boxScrollTop < offsetTops[i + 1].offsetTop - 80
-        ) {
+        } else if (boxScrollTop >= offsetTops[i].offsetTop - 80 && boxScrollTop < offsetTops[i + 1].offsetTop - 80) {
           setLetter(offsetTops[i].letter);
           break;
         }
@@ -94,11 +83,7 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({
     dealList(galossaryList);
   }, [galossaryList]);
   return (
-    <div
-      ref={boxRef}
-      className="scroll-wrap-y relative h-full"
-      onScroll={onScroll}
-    >
+    <div ref={boxRef} className="scroll-wrap-y relative h-full" onScroll={onScroll}>
       <div className="container mx-auto">
         <GlossaryHeader keyword={searchParams.keyword || ''} />
       </div>
@@ -107,12 +92,7 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({
         <>
           {letterData.length > 0 && (
             <div className="sticky left-0 top-0 z-[10] w-full" ref={letterRef}>
-              <FilterLetter
-                letterData={letterData}
-                letterClick={letterClick}
-                isSticky={isSticky}
-                letter={letter}
-              />
+              <FilterLetter letterData={letterData} letterClick={letterClick} isSticky={isSticky} letter={letter} />
             </div>
           )}
 
@@ -123,21 +103,13 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({
         {searchParams.keyword ? (
           <div className="body-xl mb-[40px] text-center text-neutral-black">
             {galossaryList.length} Results for
-            <span className="pl-[4px] text-neutral-medium-gray">
-              “{searchParams.keyword}”
-            </span>
+            <span className="pl-[4px] text-neutral-medium-gray">“{searchParams.keyword}”</span>
           </div>
         ) : null}
         {list.length > 0 ? (
-          <GlossaryList
-            list={list}
-            setOffsetTop={(tops: OffsetTopsType[]) => setOffsetTops(tops)}
-          />
+          <GlossaryList list={list} setOffsetTop={(tops: OffsetTopsType[]) => setOffsetTops(tops)} />
         ) : (
-          <NoData
-            href={MenuLink.GLOSSARY}
-            keyword={searchParams.keyword}
-          ></NoData>
+          <NoData href={MenuLink.GLOSSARY} keyword={searchParams.keyword}></NoData>
         )}
       </div>
       {list.length === 0 ? <GlossaryFooter type="link" /> : null}

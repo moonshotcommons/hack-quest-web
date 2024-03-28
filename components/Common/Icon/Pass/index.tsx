@@ -22,12 +22,7 @@ const PassIcon: React.FC<IconProps> = (props) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <path
-        d="M1.5 5.78267L7.80303 11.9731L17.5 1.97314"
-        stroke={color}
-        strokeWidth="3"
-        strokeLinecap="round"
-      />
+      <path d="M1.5 5.78267L7.80303 11.9731L17.5 1.97314" stroke={color} strokeWidth="3" strokeLinecap="round" />
     </svg>
   );
 };

@@ -14,10 +14,7 @@ interface RenderPageProp {
   searchInfo: SearchInfoType;
 }
 
-const RenderPage: React.FC<RenderPageProp> = ({
-  learningTrackListData,
-  searchInfo
-}) => {
+const RenderPage: React.FC<RenderPageProp> = ({ learningTrackListData, searchInfo }) => {
   const router = useRouter();
   const changeSearchInfo = (info: SearchInfoType) => {
     const param = {

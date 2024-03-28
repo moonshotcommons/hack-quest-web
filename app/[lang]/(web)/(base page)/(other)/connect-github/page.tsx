@@ -8,9 +8,7 @@ import Loading from '@/public/images/other/loading.png';
 interface ConnectGithubProp {}
 
 const ConnectGithub: React.FC<ConnectGithubProp> = () => {
-  const query = new URLSearchParams(
-    typeof window !== 'undefined' ? window.location.search : ''
-  );
+  const query = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
   const {} = useRequest(async () => {
     const code = query.get('code');
     if (code) {
@@ -21,12 +19,7 @@ const ConnectGithub: React.FC<ConnectGithubProp> = () => {
   });
   return (
     <div className="flex-center fixed left-0 top-0 z-[9999] h-[100vh] w-[100vw] bg-neutral-white">
-      <Image
-        src={Loading}
-        width={40}
-        alt="loading"
-        className="animate-spin object-contain opacity-100"
-      ></Image>
+      <Image src={Loading} width={40} alt="loading" className="animate-spin object-contain opacity-100"></Image>
     </div>
   );
 };

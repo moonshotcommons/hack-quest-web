@@ -30,10 +30,7 @@ const LaunchDetailPage: React.FC<LaunchDetailPageProp> = () => {
       if (scrollTop >= anchorOffsetTops[anchorOffsetTops.length - 1] - 40) {
         setCurAnchorIndex(anchorOffsetTops.length - 1);
         break;
-      } else if (
-        scrollTop >= anchorOffsetTops[i] - 40 &&
-        scrollTop < anchorOffsetTops[i + 1] - 40
-      ) {
+      } else if (scrollTop >= anchorOffsetTops[i] - 40 && scrollTop < anchorOffsetTops[i + 1] - 40) {
         setCurAnchorIndex(i);
         break;
       }
@@ -45,17 +42,10 @@ const LaunchDetailPage: React.FC<LaunchDetailPageProp> = () => {
         launch
       }}
     >
-      <div
-        className="scroll-wrap-y h-full py-[40px]"
-        ref={boxRef}
-        onScroll={handleScoll}
-      >
+      <div className="scroll-wrap-y h-full py-[40px]" ref={boxRef} onScroll={handleScoll}>
         <div className="container  mx-auto flex">
           <div className="relative w-[345px]">
-            <Nav
-              curAnchorIndex={curAnchorIndex}
-              handleClickAnchor={handleClickAnchor}
-            />
+            <Nav curAnchorIndex={curAnchorIndex} handleClickAnchor={handleClickAnchor} />
           </div>
           <Content setAllTops={(tops) => setAnchorOffsetTops(tops)} />
         </div>

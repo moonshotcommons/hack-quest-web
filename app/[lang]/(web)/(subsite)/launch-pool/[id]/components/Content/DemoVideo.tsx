@@ -15,9 +15,7 @@ const DemoVideo: React.FC<DemoVideoProp> = () => {
       <video controls className="mt-[24px] w-full rounded-[20px]">
         {/* <source src={project.video}></source> */}
       </video>
-      <p className="caption-14pt mt-[12px] text-center text-neutral-rich-gray">
-        {t('demoVideoText')}
-      </p>
+      <p className="caption-14pt mt-[12px] text-center text-neutral-rich-gray">{t('demoVideoText')}</p>
     </div>
   );
 };

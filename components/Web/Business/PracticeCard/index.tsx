@@ -28,16 +28,12 @@ const PracticeCard: FC<PracticeCardProps> = (props) => {
   return (
     <Link
       href={`${MenuLink.PRACTICES}/${course.id}`}
-      className={
-        'card-hover  flex w-full flex-col rounded-[12px] bg-neutral-white shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)]'
-      }
+      className={'card-hover  flex w-full flex-col rounded-[12px] bg-neutral-white shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)]'}
       onClick={() => {
         BurialPoint.track('home-practice卡片点击', { practice: course.title });
       }}
     >
-      <div className="relative h-0 w-full pt-[56%]">
-        {getCoverImageByTrack(course.track)}
-      </div>
+      <div className="relative h-0 w-full pt-[56%]">{getCoverImageByTrack(course.track)}</div>
       <div className="relative flex h-[216px] w-full flex-col justify-between p-[16px] ">
         {from === 'dashboard' && !!course.progress && course.progress >= 1 ? (
           <div className={`absolute right-[16px]  top-[16px] z-10`}>
@@ -47,11 +43,7 @@ const PracticeCard: FC<PracticeCardProps> = (props) => {
         <div className="flex flex-col gap-[16px]">
           <TrackTag track={course.track} />
           <h2 className={`body-m-bold  line-clamp-2`}>{course.title}</h2>
-          {!inProgress && (
-            <div className="body-s line-clamp-2 text-neutral-medium-gray">
-              {course.description}
-            </div>
-          )}
+          {!inProgress && <div className="body-s line-clamp-2 text-neutral-medium-gray">{course.description}</div>}
         </div>
 
         <div className="flex flex-col gap-[16px]">

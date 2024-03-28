@@ -1,11 +1,7 @@
 import { QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import { getLessonLink } from '@/helper/utils';
 import webApi from '@/service';
-import {
-  CourseDetailType,
-  ProjectCourseType,
-  CourseType
-} from '@/service/webApi/course/type';
+import { CourseDetailType, ProjectCourseType, CourseType } from '@/service/webApi/course/type';
 import { ElectiveCourseType } from '@/service/webApi/elective/type';
 import { useRequest } from 'ahooks';
 import { useRedirect } from '../router/useRedirect';
@@ -21,29 +17,20 @@ export interface JumpLeaningLessonType {
   ids: string[];
 }
 export const useJumpLeaningLesson = () => {
-  const query = new URLSearchParams(
-    typeof window !== 'undefined' ? window.location.search : ''
-  );
+  const query = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
   const setAuthType = useUserStore((state) => state.setAuthType);
   const setAuthModalOpen = useUserStore((state) => state.setAuthModalOpen);
-  const mobileNavModalToggleOpenHandle = useGlobalStore(
-    (state) => state.mobileNavModalToggleOpenHandle
-  );
+  const mobileNavModalToggleOpenHandle = useGlobalStore((state) => state.mobileNavModalToggleOpenHandle);
   const { redirectToUrl } = useRedirect();
   const { run: jumpLearningLesson, loading } = useRequest(
-    async (
-      courseDetail: CourseDetailType | ProjectCourseType | ElectiveCourseType,
-      lParam?: JumpLeaningLessonType
-    ) => {
+    async (courseDetail: CourseDetailType | ProjectCourseType | ElectiveCourseType, lParam?: JumpLeaningLessonType) => {
       let lesson: any;
       switch (courseDetail.type) {
         case CourseType.MINI:
           lesson = await webApi.courseApi.getLearningLessonId(courseDetail.id);
           break;
         default:
-          lesson = await webApi.courseApi.getLearningLessonId(
-            courseDetail?.id as string
-          );
+          lesson = await webApi.courseApi.getLearningLessonId(courseDetail?.id as string);
       }
       return {
         courseDetail,
@@ -57,18 +44,9 @@ export const useJumpLeaningLesson = () => {
         const linkParam = lParam || {
           menu: query.get('menu') as string,
           idTypes: [QueryIdType.LEARNING_TRACK_ID, QueryIdType.MENU_COURSE_ID],
-          ids: [
-            query.get(QueryIdType.LEARNING_TRACK_ID) || '',
-            query.get(QueryIdType.MENU_COURSE_ID) || ''
-          ] as string[]
+          ids: [query.get(QueryIdType.LEARNING_TRACK_ID) || '', query.get(QueryIdType.MENU_COURSE_ID) || ''] as string[]
         };
-        let link = `${getLessonLink(
-          courseDetail?.type,
-          courseDetail?.title,
-          pageId,
-          courseDetail?.id,
-          linkParam
-        )}`;
+        let link = `${getLessonLink(courseDetail?.type, courseDetail?.title, pageId, courseDetail?.id, linkParam)}`;
         redirectToUrl(link);
       },
       onError(err: any) {

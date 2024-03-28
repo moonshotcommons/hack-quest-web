@@ -82,10 +82,7 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
 
   const { run: thirdPartyVerify, loading: thirdPartyLoading } = useRequest(
     async () => {
-      const res = await webApi.userApi.checkInviteCodeByThirdParty(
-        formData.inviteCode,
-        formData.token
-      );
+      const res = await webApi.userApi.checkInviteCodeByThirdParty(formData.inviteCode, formData.token);
       return res;
     },
     {
@@ -206,9 +203,7 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
     <div className="flex h-full w-full flex-col justify-between ">
       {/* <ThirdPartyLogin></ThirdPartyLogin> */}
       <div className="flex w-full flex-col gap-8">
-        <p className="body-l-bold text-neutral-off-black">
-          Do you have an invite code?
-        </p>
+        <p className="body-l-bold text-neutral-off-black">Do you have an invite code?</p>
         {/* <div className="body-s text-neutral-black">
           HackQuest is currently in beta. Get an invite code from an existing
           user to sign up.
@@ -247,9 +242,7 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
           onClick={() => {
             if (!verifyInviteCode()) return;
 
-            if (
-              authRouteType.params?.registerType === ThirdPartyAuthType.EMAIL
-            ) {
+            if (authRouteType.params?.registerType === ThirdPartyAuthType.EMAIL) {
               setAuthType({
                 type: AuthType.SIGN_UP,
                 params: {
@@ -276,9 +269,7 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
           onClick={() => {
             // redirectToUrl('/');
             // dispatch(setUnLoginType(AuthType.LOGIN));
-            if (
-              authRouteType.params?.registerType === ThirdPartyAuthType.EMAIL
-            ) {
+            if (authRouteType.params?.registerType === ThirdPartyAuthType.EMAIL) {
               setAuthType({
                 type: AuthType.SIGN_UP,
                 params: {

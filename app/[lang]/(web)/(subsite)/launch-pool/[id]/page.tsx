@@ -1,6 +1,5 @@
 import React from 'react';
 import LaunchDetailPage from './components';
-import { Lang } from '@/i18n/config';
 import { LaunchPoolProjectType } from '@/service/webApi/launchPool/type';
 import MenuLink from '@/constants/MenuLink';
 import webApi from '@/service';
@@ -12,11 +11,8 @@ interface LaunchDetailProp {
   };
 }
 
-export async function generateMetadata({
-  params
-}: LaunchDetailProp): Promise<Metadata> {
-  const project: LaunchPoolProjectType =
-    await webApi.launchPoolApi.getProjectById(params.id);
+export async function generateMetadata({ params }: LaunchDetailProp): Promise<Metadata> {
+  const project: LaunchPoolProjectType = await webApi.launchPoolApi.getProjectById(params.id);
   return {
     title: project.name,
     alternates: {

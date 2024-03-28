@@ -13,9 +13,7 @@ interface BlogDetailProp {
   };
 }
 
-export async function generateMetadata({
-  params
-}: BlogDetailProp): Promise<Metadata> {
+export async function generateMetadata({ params }: BlogDetailProp): Promise<Metadata> {
   const blog: BlogDetailType = await getBlogById(params.blogId);
   return {
     title: blog.title,

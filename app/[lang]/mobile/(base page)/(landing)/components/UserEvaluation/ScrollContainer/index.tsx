@@ -17,9 +17,7 @@ const ScrollContainer: FC<ScrollContainerProps> = ({ className, children }) => {
   const clear = useInterval(() => {
     setStartX((state) => {
       if (scrollContainerInstance.current && contentInstance.current) {
-        let max =
-          scrollContainerInstance.current?.clientWidth -
-          contentInstance.current?.clientWidth;
+        let max = scrollContainerInstance.current?.clientWidth - contentInstance.current?.clientWidth;
         if (state <= max && add.current === 1) {
           add.current = -1;
         }
@@ -45,9 +43,7 @@ const ScrollContainer: FC<ScrollContainerProps> = ({ className, children }) => {
         eventPassthrough: 'vertical'
       });
 
-      let max =
-        scrollContainerInstance.current?.clientWidth -
-        contentInstance.current?.clientWidth;
+      let max = scrollContainerInstance.current?.clientWidth - contentInstance.current?.clientWidth;
 
       if (max >= 0) {
         clear();
@@ -65,15 +61,8 @@ const ScrollContainer: FC<ScrollContainerProps> = ({ className, children }) => {
   }, []);
 
   return (
-    <div
-      className={'relative overflow-hidden whitespace-nowrap'}
-      ref={scrollContainerInstance}
-    >
-      <div
-        className="inline-block min-w-full"
-        ref={contentInstance}
-        style={{ transform: `translateX(${startX}px)` }}
-      >
+    <div className={'relative overflow-hidden whitespace-nowrap'} ref={scrollContainerInstance}>
+      <div className="inline-block min-w-full" ref={contentInstance} style={{ transform: `translateX(${startX}px)` }}>
         {children}
       </div>
     </div>

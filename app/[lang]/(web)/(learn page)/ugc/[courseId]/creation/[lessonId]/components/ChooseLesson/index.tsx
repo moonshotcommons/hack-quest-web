@@ -11,11 +11,9 @@ export const SuggestText = () => {
   return (
     <div className="body-l absolute bottom-[0] left-0 flex w-full justify-center bg-neutral-off-white py-[40px]">
       <p className="max-w-[808px] text-left">
-        We suggest commencing each unit with Reading and Video Lessons. Begin by
-        introducing principles and concepts through these sessions. Following
-        this, you can reinforce the acquired knowledge with quizzes. Finally,
-        conclude the unit with either a Reading or Video Lesson to provide a
-        comprehensive summary.
+        We suggest commencing each unit with Reading and Video Lessons. Begin by introducing principles and concepts through these sessions.
+        Following this, you can reinforce the acquired knowledge with quizzes. Finally, conclude the unit with either a Reading or Video
+        Lesson to provide a comprehensive summary.
       </p>
     </div>
   );
@@ -37,9 +35,7 @@ const ChooseLesson: React.FC<ChooseLessonProp> = () => {
               onClick={() => setChooseLesson(lesson.value)}
               className={`flex h-[256px] flex-1 flex-shrink-0 cursor-pointer flex-col items-center gap-[15px] rounded-[10px] border-[3px] p-[20px] text-neutral-black  ${chooseLesson === lesson.value ? 'border-neutral-medium-gray bg-neutral-off-white' : 'border-neutral-off-white bg-neutral-white'}`}
             >
-              <div className="flex-center h-[42px] w-[42px] rounded-[50%] border border-neutral-black">
-                {lesson.icon}
-              </div>
+              <div className="flex-center h-[42px] w-[42px] rounded-[50%] border border-neutral-black">{lesson.icon}</div>
               <p className="text-h5">{lesson.label}</p>
               <p className="body-s">{lesson.description}</p>
             </div>

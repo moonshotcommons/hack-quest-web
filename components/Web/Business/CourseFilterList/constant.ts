@@ -66,27 +66,19 @@ export const courseDefaultFilters = [
   }
 ];
 
-export const ugcCourseDefaultFilters = courseDefaultFilters.filter(
-  (v) => v.filterField !== 'language'
-);
+export const ugcCourseDefaultFilters = courseDefaultFilters.filter((v) => v.filterField !== 'language');
 
 export const courseDefaultSort = [
   { name: 'Most Popular', value: '-peopleJoined', isSelect: false },
   { name: 'Newest', value: '-createdAt', isSelect: true }
 ];
 
-export const mergeFilterParams = (
-  filters: FilterItemType[],
-  sort: FilterOptionType[],
-  keyword?: string
-): FilterParamsType => {
+export const mergeFilterParams = (filters: FilterItemType[], sort: FilterOptionType[], keyword?: string): FilterParamsType => {
   const sortValue = sort.find((item) => item.isSelect)?.value;
   const filtersObject: Record<string, string> = {};
   filters.forEach((f) => {
     const key = f.filterField;
-    const values = f.options
-      .filter((option) => option.isSelect)
-      .map((o) => o.value);
+    const values = f.options.filter((option) => option.isSelect).map((o) => o.value);
     if (values.length) filtersObject[key] = values.join(',');
   });
   return {

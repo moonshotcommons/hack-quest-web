@@ -28,10 +28,7 @@ export function getRandomAvatars(count: number = 4) {
     const randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex--;
 
-    [starAvatars[currentIndex], starAvatars[randomIndex]] = [
-      starAvatars[randomIndex],
-      starAvatars[currentIndex]
-    ];
+    [starAvatars[currentIndex], starAvatars[randomIndex]] = [starAvatars[randomIndex], starAvatars[currentIndex]];
 
     result.push({ id: result.length + '', url: starAvatars[currentIndex] });
   }
@@ -48,10 +45,7 @@ export function getRandomPeopleAvatars(count: number = 5) {
     const randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex--;
 
-    [peopleAvatars[currentIndex], peopleAvatars[randomIndex]] = [
-      peopleAvatars[randomIndex],
-      peopleAvatars[currentIndex]
-    ];
+    [peopleAvatars[currentIndex], peopleAvatars[randomIndex]] = [peopleAvatars[randomIndex], peopleAvatars[currentIndex]];
 
     result.push({ id: result.length + '', url: peopleAvatars[currentIndex] });
   }
