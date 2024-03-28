@@ -9,7 +9,7 @@ import { useRedirect } from '@/hooks/router/useRedirect';
 import MobMiniElectiveDetailModal, { MiniElectiveDetailModalRef } from '../MobMiniElectiveDetailModal';
 import { ElectiveCourseType } from '@/service/webApi/elective/type';
 import MobCardProgress from '../MobCardProgress';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 
 interface ElectiveCardProps {
   // children: ReactNode;

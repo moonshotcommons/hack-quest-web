@@ -6,7 +6,7 @@ import { BurialPoint } from '@/helper/burialPoint';
 import TrackTag from '@/components/Common/TrackTag';
 import Link from 'next/link';
 import { cn } from '@/helper/utils';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 
 interface ProjectCardProp {
   className?: string;

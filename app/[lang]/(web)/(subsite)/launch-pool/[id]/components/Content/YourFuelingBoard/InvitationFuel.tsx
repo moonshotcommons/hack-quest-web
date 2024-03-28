@@ -1,5 +1,5 @@
 import { separationNumber } from '@/helper/utils';
-import React, { useContext } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 import Image from 'next/image';
 import { useUserStore } from '@/store/zustand/userStore';
@@ -24,17 +24,22 @@ const InvitationFuel: React.FC<InvitationFuelProp> = () => {
       userInfo: state.userInfo
     }))
   );
+
+  const invitation = useMemo(() => {
+    return launchInfo.fuelsInfo.find((v: any) => v.type === 'INVITATION');
+  }, [launchInfo]);
   return (
     <div className="mt-[24px]">
       <p className="body-l text-neutral-black">{t('invitationFuel')}</p>
       <div className="body-m relative  mt-[16px] flex  justify-between gap-[40px] rounded-[16px] border border-neutral-light-gray bg-neutral-white px-[30px] py-[22px] text-neutral-black">
-        {!launchInfo.stakeManta && <LockMask />}
+        {!launchInfo.isStake && <LockMask />}
         <div className="flex flex-1 gap-[19px]">
           <div className="relative h-[40px] w-[40px] flex-shrink-0 overflow-hidden rounded-[50%]">
             <Image src={userInfo?.avatar as string} alt="avatar" fill className="object-cover"></Image>
           </div>
           <div className="pt-[7px]">
-            <p>{t('shareYourInviteCodetoEarnFuel')}</p>
+            {/* <p>{t('shareYourInviteCodetoEarnFuel')}</p> */}
+            <p>{invitation?.name}</p>
             <p className="body-s text-neutral-medium-gray">{t('shareDescription')}</p>
           </div>
         </div>
@@ -44,7 +49,7 @@ const InvitationFuel: React.FC<InvitationFuelProp> = () => {
               <div className="flex-center relative left-[-20px] h-[40px] w-[40px] rounded-[50%] bg-yellow-primary">
                 <div className="flex-center body-l h-[32px] w-[32px] rounded-[50%] bg-yellow-light">🚀</div>
               </div>
-              <span>{`${separationNumber(500)}`}</span>
+              <span>{`${separationNumber(invitation?.reward || 0)}`}</span>
             </div>
 
             <div className="flex h-[40px] w-[145px] items-center justify-between rounded-r-[20px] border border-neutral-light-gray bg-neutral-off-white pr-[15px]">
@@ -53,19 +58,21 @@ const InvitationFuel: React.FC<InvitationFuelProp> = () => {
                   <FaUser size={20} />
                 </div>
               </div>
-              <span>0 {t('inv')}</span>
+              <span>
+                {invitation?.inviteCount} {t('inv')}
+              </span>
             </div>
           </div>
           <div className="relative left-[-20px] flex h-[40px] w-[calc(100%+20px)] items-center justify-between rounded-[20px] border border-neutral-light-gray bg-neutral-off-white p-[15px]">
             <div className="body-s flex items-center gap-[5px] text-neutral-off-black">
               <InviteCodeIcon />
-              <span>HJJKWERCS654982168</span>
+              <span>{userInfo?.inviteCode}</span>
             </div>
             <div
               className="caption-14pt flex cursor-pointer  items-center gap-[6px] text-neutral-medium-gray"
               onClick={async (e) => {
                 try {
-                  await navigator.clipboard.writeText('1111');
+                  await navigator.clipboard.writeText(userInfo?.inviteCode || '');
                   message.success('Copy success!');
                 } catch (e) {
                   message.warning('The browser version is too low or incompatible！');

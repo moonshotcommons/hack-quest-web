@@ -1,9 +1,10 @@
-import { FC, useEffect } from 'react';
+import { FC, useContext, useEffect } from 'react';
 
 import ComponentRenderer from '../UgcRender';
 import webApi from '@/service';
 
 import { lessonTypeData, LessonReadingData } from '../../../components/UgcSidebar/constant';
+import { UgcContext } from '../../../constants/type';
 
 interface LessonContainerProps {
   lesson: LessonReadingData;
@@ -11,6 +12,7 @@ interface LessonContainerProps {
 
 const LessonContainer: FC<LessonContainerProps> = (props) => {
   const { lesson } = props;
+  const { setMounted } = useContext(UgcContext);
   // const { refreshNavList } = useUnitNavList(lesson as any);
   useEffect(() => {
     if (lesson) {
@@ -20,6 +22,10 @@ const LessonContainer: FC<LessonContainerProps> = (props) => {
       });
     }
   }, [lesson]);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   if (!lesson) return null;
 

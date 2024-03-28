@@ -8,7 +8,7 @@ import { useRedirect } from '@/hooks/router/useRedirect';
 import { cn } from '@/helper/utils';
 import LearningTrackImg from '@/public/images/home/learningtrack_img.png';
 import { useJumpLeaningLesson } from '@/hooks/courses/useJumpLeaningLesson';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 interface MobLearningTrackCardProps {
   learningTrack: LearningTrackDetailType;
   isLandingPage?: boolean;

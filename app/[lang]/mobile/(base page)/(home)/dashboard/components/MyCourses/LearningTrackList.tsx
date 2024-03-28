@@ -3,10 +3,6 @@ import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import { ProcessType } from '@/service/webApi/course/type';
 import LearningTrackCardInProgress from '../LearningTrackCardInProgress';
 import MobLearningTrackCard from '@/components/Mobile/MobLearningTrackCard';
-// import { HiArrowLongRight } from 'react-icons/hi2';
-// import LearningTrackCard from '@/components/Web/Business/LearningTrackCard';
-// import Link from 'next/link';
-// import { MenuLink } from '@/components/Layout/Navbar/type';
 interface LearningTrackListProps {
   list: LearningTrackDetailType[];
   curTab: ProcessType;

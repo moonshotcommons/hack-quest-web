@@ -3,7 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { BlogType, ResourceFrom } from '@/service/webApi/resourceStation/type';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 import { BurialPoint } from '@/helper/burialPoint';
 import Link from 'next/link';
 import TrackTag from '@/components/Common/TrackTag';
@@ -34,7 +34,7 @@ const MobBlogCard: React.FC<MobBlogCardProp> = ({ blog, from = ResourceFrom.BLOG
               <TrackTag key={i} track={v} className="caption-10pt" />
             ))}
           </div>
-          <div className="body-xs mt-[.5rem] line-clamp-2 text-neutral-off-black">{blog.title}</div>
+          <h2 className="body-xs mt-[.5rem] line-clamp-2 text-neutral-off-black">{blog.title}</h2>
         </div>
         <BlogCardFooter
           blog={blog}

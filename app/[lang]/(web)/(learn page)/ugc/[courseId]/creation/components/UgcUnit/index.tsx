@@ -7,7 +7,7 @@ import { CreationHandleKey, CreationPageKey, UgcCreateContext, UnitMenuType } fr
 import { cloneDeep } from 'lodash-es';
 import { isNull } from '@/helper/utils';
 import emitter from '@/store/emitter';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import { message } from 'antd';
 import { DndProvider } from 'react-dnd';

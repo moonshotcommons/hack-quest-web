@@ -2,10 +2,11 @@ import { FC, ReactNode, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { itemVariants } from '../constant';
-import { MenuLink, NavbarListType } from '@/components/Web/Layout/BasePage/Navbar/type';
+import { NavbarListType } from '@/components/Web/Layout/BasePage/Navbar/type';
 import { useGlobalStore } from '@/store/zustand/globalStore';
 import useGetHeight from '@/hooks/dom/useGetHeight';
 import { useRedirect } from '@/hooks/router/useRedirect';
+import MenuLink from '@/constants/MenuLink';
 interface NavListProps {
   navList: NavbarListType[];
   toggleOpen: VoidFunction;

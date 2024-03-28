@@ -11,8 +11,8 @@ import Button from '@/components/Common/Button';
 import TrackTag from '@/components/Common/TrackTag';
 import CompletedIcon from '@/components/Common/Icon/Completed';
 import { getCoverImageByTrack } from '@/helper/utils';
-import { MenuLink } from '../../Layout/BasePage/Navbar/type';
 import Link from 'next/link';
+import MenuLink from '@/constants/MenuLink';
 
 interface PracticeCardProps {
   course: ProjectCourseType;

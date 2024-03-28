@@ -8,12 +8,12 @@ import { LoginResponse } from '@/service/webApi/user/type';
 import Button from '@/components/Common/Button';
 import { useCustomPathname } from '@/hooks/router/useCheckPathname';
 import DropDownMotion from '@/components/Common/DropDownMotion';
-import { MenuLink } from '../../BasePage/Navbar/type';
 import Settings from '@/components/Web/User/Settings';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import UserDropCard from '../UserDropCard';
+import MenuLink from '@/constants/MenuLink';
 interface UserProps {}
 
 const User: FC<UserProps> = () => {

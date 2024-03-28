@@ -10,7 +10,7 @@ import { BlogSearchType } from '@/service/webApi/resourceStation/type';
 import { useRouter } from 'next/navigation';
 import { cloneDeep } from 'lodash-es';
 import Link from 'next/link';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 import { getSearchParamsUrl } from '@/helper/utils';
 import { HiArrowLongRight } from 'react-icons/hi2';
 

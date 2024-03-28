@@ -1,6 +1,6 @@
 import Button from '@/components/Common/Button';
 import { useRedirect } from '@/hooks/router/useRedirect';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 interface NoDataType {
   goPast: VoidFunction;
 }

@@ -4,7 +4,7 @@ import HackathonIdPage from '../components/HackthonId';
 import { getHackathonById } from '@/service/cach/resource/hackathon';
 import { isUuid } from '@/helper/utils';
 import { permanentRedirect } from 'next/navigation';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 
 interface HackathonIdProps {
   params: {

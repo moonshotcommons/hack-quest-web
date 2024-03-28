@@ -5,7 +5,7 @@ import SlideHighlight from '@/components/Common/Navigation/SlideHighlight';
 import Button from '@/components/Common/Button';
 
 import { useRedirect } from '@/hooks/router/useRedirect';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 import { CreationPageKey } from '@/app/[lang]/(web)/(learn page)/ugc/[courseId]/creation/constant/type';
 
 interface CoursesTabProp {

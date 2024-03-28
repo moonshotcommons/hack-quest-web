@@ -11,23 +11,23 @@ export enum TitleTxt {
   TRACTIONS = 'tractions'
 }
 
-export enum LaunchStatus {
-  UN_FUELING = 'unFueling',
-  FUELING = 'fueling',
-  ALLOCATIONING = 'Allocationing',
-  AIRDROPING = 'Airdroping',
-  ENDED = 'ended'
-}
-
 export interface LaunchInfoType extends LaunchPoolProjectType {
   participateInfo: ParticipateInfo | null;
   fuelsInfo: FuelInfo[];
+  isParticipate: boolean;
+  isStake: boolean;
 }
 
 export interface LaunchDetailContextType {
-  launchInfo: any;
+  launchInfo: LaunchInfoType;
+  refreshFuel: VoidFunction;
+  loading: boolean;
+  setLoading: (loading: boolean) => void;
 }
 
 export const LaunchDetailContext = createContext<LaunchDetailContextType>({
-  launchInfo: {} as LaunchInfoType
+  launchInfo: {} as LaunchInfoType,
+  refreshFuel: () => {},
+  loading: false,
+  setLoading: () => {}
 });

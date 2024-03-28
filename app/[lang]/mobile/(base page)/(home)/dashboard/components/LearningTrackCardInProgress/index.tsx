@@ -8,7 +8,7 @@ import { BurialPoint } from '@/helper/burialPoint';
 import { useJumpLeaningLesson } from '@/hooks/courses/useJumpLeaningLesson';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import MobCardProgress from '@/components/Mobile/MobCardProgress';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 
 interface LearningTrackCardInProgressProp {
   learningTrack: LearningTrackDetailType;

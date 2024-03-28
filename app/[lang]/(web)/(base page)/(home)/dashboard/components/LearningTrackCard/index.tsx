@@ -11,7 +11,7 @@ import { useRedirect } from '@/hooks/router/useRedirect';
 import CourseTags from '@/components/Web/Business/CourseTags';
 import TrackTag from '@/components/Common/TrackTag';
 import CompletedIcon from '@/components/Common/Icon/Completed';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 
 interface LearningTrackCardProp {
   learningTrack: LearningTrackDetailType;

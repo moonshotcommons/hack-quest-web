@@ -14,7 +14,7 @@ import { CourseDetailType } from '@/service/webApi/course/type';
 import Image from 'next/image';
 import UgcCourseCard from '@/components/Web/Business/UgcCourseCard';
 import LinkArrow from '@/components/Common/LinkArrow';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 import Link from 'next/link';
 
 interface PracticePageProps {
