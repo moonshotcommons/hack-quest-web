@@ -19,5 +19,7 @@
   "disconnect": "断开链接",
   "connected": "已链接",
   "follow": "关注",
-  "followed": "已关注"
+  "followed": "已关注",
+  "join": "加入",
+  "joined": "已加入"
 }
