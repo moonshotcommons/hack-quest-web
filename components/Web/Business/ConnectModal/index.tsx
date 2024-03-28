@@ -55,10 +55,10 @@ const ConnectModal: ForwardRefRenderFunction<ConnectModalInstance, ConnectModalP
   const { run: getConnectState, runAsync: getConnectStateAsync } = useRequest(
     async (isInit: boolean = false) => {
       const [connectInfo, twitterFollow, discordJoin, participateInfo] = await Promise.all([
-        await webApi.userApi.getConnectInfo(),
-        await webApi.userApi.checkTwitterFollow(),
-        await webApi.userApi.checkDiscordJoin(),
-        await webApi.launchPoolApi.getParticipateInfo(projectId.current!)
+        webApi.userApi.getConnectInfo(),
+        webApi.userApi.checkTwitterFollow(),
+        webApi.userApi.checkDiscordJoin(),
+        webApi.launchPoolApi.getParticipateInfo(projectId.current!)
       ]);
 
       return { connectInfo, isInit, isParticipate: participateInfo.isParticipate, twitterFollow, discordJoin };
@@ -200,6 +200,7 @@ const ConnectModal: ForwardRefRenderFunction<ConnectModalInstance, ConnectModalP
                   )}
                   disabled={!currentConnectState?.isConnect}
                   onClick={() => {
+                    debugger;
                     const currentIndex = connectState.findIndex((item) => item.type === currentConnectState!.type);
                     if (currentIndex + 1 < connectState.length) {
                       setCurrentConnectType(connectState[currentIndex + 1].type);

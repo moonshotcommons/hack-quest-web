@@ -36,6 +36,7 @@ const Button: FC<ButtonProps> = (props) => {
     loading = false,
     disabled: propDisabled,
     htmlType,
+    onClick: propOnClick,
     ...rest
   } = props;
   // const classNames = ;
@@ -93,7 +94,7 @@ const Button: FC<ButtonProps> = (props) => {
       type={htmlType}
       onClick={(e) => {
         if (disabled) return;
-        props.onClick?.(e);
+        propOnClick?.(e);
       }}
       {...rest}
     >
