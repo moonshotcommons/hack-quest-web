@@ -12,7 +12,7 @@ const ParticipationSuccess: FC<ParticipationSuccessProps> = ({ projectId, onClos
   return (
     <div className="flex h-full flex-col justify-between">
       <div className="mt-6 flex flex-col gap-8">
-        <h3 className="text-h3 text-center text-neutral-black">You Are In! 🎉</h3>
+        <h3 className="text-h3 text-center text-neutral-black ">You Are In! 🎉</h3>
         <p className="body-l text-neutral-black">{`Thank you for participating in HackQuest project! We're excited to have you on board.`}</p>
         <div className="flex flex-col gap-4">
           <p className="body-xl-bold text-neutral-black">What’s next?</p>
@@ -20,12 +20,12 @@ const ParticipationSuccess: FC<ParticipationSuccessProps> = ({ projectId, onClos
         </div>
       </div>
       <div className="flex w-full justify-center gap-4">
-        <Link href={`${MenuLink.LAUNCH}/${projectId}`}>
-          <Button type="primary" className="w-full max-w-[270px] uppercase">
+        <Link href={`${MenuLink.LAUNCH}/${projectId}`} className="inline-block w-full max-w-[270px]">
+          <Button type="primary" className="button-text-l w-full max-w-[270px] uppercase text-neutral-black">
             go to stake
           </Button>
         </Link>
-        <Button ghost className="w-full max-w-[270px] uppercase" onClick={onClose}>
+        <Button ghost className="button-text-l w-full max-w-[270px] uppercase text-neutral-black" onClick={onClose}>
           later
         </Button>
       </div>
