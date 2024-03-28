@@ -17,10 +17,7 @@ export interface MobCompleteModalInstance {
   close: (closeCallback?: VoidFunction) => void;
 }
 
-const MobCompleteModal = forwardRef<
-  MobCompleteModalInstance,
-  MobCompleteModalProps
->((props, ref) => {
+const MobCompleteModal = forwardRef<MobCompleteModalInstance, MobCompleteModalProps>((props, ref) => {
   const [open, setOpen] = useState(false);
   const { theme } = useContext(ThemeContext);
   const [type, setType] = useState<'course' | 'claim'>('course');
@@ -62,9 +59,7 @@ after:-bottom-[0px] after:left-0 after:h-[1px] after:w-full after:scale-y-[1] af
         >
           COURSE COMPLETE!
         </h1>
-        <p className="body-l mt-[20px] text-text-default-color">
-          {decodeURIComponent(title)}
-        </p>
+        <p className="body-l mt-[20px] text-text-default-color">{decodeURIComponent(title)}</p>
         {type === 'course' && (
           <div className="mt-[100px] flex gap-[1.25rem]">
             <Link href={'/dashboard'} onClick={() => setOpen(false)}>
@@ -77,8 +72,7 @@ after:-bottom-[0px] after:left-0 after:h-[1px] after:w-full after:scale-y-[1] af
         {type === 'claim' && (
           <div className="flex w-full flex-col items-center">
             <p className="body-m mt-[10px] w-[297px] text-center text-neutral-rich-gray">
-              You have completed this learning track. Continue to claim your
-              Badge.
+              You have completed this learning track. Continue to claim your Badge.
             </p>
             <Button
               type="primary"

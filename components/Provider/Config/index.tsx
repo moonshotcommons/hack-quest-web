@@ -18,9 +18,7 @@ export const ChainConfigContext = createContext({
 });
 
 const ConfigProvider: FC<ConfigProviderProps> = ({ children }) => {
-  const query = new URLSearchParams(
-    typeof window !== 'undefined' ? window.location.search : ''
-  );
+  const query = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
 
   if (typeof window === 'object') {
     if (query.get('origin') === 'mantle' && query.get('token')) {
@@ -36,11 +34,7 @@ const ConfigProvider: FC<ConfigProviderProps> = ({ children }) => {
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
         <RainbowKitProvider initialChain={initialChainId}>
-          <ChainConfigContext.Provider
-            value={{ updateInitialChainId: setInitialChainId }}
-          >
-            {children}
-          </ChainConfigContext.Provider>
+          <ChainConfigContext.Provider value={{ updateInitialChainId: setInitialChainId }}>{children}</ChainConfigContext.Provider>
           <Analytics mode="production" debug={false} />
         </RainbowKitProvider>
       </QueryClientProvider>

@@ -83,8 +83,7 @@ const EmailVerify: FC<EmailVerifyProps> = (props) => {
       default:
         return {
           text: 'Back',
-          handle: () =>
-            authRouteType.prevType && setAuthType(authRouteType.prevType)
+          handle: () => authRouteType.prevType && setAuthType(authRouteType.prevType)
         };
     }
   }, [authRouteType.prevType]);
@@ -98,13 +97,7 @@ const EmailVerify: FC<EmailVerifyProps> = (props) => {
   return (
     <div className="flex h-full w-full flex-col justify-between">
       <div className="flex flex-col gap-6">
-        <svg
-          width="64"
-          height="64"
-          viewBox="0 0 64 64"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+        <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect width="64" height="64" fill="white" />
           <path
             fillRule="evenodd"
@@ -116,8 +109,7 @@ const EmailVerify: FC<EmailVerifyProps> = (props) => {
 
         <h1 className="text-h3 text-neutral-off-black">Verify Your Email</h1>
         <p className="body-l text-neutral-medium-gray">
-          Please verify your account via the link in the e-mail and follow the
-          instruction to login
+          Please verify your account via the link in the e-mail and follow the instruction to login
         </p>
       </div>
       <div className="mt-[4rem] flex w-full flex-col gap-4">
@@ -132,16 +124,10 @@ const EmailVerify: FC<EmailVerifyProps> = (props) => {
           text-auth-primary-button-text-color hover:border-auth-primary-button-border-hover-color
           hover:bg-auth-primary-button-hover-bg hover:text-auth-primary-button-text-hover-color
           `,
-            !!Math.floor(countdown / 1000)
-              ? 'cursor-not-allowed opacity-60'
-              : ''
+            !!Math.floor(countdown / 1000) ? 'cursor-not-allowed opacity-60' : ''
           )}
         >
-          {`${resendButtonParams.text}  ${
-            Math.floor(countdown / 1000) > 0
-              ? Math.floor(countdown / 1000) + 's'
-              : ''
-          }`}
+          {`${resendButtonParams.text}  ${Math.floor(countdown / 1000) > 0 ? Math.floor(countdown / 1000) + 's' : ''}`}
         </Button>
 
         <Button

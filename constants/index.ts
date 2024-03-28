@@ -4,11 +4,7 @@ export const HOME_PATHNAME = '/';
 export const LOGIN_PATHNAME = '/auth/login';
 export const REGISTER_PATHNAME = '/auth/register';
 
-export const NoNeedUserInfo = [
-  HOME_PATHNAME,
-  REGISTER_PATHNAME,
-  LOGIN_PATHNAME
-];
+export const NoNeedUserInfo = [HOME_PATHNAME, REGISTER_PATHNAME, LOGIN_PATHNAME];
 
 /**
  * code block styles of react-syntax-highlighter

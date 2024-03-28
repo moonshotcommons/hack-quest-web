@@ -24,10 +24,7 @@ const CourseMarketPage: React.FC<CourseMarketPageProp> = (props) => {
   };
   const buttonNode = () => {
     return (
-      <Button
-        type="primary"
-        className="button-text-m h-[48px] w-[249px] uppercase"
-      >
+      <Button type="primary" className="button-text-m h-[48px] w-[249px] uppercase">
         become an instructor
       </Button>
     );
@@ -45,12 +42,7 @@ const CourseMarketPage: React.FC<CourseMarketPageProp> = (props) => {
         onSearch={(val) => handleSearch({ keyword: val })}
         defaultValue={searchParams.keyword}
       ></CourseListPageHeader>
-      <CourseList
-        {...props}
-        handleSearch={(search) =>
-          handleSearch({ ...search, keyword: searchParams.keyword })
-        }
-      />
+      <CourseList {...props} handleSearch={(search) => handleSearch({ ...search, keyword: searchParams.keyword })} />
     </div>
   );
 };

@@ -18,21 +18,11 @@ interface StakeModalProp {
   onClose: VoidFunction;
 }
 
-const StakeModal: React.FC<StakeModalProp> = ({
-  open,
-  hanleStake,
-  loading,
-  onClose
-}) => {
+const StakeModal: React.FC<StakeModalProp> = ({ open, hanleStake, loading, onClose }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
   return (
-    <Modal
-      open={open}
-      onClose={onClose}
-      showCloseIcon={true}
-      icon={<FiX size={26} />}
-    >
+    <Modal open={open} onClose={onClose} showCloseIcon={true} icon={<FiX size={26} />}>
       <div className=" scroll-wrap-y max-h-[95vh] w-[808px] rounded-[10px] bg-neutral-white px-[137px]  pb-[40px] pt-[60px]  text-neutral-black">
         <div className="">
           <div className="text-h3 text-center">{t('stake')} $Manta</div>
@@ -45,20 +35,14 @@ const StakeModal: React.FC<StakeModalProp> = ({
                     await navigator.clipboard.writeText('1111');
                     message.success('Copy success!');
                   } catch (e) {
-                    message.warning(
-                      'The browser version is too low or incompatible！'
-                    );
+                    message.warning('The browser version is too low or incompatible！');
                   }
                 }}
               >
                 <span>{t('yourWallet')}</span>
                 <div className="flex cursor-pointer items-center gap-[12px] text-neutral-off-black">
                   <span>0x6a5c...c103</span>
-                  <CopyIcon
-                    width={17}
-                    height={21}
-                    color={'var(--neutral-off-black)'}
-                  />
+                  <CopyIcon width={17} height={21} color={'var(--neutral-off-black)'} />
                 </div>
               </div>
               <div className="flex justify-between">
@@ -75,17 +59,12 @@ const StakeModal: React.FC<StakeModalProp> = ({
             </div>
 
             <div className="mt-[10px] flex items-center justify-between rounded-[24px] border border-neutral-medium-gray px-[24px] py-[11px] text-neutral-off-black">
-              <input
-                type="text"
-                className="body-l flex-1 border-none text-neutral-off-black outline-none"
-              />
+              <input type="text" className="body-l flex-1 border-none text-neutral-off-black outline-none" />
               <span className="underline-l cursor-pointer">{t('max')}</span>
             </div>
             <div className="body-s text-neutral-medium-gray">
               <p className="mt-[10px]">{`${t('balance')}: ${separationNumber(59488)} $Manta`}</p>
-              <p className="mt-[10px]">
-                {`${t('currentPrice')}: 1 $Manta = 0.01 USD`}{' '}
-              </p>
+              <p className="mt-[10px]">{`${t('currentPrice')}: 1 $Manta = 0.01 USD`} </p>
             </div>
           </div>
           <div className="text-neutral-medium-gray">
@@ -94,10 +73,7 @@ const StakeModal: React.FC<StakeModalProp> = ({
               <span className="cursor-pointer">
                 <FiMinus size={24} />
               </span>
-              <input
-                type="text"
-                className="h-[48px] w-[68px] rounded-[24px] border border-neutral-medium-gray text-center  outline-none"
-              />
+              <input type="text" className="h-[48px] w-[68px] rounded-[24px] border border-neutral-medium-gray text-center  outline-none" />
               <span className="cursor-pointer">
                 <IoAddOutline size={24} />
               </span>
@@ -108,13 +84,8 @@ const StakeModal: React.FC<StakeModalProp> = ({
 
           <div className="my-[16px] h-[1px] bg-neutral-light-gray"> </div>
           <div className="flex justify-between">
-            <span className="body-l text-neutral-medium-gray">
-              {t('estimatedFuel')}
-            </span>
-            <span className="body-l-bold text-ellipsis">
-              {' '}
-              {separationNumber(23799)} 🚀
-            </span>
+            <span className="body-l text-neutral-medium-gray">{t('estimatedFuel')}</span>
+            <span className="body-l-bold text-ellipsis"> {separationNumber(23799)} 🚀</span>
           </div>
           <div className="body-m mt-[16px] flex items-center justify-center gap-[8px] text-neutral-off-black">
             <div className="relative  cursor-pointer">
@@ -123,18 +94,10 @@ const StakeModal: React.FC<StakeModalProp> = ({
             </div>
             <IoIosArrowForward size={20} />
           </div>
-          <p className="body-m mt-[16px] text-center text-neutral-off-black">
-            {' '}
-            {t('dontOut')}
-          </p>
+          <p className="body-m mt-[16px] text-center text-neutral-off-black"> {t('dontOut')}</p>
 
           <div className="flex justify-center gap-[10px]">
-            <Button
-              loading={loading}
-              type="primary"
-              className="button-text-m mt-[24px] h-[48px]  w-[165px] uppercase"
-              onClick={hanleStake}
-            >
+            <Button loading={loading} type="primary" className="button-text-m mt-[24px] h-[48px]  w-[165px] uppercase" onClick={hanleStake}>
               {t('stakeNow')}
             </Button>
           </div>

@@ -9,9 +9,7 @@ const NoData: React.FC<NoDataType> = ({ curTab }) => {
   return (
     <div className="flex flex-col items-center pb-[100px] ">
       <p className="body-l text-neutral-medium-gray">
-        {curTab === ProcessType.IN_PROCESS
-          ? 'You don’t have any on-going course'
-          : 'You don’t have any completed course'}
+        {curTab === ProcessType.IN_PROCESS ? 'You don’t have any on-going course' : 'You don’t have any completed course'}
       </p>
       <Button
         onClick={() => redirectToUrl('learning-track')}

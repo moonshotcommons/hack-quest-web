@@ -27,12 +27,7 @@ const SignOutIcon: React.FC<IconProps> = (props) => {
         stroke={color}
         strokeLinecap="round"
       />
-      <path
-        d="M3 12H14.5M14.5 12L10.6 8M14.5 12L10.6 16"
-        stroke={color}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
+      <path d="M3 12H14.5M14.5 12L10.6 8M14.5 12L10.6 16" stroke={color} strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 };

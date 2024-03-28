@@ -11,10 +11,7 @@ const LearningTrackDetailPage: NextPage<IProps> = (props) => {
   return (
     <div className="container mx-auto">
       <Loading loading={!learningTrackDetail} className="mt-[50vh]">
-        <LearningTrackDetail
-          learningTrackDetail={learningTrackDetail}
-          refresh={refresh}
-        ></LearningTrackDetail>
+        <LearningTrackDetail learningTrackDetail={learningTrackDetail} refresh={refresh}></LearningTrackDetail>
       </Loading>
     </div>
   );

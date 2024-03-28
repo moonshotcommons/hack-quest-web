@@ -24,11 +24,7 @@ const ProjectVideo: FC<ProjectVideoProps> = function ProjectVideo({ project }) {
             </video>
           )}
           {project.video.includes('youtube') && (
-            <YouTube
-              videoId={getYoutubeId(project.video)}
-              loading="lazy"
-              iframeClassName="w-full min-h-[500px]"
-            />
+            <YouTube videoId={getYoutubeId(project.video)} loading="lazy" iframeClassName="w-full min-h-[500px]" />
           )}
         </div>
       )}

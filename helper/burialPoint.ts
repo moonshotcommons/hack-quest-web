@@ -1,11 +1,6 @@
 import va from '@vercel/analytics';
 
-type BaseBurialPointType =
-  | '使用navbar跳转'
-  | '头像加载失败'
-  | 'settings'
-  | 'profile'
-  | '登出';
+type BaseBurialPointType = '使用navbar跳转' | '头像加载失败' | 'settings' | 'profile' | '登出';
 
 type SettingsBurialPointType =
   | '头像上传'
@@ -245,10 +240,7 @@ export type BurialPointType =
   | ElectiveDetailBurialPointType;
 
 export class BurialPoint {
-  static track(
-    name: BurialPointType,
-    properties?: Record<string, string | number | boolean | null> | undefined
-  ) {
+  static track(name: BurialPointType, properties?: Record<string, string | number | boolean | null> | undefined) {
     va.track(name, properties);
   }
 }

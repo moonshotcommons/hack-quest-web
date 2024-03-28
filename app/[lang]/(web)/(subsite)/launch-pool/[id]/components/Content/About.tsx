@@ -12,9 +12,7 @@ const About: React.FC<AboutProp> = () => {
   return (
     <div>
       <p className="text-h3 text-neutral-off-black">{t(titleTxtData[3])}</p>
-      <p className="body-l mt-[24px] text-neutral-rich-gray">
-        {t('aboutText')}
-      </p>
+      <p className="body-l mt-[24px] text-neutral-rich-gray">{t('aboutText')}</p>
     </div>
   );
 };

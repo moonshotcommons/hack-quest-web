@@ -1,11 +1,12 @@
 import { FC, useMemo, useState, useContext } from 'react';
-import { ConnectType, connectKeyMap } from '../constant';
+import { ParticipationStatus, connectKeyMap } from '../constant';
 import { cn } from '@/helper/utils';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
+import { ConnectType } from '@/service/webApi/user/type';
 interface ConnectProgressProps {
-  connectType: ConnectType;
+  connectType: ConnectType | ParticipationStatus;
 }
 
 const ConnectProgress: FC<ConnectProgressProps> = ({ connectType }) => {
@@ -19,24 +20,10 @@ const ConnectProgress: FC<ConnectProgressProps> = ({ connectType }) => {
     <div className="flex gap-[10px]">
       {connectKeyMap.map((item, index) => {
         return (
-          <div
-            key={item.key}
-            className="body-l-bold flex w-[200px] flex-col gap-2"
-          >
-            <div
-              className={cn(
-                `h-[6px] w-full rounded-full`,
-                index <= connectIndex
-                  ? 'bg-yellow-dark'
-                  : 'bg-neutral-light-gray'
-              )}
-            ></div>
+          <div key={item.key} className="body-l-bold flex w-[200px] flex-col gap-2">
+            <div className={cn(`h-[6px] w-full rounded-full`, index <= connectIndex ? 'bg-yellow-dark' : 'bg-neutral-light-gray')}></div>
             <span
-              className={cn(
-                index <= connectIndex
-                  ? 'text-neutral-rich-gray'
-                  : 'text-neutral-light-gray'
-              )}
+              className={cn(index <= connectIndex ? 'text-neutral-rich-gray' : 'text-neutral-light-gray')}
             >{`${index + 1} ${t(item.label)}`}</span>
           </div>
         );

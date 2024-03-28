@@ -22,20 +22,13 @@ const InvitationFuel: React.FC<InvitationFuelProp> = () => {
       <div className="body-m mt-[16px] flex  justify-between gap-[40px] rounded-[16px] border border-neutral-light-gray bg-neutral-white px-[30px] py-[22px] text-neutral-black">
         <div className="flex flex-1 gap-[19px]">
           <div className="relative h-[40px] w-[40px] flex-shrink-0 overflow-hidden rounded-[50%]">
-            <Image
-              src={userInfo?.avatar as string}
-              alt="avatar"
-              fill
-              className="object-cover"
-            ></Image>
+            <Image src={userInfo?.avatar as string} alt="avatar" fill className="object-cover"></Image>
           </div>
           <div className="pt-[7px]">
             <p>Share Your Invite Code to Earn Fuel</p>
             <p className="body-s text-neutral-medium-gray">
-              Every time when invitee uses invite code to participate in this
-              project, both the inviter and the invitee can receive 500 fuel.
-              Moreover, the inviter will receive 1% of the total fuel from all
-              invitees.
+              Every time when invitee uses invite code to participate in this project, both the inviter and the invitee can receive 500
+              fuel. Moreover, the inviter will receive 1% of the total fuel from all invitees.
             </p>
           </div>
         </div>
@@ -43,9 +36,7 @@ const InvitationFuel: React.FC<InvitationFuelProp> = () => {
           <div className="flex items-center gap-[40px]">
             <div className="flex h-[40px] w-[145px] items-center justify-between rounded-r-[20px] border border-neutral-light-gray bg-neutral-off-white pr-[15px]">
               <div className="flex-center relative left-[-20px] h-[40px] w-[40px] rounded-[50%] bg-yellow-primary">
-                <div className="flex-center body-l h-[32px] w-[32px] rounded-[50%] bg-yellow-light">
-                  🚀
-                </div>
+                <div className="flex-center body-l h-[32px] w-[32px] rounded-[50%] bg-yellow-light">🚀</div>
               </div>
               <span>{`${separationNumber(500)}`}</span>
             </div>
@@ -71,17 +62,11 @@ const InvitationFuel: React.FC<InvitationFuelProp> = () => {
                   await navigator.clipboard.writeText('1111');
                   message.success('Copy success!');
                 } catch (e) {
-                  message.warning(
-                    'The browser version is too low or incompatible！'
-                  );
+                  message.warning('The browser version is too low or incompatible！');
                 }
               }}
             >
-              <CopyIcon
-                width={17}
-                height={21}
-                color={'var(--neutral-light-gray)'}
-              />
+              <CopyIcon width={17} height={21} color={'var(--neutral-light-gray)'} />
               <span>Copy</span>
             </div>
           </div>

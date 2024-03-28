@@ -27,9 +27,7 @@ function Electives() {
 
   const [searchKeyword, setSearchKeyword] = useState('');
 
-  const [type, setType] = useState<CourseFilterListType>(
-    CourseFilterListType.DEFAULT
-  );
+  const [type, setType] = useState<CourseFilterListType>(CourseFilterListType.DEFAULT);
 
   const handleScroll = () => {
     if (apiStatus !== 'init') return;
@@ -67,18 +65,12 @@ function Electives() {
   );
 
   return (
-    <div
-      className="h-full w-full"
-      onScroll={handleScroll}
-      ref={selectiveCoursesRef}
-    >
+    <div className="h-full w-full" onScroll={handleScroll} ref={selectiveCoursesRef}>
       <div className="relative mx-auto w-full">
         <MobCourseListPageHeader
           title="Electives"
           // description="Each elective course is relatively short and independent, with a focused topic. You will  learn how to build a project step by step."
-          coverImageUrl={
-            '/images/course/course_cover/elective_mobile_cover.svg'
-          }
+          coverImageUrl={'/images/course/course_cover/elective_mobile_cover.svg'}
           coverWidth={120}
           coverImgClassName="top-[30px] right-4"
           coverHeight={92}
@@ -87,9 +79,7 @@ function Electives() {
         <div className="absolute left-0 top-[15.5rem] z-[10] flex w-full flex-col rounded-t-[2rem] bg-neutral-off-white px-[1.25rem] py-[2.5rem]">
           {type === CourseFilterListType.DEFAULT && (
             <div className="flex flex-col">
-              <h2 className="text-h2-mob mb-5 text-neutral-black">
-                Top Courses
-              </h2>
+              <h2 className="text-h2-mob mb-5 text-neutral-black">Top Courses</h2>
               <MobViewMoreList
                 list={topElectives}
                 limit={2}
@@ -104,9 +94,7 @@ function Electives() {
               <MobCourseFilterListDefault />
             </div>
           )}
-          {type === CourseFilterListType.SEARCH && (
-            <MobCourseFilterListSearch keyword={searchKeyword} />
-          )}
+          {type === CourseFilterListType.SEARCH && <MobCourseFilterListSearch keyword={searchKeyword} />}
         </div>
         {/*
         <SelectiveCoursesBox

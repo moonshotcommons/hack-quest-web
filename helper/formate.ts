@@ -2,11 +2,7 @@ export const tuple = <T extends string[]>(...args: T) => args;
 
 type TimeType = 'Hour' | 'Minute' | 'Day';
 
-export const computeTime = (
-  minutes: number,
-  type: TimeType,
-  includeSuffix = true
-) => {
+export const computeTime = (minutes: number, type: TimeType, includeSuffix = true) => {
   // const minutes = Math.floor(time / 60);
 
   const hours = Number((minutes / 60).toFixed(1));
@@ -14,14 +10,10 @@ export const computeTime = (
 
   switch (type) {
     case 'Minute':
-      return includeSuffix
-        ? minutes + ' ' + `${minutes > 1 ? 'Minutes' : 'Minute'}`
-        : minutes;
+      return includeSuffix ? minutes + ' ' + `${minutes > 1 ? 'Minutes' : 'Minute'}` : minutes;
 
     case 'Hour':
-      return includeSuffix
-        ? hours + ' ' + `${hours > 1 ? 'Hours' : 'Hour'}`
-        : hours;
+      return includeSuffix ? hours + ' ' + `${hours > 1 ? 'Hours' : 'Hour'}` : hours;
 
     case 'Day':
       return includeSuffix ? days + ' ' + `${days > 1 ? 'Days' : 'Day'}` : days;
@@ -50,17 +42,13 @@ export const tagFormate = (input: string) => {
   const words = input.toLowerCase().split(/[\s_-]/);
 
   // 将每个单词的首字母大写，并连接成新的字符串
-  const convertedStr = words
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ');
+  const convertedStr = words.map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
 
   return convertedStr;
 };
 
 export const transformQueryString = (params: Record<string, any>) => {
   return Object.keys(params)
-    .map(
-      (key) => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`
-    )
+    .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
     .join('&');
 };

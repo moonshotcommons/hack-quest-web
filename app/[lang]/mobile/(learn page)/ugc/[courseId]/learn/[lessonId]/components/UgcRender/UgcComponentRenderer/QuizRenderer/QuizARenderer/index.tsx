@@ -1,10 +1,6 @@
 import { QuizAType } from '@/components/Web/Business/Renderer/type';
 import { BurialPoint } from '@/helper/burialPoint';
-import {
-  adaptWidth,
-  changeTextareaHeight,
-  elementVibration
-} from '@/helper/utils';
+import { adaptWidth, changeTextareaHeight, elementVibration } from '@/helper/utils';
 import { AnswerState, useParseQuiz } from '@/hooks/courses/useParseQuiz';
 import webApi from '@/service';
 import { FC, useContext, useEffect, useRef, useState } from 'react';
@@ -14,11 +10,7 @@ import QuizFooter from '../QuizFooter';
 import CodeRender from './CodeRender';
 import { RendererContext } from '@/components/Web/Business/Renderer/context';
 import { cloneDeep } from 'lodash-es';
-import {
-  FooterButtonStatus,
-  FooterButtonText,
-  UgcContext
-} from '@/app/[lang]/(web)/(learn page)/ugc/[courseId]/learn/constants/type';
+import { FooterButtonStatus, FooterButtonText, UgcContext } from '@/app/[lang]/(web)/(learn page)/ugc/[courseId]/learn/constants/type';
 import emitter from '@/store/emitter';
 import { useGetQuizsCompleted } from '@/hooks/courses/useGetQuizsCompleted';
 interface QuizARendererProps {
@@ -35,9 +27,7 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
   const initFooterBtn = useRef(true);
   const { onPass } = useContext(QuizContext);
   const { getFooterBtnInfo } = useGetQuizsCompleted();
-  const { waitingRenderCodes, answerState, answerStateDispatch } = useParseQuiz(
-    quiz.lines
-  );
+  const { waitingRenderCodes, answerState, answerStateDispatch } = useParseQuiz(quiz.lines);
 
   const dealInputValue = (show: boolean) => {
     const newAnswerState = JSON.parse(JSON.stringify(answerState));
@@ -45,9 +35,7 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
       if (line.answers?.length) {
         line.answers.map((answer: AnswerState) => {
           let inputEle: HTMLTextAreaElement | HTMLInputElement;
-          inputEle = document.querySelector(
-            `[data-uuid="${answer.id}"]`
-          ) as HTMLInputElement;
+          inputEle = document.querySelector(`[data-uuid="${answer.id}"]`) as HTMLInputElement;
           if (inputEle) {
             if (show) {
               inputEle.value = answer.answer;
@@ -60,9 +48,7 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
         });
       } else {
         let inputEle: HTMLTextAreaElement | HTMLInputElement;
-        inputEle = document.querySelector(
-          `[data-uuid="${line.id}"]`
-        ) as HTMLTextAreaElement;
+        inputEle = document.querySelector(`[data-uuid="${line.id}"]`) as HTMLTextAreaElement;
         if (inputEle) {
           if (show) {
             inputEle.value = line.answer;
@@ -94,9 +80,7 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
           if (!new RegExp(answer.regex).test(answer.value.trim())) {
             isCurrent = false;
             answer.error = true;
-            const inputEle = document.querySelector(
-              `[data-uuid="${answer.id}"]`
-            ) as HTMLTextAreaElement;
+            const inputEle = document.querySelector(`[data-uuid="${answer.id}"]`) as HTMLTextAreaElement;
             elementVibration(inputEle);
           }
         });
@@ -104,9 +88,7 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
         if (!new RegExp(line.regex).test(line.value.trim())) {
           isCurrent = false;
           line.error = true;
-          const inputEle = document.querySelector(
-            `[data-uuid="${line.id}"]`
-          ) as HTMLInputElement;
+          const inputEle = document.querySelector(`[data-uuid="${line.id}"]`) as HTMLInputElement;
           elementVibration(inputEle);
         }
       }
@@ -132,9 +114,7 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
             l.inputValue = answer;
             l.value = answer;
             let inputEle: HTMLTextAreaElement | HTMLInputElement;
-            inputEle = document.querySelector(
-              `[data-uuid="${l.id}"]`
-            ) as HTMLInputElement;
+            inputEle = document.querySelector(`[data-uuid="${l.id}"]`) as HTMLInputElement;
             if (inputEle) {
               inputEle.value = answer;
               adaptWidth(inputEle);
@@ -144,9 +124,7 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
           const { answer } = line;
           line.inputValue = answer;
           line.value = answer;
-          const inputEle = document.querySelector(
-            `[data-uuid="${line.id}"]`
-          ) as HTMLTextAreaElement;
+          const inputEle = document.querySelector(`[data-uuid="${line.id}"]`) as HTMLTextAreaElement;
           if (inputEle) {
             inputEle.value = answer;
             changeTextareaHeight(inputEle);
@@ -206,8 +184,7 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
   }, [showAnswer]);
 
   useEffect(() => {
-    let { footerBtnText, footerBtnStatus, footerBtnDisable } =
-      getFooterBtnInfo(parent);
+    let { footerBtnText, footerBtnStatus, footerBtnDisable } = getFooterBtnInfo(parent);
     initFooterBtn.current = true;
     if (!quiz.isCompleted) {
       initFooterBtn.current = false;
@@ -230,13 +207,7 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
       <div className="flex flex-1 flex-col overflow-hidden">
         <div className="h-fit">
           {quiz.children.map((child) => {
-            return (
-              <ComponentRenderer
-                key={child.id}
-                parent={quiz}
-                component={child}
-              ></ComponentRenderer>
-            );
+            return <ComponentRenderer key={child.id} parent={quiz} component={child}></ComponentRenderer>;
           })}
         </div>
         {quiz.lines?.length > 0 && (
@@ -255,10 +226,7 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
           </div>
         )}
       </div>
-      <QuizFooter
-        showAnswer={showAnswer}
-        setShowAnswer={setAnswers}
-      ></QuizFooter>
+      <QuizFooter showAnswer={showAnswer} setShowAnswer={setAnswers}></QuizFooter>
     </div>
   );
 };

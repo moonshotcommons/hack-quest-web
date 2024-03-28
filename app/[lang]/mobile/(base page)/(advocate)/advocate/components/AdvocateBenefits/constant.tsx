@@ -1,13 +1,7 @@
 export const dataList = [
   {
     icon: (
-      <svg
-        width="73"
-        height="77"
-        viewBox="0 0 73 77"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
+      <svg width="73" height="77" viewBox="0 0 73 77" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           d="M36.4691 38.0934H1L36.4691 76L71.9382 38.0934H36.4691Z"
           fill="#EDEDED"
@@ -15,24 +9,9 @@ export const dataList = [
           strokeLinecap="round"
           strokeLinejoin="round"
         />
-        <path
-          d="M25.4918 38.0933L36.4691 20.5716H22.0925L25.4918 38.0933Z"
-          stroke="black"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M25.4918 38.0933H1L22.0924 20.5716L25.4918 38.0933Z"
-          stroke="black"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M47.4407 38.0933L36.4689 20.5716H50.8456L47.4407 38.0933Z"
-          stroke="black"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
+        <path d="M25.4918 38.0933L36.4691 20.5716H22.0925L25.4918 38.0933Z" stroke="black" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M25.4918 38.0933H1L22.0924 20.5716L25.4918 38.0933Z" stroke="black" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M47.4407 38.0933L36.4689 20.5716H50.8456L47.4407 38.0933Z" stroke="black" strokeLinecap="round" strokeLinejoin="round" />
         <path
           d="M47.4406 38.0933H71.9378L50.8454 20.5716L47.4406 38.0933Z"
           fill="#FFE866"
@@ -47,12 +26,7 @@ export const dataList = [
           strokeLinecap="round"
           strokeLinejoin="round"
         />
-        <path
-          d="M36.469 20.5716L25.4916 38.0933H47.4408L36.469 20.5716Z"
-          stroke="black"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
+        <path d="M36.469 20.5716L25.4916 38.0933H47.4408L36.469 20.5716Z" stroke="black" strokeLinecap="round" strokeLinejoin="round" />
         <path
           d="M38.398 0.761871H34.5344V14.6742H38.398V0.761871Z"
           fill="#FFE866"
@@ -83,13 +57,7 @@ export const dataList = [
   },
   {
     icon: (
-      <svg
-        width="89"
-        height="68"
-        viewBox="0 0 89 68"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
+      <svg width="89" height="68" viewBox="0 0 89 68" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g clipPath="url(#clip0_4478_7616)">
           <path
             d="M64.3766 20.6127C66.1302 23.2547 67.3899 26.2567 68.023 29.485L67.5324 29.5812C67.8306 31.1017 67.987 32.6738 67.987 34.2831C67.987 35.8924 67.8306 37.4645 67.5324 38.9849L68.023 39.0812C67.3899 42.3095 66.1302 45.3114 64.3766 47.9535L63.96 47.677C62.21 50.3137 59.9581 52.5845 57.342 54.3512L57.6218 54.7655C54.989 56.5435 51.9945 57.8215 48.7727 58.4644L48.6749 57.9741C47.1556 58.2773 45.5844 58.4363 43.9758 58.4363C42.3671 58.4363 40.7959 58.2773 39.2767 57.9741L39.1788 58.4644C35.9571 57.8215 32.9626 56.5435 30.3298 54.7655L30.6096 54.3512C27.9935 52.5845 25.7416 50.3137 23.9916 47.677L23.575 47.9535C21.8214 45.3114 20.5617 42.3095 19.9285 39.0812L20.4192 38.9849C20.121 37.4645 19.9646 35.8924 19.9646 34.2831C19.9646 32.6738 20.121 31.1017 20.4192 29.5812L19.9285 29.485C20.5617 26.2567 21.8214 23.2547 23.575 20.6127L23.9916 20.8891C25.7416 18.2525 27.9935 15.9817 30.6096 14.215L30.3298 13.8006C32.9626 12.0227 35.9571 10.7447 39.1788 10.1018L39.2767 10.5921C40.7959 10.2889 42.3671 10.1299 43.9758 10.1299C45.5844 10.1299 47.1556 10.2889 48.6749 10.5921L48.7727 10.1018C51.9945 10.7447 54.989 12.0227 57.6218 13.8006L57.342 14.215C59.9581 15.9817 62.21 18.2525 63.96 20.8892L64.3766 20.6127Z"
@@ -97,36 +65,12 @@ export const dataList = [
             stroke="black"
             strokeDasharray="8 8"
           />
-          <path
-            d="M52.7556 8.74833L54.5242 1.88535"
-            stroke="black"
-            strokeMiterlimit="10"
-          />
-          <path
-            d="M34.1479 1.88535L35.9165 8.74833"
-            stroke="black"
-            strokeMiterlimit="10"
-          />
-          <path
-            d="M44.3362 0.566162V7.66646"
-            stroke="black"
-            strokeMiterlimit="10"
-          />
-          <path
-            d="M52.7556 59.818L54.5242 66.681"
-            stroke="black"
-            strokeMiterlimit="10"
-          />
-          <path
-            d="M34.1479 66.6809L35.9165 59.8179"
-            stroke="black"
-            strokeMiterlimit="10"
-          />
-          <path
-            d="M44.3362 68.0002V60.8999"
-            stroke="black"
-            strokeMiterlimit="10"
-          />
+          <path d="M52.7556 8.74833L54.5242 1.88535" stroke="black" strokeMiterlimit="10" />
+          <path d="M34.1479 1.88535L35.9165 8.74833" stroke="black" strokeMiterlimit="10" />
+          <path d="M44.3362 0.566162V7.66646" stroke="black" strokeMiterlimit="10" />
+          <path d="M52.7556 59.818L54.5242 66.681" stroke="black" strokeMiterlimit="10" />
+          <path d="M34.1479 66.6809L35.9165 59.8179" stroke="black" strokeMiterlimit="10" />
+          <path d="M44.3362 68.0002V60.8999" stroke="black" strokeMiterlimit="10" />
           <path
             d="M23.7908 17.6147H16.8012C7.77966 17.6147 0.470215 24.9903 0.470215 34.0935C0.470215 43.1966 7.77966 50.5722 16.8012 50.5722H23.4616"
             fill="white"
@@ -136,10 +80,7 @@ export const dataList = [
             stroke="black"
             strokeMiterlimit="10"
           />
-          <path
-            d="M8.72974 37.4346C17.9489 37.4346 25.4182 29.8976 25.4182 20.5951L8.72974 37.4346Z"
-            fill="white"
-          />
+          <path d="M8.72974 37.4346C17.9489 37.4346 25.4182 29.8976 25.4182 20.5951L8.72974 37.4346Z" fill="white" />
           <path
             d="M8.72974 37.4346C17.9489 37.4346 25.4182 29.8976 25.4182 20.5951"
             stroke="black"
@@ -192,10 +133,7 @@ export const dataList = [
             stroke="black"
             strokeMiterlimit="10"
           />
-          <path
-            d="M79.9424 37.4346C70.7233 37.4346 63.2539 29.8976 63.2539 20.5951L79.9424 37.4346Z"
-            fill="white"
-          />
+          <path d="M79.9424 37.4346C70.7233 37.4346 63.2539 29.8976 63.2539 20.5951L79.9424 37.4346Z" fill="white" />
           <path
             d="M79.9424 37.4346C70.7233 37.4346 63.2539 29.8976 63.2539 20.5951"
             stroke="black"
@@ -242,12 +180,7 @@ export const dataList = [
         </g>
         <defs>
           <clipPath id="clip0_4478_7616">
-            <rect
-              width="88.6728"
-              height="67.4338"
-              fill="white"
-              transform="translate(0 0.566162)"
-            />
+            <rect width="88.6728" height="67.4338" fill="white" transform="translate(0 0.566162)" />
           </clipPath>
         </defs>
       </svg>
@@ -259,19 +192,8 @@ export const dataList = [
   },
   {
     icon: (
-      <svg
-        width="83"
-        height="86"
-        viewBox="0 0 83 86"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M73.0379 72.3241H10.0599L1 80.0385H82.0978L73.0379 72.3241Z"
-          stroke="black"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
+      <svg width="83" height="86" viewBox="0 0 83 86" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M73.0379 72.3241H10.0599L1 80.0385H82.0978L73.0379 72.3241Z" stroke="black" strokeLinecap="round" strokeLinejoin="round" />
         <path
           d="M66.4207 32.9595H68.9556C71.2107 32.9595 73.0411 34.7916 73.0411 37.056V72.3239H10.0598V37.056C10.0598 34.7949 11.8869 32.9595 14.1453 32.9595H16.4004"
           stroke="black"
@@ -296,54 +218,14 @@ export const dataList = [
           strokeLinecap="round"
           strokeLinejoin="round"
         />
-        <path
-          d="M22.4583 38.1199H31.8572"
-          stroke="black"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M22.4583 41.0444H38.4447"
-          stroke="black"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M22.4583 47.5501H31.8572"
-          stroke="black"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M22.4583 50.4747H38.4447"
-          stroke="black"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M44.9263 38.1199H54.3252"
-          stroke="black"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M44.9263 41.0444H60.9127"
-          stroke="black"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M44.9263 47.5501H54.3252"
-          stroke="black"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M44.9263 50.4747H60.9127"
-          stroke="black"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
+        <path d="M22.4583 38.1199H31.8572" stroke="black" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M22.4583 41.0444H38.4447" stroke="black" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M22.4583 47.5501H31.8572" stroke="black" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M22.4583 50.4747H38.4447" stroke="black" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M44.9263 38.1199H54.3252" stroke="black" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M44.9263 41.0444H60.9127" stroke="black" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M44.9263 47.5501H54.3252" stroke="black" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M44.9263 50.4747H60.9127" stroke="black" strokeLinecap="round" strokeLinejoin="round" />
         <path
           d="M26.4515 1.64578H6.34985V22.2869H14.8402L19.0837 26.5452V22.2869H26.4515V1.64578Z"
           fill="#EDEDED"
@@ -362,13 +244,7 @@ export const dataList = [
           stroke="black"
           strokeMiterlimit="10"
         />
-        <path
-          d="M15.2144 68.9353H68.1927"
-          stroke="black"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeDasharray="6 6"
-        />
+        <path d="M15.2144 68.9353H68.1927" stroke="black" strokeLinecap="round" strokeLinejoin="round" strokeDasharray="6 6" />
       </svg>
     ),
     title: 'Early Access to Beta Features ',
@@ -378,13 +254,7 @@ export const dataList = [
   },
   {
     icon: (
-      <svg
-        width="95"
-        height="93"
-        viewBox="0 0 95 93"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
+      <svg width="95" height="93" viewBox="0 0 95 93" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           d="M47.4489 16.7659C51.7705 16.7659 55.2738 13.2703 55.2738 8.95825C55.2738 4.64621 51.7705 1.15062 47.4489 1.15062C43.1274 1.15062 39.624 4.64621 39.624 8.95825C39.624 13.2703 43.1274 16.7659 47.4489 16.7659Z"
           fill="#FFE866"
@@ -434,13 +304,7 @@ export const dataList = [
   },
   {
     icon: (
-      <svg
-        width="74"
-        height="74"
-        viewBox="0 0 74 74"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
+      <svg width="74" height="74" viewBox="0 0 74 74" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="36.6095" cy="37.3905" r="36.1095" stroke="black" />
         <path
           d="M57.3471 31.4353L51.4502 34.2151L36.8307 41.1086L22.2111 34.2151L16.3142 31.4353L36.8307 21.7636L57.3471 31.4353Z"
@@ -448,38 +312,17 @@ export const dataList = [
           stroke="black"
           strokeMiterlimit="10"
         />
-        <path
-          d="M36.83 41.1091V54.6355L22.2104 47.7435V34.2156L36.83 41.1091Z"
-          fill="#D9D9D9"
-          stroke="black"
-          strokeMiterlimit="10"
-        />
-        <path
-          d="M51.4504 34.2156V47.7435L36.8308 54.6355V41.1091L51.4504 34.2156Z"
-          stroke="black"
-          strokeMiterlimit="10"
-        />
-        <path
-          d="M57.3464 31.4362V38.3695"
-          stroke="black"
-          strokeMiterlimit="10"
-        />
+        <path d="M36.83 41.1091V54.6355L22.2104 47.7435V34.2156L36.83 41.1091Z" fill="#D9D9D9" stroke="black" strokeMiterlimit="10" />
+        <path d="M51.4504 34.2156V47.7435L36.8308 54.6355V41.1091L51.4504 34.2156Z" stroke="black" strokeMiterlimit="10" />
+        <path d="M57.3464 31.4362V38.3695" stroke="black" strokeMiterlimit="10" />
         <path
           d="M57.3467 43.3039C58.6372 43.3039 59.6834 42.2577 59.6834 40.9672C59.6834 39.6767 58.6372 38.6305 57.3467 38.6305C56.0562 38.6305 55.01 39.6767 55.01 40.9672C55.01 42.2577 56.0562 43.3039 57.3467 43.3039Z"
           fill="#FFE866"
           stroke="black"
           strokeMiterlimit="10"
         />
-        <path
-          d="M36.8303 69.268C19.3481 69.268 5.17627 55.0946 5.17627 37.6124"
-          stroke="black"
-          strokeMiterlimit="10"
-        />
-        <path
-          d="M36.8308 5.95788C54.313 5.95788 68.4848 20.1297 68.4848 37.6119"
-          stroke="black"
-          strokeMiterlimit="10"
-        />
+        <path d="M36.8303 69.268C19.3481 69.268 5.17627 55.0946 5.17627 37.6124" stroke="black" strokeMiterlimit="10" />
+        <path d="M36.8308 5.95788C54.313 5.95788 68.4848 20.1297 68.4848 37.6119" stroke="black" strokeMiterlimit="10" />
       </svg>
     ),
     title: 'Career Opportunities',
@@ -489,13 +332,7 @@ export const dataList = [
   },
   {
     icon: (
-      <svg
-        width="78"
-        height="78"
-        viewBox="0 0 78 78"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
+      <svg width="78" height="78" viewBox="0 0 78 78" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           d="M77.0227 38.9886H60.4076C60.4076 27.1735 50.8265 17.5924 39.0114 17.5924C27.1962 17.5924 17.6151 27.1735 17.6151 38.9886C17.6151 50.8038 27.1962 60.3849 39.0114 60.3849V77C18.0156 77 1 59.9781 1 38.9886C1 17.9992 18.0156 0.977295 39.0114 0.977295C60.0071 0.977295 77.0227 17.9929 77.0227 38.9886Z"
           fill="white"
@@ -514,21 +351,9 @@ export const dataList = [
           stroke="black"
           strokeMiterlimit="10"
         />
-        <path
-          d="M39.0115 17.2603V23.4558"
-          stroke="black"
-          strokeMiterlimit="10"
-        />
-        <path
-          d="M17.615 39.4951H23.8105"
-          stroke="black"
-          strokeMiterlimit="10"
-        />
-        <path
-          d="M39.011 26.2345V39.4953L32.9407 32.8618"
-          stroke="black"
-          strokeMiterlimit="10"
-        />
+        <path d="M39.0115 17.2603V23.4558" stroke="black" strokeMiterlimit="10" />
+        <path d="M17.615 39.4951H23.8105" stroke="black" strokeMiterlimit="10" />
+        <path d="M39.011 26.2345V39.4953L32.9407 32.8618" stroke="black" strokeMiterlimit="10" />
       </svg>
     ),
     title: 'Timely Support',

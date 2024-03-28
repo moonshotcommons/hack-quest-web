@@ -5,21 +5,13 @@ import { CourseType } from '@/service/webApi/course/type';
 import { useGotoNextLesson } from '@/hooks/courses/useGotoNextLesson';
 import emitter from '@/store/emitter';
 import MobCompleteModal from '@/components/Mobile/MobCompleteModal';
-import {
-  FooterButtonStatus,
-  FooterButtonText,
-  UgcContext
-} from '@/app/[lang]/(web)/(learn page)/ugc/[courseId]/learn/constants/type';
+import { FooterButtonStatus, FooterButtonText, UgcContext } from '@/app/[lang]/(web)/(learn page)/ugc/[courseId]/learn/constants/type';
 
 interface UgcFooterProp {}
 
 const UgcFooter: React.FC<UgcFooterProp> = ({}) => {
   const { footerBtn, lesson, setFooterBtn } = useContext(UgcContext);
-  const {
-    onNextClick,
-    completeModalRef,
-    loading: nextLoading
-  } = useGotoNextLesson(lesson!, CourseType.UGC, true);
+  const { onNextClick, completeModalRef, loading: nextLoading } = useGotoNextLesson(lesson!, CourseType.UGC, true);
 
   const handleNext = () => {
     setFooterBtn({

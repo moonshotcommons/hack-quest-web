@@ -15,13 +15,7 @@ const JoinedSuccess: FC<JoinedSuccessProps> = ({ onClose }) => {
   return (
     <div className="flex h-full w-full flex-col justify-between">
       <div className="flex flex-col gap-8">
-        <svg
-          width="48"
-          height="48"
-          viewBox="0 0 48 48"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect width="48" height="48" fill="white" />
           <path
             fillRule="evenodd"
@@ -33,22 +27,14 @@ const JoinedSuccess: FC<JoinedSuccessProps> = ({ onClose }) => {
 
         <h1 className="text-h3 flex gap-2 text-neutral-off-black">
           <span>{t('waitListJoined')}</span>
-          <svg
-            width="32"
-            height="32"
-            viewBox="0 0 32 32"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M28.9723 7.57334L11.6389 26.24C11.3876 26.511 11.0352 26.6655 10.6656 26.6667C10.3112 26.6687 9.97057 26.5296 9.71895 26.28L3.05228 19.6133C2.52945 19.0905 2.52945 18.2428 3.05228 17.72C3.57511 17.1972 4.42278 17.1972 4.94561 17.72L10.6656 23.4133L27.0256 5.76001C27.3394 5.37304 27.8428 5.19329 28.3307 5.29397C28.8186 5.39465 29.2097 5.75896 29.3447 6.23853C29.4797 6.71811 29.3361 7.23293 28.9723 7.57334Z"
               fill="#06884A"
             />
           </svg>
         </h1>
-        <p className="body-l text-neutral-medium-gray">
-          {t('waitListJoinedDesc')}
-        </p>
+        <p className="body-l text-neutral-medium-gray">{t('waitListJoinedDesc')}</p>
       </div>
       <Button
         onClick={() => {

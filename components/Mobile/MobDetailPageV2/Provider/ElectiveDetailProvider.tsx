@@ -17,10 +17,7 @@ export const ElectiveDetailContext = createContext<{
   refreshLearningTrackDetail: () => {}
 });
 
-const ElectiveDetailProvider: FC<ElectiveDetailProviderProps> = ({
-  courseId,
-  children
-}) => {
+const ElectiveDetailProvider: FC<ElectiveDetailProviderProps> = ({ courseId, children }) => {
   const { data, refresh } = useRequest(() => {
     return webApi.courseApi.getCourseDetail(courseId, false, true);
   });

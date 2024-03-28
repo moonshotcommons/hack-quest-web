@@ -44,10 +44,7 @@ const User: FC<UserProps> = () => {
 
   return (
     <div className="relative h-full">
-      <div
-        className="relative  flex h-full items-center justify-end"
-        ref={userDropCardRef as any}
-      >
+      <div className="relative  flex h-full items-center justify-end" ref={userDropCardRef as any}>
         <div className="flex h-full cursor-pointer items-center justify-end">
           {isLogin ? (
             <div className="flex-row-center body-s text-neutral-off-black">
@@ -59,9 +56,7 @@ const User: FC<UserProps> = () => {
                 <div
                   className={cn(
                     'relative flex h-[36px] w-[36px] items-center justify-center overflow-hidden rounded-full bg-[#8d8d8d]',
-                    pathname === MenuLink.USER_PROFILE
-                      ? 'box-content border-[5px] border-[#ffd952]'
-                      : ''
+                    pathname === MenuLink.USER_PROFILE ? 'box-content border-[5px] border-[#ffd952]' : ''
                   )}
                 >
                   <Image
@@ -76,14 +71,8 @@ const User: FC<UserProps> = () => {
                     }}
                   ></Image>
                 </div>
-                <DropDownMotion
-                  open={!!(userInfo && showUserDropCard)}
-                  className={'-right-[15px]'}
-                >
-                  <UserDropCard
-                    userInfo={(userInfo as LoginResponse) || {}}
-                    onClose={() => setShowUserDropCard(false)}
-                  ></UserDropCard>
+                <DropDownMotion open={!!(userInfo && showUserDropCard)} className={'-right-[15px]'}>
+                  <UserDropCard userInfo={(userInfo as LoginResponse) || {}} onClose={() => setShowUserDropCard(false)}></UserDropCard>
                 </DropDownMotion>
               </div>
             </div>

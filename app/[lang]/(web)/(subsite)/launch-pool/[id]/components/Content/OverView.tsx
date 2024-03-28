@@ -34,10 +34,7 @@ const OverView: React.FC<OverViewProp> = () => {
             </div>
           ),
           button: (
-            <Button
-              type="primary"
-              className="button-text-l h-[60px] w-full uppercase"
-            >
+            <Button type="primary" className="button-text-l h-[60px] w-full uppercase">
               {t('joinWaitlist')}
             </Button>
           )
@@ -56,10 +53,7 @@ const OverView: React.FC<OverViewProp> = () => {
             </div>
           ),
           button: !launchInfo.participate ? (
-            <Button
-              type="primary"
-              className="button-text-l h-[60px] w-full uppercase"
-            >
+            <Button type="primary" className="button-text-l h-[60px] w-full uppercase">
               {t('participateNow')}
             </Button>
           ) : null
@@ -106,10 +100,7 @@ const OverView: React.FC<OverViewProp> = () => {
               {t('fuelingEnded')}
             </Button>
           ) : (
-            <Button
-              type="primary"
-              className="button-text-l h-[60px] w-full  uppercase "
-            >
+            <Button type="primary" className="button-text-l h-[60px] w-full  uppercase ">
               {t('claimToken')}
             </Button>
           )
@@ -146,26 +137,20 @@ const OverView: React.FC<OverViewProp> = () => {
             <Image src={HackLogo} alt="hack-logo" width={280}></Image>
             {statusRender().topTag}
           </div>
-          <h1 className="body-l mt-[4px] text-neutral-off-black">
-            {launchInfo.name}
-          </h1>
+          <h1 className="body-l mt-[4px] text-neutral-off-black">{launchInfo.name}</h1>
         </div>
 
         <div className="body-s flex text-neutral-medium-gray">
           <div className="flex-1 ">
             <p> {t('totalParticipatedUsers')}</p>
             <p className="body-xl-bold mt-[4px] text-neutral-black">
-              {launchInfo.status === LaunchStatus.UN_FUELING
-                ? '??'
-                : separationNumber(35120)}
+              {launchInfo.status === LaunchStatus.UN_FUELING ? '??' : separationNumber(35120)}
             </p>
           </div>
           <div className="flex-1 ">
             <p> {t('totalFuel')}</p>
             <p className="body-xl-bold mt-[4px] text-neutral-black">
-              {launchInfo.status === LaunchStatus.UN_FUELING
-                ? '??'
-                : separationNumber(35120)}
+              {launchInfo.status === LaunchStatus.UN_FUELING ? '??' : separationNumber(35120)}
             </p>
           </div>
         </div>
@@ -188,19 +173,18 @@ const OverView: React.FC<OverViewProp> = () => {
             <div className=""> {t('blockchainNetwork')}</div>
             <div className="text-neutral-black">Manta Network</div>
           </div>
-          {launchInfo.participate &&
-            launchInfo.status !== LaunchStatus.ENDED && (
-              <div className="flex [&>div]:flex-1">
-                <div className=""> {t('yourFuel')}</div>
-                <div className="flex cursor-pointer items-center gap-[8px] text-neutral-off-black">
-                  <div className="relative">
-                    {t('checkYourFuelingBoard')}
-                    <div className="absolute bottom-0 left-0 h-[2px] w-full bg-yellow-primary"></div>
-                  </div>
-                  <IoIosArrowForward size={18} />
+          {launchInfo.participate && launchInfo.status !== LaunchStatus.ENDED && (
+            <div className="flex [&>div]:flex-1">
+              <div className=""> {t('yourFuel')}</div>
+              <div className="flex cursor-pointer items-center gap-[8px] text-neutral-off-black">
+                <div className="relative">
+                  {t('checkYourFuelingBoard')}
+                  <div className="absolute bottom-0 left-0 h-[2px] w-full bg-yellow-primary"></div>
                 </div>
+                <IoIosArrowForward size={18} />
               </div>
-            )}
+            </div>
+          )}
         </div>
         {statusRender().button}
         <div className="my-[10px] h-[1px] w-full bg-neutral-light-gray"></div>

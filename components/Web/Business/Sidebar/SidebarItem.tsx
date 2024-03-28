@@ -10,13 +10,7 @@ interface SidebarItemProps {
   selectStyle?: CSSProperties;
 }
 
-const SidebarItem: FC<SidebarItemProps> = ({
-  children,
-  onSelect,
-  item,
-  select,
-  selectStyle = {}
-}) => {
+const SidebarItem: FC<SidebarItemProps> = ({ children, onSelect, item, select, selectStyle = {} }) => {
   return (
     <div
       className={cn(
@@ -31,9 +25,7 @@ const SidebarItem: FC<SidebarItemProps> = ({
         if (!item.disable) onSelect(item.key, item);
       }}
     >
-      <div className="line-clamp-1 flex w-full items-center justify-center">
-        {children}
-      </div>
+      <div className="line-clamp-1 flex w-full items-center justify-center">{children}</div>
     </div>
   );
 };

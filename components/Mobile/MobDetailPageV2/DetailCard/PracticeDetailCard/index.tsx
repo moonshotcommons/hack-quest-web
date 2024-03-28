@@ -18,14 +18,9 @@ const PracticeDetailCard: FC<PracticeDetailCardProps> = ({ courseDetail }) => {
       <div className="flex flex-col gap-6 p-6">
         <p className="body-xl-bold">{courseDetail.title}</p>
         <div className="flex flex-col gap-4">
-          <IconTextTag
-            type={IconTextTagType.LESSONS_COUNT}
-            text={`${courseDetail.totalPages} lessons`}
-          ></IconTextTag>
+          <IconTextTag type={IconTextTagType.LESSONS_COUNT} text={`${courseDetail.totalPages} lessons`}></IconTextTag>
           <IconTextTag type={IconTextTagType.DEVICE_ACCESS}></IconTextTag>
-          {courseDetail.certificationId && (
-            <IconTextTag type={IconTextTagType.CERTIFICATION}></IconTextTag>
-          )}
+          {courseDetail.certificationId && <IconTextTag type={IconTextTagType.CERTIFICATION}></IconTextTag>}
         </div>
         <PracticeStatusButton courseDetail={courseDetail} />
       </div>

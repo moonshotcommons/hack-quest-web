@@ -15,11 +15,7 @@ const NavbarProvider: FC<NavbarProviderProps> = ({ children }) => {
     return <NavBar navList={navbarList} />;
   }, []);
 
-  return (
-    <NavbarContext.Provider value={{ navbarInstance: navbar }}>
-      {children}
-    </NavbarContext.Provider>
-  );
+  return <NavbarContext.Provider value={{ navbarInstance: navbar }}>{children}</NavbarContext.Provider>;
 };
 
 export default NavbarProvider;

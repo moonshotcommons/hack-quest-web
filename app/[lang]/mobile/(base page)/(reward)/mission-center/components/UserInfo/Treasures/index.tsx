@@ -4,9 +4,7 @@ import Image from 'next/image';
 import ChestImg from '@/public/images/mission-center/chest_img.png';
 import { UserTreasuresType } from '@/service/webApi/missionCenter/type';
 import { BurialPoint } from '@/helper/burialPoint';
-import TreasureModal, {
-  TreasureModalRef
-} from '@/components/Web/Business/TreasureModal';
+import TreasureModal, { TreasureModalRef } from '@/components/Web/Business/TreasureModal';
 import Loading from '@/public/images/other/loading.png';
 
 interface TreasuresProp {
@@ -45,12 +43,7 @@ const Treasures: React.FC<TreasuresProp> = ({ userTreasure }) => {
             onClick={() => openChest(i)}
           >
             {curId === userTreasure[i]?.id ? (
-              <Image
-                src={Loading}
-                width={40}
-                alt="loading"
-                className="animate-spin object-contain opacity-100"
-              ></Image>
+              <Image src={Loading} width={40} alt="loading" className="animate-spin object-contain opacity-100"></Image>
             ) : userTreasure.length > i ? (
               <Image src={ChestImg} width={60} alt="chestImg"></Image>
             ) : null}

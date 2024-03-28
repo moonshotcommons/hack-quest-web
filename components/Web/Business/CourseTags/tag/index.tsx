@@ -8,18 +8,12 @@ interface TagProps {
   size?: 'small' | 'large';
 }
 
-const Tag: React.FC<
-  TagProps & Omit<React.HTMLAttributes<HTMLElement>, 'className'>
-> = (props) => {
+const Tag: React.FC<TagProps & Omit<React.HTMLAttributes<HTMLElement>, 'className'>> = (props) => {
   const { icon, children, className, size = 'small', ...rest } = props;
 
   return (
     <span
-      className={cn(
-        `button-text-s flex items-center gap-2  whitespace-nowrap`,
-        size === 'large' ? 'gap-[10px] text-base' : '',
-        className
-      )}
+      className={cn(`button-text-s flex items-center gap-2  whitespace-nowrap`, size === 'large' ? 'gap-[10px] text-base' : '', className)}
       {...rest}
     >
       <span className="text-course-card-title-text-color">{icon}</span>

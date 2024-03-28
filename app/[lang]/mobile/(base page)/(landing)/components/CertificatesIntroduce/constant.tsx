@@ -1,13 +1,6 @@
 export const icons = {
   leftCardCircle: (
-    <svg
-      width="26"
-      height="26"
-      viewBox="0 0 26 26"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className="z-[999]"
-    >
+    <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg" className="z-[999]">
       <path
         d="M13 25C19.6274 25 25 19.6274 25 13C25 6.37258 19.6274 1 13 1C6.37258 1 1 6.37258 1 13C1 19.6274 6.37258 25 13 25Z"
         fill="white"
@@ -25,14 +18,7 @@ export const icons = {
     </svg>
   ),
   rightCardCircle: (
-    <svg
-      width="26"
-      height="26"
-      viewBox="0 0 26 26"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className="z-[999]"
-    >
+    <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg" className="z-[999]">
       <path
         d="M12.9996 25C19.6269 25 24.9993 19.6274 24.9993 13C24.9993 6.37259 19.6269 1 12.9996 1C6.37242 1 1 6.37259 1 13C1 19.6274 6.37242 25 12.9996 25Z"
         fill="url(#paint0_linear_595_11448)"
@@ -41,14 +27,7 @@ export const icons = {
         strokeMiterlimit="10"
       />
       <defs>
-        <linearGradient
-          id="paint0_linear_595_11448"
-          x1="1"
-          y1="13"
-          x2="24.9996"
-          y2="13"
-          gradientUnits="userSpaceOnUse"
-        >
+        <linearGradient id="paint0_linear_595_11448" x1="1" y1="13" x2="24.9996" y2="13" gradientUnits="userSpaceOnUse">
           <stop stopColor="white" />
           <stop offset="1" stopColor="#FFE866" />
         </linearGradient>
@@ -56,13 +35,7 @@ export const icons = {
     </svg>
   ),
   code: (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 16 16"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         fillRule="evenodd"
         clipRule="evenodd"
@@ -84,13 +57,7 @@ export const icons = {
     </svg>
   ),
   course: (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 16 16"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         fillRule="evenodd"
         clipRule="evenodd"
@@ -106,20 +73,8 @@ export const icons = {
     </svg>
   ),
   rightArrow: (
-    <svg
-      width="12"
-      height="13"
-      viewBox="0 0 12 13"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M3.5 3L8.5 6.52941L3.5 10.0588"
-        stroke="#0B0B0B"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
+    <svg width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M3.5 3L8.5 6.52941L3.5 10.0588" stroke="#0B0B0B" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )
 };

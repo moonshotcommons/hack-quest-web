@@ -1,8 +1,5 @@
 import { FC, useEffect } from 'react';
-import {
-  LessonReadingData,
-  lessonTypeData
-} from '@/app/[lang]/mobile/(learn page)/ugc/[courseId]/learn/components/UgcSidebar/constant';
+import { LessonReadingData, lessonTypeData } from '@/app/[lang]/mobile/(learn page)/ugc/[courseId]/learn/components/UgcSidebar/constant';
 import ComponentRenderer from '../UgcRender';
 import webApi from '@/service';
 import { useUnitNavList } from '@/hooks/courses/useUnitNavList';
@@ -28,15 +25,10 @@ const LessonContainer: FC<LessonContainerProps> = (props) => {
       <h2 className="text-h2-mob">{lesson.title}</h2>
       <div className="mt-[.625rem] flex items-center gap-[.625rem]">
         <span>{lessonTypeData[lesson.type].icon}</span>
-        <span className="caption-12pt">
-          {lessonTypeData[lesson.type].label}
-        </span>
+        <span className="caption-12pt">{lessonTypeData[lesson.type].label}</span>
       </div>
       <div className="w-full pb-10">
-        <ComponentRenderer
-          parent={lesson}
-          component={lesson.content}
-        ></ComponentRenderer>
+        <ComponentRenderer parent={lesson} component={lesson.content}></ComponentRenderer>
       </div>
     </div>
   );

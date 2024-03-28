@@ -11,17 +11,9 @@ const ConnectWallet: FC<ConnectWalletProps> = (props) => {
   const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
   return (
     <div className="flex h-full  flex-col gap-5 py-5">
-      <h2 className="text-h2-mob text-neutral-off-black">
-        {t('connectWallet')}
-      </h2>
+      <h2 className="text-h2-mob text-neutral-off-black">{t('connectWallet')}</h2>
       <div className="flex flex-col gap-4 rounded-[16px] bg-neutral-off-white p-4">
-        <svg
-          width="59"
-          height="34"
-          viewBox="0 0 59 34"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+        <svg width="59" height="34" viewBox="0 0 59 34" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M42.0595 33C50.8632 33 58 25.8366 58 17C58 8.16344 50.8632 1 42.0595 1C33.2557 1 26.1189 8.16344 26.1189 17C26.1189 25.8366 33.2557 33 42.0595 33Z"
             fill="white"
@@ -53,15 +45,10 @@ const ConnectWallet: FC<ConnectWalletProps> = (props) => {
             strokeDasharray="6 6"
           />
         </svg>
-        <p className="body-m text-neutral-off-black">
-          {t('connectWalletWarn')}
-        </p>
+        <p className="body-m text-neutral-off-black">{t('connectWalletWarn')}</p>
       </div>
 
-      <Button
-        type="primary"
-        className="button-text-m w-[165px] px-0 py-4 uppercase text-neutral-black"
-      >
+      <Button type="primary" className="button-text-m w-[165px] px-0 py-4 uppercase text-neutral-black">
         {t('connectWallet')}
       </Button>
     </div>

@@ -25,31 +25,19 @@ const getTextClassNames = (annotations: AnnotationType) => {
   const className = cn(
     `py-1`,
     annotations.bold ? 'font-bold' : '',
-    annotations.code
-      ? 'px-[0.2rem] text-[85%] text-[#eb5757] bg-renderer-code-bg mx-[0.25rem]'
-      : '',
+    annotations.code ? 'px-[0.2rem] text-[85%] text-[#eb5757] bg-renderer-code-bg mx-[0.25rem]' : '',
     annotations.italic ? 'italic' : '',
     annotations.strikethrough ? '' : '',
     annotations.underline ? 'underline' : '',
     annotations.color !== 'default'
-      ? `${
-          annotations.color.includes('background')
-            ? `bg-[${annotations.color}]`
-            : `text-${annotations.color}-400`
-        }`
+      ? `${annotations.color.includes('background') ? `bg-[${annotations.color}]` : `text-${annotations.color}-400`}`
       : ''
   );
   return className;
 };
 
 const TextRenderer: FC<TextRendererProps> = (props) => {
-  const {
-    richTextArr,
-    fontSize: propsFontSize,
-    letterSpacing = '0.36px',
-    fontStyle = '',
-    fontFamily
-  } = props;
+  const { richTextArr, fontSize: propsFontSize, letterSpacing = '0.36px', fontStyle = '', fontFamily } = props;
 
   // const { fontSize: contextFontSize } = useContext(RendererContext)
   //   .textRenderer! || { fontSize: '14px' };
@@ -58,10 +46,7 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
   //处理blog居中的text
   if (richTextArr[0]?.plain_text?.includes('<<image>>')) {
     const newRichTextArr = deepClone(richTextArr);
-    newRichTextArr[0].plain_text = newRichTextArr[0].plain_text.replace(
-      /<<image>>/g,
-      ''
-    );
+    newRichTextArr[0].plain_text = newRichTextArr[0].plain_text.replace(/<<image>>/g, '');
     const newProps = {
       ...props,
       richTextArr: newRichTextArr
@@ -75,18 +60,11 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
         const annotations = richText.annotations;
         const className = getTextClassNames(annotations);
 
-        if (
-          richText.annotations.code &&
-          /(@@)(((.|\n)*?))((##))/gim.test(richText.plain_text)
-        ) {
+        if (richText.annotations.code && /(@@)(((.|\n)*?))((##))/gim.test(richText.plain_text)) {
           return (
             <DropAnswer
               key={index}
-              answer={
-                [...richText.plain_text.matchAll(/(@@)((.|\n)*?)(##)/gim)].map(
-                  (item) => item[2].trim()
-                )[0]
-              }
+              answer={[...richText.plain_text.matchAll(/(@@)((.|\n)*?)(##)/gim)].map((item) => item[2].trim())[0]}
             ></DropAnswer>
           );
         }
@@ -103,16 +81,10 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
                 letterSpacing,
                 fontFamily,
                 color:
-                  annotations.color !== 'default' &&
-                  !annotations.code &&
-                  !annotations.color.includes('background')
+                  annotations.color !== 'default' && !annotations.code && !annotations.color.includes('background')
                     ? annotations.color
                     : '',
-                backgroundColor:
-                  annotations.color !== 'default' &&
-                  annotations.color.includes('background')
-                    ? annotations.color
-                    : ''
+                backgroundColor: annotations.color !== 'default' && annotations.color.includes('background') ? annotations.color : ''
               }}
             >
               {richText.plain_text}
@@ -139,16 +111,8 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
               fontSize,
               letterSpacing,
               fontFamily,
-              color:
-                annotations.color !== 'default' &&
-                !annotations.color.includes('background')
-                  ? annotations.color
-                  : '',
-              backgroundColor:
-                annotations.color !== 'default' &&
-                annotations.color.includes('background')
-                  ? annotations.color
-                  : ''
+              color: annotations.color !== 'default' && !annotations.color.includes('background') ? annotations.color : '',
+              backgroundColor: annotations.color !== 'default' && annotations.color.includes('background') ? annotations.color : ''
             }}
           >
             {richText.plain_text}

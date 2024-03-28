@@ -1,13 +1,5 @@
 'use client';
-import {
-  ForwardRefRenderFunction,
-  ReactNode,
-  forwardRef,
-  useEffect,
-  useImperativeHandle,
-  useRef,
-  useState
-} from 'react';
+import { ForwardRefRenderFunction, ReactNode, forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import BScroll from '@better-scroll/core';
 import { useInterval } from 'ahooks';
 interface ScrollContainerProps {
@@ -24,10 +16,10 @@ export interface ScrollContainerRef {
   continue: () => void;
 }
 
-const ScrollContainer: ForwardRefRenderFunction<
-  ScrollContainerRef,
-  ScrollContainerProps
-> = ({ className, children, dir = 'left', allowPausing = false }, ref) => {
+const ScrollContainer: ForwardRefRenderFunction<ScrollContainerRef, ScrollContainerProps> = (
+  { className, children, dir = 'left', allowPausing = false },
+  ref
+) => {
   const scrollContainerInstance = useRef<HTMLDivElement>(null);
   const contentInstance = useRef<HTMLDivElement>(null);
   const [interval, setInterval] = useState<number>(30);
@@ -38,9 +30,7 @@ const ScrollContainer: ForwardRefRenderFunction<
     setStartX((state) => {
       if (scrollContainerInstance.current && contentInstance.current) {
         if (dir === 'left') {
-          let max =
-            scrollContainerInstance.current?.clientWidth -
-            contentInstance.current?.clientWidth;
+          let max = scrollContainerInstance.current?.clientWidth - contentInstance.current?.clientWidth;
           if (state <= max && add.current === 1) {
             add.current = -1;
           }
@@ -50,9 +40,7 @@ const ScrollContainer: ForwardRefRenderFunction<
           }
           return state - add.current;
         } else {
-          let min =
-            scrollContainerInstance.current?.clientWidth -
-            contentInstance.current?.clientWidth;
+          let min = scrollContainerInstance.current?.clientWidth - contentInstance.current?.clientWidth;
           if (state >= 0 && add.current === 1) {
             add.current = -1;
           }
@@ -84,9 +72,7 @@ const ScrollContainer: ForwardRefRenderFunction<
   useEffect(() => {
     let bs: BScroll;
     if (scrollContainerInstance.current && contentInstance.current) {
-      let diff =
-        scrollContainerInstance.current?.clientWidth -
-        contentInstance.current?.clientWidth;
+      let diff = scrollContainerInstance.current?.clientWidth - contentInstance.current?.clientWidth;
       let max = 0;
       let startX = 0;
       if (dir === 'left') {
@@ -138,11 +124,7 @@ const ScrollContainer: ForwardRefRenderFunction<
         setInterval(interval > 30 ? 30 : 31);
       }}
     >
-      <div
-        className="inline-block min-w-full"
-        ref={contentInstance}
-        style={{ transform: `translateX(${startX}px)` }}
-      >
+      <div className="inline-block min-w-full" ref={contentInstance} style={{ transform: `translateX(${startX}px)` }}>
         {children}
       </div>
     </div>

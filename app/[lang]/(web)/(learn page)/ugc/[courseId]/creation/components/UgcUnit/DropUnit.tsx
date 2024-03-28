@@ -12,12 +12,7 @@ interface DropUnitProp {
   refreshUnit: VoidFunction;
 }
 
-const DropUnit: React.FC<DropUnitProp> = ({
-  unitList,
-  children,
-  index: targetIndex,
-  refreshUnit
-}) => {
+const DropUnit: React.FC<DropUnitProp> = ({ unitList, children, index: targetIndex, refreshUnit }) => {
   const { setLoading } = useUgcCreationStore(
     useShallow((state) => ({
       setLoading: state.setLoading

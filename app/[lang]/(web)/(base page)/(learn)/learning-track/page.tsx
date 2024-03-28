@@ -8,9 +8,7 @@ interface SearchParamsType {
   };
 }
 
-export async function generateMetadata({
-  searchParams
-}: SearchParamsType): Promise<Metadata> {
+export async function generateMetadata({ searchParams }: SearchParamsType): Promise<Metadata> {
   const metadata: Metadata = {
     title: 'HackQuest Learning Track',
     alternates: {

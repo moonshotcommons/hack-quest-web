@@ -10,10 +10,7 @@ interface CourseMarketProps {
   searchParams: SearchParamsType;
 }
 
-const CourseMarket: FC<CourseMarketProps> = async ({
-  searchParams = {},
-  params: { slug = [] }
-}) => {
+const CourseMarket: FC<CourseMarketProps> = async ({ searchParams = {}, params: { slug = [] } }) => {
   const minPage = Number(slug[1]) < 1 ? 1 : Number(slug[1]);
   const page = slug[0] === 'p' ? minPage : 1;
   searchParams.sort = searchParams.sort || '-createdAt';
@@ -25,11 +22,7 @@ const CourseMarket: FC<CourseMarketProps> = async ({
   });
   return (
     <>
-      <CourseMarketPage
-        page={page}
-        searchParams={searchParams}
-        course={course}
-      />
+      <CourseMarketPage page={page} searchParams={searchParams} course={course} />
     </>
   );
 };

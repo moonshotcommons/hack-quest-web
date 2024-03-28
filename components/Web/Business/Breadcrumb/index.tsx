@@ -17,8 +17,7 @@ const Breadcrumb: React.FC = () => {
   const getLearningTrackDetail = (id: string) => {
     return new Promise(async (resolve) => {
       if (id) {
-        const res =
-          await webApi.learningTrackApi.getLearningTrackDetailAndCourses(id);
+        const res = await webApi.learningTrackApi.getLearningTrackDetailAndCourses(id);
         resolve(res);
       } else {
         resolve(false);
@@ -104,11 +103,7 @@ const Breadcrumb: React.FC = () => {
             linkIdsStr += `&${navIdType[i]}=${v.id}`;
             return {
               label: v.title || v.name,
-              link: !v.menu_
-                ? `${navLinks[i]}/${v.id}?menu=${query.get(
-                    'menu'
-                  )}${linkIdsStr}`
-                : ''
+              link: !v.menu_ ? `${navLinks[i]}/${v.id}?menu=${query.get('menu')}${linkIdsStr}` : ''
             };
           } else {
             return {};

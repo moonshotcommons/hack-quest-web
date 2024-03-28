@@ -1,12 +1,7 @@
 import { defineConfig } from '@wagmi/cli';
 import { react } from '@wagmi/cli/plugins';
 
-import {
-  LaunchapToken,
-  Launchpad,
-  StakingToken,
-  SBTManager
-} from '@/config/abi';
+import { LaunchapToken, Launchpad, StakingToken, SBTManager } from '@/config/abi';
 
 /**
  * Generate contract code

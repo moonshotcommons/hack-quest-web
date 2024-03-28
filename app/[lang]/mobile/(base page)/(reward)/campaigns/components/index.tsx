@@ -1,7 +1,5 @@
 'use client';
-import CertificationModal, {
-  CertificationModalInstance
-} from '@/components/Web/Business/Certification/CertificationModal';
+import CertificationModal, { CertificationModalInstance } from '@/components/Web/Business/Certification/CertificationModal';
 import { BurialPoint } from '@/helper/burialPoint';
 import Loading from '@/public/images/other/loading.png';
 import webApi from '@/service';
@@ -113,12 +111,7 @@ const Campaigns: React.FC<CampaignsProp> = () => {
             <Mantle />
           ) : (
             <div className="flex-center fixed left-0 top-0 h-[100vh] w-[100vw] ">
-              <Image
-                src={Loading}
-                width={40}
-                alt="loading"
-                className="absolute animate-spin object-contain opacity-100"
-              ></Image>
+              <Image src={Loading} width={40} alt="loading" className="absolute animate-spin object-contain opacity-100"></Image>
             </div>
           )}
         </div>
@@ -126,9 +119,7 @@ const Campaigns: React.FC<CampaignsProp> = () => {
           ref={certificationModalRef}
           certification={mantles[curIndex]?.certification || {}}
           showCoin={true}
-          refreshCertification={() =>
-            getCampaignsInfo(params.campaignId as string)
-          }
+          refreshCertification={() => getCampaignsInfo(params.campaignId as string)}
         />
       </div>
     </MantleContext.Provider>

@@ -6,11 +6,7 @@ export enum LaunchPoolProjectStatus {
   END = 'end'
 }
 
-export const LIVE_NOW_STATUS = [
-  LaunchPoolProjectStatus.FUELING,
-  LaunchPoolProjectStatus.ALLOCATION,
-  LaunchPoolProjectStatus.AIRDROP
-];
+export const LIVE_NOW_STATUS = [LaunchPoolProjectStatus.FUELING, LaunchPoolProjectStatus.ALLOCATION, LaunchPoolProjectStatus.AIRDROP];
 export interface LaunchPoolProjectType {
   id: string;
   name: string;
@@ -34,6 +30,8 @@ export interface LaunchPoolProjectType {
   status: LaunchPoolProjectStatus;
   createdAt: Date;
   updatedAt: Date;
+  totalFuel: number;
+  userCount: number;
 }
 
 export interface ParticipateInfo {
@@ -42,6 +40,7 @@ export interface ParticipateInfo {
   inviteBy: string;
   rank: number;
   estimatedToken: number;
+  isParticipate: boolean;
 }
 
 export interface StakeInfo {

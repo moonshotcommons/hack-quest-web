@@ -1,11 +1,7 @@
 import React, { ReactNode, useEffect, useMemo, useState } from 'react';
 import { CourseBaseType } from '@/service/webApi/course/type';
 
-import {
-  ChangeState,
-  ScrollContainer,
-  ScrollControl
-} from '@/components/Common/ScrollContainer';
+import { ChangeState, ScrollContainer, ScrollControl } from '@/components/Common/ScrollContainer';
 
 import { cn } from '@/helper/utils';
 import CourseCardSkeleton from '../CourseCardSkeleton';
@@ -30,8 +26,7 @@ const CourseSlider = <T extends CourseBaseType>({
   };
   const [progress, setProgress] = useState(p);
   const [currentPage, setCurrentPage] = useState(0);
-  const [scrollContainerState, setScrollContainerState] =
-    useState<ChangeState>();
+  const [scrollContainerState, setScrollContainerState] = useState<ChangeState>();
 
   const courseGroupList = useMemo(() => {
     if (!list?.length) return [];
@@ -77,16 +72,9 @@ const CourseSlider = <T extends CourseBaseType>({
           ></ScrollControl>
         )}
       </div>
-      <ScrollContainer
-        onChange={(state: any) => setScrollContainerState(state)}
-        gap={20}
-        className="w-full py-8"
-      >
+      <ScrollContainer onChange={(state: any) => setScrollContainerState(state)} gap={20} className="w-full py-8">
         <div className="flex gap-[20px]">
-          <CourseCardSkeleton.List
-            active={loading}
-            itemWidth={`w-[calc((1360px-60px)/4)]`}
-          >
+          <CourseCardSkeleton.List active={loading} itemWidth={`w-[calc((1360px-60px)/4)]`}>
             {courseGroupList.map((item, index) => {
               return (
                 <div key={index} className="flex w-[1360px] gap-[20px] p-[2px]">
@@ -102,15 +90,7 @@ const CourseSlider = <T extends CourseBaseType>({
       {courseGroupList.length > 1 && (
         <div className="flex items-center justify-center gap-[10px]">
           {courseGroupList.map((item, index) => {
-            return (
-              <div
-                key={index}
-                className={cn(
-                  'h-1 w-8 rounded-sm',
-                  currentPage === index ? 'bg-[#FCC409]' : 'bg-[#DADADA]'
-                )}
-              ></div>
-            );
+            return <div key={index} className={cn('h-1 w-8 rounded-sm', currentPage === index ? 'bg-[#FCC409]' : 'bg-[#DADADA]')}></div>;
           })}
         </div>
       )}

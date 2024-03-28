@@ -18,17 +18,12 @@ interface MobCourseFilterListSearchProps {
   keyword: string;
 }
 
-const MobCourseFilterListSearch: FC<MobCourseFilterListSearchProps> = ({
-  keyword
-}) => {
+const MobCourseFilterListSearch: FC<MobCourseFilterListSearchProps> = ({ keyword }) => {
   const [searchList, setSearchList] = useState<ProjectCourseType[]>([]);
 
   const { run: getCourseList, loading } = useRequest(
     async (filterParams: FilterParamsType) => {
-      const res =
-        await webApi.courseApi.getCourseListBySearch<
-          PageResult<ProjectCourseType>
-        >(filterParams);
+      const res = await webApi.courseApi.getCourseListBySearch<PageResult<ProjectCourseType>>(filterParams);
       return res;
     },
 

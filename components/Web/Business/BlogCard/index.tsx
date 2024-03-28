@@ -15,15 +15,9 @@ interface BlogCardProp {
   isFeatrued?: boolean;
 }
 
-const BlogCard: React.FC<BlogCardProp> = ({
-  blog,
-  from = ResourceFrom.BLOG,
-  isFeatrued = false
-}) => {
+const BlogCard: React.FC<BlogCardProp> = ({ blog, from = ResourceFrom.BLOG, isFeatrued = false }) => {
   const goBlogContent = () => {
-    BurialPoint.track(
-      `${from === ResourceFrom.BLOG ? 'blog' : 'glossary'} blogCard 卡片点击`
-    );
+    BurialPoint.track(`${from === ResourceFrom.BLOG ? 'blog' : 'glossary'} blogCard 卡片点击`);
   };
   return (
     <Link
@@ -32,12 +26,7 @@ const BlogCard: React.FC<BlogCardProp> = ({
       href={`${from === ResourceFrom.BLOG ? MenuLink.BLOG : MenuLink.GLOSSARY}/${blog.alias}`}
     >
       <div className="relative h-[0] w-full pt-[56%] ">
-        <Image
-          src={blog.image}
-          alt="blogImage"
-          fill
-          className="object-cover"
-        ></Image>
+        <Image src={blog.image} alt="blogImage" fill className="object-cover"></Image>
       </div>
       <div className="flex h-[215px] flex-col justify-between p-[16px]">
         <div className="flex flex-col gap-[16px]">
@@ -46,12 +35,8 @@ const BlogCard: React.FC<BlogCardProp> = ({
               <TrackTag key={i} track={v} />
             ))}
           </div>
-          <div className="body-m-bold line-clamp-2 text-neutral-off-black">
-            {blog.title}
-          </div>
-          <div className="body-s line-clamp-2 text-neutral-rich-gray">
-            {blog.description}
-          </div>
+          <div className="body-m-bold line-clamp-2 text-neutral-off-black">{blog.title}</div>
+          <div className="body-s line-clamp-2 text-neutral-rich-gray">{blog.description}</div>
         </div>
 
         <BlogCardFooter

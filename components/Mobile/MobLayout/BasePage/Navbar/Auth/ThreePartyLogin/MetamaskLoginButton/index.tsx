@@ -156,7 +156,6 @@ import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
 import { useGlobalStore } from '@/store/zustand/globalStore';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
-// import { ConnectButton } from '@/components/Common/ConnectButton';
 interface MetamaskLoginButtonProps {}
 
 const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
@@ -172,9 +171,7 @@ const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
     }))
   );
 
-  const setTipsModalOpenState = useGlobalStore(
-    (state) => state.setTipsModalOpenState
-  );
+  const setTipsModalOpenState = useGlobalStore((state) => state.setTipsModalOpenState);
 
   const { run: skipInviteCode, loading: skipInviteCodeLoading } = useRequest(
     async (token: string) => {
@@ -265,7 +262,6 @@ const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
 
   const login = (address: string) => {
     webApi.userApi.walletVerify(address).then((res) => {
-      console.log(res);
       if (res.status === 'UNACTIVATED') {
         setAuthType({
           type: AuthType.INVITE_CODE,
@@ -327,23 +323,11 @@ const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
         <Image src={Metamask} width={24} height={24} alt="MetaMask"></Image>
       </Button> */}
       <ConnectButton.Custom>
-        {({
-          account,
-          chain,
-          openAccountModal,
-          openChainModal,
-          openConnectModal,
-          authenticationStatus,
-          mounted
-        }) => {
+        {({ account, chain, openAccountModal, openChainModal, openConnectModal, authenticationStatus, mounted }) => {
           // Note: If your app doesn't use authentication, you
           // can remove all 'authenticationStatus' checks
           const ready = mounted && authenticationStatus !== 'loading';
-          const connected =
-            ready &&
-            account &&
-            chain &&
-            (!authenticationStatus || authenticationStatus === 'authenticated');
+          const connected = ready && account && chain && (!authenticationStatus || authenticationStatus === 'authenticated');
 
           return (
             <div
@@ -377,12 +361,7 @@ const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
                       }}
                       className="body-m cursor-pointer rounded-[.75rem] border border-neutral-light-gray p-3"
                     >
-                      <Image
-                        src={Metamask}
-                        width={24}
-                        height={24}
-                        alt="MetaMask"
-                      ></Image>
+                      <Image src={Metamask} width={24} height={24} alt="MetaMask"></Image>
                     </Button>
                   );
                 }

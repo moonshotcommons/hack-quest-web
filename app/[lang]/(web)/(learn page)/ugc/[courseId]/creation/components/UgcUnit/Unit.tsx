@@ -12,13 +12,7 @@ interface UnitProp {
   isShowDelete: boolean;
 }
 
-const Unit: React.FC<UnitProp> = ({
-  unit: info,
-  handleToggle,
-  handleEdit,
-  handleDelete,
-  isShowDelete
-}) => {
+const Unit: React.FC<UnitProp> = ({ unit: info, handleToggle, handleEdit, handleDelete, isShowDelete }) => {
   const [unit, setUnit] = useState<UnitMenuType | null>(null);
   const handleInput = () => {
     const newUnit = {
@@ -83,19 +77,11 @@ const Unit: React.FC<UnitProp> = ({
             <div className="body-m w-full truncate">{unit?.title}</div>
           )}
         </div>
-        <div
-          className={`h-[26px] transition-all ${unit?.isToggle ? 'rotate-180' : 'rotate-0'}`}
-        >
+        <div className={`h-[26px] transition-all ${unit?.isToggle ? 'rotate-180' : 'rotate-0'}`}>
           <LuChevronDown size={24} />
         </div>
       </div>
-      {!unit?.isInput && (
-        <HandleDot
-          showDelete={isShowDelete}
-          handleEdit={handleInput}
-          handleDelete={handleDelete}
-        />
-      )}
+      {!unit?.isInput && <HandleDot showDelete={isShowDelete} handleEdit={handleInput} handleDelete={handleDelete} />}
     </div>
   );
 };

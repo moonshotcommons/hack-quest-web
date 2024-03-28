@@ -10,12 +10,9 @@ const UserEvaluation: FC<{}> = (props) => {
       <div className="flex flex-col items-center gap-3 text-center">
         <p className="body-s-bold text-[.875rem] uppercase text-neutral-rich-gray">{`testimonial`}</p>
         <h2 className="text-h2-mob">
-          Students and Partners like You{' '}
-          <span className="text-status-error">❤</span> us ️
+          Students and Partners like You <span className="text-status-error">❤</span> us ️
         </h2>
-        <p className="body-s text-neutral-medium-gray">
-          Don’t take our words for it. See what others say about HackQuest!
-        </p>
+        <p className="body-s text-neutral-medium-gray">Don’t take our words for it. See what others say about HackQuest!</p>
       </div>
       <div className="mt-10">
         <ScrollContainer>
@@ -23,12 +20,7 @@ const UserEvaluation: FC<{}> = (props) => {
             {/* 第一列 */}
             {userEvaluation.map((col, index) => {
               return (
-                <div
-                  key={index}
-                  className={cn(
-                    'flex h-full w-[17.5rem] shrink-0 flex-col gap-6'
-                  )}
-                >
+                <div key={index} className={cn('flex h-full w-[17.5rem] shrink-0 flex-col gap-6')}>
                   {col.items.map((item, i) => {
                     return (
                       <EvaluationCard

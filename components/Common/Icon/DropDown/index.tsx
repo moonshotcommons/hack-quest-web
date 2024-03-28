@@ -29,12 +29,7 @@ const DropDownIcon: React.FC<IconProps> = (props) => {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path
-          d="M11.5879 1.25L6.29377 8.75L0.999656 1.25"
-          stroke={color}
-          strokeWidth="1.76471"
-          strokeLinejoin="bevel"
-        />
+        <path d="M11.5879 1.25L6.29377 8.75L0.999656 1.25" stroke={color} strokeWidth="1.76471" strokeLinejoin="bevel" />
       </svg>
     </svg>
   );

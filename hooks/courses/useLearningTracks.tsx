@@ -4,9 +4,7 @@ import { useRequest } from 'ahooks';
 import { useState } from 'react';
 
 export const useGetLearningTracks = (showAll = true) => {
-  const [learningTracks, setLearningTracks] = useState<
-    LearningTrackDetailType[]
-  >([]);
+  const [learningTracks, setLearningTracks] = useState<LearningTrackDetailType[]>([]);
 
   const { loading, refresh } = useRequest(
     async () => {

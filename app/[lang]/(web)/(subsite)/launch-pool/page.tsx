@@ -1,5 +1,4 @@
-import { Lang, TransNs } from '@/i18n/config';
-import { useTranslation } from '@/i18n/server';
+import { Lang } from '@/i18n/config';
 import React from 'react';
 import { Metadata } from 'next';
 import PageRetentionTime from '@/components/Common/PageRetentionTime';
@@ -28,15 +27,13 @@ interface LaunchProp {
 }
 
 const Launch: React.FC<LaunchProp> = async ({ params: { lang } }) => {
-  const { t } = await useTranslation(lang, TransNs.LAUNCH_POOL);
-
   const projects = await webApi.launchPoolApi.getProjectsFromCache();
   return (
     <>
       <div className="flex flex-col justify-center">
         <TopBanner lang={lang} />
         <DataStatistics lang={lang} />
-        <AllProjects lang={lang} projects={(await projects).data} />
+        <AllProjects lang={lang} projects={projects.data} />
         <HowIAOWorks lang={lang} />
         <OnlyChooseBestProjects lang={lang} />
         <OurSupportForProjects lang={lang} />

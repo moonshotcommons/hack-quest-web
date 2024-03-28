@@ -3,8 +3,7 @@ import RustIcon from './rust.png';
 export const IDE_LIST = [
   {
     title: 'Solidity',
-    description:
-      'A statically-typed, curly-braces programming language designed for developing smart contracts that run on Ethereum.',
+    description: 'A statically-typed, curly-braces programming language designed for developing smart contracts that run on Ethereum.',
     icon: SolidityIcon,
     link: process.env.IDE_URL || 'https://ide.dev.hackquest.io',
     iconWidth: 32,

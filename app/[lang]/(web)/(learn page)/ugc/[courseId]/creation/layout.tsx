@@ -30,9 +30,7 @@ const LearnLayout: FC<LearnLayoutProps> = ({ params, children }) => {
         <UgcUnitSidebar />
         <div className="scroll-wrap-y relative h-full flex-1 overflow-x-hidden py-[40px] text-center">
           <Loading loading={loading}>
-            <div className="inline-block w-full max-w-[808px] text-left">
-              {children}
-            </div>
+            <div className="inline-block w-full max-w-[808px] text-left">{children}</div>
           </Loading>
           {selectLessonId === CreationPageKey.ChooseLesson && <SuggestText />}
         </div>

@@ -69,7 +69,6 @@ const SignUp: FC<SignUpProps> = (props) => {
                     // if (res.inWhitelist) {
                     // setShowRegisterForm(true);
                     // } else {
-                    console.log(res);
                     setAuthType({
                       type: AuthType.INVITE_CODE,
                       params: {

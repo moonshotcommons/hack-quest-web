@@ -1,11 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 
-import {
-  themeColors,
-  backgroundImage,
-  backgroundColor,
-  borderColor
-} from './config/theme/variable';
+import { themeColors, backgroundImage, backgroundColor, borderColor } from './config/theme/variable';
 
 module.exports = {
   // corePlugins: {

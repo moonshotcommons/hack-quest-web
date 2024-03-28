@@ -10,10 +10,7 @@ interface LearningTrackListProps {
   curTab: ProcessType;
 }
 
-const LearningTrackList: React.FC<LearningTrackListProps> = ({
-  list,
-  curTab
-}) => {
+const LearningTrackList: React.FC<LearningTrackListProps> = ({ list, curTab }) => {
   if (!list?.length) return null;
   return (
     <div>
@@ -21,10 +18,7 @@ const LearningTrackList: React.FC<LearningTrackListProps> = ({
       <div className="mt-[16px] flex flex-wrap gap-[24px]">
         {list.map((learningTrack) => (
           <div key={learningTrack.id} className={`w-full`}>
-            <LearningTrackCard
-              learningTrack={learningTrack}
-              inProgress={curTab === ProcessType.IN_PROCESS}
-            />
+            <LearningTrackCard learningTrack={learningTrack} inProgress={curTab === ProcessType.IN_PROCESS} />
           </div>
         ))}
       </div>

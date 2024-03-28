@@ -12,9 +12,7 @@ interface HackathonIdProps {
   };
 }
 
-export async function generateMetadata({
-  params
-}: HackathonIdProps): Promise<Metadata> {
+export async function generateMetadata({ params }: HackathonIdProps): Promise<Metadata> {
   const hackathon = await getHackathonById(params.hackathonId);
   return {
     title: hackathon.name,
@@ -25,9 +23,7 @@ export async function generateMetadata({
   };
 }
 
-const HackathonId: FC<HackathonIdProps> = async function ({
-  params
-}: HackathonIdProps) {
+const HackathonId: FC<HackathonIdProps> = async function ({ params }: HackathonIdProps) {
   const hackathon = await getHackathonById(params.hackathonId);
   if (isUuid(params.hackathonId)) {
     permanentRedirect(`${MenuLink.HACKATHON}/${hackathon.alias}`);

@@ -25,15 +25,9 @@ interface SearchFilterProps {
   filterData: FilterDataType[];
   urlPrefix: string;
 }
-const SearchFilter: React.FC<SearchFilterProps> = ({
-  searchParams,
-  filterData,
-  urlPrefix
-}) => {
+const SearchFilter: React.FC<SearchFilterProps> = ({ searchParams, filterData, urlPrefix }) => {
   const router = useRouter();
-  const [searchParam, setSearchParam] = useState<FilterDataType[]>(
-    deepClone(filterData)
-  );
+  const [searchParam, setSearchParam] = useState<FilterDataType[]>(deepClone(filterData));
   const [inputValue, setInputValue] = useState(searchParams.keyword || '');
   const timeOut = useRef<NodeJS.Timeout | null>(null);
 
@@ -67,9 +61,7 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
         break;
       case FilterType.CHECKBOX:
         if (value === ALL) {
-          newSearchParam[i].filterList.map(
-            (v: ParamType) => (v.checked = !checked)
-          );
+          newSearchParam[i].filterList.map((v: ParamType) => (v.checked = !checked));
         } else {
           newSearchParam[i].filterList[j].checked = !checked;
           isAllChecked(newSearchParam, i);
@@ -83,9 +75,7 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
   const isAllChecked = (newSearchParam: FilterDataType[], i: number) => {
     const filterList = newSearchParam[i].filterList;
     const AllIndex = filterList.findIndex((v: ParamType) => v.value === ALL);
-    const checkedLen = filterList.filter(
-      (v: ParamType) => v.value !== ALL && v.checked
-    ).length;
+    const checkedLen = filterList.filter((v: ParamType) => v.value !== ALL && v.checked).length;
     filterList[AllIndex].checked = checkedLen === filterList.length - 1;
   };
 
@@ -133,8 +123,7 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
       checked: true
     }));
     const newSearchParam = deepClone(searchParam);
-    newSearchParam[2].filterList =
-      newSearchParam[2].filterList.concat(tracksDict);
+    newSearchParam[2].filterList = newSearchParam[2].filterList.concat(tracksDict);
     setSearchParam(newSearchParam);
   });
 
@@ -161,11 +150,7 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
             <div className="body-xl-bold mb-[15px]">{v.title}</div>
             <div className="mb-10">
               {v.filterList.map((filter: ParamType, j: number) => (
-                <div
-                  key={j}
-                  className="mb-[10px] flex cursor-pointer items-center"
-                  onClick={() => changeFilterParam(i, j)}
-                >
+                <div key={j} className="mb-[10px] flex cursor-pointer items-center" onClick={() => changeFilterParam(i, j)}>
                   {renderType(i, j)}
                   <span className="body-l pl-[15px]">{filter.label}</span>
                 </div>

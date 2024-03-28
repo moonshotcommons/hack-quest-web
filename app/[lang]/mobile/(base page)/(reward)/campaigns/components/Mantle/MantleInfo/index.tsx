@@ -7,15 +7,12 @@ import Image from 'next/image';
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { VscAdd, VscChromeMinimize } from 'react-icons/vsc';
 import { MantleContext } from '../../../constants/type';
-import CertificationModal, {
-  CertificationModalInstance
-} from '@/components/Mobile/MobCertification/CertificationModal';
+import CertificationModal, { CertificationModalInstance } from '@/components/Mobile/MobCertification/CertificationModal';
 
 interface MantleInfoProp {}
 
 const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
-  const { mantle, campaignsClaim, loading, refresh } =
-    useContext(MantleContext);
+  const { mantle, campaignsClaim, loading, refresh } = useContext(MantleContext);
   const [showAll, setShowAll] = useState(true);
   const certificationModalRef = useRef<CertificationModalInstance>(null);
 
@@ -33,14 +30,10 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
   return (
     <div className="mt-[1rem]">
       <div className={`mb-[1.75rem]`}>
-        <p className="text-h2-mob mb-[.5rem] font-next-book-bold text-neutral-off-black">
-          {mantle.title}
-        </p>
+        <p className="text-h2-mob mb-[.5rem] font-next-book-bold text-neutral-off-black">{mantle.title}</p>
         <p className="body-s  text-neutral-rich-gray">{mantle.description}</p>
       </div>
-      <div
-        className={`h-fit rounded-[1rem] border border-neutral-medium-gray p-[1.25rem]`}
-      >
+      <div className={`h-fit rounded-[1rem] border border-neutral-medium-gray p-[1.25rem]`}>
         <div
           className="flex-row-center cursor-pointer justify-between text-neutral-off-black"
           onClick={() => {
@@ -49,13 +42,7 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
           }}
         >
           <div className="body-m-bold">{mantle.certification?.name}</div>
-          <div>
-            {showAll ? (
-              <VscChromeMinimize size={20}></VscChromeMinimize>
-            ) : (
-              <VscAdd size={20}></VscAdd>
-            )}
-          </div>
+          <div>{showAll ? <VscChromeMinimize size={20}></VscChromeMinimize> : <VscAdd size={20}></VscAdd>}</div>
         </div>
         {showAll && (
           <>
@@ -67,38 +54,21 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
                 }}
               >
                 <div className="relative h-0 w-full  overflow-hidden  bg-neutral-white pt-[55.45%]">
-                  <Image
-                    src={mantle.certification?.image || Certificate}
-                    alt="certificate"
-                    fill
-                    className="object-cover"
-                  ></Image>
+                  <Image src={mantle.certification?.image || Certificate} alt="certificate" fill className="object-cover"></Image>
                 </div>
               </div>
               <div className="body-s  flex-shrink-0 text-neutral-black">
                 <div className="flex h-[34px] w-[74px] items-center gap-[5px] rounded-[6px] border border-neutral-light-gray px-[5px]">
-                  <Image
-                    src={iconCoin}
-                    width={22}
-                    alt="icon"
-                    className=""
-                  ></Image>
+                  <Image src={iconCoin} width={22} alt="icon" className=""></Image>
                   <span>x{mantle.certification?.credits}</span>
                 </div>
                 <div className="mt-[.625rem] flex h-[34px] w-[74px] items-center gap-[5px] rounded-[6px] border border-neutral-light-gray px-[5px]">
-                  <Image
-                    src={iconXp}
-                    width={22}
-                    alt="icon"
-                    className=""
-                  ></Image>
+                  <Image src={iconXp} width={22} alt="icon" className=""></Image>
                   <span>x{mantle.certification?.exp}</span>
                 </div>
               </div>
             </div>
-            <div className={`body-s mt-[.5rem]  text-neutral-rich-gray`}>
-              {mantle.certification?.description}
-            </div>
+            <div className={`body-s mt-[.5rem]  text-neutral-rich-gray`}>{mantle.certification?.description}</div>
             <div className="mt-[16px] flex gap-[.5rem]">
               <Button
                 className={`button-text-s h-[34px] flex-1 flex-shrink-0 p-0 uppercase

@@ -15,13 +15,7 @@ const BadgeIcon: React.FC<IconProps> = (props) => {
   const { size = 16, width, height, color = '#333' } = props;
 
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="16"
-      height="17"
-      viewBox="0 0 16 17"
-      fill="none"
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
       <path
         fillRule="evenodd"
         clipRule="evenodd"

@@ -7,18 +7,9 @@ interface PopBoxProps {
   showPopTriangle?: boolean;
 }
 
-const PopBox: FC<PopBoxProps> = ({
-  children,
-  className,
-  showPopTriangle = false
-}) => {
+const PopBox: FC<PopBoxProps> = ({ children, className, showPopTriangle = false }) => {
   return (
-    <div
-      className={cn(
-        `absolute -right-[24px] top-[24px] z-[9] flex flex-col items-center`,
-        className
-      )}
-    >
+    <div className={cn(`absolute -right-[24px] top-[24px] z-[9] flex flex-col items-center`, className)}>
       {showPopTriangle && (
         <div className="-mb-[12px] mr-[28px] h-[24px] w-[24px] -rotate-[135deg] self-end bg-neutral-white shadow-[rgba(0,0,0,0.05)_1.5px_1.5px_1.5px]"></div>
       )}

@@ -31,9 +31,7 @@ const MyCourses: React.FC<MyCoursesProp> = ({ status }) => {
   };
   const { run } = useRequest(
     async () => {
-      const res = await webApi.courseApi.getUgcCourseListBySearch<
-        PageResult<UGCCourseType>
-      >({
+      const res = await webApi.courseApi.getUgcCourseListBySearch<PageResult<UGCCourseType>>({
         status
       });
       setList(res.data);
@@ -48,11 +46,7 @@ const MyCourses: React.FC<MyCoursesProp> = ({ status }) => {
   return (
     <div>
       <div className="mb-[24px] text-neutral-off-black">
-        <CoursesTab
-          courseTab={courseTab}
-          curTab={status}
-          changeTab={changeTab}
-        />
+        <CoursesTab courseTab={courseTab} curTab={status} changeTab={changeTab} />
         <CourseList list={list} />
       </div>
     </div>

@@ -1,10 +1,6 @@
 import { MotionProps } from 'framer-motion';
 import { MenuLink, NavbarListType } from './type';
-import {
-  HACKQUEST_DISCORD,
-  HACKQUEST_TELEGRAM,
-  HACKQUEST_TWITTER
-} from '@/constants/links';
+import { HACKQUEST_DISCORD, HACKQUEST_TELEGRAM, HACKQUEST_TWITTER } from '@/constants/links';
 
 export const animateProps: MotionProps = {
   initial: { scaleY: 0, opacity: 0, translateY: '95%' },
@@ -169,11 +165,6 @@ export const navbarList: NavbarListType[] = [
 ];
 
 export const excludeLink = [MenuLink.USER_PROFILE];
-export const needLoginPath = [
-  MenuLink.DASHBOARD,
-  MenuLink.MISSION_CENTER,
-  MenuLink.CAMPAIGINS,
-  MenuLink.USER_PROFILE
-];
+export const needLoginPath = [MenuLink.DASHBOARD, MenuLink.MISSION_CENTER, MenuLink.CAMPAIGINS, MenuLink.USER_PROFILE];
 
 export const isBadgeIds = ['missions'];

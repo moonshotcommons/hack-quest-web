@@ -23,12 +23,9 @@ enum AnswerState {
 
 const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
   const { quiz, parent } = props;
-  const { onCompleted, onQuizPass } =
-    useContext(RendererContext).globalContext!;
+  const { onCompleted, onQuizPass } = useContext(RendererContext).globalContext!;
   const [answers, setAnswers] = useState<number[]>([]);
-  const [answerState, setAnswerState] = useState<AnswerState>(
-    AnswerState.Default
-  );
+  const [answerState, setAnswerState] = useState<AnswerState>(AnswerState.Default);
 
   const onSubmit = () => {
     let wrongAnswer = answers.find((answer) => !quiz.answers.includes(answer));
@@ -37,9 +34,7 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
       return;
     }
 
-    let rightAnswer = quiz.answers.find(
-      (answer: any) => !answers.includes(answer)
-    );
+    let rightAnswer = quiz.answers.find((answer: any) => !answers.includes(answer));
     if (rightAnswer) {
       setAnswerState(AnswerState.Wrong);
       return;
@@ -73,13 +68,7 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
       >
         <div className="mt-[32px]">
           {quiz?.children?.map((child: any, index: number) => {
-            return (
-              <ComponentRenderer
-                key={index}
-                parent={quiz}
-                component={child}
-              ></ComponentRenderer>
-            );
+            return <ComponentRenderer key={index} parent={quiz} component={child}></ComponentRenderer>;
           })}
         </div>
       </RendererContext.Provider>
@@ -93,8 +82,7 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
                 answers.includes(item.index) ? 'bg-[#FFF4CE]' : ''
               )}
               onClick={() => {
-                if (answerState !== AnswerState.Default)
-                  setAnswerState(AnswerState.Default);
+                if (answerState !== AnswerState.Default) setAnswerState(AnswerState.Default);
                 if (answers.includes(item.index)) {
                   setAnswers(answers.filter((answer) => answer !== item.index));
                 } else {
@@ -102,25 +90,14 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
                 }
               }}
             >
-              <div className="flex-center flex h-8 w-8 rounded-[4px] border-[2px] border-neutral-light-gray">
-                {item.index}
-              </div>
+              <div className="flex-center flex h-8 w-8 rounded-[4px] border-[2px] border-neutral-light-gray">{item.index}</div>
               <div className="flex-1">
-                <TextRenderer
-                  richTextArr={item.option?.content?.rich_text}
-                  fontSize="16px"
-                ></TextRenderer>
+                <TextRenderer richTextArr={item.option?.content?.rich_text} fontSize="16px"></TextRenderer>
               </div>
 
               <div>
-                {answerState === AnswerState.Correct &&
-                  answers.includes(item.index) && (
-                    <FiCheck color="#00C365" size={28} />
-                  )}
-                {answerState === AnswerState.Wrong &&
-                  answers.includes(item.index) && (
-                    <FiX color="#C73333" size={28} />
-                  )}
+                {answerState === AnswerState.Correct && answers.includes(item.index) && <FiCheck color="#00C365" size={28} />}
+                {answerState === AnswerState.Wrong && answers.includes(item.index) && <FiX color="#C73333" size={28} />}
               </div>
             </div>
           );
@@ -128,20 +105,12 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
       </div>
       <div className="mt-[32px]">
         {answerState === AnswerState.Default && (
-          <Button
-            type="primary"
-            className="body-m w-[165px] p-0 py-[11px] text-neutral-black"
-            onClick={onSubmit}
-          >
+          <Button type="primary" className="body-m w-[165px] p-0 py-[11px] text-neutral-black" onClick={onSubmit}>
             Submit
           </Button>
         )}
         {answerState === AnswerState.Wrong && (
-          <Button
-            type="primary"
-            className="body-m w-[165px] p-0 py-[11px] text-neutral-black"
-            onClick={onTryAgain}
-          >
+          <Button type="primary" className="body-m w-[165px] p-0 py-[11px] text-neutral-black" onClick={onTryAgain}>
             Try again
           </Button>
         )}

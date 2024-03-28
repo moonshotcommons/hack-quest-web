@@ -17,13 +17,7 @@ const ParagraphRenderer: FC<ParagraphRendererProps> = (props) => {
       <TextRenderer richTextArr={component.content.rich_text}></TextRenderer>
       <div className="ml-4">
         {component.children?.map((item: any, index: number) => {
-          return (
-            <ComponentRenderer
-              key={index}
-              component={item}
-              parent={component}
-            ></ComponentRenderer>
-          );
+          return <ComponentRenderer key={index} component={item} parent={component}></ComponentRenderer>;
         })}
       </div>
     </div>

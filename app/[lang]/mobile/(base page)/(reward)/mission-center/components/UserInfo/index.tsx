@@ -24,11 +24,7 @@ const UserInfo: React.FC<UserInfoType> = ({ userInfo }) => {
     <div className="flex h-full w-[360px] flex-shrink-0 justify-center py-[40px]">
       <div className="h-full w-full flex-col">
         <div className="w-[320px] pb-[30px]">
-          <UserData
-            userInfo={userInfo}
-            userLevel={userLevel}
-            userCoin={userCoin}
-          />
+          <UserData userInfo={userInfo} userLevel={userLevel} userCoin={userCoin} />
           <Treasures userTreasure={userTreasure} />
           <Equity level={userLevel.level} />
         </div>

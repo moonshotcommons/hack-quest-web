@@ -44,45 +44,24 @@ const CommunityIntroduction: FC<{}> = (props) => {
         <p className="body-s-bold uppercase text-neutral-rich-gray">{`what’s next`}</p>
         <h2 className="text-h2">We Support Beyond 📖</h2>
         <p className="body-l text-neutral-medium-gray">
-          Your learning does not end with courses. Engage with our rapidly
-          growing Web3 community!
+          Your learning does not end with courses. Engage with our rapidly growing Web3 community!
         </p>
       </div>
       <div className="mt-[3.75rem] flex gap-6">
         {cardData.map((item, index) => {
           return (
-            <div
-              key={index}
-              className="flex h-[25.5rem] w-[18.875rem] flex-col rounded-[1.5rem] bg-neutral-white"
-            >
+            <div key={index} className="flex h-[25.5rem] w-[18.875rem] flex-col rounded-[1.5rem] bg-neutral-white">
               <div className="relative h-[12.5rem] w-full overflow-hidden rounded-t-[1.5rem]">
-                <Image
-                  src={item.image}
-                  alt="hackquest"
-                  fill
-                  className="object-cover"
-                ></Image>
+                <Image src={item.image} alt="hackquest" fill className="object-cover"></Image>
               </div>
               <div className="flex flex-1 flex-col gap-3 p-6">
                 <h4 className="text-h4 text-neutral-off-black">{item.title}</h4>
-                <p className="body-s text-neutral-medium-gray">
-                  {item.description}
-                </p>
-                <Link
-                  href={item.link}
-                  target="_blank"
-                  className="body-m-bold flex cursor-pointer items-center gap-2"
-                >
+                <p className="body-s text-neutral-medium-gray">{item.description}</p>
+                <Link href={item.link} target="_blank" className="body-m-bold flex cursor-pointer items-center gap-2">
                   <span className="relative after:absolute after:-bottom-[1px] after:left-0 after:h-[2px] after:w-full after:rounded-full after:bg-yellow-primary">
                     {item.buttonText}
                   </span>
-                  <svg
-                    width="13"
-                    height="18"
-                    viewBox="0 0 13 18"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
+                  <svg width="13" height="18" viewBox="0 0 13 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                       d="M2.5 3.5L10 8.79412L2.5 14.0882"
                       stroke="#0B0B0B"

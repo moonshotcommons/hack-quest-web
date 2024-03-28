@@ -14,11 +14,7 @@ interface CoursesTabProp {
   courseTab: TabType[];
 }
 
-const CoursesTab: React.FC<CoursesTabProp> = ({
-  curTab,
-  changeTab,
-  courseTab
-}) => {
+const CoursesTab: React.FC<CoursesTabProp> = ({ curTab, changeTab, courseTab }) => {
   const { redirectToUrl } = useRedirect();
 
   return (
@@ -32,9 +28,7 @@ const CoursesTab: React.FC<CoursesTabProp> = ({
           <div
             key={v.value}
             onClick={() => changeTab(v.value as CourseTab)}
-            className={`body-l cursor-pointer  text-neutral-black ${
-              curTab === v.value ? '  body-l-bold ' : ' '
-            }`}
+            className={`body-l cursor-pointer  text-neutral-black ${curTab === v.value ? '  body-l-bold ' : ' '}`}
           >
             {`${v.label} (${v.count})`}
           </div>
@@ -43,11 +37,7 @@ const CoursesTab: React.FC<CoursesTabProp> = ({
       <Button
         type="primary"
         className="button-text-m h-[48px] w-[165px] uppercase"
-        onClick={() =>
-          redirectToUrl(
-            `${MenuLink.UGC}/-1/creation/${CreationPageKey.Introduction}`
-          )
-        }
+        onClick={() => redirectToUrl(`${MenuLink.UGC}/-1/creation/${CreationPageKey.Introduction}`)}
       >
         create new
       </Button>

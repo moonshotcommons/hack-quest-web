@@ -19,8 +19,7 @@ const UgcCreatePage: FC<UgcCreatePageProps> = ({ params }) => {
   const [lesson, setLesson] = useState<any>(null);
   const { setSelectLessonId, setCourseId } = useContext(UgcCreateContext);
 
-  const { setInformation, getUnitList, getLessonDetail } =
-    useUgcCreationDataHandle(courseId);
+  const { setInformation, getUnitList, getLessonDetail } = useUgcCreationDataHandle(courseId);
   const { run } = useRequest(async () => {
     if (courseId !== '-1') {
       await setInformation();
@@ -34,11 +33,7 @@ const UgcCreatePage: FC<UgcCreatePageProps> = ({ params }) => {
 
   useEffect(() => {
     if (!lessonId) return;
-    if (
-      lessonIdKeys
-        .concat(CreationPageKey.ChooseLesson)
-        .includes(lessonId as any)
-    ) {
+    if (lessonIdKeys.concat(CreationPageKey.ChooseLesson).includes(lessonId as any)) {
       setCourseId(courseId);
       setSelectLessonId(lessonId);
     } else {

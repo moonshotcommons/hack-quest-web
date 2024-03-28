@@ -13,7 +13,6 @@ const CourseCatalogue: FC<CourseCatalogueProps> = (props) => {
 
   if ([CourseType.MINI].includes(courseDetail.type)) {
     list = [];
-    console.log(courseDetail);
   }
 
   return (

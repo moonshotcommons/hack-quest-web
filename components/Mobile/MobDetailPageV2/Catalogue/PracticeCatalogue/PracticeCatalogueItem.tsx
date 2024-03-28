@@ -23,19 +23,13 @@ const PracticeCatalogueItem: FC<PracticeCatalogueItemProps> = (props) => {
           <Suspense fallback={<div>loading...</div>}>
             <LinkWrap unit={unit} courseDetail={courseDetail!} index={index}>
               <h2 className="body-m-bold text-neutral-black">{unit.title}</h2>
-              <p className="body-s mt-1 line-clamp-3 text-neutral-medium-gray">
-                {unit.description}
-              </p>
+              <p className="body-s mt-1 line-clamp-3 text-neutral-medium-gray">{unit.description}</p>
             </LinkWrap>
           </Suspense>
         </div>
 
         <div className="flex w-[24px] max-w-[24px] justify-end">
-          <UnitStatusButton
-            courseDetail={courseDetail!}
-            unit={unit}
-            index={index}
-          />
+          <UnitStatusButton courseDetail={courseDetail!} unit={unit} index={index} />
         </div>
       </div>
     </UnitProvider>

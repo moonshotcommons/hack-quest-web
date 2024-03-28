@@ -17,9 +17,7 @@ const NumberListItemRenderer: FC<NumberListItemRendererProps> = (props) => {
   //   .findIndex((child: any) => child.id === source.id);
 
   const index = useMemo(() => {
-    const currentIndex = children.findIndex(
-      (child: any) => child.id === component.id
-    );
+    const currentIndex = children.findIndex((child: any) => child.id === component.id);
 
     let firstIndex = 0;
 
@@ -35,24 +33,13 @@ const NumberListItemRenderer: FC<NumberListItemRendererProps> = (props) => {
   return (
     <div>
       <div className="">
-        <span className="body-l inline-flex h-full w-fit items-center py-[0.4rem] pr-[4px] text-neutral-black">
-          {index + 1}.
-        </span>
+        <span className="body-l inline-flex h-full w-fit items-center py-[0.4rem] pr-[4px] text-neutral-black">{index + 1}.</span>
 
-        <TextRenderer
-          richTextArr={component.content.rich_text}
-          fontStyle="text-neutral-black"
-        ></TextRenderer>
+        <TextRenderer richTextArr={component.content.rich_text} fontStyle="text-neutral-black"></TextRenderer>
       </div>
       <div className="ml-4">
         {component.children?.map((child: any, index: number) => {
-          return (
-            <ComponentRenderer
-              key={index}
-              component={child}
-              parent={component}
-            ></ComponentRenderer>
-          );
+          return <ComponentRenderer key={index} component={child} parent={component}></ComponentRenderer>;
         })}
       </div>
     </div>

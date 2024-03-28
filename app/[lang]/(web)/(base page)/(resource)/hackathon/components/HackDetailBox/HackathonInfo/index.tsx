@@ -2,10 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Button from '@/components/Common/Button';
-import {
-  HackathonStatusType,
-  HackathonType
-} from '@/service/webApi/resourceStation/type';
+import { HackathonStatusType, HackathonType } from '@/service/webApi/resourceStation/type';
 import useDealhackathon from '@/hooks/resource/useDealHackathonData';
 import { BurialPoint } from '@/helper/burialPoint';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
@@ -17,12 +14,9 @@ interface HackathonInfoProp {
 
 const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
   const closeInTimeOut = useRef<NodeJS.Timeout | null>(null);
-  const [status, setStatus] = useState<HackathonStatusType>(
-    HackathonStatusType.ON_GOING
-  );
+  const [status, setStatus] = useState<HackathonStatusType>(HackathonStatusType.ON_GOING);
   const [closeInTime, setCloseInTime] = useState('');
-  const { getRunFromTime, getCloseInTime, getParticipantsStr } =
-    useDealhackathon();
+  const { getRunFromTime, getCloseInTime, getParticipantsStr } = useDealhackathon();
   const getCloseIn = () => {
     const t = getCloseInTime(hackathon.endTime);
     if (t === HackathonStatusType.PAST) {
@@ -50,21 +44,14 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
       </div>
       <div>
         <div className="text-h4  mb-[4px]">PARTICIPANTS</div>
-        <div className="body-m break-words">
-          {getParticipantsStr(hackathon.participants)}
-        </div>
+        <div className="body-m break-words">{getParticipantsStr(hackathon.participants)}</div>
       </div>
       <div>
         <div className="text-h4 mb-[4px]">HOST</div>
         {hackathon.hosts.map((v, i) => (
           <div key={i} className="flex-row-center mb-[10px] h-[30px]">
             <div className="relative h-[30px] w-[30px]">
-              <Image
-                src={v.picture}
-                alt="hackathonHost"
-                fill
-                className="object-contain"
-              ></Image>
+              <Image src={v.picture} alt="hackathonHost" fill className="object-contain"></Image>
             </div>
             <span className="body-m pl-[8px] uppercase">{v.name}</span>
           </div>
@@ -76,9 +63,7 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
         ></div>
         <div>
           <div className="body-s text-neutral-medium-gray">RUNS FROM</div>
-          <div className="body-m">
-            {getRunFromTime(hackathon.startTime, hackathon.endTime)}
-          </div>
+          <div className="body-m">{getRunFromTime(hackathon.startTime, hackathon.endTime)}</div>
         </div>
         <div>
           <div className="body-s text-neutral-medium-gray">HAPPENING</div>
@@ -88,9 +73,7 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
       {status === HackathonStatusType.ON_GOING ? (
         <>
           <div className="flex h-[63px] flex-col justify-center rounded-[10px] bg-[rgba(255,244,206,0.5)] px-[20px] ">
-            <div className="text-neutral-medium-gray">
-              APPLICATIONS CLOSE IN
-            </div>
+            <div className="text-neutral-medium-gray">APPLICATIONS CLOSE IN</div>
             <div className="body-m">{closeInTime}</div>
           </div>
           <Button
@@ -106,9 +89,7 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
       ) : (
         <>
           <div className="flex flex-col justify-center rounded-[8px] bg-[rgba(218,218,218,0.5)] py-[8px] pl-[16px] ">
-            <div className="body-l text-neutral-rich-gray">
-              This hackathon is not available now.
-            </div>
+            <div className="body-l text-neutral-rich-gray">This hackathon is not available now.</div>
           </div>
           <Link
             onClick={() => {
@@ -116,10 +97,7 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
             }}
             href={`${MenuLink.PROJECTS}?keyword=${hackathon.name}`}
           >
-            <Button
-              ghost
-              className="button-text-l w-full border-neutral-black uppercase text-neutral-black"
-            >
+            <Button ghost className="button-text-l w-full border-neutral-black uppercase text-neutral-black">
               View All Projects
             </Button>
           </Link>

@@ -20,9 +20,7 @@ const UgcContainer: FC<UgcContainerProps> = ({ children }) => {
       <div
         className="flex w-full flex-col"
         style={{
-          height: isMounted
-            ? `${pageInfo.windowHeight - MOBILE_NAVBAR_HEIGHT}px`
-            : 'calc(100vh-64px)'
+          height: isMounted ? `${pageInfo.windowHeight - MOBILE_NAVBAR_HEIGHT}px` : 'calc(100vh-64px)'
         }}
       >
         {children}
