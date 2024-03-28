@@ -1,7 +1,4 @@
-import {
-  CodeLineType,
-  LineType
-} from '@/components/Web/Business/Renderer/type';
+import { CodeLineType, LineType } from '@/components/Web/Business/Renderer/type';
 import { changeTextareaHeight } from '@/helper/utils';
 import { ReactNode, useEffect, useMemo, useState } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
@@ -72,10 +69,7 @@ const AnswerInputTextarea = (props: {
           e.preventDefault(); // 取消默认事件
           const input = e.target as HTMLTextAreaElement;
           const { selectionStart, selectionEnd } = input;
-          input.value =
-            input.value.substring(0, selectionStart) +
-            '  ' +
-            input.value.substring(selectionEnd);
+          input.value = input.value.substring(0, selectionStart) + '  ' + input.value.substring(selectionEnd);
           input.selectionStart = input.selectionEnd = selectionStart + 2;
         }
       }}
@@ -88,12 +82,7 @@ const AnswerInputTextarea = (props: {
   );
 };
 
-const AnswerInput = (props: {
-  error: boolean | undefined;
-  uuid: string;
-  type?: LineType;
-  onChange: (id: string, v: string) => void;
-}) => {
+const AnswerInput = (props: { error: boolean | undefined; uuid: string; type?: LineType; onChange: (id: string, v: string) => void }) => {
   const borderAndBg = !!props.error
     ? {
         backgroundColor: '#FFF7F5',
@@ -121,10 +110,7 @@ const AnswerInput = (props: {
           e.preventDefault(); // 取消默认事件
           const input = e.target as HTMLTextAreaElement;
           const { selectionStart, selectionEnd } = input;
-          input.value =
-            input.value.substring(0, selectionStart) +
-            '  ' +
-            input.value.substring(selectionEnd);
+          input.value = input.value.substring(0, selectionStart) + '  ' + input.value.substring(selectionEnd);
           input.selectionStart = input.selectionEnd = selectionStart + 2;
         }
       }}
@@ -140,9 +126,7 @@ const AnswerInput = (props: {
 
 export const useParseQuiz = (lines: CodeLineType[]) => {
   /** 等待渲染到界面的code */
-  const [waitingRenderCodes, setWaitingRenderCodes] = useState<
-    WaitingRenderCodeType[]
-  >([]);
+  const [waitingRenderCodes, setWaitingRenderCodes] = useState<WaitingRenderCodeType[]>([]);
 
   /** 答案的实时状态 */
   const [answerState, setAnswerState] = useState<AnswerState[]>([]);
@@ -150,10 +134,7 @@ export const useParseQuiz = (lines: CodeLineType[]) => {
   /** 错误行 */
   const [errorLine, setErrorLine] = useState<AnswerState[]>([]);
   const codeStyle = useMemo(() => {
-    const bgResetClasses = [
-      'pre[class*="language-"]',
-      'code[class*="language-"]'
-    ];
+    const bgResetClasses = ['pre[class*="language-"]', 'code[class*="language-"]'];
 
     const newStyle = {
       ...oneLight
@@ -171,9 +152,7 @@ export const useParseQuiz = (lines: CodeLineType[]) => {
   const mergeAnswer = (answer: AnswerState) => {
     setAnswerState((state) => {
       const answers = state.concat(answer);
-      return Array.from(new Set(answers.map((v) => JSON.stringify(v)))).map(
-        (v) => JSON.parse(v)
-      );
+      return Array.from(new Set(answers.map((v) => JSON.stringify(v)))).map((v) => JSON.parse(v));
     });
   };
 
@@ -236,19 +215,13 @@ export const useParseQuiz = (lines: CodeLineType[]) => {
         return rendArr.map((v, i: number) => {
           if (v.type === LineType.DEFAULT) {
             return (
-              <CustomSyntaxHighlighter
-                style={codeStyle}
-                language={'solidity'}
-                key={i}
-              >
+              <CustomSyntaxHighlighter style={codeStyle} language={'solidity'} key={i}>
                 {v.content.join(' ')}
               </CustomSyntaxHighlighter>
             );
           } else {
             const inputId = `${line.id}${i}`;
-            const currentLineState = newAnswerState
-              .find((v) => v.id === line.id)
-              ?.answers?.find((v) => v.id === inputId);
+            const currentLineState = newAnswerState.find((v) => v.id === line.id)?.answers?.find((v) => v.id === inputId);
             return (
               <AnswerInput
                 key={inputId}
@@ -258,15 +231,9 @@ export const useParseQuiz = (lines: CodeLineType[]) => {
                 onChange={(id, value) => {
                   if (!currentLineState) return;
                   setAnswerState((state) => {
-                    const otherAnswerState = state.filter(
-                      (item) => item.id !== line.id
-                    );
-                    const curAnswerState = state.find(
-                      (item) => item.id === line.id
-                    ) as AnswerState;
-                    const curAnswers = (
-                      curAnswerState?.answers as AnswerState[]
-                    )
+                    const otherAnswerState = state.filter((item) => item.id !== line.id);
+                    const curAnswerState = state.find((item) => item.id === line.id) as AnswerState;
+                    const curAnswers = (curAnswerState?.answers as AnswerState[])
                       .filter((item) => item.id !== inputId)
                       .concat({
                         ...currentLineState,
@@ -275,10 +242,7 @@ export const useParseQuiz = (lines: CodeLineType[]) => {
                         inputValue: value
                       });
                     curAnswerState.answers = curAnswers;
-                    return [
-                      ...otherAnswerState,
-                      curAnswerState
-                    ] as AnswerState[];
+                    return [...otherAnswerState, curAnswerState] as AnswerState[];
                   });
                 }}
               ></AnswerInput>
@@ -302,9 +266,7 @@ export const useParseQuiz = (lines: CodeLineType[]) => {
     const inputLine = {
       type: 'input',
       render(newAnswerState: AnswerState[]) {
-        const currentLineState = newAnswerState.find(
-          (item) => item.id === line.id
-        );
+        const currentLineState = newAnswerState.find((item) => item.id === line.id);
         return (
           <AnswerInputTextarea
             uuid={line.id}

@@ -6,10 +6,7 @@ import webApi from '@/service';
 import { FC } from 'react';
 import Loading from '@/components/Common/Loading';
 import Pagination from '@/components/Common/Pagination';
-import {
-  HackathonStatusType,
-  HackathonType
-} from '@/service/webApi/resourceStation/type';
+import { HackathonStatusType, HackathonType } from '@/service/webApi/resourceStation/type';
 import { errorMessage } from '@/helper/ui';
 import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 
@@ -63,11 +60,7 @@ const Past: FC<PastProps> = ({ page }) => {
       </div>
       <div className="flex w-full justify-center pt-[50px]">
         {totalPage > PROJECTS_LIMIT && (
-          <Pagination
-            page={page}
-            total={Math.ceil(totalPage / PROJECTS_LIMIT)}
-            urlPrefix={`${MenuLink.HACKATHON}/p/`}
-          ></Pagination>
+          <Pagination page={page} total={Math.ceil(totalPage / PROJECTS_LIMIT)} urlPrefix={`${MenuLink.HACKATHON}/p/`}></Pagination>
         )}
       </div>
     </Loading>

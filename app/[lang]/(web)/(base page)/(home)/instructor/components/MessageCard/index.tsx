@@ -8,10 +8,7 @@ interface MessageCardProp {
   isModal?: boolean;
 }
 
-const MessageCard: React.FC<MessageCardProp> = ({
-  onClick,
-  isModal = false
-}) => {
+const MessageCard: React.FC<MessageCardProp> = ({ onClick, isModal = false }) => {
   return (
     <div
       className="flex cursor-pointer flex-col gap-[8px]  rounded-[10px] border border-neutral-light-gray bg-neutral-white p-[12px]"
@@ -21,11 +18,8 @@ const MessageCard: React.FC<MessageCardProp> = ({
         <CompletedIcon />
         <span>Course not approved</span>
       </div>
-      <div
-        className={`body-xs  text-neutral-medium-gray ${isModal ? 'line-clamp-3' : 'line-clamp-2'}`}
-      >
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-        accumsan accumsanaccumsanaccumsan
+      <div className={`body-xs  text-neutral-medium-gray ${isModal ? 'line-clamp-3' : 'line-clamp-2'}`}>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse accumsan accumsanaccumsanaccumsan
       </div>
       {isModal ? (
         <div className="body-xs flex items-center gap-[16px] text-neutral-rich-gray">

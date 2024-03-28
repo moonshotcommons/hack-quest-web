@@ -4,23 +4,15 @@ import IconTextTag from '../../CourseTag/IconTextTag';
 import { IconTextTagType } from '../../CourseTag/IconTextTag/constant';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import { LearningTrackDetailContext } from '../../Provider/LearningTrackDetailProvider';
-import {
-  LearningStatus,
-  useGetLearningTrackLearnStatus
-} from '../../hooks/useGetLearnStatus';
+import { LearningStatus, useGetLearningTrackLearnStatus } from '../../hooks/useGetLearnStatus';
 
 interface TagAndProgressProps {
   learningTrackDetail: LearningTrackDetailType;
 }
 
-const TagAndProgress: FC<TagAndProgressProps> = ({
-  learningTrackDetail: propLearningTrackDetail
-}) => {
-  const { learningTrackDetail: contextLearningTrackDetail } = useContext(
-    LearningTrackDetailContext
-  );
-  const learningTrackDetail =
-    contextLearningTrackDetail ?? propLearningTrackDetail;
+const TagAndProgress: FC<TagAndProgressProps> = ({ learningTrackDetail: propLearningTrackDetail }) => {
+  const { learningTrackDetail: contextLearningTrackDetail } = useContext(LearningTrackDetailContext);
+  const learningTrackDetail = contextLearningTrackDetail ?? propLearningTrackDetail;
   const learningStatus = useGetLearningTrackLearnStatus(learningTrackDetail);
 
   const enrolled = learningTrackDetail.enrolled;
@@ -30,14 +22,9 @@ const TagAndProgress: FC<TagAndProgressProps> = ({
     case LearningStatus.UN_START:
       return (
         <>
-          <IconTextTag
-            type={IconTextTagType.COURSES_COUNT}
-            text={`${learningTrackDetail.courseCount} courses`}
-          ></IconTextTag>
+          <IconTextTag type={IconTextTagType.COURSES_COUNT} text={`${learningTrackDetail.courseCount} courses`}></IconTextTag>
           <IconTextTag type={IconTextTagType.DEVICE_ACCESS}></IconTextTag>
-          {learningTrackDetail.certificationId && (
-            <IconTextTag type={IconTextTagType.CERTIFICATION}></IconTextTag>
-          )}
+          {learningTrackDetail.certificationId && <IconTextTag type={IconTextTagType.CERTIFICATION}></IconTextTag>}
         </>
       );
     case LearningStatus.IN_PROGRESS:
@@ -51,18 +38,13 @@ const TagAndProgress: FC<TagAndProgressProps> = ({
               }}
             ></div>
           </div>
-          <span className="body-s text-neutral-rich-gray">
-            {progress * 100}%
-          </span>
+          <span className="body-s text-neutral-rich-gray">{progress * 100}%</span>
         </div>
       );
     case LearningStatus.COMPLETED:
       //!TODO 要分学完可以获取证书和已经获取证书
       return (
-        <p className="body-m text-neutral-rich-gray">
-          Congratulation! You’ve completed all the courses. Claim your Web3
-          certification 🎉
-        </p>
+        <p className="body-m text-neutral-rich-gray">Congratulation! You’ve completed all the courses. Claim your Web3 certification 🎉</p>
       );
   }
 };

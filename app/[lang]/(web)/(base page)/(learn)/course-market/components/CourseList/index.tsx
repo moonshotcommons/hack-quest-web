@@ -1,11 +1,7 @@
 import React, { useMemo } from 'react';
 import { SearchParamsType } from '../../constant/type';
 import FilterSelect from '@/components/Web/Business/CourseFilterList/FilterSelect';
-import {
-  ugcCourseDefaultFilters,
-  mergeFilterParams,
-  courseDefaultSort
-} from '@/components/Web/Business/CourseFilterList/constant';
+import { ugcCourseDefaultFilters, mergeFilterParams, courseDefaultSort } from '@/components/Web/Business/CourseFilterList/constant';
 import { cloneDeep } from 'lodash-es';
 import UgcCourseCard from '@/components/Web/Business/UgcCourseCard';
 import Pagination from '@/components/Common/Pagination';
@@ -19,12 +15,7 @@ interface CourseListProp {
   handleSearch: (searchInfo: SearchParamsType) => void;
 }
 
-const CourseList: React.FC<CourseListProp> = ({
-  page,
-  searchParams,
-  course,
-  handleSearch
-}) => {
+const CourseList: React.FC<CourseListProp> = ({ page, searchParams, course, handleSearch }) => {
   const { filters, sort } = useMemo(() => {
     let filters = cloneDeep(ugcCourseDefaultFilters);
     let sort = cloneDeep(courseDefaultSort);
@@ -49,9 +40,7 @@ const CourseList: React.FC<CourseListProp> = ({
   }, [searchParams]);
   return (
     <div className="flex flex-col gap-y-8 pb-[40px]">
-      {searchParams.keyword && (
-        <h3 className="text-h3 text-neutral-black">{`Search result for “${searchParams.keyword}”`}</h3>
-      )}
+      {searchParams.keyword && <h3 className="text-h3 text-neutral-black">{`Search result for “${searchParams.keyword}”`}</h3>}
       <FilterSelect
         filters={cloneDeep(filters)}
         updateFilters={(newFilters) => {
@@ -71,11 +60,7 @@ const CourseList: React.FC<CourseListProp> = ({
       </div>
       {course.total > 12 && (
         <div className="mt-[40px] flex justify-center">
-          <Pagination
-            page={page}
-            total={course.total || 0}
-            urlPrefix={`${MenuLink.COURSE_MARKET}/p/`}
-          />
+          <Pagination page={page} total={course.total || 0} urlPrefix={`${MenuLink.COURSE_MARKET}/p/`} />
         </div>
       )}
     </div>

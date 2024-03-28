@@ -11,9 +11,7 @@ const UgcNavbar: React.FC<UgcNavbarProp> = () => {
       {navbarData.map((v, i) => (
         <div key={i}>
           {i ? <span className="pr-[8px]">/</span> : null}
-          <span className={`${i === navbarData.length - 1 ? 'underline' : ''}`}>
-            {v.label}
-          </span>
+          <span className={`${i === navbarData.length - 1 ? 'underline' : ''}`}>{v.label}</span>
         </div>
       ))}
     </div>

@@ -6,11 +6,7 @@ interface MobViewMoreListProps<T> {
   renderItem: (item: T) => ReactNode;
 }
 
-const MobViewMoreList = <T,>({
-  list: propList,
-  limit,
-  renderItem
-}: MobViewMoreListProps<T>) => {
+const MobViewMoreList = <T,>({ list: propList, limit, renderItem }: MobViewMoreListProps<T>) => {
   const [originList, setOriginList] = useState<T[]>([]);
   const [list, setList] = useState<T[]>([]);
 

@@ -14,9 +14,7 @@ const Filter: React.FC<FilterProp> = ({ searchInfo, changeSearchInfo }) => {
     <SlideHighlight
       className={`flex gap-[30px] pb-[2px]`}
       type="LEARNING_TRACK"
-      currentIndex={filterList.findIndex(
-        (v) => v.value === searchInfo.language
-      )}
+      currentIndex={filterList.findIndex((v) => v.value === searchInfo.language)}
     >
       {filterList.map((v) => (
         <div
@@ -24,9 +22,7 @@ const Filter: React.FC<FilterProp> = ({ searchInfo, changeSearchInfo }) => {
           onClick={() => {
             changeSearchInfo({ ...searchInfo, language: v.value });
           }}
-          className={`body-l cursor-pointer  text-neutral-black ${
-            searchInfo.language === v.value ? '  body-l-bold ' : ' '
-          }`}
+          className={`body-l cursor-pointer  text-neutral-black ${searchInfo.language === v.value ? '  body-l-bold ' : ' '}`}
         >
           {v.label}
         </div>

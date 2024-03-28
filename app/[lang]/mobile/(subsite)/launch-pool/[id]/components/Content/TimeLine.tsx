@@ -16,9 +16,7 @@ const TimeLine: React.FC<TimeLineProp> = () => {
               ENDED
             </div>
           </div>
-          <p className="mt-[8px] text-neutral-rich-gray">
-            {moment(+new Date()).format('ll').split(',').slice(0, 1)}
-          </p>
+          <p className="mt-[8px] text-neutral-rich-gray">{moment(+new Date()).format('ll').split(',').slice(0, 1)}</p>
         </div>
 
         <div className="rounded-[16px] border border-neutral-light-gray px-[20px] py-[16px]">
@@ -28,9 +26,7 @@ const TimeLine: React.FC<TimeLineProp> = () => {
               ENDED
             </div>
           </div>
-          <p className="mt-[8px] text-neutral-rich-gray">
-            {moment(+new Date()).format('ll').split(',').slice(0, 1)}
-          </p>
+          <p className="mt-[8px] text-neutral-rich-gray">{moment(+new Date()).format('ll').split(',').slice(0, 1)}</p>
         </div>
 
         <div className="rounded-[16px] border border-neutral-light-gray px-[20px] py-[16px]">
@@ -40,9 +36,7 @@ const TimeLine: React.FC<TimeLineProp> = () => {
               LIVE
             </div>
           </div>
-          <p className="mt-[8px] text-neutral-rich-gray">
-            {moment(+new Date()).format('ll').split(',').slice(0, 1)}
-          </p>
+          <p className="mt-[8px] text-neutral-rich-gray">{moment(+new Date()).format('ll').split(',').slice(0, 1)}</p>
         </div>
       </div>
       <p className="body-s text-neutral-rich-gray">

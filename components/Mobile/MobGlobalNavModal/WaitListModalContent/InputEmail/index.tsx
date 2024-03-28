@@ -50,13 +50,7 @@ const InputEmail: FC<InputEmailProps> = ({ onSubmit }) => {
   return (
     <div className="flex h-full w-full flex-col justify-between">
       <div className="flex flex-col gap-8">
-        <svg
-          width="48"
-          height="48"
-          viewBox="0 0 48 48"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect width="48" height="48" fill="white" />
           <path
             fillRule="evenodd"
@@ -66,9 +60,7 @@ const InputEmail: FC<InputEmailProps> = ({ onSubmit }) => {
           />
         </svg>
 
-        <h1 className="text-h2-mob capitalize text-neutral-off-black">
-          {t('joinWaitlist')}
-        </h1>
+        <h1 className="text-h2-mob capitalize text-neutral-off-black">{t('joinWaitlist')}</h1>
 
         <Input
           label={t('email')}

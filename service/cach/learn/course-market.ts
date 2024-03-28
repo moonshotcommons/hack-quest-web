@@ -7,8 +7,6 @@ export interface CourseMarketApiType {
   total: number;
 }
 
-export const getCourseMarket = cache(function (
-  params: Object
-): Promise<CourseMarketApiType> {
+export const getCourseMarket = cache(function (params: Object): Promise<CourseMarketApiType> {
   return webApi.courseApi.getCourseListBySearch(params);
 });

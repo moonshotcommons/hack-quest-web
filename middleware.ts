@@ -5,11 +5,7 @@ import { NextRequest } from 'next/server';
 import { locales, defaultLocale, Lang } from '@/i18n/config';
 
 const isMobile = (ua: string) => {
-  return Boolean(
-    ua.match(
-      /Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i
-    )
-  );
+  return Boolean(ua.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i));
 };
 
 function getLocale(request: NextRequest): Lang {
@@ -24,9 +20,7 @@ function getLocale(request: NextRequest): Lang {
 
 export function middleware(request: NextRequest) {
   let pathname = request.nextUrl.pathname;
-  let userSelectLocale = locales.find(
-    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
-  );
+  let userSelectLocale = locales.find((locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`);
   let pathnameHasLocale = false;
   let supportI18n = pathname.includes('/launch-pool');
   let locale = userSelectLocale;
@@ -69,8 +63,7 @@ export function middleware(request: NextRequest) {
   }
 
   // 带了语言的url 直接返回
-  if (pathnameHasLocale && userSelectLocale === locale)
-    return NextResponse.next();
+  if (pathnameHasLocale && userSelectLocale === locale) return NextResponse.next();
   // 不带语言的url 重定向到带语言的url
   else return NextResponse.redirect(request.nextUrl);
 }

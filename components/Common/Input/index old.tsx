@@ -42,10 +42,7 @@ export interface InputRef {
   blur: () => void;
 }
 
-const Input = forwardRef<
-  InputRef,
-  InputProps & InputHTMLAttributes<HTMLInputElement>
->((props, ref) => {
+const Input = forwardRef<InputRef, InputProps & InputHTMLAttributes<HTMLInputElement>>((props, ref) => {
   const {
     label,
     type: propType,
@@ -126,16 +123,7 @@ const Input = forwardRef<
   return (
     <div className="flex flex-col gap-[0.75rem]">
       <div className="flex justify-between">
-        <p
-          className={cn(
-            'body-l-bold label',
-            `${
-              theme !== 'dark' ? 'text-neutral-off-black' : ''
-            } ${labelClassName} `
-          )}
-        >
-          {label}
-        </p>
+        <p className={cn('body-l-bold label', `${theme !== 'dark' ? 'text-neutral-off-black' : ''} ${labelClassName} `)}>{label}</p>
         {rightLabel}
       </div>
       <div className="relative">
@@ -150,12 +138,8 @@ const Input = forwardRef<
             theme !== 'dark'
               ? 'border-neutral-light-gray caret-neutral-off-black hover:border-neutral-medium-gray focus:border-neutral-medium-gray focus:text-neutral-off-black'
               : 'border-neutral-dark-gray caret-[#ffffff] hover:border-neutral-dark-gray focus:border-neutral-dark-gray',
-            status === 'success'
-              ? 'border-status-success focus:border-status-success'
-              : '',
-            status === 'error'
-              ? 'border-status-error-dark focus:border-status-error-dark'
-              : '',
+            status === 'success' ? 'border-status-success focus:border-status-success' : '',
+            status === 'error' ? 'border-status-error-dark focus:border-status-error-dark' : '',
             initBorderColor,
             className
           )}

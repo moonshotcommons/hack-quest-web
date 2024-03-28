@@ -4,17 +4,10 @@ import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import { FC, useContext, useMemo } from 'react';
 import Button from '@/components/Common/Button';
-import {
-  CourseContentType,
-  CreationPageKey,
-  UgcCreateContext
-} from '../../constant/type';
+import { CourseContentType, CreationPageKey, UgcCreateContext } from '../../constant/type';
 import { labelMaps } from './constant';
 import useUgcCreationDataHandle from '@/hooks/courses/useUgcCreationDataHandle';
-import {
-  CreationHandle,
-  useUgcCreationStore
-} from '@/store/zustand/ugcCreationStore';
+import { CreationHandle, useUgcCreationStore } from '@/store/zustand/ugcCreationStore';
 import { useShallow } from 'zustand/react/shallow';
 import { lessonIdKeys } from '../../constant/data';
 
@@ -34,8 +27,7 @@ const content: CourseContentType = {
 };
 
 const UgcSidebar: FC<UgcSidebarProps> = () => {
-  const { courseId, courseInformation, selectLessonId } =
-    useContext(UgcCreateContext);
+  const { courseId, courseInformation, selectLessonId } = useContext(UgcCreateContext);
   const { getUnitList, findLastLesson } = useUgcCreationDataHandle(courseId);
   const { redirectToUrl } = useRedirect();
   const disableAll = (key: string) => {
@@ -55,31 +47,19 @@ const UgcSidebar: FC<UgcSidebarProps> = () => {
   );
 
   const items: SidebarItemType[] = useMemo(() => {
-    const informationChildren: SidebarItemType[] = Object.keys(
-      courseInformation
-    ).map((key) => {
+    const informationChildren: SidebarItemType[] = Object.keys(courseInformation).map((key) => {
       return {
         key: key,
         disable: disableAll(key),
         label: (
           <div className={`body-m flex w-full justify-between`}>
-            <div className="flex flex-1 shrink-0 flex-col overflow-hidden pr-5">
-              {labelMaps[key as keyof typeof courseInformation]}
-            </div>
+            <div className="flex flex-1 shrink-0 flex-col overflow-hidden pr-5">{labelMaps[key as keyof typeof courseInformation]}</div>
             <div>
-              {!courseInformation[key as keyof typeof courseInformation]
-                .completed && (
+              {!courseInformation[key as keyof typeof courseInformation].completed && (
                 <div className="h-6 w-6 rounded-full border border-neutral-black"></div>
               )}
-              {courseInformation[key as keyof typeof courseInformation]
-                .completed && (
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
+              {courseInformation[key as keyof typeof courseInformation].completed && (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <circle cx="12" cy="12" r="12" fill="#00C365" />
                   <path
                     d="M18.4881 7.78628L9.82143 17.1196C9.69578 17.2551 9.51954 17.3323 9.33476 17.3329C9.15756 17.334 8.98724 17.2644 8.86143 17.1396L5.52809 13.8063C5.26668 13.5449 5.26668 13.121 5.52809 12.8596C5.78951 12.5982 6.21334 12.5982 6.47476 12.8596L9.33476 15.7063L17.5148 6.87961C17.6717 6.68612 17.9233 6.59625 18.1673 6.64659C18.4113 6.69693 18.6068 6.87908 18.6743 7.11887C18.7418 7.35866 18.67 7.61607 18.4881 7.78628Z"
@@ -114,21 +94,13 @@ const UgcSidebar: FC<UgcSidebarProps> = () => {
             disable: disableAll(key),
             label: (
               <div className={`body-m flex w-full justify-between`}>
-                <div className="flex flex-1 shrink-0 flex-col overflow-hidden pr-5">
-                  {labelMaps[key as keyof CourseContentType]}
-                </div>
+                <div className="flex flex-1 shrink-0 flex-col overflow-hidden pr-5">{labelMaps[key as keyof CourseContentType]}</div>
                 <div>
                   {!content[key as keyof CourseContentType].completed && (
                     <div className="h-6 w-6 rounded-full border border-neutral-black"></div>
                   )}
                   {content[key as keyof CourseContentType].completed && (
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <circle cx="12" cy="12" r="12" fill="#00C365" />
                       <path
                         d="M18.4881 7.78628L9.82143 17.1196C9.69578 17.2551 9.51954 17.3323 9.33476 17.3329C9.15756 17.334 8.98724 17.2644 8.86143 17.1396L5.52809 13.8063C5.26668 13.5449 5.26668 13.121 5.52809 12.8596C5.78951 12.5982 6.21334 12.5982 6.47476 12.8596L9.33476 15.7063L17.5148 6.87961C17.6717 6.68612 17.9233 6.59625 18.1673 6.64659C18.4113 6.69693 18.6068 6.87908 18.6743 7.11887C18.7418 7.35866 18.67 7.61607 18.4881 7.78628Z"
@@ -150,11 +122,9 @@ const UgcSidebar: FC<UgcSidebarProps> = () => {
   const { defaultOpenKeys, defaultSelect } = useMemo(() => {
     let defaultOpenKeys = INFORMATION_KEY;
     if (
-      [
-        CreationPageKey.Introduction,
-        CreationPageKey.IntendedLearners,
-        CreationPageKey.KnowledgeGain
-      ].includes(selectLessonId as CreationPageKey)
+      [CreationPageKey.Introduction, CreationPageKey.IntendedLearners, CreationPageKey.KnowledgeGain].includes(
+        selectLessonId as CreationPageKey
+      )
     ) {
       defaultOpenKeys = INFORMATION_KEY;
     }

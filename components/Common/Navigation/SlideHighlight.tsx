@@ -1,13 +1,6 @@
 'use client';
 import { useUserStore } from '@/store/zustand/userStore';
-import {
-  CSSProperties,
-  FC,
-  MouseEventHandler,
-  useEffect,
-  useRef,
-  useState
-} from 'react';
+import { CSSProperties, FC, MouseEventHandler, useEffect, useRef, useState } from 'react';
 
 export enum SlideClassName {
   FIST_NAVBAR = 'slide-navigator slide-navigator-fist-navbar',
@@ -37,9 +30,7 @@ const SlideHighlight: FC<SlideHighlightProps> = function (props) {
 
   const onClick: MouseEventHandler<HTMLDivElement> = (event) => {
     if (!root.current) return;
-    const target = Array.from(root.current.children).find((v) =>
-      v.contains(event.target as Node)
-    ) as HTMLElement;
+    const target = Array.from(root.current.children).find((v) => v.contains(event.target as Node)) as HTMLElement;
     const { left } = root.current.getBoundingClientRect();
     const { left: l, width } = target?.getBoundingClientRect() || {};
     if (!width) return;

@@ -1,11 +1,5 @@
 import { getToken } from '@/helper/user-token';
-import axios, {
-  AxiosError,
-  AxiosInstance,
-  AxiosResponse,
-  CreateAxiosDefaults,
-  InternalAxiosRequestConfig
-} from 'axios';
+import axios, { AxiosError, AxiosInstance, AxiosResponse, CreateAxiosDefaults, InternalAxiosRequestConfig } from 'axios';
 import { RequestConfig, RequestInterceptors } from './webServiceTypes';
 
 class WebService {
@@ -34,20 +28,12 @@ class WebService {
 
   addInterceptors() {
     if (!this.interceptors) {
-      this.instance.interceptors.request.use(
-        this.requestInterceptor,
-        this.requestInterceptorCatch
-      );
-      this.instance.interceptors.response.use(
-        this.responseInterceptor,
-        this.responseInterceptorCatch
-      );
+      this.instance.interceptors.request.use(this.requestInterceptor, this.requestInterceptorCatch);
+      this.instance.interceptors.response.use(this.responseInterceptor, this.responseInterceptorCatch);
     }
   }
 
-  requestInterceptor(
-    config: InternalAxiosRequestConfig
-  ): InternalAxiosRequestConfig {
+  requestInterceptor(config: InternalAxiosRequestConfig): InternalAxiosRequestConfig {
     const token = getToken();
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;

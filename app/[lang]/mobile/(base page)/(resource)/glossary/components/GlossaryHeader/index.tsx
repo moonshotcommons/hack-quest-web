@@ -43,10 +43,7 @@ const GlossaryHeader: React.FC<GlossaryHeaderProp> = ({ keyword = '' }) => {
         onSearch={onSearch}
         defaultValue={keyword}
       />
-      <SubmitWordModal
-        open={submitVisible}
-        onClose={() => setSubmitVisible(false)}
-      />
+      <SubmitWordModal open={submitVisible} onClose={() => setSubmitVisible(false)} />
     </>
   );
 };

@@ -21,12 +21,7 @@ const HackathonBox: React.FC<HackathonBoxProp> = ({ page, curTab }) => {
   const changeTab = (tab: HackathonStatusType) => {
     BurialPoint.track(`hackathon page tab 点击`);
     if (tab === curTab) return;
-    router.push(
-      getSearchParamsUrl(
-        { curTab: tab === HackathonStatusType.ON_GOING ? '' : tab },
-        MenuLink.HACKATHON
-      )
-    );
+    router.push(getSearchParamsUrl({ curTab: tab === HackathonStatusType.ON_GOING ? '' : tab }, MenuLink.HACKATHON));
   };
   const renderHackathon = () => {
     switch (curTab) {

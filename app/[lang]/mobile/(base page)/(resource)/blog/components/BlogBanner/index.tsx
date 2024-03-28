@@ -93,9 +93,8 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
       <div className="body-l relative z-[10]  flex flex-col gap-[1rem] bg-neutral-off-white px-[1.25rem] py-[1.875rem] text-neutral-off-black">
         <h1 className="text-h2-mob">Blog</h1>
         <p className="body-s w-full text-neutral-rich-gray">
-          Explore our Web3 Blog – your hub for news, events, and study notes!
-          Contribute your insights, shaping the conversation in the world of
-          decentralized tech.
+          Explore our Web3 Blog – your hub for news, events, and study notes! Contribute your insights, shaping the conversation in the
+          world of decentralized tech.
         </p>
 
         <Link
@@ -112,9 +111,7 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
           <div
             tabIndex={0}
             className={`flex-center relative h-[3rem] w-[3rem] cursor-pointer  rounded-full ${
-              sortVisible
-                ? 'bg-neutral-light-gray text-neutral-medium-gray'
-                : 'text-neutral-black'
+              sortVisible ? 'bg-neutral-light-gray text-neutral-medium-gray' : 'text-neutral-black'
             }`}
             onClick={() => setSortVisible(!sortVisible)}
             onBlur={() => {
@@ -123,11 +120,7 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
               }, 0);
             }}
           >
-            {searchInfo.sort === sortData[0].value ? (
-              <PiSortAscendingBold size={24} />
-            ) : (
-              <PiSortDescendingBold size={24} />
-            )}
+            {searchInfo.sort === sortData[0].value ? <PiSortAscendingBold size={24} /> : <PiSortDescendingBold size={24} />}
 
             {sortVisible && (
               <div className="body-s absolute bottom-[-5.625rem] left-0 overflow-hidden rounded-[10px] bg-neutral-off-white text-neutral-black shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)]">
@@ -135,9 +128,7 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
                   <div
                     key={v.value}
                     onClick={() => changeSort(v.value)}
-                    className={`flex h-[40px] items-center px-[20px] ${
-                      searchInfo.sort === v.value ? 'bg-neutral-light-gray' : ''
-                    }`}
+                    className={`flex h-[40px] items-center px-[20px] ${searchInfo.sort === v.value ? 'bg-neutral-light-gray' : ''}`}
                   >
                     <div className="mr-[30px] whitespace-nowrap">{v.label}</div>
                     {searchInfo.sort === v.value && <BiCheck size={24} />}
@@ -177,10 +168,7 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
             />
           </motion.div>
           {inputVisible ? (
-            <div
-              className="flex-center absolute right-[1.375rem] top-0 h-full w-[1.5rem]"
-              onClick={changeInputVisible}
-            >
+            <div className="flex-center absolute right-[1.375rem] top-0 h-full w-[1.5rem]" onClick={changeInputVisible}>
               <FiX size={24} />
             </div>
           ) : (
@@ -191,9 +179,7 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
         </div>
       </div>
       <div
-        className={`fixed left-0 top-0 z-[9] h-full w-full bg-neutral-black opacity-50 ${
-          !keyword && inputVisible ? 'block' : 'hidden'
-        }`}
+        className={`fixed left-0 top-0 z-[9] h-full w-full bg-neutral-black opacity-50 ${!keyword && inputVisible ? 'block' : 'hidden'}`}
       ></div>
     </>
   );

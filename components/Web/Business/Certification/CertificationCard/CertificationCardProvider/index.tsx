@@ -17,10 +17,7 @@ export const CertificationCardContext = createContext<{
   refreshCertificationAsync: async () => {}
 });
 
-const CertificationCardProvider: FC<CertificationCardProviderProps> = ({
-  certificationId,
-  children
-}) => {
+const CertificationCardProvider: FC<CertificationCardProviderProps> = ({ certificationId, children }) => {
   const { data, refresh, refreshAsync } = useRequest(async () => {
     if (!certificationId) return;
     return webApi.campaignsApi.getCertificationDetail(certificationId);

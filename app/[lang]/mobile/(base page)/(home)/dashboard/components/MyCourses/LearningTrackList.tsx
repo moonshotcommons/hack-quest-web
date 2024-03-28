@@ -12,21 +12,13 @@ interface LearningTrackListProps {
   curTab: ProcessType;
 }
 
-const LearningTrackList: React.FC<LearningTrackListProps> = ({
-  list,
-  curTab
-}) => {
+const LearningTrackList: React.FC<LearningTrackListProps> = ({ list, curTab }) => {
   const card = (learningTrack: LearningTrackDetailType) => {
     switch (curTab) {
       case ProcessType.IN_PROCESS:
         return <LearningTrackCardInProgress learningTrack={learningTrack} />;
       case ProcessType.COMPLETED:
-        return (
-          <MobLearningTrackCard
-            learningTrack={learningTrack}
-            from="dashboard"
-          />
-        );
+        return <MobLearningTrackCard learningTrack={learningTrack} from="dashboard" />;
     }
   };
   if (!list?.length) return null;

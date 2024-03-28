@@ -76,13 +76,7 @@ const ForgotPassword: FC<ForgotPasswordProps> = (props) => {
   return (
     <div className="flex h-full flex-col justify-between ">
       <div className="flex flex-col gap-6">
-        <svg
-          width="48"
-          height="48"
-          viewBox="0 0 48 48"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             fillRule="evenodd"
             clipRule="evenodd"
@@ -91,13 +85,9 @@ const ForgotPassword: FC<ForgotPasswordProps> = (props) => {
           />
         </svg>
 
-        <h3 className="text-h3-mob text-neutral-off-black">
-          Forgot your password?
-        </h3>
+        <h3 className="text-h3-mob text-neutral-off-black">Forgot your password?</h3>
         <div className="flex flex-col gap-1">
-          <p className="body-m text-neutral-medium-gray">
-            We will send you a link to your email to reset password.
-          </p>
+          <p className="body-m text-neutral-medium-gray">We will send you a link to your email to reset password.</p>
           <p className="underline-m text-neutral-rich-gray">{formData.email}</p>
         </div>
       </div>
@@ -119,9 +109,7 @@ const ForgotPassword: FC<ForgotPasswordProps> = (props) => {
         </Button>
 
         <Button
-          onClick={() =>
-            authRouteType.prevType && setAuthType(authRouteType.prevType)
-          }
+          onClick={() => authRouteType.prevType && setAuthType(authRouteType.prevType)}
           ghost
           block
           className="

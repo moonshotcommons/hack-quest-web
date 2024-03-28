@@ -28,28 +28,16 @@ const Banner: React.FC<BannerProp> = ({ searchInfo, changeSearchInfo }) => {
           {bannerTabList.map((v) => (
             <div
               key={v.value}
-              onClick={() =>
-                changeSearchInfo({ ...searchInfo, track: v.value })
-              }
+              onClick={() => changeSearchInfo({ ...searchInfo, track: v.value })}
               className={`w-[380px] cursor-pointer rounded-[16px] border p-[20px] ${
-                track === v.value
-                  ? 'border-transparent bg-yellow-primary'
-                  : 'bg-neutral-white hover:border-neutral-medium-gray'
+                track === v.value ? 'border-transparent bg-yellow-primary' : 'bg-neutral-white hover:border-neutral-medium-gray'
               }`}
             >
-              <div
-                className={`flex items-center justify-between ${
-                  track === v.value
-                    ? 'text-neutral-off-black'
-                    : 'text-neutral-black'
-                }`}
-              >
+              <div className={`flex items-center justify-between ${track === v.value ? 'text-neutral-off-black' : 'text-neutral-black'}`}>
                 <span className="body-xl-bold">{v.label}</span>
                 <Image src={v.imgActive} alt="tab-img" width={48}></Image>
               </div>
-              <div className={`body-s mt-[20px] text-neutral-rich-gray`}>
-                {v.description}
-              </div>
+              <div className={`body-s mt-[20px] text-neutral-rich-gray`}>{v.description}</div>
             </div>
           ))}
         </div>

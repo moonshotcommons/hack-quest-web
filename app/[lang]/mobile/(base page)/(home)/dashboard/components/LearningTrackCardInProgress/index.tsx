@@ -14,9 +14,7 @@ interface LearningTrackCardInProgressProp {
   learningTrack: LearningTrackDetailType;
 }
 
-const LearningTrackCardInProgress: React.FC<
-  LearningTrackCardInProgressProp
-> = ({ learningTrack }) => {
+const LearningTrackCardInProgress: React.FC<LearningTrackCardInProgressProp> = ({ learningTrack }) => {
   const { jumpLearningLesson, loading: jumpLoading } = useJumpLeaningLesson();
   const { redirectToUrl } = useRedirect();
   const goLearningTrackDetail = () => {
@@ -48,20 +46,13 @@ const LearningTrackCardInProgress: React.FC<
     >
       <div className="absolute right-[16px] top-[1rem]">
         <div className="relative h-[3rem] w-[3rem]">
-          <Image
-            src={learningTrack.image || LearningTrackImg}
-            fill
-            alt="learning-track-img"
-            className="object-cover"
-          ></Image>
+          <Image src={learningTrack.image || LearningTrackImg} fill alt="learning-track-img" className="object-cover"></Image>
         </div>
       </div>
       <div className="caption-12pt h-fit w-fit rounded-[1.25rem] border-[0.5px] border-neutral-rich-gray  px-[.75rem] py-[0.25rem] text-neutral-rich-gray">
         {learningTrack.track}
       </div>
-      <div className="body-m-bold line-clamp-1 w-[calc(100%-3.125rem)] text-neutral-off-black">
-        {learningTrack.name}
-      </div>
+      <div className="body-m-bold line-clamp-1 w-[calc(100%-3.125rem)] text-neutral-off-black">{learningTrack.name}</div>
 
       <MobCardProgress progress={learningTrack.progress || 0} />
       <Button

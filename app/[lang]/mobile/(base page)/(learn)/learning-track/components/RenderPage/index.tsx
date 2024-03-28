@@ -16,10 +16,7 @@ interface RenderPageProp {
   searchInfo: SearchInfoType;
 }
 
-const RenderPage: React.FC<RenderPageProp> = ({
-  learningTrackListData,
-  searchInfo
-}) => {
+const RenderPage: React.FC<RenderPageProp> = ({ learningTrackListData, searchInfo }) => {
   const router = useRouter();
   const changeSearchInfo = (info: SearchInfoType) => {
     router.push(getSearchParamsUrl(info, MenuLink.LEARNING_TRACK));
@@ -42,12 +39,7 @@ const RenderPage: React.FC<RenderPageProp> = ({
           courseList={learningTrackListData}
           loading={false}
           renderItem={(learningTrack) => {
-            return (
-              <MobLearningTrackCard
-                key={learningTrack.id}
-                learningTrack={learningTrack}
-              />
-            );
+            return <MobLearningTrackCard key={learningTrack.id} learningTrack={learningTrack} />;
           }}
         />
       </div>

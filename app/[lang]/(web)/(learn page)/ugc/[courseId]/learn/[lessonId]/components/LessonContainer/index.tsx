@@ -3,10 +3,7 @@ import { FC, useEffect } from 'react';
 import ComponentRenderer from '../UgcRender';
 import webApi from '@/service';
 
-import {
-  lessonTypeData,
-  LessonReadingData
-} from '../../../components/UgcSidebar/constant';
+import { lessonTypeData, LessonReadingData } from '../../../components/UgcSidebar/constant';
 
 interface LessonContainerProps {
   lesson: LessonReadingData;
@@ -31,15 +28,10 @@ const LessonContainer: FC<LessonContainerProps> = (props) => {
       <h2 className="text-h2">{lesson.title}</h2>
       <div className="mt-[.625rem] flex items-center gap-[.625rem]">
         <span>{lessonTypeData[lesson.type].icon}</span>
-        <span className="caption-16pt">
-          {lessonTypeData[lesson.type].label}
-        </span>
+        <span className="caption-16pt">{lessonTypeData[lesson.type].label}</span>
       </div>
       <div className="w-full pb-10">
-        <ComponentRenderer
-          parent={lesson}
-          component={lesson.content}
-        ></ComponentRenderer>
+        <ComponentRenderer parent={lesson} component={lesson.content}></ComponentRenderer>
       </div>
     </div>
   );

@@ -24,21 +24,14 @@ const TargetCard: React.FC<TargetCardProp> = () => {
       {!launchInfo.stakeManta && <LockMask />}
       <div className="flex items-center gap-[19px]">
         <div className="relative h-[40px] w-[40px] overflow-hidden">
-          <Image
-            src={IconHack}
-            alt="avatar"
-            fill
-            className="object-cover"
-          ></Image>
+          <Image src={IconHack} alt="avatar" fill className="object-cover"></Image>
         </div>
         <span>xxxxx</span>
       </div>
       <div className="flex items-center gap-[20px]">
         <div className="flex h-[40px] w-[145px] items-center justify-between rounded-r-[20px] border border-neutral-light-gray bg-neutral-off-white pr-[15px]">
           <div className="flex-center relative left-[-20px] h-[40px] w-[40px] rounded-[50%] bg-yellow-primary">
-            <div className="flex-center body-l h-[32px] w-[32px] rounded-[50%] bg-yellow-light">
-              🚀
-            </div>
+            <div className="flex-center body-l h-[32px] w-[32px] rounded-[50%] bg-yellow-light">🚀</div>
           </div>
           <span>{`${separationNumber(500)}`}</span>
         </div>

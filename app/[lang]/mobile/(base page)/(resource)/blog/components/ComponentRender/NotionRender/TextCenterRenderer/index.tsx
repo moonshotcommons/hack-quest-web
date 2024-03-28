@@ -4,11 +4,7 @@ import TextRenderer, { TextRendererProps } from '../TextRenderer';
 const TextCenterRenderer: React.FC<TextRendererProps> = (props) => {
   return (
     <p className="text-center">
-      <TextRenderer
-        {...props}
-        fontStyle="text-neutral-rich-gray"
-        fontSize="12px"
-      />
+      <TextRenderer {...props} fontStyle="text-neutral-rich-gray" fontSize="12px" />
     </p>
   );
 };

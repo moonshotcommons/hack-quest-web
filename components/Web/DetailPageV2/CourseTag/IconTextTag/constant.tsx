@@ -9,13 +9,7 @@ export enum IconTextTagType {
 export const tagConfig = {
   [IconTextTagType.COURSES_COUNT]: {
     icon: (
-      <svg
-        width="24"
-        height="25"
-        viewBox="0 0 24 25"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
+      <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           fillRule="evenodd"
           clipRule="evenodd"
@@ -34,13 +28,7 @@ export const tagConfig = {
   },
   [IconTextTagType.LESSONS_COUNT]: {
     icon: (
-      <svg
-        width="24"
-        height="25"
-        viewBox="0 0 24 25"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
+      <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           fillRule="evenodd"
           clipRule="evenodd"
@@ -59,13 +47,7 @@ export const tagConfig = {
   },
   [IconTextTagType.VIDEO_COUNT]: {
     icon: (
-      <svg
-        width="24"
-        height="25"
-        viewBox="0 0 24 25"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
+      <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g clipPath="url(#clip0_3458_29089)">
           <path
             fillRule="evenodd"
@@ -82,12 +64,7 @@ export const tagConfig = {
         </g>
         <defs>
           <clipPath id="clip0_3458_29089">
-            <rect
-              width="24"
-              height="24"
-              fill="white"
-              transform="translate(0 0.800049)"
-            />
+            <rect width="24" height="24" fill="white" transform="translate(0 0.800049)" />
           </clipPath>
         </defs>
       </svg>
@@ -96,13 +73,7 @@ export const tagConfig = {
   },
   [IconTextTagType.DEVICE_ACCESS]: {
     icon: (
-      <svg
-        width="24"
-        height="25"
-        viewBox="0 0 24 25"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
+      <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           d="M17 2.80005H7C5.89543 2.80005 5 3.69548 5 4.80005V20.8C5 21.9046 5.89543 22.8 7 22.8H17C18.1046 22.8 19 21.9046 19 20.8V4.80005C19 3.69548 18.1046 2.80005 17 2.80005Z"
           stroke="#0B0B0B"
@@ -110,26 +81,14 @@ export const tagConfig = {
           strokeLinecap="round"
           strokeLinejoin="round"
         />
-        <path
-          d="M12 18.8H12.01"
-          stroke="#0B0B0B"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
+        <path d="M12 18.8H12.01" stroke="#0B0B0B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     ),
     text: 'Access on mobile and desktop'
   },
   [IconTextTagType.CERTIFICATION]: {
     icon: (
-      <svg
-        width="24"
-        height="25"
-        viewBox="0 0 24 25"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
+      <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g clipPath="url(#clip0_4277_6044)">
           <path
             d="M12 15.938C15.866 15.938 19 12.804 19 8.93799C19 5.072 15.866 1.93799 12 1.93799C8.13401 1.93799 5 5.072 5 8.93799C5 12.804 8.13401 15.938 12 15.938Z"
@@ -148,12 +107,7 @@ export const tagConfig = {
         </g>
         <defs>
           <clipPath id="clip0_4277_6044">
-            <rect
-              width="24"
-              height="24"
-              fill="white"
-              transform="translate(0 0.937988)"
-            />
+            <rect width="24" height="24" fill="white" transform="translate(0 0.937988)" />
           </clipPath>
         </defs>
       </svg>

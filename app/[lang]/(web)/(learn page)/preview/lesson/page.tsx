@@ -8,9 +8,7 @@ interface PreviewLessonPageProps {
   };
 }
 
-const PreviewLessonPage: NextPage<PreviewLessonPageProps> = ({
-  searchParams
-}) => {
+const PreviewLessonPage: NextPage<PreviewLessonPageProps> = ({ searchParams }) => {
   return (
     <>
       <div className="flex h-full w-full flex-col ">

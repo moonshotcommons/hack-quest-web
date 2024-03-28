@@ -1,13 +1,7 @@
 import Button from '@/components/Common/Button';
 import Modal from '@/components/Common/Modal';
 import { Form, message } from 'antd';
-import {
-  forwardRef,
-  useContext,
-  useEffect,
-  useImperativeHandle,
-  useState
-} from 'react';
+import { forwardRef, useContext, useEffect, useImperativeHandle, useState } from 'react';
 import { ProfileContext } from '../../../constants/type';
 import { useRequest } from 'ahooks';
 import webApi from '@/service';
@@ -29,10 +23,7 @@ interface FormKeyValues {
   telegram: string;
 }
 
-const PersonalLinkEditModal = forwardRef<
-  PersonalLinkEditModalRef,
-  PersonalLinkEditModalProps
->((props, ref) => {
+const PersonalLinkEditModal = forwardRef<PersonalLinkEditModalRef, PersonalLinkEditModalProps>((props, ref) => {
   const [open, setOpen] = useState(false);
   const [form] = Form.useForm<FormKeyValues>();
   const { profile, refresh } = useContext(ProfileContext);
@@ -98,41 +89,19 @@ const PersonalLinkEditModal = forwardRef<
       showCloseIcon
       icon={
         <div className="absolute -right-2 -top-2 cursor-pointer">
-          <svg
-            width="30"
-            height="30"
-            viewBox="0 0 30 30"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <line
-              x1="22.2734"
-              y1="22.2745"
-              x2="7.42416"
-              y2="7.42521"
-              stroke="#0B0B0B"
-            />
-            <line
-              x1="7.42574"
-              y1="22.2744"
-              x2="22.275"
-              y2="7.42513"
-              stroke="#0B0B0B"
-            />
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="22.2734" y1="22.2745" x2="7.42416" y2="7.42521" stroke="#0B0B0B" />
+            <line x1="7.42574" y1="22.2744" x2="22.275" y2="7.42513" stroke="#0B0B0B" />
           </svg>
         </div>
       }
       markBg="black"
     >
       <div className="w-[800px] rounded-[10px] bg-neutral-off-white px-[30px] py-[30px]">
-        <div className="text-h3 text-[28px] text-neutral-black">
-          Personal Links
-        </div>
+        <div className="text-h3 text-[28px] text-neutral-black">Personal Links</div>
         <Form className="" form={form}>
           {Object.keys(personLinks).map((key, index) => {
-            const media = getThirdPartyMedia(
-              key as keyof typeof thirdPartyMedia
-            );
+            const media = getThirdPartyMedia(key as keyof typeof thirdPartyMedia);
             if (!media) return null;
             return (
               <Form.Item
@@ -148,9 +117,7 @@ const PersonalLinkEditModal = forwardRef<
                 <div className="relative flex items-center py-[20px] text-neutral-black after:absolute after:bottom-0 after:h-[1px] after:w-full after:scale-y-[0.5] after:bg-neutral-black">
                   <div className="flex h-full w-[25%] items-center gap-x-[15px]">
                     <span>{media.icon}</span>
-                    <span className="body-l text-neutral-black">
-                      {media.name}
-                    </span>
+                    <span className="body-l text-neutral-black">{media.name}</span>
                   </div>
                   <input
                     defaultValue={profile?.personalLinks?.[key] || ''}

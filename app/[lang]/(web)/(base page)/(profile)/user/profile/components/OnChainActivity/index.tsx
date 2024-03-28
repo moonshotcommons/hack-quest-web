@@ -121,40 +121,27 @@ const OnChainActivity: FC<OnChainActivityProps> = (props) => {
           {!refreshChainLoading && (
             <div className="mt-[30px] flex">
               <div className="relative flex flex-1 flex-col items-center after:absolute after:right-0 after:top-0 after:h-full after:w-[1px] after:scale-x-50 after:bg-neutral-black">
-                <span className="font-next-book-Thin text-[54px] leading-[160%] tracking-[0.162px] text-neutral-black">
-                  0
-                </span>
-                <p className="body-m mt-5 text-neutral-medium-gray">
-                  Deployed Contracts
-                </p>
+                <span className="font-next-book-Thin text-[54px] leading-[160%] tracking-[0.162px] text-neutral-black">0</span>
+                <p className="body-m mt-5 text-neutral-medium-gray">Deployed Contracts</p>
               </div>
               <div className="flex flex-1 flex-col items-center">
                 <span className="font-next-book-Thin text-[54px] leading-[160%] tracking-[0.162px] text-neutral-black">
                   {chainData?.transactionCount}
                 </span>
-                <p className="body-m mt-5 text-neutral-medium-gray">
-                  DeFi Interaction
-                </p>
+                <p className="body-m mt-5 text-neutral-medium-gray">DeFi Interaction</p>
               </div>
             </div>
           )}
           {refreshChainLoading && (
             <div className="flex-center relative h-full w-full flex-1">
-              <Image
-                src={Loading}
-                width={40}
-                alt="loading"
-                className="animate-spin object-contain opacity-100"
-              ></Image>
+              <Image src={Loading} width={40} alt="loading" className="animate-spin object-contain opacity-100"></Image>
             </div>
           )}
         </>
       )}
       {Object.keys(chainData || {}).length <= 0 && (
         <div className="flex flex-col items-center">
-          <p className="body-l mt-[48px] text-center">
-            Share your on-chain activities
-          </p>
+          <p className="body-l mt-[48px] text-center">Share your on-chain activities</p>
           <Button
             type="primary"
             disabled={loading}

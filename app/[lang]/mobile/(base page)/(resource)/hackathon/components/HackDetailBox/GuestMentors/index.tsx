@@ -19,9 +19,7 @@ const GuestMentors: React.FC<GuestMentorsProp> = ({ listData, title }) => {
   }, [showAll, listData]);
   return listData.length > 0 ? (
     <Box>
-      <div className="text-h3-mob mb-[.5rem] text-neutral-off-black">
-        {title}
-      </div>
+      <div className="text-h3-mob mb-[.5rem] text-neutral-off-black">{title}</div>
       <div className="mb-[.5rem] flex flex-col gap-[.5rem]">
         {showList.map((v: MentorType, i: number) => (
           <div
@@ -29,12 +27,7 @@ const GuestMentors: React.FC<GuestMentorsProp> = ({ listData, title }) => {
             className="flex-row-center full gap-[10px] rounded-[1.875rem] border border-neutral-medium-gray bg-neutral-off-white py-[4px] pl-[.25rem] pr-[1.25rem]"
           >
             <div className="relative h-[2.5rem] w-[2.5rem] overflow-hidden rounded-[50%]">
-              <Image
-                src={v.picture as string}
-                alt="picture"
-                fill
-                className="object-cover"
-              ></Image>
+              <Image src={v.picture as string} alt="picture" fill className="object-cover"></Image>
             </div>
             <div className="flex h-full flex-1 flex-shrink-0 flex-col justify-center">
               <p className="body-xs">{v.name}</p>
@@ -53,9 +46,7 @@ const GuestMentors: React.FC<GuestMentorsProp> = ({ listData, title }) => {
             }}
           >
             <span>Show {showAll ? 'Less' : 'All'}</span>
-            <VscChevronDown
-              className={`body-s transition ${showAll ? 'rotate-180' : ''}`}
-            />
+            <VscChevronDown className={`body-s transition ${showAll ? 'rotate-180' : ''}`} />
           </div>
         </div>
       )}

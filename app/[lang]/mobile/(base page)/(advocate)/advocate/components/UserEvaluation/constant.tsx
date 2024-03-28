@@ -46,12 +46,9 @@ export const userEvaluation = [
       {
         content: (
           <span>
-            Thanks to <span className="text-[#4C97EA]">@harryzhangs</span> Co-
-            founder of <span className="text-[#4C97EA]">@HackQuest_</span> for
-            quicking off and leading the townhall and walking all the cohart
-            members through the{' '}
-            <span className="text-[#4C97EA]">@HackQuest_</span> platform{' '}
-            <span className="text-[#4C97EA]">hackquest.io</span>
+            Thanks to <span className="text-[#4C97EA]">@harryzhangs</span> Co- founder of{' '}
+            <span className="text-[#4C97EA]">@HackQuest_</span> for quicking off and leading the townhall and walking all the cohart members
+            through the <span className="text-[#4C97EA]">@HackQuest_</span> platform <span className="text-[#4C97EA]">hackquest.io</span>
           </span>
         ),
         username: 'Vivek Yadav',
@@ -74,10 +71,8 @@ export const userEvaluation = [
               <span className="text-[#4C97EA]">@HackQuest_</span>
               <br /> <span>the journey was so amazing & interesting.👍🙌</span>
               <br />
-              <span>Thanks to</span>{' '}
-              <span className="text-[#4C97EA]">@harryzhangs @adisuyash</span> ❤️
-              <span className="text-[#4C97EA]">#14DaysofWeb3 #web3</span>{' '}
-              <span className="text-[#4C97EA]">#HackQuest #Web3Journey</span>
+              <span>Thanks to</span> <span className="text-[#4C97EA]">@harryzhangs @adisuyash</span> ❤️
+              <span className="text-[#4C97EA]">#14DaysofWeb3 #web3</span> <span className="text-[#4C97EA]">#HackQuest #Web3Journey</span>
             </span>
           </span>
         ),
@@ -94,13 +89,11 @@ export const userEvaluation = [
             <br />
             <br />
             <span>Got to know about the platform 🌐</span>
-            <span className="text-[#4C97EA]">Hackqeust.io</span>{' '}
-            <span>{`and it's different features ❤️`}</span>
+            <span className="text-[#4C97EA]">Hackqeust.io</span> <span>{`and it's different features ❤️`}</span>
             <span>Also thanks to</span>
             <span className="text-[#4C97EA]">@harryzhangs</span> and
             <br />
-            <span className="text-[#4C97EA]">@AdiSuyash</span> for introducing
-            me to this amazing learning experience!
+            <span className="text-[#4C97EA]">@AdiSuyash</span> for introducing me to this amazing learning experience!
             <br />
             <br />
             <span className="text-[#4C97EA]">#HackQuest #Layer2Learning</span>
@@ -130,20 +123,12 @@ export const userEvaluation = [
             <br />
             <span className="text-[#4C97EA]">@HackQuest_</span>
             <span>Today I have: </span>
-            <br />{' '}
-            <span>
-              🔸 Learned Solidity: Implementing NFTs contracts like
-              Cryotokitties.
-            </span>{' '}
-            <br />
+            <br /> <span>🔸 Learned Solidity: Implementing NFTs contracts like Cryotokitties.</span> <br />
             <span>📷 Suggested improvements</span>
             <br />
             <br />
             <span className="text-[#4C97EA]">@HackQuest_</span>
-            <br />{' '}
-            <span className="break-all text-[#4C97EA]">
-              #HackQuest #14DayswithMantle
-            </span>
+            <br /> <span className="break-all text-[#4C97EA]">#HackQuest #14DayswithMantle</span>
             <br />
             <span className="text-[#4C97EA]">#BuildwithMantle</span>
           </span>
@@ -160,10 +145,7 @@ export const userEvaluation = [
             <span className="text-[#4C97EA]">@HackQuest_</span>
             <br />
             <br />
-            <span>
-              We learned soo many things from this 2nd townhall. And also know
-              about the different features of{' '}
-            </span>
+            <span>We learned soo many things from this 2nd townhall. And also know about the different features of </span>
             <span className="text-[#4C97EA]">@HackQuest_</span>
             <br />
             <br />
@@ -187,10 +169,8 @@ export const userEvaluation = [
       {
         content: (
           <span>
-            刚刚在 HackQuest 学完了 Solidity 课程 ，然后用了三天时间自己写了一个
-            DEX，不得不感叹 Web3
-            的神奇！学习过程中也充分感受到了web3社区的力量，和HackQuest
-            社区的小伙伴们一起共学给了我很大的动力 以后我也会成为社区支持者
+            刚刚在 HackQuest 学完了 Solidity 课程 ，然后用了三天时间自己写了一个 DEX，不得不感叹 Web3
+            的神奇！学习过程中也充分感受到了web3社区的力量，和HackQuest 社区的小伙伴们一起共学给了我很大的动力 以后我也会成为社区支持者
             和大家一起共同成长，LFG！！
             <br />
             <span className="text-[#4C97EA]">@HackQuest_ #HackQuest</span>
@@ -205,10 +185,7 @@ export const userEvaluation = [
           <span>
             <span>Glad to share that I am working with</span>
             <br />
-            <span className="text-[#4C97EA]">
-              @HackQuest_
-            </span> {`(powering`}{' '}
-            <span className="text-[#4C97EA]"> @buildmoonshot</span>
+            <span className="text-[#4C97EA]">@HackQuest_</span> {`(powering`} <span className="text-[#4C97EA]"> @buildmoonshot</span>
             {`)`}
             <br />
             <span>{`as Community Manager (India) where I'll be building their Web3 developer community in India`}</span>
@@ -217,14 +194,10 @@ export const userEvaluation = [
             </span>{' '}
             <br />
             <br />
-            <span>
-              {`If you happen to run a Web2/Web3 community, we're happy to collaborate 🚀🚀`}
-            </span>
+            <span>{`If you happen to run a Web2/Web3 community, we're happy to collaborate 🚀🚀`}</span>
             <br />
             <br />
-            <span className="text-[#4C97EA]">
-              #web3community #web3education
-            </span>
+            <span className="text-[#4C97EA]">#web3community #web3education</span>
           </span>
         ),
         username: 'Shyaamal Tripathi',
@@ -241,12 +214,10 @@ export const userEvaluation = [
         content: (
           <span className="tracking-tighter">
             <span>
-              뭔가 재밋어 보이는 완전 신규플{' '}
-              <span className="text-[#4C97EA]">@HackQuest_</span>코드2언?
+              뭔가 재밋어 보이는 완전 신규플 <span className="text-[#4C97EA]">@HackQuest_</span>코드2언?
             </span>{' '}
-            에듀케이션2언? <span className="text-[#4C97EA]">@0xMantle</span>{' '}
-            네트워크에서의 코딩 학습 퀘스트를 통해 보상을 받는 구조코딩에 코짜도
-            모르지만 찬찬히 따라해보겠음!
+            에듀케이션2언? <span className="text-[#4C97EA]">@0xMantle</span> 네트워크에서의 코딩 학습 퀘스트를 통해 보상을 받는 구조코딩에
+            코짜도 모르지만 찬찬히 따라해보겠음!
           </span>
         ),
         username: 'hallla.stepn',
@@ -257,26 +228,21 @@ export const userEvaluation = [
         content: (
           <span>
             <span>
-              Day 13 to 14/14 of <span className="text-[#4C97EA]">#Web3</span>{' '}
-              at{' '}
+              Day 13 to 14/14 of <span className="text-[#4C97EA]">#Web3</span> at{' '}
               <span className="text-[#4C97EA]">@HackQuest_ @harryzhangs</span>
             </span>
             <br />
             <br />
             <span>
-              Today is the final day. At{' '}
-              <span className="text-[#4C97EA]">@HackQuest_</span>
+              Today is the final day. At <span className="text-[#4C97EA]">@HackQuest_</span>
               <br />
               <span>💡 Complete the Mantle learning Track. </span>
               <br />
               <span>
-                💡 Learned advanced concept in{' '}
-                <span className="text-[#4C97EA]">#Solidity</span>.
+                💡 Learned advanced concept in <span className="text-[#4C97EA]">#Solidity</span>.
               </span>
               <br />
-              <span>
-                💡Created and deployed the CryptoKitty smart contract.
-              </span>
+              <span>💡Created and deployed the CryptoKitty smart contract.</span>
             </span>
             <br /> <br />
             <span>
@@ -299,10 +265,9 @@ export const userEvaluation = [
       {
         content: (
           <span className="tracking-wide">
-            While learning and exploring about the web 3 field it is quite
-            enthusiastic for me with{' '}
-            <span className="text-[#4C97EA]">#Hackquest</span> as this is going
-            to be crazy platform in the field of teaching skills to students 😊
+            While learning and exploring about the web 3 field it is quite enthusiastic for me with{' '}
+            <span className="text-[#4C97EA]">#Hackquest</span> as this is going to be crazy platform in the field of teaching skills to
+            students 😊
           </span>
         ),
         username: 'Alok Sahal',
@@ -315,9 +280,8 @@ export const userEvaluation = [
             <span className="text-[#4C97EA]">@HackQuest_</span>
             <br />
             <br />
-            HackQuest предоставляет лучший в мире опыт обучения в сфере Web3! Я
-            горжусь тем, что являюсь защитником сообщества HackQuest и помогаю
-            привлекать все больше людей в мир Web3.
+            HackQuest предоставляет лучший в мире опыт обучения в сфере Web3! Я горжусь тем, что являюсь защитником сообщества HackQuest и
+            помогаю привлекать все больше людей в мир Web3.
             <br />
             <br />
             <span className="text-[#4C97EA]">hackquest.io</span>
@@ -348,10 +312,8 @@ export const userEvaluation = [
             <br />
             <br />
             <span>
-              Thanks to our speakers{' '}
-              <span className="text-[#4C97EA]">@harryzhangs</span> and{' '}
-              <span className="text-[#4C97EA]">@AdiSuyash</span> for introducing
-              for this amazing experience.
+              Thanks to our speakers <span className="text-[#4C97EA]">@harryzhangs</span> and{' '}
+              <span className="text-[#4C97EA]">@AdiSuyash</span> for introducing for this amazing experience.
             </span>
           </span>
         ),
@@ -364,14 +326,11 @@ export const userEvaluation = [
           <span>
             <span>Hey,</span>
             <br />
-            <span>
-              {`Excited to share that I've successfully conquered the Mantle Learning Track on`}
-            </span>
+            <span>{`Excited to share that I've successfully conquered the Mantle Learning Track on`}</span>
             <br />
             <span className="text-[#4C97EA]">@HackQuest_</span> ! 💯
             <br />
-            Huge shoutout to the amazing community and resources that made this
-            achievement possible! 🙌🎓{' '}
+            Huge shoutout to the amazing community and resources that made this achievement possible! 🙌🎓{' '}
             <span className="text-[#4C97EA]">#HackQuest #Web3</span>
           </span>
         ),

@@ -14,9 +14,7 @@ const IntendedLearners: FC<IntendedLearnersProps> = ({ intendedLearners }) => {
       </div>
       <div className="flex flex-col gap-5">
         <div className="flex flex-col gap-2">
-          <p className="body-m-bold text-neutral-black">
-            Who’s This Course For
-          </p>
+          <p className="body-m-bold text-neutral-black">Who’s This Course For</p>
           <ul className="[&>li]:body-s flex list-disc flex-col gap-2 [&>li]:ml-6 [&>li]:text-neutral-black">
             {intendedLearners.audience?.map((item) => {
               return <li key={item}>{item}</li>;

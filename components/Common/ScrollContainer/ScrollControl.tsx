@@ -21,13 +21,9 @@ function ScrollControl({
   controlIconSize = 24,
   onLeftClick,
   onRightClick,
-  burialPointType = [
-    'home-featured course滚动-左',
-    'home-featured course滚动-右'
-  ]
+  burialPointType = ['home-featured course滚动-左', 'home-featured course滚动-右']
 }: ScrollControlProps) {
-  const { handleArrowClick, rightArrowVisible, leftArrowVisible } =
-    changeState || {};
+  const { handleArrowClick, rightArrowVisible, leftArrowVisible } = changeState || {};
 
   const [widthRatio, setWidthRatio] = useState(0);
   const [translateX, setTranslateX] = useState(0);
@@ -92,10 +88,7 @@ function ScrollControl({
         </div>
       </div>
       {showSlider && (
-        <div
-          className="relative mt-[15px] h-[2px] w-[502px] max-w-[502px] bg-[#DADADA]"
-          ref={scrollBarRef}
-        >
+        <div className="relative mt-[15px] h-[2px] w-[502px] max-w-[502px] bg-[#DADADA]" ref={scrollBarRef}>
           <div
             className="absolute bottom-0 left-0 h-[3px] bg-neutral-medium-gray transition-transform"
             ref={scrollBarInstanceRef}

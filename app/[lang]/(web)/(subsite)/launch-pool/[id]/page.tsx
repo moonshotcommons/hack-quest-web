@@ -11,11 +11,8 @@ interface LaunchDetailProp {
   };
 }
 
-export async function generateMetadata({
-  params
-}: LaunchDetailProp): Promise<Metadata> {
-  const project: LaunchPoolProjectType =
-    await webApi.launchPoolApi.getProjectById(params.id);
+export async function generateMetadata({ params }: LaunchDetailProp): Promise<Metadata> {
+  const project: LaunchPoolProjectType = await webApi.launchPoolApi.getProjectById(params.id);
   return {
     title: project.name,
     alternates: {

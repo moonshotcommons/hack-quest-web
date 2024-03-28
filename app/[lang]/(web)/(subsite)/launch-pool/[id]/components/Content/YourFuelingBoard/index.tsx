@@ -29,9 +29,7 @@ const YourFuelingBoard: React.FC<YourFuelingBoardProp> = () => {
         };
       case LaunchStatus.AIRDROPING:
         return {
-          titleDesc: launchInfo.participate ? (
-            <p>{t('fuelCongratulations')}</p>
-          ) : null
+          titleDesc: launchInfo.participate ? <p>{t('fuelCongratulations')}</p> : null
         };
       default:
         return null;
@@ -40,27 +38,15 @@ const YourFuelingBoard: React.FC<YourFuelingBoardProp> = () => {
   return (
     <div className="relative overflow-hidden">
       <p className="text-h3 text-neutral-off-black">{t(titleTxtData[2])}</p>
-      <p className="body-l my-[24px] text-neutral-black">
-        {statusRender()?.titleDesc}
-      </p>
+      <p className="body-l my-[24px] text-neutral-black">{statusRender()?.titleDesc}</p>
       <Info />
       {launchInfo.status === LaunchStatus.FUELING && launchInfo.participate && (
         <>
           <StakeFuel />
           <InvitationFuel />
           <TargetFuel />
-          <StakeModal
-            open={modalName === 'stake'}
-            onClose={() => setModalName('')}
-            loading={false}
-            hanleStake={hanleStake}
-          />
-          <UnstakeModal
-            open={modalName === 'stake'}
-            onClose={() => setModalName('')}
-            loading={false}
-            hanleUnstake={hanleUnstake}
-          />
+          <StakeModal open={modalName === 'stake'} onClose={() => setModalName('')} loading={false} hanleStake={hanleStake} />
+          <UnstakeModal open={modalName === 'stake'} onClose={() => setModalName('')} loading={false} hanleUnstake={hanleUnstake} />
         </>
       )}
     </div>

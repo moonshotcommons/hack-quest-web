@@ -79,15 +79,7 @@ export type EasyCropProps = {
 } & Required<
   Pick<
     ImgCropProps,
-    | 'zoomSlider'
-    | 'rotationSlider'
-    | 'aspectSlider'
-    | 'showReset'
-    | 'aspect'
-    | 'minZoom'
-    | 'maxZoom'
-    | 'cropShape'
-    | 'showGrid'
+    'zoomSlider' | 'rotationSlider' | 'aspectSlider' | 'showReset' | 'aspect' | 'minZoom' | 'maxZoom' | 'cropShape' | 'showGrid'
   >
 > &
   Pick<ImgCropProps, 'cropperProps'> & { resetBtnText: string };

@@ -5,9 +5,7 @@ import PreviewLesson from '@/components/Web/PreviewLessonPage';
 interface IProps {}
 
 const PreviewLessonPage: NextPage<IProps> = (props) => {
-  const query = new URLSearchParams(
-    typeof window !== 'undefined' ? window.location.search : ''
-  );
+  const query = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
   const previewUrl = query.get('previewUrl');
 
   return (

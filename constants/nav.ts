@@ -40,9 +40,7 @@ export function isNoNeedUserInfo(pathname: string) {
   // if (lang && pathname.startsWith(`/${lang}`)) {
   //   pathname = pathname.replace(`/${lang}`, '');
   // } else if (!lang) {
-  const lang = locales.find(
-    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
-  );
+  const lang = locales.find((locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`);
 
   if (lang && pathname.startsWith(`/${lang}`)) {
     pathname = pathname.replace(`/${lang}`, '');

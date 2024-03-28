@@ -32,9 +32,7 @@ class MissionCenterApi {
   }
   /** 获取用户宝箱 */
   getTreasures() {
-    return this.service.get<UserTreasuresType[]>(
-      MissionCenterApiType.Treasures
-    );
+    return this.service.get<UserTreasuresType[]>(MissionCenterApiType.Treasures);
   }
   /** 获取所有badge */
   getAllBadges() {
@@ -55,9 +53,7 @@ class MissionCenterApi {
   }
   /** 获取 missionDiscord 链接 */
   getMissionDiscord() {
-    return this.service.get<{ url: string }>(
-      `${MissionCenterApiType.Missions}/discord`
-    );
+    return this.service.get<{ url: string }>(`${MissionCenterApiType.Missions}/discord`);
   }
 
   /** 挖宝箱 */

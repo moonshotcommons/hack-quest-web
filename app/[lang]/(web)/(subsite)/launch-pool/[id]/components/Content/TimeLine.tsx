@@ -97,9 +97,7 @@ const TimeLine: React.FC<TimeLineProp> = () => {
             </ul>
             <p>
               <span>{t('fuelingDescriptionBottom')}</span>
-              <span className="cursor-pointer underline">
-                {t('allocationCalculation')}
-              </span>
+              <span className="cursor-pointer underline">{t('allocationCalculation')}</span>
             </p>
           </div>
         );
@@ -117,42 +115,30 @@ const TimeLine: React.FC<TimeLineProp> = () => {
           className={`rounded-[16px] border  px-[20px] py-[16px] ${launchInfo.status === LaunchStatus.FUELING ? 'border-neutral-medium-gray bg-neutral-white' : 'border-neutral-light-gray'}`}
         >
           <div className="flex items-center justify-between">
-            <span className="text-h4 text-neutral-off-black">
-              {t('fueling')}
-            </span>
+            <span className="text-h4 text-neutral-off-black">{t('fueling')}</span>
             {tagRender('fueling')}
           </div>
-          <p className="mt-[8px] text-neutral-rich-gray">
-            {moment(+new Date()).format('ll').split(',').slice(0, 1)}
-          </p>
+          <p className="mt-[8px] text-neutral-rich-gray">{moment(+new Date()).format('ll').split(',').slice(0, 1)}</p>
         </div>
 
         <div
           className={`rounded-[16px] border  px-[20px] py-[16px] ${launchInfo.status === LaunchStatus.ALLOCATIONING ? 'border-neutral-medium-gray bg-neutral-white' : 'border-neutral-light-gray'}`}
         >
           <div className="flex items-center justify-between">
-            <span className="text-h4 text-neutral-off-black">
-              {t('allocation')}
-            </span>
+            <span className="text-h4 text-neutral-off-black">{t('allocation')}</span>
             {tagRender('allocation')}
           </div>
-          <p className="mt-[8px] text-neutral-rich-gray">
-            {moment(+new Date()).format('ll').split(',').slice(0, 1)}
-          </p>
+          <p className="mt-[8px] text-neutral-rich-gray">{moment(+new Date()).format('ll').split(',').slice(0, 1)}</p>
         </div>
 
         <div
           className={`rounded-[16px] border  px-[20px] py-[16px] ${launchInfo.status === LaunchStatus.AIRDROPING || launchInfo.status === LaunchStatus.ENDED ? 'border-neutral-medium-gray bg-neutral-white' : 'border-neutral-light-gray'}`}
         >
           <div className="flex items-center justify-between">
-            <span className="text-h4 text-neutral-off-black">
-              {t('airdrop')}
-            </span>
+            <span className="text-h4 text-neutral-off-black">{t('airdrop')}</span>
             {tagRender('airdrop')}
           </div>
-          <p className="mt-[8px] text-neutral-rich-gray">
-            {moment(+new Date()).format('ll').split(',').slice(0, 1)}
-          </p>
+          <p className="mt-[8px] text-neutral-rich-gray">{moment(+new Date()).format('ll').split(',').slice(0, 1)}</p>
         </div>
       </div>
       <div className="body-s text-neutral-rich-gray">{descriptionRender()}</div>

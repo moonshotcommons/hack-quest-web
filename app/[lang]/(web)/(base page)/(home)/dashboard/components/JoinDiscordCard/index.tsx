@@ -6,13 +6,7 @@ import { FC } from 'react';
 interface JoinDiscordCardProps {}
 
 const icon = (
-  <svg
-    width="64"
-    height="64"
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+  <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
       d="M30.3278 60.4916C14.6835 59.6588 2.67632 46.3014 3.50914 30.657M33.3438 3.8383C48.9881 4.67112 60.9953 18.0285 60.1625 33.6729"
       stroke="black"

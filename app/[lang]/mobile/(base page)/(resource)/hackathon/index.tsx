@@ -8,10 +8,7 @@ interface HackathonProps {
   searchParams: { curTab?: HackathonStatusType };
 }
 
-const Hackathon: FC<HackathonProps> = async ({
-  searchParams = {},
-  params: { slug = [] }
-}) => {
+const Hackathon: FC<HackathonProps> = async ({ searchParams = {}, params: { slug = [] } }) => {
   // load featured projects
   const featured = await getFeaturedProjects();
   const minPage = Number(slug[1]) < 1 ? 1 : Number(slug[1]);
@@ -19,11 +16,7 @@ const Hackathon: FC<HackathonProps> = async ({
   const f = featured.length > 30 ? featured.slice(0, 30) : featured;
   return (
     <>
-      <HackathonPage
-        featured={f}
-        page={page}
-        curTab={searchParams.curTab || HackathonStatusType.ON_GOING}
-      />
+      <HackathonPage featured={f} page={page} curTab={searchParams.curTab || HackathonStatusType.ON_GOING} />
     </>
   );
 };

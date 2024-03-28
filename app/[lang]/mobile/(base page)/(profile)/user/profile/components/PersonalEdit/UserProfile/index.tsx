@@ -34,10 +34,7 @@ const UserProfile: FC<UserProfileProps> = (props) => {
         onMouseLeave={() => setShowEditIcon(false)}
       >
         {showEditIcon && (
-          <div
-            className="absolute right-[30px] top-[68px]"
-            onClick={() => basicInfoEditor.current?.onEdit({})}
-          >
+          <div className="absolute right-[30px] top-[68px]" onClick={() => basicInfoEditor.current?.onEdit({})}>
             <HoverIcon
               type={IconType.EDIT}
               tooltip="Edit your basic information"
@@ -47,28 +44,18 @@ const UserProfile: FC<UserProfileProps> = (props) => {
             ></HoverIcon>
           </div>
         )}
-        <div className="text-h3 whitespace-pre-wrap text-neutral-black">
-          {profile.user?.nickname}
-        </div>
-        <div className="body-l mt-[10px] whitespace-pre-line text-neutral-medium-gray">
-          {profile.user?.email}&nbsp;
-        </div>
+        <div className="text-h3 whitespace-pre-wrap text-neutral-black">{profile.user?.nickname}</div>
+        <div className="body-l mt-[10px] whitespace-pre-line text-neutral-medium-gray">{profile.user?.email}&nbsp;</div>
         <div className="mt-[31.5px] flex items-center gap-x-[15px]">
           <span className="body-l text-neutral-medium-gray">Location:</span>
-          <span className="body-l text-neutral-black">
-            {profile.location || '-'}
-          </span>
+          <span className="body-l text-neutral-black">{profile.location || '-'}</span>
         </div>
         <div className="mt-[13px] flex items-center gap-x-[15px]">
           <span className="body-l text-neutral-medium-gray">Experience:</span>
-          <span className="body-l text-neutral-black">
-            {`${profile.experience || 0} Years`}
-          </span>
+          <span className="body-l text-neutral-black">{`${profile.experience || 0} Years`}</span>
         </div>
         <div className="mt-[11.5px] flex items-start gap-x-[15px]">
-          <span className="body-l whitespace-nowrap text-neutral-medium-gray">
-            Tech Stack:
-          </span>
+          <span className="body-l whitespace-nowrap text-neutral-medium-gray">Tech Stack:</span>
           <div className="flex flex-wrap gap-[10px]">
             {profile.techStack?.length > 0 &&
               profile.techStack.map((item, index) => {

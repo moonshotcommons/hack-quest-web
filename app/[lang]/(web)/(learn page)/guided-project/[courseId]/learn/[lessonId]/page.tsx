@@ -13,10 +13,7 @@ const GuidedProjectLessonPage: NextPage<IProps> = (props) => {
   return (
     <>
       <div className="flex h-full w-full flex-col ">
-        <LessonPage
-          lessonId={lessonId as string}
-          courseType={CourseType.GUIDED_PROJECT}
-        ></LessonPage>
+        <LessonPage lessonId={lessonId as string} courseType={CourseType.GUIDED_PROJECT}></LessonPage>
       </div>
     </>
   );

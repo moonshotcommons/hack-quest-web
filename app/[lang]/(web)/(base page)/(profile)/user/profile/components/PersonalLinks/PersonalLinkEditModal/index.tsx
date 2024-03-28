@@ -1,22 +1,12 @@
 import Button from '@/components/Common/Button';
 import Modal from '@/components/Common/Modal';
 import { Form, message } from 'antd';
-import {
-  forwardRef,
-  useContext,
-  useEffect,
-  useImperativeHandle,
-  useState
-} from 'react';
+import { forwardRef, useContext, useEffect, useImperativeHandle, useState } from 'react';
 import { ProfileContext } from '../../../constants/type';
 import { useRequest } from 'ahooks';
 import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';
-import {
-  ThirdPartyMediaType,
-  getThirdPartyMedia,
-  thirdPartyMedia
-} from '@/helper/thirdPartyMedia';
+import { ThirdPartyMediaType, getThirdPartyMedia, thirdPartyMedia } from '@/helper/thirdPartyMedia';
 import ConnectIcon from './connect.svg';
 import Image from 'next/image';
 import { useRedirect } from '@/hooks/router/useRedirect';
@@ -34,10 +24,7 @@ interface FormKeyValues {
   telegram: string;
 }
 
-const PersonalLinkEditModal = forwardRef<
-  PersonalLinkEditModalRef,
-  PersonalLinkEditModalProps
->((props, ref) => {
+const PersonalLinkEditModal = forwardRef<PersonalLinkEditModalRef, PersonalLinkEditModalProps>((props, ref) => {
   const [open, setOpen] = useState(false);
   const [form] = Form.useForm<FormKeyValues>();
   const { profile, refresh } = useContext(ProfileContext);
@@ -108,11 +95,7 @@ const PersonalLinkEditModal = forwardRef<
         case 'telegram':
         case 'discord': {
           const res = await webApi.userApi.getConnectUrlByDiscord();
-          window.open(
-            res.url,
-            '_blank',
-            'width=500,height=500,toolbar=no,menubar=no,location=no,status=no'
-          );
+          window.open(res.url, '_blank', 'width=500,height=500,toolbar=no,menubar=no,location=no,status=no');
           return res;
         }
       }
@@ -136,10 +119,7 @@ const PersonalLinkEditModal = forwardRef<
   const renderDiscordHandle = (key: ThirdPartyMediaType) => {
     if (discordInfo?.isConnect) {
       return (
-        <div
-          className="flex w-[64px] cursor-pointer justify-end"
-          onClick={() => setConfirmInfo({ key, show: true })}
-        >
+        <div className="flex w-[64px] cursor-pointer justify-end" onClick={() => setConfirmInfo({ key, show: true })}>
           <Image src={ConnectIcon} alt="connect.svg"></Image>
         </div>
       );
@@ -183,27 +163,9 @@ const PersonalLinkEditModal = forwardRef<
       showCloseIcon
       icon={
         <div className="absolute -right-2 -top-2 cursor-pointer">
-          <svg
-            width="30"
-            height="30"
-            viewBox="0 0 30 30"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <line
-              x1="22.2734"
-              y1="22.2745"
-              x2="7.42416"
-              y2="7.42521"
-              stroke="#0B0B0B"
-            />
-            <line
-              x1="7.42574"
-              y1="22.2744"
-              x2="22.275"
-              y2="7.42513"
-              stroke="#0B0B0B"
-            />
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="22.2734" y1="22.2745" x2="7.42416" y2="7.42521" stroke="#0B0B0B" />
+            <line x1="7.42574" y1="22.2744" x2="22.275" y2="7.42513" stroke="#0B0B0B" />
           </svg>
         </div>
       }
@@ -233,9 +195,7 @@ const PersonalLinkEditModal = forwardRef<
         <div className="relative">
           <Form className="" form={form}>
             {Object.keys(personLinks).map((key, index) => {
-              const media = getThirdPartyMedia(
-                key as keyof typeof thirdPartyMedia
-              );
+              const media = getThirdPartyMedia(key as keyof typeof thirdPartyMedia);
               if (!media) return null;
               return (
                 <Form.Item
@@ -244,34 +204,24 @@ const PersonalLinkEditModal = forwardRef<
                   name={key}
                   rules={[
                     {
-                      type:
-                        key === ThirdPartyMediaType.DISCORD ? 'string' : 'url'
+                      type: key === ThirdPartyMediaType.DISCORD ? 'string' : 'url'
                     }
                   ]}
                 >
                   <div className="relative flex items-center py-[20px] text-neutral-black after:absolute after:bottom-0 after:h-[1px] after:w-full after:scale-y-[0.5] after:bg-neutral-black">
                     <div className="flex h-full w-[25%] items-center gap-x-[15px]">
                       <span>{media.icon}</span>
-                      <span className="body-l text-neutral-black">
-                        {media.name}
-                      </span>
+                      <span className="body-l text-neutral-black">{media.name}</span>
                     </div>
                     <input
                       defaultValue={profile?.personalLinks?.[key] || ''}
-                      type={
-                        key === ThirdPartyMediaType.DISCORD ? 'text' : 'url'
-                      }
+                      type={key === ThirdPartyMediaType.DISCORD ? 'text' : 'url'}
                       disabled={key === ThirdPartyMediaType.DISCORD}
-                      placeholder={
-                        key === ThirdPartyMediaType.DISCORD
-                          ? 'Please connect to discord'
-                          : 'Please enter personal link'
-                      }
+                      placeholder={key === ThirdPartyMediaType.DISCORD ? 'Please connect to discord' : 'Please enter personal link'}
                       className="body-s h-[30px] flex-1 truncate bg-transparent text-neutral-medium-gray outline-none"
                     />
                     <div className="w-[64px]"></div>
-                    {key === ThirdPartyMediaType.DISCORD &&
-                      renderDiscordHandle(key)}
+                    {key === ThirdPartyMediaType.DISCORD && renderDiscordHandle(key)}
                   </div>
                 </Form.Item>
               );
@@ -302,9 +252,7 @@ const PersonalLinkEditModal = forwardRef<
           </div>
           {confirmInfo?.show && (
             <div className="absolute bottom-0 left-0 right-0 top-0 bg-neutral-white">
-              <p className="body-l mt-[7.875rem] text-center text-neutral-black">
-                Do you want to disconnect from {confirmInfo.key}?
-              </p>
+              <p className="body-l mt-[7.875rem] text-center text-neutral-black">Do you want to disconnect from {confirmInfo.key}?</p>
               <div className="mt-[45px] flex items-center justify-center gap-[14px]">
                 <Button
                   className="button-text-m w-[265px] border-neutral-black py-4 uppercase"

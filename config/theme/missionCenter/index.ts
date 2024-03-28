@@ -13,10 +13,8 @@ export const missionCenterColors = {
   'mission-center-tab-data': 'var(--mission-center-tab-data)',
   'mission-center-tab-data-color': 'var(--mission-center-tab-color)',
   'mission-center-tab-svg-color': 'var(--mission-center-tab-svg-color)',
-  'mission-center-tab-btn-claimed-color':
-    'var(--mission-center-tab-btn-claimed-color)',
-  'mission-center-tab-btn-start-color':
-    'var(--mission-center-tab-btn-start-color)',
+  'mission-center-tab-btn-claimed-color': 'var(--mission-center-tab-btn-claimed-color)',
+  'mission-center-tab-btn-start-color': 'var(--mission-center-tab-btn-start-color)',
   'mission-center-tab-svg': 'var(--mission-center-tab-svg)',
   'mission-center-track-color': 'var(--mission-center-track-color)',
   'mission-center-track-color-r': 'var(--mission-center-track-color-r)',
@@ -24,11 +22,9 @@ export const missionCenterColors = {
   'mission-center-track': 'var(--mission-center-track)',
   'mission-center-lock': 'var(--mission-center-lock)',
   'mission-center-beginner-svg': 'var(--mission-center-beginner-svg)',
-  'mission-center-icon-twitter-color':
-    'var(--mission-center-icon-twitter-color)',
+  'mission-center-icon-twitter-color': 'var(--mission-center-icon-twitter-color)',
   'mission-center-icon-user-color': 'var(--mission-center-icon-user-color)',
-  'mission-center-beginner-btn-color':
-    'var(--mission-center-beginner-btn-color)'
+  'mission-center-beginner-btn-color': 'var(--mission-center-beginner-btn-color)'
 };
 export const missionCenterBackgroundColor = {
   'mission-center-basics': 'var(--mission-center-base-bg-color)',
@@ -41,11 +37,9 @@ export const missionCenterBackgroundColor = {
   'mission-center-tab-active': 'var(--mission-center-tab-border-active-color)',
   'mission-center-tab-data': 'var(--mission-center-tab-bg)',
   'mission-center-schedule': 'var(--mission-center-schedule-bg-color)',
-  'mission-center-tab-btn-claimed-bg':
-    'var(--mission-center-tab-btn-claimed-bg)',
+  'mission-center-tab-btn-claimed-bg': 'var(--mission-center-tab-btn-claimed-bg)',
   'mission-center-tab-btn-start-bg': 'var(--mission-center-tab-btn-start-bg)',
-  'mission-center-schedule-active':
-    'var(--mission-center-schedule-bg-active-color)',
+  'mission-center-schedule-active': 'var(--mission-center-schedule-bg-active-color)',
   'mission-center-badge-modal-bg': 'var(--mission-center-badge-modal-bg)',
   'mission-center-badge-line': 'var(--mission-center-quests-box)',
   'mission-center-lock-bg': 'var(--mission-center-lock-bg)',
@@ -62,8 +56,7 @@ export const missionCenterBorderColor = {
   'mission-center-tab-active': 'var(--mission-center-tab-border-active-color)',
   'mission-center-track': 'var(--mission-center-track)',
   'mission-center-track-border': 'var(--mission-center-track-border)',
-  'mission-center-tab-btn-start-border':
-    'var(--mission-center-tab-btn-start-border)'
+  'mission-center-tab-btn-start-border': 'var(--mission-center-tab-btn-start-border)'
 };
 export const missionCenterBackgroundImage = {
   'mission-center-gradient-radial': 'var(--mission-center-gradient-radial)',

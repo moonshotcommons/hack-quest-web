@@ -19,22 +19,14 @@ const LearningTrackCatalogue: FC<LearningTrackCatalogueProps> = (props) => {
         if (index === 0) {
           return (
             <li key={index} className="relative w-full">
-              <SectionCatalogueItem
-                section={section}
-                index={index}
-                learningTrackDetail={learningTrackDetail}
-              ></SectionCatalogueItem>
+              <SectionCatalogueItem section={section} index={index} learningTrackDetail={learningTrackDetail}></SectionCatalogueItem>
             </li>
           );
         }
         return (
           <li key={index} className="relative w-full">
             <hr className="my-4"></hr>
-            <SectionCatalogueItem
-              section={section}
-              index={index}
-              learningTrackDetail={learningTrackDetail}
-            ></SectionCatalogueItem>
+            <SectionCatalogueItem section={section} index={index} learningTrackDetail={learningTrackDetail}></SectionCatalogueItem>
           </li>
         );
       })}

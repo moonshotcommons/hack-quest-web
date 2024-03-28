@@ -1,10 +1,7 @@
 import { FC, Suspense } from 'react';
 import LessonStatusButton from './LessonStatusButton';
 import LinkWrap from './LinkWrap';
-import {
-  ElectiveCourseDetailType,
-  PageType
-} from '@/service/webApi/elective/type';
+import { ElectiveCourseDetailType, PageType } from '@/service/webApi/elective/type';
 import LessonProvider from '../../Provider/LessonProvider';
 
 interface ElectiveCatalogueItemProps {
@@ -25,19 +22,13 @@ const ElectiveCatalogueItem: FC<ElectiveCatalogueItemProps> = (props) => {
           <Suspense fallback={<div>loading...</div>}>
             <LinkWrap lesson={lesson} courseDetail={courseDetail!}>
               <h2 className="body-l-bold text-neutral-black">{lesson.title}</h2>
-              <p className="body-s mt-1 line-clamp-3  text-neutral-medium-gray">
-                {lesson.description}
-              </p>
+              <p className="body-s mt-1 line-clamp-3  text-neutral-medium-gray">{lesson.description}</p>
             </LinkWrap>
           </Suspense>
         </div>
 
         <div className="flex w-[165px] max-w-[165px] justify-end">
-          <LessonStatusButton
-            courseDetail={courseDetail!}
-            lesson={lesson}
-            index={index}
-          />
+          <LessonStatusButton courseDetail={courseDetail!} lesson={lesson} index={index} />
         </div>
       </div>
     </LessonProvider>

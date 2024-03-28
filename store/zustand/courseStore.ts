@@ -1,8 +1,5 @@
 import { create } from 'zustand';
-import {
-  ProjectCourseType,
-  UnitPagesListType
-} from '@/service/webApi/course/type';
+import { ProjectCourseType, UnitPagesListType } from '@/service/webApi/course/type';
 
 export enum LearnPageType {
   UGC_CREATION = 'ugc-creation'

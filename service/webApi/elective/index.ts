@@ -22,41 +22,28 @@ class ElectiveApi {
   }
 
   getTopElectives() {
-    return this.service.get<ElectiveCourseType[]>(
-      ElectiveApiType.GetTopElectives
-    );
+    return this.service.get<ElectiveCourseType[]>(ElectiveApiType.GetTopElectives);
   }
 
   /** 获取electives课程列表 */
   getElectives(params: Record<string, string>) {
-    return this.service.get<ElectiveListDataType>(
-      ElectiveApiType.GetElectives,
-      {
-        params
-      }
-    );
+    return this.service.get<ElectiveListDataType>(ElectiveApiType.GetElectives, {
+      params
+    });
   }
 
   /** 获取包含（不包含）所有pages的课程详情信息 */
   getElectiveDetailAndPages(id: string, includePages = true) {
-    return this.service.get<ElectiveCourseDetailType>(
-      `${ElectiveApiType.GetElectives}/${id}${
-        includePages ? '?include=pages' : ''
-      }`
-    );
+    return this.service.get<ElectiveCourseDetailType>(`${ElectiveApiType.GetElectives}/${id}${includePages ? '?include=pages' : ''}`);
   }
 
   /** 获取lesson的内容 */
   getElectiveLessonContent(id: string) {
-    return this.service.get<ElectiveLessonType>(
-      `${ElectiveApiType.GetLesson}/${id}`
-    );
+    return this.service.get<ElectiveLessonType>(`${ElectiveApiType.GetLesson}/${id}`);
   }
 
   getElectiveLearningLesson(electiveId: string) {
-    return this.service.get(
-      `${ElectiveApiType.GetElectives}/${electiveId}/learning-page`
-    );
+    return this.service.get(`${ElectiveApiType.GetElectives}/${electiveId}/learning-page`);
   }
 
   startLesson(lessonId: string) {

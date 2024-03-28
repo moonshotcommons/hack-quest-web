@@ -9,8 +9,7 @@ export const bannerTabList = [
   {
     label: 'Basic',
     value: LearningTrackTab.BASIC,
-    description:
-      'Master one Web3 coding language and learn how to deploy On Chain!',
+    description: 'Master one Web3 coding language and learn how to deploy On Chain!',
     img: Basic,
     imgActive: BasicActive
   },

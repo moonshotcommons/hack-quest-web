@@ -18,11 +18,7 @@ export const SectionContext = createContext<SectionContextType>({
   sectionIndex: 0
 });
 
-const SectionProvider: FC<SectionProviderProps> = ({
-  section: propSection,
-  children,
-  sectionIndex
-}) => {
+const SectionProvider: FC<SectionProviderProps> = ({ section: propSection, children, sectionIndex }) => {
   const { learningTrackDetail } = useContext(LearningTrackDetailContext);
 
   const section = useMemo(() => {

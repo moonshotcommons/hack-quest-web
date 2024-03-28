@@ -1,34 +1,13 @@
-import {
-  missionCenterColors,
-  missionCenterBackgroundColor,
-  missionCenterBorderColor,
-  missionCenterBackgroundImage
-} from './missionCenter';
+import { missionCenterColors, missionCenterBackgroundColor, missionCenterBorderColor, missionCenterBackgroundImage } from './missionCenter';
 import { courseBackgroundImage, courseThemeColors } from './course';
 import { layoutThemeColors } from './layout';
 import { landingThemeColors } from './landing';
 import { settingThemeColors, settingBorderColors } from './setting';
 import { notionRendererThemeColors } from './notionRenderer';
-import {
-  lessonThemeColors,
-  lessonThemeBackgroundColor,
-  lessonThemeBorderColor
-} from './lesson';
-import {
-  homeThemeColors,
-  homeThemeBackgroundColor,
-  homeThemeBorderColor
-} from './home';
-import {
-  learningTrackThemeColors,
-  learningTrackThemeBackgroundColor,
-  learningTrackThemeBorderColor
-} from './learningTrack';
-import {
-  selectiveCoursesThemeColors,
-  selectiveCoursesThemeBackgroundColor,
-  selectiveCoursesThemeBorderColor
-} from './selectiveCourses';
+import { lessonThemeColors, lessonThemeBackgroundColor, lessonThemeBorderColor } from './lesson';
+import { homeThemeColors, homeThemeBackgroundColor, homeThemeBorderColor } from './home';
+import { learningTrackThemeColors, learningTrackThemeBackgroundColor, learningTrackThemeBorderColor } from './learningTrack';
+import { selectiveCoursesThemeColors, selectiveCoursesThemeBackgroundColor, selectiveCoursesThemeBorderColor } from './selectiveCourses';
 import { authThemeColors } from './auth';
 
 export const themeColors = {

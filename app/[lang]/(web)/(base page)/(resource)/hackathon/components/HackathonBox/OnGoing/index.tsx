@@ -1,9 +1,6 @@
 import React from 'react';
 import OnGoingHackathonCard from './OnGoingHackathonCard';
-import {
-  HackathonStatusType,
-  HackathonType
-} from '@/service/webApi/resourceStation/type';
+import { HackathonStatusType, HackathonType } from '@/service/webApi/resourceStation/type';
 import { useRequest } from 'ahooks';
 import webApi from '@/service';
 import { message } from 'antd';

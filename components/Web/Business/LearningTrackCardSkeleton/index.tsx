@@ -12,9 +12,7 @@ interface LearningTrackCardSkeletonListProps {
   active: boolean;
 }
 
-const LearningTrackCardSkeletonCard: FC<
-  LearningTrackCardSkeletonCardProps
-> = () => {
+const LearningTrackCardSkeletonCard: FC<LearningTrackCardSkeletonCardProps> = () => {
   return (
     <div
       className={
@@ -38,18 +36,10 @@ const LearningTrackCardSkeletonCard: FC<
   );
 };
 
-const LearningTrackCardSkeletonList: FC<LearningTrackCardSkeletonListProps> = ({
-  size = 2,
-  children,
-  active
-}) => {
+const LearningTrackCardSkeletonList: FC<LearningTrackCardSkeletonListProps> = ({ size = 2, children, active }) => {
   return active
     ? new Array(size).fill('').map((_, index) => {
-        return (
-          <LearningTrackCardSkeletonCard
-            key={index}
-          ></LearningTrackCardSkeletonCard>
-        );
+        return <LearningTrackCardSkeletonCard key={index}></LearningTrackCardSkeletonCard>;
       })
     : children;
 };

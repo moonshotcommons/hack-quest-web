@@ -4,10 +4,7 @@ import ComponentRenderer from '../../';
 import { ExpandDataType } from '@/hooks/courses/useLessonExpand';
 import { VscAdd, VscChromeMinimize } from 'react-icons/vsc';
 
-import {
-  CustomComponent,
-  NotionComponent
-} from '@/components/Web/Business/Renderer/type';
+import { CustomComponent, NotionComponent } from '@/components/Web/Business/Renderer/type';
 import { LessonContentContext } from '@/components/Web/LessonPage/LessonContent';
 import TextRenderer from '../TextRenderer';
 interface ToggleRendererProps {
@@ -32,8 +29,7 @@ const ToggleRenderer: FC<ToggleRendererProps> = (props) => {
     changeExpandData(newExpandData, expandData[0].index);
   };
   useEffect(() => {
-    const expandNum =
-      expandData?.find((v) => v.id === component.id)?.expandNum || 0;
+    const expandNum = expandData?.find((v) => v.id === component.id)?.expandNum || 0;
     if (expandNum === 1) {
       setShowChild(true);
     } else {
@@ -42,36 +38,18 @@ const ToggleRenderer: FC<ToggleRendererProps> = (props) => {
   }, [expandData, component]);
   return (
     <div className="overflow-hidden border-b  border-[#676767]">
-      <div
-        className="my-3 flex cursor-pointer items-center justify-between px-[.5rem]"
-        onClick={() => changeShowChild(!showChild)}
-      >
+      <div className="my-3 flex cursor-pointer items-center justify-between px-[.5rem]" onClick={() => changeShowChild(!showChild)}>
         <div>
-          <TextRenderer
-            richTextArr={component.content.rich_text}
-            fontSize={'14px'}
-          />
+          <TextRenderer richTextArr={component.content.rich_text} fontSize={'14px'} />
         </div>
-        <span className={``}>
-          {!showChild ? (
-            <VscAdd size={20}></VscAdd>
-          ) : (
-            <VscChromeMinimize size={20}></VscChromeMinimize>
-          )}
-        </span>
+        <span className={``}>{!showChild ? <VscAdd size={20}></VscAdd> : <VscChromeMinimize size={20}></VscChromeMinimize>}</span>
       </div>
       {/* 正常渲染子对象 */}
       <div className="pl-4">
         {isRenderChildren &&
           showChild &&
           component.children?.map((item: any, index: number) => {
-            return (
-              <ComponentRenderer
-                key={index}
-                component={item}
-                parent={component}
-              ></ComponentRenderer>
-            );
+            return <ComponentRenderer key={index} component={item} parent={component}></ComponentRenderer>;
           })}
       </div>
     </div>

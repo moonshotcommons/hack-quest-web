@@ -17,24 +17,14 @@ const PreviewWorkspace: FC<PreviewWorkspaceProps> = (props) => {
       <div className="flex flex-col gap-y-2">
         <h1 style={{ fontSize: '20px' }}>输入lesson的url预览lesson页面</h1>
 
-        <Input
-          size="large"
-          required
-          className="w-1/2"
-          onChange={(e) => setPreviewLessonUrl(e.target.value as string)}
-        ></Input>
+        <Input size="large" required className="w-1/2" onChange={(e) => setPreviewLessonUrl(e.target.value as string)}></Input>
 
         <Button
           type="primary"
           size="medium-x"
           className="py-3"
           onClick={() => {
-            if (
-              !previewLessonUrl ||
-              !/^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/.test(
-                previewLessonUrl.trim()
-              )
-            ) {
+            if (!previewLessonUrl || !/^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/.test(previewLessonUrl.trim())) {
               message.error('无效的url，请检查url链接是否正确');
               return;
             }
@@ -48,24 +38,14 @@ const PreviewWorkspace: FC<PreviewWorkspaceProps> = (props) => {
       <div className="flex flex-col gap-y-2">
         <h1 style={{ fontSize: '20px' }}>输入course的url预览course页面</h1>
 
-        <Input
-          size="large"
-          required
-          className="w-1/2"
-          onChange={(e) => setPreviewCourseUrl(e.target.value as string)}
-        ></Input>
+        <Input size="large" required className="w-1/2" onChange={(e) => setPreviewCourseUrl(e.target.value as string)}></Input>
 
         <Button
           type="primary"
           size="medium-x"
           className="py-3"
           onClick={() => {
-            if (
-              !previewCourseUrl ||
-              !/^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/.test(
-                previewCourseUrl.trim()
-              )
-            ) {
+            if (!previewCourseUrl || !/^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/.test(previewCourseUrl.trim())) {
               message.error('无效的url，请检查url链接是否正确');
               return;
             }
@@ -76,8 +56,7 @@ const PreviewWorkspace: FC<PreviewWorkspaceProps> = (props) => {
               })
               .then((res) => {
                 message.success({
-                  content:
-                    'Uploading course to dev environment. Please check notifications on Lark.',
+                  content: 'Uploading course to dev environment. Please check notifications on Lark.',
                   duration: 3
                 });
               })

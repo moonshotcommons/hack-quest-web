@@ -10,17 +10,9 @@ interface DropDownMotionProp {
   isNav?: boolean;
 }
 
-const DropDownMotion: React.FC<DropDownMotionProp> = ({
-  className = '',
-  children,
-  open,
-  isNav = false
-}) => {
+const DropDownMotion: React.FC<DropDownMotionProp> = ({ className = '', children, open, isNav = false }) => {
   return open ? (
-    <motion.ul
-      {...animateProps}
-      className={cn('absolute bottom-[3px] z-[999]', className)}
-    >
+    <motion.ul {...animateProps} className={cn('absolute bottom-[3px] z-[999]', className)}>
       {children}
     </motion.ul>
   ) : isNav ? (

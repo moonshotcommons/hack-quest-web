@@ -52,16 +52,9 @@ interface RootLayoutProps {
   };
 }
 
-export default function RootLayout({
-  children,
-  params: { lang }
-}: RootLayoutProps) {
+export default function RootLayout({ children, params: { lang } }: RootLayoutProps) {
   return (
-    <html
-      lang={lang}
-      suppressHydrationWarning
-      className={`${nunito.variable} ${space_mono.variable}`}
-    >
+    <html lang={lang} suppressHydrationWarning className={`${nunito.variable} ${space_mono.variable}`}>
       <body className={`${nunito.className}`}>
         <LangProvider lang={lang}>
           <ThemeContextProvider>

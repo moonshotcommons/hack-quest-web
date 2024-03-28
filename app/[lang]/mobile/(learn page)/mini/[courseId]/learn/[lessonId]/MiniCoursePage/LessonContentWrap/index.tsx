@@ -1,12 +1,5 @@
 import { ElectiveLessonType } from '@/service/webApi/elective/type';
-import {
-  FC,
-  ReactNode,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState
-} from 'react';
+import { FC, ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 import Progress from '../Progress';
 import { useGetElectives } from '../hooks/useGetElectives';
 import { CompleteStateType, CourseType } from '@/service/webApi/course/type';
@@ -29,11 +22,7 @@ interface LessonContentWrapProps {
   completed: VoidFunction;
 }
 
-const LessonContentWrap: FC<LessonContentWrapProps> = ({
-  children,
-  lesson,
-  completed
-}) => {
+const LessonContentWrap: FC<LessonContentWrapProps> = ({ children, lesson, completed }) => {
   const { course, loading, refresh } = useGetElectives(lesson);
   const { getLink } = useGetLessonLink();
   const { redirectToUrl } = useRedirect();
@@ -46,8 +35,7 @@ const LessonContentWrap: FC<LessonContentWrapProps> = ({
         total: 0,
         current: 0
       };
-    let current =
-      course?.pages?.findIndex((item) => item.id === lesson.id) || 0;
+    let current = course?.pages?.findIndex((item) => item.id === lesson.id) || 0;
     // if (
     //   current === course?.pages!.length - 1 &&
     //   course.pages![current].state === CompleteStateType.COMPLETED
@@ -62,17 +50,13 @@ const LessonContentWrap: FC<LessonContentWrapProps> = ({
 
   const previousLessonId = useMemo(() => {
     if (!course || !lesson) return;
-    const currentLessonIndex = course!.pages!.findIndex(
-      (item) => item.id === lesson.id
-    );
+    const currentLessonIndex = course!.pages!.findIndex((item) => item.id === lesson.id);
     return course!.pages![currentLessonIndex - 1]?.id;
   }, [course, lesson]);
 
   const nextLessonId = useMemo(() => {
     if (!course || !lesson) return;
-    const currentLessonIndex = course!.pages!.findIndex(
-      (item) => item.id === lesson.id
-    );
+    const currentLessonIndex = course!.pages!.findIndex((item) => item.id === lesson.id);
     return course!.pages![currentLessonIndex + 1]?.id;
   }, [course, lesson]);
 
@@ -112,9 +96,7 @@ const LessonContentWrap: FC<LessonContentWrapProps> = ({
     setNextControl(true);
 
     if (progress.current === progress.total - 1) {
-      if (
-        course!.pages![progress.current].state !== CompleteStateType.COMPLETED
-      ) {
+      if (course!.pages![progress.current].state !== CompleteStateType.COMPLETED) {
         onNextClick();
         refresh();
       }
@@ -169,17 +151,10 @@ const LessonContentWrap: FC<LessonContentWrapProps> = ({
         <Button
           iconPosition="left"
           icon={<BsArrowLeft size={20} />}
-          className={`h-[60px] w-[161px] text-[16px] ${
-            previousLessonId
-              ? 'bg-yellow-primary'
-              : 'border  border-[#0b0b0b] bg-[#fff] '
-          }`}
+          className={`h-[60px] w-[161px] text-[16px] ${previousLessonId ? 'bg-yellow-primary' : 'border  border-[#0b0b0b] bg-[#fff] '}`}
           onClick={() => {
             if (!previousLessonId) return;
-            const link = getLink(
-              course?.type || CourseType.MINI,
-              previousLessonId as string
-            );
+            const link = getLink(course?.type || CourseType.MINI, previousLessonId as string);
 
             redirectToUrl(link);
           }}
@@ -190,9 +165,7 @@ const LessonContentWrap: FC<LessonContentWrapProps> = ({
           iconPosition="right"
           icon={<BsArrowRight size={20} />}
           className={`h-[60px] w-[161px] text-[16px] ${
-            nextLessonId && nextControl
-              ? 'bg-yellow-primary'
-              : 'border  border-[#0b0b0b] bg-[#fff] '
+            nextLessonId && nextControl ? 'bg-yellow-primary' : 'border  border-[#0b0b0b] bg-[#fff] '
           }`}
           onClick={() => {
             if (!nextLessonId || !nextControl) return;

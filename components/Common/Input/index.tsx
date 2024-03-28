@@ -2,47 +2,36 @@ import { VariantProps, cva } from 'class-variance-authority';
 import { cn } from '@/helper/utils';
 import { useDebounceFn } from 'ahooks';
 import Schema, { Rule, Rules } from 'async-validator';
-import {
-  HTMLInputTypeAttribute,
-  ReactNode,
-  forwardRef,
-  useEffect,
-  useImperativeHandle,
-  useRef,
-  useState
-} from 'react';
+import { HTMLInputTypeAttribute, ReactNode, forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import CloseIcon from '../Icon/Close';
 import EyeIcon from '../Icon/Eye';
 import PassIcon from '../Icon/Pass';
 import { PiWarningCircleFill } from 'react-icons/pi';
 
-const inputVariants = cva(
-  'w-full border border-solid outline-none px-[24px] py-[11px] rounded-[2.5rem] body-m text-neutral-medium-gray',
-  {
-    variants: {
-      theme: {
-        light:
-          'border-neutral-light-gray caret-neutral-off-black hover:border-neutral-medium-gray focus:border-neutral-medium-gray focus:text-neutral-off-black',
-        dark: 'border-neutral-dark-gray caret-[#ffffff] hover:border-neutral-dark-gray focus:border-neutral-dark-gray'
-      },
-      state: {
-        success: 'border-status-success focus:border-status-success',
-        error: 'border-status-error-dark focus:border-status-error-dark',
-        warning: '',
-        default: ''
-      },
-      device: {
-        web: '',
-        mobile: ''
-      }
+const inputVariants = cva('w-full border border-solid outline-none px-[24px] py-[11px] rounded-[2.5rem] body-m text-neutral-medium-gray', {
+  variants: {
+    theme: {
+      light:
+        'border-neutral-light-gray caret-neutral-off-black hover:border-neutral-medium-gray focus:border-neutral-medium-gray focus:text-neutral-off-black',
+      dark: 'border-neutral-dark-gray caret-[#ffffff] hover:border-neutral-dark-gray focus:border-neutral-dark-gray'
     },
-    defaultVariants: {
-      theme: 'light',
-      state: 'default',
-      device: 'web'
+    state: {
+      success: 'border-status-success focus:border-status-success',
+      error: 'border-status-error-dark focus:border-status-error-dark',
+      warning: '',
+      default: ''
+    },
+    device: {
+      web: '',
+      mobile: ''
     }
+  },
+  defaultVariants: {
+    theme: 'light',
+    state: 'default',
+    device: 'web'
   }
-);
+});
 
 const labelVariants = cva('body-l-bold label', {
   variants: {
@@ -283,15 +272,11 @@ const Input = forwardRef<InputRef, InputProps>((props, ref) => {
       </div>
       {description && <p className="body-m ml-[1.5rem]">{description}</p>}
       <div className="flex items-center justify-between">
-        <p
-          className={`body-m flex flex-1 flex-row items-center gap-2 text-status-error-dark ${errorMessage ? '' : 'hidden'}`}
-        >
+        <p className={`body-m flex flex-1 flex-row items-center gap-2 text-status-error-dark ${errorMessage ? '' : 'hidden'}`}>
           <PiWarningCircleFill size={20} />
           {errorMessage}
         </p>
-        <p
-          className={`body-l flex flex-1 justify-end  text-neutral-medium-gray ${isShowCount ? '' : 'hidden'}`}
-        >
+        <p className={`body-l flex flex-1 justify-end  text-neutral-medium-gray ${isShowCount ? '' : 'hidden'}`}>
           {`${value.toString().length}/${rest.maxLength}`}
         </p>
       </div>

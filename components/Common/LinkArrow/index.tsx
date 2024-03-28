@@ -20,22 +20,11 @@ const LinkArrowVariants = cva('flex cursor-pointer items-center', {
   }
 });
 
-interface LinkArrowProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof LinkArrowVariants> {}
+interface LinkArrowProps extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof LinkArrowVariants> {}
 
-const LinkArrow: FC<LinkArrowProps> = ({
-  className,
-  size,
-  direction,
-  children,
-  ...props
-}) => {
+const LinkArrow: FC<LinkArrowProps> = ({ className, size, direction, children, ...props }) => {
   return (
-    <div
-      className={cn(LinkArrowVariants({ size, direction, className }))}
-      {...props}
-    >
+    <div className={cn(LinkArrowVariants({ size, direction, className }))} {...props}>
       {size !== 'sm' && (
         <svg
           width="14"

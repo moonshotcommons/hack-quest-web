@@ -5,10 +5,7 @@ import { courseDefaultFilters } from '@/components/Web/Business/CourseFilterList
 import { OptionType } from '@/components/Common/Select/type';
 import TextArea from '@/components/Common/TextArea/indexTextArea';
 import { cloneDeep } from 'lodash-es';
-import {
-  CreationHandle,
-  useUgcCreationStore
-} from '@/store/zustand/ugcCreationStore';
+import { CreationHandle, useUgcCreationStore } from '@/store/zustand/ugcCreationStore';
 import { CourseLanguageType, CourseType } from '@/service/webApi/course/type';
 import webApi from '@/service';
 import { useShallow } from 'zustand/react/shallow';
@@ -114,10 +111,7 @@ const Introduction: React.FC<IntroductionProp> = () => {
       if (handle === CreationHandle.ON_NEXT) {
         handleNext(res.id);
       } else {
-        redirectToUrl(
-          `${MenuLink.UGC}/${res.id}/creation/${selectLessonId}`,
-          true
-        );
+        redirectToUrl(`${MenuLink.UGC}/${res.id}/creation/${selectLessonId}`, true);
       }
     } catch (error) {
       setLoading(false);
@@ -137,19 +131,14 @@ const Introduction: React.FC<IntroductionProp> = () => {
   }, [introduction]);
 
   useEffect(() => {
-    if (
-      handle === CreationHandle.ON_SAVE ||
-      handle === CreationHandle.ON_NEXT
-    ) {
+    if (handle === CreationHandle.ON_SAVE || handle === CreationHandle.ON_NEXT) {
       handleSubmit();
     }
   }, [handle]);
 
   return (
     <div className="[&>div:w-full] flex h-full flex-col gap-[30px] text-neutral-black">
-      <div className="text-h3 text-center font-next-book-bold">
-        Introduction
-      </div>
+      <div className="text-h3 text-center font-next-book-bold">Introduction</div>
       <div className="body-m ">
         {`Crafting your course's introduction is akin to creating the perfect
         teaser for a movie. This Introduction is the first impression, the spark
@@ -162,11 +151,7 @@ const Introduction: React.FC<IntroductionProp> = () => {
         <div className="flex-1 flex-shrink-0">
           <Select
             name="track"
-            label={
-              <span className="body-l text-neutral-medium-gray">
-                Course Track*
-              </span>
-            }
+            label={<span className="body-l text-neutral-medium-gray">Course Track*</span>}
             state={formData.track.status as any}
             errorMessage={formData.track.errorMessage}
             value={formData.track.value || ''}
@@ -188,11 +173,7 @@ const Introduction: React.FC<IntroductionProp> = () => {
         <div className="flex-1 flex-shrink-0">
           <Select
             name="level"
-            label={
-              <span className="body-l text-neutral-medium-gray">
-                Course Difficulty*
-              </span>
-            }
+            label={<span className="body-l text-neutral-medium-gray">Course Difficulty*</span>}
             state={formData.level.status as any}
             errorMessage={formData.level.errorMessage}
             value={formData.level.value || ''}
@@ -221,11 +202,7 @@ const Introduction: React.FC<IntroductionProp> = () => {
           theme={'light'}
           maxLength={60}
           isShowCount
-          label={
-            <span className="body-l text-neutral-medium-gray">
-              Course Title*
-            </span>
-          }
+          label={<span className="body-l text-neutral-medium-gray">Course Title*</span>}
           state={formData.title.status as any}
           errorMessage={formData.title.errorMessage}
           value={formData.title.value || ''}
@@ -249,11 +226,7 @@ const Introduction: React.FC<IntroductionProp> = () => {
           initBorderColor="border-neutral-medium-gray"
           maxLength={120}
           isShowCount
-          label={
-            <span className="body-l text-neutral-medium-gray">
-              Course SubTitle*
-            </span>
-          }
+          label={<span className="body-l text-neutral-medium-gray">Course SubTitle*</span>}
           state={formData.subTitle.status as any}
           errorMessage={formData.subTitle.errorMessage}
           value={formData.subTitle.value || ''}
@@ -277,11 +250,7 @@ const Introduction: React.FC<IntroductionProp> = () => {
           initBorderColor="border-neutral-medium-gray"
           maxLength={600}
           isShowCount
-          label={
-            <span className="body-l text-neutral-medium-gray">
-              Course Description*
-            </span>
-          }
+          label={<span className="body-l text-neutral-medium-gray">Course Description*</span>}
           state={formData.description.status as any}
           errorMessage={formData.description.errorMessage}
           value={formData.description.value || ''}

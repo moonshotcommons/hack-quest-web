@@ -14,10 +14,7 @@ interface GlossaryProp {
   searchParams: { keyword?: string };
 }
 
-const Glossary: React.FC<GlossaryProp> = async ({
-  searchParams = {},
-  params: { slug = [] }
-}) => {
+const Glossary: React.FC<GlossaryProp> = async ({ searchParams = {}, params: { slug = [] } }) => {
   const limit = 12;
   const minPage = Number(slug[1]) < 1 ? 1 : Number(slug[1]);
   const page = slug[0] === 'p' ? minPage : 1;
@@ -40,33 +37,22 @@ const Glossary: React.FC<GlossaryProp> = async ({
         {searchParams.keyword ? (
           <div className="body-m mb-[2.5rem] text-center text-neutral-black">
             {totalList} Results for
-            <span className="pl-[4px] text-neutral-medium-gray">
-              “{searchParams.keyword}”
-            </span>
+            <span className="pl-[4px] text-neutral-medium-gray">“{searchParams.keyword}”</span>
           </div>
         ) : null}
         {galossaryList.length > 0 ? (
           <BlogList list={galossaryList} from={ResourceFrom.GLOSSARY} />
         ) : (
-          <NoData
-            href={MenuLink.GLOSSARY}
-            keyword={searchParams.keyword}
-          ></NoData>
+          <NoData href={MenuLink.GLOSSARY} keyword={searchParams.keyword}></NoData>
         )}
 
         {totalPage > 1 && (
           <div className="mt-[80px] flex justify-center">
-            <Pagination
-              page={page}
-              total={totalPage}
-              urlPrefix={`${MenuLink.GLOSSARY}/p/`}
-            />
+            <Pagination page={page} total={totalPage} urlPrefix={`${MenuLink.GLOSSARY}/p/`} />
           </div>
         )}
       </div>
-      {galossaryList.length === 0 ? (
-        <BlogFooter type="link" from={ResourceFrom.GLOSSARY} />
-      ) : null}
+      {galossaryList.length === 0 ? <BlogFooter type="link" from={ResourceFrom.GLOSSARY} /> : null}
       <PageRetentionTime trackName="glossary-页面留存时间"></PageRetentionTime>
     </div>
   );

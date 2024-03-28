@@ -21,9 +21,7 @@ const LangProvider: FC<LangProviderProps> = ({ children, lang }) => {
   //   );
   // }, [pathname, lang]);
 
-  return (
-    <LangContext.Provider value={{ lang }}>{children}</LangContext.Provider>
-  );
+  return <LangContext.Provider value={{ lang }}>{children}</LangContext.Provider>;
 };
 
 export default LangProvider;

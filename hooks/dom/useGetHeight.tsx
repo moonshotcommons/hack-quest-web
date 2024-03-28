@@ -10,9 +10,7 @@ const useGetHeight = () => {
   }, []);
   return {
     bodyHeight: isMounted ? `${pageInfo.windowHeight}px` : '100vh',
-    pageHeight: isMounted
-      ? `${pageInfo.windowHeight - MOBILE_NAVBAR_HEIGHT}px`
-      : `calc(100vh-${MOBILE_NAVBAR_HEIGHT}px)`
+    pageHeight: isMounted ? `${pageInfo.windowHeight - MOBILE_NAVBAR_HEIGHT}px` : `calc(100vh-${MOBILE_NAVBAR_HEIGHT}px)`
   };
 };
 

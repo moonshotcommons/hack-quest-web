@@ -24,10 +24,7 @@ export interface MiniElectiveCompletedModalRef {
   open: (params: Record<string, any>) => void;
 }
 
-const MiniElectiveCompletedModal = forwardRef<
-  MiniElectiveCompletedModalRef,
-  MiniElectiveCompletedModalProps
->((props, ref) => {
+const MiniElectiveCompletedModal = forwardRef<MiniElectiveCompletedModalRef, MiniElectiveCompletedModalProps>((props, ref) => {
   const [open, setOpen] = useState(false);
 
   useImperativeHandle(ref, () => {
@@ -47,13 +44,7 @@ const MiniElectiveCompletedModal = forwardRef<
       showCloseIcon
       icon={
         <div className="absolute -right-[8px] -top-[8px] cursor-pointer">
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               fillRule="evenodd"
               clipRule="evenodd"
@@ -74,13 +65,7 @@ const MiniElectiveCompletedModal = forwardRef<
       <div className="relative flex w-[840px] flex-col items-center justify-end rounded-[16px] bg-neutral-white">
         <div className="mb-[112px] mt-[125px] flex w-[260px] flex-col items-center gap-10">
           <div className="flex items-center gap-4">
-            <svg
-              width="33"
-              height="24"
-              viewBox="0 0 33 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
+            <svg width="33" height="24" viewBox="0 0 33 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M2.7373 11.5657L13.1634 22L30.1057 2"
                 stroke="#00C365"
@@ -92,20 +77,12 @@ const MiniElectiveCompletedModal = forwardRef<
 
             <span className="text=[#131313] text-h3">Nice Job!</span>
           </div>
-          <p className="body-m text-center text-neutral-rich-gray">
-            You have completed this mini. Continue to claim your Badge.
-          </p>
+          <p className="body-m text-center text-neutral-rich-gray">You have completed this mini. Continue to claim your Badge.</p>
           <div className="body-m flex w-full flex-col gap-y-[15px]">
             <Button block type="primary" className="py-[11px]">
               Claim Badge
             </Button>
-            <Button
-              block
-              ghost
-              type="primary"
-              className="border-neutral-black py-[11px]"
-              onClick={() => setOpen(false)}
-            >
+            <Button block ghost type="primary" className="border-neutral-black py-[11px]" onClick={() => setOpen(false)}>
               Close
             </Button>
           </div>

@@ -6,9 +6,7 @@ import Button from '@/components/Common/Button';
 import { Typography } from 'antd';
 import Image from 'next/image';
 import Link from 'next/link';
-import CertificationModal, {
-  CertificationModalInstance
-} from '@/components/Web/Business/Certification/CertificationModal';
+import CertificationModal, { CertificationModalInstance } from '@/components/Web/Business/Certification/CertificationModal';
 import { CertificationType } from '@/service/webApi/campaigns/type';
 import { errorMessage } from '@/helper/ui';
 import { cn } from '@/helper/utils';
@@ -17,19 +15,12 @@ import { useRequest } from 'ahooks';
 import webApi from '@/service';
 interface PersonalLinksProps {}
 
-const MintButton = (props: {
-  certification: CertificationType;
-  updateSelectCertification: (certification: CertificationType) => void;
-}) => {
+const MintButton = (props: { certification: CertificationType; updateSelectCertification: (certification: CertificationType) => void }) => {
   const { certification, updateSelectCertification } = props;
   const { safeMintAsync } = useMintCertification();
 
   const { run: safeMint, loading } = useRequest(
-    async (params: {
-      sourceType: 'Certification';
-      sourceId: string;
-      signatureId: number;
-    }) => {
+    async (params: { sourceType: 'Certification'; sourceId: string; signatureId: number }) => {
       const res = await safeMintAsync({
         sourceType: params.sourceType,
         sourceId: params.sourceId,
@@ -77,8 +68,7 @@ const MintButton = (props: {
 const Certifications: FC<PersonalLinksProps> = (props) => {
   const { profile, refresh } = useContext(ProfileContext);
   const certificationModalInstance = useRef<CertificationModalInstance>(null);
-  const [selectCertification, setSelectCertification] =
-    useState<CertificationType | null>(null);
+  const [selectCertification, setSelectCertification] = useState<CertificationType | null>(null);
 
   useEffect(() => {
     if (selectCertification) {
@@ -88,9 +78,7 @@ const Certifications: FC<PersonalLinksProps> = (props) => {
 
   return (
     <div className="group relative cursor-pointer rounded-[10px] bg-neutral-white p-[30px] pb-[40px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(149,157,165,0.2)]">
-      <p className="text-h3 text-neutral-black">
-        {`Certifications (${profile?.certifications?.length || 0})`}
-      </p>
+      <p className="text-h3 text-neutral-black">{`Certifications (${profile?.certifications?.length || 0})`}</p>
       {/* {showLinks && (
         <div className="absolute right-[30px] top-[25px] hidden group-hover:block">
           <HoverIcon
@@ -107,22 +95,13 @@ const Certifications: FC<PersonalLinksProps> = (props) => {
         <ul className="mt-[20px] flex flex-wrap gap-[20px]">
           {profile.certifications.map((item) => {
             return (
-              <li
-                key={item.id}
-                className="flex w-[195px] flex-col justify-center"
-              >
+              <li key={item.id} className="flex w-[195px] flex-col justify-center">
                 <div className=" relative h-[108px] rounded-[10px]">
-                  <Image
-                    src={item.image}
-                    fill
-                    alt="Solidity Learning Track"
-                  ></Image>
+                  <Image src={item.image} fill alt="Solidity Learning Track"></Image>
                 </div>
                 <MintButton
                   certification={item}
-                  updateSelectCertification={(
-                    certification: CertificationType
-                  ) => {
+                  updateSelectCertification={(certification: CertificationType) => {
                     setSelectCertification(certification);
                     refresh();
                   }}
@@ -141,9 +120,7 @@ const Certifications: FC<PersonalLinksProps> = (props) => {
       )}
       {!profile?.certifications?.length && (
         <div className="flex flex-col items-center">
-          <p className="body-l mt-[56.2px] text-center">
-            You don’t have any certificate yet~
-          </p>
+          <p className="body-l mt-[56.2px] text-center">You don’t have any certificate yet~</p>
           <Link href={'/dashboard'}>
             <Button
               type="primary"

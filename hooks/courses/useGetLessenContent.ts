@@ -10,30 +10,19 @@ import { isMobile } from 'react-device-detect';
 import { NavType } from '@/components/Mobile/MobLayout/constant';
 import { useGlobalStore } from '@/store/zustand/globalStore';
 
-export const useGetLessonContent = <
-  T extends CourseLessonType | ElectiveLessonType
->(
-  lessonId: string,
-  courseType: CourseType
-) => {
+export const useGetLessonContent = <T extends CourseLessonType | ElectiveLessonType>(lessonId: string, courseType: CourseType) => {
   const [lesson, setLesson] = useState<T>();
   const { redirectToUrl } = useRedirect();
   const setAuthType = useUserStore((state) => state.setAuthType);
   const setAuthModalOpen = useUserStore((state) => state.setAuthModalOpen);
-  const mobileNavModalToggleOpenHandle = useGlobalStore(
-    (state) => state.mobileNavModalToggleOpenHandle
-  );
+  const mobileNavModalToggleOpenHandle = useGlobalStore((state) => state.mobileNavModalToggleOpenHandle);
   const { run, loading, refresh } = useRequest(
     async (lessonId) => {
       switch (courseType) {
         case CourseType.MINI:
-          return isMobile
-            ? webApi.courseApi.getLessonContentMob<T>(lessonId)
-            : webApi.courseApi.getLessonContent<T>(lessonId);
+          return isMobile ? webApi.courseApi.getLessonContentMob<T>(lessonId) : webApi.courseApi.getLessonContent<T>(lessonId);
         default:
-          return isMobile
-            ? webApi.courseApi.getLessonContentMob<T>(lessonId)
-            : webApi.courseApi.getLessonContent<T>(lessonId);
+          return isMobile ? webApi.courseApi.getLessonContentMob<T>(lessonId) : webApi.courseApi.getLessonContent<T>(lessonId);
       }
     },
     {

@@ -1,8 +1,5 @@
 'use client';
-import {
-  CustomComponent,
-  NotionComponent
-} from '@/components/Web/Business/Renderer/type';
+import { CustomComponent, NotionComponent } from '@/components/Web/Business/Renderer/type';
 import { FC, useEffect, useMemo, useState } from 'react';
 import { LessonType, PlaygroundContext } from './type';
 import ComponentRenderer from '../../MobRenderer/ComponentRenderer';
@@ -17,9 +14,7 @@ interface PlaygroundProps {
 const Playground: FC<PlaygroundProps> = (props) => {
   const { lesson, onCompleted, isPreview = false } = props;
 
-  const [components, setComponents] = useState<
-    (CustomComponent | NotionComponent)[]
-  >(() => {
+  const [components, setComponents] = useState<(CustomComponent | NotionComponent)[]>(() => {
     return lesson.content.right;
   });
 
@@ -38,18 +33,10 @@ const Playground: FC<PlaygroundProps> = (props) => {
 
   return (
     <div className="">
-      <PlaygroundContext.Provider
-        value={{ lesson, onCompleted, isPreview, isPlayground: true }}
-      >
+      <PlaygroundContext.Provider value={{ lesson, onCompleted, isPreview, isPlayground: true }}>
         {!!components?.length &&
           components.map((component) => {
-            return (
-              <ComponentRenderer
-                parent={parent}
-                key={component.id}
-                component={component}
-              ></ComponentRenderer>
-            );
+            return <ComponentRenderer parent={parent} key={component.id} component={component}></ComponentRenderer>;
           })}
       </PlaygroundContext.Provider>
     </div>

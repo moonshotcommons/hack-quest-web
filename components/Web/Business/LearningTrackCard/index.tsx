@@ -13,11 +13,7 @@ interface LearningTrackCardProps {
   isLandingPage?: boolean;
   from?: 'dashboard' | 'learningTrack';
 }
-const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
-  learningTrack,
-  isLandingPage,
-  from = 'learningTrack'
-}) => {
+const LearningTrackCard: React.FC<LearningTrackCardProps> = ({ learningTrack, isLandingPage, from = 'learningTrack' }) => {
   const { redirectToUrl } = useRedirect();
 
   const goLearningTrackDetail = (e: any) => {
@@ -33,9 +29,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
       }
       // onClick={goLearningTrackDetail}
     >
-      {from === 'dashboard' &&
-      learningTrack.progress &&
-      learningTrack.progress >= 1 ? (
+      {from === 'dashboard' && learningTrack.progress && learningTrack.progress >= 1 ? (
         <div className={`absolute  right-[16px] top-[16px]`}>
           <CompletedIcon />
         </div>
@@ -43,12 +37,8 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
 
       <div className="flex h-full flex-1 flex-shrink-0 flex-col justify-between">
         <TrackTag track={learningTrack.track} />
-        <div className="body-m-bold line-clamp-1 text-neutral-off-black">
-          {learningTrack.name}
-        </div>
-        <div className="body-s line-clamp-3 h-[66px]  text-neutral-medium-gray">
-          {learningTrack.description}
-        </div>
+        <div className="body-m-bold line-clamp-1 text-neutral-off-black">{learningTrack.name}</div>
+        <div className="body-s line-clamp-3 h-[66px]  text-neutral-medium-gray">{learningTrack.description}</div>
         <div>
           <CourseTags
             language={learningTrack.language}
@@ -59,12 +49,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
         </div>
       </div>
       <div className={`relative  h-[160px] w-[160px]`}>
-        <Image
-          src={learningTrack.image || LearningTrackImg}
-          fill
-          alt="learning-track-img"
-          className="object-cover"
-        ></Image>
+        <Image src={learningTrack.image || LearningTrackImg} fill alt="learning-track-img" className="object-cover"></Image>
       </div>
     </Link>
   );

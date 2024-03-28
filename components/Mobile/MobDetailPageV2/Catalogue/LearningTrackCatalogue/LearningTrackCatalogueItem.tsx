@@ -2,10 +2,7 @@
 import { tagFormate } from '@/helper/formate';
 import { cn, getCoursePrefixByCourseType } from '@/helper/utils';
 
-import {
-  LearningTrackDetailType,
-  SectionType
-} from '@/service/webApi/learningTrack/type';
+import { LearningTrackDetailType, SectionType } from '@/service/webApi/learningTrack/type';
 import { FC } from 'react';
 
 import SectionProvider from '../../Provider/SectionProvider';
@@ -19,14 +16,10 @@ interface LearningTrackCatalogueItemProps {
   learningTrackDetail: LearningTrackDetailType;
 }
 
-const LearningTrackCatalogueItem: FC<LearningTrackCatalogueItemProps> = (
-  props
-) => {
+const LearningTrackCatalogueItem: FC<LearningTrackCatalogueItemProps> = (props) => {
   const { section, index: sectionIndex, learningTrackDetail } = props;
 
-  const sectionTitle = (
-    <span className="body-m-bold min-fit break-all text-neutral-black">{`${section.name}`}</span>
-  );
+  const sectionTitle = <span className="body-m-bold min-fit break-all text-neutral-black">{`${section.name}`}</span>;
 
   return (
     <SectionProvider section={section} sectionIndex={sectionIndex}>

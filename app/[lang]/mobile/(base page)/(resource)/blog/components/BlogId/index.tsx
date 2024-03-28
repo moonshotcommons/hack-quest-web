@@ -3,10 +3,7 @@ import React, { useRef } from 'react';
 import BlogHeader from '../BlogHeader';
 import BlogContent from '../BlogContent';
 import BlogFooter from '../BlogFooter';
-import {
-  BlogDetailType,
-  ResourceFrom
-} from '@/service/webApi/resourceStation/type';
+import { BlogDetailType, ResourceFrom } from '@/service/webApi/resourceStation/type';
 import PageRetentionTime from '@/components/Common/PageRetentionTime';
 import BlogLink from '../BlogLink';
 
@@ -15,10 +12,7 @@ interface BlogDetailProp {
   from?: ResourceFrom;
 }
 
-const BlogDetail: React.FC<BlogDetailProp> = ({
-  blog,
-  from = ResourceFrom.BLOG
-}) => {
+const BlogDetail: React.FC<BlogDetailProp> = ({ blog, from = ResourceFrom.BLOG }) => {
   const boxRef = useRef<HTMLDivElement>(null);
 
   const backTop = () => {

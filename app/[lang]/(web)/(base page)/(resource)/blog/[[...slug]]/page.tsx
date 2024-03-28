@@ -8,10 +8,7 @@ interface SearchParamsType {
   };
 }
 
-export async function generateMetadata({
-  params,
-  searchParams
-}: SearchParamsType): Promise<Metadata> {
+export async function generateMetadata({ params, searchParams }: SearchParamsType): Promise<Metadata> {
   let pathname = `${params.slug?.join('/') ?? ''}` || '';
   pathname = pathname ? '/' + pathname : '';
 

@@ -26,12 +26,7 @@ const GuestMentors: React.FC<GuestMentorsProp> = ({ listData, title }) => {
             className="flex-row-center w-[calc(50%-10px)] gap-[10px] rounded-[100px] border border-neutral-medium-gray bg-neutral-off-white p-[10px]"
           >
             <div className="relative h-[65px] w-[65px] overflow-hidden rounded-[50%]">
-              <Image
-                src={v.picture as string}
-                alt="picture"
-                fill
-                className="object-cover"
-              ></Image>
+              <Image src={v.picture as string} alt="picture" fill className="object-cover"></Image>
             </div>
             <div className="flex h-[65px] flex-1 flex-shrink-0 flex-col justify-center">
               <p className="body-m-bold">{v.name}</p>
@@ -42,14 +37,9 @@ const GuestMentors: React.FC<GuestMentorsProp> = ({ listData, title }) => {
       </div>
       {listData.length > 6 && (
         <div className="body-l flex justify-end">
-          <div
-            className="flex cursor-pointer items-center"
-            onClick={() => setShowAll(!showAll)}
-          >
+          <div className="flex cursor-pointer items-center" onClick={() => setShowAll(!showAll)}>
             <span>Show {showAll ? 'Less' : 'All'}</span>
-            <VscChevronDown
-              className={`body-xl transition ${showAll ? 'rotate-180' : ''}`}
-            />
+            <VscChevronDown className={`body-xl transition ${showAll ? 'rotate-180' : ''}`} />
           </div>
         </div>
       )}

@@ -20,9 +20,7 @@ const ChangeSuccess: React.FC<ChangeSuccessProp> = ({ show, onClose }) => {
     >
       <div className="flex w-full flex-col items-center text-neutral-black transition-all duration-500 ease-in-out">
         <p className="body-xl-bold  mb-[30px]">Password Changed! 🎉</p>
-        <p className="body-s mb-[60px]">
-          Your password has been changed successfully.
-        </p>
+        <p className="body-s mb-[60px]">Your password has been changed successfully.</p>
         <Button
           className="button-text-m mb-[30px] h-[48px] w-[240px] border border-neutral-black text-neutral-black"
           onClick={(e) => {

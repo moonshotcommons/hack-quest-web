@@ -56,10 +56,7 @@ function clearCountdownInfo(showMillisecond = false): TimeInfo {
 }
 
 // 计算倒计时返回的数据信息
-function computeCountdownInfo(
-  remainTime: number,
-  showMillisecond = false
-): TimeInfo {
+function computeCountdownInfo(remainTime: number, showMillisecond = false): TimeInfo {
   // 剩余时间小于说明结束，直接清空
   if (remainTime < 0) {
     return clearCountdownInfo(showMillisecond);
@@ -106,10 +103,7 @@ function computeRemainTime(deadlineTime: number) {
   return remainTime;
 }
 
-function createCountdown(
-  setTimeInfo: (timeInfo: TimeInfo) => void,
-  options: CountDownOptions
-) {
+function createCountdown(setTimeInfo: (timeInfo: TimeInfo) => void, options: CountDownOptions) {
   let timer = 0;
   function countdown() {
     const remainTime = computeRemainTime(options.deadlineTime);
@@ -130,9 +124,7 @@ function createCountdown(
 
 export const useCountdown = (options: CountDownOptions) => {
   // 首次初始化数据，显示清除的数据
-  const [timeInfo, setTimeInfo] = useState<TimeInfo>(
-    clearCountdownInfo(options.showMillisecond)
-  );
+  const [timeInfo, setTimeInfo] = useState<TimeInfo>(clearCountdownInfo(options.showMillisecond));
   useEffect(() => {
     // 获取倒计时
     const { getTimer, countdown } = createCountdown(setTimeInfo, options);

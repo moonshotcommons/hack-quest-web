@@ -9,10 +9,7 @@ import { FilterParamsType } from '@/components/Web/Business/CourseFilterList/typ
 import { errorMessage } from '@/helper/ui';
 import webApi from '@/service';
 import { CourseType } from '@/service/webApi/course/type';
-import {
-  ElectiveCourseType,
-  ElectiveListDataType
-} from '@/service/webApi/elective/type';
+import { ElectiveCourseType, ElectiveListDataType } from '@/service/webApi/elective/type';
 import { useRequest } from 'ahooks';
 import { cloneDeep } from 'lodash-es';
 import { FC, useEffect, useState } from 'react';
@@ -21,17 +18,12 @@ interface MobCourseFilterListSearchProps {
   keyword: string;
 }
 
-const MobCourseFilterListSearch: FC<MobCourseFilterListSearchProps> = ({
-  keyword
-}) => {
+const MobCourseFilterListSearch: FC<MobCourseFilterListSearchProps> = ({ keyword }) => {
   const [searchList, setSearchList] = useState<ElectiveCourseType[]>([]);
 
   const { run: getCourseList, loading } = useRequest(
     async (filterParams: FilterParamsType) => {
-      const res =
-        await webApi.courseApi.getCourseListBySearch<ElectiveListDataType>(
-          filterParams
-        );
+      const res = await webApi.courseApi.getCourseListBySearch<ElectiveListDataType>(filterParams);
       return res;
     },
 
@@ -68,9 +60,7 @@ const MobCourseFilterListSearch: FC<MobCourseFilterListSearchProps> = ({
       courseList={searchList}
       loading={loading}
       renderItem={(course) => {
-        return (
-          <MobElectiveCard key={course.id} course={course}></MobElectiveCard>
-        );
+        return <MobElectiveCard key={course.id} course={course}></MobElectiveCard>;
       }}
     />
   );

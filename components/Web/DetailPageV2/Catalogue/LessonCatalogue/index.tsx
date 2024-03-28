@@ -28,11 +28,7 @@ const ElectiveCatalogue: FC<ElectiveCatalogueProps> = (props) => {
           <li key={lesson.id} className="relative w-full">
             <hr className="my-4"></hr>
             <div className="relative w-full">
-              <LessonCatalogueItem
-                lesson={lesson}
-                index={index}
-                courseDetail={courseDetail}
-              ></LessonCatalogueItem>
+              <LessonCatalogueItem lesson={lesson} index={index} courseDetail={courseDetail}></LessonCatalogueItem>
             </div>
           </li>
         );

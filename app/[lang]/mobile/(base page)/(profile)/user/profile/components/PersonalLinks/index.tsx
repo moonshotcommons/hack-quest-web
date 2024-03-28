@@ -3,9 +3,7 @@ import { ProfileContext } from '../../constants/type';
 import { getThirdPartyMedia, thirdPartyMedia } from '@/helper/thirdPartyMedia';
 import { RiShareBoxLine } from 'react-icons/ri';
 import Button from '@/components/Common/Button';
-import PersonalLinkEditModal, {
-  PersonalLinkEditModalRef
-} from './PersonalLinkEditModal';
+import PersonalLinkEditModal, { PersonalLinkEditModalRef } from './PersonalLinkEditModal';
 import HoverIcon from '@/components/Web/Business/HoverIcon';
 import { IconType } from '@/components/Web/Business/HoverIcon/type';
 import { useState } from 'react';
@@ -61,9 +59,7 @@ const PersonalLinks: FC<PersonalLinksProps> = (props) => {
       {showLinks && (
         <ul>
           {Object.keys(personLinks).map((key, index) => {
-            const media = getThirdPartyMedia(
-              key as keyof typeof thirdPartyMedia
-            );
+            const media = getThirdPartyMedia(key as keyof typeof thirdPartyMedia);
             if (!media) return null;
             return (
               <li
@@ -72,24 +68,13 @@ const PersonalLinks: FC<PersonalLinksProps> = (props) => {
               >
                 <div className="flex h-full flex-1 items-center gap-x-[15px]">
                   <span>{media.icon}</span>
-                  <span className="body-l text-neutral-black">
-                    {media.name}
-                  </span>
+                  <span className="body-l text-neutral-black">{media.name}</span>
                 </div>
                 <div className="flex items-center gap-[10px]">
-                  <p className="body-s w-[140px] flex-1 truncate text-neutral-medium-gray">
-                    {personLinks[key]}
-                  </p>
+                  <p className="body-s w-[140px] flex-1 truncate text-neutral-medium-gray">{personLinks[key]}</p>
                   {personLinks[key] && (
-                    <Link
-                      href={personLinks[key]}
-                      target="_blank"
-                      className="hover:text-neutral-black/40 transition duration-200"
-                    >
-                      <RiShareBoxLine
-                        size={20}
-                        color="currentColor"
-                      ></RiShareBoxLine>
+                    <Link href={personLinks[key]} target="_blank" className="hover:text-neutral-black/40 transition duration-200">
+                      <RiShareBoxLine size={20} color="currentColor"></RiShareBoxLine>
                     </Link>
                   )}
                 </div>
@@ -100,9 +85,7 @@ const PersonalLinks: FC<PersonalLinksProps> = (props) => {
       )}
       {!showLinks && (
         <div className="flex flex-col items-center">
-          <p className="body-l mt-[56.2px] text-center">
-            Share your social media information
-          </p>
+          <p className="body-l mt-[56.2px] text-center">Share your social media information</p>
           <Button
             type="primary"
             className="body-m mb-[30px] mt-[25px] w-[223px] px-0 py-[12px] text-neutral-black"

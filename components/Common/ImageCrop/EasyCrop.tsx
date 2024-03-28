@@ -1,13 +1,6 @@
 import { Button as AntButton } from 'antd';
 import { Slider as AntSlider } from 'antd';
-import {
-  forwardRef,
-  memo,
-  useCallback,
-  useImperativeHandle,
-  useRef,
-  useState
-} from 'react';
+import { forwardRef, memo, useCallback, useImperativeHandle, useRef, useState } from 'react';
 import Cropper from 'react-easy-crop';
 import type { Area, Point } from 'react-easy-crop';
 import {
@@ -68,10 +61,7 @@ const EasyCrop = forwardRef<EasyCropRef, EasyCropProps>((props, ref) => {
   const [rotation, setRotation] = useState(ROTATION_INITIAL);
   const [aspect, setAspect] = useState(ASPECT_INITIAL);
 
-  const isResetActive =
-    zoom !== ZOOM_INITIAL ||
-    rotation !== ROTATION_INITIAL ||
-    aspect !== ASPECT_INITIAL;
+  const isResetActive = zoom !== ZOOM_INITIAL || rotation !== ROTATION_INITIAL || aspect !== ASPECT_INITIAL;
 
   const onReset = () => {
     setZoom(ZOOM_INITIAL);
@@ -92,8 +82,7 @@ const EasyCrop = forwardRef<EasyCropRef, EasyCropProps>((props, ref) => {
     onReset
   }));
 
-  const wrapperClass =
-    '[display:flex] [align-items:center] [width:60%] [margin-inline:auto]';
+  const wrapperClass = '[display:flex] [align-items:center] [width:60%] [margin-inline:auto]';
 
   const buttonClass =
     '[display:flex] [align-items:center] [justify-content:center] [height:32px] [width:32px] [background:transparent] [border:0] [font-family:inherit] [font-size:18px] [cursor:pointer] disabled:[opacity:20%] disabled:[cursor:default]';
@@ -132,29 +121,11 @@ const EasyCrop = forwardRef<EasyCropRef, EasyCropProps>((props, ref) => {
           className={`${PREFIX}-control ${PREFIX}-control-zoom ${wrapperClass} flex flex-col justify-start px-[128px]`}
           style={{ width: '100%' }}
         >
-          <div className="body-l my-[10px] w-full text-start text-neutral-medium-gray">
-            Scale
-          </div>
+          <div className="body-l my-[10px] w-full text-start text-neutral-medium-gray">Scale</div>
           <div className="flex w-full items-center">
-            <button
-              className={buttonClass}
-              onClick={() => setZoom(zoom - ZOOM_STEP)}
-              disabled={zoom - ZOOM_STEP < minZoom}
-            >
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <circle
-                  cx="12"
-                  cy="12"
-                  r="11.5"
-                  fill="white"
-                  stroke="#0B0B0B"
-                />
+            <button className={buttonClass} onClick={() => setZoom(zoom - ZOOM_STEP)} disabled={zoom - ZOOM_STEP < minZoom}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="11.5" fill="white" stroke="#0B0B0B" />
                 <path d="M7 12L17 12" stroke="#0B0B0B" strokeLinecap="round" />
               </svg>
             </button>
@@ -182,18 +153,8 @@ const EasyCrop = forwardRef<EasyCropRef, EasyCropProps>((props, ref) => {
                 }}
               />
             </div>
-            <button
-              className={buttonClass}
-              onClick={() => setZoom(zoom + ZOOM_STEP)}
-              disabled={zoom + ZOOM_STEP > maxZoom}
-            >
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
+            <button className={buttonClass} onClick={() => setZoom(zoom + ZOOM_STEP)} disabled={zoom + ZOOM_STEP > maxZoom}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="12" cy="12" r="12" fill="#0B0B0B" />
                 <path d="M7 12L17 12" stroke="white" strokeLinecap="round" />
                 <path d="M12 7L12 17" stroke="white" strokeLinecap="round" />
@@ -204,9 +165,7 @@ const EasyCrop = forwardRef<EasyCropRef, EasyCropProps>((props, ref) => {
       )}
 
       {rotationSlider && (
-        <section
-          className={`${PREFIX}-control ${PREFIX}-control-rotation ${wrapperClass}`}
-        >
+        <section className={`${PREFIX}-control ${PREFIX}-control-rotation ${wrapperClass}`}>
           <button
             className={`${buttonClass} [font-size:16px]`}
             onClick={() => setRotation(rotation - ROTATION_STEP)}
@@ -233,29 +192,12 @@ const EasyCrop = forwardRef<EasyCropRef, EasyCropProps>((props, ref) => {
       )}
 
       {aspectSlider && (
-        <section
-          className={`${PREFIX}-control ${PREFIX}-control-aspect ${wrapperClass}`}
-        >
-          <button
-            className={buttonClass}
-            onClick={() => setAspect(aspect - ASPECT_STEP)}
-            disabled={aspect - ASPECT_STEP < ASPECT_MIN}
-          >
+        <section className={`${PREFIX}-control ${PREFIX}-control-aspect ${wrapperClass}`}>
+          <button className={buttonClass} onClick={() => setAspect(aspect - ASPECT_STEP)} disabled={aspect - ASPECT_STEP < ASPECT_MIN}>
             ↕️
           </button>
-          <CustomSlider
-            className={sliderClass}
-            min={ASPECT_MIN}
-            max={ASPECT_MAX}
-            step={ASPECT_STEP}
-            value={aspect}
-            onChange={setAspect}
-          />
-          <button
-            className={buttonClass}
-            onClick={() => setAspect(aspect + ASPECT_STEP)}
-            disabled={aspect + ASPECT_STEP > ASPECT_MAX}
-          >
+          <CustomSlider className={sliderClass} min={ASPECT_MIN} max={ASPECT_MAX} step={ASPECT_STEP} value={aspect} onChange={setAspect} />
+          <button className={buttonClass} onClick={() => setAspect(aspect + ASPECT_STEP)} disabled={aspect + ASPECT_STEP > ASPECT_MAX}>
             ↔️
           </button>
         </section>

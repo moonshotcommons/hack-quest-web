@@ -129,15 +129,13 @@ export const quiz = {
         {
           id: '093826f0-7be0-43b7-bffa-b52e1b5c9e4d',
           type: 'annotation',
-          content:
-            '  // Create an NFT function to create a new NFT and assign it to the caller.',
+          content: '  // Create an NFT function to create a new NFT and assign it to the caller.',
           lineNumber: 17
         },
         {
           id: 'c91dfdaf-0a5b-4de1-95ed-3d2904d72588',
           type: 'default',
-          content:
-            '  function mint(string memory _name, string memory _description)',
+          content: '  function mint(string memory _name, string memory _description)',
           lineNumber: 18
         },
         {
@@ -161,8 +159,7 @@ export const quiz = {
         {
           id: '07b1c569-917f-467f-a4cc-87014276ce58',
           type: 'default',
-          content:
-            '    Token memory newNFT = Token(_name, _description, msg.sender);',
+          content: '    Token memory newNFT = Token(_name, _description, msg.sender);',
           lineNumber: 22
         },
         {
@@ -204,8 +201,7 @@ export const quiz = {
         {
           id: 'b81a730e-8ee0-480b-abf4-872577f08ce5',
           type: 'annotation',
-          content:
-            '  //Create a function to get information on a specified NFT',
+          content: '  //Create a function to get information on a specified NFT',
           lineNumber: 29
         },
         {

@@ -17,14 +17,9 @@ const CourseStructure: FC<CourseStructureProps> = ({ detail }) => {
       </div>
 
       <div className="flex flex-col gap-4">
-        <IconTextTag
-          type={IconTextTagType.LESSONS_COUNT}
-          text={`${detail.totalPages} lessons`}
-        ></IconTextTag>
+        <IconTextTag type={IconTextTagType.LESSONS_COUNT} text={`${detail.totalPages} lessons`}></IconTextTag>
         <IconTextTag type={IconTextTagType.DEVICE_ACCESS}></IconTextTag>
-        {detail.certificationId && (
-          <IconTextTag type={IconTextTagType.CERTIFICATION}></IconTextTag>
-        )}
+        {detail.certificationId && <IconTextTag type={IconTextTagType.CERTIFICATION}></IconTextTag>}
       </div>
     </div>
   );

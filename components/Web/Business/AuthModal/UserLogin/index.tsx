@@ -55,15 +55,11 @@ const UserLogin: FC<UserLoginProps> = (props) => {
   });
   const isPc = useIsPc();
   const { validator } = useValidator(['email', 'password']);
-  const setTipsModalOpenState = useGlobalStore(
-    (state) => state.setTipsModalOpenState
-  );
+  const setTipsModalOpenState = useGlobalStore((state) => state.setTipsModalOpenState);
   // const { validator: emailValidator } = useValidator(['email']);
   const router = useRouter();
   const { redirectToUrl } = useRedirect();
-  const query = new URLSearchParams(
-    typeof window !== 'undefined' ? window.location.search : ''
-  );
+  const query = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
   const passwordInputRef = useRef<any>(null);
   const [loading, setLoading] = useState(false);
   const { run: onLogin } = useDebounceFn(
@@ -87,9 +83,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
               if (redirect_url) {
                 BurialPoint.track('login-redirect跳转');
               }
-              const toPageUrl = redirect_url
-                ? `${redirect_url}?token=${res.token}`
-                : '/dashboard';
+              const toPageUrl = redirect_url ? `${redirect_url}?token=${res.token}` : '/dashboard';
               setAuthModalOpen(false);
               if (!redirect_url && pathname !== V2_LANDING_PATH) {
                 window.location.reload();
@@ -242,11 +236,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
 
         <div className="flex items-center gap-[.75rem]" onClick={(e) => {}}>
           <Checkbox
-            outClassNames={`${
-              formData.keepMeLoggedIn
-                ? 'border-neutral-off-black'
-                : 'border-neutral-medium-gray'
-            }`}
+            outClassNames={`${formData.keepMeLoggedIn ? 'border-neutral-off-black' : 'border-neutral-medium-gray'}`}
             innerClassNames="bg-neutral-off-black"
             checked={formData.keepMeLoggedIn}
             onChange={(value) => {
@@ -259,10 +249,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
             isCircle={true}
           ></Checkbox>
           <p
-            className={cn(
-              'body-s cursor-pointer text-neutral-medium-gray',
-              formData.keepMeLoggedIn ? 'text-neutral-off-black' : ''
-            )}
+            className={cn('body-s cursor-pointer text-neutral-medium-gray', formData.keepMeLoggedIn ? 'text-neutral-off-black' : '')}
             onClick={() => {
               setFormData({
                 ...formData,

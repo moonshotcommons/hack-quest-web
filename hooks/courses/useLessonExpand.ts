@@ -1,8 +1,4 @@
-import {
-  CustomComponent,
-  NotionComponent,
-  NotionType
-} from '@/components/Web/Business/Renderer/type';
+import { CustomComponent, NotionComponent, NotionType } from '@/components/Web/Business/Renderer/type';
 
 export interface ExpandDataType {
   isExpandAll?: boolean;
@@ -11,9 +7,7 @@ export interface ExpandDataType {
   index: number;
   cId?: string;
 }
-export const useLessonExpand = (
-  lesson: (CustomComponent | NotionComponent)[]
-) => {
+export const useLessonExpand = (lesson: (CustomComponent | NotionComponent)[]) => {
   const getLessonExpand = () => {
     const lessonExpand: any[] = [];
     lesson.map((v: any, i: number) => {
@@ -48,14 +42,7 @@ export const useLessonExpand = (
           index: i,
           cId: cId
         };
-      } else if (
-        ~[
-          NotionType.H1,
-          NotionType.H2,
-          NotionType.H3,
-          NotionType.NUMBERED_LIST_ITEM
-        ].indexOf(c.type)
-      ) {
+      } else if (~[NotionType.H1, NotionType.H2, NotionType.H3, NotionType.NUMBERED_LIST_ITEM].indexOf(c.type)) {
         expandIndex = j;
         if (c.children?.length) {
           getExpand(cId, lessonExpand, [], c, i, expandIndex);
@@ -63,9 +50,7 @@ export const useLessonExpand = (
         }
       }
     });
-    const newChildExpand = Array.from(
-      new Set(childExpand.map((v: any) => JSON.stringify(v)))
-    )
+    const newChildExpand = Array.from(new Set(childExpand.map((v: any) => JSON.stringify(v))))
       .map((v: any) => {
         if (v) {
           return JSON.parse(v);

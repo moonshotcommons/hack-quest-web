@@ -36,11 +36,7 @@ export const useMintCertification = (onSuccess?: (res: any) => void) => {
     runAsync: safeMintAsync,
     loading
   } = useRequest(
-    async (params: {
-      sourceType: 'Certification';
-      sourceId: string;
-      signatureId: number;
-    }) => {
+    async (params: { sourceType: 'Certification'; sourceId: string; signatureId: number }) => {
       if (!account?.isConnected && openConnectModal) {
         updateInitialChainId(ChainType.MANTLE);
         openConnectModal();
@@ -60,13 +56,7 @@ export const useMintCertification = (onSuccess?: (res: any) => void) => {
       const data = await writeContractAsync({
         address: CONTRACT_ADDRESS,
         account: account.address,
-        args: [
-          account.address!,
-          parseUnits(params.signatureId.toString(), 0),
-          res.sig.v,
-          res.sig.r,
-          res.sig.s
-        ]
+        args: [account.address!, parseUnits(params.signatureId.toString(), 0), res.sig.v, res.sig.r, res.sig.s]
       });
 
       const result = await webApi.campaignsApi.savaMintState({

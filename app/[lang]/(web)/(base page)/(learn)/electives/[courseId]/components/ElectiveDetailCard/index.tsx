@@ -7,9 +7,7 @@ interface ElectiveDetailCardCardProps {
   courseDetail: ElectiveCourseDetailType;
 }
 
-const ElectiveDetailCardCard: FC<ElectiveDetailCardCardProps> = ({
-  courseDetail
-}) => {
+const ElectiveDetailCardCard: FC<ElectiveDetailCardCardProps> = ({ courseDetail }) => {
   return (
     <div className="sticky left-full top-5 w-[380px] rounded-[16px] border border-neutral-light-gray bg-neutral-white">
       <div className="relative h-[212px] w-full overflow-hidden rounded-t-[16px]">

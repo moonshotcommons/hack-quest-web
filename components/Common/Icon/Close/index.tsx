@@ -23,20 +23,8 @@ const CloseIcon: React.FC<IconProps> = (props) => {
       xmlns="http://www.w3.org/2000/svg"
     >
       <g clipPath="url(#clip0_11_7201)">
-        <path
-          d="M15.625 4.375L4.375 15.625"
-          stroke={color}
-          strokeWidth="1.25"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M15.625 15.625L4.375 4.375"
-          stroke={color}
-          strokeWidth="1.25"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
+        <path d="M15.625 4.375L4.375 15.625" stroke={color} strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M15.625 15.625L4.375 4.375" stroke={color} strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
       </g>
       <defs>
         <clipPath id="clip0_11_7201">

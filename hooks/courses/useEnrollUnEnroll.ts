@@ -9,23 +9,16 @@ import { NavType } from '@/components/Mobile/MobLayout/constant';
 import { errorMessage } from '@/helper/ui';
 import { useGlobalStore } from '@/store/zustand/globalStore';
 
-export const useEnrollUnEnroll = (
-  learningTrackDetail: LearningTrackDetailType | undefined,
-  refreshCallback: VoidFunction
-) => {
+export const useEnrollUnEnroll = (learningTrackDetail: LearningTrackDetailType | undefined, refreshCallback: VoidFunction) => {
   const userInfo = useUserStore((state) => state.userInfo);
   const setAuthModalOpen = useUserStore((state) => state.setAuthModalOpen);
   const setAuthType = useUserStore((state) => state.setAuthType);
-  const mobileNavModalToggleOpenHandle = useGlobalStore(
-    (state) => state.mobileNavModalToggleOpenHandle
-  );
+  const mobileNavModalToggleOpenHandle = useGlobalStore((state) => state.mobileNavModalToggleOpenHandle);
   const { redirectToUrl } = useRedirect();
   const { run: unEnroll, loading: unEnrollLoading } = useRequest(
     async () => {
       if (learningTrackDetail) {
-        const res = await webApi.learningTrackApi.unenrollLearningTrack(
-          learningTrackDetail?.id
-        );
+        const res = await webApi.learningTrackApi.unenrollLearningTrack(learningTrackDetail?.id);
         return res;
       }
     },
@@ -56,9 +49,7 @@ export const useEnrollUnEnroll = (
         throw new Error('Please login first');
       }
       if (learningTrackDetail) {
-        await webApi.learningTrackApi.enrollLearningTrack(
-          learningTrackDetail?.id
-        );
+        await webApi.learningTrackApi.enrollLearningTrack(learningTrackDetail?.id);
       }
     },
     {

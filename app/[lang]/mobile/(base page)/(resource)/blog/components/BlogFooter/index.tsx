@@ -14,10 +14,7 @@ import Link from 'next/link';
 import React, { useMemo, useState } from 'react';
 import { BsArrowRight } from 'react-icons/bs';
 import Button from '@/components/Common/Button';
-import {
-  ChangeState,
-  ScrollContainer
-} from '@/components/Common/ScrollContainer';
+import { ChangeState, ScrollContainer } from '@/components/Common/ScrollContainer';
 import ScrollControl from '../ScrollControl';
 import MobBlogCard from '@/components/Mobile/MobBlogCard';
 import { useRedirect } from '@/hooks/router/useRedirect';
@@ -28,13 +25,8 @@ interface BlogFooterProp {
   type?: 'link' | 'top';
 }
 
-const BlogFooter: React.FC<BlogFooterProp> = ({
-  backTop,
-  type = 'top',
-  from = ResourceFrom.BLOG
-}) => {
-  const [scrollContainerState, setScrollContainerState] =
-    useState<ChangeState>();
+const BlogFooter: React.FC<BlogFooterProp> = ({ backTop, type = 'top', from = ResourceFrom.BLOG }) => {
+  const [scrollContainerState, setScrollContainerState] = useState<ChangeState>();
   const [featureBlogList, setFeatureBlogList] = useState<BlogType[]>([]);
   const { redirectToUrl } = useRedirect();
   const business = useMemo(() => {
@@ -65,9 +57,7 @@ const BlogFooter: React.FC<BlogFooterProp> = ({
       <div>
         <div className="flex justify-between">
           <div className="flex flex-col gap-[15px]">
-            <h2 className="text-h3-mob text-neutral-off-black">
-              {from === ResourceFrom.BLOG ? 'Featured Blog' : 'Latest Glossary'}
-            </h2>
+            <h2 className="text-h3-mob text-neutral-off-black">{from === ResourceFrom.BLOG ? 'Featured Blog' : 'Latest Glossary'}</h2>
           </div>
           {from === ResourceFrom.BLOG && (
             <Link
@@ -83,15 +73,10 @@ const BlogFooter: React.FC<BlogFooterProp> = ({
           )}
         </div>
         <Loading loading={loading}>
-          <ScrollContainer
-            onChange={(state: any) => setScrollContainerState(state)}
-          >
+          <ScrollContainer onChange={(state: any) => setScrollContainerState(state)}>
             <div className="my-[1.875rem] flex overflow-x-hidden">
               {featureBlogList.map((blog) => (
-                <div
-                  key={blog.id}
-                  className="w-[calc(100vw-2.5rem)] p-[.25rem]"
-                >
+                <div key={blog.id} className="w-[calc(100vw-2.5rem)] p-[.25rem]">
                   <MobBlogCard blog={blog} from={from} />
                 </div>
               ))}
@@ -106,10 +91,7 @@ const BlogFooter: React.FC<BlogFooterProp> = ({
           ></ScrollControl>
         </Loading>
         <div className="button-text-m flex w-full justify-center pt-[1.875rem]">
-          <Button
-            className="h-[3rem] w-[13rem] border border-neutral-black p-0 text-neutral-black"
-            onClick={handleClick}
-          >
+          <Button className="h-[3rem] w-[13rem] border border-neutral-black p-0 text-neutral-black" onClick={handleClick}>
             BACK TO {`${type === 'top' ? 'TOP' : `${business.text}`}`}
           </Button>
         </div>

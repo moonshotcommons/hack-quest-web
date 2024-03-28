@@ -47,9 +47,7 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
         break;
       case FilterType.CHECKBOX:
         if (value === ALL) {
-          newSearchParam[i].filterList.map(
-            (v: ParamType) => (v.checked = !checked)
-          );
+          newSearchParam[i].filterList.map((v: ParamType) => (v.checked = !checked));
         } else {
           newSearchParam[i].filterList[j].checked = !checked;
           isAllChecked(newSearchParam, i);
@@ -62,9 +60,7 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
   const isAllChecked = (newSearchParam: FilterDataType[], i: number) => {
     const filterList = newSearchParam[i].filterList;
     const AllIndex = filterList.findIndex((v: ParamType) => v.value === ALL);
-    const checkedLen = filterList.filter(
-      (v: ParamType) => v.value !== ALL && v.checked
-    ).length;
+    const checkedLen = filterList.filter((v: ParamType) => v.value !== ALL && v.checked).length;
     if (checkedLen === filterList.length - 1) {
       filterList[AllIndex].checked = true;
     } else {
@@ -111,11 +107,7 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
   return (
     <div className="w-[272px] text-electives-filter-color ">
       <div className="mb-[15px] flex items-center justify-between border-b border-electives-filter-border-color pb-[6px]">
-        {isShowResult && (
-          <span className="body-xl-bold leading-[24px]">
-            {resultsLen} Results
-          </span>
-        )}
+        {isShowResult && <span className="body-xl-bold leading-[24px]">{resultsLen} Results</span>}
         {isShowInput && (
           <div className="flex-row-center body-l ">
             <BiSearch />
@@ -138,11 +130,7 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
             <div className="body-xl-bold mb-[15px]">{v.title}</div>
             <div className="mb-10">
               {v.filterList.map((filter: ParamType, j: number) => (
-                <div
-                  key={j}
-                  className="mb-[10px] flex cursor-pointer items-center"
-                  onClick={() => changeFilterParam(i, j)}
-                >
+                <div key={j} className="mb-[10px] flex cursor-pointer items-center" onClick={() => changeFilterParam(i, j)}>
                   {renderType(i, j)}
                   <span className="body-l pl-[15px]">{filter.label}</span>
                 </div>

@@ -40,13 +40,7 @@ const Success = () => {
   return (
     <div className="flex flex-col gap-[25px]">
       <div className="flex flex-col gap-6">
-        <svg
-          width="48"
-          height="48"
-          viewBox="0 0 48 48"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect width="48" height="48" fill="white" />
           <path
             fillRule="evenodd"
@@ -57,9 +51,7 @@ const Success = () => {
         </svg>
 
         <h3 className="text-h3-m text-neutral-off-black">Password Changed</h3>
-        <p className="body-m text-neutral-medium-gray">
-          Your password has been changed successfully
-        </p>
+        <p className="body-m text-neutral-medium-gray">Your password has been changed successfully</p>
       </div>
       <Button
         onClick={() => {
@@ -86,13 +78,7 @@ const Fail = () => {
   return (
     <div className="flex h-full w-full flex-col justify-between gap-8">
       <div className="flex flex-col gap-6">
-        <svg
-          width="48"
-          height="48"
-          viewBox="0 0 48 48"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect width="48" height="48" fill="white" />
           <path
             fillRule="evenodd"
@@ -102,12 +88,8 @@ const Fail = () => {
           />
         </svg>
 
-        <h3 className="text-h3-m text-neutral-off-black">
-          Verification Failed! 😵
-        </h3>
-        <p className="body-m  text-neutral-medium-gray">
-          Your token has expired! Please try again.
-        </p>
+        <h3 className="text-h3-m text-neutral-off-black">Verification Failed! 😵</h3>
+        <p className="body-m  text-neutral-medium-gray">Your token has expired! Please try again.</p>
       </div>
       <Button
         type="primary"
@@ -129,14 +111,8 @@ const Fail = () => {
   );
 };
 
-const ChangeForm = ({
-  changeState
-}: {
-  changeState: (state: ChangeStateType) => void;
-}) => {
-  const query = new URLSearchParams(
-    typeof window !== 'undefined' ? window.location.search : ''
-  );
+const ChangeForm = ({ changeState }: { changeState: (state: ChangeStateType) => void }) => {
+  const query = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
   const token = query.get('token');
   const [formData, setFormData] = useState<{
     newPassword: string;
@@ -242,8 +218,7 @@ const ChangeForm = ({
               type: 'string',
               required: true,
               pattern: /^(?=.*\d)(?=.*[a-zA-Z]).{8,16}$/,
-              message:
-                'Use 8 or more characters with a mix of letters & numbers'
+              message: 'Use 8 or more characters with a mix of letters & numbers'
             },
             {
               type: 'string',
@@ -288,9 +263,7 @@ const ChangePassword: FC<ChangePasswordProps> = (props) => {
 
   return (
     <>
-      {changeState === ChangeStateType.CHANGE && (
-        <ChangeForm changeState={(state) => setChangeState(state)}></ChangeForm>
-      )}
+      {changeState === ChangeStateType.CHANGE && <ChangeForm changeState={(state) => setChangeState(state)}></ChangeForm>}
       {changeState === ChangeStateType.SUCCESS && <Success></Success>}
       {changeState === ChangeStateType.FAIL && <Fail></Fail>}
     </>
