@@ -33,7 +33,6 @@ const ConnectTwitter = <T,>(props: ConnectTwitterProps<T>) => {
 
   const { connectState: propConnectState, refreshConnectState } = props;
   const connectState = propConnectState as TwitterConnectState;
-
   const [intervalId, setIntervalId] = useState<NodeJS.Timeout>();
 
   const { run: connectTwitter, loading: connectLoading } = useRequest(
@@ -81,13 +80,21 @@ const ConnectTwitter = <T,>(props: ConnectTwitterProps<T>) => {
   }, [refreshConnectState, refreshState]);
 
   useEffect(() => {
+    if (!connectState.connectInfo.isFollow && !intervalId) {
+      const id = setInterval(() => {
+        refreshConnectState();
+      }, 2000);
+
+      setIntervalId(id);
+    }
+
     if (connectState.connectInfo.isFollow && intervalId) {
       clearInterval(intervalId);
     }
     return () => {
       if (intervalId) clearInterval(intervalId);
     };
-  }, [intervalId, connectState.connectInfo.isFollow]);
+  }, [intervalId, connectState.connectInfo.isFollow, refreshConnectState]);
 
   return (
     <div className="flex flex-col gap-8 py-8">
@@ -132,18 +139,8 @@ const ConnectTwitter = <T,>(props: ConnectTwitterProps<T>) => {
           <div className="flex flex-col gap-2">
             <p className="body-m-bold text-neutral-rich-gray">{t('followHackquestTwitter', { hackquest: 'Hackquest' })}</p>
             {!connectState.connectInfo.isFollow && (
-              <Link href={HACKQUEST_TWITTER}>
-                <Button
-                  type="primary"
-                  className="button-text-s w-[140px] py-2 uppercase text-neutral-black"
-                  onClick={() => {
-                    const id = setInterval(() => {
-                      refreshConnectState();
-                    }, 2000);
-
-                    setIntervalId(id);
-                  }}
-                >
+              <Link href={HACKQUEST_TWITTER} target="_blank">
+                <Button type="primary" className="button-text-s w-[140px] py-2 uppercase text-neutral-black">
                   {t('follow')}
                 </Button>
               </Link>

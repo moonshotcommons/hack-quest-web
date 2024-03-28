@@ -19,5 +19,7 @@
   "disconnect": "disconnect",
   "connected": "connected",
   "follow": "follow",
-  "followed": "followed"
+  "followed": "followed",
+  "join": "join",
+  "joined": "joined"
 }

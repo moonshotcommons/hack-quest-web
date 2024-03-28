@@ -4,10 +4,25 @@ import Image from 'next/image';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useRequest } from 'ahooks';
 import webApi from '@/service';
 import { message } from 'antd';
+import { ConnectType } from '@/service/webApi/user/type';
+import { errorMessage } from '@/helper/ui';
+import Link from 'next/link';
+import { HACKQUEST_DISCORD } from '@/constants/links';
+
+export interface TwitterConnectState {
+  type: ConnectType.DISCORD;
+  isConnect: boolean;
+  connectInfo: {
+    thirdPartyName: 'wallet';
+    username: string;
+    isJoin: boolean;
+  };
+}
+
 interface ConnectDiscordProps<T> {
   refreshConnectState: () => Promise<unknown>;
   connectState: T;
@@ -17,34 +32,74 @@ const ConnectDiscord = <T,>(props: ConnectDiscordProps<T>) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
 
-  const { data: discordInfo, refresh: refreshDiscordInfo } = useRequest(() => {
-    return webApi.userApi.getDiscordInfo();
-  });
+  const { connectState: propConnectState, refreshConnectState } = props;
+  const connectState = propConnectState as TwitterConnectState;
+  const [intervalId, setIntervalId] = useState<NodeJS.Timeout>();
 
-  const { run: connectMedia, loading: connectLoading } = useRequest(
+  // const { data: discordInfo, refresh: refreshDiscordInfo } = useRequest(() => {
+  //   return webApi.userApi.getDiscordInfo();
+  // });
+
+  const { run: connectDiscord, loading: connectLoading } = useRequest(
     async () => {
       const res = await webApi.userApi.getConnectUrlByDiscord();
       window.open(res.url, '_blank', 'width=500,height=500,toolbar=no,menubar=no,location=no,status=no');
       return res;
     },
     {
-      manual: true
+      manual: true,
+      onError(err) {
+        errorMessage(err);
+      }
+    }
+  );
+
+  const { run: refreshState, loading: refreshLoading } = useRequest(
+    () => {
+      return refreshConnectState();
+    },
+    {
+      manual: true,
+      onSuccess() {
+        message.success('Connect discord success!');
+      },
+      onError(err) {
+        errorMessage(err);
+      }
     }
   );
 
   useEffect(() => {
     const refreshDiscordConnect = (e: StorageEvent) => {
       if (e.key === 'linkDiscord') {
-        message.success('Connect Discord success!');
-        refreshDiscordInfo();
+        refreshState();
       }
     };
     window.addEventListener('storage', refreshDiscordConnect);
     return () => {
       window.removeEventListener('storage', refreshDiscordConnect);
       window.localStorage.removeItem('linkDiscord');
+      window.localStorage.removeItem('linkDiscordData');
     };
-  }, [refreshDiscordInfo]);
+  }, [refreshState]);
+
+  useEffect(() => {
+    if (!connectState.connectInfo.isJoin && !intervalId) {
+      const id = setInterval(() => {
+        refreshConnectState();
+      }, 2000);
+
+      setIntervalId(id);
+    }
+
+    if (connectState.connectInfo.isJoin && intervalId) {
+      clearInterval(intervalId);
+    }
+
+    return () => {
+      if (intervalId) clearInterval(intervalId);
+    };
+  }, [intervalId, connectState.connectInfo.isJoin, refreshConnectState]);
 
   return (
     <div className="flex flex-col gap-8 py-8">
@@ -60,12 +115,18 @@ const ConnectDiscord = <T,>(props: ConnectDiscordProps<T>) => {
 
           <div className="flex flex-col gap-2">
             <p className="body-m-bold text-neutral-rich-gray">{t('authDiscordAccount')}</p>
-            {!discordInfo?.isConnect && (
-              <Button loading={!discordInfo} type="primary" className="button-text-s w-[140px] py-2 uppercase text-neutral-black ">
+            {!connectState?.connectInfo.thirdPartyName && (
+              <Button
+                loading={refreshLoading || connectLoading}
+                disabled={refreshLoading || connectLoading}
+                type="primary"
+                className="button-text-s w-[140px] py-2 uppercase text-neutral-black "
+                onClick={connectDiscord}
+              >
                 {t('connect')}
               </Button>
             )}
-            {discordInfo?.isConnect && (
+            {connectState?.connectInfo.thirdPartyName && (
               <div className="body-m-bold flex items-center py-1 text-status-success-dark">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
@@ -83,9 +144,25 @@ const ConnectDiscord = <T,>(props: ConnectDiscordProps<T>) => {
           <Image src={'/images/logo/hackquest_twitter_avatar.webp'} alt="hackquest Discord" width={48} height={48}></Image>
           <div className="flex flex-col gap-2">
             <p className="body-m-bold text-neutral-rich-gray">{t('joinHackquestDiscord', { hackquest: 'Hackquest' })}</p>
-            <Button type="primary" className="button-text-s w-[140px] py-2 uppercase text-neutral-black ">
-              {t('join')}
-            </Button>
+            {!connectState.connectInfo.isJoin && (
+              <Link href={HACKQUEST_DISCORD} target="_blank">
+                <Button type="primary" className="button-text-s w-[140px] py-2 uppercase text-neutral-black ">
+                  {t('join')}
+                </Button>
+              </Link>
+            )}
+            {connectState.connectInfo.isJoin && (
+              <div className="body-m-bold flex items-center gap-1 py-1 text-status-success-dark">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M14.4871 3.78628L5.82045 13.1196C5.6948 13.2551 5.51856 13.3323 5.33378 13.3329C5.15658 13.334 4.98626 13.2644 4.86045 13.1396L1.52712 9.80628C1.2657 9.54486 1.2657 9.12102 1.52712 8.85961C1.78853 8.59819 2.21237 8.59819 2.47378 8.85961L5.33378 11.7063L13.5138 2.87961C13.6707 2.68612 13.9224 2.59625 14.1663 2.64659C14.4103 2.69693 14.6058 2.87908 14.6733 3.11887C14.7408 3.35866 14.669 3.61607 14.4871 3.78628Z"
+                    fill="#06884A"
+                  />
+                </svg>
+
+                <span className="capitalize">{t('joined')}</span>
+              </div>
+            )}
           </div>
         </div>
       </div>

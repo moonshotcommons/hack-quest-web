@@ -39,11 +39,11 @@ const ConnectModal: ForwardRefRenderFunction<ConnectModalInstance, ConnectModalP
       isConnect: false,
       connectInfo: {}
     },
-    {
-      type: ConnectType.TWITTER,
-      isConnect: false,
-      connectInfo: {}
-    },
+    // {
+    //   type: ConnectType.TWITTER,
+    //   isConnect: false,
+    //   connectInfo: {}
+    // },
     {
       type: ConnectType.DISCORD,
       isConnect: false,
