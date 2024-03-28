@@ -80,14 +80,6 @@ const ConnectTwitter = <T,>(props: ConnectTwitterProps<T>) => {
   }, [refreshConnectState, refreshState]);
 
   useEffect(() => {
-    if (!connectState.connectInfo.isFollow && !intervalId) {
-      const id = setInterval(() => {
-        refreshConnectState();
-      }, 2000);
-
-      setIntervalId(id);
-    }
-
     if (connectState.connectInfo.isFollow && intervalId) {
       clearInterval(intervalId);
     }
@@ -147,7 +139,19 @@ const ConnectTwitter = <T,>(props: ConnectTwitterProps<T>) => {
             </p>
             {!connectState.connectInfo.isFollow && (
               <Link href={HACKQUEST_TWITTER} target="_blank">
-                <Button type="primary" className="button-text-s w-[140px] py-2 uppercase text-neutral-black">
+                <Button
+                  type="primary"
+                  className="button-text-s w-[140px] py-2 uppercase text-neutral-black"
+                  onClick={() => {
+                    if (!connectState.connectInfo.isFollow && !intervalId) {
+                      const id = setInterval(() => {
+                        refreshConnectState();
+                      }, 2000);
+
+                      setIntervalId(id);
+                    }
+                  }}
+                >
                   {t('follow')}
                 </Button>
               </Link>
