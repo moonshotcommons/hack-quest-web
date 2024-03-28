@@ -35,28 +35,19 @@ const InvitationFuel: React.FC<InvitationFuelProp> = () => {
         {!launchInfo.isStake && <LockMask />}
         <div className="flex flex-1 gap-[19px]">
           <div className="relative h-[40px] w-[40px] flex-shrink-0 overflow-hidden rounded-[50%]">
-            <Image
-              src={userInfo?.avatar as string}
-              alt="avatar"
-              fill
-              className="object-cover"
-            ></Image>
+            <Image src={userInfo?.avatar as string} alt="avatar" fill className="object-cover"></Image>
           </div>
           <div className="pt-[7px]">
             {/* <p>{t('shareYourInviteCodetoEarnFuel')}</p> */}
             <p>{invitation?.name}</p>
-            <p className="body-s text-neutral-medium-gray">
-              {t('shareDescription')}
-            </p>
+            <p className="body-s text-neutral-medium-gray">{t('shareDescription')}</p>
           </div>
         </div>
         <div className="flex  h-full flex-shrink-0 flex-col justify-between gap-[20px]">
           <div className="flex items-center gap-[40px]">
             <div className="flex h-[40px] w-[145px] items-center justify-between rounded-r-[20px] border border-neutral-light-gray bg-neutral-off-white pr-[15px]">
               <div className="flex-center relative left-[-20px] h-[40px] w-[40px] rounded-[50%] bg-yellow-primary">
-                <div className="flex-center body-l h-[32px] w-[32px] rounded-[50%] bg-yellow-light">
-                  🚀
-                </div>
+                <div className="flex-center body-l h-[32px] w-[32px] rounded-[50%] bg-yellow-light">🚀</div>
               </div>
               <span>{`${separationNumber(invitation?.reward || 0)}`}</span>
             </div>
@@ -81,22 +72,14 @@ const InvitationFuel: React.FC<InvitationFuelProp> = () => {
               className="caption-14pt flex cursor-pointer  items-center gap-[6px] text-neutral-medium-gray"
               onClick={async (e) => {
                 try {
-                  await navigator.clipboard.writeText(
-                    userInfo?.inviteCode || ''
-                  );
+                  await navigator.clipboard.writeText(userInfo?.inviteCode || '');
                   message.success('Copy success!');
                 } catch (e) {
-                  message.warning(
-                    'The browser version is too low or incompatible！'
-                  );
+                  message.warning('The browser version is too low or incompatible！');
                 }
               }}
             >
-              <CopyIcon
-                width={17}
-                height={21}
-                color={'var(--neutral-medium-gray)'}
-              />
+              <CopyIcon width={17} height={21} color={'var(--neutral-medium-gray)'} />
               <span>{t('copy')}</span>
             </div>
           </div>

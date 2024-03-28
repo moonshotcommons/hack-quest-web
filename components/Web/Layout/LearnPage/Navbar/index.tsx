@@ -7,10 +7,7 @@ import { IoExitOutline, IoPlayOutline } from 'react-icons/io5';
 import { LearnPageType, useCourseStore } from '@/store/zustand/courseStore';
 import { FiSave } from 'react-icons/fi';
 import { useShallow } from 'zustand/react/shallow';
-import {
-  CreationHandle,
-  useUgcCreationStore
-} from '@/store/zustand/ugcCreationStore';
+import { CreationHandle, useUgcCreationStore } from '@/store/zustand/ugcCreationStore';
 import MenuLink from '@/constants/MenuLink';
 
 export interface NavBarProps {}
@@ -49,18 +46,12 @@ const NavBar: React.FC<NavBarProps> = () => {
             />
             <IoPlayOutline size={26} />
             <div className="h-[24px] w-[0.5px] bg-neutral-white"></div>
-            <IoExitOutline
-              size={26}
-              onClick={() => redirectToUrl(MenuLink.INSTRUCTOR)}
-            />
+            <IoExitOutline size={26} onClick={() => redirectToUrl(MenuLink.INSTRUCTOR)} />
           </div>
         );
       default:
         return (
-          <div
-            className="flex w-[123px] cursor-pointer items-center justify-end"
-            onClick={logoClick}
-          >
+          <div className="flex w-[123px] cursor-pointer items-center justify-end" onClick={logoClick}>
             <IoExitOutline size={24} />
             <span className="body-l ml-[7px]">Exit</span>
           </div>
@@ -69,13 +60,7 @@ const NavBar: React.FC<NavBarProps> = () => {
   };
   return (
     <nav className="flex h-[64px] w-full items-center px-[40px] text-neutral-white">
-      <Image
-        src={HackLogo}
-        alt="log"
-        width={133}
-        className="cursor-pointer"
-        onClick={logoClick}
-      ></Image>
+      <Image src={HackLogo} alt="log" width={133} className="cursor-pointer" onClick={logoClick}></Image>
       <div className="text-h4 flex-1 text-center">{learnPageTitle}</div>
       {renderRight()}
     </nav>

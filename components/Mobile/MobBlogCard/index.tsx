@@ -14,14 +14,9 @@ interface MobBlogCardProp {
   from?: ResourceFrom;
 }
 
-const MobBlogCard: React.FC<MobBlogCardProp> = ({
-  blog,
-  from = ResourceFrom.BLOG
-}) => {
+const MobBlogCard: React.FC<MobBlogCardProp> = ({ blog, from = ResourceFrom.BLOG }) => {
   const goBlogContent = () => {
-    BurialPoint.track(
-      `${from === ResourceFrom.BLOG ? 'blog' : 'glossary'} blogCard 卡片点击`
-    );
+    BurialPoint.track(`${from === ResourceFrom.BLOG ? 'blog' : 'glossary'} blogCard 卡片点击`);
   };
   return (
     <Link
@@ -30,12 +25,7 @@ const MobBlogCard: React.FC<MobBlogCardProp> = ({
       href={`${from === ResourceFrom.BLOG ? MenuLink.BLOG : MenuLink.GLOSSARY}/${blog.alias}`}
     >
       <div className="relative h-full w-[8.125rem] flex-shrink-0">
-        <Image
-          src={blog.image}
-          alt="blogImage"
-          fill
-          className="object-cover"
-        ></Image>
+        <Image src={blog.image} alt="blogImage" fill className="object-cover"></Image>
       </div>
       <div className="flex h-full flex-1 flex-shrink-0 flex-col justify-between p-[.75rem]">
         <div className="w-full">
@@ -44,9 +34,7 @@ const MobBlogCard: React.FC<MobBlogCardProp> = ({
               <TrackTag key={i} track={v} className="caption-10pt" />
             ))}
           </div>
-          <h2 className="body-xs mt-[.5rem] line-clamp-2 text-neutral-off-black">
-            {blog.title}
-          </h2>
+          <h2 className="body-xs mt-[.5rem] line-clamp-2 text-neutral-off-black">{blog.title}</h2>
         </div>
         <BlogCardFooter
           blog={blog}

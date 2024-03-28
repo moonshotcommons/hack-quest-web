@@ -62,21 +62,14 @@ const TargetCard: React.FC<TargetCardProp> = ({ target }) => {
         <div
           className={`relative  overflow-hidden ${~isNotDefaultTargetType.indexOf(target.type) ? 'h-[32px] w-[32px]' : 'h-[40px] w-[40px]'}`}
         >
-          <Image
-            src={icon()}
-            alt="avatar"
-            fill
-            className="object-cover"
-          ></Image>
+          <Image src={icon()} alt="avatar" fill className="object-cover"></Image>
         </div>
         <span>{target.name}</span>
       </div>
       <div className="flex items-center gap-[20px]">
         <div className="flex h-[40px] w-[145px] items-center justify-between rounded-r-[20px] border border-neutral-light-gray bg-neutral-off-white pr-[15px]">
           <div className="flex-center relative left-[-20px] h-[40px] w-[40px] rounded-[50%] bg-yellow-primary">
-            <div className="flex-center body-l h-[32px] w-[32px] rounded-[50%] bg-yellow-light">
-              🚀
-            </div>
+            <div className="flex-center body-l h-[32px] w-[32px] rounded-[50%] bg-yellow-light">🚀</div>
           </div>
           <span>{`${separationNumber(target.reward)}`}</span>
         </div>
