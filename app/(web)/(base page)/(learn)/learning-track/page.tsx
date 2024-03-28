@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import LearninTrack from './components';
+import LearningTrack from './components';
 
 interface SearchParamsType {
   searchParams: {
@@ -23,4 +23,4 @@ export async function generateMetadata({
   return metadata;
 }
 
-export default LearninTrack;
+export default LearningTrack;
