@@ -27,3 +27,26 @@ export const connectKeyMap = [
     connected: false
   }
 ];
+
+export const defaultConnectState = [
+  {
+    type: ConnectType.WALLET,
+    isConnect: false,
+    connectInfo: {}
+  },
+  {
+    type: ConnectType.TWITTER,
+    isConnect: false,
+    connectInfo: {}
+  },
+  {
+    type: ConnectType.DISCORD,
+    isConnect: false,
+    connectInfo: {}
+  },
+  {
+    type: ParticipationStatus.INVITE_CODE,
+    isConnect: false,
+    connectInfo: {}
+  }
+];

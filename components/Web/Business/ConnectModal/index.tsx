@@ -22,10 +22,11 @@ import EnterInviteCode from './EnterInviteCode';
 import { useRequest } from 'ahooks';
 import webApi from '@/service';
 import { ConnectType } from '@/service/webApi/user/type';
-import { ParticipationStatus } from './constant';
+import { ParticipationStatus, defaultConnectState } from './constant';
 import { errorMessage } from '@/helper/ui';
 import ParticipationSuccess from './ParticipationSuccess';
 import { cn } from '@/helper/utils';
+import Loading from '@/components/Common/Loading';
 
 interface ConnectModalProps {}
 
@@ -41,28 +42,9 @@ const ConnectModal: ForwardRefRenderFunction<ConnectModalInstance, ConnectModalP
   const projectId = useRef<string>();
 
   // 四种连接类型的连接状态以及连接信息
-  const [connectState, setConnectState] = useState([
-    {
-      type: ConnectType.WALLET,
-      isConnect: false,
-      connectInfo: {}
-    },
-    // {
-    //   type: ConnectType.TWITTER,
-    //   isConnect: false,
-    //   connectInfo: {}
-    // },
-    {
-      type: ConnectType.DISCORD,
-      isConnect: false,
-      connectInfo: {}
-    },
-    {
-      type: ParticipationStatus.INVITE_CODE,
-      isConnect: false,
-      connectInfo: {}
-    }
-  ]);
+  const [connectState, setConnectState] = useState(defaultConnectState);
+
+  const [init, setInit] = useState(true);
 
   // 当前连接类型的连接状态
   const currentConnectState = useMemo(() => {
@@ -120,6 +102,7 @@ const ConnectModal: ForwardRefRenderFunction<ConnectModalInstance, ConnectModalP
           } else {
             setCurrentConnectType(currConnectType);
           }
+          setInit(false);
         }
 
         setConnectState(newConnectState);
@@ -181,8 +164,8 @@ const ConnectModal: ForwardRefRenderFunction<ConnectModalInstance, ConnectModalP
     <Modal
       open={open}
       onClose={() => {
-        setOpen(false);
-        reset();
+        // setOpen(false);
+        // reset();
       }}
       showCloseIcon
       icon={
@@ -196,33 +179,39 @@ const ConnectModal: ForwardRefRenderFunction<ConnectModalInstance, ConnectModalP
         />
       }
     >
-      <div className="flex h-[600px] w-[1000px] max-w-[1000px] flex-col justify-between rounded-[2rem] border border-neutral-light-gray bg-neutral-white p-12">
-        <div className="flex flex-1 flex-col">
-          {currentConnectType !== ParticipationStatus.SUCCESS && (
-            <div>
-              <ConnectProgress connectType={currentConnectType} />
+      <div className="flex h-[600px] w-[1000px] max-w-[1000px] items-center justify-center rounded-[2rem] border border-neutral-light-gray bg-neutral-white">
+        <Loading loading={init} loadingText="">
+          {!init && (
+            <div className="flex h-[600px] w-[1000px] max-w-[1000px] flex-col justify-between rounded-[2rem] border border-neutral-light-gray bg-neutral-white p-12">
+              <div className="flex flex-1 flex-col">
+                {currentConnectType !== ParticipationStatus.SUCCESS && (
+                  <div>
+                    <ConnectProgress connectType={currentConnectType} />
+                  </div>
+                )}
+                <div className="flex-1">{SlotComponent}</div>
+              </div>
+              {![ParticipationStatus.SUCCESS, ParticipationStatus.INVITE_CODE].includes(currentConnectType as any) && (
+                <Button
+                  type="primary"
+                  className={cn(
+                    'button-text-l w-[270px] self-end py-4 uppercase text-neutral-black opacity-100',
+                    !currentConnectState?.isConnect ? 'bg-neutral-light-gray text-neutral-medium-gray' : ''
+                  )}
+                  disabled={!currentConnectState?.isConnect}
+                  onClick={() => {
+                    const currentIndex = connectState.findIndex((item) => item.type === currentConnectState!.type);
+                    if (currentIndex + 1 < connectState.length) {
+                      setCurrentConnectType(connectState[currentIndex + 1].type);
+                    }
+                  }}
+                >
+                  {t('continue')}
+                </Button>
+              )}
             </div>
           )}
-          <div className="flex-1">{SlotComponent}</div>
-        </div>
-        {![ParticipationStatus.SUCCESS, ParticipationStatus.INVITE_CODE].includes(currentConnectType as any) && (
-          <Button
-            type="primary"
-            className={cn(
-              'button-text-l w-[270px] self-end py-4 uppercase text-neutral-black opacity-100',
-              !currentConnectState?.isConnect ? 'bg-neutral-light-gray text-neutral-medium-gray' : ''
-            )}
-            disabled={!currentConnectState?.isConnect}
-            onClick={() => {
-              const currentIndex = connectState.findIndex((item) => item.type === currentConnectState!.type);
-              if (currentIndex + 1 < connectState.length) {
-                setCurrentConnectType(connectState[currentIndex + 1].type);
-              }
-            }}
-          >
-            {t('continue')}
-          </Button>
-        )}
+        </Loading>
       </div>
     </Modal>
   );
