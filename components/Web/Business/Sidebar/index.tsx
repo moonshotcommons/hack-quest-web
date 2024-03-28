@@ -109,7 +109,10 @@ const Sidebar = <T,>(props: SidebarProps<T>) => {
       {showList && (
         <motion.div
           {...ani}
-          className={cn('flex h-full flex-col overflow-hidden bg-neutral-off-white shadow-[2px_0px_4px_0px_rgba(0,0,0,0.12)]', className)}
+          className={cn(
+            'flex h-full flex-col overflow-hidden bg-neutral-off-white shadow-[2px_0px_4px_0px_rgba(0,0,0,0.12)]',
+            className
+          )}
         >
           <div
             className="flex h-20 cursor-pointer items-center border-b border-neutral-medium-gray pl-10"

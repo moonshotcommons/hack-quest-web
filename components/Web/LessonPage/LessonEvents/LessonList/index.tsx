@@ -4,7 +4,13 @@ import { useRedirect } from '@/hooks/router/useRedirect';
 import ArrowLeft from '@/public/images/lesson/arrow_left_line.svg';
 import Complete from '@/public/images/lesson/complete.svg';
 import CompleteActive from '@/public/images/lesson/complete_active.svg';
-import { CompleteStateType, CourseLessonStateType, CourseLessonType, CourseType, UnitPagesListType } from '@/service/webApi/course/type';
+import {
+  CompleteStateType,
+  CourseLessonStateType,
+  CourseLessonType,
+  CourseType,
+  UnitPagesListType
+} from '@/service/webApi/course/type';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 interface LessonListType {
@@ -79,7 +85,12 @@ const LessonList: React.FC<LessonListType> = ({ unitData, lesson, courseType, ch
                 onClick={() => handleUnit(v)}
               >
                 <p className="body-s-bold w-[100%] truncate">{v.title}</p>
-                <Image src={v.state === CompleteStateType.COMPLETED ? CompleteActive : Complete} alt="complete" width={20} height={20} />
+                <Image
+                  src={v.state === CompleteStateType.COMPLETED ? CompleteActive : Complete}
+                  alt="complete"
+                  width={20}
+                  height={20}
+                />
               </div>
             ))}
           </div>

@@ -44,7 +44,9 @@ const Sidebar: FC<SidebarProps> = ({ lesson }) => {
           className={cn(
             'body-s pr-4',
             item.id === lesson.id ? 'body-s-bold text-neutral-dark-gray' : '',
-            [CompleteStateType.COMPLETED, CompleteStateType.LEARNING].includes(state) && item.id !== lesson.id ? 'cursor-pointer' : '',
+            [CompleteStateType.COMPLETED, CompleteStateType.LEARNING].includes(state) && item.id !== lesson.id
+              ? 'cursor-pointer'
+              : '',
             state === CompleteStateType.NOT_STARTED ? 'cursor-not-allowed text-neutral-medium-gray' : ''
           )}
         >{`${index + 1 < 10 ? '0' + (index + 1) : index + 1} ${item.title}`}</span>

@@ -9,7 +9,10 @@ import { NavType } from '@/components/Mobile/MobLayout/constant';
 import { errorMessage } from '@/helper/ui';
 import { useGlobalStore } from '@/store/zustand/globalStore';
 
-export const useEnrollUnEnroll = (learningTrackDetail: LearningTrackDetailType | undefined, refreshCallback: VoidFunction) => {
+export const useEnrollUnEnroll = (
+  learningTrackDetail: LearningTrackDetailType | undefined,
+  refreshCallback: VoidFunction
+) => {
   const userInfo = useUserStore((state) => state.userInfo);
   const setAuthModalOpen = useUserStore((state) => state.setAuthModalOpen);
   const setAuthType = useUserStore((state) => state.setAuthType);

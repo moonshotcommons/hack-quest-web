@@ -28,7 +28,11 @@ const BlogHeader: React.FC<BlogHeaderProp> = ({ blog }) => {
       <div className="flex items-center justify-between">
         <div className="flex gap-[10px]">
           {blog.categories?.map((v, i) => (
-            <TrackTag key={i} track={v} className="caption-14pt border-[1px] border-neutral-white px-[14px] py-[6px] text-neutral-white" />
+            <TrackTag
+              key={i}
+              track={v}
+              className="caption-14pt border-[1px] border-neutral-white px-[14px] py-[6px] text-neutral-white"
+            />
           ))}
         </div>
 

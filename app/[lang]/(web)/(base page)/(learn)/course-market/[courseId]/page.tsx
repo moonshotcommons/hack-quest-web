@@ -77,7 +77,11 @@ const PracticePage: FC<PracticePageProps> = async (props) => {
                 <CourseTag
                   icon={
                     <div className="relative h-8 w-8">
-                      <Image fill src={courseDetail.creator?.profileImage || Logo} alt={courseDetail.creator?.name || `Hackquest`}></Image>
+                      <Image
+                        fill
+                        src={courseDetail.creator?.profileImage || Logo}
+                        alt={courseDetail.creator?.name || `Hackquest`}
+                      ></Image>
                     </div>
                   }
                   type={CourseTagType.CREATE_BY}
@@ -107,7 +111,9 @@ const PracticePage: FC<PracticePageProps> = async (props) => {
           <div className="w-full bg-neutral-off-white py-[60px]">
             <div className="container mx-auto flex flex-col gap-[30px] ">
               <div className="flex items-center justify-between">
-                <h3 className="text-h3 text-neutral-black">More Courses By {courseDetail.creator?.name || `Hackquest`}</h3>
+                <h3 className="text-h3 text-neutral-black">
+                  More Courses By {courseDetail.creator?.name || `Hackquest`}
+                </h3>
                 <Link href={`${MenuLink.COURSE_MARKET}?keyword=${courseDetail.creator?.name}`}>
                   <LinkArrow size="lg" direction="right">
                     View More

@@ -47,7 +47,10 @@ const GlossaryFooter: React.FC<GlossaryFooterProp> = ({ backTop, type = 'top' })
           </div>
         </Loading>
         <div className="button-text-l flex w-full justify-center pt-[60px]">
-          <Button className="h-[60px] w-[270px] border border-neutral-black p-0 text-neutral-black" onClick={handleClick}>
+          <Button
+            className="h-[60px] w-[270px] border border-neutral-black p-0 text-neutral-black"
+            onClick={handleClick}
+          >
             BACK TO ALL GLOSSARY
           </Button>
         </div>

@@ -25,7 +25,11 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon }) => {
           {cover && <Image src={cover} fill alt="hackathon cover" className="object-cover"></Image>}
         </div>
         <div className="flex h-full flex-1 flex-col justify-between  p-[.75rem] wapMin:px-[.25rem]">
-          <Typography.Paragraph ellipsis={{ rows: 2 }} className="body-s text-neutral-off-black" style={{ marginBottom: 0 }}>
+          <Typography.Paragraph
+            ellipsis={{ rows: 2 }}
+            className="body-s text-neutral-off-black"
+            style={{ marginBottom: 0 }}
+          >
             {name}
           </Typography.Paragraph>
           {/* </h2> */}

@@ -20,10 +20,21 @@ interface CourseTagsProps {
 }
 
 const CourseTags: FC<CourseTagsProps> = (props) => {
-  const { language, level, unitCount, duration, size = 'small', type = CourseType.GUIDED_PROJECT, className = '' } = props;
+  const {
+    language,
+    level,
+    unitCount,
+    duration,
+    size = 'small',
+    type = CourseType.GUIDED_PROJECT,
+    className = ''
+  } = props;
   return (
     <div
-      className={cn('flex items-center gap-[20px] text-[var(--neutral-rich-gray)]', `${size === 'large' ? 'gap-[40px]' : ''} ${className}`)}
+      className={cn(
+        'flex items-center gap-[20px] text-[var(--neutral-rich-gray)]',
+        `${size === 'large' ? 'gap-[40px]' : ''} ${className}`
+      )}
     >
       <Tag icon={<AltIcon />} size={size}>
         {language}

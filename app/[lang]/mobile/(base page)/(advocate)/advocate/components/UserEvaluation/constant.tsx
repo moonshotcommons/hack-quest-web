@@ -47,8 +47,9 @@ export const userEvaluation = [
         content: (
           <span>
             Thanks to <span className="text-[#4C97EA]">@harryzhangs</span> Co- founder of{' '}
-            <span className="text-[#4C97EA]">@HackQuest_</span> for quicking off and leading the townhall and walking all the cohart members
-            through the <span className="text-[#4C97EA]">@HackQuest_</span> platform <span className="text-[#4C97EA]">hackquest.io</span>
+            <span className="text-[#4C97EA]">@HackQuest_</span> for quicking off and leading the townhall and walking
+            all the cohart members through the <span className="text-[#4C97EA]">@HackQuest_</span> platform{' '}
+            <span className="text-[#4C97EA]">hackquest.io</span>
           </span>
         ),
         username: 'Vivek Yadav',
@@ -72,7 +73,8 @@ export const userEvaluation = [
               <br /> <span>the journey was so amazing & interesting.👍🙌</span>
               <br />
               <span>Thanks to</span> <span className="text-[#4C97EA]">@harryzhangs @adisuyash</span> ❤️
-              <span className="text-[#4C97EA]">#14DaysofWeb3 #web3</span> <span className="text-[#4C97EA]">#HackQuest #Web3Journey</span>
+              <span className="text-[#4C97EA]">#14DaysofWeb3 #web3</span>{' '}
+              <span className="text-[#4C97EA]">#HackQuest #Web3Journey</span>
             </span>
           </span>
         ),
@@ -145,7 +147,9 @@ export const userEvaluation = [
             <span className="text-[#4C97EA]">@HackQuest_</span>
             <br />
             <br />
-            <span>We learned soo many things from this 2nd townhall. And also know about the different features of </span>
+            <span>
+              We learned soo many things from this 2nd townhall. And also know about the different features of{' '}
+            </span>
             <span className="text-[#4C97EA]">@HackQuest_</span>
             <br />
             <br />
@@ -170,8 +174,8 @@ export const userEvaluation = [
         content: (
           <span>
             刚刚在 HackQuest 学完了 Solidity 课程 ，然后用了三天时间自己写了一个 DEX，不得不感叹 Web3
-            的神奇！学习过程中也充分感受到了web3社区的力量，和HackQuest 社区的小伙伴们一起共学给了我很大的动力 以后我也会成为社区支持者
-            和大家一起共同成长，LFG！！
+            的神奇！学习过程中也充分感受到了web3社区的力量，和HackQuest 社区的小伙伴们一起共学给了我很大的动力
+            以后我也会成为社区支持者 和大家一起共同成长，LFG！！
             <br />
             <span className="text-[#4C97EA]">@HackQuest_ #HackQuest</span>
           </span>
@@ -185,7 +189,8 @@ export const userEvaluation = [
           <span>
             <span>Glad to share that I am working with</span>
             <br />
-            <span className="text-[#4C97EA]">@HackQuest_</span> {`(powering`} <span className="text-[#4C97EA]"> @buildmoonshot</span>
+            <span className="text-[#4C97EA]">@HackQuest_</span> {`(powering`}{' '}
+            <span className="text-[#4C97EA]"> @buildmoonshot</span>
             {`)`}
             <br />
             <span>{`as Community Manager (India) where I'll be building their Web3 developer community in India`}</span>
@@ -216,8 +221,8 @@ export const userEvaluation = [
             <span>
               뭔가 재밋어 보이는 완전 신규플 <span className="text-[#4C97EA]">@HackQuest_</span>코드2언?
             </span>{' '}
-            에듀케이션2언? <span className="text-[#4C97EA]">@0xMantle</span> 네트워크에서의 코딩 학습 퀘스트를 통해 보상을 받는 구조코딩에
-            코짜도 모르지만 찬찬히 따라해보겠음!
+            에듀케이션2언? <span className="text-[#4C97EA]">@0xMantle</span> 네트워크에서의 코딩 학습 퀘스트를 통해
+            보상을 받는 구조코딩에 코짜도 모르지만 찬찬히 따라해보겠음!
           </span>
         ),
         username: 'hallla.stepn',
@@ -266,8 +271,8 @@ export const userEvaluation = [
         content: (
           <span className="tracking-wide">
             While learning and exploring about the web 3 field it is quite enthusiastic for me with{' '}
-            <span className="text-[#4C97EA]">#Hackquest</span> as this is going to be crazy platform in the field of teaching skills to
-            students 😊
+            <span className="text-[#4C97EA]">#Hackquest</span> as this is going to be crazy platform in the field of
+            teaching skills to students 😊
           </span>
         ),
         username: 'Alok Sahal',
@@ -280,8 +285,8 @@ export const userEvaluation = [
             <span className="text-[#4C97EA]">@HackQuest_</span>
             <br />
             <br />
-            HackQuest предоставляет лучший в мире опыт обучения в сфере Web3! Я горжусь тем, что являюсь защитником сообщества HackQuest и
-            помогаю привлекать все больше людей в мир Web3.
+            HackQuest предоставляет лучший в мире опыт обучения в сфере Web3! Я горжусь тем, что являюсь защитником
+            сообщества HackQuest и помогаю привлекать все больше людей в мир Web3.
             <br />
             <br />
             <span className="text-[#4C97EA]">hackquest.io</span>

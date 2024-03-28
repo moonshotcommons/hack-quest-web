@@ -28,11 +28,20 @@ const LinkWrap: FC<LinkWrapProps> = ({ unit: propUnit, courseDetail, children })
         if (unit.progress === 1) {
           const unitPages = await webApi.courseApi.getCourseUnitLessons(courseDetail?.id || '', unit.id);
           const lessonId = unitPages.pages[0]?.id;
-          let link = `${getLessonLink(courseType as CourseType, courseDetail?.title as string, lessonId, courseDetail?.id as string, {
-            menu: query.get('menu') as string,
-            idTypes: [QueryIdType.LEARNING_TRACK_ID, QueryIdType.MENU_COURSE_ID],
-            ids: [query.get(QueryIdType.LEARNING_TRACK_ID) || '', query.get(QueryIdType.MENU_COURSE_ID) || ''] as string[]
-          })}`;
+          let link = `${getLessonLink(
+            courseType as CourseType,
+            courseDetail?.title as string,
+            lessonId,
+            courseDetail?.id as string,
+            {
+              menu: query.get('menu') as string,
+              idTypes: [QueryIdType.LEARNING_TRACK_ID, QueryIdType.MENU_COURSE_ID],
+              ids: [
+                query.get(QueryIdType.LEARNING_TRACK_ID) || '',
+                query.get(QueryIdType.MENU_COURSE_ID) || ''
+              ] as string[]
+            }
+          )}`;
           redirectToUrl(link);
         }
       }}

@@ -10,7 +10,11 @@ import QuizFooter from '../QuizFooter';
 import CodeRender from './CodeRender';
 import { RendererContext } from '@/components/Web/Business/Renderer/context';
 import { cloneDeep } from 'lodash-es';
-import { FooterButtonStatus, FooterButtonText, UgcContext } from '@/app/[lang]/(web)/(learn page)/ugc/[courseId]/learn/constants/type';
+import {
+  FooterButtonStatus,
+  FooterButtonText,
+  UgcContext
+} from '@/app/[lang]/(web)/(learn page)/ugc/[courseId]/learn/constants/type';
 import emitter from '@/store/emitter';
 import { useGetQuizsCompleted } from '@/hooks/courses/useGetQuizsCompleted';
 interface QuizARendererProps {

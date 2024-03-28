@@ -1,6 +1,14 @@
 'use client';
 import Modal from '@/components/Common/Modal';
-import { ForwardRefRenderFunction, forwardRef, useImperativeHandle, useMemo, useState, useContext, useRef } from 'react';
+import {
+  ForwardRefRenderFunction,
+  forwardRef,
+  useImperativeHandle,
+  useMemo,
+  useState,
+  useContext,
+  useRef
+} from 'react';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
@@ -149,9 +157,23 @@ const ConnectModal: ForwardRefRenderFunction<ConnectModalInstance, ConnectModalP
       case ConnectType.DISCORD:
         return <ConnectDiscord refreshConnectState={refreshAsync} connectState={connectState[2]} />;
       case ParticipationStatus.INVITE_CODE:
-        return <EnterInviteCode refreshConnectState={refreshAsync} connectState={connectState[3]} />;
+        return (
+          <EnterInviteCode
+            refreshConnectState={refreshAsync}
+            connectState={connectState[3]}
+            projectId={projectId.current!}
+          />
+        );
       case ParticipationStatus.SUCCESS:
-        return <ParticipationSuccess />;
+        return (
+          <ParticipationSuccess
+            projectId={projectId.current!}
+            onClose={() => {
+              setOpen(false);
+              reset();
+            }}
+          />
+        );
     }
   }, [currentConnectType, refreshAsync, connectState]);
 

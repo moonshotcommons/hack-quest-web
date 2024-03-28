@@ -12,7 +12,14 @@ interface UnitLessonProp {
   isShowDelete: boolean;
 }
 
-const UnitLesson: React.FC<UnitLessonProp> = ({ lesson: info, handleEdit, handleDelete, handleClickLesson, curLessonId, isShowDelete }) => {
+const UnitLesson: React.FC<UnitLessonProp> = ({
+  lesson: info,
+  handleEdit,
+  handleDelete,
+  handleClickLesson,
+  curLessonId,
+  isShowDelete
+}) => {
   const [lesson, setLesson] = useState<LessonMenuType | null>(null);
   const handleInput = () => {
     const newLesson = {
@@ -29,7 +36,9 @@ const UnitLesson: React.FC<UnitLessonProp> = ({ lesson: info, handleEdit, handle
     <div className="body-s group relative flex w-[calc(100%+40px)] items-center ">
       <div className="flex w-[calc(100%-40px)]  gap-[7px]">
         <div className="flex-center h-[24px] w-[24px]">
-          <div className="flex-center h-[20px] w-[20px] rounded-[50%] border border-neutral-medium-gray">{lesson?.icon}</div>
+          <div className="flex-center h-[20px] w-[20px] rounded-[50%] border border-neutral-medium-gray">
+            {lesson?.icon}
+          </div>
         </div>
         {lesson?.isInput ? (
           <input

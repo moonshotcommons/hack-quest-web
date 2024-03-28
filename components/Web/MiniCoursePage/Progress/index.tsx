@@ -14,7 +14,12 @@ const Progress: FC<ProgressProps> = ({ total, current }) => {
   return (
     <div className="flex justify-center gap-x-[10px]">
       {list.map((item, index) => {
-        return <div key={index} className={cn('h-[6px] w-10 rounded-[2px]', item < current ? 'bg-[#FCC409]' : 'bg-[#DADADA]')}></div>;
+        return (
+          <div
+            key={index}
+            className={cn('h-[6px] w-10 rounded-[2px]', item < current ? 'bg-[#FCC409]' : 'bg-[#DADADA]')}
+          ></div>
+        );
       })}
     </div>
   );

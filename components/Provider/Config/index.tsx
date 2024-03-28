@@ -34,7 +34,9 @@ const ConfigProvider: FC<ConfigProviderProps> = ({ children }) => {
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
         <RainbowKitProvider initialChain={initialChainId}>
-          <ChainConfigContext.Provider value={{ updateInitialChainId: setInitialChainId }}>{children}</ChainConfigContext.Provider>
+          <ChainConfigContext.Provider value={{ updateInitialChainId: setInitialChainId }}>
+            {children}
+          </ChainConfigContext.Provider>
           <Analytics mode="production" debug={false} />
         </RainbowKitProvider>
       </QueryClientProvider>

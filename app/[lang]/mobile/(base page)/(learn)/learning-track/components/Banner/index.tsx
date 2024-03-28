@@ -30,16 +30,27 @@ const Banner: React.FC<BannerProp> = ({ searchInfo }) => {
         <h1 className="text-h1-mob mb-[2.5rem] text-neutral-white">Learning Tracks</h1>
         <div className="flex gap-[1rem]">
           {bannerTabList.map((v) => (
-            <Link key={v.value} className="flex-1 flex-shrink-0" href={getSearchInfo({ ...searchInfo, track: v.value })}>
+            <Link
+              key={v.value}
+              className="flex-1 flex-shrink-0"
+              href={getSearchInfo({ ...searchInfo, track: v.value })}
+            >
               <div
                 className={`w-full rounded-[1rem] border px-[1rem]  py-[0.75rem] ${
                   track === v.value ? 'border-neutral-light-gray bg-yellow-primary ' : 'border-neutral-off-white'
                 }`}
               >
                 <div className="relative h-[1.5rem] w-[1.5rem]">
-                  <Image src={track === v.value ? v.imgActive : v.img} alt="tab-img" fill className="object-cover"></Image>
+                  <Image
+                    src={track === v.value ? v.imgActive : v.img}
+                    alt="tab-img"
+                    fill
+                    className="object-cover"
+                  ></Image>
                 </div>
-                <div className={`text-h5-mob mt-[0.5rem] ${track === v.value ? 'text-neutral-off-black' : 'text-neutral-white'}`}>
+                <div
+                  className={`text-h5-mob mt-[0.5rem] ${track === v.value ? 'text-neutral-off-black' : 'text-neutral-white'}`}
+                >
                   {v.label}
                 </div>
               </div>

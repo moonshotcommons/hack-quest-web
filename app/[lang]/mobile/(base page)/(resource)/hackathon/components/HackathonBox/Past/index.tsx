@@ -60,7 +60,11 @@ const Past: FC<PastProps> = ({ page }) => {
       </div>
       <div className="flex w-full justify-center pt-[50px]">
         {totalPage > PROJECTS_LIMIT && (
-          <Pagination page={page} total={Math.ceil(totalPage / PROJECTS_LIMIT)} urlPrefix={`${MenuLink.HACKATHON}/p/`}></Pagination>
+          <Pagination
+            page={page}
+            total={Math.ceil(totalPage / PROJECTS_LIMIT)}
+            urlPrefix={`${MenuLink.HACKATHON}/p/`}
+          ></Pagination>
         )}
       </div>
     </Loading>

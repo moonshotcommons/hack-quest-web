@@ -45,7 +45,10 @@ export function getRandomPeopleAvatars(count: number = 5) {
     const randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex--;
 
-    [peopleAvatars[currentIndex], peopleAvatars[randomIndex]] = [peopleAvatars[randomIndex], peopleAvatars[currentIndex]];
+    [peopleAvatars[currentIndex], peopleAvatars[randomIndex]] = [
+      peopleAvatars[randomIndex],
+      peopleAvatars[currentIndex]
+    ];
 
     result.push({ id: result.length + '', url: peopleAvatars[currentIndex] });
   }

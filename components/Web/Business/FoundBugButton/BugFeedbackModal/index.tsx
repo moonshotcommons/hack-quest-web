@@ -19,7 +19,13 @@ export interface BugFeedbackModalRef {
   onCommit: (params?: Record<string, any>) => void;
 }
 
-const kinds = ['Bug Report 反馈 Bug', 'Improvement 改进意见', 'UI advice UI建议', 'New Feature 新功能建议', '其他意见 Other'];
+const kinds = [
+  'Bug Report 反馈 Bug',
+  'Improvement 改进意见',
+  'UI advice UI建议',
+  'New Feature 新功能建议',
+  '其他意见 Other'
+];
 
 type A = (typeof kinds)[number];
 
@@ -287,7 +293,13 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
                         setFileList(fileList.filter((item) => file.uid !== item.uid));
                       }}
                     >
-                      <circle cx="10.9379" cy="11.1455" r="7.71853" transform="rotate(135 10.9379 11.1455)" fill="#FF624D" />
+                      <circle
+                        cx="10.9379"
+                        cy="11.1455"
+                        r="7.71853"
+                        transform="rotate(135 10.9379 11.1455)"
+                        fill="#FF624D"
+                      />
                       <rect
                         x="14.7305"
                         y="13.5166"

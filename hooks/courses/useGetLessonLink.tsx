@@ -19,11 +19,17 @@ export const useGetLessonLink = () => {
       //   QueryIdType.LEARNING_TRACK_ID
       // ) as string;
       // const menuCourseId = query.get(QueryIdType.MENU_COURSE_ID) as string;
-      const link = getLessonLink(courseType, (params.courseId as string) || courseName, lessonId, menuCourseId as string, {
-        menu: menu as string,
-        idTypes: [QueryIdType.LEARNING_TRACK_ID, QueryIdType.MENU_COURSE_ID, QueryIdType.LESSON_ID],
-        ids: [learningTrackId || '', menuCourseId, lessonId]
-      });
+      const link = getLessonLink(
+        courseType,
+        (params.courseId as string) || courseName,
+        lessonId,
+        menuCourseId as string,
+        {
+          menu: menu as string,
+          idTypes: [QueryIdType.LEARNING_TRACK_ID, QueryIdType.MENU_COURSE_ID, QueryIdType.LESSON_ID],
+          ids: [learningTrackId || '', menuCourseId, lessonId]
+        }
+      );
       return link;
     },
     [menu, learningTrackId, menuCourseId, params]

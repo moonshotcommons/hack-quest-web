@@ -17,7 +17,12 @@ const PreviewWorkspace: FC<PreviewWorkspaceProps> = (props) => {
       <div className="flex flex-col gap-y-2">
         <h1 style={{ fontSize: '20px' }}>输入lesson的url预览lesson页面</h1>
 
-        <Input size="large" required className="w-1/2" onChange={(e) => setPreviewLessonUrl(e.target.value as string)}></Input>
+        <Input
+          size="large"
+          required
+          className="w-1/2"
+          onChange={(e) => setPreviewLessonUrl(e.target.value as string)}
+        ></Input>
 
         <Button
           type="primary"
@@ -38,7 +43,12 @@ const PreviewWorkspace: FC<PreviewWorkspaceProps> = (props) => {
       <div className="flex flex-col gap-y-2">
         <h1 style={{ fontSize: '20px' }}>输入course的url预览course页面</h1>
 
-        <Input size="large" required className="w-1/2" onChange={(e) => setPreviewCourseUrl(e.target.value as string)}></Input>
+        <Input
+          size="large"
+          required
+          className="w-1/2"
+          onChange={(e) => setPreviewCourseUrl(e.target.value as string)}
+        ></Input>
 
         <Button
           type="primary"

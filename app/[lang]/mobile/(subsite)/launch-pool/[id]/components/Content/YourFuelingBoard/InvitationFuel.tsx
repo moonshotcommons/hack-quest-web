@@ -27,8 +27,8 @@ const InvitationFuel: React.FC<InvitationFuelProp> = () => {
           <div className="pt-[7px]">
             <p>Share Your Invite Code to Earn Fuel</p>
             <p className="body-s text-neutral-medium-gray">
-              Every time when invitee uses invite code to participate in this project, both the inviter and the invitee can receive 500
-              fuel. Moreover, the inviter will receive 1% of the total fuel from all invitees.
+              Every time when invitee uses invite code to participate in this project, both the inviter and the invitee
+              can receive 500 fuel. Moreover, the inviter will receive 1% of the total fuel from all invitees.
             </p>
           </div>
         </div>

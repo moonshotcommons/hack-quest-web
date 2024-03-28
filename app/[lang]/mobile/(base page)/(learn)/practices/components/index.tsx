@@ -37,7 +37,12 @@ function Electives() {
 
   const coverImage = (
     <div className="pr-4 pt-4">
-      <Image src={'/images/course/course_cover/practices_cover.png'} width={126} height={120} alt="Projects cover"></Image>
+      <Image
+        src={'/images/course/course_cover/practices_cover.png'}
+        width={126}
+        height={120}
+        alt="Projects cover"
+      ></Image>
     </div>
   );
 

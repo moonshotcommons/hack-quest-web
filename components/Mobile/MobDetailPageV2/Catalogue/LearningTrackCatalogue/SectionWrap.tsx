@@ -11,7 +11,8 @@ interface SectionWrapProps {
 }
 
 const SectionWrap: FC<SectionWrapProps> = ({ children, sectionIndex, title }) => {
-  const { learningSectionIndex, learningTrackDetail, expandList, setExpandList } = useContext(LearningTrackDetailContext);
+  const { learningSectionIndex, learningTrackDetail, expandList, setExpandList } =
+    useContext(LearningTrackDetailContext);
 
   const enrolled = !!learningTrackDetail?.enrolled;
 

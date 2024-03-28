@@ -90,7 +90,12 @@ const CourseSlider = <T extends CourseBaseType>({
       {courseGroupList.length > 1 && (
         <div className="flex items-center justify-center gap-[10px]">
           {courseGroupList.map((item, index) => {
-            return <div key={index} className={cn('h-1 w-8 rounded-sm', currentPage === index ? 'bg-[#FCC409]' : 'bg-[#DADADA]')}></div>;
+            return (
+              <div
+                key={index}
+                className={cn('h-1 w-8 rounded-sm', currentPage === index ? 'bg-[#FCC409]' : 'bg-[#DADADA]')}
+              ></div>
+            );
           })}
         </div>
       )}

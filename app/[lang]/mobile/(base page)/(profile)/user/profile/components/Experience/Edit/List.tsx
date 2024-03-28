@@ -59,7 +59,8 @@ const List: React.FC<ListProp> = ({ onClose, handleEdit, list }) => {
             <div key={i} className="flex border-b-[0.5px] border-b-neutral-black py-[20px]">
               <div className="body w-[270px] text-neutral-medium-gray">
                 <p>
-                  {dealDate(v.startDate)} - {v.endDate ? dealDate(v.endDate) : 'Present'} · {dateInterval(v.startDate, v.endDate)}
+                  {dealDate(v.startDate)} - {v.endDate ? dealDate(v.endDate) : 'Present'} ·{' '}
+                  {dateInterval(v.startDate, v.endDate)}
                 </p>
                 <p>{v.location}</p>
               </div>

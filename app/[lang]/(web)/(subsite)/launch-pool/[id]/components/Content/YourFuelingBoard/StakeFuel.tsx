@@ -36,7 +36,10 @@ const StakeFuel: React.FC<StakeFuelProp> = () => {
       <div className="flex items-center gap-[24px]">
         <p className="body-l text-neutral-black">{t('stakeFuel')}</p>
         {launchInfo.isStake && (
-          <div className="body-m flex cursor-pointer items-center gap-[5px] text-neutral-medium-gray" onClick={() => setModalName('stake')}>
+          <div
+            className="body-m flex cursor-pointer items-center gap-[5px] text-neutral-medium-gray"
+            onClick={() => setModalName('stake')}
+          >
             <IoMdAddCircle size={24} />
             <span>{t('addNewStake')}</span>
           </div>
@@ -87,14 +90,27 @@ const StakeFuel: React.FC<StakeFuelProp> = () => {
       ) : (
         <div className="mt-[16px] flex flex-col items-center">
           <p className="body-l w-[507px] text-center text-neutral-medium-gray">{t('stakeDescription')}</p>
-          <Button type="primary" className="button-text-m mt-[12px] h-[48px] w-[165px] p-0 uppercase text-neutral-black">
+          <Button
+            type="primary"
+            className="button-text-m mt-[12px] h-[48px] w-[165px] p-0 uppercase text-neutral-black"
+          >
             {t('stake')} $manta
           </Button>
         </div>
       )}
 
-      <StakeModal open={modalName === 'stake'} onClose={() => setModalName('')} loading={false} hanleStake={hanleStake} />
-      <UnstakeModal open={modalName === 'unStake'} onClose={() => setModalName('')} loading={false} hanleUnstake={hanleUnstake} />
+      <StakeModal
+        open={modalName === 'stake'}
+        onClose={() => setModalName('')}
+        loading={false}
+        hanleStake={hanleStake}
+      />
+      <UnstakeModal
+        open={modalName === 'unStake'}
+        onClose={() => setModalName('')}
+        loading={false}
+        hanleUnstake={hanleUnstake}
+      />
     </div>
   );
 };

@@ -137,17 +137,25 @@ const GithubActivity: FC<GithubActivityProps> = ({ edit = false }) => {
           </div>
           <div className="flex w-[45%] flex-shrink-0">
             <div className="flex w-[52.99%] flex-col justify-between border-l-[0.5px] border-l-[#000] text-center">
-              <p className="text-[54px] leading-[86px] text-neutral-black">{separationNumber(githubInfo.commit, 9999)}</p>
+              <p className="text-[54px] leading-[86px] text-neutral-black">
+                {separationNumber(githubInfo.commit, 9999)}
+              </p>
               <p className="text-neutral-medium-gray">Commits</p>
             </div>
             <div className="flex w-[47.99%] flex-col justify-between border-l-[0.5px] border-l-[#000] text-center">
-              <p className="text-[54px] leading-[86px] text-neutral-black">{separationNumber(githubInfo.start, 9999)}</p>
+              <p className="text-[54px] leading-[86px] text-neutral-black">
+                {separationNumber(githubInfo.start, 9999)}
+              </p>
               <p className="text-neutral-medium-gray">Github Repo Stars</p>
             </div>
           </div>
         </div>
       ) : edit ? (
-        <Add addText="Share your Github information with others" buttonText="Connect to Github" handleClick={handleAdd} />
+        <Add
+          addText="Share your Github information with others"
+          buttonText="Connect to Github"
+          handleClick={handleAdd}
+        />
       ) : null}
 
       <Confirm

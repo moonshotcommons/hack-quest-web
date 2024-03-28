@@ -185,7 +185,12 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
           </div>
         )}
       </div>
-      <QuizFooter showAnswer={showAnswer} submitDisable={submitDisable} setShowAnswer={setAnswers} onSubmit={onSubmit}></QuizFooter>
+      <QuizFooter
+        showAnswer={showAnswer}
+        submitDisable={submitDisable}
+        setShowAnswer={setAnswers}
+        onSubmit={onSubmit}
+      ></QuizFooter>
     </div>
   );
 };

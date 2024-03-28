@@ -64,7 +64,11 @@ const FilterSelect: FC<FilterSelectProps> = ({ filters, updateFilters, sort, upd
                 onMouseLeave={mouseLeaveFilter}
               >
                 <span>{filter.filterName}</span>
-                <span className={cn(hoverFilter === filter.filterName ? '-rotate-180' : 'transition-transform duration-200')}>
+                <span
+                  className={cn(
+                    hoverFilter === filter.filterName ? '-rotate-180' : 'transition-transform duration-200'
+                  )}
+                >
                   <FiChevronDown size={24} />
                 </span>
 
@@ -105,7 +109,10 @@ const FilterSelect: FC<FilterSelectProps> = ({ filters, updateFilters, sort, upd
           })}
           {selectFilterOptions.map((item, index) => {
             return (
-              <div key={index} className="body-l flex items-center gap-[10px] rounded-full bg-yellow-primary px-6 py-[10px]">
+              <div
+                key={index}
+                className="body-l flex items-center gap-[10px] rounded-full bg-yellow-primary px-6 py-[10px]"
+              >
                 <span>{item.name}</span>
                 <span
                   className="cursor-pointer"

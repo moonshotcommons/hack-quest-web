@@ -126,7 +126,9 @@ const WaitListModal: ForwardRefRenderFunction<WaitListModalInstance, WaitListMod
         <div className="mb-10 flex w-full justify-center">{logo}</div>
 
         <div className="flex h-full w-full items-center justify-center">
-          {loading && <Image src={Loading} width={64} alt="loading" className="animate-spin object-contain opacity-100"></Image>}
+          {loading && (
+            <Image src={Loading} width={64} alt="loading" className="animate-spin object-contain opacity-100"></Image>
+          )}
           {!loading && SlotComponent}
         </div>
       </div>

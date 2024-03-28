@@ -21,7 +21,12 @@ const DeleteModal: React.FC<DeleteModalProp> = ({ open, handleDelete, deleteInfo
           <Button ghost className="button-text-m h-[48px] w-[165px] border-neutral-black uppercase" onClick={onClose}>
             cancel
           </Button>
-          <Button loading={loading} type="primary" className="button-text-m h-[48px] w-[165px]  uppercase" onClick={handleDelete}>
+          <Button
+            loading={loading}
+            type="primary"
+            className="button-text-m h-[48px] w-[165px]  uppercase"
+            onClick={handleDelete}
+          >
             delete
           </Button>
         </div>

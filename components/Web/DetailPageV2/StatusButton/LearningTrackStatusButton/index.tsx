@@ -8,7 +8,9 @@ import { useJumpLeaningLesson } from '@/hooks/courses/useJumpLeaningLesson';
 import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import { useEnrollUnEnroll } from '@/hooks/courses/useEnrollUnEnroll';
 import { CertificationCardContext } from '@/components/Web/Business/Certification/CertificationCard/CertificationCardProvider';
-import CertificationModal, { CertificationModalInstance } from '@/components/Web/Business/Certification/CertificationModal';
+import CertificationModal, {
+  CertificationModalInstance
+} from '@/components/Web/Business/Certification/CertificationModal';
 import webApi from '@/service';
 import { useRequest } from 'ahooks';
 import { errorMessage } from '@/helper/ui';
@@ -18,7 +20,9 @@ interface LearningTrackStatusButtonProps {
   learningTrackDetail: LearningTrackDetailType;
 }
 
-const LearningTrackStatusButton: FC<LearningTrackStatusButtonProps> = ({ learningTrackDetail: propLearningTrackDetail }) => {
+const LearningTrackStatusButton: FC<LearningTrackStatusButtonProps> = ({
+  learningTrackDetail: propLearningTrackDetail
+}) => {
   const {
     learningTrackDetail: contextLearningTrackDetail,
     learningCourse,

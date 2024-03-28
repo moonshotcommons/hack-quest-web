@@ -78,7 +78,9 @@ const ComponentRenderer: FC<ComponentRendererProps> = (props) => {
     case NotionType.H1:
     case NotionType.H2:
     case NotionType.H3:
-      return <HeaderRenderer component={component} isRenderChildren={isRenderChildren} parent={parent}></HeaderRenderer>;
+      return (
+        <HeaderRenderer component={component} isRenderChildren={isRenderChildren} parent={parent}></HeaderRenderer>
+      );
     default:
       console.log('不能渲染的类型', component.type.trim());
       return <div></div>;

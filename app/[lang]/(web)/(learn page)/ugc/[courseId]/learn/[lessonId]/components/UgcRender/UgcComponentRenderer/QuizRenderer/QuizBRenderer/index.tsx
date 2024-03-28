@@ -12,7 +12,11 @@ import QuizFooter from '../QuizFooter';
 import DragAnswer from './DragAnswer';
 import { AnswerType, QuizOptionType } from './type';
 import { RendererContext } from '@/components/Web/Business/Renderer/context';
-import { FooterButtonStatus, FooterButtonText, UgcContext } from '@/app/[lang]/(web)/(learn page)/ugc/[courseId]/learn/constants/type';
+import {
+  FooterButtonStatus,
+  FooterButtonText,
+  UgcContext
+} from '@/app/[lang]/(web)/(learn page)/ugc/[courseId]/learn/constants/type';
 import emitter from '@/store/emitter';
 import { useGetQuizsCompleted } from '@/hooks/courses/useGetQuizsCompleted';
 interface QuizBRendererProps {
@@ -23,7 +27,9 @@ interface QuizBRendererProps {
 const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
   const { quiz, parent } = props;
   const { onPass } = useContext(QuizContext);
-  const [options, setOptions] = useState<QuizOptionType[]>(() => quiz.options.map((option) => ({ ...option, isRender: true })));
+  const [options, setOptions] = useState<QuizOptionType[]>(() =>
+    quiz.options.map((option) => ({ ...option, isRender: true }))
+  );
   const [showAnswer, setShowAnswer] = useState(false);
   const { lesson, setFooterBtn } = useContext(UgcContext);
   const [answers, setAnswers] = useState<Record<string, AnswerType>>({});

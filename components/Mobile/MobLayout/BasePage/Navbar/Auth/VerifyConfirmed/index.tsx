@@ -217,7 +217,14 @@ const Fail: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
               uppercase text-auth-primary-button-text-color
               hover:border-auth-primary-button-border-hover-color hover:bg-auth-primary-button-hover-bg hover:text-auth-primary-button-text-hover-color"
                 onClick={() => loginThreeParty(type)}
-                icon={<Image src={type === ThirdPartyAuthType.GOOGLE ? Google : Github} width={22} height={22} alt={type}></Image>}
+                icon={
+                  <Image
+                    src={type === ThirdPartyAuthType.GOOGLE ? Google : Github}
+                    width={22}
+                    height={22}
+                    alt={type}
+                  ></Image>
+                }
               >
                 Continue with {type}
               </Button>

@@ -10,7 +10,9 @@ interface LearningTrackDetailCardProps {
   learningTrackDetail: LearningTrackDetailType;
 }
 
-const LearningTrackDetailCard: FC<LearningTrackDetailCardProps> = ({ learningTrackDetail: propLearningTrackDetail }) => {
+const LearningTrackDetailCard: FC<LearningTrackDetailCardProps> = ({
+  learningTrackDetail: propLearningTrackDetail
+}) => {
   const {
     learningTrackDetail: contextLearningTrackDetail,
     learningCourse,

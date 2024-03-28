@@ -284,7 +284,9 @@ const TextArea = forwardRef<TextAreaRef, TextAreaProps>((props, ref) => {
         </span>
       </div>
       <div className="flex items-center justify-between">
-        <p className={`body-m flex flex-1 flex-row items-center gap-2 text-status-error-dark ${errorMessage ? '' : 'hidden'}`}>
+        <p
+          className={`body-m flex flex-1 flex-row items-center gap-2 text-status-error-dark ${errorMessage ? '' : 'hidden'}`}
+        >
           <PiWarningCircleFill size={20} />
           {errorMessage}
         </p>

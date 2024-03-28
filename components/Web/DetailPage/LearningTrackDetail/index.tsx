@@ -181,7 +181,11 @@ const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
             setExpandList
           }}
         >
-          <TrackList trackDetail={learningTrackDetail} expandAll={expandAll} learningSectionIndex={learningSectionIndex}></TrackList>
+          <TrackList
+            trackDetail={learningTrackDetail}
+            expandAll={expandAll}
+            learningSectionIndex={learningSectionIndex}
+          ></TrackList>
         </TrackListContext.Provider>
       </div>
       {!learningTrackDetail.enrolled && (

@@ -90,13 +90,17 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
                 }
               }}
             >
-              <div className="flex-center flex h-8 w-8 rounded-[4px] border-[2px] border-neutral-light-gray">{item.index}</div>
+              <div className="flex-center flex h-8 w-8 rounded-[4px] border-[2px] border-neutral-light-gray">
+                {item.index}
+              </div>
               <div className="flex-1">
                 <TextRenderer richTextArr={item.option?.content?.rich_text} fontSize="16px"></TextRenderer>
               </div>
 
               <div>
-                {answerState === AnswerState.Correct && answers.includes(item.index) && <FiCheck color="#00C365" size={28} />}
+                {answerState === AnswerState.Correct && answers.includes(item.index) && (
+                  <FiCheck color="#00C365" size={28} />
+                )}
                 {answerState === AnswerState.Wrong && answers.includes(item.index) && <FiX color="#C73333" size={28} />}
               </div>
             </div>

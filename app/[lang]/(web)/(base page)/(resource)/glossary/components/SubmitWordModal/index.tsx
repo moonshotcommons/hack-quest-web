@@ -73,8 +73,8 @@ const SubmitWordModal: React.FC<SubmitWordModalProp> = ({ open, onClose }) => {
           <>
             <p className="text-h3 text-neutral-black">Submitted Successfully! 🎉</p>
             <p className="body-s text-neutral-black">
-              Thank you for your word submission! Our team will review it, and if approved, it will be added to our Glossary shortly. Stay
-              tuned for updates, and keep exploring the world of Web3 with us!
+              Thank you for your word submission! Our team will review it, and if approved, it will be added to our
+              Glossary shortly. Stay tuned for updates, and keep exploring the world of Web3 with us!
             </p>
             <Button ghost onClick={onClose} className="button-text-m h-[48px] w-[256px] border-neutral-black uppercase">
               Close

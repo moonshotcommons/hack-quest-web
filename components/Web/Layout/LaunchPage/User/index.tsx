@@ -72,7 +72,10 @@ const User: FC<UserProps> = () => {
                   ></Image>
                 </div>
                 <DropDownMotion open={!!(userInfo && showUserDropCard)} className={'-right-[15px]'}>
-                  <UserDropCard userInfo={(userInfo as LoginResponse) || {}} onClose={() => setShowUserDropCard(false)}></UserDropCard>
+                  <UserDropCard
+                    userInfo={(userInfo as LoginResponse) || {}}
+                    onClose={() => setShowUserDropCard(false)}
+                  ></UserDropCard>
                 </DropDownMotion>
               </div>
             </div>

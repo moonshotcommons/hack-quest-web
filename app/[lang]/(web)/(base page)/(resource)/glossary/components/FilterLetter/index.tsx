@@ -23,7 +23,11 @@ const FilterLetter: React.FC<FilterLetterProp> = ({ letterData, letterClick, isS
   }, [letter]);
   return (
     <div className={`w-full bg-neutral-white py-[5px] ${isSticky ? 'shadow-[0_0px_4px_0_rgba(0,0,0,0.25)]' : ''}`}>
-      <SlideHighlight className="container mx-auto flex items-center text-[18px]" type={'GLOSSARY_FILTER'} currentIndex={currentIndex}>
+      <SlideHighlight
+        className="container mx-auto flex items-center text-[18px]"
+        type={'GLOSSARY_FILTER'}
+        currentIndex={currentIndex}
+      >
         {letterData.map((v) => (
           <div
             key={v}

@@ -3,7 +3,12 @@ import React, { useMemo, useRef, useState } from 'react';
 import Nav from './Nav';
 import Content, { OffsetTopsType } from './Content';
 import { LaunchDetailContext, LaunchInfoType } from '../constants/type';
-import { FuelInfo, LaunchPoolProjectStatus, LaunchPoolProjectType, ParticipateInfo } from '@/service/webApi/launchPool/type';
+import {
+  FuelInfo,
+  LaunchPoolProjectStatus,
+  LaunchPoolProjectType,
+  ParticipateInfo
+} from '@/service/webApi/launchPool/type';
 import { useRequest } from 'ahooks';
 import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';

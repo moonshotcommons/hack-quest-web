@@ -19,7 +19,11 @@ const NoData: React.FC<NoDataProp> = ({ href, keyword }) => {
           {}
         </p>
         <div className="flex w-full justify-center gap-[.5rem]">
-          <Button type="primary" className="button-text-m h-[3rem] flex-1 p-0 uppercase  " onClick={() => setSubmitVisible(true)}>
+          <Button
+            type="primary"
+            className="button-text-m h-[3rem] flex-1 p-0 uppercase  "
+            onClick={() => setSubmitVisible(true)}
+          >
             submit the word
           </Button>
           <Link

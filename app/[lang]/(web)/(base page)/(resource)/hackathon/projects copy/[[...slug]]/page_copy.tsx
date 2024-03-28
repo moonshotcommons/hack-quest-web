@@ -36,7 +36,9 @@ async function ProjectsPage({ params: { slug = [] }, searchParams }: ProjectsPag
       <div className="container mx-auto">
         <PageDescription
           title={'Project Archive'}
-          description={'Welcome to the central repository for accessing all previous projects from our various hackathons.'}
+          description={
+            'Welcome to the central repository for accessing all previous projects from our various hackathons.'
+          }
           className="pt-0"
         />
         {/* <ProjectsPageBox

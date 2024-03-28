@@ -10,7 +10,9 @@ const DemoVideo: React.FC<DemoVideoProp> = () => {
       <video controls className="mt-[24px] w-full">
         {/* <source src={project.video}></source> */}
       </video>
-      <p className="caption-14pt mt-[12px] text-center text-neutral-rich-gray">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+      <p className="caption-14pt mt-[12px] text-center text-neutral-rich-gray">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit
+      </p>
     </div>
   );
 };

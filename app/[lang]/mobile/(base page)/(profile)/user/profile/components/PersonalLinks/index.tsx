@@ -73,7 +73,11 @@ const PersonalLinks: FC<PersonalLinksProps> = (props) => {
                 <div className="flex items-center gap-[10px]">
                   <p className="body-s w-[140px] flex-1 truncate text-neutral-medium-gray">{personLinks[key]}</p>
                   {personLinks[key] && (
-                    <Link href={personLinks[key]} target="_blank" className="hover:text-neutral-black/40 transition duration-200">
+                    <Link
+                      href={personLinks[key]}
+                      target="_blank"
+                      className="hover:text-neutral-black/40 transition duration-200"
+                    >
                       <RiShareBoxLine size={20} color="currentColor"></RiShareBoxLine>
                     </Link>
                   )}

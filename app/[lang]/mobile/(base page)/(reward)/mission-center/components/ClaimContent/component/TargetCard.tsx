@@ -113,7 +113,8 @@ const TargetCard: React.FC<TargetCardProp> = ({
           <Image src={targetIcon} width={40} alt="icon"></Image>
           <span className="body-m">
             {missionData.name}
-            {(isScale || type === RewardsCardType.SHARE) && `(${missionData.progress.progress[0]}/${missionData.progress.progress[1]})`}
+            {(isScale || type === RewardsCardType.SHARE) &&
+              `(${missionData.progress.progress[0]}/${missionData.progress.progress[1]})`}
           </span>
         </div>
         <div className="flex-row-center gap-[40px]">

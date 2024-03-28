@@ -27,7 +27,9 @@ const Filter: React.FC<FilterProp> = ({ searchInfo }) => {
     >
       {filterList.map((v) => (
         <Link key={v.value} href={getSearchInfo({ ...searchInfo, language: v.value })}>
-          <div className={`body-l cursor-pointer  text-neutral-black ${searchInfo.language === v.value ? '  body-l-bold ' : ' '}`}>
+          <div
+            className={`body-l cursor-pointer  text-neutral-black ${searchInfo.language === v.value ? '  body-l-bold ' : ' '}`}
+          >
             {v.label}
           </div>
         </Link>

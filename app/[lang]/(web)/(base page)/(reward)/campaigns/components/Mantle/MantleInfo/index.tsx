@@ -1,4 +1,6 @@
-import CertificationModal, { CertificationModalInstance } from '@/components/Web/Business/Certification/CertificationModal';
+import CertificationModal, {
+  CertificationModalInstance
+} from '@/components/Web/Business/Certification/CertificationModal';
 import Button from '@/components/Common/Button';
 import { BurialPoint } from '@/helper/burialPoint';
 import Certificate from '@/public/images/campaigns/certificate.png';
@@ -71,7 +73,9 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
               <div>{showAll ? <VscChromeMinimize size={20}></VscChromeMinimize> : <VscAdd size={20}></VscAdd>}</div>
             </div>
             {showAll && (
-              <div className={`body-s mb-[20px] mt-[5px] line-clamp-3 text-neutral-rich-gray`}>{mantle.certification?.description}</div>
+              <div className={`body-s mb-[20px] mt-[5px] line-clamp-3 text-neutral-rich-gray`}>
+                {mantle.certification?.description}
+              </div>
             )}
           </div>
           {showAll && (

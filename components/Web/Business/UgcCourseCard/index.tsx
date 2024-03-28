@@ -69,7 +69,10 @@ const UgcCourseCard: React.FC<UgcCourseCardProp> = ({ isPublic = true, course })
     }
   };
   return (
-    <div onClick={goDetail} className="card-hover block overflow-hidden rounded-[16px] bg-neutral-white text-neutral-off-black">
+    <div
+      onClick={goDetail}
+      className="card-hover block overflow-hidden rounded-[16px] bg-neutral-white text-neutral-off-black"
+    >
       <div className="relative h-0 w-full pt-[56%]">
         <Image src={course.image || UgcCardCover} alt="instructorCover" fill className="object-cover" />
       </div>

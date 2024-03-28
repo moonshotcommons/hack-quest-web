@@ -13,7 +13,13 @@ interface DropLessonProp {
   refreshUnit: VoidFunction;
 }
 
-const DropLesson: React.FC<DropLessonProp> = ({ unitList, children, unitIndex, lessonIndex: targetIndex, refreshUnit }) => {
+const DropLesson: React.FC<DropLessonProp> = ({
+  unitList,
+  children,
+  unitIndex,
+  lessonIndex: targetIndex,
+  refreshUnit
+}) => {
   const { setLoading } = useUgcCreationStore(
     useShallow((state) => ({
       setLoading: state.setLoading

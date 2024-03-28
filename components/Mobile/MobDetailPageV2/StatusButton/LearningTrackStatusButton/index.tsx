@@ -12,7 +12,9 @@ interface LearningTrackStatusButtonProps {
   learningTrackDetail: LearningTrackDetailType;
 }
 
-const LearningTrackStatusButton: FC<LearningTrackStatusButtonProps> = ({ learningTrackDetail: propLearningTrackDetail }) => {
+const LearningTrackStatusButton: FC<LearningTrackStatusButtonProps> = ({
+  learningTrackDetail: propLearningTrackDetail
+}) => {
   const {
     learningTrackDetail: contextLearningTrackDetail,
     learningCourse,

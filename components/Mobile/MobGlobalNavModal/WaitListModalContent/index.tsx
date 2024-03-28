@@ -120,7 +120,9 @@ const WaitListModalContent: FC<WaitListModalContentProps> = ({ changeNavState })
     >
       <WaitListModalContentContext.Provider value={{ changeNavState }}>
         <div className="flex h-full w-full items-center justify-center">
-          {loading && <Image src={Loading} width={64} alt="loading" className="animate-spin object-contain opacity-100"></Image>}
+          {loading && (
+            <Image src={Loading} width={64} alt="loading" className="animate-spin object-contain opacity-100"></Image>
+          )}
           {!loading && SlotComponent}
         </div>
       </WaitListModalContentContext.Provider>

@@ -50,7 +50,9 @@ const UserProfile: FC<UserProfileProps> = ({ profile }) => {
         <div className="line-clamp-3 w-[64%] text-neutral-black">{profile.description}</div>
         <div className="mt-[30px] flex h-[126px]">
           <div className="flex h-full w-[265px] flex-col items-center justify-between border-r-[0.5px] border-r-[#000] pr-[31px]">
-            <p className="-Thin text-[54px] leading-[86px] text-neutral-black">{separationNumber(profile.courseCount, 10000)}</p>
+            <p className="-Thin text-[54px] leading-[86px] text-neutral-black">
+              {separationNumber(profile.courseCount, 10000)}
+            </p>
             <p className="text-neutral-medium-gray">Total Courses</p>
           </div>
           {/* <div className="h-full w-[295px] px-[31px] flex flex-col justify-between items-center border-r-[0.5px] border-r-[#000]">
@@ -60,7 +62,9 @@ const UserProfile: FC<UserProfileProps> = ({ profile }) => {
             <p className="text-neutral-medium-gray">Total Views</p>
           </div> */}
           <div className="flex h-full w-[265px] flex-col items-center justify-between pl-[31px] ">
-            <p className="-Thin text-[54px] leading-[86px] text-neutral-black">{separationNumber(profile.learnCount, 10000)}</p>
+            <p className="-Thin text-[54px] leading-[86px] text-neutral-black">
+              {separationNumber(profile.learnCount, 10000)}
+            </p>
             <p className="text-neutral-medium-gray">Total Learners</p>
           </div>
         </div>

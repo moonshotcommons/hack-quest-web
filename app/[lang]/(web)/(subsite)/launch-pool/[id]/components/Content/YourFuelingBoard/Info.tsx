@@ -106,7 +106,10 @@ const Info: React.FC<InfoProp> = () => {
           <p className="mt-[22px] text-neutral-medium-gray">{t('totalFuel')}</p>
         </div>
         <div className="flex-1 border-r border-neutral-light-gray text-center">
-          <p className="text-h2 text-neutral-off-black"> {!launchInfo.isParticipate ? 'N/A' : `#${launchInfo.participateInfo?.rank}`}</p>
+          <p className="text-h2 text-neutral-off-black">
+            {' '}
+            {!launchInfo.isParticipate ? 'N/A' : `#${launchInfo.participateInfo?.rank}`}
+          </p>
           <p className="mt-[22px] text-neutral-medium-gray">{t('fuelRank')}</p>
         </div>
         <div className="flex-1 text-center">

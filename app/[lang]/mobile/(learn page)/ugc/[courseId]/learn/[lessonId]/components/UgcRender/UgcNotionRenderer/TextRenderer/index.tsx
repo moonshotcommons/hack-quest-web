@@ -24,7 +24,11 @@ export type AnnotationType = {
 const TextRenderer: FC<TextRendererProps> = (props) => {
   const { richTextArr, fontSize: propsFontSize, letterSpacing = '0.28px', type } = props;
 
-  const { fontSize: contextFontSize, textStyle, codeStyle } = useContext(RendererContext).textRenderer! || { fontSize: '14px' };
+  const {
+    fontSize: contextFontSize,
+    textStyle,
+    codeStyle
+  } = useContext(RendererContext).textRenderer! || { fontSize: '14px' };
   const fontSize = propsFontSize || contextFontSize;
 
   const getTextClassNames = (annotations: AnnotationType) => {
@@ -35,7 +39,11 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
       type === NotionType.H2 ? 'font-next-book-bold text-[40px] font-extrabold leading-[40px] tracking-normal ' : '',
       type === NotionType.H3 ? 'font-next-book-bold text-[28px] font-extrabold leading-normal tracking-normal' : '',
       annotations.bold ? 'font-bold' : '',
-      annotations.code ? (!codeStyle ? 'px-[0.2rem] text-[85%] text-[#eb5757] bg-renderer-code-bg mx-[0.25rem]' : codeStyle) : '',
+      annotations.code
+        ? !codeStyle
+          ? 'px-[0.2rem] text-[85%] text-[#eb5757] bg-renderer-code-bg mx-[0.25rem]'
+          : codeStyle
+        : '',
       annotations.italic ? 'italic' : '',
       annotations.strikethrough ? '' : '',
       annotations.underline ? 'underline' : '',
@@ -76,8 +84,14 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
                   style={{
                     fontSize,
                     letterSpacing,
-                    color: annotations.color !== 'default' && !annotations.color.includes('background') ? annotations.color : '',
-                    backgroundColor: annotations.color !== 'default' && annotations.color.includes('background') ? annotations.color : ''
+                    color:
+                      annotations.color !== 'default' && !annotations.color.includes('background')
+                        ? annotations.color
+                        : '',
+                    backgroundColor:
+                      annotations.color !== 'default' && annotations.color.includes('background')
+                        ? annotations.color
+                        : ''
                   }}
                 >
                   {plain_text}
@@ -102,7 +116,10 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
                       annotations.color !== 'default' && !annotations.code && !annotations.color.includes('background')
                         ? annotations.color
                         : '',
-                    backgroundColor: annotations.color !== 'default' && annotations.color.includes('background') ? annotations.color : ''
+                    backgroundColor:
+                      annotations.color !== 'default' && annotations.color.includes('background')
+                        ? annotations.color
+                        : ''
                   }}
                 >
                   {plain_text}
@@ -119,8 +136,12 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
                 style={{
                   fontSize,
                   letterSpacing,
-                  color: annotations.color !== 'default' && !annotations.color.includes('background') ? annotations.color : '',
-                  backgroundColor: annotations.color !== 'default' && annotations.color.includes('background') ? annotations.color : ''
+                  color:
+                    annotations.color !== 'default' && !annotations.color.includes('background')
+                      ? annotations.color
+                      : '',
+                  backgroundColor:
+                    annotations.color !== 'default' && annotations.color.includes('background') ? annotations.color : ''
                 }}
               >
                 {plain_text}
@@ -143,7 +164,8 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
                   annotations.color !== 'default' && !annotations.code && !annotations.color.includes('background')
                     ? annotations.color
                     : '',
-                backgroundColor: annotations.color !== 'default' && annotations.color.includes('background') ? annotations.color : ''
+                backgroundColor:
+                  annotations.color !== 'default' && annotations.color.includes('background') ? annotations.color : ''
               }}
             >
               {richText.plain_text}
@@ -169,8 +191,10 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
             style={{
               fontSize,
               letterSpacing,
-              color: annotations.color !== 'default' && !annotations.color.includes('background') ? annotations.color : '',
-              backgroundColor: annotations.color !== 'default' && annotations.color.includes('background') ? annotations.color : ''
+              color:
+                annotations.color !== 'default' && !annotations.color.includes('background') ? annotations.color : '',
+              backgroundColor:
+                annotations.color !== 'default' && annotations.color.includes('background') ? annotations.color : ''
             }}
           >
             {richText.plain_text}

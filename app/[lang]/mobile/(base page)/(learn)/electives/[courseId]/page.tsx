@@ -23,7 +23,10 @@ interface ElectiveDetailPageProps {
   };
 }
 
-export async function generateMetadata({ params, searchParams }: ElectiveDetailPageProps, parent: any): Promise<Metadata> {
+export async function generateMetadata(
+  { params, searchParams }: ElectiveDetailPageProps,
+  parent: any
+): Promise<Metadata> {
   // 读取路由参数
   const courseId = params.courseId;
 
@@ -67,7 +70,11 @@ const ElectiveDetailPage: FC<ElectiveDetailPageProps> = async (props) => {
             <CourseTag
               icon={
                 <div className="relative h-8 w-8">
-                  <Image fill src={courseDetail.creator?.profileImage || ''} alt={courseDetail.creator?.name || ''}></Image>
+                  <Image
+                    fill
+                    src={courseDetail.creator?.profileImage || ''}
+                    alt={courseDetail.creator?.name || ''}
+                  ></Image>
                 </div>
               }
               type={CourseTagType.CREATE_BY}

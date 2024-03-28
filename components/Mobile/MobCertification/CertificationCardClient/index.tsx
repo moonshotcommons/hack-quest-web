@@ -48,11 +48,17 @@ const CertificationCard: FC<CertificationCardProps> = (props) => {
           </Button>
         </div>
         <div className="relative mr-[20px] h-[233px] w-[421px]">
-          {certification?.image && <Image fill src={certification?.image || ''} alt="certification" className="z-50"></Image>}
+          {certification?.image && (
+            <Image fill src={certification?.image || ''} alt="certification" className="z-50"></Image>
+          )}
         </div>
       </div>
       {certification && (
-        <CertificationModal ref={CertificationModalRef} certification={certification} refreshCertification={refresh}></CertificationModal>
+        <CertificationModal
+          ref={CertificationModalRef}
+          certification={certification}
+          refreshCertification={refresh}
+        ></CertificationModal>
       )}
     </div>
   );

@@ -47,7 +47,8 @@ export const lessonTypeData: LessonTypeDataType[] = [
     value: LessonType.READING,
     label: 'Reading Lesson',
     icon: getLessonIconData()[LessonType.READING],
-    description: 'You can present content using words and images, ideal for detailed explanations and textual resources.'
+    description:
+      'You can present content using words and images, ideal for detailed explanations and textual resources.'
   },
   {
     value: LessonType.VIDEO,

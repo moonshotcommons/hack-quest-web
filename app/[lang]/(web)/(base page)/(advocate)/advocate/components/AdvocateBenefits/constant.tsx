@@ -9,9 +9,24 @@ export const dataList = [
           strokeLinecap="round"
           strokeLinejoin="round"
         />
-        <path d="M25.4918 38.0933L36.4691 20.5716H22.0925L25.4918 38.0933Z" stroke="black" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M25.4918 38.0933H1L22.0924 20.5716L25.4918 38.0933Z" stroke="black" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M47.4407 38.0933L36.4689 20.5716H50.8456L47.4407 38.0933Z" stroke="black" strokeLinecap="round" strokeLinejoin="round" />
+        <path
+          d="M25.4918 38.0933L36.4691 20.5716H22.0925L25.4918 38.0933Z"
+          stroke="black"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M25.4918 38.0933H1L22.0924 20.5716L25.4918 38.0933Z"
+          stroke="black"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M47.4407 38.0933L36.4689 20.5716H50.8456L47.4407 38.0933Z"
+          stroke="black"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
         <path
           d="M47.4406 38.0933H71.9378L50.8454 20.5716L47.4406 38.0933Z"
           fill="#FFE866"
@@ -26,7 +41,12 @@ export const dataList = [
           strokeLinecap="round"
           strokeLinejoin="round"
         />
-        <path d="M36.469 20.5716L25.4916 38.0933H47.4408L36.469 20.5716Z" stroke="black" strokeLinecap="round" strokeLinejoin="round" />
+        <path
+          d="M36.469 20.5716L25.4916 38.0933H47.4408L36.469 20.5716Z"
+          stroke="black"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
         <path
           d="M38.398 0.761871H34.5344V14.6742H38.398V0.761871Z"
           fill="#FFE866"
@@ -193,7 +213,12 @@ export const dataList = [
   {
     icon: (
       <svg width="83" height="86" viewBox="0 0 83 86" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M73.0379 72.3241H10.0599L1 80.0385H82.0978L73.0379 72.3241Z" stroke="black" strokeLinecap="round" strokeLinejoin="round" />
+        <path
+          d="M73.0379 72.3241H10.0599L1 80.0385H82.0978L73.0379 72.3241Z"
+          stroke="black"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
         <path
           d="M66.4207 32.9595H68.9556C71.2107 32.9595 73.0411 34.7916 73.0411 37.056V72.3239H10.0598V37.056C10.0598 34.7949 11.8869 32.9595 14.1453 32.9595H16.4004"
           stroke="black"
@@ -244,7 +269,13 @@ export const dataList = [
           stroke="black"
           strokeMiterlimit="10"
         />
-        <path d="M15.2144 68.9353H68.1927" stroke="black" strokeLinecap="round" strokeLinejoin="round" strokeDasharray="6 6" />
+        <path
+          d="M15.2144 68.9353H68.1927"
+          stroke="black"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeDasharray="6 6"
+        />
       </svg>
     ),
     title: 'Early Access to Beta Features ',
@@ -312,8 +343,17 @@ export const dataList = [
           stroke="black"
           strokeMiterlimit="10"
         />
-        <path d="M36.83 41.1091V54.6355L22.2104 47.7435V34.2156L36.83 41.1091Z" fill="#D9D9D9" stroke="black" strokeMiterlimit="10" />
-        <path d="M51.4504 34.2156V47.7435L36.8308 54.6355V41.1091L51.4504 34.2156Z" stroke="black" strokeMiterlimit="10" />
+        <path
+          d="M36.83 41.1091V54.6355L22.2104 47.7435V34.2156L36.83 41.1091Z"
+          fill="#D9D9D9"
+          stroke="black"
+          strokeMiterlimit="10"
+        />
+        <path
+          d="M51.4504 34.2156V47.7435L36.8308 54.6355V41.1091L51.4504 34.2156Z"
+          stroke="black"
+          strokeMiterlimit="10"
+        />
         <path d="M57.3464 31.4362V38.3695" stroke="black" strokeMiterlimit="10" />
         <path
           d="M57.3467 43.3039C58.6372 43.3039 59.6834 42.2577 59.6834 40.9672C59.6834 39.6767 58.6372 38.6305 57.3467 38.6305C56.0562 38.6305 55.01 39.6767 55.01 40.9672C55.01 42.2577 56.0562 43.3039 57.3467 43.3039Z"
@@ -322,7 +362,11 @@ export const dataList = [
           strokeMiterlimit="10"
         />
         <path d="M36.8303 69.268C19.3481 69.268 5.17627 55.0946 5.17627 37.6124" stroke="black" strokeMiterlimit="10" />
-        <path d="M36.8308 5.95788C54.313 5.95788 68.4848 20.1297 68.4848 37.6119" stroke="black" strokeMiterlimit="10" />
+        <path
+          d="M36.8308 5.95788C54.313 5.95788 68.4848 20.1297 68.4848 37.6119"
+          stroke="black"
+          strokeMiterlimit="10"
+        />
       </svg>
     ),
     title: 'Career Opportunities',

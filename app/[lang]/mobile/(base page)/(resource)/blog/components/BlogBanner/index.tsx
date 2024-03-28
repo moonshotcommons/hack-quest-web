@@ -93,8 +93,8 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
       <div className="body-l relative z-[10]  flex flex-col gap-[1rem] bg-neutral-off-white px-[1.25rem] py-[1.875rem] text-neutral-off-black">
         <h1 className="text-h2-mob">Blog</h1>
         <p className="body-s w-full text-neutral-rich-gray">
-          Explore our Web3 Blog – your hub for news, events, and study notes! Contribute your insights, shaping the conversation in the
-          world of decentralized tech.
+          Explore our Web3 Blog – your hub for news, events, and study notes! Contribute your insights, shaping the
+          conversation in the world of decentralized tech.
         </p>
 
         <Link
@@ -120,7 +120,11 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
               }, 0);
             }}
           >
-            {searchInfo.sort === sortData[0].value ? <PiSortAscendingBold size={24} /> : <PiSortDescendingBold size={24} />}
+            {searchInfo.sort === sortData[0].value ? (
+              <PiSortAscendingBold size={24} />
+            ) : (
+              <PiSortDescendingBold size={24} />
+            )}
 
             {sortVisible && (
               <div className="body-s absolute bottom-[-5.625rem] left-0 overflow-hidden rounded-[10px] bg-neutral-off-white text-neutral-black shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)]">

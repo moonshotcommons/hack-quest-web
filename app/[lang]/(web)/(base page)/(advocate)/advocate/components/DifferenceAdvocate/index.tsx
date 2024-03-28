@@ -11,7 +11,8 @@ const dataList = [
   },
   {
     title: 'Organize Events',
-    description: 'Spark exciting online and IRL HackQuest events - meetups, hackathons, co-learning camps... let’s BUIDL together 🛠️'
+    description:
+      'Spark exciting online and IRL HackQuest events - meetups, hackathons, co-learning camps... let’s BUIDL together 🛠️'
   },
   {
     title: 'Educate the Community',
@@ -34,7 +35,10 @@ const DifferenceAdvocate: FC<DifferenceAdvocateProps> = (props) => {
         <ul className="flex-1">
           {dataList.map((item, index) => {
             return (
-              <li key={item.title} className={index !== 0 ? 'mt-8 border-t border-dashed border-neutral-black pt-8' : ''}>
+              <li
+                key={item.title}
+                className={index !== 0 ? 'mt-8 border-t border-dashed border-neutral-black pt-8' : ''}
+              >
                 <p className="body-xl-bold pl-3 text-neutral-off-black">{item.title}</p>
                 <p className="body-s mt-3 pl-3 text-neutral-medium-gray">{item.description}</p>
               </li>

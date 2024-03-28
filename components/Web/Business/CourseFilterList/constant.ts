@@ -73,7 +73,11 @@ export const courseDefaultSort = [
   { name: 'Newest', value: '-createdAt', isSelect: true }
 ];
 
-export const mergeFilterParams = (filters: FilterItemType[], sort: FilterOptionType[], keyword?: string): FilterParamsType => {
+export const mergeFilterParams = (
+  filters: FilterItemType[],
+  sort: FilterOptionType[],
+  keyword?: string
+): FilterParamsType => {
   const sortValue = sort.find((item) => item.isSelect)?.value;
   const filtersObject: Record<string, string> = {};
   filters.forEach((f) => {

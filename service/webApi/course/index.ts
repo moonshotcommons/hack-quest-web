@@ -10,7 +10,12 @@ import {
   UnitPagesListType
 } from './type';
 
-import { EcosystemElectiveType, EcosystemProfileType, ElectiveCourseDetailType, ElectiveLessonType } from '../elective/type';
+import {
+  EcosystemElectiveType,
+  EcosystemProfileType,
+  ElectiveCourseDetailType,
+  ElectiveLessonType
+} from '../elective/type';
 import { PageResult } from '../type';
 import { cache } from 'react';
 export enum CourseApiType {
@@ -55,7 +60,11 @@ class CourseApi {
   }
 
   /** 获取单个课程的详情信息 */
-  getCourseDetail<T extends CourseDetailType | ElectiveCourseDetailType>(courseId: string, includeUnits = false, includePages = false) {
+  getCourseDetail<T extends CourseDetailType | ElectiveCourseDetailType>(
+    courseId: string,
+    includeUnits = false,
+    includePages = false
+  ) {
     let includes = [];
 
     if (includeUnits) includes.push('units');

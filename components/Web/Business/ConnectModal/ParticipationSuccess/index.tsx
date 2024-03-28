@@ -1,9 +1,14 @@
 import Button from '@/components/Common/Button';
+import MenuLink from '@/constants/MenuLink';
+import Link from 'next/link';
 import { FC } from 'react';
 
-interface ParticipationSuccessProps {}
+interface ParticipationSuccessProps {
+  projectId: string;
+  onClose: VoidFunction;
+}
 
-const ParticipationSuccess: FC<ParticipationSuccessProps> = (props) => {
+const ParticipationSuccess: FC<ParticipationSuccessProps> = ({ projectId, onClose }) => {
   return (
     <div className="flex h-full flex-col justify-between">
       <div className="mt-6 flex flex-col gap-8">
@@ -15,10 +20,12 @@ const ParticipationSuccess: FC<ParticipationSuccessProps> = (props) => {
         </div>
       </div>
       <div className="flex w-full justify-center gap-4">
-        <Button type="primary" className="w-full max-w-[270px] uppercase">
-          go to stake
-        </Button>
-        <Button ghost className="w-full max-w-[270px] uppercase">
+        <Link href={`${MenuLink.LAUNCH}/${projectId}`}>
+          <Button type="primary" className="w-full max-w-[270px] uppercase">
+            go to stake
+          </Button>
+        </Link>
+        <Button ghost className="w-full max-w-[270px] uppercase" onClick={onClose}>
           later
         </Button>
       </div>

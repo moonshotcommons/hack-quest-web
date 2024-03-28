@@ -207,7 +207,9 @@ const ChangePassword: React.FC<ChangePasswordProp> = ({ onClose, setChangeSucces
         <Button
           loading={loading}
           className={`button-text-m h-[48px]  w-[240px]  ${
-            updateDisable ? 'cursor-not-allowed bg-neutral-light-gray text-neutral-medium-gray' : 'bg-yellow-primary text-neutral-black'
+            updateDisable
+              ? 'cursor-not-allowed bg-neutral-light-gray text-neutral-medium-gray'
+              : 'bg-yellow-primary text-neutral-black'
           }`}
           onClick={onUpdate}
         >

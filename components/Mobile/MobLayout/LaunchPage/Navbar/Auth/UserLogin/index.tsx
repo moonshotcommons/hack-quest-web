@@ -248,7 +248,10 @@ const UserLogin: FC<UserLoginProps> = (props) => {
             isCircle={true}
           ></Checkbox>
           <p
-            className={cn('body-s cursor-pointer text-neutral-medium-gray', formData.keepMeLoggedIn ? 'text-neutral-off-black' : '')}
+            className={cn(
+              'body-s cursor-pointer text-neutral-medium-gray',
+              formData.keepMeLoggedIn ? 'text-neutral-off-black' : ''
+            )}
             onClick={() => {
               setFormData({
                 ...formData,

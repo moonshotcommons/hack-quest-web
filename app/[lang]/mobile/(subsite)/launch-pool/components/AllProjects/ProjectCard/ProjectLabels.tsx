@@ -36,7 +36,9 @@ const ProjectLabels: FC<ProjectLabelsProps> = ({ project }) => {
       {LIVE_NOW_STATUS.includes(status) && (
         <LabelWrapper label={t('totalParticipatedUsers')} value={project.userCount.toLocaleString('en-US')} />
       )}
-      {LIVE_NOW_STATUS.includes(status) && <LabelWrapper label={t('totalFuel')} value={project.totalFuel.toLocaleString('en-US')} />}
+      {LIVE_NOW_STATUS.includes(status) && (
+        <LabelWrapper label={t('totalFuel')} value={project.totalFuel.toLocaleString('en-US')} />
+      )}
       <LabelWrapper label={t('projectToken')} value={`$${chainInfo?.symbol || 'ETH'}`} />
       <LabelWrapper
         label={t('totalAirdropAmount')}

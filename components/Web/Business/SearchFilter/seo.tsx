@@ -150,7 +150,11 @@ const SearchFilter: React.FC<SearchFilterProps> = ({ searchParams, filterData, u
             <div className="body-xl-bold mb-[15px]">{v.title}</div>
             <div className="mb-10">
               {v.filterList.map((filter: ParamType, j: number) => (
-                <div key={j} className="mb-[10px] flex cursor-pointer items-center" onClick={() => changeFilterParam(i, j)}>
+                <div
+                  key={j}
+                  className="mb-[10px] flex cursor-pointer items-center"
+                  onClick={() => changeFilterParam(i, j)}
+                >
                   {renderType(i, j)}
                   <span className="body-l pl-[15px]">{filter.label}</span>
                 </div>

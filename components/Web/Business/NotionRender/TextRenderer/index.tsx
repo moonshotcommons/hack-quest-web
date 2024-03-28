@@ -72,8 +72,14 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
                   style={{
                     fontSize,
                     letterSpacing,
-                    color: annotations.color !== 'default' && !annotations.color.includes('background') ? annotations.color : '',
-                    backgroundColor: annotations.color !== 'default' && annotations.color.includes('background') ? annotations.color : ''
+                    color:
+                      annotations.color !== 'default' && !annotations.color.includes('background')
+                        ? annotations.color
+                        : '',
+                    backgroundColor:
+                      annotations.color !== 'default' && annotations.color.includes('background')
+                        ? annotations.color
+                        : ''
                   }}
                 >
                   {plain_text}
@@ -98,7 +104,10 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
                       annotations.color !== 'default' && !annotations.code && !annotations.color.includes('background')
                         ? annotations.color
                         : '',
-                    backgroundColor: annotations.color !== 'default' && annotations.color.includes('background') ? annotations.color : ''
+                    backgroundColor:
+                      annotations.color !== 'default' && annotations.color.includes('background')
+                        ? annotations.color
+                        : ''
                   }}
                 >
                   {plain_text}
@@ -115,8 +124,12 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
                 style={{
                   fontSize,
                   letterSpacing,
-                  color: annotations.color !== 'default' && !annotations.color.includes('background') ? annotations.color : '',
-                  backgroundColor: annotations.color !== 'default' && annotations.color.includes('background') ? annotations.color : ''
+                  color:
+                    annotations.color !== 'default' && !annotations.color.includes('background')
+                      ? annotations.color
+                      : '',
+                  backgroundColor:
+                    annotations.color !== 'default' && annotations.color.includes('background') ? annotations.color : ''
                 }}
               >
                 {plain_text}
@@ -139,7 +152,8 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
                   annotations.color !== 'default' && !annotations.code && !annotations.color.includes('background')
                     ? annotations.color
                     : '',
-                backgroundColor: annotations.color !== 'default' && annotations.color.includes('background') ? annotations.color : ''
+                backgroundColor:
+                  annotations.color !== 'default' && annotations.color.includes('background') ? annotations.color : ''
               }}
             >
               {richText.plain_text}
@@ -165,8 +179,10 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
             style={{
               fontSize,
               letterSpacing,
-              color: annotations.color !== 'default' && !annotations.color.includes('background') ? annotations.color : '',
-              backgroundColor: annotations.color !== 'default' && annotations.color.includes('background') ? annotations.color : ''
+              color:
+                annotations.color !== 'default' && !annotations.color.includes('background') ? annotations.color : '',
+              backgroundColor:
+                annotations.color !== 'default' && annotations.color.includes('background') ? annotations.color : ''
             }}
           >
             {richText.plain_text}

@@ -63,7 +63,11 @@ const ClaimContent: React.FC<ClaimContentProp> = ({ missionClaim }) => {
         );
       case 3:
         return (
-          <Milestones missionData={missionData.milestones} unClaimMissionData={missionData.unClaimMilestones} missionClaim={missionClaim} />
+          <Milestones
+            missionData={missionData.milestones}
+            unClaimMissionData={missionData.unClaimMilestones}
+            missionClaim={missionClaim}
+          />
         );
     }
   };
