@@ -68,7 +68,8 @@ export const ConnectButton = ({ t, connectState, refreshConnectState }: ConnectB
         // Note: If your app doesn't use authentication, you
         // can remove all 'authenticationStatus' checks
         const ready = mounted && authenticationStatus !== 'loading';
-        const connected = ready && account && chain && (!authenticationStatus || authenticationStatus === 'authenticated');
+        const connected =
+          ready && account && chain && (!authenticationStatus || authenticationStatus === 'authenticated');
         return (
           <div
             {...(!ready && {
@@ -156,7 +157,9 @@ export const ConnectButton = ({ t, connectState, refreshConnectState }: ConnectB
                 //   </button>
                 // </div>
                 <div className="flex items-center gap-6">
-                  <span className="body-l-bold text-neutral-rich-gray">Address: {connectState.connectInfo.username}</span>
+                  <span className="body-l-bold text-neutral-rich-gray">
+                    Address: {connectState.connectInfo.username}
+                  </span>
                   <span className="flex items-center gap-1">
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path

@@ -261,7 +261,9 @@ const ChangePassword: FC<ChangePasswordProps> = (props) => {
 
   return (
     <>
-      {changeState === ChangeStateType.CHANGE && <ChangeForm changeState={(state) => setChangeState(state)}></ChangeForm>}
+      {changeState === ChangeStateType.CHANGE && (
+        <ChangeForm changeState={(state) => setChangeState(state)}></ChangeForm>
+      )}
       {changeState === ChangeStateType.SUCCESS && <Success></Success>}
       {changeState === ChangeStateType.FAIL && <Fail></Fail>}
     </>

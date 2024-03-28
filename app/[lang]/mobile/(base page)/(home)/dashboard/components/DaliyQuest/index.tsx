@@ -44,7 +44,10 @@ const DaliyQuest: React.FC<DaliyQuestProp> = () => {
       <div className="text-h4 mb-[24px] text-neutral-black">Daily Quests</div>
       <div>
         {dailyQuests.map((v) => (
-          <div key={v.id} className="relative mb-[16px] h-[87px] overflow-hidden rounded-[10px] bg-neutral-white p-[12px]">
+          <div
+            key={v.id}
+            className="relative mb-[16px] h-[87px] overflow-hidden rounded-[10px] bg-neutral-white p-[12px]"
+          >
             <div
               className="absolute left-0 top-0 h-full rounded-[10px] bg-yellow-light"
               style={{
@@ -83,7 +86,10 @@ const DaliyQuest: React.FC<DaliyQuestProp> = () => {
           </div>
         ))}
       </div>
-      <Link className="button-text-s flex cursor-pointer items-center  text-neutral-off-black" href={MenuLink.MISSION_CENTER}>
+      <Link
+        className="button-text-s flex cursor-pointer items-center  text-neutral-off-black"
+        href={MenuLink.MISSION_CENTER}
+      >
         <span className="uppercase">Mission center</span>
         <HiArrowLongRight size={18}></HiArrowLongRight>
       </Link>

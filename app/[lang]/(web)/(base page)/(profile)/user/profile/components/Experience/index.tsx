@@ -77,7 +77,8 @@ const Experience: FC<ExperienceProps> = ({ edit = false }) => {
             <div key={v.id} className="flex gap-[50px] border-b-[0.5px] border-b-[#000] py-[20px]">
               <div className="body-l w-[270px] text-neutral-medium-gray">
                 <p>
-                  {dealDate(v.startDate)} - {v.endDate ? dealDate(v.endDate) : 'Present'} · {dateInterval(v.startDate, v.endDate)}
+                  {dealDate(v.startDate)} - {v.endDate ? dealDate(v.endDate) : 'Present'} ·{' '}
+                  {dateInterval(v.startDate, v.endDate)}
                 </p>
                 <p>{v.location}</p>
               </div>
@@ -105,7 +106,10 @@ const Experience: FC<ExperienceProps> = ({ edit = false }) => {
                   )}
                   {v.descriptions.length > 1 && (
                     <div className="flex justify-end">
-                      <div onClick={() => handleShowMore(i)} className="underline-l cursor-pointer text-neutral-medium-gray">
+                      <div
+                        onClick={() => handleShowMore(i)}
+                        className="underline-l cursor-pointer text-neutral-medium-gray"
+                      >
                         Show {v.showMore ? 'Less' : 'More'}
                       </div>
                     </div>

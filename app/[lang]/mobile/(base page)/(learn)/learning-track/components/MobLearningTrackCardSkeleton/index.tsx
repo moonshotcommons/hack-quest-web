@@ -28,7 +28,11 @@ const MobLearningTrackCardSkeletonCard: FC<MobLearningTrackCardSkeletonCardProps
   );
 };
 
-const MobLearningTrackCardSkeletonList: FC<MobLearningTrackCardSkeletonListProps> = ({ size = 1, children, active }) => {
+const MobLearningTrackCardSkeletonList: FC<MobLearningTrackCardSkeletonListProps> = ({
+  size = 1,
+  children,
+  active
+}) => {
   return active
     ? new Array(size).fill('').map((_, index) => {
         return <MobLearningTrackCardSkeletonCard key={index}></MobLearningTrackCardSkeletonCard>;

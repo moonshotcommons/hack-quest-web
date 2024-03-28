@@ -55,11 +55,15 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({ miss
               <div className="mt-[20px] flex w-[165px] justify-between">
                 <div>
                   <Image src={IconCoin} width={60} alt="iconCredits" />
-                  <div className="flex-center mt-[10px] h-[28px] w-[60px] rounded-[20px] bg-neutral-off-white">{item.coin}</div>
+                  <div className="flex-center mt-[10px] h-[28px] w-[60px] rounded-[20px] bg-neutral-off-white">
+                    {item.coin}
+                  </div>
                 </div>
                 <div>
                   <Image src={IconXp} width={60} alt="iconXp" />
-                  <div className="flex-center mt-[10px] h-[28px] w-[60px] rounded-[20px] bg-neutral-off-white">{item.exp}</div>
+                  <div className="flex-center mt-[10px] h-[28px] w-[60px] rounded-[20px] bg-neutral-off-white">
+                    {item.exp}
+                  </div>
                 </div>
               </div>
             </div>
@@ -122,11 +126,15 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({ miss
             <div className="mt-[20px] flex w-[104px] justify-between">
               <div>
                 <Image src={IconCoin} width={40} alt="iconCredits" />
-                <div className="flex-center body-xs mt-[8px] h-[20px] w-[40px] rounded-[20px] bg-neutral-off-white">{item.coin}</div>
+                <div className="flex-center body-xs mt-[8px] h-[20px] w-[40px] rounded-[20px] bg-neutral-off-white">
+                  {item.coin}
+                </div>
               </div>
               <div>
                 <Image src={IconXp} width={40} alt="iconXp" />
-                <div className="flex-center body-xs mt-[8px] h-[20px] w-[40px] rounded-[20px] bg-neutral-off-white">{item.exp}</div>
+                <div className="flex-center body-xs mt-[8px] h-[20px] w-[40px] rounded-[20px] bg-neutral-off-white">
+                  {item.exp}
+                </div>
               </div>
             </div>
           </div>
@@ -151,7 +159,9 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({ miss
 
   useEffect(() => {
     const mData =
-      [...missionData]?.sort((a: MissionDataType, b: MissionDataType) => a?.progress?.progress?.[0] - b?.progress?.progress?.[0]) || [];
+      [...missionData]?.sort(
+        (a: MissionDataType, b: MissionDataType) => a?.progress?.progress?.[0] - b?.progress?.progress?.[0]
+      ) || [];
     const completedLen = missionData.filter((v) => v.progress.completed).length;
     const day = 7 - completedLen > 0 ? `${7 - completedLen}d` : '';
     setRefreshTime(`${day}${24 - new Date().getHours()}h`);

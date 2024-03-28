@@ -93,7 +93,8 @@ module.exports = {
         description: '是否有未解决的问题?'
       },
       issuesBody: {
-        description: 'If issues are closed, the commit requires a body. Please enter a longer description of the commit itself'
+        description:
+          'If issues are closed, the commit requires a body. Please enter a longer description of the commit itself'
       },
       issues: {
         description: '请输入问题说明'

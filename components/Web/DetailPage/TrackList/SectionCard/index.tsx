@@ -47,7 +47,13 @@ const renderColorTag = (type: CourseType) => {
   }
 };
 
-function SectionList(props: { section: SectionType; enrolled: boolean; theme: Theme; sectionIndex: number; sectionList: SectionType[] }) {
+function SectionList(props: {
+  section: SectionType;
+  enrolled: boolean;
+  theme: Theme;
+  sectionIndex: number;
+  sectionList: SectionType[];
+}) {
   const { section, enrolled, theme, sectionIndex, sectionList } = props;
   const { redirectToUrl } = useRedirect();
   const query = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
@@ -129,7 +135,9 @@ function SectionList(props: { section: SectionType; enrolled: boolean; theme: Th
 
             <div className="ml-[10%] flex items-center gap-[10px] ">
               {renderColorTag(item.type)}
-              <span className="body-m inline-flex min-w-[120px] text-neutral-black  opacity-60">{tagFormate(item.type)}</span>
+              <span className="body-m inline-flex min-w-[120px] text-neutral-black  opacity-60">
+                {tagFormate(item.type)}
+              </span>
             </div>
             <div
               className="body-m-bold ml-[10%] w-[36%] flex-1 cursor-pointer text-learning-track-course-title-color transition hover:opacity-70"
@@ -230,7 +238,15 @@ const SectionCard: FC<SectionCardProps> = (props) => {
   return (
     <div className="flex w-full flex-col items-start py-5 ">
       {SectionTitle}
-      {expand && <SectionList section={section} enrolled={enrolled} theme={theme} sectionIndex={sectionIndex} sectionList={sectionList} />}
+      {expand && (
+        <SectionList
+          section={section}
+          enrolled={enrolled}
+          theme={theme}
+          sectionIndex={sectionIndex}
+          sectionList={sectionList}
+        />
+      )}
     </div>
   );
 };

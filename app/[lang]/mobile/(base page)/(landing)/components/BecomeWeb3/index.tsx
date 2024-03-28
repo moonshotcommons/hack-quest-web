@@ -38,8 +38,8 @@ const BecomeWeb3: FC<{}> = (props) => {
         <p className="body-s-bold text-[.75rem] uppercase text-neutral-rich-gray">Why us</p>
         <h2 className="text-h2 text-[1.375rem]">Become a Web3 👩🏻‍💻👨🏽‍💻 </h2>
         <p className="body-l text-[.75rem] text-neutral-medium-gray">
-          Kickstart your Web3 learning journey with <span className="font-bold">100% FREE</span> courses built by experts, certified by
-          leading ecosystems, and supported by a variety of post-learning resources!
+          Kickstart your Web3 learning journey with <span className="font-bold">100% FREE</span> courses built by
+          experts, certified by leading ecosystems, and supported by a variety of post-learning resources!
         </p>
       </div>
       <div className="mt-10 flex flex-col gap-6">

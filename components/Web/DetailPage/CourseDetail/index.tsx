@@ -26,7 +26,8 @@ const CourseDetail: FC<CourseDetailProps> = (props) => {
 
   const learningStatus = useMemo(() => {
     if (courseDetail) {
-      if ((!!courseDetail.progress && courseDetail.progress <= 0) || !courseDetail.progress) return LearningStatus.UN_START;
+      if ((!!courseDetail.progress && courseDetail.progress <= 0) || !courseDetail.progress)
+        return LearningStatus.UN_START;
       if (courseDetail.progress >= 1) return LearningStatus.COMPLETED;
     }
     return LearningStatus.IN_PROGRESS;

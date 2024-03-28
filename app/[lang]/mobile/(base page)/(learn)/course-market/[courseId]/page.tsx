@@ -25,7 +25,10 @@ interface PracticeDetailPageProps {
   };
 }
 
-export async function generateMetadata({ params, searchParams }: PracticeDetailPageProps, parent: any): Promise<Metadata> {
+export async function generateMetadata(
+  { params, searchParams }: PracticeDetailPageProps,
+  parent: any
+): Promise<Metadata> {
   // 读取路由参数
   const courseId = params.courseId;
 
@@ -53,7 +56,9 @@ const PracticeDetailPage: FC<PracticeDetailPageProps> = async (props) => {
         <div className="h-fit bg-neutral-off-white px-5 pb-10 pt-5">
           <BackButton type="learningTrack" />
           <div className="relative my-5 h-[196px] w-full overflow-hidden rounded-[16px] bg-neutral-white">
-            {courseDetail.image && <Image src={courseDetail.image} alt={courseDetail.title} fill className="object-cover"></Image>}
+            {courseDetail.image && (
+              <Image src={courseDetail.image} alt={courseDetail.title} fill className="object-cover"></Image>
+            )}
             {!courseDetail.image && getCoverImageByTrack(courseDetail.track)}
           </div>
           <Tags size="sm" className="caption-12pt text-neutral-rich-gray">
@@ -69,7 +74,11 @@ const PracticeDetailPage: FC<PracticeDetailPageProps> = async (props) => {
             <CourseTag
               icon={
                 <div className="relative h-8 w-8">
-                  <Image fill src={courseDetail.creator?.profileImage || Logo} alt={courseDetail.creator?.name || Logo}></Image>
+                  <Image
+                    fill
+                    src={courseDetail.creator?.profileImage || Logo}
+                    alt={courseDetail.creator?.name || Logo}
+                  ></Image>
                 </div>
               }
               type={CourseTagType.CREATE_BY}

@@ -53,7 +53,8 @@ export const mockData: unknown = {
   name: 'Fungible Token',
   title: 'Fungible Token',
   subTitle: null,
-  description: 'Here we will write our first project which is a fungible token that users could mint, check balance, and transfer.',
+  description:
+    'Here we will write our first project which is a fungible token that users could mint, check balance, and transfer.',
   image: null,
   type: 'GUIDED_PROJECT',
   optional: {},
@@ -71,7 +72,8 @@ export const mockData: unknown = {
       id: '81b59a7e-29c7-401c-bc1d-d76e9d579fc7',
       name: 'Setup Contract',
       title: 'Setup Contract',
-      description: 'start to write a contract with defining compiler version, creating a contract and define constructor.',
+      description:
+        'start to write a contract with defining compiler version, creating a contract and define constructor.',
       sequence: 0,
       createdAt: '2023-09-06T03:54:46.952Z',
       updatedAt: '2023-12-08T09:45:36.230Z',
@@ -115,7 +117,8 @@ export const mockData: unknown = {
       id: '81e458ca-019e-4655-ac44-82dbeee93920',
       name: 'Define Key Variables',
       title: 'Define Key Variables',
-      description: 'Define three key variables including balances of type mapping, totalSupply of type uint256, owner of type address.',
+      description:
+        'Define three key variables including balances of type mapping, totalSupply of type uint256, owner of type address.',
       sequence: 1,
       createdAt: '2023-09-06T03:54:46.953Z',
       updatedAt: '2023-12-08T09:46:06.492Z',

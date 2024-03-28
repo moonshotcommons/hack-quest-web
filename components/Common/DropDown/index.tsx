@@ -12,7 +12,10 @@ interface DropdownProps<P, T> {
   minWidth?: string;
 }
 
-export const ChildrenDropDown = <T,>(props: { childrenData: DropDataChildrenType<T>[]; onSelect?: (item: any) => void }) => {
+export const ChildrenDropDown = <T,>(props: {
+  childrenData: DropDataChildrenType<T>[];
+  onSelect?: (item: any) => void;
+}) => {
   const { childrenData, onSelect } = props;
   return (
     <ul className="mt-[1.25rem] border-l border-lesson-dropdown-select-line-color pl-[1.5rem] font-normal">
@@ -59,7 +62,9 @@ const Dropdown = <P, T>(props: DropdownProps<P, T>) => {
         }}
       >
         <div className="relative flex h-full w-[72%] items-center justify-center rounded-full border border-solid border-lesson-dropdown-border-color px-[3.125rem]">
-          <span className="font-futura-bold text-[0.75rem]">{dropData.find((item) => item.key === defaultSelectKey)?.title}</span>
+          <span className="font-futura-bold text-[0.75rem]">
+            {dropData.find((item) => item.key === defaultSelectKey)?.title}
+          </span>
         </div>
         <div className="mr-[1.5rem] flex h-full items-center justify-center text-lesson-dropdown-icon-color">
           <DropDownIcon width={13} height={11} color="currentColor"></DropDownIcon>

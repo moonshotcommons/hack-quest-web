@@ -28,7 +28,9 @@ const PracticeCard: FC<PracticeCardProps> = (props) => {
   return (
     <Link
       href={`${MenuLink.PRACTICES}/${course.id}`}
-      className={'card-hover  flex w-full flex-col rounded-[12px] bg-neutral-white shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)]'}
+      className={
+        'card-hover  flex w-full flex-col rounded-[12px] bg-neutral-white shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)]'
+      }
       onClick={() => {
         BurialPoint.track('home-practice卡片点击', { practice: course.title });
       }}

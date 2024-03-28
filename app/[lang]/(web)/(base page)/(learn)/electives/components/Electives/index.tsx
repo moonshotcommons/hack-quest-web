@@ -93,7 +93,9 @@ function Electives() {
             <CourseFilterListDefault></CourseFilterListDefault>
           </div>
         )}
-        {type === CourseFilterListType.SEARCH && <CourseFilterListSearch keyword={searchKeyword}></CourseFilterListSearch>}
+        {type === CourseFilterListType.SEARCH && (
+          <CourseFilterListSearch keyword={searchKeyword}></CourseFilterListSearch>
+        )}
         {/*
         <SelectiveCoursesBox
           loadNum={loadNum}

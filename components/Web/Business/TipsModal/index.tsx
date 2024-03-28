@@ -35,7 +35,8 @@ const TipsModal: React.FC<TipsModalProp> = () => {
         <p className="text-[48px]">😵</p>
         <p className="body-xl-bold mt-[25px]">Laptop is preferred</p>
         <p className="body-s mt-[20px] w-[255px]">
-          Currently, this feature is exclusive to the Desktop version. For the complete experience, please access it on a Desktop.
+          Currently, this feature is exclusive to the Desktop version. For the complete experience, please access it on
+          a Desktop.
         </p>
         <Button
           className="mt-[20px] h-[34px] w-[140px] bg-neutral-white text-neutral-black"

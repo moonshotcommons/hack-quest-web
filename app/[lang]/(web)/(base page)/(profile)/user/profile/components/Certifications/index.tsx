@@ -6,7 +6,9 @@ import Button from '@/components/Common/Button';
 import { Typography, message } from 'antd';
 import Image from 'next/image';
 import Link from 'next/link';
-import CertificationModal, { CertificationModalInstance } from '@/components/Web/Business/Certification/CertificationModal';
+import CertificationModal, {
+  CertificationModalInstance
+} from '@/components/Web/Business/Certification/CertificationModal';
 import { CertificationType } from '@/service/webApi/campaigns/type';
 import { errorMessage } from '@/helper/ui';
 import { cn } from '@/helper/utils';
@@ -15,7 +17,10 @@ import { useRequest } from 'ahooks';
 import webApi from '@/service';
 interface PersonalLinksProps {}
 
-const MintButton = (props: { certification: CertificationType; updateSelectCertification: (certification: CertificationType) => void }) => {
+const MintButton = (props: {
+  certification: CertificationType;
+  updateSelectCertification: (certification: CertificationType) => void;
+}) => {
   const { certification, updateSelectCertification } = props;
   const { safeMintAsync } = useMintCertification();
 
@@ -112,7 +117,11 @@ const Certifications: FC<PersonalLinksProps> = (props) => {
                     refresh();
                   }}
                 ></MintButton>
-                <Typography.Paragraph ellipsis={{ rows: 2 }} className="body-m text-center" style={{ marginBottom: '0px' }}>
+                <Typography.Paragraph
+                  ellipsis={{ rows: 2 }}
+                  className="body-m text-center"
+                  style={{ marginBottom: '0px' }}
+                >
                   {item.name}
                 </Typography.Paragraph>
               </li>

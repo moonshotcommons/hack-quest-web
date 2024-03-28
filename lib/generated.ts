@@ -1,4 +1,9 @@
-import { createUseReadContract, createUseWriteContract, createUseSimulateContract, createUseWatchContractEvent } from 'wagmi/codegen';
+import {
+  createUseReadContract,
+  createUseWriteContract,
+  createUseSimulateContract,
+  createUseWatchContractEvent
+} from 'wagmi/codegen';
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // LaunchapToken
@@ -961,7 +966,10 @@ export const useReadLaunchapTokenBalanceOf = /*#__PURE__*/ createUseReadContract
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link launchapTokenAbi}__ and `functionName` set to `"decimals"`
  */
-export const useReadLaunchapTokenDecimals = /*#__PURE__*/ createUseReadContract({ abi: launchapTokenAbi, functionName: 'decimals' });
+export const useReadLaunchapTokenDecimals = /*#__PURE__*/ createUseReadContract({
+  abi: launchapTokenAbi,
+  functionName: 'decimals'
+});
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link launchapTokenAbi}__ and `functionName` set to `"name"`
@@ -1182,7 +1190,10 @@ export const useReadLaunchpadVerify = /*#__PURE__*/ createUseReadContract({
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link launchpadAbi}__ and `functionName` set to `"whiltAddress"`
  */
-export const useReadLaunchpadWhiltAddress = /*#__PURE__*/ createUseReadContract({ abi: launchpadAbi, functionName: 'whiltAddress' });
+export const useReadLaunchpadWhiltAddress = /*#__PURE__*/ createUseReadContract({
+  abi: launchpadAbi,
+  functionName: 'whiltAddress'
+});
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link launchpadAbi}__
@@ -1516,7 +1527,10 @@ export const useWriteSbtManagerChangeAdmin = /*#__PURE__*/ createUseWriteContrac
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link sbtManagerAbi}__ and `functionName` set to `"createSBT"`
  */
-export const useWriteSbtManagerCreateSbt = /*#__PURE__*/ createUseWriteContract({ abi: sbtManagerAbi, functionName: 'createSBT' });
+export const useWriteSbtManagerCreateSbt = /*#__PURE__*/ createUseWriteContract({
+  abi: sbtManagerAbi,
+  functionName: 'createSBT'
+});
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link sbtManagerAbi}__ and `functionName` set to `"renounceOwnership"`
@@ -1620,12 +1634,18 @@ export const useReadStakingToken = /*#__PURE__*/ createUseReadContract({
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingTokenAbi}__ and `functionName` set to `"allowance"`
  */
-export const useReadStakingTokenAllowance = /*#__PURE__*/ createUseReadContract({ abi: stakingTokenAbi, functionName: 'allowance' });
+export const useReadStakingTokenAllowance = /*#__PURE__*/ createUseReadContract({
+  abi: stakingTokenAbi,
+  functionName: 'allowance'
+});
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingTokenAbi}__ and `functionName` set to `"balanceOf"`
  */
-export const useReadStakingTokenBalanceOf = /*#__PURE__*/ createUseReadContract({ abi: stakingTokenAbi, functionName: 'balanceOf' });
+export const useReadStakingTokenBalanceOf = /*#__PURE__*/ createUseReadContract({
+  abi: stakingTokenAbi,
+  functionName: 'balanceOf'
+});
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingTokenAbi}__ and `functionName` set to `"decimals"`
@@ -1669,7 +1689,10 @@ export const useWriteStakingToken = /*#__PURE__*/ createUseWriteContract({
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link stakingTokenAbi}__ and `functionName` set to `"approve"`
  */
-export const useWriteStakingTokenApprove = /*#__PURE__*/ createUseWriteContract({ abi: stakingTokenAbi, functionName: 'approve' });
+export const useWriteStakingTokenApprove = /*#__PURE__*/ createUseWriteContract({
+  abi: stakingTokenAbi,
+  functionName: 'approve'
+});
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link stakingTokenAbi}__ and `functionName` set to `"mint"`

@@ -13,9 +13,21 @@ const CourseList: React.FC<CourseListProp> = ({ list, curTab }) => {
   const card = (course: CourseDetailType) => {
     switch (course.type) {
       case CourseType.MINI:
-        return <MobElectiveCard course={course as ElectiveCourseType} from={'dashboard'} inProgress={curTab === ProcessType.IN_PROCESS} />;
+        return (
+          <MobElectiveCard
+            course={course as ElectiveCourseType}
+            from={'dashboard'}
+            inProgress={curTab === ProcessType.IN_PROCESS}
+          />
+        );
       case CourseType.GUIDED_PROJECT:
-        return <MobPracticeCard course={course as ProjectCourseType} from={'dashboard'} inProgress={curTab === ProcessType.IN_PROCESS} />;
+        return (
+          <MobPracticeCard
+            course={course as ProjectCourseType}
+            from={'dashboard'}
+            inProgress={curTab === ProcessType.IN_PROCESS}
+          />
+        );
     }
   };
   if (!list?.length) return null;

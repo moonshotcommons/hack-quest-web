@@ -30,10 +30,14 @@ const Banner: React.FC<BannerProp> = ({ searchInfo, changeSearchInfo }) => {
               key={v.value}
               onClick={() => changeSearchInfo({ ...searchInfo, track: v.value })}
               className={`w-[380px] cursor-pointer rounded-[16px] border p-[20px] ${
-                track === v.value ? 'border-transparent bg-yellow-primary' : 'bg-neutral-white hover:border-neutral-medium-gray'
+                track === v.value
+                  ? 'border-transparent bg-yellow-primary'
+                  : 'bg-neutral-white hover:border-neutral-medium-gray'
               }`}
             >
-              <div className={`flex items-center justify-between ${track === v.value ? 'text-neutral-off-black' : 'text-neutral-black'}`}>
+              <div
+                className={`flex items-center justify-between ${track === v.value ? 'text-neutral-off-black' : 'text-neutral-black'}`}
+              >
                 <span className="body-xl-bold">{v.label}</span>
                 <Image src={v.imgActive} alt="tab-img" width={48}></Image>
               </div>

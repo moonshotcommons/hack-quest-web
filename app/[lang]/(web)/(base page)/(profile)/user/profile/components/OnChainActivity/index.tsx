@@ -121,7 +121,9 @@ const OnChainActivity: FC<OnChainActivityProps> = (props) => {
           {!refreshChainLoading && (
             <div className="mt-[30px] flex">
               <div className="relative flex flex-1 flex-col items-center after:absolute after:right-0 after:top-0 after:h-full after:w-[1px] after:scale-x-50 after:bg-neutral-black">
-                <span className="font-next-book-Thin text-[54px] leading-[160%] tracking-[0.162px] text-neutral-black">0</span>
+                <span className="font-next-book-Thin text-[54px] leading-[160%] tracking-[0.162px] text-neutral-black">
+                  0
+                </span>
                 <p className="body-m mt-5 text-neutral-medium-gray">Deployed Contracts</p>
               </div>
               <div className="flex flex-1 flex-col items-center">

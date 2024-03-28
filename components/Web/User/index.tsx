@@ -90,7 +90,9 @@ const User: FC<UserProps> = () => {
                     ></div>
                     <div className="flex-row-center absolute h-full w-full justify-between pr-[15px] text-neutral-off-black">
                       <div className="flex-center ml-[-15px] h-[30px] w-[30px] rounded-[50%] bg-yellow-primary">
-                        <div className="flex-center h-[24px] w-[24px] rounded-[50%] bg-yellow-dark ">{userLevel.level}</div>
+                        <div className="flex-center h-[24px] w-[24px] rounded-[50%] bg-yellow-dark ">
+                          {userLevel.level}
+                        </div>
                       </div>
                       <div className="flex-center flex-1 flex-shrink-0 ">{`${userLevel.expCurrentLevel}/${userLevel.expNextLevel}`}</div>
                     </div>
@@ -121,7 +123,10 @@ const User: FC<UserProps> = () => {
                   ></Image>
                 </div>
                 <DropDownMotion open={!!(userInfo && showUserDropCard)} className={'-right-[15px]'}>
-                  <UserDropCard userInfo={(userInfo as LoginResponse) || {}} onClose={() => setShowUserDropCard(false)}></UserDropCard>
+                  <UserDropCard
+                    userInfo={(userInfo as LoginResponse) || {}}
+                    onClose={() => setShowUserDropCard(false)}
+                  ></UserDropCard>
                 </DropDownMotion>
               </div>
             </div>

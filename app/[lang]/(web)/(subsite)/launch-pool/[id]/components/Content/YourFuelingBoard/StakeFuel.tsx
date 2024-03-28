@@ -65,7 +65,10 @@ const StakeFuel: React.FC<StakeFuelProp> = () => {
       ) : (
         <div className="mt-[16px] flex flex-col items-center">
           <p className="body-l w-[507px] text-center text-neutral-medium-gray">{t('stakeDescription')}</p>
-          <Button type="primary" className="button-text-m mt-[12px] h-[48px] w-[165px] p-0 uppercase text-neutral-black">
+          <Button
+            type="primary"
+            className="button-text-m mt-[12px] h-[48px] w-[165px] p-0 uppercase text-neutral-black"
+          >
             {t('stake')} $manta
           </Button>
         </div>

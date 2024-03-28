@@ -29,7 +29,9 @@ const DurationTag: FC<DurationTagProps> = ({ icon, label, value, valueNode }) =>
         {!!label && label}
         {!label && <span className="body-xs text-neutral-medium-gray">Total Length</span>}
         {!!valueNode && valueNode}
-        {!valueNode && value && <span className="body-m-bold lowercase">{computeTime(Number(value), 'Hour', false)}h</span>}
+        {!valueNode && value && (
+          <span className="body-m-bold lowercase">{computeTime(Number(value), 'Hour', false)}h</span>
+        )}
       </div>
     </div>
   );

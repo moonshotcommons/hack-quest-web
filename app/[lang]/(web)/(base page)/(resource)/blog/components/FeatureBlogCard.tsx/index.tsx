@@ -34,7 +34,11 @@ const FeatureBlogCard: React.FC<FeatureBlogCardProp> = ({ blog }) => {
           <div className="text-h3 line-clamp-2">{blog.title}</div>
           <div className="body-l line-clamp-5 text-neutral-black">{blog.description}</div>
         </div>
-        <BlogCardFooter blog={blog} className="body-m text-neutral-medium-gray " borderColor="border-neutral-medium-gray" />
+        <BlogCardFooter
+          blog={blog}
+          className="body-m text-neutral-medium-gray "
+          borderColor="border-neutral-medium-gray"
+        />
       </div>
     </Link>
   );

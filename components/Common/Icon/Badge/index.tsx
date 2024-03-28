@@ -15,7 +15,13 @@ const BadgeIcon: React.FC<IconProps> = (props) => {
   const { size = 24, width, height, color = '#333' } = props;
 
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width={width ?? size} height={height ?? size} viewBox="0 0 26 34" fill="none">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={width ?? size}
+      height={height ?? size}
+      viewBox="0 0 26 34"
+      fill="none"
+    >
       <g id="Silver Medal">
         <path
           id="Rectangle 8"

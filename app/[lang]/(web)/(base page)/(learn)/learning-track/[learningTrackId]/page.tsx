@@ -24,7 +24,10 @@ interface LearningTrackDetailPageProps {
   };
 }
 
-export async function generateMetadata({ params, searchParams }: LearningTrackDetailPageProps, parent: any): Promise<Metadata> {
+export async function generateMetadata(
+  { params, searchParams }: LearningTrackDetailPageProps,
+  parent: any
+): Promise<Metadata> {
   // 读取路由参数
   const learningTrackId = params.learningTrackId;
 
@@ -84,8 +87,12 @@ const LearningTrackDetailPage: FC<LearningTrackDetailPageProps> = async (props) 
 
               <div className="mt-20  flex flex-col gap-20">
                 {certification && <CertificationCard certification={certification} />}
-                {learningTrackDetail.intendedLearners && <IntendedLearners intendedLearners={learningTrackDetail.intendedLearners} />}
-                {learningTrackDetail.knowledgeGain && <KnowledgeGain knowledgeGain={learningTrackDetail.knowledgeGain} />}
+                {learningTrackDetail.intendedLearners && (
+                  <IntendedLearners intendedLearners={learningTrackDetail.intendedLearners} />
+                )}
+                {learningTrackDetail.knowledgeGain && (
+                  <KnowledgeGain knowledgeGain={learningTrackDetail.knowledgeGain} />
+                )}
                 <Syllabus />
               </div>
             </div>

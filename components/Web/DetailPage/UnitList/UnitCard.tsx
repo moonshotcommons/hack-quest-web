@@ -35,7 +35,9 @@ interface UnitCardProps {
   loading?: boolean;
 }
 
-const UnitButton: FC<UnitCardProps & Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'className' | 'type'>> = (props) => {
+const UnitButton: FC<UnitCardProps & Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'className' | 'type'>> = (
+  props
+) => {
   const { unit, isLock, loading = false, ...rest } = props;
   if (isLock) {
     return null;
@@ -130,7 +132,9 @@ const UnitCard: FC<UnitCardProps> = (props) => {
 
         {learningStatus === LearningStatus.UN_START && (
           <div className="relative h-[65px] w-[65px] rounded-full border-2 border-neutral-black">
-            <span className="text-[#000 text-h3 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">{index + 1}</span>
+            <span className="text-[#000 text-h3 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+              {index + 1}
+            </span>
           </div>
         )}
       </div>
@@ -142,11 +146,20 @@ const UnitCard: FC<UnitCardProps> = (props) => {
             if (unit.progress === 1) {
               const unitPages = await webApi.courseApi.getCourseUnitLessons(courseDetail?.id || '', unit.id);
               const lessonId = unitPages.pages[0]?.id;
-              let link = `${getLessonLink(courseType as CourseType, courseDetail?.title as string, lessonId, courseDetail?.id as string, {
-                menu: query.get('menu') as string,
-                idTypes: [QueryIdType.LEARNING_TRACK_ID, QueryIdType.MENU_COURSE_ID],
-                ids: [query.get(QueryIdType.LEARNING_TRACK_ID) || '', query.get(QueryIdType.MENU_COURSE_ID) || ''] as string[]
-              })}`;
+              let link = `${getLessonLink(
+                courseType as CourseType,
+                courseDetail?.title as string,
+                lessonId,
+                courseDetail?.id as string,
+                {
+                  menu: query.get('menu') as string,
+                  idTypes: [QueryIdType.LEARNING_TRACK_ID, QueryIdType.MENU_COURSE_ID],
+                  ids: [
+                    query.get(QueryIdType.LEARNING_TRACK_ID) || '',
+                    query.get(QueryIdType.MENU_COURSE_ID) || ''
+                  ] as string[]
+                }
+              )}`;
               router.replace(link);
             }
           }}

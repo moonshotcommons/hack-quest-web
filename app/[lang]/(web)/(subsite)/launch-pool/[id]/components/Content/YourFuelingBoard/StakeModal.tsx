@@ -73,7 +73,10 @@ const StakeModal: React.FC<StakeModalProp> = ({ open, hanleStake, loading, onClo
               <span className="cursor-pointer">
                 <FiMinus size={24} />
               </span>
-              <input type="text" className="h-[48px] w-[68px] rounded-[24px] border border-neutral-medium-gray text-center  outline-none" />
+              <input
+                type="text"
+                className="h-[48px] w-[68px] rounded-[24px] border border-neutral-medium-gray text-center  outline-none"
+              />
               <span className="cursor-pointer">
                 <IoAddOutline size={24} />
               </span>
@@ -97,7 +100,12 @@ const StakeModal: React.FC<StakeModalProp> = ({ open, hanleStake, loading, onClo
           <p className="body-m mt-[16px] text-center text-neutral-off-black"> {t('dontOut')}</p>
 
           <div className="flex justify-center gap-[10px]">
-            <Button loading={loading} type="primary" className="button-text-m mt-[24px] h-[48px]  w-[165px] uppercase" onClick={hanleStake}>
+            <Button
+              loading={loading}
+              type="primary"
+              className="button-text-m mt-[24px] h-[48px]  w-[165px] uppercase"
+              onClick={hanleStake}
+            >
               {t('stakeNow')}
             </Button>
           </div>

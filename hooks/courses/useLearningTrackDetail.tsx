@@ -7,7 +7,9 @@ import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 export const useGetLearningTrackDetail = (trackId?: string) => {
-  const [learningTrackDetail, setLearningTracks] = useState<LearningTrackDetailType & { courses: ProjectCourseType[] }>();
+  const [learningTrackDetail, setLearningTracks] = useState<
+    LearningTrackDetailType & { courses: ProjectCourseType[] }
+  >();
 
   const router = useRouter();
   const params = useParams();

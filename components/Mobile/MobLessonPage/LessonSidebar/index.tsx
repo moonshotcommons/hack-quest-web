@@ -57,7 +57,9 @@ const LessonSidebar: FC<LessonSidebarProps> = ({ lesson }) => {
                 <div className="flex flex-1 shrink-0 flex-col overflow-hidden pr-5">
                   <span className="body-m line-clamp-2 w-full break-words text-neutral-black">{page.title}</span>
                 </div>
-                {page.state !== CompleteStateType.COMPLETED && <Image src={Complete} alt="complete" width={24} height={24} />}
+                {page.state !== CompleteStateType.COMPLETED && (
+                  <Image src={Complete} alt="complete" width={24} height={24} />
+                )}
                 {page.state === CompleteStateType.COMPLETED && (
                   <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="12" cy="12.5" r="12" fill="#00C365" />

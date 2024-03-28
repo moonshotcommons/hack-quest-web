@@ -60,7 +60,9 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
             <Link href={MenuLink.LAUNCH} className={`flex h-full cursor-pointer items-center`} onClick={logoClick}>
               <Image src={HackLogo} width={133} alt="logo"></Image>
             </Link>
-            <div className={`text-h5 ml-[8px] flex h-full cursor-pointer items-center font-Chaney uppercase text-neutral-black`}>
+            <div
+              className={`text-h5 ml-[8px] flex h-full cursor-pointer items-center font-Chaney uppercase text-neutral-black`}
+            >
               {t('launchpool')}
             </div>
             <div className="body-s ml-[60px] flex h-full gap-[12px] text-neutral-off-black">

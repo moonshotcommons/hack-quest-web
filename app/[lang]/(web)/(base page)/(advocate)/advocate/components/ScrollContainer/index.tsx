@@ -1,5 +1,13 @@
 'use client';
-import { ForwardRefRenderFunction, ReactNode, forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import {
+  ForwardRefRenderFunction,
+  ReactNode,
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState
+} from 'react';
 import BScroll from '@better-scroll/core';
 import { useInterval } from 'ahooks';
 interface ScrollContainerProps {

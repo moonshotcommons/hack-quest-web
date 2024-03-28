@@ -11,7 +11,13 @@ const CommunityIRL: FC<CommunityIRLProps> = (props) => {
     <div className="flex justify-center gap-5">
       {topDataList.map((item, index) => {
         return (
-          <CommunityIRLCard key={index} title={item.title} image={item.image} place={item.place} date={item.date}></CommunityIRLCard>
+          <CommunityIRLCard
+            key={index}
+            title={item.title}
+            image={item.image}
+            place={item.place}
+            date={item.date}
+          ></CommunityIRLCard>
           // </div>
         );
       })}
@@ -21,7 +27,15 @@ const CommunityIRL: FC<CommunityIRLProps> = (props) => {
   const rightContent = (
     <div className="flex justify-center gap-5">
       {bottomDataList.map((item, index) => {
-        return <CommunityIRLCard key={index} title={item.title} image={item.image} place={item.place} date={item.date}></CommunityIRLCard>;
+        return (
+          <CommunityIRLCard
+            key={index}
+            title={item.title}
+            image={item.image}
+            place={item.place}
+            date={item.date}
+          ></CommunityIRLCard>
+        );
       })}
     </div>
   );
@@ -40,7 +54,13 @@ const CommunityIRL: FC<CommunityIRLProps> = (props) => {
             View Events
           </span>
           <svg width="13" height="18" viewBox="0 0 13 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M2.5 3.5L10 8.79412L2.5 14.0882" stroke="#0B0B0B" strokeWidth="1.76471" strokeLinecap="round" strokeLinejoin="round" />
+            <path
+              d="M2.5 3.5L10 8.79412L2.5 14.0882"
+              stroke="#0B0B0B"
+              strokeWidth="1.76471"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
           </svg>
         </Link>
       </div>

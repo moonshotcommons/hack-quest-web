@@ -49,7 +49,9 @@ const BlogFooter: React.FC<BlogFooterProp> = ({ backTop, from = ResourceFrom.BLO
       <div className="container mx-auto">
         <div className="mb-[30px] flex justify-between">
           <div className="flex flex-col gap-[15px]">
-            <h2 className="text-h3 text-neutral-black">{from === ResourceFrom.BLOG ? 'Featured Blog' : 'Latest Glossary'}</h2>
+            <h2 className="text-h3 text-neutral-black">
+              {from === ResourceFrom.BLOG ? 'Featured Blog' : 'Latest Glossary'}
+            </h2>
           </div>
           {from === ResourceFrom.BLOG && (
             <Link
@@ -74,7 +76,10 @@ const BlogFooter: React.FC<BlogFooterProp> = ({ backTop, from = ResourceFrom.BLO
           </div>
         </Loading>
         <div className="button-text-l flex w-full justify-center pt-[60px]">
-          <Button className="h-[60px] w-[270px] border border-neutral-black p-0 text-neutral-black" onClick={handleClick}>
+          <Button
+            className="h-[60px] w-[270px] border border-neutral-black p-0 text-neutral-black"
+            onClick={handleClick}
+          >
             BACK TO {`${type === 'top' ? 'TOP' : `${business.text}`}`}
           </Button>
         </div>

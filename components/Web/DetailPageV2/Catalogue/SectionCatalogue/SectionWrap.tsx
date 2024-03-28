@@ -11,7 +11,8 @@ interface SectionWrapProps {
 }
 
 const SectionWrap: FC<SectionWrapProps> = ({ children, sectionIndex, title }) => {
-  const { learningSectionIndex, learningTrackDetail, expandList, setExpandList } = useContext(LearningTrackDetailContext);
+  const { learningSectionIndex, learningTrackDetail, expandList, setExpandList } =
+    useContext(LearningTrackDetailContext);
 
   const enrolled = !!learningTrackDetail?.enrolled;
 
@@ -41,7 +42,10 @@ const SectionWrap: FC<SectionWrapProps> = ({ children, sectionIndex, title }) =>
   return (
     <>
       <div
-        className={cn('flex w-full cursor-pointer items-center justify-between rounded-[16px] p-4', expand ? 'bg-neutral-off-white' : '')}
+        className={cn(
+          'flex w-full cursor-pointer items-center justify-between rounded-[16px] p-4',
+          expand ? 'bg-neutral-off-white' : ''
+        )}
         onClick={() => {
           const value = !expand;
           setExpand(value);

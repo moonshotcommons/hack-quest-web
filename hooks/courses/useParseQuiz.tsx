@@ -82,7 +82,12 @@ const AnswerInputTextarea = (props: {
   );
 };
 
-const AnswerInput = (props: { error: boolean | undefined; uuid: string; type?: LineType; onChange: (id: string, v: string) => void }) => {
+const AnswerInput = (props: {
+  error: boolean | undefined;
+  uuid: string;
+  type?: LineType;
+  onChange: (id: string, v: string) => void;
+}) => {
   const borderAndBg = !!props.error
     ? {
         backgroundColor: '#FFF7F5',
@@ -221,7 +226,9 @@ export const useParseQuiz = (lines: CodeLineType[]) => {
             );
           } else {
             const inputId = `${line.id}${i}`;
-            const currentLineState = newAnswerState.find((v) => v.id === line.id)?.answers?.find((v) => v.id === inputId);
+            const currentLineState = newAnswerState
+              .find((v) => v.id === line.id)
+              ?.answers?.find((v) => v.id === inputId);
             return (
               <AnswerInput
                 key={inputId}

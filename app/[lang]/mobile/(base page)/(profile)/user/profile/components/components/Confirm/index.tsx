@@ -31,7 +31,10 @@ const Confirm: React.FC<ConfirmProp> = ({
         <div className="flex flex-1 flex-col items-center justify-center gap-[35px]">
           <div className="body-l text-neutral-black">{content}</div>
           <div className="flex justify-center gap-[15px]">
-            <Button onClick={onClose} className="body-m h-[44px] w-[265px] border  border-neutral-black text-neutral-black">
+            <Button
+              onClick={onClose}
+              className="body-m h-[44px] w-[265px] border  border-neutral-black text-neutral-black"
+            >
               {cancleText}
             </Button>
             <Button loading={loading} onClick={handleConfirm} className="body-m h-[44px] w-[265px] bg-yellow-primary">

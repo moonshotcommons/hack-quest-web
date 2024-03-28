@@ -118,9 +118,13 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
                   >
                     <div className="relative">
                       <span>{nav.label}</span>
-                      {~isBadgeIds.indexOf(nav.id) && userInfo ? <Badge count={missionData?.unClaimAll?.length || 0} /> : null}
+                      {~isBadgeIds.indexOf(nav.id) && userInfo ? (
+                        <Badge count={missionData?.unClaimAll?.length || 0} />
+                      ) : null}
                     </div>
-                    {nav.menu.length > 1 && <LuChevronDown size={16} className="transition-all group-hover:rotate-180" />}
+                    {nav.menu.length > 1 && (
+                      <LuChevronDown size={16} className="transition-all group-hover:rotate-180" />
+                    )}
                   </div>
                   <DropDownMotion
                     open={nav.menu.length > 1 && hoverNavId === nav.id}

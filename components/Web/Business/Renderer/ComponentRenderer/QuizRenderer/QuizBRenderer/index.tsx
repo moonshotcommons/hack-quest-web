@@ -21,7 +21,9 @@ interface QuizBRendererProps {
 const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
   const { quiz } = props;
   const { onPass, parentQuiz } = useContext(QuizContext);
-  const [options, setOptions] = useState<QuizOptionType[]>(() => quiz.options.map((option) => ({ ...option, isRender: true })));
+  const [options, setOptions] = useState<QuizOptionType[]>(() =>
+    quiz.options.map((option) => ({ ...option, isRender: true }))
+  );
   const [showAnswer, setShowAnswer] = useState(false);
   const { lesson } = useContext(PlaygroundContext);
   const [answers, setAnswers] = useState<Record<string, AnswerType>>({});

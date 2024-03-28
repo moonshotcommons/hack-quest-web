@@ -26,11 +26,20 @@ const LinkWrap: FC<LinkWrapProps> = ({ lesson: propLesson, courseDetail, childre
       className={cn(lesson.state === CompleteStateType.COMPLETED ? 'cursor-pointer' : '')}
       onClick={async (e) => {
         if (lesson.state === CompleteStateType.COMPLETED) {
-          let link = `${getLessonLink(courseType as CourseType, courseDetail?.title as string, lesson.id, courseDetail?.id as string, {
-            menu: query.get('menu') as string,
-            idTypes: [QueryIdType.LEARNING_TRACK_ID, QueryIdType.MENU_COURSE_ID],
-            ids: [query.get(QueryIdType.LEARNING_TRACK_ID) || '', query.get(QueryIdType.MENU_COURSE_ID) || ''] as string[]
-          })}`;
+          let link = `${getLessonLink(
+            courseType as CourseType,
+            courseDetail?.title as string,
+            lesson.id,
+            courseDetail?.id as string,
+            {
+              menu: query.get('menu') as string,
+              idTypes: [QueryIdType.LEARNING_TRACK_ID, QueryIdType.MENU_COURSE_ID],
+              ids: [
+                query.get(QueryIdType.LEARNING_TRACK_ID) || '',
+                query.get(QueryIdType.MENU_COURSE_ID) || ''
+              ] as string[]
+            }
+          )}`;
           redirectToUrl(link);
         }
       }}

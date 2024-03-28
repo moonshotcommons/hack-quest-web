@@ -22,7 +22,10 @@ const Tab: React.FC<TabType> = ({ tabList, curTab, changeTab, className, textCla
       {tabList.map((tab: TabListType) => (
         <div
           key={tab.value}
-          className={cn(`flex cursor-pointer items-center ${tab.value === curTab ? 'relative font-semibold' : ''}`, textClassName)}
+          className={cn(
+            `flex cursor-pointer items-center ${tab.value === curTab ? 'relative font-semibold' : ''}`,
+            textClassName
+          )}
           onClick={() => changeTab(tab)}
         >
           {tab.label}

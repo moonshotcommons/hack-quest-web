@@ -72,7 +72,11 @@ const ElectivePage: FC<ElectivePageProps> = async (props) => {
                 <CourseTag
                   icon={
                     <div className="relative h-8 w-8">
-                      <Image fill src={courseDetail.creator?.profileImage || ''} alt={courseDetail.creator?.name || ''}></Image>
+                      <Image
+                        fill
+                        src={courseDetail.creator?.profileImage || ''}
+                        alt={courseDetail.creator?.name || ''}
+                      ></Image>
                     </div>
                   }
                   type={CourseTagType.CREATE_BY}

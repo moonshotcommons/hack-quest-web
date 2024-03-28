@@ -30,7 +30,10 @@ const TagsAndProgress: FC<TagsAndProgressProps> = ({ learningTrackDetail: propLe
     case LearningStatus.UN_START:
       return (
         <>
-          <IconTextTag type={IconTextTagType.COURSES_COUNT} text={`${learningTrackDetail.courseCount} courses`}></IconTextTag>
+          <IconTextTag
+            type={IconTextTagType.COURSES_COUNT}
+            text={`${learningTrackDetail.courseCount} courses`}
+          ></IconTextTag>
           <IconTextTag type={IconTextTagType.DEVICE_ACCESS}></IconTextTag>
           {learningTrackDetail.certificationId && <IconTextTag type={IconTextTagType.CERTIFICATION}></IconTextTag>}
         </>

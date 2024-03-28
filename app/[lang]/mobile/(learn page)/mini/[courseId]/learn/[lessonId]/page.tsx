@@ -21,7 +21,11 @@ const MiniLessonPage: NextPage<IProps> = (props) => {
   return (
     <>
       <div className="relative flex h-full w-full flex-col bg-[#fff] p-[24px] font-next-book">
-        <MiniCoursePage lessonId={lessonId as string} courseType={CourseType.MINI} completed={completed}></MiniCoursePage>
+        <MiniCoursePage
+          lessonId={lessonId as string}
+          courseType={CourseType.MINI}
+          completed={completed}
+        ></MiniCoursePage>
         <MiniElectiveCompletedModal ref={miniElectiveCompletedModalInstance}></MiniElectiveCompletedModal>
       </div>
     </>

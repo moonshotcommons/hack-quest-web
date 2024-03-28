@@ -14,12 +14,9 @@ interface StatusButtonProps {
   index: number;
 }
 
-const StatusButton: FC<StatusButtonProps & Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'className' | 'type'>> = ({
-  courseDetail: propCourseDetail,
-  lesson: propLesson,
-  index,
-  ...rest
-}) => {
+const StatusButton: FC<
+  StatusButtonProps & Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'className' | 'type'>
+> = ({ courseDetail: propCourseDetail, lesson: propLesson, index, ...rest }) => {
   const { jumpLearningLesson, loading } = useJumpLeaningLesson();
   const { lesson: contextLesson } = useContext(LessonContext);
   const { courseDetail: contextCourseDetail } = useContext(ElectiveDetailContext);

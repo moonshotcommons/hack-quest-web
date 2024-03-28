@@ -17,7 +17,11 @@ interface LearnMoreButtonProps {
 const LearnMoreButton: FC<LearnMoreButtonProps> = ({ certification: propCertification }) => {
   const CertificationModalRef = useRef<CertificationModalInstance>(null);
   const { redirectToUrl } = useRedirect();
-  const { certification: contextCertification, refreshCertification, refreshCertificationAsync } = useContext(CertificationCardContext);
+  const {
+    certification: contextCertification,
+    refreshCertification,
+    refreshCertificationAsync
+  } = useContext(CertificationCardContext);
 
   const { learningTrackDetail, refreshLearningTrackDetail } = useContext(LearningTrackDetailContext);
 

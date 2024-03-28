@@ -217,7 +217,9 @@ const PersonalLinkEditModal = forwardRef<PersonalLinkEditModalRef, PersonalLinkE
                       defaultValue={profile?.personalLinks?.[key] || ''}
                       type={key === ThirdPartyMediaType.DISCORD ? 'text' : 'url'}
                       disabled={key === ThirdPartyMediaType.DISCORD}
-                      placeholder={key === ThirdPartyMediaType.DISCORD ? 'Please connect to discord' : 'Please enter personal link'}
+                      placeholder={
+                        key === ThirdPartyMediaType.DISCORD ? 'Please connect to discord' : 'Please enter personal link'
+                      }
                       className="body-s h-[30px] flex-1 truncate bg-transparent text-neutral-medium-gray outline-none"
                     />
                     <div className="w-[64px]"></div>
@@ -252,7 +254,9 @@ const PersonalLinkEditModal = forwardRef<PersonalLinkEditModalRef, PersonalLinkE
           </div>
           {confirmInfo?.show && (
             <div className="absolute bottom-0 left-0 right-0 top-0 bg-neutral-white">
-              <p className="body-l mt-[7.875rem] text-center text-neutral-black">Do you want to disconnect from {confirmInfo.key}?</p>
+              <p className="body-l mt-[7.875rem] text-center text-neutral-black">
+                Do you want to disconnect from {confirmInfo.key}?
+              </p>
               <div className="mt-[45px] flex items-center justify-center gap-[14px]">
                 <Button
                   className="button-text-m w-[265px] border-neutral-black py-4 uppercase"

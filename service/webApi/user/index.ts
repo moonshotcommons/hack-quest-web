@@ -109,7 +109,13 @@ class UserApi {
   }
 
   /** 更新密码 */
-  updatePassword(params: { token?: string; password?: string; newPassword: string; reenterPassword: string; isForgot?: boolean }) {
+  updatePassword(params: {
+    token?: string;
+    password?: string;
+    newPassword: string;
+    reenterPassword: string;
+    isForgot?: boolean;
+  }) {
     return this.service.post(UserApiType.UpdatePassword, {
       data: params
     });

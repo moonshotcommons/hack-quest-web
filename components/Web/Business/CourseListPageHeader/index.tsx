@@ -95,7 +95,9 @@ const CourseListPageHeader: FC<CourseListPageHeaderProps> = ({
       </div>
       <div className={coverImgClassName}>
         {coverImage}
-        {!coverImage && coverImageUrl && <Image src={coverImageUrl} alt={`${title} cover`} width={coverWidth} height={coverHeight}></Image>}
+        {!coverImage && coverImageUrl && (
+          <Image src={coverImageUrl} alt={`${title} cover`} width={coverWidth} height={coverHeight}></Image>
+        )}
       </div>
     </div>
   );

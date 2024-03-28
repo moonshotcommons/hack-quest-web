@@ -54,13 +54,20 @@ const LearningTrackCard: React.FC<LearningTrackCardProp> = ({ learningTrack, inP
         </div>
       )}
       <div className="relative h-[160px] w-[160px]">
-        <Image src={learningTrack.image || LearningTrackImg} fill alt="learning-track-img" className="object-cover"></Image>
+        <Image
+          src={learningTrack.image || LearningTrackImg}
+          fill
+          alt="learning-track-img"
+          className="object-cover"
+        ></Image>
       </div>
       <div className={`flex h-full flex-1 flex-shrink-0  flex-col justify-between ${inProgress ? 'py-[16px]' : ''}`}>
         <TrackTag track={learningTrack.track} />
         <div>
           <div className="body-m-bold line-clamp-1 text-neutral-off-black">{learningTrack.name}</div>
-          {!inProgress && <div className="body-s mt-[8px] line-clamp-2 text-neutral-medium-gray">{learningTrack.description}</div>}
+          {!inProgress && (
+            <div className="body-s mt-[8px] line-clamp-2 text-neutral-medium-gray">{learningTrack.description}</div>
+          )}
         </div>
 
         <CourseTags

@@ -7,7 +7,9 @@ const PrivacyPolicy = () => {
       <div className="relative h-[60.25rem] w-full bg-default-global-bg">
         <Image src={Bg} alt="bg" className="mt-[3.375rem] w-full"></Image>
         <div className="absolute -top-[3.375rem] left-0 h-full w-full bg-gradient-to-b from-transparent to-default-global-bg">
-          <h1 className="text-h1 mt-[12.5rem] pb-[2.625rem] text-center text-text-default-color">Privacy Policy for HackQuest</h1>
+          <h1 className="text-h1 mt-[12.5rem] pb-[2.625rem] text-center text-text-default-color">
+            Privacy Policy for HackQuest
+          </h1>
           <h1 className="text-h2 mt-[23.75rem] text-left text-text-default-color">Privacy Policy for HackQuest</h1>
           <div className="body-xl mt-[4.5rem] flex flex-col gap-[1.875rem] text-left text-text-default-color">
             <p className="">
@@ -39,13 +41,21 @@ const PrivacyPolicy = () => {
           <ul className="flex list-disc flex-col gap-[0.725rem]">
             <li className="ml-6">To better understand your needs.</li>
             <li className="ml-6">To improve our services and products.</li>
-            <li className="ml-6">To send you promotional emails containing the information we think you will find interesting.</li>
-            <li className="ml-6">To contact you to fill out surveys and participate in other types of market research.</li>
-            <li className="ml-6">To customize our website according to your online behavior and personal preferences.</li>
+            <li className="ml-6">
+              To send you promotional emails containing the information we think you will find interesting.
+            </li>
+            <li className="ml-6">
+              To contact you to fill out surveys and participate in other types of market research.
+            </li>
+            <li className="ml-6">
+              To customize our website according to your online behavior and personal preferences.
+            </li>
           </ul>
         </div>
         <div className="flex flex-col gap-[1.875rem]">
-          <h1 className="text-h2 pb-[2.625rem]  text-text-default-color">5. Restricting the Collection of your Personal Data</h1>
+          <h1 className="text-h2 pb-[2.625rem]  text-text-default-color">
+            5. Restricting the Collection of your Personal Data
+          </h1>
           <p className="">
             {`At some point, you might wish to restrict the use and collection of your personal data. You can achieve this by doing the
 following:`}

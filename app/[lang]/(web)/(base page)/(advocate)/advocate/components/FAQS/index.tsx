@@ -110,7 +110,9 @@ const FAQS: FC<FAQSProps> = (props) => {
                 </span>
               </div>
 
-              <p className={cn(`body-s text-neutral-rich-gray`, expendIndex.includes(index) ? 'block' : 'hidden')}>{item.answer}</p>
+              <p className={cn(`body-s text-neutral-rich-gray`, expendIndex.includes(index) ? 'block' : 'hidden')}>
+                {item.answer}
+              </p>
             </div>
           );
         })}

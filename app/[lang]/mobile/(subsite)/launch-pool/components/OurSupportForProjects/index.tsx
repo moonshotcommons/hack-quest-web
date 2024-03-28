@@ -17,7 +17,10 @@ const OurSupportForProjects: FC<OurSupportForProjectsProps> = async ({ lang }) =
       <div className="flex flex-wrap justify-center gap-4 py-10">
         {data.map((item) => {
           return (
-            <div key={item} className="body-xs-bold rounded-[16px] bg-neutral-white p-3 tracking-tight  text-neutral-black">
+            <div
+              key={item}
+              className="body-xs-bold rounded-[16px] bg-neutral-white p-3 tracking-tight  text-neutral-black"
+            >
               {t(item)}
             </div>
           );

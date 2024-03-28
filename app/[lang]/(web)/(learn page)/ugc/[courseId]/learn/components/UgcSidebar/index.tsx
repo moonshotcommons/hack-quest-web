@@ -36,7 +36,8 @@ const UgcSidebar: FC<UgcSidebarProps> = () => {
         type: 'group',
         children: unit.pages!.map((page, i) => {
           if (page.id === lesson.id) defaultOpenKeys.push(unit.id);
-          const disable = page.state === CompleteStateType.NOT_STARTED && prevLessonState !== CompleteStateType.COMPLETED;
+          const disable =
+            page.state === CompleteStateType.NOT_STARTED && prevLessonState !== CompleteStateType.COMPLETED;
           const newPage = {
             key: page.id,
             disable,

@@ -123,7 +123,11 @@ const EasyCrop = forwardRef<EasyCropRef, EasyCropProps>((props, ref) => {
         >
           <div className="body-l my-[10px] w-full text-start text-neutral-medium-gray">Scale</div>
           <div className="flex w-full items-center">
-            <button className={buttonClass} onClick={() => setZoom(zoom - ZOOM_STEP)} disabled={zoom - ZOOM_STEP < minZoom}>
+            <button
+              className={buttonClass}
+              onClick={() => setZoom(zoom - ZOOM_STEP)}
+              disabled={zoom - ZOOM_STEP < minZoom}
+            >
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="12" cy="12" r="11.5" fill="white" stroke="#0B0B0B" />
                 <path d="M7 12L17 12" stroke="#0B0B0B" strokeLinecap="round" />
@@ -153,7 +157,11 @@ const EasyCrop = forwardRef<EasyCropRef, EasyCropProps>((props, ref) => {
                 }}
               />
             </div>
-            <button className={buttonClass} onClick={() => setZoom(zoom + ZOOM_STEP)} disabled={zoom + ZOOM_STEP > maxZoom}>
+            <button
+              className={buttonClass}
+              onClick={() => setZoom(zoom + ZOOM_STEP)}
+              disabled={zoom + ZOOM_STEP > maxZoom}
+            >
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="12" cy="12" r="12" fill="#0B0B0B" />
                 <path d="M7 12L17 12" stroke="white" strokeLinecap="round" />
@@ -193,11 +201,26 @@ const EasyCrop = forwardRef<EasyCropRef, EasyCropProps>((props, ref) => {
 
       {aspectSlider && (
         <section className={`${PREFIX}-control ${PREFIX}-control-aspect ${wrapperClass}`}>
-          <button className={buttonClass} onClick={() => setAspect(aspect - ASPECT_STEP)} disabled={aspect - ASPECT_STEP < ASPECT_MIN}>
+          <button
+            className={buttonClass}
+            onClick={() => setAspect(aspect - ASPECT_STEP)}
+            disabled={aspect - ASPECT_STEP < ASPECT_MIN}
+          >
             ↕️
           </button>
-          <CustomSlider className={sliderClass} min={ASPECT_MIN} max={ASPECT_MAX} step={ASPECT_STEP} value={aspect} onChange={setAspect} />
-          <button className={buttonClass} onClick={() => setAspect(aspect + ASPECT_STEP)} disabled={aspect + ASPECT_STEP > ASPECT_MAX}>
+          <CustomSlider
+            className={sliderClass}
+            min={ASPECT_MIN}
+            max={ASPECT_MAX}
+            step={ASPECT_STEP}
+            value={aspect}
+            onChange={setAspect}
+          />
+          <button
+            className={buttonClass}
+            onClick={() => setAspect(aspect + ASPECT_STEP)}
+            disabled={aspect + ASPECT_STEP > ASPECT_MAX}
+          >
             ↔️
           </button>
         </section>

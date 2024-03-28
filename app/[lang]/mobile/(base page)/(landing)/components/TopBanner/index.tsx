@@ -51,7 +51,13 @@ const TopBanner: FC<TopBannerProps> = (props) => {
       </div>
 
       <div className="absolute top-[620px] flex w-full flex-col">
-        <Image src={'/images/landing/center_moon_mobile.svg'} alt="hackquest" width={1834} height={409} className="z-1 w-full"></Image>
+        <Image
+          src={'/images/landing/center_moon_mobile.svg'}
+          alt="hackquest"
+          width={1834}
+          height={409}
+          className="z-1 w-full"
+        ></Image>
         <div className="w-full flex-1 bg-neutral-off-white"></div>
         <div className="absolute left-1/2 top-0 z-20 h-[9.625rem] w-[13.625rem] -translate-x-1/2 -translate-y-[calc(100%-36px)]">
           <Image src={'/images/landing/center_astronaut.svg'} alt="hackquest" fill></Image>

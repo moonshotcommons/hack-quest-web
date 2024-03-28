@@ -123,7 +123,11 @@ const Input = forwardRef<InputRef, InputProps & InputHTMLAttributes<HTMLInputEle
   return (
     <div className="flex flex-col gap-[0.75rem]">
       <div className="flex justify-between">
-        <p className={cn('body-l-bold label', `${theme !== 'dark' ? 'text-neutral-off-black' : ''} ${labelClassName} `)}>{label}</p>
+        <p
+          className={cn('body-l-bold label', `${theme !== 'dark' ? 'text-neutral-off-black' : ''} ${labelClassName} `)}
+        >
+          {label}
+        </p>
         {rightLabel}
       </div>
       <div className="relative">

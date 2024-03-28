@@ -44,7 +44,8 @@ const UgcUnit: React.FC<UgcUnitProp> = () => {
     });
     return lessonCount > 1;
   }, [unitList]);
-  const { courseId, selectLessonId, selectUnitMenuId, setSelectUnitMenuId, courseInformation } = useContext(UgcCreateContext);
+  const { courseId, selectLessonId, selectUnitMenuId, setSelectUnitMenuId, courseInformation } =
+    useContext(UgcCreateContext);
   const { getUnitList } = useUgcCreationDataHandle();
   const handleAddUit = () => {
     if (unitList.some((v) => isNull(v.title))) {

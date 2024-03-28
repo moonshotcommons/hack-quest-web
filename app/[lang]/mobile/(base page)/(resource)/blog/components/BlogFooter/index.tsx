@@ -57,7 +57,9 @@ const BlogFooter: React.FC<BlogFooterProp> = ({ backTop, type = 'top', from = Re
       <div>
         <div className="flex justify-between">
           <div className="flex flex-col gap-[15px]">
-            <h2 className="text-h3-mob text-neutral-off-black">{from === ResourceFrom.BLOG ? 'Featured Blog' : 'Latest Glossary'}</h2>
+            <h2 className="text-h3-mob text-neutral-off-black">
+              {from === ResourceFrom.BLOG ? 'Featured Blog' : 'Latest Glossary'}
+            </h2>
           </div>
           {from === ResourceFrom.BLOG && (
             <Link
@@ -91,7 +93,10 @@ const BlogFooter: React.FC<BlogFooterProp> = ({ backTop, type = 'top', from = Re
           ></ScrollControl>
         </Loading>
         <div className="button-text-m flex w-full justify-center pt-[1.875rem]">
-          <Button className="h-[3rem] w-[13rem] border border-neutral-black p-0 text-neutral-black" onClick={handleClick}>
+          <Button
+            className="h-[3rem] w-[13rem] border border-neutral-black p-0 text-neutral-black"
+            onClick={handleClick}
+          >
             BACK TO {`${type === 'top' ? 'TOP' : `${business.text}`}`}
           </Button>
         </div>

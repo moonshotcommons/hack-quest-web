@@ -108,8 +108,8 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
             <div className="flex flex-col gap-[20px]">
               <h1 className="text-h2">Blog</h1>
               <p className="body-l w-[686px] text-neutral-rich-gray">
-                Explore our Web3 Blog – your hub for news, events, and study notes! Contribute your insights, shaping the conversation in
-                the world of decentralized tech.
+                Explore our Web3 Blog – your hub for news, events, and study notes! Contribute your insights, shaping
+                the conversation in the world of decentralized tech.
               </p>
 
               <Link
@@ -137,7 +137,11 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
                       }, 0);
                     }}
                   >
-                    {searchInfo.sort === sortData[0].value ? <PiSortAscendingBold size={32} /> : <PiSortDescendingBold size={32} />}
+                    {searchInfo.sort === sortData[0].value ? (
+                      <PiSortAscendingBold size={32} />
+                    ) : (
+                      <PiSortDescendingBold size={32} />
+                    )}
 
                     {sortVisible && (
                       <div className="body-s absolute bottom-[-100px] left-0 overflow-hidden rounded-[10px] bg-neutral-off-white text-neutral-black shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)]">
@@ -154,7 +158,11 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
                       </div>
                     )}
                   </div>
-                  <SlideHighlight className="flex items-center text-[18px] " type={'BLOG_FILTER'} currentIndex={currentIndex}>
+                  <SlideHighlight
+                    className="flex items-center text-[18px] "
+                    type={'BLOG_FILTER'}
+                    currentIndex={currentIndex}
+                  >
                     {searchTabData.map((v, i) => (
                       <div
                         key={v.value}

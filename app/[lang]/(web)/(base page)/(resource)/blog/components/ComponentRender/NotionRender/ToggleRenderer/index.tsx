@@ -38,11 +38,16 @@ const ToggleRenderer: FC<ToggleRendererProps> = (props) => {
   }, [expandData, component]);
   return (
     <div className="overflow-hidden border-b  border-[#676767]">
-      <div className="my-3 flex cursor-pointer items-center justify-between px-[.5rem]" onClick={() => changeShowChild(!showChild)}>
+      <div
+        className="my-3 flex cursor-pointer items-center justify-between px-[.5rem]"
+        onClick={() => changeShowChild(!showChild)}
+      >
         <div>
           <TextRenderer richTextArr={component.content.rich_text} fontSize={'16px'} />
         </div>
-        <span className={``}>{!showChild ? <VscAdd size={20}></VscAdd> : <VscChromeMinimize size={20}></VscChromeMinimize>}</span>
+        <span className={``}>
+          {!showChild ? <VscAdd size={20}></VscAdd> : <VscChromeMinimize size={20}></VscChromeMinimize>}
+        </span>
       </div>
       {/* 正常渲染子对象 */}
       <div className="pl-4">

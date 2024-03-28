@@ -13,7 +13,11 @@ interface LearningTrackCardProps {
   isLandingPage?: boolean;
   from?: 'dashboard' | 'learningTrack';
 }
-const LearningTrackCard: React.FC<LearningTrackCardProps> = ({ learningTrack, isLandingPage, from = 'learningTrack' }) => {
+const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
+  learningTrack,
+  isLandingPage,
+  from = 'learningTrack'
+}) => {
   const { redirectToUrl } = useRedirect();
 
   const goLearningTrackDetail = (e: any) => {
@@ -49,7 +53,12 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({ learningTrack, is
         </div>
       </div>
       <div className={`relative  h-[160px] w-[160px]`}>
-        <Image src={learningTrack.image || LearningTrackImg} fill alt="learning-track-img" className="object-cover"></Image>
+        <Image
+          src={learningTrack.image || LearningTrackImg}
+          fill
+          alt="learning-track-img"
+          className="object-cover"
+        ></Image>
       </div>
     </Link>
   );

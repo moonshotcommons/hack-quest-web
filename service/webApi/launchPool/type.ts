@@ -6,7 +6,11 @@ export enum LaunchPoolProjectStatus {
   END = 'end'
 }
 
-export const LIVE_NOW_STATUS = [LaunchPoolProjectStatus.FUELING, LaunchPoolProjectStatus.ALLOCATION, LaunchPoolProjectStatus.AIRDROP];
+export const LIVE_NOW_STATUS = [
+  LaunchPoolProjectStatus.FUELING,
+  LaunchPoolProjectStatus.ALLOCATION,
+  LaunchPoolProjectStatus.AIRDROP
+];
 export interface LaunchPoolProjectType {
   id: string;
   name: string;

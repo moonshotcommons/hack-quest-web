@@ -60,7 +60,10 @@ const LessonContentComponent: FC<LessonContentProps> = (props) => {
   return (
     <div className="">
       {!!components?.length && (
-        <div className="scroll-wrap-y scroll-wrap-x mb-[20px] flex h-full w-full flex-1 shrink-0 flex-col" ref={componentsWrapRef}>
+        <div
+          className="scroll-wrap-y scroll-wrap-x mb-[20px] flex h-full w-full flex-1 shrink-0 flex-col"
+          ref={componentsWrapRef}
+        >
           {components.map((component, i) => {
             return (
               <div key={component.id} className="">

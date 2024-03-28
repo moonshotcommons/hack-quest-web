@@ -12,7 +12,10 @@ const QuizFooter: FC<QuizFooterProps> = (props) => {
   const { showAnswer, setShowAnswer, onSubmit, submitDisable = false } = props;
   return (
     <div className="flex items-center justify-between">
-      <div className="underline-s cursor-pointer transition hover:text-neutral-black" onClick={() => setShowAnswer(!showAnswer)}>
+      <div
+        className="underline-s cursor-pointer transition hover:text-neutral-black"
+        onClick={() => setShowAnswer(!showAnswer)}
+      >
         {showAnswer && 'Hide'}
         {!showAnswer && 'Hint'}
       </div>

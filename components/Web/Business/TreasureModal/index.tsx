@@ -72,7 +72,13 @@ const TreasureModal = forwardRef<TreasureModalRef, TreasureModalProp>((props, re
   });
 
   return (
-    <Modal open={open} onClose={() => resetModal()} showCloseIcon={true} icon={<FiX size={26} color={'#fff'} />} className="min-w-[75vw]">
+    <Modal
+      open={open}
+      onClose={() => resetModal()}
+      showCloseIcon={true}
+      icon={<FiX size={26} color={'#fff'} />}
+      className="min-w-[75vw]"
+    >
       <div className="flex-center h-[750px] w-full">
         <div
           className="flex h-[700px] w-[99%] flex-col  overflow-hidden rounded-[10px] text-neutral-white"
@@ -88,7 +94,9 @@ const TreasureModal = forwardRef<TreasureModalRef, TreasureModalProp>((props, re
           >
             {type === TreasureType.NOT_DIG && (
               <>
-                <p className="body-xl-bold mb-[43px] tracking-[0.48px]">You found something hidden on your HackQuest Journey!</p>
+                <p className="body-xl-bold mb-[43px] tracking-[0.48px]">
+                  You found something hidden on your HackQuest Journey!
+                </p>
                 <Button
                   onClick={() => {
                     openTreasures(treasureId);
@@ -166,7 +174,9 @@ const TreasureModal = forwardRef<TreasureModalRef, TreasureModalProp>((props, re
                   </div>
                 </div>
               )}
-              {type === TreasureType.NOT_DIG && <Image src={Qmark} width={50} alt="flag" className="absolute right-[10px] top-[12px]" />}
+              {type === TreasureType.NOT_DIG && (
+                <Image src={Qmark} width={50} alt="flag" className="absolute right-[10px] top-[12px]" />
+              )}
             </div>
           </div>
         </div>

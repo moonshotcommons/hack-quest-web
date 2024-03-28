@@ -53,7 +53,10 @@ const UgcFooter: React.FC<UgcFooterProp> = ({}) => {
       <div className="flex max-w-[calc((100%-550px))] gap-[2px] overflow-auto">
         {unitNavList.map((item, i) => (
           <div key={item.id} className="h-[5px] w-[70px] overflow-hidden rounded-[3px] bg-neutral-medium-gray">
-            <div className="h-full rounded-[3px] bg-yellow-dark transition-all" style={{ width: `${item.progress * 100}%` }}></div>
+            <div
+              className="h-full rounded-[3px] bg-yellow-dark transition-all"
+              style={{ width: `${item.progress * 100}%` }}
+            ></div>
           </div>
         ))}
       </div>

@@ -24,7 +24,11 @@ const HowIAOWorks: FC<HowIAOWorksProps> = async ({ lang }) => {
                   <p className="body-xl-bold text-neutral-off-black">{t(item.title)}</p>
                   <p className="body-s text-neutral-black">{t(item.desc)}</p>
                   {item.buttonText && (
-                    <Link href={item.buttonLink} target="_blank" className="body-m-bold flex cursor-pointer items-center gap-2">
+                    <Link
+                      href={item.buttonLink}
+                      target="_blank"
+                      className="body-m-bold flex cursor-pointer items-center gap-2"
+                    >
                       <span className="relative after:absolute after:-bottom-[1px] after:left-0 after:h-[2px] after:w-full after:rounded-full after:bg-yellow-primary">
                         {t(item.buttonText)}
                       </span>

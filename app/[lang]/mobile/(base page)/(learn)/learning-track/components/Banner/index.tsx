@@ -31,9 +31,16 @@ const Banner: React.FC<BannerProp> = ({ searchInfo, changeSearchInfo }) => {
               }`}
             >
               <div className="relative h-[1.5rem] w-[1.5rem]">
-                <Image src={track === v.value ? v.imgActive : v.img} alt="tab-img" fill className="object-cover"></Image>
+                <Image
+                  src={track === v.value ? v.imgActive : v.img}
+                  alt="tab-img"
+                  fill
+                  className="object-cover"
+                ></Image>
               </div>
-              <div className={`text-h5-mob mt-[0.5rem] ${track === v.value ? 'text-neutral-off-black' : 'text-neutral-white'}`}>
+              <div
+                className={`text-h5-mob mt-[0.5rem] ${track === v.value ? 'text-neutral-off-black' : 'text-neutral-white'}`}
+              >
                 {v.label}
               </div>
             </div>

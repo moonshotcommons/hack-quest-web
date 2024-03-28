@@ -10,8 +10,8 @@ const Apply: React.FC<ApplyProp> = () => {
     <div className="body-l mx-auto flex w-[755px] flex-col items-center gap-[40px] pt-[120px] text-neutral-off-black">
       <p className="text-h3 text-neutral-black">UGC Feature Application</p>
       <p>
-        Our UGC Feature is still in Beta. If you fit any one of the descriptions below, please fill in the request form to upload your own
-        courses here.
+        Our UGC Feature is still in Beta. If you fit any one of the descriptions below, please fill in the request form
+        to upload your own courses here.
       </p>
       <ul className="w-full list-disc pl-[20px]">
         <li>KOL in an area</li>

@@ -29,7 +29,11 @@ const badge = (
       stroke="#DADADA"
       strokeLinecap="square"
     />
-    <path d="M24.5406 44.4586L31.3506 40.5269L42.3387 59.5588L38.3695 68.411L24.5406 44.4586Z" fill="#FCC409" stroke="#DADADA" />
+    <path
+      d="M24.5406 44.4586L31.3506 40.5269L42.3387 59.5588L38.3695 68.411L24.5406 44.4586Z"
+      fill="#FCC409"
+      stroke="#DADADA"
+    />
     <path
       d="M38.1606 36.5951L31.3506 40.5269L42.3387 59.5588L51.9895 60.5475L38.1606 36.5951Z"
       fill="#FDEAAA"
@@ -131,7 +135,10 @@ const GettingCertificate: FC<GettingCertificateProps> = ({ certification, refres
           type="primary"
           loading={loading}
           block
-          className={cn('body-m px-0 py-[11px] text-neutral-black outline-none', certification.mint ? 'cursor-not-allowed opacity-40' : '')}
+          className={cn(
+            'body-m px-0 py-[11px] text-neutral-black outline-none',
+            certification.mint ? 'cursor-not-allowed opacity-40' : ''
+          )}
           onClick={() => {
             if (isMobile) {
               message.info('Minting is not available on mobile devices');
@@ -155,7 +162,12 @@ const GettingCertificate: FC<GettingCertificateProps> = ({ certification, refres
           {certification.mint ? 'Minted' : 'Mint'}
         </Button>
         <Link href={'/user/profile'}>
-          <Button ghost block className="body-m border-neutral-black  px-0 py-[11px] text-neutral-black" onClick={() => closeModal?.()}>
+          <Button
+            ghost
+            block
+            className="body-m border-neutral-black  px-0 py-[11px] text-neutral-black"
+            onClick={() => closeModal?.()}
+          >
             View Profile
           </Button>
         </Link>

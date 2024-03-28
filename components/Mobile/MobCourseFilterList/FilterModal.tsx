@@ -60,7 +60,9 @@ const FilterModal = forwardRef<FilterModalRef, FilterModalProps>((props, ref) =>
                   }}
                 >
                   <div className="flex h-[22px] w-[22px] items-center justify-center rounded-[1px] border border-neutral-black">
-                    {option.isSelect && <div className="box-border h-[16px] w-[16px] rounded-[1px] bg-neutral-black"></div>}
+                    {option.isSelect && (
+                      <div className="box-border h-[16px] w-[16px] rounded-[1px] bg-neutral-black"></div>
+                    )}
                   </div>
                   <span>{option.name}</span>
                 </div>
