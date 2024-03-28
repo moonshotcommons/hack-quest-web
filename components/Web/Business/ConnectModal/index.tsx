@@ -52,7 +52,7 @@ const ConnectModal: ForwardRefRenderFunction<ConnectModalInstance, ConnectModalP
   }, [connectState, currentConnectType]);
 
   // 获取和刷新
-  const { run: getConnectState, refreshAsync } = useRequest(
+  const { run: getConnectState, runAsync: getConnectStateAsync } = useRequest(
     async (isInit: boolean = false) => {
       const [connectInfo, twitterFollow, discordJoin, participateInfo] = await Promise.all([
         await webApi.userApi.getConnectInfo(),
@@ -134,15 +134,15 @@ const ConnectModal: ForwardRefRenderFunction<ConnectModalInstance, ConnectModalP
   const SlotComponent = useMemo(() => {
     switch (currentConnectType) {
       case ConnectType.WALLET:
-        return <ConnectWallet refreshConnectState={refreshAsync} connectState={connectState[0]} />;
+        return <ConnectWallet refreshConnectState={getConnectStateAsync} connectState={connectState[0]} />;
       case ConnectType.TWITTER:
-        return <ConnectTwitter refreshConnectState={refreshAsync} connectState={connectState[1]} />;
+        return <ConnectTwitter refreshConnectState={getConnectStateAsync} connectState={connectState[1]} />;
       case ConnectType.DISCORD:
-        return <ConnectDiscord refreshConnectState={refreshAsync} connectState={connectState[2]} />;
+        return <ConnectDiscord refreshConnectState={getConnectStateAsync} connectState={connectState[2]} />;
       case ParticipationStatus.INVITE_CODE:
         return (
           <EnterInviteCode
-            refreshConnectState={refreshAsync}
+            refreshConnectState={getConnectStateAsync}
             connectState={connectState[3]}
             projectId={projectId.current!}
           />
@@ -158,7 +158,7 @@ const ConnectModal: ForwardRefRenderFunction<ConnectModalInstance, ConnectModalP
           />
         );
     }
-  }, [currentConnectType, refreshAsync, connectState]);
+  }, [currentConnectType, getConnectStateAsync, connectState]);
 
   return (
     <Modal
