@@ -4,7 +4,7 @@ import Pagination from '@/components/Common/Pagination';
 import { ProjectType } from '@/service/webApi/resourceStation/type';
 import Link from 'next/link';
 import { FC, useRef, useState } from 'react';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 let PROJECTS_LIMIT = 3;
 interface OtherProjectsProps {
   hackathonName: string;

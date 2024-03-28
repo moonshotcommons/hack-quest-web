@@ -19,7 +19,7 @@ import styled from 'styled-components';
 import { TrackListContext } from '../../LearningTrackDetail';
 import Button from '@/components/Common/Button';
 import { useRedirect } from '@/hooks/router/useRedirect';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 
 const CustomProgress = styled(Progress)`
   .ant-progress-inner {

@@ -15,7 +15,7 @@ import {
 import { useShallow } from 'zustand/react/shallow';
 import webApi from '@/service';
 import { useRedirect } from '@/hooks/router/useRedirect';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 import message from 'antd/es/message';
 import { UgcCreateContext } from '../../../constant/type';
 import useUgcCreationDataHandle from '@/hooks/courses/useUgcCreationDataHandle';

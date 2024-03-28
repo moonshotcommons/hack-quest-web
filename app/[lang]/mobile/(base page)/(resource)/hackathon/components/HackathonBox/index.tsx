@@ -7,7 +7,7 @@ import { useRedirect } from '@/hooks/router/useRedirect';
 import Tab from './Tab';
 import { useRouter } from 'next/navigation';
 import { getSearchParamsUrl } from '@/helper/utils';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 import MobCourseListPageHeader from '@/components/Mobile/MobCourseListPageHeader';
 import { HiArrowLongRight } from 'react-icons/hi2';
 

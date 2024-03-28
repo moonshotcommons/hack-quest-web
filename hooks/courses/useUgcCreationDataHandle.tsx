@@ -9,7 +9,7 @@ import { useUgcCreationStore } from '@/store/zustand/ugcCreationStore';
 import { useContext } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 import { useRedirect } from '../router/useRedirect';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 
 const useUgcCreationDataHandle = (cId?: string) => {
   const { setLoading } = useUgcCreationStore(

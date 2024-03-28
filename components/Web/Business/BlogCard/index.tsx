@@ -4,7 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import BlogCardFooter from './BlogCardFooter';
 import { BlogType, ResourceFrom } from '@/service/webApi/resourceStation/type';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 import { BurialPoint } from '@/helper/burialPoint';
 import Link from 'next/link';
 import TrackTag from '@/components/Common/TrackTag';
@@ -46,9 +46,9 @@ const BlogCard: React.FC<BlogCardProp> = ({
               <TrackTag key={i} track={v} />
             ))}
           </div>
-          <div className="body-m-bold line-clamp-2 text-neutral-off-black">
+          <h2 className="body-m-bold line-clamp-2 text-neutral-off-black">
             {blog.title}
-          </div>
+          </h2>
           <div className="body-s line-clamp-2 text-neutral-rich-gray">
             {blog.description}
           </div>

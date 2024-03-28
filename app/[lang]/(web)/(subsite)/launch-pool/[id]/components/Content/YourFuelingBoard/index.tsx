@@ -10,7 +10,8 @@ import StakeModal from './StakeModal';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import { LangContext } from '@/components/Provider/Lang';
-import { LaunchDetailContext, LaunchStatus } from '../../../constants/type';
+import { LaunchDetailContext } from '../../../constants/type';
+import { LaunchPoolProjectStatus } from '@/service/webApi/launchPool/type';
 
 interface YourFuelingBoardProp {}
 
@@ -18,18 +19,16 @@ const YourFuelingBoard: React.FC<YourFuelingBoardProp> = () => {
   const { launchInfo } = useContext(LaunchDetailContext);
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
-  const [modalName, setModalName] = useState('');
-  const hanleStake = () => {};
-  const hanleUnstake = () => {};
+
   const statusRender = () => {
     switch (launchInfo.status) {
-      case LaunchStatus.ALLOCATIONING:
+      case LaunchPoolProjectStatus.ALLOCATION:
         return {
-          titleDesc: launchInfo.participate ? <p>{t('lockFuel')}</p> : null
+          titleDesc: launchInfo.isParticipate ? <p>{t('lockFuel')}</p> : null
         };
-      case LaunchStatus.AIRDROPING:
+      case LaunchPoolProjectStatus.AIRDROP:
         return {
-          titleDesc: launchInfo.participate ? (
+          titleDesc: launchInfo.isParticipate ? (
             <p>{t('fuelCongratulations')}</p>
           ) : null
         };
@@ -44,25 +43,14 @@ const YourFuelingBoard: React.FC<YourFuelingBoardProp> = () => {
         {statusRender()?.titleDesc}
       </p>
       <Info />
-      {launchInfo.status === LaunchStatus.FUELING && launchInfo.participate && (
-        <>
-          <StakeFuel />
-          <InvitationFuel />
-          <TargetFuel />
-          <StakeModal
-            open={modalName === 'stake'}
-            onClose={() => setModalName('')}
-            loading={false}
-            hanleStake={hanleStake}
-          />
-          <UnstakeModal
-            open={modalName === 'stake'}
-            onClose={() => setModalName('')}
-            loading={false}
-            hanleUnstake={hanleUnstake}
-          />
-        </>
-      )}
+      {launchInfo.status === LaunchPoolProjectStatus.FUELING &&
+        launchInfo.isParticipate && (
+          <>
+            <StakeFuel />
+            <InvitationFuel />
+            <TargetFuel />
+          </>
+        )}
     </div>
   );
 };

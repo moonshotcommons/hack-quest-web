@@ -1,6 +1,12 @@
 'use client';
 import Button from '@/components/Common/Button';
-import React, { useContext, useEffect } from 'react';
+import React, {
+  use,
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useState
+} from 'react';
 import {
   FooterButtonStatus,
   FooterButtonText,
@@ -15,7 +21,7 @@ import emitter from '@/store/emitter';
 interface UgcFooterProp {}
 
 const UgcFooter: React.FC<UgcFooterProp> = ({}) => {
-  const { footerBtn, lesson, setFooterBtn } = useContext(UgcContext);
+  const { footerBtn, lesson, setFooterBtn, mounted } = useContext(UgcContext);
   const {
     onNextClick,
     completeModalRef,
@@ -34,21 +40,22 @@ const UgcFooter: React.FC<UgcFooterProp> = ({}) => {
       }
     });
   };
-  const {
-    unitNavList = [],
-    currentUnitIndex,
-    refreshNavList
-  } = useUnitNavList(lesson);
+  const { unitNavList = [], refreshNavList } = useUnitNavList(lesson);
 
   const handleClick = () => {
-    if (footerBtn.footerBtnDisable || nextLoading) return;
+    if (
+      footerBtn.footerBtnDisable ||
+      nextLoading ||
+      footerBtn.footerBtnLoading ||
+      !mounted
+    )
+      return;
     if (footerBtn.footerBtnStatus !== FooterButtonStatus.NEXT) {
       emitter.emit(footerBtn.footerBtnStatus);
     } else {
       handleNext();
     }
   };
-
   useEffect(() => {
     if (lesson?.courseId) {
       refreshNavList();
@@ -78,7 +85,7 @@ const UgcFooter: React.FC<UgcFooterProp> = ({}) => {
       <div className="absolute right-[40px] top-0 flex h-full items-center">
         <Button
           className={`button-text-m h-[48px] w-[216px]   ${
-            footerBtn.footerBtnDisable
+            footerBtn.footerBtnDisable || !mounted
               ? 'cursor-not-allowed bg-neutral-light-gray text-neutral-medium-gray'
               : 'bg-yellow-primary text-neutral-black'
           }`}

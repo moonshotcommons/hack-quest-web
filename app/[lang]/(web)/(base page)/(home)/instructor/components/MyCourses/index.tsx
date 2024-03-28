@@ -5,7 +5,7 @@ import { CourseTab } from '../../constants/type';
 import CourseList from '../CourseList';
 import { useRouter } from 'next/navigation';
 import { getSearchParamsUrl } from '@/helper/utils';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 import { useRequest } from 'ahooks';
 import webApi from '@/service';
 import { UGCCourseType } from '@/service/webApi/course/type';

@@ -1,7 +1,7 @@
 'use client';
 import BlogCard from '@/components/Web/Business/BlogCard';
 import Loading from '@/components/Common/Loading';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 import { BurialPoint } from '@/helper/burialPoint';
 import webApi from '@/service';
 import { BlogType, ResourceFrom } from '@/service/webApi/resourceStation/type';
@@ -11,6 +11,7 @@ import React, { useMemo, useState } from 'react';
 import { BsArrowRight } from 'react-icons/bs';
 import Button from '@/components/Common/Button';
 import { useRedirect } from '@/hooks/router/useRedirect';
+import GlossaryCard from '@/components/Web/Business/GlossaryCard';
 
 interface BlogFooterProp {
   backTop?: VoidFunction;
@@ -71,13 +72,23 @@ const BlogFooter: React.FC<BlogFooterProp> = ({
           )}
         </div>
         <Loading loading={loading}>
-          <div className="flex gap-[20px]">
-            {featureBlogList.map((blog) => (
-              <div key={blog.id} className="flex-1">
-                <BlogCard blog={blog} from={from} isFeatrued={true} />
-              </div>
-            ))}
-          </div>
+          {from === ResourceFrom.BLOG ? (
+            <div className="flex gap-[20px]">
+              {featureBlogList.map((blog) => (
+                <div key={blog.id} className="flex-1">
+                  <BlogCard blog={blog} from={from} isFeatrued={true} />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="flex gap-[20px]">
+              {featureBlogList.map((glossary) => (
+                <div key={glossary.id} className="flex-1">
+                  <GlossaryCard glossary={glossary} />
+                </div>
+              ))}
+            </div>
+          )}
         </Loading>
         <div className="button-text-l flex w-full justify-center pt-[60px]">
           <Button

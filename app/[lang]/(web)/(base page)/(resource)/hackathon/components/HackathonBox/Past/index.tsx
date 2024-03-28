@@ -11,7 +11,7 @@ import {
   HackathonType
 } from '@/service/webApi/resourceStation/type';
 import { errorMessage } from '@/helper/ui';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 
 interface PastProps {
   page: number;

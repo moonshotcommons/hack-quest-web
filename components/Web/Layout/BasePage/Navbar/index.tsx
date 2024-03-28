@@ -6,7 +6,7 @@ import Badge from '@/components/Common/Badge';
 import { message } from 'antd';
 import Link from 'next/link';
 import { isBadgeIds, needLoginPath } from './data';
-import { MenuLink, MenuType, NavbarListType } from './type';
+import { MenuType, NavbarListType } from './type';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useMissionCenterStore } from '@/store/zustand/missionCenterStore';
@@ -16,6 +16,7 @@ import { useGlobalStore } from '@/store/zustand/globalStore';
 import { LuChevronDown } from 'react-icons/lu';
 import { useDebounceFn } from 'ahooks';
 import DropDownMotion from '@/components/Common/DropDownMotion';
+import MenuLink from '@/constants/MenuLink';
 
 export interface NavBarProps {
   navList: NavbarListType[];

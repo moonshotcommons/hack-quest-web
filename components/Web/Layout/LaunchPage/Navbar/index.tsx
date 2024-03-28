@@ -11,13 +11,14 @@ import React, {
 import { useRedirect } from '@/hooks/router/useRedirect';
 import { useCustomPathname } from '@/hooks/router/useCheckPathname';
 import HackLogo from '@/public/images/logo/light-footer-logo.svg';
-import { MenuLink, NavbarListType } from '../../BasePage/Navbar/type';
+import { NavbarListType } from '../../BasePage/Navbar/type';
 import User from '../User';
 import Intl from '../Intl';
 import { TransNs } from '@/i18n/config';
 import { useTranslation } from '@/i18n/client';
 import { LangContext } from '@/components/Provider/Lang';
 import Link from 'next/link';
+import MenuLink from '@/constants/MenuLink';
 
 export interface NavBarProps {
   navList: NavbarListType[];

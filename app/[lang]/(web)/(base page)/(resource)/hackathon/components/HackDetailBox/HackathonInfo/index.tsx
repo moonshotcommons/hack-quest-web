@@ -8,7 +8,7 @@ import {
 } from '@/service/webApi/resourceStation/type';
 import useDealhackathon from '@/hooks/resource/useDealHackathonData';
 import { BurialPoint } from '@/helper/burialPoint';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 import Link from 'next/link';
 
 interface HackathonInfoProp {

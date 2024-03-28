@@ -4,7 +4,7 @@ import webApi from '@/service';
 import PageRetentionTime from '@/components/Common/PageRetentionTime';
 import Pagination from '@/components/Common/Pagination';
 import NoData from './NoData';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 import BlogList from '../../blog/components/BlogList';
 import BlogFooter from '../../blog/components/BlogFooter';
 import { ResourceFrom } from '@/service/webApi/resourceStation/type';

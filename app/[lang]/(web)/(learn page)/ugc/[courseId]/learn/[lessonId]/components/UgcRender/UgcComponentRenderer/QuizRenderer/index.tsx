@@ -8,6 +8,7 @@ import {
   createContext,
   useContext,
   useEffect,
+  useLayoutEffect,
   useRef,
   useState
 } from 'react';
@@ -46,7 +47,6 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
   const [quizDropdownVisible, setQuizDropdownVisible] = useState(false);
   const [passOpen, setPassOpen] = useState(false);
   const { lesson, setFooterBtn } = useContext(UgcContext);
-
   const containerRef = useRef(null);
 
   const [quiz, setQuiz] = useState<QuizType>();

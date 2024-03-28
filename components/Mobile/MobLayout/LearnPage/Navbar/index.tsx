@@ -2,9 +2,9 @@ import React from 'react';
 
 import { useRedirect } from '@/hooks/router/useRedirect';
 import { IoExitOutline } from 'react-icons/io5';
-import { MenuLink } from '../../BasePage/Navbar/type';
 import { useCourseStore } from '@/store/zustand/courseStore';
 import { useLearnStore } from '@/store/zustand/learnStore';
+import MenuLink from '@/constants/MenuLink';
 
 export interface NavBarProps {}
 

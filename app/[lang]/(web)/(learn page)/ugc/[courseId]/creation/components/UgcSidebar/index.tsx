@@ -1,6 +1,6 @@
 'use client';
 import Sidebar, { SidebarItemType } from '@/components/Web/Business/Sidebar';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import { FC, useContext, useMemo } from 'react';
 import Button from '@/components/Common/Button';

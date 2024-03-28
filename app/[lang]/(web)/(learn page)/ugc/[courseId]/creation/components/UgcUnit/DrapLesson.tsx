@@ -5,7 +5,7 @@ import {
   UgcCreateContext,
   UnitMenuType
 } from '../../constant/type';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import { cloneDeep } from 'lodash-es';
 import { useDrag } from 'react-dnd';

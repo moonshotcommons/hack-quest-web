@@ -7,7 +7,7 @@ import CourseTags from '@/components/Web/Business/CourseTags';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import MobCardProgress from '../MobCardProgress';
 import Button from '@/components/Common/Button';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 
 interface PracticeCardProps {
   // children: ReactNode;

@@ -1,5 +1,5 @@
 import { excludeLink } from '@/components/Web/Layout/BasePage/Navbar/data';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 import { getCourseLink } from '@/helper/utils';
 import { locales } from '@/i18n/config';
 import { CourseType } from '@/service/webApi/course/type';

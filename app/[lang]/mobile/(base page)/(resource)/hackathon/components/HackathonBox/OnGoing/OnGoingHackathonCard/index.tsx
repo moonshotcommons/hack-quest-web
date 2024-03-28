@@ -5,7 +5,7 @@ import { HackathonType } from '@/service/webApi/resourceStation/type';
 import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 import { BurialPoint } from '@/helper/burialPoint';
 import { useRedirect } from '@/hooks/router/useRedirect';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 
 interface OnGoingHackathonCardProp {
   hackathon: HackathonType;
@@ -50,9 +50,9 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({
       <div className="flex h-[15.75rem] flex-col justify-between p-[20px] text-neutral-off-black">
         <div className="flex flex-col gap-[1rem]">
           <div className="flex">
-            <div className="text-h3-mob line-clamp-2 font-next-book-bold ">
+            <h2 className="text-h3-mob line-clamp-2 font-next-book-bold ">
               {hackathon.name}
-            </div>
+            </h2>
           </div>
           <div className="relative flex h-[3rem] flex-col justify-between pl-[20px] ">
             <div className="absolute left-0 top-0 h-full w-[5px] rounded-[10px] bg-yellow-primary"></div>

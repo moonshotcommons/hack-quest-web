@@ -64,6 +64,12 @@ class LaunchPoolApi {
     const url = `${LaunchPoolApiType.GetProjects}/${projectId}/stake`;
     return this.service.post<StakeInfo>(url);
   }
+
+  /* 领取 */
+  claimTarget(targetId: string) {
+    const url = `${LaunchPoolApiType.GetProjects}/${targetId}/fuels/claim`;
+    return this.service.post(url);
+  }
 }
 
 export default LaunchPoolApi;

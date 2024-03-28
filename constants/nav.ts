@@ -1,5 +1,5 @@
 'use client';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 import { locales } from '@/i18n/config';
 
 export const HOME_PATHNAME = '/';

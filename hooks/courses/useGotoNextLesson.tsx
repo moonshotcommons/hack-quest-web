@@ -4,12 +4,13 @@ import webApi from '@/service';
 import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
 import { useDebounceFn } from 'ahooks';
 import { message } from 'antd';
-import { useMemo, useRef, useState } from 'react';
+import { useContext, useMemo, useRef, useState } from 'react';
 import { useGetLessonLink } from './useGetLessonLink';
 import { useRedirect } from '../router/useRedirect';
 import { useParams } from 'next/navigation';
 import { useCourseStore } from '@/store/zustand/courseStore';
 import { useShallow } from 'zustand/react/shallow';
+import { UgcContext } from '@/app/[lang]/(web)/(learn page)/ugc/[courseId]/learn/constants/type';
 
 export const useGotoNextLesson = (
   lesson: CourseLessonType,
@@ -24,6 +25,7 @@ export const useGotoNextLesson = (
   const { getLink } = useGetLessonLink();
   const [loading, setLoading] = useState(false);
   const completeModalRef = useRef<CompleteModalInstance>(null);
+  const { setMounted } = useContext(UgcContext);
 
   const { unitsLessonsList, courseName } = useCourseStore(
     useShallow((state) => ({
@@ -34,6 +36,7 @@ export const useGotoNextLesson = (
 
   const { run: onNextClick } = useDebounceFn(async (callbackProp?) => {
     setLoading(true);
+    setMounted(false);
     const { courseId } = params;
     let nextLesson;
 
@@ -51,6 +54,7 @@ export const useGotoNextLesson = (
       if (callbackProp?.completedCallback) {
         callbackProp?.completedCallback();
       }
+      setMounted(true);
       return;
     }
 
@@ -74,6 +78,7 @@ export const useGotoNextLesson = (
       if (callbackProp?.completedCallback) {
         callbackProp?.completedCallback();
       }
+      setMounted(true);
       return;
     }
     setLoading(false);

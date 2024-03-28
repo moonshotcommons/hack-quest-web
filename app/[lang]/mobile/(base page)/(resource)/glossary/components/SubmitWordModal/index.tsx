@@ -77,7 +77,7 @@ const SubmitWordModal: React.FC<SubmitWordModalProp> = ({ open, onClose }) => {
             </div>
             <Button
               loading={loading}
-              className={`button-text-m h-[2.125rem] w-[8.75rem] uppercase ${keyword ? 'bg-yellow-primary text-neutral-black' : 'cursor-not-allowed bg-neutral-light-gray text-neutral-medium-gray'}`}
+              className={`button-text-s h-[2.125rem] w-[8.75rem] uppercase ${keyword ? 'bg-yellow-primary text-neutral-black' : 'cursor-not-allowed bg-neutral-light-gray text-neutral-medium-gray'}`}
               onClick={onSubmit}
             >
               submit
@@ -96,7 +96,7 @@ const SubmitWordModal: React.FC<SubmitWordModalProp> = ({ open, onClose }) => {
             <Button
               ghost
               onClick={onClose}
-              className="button-text-m h-[48px] w-[256px] border-neutral-black uppercase"
+              className="button-text-s  h-[2.125rem] w-[8.75rem] border-neutral-black uppercase"
             >
               Close
             </Button>

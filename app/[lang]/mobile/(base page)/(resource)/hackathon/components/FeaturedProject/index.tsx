@@ -1,5 +1,5 @@
 'use client';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 import { BurialPoint } from '@/helper/burialPoint';
 import { ProjectType } from '@/service/webApi/resourceStation/type';
 import Link from 'next/link';

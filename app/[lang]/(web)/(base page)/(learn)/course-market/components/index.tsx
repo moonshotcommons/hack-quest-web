@@ -5,7 +5,7 @@ import React from 'react';
 import { SearchParamsType } from '../constant/type';
 import CourseList from './CourseList';
 import { getSearchParamsUrl } from '@/helper/utils';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 import { useRouter } from 'next/navigation';
 import { CourseMarketApiType } from '@/service/cach/learn/course-market';
 

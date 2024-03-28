@@ -11,7 +11,7 @@ import {
 import { useShallow } from 'zustand/react/shallow';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import { cloneDeep } from 'lodash-es';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 import webApi from '@/service';
 import { defaultFormLi } from '../../../constant/data';
 import { isNull } from '@/helper/utils';

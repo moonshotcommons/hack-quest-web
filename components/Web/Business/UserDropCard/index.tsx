@@ -11,7 +11,7 @@ import { BiUser, BiLockAlt, BiLogInCircle } from 'react-icons/bi';
 import { V2_LANDING_PATH, isNoNeedUserInfo } from '@/constants/nav';
 import { useCustomPathname } from '@/hooks/router/useCheckPathname';
 import { useRouter } from 'next/navigation';
-import { MenuLink } from '../../Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 interface UserDropCardProps {
   // children: ReactNode;
   userInfo: LoginResponse;

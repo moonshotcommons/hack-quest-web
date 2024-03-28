@@ -5,7 +5,7 @@ import { LangContext } from '@/components/Provider/Lang';
 import { separationNumber } from '@/helper/utils';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
-import message from 'antd/es/message';
+import { message } from 'antd';
 import React, { useContext } from 'react';
 import { FiMinus, FiX } from 'react-icons/fi';
 import { IoIosArrowForward } from 'react-icons/io';

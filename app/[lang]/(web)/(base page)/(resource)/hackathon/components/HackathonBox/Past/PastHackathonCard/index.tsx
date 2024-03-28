@@ -4,7 +4,7 @@ import moment from 'moment';
 import { HackathonType } from '@/service/webApi/resourceStation/type';
 import Link from 'next/link';
 import { Typography } from 'antd';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 
 interface PastHackathonCardProps {
   hackathon: HackathonType;

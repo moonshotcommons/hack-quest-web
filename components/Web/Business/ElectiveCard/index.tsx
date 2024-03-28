@@ -13,8 +13,8 @@ import Logo from '@/public/images/logo/logo.svg';
 import TrackTag from '@/components/Common/TrackTag';
 import CompletedIcon from '@/components/Common/Icon/Completed';
 import { CourseType } from '@/service/webApi/course/type';
-import { MenuLink } from '../../Layout/BasePage/Navbar/type';
 import Link from 'next/link';
+import MenuLink from '@/constants/MenuLink';
 interface ElectiveCardProps {
   // children: ReactNode;
   course: ElectiveCourseType;

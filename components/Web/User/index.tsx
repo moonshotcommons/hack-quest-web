@@ -14,8 +14,8 @@ import { LoginResponse } from '@/service/webApi/user/type';
 import { useMissionCenterStore } from '@/store/zustand/missionCenterStore';
 import Button from '@/components/Common/Button';
 import { useCustomPathname } from '@/hooks/router/useCheckPathname';
-import { MenuLink } from '../Layout/BasePage/Navbar/type';
 import DropDownMotion from '@/components/Common/DropDownMotion';
+import MenuLink from '@/constants/MenuLink';
 interface UserProps {}
 
 const User: FC<UserProps> = () => {

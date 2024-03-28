@@ -5,7 +5,7 @@ import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import { JumpLeaningLessonType } from '@/hooks/courses/useJumpLeaningLesson';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 import PracticeImg1 from '@/public/images/home/practices_img1.png';
 import PracticeImg2 from '@/public/images/home/practices_img2.png';
 import PracticeImg3 from '@/public/images/home/practices_img3.png';
@@ -211,6 +211,7 @@ export async function urlToBlobAndBase64(url: string) {
 }
 
 export const separationNumber = (num: number, maxNum?: number) => {
+  if (typeof num !== 'number' || isNaN(num)) return 0;
   const isMaxNum = maxNum && num > maxNum;
   let sNum;
   if (isMaxNum) {

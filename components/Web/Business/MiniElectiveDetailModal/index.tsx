@@ -24,7 +24,7 @@ import { QueryIdType } from '../Breadcrumb/type';
 import { useGetLessonLink } from '@/hooks/courses/useGetLessonLink';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import Loading from '@/components/Common/Loading';
-import { MenuLink } from '../../Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 interface MiniElectiveDetailModalProps {}
 
 export interface MiniElectiveDetailModalRef {
