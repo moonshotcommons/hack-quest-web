@@ -16,6 +16,7 @@ export interface LaunchInfoType extends LaunchPoolProjectType {
   fuelsInfo: FuelInfo[];
   isParticipate: boolean;
   isStake: boolean;
+  isJoined: boolean;
 }
 
 export interface LaunchDetailContextType {

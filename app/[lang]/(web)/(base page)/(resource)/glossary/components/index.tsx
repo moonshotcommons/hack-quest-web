@@ -28,10 +28,13 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ galossaryList, searchParams 
     setLetter(val);
   };
   const trackClick = (val: string) => {
-    if (~tracks.indexOf(val)) {
-      setTracks(tracks.filter((v) => v !== val));
+    const newTracks = ~tracks.indexOf(val) ? tracks.filter((v) => v !== val) : [...tracks, val];
+    setTracks(newTracks);
+    if (!newTracks.length) {
+      dealList(galossaryList);
     } else {
-      setTracks([...tracks, val]);
+      const newList = galossaryList.filter((v) => v.categories.some((c) => newTracks.includes(c)));
+      dealList(newList);
     }
   };
   const dealList = (gList: BlogType[]) => {
@@ -112,7 +115,7 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ galossaryList, searchParams 
           <NoData href={MenuLink.GLOSSARY} keyword={searchParams.keyword}></NoData>
         )}
       </div>
-      {list.length === 0 ? <GlossaryFooter type="link" /> : null}
+      {list.length === 0 || searchParams.keyword ? <GlossaryFooter type="link" /> : null}
     </div>
   );
 };

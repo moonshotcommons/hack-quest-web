@@ -10,12 +10,15 @@ import { TransNs } from '@/i18n/config';
 import { useTranslation } from '@/i18n/client';
 import { LangContext } from '@/components/Provider/Lang';
 import { LaunchDetailContext } from '../../constants/type';
-import { LaunchPoolProjectStatus } from '@/service/webApi/launchPool/type';
 import { useCountDown } from 'ahooks';
 import moment from 'moment';
 import Link from 'next/link';
+import { LaunchPoolProjectStatus } from '@/service/webApi/launchPool/type';
 
-interface OverViewProp {}
+interface OverViewProp {
+  joinWaitlist: VoidFunction;
+  participateNow: VoidFunction;
+}
 
 const TimeText: React.FC<Record<string, number>> = ({ d, h, m, s }) => {
   const { lang } = useContext(LangContext);
@@ -31,9 +34,8 @@ const TimeText: React.FC<Record<string, number>> = ({ d, h, m, s }) => {
   );
 };
 
-const OverView: React.FC<OverViewProp> = () => {
+const OverView: React.FC<OverViewProp> = ({ joinWaitlist, participateNow }) => {
   const { launchInfo } = useContext(LaunchDetailContext);
-  console.info(launchInfo);
 
   const targetDate = useMemo(() => {
     switch (launchInfo.status) {
@@ -71,8 +73,8 @@ const OverView: React.FC<OverViewProp> = () => {
               <TimeText d={days} h={hours} m={minutes} s={seconds} />
             </div>
           ),
-          button: (
-            <Button type="primary" className="button-text-l h-[60px] w-full uppercase">
+          button: !launchInfo.isJoined && (
+            <Button type="primary" className="button-text-l h-[60px] w-full uppercase" onClick={joinWaitlist}>
               {t('joinWaitlist')}
             </Button>
           )
@@ -91,7 +93,7 @@ const OverView: React.FC<OverViewProp> = () => {
             </div>
           ),
           button: !launchInfo.isParticipate ? (
-            <Button type="primary" className="button-text-l h-[60px] w-full uppercase">
+            <Button type="primary" disabled={true} className="button-text-l h-[60px] w-full uppercase" onClick={participateNow}>
               {t('participateNow')}
             </Button>
           ) : null

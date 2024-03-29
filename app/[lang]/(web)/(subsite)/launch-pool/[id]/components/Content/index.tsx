@@ -17,9 +17,11 @@ export interface OffsetTopsType {
 interface ContentProp {
   loading: boolean;
   setOffsetTop: (tops: OffsetTopsType[]) => void;
+  joinWaitlist: VoidFunction;
+  participateNow: VoidFunction;
 }
 
-const Content: React.FC<ContentProp> = ({ loading, setOffsetTop }) => {
+const Content: React.FC<ContentProp> = ({ loading, setOffsetTop, joinWaitlist, participateNow }) => {
   const overViewRef = useRef<HTMLDivElement>(null);
   const timeLineRef = useRef<HTMLDivElement>(null);
   const yourFuelingBoardRef = useRef<HTMLDivElement>(null);
@@ -53,7 +55,7 @@ const Content: React.FC<ContentProp> = ({ loading, setOffsetTop }) => {
         <div ref={boxRef} className="[&>div]:relative">
           <div ref={overViewRef}>
             <div className="absolute left-0 top-[-40px]" id={`launch-${titleTxtData[0]}`}></div>
-            <OverView />
+            <OverView joinWaitlist={joinWaitlist} participateNow={participateNow} />
           </div>
           <div ref={timeLineRef} className="mt-[40px]">
             <div className="absolute left-0 top-[-40px]" id={`launch-${titleTxtData[1]}`}></div>

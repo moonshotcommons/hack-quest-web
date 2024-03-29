@@ -1,14 +1,17 @@
 'use client';
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import Nav from './Nav';
 import Content, { OffsetTopsType } from './Content';
 import { LaunchDetailContext, LaunchInfoType } from '../constants/type';
-import { FuelInfo, LaunchPoolProjectStatus, LaunchPoolProjectType, ParticipateInfo } from '@/service/webApi/launchPool/type';
+import { FuelInfo, LaunchPoolProjectType, ParticipateInfo } from '@/service/webApi/launchPool/type';
 import { useRequest } from 'ahooks';
 import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';
 import { useRouter } from 'next/navigation';
 import MenuLink from '@/constants/MenuLink';
+import WaitListModal, { WaitListModalInstance } from '@/components/Web/Business/WaitListModal';
+import ConnectModal, { ConnectModalInstance } from '@/components/Web/Business/ConnectModal';
+import { AuthType, useUserStore } from '@/store/zustand/userStore';
 
 interface LaunchDetailPageProp {
   id: string;
@@ -24,6 +27,14 @@ const LaunchDetailPage: React.FC<LaunchDetailPageProp> = ({ id }) => {
   const [loading, setLoading] = useState(false);
   const [offsetTops, setOffsetTops] = useState<OffsetTopsType[]>([]);
   const isOnScoll = useRef(false);
+
+  const waitListRef = useRef<WaitListModalInstance>(null);
+  const connectModalRef = useRef<ConnectModalInstance>(null);
+  const userInfo = useUserStore((state) => state.userInfo);
+  const setAuthType = useUserStore((state) => state.setAuthType);
+  const setAuthModalOpen = useUserStore((state) => state.setAuthModalOpen);
+  const [joined, setJoined] = useState(false);
+
   const { run: getProjectInfo } = useRequest(
     async () => {
       setLoading(true);
@@ -81,13 +92,13 @@ const LaunchDetailPage: React.FC<LaunchDetailPageProp> = ({ id }) => {
   const launchInfo = useMemo(() => {
     return {
       ...projectInfo,
-      status: LaunchPoolProjectStatus.ALLOCATION,
       participateInfo,
       fuelsInfo,
       isParticipate: participateInfo?.isParticipate,
-      isStake: fuelsInfo?.length > 0
+      isStake: fuelsInfo?.length > 0,
+      isJoined: joined
     };
-  }, [projectInfo, participateInfo, fuelsInfo]);
+  }, [projectInfo, participateInfo, fuelsInfo, joined]);
   const handleClickAnchor = (index: number) => {
     setCurAnchorIndex(index);
     router.push(`${MenuLink.LAUNCH}/${id}#${offsetTops[index].title}`);
@@ -114,6 +125,45 @@ const LaunchDetailPage: React.FC<LaunchDetailPageProp> = ({ id }) => {
     }
   };
 
+  const { run, refreshAsync } = useRequest(
+    async () => {
+      return webApi.launchPoolApi.checkJoinWaitList(id);
+    },
+    {
+      manual: true,
+      onSuccess(res) {
+        if (res?.isJoin) {
+          setJoined(true);
+        }
+      },
+      onError(err) {
+        errorMessage(err);
+      }
+    }
+  );
+
+  const joinWaitlist = () => {
+    if (!userInfo) {
+      setAuthType(AuthType.LOGIN);
+      setAuthModalOpen(true);
+      return;
+    }
+    waitListRef.current?.onJoin(id, refreshAsync, '');
+  };
+
+  const participateNow = () => {
+    if (!userInfo) {
+      setAuthType(AuthType.LOGIN);
+      setAuthModalOpen(true);
+      return;
+    }
+    connectModalRef.current?.onConnect(id);
+  };
+
+  useEffect(() => {
+    if (userInfo && launchInfo?.id) run();
+  }, [run, userInfo]);
+
   return (
     <LaunchDetailContext.Provider
       value={{
@@ -128,8 +178,15 @@ const LaunchDetailPage: React.FC<LaunchDetailPageProp> = ({ id }) => {
           <div className="relative w-[345px]">
             <Nav curAnchorIndex={curAnchorIndex} handleClickAnchor={handleClickAnchor} />
           </div>
-          <Content loading={loading} setOffsetTop={(tops: OffsetTopsType[]) => setOffsetTops(tops)} />
+          <Content
+            loading={loading}
+            setOffsetTop={(tops: OffsetTopsType[]) => setOffsetTops(tops)}
+            joinWaitlist={joinWaitlist}
+            participateNow={participateNow}
+          />
         </div>
+        <WaitListModal ref={waitListRef} />
+        <ConnectModal ref={connectModalRef} />
       </div>
     </LaunchDetailContext.Provider>
   );

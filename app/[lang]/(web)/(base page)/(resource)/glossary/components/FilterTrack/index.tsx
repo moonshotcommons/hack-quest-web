@@ -13,7 +13,7 @@ const FilterTrack: React.FC<FilterTrackProp> = ({ trackClick, tracks }) => {
         <div
           key={v.value}
           onClick={() => trackClick(v.value)}
-          className={`flex-center bpdy-m h-[46px] w-[124px] cursor-pointer rounded-[24px] border  ${~tracks.indexOf(v.value) ? 'border-yellow-light bg-yellow-light text-neutral-black' : 'border-neutral-light-gray text-neutral-medium-gray'}`}
+          className={`flex-center body-m h-[46px] w-[124px] cursor-pointer rounded-[24px] border  ${~tracks.indexOf(v.value) ? 'border-yellow-light bg-yellow-light text-neutral-black' : 'border-neutral-light-gray text-neutral-medium-gray'}`}
         >
           {v.label}
         </div>
