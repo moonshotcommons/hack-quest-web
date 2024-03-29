@@ -32,14 +32,15 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   // 读取路由参数
   const learningTrackId = params.learningTrackId;
-
+  let query = new URLSearchParams(searchParams).toString();
+  query = query ? '?' + query : '';
   const courseDetail =
     await webApi.learningTrackApi.fetchLearningTrackDetail(learningTrackId);
 
   const metadata: Metadata = {
     title: courseDetail.name,
     alternates: {
-      canonical: `https://www.hackquest.io/learning-track/${learningTrackId}`
+      canonical: `https://www.hackquest.io/learning-track/${learningTrackId}${query}`
     }
   };
 

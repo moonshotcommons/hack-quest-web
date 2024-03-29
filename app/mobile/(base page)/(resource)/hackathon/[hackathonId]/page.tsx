@@ -7,17 +7,21 @@ interface HackathonIdProps {
   params: {
     hackathonId: string;
   };
+  searchParams: Record<string, string>;
 }
 
 export async function generateMetadata({
-  params
+  params,
+  searchParams
 }: HackathonIdProps): Promise<Metadata> {
+  let query = new URLSearchParams(searchParams).toString();
+  query = query ? '?' + query : '';
   const hackathon = await getHackathonById(params.hackathonId);
   return {
     title: hackathon.name,
     description: hackathon.about,
     alternates: {
-      canonical: `https://www.hackquest.io/hackathon/${params.hackathonId}`
+      canonical: `https://www.hackquest.io/hackathon/${params.hackathonId}${query}`
     }
   };
 }
