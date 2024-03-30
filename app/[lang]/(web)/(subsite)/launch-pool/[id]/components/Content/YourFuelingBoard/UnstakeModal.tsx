@@ -23,7 +23,12 @@ const UnstakeModal: React.FC<UnstakeModalProp> = ({ open, hanleUnstake, loading,
           <div className="text-h3 text-center">{t('unStake')} $Manta</div>
           <p className="body-m my-[24px]  text-neutral-off-black">{t('unStakeWarning')}</p>
           <div className="flex justify-center gap-[16px]">
-            <Button loading={loading} type="primary" className="button-text-m  h-[48px]  w-[165px] p-0 uppercase" onClick={hanleUnstake}>
+            <Button
+              loading={loading}
+              type="primary"
+              className="button-text-m  h-[48px]  w-[165px] p-0 uppercase"
+              onClick={hanleUnstake}
+            >
               {t('unStakeNow')}
             </Button>
             <Button

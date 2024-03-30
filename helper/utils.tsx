@@ -146,7 +146,11 @@ type AnyObject = Record<PropertyKey, any>;
 
 type RenderProps = AnyObject | ((originProps: AnyObject) => AnyObject | void);
 
-export function replaceElement(element: React.ReactNode, replacement: React.ReactNode, props?: RenderProps): React.ReactNode {
+export function replaceElement(
+  element: React.ReactNode,
+  replacement: React.ReactNode,
+  props?: RenderProps
+): React.ReactNode {
   if (!isValidElement(element)) {
     return replacement;
   }
