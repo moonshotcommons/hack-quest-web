@@ -2,18 +2,16 @@ import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Button from '@/components/Common/Button';
 import { HackathonType } from '@/service/webApi/resourceStation/type';
-import useDealHackathonData from '@/hooks/useDealHackathonData';
+import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 import { BurialPoint } from '@/helper/burialPoint';
-import { useRedirect } from '@/hooks/useRedirect';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import { useRedirect } from '@/hooks/router/useRedirect';
+import MenuLink from '@/constants/MenuLink';
 
 interface OnGoingHackathonCardProp {
   hackathon: HackathonType;
 }
 
-const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({
-  hackathon
-}) => {
+const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon }) => {
   const { redirectToUrl } = useRedirect();
   const closeInTimeOut = useRef<NodeJS.Timeout | null>(null);
   const [closeInTime, setCloseInTime] = useState('');
@@ -40,38 +38,25 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({
       onClick={goHackathonDetail}
     >
       <div className="relative h-full w-[571px] bg-[#d9d9d9]/30">
-        <Image
-          src={hackathon.image}
-          fill
-          alt="hackathonImage"
-          className="object-cover"
-        ></Image>
+        <Image src={hackathon.image} fill alt="hackathonImage" className="object-cover"></Image>
       </div>
       <div className="flex h-full flex-1 flex-col justify-between p-[20px] text-neutral-off-black">
         <div className="flex">
-          <div className="text-h3 line-clamp-1 font-next-book-bold ">
-            {hackathon.name}
-          </div>
+          <h2 className="text-h3 line-clamp-1 font-next-book-bold ">{hackathon.name}</h2>
         </div>
         <div className="relative flex h-[60px] flex-col justify-between pl-[20px] ">
           <div className="absolute left-0 top-0 h-full w-[5px] rounded-[10px] bg-yellow-primary"></div>
           <div className="flex items-center gap-[16px]">
             <div className="body-s text-neutral-medium-gray">RUNS FROM</div>
-            <div className="body-m">
-              {getRunFromTime(hackathon.startTime, hackathon.endTime)}
-            </div>
+            <div className="body-m">{getRunFromTime(hackathon.startTime, hackathon.endTime)}</div>
           </div>
           <div className="flex items-center gap-[16px]">
             <div className="body-s text-neutral-medium-gray">HAPPENING</div>
-            <div className="body-m w-0 flex-1 truncate underline">
-              {hackathon.address}
-            </div>
+            <div className="body-m w-0 flex-1 truncate underline">{hackathon.address}</div>
           </div>
         </div>
         <div className="flex h-[42px] items-center gap-[15px] rounded-[8px] bg-yellow-extra-light px-[20px]">
-          <div className="body-s text-neutral-medium-gray">
-            APPLICATIONS CLOSE IN
-          </div>
+          <div className="body-s text-neutral-medium-gray">APPLICATIONS CLOSE IN</div>
           <div className="body-m">{closeInTime}</div>
         </div>
         <div className="flex gap-[16px]">

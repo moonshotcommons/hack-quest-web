@@ -6,22 +6,19 @@ import CardProgress from '@/components/Web/Business/CardProgress';
 import Button from '@/components/Common/Button';
 import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import { BurialPoint } from '@/helper/burialPoint';
-import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
-import { useRedirect } from '@/hooks/useRedirect';
+import { useJumpLeaningLesson } from '@/hooks/courses/useJumpLeaningLesson';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import CourseTags from '@/components/Web/Business/CourseTags';
 import TrackTag from '@/components/Common/TrackTag';
 import CompletedIcon from '@/components/Common/Icon/Completed';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 
 interface LearningTrackCardProp {
   learningTrack: LearningTrackDetailType;
   inProgress: Boolean;
 }
 
-const LearningTrackCard: React.FC<LearningTrackCardProp> = ({
-  learningTrack,
-  inProgress
-}) => {
+const LearningTrackCard: React.FC<LearningTrackCardProp> = ({ learningTrack, inProgress }) => {
   const { jumpLearningLesson, loading: jumpLoading } = useJumpLeaningLesson();
   const { redirectToUrl } = useRedirect();
   const goLearningTrackDetail = () => {
@@ -64,18 +61,12 @@ const LearningTrackCard: React.FC<LearningTrackCardProp> = ({
           className="object-cover"
         ></Image>
       </div>
-      <div
-        className={`flex h-full flex-1 flex-shrink-0  flex-col justify-between ${inProgress ? 'py-[16px]' : ''}`}
-      >
+      <div className={`flex h-full flex-1 flex-shrink-0  flex-col justify-between ${inProgress ? 'py-[16px]' : ''}`}>
         <TrackTag track={learningTrack.track} />
         <div>
-          <div className="body-m-bold line-clamp-1 text-neutral-off-black">
-            {learningTrack.name}
-          </div>
+          <div className="body-m-bold line-clamp-1 text-neutral-off-black">{learningTrack.name}</div>
           {!inProgress && (
-            <div className="body-s mt-[8px] line-clamp-2 text-neutral-medium-gray">
-              {learningTrack.description}
-            </div>
+            <div className="body-s mt-[8px] line-clamp-2 text-neutral-medium-gray">{learningTrack.description}</div>
           )}
         </div>
 

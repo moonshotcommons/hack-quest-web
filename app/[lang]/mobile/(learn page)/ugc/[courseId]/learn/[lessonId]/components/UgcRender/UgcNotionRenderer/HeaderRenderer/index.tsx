@@ -1,19 +1,13 @@
 import ComponentRenderer from '@/components/Web/Business/Renderer/ComponentRenderer';
-import { ExpandDataType } from '@/hooks/useLessonExpand';
+import { ExpandDataType } from '@/hooks/courses/useLessonExpand';
 import { FC, useContext, useEffect, useMemo, useState } from 'react';
 
-import {
-  NotionComponent,
-  NotionType
-} from '@/components/Web/Business/Renderer/type';
+import { NotionComponent, NotionType } from '@/components/Web/Business/Renderer/type';
 import { LessonContentContext } from '@/components/Web/LessonPage/LessonContent';
 import TextRenderer from '../TextRenderer';
 import { NotionRenderType } from '@/components/Web/Business/NotionRender/type';
 
-type HeaderLevel =
-  | NotionRenderType.H1
-  | NotionRenderType.H2
-  | NotionRenderType.H3;
+type HeaderLevel = NotionRenderType.H1 | NotionRenderType.H2 | NotionRenderType.H3;
 interface HeaderRendererProps {
   component: NotionComponent;
   isRenderChildren?: boolean;
@@ -66,16 +60,10 @@ const HeaderRenderer: FC<HeaderRendererProps> = (props) => {
       <HeadingTag className={`flex items-center justify-between`}>
         <div className="flex items-center gap-[10px]">
           <div className="h-[2.125rem] w-[5px] rounded-full bg-yellow-dark"></div>
-          <TextRenderer
-            richTextArr={component.content.rich_text}
-            type={type as NotionType}
-          />
+          <TextRenderer richTextArr={component.content.rich_text} type={type as NotionType} />
         </div>
         {expandIndex >= 0 && (
-          <span
-            className="underline-m cursor-pointer"
-            onClick={changeExpandNum}
-          >
+          <span className="underline-m cursor-pointer" onClick={changeExpandNum}>
             {isExpandAll ? 'Fold All' : 'Expand All'}
           </span>
         )}
@@ -84,13 +72,7 @@ const HeaderRenderer: FC<HeaderRendererProps> = (props) => {
       <div className="ml-4">
         {isRenderChildren &&
           component.children?.map((item: any, index: number) => {
-            return (
-              <ComponentRenderer
-                key={index}
-                component={item}
-                parent={component}
-              ></ComponentRenderer>
-            );
+            return <ComponentRenderer key={index} component={item} parent={component}></ComponentRenderer>;
           })}
       </div>
     </div>

@@ -40,19 +40,10 @@ const MobCourseListPageHeader: FC<CourseListPageHeaderProps> = ({
     setSearchValue(defaultValue);
   }, [defaultValue]);
   return (
-    <div
-      className={cn(
-        'relative min-h-[18rem] bg-yellow-primary px-[1.25rem] pb-[5.625rem]',
-        className
-      )}
-    >
+    <div className={cn('relative min-h-[18rem] bg-yellow-primary px-[1.25rem] pb-[5.625rem]', className)}>
       <div className="pt-[7.5rem]">
         <h1 className="text-h1-mob text-neutral-black">{title}</h1>
-        {description ? (
-          <div className="bdy-m mt-[1rem] text-neutral-rich-gray">
-            {description}
-          </div>
-        ) : null}
+        {description ? <div className="bdy-m mt-[1rem] text-neutral-rich-gray">{description}</div> : null}
         {buttonNode ? <div className="mt-[2.5rem]">{buttonNode}</div> : null}
         {onSearch ? (
           <div className="mt-[1.25rem] flex w-full items-center gap-3 rounded-[3.5rem] border border-neutral-light-gray bg-neutral-white px-3 py-2">
@@ -105,12 +96,7 @@ const MobCourseListPageHeader: FC<CourseListPageHeaderProps> = ({
       <div className={cn('absolute right-0 top-0', coverImgClassName)}>
         {coverImage}
         {!coverImage && coverImageUrl && (
-          <Image
-            src={coverImageUrl}
-            alt={`${title} cover`}
-            width={coverWidth}
-            height={coverHeight}
-          ></Image>
+          <Image src={coverImageUrl} alt={`${title} cover`} width={coverWidth} height={coverHeight}></Image>
         )}
       </div>
     </div>

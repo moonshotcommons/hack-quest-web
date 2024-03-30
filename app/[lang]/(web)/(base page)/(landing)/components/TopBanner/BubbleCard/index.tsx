@@ -6,11 +6,7 @@ interface BubbleCardProps {
   className?: string;
 }
 
-const BubbleCard: FC<BubbleCardProps> = ({
-  children,
-  direction,
-  className
-}) => {
+const BubbleCard: FC<BubbleCardProps> = ({ children, direction, className }) => {
   return (
     <div
       className={`rounded-[24px] bg-neutral-black shadow-[3px_3px_0px_0px_#FFF] ${

@@ -126,9 +126,7 @@ const Campaigns: React.FC<CampaignsProp> = () => {
           ref={certificationModalRef}
           certification={mantles[curIndex]?.certification || {}}
           showCoin={true}
-          refreshCertification={() =>
-            getCampaignsInfo(params.campaignId as string)
-          }
+          refreshCertification={() => getCampaignsInfo(params.campaignId as string)}
         />
       </div>
     </MantleContext.Provider>

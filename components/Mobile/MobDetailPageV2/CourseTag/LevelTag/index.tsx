@@ -41,13 +41,9 @@ const LevelTag: FC<LevelTagProps> = (props) => {
       )}
       <div className="flex flex-col">
         {!!label && label}
-        {!label && (
-          <span className="body-xs text-neutral-medium-gray">Skill Level</span>
-        )}
+        {!label && <span className="body-xs text-neutral-medium-gray">Skill Level</span>}
         {!!valueNode && valueNode}
-        {!valueNode && value && (
-          <span className="body-s-bold capitalize">{value.toLowerCase()}</span>
-        )}
+        {!valueNode && value && <span className="body-s-bold capitalize">{value.toLowerCase()}</span>}
       </div>
     </div>
   );

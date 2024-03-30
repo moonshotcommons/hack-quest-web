@@ -19,18 +19,9 @@ const HackDetail: FC<HackDetailProps> = ({ hackathon }) => {
           <HackathonImg hackathon={hackathon} />
           <HackathonInfo hackathon={hackathon} />
           <About hackathon={hackathon} />
-          <GuestMentors
-            listData={hackathon.guestsAndMentors}
-            title="Guests and Mentors"
-          />
-          <MediaCommunity
-            listData={hackathon.mediaPartners}
-            title="Media Partners"
-          />
-          <MediaCommunity
-            listData={hackathon.communityPartners}
-            title="Community Partners"
-          />
+          <GuestMentors listData={hackathon.guestsAndMentors} title="Guests and Mentors" />
+          <MediaCommunity listData={hackathon.mediaPartners} title="Media Partners" />
+          <MediaCommunity listData={hackathon.communityPartners} title="Community Partners" />
         </>
       )}
       <PageRetentionTime trackName="hackathon-detail-页面留存时间"></PageRetentionTime>

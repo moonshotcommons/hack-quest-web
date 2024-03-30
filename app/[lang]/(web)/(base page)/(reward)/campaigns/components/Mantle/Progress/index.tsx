@@ -26,8 +26,7 @@ const Progress: React.FC<ProgressProp> = () => {
         {schedule.schedulePeriod.map((s, i) => (
           <div key={i} className="w-[19.6%]">
             <div className="relative h-[25px]">
-              {(schedule.curPeriod === i ||
-                (i === periodNum - 1 && s[0] === s[1])) && (
+              {(schedule.curPeriod === i || (i === periodNum - 1 && s[0] === s[1])) && (
                 <div
                   className="absolute top-0 h-[40px] translate-x-[-100%] border-r border-r-yellow-primary pr-[2px] transition-all"
                   style={{
@@ -49,12 +48,7 @@ const Progress: React.FC<ProgressProp> = () => {
             <div className="text-right">{s[1] * (i + 1)}</div>
           </div>
         ))}
-        <Image
-          src={BIcon}
-          width={21}
-          alt="icon"
-          className="absolute bottom-[4px] left-0"
-        ></Image>
+        <Image src={BIcon} width={21} alt="icon" className="absolute bottom-[4px] left-0"></Image>
       </div>
     </div>
   );

@@ -17,10 +17,7 @@ const Progress: FC<ProgressProps> = ({ total, current }) => {
         return (
           <div
             key={index}
-            className={cn(
-              'h-[6px] w-10 rounded-[2px]',
-              item < current ? 'bg-[#FCC409]' : 'bg-[#DADADA]'
-            )}
+            className={cn('h-[6px] w-10 rounded-[2px]', item < current ? 'bg-[#FCC409]' : 'bg-[#DADADA]')}
           ></div>
         );
       })}

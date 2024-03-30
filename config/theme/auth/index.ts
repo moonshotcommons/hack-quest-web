@@ -17,20 +17,16 @@ export const authThemeColors = {
   'auth-input-checkbox-border-color': 'var(--auth-input-checkbox-border-color)',
   'auth-input-checkbox-hover-bg': 'var(--auth-input-checkbox-hover-bg)',
   'auth-primary-button-border-color': 'var(--auth-primary-button-border-color)',
-  'auth-primary-button-border-hover-color':
-    'var(--auth-primary-button-border-hover-color)',
+  'auth-primary-button-border-hover-color': 'var(--auth-primary-button-border-hover-color)',
   'auth-primary-button-bg': 'var(--auth-primary-button-bg)',
   'auth-primary-button-hover-bg': 'var(--auth-primary-button-hover-bg)',
   'auth-primary-button-text-color': 'var(--auth-primary-button-text-color)',
-  'auth-primary-button-text-hover-color':
-    'var(--auth-primary-button-text-hover-color)',
+  'auth-primary-button-text-hover-color': 'var(--auth-primary-button-text-hover-color)',
   'auth-ghost-button-bg': 'var(--auth-ghost-button-bg)',
   'auth-ghost-button-hover-bg': 'var(--auth-ghost-button-hover-bg)',
   'auth-ghost-button-text-color': 'var(--auth-ghost-button-text-color)',
-  'auth-ghost-button-hover-text-color':
-    'var(--auth-ghost-button-hover-text-color)',
+  'auth-ghost-button-hover-text-color': 'var(--auth-ghost-button-hover-text-color)',
   'auth-ghost-button-border-color': 'var(--auth-ghost-button-border-color)',
-  'auth-ghost-button-hover-border-color':
-    'var(--auth-ghost-button-hover-border-color)',
+  'auth-ghost-button-hover-border-color': 'var(--auth-ghost-button-hover-border-color)',
   'auth-description-text-color': 'var(--auth-description-text-color)'
 };

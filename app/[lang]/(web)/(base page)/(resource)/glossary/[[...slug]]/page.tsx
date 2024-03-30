@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import Glossary from '../components';
+import Glossary from '..';
 
 interface SearchParamsType {
   searchParams: {};
@@ -8,10 +8,7 @@ interface SearchParamsType {
   };
 }
 
-export async function generateMetadata({
-  params,
-  searchParams
-}: SearchParamsType): Promise<Metadata> {
+export async function generateMetadata({ params, searchParams }: SearchParamsType): Promise<Metadata> {
   let pathname = `${params.slug?.join('/') ?? ''}` || '';
   pathname = pathname ? '/' + pathname : '';
 

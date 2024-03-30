@@ -1,14 +1,6 @@
 import { cn } from '@/helper/utils';
 import { Rule } from 'async-validator';
-import {
-  InputHTMLAttributes,
-  ReactNode,
-  forwardRef,
-  useEffect,
-  useImperativeHandle,
-  useRef,
-  useState
-} from 'react';
+import { InputHTMLAttributes, ReactNode, forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import CloseIcon from '../Icon/Close';
 import PassIcon from '../Icon/Pass';
 import { AiFillCaretDown } from 'react-icons/ai';
@@ -36,10 +28,7 @@ export interface InputRef {
   blur: () => void;
 }
 
-const Select = forwardRef<
-  InputRef,
-  SelectProps & InputHTMLAttributes<HTMLInputElement>
->((props, ref) => {
+const Select = forwardRef<InputRef, SelectProps & InputHTMLAttributes<HTMLInputElement>>((props, ref) => {
   const {
     label,
     placeholder,
@@ -114,21 +103,15 @@ const Select = forwardRef<
             `body-m w-full cursor-pointer rounded-[2.5rem] border border-solid border-neutral-medium-gray px-[25px] py-[15px]  caret-[#ffffff] outline-none hover:border-neutral-dark-gray focus:border-neutral-dark-gray`,
             // type === 'password' &&
             //   'border-auth-password-input-bg focus:border-neutral-dark-gray',
-            status === 'success'
-              ? 'border-auth-input-success-color focus:border-auth-input-success-color'
-              : '',
-            status === 'error'
-              ? 'border-status-error-dark focus:border-status-error-dark'
-              : '',
+            status === 'success' ? 'border-auth-input-success-color focus:border-auth-input-success-color' : '',
+            status === 'error' ? 'border-status-error-dark focus:border-status-error-dark' : '',
             className
           )}
           {...rest}
         />
 
         <span className="absolute right-[1.4375rem] top-[50%] flex -translate-y-[50%] items-center gap-4">
-          {status === 'default' && (
-            <AiFillCaretDown className=" text-[20px] text-neutral-medium-gray" />
-          )}
+          {status === 'default' && <AiFillCaretDown className=" text-[20px] text-neutral-medium-gray" />}
           {status === 'error' && (
             <span
               className="flex cursor-pointer items-center justify-center text-auth-input-error-color"
@@ -175,9 +158,7 @@ const Select = forwardRef<
                   }}
                 >
                   <span>{v.label}</span>
-                  {value === v.value && (
-                    <FiCheck className="body-s text-neutral-rich-gray" />
-                  )}
+                  {value === v.value && <FiCheck className="body-s text-neutral-rich-gray" />}
                 </li>
               ))}
             </ul>

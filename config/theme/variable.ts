@@ -9,16 +9,8 @@ import { layoutThemeColors } from './layout';
 import { landingThemeColors } from './landing';
 import { settingThemeColors, settingBorderColors } from './setting';
 import { notionRendererThemeColors } from './notionRenderer';
-import {
-  lessonThemeColors,
-  lessonThemeBackgroundColor,
-  lessonThemeBorderColor
-} from './lesson';
-import {
-  homeThemeColors,
-  homeThemeBackgroundColor,
-  homeThemeBorderColor
-} from './home';
+import { lessonThemeColors, lessonThemeBackgroundColor, lessonThemeBorderColor } from './lesson';
+import { homeThemeColors, homeThemeBackgroundColor, homeThemeBorderColor } from './home';
 import {
   learningTrackThemeColors,
   learningTrackThemeBackgroundColor,

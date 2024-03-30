@@ -1,6 +1,6 @@
 'use client';
 import { FC } from 'react';
-import { useNeedPCRedirect } from '@/hooks/useNeedPCRedirect';
+import { useNeedPCRedirect } from '@/hooks/router/useNeedPCRedirect';
 interface ProjectDetailProps {
   // project: ProjectType;
   // others: ProjectType[];

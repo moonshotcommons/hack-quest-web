@@ -2,13 +2,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Button from '@/components/Common/Button';
-import {
-  HackathonStatusType,
-  HackathonType
-} from '@/service/webApi/resourceStation/type';
-import useDealhackathon from '@/hooks/useDealHackathonData';
+import { HackathonStatusType, HackathonType } from '@/service/webApi/resourceStation/type';
+import useDealhackathon from '@/hooks/resource/useDealHackathonData';
 import { BurialPoint } from '@/helper/burialPoint';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 import Link from 'next/link';
 
 interface HackathonInfoProp {
@@ -19,8 +16,7 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
   const closeInTimeOut = useRef<NodeJS.Timeout | null>(null);
   const [status, setStatus] = useState<HackathonStatusType | null>(null);
   const [closeInTime, setCloseInTime] = useState('');
-  const { getRunFromTime, getCloseInTime, getParticipantsStr } =
-    useDealhackathon();
+  const { getRunFromTime, getCloseInTime, getParticipantsStr } = useDealhackathon();
   const getCloseIn = () => {
     const t = getCloseInTime(hackathon.endTime);
     setStatus(t as HackathonStatusType);
@@ -48,21 +44,14 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
       </div>
       <div>
         <div className="text-h4-mob  mb-[.25rem]">PARTICIPANTS</div>
-        <div className="body-s break-words">
-          {getParticipantsStr(hackathon.participants)}
-        </div>
+        <div className="body-s break-words">{getParticipantsStr(hackathon.participants)}</div>
       </div>
       <div>
         <div className="text-h4-mob mb-[.25rem]">HOST</div>
         {hackathon.hosts.map((v, i) => (
           <div key={i} className="flex-row-center mb-[10px] h-[30px]">
             <div className="relative h-[30px] w-[30px]">
-              <Image
-                src={v.picture}
-                alt="hackathonHost"
-                fill
-                className="object-contain"
-              ></Image>
+              <Image src={v.picture} alt="hackathonHost" fill className="object-contain"></Image>
             </div>
             <span className="body-s pl-[8px] uppercase">{v.name}</span>
           </div>
@@ -74,23 +63,17 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
         ></div>
         <div>
           <div className="body-xs text-neutral-medium-gray">RUNS FROM</div>
-          <div className="body-s">
-            {getRunFromTime(hackathon.startTime, hackathon.endTime)}
-          </div>
+          <div className="body-s">{getRunFromTime(hackathon.startTime, hackathon.endTime)}</div>
         </div>
         <div className="mt-[.5rem]">
           <div className="body-xs text-neutral-medium-gray">HAPPENING</div>
-          <div className="body-s break-words underline">
-            {hackathon.address}
-          </div>
+          <div className="body-s break-words underline">{hackathon.address}</div>
         </div>
       </div>
       {status === HackathonStatusType.ON_GOING ? (
         <>
           <div className="flex flex-col justify-center gap-[.25rem] rounded-[.75rem] bg-[rgba(255,244,206,0.5)]  px-[1.25rem] py-[.25rem] ">
-            <div className="body-xs text-neutral-medium-gray">
-              APPLICATIONS CLOSE IN
-            </div>
+            <div className="body-xs text-neutral-medium-gray">APPLICATIONS CLOSE IN</div>
             <div className="body-s">{closeInTime}</div>
           </div>
           <Button
@@ -106,9 +89,7 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
       ) : status === HackathonStatusType.PAST ? (
         <>
           <div className="flex flex-col justify-center rounded-[8px] bg-[rgba(218,218,218,0.5)] px-[1.25rem] py-[.25rem] ">
-            <div className="body-l text-neutral-rich-gray">
-              This hackathon is not available now.
-            </div>
+            <div className="body-l text-neutral-rich-gray">This hackathon is not available now.</div>
           </div>
           <Link
             onClick={() => {

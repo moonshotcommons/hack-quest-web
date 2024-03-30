@@ -2,13 +2,11 @@ import { FC, ReactNode, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { itemVariants } from '../constant';
-import {
-  MenuLink,
-  NavbarListType
-} from '@/components/Web/Layout/BasePage/Navbar/type';
+import { NavbarListType } from '@/components/Web/Layout/BasePage/Navbar/type';
 import { useGlobalStore } from '@/store/zustand/globalStore';
-import useGetHeight from '@/hooks/useGetHeight';
-import { useRedirect } from '@/hooks/useRedirect';
+import useGetHeight from '@/hooks/dom/useGetHeight';
+import { useRedirect } from '@/hooks/router/useRedirect';
+import MenuLink from '@/constants/MenuLink';
 interface NavListProps {
   navList: NavbarListType[];
   toggleOpen: VoidFunction;
@@ -20,9 +18,7 @@ const NavList: FC<NavListProps> = ({ navList: list, toggleOpen, children }) => {
   const { redirectToUrl } = useRedirect();
   const { pageHeight } = useGetHeight();
 
-  const setTipsModalOpenState = useGlobalStore(
-    (state) => state.setTipsModalOpenState
-  );
+  const setTipsModalOpenState = useGlobalStore((state) => state.setTipsModalOpenState);
 
   const navList = useMemo(() => {
     return list.filter((nav) => nav.id !== 'more');
@@ -50,19 +46,13 @@ const NavList: FC<NavListProps> = ({ navList: list, toggleOpen, children }) => {
       <motion.ul className={`w-full`}>
         {navList.map((item, index) => {
           return (
-            <motion.li
-              key={index}
-              variants={itemVariants}
-              className="body-xl flex w-full flex-col"
-            >
+            <motion.li key={index} variants={itemVariants} className="body-xl flex w-full flex-col">
               <div
                 className="flex w-full items-center justify-between py-[.6875rem]"
                 onClick={() => {
                   if (item.menu.length > 1) {
                     if (openNavKeys.includes(item.id)) {
-                      setOpenNavKeys(
-                        openNavKeys.filter((key) => key !== item.id)
-                      );
+                      setOpenNavKeys(openNavKeys.filter((key) => key !== item.id));
                     } else {
                       setOpenNavKeys(openNavKeys.concat(item.id));
                     }
@@ -83,26 +73,14 @@ const NavList: FC<NavListProps> = ({ navList: list, toggleOpen, children }) => {
                 <div className="h-full px-5">
                   {item.menu?.length > 1 &&
                     (openNavKeys.includes(item.id) ? (
-                      <svg
-                        width="16"
-                        height="16"
-                        viewBox="0 0 16 16"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                           d="M14.6663 7.99967C14.6663 8.36786 14.3679 8.66634 13.9997 8.66634H1.99967C1.63148 8.66634 1.33301 8.36786 1.33301 7.99967C1.33301 7.63148 1.63148 7.33301 1.99967 7.33301H13.9997C14.3679 7.33301 14.6663 7.63148 14.6663 7.99967Z"
                           fill="white"
                         />
                       </svg>
                     ) : (
-                      <svg
-                        width="16"
-                        height="16"
-                        viewBox="0 0 16 16"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                           d="M14.6663 7.99967C14.6663 8.36786 14.3679 8.66634 13.9997 8.66634H8.66634V13.9997C8.66634 14.3679 8.36786 14.6663 7.99967 14.6663C7.63148 14.6663 7.33301 14.3679 7.33301 13.9997V8.66634H1.99967C1.63148 8.66634 1.33301 8.36786 1.33301 7.99967C1.33301 7.63148 1.63148 7.33301 1.99967 7.33301H7.33301V1.99967C7.33301 1.63148 7.63148 1.33301 7.99967 1.33301C8.36786 1.33301 8.66634 1.63148 8.66634 1.99967V7.33301H13.9997C14.3679 7.33301 14.6663 7.63148 14.6663 7.99967Z"
                           fill="white"
@@ -138,10 +116,7 @@ const NavList: FC<NavListProps> = ({ navList: list, toggleOpen, children }) => {
           );
         })}
       </motion.ul>
-      <motion.div
-        variants={itemVariants}
-        className="my-[1.5625rem] h-[1px] w-full bg-neutral-white"
-      ></motion.div>
+      <motion.div variants={itemVariants} className="my-[1.5625rem] h-[1px] w-full bg-neutral-white"></motion.div>
       {children}
     </motion.div>
   );

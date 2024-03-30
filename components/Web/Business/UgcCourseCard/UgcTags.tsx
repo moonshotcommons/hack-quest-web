@@ -15,13 +15,8 @@ const UgcTags: React.FC<UgcTagsProp> = ({ isPublic, course }) => {
       <div className={`${isPublic ? 'w-[60%]' : 'w-[35%]'}`}>
         <CourseUser userImg={InstructorCover} userName={'userName'} />
       </div>
-      <div
-        className={`flex flex-1 items-center  pl-[2%] ${isPublic ? 'justify-end' : 'justify-between'}`}
-      >
-        <CourseLevel
-          level={tagFormate(course.level)}
-          size={'small'}
-        ></CourseLevel>
+      <div className={`flex flex-1 items-center  pl-[2%] ${isPublic ? 'justify-end' : 'justify-between'}`}>
+        <CourseLevel level={tagFormate(course.level)} size={'small'}></CourseLevel>
         {!isPublic && <CourseUserCount count={course.peopleJoined} />}
       </div>
     </div>

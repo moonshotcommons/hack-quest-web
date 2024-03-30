@@ -1,7 +1,7 @@
 'use client';
 import Button from '@/components/Common/Button';
 import Modal from '@/components/Common/Modal';
-import { useRedirect } from '@/hooks/useRedirect';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import { useGlobalStore } from '@/store/zustand/globalStore';
 import { useUserStore } from '@/store/zustand/userStore';
 import React from 'react';
@@ -11,12 +11,8 @@ interface TipsModalProp {}
 const TipsModal: React.FC<TipsModalProp> = () => {
   const { redirectToUrl } = useRedirect();
 
-  const tipsModalOpenState = useGlobalStore(
-    (state) => state.tipsModalOpenState
-  );
-  const setTipsModalOpenState = useGlobalStore(
-    (state) => state.setTipsModalOpenState
-  );
+  const tipsModalOpenState = useGlobalStore((state) => state.tipsModalOpenState);
+  const setTipsModalOpenState = useGlobalStore((state) => state.setTipsModalOpenState);
 
   const userInfo = useUserStore((state) => state.userInfo);
 
@@ -39,8 +35,8 @@ const TipsModal: React.FC<TipsModalProp> = () => {
         <p className="text-[48px]">😵</p>
         <p className="body-xl-bold mt-[25px]">Laptop is preferred</p>
         <p className="body-s mt-[20px] w-[255px]">
-          Currently, this feature is exclusive to the Desktop version. For the
-          complete experience, please access it on a Desktop.
+          Currently, this feature is exclusive to the Desktop version. For the complete experience, please access it on
+          a Desktop.
         </p>
         <Button
           className="mt-[20px] h-[34px] w-[140px] bg-neutral-white text-neutral-black"

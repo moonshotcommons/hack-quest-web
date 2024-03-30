@@ -5,7 +5,7 @@ import { CourseTab } from '../../constants/type';
 import CourseList from '../CourseList';
 import { useRouter } from 'next/navigation';
 import { getSearchParamsUrl } from '@/helper/utils';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 import { useRequest } from 'ahooks';
 import webApi from '@/service';
 import { UGCCourseType } from '@/service/webApi/course/type';
@@ -31,9 +31,7 @@ const MyCourses: React.FC<MyCoursesProp> = ({ status }) => {
   };
   const { run } = useRequest(
     async () => {
-      const res = await webApi.courseApi.getUgcCourseListBySearch<
-        PageResult<UGCCourseType>
-      >({
+      const res = await webApi.courseApi.getUgcCourseListBySearch<PageResult<UGCCourseType>>({
         status
       });
       setList(res.data);
@@ -48,11 +46,7 @@ const MyCourses: React.FC<MyCoursesProp> = ({ status }) => {
   return (
     <div>
       <div className="mb-[24px] text-neutral-off-black">
-        <CoursesTab
-          courseTab={courseTab}
-          curTab={status}
-          changeTab={changeTab}
-        />
+        <CoursesTab courseTab={courseTab} curTab={status} changeTab={changeTab} />
         <CourseList list={list} />
       </div>
     </div>

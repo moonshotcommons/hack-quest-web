@@ -9,16 +9,9 @@ import { useGlobalStore } from '@/store/zustand/globalStore';
 
 interface PlaygroundSelectModalProps {}
 
-const PlaygroundSelectModal: ForwardRefRenderFunction<
-  unknown,
-  PlaygroundSelectModalProps
-> = (props, ref) => {
-  const playgroundSelectModalOpen = useGlobalStore(
-    (state) => state.playgroundSelectModalOpen
-  );
-  const setPlaygroundSelectModalOpen = useGlobalStore(
-    (state) => state.setPlaygroundSelectModalOpen
-  );
+const PlaygroundSelectModal: ForwardRefRenderFunction<unknown, PlaygroundSelectModalProps> = (props, ref) => {
+  const playgroundSelectModalOpen = useGlobalStore((state) => state.playgroundSelectModalOpen);
+  const setPlaygroundSelectModalOpen = useGlobalStore((state) => state.setPlaygroundSelectModalOpen);
 
   return (
     <Modal
@@ -45,9 +38,7 @@ const PlaygroundSelectModal: ForwardRefRenderFunction<
     >
       <div className="mx-auto w-[67.75rem] rounded-[1rem] bg-neutral-white px-[8rem] py-[4rem] text-center">
         <h3 className="text-h3 text-neutral-black">Playground - Online IDE</h3>
-        <p className="body-s mt-4 text-neutral-black ">
-          Please choose a Web3 language you want to try.
-        </p>
+        <p className="body-s mt-4 text-neutral-black ">Please choose a Web3 language you want to try.</p>
         <div className="my-8 flex gap-3 ">
           {IDE_LIST.map((ide) => {
             return (
@@ -74,28 +65,16 @@ const PlaygroundSelectModal: ForwardRefRenderFunction<
                     ></Image>
                   </div>
                 </div>
-                <p className="body-s mt-6 text-left text-neutral-black">
-                  {ide.description}
-                </p>
+                <p className="body-s mt-6 text-left text-neutral-black">{ide.description}</p>
               </Link>
             );
           })}
         </div>
         <div className="caption-14pt flex justify-center gap-4 pt-4 text-neutral-black">
           <span>Need any help?</span>
-          <Link
-            href={HACKQUEST_DISCORD}
-            className="flex items-center hover:underline"
-            target="_blank"
-          >
+          <Link href={HACKQUEST_DISCORD} className="flex items-center hover:underline" target="_blank">
             <span className="mr-[6px]">Join Discord</span>
-            <svg
-              width="12"
-              height="9"
-              viewBox="0 0 12 9"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
+            <svg width="12" height="9" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M1 4C0.723858 4 0.5 4.22386 0.5 4.5C0.5 4.77614 0.723858 5 1 5L1 4ZM11.3536 4.85356C11.5488 4.65829 11.5488 4.34171 11.3536 4.14645L8.17157 0.964467C7.97631 0.769205 7.65973 0.769205 7.46447 0.964467C7.2692 1.15973 7.2692 1.47631 7.46447 1.67157L10.2929 4.5L7.46447 7.32843C7.2692 7.52369 7.2692 7.84027 7.46447 8.03554C7.65973 8.2308 7.97631 8.2308 8.17157 8.03554L11.3536 4.85356ZM1 5L11 5L11 4L1 4L1 5Z"
                 fill="#0B0B0B"

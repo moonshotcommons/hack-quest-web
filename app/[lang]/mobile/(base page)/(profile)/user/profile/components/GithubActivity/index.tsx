@@ -20,22 +20,14 @@ interface GithubActivityProps {
 
 const GithubActivity: FC<GithubActivityProps> = ({ edit = false }) => {
   const [loading, setLoading] = useState(false);
-  const {
-    profile,
-    refresh,
-    loading: refreshLoading
-  } = useContext(ProfileContext);
+  const { profile, refresh, loading: refreshLoading } = useContext(ProfileContext);
   const handleAdd = async () => {
     BurialPoint.track('user-profile GithubActivity Connect to Github按钮点击');
     setLoading(true);
     webApi.userApi
       .getGithubConnectUrl()
       .then((res) => {
-        window.open(
-          res.url,
-          '_blank',
-          'width=500,height=500,toolbar=no,menubar=no,location=no,status=no'
-        );
+        window.open(res.url, '_blank', 'width=500,height=500,toolbar=no,menubar=no,location=no,status=no');
       })
       .catch((err) => {
         message.error(err.msg);
@@ -77,11 +69,9 @@ const GithubActivity: FC<GithubActivityProps> = ({ edit = false }) => {
       let techStack = [];
       if (techStackArr.length > 5) {
         techStack = techStackArr.slice(0, 5);
-        const othersValue = techStackArr
-          .slice(5, techStackArr.length)
-          .reduce((prev, next) => {
-            return prev + next.value;
-          }, 0);
+        const othersValue = techStackArr.slice(5, techStackArr.length).reduce((prev, next) => {
+          return prev + next.value;
+        }, 0);
         techStack.push({
           name: 'Others',
           value: othersValue
@@ -121,18 +111,14 @@ const GithubActivity: FC<GithubActivityProps> = ({ edit = false }) => {
             <HoverIcon
               type={IconType.REFRESH}
               onClick={() => {
-                BurialPoint.track(
-                  'user-profile GithubActivity refresh icon按钮点击'
-                );
+                BurialPoint.track('user-profile GithubActivity refresh icon按钮点击');
                 handleAdd();
               }}
             />
             <HoverIcon
               type={IconType.UN_LINK}
               onClick={() => {
-                BurialPoint.track(
-                  'user-profile GithubActivity unLink icon按钮点击'
-                );
+                BurialPoint.track('user-profile GithubActivity unLink icon按钮点击');
                 setModalOpen(true);
               }}
             />
@@ -142,12 +128,7 @@ const GithubActivity: FC<GithubActivityProps> = ({ edit = false }) => {
       <div className="text-h3">GithubActivity</div>
       {loading || refreshLoading ? (
         <div className="flex-center relative w-full flex-1">
-          <Image
-            src={Loading}
-            width={40}
-            alt="loading"
-            className="animate-spin object-contain opacity-100"
-          ></Image>
+          <Image src={Loading} width={40} alt="loading" className="animate-spin object-contain opacity-100"></Image>
         </div>
       ) : githubInfo ? (
         <div className="flex">

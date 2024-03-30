@@ -2,10 +2,7 @@
 import { tagFormate } from '@/helper/formate';
 import { cn, getCoursePrefixByCourseType } from '@/helper/utils';
 
-import {
-  LearningTrackDetailType,
-  SectionType
-} from '@/service/webApi/learningTrack/type';
+import { LearningTrackDetailType, SectionType } from '@/service/webApi/learningTrack/type';
 import { FC } from 'react';
 
 import SectionProvider from '../../Provider/SectionProvider';
@@ -20,14 +17,10 @@ interface LearningTrackCatalogueItemProps {
   learningTrackDetail: LearningTrackDetailType;
 }
 
-const LearningTrackCatalogueItem: FC<LearningTrackCatalogueItemProps> = (
-  props
-) => {
+const LearningTrackCatalogueItem: FC<LearningTrackCatalogueItemProps> = (props) => {
   const { section, index: sectionIndex, learningTrackDetail } = props;
 
-  const sectionTitle = (
-    <div className="body-l-bold text-neutral-black">{`${section.name}`}</div>
-  );
+  const sectionTitle = <div className="body-l-bold text-neutral-black">{`${section.name}`}</div>;
 
   return (
     <SectionProvider section={section} sectionIndex={sectionIndex}>
@@ -35,17 +28,10 @@ const LearningTrackCatalogueItem: FC<LearningTrackCatalogueItemProps> = (
         <ul className="mt-4 flex w-full flex-col gap-2 p-4">
           {section.courses.map((course, index: number) => {
             return (
-              <li
-                key={index}
-                className={cn(`flex h-[36px] items-center justify-between`)}
-              >
+              <li key={index} className={cn(`flex h-[36px] items-center justify-between`)}>
                 <div className="min-w-[6.25rem]">
                   <div className="body-xs flex w-fit items-center justify-center rounded-[8px] border border-neutral-off-black px-2 py-[2px]">
-                    {tagFormate(
-                      course.type !== CourseType.UGC
-                        ? course.type
-                        : CourseType.CONCEPT
-                    )}
+                    {tagFormate(course.type !== CourseType.UGC ? course.type : CourseType.CONCEPT)}
                   </div>
                 </div>
                 <Link

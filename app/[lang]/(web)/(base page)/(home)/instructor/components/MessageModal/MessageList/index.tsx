@@ -10,9 +10,7 @@ interface MessageListProp {
 }
 
 const MessageList: React.FC<MessageListProp> = ({ handleClick }) => {
-  const [curTab, setCurTab] = useState<MessageTab>(
-    messageTab[0].value as MessageTab
-  );
+  const [curTab, setCurTab] = useState<MessageTab>(messageTab[0].value as MessageTab);
   const list = Array.from({ length: 10 }).map((v, i) => ({ id: i }));
   return (
     <>

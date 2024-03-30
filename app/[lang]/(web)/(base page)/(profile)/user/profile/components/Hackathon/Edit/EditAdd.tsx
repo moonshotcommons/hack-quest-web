@@ -17,19 +17,10 @@ interface EditAddProp {
 }
 
 const Span: React.FC<{ text: string }> = ({ text }) => {
-  return (
-    <span className="body-l block h-[25px] text-neutral-medium-gray">
-      {text}
-    </span>
-  );
+  return <span className="body-l block h-[25px] text-neutral-medium-gray">{text}</span>;
 };
 
-const EditAdd: React.FC<EditAddProp> = ({
-  onCancel,
-  onRefresh,
-  editType,
-  editEx
-}) => {
+const EditAdd: React.FC<EditAddProp> = ({ onCancel, onRefresh, editType, editEx }) => {
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState<any>({
     role: {
@@ -82,14 +73,8 @@ const EditAdd: React.FC<EditAddProp> = ({
         monthList.findIndex((v) => v.value === start[0]),
         yearList.findIndex((v) => v.value === start[1])
       ];
-      const endIndex = [
-        monthList.findIndex((v) => v.value === end[0]),
-        yearList.findIndex((v) => v.value === end[1])
-      ];
-      if (
-        startIndex[1] < endIndex[1] ||
-        (startIndex[1] === endIndex[1] && startIndex[0] > endIndex[0])
-      ) {
+      const endIndex = [monthList.findIndex((v) => v.value === end[0]), yearList.findIndex((v) => v.value === end[1])];
+      if (startIndex[1] < endIndex[1] || (startIndex[1] === endIndex[1] && startIndex[0] > endIndex[0])) {
         newFormData.endMonth.status = 'error';
         newFormData.endMonth.errorMessage = `The end date must be longer than the start date`;
         newFormData.endYear.status = 'error';
@@ -379,11 +364,7 @@ const EditAdd: React.FC<EditAddProp> = ({
         >
           Cancel
         </Button>
-        <Button
-          loading={loading}
-          className="body-m h-[44px] w-[265px]  bg-yellow-primary  p-0"
-          onClick={handleSubmit}
-        >
+        <Button loading={loading} className="body-m h-[44px] w-[265px]  bg-yellow-primary  p-0" onClick={handleSubmit}>
           Save
         </Button>
       </div>

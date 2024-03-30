@@ -25,9 +25,7 @@ function Electives() {
 
   const [searchKeyword, setSearchKeyword] = useState('');
 
-  const [type, setType] = useState<CourseFilterListType>(
-    CourseFilterListType.DEFAULT
-  );
+  const [type, setType] = useState<CourseFilterListType>(CourseFilterListType.DEFAULT);
 
   const handleScroll = () => {
     if (apiStatus !== 'init') return;
@@ -65,11 +63,7 @@ function Electives() {
   );
 
   return (
-    <div
-      className="h-full overflow-auto"
-      onScroll={handleScroll}
-      ref={selectiveCoursesRef}
-    >
+    <div className="h-full overflow-auto" onScroll={handleScroll} ref={selectiveCoursesRef}>
       <div className="container mx-auto ">
         <CourseListPageHeader
           title="Electives"
@@ -87,9 +81,7 @@ function Electives() {
             renderItem={(course) => {
               return (
                 <div key={course.id} className="w-[calc((100%-60px)/4)]">
-                  <ElectiveCard
-                    course={course as ElectiveCourseType}
-                  ></ElectiveCard>
+                  <ElectiveCard course={course as ElectiveCourseType}></ElectiveCard>
                 </div>
               );
             }}
@@ -102,9 +94,7 @@ function Electives() {
           </div>
         )}
         {type === CourseFilterListType.SEARCH && (
-          <CourseFilterListSearch
-            keyword={searchKeyword}
-          ></CourseFilterListSearch>
+          <CourseFilterListSearch keyword={searchKeyword}></CourseFilterListSearch>
         )}
         {/*
         <SelectiveCoursesBox

@@ -1,20 +1,11 @@
-import {
-  Dispatch,
-  FC,
-  SetStateAction,
-  createContext,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState
-} from 'react';
+import { Dispatch, FC, SetStateAction, createContext, useCallback, useEffect, useMemo, useState } from 'react';
 
 import Button from '@/components/Common/Button';
 import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import CertificationCard from '@/components/Web/Business/Certification/CertificationCardClient';
 import { BurialPoint } from '@/helper/burialPoint';
-import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
-import { useEnrollUnEnroll } from '@/hooks/useLearningTrackHooks/useEnrollUnEnroll';
+import { useJumpLeaningLesson } from '@/hooks/courses/useJumpLeaningLesson';
+import { useEnrollUnEnroll } from '@/hooks/courses/useEnrollUnEnroll';
 import webApi from '@/service';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import CourseDetailHeader from '../CourseDetailHeader';
@@ -39,10 +30,7 @@ export const TrackListContext = createContext<{
 const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
   const { learningTrackDetail, refresh } = props;
 
-  const { enroll, enrollLoading, unEnroll } = useEnrollUnEnroll(
-    learningTrackDetail,
-    refresh
-  );
+  const { enroll, enrollLoading, unEnroll } = useEnrollUnEnroll(learningTrackDetail, refresh);
   const [learningInfo, setLearningInfo] = useState<{
     learningSectionAndCourseName: string;
     learningLessonName: string;
@@ -65,32 +53,28 @@ const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
     return expandList.length === learningTrackDetail?.sections.length;
   }, [expandList, learningTrackDetail?.sections.length]);
 
-  const { learningSection, learningCourse, learningSectionIndex } =
-    useMemo(() => {
-      if (!learningTrackDetail) return {};
-      const sections = learningTrackDetail.sections;
-      let targetSection = sections[0];
-      let targetCourse = targetSection.courses[0];
-      let learningSectionIndex = 0;
-      for (let i = 0; i < sections.length; i++) {
-        const section = sections[i];
-        const course = section.courses.find(
-          (course) =>
-            (!!course.progress && course.progress < 1) || !course.progress
-        );
-        if (course) {
-          targetCourse = course;
-          targetSection = section;
-          learningSectionIndex = i;
-          break;
-        }
+  const { learningSection, learningCourse, learningSectionIndex } = useMemo(() => {
+    if (!learningTrackDetail) return {};
+    const sections = learningTrackDetail.sections;
+    let targetSection = sections[0];
+    let targetCourse = targetSection.courses[0];
+    let learningSectionIndex = 0;
+    for (let i = 0; i < sections.length; i++) {
+      const section = sections[i];
+      const course = section.courses.find((course) => (!!course.progress && course.progress < 1) || !course.progress);
+      if (course) {
+        targetCourse = course;
+        targetSection = section;
+        learningSectionIndex = i;
+        break;
       }
-      return {
-        learningSection: targetSection,
-        learningCourse: targetCourse,
-        learningSectionIndex
-      };
-    }, [learningTrackDetail]);
+    }
+    return {
+      learningSection: targetSection,
+      learningCourse: targetCourse,
+      learningSectionIndex
+    };
+  }, [learningTrackDetail]);
 
   useEffect(() => {
     if (learningCourse && learningTrackDetail?.enrolled) {
@@ -169,9 +153,7 @@ const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
       ></CourseDetailHeader>
       {learningTrackDetail.certificationId && (
         <div className="mb-[20px] mt-[80px]">
-          <CertificationCard
-            certificationId={learningTrackDetail.certificationId}
-          ></CertificationCard>
+          <CertificationCard certificationId={learningTrackDetail.certificationId}></CertificationCard>
         </div>
       )}
       <div className="mt-[60px] w-full">
@@ -183,9 +165,7 @@ const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
               if (expandAll) {
                 setExpandList([]);
               } else {
-                setExpandList(
-                  learningTrackDetail?.sections.map((item, index) => index)
-                );
+                setExpandList(learningTrackDetail?.sections.map((item, index) => index));
               }
 
               BurialPoint.track('learningTrackDetail-Expand All 按钮点击');
@@ -218,10 +198,7 @@ const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
             });
           }}
         >
-          <Button
-            className="body-l w-[270px] px-0 py-[16px] text-neutral-black"
-            type="primary"
-          >
+          <Button className="body-l w-[270px] px-0 py-[16px] text-neutral-black" type="primary">
             Enroll
           </Button>
         </div>

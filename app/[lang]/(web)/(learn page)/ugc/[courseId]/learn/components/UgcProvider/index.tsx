@@ -1,12 +1,6 @@
 'use client';
 import { FC, ReactNode, useEffect, useState } from 'react';
-import {
-  UgcContext,
-  NavbarDataType,
-  FooterButtonText,
-  footerBtnType,
-  FooterButtonStatus
-} from '../../constants/type';
+import { UgcContext, NavbarDataType, FooterButtonText, footerBtnType, FooterButtonStatus } from '../../constants/type';
 import { RendererContext } from '@/components/Web/Business/Renderer/context';
 import { useLearnStore } from '@/store/zustand/learnStore';
 import emitter from '@/store/emitter';
@@ -18,6 +12,7 @@ interface UgcProviderProps {
 const UgcProvider: FC<UgcProviderProps> = ({ children }) => {
   const [navbarData, setNavbarData] = useState<NavbarDataType[]>([]);
   const [expandData, setExpandData] = useState<Record<string, number[]>>({});
+  const [mounted, setMounted] = useState(false);
   const lesson = useLearnStore((state) => state.learnLesson?.lesson);
   const [footerBtn, setFooterBtn] = useState<footerBtnType>({
     footerBtnStatus: FooterButtonStatus.NEXT,
@@ -40,22 +35,23 @@ const UgcProvider: FC<UgcProviderProps> = ({ children }) => {
         lesson,
         footerBtn: footerBtn,
         setFooterBtn: (btn: Partial<footerBtnType>) =>
-          setFooterBtn({
-            ...footerBtn,
+          setFooterBtn((pre) => ({
+            ...pre,
             ...btn
-          }),
+          })),
         expandData,
         updateExpandData: (data: Record<string, number[]>) => {
           setExpandData((state) => ({ ...state, ...data }));
-        }
+        },
+        mounted,
+        setMounted
       }}
     >
       <RendererContext.Provider
         value={{
           textRenderer: {
             textStyle: 'body-l text-neutral-black',
-            codeStyle:
-              'code-l text-code-red bg-neutral-off-white py-[2px] px-[7px]'
+            codeStyle: 'code-l text-code-red bg-neutral-off-white py-[2px] px-[7px]'
           }
         }}
       >

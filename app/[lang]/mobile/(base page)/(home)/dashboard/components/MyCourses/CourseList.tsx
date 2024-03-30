@@ -1,9 +1,4 @@
-import {
-  CourseDetailType,
-  CourseType,
-  ProcessType,
-  ProjectCourseType
-} from '@/service/webApi/course/type';
+import { CourseDetailType, CourseType, ProcessType, ProjectCourseType } from '@/service/webApi/course/type';
 import React from 'react';
 import { ElectiveCourseType } from '@/service/webApi/elective/type';
 import MobElectiveCard from '@/components/Mobile/MobElectiveCard';

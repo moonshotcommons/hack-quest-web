@@ -7,10 +7,7 @@ interface BlogListProp {
   from?: ResourceFrom;
 }
 
-const BlogList: React.FC<BlogListProp> = ({
-  list,
-  from = ResourceFrom.BLOG
-}) => {
+const BlogList: React.FC<BlogListProp> = ({ list, from = ResourceFrom.BLOG }) => {
   return (
     <div className="flex flex-col gap-y-[1rem]">
       {list.map((blog) => (

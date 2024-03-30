@@ -29,9 +29,7 @@ const DropLesson: React.FC<DropLessonProp> = ({
     () => ({
       accept: unitList[unitIndex].pages?.map((v) => v.id),
       drop: (item: LessonMenuType) => {
-        const curIndex = unitList[unitIndex].pages.findIndex(
-          (v) => v.id === item.id
-        );
+        const curIndex = unitList[unitIndex].pages.findIndex((v) => v.id === item.id);
         setLoading(true);
         webApi.ugcCreateApi
           .sortLesson(item.id, {

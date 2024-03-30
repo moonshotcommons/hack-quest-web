@@ -1,7 +1,7 @@
 'use client';
 import { FC } from 'react';
 // import UserProfilePage from './components';
-import { useNeedPCRedirect } from '@/hooks/useNeedPCRedirect';
+import { useNeedPCRedirect } from '@/hooks/router/useNeedPCRedirect';
 
 // export const metadata: Metadata = {
 //   title: 'User Profile'

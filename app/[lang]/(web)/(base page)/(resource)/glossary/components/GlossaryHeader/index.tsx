@@ -1,6 +1,6 @@
 'use client';
 import CourseListPageHeader from '@/components/Web/Business/CourseListPageHeader';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 import React, { useState } from 'react';
 import { HiArrowLongRight } from 'react-icons/hi2';
 import { useRouter } from 'next/navigation';
@@ -42,12 +42,9 @@ const GlossaryHeader: React.FC<GlossaryHeaderProp> = ({ keyword = '' }) => {
         coverImgClassName={'pt-[33px]'}
         onSearch={onSearch}
         defaultValue={keyword}
-        className="pb-[75px]"
+        className="pb-[55px]"
       />
-      <SubmitWordModal
-        open={submitVisible}
-        onClose={() => setSubmitVisible(false)}
-      />
+      <SubmitWordModal open={submitVisible} onClose={() => setSubmitVisible(false)} />
     </>
   );
 };

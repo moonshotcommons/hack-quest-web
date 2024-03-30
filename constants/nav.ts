@@ -1,5 +1,5 @@
 'use client';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 import { locales } from '@/i18n/config';
 
 export const HOME_PATHNAME = '/';
@@ -29,7 +29,7 @@ const isNoNeedUserInfoDetail = (pathname: string) => {
     MenuLink.GLOSSARY,
     MenuLink.ADVOCATE,
     MenuLink.COURSE_MARKET,
-    MenuLink.LANUNCH,
+    MenuLink.LAUNCH,
     '/hackquest/'
   ].some((menu) => pathname.includes(menu));
 };
@@ -40,9 +40,7 @@ export function isNoNeedUserInfo(pathname: string) {
   // if (lang && pathname.startsWith(`/${lang}`)) {
   //   pathname = pathname.replace(`/${lang}`, '');
   // } else if (!lang) {
-  const lang = locales.find(
-    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
-  );
+  const lang = locales.find((locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`);
 
   if (lang && pathname.startsWith(`/${lang}`)) {
     pathname = pathname.replace(`/${lang}`, '');
@@ -53,12 +51,17 @@ export function isNoNeedUserInfo(pathname: string) {
     pathname = pathname.replace('/mobile', '');
   }
 
+  if (!pathname.startsWith('/')) {
+    pathname = '/' + pathname;
+  }
+
   if (
     [HOME_PATHNAME, ALL_COURSES_PATHNAME, PREVIEW_PATH].includes(pathname) ||
     pathname.startsWith(PREVIEW_PATH) ||
     isNoNeedUserInfoDetail(pathname)
-  )
+  ) {
     return true;
+  }
 
   if (/\/[^/]+\/\[courseId\]\/learn\/\[lessonId\]/.test(pathname)) return false;
   if (pathname === DASHBOARD_PATHNAME) return false;

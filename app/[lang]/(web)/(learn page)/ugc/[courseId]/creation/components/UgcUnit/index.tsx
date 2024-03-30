@@ -3,17 +3,12 @@ import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { IoMdAddCircle } from 'react-icons/io';
 import { v4 } from 'uuid';
 import DeleteModal from './DeleteModal';
-import {
-  CreationHandleKey,
-  CreationPageKey,
-  UgcCreateContext,
-  UnitMenuType
-} from '../../constant/type';
+import { CreationHandleKey, CreationPageKey, UgcCreateContext, UnitMenuType } from '../../constant/type';
 import { cloneDeep } from 'lodash-es';
 import { isNull } from '@/helper/utils';
 import emitter from '@/store/emitter';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
-import { useRedirect } from '@/hooks/useRedirect';
+import MenuLink from '@/constants/MenuLink';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import { message } from 'antd';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
@@ -21,7 +16,7 @@ import DragUnit from './DragUnit';
 import DropUnit from './DropUnit';
 import DropLesson from './DropLesson';
 import DrapLesson from './DrapLesson';
-import useUgcCreationDataHanlde from '@/hooks/useUgcCreationDataHanlde';
+import useUgcCreationDataHandle from '@/hooks/courses/useUgcCreationDataHandle';
 import { useUgcCreationStore } from '@/store/zustand/ugcCreationStore';
 import { useShallow } from 'zustand/react/shallow';
 import Loading from '@/components/Common/Loading';
@@ -49,14 +44,9 @@ const UgcUnit: React.FC<UgcUnitProp> = () => {
     });
     return lessonCount > 1;
   }, [unitList]);
-  const {
-    courseId,
-    selectLessonId,
-    selectUnitMenuId,
-    setSelectUnitMenuId,
-    courseInformation
-  } = useContext(UgcCreateContext);
-  const { getUnitList } = useUgcCreationDataHanlde();
+  const { courseId, selectLessonId, selectUnitMenuId, setSelectUnitMenuId, courseInformation } =
+    useContext(UgcCreateContext);
+  const { getUnitList } = useUgcCreationDataHandle();
   const handleAddUit = () => {
     if (unitList.some((v) => isNull(v.title))) {
       message.warning('Please enter unit first');
@@ -98,11 +88,8 @@ const UgcUnit: React.FC<UgcUnitProp> = () => {
         setLoading(false);
       });
   };
-  const showDeleteModal = (
-    type: string,
-    unitIndex: number,
-    lessonIndex = 0
-  ) => {
+
+  const showDeleteModal = (type: string, unitIndex: number, lessonIndex = 0) => {
     if (type === 'unit') {
       setHandleInfo({
         id: unitList[unitIndex].id,
@@ -128,11 +115,12 @@ const UgcUnit: React.FC<UgcUnitProp> = () => {
 
     setDeleteModal(true);
   };
+
   const handleDelete = (id: string, type: string) => {
     setLoading(true);
     if (type === 'unit') {
       webApi.ugcCreateApi
-        .delelteUnit(courseId, id)
+        .deleteUnit(courseId, id)
         .then(() => {
           message.success('success');
           refreshUnit();
@@ -150,13 +138,9 @@ const UgcUnit: React.FC<UgcUnitProp> = () => {
             } else {
               const unitIndex = unitList.findIndex((unit) => unit.id !== id);
               const lessonIdIndex = !unitIndex ? unitIndex : unitIndex - 1;
-              toPathLessonId =
-                newUnitList[unitIndex].pages[lessonIdIndex]?.id ||
-                CreationPageKey.ChooseLesson;
+              toPathLessonId = newUnitList[unitIndex].pages[lessonIdIndex]?.id || CreationPageKey.ChooseLesson;
             }
-            redirectToUrl(
-              `${MenuLink.UGC}/${courseId}/creation/${toPathLessonId}`
-            );
+            redirectToUrl(`${MenuLink.UGC}/${courseId}/creation/${toPathLessonId}`);
           }
         })
         .catch(() => {
@@ -164,18 +148,14 @@ const UgcUnit: React.FC<UgcUnitProp> = () => {
         });
     } else {
       webApi.ugcCreateApi
-        .delelteLesson(id)
+        .deleteLesson(id)
         .then(() => {
           message.success('success');
           refreshUnit();
           setDeleteModal(false);
           const newUnitList = cloneDeep(unitList);
-          const unitIndex = unitList.findIndex((unit) =>
-            unit.pages.some((lesson) => lesson.id === id)
-          );
-          const newLesson = unitList[unitIndex].pages.filter(
-            (lesson) => lesson.id !== id
-          );
+          const unitIndex = unitList.findIndex((unit) => unit.pages.some((lesson) => lesson.id === id));
+          const newLesson = unitList[unitIndex].pages.filter((lesson) => lesson.id !== id);
           newUnitList[unitIndex].pages = newLesson;
           /** 如果当前展示的lesson被删除  则需要跳转新的lesson
            * 删除后的lesson如果为空 默认跳转选择lesson页面
@@ -186,19 +166,11 @@ const UgcUnit: React.FC<UgcUnitProp> = () => {
             if (!newLesson.length) {
               toPathLessonId = CreationPageKey.ChooseLesson;
             } else {
-              const lessonIndex = unitList[unitIndex].pages.findIndex(
-                (lesson) => lesson.id !== id
-              );
-              const lessonIdIndex = !lessonIndex
-                ? lessonIndex
-                : lessonIndex - 1;
-              toPathLessonId =
-                newUnitList[unitIndex].pages[lessonIdIndex]?.id ||
-                CreationPageKey.ChooseLesson;
+              const lessonIndex = unitList[unitIndex].pages.findIndex((lesson) => lesson.id !== id);
+              const lessonIdIndex = !lessonIndex ? lessonIndex : lessonIndex - 1;
+              toPathLessonId = newUnitList[unitIndex].pages[lessonIdIndex]?.id || CreationPageKey.ChooseLesson;
             }
-            redirectToUrl(
-              `${MenuLink.UGC}/${courseId}/creation/${toPathLessonId}`
-            );
+            redirectToUrl(`${MenuLink.UGC}/${courseId}/creation/${toPathLessonId}`);
           }
         })
         .catch(() => {
@@ -206,11 +178,10 @@ const UgcUnit: React.FC<UgcUnitProp> = () => {
         });
     }
   };
+
   const chooseLesson = (id: string) => {
     setSelectUnitMenuId(id);
-    redirectToUrl(
-      `${MenuLink.UGC}/${courseId}/creation/${CreationPageKey.ChooseLesson}`
-    );
+    redirectToUrl(`${MenuLink.UGC}/${courseId}/creation/${CreationPageKey.ChooseLesson}`);
   };
 
   const refreshUnit = async () => {
@@ -221,6 +192,7 @@ const UgcUnit: React.FC<UgcUnitProp> = () => {
   if (emitter.all.get(CreationHandleKey.ADD_LESSON)) {
     emitter.all.delete(CreationHandleKey.ADD_LESSON);
   }
+
   emitter.on(CreationHandleKey.ADD_LESSON, handleAddLesson);
 
   useEffect(() => {
@@ -238,15 +210,8 @@ const UgcUnit: React.FC<UgcUnitProp> = () => {
       <Loading loading={loading}>
         <DndProvider backend={HTML5Backend}>
           {unitList.map((unit, unitIndex) => (
-            <div
-              key={unit.id}
-              className={`mb-[20px] border-b border-neutral-medium-gray pb-[20px]`}
-            >
-              <DropUnit
-                unitList={unitList}
-                index={unitIndex}
-                refreshUnit={refreshUnit}
-              >
+            <div key={unit.id} className={`mb-[20px] border-b border-neutral-medium-gray pb-[20px]`}>
+              <DropUnit unitList={unitList} index={unitIndex} refreshUnit={refreshUnit}>
                 <DragUnit
                   unit={unit}
                   refreshUnit={refreshUnit}
@@ -258,12 +223,8 @@ const UgcUnit: React.FC<UgcUnitProp> = () => {
                   changeDraging={(isDragging) => setUnitDraging(isDragging)}
                 />
               </DropUnit>
-              <div
-                className={`${!unitDraging && unit.title ? 'block' : 'hidden'}`}
-              >
-                <div
-                  className={`body-s  flex-col gap-[15px] pt-[15px] ${unit.isToggle ? 'flex' : 'hidden'}`}
-                >
+              <div className={`${!unitDraging && unit.title ? 'block' : 'hidden'}`}>
+                <div className={`body-s  flex-col gap-[15px] pt-[15px] ${unit.isToggle ? 'flex' : 'hidden'}`}>
                   {unit.pages?.map((lesson, lessonIndex) => (
                     <DropLesson
                       key={lesson.id}
@@ -285,10 +246,7 @@ const UgcUnit: React.FC<UgcUnitProp> = () => {
                     </DropLesson>
                   ))}
                   <div className="flex items-center gap-[7px]">
-                    <IoMdAddCircle
-                      size={24}
-                      className=" flex-shrink-0  text-neutral-medium-gray"
-                    />
+                    <IoMdAddCircle size={24} className=" flex-shrink-0  text-neutral-medium-gray" />
 
                     <input
                       type="text"

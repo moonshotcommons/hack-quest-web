@@ -7,8 +7,8 @@ export const searchTabData = [
     value: 'empty'
   },
   {
-    label: 'News & Announcement',
-    value: 'News & Announcement'
+    label: 'News & Announcements',
+    value: 'News & Announcements'
   },
   {
     label: 'Events',

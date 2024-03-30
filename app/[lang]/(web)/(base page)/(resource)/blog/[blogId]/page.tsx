@@ -5,7 +5,7 @@ import { BlogDetailType } from '@/service/webApi/resourceStation/type';
 import { getBlogById } from '@/service/cach/resource/blog';
 import { permanentRedirect } from 'next/navigation';
 import { isUuid } from '@/helper/utils';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 
 interface BlogDetailProp {
   params: {
@@ -13,9 +13,7 @@ interface BlogDetailProp {
   };
 }
 
-export async function generateMetadata({
-  params
-}: BlogDetailProp): Promise<Metadata> {
+export async function generateMetadata({ params }: BlogDetailProp): Promise<Metadata> {
   const blog: BlogDetailType = await getBlogById(params.blogId);
   return {
     title: blog.title,

@@ -4,7 +4,7 @@ import webApi from '@/service';
 
 import { message } from 'antd';
 import { BurialPoint } from '@/helper/burialPoint';
-import { useGetMissionData } from '@/hooks/useGetMissionData';
+import { useGetMissionData } from '@/hooks/mission/useGetMissionData';
 import { MissionCenterContext } from '../constants/type';
 import UserInfo from './UserInfo';
 import ClaimContent from './ClaimContent';

@@ -33,14 +33,9 @@ const BackgroundImage: FC<BackgroundImageProps> = (props) => {
         onMouseLeave={() => setShowEditIcon(false)}
       >
         <div className="h-full w-full">
-          {Object.keys(profile).includes('backgroundImage') &&
-            !profile?.backgroundImage && (
-              <Image
-                fill
-                alt="background image"
-                src={'/images/user/test_background.png'}
-              ></Image>
-            )}
+          {Object.keys(profile).includes('backgroundImage') && !profile?.backgroundImage && (
+            <Image fill alt="background image" src={'/images/user/test_background.png'}></Image>
+          )}
           {profile?.backgroundImage && (
             <Image
               fill
@@ -66,9 +61,7 @@ const BackgroundImage: FC<BackgroundImageProps> = (props) => {
                 }}
                 onClick={() =>
                   imageCropRef.current?.onEdit({
-                    imageUrl:
-                      profile.backgroundImage ||
-                      '/images/user/test_background.png'
+                    imageUrl: profile.backgroundImage || '/images/user/test_background.png'
                   })
                 }
               ></HoverIcon>

@@ -22,12 +22,7 @@ export type AnnotationType = {
 };
 
 const TextRenderer: FC<TextRendererProps> = (props) => {
-  const {
-    richTextArr,
-    fontSize: propsFontSize,
-    letterSpacing = '0.28px',
-    type
-  } = props;
+  const { richTextArr, fontSize: propsFontSize, letterSpacing = '0.28px', type } = props;
 
   const {
     fontSize: contextFontSize,
@@ -39,19 +34,10 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
   const getTextClassNames = (annotations: AnnotationType) => {
     const className = cn(
       'font-Nunito text-[18px] font-normal leading-[160%] tracking-normal',
-      textStyle &&
-        ![NotionType.H1, NotionType.H2, NotionType.H3].includes(type!)
-        ? textStyle
-        : '',
-      type === NotionType.H1
-        ? 'font-next-book-bold text-[54px] font-extrabold leading-[54px] tracking-normal'
-        : '',
-      type === NotionType.H2
-        ? 'font-next-book-bold text-[40px] font-extrabold leading-[40px] tracking-normal '
-        : '',
-      type === NotionType.H3
-        ? 'font-next-book-bold text-[28px] font-extrabold leading-normal tracking-normal'
-        : '',
+      textStyle && ![NotionType.H1, NotionType.H2, NotionType.H3].includes(type!) ? textStyle : '',
+      type === NotionType.H1 ? 'font-next-book-bold text-[54px] font-extrabold leading-[54px] tracking-normal' : '',
+      type === NotionType.H2 ? 'font-next-book-bold text-[40px] font-extrabold leading-[40px] tracking-normal ' : '',
+      type === NotionType.H3 ? 'font-next-book-bold text-[28px] font-extrabold leading-normal tracking-normal' : '',
       annotations.bold ? 'font-bold' : '',
       annotations.code
         ? !codeStyle
@@ -62,11 +48,7 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
       annotations.strikethrough ? '' : '',
       annotations.underline ? 'underline' : '',
       annotations.color !== 'default'
-        ? `${
-            annotations.color.includes('background')
-              ? `bg-[${annotations.color}]`
-              : `text-${annotations.color}-400`
-          }`
+        ? `${annotations.color.includes('background') ? `bg-[${annotations.color}]` : `text-${annotations.color}-400`}`
         : ''
     );
     return className;
@@ -78,34 +60,20 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
         const annotations = richText.annotations;
         const className = getTextClassNames(annotations);
 
-        if (
-          richText.annotations.code &&
-          /(@@)(((.|\n)*?))((##))/gim.test(richText.plain_text)
-        ) {
+        if (richText.annotations.code && /(@@)(((.|\n)*?))((##))/gim.test(richText.plain_text)) {
           return (
             <DropAnswer
               key={index}
-              answer={
-                [...richText.plain_text.matchAll(/(@@)((.|\n)*?)(##)/gim)].map(
-                  (item) => item[2].trim()
-                )[0]
-              }
+              answer={[...richText.plain_text.matchAll(/(@@)((.|\n)*?)(##)/gim)].map((item) => item[2].trim())[0]}
             ></DropAnswer>
           );
         }
         //处理blog中 居中的text
-        if (
-          richText.plain_text.indexOf('<<image>>') === 0 ||
-          richText.plain_text.indexOf('<<video>>') === 0
-        ) {
-          const plain_text = richText.plain_text.replace(
-            /<<image>>|<<video>>/,
-            ''
-          );
+        if (richText.plain_text.indexOf('<<image>>') === 0 || richText.plain_text.indexOf('<<video>>') === 0) {
+          const plain_text = richText.plain_text.replace(/<<image>>|<<video>>/, '');
           if (richTextArr[index + 1]) {
             const nextPlainText = richTextArr[index + 1].plain_text;
-            richTextArr[index + 1].plain_text =
-              `${plain_text}${nextPlainText}<<image>>`;
+            richTextArr[index + 1].plain_text = `${plain_text}${nextPlainText}<<image>>`;
             return null;
           } else {
             return (
@@ -117,13 +85,11 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
                     fontSize,
                     letterSpacing,
                     color:
-                      annotations.color !== 'default' &&
-                      !annotations.color.includes('background')
+                      annotations.color !== 'default' && !annotations.color.includes('background')
                         ? annotations.color
                         : '',
                     backgroundColor:
-                      annotations.color !== 'default' &&
-                      annotations.color.includes('background')
+                      annotations.color !== 'default' && annotations.color.includes('background')
                         ? annotations.color
                         : ''
                   }}
@@ -134,14 +100,8 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
             );
           }
         }
-        if (
-          richText.plain_text.indexOf('<<image>>') > 0 ||
-          richText.plain_text.indexOf('<<video>>') > 0
-        ) {
-          const plain_text = richText.plain_text.replace(
-            /<<image>>|<<video>>/g,
-            ''
-          );
+        if (richText.plain_text.indexOf('<<image>>') > 0 || richText.plain_text.indexOf('<<video>>') > 0) {
+          const plain_text = richText.plain_text.replace(/<<image>>|<<video>>/g, '');
           if (richText.href) {
             return (
               <p key={index} className="text-center">
@@ -153,14 +113,11 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
                     fontSize,
                     letterSpacing,
                     color:
-                      annotations.color !== 'default' &&
-                      !annotations.code &&
-                      !annotations.color.includes('background')
+                      annotations.color !== 'default' && !annotations.code && !annotations.color.includes('background')
                         ? annotations.color
                         : '',
                     backgroundColor:
-                      annotations.color !== 'default' &&
-                      annotations.color.includes('background')
+                      annotations.color !== 'default' && annotations.color.includes('background')
                         ? annotations.color
                         : ''
                   }}
@@ -180,15 +137,11 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
                   fontSize,
                   letterSpacing,
                   color:
-                    annotations.color !== 'default' &&
-                    !annotations.color.includes('background')
+                    annotations.color !== 'default' && !annotations.color.includes('background')
                       ? annotations.color
                       : '',
                   backgroundColor:
-                    annotations.color !== 'default' &&
-                    annotations.color.includes('background')
-                      ? annotations.color
-                      : ''
+                    annotations.color !== 'default' && annotations.color.includes('background') ? annotations.color : ''
                 }}
               >
                 {plain_text}
@@ -208,16 +161,11 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
                 fontSize,
                 letterSpacing,
                 color:
-                  annotations.color !== 'default' &&
-                  !annotations.code &&
-                  !annotations.color.includes('background')
+                  annotations.color !== 'default' && !annotations.code && !annotations.color.includes('background')
                     ? annotations.color
                     : '',
                 backgroundColor:
-                  annotations.color !== 'default' &&
-                  annotations.color.includes('background')
-                    ? annotations.color
-                    : ''
+                  annotations.color !== 'default' && annotations.color.includes('background') ? annotations.color : ''
               }}
             >
               {richText.plain_text}
@@ -244,15 +192,9 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
               fontSize,
               letterSpacing,
               color:
-                annotations.color !== 'default' &&
-                !annotations.color.includes('background')
-                  ? annotations.color
-                  : '',
+                annotations.color !== 'default' && !annotations.color.includes('background') ? annotations.color : '',
               backgroundColor:
-                annotations.color !== 'default' &&
-                annotations.color.includes('background')
-                  ? annotations.color
-                  : ''
+                annotations.color !== 'default' && annotations.color.includes('background') ? annotations.color : ''
             }}
           >
             {richText.plain_text}

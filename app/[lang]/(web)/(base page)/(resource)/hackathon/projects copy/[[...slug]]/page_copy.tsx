@@ -13,14 +13,10 @@ interface ProjectsPageProps {
 
 export const metadata: Metadata = {
   title: 'Project Archive | HackQuest',
-  description:
-    'Welcome to the central repository for accessing all previous projects from our various hackathons.'
+  description: 'Welcome to the central repository for accessing all previous projects from our various hackathons.'
 };
 
-async function ProjectsPage({
-  params: { slug = [] },
-  searchParams
-}: ProjectsPageProps) {
+async function ProjectsPage({ params: { slug = [] }, searchParams }: ProjectsPageProps) {
   const minPage = Number(slug[1]) < 1 ? 1 : Number(slug[1]);
   const page = slug[0] === 'p' ? minPage : 1;
   const limit = 12;

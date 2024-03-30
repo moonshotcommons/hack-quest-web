@@ -24,9 +24,7 @@ export const ChildrenDropDown = <T,>(props: {
           <li
             key={item.key}
             className={`${index !== 0 ? 'pt-[0.75rem]' : ''} cursor-pointer ${
-              item.disable
-                ? 'cursor-not-allowed text-lesson-dropdown-disable-text-color'
-                : ''
+              item.disable ? 'cursor-not-allowed text-lesson-dropdown-disable-text-color' : ''
             }`}
             onClick={(e) => {
               if (item.disable) return;
@@ -43,13 +41,7 @@ export const ChildrenDropDown = <T,>(props: {
 };
 
 const Dropdown = <P, T>(props: DropdownProps<P, T>) => {
-  const {
-    autoOpen = false,
-    dropData,
-    onSelect,
-    defaultSelectKey,
-    minWidth
-  } = props;
+  const { autoOpen = false, dropData, onSelect, defaultSelectKey, minWidth } = props;
   const [open, setOpen] = useState(() => (autoOpen ? true : false));
   const containerRef = useRef<HTMLElement>(null);
 
@@ -62,10 +54,7 @@ const Dropdown = <P, T>(props: DropdownProps<P, T>) => {
   }, containerRef);
 
   return (
-    <div
-      className="relative w-fit cursor-pointer whitespace-nowrap"
-      ref={containerRef as any}
-    >
+    <div className="relative w-fit cursor-pointer whitespace-nowrap" ref={containerRef as any}>
       <div
         className="flex h-[2.25rem] items-center justify-between rounded-full border border-solid border-lesson-dropdown-border-color text-lesson-dropdown-text-color "
         onClick={() => {
@@ -78,11 +67,7 @@ const Dropdown = <P, T>(props: DropdownProps<P, T>) => {
           </span>
         </div>
         <div className="mr-[1.5rem] flex h-full items-center justify-center text-lesson-dropdown-icon-color">
-          <DropDownIcon
-            width={13}
-            height={11}
-            color="currentColor"
-          ></DropDownIcon>
+          <DropDownIcon width={13} height={11} color="currentColor"></DropDownIcon>
         </div>
       </div>
 
@@ -97,9 +82,7 @@ const Dropdown = <P, T>(props: DropdownProps<P, T>) => {
               <li
                 key={data.key}
                 className={`cursor-pointer pb-[1.25rem] font-bold ${
-                  data.disable
-                    ? 'cursor-not-allowed text-lesson-dropdown-disable-text-color'
-                    : ''
+                  data.disable ? 'cursor-not-allowed text-lesson-dropdown-disable-text-color' : ''
                 }`}
                 onClick={() => {
                   if (data.disable) return;

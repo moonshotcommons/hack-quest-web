@@ -44,26 +44,14 @@ const SubmitWordModal: React.FC<SubmitWordModalProp> = ({ open, onClose }) => {
     }
   }, [open]);
   return (
-    <Modal
-      open={open}
-      onClose={onClose}
-      showCloseIcon
-      icon={<FiX size={30} />}
-      iconClassName="right-[16px] top-[16px]"
-    >
+    <Modal open={open} onClose={onClose} showCloseIcon icon={<FiX size={30} />} iconClassName="right-[16px] top-[16px]">
       <div className="flex w-[670px] flex-col items-center gap-[20px] rounded-[16px] bg-neutral-white px-[40px] py-[48px]">
         {!isSuccess ? (
           <>
-            <p className="text-h3 text-neutral-black">
-              Submit A Word You Want To Know
-            </p>
+            <p className="text-h3 text-neutral-black">Submit A Word You Want To Know</p>
             <div className="w-full">
               <Input
-                label={
-                  <span className="body-l text-neutral-medium-gray">
-                    This is a required question*
-                  </span>
-                }
+                label={<span className="body-l text-neutral-medium-gray">This is a required question*</span>}
                 name=""
                 theme="light"
                 placeholder="Any words about Web3 are welcome..."
@@ -71,9 +59,7 @@ const SubmitWordModal: React.FC<SubmitWordModalProp> = ({ open, onClose }) => {
                 maxLength={60}
                 onChange={(e) => setKeyword(e.target.value)}
               />
-              <div className="body-l mt-[10px] flex w-full justify-end text-neutral-medium-gray">
-                {`${keyword.length}/60`}
-              </div>
+              <div className="body-l mt-[10px] flex w-full justify-end text-neutral-medium-gray">{`${keyword.length}/60`}</div>
             </div>
             <Button
               loading={loading}
@@ -85,30 +71,19 @@ const SubmitWordModal: React.FC<SubmitWordModalProp> = ({ open, onClose }) => {
           </>
         ) : (
           <>
-            <p className="text-h3 text-neutral-black">
-              Submitted Successfully! 🎉
-            </p>
+            <p className="text-h3 text-neutral-black">Submitted Successfully! 🎉</p>
             <p className="body-s text-neutral-black">
-              Thank you for your word submission! Our team will review it, and
-              if approved, it will be added to our Glossary shortly. Stay tuned
-              for updates, and keep exploring the world of Web3 with us!
+              Thank you for your word submission! Our team will review it, and if approved, it will be added to our
+              Glossary shortly. Stay tuned for updates, and keep exploring the world of Web3 with us!
             </p>
-            <Button
-              ghost
-              onClick={onClose}
-              className="button-text-m h-[48px] w-[256px] border-neutral-black uppercase"
-            >
+            <Button ghost onClick={onClose} className="button-text-m h-[48px] w-[256px] border-neutral-black uppercase">
               Close
             </Button>
           </>
         )}
         <div className="caption-14pt flex cursor-pointer justify-center gap-[16px] pt-[16px] text-neutral-black">
           <span>Hear followup?</span>
-          <Link
-            href={HACKQUEST_DISCORD}
-            target="_blank"
-            className="flex items-center gap-[6px]"
-          >
+          <Link href={HACKQUEST_DISCORD} target="_blank" className="flex items-center gap-[6px]">
             <span>Join Discord</span>
             <HiArrowLongRight size={20}></HiArrowLongRight>
           </Link>

@@ -5,8 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import { HiArrowLongRight, HiArrowLongLeft } from 'react-icons/hi2';
 
 function ScrollControl({ changeState }: { changeState?: ChangeState }) {
-  const { handleArrowClick, rightArrowVisible, leftArrowVisible } =
-    changeState || {};
+  const { handleArrowClick, rightArrowVisible, leftArrowVisible } = changeState || {};
 
   const [widthRatio, setWidthRatio] = useState(0);
   const [translateX, setTranslateX] = useState(0);

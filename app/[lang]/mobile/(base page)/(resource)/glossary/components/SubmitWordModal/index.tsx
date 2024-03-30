@@ -44,26 +44,14 @@ const SubmitWordModal: React.FC<SubmitWordModalProp> = ({ open, onClose }) => {
     }
   }, [open]);
   return (
-    <Modal
-      open={open}
-      onClose={onClose}
-      showCloseIcon
-      icon={<FiX size={30} />}
-      iconClassName="right-[16px] top-[16px]"
-    >
+    <Modal open={open} onClose={onClose} showCloseIcon icon={<FiX size={30} />} iconClassName="right-[16px] top-[16px]">
       <div className="flex w-[calc(100vw-2.5rem)] flex-col items-center gap-[1rem] rounded-[1rem] bg-neutral-white px-[1.5rem] py-[3rem]">
         {!isSuccess ? (
           <>
-            <p className="text-h3-mob text-neutral-black">
-              Submit A Word You Want To Know
-            </p>
+            <p className="text-h3-mob text-neutral-black">Submit A Word You Want To Know</p>
             <div className="w-full">
               <Input
-                label={
-                  <span className="body-m text-neutral-medium-gray">
-                    This is a required question*
-                  </span>
-                }
+                label={<span className="body-m text-neutral-medium-gray">This is a required question*</span>}
                 theme="light"
                 name=""
                 placeholder="Any words about Web3 are welcome..."
@@ -71,13 +59,11 @@ const SubmitWordModal: React.FC<SubmitWordModalProp> = ({ open, onClose }) => {
                 maxLength={60}
                 onChange={(e) => setKeyword(e.target.value)}
               />
-              <div className="body-m mt-[10px] flex w-full justify-end text-neutral-medium-gray">
-                {`${keyword.length}/60`}
-              </div>
+              <div className="body-m mt-[10px] flex w-full justify-end text-neutral-medium-gray">{`${keyword.length}/60`}</div>
             </div>
             <Button
               loading={loading}
-              className={`button-text-m h-[2.125rem] w-[8.75rem] uppercase ${keyword ? 'bg-yellow-primary text-neutral-black' : 'cursor-not-allowed bg-neutral-light-gray text-neutral-medium-gray'}`}
+              className={`button-text-s h-[2.125rem] w-[8.75rem] uppercase ${keyword ? 'bg-yellow-primary text-neutral-black' : 'cursor-not-allowed bg-neutral-light-gray text-neutral-medium-gray'}`}
               onClick={onSubmit}
             >
               submit
@@ -85,18 +71,15 @@ const SubmitWordModal: React.FC<SubmitWordModalProp> = ({ open, onClose }) => {
           </>
         ) : (
           <>
-            <p className="text-h3 text-neutral-black">
-              Submitted Successfully! 🎉
-            </p>
+            <p className="text-h3 text-neutral-black">Submitted Successfully! 🎉</p>
             <p className="body-s text-neutral-black">
-              Thank you for your word submission! Our team will review it, and
-              if approved, it will be added to our Glossary shortly. Stay tuned
-              for updates, and keep exploring the world of Web3 with us!
+              Thank you for your word submission! Our team will review it, and if approved, it will be added to our
+              Glossary shortly. Stay tuned for updates, and keep exploring the world of Web3 with us!
             </p>
             <Button
               ghost
               onClick={onClose}
-              className="button-text-m h-[48px] w-[256px] border-neutral-black uppercase"
+              className="button-text-s  h-[2.125rem] w-[8.75rem] border-neutral-black uppercase"
             >
               Close
             </Button>
@@ -104,11 +87,7 @@ const SubmitWordModal: React.FC<SubmitWordModalProp> = ({ open, onClose }) => {
         )}
         <div className="caption-14pt flex cursor-pointer justify-center gap-[16px] pt-[1rem] text-neutral-black">
           <span>Hear followup?</span>
-          <Link
-            href={HACKQUEST_DISCORD}
-            target="_blank"
-            className="flex items-center gap-[6px]"
-          >
+          <Link href={HACKQUEST_DISCORD} target="_blank" className="flex items-center gap-[6px]">
             <span>Join Discord</span>
             <HiArrowLongRight size={20}></HiArrowLongRight>
           </Link>

@@ -44,12 +44,7 @@ const ClaimContent: React.FC<ClaimContentProp> = ({ missionClaim }) => {
   const renderContent = () => {
     switch (curIndex) {
       case 0:
-        return (
-          <DailyBonus
-            missionData={missionData.dailyBonus}
-            missionClaim={missionClaim}
-          />
-        );
+        return <DailyBonus missionData={missionData.dailyBonus} missionClaim={missionClaim} />;
       case 1:
         return (
           <BeginnerRewards

@@ -6,12 +6,9 @@ import webApi from '@/service';
 import { FC } from 'react';
 import Loading from '@/components/Common/Loading';
 import Pagination from '@/components/Common/Pagination';
-import {
-  HackathonStatusType,
-  HackathonType
-} from '@/service/webApi/resourceStation/type';
+import { HackathonStatusType, HackathonType } from '@/service/webApi/resourceStation/type';
 import { errorMessage } from '@/helper/ui';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 
 interface PastProps {
   page: number;

@@ -17,9 +17,7 @@ function Practices() {
   const [page, setPage] = useState(0);
   const [topProjects, setTopProjects] = useState<ProjectCourseType[]>([]);
   const [searchKeyword, setSearchKeyword] = useState('');
-  const [type, setType] = useState<CourseFilterListType>(
-    CourseFilterListType.DEFAULT
-  );
+  const [type, setType] = useState<CourseFilterListType>(CourseFilterListType.DEFAULT);
 
   const handleScroll = () => {
     const clientHeight = selectiveCoursesRef.current?.clientHeight || 0;
@@ -67,11 +65,7 @@ function Practices() {
   );
 
   return (
-    <div
-      className="h-full overflow-auto"
-      onScroll={handleScroll}
-      ref={selectiveCoursesRef}
-    >
+    <div className="h-full overflow-auto" onScroll={handleScroll} ref={selectiveCoursesRef}>
       <div className="container mx-auto">
         <CourseListPageHeader
           title="Projects"
@@ -92,9 +86,7 @@ function Practices() {
             renderItem={(course) => {
               return (
                 <div key={course.id} className="w-[calc((100%-60px)/4)]">
-                  <PracticeCard
-                    course={course as ProjectCourseType}
-                  ></PracticeCard>
+                  <PracticeCard course={course as ProjectCourseType}></PracticeCard>
                 </div>
               );
             }}
@@ -113,9 +105,7 @@ function Practices() {
 
         {/* Course Search List */}
         {type === CourseFilterListType.SEARCH && (
-          <CourseFilterListSearch
-            keyword={searchKeyword}
-          ></CourseFilterListSearch>
+          <CourseFilterListSearch keyword={searchKeyword}></CourseFilterListSearch>
         )}
         {/*
         <SelectiveCoursesBox

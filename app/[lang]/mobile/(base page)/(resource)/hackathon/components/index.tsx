@@ -2,10 +2,7 @@ import React from 'react';
 import PageRetentionTime from '@/components/Common/PageRetentionTime';
 import HackathonBox from './HackathonBox';
 import FeaturedProjects from './FeaturedProject';
-import {
-  HackathonStatusType,
-  ProjectType
-} from '@/service/webApi/resourceStation/type';
+import { HackathonStatusType, ProjectType } from '@/service/webApi/resourceStation/type';
 
 interface HackathonProps {
   featured: ProjectType[];

@@ -1,7 +1,7 @@
-import { FC, useContext, useEffect, useMemo, useState } from 'react';
+import { FC, useContext, useEffect, useState } from 'react';
 import { ProfileContext } from '../../constants/type';
 import Button from '@/components/Common/Button';
-import { useConnect } from 'wagmi';
+import { useAccount } from 'wagmi';
 import HoverIcon from '@/components/Web/Business/HoverIcon';
 import { IconType } from '@/components/Web/Business/HoverIcon/type';
 import { useRequest } from 'ahooks';
@@ -9,7 +9,7 @@ import { errorMessage } from '@/helper/ui';
 import { message } from 'antd';
 import webApi from '@/service';
 import Confirm from '../components/Confirm';
-
+import { useConnectModal } from '@rainbow-me/rainbowkit';
 import Loading from '@/public/images/other/loading.png';
 import Image from 'next/image';
 interface OnChainActivityProps {}
@@ -25,40 +25,20 @@ const OnChainActivity: FC<OnChainActivityProps> = (props) => {
 
   const [confirmOpen, setConfirmOpen] = useState(false);
 
-  const { connectAsync, connectors, error, isLoading, pendingConnector, data } =
-    useConnect();
+  const { openConnectModal } = useConnectModal();
 
-  const metamaskConnector = useMemo(() => {
-    return connectors.find((item) => item.id === 'metaMask');
-  }, [connectors]);
+  const account = useAccount();
 
   const { run: connectToMetaMask, loading } = useRequest(
     async () => {
-      if (metamaskConnector) {
-        try {
-          const isAccount = await metamaskConnector.isAuthorized();
-          let account = null;
-          if (isAccount) {
-            account = await metamaskConnector.getAccount();
-          }
+      if (!account?.isConnected && openConnectModal) {
+        openConnectModal();
+        throw new Error('Please connect your wallet first!');
+      }
 
-          if (!account) {
-            const connectRes = await connectAsync({
-              connector: metamaskConnector
-            });
-            account = connectRes.account;
-          }
-          if (account) {
-            const res = await webApi.userApi.linkChain(account);
-            return res;
-          } else {
-            throw new Error('Failed to link MetaMask');
-          }
-        } catch (err) {
-          errorMessage(err);
-        }
-      } else {
-        message.error('No metaMask connector found!');
+      if (account) {
+        const res = await webApi.userApi.linkChain(account.address!);
+        return res;
       }
     },
     {
@@ -144,37 +124,26 @@ const OnChainActivity: FC<OnChainActivityProps> = (props) => {
                 <span className="font-next-book-Thin text-[54px] leading-[160%] tracking-[0.162px] text-neutral-black">
                   0
                 </span>
-                <p className="body-m mt-5 text-neutral-medium-gray">
-                  Deployed Contracts
-                </p>
+                <p className="body-m mt-5 text-neutral-medium-gray">Deployed Contracts</p>
               </div>
               <div className="flex flex-1 flex-col items-center">
                 <span className="font-next-book-Thin text-[54px] leading-[160%] tracking-[0.162px] text-neutral-black">
                   {chainData?.transactionCount}
                 </span>
-                <p className="body-m mt-5 text-neutral-medium-gray">
-                  DeFi Interaction
-                </p>
+                <p className="body-m mt-5 text-neutral-medium-gray">DeFi Interaction</p>
               </div>
             </div>
           )}
           {refreshChainLoading && (
             <div className="flex-center relative h-full w-full flex-1">
-              <Image
-                src={Loading}
-                width={40}
-                alt="loading"
-                className="animate-spin object-contain opacity-100"
-              ></Image>
+              <Image src={Loading} width={40} alt="loading" className="animate-spin object-contain opacity-100"></Image>
             </div>
           )}
         </>
       )}
       {Object.keys(chainData || {}).length <= 0 && (
         <div className="flex flex-col items-center">
-          <p className="body-l mt-[48px] text-center">
-            Share your on-chain activities
-          </p>
+          <p className="body-l mt-[48px] text-center">Share your on-chain activities</p>
           <Button
             type="primary"
             disabled={loading}

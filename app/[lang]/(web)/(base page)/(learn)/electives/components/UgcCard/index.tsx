@@ -1,4 +1,4 @@
-import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
+import { useJumpLeaningLesson } from '@/hooks/courses/useJumpLeaningLesson';
 import { FC } from 'react';
 
 interface UgcCardProps {
@@ -14,9 +14,7 @@ const UgcCard: FC<UgcCardProps> = ({ course }) => {
         jumpLearningLesson(course);
       }}
     >
-      <div className="h-20 w-[6.25rem] bg-gray-500 text-neutral-black">
-        {course.title}
-      </div>
+      <div className="h-20 w-[6.25rem] bg-gray-500 text-neutral-black">{course.title}</div>
       <p>UGC卡片</p>
       <p>临时跳转链接</p>
     </div>

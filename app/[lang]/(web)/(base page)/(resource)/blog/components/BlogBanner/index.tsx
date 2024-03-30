@@ -10,7 +10,7 @@ import { BlogSearchType } from '@/service/webApi/resourceStation/type';
 import { useRouter } from 'next/navigation';
 import { cloneDeep } from 'lodash-es';
 import Link from 'next/link';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 import { getSearchParamsUrl } from '@/helper/utils';
 import { HiArrowLongRight } from 'react-icons/hi2';
 
@@ -108,9 +108,8 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
             <div className="flex flex-col gap-[20px]">
               <h1 className="text-h2">Blog</h1>
               <p className="body-l w-[686px] text-neutral-rich-gray">
-                Explore our Web3 Blog – your hub for news, events, and study
-                notes! Contribute your insights, shaping the conversation in the
-                world of decentralized tech.
+                Explore our Web3 Blog – your hub for news, events, and study notes! Contribute your insights, shaping
+                the conversation in the world of decentralized tech.
               </p>
 
               <Link
@@ -129,9 +128,7 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
                   <div
                     tabIndex={0}
                     className={`relative cursor-pointer rounded-[100px] px-[20px] py-[6px] ${
-                      sortVisible
-                        ? 'bg-neutral-light-gray text-neutral-medium-gray'
-                        : 'text-neutral-black'
+                      sortVisible ? 'bg-neutral-light-gray text-neutral-medium-gray' : 'text-neutral-black'
                     }`}
                     onClick={() => setSortVisible(!sortVisible)}
                     onBlur={() => {
@@ -152,18 +149,10 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
                           <div
                             key={v.value}
                             onClick={() => changeSort(v.value)}
-                            className={`flex h-[40px] items-center px-[20px] ${
-                              searchInfo.sort === v.value
-                                ? 'bg-neutral-light-gray'
-                                : ''
-                            }`}
+                            className={`flex h-[40px] items-center px-[20px] ${searchInfo.sort === v.value ? 'bg-neutral-light-gray' : ''}`}
                           >
-                            <div className="mr-[30px] whitespace-nowrap">
-                              {v.label}
-                            </div>
-                            {searchInfo.sort === v.value && (
-                              <BiCheck size={24} />
-                            )}
+                            <div className="mr-[30px] whitespace-nowrap">{v.label}</div>
+                            {searchInfo.sort === v.value && <BiCheck size={24} />}
                           </div>
                         ))}
                       </div>
@@ -180,9 +169,7 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
                         className={`${
                           v.value !== 'empty'
                             ? `relative cursor-pointer rounded-[100px] px-[20px] py-[7px] ${
-                                searchInfo.category === v.value
-                                  ? 'text-neutral-black'
-                                  : ''
+                                searchInfo.category === v.value ? 'text-neutral-black' : ''
                               }`
                             : 'h-[41px] w-[30px]'
                         }`}
@@ -208,11 +195,7 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
                   </SlideHighlight>
                 </div>
               )}
-              <div
-                className={` flex items-center ${
-                  inputVisible ? 'flex-1 justify-between' : ''
-                }`}
-              >
+              <div className={` flex items-center ${inputVisible ? 'flex-1 justify-between' : ''}`}>
                 {inputVisible ? (
                   <>
                     <input
@@ -223,17 +206,10 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
                       onInput={changeInput}
                       ref={inputRef}
                     />
-                    <FiX
-                      size={32}
-                      className="cursor-pointer"
-                      onClick={changeInputVisible}
-                    />
+                    <FiX size={32} className="cursor-pointer" onClick={changeInputVisible} />
                   </>
                 ) : (
-                  <div
-                    onClick={() => setInputVisible(true)}
-                    className="flex cursor-pointer  items-center"
-                  >
+                  <div onClick={() => setInputVisible(true)} className="flex cursor-pointer  items-center">
                     <span className="mr-[6px] text-[24px]">Search</span>
                     <BiSearch size={32} />
                   </div>
@@ -244,9 +220,7 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
         </div>
       </div>
       <div
-        className={`fixed left-0 top-0 z-[9] h-full w-full bg-neutral-black opacity-50 ${
-          !keyword && inputVisible ? 'block' : 'hidden'
-        }`}
+        className={`fixed left-0 top-0 z-[9] h-full w-full bg-neutral-black opacity-50 ${!keyword && inputVisible ? 'block' : 'hidden'}`}
       ></div>
     </>
   );

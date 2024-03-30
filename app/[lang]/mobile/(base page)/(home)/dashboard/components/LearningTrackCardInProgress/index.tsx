@@ -5,18 +5,16 @@ import React, { MouseEvent } from 'react';
 import Button from '@/components/Common/Button';
 import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import { BurialPoint } from '@/helper/burialPoint';
-import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
-import { useRedirect } from '@/hooks/useRedirect';
+import { useJumpLeaningLesson } from '@/hooks/courses/useJumpLeaningLesson';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import MobCardProgress from '@/components/Mobile/MobCardProgress';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 
 interface LearningTrackCardInProgressProp {
   learningTrack: LearningTrackDetailType;
 }
 
-const LearningTrackCardInProgress: React.FC<
-  LearningTrackCardInProgressProp
-> = ({ learningTrack }) => {
+const LearningTrackCardInProgress: React.FC<LearningTrackCardInProgressProp> = ({ learningTrack }) => {
   const { jumpLearningLesson, loading: jumpLoading } = useJumpLeaningLesson();
   const { redirectToUrl } = useRedirect();
   const goLearningTrackDetail = () => {

@@ -30,11 +30,7 @@ function ProjectsPage() {
     };
   }, []);
   return (
-    <div
-      className="h-full overflow-auto pt-[40px]"
-      onScroll={handleScroll}
-      ref={ProjectsPageRef}
-    >
+    <div className="h-full overflow-auto pt-[40px]" onScroll={handleScroll} ref={ProjectsPageRef}>
       <div className="container mx-auto">
         <PageDescription
           title={'Project Archive'}
@@ -44,11 +40,7 @@ function ProjectsPage() {
           className="pt-0"
         />
 
-        <ProjectsPageBox
-          loadNum={loadNum}
-          setApiStatus={(status) => setApiStatus(status)}
-          apiStatus={apiStatus}
-        />
+        <ProjectsPageBox loadNum={loadNum} setApiStatus={(status) => setApiStatus(status)} apiStatus={apiStatus} />
       </div>
     </div>
   );

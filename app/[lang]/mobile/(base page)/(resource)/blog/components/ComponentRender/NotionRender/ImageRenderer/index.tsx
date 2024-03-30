@@ -1,5 +1,5 @@
 import { NotionComponent } from '@/components/Web/Business/Renderer/type';
-import useGetDevice from '@/hooks/useGetDevice';
+import useGetDevice from '@/hooks/utils/useGetDevice';
 import { Image } from 'antd';
 import { FC } from 'react';
 
@@ -32,9 +32,7 @@ const ImageRenderer: FC<ImageRendererProps> = (props) => {
           src={content.file.url}
           alt="image"
           // width={400}
-          className={`rounded-xl object-contain ${
-            isMobile ? 'w-full' : 'w-[400px]'
-          }`}
+          className={`rounded-xl object-contain ${isMobile ? 'w-full' : 'w-[400px]'}`}
         />
       </div>
     );

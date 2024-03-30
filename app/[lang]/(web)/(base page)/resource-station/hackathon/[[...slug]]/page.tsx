@@ -1,4 +1,4 @@
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 import { permanentRedirect } from 'next/navigation';
 
 interface HackathonProp {}

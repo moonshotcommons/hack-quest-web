@@ -1,7 +1,7 @@
 'use client';
 import { FC, ReactNode, useEffect, useState } from 'react';
 import UgcProvider from '@/app/[lang]/(web)/(learn page)/ugc/[courseId]/learn/components/UgcProvider';
-import { useGetPageInfo } from '@/hooks/useGetPageInfo';
+import { useGetPageInfo } from '@/hooks/dom/useGetPageInfo';
 import { MOBILE_NAVBAR_HEIGHT } from '@/components/Mobile/MobLayout/BasePage/Navbar/constant';
 
 interface UgcContainerProps {
@@ -20,9 +20,7 @@ const UgcContainer: FC<UgcContainerProps> = ({ children }) => {
       <div
         className="flex w-full flex-col"
         style={{
-          height: isMounted
-            ? `${pageInfo.windowHeight - MOBILE_NAVBAR_HEIGHT}px`
-            : 'calc(100vh-64px)'
+          height: isMounted ? `${pageInfo.windowHeight - MOBILE_NAVBAR_HEIGHT}px` : 'calc(100vh-64px)'
         }}
       >
         {children}

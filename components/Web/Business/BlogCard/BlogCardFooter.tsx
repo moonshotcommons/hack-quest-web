@@ -24,15 +24,9 @@ const BlogCardFooter: React.FC<FooterProp> = ({
   if (!blog?.id) return null;
   return (
     <div className={cn('flex w-full items-center', className)}>
-      <div
-        className={cn('flex max-w-[42.5%] items-center', `${maxWidth}`)}
-        style={{ paddingRight: `${gap}px` }}
-      >
+      <div className={cn('flex max-w-[42.5%] items-center', `${maxWidth}`)} style={{ paddingRight: `${gap}px` }}>
         <div style={{ paddingRight: `${gap}px` }}>By</div>
-        <div
-          className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap underline"
-          title={blog?.creatorName}
-        >
+        <div className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap underline" title={blog?.creatorName}>
           {blog?.creatorName}
         </div>
         <BsArrowRightShort size={iconSize} />

@@ -1,7 +1,7 @@
 'use client';
 
 import { FC } from 'react';
-import { useNeedPCRedirect } from '@/hooks/useNeedPCRedirect';
+import { useNeedPCRedirect } from '@/hooks/router/useNeedPCRedirect';
 
 // export const metadata: Metadata = {
 //   title: 'Ecosystem Profile'

@@ -26,11 +26,7 @@ const CourseDetailProvider: FC<CourseDetailProviderProps> = ({
   includePages = false
 }) => {
   const { data, refresh } = useRequest(() => {
-    return webApi.courseApi.getCourseDetail(
-      courseId,
-      includeUnits,
-      includePages
-    );
+    return webApi.courseApi.getCourseDetail(courseId, includeUnits, includePages);
   });
 
   return (

@@ -11,11 +11,9 @@ export const SuggestText = () => {
   return (
     <div className="body-l absolute bottom-[0] left-0 flex w-full justify-center bg-neutral-off-white py-[40px]">
       <p className="max-w-[808px] text-left">
-        We suggest commencing each unit with Reading and Video Lessons. Begin by
-        introducing principles and concepts through these sessions. Following
-        this, you can reinforce the acquired knowledge with quizzes. Finally,
-        conclude the unit with either a Reading or Video Lesson to provide a
-        comprehensive summary.
+        We suggest commencing each unit with Reading and Video Lessons. Begin by introducing principles and concepts
+        through these sessions. Following this, you can reinforce the acquired knowledge with quizzes. Finally, conclude
+        the unit with either a Reading or Video Lesson to provide a comprehensive summary.
       </p>
     </div>
   );

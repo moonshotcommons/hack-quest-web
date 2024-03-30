@@ -14,8 +14,7 @@ import { MantleContext } from '../../../constants/type';
 interface MantleInfoProp {}
 
 const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
-  const { mantle, campaignsClaim, loading, refresh } =
-    useContext(MantleContext);
+  const { mantle, campaignsClaim, loading, refresh } = useContext(MantleContext);
   const [showAll, setShowAll] = useState(true);
   const certificationModalRef = useRef<CertificationModalInstance>(null);
 
@@ -33,15 +32,11 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
   return (
     <div className="mb-[30px] flex justify-between gap-[50px]">
       <div className={`max-w-[470px] flex-1`}>
-        <p className="text-h3 mb-[10px] font-next-book-bold text-neutral-off-black">
-          {mantle.title}
-        </p>
+        <p className="text-h3 mb-[10px] font-next-book-bold text-neutral-off-black">{mantle.title}</p>
         <p className="body-l text-neutral-rich-gray">{mantle.description}</p>
       </div>
       <div
-        className={`flex h-fit gap-[32px] rounded-[16px] border border-neutral-medium-gray p-[20px] ${
-          showAll ? 'w-[547px]' : 'w-[306px]'
-        }`}
+        className={`flex h-fit gap-[32px] rounded-[16px] border border-neutral-medium-gray p-[20px] ${showAll ? 'w-[547px]' : 'w-[306px]'}`}
       >
         {showAll && (
           <div className="flex w-[187px] flex-col justify-between">
@@ -51,20 +46,11 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
                 certificationModalRef.current?.open();
               }}
             >
-              <Image
-                src={mantle.certification?.image || Certificate}
-                alt="certificate"
-                fill
-              ></Image>
+              <Image src={mantle.certification?.image || Certificate} alt="certificate" fill></Image>
             </div>
             <div className="body-s flex gap-[10px] text-neutral-black">
               <div className="flex h-[34px] w-[74px] items-center gap-[5px] rounded-[6px] border border-neutral-light-gray px-[5px]">
-                <Image
-                  src={iconCoin}
-                  width={22}
-                  alt="icon"
-                  className=""
-                ></Image>
+                <Image src={iconCoin} width={22} alt="icon" className=""></Image>
                 <span>x{mantle.certification?.credits}</span>
               </div>
               <div className="flex h-[34px] w-[74px] items-center gap-[5px] rounded-[6px] border border-neutral-light-gray px-[5px]">
@@ -84,18 +70,10 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
               }}
             >
               <div className="body-l-bold">{mantle.certification?.name}</div>
-              <div>
-                {showAll ? (
-                  <VscChromeMinimize size={20}></VscChromeMinimize>
-                ) : (
-                  <VscAdd size={20}></VscAdd>
-                )}
-              </div>
+              <div>{showAll ? <VscChromeMinimize size={20}></VscChromeMinimize> : <VscAdd size={20}></VscAdd>}</div>
             </div>
             {showAll && (
-              <div
-                className={`body-s mb-[20px] mt-[5px] line-clamp-3 text-neutral-rich-gray`}
-              >
+              <div className={`body-s mb-[20px] mt-[5px] line-clamp-3 text-neutral-rich-gray`}>
                 {mantle.certification?.description}
               </div>
             )}

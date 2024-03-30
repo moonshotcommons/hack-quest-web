@@ -4,16 +4,13 @@ import { ProcessType } from '@/service/webApi/course/type';
 import { HiArrowLongRight } from 'react-icons/hi2';
 import Link from 'next/link';
 import LearningTrackCard from '../LearningTrackCard';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 interface LearningTrackListProps {
   list: LearningTrackDetailType[];
   curTab: ProcessType;
 }
 
-const LearningTrackList: React.FC<LearningTrackListProps> = ({
-  list,
-  curTab
-}) => {
+const LearningTrackList: React.FC<LearningTrackListProps> = ({ list, curTab }) => {
   if (!list?.length) return null;
   return (
     <div>
@@ -21,10 +18,7 @@ const LearningTrackList: React.FC<LearningTrackListProps> = ({
       <div className="mt-[16px] flex flex-wrap gap-[24px]">
         {list.map((learningTrack) => (
           <div key={learningTrack.id} className={`w-full`}>
-            <LearningTrackCard
-              learningTrack={learningTrack}
-              inProgress={curTab === ProcessType.IN_PROCESS}
-            />
+            <LearningTrackCard learningTrack={learningTrack} inProgress={curTab === ProcessType.IN_PROCESS} />
           </div>
         ))}
       </div>

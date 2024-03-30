@@ -4,8 +4,8 @@ import { FC, useContext, useMemo, useState } from 'react';
 import { ProjectCourseType } from '@/service/webApi/course/type';
 import Button from '@/components/Common/Button';
 import { ElectiveCourseType } from '@/service/webApi/elective/type';
-import { useRedirect } from '@/hooks/useRedirect';
-import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
+import { useRedirect } from '@/hooks/router/useRedirect';
+import { useJumpLeaningLesson } from '@/hooks/courses/useJumpLeaningLesson';
 import { SectionContext } from '../../Provider/SectionProvider';
 import { LearningTrackDetailContext } from '../../Provider/LearningTrackDetailProvider';
 import { BurialPoint } from '@/helper/burialPoint';
@@ -15,13 +15,9 @@ interface LearningTrackCourseStatusButtonProps {
   course: ProjectCourseType | ElectiveCourseType;
 }
 
-const LearningTrackCourseStatusButton: FC<
-  LearningTrackCourseStatusButtonProps
-> = ({ course: propCourse }) => {
+const LearningTrackCourseStatusButton: FC<LearningTrackCourseStatusButtonProps> = ({ course: propCourse }) => {
   const { redirectToUrl } = useRedirect();
-  const query = new URLSearchParams(
-    typeof window !== 'undefined' ? window.location.search : ''
-  );
+  const query = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
 
   const { learningTrackDetail } = useContext(LearningTrackDetailContext);
 
@@ -71,9 +67,7 @@ const LearningTrackCourseStatusButton: FC<
                 }}
               ></div>
             </div>
-            <span className="caption-10pt text-neutral-rich-gray">
-              {Math.floor(course.progress * 100)}%
-            </span>
+            <span className="caption-10pt text-neutral-rich-gray">{Math.floor(course.progress * 100)}%</span>
           </div>
           <Button
             loading={loading && clickIndex === courseIndex}
@@ -92,14 +86,8 @@ const LearningTrackCourseStatusButton: FC<
               setClickIndex(courseIndex);
               jumpLearningLesson(course, {
                 menu: Menu.LEARNING_TRACK,
-                idTypes: [
-                  QueryIdType.LEARNING_TRACK_ID,
-                  QueryIdType.MENU_COURSE_ID
-                ],
-                ids: [
-                  query.get(QueryIdType.LEARNING_TRACK_ID) as string,
-                  course.id
-                ]
+                idTypes: [QueryIdType.LEARNING_TRACK_ID, QueryIdType.MENU_COURSE_ID],
+                ids: [query.get(QueryIdType.LEARNING_TRACK_ID) as string, course.id]
               });
             }}
           >
@@ -110,13 +98,7 @@ const LearningTrackCourseStatusButton: FC<
       {course.progress >= 1 && (
         <div className="flex items-center gap-3">
           <span className="body-xs text-neutral-black">Completed</span>
-          <svg
-            width="16"
-            height="17"
-            viewBox="0 0 16 17"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
+          <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect y="0.5" width="16" height="16" rx="8" fill="#00C365" />
             <path
               d="M12.3249 5.69085L6.54713 11.9131C6.46336 12.0034 6.34587 12.0549 6.22268 12.0553C6.10455 12.056 5.991 12.0096 5.90713 11.9264L3.68491 9.70418C3.51063 9.52991 3.51063 9.24735 3.68491 9.07307C3.85918 8.8988 4.14174 8.8988 4.31602 9.07307L6.22268 10.9708L11.676 5.08641C11.7806 4.95741 11.9484 4.8975 12.111 4.93106C12.2737 4.96462 12.4041 5.08605 12.449 5.24591C12.494 5.40577 12.4462 5.57738 12.3249 5.69085Z"

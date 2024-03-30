@@ -26,9 +26,7 @@ const Hackathon: FC<HackathonProps> = ({ edit = false }) => {
   const [allData, setAllData] = useState<ListDataType[]>([]);
   const [showAll, setShowAll] = useState(false);
   const handleAdd = () => {
-    BurialPoint.track(
-      'user-profile Hackathon Add Hackathon Experience按钮点击'
-    );
+    BurialPoint.track('user-profile Hackathon Add Hackathon Experience按钮点击');
     setEditOpen(true);
   };
   useEffect(() => {
@@ -75,14 +73,10 @@ const Hackathon: FC<HackathonProps> = ({ edit = false }) => {
       {listData?.length ? (
         <>
           {listData.map((v, i) => (
-            <div
-              key={v.id}
-              className="flex gap-[50px] border-b-[0.5px] border-b-neutral-black py-[20px]"
-            >
+            <div key={v.id} className="flex gap-[50px] border-b-[0.5px] border-b-neutral-black py-[20px]">
               <div className="body-l w-[270px] text-neutral-medium-gray">
                 <p>
-                  {dealDate(v.startDate)} -{' '}
-                  {v.endDate ? dealDate(v.endDate) : 'Present'} ·{' '}
+                  {dealDate(v.startDate)} - {v.endDate ? dealDate(v.endDate) : 'Present'} ·{' '}
                   {dateInterval(v.startDate, v.endDate)}
                 </p>
                 <p>{v.location}</p>
@@ -98,17 +92,13 @@ const Hackathon: FC<HackathonProps> = ({ edit = false }) => {
                     v.descriptions.map((d, j) => (
                       <div className="flex items-start" key={j}>
                         <span className="relative top-[11px] mr-[7px] h-[5px] w-[5px] rounded-[50%] bg-neutral-black"></span>
-                        <span className="flex-1 break-all leading-[26px]">
-                          {d}
-                        </span>
+                        <span className="flex-1 break-all leading-[26px]">{d}</span>
                       </div>
                     ))
                   ) : (
                     <div className="flex items-start">
                       <span className="relative top-[11px] mr-[7px] h-[5px] w-[5px] rounded-[50%] bg-neutral-black"></span>
-                      <span className="flex-1 break-all leading-[26px]">
-                        {v.descriptionLess[0]}
-                      </span>
+                      <span className="flex-1 break-all leading-[26px]">{v.descriptionLess[0]}</span>
                     </div>
                   )}
                   {v.descriptions.length > 1 && (
@@ -127,10 +117,7 @@ const Hackathon: FC<HackathonProps> = ({ edit = false }) => {
           ))}
           {allData.length > 4 && (
             <div className="flex justify-center pt-[20px]">
-              <Button
-                onClick={() => setShowAll(!showAll)}
-                className="body-m h-[44px] w-[265px] bg-yellow-primary"
-              >
+              <Button onClick={() => setShowAll(!showAll)} className="body-m h-[44px] w-[265px] bg-yellow-primary">
                 View {showAll ? 'Less' : 'Full'} Hackathon
               </Button>
             </div>

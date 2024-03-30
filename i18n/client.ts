@@ -1,31 +1,22 @@
 'use client';
 import { useEffect, useState } from 'react';
 import i18next from 'i18next';
-import {
-  initReactI18next,
-  useTranslation as useTranslationOrg
-} from 'react-i18next';
+import { initReactI18next, useTranslation as useTranslationOrg } from 'react-i18next';
 import { useCookies } from 'react-cookie';
 import resourcesToBackend from 'i18next-resources-to-backend';
 import LanguageDetector from 'i18next-browser-languagedetector';
-import { locales, defaultLocale, defaultNs, Lang, TransNs } from './config';
-export const cookieName = 'i18next';
+import { locales, defaultLocale, defaultNs, Lang, TransNs, cookieName } from './config';
 
 const runsOnServerSide = typeof window === 'undefined';
 
 i18next
   .use(initReactI18next)
   .use(LanguageDetector)
-  .use(
-    resourcesToBackend(
-      (language: string, namespace: string) =>
-        import(`./locales/${language}/${namespace}.json`)
-    )
-  )
+  .use(resourcesToBackend((language: string, namespace: string) => import(`./locales/${language}/${namespace}.json`)))
   .init({
     supportedLngs: locales,
     fallbackLng: defaultLocale,
-    lng: defaultLocale,
+    lng: undefined,
     fallbackNS: defaultNs,
     defaultNS: defaultNs,
     ns: defaultNs,
@@ -35,11 +26,7 @@ i18next
     preload: runsOnServerSide ? locales : []
   });
 
-export function useTranslation(
-  lng: Lang = Lang.EN,
-  ns?: TransNs.BASIC,
-  options = {}
-) {
+export function useTranslation(lng: Lang = Lang.EN, ns = TransNs.BASIC, options = {}) {
   const [cookies, setCookie] = useCookies([cookieName]);
   const ret = useTranslationOrg(ns, options);
   const { i18n } = ret;

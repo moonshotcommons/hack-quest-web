@@ -18,29 +18,15 @@ const CertificatesIntroduce: FC<CertificatesIntroduceProps> = (props) => {
             Exclusively on HackQuest
           </p>
           <div className="flex items-center gap-8">
-            <Image
-              src={'/images/landing/solana_logo.png'}
-              alt="solana logo"
-              width={161}
-              height={23}
-            ></Image>
-            <Image
-              src={'/images/landing/mantle_logo.png'}
-              alt="solana logo"
-              width={149}
-              height={44}
-            ></Image>
+            <Image src={'/images/landing/solana_logo.png'} alt="solana logo" width={161} height={23}></Image>
+            <Image src={'/images/landing/mantle_logo.png'} alt="solana logo" width={149} height={44}></Image>
             <div className="body-s-bold rounded-[.5rem] border border-neutral-black px-2 py-1 text-neutral-black">
               10+ coming soon...
             </div>
           </div>
         </div>
         <div className="relative h-[22.5rem] w-[26.6875rem]">
-          <Image
-            src={'/images/landing/ecosystems.png'}
-            fill
-            alt="Web3 ecosystems"
-          ></Image>
+          <Image src={'/images/landing/ecosystems.png'} fill alt="Web3 ecosystems"></Image>
         </div>
       </div>
       <div className="relative mt-10 w-full">
@@ -63,9 +49,7 @@ const CertificatesIntroduce: FC<CertificatesIntroduceProps> = (props) => {
                         <div className="flex items-center gap-6">
                           <div className="flex items-center gap-[.375rem]">
                             {icons.code}
-                            <span className="button-text-s uppercase">
-                              {item.language}
-                            </span>
+                            <span className="button-text-s uppercase">{item.language}</span>
                           </div>
                           <div className="flex items-center gap-[.375rem] uppercase">
                             {icons.course}
@@ -73,12 +57,7 @@ const CertificatesIntroduce: FC<CertificatesIntroduceProps> = (props) => {
                           </div>
                         </div>
                       </div>
-                      <Image
-                        src={item.image}
-                        width={60}
-                        height={60}
-                        alt={item.alt}
-                      ></Image>
+                      <Image src={item.image} width={60} height={60} alt={item.alt}></Image>
                     </div>
                   );
                 })}
@@ -108,12 +87,7 @@ const CertificatesIntroduce: FC<CertificatesIntroduceProps> = (props) => {
                       className="flex w-[calc(50%-24px)] items-center justify-between rounded-[16px] border border-neutral-light-gray p-6 pr-4"
                     >
                       <h4 className="text-h4">{item.name}</h4>
-                      <Image
-                        src={item.image}
-                        width={91.8}
-                        height={60}
-                        alt={item.alt}
-                      ></Image>
+                      <Image src={item.image} width={91.8} height={60} alt={item.alt}></Image>
                     </div>
                   );
                 })}

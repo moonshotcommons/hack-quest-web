@@ -11,17 +11,11 @@ import Qmark from '@/public/images/mission-center/q_mark.png';
 import Mperson from '@/public/images/mission-center/m_person.png';
 import Image from 'next/image';
 import Button from '@/components/Common/Button';
-import {
-  ChangeState,
-  ScrollContainer
-} from '@/components/Common/ScrollContainer';
+import { ChangeState, ScrollContainer } from '@/components/Common/ScrollContainer';
 import ScrollControl from './ScrollControl';
 import { TabContentType } from '../../../constants/type';
 
-const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
-  missionData,
-  missionClaim
-}) => {
+const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({ missionData, missionClaim }) => {
   const [curIndex, setCurIndex] = useState(-1);
   const [refreshTime, setRefreshTime] = useState('');
   const [dealedMissionData, setDealedMissionData] = useState<{
@@ -31,8 +25,7 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
     mData: [],
     completedLen: 0
   });
-  const [scrollContainerState, setScrollContainerState] =
-    useState<ChangeState>();
+  const [scrollContainerState, setScrollContainerState] = useState<ChangeState>();
   const scrollContainerRef = useRef<any>();
   const isTranslate = useRef(false);
   const handleClaim = (i: number) => {
@@ -49,10 +42,7 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
     const claimed = item.progress?.claimed;
     if (completed) {
       return (
-        <div
-          key={i}
-          className="flex-col-center  h-full w-[293px] justify-between pb-[20px]"
-        >
+        <div key={i} className="flex-col-center  h-full w-[293px] justify-between pb-[20px]">
           <div
             className={`flex-col-center h-[300px]  w-[240px] justify-between rounded-[20px]
                   border border-[#E7A600] bg-[var(--neutral-off-black)] pb-[20px] pt-[30px] `}
@@ -106,43 +96,21 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
                 {claimed ? (
                   <div className="absolute right-[-35px] top-[25px]">
                     <div className="flex-row-center gap-[8px]">
-                      <Image
-                        src={IconCoin}
-                        width={20}
-                        alt="iconCredits"
-                        className=""
-                      />
+                      <Image src={IconCoin} width={20} alt="iconCredits" className="" />
                       <span className="body-m">{`X${item.coin}`}</span>
                     </div>
                     <div className="flex-row-center mt-[10px] gap-[8px]">
-                      <Image
-                        src={IconXp}
-                        width={20}
-                        alt="iconXP"
-                        className=""
-                      />
+                      <Image src={IconXp} width={20} alt="iconXP" className="" />
                       <span className="body-m">{`X${item.exp}`}</span>
                     </div>
                   </div>
                 ) : (
-                  <Image
-                    src={Qmark}
-                    width={50}
-                    alt="flag"
-                    className="absolute right-[10px] top-[12px]"
-                  />
+                  <Image src={Qmark} width={50} alt="flag" className="absolute right-[10px] top-[12px]" />
                 )}
               </div>
             )}
 
-            {claimed && (
-              <Image
-                src={Flag}
-                width={80}
-                alt="flag"
-                className="absolute left-[65px] top-[-55px]"
-              />
-            )}
+            {claimed && <Image src={Flag} width={80} alt="flag" className="absolute left-[65px] top-[-55px]" />}
           </div>
         </div>
       );
@@ -170,12 +138,7 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
               </div>
             </div>
           </div>
-          <Image
-            src={IconLock}
-            width={26}
-            alt="iconLock"
-            className="cursor-not-allowed"
-          />
+          <Image src={IconLock} width={26} alt="iconLock" className="cursor-not-allowed" />
         </div>
       );
     }
@@ -183,11 +146,7 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
 
   useEffect(() => {
     if (isTranslate.current) return;
-    if (
-      scrollContainerState &&
-      scrollContainerState?.listWidth > 1200 &&
-      dealedMissionData.completedLen > 0
-    ) {
+    if (scrollContainerState && scrollContainerState?.listWidth > 1200 && dealedMissionData.completedLen > 0) {
       const { containerWidth, listWidth } = scrollContainerState;
       let translateX = 313 * (dealedMissionData.completedLen - 1);
       if (listWidth - Math.abs(translateX) < containerWidth) {
@@ -201,8 +160,7 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
   useEffect(() => {
     const mData =
       [...missionData]?.sort(
-        (a: MissionDataType, b: MissionDataType) =>
-          a?.progress?.progress?.[0] - b?.progress?.progress?.[0]
+        (a: MissionDataType, b: MissionDataType) => a?.progress?.progress?.[0] - b?.progress?.progress?.[0]
       ) || [];
     const completedLen = missionData.filter((v) => v.progress.completed).length;
     setRefreshTime(`${6 - completedLen}d${24 - new Date().getHours()}h`);
@@ -221,15 +179,10 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
             <span className="body-l">Rewards Refresh In: {refreshTime}</span>
           </div>
           <div className="relative">
-            <ScrollContainer
-              ref={scrollContainerRef}
-              onChange={(state: any) => setScrollContainerState(state)}
-            >
+            <ScrollContainer ref={scrollContainerRef} onChange={(state: any) => setScrollContainerState(state)}>
               <div
                 className={`flex h-[619px]  gap-[20px] overflow-x-hidden py-[10px] pl-[10px] ${
-                  dealedMissionData.completedLen === missionData.length
-                    ? 'pr-[250px]'
-                    : 'pr-[30px]'
+                  dealedMissionData.completedLen === missionData.length ? 'pr-[250px]' : 'pr-[30px]'
                 }`}
                 style={{
                   backgroundImage: `url(${MoonFace.src})`,
@@ -238,9 +191,7 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({
                   backgroundRepeat: 'repeat-x'
                 }}
               >
-                {dealedMissionData.mData.map((v, i) =>
-                  renderClaimContent(v, i)
-                )}
+                {dealedMissionData.mData.map((v, i) => renderClaimContent(v, i))}
               </div>
             </ScrollContainer>
             <div className="absolute bottom-[25px] left-[33px] z-40">

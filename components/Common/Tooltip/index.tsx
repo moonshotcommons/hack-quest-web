@@ -6,13 +6,7 @@ export interface TooltipProps {
   children: React.ReactNode;
   title: ReactNode;
   color?: string;
-  placement?:
-    | 'topLeft'
-    | 'top'
-    | 'topRight'
-    | 'bottomLeft'
-    | 'bottom'
-    | 'bottomRight';
+  placement?: 'topLeft' | 'top' | 'topRight' | 'bottomLeft' | 'bottom' | 'bottomRight';
   className?: string;
   /** 显示控制 */
   show?: boolean;
@@ -62,24 +56,12 @@ const Tooltip: FC<TooltipProps> = (props) => {
         <div
           className={cn(
             ' body-xs absolute h-fit whitespace-nowrap rounded-[10px] p-[20px] text-neutral-black shadow-[rgba(100,100,111,0.2)_0px_7px_29px_0px]',
-            placement === 'topLeft'
-              ? '-left-[12px] -translate-y-[calc(100%+17px)]'
-              : '',
-            placement === 'top'
-              ? 'left-[50%] -translate-x-[50%] -translate-y-[calc(100%+17px)]'
-              : '',
-            placement === 'topRight'
-              ? '-right-[12px] -translate-y-[calc(100%+17px)]'
-              : '',
-            placement == 'bottomLeft'
-              ? '-left-[12px] translate-y-[calc(100%+2px)]'
-              : '',
-            placement == 'bottom'
-              ? 'left-[50%] -translate-x-[50%] translate-y-[calc(100%+2px)]'
-              : '',
-            placement === 'bottomRight'
-              ? '-right-[12px] translate-y-[calc(100%+2px)]'
-              : '',
+            placement === 'topLeft' ? '-left-[12px] -translate-y-[calc(100%+17px)]' : '',
+            placement === 'top' ? 'left-[50%] -translate-x-[50%] -translate-y-[calc(100%+17px)]' : '',
+            placement === 'topRight' ? '-right-[12px] -translate-y-[calc(100%+17px)]' : '',
+            placement == 'bottomLeft' ? '-left-[12px] translate-y-[calc(100%+2px)]' : '',
+            placement == 'bottom' ? 'left-[50%] -translate-x-[50%] translate-y-[calc(100%+2px)]' : '',
+            placement === 'bottomRight' ? '-right-[12px] translate-y-[calc(100%+2px)]' : '',
             className
           )}
           style={{ backgroundColor: color }}
@@ -87,24 +69,12 @@ const Tooltip: FC<TooltipProps> = (props) => {
           <div
             className={cn(
               'absolute -z-[99] h-[24px] w-[24px] self-end bg-neutral-white shadow-[rgba(0,0,0,0.05)_1.5px_1.5px_1.5px]',
-              placement === 'topLeft'
-                ? 'bottom-0 left-[24px] translate-y-[50%] rotate-[45deg]'
-                : '',
-              placement === 'top'
-                ? 'bottom-0 left-[50%] -translate-x-[50%] translate-y-[50%] rotate-[45deg]'
-                : '',
-              placement == 'topRight'
-                ? 'bottom-0 right-[24px] translate-y-[50%] rotate-[45deg]'
-                : '',
-              placement == 'bottomLeft'
-                ? 'left-[24px] top-0 -translate-y-[50%] -rotate-[135deg]'
-                : '',
-              placement == 'bottom'
-                ? 'left-[50%] top-0 -translate-x-[50%] -translate-y-[50%] -rotate-[135deg]'
-                : '',
-              placement == 'bottomRight'
-                ? 'right-[24px] top-0 -translate-y-[50%] -rotate-[135deg]'
-                : ''
+              placement === 'topLeft' ? 'bottom-0 left-[24px] translate-y-[50%] rotate-[45deg]' : '',
+              placement === 'top' ? 'bottom-0 left-[50%] -translate-x-[50%] translate-y-[50%] rotate-[45deg]' : '',
+              placement == 'topRight' ? 'bottom-0 right-[24px] translate-y-[50%] rotate-[45deg]' : '',
+              placement == 'bottomLeft' ? 'left-[24px] top-0 -translate-y-[50%] -rotate-[135deg]' : '',
+              placement == 'bottom' ? 'left-[50%] top-0 -translate-x-[50%] -translate-y-[50%] -rotate-[135deg]' : '',
+              placement == 'bottomRight' ? 'right-[24px] top-0 -translate-y-[50%] -rotate-[135deg]' : ''
             )}
           ></div>
           {title}

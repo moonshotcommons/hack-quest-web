@@ -21,15 +21,10 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
   return (
     <div className={`flex h-[100vh] w-full flex-col overflow-hidden   `}>
       <NavBar {...navbarData}></NavBar>
-      <div
-        id="content-scroll-wrap"
-        className={`m-auto w-full flex-1 overflow-auto bg-neutral-off-white`}
-      >
+      <div id="content-scroll-wrap" className={`m-auto w-full flex-1 overflow-auto bg-neutral-off-white`}>
         <div className={`flex h-full w-full flex-col`}>
           <div className="relative w-full flex-1">
-            <main className="absolute left-0 top-0 h-full w-full">
-              {children}
-            </main>
+            <main className="absolute left-0 top-0 h-full w-full">{children}</main>
           </div>
         </div>
       </div>

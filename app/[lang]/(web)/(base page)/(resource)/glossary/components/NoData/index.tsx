@@ -13,11 +13,9 @@ const NoData: React.FC<NoDataProp> = ({ href, keyword }) => {
   const [submitVisible, setSubmitVisible] = useState(false);
   return (
     <>
-      <div className="flex flex-col items-center gap-[28px]">
-        <p className="body-xl text-neutral-medium-gray">
-          {keyword
-            ? ` You can submit the word, “${keyword}”, and we will work on it!`
-            : 'There is no content yet~'}
+      <div className="flex flex-col items-center gap-[28px] pt-[40px]">
+        <p className="body-l text-neutral-rich-gray">
+          {keyword ? ` You can submit the word, “${keyword}”, and we will work on it!` : 'There is no content yet~'}
           {}
         </p>
         <div className="flex justify-center gap-[10px]">
@@ -36,10 +34,7 @@ const NoData: React.FC<NoDataProp> = ({ href, keyword }) => {
           </Link>
         </div>
       </div>
-      <SubmitWordModal
-        open={submitVisible}
-        onClose={() => setSubmitVisible(false)}
-      />
+      <SubmitWordModal open={submitVisible} onClose={() => setSubmitVisible(false)} />
     </>
   );
 };

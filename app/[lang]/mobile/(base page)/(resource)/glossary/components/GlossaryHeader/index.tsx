@@ -1,5 +1,5 @@
 'use client';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 import React, { useState } from 'react';
 import { HiArrowLongRight } from 'react-icons/hi2';
 import { useRouter } from 'next/navigation';
@@ -43,10 +43,7 @@ const GlossaryHeader: React.FC<GlossaryHeaderProp> = ({ keyword = '' }) => {
         onSearch={onSearch}
         defaultValue={keyword}
       />
-      <SubmitWordModal
-        open={submitVisible}
-        onClose={() => setSubmitVisible(false)}
-      />
+      <SubmitWordModal open={submitVisible} onClose={() => setSubmitVisible(false)} />
     </>
   );
 };

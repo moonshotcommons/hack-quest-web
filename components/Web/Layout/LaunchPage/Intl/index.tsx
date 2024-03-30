@@ -1,20 +1,22 @@
 'use client';
 import DropDownMotion from '@/components/Common/DropDownMotion';
 import { useDebounceFn } from 'ahooks';
-import React, { useMemo, useState } from 'react';
+import React, { useContext, useMemo, useState } from 'react';
 import { FiChevronDown } from 'react-icons/fi';
 import { inltData as orgInltData } from '../Navbar/data';
 import Link from 'next/link';
 import { Lang } from '@/i18n/config';
 import { usePathname } from 'next/navigation';
-import { getLang, useTranslation } from '@/i18n/client';
+import { useTranslation } from '@/i18n/client';
+import { LangContext } from '@/components/Provider/Lang';
 
 interface IntlProp {}
 
 const Intl: React.FC<IntlProp> = () => {
   const [hoverFilter, setHoverFilter] = useState(false);
   const orgPathname = usePathname();
-  const lang = getLang();
+  // const lang = getLang();
+  const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang);
   const { run: mouseLeaveFilter } = useDebounceFn(
     () => {
@@ -38,21 +40,21 @@ const Intl: React.FC<IntlProp> = () => {
 
   return (
     <div
-      className="button-text-s relative flex h-[34px] w-[120px] cursor-pointer items-center justify-between gap-[8px] rounded-[17px] bg-neutral-off-white px-[17px] text-neutral-black"
+      className="button-text-s relative flex h-[34px] cursor-pointer items-center gap-[8px] rounded-[17px] bg-neutral-off-white px-[17px] text-neutral-black"
       onMouseEnter={() => {
         mouseLeaveFilter.cancel();
         setHoverFilter(true);
       }}
       onMouseLeave={mouseLeaveFilter}
     >
-      {inltVal?.label}
+      {lang.toUpperCase()}
       <span>
         <FiChevronDown size={20} />
       </span>
       <DropDownMotion
         open={hoverFilter}
         className={
-          'body-s-bold -right-[15px] whitespace-nowrap rounded-[16px] border border-neutral-light-gray bg-neutral-white p-[12px] text-neutral-rich-gray shadow-[0_2px_2px_0_rgba(19,19,19,0.15)]'
+          'body-s-bold -right-[15px] flex flex-col gap-[8px] whitespace-nowrap rounded-[16px] border border-neutral-light-gray bg-neutral-white p-[12px] text-neutral-rich-gray shadow-[0_2px_2px_0_rgba(19,19,19,0.15)]'
         }
       >
         {inltData.map((v) => (
@@ -64,7 +66,7 @@ const Intl: React.FC<IntlProp> = () => {
                 e.preventDefault();
               }
             }}
-            className={`mb-[8px] block cursor-pointer rounded-[8px] p-[12px] hover:bg-neutral-off-white ${lang === v.value ? 'bg-neutral-off-white' : ''}`}
+            className={`block cursor-pointer rounded-[8px] p-[12px] hover:bg-neutral-off-white ${lang === v.value ? 'bg-neutral-off-white' : ''}`}
           >
             {v.label}
           </Link>

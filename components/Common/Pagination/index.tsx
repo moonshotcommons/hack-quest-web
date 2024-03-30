@@ -112,9 +112,7 @@ const Pagination: FC<PaginationProps> = (props) => {
       </div>
 
       {urlPrefix ? (
-        <Link
-          href={`${urlPrefix}${page >= total ? page : page + 1}${pageSearch}`}
-        >
+        <Link href={`${urlPrefix}${page >= total ? page : page + 1}${pageSearch}`}>
           <div
             className={cn(
               `flex scale-[0.835] cursor-pointer items-center justify-center rounded-full border border-solid border-[#000000] bg-[#000000] p-2 text-neutral-white`,

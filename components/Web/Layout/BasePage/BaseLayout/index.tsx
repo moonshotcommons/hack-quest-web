@@ -4,7 +4,7 @@ import React, { ReactNode, useEffect } from 'react';
 import NavBar, { NavBarProps } from '../Navbar';
 
 // import Breadcrumb from '@/components/Web/Business/Breadcrumb';
-import { useCheckPathname } from '@/hooks/useCheckPathname';
+import { useCheckPathname } from '@/hooks/router/useCheckPathname';
 
 export interface V2LayoutProps {
   navbarData: NavBarProps;
@@ -29,15 +29,11 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
       </NavBar>
       <div
         id="content-scroll-wrap"
-        className={`m-auto w-full flex-1 overflow-auto  ${
-          isNavbarFullPage ? 'bg-[white]' : 'bg-neutral-off-white'
-        }`}
+        className={`m-auto w-full flex-1 overflow-auto  ${isNavbarFullPage ? 'bg-[white]' : 'bg-neutral-off-white'}`}
       >
         <div className={`flex h-full w-full flex-col`}>
           <div className="relative w-full flex-1">
-            <main className="absolute left-0 top-0 h-full w-full">
-              {children}
-            </main>
+            <main className="absolute left-0 top-0 h-full w-full">{children}</main>
           </div>
         </div>
       </div>

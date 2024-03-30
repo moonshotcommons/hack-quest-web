@@ -20,9 +20,7 @@ const ToggleRenderer: FC<ToggleRendererProps> = (props) => {
   const { expandData, updateExpandData } = useContext(UgcContext);
 
   const { group, firstIndex, lastIndex, currentIndex } = useMemo(() => {
-    const currentIndex: number = children.findIndex(
-      (child: any) => child.id === component.id
-    );
+    const currentIndex: number = children.findIndex((child: any) => child.id === component.id);
 
     let firstIndex = 0;
     let lastIndex = 0;
@@ -118,10 +116,7 @@ const ToggleRenderer: FC<ToggleRendererProps> = (props) => {
           }}
         >
           <div>
-            <TextRenderer
-              richTextArr={component.content.rich_text}
-              fontSize={'16px'}
-            />
+            <TextRenderer richTextArr={component.content.rich_text} fontSize={'16px'} />
           </div>
           <span className={``}>
             {!groupExpands?.includes(currentIndex) ? (
@@ -136,13 +131,7 @@ const ToggleRenderer: FC<ToggleRendererProps> = (props) => {
           {isRenderChildren &&
             groupExpands?.includes(currentIndex) &&
             component.children?.map((item: any, index: number) => {
-              return (
-                <ComponentRenderer
-                  key={index}
-                  component={item}
-                  parent={component}
-                ></ComponentRenderer>
-              );
+              return <ComponentRenderer key={index} component={item} parent={component}></ComponentRenderer>;
             })}
         </div>
       </div>

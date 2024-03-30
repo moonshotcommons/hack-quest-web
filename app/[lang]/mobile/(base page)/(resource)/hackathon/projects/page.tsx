@@ -1,5 +1,5 @@
 'use client';
-import { useNeedPCRedirect } from '@/hooks/useNeedPCRedirect';
+import { useNeedPCRedirect } from '@/hooks/router/useNeedPCRedirect';
 
 function ProjectsPage() {
   useNeedPCRedirect();

@@ -25,12 +25,7 @@ const MediaCommunity: React.FC<MediaCommunityProp> = ({ listData, title }) => {
         {showList.map((v: MentorType, i: number) => (
           <div key={i} className="h-[72px] w-[calc((100%-60px)/4)]">
             <div className="relative h-full w-full">
-              <Image
-                src={v.picture as string}
-                alt="picture"
-                fill
-                className="object-contain"
-              ></Image>
+              <Image src={v.picture as string} alt="picture" fill className="object-contain"></Image>
             </div>
           </div>
         ))}
@@ -45,9 +40,7 @@ const MediaCommunity: React.FC<MediaCommunityProp> = ({ listData, title }) => {
             }}
           >
             <span>Show {showAll ? 'Less' : 'All'}</span>
-            <VscChevronDown
-              className={`body-xl transition ${showAll ? 'rotate-180' : ''}`}
-            />
+            <VscChevronDown className={`body-xl transition ${showAll ? 'rotate-180' : ''}`} />
           </div>
         </div>
       )}

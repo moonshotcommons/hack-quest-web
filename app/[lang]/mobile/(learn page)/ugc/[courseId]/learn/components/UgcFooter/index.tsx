@@ -2,7 +2,7 @@
 import Button from '@/components/Common/Button';
 import React, { useContext, useEffect } from 'react';
 import { CourseType } from '@/service/webApi/course/type';
-import { useGotoNextLesson } from '@/hooks/useCoursesHooks/useGotoNextLesson';
+import { useGotoNextLesson } from '@/hooks/courses/useGotoNextLesson';
 import emitter from '@/store/emitter';
 import MobCompleteModal from '@/components/Mobile/MobCompleteModal';
 import {
@@ -14,12 +14,8 @@ import {
 interface UgcFooterProp {}
 
 const UgcFooter: React.FC<UgcFooterProp> = ({}) => {
-  const { footerBtn, lesson, setFooterBtn } = useContext(UgcContext);
-  const {
-    onNextClick,
-    completeModalRef,
-    loading: nextLoading
-  } = useGotoNextLesson(lesson!, CourseType.UGC, true);
+  const { footerBtn, lesson, setFooterBtn, mounted } = useContext(UgcContext);
+  const { onNextClick, completeModalRef, loading: nextLoading } = useGotoNextLesson(lesson!, CourseType.UGC, true);
 
   const handleNext = () => {
     setFooterBtn({
@@ -35,7 +31,7 @@ const UgcFooter: React.FC<UgcFooterProp> = ({}) => {
   };
 
   const handleClick = () => {
-    if (footerBtn.footerBtnDisable || nextLoading) return;
+    if (footerBtn.footerBtnDisable || nextLoading || footerBtn.footerBtnLoading || !mounted) return;
     if (footerBtn.footerBtnStatus !== FooterButtonStatus.NEXT) {
       emitter.emit(footerBtn.footerBtnStatus);
     } else {
@@ -55,7 +51,7 @@ const UgcFooter: React.FC<UgcFooterProp> = ({}) => {
     <div className="fixed bottom-[1.25rem] left-0 w-full px-[1.375rem] ">
       <Button
         className={`button-text-m h-[3rem] w-full   ${
-          footerBtn.footerBtnDisable
+          footerBtn.footerBtnDisable || !mounted
             ? 'cursor-not-allowed bg-neutral-light-gray text-neutral-medium-gray'
             : 'bg-yellow-primary text-neutral-black'
         }`}

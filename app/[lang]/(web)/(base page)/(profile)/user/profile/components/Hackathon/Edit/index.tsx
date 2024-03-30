@@ -22,9 +22,7 @@ const Edit: React.FC<EditProp> = ({ open, onClose, list }) => {
   const [editEx, setEditEx] = useState<UserHackathonType>();
   const { refresh } = useContext(ProfileContext);
   const handleEdit = (id?: string) => {
-    BurialPoint.track(
-      `user-profile Hackathon Modal ${id ? 'Edit' : 'Add'} icon按钮点击`
-    );
+    BurialPoint.track(`user-profile Hackathon Modal ${id ? 'Edit' : 'Add'} icon按钮点击`);
     if (id) {
       const ex = list.find((v) => v.id === id) || {};
       setEditEx(ex as UserHackathonType);
@@ -40,19 +38,11 @@ const Edit: React.FC<EditProp> = ({ open, onClose, list }) => {
     open && setStatus('list');
   }, [open]);
   return (
-    <Modal
-      open={open}
-      onClose={onClose}
-      showCloseIcon={true}
-      icon={<FiX size={26} />}
-    >
+    <Modal open={open} onClose={onClose} showCloseIcon={true} icon={<FiX size={26} />}>
       <div className="w-[1000px] rounded-[10px] bg-neutral-white p-[30px]">
         <div className="text-h3 mb-[20px] flex items-center">
           {status === 'edit' ? (
-            <div
-              className="flex cursor-pointer items-center "
-              onClick={() => setStatus('list')}
-            >
+            <div className="flex cursor-pointer items-center " onClick={() => setStatus('list')}>
               <FiChevronLeft />
               <span>Hackathon</span>
             </div>
@@ -63,12 +53,7 @@ const Edit: React.FC<EditProp> = ({ open, onClose, list }) => {
         {status === 'list' ? (
           <List list={list} onClose={onClose} handleEdit={handleEdit} />
         ) : (
-          <EditAdd
-            editEx={editEx}
-            editType={editType}
-            onCancel={() => setStatus('list')}
-            onRefresh={refresh}
-          />
+          <EditAdd editEx={editEx} editType={editType} onCancel={() => setStatus('list')} onRefresh={refresh} />
         )}
       </div>
     </Modal>

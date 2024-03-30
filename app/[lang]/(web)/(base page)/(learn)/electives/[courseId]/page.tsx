@@ -1,8 +1,6 @@
 import Tags from '@/components/Common/Tags';
 import { LessonCatalogue } from '@/components/Web/DetailPageV2/Catalogue';
-import CourseTag, {
-  CourseTagType
-} from '@/components/Web/DetailPageV2/CourseTag';
+import CourseTag, { CourseTagType } from '@/components/Web/DetailPageV2/CourseTag';
 import webApi from '@/service';
 import Image from 'next/image';
 import { FC } from 'react';
@@ -26,17 +24,11 @@ interface ElectivePageProps {
   };
 }
 
-export async function generateMetadata(
-  { params, searchParams }: ElectivePageProps,
-  parent: any
-): Promise<Metadata> {
+export async function generateMetadata({ params, searchParams }: ElectivePageProps, parent: any): Promise<Metadata> {
   // 读取路由参数
   const courseId = params.courseId;
 
-  const courseDetail =
-    await webApi.courseApi.fetchCourseDetail<ElectiveCourseDetailType>(
-      courseId
-    );
+  const courseDetail = await webApi.courseApi.fetchCourseDetail<ElectiveCourseDetailType>(courseId);
 
   const metadata: Metadata = {
     title: courseDetail.title,
@@ -52,12 +44,7 @@ const ElectivePage: FC<ElectivePageProps> = async (props) => {
   const { params, searchParams } = props;
   const courseId = params.courseId;
 
-  const courseDetail =
-    await webApi.courseApi.fetchCourseDetail<ElectiveCourseDetailType>(
-      courseId,
-      false,
-      true
-    );
+  const courseDetail = await webApi.courseApi.fetchCourseDetail<ElectiveCourseDetailType>(courseId, false, true);
 
   return (
     <CourseDetailProvider courseId={courseId} includePages>
@@ -68,10 +55,7 @@ const ElectivePage: FC<ElectivePageProps> = async (props) => {
           <div className="w-[900px] max-w-[900px]">
             <div className="min-h-[400px] w-full py-5" id="detail-header">
               <BackButton type="electives"></BackButton>
-              <Tags
-                size="lg"
-                className="body-m mt-[2rem] text-neutral-rich-gray"
-              >
+              <Tags size="lg" className="body-m mt-[2rem] text-neutral-rich-gray">
                 {`Elective`}
               </Tags>
               <div className="mt-4 flex items-center gap-6">
@@ -81,14 +65,9 @@ const ElectivePage: FC<ElectivePageProps> = async (props) => {
                   <span>Mantle</span>
                 </div> */}
               </div>
-              <p className="body-m mt-8 text-neutral-rich-gray">
-                {courseDetail.description}
-              </p>
+              <p className="body-m mt-8 text-neutral-rich-gray">{courseDetail.description}</p>
               <div className="mt-8 flex gap-8">
-                <CourseTag
-                  type={CourseTagType.LANGUAGE}
-                  value={courseDetail.language}
-                ></CourseTag>
+                <CourseTag type={CourseTagType.LANGUAGE} value={courseDetail.language}></CourseTag>
                 <div className="h-[45px] w-[1px] bg-neutral-rich-gray"></div>
                 <CourseTag
                   icon={
@@ -104,23 +83,14 @@ const ElectivePage: FC<ElectivePageProps> = async (props) => {
                   value={courseDetail.creator?.name}
                 ></CourseTag>
                 <div className="h-[45px] w-[1px] bg-neutral-rich-gray"></div>
-                <CourseTag
-                  type={CourseTagType.DURATION}
-                  value={courseDetail.duration + ''}
-                ></CourseTag>
+                <CourseTag type={CourseTagType.DURATION} value={courseDetail.duration + ''}></CourseTag>
               </div>
             </div>
 
             <div className="mt-20  flex flex-col gap-20">
               {/* <CertificationCard  /> */}
-              {courseDetail.intendedLearners && (
-                <IntendedLearners
-                  intendedLearners={courseDetail.intendedLearners}
-                />
-              )}
-              {courseDetail.knowledgeGain && (
-                <KnowledgeGain knowledgeGain={courseDetail.knowledgeGain} />
-              )}
+              {courseDetail.intendedLearners && <IntendedLearners intendedLearners={courseDetail.intendedLearners} />}
+              {courseDetail.knowledgeGain && <KnowledgeGain knowledgeGain={courseDetail.knowledgeGain} />}
               <Syllabus />
             </div>
           </div>

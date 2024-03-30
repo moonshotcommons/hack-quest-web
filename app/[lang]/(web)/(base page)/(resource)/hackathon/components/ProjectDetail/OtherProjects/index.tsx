@@ -4,7 +4,7 @@ import Pagination from '@/components/Common/Pagination';
 import { ProjectType } from '@/service/webApi/resourceStation/type';
 import Link from 'next/link';
 import { FC, useRef, useState } from 'react';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 let PROJECTS_LIMIT = 3;
 interface OtherProjectsProps {
   hackathonName: string;
@@ -40,13 +40,9 @@ const OtherProjects: FC<OtherProjectsProps> = ({ hackathonName, projects }) => {
       </p>
       <div className="mt-[30px]">
         <div className="mb-[30px] flex flex-col gap-y-[30px]">
-          {[...projects]
-            .splice((page - 1) * PROJECTS_LIMIT, PROJECTS_LIMIT)
-            .map((project) => {
-              return (
-                <ProjectCard key={project.id} project={project}></ProjectCard>
-              );
-            })}
+          {[...projects].splice((page - 1) * PROJECTS_LIMIT, PROJECTS_LIMIT).map((project) => {
+            return <ProjectCard key={project.id} project={project}></ProjectCard>;
+          })}
         </div>
         {totalPage > PROJECTS_LIMIT && (
           <Pagination

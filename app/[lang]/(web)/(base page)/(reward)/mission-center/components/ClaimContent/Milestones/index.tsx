@@ -5,11 +5,7 @@ import TargetCard from '../component/TargetCard';
 import { BurialPoint } from '@/helper/burialPoint';
 import { MissionCenterContext, TabContentType } from '../../../constants/type';
 
-const Milestones: React.FC<TabContentType> = ({
-  missionData,
-  unClaimMissionData,
-  missionClaim
-}) => {
+const Milestones: React.FC<TabContentType> = ({ missionData, unClaimMissionData, missionClaim }) => {
   const { missionIds } = useContext(MissionCenterContext);
   const allIds = useMemo(() => {
     return unClaimMissionData.map((v) => v.id);

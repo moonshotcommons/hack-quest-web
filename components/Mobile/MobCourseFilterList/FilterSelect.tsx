@@ -16,12 +16,7 @@ interface FilterSelectProps {
   updateSort: (newSort: FilterOptionType[]) => void;
 }
 
-const FilterSelect: FC<FilterSelectProps> = ({
-  filters,
-  updateFilters,
-  sort,
-  updateSort
-}) => {
+const FilterSelect: FC<FilterSelectProps> = ({ filters, updateFilters, sort, updateSort }) => {
   const [hoverFilter, setHoverFilter] = useState<null | string>(null);
   const [hoverSort, setHoverSort] = useState<boolean>(false);
 
@@ -44,9 +39,7 @@ const FilterSelect: FC<FilterSelectProps> = ({
   //   return options.filter((option) => option.isSelect);
   // }, [filters]);
 
-  const [selectFilterOptions, setSelectFilterOptions] = useState<
-    FilterOptionType[]
-  >([]);
+  const [selectFilterOptions, setSelectFilterOptions] = useState<FilterOptionType[]>([]);
 
   const selectSort = useMemo(() => {
     return sort?.find((item) => item.isSelect);
@@ -62,9 +55,7 @@ const FilterSelect: FC<FilterSelectProps> = ({
                 key={filter.filterField}
                 className={cn(
                   'body-l relative flex w-fit cursor-pointer items-center gap-x-[10px] rounded-full border border-neutral-rich-gray px-6 py-[10px]',
-                  hoverFilter === filter.filterName
-                    ? 'border-transparent bg-yellow-light transition-all'
-                    : ''
+                  hoverFilter === filter.filterName ? 'border-transparent bg-yellow-light transition-all' : ''
                 )}
                 onMouseEnter={() => {
                   mouseLeaveFilter.cancel();
@@ -75,9 +66,7 @@ const FilterSelect: FC<FilterSelectProps> = ({
                 <span>{filter.filterName}</span>
                 <span
                   className={cn(
-                    hoverFilter === filter.filterName
-                      ? '-rotate-180'
-                      : 'transition-transform duration-200'
+                    hoverFilter === filter.filterName ? '-rotate-180' : 'transition-transform duration-200'
                   )}
                 >
                   <FiChevronDown size={24} />
@@ -94,24 +83,12 @@ const FilterSelect: FC<FilterSelectProps> = ({
                           key={option.name}
                           className="body-m flex cursor-pointer items-center justify-between px-3 py-2 text-neutral-black hover:bg-yellow-light"
                           onClick={() => {
-                            filters[filterIndex].options[optionIndex].isSelect =
-                              !option.isSelect;
-                            const select =
-                              filters[filterIndex].options[optionIndex];
-                            if (
-                              selectFilterOptions.find(
-                                (item) => item.name === select.name
-                              )
-                            ) {
-                              setSelectFilterOptions(
-                                selectFilterOptions.filter(
-                                  (item) => item.name !== select.name
-                                )
-                              );
+                            filters[filterIndex].options[optionIndex].isSelect = !option.isSelect;
+                            const select = filters[filterIndex].options[optionIndex];
+                            if (selectFilterOptions.find((item) => item.name === select.name)) {
+                              setSelectFilterOptions(selectFilterOptions.filter((item) => item.name !== select.name));
                             } else {
-                              setSelectFilterOptions(
-                                selectFilterOptions.concat(select)
-                              );
+                              setSelectFilterOptions(selectFilterOptions.concat(select));
                             }
                             updateFilters(cloneDeep(filters));
                           }}
@@ -145,9 +122,7 @@ const FilterSelect: FC<FilterSelectProps> = ({
                         if (option.name === item.name) option.isSelect = false;
                       });
                     });
-                    setSelectFilterOptions(
-                      selectFilterOptions.filter((o) => o.name !== item.name)
-                    );
+                    setSelectFilterOptions(selectFilterOptions.filter((o) => o.name !== item.name));
                     updateFilters(cloneDeep(filters));
                   }}
                 >

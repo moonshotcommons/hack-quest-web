@@ -11,12 +11,10 @@ interface ProfileEditProps {}
 
 const ProfileEdit: FC<ProfileEditProps> = (props) => {
   const { profileId } = useParams();
-  const { data: profile = {} as EcosystemProfileType, loading } = useRequest(
-    async () => {
-      const res = webApi.courseApi.getElectiveProfile(profileId as string);
-      return res;
-    }
-  );
+  const { data: profile = {} as EcosystemProfileType, loading } = useRequest(async () => {
+    const res = webApi.courseApi.getElectiveProfile(profileId as string);
+    return res;
+  });
   return (
     <div className="relative w-full rounded-[10px] bg-neutral-white  shadow-[0px_4px_8px_0px_rgba(0,0,0,0.12)]">
       <Loading loading={loading}>

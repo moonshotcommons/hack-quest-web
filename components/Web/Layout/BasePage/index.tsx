@@ -21,9 +21,7 @@ const V2Layout: FC<LayoutProps> = (props) => {
       v.menu = v.menu.filter((vv) => !vv.needLogin);
     });
   }
-  navbarData.navList = navList.filter(
-    (v: NavbarListType) => v.menu.length || v.type === 'outSide'
-  );
+  navbarData.navList = navList.filter((v: NavbarListType) => v.menu.length || v.type === 'outSide');
   return <BaseLayout navbarData={navbarData}>{children}</BaseLayout>;
 };
 export default V2Layout;

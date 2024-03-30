@@ -78,9 +78,11 @@ class CourseApi {
   }
 
   /** 获取单个课程的详情信息 */
-  async fetchCourseDetail<
-    T extends CourseDetailType | ElectiveCourseDetailType
-  >(courseId: string, includeUnits = false, includePages = false): Promise<T> {
+  async fetchCourseDetail<T extends CourseDetailType | ElectiveCourseDetailType>(
+    courseId: string,
+    includeUnits = false,
+    includePages = false
+  ): Promise<T> {
     const cacheFn = cache(async () => {
       return this.getCourseDetail<T>(courseId, includeUnits, includePages);
     });
@@ -109,22 +111,16 @@ class CourseApi {
   /** 获取每个unit下的所有lesson */
   getCourseUnitLessons(courseId: string, unitId: string) {
     const url = `${CourseApiType.Course_List}/${courseId}/units/${unitId}?include=pages`;
-    return this.service.get<
-      CourseUnitStateType & { pages: CourseLessonStateType[] }
-    >(url);
+    return this.service.get<CourseUnitStateType & { pages: CourseLessonStateType[] }>(url);
   }
 
   /** 获取单个lesson的内容 */
-  getLessonContent<T extends CourseLessonType | ElectiveLessonType>(
-    lessonId: string
-  ) {
+  getLessonContent<T extends CourseLessonType | ElectiveLessonType>(lessonId: string) {
     const url = `${CourseApiType.LessonDetail}/${lessonId}`;
     return this.service.get<T>(url);
   }
   /** 获取单个lesson的内容Mob */
-  getLessonContentMob<T extends CourseLessonType | ElectiveLessonType>(
-    lessonId: string
-  ) {
+  getLessonContentMob<T extends CourseLessonType | ElectiveLessonType>(lessonId: string) {
     const url = `${CourseApiType.LessonDetail}/${lessonId}/v2`;
     return this.service.get<T>(url);
   }

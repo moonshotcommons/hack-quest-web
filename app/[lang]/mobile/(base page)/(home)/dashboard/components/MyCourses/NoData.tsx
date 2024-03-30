@@ -1,6 +1,6 @@
 import Button from '@/components/Common/Button';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
-import { useRedirect } from '@/hooks/useRedirect';
+import MenuLink from '@/constants/MenuLink';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import { ProcessType } from '@/service/webApi/course/type';
 interface NoDataType {
   curTab: ProcessType;

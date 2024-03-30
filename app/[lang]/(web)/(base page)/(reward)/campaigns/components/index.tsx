@@ -95,9 +95,7 @@ const Campaigns: React.FC<CampaignsProp> = () => {
         claimIds
       }}
     >
-      <div
-        className={`tetx-body-m container m-auto flex h-full py-[40px] text-neutral-black`}
-      >
+      <div className={`tetx-body-m container m-auto flex h-full py-[40px] text-neutral-black`}>
         <div className="w-[203px]">
           <Tab
             tabList={tabList}
@@ -126,9 +124,7 @@ const Campaigns: React.FC<CampaignsProp> = () => {
           ref={certificationModalRef}
           certification={mantles[curIndex]?.certification || {}}
           showCoin={true}
-          refreshCertification={() =>
-            getCampaignsInfo(params.campaignId as string)
-          }
+          refreshCertification={() => getCampaignsInfo(params.campaignId as string)}
         />
       </div>
     </MantleContext.Provider>

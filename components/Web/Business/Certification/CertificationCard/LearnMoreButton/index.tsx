@@ -1,13 +1,11 @@
 'use client';
 import { FC, useContext, useMemo, useRef } from 'react';
-import CertificationModal, {
-  CertificationModalInstance
-} from '../../CertificationModal';
+import CertificationModal, { CertificationModalInstance } from '../../CertificationModal';
 import Button from '@/components/Common/Button';
 import { CertificationCardContext } from '../CertificationCardProvider';
 import { CertificationType } from '@/service/webApi/campaigns/type';
 import { LearningTrackDetailContext } from '@/components/Web/DetailPageV2/Provider/LearningTrackDetailProvider';
-import { useRedirect } from '@/hooks/useRedirect';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import { useRequest } from 'ahooks';
 import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';
@@ -16,9 +14,7 @@ interface LearnMoreButtonProps {
   certification: CertificationType;
 }
 
-const LearnMoreButton: FC<LearnMoreButtonProps> = ({
-  certification: propCertification
-}) => {
+const LearnMoreButton: FC<LearnMoreButtonProps> = ({ certification: propCertification }) => {
   const CertificationModalRef = useRef<CertificationModalInstance>(null);
   const { redirectToUrl } = useRedirect();
   const {
@@ -27,9 +23,7 @@ const LearnMoreButton: FC<LearnMoreButtonProps> = ({
     refreshCertificationAsync
   } = useContext(CertificationCardContext);
 
-  const { learningTrackDetail, refreshLearningTrackDetail } = useContext(
-    LearningTrackDetailContext
-  );
+  const { learningTrackDetail, refreshLearningTrackDetail } = useContext(LearningTrackDetailContext);
 
   const certification = contextCertification ?? propCertification;
   const progress = learningTrackDetail?.progress || 0;
@@ -39,9 +33,7 @@ const LearnMoreButton: FC<LearnMoreButtonProps> = ({
 
   const { run: claim, loading: claimLoading } = useRequest(
     async () => {
-      const res = await webApi.campaignsApi.claimCertification(
-        certification.id
-      );
+      const res = await webApi.campaignsApi.claimCertification(certification.id);
       await refreshCertificationAsync();
       return res;
     },

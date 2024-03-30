@@ -24,17 +24,9 @@ const CalloutRenderer: FC<CalloutRendererProps> = (props) => {
       <div className="flex items-center justify-between gap-[15px]">
         <div className="text-[20px]">{component.content.icon?.emoji}</div>
         <div className="flex-1">
-          <TextRenderer
-            richTextArr={component.content.rich_text}
-          ></TextRenderer>
+          <TextRenderer richTextArr={component.content.rich_text}></TextRenderer>
           {component.children?.map((item: any, index: number) => {
-            return (
-              <ComponentRenderer
-                key={index}
-                component={item}
-                parent={component}
-              ></ComponentRenderer>
-            );
+            return <ComponentRenderer key={index} component={item} parent={component}></ComponentRenderer>;
           })}
         </div>
         {/* <div

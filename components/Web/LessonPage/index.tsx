@@ -1,18 +1,11 @@
 'use client';
 import CompleteModal from '@/components/Web/Business/CompleteModal';
-import {
-  CustomType,
-  NotionComponent
-} from '@/components/Web/Business/Renderer/type';
+import { CustomType, NotionComponent } from '@/components/Web/Business/Renderer/type';
 import { BurialPoint } from '@/helper/burialPoint';
-import { useGetLessonContent } from '@/hooks/useCoursesHooks/useGetLessenContent';
-import { useGotoNextLesson } from '@/hooks/useCoursesHooks/useGotoNextLesson';
+import { useGetLessonContent } from '@/hooks/courses/useGetLessenContent';
+import { useGotoNextLesson } from '@/hooks/courses/useGotoNextLesson';
 import webApi from '@/service';
-import {
-  CompleteStateType,
-  CourseLessonType,
-  CourseType
-} from '@/service/webApi/course/type';
+import { CompleteStateType, CourseLessonType, CourseType } from '@/service/webApi/course/type';
 import { ConfigProvider, Spin } from 'antd';
 import { useParams } from 'next/navigation';
 import { FC, useCallback, useEffect, useRef, useState } from 'react';
@@ -21,9 +14,7 @@ import LessonContent from './LessonContent';
 import LessonFooter from './LessonFooter';
 import Playground from './Playground';
 import { LessonPageContext, NavbarDataType } from './type';
-import TreasureModal, {
-  TreasureModalRef
-} from '@/components/Web/Business/TreasureModal';
+import TreasureModal, { TreasureModalRef } from '@/components/Web/Business/TreasureModal';
 
 import { useUserStore } from '@/store/zustand/userStore';
 import { useCourseStore } from '@/store/zustand/courseStore';
@@ -35,25 +26,16 @@ interface LessonPageProps {
 
 const LessonPage: FC<LessonPageProps> = (props) => {
   const { lessonId, courseType } = props;
-  const { lesson, loading } = useGetLessonContent<CourseLessonType>(
-    lessonId,
-    courseType
-  );
+  const { lesson, loading } = useGetLessonContent<CourseLessonType>(lessonId, courseType);
   const { courseId: courseName } = useParams();
   const [nextLoading, setNextLoading] = useState(false);
-  const { onNextClick, completeModalRef } = useGotoNextLesson(
-    lesson!,
-    courseType,
-    true
-  );
+  const { onNextClick, completeModalRef } = useGotoNextLesson(lesson!, courseType, true);
   const [navbarData, setNavbarData] = useState<NavbarDataType[]>([]);
   const [isHandleNext, setIsHandleNext] = useState(false);
   const allowNextButtonClickTime = useRef(0);
   const treasureModalRef = useRef<TreasureModalRef>(null);
   const judgmentInitIsHandleNext = useCallback(() => {
-    const quiz = lesson?.content?.right?.find(
-      (v: NotionComponent) => v.type === CustomType.Quiz
-    );
+    const quiz = lesson?.content?.right?.find((v: NotionComponent) => v.type === CustomType.Quiz);
     if (
       !quiz ||
       lesson?.state === CompleteStateType.COMPLETED ||
@@ -114,11 +96,7 @@ const LessonPage: FC<LessonPageProps> = (props) => {
         size="large"
       >
         {lesson ? (
-          <div
-            className={`relative w-full ${
-              isHandleNext ? 'h-[calc(100vh-145px)]' : 'h-[calc(100vh-95px)]'
-            }`}
-          >
+          <div className={`relative w-full ${isHandleNext ? 'h-[calc(100vh-145px)]' : 'h-[calc(100vh-95px)]'}`}>
             <LessonPageContext.Provider
               value={{
                 navbarData,
@@ -144,10 +122,8 @@ const LessonPage: FC<LessonPageProps> = (props) => {
                   const content1 = document.createElement('span');
                   const content2 = document.createElement('span');
                   container.className = 'w-full px-[6px] flex justify-between';
-                  content1.className =
-                    'w-[2px] h-[12px] bg-neutral-medium-gray rounded-full';
-                  content2.className =
-                    'w-[2px] h-[12px] bg-neutral-medium-gray rounded-full';
+                  content1.className = 'w-[2px] h-[12px] bg-neutral-medium-gray rounded-full';
+                  content2.className = 'w-[2px] h-[12px] bg-neutral-medium-gray rounded-full';
 
                   container.appendChild(content1);
                   container.appendChild(content2);
@@ -156,21 +132,16 @@ const LessonPage: FC<LessonPageProps> = (props) => {
                   return gutter;
                 }}
               >
-                <LessonContent
-                  lesson={lesson as any}
-                  courseType={courseType}
-                ></LessonContent>
+                <LessonContent lesson={lesson as any} courseType={courseType}></LessonContent>
                 <Playground
                   lesson={lesson! as any}
                   onCompleted={() => {
                     if (lesson.state !== CompleteStateType.COMPLETED) {
-                      webApi.missionCenterApi
-                        .digTreasures(lessonId)
-                        .then((res) => {
-                          if (res.success && res.treasureId) {
-                            treasureModalRef.current?.open(res.treasureId);
-                          }
-                        });
+                      webApi.missionCenterApi.digTreasures(lessonId).then((res) => {
+                        if (res.success && res.treasureId) {
+                          treasureModalRef.current?.open(res.treasureId);
+                        }
+                      });
                     }
                     // 当前lesson完成
                     setIsHandleNext(true);
@@ -181,19 +152,15 @@ const LessonPage: FC<LessonPageProps> = (props) => {
                 lesson={lesson as any}
                 onNextClick={async () => {
                   BurialPoint.track('lesson-底部next按钮点击');
-                  BurialPoint.track(
-                    'lesson-底部next按钮亮起到点击所消耗的时间(用户lesson完成时间)',
-                    {
-                      duration:
-                        new Date().getTime() - allowNextButtonClickTime.current,
-                      detail: JSON.stringify({
-                        lessonName: lesson.name,
-                        lessonId: lessonId,
-                        courseName,
-                        username: userInfo?.name
-                      })
-                    }
-                  );
+                  BurialPoint.track('lesson-底部next按钮亮起到点击所消耗的时间(用户lesson完成时间)', {
+                    duration: new Date().getTime() - allowNextButtonClickTime.current,
+                    detail: JSON.stringify({
+                      lessonName: lesson.name,
+                      lessonId: lessonId,
+                      courseName,
+                      username: userInfo?.name
+                    })
+                  });
                   setNextLoading(true);
                   if (lesson.state !== CompleteStateType.COMPLETED) {
                     onNextClick({

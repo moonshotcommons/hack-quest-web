@@ -90,13 +90,7 @@ const UnitLesson: React.FC<UnitLessonProp> = ({
           </div>
         )}
       </div>
-      {!lesson?.isInput && (
-        <HandleDot
-          showDelete={isShowDelete}
-          handleEdit={handleInput}
-          handleDelete={handleDelete}
-        />
-      )}
+      {!lesson?.isInput && <HandleDot showDelete={isShowDelete} handleEdit={handleInput} handleDelete={handleDelete} />}
     </div>
   );
 };

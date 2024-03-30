@@ -21,14 +21,7 @@ interface ModalProps {
 const IconClose: FC<{ icon?: ReactNode; className?: string }> = (props) => {
   const { icon, className, ...rest } = props;
   return icon ? (
-    <div
-      className={cn(
-        'absolute right-[2.25rem] top-[2.5rem] z-[999] cursor-pointer',
-        className
-      )}
-    >
-      {icon}
-    </div>
+    <div className={cn('absolute right-[2.25rem] top-[2.5rem] z-[999] cursor-pointer', className)}>{icon}</div>
   ) : (
     <div className="absolute right-[2.25rem] top-[2.5rem] z-[999] cursor-pointer rounded-full border border-solid border-neutral-off-white p-[0.66rem]">
       <CloseIcon width={20} height={19} color={'currentColor'} />
@@ -52,24 +45,9 @@ const Modal: React.FC<ModalProps> = (props) => {
   return (
     <Transition show={open} appear as={Fragment}>
       <Dialog as="div" className="relative z-[999]" onClose={onClose}>
-        <div
-          className={cn(
-            `fixed bg-black bg-opacity-50`,
-            block ? 'inset-x-0 bottom-0 top-[64px]' : 'inset-0'
-          )}
-        />
-        <div
-          className={cn(
-            'fixed  overflow-y-auto',
-            block ? 'inset-x-0 bottom-0 top-[64px]' : 'inset-0'
-          )}
-        >
-          <div
-            className={cn(
-              'flex min-h-full items-center justify-center text-center',
-              block ? '' : 'p-4'
-            )}
-          >
+        <div className={cn(`fixed bg-black bg-opacity-50`, block ? 'inset-x-0 bottom-0 top-[64px]' : 'inset-0')} />
+        <div className={cn('fixed  overflow-y-auto', block ? 'inset-x-0 bottom-0 top-[64px]' : 'inset-0')}>
+          <div className={cn('flex min-h-full items-center justify-center text-center', block ? '' : 'p-4')}>
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -79,19 +57,11 @@ const Modal: React.FC<ModalProps> = (props) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel
-                className={cn(
-                  'w-fit overflow-hidden text-left align-middle',
-                  className
-                )}
-              >
+              <Dialog.Panel className={cn('w-fit overflow-hidden text-left align-middle', className)}>
                 <div className="no-scrollbar relative flex  items-center justify-center overflow-y-scroll shadow-2xl">
                   {showCloseIcon ? (
                     <div onClick={onClose}>
-                      <IconClose
-                        icon={icon}
-                        className={iconClassName}
-                      ></IconClose>
+                      <IconClose icon={icon} className={iconClassName}></IconClose>
                     </div>
                   ) : null}
                   {children}

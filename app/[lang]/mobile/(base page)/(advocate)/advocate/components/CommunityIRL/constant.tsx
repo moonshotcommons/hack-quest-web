@@ -3,13 +3,7 @@ import { ReactNode } from 'react';
 
 type EmojiType = 'cn' | 'pt' | 'sg' | 'us';
 
-const EmojiText = ({
-  type,
-  children
-}: {
-  type: EmojiType;
-  children: ReactNode;
-}) => {
+const EmojiText = ({ type, children }: { type: EmojiType; children: ReactNode }) => {
   return (
     <div className="flex items-center gap-1">
       <div className="relative h-4 w-4">

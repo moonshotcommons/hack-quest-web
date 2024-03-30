@@ -13,13 +13,9 @@ interface ScrollControlType {
 
 const ScrollControl: React.FC<ScrollControlType> = ({
   changeState,
-  burialPointType = [
-    'home-featured course滚动-左',
-    'home-featured course滚动-右'
-  ]
+  burialPointType = ['home-featured course滚动-左', 'home-featured course滚动-右']
 }) => {
-  const { handleArrowClick, rightArrowVisible, leftArrowVisible } =
-    changeState || {};
+  const { handleArrowClick, rightArrowVisible, leftArrowVisible } = changeState || {};
 
   const [translateX, setTranslateX] = useState(0);
 
@@ -76,11 +72,7 @@ const ScrollControl: React.FC<ScrollControlType> = ({
       <div className="relative  h-[3px]" ref={scrollBarRef}>
         <div className="absolute bottom-0 left-0 flex h-full gap-[3px]">
           {Array.from({ length: paginationNum }).map((_, i) => (
-            <div
-              key={i}
-              className="h-full bg-neutral-light-gray"
-              style={{ width: `${paginatWidth}px` }}
-            ></div>
+            <div key={i} className="h-full bg-neutral-light-gray" style={{ width: `${paginatWidth}px` }}></div>
           ))}
         </div>
         <div

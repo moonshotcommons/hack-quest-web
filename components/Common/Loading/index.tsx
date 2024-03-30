@@ -7,12 +7,7 @@ interface LoadingProps {
   children?: ReactNode;
 }
 
-const Loading: FC<LoadingProps & SpinProps> = ({
-  loading,
-  children,
-  loadingText = 'loading...',
-  ...rest
-}) => {
+const Loading: FC<LoadingProps & SpinProps> = ({ loading, children, loadingText = 'loading...', ...rest }) => {
   return (
     <ConfigProvider
       theme={{

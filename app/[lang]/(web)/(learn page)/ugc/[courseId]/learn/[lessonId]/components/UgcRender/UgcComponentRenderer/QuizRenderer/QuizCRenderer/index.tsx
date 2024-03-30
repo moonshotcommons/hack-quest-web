@@ -14,7 +14,7 @@ import {
 } from '@/app/[lang]/(web)/(learn page)/ugc/[courseId]/learn/constants/type';
 import { QuizContext } from '..';
 import emitter from '@/store/emitter';
-import { useGetQuizsCompleted } from '@/hooks/useCoursesHooks/useGetQuizsCompleted';
+import { useGetQuizsCompleted } from '@/hooks/courses/useGetQuizsCompleted';
 interface QuizCRendererProps {
   parent: any;
   quiz: any;
@@ -33,9 +33,7 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
   const { setFooterBtn } = useContext(UgcContext);
   const initFooterBtn = useRef(true);
   const { getFooterBtnInfo } = useGetQuizsCompleted();
-  const [answerState, setAnswerState] = useState<AnswerState>(
-    AnswerState.Default
-  );
+  const [answerState, setAnswerState] = useState<AnswerState>(AnswerState.Default);
 
   const submit = () => {
     let wrongAnswer = answers.find((answer) => !quiz.answers.includes(answer));
@@ -44,9 +42,7 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
       return;
     }
 
-    let rightAnswer = quiz.answers.find(
-      (answer: any) => !answers.includes(answer)
-    );
+    let rightAnswer = quiz.answers.find((answer: any) => !answers.includes(answer));
     if (rightAnswer) {
       setAnswerState(AnswerState.Wrong);
       return;
@@ -63,8 +59,7 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
   }
 
   useEffect(() => {
-    let { footerBtnText, footerBtnStatus, footerBtnDisable } =
-      getFooterBtnInfo(parent);
+    let { footerBtnText, footerBtnStatus, footerBtnDisable } = getFooterBtnInfo(parent);
     initFooterBtn.current = true;
     if (quiz.isCompleted) {
       setAnswers(quiz.answers);
@@ -110,13 +105,7 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
       >
         <div className="text-h4 mt-[32px]">
           {quiz?.children?.map((child: any, index: number) => {
-            return (
-              <ComponentRenderer
-                key={index}
-                parent={quiz}
-                component={child}
-              ></ComponentRenderer>
-            );
+            return <ComponentRenderer key={index} parent={quiz} component={child}></ComponentRenderer>;
           })}
         </div>
       </RendererContext.Provider>
@@ -130,8 +119,7 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
                 answers.includes(item.index) ? 'bg-[#FFF4CE]' : ''
               )}
               onClick={() => {
-                if (answerState !== AnswerState.Default)
-                  setAnswerState(AnswerState.Default);
+                if (answerState !== AnswerState.Default) setAnswerState(AnswerState.Default);
                 if (answers.includes(item.index)) {
                   setAnswers(answers.filter((answer) => answer !== item.index));
                 } else {
@@ -143,21 +131,14 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
                 {item.index}
               </div>
               <div className="flex-1">
-                <TextRenderer
-                  richTextArr={item.option?.content?.rich_text}
-                  fontSize="16px"
-                ></TextRenderer>
+                <TextRenderer richTextArr={item.option?.content?.rich_text} fontSize="16px"></TextRenderer>
               </div>
 
               <div>
-                {answerState === AnswerState.Correct &&
-                  answers.includes(item.index) && (
-                    <FiCheck color="#00C365" size={28} />
-                  )}
-                {answerState === AnswerState.Wrong &&
-                  answers.includes(item.index) && (
-                    <FiX color="#C73333" size={28} />
-                  )}
+                {answerState === AnswerState.Correct && answers.includes(item.index) && (
+                  <FiCheck color="#00C365" size={28} />
+                )}
+                {answerState === AnswerState.Wrong && answers.includes(item.index) && <FiX color="#C73333" size={28} />}
               </div>
             </div>
           );

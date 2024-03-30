@@ -1,5 +1,5 @@
 'use client';
-import { useCustomPathname } from '@/hooks/useCheckPathname';
+import { useCustomPathname } from '@/hooks/router/useCheckPathname';
 import { useRouter } from 'next/navigation';
 import { FC, ReactNode, useEffect } from 'react';
 import { isMobile } from 'react-device-detect';

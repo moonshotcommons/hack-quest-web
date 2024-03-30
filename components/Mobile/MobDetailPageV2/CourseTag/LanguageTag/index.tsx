@@ -8,13 +8,7 @@ interface LanguageTagProps {
 }
 
 const defaultIcon = (
-  <svg
-    width="32"
-    height="33"
-    viewBox="0 0 32 33"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+  <svg width="32" height="33" viewBox="0 0 32 33" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
       fillRule="evenodd"
       clipRule="evenodd"
@@ -36,25 +30,15 @@ const defaultIcon = (
   </svg>
 );
 
-const LanguageTag: FC<LanguageTagProps> = ({
-  icon,
-  label,
-  value,
-  valueNode,
-  ...rest
-}) => {
+const LanguageTag: FC<LanguageTagProps> = ({ icon, label, value, valueNode, ...rest }) => {
   return (
     <div className="flex items-center gap-3" {...rest}>
       {icon ? icon : defaultIcon}
       <div className="flex flex-col">
         {!!label && label}
-        {!label && (
-          <span className="body-xs text-neutral-medium-gray">Language</span>
-        )}
+        {!label && <span className="body-xs text-neutral-medium-gray">Language</span>}
         {!!valueNode && valueNode}
-        {!valueNode && value && (
-          <span className="body-s-bold capitalize">{value.toLowerCase()}</span>
-        )}
+        {!valueNode && value && <span className="body-s-bold capitalize">{value.toLowerCase()}</span>}
       </div>
     </div>
   );

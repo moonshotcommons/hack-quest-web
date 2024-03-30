@@ -17,12 +17,7 @@ const CourseLevel: FC<CourseLevelProps> = (props) => {
 
   return (
     <div className="flex items-center gap-[5px]">
-      <div
-        className={cn(
-          `flex items-center gap-[1px]`,
-          size === 'large' ? 'gap-[2px]' : ''
-        )}
-      >
+      <div className={cn(`flex items-center gap-[1px]`, size === 'large' ? 'gap-[2px]' : '')}>
         {levels.map((item, index) => {
           return (
             <div

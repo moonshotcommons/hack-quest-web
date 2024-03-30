@@ -2,15 +2,7 @@ import { VariantProps, cva } from 'class-variance-authority';
 import { changeTextareaHeight, cn } from '@/helper/utils';
 import { useDebounceFn } from 'ahooks';
 import Schema, { Rule, Rules } from 'async-validator';
-import {
-  HTMLInputTypeAttribute,
-  ReactNode,
-  forwardRef,
-  useEffect,
-  useImperativeHandle,
-  useRef,
-  useState
-} from 'react';
+import { HTMLInputTypeAttribute, ReactNode, forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import CloseIcon from '../Icon/Close';
 import EyeIcon from '../Icon/Eye';
 import PassIcon from '../Icon/Pass';
@@ -298,9 +290,7 @@ const TextArea = forwardRef<TextAreaRef, TextAreaProps>((props, ref) => {
           <PiWarningCircleFill size={20} />
           {errorMessage}
         </p>
-        <p
-          className={`body-l flex flex-1 justify-end  text-neutral-medium-gray ${isShowCount ? '' : 'hidden'}`}
-        >
+        <p className={`body-l flex flex-1 justify-end  text-neutral-medium-gray ${isShowCount ? '' : 'hidden'}`}>
           {`${value.toString().length}/${rest.maxLength}`}
         </p>
       </div>

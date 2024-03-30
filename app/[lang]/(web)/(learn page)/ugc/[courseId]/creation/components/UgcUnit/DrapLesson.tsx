@@ -1,12 +1,8 @@
 import React, { useContext } from 'react';
 import UnitLesson from './UnitLesson';
-import {
-  LessonMenuType,
-  UgcCreateContext,
-  UnitMenuType
-} from '../../constant/type';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
-import { useRedirect } from '@/hooks/useRedirect';
+import { LessonMenuType, UgcCreateContext, UnitMenuType } from '../../constant/type';
+import MenuLink from '@/constants/MenuLink';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import { cloneDeep } from 'lodash-es';
 import { useDrag } from 'react-dnd';
 import { isNull } from '@/helper/utils';
@@ -18,11 +14,7 @@ import { useShallow } from 'zustand/react/shallow';
 interface DrapLessonProp {
   unitList: UnitMenuType[];
   lesson: LessonMenuType;
-  showDeleteModal: (
-    type: string,
-    unitIndex: number,
-    lessonIndex: number
-  ) => void;
+  showDeleteModal: (type: string, unitIndex: number, lessonIndex: number) => void;
   changeUnitList: (list: UnitMenuType[]) => void;
   unitIndex: number;
   lessonIndex: number;
@@ -41,8 +33,7 @@ const DrapLesson: React.FC<DrapLessonProp> = ({
   isShowDelete
 }) => {
   const { redirectToUrl } = useRedirect();
-  const { courseId, selectLessonId, setSelectUnitMenuId } =
-    useContext(UgcCreateContext);
+  const { courseId, selectLessonId, setSelectUnitMenuId } = useContext(UgcCreateContext);
   const { setLoading } = useUgcCreationStore(
     useShallow((state) => ({
       setLoading: state.setLoading
@@ -58,11 +49,7 @@ const DrapLesson: React.FC<DrapLessonProp> = ({
     }),
     [unitList]
   );
-  const handleEditLesson = (
-    unitIndex: number,
-    lessonIndex: number,
-    val: string
-  ) => {
+  const handleEditLesson = (unitIndex: number, lessonIndex: number, val: string) => {
     if (isNull(val)) {
       const newUnitList = cloneDeep(unitList);
       newUnitList[unitIndex].pages[lessonIndex].title = lesson.title;

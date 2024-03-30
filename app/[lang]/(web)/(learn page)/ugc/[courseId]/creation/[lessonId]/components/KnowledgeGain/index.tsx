@@ -8,17 +8,14 @@ import { IoMdAddCircle } from 'react-icons/io';
 import { v4 } from 'uuid';
 import { defaultFormLi } from '../../../constant/data';
 import { cloneDeep } from 'lodash-es';
-import {
-  CreationHandle,
-  useUgcCreationStore
-} from '@/store/zustand/ugcCreationStore';
+import { CreationHandle, useUgcCreationStore } from '@/store/zustand/ugcCreationStore';
 import { useShallow } from 'zustand/react/shallow';
 import webApi from '@/service';
-import { useRedirect } from '@/hooks/useRedirect';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import { useRedirect } from '@/hooks/router/useRedirect';
+import MenuLink from '@/constants/MenuLink';
 import message from 'antd/es/message';
 import { UgcCreateContext } from '../../../constant/type';
-import useUgcCreationDataHanlde from '@/hooks/useUgcCreationDataHanlde';
+import useUgcCreationDataHandle from '@/hooks/courses/useUgcCreationDataHandle';
 
 interface KnowledgeGainProps {}
 
@@ -34,18 +31,17 @@ const KnowledgeGain: FC<KnowledgeGainProps> = (props) => {
   const {
     courseInformation: { knowledgeGain },
     courseId,
-    selectLessonId
+    selectLessonId,
+    handleNext
   } = useContext(UgcCreateContext);
   const { redirectToUrl } = useRedirect();
-  const { setInformation } = useUgcCreationDataHanlde();
-  const [descriptionList, setDescriptionList] = useState<Record<string, any>[]>(
-    [
-      {
-        ...formLi,
-        id: v4()
-      }
-    ]
-  );
+  const { setInformation } = useUgcCreationDataHandle();
+  const [descriptionList, setDescriptionList] = useState<Record<string, any>[]>([
+    {
+      ...formLi,
+      id: v4()
+    }
+  ]);
   const [tagList, setTagList] = useState<Record<string, any>[]>([]);
   const handleAdd = (type = 'description') => {
     let list, setList, initData;
@@ -54,6 +50,10 @@ const KnowledgeGain: FC<KnowledgeGainProps> = (props) => {
       setList = setDescriptionList;
       initData = { ...formLi, id: v4() };
     } else {
+      if (tagList.some((v) => isNull(v.label))) {
+        message.warning('Please fill in first');
+        return;
+      }
       list = tagList;
       setList = setTagList;
       initData = { label: '', id: v4() };
@@ -114,10 +114,11 @@ const KnowledgeGain: FC<KnowledgeGainProps> = (props) => {
       .then(() => {
         message.success('success');
         setInformation(courseId);
-        redirectToUrl(
-          `${MenuLink.UGC}/${courseId}/creation/${selectLessonId}`,
-          true
-        );
+        if (handle === CreationHandle.ON_NEXT) {
+          handleNext();
+        } else {
+          redirectToUrl(`${MenuLink.UGC}/${courseId}/creation/${selectLessonId}`, true);
+        }
       })
       .catch((err) => {
         message.error(err as string);
@@ -155,7 +156,7 @@ const KnowledgeGain: FC<KnowledgeGainProps> = (props) => {
   }, [knowledgeGain]);
 
   useEffect(() => {
-    if (handle === CreationHandle.ON_SAVE) {
+    if (handle === CreationHandle.ON_SAVE || handle === CreationHandle.ON_NEXT) {
       handleSubmit();
     }
   }, [handle]);
@@ -169,9 +170,7 @@ const KnowledgeGain: FC<KnowledgeGainProps> = (props) => {
         {`While optional, this step enhances transparency, aiding students in gauging the course's relevance to their goals. By showcasing the specific knowledge gained, you spark anticipation and excitement about the valuable insights awaiting participants. Consider it a brief yet impactful way to set expectations and engage your audience.`}
       </div>
       <div>
-        <p className="text-h4 mb-[20px] font-next-book-bold">
-          What You Will Learn
-        </p>
+        <p className="text-h4 mb-[20px] font-next-book-bold">What You Will Learn</p>
         <div className="flex flex-col gap-[20px]">
           {descriptionList.map((v, index) => (
             <div key={v.id} className="group relative w-[calc(100%+63px)]">
@@ -212,9 +211,7 @@ const KnowledgeGain: FC<KnowledgeGainProps> = (props) => {
         </div>
       </div>
       <div>
-        <p className="text-h4 mb-[20px] font-next-book-bold">
-          What You Will Gain
-        </p>
+        <p className="text-h4 mb-[20px] font-next-book-bold">What You Will Gain</p>
         <div className="flex flex-wrap gap-[20px]">
           {tagList.map((v, index) => (
             <div key={v.id}>

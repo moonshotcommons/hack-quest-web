@@ -41,9 +41,7 @@ const UnitList: FC<UnitListProps> = (props) => {
           <li key={unit.id} className="bottom-line relative w-full">
             <UnitCard
               unit={unit}
-              isLock={
-                units[index - 1].progress < 1 || unit.progress === undefined
-              }
+              isLock={units[index - 1].progress < 1 || unit.progress === undefined}
               courseType={courseType}
               index={index}
               learningStatus={learningStatus}

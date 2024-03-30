@@ -2,12 +2,12 @@ import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import Image from 'next/image';
 import React from 'react';
 import CourseTags from '@/components/Web/Business/CourseTags';
-import { useRedirect } from '@/hooks/useRedirect';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import LearningTrackImg from '@/public/images/home/learningtrack_img.png';
 import TrackTag from '@/components/Common/TrackTag';
 import CompletedIcon from '@/components/Common/Icon/Completed';
-import { MenuLink } from '../../Layout/BasePage/Navbar/type';
 import Link from 'next/link';
+import MenuLink from '@/constants/MenuLink';
 interface LearningTrackCardProps {
   learningTrack: LearningTrackDetailType;
   isLandingPage?: boolean;
@@ -33,9 +33,7 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
       }
       // onClick={goLearningTrackDetail}
     >
-      {from === 'dashboard' &&
-      learningTrack.progress &&
-      learningTrack.progress >= 1 ? (
+      {from === 'dashboard' && learningTrack.progress && learningTrack.progress >= 1 ? (
         <div className={`absolute  right-[16px] top-[16px]`}>
           <CompletedIcon />
         </div>
@@ -43,12 +41,8 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
 
       <div className="flex h-full flex-1 flex-shrink-0 flex-col justify-between">
         <TrackTag track={learningTrack.track} />
-        <div className="body-m-bold line-clamp-1 text-neutral-off-black">
-          {learningTrack.name}
-        </div>
-        <div className="body-s line-clamp-3 h-[66px]  text-neutral-medium-gray">
-          {learningTrack.description}
-        </div>
+        <div className="body-m-bold line-clamp-1 text-neutral-off-black">{learningTrack.name}</div>
+        <div className="body-s line-clamp-3 h-[66px]  text-neutral-medium-gray">{learningTrack.description}</div>
         <div>
           <CourseTags
             language={learningTrack.language}

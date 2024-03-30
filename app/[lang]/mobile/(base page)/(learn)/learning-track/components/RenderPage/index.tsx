@@ -9,24 +9,21 @@ import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import Banner from '../Banner';
 import { useRouter } from 'next/navigation';
 import { getSearchParamsUrl } from '@/helper/utils';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 
 interface RenderPageProp {
   learningTrackListData: LearningTrackDetailType[];
   searchInfo: SearchInfoType;
 }
 
-const RenderPage: React.FC<RenderPageProp> = ({
-  learningTrackListData,
-  searchInfo
-}) => {
+const RenderPage: React.FC<RenderPageProp> = ({ learningTrackListData, searchInfo }) => {
   const router = useRouter();
   const changeSearchInfo = (info: SearchInfoType) => {
     router.push(getSearchParamsUrl(info, MenuLink.LEARNING_TRACK));
   };
   return (
     <>
-      <Banner changeSearchInfo={changeSearchInfo} searchInfo={searchInfo} />
+      <Banner searchInfo={searchInfo} />
       <div className="mt-[-2.5rem] rounded-t-[2rem] bg-neutral-off-white px-[1.25rem] pb-[1.25rem] pt-[1.25rem]">
         <MobCourseFilterList
           onFilterParamsUpdate={(params) => {
@@ -42,12 +39,7 @@ const RenderPage: React.FC<RenderPageProp> = ({
           courseList={learningTrackListData}
           loading={false}
           renderItem={(learningTrack) => {
-            return (
-              <MobLearningTrackCard
-                key={learningTrack.id}
-                learningTrack={learningTrack}
-              />
-            );
+            return <MobLearningTrackCard key={learningTrack.id} learningTrack={learningTrack} />;
           }}
         />
       </div>

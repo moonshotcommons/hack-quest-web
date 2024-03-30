@@ -1,13 +1,8 @@
 import { cn } from '@/helper/utils';
 import { FC, ReactNode } from 'react';
 import { FaRegImage } from 'react-icons/fa6';
-function Skeleton({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLDivElement>) {
-  return (
-    <div className={cn('animate-pulse bg-gray-300', className)} {...props} />
-  );
+function Skeleton({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
+  return <div className={cn('animate-pulse bg-gray-300', className)} {...props} />;
 }
 
 export { Skeleton };
@@ -26,12 +21,7 @@ interface CourseCardSkeletonListProps {
 
 const CourseCardSkeletonCard: FC<CourseCardSkeletonCardProps> = (props) => {
   return (
-    <div
-      className={cn(
-        'flex h-[370px] flex-col overflow-hidden rounded-[16px] bg-neutral-white',
-        props.itemWidth
-      )}
-    >
+    <div className={cn('flex h-[370px] flex-col overflow-hidden rounded-[16px] bg-neutral-white', props.itemWidth)}>
       <Skeleton className="flex h-[150px] w-full items-center justify-center">
         <FaRegImage size={80} color={'#bdbdbd'} />
       </Skeleton>
@@ -53,20 +43,10 @@ const CourseCardSkeletonCard: FC<CourseCardSkeletonCardProps> = (props) => {
   );
 };
 
-const CourseCardSkeletonList: FC<CourseCardSkeletonListProps> = ({
-  size = 4,
-  children,
-  active,
-  itemWidth
-}) => {
+const CourseCardSkeletonList: FC<CourseCardSkeletonListProps> = ({ size = 4, children, active, itemWidth }) => {
   return active
     ? new Array(size).fill('').map((item, index) => {
-        return (
-          <CourseCardSkeletonCard
-            key={index}
-            itemWidth={itemWidth}
-          ></CourseCardSkeletonCard>
-        );
+        return <CourseCardSkeletonCard key={index} itemWidth={itemWidth}></CourseCardSkeletonCard>;
       })
     : children;
 };

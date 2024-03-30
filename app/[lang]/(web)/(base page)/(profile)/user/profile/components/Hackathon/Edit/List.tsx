@@ -56,14 +56,10 @@ const List: React.FC<ListProp> = ({ onClose, handleEdit, list }) => {
       <div className="my-[20px] max-h-[60vh] overflow-auto">
         <div>
           {list.map((v, i) => (
-            <div
-              key={i}
-              className="flex border-b-[0.5px] border-b-[#000] py-[20px]"
-            >
+            <div key={i} className="flex border-b-[0.5px] border-b-[#000] py-[20px]">
               <div className="body-l w-[270px] text-neutral-medium-gray">
                 <p>
-                  {dealDate(v.startDate)} -{' '}
-                  {v.endDate ? dealDate(v.endDate) : 'Present'} ·{' '}
+                  {dealDate(v.startDate)} - {v.endDate ? dealDate(v.endDate) : 'Present'} ·{' '}
                   {dateInterval(v.startDate, v.endDate)}
                 </p>
                 <p>{v.location}</p>
@@ -78,34 +74,21 @@ const List: React.FC<ListProp> = ({ onClose, handleEdit, list }) => {
                   {v.descriptions.map((d, j) => (
                     <div className="flex items-start" key={j}>
                       <span className="relative top-[11px] mr-[7px] h-[5px] w-[5px] rounded-[50%] bg-neutral-black"></span>
-                      <span className="flex-1 break-all leading-[26px]">
-                        {d}
-                      </span>
+                      <span className="flex-1 break-all leading-[26px]">{d}</span>
                     </div>
                   ))}
                 </div>
               </div>
               <div className="relative top-[2px] flex gap-[30px]">
-                <FiEdit3
-                  size={20}
-                  className="cursor-pointer"
-                  onClick={() => handleEdit(v.id)}
-                />
-                <FiTrash2
-                  onClick={() => openDeleteConfirm(v.id)}
-                  size={20}
-                  className="cursor-pointer"
-                />
+                <FiEdit3 size={20} className="cursor-pointer" onClick={() => handleEdit(v.id)} />
+                <FiTrash2 onClick={() => openDeleteConfirm(v.id)} size={20} className="cursor-pointer" />
               </div>
             </div>
           ))}
         </div>
       </div>
       <div className="flex justify-center gap-[15px]">
-        <Button
-          onClick={onClose}
-          className="body-m h-[44px] w-[265px] border  border-neutral-black text-neutral-black"
-        >
+        <Button onClick={onClose} className="body-m h-[44px] w-[265px] border  border-neutral-black text-neutral-black">
           Close
         </Button>
       </div>

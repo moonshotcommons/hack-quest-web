@@ -21,9 +21,7 @@ const QuizFooter: FC<QuizFooterProps> = (props) => {
       </div>
       <Button
         type="primary"
-        className={`body-s px-[40px] py-[8px] text-neutral-black ${
-          submitDisable ? 'cursor-not-allowed opacity-40' : ''
-        }`}
+        className={`body-s px-[40px] py-[8px] text-neutral-black ${submitDisable ? 'cursor-not-allowed opacity-40' : ''}`}
         disabled={submitDisable}
         onClick={() => onSubmit()}
       >

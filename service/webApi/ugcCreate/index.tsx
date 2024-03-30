@@ -13,12 +13,9 @@ class UgcCreateApi {
   }
   /**获取ugc information 详情 */
   getUgcInformationDetail(courseId: string, params: object) {
-    return this.service.get<UGCCourseType>(
-      `${UgcCreateApiType.COURSES}/${courseId}`,
-      {
-        params
-      }
-    );
+    return this.service.get<UGCCourseType>(`${UgcCreateApiType.COURSES}/${courseId}`, {
+      params
+    });
   }
   /** 创建introduction */
   introductionAdd(data: object) {
@@ -26,69 +23,68 @@ class UgcCreateApi {
       data
     });
   }
+
   /** 修改infoamation */
   informationEdit(courseId: string, data: object) {
-    return this.service.patch<CourseInformationType>(
-      `${UgcCreateApiType.COURSES}/${courseId}`,
-      {
-        data
-      }
-    );
+    return this.service.patch<CourseInformationType>(`${UgcCreateApiType.COURSES}/${courseId}`, {
+      data
+    });
   }
+
   /** 新增units */
   addUnit(courseId: string, data: object) {
     return this.service.post(`${UgcCreateApiType.COURSES}/${courseId}/units`, {
       data
     });
   }
+
   /** 修改units */
   editUnit(courseId: string, unitId: string, data: object) {
-    return this.service.patch(
-      `${UgcCreateApiType.COURSES}/${courseId}/units/${unitId}`,
-      {
-        data
-      }
-    );
+    return this.service.patch(`${UgcCreateApiType.COURSES}/${courseId}/units/${unitId}`, {
+      data
+    });
   }
+
   /** 删除units */
-  delelteUnit(courseId: string, unitId: string) {
-    return this.service.delete(
-      `${UgcCreateApiType.COURSES}/${courseId}/units/${unitId}`
-    );
+  deleteUnit(courseId: string, unitId: string) {
+    return this.service.delete(`${UgcCreateApiType.COURSES}/${courseId}/units/${unitId}`);
   }
+
   /** 删除units */
   sortUnit(courseId: string, unitId: string, data: object) {
-    return this.service.patch(
-      `${UgcCreateApiType.COURSES}/${courseId}/units/${unitId}/sequence`,
-      {
-        data
-      }
-    );
+    return this.service.patch(`${UgcCreateApiType.COURSES}/${courseId}/units/${unitId}/sequence`, {
+      data
+    });
   }
+
   /** 新增lesson */
   addLesson(data: object) {
     return this.service.post(`${UgcCreateApiType.PAGES}`, {
       data
     });
   }
+
   /** 编辑lesson */
   editLesson(lessonId: string, data: object) {
     return this.service.patch(`${UgcCreateApiType.PAGES}/${lessonId}`, {
       data
     });
   }
+
   /** 删除lesson */
-  delelteLesson(lessonId: string) {
+  deleteLesson(lessonId: string) {
     return this.service.delete(`${UgcCreateApiType.PAGES}/${lessonId}`);
   }
+
   /** lesson 排序 */
   sortLesson(lessonId: string, data: object) {
-    return this.service.patch(
-      `${UgcCreateApiType.PAGES}/${lessonId}/sequence`,
-      {
-        data
-      }
-    );
+    return this.service.patch(`${UgcCreateApiType.PAGES}/${lessonId}/sequence`, {
+      data
+    });
+  }
+
+  getLessonDetail(lessonId: string) {
+    return this.service.get(`${UgcCreateApiType.PAGES}/${lessonId}/v2`);
   }
 }
 

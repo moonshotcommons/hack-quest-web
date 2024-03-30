@@ -9,7 +9,6 @@ interface UgcPageProps {
 
 const UgcPage: FC<UgcPageProps> = () => {
   const { lessonId } = useParams();
-
   return (
     <>
       <Ugc lessonId={lessonId as string} />

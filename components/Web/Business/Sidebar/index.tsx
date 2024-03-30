@@ -1,12 +1,5 @@
 import { cn } from '@/helper/utils';
-import {
-  CSSProperties,
-  ReactNode,
-  createContext,
-  useCallback,
-  useEffect,
-  useState
-} from 'react';
+import { CSSProperties, ReactNode, createContext, useCallback, useEffect, useState } from 'react';
 import { LuChevronsRight } from 'react-icons/lu';
 import { HTMLMotionProps, motion } from 'framer-motion';
 import SidebarGroup from './SidebarGroup';
@@ -128,28 +121,12 @@ const Sidebar = <T,>(props: SidebarProps<T>) => {
               onShowListChange?.(false);
             }}
           >
-            <h3 className="text-h3 flex-1 truncate text-neutral-black">
-              {title}
-            </h3>
+            <h3 className="text-h3 flex-1 truncate text-neutral-black">{title}</h3>
             <div className="flex w-10 items-center justify-center">
               {/* <LuChevronsLeft size={24} /> */}
-              <svg
-                width="12"
-                height="9"
-                viewBox="0 0 12 9"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M5 0.5L1 4.5L5 8.5"
-                  stroke="#0B0B0B"
-                  strokeLinecap="round"
-                />
-                <path
-                  d="M11 0.5L7 4.5L11 8.5"
-                  stroke="#0B0B0B"
-                  strokeLinecap="round"
-                />
+              <svg width="12" height="9" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5 0.5L1 4.5L5 8.5" stroke="#0B0B0B" strokeLinecap="round" />
+                <path d="M11 0.5L7 4.5L11 8.5" stroke="#0B0B0B" strokeLinecap="round" />
               </svg>
             </div>
           </div>

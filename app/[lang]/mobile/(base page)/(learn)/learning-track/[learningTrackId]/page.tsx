@@ -1,9 +1,7 @@
 import Tags from '@/components/Common/Tags';
 import CertificationCard from '@/components/Mobile/MobCertification/CertificationCard';
 import { LearningTrackCatalogue } from '@/components/Mobile/MobDetailPageV2/Catalogue';
-import CourseTag, {
-  CourseTagType
-} from '@/components/Mobile/MobDetailPageV2/CourseTag';
+import CourseTag, { CourseTagType } from '@/components/Mobile/MobDetailPageV2/CourseTag';
 import webApi from '@/service';
 import { FC } from 'react';
 import BackButton from '@/components/Mobile/MobDetailPageV2/BackButton';
@@ -33,8 +31,7 @@ export async function generateMetadata(
   // 读取路由参数
   const learningTrackId = params.learningTrackId;
 
-  const courseDetail =
-    await webApi.learningTrackApi.fetchLearningTrackDetail(learningTrackId);
+  const courseDetail = await webApi.learningTrackApi.fetchLearningTrackDetail(learningTrackId);
 
   const metadata: Metadata = {
     title: courseDetail.name,
@@ -46,16 +43,11 @@ export async function generateMetadata(
   return metadata;
 }
 
-const LearningTrackDetailPage: FC<LearningTrackDetailPageProps> = async (
-  props
-) => {
+const LearningTrackDetailPage: FC<LearningTrackDetailPageProps> = async (props) => {
   const { params, searchParams } = props;
   const learningTrackId = params.learningTrackId;
 
-  const learningTrackDetail =
-    await webApi.learningTrackApi.fetchLearningTrackDetailAndCourses(
-      learningTrackId
-    );
+  const learningTrackDetail = await webApi.learningTrackApi.fetchLearningTrackDetailAndCourses(learningTrackId);
 
   return (
     <LearningTrackDetailProvider learningTrackDetail={learningTrackDetail}>
@@ -78,45 +70,26 @@ const LearningTrackDetailPage: FC<LearningTrackDetailPageProps> = async (
             <span>Certified by</span>
             <span>Mantle</span>
           </div> */}
-          <p className="body-s my-5 text-neutral-rich-gray">
-            {learningTrackDetail.description}
-          </p>
+          <p className="body-s my-5 text-neutral-rich-gray">{learningTrackDetail.description}</p>
           <div className="flex flex-wrap gap-6 [&>div]:w-[calc((100%-24px)/2)]">
-            <CourseTag
-              type={CourseTagType.LANGUAGE}
-              value={learningTrackDetail.language}
-            ></CourseTag>
-            <CourseTag
-              type={CourseTagType.LEVEL}
-              value={learningTrackDetail.level}
-            ></CourseTag>
-            <CourseTag
-              type={CourseTagType.DURATION}
-              value={learningTrackDetail.duration + ''}
-            ></CourseTag>
+            <CourseTag type={CourseTagType.LANGUAGE} value={learningTrackDetail.language}></CourseTag>
+            <CourseTag type={CourseTagType.LEVEL} value={learningTrackDetail.level}></CourseTag>
+            <CourseTag type={CourseTagType.DURATION} value={learningTrackDetail.duration + ''}></CourseTag>
           </div>
         </div>
         <div className="flex flex-col gap-10 px-5 pb-[8.75rem] pt-10">
           {learningTrackDetail.certificationId && (
-            <CertificationCard
-              certificationId={learningTrackDetail.certificationId}
-            />
+            <CertificationCard certificationId={learningTrackDetail.certificationId} />
           )}
           {learningTrackDetail.intendedLearners && (
-            <IntendedLearners
-              intendedLearners={learningTrackDetail.intendedLearners}
-            />
+            <IntendedLearners intendedLearners={learningTrackDetail.intendedLearners} />
           )}
           <LearningTrackStructure detail={learningTrackDetail} />
-          {learningTrackDetail.knowledgeGain && (
-            <KnowledgeGain knowledgeGain={learningTrackDetail.knowledgeGain} />
-          )}
+          {learningTrackDetail.knowledgeGain && <KnowledgeGain knowledgeGain={learningTrackDetail.knowledgeGain} />}
           <Syllabus />
         </div>
         <div className="fixed bottom-10 z-[41] w-full px-5">
-          <LearningTrackStatusButton
-            learningTrackDetail={learningTrackDetail}
-          />
+          <LearningTrackStatusButton learningTrackDetail={learningTrackDetail} />
         </div>
       </div>
     </LearningTrackDetailProvider>

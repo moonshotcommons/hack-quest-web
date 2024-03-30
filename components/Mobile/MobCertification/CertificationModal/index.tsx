@@ -8,7 +8,7 @@ import Image from 'next/image';
 import { forwardRef, useImperativeHandle, useState } from 'react';
 import GettingCertificate from './GettingCertificate';
 import NotCertified from './NotCertified';
-import useGetHeight from '@/hooks/useGetHeight';
+import useGetHeight from '@/hooks/dom/useGetHeight';
 
 interface CertificationModalProps {
   certification: CertificationType;
@@ -23,18 +23,8 @@ export interface CertificationModalInstance {
   open: (params?: any) => void;
 }
 
-const CertificationModal = forwardRef<
-  CertificationModalInstance,
-  CertificationModalProps
->((props, ref) => {
-  const {
-    certification,
-    completed,
-    campaignId,
-    showCoin = false,
-    onClose,
-    refreshCertification
-  } = props;
+const CertificationModal = forwardRef<CertificationModalInstance, CertificationModalProps>((props, ref) => {
+  const { certification, completed, campaignId, showCoin = false, onClose, refreshCertification } = props;
   const [open, setOpen] = useState(false);
   const { pageHeight } = useGetHeight();
   useImperativeHandle(ref, () => {
@@ -90,21 +80,11 @@ const CertificationModal = forwardRef<
                 </div> */}
                 <div className="mt-[20px] flex justify-center gap-[20px]">
                   <div className="box-border flex  items-center gap-2 px-[8px] py-[6px]">
-                    <Image
-                      src={iconCoin}
-                      width={32}
-                      alt="icon"
-                      className=""
-                    ></Image>
+                    <Image src={iconCoin} width={32} alt="icon" className=""></Image>
                     <span>x{certification?.credits}</span>
                   </div>
                   <div className="box-border flex  items-center gap-2 px-[8px] py-[6px]">
-                    <Image
-                      src={iconXp}
-                      width={32}
-                      alt="icon"
-                      className=""
-                    ></Image>
+                    <Image src={iconXp} width={32} alt="icon" className=""></Image>
                     <span>x{certification?.exp}</span>
                   </div>
                 </div>
@@ -112,11 +92,7 @@ const CertificationModal = forwardRef<
             )}
           </div>
           {!certification.claimed && (
-            <NotCertified
-              onClose={() => setOpen(false)}
-              completed={completed}
-              campaignId={campaignId}
-            ></NotCertified>
+            <NotCertified onClose={() => setOpen(false)} completed={completed} campaignId={campaignId}></NotCertified>
           )}
           {certification.claimed && (
             <GettingCertificate
@@ -133,27 +109,9 @@ const CertificationModal = forwardRef<
 
 const closeIcon = (
   <div className="absolute -right-[24px] -top-[24px] cursor-pointer">
-    <svg
-      width="30"
-      height="30"
-      viewBox="0 0 30 30"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <line
-        x1="22.2734"
-        y1="22.2745"
-        x2="7.42416"
-        y2="7.42521"
-        stroke="#0B0B0B"
-      />
-      <line
-        x1="7.42574"
-        y1="22.2744"
-        x2="22.275"
-        y2="7.42513"
-        stroke="#0B0B0B"
-      />
+    <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="22.2734" y1="22.2745" x2="7.42416" y2="7.42521" stroke="#0B0B0B" />
+      <line x1="7.42574" y1="22.2744" x2="22.275" y2="7.42513" stroke="#0B0B0B" />
     </svg>
   </div>
 );

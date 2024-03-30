@@ -1,9 +1,6 @@
 'use client';
 import { FC, ReactNode, createContext, useContext, useMemo } from 'react';
-import {
-  ElectiveCourseDetailType,
-  PageType
-} from '@/service/webApi/elective/type';
+import { ElectiveCourseDetailType, PageType } from '@/service/webApi/elective/type';
 import { CourseDetailContext } from '@/components/Web/DetailPageV2/Provider/CourseDetailProvider';
 
 interface LessonProviderProps {
@@ -18,15 +15,10 @@ export const LessonContext = createContext<{
   lesson: null
 });
 
-const LessonProvider: FC<LessonProviderProps> = ({
-  courseDetail: propCourseDetail,
-  lesson: propLesson,
-  children
-}) => {
+const LessonProvider: FC<LessonProviderProps> = ({ courseDetail: propCourseDetail, lesson: propLesson, children }) => {
   const { courseDetail: contextCourseDetail } = useContext(CourseDetailContext);
 
-  const courseDetail = (contextCourseDetail ??
-    propCourseDetail) as ElectiveCourseDetailType;
+  const courseDetail = (contextCourseDetail ?? propCourseDetail) as ElectiveCourseDetailType;
 
   // const lessons = useMemo(() => {
   //   let list: PageType[][] = [];
@@ -39,18 +31,12 @@ const LessonProvider: FC<LessonProviderProps> = ({
 
   const lesson = useMemo(() => {
     if (courseDetail.pages?.length) {
-      return (
-        courseDetail.pages.find((l) => l.id === propLesson.id) || propLesson
-      );
+      return courseDetail.pages.find((l) => l.id === propLesson.id) || propLesson;
     }
     return propLesson;
   }, [propLesson, courseDetail]);
 
-  return (
-    <LessonContext.Provider value={{ lesson }}>
-      {children}
-    </LessonContext.Provider>
-  );
+  return <LessonContext.Provider value={{ lesson }}>{children}</LessonContext.Provider>;
 };
 
 export default LessonProvider;

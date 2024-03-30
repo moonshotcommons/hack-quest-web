@@ -24,11 +24,7 @@ const Dashboard: React.FC<DashboardProp> = () => {
       onScroll={handleScroll}
       ref={ProjectsPageRef}
     >
-      <MyCourses
-        ref={coursesRef}
-        setApiStatus={(status) => setApiStatus(status)}
-        apiStatus={apiStatus}
-      />
+      <MyCourses ref={coursesRef} setApiStatus={(status) => setApiStatus(status)} apiStatus={apiStatus} />
       {/* <div className="gap-[48px]">
         
         <div className="w-[286px] flex flex-col gap-[24px]">

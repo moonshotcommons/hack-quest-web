@@ -7,9 +7,7 @@ interface EditButtonProps {
   opacity?: number;
 }
 
-const EditButton: FC<
-  EditButtonProps & Omit<HTMLAttributes<HTMLDivElement>, 'className'>
-> = (props) => {
+const EditButton: FC<EditButtonProps & Omit<HTMLAttributes<HTMLDivElement>, 'className'>> = (props) => {
   const { className, color = '#231F20', opacity = 1, ...rest } = props;
   return (
     <div

@@ -36,16 +36,7 @@ const ani: HTMLMotionProps<'div'> = {
 };
 
 const SidebarGroup = <T,>(props: SidebarGroupProps<T>) => {
-  const {
-    children,
-    items,
-    onOpenChange,
-    item,
-    open,
-    onSelect,
-    select,
-    selectStyle
-  } = props;
+  const { children, items, onOpenChange, item, open, onSelect, select, selectStyle } = props;
 
   return (
     <div
@@ -54,9 +45,7 @@ const SidebarGroup = <T,>(props: SidebarGroupProps<T>) => {
      "
     >
       <div
-        className={cn(
-          'flex w-full cursor-pointer items-center justify-between px-10 py-[.9375rem]'
-        )}
+        className={cn('flex w-full cursor-pointer items-center justify-between px-10 py-[.9375rem]')}
         onClick={() => {
           onOpenChange(item.key);
         }}
@@ -70,13 +59,7 @@ const SidebarGroup = <T,>(props: SidebarGroupProps<T>) => {
         <motion.div {...ani} className="flex flex-col pb-[15px]">
           {items.map((item) => {
             return (
-              <SidebarItem
-                key={item.key}
-                item={item}
-                onSelect={onSelect}
-                select={select}
-                selectStyle={selectStyle}
-              >
+              <SidebarItem key={item.key} item={item} onSelect={onSelect} select={select} selectStyle={selectStyle}>
                 {item.label}
               </SidebarItem>
             );

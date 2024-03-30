@@ -1,11 +1,7 @@
 'use client';
 import Loading from '@/components/Common/Loading';
 import webApi from '@/service';
-import {
-  ProcessType,
-  CourseListType,
-  ProjectCourseType
-} from '@/service/webApi/course/type';
+import { ProcessType, CourseListType, ProjectCourseType } from '@/service/webApi/course/type';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 import LearningTrackList from './LearningTrackList';
@@ -40,15 +36,11 @@ const MyCourses = forwardRef<MyCoursesRef, MyCoursesProps>((props, ref) => {
     limit: 9
   });
   const [courseDataAll, setCourseDataAll] = useState<CourseListType[]>([]);
-  const [courseListData, setCourseListData] = useState<
-    Record<ProcessType, CourseListType[]>
-  >({
+  const [courseListData, setCourseListData] = useState<Record<ProcessType, CourseListType[]>>({
     [ProcessType.IN_PROCESS]: [],
     [ProcessType.COMPLETED]: []
   });
-  const [learningTrackListData, setLearningTrackListData] = useState<
-    Record<ProcessType, LearningTrackDetailType[]>
-  >({
+  const [learningTrackListData, setLearningTrackListData] = useState<Record<ProcessType, LearningTrackDetailType[]>>({
     [ProcessType.IN_PROCESS]: [],
     [ProcessType.COMPLETED]: []
   });
@@ -59,10 +51,7 @@ const MyCourses = forwardRef<MyCoursesRef, MyCoursesProps>((props, ref) => {
         setApiStatus('loading');
         setLoading(true);
         const pageInfo = { ...coursePageInfo, page: ++coursePageInfo.page };
-        const data = courseDataAll.slice(
-          pageInfo.limit * (pageInfo.page - 1),
-          pageInfo.limit * pageInfo.page
-        );
+        const data = courseDataAll.slice(pageInfo.limit * (pageInfo.page - 1), pageInfo.limit * pageInfo.page);
         setTimeout(() => {
           setLoading(false);
           mergeCourseList({ data, total });
@@ -95,9 +84,7 @@ const MyCourses = forwardRef<MyCoursesRef, MyCoursesProps>((props, ref) => {
     setCoursePageInfo({ ...pageInfo });
     setApiStatus('loading');
     return new Promise(async (resolve) => {
-      const res = await webApi.courseApi.getCourseListBySearch<
-        PageResult<ProjectCourseType | ElectiveCourseType>
-      >({
+      const res = await webApi.courseApi.getCourseListBySearch<PageResult<ProjectCourseType | ElectiveCourseType>>({
         status: curTab
       });
       setCourseDataAll(res.data);
@@ -106,10 +93,7 @@ const MyCourses = forwardRef<MyCoursesRef, MyCoursesProps>((props, ref) => {
     });
   };
 
-  const mergeCourseList = (
-    course: PageResult<ProjectCourseType | ElectiveCourseType>,
-    init?: boolean
-  ) => {
+  const mergeCourseList = (course: PageResult<ProjectCourseType | ElectiveCourseType>, init?: boolean) => {
     const list = course.data;
     const totalList = course.total ?? total;
     setTotal(totalList);
@@ -132,10 +116,7 @@ const MyCourses = forwardRef<MyCoursesRef, MyCoursesProps>((props, ref) => {
 
   useEffect(() => {
     setLoading(true);
-    Promise.all([
-      getLearningTrackList(),
-      getCourseList({ ...coursePageInfo, page: 1 })
-    ])
+    Promise.all([getLearningTrackList(), getCourseList({ ...coursePageInfo, page: 1 })])
       .then((res) => {
         mergeCourseList(res[1], true);
       })
@@ -156,18 +137,14 @@ const MyCourses = forwardRef<MyCoursesRef, MyCoursesProps>((props, ref) => {
         />
       </div>
       <Loading loading={loading}>
-        {!courseListData[curTab].length &&
-        !learningTrackListData[curTab].length ? (
+        {!courseListData[curTab].length && !learningTrackListData[curTab].length ? (
           <>
             <NoData curTab={curTab} />
             <Recommend />
           </>
         ) : (
           <div className="flex flex-col gap-y-10">
-            <LearningTrackList
-              list={learningTrackListData[curTab]}
-              curTab={curTab}
-            />
+            <LearningTrackList list={learningTrackListData[curTab]} curTab={curTab} />
             <CourseList list={courseListData[curTab]} curTab={curTab} />
           </div>
         )}

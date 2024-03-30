@@ -4,16 +4,13 @@ import type { NextPage } from 'next';
 import MiniCoursePage from './MiniCoursePage';
 import { CourseType } from '@/service/webApi/course/type';
 import { useParams } from 'next/navigation';
-import MiniElectiveCompletedModal, {
-  MiniElectiveCompletedModalRef
-} from './MiniElectiveCompletedModal';
+import MiniElectiveCompletedModal, { MiniElectiveCompletedModalRef } from './MiniElectiveCompletedModal';
 import { useRef } from 'react';
 interface IProps {}
 
 const MiniLessonPage: NextPage<IProps> = (props) => {
   const { lessonId } = useParams();
-  const miniElectiveCompletedModalInstance =
-    useRef<MiniElectiveCompletedModalRef>(null);
+  const miniElectiveCompletedModalInstance = useRef<MiniElectiveCompletedModalRef>(null);
   const completed = () => {
     miniElectiveCompletedModalInstance.current?.open({});
   };
@@ -29,9 +26,7 @@ const MiniLessonPage: NextPage<IProps> = (props) => {
           courseType={CourseType.MINI}
           completed={completed}
         ></MiniCoursePage>
-        <MiniElectiveCompletedModal
-          ref={miniElectiveCompletedModalInstance}
-        ></MiniElectiveCompletedModal>
+        <MiniElectiveCompletedModal ref={miniElectiveCompletedModalInstance}></MiniElectiveCompletedModal>
       </div>
     </>
   );

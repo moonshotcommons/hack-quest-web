@@ -9,7 +9,7 @@ import {
 import { cloneDeep } from 'lodash-es';
 import UgcCourseCard from '@/components/Web/Business/UgcCourseCard';
 import Pagination from '@/components/Common/Pagination';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 import { CourseMarketApiType } from '@/service/cach/learn/course-market';
 
 interface CourseListProp {
@@ -19,12 +19,7 @@ interface CourseListProp {
   handleSearch: (searchInfo: SearchParamsType) => void;
 }
 
-const CourseList: React.FC<CourseListProp> = ({
-  page,
-  searchParams,
-  course,
-  handleSearch
-}) => {
+const CourseList: React.FC<CourseListProp> = ({ page, searchParams, course, handleSearch }) => {
   const { filters, sort } = useMemo(() => {
     let filters = cloneDeep(ugcCourseDefaultFilters);
     let sort = cloneDeep(courseDefaultSort);
@@ -71,11 +66,7 @@ const CourseList: React.FC<CourseListProp> = ({
       </div>
       {course.total > 12 && (
         <div className="mt-[40px] flex justify-center">
-          <Pagination
-            page={page}
-            total={course.total || 0}
-            urlPrefix={`${MenuLink.COURSE_MARKET}/p/`}
-          />
+          <Pagination page={page} total={course.total || 0} urlPrefix={`${MenuLink.COURSE_MARKET}/p/`} />
         </div>
       )}
     </div>

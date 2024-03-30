@@ -11,12 +11,7 @@ const CollaborateList: FC<CollaborateListProps> = (props) => {
           We collaborate with 100+ leading Web3 ecosystems and projects
         </p>
         <div className="relative mt-[1.5rem] h-[272px] w-full">
-          <Image
-            src={'/images/landing/cooperation_list.png'}
-            alt="cooperation"
-            fill
-            className="object-contain"
-          ></Image>
+          <Image src={'/images/landing/cooperation_list.png'} alt="cooperation" fill className="object-contain"></Image>
         </div>
       </div>
     </div>

@@ -2,15 +2,7 @@ import { VariantProps, cva } from 'class-variance-authority';
 import { cn } from '@/helper/utils';
 import { useDebounceFn } from 'ahooks';
 import Schema, { Rule, Rules } from 'async-validator';
-import {
-  HTMLInputTypeAttribute,
-  ReactNode,
-  forwardRef,
-  useEffect,
-  useImperativeHandle,
-  useRef,
-  useState
-} from 'react';
+import { HTMLInputTypeAttribute, ReactNode, forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import CloseIcon from '../Icon/Close';
 import EyeIcon from '../Icon/Eye';
 import PassIcon from '../Icon/Pass';
@@ -151,7 +143,7 @@ const Input = forwardRef<InputRef, InputProps>((props, ref) => {
 
   const { run } = useDebounceFn(
     (e) => {
-      if (rules) {
+      if (rules && e.target.value) {
         validator.validate({ [name]: e.target.value }, (errors, fields) => {
           if (errors && errors[0]) {
             setStatus('error');
@@ -215,31 +207,31 @@ const Input = forwardRef<InputRef, InputProps>((props, ref) => {
         if (propType === 'password' && type === 'password') {
           setType('text');
         }
-      }}
-      onMouseLeave={(e) => {
+
         if (propType === 'password' && type === 'text') {
           setType('password');
         }
       }}
+      onMouseLeave={(e) => {}}
       onMouseUp={() => {
-        if (propType === 'password' && type === 'text') {
-          setType('password');
-        }
+        // if (propType === 'password' && type === 'text') {
+        //   setType('password');
+        // }
       }}
       onTouchStart={(e) => {
-        if (propType === 'password' && type === 'password') {
-          setType('text');
-        }
+        // if (propType === 'password' && type === 'password') {
+        //   setType('text');
+        // }
       }}
       onTouchCancel={(e) => {
-        if (propType === 'password' && type === 'text') {
-          setType('password');
-        }
+        // if (propType === 'password' && type === 'text') {
+        //   setType('password');
+        // }
       }}
       onTouchEnd={() => {
-        if (propType === 'password' && type === 'text') {
-          setType('password');
-        }
+        // if (propType === 'password' && type === 'text') {
+        //   setType('password');
+        // }
       }}
     >
       <EyeIcon size={20} color="currentColor"></EyeIcon>
@@ -289,9 +281,7 @@ const Input = forwardRef<InputRef, InputProps>((props, ref) => {
           <PiWarningCircleFill size={20} />
           {errorMessage}
         </p>
-        <p
-          className={`body-l flex flex-1 justify-end  text-neutral-medium-gray ${isShowCount ? '' : 'hidden'}`}
-        >
+        <p className={`body-l flex flex-1 justify-end  text-neutral-medium-gray ${isShowCount ? '' : 'hidden'}`}>
           {`${value.toString().length}/${rest.maxLength}`}
         </p>
       </div>

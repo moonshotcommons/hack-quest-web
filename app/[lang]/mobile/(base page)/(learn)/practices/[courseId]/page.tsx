@@ -1,8 +1,6 @@
 import Tags from '@/components/Common/Tags';
 import { PracticeCatalogue } from '@/components/Mobile/MobDetailPageV2/Catalogue';
-import CourseTag, {
-  CourseTagType
-} from '@/components/Mobile/MobDetailPageV2/CourseTag';
+import CourseTag, { CourseTagType } from '@/components/Mobile/MobDetailPageV2/CourseTag';
 import webApi from '@/service';
 import { FC } from 'react';
 import BackButton from '@/components/Mobile/MobDetailPageV2/BackButton';
@@ -33,8 +31,7 @@ export async function generateMetadata(
   // 读取路由参数
   const courseId = params.courseId;
 
-  const courseDetail =
-    await webApi.courseApi.fetchCourseDetail<CourseDetailType>(courseId);
+  const courseDetail = await webApi.courseApi.fetchCourseDetail<CourseDetailType>(courseId);
 
   const metadata: Metadata = {
     title: courseDetail.title,
@@ -50,8 +47,7 @@ const ElectiveDetailPage: FC<ElectiveDetailPageProps> = async (props) => {
   const { params, searchParams } = props;
   const courseId = params.courseId;
 
-  const courseDetail =
-    await webApi.courseApi.fetchCourseDetail<CourseDetailType>(courseId, true);
+  const courseDetail = await webApi.courseApi.fetchCourseDetail<CourseDetailType>(courseId, true);
 
   return (
     <PracticeDetailProvider courseId={courseId}>
@@ -60,12 +56,7 @@ const ElectiveDetailPage: FC<ElectiveDetailPageProps> = async (props) => {
           <BackButton type="learningTrack" />
           <div className="relative my-5 h-[196px] w-full overflow-hidden rounded-[16px] bg-neutral-white">
             {courseDetail.image && (
-              <Image
-                src={courseDetail.image}
-                alt={courseDetail.title}
-                fill
-                className="object-cover"
-              ></Image>
+              <Image src={courseDetail.image} alt={courseDetail.title} fill className="object-cover"></Image>
             )}
             {!courseDetail.image && getCoverImageByTrack(courseDetail.track)}
           </div>
@@ -77,14 +68,9 @@ const ElectiveDetailPage: FC<ElectiveDetailPageProps> = async (props) => {
             <span>Certified by</span>
             <span>Mantle</span>
           </div> */}
-          <p className="body-s my-5 text-neutral-rich-gray">
-            {courseDetail.description}
-          </p>
+          <p className="body-s my-5 text-neutral-rich-gray">{courseDetail.description}</p>
           <div className="flex flex-wrap gap-6 [&>div]:w-[calc((100%-24px)/2)]">
-            <CourseTag
-              type={CourseTagType.LANGUAGE}
-              value={courseDetail.language}
-            ></CourseTag>
+            <CourseTag type={CourseTagType.LANGUAGE} value={courseDetail.language}></CourseTag>
 
             {courseDetail.creator && (
               <CourseTag
@@ -102,26 +88,14 @@ const ElectiveDetailPage: FC<ElectiveDetailPageProps> = async (props) => {
               ></CourseTag>
             )}
 
-            <CourseTag
-              type={CourseTagType.LEVEL}
-              value={courseDetail.level}
-            ></CourseTag>
-            <CourseTag
-              type={CourseTagType.DURATION}
-              value={courseDetail.duration + ''}
-            ></CourseTag>
+            <CourseTag type={CourseTagType.LEVEL} value={courseDetail.level}></CourseTag>
+            <CourseTag type={CourseTagType.DURATION} value={courseDetail.duration + ''}></CourseTag>
           </div>
         </div>
         <div className="flex flex-col gap-10 px-5 pb-[8.75rem] pt-10">
-          {courseDetail.intendedLearners && (
-            <IntendedLearners
-              intendedLearners={courseDetail.intendedLearners}
-            />
-          )}
+          {courseDetail.intendedLearners && <IntendedLearners intendedLearners={courseDetail.intendedLearners} />}
           <CourseStructure detail={courseDetail} />
-          {courseDetail.knowledgeGain && (
-            <KnowledgeGain knowledgeGain={courseDetail.knowledgeGain} />
-          )}
+          {courseDetail.knowledgeGain && <KnowledgeGain knowledgeGain={courseDetail.knowledgeGain} />}
           <Syllabus />
         </div>
         <div className="fixed bottom-10 w-full px-5">

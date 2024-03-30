@@ -4,9 +4,7 @@ import { CertificationType } from '@/service/webApi/campaigns/type';
 import { useRequest } from 'ahooks';
 import Image from 'next/image';
 import { FC, useRef, useState } from 'react';
-import CertificationModal, {
-  CertificationModalInstance
-} from '../CertificationModal';
+import CertificationModal, { CertificationModalInstance } from '../CertificationModal';
 
 import { Typography } from 'antd';
 
@@ -21,8 +19,7 @@ const CertificationCard: FC<CertificationCardProps> = (props) => {
 
   const { refresh } = useRequest(
     async () => {
-      const res =
-        await webApi.campaignsApi.getCertificationDetail(certificationId);
+      const res = await webApi.campaignsApi.getCertificationDetail(certificationId);
       return res;
     },
     {
@@ -38,9 +35,7 @@ const CertificationCard: FC<CertificationCardProps> = (props) => {
         <div className="-z-1 absolute top-1/2 h-fit w-full -translate-y-1/2 rounded-[10px] bg-[#FFF4CE] px-[30px] py-[24px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)]">
           <p className="text-h4 text-neutral-black">{certification?.name}</p>
           <Typography.Paragraph ellipsis={{ rows: 2 }}>
-            <p className="body-l mb-[20px] mt-[10px] w-[46.5%] text-neutral-black">
-              {certification?.description}
-            </p>
+            <p className="body-l mb-[20px] mt-[10px] w-[46.5%] text-neutral-black">{certification?.description}</p>
           </Typography.Paragraph>
           <Button
             ghost
@@ -54,12 +49,7 @@ const CertificationCard: FC<CertificationCardProps> = (props) => {
         </div>
         <div className="relative mr-[20px] h-[233px] w-[421px]">
           {certification?.image && (
-            <Image
-              fill
-              src={certification?.image || ''}
-              alt="certification"
-              className="z-50"
-            ></Image>
+            <Image fill src={certification?.image || ''} alt="certification" className="z-50"></Image>
           )}
         </div>
       </div>

@@ -8,9 +8,7 @@ interface SearchParamsType {
   };
 }
 
-export async function generateMetadata({
-  searchParams
-}: SearchParamsType): Promise<Metadata> {
+export async function generateMetadata({ searchParams }: SearchParamsType): Promise<Metadata> {
   let query = new URLSearchParams(searchParams).toString();
   query = query ? '?' + query : '';
 

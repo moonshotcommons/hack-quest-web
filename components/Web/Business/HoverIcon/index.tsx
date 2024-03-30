@@ -13,9 +13,7 @@ interface HoverIconProp {
   className?: string;
 }
 
-const HoverIcon: React.FC<HoverIconProp & HTMLAttributes<HTMLDivElement>> = (
-  props
-) => {
+const HoverIcon: React.FC<HoverIconProp & HTMLAttributes<HTMLDivElement>> = (props) => {
   const { className, tooltip, icon, type, tooltipProps, ...rest } = props;
 
   const iconWrap = (

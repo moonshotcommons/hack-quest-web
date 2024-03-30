@@ -1,18 +1,18 @@
 import { BurialPoint } from '@/helper/burialPoint';
-import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
+import { useJumpLeaningLesson } from '@/hooks/courses/useJumpLeaningLesson';
 import { ProjectCourseType } from '@/service/webApi/course/type';
 import { FC } from 'react';
 import { QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import CourseTags from '@/components/Web/Business/CourseTags';
 
-import { useRedirect } from '@/hooks/useRedirect';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import CardProgress from '../CardProgress';
 import Button from '@/components/Common/Button';
 import TrackTag from '@/components/Common/TrackTag';
 import CompletedIcon from '@/components/Common/Icon/Completed';
 import { getCoverImageByTrack } from '@/helper/utils';
-import { MenuLink } from '../../Layout/BasePage/Navbar/type';
 import Link from 'next/link';
+import MenuLink from '@/constants/MenuLink';
 
 interface PracticeCardProps {
   course: ProjectCourseType;
@@ -35,9 +35,7 @@ const PracticeCard: FC<PracticeCardProps> = (props) => {
         BurialPoint.track('home-practice卡片点击', { practice: course.title });
       }}
     >
-      <div className="relative h-0 w-full pt-[56%]">
-        {getCoverImageByTrack(course.track)}
-      </div>
+      <div className="relative h-0 w-full pt-[56%]">{getCoverImageByTrack(course.track)}</div>
       <div className="relative flex h-[216px] w-full flex-col justify-between p-[16px] ">
         {from === 'dashboard' && !!course.progress && course.progress >= 1 ? (
           <div className={`absolute right-[16px]  top-[16px] z-10`}>
@@ -47,11 +45,7 @@ const PracticeCard: FC<PracticeCardProps> = (props) => {
         <div className="flex flex-col gap-[16px]">
           <TrackTag track={course.track} />
           <h2 className={`body-m-bold  line-clamp-2`}>{course.title}</h2>
-          {!inProgress && (
-            <div className="body-s line-clamp-2 text-neutral-medium-gray">
-              {course.description}
-            </div>
-          )}
+          {!inProgress && <div className="body-s line-clamp-2 text-neutral-medium-gray">{course.description}</div>}
         </div>
 
         <div className="flex flex-col gap-[16px]">

@@ -1,7 +1,7 @@
 'use client';
 import BlogCard from '@/components/Web/Business/BlogCard';
 import Loading from '@/components/Common/Loading';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 import { BurialPoint } from '@/helper/burialPoint';
 import webApi from '@/service';
 import { BlogType, ResourceFrom } from '@/service/webApi/resourceStation/type';
@@ -10,24 +10,20 @@ import Link from 'next/link';
 import React, { useMemo, useState } from 'react';
 import { BsArrowRight } from 'react-icons/bs';
 import Button from '@/components/Common/Button';
-import { useRedirect } from '@/hooks/useRedirect';
+import { useRedirect } from '@/hooks/router/useRedirect';
+import GlossaryCard from '@/components/Web/Business/GlossaryCard';
 
 interface BlogFooterProp {
-  backTop?: VoidFunction;
   from?: ResourceFrom;
-  type?: 'link' | 'top';
+  category?: string[];
 }
 
-const BlogFooter: React.FC<BlogFooterProp> = ({
-  backTop,
-  from = ResourceFrom.BLOG,
-  type = 'top'
-}) => {
+const BlogFooter: React.FC<BlogFooterProp> = ({ from = ResourceFrom.BLOG, category }) => {
   const [featureBlogList, setFeatureBlogList] = useState<BlogType[]>([]);
   const { redirectToUrl } = useRedirect();
   const business = useMemo(() => {
     const path = from === ResourceFrom.BLOG ? MenuLink.BLOG : MenuLink.GLOSSARY;
-    const text = from === ResourceFrom.BLOG ? 'ALL BLOGS' : 'ALL GLOSSARY';
+    const text = from === ResourceFrom.BLOG ? 'BLOGS' : 'GLOSSARY';
     return {
       path,
       text
@@ -36,17 +32,17 @@ const BlogFooter: React.FC<BlogFooterProp> = ({
   const { loading } = useRequest(async () => {
     const res =
       from === ResourceFrom.BLOG
-        ? await webApi.resourceStationApi.getFeaturedBlog()
-        : await webApi.resourceStationApi.getFeaturedGlossary();
+        ? await webApi.resourceStationApi.getFeaturedBlog({
+            category: category?.join(',')
+          })
+        : await webApi.resourceStationApi.getFeaturedGlossary({
+            category: category?.join(',')
+          });
     setFeatureBlogList(res?.slice(0, 4) || []);
   });
 
   const handleClick = () => {
-    if (type === 'top') {
-      backTop?.();
-    } else {
-      redirectToUrl(business.path);
-    }
+    redirectToUrl(business.path);
   };
   return (
     <div className="w-full bg-yellow-extra-light py-[60px]">
@@ -54,7 +50,9 @@ const BlogFooter: React.FC<BlogFooterProp> = ({
         <div className="mb-[30px] flex justify-between">
           <div className="flex flex-col gap-[15px]">
             <h2 className="text-h3 text-neutral-black">
-              {from === ResourceFrom.BLOG ? 'Featured Blog' : 'Latest Glossary'}
+              {from === ResourceFrom.BLOG
+                ? `${category ? `More Blog about ’${category.join(',')}‘` : 'Featured Blog'}`
+                : `${category ? `More Glossary about ’${category.join(',')}‘` : 'Latest Glossary'}`}
             </h2>
           </div>
           {from === ResourceFrom.BLOG && (
@@ -71,20 +69,30 @@ const BlogFooter: React.FC<BlogFooterProp> = ({
           )}
         </div>
         <Loading loading={loading}>
-          <div className="flex gap-[20px]">
-            {featureBlogList.map((blog) => (
-              <div key={blog.id} className="flex-1">
-                <BlogCard blog={blog} from={from} isFeatrued={true} />
-              </div>
-            ))}
-          </div>
+          {from === ResourceFrom.BLOG ? (
+            <div className="flex gap-[20px]">
+              {featureBlogList.map((blog) => (
+                <div key={blog.id} className="w-[calc((100%-60px)/4)]">
+                  <BlogCard blog={blog} from={from} isFeatrued={true} />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="flex gap-[20px]">
+              {featureBlogList.map((glossary) => (
+                <div key={glossary.id} className="w-[calc((100%-60px)/4)]">
+                  <GlossaryCard glossary={glossary} />
+                </div>
+              ))}
+            </div>
+          )}
         </Loading>
         <div className="button-text-l flex w-full justify-center pt-[60px]">
           <Button
             className="h-[60px] w-[270px] border border-neutral-black p-0 text-neutral-black"
             onClick={handleClick}
           >
-            BACK TO {`${type === 'top' ? 'TOP' : `${business.text}`}`}
+            BACK TO ALL{`${business.text}`}
           </Button>
         </div>
       </div>

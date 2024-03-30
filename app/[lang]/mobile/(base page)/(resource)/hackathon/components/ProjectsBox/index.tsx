@@ -1,6 +1,4 @@
-import SearchFilter, {
-  dealFilterParam
-} from '@/components/Web/Business/SearchFilter';
+import SearchFilter, { dealFilterParam } from '@/components/Web/Business/SearchFilter';
 import { FilterDataType } from '@/components/Web/Business/SearchFilter/type';
 import { deepClone } from '@/helper/utils';
 import webApi from '@/service';
@@ -20,17 +18,9 @@ interface ProjectsBoxProps {
   setApiStatus: (status: string) => void;
   apiStatus: string;
 }
-const ProjectsBox: React.FC<ProjectsBoxProps> = ({
-  loadNum,
-  setApiStatus,
-  apiStatus
-}) => {
-  const query = new URLSearchParams(
-    typeof window !== 'undefined' ? window.location.search : ''
-  );
-  const [searchParam, setSearchParam] = useState<FilterDataType[]>(
-    deepClone(filterData)
-  );
+const ProjectsBox: React.FC<ProjectsBoxProps> = ({ loadNum, setApiStatus, apiStatus }) => {
+  const query = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
+  const [searchParam, setSearchParam] = useState<FilterDataType[]>(deepClone(filterData));
   const timeOut = useRef<NodeJS.Timeout | null>(null);
   const [inputValue, setInputValue] = useState(query.get('keyword') || '');
   const [pageInfo, setPageInfo] = useState<PageInfoType>(initPageInfo);
@@ -72,8 +62,7 @@ const ProjectsBox: React.FC<ProjectsBoxProps> = ({
       checked: true
     }));
     const newSearchParam = deepClone(searchParam);
-    newSearchParam[2].filterList =
-      newSearchParam[2].filterList.concat(tracksDict);
+    newSearchParam[2].filterList = newSearchParam[2].filterList.concat(tracksDict);
     setSearchParam(newSearchParam);
   });
 
@@ -89,12 +78,7 @@ const ProjectsBox: React.FC<ProjectsBoxProps> = ({
   }, [inputValue]);
 
   useEffect(() => {
-    if (
-      loadNum > runNum &&
-      list.length < total &&
-      total > 0 &&
-      apiStatus === 'init'
-    ) {
+    if (loadNum > runNum && list.length < total && total > 0 && apiStatus === 'init') {
       setRunNum(loadNum);
       getProjectList({
         ...pageInfo,

@@ -24,9 +24,7 @@ function Electives() {
   const [page, setPage] = useState(0);
   const [topProjects, setTopProjects] = useState<ProjectCourseType[]>([]);
   const [searchKeyword, setSearchKeyword] = useState('');
-  const [type, setType] = useState<CourseFilterListType>(
-    CourseFilterListType.DEFAULT
-  );
+  const [type, setType] = useState<CourseFilterListType>(CourseFilterListType.DEFAULT);
 
   const handleScroll = () => {
     const clientHeight = selectiveCoursesRef.current?.clientHeight || 0;
@@ -74,11 +72,7 @@ function Electives() {
   );
 
   return (
-    <div
-      className="h-full w-full"
-      onScroll={handleScroll}
-      ref={selectiveCoursesRef}
-    >
+    <div className="h-full w-full" onScroll={handleScroll} ref={selectiveCoursesRef}>
       <div className="relative mx-auto w-full">
         <MobCourseListPageHeader
           title="Projects"
@@ -91,9 +85,7 @@ function Electives() {
         <div className="absolute left-0 top-[15.5rem] z-[10] flex w-full flex-col rounded-t-[2rem] bg-neutral-off-white px-[1.25rem] py-[2.5rem]">
           {type === CourseFilterListType.DEFAULT && (
             <div className="flex flex-col">
-              <h2 className="text-h2-mob mb-5 text-neutral-black">
-                Top Projects
-              </h2>
+              <h2 className="text-h2-mob mb-5 text-neutral-black">Top Projects</h2>
               <MobViewMoreList
                 list={topProjects}
                 limit={2}
@@ -108,9 +100,7 @@ function Electives() {
               <MobCourseFilterListDefault />
             </div>
           )}
-          {type === CourseFilterListType.SEARCH && (
-            <MobCourseFilterListSearch keyword={searchKeyword} />
-          )}
+          {type === CourseFilterListType.SEARCH && <MobCourseFilterListSearch keyword={searchKeyword} />}
         </div>
         {/*
         <SelectiveCoursesBox

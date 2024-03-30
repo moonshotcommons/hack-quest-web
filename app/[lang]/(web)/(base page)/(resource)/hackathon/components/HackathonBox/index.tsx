@@ -3,12 +3,12 @@ import { BurialPoint } from '@/helper/burialPoint';
 import { HackathonStatusType } from '@/service/webApi/resourceStation/type';
 import OnGoing from './OnGoing';
 import Past from './Past';
-import { useRedirect } from '@/hooks/useRedirect';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import CourseListPageHeader from '@/components/Web/Business/CourseListPageHeader';
 import Tab from './Tab';
 import { useRouter } from 'next/navigation';
 import { getSearchParamsUrl } from '@/helper/utils';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 import { HiArrowLongRight } from 'react-icons/hi2';
 
 interface HackathonBoxProp {
@@ -21,12 +21,7 @@ const HackathonBox: React.FC<HackathonBoxProp> = ({ page, curTab }) => {
   const changeTab = (tab: HackathonStatusType) => {
     BurialPoint.track(`hackathon page tab 点击`);
     if (tab === curTab) return;
-    router.push(
-      getSearchParamsUrl(
-        { curTab: tab === HackathonStatusType.ON_GOING ? '' : tab },
-        MenuLink.HACKATHON
-      )
-    );
+    router.push(getSearchParamsUrl({ curTab: tab === HackathonStatusType.ON_GOING ? '' : tab }, MenuLink.HACKATHON));
   };
   const renderHackathon = () => {
     switch (curTab) {

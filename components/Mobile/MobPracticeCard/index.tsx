@@ -1,13 +1,13 @@
 import { BurialPoint } from '@/helper/burialPoint';
-import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
+import { useJumpLeaningLesson } from '@/hooks/courses/useJumpLeaningLesson';
 import { ProjectCourseType } from '@/service/webApi/course/type';
 import { FC } from 'react';
 import { QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import CourseTags from '@/components/Web/Business/CourseTags';
-import { useRedirect } from '@/hooks/useRedirect';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import MobCardProgress from '../MobCardProgress';
 import Button from '@/components/Common/Button';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 
 interface PracticeCardProps {
   // children: ReactNode;
@@ -23,9 +23,7 @@ const MobPracticeCard: FC<PracticeCardProps> = (props) => {
 
   return (
     <div
-      className={
-        'relative flex w-full flex-col gap-[1rem] rounded-[1rem] bg-neutral-white p-[1rem]'
-      }
+      className={'relative flex w-full flex-col gap-[1rem] rounded-[1rem] bg-neutral-white p-[1rem]'}
       onClick={(e) => {
         BurialPoint.track('home-practice卡片点击', { practice: course.title });
         e.stopPropagation();
@@ -45,19 +43,9 @@ const MobPracticeCard: FC<PracticeCardProps> = (props) => {
     >
       {course.progress && course.progress >= 1 ? (
         <div className="absolute right-[1rem] top-[1rem]">
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 32 32"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
+          <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="16" cy="16" r="16" fill="#00C365" />
-            <path
-              d="M8 15.9999L14.4 22.3999L25.6 11.1999"
-              stroke="white"
-              strokeLinecap="round"
-            />
+            <path d="M8 15.9999L14.4 22.3999L25.6 11.1999" stroke="white" strokeLinecap="round" />
           </svg>
         </div>
       ) : null}
@@ -89,9 +77,7 @@ const MobPracticeCard: FC<PracticeCardProps> = (props) => {
         </>
       ) : (
         <>
-          <p className="body-xs  line-clamp-2 text-neutral-medium-gray">
-            {course.description}
-          </p>
+          <p className="body-xs  line-clamp-2 text-neutral-medium-gray">{course.description}</p>
           <CourseTags
             language={course.language}
             level={course.level as string}

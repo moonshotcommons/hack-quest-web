@@ -10,11 +10,7 @@ interface HandleDotProp {
   showDelete?: boolean;
 }
 
-const HandleDot: React.FC<HandleDotProp> = ({
-  handleEdit,
-  handleDelete,
-  showDelete
-}) => {
+const HandleDot: React.FC<HandleDotProp> = ({ handleEdit, handleDelete, showDelete }) => {
   const [isShowHandle, setIsShowHandle] = useState(false);
   return (
     <div className="absolute  right-[10px] top-0 z-[10] hidden text-neutral-black group-hover:block">

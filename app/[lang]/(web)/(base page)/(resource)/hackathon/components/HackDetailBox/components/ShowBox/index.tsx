@@ -8,25 +8,15 @@ interface ShowAllProp {
   isShowAllButton: boolean;
 }
 
-const ShowAll: React.FC<ShowAllProp> = ({
-  showAll,
-  changeShowAll,
-  children,
-  isShowAllButton
-}) => {
+const ShowAll: React.FC<ShowAllProp> = ({ showAll, changeShowAll, children, isShowAllButton }) => {
   return (
     <>
       <div className="flex flex-wrap gap-[1.25%]">{children}</div>
       {isShowAllButton && (
         <div className="body-l flex justify-end">
-          <div
-            className="flex cursor-pointer items-center"
-            onClick={changeShowAll}
-          >
+          <div className="flex cursor-pointer items-center" onClick={changeShowAll}>
             <span>Show {showAll ? 'Less' : 'All'}</span>
-            <VscChevronDown
-              className={`body-xl transition ${showAll ? 'rotate-180' : ''}`}
-            />
+            <VscChevronDown className={`body-xl transition ${showAll ? 'rotate-180' : ''}`} />
           </div>
         </div>
       )}

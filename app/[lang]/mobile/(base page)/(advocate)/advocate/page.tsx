@@ -1,6 +1,6 @@
 'use client';
 import { FC } from 'react';
-import { useNeedPCRedirect } from '@/hooks/useNeedPCRedirect';
+import { useNeedPCRedirect } from '@/hooks/router/useNeedPCRedirect';
 interface AdvocatePageProps {}
 
 // export const metadata: Metadata = {

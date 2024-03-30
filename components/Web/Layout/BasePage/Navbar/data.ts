@@ -1,10 +1,7 @@
 import { MotionProps } from 'framer-motion';
-import { MenuLink, NavbarListType } from './type';
-import {
-  HACKQUEST_DISCORD,
-  HACKQUEST_TELEGRAM,
-  HACKQUEST_TWITTER
-} from '@/constants/links';
+import { NavbarListType } from './type';
+import { HACKQUEST_DISCORD, HACKQUEST_TELEGRAM, HACKQUEST_TWITTER } from '@/constants/links';
+import MenuLink from '@/constants/MenuLink';
 
 export const animateProps: MotionProps = {
   initial: { scaleY: 0, opacity: 0, translateY: '95%' },
@@ -60,12 +57,12 @@ export const navbarList: NavbarListType[] = [
         label: 'Projects',
         path: MenuLink.PRACTICES,
         description: 'Learn how to build a project step by step'
-      },
-      {
-        label: 'Course Market',
-        path: MenuLink.COURSE_MARKET,
-        needPC: true
       }
+      // {
+      //   label: 'Course Market',
+      //   path: MenuLink.COURSE_MARKET,
+      //   needPC: true
+      // }
     ]
   },
   {
@@ -125,7 +122,7 @@ export const navbarList: NavbarListType[] = [
     menu: [
       {
         label: 'launch pool',
-        path: MenuLink.LANUNCH,
+        path: MenuLink.LAUNCH,
         needPC: true
       }
     ]
@@ -169,11 +166,6 @@ export const navbarList: NavbarListType[] = [
 ];
 
 export const excludeLink = [MenuLink.USER_PROFILE];
-export const needLoginPath = [
-  MenuLink.DASHBOARD,
-  MenuLink.MISSION_CENTER,
-  MenuLink.CAMPAIGINS,
-  MenuLink.USER_PROFILE
-];
+export const needLoginPath = [MenuLink.DASHBOARD, MenuLink.MISSION_CENTER, MenuLink.CAMPAIGINS, MenuLink.USER_PROFILE];
 
 export const isBadgeIds = ['missions'];

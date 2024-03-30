@@ -4,20 +4,17 @@ import TextArea from '@/components/Common/TextArea/indexTextArea';
 import Button from '@/components/Common/Button';
 import { IoMdAddCircle } from 'react-icons/io';
 import { FiTrash2 } from 'react-icons/fi';
-import {
-  CreationHandle,
-  useUgcCreationStore
-} from '@/store/zustand/ugcCreationStore';
+import { CreationHandle, useUgcCreationStore } from '@/store/zustand/ugcCreationStore';
 import { useShallow } from 'zustand/react/shallow';
-import { useRedirect } from '@/hooks/useRedirect';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import { cloneDeep } from 'lodash-es';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 import webApi from '@/service';
 import { defaultFormLi } from '../../../constant/data';
 import { isNull } from '@/helper/utils';
 import message from 'antd/es/message';
 import { UgcCreateContext } from '../../../constant/type';
-import useUgcCreationDataHanlde from '@/hooks/useUgcCreationDataHanlde';
+import useUgcCreationDataHandle from '@/hooks/courses/useUgcCreationDataHandle';
 
 interface IntendedLearnersProp {}
 
@@ -33,19 +30,18 @@ const IntendedLearners: React.FC<IntendedLearnersProp> = () => {
   const {
     courseInformation: { intendedLearners },
     courseId,
-    selectLessonId
+    selectLessonId,
+    handleNext
   } = useContext(UgcCreateContext);
   const { redirectToUrl } = useRedirect();
-  const { setInformation } = useUgcCreationDataHanlde();
+  const { setInformation } = useUgcCreationDataHandle();
   const [audienceList, setAudienceList] = useState<Record<string, any>[]>([
     {
       ...formLi,
       id: v4()
     }
   ]);
-  const [requirementsList, setRequirementsList] = useState<
-    Record<string, any>[]
-  >([
+  const [requirementsList, setRequirementsList] = useState<Record<string, any>[]>([
     {
       ...formLi,
       id: v4()
@@ -112,10 +108,11 @@ const IntendedLearners: React.FC<IntendedLearnersProp> = () => {
       .then(() => {
         message.success('success');
         setInformation(courseId);
-        redirectToUrl(
-          `${MenuLink.UGC}/${courseId}/creation/${selectLessonId}`,
-          true
-        );
+        if (handle === CreationHandle.ON_NEXT) {
+          handleNext();
+        } else {
+          redirectToUrl(`${MenuLink.UGC}/${courseId}/creation/${selectLessonId}`, true);
+        }
       })
       .catch((err) => {
         message.error(err as string);
@@ -162,7 +159,7 @@ const IntendedLearners: React.FC<IntendedLearnersProp> = () => {
   }, [intendedLearners]);
 
   useEffect(() => {
-    if (handle === CreationHandle.ON_SAVE) {
+    if (handle === CreationHandle.ON_SAVE || handle === CreationHandle.ON_NEXT) {
       handleSubmit();
     }
   }, [handle]);
@@ -176,9 +173,7 @@ const IntendedLearners: React.FC<IntendedLearnersProp> = () => {
         {`Clearly define your target audience in a concise list, allowing instructors to tailor the learning experience. Specify any prerequisites or recommended knowledge, promoting inclusivity. While optional, these steps are highly recommended for refining content, empowering learners to assess their fit, and ensuring a smoother enrollment process. Think of it as an invitation for your course to resonate with those who will benefit most from your expertise.`}
       </div>
       <div>
-        <p className="text-h4 mb-[20px] font-next-book-bold">
-          Who’s This Course For
-        </p>
+        <p className="text-h4 mb-[20px] font-next-book-bold">Who’s This Course For</p>
         <div className="flex flex-col gap-[20px]">
           {audienceList.map((v, index) => (
             <div key={v.id} className="group relative w-[calc(100%+63px)]">

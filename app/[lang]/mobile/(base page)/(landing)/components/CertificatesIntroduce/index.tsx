@@ -10,11 +10,7 @@ const CertificatesIntroduce: FC<CertificatesIntroduceProps> = (props) => {
   return (
     <div className="flex w-full flex-col items-center bg-yellow-light px-5 py-10">
       <div className="relative flex h-[10rem] w-[11.875rem] items-center justify-center">
-        <Image
-          src={'/images/landing/ecosystems.png'}
-          fill
-          alt="Web3 ecosystems"
-        ></Image>
+        <Image src={'/images/landing/ecosystems.png'} fill alt="Web3 ecosystems"></Image>
       </div>
       <h2 className="text-h2 mt-6 w-[21.875rem] text-center text-[1.375rem] capitalize text-neutral-off-black">
         Earn certificates issued by leading Web3 ecosystems
@@ -23,21 +19,9 @@ const CertificatesIntroduce: FC<CertificatesIntroduceProps> = (props) => {
         Exclusively on HackQuest
       </p>
       <div className="mt-6 flex items-center gap-4">
-        <Image
-          src={'/images/landing/solana_logo.png'}
-          alt="solana logo"
-          width={84}
-          height={12}
-        ></Image>
-        <Image
-          src={'/images/landing/mantle_logo.png'}
-          alt="solana logo"
-          width={81}
-          height={24}
-        ></Image>
-        <div className="px-2 py-1 text-[.625rem] text-neutral-black">
-          10+ coming soon...
-        </div>
+        <Image src={'/images/landing/solana_logo.png'} alt="solana logo" width={84} height={12}></Image>
+        <Image src={'/images/landing/mantle_logo.png'} alt="solana logo" width={81} height={24}></Image>
+        <div className="px-2 py-1 text-[.625rem] text-neutral-black">10+ coming soon...</div>
       </div>
       <div className="relative z-10 mt-10 w-full">
         <div className="z-[99] flex w-full flex-col items-center gap-6 rounded-[16px] bg-neutral-white px-4 py-6">
@@ -54,24 +38,15 @@ const CertificatesIntroduce: FC<CertificatesIntroduceProps> = (props) => {
                     <div className="flex items-center gap-6">
                       <div className="flex items-center gap-[.375rem]">
                         {icons.code}
-                        <span className="button-text-s text-[10px] uppercase">
-                          {item.language}
-                        </span>
+                        <span className="button-text-s text-[10px] uppercase">{item.language}</span>
                       </div>
                       <div className="flex items-center gap-[.375rem] uppercase">
                         {icons.course}
-                        <span className="button-text-s text-[10px]">
-                          {item.course}
-                        </span>
+                        <span className="button-text-s text-[10px]">{item.course}</span>
                       </div>
                     </div>
                   </div>
-                  <Image
-                    src={item.image}
-                    width={48}
-                    height={48}
-                    alt={item.alt}
-                  ></Image>
+                  <Image src={item.image} width={48} height={48} alt={item.alt}></Image>
                 </div>
               );
             })}

@@ -1,15 +1,28 @@
 import React from 'react';
-import { useTranslation } from '@/i18n/server';
 import LaunchDetailPage from './components';
+import { LaunchPoolProjectType } from '@/service/webApi/launchPool/type';
+import MenuLink from '@/constants/MenuLink';
+import webApi from '@/service';
+import { Metadata } from 'next';
 
 interface LaunchDetailProp {
-  params: any;
+  params: {
+    id: string;
+  };
+}
+
+export async function generateMetadata({ params }: LaunchDetailProp): Promise<Metadata> {
+  const project: LaunchPoolProjectType = await webApi.launchPoolApi.getProjectById(params.id);
+  return {
+    title: project.name,
+    alternates: {
+      canonical: `https://www.hackquest.io/${MenuLink.LAUNCH}/${params.id}`
+    }
+  };
 }
 
 const LaunchDetail: React.FC<LaunchDetailProp> = async ({ params }) => {
-  const { lang } = params;
-  const { t } = await useTranslation(lang);
-  return <LaunchDetailPage />;
+  return <LaunchDetailPage id={params.id} />;
 };
 
 export default LaunchDetail;

@@ -4,14 +4,7 @@ import { cn } from '@/helper/utils';
 import webApi from '@/service';
 import { useClickAway } from 'ahooks';
 import JSConfetti from 'js-confetti';
-import {
-  FC,
-  createContext,
-  useContext,
-  useEffect,
-  useRef,
-  useState
-} from 'react';
+import { FC, createContext, useContext, useEffect, useRef, useState } from 'react';
 import { FiChevronDown } from 'react-icons/fi';
 import { MdArrowDropDown } from 'react-icons/md';
 import ComponentRenderer from '..';
@@ -122,11 +115,7 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
 
   const QuizHeader = (
     <div className={`flex h-fit w-full items-center justify-between`}>
-      <div
-        className={`text-h4 relative inline-flex items-center ${
-          quizDropdownVisible && 'shadow-2xl'
-        }`}
-      >
+      <div className={`text-h4 relative inline-flex items-center ${quizDropdownVisible && 'shadow-2xl'}`}>
         <div
           ref={containerRef as any}
           className={`box-content inline-flex min-h-fit cursor-pointer gap-2 border-b-2 p-[20px] ${
@@ -137,15 +126,9 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
             setQuizDropdownVisible(!quizDropdownVisible);
           }}
         >
-          <span>{`${quiz.title ? quiz.title : 'Quest'} ${
-            currentQuizIndex + 1
-          }/${quiz.children.length}`}</span>
+          <span>{`${quiz.title ? quiz.title : 'Quest'} ${currentQuizIndex + 1}/${quiz.children.length}`}</span>
 
-          <span
-            className={`${
-              quizDropdownVisible ? 'rotate-180' : ''
-            } transition-transform`}
-          >
+          <span className={`${quizDropdownVisible ? 'rotate-180' : ''} transition-transform`}>
             <MdArrowDropDown size={28} color=""></MdArrowDropDown>
           </span>
         </div>
@@ -167,11 +150,7 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
           setStart(false);
         }}
       >
-        <FiChevronDown
-          size={28}
-          color=""
-          className={`rotate-180 cursor-pointer`}
-        ></FiChevronDown>
+        <FiChevronDown size={28} color="" className={`rotate-180 cursor-pointer`}></FiChevronDown>
       </div>
     </div>
   );
@@ -184,14 +163,9 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
           )}
         >
           {QuizHeader}
-          <QuizContext.Provider
-            value={{ onPass, currentQuizIndex, parentQuiz: quiz }}
-          >
+          <QuizContext.Provider value={{ onPass, currentQuizIndex, parentQuiz: quiz }}>
             <div className={`h-full overflow-hidden px-[20px]`}>
-              <ComponentRenderer
-                parent={quiz}
-                component={quiz.children[currentQuizIndex]}
-              ></ComponentRenderer>
+              <ComponentRenderer parent={quiz} component={quiz.children[currentQuizIndex]}></ComponentRenderer>
             </div>
           </QuizContext.Provider>
         </div>
@@ -211,10 +185,7 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
           </Button>
         </div>
       )}
-      <QuizPassModal
-        open={passOpen}
-        onClose={() => setPassOpen(true)}
-      ></QuizPassModal>
+      <QuizPassModal open={passOpen} onClose={() => setPassOpen(true)}></QuizPassModal>
     </>
   );
 };

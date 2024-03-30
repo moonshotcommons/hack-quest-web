@@ -1,5 +1,6 @@
 import { Lang } from '@/i18n/config';
 import { NavbarListType } from '../../BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 
 export const navbarList: NavbarListType[] = [
   {
@@ -8,7 +9,7 @@ export const navbarList: NavbarListType[] = [
     menu: [
       {
         label: '',
-        link: ''
+        link: `${MenuLink.LAUNCH}#all-projects`
       }
     ]
   },
@@ -18,7 +19,7 @@ export const navbarList: NavbarListType[] = [
     menu: [
       {
         label: '',
-        link: ''
+        link: `${MenuLink.LAUNCH}#FAQ`
       }
     ]
   }
