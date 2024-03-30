@@ -25,7 +25,9 @@ const UserData: React.FC<UserDataType> = ({ userInfo, userLevel, userCoin }) => 
           <Ring radius={75} percent={userLevel.expCurrentLevel / userLevel.expNextLevel} />
         </div>
         <div className="relative  h-[102px] w-[102px] overflow-hidden rounded-[50%]">
-          {userInfo?.avatar && <Image src={userInfo?.avatar as string} alt="avatar" fill className="object-cover"></Image>}
+          {userInfo?.avatar && (
+            <Image src={userInfo?.avatar as string} alt="avatar" fill className="object-cover"></Image>
+          )}
         </div>
       </div>
 

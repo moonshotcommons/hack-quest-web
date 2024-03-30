@@ -1,5 +1,11 @@
 import { getToken } from '@/helper/user-token';
-import axios, { AxiosError, AxiosInstance, AxiosResponse, CreateAxiosDefaults, InternalAxiosRequestConfig } from 'axios';
+import axios, {
+  AxiosError,
+  AxiosInstance,
+  AxiosResponse,
+  CreateAxiosDefaults,
+  InternalAxiosRequestConfig
+} from 'axios';
 import { RequestConfig, RequestInterceptors } from './webServiceTypes';
 
 class WebService {

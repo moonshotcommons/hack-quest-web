@@ -56,9 +56,13 @@ const StakeFuel: React.FC<StakeFuelProp> = () => {
       ) : (
         <div className="flex flex-col items-center">
           <p className="body-l w-[507px] text-neutral-medium-gray">
-            In order to access all fuel approaches and the eligibility of Allocation & Airdrop, you need to stake Manta tokens
+            In order to access all fuel approaches and the eligibility of Allocation & Airdrop, you need to stake Manta
+            tokens
           </p>
-          <Button type="primary" className="button-text-m mt-[12px] h-[48px] w-[165px] p-0 uppercase text-neutral-black">
+          <Button
+            type="primary"
+            className="button-text-m mt-[12px] h-[48px] w-[165px] p-0 uppercase text-neutral-black"
+          >
             stake $manta
           </Button>
         </div>

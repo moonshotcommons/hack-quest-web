@@ -53,7 +53,9 @@ const UgcSidebar: FC<UgcSidebarProps> = () => {
         disable: disableAll(key),
         label: (
           <div className={`body-m flex w-full justify-between`}>
-            <div className="flex flex-1 shrink-0 flex-col overflow-hidden pr-5">{labelMaps[key as keyof typeof courseInformation]}</div>
+            <div className="flex flex-1 shrink-0 flex-col overflow-hidden pr-5">
+              {labelMaps[key as keyof typeof courseInformation]}
+            </div>
             <div>
               {!courseInformation[key as keyof typeof courseInformation].completed && (
                 <div className="h-6 w-6 rounded-full border border-neutral-black"></div>
@@ -94,7 +96,9 @@ const UgcSidebar: FC<UgcSidebarProps> = () => {
             disable: disableAll(key),
             label: (
               <div className={`body-m flex w-full justify-between`}>
-                <div className="flex flex-1 shrink-0 flex-col overflow-hidden pr-5">{labelMaps[key as keyof CourseContentType]}</div>
+                <div className="flex flex-1 shrink-0 flex-col overflow-hidden pr-5">
+                  {labelMaps[key as keyof CourseContentType]}
+                </div>
                 <div>
                   {!content[key as keyof CourseContentType].completed && (
                     <div className="h-6 w-6 rounded-full border border-neutral-black"></div>

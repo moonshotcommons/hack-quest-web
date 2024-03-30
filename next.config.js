@@ -12,7 +12,8 @@ const nextConfig = (phase) => {
       BACKEND_BASE_URL: process.env.BACKEND_BASE_URL || 'https://api.dev.hackquest.io/v1/',
       IDE_URL: process.env.IDE_URL || 'http://localhost:8080'
     },
-    assetPrefix: isDev || !process.env.NEXT_PUBLIC_ASSET_PREFIX_FOR_CHINA ? '' : process.env.NEXT_PUBLIC_ASSET_PREFIX_FOR_CHINA,
+    assetPrefix:
+      isDev || !process.env.NEXT_PUBLIC_ASSET_PREFIX_FOR_CHINA ? '' : process.env.NEXT_PUBLIC_ASSET_PREFIX_FOR_CHINA,
     images: {
       // domains: [
       //   'hack-quest-s3-dev.s3.amazonaws.com',

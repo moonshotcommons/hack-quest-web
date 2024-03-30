@@ -57,7 +57,10 @@ function ScrollControl({ changeState }: { changeState?: ChangeState }) {
           <HiArrowLongRight size={24}></HiArrowLongRight>
         </div>
       </div>
-      <div className=" relative mt-[15px] h-[2px] w-[210px] bg-[#DADADA] shadow-[0px_1px_2px_0_rgba(0,0,0,0.25)]" ref={scrollBarRef}>
+      <div
+        className=" relative mt-[15px] h-[2px] w-[210px] bg-[#DADADA] shadow-[0px_1px_2px_0_rgba(0,0,0,0.25)]"
+        ref={scrollBarRef}
+      >
         <div
           className="absolute bottom-0 left-0 h-[3px] bg-neutral-medium-gray transition-transform"
           ref={scrollBarInstanceRef}

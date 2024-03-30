@@ -42,7 +42,11 @@ const MobLessonPage: FC<MobLessonPageProps> = (props) => {
   const treasureModalRef = useRef<TreasureModalRef>(null);
   const judgmentInitIsHandleNext = useCallback(() => {
     const quiz = lesson?.content?.right?.find((v: NotionComponent) => v.type === CustomType.Quiz);
-    if (!quiz || lesson?.state === CompleteStateType.COMPLETED || quiz?.children.length === lesson?.completedQuiz?.length) {
+    if (
+      !quiz ||
+      lesson?.state === CompleteStateType.COMPLETED ||
+      quiz?.children.length === lesson?.completedQuiz?.length
+    ) {
       setIsHandleNext(true);
       allowNextButtonClickTime.current = new Date().getTime();
     } else {

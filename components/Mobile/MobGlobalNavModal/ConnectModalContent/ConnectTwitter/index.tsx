@@ -30,9 +30,16 @@ const ConnectTwitter: FC<ConnectTwitterProps> = (props) => {
         </div>
       </div>
       <div className="flex w-full items-center gap-6 rounded-[16px] bg-neutral-off-white p-6">
-        <Image src={'/images/logo/hackquest_twitter_avatar.webp'} alt="hackquest twitter" width={48} height={48}></Image>
+        <Image
+          src={'/images/logo/hackquest_twitter_avatar.webp'}
+          alt="hackquest twitter"
+          width={48}
+          height={48}
+        ></Image>
         <div className="flex flex-col gap-2">
-          <p className="body-m-bold text-neutral-rich-gray">{t('followHackquestTwitter', { hackquest: 'Hackquest' })}</p>
+          <p className="body-m-bold text-neutral-rich-gray">
+            {t('followHackquestTwitter', { hackquest: 'Hackquest' })}
+          </p>
           <Button type="primary" className="button-text-s w-[140px] py-2 uppercase text-neutral-black ">
             {t('follow')}
           </Button>

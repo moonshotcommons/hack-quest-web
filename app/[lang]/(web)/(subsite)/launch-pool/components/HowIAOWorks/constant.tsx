@@ -37,7 +37,14 @@ export const data = [
           strokeMiterlimit="10"
         />
         <defs>
-          <linearGradient id="paint0_linear_6690_119" x1="1" y1="12.5122" x2="24.9996" y2="12.5122" gradientUnits="userSpaceOnUse">
+          <linearGradient
+            id="paint0_linear_6690_119"
+            x1="1"
+            y1="12.5122"
+            x2="24.9996"
+            y2="12.5122"
+            gradientUnits="userSpaceOnUse"
+          >
             <stop stopColor="white" />
             <stop offset="1" stopColor="#FFE866" />
           </linearGradient>

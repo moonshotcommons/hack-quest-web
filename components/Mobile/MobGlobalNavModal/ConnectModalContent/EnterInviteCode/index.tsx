@@ -51,7 +51,11 @@ const EnterInviteCode: FC<EnterInviteCodeProps> = (props) => {
           <p>{t('inputInviteCodeDesc')}</p>
 
           <span>{t('noInviteCodeDesc')}</span>
-          <Link href={HACKQUEST_TWITTER} target="_blank" className="body-m flex cursor-pointer items-center gap-2 text-neutral-off-black">
+          <Link
+            href={HACKQUEST_TWITTER}
+            target="_blank"
+            className="body-m flex cursor-pointer items-center gap-2 text-neutral-off-black"
+          >
             <span className="relative after:absolute after:-bottom-[1px] after:left-0 after:h-[2px] after:w-full after:rounded-full after:bg-yellow-primary">
               {t('goTwitter')}
             </span>

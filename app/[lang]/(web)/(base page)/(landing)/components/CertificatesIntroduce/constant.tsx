@@ -74,7 +74,13 @@ export const icons = {
   ),
   rightArrow: (
     <svg width="13" height="18" viewBox="0 0 13 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M2.5 3.5L10 8.79412L2.5 14.0882" stroke="#0B0B0B" strokeWidth="1.76471" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M2.5 3.5L10 8.79412L2.5 14.0882"
+        stroke="#0B0B0B"
+        strokeWidth="1.76471"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   )
 };

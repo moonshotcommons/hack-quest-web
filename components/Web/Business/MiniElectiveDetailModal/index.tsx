@@ -141,7 +141,12 @@ const MiniElectiveDetailModal = forwardRef<MiniElectiveDetailModalRef, MiniElect
                       onClick={() => redirectToUrl(`${MenuLink.ECOSYSTEM}/${course.creatorId}`)}
                     >
                       <div className="relative h-[24px] w-[24px] overflow-hidden rounded-full bg-[#D9D9D9]">
-                        <Image src={course.creator?.profileImage || Logo} fill alt="create by" className="object-contain"></Image>
+                        <Image
+                          src={course.creator?.profileImage || Logo}
+                          fill
+                          alt="create by"
+                          className="object-contain"
+                        ></Image>
                       </div>
                       <span>{course.creator?.name || 'HackQuest'}</span>
                     </div>

@@ -20,7 +20,11 @@ interface HeaderRightProps {
   resumeLoading?: boolean;
 }
 
-function UnProgressHeaderRight(detail: CourseDetailType | LearningTrackDetailType, itemCount: number, type: 'course' | 'learning-track') {
+function UnProgressHeaderRight(
+  detail: CourseDetailType | LearningTrackDetailType,
+  itemCount: number,
+  type: 'course' | 'learning-track'
+) {
   return (
     <div className="flex w-[445px] max-w-[445px] flex-col border-t border-neutral-black">
       <div className="flex items-center justify-between border-b border-neutral-black px-[15px] py-5">

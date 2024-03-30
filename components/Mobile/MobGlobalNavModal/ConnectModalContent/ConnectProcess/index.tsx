@@ -17,7 +17,12 @@ const ConnectProgress: FC<ConnectProgressProps> = ({ connectType }) => {
       {connectKeyMap.map((item, index) => {
         return (
           <div key={item.key} className="body-l-bold flex w-[calc((100%-30px)/4)] flex-col gap-2">
-            <div className={cn(`h-[6px] w-full rounded-full`, index <= connectIndex ? 'bg-yellow-dark' : 'bg-neutral-light-gray')}></div>
+            <div
+              className={cn(
+                `h-[6px] w-full rounded-full`,
+                index <= connectIndex ? 'bg-yellow-dark' : 'bg-neutral-light-gray'
+              )}
+            ></div>
             {/* <span
               className={cn(
                 index <= connectIndex

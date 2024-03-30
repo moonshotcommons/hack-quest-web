@@ -7,7 +7,11 @@ import { RendererContext } from '@/components/Web/Business/Renderer/context';
 import ComponentRenderer from '@/components/Web/Business/Renderer/MiniElectiveRenderer';
 import { FiCheck } from 'react-icons/fi';
 import { FiX } from 'react-icons/fi';
-import { FooterButtonStatus, FooterButtonText, UgcContext } from '@/app/[lang]/(web)/(learn page)/ugc/[courseId]/learn/constants/type';
+import {
+  FooterButtonStatus,
+  FooterButtonText,
+  UgcContext
+} from '@/app/[lang]/(web)/(learn page)/ugc/[courseId]/learn/constants/type';
 import { QuizContext } from '..';
 import emitter from '@/store/emitter';
 import { useGetQuizsCompleted } from '@/hooks/courses/useGetQuizsCompleted';
@@ -123,13 +127,17 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
                 }
               }}
             >
-              <div className="flex-center flex h-8 w-8 rounded-[4px] border-[2px] border-neutral-light-gray">{item.index}</div>
+              <div className="flex-center flex h-8 w-8 rounded-[4px] border-[2px] border-neutral-light-gray">
+                {item.index}
+              </div>
               <div className="flex-1">
                 <TextRenderer richTextArr={item.option?.content?.rich_text} fontSize="16px"></TextRenderer>
               </div>
 
               <div>
-                {answerState === AnswerState.Correct && answers.includes(item.index) && <FiCheck color="#00C365" size={28} />}
+                {answerState === AnswerState.Correct && answers.includes(item.index) && (
+                  <FiCheck color="#00C365" size={28} />
+                )}
                 {answerState === AnswerState.Wrong && answers.includes(item.index) && <FiX color="#C73333" size={28} />}
               </div>
             </div>

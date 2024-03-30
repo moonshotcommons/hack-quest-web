@@ -5,7 +5,11 @@ import { CourseType } from '@/service/webApi/course/type';
 import { useGotoNextLesson } from '@/hooks/courses/useGotoNextLesson';
 import emitter from '@/store/emitter';
 import MobCompleteModal from '@/components/Mobile/MobCompleteModal';
-import { FooterButtonStatus, FooterButtonText, UgcContext } from '@/app/[lang]/(web)/(learn page)/ugc/[courseId]/learn/constants/type';
+import {
+  FooterButtonStatus,
+  FooterButtonText,
+  UgcContext
+} from '@/app/[lang]/(web)/(learn page)/ugc/[courseId]/learn/constants/type';
 
 interface UgcFooterProp {}
 

@@ -44,7 +44,10 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
           <User></User>
         </NavBar>
       </div>
-      <div id="content-scroll-wrap" className={`m-auto w-full pt-[64px]  ${isNavbarFullPage ? 'bg-[white]' : 'bg-neutral-off-white'}`}>
+      <div
+        id="content-scroll-wrap"
+        className={`m-auto w-full pt-[64px]  ${isNavbarFullPage ? 'bg-[white]' : 'bg-neutral-off-white'}`}
+      >
         {children}
       </div>
 

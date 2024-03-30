@@ -40,7 +40,9 @@ const LessonFooter: React.FC<LessonFooterProps> = ({ lesson, onNextClick }) => {
           >
             <div
               className={`h-full    ${
-                i === currentUnitIndex ? 'rounded-[2px] bg-lesson-footer-tab-active-bg' : 'rounded-[1px] bg-lesson-footer-tab-bg'
+                i === currentUnitIndex
+                  ? 'rounded-[2px] bg-lesson-footer-tab-active-bg'
+                  : 'rounded-[1px] bg-lesson-footer-tab-bg'
               }`}
               style={{ width: `${item.progress * 100}%` }}
             ></div>

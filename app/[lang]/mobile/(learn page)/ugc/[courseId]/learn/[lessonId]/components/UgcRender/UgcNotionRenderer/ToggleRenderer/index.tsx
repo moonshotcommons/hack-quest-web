@@ -119,7 +119,11 @@ const ToggleRenderer: FC<ToggleRendererProps> = (props) => {
             <TextRenderer richTextArr={component.content.rich_text} fontSize={'16px'} />
           </div>
           <span className={``}>
-            {!groupExpands?.includes(currentIndex) ? <VscAdd size={20}></VscAdd> : <VscChromeMinimize size={20}></VscChromeMinimize>}
+            {!groupExpands?.includes(currentIndex) ? (
+              <VscAdd size={20}></VscAdd>
+            ) : (
+              <VscChromeMinimize size={20}></VscChromeMinimize>
+            )}
           </span>
         </div>
         {/* 正常渲染子对象 */}

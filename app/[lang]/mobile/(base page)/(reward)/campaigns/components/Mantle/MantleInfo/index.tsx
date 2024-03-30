@@ -7,7 +7,9 @@ import Image from 'next/image';
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { VscAdd, VscChromeMinimize } from 'react-icons/vsc';
 import { MantleContext } from '../../../constants/type';
-import CertificationModal, { CertificationModalInstance } from '@/components/Mobile/MobCertification/CertificationModal';
+import CertificationModal, {
+  CertificationModalInstance
+} from '@/components/Mobile/MobCertification/CertificationModal';
 
 interface MantleInfoProp {}
 
@@ -54,7 +56,12 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
                 }}
               >
                 <div className="relative h-0 w-full  overflow-hidden  bg-neutral-white pt-[55.45%]">
-                  <Image src={mantle.certification?.image || Certificate} alt="certificate" fill className="object-cover"></Image>
+                  <Image
+                    src={mantle.certification?.image || Certificate}
+                    alt="certificate"
+                    fill
+                    className="object-cover"
+                  ></Image>
                 </div>
               </div>
               <div className="body-s  flex-shrink-0 text-neutral-black">

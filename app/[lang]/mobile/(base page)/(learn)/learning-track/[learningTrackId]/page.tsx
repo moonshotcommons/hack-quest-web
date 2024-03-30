@@ -24,7 +24,10 @@ interface LearningTrackDetailPageProps {
   };
 }
 
-export async function generateMetadata({ params, searchParams }: LearningTrackDetailPageProps, parent: any): Promise<Metadata> {
+export async function generateMetadata(
+  { params, searchParams }: LearningTrackDetailPageProps,
+  parent: any
+): Promise<Metadata> {
   // 读取路由参数
   const learningTrackId = params.learningTrackId;
 
@@ -52,7 +55,12 @@ const LearningTrackDetailPage: FC<LearningTrackDetailPageProps> = async (props) 
         <div className="h-fit bg-neutral-off-white px-5 pb-10 pt-5">
           <BackButton type="learningTrack" />
           <div className="relative my-5 h-[196px] w-full overflow-hidden rounded-[16px] bg-neutral-white">
-            <Image src={learningTrackDetail.image} alt={learningTrackDetail.name} fill className="object-contain"></Image>
+            <Image
+              src={learningTrackDetail.image}
+              alt={learningTrackDetail.name}
+              fill
+              className="object-contain"
+            ></Image>
           </div>
           <Tags size="sm" className="caption-12pt text-neutral-rich-gray">
             {`Learning Track · ${learningTrackDetail.track}`}
@@ -70,8 +78,12 @@ const LearningTrackDetailPage: FC<LearningTrackDetailPageProps> = async (props) 
           </div>
         </div>
         <div className="flex flex-col gap-10 px-5 pb-[8.75rem] pt-10">
-          {learningTrackDetail.certificationId && <CertificationCard certificationId={learningTrackDetail.certificationId} />}
-          {learningTrackDetail.intendedLearners && <IntendedLearners intendedLearners={learningTrackDetail.intendedLearners} />}
+          {learningTrackDetail.certificationId && (
+            <CertificationCard certificationId={learningTrackDetail.certificationId} />
+          )}
+          {learningTrackDetail.intendedLearners && (
+            <IntendedLearners intendedLearners={learningTrackDetail.intendedLearners} />
+          )}
           <LearningTrackStructure detail={learningTrackDetail} />
           {learningTrackDetail.knowledgeGain && <KnowledgeGain knowledgeGain={learningTrackDetail.knowledgeGain} />}
           <Syllabus />

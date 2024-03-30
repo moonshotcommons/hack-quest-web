@@ -14,7 +14,8 @@ interface DropAnswerProps {
 
 const DropAnswer: FC<DropAnswerProps> = (props) => {
   const { answer } = props;
-  const { onDrop, accept, changeOptionState, answers, showAnswer, setAnswers, quiz } = useContext(RendererContext).quizBRendererContext!;
+  const { onDrop, accept, changeOptionState, answers, showAnswer, setAnswers, quiz } =
+    useContext(RendererContext).quizBRendererContext!;
 
   const { currentQuizIndex } = useContext(QuizContext);
   const [clearVisible, setClearVisible] = useState(false);
@@ -87,7 +88,9 @@ const DropAnswer: FC<DropAnswerProps> = (props) => {
             currentAnswer?.status === 'error' ? 'border-status-error bg-[#FFF7F5]' : ''
           )}
         >
-          <div className="relative inline-flex items-center px-5">&nbsp;{showAnswer && currentAnswer?.answer}&nbsp;</div>
+          <div className="relative inline-flex items-center px-5">
+            &nbsp;{showAnswer && currentAnswer?.answer}&nbsp;
+          </div>
         </motion.span>
       )}
       {!!currentAnswer?.option && !showAnswer && (

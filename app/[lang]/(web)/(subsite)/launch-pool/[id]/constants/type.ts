@@ -24,11 +24,15 @@ export interface LaunchDetailContextType {
   refreshFuel: VoidFunction;
   loading: boolean;
   setLoading: (loading: boolean) => void;
+  joinWaitlist: VoidFunction;
+  participateNow: VoidFunction;
 }
 
 export const LaunchDetailContext = createContext<LaunchDetailContextType>({
   launchInfo: {} as LaunchInfoType,
   refreshFuel: () => {},
   loading: false,
-  setLoading: () => {}
+  setLoading: () => {},
+  joinWaitlist: () => {},
+  participateNow: () => {}
 });

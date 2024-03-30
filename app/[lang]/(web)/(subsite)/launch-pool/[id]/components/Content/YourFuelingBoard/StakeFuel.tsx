@@ -12,6 +12,10 @@ import { LangContext } from '@/components/Provider/Lang';
 import { LaunchDetailContext } from '../../../constants/type';
 import StakeModal from './StakeModal';
 import UnstakeModal from './UnstakeModal';
+import { useWriteLaunchpadStake, useWriteLaunchpadUnstake } from '@/lib/generated';
+import { useAccount } from 'wagmi';
+import { mantaTestnet } from '@/config/wagmi/chains';
+import ConnectButton from '@/components/Web/Layout/LaunchPage/UserDropCard/ConnectButton';
 
 interface StakeFuelProp {}
 
@@ -21,8 +25,31 @@ const StakeFuel: React.FC<StakeFuelProp> = () => {
   const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
   const [modalName, setModalName] = useState('');
   const [stakeId, setStakeId] = useState('');
-  const hanleStake = () => {};
-  const hanleUnstake = () => {};
+  const { writeContractAsync } = useWriteLaunchpadStake();
+  const { writeContractAsync: writeContractAsyncUn } = useWriteLaunchpadUnstake();
+  const account = useAccount();
+  const hanleStake = async (params: any) => {
+    console.info(params, 'params');
+    console.info(mantaTestnet, '111');
+    // await writeContractAsync({
+    //   account: account.address,
+    //   address: mantaTestnet.contracts.launchpad.address,
+    //   args: [
+    //     id,
+    //     parseUnits(amount, 18),
+    //   ],
+    // })
+  };
+  const hanleUnstake = async () => {
+    // await writeContractAsyncUn({
+    //   account: account.address,
+    //   address: mantaTestnet.contracts.launchpad.address,
+    //   args: [
+    //     id,
+    //     index,
+    //   ],
+    // })
+  };
   const stakeList = useMemo(() => {
     return launchInfo.fuelsInfo.filter((v: any) => v.type === 'STAKE_TOKEN');
   }, [launchInfo]);
@@ -36,14 +63,17 @@ const StakeFuel: React.FC<StakeFuelProp> = () => {
       <div className="flex items-center gap-[24px]">
         <p className="body-l text-neutral-black">{t('stakeFuel')}</p>
         {launchInfo.isStake && (
-          <div className="body-m flex cursor-pointer items-center gap-[5px] text-neutral-medium-gray" onClick={() => setModalName('stake')}>
+          <div
+            className="body-m flex cursor-pointer items-center gap-[5px] text-neutral-medium-gray"
+            onClick={() => setModalName('stake')}
+          >
             <IoMdAddCircle size={24} />
             <span>{t('addNewStake')}</span>
           </div>
         )}
       </div>
 
-      {launchInfo.isStake ? (
+      {stakeList.length > 0 ? (
         stakeList.map((v: any) => (
           <div
             key={v.id}
@@ -72,14 +102,21 @@ const StakeFuel: React.FC<StakeFuelProp> = () => {
                 <span>{`${28}${t('d')}`}</span>
               </div>
 
-              <div
-                className="underline-l ml-[-20px] cursor-pointer text-neutral-rich-gray"
-                onClick={() => {
-                  setModalName('unStake');
-                  setStakeId('id');
-                }}
-              >
-                {t('unstake')}
+              <div className="relative">
+                <div
+                  className="underline-l ml-[-20px] cursor-pointer text-neutral-rich-gray"
+                  onClick={() => {
+                    setModalName('unStake');
+                    setStakeId('id');
+                  }}
+                >
+                  {t('unstake')}
+                </div>
+                {account.status !== 'connected' && (
+                  <div className="absolute left-0 top-0 h-full w-full opacity-0">
+                    <ConnectButton t={t} />
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -87,14 +124,36 @@ const StakeFuel: React.FC<StakeFuelProp> = () => {
       ) : (
         <div className="mt-[16px] flex flex-col items-center">
           <p className="body-l w-[507px] text-center text-neutral-medium-gray">{t('stakeDescription')}</p>
-          <Button type="primary" className="button-text-m mt-[12px] h-[48px] w-[165px] p-0 uppercase text-neutral-black">
-            {t('stake')} $manta
-          </Button>
+          {account.status === 'connected' ? (
+            <Button
+              type="primary"
+              className="button-text-m mt-[12px] h-[48px] w-[165px] p-0 uppercase text-neutral-black"
+              onClick={() => setModalName('stake')}
+            >
+              {t('stake')} $manta
+            </Button>
+          ) : (
+            <div className="relative mt-[12px] h-[48px]  w-[165px]">
+              <div className="absolute left-0 top-0 h-full w-full opacity-0">
+                <ConnectButton t={t} />
+              </div>
+            </div>
+          )}
         </div>
       )}
 
-      <StakeModal open={modalName === 'stake'} onClose={() => setModalName('')} loading={false} hanleStake={hanleStake} />
-      <UnstakeModal open={modalName === 'unStake'} onClose={() => setModalName('')} loading={false} hanleUnstake={hanleUnstake} />
+      <StakeModal
+        open={modalName === 'stake'}
+        onClose={() => setModalName('')}
+        loading={false}
+        hanleStake={hanleStake}
+      />
+      <UnstakeModal
+        open={modalName === 'unStake'}
+        onClose={() => setModalName('')}
+        loading={false}
+        hanleUnstake={hanleUnstake}
+      />
     </div>
   );
 };

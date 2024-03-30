@@ -61,7 +61,7 @@ const LaunchDetailPage: React.FC<LaunchDetailPageProp> = ({ id }) => {
       manual: true,
       onSuccess(res) {
         setParticipateInfo(res);
-        !Object.keys(res).length ? getFulesInfo() : setLoading(false);
+        res.isParticipate ? getFulesInfo() : setLoading(false);
       },
       onError(err) {
         setLoading(false);
@@ -92,9 +92,8 @@ const LaunchDetailPage: React.FC<LaunchDetailPageProp> = ({ id }) => {
   const launchInfo = useMemo(() => {
     return {
       ...projectInfo,
-      participateInfo,
+      participateInfo: participateInfo,
       fuelsInfo,
-      isParticipate: participateInfo?.isParticipate,
       isStake: fuelsInfo?.length > 0,
       isJoined: joined
     };
@@ -160,6 +159,12 @@ const LaunchDetailPage: React.FC<LaunchDetailPageProp> = ({ id }) => {
     connectModalRef.current?.onConnect(id);
   };
 
+  const onConnectStateUpdate = (connectState: any[]) => {
+    if (connectState.every((state) => state.isConnect)) {
+      getParticipateInfo();
+    }
+  };
+
   useEffect(() => {
     if (userInfo && launchInfo?.id) run();
   }, [run, userInfo]);
@@ -170,7 +175,9 @@ const LaunchDetailPage: React.FC<LaunchDetailPageProp> = ({ id }) => {
         launchInfo: launchInfo as LaunchInfoType,
         refreshFuel: getFulesInfo,
         loading,
-        setLoading
+        setLoading,
+        joinWaitlist,
+        participateNow
       }}
     >
       <div className="scroll-wrap-y h-full py-[40px]" ref={boxRef} onScroll={handleScoll}>
@@ -178,15 +185,10 @@ const LaunchDetailPage: React.FC<LaunchDetailPageProp> = ({ id }) => {
           <div className="relative w-[345px]">
             <Nav curAnchorIndex={curAnchorIndex} handleClickAnchor={handleClickAnchor} />
           </div>
-          <Content
-            loading={loading}
-            setOffsetTop={(tops: OffsetTopsType[]) => setOffsetTops(tops)}
-            joinWaitlist={joinWaitlist}
-            participateNow={participateNow}
-          />
+          <Content loading={loading} setOffsetTop={(tops: OffsetTopsType[]) => setOffsetTops(tops)} />
         </div>
         <WaitListModal ref={waitListRef} />
-        <ConnectModal ref={connectModalRef} />
+        <ConnectModal ref={connectModalRef} onConnectStateUpdate={onConnectStateUpdate} />
       </div>
     </LaunchDetailContext.Provider>
   );

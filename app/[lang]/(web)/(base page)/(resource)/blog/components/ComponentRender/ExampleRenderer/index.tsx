@@ -35,7 +35,9 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
   }, [component]);
 
   return (
-    <div className={`flex h-fit w-full flex-col rounded-[.625rem] bg-[#E6E6E6] px-[20px] py-[12px] ${expand ? 'min-h-[50%] flex-1' : ''}`}>
+    <div
+      className={`flex h-fit w-full flex-col rounded-[.625rem] bg-[#E6E6E6] px-[20px] py-[12px] ${expand ? 'min-h-[50%] flex-1' : ''}`}
+    >
       <div className="flex items-center justify-between">
         <span className="text-h4 relative inline-flex items-center">{component.title || 'Example'}</span>
         <span onClick={() => setExpand(!expand)}>

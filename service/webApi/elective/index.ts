@@ -34,7 +34,9 @@ class ElectiveApi {
 
   /** 获取包含（不包含）所有pages的课程详情信息 */
   getElectiveDetailAndPages(id: string, includePages = true) {
-    return this.service.get<ElectiveCourseDetailType>(`${ElectiveApiType.GetElectives}/${id}${includePages ? '?include=pages' : ''}`);
+    return this.service.get<ElectiveCourseDetailType>(
+      `${ElectiveApiType.GetElectives}/${id}${includePages ? '?include=pages' : ''}`
+    );
   }
 
   /** 获取lesson的内容 */

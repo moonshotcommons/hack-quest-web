@@ -3,18 +3,20 @@ import React, { useEffect, useRef, useState } from 'react';
 import GlossaryHeader from './GlossaryHeader';
 import NoData from './NoData';
 import MenuLink from '@/constants/MenuLink';
-import { BlogType } from '@/service/webApi/resourceStation/type';
+import { BlogType, ResourceFrom } from '@/service/webApi/resourceStation/type';
 import GlossaryList, { GlossaryListType, OffsetTopsType } from './GlossaryList';
 import FilterLetter from './FilterLetter';
 import FilterTrack from './FilterTrack';
-import GlossaryFooter from './GlossaryFooter';
 import useGetHeight from '@/hooks/dom/useGetHeight';
 import BackTop from './BackTop';
 import { Transition } from '@headlessui/react';
+import BlogFooter from '../../blog/components/BlogFooter';
+import { getSearchParamsUrl } from '@/helper/utils';
+import { useRouter } from 'next/navigation';
 
 interface GlossaryPageProp {
   galossaryList: BlogType[];
-  searchParams: { keyword?: string };
+  searchParams: { keyword?: string; category?: string };
 }
 
 const GlossaryPage: React.FC<GlossaryPageProp> = ({ searchParams = {}, galossaryList }) => {
@@ -28,11 +30,23 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ searchParams = {}, galossary
   const [letterData, setLetterData] = useState<string[]>([]);
   const { pageHeight } = useGetHeight();
   const [isSticky, setIsSticky] = useState(false);
+  const router = useRouter();
   const letterClick = (val: string) => {
     setLetter(val);
   };
   const trackClick = (val: string) => {
     const newTracks = ~tracks.indexOf(val) ? tracks.filter((v) => v !== val) : [...tracks, val];
+    const url = getSearchParamsUrl(
+      {
+        category: newTracks.join(',')
+      },
+      MenuLink.GLOSSARY
+    );
+    router.push(url);
+    // console.info(url);
+  };
+  const getCategoryList = () => {
+    const newTracks = searchParams.category?.split(',') || [];
     setTracks(newTracks);
     if (!newTracks.length) {
       dealList(galossaryList);
@@ -93,7 +107,7 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ searchParams = {}, galossary
     }, 150);
   };
   useEffect(() => {
-    dealList(galossaryList);
+    getCategoryList();
   }, [galossaryList]);
   return (
     <div ref={boxRef} className="scroll-wrap-y no-scrollbar" style={{ height: pageHeight }} onScroll={onScroll}>
@@ -122,7 +136,7 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ searchParams = {}, galossary
           <NoData href={MenuLink.GLOSSARY} keyword={searchParams.keyword}></NoData>
         )}
       </div>
-      {list.length === 0 || searchParams.keyword ? <GlossaryFooter type="link" /> : null}
+      {list.length === 0 || searchParams.keyword ? <BlogFooter from={ResourceFrom.GLOSSARY} /> : null}
       <Transition show={isSticky} appear>
         <BackTop backTop={backTop} />
       </Transition>

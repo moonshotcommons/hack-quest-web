@@ -21,8 +21,8 @@ const TopBanner: FC<TopBannerProps> = (props) => {
             <h1 className="text-h2 mt-2 text-neutral-white">Join our rapidly growing Community!</h1>
           </div>
           <p className="body-m text-neutral-light-gray">
-            HackQuest advocates are your local Web3 superheroes: empowering others, addressing challenges, engaging communities, impacting
-            the globe, and building a brighter future!
+            HackQuest advocates are your local Web3 superheroes: empowering others, addressing challenges, engaging
+            communities, impacting the globe, and building a brighter future!
           </p>
           <div className="z-50 flex gap-[2.5rem]">
             <Link href={HACKQUEST_DISCORD} target="_blank" className="cursor-pointer hover:scale-[1.1]">

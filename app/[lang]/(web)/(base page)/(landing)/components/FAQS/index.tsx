@@ -21,7 +21,8 @@ const FAQData = [
   },
   {
     problem: 'Are all courses and post-learning support free?',
-    answer: 'Yes! We are dedicated to making Web3.0 programming accessible to everyone, free from financial constraints.'
+    answer:
+      'Yes! We are dedicated to making Web3.0 programming accessible to everyone, free from financial constraints.'
   },
   {
     problem: 'Where do I ask for help?',
@@ -35,7 +36,9 @@ const FAQS: FC<FAQSProps> = (props) => {
     <div className="container mx-auto flex max-w-[1280px] justify-between gap-20 py-[6.25rem]">
       <div className="flex w-fit flex-col gap-10">
         <p className="text-h2 capitalize text-neutral-off-black">FAQs</p>
-        <p className="body-l tracking-tighter text-neutral-medium-gray">Can’t find what you’re looking for? Reach out to us!</p>
+        <p className="body-l tracking-tighter text-neutral-medium-gray">
+          Can’t find what you’re looking for? Reach out to us!
+        </p>
         <div className="flex items-center gap-8">
           <Link
             href={HACKQUEST_DISCORD}
@@ -103,7 +106,9 @@ const FAQS: FC<FAQSProps> = (props) => {
                 </span>
               </div>
 
-              <p className={cn(`body-s text-neutral-rich-gray`, expendIndex.includes(index) ? 'block' : 'hidden')}>{item.answer}</p>
+              <p className={cn(`body-s text-neutral-rich-gray`, expendIndex.includes(index) ? 'block' : 'hidden')}>
+                {item.answer}
+              </p>
             </div>
           );
         })}

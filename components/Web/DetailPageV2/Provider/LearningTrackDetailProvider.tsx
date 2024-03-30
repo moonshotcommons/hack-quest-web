@@ -39,7 +39,10 @@ export const LearningTrackDetailContext = createContext<LearningTrackDetailConte
   refreshLearningTrackDetail: () => {}
 });
 
-const LearningTrackDetailProvider: FC<LearningTrackDetailProviderProps> = ({ learningTrackDetail: propTrackDetail, children }) => {
+const LearningTrackDetailProvider: FC<LearningTrackDetailProviderProps> = ({
+  learningTrackDetail: propTrackDetail,
+  children
+}) => {
   const { data, refresh } = useRequest(() => {
     return webApi.learningTrackApi.getLearningTrackDetailAndCourses(propTrackDetail.id);
   });

@@ -40,13 +40,18 @@ const CodeRenderer: FC<CodeRendererProps> = (props) => {
   }, [component.content.rich_text, updateExampleContent]);
 
   return (
-    <div className={`relative flex-1 overflow-hidden rounded-md ${isPlayground ? 'flex flex-col' : ''}`} data-type={component.type}>
+    <div
+      className={`relative flex-1 overflow-hidden rounded-md ${isPlayground ? 'flex flex-col' : ''}`}
+      data-type={component.type}
+    >
       <div className="relative h-[6px] rounded-t-[4.8px] bg-[#fafafa]">
         <div
           className="body-s absolute right-[9px] top-[9px] z-[10] cursor-pointer rounded-[0.5rem] text-[#E3E3E3]"
           onClick={async (e) => {
             try {
-              await navigator.clipboard.writeText(component.content.rich_text.map((richText: any) => richText.plain_text).join(''));
+              await navigator.clipboard.writeText(
+                component.content.rich_text.map((richText: any) => richText.plain_text).join('')
+              );
               BurialPoint.track('lesson-code复制');
               message.success('Copy success!');
             } catch (e) {

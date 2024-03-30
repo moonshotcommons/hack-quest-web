@@ -29,7 +29,10 @@ const Equity: React.FC<EquityProp> = ({ level }) => {
       );
     } else {
       return (
-        <li key={i} className={`flex items-center pl-[20px] leading-[23px] text-neutral-medium-gray ${!showMore && 'hidden'}`}>
+        <li
+          key={i}
+          className={`flex items-center pl-[20px] leading-[23px] text-neutral-medium-gray ${!showMore && 'hidden'}`}
+        >
           <div className="relative h-[5px] w-[5px]">
             <div className="absolute  bottom-[-2.5px] left-[-2.5px] w-[10px]">
               <Image src={IconLock} width={10} alt="iconLock" className=""></Image>

@@ -25,7 +25,9 @@ const BlogContent: React.FC<BlogContentProp> = ({ blog }) => {
           }
         }}
       >
-        {blog?.content?.map((component: CustomComponent) => <ComponentRender key={component.id} component={component} parent={parent} />)}
+        {blog?.content?.map((component: CustomComponent) => (
+          <ComponentRender key={component.id} component={component} parent={parent} />
+        ))}
       </RendererContext.Provider>
     </div>
   );

@@ -29,7 +29,10 @@ const CertificatesIntroduce: FC<CertificatesIntroduceProps> = (props) => {
           <div className="flex w-full flex-col items-center gap-6">
             {leftCardData.map((item, index) => {
               return (
-                <div key={index} className="flex w-full justify-between rounded-[.5rem] border border-neutral-light-gray p-4">
+                <div
+                  key={index}
+                  className="flex w-full justify-between rounded-[.5rem] border border-neutral-light-gray p-4"
+                >
                   <div className="flex flex-col justify-between">
                     <h4 className="body-xs-bold">{item.name}</h4>
                     <div className="flex items-center gap-6">
@@ -47,7 +50,11 @@ const CertificatesIntroduce: FC<CertificatesIntroduceProps> = (props) => {
                 </div>
               );
             })}
-            <Link href={`/learning-track`} target="_blank" className="body-m-bold flex cursor-pointer items-center gap-2 text-[.75rem]">
+            <Link
+              href={`/learning-track`}
+              target="_blank"
+              className="body-m-bold flex cursor-pointer items-center gap-2 text-[.75rem]"
+            >
               <span className="relative after:absolute after:-bottom-[1px] after:left-0 after:h-[2px] after:w-full after:rounded-full after:bg-yellow-primary">
                 Explore Basics
               </span>

@@ -30,7 +30,12 @@ function Practices() {
 
   const coverImage = (
     <div className="pt-[50px]">
-      <Image src={'/images/course/course_cover/practices_cover.png'} width={314} height={300} alt="Projects cover"></Image>
+      <Image
+        src={'/images/course/course_cover/practices_cover.png'}
+        width={314}
+        height={300}
+        alt="Projects cover"
+      ></Image>
     </div>
   );
 
@@ -99,7 +104,9 @@ function Practices() {
         )}
 
         {/* Course Search List */}
-        {type === CourseFilterListType.SEARCH && <CourseFilterListSearch keyword={searchKeyword}></CourseFilterListSearch>}
+        {type === CourseFilterListType.SEARCH && (
+          <CourseFilterListSearch keyword={searchKeyword}></CourseFilterListSearch>
+        )}
         {/*
         <SelectiveCoursesBox
           loadNum={loadNum}

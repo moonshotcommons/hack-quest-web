@@ -1,7 +1,11 @@
 import React, { useMemo } from 'react';
 import { SearchParamsType } from '../../constant/type';
 import FilterSelect from '@/components/Web/Business/CourseFilterList/FilterSelect';
-import { ugcCourseDefaultFilters, mergeFilterParams, courseDefaultSort } from '@/components/Web/Business/CourseFilterList/constant';
+import {
+  ugcCourseDefaultFilters,
+  mergeFilterParams,
+  courseDefaultSort
+} from '@/components/Web/Business/CourseFilterList/constant';
 import { cloneDeep } from 'lodash-es';
 import UgcCourseCard from '@/components/Web/Business/UgcCourseCard';
 import Pagination from '@/components/Common/Pagination';
@@ -40,7 +44,9 @@ const CourseList: React.FC<CourseListProp> = ({ page, searchParams, course, hand
   }, [searchParams]);
   return (
     <div className="flex flex-col gap-y-8 pb-[40px]">
-      {searchParams.keyword && <h3 className="text-h3 text-neutral-black">{`Search result for “${searchParams.keyword}”`}</h3>}
+      {searchParams.keyword && (
+        <h3 className="text-h3 text-neutral-black">{`Search result for “${searchParams.keyword}”`}</h3>
+      )}
       <FilterSelect
         filters={cloneDeep(filters)}
         updateFilters={(newFilters) => {

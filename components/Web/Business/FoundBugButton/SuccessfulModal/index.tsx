@@ -44,7 +44,11 @@ const SuccessfulModal = forwardRef<SuccessfulModalRef, SuccessfulModalProps>(({}
         </p>
         <div className="flex gap-4">
           <Link href={HACKQUEST_DISCORD} target="_blank">
-            <Button type="primary" className="button-text-m w-[219px] px-0 py-4 uppercase text-neutral-black" onClick={() => {}}>
+            <Button
+              type="primary"
+              className="button-text-m w-[219px] px-0 py-4 uppercase text-neutral-black"
+              onClick={() => {}}
+            >
               check out on discord
             </Button>
           </Link>

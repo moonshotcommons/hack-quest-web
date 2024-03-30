@@ -58,7 +58,8 @@ const WhiteListModal: NextPage<CompleteModalProps> = ({ open, onClose }) => {
           MVP Invitation Needed
         </h1>
         <p className="body-l z-[51] mt-[2.375rem] w-[29.1875rem] text-center text-text-default-color">
-          Sorry our site is currently only available for invited MVP user. If you’d like to join our whitelist, please email us at
+          Sorry our site is currently only available for invited MVP user. If you’d like to join our whitelist, please
+          email us at
           <a href="mailto:founder@hackquest.io" className="ml-2 cursor-pointer underline" target="_blank">
             founder@hackquest.io.
           </a>

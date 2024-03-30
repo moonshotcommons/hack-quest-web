@@ -27,7 +27,10 @@ const TopBanner: FC<TopBannerProps> = (props) => {
             <div className="body-m body-xs-bold w-fit rounded-[.5rem] border border-yellow-primary px-2 py-1 text-yellow-primary">
               Certified
             </div>
-            <Link href={'/learning-track?track=Basic&language=RUST'} className="body-m-bold mt-2 flex items-center gap-2">
+            <Link
+              href={'/learning-track?track=Basic&language=RUST'}
+              className="body-m-bold mt-2 flex items-center gap-2"
+            >
               <span className="relative after:absolute after:-bottom-[1px] after:left-0 after:h-[2px] after:w-full after:rounded-full after:bg-yellow-primary">
                 Solana Learning Track
               </span>

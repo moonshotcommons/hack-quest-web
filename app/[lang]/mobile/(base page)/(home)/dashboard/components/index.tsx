@@ -19,7 +19,11 @@ const Dashboard: React.FC<DashboardProp> = () => {
     }
   };
   return (
-    <div className="h-[calc(100vh-64px)] overflow-auto px-[1.25rem] pb-[30px] pt-[40px]" onScroll={handleScroll} ref={ProjectsPageRef}>
+    <div
+      className="h-[calc(100vh-64px)] overflow-auto px-[1.25rem] pb-[30px] pt-[40px]"
+      onScroll={handleScroll}
+      ref={ProjectsPageRef}
+    >
       <MyCourses ref={coursesRef} setApiStatus={(status) => setApiStatus(status)} apiStatus={apiStatus} />
       {/* <div className="gap-[48px]">
         

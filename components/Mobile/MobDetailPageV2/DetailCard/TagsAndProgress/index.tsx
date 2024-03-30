@@ -22,7 +22,10 @@ const TagAndProgress: FC<TagAndProgressProps> = ({ learningTrackDetail: propLear
     case LearningStatus.UN_START:
       return (
         <>
-          <IconTextTag type={IconTextTagType.COURSES_COUNT} text={`${learningTrackDetail.courseCount} courses`}></IconTextTag>
+          <IconTextTag
+            type={IconTextTagType.COURSES_COUNT}
+            text={`${learningTrackDetail.courseCount} courses`}
+          ></IconTextTag>
           <IconTextTag type={IconTextTagType.DEVICE_ACCESS}></IconTextTag>
           {learningTrackDetail.certificationId && <IconTextTag type={IconTextTagType.CERTIFICATION}></IconTextTag>}
         </>
@@ -44,7 +47,9 @@ const TagAndProgress: FC<TagAndProgressProps> = ({ learningTrackDetail: propLear
     case LearningStatus.COMPLETED:
       //!TODO 要分学完可以获取证书和已经获取证书
       return (
-        <p className="body-m text-neutral-rich-gray">Congratulation! You’ve completed all the courses. Claim your Web3 certification 🎉</p>
+        <p className="body-m text-neutral-rich-gray">
+          Congratulation! You’ve completed all the courses. Claim your Web3 certification 🎉
+        </p>
       );
   }
 };

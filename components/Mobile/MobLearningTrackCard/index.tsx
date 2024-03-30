@@ -51,7 +51,10 @@ const MobLearningTrackCard: React.FC<MobLearningTrackCardProps> = ({
 
   return (
     <div
-      className={cn(' flex  w-full flex-col gap-[1.25rem] overflow-hidden rounded-[1rem] bg-neutral-white p-[1.25rem]', className)}
+      className={cn(
+        ' flex  w-full flex-col gap-[1.25rem] overflow-hidden rounded-[1rem] bg-neutral-white p-[1.25rem]',
+        className
+      )}
       onClick={goLearningTrackDetail}
     >
       <div className="flex w-full justify-between">
@@ -67,10 +70,17 @@ const MobLearningTrackCard: React.FC<MobLearningTrackCardProps> = ({
           </div>
         )}
         <div className="relative h-[3rem] w-[3rem]">
-          <Image src={learningTrack.image || LearningTrackImg} fill alt="learning-track-img" className="object-cover"></Image>
+          <Image
+            src={learningTrack.image || LearningTrackImg}
+            fill
+            alt="learning-track-img"
+            className="object-cover"
+          ></Image>
         </div>
       </div>
-      <div className="body-m-bold mt-[-1.8rem] line-clamp-1 w-[calc(100%-3rem)] text-neutral-off-black">{learningTrack.name}</div>
+      <div className="body-m-bold mt-[-1.8rem] line-clamp-1 w-[calc(100%-3rem)] text-neutral-off-black">
+        {learningTrack.name}
+      </div>
       <div className="body-xs line-clamp-2  text-neutral-medium-gray">{learningTrack.description}</div>
       <div>
         <CourseTags

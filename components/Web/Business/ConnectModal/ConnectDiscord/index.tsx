@@ -84,14 +84,6 @@ const ConnectDiscord = <T,>(props: ConnectDiscordProps<T>) => {
   }, [refreshState]);
 
   useEffect(() => {
-    if (!connectState.connectInfo.isJoin && !intervalId) {
-      const id = setInterval(() => {
-        refreshConnectState();
-      }, 2000);
-
-      setIntervalId(id);
-    }
-
     if (connectState.connectInfo.isJoin && intervalId) {
       clearInterval(intervalId);
     }
@@ -99,7 +91,7 @@ const ConnectDiscord = <T,>(props: ConnectDiscordProps<T>) => {
     return () => {
       if (intervalId) clearInterval(intervalId);
     };
-  }, [intervalId, connectState.connectInfo.isJoin, refreshConnectState]);
+  }, [intervalId, connectState.connectInfo.isJoin]);
 
   return (
     <div className="flex flex-col gap-8 py-8">
@@ -141,12 +133,31 @@ const ConnectDiscord = <T,>(props: ConnectDiscordProps<T>) => {
           </div>
         </div>
         <div className="flex flex-1 items-center gap-6 rounded-[16px] bg-neutral-off-white p-6">
-          <Image src={'/images/logo/hackquest_twitter_avatar.webp'} alt="hackquest Discord" width={48} height={48}></Image>
+          <Image
+            src={'/images/logo/hackquest_twitter_avatar.webp'}
+            alt="hackquest Discord"
+            width={48}
+            height={48}
+          ></Image>
           <div className="flex flex-col gap-2">
-            <p className="body-m-bold text-neutral-rich-gray">{t('joinHackquestDiscord', { hackquest: 'Hackquest' })}</p>
+            <p className="body-m-bold text-neutral-rich-gray">
+              {t('joinHackquestDiscord', { hackquest: 'Hackquest' })}
+            </p>
             {!connectState.connectInfo.isJoin && (
               <Link href={HACKQUEST_DISCORD} target="_blank">
-                <Button type="primary" className="button-text-s w-[140px] py-2 uppercase text-neutral-black ">
+                <Button
+                  type="primary"
+                  className="button-text-s w-[140px] py-2 uppercase text-neutral-black "
+                  onClick={() => {
+                    if (!connectState.connectInfo.isJoin && !intervalId) {
+                      const id = setInterval(() => {
+                        refreshConnectState();
+                      }, 2000);
+
+                      setIntervalId(id);
+                    }
+                  }}
+                >
                   {t('join')}
                 </Button>
               </Link>

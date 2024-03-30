@@ -1,5 +1,8 @@
 import { getLessonIconData } from '@/app/[lang]/(web)/(learn page)/ugc/[courseId]/creation/constant/data';
-import { CourseInformationType, UgcCreateContext } from '@/app/[lang]/(web)/(learn page)/ugc/[courseId]/creation/constant/type';
+import {
+  CourseInformationType,
+  UgcCreateContext
+} from '@/app/[lang]/(web)/(learn page)/ugc/[courseId]/creation/constant/type';
 import { errorMessage } from '@/helper/ui';
 import webApi from '@/service';
 import { useUgcCreationStore } from '@/store/zustand/ugcCreationStore';
@@ -38,7 +41,8 @@ const useUgcCreationDataHandle = (cId?: string) => {
     try {
       const info = await getCourseInfo(id);
       if (!info) return;
-      const intendedLearnersCompleted = info.intendedLearners?.audience?.length || info.intendedLearners?.requirements?.length;
+      const intendedLearnersCompleted =
+        info.intendedLearners?.audience?.length || info.intendedLearners?.requirements?.length;
       const knowledgeGainCompleted = info.knowledgeGain?.description?.length || info.knowledgeGain?.tags?.length;
 
       const information = {

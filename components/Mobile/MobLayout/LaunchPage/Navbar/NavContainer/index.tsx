@@ -12,7 +12,9 @@ interface NavProps {
 const Nav: FC<NavProps> = ({ children, isOpen, toggleOpen }) => {
   const containerRef = useRef(null);
   const { height } = useDimensions(containerRef);
-  const Path = (props: any) => <motion.path fill="transparent" strokeWidth="3" stroke="#131313" strokeLinecap="round" {...props} />;
+  const Path = (props: any) => (
+    <motion.path fill="transparent" strokeWidth="3" stroke="#131313" strokeLinecap="round" {...props} />
+  );
 
   return (
     <motion.nav

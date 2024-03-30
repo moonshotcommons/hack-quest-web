@@ -36,6 +36,7 @@ const Button: FC<ButtonProps> = (props) => {
     loading = false,
     disabled: propDisabled,
     htmlType,
+    onClick: propOnClick,
     ...rest
   } = props;
   // const classNames = ;
@@ -90,11 +91,11 @@ const Button: FC<ButtonProps> = (props) => {
         className
       )}
       type={htmlType}
-      {...rest}
       onClick={(e) => {
         if (disabled) return;
-        props.onClick?.(e);
+        propOnClick?.(e);
       }}
+      {...rest}
     >
       {icon && iconPosition === 'left' && <span style={{ visibility: loading ? 'hidden' : 'visible' }}>{icon}</span>}
       <span style={{ visibility: loading ? 'hidden' : 'visible' }}>{children}</span>

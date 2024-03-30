@@ -129,7 +129,12 @@ const MyCourses = forwardRef<MyCoursesRef, MyCoursesProps>((props, ref) => {
     <div className="flex flex-col">
       <h1 className="text-h2-mob mb-[1.5rem] text-neutral-off-black ">My Courses</h1>
       <div className="w-fit">
-        <Tab tabList={courseTab} curTab={curTab} changeTab={changeTab} className="body-l gap-[1.875rem] pb-10 before:bottom-[32px]" />
+        <Tab
+          tabList={courseTab}
+          curTab={curTab}
+          changeTab={changeTab}
+          className="body-l gap-[1.875rem] pb-10 before:bottom-[32px]"
+        />
       </div>
       <Loading loading={loading}>
         {!courseListData[curTab].length && !learningTrackListData[curTab].length ? (

@@ -19,7 +19,12 @@ export const CourseDetailContext = createContext<{
   refreshLearningTrackDetail: () => {}
 });
 
-const CourseDetailProvider: FC<CourseDetailProviderProps> = ({ courseId, children, includeUnits = false, includePages = false }) => {
+const CourseDetailProvider: FC<CourseDetailProviderProps> = ({
+  courseId,
+  children,
+  includeUnits = false,
+  includePages = false
+}) => {
   const { data, refresh } = useRequest(() => {
     return webApi.courseApi.getCourseDetail(courseId, includeUnits, includePages);
   });

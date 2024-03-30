@@ -71,7 +71,11 @@ const PreviewLessonPage: FC<PreviewLessonPageProps> = (props) => {
               minSize={80}
               cursor="col-resize"
             >
-              <LessonContent lesson={lesson as any} courseType={CourseType.GUIDED_PROJECT} isPreview={true}></LessonContent>
+              <LessonContent
+                lesson={lesson as any}
+                courseType={CourseType.GUIDED_PROJECT}
+                isPreview={true}
+              ></LessonContent>
               <Playground
                 lesson={lesson! as any}
                 isPreview={true}

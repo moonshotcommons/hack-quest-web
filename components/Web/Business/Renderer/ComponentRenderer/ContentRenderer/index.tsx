@@ -30,7 +30,9 @@ const ContentRenderer: FC<ContentRendererProps> = (props) => {
           setShowAll(!showAll);
         }}
       >
-        <span className="text-h4">{component.title || <TextRenderer richTextArr={component.content.rich_text}></TextRenderer>}</span>
+        <span className="text-h4">
+          {component.title || <TextRenderer richTextArr={component.content.rich_text}></TextRenderer>}
+        </span>
         {leftLength > 1 ? (
           <span className={`${showAll ? 'rotate-180' : 'rotate-0'} transition-transform duration-150 ease-in-out`}>
             <VscChevronDown size={24} />

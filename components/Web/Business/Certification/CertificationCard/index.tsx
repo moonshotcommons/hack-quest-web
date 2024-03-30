@@ -21,7 +21,13 @@ const CertificationCard: FC<CertificationCardProps> = async (props) => {
         <LearnMoreButton certification={certification} />
       </div>
       {certification?.image && (
-        <Image width={238} height={132} src={certification?.image || ''} alt="certification" className="z-50 object-contain"></Image>
+        <Image
+          width={238}
+          height={132}
+          src={certification?.image || ''}
+          alt="certification"
+          className="z-50 object-contain"
+        ></Image>
       )}
     </div>
   );

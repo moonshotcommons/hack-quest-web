@@ -30,7 +30,17 @@ const IconClose: FC<{ icon?: ReactNode; className?: string }> = (props) => {
 };
 
 const Modal: React.FC<ModalProps> = (props) => {
-  const { open, onClose, children, showCloseIcon = false, icon, markBg = 'black', className, iconClassName, block = false } = props;
+  const {
+    open,
+    onClose,
+    children,
+    showCloseIcon = false,
+    icon,
+    markBg = 'black',
+    className,
+    iconClassName,
+    block = false
+  } = props;
   // const closeIcon =
   return (
     <Transition show={open} appear as={Fragment}>

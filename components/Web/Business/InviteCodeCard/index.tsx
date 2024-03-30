@@ -73,8 +73,8 @@ const InviteCodeCard: FC<InviteCodeCardProps> = (props) => {
             {showDesc && (
               <PopBox className="-right-[34px]">
                 <p className="body-xs w-[340px] text-neutral-black">
-                  HackQuest is currently in beta. Share your invite code to help new users sign up. Rewards are available at Mission Center
-                  after two users register with your invite code.
+                  HackQuest is currently in beta. Share your invite code to help new users sign up. Rewards are
+                  available at Mission Center after two users register with your invite code.
                 </p>
               </PopBox>
             )}
@@ -148,7 +148,10 @@ const InviteCodeCard: FC<InviteCodeCardProps> = (props) => {
                   return (
                     <div
                       key={index}
-                      className={cn(`h-[7px] w-1/2 rounded-[3px]`, index < inviteProgress.progress[0] ? 'bg-[#FCC409]' : 'bg-[#DADADA]')}
+                      className={cn(
+                        `h-[7px] w-1/2 rounded-[3px]`,
+                        index < inviteProgress.progress[0] ? 'bg-[#FCC409]' : 'bg-[#DADADA]'
+                      )}
                     ></div>
                   );
                 })}
@@ -163,7 +166,10 @@ const InviteCodeCard: FC<InviteCodeCardProps> = (props) => {
                 }
               }}
               disabled={inviteProgress.claimed || !inviteProgress.completed || loading}
-              className={cn(`body-s px-5 py-2 text-[0B0B0B]`, inviteProgress.claimed || !inviteProgress.completed ? 'opacity-40' : '')}
+              className={cn(
+                `body-s px-5 py-2 text-[0B0B0B]`,
+                inviteProgress.claimed || !inviteProgress.completed ? 'opacity-40' : ''
+              )}
             >
               Claim Rewards
             </Button>
@@ -192,7 +198,12 @@ const icons = {
         d="M7.26453 9.9678L2.14745 6.6417C1.90384 6.48335 1.78204 6.40418 1.73985 6.30377C1.70298 6.21603 1.70298 6.11714 1.73985 6.02939C1.78204 5.92899 1.90384 5.84981 2.14745 5.69146L7.26453 2.36537C7.71166 2.07473 7.93523 1.92941 8.17611 1.87287C8.38903 1.82289 8.61064 1.82289 8.82356 1.87287C9.06445 1.92941 9.28801 2.07473 9.73514 2.36537L14.8522 5.69146C15.0958 5.84981 15.2176 5.92899 15.2598 6.02939C15.2967 6.11714 15.2967 6.21603 15.2598 6.30377C15.2176 6.40418 15.0958 6.48335 14.8522 6.6417L9.73514 9.9678C9.28802 10.2584 9.06445 10.4038 8.82356 10.4603C8.61064 10.5103 8.38903 10.5103 8.17611 10.4603C7.93523 10.4038 7.71166 10.2584 7.26453 9.9678Z"
         fill="#8C8C8C"
       />
-      <path d="M1.4165 6.16666L8.49984 10.4167L15.5832 6.16666" stroke="#F4F4F4" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M1.4165 6.16666L8.49984 10.4167L15.5832 6.16666"
+        stroke="#F4F4F4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
       <line x1="6.375" y1="5.2619" x2="10.625" y2="5.2619" stroke="#F4F4F4" />
       <line x1="8.6958" y1="3.33334" x2="8.6958" y2="7.58334" stroke="#F4F4F4" />
     </svg>

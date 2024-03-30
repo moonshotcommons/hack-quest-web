@@ -69,7 +69,10 @@ const EditAdd: React.FC<EditAddProp> = ({ onCancel, onRefresh, editType, editEx 
     if (newFormData.endMonth.value && newFormData.endYear.value) {
       const start = [newFormData.startMonth.value, newFormData.startYear.value];
       const end = [newFormData.endMonth.value, newFormData.endYear.value];
-      const startIndex = [monthList.findIndex((v) => v.value === start[0]), yearList.findIndex((v) => v.value === start[1])];
+      const startIndex = [
+        monthList.findIndex((v) => v.value === start[0]),
+        yearList.findIndex((v) => v.value === start[1])
+      ];
       const endIndex = [monthList.findIndex((v) => v.value === end[0]), yearList.findIndex((v) => v.value === end[1])];
       if (startIndex[1] < endIndex[1] || (startIndex[1] === endIndex[1] && startIndex[0] > endIndex[0])) {
         newFormData.endMonth.status = 'error';
@@ -355,7 +358,10 @@ const EditAdd: React.FC<EditAddProp> = ({ onCancel, onRefresh, editType, editEx 
         ></TextArea>
       </div>
       <div className="flex justify-center gap-[15px]">
-        <Button onClick={onCancel} className="body-m h-[44px] w-[265px] border  border-neutral-black text-neutral-black">
+        <Button
+          onClick={onCancel}
+          className="body-m h-[44px] w-[265px] border  border-neutral-black text-neutral-black"
+        >
           Cancel
         </Button>
         <Button loading={loading} className="body-m h-[44px] w-[265px]  bg-yellow-primary  p-0" onClick={handleSubmit}>

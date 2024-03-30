@@ -15,7 +15,15 @@ export interface TooltipProps {
 }
 
 const Tooltip: FC<TooltipProps> = (props) => {
-  const { children, title, color = '#FFF', placement = 'topLeft', className, show: propShow = false, customize = false } = props;
+  const {
+    children,
+    title,
+    color = '#FFF',
+    placement = 'topLeft',
+    className,
+    show: propShow = false,
+    customize = false
+  } = props;
   const [show, setShow] = useState(propShow);
 
   // const

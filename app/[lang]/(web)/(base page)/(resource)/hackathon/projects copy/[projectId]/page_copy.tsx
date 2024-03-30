@@ -19,7 +19,10 @@ export async function generateMetadata({ params }: ProjectDetailPageProps): Prom
 
 const ProjectDetailPage: FC<ProjectDetailPageProps> = async ({ params }) => {
   const { projectId } = params;
-  const [project, featuredProjects] = await Promise.all([getHackathonProjectById(projectId), getFeaturedProjectsById(projectId)]);
+  const [project, featuredProjects] = await Promise.all([
+    getHackathonProjectById(projectId),
+    getFeaturedProjectsById(projectId)
+  ]);
   const otherProjects = await getOtherProjects(project.hackathonName, projectId);
 
   return (

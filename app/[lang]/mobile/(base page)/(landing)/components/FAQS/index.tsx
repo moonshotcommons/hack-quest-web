@@ -21,7 +21,8 @@ const FAQData = [
   },
   {
     problem: 'Are all courses and post-learning support free?',
-    answer: 'Yes! We are dedicated to making Web3.0 programming accessible to everyone, free from financial constraints.'
+    answer:
+      'Yes! We are dedicated to making Web3.0 programming accessible to everyone, free from financial constraints.'
   },
   {
     problem: 'Where do I ask for help?',
@@ -103,7 +104,9 @@ const FAQS: FC<FAQSProps> = (props) => {
                 </span>
               </div>
 
-              <p className={cn(`body-xs text-neutral-rich-gray`, expendIndex.includes(index) ? 'block' : 'hidden')}>{item.answer}</p>
+              <p className={cn(`body-xs text-neutral-rich-gray`, expendIndex.includes(index) ? 'block' : 'hidden')}>
+                {item.answer}
+              </p>
             </div>
           );
         })}

@@ -5,7 +5,7 @@ import GlossaryPage from './components';
 
 interface GlossaryProp {
   params: { slug: string[] };
-  searchParams: { keyword?: string };
+  searchParams: { keyword?: string; category?: string };
 }
 
 const Glossary: React.FC<GlossaryProp> = async ({ searchParams = {}, params: { slug = [] } }) => {

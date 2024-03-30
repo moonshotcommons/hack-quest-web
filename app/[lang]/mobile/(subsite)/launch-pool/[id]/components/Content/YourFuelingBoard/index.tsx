@@ -22,8 +22,18 @@ const YourFuelingBoard: React.FC<YourFuelingBoardProp> = () => {
       <StakeFuel />
       <InvitationFuel />
       <TargetFuel />
-      <StakeModal open={modalName === 'stake'} onClose={() => setModalName('')} loading={false} hanleStake={hanleStake} />
-      <UnstakeModal open={modalName === 'stake'} onClose={() => setModalName('')} loading={false} hanleUnstake={hanleUnstake} />
+      <StakeModal
+        open={modalName === 'stake'}
+        onClose={() => setModalName('')}
+        loading={false}
+        hanleStake={hanleStake}
+      />
+      <UnstakeModal
+        open={modalName === 'stake'}
+        onClose={() => setModalName('')}
+        loading={false}
+        hanleUnstake={hanleUnstake}
+      />
     </div>
   );
 };

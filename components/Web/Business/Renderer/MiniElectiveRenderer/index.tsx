@@ -1,4 +1,11 @@
-import { CustomComponent, CustomType, NotionComponent, NotionType, QuizAType, QuizBType } from '@/components/Web/Business/Renderer/type';
+import {
+  CustomComponent,
+  CustomType,
+  NotionComponent,
+  NotionType,
+  QuizAType,
+  QuizBType
+} from '@/components/Web/Business/Renderer/type';
 import { FC } from 'react';
 
 import BulletedListItemRenderer from '@/components/Web/Business/NotionRender/BulletedListItem';
@@ -65,7 +72,9 @@ const ComponentRenderer: FC<ComponentRendererProps> = (props) => {
     case NotionType.H1:
     case NotionType.H2:
     case NotionType.H3:
-      return <HeaderRenderer component={component} isRenderChildren={isRenderChildren} parent={parent}></HeaderRenderer>;
+      return (
+        <HeaderRenderer component={component} isRenderChildren={isRenderChildren} parent={parent}></HeaderRenderer>
+      );
     default:
       console.log('不能渲染的类型', component.type.trim());
       return <div></div>;

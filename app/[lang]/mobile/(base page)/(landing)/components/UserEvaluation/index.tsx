@@ -12,7 +12,9 @@ const UserEvaluation: FC<{}> = (props) => {
         <h2 className="text-h2-mob">
           Students and Partners like You <span className="text-status-error">❤</span> us ️
         </h2>
-        <p className="body-s text-neutral-medium-gray">Don’t take our words for it. See what others say about HackQuest!</p>
+        <p className="body-s text-neutral-medium-gray">
+          Don’t take our words for it. See what others say about HackQuest!
+        </p>
       </div>
       <div className="mt-10">
         <ScrollContainer>

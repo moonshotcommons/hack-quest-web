@@ -11,7 +11,13 @@ const AdvocateBenefits: FC<AdvocateBenefitsProps> = (props) => {
       <div className="mt-[3.75rem] flex w-full cursor-pointer flex-wrap gap-10">
         {dataList.map((item, index) => {
           return (
-            <Card key={index} title={item.title} description={item.description} icon={item.icon} iconClassName={item.iconClassName}></Card>
+            <Card
+              key={index}
+              title={item.title}
+              description={item.description}
+              icon={item.icon}
+              iconClassName={item.iconClassName}
+            ></Card>
           );
         })}
       </div>

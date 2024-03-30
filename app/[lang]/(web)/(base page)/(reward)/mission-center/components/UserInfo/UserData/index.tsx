@@ -26,7 +26,9 @@ const UserData: React.FC<UserDataType> = ({ userInfo, userLevel, userCoin }) => 
           <Ring radius={75} percent={userLevel.expCurrentLevel / userLevel.expNextLevel} />
         </div>
         <div className="relative  h-[102px] w-[102px] overflow-hidden rounded-[50%]">
-          {userInfo?.avatar && <Image src={userInfo?.avatar as string} alt="avatar" fill className="object-cover"></Image>}
+          {userInfo?.avatar && (
+            <Image src={userInfo?.avatar as string} alt="avatar" fill className="object-cover"></Image>
+          )}
         </div>
       </div>
 
@@ -47,7 +49,10 @@ const UserData: React.FC<UserDataType> = ({ userInfo, userLevel, userCoin }) => 
         </div>
 
         <div className=" flex-col-center h-full w-[155px]  justify-between rounded-[10px] border border-neutral-medium-gray bg-neutral-white pb-[16px] pt-[20px]">
-          <Tooltip title="HackQuest Credits has no internal relation with HackQuest token in the future" className="z-[999]">
+          <Tooltip
+            title="HackQuest Credits has no internal relation with HackQuest token in the future"
+            className="z-[999]"
+          >
             <p className="cursor-pointer">Total Hack Credits</p>
           </Tooltip>
           <div className="flex-row-center pt-1  text-[28px]">
