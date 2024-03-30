@@ -10,10 +10,10 @@ import { TransNs } from '@/i18n/config';
 import { useTranslation } from '@/i18n/client';
 import { LangContext } from '@/components/Provider/Lang';
 import { LaunchDetailContext } from '../../constants/type';
-import { LaunchPoolProjectStatus } from '@/service/webApi/launchPool/type';
 import { useCountDown } from 'ahooks';
 import moment from 'moment';
 import Link from 'next/link';
+import { LaunchPoolProjectStatus } from '@/service/webApi/launchPool/type';
 
 interface OverViewProp {}
 
@@ -32,8 +32,7 @@ const TimeText: React.FC<Record<string, number>> = ({ d, h, m, s }) => {
 };
 
 const OverView: React.FC<OverViewProp> = () => {
-  const { launchInfo } = useContext(LaunchDetailContext);
-  console.info(launchInfo);
+  const { launchInfo, loading, joinWaitlist, participateNow } = useContext(LaunchDetailContext);
 
   const targetDate = useMemo(() => {
     switch (launchInfo.status) {
@@ -57,6 +56,7 @@ const OverView: React.FC<OverViewProp> = () => {
   const { days, hours, minutes, seconds } = formattedRes;
 
   const statusRender = () => {
+    if (loading) return null;
     switch (launchInfo.status) {
       case LaunchPoolProjectStatus.UPCOMING:
         return {
@@ -71,8 +71,8 @@ const OverView: React.FC<OverViewProp> = () => {
               <TimeText d={days} h={hours} m={minutes} s={seconds} />
             </div>
           ),
-          button: (
-            <Button type="primary" className="button-text-l h-[60px] w-full uppercase">
+          button: !launchInfo.isJoined && (
+            <Button type="primary" className="button-text-l h-[60px] w-full uppercase" onClick={joinWaitlist}>
               {t('joinWaitlist')}
             </Button>
           )
@@ -90,8 +90,8 @@ const OverView: React.FC<OverViewProp> = () => {
               <TimeText d={days} h={hours} m={minutes} s={seconds} />
             </div>
           ),
-          button: !launchInfo.isParticipate ? (
-            <Button type="primary" className="button-text-l h-[60px] w-full uppercase">
+          button: !launchInfo.participateInfo?.isParticipate ? (
+            <Button type="primary" className="button-text-l h-[60px] w-full uppercase" onClick={participateNow}>
               {t('participateNow')}
             </Button>
           ) : null
@@ -103,7 +103,7 @@ const OverView: React.FC<OverViewProp> = () => {
               {t('allocating')}
             </div>
           ),
-          time: launchInfo.isParticipate ? (
+          time: launchInfo.participateInfo?.isParticipate ? (
             <div className="flex [&>div]:flex-1">
               <div className=""> {t('allocationEndsin')}</div>
               <TimeText d={days} h={hours} m={minutes} s={seconds} />
@@ -114,7 +114,7 @@ const OverView: React.FC<OverViewProp> = () => {
               <TimeText d={days} h={hours} m={minutes} s={seconds} />
             </div>
           ),
-          button: !launchInfo.isParticipate ? (
+          button: !launchInfo.participateInfo?.isParticipate ? (
             <Button className="button-text-l h-[60px] w-full cursor-not-allowed bg-neutral-light-gray uppercase text-neutral-medium-gray">
               {t('fuelingEnded')}
             </Button>
@@ -133,7 +133,7 @@ const OverView: React.FC<OverViewProp> = () => {
               <TimeText d={days} h={hours} m={minutes} s={seconds} />
             </div>
           ),
-          button: !launchInfo.isParticipate ? (
+          button: !launchInfo.participateInfo?.isParticipate ? (
             <Button className="button-text-l h-[60px] w-full cursor-not-allowed bg-neutral-light-gray uppercase text-neutral-medium-gray">
               {t('fuelingEnded')}
             </Button>
@@ -143,7 +143,7 @@ const OverView: React.FC<OverViewProp> = () => {
             </Button>
           )
         };
-      default:
+      case LaunchPoolProjectStatus.END:
         return {
           topTag: (
             <div className="body-m-bold flex h-[34px] items-center rounded-[8px] border-2 border-neutral-rich-gray px-[12px] uppercase text-neutral-rich-gray">
@@ -173,7 +173,7 @@ const OverView: React.FC<OverViewProp> = () => {
         <div className="">
           <div className="item-center flex justify-between">
             <Image src={HackLogo} alt="hack-logo" width={280}></Image>
-            {statusRender().topTag}
+            {statusRender()?.topTag}
           </div>
           <h1 className="body-l mt-[4px] text-neutral-off-black">{launchInfo.name}</h1>
         </div>
@@ -209,9 +209,9 @@ const OverView: React.FC<OverViewProp> = () => {
           </div>
           <div className="flex [&>div]:flex-1">
             <div className=""> {t('blockchainNetwork')}</div>
-            <div className="text-neutral-black">{launchInfo.chain}</div>
+            <div className="text-neutral-black">Manta Network</div>
           </div>
-          {launchInfo.isParticipate && launchInfo.status !== LaunchPoolProjectStatus.END && (
+          {launchInfo.participateInfo?.isParticipate && launchInfo.status !== LaunchPoolProjectStatus.END && (
             <div className="flex [&>div]:flex-1">
               <div className=""> {t('yourFuel')}</div>
               <div className="flex cursor-pointer items-center gap-[8px] text-neutral-off-black">
@@ -221,11 +221,10 @@ const OverView: React.FC<OverViewProp> = () => {
                 </div>
                 <IoIosArrowForward size={18} />
               </div>
-              <IoIosArrowForward size={18} />
             </div>
           )}
         </div>
-        {statusRender().button}
+        {statusRender()?.button}
         <div className="my-[10px] h-[1px] w-full bg-neutral-light-gray"></div>
         <div className="body-m flex items-center text-neutral-medium-gray">
           <span className="flex-1 ">{t('links')}</span>

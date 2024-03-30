@@ -59,8 +59,10 @@ class ResourceStationApi {
     });
   }
 
-  getFeaturedBlog() {
-    return this.service.get<BlogType[]>(`${ResourceStationApiType.Blogs}/featured`);
+  getFeaturedBlog(params = {}) {
+    return this.service.get<BlogType[]>(`${ResourceStationApiType.Blogs}/featured`, {
+      params
+    });
   }
 
   getBlogDetail(id: string) {
@@ -73,8 +75,10 @@ class ResourceStationApi {
     });
   }
 
-  getFeaturedGlossary() {
-    return this.service.get<BlogType[]>(`${ResourceStationApiType.Glossary}/featured`);
+  getFeaturedGlossary(params = {}) {
+    return this.service.get<BlogType[]>(`${ResourceStationApiType.Glossary}/featured`, {
+      params
+    });
   }
 
   getGlossaryDetail(id: string) {

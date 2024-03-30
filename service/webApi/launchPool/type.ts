@@ -39,12 +39,15 @@ export interface LaunchPoolProjectType {
 }
 
 export interface ParticipateInfo {
-  totalFuel: number;
-  inviteCount: number;
-  inviteBy: string;
-  rank: number;
-  estimatedToken: number;
   isParticipate: boolean;
+  userLaunchProject: {
+    id: string;
+    totalFuel: number;
+    inviteCount: number;
+    inviteBy: string;
+    rank: number;
+    estimatedToken: number;
+  };
 }
 
 export interface StakeInfo {

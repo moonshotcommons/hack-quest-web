@@ -10,17 +10,28 @@ import React, { useContext } from 'react';
 import { FiMinus, FiX } from 'react-icons/fi';
 import { IoIosArrowForward } from 'react-icons/io';
 import { IoAddOutline } from 'react-icons/io5';
+import { useAccount } from 'wagmi';
+import { LaunchDetailContext } from '../../../constants/type';
 
 interface StakeModalProp {
   open: boolean;
-  hanleStake: VoidFunction;
+  hanleStake: (param: any) => void;
   loading: boolean;
   onClose: VoidFunction;
 }
 
 const StakeModal: React.FC<StakeModalProp> = ({ open, hanleStake, loading, onClose }) => {
+  const { launchInfo } = useContext(LaunchDetailContext);
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
+  const account = useAccount();
+  console.info(launchInfo);
+  console.info(account);
+
+  const onStake = () => {
+    hanleStake(111);
+  };
+
   return (
     <Modal open={open} onClose={onClose} showCloseIcon={true} icon={<FiX size={26} />}>
       <div className=" scroll-wrap-y max-h-[95vh] w-[808px] rounded-[10px] bg-neutral-white px-[137px]  pb-[40px] pt-[60px]  text-neutral-black">
@@ -28,20 +39,20 @@ const StakeModal: React.FC<StakeModalProp> = ({ open, hanleStake, loading, onClo
           <div className="text-h3 text-center">{t('stake')} $Manta</div>
           <div className="mt-[24px]">
             <div className="body-l flex flex-col gap-[16px] text-neutral-medium-gray">
-              <div
-                className="flex justify-between"
-                onClick={async (e) => {
-                  try {
-                    await navigator.clipboard.writeText('1111');
-                    message.success('Copy success!');
-                  } catch (e) {
-                    message.warning('The browser version is too low or incompatible！');
-                  }
-                }}
-              >
+              <div className="flex justify-between">
                 <span>{t('yourWallet')}</span>
-                <div className="flex cursor-pointer items-center gap-[12px] text-neutral-off-black">
-                  <span>0x6a5c...c103</span>
+                <div
+                  className="flex cursor-pointer items-center gap-[12px] text-neutral-off-black"
+                  onClick={async (e) => {
+                    try {
+                      await navigator.clipboard.writeText('1111');
+                      message.success('Copy success!');
+                    } catch (e) {
+                      message.warning('The browser version is too low or incompatible！');
+                    }
+                  }}
+                >
+                  <span>{account.address}</span>
                   <CopyIcon width={17} height={21} color={'var(--neutral-off-black)'} />
                 </div>
               </div>
@@ -51,7 +62,7 @@ const StakeModal: React.FC<StakeModalProp> = ({ open, hanleStake, loading, onClo
               </div>
               <div className="flex justify-between">
                 <span>{t('blockchain')}</span>
-                <span className="text-neutral-off-black">Lorem ipsum</span>
+                <span className="text-neutral-off-black">Manta Network</span>
               </div>
               <div className="flex justify-between">
                 <span>{t('stakeAmount')}</span>
@@ -104,7 +115,7 @@ const StakeModal: React.FC<StakeModalProp> = ({ open, hanleStake, loading, onClo
               loading={loading}
               type="primary"
               className="button-text-m mt-[24px] h-[48px]  w-[165px] uppercase"
-              onClick={hanleStake}
+              onClick={onStake}
             >
               {t('stakeNow')}
             </Button>

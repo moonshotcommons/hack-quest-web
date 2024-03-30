@@ -16,6 +16,7 @@ export interface LaunchInfoType extends LaunchPoolProjectType {
   fuelsInfo: FuelInfo[];
   isParticipate: boolean;
   isStake: boolean;
+  isJoined: boolean;
 }
 
 export interface LaunchDetailContextType {
@@ -23,11 +24,15 @@ export interface LaunchDetailContextType {
   refreshFuel: VoidFunction;
   loading: boolean;
   setLoading: (loading: boolean) => void;
+  joinWaitlist: VoidFunction;
+  participateNow: VoidFunction;
 }
 
 export const LaunchDetailContext = createContext<LaunchDetailContextType>({
   launchInfo: {} as LaunchInfoType,
   refreshFuel: () => {},
   loading: false,
-  setLoading: () => {}
+  setLoading: () => {},
+  joinWaitlist: () => {},
+  participateNow: () => {}
 });

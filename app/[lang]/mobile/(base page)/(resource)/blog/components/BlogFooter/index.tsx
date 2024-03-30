@@ -18,20 +18,20 @@ import { ChangeState, ScrollContainer } from '@/components/Common/ScrollContaine
 import ScrollControl from '../ScrollControl';
 import MobBlogCard from '@/components/Mobile/MobBlogCard';
 import { useRedirect } from '@/hooks/router/useRedirect';
+import MobGlossaryCard from '@/components/Mobile/MobGlossaryCard';
 
 interface BlogFooterProp {
-  backTop?: VoidFunction;
   from?: ResourceFrom;
-  type?: 'link' | 'top';
+  category?: string[];
 }
 
-const BlogFooter: React.FC<BlogFooterProp> = ({ backTop, type = 'top', from = ResourceFrom.BLOG }) => {
+const BlogFooter: React.FC<BlogFooterProp> = ({ category, from = ResourceFrom.BLOG }) => {
   const [scrollContainerState, setScrollContainerState] = useState<ChangeState>();
   const [featureBlogList, setFeatureBlogList] = useState<BlogType[]>([]);
   const { redirectToUrl } = useRedirect();
   const business = useMemo(() => {
     const path = from === ResourceFrom.BLOG ? MenuLink.BLOG : MenuLink.GLOSSARY;
-    const text = from === ResourceFrom.BLOG ? 'ALL BLOGS' : 'ALL GLOSSARY';
+    const text = from === ResourceFrom.BLOG ? 'BLOGS' : 'GLOSSARY';
     return {
       path,
       text
@@ -40,17 +40,17 @@ const BlogFooter: React.FC<BlogFooterProp> = ({ backTop, type = 'top', from = Re
   const { loading } = useRequest(async () => {
     const res =
       from === ResourceFrom.BLOG
-        ? await webApi.resourceStationApi.getFeaturedBlog()
-        : await webApi.resourceStationApi.getFeaturedGlossary();
+        ? await webApi.resourceStationApi.getFeaturedBlog({
+            category: category?.join(',')
+          })
+        : await webApi.resourceStationApi.getFeaturedGlossary({
+            category: category?.join(',')
+          });
     setFeatureBlogList(res);
   });
 
   const handleClick = () => {
-    if (type === 'top') {
-      backTop?.();
-    } else {
-      redirectToUrl(business.path);
-    }
+    redirectToUrl(business.path);
   };
   return (
     <div className="w-full bg-yellow-extra-light px-[1.25rem] py-[1.875rem]">
@@ -58,7 +58,9 @@ const BlogFooter: React.FC<BlogFooterProp> = ({ backTop, type = 'top', from = Re
         <div className="flex justify-between">
           <div className="flex flex-col gap-[15px]">
             <h2 className="text-h3-mob text-neutral-off-black">
-              {from === ResourceFrom.BLOG ? 'Featured Blog' : 'Latest Glossary'}
+              {from === ResourceFrom.BLOG
+                ? `${category ? `More Blog about ’${category.join(',')}‘` : 'Featured Blog'}`
+                : `${category ? `More Glossary about ’${category.join(',')}‘` : 'Latest Glossary'}`}
             </h2>
           </div>
           {from === ResourceFrom.BLOG && (
@@ -77,11 +79,17 @@ const BlogFooter: React.FC<BlogFooterProp> = ({ backTop, type = 'top', from = Re
         <Loading loading={loading}>
           <ScrollContainer onChange={(state: any) => setScrollContainerState(state)}>
             <div className="my-[1.875rem] flex overflow-x-hidden">
-              {featureBlogList.map((blog) => (
-                <div key={blog.id} className="w-[calc(100vw-2.5rem)] p-[.25rem]">
-                  <MobBlogCard blog={blog} from={from} />
-                </div>
-              ))}
+              {from === ResourceFrom.BLOG
+                ? featureBlogList.map((blog) => (
+                    <div key={blog.id} className="w-[calc(100vw-2.5rem)] p-[.25rem]">
+                      <MobBlogCard blog={blog} from={from} />
+                    </div>
+                  ))
+                : featureBlogList.map((glossary) => (
+                    <div key={glossary.id} className="w-[calc(100vw-2.5rem)] p-[.3125rem]">
+                      <MobGlossaryCard glossary={glossary} />
+                    </div>
+                  ))}
             </div>
           </ScrollContainer>
           <ScrollControl
@@ -97,7 +105,7 @@ const BlogFooter: React.FC<BlogFooterProp> = ({ backTop, type = 'top', from = Re
             className="h-[3rem] w-[13rem] border border-neutral-black p-0 text-neutral-black"
             onClick={handleClick}
           >
-            BACK TO {`${type === 'top' ? 'TOP' : `${business.text}`}`}
+            BACK TO ALL {`${business.text}`}
           </Button>
         </div>
       </div>

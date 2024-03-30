@@ -28,13 +28,18 @@ import ParticipationSuccess from './ParticipationSuccess';
 import { cn } from '@/helper/utils';
 import Loading from '@/components/Common/Loading';
 
-interface ConnectModalProps {}
+interface ConnectModalProps {
+  onConnectStateUpdate?: (connectState: any[]) => void;
+}
 
 export interface ConnectModalInstance {
   onConnect: (id: string) => void;
 }
 
-const ConnectModal: ForwardRefRenderFunction<ConnectModalInstance, ConnectModalProps> = (props, ref) => {
+const ConnectModal: ForwardRefRenderFunction<ConnectModalInstance, ConnectModalProps> = (
+  { onConnectStateUpdate },
+  ref
+) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
   const [open, setOpen] = useState(false);
@@ -104,7 +109,7 @@ const ConnectModal: ForwardRefRenderFunction<ConnectModalInstance, ConnectModalP
           }
           setInit(false);
         }
-
+        onConnectStateUpdate?.(newConnectState);
         setConnectState(newConnectState);
       },
       onError(err) {

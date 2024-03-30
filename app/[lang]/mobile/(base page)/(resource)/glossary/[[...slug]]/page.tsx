@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import Glossary from '../components';
+import Glossary from '..';
 
 interface SearchParamsType {
   searchParams: {};

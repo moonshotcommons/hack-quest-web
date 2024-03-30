@@ -148,7 +148,7 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
               state="default"
               className="body-m h-[48px] border-neutral-light-gray bg-neutral-white"
               placeholder="Please select"
-              defaultValue={searchInfo.category}
+              value={searchInfo.category}
               options={searchTabData}
               onChange={(value) => {
                 changeSearch(value as string);

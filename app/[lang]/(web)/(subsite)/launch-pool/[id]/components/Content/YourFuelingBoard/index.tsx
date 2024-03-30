@@ -22,11 +22,11 @@ const YourFuelingBoard: React.FC<YourFuelingBoardProp> = () => {
     switch (launchInfo.status) {
       case LaunchPoolProjectStatus.ALLOCATION:
         return {
-          titleDesc: launchInfo.isParticipate ? <p>{t('lockFuel')}</p> : null
+          titleDesc: launchInfo.participateInfo?.isParticipate ? <p>{t('lockFuel')}</p> : null
         };
       case LaunchPoolProjectStatus.AIRDROP:
         return {
-          titleDesc: launchInfo.isParticipate ? <p>{t('fuelCongratulations')}</p> : null
+          titleDesc: launchInfo.participateInfo?.isParticipate ? <p>{t('fuelCongratulations')}</p> : null
         };
       default:
         return null;
@@ -37,7 +37,7 @@ const YourFuelingBoard: React.FC<YourFuelingBoardProp> = () => {
       <p className="text-h3 text-neutral-off-black">{t(titleTxtData[2])}</p>
       <p className="body-l my-[24px] text-neutral-black">{statusRender()?.titleDesc}</p>
       <Info />
-      {launchInfo.status === LaunchPoolProjectStatus.FUELING && launchInfo.isParticipate && (
+      {launchInfo.status === LaunchPoolProjectStatus.FUELING && launchInfo.participateInfo?.isParticipate && (
         <>
           <StakeFuel />
           <InvitationFuel />

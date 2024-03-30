@@ -72,7 +72,6 @@ const Button: FC<ButtonProps> = (props) => {
   }, [buttonRef]);
 
   const disabled = propDisabled || loading;
-
   return (
     <button
       ref={buttonRef}

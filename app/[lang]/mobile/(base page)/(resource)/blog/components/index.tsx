@@ -51,7 +51,7 @@ const Blog: React.FC<BlogProps> = async function ({ searchParams = {}, params: {
           </div>
         )}
       </div>
-      {blogList.length === 0 ? <BlogFooter type={'link'} /> : null}
+      {blogList.length === 0 ? <BlogFooter /> : null}
       <PageRetentionTime trackName="blog-页面留存时间"></PageRetentionTime>
     </div>
   );

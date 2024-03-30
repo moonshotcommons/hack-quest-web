@@ -22,7 +22,7 @@ const Glossary: React.FC<GlossaryProp> = async ({ searchParams = {}, params: { s
   ]);
   const galossaryList = glossaryData.data || [];
   return (
-    <div className="h-full">
+    <div>
       <GlossaryPage galossaryList={galossaryList} searchParams={searchParams} />
       <PageRetentionTime trackName="glossary-页面留存时间"></PageRetentionTime>
     </div>

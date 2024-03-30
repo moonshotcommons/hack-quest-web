@@ -14,17 +14,16 @@ import { useRedirect } from '@/hooks/router/useRedirect';
 import GlossaryCard from '@/components/Web/Business/GlossaryCard';
 
 interface BlogFooterProp {
-  backTop?: VoidFunction;
   from?: ResourceFrom;
-  type?: 'link' | 'top';
+  category?: string[];
 }
 
-const BlogFooter: React.FC<BlogFooterProp> = ({ backTop, from = ResourceFrom.BLOG, type = 'top' }) => {
+const BlogFooter: React.FC<BlogFooterProp> = ({ from = ResourceFrom.BLOG, category }) => {
   const [featureBlogList, setFeatureBlogList] = useState<BlogType[]>([]);
   const { redirectToUrl } = useRedirect();
   const business = useMemo(() => {
     const path = from === ResourceFrom.BLOG ? MenuLink.BLOG : MenuLink.GLOSSARY;
-    const text = from === ResourceFrom.BLOG ? 'ALL BLOGS' : 'ALL GLOSSARY';
+    const text = from === ResourceFrom.BLOG ? 'BLOGS' : 'GLOSSARY';
     return {
       path,
       text
@@ -33,17 +32,17 @@ const BlogFooter: React.FC<BlogFooterProp> = ({ backTop, from = ResourceFrom.BLO
   const { loading } = useRequest(async () => {
     const res =
       from === ResourceFrom.BLOG
-        ? await webApi.resourceStationApi.getFeaturedBlog()
-        : await webApi.resourceStationApi.getFeaturedGlossary();
+        ? await webApi.resourceStationApi.getFeaturedBlog({
+            category: category?.join(',')
+          })
+        : await webApi.resourceStationApi.getFeaturedGlossary({
+            category: category?.join(',')
+          });
     setFeatureBlogList(res?.slice(0, 4) || []);
   });
 
   const handleClick = () => {
-    if (type === 'top') {
-      backTop?.();
-    } else {
-      redirectToUrl(business.path);
-    }
+    redirectToUrl(business.path);
   };
   return (
     <div className="w-full bg-yellow-extra-light py-[60px]">
@@ -51,7 +50,9 @@ const BlogFooter: React.FC<BlogFooterProp> = ({ backTop, from = ResourceFrom.BLO
         <div className="mb-[30px] flex justify-between">
           <div className="flex flex-col gap-[15px]">
             <h2 className="text-h3 text-neutral-black">
-              {from === ResourceFrom.BLOG ? 'Featured Blog' : 'Latest Glossary'}
+              {from === ResourceFrom.BLOG
+                ? `${category ? `More Blog about ’${category.join(',')}‘` : 'Featured Blog'}`
+                : `${category ? `More Glossary about ’${category.join(',')}‘` : 'Latest Glossary'}`}
             </h2>
           </div>
           {from === ResourceFrom.BLOG && (
@@ -71,7 +72,7 @@ const BlogFooter: React.FC<BlogFooterProp> = ({ backTop, from = ResourceFrom.BLO
           {from === ResourceFrom.BLOG ? (
             <div className="flex gap-[20px]">
               {featureBlogList.map((blog) => (
-                <div key={blog.id} className="flex-1">
+                <div key={blog.id} className="w-[calc((100%-60px)/4)]">
                   <BlogCard blog={blog} from={from} isFeatrued={true} />
                 </div>
               ))}
@@ -79,7 +80,7 @@ const BlogFooter: React.FC<BlogFooterProp> = ({ backTop, from = ResourceFrom.BLO
           ) : (
             <div className="flex gap-[20px]">
               {featureBlogList.map((glossary) => (
-                <div key={glossary.id} className="flex-1">
+                <div key={glossary.id} className="w-[calc((100%-60px)/4)]">
                   <GlossaryCard glossary={glossary} />
                 </div>
               ))}
@@ -91,7 +92,7 @@ const BlogFooter: React.FC<BlogFooterProp> = ({ backTop, from = ResourceFrom.BLO
             className="h-[60px] w-[270px] border border-neutral-black p-0 text-neutral-black"
             onClick={handleClick}
           >
-            BACK TO {`${type === 'top' ? 'TOP' : `${business.text}`}`}
+            BACK TO ALL{`${business.text}`}
           </Button>
         </div>
       </div>

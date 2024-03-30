@@ -23,10 +23,10 @@ const BlogDetail: React.FC<BlogDetailProp> = ({ blog, from = ResourceFrom.BLOG }
   };
   return (
     <div className="body-m h-full overflow-auto" ref={boxRef}>
-      <BlogHeader blog={blog} />
+      <BlogHeader blog={blog} from={from} />
       <BlogContent blog={blog} />
       <BlogLink />
-      <BlogFooter backTop={backTop} from={from} />
+      <BlogFooter category={blog.categories} from={from} />
       <PageRetentionTime trackName="blog-content-page-页面留存时间"></PageRetentionTime>
     </div>
   );
