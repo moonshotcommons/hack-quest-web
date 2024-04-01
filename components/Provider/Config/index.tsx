@@ -5,7 +5,7 @@ import { Analytics } from '@vercel/analytics/react';
 import { setToken } from '@/helper/user-token';
 import { RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ChainType, config } from '@/config/wagmi';
+import { config } from '@/config/wagmi';
 
 interface ConfigProviderProps {
   children: ReactNode;
@@ -28,7 +28,7 @@ const ConfigProvider: FC<ConfigProviderProps> = ({ children }) => {
     // server
   }
 
-  const [initialChainId, setInitialChainId] = useState(ChainType.MAINNET);
+  const [initialChainId, setInitialChainId] = useState<number>();
 
   return (
     <WagmiProvider config={config}>

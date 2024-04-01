@@ -5,15 +5,16 @@ import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import React, { useContext } from 'react';
 import { FiX } from 'react-icons/fi';
+import { LaunchDetailContext } from '../../../constants/type';
 
 interface UnstakeModalProp {
   open: boolean;
   hanleUnstake: VoidFunction;
-  loading: boolean;
   onClose: VoidFunction;
 }
 
-const UnstakeModal: React.FC<UnstakeModalProp> = ({ open, hanleUnstake, loading, onClose }) => {
+const UnstakeModal: React.FC<UnstakeModalProp> = ({ open, hanleUnstake, onClose }) => {
+  const { launchInfo, loading } = useContext(LaunchDetailContext);
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
   return (

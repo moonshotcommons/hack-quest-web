@@ -34,7 +34,7 @@ const NoData: React.FC<NoDataProp> = ({ href, keyword }) => {
           </Link>
         </div>
       </div>
-      <SubmitWordModal open={submitVisible} onClose={() => setSubmitVisible(false)} />
+      <SubmitWordModal open={submitVisible} keyword={keyword} onClose={() => setSubmitVisible(false)} />
     </>
   );
 };

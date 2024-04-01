@@ -33,9 +33,9 @@ const Ugc: React.FC<UgcProp> = ({ lessonId }) => {
     <div className="flex h-full w-full flex-col gap-[.9375rem]">
       <UgcProgress />
       <div className="flex flex-1 flex-col ">
-        <UgcNavbar />
-        <div className="relative mt-[1.875rem] w-full flex-1 overflow-hidden">
-          <div className="scroll-wrap-y absolute left-0 top-0 h-full w-full overflow-auto px-[1.375rem] pb-[4.875rem]">
+        <div className="relative w-full flex-1 overflow-hidden">
+          <div className="scroll-wrap-y absolute left-0 top-0 h-full w-full px-[1.375rem] pb-[4.875rem]">
+            <UgcNavbar />
             <LessonContainer lesson={lesson}></LessonContainer>
           </div>
         </div>

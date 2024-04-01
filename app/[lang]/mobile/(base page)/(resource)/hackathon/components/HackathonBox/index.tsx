@@ -10,6 +10,7 @@ import { getSearchParamsUrl } from '@/helper/utils';
 import MenuLink from '@/constants/MenuLink';
 import MobCourseListPageHeader from '@/components/Mobile/MobCourseListPageHeader';
 import { HiArrowLongRight } from 'react-icons/hi2';
+import { useGlobalStore } from '@/store/zustand/globalStore';
 
 interface HackathonBoxProp {
   page: number;
@@ -17,6 +18,7 @@ interface HackathonBoxProp {
 }
 const HackathonBox: React.FC<HackathonBoxProp> = ({ page, curTab }) => {
   const { redirectToUrl } = useRedirect();
+  const setTipsModalOpenState = useGlobalStore((state) => state.setTipsModalOpenState);
   const router = useRouter();
   // const [curTab, setCurTab] = useState<HackathonStatusType>(
   //   HackathonStatusType.ON_GOING
@@ -39,7 +41,10 @@ const HackathonBox: React.FC<HackathonBoxProp> = ({ page, curTab }) => {
     return (
       <div
         className="caption-14pt relative flex w-fit  items-center gap-[6px] text-neutral-off-black"
-        onClick={() => redirectToUrl(`${MenuLink.PROJECTS}`)}
+        onClick={() => {
+          // redirectToUrl(`${MenuLink.PROJECTS}`)}
+          setTipsModalOpenState(true);
+        }}
       >
         <span>View hackathon projects</span>
         <HiArrowLongRight size={16}></HiArrowLongRight>

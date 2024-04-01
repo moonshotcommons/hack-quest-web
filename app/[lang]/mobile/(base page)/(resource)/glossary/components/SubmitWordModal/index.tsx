@@ -13,9 +13,10 @@ import { HiArrowLongRight } from 'react-icons/hi2';
 interface SubmitWordModalProp {
   open: boolean;
   onClose: VoidFunction;
+  keyword?: string;
 }
 
-const SubmitWordModal: React.FC<SubmitWordModalProp> = ({ open, onClose }) => {
+const SubmitWordModal: React.FC<SubmitWordModalProp> = ({ open, onClose, keyword: k }) => {
   const [keyword, setKeyword] = useState('');
   const [loading, setLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -39,7 +40,7 @@ const SubmitWordModal: React.FC<SubmitWordModalProp> = ({ open, onClose }) => {
   };
   useEffect(() => {
     if (open) {
-      setKeyword('');
+      setKeyword(k || '');
       setIsSuccess(false);
     }
   }, [open]);
@@ -54,6 +55,7 @@ const SubmitWordModal: React.FC<SubmitWordModalProp> = ({ open, onClose }) => {
                 label={<span className="body-m text-neutral-medium-gray">This is a required question*</span>}
                 theme="light"
                 name=""
+                value={keyword}
                 placeholder="Any words about Web3 are welcome..."
                 className="border-neutral-medium-gray"
                 maxLength={60}

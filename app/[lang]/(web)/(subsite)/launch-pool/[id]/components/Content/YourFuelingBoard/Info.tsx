@@ -124,7 +124,7 @@ const Info: React.FC<InfoProp> = () => {
             {' '}
             {!launchInfo.participateInfo?.isParticipate
               ? 'N/A'
-              : `${launchInfo.participateInfo?.userLaunchProject?.estimatedToken || 0} #HQT`}
+              : `${launchInfo.participateInfo?.userLaunchProject?.estimatedToken || 0} #${launchInfo.symbol}`}
           </p>
           <p className="mt-[22px] text-neutral-medium-gray">{t('finalTokenShare')}</p>
         </div>

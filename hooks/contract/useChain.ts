@@ -13,7 +13,6 @@ export const useChainInfo = (chainId: number) => {
   if (!chain) return null;
   const { name, id, testnet, nativeCurrency } = chain;
   const { symbol } = nativeCurrency;
-
   return {
     name,
     id,
