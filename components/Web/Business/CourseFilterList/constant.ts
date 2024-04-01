@@ -29,8 +29,8 @@ export const learningTrackFilters = [
     options: [
       { name: 'All Languages', value: LanguageTab.ALL, isSelect: true },
       { name: 'Solidity', value: CourseLanguageType.SOLIDITY, isSelect: false },
-      { name: 'Rust', value: CourseLanguageType.RUST, isSelect: false },
-      { name: 'Move ', value: CourseLanguageType.MOVE, isSelect: false }
+      { name: 'Rust', value: CourseLanguageType.RUST, isSelect: false }
+      // { name: 'Move ', value: CourseLanguageType.MOVE, isSelect: false }
     ]
   }
 ];
@@ -41,8 +41,8 @@ export const courseDefaultFilters = [
     filterField: 'language',
     options: [
       { name: 'Solidity', value: 'SOLIDITY', isSelect: false },
-      { name: 'Rust', value: 'RUST', isSelect: false },
-      { name: 'Move ', value: 'MOVE', isSelect: false }
+      { name: 'Rust', value: 'RUST', isSelect: false }
+      // { name: 'Move', value: 'MOVE', isSelect: false }
     ]
   },
   {

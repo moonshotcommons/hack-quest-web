@@ -24,7 +24,7 @@ const ProjectCard: React.FC<ProjectCardProp> = ({ className = '', project }) => 
       href={`${MenuLink.PROJECTS}/${project.alias}`}
     >
       <div className="relative h-full w-[7.5rem] bg-[#d9d9d9]/30">
-        <Image src={project.thumbnail} alt="thumbnail" fill className="object-cover" loading="lazy"></Image>
+        <Image src={project.thumbnail} alt={project.alias} fill className="object-cover" loading="lazy"></Image>
       </div>
       <div className="flex h-[full] flex-col justify-between p-[.75rem]">
         <div className="flex w-full flex-col gap-[.5rem]">

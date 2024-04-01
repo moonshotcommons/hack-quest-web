@@ -11,14 +11,17 @@ interface ProjectDetailPageProps {
   params: {
     projectId: string;
   };
+  searchParams: Record<string, string>;
 }
-export async function generateMetadata({ params }: ProjectDetailPageProps): Promise<Metadata> {
+export async function generateMetadata({ params, searchParams }: ProjectDetailPageProps): Promise<Metadata> {
+  let query = new URLSearchParams(searchParams).toString();
+  query = query ? '?' + query : '';
   const hackathon = await getHackathonProjectById(params.projectId);
   return {
     title: hackathon.name,
     description: hackathon.description,
     alternates: {
-      canonical: `https://www.hackquest.io/hackathon/projects/${params.projectId}`
+      canonical: `https://www.hackquest.io/hackathon/projects/${params.projectId}${query}`
     }
   };
 }

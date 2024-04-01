@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import LearninTrack from './components';
+import LearningTrack from './components';
 
 interface SearchParamsType {
   searchParams: {
@@ -9,14 +9,16 @@ interface SearchParamsType {
 }
 
 export async function generateMetadata({ searchParams }: SearchParamsType): Promise<Metadata> {
+  let query = new URLSearchParams(searchParams).toString();
+  query = query ? '?' + query : '';
   const metadata: Metadata = {
     title: 'HackQuest Learning Track',
     alternates: {
-      canonical: `https://www.hackquest.io/learning-track?${new URLSearchParams(searchParams).toString()}`
+      canonical: `https://www.hackquest.io/learning-track${query}`
     }
   };
 
   return metadata;
 }
 
-export default LearninTrack;
+export default LearningTrack;

@@ -22,7 +22,7 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon }) => {
     <Link href={`${MenuLink.HACKATHON}/${hackathon.alias}`} className="block w-full">
       <div className="flex h-[7.5rem]  w-full overflow-hidden rounded-[.75rem] bg-neutral-white ">
         <div className="relative h-0 w-[7.5rem] bg-[#D9D9D9]">
-          {cover && <Image src={cover} fill alt="hackathon cover" className="object-cover"></Image>}
+          {cover && <Image src={cover} fill alt={hackathon.alias} className="object-cover"></Image>}
         </div>
         <div className="flex h-full flex-1 flex-col justify-between  p-[.75rem] wapMin:px-[.25rem]">
           <Typography.Paragraph

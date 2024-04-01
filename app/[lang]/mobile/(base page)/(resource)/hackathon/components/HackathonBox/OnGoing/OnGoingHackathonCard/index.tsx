@@ -35,7 +35,7 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon })
   return (
     <div className="overflow-hidden rounded-[16px] bg-neutral-white " onClick={goHackathonDetail}>
       <div className="relative h-0 w-full bg-[#d9d9d9]/30 pt-[56.28%]">
-        <Image src={hackathon.image} fill alt="hackathonImage" className="object-cover"></Image>
+        <Image src={hackathon.image} fill alt={hackathon.alias} className="object-cover"></Image>
       </div>
       <div className="flex h-[15.75rem] flex-col justify-between p-[20px] text-neutral-off-black">
         <div className="flex flex-col gap-[1rem]">

@@ -26,7 +26,7 @@ const BlogCard: React.FC<BlogCardProp> = ({ blog, from = ResourceFrom.BLOG, isFe
       href={`${from === ResourceFrom.BLOG ? MenuLink.BLOG : MenuLink.GLOSSARY}/${blog.alias}`}
     >
       <div className="relative h-[0] w-full pt-[56%] ">
-        <Image src={blog.image} alt="blogImage" fill className="object-cover"></Image>
+        <Image src={blog.image} alt={blog.alias} fill className="object-cover"></Image>
       </div>
       <div className="flex h-[215px] flex-col justify-between p-[16px]">
         <div className="flex flex-col gap-[16px]">
