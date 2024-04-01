@@ -99,7 +99,7 @@ export const ScrollContainer = forwardRef<unknown, ScrollContainerProps>(functio
     <div ref={containerRef} className={cn(`container relative flex h-auto overflow-x-hidden`, className)}>
       <div
         ref={listRef}
-        className="flex items-center transition-transform"
+        className="flex items-center transition-transform duration-300"
         style={{
           transform: `translateX(${translateX}px)`
         }}

@@ -80,6 +80,7 @@ export interface BlogType {
   createdAt: string;
   updatedAt: string;
   alias: string;
+  tracks: string[];
 }
 
 export type BlogContentType = {

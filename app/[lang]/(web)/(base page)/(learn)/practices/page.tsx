@@ -2,12 +2,16 @@ import { FC } from 'react';
 import Practices from './components/Practices';
 import { Metadata } from 'next';
 
-export const metadata: Metadata = {
-  title: 'HackQuest Projects',
-  alternates: {
-    canonical: 'https://www.hackquest.io/practices'
-  }
-};
+export async function generateMetadata(props: { params: { lang: string } }): Promise<Metadata> {
+  const { lang } = props.params;
+
+  return {
+    title: 'HackQuest Projects',
+    alternates: {
+      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/practices`
+    }
+  };
+}
 
 interface PracticesPageProps {}
 

@@ -13,9 +13,10 @@ import { HiArrowLongRight } from 'react-icons/hi2';
 interface SubmitWordModalProp {
   open: boolean;
   onClose: VoidFunction;
+  keyword?: string;
 }
 
-const SubmitWordModal: React.FC<SubmitWordModalProp> = ({ open, onClose }) => {
+const SubmitWordModal: React.FC<SubmitWordModalProp> = ({ open, onClose, keyword: k }) => {
   const [keyword, setKeyword] = useState('');
   const [loading, setLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -39,10 +40,11 @@ const SubmitWordModal: React.FC<SubmitWordModalProp> = ({ open, onClose }) => {
   };
   useEffect(() => {
     if (open) {
-      setKeyword('');
+      setKeyword(k || '');
       setIsSuccess(false);
     }
   }, [open]);
+
   return (
     <Modal open={open} onClose={onClose} showCloseIcon icon={<FiX size={30} />} iconClassName="right-[16px] top-[16px]">
       <div className="flex w-[670px] flex-col items-center gap-[20px] rounded-[16px] bg-neutral-white px-[40px] py-[48px]">
@@ -53,6 +55,7 @@ const SubmitWordModal: React.FC<SubmitWordModalProp> = ({ open, onClose }) => {
               <Input
                 label={<span className="body-l text-neutral-medium-gray">This is a required question*</span>}
                 name=""
+                value={keyword}
                 theme="light"
                 placeholder="Any words about Web3 are welcome..."
                 className="border-neutral-medium-gray"
@@ -81,7 +84,7 @@ const SubmitWordModal: React.FC<SubmitWordModalProp> = ({ open, onClose }) => {
             </Button>
           </>
         )}
-        <div className="caption-14pt flex cursor-pointer justify-center gap-[16px] pt-[16px] text-neutral-black">
+        <div className="caption-14pt flex justify-center gap-[16px] pt-[16px] text-neutral-black">
           <span>Hear followup?</span>
           <Link href={HACKQUEST_DISCORD} target="_blank" className="flex items-center gap-[6px]">
             <span>Join Discord</span>

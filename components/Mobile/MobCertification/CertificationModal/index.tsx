@@ -65,7 +65,7 @@ const CertificationModal = forwardRef<CertificationModalInstance, CertificationM
               {!certification.claimed && (
                 <>
                   <div className="bg-neutral-black/10 absolute flex h-full w-full items-center justify-center rounded-[15px]"></div>
-                  <div className="bg-neutral-white/70 text-h2 absolute top-1/2 flex w-full -translate-y-1/2 items-center justify-center py-[25px] tracking-[2.4px] text-neutral-off-black wapMin:text-[34px]">
+                  <div className="bg-neutral-white/70 text-h2 wapMin:text-[34px] absolute top-1/2 flex w-full -translate-y-1/2 items-center justify-center py-[25px] tracking-[2.4px] text-neutral-off-black">
                     NOT CERTIFIED
                   </div>
                 </>

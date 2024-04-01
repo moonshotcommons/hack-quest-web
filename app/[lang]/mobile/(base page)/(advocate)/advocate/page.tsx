@@ -3,12 +3,6 @@ import { FC } from 'react';
 import { useNeedPCRedirect } from '@/hooks/router/useNeedPCRedirect';
 interface AdvocatePageProps {}
 
-// export const metadata: Metadata = {
-//   alternates: {
-//     canonical: 'https://www.hackquest.io/advocate'
-//   }
-// };
-
 const AdvocatePage: FC<AdvocatePageProps> = (props) => {
   useNeedPCRedirect();
   return (

@@ -16,6 +16,7 @@ import HeaderBg from '@/components/Web/DetailPageV2/HeaderBg';
 interface PracticePageProps {
   params: {
     courseId: string;
+    lang: string;
   };
   searchParams: {
     menuCourseId: string;
@@ -26,13 +27,16 @@ interface PracticePageProps {
 export async function generateMetadata({ params, searchParams }: PracticePageProps, parent: any): Promise<Metadata> {
   // 读取路由参数
   const courseId = params.courseId;
+  let query = new URLSearchParams(searchParams).toString();
+  query = query ? '?' + query : '';
+  const lang = params.lang;
 
   const courseDetail = await webApi.courseApi.fetchCourseDetail<CourseDetailType>(courseId);
 
   const metadata: Metadata = {
     title: courseDetail.title,
     alternates: {
-      canonical: `https://www.hackquest.io/practices/${courseId}`
+      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/practices/${courseId}${query}`
     }
   };
 

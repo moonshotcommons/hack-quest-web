@@ -16,6 +16,7 @@ import { Metadata } from 'next';
 interface ElectiveDetailPageProps {
   params: {
     courseId: string;
+    lang: string;
   };
   searchParams: {
     menuCourseId: string;
@@ -28,14 +29,14 @@ export async function generateMetadata(
   parent: any
 ): Promise<Metadata> {
   // 读取路由参数
-  const courseId = params.courseId;
+  const { courseId, lang } = params;
 
   const courseDetail = await webApi.courseApi.fetchCourseDetail<ElectiveCourseDetailType>(courseId);
 
   const metadata: Metadata = {
     title: courseDetail.title,
     alternates: {
-      canonical: `https://www.hackquest.io/electives/${courseId}`
+      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/electives/${courseId}`
     }
   };
 

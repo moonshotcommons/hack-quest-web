@@ -16,20 +16,17 @@ import { LaunchDetailContext } from '../../../constants/type';
 interface StakeModalProp {
   open: boolean;
   hanleStake: (param: any) => void;
-  loading: boolean;
   onClose: VoidFunction;
 }
 
-const StakeModal: React.FC<StakeModalProp> = ({ open, hanleStake, loading, onClose }) => {
-  const { launchInfo } = useContext(LaunchDetailContext);
+const StakeModal: React.FC<StakeModalProp> = ({ open, hanleStake, onClose }) => {
+  const { launchInfo, loading } = useContext(LaunchDetailContext);
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
   const account = useAccount();
-  console.info(launchInfo);
-  console.info(account);
 
   const onStake = () => {
-    hanleStake(111);
+    hanleStake(1111);
   };
 
   return (

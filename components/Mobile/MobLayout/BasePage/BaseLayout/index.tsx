@@ -15,7 +15,6 @@ export interface V2LayoutProps {
 const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
   const pathname = useCustomPathname();
   const { isNavbarFullPage, isExcludeBreadcrumbLink } = useCheckPathname();
-
   // const renderBreadcrumb = useCallback(() => {
   //   const { navList } = navbarData;
   //   if (isExcludeBreadcrumbLink) {
@@ -46,7 +45,7 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
       </div>
       <div
         id="content-scroll-wrap"
-        className={`m-auto w-full pt-[64px]  ${isNavbarFullPage ? 'bg-[white]' : 'bg-neutral-off-white'}`}
+        className={`m-auto w-full pt-[4rem]  ${isNavbarFullPage ? 'bg-[white]' : 'bg-neutral-off-white'}`}
       >
         {children}
       </div>
