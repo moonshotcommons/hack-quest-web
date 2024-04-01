@@ -22,6 +22,7 @@ export interface LaunchPoolProjectType {
   chain: string;
   stakingAddress: string;
   launchedAddress: string;
+  launchPadID: bigint;
   fuelStart: Date;
   allocationStart: Date;
   airdropStart: Date;

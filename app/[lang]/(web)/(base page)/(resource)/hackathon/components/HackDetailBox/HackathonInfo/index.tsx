@@ -36,7 +36,7 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
     };
   }, [hackathon]);
   return (
-    <div className="flex flex-col gap-[24px] text-neutral-off-black">
+    <div className="sticky right-0 top-0 flex flex-col gap-[24px] pb-[20px] text-neutral-off-black">
       <div className="text-h3 font-next-book-bold">{hackathon.name}</div>
       <div>
         <div className="text-h4 mb-[4px] ">THEME</div>

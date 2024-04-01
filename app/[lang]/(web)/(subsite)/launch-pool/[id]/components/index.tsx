@@ -12,6 +12,7 @@ import MenuLink from '@/constants/MenuLink';
 import WaitListModal, { WaitListModalInstance } from '@/components/Web/Business/WaitListModal';
 import ConnectModal, { ConnectModalInstance } from '@/components/Web/Business/ConnectModal';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
+import { useChainInfo } from '@/hooks/contract/useChain';
 
 interface LaunchDetailPageProp {
   id: string;
@@ -27,7 +28,7 @@ const LaunchDetailPage: React.FC<LaunchDetailPageProp> = ({ id }) => {
   const [loading, setLoading] = useState(false);
   const [offsetTops, setOffsetTops] = useState<OffsetTopsType[]>([]);
   const isOnScoll = useRef(false);
-
+  const chainInfo = useChainInfo(3441006);
   const waitListRef = useRef<WaitListModalInstance>(null);
   const connectModalRef = useRef<ConnectModalInstance>(null);
   const userInfo = useUserStore((state) => state.userInfo);
@@ -92,6 +93,7 @@ const LaunchDetailPage: React.FC<LaunchDetailPageProp> = ({ id }) => {
   const launchInfo = useMemo(() => {
     return {
       ...projectInfo,
+      symbol: chainInfo?.symbol || 'ETH',
       participateInfo: participateInfo,
       fuelsInfo,
       isStake: fuelsInfo?.length > 0,

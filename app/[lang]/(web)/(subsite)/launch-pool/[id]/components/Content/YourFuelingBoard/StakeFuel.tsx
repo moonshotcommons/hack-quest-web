@@ -13,42 +13,58 @@ import { LaunchDetailContext } from '../../../constants/type';
 import StakeModal from './StakeModal';
 import UnstakeModal from './UnstakeModal';
 import { useWriteLaunchpadStake, useWriteLaunchpadUnstake } from '@/lib/generated';
-import { useAccount } from 'wagmi';
+import { useAccount, useChainId, useSwitchChain } from 'wagmi';
 import { mantaTestnet } from '@/config/wagmi/chains';
 import ConnectButton from '@/components/Web/Layout/LaunchPage/UserDropCard/ConnectButton';
+import { parseUnits } from 'viem';
+import { errorMessage } from '@/helper/ui';
+import { ChainType } from '@/config/wagmi';
 
 interface StakeFuelProp {}
 
 const StakeFuel: React.FC<StakeFuelProp> = () => {
-  const { launchInfo } = useContext(LaunchDetailContext);
+  const { launchInfo, setLoading } = useContext(LaunchDetailContext);
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
   const [modalName, setModalName] = useState('');
+  const chainId = useChainId();
+  const { switchChainAsync } = useSwitchChain();
   const [stakeId, setStakeId] = useState('');
   const { writeContractAsync } = useWriteLaunchpadStake();
   const { writeContractAsync: writeContractAsyncUn } = useWriteLaunchpadUnstake();
   const account = useAccount();
-  const hanleStake = async (params: any) => {
-    console.info(params, 'params');
-    console.info(mantaTestnet, '111');
-    // await writeContractAsync({
-    //   account: account.address,
-    //   address: mantaTestnet.contracts.launchpad.address,
-    //   args: [
-    //     id,
-    //     parseUnits(amount, 18),
-    //   ],
-    // })
+  const hanleStake = async (amount: string) => {
+    setLoading(true);
+    console.info(ChainType.MANTA, 111111);
+    try {
+      if (chainId !== ChainType.MANTA) {
+        await switchChainAsync({ chainId: ChainType.MANTA });
+      }
+      await writeContractAsync({
+        account: account.address,
+        address: mantaTestnet.contracts.launchpad.address,
+        args: [launchInfo.launchPadID, parseUnits('10', 18)]
+      });
+    } catch (error) {
+      errorMessage(error);
+    }
+    setLoading(false);
   };
   const hanleUnstake = async () => {
-    // await writeContractAsyncUn({
-    //   account: account.address,
-    //   address: mantaTestnet.contracts.launchpad.address,
-    //   args: [
-    //     id,
-    //     index,
-    //   ],
-    // })
+    setLoading(true);
+    try {
+      // if (chainId !== ChainType.MANTA) {
+      //   await switchChainAsync({ chainId: ChainType.MANTA });
+      // }
+      // await writeContractAsyncUn({
+      //   account: account.address,
+      //   address: mantaTestnet.contracts.launchpad.address,
+      //   args: [launchInfo.launchPadID, index]
+      // });
+    } catch (error) {
+      errorMessage(error);
+    }
+    setLoading(false);
   };
   const stakeList = useMemo(() => {
     return launchInfo.fuelsInfo.filter((v: any) => v.type === 'STAKE_TOKEN');
@@ -134,6 +150,12 @@ const StakeFuel: React.FC<StakeFuelProp> = () => {
             </Button>
           ) : (
             <div className="relative mt-[12px] h-[48px]  w-[165px]">
+              <Button
+                type="primary"
+                className="button-text-m mt-[12px] h-[48px] w-[165px] p-0 uppercase text-neutral-black"
+              >
+                {t('stake')} $manta
+              </Button>
               <div className="absolute left-0 top-0 h-full w-full opacity-0">
                 <ConnectButton t={t} />
               </div>
@@ -142,18 +164,8 @@ const StakeFuel: React.FC<StakeFuelProp> = () => {
         </div>
       )}
 
-      <StakeModal
-        open={modalName === 'stake'}
-        onClose={() => setModalName('')}
-        loading={false}
-        hanleStake={hanleStake}
-      />
-      <UnstakeModal
-        open={modalName === 'unStake'}
-        onClose={() => setModalName('')}
-        loading={false}
-        hanleUnstake={hanleUnstake}
-      />
+      <StakeModal open={modalName === 'stake'} onClose={() => setModalName('')} hanleStake={hanleStake} />
+      <UnstakeModal open={modalName === 'unStake'} onClose={() => setModalName('')} hanleUnstake={hanleUnstake} />
     </div>
   );
 };

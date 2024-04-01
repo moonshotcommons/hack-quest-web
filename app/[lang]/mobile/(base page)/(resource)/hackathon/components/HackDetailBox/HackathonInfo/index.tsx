@@ -5,8 +5,7 @@ import Button from '@/components/Common/Button';
 import { HackathonStatusType, HackathonType } from '@/service/webApi/resourceStation/type';
 import useDealhackathon from '@/hooks/resource/useDealHackathonData';
 import { BurialPoint } from '@/helper/burialPoint';
-import MenuLink from '@/constants/MenuLink';
-import Link from 'next/link';
+import { useGlobalStore } from '@/store/zustand/globalStore';
 
 interface HackathonInfoProp {
   hackathon: HackathonType;
@@ -16,6 +15,7 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
   const closeInTimeOut = useRef<NodeJS.Timeout | null>(null);
   const [status, setStatus] = useState<HackathonStatusType | null>(null);
   const [closeInTime, setCloseInTime] = useState('');
+  const setTipsModalOpenState = useGlobalStore((state) => state.setTipsModalOpenState);
   const { getRunFromTime, getCloseInTime, getParticipantsStr } = useDealhackathon();
   const getCloseIn = () => {
     const t = getCloseInTime(hackathon.endTime);
@@ -91,16 +91,21 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
           <div className="flex flex-col justify-center rounded-[8px] bg-[rgba(218,218,218,0.5)] px-[1.25rem] py-[.25rem] ">
             <div className="body-l text-neutral-rich-gray">This hackathon is not available now.</div>
           </div>
-          <Link
+          {/* <Link
             onClick={() => {
               BurialPoint.track(`hackathon detail View All Projects 按钮点击`);
             }}
             href={`${MenuLink.PROJECTS}?keyword=${hackathon.name}`}
+          > */}
+          <Button
+            className="button-text-m fixed bottom-[1.25rem] left-[1.25rem] z-[10] h-[3rem] w-[calc(100vw-2.5rem)] bg-neutral-black uppercase text-neutral-white"
+            onClick={() => {
+              setTipsModalOpenState(true);
+            }}
           >
-            <Button className="button-text-m fixed bottom-[1.25rem] left-[1.25rem] z-[10] h-[3rem] w-[calc(100vw-2.5rem)] bg-neutral-black uppercase text-neutral-white">
-              View All Projects
-            </Button>
-          </Link>
+            View All Projects
+          </Button>
+          {/* </Link> */}
         </>
       ) : null}
     </div>

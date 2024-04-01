@@ -196,12 +196,12 @@ const OverView: React.FC<OverViewProp> = () => {
         <div className="body-m text-neutral-medium-gray [&>div]:mb-[8px]">
           <div className="flex [&>div]:flex-1">
             <div className=""> {t('projectToken')}</div>
-            <div className="text-neutral-black">$HQT</div>
+            <div className="text-neutral-black">${launchInfo.symbol}</div>
           </div>
           {statusRender()?.time}
           <div className="flex [&>div]:flex-1">
             <div className=""> {t('totalAirdropAmount')}</div>
-            <div className="text-neutral-black">{`${launchInfo.airdropRatio * 100}% / ${separationNumber(launchInfo.totalAirdropAmount)} $HQT`}</div>
+            <div className="text-neutral-black">{`${launchInfo.airdropRatio * 100}% / ${separationNumber(launchInfo.totalAirdropAmount)} $${launchInfo.symbol}`}</div>
           </div>
           <div className="flex [&>div]:flex-1">
             <div className=""> {t('currentStakings')}</div>

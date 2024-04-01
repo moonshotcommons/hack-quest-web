@@ -23,7 +23,7 @@ const HackDetail: FC<HackDetailProps> = ({ hackathon }) => {
                 <MediaCommunity listData={hackathon.mediaPartners} title="Media Partners" />
                 <MediaCommunity listData={hackathon.communityPartners} title="Community Partners" />
               </div>
-              <div className="w-[39%]">
+              <div className="relative w-[39%]">
                 <HackathonInfo hackathon={hackathon} />
               </div>
             </div>

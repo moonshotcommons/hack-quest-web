@@ -41,13 +41,13 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ galossaryList, searchParams 
     );
     redirectToUrl(url);
   };
-  const getCategoryList = () => {
+  const getTrackList = () => {
     const newTracks = searchParams.category?.split(',') || [];
     setTracks(newTracks);
     if (!newTracks.length) {
       dealList(galossaryList);
     } else {
-      const newList = galossaryList.filter((v) => v.categories.some((c) => newTracks.includes(c)));
+      const newList = galossaryList.filter((v) => v.tracks.some((c) => newTracks.includes(c)));
       dealList(newList);
     }
   };
@@ -97,7 +97,7 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ galossaryList, searchParams 
     }, 150);
   };
   useEffect(() => {
-    getCategoryList();
+    getTrackList();
   }, [galossaryList]);
 
   return (

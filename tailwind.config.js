@@ -59,10 +59,10 @@ module.exports = {
         },
         wap: {
           raw: '(max-width: 768px)'
-        },
-        wapMin: {
-          raw: '(max-width: 375px)'
         }
+        // wapMin: {
+        //   raw: '(max-width: 375px)'
+        // }
       },
       colors: {
         ...themeColors
