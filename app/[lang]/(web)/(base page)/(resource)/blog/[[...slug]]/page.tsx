@@ -5,6 +5,7 @@ interface SearchParamsType {
   searchParams: {};
   params: {
     slug?: string[];
+    lang: string;
   };
 }
 
@@ -14,11 +15,12 @@ export async function generateMetadata({ params, searchParams }: SearchParamsTyp
 
   let query = new URLSearchParams(searchParams).toString();
   query = query ? '?' + query : '';
+  const lang = params.lang;
 
   const metadata: Metadata = {
     title: 'HackQuest Blog',
     alternates: {
-      canonical: `https://www.hackquest.io/blog${pathname}${query}`
+      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/blog${pathname}${query}`
     }
   };
 

@@ -6,7 +6,7 @@ async function getAllProjects(type = 'projects') {
   if (!response.ok) return [];
 
   const json = await response.json();
-  const data = json.data || [];
+  const data = json.data || (Array.isArray(json) ? json : []);
   return data.map((item: BlogType) => {
     const { id, alias, updatedAt } = item;
     return {
@@ -23,6 +23,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const hackathons = await getAllProjects('hackathons');
   const blogs = await getAllProjects('blogs');
   const glossaries = await getAllProjects('glossaries');
+  const learningTracks = await getAllProjects('learning-tracks');
 
   return [
     {
@@ -37,6 +38,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'weekly',
       priority: 0.9
     },
+    {
+      url: 'https://www.hackquest.io/learning-track?track=Specialization',
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.9
+    },
+    ...learningTracks.map((track: BlogType) => ({
+      url: `https://www.hackquest.io/learning-track/${track.id}`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8
+    })),
     {
       url: 'https://www.hackquest.io/electives',
       lastModified: new Date(),

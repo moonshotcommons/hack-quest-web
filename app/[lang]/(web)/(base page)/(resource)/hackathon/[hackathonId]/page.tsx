@@ -9,16 +9,18 @@ import MenuLink from '@/constants/MenuLink';
 interface HackathonIdProps {
   params: {
     hackathonId: string;
+    lang: string;
   };
 }
 
 export async function generateMetadata({ params }: HackathonIdProps): Promise<Metadata> {
   const hackathon = await getHackathonById(params.hackathonId);
+  const { lang } = params;
   return {
     title: hackathon.name,
     description: hackathon.about,
     alternates: {
-      canonical: `https://www.hackquest.io/hackathon/${params.hackathonId}`
+      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/hackathon/${params.hackathonId}`
     }
   };
 }

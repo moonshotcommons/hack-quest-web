@@ -9,7 +9,7 @@ const About: React.FC<AboutProp> = ({ hackathon }) => {
   return (
     <div>
       <Box className="relative w-full overflow-hidden p-0">
-        <img src={hackathon.image} className="w-full" />
+        <img src={hackathon.image} className="w-full" alt={hackathon.alias} />
         {/* <Image
           src={hackathon.image}
           fill

@@ -22,7 +22,7 @@ const FeatureBlogCard: React.FC<FeatureBlogCardProp> = ({ blog }) => {
       href={`${MenuLink.BLOG}/${blog.alias}`}
     >
       <div className="relative h-full w-[756px]  overflow-hidden">
-        <Image src={blog.image} fill alt="blogImage" className="object-cover"></Image>
+        <Image src={blog.image} fill alt={blog.alias} className="object-cover"></Image>
       </div>
       <div className="flex h-full min-w-[604px] flex-1 flex-col justify-between p-[30px]">
         <div className="flex flex-col gap-[20px] ">

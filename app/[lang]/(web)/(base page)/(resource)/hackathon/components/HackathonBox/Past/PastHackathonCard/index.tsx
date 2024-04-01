@@ -22,7 +22,7 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon }) => {
     <Link href={`${MenuLink.HACKATHON}/${hackathon.alias}`}>
       <div className="card-hover flex  w-full flex-col overflow-hidden rounded-[16px] bg-neutral-white ">
         <div className="relative h-0 w-full rounded-t-[10px] bg-[#D9D9D9] pt-[56.25%]">
-          {cover && <Image src={cover} fill alt="hackathon cover" className="object-cover"></Image>}
+          {cover && <Image src={cover} fill alt={hackathon.alias} className="object-cover"></Image>}
         </div>
         <div className="flex h-[148px] flex-col justify-between px-[20px] py-[20px]">
           <Typography.Paragraph

@@ -18,6 +18,7 @@ import Logo from '@/public/images/logo/logo.svg';
 interface PracticeDetailPageProps {
   params: {
     courseId: string;
+    lang: string;
   };
   searchParams: {
     menuCourseId: string;
@@ -30,14 +31,14 @@ export async function generateMetadata(
   parent: any
 ): Promise<Metadata> {
   // 读取路由参数
-  const courseId = params.courseId;
+  const { courseId, lang } = params;
 
   const courseDetail = await webApi.courseApi.fetchCourseDetail<CourseDetailType>(courseId);
 
   const metadata: Metadata = {
     title: courseDetail.title,
     alternates: {
-      canonical: `https://www.hackquest.io/practices/${courseId}`
+      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/course-market/${courseId}`
     }
   };
 

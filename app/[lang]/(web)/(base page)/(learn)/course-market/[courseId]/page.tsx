@@ -20,6 +20,7 @@ import Link from 'next/link';
 interface PracticePageProps {
   params: {
     courseId: string;
+    lang: string;
   };
   searchParams: {
     menuCourseId: string;
@@ -30,13 +31,17 @@ interface PracticePageProps {
 export async function generateMetadata({ params, searchParams }: PracticePageProps, parent: any): Promise<Metadata> {
   // 读取路由参数
   const courseId = params.courseId;
+  const lang = params.lang;
+
+  let query = new URLSearchParams(searchParams).toString();
+  query = query ? '?' + query : '';
 
   const courseDetail = await webApi.courseApi.fetchCourseDetail<CourseDetailType>(courseId);
 
   const metadata: Metadata = {
     title: courseDetail.title,
     alternates: {
-      canonical: `https://www.hackquest.io/practices/${courseId}`
+      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/course-market/${courseId}${query}`
     }
   };
 
@@ -80,12 +85,12 @@ const PracticePage: FC<PracticePageProps> = async (props) => {
                       <Image
                         fill
                         src={courseDetail.creator?.profileImage || Logo}
-                        alt={courseDetail.creator?.name || `Hackquest`}
+                        alt={courseDetail.creator?.name || `HackQuest`}
                       ></Image>
                     </div>
                   }
                   type={CourseTagType.CREATE_BY}
-                  value={courseDetail.creator?.name || `Hackquest`}
+                  value={courseDetail.creator?.name || `HackQuest`}
                 ></CourseTag>
                 <div className="h-[45px] w-[1px] bg-neutral-rich-gray"></div>
                 <CourseTag type={CourseTagType.LANGUAGE} value={courseDetail.language}></CourseTag>
@@ -112,7 +117,7 @@ const PracticePage: FC<PracticePageProps> = async (props) => {
             <div className="container mx-auto flex flex-col gap-[30px] ">
               <div className="flex items-center justify-between">
                 <h3 className="text-h3 text-neutral-black">
-                  More Courses By {courseDetail.creator?.name || `Hackquest`}
+                  More Courses By {courseDetail.creator?.name || `HackQuest`}
                 </h3>
                 <Link href={`${MenuLink.COURSE_MARKET}?keyword=${courseDetail.creator?.name}`}>
                   <LinkArrow size="lg" direction="right">

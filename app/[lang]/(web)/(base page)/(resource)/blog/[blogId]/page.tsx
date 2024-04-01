@@ -10,16 +10,18 @@ import MenuLink from '@/constants/MenuLink';
 interface BlogDetailProp {
   params: {
     blogId: string;
+    lang: string;
   };
 }
 
 export async function generateMetadata({ params }: BlogDetailProp): Promise<Metadata> {
   const blog: BlogDetailType = await getBlogById(params.blogId);
+  const { lang } = params;
   return {
     title: blog.title,
     description: blog.description,
     alternates: {
-      canonical: `https://www.hackquest.io/blog/${params.blogId}`
+      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/blog/${params.blogId}`
     }
   };
 }
