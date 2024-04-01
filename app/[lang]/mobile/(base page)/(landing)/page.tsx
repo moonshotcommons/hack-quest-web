@@ -11,11 +11,15 @@ import FAQS from './components/FAQS';
 import ConnectedUs from './components/ConnectedUs';
 import Footer from './components/Footer';
 
-export const metadata: Metadata = {
-  alternates: {
-    canonical: 'https://www.hackquest.io'
-  }
-};
+export async function generateMetadata(props: { params: { lang: string } }): Promise<Metadata> {
+  const { lang } = props.params;
+
+  return {
+    alternates: {
+      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}`
+    }
+  };
+}
 
 const Landing: NextPage<any> = (props) => {
   return (

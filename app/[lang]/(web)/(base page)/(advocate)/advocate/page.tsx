@@ -12,11 +12,16 @@ import ConnectedUs from './components/ConnectedUs';
 import { Metadata } from 'next';
 interface AdvocatePageProps {}
 
-export const metadata: Metadata = {
-  alternates: {
-    canonical: 'https://www.hackquest.io/advocate'
-  }
-};
+export async function generateMetadata(props: { params: { lang: string } }): Promise<Metadata> {
+  const { lang } = props.params;
+
+  return {
+    title: 'HackQuest Advocate',
+    alternates: {
+      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/advocate`
+    }
+  };
+}
 
 const AdvocatePage: FC<AdvocatePageProps> = (props) => {
   return (

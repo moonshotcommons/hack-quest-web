@@ -17,6 +17,7 @@ import HeaderBg from '@/components/Web/DetailPageV2/HeaderBg';
 interface ElectivePageProps {
   params: {
     courseId: string;
+    lang: string;
   };
   searchParams: {
     menuCourseId: string;
@@ -29,12 +30,14 @@ export async function generateMetadata({ params, searchParams }: ElectivePagePro
   const courseId = params.courseId;
   let query = new URLSearchParams(searchParams).toString();
   query = query ? '?' + query : '';
+  const lang = params.lang;
+
   const courseDetail = await webApi.courseApi.fetchCourseDetail<ElectiveCourseDetailType>(courseId);
 
   const metadata: Metadata = {
     title: courseDetail.title,
     alternates: {
-      canonical: `https://www.hackquest.io/electives/${courseId}${query}`
+      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/electives//${courseId}${query}`
     }
   };
 

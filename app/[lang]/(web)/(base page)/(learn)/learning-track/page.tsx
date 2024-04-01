@@ -6,15 +6,20 @@ interface SearchParamsType {
     track: string;
     language: string;
   };
+  params: {
+    lang: string;
+  };
 }
 
-export async function generateMetadata({ searchParams }: SearchParamsType): Promise<Metadata> {
+export async function generateMetadata({ searchParams, params }: SearchParamsType): Promise<Metadata> {
+  const { lang } = params;
   let query = new URLSearchParams(searchParams).toString();
   query = query ? '?' + query : '';
+
   const metadata: Metadata = {
     title: 'HackQuest Learning Track',
     alternates: {
-      canonical: `https://www.hackquest.io/learning-track${query}`
+      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/learning-track${query}`
     }
   };
 

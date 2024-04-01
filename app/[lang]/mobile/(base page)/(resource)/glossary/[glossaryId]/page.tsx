@@ -7,16 +7,20 @@ import { getGlossaryById } from '@/service/cach/resource/blog';
 interface BlogDetailProp {
   params: {
     glossaryId: string;
+    lang: string;
   };
 }
 
 export async function generateMetadata({ params }: BlogDetailProp): Promise<Metadata> {
   const glossary: BlogDetailType = await getGlossaryById(params.glossaryId);
+
+  const lang = params.lang;
+
   return {
     title: glossary.title,
     description: glossary.description,
     alternates: {
-      canonical: `https://www.hackquest.io/glossary/${params.glossaryId}`
+      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/glossary/${params.glossaryId}`
     }
   };
 }

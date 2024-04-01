@@ -6,15 +6,18 @@ import { getFeaturedProjects, getHackathonProjectById, getOtherProjects } from '
 interface ProjectDetailPageProps {
   params: {
     projectId: string;
+    lang: string;
   };
 }
 export async function generateMetadata({ params }: ProjectDetailPageProps): Promise<Metadata> {
   const hackathon = await getHackathonProjectById(params.projectId);
+  const { lang } = params;
+
   return {
     title: hackathon.name,
     description: hackathon.description,
     alternates: {
-      canonical: `https://www.hackquest.io/hackathon/projects/${params.projectId}`
+      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/hackathon/projects/${params.projectId}`
     }
   };
 }

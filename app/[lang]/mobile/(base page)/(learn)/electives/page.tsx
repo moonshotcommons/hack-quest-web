@@ -2,12 +2,16 @@ import { FC } from 'react';
 import MobElectives from './components';
 import { Metadata } from 'next';
 
-export const metadata: Metadata = {
-  title: 'Electives',
-  alternates: {
-    canonical: 'https://www.hackquest.io/electives'
-  }
-};
+export async function generateMetadata(props: { params: { lang: string } }): Promise<Metadata> {
+  const { lang } = props.params;
+
+  return {
+    title: 'HackQuest Electives',
+    alternates: {
+      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/electives`
+    }
+  };
+}
 
 interface ElectivesPageProps {}
 

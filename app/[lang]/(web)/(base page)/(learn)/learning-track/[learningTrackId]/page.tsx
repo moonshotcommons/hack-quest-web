@@ -17,6 +17,7 @@ import HeaderBg from '@/components/Web/DetailPageV2/HeaderBg';
 interface LearningTrackDetailPageProps {
   params: {
     learningTrackId: string;
+    lang: string;
   };
   searchParams: {
     learningTrackId: string;
@@ -30,6 +31,7 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   // 读取路由参数
   const learningTrackId = params.learningTrackId;
+  const lang = params.lang;
   let query = new URLSearchParams(searchParams).toString();
   query = query ? '?' + query : '';
 
@@ -38,7 +40,7 @@ export async function generateMetadata(
   const metadata: Metadata = {
     title: courseDetail.name,
     alternates: {
-      canonical: `https://www.hackquest.io/learning-track/${learningTrackId}${query}`
+      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/learning-track/${learningTrackId}${query}`
     }
   };
 

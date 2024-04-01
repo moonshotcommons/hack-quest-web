@@ -10,7 +10,7 @@ import ConfigProvider from '@/components/Provider/Config';
 import { Nunito, Space_Mono } from 'next/font/google';
 import GlobalModal from '@/components/Web/GlobalModal';
 import LangProvider from '@/components/Provider/Lang';
-import { Lang } from '@/i18n/config';
+import { Lang, locales } from '@/i18n/config';
 
 const nunito = Nunito({
   subsets: ['latin'],
@@ -41,9 +41,9 @@ export const metadata: Metadata = {
   }
 };
 
-// export async function generateStaticParams() {
-//   return locales.map((lng) => ({ lng }));
-// }
+export async function generateStaticParams() {
+  return locales.map((lng) => ({ lng }));
+}
 
 interface RootLayoutProps {
   children: React.ReactNode;

@@ -14,11 +14,16 @@ import OnlyChooseBestProjects from './components/OnlyChooseBestProjects';
 import OurSupportForProjects from './components/OurSupportForProjects';
 import webApi from '@/service';
 
-export const metadata: Metadata = {
-  alternates: {
-    canonical: 'https://www.hackquest.io'
-  }
-};
+export async function generateMetadata(props: { params: { lang: string } }): Promise<Metadata> {
+  const { lang } = props.params;
+
+  return {
+    title: 'HackQuest Launch pool',
+    alternates: {
+      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/launch-pool`
+    }
+  };
+}
 
 interface LaunchProp {
   params: {

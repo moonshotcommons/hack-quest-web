@@ -6,6 +6,7 @@ import { getHackathonById } from '@/service/cach/resource/hackathon';
 interface HackathonIdProps {
   params: {
     hackathonId: string;
+    lang: string;
   };
   searchParams: Record<string, string>;
 }
@@ -14,11 +15,14 @@ export async function generateMetadata({ params, searchParams }: HackathonIdProp
   let query = new URLSearchParams(searchParams).toString();
   query = query ? '?' + query : '';
   const hackathon = await getHackathonById(params.hackathonId);
+
+  const { lang } = params;
+
   return {
     title: hackathon.name,
     description: hackathon.about,
     alternates: {
-      canonical: `https://www.hackquest.io/hackathon/${params.hackathonId}${query}`
+      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/hackathon/${params.hackathonId}${query}`
     }
   };
 }

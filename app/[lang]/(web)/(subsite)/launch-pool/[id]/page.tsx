@@ -8,15 +8,17 @@ import { Metadata } from 'next';
 interface LaunchDetailProp {
   params: {
     id: string;
+    lang: string;
   };
 }
 
 export async function generateMetadata({ params }: LaunchDetailProp): Promise<Metadata> {
   const project: LaunchPoolProjectType = await webApi.launchPoolApi.getProjectById(params.id);
+  const { lang } = params;
   return {
     title: project.name,
     alternates: {
-      canonical: `https://www.hackquest.io/${MenuLink.LAUNCH}/${params.id}`
+      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/${MenuLink.LAUNCH}/${params.id}`
     }
   };
 }
