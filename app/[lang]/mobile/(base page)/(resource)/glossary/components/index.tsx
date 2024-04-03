@@ -16,6 +16,7 @@ import { useRouter } from 'next/navigation';
 import { useRequest } from 'ahooks';
 import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';
+import { LetterDataType } from '@/app/[lang]/(web)/(base page)/(resource)/glossary/constants/type';
 
 interface GlossaryPageProp {
   galossaryList: BlogType[];
@@ -31,7 +32,7 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ searchParams = {}, galossary
   const trackRef = useRef<HTMLDivElement>(null);
   const timerOut = useRef<NodeJS.Timeout | null>(null);
   const [offsetTops, setOffsetTops] = useState<OffsetTopsType[]>([]);
-  const [letterData, setLetterData] = useState<string[]>([]);
+  const [letterData, setLetterData] = useState<LetterDataType[]>([]);
   const { pageHeight } = useGetHeight();
   const [isSticky, setIsSticky] = useState(false);
   const isScroll = useRef(true);
@@ -53,13 +54,13 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ searchParams = {}, galossary
   const letterClick = (val: string) => {
     setLetter(val);
     isScroll.current = false;
-    const url = getSearchParamsUrl(
-      {
-        category: searchParams.category
-      },
-      MenuLink.GLOSSARY
-    );
-    router.push(`${url}#glossary-${val}`);
+    // const url = getSearchParamsUrl(
+    //   {
+    //     category: searchParams.category
+    //   },
+    //   MenuLink.GLOSSARY
+    // );
+    // router.push(`${url}#glossary-${val}`);
     setTimeout(() => {
       isScroll.current = true;
     }, 1000);
@@ -81,14 +82,21 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ searchParams = {}, galossary
   };
   const dealList = (gList: BlogType[]) => {
     let newGlossaryList: GlossaryListType[] = [];
-    let letters: string[] = [];
-    let k = '';
+    let letters: LetterDataType[] = [];
+    const url = getSearchParamsUrl(
+      {
+        category: searchParams.category
+      },
+      MenuLink.GLOSSARY
+    );
     gList.forEach((v) => {
       const firstLetter = v.title.charAt(0).toUpperCase();
       if (/\w/.test(firstLetter)) {
-        if (!letters.includes(firstLetter)) {
-          k = firstLetter;
-          letters.push(firstLetter);
+        if (!letters.some((v) => v.letter === firstLetter)) {
+          letters.push({
+            letter: firstLetter,
+            url: `${url}#glossary-${firstLetter}`
+          });
           const obj = {
             letter: firstLetter,
             list: [v]
@@ -101,7 +109,7 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ searchParams = {}, galossary
       }
     });
     if (!letter) {
-      setLetter(letters[0] || '');
+      setLetter(letters[0]?.letter || '');
     }
     setLetterData(letters);
     setList(newGlossaryList);
