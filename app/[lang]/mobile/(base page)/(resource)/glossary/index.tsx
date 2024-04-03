@@ -15,7 +15,6 @@ const Glossary: React.FC<GlossaryProp> = async ({ searchParams = {}, params: { s
 
   const glossaryData = await webApi.resourceStationApi.getGlossaryList({
     keyword: searchParams.keyword || '',
-    tracks: searchParams.category || '',
     page
   });
   const galossaryList = glossaryData.data || [];
