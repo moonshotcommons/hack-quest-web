@@ -75,8 +75,8 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ searchParams = {}, galossary
     router.push(url);
   };
   const getTrackList = () => {
-    const newTracks = searchParams.category?.split(',') || [];
-    setTracks(newTracks);
+    // const newTracks = searchParams.category?.split(',') || [];
+    // setTracks(newTracks);
     dealList(galossaryList);
   };
   const dealList = (gList: BlogType[]) => {
@@ -135,7 +135,12 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ searchParams = {}, galossary
   }, [galossaryList]);
 
   return (
-    <div ref={boxRef} className="scroll-wrap-y no-scrollbar" style={{ height: pageHeight }} onScroll={onScroll}>
+    <div
+      ref={boxRef}
+      className={`scroll-wrap-y no-scrollbar ${!list.length ? 'flex flex-col' : ''}`}
+      style={{ height: pageHeight }}
+      onScroll={onScroll}
+    >
       <GlossaryHeader keyword={searchParams.keyword || ''} />
       {!searchParams.keyword && (
         <>
@@ -146,7 +151,7 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ searchParams = {}, galossary
           </div>
         </>
       )}
-      <div className="px-[1.25rem] py-[2.5rem]">
+      <div className={`px-[1.25rem] pb-[2.5rem] ${!list.length ? 'flex-1' : ''}`}>
         {searchParams.keyword ? (
           <div className="body-m mb-[2.5rem] text-center text-neutral-black">
             {galossaryList.length} Results for
@@ -161,11 +166,7 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ searchParams = {}, galossary
           <NoData href={MenuLink.GLOSSARY} keyword={searchParams.keyword}></NoData>
         )}
       </div>
-      {list.length === 0 || searchParams.keyword ? (
-        <div className="fixed bottom-0 left-0 w-full">
-          <BlogFooter from={ResourceFrom.GLOSSARY} />
-        </div>
-      ) : null}
+      {list.length === 0 || searchParams.keyword ? <BlogFooter from={ResourceFrom.GLOSSARY} /> : null}
       <Transition show={isSticky} appear>
         <BackTop backTop={backTop} />
       </Transition>
