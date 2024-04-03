@@ -1,7 +1,6 @@
 import SlideHighlight from '@/components/Common/Navigation/SlideHighlight';
 import React, { useEffect, useState } from 'react';
 import { LetterDataType } from '../../constants/type';
-import Link from 'next/link';
 
 interface FilterLetterProp {
   letterData: LetterDataType[];
@@ -27,14 +26,15 @@ const FilterLetter: React.FC<FilterLetterProp> = ({ letterData, letterClick, isS
         currentIndex={currentIndex}
       >
         {letterData.map((v, i) => (
-          <Link key={v.letter} href={v.url} className="w-[calc(100%/26)]">
-            <div
-              className={`flex-center relative h-[49px] w-full cursor-pointer rounded-[8px] uppercase  ${i === currentIndex ? 'body-l-bold text-neutral-off-black' : 'body-l text-neutral-medium-gray'}`}
-              onClick={() => handleClick(v.letter)}
-            >
-              {v.letter}
-            </div>
-          </Link>
+          // <Link key={v.letter} href={v.url} className="w-[calc(100%/26)]">
+          <div
+            key={v.letter}
+            className={`flex-center relative h-[49px] w-[calc(100%/26)] cursor-pointer rounded-[8px] uppercase  ${i === currentIndex ? 'body-l-bold text-neutral-off-black' : 'body-l text-neutral-medium-gray'}`}
+            onClick={() => handleClick(v.letter)}
+          >
+            {v.letter}
+          </div>
+          // </Link>
         ))}
       </SlideHighlight>
     </div>

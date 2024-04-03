@@ -28,24 +28,23 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ galossaryList, searchParams 
   const [isSticky, setIsSticky] = useState(false);
   const boxRef = useRef<HTMLDivElement>(null);
   const letterRef = useRef<HTMLDivElement>(null);
-  const timerOut = useRef<NodeJS.Timeout | null>(null);
+  const scrollTimeOut = useRef<NodeJS.Timeout | null>(null);
+  const stickyTimeOut = useRef<NodeJS.Timeout | null>(null);
   const [offsetTops, setOffsetTops] = useState<OffsetTopsType[]>([]);
   const [letterData, setLetterData] = useState<LetterDataType[]>([]);
   const router = useRouter();
-  const isScroll = useRef(true);
+  const isOnScroll = useRef(false);
+  const [letterOffsetTop, setLetterOffsetTop] = useState(0);
   const letterClick = (val: string) => {
     setLetter(val);
-    isScroll.current = false;
-    // const url = getSearchParamsUrl(
-    //   {
-    //     category: searchParams.category
-    //   },
-    //   MenuLink.GLOSSARY
-    // );
-    // router.push(`${url}#glossary-${val}`);
+    const index = letterData.findIndex((v) => v.letter === val);
+    boxRef.current?.scrollTo({
+      top: offsetTops[index].offsetTop
+    });
+    isOnScroll.current = true;
     setTimeout(() => {
-      isScroll.current = true;
-    }, 1000);
+      isOnScroll.current = false;
+    }, 10);
   };
 
   const {} = useRequest(
@@ -65,13 +64,24 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ galossaryList, searchParams 
 
   const trackClick = (val: string) => {
     const newTracks = ~tracks.indexOf(val) ? tracks.filter((v) => v !== val) : [...tracks, val];
-    const url = getSearchParamsUrl(
-      {
-        category: newTracks.join(',')
-      },
-      MenuLink.GLOSSARY
-    );
-    router.push(url);
+    setTracks(newTracks);
+    if (!newTracks.length) {
+      dealList(galossaryList);
+    } else {
+      let newList = galossaryList.filter((v) => v.tracks.some((vv) => newTracks.includes(vv)));
+      dealList(newList);
+    }
+    isOnScroll.current = true;
+    setTimeout(() => {
+      isOnScroll.current = false;
+    }, 10);
+    // const url = getSearchParamsUrl(
+    //   {
+    //     category: newTracks.join(',')
+    //   },
+    //   MenuLink.GLOSSARY
+    // );
+    // router.push(url);
   };
   const getTrackList = () => {
     const newTracks = searchParams.category?.split(',') || [];
@@ -106,19 +116,21 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ galossaryList, searchParams 
         }
       }
     });
-    if (!letter) {
-      setLetter(letters[0]?.letter || '');
-    }
+    setLetter(letters[0]?.letter || '');
     setLetterData(letters);
     setList(newGlossaryList);
   };
   const onScroll = () => {
-    if (!letterData.length || timerOut.current || !isScroll.current) return;
-    timerOut.current = setTimeout(() => {
-      timerOut.current = null;
-      const boxScrollTop = boxRef.current?.scrollTop || 0;
-      const letterOffsetTop = letterRef.current?.offsetTop || 0;
-      setIsSticky(boxScrollTop >= letterOffsetTop - 1);
+    const boxScrollTop = boxRef.current?.scrollTop || 0;
+    if (!stickyTimeOut.current) {
+      stickyTimeOut.current = setTimeout(() => {
+        stickyTimeOut.current = null;
+        setIsSticky(boxScrollTop >= letterOffsetTop - 1);
+      }, 150);
+    }
+    if (!letterData.length || scrollTimeOut.current || isOnScroll.current) return;
+    scrollTimeOut.current = setTimeout(() => {
+      scrollTimeOut.current = null;
       for (let i = 0; i < offsetTops.length; i++) {
         if (boxScrollTop >= offsetTops[offsetTops.length - 1].offsetTop) {
           setLetter(offsetTops[offsetTops.length - 1].letter);
@@ -134,6 +146,11 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ galossaryList, searchParams 
     getTrackList();
   }, [galossaryList]);
 
+  useEffect(() => {
+    const offsetTop = letterRef.current?.offsetTop || 0;
+    setLetterOffsetTop(offsetTop);
+  }, []);
+
   return (
     <div ref={boxRef} className="scroll-wrap-y relative h-full" onScroll={onScroll}>
       <div className="container mx-auto">
@@ -141,15 +158,16 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ galossaryList, searchParams 
       </div>
 
       {!searchParams.keyword && (
-        <>
+        <div
+          className={`sticky left-0 top-0 z-[10] w-full ${isSticky ? 'bg-neutral-off-white pb-[20px] shadow-[0_0px_4px_0_rgba(0,0,0,0.25)]' : ''}`}
+          ref={letterRef}
+        >
           {letterData.length > 0 && (
-            <div className="sticky left-0 top-0 z-[10] w-full" ref={letterRef}>
-              <FilterLetter letterData={letterData} letterClick={letterClick} isSticky={isSticky} letter={letter} />
-            </div>
+            <FilterLetter letterData={letterData} letterClick={letterClick} isSticky={isSticky} letter={letter} />
           )}
 
           <FilterTrack filterTracks={filterTracks} tracks={tracks} trackClick={trackClick} />
-        </>
+        </div>
       )}
       <div className="container  mx-auto  pb-[70px]">
         {searchParams.keyword ? (

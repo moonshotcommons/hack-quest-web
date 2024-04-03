@@ -103,18 +103,12 @@ const LaunchDetailPage: React.FC<LaunchDetailPageProp> = ({ id }) => {
   const handleClickAnchor = (index: number) => {
     setCurAnchorIndex(index);
     isOnScoll.current = true;
+    boxRef.current?.scrollTo({
+      top: offsetTops[index]?.offsetTop || 0
+    });
     setTimeout(() => {
       isOnScoll.current = false;
-    }, 1000);
-    // router.push(`${MenuLink.LAUNCH}/${id}#${offsetTops[index].title}`);
-    // isOnScoll.current = true;
-    // boxRef.current?.scrollTo({
-    //   top: offsetTops[index].offsetTop - 40,
-    //   behavior: 'smooth'
-    // });
-    // setTimeout(() => {
-    //   isOnScoll.current = false;
-    // }, 1000);
+    }, 10);
   };
   const handleScoll = () => {
     if (isOnScoll.current) return;
