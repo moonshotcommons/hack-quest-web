@@ -97,7 +97,7 @@ const Info: React.FC<InfoProp> = () => {
               <Image src={userInfo?.avatar as string} alt="avatar" fill className="object-cover"></Image>
             )}
           </div>
-          <p className="mt-[8px] text-neutral-black">
+          <p className="body-l mt-[8px] text-neutral-black">
             {!launchInfo.participateInfo?.isParticipate ? 'N/A' : userInfo?.nickname}
           </p>
         </div>
@@ -124,7 +124,7 @@ const Info: React.FC<InfoProp> = () => {
             {' '}
             {!launchInfo.participateInfo?.isParticipate
               ? 'N/A'
-              : `${launchInfo.participateInfo?.userLaunchProject?.estimatedToken || 0} #${launchInfo.symbol}`}
+              : `${launchInfo.participateInfo?.userLaunchProject?.estimatedToken || 0} $${launchInfo.symbol}`}
           </p>
           <p className="mt-[22px] text-neutral-medium-gray">{t('finalTokenShare')}</p>
         </div>

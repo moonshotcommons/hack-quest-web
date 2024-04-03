@@ -1,21 +1,21 @@
 import React from 'react';
-import { glossaryTracks } from '../../constants/data';
 
 interface FilterTrackProp {
   tracks: string[];
   trackClick: (track: string) => void;
+  filterTracks: string[];
 }
 
-const FilterTrack: React.FC<FilterTrackProp> = ({ trackClick, tracks }) => {
+const FilterTrack: React.FC<FilterTrackProp> = ({ trackClick, tracks, filterTracks }) => {
   return (
-    <div className="container mx-auto mb-[60px] mt-[32px] flex gap-[12px]">
-      {glossaryTracks.map((v) => (
+    <div className="container mx-auto  mt-[32px] flex h-[46px] gap-[12px]">
+      {filterTracks.map((v) => (
         <div
-          key={v.value}
-          onClick={() => trackClick(v.value)}
-          className={`flex-center body-m h-[46px] w-[124px] cursor-pointer rounded-[24px] border  ${~tracks.indexOf(v.value) ? 'border-yellow-light bg-yellow-light text-neutral-black' : 'border-neutral-light-gray text-neutral-medium-gray'}`}
+          key={v}
+          onClick={() => trackClick(v)}
+          className={`flex-center body-m h-full w-[124px] cursor-pointer rounded-[24px] border  ${~tracks.indexOf(v) ? 'border-yellow-light bg-yellow-light text-neutral-black' : 'border-neutral-light-gray bg-neutral-off-white text-neutral-medium-gray'}`}
         >
-          {v.label}
+          {v}
         </div>
       ))}
     </div>

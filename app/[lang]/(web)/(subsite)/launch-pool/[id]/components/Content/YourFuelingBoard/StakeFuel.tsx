@@ -12,7 +12,7 @@ import { LangContext } from '@/components/Provider/Lang';
 import { LaunchDetailContext } from '../../../constants/type';
 import StakeModal from './StakeModal';
 import UnstakeModal from './UnstakeModal';
-import { useWriteLaunchpadStake, useWriteLaunchpadUnstake } from '@/lib/generated';
+import { useWriteLaunchpadStake, useWriteLaunchpadUnstake, useWriteStakingTokenApprove } from '@/lib/generated';
 import { useAccount, useChainId, useSwitchChain } from 'wagmi';
 import { mantaTestnet } from '@/config/wagmi/chains';
 import ConnectButton from '@/components/Web/Layout/LaunchPage/UserDropCard/ConnectButton';
@@ -32,20 +32,26 @@ const StakeFuel: React.FC<StakeFuelProp> = () => {
   const [stakeId, setStakeId] = useState('');
   const { writeContractAsync } = useWriteLaunchpadStake();
   const { writeContractAsync: writeContractAsyncUn } = useWriteLaunchpadUnstake();
+  const { writeContractAsync: stakingTokenApprove } = useWriteStakingTokenApprove();
   const account = useAccount();
   const hanleStake = async (amount: string) => {
     setLoading(true);
-    console.info(ChainType.MANTA, 111111);
     try {
       if (chainId !== ChainType.MANTA) {
         await switchChainAsync({ chainId: ChainType.MANTA });
       }
+      await stakingTokenApprove({
+        account: account.address,
+        address: mantaTestnet.contracts.stakingToken.address,
+        args: [mantaTestnet.contracts.launchpad.address, parseUnits('0.0001', 18)]
+      });
       await writeContractAsync({
         account: account.address,
         address: mantaTestnet.contracts.launchpad.address,
-        args: [launchInfo.launchPadID, parseUnits('10', 18)]
+        args: [launchInfo.launchPadID, parseUnits('0.0001', 18)]
       });
     } catch (error) {
+      console.info(error);
       errorMessage(error);
     }
     setLoading(false);
@@ -53,15 +59,16 @@ const StakeFuel: React.FC<StakeFuelProp> = () => {
   const hanleUnstake = async () => {
     setLoading(true);
     try {
-      // if (chainId !== ChainType.MANTA) {
-      //   await switchChainAsync({ chainId: ChainType.MANTA });
-      // }
-      // await writeContractAsyncUn({
-      //   account: account.address,
-      //   address: mantaTestnet.contracts.launchpad.address,
-      //   args: [launchInfo.launchPadID, index]
-      // });
+      if (chainId !== ChainType.MANTA) {
+        await switchChainAsync({ chainId: ChainType.MANTA });
+      }
+      await writeContractAsyncUn({
+        account: account.address,
+        address: mantaTestnet.contracts.launchpad.address,
+        args: [launchInfo.launchPadID, BigInt(1)]
+      });
     } catch (error) {
+      console.info(error);
       errorMessage(error);
     }
     setLoading(false);

@@ -1,26 +1,23 @@
 import SlideHighlight from '@/components/Common/Navigation/SlideHighlight';
-import MenuLink from '@/constants/MenuLink';
-import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
+import { LetterDataType } from '../../constants/type';
 
 interface FilterLetterProp {
-  letterData: string[];
+  letterData: LetterDataType[];
   letterClick: (letter: string) => void;
   isSticky: boolean;
   letter: string;
 }
 
 const FilterLetter: React.FC<FilterLetterProp> = ({ letterData, letterClick, isSticky, letter }) => {
-  const router = useRouter();
   const [currentIndex, setCurrentIndex] = useState(0);
   const handleClick = (v: string) => {
     letterClick(v);
-    router.push(`${MenuLink.GLOSSARY}#glossary-${v}`);
   };
   useEffect(() => {
-    let index = letterData.indexOf(letter);
+    let index = letterData.findIndex((v) => v.letter === letter);
     setCurrentIndex(index);
-  }, [letter]);
+  }, [letter, letterData]);
   return (
     <div className={`w-full bg-neutral-white py-[5px] ${isSticky ? 'shadow-[0_0px_4px_0_rgba(0,0,0,0.25)]' : ''}`}>
       <SlideHighlight
@@ -28,14 +25,16 @@ const FilterLetter: React.FC<FilterLetterProp> = ({ letterData, letterClick, isS
         type={'GLOSSARY_FILTER'}
         currentIndex={currentIndex}
       >
-        {letterData.map((v) => (
+        {letterData.map((v, i) => (
+          // <Link key={v.letter} href={v.url} className="w-[calc(100%/26)]">
           <div
-            key={v}
-            className={`flex-center relative h-[49px] w-[calc(100%/26)] cursor-pointer rounded-[8px] uppercase  ${v === letter ? 'body-l-bold text-neutral-off-black' : 'body-l text-neutral-medium-gray'}`}
-            onClick={() => handleClick(v)}
+            key={v.letter}
+            className={`flex-center relative h-[49px] w-[calc(100%/26)] cursor-pointer rounded-[8px] uppercase  ${i === currentIndex ? 'body-l-bold text-neutral-off-black' : 'body-l text-neutral-medium-gray'}`}
+            onClick={() => handleClick(v.letter)}
           >
-            {v}
+            {v.letter}
           </div>
+          // </Link>
         ))}
       </SlideHighlight>
     </div>

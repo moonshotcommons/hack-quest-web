@@ -4,13 +4,15 @@ import { titleTxtData } from '../../constants/data';
 import { TransNs } from '@/i18n/config';
 import { useTranslation } from '@/i18n/client';
 import { LangContext } from '@/components/Provider/Lang';
+import { OffsetTopsType } from '../Content';
 
 interface NavProp {
   handleClickAnchor: (index: number) => void;
   curAnchorIndex: number;
+  offsetTops: OffsetTopsType[];
 }
 
-const Nav: React.FC<NavProp> = ({ handleClickAnchor, curAnchorIndex }) => {
+const Nav: React.FC<NavProp> = ({ handleClickAnchor, curAnchorIndex, offsetTops }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
   return (
