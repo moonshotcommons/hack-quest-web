@@ -8,7 +8,6 @@ import { useRequest } from 'ahooks';
 import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';
 import { useRouter } from 'next/navigation';
-import MenuLink from '@/constants/MenuLink';
 import WaitListModal, { WaitListModalInstance } from '@/components/Web/Business/WaitListModal';
 import ConnectModal, { ConnectModalInstance } from '@/components/Web/Business/ConnectModal';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
@@ -34,6 +33,7 @@ const LaunchDetailPage: React.FC<LaunchDetailPageProp> = ({ id }) => {
   const userInfo = useUserStore((state) => state.userInfo);
   const setAuthType = useUserStore((state) => state.setAuthType);
   const setAuthModalOpen = useUserStore((state) => state.setAuthModalOpen);
+  const timeOut = useRef<NodeJS.Timeout | null>(null);
   const [joined, setJoined] = useState(false);
 
   const { run: getProjectInfo } = useRequest(
@@ -102,7 +102,11 @@ const LaunchDetailPage: React.FC<LaunchDetailPageProp> = ({ id }) => {
   }, [projectInfo, participateInfo, fuelsInfo, joined]);
   const handleClickAnchor = (index: number) => {
     setCurAnchorIndex(index);
-    router.push(`${MenuLink.LAUNCH}/${id}#${offsetTops[index].title}`);
+    isOnScoll.current = true;
+    setTimeout(() => {
+      isOnScoll.current = false;
+    }, 1000);
+    // router.push(`${MenuLink.LAUNCH}/${id}#${offsetTops[index].title}`);
     // isOnScoll.current = true;
     // boxRef.current?.scrollTo({
     //   top: offsetTops[index].offsetTop - 40,
@@ -115,15 +119,18 @@ const LaunchDetailPage: React.FC<LaunchDetailPageProp> = ({ id }) => {
   const handleScoll = () => {
     if (isOnScoll.current) return;
     const scrollTop = boxRef.current?.scrollTop || 0;
-    for (let i = 0; i < offsetTops.length; i++) {
-      if (scrollTop >= offsetTops[offsetTops.length - 1].offsetTop - 40) {
-        setCurAnchorIndex(offsetTops.length - 1);
-        break;
-      } else if (scrollTop >= offsetTops[i].offsetTop - 40 && scrollTop < offsetTops[i + 1].offsetTop - 40) {
-        setCurAnchorIndex(i);
-        break;
+    timeOut.current = setTimeout(() => {
+      timeOut.current = null;
+      for (let i = 0; i < offsetTops.length; i++) {
+        if (scrollTop >= offsetTops[offsetTops.length - 1].offsetTop - 40) {
+          setCurAnchorIndex(offsetTops.length - 1);
+          break;
+        } else if (scrollTop >= offsetTops[i].offsetTop - 40 && scrollTop < offsetTops[i + 1].offsetTop - 40) {
+          setCurAnchorIndex(i);
+          break;
+        }
       }
-    }
+    }, 150);
   };
 
   const { run, refreshAsync } = useRequest(
@@ -185,7 +192,7 @@ const LaunchDetailPage: React.FC<LaunchDetailPageProp> = ({ id }) => {
       <div className="scroll-wrap-y h-full py-[40px]" ref={boxRef} onScroll={handleScoll}>
         <div className="container  mx-auto flex">
           <div className="relative w-[345px]">
-            <Nav curAnchorIndex={curAnchorIndex} handleClickAnchor={handleClickAnchor} />
+            <Nav curAnchorIndex={curAnchorIndex} offsetTops={offsetTops} handleClickAnchor={handleClickAnchor} />
           </div>
           <Content loading={loading} setOffsetTop={(tops: OffsetTopsType[]) => setOffsetTops(tops)} />
         </div>

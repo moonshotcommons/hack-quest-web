@@ -1,9 +1,11 @@
+import { LetterDataType } from '@/app/[lang]/(web)/(base page)/(resource)/glossary/constants/type';
 import { MOBILE_NAVBAR_HEIGHT } from '@/components/Mobile/MobLayout/BasePage/Navbar/constant';
 import { useGetPageInfo } from '@/hooks/dom/useGetPageInfo';
+import Link from 'next/link';
 import React from 'react';
 
 interface FilterLetterProp {
-  letterData: string[];
+  letterData: LetterDataType[];
   letterClick: (letter: string) => void;
   letter: string;
 }
@@ -22,13 +24,14 @@ const FilterLetter: React.FC<FilterLetterProp> = ({ letterData, letterClick, let
     >
       <div className={`flex max-h-full w-full flex-col`}>
         {letterData.map((v) => (
-          <div
-            key={v}
-            className={`flex-center body-xs relative mb-[.25rem] h-[1.1875rem] w-full cursor-pointer rounded-[8px] uppercase  ${v === letter ? 'text-neutral-off-black' : 'text-neutral-medium-gray'}`}
-            onClick={() => handleClick(v)}
-          >
-            {v}
-          </div>
+          <Link key={v.letter} href={v.url}>
+            <div
+              className={`flex-center body-xs relative mb-[.25rem] h-[1.1875rem] w-full cursor-pointer rounded-[8px] uppercase  ${v.letter === letter ? 'text-neutral-off-black' : 'text-neutral-medium-gray'}`}
+              onClick={() => handleClick(v.letter)}
+            >
+              {v.letter}
+            </div>
+          </Link>
         ))}
       </div>
     </div>
