@@ -30,12 +30,14 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ searchParams = {}, galossary
   const [letter, setLetter] = useState('');
   const boxRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
-  const timerOut = useRef<NodeJS.Timeout | null>(null);
+  const scrollTimeOut = useRef<NodeJS.Timeout | null>(null);
+  const stickyTimeOut = useRef<NodeJS.Timeout | null>(null);
   const [offsetTops, setOffsetTops] = useState<OffsetTopsType[]>([]);
   const [letterData, setLetterData] = useState<LetterDataType[]>([]);
   const { pageHeight } = useGetHeight();
   const [isSticky, setIsSticky] = useState(false);
-  const isScroll = useRef(true);
+  const isOnScroll = useRef(false);
+  const [trackOffsetTop, setTrackOffsetTop] = useState(0);
   const router = useRouter();
   const {} = useRequest(
     async () => {
@@ -53,31 +55,39 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ searchParams = {}, galossary
   );
   const letterClick = (val: string) => {
     setLetter(val);
-    isScroll.current = false;
-    // const url = getSearchParamsUrl(
-    //   {
-    //     category: searchParams.category
-    //   },
-    //   MenuLink.GLOSSARY
-    // );
-    // router.push(`${url}#glossary-${val}`);
+    const index = letterData.findIndex((v) => v.letter === val);
+    isOnScroll.current = true;
+    boxRef.current?.scrollTo({
+      top: offsetTops[index].offsetTop
+    });
     setTimeout(() => {
-      isScroll.current = true;
-    }, 1000);
+      isOnScroll.current = false;
+    }, 10);
   };
   const trackClick = (val: string) => {
     const newTracks = ~tracks.indexOf(val) ? tracks.filter((v) => v !== val) : [...tracks, val];
-    const url = getSearchParamsUrl(
-      {
-        category: newTracks.join(',')
-      },
-      MenuLink.GLOSSARY
-    );
-    router.push(url);
+    setTracks(newTracks);
+    if (!newTracks.length) {
+      dealList(galossaryList);
+    } else {
+      let newList = galossaryList.filter((v) => v.tracks.some((vv) => newTracks.includes(vv)));
+      dealList(newList);
+    }
+    isOnScroll.current = true;
+    setTimeout(() => {
+      isOnScroll.current = false;
+    }, 10);
+    // const url = getSearchParamsUrl(
+    //   {
+    //     category: newTracks.join(',')
+    //   },
+    //   MenuLink.GLOSSARY
+    // );
+    // router.push(url);
   };
   const getTrackList = () => {
-    // const newTracks = searchParams.category?.split(',') || [];
-    // setTracks(newTracks);
+    const newTracks = searchParams.category?.split(',') || [];
+    setTracks(newTracks);
     dealList(galossaryList);
   };
   const dealList = (gList: BlogType[]) => {
@@ -108,9 +118,7 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ searchParams = {}, galossary
         }
       }
     });
-    if (!letter) {
-      setLetter(letters[0]?.letter || '');
-    }
+    setLetter(letters[0]?.letter || '');
     setLetterData(letters);
     setList(newGlossaryList);
   };
@@ -121,12 +129,16 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ searchParams = {}, galossary
     });
   };
   const onScroll = () => {
-    if (!letterData.length || timerOut.current || !isScroll.current) return;
-    timerOut.current = setTimeout(() => {
-      timerOut.current = null;
-      const boxScrollTop = boxRef.current?.scrollTop || 0;
-      const trackOffsetTop = trackRef.current?.offsetTop || 0;
-      setIsSticky(boxScrollTop >= trackOffsetTop - 1);
+    const boxScrollTop = boxRef.current?.scrollTop || 0;
+    if (!stickyTimeOut.current) {
+      stickyTimeOut.current = setTimeout(() => {
+        stickyTimeOut.current = null;
+        setIsSticky(boxScrollTop >= trackOffsetTop - 1);
+      }, 150);
+    }
+    if (!letterData.length || scrollTimeOut.current || isOnScroll.current) return;
+    scrollTimeOut.current = setTimeout(() => {
+      scrollTimeOut.current = null;
       for (let i = 0; i < offsetTops.length; i++) {
         if (boxScrollTop >= offsetTops[offsetTops.length - 1].offsetTop) {
           setLetter(offsetTops[offsetTops.length - 1].letter);
@@ -142,6 +154,11 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ searchParams = {}, galossary
     getTrackList();
   }, [galossaryList]);
 
+  useEffect(() => {
+    const offsetTop = trackRef.current?.offsetTop || 0;
+    setTrackOffsetTop(offsetTop);
+  }, []);
+
   return (
     <div
       ref={boxRef}
@@ -154,7 +171,10 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ searchParams = {}, galossary
         <>
           {letterData.length > 0 && <FilterLetter letterData={letterData} letterClick={letterClick} letter={letter} />}
 
-          <div ref={trackRef}>
+          <div
+            ref={trackRef}
+            className={`sticky left-0 top-0 z-[10] w-full  ${isSticky ? 'bg-neutral-off-white py-[.9375rem] shadow-[0_0px_4px_0_rgba(0,0,0,0.25)]' : 'mt-[1.75rem] '}`}
+          >
             <FilterTrack filterTracks={filterTracks} tracks={tracks} trackClick={trackClick} />
           </div>
         </>

@@ -8,7 +8,7 @@ interface FilterTrackProp {
 
 const FilterTrack: React.FC<FilterTrackProp> = ({ trackClick, tracks, filterTracks }) => {
   return (
-    <div className="no-scrollbar mt-[1.75rem] flex h-[2.5rem] gap-[.5rem] overflow-x-auto px-[1.25rem]">
+    <div className="no-scrollbar flex h-[2.5rem] gap-[.5rem] overflow-x-auto px-[1.25rem]">
       {filterTracks.map((v) => (
         <div
           key={v}
