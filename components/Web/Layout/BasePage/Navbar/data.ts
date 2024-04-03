@@ -120,11 +120,10 @@ export const navbarList: NavbarListType[] = [
     label: 'Launch',
     id: 'launch',
     menu: [
-      {
-        label: 'launch pool',
-        path: MenuLink.LAUNCH,
-        needPC: true
-      }
+      // {
+      //   label: 'launch pool',
+      //   path: MenuLink.LAUNCH,
+      // }
     ]
   },
   {
