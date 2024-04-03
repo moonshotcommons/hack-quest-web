@@ -2,7 +2,6 @@ import { create } from 'zustand';
 
 import { removeToken } from '@/helper/user-token';
 import { LoginResponse } from '@/service/webApi/user/type';
-import { NavType } from '@/components/Mobile/MobLayout/BasePage/Navbar';
 
 export enum AuthType {
   LOGIN = 'login',
@@ -37,16 +36,6 @@ export interface UserStateType {
   setSettingsOpen: (payload: boolean) => void;
   setAuthType: (payload: AuthRouteType | AuthType) => void;
   setAuthModalOpen: (open: boolean) => void;
-  mobileAuthToggleOpenHandle: {
-    toggleOpen: () => void;
-    isOpen: boolean;
-    setNavType: (payload: NavType) => void;
-  };
-  setMobileAuthToggleOpenHandle: (payload: {
-    toggleOpen: () => void;
-    isOpen: boolean;
-    setNavType: (payload: NavType) => void;
-  }) => void;
 }
 
 export const useUserStore = create<UserStateType>()((set) => ({
@@ -57,11 +46,6 @@ export const useUserStore = create<UserStateType>()((set) => ({
     type: AuthType.LOGIN,
     prevType: AuthType.LOGIN,
     params: {}
-  },
-  mobileAuthToggleOpenHandle: {
-    isOpen: false,
-    setNavType() {},
-    toggleOpen() {}
   },
 
   setUserInfo(payload) {
@@ -77,10 +61,6 @@ export const useUserStore = create<UserStateType>()((set) => ({
 
   setSettingsOpen(payload) {
     set((state) => ({ settingsOpen: payload }));
-  },
-
-  setMobileAuthToggleOpenHandle(payload) {
-    set((state) => ({ mobileAuthToggleOpenHandle: payload }));
   },
 
   setAuthType(payload) {

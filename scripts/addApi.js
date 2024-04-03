@@ -1,11 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const {
-  getComponentName,
-  render,
-  checkExists,
-  getFileName
-} = require('./util');
+const { getComponentName, render, checkExists, getFileName } = require('./util');
 
 const fileName = getFileName();
 
@@ -40,24 +35,15 @@ const generateTypeRenderData = (apiPath) => {
 const renderApiModule = () => {
   const moduleName = getComponentName(fileName);
   // const moduleName = fileName;
-  const template = fs.readFileSync(
-    path.resolve(__dirname, 'template/apiModule/apiModuleTemplate.ejs'),
-    'utf8'
-  );
-  const filePath = path.resolve(
-    __dirname,
-    `../service/webApi/${moduleName.toLowerCase()}`
-  );
+  const template = fs.readFileSync(path.resolve(__dirname, 'template/apiModule/apiModuleTemplate.ejs'), 'utf8');
+  const filePath = path.resolve(__dirname, `../service/webApi/${moduleName.toLowerCase()}`);
 
-  const nextApiPath = path.resolve(
-    __dirname,
-    `../pages/api/${moduleName.toLowerCase()}`
-  );
+  // const nextApiPath = path.resolve(
+  //   __dirname,
+  //   `../pages/api/${moduleName.toLowerCase()}`
+  // );
 
-  const nextApiTemplate = fs.readFileSync(
-    path.resolve(__dirname, 'template/apiModule/nextApi.ejs'),
-    'utf8'
-  );
+  const nextApiTemplate = fs.readFileSync(path.resolve(__dirname, 'template/apiModule/nextApi.ejs'), 'utf8');
 
   checkExists(filePath);
 
@@ -73,29 +59,17 @@ const renderApiModule = () => {
 
   render(nextApiTemplate, path.resolve(nextApiPath, 'index.ts'));
 
-  fs.writeFileSync(
-    path.resolve(filePath, 'type.ts'),
-    'export interface Response { id: string };'
-  );
+  fs.writeFileSync(path.resolve(filePath, 'type.ts'), 'export interface Response { id: string };');
 };
 
 const renderType = (renderData) => {
-  const typeTemplate = fs.readFileSync(
-    path.resolve(__dirname, 'template/icon/type.ejs'),
-    'utf8'
-  );
-  const typeFilePath = path.resolve(
-    __dirname,
-    `../components/Common/Icon/type.tsx`
-  );
+  const typeTemplate = fs.readFileSync(path.resolve(__dirname, 'template/icon/type.ejs'), 'utf8');
+  const typeFilePath = path.resolve(__dirname, `../components/Common/Icon/type.tsx`);
   render(typeTemplate, typeFilePath, { type: renderData.type });
 };
 
 const renderIconImport = (renderData) => {
-  const indexTemplate = fs.readFileSync(
-    path.resolve(__dirname, 'template/apiModule/index.ejs'),
-    'utf8'
-  );
+  const indexTemplate = fs.readFileSync(path.resolve(__dirname, 'template/apiModule/index.ejs'), 'utf8');
   const indexFilePath = path.resolve(__dirname, `../service/index.ts`);
   render(indexTemplate, indexFilePath, {
     importStr: renderData.importStr,

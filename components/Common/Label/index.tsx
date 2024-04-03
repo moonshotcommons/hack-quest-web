@@ -6,9 +6,7 @@ interface LabelProps {
   className?: string;
 }
 
-const Label: React.FC<
-  LabelProps & Omit<React.HTMLAttributes<HTMLElement>, 'className'>
-> = (props) => {
+const Label: React.FC<LabelProps & Omit<React.HTMLAttributes<HTMLElement>, 'className'>> = (props) => {
   const { icon, children, className, ...rest } = props;
 
   return (

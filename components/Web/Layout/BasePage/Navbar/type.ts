@@ -1,34 +1,24 @@
-export enum MenuLink {
-  DASHBOARD = '/dashboard',
-  LEARNING_TRACK = '/learning-track',
-  PRACTICES = '/practices',
-  ELECTIVES = '/electives',
-  UGC = '/ugc',
-  MISSION_CENTER = '/mission-center',
-  HACKATHON = '/hackathon',
-  BLOG = '/blog',
-  PROJECTS = '/hackathon/projects',
-  CAMPAIGINS = '/campaigns',
-  USER_PROFILE = '/user/profile',
-  CONNECT_GITHUB = '/connect-github',
-  ECOSYSTEM = '/ecosystem',
-  GLOSSARY = '/glossary',
-  INSTRUCTOR = '/instructor',
-  ADVOCATE = '/advocate',
-  COURSE_MARKET = '/course-market'
+import MenuLink from '@/constants/MenuLink';
+
+export interface OutSideType {
+  label: string;
+  link: string;
+  id?: string;
 }
 
 export interface MenuType {
   label: string;
-  path: MenuLink;
+  path?: MenuLink;
+  id?: string;
+  link?: string;
+  description?: string;
   needLogin?: boolean;
   needPC?: boolean;
+  outSide?: OutSideType[];
 }
 export interface NavbarListType {
   label: string;
   id: string;
   type?: 'outSide';
-  link?: string;
   menu: MenuType[];
-  needPC?: boolean;
 }

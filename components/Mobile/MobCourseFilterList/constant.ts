@@ -65,9 +65,7 @@ export const mergeFilterParams = (
   const filtersObject: Record<string, string> = {};
   filters.forEach((f) => {
     const key = f.filterField;
-    const values = f.options
-      .filter((option) => option.isSelect)
-      .map((o) => o.value);
+    const values = f.options.filter((option) => option.isSelect).map((o) => o.value);
     if (values.length) filtersObject[key] = values.join(',');
   });
   return {

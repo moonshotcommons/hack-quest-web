@@ -20,8 +20,7 @@ interface BaseButtonProps {
   htmlType?: 'button' | 'submit' | 'reset';
 }
 
-export type ButtonProps = BaseButtonProps &
-  Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'className' | 'type'>;
+export type ButtonProps = BaseButtonProps & Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'className' | 'type'>;
 
 const Button: FC<ButtonProps> = (props) => {
   const {
@@ -37,6 +36,7 @@ const Button: FC<ButtonProps> = (props) => {
     loading = false,
     disabled: propDisabled,
     htmlType,
+    onClick: propOnClick,
     ...rest
   } = props;
   // const classNames = ;
@@ -67,15 +67,11 @@ const Button: FC<ButtonProps> = (props) => {
   useEffect(() => {
     const button = buttonRef.current;
     if (button) {
-      setLoadingSize([
-        button.clientHeight * 0.88889,
-        button.clientHeight * 0.88889
-      ]);
+      setLoadingSize([button.clientHeight * 0.88889, button.clientHeight * 0.88889]);
     }
   }, [buttonRef]);
 
   const disabled = propDisabled || loading;
-
   return (
     <button
       ref={buttonRef}
@@ -88,31 +84,22 @@ const Button: FC<ButtonProps> = (props) => {
         mergeSize(),
         mergeRounded(),
         loading ? 'cursor-not-allowed opacity-70' : '',
-        loading && type === 'primary'
-          ? 'bg-[#FFF4CE] opacity-100 hover:bg-[#FFF4CE]'
-          : '',
+        loading && type === 'primary' ? 'bg-[#FFF4CE] opacity-100 hover:bg-[#FFF4CE]' : '',
         ghost && 'border border-neutral-black bg-transparent',
         ghost && !disabled ? 'hover:bg-neutral-off-white' : '',
         disabled ? 'cursor-not-allowed opacity-40' : '',
         className
       )}
       type={htmlType}
-      disabled={disabled}
+      onClick={(e) => {
+        if (disabled) return;
+        propOnClick?.(e);
+      }}
       {...rest}
     >
-      {icon && iconPosition === 'left' && (
-        <span style={{ visibility: loading ? 'hidden' : 'visible' }}>
-          {icon}
-        </span>
-      )}
-      <span style={{ visibility: loading ? 'hidden' : 'visible' }}>
-        {children}
-      </span>
-      {icon && iconPosition === 'right' && (
-        <span style={{ visibility: loading ? 'hidden' : 'visible' }}>
-          {icon}
-        </span>
-      )}
+      {icon && iconPosition === 'left' && <span style={{ visibility: loading ? 'hidden' : 'visible' }}>{icon}</span>}
+      <span style={{ visibility: loading ? 'hidden' : 'visible' }}>{children}</span>
+      {icon && iconPosition === 'right' && <span style={{ visibility: loading ? 'hidden' : 'visible' }}>{icon}</span>}
 
       {loading && (
         <>

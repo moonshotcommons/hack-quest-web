@@ -3,20 +3,9 @@ import webApi from '@/service';
 import { CertificationType } from '@/service/webApi/campaigns/type';
 import { ProjectCourseType } from '@/service/webApi/course/type';
 import { ElectiveCourseType } from '@/service/webApi/elective/type';
-import {
-  LearningTrackDetailType,
-  SectionType
-} from '@/service/webApi/learningTrack/type';
+import { LearningTrackDetailType, SectionType } from '@/service/webApi/learningTrack/type';
 import { useRequest } from 'ahooks';
-import {
-  FC,
-  ReactNode,
-  SetStateAction,
-  createContext,
-  useMemo,
-  useState,
-  Dispatch
-} from 'react';
+import { FC, ReactNode, SetStateAction, createContext, useMemo, useState, Dispatch } from 'react';
 
 interface LearningTrackDetailProviderProps {
   learningTrackDetail: LearningTrackDetailType;
@@ -38,9 +27,7 @@ interface LearningTrackDetailContextType {
   certification: CertificationType | null;
 }
 
-export const LearningTrackDetailContext = createContext<
-  LearningTrackDetailContextType & LearningStateType
->({
+export const LearningTrackDetailContext = createContext<LearningTrackDetailContextType & LearningStateType>({
   learningTrackDetail: null,
   expandList: [],
   setExpandList: () => {},
@@ -57,18 +44,13 @@ const LearningTrackDetailProvider: FC<LearningTrackDetailProviderProps> = ({
   children
 }) => {
   const { data, refresh } = useRequest(() => {
-    return webApi.learningTrackApi.getLearningTrackDetailAndCourses(
-      propTrackDetail.id
-    );
+    return webApi.learningTrackApi.getLearningTrackDetailAndCourses(propTrackDetail.id);
   });
 
-  const learningTrackDetail =
-    (data as LearningTrackDetailType) ?? propTrackDetail;
+  const learningTrackDetail = (data as LearningTrackDetailType) ?? propTrackDetail;
 
   const { data: certification } = useRequest(() => {
-    return webApi.campaignsApi.getCertificationDetail(
-      learningTrackDetail.certificationId!
-    );
+    return webApi.campaignsApi.getCertificationDetail(learningTrackDetail.certificationId!);
   });
 
   const [expandList, setExpandList] = useState<number[]>([]);
@@ -77,32 +59,28 @@ const LearningTrackDetailProvider: FC<LearningTrackDetailProviderProps> = ({
     return expandList.length === learningTrackDetail?.sections.length;
   }, [expandList, learningTrackDetail?.sections.length]);
 
-  const { learningSection, learningCourse, learningSectionIndex } =
-    useMemo(() => {
-      let state: LearningStateType = {
-        learningSection: null,
-        learningSectionIndex: 0,
-        learningCourse: null
-      };
-      if (!learningTrackDetail || !learningTrackDetail.enrolled) return state;
-      const sections = learningTrackDetail.sections;
-      state.learningSection = sections[0];
-      state.learningCourse = state.learningSection.courses[0];
-      for (let i = 0; i < sections.length; i++) {
-        const section = sections[i];
-        const course = section.courses.find(
-          (course) =>
-            (!!course.progress && course.progress < 1) || !course.progress
-        );
-        if (course) {
-          state.learningCourse = course;
-          state.learningSection = section;
-          state.learningSectionIndex = i;
-          break;
-        }
+  const { learningSection, learningCourse, learningSectionIndex } = useMemo(() => {
+    let state: LearningStateType = {
+      learningSection: null,
+      learningSectionIndex: 0,
+      learningCourse: null
+    };
+    if (!learningTrackDetail || !learningTrackDetail.enrolled) return state;
+    const sections = learningTrackDetail.sections;
+    state.learningSection = sections[0];
+    state.learningCourse = state.learningSection.courses[0];
+    for (let i = 0; i < sections.length; i++) {
+      const section = sections[i];
+      const course = section.courses.find((course) => (!!course.progress && course.progress < 1) || !course.progress);
+      if (course) {
+        state.learningCourse = course;
+        state.learningSection = section;
+        state.learningSectionIndex = i;
+        break;
       }
-      return state;
-    }, [learningTrackDetail]);
+    }
+    return state;
+  }, [learningTrackDetail]);
 
   return (
     <LearningTrackDetailContext.Provider

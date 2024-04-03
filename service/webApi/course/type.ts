@@ -1,3 +1,4 @@
+import { CourseTab } from '@/app/[lang]/(web)/(base page)/(home)/instructor/constants/type';
 import { ElectiveCourseType, PageType } from '../elective/type';
 
 export interface Response {
@@ -27,6 +28,14 @@ export enum CompleteStateType {
   LEARNING = 1,
   COMPLETED = 2
 }
+export interface IntendedLearnersType {
+  audience?: string[];
+  requirements?: string[];
+}
+export interface KnowledgeGainType {
+  description?: string[];
+  tags?: string[];
+}
 
 /** 课程列表的返回值 */
 // export interface ProjectCourseType {
@@ -42,7 +51,7 @@ export enum CompleteStateType {
 //   pageCount?: number;
 // }
 
-enum CourseLevelType {
+export enum CourseLevelType {
   BEGINNER = 'BEGINNER',
   INTERMEDIATE = 'INTERMEDIATE',
   ADVANCED = 'ADVANCED'
@@ -75,9 +84,29 @@ export interface CreatorType {
 }
 
 //! UGC临时课程类型，可能是课程通用类型，后面需要更改
+
+export interface UGCCourseUnitType {
+  id: string;
+  title: string;
+  description: string;
+  sequence: number;
+  progress: number;
+  courseId: string;
+  createdAt: string;
+  updatedAt: string;
+  pages: {
+    id: string;
+    title: string;
+    type: LessonType;
+    unitId: string;
+    state: CompleteStateType;
+    courseId: string;
+    sequence: number;
+  }[];
+}
+
 export interface UGCCourseType {
   id: string;
-  name: string;
   title: string;
   subTitle: null | string;
   description: string;
@@ -88,37 +117,14 @@ export interface UGCCourseType {
   track: CourseTrackType;
   progress?: number;
   peopleJoined: number;
+  status: CourseTab;
+  completed: boolean;
   optional: object;
   image: string | null;
   creator?: CreatorType;
-  units?: {
-    id: string;
-    title: string;
-    description: string;
-    sequence: number;
-    progress: number;
-    courseId: string;
-    createdAt: string;
-    updatedAt: string;
-    pages: {
-      id: string;
-      title: string;
-      type: LessonType;
-      unitId: string;
-      state: CompleteStateType;
-      courseId: string;
-      sequence: number;
-    }[];
-  }[];
-}
-
-export interface IntendedLearnersType {
-  audience?: string[];
-  requirements?: string[];
-}
-export interface KnowledgeGainType {
-  description?: string[];
-  tags?: string[];
+  units?: UGCCourseUnitType[];
+  intendedLearners: IntendedLearnersType & { completed: boolean };
+  knowledgeGain: KnowledgeGainType & { completed: boolean };
 }
 
 /** 课程基础字段 */

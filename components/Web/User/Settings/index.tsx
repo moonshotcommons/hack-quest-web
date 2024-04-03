@@ -25,16 +25,9 @@ const Settings: FC<SettingsProps> = (props) => {
 
   return (
     <div>
-      <Modal
-        open={settingsOpen}
-        onClose={onClose}
-        icon={<FiX size={26} />}
-        showCloseIcon={true}
-      >
+      <Modal open={settingsOpen} onClose={onClose} icon={<FiX size={26} />} showCloseIcon={true}>
         <div className="body-l relative z-[99] w-[800px] rounded-[10px] bg-neutral-white p-[30px] text-neutral-medium-gray shadow-[0_4px_8px_0_rgba(0,0,0,0.12)]">
-          <div className="text-h3 mb-[30px] text-neutral-black">
-            Change Password
-          </div>
+          <div className="text-h3 mb-[30px] text-neutral-black">Change Password</div>
           {!changeSeccessVisible && (
             <ChangePassword
               onClose={() => setSettingsOpen(false)}
@@ -44,10 +37,7 @@ const Settings: FC<SettingsProps> = (props) => {
             />
           )}
 
-          <ChangeSuccess
-            onClose={() => setSettingsOpen(false)}
-            show={changeSeccessVisible}
-          />
+          <ChangeSuccess onClose={() => setSettingsOpen(false)} show={changeSeccessVisible} />
         </div>
       </Modal>
     </div>

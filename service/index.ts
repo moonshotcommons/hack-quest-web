@@ -6,6 +6,8 @@ import LearningTrackApi from './webApi/learningTrack';
 import MissionCenterApi from './webApi/missionCenter';
 import PreviewApi from './webApi/preview';
 import UserApi from './webApi/user';
+import UgcCreateApi from './webApi/ugcCreate';
+import LaunchPoolApi from './webApi/launchPool';
 
 class WebApi {
   protected baseURL: string;
@@ -20,6 +22,8 @@ class WebApi {
   previewApi: PreviewApi;
   userApi: UserApi;
   resourceStationApi: ResourceStationApi;
+  ugcCreateApi: UgcCreateApi;
+  launchPoolApi: LaunchPoolApi;
 
   constructor(baseURL: string) {
     this.baseURL = baseURL;
@@ -35,15 +39,15 @@ class WebApi {
     this.missionCenterApi = new MissionCenterApi(this.service);
     this.previewApi = new PreviewApi(this.service);
     this.userApi = new UserApi(this.service);
+    this.ugcCreateApi = new UgcCreateApi(this.service);
+    this.launchPoolApi = new LaunchPoolApi(this.service);
   }
 }
 
 let webApi = null;
 
 if (!webApi) {
-  webApi = new WebApi(
-    process.env.BACKEND_BASE_URL || 'https://api.dev.hackquest.io/v1/'
-  );
+  webApi = new WebApi(process.env.BACKEND_BASE_URL || 'https://api.dev.hackquest.io/v1/');
 }
 
 export default webApi as WebApi;

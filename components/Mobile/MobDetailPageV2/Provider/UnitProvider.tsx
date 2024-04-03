@@ -23,9 +23,7 @@ const UnitProvider: FC<UnitProviderProps> = ({ unit: propUnit, children }) => {
     return propUnit;
   }, [propUnit, courseDetail]);
 
-  return (
-    <UnitContext.Provider value={{ unit }}>{children}</UnitContext.Provider>
-  );
+  return <UnitContext.Provider value={{ unit }}>{children}</UnitContext.Provider>;
 };
 
 export default UnitProvider;

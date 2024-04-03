@@ -13,12 +13,7 @@ const PeopleJoined: FC<PeopleJoinedProps> = (props) => {
       {avatars.map((avatar) => {
         return (
           <div key={avatar.id} className="-ml-2">
-            <Image
-              src={avatar.url}
-              alt="avatar"
-              width={itemSize}
-              height={itemSize}
-            ></Image>
+            <Image src={avatar.url} alt="avatar" width={itemSize} height={itemSize}></Image>
           </div>
         );
       })}

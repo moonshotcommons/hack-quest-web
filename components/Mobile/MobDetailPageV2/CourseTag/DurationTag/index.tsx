@@ -9,13 +9,7 @@ interface DurationTagProps {
 }
 
 const defaultIcon = (
-  <svg
-    width="32"
-    height="33"
-    viewBox="0 0 32 33"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+  <svg width="32" height="33" viewBox="0 0 32 33" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
       d="M16.019 2.72224C23.8634 2.74004 30.2423 9.13459 30.2245 16.9623C30.2067 24.8066 23.8122 31.1845 15.9834 31.1667C8.13904 31.1489 1.76007 24.7543 1.77787 16.9267C1.79567 9.0834 8.19022 2.70443 16.019 2.72224ZM28.0136 16.9344C28.0014 10.2996 22.6127 4.92088 15.9912 4.93312C9.3563 4.94536 3.97652 10.3341 3.98876 16.9545C4.001 23.5894 9.38968 28.968 16.0112 28.9558C22.6461 28.9436 28.0259 23.5549 28.0136 16.9344Z"
       fill="#3E3E3E"
@@ -27,26 +21,16 @@ const defaultIcon = (
   </svg>
 );
 
-const DurationTag: FC<DurationTagProps> = ({
-  icon,
-  label,
-  value,
-  valueNode,
-  ...rest
-}) => {
+const DurationTag: FC<DurationTagProps> = ({ icon, label, value, valueNode, ...rest }) => {
   return (
     <div className="flex items-center gap-3" {...rest}>
       {icon ? icon : defaultIcon}
       <div className="flex flex-col">
         {!!label && label}
-        {!label && (
-          <span className="body-xs text-neutral-medium-gray">Total Length</span>
-        )}
+        {!label && <span className="body-xs text-neutral-medium-gray">Total Length</span>}
         {!!valueNode && valueNode}
         {!valueNode && value && (
-          <span className="body-s-bold lowercase">
-            {computeTime(Number(value), 'Hour', false)}h
-          </span>
+          <span className="body-s-bold lowercase">{computeTime(Number(value), 'Hour', false)}h</span>
         )}
       </div>
     </div>

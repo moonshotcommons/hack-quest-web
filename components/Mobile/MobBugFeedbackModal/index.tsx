@@ -2,16 +2,7 @@ import { forwardRef, useImperativeHandle, useRef, useState } from 'react';
 import Modal from '@/components/Common/Modal';
 import Button from '@/components/Common/Button';
 import { cn } from '@/helper/utils';
-import {
-  Checkbox,
-  Form,
-  FormInstance,
-  Image,
-  Input,
-  UploadFile,
-  UploadProps,
-  message
-} from 'antd';
+import { Checkbox, Form, FormInstance, Image, Input, UploadFile, UploadProps, message } from 'antd';
 import { Upload } from 'antd';
 import { IoMdAddCircle } from 'react-icons/io';
 import { RcFile } from 'antd/es/upload';
@@ -20,14 +11,7 @@ import { useRequest } from 'ahooks';
 
 interface MobBugFeedbackModalProps {}
 
-const validImageType = [
-  'image/jpeg',
-  'image/png',
-  'image/gif',
-  'image/bmp',
-  'image/webp',
-  'image/svg+xml'
-];
+const validImageType = ['image/jpeg', 'image/png', 'image/gif', 'image/bmp', 'image/webp', 'image/svg+xml'];
 
 export interface MobBugFeedbackModalRef {
   onCommit: (params: Record<string, any>) => void;
@@ -43,10 +27,7 @@ const kinds = [
 
 type A = (typeof kinds)[number];
 
-const MobBugFeedbackModal = forwardRef<
-  MobBugFeedbackModalRef,
-  MobBugFeedbackModalProps
->((props, ref) => {
+const MobBugFeedbackModal = forwardRef<MobBugFeedbackModalRef, MobBugFeedbackModalProps>((props, ref) => {
   const [open, setOpen] = useState(false);
   const [selectKinds, setSelectKinds] = useState<string[]>([]);
   const formRef = useRef<
@@ -72,13 +53,8 @@ const MobBugFeedbackModal = forwardRef<
   const beforeUpload = (file: RcFile) => {
     const isImage = validImageType.includes(file.type);
     if (!isImage) {
-      let validFileTypeString = validImageType
-        .map((item) => item.replace('image/', ''))
-        .join(',');
-      message.error(
-        `Unsupported image types. Currently supported image types are ${validFileTypeString}!`,
-        3
-      );
+      let validFileTypeString = validImageType.map((item) => item.replace('image/', '')).join(',');
+      message.error(`Unsupported image types. Currently supported image types are ${validFileTypeString}!`, 3);
       // return false;
     }
 
@@ -88,9 +64,7 @@ const MobBugFeedbackModal = forwardRef<
       message.error(`File ${file.name} exceeds the 10MB size limit!`);
     }
 
-    return (
-      (validImageType.includes(file.type) && isValidSize) || Upload.LIST_IGNORE
-    );
+    return (validImageType.includes(file.type) && isValidSize) || Upload.LIST_IGNORE;
   };
 
   const uploadProps: UploadProps = {
@@ -166,28 +140,12 @@ const MobBugFeedbackModal = forwardRef<
 
   const FullUploadButton = (
     <div className="flex w-full items-center justify-center gap-[8px]">
-      <svg
-        width="23"
-        height="23"
-        viewBox="0 0 23 23"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
+      <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="11.5" cy="11.5" r="11.5" fill="#8C8C8C" />
         <rect x="10" y="5.00391" width="3" height="13" rx="1.5" fill="white" />
-        <rect
-          x="18"
-          y="10.0039"
-          width="3"
-          height="13"
-          rx="1.5"
-          transform="rotate(90 18 10.0039)"
-          fill="white"
-        />
+        <rect x="18" y="10.0039" width="3" height="13" rx="1.5" transform="rotate(90 18 10.0039)" fill="white" />
       </svg>
-      <span className="body-s text-neutral-medium-gray">
-        Add attachments to your report (optional){' '}
-      </span>
+      <span className="body-s text-neutral-medium-gray">Add attachments to your report (optional) </span>
     </div>
   );
   return (
@@ -202,42 +160,20 @@ const MobBugFeedbackModal = forwardRef<
       showCloseIcon
       icon={
         <div className="absolute right-0 top-0 cursor-pointer">
-          <svg
-            width="30"
-            height="30"
-            viewBox="0 0 30 30"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <line
-              x1="22.2734"
-              y1="22.2745"
-              x2="7.42416"
-              y2="7.42521"
-              stroke="#0B0B0B"
-            />
-            <line
-              x1="7.42574"
-              y1="22.2744"
-              x2="22.275"
-              y2="7.42513"
-              stroke="#0B0B0B"
-            />
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="22.2734" y1="22.2745" x2="7.42416" y2="7.42521" stroke="#0B0B0B" />
+            <line x1="7.42574" y1="22.2744" x2="22.275" y2="7.42513" stroke="#0B0B0B" />
           </svg>
         </div>
       }
       markBg="black"
     >
       <div className="max-h-[90vh] w-full  overflow-auto rounded-[10px] bg-neutral-off-white p-[1.25rem] pt-[1.875rem]">
-        <h1 className="text-h3 text-neutral-black">
-          Found a bug? Claim rewards!
-        </h1>
+        <h1 className="text-h3 text-neutral-black">Found a bug? Claim rewards!</h1>
         <p className="body-s mt-[10px] text-neutral-black">
           {`HackQuest is currently in beta, and your feedback is crucial. If you come across any bug or error while learning, report it to us. Once verified,  we'll reward you with XP and hack credits. Join us in delivering a better experience! 🐞🚀`}
         </p>
-        <p className="body-l mt-[30px] text-neutral-black">
-          What kind of bugs have you found1111?
-        </p>
+        <p className="body-l mt-[30px] text-neutral-black">What kind of bugs have you found1111?</p>
         <Form ref={formRef} name="control-hooks">
           <div className="relative mt-[10px] flex flex-wrap gap-[10px]">
             {kinds.map((kind, index) => {
@@ -246,9 +182,7 @@ const MobBugFeedbackModal = forwardRef<
                   key={index}
                   className={cn(
                     `body-xs rounded-[10px] bg-[#DADADA] px-[14px] py-[3px] text-neutral-medium-gray`,
-                    selectKinds.includes(kind)
-                      ? 'bg-yellow-primary text-neutral-black'
-                      : ''
+                    selectKinds.includes(kind) ? 'bg-yellow-primary text-neutral-black' : ''
                   )}
                   onClick={() => {
                     let kinds = [];
@@ -315,11 +249,7 @@ const MobBugFeedbackModal = forwardRef<
                 return (
                   <div className="relative h-[64px] w-[64px]">
                     <div className="h-full w-full overflow-hidden rounded-[10px] border border-neutral-medium-gray">
-                      <Image
-                        alt={file.fileName}
-                        src={file.thumbUrl}
-                        className="block h-full w-full"
-                      ></Image>
+                      <Image alt={file.fileName} src={file.thumbUrl} className="block h-full w-full"></Image>
                     </div>
 
                     <svg
@@ -330,9 +260,7 @@ const MobBugFeedbackModal = forwardRef<
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
                       onClick={() => {
-                        setFileList(
-                          fileList.filter((item) => file.uid !== item.uid)
-                        );
+                        setFileList(fileList.filter((item) => file.uid !== item.uid));
                       }}
                     >
                       <circle
@@ -385,13 +313,7 @@ const MobBugFeedbackModal = forwardRef<
               className="body-l py-[16px] text-neutral-black"
               iconPosition="right"
               icon={
-                <svg
-                  width="14"
-                  height="17"
-                  viewBox="0 0 14 17"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
+                <svg width="14" height="17" viewBox="0 0 14 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
                     d="M3 3L10.5 8.29412L3 13.5882"
                     stroke="#0B0B0B"

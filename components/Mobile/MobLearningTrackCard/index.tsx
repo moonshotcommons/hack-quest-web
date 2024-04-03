@@ -4,11 +4,11 @@ import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import CourseTags from '@/components/Web/Business/CourseTags';
-import { useRedirect } from '@/hooks/useRedirect';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import { cn } from '@/helper/utils';
 import LearningTrackImg from '@/public/images/home/learningtrack_img.png';
-import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import { useJumpLeaningLesson } from '@/hooks/courses/useJumpLeaningLesson';
+import MenuLink from '@/constants/MenuLink';
 interface MobLearningTrackCardProps {
   learningTrack: LearningTrackDetailType;
   isLandingPage?: boolean;
@@ -23,8 +23,7 @@ const MobLearningTrackCard: React.FC<MobLearningTrackCardProps> = ({
   from = 'dashboard'
 }) => {
   const { redirectToUrl } = useRedirect();
-  const [learningTrack, setLearningTrack] =
-    useState<LearningTrackDetailType>(track);
+  const [learningTrack, setLearningTrack] = useState<LearningTrackDetailType>(track);
 
   const { jumpLearningLesson, loading: jumpLoading } = useJumpLeaningLesson();
   useEffect(() => {
@@ -64,19 +63,9 @@ const MobLearningTrackCard: React.FC<MobLearningTrackCardProps> = ({
         </div>
         {from === 'dashboard' && learningTrack.progress === 1 && (
           <div className={`h-[3rem]`}>
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 32 32"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
+            <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
               <circle cx="16" cy="16" r="16" fill="#00C365" />
-              <path
-                d="M8 15.9999L14.4 22.3999L25.6 11.1999"
-                stroke="white"
-                strokeLinecap="round"
-              />
+              <path d="M8 15.9999L14.4 22.3999L25.6 11.1999" stroke="white" strokeLinecap="round" />
             </svg>
           </div>
         )}
@@ -92,9 +81,7 @@ const MobLearningTrackCard: React.FC<MobLearningTrackCardProps> = ({
       <div className="body-m-bold mt-[-1.8rem] line-clamp-1 w-[calc(100%-3rem)] text-neutral-off-black">
         {learningTrack.name}
       </div>
-      <div className="body-xs line-clamp-2  text-neutral-medium-gray">
-        {learningTrack.description}
-      </div>
+      <div className="body-xs line-clamp-2  text-neutral-medium-gray">{learningTrack.description}</div>
       <div>
         <CourseTags
           language={learningTrack.language}

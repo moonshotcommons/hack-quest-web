@@ -63,10 +63,7 @@ const CourseFilterList = <T extends CourseBaseType>({
           {/* {courseList?.map((course, index) => {
               return <div key={course.id + index}>{renderItem(course)}</div>;
             })} */}
-          <CourseCardSkeleton.List
-            itemWidth={cardWidth}
-            active={loading as boolean}
-          >
+          <CourseCardSkeleton.List itemWidth={cardWidth} active={loading as boolean}>
             {courseList?.map((course, index) => {
               return (
                 <div key={course.id + index} className={`${cardWidth}`}>

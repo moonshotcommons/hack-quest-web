@@ -48,9 +48,7 @@ const MobCourseFilterList = <T extends { id: string }>({
   const filterModalInstance = useRef<FilterModalRef>(null);
 
   const isSelectFilter = useMemo(() => {
-    return !!filters.find((filter) =>
-      filter.options.find((option) => option.isSelect && option.value)
-    );
+    return !!filters.find((filter) => filter.options.find((option) => option.isSelect && option.value));
   }, [filters]);
 
   return (
@@ -68,12 +66,7 @@ const MobCourseFilterList = <T extends { id: string }>({
       <Loading loading={!!loading}>
         <div className={cn('h-fit min-h-[15rem] w-full')}>
           {/* {!!courseList?.length && ( */}
-          <div
-            className={cn(
-              'flex h-full flex-col gap-y-[1.25rem] pb-[1.25rem]',
-              listClassName
-            )}
-          >
+          <div className={cn('flex h-full flex-col gap-y-[1.25rem] pb-[1.25rem]', listClassName)}>
             {courseList?.map((course, index) => {
               return (
                 <div key={course.id + index} className="w-full">

@@ -2,10 +2,7 @@ import Button from '@/components/Common/Button';
 import ClockIcon from '@/components/Common/Icon/Clock';
 import CourseIcon from '@/components/Common/Icon/Course';
 import { computeTime, tagFormate } from '@/helper/formate';
-import {
-  CourseDetailType,
-  ProjectCourseType
-} from '@/service/webApi/course/type';
+import { CourseDetailType, ProjectCourseType } from '@/service/webApi/course/type';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import { FC } from 'react';
 import CourseLevel from '@/components/Web/Business/CourseTags/CourseLevel';
@@ -32,20 +29,13 @@ function UnProgressHeaderRight(
     <div className="flex w-[445px] max-w-[445px] flex-col border-t border-neutral-black">
       <div className="flex items-center justify-between border-b border-neutral-black px-[15px] py-5">
         <span className="body-l-bold">Experience</span>
-        <CourseLevel
-          level={tagFormate(detail.level as string)}
-          size="large"
-        ></CourseLevel>
+        <CourseLevel level={tagFormate(detail.level as string)} size="large"></CourseLevel>
       </div>
       <div className="flex items-center justify-between border-b border-neutral-black px-[15px] py-5">
         <span className="body-l-bold">Duration</span>
 
         <div className="flex w-[151px] items-center pl-[21px]">
-          <Tag
-            icon={<ClockIcon size={25} />}
-            size="large"
-            className="body-m gap-[28px] text-neutral-black"
-          >
+          <Tag icon={<ClockIcon size={25} />} size="large" className="body-m gap-[28px] text-neutral-black">
             {computeTime(detail.duration, 'Hour')}
           </Tag>
         </div>
@@ -56,15 +46,9 @@ function UnProgressHeaderRight(
           {type === 'learning-track' && 'Total Courses'}
         </span>
         <div className="flex w-[151px] items-center pl-[21px]">
-          <Tag
-            icon={<CourseIcon size={23} />}
-            size="large"
-            className="body-m gap-[28px] text-neutral-black"
-          >
-            {type === 'course' &&
-              itemCount + ' ' + `${itemCount > 1 ? 'Units' : 'Unit'}`}
-            {type === 'learning-track' &&
-              itemCount + ' ' + `${itemCount > 1 ? 'Courses' : 'Course'}`}
+          <Tag icon={<CourseIcon size={23} />} size="large" className="body-m gap-[28px] text-neutral-black">
+            {type === 'course' && itemCount + ' ' + `${itemCount > 1 ? 'Units' : 'Unit'}`}
+            {type === 'learning-track' && itemCount + ' ' + `${itemCount > 1 ? 'Courses' : 'Course'}`}
           </Tag>
         </div>
       </div>
@@ -108,8 +92,7 @@ function InProgressHeaderRight(
           type="primary"
           onClick={resumeCallback}
         >
-          {type === 'course' &&
-            (!!detail.progress && detail.progress <= 0 ? 'Start' : 'Resume')}
+          {type === 'course' && (!!detail.progress && detail.progress <= 0 ? 'Start' : 'Resume')}
           {type === 'learning-track' && learningCourse
             ? !!learningCourse.progress && learningCourse.progress <= 0
               ? 'Start'
@@ -132,24 +115,13 @@ const HeaderRight: FC<HeaderRightProps> = (props) => {
     resumeLoading = false
   } = props;
 
-  if (
-    type === 'learning-track' &&
-    !(detail as LearningTrackDetailType).enrolled
-  ) {
+  if (type === 'learning-track' && !(detail as LearningTrackDetailType).enrolled) {
   }
 
   switch (learningStatus) {
     case LearningStatus.IN_PROGRESS:
       let nextInfo = props.nextInfo || { title: '', content: '' };
-      return InProgressHeaderRight(
-        nextInfo,
-        detail,
-        itemCount,
-        type,
-        resumeCallback,
-        learningCourse,
-        resumeLoading
-      );
+      return InProgressHeaderRight(nextInfo, detail, itemCount, type, resumeCallback, learningCourse, resumeLoading);
     case LearningStatus.COMPLETED:
     case LearningStatus.UN_START:
       return UnProgressHeaderRight(detail, itemCount, type);

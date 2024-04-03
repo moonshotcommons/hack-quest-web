@@ -15,13 +15,7 @@ interface CheckboxProps {
 }
 
 const Checkbox: FC<CheckboxProps> = (props) => {
-  const {
-    checked: propsChecked = false,
-    onChange,
-    outClassNames,
-    innerClassNames,
-    isCircle = false
-  } = props;
+  const { checked: propsChecked = false, onChange, outClassNames, innerClassNames, isCircle = false } = props;
 
   const [checked, setChecked] = useState(propsChecked);
 

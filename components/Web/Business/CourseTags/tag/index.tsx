@@ -8,9 +8,7 @@ interface TagProps {
   size?: 'small' | 'large';
 }
 
-const Tag: React.FC<
-  TagProps & Omit<React.HTMLAttributes<HTMLElement>, 'className'>
-> = (props) => {
+const Tag: React.FC<TagProps & Omit<React.HTMLAttributes<HTMLElement>, 'className'>> = (props) => {
   const { icon, children, className, size = 'small', ...rest } = props;
 
   return (

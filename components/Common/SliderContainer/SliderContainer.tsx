@@ -1,7 +1,7 @@
 import type { ReactElement } from 'react';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 
-import useResizeObserver from '@/hooks/useDomHooks/useResizeObserver';
+import useResizeObserver from '@/hooks/dom/useResizeObserver';
 import LeftArrowIcon from '../Icon/LeftArrow';
 import RightArrowIcon from '../Icon/RightArrow';
 
@@ -13,10 +13,7 @@ export interface SliderContainerProps {
 const LEFT = 'left';
 const RIGHT = 'right';
 
-export const SliderContainer: React.FC<SliderContainerProps> = ({
-  width = 'inherit',
-  children
-}) => {
+export const SliderContainer: React.FC<SliderContainerProps> = ({ width = 'inherit', children }) => {
   const listRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const containerWidth = useResizeObserver(containerRef);
@@ -26,11 +23,7 @@ export const SliderContainer: React.FC<SliderContainerProps> = ({
   const cache = useRef(containerWidth);
 
   useEffect(() => {
-    if (
-      containerWidth > cache.current &&
-      translateX < 0 &&
-      listWidth - Math.abs(translateX) - containerWidth <= 0
-    ) {
+    if (containerWidth > cache.current && translateX < 0 && listWidth - Math.abs(translateX) - containerWidth <= 0) {
       const distance = containerWidth - cache.current;
       setTranslateX((cur) => cur + distance);
     }
@@ -78,10 +71,7 @@ export const SliderContainer: React.FC<SliderContainerProps> = ({
   };
 
   return (
-    <div
-      ref={containerRef}
-      className={`relative flex h-auto w-auto overflow-hidden`}
-    >
+    <div ref={containerRef} className={`relative flex h-auto w-auto overflow-hidden`}>
       {leftArrowVisible && (
         <>
           <div

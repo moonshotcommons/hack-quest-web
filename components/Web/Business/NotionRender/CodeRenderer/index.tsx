@@ -7,10 +7,7 @@ import { ThemeContext } from '@/store/context/theme';
 import { message } from 'antd';
 import { FC, useContext, useEffect, useRef, useState } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import {
-  oneDark,
-  oneLight
-} from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import { oneDark, oneLight } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 
 interface CodeSourceType {
   content: {
@@ -35,36 +32,26 @@ const CodeRenderer: FC<CodeRendererProps> = (props) => {
   const { isPlayground } = useContext(PlaygroundContext);
   useEffect(() => {
     if (component.content.rich_text) {
-      const code = component.content.rich_text
-        .map((richText: any) => richText.plain_text)
-        .join('');
+      const code = component.content.rich_text.map((richText: any) => richText.plain_text).join('');
       setCodeContent(code);
       updateExampleContent(code);
     }
   }, [component.content.rich_text, updateExampleContent]);
 
   return (
-    <div
-      className={`relative flex-1 overflow-hidden rounded-md ${
-        isPlayground ? 'flex flex-col' : ''
-      }`}
-    >
+    <div className={`relative flex-1 overflow-hidden rounded-md ${isPlayground ? 'flex flex-col' : ''}`}>
       <div className="relative h-[6px] rounded-t-[4.8px] bg-[#fafafa]">
         <div
           className="absolute right-[9px] top-[9px] z-[10] cursor-pointer rounded-[0.5rem] text-[#E3E3E3]"
           onClick={async (e) => {
             try {
               await navigator.clipboard.writeText(
-                component.content.rich_text
-                  .map((richText: any) => richText.plain_text)
-                  .join('')
+                component.content.rich_text.map((richText: any) => richText.plain_text).join('')
               );
               BurialPoint.track('lesson-code复制');
               message.success('Copy success!');
             } catch (e) {
-              message.warning(
-                'The browser version is too low or incompatible！'
-              );
+              message.warning('The browser version is too low or incompatible！');
             }
           }}
         >

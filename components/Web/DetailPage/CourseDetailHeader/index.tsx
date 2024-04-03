@@ -36,8 +36,7 @@ const CourseDetailHeader: FC<CourseDetailHeaderProps> = (props) => {
       <div className="mt-[10px] flex justify-between gap-[50px]">
         <div>
           <h1 className="text-h2 whitespace-nowrap text-neutral-black">
-            {(courseDetail as LearningTrackDetailType).name ||
-              (courseDetail as CourseDetailType).title}
+            {(courseDetail as LearningTrackDetailType).name || (courseDetail as CourseDetailType).title}
           </h1>
           <Typography.Paragraph
             // ellipsis={{ rows: 3 }}
@@ -64,16 +63,12 @@ const CourseDetailHeader: FC<CourseDetailHeaderProps> = (props) => {
           {/* 进度条 */}
           {learningStatus === LearningStatus.IN_PROGRESS && (
             <div className="mt-[31px]">
-              <CourseProgress
-                progress={Math.floor((courseDetail.progress || 0) * 100)}
-              ></CourseProgress>
+              <CourseProgress progress={Math.floor((courseDetail.progress || 0) * 100)}></CourseProgress>
             </div>
           )}
           {/* 进度条 */}
           {learningStatus === LearningStatus.COMPLETED && (
-            <div className="body-xl mt-[58px] text-neutral-black">
-              {`You’ve finished this ${tagFormate(courseDetail.type)}.`}
-            </div>
+            <div className="body-xl mt-[58px] text-neutral-black">{`You’ve finished this ${tagFormate(courseDetail.type)}.`}</div>
           )}
 
           {learningStatus === LearningStatus.UN_START && (
@@ -94,9 +89,7 @@ const CourseDetailHeader: FC<CourseDetailHeaderProps> = (props) => {
 
         {/* 中间竖线 */}
         {learningStatus === LearningStatus.IN_PROGRESS && (
-          <div className="mt-[29px] h-[185px] w-[1px] scale-x-50 bg-neutral-black">
-            &nbsp;
-          </div>
+          <div className="mt-[29px] h-[185px] w-[1px] scale-x-50 bg-neutral-black">&nbsp;</div>
         )}
         <div className="pt-[42px]">{rightComponent} </div>
       </div>

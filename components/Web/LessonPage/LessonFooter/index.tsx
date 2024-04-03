@@ -1,6 +1,6 @@
 import { LessonContent } from '@/components/Web/Business/Renderer/type';
 import Button from '@/components/Common/Button';
-import { useUnitNavList } from '@/hooks/useUnitNavList';
+import { useUnitNavList } from '@/hooks/courses/useUnitNavList';
 import { CourseLessonType } from '@/service/webApi/course/type';
 import React, { useContext, useEffect } from 'react';
 import { LessonPageContext } from '../type';
@@ -10,11 +10,7 @@ interface LessonFooterProps {
   onNextClick: VoidFunction;
 }
 const LessonFooter: React.FC<LessonFooterProps> = ({ lesson, onNextClick }) => {
-  const {
-    unitNavList = [],
-    currentUnitIndex,
-    refreshNavList
-  } = useUnitNavList(lesson as any);
+  const { unitNavList = [], currentUnitIndex, refreshNavList } = useUnitNavList(lesson as any);
 
   const { isHandleNext, nextLoading } = useContext(LessonPageContext);
   const handleNext = () => {

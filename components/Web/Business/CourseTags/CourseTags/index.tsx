@@ -58,9 +58,7 @@ const CourseTags: FC<CourseTagsProps> = (props) => {
         {type === 'learning-track' &&
           unitCount + ' ' + `${unitCount > 1 ? 'Courses' : 'Course'}`}
       </Tag> */}
-      {type !== 'learning-track' && (
-        <CourseLevel level={tagFormate(level)} size={size}></CourseLevel>
-      )}
+      {type !== 'learning-track' && <CourseLevel level={tagFormate(level)} size={size}></CourseLevel>}
     </div>
   );
 };

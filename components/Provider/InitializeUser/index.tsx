@@ -1,7 +1,7 @@
 'use client';
-import { useGetMissionData } from '@/hooks/useGetMissionData';
-import { useLoadUserInfo } from '@/hooks/useGetUserInfo';
-import useNavAuth from '@/hooks/useNavPage/userNavAuth';
+import { useGetMissionData } from '@/hooks/mission/useGetMissionData';
+import { useLoadUserInfo } from '@/hooks/auth/useGetUserInfo';
+import useNavAuth from '@/hooks/router/userNavAuth';
 import { useUserStore } from '@/store/zustand/userStore';
 import { FC, ReactNode, useEffect } from 'react';
 
@@ -9,9 +9,7 @@ interface InitializeUserProviderProps {
   children: ReactNode;
 }
 
-const InitializeUserProvider: FC<InitializeUserProviderProps> = ({
-  children
-}) => {
+const InitializeUserProvider: FC<InitializeUserProviderProps> = ({ children }) => {
   const { waitingLoadUserInfo } = useLoadUserInfo();
   useNavAuth(waitingLoadUserInfo);
   const userInfo = useUserStore((state) => state.userInfo);

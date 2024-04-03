@@ -7,10 +7,7 @@ import { ThemeContext } from '@/store/context/theme';
 import { message } from 'antd';
 import { FC, useContext, useEffect, useRef, useState } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import {
-  oneDark,
-  oneLight
-} from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import { oneDark, oneLight } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 
 interface CodeSourceType {
   content: {
@@ -35,9 +32,7 @@ const CodeRenderer: FC<CodeRendererProps> = (props) => {
   const { isPlayground } = useContext(PlaygroundContext);
   useEffect(() => {
     if (component.content.rich_text) {
-      const code = component.content.rich_text
-        .map((richText: any) => richText.plain_text)
-        .join('');
+      const code = component.content.rich_text.map((richText: any) => richText.plain_text).join('');
       setCodeContent(code);
       updateExampleContent(code);
     }
@@ -51,16 +46,12 @@ const CodeRenderer: FC<CodeRendererProps> = (props) => {
           onClick={async (e) => {
             try {
               await navigator.clipboard.writeText(
-                component.content.rich_text
-                  .map((richText: any) => richText.plain_text)
-                  .join('')
+                component.content.rich_text.map((richText: any) => richText.plain_text).join('')
               );
               BurialPoint.track('lesson-code复制');
               message.success('Copy success!');
             } catch (e) {
-              message.warning(
-                'The browser version is too low or incompatible！'
-              );
+              message.warning('The browser version is too low or incompatible！');
             }
           }}
         >

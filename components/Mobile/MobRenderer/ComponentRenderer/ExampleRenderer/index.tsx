@@ -34,23 +34,14 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
   }, [component]);
 
   return (
-    <div
-      className={`w-full rounded-[.5rem] bg-neutral-light-gray px-[1.25rem] py-[12px]`}
-    >
-      <div
-        className="flex items-center justify-between"
-        onClick={() => setExpand(!expand)}
-      >
-        <span className="b relative inline-flex items-center">
-          {component.title || 'Example'}
-        </span>
+    <div className={`w-full rounded-[.5rem] bg-neutral-light-gray px-[1.25rem] py-[12px]`}>
+      <div className="flex items-center justify-between" onClick={() => setExpand(!expand)}>
+        <span className="b relative inline-flex items-center">{component.title || 'Example'}</span>
         <span>
           <FiChevronDown
             size={28}
             color=""
-            className={`${
-              expand ? 'rotate-180' : '0'
-            } cursor-pointer transition-transform`}
+            className={`${expand ? 'rotate-180' : '0'} cursor-pointer transition-transform`}
           ></FiChevronDown>
         </span>
       </div>
@@ -63,13 +54,7 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
             }}
           >
             {component.children.map((child) => {
-              return (
-                <ComponentRenderer
-                  key={child.id}
-                  component={child}
-                  parent={component}
-                ></ComponentRenderer>
-              );
+              return <ComponentRenderer key={child.id} component={child} parent={component}></ComponentRenderer>;
             })}
           </ExampleContext.Provider>
           {!!component.codeFiles?.length && (
@@ -81,9 +66,7 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
                       key={`${codeFile.filename}-${index}`}
                       className={cn(
                         'cursor-pointer rounded-t-[10px]  px-[10px] py-[3px]',
-                        index === activeFileIndex
-                          ? 'bg-[#fafafa]'
-                          : 'bg-[#ececec]'
+                        index === activeFileIndex ? 'bg-[#fafafa]' : 'bg-[#ececec]'
                       )}
                       onClick={() => setActiveFileIndex(index)}
                     >
@@ -95,8 +78,7 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
               <div className="relative mb-[20px] flex flex-col rounded-[10px] rounded-tl-[0px] bg-[#fafafa]">
                 <ExampleContext.Provider
                   value={{
-                    updateExampleContent: (value: string) =>
-                      setExampleContent(value),
+                    updateExampleContent: (value: string) => setExampleContent(value),
                     isExample: true
                   }}
                 >
@@ -114,11 +96,7 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
 
       {expand && component.renderIdeBtn && (
         <Link
-          href={`${
-            component.ideUrl ||
-            process.env.IDE_URL ||
-            'https://ide.dev.hackquest.io'
-          }?code=${encodeURIComponent(
+          href={`${component.ideUrl || process.env.IDE_URL || 'https://ide.dev.hackquest.io'}?code=${encodeURIComponent(
             LzString.compressToBase64(exampleContent)
           )}`}
           target="_blank"

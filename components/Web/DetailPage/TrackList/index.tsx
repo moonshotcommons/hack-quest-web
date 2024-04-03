@@ -1,7 +1,4 @@
-import {
-  LearningTrackDetailType,
-  SectionType
-} from '@/service/webApi/learningTrack/type';
+import { LearningTrackDetailType, SectionType } from '@/service/webApi/learningTrack/type';
 import { FC, useEffect, useState } from 'react';
 import SectionCard from './SectionCard';
 

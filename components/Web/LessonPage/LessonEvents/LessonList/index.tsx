@@ -1,6 +1,6 @@
 import { BurialPoint } from '@/helper/burialPoint';
-import { useGetLessonLink } from '@/hooks/useCoursesHooks/useGetLessonLink';
-import { useRedirect } from '@/hooks/useRedirect';
+import { useGetLessonLink } from '@/hooks/courses/useGetLessonLink';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import ArrowLeft from '@/public/images/lesson/arrow_left_line.svg';
 import Complete from '@/public/images/lesson/complete.svg';
 import CompleteActive from '@/public/images/lesson/complete_active.svg';
@@ -19,12 +19,7 @@ interface LessonListType {
   courseType: CourseType;
   changeToggle: (toggle: boolean) => void;
 }
-const LessonList: React.FC<LessonListType> = ({
-  unitData,
-  lesson,
-  courseType,
-  changeToggle
-}) => {
+const LessonList: React.FC<LessonListType> = ({ unitData, lesson, courseType, changeToggle }) => {
   const [lessonList, setLessonList] = useState<CourseLessonStateType[]>([]);
 
   const [unitName, setUnitName] = useState('');
@@ -50,9 +45,7 @@ const LessonList: React.FC<LessonListType> = ({
   };
 
   useEffect(() => {
-    const unit = unitData.find(
-      (v) => v.id === lesson.unitId
-    ) as UnitPagesListType;
+    const unit = unitData.find((v) => v.id === lesson.unitId) as UnitPagesListType;
     getChildren(unit);
   }, []);
 
@@ -63,14 +56,8 @@ const LessonList: React.FC<LessonListType> = ({
           <div
             key={v.id}
             className={`flex h-[54px] w-full items-center  px-5 text-[21px] tracking-[0.42px]   ${
-              v.id === lesson.unitId
-                ? 'bg-lesson-events-toggle-list-active-bg'
-                : ''
-            } ${
-              !v.disable
-                ? 'cursor-pointer hover:bg-lesson-events-toggle-list-active-bg'
-                : 'cursor-not-allowed'
-            }`}
+              v.id === lesson.unitId ? 'bg-lesson-events-toggle-list-active-bg' : ''
+            } ${!v.disable ? 'cursor-pointer hover:bg-lesson-events-toggle-list-active-bg' : 'cursor-not-allowed'}`}
             onClick={() => getChildren(v)}
             title={v.title}
           >
@@ -92,24 +79,14 @@ const LessonList: React.FC<LessonListType> = ({
               <div
                 key={v.id}
                 className={`flex-row-center h-[54px]  w-full justify-between px-5 ${
-                  v.id === lesson.id
-                    ? 'bg-lesson-events-toggle-list-active-bg'
-                    : ''
-                } ${
-                  !v.disable
-                    ? 'cursor-pointer hover:bg-lesson-events-toggle-list-active-bg'
-                    : 'cursor-not-allowed'
-                }`}
+                  v.id === lesson.id ? 'bg-lesson-events-toggle-list-active-bg' : ''
+                } ${!v.disable ? 'cursor-pointer hover:bg-lesson-events-toggle-list-active-bg' : 'cursor-not-allowed'}`}
                 title={v.title}
                 onClick={() => handleUnit(v)}
               >
                 <p className="body-s-bold w-[100%] truncate">{v.title}</p>
                 <Image
-                  src={
-                    v.state === CompleteStateType.COMPLETED
-                      ? CompleteActive
-                      : Complete
-                  }
+                  src={v.state === CompleteStateType.COMPLETED ? CompleteActive : Complete}
                   alt="complete"
                   width={20}
                   height={20}

@@ -1,0 +1,60 @@
+'use client';
+import React, { useState } from 'react';
+import webApi from '@/service';
+
+import { message } from 'antd';
+import { BurialPoint } from '@/helper/burialPoint';
+import { useGetMissionData } from '@/hooks/mission/useGetMissionData';
+import { MissionCenterContext } from '../constants/type';
+import UserInfo from './UserInfo';
+import ClaimContent from './ClaimContent';
+import { useUserStore } from '@/store/zustand/userStore';
+import { LoginResponse } from '@/service/webApi/user/type';
+
+function MissionCenter() {
+  const userInfo = useUserStore((state) => state.userInfo);
+  const { updateMissionDataAll } = useGetMissionData();
+  const [loading, setLoading] = useState(false);
+  const [missionIds, setMissionIds] = useState<string[]>([]);
+
+  const missionClaim = (missionIds: string[], cb?: () => {}) => {
+    if (loading) return;
+    setMissionIds(missionIds);
+    BurialPoint.track(`mission-center-claim`);
+    setLoading(true);
+    webApi.missionCenterApi
+      .missionClaim(missionIds)
+      .then(async () => {
+        await updateMissionDataAll();
+        message.success('success');
+      })
+      .catch(async (error) => {
+        message.error(`claim ${error.msg}!`);
+      })
+      .finally(() => {
+        cb && cb();
+        setLoading(false);
+        setMissionIds([]);
+      });
+  };
+
+  return (
+    <div className="body-s container mx-auto flex h-full  justify-between bg-neutral-off-white text-neutral-black">
+      <MissionCenterContext.Provider
+        value={{
+          loading,
+          missionIds,
+          changeMissionIds: (ids: string[]) => {
+            setMissionIds(ids);
+          },
+          updateMissionDataAll
+        }}
+      >
+        <UserInfo userInfo={userInfo as LoginResponse} />
+        <ClaimContent missionClaim={missionClaim} />
+      </MissionCenterContext.Provider>
+    </div>
+  );
+}
+
+export default MissionCenter;

@@ -35,14 +35,7 @@ const AvatarUpload: FC<AvatarUploadProps> = (props) => {
         onMouseLeave={() => setShowEditIcon(false)}
       >
         <div className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-full bg-[#8d8d8d]">
-          {userInfo?.avatar && (
-            <Image
-              fill
-              alt="avatar"
-              src={userInfo?.avatar || ''}
-              className="object-cover"
-            ></Image>
-          )}
+          {userInfo?.avatar && <Image fill alt="avatar" src={userInfo?.avatar || ''} className="object-cover"></Image>}
         </div>
         <div
           className={cn(

@@ -1,25 +1,19 @@
 'use client';
 import { useUserStore } from '@/store/zustand/userStore';
-import {
-  CSSProperties,
-  FC,
-  MouseEventHandler,
-  useEffect,
-  useRef,
-  useState
-} from 'react';
+import { CSSProperties, FC, MouseEventHandler, useEffect, useRef, useState } from 'react';
 
 export enum SlideClassName {
   FIST_NAVBAR = 'slide-navigator slide-navigator-fist-navbar',
   SECOND_NAVBAR = 'slide-navigator slide-navigator-second-navbar',
   BLOG_FILTER = 'slide-blog-navigator',
-  LEARNING_TRACK = 'slide-navigator slide-learning-track-navbar'
+  LEARNING_TRACK = 'slide-navigator slide-learning-track-navbar',
+  GLOSSARY_FILTER = 'slide-glossary-navigator'
 }
 
 interface SlideHighlightProps {
   children: React.ReactNode;
   className: string;
-  type?: 'FIST_NAVBAR' | 'SECOND_NAVBAR' | 'BLOG_FILTER' | 'LEARNING_TRACK';
+  type?: 'FIST_NAVBAR' | 'SECOND_NAVBAR' | 'BLOG_FILTER' | 'LEARNING_TRACK' | 'GLOSSARY_FILTER';
   currentIndex: number;
 }
 
@@ -37,9 +31,7 @@ const SlideHighlight: FC<SlideHighlightProps> = function (props) {
 
   const onClick: MouseEventHandler<HTMLDivElement> = (event) => {
     if (!root.current) return;
-    const target = Array.from(root.current.children).find((v) =>
-      v.contains(event.target as Node)
-    ) as HTMLElement;
+    const target = Array.from(root.current.children).find((v) => v.contains(event.target as Node)) as HTMLElement;
     const { left } = root.current.getBoundingClientRect();
     const { left: l, width } = target?.getBoundingClientRect() || {};
     if (!width) return;

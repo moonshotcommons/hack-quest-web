@@ -4,7 +4,7 @@ import Checkbox from '@/components/Common/Checkbox';
 import Input from '@/components/Common/Input';
 import { BurialPoint } from '@/helper/burialPoint';
 import { cn } from '@/helper/utils';
-import { useValidator } from '@/hooks/useValidator';
+import { useValidator } from '@/hooks/auth/useValidator';
 import webApi from '@/service';
 import { useDebounceFn } from 'ahooks';
 import { message } from 'antd';
@@ -169,11 +169,7 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
         <div className="flex flex-col gap-[.5rem]">
           <div className="flex items-center gap-[.75rem]">
             <Checkbox
-              outClassNames={`${
-                acceptConditions
-                  ? 'border-neutral-off-black'
-                  : 'border-neutral-medium-gray'
-              }`}
+              outClassNames={`${acceptConditions ? 'border-neutral-off-black' : 'border-neutral-medium-gray'}`}
               isCircle={true}
               innerClassNames="bg-neutral-off-black"
               onChange={(value) => {
@@ -192,11 +188,7 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
               )}
             >
               {`I agree with HackQuest's Terms of Service,  `}
-              <Link
-                href={'/hackquest/privacy-policy'}
-                target="_blank"
-                className="underline"
-              >
+              <Link href={'/hackquest/privacy-policy'} target="_blank" className="underline">
                 Privacy Policy.
               </Link>
             </p>
@@ -220,10 +212,7 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
       >
         Continue
       </Button>
-      <WhiteListModal
-        open={showWhiteListModal}
-        onClose={() => setShowWhiteListModal(false)}
-      ></WhiteListModal>
+      <WhiteListModal open={showWhiteListModal} onClose={() => setShowWhiteListModal(false)}></WhiteListModal>
     </div>
   );
 };

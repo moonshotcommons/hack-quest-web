@@ -2,7 +2,7 @@ import { MotionProps } from 'framer-motion';
 
 import { FilterItemType, FilterOptionType, FilterParamsType } from './type';
 import { CourseLanguageType } from '@/service/webApi/course/type';
-import { LanguageTab } from '@/app/mobile/(base page)/(learn)/learning-track/constants/type';
+import { LanguageTab } from '@/app/[lang]/mobile/(base page)/(learn)/learning-track/constants/type';
 
 export const animateProps: MotionProps = {
   initial: { scaleY: 0, opacity: 0, translateY: '95%' },
@@ -66,9 +66,7 @@ export const courseDefaultFilters = [
   }
 ];
 
-export const ugcCourseDefaultFilters = courseDefaultFilters.filter(
-  (v) => v.filterField !== 'language'
-);
+export const ugcCourseDefaultFilters = courseDefaultFilters.filter((v) => v.filterField !== 'language');
 
 export const courseDefaultSort = [
   { name: 'Most Popular', value: '-peopleJoined', isSelect: false },
@@ -84,9 +82,7 @@ export const mergeFilterParams = (
   const filtersObject: Record<string, string> = {};
   filters.forEach((f) => {
     const key = f.filterField;
-    const values = f.options
-      .filter((option) => option.isSelect)
-      .map((o) => o.value);
+    const values = f.options.filter((option) => option.isSelect).map((o) => o.value);
     if (values.length) filtersObject[key] = values.join(',');
   });
   return {

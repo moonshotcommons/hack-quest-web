@@ -16,9 +16,7 @@ interface PreviewLessonPageProps {
 
 const PreviewLessonPage: FC<PreviewLessonPageProps> = (props) => {
   const { previewUrl } = props;
-  const [lesson, setLesson] = useState<
-    Omit<CourseLessonType, 'content'> & { content: LessonContentType }
-  >();
+  const [lesson, setLesson] = useState<Omit<CourseLessonType, 'content'> & { content: LessonContentType }>();
 
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -90,9 +88,7 @@ const PreviewLessonPage: FC<PreviewLessonPageProps> = (props) => {
             <LessonFooter lesson={lesson as any} onNextClick={() => {}} />
           </div>
         )}
-        {!lesson && !!errorMessage && (
-          <div className="body-l text-text-default-color">{errorMessage}</div>
-        )}
+        {!lesson && !!errorMessage && <div className="body-l text-text-default-color">{errorMessage}</div>}
       </Spin>
     </ConfigProvider>
   );

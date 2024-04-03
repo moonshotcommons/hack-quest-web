@@ -1,21 +1,9 @@
 'use client';
 import ComponentRenderer from '@/components/Web/Business/Renderer/ComponentRenderer';
-import {
-  CustomComponent,
-  LessonContent,
-  NotionComponent
-} from '@/components/Web/Business/Renderer/type';
-import { ExpandDataType, useLessonExpand } from '@/hooks/useLessonExpand';
+import { CustomComponent, LessonContent, NotionComponent } from '@/components/Web/Business/Renderer/type';
+import { ExpandDataType, useLessonExpand } from '@/hooks/courses/useLessonExpand';
 import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
-import {
-  FC,
-  createContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-  Suspense
-} from 'react';
+import { FC, createContext, useEffect, useMemo, useRef, useState, Suspense } from 'react';
 import LessonEvents from '../LessonEvents';
 import FoundBugButton from '../../Business/FoundBugButton';
 import LessonNavbar from '../LessonNavbar';
@@ -32,14 +20,11 @@ interface LessonContentProps {
 
 const LessonContentComponent: FC<LessonContentProps> = (props) => {
   const { lesson, isPreview = false, courseType } = props;
-  const [components, setComponents] = useState<
-    (CustomComponent | NotionComponent)[]
-  >(() => {
+  const [components, setComponents] = useState<(CustomComponent | NotionComponent)[]>(() => {
     return lesson.content.left;
   });
   const { getLessonExpand } = useLessonExpand(lesson.content.left);
-  const [expandData, setExpandData] =
-    useState<ExpandDataType[][]>(getLessonExpand());
+  const [expandData, setExpandData] = useState<ExpandDataType[][]>(getLessonExpand());
 
   const changeExpandData = (data: ExpandDataType[], index: number) => {
     expandData[index] = data;
@@ -79,11 +64,7 @@ const LessonContentComponent: FC<LessonContentProps> = (props) => {
         <LessonNavbar />
       </Suspense>
 
-      <LessonEvents
-        isPreview={isPreview}
-        lesson={lesson as any}
-        courseType={courseType}
-      />
+      <LessonEvents isPreview={isPreview} lesson={lesson as any} courseType={courseType} />
 
       {!!components?.length && (
         <div
@@ -99,10 +80,7 @@ const LessonContentComponent: FC<LessonContentProps> = (props) => {
                     changeExpandData
                   }}
                 >
-                  <ComponentRenderer
-                    parent={parent}
-                    component={component}
-                  ></ComponentRenderer>
+                  <ComponentRenderer parent={parent} component={component}></ComponentRenderer>
                 </LessonContentContext.Provider>
               </div>
             );

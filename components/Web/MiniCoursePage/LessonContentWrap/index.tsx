@@ -1,13 +1,5 @@
 import { ElectiveLessonType } from '@/service/webApi/elective/type';
-import {
-  FC,
-  ReactNode,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState
-} from 'react';
+import { FC, ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Progress from '../Progress';
 import Icons from '../Icons';
 import { useGetElectives } from '../hooks/useGetElectives';
@@ -15,38 +7,31 @@ import { cn } from '@/helper/utils';
 import { CustomType } from '../../Business/Renderer/type';
 import { CompleteStateType, CourseType } from '@/service/webApi/course/type';
 import webApi from '@/service';
-import { useGetLessonLink } from '@/hooks/useCoursesHooks/useGetLessonLink';
+import { useGetLessonLink } from '@/hooks/courses/useGetLessonLink';
 import { useRequest } from 'ahooks';
 import { RendererContext } from '../../Business/Renderer/context';
 import JSConfetti from 'js-confetti';
-import MiniElectiveCompletedModal, {
-  MiniElectiveCompletedModalRef
-} from '../../Business/MiniElectiveCompletedModal';
-import { useRedirect } from '@/hooks/useRedirect';
+import MiniElectiveCompletedModal, { MiniElectiveCompletedModalRef } from '../../Business/MiniElectiveCompletedModal';
+import { useRedirect } from '@/hooks/router/useRedirect';
 
 interface LessonContentWrapProps {
   children: ReactNode;
   lesson: ElectiveLessonType;
 }
 
-const LessonContentWrap: FC<LessonContentWrapProps> = ({
-  children,
-  lesson
-}) => {
+const LessonContentWrap: FC<LessonContentWrapProps> = ({ children, lesson }) => {
   const { course, loading, refresh } = useGetElectives(lesson);
   const { getLink } = useGetLessonLink();
   const { redirectToUrl } = useRedirect();
   const [nextControl, setNextControl] = useState(false);
-  const miniElectiveCompletedModalInstance =
-    useRef<MiniElectiveCompletedModalRef>(null);
+  const miniElectiveCompletedModalInstance = useRef<MiniElectiveCompletedModalRef>(null);
   const progress = useMemo(() => {
     if (!course)
       return {
         total: 0,
         current: 0
       };
-    let current =
-      course?.pages?.findIndex((item) => item.id === lesson.id) || 0;
+    let current = course?.pages?.findIndex((item) => item.id === lesson.id) || 0;
     // if (
     //   current === course?.pages!.length - 1 &&
     //   course.pages![current].state === CompleteStateType.COMPLETED
@@ -61,17 +46,13 @@ const LessonContentWrap: FC<LessonContentWrapProps> = ({
 
   const previousLessonId = useMemo(() => {
     if (!course || !lesson) return;
-    const currentLessonIndex = course!.pages!.findIndex(
-      (item) => item.id === lesson.id
-    );
+    const currentLessonIndex = course!.pages!.findIndex((item) => item.id === lesson.id);
     return course!.pages![currentLessonIndex - 1]?.id;
   }, [course, lesson]);
 
   const nextLessonId = useMemo(() => {
     if (!course || !lesson) return;
-    const currentLessonIndex = course!.pages!.findIndex(
-      (item) => item.id === lesson.id
-    );
+    const currentLessonIndex = course!.pages!.findIndex((item) => item.id === lesson.id);
     return course!.pages![currentLessonIndex + 1]?.id;
   }, [course, lesson]);
 
@@ -111,9 +92,7 @@ const LessonContentWrap: FC<LessonContentWrapProps> = ({
     setNextControl(true);
 
     if (progress.current === progress.total - 1) {
-      if (
-        course!.pages![progress.current].state !== CompleteStateType.COMPLETED
-      ) {
+      if (course!.pages![progress.current].state !== CompleteStateType.COMPLETED) {
         onNextClick();
         refresh();
       }
@@ -144,17 +123,10 @@ const LessonContentWrap: FC<LessonContentWrapProps> = ({
     <div className="flex h-[calc(100vh-64px-80px)] flex-1 flex-col items-center justify-center gap-[24px]">
       <div className="flex h-[calc(100%-24px-6px)] w-full flex-1 items-center justify-center gap-[60px]">
         <div
-          className={cn(
-            previousLessonId
-              ? 'cursor-pointer'
-              : 'cursor-not-allowed opacity-20'
-          )}
+          className={cn(previousLessonId ? 'cursor-pointer' : 'cursor-not-allowed opacity-20')}
           onClick={() => {
             if (!previousLessonId) return;
-            const link = getLink(
-              course?.type || CourseType.MINI,
-              previousLessonId as string
-            );
+            const link = getLink(course?.type || CourseType.MINI, previousLessonId as string);
 
             redirectToUrl(link);
           }}
@@ -181,11 +153,7 @@ const LessonContentWrap: FC<LessonContentWrapProps> = ({
           {children}
         </RendererContext.Provider>
         <div
-          className={cn(
-            nextLessonId && nextControl
-              ? 'cursor-pointer'
-              : 'cursor-not-allowed opacity-20'
-          )}
+          className={cn(nextLessonId && nextControl ? 'cursor-pointer' : 'cursor-not-allowed opacity-20')}
           onClick={() => {
             if (!nextLessonId || !nextControl) return;
             onNextClick();
@@ -195,9 +163,7 @@ const LessonContentWrap: FC<LessonContentWrapProps> = ({
         </div>
       </div>
       <Progress total={progress.total} current={progress.current}></Progress>
-      <MiniElectiveCompletedModal
-        ref={miniElectiveCompletedModalInstance}
-      ></MiniElectiveCompletedModal>
+      <MiniElectiveCompletedModal ref={miniElectiveCompletedModalInstance}></MiniElectiveCompletedModal>
     </div>
   );
 };

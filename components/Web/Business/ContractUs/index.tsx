@@ -7,6 +7,7 @@ import { cn } from '@/helper/utils';
 import { ThemeContext } from '@/store/context/theme';
 import { Theme } from '@/constants/enum';
 import LightInstagramIcon from '@/components/Common/Icon/LightInstagram';
+import { HACKQUEST_DISCORD } from '@/constants/links';
 interface ContractUsProps {
   // children: ReactNode;
   className?: string;
@@ -24,26 +25,17 @@ const ContractUs: FC<ContractUsProps> = (props) => {
         className
       )}
     >
-      <Link
-        href={'https://twitter.com/_hackquest'}
-        className="cursor-pointer hover:scale-[1.1]"
-      >
+      <Link href={'https://twitter.com/_hackquest'} className="cursor-pointer hover:scale-[1.1]">
         <span className="text-text-default-color">
           <TwitterIcon />
         </span>
       </Link>
-      <Link
-        href={'https://discord.gg/KkAJHPqywn'}
-        className="cursor-pointer hover:scale-[1.1]"
-      >
+      <Link href={HACKQUEST_DISCORD} className="cursor-pointer hover:scale-[1.1]">
         <span className="text-text-default-color">
           <DiscordIcon />
         </span>
       </Link>
-      <Link
-        href={'https://www.instagram.com/_hackquest/'}
-        className="cursor-pointer hover:scale-[1.1]"
-      >
+      <Link href={'https://www.instagram.com/_hackquest/'} className="cursor-pointer hover:scale-[1.1]">
         <span>
           {theme === Theme.Dark && <DarkInstagramIcon />}
           {theme === Theme.Light && <LightInstagramIcon />}

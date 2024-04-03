@@ -1,20 +1,12 @@
 import { cn } from '@/helper/utils';
 import { Rule } from 'async-validator';
-import {
-  InputHTMLAttributes,
-  ReactNode,
-  forwardRef,
-  useEffect,
-  useImperativeHandle,
-  useRef,
-  useState
-} from 'react';
+import { InputHTMLAttributes, ReactNode, forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import CloseIcon from '../Icon/Close';
 import PassIcon from '../Icon/Pass';
-import WarningIcon from '../Icon/Warning';
 import { AiFillCaretDown } from 'react-icons/ai';
 import { FiCheck } from 'react-icons/fi';
 import { OptionType } from './type';
+import { PiWarningCircleFill } from 'react-icons/pi';
 
 interface SelectProps {
   name: string;
@@ -28,6 +20,7 @@ interface SelectProps {
   rules?: Rule;
   defaultValue?: string;
   options: OptionType[];
+  value?: string;
 }
 
 export interface InputRef {
@@ -35,10 +28,7 @@ export interface InputRef {
   blur: () => void;
 }
 
-const Select = forwardRef<
-  InputRef,
-  SelectProps & InputHTMLAttributes<HTMLInputElement>
->((props, ref) => {
+const Select = forwardRef<InputRef, SelectProps & InputHTMLAttributes<HTMLInputElement>>((props, ref) => {
   const {
     label,
     placeholder,
@@ -58,7 +48,7 @@ const Select = forwardRef<
 
   const [status, setStatus] = useState(propsState);
   const [errorMessage, setErrorMessage] = useState('');
-  const [value, setValue] = useState(defaultValue);
+  const [value, setValue] = useState(defaultValue || props.value || '');
   const [selectLabel, setSelectLabel] = useState('');
   const [visibleOption, setVisibleOption] = useState(false);
 
@@ -110,24 +100,18 @@ const Select = forwardRef<
           readOnly
           placeholder={placeholder}
           className={cn(
-            `body-m w-full cursor-pointer rounded-[2.5rem] border border-solid border-neutral-dark-gray px-[25px] py-[15px]  caret-[#ffffff] outline-none hover:border-neutral-dark-gray focus:border-neutral-dark-gray`,
+            `body-m w-full cursor-pointer rounded-[2.5rem] border border-solid border-neutral-medium-gray px-[25px] py-[15px]  caret-[#ffffff] outline-none hover:border-neutral-dark-gray focus:border-neutral-dark-gray`,
             // type === 'password' &&
             //   'border-auth-password-input-bg focus:border-neutral-dark-gray',
-            status === 'success'
-              ? 'border-auth-input-success-color focus:border-auth-input-success-color'
-              : '',
-            status === 'error'
-              ? 'border-auth-input-error-color focus:border-auth-input-error-color'
-              : '',
+            status === 'success' ? 'border-auth-input-success-color focus:border-auth-input-success-color' : '',
+            status === 'error' ? 'border-status-error-dark focus:border-status-error-dark' : '',
             className
           )}
           {...rest}
         />
 
         <span className="absolute right-[1.4375rem] top-[50%] flex -translate-y-[50%] items-center gap-4">
-          {status === 'default' && (
-            <AiFillCaretDown className=" text-[20px] text-neutral-medium-gray" />
-          )}
+          {status === 'default' && <AiFillCaretDown className=" text-[20px] text-neutral-medium-gray" />}
           {status === 'error' && (
             <span
               className="flex cursor-pointer items-center justify-center text-auth-input-error-color"
@@ -174,9 +158,7 @@ const Select = forwardRef<
                   }}
                 >
                   <span>{v.label}</span>
-                  {value === v.value && (
-                    <FiCheck className="body-s text-neutral-rich-gray" />
-                  )}
+                  {value === v.value && <FiCheck className="body-s text-neutral-rich-gray" />}
                 </li>
               ))}
             </ul>
@@ -184,12 +166,10 @@ const Select = forwardRef<
         )}
       </div>
 
-      {description && (
-        <p className="text- body-m  ml-[1.5rem]">{description}</p>
-      )}
+      {description && <p className="body-m  ml-[1.5rem]">{description}</p>}
       {errorMessage && (
-        <p className="body-m flex flex-row items-center gap-2 text-auth-input-error-color">
-          <WarningIcon width={17} height={16}></WarningIcon>
+        <p className="body-m flex flex-row items-center gap-2 text-status-error-dark">
+          <PiWarningCircleFill size={20} />
           {errorMessage}
         </p>
       )}

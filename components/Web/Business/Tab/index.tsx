@@ -13,28 +13,17 @@ interface TabType {
   className?: string;
   textClassName?: string;
 }
-const Tab: React.FC<TabType> = ({
-  tabList,
-  curTab,
-  changeTab,
-  className,
-  textClassName
-}) => {
+const Tab: React.FC<TabType> = ({ tabList, curTab, changeTab, className, textClassName }) => {
   return (
     <SlideHighlight
-      className={cn(
-        `flex gap-10 pb-[30px] leading-5 before:bottom-6`,
-        className
-      )}
+      className={cn(`flex gap-10 pb-[30px] leading-5 before:bottom-6`, className)}
       currentIndex={tabList.findIndex((v) => v.value === curTab)}
     >
       {tabList.map((tab: TabListType) => (
         <div
           key={tab.value}
           className={cn(
-            `flex cursor-pointer items-center ${
-              tab.value === curTab ? 'relative font-semibold' : ''
-            }`,
+            `flex cursor-pointer items-center ${tab.value === curTab ? 'relative font-semibold' : ''}`,
             textClassName
           )}
           onClick={() => changeTab(tab)}

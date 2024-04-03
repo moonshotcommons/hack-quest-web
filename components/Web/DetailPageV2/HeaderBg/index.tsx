@@ -14,9 +14,7 @@ const HeaderBg: FC<HeaderBgProps> = () => {
     <div
       className="absolute left-0 top-0 min-h-[400px] w-full bg-neutral-off-white py-5"
       style={{
-        height: isMounted
-          ? document.querySelector(`#detail-header`)?.clientHeight
-          : '400px',
+        height: isMounted ? document.querySelector(`#detail-header`)?.clientHeight : '400px',
         opacity: isMounted ? 1 : 0
       }}
     ></div>

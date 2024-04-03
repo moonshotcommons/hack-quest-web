@@ -28,10 +28,7 @@ export function getRandomAvatars(count: number = 4) {
     const randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex--;
 
-    [starAvatars[currentIndex], starAvatars[randomIndex]] = [
-      starAvatars[randomIndex],
-      starAvatars[currentIndex]
-    ];
+    [starAvatars[currentIndex], starAvatars[randomIndex]] = [starAvatars[randomIndex], starAvatars[currentIndex]];
 
     result.push({ id: result.length + '', url: starAvatars[currentIndex] });
   }

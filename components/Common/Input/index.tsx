@@ -2,15 +2,7 @@ import { VariantProps, cva } from 'class-variance-authority';
 import { cn } from '@/helper/utils';
 import { useDebounceFn } from 'ahooks';
 import Schema, { Rule, Rules } from 'async-validator';
-import {
-  HTMLInputTypeAttribute,
-  ReactNode,
-  forwardRef,
-  useEffect,
-  useImperativeHandle,
-  useRef,
-  useState
-} from 'react';
+import { HTMLInputTypeAttribute, ReactNode, forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import CloseIcon from '../Icon/Close';
 import EyeIcon from '../Icon/Eye';
 import PassIcon from '../Icon/Pass';
@@ -78,6 +70,7 @@ export interface InputProps
   labelClassName?: string;
   initBorderColor?: string;
   isMobile?: boolean;
+  isShowCount?: boolean;
 }
 
 export interface InputRef {
@@ -108,6 +101,7 @@ const Input = forwardRef<InputRef, InputProps>((props, ref) => {
     initBorderColor = '',
     isMobile = false,
     onBlur,
+    isShowCount,
     ...rest
   } = props;
 
@@ -119,7 +113,7 @@ const Input = forwardRef<InputRef, InputProps>((props, ref) => {
     [name]: rules || {}
   };
   const validator = new Schema(descriptor);
-  const [value, setValue] = useState(defaultValue);
+  const [value, setValue] = useState(defaultValue || props.value || '');
   const [type, setType] = useState(propType);
 
   useEffect(() => {
@@ -149,7 +143,7 @@ const Input = forwardRef<InputRef, InputProps>((props, ref) => {
 
   const { run } = useDebounceFn(
     (e) => {
-      if (rules) {
+      if (rules && e.target.value) {
         validator.validate({ [name]: e.target.value }, (errors, fields) => {
           if (errors && errors[0]) {
             setStatus('error');
@@ -213,31 +207,31 @@ const Input = forwardRef<InputRef, InputProps>((props, ref) => {
         if (propType === 'password' && type === 'password') {
           setType('text');
         }
-      }}
-      onMouseLeave={(e) => {
+
         if (propType === 'password' && type === 'text') {
           setType('password');
         }
       }}
+      onMouseLeave={(e) => {}}
       onMouseUp={() => {
-        if (propType === 'password' && type === 'text') {
-          setType('password');
-        }
+        // if (propType === 'password' && type === 'text') {
+        //   setType('password');
+        // }
       }}
       onTouchStart={(e) => {
-        if (propType === 'password' && type === 'password') {
-          setType('text');
-        }
+        // if (propType === 'password' && type === 'password') {
+        //   setType('text');
+        // }
       }}
       onTouchCancel={(e) => {
-        if (propType === 'password' && type === 'text') {
-          setType('password');
-        }
+        // if (propType === 'password' && type === 'text') {
+        //   setType('password');
+        // }
       }}
       onTouchEnd={() => {
-        if (propType === 'password' && type === 'text') {
-          setType('password');
-        }
+        // if (propType === 'password' && type === 'text') {
+        //   setType('password');
+        // }
       }}
     >
       <EyeIcon size={20} color="currentColor"></EyeIcon>
@@ -273,7 +267,6 @@ const Input = forwardRef<InputRef, InputProps>((props, ref) => {
           }}
           {...rest}
         />
-
         <span className="absolute right-[1.4375rem] top-[50%] flex -translate-y-[50%] items-center gap-4">
           {status === 'error' && errorIcon}
           {status === 'success' && successIcon}
@@ -281,12 +274,17 @@ const Input = forwardRef<InputRef, InputProps>((props, ref) => {
         </span>
       </div>
       {description && <p className="body-m ml-[1.5rem]">{description}</p>}
-      {errorMessage && (
-        <p className="body-s flex flex-row items-center gap-2 text-status-error-dark">
-          <PiWarningCircleFill size={20} className="text-status-error-dark" />
+      <div className="flex items-center justify-between">
+        <p
+          className={`body-m flex flex-1 flex-row items-center gap-2 text-status-error-dark ${errorMessage ? '' : 'hidden'}`}
+        >
+          <PiWarningCircleFill size={20} />
           {errorMessage}
         </p>
-      )}
+        <p className={`body-l flex flex-1 justify-end  text-neutral-medium-gray ${isShowCount ? '' : 'hidden'}`}>
+          {`${value.toString().length}/${rest.maxLength}`}
+        </p>
+      </div>
     </div>
   );
 });

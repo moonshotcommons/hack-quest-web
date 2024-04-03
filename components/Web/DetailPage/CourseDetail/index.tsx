@@ -3,7 +3,7 @@ import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 
 import Button from '@/components/Common/Button';
 import { BurialPoint } from '@/helper/burialPoint';
-import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
+import { useJumpLeaningLesson } from '@/hooks/courses/useJumpLeaningLesson';
 import webApi from '@/service';
 import CourseDetailHeader from '../CourseDetailHeader';
 import HeaderRight from '../HeaderRight';
@@ -26,10 +26,7 @@ const CourseDetail: FC<CourseDetailProps> = (props) => {
 
   const learningStatus = useMemo(() => {
     if (courseDetail) {
-      if (
-        (!!courseDetail.progress && courseDetail.progress <= 0) ||
-        !courseDetail.progress
-      )
+      if ((!!courseDetail.progress && courseDetail.progress <= 0) || !courseDetail.progress)
         return LearningStatus.UN_START;
       if (courseDetail.progress >= 1) return LearningStatus.COMPLETED;
     }
@@ -54,18 +51,16 @@ const CourseDetail: FC<CourseDetailProps> = (props) => {
 
   useEffect(() => {
     if (courseDetail && learningStatus !== LearningStatus.COMPLETED) {
-      webApi.courseApi
-        .getLearningLessonId(courseDetail?.id as string)
-        .then((res) => {
-          const learningUnit = courseDetail.units?.find((unit) => {
-            return unit.progress < 1;
-          });
-
-          setLearningInfo({
-            learningLessonName: res.pageName,
-            learningUnitName: learningUnit?.title || ''
-          });
+      webApi.courseApi.getLearningLessonId(courseDetail?.id as string).then((res) => {
+        const learningUnit = courseDetail.units?.find((unit) => {
+          return unit.progress < 1;
         });
+
+        setLearningInfo({
+          learningLessonName: res.pageName,
+          learningUnitName: learningUnit?.title || ''
+        });
+      });
     }
   }, [courseDetail]);
 
@@ -104,10 +99,7 @@ const CourseDetail: FC<CourseDetailProps> = (props) => {
       ></CourseDetailHeader>
       <div className="mt-[60px] w-full">
         <h2 className="text-h3 mb-[30px] text-neutral-black">Syllabus</h2>
-        <UnitList
-          courseDetail={courseDetail}
-          learningStatus={learningStatus}
-        ></UnitList>
+        <UnitList courseDetail={courseDetail} learningStatus={learningStatus}></UnitList>
       </div>
       {learningStatus === LearningStatus.UN_START && (
         <div
@@ -119,10 +111,7 @@ const CourseDetail: FC<CourseDetailProps> = (props) => {
             resumeCallback();
           }}
         >
-          <Button
-            className="body-l w-[270px] px-0 py-[16px] text-neutral-black"
-            type="primary"
-          >
+          <Button className="body-l w-[270px] px-0 py-[16px] text-neutral-black" type="primary">
             Start
           </Button>
         </div>

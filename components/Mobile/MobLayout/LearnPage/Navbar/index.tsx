@@ -1,16 +1,17 @@
 import React from 'react';
 
-import { useRedirect } from '@/hooks/useRedirect';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import { IoExitOutline } from 'react-icons/io5';
-import { MenuLink } from '../../BasePage/Navbar/type';
 import { useCourseStore } from '@/store/zustand/courseStore';
 import { useLearnStore } from '@/store/zustand/learnStore';
+import MenuLink from '@/constants/MenuLink';
 
 export interface NavBarProps {}
 
 const NavBar: React.FC<NavBarProps> = () => {
   const { redirectToUrl } = useRedirect();
   const learnPageTitle = useCourseStore((state) => state.learnPageTitle);
+
   const setSidebarOpen = useLearnStore((state) => state.setSidebarOpen);
   const logoClick = () => {
     redirectToUrl(MenuLink.DASHBOARD);
@@ -23,13 +24,7 @@ const NavBar: React.FC<NavBarProps> = () => {
           setSidebarOpen(true);
         }}
       >
-        <svg
-          width="20"
-          height="19"
-          viewBox="0 0 20 19"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+        <svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             fillRule="evenodd"
             clipRule="evenodd"
@@ -38,13 +33,8 @@ const NavBar: React.FC<NavBarProps> = () => {
           />
         </svg>
       </div>
-      <div className="text-h4-mob line-clamp-2 flex-1 flex-shrink-0 text-center">
-        {learnPageTitle}
-      </div>
-      <div
-        className="flex w-[2.5rem] cursor-pointer items-center justify-end"
-        onClick={logoClick}
-      >
+      <div className="text-h4-mob line-clamp-2 flex-1 flex-shrink-0 text-center">{learnPageTitle}</div>
+      <div className="flex w-[2.5rem] cursor-pointer items-center justify-end" onClick={logoClick}>
         <IoExitOutline size={28} />
       </div>
     </nav>

@@ -19,20 +19,12 @@ const BulletedListItemRenderer: FC<BulletedListItemRendererProps> = (props) => {
       <div className="flex items-start gap-2 py-1">
         <span className="leading-[200%]">•</span>
         <div>
-          <TextRenderer
-            richTextArr={component.content.rich_text}
-          ></TextRenderer>
+          <TextRenderer richTextArr={component.content.rich_text}></TextRenderer>
         </div>
       </div>
       <div className="ml-4">
         {component.children?.map((child: any, index: number) => {
-          return (
-            <ComponentRenderer
-              key={index}
-              component={child}
-              parent={component}
-            ></ComponentRenderer>
-          );
+          return <ComponentRenderer key={index} component={child} parent={component}></ComponentRenderer>;
         })}
       </div>
     </div>

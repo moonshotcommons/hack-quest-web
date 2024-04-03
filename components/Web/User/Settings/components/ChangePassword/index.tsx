@@ -12,10 +12,7 @@ interface ChangePasswordProp {
   setChangeSuccessVisible: VoidFunction;
 }
 
-const ChangePassword: React.FC<ChangePasswordProp> = ({
-  onClose,
-  setChangeSuccessVisible
-}) => {
+const ChangePassword: React.FC<ChangePasswordProp> = ({ onClose, setChangeSuccessVisible }) => {
   const [formData, setFormData] = useState<{
     password: string;
     newPassword: string;
@@ -43,12 +40,7 @@ const ChangePassword: React.FC<ChangePasswordProp> = ({
   });
 
   const updateDisable = useMemo(() => {
-    return (
-      !formData.password ||
-      !formData.newPassword ||
-      !formData.reenterPassword ||
-      !isAgree
-    );
+    return !formData.password || !formData.newPassword || !formData.reenterPassword || !isAgree;
   }, [formData, isAgree]);
 
   let descriptor: Record<string, Rule> = {
@@ -142,8 +134,7 @@ const ChangePassword: React.FC<ChangePasswordProp> = ({
           type: 'string',
           required: true,
           pattern: /^(?=.*\d)(?=.*[a-zA-Z]).{8,16}$/,
-          message:
-            'Use 8 or more characters with a mix of letters, numbers & symbols'
+          message: 'Use 8 or more characters with a mix of letters, numbers & symbols'
         }}
         onChange={(e) => {
           setFormData({
@@ -185,9 +176,7 @@ const ChangePassword: React.FC<ChangePasswordProp> = ({
         onClick={(e) => {}}
       >
         <Checkbox
-          outClassNames={`${
-            isAgree ? 'border-neutral-off-black' : 'border-neutral-medium-gray'
-          }`}
+          outClassNames={`${isAgree ? 'border-neutral-off-black' : 'border-neutral-medium-gray'}`}
           innerClassNames="bg-neutral-off-black"
           checked={isAgree}
           onChange={(value) => {

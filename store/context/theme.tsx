@@ -25,9 +25,7 @@ const ThemeContextProvider: FC<{ children: ReactNode }> = (props) => {
       // setTheme(cacheTheme);
       document.documentElement.classList.add(theme);
       document.getElementsByTagName('html')[0].dataset.theme = theme;
-      document.documentElement.classList.remove(
-        theme === Theme.Dark ? Theme.Light : Theme.Dark
-      );
+      document.documentElement.classList.remove(theme === Theme.Dark ? Theme.Light : Theme.Dark);
     };
     checkTheme();
 
@@ -46,9 +44,7 @@ const ThemeContextProvider: FC<{ children: ReactNode }> = (props) => {
           localStorage.setItem('theme', value);
           document.getElementsByTagName('html')[0].dataset.theme = value;
           document.documentElement.classList.add(value);
-          document.documentElement.classList.remove(
-            value === Theme.Dark ? Theme.Light : Theme.Dark
-          );
+          document.documentElement.classList.remove(value === Theme.Dark ? Theme.Light : Theme.Dark);
         }
       }}
     >

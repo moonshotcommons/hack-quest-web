@@ -6,20 +6,20 @@ import Checkbox from '@/components/Common/Checkbox';
 import Input from '@/components/Common/Input';
 import { BurialPoint } from '@/helper/burialPoint';
 import { setToken } from '@/helper/user-token';
-import { useValidator } from '@/hooks/useValidator';
+import { useValidator } from '@/hooks/auth/useValidator';
 import webApi from '@/service';
 import { LoginParamsType } from '@/service/webApi/user/type';
 import { useDebounceFn, useKeyPress } from 'ahooks';
 import { message } from 'antd';
 import { omit } from 'lodash-es';
-import useIsPc from '@/hooks/useIsPc';
-import { useRedirect } from '@/hooks/useRedirect';
+import useIsPc from '@/hooks/utils/useIsPc';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
 import { cn } from '@/helper/utils';
 import { V2_LANDING_PATH } from '@/constants/nav';
 import { useRouter } from 'next/navigation';
-import { useCustomPathname } from '@/hooks/useCheckPathname';
+import { useCustomPathname } from '@/hooks/router/useCheckPathname';
 import { useGlobalStore } from '@/store/zustand/globalStore';
 interface UserLoginProps {
   // children: ReactNode;
@@ -55,15 +55,11 @@ const UserLogin: FC<UserLoginProps> = (props) => {
   });
   const isPc = useIsPc();
   const { validator } = useValidator(['email', 'password']);
-  const setTipsModalOpenState = useGlobalStore(
-    (state) => state.setTipsModalOpenState
-  );
+  const setTipsModalOpenState = useGlobalStore((state) => state.setTipsModalOpenState);
   // const { validator: emailValidator } = useValidator(['email']);
   const router = useRouter();
   const { redirectToUrl } = useRedirect();
-  const query = new URLSearchParams(
-    typeof window !== 'undefined' ? window.location.search : ''
-  );
+  const query = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
   const passwordInputRef = useRef<any>(null);
   const [loading, setLoading] = useState(false);
   const { run: onLogin } = useDebounceFn(
@@ -87,9 +83,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
               if (redirect_url) {
                 BurialPoint.track('login-redirect跳转');
               }
-              const toPageUrl = redirect_url
-                ? `${redirect_url}?token=${res.token}`
-                : '/dashboard';
+              const toPageUrl = redirect_url ? `${redirect_url}?token=${res.token}` : '/dashboard';
               setAuthModalOpen(false);
               if (!redirect_url && pathname !== V2_LANDING_PATH) {
                 window.location.reload();
@@ -242,11 +236,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
 
         <div className="flex items-center gap-[.75rem]" onClick={(e) => {}}>
           <Checkbox
-            outClassNames={`${
-              formData.keepMeLoggedIn
-                ? 'border-neutral-off-black'
-                : 'border-neutral-medium-gray'
-            }`}
+            outClassNames={`${formData.keepMeLoggedIn ? 'border-neutral-off-black' : 'border-neutral-medium-gray'}`}
             innerClassNames="bg-neutral-off-black"
             checked={formData.keepMeLoggedIn}
             onChange={(value) => {

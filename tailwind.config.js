@@ -1,11 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 
-import {
-  themeColors,
-  backgroundImage,
-  backgroundColor,
-  borderColor
-} from './config/theme/variable';
+import { themeColors, backgroundImage, backgroundColor, borderColor } from './config/theme/variable';
 
 module.exports = {
   // corePlugins: {
@@ -14,7 +9,8 @@ module.exports = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
-    './app/**/*.{js,ts,jsx,tsx,mdx}'
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './node_modules/@moonshotcommons/hackquest-editor/**/*.{js,ts,jsx,tsx,mdx}'
   ],
   darkMode: ['class'],
   theme: {
@@ -63,10 +59,10 @@ module.exports = {
         },
         wap: {
           raw: '(max-width: 768px)'
-        },
-        wapMin: {
-          raw: '(max-width: 375px)'
         }
+        // wapMin: {
+        //   raw: '(max-width: 375px)'
+        // }
       },
       colors: {
         ...themeColors

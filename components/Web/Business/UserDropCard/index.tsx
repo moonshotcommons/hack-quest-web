@@ -1,5 +1,5 @@
 import { BurialPoint } from '@/helper/burialPoint';
-import { useRedirect } from '@/hooks/useRedirect';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import { LoginResponse } from '@/service/webApi/user/type';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -9,8 +9,9 @@ import { FC } from 'react';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { BiUser, BiLockAlt, BiLogInCircle } from 'react-icons/bi';
 import { V2_LANDING_PATH, isNoNeedUserInfo } from '@/constants/nav';
-import { useCustomPathname } from '@/hooks/useCheckPathname';
+import { useCustomPathname } from '@/hooks/router/useCheckPathname';
 import { useRouter } from 'next/navigation';
+import MenuLink from '@/constants/MenuLink';
 interface UserDropCardProps {
   // children: ReactNode;
   userInfo: LoginResponse;
@@ -21,19 +22,10 @@ const UserInfo: FC<Omit<UserDropCardProps, 'onClose'>> = ({ userInfo }) => {
   return (
     <div className="flex w-full flex-col items-center px-[30px]">
       <div className="relative h-[80px] w-[80px]  overflow-hidden rounded-full">
-        <Image
-          src={userInfo?.avatar}
-          alt="avatar"
-          fill
-          className="object-cover"
-        ></Image>
+        <Image src={userInfo?.avatar} alt="avatar" fill className="object-cover"></Image>
       </div>
-      <div className="text-h5 mt-[10px] text-neutral-black">
-        {userInfo?.nickname}
-      </div>
-      <div className="body-s mt-[5px] text-neutral-medium-gray">
-        {userInfo?.email}
-      </div>
+      <div className="text-h5 mt-[10px] text-neutral-black">{userInfo?.nickname}</div>
+      <div className="body-s mt-[5px] text-neutral-medium-gray">{userInfo?.email}</div>
     </div>
   );
 };
@@ -63,10 +55,10 @@ const UserDropCard: FC<UserDropCardProps> = (props) => {
   };
 
   return (
-    <div className="relative  rounded-[10px] bg-neutral-white py-[20px] shadow-[0_4px_4px_0_rgba(0,0,0,0.25)]">
+    <div className="relative  rounded-[10px] bg-neutral-white py-[20px] shadow-[0_0px_4px_0_rgba(0,0,0,0.25)]">
       <div className="body-s flex min-w-[220px] flex-col text-neutral-black">
         <UserInfo userInfo={userInfo}></UserInfo>
-        <Link href={'/user/profile'} className="w-full">
+        <Link href={MenuLink.USER_PROFILE} className="w-full">
           <div
             className="mt-[8px] flex w-full cursor-pointer  items-center gap-[12px] px-[30px] py-[12px] hover:bg-neutral-off-white"
             onClick={() => {

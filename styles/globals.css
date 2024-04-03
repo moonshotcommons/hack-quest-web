@@ -13,6 +13,16 @@
     height: 100%;
     overflow: auto;
   } */
+  @media screen and (max-width: 375px) {
+    html {
+      font-size: 15px;
+    }
+  }
+  @media screen and (max-width: 320px) {
+    html {
+      font-size: 13px;
+    }
+  }
   body {
     @apply bg-neutral-black;
   }
@@ -21,131 +31,131 @@
   }
 
   .text-h1 {
-    @apply font-next-book-bold text-[54px] font-bold leading-[54px] tracking-normal;
+    @apply font-next-book-bold text-[3.375rem] font-bold leading-[54px] tracking-normal;
   }
   .text-h2 {
-    @apply font-next-book-bold text-[40px] font-bold leading-[40px] tracking-normal;
+    @apply font-next-book-bold text-[2.5rem] font-bold leading-[40px] tracking-normal;
   }
   .text-h3 {
-    @apply font-next-book-bold text-[28px] font-bold leading-normal tracking-normal;
+    @apply font-next-book-bold text-[1.75rem] font-bold leading-normal tracking-normal;
   }
   .text-h4 {
-    @apply font-next-book-bold text-[18px] font-bold leading-normal tracking-normal;
+    @apply font-next-book-bold text-[1.125rem] font-bold leading-normal tracking-normal;
   }
   .text-h5 {
-    @apply font-next-book-bold text-[16px] font-bold leading-normal tracking-normal;
+    @apply font-next-book-bold text-[1rem] font-bold leading-normal tracking-normal;
   }
 
   .text-h1-mob {
-    @apply font-next-book-bold text-[30px] font-bold leading-[30px] tracking-normal;
+    @apply font-next-book-bold text-[1.875rem] font-bold leading-[30px] tracking-normal;
   }
   .text-h2-mob {
-    @apply font-next-book-bold text-[22px] font-bold leading-normal tracking-normal;
+    @apply font-next-book-bold text-[1.375rem] font-bold leading-normal tracking-normal;
   }
   .text-h3-mob {
-    @apply font-next-book-bold text-[18px] font-bold leading-normal tracking-normal;
+    @apply font-next-book-bold text-[1.125rem] font-bold leading-normal tracking-normal;
   }
   .text-h4-mob {
-    @apply font-next-book-bold text-[16px] font-bold leading-normal tracking-normal;
+    @apply font-next-book-bold text-[1rem] font-bold leading-normal tracking-normal;
   }
   .text-h5-mob {
-    @apply font-next-book-bold text-[14px] font-bold leading-normal tracking-normal;
+    @apply font-next-book-bold text-[.875rem] font-bold leading-normal tracking-normal;
   }
 
   .body-xl {
-    @apply font-Nunito text-[24px] font-normal leading-normal;
+    @apply font-Nunito text-[1.5rem] font-normal leading-normal;
   }
 
   .body-xl-bold {
-    @apply font-Nunito text-[24px] font-bold leading-normal;
+    @apply font-Nunito text-[1.5rem] font-bold leading-normal;
   }
 
   .body-l {
-    @apply font-Nunito text-[18px] font-normal leading-[160%] tracking-normal;
+    @apply font-Nunito text-[1.125rem] font-normal leading-[160%] tracking-normal;
   }
 
   .body-l-bold {
-    @apply font-Nunito text-[18px] font-bold leading-[160%] tracking-normal;
+    @apply font-Nunito text-[1.125rem] font-bold leading-[160%] tracking-normal;
   }
 
   .body-m {
-    @apply font-Nunito text-[16px] font-normal leading-[160%] tracking-normal;
+    @apply font-Nunito text-[1rem] font-normal leading-[160%] tracking-normal;
   }
 
   .body-m-bold {
-    @apply font-Nunito text-[16px] font-bold leading-[160%] tracking-normal;
+    @apply font-Nunito text-[1rem] font-bold leading-[160%] tracking-normal;
   }
 
   .body-s {
-    @apply font-Nunito text-[14px] font-normal leading-[160%] tracking-normal;
+    @apply font-Nunito text-[.875rem] font-normal leading-[160%] tracking-normal;
   }
 
   .body-s-bold {
-    @apply font-Nunito text-[14px] font-bold leading-[160%] tracking-normal;
+    @apply font-Nunito text-[.875rem] font-bold leading-[160%] tracking-normal;
   }
 
   .body-xs {
-    @apply font-Nunito text-[12px] font-normal leading-[160%] tracking-normal;
+    @apply font-Nunito text-[.75rem] font-normal leading-[160%] tracking-normal;
   }
 
   .body-xs-bold {
-    @apply font-Nunito text-[12px] font-bold leading-[160%] tracking-normal;
+    @apply font-Nunito text-[.75rem] font-bold leading-[160%] tracking-normal;
   }
 
   .body-xs {
-    @apply font-Nunito text-[12px] font-normal leading-[160%] tracking-normal;
+    @apply font-Nunito text-[.75rem] font-normal leading-[160%] tracking-normal;
   }
 
   .body-xs-bold {
-    @apply font-Nunito text-[12px] font-bold leading-[160%] tracking-normal;
+    @apply font-Nunito text-[.75rem] font-bold leading-[160%] tracking-normal;
   }
 
   .caption-16pt {
-    @apply font-Nunito text-[16px] font-normal leading-normal;
+    @apply font-Nunito text-[1rem] font-normal leading-normal;
   }
 
   .caption-14pt {
-    @apply font-Nunito text-[14px] font-normal leading-normal;
+    @apply font-Nunito text-[.875rem] font-normal leading-normal;
   }
 
   .caption-12pt {
-    @apply font-Nunito text-[12px] font-light leading-normal;
+    @apply font-Nunito text-[.75rem] font-light leading-normal;
   }
 
   .caption-10pt {
-    @apply font-Nunito text-[10px] font-normal leading-normal;
+    @apply font-Nunito text-[.625rem] font-normal leading-normal;
   }
 
   .button-text-l {
-    @apply font-Nunito text-[18px] font-medium leading-normal tracking-normal;
+    @apply font-Nunito text-[1.125rem] font-medium leading-normal tracking-normal;
   }
 
   .button-text-m {
-    @apply font-Nunito text-[14px] font-medium leading-normal tracking-normal;
+    @apply font-Nunito text-[.875rem] font-medium leading-normal tracking-normal;
   }
 
   .button-text-s {
-    @apply font-Nunito text-[12px] font-medium leading-normal tracking-normal;
+    @apply font-Nunito text-[.75rem] font-medium leading-normal tracking-normal;
   }
 
   .code-l {
-    @apply font-Space-Mono text-[14px] font-normal leading-[150%] tracking-normal;
+    @apply font-Space-Mono text-[.875rem] font-normal leading-[150%] tracking-normal;
   }
   .code-m {
-    @apply font-Space-Mono text-[12px] font-normal leading-[150%] tracking-normal;
+    @apply font-Space-Mono text-[.75rem] font-normal leading-[150%] tracking-normal;
   }
   .code-s {
-    @apply font-Space-Mono text-[10px] font-normal leading-[150%] tracking-normal;
+    @apply font-Space-Mono text-[.625rem] font-normal leading-[150%] tracking-normal;
   }
 
   .underline-l {
-    @apply font-Nunito text-[18px] leading-normal tracking-normal underline;
+    @apply font-Nunito text-[1.125rem] leading-normal tracking-normal underline;
   }
   .underline-m {
-    @apply font-Nunito text-[16px] leading-normal tracking-normal underline;
+    @apply font-Nunito text-[1rem] leading-normal tracking-normal underline;
   }
   .underline-s {
-    @apply font-Nunito text-[14px] leading-normal tracking-normal underline;
+    @apply font-Nunito text-[.875rem] leading-normal tracking-normal underline;
   }
 }
 
@@ -323,9 +333,28 @@ input[data-type='changePassword']:-internal-autofill-selected {
     bottom: 0;
     left: var(--highlight-x);
     width: var(--highlight-width);
-    background: #3e3e3e;
+    background: var(--yellow-primary);
     transition: all 0.2s;
     border-radius: 20px;
+  }
+}
+
+.slide-glossary-navigator {
+  --highlight-x: 0;
+  --highlight-width: 0;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    bottom: 0;
+    left: var(--highlight-x);
+    width: var(--highlight-width);
+    background: var(--yellow-primary);
+    transition: all 0.2s;
+    border-radius: 8px;
   }
 }
 .input-quiver {

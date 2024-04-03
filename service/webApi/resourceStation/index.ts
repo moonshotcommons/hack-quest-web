@@ -25,32 +25,19 @@ class ResourceStationApi {
   }
 
   /** 获取hackathon列表 */
-  getHackathonList(
-    params:
-      | Record<string, string | number>
-      | { page: number; limit: number } = {}
-  ) {
-    return this.service.get<HackathonDataType>(
-      ResourceStationApiType.Hackathon,
-      {
-        params
-      }
-    );
+  getHackathonList(params: Record<string, string | number> | { page: number; limit: number } = {}) {
+    return this.service.get<HackathonDataType>(ResourceStationApiType.Hackathon, {
+      params
+    });
   }
 
   /** 获取hackathon详情数据 */
   getHackathonDetail(id: string) {
-    return this.service.get<HackathonType>(
-      `${ResourceStationApiType.Hackathon}/${id}`
-    );
+    return this.service.get<HackathonType>(`${ResourceStationApiType.Hackathon}/${id}`);
   }
 
   /** 获取project列表 */
-  getProjectsList(
-    params:
-      | Record<string, string | number | boolean>
-      | { page: number; limit: number } = {}
-  ) {
+  getProjectsList(params: Record<string, string | number | boolean> | { page: number; limit: number } = {}) {
     return this.service.get<ProjectDataType>(ResourceStationApiType.Projects, {
       params
     });
@@ -58,58 +45,48 @@ class ResourceStationApi {
 
   /** 获取project详情数据 */
   getProjectsDetail(id: string) {
-    return this.service.get<ProjectType>(
-      `${ResourceStationApiType.Projects}/${id}`
-    );
+    return this.service.get<ProjectType>(`${ResourceStationApiType.Projects}/${id}`);
   }
 
   /**  */
   getProjectTracksDict() {
-    return this.service.get<string[]>(
-      `${ResourceStationApiType.Projects}/tracks-dir`
-    );
+    return this.service.get<string[]>(`${ResourceStationApiType.Projects}/tracks-dir`);
   }
 
   getBlog(params: BlogSearchType & PagedType) {
-    return this.service.get<{ data: BlogType[]; total: number }>(
-      `${ResourceStationApiType.Blogs}`,
-      {
-        params
-      }
-    );
+    return this.service.get<{ data: BlogType[]; total: number }>(`${ResourceStationApiType.Blogs}`, {
+      params
+    });
   }
 
-  getFeaturedBlog() {
-    return this.service.get<BlogType[]>(
-      `${ResourceStationApiType.Blogs}/featured`
-    );
+  getFeaturedBlog(params = {}) {
+    return this.service.get<BlogType[]>(`${ResourceStationApiType.Blogs}/featured`, {
+      params
+    });
   }
 
   getBlogDetail(id: string) {
-    return this.service.get<BlogDetailType>(
-      `${ResourceStationApiType.Blogs}/${id}`
-    );
+    return this.service.get<BlogDetailType>(`${ResourceStationApiType.Blogs}/${id}`);
   }
 
-  getGlossaryList(params: BlogSearchType & PagedType) {
-    return this.service.get<{ data: BlogType[]; total: number }>(
-      `${ResourceStationApiType.Glossary}`,
-      {
-        params
-      }
-    );
+  getGlossaryList(params: object) {
+    return this.service.get<{ data: BlogType[]; total: number }>(`${ResourceStationApiType.Glossary}`, {
+      params
+    });
   }
 
-  getFeaturedGlossary() {
-    return this.service.get<BlogType[]>(
-      `${ResourceStationApiType.Glossary}/featured`
-    );
+  getFeaturedGlossary(params = {}) {
+    return this.service.get<BlogType[]>(`${ResourceStationApiType.Glossary}/featured`, {
+      params
+    });
   }
 
   getGlossaryDetail(id: string) {
-    return this.service.get<BlogDetailType>(
-      `${ResourceStationApiType.Glossary}/${id}`
-    );
+    return this.service.get<BlogDetailType>(`${ResourceStationApiType.Glossary}/${id}`);
+  }
+
+  getGlossaryTracks() {
+    return this.service.get<string[]>(`${ResourceStationApiType.Glossary}/tracks`);
   }
 
   customKeyword(data: { type: CoustomKeywordType; keyword: string }) {

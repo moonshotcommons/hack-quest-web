@@ -7,11 +7,7 @@ interface MobFilterButtonProp {
   isSelectFilter?: boolean;
 }
 
-const MobFilterButton: React.FC<MobFilterButtonProp> = ({
-  onClick,
-  count,
-  isSelectFilter = false
-}) => {
+const MobFilterButton: React.FC<MobFilterButtonProp> = ({ onClick, count, isSelectFilter = false }) => {
   return (
     <>
       <div

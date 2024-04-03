@@ -13,13 +13,7 @@ const Nav: FC<NavProps> = ({ children, isOpen, toggleOpen }) => {
   const containerRef = useRef(null);
   const { height } = useDimensions(containerRef);
   const Path = (props: any) => (
-    <motion.path
-      fill="transparent"
-      strokeWidth="3"
-      stroke="#FFF"
-      strokeLinecap="round"
-      {...props}
-    />
+    <motion.path fill="transparent" strokeWidth="3" stroke="#FFF" strokeLinecap="round" {...props} />
   );
 
   return (
@@ -36,12 +30,7 @@ const Nav: FC<NavProps> = ({ children, isOpen, toggleOpen }) => {
       />
       {children}
       <button className="absolute left-0 top-0 flex h-[64px] w-[64px] items-center justify-center rounded-full bg-transparent outline-none">
-        <svg
-          width="23"
-          height="23"
-          viewBox="0 0 23 23"
-          onClick={() => toggleOpen()}
-        >
+        <svg width="23" height="23" viewBox="0 0 23 23" onClick={() => toggleOpen()}>
           <Path
             variants={{
               closed: { d: 'M 2 2.5 L 20 2.5' },

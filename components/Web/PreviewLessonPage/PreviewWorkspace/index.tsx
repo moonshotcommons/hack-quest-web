@@ -1,6 +1,6 @@
 'use client';
 import Button from '@/components/Common/Button';
-import { useRedirect } from '@/hooks/useRedirect';
+import { useRedirect } from '@/hooks/router/useRedirect';
 import { Input, message } from 'antd';
 import axios from 'axios';
 import { FC, useState } from 'react';
@@ -29,12 +29,7 @@ const PreviewWorkspace: FC<PreviewWorkspaceProps> = (props) => {
           size="medium-x"
           className="py-3"
           onClick={() => {
-            if (
-              !previewLessonUrl ||
-              !/^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/.test(
-                previewLessonUrl.trim()
-              )
-            ) {
+            if (!previewLessonUrl || !/^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/.test(previewLessonUrl.trim())) {
               message.error('无效的url，请检查url链接是否正确');
               return;
             }
@@ -60,12 +55,7 @@ const PreviewWorkspace: FC<PreviewWorkspaceProps> = (props) => {
           size="medium-x"
           className="py-3"
           onClick={() => {
-            if (
-              !previewCourseUrl ||
-              !/^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/.test(
-                previewCourseUrl.trim()
-              )
-            ) {
+            if (!previewCourseUrl || !/^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/.test(previewCourseUrl.trim())) {
               message.error('无效的url，请检查url链接是否正确');
               return;
             }
@@ -76,8 +66,7 @@ const PreviewWorkspace: FC<PreviewWorkspaceProps> = (props) => {
               })
               .then((res) => {
                 message.success({
-                  content:
-                    'Uploading course to dev environment. Please check notifications on Lark.',
+                  content: 'Uploading course to dev environment. Please check notifications on Lark.',
                   duration: 3
                 });
               })

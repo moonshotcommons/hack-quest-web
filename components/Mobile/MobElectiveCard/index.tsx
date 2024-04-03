@@ -1,17 +1,15 @@
 import Button from '@/components/Common/Button';
 import { BurialPoint } from '@/helper/burialPoint';
 import { cn } from '@/helper/utils';
-import { useJumpLeaningLesson } from '@/hooks/useCoursesHooks/useJumpLeaningLesson';
+import { useJumpLeaningLesson } from '@/hooks/courses/useJumpLeaningLesson';
 import { CourseType } from '@/service/webApi/course/type';
 import { FC, useCallback, useRef } from 'react';
 import { QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
-import { useRedirect } from '@/hooks/useRedirect';
-import MobMiniElectiveDetailModal, {
-  MiniElectiveDetailModalRef
-} from '../MobMiniElectiveDetailModal';
+import { useRedirect } from '@/hooks/router/useRedirect';
+import MobMiniElectiveDetailModal, { MiniElectiveDetailModalRef } from '../MobMiniElectiveDetailModal';
 import { ElectiveCourseType } from '@/service/webApi/elective/type';
 import MobCardProgress from '../MobCardProgress';
-import { MenuLink } from '@/components/Web/Layout/BasePage/Navbar/type';
+import MenuLink from '@/constants/MenuLink';
 
 interface ElectiveCardProps {
   // children: ReactNode;
@@ -63,19 +61,9 @@ const MobElectiveCard: FC<ElectiveCardProps> = (props) => {
       >
         {course.progress && course.progress >= 1 ? (
           <div className="absolute right-[1rem] top-[1rem]">
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 32 32"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
+            <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
               <circle cx="16" cy="16" r="16" fill="#00C365" />
-              <path
-                d="M8 15.9999L14.4 22.3999L25.6 11.1999"
-                stroke="white"
-                strokeLinecap="round"
-              />
+              <path d="M8 15.9999L14.4 22.3999L25.6 11.1999" stroke="white" strokeLinecap="round" />
             </svg>
           </div>
         ) : null}
@@ -107,9 +95,7 @@ const MobElectiveCard: FC<ElectiveCardProps> = (props) => {
           </>
         ) : (
           <>
-            <p className="body-xs  line-clamp-2 text-neutral-medium-gray">
-              {course.description}
-            </p>
+            <p className="body-xs  line-clamp-2 text-neutral-medium-gray">{course.description}</p>
           </>
         )}
       </div>
