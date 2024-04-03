@@ -8,8 +8,11 @@ import FilterLetter from './FilterLetter';
 import FilterTrack from './FilterTrack';
 import GlossaryList, { GlossaryListType, OffsetTopsType } from './GlossaryList';
 import BlogFooter from '../../blog/components/BlogFooter';
-import { useRedirect } from '@/hooks/router/useRedirect';
 import { getSearchParamsUrl } from '@/helper/utils';
+import webApi from '@/service';
+import { useRequest } from 'ahooks';
+import { errorMessage } from '@/helper/ui';
+import { useRouter } from 'next/navigation';
 
 interface GlossaryPageProp {
   galossaryList: BlogType[];
@@ -18,6 +21,7 @@ interface GlossaryPageProp {
 
 const GlossaryPage: React.FC<GlossaryPageProp> = ({ galossaryList, searchParams }) => {
   const [list, setList] = useState<GlossaryListType[]>([]);
+  const [filterTracks, setFilterTracks] = useState<string[]>([]);
   const [tracks, setTracks] = useState<string[]>([]);
   const [letter, setLetter] = useState('');
   const [isSticky, setIsSticky] = useState(false);
@@ -26,10 +30,37 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ galossaryList, searchParams 
   const timerOut = useRef<NodeJS.Timeout | null>(null);
   const [offsetTops, setOffsetTops] = useState<OffsetTopsType[]>([]);
   const [letterData, setLetterData] = useState<string[]>([]);
-  const { redirectToUrl } = useRedirect();
+  const router = useRouter();
+  const isScroll = useRef(true);
   const letterClick = (val: string) => {
     setLetter(val);
+    isScroll.current = false;
+    const url = getSearchParamsUrl(
+      {
+        category: searchParams.category
+      },
+      MenuLink.GLOSSARY
+    );
+    router.push(`${url}#glossary-${val}`);
+    setTimeout(() => {
+      isScroll.current = true;
+    }, 1000);
   };
+
+  const {} = useRequest(
+    async () => {
+      const res = await webApi.resourceStationApi.getGlossaryTracks();
+      return res;
+    },
+    {
+      onSuccess(res) {
+        setFilterTracks(res);
+      },
+      onError(err) {
+        errorMessage(err);
+      }
+    }
+  );
 
   const trackClick = (val: string) => {
     const newTracks = ~tracks.indexOf(val) ? tracks.filter((v) => v !== val) : [...tracks, val];
@@ -39,17 +70,12 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ galossaryList, searchParams 
       },
       MenuLink.GLOSSARY
     );
-    redirectToUrl(url);
+    router.push(url);
   };
   const getTrackList = () => {
     const newTracks = searchParams.category?.split(',') || [];
     setTracks(newTracks);
-    if (!newTracks.length) {
-      dealList(galossaryList);
-    } else {
-      const newList = galossaryList.filter((v) => v.tracks.some((c) => newTracks.includes(c)));
-      dealList(newList);
-    }
+    dealList(galossaryList);
   };
   const dealList = (gList: BlogType[]) => {
     let newGlossaryList: GlossaryListType[] = [];
@@ -58,7 +84,7 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ galossaryList, searchParams 
     gList.forEach((v) => {
       const firstLetter = v.title.charAt(0).toUpperCase();
       if (/\w/.test(firstLetter)) {
-        if (firstLetter !== k) {
+        if (!letters.includes(firstLetter)) {
           k = firstLetter;
           letters.push(firstLetter);
           const obj = {
@@ -79,17 +105,17 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ galossaryList, searchParams 
     setList(newGlossaryList);
   };
   const onScroll = () => {
-    if (!letterData.length || timerOut.current) return;
+    if (!letterData.length || timerOut.current || !isScroll.current) return;
     timerOut.current = setTimeout(() => {
       timerOut.current = null;
       const boxScrollTop = boxRef.current?.scrollTop || 0;
       const letterOffsetTop = letterRef.current?.offsetTop || 0;
       setIsSticky(boxScrollTop >= letterOffsetTop - 1);
       for (let i = 0; i < offsetTops.length; i++) {
-        if (boxScrollTop >= offsetTops[offsetTops.length - 1].offsetTop - 80) {
+        if (boxScrollTop >= offsetTops[offsetTops.length - 1].offsetTop) {
           setLetter(offsetTops[offsetTops.length - 1].letter);
           break;
-        } else if (boxScrollTop >= offsetTops[i].offsetTop - 80 && boxScrollTop < offsetTops[i + 1].offsetTop - 80) {
+        } else if (boxScrollTop >= offsetTops[i].offsetTop && boxScrollTop < offsetTops[i + 1].offsetTop) {
           setLetter(offsetTops[i].letter);
           break;
         }
@@ -114,7 +140,7 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ galossaryList, searchParams 
             </div>
           )}
 
-          <FilterTrack tracks={tracks} trackClick={trackClick} />
+          <FilterTrack filterTracks={filterTracks} tracks={tracks} trackClick={trackClick} />
         </>
       )}
       <div className="container  mx-auto  pb-[70px]">

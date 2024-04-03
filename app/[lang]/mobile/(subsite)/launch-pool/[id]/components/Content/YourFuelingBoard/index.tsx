@@ -1,39 +1,49 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 
-import { titleTxtData } from '../../../constants/data';
 import Info from './Info';
 import StakeFuel from './StakeFuel';
 import InvitationFuel from './InvitationFuel';
 import TargetFuel from './TargetFuel';
-import UnstakeModal from './UnstakeModal';
-import StakeModal from './StakeModal';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
+import { LangContext } from '@/components/Provider/Lang';
+import { LaunchPoolProjectStatus } from '@/service/webApi/launchPool/type';
+import { LaunchDetailContext } from '@/app/[lang]/(web)/(subsite)/launch-pool/[id]/constants/type';
+import { titleTxtData } from '@/app/[lang]/(web)/(subsite)/launch-pool/[id]/constants/data';
 
 interface YourFuelingBoardProp {}
 
 const YourFuelingBoard: React.FC<YourFuelingBoardProp> = () => {
-  const [modalName, setModalName] = useState('');
-  const hanleStake = () => {};
-  const hanleUnstake = () => {};
+  const { launchInfo } = useContext(LaunchDetailContext);
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
+
+  const statusRender = () => {
+    switch (launchInfo.status) {
+      case LaunchPoolProjectStatus.ALLOCATION:
+        return {
+          titleDesc: launchInfo.participateInfo?.isParticipate ? <p>{t('lockFuel')}</p> : null
+        };
+      case LaunchPoolProjectStatus.AIRDROP:
+        return {
+          titleDesc: launchInfo.participateInfo?.isParticipate ? <p>{t('fuelCongratulations')}</p> : null
+        };
+      default:
+        return null;
+    }
+  };
   return (
-    <div>
-      <p className="text-h3 text-neutral-off-black">{titleTxtData[2]}</p>
-      <p className="body-l my-[24px] text-neutral-black">Congratulations! It’s time to claim your token!</p>
+    <div className="relative overflow-hidden px-[1.25rem]">
+      <p className="text-h3-mob text-neutral-off-black">{t(titleTxtData[2])}</p>
+      <p className="body-l my-[1.25rem] text-neutral-black">{statusRender()?.titleDesc}</p>
       <Info />
-      <StakeFuel />
-      <InvitationFuel />
-      <TargetFuel />
-      <StakeModal
-        open={modalName === 'stake'}
-        onClose={() => setModalName('')}
-        loading={false}
-        hanleStake={hanleStake}
-      />
-      <UnstakeModal
-        open={modalName === 'stake'}
-        onClose={() => setModalName('')}
-        loading={false}
-        hanleUnstake={hanleUnstake}
-      />
+      {launchInfo.status === LaunchPoolProjectStatus.FUELING && launchInfo.participateInfo?.isParticipate && (
+        <>
+          <StakeFuel />
+          <InvitationFuel />
+          <TargetFuel />
+        </>
+      )}
     </div>
   );
 };
