@@ -1,7 +1,6 @@
-import MenuLink from '@/constants/MenuLink';
-import useGetHeight from '@/hooks/dom/useGetHeight';
-import { useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
+import { MOBILE_NAVBAR_HEIGHT } from '@/components/Mobile/MobLayout/BasePage/Navbar/constant';
+import { useGetPageInfo } from '@/hooks/dom/useGetPageInfo';
+import React from 'react';
 
 interface FilterLetterProp {
   letterData: string[];
@@ -10,24 +9,22 @@ interface FilterLetterProp {
 }
 
 const FilterLetter: React.FC<FilterLetterProp> = ({ letterData, letterClick, letter }) => {
-  const router = useRouter();
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const { pageHeight } = useGetHeight();
+  const pageInfo = useGetPageInfo();
   const handleClick = (v: string) => {
     letterClick(v);
-    router.push(`${MenuLink.GLOSSARY}#glossary-${v}`);
   };
-  useEffect(() => {
-    let index = letterData.indexOf(letter);
-    setCurrentIndex(index);
-  }, [letter]);
   return (
-    <div className="no-scrollbar fixed bottom-[6.25rem] right-[.8125rem] top-[4.375rem] z-[9] flex w-[.875rem] flex-col justify-end overflow-auto  ">
-      <div className={`flex w-full flex-col gap-[.25rem] `}>
+    <div
+      className="no-scrollbar fixed bottom-[6.25rem] right-[.8125rem]  z-[9]  flex w-[.875rem] items-end overflow-auto"
+      style={{
+        height: `${pageInfo.windowHeight - MOBILE_NAVBAR_HEIGHT - 100}px`
+      }}
+    >
+      <div className={`flex max-h-full w-full flex-col`}>
         {letterData.map((v) => (
           <div
             key={v}
-            className={`flex-center body-xs relative h-[1.1875rem] w-full cursor-pointer rounded-[8px] uppercase  ${v === letter ? 'text-neutral-off-black' : 'text-neutral-medium-gray'}`}
+            className={`flex-center body-xs relative mb-[.25rem] h-[1.1875rem] w-full cursor-pointer rounded-[8px] uppercase  ${v === letter ? 'text-neutral-off-black' : 'text-neutral-medium-gray'}`}
             onClick={() => handleClick(v)}
           >
             {v}

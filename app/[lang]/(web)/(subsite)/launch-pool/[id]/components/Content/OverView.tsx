@@ -205,7 +205,7 @@ const OverView: React.FC<OverViewProp> = () => {
           </div>
           <div className="flex [&>div]:flex-1">
             <div className=""> {t('currentStakings')}</div>
-            <div className="text-neutral-black">{`${separationNumber(launchInfo.currentStakings)} $MNT`}</div>
+            <div className="text-neutral-black">{`${separationNumber(launchInfo.currentStakings)} $${launchInfo.symbol}`}</div>
           </div>
           <div className="flex [&>div]:flex-1">
             <div className=""> {t('blockchainNetwork')}</div>
@@ -229,7 +229,7 @@ const OverView: React.FC<OverViewProp> = () => {
         <div className="body-m flex items-center text-neutral-medium-gray">
           <span className="flex-1 ">{t('links')}</span>
           <div className="flex flex-1 items-center justify-between">
-            {linkIcons.map((v) => (
+            {linkIcons().map((v) => (
               <Link key={v.id} target="_blank" href={v.link}>
                 {v.icon}
               </Link>

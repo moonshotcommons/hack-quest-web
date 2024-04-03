@@ -2,7 +2,7 @@ import Button from '@/components/Common/Button';
 import CopyIcon from '@/components/Common/Icon/Copy';
 import Modal from '@/components/Common/Modal';
 import { LangContext } from '@/components/Provider/Lang';
-import { separationNumber } from '@/helper/utils';
+import { separationNumber, truncateMiddle } from '@/helper/utils';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import { message } from 'antd';
@@ -42,14 +42,14 @@ const StakeModal: React.FC<StakeModalProp> = ({ open, hanleStake, onClose }) => 
                   className="flex cursor-pointer items-center gap-[12px] text-neutral-off-black"
                   onClick={async (e) => {
                     try {
-                      await navigator.clipboard.writeText('1111');
+                      await navigator.clipboard.writeText(account.address as string);
                       message.success('Copy success!');
                     } catch (e) {
                       message.warning('The browser version is too low or incompatible！');
                     }
                   }}
                 >
-                  <span>{account.address}</span>
+                  <span>{truncateMiddle(account.address as string)}</span>
                   <CopyIcon width={17} height={21} color={'var(--neutral-off-black)'} />
                 </div>
               </div>

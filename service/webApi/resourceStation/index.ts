@@ -69,7 +69,7 @@ class ResourceStationApi {
     return this.service.get<BlogDetailType>(`${ResourceStationApiType.Blogs}/${id}`);
   }
 
-  getGlossaryList(params: BlogSearchType & PagedType) {
+  getGlossaryList(params: object) {
     return this.service.get<{ data: BlogType[]; total: number }>(`${ResourceStationApiType.Glossary}`, {
       params
     });
@@ -83,6 +83,10 @@ class ResourceStationApi {
 
   getGlossaryDetail(id: string) {
     return this.service.get<BlogDetailType>(`${ResourceStationApiType.Glossary}/${id}`);
+  }
+
+  getGlossaryTracks() {
+    return this.service.get<string[]>(`${ResourceStationApiType.Glossary}/tracks`);
   }
 
   customKeyword(data: { type: CoustomKeywordType; keyword: string }) {

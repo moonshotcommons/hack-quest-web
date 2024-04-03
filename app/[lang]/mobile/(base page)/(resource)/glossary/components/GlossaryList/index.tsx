@@ -25,19 +25,19 @@ const GlossaryList: React.FC<GlossaryListProp> = ({ list, setOffsetTop }) => {
       const offsetTop = (childNodes[i] as HTMLDivElement).offsetTop || 0;
       offsetTops.push({
         letter: `${list[i].letter}`,
-        offsetTop: offsetTop
+        offsetTop: offsetTop - 70
       });
     }
     setOffsetTop(offsetTops);
   };
   useEffect(() => {
     getOffsetTops();
-  }, []);
+  }, [list]);
   return (
     <div className="flex flex-col gap-[2.25rem]" ref={boxRef}>
       {list.map((item) => (
         <div key={item.letter} className="relative">
-          <div className="absolute left-0 top-[-2.5rem]" id={`glossary-${item.letter}`}></div>
+          <div className="absolute left-0 top-[-32px]" id={`glossary-${item.letter}`}></div>
           <div className="text-h2-mob mb-[1.5rem] border-b border-b-neutral-medium-gray pb-[.5rem] text-neutral-off-black">
             {item.letter}
           </div>

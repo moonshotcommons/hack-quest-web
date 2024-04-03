@@ -1,6 +1,4 @@
 import SlideHighlight from '@/components/Common/Navigation/SlideHighlight';
-import MenuLink from '@/constants/MenuLink';
-import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
 interface FilterLetterProp {
@@ -11,11 +9,9 @@ interface FilterLetterProp {
 }
 
 const FilterLetter: React.FC<FilterLetterProp> = ({ letterData, letterClick, isSticky, letter }) => {
-  const router = useRouter();
   const [currentIndex, setCurrentIndex] = useState(0);
   const handleClick = (v: string) => {
     letterClick(v);
-    router.push(`${MenuLink.GLOSSARY}#glossary-${v}`);
   };
   useEffect(() => {
     let index = letterData.indexOf(letter);
@@ -28,10 +24,10 @@ const FilterLetter: React.FC<FilterLetterProp> = ({ letterData, letterClick, isS
         type={'GLOSSARY_FILTER'}
         currentIndex={currentIndex}
       >
-        {letterData.map((v) => (
+        {letterData.map((v, i) => (
           <div
             key={v}
-            className={`flex-center relative h-[49px] w-[calc(100%/26)] cursor-pointer rounded-[8px] uppercase  ${v === letter ? 'body-l-bold text-neutral-off-black' : 'body-l text-neutral-medium-gray'}`}
+            className={`flex-center relative h-[49px] w-[calc(100%/26)] cursor-pointer rounded-[8px] uppercase  ${i === currentIndex ? 'body-l-bold text-neutral-off-black' : 'body-l text-neutral-medium-gray'}`}
             onClick={() => handleClick(v)}
           >
             {v}
