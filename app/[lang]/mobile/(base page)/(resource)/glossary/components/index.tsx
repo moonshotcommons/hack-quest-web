@@ -12,7 +12,6 @@ import BackTop from './BackTop';
 import { Transition } from '@headlessui/react';
 import BlogFooter from '../../blog/components/BlogFooter';
 import { getSearchParamsUrl } from '@/helper/utils';
-import { useRouter } from 'next/navigation';
 import { useRequest } from 'ahooks';
 import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';
@@ -38,7 +37,6 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ searchParams = {}, galossary
   const [isSticky, setIsSticky] = useState(false);
   const isOnScroll = useRef(false);
   const [trackOffsetTop, setTrackOffsetTop] = useState(0);
-  const router = useRouter();
   const {} = useRequest(
     async () => {
       const res = await webApi.resourceStationApi.getGlossaryTracks();
@@ -122,10 +120,9 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ searchParams = {}, galossary
     setLetterData(letters);
     setList(newGlossaryList);
   };
-  const backTop = () => {
+  const handleBackTop = () => {
     boxRef.current?.scrollTo({
-      top: 0,
-      behavior: 'smooth'
+      top: 0
     });
   };
   const onScroll = () => {
@@ -198,7 +195,7 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ searchParams = {}, galossary
       </div>
       {list.length === 0 || searchParams.keyword ? <BlogFooter from={ResourceFrom.GLOSSARY} /> : null}
       <Transition show={isSticky} appear>
-        <BackTop backTop={backTop} />
+        <BackTop handleBackTop={handleBackTop} />
       </Transition>
     </div>
   );
