@@ -169,7 +169,9 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ searchParams = {}, galossary
       <GlossaryHeader keyword={searchParams.keyword || ''} />
       {!searchParams.keyword && (
         <>
-          {letterData.length > 0 && <FilterLetter letterData={letterData} letterClick={letterClick} letter={letter} />}
+          {letterData.length > 0 && (
+            <FilterLetter letterData={letterData} letterClick={letterClick} letter={letter} isSticky={isSticky} />
+          )}
 
           <div
             ref={trackRef}

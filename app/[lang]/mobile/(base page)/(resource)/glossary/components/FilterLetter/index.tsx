@@ -1,24 +1,28 @@
 import { LetterDataType } from '@/app/[lang]/(web)/(base page)/(resource)/glossary/constants/type';
 import { MOBILE_NAVBAR_HEIGHT } from '@/components/Mobile/MobLayout/BasePage/Navbar/constant';
 import { useGetPageInfo } from '@/hooks/dom/useGetPageInfo';
-import React from 'react';
+import React, { useMemo } from 'react';
 
 interface FilterLetterProp {
   letterData: LetterDataType[];
   letterClick: (letter: string) => void;
   letter: string;
+  isSticky: boolean;
 }
 
-const FilterLetter: React.FC<FilterLetterProp> = ({ letterData, letterClick, letter }) => {
+const FilterLetter: React.FC<FilterLetterProp> = ({ letterData, letterClick, letter, isSticky }) => {
   const pageInfo = useGetPageInfo();
   const handleClick = (v: string) => {
     letterClick(v);
   };
+  const trackBoxHeight = useMemo(() => {
+    return isSticky ? 175 : 100;
+  }, [isSticky]);
   return (
     <div
       className="no-scrollbar fixed bottom-[6.25rem] right-[.8125rem]  z-[11]  flex w-[.875rem] items-end overflow-auto"
       style={{
-        height: `${pageInfo.windowHeight - MOBILE_NAVBAR_HEIGHT - 100}px`
+        height: `${pageInfo.windowHeight - MOBILE_NAVBAR_HEIGHT - trackBoxHeight}px`
       }}
     >
       <div className={`flex max-h-full w-full flex-col`}>
