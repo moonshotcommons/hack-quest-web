@@ -64,13 +64,7 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ searchParams = {}, galossary
   };
   const trackClick = (val: string) => {
     const newTracks = ~tracks.indexOf(val) ? tracks.filter((v) => v !== val) : [...tracks, val];
-    setTracks(newTracks);
-    if (!newTracks.length) {
-      dealList(galossaryList);
-    } else {
-      let newList = galossaryList.filter((v) => v.tracks.some((vv) => newTracks.includes(vv)));
-      dealList(newList);
-    }
+    getTrackList(newTracks);
     isOnScroll.current = true;
     setTimeout(() => {
       isOnScroll.current = false;
@@ -83,10 +77,15 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ searchParams = {}, galossary
     // );
     // router.push(url);
   };
-  const getTrackList = () => {
-    const newTracks = searchParams.category?.split(',') || [];
+
+  const getTrackList = (newTracks: string[]) => {
     setTracks(newTracks);
-    dealList(galossaryList);
+    if (!newTracks.length) {
+      dealList(galossaryList);
+    } else {
+      let newList = galossaryList.filter((v) => v.tracks.some((vv) => newTracks.includes(vv)));
+      dealList(newList);
+    }
   };
   const dealList = (gList: BlogType[]) => {
     let newGlossaryList: GlossaryListType[] = [];
@@ -148,8 +147,9 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ searchParams = {}, galossary
     }, 150);
   };
   useEffect(() => {
-    getTrackList();
-  }, [galossaryList]);
+    const newTracks = searchParams.category?.split(',') || [];
+    getTrackList(newTracks);
+  }, [galossaryList, searchParams]);
 
   useEffect(() => {
     const offsetTop = trackRef.current?.offsetTop || 0;

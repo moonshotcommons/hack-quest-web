@@ -19,7 +19,8 @@ const BlogHeader: React.FC<BlogHeaderProp> = ({ blog, from }) => {
   const router = useRouter();
   const categories = useMemo(() => {
     const path = from === ResourceFrom.BLOG ? MenuLink.BLOG : MenuLink.GLOSSARY;
-    const newCategories = blog.categories.map((v) => {
+    const categories = from === ResourceFrom.BLOG ? blog.categories : blog.tracks;
+    const newCategories = categories.map((v) => {
       const url = getSearchParamsUrl(
         {
           category: v
