@@ -8,7 +8,7 @@ interface FilterTrackProp {
 
 const FilterTrack: React.FC<FilterTrackProp> = ({ trackClick, tracks, filterTracks }) => {
   return (
-    <div className="container mx-auto mb-[60px] mt-[32px] flex h-[46px] gap-[12px]">
+    <div className="container mx-auto  mt-[32px] flex h-[46px] gap-[12px]">
       {filterTracks.map((v) => (
         <div
           key={v}
