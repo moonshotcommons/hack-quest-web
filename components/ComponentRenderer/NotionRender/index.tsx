@@ -14,9 +14,12 @@ import QuoteRenderer from './QuoteRenderer';
 import ToggleRenderer from './ToggleRenderer';
 import VideoRenderer from './VideoRenderer';
 import { NotionComponent, NotionComponentType } from './type';
+import { CustomComponent } from '../type';
 
 interface NotionRendererProps {
-  // children: ReactNode
+  prevComponent: NotionComponent | CustomComponent | null;
+  nextComponent: NotionComponent | CustomComponent | null;
+  position: number;
   parent: any;
   component: NotionComponent;
   isRenderChildren?: boolean;
@@ -39,34 +42,32 @@ export const NOTION_RENDERER_TYPES = [
 ];
 
 const NotionRenderer: FC<NotionRendererProps> = (props) => {
-  const { parent, component, isRenderChildren = true } = props;
+  const { component } = props;
   switch (component.type.trim()) {
     case NotionComponentType.PARAGRAPH:
-      return <ParagraphRenderer component={component} parent={parent}></ParagraphRenderer>;
+      return <ParagraphRenderer {...props}></ParagraphRenderer>;
     case NotionComponentType.NUMBERED_LIST_ITEM:
-      return <NumberListItemRenderer component={component} parent={parent}></NumberListItemRenderer>;
+      return <NumberListItemRenderer {...props}></NumberListItemRenderer>;
     case NotionComponentType.BULLETED_LIST_ITEM:
-      return <BulletedListItemRenderer component={component} parent={parent}></BulletedListItemRenderer>;
+      return <BulletedListItemRenderer {...props}></BulletedListItemRenderer>;
     case NotionComponentType.IMAGE:
-      return <ImageRenderer component={component} parent={parent}></ImageRenderer>;
+      return <ImageRenderer {...props}></ImageRenderer>;
     case NotionComponentType.VIDEO:
-      return <VideoRenderer component={component} parent={parent}></VideoRenderer>;
+      return <VideoRenderer {...props}></VideoRenderer>;
     case NotionComponentType.QUOTE:
-      return <QuoteRenderer component={component} parent={parent}></QuoteRenderer>;
+      return <QuoteRenderer {...props}></QuoteRenderer>;
     case NotionComponentType.CALLOUT:
-      return <CalloutRenderer component={component} parent={parent}></CalloutRenderer>;
+      return <CalloutRenderer {...props}></CalloutRenderer>;
     case NotionComponentType.TOGGLE:
-      return <ToggleRenderer component={component} parent={parent}></ToggleRenderer>;
+      return <ToggleRenderer {...props}></ToggleRenderer>;
     case NotionComponentType.CODE:
-      return <CodeRenderer component={component} parent={parent}></CodeRenderer>;
+      return <CodeRenderer {...props}></CodeRenderer>;
     case NotionComponentType.EQUATION:
-      return <EquationRenderer component={component} parent={parent}></EquationRenderer>;
+      return <EquationRenderer {...props}></EquationRenderer>;
     case NotionComponentType.H1:
     case NotionComponentType.H2:
     case NotionComponentType.H3:
-      return (
-        <HeaderRenderer component={component} isRenderChildren={isRenderChildren} parent={parent}></HeaderRenderer>
-      );
+      return <HeaderRenderer {...props}></HeaderRenderer>;
     default:
       <div>{component.type}</div>;
   }

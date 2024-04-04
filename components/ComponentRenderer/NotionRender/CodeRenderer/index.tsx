@@ -8,6 +8,8 @@ import { FC, useContext, useEffect, useRef, useState } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneDark, oneLight } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import { useExampleRendererContext } from '../..';
+import { NotionComponent } from '../type';
+import { CustomComponent } from '../../type';
 
 interface CodeSourceType {
   content: {
@@ -18,6 +20,9 @@ interface CodeSourceType {
 }
 
 interface CodeRendererProps {
+  prevComponent: NotionComponent | CustomComponent | null;
+  nextComponent: NotionComponent | CustomComponent | null;
+  position: number;
   component: CodeSourceType;
   parent: any;
 }

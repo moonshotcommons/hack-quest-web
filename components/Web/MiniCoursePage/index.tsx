@@ -34,7 +34,13 @@ const MiniCoursePage: FC<MiniCoursePageProps> = (props) => {
                 <h1 className="text-h3 pb-[24px] text-neutral-off-black">{lesson.name}</h1>
                 <div className="mb-4 h-[1px] w-full scale-y-50 bg-neutral-black">&nbsp;</div>
                 <div className="scroll-wrap-y flex-1 overflow-y-auto overflow-x-visible pl-1 pr-4">
-                  <ComponentRenderer parent={lesson} component={lesson.content as any}></ComponentRenderer>
+                  <ComponentRenderer
+                    parent={lesson}
+                    component={lesson.content as any}
+                    prevComponent={null}
+                    nextComponent={null}
+                    position={0}
+                  ></ComponentRenderer>
                 </div>
               </div>
             </LessonContentWrap>

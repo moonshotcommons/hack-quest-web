@@ -2,11 +2,15 @@ import { cn } from '@/helper/utils';
 import { FC, useEffect, useMemo, useState } from 'react';
 import TextRenderer from '../TextRenderer';
 import { NotionComponent, NotionComponentType } from '../type';
-import { ComponentRenderer, useGlobalRendererContext } from '../..';
+import { childRenderCallback, useGlobalRendererContext } from '../..';
 import { PgcExpandDataType } from '../../context';
+import { CustomComponent } from '../../type';
 
 type HeaderLevel = NotionComponentType.H1 | NotionComponentType.H2 | NotionComponentType.H3;
 interface HeaderRendererProps {
+  prevComponent: NotionComponent | CustomComponent | null;
+  nextComponent: NotionComponent | CustomComponent | null;
+  position: number;
   component: NotionComponent;
   isRenderChildren?: boolean;
   parent: any;
@@ -75,12 +79,7 @@ const HeaderRenderer: FC<HeaderRendererProps> = (props) => {
         )}
       </HeadingTag>
       {/* 正常渲染子对象 */}
-      <div className="ml-4">
-        {isRenderChildren &&
-          component.children?.map((item: any, index: number) => {
-            return <ComponentRenderer key={index} component={item} parent={component}></ComponentRenderer>;
-          })}
-      </div>
+      <div className="ml-4">{isRenderChildren && component.children?.map(childRenderCallback(component))}</div>
     </div>
   );
 };

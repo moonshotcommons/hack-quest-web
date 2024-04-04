@@ -1,4 +1,4 @@
-import { ComponentRenderer } from '@/components/ComponentRenderer';
+import { childRenderCallback } from '@/components/ComponentRenderer';
 import { CustomComponent } from '@/components/ComponentRenderer/type';
 import { LessonPageContext } from '@/components/Web/LessonPage/type';
 import { BurialPoint } from '@/helper/burialPoint';
@@ -37,10 +37,7 @@ const ContentRenderer: FC<ContentRendererProps> = (props) => {
           </span>
         ) : null}
       </div>
-      {showAll &&
-        component?.children?.map((child) => {
-          return <ComponentRenderer key={child.id} component={child} parent={component}></ComponentRenderer>;
-        })}
+      {showAll && component?.children?.map(childRenderCallback(component))}
     </div>
   );
 };

@@ -1,7 +1,11 @@
 import { FC } from 'react';
 import { NotionComponent } from '../type';
+import { CustomComponent } from '../../type';
 
 interface VideoRendererProps {
+  prevComponent: NotionComponent | CustomComponent | null;
+  nextComponent: NotionComponent | CustomComponent | null;
+  position: number;
   component: NotionComponent;
   parent: any;
 }

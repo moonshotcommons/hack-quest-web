@@ -78,6 +78,7 @@ export interface GlobalContextType {
   onCompleted?: VoidFunction;
   onQuizPass?: VoidFunction;
   pageType?: PageType | null;
+  isMobile?: boolean;
   expandData?: ExpandDataType[];
   updateExpandData?: (data: ExpandDataType[], index?: number) => void;
 }
@@ -87,7 +88,8 @@ export const GlobalContextDefaultValue: GlobalContextType = {
   onQuizPass: () => {},
   pageType: null,
   expandData: [],
-  updateExpandData: (data: ExpandDataType[], index?: number) => {}
+  updateExpandData: (data: ExpandDataType[], index?: number) => {},
+  isMobile: false
 };
 
 export interface RendererContextType {

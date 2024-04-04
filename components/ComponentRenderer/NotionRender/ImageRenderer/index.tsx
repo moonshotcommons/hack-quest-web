@@ -2,8 +2,12 @@ import useGetDevice from '@/hooks/utils/useGetDevice';
 import { Image } from 'antd';
 import { FC } from 'react';
 import { NotionComponent } from '../type';
+import { CustomComponent } from '../../type';
 
 interface ImageRendererProps {
+  prevComponent: NotionComponent | CustomComponent | null;
+  nextComponent: NotionComponent | CustomComponent | null;
+  position: number;
   component: NotionComponent;
   parent: any;
 }

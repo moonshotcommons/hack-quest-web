@@ -18,7 +18,6 @@ import {
 } from '@/components/ComponentRenderer/type';
 
 interface UgcCustomRendererProps {
-  // children: ReactNode
   parent: any;
   component: CustomComponent | NotionComponent;
   isRenderChildren?: boolean;

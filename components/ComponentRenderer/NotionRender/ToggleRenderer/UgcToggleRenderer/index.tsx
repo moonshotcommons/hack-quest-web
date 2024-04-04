@@ -3,12 +3,15 @@ import { FC, useContext, useEffect, useMemo } from 'react';
 import { VscAdd, VscChromeMinimize } from 'react-icons/vsc';
 import { cn } from '@/helper/utils';
 import { UgcContext } from '@/app/[lang]/(web)/(learn page)/ugc/[courseId]/learn/constants/type';
-import { NotionComponentType } from '@/components/ComponentRenderer/type';
+import { CustomComponent, NotionComponentType } from '@/components/ComponentRenderer/type';
 import { NotionComponent } from '@/components/ComponentRenderer/type';
-import { ComponentRenderer } from '@/components/ComponentRenderer';
+import { childRenderCallback } from '@/components/ComponentRenderer';
 import TextRenderer from '@/components/ComponentRenderer/NotionRender/TextRenderer';
 
 interface UgcToggleRendererProps {
+  prevComponent: NotionComponent | CustomComponent | null;
+  nextComponent: NotionComponent | CustomComponent | null;
+  position: number;
   component: NotionComponent;
   isRenderChildren?: boolean;
   parent: any;
@@ -130,9 +133,7 @@ const UgcToggleRenderer: FC<UgcToggleRendererProps> = (props) => {
         <div className="pl-4">
           {isRenderChildren &&
             groupExpands?.includes(currentIndex) &&
-            component.children?.map((item: any, index: number) => {
-              return <ComponentRenderer key={index} component={item} parent={component}></ComponentRenderer>;
-            })}
+            component.children?.map(childRenderCallback(component))}
         </div>
       </div>
     </div>

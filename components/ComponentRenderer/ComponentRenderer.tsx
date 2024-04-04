@@ -7,14 +7,16 @@ import { NotionComponentType } from './type';
 import { useCustomComponentRenderer } from '.';
 
 interface ComponentRendererProps {
-  // children: ReactNode
+  prevComponent: NotionComponent | CustomComponent | null;
+  nextComponent: NotionComponent | CustomComponent | null;
+  position: number;
   parent: any;
   component: NotionComponent | CustomComponent;
   isRenderChildren?: boolean;
 }
 
 const ComponentRenderer: FC<ComponentRendererProps> = (props) => {
-  const { component } = props;
+  const { component, parent } = props;
 
   debugger;
   const CustomComponentRenderer = useCustomComponentRenderer();
@@ -39,6 +41,25 @@ const ComponentRenderer: FC<ComponentRendererProps> = (props) => {
       console.log('不能渲染的类型', component.type.trim());
       return <div></div>;
   }
+};
+
+export const childRenderCallback = (component: NotionComponent | CustomComponent) => {
+  const ChildComponent = (child: NotionComponent | CustomComponent, index: number) => {
+    const prevComponent = index === 0 ? null : component.children![index - 1];
+    const nextComponent = index === component.children!.length - 1 ? null : component.children![index + 1];
+    return (
+      <ComponentRenderer
+        key={child.id ?? index}
+        component={child}
+        parent={component}
+        position={index}
+        prevComponent={prevComponent}
+        nextComponent={nextComponent}
+      ></ComponentRenderer>
+    );
+  };
+
+  return ChildComponent;
 };
 
 export default ComponentRenderer;

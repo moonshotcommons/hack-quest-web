@@ -40,7 +40,13 @@ const LessonContainer: FC<LessonContainerProps> = (props) => {
       </div>
       <div className="w-full pb-10">
         <ComponentRendererProvider isMobile type={PageType.UGC} CustomComponentRenderer={MobUgcCustomRenderer}>
-          <ComponentRenderer parent={lesson} component={lesson.content}></ComponentRenderer>
+          <ComponentRenderer
+            parent={lesson}
+            component={lesson.content}
+            nextComponent={null}
+            prevComponent={null}
+            position={0}
+          ></ComponentRenderer>
         </ComponentRendererProvider>
       </div>
     </div>

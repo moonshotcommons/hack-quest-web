@@ -12,7 +12,7 @@ import QuizFooter from '../QuizFooter';
 import DragAnswer from './DragAnswer';
 import { AnswerType, QuizOptionType } from './type';
 import { CustomType, NotionComponent, NotionComponentType, QuizBType } from '@/components/ComponentRenderer/type';
-import { OverrideRendererConfig, ComponentRenderer } from '@/components/ComponentRenderer';
+import { OverrideRendererConfig, ComponentRenderer, childRenderCallback } from '@/components/ComponentRenderer';
 import DropAnswer from './DropAnswer';
 interface QuizBRendererProps {
   parent: CustomType | NotionComponentType;
@@ -172,9 +172,14 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
               }}
             >
               <div className="items-center py-4">
-                {quizChildren.map((child) => {
-                  return <ComponentRenderer key={child.id} parent={quiz} component={child}></ComponentRenderer>;
-                })}
+                {quizChildren.map(
+                  childRenderCallback(
+                    (function (quiz) {
+                      quiz.children = quizChildren;
+                      return quiz;
+                    })(quiz)
+                  )
+                )}
               </div>
             </OverrideRendererConfig>
 
@@ -217,7 +222,14 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
         </DndProvider>
         {!!parseComponent && (
           <div className="mt-5">
-            <ComponentRenderer key={parseComponent.id} parent={quiz} component={parseComponent}></ComponentRenderer>
+            <ComponentRenderer
+              key={parseComponent.id}
+              parent={quiz}
+              component={parseComponent}
+              prevComponent={null}
+              nextComponent={null}
+              position={0}
+            />
           </div>
         )}
       </div>

@@ -3,7 +3,7 @@ import { BurialPoint } from '@/helper/burialPoint';
 import { FC, useContext, useState } from 'react';
 import { VscChevronDown } from 'react-icons/vsc';
 import { CustomComponent } from '@/components/ComponentRenderer/type';
-import { ComponentRenderer } from '@/components/ComponentRenderer';
+import { childRenderCallback } from '@/components/ComponentRenderer';
 interface ContentRendererProps {
   component: CustomComponent;
   parent: CustomComponent;
@@ -29,10 +29,7 @@ const ContentRenderer: FC<ContentRendererProps> = (props) => {
           </span>
         ) : null}
       </div>
-      {showAll &&
-        component?.children?.map((child) => {
-          return <ComponentRenderer key={child.id} component={child} parent={component}></ComponentRenderer>;
-        })}
+      {showAll && component?.children?.map(childRenderCallback(component))}
     </div>
   );
 };

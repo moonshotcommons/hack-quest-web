@@ -1,11 +1,14 @@
 import { FC } from 'react';
 import { useGlobalRendererContext } from '../..';
 import { NotionComponent } from '../type';
-import { PageType } from '../../type';
+import { CustomComponent, PageType } from '../../type';
 import PgcToggleRenderer from './PgcToggleRenderer';
 import UgcToggleRenderer from './UgcToggleRenderer';
 
 interface ToggleRendererProps {
+  prevComponent: NotionComponent | CustomComponent | null;
+  nextComponent: NotionComponent | CustomComponent | null;
+  position: number;
   component: NotionComponent;
   isRenderChildren?: boolean;
   parent: any;

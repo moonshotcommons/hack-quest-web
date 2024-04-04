@@ -4,7 +4,7 @@ import { FC, useContext, useState } from 'react';
 import { VscChevronDown } from 'react-icons/vsc';
 import { PlaygroundContext } from '@/components/Web/LessonPage/Playground/type';
 import TextRenderer from '@/components/ComponentRenderer/NotionRender/TextRenderer';
-import { ComponentRenderer } from '@/components/ComponentRenderer';
+import { childRenderCallback } from '@/components/ComponentRenderer';
 import { CustomComponent } from '@/components/ComponentRenderer/type';
 
 interface ContentRendererProps {
@@ -40,10 +40,7 @@ const ContentRenderer: FC<ContentRendererProps> = (props) => {
           </span>
         ) : null}
       </div>
-      {showAll &&
-        component?.children?.map((child) => {
-          return <ComponentRenderer key={child.id} component={child} parent={component}></ComponentRenderer>;
-        })}
+      {showAll && component?.children?.map(childRenderCallback(component))}
     </div>
   );
 };

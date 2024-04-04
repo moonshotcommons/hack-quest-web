@@ -1,9 +1,14 @@
 import { FC } from 'react';
 import TextRenderer from '../TextRenderer';
-import { ComponentRenderer } from '../..';
+import { childRenderCallback } from '../..';
+import { NotionComponent } from '../type';
+import { CustomComponent } from '../../type';
 
 interface BulletedListItemRendererProps {
-  component: any;
+  prevComponent: NotionComponent | CustomComponent | null;
+  nextComponent: NotionComponent | CustomComponent | null;
+  position: number;
+  component: NotionComponent;
   parent: any;
 }
 
@@ -22,11 +27,7 @@ const BulletedListItemRenderer: FC<BulletedListItemRendererProps> = (props) => {
           <TextRenderer richTextArr={component.content.rich_text}></TextRenderer>
         </div>
       </div>
-      <div className="ml-4">
-        {component.children?.map((child: any, index: number) => {
-          return <ComponentRenderer key={index} component={child} parent={component}></ComponentRenderer>;
-        })}
-      </div>
+      <div className="ml-4">{component.children?.map(childRenderCallback(component))}</div>
     </div>
   );
 };

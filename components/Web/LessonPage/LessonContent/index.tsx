@@ -71,11 +71,19 @@ const LessonContentComponent: FC<LessonContentProps> = (props) => {
           className="scroll-wrap-y scroll-wrap-x mb-[20px] flex h-full w-full flex-1 shrink-0 flex-col"
           ref={componentsWrapRef}
         >
-          {components.map((component, i) => {
+          {components.map((component, index) => {
+            const prevComponent = index === 0 ? null : components![index - 1];
+            const nextComponent = index === components!.length - 1 ? null : components![index + 1];
             return (
               <div key={component.id} className="">
                 <OverrideRendererConfig globalContext={{ expandData: getExpandData(component.id), updateExpandData }}>
-                  <ComponentRenderer parent={parent} component={component}></ComponentRenderer>
+                  <ComponentRenderer
+                    parent={parent}
+                    component={component}
+                    position={index}
+                    prevComponent={prevComponent}
+                    nextComponent={nextComponent}
+                  ></ComponentRenderer>
                 </OverrideRendererConfig>
               </div>
             );

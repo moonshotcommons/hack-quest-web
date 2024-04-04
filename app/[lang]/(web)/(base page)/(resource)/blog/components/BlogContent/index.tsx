@@ -20,9 +20,20 @@ const BlogContent: React.FC<BlogContentProp> = ({ blog }) => {
   return (
     <div className="mx-auto w-[808px] py-[80px]">
       <ComponentRendererProvider type={PageType.BLOG} CustomComponentRenderer={BlogCustomRenderer}>
-        {blog?.content?.map((component: CustomComponent) => (
-          <ComponentRenderer key={component.id} component={component} parent={parent} />
-        ))}
+        {blog?.content?.map((component: CustomComponent, index: number) => {
+          const prevComponent = index === 0 ? null : blog.content[index - 1];
+          const nextComponent = index === blog.content.length - 1 ? null : blog.content[index + 1];
+          return (
+            <ComponentRenderer
+              key={component.id}
+              component={component}
+              parent={parent}
+              position={index}
+              prevComponent={prevComponent}
+              nextComponent={nextComponent}
+            />
+          );
+        })}
       </ComponentRendererProvider>
     </div>
   );

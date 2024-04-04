@@ -15,7 +15,7 @@ import {
 import emitter from '@/store/emitter';
 import { useGetQuizsCompleted } from '@/hooks/courses/useGetQuizsCompleted';
 import { QuizAType } from '@/components/ComponentRenderer/type';
-import { ComponentRenderer, OverrideRendererConfig } from '@/components/ComponentRenderer';
+import { OverrideRendererConfig, childRenderCallback } from '@/components/ComponentRenderer';
 interface QuizARendererProps {
   parent: any;
   quiz: QuizAType;
@@ -208,11 +208,7 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
   return (
     <div className="flex h-full flex-col justify-between">
       <div className="flex flex-1 flex-col overflow-hidden">
-        <div className="h-fit">
-          {quiz.children.map((child) => {
-            return <ComponentRenderer key={child.id} parent={quiz} component={child}></ComponentRenderer>;
-          })}
-        </div>
+        <div className="h-fit">{quiz.children.map(childRenderCallback(quiz))}</div>
         {quiz.lines?.length > 0 && (
           <div className="flex max-h-[100%] w-full flex-1 flex-col overflow-hidden py-4">
             <OverrideRendererConfig

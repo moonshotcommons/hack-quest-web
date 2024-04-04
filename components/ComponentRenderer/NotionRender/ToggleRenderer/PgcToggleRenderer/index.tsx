@@ -2,11 +2,14 @@ import { FC, useEffect, useState } from 'react';
 
 import { VscAdd, VscChromeMinimize } from 'react-icons/vsc';
 import { NotionComponent, CustomComponent } from '@/components/ComponentRenderer/type';
-import { ComponentRenderer, useGlobalRendererContext } from '@/components/ComponentRenderer';
+import { childRenderCallback, useGlobalRendererContext } from '@/components/ComponentRenderer';
 import TextRenderer from '@/components/ComponentRenderer/NotionRender/TextRenderer';
 import { PgcExpandDataType } from '@/components/ComponentRenderer/context';
 
 interface PgcToggleRendererProps {
+  prevComponent: NotionComponent | CustomComponent | null;
+  nextComponent: NotionComponent | CustomComponent | null;
+  position: number;
   component: NotionComponent;
   isRenderChildren?: boolean;
   parent: NotionComponent | CustomComponent;
@@ -53,11 +56,7 @@ const PgcToggleRenderer: FC<PgcToggleRendererProps> = (props) => {
       </div>
       {/* 正常渲染子对象 */}
       <div className="pl-4">
-        {isRenderChildren &&
-          showChild &&
-          component.children?.map((item: any, index: number) => {
-            return <ComponentRenderer key={index} component={item} parent={component}></ComponentRenderer>;
-          })}
+        {isRenderChildren && showChild && component.children?.map(childRenderCallback(component))}
       </div>
     </div>
   );

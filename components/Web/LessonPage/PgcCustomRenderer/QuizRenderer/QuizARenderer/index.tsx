@@ -5,11 +5,10 @@ import { AnswerState, useParseQuiz } from '@/hooks/courses/useParseQuiz';
 import webApi from '@/service';
 import { FC, useContext, useEffect, useRef, useState } from 'react';
 import { QuizContext } from '..';
-import ComponentRenderer from '../..';
 import QuizFooter from '../QuizFooter';
 import CodeRender from './CodeRender';
 import { CustomType, NotionComponentType, QuizAType } from '@/components/ComponentRenderer/type';
-import { OverrideRendererConfig } from '@/components/ComponentRenderer';
+import { OverrideRendererConfig, childRenderCallback } from '@/components/ComponentRenderer';
 
 interface QuizARendererProps {
   parent: CustomType | NotionComponentType;
@@ -165,11 +164,7 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
   return (
     <div className="flex h-full flex-col justify-between">
       <div className="flex flex-1 flex-col overflow-hidden">
-        <div className="h-fit">
-          {quiz.children.map((child) => {
-            return <ComponentRenderer key={child.id} parent={quiz} component={child}></ComponentRenderer>;
-          })}
-        </div>
+        <div className="h-fit">{quiz.children.map(childRenderCallback(quiz))}</div>
         {quiz.lines?.length > 0 && (
           <div className="flex max-h-[100%] w-full flex-1 flex-col overflow-hidden py-4">
             <OverrideRendererConfig

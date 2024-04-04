@@ -1,6 +1,6 @@
 'use client';
 import Button from '@/components/Common/Button';
-import { ComponentRenderer, OverrideRendererConfig } from '@/components/ComponentRenderer';
+import { ComponentRenderer, OverrideRendererConfig, childRenderCallback } from '@/components/ComponentRenderer';
 import { ExampleComponent } from '@/components/ComponentRenderer/type';
 import { cn } from '@/helper/utils';
 import LzString from 'lz-string';
@@ -56,9 +56,7 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
               isExample: true
             }}
           >
-            {component.children.map((child) => {
-              return <ComponentRenderer key={child.id} component={child} parent={component}></ComponentRenderer>;
-            })}
+            {component.children.map(childRenderCallback(component))}
           </OverrideRendererConfig>
 
           {!!component.codeFiles?.length && (
@@ -89,6 +87,9 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
                   <ComponentRenderer
                     key={component.codeFiles[activeFileIndex].codeContent.id}
                     component={component.codeFiles[activeFileIndex].codeContent}
+                    position={0}
+                    prevComponent={null}
+                    nextComponent={null}
                     parent={component}
                   ></ComponentRenderer>
                 </ExampleContext.Provider>

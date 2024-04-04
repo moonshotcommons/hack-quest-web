@@ -3,9 +3,13 @@
 import { FC, useState } from 'react';
 import TextRenderer from '../TextRenderer';
 import { NotionComponent } from '../type';
-import { ComponentRenderer } from '../..';
+import { childRenderCallback } from '../..';
+import { CustomComponent } from '../../type';
 
 interface CalloutRendererProps {
+  prevComponent: NotionComponent | CustomComponent | null;
+  nextComponent: NotionComponent | CustomComponent | null;
+  position: number;
   component: NotionComponent;
   parent: any;
 }
@@ -23,9 +27,7 @@ const CalloutRenderer: FC<CalloutRendererProps> = (props) => {
         <div className="text-[20px]">{component.content.icon?.emoji}</div>
         <div className="flex-1">
           <TextRenderer richTextArr={component.content.rich_text}></TextRenderer>
-          {component.children?.map((item: any, index: number) => {
-            return <ComponentRenderer key={index} component={item} parent={component}></ComponentRenderer>;
-          })}
+          {component.children?.map(childRenderCallback(component))}
         </div>
         {/* <div
           onClick={() => {

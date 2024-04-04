@@ -19,7 +19,7 @@ import {
 
 import emitter from '@/store/emitter';
 import { useGetQuizsCompleted } from '@/hooks/courses/useGetQuizsCompleted';
-import { ComponentRenderer, OverrideRendererConfig } from '@/components/ComponentRenderer';
+import { ComponentRenderer, OverrideRendererConfig, childRenderCallback } from '@/components/ComponentRenderer';
 import DropAnswer from './DropAnswer';
 import { NotionComponent, NotionComponentType, QuizBType } from '@/components/ComponentRenderer/type';
 
@@ -194,6 +194,11 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
     };
   }, [quiz]);
 
+  // (function(quiz) => {
+  //   quiz.children = quizChildren;
+  //   return quiz;
+  // })();
+
   return (
     <div className="flex h-full flex-col justify-between">
       <div className="scroll-wrap-y flex-1 overflow-auto">
@@ -212,9 +217,14 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
               }}
             >
               <div className="items-center py-4">
-                {quizChildren.map((child) => {
-                  return <ComponentRenderer key={child.id} parent={quiz} component={child}></ComponentRenderer>;
-                })}
+                {quizChildren.map(
+                  childRenderCallback(
+                    (function (quiz) {
+                      quiz.children = quizChildren;
+                      return quiz;
+                    })(quiz)
+                  )
+                )}
               </div>
             </OverrideRendererConfig>
 
@@ -250,7 +260,14 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
         </DndProvider>
         {!!parseComponent && (
           <div className="mt-5">
-            <ComponentRenderer key={parseComponent.id} parent={quiz} component={parseComponent}></ComponentRenderer>
+            <ComponentRenderer
+              key={parseComponent.id}
+              parent={quiz}
+              component={parseComponent}
+              prevComponent={null}
+              nextComponent={null}
+              position={0}
+            ></ComponentRenderer>
           </div>
         )}
       </div>

@@ -165,7 +165,13 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
           {QuizHeader}
           <QuizContext.Provider value={{ onPass, currentQuizIndex, parentQuiz: quiz }}>
             <div className={`h-full overflow-hidden px-[20px]`}>
-              <ComponentRenderer parent={quiz} component={quiz.children[currentQuizIndex]}></ComponentRenderer>
+              <ComponentRenderer
+                parent={quiz}
+                component={quiz.children[currentQuizIndex]}
+                prevComponent={null}
+                nextComponent={null}
+                position={0}
+              ></ComponentRenderer>
             </div>
           </QuizContext.Provider>
         </div>

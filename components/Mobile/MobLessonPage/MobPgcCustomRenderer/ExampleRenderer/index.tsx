@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { FC, createContext, useEffect, useState } from 'react';
 import { FiChevronDown } from 'react-icons/fi';
 import { ExampleComponent } from '@/components/ComponentRenderer/type';
-import { ComponentRenderer } from '@/components/ComponentRenderer';
+import { ComponentRenderer, childRenderCallback } from '@/components/ComponentRenderer';
 interface ExampleRendererProps {
   // children: ReactNode
   component: ExampleComponent;
@@ -53,9 +53,7 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
               isExample: true
             }}
           >
-            {component.children.map((child) => {
-              return <ComponentRenderer key={child.id} component={child} parent={component}></ComponentRenderer>;
-            })}
+            {component.children.map(childRenderCallback(component))}
           </ExampleContext.Provider>
           {!!component.codeFiles?.length && (
             <div className="flex h-full flex-col">
@@ -86,6 +84,9 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
                     key={component.codeFiles[activeFileIndex].codeContent.id}
                     component={component.codeFiles[activeFileIndex].codeContent}
                     parent={component}
+                    position={0}
+                    prevComponent={null}
+                    nextComponent={null}
                   ></ComponentRenderer>
                 </ExampleContext.Provider>
               </div>

@@ -5,7 +5,7 @@ import TextRenderer from '@/components/ComponentRenderer/NotionRender/TextRender
 import { CustomComponent } from '@/components/ComponentRenderer/type';
 import { LessonPageContext } from '../../type';
 import { PlaygroundContext } from '../../Playground/type';
-import { ComponentRenderer } from '@/components/ComponentRenderer';
+import { childRenderCallback } from '@/components/ComponentRenderer';
 interface ContentRendererProps {
   component: CustomComponent;
   parent: CustomComponent;
@@ -39,10 +39,7 @@ const ContentRenderer: FC<ContentRendererProps> = (props) => {
           </span>
         ) : null}
       </div>
-      {showAll &&
-        component?.children?.map((child) => {
-          return <ComponentRenderer key={child.id} component={child} parent={component}></ComponentRenderer>;
-        })}
+      {showAll && component?.children?.map(childRenderCallback(component))}
     </div>
   );
 };

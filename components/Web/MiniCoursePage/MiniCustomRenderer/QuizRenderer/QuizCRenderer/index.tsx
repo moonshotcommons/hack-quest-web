@@ -8,7 +8,7 @@ import { FiCheck } from 'react-icons/fi';
 import { FiX } from 'react-icons/fi';
 import { CompleteStateType } from '@/service/webApi/course/type';
 import TextRenderer from '@/components/ComponentRenderer/NotionRender/TextRenderer';
-import { ComponentRenderer, OverrideRendererConfig, useGlobalRendererContext } from '@/components/ComponentRenderer';
+import { OverrideRendererConfig, childRenderCallback, useGlobalRendererContext } from '@/components/ComponentRenderer';
 interface QuizCRendererProps {
   parent: any;
   quiz: any;
@@ -63,11 +63,7 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
           fontSize: '18px'
         }}
       >
-        <div className="mt-[32px]">
-          {quiz?.children?.map((child: any, index: number) => {
-            return <ComponentRenderer key={index} parent={quiz} component={child}></ComponentRenderer>;
-          })}
-        </div>
+        <div className="mt-[32px]">{quiz?.children?.map(childRenderCallback(quiz))}</div>
       </OverrideRendererConfig>
       <div className="mt-[32px] flex flex-col gap-y-[24px]">
         {quiz?.options?.map((item: any, index: any) => {

@@ -1,19 +1,19 @@
 import { FC, useMemo } from 'react';
-import { NotionComponentType } from '../type';
-import { ComponentRenderer } from '../..';
+import { NotionComponent, NotionComponentType } from '../type';
+import { childRenderCallback } from '../..';
 import TextRenderer from '../TextRenderer';
+import { CustomComponent } from '../../type';
 
 interface NumberListItemRendererProps {
-  component: any;
+  prevComponent: NotionComponent | CustomComponent | null;
+  nextComponent: NotionComponent | CustomComponent | null;
+  component: NotionComponent | CustomComponent;
   parent: any;
 }
 
 const NumberListItemRenderer: FC<NumberListItemRendererProps> = (props) => {
   const { component, parent } = props;
   let children = parent?.isRoot ? parent.content : parent.children;
-  // const index = children
-  //   ?.filter((child: any) => child.type === NotionComponentType.NUMBERED_LIST_ITEM)
-  //   .findIndex((child: any) => child.id === source.id);
 
   const index = useMemo(() => {
     const currentIndex = children.findIndex((child: any) => child.id === component.id);
@@ -36,11 +36,7 @@ const NumberListItemRenderer: FC<NumberListItemRendererProps> = (props) => {
 
         <TextRenderer richTextArr={component.content.rich_text}></TextRenderer>
       </div>
-      <div className="ml-4">
-        {component.children?.map((child: any, index: number) => {
-          return <ComponentRenderer key={index} component={child} parent={component}></ComponentRenderer>;
-        })}
-      </div>
+      <div className="ml-4">{component.children?.map(childRenderCallback(component))}</div>
     </div>
   );
 };

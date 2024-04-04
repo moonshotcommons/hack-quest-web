@@ -36,7 +36,13 @@ const MiniCoursePage: FC<MiniCoursePageProps> = (props) => {
             <LessonContentWrap lesson={lesson} completed={completed}>
               <div className="flex w-full flex-1 flex-col overflow-auto rounded-[12px]">
                 <div className="scroll-wrap-y flex-1 overflow-y-auto overflow-x-visible px-[2px] pb-[70px]">
-                  <ComponentRenderer parent={lesson} component={lesson.content as any}></ComponentRenderer>
+                  <ComponentRenderer
+                    parent={lesson}
+                    component={lesson.content as any}
+                    nextComponent={null}
+                    prevComponent={null}
+                    position={0}
+                  />
                 </div>
               </div>
             </LessonContentWrap>

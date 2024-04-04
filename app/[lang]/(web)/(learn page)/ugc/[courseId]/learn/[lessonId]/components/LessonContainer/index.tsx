@@ -47,7 +47,13 @@ const LessonContainer: FC<LessonContainerProps> = (props) => {
             codeStyle: 'code-l text-code-red bg-neutral-off-white py-[2px] px-[7px]'
           }}
         >
-          <ComponentRenderer parent={lesson} component={lesson.content}></ComponentRenderer>
+          <ComponentRenderer
+            parent={lesson}
+            component={lesson.content}
+            prevComponent={null}
+            nextComponent={null}
+            position={0}
+          ></ComponentRenderer>
         </ComponentRendererProvider>
       </div>
     </div>

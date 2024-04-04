@@ -11,7 +11,7 @@ import {
 import { QuizContext } from '..';
 import emitter from '@/store/emitter';
 import { useGetQuizsCompleted } from '@/hooks/courses/useGetQuizsCompleted';
-import { ComponentRenderer, OverrideRendererConfig } from '@/components/ComponentRenderer';
+import { OverrideRendererConfig, childRenderCallback } from '@/components/ComponentRenderer';
 import TextRenderer from '@/components/ComponentRenderer/NotionRender/TextRenderer';
 interface QuizCRendererProps {
   parent: any;
@@ -95,11 +95,7 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
   return (
     <div className="flex w-full flex-col rounded-[10px] bg-neutral-off-white p-[10px]">
       <OverrideRendererConfig textRenderer={{ fontSize: '18px' }}>
-        <div className="text-h4 mt-[32px]">
-          {quiz?.children?.map((child: any, index: number) => {
-            return <ComponentRenderer key={index} parent={quiz} component={child}></ComponentRenderer>;
-          })}
-        </div>
+        <div className="text-h4 mt-[32px]">{quiz?.children?.map(childRenderCallback(quiz))}</div>
       </OverrideRendererConfig>
       <div className="mt-[32px] flex flex-col gap-y-[24px]">
         {quiz?.options?.map((item: any, index: any) => {

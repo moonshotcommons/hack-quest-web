@@ -36,8 +36,19 @@ const Playground: FC<PlaygroundProps> = (props) => {
     <div className="flex h-full flex-col gap-[20px] overflow-hidden bg-lesson-code-bg p-5 pl-[0px]">
       <PlaygroundContext.Provider value={{ lesson, onCompleted, isPreview, isPlayground: true }}>
         {!!components?.length &&
-          components.map((component) => {
-            return <ComponentRenderer parent={parent} key={component.id} component={component} />;
+          components.map((component, index) => {
+            const prevComponent = index === 0 ? null : components![index - 1];
+            const nextComponent = index === components!.length - 1 ? null : components![index + 1];
+            return (
+              <ComponentRenderer
+                parent={parent}
+                key={component.id}
+                component={component}
+                position={index}
+                prevComponent={prevComponent}
+                nextComponent={nextComponent}
+              />
+            );
           })}
       </PlaygroundContext.Provider>
     </div>
