@@ -1,10 +1,12 @@
 'use client';
-import ComponentRenderer from '@/components/Web/Business/Renderer/ComponentRenderer';
-import { CustomComponent, LessonContent, NotionComponent } from '@/components/Web/Business/Renderer/type';
-import { ExpandDataType, useLessonExpand } from '@/hooks/courses/useLessonExpand';
+
+import { useLessonExpand } from '@/hooks/courses/useLessonExpand';
 import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
 import { FC, createContext, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { LessonPageContext } from '../type';
+import { ComponentRenderer, OverrideRendererConfig } from '@/components/ComponentRenderer';
+import { ExpandDataType, PgcExpandDataType } from '@/components/ComponentRenderer/context';
+import { CustomComponent, LessonContent, NotionComponent } from '@/components/ComponentRenderer/type';
 
 export const LessonContentContext = createContext<{
   expandData: ExpandDataType[];
@@ -25,8 +27,8 @@ const LessonContentComponent: FC<LessonContentProps> = (props) => {
   const { getLessonExpand } = useLessonExpand(lesson.content.left);
   const [expandData, setExpandData] = useState<ExpandDataType[][]>(getLessonExpand());
 
-  const changeExpandData = (data: ExpandDataType[], index: number) => {
-    expandData[index] = data;
+  const updateExpandData = (data: ExpandDataType[], index?: number) => {
+    expandData[index!] = data as PgcExpandDataType[];
     setExpandData([...expandData]);
   };
 
@@ -67,14 +69,9 @@ const LessonContentComponent: FC<LessonContentProps> = (props) => {
           {components.map((component, i) => {
             return (
               <div key={component.id} className="">
-                <LessonContentContext.Provider
-                  value={{
-                    expandData: getExpandData(component.id),
-                    changeExpandData
-                  }}
-                >
+                <OverrideRendererConfig globalContext={{ expandData: getExpandData(component.id), updateExpandData }}>
                   <ComponentRenderer parent={parent} component={component}></ComponentRenderer>
-                </LessonContentContext.Provider>
+                </OverrideRendererConfig>
               </div>
             );
           })}

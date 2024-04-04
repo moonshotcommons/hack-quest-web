@@ -1,8 +1,9 @@
 'use client';
-import { CustomComponent, NotionComponent } from '@/components/Web/Business/Renderer/type';
+
 import { FC, useEffect, useMemo, useState } from 'react';
 import { LessonType, PlaygroundContext } from './type';
-import ComponentRenderer from '../../MobRenderer/ComponentRenderer';
+import { CustomComponent, NotionComponent } from '@/components/ComponentRenderer/type';
+import { ComponentRenderer } from '@/components/ComponentRenderer';
 
 interface PlaygroundProps {
   // children: ReactNode

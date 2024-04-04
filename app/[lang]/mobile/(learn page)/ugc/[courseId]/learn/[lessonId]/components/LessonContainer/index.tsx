@@ -3,10 +3,12 @@ import {
   LessonReadingData,
   lessonTypeData
 } from '@/app/[lang]/mobile/(learn page)/ugc/[courseId]/learn/components/UgcSidebar/constant';
-import ComponentRenderer from '../UgcRender';
 import webApi from '@/service';
 import { useUnitNavList } from '@/hooks/courses/useUnitNavList';
 import { UgcContext } from '@/app/[lang]/(web)/(learn page)/ugc/[courseId]/learn/constants/type';
+import { ComponentRenderer, ComponentRendererProvider } from '@/components/ComponentRenderer';
+import { PageType } from '@/components/ComponentRenderer/type';
+import MobUgcCustomRenderer from '../MobUgcCustomRenderer';
 
 interface LessonContainerProps {
   lesson: LessonReadingData;
@@ -37,7 +39,9 @@ const LessonContainer: FC<LessonContainerProps> = (props) => {
         <span className="caption-12pt">{lessonTypeData[lesson.type].label}</span>
       </div>
       <div className="w-full pb-10">
-        <ComponentRenderer parent={lesson} component={lesson.content}></ComponentRenderer>
+        <ComponentRendererProvider isMobile type={PageType.UGC} CustomComponentRenderer={MobUgcCustomRenderer}>
+          <ComponentRenderer parent={lesson} component={lesson.content}></ComponentRenderer>
+        </ComponentRendererProvider>
       </div>
     </div>
   );

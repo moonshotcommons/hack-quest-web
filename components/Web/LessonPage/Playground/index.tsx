@@ -1,8 +1,9 @@
 'use client';
-import ComponentRenderer from '@/components/Web/Business/Renderer/ComponentRenderer';
-import { CustomComponent, NotionComponent } from '@/components/Web/Business/Renderer/type';
+
 import { FC, useEffect, useMemo, useState } from 'react';
 import { LessonType, PlaygroundContext } from './type';
+import { CustomComponent, NotionComponent } from '@/components/ComponentRenderer/type';
+import { ComponentRenderer } from '@/components/ComponentRenderer';
 
 interface PlaygroundProps {
   // children: ReactNode
@@ -36,7 +37,7 @@ const Playground: FC<PlaygroundProps> = (props) => {
       <PlaygroundContext.Provider value={{ lesson, onCompleted, isPreview, isPlayground: true }}>
         {!!components?.length &&
           components.map((component) => {
-            return <ComponentRenderer parent={parent} key={component.id} component={component}></ComponentRenderer>;
+            return <ComponentRenderer parent={parent} key={component.id} component={component} />;
           })}
       </PlaygroundContext.Provider>
     </div>

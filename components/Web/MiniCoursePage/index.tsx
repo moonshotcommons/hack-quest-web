@@ -1,14 +1,12 @@
 import { FC } from 'react';
-import ComponentRenderer from '../Business/Renderer/MiniElectiveRenderer';
-// import mockLessonData from './content.json';
-// import mockLessonData from './quizA.json';
-// import mockLessonData from './quizB.json';
 import Sidebar from './Sidebar';
 import { CourseType } from '@/service/webApi/course/type';
 import { useGetLessonContent } from '@/hooks/courses/useGetLessenContent';
 import { ElectiveLessonType } from '@/service/webApi/elective/type';
 import Loading from '@/components/Common/Loading';
 import LessonContentWrap from './LessonContentWrap';
+import { ComponentRenderer } from '@/components/ComponentRenderer';
+
 export interface ProgressType {
   total: number;
   current: number;

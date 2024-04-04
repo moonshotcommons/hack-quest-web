@@ -13,6 +13,7 @@ export interface LessonPageContextType {
   navbarData: NavbarDataType[];
   setNavbarData: (data: NavbarDataType[]) => void;
 }
+
 export const LessonPageContext = createContext<LessonPageContextType>({
   isHandleNext: false,
   changeHandleNext: () => {},

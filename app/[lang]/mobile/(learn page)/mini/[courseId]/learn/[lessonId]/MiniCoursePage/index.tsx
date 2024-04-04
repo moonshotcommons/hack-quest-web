@@ -8,7 +8,8 @@ import { useGetLessonContent } from '@/hooks/courses/useGetLessenContent';
 import { ElectiveLessonType } from '@/service/webApi/elective/type';
 import LessonContentWrap from './LessonContentWrap';
 import Loading from '@/components/Common/Loading';
-import ComponentRenderer from '@/components/Mobile/MobRenderer/MiniElectiveRenderer';
+import { ComponentRenderer } from '@/components/ComponentRenderer';
+
 export interface ProgressType {
   total: number;
   current: number;

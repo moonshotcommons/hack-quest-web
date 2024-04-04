@@ -1,10 +1,12 @@
 import { FC, useContext, useEffect } from 'react';
 
-import ComponentRenderer from '../UgcRender';
 import webApi from '@/service';
 
 import { lessonTypeData, LessonReadingData } from '../../../components/UgcSidebar/constant';
 import { UgcContext } from '../../../constants/type';
+import { ComponentRenderer, ComponentRendererProvider } from '@/components/ComponentRenderer';
+import { PageType } from '@/components/ComponentRenderer/type';
+import UgcCustomRenderer from '../UgcCustomRenderer';
 
 interface LessonContainerProps {
   lesson: LessonReadingData;
@@ -37,7 +39,16 @@ const LessonContainer: FC<LessonContainerProps> = (props) => {
         <span className="caption-16pt">{lessonTypeData[lesson.type].label}</span>
       </div>
       <div className="w-full pb-10">
-        <ComponentRenderer parent={lesson} component={lesson.content}></ComponentRenderer>
+        <ComponentRendererProvider
+          type={PageType.UGC}
+          CustomComponentRenderer={UgcCustomRenderer}
+          textRenderer={{
+            textStyle: 'body-l text-neutral-black',
+            codeStyle: 'code-l text-code-red bg-neutral-off-white py-[2px] px-[7px]'
+          }}
+        >
+          <ComponentRenderer parent={lesson} component={lesson.content}></ComponentRenderer>
+        </ComponentRendererProvider>
       </div>
     </div>
   );
