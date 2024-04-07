@@ -1,17 +1,16 @@
 'use client';
-import ComponentRenderer from '@/components/Web/Business/Renderer/ComponentRenderer';
-import { CustomComponent, LessonContent, NotionComponent } from '@/components/Web/Business/Renderer/type';
-import { ExpandDataType, useLessonExpand } from '@/hooks/courses/useLessonExpand';
+
+import { useLessonExpand } from '@/hooks/courses/useLessonExpand';
 import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
-import { FC, createContext, useEffect, useMemo, useRef, useState, Suspense } from 'react';
+import { FC, useEffect, useMemo, useRef, useState, Suspense } from 'react';
 import LessonEvents from '../LessonEvents';
 import FoundBugButton from '../../Business/FoundBugButton';
 import LessonNavbar from '../LessonNavbar';
+import { ComponentRenderer, OverrideRendererConfig } from '@/components/ComponentRenderer';
+import { CustomComponent, LessonContent, NotionComponent } from '@/components/ComponentRenderer/type';
 
-export const LessonContentContext = createContext<{
-  expandData: ExpandDataType[];
-  changeExpandData: (data: ExpandDataType[], index: number) => void;
-}>({} as any);
+import { ExpandDataType, PgcExpandDataType } from '@/components/ComponentRenderer/context';
+
 interface LessonContentProps {
   lesson: Omit<CourseLessonType, 'content'> & { content: LessonContent };
   isPreview?: boolean;
@@ -23,11 +22,12 @@ const LessonContentComponent: FC<LessonContentProps> = (props) => {
   const [components, setComponents] = useState<(CustomComponent | NotionComponent)[]>(() => {
     return lesson.content.left;
   });
-  const { getLessonExpand } = useLessonExpand(lesson.content.left);
-  const [expandData, setExpandData] = useState<ExpandDataType[][]>(getLessonExpand());
 
-  const changeExpandData = (data: ExpandDataType[], index: number) => {
-    expandData[index] = data;
+  const { getLessonExpand } = useLessonExpand(lesson.content.left);
+  const [expandData, setExpandData] = useState<PgcExpandDataType[][]>(getLessonExpand());
+
+  const updateExpandData = (data: ExpandDataType[], index?: number) => {
+    expandData[index!] = data as PgcExpandDataType[];
     setExpandData([...expandData]);
   };
 
@@ -71,20 +71,24 @@ const LessonContentComponent: FC<LessonContentProps> = (props) => {
           className="scroll-wrap-y scroll-wrap-x mb-[20px] flex h-full w-full flex-1 shrink-0 flex-col"
           ref={componentsWrapRef}
         >
-          {components.map((component, i) => {
+          {components.map((component, index) => {
+            const prevComponent = index === 0 ? null : components![index - 1];
+            const nextComponent = index === components!.length - 1 ? null : components![index + 1];
             return (
               <div key={component.id} className="">
-                <LessonContentContext.Provider
-                  value={{
-                    expandData: getExpandData(component.id),
-                    changeExpandData
-                  }}
-                >
-                  <ComponentRenderer parent={parent} component={component}></ComponentRenderer>
-                </LessonContentContext.Provider>
+                <OverrideRendererConfig globalContext={{ expandData: getExpandData(component.id), updateExpandData }}>
+                  <ComponentRenderer
+                    parent={parent}
+                    component={component}
+                    position={index}
+                    prevComponent={prevComponent}
+                    nextComponent={nextComponent}
+                  ></ComponentRenderer>
+                </OverrideRendererConfig>
               </div>
             );
           })}
+
           <FoundBugButton
             params={{
               lessonId: lesson.id

@@ -1,4 +1,4 @@
-import { CodeLineType, LineType } from '@/components/Web/Business/Renderer/type';
+import { CodeLineType, LineType } from '@/components/ComponentRenderer/type';
 import { changeTextareaHeight } from '@/helper/utils';
 import { ReactNode, useEffect, useMemo, useState } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
@@ -138,6 +138,7 @@ export const useParseQuiz = (lines: CodeLineType[]) => {
 
   /** 错误行 */
   const [errorLine, setErrorLine] = useState<AnswerState[]>([]);
+
   const codeStyle = useMemo(() => {
     const bgResetClasses = ['pre[class*="language-"]', 'code[class*="language-"]'];
 
@@ -214,6 +215,7 @@ export const useParseQuiz = (lines: CodeLineType[]) => {
     });
     answer.answers = answersArr;
     mergeAnswer(answer);
+
     const inputLine = {
       type: 'input_insert',
       render(newAnswerState: AnswerState[]) {
@@ -258,6 +260,7 @@ export const useParseQuiz = (lines: CodeLineType[]) => {
         });
       }
     };
+
     return inputLine;
   };
 
@@ -332,6 +335,7 @@ export const useParseQuiz = (lines: CodeLineType[]) => {
 
     return spanLine;
   };
+
   const parseTypeRender = (waitLine: CodeLineType) => {
     switch (waitLine.type) {
       case LineType.ANNOTATION: //注释
@@ -343,6 +347,7 @@ export const useParseQuiz = (lines: CodeLineType[]) => {
         return parseLineByCenterInsert(waitLine);
     }
   };
+
   const parseWaitingRenderCodes = (waitLines: CodeLineType[]) => {
     const waitCodeRenderLines: {
       type: string;

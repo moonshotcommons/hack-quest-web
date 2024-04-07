@@ -8,13 +8,12 @@ import { useGetLessonLink } from '@/hooks/courses/useGetLessonLink';
 import { useRequest } from 'ahooks';
 import JSConfetti from 'js-confetti';
 import { useRedirect } from '@/hooks/router/useRedirect';
-import { RendererContext } from '@/components/Web/Business/Renderer/context';
-// import MiniElectiveCompletedModal, {
-//   MiniElectiveCompletedModalRef
-// } from '../../MiniElectiveCompletedModal';
-import { CustomType } from '@/components/Web/Business/Renderer/type';
+
 import Button from '@/components/Common/Button';
 import { BsArrowLeft, BsArrowRight } from 'react-icons/bs';
+import { CustomType, PageType } from '@/components/ComponentRenderer/type';
+import { ComponentRendererProvider } from '@/components/ComponentRenderer';
+import MobMiniCustomRenderer from '../MobMiniCustomRenderer';
 
 interface LessonContentWrapProps {
   children: ReactNode;
@@ -130,23 +129,27 @@ const LessonContentWrap: FC<LessonContentWrapProps> = ({ children, lesson, compl
       {/* <MiniElectiveCompletedModal
         ref={miniElectiveCompletedModalInstance}
       ></MiniElectiveCompletedModal> */}
-      <RendererContext.Provider
-        value={{
-          globalContext: {
-            onCompleted: () => {
-              if (progress.current === progress.total - 1) {
-                // miniElectiveCompletedModalInstance.current?.open({});
-                completed();
-              } else {
-                onNextClick();
-              }
-            },
-            onQuizPass
-          }
+      <ComponentRendererProvider
+        textRenderer={{
+          fontSize: '18px'
         }}
+        isMobile
+        globalContext={{
+          onCompleted: () => {
+            if (progress.current === progress.total - 1) {
+              // miniElectiveCompletedModalInstance.current?.open({});
+              completed();
+            } else {
+              onNextClick();
+            }
+          },
+          onQuizPass
+        }}
+        type={PageType.MINI}
+        CustomComponentRenderer={MobMiniCustomRenderer}
       >
         {children}
-      </RendererContext.Provider>
+      </ComponentRendererProvider>
       <div className="absolute bottom-0 left-0 flex w-full items-center justify-between">
         <Button
           iconPosition="left"

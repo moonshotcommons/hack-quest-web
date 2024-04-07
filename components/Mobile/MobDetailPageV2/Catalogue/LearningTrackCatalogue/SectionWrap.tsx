@@ -58,7 +58,7 @@ const SectionWrap: FC<SectionWrapProps> = ({ children, sectionIndex, title }) =>
       >
         <div className="flex flex-1 gap-4">
           {title}
-          {(section?.progress || 0) <= 1 && (
+          {(section?.progress || 0) >= 1 && (
             <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect y="0.937988" width="24" height="24" rx="12" fill="#00C365" />
               <path
