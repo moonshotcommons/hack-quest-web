@@ -119,7 +119,11 @@ const TimeLine: React.FC<TimeLineProp> = () => {
             <span className="text-h4 text-neutral-off-black">{t('fueling')}</span>
             {tagRender('fueling')}
           </div>
-          <p className="mt-[8px] text-neutral-rich-gray">{moment(+new Date()).format('ll').split(',').slice(0, 1)}</p>
+          <p className="body-s mt-[8px] text-neutral-rich-gray">
+            {moment(launchInfo.fuelStart).format('ll').split(',').slice(0, 1)}
+            {' - '}
+            {moment(launchInfo.allocationStart).format('ll').split(',').slice(0, 1)}
+          </p>
         </div>
 
         <div
@@ -129,7 +133,11 @@ const TimeLine: React.FC<TimeLineProp> = () => {
             <span className="text-h4 text-neutral-off-black">{t('allocation')}</span>
             {tagRender('allocation')}
           </div>
-          <p className="mt-[8px] text-neutral-rich-gray">{moment(+new Date()).format('ll').split(',').slice(0, 1)}</p>
+          <p className="body-s mt-[8px] text-neutral-rich-gray">
+            {moment(launchInfo.allocationStart).format('ll').split(',').slice(0, 1)}
+            {' - '}
+            {moment(launchInfo.airdropStart).format('ll').split(',').slice(0, 1)}
+          </p>
         </div>
 
         <div
@@ -139,7 +147,11 @@ const TimeLine: React.FC<TimeLineProp> = () => {
             <span className="text-h4 text-neutral-off-black">{t('airdrop')}</span>
             {tagRender('airdrop')}
           </div>
-          <p className="mt-[8px] text-neutral-rich-gray">{moment(+new Date()).format('ll').split(',').slice(0, 1)}</p>
+          <p className="body-s mt-[8px] text-neutral-rich-gray">
+            {moment(launchInfo.airdropStart).format('ll').split(',').slice(0, 1)}
+            {' - '}
+            {moment(launchInfo.airdropEnd).format('ll').split(',').slice(0, 1)}
+          </p>
         </div>
       </div>
       <div className="body-s text-neutral-rich-gray">{descriptionRender()}</div>

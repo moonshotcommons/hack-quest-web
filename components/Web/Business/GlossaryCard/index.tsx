@@ -22,7 +22,7 @@ const GlossaryCard: React.FC<GlossaryCardProp> = ({ glossary }) => {
       <div className="card-hover flex h-[199px] flex-col justify-between rounded-[16px] bg-neutral-white p-[16px] shadow-[0_0_8px_0_rgba(0,0,0,0.12)]">
         <div>
           <div className="mb-[8px] flex gap-[10px] overflow-hidden">
-            {glossary.categories.map((v, i) => (
+            {glossary.tracks.map((v, i) => (
               <TrackTag key={i} track={v} />
             ))}
           </div>

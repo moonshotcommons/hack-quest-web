@@ -13,13 +13,10 @@ const Glossary: React.FC<GlossaryProp> = async ({ searchParams = {}, params: { s
   const minPage = Number(slug[1]) < 1 ? 1 : Number(slug[1]);
   const page = slug[0] === 'p' ? minPage : 1;
 
-  const [glossaryData] = await Promise.all([
-    webApi.resourceStationApi.getGlossaryList({
-      // limit,
-      ...searchParams,
-      page
-    })
-  ]);
+  const glossaryData = await webApi.resourceStationApi.getGlossaryList({
+    keyword: searchParams.keyword || '',
+    page
+  });
   const galossaryList = glossaryData.data || [];
   return (
     <div>

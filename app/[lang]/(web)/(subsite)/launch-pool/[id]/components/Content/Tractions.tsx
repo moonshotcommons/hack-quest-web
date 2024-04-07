@@ -12,7 +12,7 @@ const Tractions: React.FC<TractionsProp> = () => {
   return (
     <div>
       <p className="text-h3 text-neutral-off-black">{t(titleTxtData[6])}</p>
-      <ul className="body-xl w-full list-disc pl-[20px] text-neutral-off-black [&>li]:mt-[24px]">
+      <ul className="body-xl w-full list-disc pl-[20px] text-neutral-rich-gray [&>li]:mt-[24px]">
         <li>{t('tractionsText1')}</li>
         <li>{t('tractionsText2')}</li>
         <li>{t('tractionsText3')}</li>

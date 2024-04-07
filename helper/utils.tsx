@@ -254,3 +254,8 @@ export const isNullByRegExp = checkByRegExp(/^\s*$/);
 export const isNull = (str: any) => {
   return !!(!str || isNullByRegExp(str as string));
 };
+
+export const truncateMiddle = (str: any) => {
+  const replaceStr = str.toString().replace(/(.{6})(.*)(.{4})/, '$1...$3');
+  return replaceStr;
+};

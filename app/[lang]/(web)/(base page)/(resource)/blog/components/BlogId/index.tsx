@@ -26,7 +26,7 @@ const BlogDetail: React.FC<BlogDetailProp> = ({ blog, from = ResourceFrom.BLOG }
       <BlogHeader blog={blog} from={from} />
       <BlogContent blog={blog} />
       <BlogLink />
-      <BlogFooter category={blog.categories} from={from} />
+      <BlogFooter category={from === ResourceFrom.BLOG ? blog.categories : blog.tracks} from={from} />
       <PageRetentionTime trackName="blog-content-page-页面留存时间"></PageRetentionTime>
     </div>
   );

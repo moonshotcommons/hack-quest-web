@@ -2,14 +2,14 @@ import React from 'react';
 import { IoIosArrowUp } from 'react-icons/io';
 
 interface BackTopProp {
-  backTop: VoidFunction;
+  handleBackTop: VoidFunction;
 }
 
-const BackTop: React.FC<BackTopProp> = ({ backTop }) => {
+const BackTop: React.FC<BackTopProp> = ({ handleBackTop }) => {
   return (
     <div
-      className="flex-center fixed bottom-[.3125rem] right-[0] h-[3.75rem] w-[3.75rem] rounded-l-[1rem] bg-yellow-primary text-neutral-black"
-      onClick={backTop}
+      className="flex-center fixed bottom-[.625rem] right-[0] h-[3.75rem] w-[3.75rem] rounded-l-[1rem] bg-yellow-primary text-neutral-black"
+      onClick={handleBackTop}
     >
       <IoIosArrowUp size={24} />
     </div>

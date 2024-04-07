@@ -30,13 +30,13 @@ export const navbarList: NavbarListType[] = [
         label: 'Learner',
         path: MenuLink.DASHBOARD,
         needLogin: true
-      },
-      {
-        label: 'Instructor',
-        path: MenuLink.INSTRUCTOR,
-        needLogin: true,
-        needPC: true
       }
+      // {
+      //   label: 'Instructor',
+      //   path: MenuLink.INSTRUCTOR,
+      //   needLogin: true,
+      //   needPC: true
+      // }
     ]
   },
   {
@@ -122,8 +122,7 @@ export const navbarList: NavbarListType[] = [
     menu: [
       {
         label: 'launch pool',
-        path: MenuLink.LAUNCH,
-        needPC: true
+        path: MenuLink.LAUNCH
       }
     ]
   },

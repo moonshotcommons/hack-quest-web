@@ -33,10 +33,10 @@ const BlogFooter: React.FC<BlogFooterProp> = ({ from = ResourceFrom.BLOG, catego
     const res =
       from === ResourceFrom.BLOG
         ? await webApi.resourceStationApi.getFeaturedBlog({
-            category: category?.join(',')
+            categories: category?.join(',')
           })
         : await webApi.resourceStationApi.getFeaturedGlossary({
-            category: category?.join(',')
+            tracks: category?.join(',')
           });
     setFeatureBlogList(res?.slice(0, 4) || []);
   });
