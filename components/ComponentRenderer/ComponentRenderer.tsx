@@ -18,7 +18,6 @@ interface ComponentRendererProps {
 const ComponentRenderer: FC<ComponentRendererProps> = (props) => {
   const { component, parent } = props;
 
-  debugger;
   const CustomComponentRenderer = useCustomComponentRenderer();
   const type = component.type.trim() as NotionComponentType | CustomType;
 

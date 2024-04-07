@@ -24,9 +24,8 @@ const ImageRenderer: FC<ImageRendererProps> = (props) => {
       case PageType.PGC:
         return cn('body-s my-[5px]', HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : '');
       case PageType.UGC:
-        return <div className=""></div>;
+        return cn('body-m my-[5px]', HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : '');
       case PageType.MINI:
-        return <div className=""></div>;
       case PageType.GLOSSARY:
       case PageType.BLOG:
       default:
@@ -39,9 +38,8 @@ const ImageRenderer: FC<ImageRendererProps> = (props) => {
       case PageType.PGC:
         return cn('body-s my-2', HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : '');
       case PageType.UGC:
-        return <div className=""></div>;
+        return cn('body-l my-2', HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : '');
       case PageType.MINI:
-        return <div className=""></div>;
       case PageType.GLOSSARY:
       case PageType.BLOG:
       default:

@@ -24,9 +24,9 @@ const ParagraphRenderer: FC<ParagraphRendererProps> = (props) => {
       case PageType.PGC:
         return cn('my-[5px] body-s', HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : '');
       case PageType.UGC:
-        return <div className=""></div>;
+        return cn('my-[5px] body-m', HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : '');
       case PageType.MINI:
-        return <div className=""></div>;
+        return cn('my-[5px] body-m', HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : '');
       case PageType.GLOSSARY:
       case PageType.BLOG:
       default:
@@ -39,9 +39,9 @@ const ParagraphRenderer: FC<ParagraphRendererProps> = (props) => {
       case PageType.PGC:
         return cn('my-2 body-s', HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : '');
       case PageType.UGC:
-        return <div className=""></div>;
+        return cn('my-2 body-l', HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : '');
       case PageType.MINI:
-        return <div className=""></div>;
+        return cn('my-2 body-l', HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : '');
       case PageType.GLOSSARY:
       case PageType.BLOG:
       default:
@@ -60,7 +60,9 @@ const ParagraphRenderer: FC<ParagraphRendererProps> = (props) => {
       datatype={component.type}
     >
       <TextRenderer richTextArr={component.content.rich_text}></TextRenderer>
-      <div className="ml-4">{component.children?.map(childRenderCallback(component))}</div>
+      {!!component.children?.length && (
+        <div className="my-2 ml-5">{component.children?.map(childRenderCallback(component))}</div>
+      )}
     </p>
   );
 };

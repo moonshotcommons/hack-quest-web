@@ -93,9 +93,14 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
   }, [answers]);
 
   return (
-    <div className="flex w-full flex-col rounded-[10px] bg-neutral-off-white p-[10px]">
-      <div className="text-h4 mt-[32px]">{quiz?.children?.map(childRenderCallback(quiz))}</div>
-      <div className="mt-[32px] flex flex-col gap-y-[24px]">
+    <div className="flex w-full flex-col rounded-[10px]">
+      <div className="mt-[32px] flex flex-col">
+        <span className="[&>p]:body-l-bold inline-block">{quiz?.children?.map(childRenderCallback(quiz))}</span>
+        <span className="body-l mt-2 inline-block whitespace-nowrap">
+          {quiz.answers.length > 1 ? '[Multiple Choice]' : '[Single Choice]'}
+        </span>
+      </div>
+      <div className="mt-[30px] flex flex-col gap-y-[24px]">
         {quiz?.options?.map((item: any, index: any) => {
           return (
             <div
@@ -106,10 +111,14 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
               )}
               onClick={() => {
                 if (answerState !== AnswerState.Default) setAnswerState(AnswerState.Default);
-                if (answers.includes(item.index)) {
-                  setAnswers(answers.filter((answer) => answer !== item.index));
+                if (quiz.answers.length > 1) {
+                  if (answers.includes(item.index)) {
+                    setAnswers(answers.filter((answer) => answer !== item.index));
+                  } else {
+                    setAnswers(answers.concat(item.index));
+                  }
                 } else {
-                  setAnswers(answers.concat(item.index));
+                  setAnswers([item.index]);
                 }
               }}
             >

@@ -22,9 +22,9 @@ const VideoRenderer: FC<VideoRendererProps> = (props) => {
       case PageType.PGC:
         return cn('my-[5px] body-s', HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : '');
       case PageType.UGC:
-        return <div className=""></div>;
+        return cn('my-[5px] body-m', HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : '');
       case PageType.MINI:
-        return <div className=""></div>;
+        return cn('my-[5px] body-m', HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : '');
       case PageType.GLOSSARY:
       case PageType.BLOG:
       default:
@@ -37,9 +37,9 @@ const VideoRenderer: FC<VideoRendererProps> = (props) => {
       case PageType.PGC:
         return cn('my-2 body-s', HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : '');
       case PageType.UGC:
-        return <div className=""></div>;
+        return cn('mt-2 mb-1 body-l', HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : '');
       case PageType.MINI:
-        return <div className=""></div>;
+        return cn('mt-2 mb-1 body-l', HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : '');
       case PageType.GLOSSARY:
       case PageType.BLOG:
       default:
@@ -51,13 +51,13 @@ const VideoRenderer: FC<VideoRendererProps> = (props) => {
     <div
       datatype={component.type}
       className={cn(
-        'inline-block',
+        'inline-block w-full',
         isMobile ? getMobileClassName() : getWebClassName(),
         nextComponent === null ? 'mb-0' : '',
         prevComponent === null ? 'mt-0' : ''
       )}
     >
-      <video controls className="w-[80%]">
+      <video controls>
         {/* width="400px" */}
         {<source src={component.content.file.url} />}
       </video>

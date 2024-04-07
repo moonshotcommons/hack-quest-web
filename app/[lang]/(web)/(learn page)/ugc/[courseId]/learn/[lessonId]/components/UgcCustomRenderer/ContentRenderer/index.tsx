@@ -16,7 +16,7 @@ const ContentRenderer: FC<ContentRendererProps> = (props) => {
 
   const { leftLength } = useContext(LessonPageContext);
   return (
-    <div className={`rounded-[10px] ${leftLength > 1 ? 'border border-lesson-title-box-border-color' : ''}`}>
+    <div className={`mt-[50px] rounded-[10px] ${leftLength > 1 ? 'border border-lesson-title-box-border-color' : ''}`}>
       <div
         className={`flex  items-center justify-between ${leftLength > 1 ? 'cursor-pointer' : ''}`}
         onClick={() => {

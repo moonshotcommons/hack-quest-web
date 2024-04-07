@@ -48,7 +48,7 @@ const TargetCard: React.FC<TargetCardProp> = ({
       case RewardsCardType.DISCORD:
         setLoading(true);
         // handleClaim();
-        debugger;
+
         try {
           const discordInfo = await webApi.userApi.getDiscordInfo();
           if (!discordInfo.isConnect) {

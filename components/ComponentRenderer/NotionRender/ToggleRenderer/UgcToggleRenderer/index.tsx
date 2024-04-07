@@ -7,6 +7,7 @@ import { CustomComponent, NotionComponentType, PageType } from '@/components/Com
 import { NotionComponent } from '@/components/ComponentRenderer/type';
 import { childRenderCallback, useGlobalRendererContext } from '@/components/ComponentRenderer';
 import TextRenderer from '@/components/ComponentRenderer/NotionRender/TextRenderer';
+import { HEADING_TYPES } from '../../HeaderRenderer';
 
 interface UgcToggleRendererProps {
   prevComponent: NotionComponent | CustomComponent | null;
@@ -77,29 +78,32 @@ const UgcToggleRenderer: FC<UgcToggleRendererProps> = (props) => {
   const getMobileClassName = () => {
     switch (pageType) {
       case PageType.UGC:
-        return <div className=""></div>;
       case PageType.PGC:
-        return <div className=""></div>;
       case PageType.GLOSSARY:
       case PageType.BLOG:
-        return ``;
-
       case PageType.MINI:
-        return <div className=""></div>;
+        return cn(
+          'py-[10px]',
+          prevComponent?.type !== NotionComponentType.TOGGLE ? 'mt-2' : '',
+          nextComponent?.type !== NotionComponentType.TOGGLE ? 'mb-2' : '',
+          HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : ''
+        );
     }
   };
 
   const getWebClassName = () => {
     switch (pageType) {
       case PageType.UGC:
-        return <div className=""></div>;
       case PageType.PGC:
-        return <div className=""></div>;
       case PageType.MINI:
-        return <div className=""></div>;
       case PageType.GLOSSARY:
       case PageType.BLOG:
-        return ``;
+        return cn(
+          'py-[15px]',
+          prevComponent?.type !== NotionComponentType.TOGGLE ? 'mt-2' : '',
+          nextComponent?.type !== NotionComponentType.TOGGLE ? 'mb-2' : '',
+          HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : ''
+        );
     }
   };
 
@@ -107,7 +111,7 @@ const UgcToggleRenderer: FC<UgcToggleRendererProps> = (props) => {
     <div
       datatype={component.type}
       className={cn(
-        '',
+        'inline-block w-full overflow-hidden',
         isMobile ? getMobileClassName() : getWebClassName(),
         nextComponent === null ? 'mb-0' : '',
         prevComponent === null ? 'mt-0' : ''
@@ -115,7 +119,7 @@ const UgcToggleRenderer: FC<UgcToggleRendererProps> = (props) => {
     >
       {lastIndex !== currentIndex && firstIndex === currentIndex && (
         <div
-          className="underline-m cursor-pointer border-b border-neutral-black py-[15px] text-right text-neutral-black"
+          className="underline-m mb-[15px] cursor-pointer border-b border-neutral-black text-right text-neutral-black"
           onClick={() => {
             let newExpandData = { ...expandData };
             let expands: number[] = [];
@@ -136,13 +140,11 @@ const UgcToggleRenderer: FC<UgcToggleRendererProps> = (props) => {
       <div
         className={cn(
           'overflow-hidden border-b border-[#676767]',
-          groupExpands?.includes(currentIndex) ? 'pb-5' : '',
-          lastIndex === currentIndex ? 'mb-5' : ''
+          groupExpands?.includes(currentIndex) ? 'pb-[15px]' : ''
         )}
-        data-type={component.type}
       >
         <div
-          className="my-[15px] flex cursor-pointer items-center justify-between px-[.5rem]"
+          className="flex cursor-pointer items-center justify-between px-[.5rem]"
           onClick={() => {
             let newExpandData = { ...expandData };
             let expands = groupExpands;
@@ -156,7 +158,7 @@ const UgcToggleRenderer: FC<UgcToggleRendererProps> = (props) => {
             updateExpandData(newExpandData);
           }}
         >
-          <div className="text-[16px]">
+          <div className={cn(isMobile ? 'body-m' : 'body-l')}>
             <TextRenderer richTextArr={component.content.rich_text} />
           </div>
           <span className={``}>
@@ -168,11 +170,9 @@ const UgcToggleRenderer: FC<UgcToggleRendererProps> = (props) => {
           </span>
         </div>
         {/* 正常渲染子对象 */}
-        <div className="pl-4">
-          {isRenderChildren &&
-            groupExpands?.includes(currentIndex) &&
-            component.children?.map(childRenderCallback(component))}
-        </div>
+        {isRenderChildren && groupExpands?.includes(currentIndex) && !!component.children?.length && (
+          <div className="pl-4">{component.children?.map(childRenderCallback(component))}</div>
+        )}
       </div>
     </div>
   );

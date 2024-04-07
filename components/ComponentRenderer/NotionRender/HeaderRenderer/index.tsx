@@ -80,18 +80,31 @@ const HeaderRenderer: FC<HeaderRendererProps> = (props) => {
           type === NotionComponentType.H4 ? 'text-h5-mob' : ''
         );
       case PageType.UGC:
-        return <div className=""></div>;
+        return cn(
+          'mb-[5px]',
+          type === NotionComponentType.H1 ? 'text-h1-mob' : '',
+          type === NotionComponentType.H2 ? 'text-h2-mob' : '',
+          type === NotionComponentType.H3 ? 'text-h3-mob' : '',
+          type === NotionComponentType.H4 ? 'text-h4-mob' : '',
+          type === NotionComponentType.H4 ? 'text-h5-mob' : ''
+        );
       case PageType.MINI:
-        return <div className=""></div>;
+        return cn(
+          'mb-[5px]',
+          type === NotionComponentType.H1 ? 'text-h1-mob' : '',
+          type === NotionComponentType.H2 ? 'text-h2-mob' : '',
+          type === NotionComponentType.H3 ? 'text-h3-mob' : '',
+          type === NotionComponentType.H4 ? 'text-h4-mob' : '',
+          type === NotionComponentType.H4 ? 'text-h5-mob' : ''
+        );
       case PageType.GLOSSARY:
       case PageType.BLOG:
       default:
         return cn(
           'my-[14px]',
-          type === NotionComponentType.H1 ? 'text-h1-mob' : '',
-          type === NotionComponentType.H2 ? 'text-h2-mob' : '',
-          type === NotionComponentType.H3 ? 'text-h3-mob' : '',
-          type === NotionComponentType.H4 ? 'text-h4-mob' : '',
+          type === NotionComponentType.H1 ? 'text-h2-mob' : '',
+          type === NotionComponentType.H2 ? 'text-h3-mob' : '',
+          type === NotionComponentType.H3 ? 'text-h4-mob' : '',
           type === NotionComponentType.H4 ? 'text-h5-mob' : ''
         );
     }
@@ -102,25 +115,35 @@ const HeaderRenderer: FC<HeaderRendererProps> = (props) => {
       case PageType.PGC:
         return cn(
           'mb-2',
-          type === NotionComponentType.H1 ? 'text-h1' : '',
-          type === NotionComponentType.H2 ? 'text-h2' : '',
-          type === NotionComponentType.H3 ? 'text-h3' : '',
-          type === NotionComponentType.H4 ? 'text-h4' : '',
+          type === NotionComponentType.H1 ? 'text-h2' : '',
+          type === NotionComponentType.H2 ? 'text-h3' : '',
+          type === NotionComponentType.H3 ? 'text-h4' : '',
           type === NotionComponentType.H4 ? 'text-h5' : ''
         );
       case PageType.UGC:
-        return <div className=""></div>;
+        return cn(
+          'mb-2',
+          type === NotionComponentType.H1 ? 'text-h2' : '',
+          type === NotionComponentType.H2 ? 'text-h3' : '',
+          type === NotionComponentType.H3 ? 'text-h4' : '',
+          type === NotionComponentType.H4 ? 'text-h5' : ''
+        );
       case PageType.MINI:
-        return <div className=""></div>;
+        return cn(
+          'mb-2',
+          type === NotionComponentType.H1 ? 'text-h2' : '',
+          type === NotionComponentType.H2 ? 'text-h3' : '',
+          type === NotionComponentType.H3 ? 'text-h4' : '',
+          type === NotionComponentType.H4 ? 'text-h5' : ''
+        );
       case PageType.GLOSSARY:
       case PageType.BLOG:
       default:
         return cn(
           'my-[18px]',
-          type === NotionComponentType.H1 ? 'text-h1' : '',
-          type === NotionComponentType.H2 ? 'text-h2' : '',
-          type === NotionComponentType.H3 ? 'text-h3' : '',
-          type === NotionComponentType.H4 ? 'text-h4' : '',
+          type === NotionComponentType.H1 ? 'text-h2' : '',
+          type === NotionComponentType.H2 ? 'text-h3' : '',
+          type === NotionComponentType.H3 ? 'text-h4' : '',
           type === NotionComponentType.H4 ? 'text-h5' : ''
         );
     }
@@ -131,7 +154,8 @@ const HeaderRenderer: FC<HeaderRendererProps> = (props) => {
   return (
     <div
       className={cn(
-        pageType === PageType.PGC ? 'mt-[30px]' : '',
+        PageType.PGC === pageType ? 'mt-[30px]' : '',
+        PageType.UGC === pageType ? 'mt-[50px]' : '',
         nextComponent === null ? 'mb-0' : '',
         prevComponent === null ? 'mt-0' : ''
       )}
@@ -146,7 +170,11 @@ const HeaderRenderer: FC<HeaderRendererProps> = (props) => {
             prevComponent === null ? 'mt-0' : ''
           )}
         >
-          {showLeftBorder && <span className="mr-[5px] h-full w-[5px] rounded-full bg-yellow-primary">&nbsp;</span>}
+          {showLeftBorder && (
+            <span className={cn('h-full w-[5px] rounded-full bg-yellow-primary', isMobile ? 'mr-[5px]' : 'mr-[10px]')}>
+              &nbsp;
+            </span>
+          )}
           <span>
             <TextRenderer richTextArr={component.content.rich_text} />
           </span>
@@ -159,7 +187,9 @@ const HeaderRenderer: FC<HeaderRendererProps> = (props) => {
       </HeadingTag>
 
       {/* 正常渲染子对象 */}
-      <div className="ml-4">{isRenderChildren && component.children?.map(childRenderCallback(component))}</div>
+      {isRenderChildren && !!component.children?.length && (
+        <div className="my-2 ml-5">{isRenderChildren && component.children?.map(childRenderCallback(component))}</div>
+      )}
     </div>
   );
 };

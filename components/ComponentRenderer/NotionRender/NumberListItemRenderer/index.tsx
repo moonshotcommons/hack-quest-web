@@ -40,9 +40,13 @@ const NumberListItemRenderer: FC<NumberListItemRendererProps> = (props) => {
           HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : ''
         );
       case PageType.UGC:
-        return <div className=""></div>;
+        return cn(
+          'body-m',
+          prevComponent?.type !== NotionComponentType.NUMBERED_LIST_ITEM ? 'mt-[5px]' : '',
+          nextComponent?.type !== NotionComponentType.NUMBERED_LIST_ITEM ? 'mb-[5px]' : '',
+          HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : ''
+        );
       case PageType.MINI:
-        return <div className=""></div>;
       case PageType.GLOSSARY:
       case PageType.BLOG:
       default:
@@ -64,9 +68,13 @@ const NumberListItemRenderer: FC<NumberListItemRendererProps> = (props) => {
           HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : ''
         );
       case PageType.UGC:
-        return <div className=""></div>;
+        return cn(
+          'body-l',
+          prevComponent?.type !== NotionComponentType.NUMBERED_LIST_ITEM ? 'mt-2' : '',
+          nextComponent?.type !== NotionComponentType.NUMBERED_LIST_ITEM ? 'mb-2' : '',
+          HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : ''
+        );
       case PageType.MINI:
-        return <div className=""></div>;
       case PageType.GLOSSARY:
       case PageType.BLOG:
       default:
@@ -94,7 +102,7 @@ const NumberListItemRenderer: FC<NumberListItemRendererProps> = (props) => {
           <TextRenderer richTextArr={component.content.rich_text}></TextRenderer>
         </span>
       </div>
-      <div className="ml-4">{component.children?.map(childRenderCallback(component))}</div>
+      <div className="my-2 ml-5">{component.children?.map(childRenderCallback(component))}</div>
     </div>
   );
 };

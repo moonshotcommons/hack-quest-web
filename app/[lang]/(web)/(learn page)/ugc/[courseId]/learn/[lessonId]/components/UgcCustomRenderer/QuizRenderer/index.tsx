@@ -124,7 +124,7 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
       <div className={`text-h4 relative inline-flex items-center ${quizDropdownVisible && 'shadow-2xl'}`}>
         <div
           ref={containerRef as any}
-          className={`box-content inline-flex min-h-fit cursor-pointer gap-2 border-b-2 p-[20px] ${
+          className={`box-content inline-flex min-h-fit cursor-pointer gap-2 px-[20px] ${
             quizDropdownVisible ? ' border-neutral-medium-gray' : ''
           }`}
           onClick={() => {
@@ -157,9 +157,7 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
   return (
     <>
       <div
-        className={cn(
-          `mt-[30px] flex min-h-[50%] w-full flex-1 flex-col overflow-hidden rounded-[.625rem] bg-[#E6E6E6] pb-[20px]`
-        )}
+        className={cn(`mt-[30px] flex min-h-[50%] w-full flex-1 flex-col overflow-hidden rounded-[.625rem] pb-[20px]`)}
       >
         {QuizHeader}
         <QuizContext.Provider value={{ onPass, currentQuizIndex, parentQuiz: quiz }}>

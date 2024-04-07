@@ -71,7 +71,7 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
               <span key={index} className="inline-block" ref={centerTextRef}>
                 <span
                   key={index}
-                  className={`${className} rounded-md leading-[200%]`}
+                  className={`${className} whitespace-pre-line rounded-md leading-[200%]`}
                   style={{
                     letterSpacing,
                     color:
@@ -98,7 +98,7 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
                 <a
                   target="_blank"
                   href={richText.href}
-                  className={`${className} break-words underline`}
+                  className={`${className} whitespace-pre-line break-words underline hover:text-yellow-dark hover:underline`}
                   style={{
                     letterSpacing,
                     color:
@@ -121,7 +121,7 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
             <span key={index} className="text-center" ref={centerTextRef}>
               <span
                 key={index}
-                className={`${className} rounded-md leading-[200%]`}
+                className={`${className} whitespace-pre-line rounded-md leading-[200%]`}
                 style={{
                   letterSpacing,
                   color:
@@ -144,7 +144,7 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
               target="_blank"
               key={index}
               href={richText.href}
-              className={`${className} break-words underline`}
+              className={`${className} whitespace-pre-line break-words underline hover:text-yellow-dark hover:underline`}
               style={{
                 letterSpacing,
                 color:
@@ -174,7 +174,7 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
         return (
           <span
             key={index}
-            className={`${className} rounded-md`}
+            className={`${className} whitespace-pre-line rounded-md`}
             style={{
               letterSpacing,
               color:

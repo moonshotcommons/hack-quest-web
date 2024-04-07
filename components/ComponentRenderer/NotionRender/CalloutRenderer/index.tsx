@@ -27,9 +27,9 @@ const CalloutRenderer: FC<CalloutRendererProps> = (props) => {
       case PageType.PGC:
         return cn('my-[5px] body-s', HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : '');
       case PageType.UGC:
-        return <div className=""></div>;
+        return cn('my-2 body-m', HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : '');
       case PageType.MINI:
-        return <div className=""></div>;
+        return cn('my-2 body-m', HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : '');
       case PageType.GLOSSARY:
       case PageType.BLOG:
       default:
@@ -42,9 +42,9 @@ const CalloutRenderer: FC<CalloutRendererProps> = (props) => {
       case PageType.PGC:
         return cn('my-2 body-s', HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : '');
       case PageType.UGC:
-        return <div className=""></div>;
+        return cn('my-2 body-l', HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : '');
       case PageType.MINI:
-        return <div className=""></div>;
+        return cn('my-2 body-l', HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : '');
       case PageType.GLOSSARY:
       case PageType.BLOG:
       default:
