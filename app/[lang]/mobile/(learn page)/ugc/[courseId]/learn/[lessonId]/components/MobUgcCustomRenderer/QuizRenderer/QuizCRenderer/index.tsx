@@ -13,7 +13,7 @@ import { QuizContext } from '..';
 import emitter from '@/store/emitter';
 import { useGetQuizsCompleted } from '@/hooks/courses/useGetQuizsCompleted';
 import TextRenderer from '@/components/ComponentRenderer/NotionRender/TextRenderer';
-import { OverrideRendererConfig, childRenderCallback } from '@/components/ComponentRenderer';
+import { childRenderCallback } from '@/components/ComponentRenderer';
 interface QuizCRendererProps {
   parent: any;
   quiz: any;
@@ -95,9 +95,8 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
 
   return (
     <div className="flex w-full flex-col rounded-[10px] bg-neutral-off-white p-[10px]">
-      <OverrideRendererConfig textRenderer={{ fontSize: '18px' }}>
-        <div className="text-h4 mt-[32px]">{quiz?.children?.map(childRenderCallback(quiz))}</div>
-      </OverrideRendererConfig>
+      <div className="text-h4 mt-[32px]">{quiz?.children?.map(childRenderCallback(quiz))}</div>
+
       <div className="mt-[32px] flex flex-col gap-y-[24px]">
         {quiz?.options?.map((item: any, index: any) => {
           return (
@@ -119,8 +118,8 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
               <div className="flex-center flex h-8 w-8 rounded-[4px] border-[2px] border-neutral-light-gray">
                 {item.index}
               </div>
-              <div className="flex-1">
-                <TextRenderer richTextArr={item.option?.content?.rich_text} fontSize="16px"></TextRenderer>
+              <div className="flex-1 text-[16px]">
+                <TextRenderer richTextArr={item.option?.content?.rich_text}></TextRenderer>
               </div>
 
               <div>

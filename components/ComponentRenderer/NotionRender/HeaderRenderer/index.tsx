@@ -4,9 +4,17 @@ import TextRenderer from '../TextRenderer';
 import { NotionComponent, NotionComponentType } from '../type';
 import { childRenderCallback, useGlobalRendererContext } from '../..';
 import { PgcExpandDataType } from '../../context';
-import { CustomComponent } from '../../type';
+import { CustomComponent, PageType } from '../../type';
 
-type HeaderLevel = NotionComponentType.H1 | NotionComponentType.H2 | NotionComponentType.H3;
+export const HEADING_TYPES = [
+  NotionComponentType.H1,
+  NotionComponentType.H2,
+  NotionComponentType.H3,
+  NotionComponentType.H4,
+  NotionComponentType.H5,
+  NotionComponentType.H6
+] as const;
+
 interface HeaderRendererProps {
   prevComponent: NotionComponent | CustomComponent | null;
   nextComponent: NotionComponent | CustomComponent | null;
@@ -17,19 +25,13 @@ interface HeaderRendererProps {
 }
 
 const HeaderRenderer: FC<HeaderRendererProps> = (props) => {
-  const { component, isRenderChildren = true } = props;
+  const { component, isRenderChildren = true, nextComponent, prevComponent } = props;
   const type = component.type;
 
-  const { expandData: contextExpandData, updateExpandData } = useGlobalRendererContext();
+  const { expandData: contextExpandData, updateExpandData, pageType, isMobile } = useGlobalRendererContext();
   const expandData = contextExpandData as PgcExpandDataType[];
   const HeadingTag = ('h' + type.slice(-1)) as keyof JSX.IntrinsicElements;
   const [isExpandAll, setIsExpandAll] = useState(false);
-  const className = cn(
-    `font-bold`,
-    type === NotionComponentType.H1 ? 'text-[1.5rem]' : '',
-    type === NotionComponentType.H2 ? 'text-[1.25rem]' : '',
-    type === NotionComponentType.H3 ? 'text-[1rem]' : ''
-  );
 
   const expandIndex = useMemo(() => {
     return expandData?.findIndex((v) => v.id === component.id);
@@ -66,18 +68,96 @@ const HeaderRenderer: FC<HeaderRendererProps> = (props) => {
     changeExpandAll();
   }, [expandData]);
 
+  const getMobileClassName = () => {
+    switch (pageType) {
+      case PageType.PGC:
+        return cn(
+          'mb-[5px]',
+          type === NotionComponentType.H1 ? 'text-h1-mob' : '',
+          type === NotionComponentType.H2 ? 'text-h2-mob' : '',
+          type === NotionComponentType.H3 ? 'text-h3-mob' : '',
+          type === NotionComponentType.H4 ? 'text-h4-mob' : '',
+          type === NotionComponentType.H4 ? 'text-h5-mob' : ''
+        );
+      case PageType.UGC:
+        return <div className=""></div>;
+      case PageType.MINI:
+        return <div className=""></div>;
+      case PageType.GLOSSARY:
+      case PageType.BLOG:
+      default:
+        return cn(
+          'my-[14px]',
+          type === NotionComponentType.H1 ? 'text-h1-mob' : '',
+          type === NotionComponentType.H2 ? 'text-h2-mob' : '',
+          type === NotionComponentType.H3 ? 'text-h3-mob' : '',
+          type === NotionComponentType.H4 ? 'text-h4-mob' : '',
+          type === NotionComponentType.H4 ? 'text-h5-mob' : ''
+        );
+    }
+  };
+
+  const getWebClassName = () => {
+    switch (pageType) {
+      case PageType.PGC:
+        return cn(
+          'mb-2',
+          type === NotionComponentType.H1 ? 'text-h1' : '',
+          type === NotionComponentType.H2 ? 'text-h2' : '',
+          type === NotionComponentType.H3 ? 'text-h3' : '',
+          type === NotionComponentType.H4 ? 'text-h4' : '',
+          type === NotionComponentType.H4 ? 'text-h5' : ''
+        );
+      case PageType.UGC:
+        return <div className=""></div>;
+      case PageType.MINI:
+        return <div className=""></div>;
+      case PageType.GLOSSARY:
+      case PageType.BLOG:
+      default:
+        return cn(
+          'my-[18px]',
+          type === NotionComponentType.H1 ? 'text-h1' : '',
+          type === NotionComponentType.H2 ? 'text-h2' : '',
+          type === NotionComponentType.H3 ? 'text-h3' : '',
+          type === NotionComponentType.H4 ? 'text-h4' : '',
+          type === NotionComponentType.H4 ? 'text-h5' : ''
+        );
+    }
+  };
+
+  const showLeftBorder = (isMobile && pageType === PageType.PGC) || pageType === PageType.UGC;
+
   return (
-    <div className="pb-[10px] pr-[4px] pt-[20px]">
-      <HeadingTag className={`${className} flex items-center justify-between`}>
-        <div>
-          <TextRenderer richTextArr={component.content.rich_text} fontSize={'18px'} className="text-h4" />
+    <div
+      className={cn(
+        pageType === PageType.PGC ? 'mt-[30px]' : '',
+        nextComponent === null ? 'mb-0' : '',
+        prevComponent === null ? 'mt-0' : ''
+      )}
+      datatype={component.type}
+    >
+      <HeadingTag className={cn(`flex items-center justify-between`)}>
+        <div
+          className={cn(
+            'inline-block h-auto w-full text-neutral-black',
+            isMobile ? getMobileClassName() : getWebClassName(),
+            nextComponent === null ? 'mb-0' : '',
+            prevComponent === null ? 'mt-0' : ''
+          )}
+        >
+          {showLeftBorder && <span className="mr-[5px] h-full w-[5px] rounded-full bg-yellow-primary">&nbsp;</span>}
+          <span>
+            <TextRenderer richTextArr={component.content.rich_text} />
+          </span>
         </div>
         {expandIndex >= 0 && (
-          <span className="underline-s cursor-pointer" onClick={changeExpandNum}>
+          <span className="underline-s cursor-pointer whitespace-nowrap" onClick={changeExpandNum}>
             {isExpandAll ? 'Fold All' : 'Expand All'}
           </span>
         )}
       </HeadingTag>
+
       {/* 正常渲染子对象 */}
       <div className="ml-4">{isRenderChildren && component.children?.map(childRenderCallback(component))}</div>
     </div>

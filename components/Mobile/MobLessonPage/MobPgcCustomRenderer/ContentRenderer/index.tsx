@@ -30,7 +30,7 @@ const ContentRenderer: FC<ContentRendererProps> = (props) => {
           setShowAll(!showAll);
         }}
       >
-        <span className="text-h4">
+        <span className="text-h4 mb-[10px]">
           {component.title || <TextRenderer richTextArr={component.content.rich_text}></TextRenderer>}
         </span>
         {leftLength > 1 ? (

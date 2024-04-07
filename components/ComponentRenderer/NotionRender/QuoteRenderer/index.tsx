@@ -1,8 +1,9 @@
 import { FC } from 'react';
 import TextRenderer from '../TextRenderer';
 import { NotionComponent } from '../type';
-import { CustomComponent } from '../../type';
-import { childRenderCallback } from '../..';
+import { CustomComponent, PageType } from '../../type';
+import { childRenderCallback, useGlobalRendererContext } from '../..';
+import { cn } from '@/helper/utils';
 
 interface QuoteRendererProps {
   prevComponent: NotionComponent | CustomComponent | null;
@@ -13,12 +14,53 @@ interface QuoteRendererProps {
 }
 
 const QuoteRenderer: FC<QuoteRendererProps> = (props) => {
-  const { component } = props;
+  const { component, nextComponent, prevComponent } = props;
+  const { pageType, isMobile } = useGlobalRendererContext();
+
+  const getMobileClassName = () => {
+    switch (pageType) {
+      case PageType.PGC:
+        return `border-neutral-rich-gray text-neutral-rich-gray pl-[5px] border-l-[5px] my-[5px]`;
+      case PageType.UGC:
+        return <div className=""></div>;
+      case PageType.MINI:
+        return <div className=""></div>;
+      case PageType.GLOSSARY:
+      case PageType.BLOG:
+      default:
+        return cn('border-neutral-medium-gray pl-[10px] text-neutral-medium-gray body-s border-l-[3px] my-[14px]');
+    }
+  };
+
+  const getWebClassName = () => {
+    switch (pageType) {
+      case PageType.PGC:
+        return `border-neutral-rich-gray text-neutral-rich-gray caption-14pt border-l-[3px] my-[18px]`;
+      case PageType.UGC:
+        return <div className=""></div>;
+      case PageType.MINI:
+        return <div className=""></div>;
+      case PageType.GLOSSARY:
+      case PageType.BLOG:
+        return cn(`border-neutral-medium-gray pl-[10px] text-neutral-medium-gray  body-m border-l-[5px] my-[18px]`);
+    }
+  };
+
   return (
-    <div className="body-s mb-[1.25rem] border-l-2 border-solid border-renderer-quote-border-color pl-[1.5rem] text-renderer-quote-text-color">
-      {<TextRenderer richTextArr={component.content.rich_text}></TextRenderer>}
-      {component.children?.map(childRenderCallback(component))}
-    </div>
+    <>
+      <div
+        datatype={component.type}
+        className={cn(
+          '',
+          isMobile ? getMobileClassName() : getWebClassName(),
+          nextComponent === null ? 'mb-0' : '',
+          prevComponent === null ? 'mt-0' : ''
+        )}
+      >
+        {<TextRenderer richTextArr={component.content.rich_text}></TextRenderer>}
+        {component.children?.map(childRenderCallback(component))}
+      </div>
+    </>
   );
 };
 

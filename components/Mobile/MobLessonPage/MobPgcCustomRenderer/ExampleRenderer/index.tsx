@@ -1,7 +1,4 @@
-import Button from '@/components/Common/Button';
 import { cn } from '@/helper/utils';
-import LzString from 'lz-string';
-import Link from 'next/link';
 import { FC, createContext, useEffect, useState } from 'react';
 import { FiChevronDown } from 'react-icons/fi';
 import { ExampleComponent } from '@/components/ComponentRenderer/type';
@@ -34,9 +31,9 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
   }, [component]);
 
   return (
-    <div className={`w-full rounded-[.5rem] bg-neutral-light-gray px-[1.25rem] py-[12px]`}>
+    <div className={`w-full rounded-[.5rem] bg-neutral-off-white bg-opacity-50 px-[1.25rem] py-[12px]`}>
       <div className="flex items-center justify-between" onClick={() => setExpand(!expand)}>
-        <span className="b relative inline-flex items-center">{component.title || 'Example'}</span>
+        <span className="text-h4 relative inline-flex items-center">{component.title || 'Example'}</span>
         <span>
           <FiChevronDown
             size={28}
@@ -92,10 +89,12 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
               </div>
             </div>
           )}
+
+          <p className="caption-14pt mt-5">You can try HackQuest IDE on desktop.</p>
         </div>
       )}
 
-      {expand && component.renderIdeBtn && (
+      {/* {expand && component.renderIdeBtn && (
         <Link
           href={`${component.ideUrl || process.env.IDE_URL || 'https://ide.dev.hackquest.io'}?code=${encodeURIComponent(
             LzString.compressToBase64(exampleContent)
@@ -110,7 +109,7 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
             Try It Out
           </Button>
         </Link>
-      )}
+      )} */}
     </div>
   );
 };

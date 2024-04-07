@@ -1,14 +1,12 @@
 // import DropAnswer from '@/components/Web/Business/Renderer/ComponentRenderer/QuizRenderer/QuizBRenderer/DropAnswer';
 import { cn } from '@/helper/utils';
-import { FC } from 'react';
+import { FC, useEffect, useRef } from 'react';
 import MathJax from 'react-mathjax';
 import { useQuizBRendererContext } from '../..';
 
 interface TextRendererProps {
   richTextArr: any;
-  fontSize?: string;
   letterSpacing?: string;
-  className?: string;
 }
 
 export type AnnotationType = {
@@ -20,12 +18,11 @@ export type AnnotationType = {
   color: string;
 };
 
-const getTextClassNames = (annotations: AnnotationType, propClassName: string) => {
+const getTextClassNames = (annotations: AnnotationType) => {
   const className = cn(
-    `py-1`,
-    propClassName ? propClassName : 'body-s',
+    // `py-1`,
     annotations.bold ? 'font-bold' : '',
-    annotations.code ? 'px-[0.2rem] text-[85%] text-[#eb5757] bg-renderer-code-bg mx-[0.25rem]' : '',
+    annotations.code ? 'px-2 py-1 text-[85%] text-[#eb5757] bg-renderer-code-bg mx-[0.25rem]' : '',
     annotations.italic ? 'italic' : '',
     annotations.strikethrough ? '' : '',
     annotations.underline ? 'underline' : '',
@@ -37,16 +34,22 @@ const getTextClassNames = (annotations: AnnotationType, propClassName: string) =
 };
 
 const TextRenderer: FC<TextRendererProps> = (props) => {
-  const { richTextArr, fontSize: propsFontSize, letterSpacing = '0.28px', className: propClassName = '' } = props;
+  const { richTextArr, letterSpacing = '0.28px' } = props;
   const { DropAnswerComponent } = useQuizBRendererContext();
-  const { fontSize: contextFontSize } = { fontSize: '14px' };
-  const fontSize = propsFontSize || contextFontSize;
+
+  const centerTextRef = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    if (centerTextRef.current) {
+      centerTextRef.current.parentElement?.classList.add('text-center');
+    }
+  }, []);
 
   return (
     <>
       {richTextArr.map((richText: any, index: number) => {
         const annotations = richText.annotations;
-        const className = getTextClassNames(annotations, propClassName);
+        const className = getTextClassNames(annotations);
 
         if (richText.annotations.code && /(@@)(((.|\n)*?))((##))/gim.test(richText.plain_text)) {
           return (
@@ -65,12 +68,11 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
             return null;
           } else {
             return (
-              <p key={index} className="text-center">
+              <span key={index} className="inline-block" ref={centerTextRef}>
                 <span
                   key={index}
                   className={`${className} rounded-md leading-[200%]`}
                   style={{
-                    fontSize,
                     letterSpacing,
                     color:
                       annotations.color !== 'default' && !annotations.color.includes('background')
@@ -84,7 +86,7 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
                 >
                   {plain_text}
                 </span>
-              </p>
+              </span>
             );
           }
         }
@@ -92,13 +94,12 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
           const plain_text = richText.plain_text.replace(/<<image>>/g, '');
           if (richText.href) {
             return (
-              <p key={index} className="text-center">
+              <span key={index} className="inline-block" ref={centerTextRef}>
                 <a
                   target="_blank"
                   href={richText.href}
-                  className={`${className} break-words py-1 underline`}
+                  className={`${className} break-words underline`}
                   style={{
-                    fontSize,
                     letterSpacing,
                     color:
                       annotations.color !== 'default' && !annotations.code && !annotations.color.includes('background')
@@ -112,17 +113,16 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
                 >
                   {plain_text}
                 </a>
-              </p>
+              </span>
             );
           }
 
           return (
-            <p key={index} className="text-center">
+            <span key={index} className="text-center" ref={centerTextRef}>
               <span
                 key={index}
                 className={`${className} rounded-md leading-[200%]`}
                 style={{
-                  fontSize,
                   letterSpacing,
                   color:
                     annotations.color !== 'default' && !annotations.color.includes('background')
@@ -134,7 +134,7 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
               >
                 {plain_text}
               </span>
-            </p>
+            </span>
           );
         }
 
@@ -144,9 +144,8 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
               target="_blank"
               key={index}
               href={richText.href}
-              className={`${className} break-words py-1 underline`}
+              className={`${className} break-words underline`}
               style={{
-                fontSize,
                 letterSpacing,
                 color:
                   annotations.color !== 'default' && !annotations.code && !annotations.color.includes('background')
@@ -177,7 +176,6 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
             key={index}
             className={`${className} rounded-md`}
             style={{
-              fontSize,
               letterSpacing,
               color:
                 annotations.color !== 'default' && !annotations.color.includes('background') ? annotations.color : '',

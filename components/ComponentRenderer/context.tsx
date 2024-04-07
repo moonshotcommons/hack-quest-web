@@ -98,6 +98,9 @@ export interface RendererContextType {
     textStyle?: string;
     codeStyle?: string;
   };
+  codeRenderer?: {
+    isPlayground?: boolean;
+  };
   quizBRendererContext?: QuizBContextType;
   quizARendererContext?: QuizAContextType;
   globalContext?: GlobalContextType;
@@ -111,6 +114,7 @@ export interface RendererContextType {
 
 export const defaultRendererContext = {
   textRenderer: { fontSize: '14px', textStyle: '' },
+  codeRenderer: { isPlayground: false },
   quizBRendererContext: QuizBContextDefaultValue,
   quizARendererContext: QuizAContextDefaultValue,
   globalContext: GlobalContextDefaultValue,

@@ -29,6 +29,9 @@ export const NOTION_RENDERER_TYPES = [
   NotionComponentType.H1,
   NotionComponentType.H2,
   NotionComponentType.H3,
+  NotionComponentType.H4,
+  NotionComponentType.H5,
+  NotionComponentType.H6,
   NotionComponentType.PARAGRAPH,
   NotionComponentType.NUMBERED_LIST_ITEM,
   NotionComponentType.BULLETED_LIST_ITEM,
@@ -67,6 +70,9 @@ const NotionRenderer: FC<NotionRendererProps> = (props) => {
     case NotionComponentType.H1:
     case NotionComponentType.H2:
     case NotionComponentType.H3:
+    case NotionComponentType.H4:
+    case NotionComponentType.H5:
+    case NotionComponentType.H6:
       return <HeaderRenderer {...props}></HeaderRenderer>;
     default:
       <div>{component.type}</div>;

@@ -17,10 +17,11 @@ const BlogContent: React.FC<BlogContentProp> = ({ blog }) => {
     };
   }, [blog]);
   return (
-    <div className="px-[1.25rem] py-[2.5rem]">
+    <div className="px-[1.25rem] py-[3.75rem]">
       <ComponentRendererProvider
         type={PageType.BLOG}
         CustomComponentRenderer={BlogCustomRenderer}
+        isMobile
         textRenderer={{
           fontSize: '14px'
         }}

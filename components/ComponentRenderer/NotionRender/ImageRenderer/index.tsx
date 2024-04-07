@@ -1,8 +1,10 @@
-import useGetDevice from '@/hooks/utils/useGetDevice';
 import { Image } from 'antd';
 import { FC } from 'react';
 import { NotionComponent } from '../type';
-import { CustomComponent } from '../../type';
+import { CustomComponent, PageType } from '../../type';
+import { useGlobalRendererContext } from '../..';
+import { cn } from '@/helper/utils';
+import { HEADING_TYPES } from '../HeaderRenderer';
 
 interface ImageRendererProps {
   prevComponent: NotionComponent | CustomComponent | null;
@@ -13,34 +15,70 @@ interface ImageRendererProps {
 }
 
 const ImageRenderer: FC<ImageRendererProps> = (props) => {
-  const { component } = props;
+  const { component, nextComponent, prevComponent } = props;
   const content = component.content;
-  const isMobile = useGetDevice();
-  if (content.external) {
-    // return <img src={block.external.url} alt={``} />;
-    return (
-      <div className="py-4">
+  const { pageType, isMobile } = useGlobalRendererContext();
+
+  const getMobileClassName = () => {
+    switch (pageType) {
+      case PageType.PGC:
+        return cn('body-s my-[5px]', HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : '');
+      case PageType.UGC:
+        return <div className=""></div>;
+      case PageType.MINI:
+        return <div className=""></div>;
+      case PageType.GLOSSARY:
+      case PageType.BLOG:
+      default:
+        return `body-s mt-[14px] -mb-1`;
+    }
+  };
+
+  const getWebClassName = () => {
+    switch (pageType) {
+      case PageType.PGC:
+        return cn('body-s my-2', HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : '');
+      case PageType.UGC:
+        return <div className=""></div>;
+      case PageType.MINI:
+        return <div className=""></div>;
+      case PageType.GLOSSARY:
+      case PageType.BLOG:
+      default:
+        return 'body-l mt-[18px] mb-1';
+    }
+  };
+
+  // return <img src={block.external.url} alt={``} />;
+  return (
+    <div
+      className={cn(
+        'inline-block w-full [&>div]:w-full',
+        isMobile ? getMobileClassName() : getWebClassName(),
+        nextComponent === null ? 'mb-0' : '',
+        prevComponent === null ? 'mt-0' : ''
+      )}
+      datatype={component.type}
+    >
+      {content.external && (
         <Image
           src={content.external.url}
           alt="image"
           // width={400}
-          className={`object-contain ${isMobile ? 'w-full' : 'w-[400px]'}`}
+          className={cn(`w-full  object-contain`)}
         />
-      </div>
-    );
-  } else if (content.file) {
-    // return <img src={block.file.url} alt={``} />;
-    return (
-      <div className="py-4">
+      )}
+      {content.file && (
         <Image
           src={content.file.url}
           alt="image"
           // width={400}
-          className={`rounded-xl object-contain ${isMobile ? 'w-full' : 'w-[400px]'}`}
+          className={`w-full  object-contain`}
         />
-      </div>
-    );
-  }
+      )}
+    </div>
+  );
+
   return <></>;
 };
 

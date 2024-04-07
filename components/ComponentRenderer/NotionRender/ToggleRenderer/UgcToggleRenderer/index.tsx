@@ -3,9 +3,9 @@ import { FC, useContext, useEffect, useMemo } from 'react';
 import { VscAdd, VscChromeMinimize } from 'react-icons/vsc';
 import { cn } from '@/helper/utils';
 import { UgcContext } from '@/app/[lang]/(web)/(learn page)/ugc/[courseId]/learn/constants/type';
-import { CustomComponent, NotionComponentType } from '@/components/ComponentRenderer/type';
+import { CustomComponent, NotionComponentType, PageType } from '@/components/ComponentRenderer/type';
 import { NotionComponent } from '@/components/ComponentRenderer/type';
-import { childRenderCallback } from '@/components/ComponentRenderer';
+import { childRenderCallback, useGlobalRendererContext } from '@/components/ComponentRenderer';
 import TextRenderer from '@/components/ComponentRenderer/NotionRender/TextRenderer';
 
 interface UgcToggleRendererProps {
@@ -18,9 +18,10 @@ interface UgcToggleRendererProps {
 }
 
 const UgcToggleRenderer: FC<UgcToggleRendererProps> = (props) => {
-  const { component, isRenderChildren = true, parent } = props;
+  const { component, isRenderChildren = true, parent, prevComponent, nextComponent } = props;
   let children = parent?.isRoot ? parent.content : parent.children;
   const { expandData, updateExpandData } = useContext(UgcContext);
+  const { pageType, isMobile } = useGlobalRendererContext();
 
   const { group, firstIndex, lastIndex, currentIndex } = useMemo(() => {
     const currentIndex: number = children.findIndex((child: any) => child.id === component.id);
@@ -73,8 +74,45 @@ const UgcToggleRenderer: FC<UgcToggleRendererProps> = (props) => {
     return true;
   }, [groupExpands, group]);
 
+  const getMobileClassName = () => {
+    switch (pageType) {
+      case PageType.UGC:
+        return <div className=""></div>;
+      case PageType.PGC:
+        return <div className=""></div>;
+      case PageType.GLOSSARY:
+      case PageType.BLOG:
+        return ``;
+
+      case PageType.MINI:
+        return <div className=""></div>;
+    }
+  };
+
+  const getWebClassName = () => {
+    switch (pageType) {
+      case PageType.UGC:
+        return <div className=""></div>;
+      case PageType.PGC:
+        return <div className=""></div>;
+      case PageType.MINI:
+        return <div className=""></div>;
+      case PageType.GLOSSARY:
+      case PageType.BLOG:
+        return ``;
+    }
+  };
+
   return (
-    <div>
+    <div
+      datatype={component.type}
+      className={cn(
+        '',
+        isMobile ? getMobileClassName() : getWebClassName(),
+        nextComponent === null ? 'mb-0' : '',
+        prevComponent === null ? 'mt-0' : ''
+      )}
+    >
       {lastIndex !== currentIndex && firstIndex === currentIndex && (
         <div
           className="underline-m cursor-pointer border-b border-neutral-black py-[15px] text-right text-neutral-black"
@@ -118,8 +156,8 @@ const UgcToggleRenderer: FC<UgcToggleRendererProps> = (props) => {
             updateExpandData(newExpandData);
           }}
         >
-          <div>
-            <TextRenderer richTextArr={component.content.rich_text} fontSize={'16px'} />
+          <div className="text-[16px]">
+            <TextRenderer richTextArr={component.content.rich_text} />
           </div>
           <span className={``}>
             {!groupExpands?.includes(currentIndex) ? (

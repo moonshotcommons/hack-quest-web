@@ -1,8 +1,10 @@
 import { FC } from 'react';
 import TextRenderer from '../TextRenderer';
-import { childRenderCallback } from '../..';
-import { NotionComponent } from '../type';
-import { CustomComponent } from '../../type';
+import { childRenderCallback, useGlobalRendererContext } from '../..';
+import { NotionComponent, NotionComponentType } from '../type';
+import { CustomComponent, PageType } from '../../type';
+import { cn } from '@/helper/utils';
+import { HEADING_TYPES } from '../HeaderRenderer';
 
 interface BulletedListItemRendererProps {
   prevComponent: NotionComponent | CustomComponent | null;
@@ -13,19 +15,73 @@ interface BulletedListItemRendererProps {
 }
 
 const BulletedListItemRenderer: FC<BulletedListItemRendererProps> = (props) => {
-  const { component, parent } = props;
+  const { component, parent, nextComponent, prevComponent } = props;
+  const { pageType, isMobile } = useGlobalRendererContext();
   let children = parent?.isRoot ? parent.content : parent.children;
 
-  // const index = children
-  //   ?.filter((child: any) => child.type === NotionComponentType.BULLETED_LIST_ITEM)
-  //   .findIndex((child: any) => child.id === source.id);
+  const getMobileClassName = () => {
+    switch (pageType) {
+      case PageType.PGC:
+        return cn(
+          'body-s',
+          prevComponent?.type !== NotionComponentType.BULLETED_LIST_ITEM ? 'mt-[5px]' : '',
+          nextComponent?.type !== NotionComponentType.BULLETED_LIST_ITEM ? 'mb-[5px]' : '',
+          HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : ''
+        );
+      case PageType.UGC:
+        return <div className=""></div>;
+      case PageType.MINI:
+        return <div className=""></div>;
+      case PageType.GLOSSARY:
+      case PageType.BLOG:
+      default:
+        return cn(
+          `body-s`,
+          prevComponent?.type !== NotionComponentType.BULLETED_LIST_ITEM ? 'mt-[14px]' : '',
+          nextComponent?.type !== NotionComponentType.BULLETED_LIST_ITEM ? 'mb-[14px]' : ''
+        );
+    }
+  };
+
+  const getWebClassName = () => {
+    switch (pageType) {
+      case PageType.PGC:
+        return cn(
+          'body-s',
+          prevComponent?.type !== NotionComponentType.BULLETED_LIST_ITEM ? 'mt-2' : '',
+          nextComponent?.type !== NotionComponentType.BULLETED_LIST_ITEM ? 'mb-2' : '',
+          HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : ''
+        );
+      case PageType.UGC:
+        return <div className=""></div>;
+      case PageType.MINI:
+        return <div className=""></div>;
+      case PageType.GLOSSARY:
+      case PageType.BLOG:
+      default:
+        return cn(
+          `body-l`,
+          prevComponent?.type !== NotionComponentType.BULLETED_LIST_ITEM ? 'mt-[18px]' : '',
+          nextComponent?.type !== NotionComponentType.BULLETED_LIST_ITEM ? 'mb-[16px]' : ''
+        );
+    }
+  };
+
   return (
-    <div>
-      <div className="flex items-start gap-2 py-1">
-        <span className="leading-[200%]">•</span>
-        <div>
+    <div
+      datatype={component.type}
+      className={cn(
+        'inline-block w-full text-neutral-black',
+        isMobile ? getMobileClassName() : getWebClassName(),
+        nextComponent === null ? 'mb-0' : '',
+        prevComponent === null ? 'mt-0' : ''
+      )}
+    >
+      <div className="flex">
+        <span className="pr-2">●</span>
+        <span>
           <TextRenderer richTextArr={component.content.rich_text}></TextRenderer>
-        </div>
+        </span>
       </div>
       <div className="ml-4">{component.children?.map(childRenderCallback(component))}</div>
     </div>

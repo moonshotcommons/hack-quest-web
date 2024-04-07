@@ -86,8 +86,8 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
               <div className="flex-center flex h-8 w-8 rounded-[4px] border-[2px] border-neutral-light-gray">
                 {item.index}
               </div>
-              <div className="flex-1">
-                <TextRenderer richTextArr={item.option?.content?.rich_text} fontSize="16px"></TextRenderer>
+              <div className="flex-1 text-[16px]">
+                <TextRenderer richTextArr={item.option?.content?.rich_text}></TextRenderer>
               </div>
 
               <div>

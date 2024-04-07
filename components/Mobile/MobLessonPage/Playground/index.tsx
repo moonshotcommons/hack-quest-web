@@ -33,7 +33,7 @@ const Playground: FC<PlaygroundProps> = (props) => {
   }, [lesson]);
 
   return (
-    <div className="">
+    <div className="pb- flex flex-col gap-[30px] pb-16">
       <PlaygroundContext.Provider value={{ lesson, onCompleted, isPreview, isPlayground: true }}>
         {!!components?.length &&
           components.map((component, index) => {

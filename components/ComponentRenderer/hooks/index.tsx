@@ -25,3 +25,8 @@ export const useGlobalRendererContext = () => {
   const { globalContext } = useContext(RendererContext);
   return globalContext!;
 };
+
+export const useCodeRendererContext = () => {
+  const { codeRenderer } = useContext(RendererContext);
+  return codeRenderer!;
+};

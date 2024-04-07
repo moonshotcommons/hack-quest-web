@@ -165,7 +165,7 @@ const MobLessonPage: FC<MobLessonPageProps> = (props) => {
                       return gutter;
                     }}
                   >
-                    <div className="scroll-wrap-y absolute left-0 top-0 h-full w-full overflow-auto pb-[4.875rem]">
+                    <div className="scroll-wrap-y absolute left-0 top-0 h-full w-full overflow-auto pb-[30px]">
                       <LessonContent lesson={lesson as any} courseType={courseType}></LessonContent>
                       <div className="px-[1.375rem]">
                         <Playground

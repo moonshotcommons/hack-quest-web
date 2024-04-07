@@ -9,12 +9,15 @@ const OverrideRendererConfig: FC<OverrideRendererConfigProps & Partial<RendererC
   const { children, ...rest } = props;
   const context = useContext(RendererContext);
   const newContextValue = useMemo(() => {
+    console.log('重新计算');
+    debugger;
     for (let key in rest) {
       context[key as keyof RendererContextType] = {
         ...context[key as keyof RendererContextType],
         ...rest[key as keyof RendererContextType]
       } as any;
     }
+
     return { ...context };
   }, [rest, context]);
   return <RendererContext.Provider value={newContextValue}>{children}</RendererContext.Provider>;

@@ -8,7 +8,7 @@ import { FiCheck } from 'react-icons/fi';
 import { FiX } from 'react-icons/fi';
 import { CompleteStateType } from '@/service/webApi/course/type';
 import TextRenderer from '@/components/ComponentRenderer/NotionRender/TextRenderer';
-import { OverrideRendererConfig, childRenderCallback, useGlobalRendererContext } from '@/components/ComponentRenderer';
+import { childRenderCallback, useGlobalRendererContext } from '@/components/ComponentRenderer';
 interface QuizCRendererProps {
   parent: any;
   quiz: any;
@@ -58,13 +58,8 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
 
   return (
     <div className="flex flex-col">
-      <OverrideRendererConfig
-        textRenderer={{
-          fontSize: '18px'
-        }}
-      >
-        <div className="mt-[32px]">{quiz?.children?.map(childRenderCallback(quiz))}</div>
-      </OverrideRendererConfig>
+      <div className="mt-[32px] text-[18px]">{quiz?.children?.map(childRenderCallback(quiz))}</div>
+
       <div className="mt-[32px] flex flex-col gap-y-[24px]">
         {quiz?.options?.map((item: any, index: any) => {
           return (
@@ -86,8 +81,8 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
               <div className="flex-center flex h-8 w-8 rounded-[4px] border-[2px] border-neutral-light-gray">
                 {item.index}
               </div>
-              <div className="flex-1">
-                <TextRenderer richTextArr={item.option?.content?.rich_text} fontSize="16px"></TextRenderer>
+              <div className="flex-1 text-[16px]">
+                <TextRenderer richTextArr={item.option?.content?.rich_text}></TextRenderer>
               </div>
 
               <div>

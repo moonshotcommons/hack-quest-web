@@ -1,5 +1,4 @@
 import CopyIcon from '@/components/Common/Icon/Copy';
-import { PlaygroundContext } from '@/components/Web/LessonPage/Playground/type';
 import { Theme } from '@/constants/enum';
 import { BurialPoint } from '@/helper/burialPoint';
 import { ThemeContext } from '@/store/context/theme';
@@ -7,11 +6,14 @@ import { message } from 'antd';
 import { FC, useContext, useEffect, useRef, useState } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneDark, oneLight } from 'react-syntax-highlighter/dist/cjs/styles/prism';
-import { useExampleRendererContext } from '../..';
+import { useCodeRendererContext, useExampleRendererContext, useGlobalRendererContext } from '../..';
 import { NotionComponent } from '../type';
-import { CustomComponent } from '../../type';
+import { CustomComponent, PageType } from '../../type';
+import { HEADING_TYPES } from '../HeaderRenderer';
+import { cn } from '@/helper/utils';
 
 interface CodeSourceType {
+  type: string;
   content: {
     caption: any[];
     language: string;
@@ -28,13 +30,14 @@ interface CodeRendererProps {
 }
 
 const CodeRenderer: FC<CodeRendererProps> = (props) => {
-  const { component, parent } = props;
+  const { component, parent, nextComponent, prevComponent } = props;
   const language = component.content.language;
   const { theme } = useContext(ThemeContext);
   const codeRef = useRef<HTMLTextAreaElement>(null);
   const [codeContent, setCodeContent] = useState('');
   const { updateExampleContent, isExample } = useExampleRendererContext();
-  const { isPlayground } = useContext(PlaygroundContext);
+  const { isPlayground } = useCodeRendererContext();
+  const { pageType, isMobile } = useGlobalRendererContext();
 
   useEffect(() => {
     if (component.content.rich_text) {
@@ -44,8 +47,47 @@ const CodeRenderer: FC<CodeRendererProps> = (props) => {
     }
   }, [component.content.rich_text, updateExampleContent]);
 
+  const getMobileClassName = () => {
+    switch (pageType) {
+      case PageType.PGC:
+        return cn('my-[5px] body-s', HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : '');
+      case PageType.UGC:
+        return <div className=""></div>;
+      case PageType.MINI:
+        return <div className=""></div>;
+      case PageType.GLOSSARY:
+      case PageType.BLOG:
+      default:
+        return `body-s my-[14px]`;
+    }
+  };
+
+  const getWebClassName = () => {
+    switch (pageType) {
+      case PageType.PGC:
+        return cn('my-2 body-s', HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : '');
+      case PageType.UGC:
+        return <div className=""></div>;
+      case PageType.MINI:
+        return <div className=""></div>;
+      case PageType.GLOSSARY:
+      case PageType.BLOG:
+      default:
+        return 'body-l my-[18px]';
+    }
+  };
+
   return (
-    <div className={`relative flex-1 overflow-hidden rounded-md ${isPlayground ? 'flex flex-col' : ''}`}>
+    <div
+      datatype={component.type}
+      className={cn(
+        `relative flex-1 overflow-hidden rounded-md`,
+        isPlayground ? 'flex flex-col' : '',
+        isMobile ? getMobileClassName() : getWebClassName(),
+        nextComponent === null ? 'mb-0' : '',
+        prevComponent === null ? 'mt-0' : ''
+      )}
+    >
       <div className="relative h-[6px] rounded-t-[4.8px] bg-[#fafafa]">
         <div
           className="absolute right-[9px] top-[9px] z-[10] cursor-pointer rounded-[0.5rem] text-[#E3E3E3]"

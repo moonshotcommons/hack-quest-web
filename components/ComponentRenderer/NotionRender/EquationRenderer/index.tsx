@@ -13,7 +13,7 @@ interface EquationRendererProps {
 const EquationRenderer: FC<EquationRendererProps> = (props) => {
   const { component } = props;
   return (
-    <MathJax.Provider>
+    <MathJax.Provider datatype={component.type}>
       <span className="[&>div]:inline-block">
         <MathJax.Node formula={component.content.expression} />
       </span>
