@@ -21,5 +21,20 @@
   "follow": "follow",
   "followed": "followed",
   "join": "join",
-  "joined": "joined"
+  "joined": "joined",
+  "footer": {
+    "learn": "learn",
+    "learningTrack": "learning track",
+    "electives": "electives",
+    "projects": "projects",
+    "playground": "playground",
+    "community": "community",
+    "resources": "resources",
+    "Discord": "Discord",
+    "X": "X",
+    "Telegram": "Telegram",
+    "Linkedin": "Linkedin",
+    "hackathon": "hackathon",
+    "blog": "blog"
+  }
 }

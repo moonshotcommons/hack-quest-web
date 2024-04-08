@@ -28,7 +28,8 @@ i18next
 
 export function useTranslation(lng: Lang = Lang.EN, ns = TransNs.BASIC, options = {}) {
   const [cookies, setCookie] = useCookies([cookieName]);
-  const ret = useTranslationOrg(ns, options);
+  const ret = useTranslationOrg(ns as any, options);
+  // const ret = useTranslationOrg(ns as keyof I18nNamespaces, options);
   const { i18n } = ret;
 
   if (runsOnServerSide && lng && i18n.resolvedLanguage !== lng) {

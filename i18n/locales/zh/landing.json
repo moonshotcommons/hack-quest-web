@@ -1,0 +1,74 @@
+{
+  "TopBanner": {
+    "explore": "探索",
+    "learningTrack": "学习路径",
+    "certified": "含证书",
+    "learnAndBuildAlongside": "在这里学习和发开的有",
+    "developers": "开发者"
+  },
+  "CollaborateList": {
+    "ecosystemsAndProjects": "100+ 头部的Web3生态和项目正与我们合作"
+  },
+  "CertificatesIntroduce": {
+    "earn certificates issued": "学习并取得经过Web3头部生态认可的证书",
+    "exclusively on hackQuest": "HackQuest独家",
+    "coming soon": "即将上线",
+    "Start from the Basics": "基础课程",
+    "Explore Basics": "探索更多基础课程",
+    "Become Specialized": "专业课程",
+    "Explore Specializations": "探索更多专业课程"
+  },
+  "BecomeWeb3": {
+    "Why us": "为什么选择我们",
+    "Become a Web3": "成为一个Web3编程人员 👩🏻‍💻👨🏽‍💻 ",
+    "fullFree": "100%免费",
+    "Kickstart Web3 learning journey": "启动您的Web3学习之旅，这里有专家打造的",
+    "postLearnResource": "课程，有领先的生态系统认证，并拥有各种学习后资源支持!",
+    "Earn official certificates": "获得由领先的Web3生态系统和HackQuest共同颁发的官方证书",
+    "Earn official certificates description": "HackQuest与领先的生态系统(如Solana和Mantle)合作，使我们成为您唯一可以获得由您最喜欢的生态系统直接颁发的链上证书的地方。",
+    "Follow zero-to-hero learning paths": "遵循从零到专家的学习路径",
+    "Follow zero-to-hero learning paths description": "无论您处于Web3开发之旅的哪个阶段，我们都可以通过我们的三条学习路径、10多个语法课程和30多个指导项目帮助您前进。所有的HackQuest课程都是按照通用学习设计(UDL)构建的，这意味着它们对所有学习者都是可访问的和包容的，无论能力或学习风格如何。",
+    "Deploy to L1L2s in minutes": "在几分钟内部署到L1L2s",
+    "Deploy to L1L2s in minutes description": "在学习之前，不要再花几个小时安装软件了!我们的嵌入式浏览器ide使您能够在平台内编写，编辑，测试和部署，而无需任何额外的软件安装。",
+    "Learn beyond traditional courses": "学习超越传统课程的知识",
+    "Learn beyond traditional courses description": "想知道课程结束后要做什么吗?您的旅程继续与现实世界的应用程序和活动。通过黑客马拉松、见面会和博客与我们保持联系"
+  },
+  "CommunityIntroduction": {
+    "what’s next": "下一步是什么",
+    "We Support Beyond": "我们会提供更多",
+    "Your learning does not end with courses": "你的学习不止于课程。加入我们快速增长的Web3社区!",
+    "Join Hackathons": "参加黑客松",
+    "Join Hackathons description": "我们喜欢黑客马拉松，每年组织20多个!通过与志同道合的爱好者在🌎周围建立令人兴奋的项目来应用您所学到的知识",
+    "Join Hackathons button text": "探索黑客松",
+    "Read and Write Blogs": "阅读和撰写博客",
+    "Read and Write Blogs description": "我们喜欢分享!创始人秘密、VC分析、研究报告……阅读编码之外的主题，并与社区📚分享您所学到的内容",
+    "Read and Write Blogs button text": "浏览博客",
+    "Attend Events": "参加活动",
+    "Attend Events description": "我们喜欢在网上和现实生活中结识新朋友!加入我们的聚会，AMA，共同学习营等。你可能会在这里遇到一辈子的朋友😉",
+    "Attend Events button text": "浏览活动",
+    "Apply to Join": "加入我们",
+    "Apply to Join description": "我们一直在寻找人才!对Web3感兴趣，想帮助更多人成功?申请加入我们快速发展的家庭🙌",
+    "Apply to Join  button text": "加入我们"
+  },
+  "UserEvaluation": {
+    "testimonial": "精选评论",
+    "Students and Partners like You ❤️ us": "像你❤️我们这样的学生和伙伴️",
+    "See what others say about HackQuest": "别把我们的话当真。看看其他人怎么说HackQuest!️"
+  },
+  "FAQS": {
+    "FAQs": "常见问题解答",
+    "Can’t find what you’re looking for": "找不到你想要的？联系我们！",
+    "faq-question1": "初学者需要学习多少小时才能获得证书?",
+    "faq-answer1": "根据学习途径的不同，大多数学生花8到20个小时完成所有课程材料并获得证书。",
+    "faq-question2": "如果我之前没有编码知识，是否可以报名参加课程?",
+    "faq-answer2": "Absolutely. A fundamental aspect of our course design is the Universal Design for Learning (UDL). This approach ensures that learners at all levels, regardless of their initial coding knowledge, can effectively understand and engage with the course materials.",
+    "faq-question3": "所有课程和学习后支持都是免费的吗?",
+    "faq-answer3": "Yes! We are dedicated to making Web3.0 programming accessible to everyone, free from financial constraints.",
+    "faq-question4": "我该在哪里寻求帮助?",
+    "faq-answer4": "At the bottom of each learning page, you'll find a grey button for reporting bugs and submitting suggestions. However, for a more interactive and prompt response, we highly encourage joining our Discord community. Here, our content engineers are readily available to answer all your queries and provide support."
+  },
+  "ConnectedUs": {
+    "Stay Connected with us": "关注我们的社交媒体",
+    "collab with us": "与我们合作"
+  }
+}

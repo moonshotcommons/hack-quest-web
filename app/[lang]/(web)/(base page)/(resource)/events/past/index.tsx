@@ -1,10 +1,11 @@
 'use client';
+import { LangContext } from '@/components/Provider/Lang';
 import EventsCard from '@/components/Web/Business/EventsCard';
 import EventsCardModal from '@/components/Web/Business/EventsCard/EventsCardModal';
 import LandingFooter from '@/components/Web/Business/LandingFooter';
 import MenuLink from '@/constants/MenuLink';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { HiArrowLongLeft } from 'react-icons/hi2';
 
 interface PastPageProp {}
@@ -13,6 +14,7 @@ const PastPage: React.FC<PastPageProp> = () => {
   const eventsList = Array.from({ length: 8 }).map((_, i) => ({ id: i }));
   const [modalOpen, setModalOpen] = useState(false);
   const [events, setEvents] = useState({});
+  const { lang } = useContext(LangContext);
   return (
     <div className="flex h-full flex-col pt-[48px]">
       <div className="container mx-auto mb-[100px] flex flex-1 flex-col">
@@ -42,7 +44,7 @@ const PastPage: React.FC<PastPageProp> = () => {
         </div>
       </div>
       <div className="flex-shrink-0">
-        <LandingFooter />
+        <LandingFooter lang={lang} />
       </div>
       <EventsCardModal events={events} open={modalOpen} onClose={() => setModalOpen(false)} />
     </div>

@@ -7,8 +7,8 @@ import CertificatesIntroduce from './components/CertificatesIntroduce';
 import BecomeWeb3 from './components/BecomeWeb3';
 import CommunityIntroduction from './components/CommunityIntroduction';
 import UserEvaluation from './components/UserEvaluation';
-import FAQS from './components/FAQS';
 import LandingFooter from '@/components/Web/Business/LandingFooter';
+import { Lang } from '@/i18n/config';
 
 export async function generateMetadata(props: { params: { lang: string } }): Promise<Metadata> {
   const { lang } = props.params;
@@ -20,18 +20,23 @@ export async function generateMetadata(props: { params: { lang: string } }): Pro
   };
 }
 
-const Landing: NextPage<any> = (props) => {
+interface LandingProps {
+  params: {
+    lang: Lang;
+  };
+}
+
+const Landing: NextPage<LandingProps> = ({ params: { lang } }) => {
   return (
     <>
       <div className="flex flex-col justify-center">
-        <TopBanner />
-        <CollaborateList />
-        <CertificatesIntroduce />
-        <BecomeWeb3 />
-        <CommunityIntroduction />
-        <UserEvaluation />
-        <FAQS />
-        <LandingFooter />
+        <TopBanner lang={lang} />
+        <CollaborateList lang={lang} />
+        <CertificatesIntroduce lang={lang} />
+        <BecomeWeb3 lang={lang} />
+        <CommunityIntroduction lang={lang} />
+        <UserEvaluation lang={lang} />
+        <LandingFooter lang={lang} />
       </div>
       <PageRetentionTime trackName="landing-页面留存时间" />
     </>
