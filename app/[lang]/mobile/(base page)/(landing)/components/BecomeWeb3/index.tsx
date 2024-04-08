@@ -1,18 +1,18 @@
+import { Lang, TransNs } from '@/i18n/config';
+import { useTranslation } from '@/i18n/server';
 import Image from 'next/image';
 import { FC } from 'react';
 
 const verticalCardData = [
   {
     image: '/images/landing/vertical_card_1.png',
-    title: 'Earn official certificates co-issued by leading Web3 ecosystems and HackQuest',
-    description:
-      'HackQuest partners with leading ecosystems such as Solana and Mantle, making us the only place where you can earn on-chain certificates issued directly by your favorite ecosystems.'
+    title: 'Earn official certificates',
+    description: 'Earn official certificates description'
   },
   {
     image: '/images/landing/vertical_card_2.png',
     title: 'Follow zero-to-hero learning paths',
-    description:
-      'No matter where you are in the Web3 development journey, we can help you to advance with our three learning paths, 10+ syntax courses, and 30+ guided projects. All HackQuest courses are built following Universal Design of Learning (UDL), meaning they are accessible and inclusive for all learners, regardless of abilities or learning styles.'
+    description: 'Follow zero-to-hero learning paths description'
   }
 ];
 
@@ -20,26 +20,25 @@ const horizontalCardData = [
   {
     image: '/images/landing/horizontal_card_1.png',
     title: 'Deploy to L1L2s in minutes',
-    description:
-      'Say bye to hours of software installations before learning! Our embedded browser-IDE empowers you to write, edit, test, and deploy, all within the platform, without the need for any additional software installations.'
+    description: 'Deploy to L1L2s in minutes description'
   },
   {
     image: '/images/landing/horizontal_card_2.png',
     title: 'Learn beyond traditional courses',
-    description:
-      'Wondering what to do after the courses? Your journey continues with real-world application and activities. Keep engaged, inspired, and connected with us through hackathons, meet-ups, and blogs.'
+    description: 'Learn beyond traditional courses description'
   }
 ];
 
-const BecomeWeb3: FC<{}> = (props) => {
+const BecomeWeb3: FC<{ lang: Lang }> = async ({ lang }) => {
+  const { t } = await useTranslation(lang, TransNs.LANDING);
   return (
     <div className="mx-auto w-full px-5 py-10">
       <div className="mx-auto flex flex-col items-center gap-3 text-center">
-        <p className="body-s-bold text-[.75rem] uppercase text-neutral-rich-gray">Why us</p>
-        <h2 className="text-h2 text-[1.375rem]">Become a Web3 👩🏻‍💻👨🏽‍💻 </h2>
+        <p className="body-s-bold text-[.75rem] uppercase text-neutral-rich-gray">{t('BecomeWeb3.Why us')}</p>
+        <h2 className="text-h2 text-[1.375rem]">{t('BecomeWeb3.Become a Web3')} </h2>
         <p className="body-l text-[.75rem] text-neutral-medium-gray">
-          Kickstart your Web3 learning journey with <span className="font-bold">100% FREE</span> courses built by
-          experts, certified by leading ecosystems, and supported by a variety of post-learning resources!
+          {t('BecomeWeb3.Kickstart Web3 learning journey')}{' '}
+          <span className="font-bold">{t('BecomeWeb3.fullFree')}</span> {t('BecomeWeb3.postLearnResource')}
         </p>
       </div>
       <div className="mt-10 flex flex-col gap-6">
@@ -49,8 +48,8 @@ const BecomeWeb3: FC<{}> = (props) => {
               <div className="relative h-[12.6875rem] w-full">
                 <Image src={item.image} fill alt="hackquest" className="object-contain"></Image>
               </div>
-              <h3 className="text-h4-mob text-neutral-off-black">{item.title}</h3>
-              <p className="body-xs text-neutral-medium-gray">{item.description}</p>
+              <h3 className="text-h4-mob text-neutral-off-black">{t(`BecomeWeb3.${item.title as any}`)}</h3>
+              <p className="body-xs text-neutral-medium-gray">{t(`BecomeWeb3.${item.description as any}`)}</p>
             </div>
           );
         })}
@@ -60,8 +59,8 @@ const BecomeWeb3: FC<{}> = (props) => {
               <div className="relative h-[12.6875rem] w-full">
                 <Image src={item.image} fill alt="hackquest" className="object-contain"></Image>
               </div>
-              <h3 className="text-h4-mob text-neutral-off-black">{item.title}</h3>
-              <p className="body-l body-xs text-neutral-medium-gray">{item.description}</p>
+              <h3 className="text-h4-mob text-neutral-off-black">{t(`BecomeWeb3.${item.title as any}`)}</h3>
+              <p className="body-l body-xs text-neutral-medium-gray">{t(`BecomeWeb3.${item.description as any}`)}</p>
             </div>
           );
         })}

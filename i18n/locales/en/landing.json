@@ -1,0 +1,74 @@
+{
+  "TopBanner": {
+    "explore": "explore",
+    "certified": "certified",
+    "learningTrack": "learning track",
+    "learnAndBuildAlongside": "Learn and build alongside",
+    "developers": "developers"
+  },
+  "CollaborateList": {
+    "ecosystemsAndProjects": "We collaborate with 100+ leading Web3 ecosystems and projects"
+  },
+  "CertificatesIntroduce": {
+    "earn certificates issued": "Earn certificates issued by leading Web3 ecosystems",
+    "exclusively on hackQuest": "Exclusively on HackQuest",
+    "coming soon": "coming soon",
+    "Start from the Basics": "Start from the Basics",
+    "Explore Basics": "Explore Basics",
+    "Become Specialized": "Become Specialized",
+    "Explore Specializations": "Explore Specializations"
+  },
+  "BecomeWeb3": {
+    "Why us": "Why us",
+    "Become a Web3": "Become a Web3 👩🏻‍💻👨🏽‍💻 ",
+    "fullFree": "100% FREE",
+    "Kickstart Web3 learning journey": "Kickstart your Web3 learning journey with",
+    "postLearnResource": "courses built by experts, certified by leading ecosystems, and supported by a variety of post-learning resources!",
+    "Earn official certificates": "Earn official certificates co-issued by leading Web3 ecosystems and HackQuest",
+    "Earn official certificates description": "HackQuest partners with leading ecosystems such as Solana and Mantle, making us the only place where you can earn on-chain certificates issued directly by your favorite ecosystems.",
+    "Follow zero-to-hero learning paths": "Follow zero-to-hero learning paths",
+    "Follow zero-to-hero learning paths description": "No matter where you are in the Web3 development journey, we can help you to advance with our three learning paths, 10+ syntax courses, and 30+ guided projects. All HackQuest courses are built following Universal Design of Learning (UDL), meaning they are accessible and inclusive for all learners, regardless of abilities or learning styles.",
+    "Deploy to L1L2s in minutes": "Deploy to L1L2s in minutes",
+    "Deploy to L1L2s in minutes description": "Say bye to hours of software installations before learning! Our embedded browser-IDE empowers you to write, edit, test, and deploy, all within the platform, without the need for any additional software installations.",
+    "Learn beyond traditional courses": "Learn beyond traditional courses",
+    "Learn beyond traditional courses description": "Wondering what to do after the courses? Your journey continues with real-world application and activities. Keep engaged, inspired, and connected with us through hackathons, meet-ups, and blogs."
+  },
+  "CommunityIntroduction": {
+    "what’s next": "what’s next",
+    "We Support Beyond": "We Support Beyond",
+    "Your learning does not end with courses": "Your learning does not end with courses. Engage with our rapidly growing Web3 community!",
+    "Join Hackathons": "Join Hackathons",
+    "Join Hackathons description": "We love hackathons and organize 20+ a year! Apply what you learned by building exciting projects with like-minded enthusiasts around the 🌎",
+    "Join Hackathons button text": "Explore Hackathons",
+    "Read and Write Blogs": "Read and Write Blogs",
+    "Read and Write Blogs description": "We love sharing! Founder secrets, VC analyses, research reports... Read topics beyond coding and share what you learned with the community 📚",
+    "Read and Write Blogs button text": "View Blogs",
+    "Attend Events": "Attend Events",
+    "Attend Events description": "We love meeting new frens online & IRL! Join our next meet-up, AMA, co-learning camp, or else. You might meet life-long frens here 😉",
+    "Attend Events button text": "View Events",
+    "Apply to Join": "Apply to Join",
+    "Apply to Join description": "We are always looking for talents! Interested in Web3 and want to help more people succeed? Apply to join our rapidly growing family 🙌",
+    "Apply to Join  button text": "Join Us"
+  },
+  "UserEvaluation": {
+    "testimonial": "testimonial",
+    "Students and Partners like You ❤️ us": "Students and Partners like You ❤️ us",
+    "See what others say about HackQuest": "Don’t take our words for it. See what others say about HackQuest!"
+  },
+  "FAQS": {
+    "FAQs": "FAQs",
+    "Can’t find what you’re looking for": "Can’t find what you’re looking for? Reach out to us!",
+    "faq-question1": "How many hours of learning are needed for beginners to earn a certificate?",
+    "faq-answer1": "Depending on the learning paths, most students spend between eight to twenty hours to finish all the course materials and earn the certificate. ",
+    "faq-question2": "Is it possible to enroll in a course if I have no prior coding knowledge?",
+    "faq-answer2": "Absolutely. A fundamental aspect of our course design is the Universal Design for Learning (UDL). This approach ensures that learners at all levels, regardless of their initial coding knowledge, can effectively understand and engage with the course materials.",
+    "faq-question3": "Are all courses and post-learning support free?",
+    "faq-answer3": "Yes! We are dedicated to making Web3.0 programming accessible to everyone, free from financial constraints.",
+    "faq-question4": "Where do I ask for help?",
+    "faq-answer4": "At the bottom of each learning page, you'll find a grey button for reporting bugs and submitting suggestions. However, for a more interactive and prompt response, we highly encourage joining our Discord community. Here, our content engineers are readily available to answer all your queries and provide support."
+  },
+  "ConnectedUs": {
+    "Stay Connected with us": "Stay Connected with us",
+    "collab with us": "collab with us"
+  }
+}

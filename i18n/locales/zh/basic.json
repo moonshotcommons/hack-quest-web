@@ -21,5 +21,20 @@
   "follow": "关注",
   "followed": "已关注",
   "join": "加入",
-  "joined": "已加入"
+  "joined": "已加入",
+  "footer": {
+    "learn": "学习",
+    "learningTrack": "学习路径",
+    "projects": "项目课",
+    "electives": "选修课",
+    "playground": "开发环境",
+    "community": "社群",
+    "Discord": "Discord",
+    "X": "X",
+    "Telegram": "Telegram",
+    "Linkedin": "Linkedin",
+    "resources": "资源",
+    "hackathon": "黑客松",
+    "blog": "博客"
+  }
 }
