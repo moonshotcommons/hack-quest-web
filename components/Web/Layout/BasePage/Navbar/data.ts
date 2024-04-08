@@ -102,6 +102,11 @@ export const navbarList: NavbarListType[] = [
         label: 'Glossary',
         path: MenuLink.GLOSSARY,
         description: 'Learn about Web 3 essential terms'
+      },
+      {
+        label: 'Events',
+        path: MenuLink.EVENTS,
+        description: 'Learn about Web 3 events'
       }
     ]
   },

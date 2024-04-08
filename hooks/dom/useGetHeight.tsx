@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useGetPageInfo } from '@/hooks/dom/useGetPageInfo';
-import { MOBILE_NAVBAR_HEIGHT } from '@/components/Mobile/MobLayout/BasePage/Navbar/constant';
 
 const useGetHeight = () => {
   const pageInfo = useGetPageInfo();
@@ -10,9 +9,7 @@ const useGetHeight = () => {
   }, []);
   return {
     bodyHeight: isMounted ? `${pageInfo.windowHeight}px` : '100vh',
-    pageHeight: isMounted
-      ? `${pageInfo.windowHeight - MOBILE_NAVBAR_HEIGHT}px`
-      : `calc(100vh - ${MOBILE_NAVBAR_HEIGHT}px)`
+    pageHeight: isMounted ? `calc(${pageInfo.windowHeight}px - 4rem)` : `calc(100vh - 4rem)`
   };
 };
 
