@@ -8,8 +8,7 @@ import BecomeWeb3 from './components/BecomeWeb3';
 import CommunityIntroduction from './components/CommunityIntroduction';
 import UserEvaluation from './components/UserEvaluation';
 import FAQS from './components/FAQS';
-import ConnectedUs from './components/ConnectedUs';
-import Footer from './components/Footer';
+import MobLandingFooter from '@/components/Mobile/MobLandingFooter';
 
 export async function generateMetadata(props: { params: { lang: string } }): Promise<Metadata> {
   const { lang } = props.params;
@@ -32,8 +31,7 @@ const Landing: NextPage<any> = (props) => {
         <CommunityIntroduction />
         <UserEvaluation />
         <FAQS />
-        <ConnectedUs />
-        <Footer />
+        <MobLandingFooter />
       </div>
       <PageRetentionTime trackName="landing-页面留存时间" />
     </>
