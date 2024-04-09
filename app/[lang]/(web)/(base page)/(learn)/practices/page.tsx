@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import Practices from './components/Practices';
 import { Metadata } from 'next';
+import { Lang } from '@/i18n/config';
 
 export async function generateMetadata(props: { params: { lang: string } }): Promise<Metadata> {
   const { lang } = props.params;
@@ -8,7 +9,12 @@ export async function generateMetadata(props: { params: { lang: string } }): Pro
   return {
     title: 'HackQuest Projects',
     alternates: {
-      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/practices`
+      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/practices`,
+      languages: {
+        'x-default': `https://www.hackquest.io/${Lang.EN}/practices`,
+        en: `https://www.hackquest.io/${Lang.EN}/practices`,
+        zh: `https://www.hackquest.io/${Lang.ZH}/practices`
+      }
     }
   };
 }

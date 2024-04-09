@@ -13,6 +13,7 @@ import { PracticeStatusButton } from '@/components/Mobile/MobDetailPageV2/Status
 import { CourseDetailType } from '@/service/webApi/course/type';
 import { getCoverImageByTrack } from '@/helper/utils';
 import { Metadata } from 'next';
+import { Lang } from '@/i18n/config';
 
 interface PracticePageProps {
   params: {
@@ -36,7 +37,12 @@ export async function generateMetadata({ params, searchParams }: PracticePagePro
   const metadata: Metadata = {
     title: courseDetail.title,
     alternates: {
-      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/practices/${courseId}${query}`
+      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/practices/${courseId}${query}`,
+      languages: {
+        'x-default': `https://www.hackquest.io/${Lang.EN}/practices/${courseId}${query}`,
+        en: `https://www.hackquest.io/${Lang.EN}/practices/${courseId}${query}`,
+        zh: `https://www.hackquest.io/${Lang.ZH}/practices/${courseId}${query}`
+      }
     }
   };
 

@@ -6,6 +6,7 @@ import { getBlogById } from '@/service/cach/resource/blog';
 import { permanentRedirect } from 'next/navigation';
 import { isUuid } from '@/helper/utils';
 import MenuLink from '@/constants/MenuLink';
+import { Lang } from '@/i18n/config';
 
 interface BlogDetailProp {
   params: {
@@ -21,7 +22,12 @@ export async function generateMetadata({ params }: BlogDetailProp): Promise<Meta
     title: blog.title,
     description: blog.description,
     alternates: {
-      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/blog/${params.blogId}`
+      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/blog/${params.blogId}`,
+      languages: {
+        'x-default': `https://www.hackquest.io/${Lang.EN}/blog/${params.blogId}`,
+        en: `https://www.hackquest.io/${Lang.EN}/blog/${params.blogId}`,
+        zh: `https://www.hackquest.io/${Lang.ZH}/blog/${params.blogId}`
+      }
     }
   };
 }

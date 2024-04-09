@@ -65,7 +65,7 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ searchParams = {}, galossary
     });
     setTimeout(() => {
       isOnScroll.current = false;
-    }, 10);
+    }, 100);
   };
   const trackClick = (val: string) => {
     const newTracks = ~tracks.indexOf(val) ? tracks.filter((v) => v !== val) : [...tracks, val];
@@ -73,7 +73,7 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ searchParams = {}, galossary
     isOnScroll.current = true;
     setTimeout(() => {
       isOnScroll.current = false;
-    }, 10);
+    }, 100);
     // const url = getSearchParamsUrl(
     //   {
     //     category: newTracks.join(',')
@@ -128,6 +128,7 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ searchParams = {}, galossary
     boxRef.current?.scrollTo({
       top: 0
     });
+    setLetter(letterData[0].letter);
   };
   const onScroll = () => {
     const boxScrollTop = boxRef.current?.scrollTop || 0;
@@ -171,9 +172,7 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ searchParams = {}, galossary
       <GlossaryHeader keyword={searchParams.keyword || ''} />
       {!searchParams.keyword && (
         <>
-          {letterData.length > 0 && (
-            <FilterLetter letterData={letterData} letterClick={letterClick} letter={letter} isSticky={isSticky} />
-          )}
+          {letterData.length > 0 && <FilterLetter letterData={letterData} letterClick={letterClick} letter={letter} />}
 
           <div
             ref={trackRef}
