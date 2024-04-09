@@ -39,7 +39,7 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ galossaryList, searchParams 
     setLetter(val);
     const index = letterData.findIndex((v) => v.letter === val);
     boxRef.current?.scrollTo({
-      top: offsetTops[index].offsetTop - 80
+      top: offsetTops[index].offsetTop
     });
     isOnScroll.current = true;
     setTimeout(() => {
