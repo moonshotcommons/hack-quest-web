@@ -36,5 +36,60 @@
     "resources": "资源",
     "hackathon": "黑客松",
     "blog": "博客"
+  },
+  "navbar": {
+    "home": {
+      "title": "主页",
+      "learner": "学习",
+      "instructor": "讲师"
+    },
+    "learn": {
+      "title": "学习",
+      "learningTrack": "学习路径",
+      "learningTrackDesc": "Master a coding language",
+      "electives": "选修课",
+      "electivesDesc": "Focus on a Web 3 topic",
+      "projects": "项目课",
+      "projectsDesc": "Learn how to build a project step by step",
+      "courseMarket": "课程市场",
+      "courseMarketDesc": "课程市场"
+    },
+    "reward": {
+      "title": "奖励",
+      "mission": "信息中心",
+      "missionDesc": "Earn rewards on your Web 3 journey",
+      "campaign": "活动",
+      "campaignDesc": "Become a certified builder"
+    },
+    "resources": {
+      "title": "资源",
+      "hackathon": "黑客松",
+      "hackathonDesc": "Explore hackathons and past projects",
+      "blog": "博客",
+      "blogDesc": "View news, events, and study blogs",
+      "glossary": "词汇表",
+      "glossaryDesc": "Learn about Web 3 essential terms",
+      "advocate": "倡议",
+      "advocateDesc": "Join our rapidly growing community",
+      "events": "事件",
+      "eventsDesc": "Learn about Web 3 events"
+    },
+    "launch": {
+      "title": "发射台"
+    },
+    "more": {
+      "title": "更多",
+      "tools": "工具",
+      "playground": "开发环境",
+      "community": "社群",
+      "Discord": "Discord",
+      "Twitter": "Twitter",
+      "Telegram": "Telegram",
+      "Linkedin": "Linkedin"
+    }
+  },
+  "auth": {
+    "login": "登录",
+    "signUp": "注册"
   }
 }

@@ -7,7 +7,7 @@ import { useCustomPathname } from '@/hooks/router/useCheckPathname';
 import HackLogo from '@/public/images/logo/light-footer-logo.svg';
 import { NavbarListType } from '../../BasePage/Navbar/type';
 import User from '../User';
-import Intl from '../Intl';
+import Intl from '@/components/Web/Intl';
 import { TransNs } from '@/i18n/config';
 import { useTranslation } from '@/i18n/client';
 import { LangContext } from '@/components/Provider/Lang';

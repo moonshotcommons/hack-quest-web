@@ -50,4 +50,11 @@ html {
   --codedesbg: #1e1e1e;
   --color-black: #000;
   --button-card-dark-gray-button: #2a2a2a;
+
+  --next-book-bold: 'NEXT Book Bold';
+}
+
+[lang='zh'] body {
+  --font-nunito: 'HarmonyOS_Sans_SC' !important;
+  --next-book-bold: 'HarmonyOS_Sans_SC' !important;
 }
