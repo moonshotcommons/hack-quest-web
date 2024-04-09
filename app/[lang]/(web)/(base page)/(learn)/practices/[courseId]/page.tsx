@@ -12,6 +12,7 @@ import CourseDetailProvider from '@/components/Web/DetailPageV2/Provider/CourseD
 import { Metadata } from 'next';
 import { CourseDetailType } from '@/service/webApi/course/type';
 import HeaderBg from '@/components/Web/DetailPageV2/HeaderBg';
+import { Lang } from '@/i18n/config';
 
 interface PracticePageProps {
   params: {
@@ -36,7 +37,12 @@ export async function generateMetadata({ params, searchParams }: PracticePagePro
   const metadata: Metadata = {
     title: courseDetail.title,
     alternates: {
-      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/practices/${courseId}${query}`
+      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/practices/${courseId}${query}`,
+      languages: {
+        'x-default': `https://www.hackquest.io/${Lang.EN}/practices/${courseId}${query}`,
+        en: `https://www.hackquest.io/${Lang.EN}/practices/${courseId}${query}`,
+        zh: `https://www.hackquest.io/${Lang.ZH}/practices/${courseId}${query}`
+      }
     }
   };
 

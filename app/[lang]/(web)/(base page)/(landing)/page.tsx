@@ -15,7 +15,12 @@ export async function generateMetadata(props: { params: { lang: string } }): Pro
 
   return {
     alternates: {
-      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}`
+      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}`,
+      languages: {
+        'x-default': `https://www.hackquest.io/${Lang.EN}`,
+        en: `https://www.hackquest.io/${Lang.EN}`,
+        zh: `https://www.hackquest.io/${Lang.ZH}`
+      }
     }
   };
 }

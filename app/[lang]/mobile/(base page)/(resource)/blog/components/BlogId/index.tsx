@@ -15,12 +15,6 @@ interface BlogDetailProp {
 const BlogDetail: React.FC<BlogDetailProp> = ({ blog, from = ResourceFrom.BLOG }) => {
   const boxRef = useRef<HTMLDivElement>(null);
 
-  const backTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  };
   return (
     <div className="h-full overflow-auto" ref={boxRef}>
       <BlogHeader blog={blog} from={from} />
