@@ -6,6 +6,9 @@ import webApi from '@/service';
 import { useRequest } from 'ahooks';
 import { message } from 'antd';
 import { FC, useContext } from 'react';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 
 interface NotCertifiedProps {
   onClose: VoidFunction;
@@ -14,6 +17,8 @@ interface NotCertifiedProps {
 }
 
 const NotCertified: FC<NotCertifiedProps> = (props) => {
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.REWARD);
   const { onClose, campaignId, completed = false } = props;
 
   const { refresh } = useContext(MantleContext);
@@ -37,29 +42,29 @@ const NotCertified: FC<NotCertifiedProps> = (props) => {
 
   return (
     <div className="flex-1">
-      <h3 className="text-h3 text-neutral-off-black">Become a Certified Developer</h3>
-      <p className="body-m mt-[20px] text-neutral-black">
-        You are just one step away from becoming a certified Web3 Developers. Complete the learning track and claim your
-        NFT or SBT proof-of-completion certificate now to elevate your skills and demonstrate your expertise.
-      </p>
+      <h3 className="text-h3 text-neutral-off-black">{t('becomeCertifiedDeveloper')}</h3>
+      <p className="body-m mt-[20px] text-neutral-black">{t('youStepAwayFromDevelopers')}</p>
       <div className="mt-[40px] flex gap-x-[10px]">
         <Button
           type="primary"
           disabled={!completed || loading}
           loading={loading}
-          className={cn('body-m w-[210px] px-0  py-[11px] text-neutral-black', !completed ? 'opacity-40' : '')}
+          className={cn(
+            'body-m w-[210px] px-0 py-[11px]  uppercase text-neutral-black',
+            !completed ? 'opacity-40' : ''
+          )}
           onClick={() => {
             if (campaignId) run(campaignId);
           }}
         >
-          Claim
+          {t('claim')}
         </Button>
         <Button
           ghost
-          className="body-m w-[210px] border-neutral-black  px-0 py-[11px] text-neutral-black"
+          className="body-m w-[210px] border-neutral-black px-0  py-[11px] uppercase text-neutral-black"
           onClick={() => onClose()}
         >
-          Close
+          {t('close')}
         </Button>
       </div>
     </div>

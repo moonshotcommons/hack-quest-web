@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useContext, useMemo, useState } from 'react';
 import Tab from './Tab';
 import DailyBonus from './DailyBonus';
 import BeginnerRewards from './BeginnerRewards';
@@ -7,30 +7,35 @@ import Milestones from './Milestones';
 import MoonBg from '@/public/images/mission-center/moon_bg.png';
 import { BurialPoint } from '@/helper/burialPoint';
 import { useMissionCenterStore } from '@/store/zustand/missionCenterStore';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 
 interface ClaimContentProp {
   missionClaim: (missionIds: string[]) => void;
 }
 const ClaimContent: React.FC<ClaimContentProp> = ({ missionClaim }) => {
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.REWARD);
   const missionData = useMissionCenterStore((state) => state.missionData);
   const [curIndex, setCurIndex] = useState(0);
 
   const tabList = useMemo(() => {
     return [
       {
-        label: 'Daily Bonus',
+        label: t('dailyBonus'),
         count: missionData?.unClaimDailyBonus?.length
       },
       {
-        label: 'Beginner Rewards',
+        label: t('beginnerRewards'),
         count: missionData?.unClaimBeginnerRewards?.length
       },
       {
-        label: 'Daily Quests',
+        label: t('dailyQuests'),
         count: missionData?.unClaimDailyQuests?.length
       },
       {
-        label: 'Milestones',
+        label: t('milestones'),
         count: missionData?.unClaimMilestones?.length
       }
     ];

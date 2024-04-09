@@ -7,8 +7,11 @@ import { useRequest } from 'ahooks';
 import { message } from 'antd';
 
 import Link from 'next/link';
-import { FC, useState } from 'react';
+import { FC, useContext, useState } from 'react';
 import { isMobile } from 'react-device-detect';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 interface GettingCertificateProps {
   certification: CertificationType;
   refreshCertification?: VoidFunction;
@@ -59,6 +62,8 @@ const badge = (
 const GettingCertificate: FC<GettingCertificateProps> = ({ certification, refreshCertification, closeModal }) => {
   const [showShare, setShowShare] = useState(false);
   const { safeMintAsync } = useMintCertification();
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.REWARD);
 
   const { run: safeMint, loading } = useRequest(
     async (params: { sourceType: 'Certification'; sourceId: string; signatureId: number }) => {
@@ -85,12 +90,10 @@ const GettingCertificate: FC<GettingCertificateProps> = ({ certification, refres
     <div className="flex-1">
       <div className="flex h-fit items-center gap-x-5">
         <div>{badge}</div>
-        <h3 className="body-xl-bold text-neutral-off-black">Congratulations! You are now a certified developer.</h3>
+        <h3 className="body-xl-bold text-neutral-off-black">{t('congratulationsDeveloper')}</h3>
       </div>
 
-      <p className="body-s mt-5 text-neutral-black">
-        {`This learning track, co-issued by ecosystem and HackQuest, certifies that you have successfully completed the learning track. Share your accomplishments with the world!`}
-      </p>
+      <p className="body-s mt-5 text-neutral-black">{t('certifiesWorld')}</p>
 
       <div
         className="mt-5 flex flex-col gap-4"
@@ -168,7 +171,7 @@ const GettingCertificate: FC<GettingCertificateProps> = ({ certification, refres
             className="body-m border-neutral-black  px-0 py-[11px] text-neutral-black"
             onClick={() => closeModal?.()}
           >
-            View Profile
+            {t('viewProfile')}
           </Button>
         </Link>
       </div>

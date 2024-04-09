@@ -21,5 +21,20 @@
   "follow": "关注",
   "followed": "已关注",
   "join": "加入",
-  "joined": "已加入"
+  "joined": "已加入",
+  "d":"天",
+  "h":"小时",
+  "claim":"领取",
+  "claimed":"已领取",
+  "claimeAll":"全部领取",
+  "targetsToAchieve":"目标",
+  "learnMore":"了解更多",
+  "checkLater":"稍后",
+  "digTreasures":"挖宝箱",
+  "notCertified":"未认证",
+  "viewProfile":"查看个人页面",
+  "congratulationsDeveloper.":"恭喜你!您现在是一名经过认证的开发人员。",
+  "certifiesWorld":"此学习轨迹由生态系统和HackQuest共同发布，证明您已成功完成学习轨迹。与世界分享你的成就!",
+  "youStepAwayFromDevelopers":"您距离成为认证的Web3开发人员只有一步之遥。完成学习轨迹并申请NFT或SBT结业证明证书，以提高您的技能并展示您的专业知识。",
+  "becomeCertifiedDeveloper":"成为认证开发者"
 }

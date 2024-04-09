@@ -4,8 +4,13 @@ import IconHack from '@/public/images/mission-center/icon_hack.png';
 import TargetCard from '../component/TargetCard';
 import { BurialPoint } from '@/helper/burialPoint';
 import { MissionCenterContext, TabContentType } from '../../../constants/type';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 
 const DailyQuests: React.FC<TabContentType> = ({ missionData, unClaimMissionData, missionClaim }) => {
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.REWARD);
   const { missionIds } = useContext(MissionCenterContext);
   const allIds = useMemo(() => {
     return unClaimMissionData.map((v) => v.id);
@@ -17,11 +22,9 @@ const DailyQuests: React.FC<TabContentType> = ({ missionData, unClaimMissionData
   return (
     <div>
       <div className="mb-[40px]  flex justify-between">
-        <div className="w-[62%] text-neutral-black">
-          {`Finish tasks and receive daily rewards. Keep that momentum going and discover what lies ahead! 💡`}
-        </div>
+        <div className="w-[62%] text-neutral-black">{t('dailyQuestsDescription')}</div>
         <Button
-          className={`body-l h-[60px] w-[270px] border-auth-primary-button-border-color bg-auth-primary-button-bg
+          className={`body-l h-[60px] w-[270px] border-auth-primary-button-border-color bg-auth-primary-button-bg uppercase
            text-neutral-black ${
              !allIds.length
                ? 'cursor-not-allowed opacity-50'
@@ -31,12 +34,12 @@ const DailyQuests: React.FC<TabContentType> = ({ missionData, unClaimMissionData
           loading={missionIds.join() === allIds.join() && missionIds.length > 0}
           onClick={handleAllClaim}
         >
-          Claim All ({allIds.length})
+          {t('claimAll')} ({allIds.length})
         </Button>
       </div>
 
       <div>
-        <div className="body-l text-neutral-black">Targets to Achieve</div>
+        <div className="body-l text-neutral-black">{t('targetsToAchieve')}</div>
         <div>
           {missionData.map((v, i) => (
             <TargetCard
@@ -45,7 +48,7 @@ const DailyQuests: React.FC<TabContentType> = ({ missionData, unClaimMissionData
               missionClaim={missionClaim}
               targetIcon={IconHack}
               unClaimPath={'/dashboard'}
-              unClaimText={'Go to Learning'}
+              unClaimText={t('goToLearning')}
             />
           ))}
         </div>
