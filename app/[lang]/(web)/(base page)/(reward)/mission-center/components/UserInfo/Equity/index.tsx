@@ -1,13 +1,19 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Image from 'next/image';
 import IconTip from '@/public/images/mission-center/icon_tip.svg';
 import IconLock from '@/public/images/mission-center/icon_lock.png';
 import { equityList, EquityListType, equityTip } from './data';
 import { BurialPoint } from '@/helper/burialPoint';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
+
 interface EquityProp {
   level: number;
 }
 const Equity: React.FC<EquityProp> = ({ level }) => {
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.REWARD);
   const [showMore, setShowMore] = useState(false);
 
   const handleShowMore = () => {
@@ -24,7 +30,7 @@ const Equity: React.FC<EquityProp> = ({ level }) => {
       return (
         <li key={i} className={`flex items-center pl-[20px] leading-[23px]`}>
           <span className="h-[5px] w-[5px] rounded-[50%] bg-neutral-black"></span>
-          <span className="ml-[10px]">{v.label}</span>
+          <span className="ml-[10px]">{t(v.label)}</span>
         </li>
       );
     } else {
@@ -39,7 +45,7 @@ const Equity: React.FC<EquityProp> = ({ level }) => {
             </div>
           </div>
           <span className="ml-[10px]">
-            {v.label}
+            {t(v.label)}
             {` (Lv${v.level})`}
           </span>
         </li>
@@ -49,7 +55,7 @@ const Equity: React.FC<EquityProp> = ({ level }) => {
   return (
     <div className="mt-[40px] flex w-full flex-col items-start">
       <div className="mb-[5px] flex items-center gap-[5px] leading-[23px] text-neutral-black">
-        <span>Your HackQuest rights as a Web3 Newbie</span>
+        <span>{t('yourHackQuestrights')}</span>
         <div className="flex-center group relative  left-[-15px] h-[40px] w-[40px] cursor-pointer">
           <Image src={IconTip} width={10} alt="iconTip"></Image>
           <div
@@ -59,18 +65,18 @@ const Equity: React.FC<EquityProp> = ({ level }) => {
             }}
           >
             <div className="mt-[-15px] flex border-b border-neutral-medium-gray pb-[5px]">
-              <div className="w-[45px]">Level</div>
-              <div className="w-[115px]">Role</div>
-              <div className="w-[215px]">Rights</div>
+              <div className="w-[45px]">{t('level')}</div>
+              <div className="w-[115px]">{t('role')}</div>
+              <div className="w-[215px]">{t('rights')}</div>
             </div>
             <div className="body-xs">
               {equityTip.map((v, i) => (
                 <div key={i} className={`flex py-[5px] ${i && ' border-t-[0.5px] border-neutral-medium-gray'}`}>
                   <div className="w-[45px]">{v.level}</div>
-                  <div className="w-[115px]">{v.role}</div>
+                  <div className="w-[115px]">{t(v.role)}</div>
                   <div className="w-[215px]">
                     {v.rights.map((r, j) => (
-                      <p key={j}>{r}</p>
+                      <p key={j}>{t(r)}</p>
                     ))}
                   </div>
                 </div>
@@ -83,7 +89,7 @@ const Equity: React.FC<EquityProp> = ({ level }) => {
       <ul>{equityList.map((v, i) => renderEquity(v, i))}</ul>
       <div className="flex w-full justify-end pt-[4px]">
         <span className="body-xs cursor-pointer text-neutral-black underline" onClick={() => handleShowMore()}>
-          Show {showMore ? 'Less' : 'More'}
+          {showMore ? t('showLess') : t('showMore')}
         </span>
       </div>
     </div>

@@ -1,7 +1,10 @@
 import { MantleContext } from '@/app/[lang]/(web)/(base page)/(reward)/campaigns/constants/type';
 import Button from '@/components/Common/Button';
+import { LangContext } from '@/components/Provider/Lang';
 import { errorMessage } from '@/helper/ui';
 import { cn } from '@/helper/utils';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 import webApi from '@/service';
 import { useRequest } from 'ahooks';
 import { message } from 'antd';
@@ -14,6 +17,8 @@ interface NotCertifiedProps {
 }
 
 const NotCertified: FC<NotCertifiedProps> = (props) => {
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.REWARD);
   const { onClose, campaignId, completed = false } = props;
 
   const { refresh } = useContext(MantleContext);
@@ -37,11 +42,8 @@ const NotCertified: FC<NotCertifiedProps> = (props) => {
 
   return (
     <div className="flex-1">
-      <h3 className="text-h3 text-neutral-off-black">Become a Certified Developer</h3>
-      <p className="body-m mt-[20px] text-neutral-black">
-        You are just one step away from becoming a certified Web3 Developers. Complete the learning track and claim your
-        NFT or SBT proof-of-completion certificate now to elevate your skills and demonstrate your expertise.
-      </p>
+      <h3 className="text-h3 text-neutral-off-black">{t('becomeCertifiedDeveloper')}</h3>
+      <p className="body-m mt-[20px] text-neutral-black">{t('youStepAwayFromDevelopers')}</p>
       <div className="mt-5 flex flex-col gap-4">
         <Button
           type="primary"
@@ -53,7 +55,7 @@ const NotCertified: FC<NotCertifiedProps> = (props) => {
             if (campaignId) run(campaignId);
           }}
         >
-          Claim
+          {t('claim')}
         </Button>
         <Button
           ghost
@@ -61,7 +63,7 @@ const NotCertified: FC<NotCertifiedProps> = (props) => {
           className="body-m border-neutral-black  px-0 py-[11px] text-neutral-black"
           onClick={() => onClose()}
         >
-          Close
+          {t('close')}
         </Button>
       </div>
     </div>

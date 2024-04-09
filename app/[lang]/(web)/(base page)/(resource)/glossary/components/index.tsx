@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import GlossaryHeader from './GlossaryHeader';
 import NoData from './NoData';
 import MenuLink from '@/constants/MenuLink';
@@ -12,8 +12,12 @@ import { getSearchParamsUrl } from '@/helper/utils';
 import webApi from '@/service';
 import { useRequest } from 'ahooks';
 import { errorMessage } from '@/helper/ui';
-import { useRouter } from 'next/navigation';
 import { LetterDataType } from '../constants/type';
+import { TransNs } from '@/i18n/config';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { Transition } from '@headlessui/react';
+import BackTop from './BackTop';
 
 interface GlossaryPageProp {
   galossaryList: BlogType[];
@@ -21,6 +25,8 @@ interface GlossaryPageProp {
 }
 
 const GlossaryPage: React.FC<GlossaryPageProp> = ({ galossaryList, searchParams }) => {
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.RESOURCE);
   const [list, setList] = useState<GlossaryListType[]>([]);
   const [filterTracks, setFilterTracks] = useState<string[]>([]);
   const [tracks, setTracks] = useState<string[]>([]);
@@ -32,7 +38,6 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ galossaryList, searchParams 
   const stickyTimeOut = useRef<NodeJS.Timeout | null>(null);
   const [offsetTops, setOffsetTops] = useState<OffsetTopsType[]>([]);
   const [letterData, setLetterData] = useState<LetterDataType[]>([]);
-  const router = useRouter();
   const isOnScroll = useRef(false);
   const [letterOffsetTop, setLetterOffsetTop] = useState(0);
   const letterClick = (val: string) => {
@@ -44,7 +49,7 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ galossaryList, searchParams 
     isOnScroll.current = true;
     setTimeout(() => {
       isOnScroll.current = false;
-    }, 10);
+    }, 100);
   };
 
   const {} = useRequest(
@@ -68,7 +73,7 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ galossaryList, searchParams 
     isOnScroll.current = true;
     setTimeout(() => {
       isOnScroll.current = false;
-    }, 10);
+    }, 100);
     // const url = getSearchParamsUrl(
     //   {
     //     category: newTracks.join(',')
@@ -140,6 +145,13 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ galossaryList, searchParams 
       }
     }, 150);
   };
+
+  const handleBackTop = () => {
+    boxRef.current?.scrollTo({
+      top: 0
+    });
+    setLetter(letterData[0].letter);
+  };
   useEffect(() => {
     const newTracks = searchParams.category?.split(',') || [];
     getTrackList(newTracks);
@@ -171,7 +183,7 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ galossaryList, searchParams 
       <div className="container  mx-auto  pb-[70px]">
         {searchParams.keyword ? (
           <div className="body-xl mb-[40px] text-center text-neutral-black">
-            {galossaryList.length} Results for
+            {galossaryList.length} {t('resultsFor')}
             <span className="pl-[4px] text-neutral-medium-gray">“{searchParams.keyword}”</span>
           </div>
         ) : null}
@@ -182,6 +194,9 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ galossaryList, searchParams 
         )}
       </div>
       {list.length === 0 || searchParams.keyword ? <BlogFooter from={ResourceFrom.GLOSSARY} /> : null}
+      <Transition show={isSticky} appear>
+        <BackTop handleBackTop={handleBackTop} />
+      </Transition>
     </div>
   );
 };

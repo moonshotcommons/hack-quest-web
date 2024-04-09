@@ -4,19 +4,19 @@ export interface EquityListType {
 }
 export const equityList: EquityListType[] = [
   {
-    label: 'Learning for certificate',
+    label: 'learningCertificate',
     level: 0
   },
   {
-    label: 'More to come',
+    label: 'moreToCome',
     level: 10
   },
   {
-    label: 'More to come',
+    label: 'moreToCome',
     level: 20
   },
   {
-    label: 'More to come',
+    label: 'moreToCome',
     level: 30
   }
 ];
@@ -28,22 +28,22 @@ export interface EquityTipType {
 export const equityTip: EquityTipType[] = [
   {
     level: '1-9',
-    role: 'Web3 Newbie',
-    rights: ['Learning for certificate']
+    role: 'web3Newbie',
+    rights: ['learningCertificate']
   },
   {
     level: '10-19',
-    role: 'Web3 Explorer',
-    rights: ['More to come']
+    role: 'web3Explorer',
+    rights: ['moreToCome']
   },
   {
     level: '20-29',
-    role: 'Web3 Explorer',
-    rights: ['More to come']
+    role: 'web3Explorer',
+    rights: ['moreToCome']
   },
   {
     level: '30+',
-    role: 'Web3 Questmaster',
-    rights: ['More to come']
+    role: 'web3Questmaster',
+    rights: ['moreToCome']
   }
 ];

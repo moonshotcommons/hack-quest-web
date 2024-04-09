@@ -25,7 +25,7 @@ const GlossaryList: React.FC<GlossaryListProp> = ({ list, setOffsetTop }) => {
       const offsetTop = (childNodes[i] as HTMLDivElement).offsetTop || 0;
       offsetTops.push({
         letter: `${list[i].letter}`,
-        offsetTop: offsetTop - 50
+        offsetTop: offsetTop - 108
       });
     }
     setOffsetTop(offsetTops);
