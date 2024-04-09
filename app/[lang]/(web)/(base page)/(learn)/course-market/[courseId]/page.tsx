@@ -16,6 +16,7 @@ import UgcCourseCard from '@/components/Web/Business/UgcCourseCard';
 import LinkArrow from '@/components/Common/LinkArrow';
 import MenuLink from '@/constants/MenuLink';
 import Link from 'next/link';
+import { Lang } from '@/i18n/config';
 
 interface PracticePageProps {
   params: {
@@ -41,7 +42,12 @@ export async function generateMetadata({ params, searchParams }: PracticePagePro
   const metadata: Metadata = {
     title: courseDetail.title,
     alternates: {
-      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/course-market/${courseId}${query}`
+      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/course-market/${courseId}${query}`,
+      languages: {
+        'x-default': `https://www.hackquest.io/${Lang.EN}/course-market/${courseId}${query}`,
+        en: `https://www.hackquest.io/${Lang.EN}/course-market/${courseId}${query}`,
+        zh: `https://www.hackquest.io/${Lang.ZH}/course-market/${courseId}${query}`
+      }
     }
   };
 

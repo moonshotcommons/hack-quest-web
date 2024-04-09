@@ -20,7 +20,12 @@ export async function generateMetadata(props: { params: { lang: string } }): Pro
   return {
     title: 'HackQuest Launch pool',
     alternates: {
-      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/launch-pool`
+      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/launch-pool`,
+      languages: {
+        'x-default': `https://www.hackquest.io/${Lang.EN}/launch-pool`,
+        en: `https://www.hackquest.io/${Lang.EN}/launch-pool`,
+        zh: `https://www.hackquest.io/${Lang.ZH}/launch-pool`
+      }
     }
   };
 }

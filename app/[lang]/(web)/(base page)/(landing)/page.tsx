@@ -10,13 +10,19 @@ import UserEvaluation from './components/UserEvaluation';
 import FAQS from './components/FAQS';
 import ConnectedUs from './components/ConnectedUs';
 import Footer from './components/Footer';
+import { Lang } from '@/i18n/config';
 
 export async function generateMetadata(props: { params: { lang: string } }): Promise<Metadata> {
   const { lang } = props.params;
 
   return {
     alternates: {
-      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}`
+      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}`,
+      languages: {
+        'x-default': `https://www.hackquest.io/${Lang.EN}`,
+        en: `https://www.hackquest.io/${Lang.EN}`,
+        zh: `https://www.hackquest.io/${Lang.ZH}`
+      }
     }
   };
 }

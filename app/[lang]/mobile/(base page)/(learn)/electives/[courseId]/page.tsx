@@ -12,6 +12,7 @@ import { CourseStructure } from '@/components/Mobile/MobDetailPageV2/CourseStruc
 import { ElectiveStatusButton } from '@/components/Mobile/MobDetailPageV2/StatusButton';
 import { ElectiveCourseDetailType } from '@/service/webApi/elective/type';
 import { Metadata } from 'next';
+import { Lang } from '@/i18n/config';
 
 interface ElectiveDetailPageProps {
   params: {
@@ -36,7 +37,12 @@ export async function generateMetadata(
   const metadata: Metadata = {
     title: courseDetail.title,
     alternates: {
-      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/electives/${courseId}`
+      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/electives/${courseId}`,
+      languages: {
+        'x-default': `https://www.hackquest.io/${Lang.EN}/electives/${courseId}`,
+        en: `https://www.hackquest.io/${Lang.EN}/electives/${courseId}`,
+        zh: `https://www.hackquest.io/${Lang.ZH}/electives/${courseId}`
+      }
     }
   };
 

@@ -13,6 +13,7 @@ import { ElectiveCourseDetailType } from '@/service/webApi/elective/type';
 import CourseDetailProvider from '@/components/Web/DetailPageV2/Provider/CourseDetailProvider';
 import { Metadata } from 'next';
 import HeaderBg from '@/components/Web/DetailPageV2/HeaderBg';
+import { Lang } from '@/i18n/config';
 
 interface ElectivePageProps {
   params: {
@@ -37,7 +38,12 @@ export async function generateMetadata({ params, searchParams }: ElectivePagePro
   const metadata: Metadata = {
     title: courseDetail.title,
     alternates: {
-      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/electives//${courseId}${query}`
+      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/electives/${courseId}${query}`,
+      languages: {
+        'x-default': `https://www.hackquest.io/${Lang.EN}/electives/${courseId}${query}`,
+        en: `https://www.hackquest.io/${Lang.EN}/electives/${courseId}${query}`,
+        zh: `https://www.hackquest.io/${Lang.ZH}/electives/${courseId}${query}`
+      }
     }
   };
 

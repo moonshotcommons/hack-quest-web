@@ -14,6 +14,7 @@ import { CourseDetailType } from '@/service/webApi/course/type';
 import { getCoverImageByTrack } from '@/helper/utils';
 import { Metadata } from 'next';
 import Logo from '@/public/images/logo/logo.svg';
+import { Lang } from '@/i18n/config';
 
 interface PracticeDetailPageProps {
   params: {
@@ -38,7 +39,12 @@ export async function generateMetadata(
   const metadata: Metadata = {
     title: courseDetail.title,
     alternates: {
-      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/course-market/${courseId}`
+      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/course-market/${courseId}`,
+      languages: {
+        'x-default': `https://www.hackquest.io/${Lang.EN}/course-market/${courseId}`,
+        en: `https://www.hackquest.io/${Lang.EN}/course-market/${courseId}`,
+        zh: `https://www.hackquest.io/${Lang.ZH}/course-market/${courseId}`
+      }
     }
   };
 
