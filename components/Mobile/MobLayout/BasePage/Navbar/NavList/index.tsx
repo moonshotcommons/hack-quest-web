@@ -1,4 +1,4 @@
-import { FC, ReactNode, useMemo, useState } from 'react';
+import { FC, ReactNode, useContext, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { itemVariants } from '../constant';
@@ -7,6 +7,9 @@ import { useGlobalStore } from '@/store/zustand/globalStore';
 import useGetHeight from '@/hooks/dom/useGetHeight';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import MenuLink from '@/constants/MenuLink';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 interface NavListProps {
   navList: NavbarListType[];
   toggleOpen: VoidFunction;
@@ -17,6 +20,8 @@ const NavList: FC<NavListProps> = ({ navList: list, toggleOpen, children }) => {
   const [openNavKeys, setOpenNavKeys] = useState<string[]>([]);
   const { redirectToUrl } = useRedirect();
   const { pageHeight } = useGetHeight();
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.BASIC);
 
   const setTipsModalOpenState = useGlobalStore((state) => state.setTipsModalOpenState);
 
@@ -69,7 +74,7 @@ const NavList: FC<NavListProps> = ({ navList: list, toggleOpen, children }) => {
                   }
                 }}
               >
-                <span>{item.label}</span>
+                <span>{t(item.label)}</span>
                 <div className="h-full px-5">
                   {item.menu?.length > 1 &&
                     (openNavKeys.includes(item.id) ? (
@@ -106,7 +111,7 @@ const NavList: FC<NavListProps> = ({ navList: list, toggleOpen, children }) => {
                           }
                         }}
                       >
-                        {m.label}
+                        {t(m.label)}
                       </Link>
                     );
                   })}

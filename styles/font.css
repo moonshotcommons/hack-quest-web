@@ -85,10 +85,59 @@
   src: url('../fonts/MiSans/MiSans-Regular.ttf');
   font-display: 'swap';
 }
+
 @font-face {
   font-weight: normal;
   font-family: 'MiSans-Semibold';
   font-style: normal;
   src: url('../fonts/MiSans/MiSans-Semibold.ttf');
+  font-display: 'swap';
+}
+
+@font-face {
+  font-weight: 100;
+  font-family: 'HarmonyOS_Sans_SC';
+  font-style: normal;
+  src: url('../fonts/HarmonyOS_Sans_SC/HarmonyOS_Sans_SC_Thin.ttf');
+  font-display: 'swap';
+}
+
+@font-face {
+  font-weight: 300;
+  font-family: 'HarmonyOS_Sans_SC';
+  font-style: normal;
+  src: url('../fonts/HarmonyOS_Sans_SC/HarmonyOS_Sans_SC_Light.ttf');
+  font-display: 'swap';
+}
+
+@font-face {
+  font-weight: 400;
+  font-family: 'HarmonyOS_Sans_SC';
+  font-style: normal;
+  src: url('../fonts/HarmonyOS_Sans_SC/HarmonyOS_Sans_SC_Regular.ttf');
+  font-display: 'swap';
+}
+
+@font-face {
+  font-weight: 500;
+  font-family: 'HarmonyOS_Sans_SC';
+  font-style: normal;
+  src: url('../fonts/HarmonyOS_Sans_SC/HarmonyOS_Sans_SC_Medium.ttf');
+  font-display: 'swap';
+}
+
+@font-face {
+  font-weight: 700;
+  font-family: 'HarmonyOS_Sans_SC';
+  font-style: normal;
+  src: url('../fonts/HarmonyOS_Sans_SC/HarmonyOS_Sans_SC_Bold.ttf');
+  font-display: 'swap';
+}
+
+@font-face {
+  font-weight: 900;
+  font-family: 'HarmonyOS_Sans_SC';
+  font-style: normal;
+  src: url('../fonts/HarmonyOS_Sans_SC/HarmonyOS_Sans_SC_Black.ttf');
   font-display: 'swap';
 }

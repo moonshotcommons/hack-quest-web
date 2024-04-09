@@ -1,4 +1,3 @@
-import { Lang } from '@/i18n/config';
 import { NavbarListType } from '../../BasePage/Navbar/type';
 import MenuLink from '@/constants/MenuLink';
 
@@ -22,16 +21,5 @@ export const navbarList: NavbarListType[] = [
         link: `${MenuLink.LAUNCH}#FAQ`
       }
     ]
-  }
-];
-
-export const inltData = [
-  {
-    label: 'English',
-    value: Lang.EN
-  },
-  {
-    label: '简体中文',
-    value: Lang.ZH
   }
 ];
