@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { Metadata } from 'next';
 import HackathonIdPage from '../components/HackthonId';
 import { getHackathonById } from '@/service/cach/resource/hackathon';
+import { Lang } from '@/i18n/config';
 
 interface HackathonIdProps {
   params: {
@@ -22,7 +23,12 @@ export async function generateMetadata({ params, searchParams }: HackathonIdProp
     title: hackathon.name,
     description: hackathon.about,
     alternates: {
-      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/hackathon/${params.hackathonId}${query}`
+      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/hackathon/${params.hackathonId}${query}`,
+      languages: {
+        'x-default': `https://www.hackquest.io/${Lang.EN}/hackathon/${params.hackathonId}${query}`,
+        en: `https://www.hackquest.io/${Lang.EN}/hackathon/${params.hackathonId}${query}`,
+        zh: `https://www.hackquest.io/${Lang.ZH}/hackathon/${params.hackathonId}${query}`
+      }
     }
   };
 }

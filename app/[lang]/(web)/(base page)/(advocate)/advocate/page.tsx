@@ -10,6 +10,8 @@ import FAQS from './components/FAQS';
 import Footer from './components/Footer';
 import ConnectedUs from './components/ConnectedUs';
 import { Metadata } from 'next';
+import { Lang } from '@/i18n/config';
+
 interface AdvocatePageProps {}
 
 export async function generateMetadata(props: { params: { lang: string } }): Promise<Metadata> {
@@ -18,7 +20,12 @@ export async function generateMetadata(props: { params: { lang: string } }): Pro
   return {
     title: 'HackQuest Advocate',
     alternates: {
-      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/advocate`
+      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/advocate`,
+      languages: {
+        'x-default': `https://www.hackquest.io/${Lang.EN}/advocate`,
+        en: `https://www.hackquest.io/${Lang.EN}/advocate`,
+        zh: `https://www.hackquest.io/${Lang.ZH}/advocate`
+      }
     }
   };
 }
