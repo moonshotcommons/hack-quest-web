@@ -13,7 +13,7 @@ import LearningTrackDetailCard from './components/LearningTrackDetailCard';
 import CertificationCardProvider from '@/components/Web/Business/Certification/CertificationCard/CertificationCardProvider';
 import { Metadata } from 'next';
 import HeaderBg from '@/components/Web/DetailPageV2/HeaderBg';
-
+import { Lang } from '@/i18n/config';
 interface LearningTrackDetailPageProps {
   params: {
     learningTrackId: string;
@@ -40,7 +40,12 @@ export async function generateMetadata(
   const metadata: Metadata = {
     title: courseDetail.name,
     alternates: {
-      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/learning-track/${learningTrackId}${query}`
+      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/learning-track/${learningTrackId}${query}`,
+      languages: {
+        'x-default': `https://www.hackquest.io/${Lang.EN}/learning-track/${learningTrackId}${query}`,
+        en: `https://www.hackquest.io/${Lang.EN}/learning-track/${learningTrackId}${query}`,
+        zh: `https://www.hackquest.io/${Lang.ZH}/learning-track/${learningTrackId}${query}`
+      }
     }
   };
 
