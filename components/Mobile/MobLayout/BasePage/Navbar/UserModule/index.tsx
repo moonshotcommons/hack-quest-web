@@ -1,5 +1,5 @@
 import { BurialPoint } from '@/helper/burialPoint';
-import { FC } from 'react';
+import { FC, Suspense, useContext } from 'react';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
@@ -11,6 +11,10 @@ import Link from 'next/link';
 import { useGlobalStore } from '@/store/zustand/globalStore';
 import { V2_LANDING_PATH, isNoNeedUserInfo } from '@/constants/nav';
 import { useCustomPathname } from '@/hooks/router/useCheckPathname';
+import Intl from '@/components/Mobile/Intl';
+import { TransNs } from '@/i18n/config';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
 
 interface UserModuleProps {
   changeNavType: (type: NavType) => void;
@@ -18,6 +22,9 @@ interface UserModuleProps {
 }
 
 const UserModule: FC<UserModuleProps> = ({ changeNavType, toggleOpen }) => {
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.BASIC);
+
   const { setAuthType, userSignOut, userInfo } = useUserStore(
     useShallow((state) => ({
       setAuthType: state.setAuthType,
@@ -55,6 +62,12 @@ const UserModule: FC<UserModuleProps> = ({ changeNavType, toggleOpen }) => {
   if (!userInfo) {
     return (
       <div className="body-l w-full capitalize text-neutral-white">
+        <motion.div variants={itemVariants} className="flex items-center justify-between gap-2 py-[.7813rem]">
+          <span className="">{t('changeLanguage')}</span>
+          <Suspense fallback={null}>
+            <Intl />
+          </Suspense>
+        </motion.div>
         <motion.div
           variants={itemVariants}
           className="flex items-center gap-2 py-[.7813rem]"

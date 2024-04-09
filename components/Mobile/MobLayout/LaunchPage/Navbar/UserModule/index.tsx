@@ -10,11 +10,11 @@ import Link from 'next/link';
 import { useGlobalStore } from '@/store/zustand/globalStore';
 import { V2_LANDING_PATH, isNoNeedUserInfo } from '@/constants/nav';
 import { useCustomPathname } from '@/hooks/router/useCheckPathname';
-import Intl from '../Intl';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import { NavType } from '@/components/Mobile/MobLayout/constant';
+import Intl from '@/components/Mobile/Intl';
 
 interface UserModuleProps {
   changeNavType: (type: NavType) => void;

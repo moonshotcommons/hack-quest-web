@@ -44,11 +44,11 @@
     "projects": "projects",
     "playground": "playground",
     "community": "community",
-    "resources": "resources",
     "Discord": "Discord",
     "X": "X",
     "Telegram": "Telegram",
     "Linkedin": "Linkedin",
+    "resources": "resources",
     "hackathon": "hackathon",
     "blog": "blog"
   },
@@ -57,5 +57,60 @@
   "viewAll":"View All",
   "back":"Back",
   "pleaseSelect":"Please select",
-  "cancel":"Cancel"
+  "cancel":"Cancel",
+  "navbar": {
+    "home": {
+      "title": "home",
+      "learner": "learner",
+      "instructor": "instructor"
+    },
+    "learn": {
+      "title": "learn",
+      "learningTrack": "learning track",
+      "learningTrackDesc": "Master a coding language",
+      "electives": "electives",
+      "electivesDesc": "Focus on a Web 3 topic",
+      "projects": "projects",
+      "projectsDesc": "Learn how to build a project step by step",
+      "courseMarket": "Course Market",
+      "courseMarketDesc": ""
+    },
+    "reward": {
+      "title": "reward",
+      "mission": "mission",
+      "missionDesc": "Earn rewards on your Web 3 journey",
+      "campaign": "Campaign",
+      "campaignDesc": "Become a certified builder"
+    },
+    "resources": {
+      "title": "resources",
+      "hackathon": "hackathon",
+      "hackathonDesc": "Explore hackathons and past projects",
+      "blog": "blog",
+      "blogDesc": "View news, events, and study blogs",
+      "glossary": "glossary",
+      "glossaryDesc": "Learn about Web 3 essential terms",
+      "advocate": "advocate",
+      "advocateDesc": "Join our rapidly growing community",
+      "events": "Events",
+      "eventsDesc": "Learn about Web 3 events"
+    },
+    "launch": {
+      "title": "launch pool"
+    },
+    "more": {
+      "title": "more",
+      "tools": "TOOLS",
+      "playground": "playground",
+      "community": "COMMUNITY",
+      "Discord": "Discord",
+      "Twitter": "Twitter",
+      "Telegram": "Telegram",
+      "Linkedin": "Linkedin"
+    }
+  },
+  "auth": {
+    "login": "Log In",
+    "signUp": "Sign Up"
+  }
 }
