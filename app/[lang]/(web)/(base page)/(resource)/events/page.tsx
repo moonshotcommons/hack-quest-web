@@ -5,10 +5,15 @@ import PastEvents from './components/PastEvents';
 import ExploreMore from './components/ExploreMore';
 import Reach from './components/Reach';
 import LandingFooter from '@/components/Web/Business/LandingFooter';
+import { Lang } from '@/i18n/config';
 
-interface EventsProp {}
+interface EventsProp {
+  params: {
+    lang: Lang;
+  };
+}
 
-const Events: React.FC<EventsProp> = () => {
+const Events: React.FC<EventsProp> = ({ params: { lang } }) => {
   return (
     <div>
       <EventsBanner />
@@ -16,7 +21,7 @@ const Events: React.FC<EventsProp> = () => {
       <PastEvents />
       <ExploreMore />
       <Reach />
-      <LandingFooter />
+      <LandingFooter lang={lang} />
     </div>
   );
 };

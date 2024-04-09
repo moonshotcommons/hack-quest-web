@@ -89,7 +89,6 @@ const HandleButton: FC<HandleButtonProps> = ({ project }) => {
         );
       case LaunchPoolProjectStatus.FUELING:
       case LaunchPoolProjectStatus.AIRDROP:
-      case LaunchPoolProjectStatus.END:
         return (
           <Button
             type="primary"
@@ -108,12 +107,12 @@ const HandleButton: FC<HandleButtonProps> = ({ project }) => {
             {t('participateNow')}
           </Button>
         );
-      // case LaunchPoolProjectStatus.END:
-      //   return (
-      //     <Button ghost className="button-text-l w-[270px] max-w-[270px] py-4 uppercase">
-      //       {t('seeMore')}
-      //     </Button>
-      //   );
+      case LaunchPoolProjectStatus.END:
+        return (
+          <Button ghost className="button-text-l w-[270px] max-w-[270px] py-4 uppercase">
+            {t('seeMore')}
+          </Button>
+        );
     }
   };
   return (

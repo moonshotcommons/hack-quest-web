@@ -2,28 +2,28 @@ import { HACKQUEST_DISCORD, HACKQUEST_LINKEDIN, HACKQUEST_TELEGRAM, HACKQUEST_TW
 
 export const FOOTER_LINKS = [
   {
-    group: 'LEARN',
+    group: 'learn',
     links: [
       {
-        title: 'Learning Tracks',
+        title: 'learningTrack',
         link: '/learning-track'
       },
       {
-        title: 'Electives',
+        title: 'electives',
         link: '/electives'
       },
       {
-        title: 'Projects',
+        title: 'projects',
         link: '/practices'
       },
       {
-        title: 'Playground',
+        title: 'playground',
         link: process.env.IDE_URL || 'https://ide.dev.hackquest.io'
       }
     ]
   },
   {
-    group: 'COMMUNITY',
+    group: 'community',
     links: [
       {
         title: 'Discord',
@@ -44,14 +44,14 @@ export const FOOTER_LINKS = [
     ]
   },
   {
-    group: 'RESOURCES',
+    group: 'resources',
     links: [
       {
-        title: 'Hackathon',
+        title: 'hackathon',
         link: '/hackathon'
       },
       {
-        title: 'Blog',
+        title: 'blog',
         link: '/blog'
       }
     ]

@@ -3,25 +3,30 @@ import { FC } from 'react';
 import { icons, leftCardData, rightCardData } from './constant';
 import Link from 'next/link';
 import { LearningTrackTab } from '../../../(learn)/learning-track/constants/type';
+import { Lang, TransNs } from '@/i18n/config';
+import { useTranslation } from '@/i18n/server';
 
-interface CertificatesIntroduceProps {}
+interface CertificatesIntroduceProps {
+  lang: Lang;
+}
 
-const CertificatesIntroduce: FC<CertificatesIntroduceProps> = (props) => {
+const CertificatesIntroduce: FC<CertificatesIntroduceProps> = async ({ lang }) => {
+  const { t } = await useTranslation(lang, TransNs.LANDING);
   return (
     <div className="flex h-[1072px] w-full flex-col bg-yellow-light">
       <div className="container mx-auto mt-[6.25rem] flex max-w-[1280px] justify-between">
         <div className="flex w-[38.375rem] flex-col justify-center gap-10 ">
           <h2 className="text-h2 capitalize text-neutral-off-black">
-            Earn certificates issued by leading Web3 ecosystems
+            {t('CertificatesIntroduce.earn certificates issued')}
           </h2>
           <p className="body-xl-bold w-fit rounded-[8px] bg-yellow-primary px-2 py-1 text-neutral-black">
-            Exclusively on HackQuest
+            {t('CertificatesIntroduce.exclusively on hackQuest')}
           </p>
           <div className="flex items-center gap-8">
             <Image src={'/images/landing/solana_logo.png'} alt="solana logo" width={161} height={23}></Image>
             <Image src={'/images/landing/mantle_logo.png'} alt="solana logo" width={149} height={44}></Image>
             <div className="body-s-bold rounded-[.5rem] border border-neutral-black px-2 py-1 text-neutral-black">
-              10+ coming soon...
+              10+ {t('CertificatesIntroduce.coming soon')}...
             </div>
           </div>
         </div>
@@ -35,7 +40,7 @@ const CertificatesIntroduce: FC<CertificatesIntroduceProps> = (props) => {
           <div className="relative h-[30.875rem] w-[37.5rem]">
             <div className="absolute -right-2 top-2 h-full w-full rounded-[32px] bg-yellow-primary"></div>
             <div className="absolute flex h-full  w-full flex-col gap-[32px] rounded-[32px] bg-neutral-white p-10">
-              <h3 className="text-h3">Start from the Basics</h3>
+              <h3 className="text-h3">{t('CertificatesIntroduce.Start from the Basics')}</h3>
               <div className="z-[99] h-6 w-6">{icons.leftCardCircle}</div>
               <div className="flex flex-col gap-6">
                 {leftCardData.map((item, index) => {
@@ -67,7 +72,7 @@ const CertificatesIntroduce: FC<CertificatesIntroduceProps> = (props) => {
                   className="body-m-bold flex cursor-pointer items-center gap-2"
                 >
                   <span className="relative after:absolute after:-bottom-[1px] after:left-0 after:h-[2px] after:w-full after:rounded-full after:bg-yellow-primary">
-                    Explore Basics
+                    {t('CertificatesIntroduce.Explore Basics')}
                   </span>
                   {icons.rightArrow}
                 </Link>
@@ -77,7 +82,7 @@ const CertificatesIntroduce: FC<CertificatesIntroduceProps> = (props) => {
           <div className="relative h-[30.875rem] w-[37.5rem]">
             <div className="absolute -right-2 top-2 h-full w-full rounded-[32px] bg-yellow-primary"></div>
             <div className="absolute flex h-full  w-full flex-col gap-[32px] rounded-[32px] bg-neutral-white p-10">
-              <h3 className="text-h3">Become Specialized</h3>
+              <h3 className="text-h3">{t('CertificatesIntroduce.Become Specialized')}</h3>
               <div className="z-[99] h-6 w-6">{icons.rightCardCircle}</div>
               <div className="flex flex-wrap gap-6">
                 {rightCardData.map((item, index) => {
@@ -97,7 +102,7 @@ const CertificatesIntroduce: FC<CertificatesIntroduceProps> = (props) => {
                   className="body-m-bold flex cursor-pointer items-center gap-2"
                 >
                   <span className="relative after:absolute after:-bottom-[1px] after:left-0 after:h-[2px] after:w-full after:rounded-full after:bg-yellow-primary">
-                    Explore Specializations
+                    {t('CertificatesIntroduce.Explore Specializations')}
                   </span>
                   {icons.rightArrow}
                 </Link>

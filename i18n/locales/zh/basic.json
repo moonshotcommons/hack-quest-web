@@ -36,5 +36,26 @@
   "congratulationsDeveloper.":"恭喜你!您现在是一名经过认证的开发人员。",
   "certifiesWorld":"此学习轨迹由生态系统和HackQuest共同发布，证明您已成功完成学习轨迹。与世界分享你的成就!",
   "youStepAwayFromDevelopers":"您距离成为认证的Web3开发人员只有一步之遥。完成学习轨迹并申请NFT或SBT结业证明证书，以提高您的技能并展示您的专业知识。",
-  "becomeCertifiedDeveloper":"成为认证开发者"
+  "becomeCertifiedDeveloper":"成为认证开发者",
+  "footer": {
+    "learn": "学习",
+    "learningTrack": "学习路径",
+    "projects": "项目课",
+    "electives": "选修课",
+    "playground": "开发环境",
+    "community": "社群",
+    "Discord": "Discord",
+    "X": "X",
+    "Telegram": "Telegram",
+    "Linkedin": "Linkedin",
+    "resources": "资源",
+    "hackathon": "黑客松",
+    "blog": "博客"
+  },
+  "searchPlaceholder":"搜索关键词、主题等…",
+  "submit":"提交",
+  "viewAll":"查看所有",
+  "back":"返回",
+  "pleaseSelect":"请选择",
+  "cancel":"取消"
 }
