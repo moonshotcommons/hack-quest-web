@@ -12,8 +12,9 @@ import { getSearchParamsUrl } from '@/helper/utils';
 import webApi from '@/service';
 import { useRequest } from 'ahooks';
 import { errorMessage } from '@/helper/ui';
-import { useRouter } from 'next/navigation';
 import { LetterDataType } from '../constants/type';
+import { Transition } from '@headlessui/react';
+import BackTop from './BackTop';
 
 interface GlossaryPageProp {
   galossaryList: BlogType[];
@@ -32,19 +33,18 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ galossaryList, searchParams 
   const stickyTimeOut = useRef<NodeJS.Timeout | null>(null);
   const [offsetTops, setOffsetTops] = useState<OffsetTopsType[]>([]);
   const [letterData, setLetterData] = useState<LetterDataType[]>([]);
-  const router = useRouter();
   const isOnScroll = useRef(false);
   const [letterOffsetTop, setLetterOffsetTop] = useState(0);
   const letterClick = (val: string) => {
     setLetter(val);
     const index = letterData.findIndex((v) => v.letter === val);
     boxRef.current?.scrollTo({
-      top: offsetTops[index].offsetTop
+      top: offsetTops[index].offsetTop - 80
     });
     isOnScroll.current = true;
     setTimeout(() => {
       isOnScroll.current = false;
-    }, 10);
+    }, 100);
   };
 
   const {} = useRequest(
@@ -68,7 +68,7 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ galossaryList, searchParams 
     isOnScroll.current = true;
     setTimeout(() => {
       isOnScroll.current = false;
-    }, 10);
+    }, 100);
     // const url = getSearchParamsUrl(
     //   {
     //     category: newTracks.join(',')
@@ -140,6 +140,13 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ galossaryList, searchParams 
       }
     }, 150);
   };
+
+  const handleBackTop = () => {
+    boxRef.current?.scrollTo({
+      top: 0
+    });
+    setLetter(letterData[0].letter);
+  };
   useEffect(() => {
     const newTracks = searchParams.category?.split(',') || [];
     getTrackList(newTracks);
@@ -182,6 +189,9 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ galossaryList, searchParams 
         )}
       </div>
       {list.length === 0 || searchParams.keyword ? <BlogFooter from={ResourceFrom.GLOSSARY} /> : null}
+      <Transition show={isSticky} appear>
+        <BackTop handleBackTop={handleBackTop} />
+      </Transition>
     </div>
   );
 };
