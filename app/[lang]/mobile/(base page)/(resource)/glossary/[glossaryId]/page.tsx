@@ -3,6 +3,7 @@ import { Metadata } from 'next';
 import { BlogDetailType, ResourceFrom } from '@/service/webApi/resourceStation/type';
 import BlogDetail from '../../blog/components/BlogId';
 import { getGlossaryById } from '@/service/cach/resource/blog';
+import { Lang } from '@/i18n/config';
 
 interface BlogDetailProp {
   params: {
@@ -20,7 +21,12 @@ export async function generateMetadata({ params }: BlogDetailProp): Promise<Meta
     title: glossary.title,
     description: glossary.description,
     alternates: {
-      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/glossary/${params.glossaryId}`
+      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/glossary/${params.glossaryId}`,
+      languages: {
+        'x-default': `https://www.hackquest.io/${Lang.EN}/glossary/${params.glossaryId}`,
+        en: `https://www.hackquest.io/${Lang.EN}/glossary/${params.glossaryId}`,
+        zh: `https://www.hackquest.io/${Lang.ZH}/glossary/${params.glossaryId}`
+      }
     }
   };
 }
