@@ -134,7 +134,6 @@ const LearningTrackStatusButton: FC<LearningTrackStatusButtonProps> = ({
                 redirectToUrl('/user/profile');
               }}
             >
-              {' '}
               View more
             </Button>
           </>
