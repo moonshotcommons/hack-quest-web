@@ -56,7 +56,7 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ searchParams = {}, galossary
     const index = letterData.findIndex((v) => v.letter === val);
     isOnScroll.current = true;
     boxRef.current?.scrollTo({
-      top: offsetTops[index].offsetTop - 58
+      top: offsetTops[index].offsetTop
     });
     setTimeout(() => {
       isOnScroll.current = false;
@@ -167,9 +167,7 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ searchParams = {}, galossary
       <GlossaryHeader keyword={searchParams.keyword || ''} />
       {!searchParams.keyword && (
         <>
-          {letterData.length > 0 && (
-            <FilterLetter letterData={letterData} letterClick={letterClick} letter={letter} isSticky={isSticky} />
-          )}
+          {letterData.length > 0 && <FilterLetter letterData={letterData} letterClick={letterClick} letter={letter} />}
 
           <div
             ref={trackRef}
