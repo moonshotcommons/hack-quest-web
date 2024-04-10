@@ -97,3 +97,21 @@ export enum ResourceFrom {
 export enum CoustomKeywordType {
   GLOSSARY = 'Glossary'
 }
+
+export enum EventStatus {
+  UPCOMING = 'upcoming',
+  IN_PROGRESS = 'inProgress',
+  PAST = 'past'
+}
+
+export interface EventsType {
+  id: string;
+  title: string;
+  description: string;
+  images: string[];
+  categories: string[];
+  location: string;
+  startTime: string;
+  endTime: string;
+  status: EventStatus;
+}

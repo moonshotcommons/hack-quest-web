@@ -38,7 +38,7 @@ const Reach: React.FC<ReachProp> = () => {
             </span>
           </Link>
         </div>
-        <Button type="primary" className="button-text-m body-m h-[48px] w-[165px] uppercase">
+        <Button type="primary" className="button-text-m body-m h-[48px] w-[165px] p-0 uppercase">
           Submit Inquiry
         </Button>
       </div>
