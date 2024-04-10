@@ -3,15 +3,21 @@ import Button from '@/components/Common/Button';
 import EventsCard from '@/components/Web/Business/EventsCard';
 import EventsCardModal from '@/components/Web/Business/EventsCard/EventsCardModal';
 import MenuLink from '@/constants/MenuLink';
+import { EventStatus, EventsType } from '@/service/webApi/resourceStation/type';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
-interface PastEventsProp {}
+interface PastEventsProp {
+  list: EventsType[];
+}
 
-const PastEvents: React.FC<PastEventsProp> = () => {
-  const eventsList = Array.from({ length: 8 }).map((_, i) => ({ id: i }));
+const PastEvents: React.FC<PastEventsProp> = ({ list }) => {
+  const eventsList = useMemo(() => {
+    return list.filter((v) => v.status === EventStatus.PAST);
+  }, [list]);
   const [modalOpen, setModalOpen] = useState(false);
   const [events, setEvents] = useState({});
+  if (!eventsList.length) return null;
   return (
     <div className="container mx-auto mt-[60px]">
       <p className="text-h3 text-neutral-off-black">Past Events</p>
@@ -19,6 +25,7 @@ const PastEvents: React.FC<PastEventsProp> = () => {
         {eventsList.map((v) => (
           <div key={v.id} className="w-[calc((100%-60px)/4)]">
             <EventsCard
+              events={v}
               onClick={() => {
                 setModalOpen(true);
                 setEvents(v);
@@ -27,14 +34,17 @@ const PastEvents: React.FC<PastEventsProp> = () => {
           </div>
         ))}
       </div>
-      <div className="flex justify-center">
-        <Link href={MenuLink.EVENTS_PAST}>
-          <Button className="button-text-m h-[48px] w-[165px] border border-neutral-black uppercase text-neutral-black">
-            view more
-          </Button>
-        </Link>
-      </div>
-      <EventsCardModal events={events} open={modalOpen} onClose={() => setModalOpen(false)} />
+      {eventsList.length > 8 && (
+        <div className="flex justify-center">
+          <Link href={MenuLink.EVENTS_PAST}>
+            <Button className="button-text-m h-[48px] w-[165px] border border-neutral-black uppercase text-neutral-black">
+              view more
+            </Button>
+          </Link>
+        </div>
+      )}
+
+      <EventsCardModal events={events as EventsType} open={modalOpen} onClose={() => setModalOpen(false)} />
     </div>
   );
 };

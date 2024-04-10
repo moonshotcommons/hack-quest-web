@@ -4,22 +4,22 @@ import BlogImg from '@/public/images/resource/blog_link.png';
 import MenuLink from '@/constants/MenuLink';
 export const eventsBannerData = [
   {
-    number: '10+',
+    number: 10,
     label: 'Meet-ups Organized',
     id: 1
   },
   {
-    number: '20+',
+    number: 20,
     label: 'Co-learning Camps Initiated',
     id: 2
   },
   {
-    number: '30+',
+    number: 30,
     label: 'Hackathons Hosted',
     id: 3
   },
   {
-    number: '8000+',
+    number: 8000,
     label: 'Builders Attended',
     id: 4
   }

@@ -1,16 +1,22 @@
 'use client';
 import EventsCard from '@/components/Web/Business/EventsCard';
 import EventsCardModal from '@/components/Web/Business/EventsCard/EventsCardModal';
-import React, { useState } from 'react';
+import { EventStatus, EventsType } from '@/service/webApi/resourceStation/type';
+import React, { useMemo, useState } from 'react';
 
-interface UpcomingEventsProp {}
+interface UpcomingEventsProp {
+  list: EventsType[];
+}
 
-const UpcomingEvents: React.FC<UpcomingEventsProp> = () => {
-  const eventsList = Array.from({ length: 8 }).map((_, i) => ({ id: i }));
+const UpcomingEvents: React.FC<UpcomingEventsProp> = ({ list }) => {
+  const eventsList = useMemo(() => {
+    return list.filter((v) => v.status === EventStatus.UPCOMING);
+  }, [list]);
   const [modalOpen, setModalOpen] = useState(false);
   const [events, setEvents] = useState({});
+  if (!eventsList.length) return null;
   return (
-    <div className="container mx-auto mt-[100px]">
+    <div className="container mx-auto mt-[100px]" id={'events-upcoming'}>
       <div className="mb-[60px] text-center">
         <p className="text-h2 mb-[12px] text-neutral-off-black">Upcoming Events 🗓️</p>
         <p className="body-m text-neutral-medium-gray">
@@ -22,6 +28,7 @@ const UpcomingEvents: React.FC<UpcomingEventsProp> = () => {
         {eventsList.map((v) => (
           <div key={v.id} className="w-[calc((100%-60px)/4)]">
             <EventsCard
+              events={v}
               onClick={() => {
                 setModalOpen(true);
                 setEvents(v);
@@ -30,7 +37,7 @@ const UpcomingEvents: React.FC<UpcomingEventsProp> = () => {
           </div>
         ))}
       </div>
-      <EventsCardModal events={events} open={modalOpen} onClose={() => setModalOpen(false)} />
+      <EventsCardModal events={events as EventsType} open={modalOpen} onClose={() => setModalOpen(false)} />
     </div>
   );
 };
