@@ -1,7 +1,10 @@
 import Button from '@/components/Common/Button';
+import { LangContext } from '@/components/Provider/Lang';
 import { HACKQUEST_DISCORD } from '@/constants/links';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 import Link from 'next/link';
-import { FC } from 'react';
+import { FC, useContext } from 'react';
 
 interface JoinDiscordCardProps {}
 
@@ -54,13 +57,16 @@ const icon = (
 );
 
 const JoinDiscordCard: FC<JoinDiscordCardProps> = (props) => {
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.LEARN);
+
   return (
     <div className="flex w-full flex-col gap-4 rounded-[1rem] bg-neutral-white p-4">
       {icon}
-      <p className="body-m-bold">Want to learn together with our community?</p>
+      <p className="body-m-bold">{t('dashboard.discordCard.description')}</p>
       <Link href={HACKQUEST_DISCORD} target="_blank">
         <Button type="primary" className="button-text-s px-4 py-2 uppercase">
-          Join discord
+          {t('dashboard.discordCard.buttonText')}
         </Button>
       </Link>
     </div>

@@ -6,6 +6,9 @@ import Button from '@/components/Common/Button';
 
 import { useJumpLeaningLesson } from '@/hooks/courses/useJumpLeaningLesson';
 import { CourseDetailContext } from '@/components/Web/DetailPageV2/Provider/CourseDetailProvider';
+import { LangContext } from '@/components/Provider/Lang';
+import { TransNs } from '@/i18n/config';
+import { useTranslation } from '@/i18n/client';
 
 interface CourseStatusButtonProps {
   courseDetail: CourseDetailType;
@@ -15,6 +18,9 @@ const CourseStatusButton: FC<CourseStatusButtonProps> = ({ courseDetail: propCou
   const { courseDetail: contextCourseDetail } = useContext(CourseDetailContext);
   const courseDetail = contextCourseDetail ?? propCourseDetail;
   const learningStatus = useGetCourseLearnStatus(courseDetail);
+
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.BASIC);
 
   const { jumpLearningLesson } = useJumpLeaningLesson();
 
@@ -29,7 +35,7 @@ const CourseStatusButton: FC<CourseStatusButtonProps> = ({ courseDetail: propCou
             jumpLearningLesson(courseDetail);
           }}
         >
-          Start learning
+          {t('courses.startLearning')}
         </Button>
       );
     case LearningStatus.IN_PROGRESS:
@@ -42,7 +48,7 @@ const CourseStatusButton: FC<CourseStatusButtonProps> = ({ courseDetail: propCou
             jumpLearningLesson(courseDetail);
           }}
         >
-          Continue
+          {t('courses.continue')}
         </Button>
       );
     case LearningStatus.COMPLETED:
@@ -63,7 +69,7 @@ const CourseStatusButton: FC<CourseStatusButtonProps> = ({ courseDetail: propCou
           className="button-text-l border-neutral-black py-4 uppercase"
           iconPosition="right"
         >
-          COMPLETED
+          {t('courses.completed')}
         </Button>
       );
   }

@@ -37,7 +37,7 @@ export const learningTrackFilters = [
 
 export const courseDefaultFilters = [
   {
-    filterName: 'Language',
+    filterName: 'courses.language',
     filterField: 'language',
     options: [
       { name: 'Solidity', value: 'SOLIDITY', isSelect: false },
@@ -46,7 +46,7 @@ export const courseDefaultFilters = [
     ]
   },
   {
-    filterName: 'Track',
+    filterName: 'courses.track',
     filterField: 'track',
     options: [
       { name: 'DeFi', value: 'DeFi', isSelect: false },
@@ -56,12 +56,12 @@ export const courseDefaultFilters = [
     ]
   },
   {
-    filterName: 'Difficulty',
+    filterName: 'courses.difficulty',
     filterField: 'level',
     options: [
-      { name: 'Beginner', value: 'BEGINNER', isSelect: false },
-      { name: 'Intermediate', value: 'INTERMEDIATE', isSelect: false },
-      { name: 'Advanced', value: 'ADVANCED', isSelect: false }
+      { name: 'courses.beginner', value: 'BEGINNER', isSelect: false },
+      { name: 'courses.intermediate', value: 'INTERMEDIATE', isSelect: false },
+      { name: 'courses.advanced', value: 'ADVANCED', isSelect: false }
     ]
   }
 ];
@@ -69,8 +69,8 @@ export const courseDefaultFilters = [
 export const ugcCourseDefaultFilters = courseDefaultFilters.filter((v) => v.filterField !== 'language');
 
 export const courseDefaultSort = [
-  { name: 'Most Popular', value: '-peopleJoined', isSelect: false },
-  { name: 'Newest', value: '-createdAt', isSelect: true }
+  { name: 'courses.mostPopular', value: '-peopleJoined', isSelect: false },
+  { name: 'courses.newest', value: '-createdAt', isSelect: true }
 ];
 
 export const mergeFilterParams = (

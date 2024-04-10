@@ -12,6 +12,7 @@ const Dashboard: React.FC<DashboardProp> = () => {
   const ProjectsPageRef = useRef<HTMLDivElement | null>(null);
   const coursesRef = useRef<MyCoursesRef>(null);
   const [apiStatus, setApiStatus] = useState('init');
+
   const handleScroll = () => {
     if (apiStatus !== 'init') return;
     const clientHeight = ProjectsPageRef.current?.clientHeight || 0;

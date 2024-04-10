@@ -13,9 +13,11 @@ import { PageResult } from '@/service/webApi/type';
 import { useRequest } from 'ahooks';
 import { cloneDeep } from 'lodash-es';
 import { FC, useEffect, useState } from 'react';
-interface CourseFilterListDefaultProps {}
+interface CourseFilterListDefaultProps {
+  title: string;
+}
 
-const CourseFilterListDefault: FC<CourseFilterListDefaultProps> = (props) => {
+const CourseFilterListDefault: FC<CourseFilterListDefaultProps> = ({ title }) => {
   const [courseList, setCourseList] = useState<ProjectCourseType[]>([]);
 
   const { run: getCourseList, loading } = useRequest(
@@ -44,7 +46,7 @@ const CourseFilterListDefault: FC<CourseFilterListDefaultProps> = (props) => {
 
   return (
     <CourseFilterList
-      title="Explore Web 3"
+      title={title}
       onFilterParamsUpdate={(params) => {
         getCourseList(params);
       }}

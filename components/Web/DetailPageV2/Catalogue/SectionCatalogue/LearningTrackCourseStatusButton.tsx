@@ -10,6 +10,9 @@ import { SectionContext } from '../../Provider/SectionProvider';
 import { LearningTrackDetailContext } from '../../Provider/LearningTrackDetailProvider';
 import { BurialPoint } from '@/helper/burialPoint';
 import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 
 interface LearningTrackCourseStatusButtonProps {
   course: ProjectCourseType | ElectiveCourseType;
@@ -20,6 +23,9 @@ const LearningTrackCourseStatusButton: FC<LearningTrackCourseStatusButtonProps> 
   const query = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
 
   const { learningTrackDetail } = useContext(LearningTrackDetailContext);
+
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.BASIC);
 
   const { section, sectionIndex } = useContext(SectionContext);
   const enrolled = learningTrackDetail!.enrolled;
@@ -97,7 +103,7 @@ const LearningTrackCourseStatusButton: FC<LearningTrackCourseStatusButtonProps> 
       )}
       {course.progress >= 1 && (
         <div className="flex items-center gap-3">
-          <span className="body-xs text-neutral-black">Completed</span>
+          <span className="body-xs text-neutral-black">{t('courses.completed')}</span>
           <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect y="0.5" width="16" height="16" rx="8" fill="#00C365" />
             <path

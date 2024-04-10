@@ -21,7 +21,7 @@ export async function generateMetadata(props: { params: { lang: string } }): Pro
   };
 }
 
-const DashboardPage = () => {
+const DashboardPage = (props: { params: { lang: Lang } }) => {
   return (
     <div className="h-full w-full">
       <Dashboard />

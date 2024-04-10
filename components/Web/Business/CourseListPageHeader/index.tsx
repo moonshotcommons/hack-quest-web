@@ -21,7 +21,7 @@ interface CourseListPageHeaderProps {
   buttonNode?: ReactNode;
   defaultValue?: string;
   delay?: number;
-  // onSearchInput:
+  placeholder?: string;
 }
 
 const CourseListPageHeader: FC<CourseListPageHeaderProps> = ({
@@ -36,7 +36,8 @@ const CourseListPageHeader: FC<CourseListPageHeaderProps> = ({
   className = '',
   buttonNode,
   defaultValue = '',
-  delay = 1000
+  delay = 1000,
+  placeholder = ''
 }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.BASIC);

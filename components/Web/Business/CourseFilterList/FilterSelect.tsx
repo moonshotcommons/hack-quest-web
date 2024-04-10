@@ -1,4 +1,4 @@
-import { FC, useMemo, useState } from 'react';
+import { FC, useContext, useMemo, useState } from 'react';
 import { FiChevronDown } from 'react-icons/fi';
 import { motion } from 'framer-motion';
 import { useDebounceFn } from 'ahooks';
@@ -9,6 +9,9 @@ import { GoCheck } from 'react-icons/go';
 import { cloneDeep } from 'lodash-es';
 import { GoX } from 'react-icons/go';
 import { PiSortAscendingLight } from 'react-icons/pi';
+import { LangContext } from '@/components/Provider/Lang';
+import { TransNs } from '@/i18n/config';
+import { useTranslation } from '@/i18n/client';
 interface FilterSelectProps {
   filters: FilterItemType[];
   sort?: FilterOptionType[];
@@ -19,6 +22,9 @@ interface FilterSelectProps {
 const FilterSelect: FC<FilterSelectProps> = ({ filters, updateFilters, sort, updateSort }) => {
   const [hoverFilter, setHoverFilter] = useState<null | string>(null);
   const [hoverSort, setHoverSort] = useState<boolean>(false);
+
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.BASIC);
 
   const { run: mouseLeaveFilter } = useDebounceFn(
     () => {
@@ -65,7 +71,7 @@ const FilterSelect: FC<FilterSelectProps> = ({ filters, updateFilters, sort, upd
                 }}
                 onMouseLeave={mouseLeaveFilter}
               >
-                <span>{filter.filterName}</span>
+                <span>{t(filter.filterName)}</span>
                 <span
                   className={cn(
                     hoverFilter === filter.filterName ? '-rotate-180' : 'transition-transform duration-200'
@@ -106,7 +112,7 @@ const FilterSelect: FC<FilterSelectProps> = ({ filters, updateFilters, sort, upd
                             updateFilters(cloneDeep(filters));
                           }}
                         >
-                          <span>{option.name}</span>
+                          <span>{t(option.name)}</span>
                           {option.isSelect && (
                             <span>
                               <GoCheck size={20} />
@@ -126,7 +132,7 @@ const FilterSelect: FC<FilterSelectProps> = ({ filters, updateFilters, sort, upd
                 key={index}
                 className="body-l flex items-center gap-[10px] rounded-full bg-yellow-primary px-6 py-[10px]"
               >
-                <span>{item.name}</span>
+                <span>{t(item.name)}</span>
                 <span
                   className="cursor-pointer"
                   onClick={() => {
@@ -161,7 +167,7 @@ const FilterSelect: FC<FilterSelectProps> = ({ filters, updateFilters, sort, upd
             <span>
               <PiSortAscendingLight size={20} />
             </span>
-            <span className="body-l text-neutral-off-black">{`Sort By`}</span>
+            <span className="body-l text-neutral-off-black">{t('courses.sortBy')}</span>
           </div>
           {hoverSort && (
             <motion.ul
@@ -184,7 +190,7 @@ const FilterSelect: FC<FilterSelectProps> = ({ filters, updateFilters, sort, upd
                       updateSort(newSort);
                     }}
                   >
-                    <span>{option.name}</span>
+                    <span>{t(option.name)}</span>
                     {option.isSelect && (
                       <span>
                         <GoCheck size={20} />
