@@ -70,9 +70,8 @@ export const dataList = [
         />
       </svg>
     ),
-    title: 'Compensation Package',
-    description:
-      'We sincerely value your work and do not believe in making people work for free. If you are contributing to our vision, we are always happy to compensate you fairly for your hard work 💰 Top advocates will also receive customized merch sets from HackQuest and our partners. ',
+    title: 'advocate.AdvocateBenefits.section1.title',
+    description: 'advocate.AdvocateBenefits.section1.description',
     iconClassName: 'top-[122px]'
   },
   {
@@ -205,9 +204,8 @@ export const dataList = [
         </defs>
       </svg>
     ),
-    title: 'Work alongside the Core Team',
-    description:
-      'We always appreciate your feedback 💌 As an advocate, you will work alongside our amazing core team based globally in the USA, the Greater China area, India, and Singapore.',
+    title: 'advocate.AdvocateBenefits.section2.title',
+    description: 'advocate.AdvocateBenefits.section2.description',
     iconClassName: 'top-[130px]'
   },
   {
@@ -278,9 +276,8 @@ export const dataList = [
         />
       </svg>
     ),
-    title: 'Early Access to Beta Features ',
-    description:
-      'Shhhhh 🤫 let me tell you a secret — HackQuest ships new features onto the dev environment every two weeks. As an advocate, you will always receive priority access.',
+    title: 'advocate.AdvocateBenefits.section3.title',
+    description: 'advocate.AdvocateBenefits.section3.description',
     iconClassName: 'top-[130px]'
   },
   {
@@ -328,9 +325,8 @@ export const dataList = [
         />
       </svg>
     ),
-    title: 'Networking and Mentorship',
-    description:
-      'HackQuest collaborates with 100+ Web3 ecosystems and projects and regularly organizes IRL and online events 🤝 As an advocate, you will have access to internal workshops and fireside chats with leading voices in Web3!',
+    title: 'advocate.AdvocateBenefits.section4.title',
+    description: 'advocate.AdvocateBenefits.section4.description',
     iconClassName: 'top-[106px]'
   },
   {
@@ -369,9 +365,8 @@ export const dataList = [
         />
       </svg>
     ),
-    title: 'Career Opportunities',
-    description:
-      'Jumpstart your Web3 career with HackQuest. Starting as an advocate, you will have exclusive opportunities to join us or our partners as a fellow, intern, part-time, or full-time down the road 🚀',
+    title: 'advocate.AdvocateBenefits.section5.title',
+    description: 'advocate.AdvocateBenefits.section5.description',
     iconClassName: 'top-[124px]'
   },
   {
@@ -400,9 +395,8 @@ export const dataList = [
         <path d="M39.011 26.2345V39.4953L32.9407 32.8618" stroke="black" strokeMiterlimit="10" />
       </svg>
     ),
-    title: 'Timely Support',
-    description:
-      'Wanna organize a workshop, meetup, hackathon, or even a conference in your local community? Reach out to us with the idea and we’ll be happy to support you in any way we can 🙌',
+    title: 'advocate.AdvocateBenefits.section6.title',
+    description: 'advocate.AdvocateBenefits.section6.description',
     iconClassName: 'top-[121px]'
   }
 ];
