@@ -3,6 +3,9 @@ import React from 'react';
 import EventsCover from '@/public/images/resource/events_cover.png';
 import Image from 'next/image';
 import { eventsBannerData } from '../../constants/data';
+import CountUp from './CountUp';
+import MenuLink from '@/constants/MenuLink';
+import Link from 'next/link';
 
 interface EventsBannerProp {}
 
@@ -12,12 +15,16 @@ const EventsBanner: React.FC<EventsBannerProp> = () => {
       <div className="flex w-full flex-col items-center bg-neutral-off-black pb-[57px] pt-[124px]">
         <h1 className="text-h2 mb-[60px] text-neutral-white">Join HackQuest’s Exciting Web3 Events</h1>
         <div className="mb-[46px] flex gap-[32px]">
-          <Button type="primary" className="button-text-l h-[60px] w-[270px] uppercase text-neutral-black">
-            Upcoming events
-          </Button>
-          <Button className="button-text-l h-[60px] w-[270px] border border-neutral-white uppercase text-neutral-white">
-            Partner With Us
-          </Button>
+          <Link href={`${MenuLink.EVENTS}#events-upcoming`}>
+            <Button type="primary" className="button-text-l h-[60px] w-[270px] uppercase text-neutral-black">
+              Upcoming events
+            </Button>
+          </Link>
+          <Link href={`${MenuLink.EVENTS}#events-footer`}>
+            <Button className="button-text-l h-[60px] w-[270px] border border-neutral-white uppercase text-neutral-white">
+              Partner With Us
+            </Button>
+          </Link>
         </div>
         <Image src={EventsCover} width={1037} alt="events-cover" priority />
       </div>
@@ -25,7 +32,9 @@ const EventsBanner: React.FC<EventsBannerProp> = () => {
         <div className="relative z-[2] flex  h-[220px] border border-neutral-black bg-neutral-white px-[32px] pt-[58px]">
           {eventsBannerData.map((v) => (
             <div key={v.id} className="flex-1 text-center">
-              <p className="text-h2 mb-[16px] text-neutral-off-black">{v.number}</p>
+              <p className="text-h2 mb-[16px] text-neutral-off-black">
+                <CountUp start={0} end={v.number} duration={3} />+
+              </p>
               <p className="body-l text-neutral-medium-gray">{v.label}</p>
             </div>
           ))}

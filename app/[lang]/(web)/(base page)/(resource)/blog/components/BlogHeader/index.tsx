@@ -1,13 +1,16 @@
 'use client';
 import TrackTag from '@/components/Common/TrackTag';
+import { LangContext } from '@/components/Provider/Lang';
 import BlogCardFooter from '@/components/Web/Business/BlogCard/BlogCardFooter';
 import MenuLink from '@/constants/MenuLink';
 import { BurialPoint } from '@/helper/burialPoint';
 import { getSearchParamsUrl } from '@/helper/utils';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 import { BlogDetailType, ResourceFrom } from '@/service/webApi/resourceStation/type';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import React, { useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { BsArrowLeft } from 'react-icons/bs';
 
 interface BlogHeaderProp {
@@ -16,6 +19,8 @@ interface BlogHeaderProp {
 }
 
 const BlogHeader: React.FC<BlogHeaderProp> = ({ blog, from }) => {
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.RESOURCE);
   const router = useRouter();
   const categories = useMemo(() => {
     const path = from === ResourceFrom.BLOG ? MenuLink.BLOG : MenuLink.GLOSSARY;
@@ -45,7 +50,7 @@ const BlogHeader: React.FC<BlogHeaderProp> = ({ blog, from }) => {
           }}
         >
           <BsArrowLeft size={26} />
-          <span className="body-l ml-[10px]">Back</span>
+          <span className="body-l ml-[10px]">{t('back')}</span>
         </div>
         <div className="w-[808px]">
           <div className="flex items-center justify-between">

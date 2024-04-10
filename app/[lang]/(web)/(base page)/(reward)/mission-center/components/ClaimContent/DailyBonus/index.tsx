@@ -1,5 +1,5 @@
 import { MissionDataType } from '@/service/webApi/missionCenter/type';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import MoonFace from '@/public/images/mission-center/moon_face1.png';
 import IconCoin from '@/public/images/mission-center/icon_coin.png';
 import IconXp from '@/public/images/mission-center/icon_xp.png';
@@ -14,8 +14,13 @@ import Button from '@/components/Common/Button';
 import { ChangeState, ScrollContainer } from '@/components/Common/ScrollContainer';
 import ScrollControl from './ScrollControl';
 import { TabContentType } from '../../../constants/type';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { Lang, TransNs } from '@/i18n/config';
 
 const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({ missionData, missionClaim }) => {
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.REWARD);
   const [curIndex, setCurIndex] = useState(-1);
   const [refreshTime, setRefreshTime] = useState('');
   const [dealedMissionData, setDealedMissionData] = useState<{
@@ -51,7 +56,7 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({ miss
             }}
           >
             <div className="flex-col-center">
-              <div className="body-xl text-neutral-white ">{`Day ${i + 1}`}</div>
+              <div className="body-xl text-neutral-white ">{lang === Lang.EN ? `Day ${i + 1}` : `第${i}天`}</div>
               <div className="mt-[20px] flex w-[165px] justify-between">
                 <div>
                   <Image src={IconCoin} width={60} alt="iconCredits" />
@@ -80,7 +85,7 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({ miss
               loading={curIndex === i}
               onClick={() => handleClaim(i)}
             >
-              {claimed ? 'Claimed' : 'Claim'}
+              {claimed ? t('claimed') : t('claim')}
             </Button>
           </div>
           <div
@@ -163,8 +168,8 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({ miss
         (a: MissionDataType, b: MissionDataType) => a?.progress?.progress?.[0] - b?.progress?.progress?.[0]
       ) || [];
     const completedLen = missionData.filter((v) => v.progress.completed).length;
-    const day = 7 - completedLen > 0 ? `${7 - completedLen}d` : '';
-    setRefreshTime(`${day}${24 - new Date().getHours()}h`);
+    const day = 7 - completedLen > 0 ? `${7 - completedLen}${t('d')}` : '';
+    setRefreshTime(`${day}${24 - new Date().getHours()}${t('h')}`);
     setDealedMissionData({
       mData,
       completedLen
@@ -176,8 +181,10 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({ miss
       <div className="no-scrollbar w-full flex-1 overflow-y-auto overflow-x-hidden ">
         <div className="w-full overflow-x-hidden pt-[30px]">
           <div className="mb-[20px] flex items-center justify-between px-[30px]">
-            <span className="body-xl-bold">Daily Login Rewards</span>
-            <span className="body-l">Rewards Refresh In: {refreshTime}</span>
+            <span className="body-xl-bold">{t('dailyLoginRewards')}</span>
+            <span className="body-l">
+              {t('rewardsRefreshIn')}: {refreshTime}
+            </span>
           </div>
           <div className="relative">
             <ScrollContainer ref={scrollContainerRef} onChange={(state: any) => setScrollContainerState(state)}>

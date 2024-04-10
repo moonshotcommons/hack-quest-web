@@ -1,4 +1,4 @@
-import React, { forwardRef, useImperativeHandle, useState } from 'react';
+import React, { forwardRef, useContext, useImperativeHandle, useState } from 'react';
 import Modal from '@/components/Common/Modal';
 import MoonFace from '@/public/images/mission-center/moon_face.png';
 import BannerBg from '@/public/images/landing/banner_bg.png';
@@ -14,6 +14,9 @@ import Button from '@/components/Common/Button';
 import webApi from '@/service';
 import { useGetMissionData } from '@/hooks/mission/useGetMissionData';
 import { FiX } from 'react-icons/fi';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 
 export enum TreasureType {
   DIG = 'dig',
@@ -25,6 +28,8 @@ export interface TreasureModalRef {
   open: (treasureId: string, isDig?: boolean, digCallback?: VoidFunction) => void;
 }
 const TreasureModal = forwardRef<TreasureModalRef, TreasureModalProp>((props, ref) => {
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.REWARD);
   const [treasureContent, setTreasureContent] = useState({
     treasureXp: 0,
     treasureCoin: 0
@@ -94,32 +99,30 @@ const TreasureModal = forwardRef<TreasureModalRef, TreasureModalProp>((props, re
           >
             {type === TreasureType.NOT_DIG && (
               <>
-                <p className="body-xl-bold mb-[43px] tracking-[0.48px]">
-                  You found something hidden on your HackQuest Journey!
-                </p>
+                <p className="body-xl-bold mb-[43px] tracking-[0.48px]">{t('youFoundSomethingHidden')}</p>
                 <Button
                   onClick={() => {
                     openTreasures(treasureId);
                   }}
-                  className={`body-l mb-[25px]  h-[55px] w-[400px]
-                      border-auth-primary-button-border-color bg-auth-primary-button-bg p-0
+                  className={`body-l mb-[25px]  h-[55px] w-[400px] border-auth-primary-button-border-color
+                      bg-auth-primary-button-bg p-0 uppercase
                       text-neutral-black
                       hover:border-auth-primary-button-border-hover-color  hover:bg-auth-primary-button-hover-bg hover:text-auth-primary-button-text-hover-color `}
                 >
-                  Dig Treasures
+                  {t('digTreasures')}
                 </Button>
                 <Button
-                  className={`body-l h-[55px]  w-[400px] border
-                      border-neutral-white p-0 text-neutral-white text-neutral-white `}
+                  className={`body-l h-[55px]  w-[400px] border border-neutral-white
+                      p-0 uppercase text-neutral-white  `}
                   onClick={() => resetModal()}
                 >
-                  Check Later
+                  {t('checkLater')}
                 </Button>
               </>
             )}
             {type === TreasureType.DIG && (
               <>
-                <p className="body-xl-bold  tracking-[0.48px]">The treasures you’ve got are</p>
+                <p className="body-xl-bold  tracking-[0.48px]">{t('theTreasuresYouGotAre')}</p>
                 <div className="my-[30px] flex justify-center gap-[30px]">
                   <div>
                     <Image src={IconCoin} width={60} alt="iconCredits" />
@@ -136,10 +139,10 @@ const TreasureModal = forwardRef<TreasureModalRef, TreasureModalProp>((props, re
                 </div>
                 <Button
                   className={`body-l h-[55px]  w-[400px] border
-                      border-neutral-white p-0 text-neutral-white  `}
+                      border-neutral-white p-0 uppercase text-neutral-white `}
                   onClick={() => resetModal()}
                 >
-                  Continue
+                  {t('continue')}
                 </Button>
               </>
             )}

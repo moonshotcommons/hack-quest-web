@@ -7,11 +7,14 @@ import webApi from '@/service';
 import { BlogType, ResourceFrom } from '@/service/webApi/resourceStation/type';
 import { useRequest } from 'ahooks';
 import Link from 'next/link';
-import React, { useMemo, useState } from 'react';
+import React, { useContext, useMemo, useState } from 'react';
 import { BsArrowRight } from 'react-icons/bs';
 import Button from '@/components/Common/Button';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import GlossaryCard from '@/components/Web/Business/GlossaryCard';
+import { useTranslation } from '@/i18n/client';
+import { LangContext } from '@/components/Provider/Lang';
+import { TransNs } from '@/i18n/config';
 
 interface BlogFooterProp {
   from?: ResourceFrom;
@@ -19,11 +22,13 @@ interface BlogFooterProp {
 }
 
 const BlogFooter: React.FC<BlogFooterProp> = ({ from = ResourceFrom.BLOG, category }) => {
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.RESOURCE);
   const [featureBlogList, setFeatureBlogList] = useState<BlogType[]>([]);
   const { redirectToUrl } = useRedirect();
   const business = useMemo(() => {
     const path = from === ResourceFrom.BLOG ? MenuLink.BLOG : MenuLink.GLOSSARY;
-    const text = from === ResourceFrom.BLOG ? 'BLOGS' : 'GLOSSARY';
+    const text = from === ResourceFrom.BLOG ? t('backAllBlogs') : t('backAllGlossary');
     return {
       path,
       text
@@ -51,8 +56,8 @@ const BlogFooter: React.FC<BlogFooterProp> = ({ from = ResourceFrom.BLOG, catego
           <div className="flex flex-col gap-[15px]">
             <h2 className="text-h3 text-neutral-black">
               {from === ResourceFrom.BLOG
-                ? `${category ? `More Blog about ’${category.join(',')}‘` : 'Featured Blog'}`
-                : `${category ? `More Glossary about ’${category.join(',')}‘` : 'Latest Glossary'}`}
+                ? `${category ? `${t('moreAboutBlog')} ’${category.join(',')}‘` : t('featuredBlog')}`
+                : `${category ? `${t('moreAboutGlossary')} ’${category.join(',')}‘` : t('latestGlossary')}`}
             </h2>
           </div>
           {from === ResourceFrom.BLOG && (
@@ -63,7 +68,7 @@ const BlogFooter: React.FC<BlogFooterProp> = ({ from = ResourceFrom.BLOG, catego
                 BurialPoint.track('home-view all点击');
               }}
             >
-              <span>View All</span>
+              <span>{t('viewAll')}</span>
               <BsArrowRight size={12}></BsArrowRight>
             </Link>
           )}
@@ -92,7 +97,7 @@ const BlogFooter: React.FC<BlogFooterProp> = ({ from = ResourceFrom.BLOG, catego
             className="h-[60px] w-[270px] border border-neutral-black p-0 text-neutral-black"
             onClick={handleClick}
           >
-            BACK TO ALL{`${business.text}`}
+            {business.text}
           </Button>
         </div>
       </div>

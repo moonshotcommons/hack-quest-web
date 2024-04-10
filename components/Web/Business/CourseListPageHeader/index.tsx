@@ -1,8 +1,11 @@
 'use client';
+import { LangContext } from '@/components/Provider/Lang';
 import { cn } from '@/helper/utils';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import Image from 'next/image';
-import { FC, ReactNode, useEffect, useRef, useState } from 'react';
+import { FC, ReactNode, useContext, useEffect, useRef, useState } from 'react';
 import { FiSearch } from 'react-icons/fi';
 import { GoX } from 'react-icons/go';
 interface CourseListPageHeaderProps {
@@ -36,6 +39,8 @@ const CourseListPageHeader: FC<CourseListPageHeaderProps> = ({
   delay = 1000,
   placeholder = ''
 }) => {
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.BASIC);
   const [searchValue, setSearchValue] = useState('');
   const timeOut = useRef<NodeJS.Timeout | null>(null);
   useEffect(() => {
@@ -53,7 +58,7 @@ const CourseListPageHeader: FC<CourseListPageHeaderProps> = ({
               <FiSearch size={20} />
             </span>
             <input
-              placeholder={placeholder}
+              placeholder={t('searchPlaceholder')}
               className="body-l w-full truncate text-neutral-medium-gray outline-none"
               value={searchValue}
               // onKeyUp={(e) => {

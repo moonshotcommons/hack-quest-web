@@ -22,6 +22,21 @@
   "followed": "followed",
   "join": "join",
   "joined": "joined",
+  "d": "d",
+  "h": "h",
+  "claim": "Claim",
+  "claimed": "Claimed",
+  "claimAll": "Claime All",
+  "targetsToAchieve": "Targets to Achieve",
+  "learnMore": "Learn More",
+  "checkLater": "Check Later",
+  "digTreasures": "Dig Treasures",
+  "notCertified": "NOT CERTIFIED",
+  "viewProfile": "View Profile",
+  "congratulationsDeveloper.": "Congratulations! You are now a certified developer.",
+  "certifiesWorld": "This learning track, co-issued by ecosystem and HackQuest, certifies that you have successfully completed the learning track. Share your accomplishments with the world!",
+  "youStepAwayFromDevelopers": "You are just one step away from becoming a certified Web3 Developers. Complete the learning track and claim your NFT or SBT proof-of-completion certificate now to elevate your skills and demonstrate your expertise.",
+  "becomeCertifiedDeveloper": "Become a Certified Developer",
   "back": "Back",
   "footer": {
     "learn": "learn",
@@ -38,6 +53,11 @@
     "hackathon": "hackathon",
     "blog": "blog"
   },
+  "searchPlaceholder": "Search for keywords, topics, etc...",
+  "submit": "Submit",
+  "viewAll": "View All",
+  "pleaseSelect": "Please select",
+  "cancel": "Cancel",
   "navbar": {
     "home": {
       "title": "home",

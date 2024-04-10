@@ -1,5 +1,5 @@
 'use client';
-import React, { useRef } from 'react';
+import React from 'react';
 import BlogHeader from '../BlogHeader';
 import BlogContent from '../BlogContent';
 import BlogFooter from '../BlogFooter';
@@ -13,10 +13,8 @@ interface BlogDetailProp {
 }
 
 const BlogDetail: React.FC<BlogDetailProp> = ({ blog, from = ResourceFrom.BLOG }) => {
-  const boxRef = useRef<HTMLDivElement>(null);
-
   return (
-    <div className="body-m h-full overflow-auto" ref={boxRef}>
+    <div className="body-m h-full overflow-auto">
       <BlogHeader blog={blog} from={from} />
       <BlogContent blog={blog} />
       <BlogLink />

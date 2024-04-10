@@ -8,17 +8,19 @@ import PageRetentionTime from '@/components/Common/PageRetentionTime';
 import NoData from './NoData';
 import Pagination from '@/components/Common/Pagination';
 import BlogFooter from './BlogFooter';
+import { Lang, TransNs } from '@/i18n/config';
+import { useTranslation } from '@/i18n/server';
 
 interface BlogProps {
-  params: { slug: string[] };
+  params: { slug: string[]; lang: Lang };
   searchParams: BlogSearchType;
 }
 
-const Blog: React.FC<BlogProps> = async function ({ searchParams = {}, params: { slug = [] } }) {
+const Blog: React.FC<BlogProps> = async function ({ searchParams = {}, params: { slug = [], lang } }) {
   const limit = 8;
   const minPage = Number(slug[1]) < 1 ? 1 : Number(slug[1]);
   const page = slug[0] === 'p' ? minPage : 1;
-
+  const { t } = await useTranslation(lang, TransNs.RESOURCE);
   const [blogData, featured] = await Promise.all([
     webApi.resourceStationApi.getBlog({
       limit,
@@ -37,7 +39,7 @@ const Blog: React.FC<BlogProps> = async function ({ searchParams = {}, params: {
       <div className="px-[1.25rem] py-[3.25rem]">
         {searchParams.keyword ? (
           <div className="body-xl mb-[2.5rem] text-center text-neutral-black">
-            {totalList} {totalList > 1 ? 'Results' : 'Result'} for
+            {totalList} {t('resultsFor')}
             <span className="text-neutral-medium-gray">“{searchParams.keyword}”</span>
           </div>
         ) : !searchParams.category ? (

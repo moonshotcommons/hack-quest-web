@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { PiSortAscendingBold, PiSortDescendingBold } from 'react-icons/pi';
 import { BiSearch, BiCheck } from 'react-icons/bi';
 import { BlogSearchType } from '@/service/webApi/resourceStation/type';
@@ -13,12 +13,17 @@ import { motion } from 'framer-motion';
 import { getSearchParamsUrl } from '@/helper/utils';
 import MenuLink from '@/constants/MenuLink';
 import { HiArrowLongRight } from 'react-icons/hi2';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 
 interface BannerProp {
   searchParams: BlogSearchType;
 }
 
 const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.RESOURCE);
   const router = useRouter();
   const [searchInfo, setSearchInfo] = useState<BlogSearchType>({});
   const [inputVisible, setInputVisible] = useState(false);
@@ -91,18 +96,15 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
   return (
     <>
       <div className="body-l relative z-[10]  flex flex-col gap-[1rem] bg-neutral-off-white px-[1.25rem] py-[1.875rem] text-neutral-off-black">
-        <h1 className="text-h2-mob">Blog</h1>
-        <p className="body-s w-full text-neutral-rich-gray">
-          Explore our Web3 Blog – your hub for news, events, and study notes! Contribute your insights, shaping the
-          conversation in the world of decentralized tech.
-        </p>
+        <h1 className="text-h2-mob">{t('blog')}</h1>
+        <p className="body-s w-full text-neutral-rich-gray">{t('blogDescription')}</p>
 
         <Link
           className="caption-14pt relative flex w-fit  items-center gap-[6px] text-neutral-off-black"
           href="https://xsxo494365r.typeform.com/to/RwN08ht9"
           target="_blank"
         >
-          <span>Contribute Blogs to HackQuest</span>
+          <span>{t('contributeBlog')}</span>
           <HiArrowLongRight size={16}></HiArrowLongRight>
           <div className="absolute bottom-0 left-0 h-[3px] w-full rounded-[5px] bg-yellow-dark"></div>
         </Link>
@@ -147,7 +149,7 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
               name=""
               state="default"
               className="body-m h-[48px] border-neutral-light-gray bg-neutral-white"
-              placeholder="Please select"
+              placeholder={t('pleaseSelect')}
               value={searchInfo.category}
               options={searchTabData}
               onChange={(value) => {
