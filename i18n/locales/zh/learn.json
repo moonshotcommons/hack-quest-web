@@ -32,21 +32,12 @@
   },
   "learningTrackDetail": {
     "tag": "学习路径 · {{track}}",
-    "language": "语言",
-    "skillLevel": "难度",
-    "totalLength": "总时长",
-    "intendedLearners": "目标学习者",
-    "knowledgeGain": "你会学到什么",
-    "syllabus": "课程安排",
-    "expandAll": "全部展开",
-    "collapseAll": "全部收起",
-    "enroll": "参加课程",
-    "startLearning": "",
-    "continue": "继续",
-    "completed": "已完成",
-    "viewMore": "查看更多",
-    "claimCertification": "领取证书",
-    "claim": "领取"
+    "card": {
+      "completedCourse": "祝贺!你已经完成了所有的课程。申请您的Web3证书🎉",
+      "claimed": "您已经是一个经过认证的{{chain}}建造者🎉",
+      "lessons": "小节",
+      "courses": "课程"
+    }
   },
   "electives": {
     "title": "选修课",
@@ -56,53 +47,26 @@
   },
   "electivesDetail": {
     "tag": "选修课",
-    "language": "语言",
-    "skillLevel": "难度",
-    "totalLength": "总时长",
-    "intendedLearners": "目标学习者",
-    "knowledgeGain": "你会学到什么",
-    "syllabus": "课程安排",
-    "expandAll": "全部展开",
-    "collapseAll": "全部收起",
-    "enroll": "参加课程",
-    "startLearning": "",
-    "continue": "继续",
-    "completed": "已完成",
-    "viewMore": "查看更多",
-    "claimCertification": "领取证书",
-    "claim": "领取"
+    "card": {
+      "completedCourse": "祝贺!你已经完成了所有的课程。申请您的Web3证书🎉",
+      "claimed": "您已经是一个经过认证的{{chain}}建造者🎉",
+      "lessons": "小节",
+      "courses": "课程"
+    }
   },
   "practice": {
     "title": "项目",
     "description": "熟能生巧, 在这里找到所有真实的项目。",
-    "searchPlaceholder": "搜索关键词、主题等…",
     "topProjects": "热门课程",
-    "exploreWeb3": "探索 Web 3",
-    "language": "语言",
-    "track": "路径",
-    "difficulty": "难度",
-    "sortBy": "排序",
-    "mostPopular": "最受欢迎的",
-    "newest": "最新的",
-    "viewMore": " 查看更多",
-    "filter": "过滤器"
+    "exploreWeb3": "探索 Web 3"
   },
   "practiceDetail": {
     "tag": "项目",
-    "language": "语言",
-    "skillLevel": "难度",
-    "totalLength": "总时长",
-    "intendedLearners": "目标学习者",
-    "knowledgeGain": "你会学到什么",
-    "syllabus": "课程安排",
-    "expandAll": "全部展开",
-    "collapseAll": "全部收起",
-    "enroll": "参加课程",
-    "startLearning": "",
-    "continue": "继续",
-    "completed": "已完成",
-    "viewMore": "查看更多",
-    "claimCertification": "领取证书",
-    "claim": "领取"
+    "card": {
+      "completedCourse": "祝贺!你已经完成了所有的课程。申请您的Web3证书🎉",
+      "claimed": "您已经是一个经过认证的{{chain}}建造者🎉",
+      "lessons": "小节",
+      "courses": "课程"
+    }
   }
 }

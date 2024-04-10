@@ -1,18 +1,25 @@
+'use client';
 import { tagFormate } from '@/helper/formate';
 import { cn } from '@/helper/utils';
 import { FC, ReactNode, useMemo } from 'react';
+import { Lang, TransNs } from '@/i18n/config';
+import { useTranslation } from '@/i18n/client';
 
 interface LevelTagProps {
   icon?: ReactNode;
   label?: ReactNode;
   value?: string;
   valueNode?: ReactNode;
+  lang: Lang;
 }
 
 const levels = ['Beginner', 'Intermediate', 'Advanced'];
 
 const LevelTag: FC<LevelTagProps> = (props) => {
-  const { value, label, icon, valueNode } = props;
+  const { value, label, icon, valueNode, lang } = props;
+
+  const { t } = useTranslation(lang, TransNs.BASIC);
+
   const levelIndex = useMemo(() => {
     if (value) return levels.findIndex((item) => item === tagFormate(value));
     return 0;
@@ -41,9 +48,9 @@ const LevelTag: FC<LevelTagProps> = (props) => {
       )}
       <div className="flex flex-col">
         {!!label && label}
-        {!label && <span className="body-xs text-neutral-medium-gray">Skill Level</span>}
+        {!label && <span className="body-xs text-neutral-medium-gray">{t('courses.skillLevel')}</span>}
         {!!valueNode && valueNode}
-        {!valueNode && value && <span className="body-m-bold capitalize">{value.toLowerCase()}</span>}
+        {!valueNode && value && <span className="body-m-bold capitalize">{t(`courses.${value.toLowerCase()}`)}</span>}
       </div>
     </div>
   );

@@ -31,21 +31,12 @@
   },
   "learningTrackDetail": {
     "tag": "Learning Track · {{track}}",
-    "language": "Language",
-    "skillLevel": "Skill Level",
-    "totalLength": "Total Length",
-    "intendedLearners": "Intended Learners",
-    "knowledgeGain": "What You’ll Learn",
-    "syllabus": "Syllabus",
-    "expandAll": "Expand All",
-    "collapseAll": "Collapse All",
-    "enroll": "Enroll Track",
-    "startLearning": "",
-    "continue": "Continue",
-    "completed": "COMPLETED",
-    "viewMore": "View more",
-    "claimCertification": "Claim certification",
-    "claim": "claim"
+    "card": {
+      "completedCourse": "Congratulation! You’ve completed all the courses. Claim your Web3 certification 🎉",
+      "claimed": " You are a certified {{chain} Builder 🎉",
+      "lessons": "lessons",
+      "courses": "courses"
+    }
   },
   "electives": {
     "title": "Electives",
@@ -55,20 +46,12 @@
   },
   "electivesDetail": {
     "tag": "Elective",
-    "skillLevel": "Skill Level",
-    "totalLength": "Total Length",
-    "intendedLearners": "Intended Learners",
-    "knowledgeGain": "What You’ll Learn",
-    "syllabus": "Syllabus",
-    "expandAll": "Expand All",
-    "collapseAll": "Collapse All",
-    "enroll": "Enroll Track",
-    "startLearning": "",
-    "continue": "Continue",
-    "completed": "COMPLETED",
-    "viewMore": "View more",
-    "claimCertification": "Claim certification",
-    "claim": "claim"
+    "card": {
+      "completedCourse": "Congratulation! You’ve completed all the courses. Claim your Web3 certification 🎉",
+      "claimed": " You are a certified {{chain} Builder 🎉",
+      "lessons": "lessons",
+      "courses": "courses"
+    }
   },
   "practice": {
     "title": "Projects",
@@ -78,20 +61,11 @@
   },
   "practiceDetail": {
     "tag": "Project",
-    "language": "Language",
-    "skillLevel": "Skill Level",
-    "totalLength": "Total Length",
-    "intendedLearners": "Intended Learners",
-    "knowledgeGain": "What You’ll Learn",
-    "syllabus": "Syllabus",
-    "expandAll": "Expand All",
-    "collapseAll": "Collapse All",
-    "enroll": "Enroll Track",
-    "startLearning": "",
-    "continue": "Continue",
-    "completed": "COMPLETED",
-    "viewMore": "View more",
-    "claimCertification": "Claim certification",
-    "claim": "claim"
+    "card": {
+      "completedCourse": "Congratulation! You’ve completed all the courses. Claim your Web3 certification 🎉",
+      "claimed": " You are a certified {{chain} Builder 🎉",
+      "lessons": "lessons",
+      "courses": "courses"
+    }
   }
 }

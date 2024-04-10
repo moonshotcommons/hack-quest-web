@@ -9,6 +9,9 @@ import { ElectiveCourseDetailType, PageType } from '@/service/webApi/elective/ty
 import { LessonContext } from '../../Provider/LessonProvider';
 import { CourseDetailContext } from '@/components/Web/DetailPageV2/Provider/CourseDetailProvider';
 import { StatusButtonType } from '@/components/Web/DetailPageV2/StatusButton/type';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 
 interface StatusButtonProps {
   courseDetail: ElectiveCourseDetailType;
@@ -22,6 +25,9 @@ const StatusButton: FC<
   const { jumpLearningLesson, loading } = useJumpLeaningLesson();
   const { lesson: contextLesson } = useContext(LessonContext);
   let { courseDetail: contextCourseDetail } = useContext(CourseDetailContext);
+
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.BASIC);
 
   const courseDetail = (contextCourseDetail ?? propCourseDetail) as ElectiveCourseDetailType;
 
@@ -64,7 +70,7 @@ const StatusButton: FC<
     case StatusButtonType.COMPLETED:
       return (
         <div className="flex items-center gap-3">
-          <span className="body-s-bold">Complete</span>
+          <span className="body-s-bold capitalize">{t('courses.completed')}</span>
           <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect y="0.5" width="24" height="24" rx="12" fill="#00C365" />
             <path
@@ -84,7 +90,7 @@ const StatusButton: FC<
           {...rest}
           onClick={learnHandle}
         >
-          Start
+          {t('courses.start')}
         </Button>
       );
     case StatusButtonType.RESUME:
@@ -96,7 +102,7 @@ const StatusButton: FC<
           {...rest}
           onClick={learnHandle}
         >
-          Continue
+          {t('courses.continue')}
         </Button>
       );
     default:
