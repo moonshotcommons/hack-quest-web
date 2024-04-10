@@ -1,25 +1,120 @@
 {
-  "blog":"Blog",
-  "blogDescription":"Explore our Web3 Blog – your hub for news, events, and study notes! Contribute your insights, shaping the conversation in the world of decentralized tech.",
-  "contributeBlog":"Contribute Blogs to HackQuest",
-  "noContent":"There is no content yet~",
-  "backAllBlogs":"BACK TO ALL BLOGS",
-  "featuredBlog":"Featured Blog",
-  "resultsFor":"Results for",
-  "glossary":"Glossary",
-  "glossaryDescription":"Explore the world of Web3 with our Glossary—a quick guide to essential terms. Whether you're a beginner or a pro, find clear explanations to navigate the decentralized landscape.",
-  "submitWord":"Submit A Word You Want To Know",
-  "requiredQuestion":"This is a required question*",
-  "anyWordAboutWeb3":"Any words about Web3 are welcome",
-  "hearFollowup":"Hear followup",
-  "stayConnected":"Stay connected with us",
-  "backAllGlossary":"BACK TO ALL GLOSSARY",
-  "moreAboutGlossary":"More Glossary about",
-  "moreAboutBlog":"More Blog about",
-  "latestGlossary":"Latest Glossary",
-  "youCanSubmitWord":"You can submit the word",
-  "weWillWork":"and we will work on it!",
-  "submitTheWord":"submit the word",
-  "submittedSuccessfully":"Submitted Successfully! 🎉",
-  "ThanksForSubmission":"Thank you for your word submission! Our team will review it, and if approved, it will be added to our Glossary shortly. Stay tuned for updates, and keep exploring the world of Web3 with us!"
+  "blog": "Blog",
+  "blogDescription": "Explore our Web3 Blog – your hub for news, events, and study notes! Contribute your insights, shaping the conversation in the world of decentralized tech.",
+  "contributeBlog": "Contribute Blogs to HackQuest",
+  "noContent": "There is no content yet~",
+  "backAllBlogs": "BACK TO ALL BLOGS",
+  "featuredBlog": "Featured Blog",
+  "resultsFor": "Results for",
+  "glossary": "Glossary",
+  "glossaryDescription": "Explore the world of Web3 with our Glossary—a quick guide to essential terms. Whether you're a beginner or a pro, find clear explanations to navigate the decentralized landscape.",
+  "submitWord": "Submit A Word You Want To Know",
+  "requiredQuestion": "This is a required question*",
+  "anyWordAboutWeb3": "Any words about Web3 are welcome",
+  "hearFollowup": "Hear followup",
+  "stayConnected": "Stay connected with us",
+  "backAllGlossary": "BACK TO ALL GLOSSARY",
+  "moreAboutGlossary": "More Glossary about",
+  "moreAboutBlog": "More Blog about",
+  "latestGlossary": "Latest Glossary",
+  "youCanSubmitWord": "You can submit the word",
+  "weWillWork": "and we will work on it!",
+  "submitTheWord": "submit the word",
+  "submittedSuccessfully": "Submitted Successfully! 🎉",
+  "ThanksForSubmission": "Thank you for your word submission! Our team will review it, and if approved, it will be added to our Glossary shortly. Stay tuned for updates, and keep exploring the world of Web3 with us!",
+  "advocate": {
+    "TopBanner": {
+      "title": "Join our rapidly growing Community!",
+      "description": "HackQuest advocates are your local Web3 superheroes: empowering others, addressing challenges, engaging communities, impacting the globe, and building a brighter future!",
+      "apply": "Apply"
+    },
+    "DataStatistics": {
+      "fundingRaised": "Funding Raised by Community Projects",
+      "hackathonsHosted": "Hackathons Hosted",
+      "hackathonProjects": "Hackathon Projects",
+      "ventureBackedProjects": "Venture-backed Projects"
+    },
+    "CommunityIRL": {
+      "title": "HackQuest Community IRL 👀",
+      "viewEvents": "View Events"
+    },
+    "DifferenceAdvocate": {
+      "title": "Make a Difference as an Advocate 💪",
+      "section1": {
+        "title": "Be the Face of HackQuest",
+        "description": "Bring HackQuest’s mission to life in your local community - rallying around our captivating vision and invite more frens to join 🚀"
+      },
+      "section2": {
+        "title": "Organize Events",
+        "description": "Spark exciting online and IRL HackQuest events - meetups, hackathons, co-learning camps... let’s BUIDL together 🛠️"
+      },
+      "section3": {
+        "title": "Educate the Community",
+        "description": "Share learning journey in public and educate the world about Web3 and HackQuest through posts, articles, videos, workshops... educate and inspire ✨"
+      },
+      "section4": {
+        "title": "Create an Inclusive Culture",
+        "description": "Welcome all new members with open arms - answer questions, address feedback, provide guidance... regardless of their background and skill level 🙌"
+      }
+    },
+    "AdvocateBenefits": {
+      "title": "Benefits of Being An Advocate 🎁",
+      "section1": {
+        "title": "Compensation Package",
+        "description": "We sincerely value your work and do not believe in making people work for free. If you are contributing to our vision, we are always happy to compensate you fairly for your hard work 💰 Top advocates will also receive customized merch sets from HackQuest and our partners."
+      },
+      "section2": {
+        "title": "Work alongside the Core Team",
+        "description": "We always appreciate your feedback 💌 As an advocate, you will work alongside our amazing core team based globally in the USA, the Greater China area, India, and Singapore."
+      },
+      "section3": {
+        "title": "Early Access to Beta Features ",
+        "description": "Shhhhh 🤫 let me tell you a secret — HackQuest ships new features onto the dev environment every two weeks. As an advocate, you will always receive priority access."
+      },
+      "section4": {
+        "title": "Networking and Mentorship",
+        "description": "HackQuest collaborates with 100+ Web3 ecosystems and projects and regularly organizes IRL and online events 🤝"
+      },
+      "section5": {
+        "title": "Career Opportunities",
+        "description": "Jumpstart your Web3 career with HackQuest. Starting as an advocate, you will have exclusive opportunities to join us or our partners as a fellow, intern, part-time, or full-time down the road 🚀"
+      },
+      "section6": {
+        "title": "Timely Support",
+        "description": "Wanna organize a workshop, meetup, hackathon, or even a conference in your local community? Reach out to us with the idea and we’ll be happy to support you in any way we can 🙌"
+      }
+    },
+    "UserEvaluation": {
+      "title": "We ❤️ our community advocates",
+      "description": "Share your learning journey and tag us to be featured"
+    },
+    "ApplyAdvocate": {
+      "title": "Apply to become an advocate now 🙌",
+      "applyNow": "apply now"
+    },
+    "FAQS": {
+      "title": "FAQs",
+      "description": "For more questions, join our Discord / Telegram and DM your question directly!",
+      "question1": {
+        "problem": "I am currently an advocate for other communities. Am I still eligible to be an advocate for HackQuest?",
+        "answer": "Absolutely! You can be an advocate for us while running other communities. We welcome collaborations across communities as well."
+      },
+      "question2": {
+        "problem": "Do I have to be a Web 3.0 developer to be qualified as an advocate?",
+        "answer": "No! You don’t have to be a developer or work full-time in web3 at all to be an advocate. As long as you’re passionate about Web 3.0 and like to empower others and organize events, you’re more than welcome to apply. In fact, we are launching other career tracks outside of smart contract development soon. Stay tuned!"
+      },
+      "question3": {
+        "problem": "What can I get from being an advocate?",
+        "answer": "At HackQuest, we offer a comprehensive benefit package to our advocates. There are monetary benefits for the task you complete (yes you are not doing unpaid work), meeting with Web 3.0 industry leaders, turning your proposed events into reality, unique opportunities to convert into a fellow, intern, or even full-time employee at HackQuest, and so much more!"
+      },
+      "question4": {
+        "problem": "What do I need to prepare for events? Do I have to prepare materials by myself?",
+        "answer": "No need to sweat about prepping! We provide swags for you to use. All you need to do is to write down your ideas in a proposal and submit them to us, so we can help you to make it real."
+      },
+      "question5": {
+        "problem": "What is the time commitment of an advocate?",
+        "answer": "It’s entirely up to you! Most advocates do extras and stay active. However, the base requirements as an advocate should take ~3-5 hours per month."
+      }
+    }
+  }
 }

@@ -3,10 +3,15 @@ import CommunityIRLCard from './CommunityIRLCard';
 import { bottomDataList, topDataList } from './constant';
 import Link from 'next/link';
 import ScrollArea from './ScrollArea';
+import { Lang, TransNs } from '@/i18n/config';
+import { useTranslation } from '@/i18n/server';
 
-interface CommunityIRLProps {}
+interface CommunityIRLProps {
+  lang: Lang;
+}
 
-const CommunityIRL: FC<CommunityIRLProps> = (props) => {
+const CommunityIRL: FC<CommunityIRLProps> = async ({ lang }) => {
+  const { t } = await useTranslation(lang, TransNs.RESOURCE);
   const leftContent = (
     <div className="flex justify-center gap-5">
       {topDataList.map((item, index) => {
@@ -42,7 +47,7 @@ const CommunityIRL: FC<CommunityIRLProps> = (props) => {
 
   return (
     <div className="mt-[100px]">
-      <h2 className="text-h2 text-center text-neutral-off-black">HackQuest Community IRL 👀</h2>
+      <h2 className="text-h2 text-center text-neutral-off-black">{t('advocate.CommunityIRL.title')}</h2>
       <ScrollArea leftContent={leftContent} rightContent={rightContent} />
       <div className="container mx-auto flex justify-center">
         <Link
@@ -51,7 +56,7 @@ const CommunityIRL: FC<CommunityIRLProps> = (props) => {
           className="body-m-bold flex cursor-pointer items-center gap-2 text-center"
         >
           <span className="relative after:absolute after:-bottom-[1px] after:left-0 after:h-[2px] after:w-full after:rounded-full after:bg-yellow-primary">
-            View Events
+            {t('advocate.CommunityIRL.viewEvents')}
           </span>
           <svg width="13" height="18" viewBox="0 0 13 18" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path

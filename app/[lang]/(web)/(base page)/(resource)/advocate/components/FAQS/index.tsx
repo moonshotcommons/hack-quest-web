@@ -3,46 +3,46 @@ import DiscordIcon from '@/components/Common/Icon/Discord';
 import TwitterIcon from '@/components/Common/Icon/Twitter';
 import { HACKQUEST_DISCORD, HACKQUEST_TWITTER } from '@/constants/links';
 import { cn } from '@/helper/utils';
+import { useTranslation } from '@/i18n/client';
+import { Lang, TransNs } from '@/i18n/config';
 import Link from 'next/link';
 import { FC, useState } from 'react';
 
-interface FAQSProps {}
+interface FAQSProps {
+  lang: Lang;
+}
 
 const FAQData = [
   {
-    problem: 'I am currently an advocate for other communities. Am I still eligible to be an advocate for HackQuest? ',
-    answer:
-      'Absolutely! You can be an advocate for us while running other communities. We welcome collaborations across communities as well.'
+    problem: 'advocate.FAQS.question1.problem',
+    answer: 'advocate.FAQS.question1.answer'
   },
   {
-    problem: 'Do I have to be a Web 3.0 developer to be qualified as an advocate?',
-    answer:
-      'No! You don’t have to be a developer or work full-time in web3 at all to be an advocate. As long as you’re passionate about Web 3.0 and like to empower others and organize events, you’re more than welcome to apply. In fact, we are launching other career tracks outside of smart contract development soon. Stay tuned!'
+    problem: 'advocate.FAQS.question2.problem',
+    answer: 'advocate.FAQS.question2.answer'
   },
   {
-    problem: 'What can I get from being an advocate?',
-    answer:
-      'At HackQuest, we offer a comprehensive benefit package to our advocates. There are monetary benefits for the task you complete (yes you are not doing unpaid work), meeting with Web 3.0 industry leaders, turning your proposed events into reality, unique opportunities to convert into a fellow, intern, or even full-time employee at HackQuest, and so much more!'
+    problem: 'advocate.FAQS.question3.problem',
+    answer: 'advocate.FAQS.question3.answer'
   },
   {
-    problem: 'What do I need to prepare for events? Do I have to prepare materials by myself?',
-    answer: `No need to sweat about prepping! We provide swags for you to use. All you need to do is to write down your ideas in a proposal and submit them to us, so we can help you to make it real.`
+    problem: 'advocate.FAQS.question4.problem',
+    answer: 'advocate.FAQS.question4.answer'
   },
   {
-    problem: 'What is the time commitment of an advocate?',
-    answer: `It’s entirely up to you! Most advocates do extras and stay active. However, the base requirements as an advocate should take ~3-5 hours per month.`
+    problem: 'advocate.FAQS.question5.problem',
+    answer: 'advocate.FAQS.question5.answer'
   }
 ];
 
-const FAQS: FC<FAQSProps> = (props) => {
+const FAQS: FC<FAQSProps> = ({ lang }) => {
+  const { t } = useTranslation(lang, TransNs.RESOURCE);
   const [expendIndex, setExpendIndex] = useState<number[]>([]);
   return (
     <div className="container mx-auto flex max-w-[1280px] justify-between gap-20 py-[6.25rem]">
       <div className="flex w-[400px] max-w-[400px] flex-col gap-10">
-        <p className="text-h2 capitalize text-neutral-off-black">FAQs</p>
-        <p className="body-l tracking-tighter text-neutral-medium-gray">
-          For more questions, join our Discord / Telegram and DM your question directly!
-        </p>
+        <p className="text-h2 capitalize text-neutral-off-black">{t('advocate.FAQS.title')}</p>
+        <p className="body-l tracking-tighter text-neutral-medium-gray">{t('advocate.FAQS.description')}</p>
         <div className="flex items-center gap-8">
           <Link
             href={HACKQUEST_DISCORD}
@@ -89,7 +89,7 @@ const FAQS: FC<FAQSProps> = (props) => {
                   }
                 }}
               >
-                <p className="body-l-bold text-neutral-rich-gray">{item.problem}</p>
+                <p className="body-l-bold text-neutral-rich-gray">{t(item.problem)}</p>
                 <span className="cursor-pointer">
                   {!expendIndex.includes(index) && (
                     <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -111,7 +111,7 @@ const FAQS: FC<FAQSProps> = (props) => {
               </div>
 
               <p className={cn(`body-s text-neutral-rich-gray`, expendIndex.includes(index) ? 'block' : 'hidden')}>
-                {item.answer}
+                {t(item.answer)}
               </p>
             </div>
           );
