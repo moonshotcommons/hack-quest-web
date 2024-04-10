@@ -7,16 +7,16 @@ import { CourseLanguageType } from '@/service/webApi/course/type';
 
 export const bannerTabList = [
   {
-    label: 'Basic',
+    label: 'learningTrack.basic',
     value: LearningTrackTab.BASIC,
-    description: 'Master one Web3 coding language and learn how to deploy On Chain',
+    description: 'learningTrack.basicTabDesc',
     img: Basic,
     imgActive: BasicActive
   },
   {
-    label: 'Specialization',
+    label: 'learningTrack.specialization',
     value: LearningTrackTab.SPECIALLIZATION,
-    description: 'Focus on one specific area and become an expert',
+    description: 'learningTrack.specializationTabDesc',
     img: Specialization,
     imgActive: SpecializationActive
   }
@@ -24,7 +24,7 @@ export const bannerTabList = [
 
 export const filterList = [
   {
-    label: 'All Languages',
+    label: 'learningTrack.allLanguage',
     value: LanguageTab.ALL
   },
   {

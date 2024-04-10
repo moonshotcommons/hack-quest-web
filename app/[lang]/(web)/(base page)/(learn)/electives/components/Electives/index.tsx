@@ -1,5 +1,5 @@
 'use client';
-import { useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import CourseListPageHeader from '@/components/Web/Business/CourseListPageHeader';
 import CourseSlider from '@/components/Web/Business/CourseSlider';
 import { CourseFilterListType } from '@/components/Web/Business/CourseFilterList';
@@ -12,6 +12,9 @@ import { useRequest } from 'ahooks';
 import { errorMessage } from '@/helper/ui';
 import { Metadata } from 'next';
 import { CourseType } from '@/service/webApi/course/type';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 
 export const metadata: Metadata = {
   title: 'Electives'
@@ -22,6 +25,9 @@ function Electives() {
   const [loadNum, setLoadNum] = useState(0);
   const [apiStatus, setApiStatus] = useState('init');
   const [topElectives, setTopElectives] = useState<ElectiveCourseType[]>([]);
+
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.LEARN);
 
   const [searchKeyword, setSearchKeyword] = useState('');
 
@@ -63,11 +69,12 @@ function Electives() {
   );
 
   return (
-    <div className="h-full overflow-auto" onScroll={handleScroll} ref={selectiveCoursesRef}>
+    <div className="h-full overflow-auto">
       <div className="container mx-auto ">
         <CourseListPageHeader
-          title="Electives"
-          description="Each elective course is relatively short and independent, with a focused topic. You will  learn how to build a project step by step."
+          title={t('electives.title')}
+          description={t('electives.description')}
+          placeholder={t('courses.searchPlaceholder')}
           coverImageUrl={'/images/course/course_cover/elective_cover.png'}
           coverImgClassName="mt-[50px]"
           coverWidth={394}
@@ -76,7 +83,7 @@ function Electives() {
         ></CourseListPageHeader>
         {type === CourseFilterListType.DEFAULT && (
           <CourseSlider
-            title="Top Electives"
+            title={t('electives.topElectives')}
             loading={loading}
             renderItem={(course) => {
               return (
@@ -90,7 +97,7 @@ function Electives() {
         )}
         {type === CourseFilterListType.DEFAULT && (
           <div className="mt-[60px]">
-            <CourseFilterListDefault></CourseFilterListDefault>
+            <CourseFilterListDefault title={t('electives.exploreWeb3')}></CourseFilterListDefault>
           </div>
         )}
         {type === CourseFilterListType.SEARCH && (

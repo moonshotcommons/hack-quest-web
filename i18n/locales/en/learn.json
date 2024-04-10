@@ -3,6 +3,11 @@
     "myCourses": "My Courses",
     "inProgress": "My Courses",
     "completed": "Completed",
+    "noOnGoingCourse": "You don’t have any on-going course",
+    "noCompletedCourse": "You don’t have any completed course",
+    "recommendedForYou": "Recommended For You",
+    "addLearningTracks": "Add Learning Tracks",
+    "exploreElectives": "Explore Electives",
     "learningTracks": "Learning Tracks",
     "courses": "Courses",
     "explore": "EXPLORE",
@@ -45,21 +50,11 @@
   "electives": {
     "title": "Electives",
     "description": "Each elective course is relatively short and independent, with a focused topic. You will learn how to build a project step by step.",
-    "searchPlaceholder": "Search for keywords, topics, etc...",
     "topElectives": "Top Electives",
-    "exploreWeb3": "Explore Web 3",
-    "language": "Language",
-    "track": "Track",
-    "difficulty": "Difficulty",
-    "sortBy": "Sort By",
-    "mostPopular": "Most Popular",
-    "newest": "Newest",
-    "viewMore": "View more",
-    "filter": "FILTERS"
+    "exploreWeb3": "Explore Web 3"
   },
   "electivesDetail": {
     "tag": "Elective",
-    "language": "Language",
     "skillLevel": "Skill Level",
     "totalLength": "Total Length",
     "intendedLearners": "Intended Learners",
@@ -78,17 +73,8 @@
   "practice": {
     "title": "Projects",
     "description": "Practice makes perfect. Find all real-world projects here.",
-    "searchPlaceholder": "Search for keywords, topics, etc...",
     "topProjects": "Top Projects",
-    "exploreWeb3": "Explore Web 3",
-    "language": "Language",
-    "track": "Track",
-    "difficulty": "Difficulty",
-    "sortBy": "Sort By",
-    "mostPopular": "Most Popular",
-    "newest": "Newest",
-    "viewMore": "View more",
-    "filter": "FILTERS"
+    "exploreWeb3": "Explore Web 3"
   },
   "practiceDetail": {
     "tag": "Project",

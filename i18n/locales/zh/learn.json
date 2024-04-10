@@ -3,6 +3,11 @@
     "myCourses": "我的课程",
     "inProgress": "正在进行的课程",
     "completed": "已完成的课程",
+    "noOnGoingCourse": "你还没有正在学习的课程",
+    "noCompletedCourse": "你还没有已经完成的课程",
+    "recommendedForYou": "推荐给你",
+    "addLearningTracks": "添加学习路径",
+    "exploreElectives": "探索选修课",
     "learningTracks": "学习路径",
     "courses": "其他课程",
     "explore": "探索更多学习路径",
@@ -46,17 +51,8 @@
   "electives": {
     "title": "选修课",
     "description": "每门选修课相对较短且独立，有一个主题。您将学习如何一步一步地构建项目。",
-    "searchPlaceholder": "搜索关键词、主题等…",
     "topElectives": "热门课程",
-    "exploreWeb3": "探索 Web 3",
-    "language": "语言",
-    "track": "路径",
-    "difficulty": "难度",
-    "sortBy": "排序",
-    "mostPopular": "最受欢迎的",
-    "newest": "最新的",
-    "viewMore": " 查看更多",
-    "filter": "过滤器"
+    "exploreWeb3": "探索 Web 3"
   },
   "electivesDetail": {
     "tag": "选修课",

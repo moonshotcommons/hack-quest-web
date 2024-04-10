@@ -7,13 +7,17 @@ import Image from 'next/image';
 import { getSearchParamsUrl } from '@/helper/utils';
 import MenuLink from '@/constants/MenuLink';
 import Link from 'next/link';
+import { Lang, TransNs } from '@/i18n/config';
+import { useTranslation } from '@/i18n/client';
 
 interface BannerProp {
   searchInfo: SearchInfoType;
+  lang: Lang;
 }
 
-const Banner: React.FC<BannerProp> = ({ searchInfo }) => {
+const Banner: React.FC<BannerProp> = ({ searchInfo, lang }) => {
   const { track } = searchInfo;
+  const { t } = useTranslation(lang, TransNs.LEARN);
   const getSearchInfo = (info: SearchInfoType) => {
     const param = {
       ...info,
@@ -32,7 +36,7 @@ const Banner: React.FC<BannerProp> = ({ searchInfo }) => {
       }}
     >
       <div className="flex h-full flex-col justify-between gap-[60px]">
-        <h1 className="text-h2 text-neutral-black">Learning Tracks</h1>
+        <h1 className="text-h2 text-neutral-black">{t('learningTrack.title')}</h1>
         <div className="flex gap-[40px]">
           {bannerTabList.map((v) => (
             <Link key={v.value} href={getSearchInfo({ ...searchInfo, track: v.value })}>
@@ -46,10 +50,10 @@ const Banner: React.FC<BannerProp> = ({ searchInfo }) => {
                 <div
                   className={`flex items-center justify-between ${track === v.value ? 'text-neutral-off-black' : 'text-neutral-black'}`}
                 >
-                  <span className="body-xl-bold">{v.label}</span>
+                  <span className="body-xl-bold">{t(v.label)}</span>
                   <Image src={v.imgActive} alt="tab-img" width={48}></Image>
                 </div>
-                <div className={`body-s mt-[20px] text-neutral-rich-gray`}>{v.description}</div>
+                <div className={`body-s mt-[20px] text-neutral-rich-gray`}>{t(v.description)}</div>
               </div>
             </Link>
           ))}

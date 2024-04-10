@@ -18,7 +18,7 @@ interface CourseListPageHeaderProps {
   buttonNode?: ReactNode;
   defaultValue?: string;
   delay?: number;
-  // onSearchInput:
+  placeholder?: string;
 }
 
 const CourseListPageHeader: FC<CourseListPageHeaderProps> = ({
@@ -33,7 +33,8 @@ const CourseListPageHeader: FC<CourseListPageHeaderProps> = ({
   className = '',
   buttonNode,
   defaultValue = '',
-  delay = 1000
+  delay = 1000,
+  placeholder = ''
 }) => {
   const [searchValue, setSearchValue] = useState('');
   const timeOut = useRef<NodeJS.Timeout | null>(null);
@@ -52,7 +53,7 @@ const CourseListPageHeader: FC<CourseListPageHeaderProps> = ({
               <FiSearch size={20} />
             </span>
             <input
-              placeholder="Search for keywords, topics, etc..."
+              placeholder={placeholder}
               className="body-l w-full truncate text-neutral-medium-gray outline-none"
               value={searchValue}
               // onKeyUp={(e) => {

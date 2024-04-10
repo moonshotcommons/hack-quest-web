@@ -91,5 +91,20 @@
   "auth": {
     "login": "Log In",
     "signUp": "Sign Up"
+  },
+  "courses": {
+    "language": "Language",
+    "track": "Track",
+    "difficulty": "Difficulty",
+    "sortBy": "Sort By",
+    "mostPopular": "Most Popular",
+    "newest": "Newest",
+    "viewMore": "View more",
+    "filter": "FILTERS",
+    "beginner": "Beginner",
+    "intermediate": "Intermediate",
+    "advanced": "Advanced",
+    "searchPlaceholder": "Search for keywords, topics, etc...",
+    "searchResultFor": "Search result for “{{keyword}}”"
   }
 }

@@ -1,5 +1,5 @@
 'use client';
-import { useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import CourseListPageHeader from '@/components/Web/Business/CourseListPageHeader';
 import Image from 'next/image';
 import CourseSlider from '@/components/Web/Business/CourseSlider';
@@ -11,6 +11,9 @@ import CourseFilterListSearch from '../CourseFilterListSearch';
 import CourseFilterListDefault from '../CourseFilterListDefault';
 import { useRequest } from 'ahooks';
 import { errorMessage } from '@/helper/ui';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 
 function Practices() {
   const selectiveCoursesRef = useRef<HTMLDivElement | null>(null);
@@ -18,6 +21,9 @@ function Practices() {
   const [topProjects, setTopProjects] = useState<ProjectCourseType[]>([]);
   const [searchKeyword, setSearchKeyword] = useState('');
   const [type, setType] = useState<CourseFilterListType>(CourseFilterListType.DEFAULT);
+
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.LEARN);
 
   const handleScroll = () => {
     const clientHeight = selectiveCoursesRef.current?.clientHeight || 0;
@@ -68,8 +74,9 @@ function Practices() {
     <div className="h-full overflow-auto" onScroll={handleScroll} ref={selectiveCoursesRef}>
       <div className="container mx-auto">
         <CourseListPageHeader
-          title="Projects"
-          description="Practice makes perfect. Find all real-world projects here."
+          title={t('practice.title')}
+          description={t('practice.description')}
+          placeholder={t('courses.searchPlaceholder')}
           coverImage={coverImage}
           coverWidth={523}
           coverHeight={277}
@@ -81,12 +88,12 @@ function Practices() {
         {/* <div className="w-full h-fit min-h-[360px]"> */}
         {type === CourseFilterListType.DEFAULT && (
           <CourseSlider
-            title="Top Projects"
+            title={t('practice.topProjects')}
             loading={loading}
             renderItem={(course) => {
               return (
                 <div key={course.id} className="w-[calc((100%-60px)/4)]">
-                  <PracticeCard course={course as ProjectCourseType}></PracticeCard>
+                  <PracticeCard course={course as ProjectCourseType} />
                 </div>
               );
             }}
@@ -99,14 +106,12 @@ function Practices() {
         {/* CourseList */}
         {type === CourseFilterListType.DEFAULT && (
           <div className="mt-[60px]">
-            <CourseFilterListDefault></CourseFilterListDefault>
+            <CourseFilterListDefault title={t('practice.exploreWeb3')} />
           </div>
         )}
 
         {/* Course Search List */}
-        {type === CourseFilterListType.SEARCH && (
-          <CourseFilterListSearch keyword={searchKeyword}></CourseFilterListSearch>
-        )}
+        {type === CourseFilterListType.SEARCH && <CourseFilterListSearch keyword={searchKeyword} />}
         {/*
         <SelectiveCoursesBox
           loadNum={loadNum}
