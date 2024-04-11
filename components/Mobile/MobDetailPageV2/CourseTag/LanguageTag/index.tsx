@@ -1,3 +1,5 @@
+import { Lang, TransNs } from '@/i18n/config';
+import { useTranslation } from '@/i18n/server';
 import { FC, ReactNode } from 'react';
 
 interface LanguageTagProps {
@@ -5,6 +7,7 @@ interface LanguageTagProps {
   label?: ReactNode;
   value?: string;
   valueNode?: ReactNode;
+  lang: Lang;
 }
 
 const defaultIcon = (
@@ -30,13 +33,14 @@ const defaultIcon = (
   </svg>
 );
 
-const LanguageTag: FC<LanguageTagProps> = ({ icon, label, value, valueNode, ...rest }) => {
+const LanguageTag: FC<LanguageTagProps> = async ({ icon, label, value, valueNode, lang, ...rest }) => {
+  const { t } = await useTranslation(lang, TransNs.BASIC);
   return (
     <div className="flex items-center gap-3" {...rest}>
       {icon ? icon : defaultIcon}
       <div className="flex flex-col">
         {!!label && label}
-        {!label && <span className="body-xs text-neutral-medium-gray">Language</span>}
+        {!label && <span className="body-xs text-neutral-medium-gray">{t('courses.language')}</span>}
         {!!valueNode && valueNode}
         {!valueNode && value && <span className="body-s-bold capitalize">{value.toLowerCase()}</span>}
       </div>

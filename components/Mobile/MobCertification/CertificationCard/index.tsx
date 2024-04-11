@@ -3,9 +3,11 @@ import { FC } from 'react';
 
 import CertificationCardProvider from './CertificationCardProvider';
 import LearnMoreButton from './LearnMoreButton';
+import { Lang } from '@/i18n/config';
 
 interface CertificationCardProps {
   certificationId: string;
+  lang: Lang;
 }
 
 const CertificationCard: FC<CertificationCardProps> = async (props) => {

@@ -18,7 +18,7 @@ const IntendedLearners: FC<IntendedLearnersProps> = async ({ intendedLearners, l
         <h3 className="text-h3 text-neutral-black">{t('courses.intendedLearners')}</h3>
       </div>
       <div className="flex flex-col gap-2">
-        <p className="body-l-bold text-neutral-black">{}</p>
+        <p className="body-l-bold text-neutral-black">{t('courses.audience')}</p>
         <ul className="[&>li]:body-m flex list-disc flex-col gap-2 [&>li]:ml-6 [&>li]:text-neutral-black">
           {intendedLearners.audience?.map((item) => {
             return <li key={item}>{item}</li>;

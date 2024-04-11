@@ -24,10 +24,10 @@ export const animateProps: MotionProps = {
 
 export const learningTrackFilters = [
   {
-    filterName: 'Language',
+    filterName: 'courses.language',
     filterField: 'language',
     options: [
-      { name: 'All Languages', value: LanguageTab.ALL, isSelect: true },
+      { name: 'learningTrack.allLanguage', value: LanguageTab.ALL, isSelect: true },
       { name: 'Solidity', value: CourseLanguageType.SOLIDITY, isSelect: false },
       { name: 'Rust', value: CourseLanguageType.RUST, isSelect: false }
       // { name: 'Move ', value: CourseLanguageType.MOVE, isSelect: false }

@@ -1,5 +1,5 @@
 'use client';
-import { useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import MobCourseListPageHeader from '@/components/Mobile/MobCourseListPageHeader';
 import { CourseFilterListType } from '@/components/Web/Business/CourseFilterList';
 import webApi from '@/service';
@@ -15,6 +15,10 @@ import MobPracticeCard from '@/components/Mobile/MobPracticeCard';
 import Image from 'next/image';
 import { CourseType, ProjectCourseType } from '@/service/webApi/course/type';
 
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
+
 export const metadata: Metadata = {
   title: 'Electives'
 };
@@ -25,6 +29,9 @@ function Electives() {
   const [topProjects, setTopProjects] = useState<ProjectCourseType[]>([]);
   const [searchKeyword, setSearchKeyword] = useState('');
   const [type, setType] = useState<CourseFilterListType>(CourseFilterListType.DEFAULT);
+
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.LEARN);
 
   const handleScroll = () => {
     const clientHeight = selectiveCoursesRef.current?.clientHeight || 0;
@@ -75,7 +82,7 @@ function Electives() {
     <div className="h-full w-full" onScroll={handleScroll} ref={selectiveCoursesRef}>
       <div className="relative mx-auto w-full">
         <MobCourseListPageHeader
-          title="Projects"
+          title={t('practice.title')}
           // description="Each elective course is relatively short and independent, with a focused topic. You will  learn how to build a project step by step."
           coverImage={coverImage}
           coverWidth={218}
@@ -85,7 +92,7 @@ function Electives() {
         <div className="absolute left-0 top-[15.5rem] z-[10] flex w-full flex-col rounded-t-[2rem] bg-neutral-off-white px-[1.25rem] py-[2.5rem]">
           {type === CourseFilterListType.DEFAULT && (
             <div className="flex flex-col">
-              <h2 className="text-h2-mob mb-5 text-neutral-black">Top Projects</h2>
+              <h2 className="text-h2-mob mb-5 text-neutral-black">{t('practice.topProjects')}</h2>
               <MobViewMoreList
                 list={topProjects}
                 limit={2}

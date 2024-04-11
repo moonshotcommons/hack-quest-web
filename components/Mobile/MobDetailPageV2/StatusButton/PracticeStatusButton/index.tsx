@@ -5,6 +5,9 @@ import { CourseDetailType } from '@/service/webApi/course/type';
 import Button from '@/components/Common/Button';
 import { PracticeDetailContext } from '../../Provider/PracticeDetailProvider';
 import { useJumpLeaningLesson } from '@/hooks/courses/useJumpLeaningLesson';
+import { TransNs } from '@/i18n/config';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
 
 interface PracticeStatusButtonProps {
   courseDetail: CourseDetailType;
@@ -14,6 +17,9 @@ const PracticeStatusButton: FC<PracticeStatusButtonProps> = ({ courseDetail: pro
   const { courseDetail: contextCourseDetail } = useContext(PracticeDetailContext);
   const courseDetail = contextCourseDetail ?? propCourseDetail;
   const learningStatus = useGetCourseLearnStatus(courseDetail);
+
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.BASIC);
 
   const { jumpLearningLesson } = useJumpLeaningLesson();
 
@@ -28,7 +34,7 @@ const PracticeStatusButton: FC<PracticeStatusButtonProps> = ({ courseDetail: pro
             jumpLearningLesson(courseDetail);
           }}
         >
-          Start
+          {t('courses.start')}
         </Button>
       );
     case LearningStatus.IN_PROGRESS:
@@ -41,7 +47,7 @@ const PracticeStatusButton: FC<PracticeStatusButtonProps> = ({ courseDetail: pro
             jumpLearningLesson(courseDetail);
           }}
         >
-          Continue
+          {t('courses.continue')}
         </Button>
       );
     case LearningStatus.COMPLETED:
@@ -62,7 +68,7 @@ const PracticeStatusButton: FC<PracticeStatusButtonProps> = ({ courseDetail: pro
           className="button-text-l border-neutral-black bg-neutral-white py-4 uppercase"
           iconPosition="right"
         >
-          COMPLETED
+          {t('courses.completed')}
         </Button>
       );
   }

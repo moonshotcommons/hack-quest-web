@@ -1,4 +1,6 @@
 import { computeTime } from '@/helper/formate';
+import { Lang, TransNs } from '@/i18n/config';
+import { useTranslation } from '@/i18n/server';
 import { FC, ReactNode } from 'react';
 
 interface DurationTagProps {
@@ -6,6 +8,7 @@ interface DurationTagProps {
   label?: ReactNode;
   value?: string;
   valueNode?: ReactNode;
+  lang: Lang;
 }
 
 const defaultIcon = (
@@ -21,16 +24,19 @@ const defaultIcon = (
   </svg>
 );
 
-const DurationTag: FC<DurationTagProps> = ({ icon, label, value, valueNode, ...rest }) => {
+const DurationTag: FC<DurationTagProps> = async ({ icon, label, value, valueNode, lang, ...rest }) => {
+  const { t } = await useTranslation(lang, TransNs.BASIC);
   return (
     <div className="flex items-center gap-3" {...rest}>
       {icon ? icon : defaultIcon}
       <div className="flex flex-col">
         {!!label && label}
-        {!label && <span className="body-xs text-neutral-medium-gray">Total Length</span>}
+        {!label && <span className="body-xs text-neutral-medium-gray">{t('courses.totalLength')}</span>}
         {!!valueNode && valueNode}
         {!valueNode && value && (
-          <span className="body-s-bold lowercase">{computeTime(Number(value), 'Hour', false)}h</span>
+          <span className="body-s-bold lowercase">
+            {computeTime(Number(value), 'Hour', false)} {t('courses.h')}
+          </span>
         )}
       </div>
     </div>
