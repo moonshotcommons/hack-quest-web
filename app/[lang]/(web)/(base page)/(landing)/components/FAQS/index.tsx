@@ -19,7 +19,7 @@ const FAQData = [
   },
   {
     problem: 'faq-question2',
-    answer: 'faq-answer2.'
+    answer: 'faq-answer2'
   },
   {
     problem: 'faq-question3',

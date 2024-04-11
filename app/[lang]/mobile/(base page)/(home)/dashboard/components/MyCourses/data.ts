@@ -3,11 +3,11 @@ import { TabListType } from '@/components/Web/Business/Tab/type';
 
 export const courseTab: TabListType[] = [
   {
-    label: 'In Progress',
+    label: 'dashboard.inProgress',
     value: ProcessType.IN_PROCESS
   },
   {
-    label: 'Completed',
+    label: 'dashboard.completed',
     value: ProcessType.COMPLETED
   }
 ];

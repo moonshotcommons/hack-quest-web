@@ -1,8 +1,11 @@
 import { CourseDetailType, CourseType, ProcessType, ProjectCourseType } from '@/service/webApi/course/type';
-import React from 'react';
+import React, { useContext } from 'react';
 import { ElectiveCourseType } from '@/service/webApi/elective/type';
 import MobElectiveCard from '@/components/Mobile/MobElectiveCard';
 import MobPracticeCard from '@/components/Mobile/MobPracticeCard';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
+import { LangContext } from '@/components/Provider/Lang';
 
 interface CourseListProp {
   list: CourseDetailType[];
@@ -10,6 +13,9 @@ interface CourseListProp {
 }
 
 const CourseList: React.FC<CourseListProp> = ({ list, curTab }) => {
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.LEARN);
+
   const card = (course: CourseDetailType) => {
     switch (course.type) {
       case CourseType.MINI:
@@ -33,7 +39,7 @@ const CourseList: React.FC<CourseListProp> = ({ list, curTab }) => {
   if (!list?.length) return null;
   return (
     <div>
-      <h3 className="text-h4 text-neutral-off-black">Courses</h3>
+      <h3 className="text-h4 text-neutral-off-black">{t('dashboard.learningTracks')}</h3>
       <div className="mt-[16px] flex flex-col gap-[20px]">
         {list.map((course) => (
           <div key={course.id} className="w-full">
