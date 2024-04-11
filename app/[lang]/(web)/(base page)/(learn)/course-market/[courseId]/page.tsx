@@ -16,11 +16,13 @@ import UgcCourseCard from '@/components/Web/Business/UgcCourseCard';
 import LinkArrow from '@/components/Common/LinkArrow';
 import MenuLink from '@/constants/MenuLink';
 import Link from 'next/link';
+import { Lang, TransNs } from '@/i18n/config';
+import { useTranslation } from '@/i18n/server';
 
 interface PracticePageProps {
   params: {
     courseId: string;
-    lang: string;
+    lang: Lang;
   };
   searchParams: {
     menuCourseId: string;
@@ -41,7 +43,12 @@ export async function generateMetadata({ params, searchParams }: PracticePagePro
   const metadata: Metadata = {
     title: courseDetail.title,
     alternates: {
-      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/course-market/${courseId}${query}`
+      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/course-market/${courseId}${query}`,
+      languages: {
+        'x-default': `https://www.hackquest.io/${Lang.EN}/course-market/${courseId}${query}`,
+        en: `https://www.hackquest.io/${Lang.EN}/course-market/${courseId}${query}`,
+        zh: `https://www.hackquest.io/${Lang.ZH}/course-market/${courseId}${query}`
+      }
     }
   };
 
@@ -50,7 +57,8 @@ export async function generateMetadata({ params, searchParams }: PracticePagePro
 
 const PracticePage: FC<PracticePageProps> = async (props) => {
   const { params, searchParams } = props;
-  const courseId = params.courseId;
+  const { courseId, lang } = params;
+  const { t } = await useTranslation(lang, TransNs.LEARN);
 
   const courseDetail = await webApi.courseApi.fetchCourseDetail(courseId, true);
   let otherCourses = null;
@@ -66,7 +74,7 @@ const PracticePage: FC<PracticePageProps> = async (props) => {
         <div className="container relative mx-auto flex h-fit pb-[100px]">
           <div className="w-[900px] max-w-[900px]">
             <div className="h-[400px] w-full py-5">
-              <BackButton type="practices"></BackButton>
+              <BackButton type="practices" lang={lang}></BackButton>
               <Tags size="lg" className="body-m mt-[2rem] text-neutral-rich-gray">
                 Development
               </Tags>
@@ -91,20 +99,23 @@ const PracticePage: FC<PracticePageProps> = async (props) => {
                   }
                   type={CourseTagType.CREATE_BY}
                   value={courseDetail.creator?.name || `HackQuest`}
+                  lang={lang}
                 ></CourseTag>
                 <div className="h-[45px] w-[1px] bg-neutral-rich-gray"></div>
-                <CourseTag type={CourseTagType.LANGUAGE} value={courseDetail.language}></CourseTag>
+                <CourseTag type={CourseTagType.LANGUAGE} value={courseDetail.language} lang={lang}></CourseTag>
                 <div className="h-[45px] w-[1px] bg-neutral-rich-gray"></div>
-                <CourseTag type={CourseTagType.LEVEL} value={courseDetail.level}></CourseTag>
+                <CourseTag type={CourseTagType.LEVEL} value={courseDetail.level} lang={lang}></CourseTag>
                 <div className="h-[45px] w-[1px] bg-neutral-rich-gray"></div>
-                <CourseTag type={CourseTagType.DURATION} value={courseDetail.duration + ''}></CourseTag>
+                <CourseTag type={CourseTagType.DURATION} value={courseDetail.duration + ''} lang={lang}></CourseTag>
               </div>
             </div>
 
             <div className="mt-20  flex flex-col gap-20">
               {/* <CertificationCard  /> */}
-              {courseDetail.intendedLearners && <IntendedLearners intendedLearners={courseDetail.intendedLearners} />}
-              {courseDetail.knowledgeGain && <KnowledgeGain knowledgeGain={courseDetail.knowledgeGain} />}
+              {courseDetail.intendedLearners && (
+                <IntendedLearners intendedLearners={courseDetail.intendedLearners} lang={lang} />
+              )}
+              {courseDetail.knowledgeGain && <KnowledgeGain knowledgeGain={courseDetail.knowledgeGain} lang={lang} />}
               <Syllabus />
             </div>
           </div>

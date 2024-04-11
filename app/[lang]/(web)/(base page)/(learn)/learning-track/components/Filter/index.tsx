@@ -6,12 +6,15 @@ import SlideHighlight from '@/components/Common/Navigation/SlideHighlight';
 import { getSearchParamsUrl } from '@/helper/utils';
 import MenuLink from '@/constants/MenuLink';
 import Link from 'next/link';
+import { Lang, TransNs } from '@/i18n/config';
+import { useTranslation } from '@/i18n/client';
 
 interface FilterProp {
   searchInfo: SearchInfoType;
+  lang: Lang;
 }
 
-const Filter: React.FC<FilterProp> = ({ searchInfo }) => {
+const Filter: React.FC<FilterProp> = ({ searchInfo, lang }) => {
   const getSearchInfo = (info: SearchInfoType) => {
     const param = {
       ...info,
@@ -19,6 +22,9 @@ const Filter: React.FC<FilterProp> = ({ searchInfo }) => {
     };
     return getSearchParamsUrl(param, MenuLink.LEARNING_TRACK);
   };
+
+  const { t } = useTranslation(lang, TransNs.LEARN);
+
   return (
     <SlideHighlight
       className={`flex gap-[30px] pb-[2px]`}
@@ -30,7 +36,7 @@ const Filter: React.FC<FilterProp> = ({ searchInfo }) => {
           <div
             className={`body-l cursor-pointer  text-neutral-black ${searchInfo.language === v.value ? '  body-l-bold ' : ' '}`}
           >
-            {v.label}
+            {t(v.label)}
           </div>
         </Link>
       ))}

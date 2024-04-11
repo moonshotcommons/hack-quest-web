@@ -3,40 +3,42 @@ import DiscordIcon from '@/components/Common/Icon/Discord';
 import TwitterIcon from '@/components/Common/Icon/Twitter';
 import { HACKQUEST_DISCORD, HACKQUEST_TWITTER } from '@/constants/links';
 import { cn } from '@/helper/utils';
+import { useTranslation } from '@/i18n/client';
+import { Lang, TransNs } from '@/i18n/config';
 import Link from 'next/link';
 import { FC, useState } from 'react';
 
-interface FAQSProps {}
+interface FAQSProps {
+  lang: Lang;
+}
 
 const FAQData = [
   {
-    problem: 'How many hours of learning are needed for beginners to earn a certificate?',
-    answer:
-      'Depending on the learning paths, most students spend between eight to twenty hours to finish all the course materials and earn the certificate. '
+    problem: 'faq-question1',
+    answer: 'faq-answer1'
   },
   {
-    problem: 'Is it possible to enroll in a course if I have no prior coding knowledge?',
-    answer:
-      'Absolutely. A fundamental aspect of our course design is the Universal Design for Learning (UDL). This approach ensures that learners at all levels, regardless of their initial coding knowledge, can effectively understand and engage with the course materials.'
+    problem: 'faq-question2',
+    answer: 'faq-answer2'
   },
   {
-    problem: 'Are all courses and post-learning support free?',
-    answer:
-      'Yes! We are dedicated to making Web3.0 programming accessible to everyone, free from financial constraints.'
+    problem: 'faq-question3',
+    answer: 'faq-answer3'
   },
   {
-    problem: 'Where do I ask for help?',
-    answer: `At the bottom of each learning page, you'll find a grey button for reporting bugs and submitting suggestions. However, for a more interactive and prompt response, we highly encourage joining our Discord community. Here, our content engineers are readily available to answer all your queries and provide support.`
+    problem: 'faq-question4',
+    answer: 'faq-answer4'
   }
 ];
 
-const FAQS: FC<FAQSProps> = (props) => {
+const FAQS: FC<FAQSProps> = ({ lang }) => {
+  const { t } = useTranslation(lang, TransNs.LANDING);
   const [expendIndex, setExpendIndex] = useState<number[]>([]);
   return (
     <div className="flex w-full flex-col gap-10 px-5 py-10">
       <div className="flex w-fit flex-col">
-        <p className="text-h2 text-[1.375rem] capitalize text-neutral-off-black">FAQs</p>
-        <p className="body-xs mt-5 text-neutral-medium-gray">Can’t find what you’re looking for? Reach out to us!</p>
+        <p className="text-h2 text-[1.375rem] capitalize text-neutral-off-black">{t('FAQS.FAQs')}</p>
+        <p className="body-xs mt-5 text-neutral-medium-gray"> {t('FAQS.Can’t find what you’re looking for')}</p>
         <div className="mt-[.625rem] flex items-center gap-4">
           <Link
             href={HACKQUEST_DISCORD}
@@ -83,7 +85,7 @@ const FAQS: FC<FAQSProps> = (props) => {
                   }
                 }}
               >
-                <p className="body-m-bold text-neutral-rich-gray">{item.problem}</p>
+                <p className="body-m-bold text-neutral-rich-gray">{t(`FAQS.${item.problem}` as any)}</p>
                 <span className="cursor-pointer">
                   {!expendIndex.includes(index) && (
                     <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -105,7 +107,7 @@ const FAQS: FC<FAQSProps> = (props) => {
               </div>
 
               <p className={cn(`body-xs text-neutral-rich-gray`, expendIndex.includes(index) ? 'block' : 'hidden')}>
-                {item.answer}
+                {t(`FAQS.${item.answer}` as any)}
               </p>
             </div>
           );

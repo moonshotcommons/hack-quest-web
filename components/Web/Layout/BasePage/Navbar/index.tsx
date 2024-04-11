@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { ReactNode, useContext, useEffect, useState } from 'react';
 
 import Badge from '@/components/Common/Badge';
 
@@ -17,6 +17,9 @@ import { LuChevronDown } from 'react-icons/lu';
 import { useDebounceFn } from 'ahooks';
 import DropDownMotion from '@/components/Common/DropDownMotion';
 import MenuLink from '@/constants/MenuLink';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 
 export interface NavBarProps {
   navList: NavbarListType[];
@@ -28,6 +31,9 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
   const userInfo = useUserStore((state) => state.userInfo);
   const setAuthModalOpen = useUserStore((state) => state.setAuthModalOpen);
   const setAuthType = useUserStore((state) => state.setAuthType);
+
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.BASIC);
 
   const { navList, children } = NavBarProps;
   const { redirectToUrl } = useRedirect();
@@ -103,7 +109,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
               {navList.map((nav) => (
                 <div
                   key={nav.id}
-                  className={`group  relative flex  h-full items-center  `}
+                  className={`group  relative flex  h-full items-center`}
                   data-id={nav.id}
                   onClick={(e) => handleClickNav(e, nav)}
                   onMouseEnter={() => {
@@ -117,8 +123,8 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
                       curNavId === nav.id ? 'body-s-bold bg-yellow-light' : 'group-hover:bg-neutral-off-white'
                     }`}
                   >
-                    <div className="relative">
-                      <span>{nav.label}</span>
+                    <div className="relative capitalize">
+                      <span>{t(nav.label)}</span>
                       {~isBadgeIds.indexOf(nav.id) && userInfo ? (
                         <Badge count={missionData?.unClaimAll?.length || 0} />
                       ) : null}
@@ -136,15 +142,15 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
                       <div className="flex gap-[24px]">
                         {nav.menu.map((menu) => (
                           <div key={menu.id} className=" body-s-bold text-neutral-medium-gray">
-                            <p className="px-[12px] py-[8px]">{menu.label}</p>
+                            <p className="px-[12px] py-[8px]">{t(menu.label)}</p>
                             {menu.outSide?.map((outside) =>
                               outside.id === 'playground' ? (
                                 <div
                                   key={outside.link}
-                                  className="mt-[8px] cursor-pointer rounded-[8px]  px-[12px] py-[8px] text-neutral-rich-gray hover:bg-neutral-off-white"
+                                  className="mt-[8px] cursor-pointer whitespace-nowrap  rounded-[8px] px-[12px] py-[8px] text-neutral-rich-gray hover:bg-neutral-off-white"
                                   onClick={() => setPlaygroundSelectModalOpen(true)}
                                 >
-                                  {outside.label}
+                                  {t(outside.label)}
                                 </div>
                               ) : (
                                 <Link
@@ -156,7 +162,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
                                   }}
                                 >
                                   <p className="mt-[8px] cursor-pointer rounded-[8px] px-[12px]  py-[8px] text-neutral-rich-gray hover:bg-neutral-off-white">
-                                    {outside.label}
+                                    {t(outside.label)}
                                   </p>
                                 </Link>
                               )
@@ -177,8 +183,8 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
                             <div
                               className={` whitespace-nowrap rounded-[8px] px-[12px] py-[8px] hover:bg-neutral-off-white ${secondNavIndex === menuIndex && curNavId === nav.id ? 'bg-neutral-off-white' : ''}`}
                             >
-                              <p className="body-s-bold text-neutral-rich-gray">{menu.label}</p>
-                              <p className="body-xs text-neutral-medium-gray">{menu.description}</p>
+                              <p className="body-s-bold text-neutral-rich-gray">{t(menu.label)}</p>
+                              <p className="body-xs text-neutral-medium-gray">{t(menu.description)}</p>
                             </div>
                           </Link>
                         ))}

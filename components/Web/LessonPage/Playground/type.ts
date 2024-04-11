@@ -1,4 +1,4 @@
-import { LessonContent } from '@/components/Web/Business/Renderer/type';
+import { LessonContent } from '@/components/ComponentRenderer/type';
 import { CourseLessonType } from '@/service/webApi/course/type';
 import { createContext } from 'react';
 

@@ -20,7 +20,7 @@ module.exports = {
       },
 
       fontFamily: {
-        'next-book-bold': ['NEXT Book Bold'],
+        'next-book-bold': ['var(--next-book-bold)'],
         'next-book': ['NEXT Book'],
         'next-book-Thin': ['NEXT Book Thin'],
         'next-poster-Bold': ['NEXT Poster Bold'],

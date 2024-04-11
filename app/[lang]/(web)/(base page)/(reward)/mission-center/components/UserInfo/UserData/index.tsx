@@ -4,9 +4,12 @@ import IconXp from '@/public/images/mission-center/icon_xp.png';
 import { UserCoinType, UserLevelType } from '@/service/webApi/missionCenter/type';
 import { LoginResponse } from '@/service/webApi/user/type';
 import Image from 'next/image';
-import React from 'react';
+import React, { useContext } from 'react';
 import Ring from './Ring';
 import Tooltip from '@/components/Common/Tooltip';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 
 export interface UserDataType {
   userInfo: LoginResponse | null;
@@ -14,6 +17,8 @@ export interface UserDataType {
   userCoin: UserCoinType;
 }
 const UserData: React.FC<UserDataType> = ({ userInfo, userLevel, userCoin }) => {
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.REWARD);
   return (
     <>
       <div className="flex-center  relative mx-[auto] h-[150px] w-[150px] ">
@@ -41,7 +46,7 @@ const UserData: React.FC<UserDataType> = ({ userInfo, userLevel, userCoin }) => 
 
       <div className="mb-5 flex h-[114px] w-full justify-between text-neutral-black">
         <div className=" flex-col-center h-full w-[155px] justify-between rounded-[10px] border border-neutral-medium-gray bg-neutral-white pb-[16px] pt-[20px]">
-          <p>Total XP</p>
+          <p>{t('totalXp')}</p>
           <div className="flex-row-center pt-1  text-[28px]">
             <Image src={IconXp} width={30} alt="iconCredits" className="object-cover"></Image>
             <span className=" ml-[10px] leading-[45px]">{userLevel?.exp ?? 0}</span>
@@ -53,7 +58,7 @@ const UserData: React.FC<UserDataType> = ({ userInfo, userLevel, userCoin }) => 
             title="HackQuest Credits has no internal relation with HackQuest token in the future"
             className="z-[999]"
           >
-            <p className="cursor-pointer">Total Hack Credits</p>
+            <p className="cursor-pointer">{t('totalHackCredits')}</p>
           </Tooltip>
           <div className="flex-row-center pt-1  text-[28px]">
             <Image src={IconCoin} width={30} alt="iconXp" className="object-cover"></Image>

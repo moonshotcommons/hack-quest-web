@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import Badge from '@/components/Common/Badge';
 import Image from 'next/image';
 import ChestImg from '@/public/images/mission-center/chest_img.png';
@@ -6,11 +6,16 @@ import { UserTreasuresType } from '@/service/webApi/missionCenter/type';
 import { BurialPoint } from '@/helper/burialPoint';
 import TreasureModal, { TreasureModalRef } from '@/components/Web/Business/TreasureModal';
 import Loading from '@/public/images/other/loading.png';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 
 interface TreasuresProp {
   userTreasure: UserTreasuresType[];
 }
 const Treasures: React.FC<TreasuresProp> = ({ userTreasure }) => {
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.REWARD);
   const treasureModalRef = useRef<TreasureModalRef>(null);
   const [curId, setCurId] = useState('');
   const openChest = (i: number) => {
@@ -25,7 +30,7 @@ const Treasures: React.FC<TreasuresProp> = ({ userTreasure }) => {
     <div className="w-full">
       <div className="mt-[40px] flex leading-[23px] text-neutral-black">
         <div className="relative">
-          Your treasures
+          {t('yourtreasures')}
           <Badge count={userTreasure.length} />
         </div>
       </div>

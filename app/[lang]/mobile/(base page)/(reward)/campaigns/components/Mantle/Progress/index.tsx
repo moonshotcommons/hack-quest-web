@@ -2,9 +2,14 @@ import React, { useContext, useMemo } from 'react';
 import Image from 'next/image';
 import BIcon from '@/public/images/campaigns/b_icon.png';
 import { MantleContext } from '../../../constants/type';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { Lang, TransNs } from '@/i18n/config';
 interface ProgressProp {}
 
 const Progress: React.FC<ProgressProp> = () => {
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.REWARD);
   const mantle = useContext(MantleContext).mantle;
   const { progress } = useContext(MantleContext).mantle;
   const periodNum = 5;
@@ -25,7 +30,9 @@ const Progress: React.FC<ProgressProp> = () => {
     <div
       className={`body-m fixed bottom-0 left-0  w-full bg-neutral-off-white px-[1.25rem] py-[.5rem] text-neutral-black shadow-[0_-4px_8px_0_rgba(0,0,0,0.12)]`}
     >
-      <p className="caption-12pt mb-[.375rem] text-neutral-off-black">{`Your journey to ${mantle.certification?.name}`}</p>
+      <p className="caption-12pt mb-[.375rem] text-neutral-off-black">
+        {lang === Lang.EN ? `Your journey to ${mantle.certification?.name}` : `你在${mantle.certification?.name}的旅程`}
+      </p>
       <div className="caption-10pt relative flex gap-[0.5%]">
         {schedule.schedulePeriod.map((s, i) => (
           <div key={i} className="w-[19.6%]">

@@ -16,6 +16,9 @@ import { useUserStore } from '@/store/zustand/userStore';
 import { message } from 'antd';
 import { ProfileHandleType } from '@/app/[lang]/(web)/(base page)/(profile)/user/profile/constants/type';
 import { errorMessage } from '@/helper/ui';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 
 interface TargetCardProp {
   missionData: MissionDataType;
@@ -35,6 +38,8 @@ const TargetCard: React.FC<TargetCardProp> = ({
   type,
   isScale = true
 }) => {
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.REWARD);
   const userInfo = useUserStore((state) => state.userInfo);
   const [showShare, setShowShare] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -48,7 +53,7 @@ const TargetCard: React.FC<TargetCardProp> = ({
       case RewardsCardType.DISCORD:
         setLoading(true);
         // handleClaim();
-        debugger;
+
         try {
           const discordInfo = await webApi.userApi.getDiscordInfo();
           if (!discordInfo.isConnect) {
@@ -127,8 +132,8 @@ const TargetCard: React.FC<TargetCardProp> = ({
           </div>
           {missionData.progress?.completed ? (
             <Button
-              className={`ml-[-20px] h-[44px] w-[164px] border-auth-primary-button-border-color
-                          bg-auth-primary-button-bg
+              className={`ml-[-20px] h-[44px] w-[164px] border-auth-primary-button-border-color bg-auth-primary-button-bg
+                          uppercase
                           text-neutral-black ${
                             missionData.progress.claimed
                               ? 'cursor-not-allowed opacity-50 '
@@ -140,14 +145,12 @@ const TargetCard: React.FC<TargetCardProp> = ({
               loading={missionIds.includes(missionData.id)}
               onClick={() => handleClaim()}
             >
-              {missionData.progress.claimed ? 'Claimed' : 'Claim'}
+              {missionData.progress.claimed ? t('claimed') : t('claim')}
             </Button>
           ) : (
             <div className="relative">
               <Button
-                className={`body-s ml-[-20px] h-[44px] w-[164px] border border-neutral-black
-              p-0  text-auth-primary-button-text-color
-              text-neutral-black`}
+                className={`body-s ml-[-20px] h-[44px] w-[164px] border border-neutral-black p-0 uppercase  text-neutral-black`}
                 loading={loading}
                 onClick={() => handleUnClaim()}
               >

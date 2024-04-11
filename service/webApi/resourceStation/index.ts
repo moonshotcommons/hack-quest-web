@@ -4,6 +4,7 @@ import {
   BlogSearchType,
   BlogType,
   CoustomKeywordType,
+  EventsType,
   HackathonDataType,
   HackathonType,
   PagedType,
@@ -15,7 +16,8 @@ export enum ResourceStationApiType {
   Hackathon = '/hackathons',
   Projects = '/projects',
   Blogs = '/blogs',
-  Glossary = '/glossaries'
+  Glossary = '/glossaries',
+  Events = '/events'
 }
 
 class ResourceStationApi {
@@ -93,6 +95,15 @@ class ResourceStationApi {
     return this.service.post(`custom-keywords`, {
       data
     });
+  }
+
+  getEvents(params?: object) {
+    return this.service.get<{ data: EventsType[]; total: number }>(`${ResourceStationApiType.Events}`, {
+      params
+    });
+  }
+  getEventsDetailById(id: string) {
+    return this.service.get<EventsType>(`${ResourceStationApiType.Events}/${id}`);
   }
 }
 

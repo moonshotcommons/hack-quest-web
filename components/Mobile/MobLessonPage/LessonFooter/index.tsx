@@ -1,8 +1,8 @@
-import { LessonContent } from '@/components/Web/Business/Renderer/type';
 import Button from '@/components/Common/Button';
 import { CourseLessonType } from '@/service/webApi/course/type';
 import React, { useContext } from 'react';
 import { LessonPageContext } from '../type';
+import { LessonContent } from '@/components/ComponentRenderer/type';
 
 interface LessonFooterProps {
   lesson?: Omit<CourseLessonType, 'content'> & { content: LessonContent };

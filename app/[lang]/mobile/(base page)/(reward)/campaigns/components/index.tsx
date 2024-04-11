@@ -43,7 +43,6 @@ const Campaigns: React.FC<CampaignsProp> = () => {
   }, [curId, mantles]);
 
   const getTabList = (list: MantleType[]) => {
-    console.info(list);
     const tList: OptionType[] = list.map((v) => {
       const count = 0;
       return {

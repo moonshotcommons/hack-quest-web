@@ -13,11 +13,13 @@ import { ElectiveCourseDetailType } from '@/service/webApi/elective/type';
 import CourseDetailProvider from '@/components/Web/DetailPageV2/Provider/CourseDetailProvider';
 import { Metadata } from 'next';
 import HeaderBg from '@/components/Web/DetailPageV2/HeaderBg';
+import { Lang, TransNs } from '@/i18n/config';
+import { useTranslation } from '@/i18n/server';
 
 interface ElectivePageProps {
   params: {
     courseId: string;
-    lang: string;
+    lang: Lang;
   };
   searchParams: {
     menuCourseId: string;
@@ -37,7 +39,12 @@ export async function generateMetadata({ params, searchParams }: ElectivePagePro
   const metadata: Metadata = {
     title: courseDetail.title,
     alternates: {
-      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/electives//${courseId}${query}`
+      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/electives/${courseId}${query}`,
+      languages: {
+        'x-default': `https://www.hackquest.io/${Lang.EN}/electives/${courseId}${query}`,
+        en: `https://www.hackquest.io/${Lang.EN}/electives/${courseId}${query}`,
+        zh: `https://www.hackquest.io/${Lang.ZH}/electives/${courseId}${query}`
+      }
     }
   };
 
@@ -46,7 +53,8 @@ export async function generateMetadata({ params, searchParams }: ElectivePagePro
 
 const ElectivePage: FC<ElectivePageProps> = async (props) => {
   const { params, searchParams } = props;
-  const courseId = params.courseId;
+  const { courseId, lang } = params;
+  const { t } = await useTranslation(lang, TransNs.LEARN);
 
   const courseDetail = await webApi.courseApi.fetchCourseDetail<ElectiveCourseDetailType>(courseId, false, true);
 
@@ -58,9 +66,9 @@ const ElectivePage: FC<ElectivePageProps> = async (props) => {
         <div className="container relative mx-auto flex h-fit pb-[100px]">
           <div className="w-[900px] max-w-[900px]">
             <div className="min-h-[400px] w-full py-5" id="detail-header">
-              <BackButton type="electives"></BackButton>
+              <BackButton type="electives" lang={lang}></BackButton>
               <Tags size="lg" className="body-m mt-[2rem] text-neutral-rich-gray">
-                {`Elective`}
+                {t('electivesDetail.tag')}
               </Tags>
               <div className="mt-4 flex items-center gap-6">
                 <h1 className="text-h2">{courseDetail.title}</h1>
@@ -71,9 +79,10 @@ const ElectivePage: FC<ElectivePageProps> = async (props) => {
               </div>
               <p className="body-m mt-8 text-neutral-rich-gray">{courseDetail.description}</p>
               <div className="mt-8 flex gap-8">
-                <CourseTag type={CourseTagType.LANGUAGE} value={courseDetail.language}></CourseTag>
+                <CourseTag type={CourseTagType.LANGUAGE} value={courseDetail.language} lang={lang}></CourseTag>
                 <div className="h-[45px] w-[1px] bg-neutral-rich-gray"></div>
                 <CourseTag
+                  lang={lang}
                   icon={
                     <div className="relative h-8 w-8">
                       <Image
@@ -87,14 +96,16 @@ const ElectivePage: FC<ElectivePageProps> = async (props) => {
                   value={courseDetail.creator?.name}
                 ></CourseTag>
                 <div className="h-[45px] w-[1px] bg-neutral-rich-gray"></div>
-                <CourseTag type={CourseTagType.DURATION} value={courseDetail.duration + ''}></CourseTag>
+                <CourseTag type={CourseTagType.DURATION} value={courseDetail.duration + ''} lang={lang}></CourseTag>
               </div>
             </div>
 
             <div className="mt-20  flex flex-col gap-20">
               {/* <CertificationCard  /> */}
-              {courseDetail.intendedLearners && <IntendedLearners intendedLearners={courseDetail.intendedLearners} />}
-              {courseDetail.knowledgeGain && <KnowledgeGain knowledgeGain={courseDetail.knowledgeGain} />}
+              {courseDetail.intendedLearners && (
+                <IntendedLearners intendedLearners={courseDetail.intendedLearners} lang={lang} />
+              )}
+              {courseDetail.knowledgeGain && <KnowledgeGain knowledgeGain={courseDetail.knowledgeGain} lang={lang} />}
               <Syllabus />
             </div>
           </div>
@@ -111,7 +122,7 @@ const ElectivePage: FC<ElectivePageProps> = async (props) => {
       <div className="flex flex-col gap-8">
         <div className="flex h-fit items-center gap-4">
           <div className="h-[34px] w-[5px] rounded-full bg-yellow-dark"></div>
-          <h3 className="text-h3 text-neutral-black">{`Syllabus`}</h3>
+          <h3 className="text-h3 text-neutral-black">{t('courses.syllabus')}</h3>
         </div>
         <LessonCatalogue courseDetail={courseDetail} />
       </div>

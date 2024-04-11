@@ -1,5 +1,5 @@
 'use client';
-import { LessonContent as LessonContentType } from '@/components/Web/Business/Renderer/type';
+
 import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
 import { useRequest } from 'ahooks';
 import { ConfigProvider, Spin, message } from 'antd';
@@ -9,6 +9,7 @@ import Split from 'react-split';
 import LessonContent from '../LessonPage/LessonContent';
 import LessonFooter from '../LessonPage/LessonFooter';
 import Playground from '../LessonPage/Playground';
+import { LessonContent as LessonContentType } from '@/components/ComponentRenderer/type';
 
 interface PreviewLessonPageProps {
   previewUrl: string;

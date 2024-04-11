@@ -1,5 +1,6 @@
 import MobCourseFilterList from '@/components/Mobile/MobCourseFilterList';
 import MobPracticeCard from '@/components/Mobile/MobPracticeCard';
+import { LangContext } from '@/components/Provider/Lang';
 import {
   courseDefaultFilters as filters,
   mergeFilterParams,
@@ -7,16 +8,21 @@ import {
 } from '@/components/Web/Business/CourseFilterList/constant';
 import { FilterParamsType } from '@/components/Web/Business/CourseFilterList/type';
 import { errorMessage } from '@/helper/ui';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 import webApi from '@/service';
 import { ProjectCourseType } from '@/service/webApi/course/type';
 import { PageResult } from '@/service/webApi/type';
 import { useRequest } from 'ahooks';
 import { cloneDeep } from 'lodash-es';
-import { FC, useEffect, useState } from 'react';
+import { FC, useContext, useEffect, useState } from 'react';
 interface MobCourseFilterListDefaultProps {}
 
 const MobCourseFilterListDefault: FC<MobCourseFilterListDefaultProps> = (props) => {
   const [courseList, setCourseList] = useState<ProjectCourseType[]>([]);
+
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.LEARN);
 
   const { run: getCourseList, loading } = useRequest(
     async (filterParams: FilterParamsType) => {
@@ -41,7 +47,7 @@ const MobCourseFilterListDefault: FC<MobCourseFilterListDefaultProps> = (props) 
 
   return (
     <MobCourseFilterList
-      title="Explore Web 3"
+      title={t('practice.title')}
       onFilterParamsUpdate={(params) => {
         getCourseList(params);
       }}

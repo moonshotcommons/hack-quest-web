@@ -12,11 +12,19 @@ import { CourseType } from '@/service/webApi/course/type';
 import { ElectiveCourseType, ElectiveListDataType } from '@/service/webApi/elective/type';
 import { useRequest } from 'ahooks';
 import { cloneDeep } from 'lodash-es';
-import { FC, useEffect, useState } from 'react';
+import { FC, useContext, useEffect, useState } from 'react';
+
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
+
 interface MobCourseFilterListDefaultProps {}
 
 const MobCourseFilterListDefault: FC<MobCourseFilterListDefaultProps> = (props) => {
   const [courseList, setCourseList] = useState<ElectiveCourseType[]>([]);
+
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.LEARN);
 
   const { run: getCourseList, loading } = useRequest(
     async (filterParams: FilterParamsType) => {
@@ -44,7 +52,7 @@ const MobCourseFilterListDefault: FC<MobCourseFilterListDefaultProps> = (props) 
 
   return (
     <MobCourseFilterList
-      title="Explore Web 3"
+      title={t('electives.exploreWeb3')}
       onFilterParamsUpdate={(params) => {
         getCourseList({
           ...params,

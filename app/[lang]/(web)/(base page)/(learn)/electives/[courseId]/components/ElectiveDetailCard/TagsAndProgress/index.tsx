@@ -7,6 +7,9 @@ import { LearningStatus, useGetCourseLearnStatus } from '@/components/Web/Detail
 import IconTextTag from '@/components/Web/DetailPageV2/CourseTag/IconTextTag';
 import { IconTextTagType } from '@/components/Web/DetailPageV2/CourseTag/IconTextTag/constant';
 import { ElectiveCourseDetailType } from '@/service/webApi/elective/type';
+import { TransNs } from '@/i18n/config';
+import { useTranslation } from '@/i18n/client';
+import { LangContext } from '@/components/Provider/Lang';
 
 interface TagsAndProgressProps {
   courseDetail: ElectiveCourseDetailType;
@@ -16,6 +19,9 @@ const TagsAndProgress: FC<TagsAndProgressProps> = ({ courseDetail: propCourseDet
   const { courseDetail: contextCourseDetail } = useContext(CourseDetailContext);
   const courseDetail = contextCourseDetail ?? propCourseDetail;
   let learningStatus = useGetCourseLearnStatus(courseDetail);
+
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.LEARN);
 
   const progress = courseDetail?.progress || 0;
 
@@ -30,7 +36,10 @@ const TagsAndProgress: FC<TagsAndProgressProps> = ({ courseDetail: propCourseDet
     case LearningStatus.UN_START:
       return (
         <>
-          <IconTextTag type={IconTextTagType.LESSONS_COUNT} text={`${courseDetail.totalPages} lessons`}></IconTextTag>
+          <IconTextTag
+            type={IconTextTagType.LESSONS_COUNT}
+            text={`${courseDetail.totalPages} ${t('electivesDetail.card.lessons')}`}
+          ></IconTextTag>
           <IconTextTag type={IconTextTagType.DEVICE_ACCESS}></IconTextTag>
           {courseDetail.certificationId && <IconTextTag type={IconTextTagType.CERTIFICATION}></IconTextTag>}
         </>
@@ -51,13 +60,9 @@ const TagsAndProgress: FC<TagsAndProgressProps> = ({ courseDetail: propCourseDet
       );
     case LearningStatus.COMPLETED:
       if (!certification?.claimed) {
-        return (
-          <p className="body-m text-neutral-rich-gray">
-            Congratulation! You’ve completed all the courses. Claim your Web3 certification 🎉
-          </p>
-        );
+        return <p className="body-m text-neutral-rich-gray">{t('electivesDetail.card.completedCourse')}</p>;
       } else {
-        return <p className="body-m text-neutral-rich-gray">You are a certified Mantle Builder 🎉</p>;
+        return <p className="body-m text-neutral-rich-gray">{t('electivesDetail.card.claimed')}</p>;
       }
   }
 };

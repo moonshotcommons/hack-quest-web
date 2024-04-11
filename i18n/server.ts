@@ -1,8 +1,8 @@
 // import 'server-only';
-import { createInstance } from 'i18next';
+import { KeyPrefix, Namespace, createInstance } from 'i18next';
 import resourcesToBackend from 'i18next-resources-to-backend';
 import { initReactI18next } from 'react-i18next/initReactI18next';
-import { locales, defaultLocale, Lang, TransNs } from './config';
+import { locales, defaultLocale, Lang, TransNs, transNs } from './config';
 
 const initI18next = async (lng = defaultLocale, ns = TransNs.BASIC) => {
   const i18nInstance = createInstance();
@@ -16,7 +16,7 @@ const initI18next = async (lng = defaultLocale, ns = TransNs.BASIC) => {
       lng,
       fallbackNS: TransNs.BASIC,
       defaultNS: TransNs.BASIC,
-      ns
+      ns: transNs
     });
   return i18nInstance;
 };
@@ -24,7 +24,7 @@ const initI18next = async (lng = defaultLocale, ns = TransNs.BASIC) => {
 export async function useTranslation(
   lng: Lang = defaultLocale,
   ns = TransNs.BASIC,
-  options: { keyPrefix?: string } = {}
+  options: { keyPrefix?: KeyPrefix<Namespace> } = {}
 ) {
   const i18nextInstance = await initI18next(lng, ns);
   return {

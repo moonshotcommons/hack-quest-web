@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import BlogBannerBg from '@/public/images/blog/blog_banner_bg.svg';
 import { PiSortAscendingBold, PiSortDescendingBold } from 'react-icons/pi';
 import { BiSearch, BiCheck } from 'react-icons/bi';
@@ -13,12 +13,17 @@ import Link from 'next/link';
 import MenuLink from '@/constants/MenuLink';
 import { getSearchParamsUrl } from '@/helper/utils';
 import { HiArrowLongRight } from 'react-icons/hi2';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 
 interface BannerProp {
   searchParams: BlogSearchType;
 }
 
 const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.RESOURCE);
   const router = useRouter();
   const [searchInfo, setSearchInfo] = useState<BlogSearchType>({});
   const [inputVisible, setInputVisible] = useState(false);
@@ -106,18 +111,15 @@ const BlogBanner: React.FC<BannerProp> = ({ searchParams }) => {
         >
           <div className="container mx-auto flex h-full flex-col justify-between">
             <div className="flex flex-col gap-[20px]">
-              <h1 className="text-h2">Blog</h1>
-              <p className="body-l w-[686px] text-neutral-rich-gray">
-                Explore our Web3 Blog – your hub for news, events, and study notes! Contribute your insights, shaping
-                the conversation in the world of decentralized tech.
-              </p>
+              <h1 className="text-h2">{t('blog')}</h1>
+              <p className="body-l w-[686px] text-neutral-rich-gray">{t('blogDescription')}</p>
 
               <Link
                 target="_blank"
                 href="https://xsxo494365r.typeform.com/to/RwN08ht9"
                 className="body-m relative flex w-fit cursor-pointer items-center gap-[7px] text-neutral-off-black"
               >
-                <span>Contribute Blogs to HackQuest</span>
+                <span>{t('contributeBlog')}</span>
                 <HiArrowLongRight size={16}></HiArrowLongRight>
                 <div className="absolute bottom-0 left-0 h-[3px] w-full rounded-[2px] bg-yellow-dark"></div>
               </Link>

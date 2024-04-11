@@ -1,9 +1,9 @@
 'use client';
 import React, { useMemo } from 'react';
 import { BlogDetailType } from '@/service/webApi/resourceStation/type';
-import { CustomComponent } from '@/components/Web/Business/Renderer/type';
-import ComponentRender from '../ComponentRender';
-import { RendererContext } from '@/components/Web/Business/Renderer/context';
+import BlogCustomRenderer from '../BlogCustomRenderer.tsx';
+import { ComponentRenderer, ComponentRendererProvider } from '@/components/ComponentRenderer';
+import { CustomComponent, PageType } from '@/components/ComponentRenderer/type';
 
 interface BlogContentProp {
   blog: BlogDetailType;
@@ -17,18 +17,30 @@ const BlogContent: React.FC<BlogContentProp> = ({ blog }) => {
     };
   }, [blog]);
   return (
-    <div className="px-[1.25rem] py-[2.5rem]">
-      <RendererContext.Provider
-        value={{
-          textRenderer: {
-            fontSize: '14px'
-          }
+    <div className="px-[1.25rem] py-[3.75rem]">
+      <ComponentRendererProvider
+        type={PageType.BLOG}
+        CustomComponentRenderer={BlogCustomRenderer}
+        isMobile
+        textRenderer={{
+          fontSize: '14px'
         }}
       >
-        {blog?.content?.map((component: CustomComponent) => (
-          <ComponentRender key={component.id} component={component} parent={parent} />
-        ))}
-      </RendererContext.Provider>
+        {blog?.content?.map((component: CustomComponent, index: number) => {
+          const prevComponent = index === 0 ? null : blog.content[index - 1];
+          const nextComponent = index === blog.content.length - 1 ? null : blog.content[index + 1];
+          return (
+            <ComponentRenderer
+              key={component.id}
+              component={component}
+              parent={parent}
+              position={index}
+              prevComponent={prevComponent}
+              nextComponent={nextComponent}
+            />
+          );
+        })}
+      </ComponentRendererProvider>
     </div>
   );
 };

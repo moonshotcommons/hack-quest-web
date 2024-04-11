@@ -13,11 +13,12 @@ import LearningTrackDetailCard from './components/LearningTrackDetailCard';
 import CertificationCardProvider from '@/components/Web/Business/Certification/CertificationCard/CertificationCardProvider';
 import { Metadata } from 'next';
 import HeaderBg from '@/components/Web/DetailPageV2/HeaderBg';
-
+import { Lang, TransNs } from '@/i18n/config';
+import { useTranslation } from '@/i18n/server';
 interface LearningTrackDetailPageProps {
   params: {
     learningTrackId: string;
-    lang: string;
+    lang: Lang;
   };
   searchParams: {
     learningTrackId: string;
@@ -40,7 +41,12 @@ export async function generateMetadata(
   const metadata: Metadata = {
     title: courseDetail.name,
     alternates: {
-      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/learning-track/${learningTrackId}${query}`
+      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/learning-track/${learningTrackId}${query}`,
+      languages: {
+        'x-default': `https://www.hackquest.io/${Lang.EN}/learning-track/${learningTrackId}${query}`,
+        en: `https://www.hackquest.io/${Lang.EN}/learning-track/${learningTrackId}${query}`,
+        zh: `https://www.hackquest.io/${Lang.ZH}/learning-track/${learningTrackId}${query}`
+      }
     }
   };
 
@@ -49,7 +55,8 @@ export async function generateMetadata(
 
 const LearningTrackDetailPage: FC<LearningTrackDetailPageProps> = async (props) => {
   const { params, searchParams } = props;
-  const learningTrackId = params.learningTrackId;
+  const { lang, learningTrackId } = params;
+  const { t } = await useTranslation(lang, TransNs.LEARN);
 
   const learningTrackDetail = await webApi.learningTrackApi.fetchLearningTrackDetailAndCourses(learningTrackId);
 
@@ -68,9 +75,11 @@ const LearningTrackDetailPage: FC<LearningTrackDetailPageProps> = async (props) 
           <div className="container relative mx-auto flex h-fit pb-[100px]">
             <div className="w-[900px] max-w-[900px]">
               <div className="min-h-[400px] w-full py-5" id="detail-header">
-                <BackButton type="learningTrack"></BackButton>
+                <BackButton type="learningTrack" lang={lang}></BackButton>
                 <Tags size="lg" className="body-m mt-[2rem] text-neutral-rich-gray">
-                  {`Learning Track · ${learningTrackDetail.track}`}
+                  {t(`learningTrackDetail.tag`, {
+                    track: t(`learningTrack.${learningTrackDetail.track.toLowerCase()}`)
+                  })}
                 </Tags>
                 <div className="mt-4 flex items-center gap-6">
                   <h1 className="text-h2">{learningTrackDetail.name}</h1>
@@ -81,21 +90,25 @@ const LearningTrackDetailPage: FC<LearningTrackDetailPageProps> = async (props) 
                 </div>
                 <p className="body-m mt-8 text-neutral-rich-gray">{learningTrackDetail.description}</p>
                 <div className="mt-8 flex gap-8">
-                  <CourseTag type={CourseTagType.LANGUAGE} value={learningTrackDetail.language}></CourseTag>
+                  <CourseTag type={CourseTagType.LANGUAGE} value={learningTrackDetail.language} lang={lang}></CourseTag>
+                  <div className="h-[45px] w-[1px] bg-neutral-rich-gray" lang={lang}></div>
+                  <CourseTag type={CourseTagType.LEVEL} value={learningTrackDetail.level} lang={lang}></CourseTag>
                   <div className="h-[45px] w-[1px] bg-neutral-rich-gray"></div>
-                  <CourseTag type={CourseTagType.LEVEL} value={learningTrackDetail.level}></CourseTag>
-                  <div className="h-[45px] w-[1px] bg-neutral-rich-gray"></div>
-                  <CourseTag type={CourseTagType.DURATION} value={learningTrackDetail.duration + ''}></CourseTag>
+                  <CourseTag
+                    type={CourseTagType.DURATION}
+                    value={learningTrackDetail.duration + ''}
+                    lang={lang}
+                  ></CourseTag>
                 </div>
               </div>
 
               <div className="mt-20  flex flex-col gap-20">
                 {certification && <CertificationCard certification={certification} />}
                 {learningTrackDetail.intendedLearners && (
-                  <IntendedLearners intendedLearners={learningTrackDetail.intendedLearners} />
+                  <IntendedLearners intendedLearners={learningTrackDetail.intendedLearners} lang={lang} />
                 )}
                 {learningTrackDetail.knowledgeGain && (
-                  <KnowledgeGain knowledgeGain={learningTrackDetail.knowledgeGain} />
+                  <KnowledgeGain knowledgeGain={learningTrackDetail.knowledgeGain} lang={lang} />
                 )}
                 <Syllabus />
               </div>
@@ -115,7 +128,7 @@ const LearningTrackDetailPage: FC<LearningTrackDetailPageProps> = async (props) 
         <div className="flex justify-between">
           <div className="flex h-fit items-center gap-4">
             <div className="h-[34px] w-[5px] rounded-full bg-yellow-dark"></div>
-            <h3 className="text-h3 text-neutral-black">{`Syllabus`}</h3>
+            <h3 className="text-h3 text-neutral-black">{t('courses.syllabus')}</h3>
           </div>
           <ExpandAllButton />
         </div>

@@ -209,6 +209,7 @@ export const separationNumber = (num: number, maxNum?: number) => {
 };
 
 export const getSearchParamsUrl = (info: Record<string, any>, path: MenuLink) => {
+  if (typeof window !== 'object') return '';
   const url = new URL(path, window.location.href);
   for (const key in info) {
     const value = info[key as keyof typeof info];

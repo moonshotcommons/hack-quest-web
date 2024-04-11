@@ -3,17 +3,18 @@ import ScrollContainer from './ScrollContainer';
 import EvaluationCard from './EvaluationCard';
 import { userEvaluation } from './constant';
 import { cn } from '@/helper/utils';
+import { Lang, TransNs } from '@/i18n/config';
+import { useTranslation } from '@/i18n/server';
 
-const UserEvaluation: FC<{}> = (props) => {
+const UserEvaluation: FC<{ lang: Lang }> = async ({ lang }) => {
+  const { t } = await useTranslation(lang, TransNs.LANDING);
   return (
     <div className="mt-[7.5rem] w-full bg-neutral-white py-10">
       <div className="mx-auto flex w-[50rem] flex-col items-center gap-3 text-center">
-        <p className="body-s-bold uppercase text-neutral-rich-gray">{`testimonial`}</p>
-        <h2 className="text-h2">
-          Students and Partners like You <span className="text-status-error">❤</span> us ️
-        </h2>
+        <p className="body-s-bold uppercase text-neutral-rich-gray">{t(`UserEvaluation.testimonial`)}</p>
+        <h2 className="text-h2">{t('UserEvaluation.Students and Partners like You ❤️ us')}</h2>
         <p className="body-l tracking-tight text-neutral-medium-gray">
-          Don’t take our words for it. See what others say about HackQuest!
+          {t('UserEvaluation.See what others say about HackQuest')}
         </p>
       </div>
       <div className="mt-[3.75rem]">

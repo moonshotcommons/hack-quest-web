@@ -2,7 +2,7 @@
 import MenuLink from '@/constants/MenuLink';
 import { useGetMissionData } from '@/hooks/mission/useGetMissionData';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { HiArrowLongRight } from 'react-icons/hi2';
 import IconHack from '@/public/images/mission-center/icon_hack.png';
 import Image from 'next/image';
@@ -14,10 +14,16 @@ import webApi from '@/service';
 import { BurialPoint } from '@/helper/burialPoint';
 import { useMissionCenterStore } from '@/store/zustand/missionCenterStore';
 import { MissionDataType } from '@/service/webApi/missionCenter/type';
+import { useTranslation } from '@/i18n/client';
+import { LangContext } from '@/components/Provider/Lang';
+import { TransNs } from '@/i18n/config';
 
 interface DaliyQuestProp {}
 
 const DaliyQuest: React.FC<DaliyQuestProp> = () => {
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.LEARN);
+
   const { updateMissionDataAll } = useGetMissionData();
   const [claimIds, setClaimIds] = useState<string[]>([]);
   const dailyQuests = useMissionCenterStore((state) => state.missionData.dailyQuests);
@@ -41,7 +47,7 @@ const DaliyQuest: React.FC<DaliyQuestProp> = () => {
   };
   return (
     <div>
-      <div className="text-h4 mb-[24px] text-neutral-black">Daily Quests</div>
+      <div className="text-h4 mb-[24px] text-neutral-black">{t('dashboard.dailyQuests')}</div>
       <div>
         {dailyQuests.map((v) => (
           <div
@@ -90,7 +96,7 @@ const DaliyQuest: React.FC<DaliyQuestProp> = () => {
         className="button-text-s flex cursor-pointer items-center  pl-[16px] text-neutral-off-black"
         href={MenuLink.MISSION_CENTER}
       >
-        <span className="uppercase">Mission center</span>
+        <span className="uppercase">{t('dashboard.missionCenter')}</span>
         <HiArrowLongRight size={18}></HiArrowLongRight>
       </Link>
     </div>

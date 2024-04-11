@@ -1,16 +1,21 @@
 'use client';
 import MenuLink from '@/constants/MenuLink';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { HiArrowLongRight } from 'react-icons/hi2';
 import { useRouter } from 'next/navigation';
 import SubmitWordModal from '../SubmitWordModal';
 import MobCourseListPageHeader from '@/components/Mobile/MobCourseListPageHeader';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
+import { LangContext } from '@/components/Provider/Lang';
 
 interface GlossaryHeaderProp {
   keyword: string;
 }
 
 const GlossaryHeader: React.FC<GlossaryHeaderProp> = ({ keyword = '' }) => {
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.RESOURCE);
   const router = useRouter();
   const [submitVisible, setSubmitVisible] = useState(false);
   const buttonNode = () => {
@@ -19,7 +24,7 @@ const GlossaryHeader: React.FC<GlossaryHeaderProp> = ({ keyword = '' }) => {
         className="caption-14pt relative flex w-fit  items-center gap-[6px] text-neutral-off-black"
         onClick={() => setSubmitVisible(true)}
       >
-        <span>Submit A Word You Want To Know</span>
+        <span>{t('submitWord')}</span>
         <HiArrowLongRight size={16}></HiArrowLongRight>
         <div className="absolute bottom-0 left-0 h-[3px] w-full rounded-[5px] bg-yellow-dark"></div>
       </div>
@@ -33,7 +38,7 @@ const GlossaryHeader: React.FC<GlossaryHeaderProp> = ({ keyword = '' }) => {
   return (
     <>
       <MobCourseListPageHeader
-        title="Glossary"
+        title={t('glossary')}
         coverImageUrl={'/images/resource/glossary_cover_mob.png'}
         coverWidth={149}
         coverHeight={120}

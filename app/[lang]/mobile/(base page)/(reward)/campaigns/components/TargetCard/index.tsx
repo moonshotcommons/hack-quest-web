@@ -8,11 +8,16 @@ import { MantleContext } from '../../constants/type';
 import { BurialPoint } from '@/helper/burialPoint';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import MenuLink from '@/constants/MenuLink';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 
 interface TargetCardProp {
   target: TargetsType;
 }
 const TargetCard: React.FC<TargetCardProp> = ({ target }) => {
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.REWARD);
   const { redirectToUrl } = useRedirect();
   const { campaignsTargetClaim, refresh, claimIds } = useContext(MantleContext);
   const [unLoading, setUnLoading] = useState(false);
@@ -55,15 +60,15 @@ const TargetCard: React.FC<TargetCardProp> = ({ target }) => {
   const renderUnText = (type: TargetType) => {
     switch (type) {
       case TargetType.COURSE:
-        return 'Go to Dashboard';
+        return t('goToDashboard');
       case TargetType.LEARNING_TRACK:
-        return 'Go to Learning';
+        return t('goToLearning');
       case TargetType.TWITTER:
-        return 'Link with Twitter';
+        return t('linkWithTwitter');
       case TargetType.DISCORD:
-        return 'Join Discord';
+        return t('joinDiscord');
       case TargetType.GIUHUB:
-        return 'Go to Profile';
+        return t('goToProfile');
     }
   };
 
@@ -103,7 +108,7 @@ const TargetCard: React.FC<TargetCardProp> = ({ target }) => {
               loading={claimIds.includes(target.id)}
               onClick={targerClaim}
             >
-              {target.claimed ? 'Claimed' : 'Claim'}
+              {target.claimed ? t('claimed') : t('claim')}
             </Button>
           ) : (
             <Button

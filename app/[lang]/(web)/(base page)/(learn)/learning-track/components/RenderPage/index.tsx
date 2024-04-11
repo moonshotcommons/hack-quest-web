@@ -4,31 +4,24 @@ import Banner from '../Banner';
 import Filter from '../Filter';
 import List from '../List';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
-import { LearningTrackTab, SearchInfoType } from '../../constants/type';
+import { SearchInfoType } from '../../constants/type';
 import { useRouter } from 'next/navigation';
-import { getSearchParamsUrl } from '@/helper/utils';
-import MenuLink from '@/constants/MenuLink';
+import { Lang } from '@/i18n/config';
 
 interface RenderPageProp {
   learningTrackListData: LearningTrackDetailType[];
   searchInfo: SearchInfoType;
+  lang: Lang;
 }
 
-const RenderPage: React.FC<RenderPageProp> = ({ learningTrackListData, searchInfo }) => {
+const RenderPage: React.FC<RenderPageProp> = ({ learningTrackListData, searchInfo, lang }) => {
   const router = useRouter();
-  const changeSearchInfo = (info: SearchInfoType) => {
-    const param = {
-      ...info,
-      track: info.track === LearningTrackTab.BASIC ? '' : info.track
-    };
-    router.push(getSearchParamsUrl(param, MenuLink.LEARNING_TRACK));
-  };
   return (
     <>
-      <Banner searchInfo={searchInfo} />
+      <Banner searchInfo={searchInfo} lang={lang} />
       <div className="container mx-auto bg-[var(--neutral-off-white)] pb-[100px] pt-[40px]">
         <div className="mb-[32px]">
-          <Filter searchInfo={searchInfo} />
+          <Filter searchInfo={searchInfo} lang={lang} />
         </div>
         {/* <Loading loading={loading} className="container"> */}
         <List list={learningTrackListData} />
