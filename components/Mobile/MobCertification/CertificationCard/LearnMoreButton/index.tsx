@@ -9,6 +9,9 @@ import { useRedirect } from '@/hooks/router/useRedirect';
 import webApi from '@/service';
 import { useRequest } from 'ahooks';
 import { errorMessage } from '@/helper/ui';
+import { LangContext } from '@/components/Provider/Lang';
+import { TransNs } from '@/i18n/config';
+import { useTranslation } from '@/i18n/client';
 
 interface LearnMoreButtonProps {
   certification: CertificationType;
@@ -25,6 +28,9 @@ const LearnMoreButton: FC<LearnMoreButtonProps> = ({ certification: propCertific
   } = useContext(CertificationCardContext);
 
   const { learningTrackDetail, refreshLearningTrackDetail } = useContext(LearningTrackDetailContext);
+
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.BASIC);
 
   const certification = contextCertification ?? propCertification;
   const progress = learningTrackDetail?.progress || 0;
@@ -61,7 +67,7 @@ const LearnMoreButton: FC<LearnMoreButtonProps> = ({ certification: propCertific
             redirectToUrl('/user/profile');
           }}
         >
-          View more
+          {t('courses.viewMore')}
         </Button>
       );
     } else {
@@ -80,7 +86,7 @@ const LearnMoreButton: FC<LearnMoreButtonProps> = ({ certification: propCertific
             }
           }}
         >
-          Claim
+          {t('courses.claim')}
         </Button>
       );
     }

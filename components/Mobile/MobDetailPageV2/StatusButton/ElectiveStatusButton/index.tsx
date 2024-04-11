@@ -5,6 +5,9 @@ import Button from '@/components/Common/Button';
 import { ElectiveCourseDetailType } from '@/service/webApi/elective/type';
 import { ElectiveDetailContext } from '../../Provider/ElectiveDetailProvider';
 import { useJumpLeaningLesson } from '@/hooks/courses/useJumpLeaningLesson';
+import { TransNs } from '@/i18n/config';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
 
 interface ElectiveStatusButtonProps {
   courseDetail: ElectiveCourseDetailType;
@@ -14,6 +17,9 @@ const ElectiveStatusButton: FC<ElectiveStatusButtonProps> = ({ courseDetail: pro
   const { courseDetail: contextCourseDetail } = useContext(ElectiveDetailContext);
   const courseDetail = contextCourseDetail ?? propCourseDetail;
   const learningStatus = useGetCourseLearnStatus(courseDetail);
+
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.BASIC);
 
   const { jumpLearningLesson } = useJumpLeaningLesson();
 
@@ -28,7 +34,7 @@ const ElectiveStatusButton: FC<ElectiveStatusButtonProps> = ({ courseDetail: pro
             jumpLearningLesson(courseDetail);
           }}
         >
-          Start
+          {t('courses.start')}
         </Button>
       );
     case LearningStatus.IN_PROGRESS:
@@ -41,7 +47,7 @@ const ElectiveStatusButton: FC<ElectiveStatusButtonProps> = ({ courseDetail: pro
             jumpLearningLesson(courseDetail);
           }}
         >
-          Continue
+          {t('courses.continue')}
         </Button>
       );
     case LearningStatus.COMPLETED:
@@ -62,7 +68,7 @@ const ElectiveStatusButton: FC<ElectiveStatusButtonProps> = ({ courseDetail: pro
           className="button-text-l border-neutral-black bg-neutral-white py-4 uppercase"
           iconPosition="right"
         >
-          COMPLETED
+          {t('courses.completed')}
         </Button>
       );
   }

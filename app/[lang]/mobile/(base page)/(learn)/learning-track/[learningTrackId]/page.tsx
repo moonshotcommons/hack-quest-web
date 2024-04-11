@@ -13,12 +13,13 @@ import Image from 'next/image';
 import { LearningTrackStructure } from '@/components/Mobile/MobDetailPageV2/CourseStructure';
 import { LearningTrackStatusButton } from '@/components/Mobile/MobDetailPageV2/StatusButton';
 import { Metadata } from 'next';
-import { Lang } from '@/i18n/config';
+import { Lang, TransNs } from '@/i18n/config';
+import { useTranslation } from '@/i18n/server';
 
 interface LearningTrackDetailPageProps {
   params: {
     learningTrackId: string;
-    lang: string;
+    lang: Lang;
   };
   searchParams: {
     learningTrackId: string;
@@ -54,7 +55,8 @@ export async function generateMetadata(
 
 const LearningTrackDetailPage: FC<LearningTrackDetailPageProps> = async (props) => {
   const { params, searchParams } = props;
-  const learningTrackId = params.learningTrackId;
+  const { lang, learningTrackId } = params;
+  const { t } = await useTranslation(lang, TransNs.LEARN);
 
   const learningTrackDetail = await webApi.learningTrackApi.fetchLearningTrackDetailAndCourses(learningTrackId);
 
@@ -62,7 +64,7 @@ const LearningTrackDetailPage: FC<LearningTrackDetailPageProps> = async (props) 
     <LearningTrackDetailProvider learningTrackDetail={learningTrackDetail}>
       <div className="relative w-full bg-neutral-white">
         <div className="h-fit bg-neutral-off-white px-5 pb-10 pt-5">
-          <BackButton type="learningTrack" />
+          <BackButton type="learningTrack" lang={lang}></BackButton>
           <div className="relative my-5 h-[196px] w-full overflow-hidden rounded-[16px] bg-neutral-white">
             <Image
               src={learningTrackDetail.image}
@@ -72,7 +74,9 @@ const LearningTrackDetailPage: FC<LearningTrackDetailPageProps> = async (props) 
             ></Image>
           </div>
           <Tags size="sm" className="caption-12pt text-neutral-rich-gray">
-            {`Learning Track · ${learningTrackDetail.track}`}
+            {t(`learningTrackDetail.tag`, {
+              track: t(`learningTrack.${learningTrackDetail.track.toLowerCase()}`)
+            })}
           </Tags>
           <h1 className="text-h1-mob my-6">{learningTrackDetail.name}</h1>
           {/* <div className="body-xs flex items-center gap-2">
@@ -81,20 +85,22 @@ const LearningTrackDetailPage: FC<LearningTrackDetailPageProps> = async (props) 
           </div> */}
           <p className="body-s my-5 text-neutral-rich-gray">{learningTrackDetail.description}</p>
           <div className="flex flex-wrap gap-6 [&>div]:w-[calc((100%-24px)/2)]">
-            <CourseTag type={CourseTagType.LANGUAGE} value={learningTrackDetail.language}></CourseTag>
-            <CourseTag type={CourseTagType.LEVEL} value={learningTrackDetail.level}></CourseTag>
-            <CourseTag type={CourseTagType.DURATION} value={learningTrackDetail.duration + ''}></CourseTag>
+            <CourseTag type={CourseTagType.LANGUAGE} value={learningTrackDetail.language} lang={lang}></CourseTag>
+            {/* <CourseTag type={CourseTagType.LEVEL} value={learningTrackDetail.level} lang={lang}></CourseTag> */}
+            <CourseTag type={CourseTagType.DURATION} value={learningTrackDetail.duration + ''} lang={lang}></CourseTag>
           </div>
         </div>
         <div className="flex flex-col gap-10 px-5 pb-[8.75rem] pt-10">
           {learningTrackDetail.certificationId && (
-            <CertificationCard certificationId={learningTrackDetail.certificationId} />
+            <CertificationCard certificationId={learningTrackDetail.certificationId} lang={lang} />
           )}
           {learningTrackDetail.intendedLearners && (
-            <IntendedLearners intendedLearners={learningTrackDetail.intendedLearners} />
+            <IntendedLearners intendedLearners={learningTrackDetail.intendedLearners} lang={lang} />
           )}
-          <LearningTrackStructure detail={learningTrackDetail} />
-          {learningTrackDetail.knowledgeGain && <KnowledgeGain knowledgeGain={learningTrackDetail.knowledgeGain} />}
+          <LearningTrackStructure detail={learningTrackDetail} lang={lang} />
+          {learningTrackDetail.knowledgeGain && (
+            <KnowledgeGain knowledgeGain={learningTrackDetail.knowledgeGain} lang={lang} />
+          )}
           <Syllabus />
         </div>
         <div className="fixed bottom-10 z-[41] w-full px-5">
@@ -110,7 +116,7 @@ const LearningTrackDetailPage: FC<LearningTrackDetailPageProps> = async (props) 
         <div className="flex justify-between">
           <div className="flex h-fit items-center gap-2">
             <div className="h-[22px] w-[5px] rounded-full bg-yellow-dark"></div>
-            <h2 className="text-h3-mob text-neutral-black">{`Syllabus`}</h2>
+            <h2 className="text-h3-mob text-neutral-black">{t('courses.syllabus')}</h2>
           </div>
           <ExpandAllButton />
         </div>

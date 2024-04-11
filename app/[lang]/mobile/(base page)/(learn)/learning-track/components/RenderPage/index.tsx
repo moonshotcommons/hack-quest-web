@@ -10,20 +10,22 @@ import Banner from '../Banner';
 import { useRouter } from 'next/navigation';
 import { getSearchParamsUrl } from '@/helper/utils';
 import MenuLink from '@/constants/MenuLink';
+import { Lang } from '@/i18n/config';
 
 interface RenderPageProp {
   learningTrackListData: LearningTrackDetailType[];
   searchInfo: SearchInfoType;
+  lang: Lang;
 }
 
-const RenderPage: React.FC<RenderPageProp> = ({ learningTrackListData, searchInfo }) => {
+const RenderPage: React.FC<RenderPageProp> = ({ learningTrackListData, searchInfo, lang }) => {
   const router = useRouter();
   const changeSearchInfo = (info: SearchInfoType) => {
     router.push(getSearchParamsUrl(info, MenuLink.LEARNING_TRACK));
   };
   return (
     <>
-      <Banner searchInfo={searchInfo} />
+      <Banner searchInfo={searchInfo} lang={lang} />
       <div className="mt-[-2.5rem] rounded-t-[2rem] bg-neutral-off-white px-[1.25rem] pb-[1.25rem] pt-[1.25rem]">
         <MobCourseFilterList
           onFilterParamsUpdate={(params) => {

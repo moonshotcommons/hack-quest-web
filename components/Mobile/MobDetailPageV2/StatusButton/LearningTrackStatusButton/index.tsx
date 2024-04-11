@@ -7,6 +7,9 @@ import Button from '@/components/Common/Button';
 import { useJumpLeaningLesson } from '@/hooks/courses/useJumpLeaningLesson';
 import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 import { useEnrollUnEnroll } from '@/hooks/courses/useEnrollUnEnroll';
+import { TransNs } from '@/i18n/config';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
 
 interface LearningTrackStatusButtonProps {
   learningTrackDetail: LearningTrackDetailType;
@@ -21,6 +24,9 @@ const LearningTrackStatusButton: FC<LearningTrackStatusButtonProps> = ({
     refreshLearningTrackDetail
   } = useContext(LearningTrackDetailContext);
   const learningTrackDetail = contextLearningTrackDetail ?? propLearningTrackDetail;
+
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.BASIC);
 
   const learningStatus = useGetLearningTrackLearnStatus(learningTrackDetail);
   const { jumpLearningLesson, loading: resumeLoading } = useJumpLeaningLesson();
@@ -40,7 +46,7 @@ const LearningTrackStatusButton: FC<LearningTrackStatusButtonProps> = ({
             enroll();
           }}
         >
-          Enroll Track
+          {t('courses.enroll')}
         </Button>
       );
     case LearningStatus.IN_PROGRESS:
@@ -61,7 +67,7 @@ const LearningTrackStatusButton: FC<LearningTrackStatusButtonProps> = ({
             }
           }}
         >
-          Continue
+          {t('courses.continue')}
         </Button>
       );
     case LearningStatus.COMPLETED:
@@ -83,7 +89,7 @@ const LearningTrackStatusButton: FC<LearningTrackStatusButtonProps> = ({
           className="button-text-l border-neutral-black bg-neutral-white py-4 uppercase"
           iconPosition="right"
         >
-          COMPLETED
+          {t('courses.completed')}
         </Button>
       );
   }

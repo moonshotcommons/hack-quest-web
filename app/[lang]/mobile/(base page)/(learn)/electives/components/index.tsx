@@ -1,5 +1,5 @@
 'use client';
-import { useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import MobCourseListPageHeader from '@/components/Mobile/MobCourseListPageHeader';
 import { CourseFilterListType } from '@/components/Web/Business/CourseFilterList';
 import webApi from '@/service';
@@ -15,6 +15,10 @@ import MobCourseFilterListDefault from './MobCourseFilterListDefault';
 import MobCourseFilterListSearch from './MobCourseFilterListSearch';
 import { CourseType } from '@/service/webApi/course/type';
 
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
+
 export const metadata: Metadata = {
   title: 'Electives'
 };
@@ -24,6 +28,9 @@ function Electives() {
   const [loadNum, setLoadNum] = useState(0);
   const [apiStatus, setApiStatus] = useState('init');
   const [topElectives, setTopElectives] = useState<ElectiveCourseType[]>([]);
+
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.LEARN);
 
   const [searchKeyword, setSearchKeyword] = useState('');
 
@@ -68,7 +75,7 @@ function Electives() {
     <div className="h-full w-full" onScroll={handleScroll} ref={selectiveCoursesRef}>
       <div className="relative mx-auto w-full">
         <MobCourseListPageHeader
-          title="Electives"
+          title={t('electives.title')}
           // description="Each elective course is relatively short and independent, with a focused topic. You will  learn how to build a project step by step."
           coverImageUrl={'/images/course/course_cover/elective_mobile_cover.svg'}
           coverWidth={120}
@@ -79,7 +86,7 @@ function Electives() {
         <div className="absolute left-0 top-[15.5rem] z-[10] flex w-full flex-col rounded-t-[2rem] bg-neutral-off-white px-[1.25rem] py-[2.5rem]">
           {type === CourseFilterListType.DEFAULT && (
             <div className="flex flex-col">
-              <h2 className="text-h2-mob mb-5 text-neutral-black">Top Courses</h2>
+              <h2 className="text-h2-mob mb-5 text-neutral-black">{t('electives.topElectives')}</h2>
               <MobViewMoreList
                 list={topElectives}
                 limit={2}

@@ -1,4 +1,6 @@
-import React from 'react';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import React, { useContext } from 'react';
 import { TbAdjustmentsHorizontal } from 'react-icons/tb';
 
 interface MobFilterButtonProp {
@@ -8,6 +10,8 @@ interface MobFilterButtonProp {
 }
 
 const MobFilterButton: React.FC<MobFilterButtonProp> = ({ onClick, count, isSelectFilter = false }) => {
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang);
   return (
     <>
       <div
@@ -20,7 +24,7 @@ const MobFilterButton: React.FC<MobFilterButtonProp> = ({ onClick, count, isSele
             {count}
           </div>
         )}
-        <span>FILTERS</span>
+        <span className="uppercase">{t('courses.filter')}</span>
       </div>
     </>
   );

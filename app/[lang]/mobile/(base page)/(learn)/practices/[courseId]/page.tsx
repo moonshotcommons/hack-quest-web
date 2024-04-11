@@ -13,12 +13,13 @@ import { PracticeStatusButton } from '@/components/Mobile/MobDetailPageV2/Status
 import { CourseDetailType } from '@/service/webApi/course/type';
 import { getCoverImageByTrack } from '@/helper/utils';
 import { Metadata } from 'next';
-import { Lang } from '@/i18n/config';
+import { Lang, TransNs } from '@/i18n/config';
+import { useTranslation } from '@/i18n/server';
 
 interface PracticePageProps {
   params: {
     courseId: string;
-    lang: string;
+    lang: Lang;
   };
   searchParams: {
     menuCourseId: string;
@@ -51,7 +52,8 @@ export async function generateMetadata({ params, searchParams }: PracticePagePro
 
 const ElectiveDetailPage: FC<PracticePageProps> = async (props) => {
   const { params, searchParams } = props;
-  const courseId = params.courseId;
+  const { courseId, lang } = params;
+  const { t } = await useTranslation(lang, TransNs.LEARN);
 
   const courseDetail = await webApi.courseApi.fetchCourseDetail<CourseDetailType>(courseId, true);
 
@@ -59,7 +61,7 @@ const ElectiveDetailPage: FC<PracticePageProps> = async (props) => {
     <PracticeDetailProvider courseId={courseId}>
       <div className="relative w-full bg-neutral-white">
         <div className="h-fit bg-neutral-off-white px-5 pb-10 pt-5">
-          <BackButton type="learningTrack" />
+          <BackButton type="learningTrack" lang={lang} />
           <div className="relative my-5 h-[196px] w-full overflow-hidden rounded-[16px] bg-neutral-white">
             {courseDetail.image && (
               <Image src={courseDetail.image} alt={courseDetail.title} fill className="object-cover"></Image>
@@ -67,7 +69,7 @@ const ElectiveDetailPage: FC<PracticePageProps> = async (props) => {
             {!courseDetail.image && getCoverImageByTrack(courseDetail.track)}
           </div>
           <Tags size="sm" className="caption-12pt text-neutral-rich-gray">
-            {`Elective`}
+            {t('practiceDetail.tag')}
           </Tags>
           <h1 className="text-h1-mob my-6">{courseDetail.title}</h1>
           {/* <div className="body-xs flex items-center gap-2">
@@ -76,7 +78,7 @@ const ElectiveDetailPage: FC<PracticePageProps> = async (props) => {
           </div> */}
           <p className="body-s my-5 text-neutral-rich-gray">{courseDetail.description}</p>
           <div className="flex flex-wrap gap-6 [&>div]:w-[calc((100%-24px)/2)]">
-            <CourseTag type={CourseTagType.LANGUAGE} value={courseDetail.language}></CourseTag>
+            <CourseTag type={CourseTagType.LANGUAGE} value={courseDetail.language} lang={lang}></CourseTag>
 
             {courseDetail.creator && (
               <CourseTag
@@ -91,17 +93,20 @@ const ElectiveDetailPage: FC<PracticePageProps> = async (props) => {
                 }
                 type={CourseTagType.CREATE_BY}
                 value={courseDetail.creator?.name}
+                lang={lang}
               ></CourseTag>
             )}
 
-            <CourseTag type={CourseTagType.LEVEL} value={courseDetail.level}></CourseTag>
-            <CourseTag type={CourseTagType.DURATION} value={courseDetail.duration + ''}></CourseTag>
+            <CourseTag type={CourseTagType.LEVEL} value={courseDetail.level} lang={lang}></CourseTag>
+            <CourseTag type={CourseTagType.DURATION} value={courseDetail.duration + ''} lang={lang}></CourseTag>
           </div>
         </div>
         <div className="flex flex-col gap-10 px-5 pb-[8.75rem] pt-10">
-          {courseDetail.intendedLearners && <IntendedLearners intendedLearners={courseDetail.intendedLearners} />}
-          <CourseStructure detail={courseDetail} />
-          {courseDetail.knowledgeGain && <KnowledgeGain knowledgeGain={courseDetail.knowledgeGain} />}
+          {courseDetail.intendedLearners && (
+            <IntendedLearners intendedLearners={courseDetail.intendedLearners} lang={lang} />
+          )}
+          <CourseStructure detail={courseDetail} lang={lang} />
+          {courseDetail.knowledgeGain && <KnowledgeGain knowledgeGain={courseDetail.knowledgeGain} lang={lang} />}
           <Syllabus />
         </div>
         <div className="fixed bottom-10 w-full px-5">
@@ -117,7 +122,7 @@ const ElectiveDetailPage: FC<PracticePageProps> = async (props) => {
         <div className="flex justify-between">
           <div className="flex h-fit items-center gap-2">
             <div className="h-[22px] w-[5px] rounded-full bg-yellow-dark"></div>
-            <h2 className="text-h3-mob text-neutral-black">{`Syllabus`}</h2>
+            <h2 className="text-h3-mob text-neutral-black">{t('courses.syllabus')}</h2>
           </div>
           {/* <ExpandAllButton /> */}
         </div>
