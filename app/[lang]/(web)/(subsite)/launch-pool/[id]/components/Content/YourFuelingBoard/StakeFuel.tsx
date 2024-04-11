@@ -13,12 +13,14 @@ import { LaunchDetailContext } from '../../../constants/type';
 import StakeModal from './StakeModal';
 import UnstakeModal from './UnstakeModal';
 import { useWriteLaunchpadStake, useWriteLaunchpadUnstake, useWriteStakingTokenApprove } from '@/lib/generated';
-import { useAccount, useChainId, useSwitchChain } from 'wagmi';
+import { useAccount, useBalance, useChainId, useSwitchChain } from 'wagmi';
 import { mantaTestnet } from '@/config/wagmi/chains';
 import ConnectButton from '@/components/Web/Layout/LaunchPage/UserDropCard/ConnectButton';
 import { parseUnits } from 'viem';
 import { errorMessage } from '@/helper/ui';
 import { ChainType } from '@/config/wagmi';
+import { useRequest } from 'ahooks';
+import webApi from '@/service';
 
 interface StakeFuelProp {}
 
@@ -33,7 +35,21 @@ const StakeFuel: React.FC<StakeFuelProp> = () => {
   const { writeContractAsync } = useWriteLaunchpadStake();
   const { writeContractAsync: writeContractAsyncUn } = useWriteLaunchpadUnstake();
   const { writeContractAsync: stakingTokenApprove } = useWriteStakingTokenApprove();
+  const [currentPrice, setCurrentPrice] = useState(0);
   const account = useAccount();
+  const balance = useBalance();
+  console.info(balance);
+  const {} = useRequest(
+    async () => {
+      const res = await webApi.launchPoolApi.getCurrentPrice();
+      return res;
+    },
+    {
+      onSuccess(res) {
+        setCurrentPrice(res?.usd || 0);
+      }
+    }
+  );
   const hanleStake = async (amount: string) => {
     setLoading(true);
     try {
@@ -43,12 +59,12 @@ const StakeFuel: React.FC<StakeFuelProp> = () => {
       await stakingTokenApprove({
         account: account.address,
         address: mantaTestnet.contracts.stakingToken.address,
-        args: [mantaTestnet.contracts.launchpad.address, parseUnits('0.0001', 18)]
+        args: [mantaTestnet.contracts.launchpad.address, parseUnits(amount, 18)]
       });
       await writeContractAsync({
         account: account.address,
         address: mantaTestnet.contracts.launchpad.address,
-        args: [launchInfo.launchPadID, parseUnits('0.0001', 18)]
+        args: [launchInfo.launchPadID, parseUnits(amount, 18)]
       });
     } catch (error) {
       console.info(error);
@@ -171,7 +187,12 @@ const StakeFuel: React.FC<StakeFuelProp> = () => {
         </div>
       )}
 
-      <StakeModal open={modalName === 'stake'} onClose={() => setModalName('')} hanleStake={hanleStake} />
+      <StakeModal
+        currentPrice={currentPrice}
+        open={modalName === 'stake'}
+        onClose={() => setModalName('')}
+        hanleStake={hanleStake}
+      />
       <UnstakeModal open={modalName === 'unStake'} onClose={() => setModalName('')} hanleUnstake={hanleUnstake} />
     </div>
   );

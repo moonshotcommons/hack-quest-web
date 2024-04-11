@@ -153,7 +153,7 @@ const OverView: React.FC<OverViewProp> = () => {
           time: (
             <div className="flex [&>div]:flex-1">
               <div className=""> {t('airdropClosesin')}</div>
-              <TimeText d={days} h={hours} m={minutes} s={seconds} />
+              <div className="text-neutral-black">{t('ended')}</div>
             </div>
           ),
           button: (
