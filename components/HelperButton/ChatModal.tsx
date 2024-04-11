@@ -5,6 +5,7 @@ import { useGlobalStore } from '@/store/zustand/globalStore';
 import { useClickAway } from 'ahooks';
 import { HelperType } from '.';
 import Image from 'next/image';
+import { ScrollArea } from '../ui/scroll-area';
 interface ChatModalProps {}
 
 enum Role {
@@ -115,25 +116,29 @@ const ChatModal: FC<ChatModalProps> = (props) => {
             </div>
           </div>
         </div>
-        <div className="flex w-full flex-1 flex-col justify-end gap-3 overflow-auto pb-3">
-          {chatHistory.map((item) => {
-            return (
-              <div
-                key={item.id}
-                className={cn('flex w-full p-3', item.message.role === Role.HUMAN ? 'justify-end' : '')}
-              >
-                <span
-                  className={cn(
-                    'body-m inline-block rounded-[8px] p-3 text-neutral-black',
-                    item.message.role === Role.HUMAN ? 'bg-[#BC9BFF4D]' : 'bg-neutral-off-white'
-                  )}
+
+        <ScrollArea className="flex w-full flex-1">
+          <div className="flex h-full w-full flex-col justify-end gap-3  pb-3">
+            {chatHistory.map((item) => {
+              return (
+                <div
+                  key={item.id}
+                  className={cn('flex w-full p-3', item.message.role === Role.HUMAN ? 'justify-end' : '')}
                 >
-                  {item.message.content}
-                </span>
-              </div>
-            );
-          })}
-        </div>
+                  <span
+                    className={cn(
+                      'body-m inline-block rounded-[8px] p-3 text-neutral-black',
+                      item.message.role === Role.HUMAN ? 'bg-[#BC9BFF4D]' : 'bg-neutral-off-white'
+                    )}
+                  >
+                    {item.message.content}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        </ScrollArea>
+
         <div className="flex flex-col gap-3 pb-2">
           <p className="body-xs text-center">You have 5 free trials left</p>
           <div className="p-3">

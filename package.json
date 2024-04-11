@@ -21,6 +21,7 @@
     "@formatjs/intl-localematcher": "^0.5.4",
     "@headlessui/react": "^1.7.15",
     "@moonshotcommons/hackquest-editor": "1.0.5",
+    "@radix-ui/react-scroll-area": "^1.0.5",
     "@rainbow-me/rainbowkit": "^2.0.2",
     "@tanstack/react-query": "^5.28.6",
     "@vercel/analytics": "^1.0.2",
@@ -40,6 +41,7 @@
     "install": "^0.13.0",
     "js-confetti": "^0.11.0",
     "lodash-es": "^4.17.21",
+    "lucide-react": "^0.367.0",
     "lz-string": "^1.5.0",
     "mitt": "^3.0.1",
     "moment": "^2.30.1",
@@ -67,6 +69,7 @@
     "sharp": "^0.33.2",
     "styled-components": "^6.0.2",
     "swiper": "6.8.4",
+    "tailwindcss-animate": "^1.0.7",
     "viem": "~2.8.18",
     "wagmi": "^2.5.12",
     "zustand": "^4.4.7"
