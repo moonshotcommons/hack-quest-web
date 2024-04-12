@@ -106,12 +106,13 @@ export enum EventStatus {
 
 export interface EventsType {
   id: string;
-  title: string;
+  name: string;
   description: string;
-  images: string[];
-  categories: string[];
+  medias: string[];
+  tags: string[];
   location: string;
   startTime: string;
   endTime: string;
   status: EventStatus;
+  eventUrl?: string;
 }

@@ -11,9 +11,11 @@ import { LaunchPoolProjectStatus } from '@/service/webApi/launchPool/type';
 import { LaunchDetailContext } from '@/app/[lang]/(web)/(subsite)/launch-pool/[id]/constants/type';
 import { titleTxtData } from '@/app/[lang]/(web)/(subsite)/launch-pool/[id]/constants/data';
 
-interface YourFuelingBoardProp {}
+interface YourFuelingBoardProp {
+  claimToken: VoidFunction;
+}
 
-const YourFuelingBoard: React.FC<YourFuelingBoardProp> = () => {
+const YourFuelingBoard: React.FC<YourFuelingBoardProp> = ({ claimToken }) => {
   const { launchInfo } = useContext(LaunchDetailContext);
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);

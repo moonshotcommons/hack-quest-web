@@ -7,18 +7,26 @@ import { FuelInfo, LaunchPoolProjectType, ParticipateInfo } from '@/service/webA
 import { useRequest } from 'ahooks';
 import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';
-import { useRouter } from 'next/navigation';
 import WaitListModal, { WaitListModalInstance } from '@/components/Web/Business/WaitListModal';
 import ConnectModal, { ConnectModalInstance } from '@/components/Web/Business/ConnectModal';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useChainInfo } from '@/hooks/contract/useChain';
+import { useAccount, useChainId, useSwitchChain } from 'wagmi';
+import {
+  useWriteAirdropClaim,
+  useWriteLaunchpadStake,
+  useWriteLaunchpadUnstake,
+  useWriteStakingTokenApprove
+} from '@/lib/generated';
+import { ChainType } from '@/config/wagmi';
+import { parseUnits } from 'viem';
+import { mantaTestnet } from '@/config/wagmi/chains';
 
 interface LaunchDetailPageProp {
   id: string;
 }
 
 const LaunchDetailPage: React.FC<LaunchDetailPageProp> = ({ id }) => {
-  const router = useRouter();
   const [projectInfo, setProjectInfo] = useState<LaunchPoolProjectType | null>(null);
   const [participateInfo, setParticipateInfo] = useState<ParticipateInfo | null>(null);
   const [fuelsInfo, setfFelsInfo] = useState<FuelInfo[]>([]);
@@ -35,6 +43,74 @@ const LaunchDetailPage: React.FC<LaunchDetailPageProp> = ({ id }) => {
   const setAuthModalOpen = useUserStore((state) => state.setAuthModalOpen);
   const timeOut = useRef<NodeJS.Timeout | null>(null);
   const [joined, setJoined] = useState(false);
+  const chainId = useChainId();
+  const { switchChainAsync } = useSwitchChain();
+
+  const { writeContractAsync } = useWriteLaunchpadStake();
+  const { writeContractAsync: writeContractAsyncUn } = useWriteLaunchpadUnstake();
+  const { writeContractAsync: stakingTokenApprove } = useWriteStakingTokenApprove();
+  const { writeContractAsync: writeContractAsyncClaim } = useWriteAirdropClaim();
+
+  const account = useAccount();
+
+  const handleStake = async (amount: string) => {
+    setLoading(true);
+    try {
+      if (chainId !== ChainType.MANTA) {
+        await switchChainAsync({ chainId: ChainType.MANTA });
+      }
+      await stakingTokenApprove({
+        account: account.address,
+        address: mantaTestnet.contracts.stakingToken.address,
+        args: [mantaTestnet.contracts.launchpad.address, parseUnits(amount, 18)]
+      });
+      await writeContractAsync({
+        account: account.address,
+        address: mantaTestnet.contracts.launchpad.address,
+        args: [launchInfo.launchPadID as bigint, parseUnits(amount, 18)]
+      });
+    } catch (error) {
+      console.info(error);
+      errorMessage(error);
+    }
+    setLoading(false);
+  };
+  const handleUnStake = async () => {
+    setLoading(true);
+    try {
+      if (chainId !== ChainType.MANTA) {
+        await switchChainAsync({ chainId: ChainType.MANTA });
+      }
+      await writeContractAsyncUn({
+        account: account.address,
+        address: mantaTestnet.contracts.launchpad.address,
+        args: [launchInfo.launchPadID as bigint, BigInt(1)]
+      });
+    } catch (error) {
+      console.info(error);
+      errorMessage(error);
+    }
+    setLoading(false);
+  };
+
+  const handleClaimToken = async () => {
+    setLoading(true);
+    try {
+      await writeContractAsyncClaim({
+        account: account.address,
+        address: '0x6Eb462Aa74AbDc99Fd025bD32800500c37B0040a',
+        args: [
+          '0x7184c70bdC9eaD810C795d5df0Bf4aC987988927',
+          ['0x7dd532323d5d20b862da3f3fdab74408430bb345a3d37317e354a89c7c5dc653'],
+          parseUnits('0.0001', 18)
+        ]
+      });
+    } catch (error) {
+      console.info(error);
+      errorMessage(error);
+    }
+    setLoading(false);
+  };
 
   const { run: getProjectInfo } = useRequest(
     async () => {
@@ -176,11 +252,15 @@ const LaunchDetailPage: React.FC<LaunchDetailPageProp> = ({ id }) => {
     <LaunchDetailContext.Provider
       value={{
         launchInfo: launchInfo as LaunchInfoType,
+        refreshLaunchInfo: getProjectInfo,
         refreshFuel: getFulesInfo,
         loading,
         setLoading,
         joinWaitlist,
-        participateNow
+        participateNow,
+        handleStake,
+        handleUnStake,
+        handleClaimToken
       }}
     >
       <div className="scroll-wrap-y h-full py-[40px]" ref={boxRef} onScroll={handleScoll}>

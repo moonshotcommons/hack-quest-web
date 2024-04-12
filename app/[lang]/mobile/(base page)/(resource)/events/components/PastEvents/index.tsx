@@ -22,7 +22,7 @@ const PastEvents: React.FC<PastEventsProp> = ({ list }) => {
     <div className="mt-[2.5rem] px-[1.25rem]">
       <p className="text-h3-mob text-neutral-off-black">Past Events</p>
       <div className="my-[1.25rem] flex flex-col gap-[1.25rem]">
-        {eventsList.map((v) => (
+        {eventsList.slice(0, 8).map((v) => (
           <div key={v.id} className="w-full">
             <MobEventsPast
               events={v}
