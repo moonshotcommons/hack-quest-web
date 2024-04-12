@@ -13,7 +13,12 @@ interface PastEventsProp {
 
 const PastEvents: React.FC<PastEventsProp> = ({ list }) => {
   const eventsList = useMemo(() => {
-    return list.filter((v) => v.status === EventStatus.PAST);
+    return list
+      .filter((v) => v.status === EventStatus.PAST)
+      .map((v) => ({
+        ...v,
+        medias: v.medias?.filter((m) => /.webp$/.test(m))
+      }));
   }, [list]);
   const [modalOpen, setModalOpen] = useState(false);
   const [events, setEvents] = useState({});

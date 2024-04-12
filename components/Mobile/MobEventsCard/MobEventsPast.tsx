@@ -2,6 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import TrackTag from '@/components/Common/TrackTag';
 import { EventsType } from '@/service/webApi/resourceStation/type';
+import CardCover from '@/public/images/resource/events_card_cover.png';
 
 interface MobEventsPastProp {
   onClick: VoidFunction;
@@ -13,7 +14,7 @@ const MobEventsPast: React.FC<MobEventsPastProp> = ({ onClick, events }) => {
     <div className="flex overflow-hidden rounded-[12px] bg-neutral-white" onClick={onClick}>
       <div className="relative  w-[6rem] flex-shrink-0">
         <div className="absolute h-full w-full">
-          <Image src={events.medias?.[0]} alt="event-cover" fill className="object-cover" />
+          <Image src={events.medias?.[0] || CardCover} alt={events.name} fill className="object-cover" />
         </div>
       </div>
       <div className="flex flex-col gap-[1rem] p-[1rem]">

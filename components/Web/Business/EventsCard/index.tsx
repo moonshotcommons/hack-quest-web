@@ -6,6 +6,7 @@ import moment from 'moment';
 import { TfiLocationPin } from 'react-icons/tfi';
 import { PiCalendarBlank } from 'react-icons/pi';
 import { EventStatus, EventsType } from '@/service/webApi/resourceStation/type';
+import CardCover from '@/public/images/resource/events_card_cover.png';
 interface EventsCardProp {
   onClick: VoidFunction;
   events: EventsType;
@@ -15,7 +16,7 @@ const EventsCard: React.FC<EventsCardProp> = ({ onClick, events }) => {
   return (
     <div className="card-hover overflow-hidden rounded-[12px]" onClick={onClick}>
       <div className="relative h-0 w-full pt-[56%]">
-        <Image src={events.medias?.[0]} alt="event-cover" fill className="object-contain" />
+        <Image src={events.medias?.[0] || CardCover} alt={events.name} fill className="object-contain" />
       </div>
       <div className="flex flex-col justify-between gap-[16px] px-[16px] py-[20px]">
         <h2 className="bpdy-l-bold line-clamp-2 h-[58px] text-neutral-off-black">{events.name}</h2>
