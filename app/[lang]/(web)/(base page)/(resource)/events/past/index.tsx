@@ -6,7 +6,7 @@ import LandingFooter from '@/components/Web/Business/LandingFooter';
 import MenuLink from '@/constants/MenuLink';
 import { EventsType } from '@/service/webApi/resourceStation/type';
 import Link from 'next/link';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useMemo, useState } from 'react';
 import { HiArrowLongLeft } from 'react-icons/hi2';
 
 interface PastPageProp {
@@ -17,6 +17,12 @@ const PastPage: React.FC<PastPageProp> = ({ list }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [events, setEvents] = useState({});
   const { lang } = useContext(LangContext);
+  const eventsList = useMemo(() => {
+    return list.map((v) => ({
+      ...v,
+      medias: v.medias?.filter((m) => /.webp$/.test(m))
+    }));
+  }, [list]);
   return (
     <div className="flex h-full flex-col pt-[48px]">
       <div className="container mx-auto mb-[100px] flex flex-1 flex-col">
@@ -33,7 +39,7 @@ const PastPage: React.FC<PastPageProp> = ({ list }) => {
         </div>
 
         <div className="mt-[60px] flex min-h-[flex-1] flex-wrap gap-[20px]">
-          {list.map((v) => (
+          {eventsList.map((v) => (
             <div key={v.id} className="w-[calc((100%-60px)/4)]">
               <EventsCard
                 events={v}

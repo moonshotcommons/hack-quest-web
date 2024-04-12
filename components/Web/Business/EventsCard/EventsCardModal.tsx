@@ -35,7 +35,7 @@ const EventsCardModal: React.FC<EventsCardModalProp> = ({ onClose, open, events 
                 {events.medias?.map((v, i) => (
                   <SwiperSlide key={i}>
                     <div className="relative h-0 w-full overflow-hidden rounded-[16px] pt-[60%]">
-                      <Image src={v} alt="event-cover" fill className="object-cover" />
+                      <Image src={v} alt={events.name} fill className="object-cover" />
                     </div>
                   </SwiperSlide>
                 ))}
