@@ -5,7 +5,7 @@ import MenuLink from '@/constants/MenuLink';
 import useGetHeight from '@/hooks/dom/useGetHeight';
 import { EventsType } from '@/service/webApi/resourceStation/type';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { HiArrowLongLeft } from 'react-icons/hi2';
 
 interface PastPageProp {
@@ -16,6 +16,12 @@ const PastPage: React.FC<PastPageProp> = ({ list }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [events, setEvents] = useState({});
   const { pageHeight } = useGetHeight();
+  const eventsList = useMemo(() => {
+    return list.map((v) => ({
+      ...v,
+      medias: v.medias?.filter((m) => /.webp$/.test(m))
+    }));
+  }, [list]);
   return (
     <div
       className="p-[1.25rem]"
@@ -31,7 +37,7 @@ const PastPage: React.FC<PastPageProp> = ({ list }) => {
       </Link>
       <p className="text-h2-mob mb-[1.25rem] text-neutral-off-black">Past Events</p>
       <div className="flex flex-col gap-[1.25rem]">
-        {list.map((v) => (
+        {eventsList.map((v) => (
           <div key={v.id} className="w-full">
             <MobEventsPast
               events={v}

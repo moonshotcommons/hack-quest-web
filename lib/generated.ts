@@ -6,6 +6,120 @@ import {
 } from 'wagmi/codegen';
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Airdrop
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const airdropAbi = [
+  { stateMutability: 'nonpayable', type: 'constructor', inputs: [] },
+  {
+    type: 'error',
+    inputs: [{ name: 'owner', internalType: 'address', type: 'address' }],
+    name: 'OwnableInvalidOwner'
+  },
+  {
+    type: 'error',
+    inputs: [{ name: 'account', internalType: 'address', type: 'address' }],
+    name: 'OwnableUnauthorizedAccount'
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'previousOwner',
+        internalType: 'address',
+        type: 'address',
+        indexed: true
+      },
+      {
+        name: 'newOwner',
+        internalType: 'address',
+        type: 'address',
+        indexed: true
+      }
+    ],
+    name: 'OwnershipTransferred'
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: '_address', internalType: 'address', type: 'address' },
+      { name: '_root', internalType: 'bytes32', type: 'bytes32' },
+      { name: '_startTime', internalType: 'uint256', type: 'uint256' },
+      { name: '_endTime', internalType: 'uint256', type: 'uint256' }
+    ],
+    name: 'addTokenAirDrop',
+    outputs: []
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: '_tokenAddress', internalType: 'address', type: 'address' },
+      { name: 'proof', internalType: 'bytes32[]', type: 'bytes32[]' },
+      { name: 'amount', internalType: 'uint256', type: 'uint256' }
+    ],
+    name: 'claim',
+    outputs: []
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [
+      { name: '', internalType: 'address', type: 'address' },
+      { name: '', internalType: 'address', type: 'address' }
+    ],
+    name: 'isClaimed',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }]
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'owner',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }]
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [],
+    name: 'renounceOwnership',
+    outputs: []
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: '', internalType: 'address', type: 'address' }],
+    name: 'tokenOfInfo',
+    outputs: [
+      { name: 'root', internalType: 'bytes32', type: 'bytes32' },
+      { name: 'startTime', internalType: 'uint256', type: 'uint256' },
+      { name: 'endTime', internalType: 'uint256', type: 'uint256' }
+    ]
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [{ name: 'newOwner', internalType: 'address', type: 'address' }],
+    name: 'transferOwnership',
+    outputs: []
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: '_address', internalType: 'address', type: 'address' },
+      { name: '_root', internalType: 'bytes32', type: 'bytes32' },
+      { name: '_startTime', internalType: 'uint256', type: 'uint256' },
+      { name: '_endTime', internalType: 'uint256', type: 'uint256' }
+    ],
+    name: 'update',
+    outputs: []
+  }
+] as const;
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // LaunchapToken
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -220,7 +334,8 @@ export const launchpadAbi = [
         internalType: 'uint256',
         type: 'uint256',
         indexed: true
-      }
+      },
+      { name: 'name', internalType: 'string', type: 'string', indexed: false }
     ],
     name: 'AddLaunchpad'
   },
@@ -417,6 +532,17 @@ export const launchpadAbi = [
       { name: '_status', internalType: 'bool', type: 'bool' }
     ],
     name: 'changeLaunchpadStatus',
+    outputs: []
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: '_launchpadId', internalType: 'uint256', type: 'uint256' },
+      { name: '_pointsAmount', internalType: 'uint256', type: 'uint256' },
+      { name: 'proof', internalType: 'bytes32[]', type: 'bytes32[]' }
+    ],
+    name: 'claimOfDifferentChain',
     outputs: []
   },
   {
@@ -941,6 +1067,146 @@ export const stakingTokenAbi = [
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link airdropAbi}__
+ */
+export const useReadAirdrop = /*#__PURE__*/ createUseReadContract({
+  abi: airdropAbi
+});
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link airdropAbi}__ and `functionName` set to `"isClaimed"`
+ */
+export const useReadAirdropIsClaimed = /*#__PURE__*/ createUseReadContract({
+  abi: airdropAbi,
+  functionName: 'isClaimed'
+});
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link airdropAbi}__ and `functionName` set to `"owner"`
+ */
+export const useReadAirdropOwner = /*#__PURE__*/ createUseReadContract({
+  abi: airdropAbi,
+  functionName: 'owner'
+});
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link airdropAbi}__ and `functionName` set to `"tokenOfInfo"`
+ */
+export const useReadAirdropTokenOfInfo = /*#__PURE__*/ createUseReadContract({
+  abi: airdropAbi,
+  functionName: 'tokenOfInfo'
+});
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link airdropAbi}__
+ */
+export const useWriteAirdrop = /*#__PURE__*/ createUseWriteContract({
+  abi: airdropAbi
+});
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link airdropAbi}__ and `functionName` set to `"addTokenAirDrop"`
+ */
+export const useWriteAirdropAddTokenAirDrop = /*#__PURE__*/ createUseWriteContract({
+  abi: airdropAbi,
+  functionName: 'addTokenAirDrop'
+});
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link airdropAbi}__ and `functionName` set to `"claim"`
+ */
+export const useWriteAirdropClaim = /*#__PURE__*/ createUseWriteContract({
+  abi: airdropAbi,
+  functionName: 'claim'
+});
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link airdropAbi}__ and `functionName` set to `"renounceOwnership"`
+ */
+export const useWriteAirdropRenounceOwnership = /*#__PURE__*/ createUseWriteContract({
+  abi: airdropAbi,
+  functionName: 'renounceOwnership'
+});
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link airdropAbi}__ and `functionName` set to `"transferOwnership"`
+ */
+export const useWriteAirdropTransferOwnership = /*#__PURE__*/ createUseWriteContract({
+  abi: airdropAbi,
+  functionName: 'transferOwnership'
+});
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link airdropAbi}__ and `functionName` set to `"update"`
+ */
+export const useWriteAirdropUpdate = /*#__PURE__*/ createUseWriteContract({
+  abi: airdropAbi,
+  functionName: 'update'
+});
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link airdropAbi}__
+ */
+export const useSimulateAirdrop = /*#__PURE__*/ createUseSimulateContract({
+  abi: airdropAbi
+});
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link airdropAbi}__ and `functionName` set to `"addTokenAirDrop"`
+ */
+export const useSimulateAirdropAddTokenAirDrop = /*#__PURE__*/ createUseSimulateContract({
+  abi: airdropAbi,
+  functionName: 'addTokenAirDrop'
+});
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link airdropAbi}__ and `functionName` set to `"claim"`
+ */
+export const useSimulateAirdropClaim = /*#__PURE__*/ createUseSimulateContract({
+  abi: airdropAbi,
+  functionName: 'claim'
+});
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link airdropAbi}__ and `functionName` set to `"renounceOwnership"`
+ */
+export const useSimulateAirdropRenounceOwnership = /*#__PURE__*/ createUseSimulateContract({
+  abi: airdropAbi,
+  functionName: 'renounceOwnership'
+});
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link airdropAbi}__ and `functionName` set to `"transferOwnership"`
+ */
+export const useSimulateAirdropTransferOwnership = /*#__PURE__*/ createUseSimulateContract({
+  abi: airdropAbi,
+  functionName: 'transferOwnership'
+});
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link airdropAbi}__ and `functionName` set to `"update"`
+ */
+export const useSimulateAirdropUpdate = /*#__PURE__*/ createUseSimulateContract({
+  abi: airdropAbi,
+  functionName: 'update'
+});
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link airdropAbi}__
+ */
+export const useWatchAirdropEvent = /*#__PURE__*/ createUseWatchContractEvent({
+  abi: airdropAbi
+});
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link airdropAbi}__ and `eventName` set to `"OwnershipTransferred"`
+ */
+export const useWatchAirdropOwnershipTransferredEvent = /*#__PURE__*/ createUseWatchContractEvent({
+  abi: airdropAbi,
+  eventName: 'OwnershipTransferred'
+});
+
+/**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link launchapTokenAbi}__
  */
 export const useReadLaunchapToken = /*#__PURE__*/ createUseReadContract({
@@ -1235,6 +1501,14 @@ export const useWriteLaunchpadChangeLaunchpadStatus = /*#__PURE__*/ createUseWri
 });
 
 /**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link launchpadAbi}__ and `functionName` set to `"claimOfDifferentChain"`
+ */
+export const useWriteLaunchpadClaimOfDifferentChain = /*#__PURE__*/ createUseWriteContract({
+  abi: launchpadAbi,
+  functionName: 'claimOfDifferentChain'
+});
+
+/**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link launchpadAbi}__ and `functionName` set to `"claimOfSameChain"`
  */
 export const useWriteLaunchpadClaimOfSameChain = /*#__PURE__*/ createUseWriteContract({
@@ -1359,6 +1633,14 @@ export const useSimulateLaunchpadChangeLaunchpadName = /*#__PURE__*/ createUseSi
 export const useSimulateLaunchpadChangeLaunchpadStatus = /*#__PURE__*/ createUseSimulateContract({
   abi: launchpadAbi,
   functionName: 'changeLaunchpadStatus'
+});
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link launchpadAbi}__ and `functionName` set to `"claimOfDifferentChain"`
+ */
+export const useSimulateLaunchpadClaimOfDifferentChain = /*#__PURE__*/ createUseSimulateContract({
+  abi: launchpadAbi,
+  functionName: 'claimOfDifferentChain'
 });
 
 /**

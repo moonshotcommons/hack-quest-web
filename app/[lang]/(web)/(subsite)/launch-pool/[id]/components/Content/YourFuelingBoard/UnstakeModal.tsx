@@ -9,12 +9,11 @@ import { LaunchDetailContext } from '../../../constants/type';
 
 interface UnstakeModalProp {
   open: boolean;
-  hanleUnstake: VoidFunction;
   onClose: VoidFunction;
 }
 
-const UnstakeModal: React.FC<UnstakeModalProp> = ({ open, hanleUnstake, onClose }) => {
-  const { launchInfo, loading } = useContext(LaunchDetailContext);
+const UnstakeModal: React.FC<UnstakeModalProp> = ({ open, onClose }) => {
+  const { loading, handleUnStake } = useContext(LaunchDetailContext);
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
   return (
@@ -28,7 +27,7 @@ const UnstakeModal: React.FC<UnstakeModalProp> = ({ open, hanleUnstake, onClose 
               loading={loading}
               type="primary"
               className="button-text-m  h-[48px]  w-[165px] p-0 uppercase"
-              onClick={hanleUnstake}
+              onClick={handleUnStake}
             >
               {t('unStakeNow')}
             </Button>

@@ -10,7 +10,12 @@ interface UpcomingEventsProp {
 
 const UpcomingEvents: React.FC<UpcomingEventsProp> = ({ list }) => {
   const eventsList = useMemo(() => {
-    return list.filter((v) => v.status === EventStatus.UPCOMING);
+    return list
+      .filter((v) => v.status !== EventStatus.PAST)
+      .map((v) => ({
+        ...v,
+        medias: v.medias?.filter((m) => /.webp$/.test(m))
+      }));
   }, [list]);
   const [modalOpen, setModalOpen] = useState(false);
   const [events, setEvents] = useState({});

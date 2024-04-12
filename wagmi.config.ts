@@ -1,7 +1,7 @@
 import { defineConfig } from '@wagmi/cli';
 import { react } from '@wagmi/cli/plugins';
 
-import { LaunchapToken, Launchpad, StakingToken, SBTManager } from '@/config/abi';
+import { LaunchapToken, Launchpad, StakingToken, SBTManager, Airdrop } from '@/config/abi';
 
 /**
  * Generate contract code
@@ -27,6 +27,10 @@ export default defineConfig({
     {
       name: StakingToken.contractName,
       abi: StakingToken.abi as any
+    },
+    {
+      name: 'Airdrop',
+      abi: Airdrop as any
     }
   ],
   plugins: [react()]

@@ -76,6 +76,10 @@ class LaunchPoolApi {
       `${LaunchPoolApiType.LaunchPoolProjects}/${projectId}/check-wait-list`
     );
   }
+
+  getCurrentPrice() {
+    return this.service.get<{ usd: number }>(`/ethers/price?currency=ethereum`);
+  }
 }
 
 export default LaunchPoolApi;
