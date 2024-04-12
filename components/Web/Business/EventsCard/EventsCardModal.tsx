@@ -10,6 +10,7 @@ import { TfiLocationPin } from 'react-icons/tfi';
 import { SwiperSlide } from 'swiper/react';
 import Image from 'next/image';
 import { EventsType } from '@/service/webApi/resourceStation/type';
+import Link from 'next/link';
 
 interface EventsCardModalProp {
   onClose: VoidFunction;
@@ -31,7 +32,7 @@ const EventsCardModal: React.FC<EventsCardModalProp> = ({ onClose, open, events 
           <div className="w-[372px]">
             <div className="mb-[24px] w-full">
               <SwiperContainer>
-                {events.images?.map((v, i) => (
+                {events.medias?.map((v, i) => (
                   <SwiperSlide key={i}>
                     <div className="relative h-0 w-full overflow-hidden rounded-[16px] pt-[60%]">
                       <Image src={v} alt="event-cover" fill className="object-cover" />
@@ -40,9 +41,9 @@ const EventsCardModal: React.FC<EventsCardModalProp> = ({ onClose, open, events 
                 ))}
               </SwiperContainer>
             </div>
-            <p className="body-l-bold  text-neutral-black">{events.title}</p>
+            <p className="body-l-bold  text-neutral-black">{events.name}</p>
             <div className="my-[16px] flex flex-wrap gap-[12px]">
-              {events.categories?.map((v, i) => <TrackTag track={v} key={i} />)}
+              {events.tags?.map((v, i) => <TrackTag track={v} key={i} />)}
             </div>
             <div className="body-s text-neutral-rich-gray">
               <div className="flex items-center gap-[8px]">
@@ -61,11 +62,15 @@ const EventsCardModal: React.FC<EventsCardModalProp> = ({ onClose, open, events 
           </div>
           <div className="flex w-[372px] flex-col justify-between">
             <p className="body-s scroll-wrap-y max-h-[400px] text-neutral-off-black">{events.description}</p>
-            <div className="flex justify-end pt-[20px]">
-              <Button className="button-text-s h-[34px] w-[140px] border border-neutral-black p-0 uppercase text-neutral-black">
-                learn more
-              </Button>
-            </div>
+            {events.eventUrl && (
+              <div className="flex justify-end pt-[20px]">
+                <Link href={events.eventUrl}>
+                  <Button className="button-text-s h-[34px] w-[140px] border border-neutral-black p-0 uppercase text-neutral-black">
+                    learn more
+                  </Button>
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </div>

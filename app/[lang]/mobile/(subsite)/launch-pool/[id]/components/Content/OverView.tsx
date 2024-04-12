@@ -15,7 +15,9 @@ import { LaunchPoolProjectStatus } from '@/service/webApi/launchPool/type';
 import { LaunchDetailContext } from '@/app/[lang]/(web)/(subsite)/launch-pool/[id]/constants/type';
 import { linkIcons } from '@/app/[lang]/(web)/(subsite)/launch-pool/[id]/constants/data';
 
-interface OverViewProp {}
+interface OverViewProp {
+  claimToken: VoidFunction;
+}
 
 const TimeText: React.FC<Record<string, number>> = ({ d, h, m, s }) => {
   const { lang } = useContext(LangContext);
@@ -31,7 +33,7 @@ const TimeText: React.FC<Record<string, number>> = ({ d, h, m, s }) => {
   );
 };
 
-const OverView: React.FC<OverViewProp> = () => {
+const OverView: React.FC<OverViewProp> = ({ claimToken }) => {
   const { launchInfo, loading, joinWaitlist, participateNow } = useContext(LaunchDetailContext);
 
   const targetDate = useMemo(() => {
@@ -138,7 +140,12 @@ const OverView: React.FC<OverViewProp> = () => {
               {t('fuelingEnded')}
             </Button>
           ) : (
-            <Button type="primary" className="button-text-l h-[3rem] w-full  uppercase ">
+            <Button
+              type="primary"
+              className="button-text-l h-[3rem] w-full  uppercase "
+              loading={loading}
+              onClick={claimToken}
+            >
               {t('claimToken')}
             </Button>
           )

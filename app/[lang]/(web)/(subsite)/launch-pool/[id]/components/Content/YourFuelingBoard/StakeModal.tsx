@@ -10,37 +10,55 @@ import React, { useContext, useState, useMemo } from 'react';
 import { FiMinus, FiX } from 'react-icons/fi';
 import { IoIosArrowForward } from 'react-icons/io';
 import { IoAddOutline } from 'react-icons/io5';
-import { useAccount } from 'wagmi';
+import { useAccount, useBalance } from 'wagmi';
 import { LaunchDetailContext } from '../../../constants/type';
+import { useRequest } from 'ahooks';
+import webApi from '@/service';
 
 interface StakeModalProp {
   open: boolean;
-  hanleStake: (param: any) => void;
   onClose: VoidFunction;
-  currentPrice: number;
 }
 
-const StakeModal: React.FC<StakeModalProp> = ({ open, hanleStake, onClose, currentPrice }) => {
-  const { launchInfo, loading } = useContext(LaunchDetailContext);
+const StakeModal: React.FC<StakeModalProp> = ({ open, onClose }) => {
+  const { launchInfo, loading, handleStake } = useContext(LaunchDetailContext);
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
   const account = useAccount();
   const [inputAmount, setInputAmount] = useState(0);
   const [inputDuration, setInputDuration] = useState(1);
+  const [currentPrice, setCurrentPrice] = useState(0);
   const disable = useMemo(() => {
     return !(Number(inputAmount) > 0 && Number(inputDuration) > 0);
   }, [inputAmount, inputDuration]);
 
+  const balance =
+    useBalance({
+      address: account.address
+    }).data?.formatted || 0;
+  const {} = useRequest(
+    async () => {
+      const res = await webApi.launchPoolApi.getCurrentPrice();
+      return res;
+    },
+    {
+      onSuccess(res) {
+        setCurrentPrice(res?.usd || 0);
+      }
+    }
+  );
   const onStake = () => {
     if (disable) return;
-    hanleStake(inputAmount);
+    handleStake(String(inputAmount));
   };
 
   return (
-    <Modal open={true} onClose={onClose} showCloseIcon={true} icon={<FiX size={26} />}>
+    <Modal open={open} onClose={onClose} showCloseIcon={true} icon={<FiX size={26} />}>
       <div className=" scroll-wrap-y max-h-[95vh] w-[808px] rounded-[10px] bg-neutral-white px-[137px]  pb-[40px] pt-[60px]  text-neutral-black">
         <div className="">
-          <div className="text-h3 text-center">{t('stake')} $Manta</div>
+          <div className="text-h3 text-center">
+            {t('stake')} ${launchInfo.symbol}
+          </div>
           <div className="mt-[24px]">
             <div className="body-l flex flex-col gap-[16px] text-neutral-medium-gray">
               <div className="flex justify-between">
@@ -78,7 +96,8 @@ const StakeModal: React.FC<StakeModalProp> = ({ open, hanleStake, onClose, curre
                 type="text"
                 value={inputAmount}
                 onChange={(e) => {
-                  const value = e.target.value.replace(/^\D*(\d*(?:\.\d{0,})?).*$/g, '$1');
+                  let value = e.target.value.replace(/^\D*(\d*(?:\.\d{0,})?).*$/g, '$1') as unknown;
+                  if (Number(value) >= Number(balance)) value = balance;
                   setInputAmount(value as any);
                 }}
                 className="body-l flex-1 border-none text-neutral-off-black outline-none"
@@ -86,14 +105,14 @@ const StakeModal: React.FC<StakeModalProp> = ({ open, hanleStake, onClose, curre
               <span
                 className="underline-l cursor-pointer"
                 onClick={() => {
-                  setInputAmount(launchInfo.totalAirdropAmount);
+                  setInputAmount(Number(balance));
                 }}
               >
                 {t('max')}
               </span>
             </div>
             <div className="body-s text-neutral-medium-gray">
-              <p className="mt-[10px]">{`${t('balance')}: ${separationNumber(launchInfo.totalAirdropAmount)} $${launchInfo.symbol}`}</p>
+              <p className="mt-[10px]">{`${t('balance')}: ${balance} $${launchInfo.symbol}`}</p>
               <p className="mt-[10px]">{`${t('currentPrice')}: 1 $${launchInfo.symbol} = ${currentPrice} USD`} </p>
             </div>
           </div>

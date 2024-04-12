@@ -20,7 +20,8 @@ enum MenuLink {
   LAUNCH = '/launch-pool',
   EVENTS = '/events',
   EVENTS_PAST = '/events/past',
-  PRESS_KIT = '/press-kit'
+  PRESS_KIT = '/press-kit',
+  CENTRAL_DAO = '/central-dao'
 }
 
 export default MenuLink;
