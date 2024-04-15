@@ -48,14 +48,14 @@ const SwiperContainer: React.FC<SwiperContainerProp> = ({
 
   return (
     <>
-      <Swiper style={{ width: '100%', paddingBottom: '1.25rem', ...style }} {...setting}>
+      <Swiper style={{ width: '100%', paddingBottom: '1.25rem', ...style }} {...setting} className="group">
         {children}
         {isNavigation ? (
           <>
-            <div className="flex-center absolute left-[10px] top-[50%] z-[10] h-[35px] w-[35px] translate-y-[-50%] rounded-[50%] bg-[rgba(211,211,211,0.7)] text-[rgba(11,11,11,0.7)]">
+            <div className="absolute left-[10px] top-[50%] z-[10] hidden h-[35px] w-[35px] translate-y-[-50%] items-center justify-center rounded-[50%] bg-[rgba(211,211,211,0.7)] text-[rgba(11,11,11,0.7)] group-hover:flex">
               <HiArrowLongLeft size={20}></HiArrowLongLeft>
             </div>
-            <div className="flex-center absolute right-[10px] top-[50%] z-[10] h-[35px] w-[35px] translate-y-[-50%] rounded-[50%] bg-[rgba(211,211,211,0.7)] text-[rgba(11,11,11,0.7)]">
+            <div className="absolute right-[10px] top-[50%] z-[10] hidden h-[35px] w-[35px] translate-y-[-50%] items-center justify-center rounded-[50%] bg-[rgba(211,211,211,0.7)] text-[rgba(11,11,11,0.7)] group-hover:flex">
               <HiArrowLongRight size={20}></HiArrowLongRight>
             </div>
           </>
