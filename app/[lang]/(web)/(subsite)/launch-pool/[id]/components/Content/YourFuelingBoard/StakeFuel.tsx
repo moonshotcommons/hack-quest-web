@@ -18,7 +18,7 @@ import { useAccount } from 'wagmi';
 interface StakeFuelProp {}
 
 const StakeFuel: React.FC<StakeFuelProp> = () => {
-  const { launchInfo, setLoading } = useContext(LaunchDetailContext);
+  const { launchInfo } = useContext(LaunchDetailContext);
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
   const [modalName, setModalName] = useState('');
@@ -36,13 +36,25 @@ const StakeFuel: React.FC<StakeFuelProp> = () => {
       <div className="flex items-center gap-[24px]">
         <p className="body-l text-neutral-black">{t('stakeFuel')}</p>
         {launchInfo.isStake && (
-          <div
-            className="body-m flex cursor-pointer items-center gap-[5px] text-neutral-medium-gray"
-            onClick={() => setModalName('stake')}
-          >
-            <IoMdAddCircle size={24} />
-            <span>{t('addNewStake')}</span>
-          </div>
+          <>
+            {account.status === 'connected' ? (
+              <div
+                className="body-m flex cursor-pointer items-center gap-[5px] text-neutral-medium-gray"
+                onClick={() => setModalName('stake')}
+              >
+                <IoMdAddCircle size={24} />
+                <span>{t('addNewStake')}</span>
+              </div>
+            ) : (
+              <div className="body-m relative flex cursor-pointer items-center gap-[5px] text-neutral-medium-gray">
+                <IoMdAddCircle size={24} />
+                <span>{t('addNewStake')}</span>
+                <div className="absolute left-0 top-0 h-full w-full opacity-0">
+                  <ConnectButton t={t} />
+                </div>
+              </div>
+            )}
+          </>
         )}
       </div>
 

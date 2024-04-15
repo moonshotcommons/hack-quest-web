@@ -3,16 +3,17 @@ import MenuLink from '@/constants/MenuLink';
 import React from 'react';
 import { Lang } from '@/i18n/config';
 import webApi from '@/service';
-import PastPage from '.';
 import { EventStatus } from '@/service/webApi/resourceStation/type';
+import PastPage from './components';
+import LandingFooter from '@/components/Web/Business/LandingFooter';
 
-interface PastProp {
+interface EventsProp {
   params: {
     lang: Lang;
   };
 }
 
-export async function generateMetadata({ params }: PastProp): Promise<Metadata> {
+export async function generateMetadata({ params }: EventsProp): Promise<Metadata> {
   const { lang } = params;
 
   const metadata: Metadata = {
@@ -30,11 +31,17 @@ export async function generateMetadata({ params }: PastProp): Promise<Metadata> 
   return metadata;
 }
 
-const Past: React.FC<PastProp> = async ({ params: { lang } }) => {
+const Events: React.FC<EventsProp> = async ({ params: { lang } }) => {
   const res = await webApi.resourceStationApi.getEvents({ status: EventStatus.PAST });
   const list = res.data || [];
-
-  return <PastPage list={list} />;
+  return (
+    <div className="flex h-full flex-col pt-[48px]">
+      <PastPage list={list} />
+      <div className="flex-shrink-0">
+        <LandingFooter lang={lang} />
+      </div>
+    </div>
+  );
 };
 
-export default Past;
+export default Events;

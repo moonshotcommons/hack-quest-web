@@ -29,7 +29,7 @@ const StakeModal: React.FC<StakeModalProp> = ({ open, onClose }) => {
   const [inputDuration, setInputDuration] = useState(1);
   const [currentPrice, setCurrentPrice] = useState(0);
   const disable = useMemo(() => {
-    return !(Number(inputAmount) > 0 && Number(inputDuration) > 0);
+    return !(Number(inputAmount) > 0 && Number(inputDuration) > 0) || isNaN(inputAmount) || isNaN(inputDuration);
   }, [inputAmount, inputDuration]);
 
   const balance =
@@ -96,8 +96,8 @@ const StakeModal: React.FC<StakeModalProp> = ({ open, onClose }) => {
                 type="text"
                 value={inputAmount}
                 onChange={(e) => {
-                  let value = e.target.value.replace(/^\D*(\d*(?:\.\d{0,})?).*$/g, '$1') as unknown;
-                  if (Number(value) >= Number(balance)) value = balance;
+                  let value = e.target.value.replace(/^(\d*(?:\.\d{0,18})?).*$/g, '$1') as unknown;
+
                   setInputAmount(value as any);
                 }}
                 className="body-l flex-1 border-none text-neutral-off-black outline-none"
@@ -105,7 +105,7 @@ const StakeModal: React.FC<StakeModalProp> = ({ open, onClose }) => {
               <span
                 className="underline-l cursor-pointer"
                 onClick={() => {
-                  setInputAmount(Number(balance));
+                  setInputAmount(Number((balance as string).replace(/^(\d*(?:\.\d{0,18})?).*$/g, '$1')));
                 }}
               >
                 {t('max')}
