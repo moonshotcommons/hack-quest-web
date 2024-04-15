@@ -2,7 +2,7 @@ import Button from '@/components/Common/Button';
 import SwiperContainer from '@/components/Common/SwiperContainer';
 import TrackTag from '@/components/Common/TrackTag';
 import moment from 'moment';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { PiCalendarBlank } from 'react-icons/pi';
 import { TfiLocationPin } from 'react-icons/tfi';
 import { SwiperSlide } from 'swiper/react';
@@ -13,6 +13,7 @@ import { motion } from 'framer-motion';
 import { animateProps } from './type';
 import { EventsType } from '@/service/webApi/resourceStation/type';
 import Link from 'next/link';
+import CardCover from '@/public/images/resource/events_card_cover.png';
 
 interface MobEventsCardModalProp {
   onClose: VoidFunction;
@@ -21,6 +22,9 @@ interface MobEventsCardModalProp {
 }
 
 const MobEventsCardModal: React.FC<MobEventsCardModalProp> = ({ onClose, open, events }) => {
+  const medias = useMemo(() => {
+    return events?.medias?.length ? events?.medias : [CardCover];
+  }, [events]);
   const { pageHeight } = useGetHeight();
   return (
     open && (
@@ -37,7 +41,7 @@ const MobEventsCardModal: React.FC<MobEventsCardModalProp> = ({ onClose, open, e
         </div>
         <div className="my-[1.25rem]">
           <SwiperContainer>
-            {events.medias?.map((v, i) => (
+            {medias?.map((v, i) => (
               <SwiperSlide key={i}>
                 <div className="relative h-0 w-full overflow-hidden rounded-[16px] pt-[60%]">
                   <Image src={v} alt={events.name} fill className="object-cover" />

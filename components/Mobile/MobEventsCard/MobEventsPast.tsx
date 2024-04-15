@@ -18,7 +18,7 @@ const MobEventsPast: React.FC<MobEventsPastProp> = ({ onClick, events }) => {
         </div>
       </div>
       <div className="flex flex-col gap-[1rem] p-[1rem]">
-        <p className="body-m-bold line-clamp-2 w-full text-neutral-off-black">{events.name}</p>
+        <h2 className="body-m-bold line-clamp-2 w-full text-neutral-off-black">{events.name}</h2>
         <div className="flex-wap flex gap-[.25rem]">{events.tags?.map((v, i) => <TrackTag track={v} key={i} />)}</div>
       </div>
     </div>
