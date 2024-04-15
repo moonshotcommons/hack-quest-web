@@ -1,9 +1,10 @@
+'use client';
 import Button from '@/components/Common/Button';
 import Modal from '@/components/Common/Modal';
 import SwiperContainer from '@/components/Common/SwiperContainer';
 import TrackTag from '@/components/Common/TrackTag';
 import moment from 'moment';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { FiX } from 'react-icons/fi';
 import { PiCalendarBlank } from 'react-icons/pi';
 import { TfiLocationPin } from 'react-icons/tfi';
@@ -11,6 +12,7 @@ import { SwiperSlide } from 'swiper/react';
 import Image from 'next/image';
 import { EventsType } from '@/service/webApi/resourceStation/type';
 import Link from 'next/link';
+import CardCover from '@/public/images/resource/events_card_cover.png';
 
 interface EventsCardModalProp {
   onClose: VoidFunction;
@@ -19,6 +21,9 @@ interface EventsCardModalProp {
 }
 
 const EventsCardModal: React.FC<EventsCardModalProp> = ({ onClose, open, events }) => {
+  const medias = useMemo(() => {
+    return events?.medias?.length ? events?.medias : [CardCover];
+  }, [events]);
   return (
     <Modal
       open={open}
@@ -27,19 +32,21 @@ const EventsCardModal: React.FC<EventsCardModalProp> = ({ onClose, open, events 
       icon={<FiX size={26} />}
       iconClassName="right-[24px] top-[24px]"
     >
-      <div className="   w-[840px] rounded-[16px] bg-neutral-white p-[24px] pt-[48px] shadow-[0_4px_8px_0_rgba(0,0,0,0.12)]">
+      <div className="w-[840px] rounded-[16px] bg-neutral-white p-[24px] pt-[48px] shadow-[0_4px_8px_0_rgba(0,0,0,0.12)]">
         <div className="flex justify-between py-[12px]">
           <div className="w-[372px]">
             <div className="mb-[24px] w-full">
-              <SwiperContainer>
-                {events.medias?.map((v, i) => (
-                  <SwiperSlide key={i}>
-                    <div className="relative h-0 w-full overflow-hidden rounded-[16px] pt-[60%]">
-                      <Image src={v} alt={events.name} fill className="object-cover" />
-                    </div>
-                  </SwiperSlide>
-                ))}
-              </SwiperContainer>
+              {medias ? (
+                <SwiperContainer isNavigation={true} isSimulateTouch={false}>
+                  {medias?.map((v, i) => (
+                    <SwiperSlide key={i}>
+                      <div className="relative h-0 w-full overflow-hidden rounded-[16px] pt-[60%]">
+                        <Image src={v} alt={events.name} fill className="object-cover" />
+                      </div>
+                    </SwiperSlide>
+                  ))}
+                </SwiperContainer>
+              ) : null}
             </div>
             <p className="body-l-bold  text-neutral-black">{events.name}</p>
             <div className="my-[16px] flex flex-wrap gap-[12px]">
@@ -64,7 +71,7 @@ const EventsCardModal: React.FC<EventsCardModalProp> = ({ onClose, open, events 
             <p className="body-s scroll-wrap-y max-h-[400px] text-neutral-off-black">{events.description}</p>
             {events.eventUrl && (
               <div className="flex justify-end pt-[20px]">
-                <Link href={events.eventUrl}>
+                <Link href={events.eventUrl} className="outline-none">
                   <Button className="button-text-s h-[34px] w-[140px] border border-neutral-black p-0 uppercase text-neutral-black">
                     learn more
                   </Button>

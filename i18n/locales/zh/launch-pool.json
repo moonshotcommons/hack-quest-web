@@ -148,5 +148,7 @@
   "tractionsText1": "成果文字1",
   "tractionsText2": "成果文字2",
   "tractionsText3": "成果文字3",
-  "tractionsText4": "成果文字4"
+  "tractionsText4": "成果文字4",
+  "minStakeErrorMsg":"最小amount为0.0001",
+  "maxStakeErrorMsg":"超出余额了"
 }

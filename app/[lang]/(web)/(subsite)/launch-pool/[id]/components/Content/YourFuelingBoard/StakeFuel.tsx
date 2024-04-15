@@ -18,7 +18,7 @@ import { useAccount } from 'wagmi';
 interface StakeFuelProp {}
 
 const StakeFuel: React.FC<StakeFuelProp> = () => {
-  const { launchInfo, setLoading } = useContext(LaunchDetailContext);
+  const { launchInfo } = useContext(LaunchDetailContext);
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
   const [modalName, setModalName] = useState('');

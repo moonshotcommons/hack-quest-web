@@ -1,12 +1,10 @@
 'use client';
-import { LangContext } from '@/components/Provider/Lang';
 import EventsCard from '@/components/Web/Business/EventsCard';
 import EventsCardModal from '@/components/Web/Business/EventsCard/EventsCardModal';
-import LandingFooter from '@/components/Web/Business/LandingFooter';
 import MenuLink from '@/constants/MenuLink';
 import { EventsType } from '@/service/webApi/resourceStation/type';
 import Link from 'next/link';
-import React, { useContext, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { HiArrowLongLeft } from 'react-icons/hi2';
 
 interface PastPageProp {
@@ -16,7 +14,6 @@ interface PastPageProp {
 const PastPage: React.FC<PastPageProp> = ({ list }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [events, setEvents] = useState({});
-  const { lang } = useContext(LangContext);
   const eventsList = useMemo(() => {
     return list.map((v) => ({
       ...v,
@@ -24,7 +21,7 @@ const PastPage: React.FC<PastPageProp> = ({ list }) => {
     }));
   }, [list]);
   return (
-    <div className="flex h-full flex-col pt-[48px]">
+    <>
       <div className="container mx-auto mb-[100px] flex flex-1 flex-col">
         <div className="relative flex justify-center">
           <p className="text-h2 text-neutral-off-black">Past Events</p>
@@ -39,7 +36,7 @@ const PastPage: React.FC<PastPageProp> = ({ list }) => {
         </div>
 
         <div className="mt-[60px] flex min-h-[flex-1] flex-wrap gap-[20px]">
-          {eventsList.map((v) => (
+          {eventsList?.map((v) => (
             <div key={v.id} className="w-[calc((100%-60px)/4)]">
               <EventsCard
                 events={v}
@@ -52,11 +49,9 @@ const PastPage: React.FC<PastPageProp> = ({ list }) => {
           ))}
         </div>
       </div>
-      <div className="flex-shrink-0">
-        <LandingFooter lang={lang} />
-      </div>
+
       <EventsCardModal events={events as EventsType} open={modalOpen} onClose={() => setModalOpen(false)} />
-    </div>
+    </>
   );
 };
 

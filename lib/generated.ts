@@ -335,7 +335,7 @@ export const launchpadAbi = [
         type: 'uint256',
         indexed: true
       },
-      { name: 'name', internalType: 'string', type: 'string', indexed: false }
+      { name: '_name', internalType: 'string', type: 'string', indexed: false }
     ],
     name: 'AddLaunchpad'
   },
@@ -532,17 +532,6 @@ export const launchpadAbi = [
       { name: '_status', internalType: 'bool', type: 'bool' }
     ],
     name: 'changeLaunchpadStatus',
-    outputs: []
-  },
-  {
-    stateMutability: 'nonpayable',
-    type: 'function',
-    inputs: [
-      { name: '_launchpadId', internalType: 'uint256', type: 'uint256' },
-      { name: '_pointsAmount', internalType: 'uint256', type: 'uint256' },
-      { name: 'proof', internalType: 'bytes32[]', type: 'bytes32[]' }
-    ],
-    name: 'claimOfDifferentChain',
     outputs: []
   },
   {
@@ -1501,14 +1490,6 @@ export const useWriteLaunchpadChangeLaunchpadStatus = /*#__PURE__*/ createUseWri
 });
 
 /**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link launchpadAbi}__ and `functionName` set to `"claimOfDifferentChain"`
- */
-export const useWriteLaunchpadClaimOfDifferentChain = /*#__PURE__*/ createUseWriteContract({
-  abi: launchpadAbi,
-  functionName: 'claimOfDifferentChain'
-});
-
-/**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link launchpadAbi}__ and `functionName` set to `"claimOfSameChain"`
  */
 export const useWriteLaunchpadClaimOfSameChain = /*#__PURE__*/ createUseWriteContract({
@@ -1633,14 +1614,6 @@ export const useSimulateLaunchpadChangeLaunchpadName = /*#__PURE__*/ createUseSi
 export const useSimulateLaunchpadChangeLaunchpadStatus = /*#__PURE__*/ createUseSimulateContract({
   abi: launchpadAbi,
   functionName: 'changeLaunchpadStatus'
-});
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link launchpadAbi}__ and `functionName` set to `"claimOfDifferentChain"`
- */
-export const useSimulateLaunchpadClaimOfDifferentChain = /*#__PURE__*/ createUseSimulateContract({
-  abi: launchpadAbi,
-  functionName: 'claimOfDifferentChain'
 });
 
 /**

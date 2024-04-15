@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import Nav from './Nav';
 import Content, { OffsetTopsType } from './Content';
 import { LaunchDetailContext, LaunchInfoType } from '../constants/type';
@@ -11,16 +11,19 @@ import WaitListModal, { WaitListModalInstance } from '@/components/Web/Business/
 import ConnectModal, { ConnectModalInstance } from '@/components/Web/Business/ConnectModal';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useChainInfo } from '@/hooks/contract/useChain';
-import { useAccount, useChainId, useSwitchChain } from 'wagmi';
+import { useAccount, useBalance, useChainId, useSwitchChain } from 'wagmi';
+import { ChainType } from '@/config/wagmi';
+import { parseUnits } from 'viem';
+import { mantaTestnet } from '@/config/wagmi/chains';
 import {
   useWriteAirdropClaim,
   useWriteLaunchpadStake,
   useWriteLaunchpadUnstake,
   useWriteStakingTokenApprove
 } from '@/lib/generated';
-import { ChainType } from '@/config/wagmi';
-import { parseUnits } from 'viem';
-import { mantaTestnet } from '@/config/wagmi/chains';
+import { LangContext } from '@/components/Provider/Lang';
+import { TransNs } from '@/i18n/config';
+import { useTranslation } from '@/i18n/client';
 
 interface LaunchDetailPageProp {
   id: string;
@@ -29,6 +32,8 @@ interface LaunchDetailPageProp {
 const LaunchDetailPage: React.FC<LaunchDetailPageProp> = ({ id }) => {
   const [projectInfo, setProjectInfo] = useState<LaunchPoolProjectType | null>(null);
   const [participateInfo, setParticipateInfo] = useState<ParticipateInfo | null>(null);
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
   const [fuelsInfo, setfFelsInfo] = useState<FuelInfo[]>([]);
   const boxRef = useRef<HTMLDivElement>(null);
   const [curAnchorIndex, setCurAnchorIndex] = useState(0);
@@ -52,8 +57,23 @@ const LaunchDetailPage: React.FC<LaunchDetailPageProp> = ({ id }) => {
   const { writeContractAsync: writeContractAsyncClaim } = useWriteAirdropClaim();
 
   const account = useAccount();
+  const balance =
+    useBalance({
+      address: account.address
+    })?.data?.formatted || 0;
 
   const handleStake = async (amount: string) => {
+    if (Number(amount) < 0.0001) {
+      errorMessage({
+        msg: t('minStakeErrorMsg')
+      });
+      return;
+    } else if (Number(amount) > Number(balance)) {
+      errorMessage({
+        msg: t('maxStakeErrorMsg')
+      });
+      return;
+    }
     setLoading(true);
     try {
       if (chainId !== ChainType.MANTA) {
@@ -98,7 +118,7 @@ const LaunchDetailPage: React.FC<LaunchDetailPageProp> = ({ id }) => {
     try {
       await writeContractAsyncClaim({
         account: account.address,
-        address: '0x6Eb462Aa74AbDc99Fd025bD32800500c37B0040a',
+        address: mantaTestnet.contracts.aridropToken.address,
         args: [
           '0x7184c70bdC9eaD810C795d5df0Bf4aC987988927',
           ['0x7dd532323d5d20b862da3f3fdab74408430bb345a3d37317e354a89c7c5dc653'],

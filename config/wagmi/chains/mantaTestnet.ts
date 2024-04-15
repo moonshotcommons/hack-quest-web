@@ -29,6 +29,9 @@ export const mantaTestnet = {
     },
     stakingToken: {
       address: '0x8bd11c1d18C7DcA017a0eFd99617Ae28B887c10e'
+    },
+    aridropToken: {
+      address: '0x6Eb462Aa74AbDc99Fd025bD32800500c37B0040a'
     }
   }
 } as const satisfies Chain;
