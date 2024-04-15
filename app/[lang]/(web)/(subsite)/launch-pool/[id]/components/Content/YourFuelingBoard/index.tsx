@@ -37,13 +37,13 @@ const YourFuelingBoard: React.FC<YourFuelingBoardProp> = ({}) => {
       <p className="text-h3 text-neutral-off-black">{t(titleTxtData[2])}</p>
       <p className="body-l my-[24px] text-neutral-black">{statusRender()?.titleDesc}</p>
       <Info />
-      {/* {launchInfo.status === LaunchPoolProjectStatus.FUELING && launchInfo.participateInfo?.isParticipate && ( */}
-      <>
-        <StakeFuel />
-        <InvitationFuel />
-        <TargetFuel />
-      </>
-      {/* )} */}
+      {launchInfo.status === LaunchPoolProjectStatus.FUELING && launchInfo.participateInfo?.isParticipate && (
+        <>
+          <StakeFuel />
+          <InvitationFuel />
+          <TargetFuel />
+        </>
+      )}
     </div>
   );
 };
