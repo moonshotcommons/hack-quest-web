@@ -1,8 +1,11 @@
 'use client';
+import AITriggerButton from '@/components/AI/AITriggerButton';
 import Button from '@/components/Common/Button';
 import { ComponentRenderer, OverrideRendererConfig, childRenderCallback } from '@/components/ComponentRenderer';
 import { ExampleComponent } from '@/components/ComponentRenderer/type';
 import { cn } from '@/helper/utils';
+import { useUpdateHelperParams } from '@/hooks/utils/useUpdateHelperParams';
+import { HelperType } from '@/service/webApi/helper/type';
 import LzString from 'lz-string';
 import Link from 'next/link';
 import { FC, createContext, useEffect, useState } from 'react';
@@ -22,8 +25,8 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
   const { component, parent } = props;
   const [expand, setExpand] = useState(true);
   const [exampleContent, setExampleContent] = useState('');
-
   const [activeFileIndex, setActiveFileIndex] = useState(0);
+  const { updateExampleNum } = useUpdateHelperParams();
 
   useEffect(() => {
     if (component) {
@@ -33,6 +36,11 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
       if (activeIndex !== -1) setActiveFileIndex(activeIndex);
     }
   }, [component]);
+
+  useEffect(() => {
+    console.log(activeFileIndex, '--------------');
+    updateExampleNum(activeFileIndex);
+  }, [activeFileIndex]);
 
   return (
     <div
@@ -58,7 +66,6 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
           >
             {component.children.map(childRenderCallback(component))}
           </OverrideRendererConfig>
-
           {!!component.codeFiles?.length && (
             <div className="flex h-full flex-col">
               <div className="flex w-full gap-[5px]">
@@ -77,7 +84,7 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
                   );
                 })}
               </div>
-              <div className="relative mb-[20px] flex flex-1 flex-col overflow-y-auto rounded-[10px] rounded-tl-[0px] bg-[#fafafa]">
+              <div className="relative mb-[20px] flex flex-1 flex-col overflow-y-auto rounded-[10px] rounded-tl-[0px] bg-red-700">
                 <ExampleContext.Provider
                   value={{
                     updateExampleContent: (value: string) => setExampleContent(value),
@@ -96,6 +103,9 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
               </div>
             </div>
           )}
+          <AITriggerButton triggerType={HelperType.ExplainExample} className="absolute bottom-[28px] right-[22px]">
+            Explain
+          </AITriggerButton>
         </div>
       )}
 

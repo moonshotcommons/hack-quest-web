@@ -2,24 +2,41 @@ import { FC } from 'react';
 import { motion } from 'framer-motion';
 import { cn } from '@/helper/utils';
 import { useGlobalStore } from '@/store/zustand/globalStore';
+import { useUpdateHelperParams } from '@/hooks/utils/useUpdateHelperParams';
+import { ReportBugModalInstance } from '../ReportBugModal';
+import { HelperType } from '@/service/webApi/helper/type';
 interface OptionsProps {
   changeOpen: (open: boolean) => void;
+  reportBugOption: {
+    discordInfo?: { isConnect: boolean; thirdUser: any };
+    reportBugRef: ReportBugModalInstance | null;
+  };
 }
 
-const Options: FC<OptionsProps> = ({ changeOpen }) => {
-  const updateHelperParams = useGlobalStore((state) => state.updateHelperParams);
-  const helperParams = useGlobalStore((state) => state.helperParams);
-
+const Options: FC<OptionsProps> = ({ changeOpen, reportBugOption }) => {
+  const { updateHelperType } = useUpdateHelperParams();
+  const pageId = useGlobalStore((state) => state.helperParams.pageId);
+  const { reportBugRef, discordInfo } = reportBugOption;
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0, x: 100, y: 60 }}
       animate={{ opacity: 1, scale: 1, x: 0, y: 0 }}
-      transition={{ duration: 0.3 }}
+      transition={{ duration: 0.2 }}
       className={cn(
         'absolute bottom-0 right-16 w-fit scale-0 rounded-[16px] bg-neutral-white p-2 shadow-[0px_0px_4px_0px_rgba(0,0,0,0.12)]'
       )}
     >
-      <div className="flex gap-2 whitespace-nowrap rounded-[8px] px-2 py-3 hover:bg-neutral-off-white">
+      <div
+        className="flex items-center gap-2 whitespace-nowrap rounded-[8px] px-2 py-3 hover:bg-neutral-off-white"
+        onClick={() => {
+          changeOpen(false);
+          if (!discordInfo?.isConnect) {
+            reportBugRef?.connectDiscordModalRef.current?.open();
+          } else {
+            reportBugRef?.bugFeedbackModalRef.current?.onCommit(pageId ? { lessonId: pageId } : undefined);
+          }
+        }}
+      >
         <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             fillRule="evenodd"
@@ -28,14 +45,13 @@ const Options: FC<OptionsProps> = ({ changeOpen }) => {
             fill="#0B0B0B"
           />
         </svg>
-
-        <span>Report Bug</span>
+        <span className="body-m">Report Bug</span>
       </div>
       <div
         className="flex gap-2 whitespace-nowrap rounded-[8px] px-2 py-3 hover:bg-neutral-off-white"
         onClick={() => {
           changeOpen(false);
-          updateHelperParams({ ...helperParams, open: true });
+          updateHelperType(HelperType.Chat);
         }}
       >
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -20,6 +20,7 @@ import { useCourseStore } from '@/store/zustand/courseStore';
 import { CustomType, NotionComponent, PageType } from '@/components/ComponentRenderer/type';
 import PgcCustomRenderer from './PgcCustomRenderer';
 import { ComponentRendererProvider } from '@/components/ComponentRenderer';
+import { useUpdateHelperParams } from '@/hooks/utils/useUpdateHelperParams';
 
 interface LessonPageProps {
   lessonId: string;
@@ -36,6 +37,8 @@ const LessonPage: FC<LessonPageProps> = (props) => {
   const [isHandleNext, setIsHandleNext] = useState(false);
   const allowNextButtonClickTime = useRef(0);
   const treasureModalRef = useRef<TreasureModalRef>(null);
+  const { updatePageId } = useUpdateHelperParams();
+
   const judgmentInitIsHandleNext = useCallback(() => {
     const quiz = lesson?.content?.right?.find((v: NotionComponent) => v.type === CustomType.Quiz);
     if (
@@ -53,6 +56,7 @@ const LessonPage: FC<LessonPageProps> = (props) => {
   useEffect(() => {
     if (lesson) {
       judgmentInitIsHandleNext();
+      updatePageId(lessonId);
       webApi.courseApi.startLesson(lesson.id).catch((e) => {
         console.log('开始学习失败', e);
       });

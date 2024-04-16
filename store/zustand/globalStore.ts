@@ -1,17 +1,9 @@
 import { create } from 'zustand';
 import { NavType } from '@/components/Mobile/MobLayout/constant';
+import { HelperType } from '@/service/webApi/helper/type';
 interface TipsModalOpenStateType {
   open: boolean;
   isRedirect: boolean;
-}
-
-export enum HelperType {
-  Chat = 'Chat',
-  SummarizeContent = 'SummarizeContent',
-  ExpandContent = 'ExpandContent',
-  RelatedContent = 'RelatedContent',
-  ExplainExample = 'ExplainExample',
-  ExplainQuiz = 'ExplainQuiz'
 }
 
 export interface HelperParams {
@@ -41,7 +33,11 @@ export interface GlobalStateType {
     setModuleProps: (payload: object) => void;
   }) => void;
   helperParams: HelperParams;
-  updateHelperParams: (params: HelperParams) => void;
+  updateHelperParams: (params: HelperParams, key?: keyof HelperParams) => void;
+  updateHelperParamsByKey: <Key extends keyof HelperParams, Value extends Required<HelperParams[Key]>>(
+    key: Key,
+    value: Value
+  ) => void;
 }
 
 export const useGlobalStore = create<GlobalStateType>()((set) => ({
@@ -58,7 +54,8 @@ export const useGlobalStore = create<GlobalStateType>()((set) => ({
     exampleNum: -1,
     quizNum: -1
   },
-  updateHelperParams: (params: HelperParams) => {
+
+  updateHelperParams: (params, key) => {
     switch (params.type) {
       case HelperType.Chat:
         break;
@@ -80,6 +77,9 @@ export const useGlobalStore = create<GlobalStateType>()((set) => ({
     }
 
     set((state) => ({ helperParams: params }));
+  },
+  updateHelperParamsByKey: (key, value) => {
+    set((state) => ({ helperParams: { ...state.helperParams, [key]: value } }));
   },
   mobileNavModalToggleOpenHandle: {
     isOpen: false,
