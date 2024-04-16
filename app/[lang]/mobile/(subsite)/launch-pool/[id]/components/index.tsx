@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import Content, { OffsetTopsType } from './Content';
 import { FuelInfo, LaunchPoolProjectType, ParticipateInfo } from '@/service/webApi/launchPool/type';
 import { useRequest } from 'ahooks';
@@ -9,8 +9,12 @@ import WaitListModal, { WaitListModalInstance } from '@/components/Web/Business/
 import ConnectModal, { ConnectModalInstance } from '@/components/Web/Business/ConnectModal';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useChainInfo } from '@/hooks/contract/useChain';
-import { LaunchDetailContext, LaunchInfoType } from '@/app/[lang]/(web)/(subsite)/launch-pool/[id]/constants/type';
-import { useAccount, useChainId, useSwitchChain } from 'wagmi';
+import {
+  LaunchDetailContext,
+  LaunchInfoType,
+  ModalName
+} from '@/app/[lang]/(web)/(subsite)/launch-pool/[id]/constants/type';
+import { useAccount, useBalance, useChainId, useSwitchChain } from 'wagmi';
 import {
   useWriteAirdropClaim,
   useWriteLaunchpadStake,
@@ -20,6 +24,10 @@ import {
 import { ChainType } from '@/config/wagmi';
 import { mantaTestnet } from '@/config/wagmi/chains';
 import { parseUnits } from 'viem';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
+import { message } from 'antd';
 
 interface LaunchDetailPageProp {
   id: string;
@@ -34,7 +42,9 @@ const LaunchDetailPage: React.FC<LaunchDetailPageProp> = ({ id }) => {
   const [loading, setLoading] = useState(false);
   const [offsetTops, setOffsetTops] = useState<OffsetTopsType[]>([]);
   const isOnScoll = useRef(false);
-  const chainInfo = useChainInfo(3441006);
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
+  const chainInfo = useChainInfo(mantaTestnet.id);
   const waitListRef = useRef<WaitListModalInstance>(null);
   const connectModalRef = useRef<ConnectModalInstance>(null);
   const userInfo = useUserStore((state) => state.userInfo);
@@ -42,6 +52,7 @@ const LaunchDetailPage: React.FC<LaunchDetailPageProp> = ({ id }) => {
   const setAuthModalOpen = useUserStore((state) => state.setAuthModalOpen);
   const [joined, setJoined] = useState(false);
   const chainId = useChainId();
+  const [modalName, setModalName] = useState<ModalName>(ModalName.EMPTY);
   const { switchChainAsync } = useSwitchChain();
 
   const { writeContractAsync } = useWriteLaunchpadStake();
@@ -51,29 +62,63 @@ const LaunchDetailPage: React.FC<LaunchDetailPageProp> = ({ id }) => {
 
   const account = useAccount();
 
-  const handleStake = async (amount: string) => {
+  const balance =
+    useBalance({
+      address: account.address
+    })?.data?.formatted || 0;
+
+  const handleStake = async (amount: string, duration: number) => {
+    if (Number(amount) < 0.0001) {
+      errorMessage({
+        msg: t('minStakeErrorMsg')
+      });
+      return;
+    } else if (Number(amount) > Number(balance)) {
+      errorMessage({
+        msg: t('maxStakeErrorMsg')
+      });
+      return;
+    }
     setLoading(true);
     try {
       if (chainId !== ChainType.MANTA) {
         await switchChainAsync({ chainId: ChainType.MANTA });
       }
-      await stakingTokenApprove({
+      stakingTokenApprove({
         account: account.address,
         address: mantaTestnet.contracts.stakingToken.address,
         args: [mantaTestnet.contracts.launchpad.address, parseUnits(amount, 18)]
-      });
-      await writeContractAsync({
-        account: account.address,
-        address: mantaTestnet.contracts.launchpad.address,
-        args: [launchInfo.launchPadID as bigint, parseUnits(amount, 18)]
-      });
+      })
+        .then(() => {
+          setTimeout(async () => {
+            const txHash = await writeContractAsync({
+              account: account.address,
+              address: mantaTestnet.contracts.launchpad.address,
+              args: [launchInfo.launchPadID as bigint, parseUnits(amount, 18)]
+            });
+            await webApi.launchPoolApi.stake(launchInfo?.id as string, {
+              txHash,
+              address: account.address,
+              duration: Number(duration),
+              amount
+            });
+            message.success('stake success');
+            getProjectInfo();
+            setModalName(ModalName.EMPTY);
+          }, 2000);
+        })
+        .catch((error) => {
+          console.info(error);
+          errorMessage(error);
+          setLoading(false);
+        });
     } catch (error) {
       console.info(error);
       errorMessage(error);
+      setLoading(false);
     }
-    setLoading(false);
   };
-  const handleUnStake = async () => {
+  const handleUnStake = async (fule: FuelInfo) => {
     setLoading(true);
     try {
       if (chainId !== ChainType.MANTA) {
@@ -82,32 +127,36 @@ const LaunchDetailPage: React.FC<LaunchDetailPageProp> = ({ id }) => {
       await writeContractAsyncUn({
         account: account.address,
         address: mantaTestnet.contracts.launchpad.address,
-        args: [launchInfo.launchPadID as bigint, BigInt(1)]
+        args: [launchInfo.launchPadID as bigint, BigInt(fule.index)]
       });
+      await webApi.launchPoolApi.unStake(launchInfo.id as string, fule.id);
+      message.success('unstake success');
+      getProjectInfo();
+      setModalName(ModalName.EMPTY);
     } catch (error) {
       console.info(error);
       errorMessage(error);
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   const handleClaimToken = async () => {
-    setLoading(true);
-    try {
-      await writeContractAsyncClaim({
-        account: account.address,
-        address: '0x6Eb462Aa74AbDc99Fd025bD32800500c37B0040a',
-        args: [
-          '0x7184c70bdC9eaD810C795d5df0Bf4aC987988927',
-          ['0x7dd532323d5d20b862da3f3fdab74408430bb345a3d37317e354a89c7c5dc653'],
-          parseUnits('0.0001', 18)
-        ]
-      });
-    } catch (error) {
-      console.info(error);
-      errorMessage(error);
-    }
-    setLoading(false);
+    // setLoading(true);
+    // try {
+    //   await writeContractAsyncClaim({
+    //     account: account.address,
+    //     address: mantaTestnet.contracts.aridropToken.address,
+    //     args: [
+    //       '0x7184c70bdC9eaD810C795d5df0Bf4aC987988927',
+    //       ['0x7dd532323d5d20b862da3f3fdab74408430bb345a3d37317e354a89c7c5dc653'],
+    //       parseUnits('0.0001', 18)
+    //     ]
+    //   });
+    // } catch (error) {
+    //   console.info(error);
+    //   errorMessage(error);
+    // }
+    // setLoading(false);
   };
 
   const { run: getProjectInfo } = useRequest(
@@ -232,7 +281,9 @@ const LaunchDetailPage: React.FC<LaunchDetailPageProp> = ({ id }) => {
         participateNow,
         handleStake,
         handleUnStake,
-        handleClaimToken
+        handleClaimToken,
+        modalName,
+        setModalName
       }}
     >
       <Content loading={loading} setOffsetTop={(tops: OffsetTopsType[]) => setOffsetTops(tops)} />

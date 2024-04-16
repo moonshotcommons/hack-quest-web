@@ -47,9 +47,13 @@ const StakeModal: React.FC<StakeModalProp> = ({ open, onClose }) => {
       }
     }
   );
+  const totalFule = useMemo(() => {
+    const total = inputAmount * inputDuration * currentPrice;
+    return isNaN(total) ? 0 : parseInt(String(total));
+  }, [currentPrice, inputAmount, inputDuration]);
   const onStake = () => {
     if (disable) return;
-    handleStake(String(inputAmount));
+    handleStake(String(inputAmount), inputDuration);
   };
 
   return (
@@ -104,8 +108,7 @@ const StakeModal: React.FC<StakeModalProp> = ({ open, onClose }) => {
                   className="body-m flex-1 border-none text-neutral-off-black outline-none"
                   value={inputAmount}
                   onChange={(e) => {
-                    let value = e.target.value.replace(/^\D*(\d*(?:\.\d{0,})?).*$/g, '$1') as unknown;
-                    if (Number(value) >= Number(balance)) value = balance;
+                    let value = e.target.value.replace(/^(\d*(?:\.\d{0,18})?).*$/g, '$1') as unknown;
                     setInputAmount(value as any);
                   }}
                 />
@@ -158,7 +161,7 @@ const StakeModal: React.FC<StakeModalProp> = ({ open, onClose }) => {
             <div className="my-[1rem] h-[.0625rem] bg-neutral-light-gray"> </div>
             <div className="flex justify-between">
               <span className="body-m text-neutral-medium-gray">{t('estimatedFuel')}</span>
-              <span className="body-m-bold"> {separationNumber(23799)} 🚀</span>
+              <span className="body-m-bold"> {separationNumber(totalFule)} 🚀</span>
             </div>
             <div className="body-s mt-[16px] flex items-center justify-center gap-[8px] text-neutral-off-black">
               <div className="relative  cursor-pointer">
