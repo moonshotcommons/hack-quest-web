@@ -1,5 +1,5 @@
 'use client';
-import AITriggerButton from '@/components/AI/AITriggerButton';
+import AITriggerButton from '@/components/Web/AI/AITriggerButton';
 import Button from '@/components/Common/Button';
 import { ComponentRenderer, OverrideRendererConfig, childRenderCallback } from '@/components/ComponentRenderer';
 import { ExampleComponent } from '@/components/ComponentRenderer/type';

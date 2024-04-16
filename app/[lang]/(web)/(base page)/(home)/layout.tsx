@@ -1,4 +1,4 @@
-import AIFloatButton from '@/components/AI/AIFloatButton';
+import AIFloatButton from '@/components/Web/AI/AIFloatButton';
 import { FC, PropsWithChildren } from 'react';
 
 interface HomeLayoutProps {}

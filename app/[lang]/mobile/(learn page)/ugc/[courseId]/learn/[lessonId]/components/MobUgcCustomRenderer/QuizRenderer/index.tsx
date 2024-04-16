@@ -15,6 +15,7 @@ import {
 } from '@/app/[lang]/(web)/(learn page)/ugc/[courseId]/learn/constants/type';
 import { CustomComponent, QuizType } from '@/components/ComponentRenderer/type';
 import { ComponentRenderer } from '@/components/ComponentRenderer';
+import { useUpdateHelperParams } from '@/hooks/utils/useUpdateHelperParams';
 interface QuizRendererProps {
   quiz: QuizType;
   parent: CustomComponent;
@@ -36,7 +37,7 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
   const [quizDropdownVisible, setQuizDropdownVisible] = useState(false);
   const [passOpen, setPassOpen] = useState(false);
   const { lesson, setFooterBtn } = useContext(UgcContext);
-
+  const { updateQuizNum } = useUpdateHelperParams();
   const containerRef = useRef(null);
 
   const [quiz, setQuiz] = useState<QuizType>();
@@ -117,6 +118,10 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
   useClickAway(() => {
     setQuizDropdownVisible(false);
   }, containerRef);
+
+  useEffect(() => {
+    updateQuizNum(currentQuizIndex);
+  }, [currentQuizIndex]);
 
   if (!quiz) return null;
 

@@ -7,31 +7,34 @@ import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneDark as dark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { useGlobalStore } from '@/store/zustand/globalStore';
+import ChatTips from '../ChatTips';
 
 interface HistoryProps {
   loading: boolean;
   chatHistory: (CompletionsRes & { status?: 'pending' | 'error' })[];
   scrollToBottomSwitch: MutableRefObject<boolean>;
+  showTips: boolean;
+  setShowTips: (show: boolean) => void;
 }
 
-const History: FC<HistoryProps> = ({ loading, chatHistory, scrollToBottomSwitch }) => {
+const History: FC<HistoryProps> = ({ loading, chatHistory, scrollToBottomSwitch, showTips, setShowTips }) => {
   const helperParams = useGlobalStore((state) => state.helperParams);
 
   useEffect(() => {
-    if (helperParams.open) {
+    if (helperParams.open || showTips) {
       const historyScrollView = document.querySelector('.chat-history-scroll-view');
       if (historyScrollView && scrollToBottomSwitch.current) {
         historyScrollView.scrollTop = historyScrollView.scrollHeight;
       }
     }
-  }, [helperParams.open]);
+  }, [helperParams.open, scrollToBottomSwitch, showTips]);
 
   useEffect(() => {
     const historyScrollView = document.querySelector('.chat-history-scroll-view');
     if (historyScrollView && scrollToBottomSwitch.current) {
       historyScrollView.scrollTop = historyScrollView.scrollHeight;
     }
-  }, [chatHistory]);
+  }, [chatHistory, scrollToBottomSwitch]);
 
   const TypeMessageNode = ({ content }: { content: string }) => {
     return (
@@ -76,7 +79,6 @@ const History: FC<HistoryProps> = ({ loading, chatHistory, scrollToBottomSwitch 
       <div className="flex min-h-full w-full flex-col justify-between">
         <div className="scroll-wrap-child flex w-full flex-1 flex-col gap-3 pb-3">
           {chatHistory.map((item, index) => {
-            console.log(item);
             return (
               <MessageTemplate key={item.id} role={item.message.role} status={item.status}>
                 {item.status !== 'pending' && item.message.content}
@@ -88,11 +90,11 @@ const History: FC<HistoryProps> = ({ loading, chatHistory, scrollToBottomSwitch 
           })}
           {!!loading && <LoadingMessage />}
         </div>
-        {/* {showTips && (
-      <div className="flex w-full justify-end px-3">
-        <ChatTips updateTipsShow={setShowTips} />
-      </div>
-    )} */}
+        {showTips && (
+          <div className="flex w-full justify-end px-3">
+            <ChatTips updateTipsShow={setShowTips} />
+          </div>
+        )}
       </div>
     </ScrollArea>
   );

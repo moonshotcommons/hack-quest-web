@@ -2,10 +2,7 @@ import { FC, useEffect, useRef, useState } from 'react';
 import { useGlobalStore } from '@/store/zustand/globalStore';
 import { useRequest } from 'ahooks';
 import { useUpdateHelperParams } from '@/hooks/utils/useUpdateHelperParams';
-
 import { v4 as uuid } from 'uuid';
-// import { TypeAnimation } from 'react-type-animation';
-
 import { ChatRole, CompletionsInput, CompletionsRes, HelperType } from '@/service/webApi/helper/type';
 import ChatHeader from './ChatHeader';
 import ChatFooter, { ChatFooterInstance } from './ChatFooter';
@@ -16,8 +13,6 @@ import webApi from '@/service';
 import Modal from '@/components/Common/Modal';
 import useGetHeight from '@/hooks/dom/useGetHeight';
 import History from './History';
-
-const CURSOR_CLASS_NAME = 'custom-type-animation-cursor';
 
 interface AIChatbotModalProps {
   pageType: 'learn' | 'other';

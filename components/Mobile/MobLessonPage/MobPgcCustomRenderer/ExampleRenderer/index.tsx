@@ -3,6 +3,7 @@ import { FC, createContext, useEffect, useState } from 'react';
 import { FiChevronDown } from 'react-icons/fi';
 import { ExampleComponent } from '@/components/ComponentRenderer/type';
 import { ComponentRenderer, childRenderCallback } from '@/components/ComponentRenderer';
+import { useUpdateHelperParams } from '@/hooks/utils/useUpdateHelperParams';
 interface ExampleRendererProps {
   // children: ReactNode
   component: ExampleComponent;
@@ -18,8 +19,9 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
   const { component } = props;
   const [expand, setExpand] = useState(true);
   const [exampleContent, setExampleContent] = useState('');
-
   const [activeFileIndex, setActiveFileIndex] = useState(0);
+
+  const { updateExampleNum } = useUpdateHelperParams();
 
   useEffect(() => {
     if (component) {
@@ -29,6 +31,10 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
       if (activeIndex !== -1) setActiveFileIndex(activeIndex);
     }
   }, [component]);
+
+  useEffect(() => {
+    updateExampleNum(activeFileIndex);
+  }, [activeFileIndex]);
 
   return (
     <div className={`w-full rounded-[.5rem] bg-neutral-off-white bg-opacity-50 px-[1.25rem] py-[12px]`}>
