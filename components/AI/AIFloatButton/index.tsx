@@ -78,7 +78,7 @@ const AIFloatButton: FC<AIFloatButtonProps> = ({ children, pageType = 'other' })
             reportBugOption={{ reportBugRef: reportBugRef.current, discordInfo }}
           />
         )}
-        <AIChatbotModal />
+        <AIChatbotModal pageType={pageType} />
         <ReportBugModal refreshDiscordInfo={refreshDiscordInfo} ref={reportBugRef} />
       </div>
     </div>

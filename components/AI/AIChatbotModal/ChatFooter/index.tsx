@@ -28,7 +28,6 @@ const ChatFooter: ForwardRefRenderFunction<ChatFooterInstance, ChatFooterProps> 
   const helperParams = useGlobalStore((state) => state.helperParams);
 
   const submit = () => {
-    debugger;
     if (!pendingMessage.trim()) return;
     onSubmit();
     updateChatHistory(

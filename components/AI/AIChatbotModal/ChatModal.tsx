@@ -24,14 +24,16 @@ import ChatTips from './ChatTips';
 
 const CURSOR_CLASS_NAME = 'custom-type-animation-cursor';
 
-interface AIChatbotModalProps {}
+interface AIChatbotModalProps {
+  pageType: 'learn' | 'other';
+}
 
 enum Role {
   HUMAN = 'human',
   ASSISTANT = 'assistant'
 }
 
-const AIChatbotModal: FC<AIChatbotModalProps> = (props) => {
+const AIChatbotModal: FC<AIChatbotModalProps> = ({ pageType }) => {
   const helperParams = useGlobalStore((state) => state.helperParams);
   const chatStatus = useGlobalStore((state) => state.chatStatus);
   const updateChatStatus = useGlobalStore((state) => state.updateChatStatus);
@@ -44,7 +46,7 @@ const AIChatbotModal: FC<AIChatbotModalProps> = (props) => {
   const [pendingTypeMessage, setPendingTypeMessage] = useState<CompletionsRes | null>(null);
   const scrollToBottomSwitch = useRef(true);
 
-  const [showTips, setShowTips] = useState(true);
+  const [showTips, setShowTips] = useState(pageType === 'learn');
 
   // 获取chatbot返回的消息
   const { runAsync: getChatbotMessage, loading } = useRequest(
@@ -78,7 +80,7 @@ const AIChatbotModal: FC<AIChatbotModalProps> = (props) => {
   const close = () => {
     updateOpenState(false);
     setTimeout(() => {
-      setShowTips(true);
+      pageType === 'learn' && setShowTips(true);
     }, 300);
   };
 
