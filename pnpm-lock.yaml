@@ -168,8 +168,8 @@ dependencies:
     specifier: ^6.0.2
     version: 6.0.2(react-dom@18.2.0)(react@18.2.0)
   swiper:
-    specifier: 6.8.4
-    version: 6.8.4
+    specifier: ^11.1.1
+    version: 11.1.1
   tailwindcss-animate:
     specifier: ^1.0.7
     version: 1.0.7(tailwindcss@3.3.2)
@@ -16492,13 +16492,9 @@ packages:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
 
-  /swiper@6.8.4:
-    resolution: {integrity: sha512-O+buF9Q+sMA0H7luMS8R59hCaJKlpo8PXhQ6ZYu6Rn2v9OsFd4d1jmrv14QvxtQpKAvL/ZiovEeANI/uDGet7g==}
+  /swiper@11.1.1:
+    resolution: {integrity: sha512-jGmEA/fNz1lACIcY4/40ggm1Gcyv+EUivmgV/Jd2WFPsEJhbWXnRAwzZR8OPjkBLtDxmzcoYG/iiAMWfRs0YKQ==, tarball: https://registry.npmmirror.com/swiper/-/swiper-11.1.1.tgz}
     engines: {node: '>= 4.7.0'}
-    requiresBuild: true
-    dependencies:
-      dom7: 3.0.0
-      ssr-window: 3.0.0
     dev: false
 
   /symbol-tree@3.2.4:

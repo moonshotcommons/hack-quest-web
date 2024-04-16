@@ -11,13 +11,8 @@ import { useTranslation } from '@/i18n/client';
 import { LangContext } from '@/components/Provider/Lang';
 import StakeModal from './StakeModal';
 import UnstakeModal from './UnstakeModal';
-import { useWriteLaunchpadStake, useWriteLaunchpadUnstake, useWriteStakingTokenApprove } from '@/lib/generated';
-import { useAccount, useChainId, useSwitchChain } from 'wagmi';
-import { mantaTestnet } from '@/config/wagmi/chains';
+import { useAccount } from 'wagmi';
 import ConnectButton from '@/components/Web/Layout/LaunchPage/UserDropCard/ConnectButton';
-import { parseUnits } from 'viem';
-import { errorMessage } from '@/helper/ui';
-import { ChainType } from '@/config/wagmi';
 import { LaunchDetailContext } from '@/app/[lang]/(web)/(subsite)/launch-pool/[id]/constants/type';
 
 interface StakeFuelProp {}
@@ -27,52 +22,7 @@ const StakeFuel: React.FC<StakeFuelProp> = () => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
   const [modalName, setModalName] = useState('');
-  const chainId = useChainId();
-  const { switchChainAsync } = useSwitchChain();
-  const [stakeId, setStakeId] = useState('');
-  const { writeContractAsync } = useWriteLaunchpadStake();
-  const { writeContractAsync: writeContractAsyncUn } = useWriteLaunchpadUnstake();
-  const { writeContractAsync: stakingTokenApprove } = useWriteStakingTokenApprove();
   const account = useAccount();
-  const hanleStake = async (amount: string) => {
-    setLoading(true);
-    try {
-      if (chainId !== ChainType.MANTA) {
-        await switchChainAsync({ chainId: ChainType.MANTA });
-      }
-      await stakingTokenApprove({
-        account: account.address,
-        address: mantaTestnet.contracts.stakingToken.address,
-        args: [mantaTestnet.contracts.launchpad.address, parseUnits('0.0001', 18)]
-      });
-      await writeContractAsync({
-        account: account.address,
-        address: mantaTestnet.contracts.launchpad.address,
-        args: [launchInfo.launchPadID, parseUnits('0.0001', 18)]
-      });
-    } catch (error) {
-      console.info(error);
-      errorMessage(error);
-    }
-    setLoading(false);
-  };
-  const hanleUnstake = async () => {
-    setLoading(true);
-    try {
-      if (chainId !== ChainType.MANTA) {
-        await switchChainAsync({ chainId: ChainType.MANTA });
-      }
-      await writeContractAsyncUn({
-        account: account.address,
-        address: mantaTestnet.contracts.launchpad.address,
-        args: [launchInfo.launchPadID, BigInt(1)]
-      });
-    } catch (error) {
-      console.info(error);
-      errorMessage(error);
-    }
-    setLoading(false);
-  };
   const stakeList = useMemo(() => {
     return launchInfo.fuelsInfo.filter((v: any) => v.type === 'STAKE_TOKEN');
   }, [launchInfo]);
@@ -131,7 +81,6 @@ const StakeFuel: React.FC<StakeFuelProp> = () => {
                   className="underline-l body-m cursor-pointer text-neutral-rich-gray"
                   onClick={() => {
                     setModalName('unStake');
-                    setStakeId('id');
                   }}
                 >
                   {t('unstake')}
@@ -172,8 +121,8 @@ const StakeFuel: React.FC<StakeFuelProp> = () => {
         </div>
       )}
 
-      <StakeModal open={modalName === 'stake'} onClose={() => setModalName('')} hanleStake={hanleStake} />
-      <UnstakeModal open={modalName === 'unStake'} onClose={() => setModalName('')} hanleUnstake={hanleUnstake} />
+      <StakeModal open={modalName === 'stake'} onClose={() => setModalName('')} />
+      <UnstakeModal open={modalName === 'unStake'} onClose={() => setModalName('')} />
     </div>
   );
 };

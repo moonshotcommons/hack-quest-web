@@ -84,7 +84,7 @@ const TopBanner: FC<TopBannerProps> = async ({ lang }) => {
         ></Image>
         <div className="w-full flex-1 bg-neutral-off-white"></div>
         <div className="absolute left-1/2 top-0 z-20 h-[9.625rem] w-[13.625rem] -translate-x-1/2 -translate-y-[calc(100%-36px)]">
-          <Image src={'/images/landing/center_astronaut.svg'} alt="hackquest" fill></Image>
+          <Image src={'/images/landing/center_astronaut.svg'} alt="hackquest" fill priority></Image>
         </div>
       </div>
     </div>

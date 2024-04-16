@@ -13,7 +13,7 @@ import { LaunchPoolProjectStatus } from '@/service/webApi/launchPool/type';
 
 interface YourFuelingBoardProp {}
 
-const YourFuelingBoard: React.FC<YourFuelingBoardProp> = () => {
+const YourFuelingBoard: React.FC<YourFuelingBoardProp> = ({}) => {
   const { launchInfo } = useContext(LaunchDetailContext);
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);

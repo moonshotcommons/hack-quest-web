@@ -2,7 +2,7 @@ import Button from '@/components/Common/Button';
 import SwiperContainer from '@/components/Common/SwiperContainer';
 import TrackTag from '@/components/Common/TrackTag';
 import moment from 'moment';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { PiCalendarBlank } from 'react-icons/pi';
 import { TfiLocationPin } from 'react-icons/tfi';
 import { SwiperSlide } from 'swiper/react';
@@ -12,6 +12,8 @@ import useGetHeight from '@/hooks/dom/useGetHeight';
 import { motion } from 'framer-motion';
 import { animateProps } from './type';
 import { EventsType } from '@/service/webApi/resourceStation/type';
+import Link from 'next/link';
+import CardCover from '@/public/images/resource/events_card_cover.png';
 
 interface MobEventsCardModalProp {
   onClose: VoidFunction;
@@ -20,6 +22,9 @@ interface MobEventsCardModalProp {
 }
 
 const MobEventsCardModal: React.FC<MobEventsCardModalProp> = ({ onClose, open, events }) => {
+  const medias = useMemo(() => {
+    return events?.medias?.length ? events?.medias : [CardCover];
+  }, [events]);
   const { pageHeight } = useGetHeight();
   return (
     open && (
@@ -36,18 +41,18 @@ const MobEventsCardModal: React.FC<MobEventsCardModalProp> = ({ onClose, open, e
         </div>
         <div className="my-[1.25rem]">
           <SwiperContainer>
-            {events.images?.map((v, i) => (
+            {medias?.map((v, i) => (
               <SwiperSlide key={i}>
                 <div className="relative h-0 w-full overflow-hidden rounded-[16px] pt-[60%]">
-                  <Image src={v} alt="event-cover" fill className="object-cover" />
+                  <Image src={v} alt={events.name} fill className="object-cover" />
                 </div>
               </SwiperSlide>
             ))}
           </SwiperContainer>
         </div>
-        <p className="body-l-bold text-neutral-black">{events.title}</p>
+        <p className="body-l-bold text-neutral-black">{events.name}</p>
         <div className="flex-wap my-[1rem] flex gap-[.25rem]">
-          {events.categories?.map((v, i) => <TrackTag track={v} key={i} />)}
+          {events.tags?.map((v, i) => <TrackTag track={v} key={i} />)}
         </div>
         <div className="body-s text-neutral-rich-gray">
           <div className="flex items-center gap-[.5rem]">
@@ -64,12 +69,15 @@ const MobEventsCardModal: React.FC<MobEventsCardModalProp> = ({ onClose, open, e
           </div>
         </div>
         <p className="body-s mt-[2.5rem] text-neutral-off-black">{events.description}</p>
-
-        <div className="mt-[2.5rem]">
-          <Button className="button-text-m h-[3rem] w-full border border-neutral-black uppercase text-neutral-black">
-            learn more
-          </Button>
-        </div>
+        {events.eventUrl && (
+          <div className="mt-[2.5rem]">
+            <Link href={events.eventUrl}>
+              <Button className="button-text-m h-[3rem] w-full border border-neutral-black uppercase text-neutral-black">
+                learn more
+              </Button>
+            </Link>
+          </div>
+        )}
       </motion.ul>
     )
   );

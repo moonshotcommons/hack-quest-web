@@ -31,8 +31,8 @@ const TimeText: React.FC<Record<string, number>> = ({ d, h, m, s }) => {
   );
 };
 
-const OverView: React.FC<OverViewProp> = () => {
-  const { launchInfo, loading, joinWaitlist, participateNow } = useContext(LaunchDetailContext);
+const OverView: React.FC<OverViewProp> = ({}) => {
+  const { launchInfo, loading, joinWaitlist, participateNow, handleClaimToken } = useContext(LaunchDetailContext);
 
   const targetDate = useMemo(() => {
     switch (launchInfo.status) {
@@ -138,7 +138,12 @@ const OverView: React.FC<OverViewProp> = () => {
               {t('fuelingEnded')}
             </Button>
           ) : (
-            <Button type="primary" className="button-text-l h-[60px] w-full  uppercase ">
+            <Button
+              type="primary"
+              className="button-text-l h-[60px] w-full uppercase "
+              loading={loading}
+              onClick={handleClaimToken}
+            >
               {t('claimToken')}
             </Button>
           )
@@ -153,7 +158,7 @@ const OverView: React.FC<OverViewProp> = () => {
           time: (
             <div className="flex [&>div]:flex-1">
               <div className=""> {t('airdropClosesin')}</div>
-              <TimeText d={days} h={hours} m={minutes} s={seconds} />
+              <div className="text-neutral-black">{t('ended')}</div>
             </div>
           ),
           button: (

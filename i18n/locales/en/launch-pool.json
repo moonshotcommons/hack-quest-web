@@ -148,5 +148,7 @@
   "tractionsText1": "tractionsText1",
   "tractionsText2": "tractionsText2",
   "tractionsText3": "tractionsText3",
-  "tractionsText4": "tractionsText4"
+  "tractionsText4": "tractionsText4",
+  "minStakeErrorMsg":"The minimum amount is 0.0001",
+  "maxStakeErrorMsg":"Out of balance"
 }

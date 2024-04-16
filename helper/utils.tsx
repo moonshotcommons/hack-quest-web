@@ -256,6 +256,7 @@ export const isNull = (str: any) => {
 };
 
 export const truncateMiddle = (str: any) => {
-  const replaceStr = str.toString().replace(/(.{6})(.*)(.{4})/, '$1...$3');
+  if (typeof str !== 'string') return '';
+  const replaceStr = str?.toString()?.replace(/(.{6})(.*)(.{4})/, '$1...$3');
   return replaceStr;
 };

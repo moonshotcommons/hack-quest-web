@@ -101,7 +101,7 @@ const MobCourseListPageHeader: FC<CourseListPageHeaderProps> = ({
       <div className={cn('absolute right-0 top-0', coverImgClassName)}>
         {coverImage}
         {!coverImage && coverImageUrl && (
-          <Image src={coverImageUrl} alt={`${title} cover`} width={coverWidth} height={coverHeight}></Image>
+          <Image src={coverImageUrl} alt={`${title} cover`} width={coverWidth} height={coverHeight} priority></Image>
         )}
       </div>
     </div>

@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import Nav from './Nav';
 import Content, { OffsetTopsType } from './Content';
 import { LaunchDetailContext, LaunchInfoType } from '../constants/type';
@@ -7,20 +7,33 @@ import { FuelInfo, LaunchPoolProjectType, ParticipateInfo } from '@/service/webA
 import { useRequest } from 'ahooks';
 import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';
-import { useRouter } from 'next/navigation';
 import WaitListModal, { WaitListModalInstance } from '@/components/Web/Business/WaitListModal';
 import ConnectModal, { ConnectModalInstance } from '@/components/Web/Business/ConnectModal';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useChainInfo } from '@/hooks/contract/useChain';
+import { useAccount, useBalance, useChainId, useSwitchChain } from 'wagmi';
+import { ChainType } from '@/config/wagmi';
+import { parseUnits } from 'viem';
+import { mantaTestnet } from '@/config/wagmi/chains';
+import {
+  useWriteAirdropClaim,
+  useWriteLaunchpadStake,
+  useWriteLaunchpadUnstake,
+  useWriteStakingTokenApprove
+} from '@/lib/generated';
+import { LangContext } from '@/components/Provider/Lang';
+import { TransNs } from '@/i18n/config';
+import { useTranslation } from '@/i18n/client';
 
 interface LaunchDetailPageProp {
   id: string;
 }
 
 const LaunchDetailPage: React.FC<LaunchDetailPageProp> = ({ id }) => {
-  const router = useRouter();
   const [projectInfo, setProjectInfo] = useState<LaunchPoolProjectType | null>(null);
   const [participateInfo, setParticipateInfo] = useState<ParticipateInfo | null>(null);
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
   const [fuelsInfo, setfFelsInfo] = useState<FuelInfo[]>([]);
   const boxRef = useRef<HTMLDivElement>(null);
   const [curAnchorIndex, setCurAnchorIndex] = useState(0);
@@ -35,6 +48,89 @@ const LaunchDetailPage: React.FC<LaunchDetailPageProp> = ({ id }) => {
   const setAuthModalOpen = useUserStore((state) => state.setAuthModalOpen);
   const timeOut = useRef<NodeJS.Timeout | null>(null);
   const [joined, setJoined] = useState(false);
+  const chainId = useChainId();
+  const { switchChainAsync } = useSwitchChain();
+
+  const { writeContractAsync } = useWriteLaunchpadStake();
+  const { writeContractAsync: writeContractAsyncUn } = useWriteLaunchpadUnstake();
+  const { writeContractAsync: stakingTokenApprove } = useWriteStakingTokenApprove();
+  const { writeContractAsync: writeContractAsyncClaim } = useWriteAirdropClaim();
+
+  const account = useAccount();
+  const balance =
+    useBalance({
+      address: account.address
+    })?.data?.formatted || 0;
+
+  const handleStake = async (amount: string) => {
+    if (Number(amount) < 0.0001) {
+      errorMessage({
+        msg: t('minStakeErrorMsg')
+      });
+      return;
+    } else if (Number(amount) > Number(balance)) {
+      errorMessage({
+        msg: t('maxStakeErrorMsg')
+      });
+      return;
+    }
+    setLoading(true);
+    try {
+      if (chainId !== ChainType.MANTA) {
+        await switchChainAsync({ chainId: ChainType.MANTA });
+      }
+      await stakingTokenApprove({
+        account: account.address,
+        address: mantaTestnet.contracts.stakingToken.address,
+        args: [mantaTestnet.contracts.launchpad.address, parseUnits(amount, 18)]
+      });
+      await writeContractAsync({
+        account: account.address,
+        address: mantaTestnet.contracts.launchpad.address,
+        args: [launchInfo.launchPadID as bigint, parseUnits(amount, 18)]
+      });
+    } catch (error) {
+      console.info(error);
+      errorMessage(error);
+    }
+    setLoading(false);
+  };
+  const handleUnStake = async () => {
+    setLoading(true);
+    try {
+      if (chainId !== ChainType.MANTA) {
+        await switchChainAsync({ chainId: ChainType.MANTA });
+      }
+      await writeContractAsyncUn({
+        account: account.address,
+        address: mantaTestnet.contracts.launchpad.address,
+        args: [launchInfo.launchPadID as bigint, BigInt(1)]
+      });
+    } catch (error) {
+      console.info(error);
+      errorMessage(error);
+    }
+    setLoading(false);
+  };
+
+  const handleClaimToken = async () => {
+    setLoading(true);
+    try {
+      await writeContractAsyncClaim({
+        account: account.address,
+        address: mantaTestnet.contracts.aridropToken.address,
+        args: [
+          '0x7184c70bdC9eaD810C795d5df0Bf4aC987988927',
+          ['0x7dd532323d5d20b862da3f3fdab74408430bb345a3d37317e354a89c7c5dc653'],
+          parseUnits('0.0001', 18)
+        ]
+      });
+    } catch (error) {
+      console.info(error);
+      errorMessage(error);
+    }
+    setLoading(false);
+  };
 
   const { run: getProjectInfo } = useRequest(
     async () => {
@@ -176,11 +272,15 @@ const LaunchDetailPage: React.FC<LaunchDetailPageProp> = ({ id }) => {
     <LaunchDetailContext.Provider
       value={{
         launchInfo: launchInfo as LaunchInfoType,
+        refreshLaunchInfo: getProjectInfo,
         refreshFuel: getFulesInfo,
         loading,
         setLoading,
         joinWaitlist,
-        participateNow
+        participateNow,
+        handleStake,
+        handleUnStake,
+        handleClaimToken
       }}
     >
       <div className="scroll-wrap-y h-full py-[40px]" ref={boxRef} onScroll={handleScoll}>

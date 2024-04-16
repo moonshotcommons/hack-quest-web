@@ -43,7 +43,8 @@ module.exports = {
         'MiSans-Semibold': ['MiSans-Semibold'],
         Inter: ['var(--font-inter)'],
         Nunito: ['var(--font-nunito)'],
-        'Space-Mono': ['var(--font-space-mono)']
+        'Space-Mono': ['var(--font-space-mono)'],
+        Poppins: ['var(--font-poppins)']
       },
       screens: {
         sm: '640px',
