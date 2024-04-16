@@ -16,9 +16,10 @@ import { LaunchPoolProjectStatus } from '@/service/webApi/launchPool/type';
 interface InfoProp {}
 
 const Info: React.FC<InfoProp> = () => {
-  const { launchInfo, loading, joinWaitlist, participateNow } = useContext(LaunchDetailContext);
+  const { launchInfo, loading, joinWaitlist, participateNow, handleClaimToken } = useContext(LaunchDetailContext);
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
+
   const { userInfo } = useUserStore(
     useShallow((state) => ({
       userInfo: state.userInfo
@@ -56,7 +57,12 @@ const Info: React.FC<InfoProp> = () => {
         return {
           button: (
             <div className="mt-[24px] flex justify-center">
-              <Button type="primary" className="h-[60px] w-[270px] uppercase">
+              <Button
+                type="primary"
+                className="h-[60px] w-[270px] uppercase"
+                loading={loading}
+                onClick={handleClaimToken}
+              >
                 {t('claimToken')}
               </Button>
             </div>

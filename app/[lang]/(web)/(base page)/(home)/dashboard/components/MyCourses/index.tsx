@@ -3,7 +3,7 @@ import Loading from '@/components/Common/Loading';
 import webApi from '@/service';
 import { ProcessType, CourseListType, ProjectCourseType } from '@/service/webApi/course/type';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
-import { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
+import { forwardRef, useContext, useEffect, useImperativeHandle, useState } from 'react';
 import LearningTrackList from './LearningTrackList';
 import NoData from './NoData';
 import { courseTab } from './data';
@@ -13,6 +13,9 @@ import Recommend from '../Recommend';
 import CourseList from './CourseList';
 import { PageResult } from '@/service/webApi/type';
 import { ElectiveCourseType } from '@/service/webApi/elective/type';
+import { LangContext } from '@/components/Provider/Lang';
+import { TransNs } from '@/i18n/config';
+import { useTranslation } from '@/i18n/client';
 
 interface MyCoursesProps {
   setApiStatus: (status: string) => void;
@@ -28,6 +31,10 @@ const MyCourses = forwardRef<MyCoursesRef, MyCoursesProps>((props, ref) => {
   const [curTab, setCurTab] = useState<ProcessType>(ProcessType.IN_PROCESS);
   const [loading, setLoading] = useState(false);
   const [total, setTotal] = useState(0);
+
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.LEARN);
+
   const [coursePageInfo, setCoursePageInfo] = useState<{
     page: number;
     limit: number;
@@ -127,7 +134,7 @@ const MyCourses = forwardRef<MyCoursesRef, MyCoursesProps>((props, ref) => {
 
   return (
     <div className="flex flex-col">
-      <h1 className="text-h3 mb-[24px] text-neutral-off-black ">My Courses</h1>
+      <h1 className="text-h3 mb-[24px] text-neutral-off-black ">{t('dashboard.myCourses')}</h1>
       <div className="w-fit">
         <Tab
           tabList={courseTab}

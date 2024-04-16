@@ -15,6 +15,9 @@ import webApi from '@/service';
 import { useRequest } from 'ahooks';
 import { errorMessage } from '@/helper/ui';
 import { useRedirect } from '@/hooks/router/useRedirect';
+import { TransNs } from '@/i18n/config';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
 
 interface LearningTrackStatusButtonProps {
   learningTrackDetail: LearningTrackDetailType;
@@ -32,6 +35,9 @@ const LearningTrackStatusButton: FC<LearningTrackStatusButtonProps> = ({
   const CertificationModalRef = useRef<CertificationModalInstance>(null);
   const learningStatus = useGetLearningTrackLearnStatus(learningTrackDetail);
   const { jumpLearningLesson, loading: resumeLoading } = useJumpLeaningLesson();
+
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.BASIC);
 
   const { enroll, enrollLoading, unEnroll } = useEnrollUnEnroll(learningTrackDetail, refreshLearningTrackDetail);
 
@@ -75,7 +81,7 @@ const LearningTrackStatusButton: FC<LearningTrackStatusButtonProps> = ({
             enroll();
           }}
         >
-          Enroll Track
+          {t('courses.enroll')}
         </Button>
       );
     case LearningStatus.IN_PROGRESS:
@@ -96,7 +102,7 @@ const LearningTrackStatusButton: FC<LearningTrackStatusButtonProps> = ({
             }
           }}
         >
-          Continue
+          {t('courses.continue')}
         </Button>
       );
     case LearningStatus.COMPLETED:
@@ -117,7 +123,7 @@ const LearningTrackStatusButton: FC<LearningTrackStatusButtonProps> = ({
             className="button-text-l border-neutral-black py-4 uppercase"
             iconPosition="right"
           >
-            COMPLETED
+            {t('courses.completed')}
           </Button>
         );
       }
@@ -134,8 +140,7 @@ const LearningTrackStatusButton: FC<LearningTrackStatusButtonProps> = ({
                 redirectToUrl('/user/profile');
               }}
             >
-              {' '}
-              View more
+              {t('courses.viewMore')}
             </Button>
           </>
         );
@@ -155,7 +160,7 @@ const LearningTrackStatusButton: FC<LearningTrackStatusButtonProps> = ({
                 }
               }}
             >
-              Claim certification
+              {t('courses.certification')}
             </Button>
             {certification && (
               <CertificationModal

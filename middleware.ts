@@ -3,14 +3,13 @@ import Negotiator from 'negotiator';
 import { NextResponse } from 'next/server';
 import { NextRequest } from 'next/server';
 import { locales, defaultLocale, Lang, cookieName } from '@/i18n/config';
-import acceptLanguage from 'accept-language';
 const isMobile = (ua: string) => {
   return Boolean(ua.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i));
 };
 
 function getLocale(request: NextRequest): Lang {
   if (request.cookies.has(cookieName)) {
-    return acceptLanguage.get(request.cookies.get(cookieName)!.value) as Lang;
+    return request.cookies.get(cookieName)!.value as Lang;
   }
 
   const headers = {
@@ -26,7 +25,7 @@ export function middleware(request: NextRequest) {
   let pathname = request.nextUrl.pathname;
   let userSelectLocale = locales.find((locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`);
   let pathnameHasLocale = false;
-  let supportI18n = pathname.includes('/launch-pool');
+  let supportI18n = true;
   let locale = userSelectLocale;
   let isRedirect = false;
   // 如果是 public 文件，不重定向

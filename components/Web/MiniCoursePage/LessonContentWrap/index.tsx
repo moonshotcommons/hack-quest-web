@@ -4,15 +4,16 @@ import Progress from '../Progress';
 import Icons from '../Icons';
 import { useGetElectives } from '../hooks/useGetElectives';
 import { cn } from '@/helper/utils';
-import { CustomType } from '../../Business/Renderer/type';
 import { CompleteStateType, CourseType } from '@/service/webApi/course/type';
 import webApi from '@/service';
 import { useGetLessonLink } from '@/hooks/courses/useGetLessonLink';
 import { useRequest } from 'ahooks';
-import { RendererContext } from '../../Business/Renderer/context';
 import JSConfetti from 'js-confetti';
 import MiniElectiveCompletedModal, { MiniElectiveCompletedModalRef } from '../../Business/MiniElectiveCompletedModal';
 import { useRedirect } from '@/hooks/router/useRedirect';
+import { CustomType, PageType } from '@/components/ComponentRenderer/type';
+import { ComponentRendererProvider } from '@/components/ComponentRenderer';
+import MiniCustomRenderer from '../MiniCustomRenderer';
 
 interface LessonContentWrapProps {
   children: ReactNode;
@@ -133,25 +134,25 @@ const LessonContentWrap: FC<LessonContentWrapProps> = ({ children, lesson }) => 
         >
           {Icons.LeftArrowIcon}
         </div>
-        <RendererContext.Provider
-          value={{
-            textRenderer: {
-              fontSize: '18px'
-            },
-            globalContext: {
-              onCompleted: () => {
-                if (progress.current === progress.total - 1) {
-                  miniElectiveCompletedModalInstance.current?.open({});
-                } else {
-                  onNextClick();
-                }
-              },
-              onQuizPass
-            }
+        <ComponentRendererProvider
+          textRenderer={{
+            fontSize: '18px'
           }}
+          globalContext={{
+            onCompleted: () => {
+              if (progress.current === progress.total - 1) {
+                miniElectiveCompletedModalInstance.current?.open({});
+              } else {
+                onNextClick();
+              }
+            },
+            onQuizPass
+          }}
+          type={PageType.MINI}
+          CustomComponentRenderer={MiniCustomRenderer}
         >
           {children}
-        </RendererContext.Provider>
+        </ComponentRendererProvider>
         <div
           className={cn(nextLessonId && nextControl ? 'cursor-pointer' : 'cursor-not-allowed opacity-20')}
           onClick={() => {

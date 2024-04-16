@@ -10,10 +10,15 @@ import Image from 'next/image';
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { VscAdd, VscChromeMinimize } from 'react-icons/vsc';
 import { MantleContext } from '../../../constants/type';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 
 interface MantleInfoProp {}
 
 const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.REWARD);
   const { mantle, campaignsClaim, loading, refresh } = useContext(MantleContext);
   const [showAll, setShowAll] = useState(true);
   const certificationModalRef = useRef<CertificationModalInstance>(null);
@@ -100,7 +105,7 @@ const MantleInfo: React.FC<MantleInfoProp> = ({}) => {
                 className={`button-text-s h-[34px] flex-1 flex-shrink-0 border-neutral-black p-0 uppercase text-neutral-black`}
                 onClick={learnMore}
               >
-                Learn More
+                {t('learnMore')}
               </Button>
             </div>
           )}

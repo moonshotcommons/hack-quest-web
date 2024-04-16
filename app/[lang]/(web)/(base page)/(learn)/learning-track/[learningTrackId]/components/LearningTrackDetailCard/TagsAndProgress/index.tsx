@@ -8,6 +8,9 @@ import { LearningTrackDetailContext } from '@/components/Web/DetailPageV2/Provid
 import { LearningStatus, useGetLearningTrackLearnStatus } from '@/components/Web/DetailPageV2/hooks/useGetLearnStatus';
 import IconTextTag from '@/components/Web/DetailPageV2/CourseTag/IconTextTag';
 import { IconTextTagType } from '@/components/Web/DetailPageV2/CourseTag/IconTextTag/constant';
+import { LangContext } from '@/components/Provider/Lang';
+import { TransNs } from '@/i18n/config';
+import { useTranslation } from '@/i18n/client';
 
 interface TagsAndProgressProps {
   learningTrackDetail: LearningTrackDetailType;
@@ -17,6 +20,9 @@ const TagsAndProgress: FC<TagsAndProgressProps> = ({ learningTrackDetail: propLe
   const { learningTrackDetail: contextLearningTrackDetail } = useContext(LearningTrackDetailContext);
   const learningTrackDetail = contextLearningTrackDetail ?? propLearningTrackDetail;
   let learningStatus = useGetLearningTrackLearnStatus(learningTrackDetail);
+
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.LEARN);
 
   const progress = learningTrackDetail?.progress || 0;
 
@@ -32,7 +38,7 @@ const TagsAndProgress: FC<TagsAndProgressProps> = ({ learningTrackDetail: propLe
         <>
           <IconTextTag
             type={IconTextTagType.COURSES_COUNT}
-            text={`${learningTrackDetail.courseCount} courses`}
+            text={`${learningTrackDetail.courseCount} ${t('learningTrackDetail.card.courses')}`}
           ></IconTextTag>
           <IconTextTag type={IconTextTagType.DEVICE_ACCESS}></IconTextTag>
           {learningTrackDetail.certificationId && <IconTextTag type={IconTextTagType.CERTIFICATION}></IconTextTag>}
@@ -54,17 +60,9 @@ const TagsAndProgress: FC<TagsAndProgressProps> = ({ learningTrackDetail: propLe
       );
     case LearningStatus.COMPLETED:
       if (!certification?.claimed) {
-        return (
-          <p className="body-m text-neutral-rich-gray">
-            Congratulation! You’ve completed all the courses. Claim your Web3 certification 🎉
-          </p>
-        );
+        return <p className="body-m text-neutral-rich-gray">{t('learningTrackDetail.card.completedCourse')}</p>;
       } else {
-        return (
-          <p className="body-m text-neutral-rich-gray">
-            You are a certified {certification.name.replace(' Learning Track', '')} Builder 🎉
-          </p>
-        );
+        return <p className="body-m text-neutral-rich-gray">{t('learningTrackDetail.card.claimed')}</p>;
       }
   }
 };

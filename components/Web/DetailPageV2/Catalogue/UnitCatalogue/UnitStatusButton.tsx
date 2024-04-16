@@ -7,6 +7,9 @@ import { FC, useContext, useMemo } from 'react';
 import { StatusButtonType } from '@/components/Web/DetailPageV2/StatusButton/type';
 import { UnitContext } from '../../Provider/UnitProvider';
 import { CourseDetailContext } from '@/components/Web/DetailPageV2/Provider/CourseDetailProvider';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 
 interface UnitStatusButtonProps {
   courseDetail: CourseDetailType;
@@ -22,6 +25,9 @@ const UnitStatusButton: FC<
   const { courseDetail: contextCourseDetail } = useContext(CourseDetailContext);
   const courseDetail = (contextCourseDetail ?? propCourseDetail) as CourseDetailType;
   const unit = contextUnit ?? propUnit;
+
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.BASIC);
 
   const isLock = useMemo(() => {
     if (index === 0) return false;
@@ -60,7 +66,7 @@ const UnitStatusButton: FC<
     case StatusButtonType.COMPLETED:
       return (
         <div className="flex items-center gap-3">
-          <span className="body-s-bold">Complete</span>
+          <span className="body-s-bold capitalize">{t('courses.completed')}</span>
           <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect y="0.5" width="24" height="24" rx="12" fill="#00C365" />
             <path
@@ -80,7 +86,7 @@ const UnitStatusButton: FC<
           {...rest}
           onClick={learnHandle}
         >
-          Start
+          {t('courses.start')}
         </Button>
       );
     case StatusButtonType.RESUME:

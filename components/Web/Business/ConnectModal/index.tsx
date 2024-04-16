@@ -212,7 +212,6 @@ const ConnectModal: ForwardRefRenderFunction<ConnectModalInstance, ConnectModalP
                   )}
                   disabled={!currentConnectState?.isConnect}
                   onClick={() => {
-                    debugger;
                     const currentIndex = connectState.findIndex((item) => item.type === currentConnectState!.type);
                     if (currentIndex + 1 < connectState.length) {
                       setCurrentConnectType(connectState[currentIndex + 1].type);

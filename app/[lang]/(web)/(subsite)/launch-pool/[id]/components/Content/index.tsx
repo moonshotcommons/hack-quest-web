@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import OverView from './OverView';
 import TimeLine from './TimeLine';
 import YourFuelingBoard from './YourFuelingBoard';
@@ -9,6 +9,7 @@ import KeyMetrics from './KeyMetrics';
 import Tractions from './Tractions';
 import Loading from '@/components/Common/Loading';
 import { titleTxtData } from '../../constants/data';
+import { LaunchDetailContext } from '../../constants/type';
 
 export interface OffsetTopsType {
   title: string;
@@ -20,6 +21,7 @@ interface ContentProp {
 }
 
 const Content: React.FC<ContentProp> = ({ loading, setOffsetTop }) => {
+  const { setLoading } = useContext(LaunchDetailContext);
   const overViewRef = useRef<HTMLDivElement>(null);
   const timeLineRef = useRef<HTMLDivElement>(null);
   const yourFuelingBoardRef = useRef<HTMLDivElement>(null);
@@ -28,6 +30,7 @@ const Content: React.FC<ContentProp> = ({ loading, setOffsetTop }) => {
   const keyMetricsRef = useRef<HTMLDivElement>(null);
   const tractionsRef = useRef<HTMLDivElement>(null);
   const boxRef = useRef<HTMLDivElement>(null);
+
   const getOffsetTops = () => {
     const offsetTops = [];
     const childNodes = boxRef.current?.childNodes || [];

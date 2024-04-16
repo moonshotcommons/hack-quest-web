@@ -4,6 +4,7 @@ import LanguageTag from './LanguageTag';
 import DurationTag from './DurationTag';
 import LevelTag from './LevelTag';
 import PartLearningTrackTag from './PartLearningTrackTag';
+import { Lang } from '@/i18n/config';
 
 export enum CourseTagType {
   CREATE_BY = 'create_by',
@@ -19,6 +20,7 @@ interface CourseTagProps {
   label?: ReactNode;
   value?: string;
   valueNode?: ReactNode;
+  lang: Lang;
 }
 
 const CourseTag: FC<CourseTagProps> = (props) => {

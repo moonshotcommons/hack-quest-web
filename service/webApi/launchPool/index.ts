@@ -1,6 +1,6 @@
 import WebService from '@/service/webService/webService';
 import { PageResult } from '../type';
-import { FuelInfo, LaunchPoolProjectType, ParticipateInfo, StakeInfo } from './type';
+import { FuelInfo, LaunchPoolProjectType, ParticipateInfo } from './type';
 import { cache } from 'react';
 
 export enum LaunchPoolApiType {
@@ -53,9 +53,16 @@ class LaunchPoolApi {
   }
 
   /* 质押 */
-  stake(projectId: string) {
+  stake(projectId: string, data: object) {
     const url = `${LaunchPoolApiType.LaunchPoolProjects}/${projectId}/stake`;
-    return this.service.post<StakeInfo>(url);
+    return this.service.post(url, {
+      data
+    });
+  }
+  /* 取消质押 */
+  unStake(projectId: string, stakeId: string) {
+    const url = `${LaunchPoolApiType.LaunchPoolProjects}/${projectId}/unstake/${stakeId}`;
+    return this.service.get(url);
   }
 
   /* 领取 */
@@ -75,6 +82,10 @@ class LaunchPoolApi {
     return this.service.get<{ isJoin: boolean; email: string }>(
       `${LaunchPoolApiType.LaunchPoolProjects}/${projectId}/check-wait-list`
     );
+  }
+
+  getCurrentPrice() {
+    return this.service.get<{ usd: number }>(`/ethers/price?currency=ethereum`);
   }
 }
 

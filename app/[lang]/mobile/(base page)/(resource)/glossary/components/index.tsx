@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import GlossaryHeader from './GlossaryHeader';
 import NoData from './NoData';
 import MenuLink from '@/constants/MenuLink';
@@ -16,6 +16,9 @@ import { useRequest } from 'ahooks';
 import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';
 import { LetterDataType } from '@/app/[lang]/(web)/(base page)/(resource)/glossary/constants/type';
+import { TransNs } from '@/i18n/config';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
 
 interface GlossaryPageProp {
   galossaryList: BlogType[];
@@ -23,6 +26,8 @@ interface GlossaryPageProp {
 }
 
 const GlossaryPage: React.FC<GlossaryPageProp> = ({ searchParams = {}, galossaryList }) => {
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.RESOURCE);
   const [list, setList] = useState<GlossaryListType[]>([]);
   const [filterTracks, setFilterTracks] = useState<string[]>([]);
   const [tracks, setTracks] = useState<string[]>([]);
@@ -180,7 +185,7 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ searchParams = {}, galossary
       <div className={`px-[1.25rem] pb-[2.5rem] ${!list.length ? 'flex-1' : ''}`}>
         {searchParams.keyword ? (
           <div className="body-m mb-[2.5rem] text-center text-neutral-black">
-            {galossaryList.length} Results for
+            {galossaryList.length} {t('resultsFor')}
             <span className="pl-[4px] text-neutral-medium-gray">“{searchParams.keyword}”</span>
           </div>
         ) : null}

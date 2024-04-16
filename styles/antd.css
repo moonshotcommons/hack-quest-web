@@ -9,3 +9,7 @@
     background-position: 50% 100%;
   }
 }
+
+.ant-upload-list-picture-card > .ant-upload-select:hover {
+  border-color: #ffe866 !important;
+}

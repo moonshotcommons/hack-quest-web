@@ -6,8 +6,13 @@ import TargetCard from '../component/TargetCard';
 import { rewardsCardData } from './data';
 import { BurialPoint } from '@/helper/burialPoint';
 import { MissionCenterContext, TabContentType } from '../../../constants/type';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 
 const BeginnerRewards: React.FC<TabContentType> = ({ missionData, unClaimMissionData, missionClaim }) => {
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.REWARD);
   const { missionIds, loading } = useContext(MissionCenterContext);
   const allIds = useMemo(() => {
     return unClaimMissionData.map((v) => v.id);
@@ -19,11 +24,9 @@ const BeginnerRewards: React.FC<TabContentType> = ({ missionData, unClaimMission
   return (
     <div>
       <div className="mb-[40px] flex justify-between">
-        <div className="w-[62%] text-neutral-black">
-          {`We're here to help you get started on your HackQuest journey while also giving you the chance to earn rewards. Let's embark on this learning journey together! 🚀`}
-        </div>
+        <div className="w-[62%] text-neutral-black">{t('beginnerRewardsDescription')}</div>
         <Button
-          className={`body-l h-[60px] w-[270px] border-auth-primary-button-border-color bg-auth-primary-button-bg
+          className={`body-l h-[60px] w-[270px] border-auth-primary-button-border-color bg-auth-primary-button-bg uppercase
            text-neutral-black ${
              !allIds.length
                ? 'cursor-not-allowed opacity-50'
@@ -33,12 +36,12 @@ const BeginnerRewards: React.FC<TabContentType> = ({ missionData, unClaimMission
           loading={missionIds.join() === allIds.join() && missionIds.length > 0}
           onClick={handleAllClaim}
         >
-          Claim All ({allIds.length})
+          {t('claimAll')} ({allIds.length})
         </Button>
       </div>
 
       <div>
-        <div className="body-l text-neutral-black">Targets to Achieve</div>
+        <div className="body-l text-neutral-black">{t('targetsToAchieve')}</div>
         <div>
           {missionData.map((v, i) => {
             const subType = v.subType as MissionSubType;
@@ -49,7 +52,7 @@ const BeginnerRewards: React.FC<TabContentType> = ({ missionData, unClaimMission
                 missionClaim={missionClaim}
                 targetIcon={rewardsCardData[subType].targetIcon}
                 unClaimPath={rewardsCardData[subType].unClaimPath}
-                unClaimText={rewardsCardData[subType].unClaimText}
+                unClaimText={t(rewardsCardData[subType].unClaimText)}
                 type={rewardsCardData[subType].type}
                 isScale={false}
               />

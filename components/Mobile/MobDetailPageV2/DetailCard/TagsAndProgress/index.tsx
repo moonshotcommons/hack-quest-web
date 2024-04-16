@@ -5,6 +5,9 @@ import { IconTextTagType } from '../../CourseTag/IconTextTag/constant';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import { LearningTrackDetailContext } from '../../Provider/LearningTrackDetailProvider';
 import { LearningStatus, useGetLearningTrackLearnStatus } from '../../hooks/useGetLearnStatus';
+import { LangContext } from '@/components/Provider/Lang';
+import { TransNs } from '@/i18n/config';
+import { useTranslation } from '@/i18n/client';
 
 interface TagAndProgressProps {
   learningTrackDetail: LearningTrackDetailType;
@@ -15,6 +18,9 @@ const TagAndProgress: FC<TagAndProgressProps> = ({ learningTrackDetail: propLear
   const learningTrackDetail = contextLearningTrackDetail ?? propLearningTrackDetail;
   const learningStatus = useGetLearningTrackLearnStatus(learningTrackDetail);
 
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.LEARN);
+
   const enrolled = learningTrackDetail.enrolled;
   const progress = learningTrackDetail?.progress || 0;
 
@@ -24,7 +30,7 @@ const TagAndProgress: FC<TagAndProgressProps> = ({ learningTrackDetail: propLear
         <>
           <IconTextTag
             type={IconTextTagType.COURSES_COUNT}
-            text={`${learningTrackDetail.courseCount} courses`}
+            text={`${learningTrackDetail.courseCount} ${t('learningTrackDetail.card.courses')}`}
           ></IconTextTag>
           <IconTextTag type={IconTextTagType.DEVICE_ACCESS}></IconTextTag>
           {learningTrackDetail.certificationId && <IconTextTag type={IconTextTagType.CERTIFICATION}></IconTextTag>}
@@ -46,11 +52,7 @@ const TagAndProgress: FC<TagAndProgressProps> = ({ learningTrackDetail: propLear
       );
     case LearningStatus.COMPLETED:
       //!TODO 要分学完可以获取证书和已经获取证书
-      return (
-        <p className="body-m text-neutral-rich-gray">
-          Congratulation! You’ve completed all the courses. Claim your Web3 certification 🎉
-        </p>
-      );
+      return <p className="body-m text-neutral-rich-gray">{t('learningTrackDetail.card.completedCourse')}</p>;
   }
 };
 

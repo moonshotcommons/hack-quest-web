@@ -1,4 +1,4 @@
-import { CustomComponent } from '@/components/Web/Business/Renderer/type';
+import { CustomComponent } from '@/components/ComponentRenderer/type';
 
 export enum HackathonStatusType {
   ON_GOING = 'ongoing',
@@ -96,4 +96,23 @@ export enum ResourceFrom {
 
 export enum CoustomKeywordType {
   GLOSSARY = 'Glossary'
+}
+
+export enum EventStatus {
+  UPCOMING = 'upcoming',
+  IN_PROGRESS = 'inProgress',
+  PAST = 'past'
+}
+
+export interface EventsType {
+  id: string;
+  name: string;
+  description: string;
+  medias: string[];
+  tags: string[];
+  location: string;
+  startTime: string;
+  endTime: string;
+  status: EventStatus;
+  eventUrl?: string;
 }

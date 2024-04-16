@@ -7,13 +7,19 @@ import { LearningTrackTab, SearchInfoType } from '../../constants/type';
 import { getSearchParamsUrl } from '@/helper/utils';
 import MenuLink from '@/constants/MenuLink';
 import Link from 'next/link';
+import { Lang, TransNs } from '@/i18n/config';
+import { useTranslation } from '@/i18n/client';
 
 interface BannerProp {
   searchInfo: SearchInfoType;
+  lang: Lang;
 }
 
-const Banner: React.FC<BannerProp> = ({ searchInfo }) => {
+const Banner: React.FC<BannerProp> = ({ searchInfo, lang }) => {
   const { track } = searchInfo;
+
+  const { t } = useTranslation(lang, TransNs.LEARN);
+
   const getSearchInfo = (info: SearchInfoType) => {
     const param = {
       ...info,
@@ -27,7 +33,7 @@ const Banner: React.FC<BannerProp> = ({ searchInfo }) => {
         <Image src={BannerImg} alt="BannerImg" className="absolute left-0 top-0 h-full w-full"></Image>
       </div>
       <div className="mt-[1.5rem] px-[1.25rem]">
-        <h1 className="text-h1-mob mb-[2.5rem] text-neutral-white">Learning Tracks</h1>
+        <h1 className="text-h1-mob mb-[2.5rem] text-neutral-white">{t('learningTrack.title')}</h1>
         <div className="flex gap-[1rem]">
           {bannerTabList.map((v) => (
             <Link
@@ -51,7 +57,7 @@ const Banner: React.FC<BannerProp> = ({ searchInfo }) => {
                 <div
                   className={`text-h5-mob mt-[0.5rem] ${track === v.value ? 'text-neutral-off-black' : 'text-neutral-white'}`}
                 >
-                  {v.label}
+                  {t(v.label)}
                 </div>
               </div>
             </Link>

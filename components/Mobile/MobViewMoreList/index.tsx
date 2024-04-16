@@ -1,5 +1,8 @@
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useContext, useEffect, useState } from 'react';
 import { FiChevronDown } from 'react-icons/fi';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 interface MobViewMoreListProps<T> {
   list: T[];
   limit: number;
@@ -9,6 +12,9 @@ interface MobViewMoreListProps<T> {
 const MobViewMoreList = <T,>({ list: propList, limit, renderItem }: MobViewMoreListProps<T>) => {
   const [originList, setOriginList] = useState<T[]>([]);
   const [list, setList] = useState<T[]>([]);
+
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.LEARN);
 
   useEffect(() => {
     const tempOriginList = [...propList];
@@ -36,7 +42,7 @@ const MobViewMoreList = <T,>({ list: propList, limit, renderItem }: MobViewMoreL
             setOriginList(tempOriginList);
           }}
         >
-          <span>View more</span>
+          <span>{t('courses.viewMore')}</span>
           <span>
             <FiChevronDown size={20} />
           </span>

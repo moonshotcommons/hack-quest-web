@@ -84,7 +84,7 @@ export const tagConfig = {
         <path d="M12 18.8H12.01" stroke="#0B0B0B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     ),
-    text: 'Access on mobile and desktop'
+    text: 'courses.deviceAccess'
   },
   [IconTextTagType.CERTIFICATION]: {
     icon: (
@@ -112,6 +112,6 @@ export const tagConfig = {
         </defs>
       </svg>
     ),
-    text: 'Certification available'
+    text: 'courses.certificationAvailable'
   }
 };

@@ -7,7 +7,10 @@ import { useRequest } from 'ahooks';
 import { message } from 'antd';
 
 import Link from 'next/link';
-import { FC, useState } from 'react';
+import { FC, useContext, useState } from 'react';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 interface GettingCertificateProps {
   certification: CertificationType;
   refreshCertification?: VoidFunction;
@@ -58,6 +61,8 @@ const badge = (
 const GettingCertificate: FC<GettingCertificateProps> = ({ certification, refreshCertification, closeModal }) => {
   const [showShare, setShowShare] = useState(false);
   const { safeMintAsync } = useMintCertification();
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.REWARD);
 
   const { run: safeMint, loading } = useRequest(
     async (params: { sourceType: 'Certification'; sourceId: string; signatureId: number }) => {
@@ -84,12 +89,10 @@ const GettingCertificate: FC<GettingCertificateProps> = ({ certification, refres
     <div className="flex-1">
       <div className="flex h-fit items-center gap-x-5">
         <div>{badge}</div>
-        <p className="body-xl-bold text-neutral-off-black">Congratulations! You are now a certified developer.</p>
+        <p className="body-xl-bold text-neutral-off-black">{t('congratulationsDeveloper')}</p>
       </div>
 
-      <p className="body-m mt-6 text-neutral-black">
-        {`This learning track, co-issued by ecosystem and HackQuest, certifies that you have successfully completed the learning track. Share your accomplishments with the world!`}
-      </p>
+      <p className="body-m mt-6 text-neutral-black">{t('certifiesWorld')}</p>
 
       <div
         className="mt-6 flex gap-4"
@@ -161,7 +164,7 @@ const GettingCertificate: FC<GettingCertificateProps> = ({ certification, refres
             className="button-text-m w-[200px] border-neutral-black  px-0 py-[11px] uppercase text-neutral-black"
             onClick={() => closeModal?.()}
           >
-            View Profile
+            {t('viewProfile')}
           </Button>
         </Link>
       </div>

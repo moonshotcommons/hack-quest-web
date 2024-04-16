@@ -7,11 +7,11 @@ import ThemeContextProvider from '@/store/context/theme';
 import Script from 'next/script';
 import ConfigProvider from '@/components/Provider/Config';
 
-import { Nunito, Space_Mono } from 'next/font/google';
+import { Nunito, Space_Mono, Poppins } from 'next/font/google';
 import GlobalModal from '@/components/Web/GlobalModal';
 import LangProvider from '@/components/Provider/Lang';
 import { Lang } from '@/i18n/config';
-
+import 'github-markdown-css/github-markdown.css';
 const nunito = Nunito({
   subsets: ['latin'],
   display: 'swap',
@@ -23,6 +23,13 @@ const space_mono = Space_Mono({
   weight: ['400', '700'],
   display: 'swap',
   variable: '--font-space-mono'
+});
+
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
+  display: 'swap',
+  variable: '--font-poppins'
 });
 
 export const metadata: Metadata = {
@@ -54,7 +61,11 @@ interface RootLayoutProps {
 
 export default function RootLayout({ children, params: { lang } }: RootLayoutProps) {
   return (
-    <html lang={lang} suppressHydrationWarning className={`${nunito.variable} ${space_mono.variable}`}>
+    <html
+      lang={lang}
+      suppressHydrationWarning
+      className={`${nunito.variable} ${space_mono.variable}  ${poppins.variable}`}
+    >
       <body className={`${nunito.className}`}>
         <LangProvider lang={lang}>
           <ThemeContextProvider>

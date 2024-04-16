@@ -1,8 +1,9 @@
 'use client';
-import ComponentRenderer from '@/components/Web/Business/Renderer/ComponentRenderer';
-import { CustomComponent, NotionComponent } from '@/components/Web/Business/Renderer/type';
+
 import { FC, useEffect, useMemo, useState } from 'react';
 import { LessonType, PlaygroundContext } from './type';
+import { CustomComponent, NotionComponent } from '@/components/ComponentRenderer/type';
+import { ComponentRenderer, OverrideRendererConfig } from '@/components/ComponentRenderer';
 
 interface PlaygroundProps {
   // children: ReactNode
@@ -34,10 +35,23 @@ const Playground: FC<PlaygroundProps> = (props) => {
   return (
     <div className="flex h-full flex-col gap-[20px] overflow-hidden bg-lesson-code-bg p-5 pl-[0px]">
       <PlaygroundContext.Provider value={{ lesson, onCompleted, isPreview, isPlayground: true }}>
-        {!!components?.length &&
-          components.map((component) => {
-            return <ComponentRenderer parent={parent} key={component.id} component={component}></ComponentRenderer>;
-          })}
+        <OverrideRendererConfig codeRenderer={{ isPlayground: true }}>
+          {!!components?.length &&
+            components.map((component, index) => {
+              const prevComponent = index === 0 ? null : components![index - 1];
+              const nextComponent = index === components!.length - 1 ? null : components![index + 1];
+              return (
+                <ComponentRenderer
+                  parent={parent}
+                  key={component.id}
+                  component={component}
+                  position={index}
+                  prevComponent={prevComponent}
+                  nextComponent={nextComponent}
+                />
+              );
+            })}
+        </OverrideRendererConfig>
       </PlaygroundContext.Provider>
     </div>
   );

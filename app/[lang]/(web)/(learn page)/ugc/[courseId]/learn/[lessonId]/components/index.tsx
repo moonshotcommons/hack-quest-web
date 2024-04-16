@@ -7,6 +7,7 @@ import webApi from '@/service';
 import { useLearnStore } from '@/store/zustand/learnStore';
 import { CourseType } from '@/service/webApi/course/type';
 import Loading from '@/components/Common/Loading';
+import { useUpdateHelperParams } from '@/hooks/utils/useUpdateHelperParams';
 
 interface UgcProp {
   lessonId: string;
@@ -18,12 +19,15 @@ const Ugc: React.FC<UgcProp> = ({ lessonId }) => {
     return webApi.courseApi.getLessonContent(lessonId);
   });
 
+  const { updatePageId } = useUpdateHelperParams();
+
   useEffect(() => {
     if (lesson) {
       setLearnLesson({
         courseType: CourseType.UGC,
         lesson: lesson
       });
+      updatePageId(lessonId);
     }
   }, [lesson]);
 

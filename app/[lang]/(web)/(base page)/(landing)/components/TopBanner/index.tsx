@@ -3,36 +3,61 @@ import BubbleCard from './BubbleCard';
 import Image from 'next/image';
 import Button from '@/components/Common/Button';
 import Link from 'next/link';
+import { Lang, TransNs } from '@/i18n/config';
+import { useTranslation } from '@/i18n/server';
 
-interface TopBannerProps {}
+interface TopBannerProps {
+  lang: Lang;
+}
 
-const TopBanner: FC<TopBannerProps> = (props) => {
+const TopBanner: FC<TopBannerProps> = async ({ lang }) => {
+  const { t } = await useTranslation(lang, TransNs.LANDING);
+
+  const getLandingTitle = () => {
+    switch (lang) {
+      case Lang.ZH:
+        return (
+          <h1 className="text-h1 mt-[8.125rem] text-center text-neutral-white">
+            <span>适合</span>
+            <span className="text-yellow-dark">所有人</span>
+            <span>的</span>
+            <br />
+            <span className="inline-block pt-2"> Web3编程平台</span>
+          </h1>
+        );
+      default:
+        return (
+          <h1 className="text-h1 mt-[8.125rem] text-center text-neutral-white">
+            Web3 Programming
+            <br />
+            For <span className="text-yellow-dark">Everyone</span>
+          </h1>
+        );
+    }
+  };
+
   return (
     <div className="flex h-[50rem] w-full flex-col items-center justify-between bg-neutral-black">
       <div className="flex flex-col items-center">
-        <h1 className="text-h1 mt-[8.125rem] text-center text-neutral-white">
-          Web3 Programming
-          <br />
-          For <span className="text-yellow-dark">Everyone</span>
-        </h1>
+        {getLandingTitle()}
         <Link href={'/learning-track'}>
-          <Button type="primary" className="button-text-l mt-12 px-11 py-4 uppercase">
-            Explore
+          <Button type="primary" className="button-text-l mt-12 w-[168px] px-0 py-4 uppercase">
+            {t('TopBanner.explore')}
           </Button>
         </Link>
 
         <BubbleCard direction="right" className="-mt-[13px] translate-x-[calc(50%+134px+84px)]">
           <Image src="/images/landing/solana_icon.png" alt="solana" width={60} height={60}></Image>
           <div className="text-neutral-off-white">
-            <div className="body-m body-xs-bold w-fit rounded-[.5rem] border border-yellow-primary px-2 py-1 text-yellow-primary">
-              Certified
+            <div className="body-m body-xs-bold w-fit rounded-[.5rem] border border-yellow-primary px-2 py-1 capitalize text-yellow-primary">
+              {t('TopBanner.certified')}
             </div>
             <Link
               href={'/learning-track?track=Basic&language=RUST'}
               className="body-m-bold mt-2 flex items-center gap-2"
             >
-              <span className="relative after:absolute after:-bottom-[1px] after:left-0 after:h-[2px] after:w-full after:rounded-full after:bg-yellow-primary">
-                Solana Learning Track
+              <span className="relative capitalize after:absolute after:-bottom-[1px] after:left-0 after:h-[2px] after:w-full after:rounded-full after:bg-yellow-primary">
+                Solana {t('TopBanner.learningTrack')}
               </span>
               <svg width="13" height="18" viewBox="0 0 13 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -49,8 +74,8 @@ const TopBanner: FC<TopBannerProps> = (props) => {
         <BubbleCard direction="left" className="-mt-[40px] -translate-x-[calc(50%+267px)]">
           <Image src="/images/landing/code_icon.png" alt="code" width={48} height={48}></Image>
           <div className="text-neutral-off-white">
-            <p className="body-m">Learn and build alongside</p>
-            <p className="body-xl-bold">5k+ developers</p>
+            <p className="body-m">{t('TopBanner.learnAndBuildAlongside')}</p>
+            <p className="body-xl-bold">5k+ {t('TopBanner.developers')}</p>
           </div>
         </BubbleCard>
       </div>

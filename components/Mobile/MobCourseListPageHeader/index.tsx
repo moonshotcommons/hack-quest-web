@@ -1,8 +1,11 @@
 'use client';
+import { LangContext } from '@/components/Provider/Lang';
 import { cn } from '@/helper/utils';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import Image from 'next/image';
-import { FC, ReactNode, useEffect, useRef, useState } from 'react';
+import { FC, ReactNode, useContext, useEffect, useRef, useState } from 'react';
 import { FiSearch } from 'react-icons/fi';
 import { GoX } from 'react-icons/go';
 
@@ -34,6 +37,8 @@ const MobCourseListPageHeader: FC<CourseListPageHeaderProps> = ({
   coverImgClassName,
   defaultValue = ''
 }) => {
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.BASIC);
   const [searchValue, setSearchValue] = useState('');
   const timeOut = useRef<NodeJS.Timeout | null>(null);
   useEffect(() => {
@@ -51,7 +56,7 @@ const MobCourseListPageHeader: FC<CourseListPageHeaderProps> = ({
               <FiSearch size={20} />
             </span>
             <input
-              placeholder="Search for keywords, topics, etc..."
+              placeholder={t('searchPlaceholder')}
               className="body-m w-full truncate text-neutral-medium-gray outline-none"
               value={searchValue}
               // onKeyUp={(e) => {
@@ -96,7 +101,7 @@ const MobCourseListPageHeader: FC<CourseListPageHeaderProps> = ({
       <div className={cn('absolute right-0 top-0', coverImgClassName)}>
         {coverImage}
         {!coverImage && coverImageUrl && (
-          <Image src={coverImageUrl} alt={`${title} cover`} width={coverWidth} height={coverHeight}></Image>
+          <Image src={coverImageUrl} alt={`${title} cover`} width={coverWidth} height={coverHeight} priority></Image>
         )}
       </div>
     </div>

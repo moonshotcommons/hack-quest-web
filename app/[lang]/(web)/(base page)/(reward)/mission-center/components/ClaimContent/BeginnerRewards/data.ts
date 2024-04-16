@@ -19,28 +19,28 @@ export const rewardsCardData: RewardsCardDataType = {
   REGISTER_ACCOUNT: {
     targetIcon: IconHack,
     unClaimPath: '/',
-    unClaimText: 'Register Account'
+    unClaimText: 'registerAccount'
   },
   JOIN_DISCORD: {
     targetIcon: IconDiscord,
     unClaimPath: '',
-    unClaimText: 'Join Discord',
+    unClaimText: 'joinDiscord',
     type: RewardsCardType.DISCORD
   },
   LINK_METAMASK: {
     targetIcon: IconMetaMask,
     unClaimPath: '/',
-    unClaimText: 'Link with MetaMask'
+    unClaimText: 'linkWithMetaMask'
   },
   ENROLL_LEARNING_TRACK: {
     targetIcon: IconHack,
     unClaimPath: '/learning-track',
-    unClaimText: 'Go to Learning Track'
+    unClaimText: 'goToLearningTrack'
   },
   INVITE_USER: {
     targetIcon: IconHack,
     unClaimPath: '/',
-    unClaimText: 'Share Invite Code',
+    unClaimText: 'shareInviteCode',
     type: RewardsCardType.SHARE
   }
 };

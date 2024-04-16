@@ -17,7 +17,11 @@ enum MenuLink {
   INSTRUCTOR = '/instructor',
   ADVOCATE = '/advocate',
   COURSE_MARKET = '/course-market',
-  LAUNCH = '/launch-pool'
+  LAUNCH = '/launch-pool',
+  EVENTS = '/events',
+  EVENTS_PAST = '/events/past',
+  PRESS_KIT = '/press-kit',
+  CENTRAL_DAO = '/central-dao'
 }
 
 export default MenuLink;

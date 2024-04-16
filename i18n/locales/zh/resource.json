@@ -1,0 +1,120 @@
+{
+  "blog": "博客",
+  "blogDescription": "探索我们的Web3博客-这是关于新闻，事件和学习笔记的中心！提出你富有创造力的见解，一起去建设去中心化技术的世界吧！",
+  "contributeBlog": "贡献内容",
+  "noContent": "还没有内容~",
+  "backAllBlogs": "所有博客",
+  "featuredBlog": "特色博客",
+  "resultsFor": "结果",
+  "术语表": "术语表",
+  "glossaryDescription": "关于 Web3 基本术语的快速指南。无论你是初学者还是专业人士，都能从中找到清晰的解释解答你在 Web3 世界中遇到的困惑。",
+  "submitWord": "提交一个你想了解的词",
+  "requiredQuestion": "必填项*",
+  "anyWordAboutWeb3": "欢迎就Web3发表任何意见",
+  "hearFollowup": "跟踪",
+  "stayConnected": "与我们保持联系",
+  "backAllGlossary": "所有术语表",
+  "moreAboutGlossary": "更多关于",
+  "moreAboutBlog": "更多关于",
+  "latestGlossary": "最新的术语表",
+  "youCanSubmitWord": "你可以提交这个词",
+  "weWillWork": "我们会努力的!",
+  "submitTheWord": "提交单词",
+  "submittedSuccessfully": "提交成功! 🎉",
+  "ThanksForSubmission": "感谢您的文字投稿!我们的团队将对其进行审核，如果获得批准，它将很快被添加到我们的词汇表中。请继续关注更新，并与我们一起探索Web3的世界!",
+  "advocate": {
+    "TopBanner": {
+      "title": "加入我们快速成长的社区!",
+      "description": "成为HackQuest倡导者将使您成为当地的Web3超级英雄：赋予他人权力，应对挑战，参与社区，影响全球，并建立更光明的未来!",
+      "apply": "申请"
+    },
+    "DataStatistics": {
+      "fundingRaised": "社区项目筹集的资金",
+      "hackathonsHosted": "举办的黑客松",
+      "hackathonProjects": "黑客松项目",
+      "ventureBackedProjects": "风险投资项目的支持"
+    },
+    "CommunityIRL": {
+      "title": "HackQuest 社区 IRL  👀",
+      "viewEvents": "查看活动"
+    },
+    "DifferenceAdvocate": {
+      "title": "作为倡导者需要做到哪些 💪",
+      "section1": {
+        "title": "成为HackQuest的代言人",
+        "description": "在您当地的社区中实现HackQuest的使命-围绕我们迷人的愿景团结起来，并邀请更多的朋友加入🚀"
+      },
+      "section2": {
+        "title": "组织活动",
+        "description": "激发令人兴奋的在线和IRL HackQuest活动-聚会，黑客马拉松，共同学习营……让我们一起建造吧，推荐️ "
+      },
+      "section3": {
+        "title": "教育社区",
+        "description": "公开分享学习之旅，并通过帖子、文章、视频、研讨会等方式向全世界介绍Web3和HackQuest。教育和启发✨"
+      },
+      "section4": {
+        "title": "创造包容的文化",
+        "description": "欢迎所有新成员张开双臂-回答问题，地址反馈，提供指导…无论他们的背景和技能水平如何🙌"
+      }
+    },
+    "AdvocateBenefits": {
+      "title": "成为一名倡导者的好处🎁",
+      "section1": {
+        "title": "薪酬包",
+        "description": "我们真诚地重视你的工作，不相信让人们免费工作。如果您为我们的愿景做出贡献，我们总是很乐意补偿您的辛勤工作💰顶级倡导者还将收到HackQuest和我们的合作伙伴定制的商品套装。"
+      },
+      "section2": {
+        "title": "与核心团队一起工作",
+        "description": "我们一直感谢您的反馈💌作为一名倡导者，您将与我们在美国，大中华区，印度和新加坡的全球核心团队一起工作。"
+      },
+      "section3": {
+        "title": "抢先体验Beta功能",
+        "description": "Shhhhh🤫让我告诉你一个秘密——HackQuest每两周将新功能发布到开发环境中。作为一名倡导者，你将永远获得优先访问权。"
+      },
+      "section4": {
+        "title": "网络和指导",
+        "description": "HackQuest与100多个Web3生态系统和项目合作，并定期组织IRL和在线活动🤝作为倡导者，您将有机会参加内部研讨会，并与Web3的主要声音进行炉边聊天!"
+      },
+      "section5": {
+        "title": "职业发展机会",
+        "description": "快速启动您的Web3职业生涯。从倡导者开始，您将有独家机会以研究员、实习生、兼职或全职的身份加入我们或我们的合作伙伴🚀"
+      },
+      "section6": {
+        "title": "及时的支持",
+        "description": "想要在当地社区组织一个研讨会、聚会、黑客马拉松，甚至是一个会议吗?请联系我们，我们很乐意以任何方式为您提供支持🙌"
+      }
+    },
+    "UserEvaluation": {
+      "title": "我们的社区倡导者",
+      "description": "分享你的学习之旅，并标记我们的特色"
+    },
+    "ApplyAdvocate": {
+      "title": "现在申请成为倡导者🙌",
+      "applyNow": "现在申请"
+    },
+    "FAQS": {
+      "title": "常见问题解答",
+      "description": "找不到你想要的？联系我们！",
+      "question1": {
+        "problem": "我目前是其他社区的倡导者。我还有资格成为HackQuest的倡导者吗?",
+        "answer": "绝对的!你可以在管理其他社区的同时成为我们的倡导者。我们也欢迎跨社区合作。"
+      },
+      "question2": {
+        "problem": "我必须是一个Web 3.0开发人员才有资格成为倡导者吗?",
+        "answer": "不!您不必成为一名开发人员或全职从事web3工作，就可以成为一名倡导者。只要你对Web 3.0充满热情，喜欢授权他人并组织活动，我们非常欢迎你申请。事实上，我们很快就会推出智能合约开发之外的其他职业轨道。请继续关注!"
+      },
+      "question3": {
+        "problem": "作为一名倡导者，我能得到什么?",
+        "answer": "在HackQuest，我们为我们的倡导者提供全面的福利包。你完成的任务会带来金钱上的好处(是的，你不是在做无偿的工作)，与Web 3.0行业领袖会面，将你提议的活动变为现实，成为HackQuest的同事、实习生甚至全职员工的独特机会，等等。"
+      },
+      "question4": {
+        "problem": "我需要为活动做什么准备?我需要自己准备材料吗?",
+        "answer": "没有必要为准备而流汗!我们提供货色供您使用。你所需要做的就是把你的想法写在一份提案中，然后提交给我们，这样我们就可以帮助你实现它。"
+      },
+      "question5": {
+        "problem": "倡导者的时间承诺是什么?",
+        "answer": "这完全取决于你!大多数拥护者做额外的活动并保持活跃。然而，作为一个倡导者，基本需求应该每月花费大约3-5个小时。"
+      }
+    }
+  }
+}

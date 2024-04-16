@@ -1,14 +1,12 @@
 import { FC } from 'react';
-import ComponentRenderer from '../Business/Renderer/MiniElectiveRenderer';
-// import mockLessonData from './content.json';
-// import mockLessonData from './quizA.json';
-// import mockLessonData from './quizB.json';
 import Sidebar from './Sidebar';
 import { CourseType } from '@/service/webApi/course/type';
 import { useGetLessonContent } from '@/hooks/courses/useGetLessenContent';
 import { ElectiveLessonType } from '@/service/webApi/elective/type';
 import Loading from '@/components/Common/Loading';
 import LessonContentWrap from './LessonContentWrap';
+import { ComponentRenderer } from '@/components/ComponentRenderer';
+
 export interface ProgressType {
   total: number;
   current: number;
@@ -36,7 +34,13 @@ const MiniCoursePage: FC<MiniCoursePageProps> = (props) => {
                 <h1 className="text-h3 pb-[24px] text-neutral-off-black">{lesson.name}</h1>
                 <div className="mb-4 h-[1px] w-full scale-y-50 bg-neutral-black">&nbsp;</div>
                 <div className="scroll-wrap-y flex-1 overflow-y-auto overflow-x-visible pl-1 pr-4">
-                  <ComponentRenderer parent={lesson} component={lesson.content as any}></ComponentRenderer>
+                  <ComponentRenderer
+                    parent={lesson}
+                    component={lesson.content as any}
+                    prevComponent={null}
+                    nextComponent={null}
+                    position={0}
+                  ></ComponentRenderer>
                 </div>
               </div>
             </LessonContentWrap>

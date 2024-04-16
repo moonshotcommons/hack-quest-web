@@ -2,7 +2,7 @@ import {
   FooterButtonStatus,
   FooterButtonText
 } from '@/app/[lang]/(web)/(learn page)/ugc/[courseId]/learn/constants/type';
-import { CustomComponent } from '@/components/Web/Business/Renderer/type';
+import { CustomComponent } from '@/components/ComponentRenderer/type';
 
 export const useGetQuizsCompleted = () => {
   const getFooterBtnInfo = (parent: CustomComponent) => {

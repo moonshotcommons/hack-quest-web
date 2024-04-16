@@ -3,29 +3,36 @@ import { FC } from 'react';
 import { icons, leftCardData, rightCardData } from './constant';
 import Link from 'next/link';
 import { LearningTrackTab } from '../../../(learn)/learning-track/constants/type';
+import { Lang, TransNs } from '@/i18n/config';
+import { useTranslation } from '@/i18n/server';
 
-interface CertificatesIntroduceProps {}
+interface CertificatesIntroduceProps {
+  lang: Lang;
+}
 
-const CertificatesIntroduce: FC<CertificatesIntroduceProps> = (props) => {
+const CertificatesIntroduce: FC<CertificatesIntroduceProps> = async ({ lang }) => {
+  const { t } = await useTranslation(lang, TransNs.LANDING);
   return (
     <div className="flex w-full flex-col items-center bg-yellow-light px-5 py-10">
       <div className="relative flex h-[10rem] w-[11.875rem] items-center justify-center">
         <Image src={'/images/landing/ecosystems.png'} fill alt="Web3 ecosystems"></Image>
       </div>
       <h2 className="text-h2 mt-6 w-[21.875rem] text-center text-[1.375rem] capitalize text-neutral-off-black">
-        Earn certificates issued by leading Web3 ecosystems
+        {t('CertificatesIntroduce.earn certificates issued')}
       </h2>
       <p className="body-xl-bold w-fit rounded-[8px] bg-yellow-primary px-2 py-1 text-[1.375rem] font-extrabold text-neutral-off-black">
-        Exclusively on HackQuest
+        {t('CertificatesIntroduce.exclusively on hackQuest')}
       </p>
       <div className="mt-6 flex items-center gap-4">
         <Image src={'/images/landing/solana_logo.png'} alt="solana logo" width={84} height={12}></Image>
         <Image src={'/images/landing/mantle_logo.png'} alt="solana logo" width={81} height={24}></Image>
-        <div className="px-2 py-1 text-[.625rem] text-neutral-black">10+ coming soon...</div>
+        <div className="px-2 py-1 text-[.625rem] text-neutral-black">
+          10+ {t('CertificatesIntroduce.coming soon')}...
+        </div>
       </div>
       <div className="relative z-10 mt-10 w-full">
         <div className="z-[99] flex w-full flex-col items-center gap-6 rounded-[16px] bg-neutral-white px-4 py-6">
-          <h3 className="text-h4-mob">Start from the Basics</h3>
+          <h3 className="text-h4-mob">{t('CertificatesIntroduce.Start from the Basics')}</h3>
           <div className="flex w-full flex-col items-center gap-6">
             {leftCardData.map((item, index) => {
               return (
@@ -56,7 +63,7 @@ const CertificatesIntroduce: FC<CertificatesIntroduceProps> = (props) => {
               className="body-m-bold flex cursor-pointer items-center gap-2 text-[.75rem]"
             >
               <span className="relative after:absolute after:-bottom-[1px] after:left-0 after:h-[2px] after:w-full after:rounded-full after:bg-yellow-primary">
-                Explore Basics
+                {t('CertificatesIntroduce.Explore Basics')}
               </span>
               {icons.rightArrow}
             </Link>
@@ -66,7 +73,7 @@ const CertificatesIntroduce: FC<CertificatesIntroduceProps> = (props) => {
       </div>
       <div className="relative z-10 mt-10 h-fit w-full">
         <div className="z-[99] flex  h-full w-full flex-col items-center gap-4 rounded-[1rem] bg-neutral-white px-4 py-6">
-          <h3 className="text-h4-mob">Become Specialized</h3>
+          <h3 className="text-h4-mob">{t('CertificatesIntroduce.Become Specialized')}</h3>
           <div className="flex w-full flex-wrap items-center justify-center gap-4">
             {rightCardData.map((item, index) => {
               return (
@@ -84,7 +91,7 @@ const CertificatesIntroduce: FC<CertificatesIntroduceProps> = (props) => {
               className="body-m-bold flex cursor-pointer items-center gap-2"
             >
               <span className="relative text-[.75rem] after:absolute after:-bottom-[1px] after:left-0 after:h-[2px] after:w-full after:rounded-full after:bg-yellow-primary">
-                Explore Specializations
+                {t('CertificatesIntroduce.Explore Specializations')}
               </span>
               {icons.rightArrow}
             </Link>

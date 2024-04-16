@@ -1,7 +1,10 @@
 import Modal from '@/components/Common/Modal';
-import { forwardRef, useImperativeHandle, useState } from 'react';
+import { forwardRef, useContext, useImperativeHandle, useState } from 'react';
 import { FilterItemType, FilterOptionType } from './type';
 import { cloneDeep } from 'lodash-es';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 
 interface FilterModalProps {
   filters: FilterItemType[];
@@ -17,7 +20,8 @@ export interface FilterModalRef {
 
 const FilterModal = forwardRef<FilterModalRef, FilterModalProps>((props, ref) => {
   const { filters, updateFilters, sort, updateSort, radio = false } = props;
-
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.LEARN);
   const [open, setOpen] = useState(false);
 
   useImperativeHandle(ref, () => {
@@ -41,7 +45,7 @@ const FilterModal = forwardRef<FilterModalRef, FilterModalProps>((props, ref) =>
         {filters.map((filter, filterIndex) => {
           return (
             <div key={filter.filterName} className="flex flex-col gap-4">
-              <div className="body-m-bold text-neutral-off-black">{filter.filterName}</div>
+              <div className="body-m-bold text-neutral-off-black">{t(filter.filterName)}</div>
               {filter.options.map((option, optionIndex) => (
                 <div
                   key={optionIndex}
@@ -64,7 +68,7 @@ const FilterModal = forwardRef<FilterModalRef, FilterModalProps>((props, ref) =>
                       <div className="box-border h-[16px] w-[16px] rounded-[1px] bg-neutral-black"></div>
                     )}
                   </div>
-                  <span>{option.name}</span>
+                  <span>{t(option.name)}</span>
                 </div>
               ))}
             </div>

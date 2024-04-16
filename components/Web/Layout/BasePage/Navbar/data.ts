@@ -23,16 +23,16 @@ export const animateProps: MotionProps = {
 
 export const navbarList: NavbarListType[] = [
   {
-    label: 'Home',
+    label: 'navbar.home.title',
     id: 'home',
     menu: [
       {
-        label: 'Learner',
+        label: 'navbar.home.learner',
         path: MenuLink.DASHBOARD,
         needLogin: true
       }
       // {
-      //   label: 'Instructor',
+      //   label: 'navbar.home.instructor',
       //   path: MenuLink.INSTRUCTOR,
       //   needLogin: true,
       //   needPC: true
@@ -40,122 +40,123 @@ export const navbarList: NavbarListType[] = [
     ]
   },
   {
-    label: 'Learn',
+    label: 'navbar.learn.title',
     id: 'learn',
     menu: [
       {
-        label: 'Learning Track',
+        label: 'navbar.learn.learningTrack',
         path: MenuLink.LEARNING_TRACK,
-        description: 'Master a coding language'
+        description: 'navbar.learn.learningTrackDesc'
       },
       {
-        label: 'Electives',
+        label: 'navbar.learn.electives',
         path: MenuLink.ELECTIVES,
-        description: 'Focus on a Web 3 topic'
+        description: 'navbar.learn.electivesDesc'
       },
       {
-        label: 'Projects',
+        label: 'navbar.learn.projects',
         path: MenuLink.PRACTICES,
-        description: 'Learn how to build a project step by step'
+        description: 'navbar.learn.projectsDesc'
       }
       // {
-      //   label: 'Course Market',
+      //   label: 'navbar.learn.courseMarket',
       //   path: MenuLink.COURSE_MARKET,
+      //   description: 'navbar.learn.courseMarketDesc'
       //   needPC: true
       // }
     ]
   },
   {
-    label: 'Reward',
+    label: 'navbar.reward.title',
     id: 'reward',
     menu: [
       {
-        label: 'Mission',
+        label: 'navbar.reward.mission',
         path: MenuLink.MISSION_CENTER,
-        description: 'Earn rewards on your Web 3 journey',
+        description: 'navbar.reward.missionDesc',
         needLogin: true,
         needPC: true
       },
       {
-        label: 'Campaign',
+        label: 'navbar.reward.campaign',
         path: MenuLink.CAMPAIGINS,
-        description: 'Become a certified builder',
+        description: 'navbar.reward.campaignDesc',
         needLogin: true
       }
     ]
   },
   {
-    label: 'Resource',
+    label: 'navbar.resources.title',
     id: 'resource',
     menu: [
       {
-        label: 'Hackathon',
+        label: 'navbar.resources.hackathon',
         path: MenuLink.HACKATHON,
-        description: 'Explore hackathons and past projects'
+        description: 'navbar.resources.hackathonDesc'
       },
       {
-        label: 'Blog',
+        label: 'navbar.resources.blog',
         path: MenuLink.BLOG,
-        description: 'View news, events, and study blogs'
+        description: 'navbar.resources.blogDesc'
       },
       {
-        label: 'Glossary',
+        label: 'navbar.resources.glossary',
         path: MenuLink.GLOSSARY,
-        description: 'Learn about Web 3 essential terms'
-      }
-    ]
-  },
-  {
-    label: 'Advocate',
-    id: 'advocate',
-    menu: [
+        description: 'navbar.resources.glossaryDesc'
+      },
       {
-        label: 'advocate',
+        label: 'navbar.resources.advocate',
         path: MenuLink.ADVOCATE,
+        description: 'navbar.resources.advocateDesc',
         needPC: true
+      },
+      {
+        label: 'navbar.resources.events',
+        path: MenuLink.EVENTS,
+        description: 'navbar.resources.eventsDesc'
       }
     ]
   },
+  // {
+  //   label: 'navbar.launch.title',
+  //   id: 'launch',
+  //   menu: [
+  //     {
+  //       label: 'navbar.launch.title',
+  //       path: MenuLink.LAUNCH
+  //     }
+  //   ]
+  // },
   {
-    label: 'Launch',
-    id: 'launch',
-    menu: [
-      // {
-      //   label: 'launch pool',
-      //   path: MenuLink.LAUNCH,
-      // }
-    ]
-  },
-  {
-    label: 'More',
+    label: 'navbar.more.title',
     id: 'more',
     type: 'outSide',
     menu: [
       {
-        label: 'TOOLS',
+        label: 'navbar.more.tools',
         id: 'tools',
         outSide: [
           {
-            label: 'Playground',
+            label: 'navbar.more.playground',
             id: 'playground',
             link: process.env.IDE_URL || 'https://ide.dev.hackquest.io'
           }
         ]
       },
       {
-        label: 'COMMUNITY',
+        label: 'navbar.more.community',
         id: 'community',
         outSide: [
           {
-            label: 'Discord',
+            label: 'navbar.more.Discord',
             link: HACKQUEST_DISCORD
           },
           {
-            label: 'Twitter',
+            label: 'navbar.more.Twitter',
             link: HACKQUEST_TWITTER
           },
           {
-            label: 'Telegram',
+            label: 'navbar.more.Telegram',
             link: HACKQUEST_TELEGRAM
           }
         ]
