@@ -60,48 +60,48 @@
   "cancel": "Cancel",
   "navbar": {
     "home": {
-      "title": "home",
-      "learner": "learner",
-      "instructor": "instructor"
+      "title": "Home",
+      "learner": "Learner",
+      "instructor": "Instructor"
     },
     "learn": {
-      "title": "learn",
-      "learningTrack": "learning track",
+      "title": "Learn",
+      "learningTrack": "Learning track",
       "learningTrackDesc": "Master a coding language",
-      "electives": "electives",
+      "electives": "Electives",
       "electivesDesc": "Focus on a Web 3 topic",
-      "projects": "projects",
+      "projects": "Projects",
       "projectsDesc": "Learn how to build a project step by step",
       "courseMarket": "Course Market",
       "courseMarketDesc": ""
     },
     "reward": {
-      "title": "reward",
-      "mission": "mission",
+      "title": "Reward",
+      "mission": "Mission",
       "missionDesc": "Earn rewards on your Web 3 journey",
       "campaign": "Campaign",
       "campaignDesc": "Become a certified builder"
     },
     "resources": {
-      "title": "resources",
-      "hackathon": "hackathon",
+      "title": "Resources",
+      "hackathon": "Hackathon",
       "hackathonDesc": "Explore hackathons and past projects",
-      "blog": "blog",
+      "blog": "Blog",
       "blogDesc": "View news, events, and study blogs",
-      "glossary": "glossary",
+      "glossary": "Glossary",
       "glossaryDesc": "Learn about Web 3 essential terms",
-      "advocate": "advocate",
+      "advocate": "Advocate",
       "advocateDesc": "Join our rapidly growing community",
       "events": "Events",
       "eventsDesc": "Learn about Web 3 events"
     },
     "launch": {
-      "title": "launch pool"
+      "title": "Launch pool"
     },
     "more": {
-      "title": "more",
+      "title": "More",
       "tools": "TOOLS",
-      "playground": "playground",
+      "playground": "Playground",
       "community": "COMMUNITY",
       "Discord": "Discord",
       "Twitter": "Twitter",

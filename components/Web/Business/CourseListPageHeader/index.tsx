@@ -17,6 +17,7 @@ interface CourseListPageHeaderProps {
   coverHeight?: number;
   onSearch?: (value: string) => void;
   coverImgClassName?: string;
+
   className?: string;
   buttonNode?: ReactNode;
   defaultValue?: string;

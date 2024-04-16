@@ -12,6 +12,9 @@ import QuizDropdown from './QuizDropdwon';
 import QuizPassModal from './QuizPassModal';
 import { QuizType } from '@/components/ComponentRenderer/type';
 import { ComponentRenderer } from '@/components/ComponentRenderer';
+import { useUpdateHelperParams } from '@/hooks/utils/useUpdateHelperParams';
+import AITriggerButton from '@/components/AI/AITriggerButton';
+import { HelperType } from '@/service/webApi/helper/type';
 
 interface QuizRendererProps {
   quiz: QuizType;
@@ -35,6 +38,7 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
   const [start, setStart] = useState(parent.right.length <= 1);
   const [passOpen, setPassOpen] = useState(false);
   const { onCompleted, lesson } = useContext(PlaygroundContext);
+  const { updateQuizNum } = useUpdateHelperParams();
 
   const containerRef = useRef(null);
 
@@ -113,35 +117,44 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
     setQuizDropdownVisible(false);
   }, containerRef);
 
+  useEffect(() => {
+    updateQuizNum(currentQuizIndex);
+  }, [currentQuizIndex]);
+
   const QuizHeader = (
     <div className={`flex h-fit w-full items-center justify-between`}>
-      <div className={`text-h4 relative inline-flex items-center ${quizDropdownVisible && 'shadow-2xl'}`}>
-        <div
-          ref={containerRef as any}
-          className={`box-content inline-flex min-h-fit cursor-pointer gap-2 border-b-2 p-[20px] ${
-            quizDropdownVisible ? ' border-neutral-medium-gray' : ''
-          }`}
-          onClick={() => {
-            BurialPoint.track('lesson-quiz dropdown点击');
-            setQuizDropdownVisible(!quizDropdownVisible);
-          }}
-        >
-          <span>{`${quiz.title ? quiz.title : 'Quest'} ${currentQuizIndex + 1}/${quiz.children.length}`}</span>
+      <div className="flex items-center gap-4">
+        <div className={`text-h4 relative inline-flex items-center ${quizDropdownVisible && 'shadow-2xl'}`}>
+          <div className="flex items-center gap-0">
+            <div
+              ref={containerRef as any}
+              className={`box-content inline-flex min-h-fit cursor-pointer gap-2 border-b-2 p-[20px] ${
+                quizDropdownVisible ? ' border-neutral-medium-gray' : ''
+              }`}
+              onClick={() => {
+                BurialPoint.track('lesson-quiz dropdown点击');
+                setQuizDropdownVisible(!quizDropdownVisible);
+              }}
+            >
+              <span>{`${quiz.title ? quiz.title : 'Quest'} ${currentQuizIndex + 1}/${quiz.children.length}`}</span>
 
-          <span className={`${quizDropdownVisible ? 'rotate-180' : ''} transition-transform`}>
-            <MdArrowDropDown size={28} color=""></MdArrowDropDown>
-          </span>
+              <span className={`${quizDropdownVisible ? 'rotate-180' : ''} transition-transform`}>
+                <MdArrowDropDown size={28} color=""></MdArrowDropDown>
+              </span>
+            </div>
+          </div>
+
+          {quizDropdownVisible ? (
+            <QuizDropdown
+              quiz={quiz}
+              onChange={(index) => {
+                setCurrentQuizIndex(index);
+              }}
+              currentQuizIndex={currentQuizIndex}
+            ></QuizDropdown>
+          ) : null}
         </div>
-
-        {quizDropdownVisible ? (
-          <QuizDropdown
-            quiz={quiz}
-            onChange={(index) => {
-              setCurrentQuizIndex(index);
-            }}
-            currentQuizIndex={currentQuizIndex}
-          ></QuizDropdown>
-        ) : null}
+        <AITriggerButton triggerType={HelperType.ExplainQuiz}>Explain Quiz</AITriggerButton>
       </div>
       <div
         className={`p-[20px]`}
@@ -159,7 +172,7 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
       {start && (
         <div
           className={cn(
-            `flex min-h-[50%] w-full flex-1 flex-col overflow-hidden rounded-[.625rem] bg-[#E6E6E6] pb-[20px]`
+            `flex min-h-[calc(50%-20px)] w-full flex-1 flex-col overflow-hidden rounded-[.625rem] bg-[#E6E6E6] pb-[20px]`
           )}
         >
           {QuizHeader}
