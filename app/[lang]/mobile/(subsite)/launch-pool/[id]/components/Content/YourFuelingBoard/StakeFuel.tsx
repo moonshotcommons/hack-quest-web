@@ -13,15 +13,17 @@ import StakeModal from './StakeModal';
 import UnstakeModal from './UnstakeModal';
 import { useAccount } from 'wagmi';
 import ConnectButton from '@/components/Web/Layout/LaunchPage/UserDropCard/ConnectButton';
-import { LaunchDetailContext } from '@/app/[lang]/(web)/(subsite)/launch-pool/[id]/constants/type';
+import { LaunchDetailContext, ModalName } from '@/app/[lang]/(web)/(subsite)/launch-pool/[id]/constants/type';
+import moment from 'moment';
+import { FuelInfo } from '@/service/webApi/launchPool/type';
 
 interface StakeFuelProp {}
 
 const StakeFuel: React.FC<StakeFuelProp> = () => {
-  const { launchInfo, setLoading } = useContext(LaunchDetailContext);
+  const { launchInfo, modalName, setModalName } = useContext(LaunchDetailContext);
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
-  const [modalName, setModalName] = useState('');
+  const [fule, setFule] = useState<FuelInfo>();
   const account = useAccount();
   const stakeList = useMemo(() => {
     return launchInfo.fuelsInfo.filter((v: any) => v.type === 'STAKE_TOKEN');
@@ -36,13 +38,25 @@ const StakeFuel: React.FC<StakeFuelProp> = () => {
       <div className="flex items-center gap-[1rem]">
         <p className="body-m text-neutral-black">{t('stakeFuel')}</p>
         {launchInfo.isStake && (
-          <div
-            className="body-s flex  items-center gap-[.25rem] text-neutral-medium-gray"
-            onClick={() => setModalName('stake')}
-          >
-            <IoMdAddCircle size={16} />
-            <span>{t('addNewStake')}</span>
-          </div>
+          <>
+            {account.status === 'connected' ? (
+              <div
+                className="body-s flex  items-center gap-[.25rem] text-neutral-medium-gray"
+                onClick={() => setModalName(ModalName.STAKE)}
+              >
+                <IoMdAddCircle size={16} />
+                <span>{t('addNewStake')}</span>
+              </div>
+            ) : (
+              <div className="body-s relative  flex items-center gap-[.25rem] text-neutral-medium-gray">
+                <IoMdAddCircle size={16} />
+                <span>{t('addNewStake')}</span>
+                <div className="absolute left-0 top-0 h-full w-full opacity-0">
+                  <ConnectButton t={t} />
+                </div>
+              </div>
+            )}
+          </>
         )}
       </div>
 
@@ -56,14 +70,18 @@ const StakeFuel: React.FC<StakeFuelProp> = () => {
               <div className="relative h-[2.5rem] w-[2.5rem] flex-shrink-0 overflow-hidden rounded-[50%]">
                 <Image src={userInfo?.avatar as string} alt="avatar" fill className="object-cover"></Image>
               </div>
-              <span>{lang === Lang.EN ? `${v.name} on 03/12/2024` : `2024年3月12日抵押${v.name}`}</span>
+              <span>
+                {lang === Lang.EN
+                  ? `${v.name} on ${moment(v.stakeTime).format('DD/MM/yyyy')}`
+                  : `${moment(v.stakeTime).format('yyyy年MM月DD日')}抵押${v.name}`}
+              </span>
             </div>
             <div className="my-[1rem] flex justify-between pl-[1.25rem]">
               <div className="flex h-[2.5rem] w-[calc((100%-2rem)/2)] items-center justify-between rounded-r-[1.25rem] border border-neutral-light-gray bg-neutral-off-white pr-[.9375rem]">
                 <div className="flex-center relative left-[-1.25rem] h-[2.5rem] w-[2.5rem] rounded-[50%] bg-yellow-primary">
                   <div className="flex-center body-l h-[2rem] w-[2rem] rounded-[50%] bg-yellow-light">🚀</div>
                 </div>
-                <span>{`${separationNumber(23799)}`}</span>
+                <span>{`${separationNumber(v.reward)}`}</span>
               </div>
 
               <div className="flex h-[2.5rem] w-[calc((100%-2rem)/2)]   items-center justify-between rounded-r-[1.25rem] border border-neutral-light-gray bg-neutral-off-white pr-[.9375rem]">
@@ -72,7 +90,7 @@ const StakeFuel: React.FC<StakeFuelProp> = () => {
                     <MdOutlineAccessTimeFilled size={24} />
                   </div>
                 </div>
-                <span>{`${28}${t('d')}`}</span>
+                <span>{`${v.duration}${t('d')}`}</span>
               </div>
             </div>
             <div className="flex justify-end">
@@ -80,7 +98,8 @@ const StakeFuel: React.FC<StakeFuelProp> = () => {
                 <div
                   className="underline-l body-m cursor-pointer text-neutral-rich-gray"
                   onClick={() => {
-                    setModalName('unStake');
+                    setFule(v);
+                    setModalName(ModalName.UNSTAKE);
                   }}
                 >
                   {t('unstake')}
@@ -101,9 +120,9 @@ const StakeFuel: React.FC<StakeFuelProp> = () => {
             <Button
               type="primary"
               className="button-text-m mt-[.75rem] h-[3rem] w-[10.3125rem] p-0 uppercase text-neutral-black"
-              onClick={() => setModalName('stake')}
+              onClick={() => setModalName(ModalName.STAKE)}
             >
-              {t('stake')} $manta
+              {t('stake')} ${launchInfo.symbol}
             </Button>
           ) : (
             <div className="relative mt-[.75rem] h-[3rem]  w-[10.3125rem]">
@@ -111,7 +130,7 @@ const StakeFuel: React.FC<StakeFuelProp> = () => {
                 type="primary"
                 className="button-text-m mt-[.75rem] h-[3rem] w-[10.3125rem] p-0 uppercase text-neutral-black"
               >
-                {t('stake')} $manta
+                {t('stake')} ${launchInfo.symbol}
               </Button>
               <div className="absolute left-0 top-0 h-full w-full opacity-0">
                 <ConnectButton t={t} />
@@ -121,8 +140,12 @@ const StakeFuel: React.FC<StakeFuelProp> = () => {
         </div>
       )}
 
-      <StakeModal open={modalName === 'stake'} onClose={() => setModalName('')} />
-      <UnstakeModal open={modalName === 'unStake'} onClose={() => setModalName('')} />
+      <StakeModal open={modalName === ModalName.STAKE} onClose={() => setModalName(ModalName.EMPTY)} />
+      <UnstakeModal
+        open={modalName === ModalName.UNSTAKE}
+        onClose={() => setModalName(ModalName.EMPTY)}
+        fule={fule as FuelInfo}
+      />
     </div>
   );
 };

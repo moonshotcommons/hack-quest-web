@@ -28,6 +28,7 @@ const StakeModal: React.FC<StakeModalProp> = ({ open, onClose }) => {
   const [inputAmount, setInputAmount] = useState(0);
   const [inputDuration, setInputDuration] = useState(1);
   const [currentPrice, setCurrentPrice] = useState(0);
+
   const disable = useMemo(() => {
     return !(Number(inputAmount) > 0 && Number(inputDuration) > 0) || isNaN(inputAmount) || isNaN(inputDuration);
   }, [inputAmount, inputDuration]);
@@ -36,6 +37,7 @@ const StakeModal: React.FC<StakeModalProp> = ({ open, onClose }) => {
     useBalance({
       address: account.address
     }).data?.formatted || 0;
+
   const {} = useRequest(
     async () => {
       const res = await webApi.launchPoolApi.getCurrentPrice();
@@ -49,8 +51,13 @@ const StakeModal: React.FC<StakeModalProp> = ({ open, onClose }) => {
   );
   const onStake = () => {
     if (disable) return;
-    handleStake(String(inputAmount));
+    handleStake(String(inputAmount), inputDuration);
   };
+
+  const totalFule = useMemo(() => {
+    const total = inputAmount * inputDuration * currentPrice;
+    return isNaN(total) ? 0 : parseInt(String(total));
+  }, [currentPrice, inputAmount, inputDuration]);
 
   return (
     <Modal open={open} onClose={onClose} showCloseIcon={true} icon={<FiX size={26} />}>
@@ -153,7 +160,7 @@ const StakeModal: React.FC<StakeModalProp> = ({ open, onClose }) => {
           <div className="my-[16px] h-[1px] bg-neutral-light-gray"> </div>
           <div className="flex justify-between">
             <span className="body-l text-neutral-medium-gray">{t('estimatedFuel')}</span>
-            <span className="body-l-bold text-ellipsis"> {separationNumber(23799)} 🚀</span>
+            <span className="body-l-bold text-ellipsis"> {separationNumber(totalFule)} 🚀</span>
           </div>
           <div className="body-m mt-[16px] flex items-center justify-center gap-[8px] text-neutral-off-black">
             <div className="relative  cursor-pointer">

@@ -71,4 +71,5 @@ export interface FuelInfo {
   completed: boolean;
   claimed: boolean;
   launchProjectId: string;
+  index: number;
 }

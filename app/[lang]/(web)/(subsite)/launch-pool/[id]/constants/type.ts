@@ -11,6 +11,12 @@ export enum TitleTxt {
   TRACTIONS = 'tractions'
 }
 
+export enum ModalName {
+  EMPTY = '',
+  STAKE = 'stake',
+  UNSTAKE = 'unstake'
+}
+
 export interface LaunchInfoType extends LaunchPoolProjectType {
   participateInfo: ParticipateInfo | null;
   fuelsInfo: FuelInfo[];
@@ -28,9 +34,11 @@ export interface LaunchDetailContextType {
   setLoading: (loading: boolean) => void;
   joinWaitlist: VoidFunction;
   participateNow: VoidFunction;
-  handleStake: (amount: string) => void;
-  handleUnStake: () => void;
+  handleStake: (amount: string, druation: number) => void;
+  handleUnStake: (fule: FuelInfo) => void;
   handleClaimToken: () => void;
+  modalName: ModalName;
+  setModalName: (name: ModalName) => void;
 }
 
 export const LaunchDetailContext = createContext<LaunchDetailContextType>({
@@ -43,5 +51,7 @@ export const LaunchDetailContext = createContext<LaunchDetailContextType>({
   participateNow: () => {},
   handleStake: () => {},
   handleUnStake: () => {},
-  handleClaimToken: () => {}
+  handleClaimToken: () => {},
+  modalName: ModalName.EMPTY,
+  setModalName: () => {}
 });

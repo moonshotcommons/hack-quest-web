@@ -37,7 +37,7 @@ const EventsCardModal: React.FC<EventsCardModalProp> = ({ onClose, open, events 
           <div className="w-[372px]">
             <div className="mb-[24px] w-full">
               {medias ? (
-                <SwiperContainer isNavigation={true} isSimulateTouch={false}>
+                <SwiperContainer isNavigation={medias?.length > 1} isSimulateTouch={false}>
                   {medias?.map((v, i) => (
                     <SwiperSlide key={i}>
                       <div className="relative h-0 w-full overflow-hidden rounded-[16px] pt-[60%]">
