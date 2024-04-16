@@ -4,12 +4,13 @@ import { useLessonExpand } from '@/hooks/courses/useLessonExpand';
 import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
 import { FC, useEffect, useMemo, useRef, useState, Suspense } from 'react';
 import LessonEvents from '../LessonEvents';
-import FoundBugButton from '../../Business/FoundBugButton';
 import LessonNavbar from '../LessonNavbar';
 import { ComponentRenderer, OverrideRendererConfig } from '@/components/ComponentRenderer';
 import { CustomComponent, LessonContent, NotionComponent } from '@/components/ComponentRenderer/type';
 
 import { ExpandDataType, PgcExpandDataType } from '@/components/ComponentRenderer/context';
+import AITriggerButton from '@/components/AI/AITriggerButton';
+import { HelperType } from '@/service/webApi/helper/type';
 
 interface LessonContentProps {
   lesson: Omit<CourseLessonType, 'content'> & { content: LessonContent };
@@ -64,7 +65,10 @@ const LessonContentComponent: FC<LessonContentProps> = (props) => {
         <LessonNavbar />
       </Suspense>
 
-      <LessonEvents isPreview={isPreview} lesson={lesson as any} courseType={courseType} />
+      <div className="flex items-center justify-between">
+        <LessonEvents isPreview={isPreview} lesson={lesson as any} courseType={courseType} />
+        <AITriggerButton triggerType={HelperType.SummarizeContent}>Summarize</AITriggerButton>
+      </div>
 
       {!!components?.length && (
         <div
@@ -88,12 +92,6 @@ const LessonContentComponent: FC<LessonContentProps> = (props) => {
               </div>
             );
           })}
-
-          <FoundBugButton
-            params={{
-              lessonId: lesson.id
-            }}
-          />
         </div>
       )}
     </div>

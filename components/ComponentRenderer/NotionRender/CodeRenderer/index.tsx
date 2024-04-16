@@ -109,11 +109,11 @@ const CodeRenderer: FC<CodeRendererProps> = (props) => {
       </div>
       {isPlayground ? (
         <div className="relative w-full flex-1">
-          <div className="absolute left-0 top-0 h-full w-full overflow-auto">
+          <div className="scroll-wrap-x scroll-wrap-y absolute left-0 top-0 h-full w-full overflow-auto">
             <SyntaxHighlighter
               style={theme === Theme.Dark ? oneDark : oneLight}
               language={language}
-              className="scroll-wrap-x scroll-wrap-y code-l mt-[0!important] h-full rounded-t-[0!important]"
+              className="code-l scroll-wrap-x scroll-wrap-y mt-[0!important] h-[calc(100%-10px)] rounded-t-[0!important]"
               showLineNumbers
             >
               {codeContent}

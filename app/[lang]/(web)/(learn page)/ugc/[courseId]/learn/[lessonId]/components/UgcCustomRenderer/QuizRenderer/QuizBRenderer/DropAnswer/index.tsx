@@ -52,7 +52,7 @@ const DropAnswer: FC<DropAnswerProps> = (props) => {
         status: 'default'
       };
 
-      setAnswers({});
+      // setAnswers({});
       setAnswers((state) => {
         const newAnswers: any = {
           ...state,

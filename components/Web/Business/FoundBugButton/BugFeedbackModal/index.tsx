@@ -247,7 +247,7 @@ const BugFeedbackModal = forwardRef<BugFeedbackModalRef, BugFeedbackModalProps>(
             <p className="body-l mb-[10px] text-neutral-medium-gray">Describe the bugs you found</p>
             <Input.TextArea
               placeholder="Please provide details that will help our team find the bugs correctly... "
-              className="body-m text-neutral-black"
+              className="body-m border-yellow-primary text-neutral-black shadow-none hover:border-yellow-primary focus:border-yellow-primary"
               // maxLength={500}
               onChange={(e) => {
                 setDescLength(e.target.value.length || 0);
