@@ -38,7 +38,6 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
   }, [component]);
 
   useEffect(() => {
-    console.log(activeFileIndex, '--------------');
     updateExampleNum(activeFileIndex);
   }, [activeFileIndex]);
 

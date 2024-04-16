@@ -2,6 +2,7 @@ import Button, { ButtonProps } from '@/components/Common/Button';
 import { cn } from '@/helper/utils';
 import { useUpdateHelperParams } from '@/hooks/utils/useUpdateHelperParams';
 import { HelperType } from '@/service/webApi/helper/type';
+import { useGlobalStore } from '@/store/zustand/globalStore';
 
 import { FC, ReactNode } from 'react';
 
@@ -13,8 +14,10 @@ interface AITriggerButtonProps {
 const AITriggerButton: FC<AITriggerButtonProps & ButtonProps> = (props) => {
   const { children, triggerType, className, ...rest } = props;
   const { updateHelperType } = useUpdateHelperParams();
+  const chatStatus = useGlobalStore((state) => state.chatStatus);
 
   const trigger = () => {
+    if (chatStatus === 'chatting') return;
     updateHelperType(triggerType);
   };
 

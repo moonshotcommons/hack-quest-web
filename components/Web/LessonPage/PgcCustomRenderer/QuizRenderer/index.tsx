@@ -123,36 +123,38 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
 
   const QuizHeader = (
     <div className={`flex h-fit w-full items-center justify-between`}>
-      <div className={`text-h4 relative inline-flex items-center ${quizDropdownVisible && 'shadow-2xl'}`}>
-        <div className="flex items-center gap-0">
-          <div
-            ref={containerRef as any}
-            className={`box-content inline-flex min-h-fit cursor-pointer gap-2 border-b-2 p-[20px] ${
-              quizDropdownVisible ? ' border-neutral-medium-gray' : ''
-            }`}
-            onClick={() => {
-              BurialPoint.track('lesson-quiz dropdown点击');
-              setQuizDropdownVisible(!quizDropdownVisible);
-            }}
-          >
-            <span>{`${quiz.title ? quiz.title : 'Quest'} ${currentQuizIndex + 1}/${quiz.children.length}`}</span>
+      <div className="flex items-center gap-4">
+        <div className={`text-h4 relative inline-flex items-center ${quizDropdownVisible && 'shadow-2xl'}`}>
+          <div className="flex items-center gap-0">
+            <div
+              ref={containerRef as any}
+              className={`box-content inline-flex min-h-fit cursor-pointer gap-2 border-b-2 p-[20px] ${
+                quizDropdownVisible ? ' border-neutral-medium-gray' : ''
+              }`}
+              onClick={() => {
+                BurialPoint.track('lesson-quiz dropdown点击');
+                setQuizDropdownVisible(!quizDropdownVisible);
+              }}
+            >
+              <span>{`${quiz.title ? quiz.title : 'Quest'} ${currentQuizIndex + 1}/${quiz.children.length}`}</span>
 
-            <span className={`${quizDropdownVisible ? 'rotate-180' : ''} transition-transform`}>
-              <MdArrowDropDown size={28} color=""></MdArrowDropDown>
-            </span>
+              <span className={`${quizDropdownVisible ? 'rotate-180' : ''} transition-transform`}>
+                <MdArrowDropDown size={28} color=""></MdArrowDropDown>
+              </span>
+            </div>
           </div>
-          <AITriggerButton triggerType={HelperType.ExplainQuiz}>Explain Quiz</AITriggerButton>
-        </div>
 
-        {quizDropdownVisible ? (
-          <QuizDropdown
-            quiz={quiz}
-            onChange={(index) => {
-              setCurrentQuizIndex(index);
-            }}
-            currentQuizIndex={currentQuizIndex}
-          ></QuizDropdown>
-        ) : null}
+          {quizDropdownVisible ? (
+            <QuizDropdown
+              quiz={quiz}
+              onChange={(index) => {
+                setCurrentQuizIndex(index);
+              }}
+              currentQuizIndex={currentQuizIndex}
+            ></QuizDropdown>
+          ) : null}
+        </div>
+        <AITriggerButton triggerType={HelperType.ExplainQuiz}>Explain Quiz</AITriggerButton>
       </div>
       <div
         className={`p-[20px]`}

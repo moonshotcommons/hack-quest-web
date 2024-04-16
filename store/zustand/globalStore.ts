@@ -34,6 +34,8 @@ export interface GlobalStateType {
   }) => void;
   helperParams: HelperParams;
   updateHelperParams: (params: HelperParams, key?: keyof HelperParams) => void;
+  chatStatus: 'chatting' | 'leisure';
+  updateChatStatus: (status: 'chatting' | 'leisure') => void;
   updateHelperParamsByKey: <Key extends keyof HelperParams, Value extends Required<HelperParams[Key]>>(
     key: Key,
     value: Value
@@ -46,6 +48,7 @@ export const useGlobalStore = create<GlobalStateType>()((set) => ({
     isRedirect: false
   },
   playgroundSelectModalOpen: false,
+  chatStatus: 'leisure',
   helperParams: {
     open: false,
     pageId: '',
@@ -110,5 +113,8 @@ export const useGlobalStore = create<GlobalStateType>()((set) => ({
   },
   setMobileNavModalToggleOpenHandle(payload) {
     set((state) => ({ mobileNavModalToggleOpenHandle: payload }));
+  },
+  updateChatStatus(payload) {
+    set((state) => ({ chatStatus: payload }));
   }
 }));

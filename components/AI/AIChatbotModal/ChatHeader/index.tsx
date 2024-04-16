@@ -1,3 +1,4 @@
+import { useMissionCenterStore } from '@/store/zustand/missionCenterStore';
 import Image from 'next/image';
 import { FC } from 'react';
 
@@ -6,6 +7,8 @@ interface ChatHeaderProps {
 }
 
 const ChatHeader: FC<ChatHeaderProps> = ({ close }) => {
+  const userCoin = useMissionCenterStore((state) => state.userCoin);
+
   return (
     <div className="relative flex h-16 w-full justify-between p-4 after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-full after:scale-y-50 after:bg-neutral-light-gray">
       <div className="flex h-full items-center gap-3">
@@ -14,7 +17,7 @@ const ChatHeader: FC<ChatHeaderProps> = ({ close }) => {
       </div>
       <div className="flex items-center gap-3">
         <div className="flex gap-1 rounded-full bg-neutral-off-white px-2 py-1">
-          <span className="body-s">231</span>
+          <span className="body-s">{userCoin.coin}</span>
           <Image src={'/images/icons/gold.svg'} alt="hackquest gold" width={24} height={24}></Image>
         </div>
         <div>

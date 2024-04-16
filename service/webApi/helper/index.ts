@@ -3,7 +3,7 @@ import { CompletionsInput, CompletionsRes } from './type';
 
 export enum HelperApiType {
   Completions = '/chat/completions',
-  History = '/chat/history'
+  History = '/chat/histories'
 }
 
 class HelperApi {

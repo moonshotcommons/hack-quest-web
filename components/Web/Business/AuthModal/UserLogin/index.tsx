@@ -230,6 +230,14 @@ const UserLogin: FC<UserLoginProps> = (props) => {
                 ...formData,
                 password: e.target.value
               });
+
+              setFormState({
+                ...formState,
+                password: {
+                  status: 'default',
+                  errorMessage: ''
+                }
+              });
             }}
           ></Input>
         </div>

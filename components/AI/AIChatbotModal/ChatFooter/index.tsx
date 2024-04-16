@@ -1,91 +1,46 @@
 import Button from '@/components/Common/Button';
-import { errorMessage } from '@/helper/ui';
-import webApi from '@/service';
 import { ChatRole, CompletionsInput, CompletionsRes, HelperType } from '@/service/webApi/helper/type';
 import { useGlobalStore } from '@/store/zustand/globalStore';
-import { useRequest } from 'ahooks';
-import {
-  Dispatch,
-  ForwardRefRenderFunction,
-  SetStateAction,
-  forwardRef,
-  useEffect,
-  useImperativeHandle,
-  useState
-} from 'react';
+import { useKeyPress } from 'ahooks';
+import { Dispatch, ForwardRefRenderFunction, SetStateAction, forwardRef, useState } from 'react';
 
 import { v4 as uuid } from 'uuid';
 
 interface ChatFooterProps {
-  waitingMessage: () => Promise<unknown>;
+  onSubmit: VoidFunction;
+  getChatbotMessage: (input: CompletionsInput) => Promise<{ content: string }>;
   updateChatHistory: Dispatch<
     SetStateAction<
       (CompletionsRes & {
-        status?: 'pending' | undefined;
+        status?: 'pending' | 'error' | undefined;
       })[]
     >
   >;
-  chatHistory: (CompletionsRes & { status?: 'pending' })[];
+  loading: boolean;
+  chatHistory: (CompletionsRes & { status?: 'pending' | 'error' })[];
 }
 
-export interface ChatFooterInstance {
-  getChatbotMessage: (input: CompletionsInput) => Promise<{ res: { content: string }; input: CompletionsInput }>;
-}
+export interface ChatFooterInstance {}
 
 const ChatFooter: ForwardRefRenderFunction<ChatFooterInstance, ChatFooterProps> = (props, ref) => {
-  const { waitingMessage, chatHistory, updateChatHistory } = props;
+  const { onSubmit, getChatbotMessage, loading, chatHistory, updateChatHistory } = props;
   const [pendingMessage, setPendingMessage] = useState('');
   const helperParams = useGlobalStore((state) => state.helperParams);
-  const [pendingTypeMessage, setPendingTypeMessage] = useState<CompletionsRes | null>(null);
-
-  const { run: generateMessage, loading: generateMessageLoading } = useRequest(
-    async (completion: { content: string }): Promise<CompletionsRes> => {
-      await waitingMessage();
-      return {
-        id: uuid(),
-        message: {
-          role: ChatRole.Assistant,
-          content: completion.content
-        }
-      };
-    },
-    {
-      manual: true,
-      onSuccess(completion) {
-        setPendingTypeMessage(completion);
-      }
-    }
-  );
-
-  // 获取chatbot返回的消息
-  const { runAsync: getChatbotMessage, loading } = useRequest(
-    async (input: CompletionsInput) => {
-      const res = await webApi.helperApi.completions(input);
-      return { res, input };
-    },
-    {
-      manual: true,
-      onSuccess({ res, input }) {
-        updateChatHistory(
-          chatHistory.concat({
-            id: uuid(),
-            message: {
-              role: ChatRole.Human,
-              content: input.content
-            }
-          })
-        );
-        generateMessage(res);
-      },
-      onError(err) {
-        errorMessage(err);
-      }
-    }
-  );
 
   const submit = () => {
     debugger;
     if (!pendingMessage.trim()) return;
+    onSubmit();
+    updateChatHistory(
+      chatHistory.concat({
+        id: uuid(),
+        message: {
+          role: ChatRole.Human,
+          content: pendingMessage
+        }
+      })
+    );
+    setPendingMessage('');
     getChatbotMessage({
       type: HelperType.Chat,
       content: pendingMessage,
@@ -95,68 +50,11 @@ const ChatFooter: ForwardRefRenderFunction<ChatFooterInstance, ChatFooterProps> 
     });
   };
 
-  useImperativeHandle(ref, () => {
-    return {
-      getChatbotMessage
-    };
-  });
-
-  useEffect(() => {
-    let currentIndex = 0;
-
-    if (pendingTypeMessage && pendingTypeMessage.message.content) {
-      // updateChatHistory((prevHistory) => prevHistory.concat({ ...pendingTypeMessage, status: 'pending' }));
-      // updateChatHistory((prevHistory) =>
-      //   prevHistory.concat({
-      //     ...pendingTypeMessage,
-      //     status: 'pending',
-      //     message: { ...pendingTypeMessage.message, content: '' }
-      //   })
-      // );
-      const content = pendingTypeMessage.message.content;
-
-      const interval = setInterval(() => {
-        if (currentIndex < content.length - 1) {
-          updateChatHistory((prevHistory) => {
-            if (currentIndex === 0) {
-              return prevHistory.concat({
-                ...pendingTypeMessage,
-                status: 'pending',
-                message: { ...pendingTypeMessage.message, content: content[currentIndex] }
-              });
-            }
-            const pendingChat = prevHistory.pop();
-
-            if (pendingChat) {
-              const connectChat = {
-                role: ChatRole.Assistant,
-                content: pendingChat.message.content + content[currentIndex]
-              };
-              return prevHistory.concat({
-                ...pendingChat,
-                status: currentIndex < content.length - 1 ? 'pending' : undefined,
-                message: connectChat
-              });
-            }
-
-            return prevHistory;
-          });
-
-          currentIndex++;
-        } else {
-          clearInterval(interval);
-          setPendingTypeMessage(null);
-        }
-      }, 30);
-      return () => {
-        clearInterval(interval);
-      };
-    }
-  }, [pendingTypeMessage]);
+  useKeyPress('enter', submit);
 
   return (
     <div className="flex flex-col gap-3 pb-2">
-      <p className="body-xs text-center">You have 5 free trials left</p>
+      {/* <p className="body-xs text-center">You have 5 free trials left</p> */}
       <div className="p-3">
         <div className="flex h-[40px] items-center gap-3 rounded-full border border-neutral-light-gray px-3">
           <input
@@ -166,9 +64,9 @@ const ChatFooter: ForwardRefRenderFunction<ChatFooterInstance, ChatFooterProps> 
             onChange={(e) => {
               setPendingMessage(e.target.value);
             }}
-            disabled={generateMessageLoading || loading}
+            disabled={loading}
           ></input>
-          <Button onClick={submit} className="p-0" disabled={generateMessageLoading || loading} loading={loading}>
+          <Button onClick={submit} className="p-0" disabled={loading}>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
                 fillRule="evenodd"

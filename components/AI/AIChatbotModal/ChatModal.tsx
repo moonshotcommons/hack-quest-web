@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { cn } from '@/helper/utils';
 import { useGlobalStore } from '@/store/zustand/globalStore';
@@ -6,17 +6,21 @@ import { useClickAway, useRequest } from 'ahooks';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useUpdateHelperParams } from '@/hooks/utils/useUpdateHelperParams';
 
+import { v4 as uuid } from 'uuid';
 // import { TypeAnimation } from 'react-type-animation';
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneDark as dark } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import { ChatRole, HelperType } from '@/service/webApi/helper/type';
+import { ChatRole, CompletionsInput, CompletionsRes, HelperType } from '@/service/webApi/helper/type';
 import LoadingMessage from './LoadingMessage';
 import ChatHeader from './ChatHeader';
 import ChatFooter, { ChatFooterInstance } from './ChatFooter';
 import MessageTemplate from './MessageTemplate';
 import { getContentByHelperType } from './constants';
 import { useChatHistory } from './hooks';
+import { errorMessage } from '@/helper/ui';
+import webApi from '@/service';
+import ChatTips from './ChatTips';
 
 const CURSOR_CLASS_NAME = 'custom-type-animation-cursor';
 
@@ -29,60 +33,143 @@ enum Role {
 
 const AIChatbotModal: FC<AIChatbotModalProps> = (props) => {
   const helperParams = useGlobalStore((state) => state.helperParams);
+  const chatStatus = useGlobalStore((state) => state.chatStatus);
+  const updateChatStatus = useGlobalStore((state) => state.updateChatStatus);
   const { updateHelperType } = useUpdateHelperParams();
   const { updateOpenState } = useUpdateHelperParams();
   const { chatHistory, setChatHistory } = useChatHistory();
   const ref = useRef(null);
   const historyContainerRef = useRef<HTMLDivElement>(null);
   const chatFooterRef = useRef<ChatFooterInstance>(null);
+  const [pendingTypeMessage, setPendingTypeMessage] = useState<CompletionsRes | null>(null);
+  const scrollToBottomSwitch = useRef(true);
 
-  const close = () => {
-    updateOpenState(false);
-  };
+  const [showTips, setShowTips] = useState(true);
 
-  // 模拟消息发送以后的...loading效果
-  const { runAsync: waitingMessage, loading: waitingMessageLoading } = useRequest(
-    () => {
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          resolve('');
-        }, Math.random() * 1000);
-      });
+  // 获取chatbot返回的消息
+  const { runAsync: getChatbotMessage, loading } = useRequest(
+    async (input: CompletionsInput) => {
+      updateChatStatus('chatting');
+      const res = await webApi.helperApi.completions(input);
+      return res;
     },
     {
-      manual: true
+      manual: true,
+      onSuccess(res) {
+        const completion = {
+          id: uuid(),
+          message: {
+            role: ChatRole.Assistant,
+            content: res.content
+          }
+        };
+        setPendingTypeMessage(completion);
+      },
+      onError(err) {
+        errorMessage(err);
+        setChatHistory((prevHistory) => {
+          const target = prevHistory.pop();
+          return !target ? prevHistory : prevHistory.concat({ ...target, status: 'error' });
+        });
+      }
     }
   );
 
+  const close = () => {
+    updateOpenState(false);
+    setTimeout(() => {
+      setShowTips(true);
+    }, 300);
+  };
+
   const triggerSubmit = async () => {
     const content = getContentByHelperType(helperParams.type);
+
+    setChatHistory(
+      chatHistory.concat({
+        id: uuid(),
+        message: {
+          role: ChatRole.Human,
+          content: content
+        }
+      })
+    );
+
+    // if (historyContainerRef.current?.children[1]) {
+    //   historyContainerRef.current.children[1].scrollTop = historyContainerRef.current.children[1].scrollHeight;
+    // }
+
     // 调用submit获取message
-    await chatFooterRef.current?.getChatbotMessage({
+    await getChatbotMessage({
       type: helperParams.type,
       content,
       pageId: helperParams.pageId!,
       exampleNum: helperParams.exampleNum!,
       quizNum: helperParams.quizNum!
     });
+
     updateHelperType(HelperType.Chat);
   };
 
   useEffect(() => {
     // 可以从外部触发的类型
-    const canTriggerType = [HelperType.SummarizeContent, HelperType.ExplainExample, HelperType.ExplainQuiz];
-    if (canTriggerType.includes(helperParams.type)) {
+
+    if (helperParams.type !== HelperType.Chat) {
       triggerSubmit();
     }
   }, [helperParams.type]);
 
-  useClickAway(() => {
-    close();
+  useClickAway((event) => {
+    chatStatus !== 'chatting' && close();
   }, ref);
 
   useEffect(() => {
-    if (!historyContainerRef.current?.children[1]) return;
-    historyContainerRef.current.children[1].scrollTop = historyContainerRef.current.children[1].scrollHeight;
-  }, [chatHistory]);
+    let currentIndex = 0;
+
+    if (pendingTypeMessage && pendingTypeMessage.message.content) {
+      const content = pendingTypeMessage.message.content;
+
+      const interval = setInterval(() => {
+        if (currentIndex < content.length - 1) {
+          setChatHistory((prevHistory) => {
+            if (currentIndex === 0) {
+              return prevHistory.concat({
+                ...pendingTypeMessage,
+                status: 'pending',
+                message: { ...pendingTypeMessage.message, content: content[currentIndex] }
+              });
+            }
+            const pendingChat = prevHistory.pop();
+
+            if (pendingChat) {
+              const connectChat = {
+                role: ChatRole.Assistant,
+                content: pendingChat.message.content + content[currentIndex]
+              };
+              return prevHistory.concat({
+                ...pendingChat,
+                status: currentIndex < content.length - 1 ? 'pending' : undefined,
+                message: connectChat
+              });
+            }
+
+            return prevHistory;
+          });
+
+          currentIndex++;
+        } else {
+          updateChatStatus('leisure');
+          clearInterval(interval);
+          scrollToBottomSwitch.current = true;
+          setPendingTypeMessage(null);
+        }
+      }, 10);
+      return () => {
+        clearInterval(interval);
+        scrollToBottomSwitch.current = true;
+      };
+    }
+  }, [pendingTypeMessage]);
 
   const TypeMessageNode = ({ content }: { content: string }) => {
     return (
@@ -125,7 +212,19 @@ const AIChatbotModal: FC<AIChatbotModalProps> = (props) => {
     );
   };
 
-  console.log(chatHistory);
+  useEffect(() => {
+    if (historyContainerRef.current?.children[1] && scrollToBottomSwitch.current) {
+      historyContainerRef.current.children[1].scrollTop = historyContainerRef.current.children[1].scrollHeight;
+    }
+  }, [chatHistory]);
+
+  useEffect(() => {
+    if (helperParams.open) {
+      if (historyContainerRef.current?.children[1] && scrollToBottomSwitch.current) {
+        historyContainerRef.current.children[1].scrollTop = historyContainerRef.current.children[1].scrollHeight;
+      }
+    }
+  }, [helperParams.open]);
 
   return (
     helperParams.open && (
@@ -139,24 +238,42 @@ const AIChatbotModal: FC<AIChatbotModalProps> = (props) => {
         )}
       >
         <ChatHeader close={close} />
-        <ScrollArea className="scroll-wrap flex w-full flex-1">
-          <div className="scroll-wrap-child flex h-full w-full flex-col gap-3 pb-3" ref={historyContainerRef}>
-            {chatHistory.map((item, index) => {
-              return (
-                <MessageTemplate key={item.id} role={item.message.role}>
-                  {item.message.role !== ChatRole.Assistant && item.status !== 'pending' && item.message.content}
-                  {item.message.role === ChatRole.Assistant && item.status === 'pending' && (
-                    <TypeMessageNode content={item.message.content} />
-                  )}
-                </MessageTemplate>
-              );
-            })}
-            {!!waitingMessageLoading && <LoadingMessage />}
+        <ScrollArea
+          className="scroll-wrap flex w-full flex-1"
+          ref={historyContainerRef}
+          onWheel={() => {
+            scrollToBottomSwitch.current = false;
+          }}
+        >
+          <div className="flex min-h-full w-full flex-col justify-between">
+            <div className="scroll-wrap-child flex w-full flex-1 flex-col gap-3 pb-3">
+              {chatHistory.map((item, index) => {
+                console.log(item);
+                return (
+                  <MessageTemplate key={item.id} role={item.message.role} status={item.status}>
+                    {item.status !== 'pending' && item.message.content}
+                    {item.message.role === ChatRole.Assistant && item.status === 'pending' && (
+                      <TypeMessageNode content={item.message.content} />
+                    )}
+                  </MessageTemplate>
+                );
+              })}
+              {!!loading && <LoadingMessage />}
+            </div>
+            {showTips && (
+              <div className="flex w-full justify-end px-3">
+                <ChatTips updateTipsShow={setShowTips} />
+              </div>
+            )}
           </div>
         </ScrollArea>
         <ChatFooter
           ref={chatFooterRef}
-          waitingMessage={waitingMessage}
+          loading={loading}
+          onSubmit={() => {
+            setShowTips(false);
+          }}
+          getChatbotMessage={getChatbotMessage}
           updateChatHistory={setChatHistory}
           chatHistory={chatHistory}
         />
