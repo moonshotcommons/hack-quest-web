@@ -13,7 +13,7 @@ import QuizPassModal from './QuizPassModal';
 import { QuizType } from '@/components/ComponentRenderer/type';
 import { ComponentRenderer } from '@/components/ComponentRenderer';
 import { useUpdateHelperParams } from '@/hooks/utils/useUpdateHelperParams';
-import AITriggerButton from '@/components/AI/AITriggerButton';
+import AITriggerButton from '@/components/Web/AI/AITriggerButton';
 import { HelperType } from '@/service/webApi/helper/type';
 
 interface QuizRendererProps {

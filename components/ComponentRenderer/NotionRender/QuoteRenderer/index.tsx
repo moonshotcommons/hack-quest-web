@@ -35,11 +35,11 @@ const QuoteRenderer: FC<QuoteRendererProps> = (props) => {
   const getWebClassName = () => {
     switch (pageType) {
       case PageType.PGC:
-        return `border-neutral-rich-gray text-neutral-rich-gray caption-14pt border-l-[3px] my-2`;
+        return `border-neutral-rich-gray text-neutral-rich-gray caption-14pt pl-[5px] border-l-[3px] my-2`;
       case PageType.UGC:
-        return `border-neutral-rich-gray text-neutral-rich-gray caption-14pt border-l-[3px] my-2`;
+        return `border-neutral-rich-gray text-neutral-rich-gray caption-14pt pl-[5px] border-l-[3px] my-2`;
       case PageType.MINI:
-        return `border-neutral-rich-gray text-neutral-rich-gray caption-14pt border-l-[3px] my-2`;
+        return `border-neutral-rich-gray text-neutral-rich-gray caption-14pt pl-[5px] border-l-[3px] my-2`;
       case PageType.GLOSSARY:
       case PageType.BLOG:
         return cn(`border-neutral-medium-gray pl-[10px] text-neutral-medium-gray  body-m border-l-[5px] my-[18px]`);

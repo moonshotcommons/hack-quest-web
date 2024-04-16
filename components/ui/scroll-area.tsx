@@ -7,11 +7,11 @@ import { cn } from '@/helper/utils';
 
 const ScrollArea = React.forwardRef<
   React.ElementRef<typeof ScrollAreaPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.Root>
->(({ className, children, onWheel, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.Root> & { scrollViewClassName?: string }
+>(({ className, children, onWheel, scrollViewClassName, ...props }, ref) => (
   <ScrollAreaPrimitive.Root ref={ref} className={cn('relative overflow-hidden', className)} {...props}>
     <ScrollAreaPrimitive.Viewport
-      className="scroll-area h-full w-full rounded-[inherit] [&>div]:h-full [&>div]:min-h-full"
+      className={cn('h-full w-full rounded-[inherit] [&>div]:h-full [&>div]:min-h-full', scrollViewClassName)}
       onWheel={onWheel}
     >
       {children}

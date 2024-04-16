@@ -26,6 +26,7 @@ import useGetHeight from '@/hooks/dom/useGetHeight';
 import { CustomType, NotionComponent, PageType } from '@/components/ComponentRenderer/type';
 import { ComponentRendererProvider } from '@/components/ComponentRenderer';
 import MobPgcCustomRenderer from './MobPgcCustomRenderer';
+import { useUpdateHelperParams } from '@/hooks/utils/useUpdateHelperParams';
 
 interface MobLessonPageProps {
   lessonId: string;
@@ -43,6 +44,9 @@ const MobLessonPage: FC<MobLessonPageProps> = (props) => {
   const [isHandleNext, setIsHandleNext] = useState(false);
   const allowNextButtonClickTime = useRef(0);
   const treasureModalRef = useRef<TreasureModalRef>(null);
+
+  const { updatePageId } = useUpdateHelperParams();
+
   const judgmentInitIsHandleNext = useCallback(() => {
     const quiz = lesson?.content?.right?.find((v: NotionComponent) => v.type === CustomType.Quiz);
     if (
@@ -60,6 +64,7 @@ const MobLessonPage: FC<MobLessonPageProps> = (props) => {
   useEffect(() => {
     if (lesson) {
       judgmentInitIsHandleNext();
+      updatePageId(lessonId);
       webApi.courseApi.startLesson(lesson.id).catch((e) => {
         console.log('开始学习失败', e);
       });

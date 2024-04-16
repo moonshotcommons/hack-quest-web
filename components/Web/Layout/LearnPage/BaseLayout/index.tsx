@@ -1,7 +1,7 @@
 'use client';
 import React, { ReactNode, useEffect } from 'react';
 import NavBar from '../Navbar';
-import AIFloatButton from '@/components/AI/AIFloatButton';
+import AIFloatButton from '@/components/Web/AI/AIFloatButton';
 
 export interface V2LayoutProps {
   children: ReactNode;
