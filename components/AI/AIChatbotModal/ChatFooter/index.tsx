@@ -26,6 +26,7 @@ const ChatFooter: ForwardRefRenderFunction<ChatFooterInstance, ChatFooterProps> 
   const { onSubmit, getChatbotMessage, loading, chatHistory, updateChatHistory } = props;
   const [pendingMessage, setPendingMessage] = useState('');
   const helperParams = useGlobalStore((state) => state.helperParams);
+  const chatStatus = useGlobalStore((state) => state.chatStatus);
 
   const submit = () => {
     if (!pendingMessage.trim()) return;
@@ -63,9 +64,9 @@ const ChatFooter: ForwardRefRenderFunction<ChatFooterInstance, ChatFooterProps> 
             onChange={(e) => {
               setPendingMessage(e.target.value);
             }}
-            disabled={loading}
+            disabled={loading || chatStatus === 'chatting'}
           ></input>
-          <Button onClick={submit} className="p-0" disabled={loading}>
+          <Button onClick={submit} className="p-0" disabled={loading || chatStatus === 'chatting'}>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
                 fillRule="evenodd"

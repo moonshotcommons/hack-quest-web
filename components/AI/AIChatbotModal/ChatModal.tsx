@@ -273,6 +273,7 @@ const AIChatbotModal: FC<AIChatbotModalProps> = ({ pageType }) => {
           ref={chatFooterRef}
           loading={loading}
           onSubmit={() => {
+            scrollToBottomSwitch.current = true;
             setShowTips(false);
           }}
           getChatbotMessage={getChatbotMessage}
