@@ -1,6 +1,6 @@
 import React from 'react';
 import CentralTitle from '../CentralTitle';
-import { prizeTrackData } from '@/app/[lang]/(web)/(central dao)/central-dao/constants/data';
+import { prizeTrackData } from '@/app/[lang]/(web)/(other)/central-dao/constants/data';
 
 interface PrizeTrackProp {}
 

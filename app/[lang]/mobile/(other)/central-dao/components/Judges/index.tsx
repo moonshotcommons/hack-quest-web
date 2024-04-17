@@ -1,7 +1,7 @@
 import React from 'react';
 import CentralTitle from '../CentralTitle';
 import Image from 'next/image';
-import { judgesData } from '@/app/[lang]/(web)/(central dao)/central-dao/constants/data';
+import { judgesData } from '@/app/[lang]/(web)/(other)/central-dao/constants/data';
 
 interface JudgesProp {}
 
