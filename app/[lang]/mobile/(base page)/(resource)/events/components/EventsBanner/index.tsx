@@ -36,7 +36,7 @@ const EventsBanner: React.FC<EventsBannerProp> = () => {
         />
       </div>
       <div className="w-full px-[1.25rem]">
-        <div className="container relative w-full">
+        <div className=" relative w-full">
           <div className="relative z-[2] flex flex-col gap-[32px] border border-neutral-black bg-neutral-white py-[2.5rem]">
             {eventsBannerData.map((v) => (
               <div key={v.id} className="text-center">
