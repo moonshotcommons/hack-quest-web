@@ -1,11 +1,14 @@
 'use client';
 import { MentorType } from '@/service/webApi/resourceStation/type';
-import React, { useMemo, useState } from 'react';
-import Box from '../Box';
+import React, { useContext, useMemo, useState } from 'react';
 import Image from 'next/image';
 import { VscChevronDown } from 'react-icons/vsc';
-import { deepClone } from '@/helper/utils';
 import { BurialPoint } from '@/helper/burialPoint';
+import { useTranslation } from '@/i18n/client';
+import { LangContext } from '@/components/Provider/Lang';
+import { TransNs } from '@/i18n/config';
+import { cloneDeep } from 'lodash-es';
+import Title from '../Title';
 
 interface MediaCommunityProp {
   listData: MentorType[];
@@ -13,19 +16,21 @@ interface MediaCommunityProp {
 }
 
 const MediaCommunity: React.FC<MediaCommunityProp> = ({ listData, title }) => {
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.HACKATHON);
   const [showAll, setShowAll] = useState(false);
   const showList = useMemo(() => {
-    return showAll ? deepClone(listData) : listData?.slice(0, 12);
+    return showAll ? cloneDeep(listData) : listData?.slice(0, 12);
   }, [showAll, listData]);
-
-  return listData?.length > 0 ? (
-    <Box>
-      <div className="text-h3 mb-[16px] text-neutral-off-black">{title}</div>
-      <div className="mb-[30px] flex flex-wrap gap-[20px]">
+  if (!listData.length) return null;
+  return (
+    <div>
+      <Title title={t(`hackathonDetail.${title}`)} />
+      <div className="mb-[20px] flex flex-wrap gap-[20px]">
         {showList.map((v: MentorType, i: number) => (
-          <div key={i} className="h-[72px] w-[calc((100%-60px)/4)]">
-            <div className="relative h-full w-full">
-              <Image src={v.picture as string} alt="picture" fill className="object-contain"></Image>
+          <div key={i} className="w-[calc((100%-60px)/4)]">
+            <div className="relative h-0 w-full pt-[38%]">
+              <Image src={v.picture as string} fill alt="picture" className="object-contain"></Image>
             </div>
           </div>
         ))}
@@ -33,19 +38,19 @@ const MediaCommunity: React.FC<MediaCommunityProp> = ({ listData, title }) => {
       {listData.length > 12 && (
         <div className="body-l flex justify-end">
           <div
-            className="flex cursor-pointer items-center"
+            className="flex cursor-pointer items-center gap-[8px]"
             onClick={() => {
               setShowAll(!showAll);
               BurialPoint.track(`hackathonDetail show all 按钮点击`);
             }}
           >
-            <span>Show {showAll ? 'Less' : 'All'}</span>
+            <span>{showAll ? t('showLess') : t('showAll')}</span>
             <VscChevronDown className={`body-xl transition ${showAll ? 'rotate-180' : ''}`} />
           </div>
         </div>
       )}
-    </Box>
-  ) : null;
+    </div>
+  );
 };
 
 export default MediaCommunity;

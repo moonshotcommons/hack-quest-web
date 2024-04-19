@@ -148,5 +148,8 @@
     "claim": "claim",
     "certificationAvailable": "Certification available",
     "deviceAccess": "Access on mobile and desktop"
-  }
+  },
+  "resultsFor": "Results for",
+  "showAll":"Show All",
+  "showLess":"Show Less"
 }

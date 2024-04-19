@@ -7,6 +7,7 @@ import useDealhackathon from '@/hooks/resource/useDealHackathonData';
 import { BurialPoint } from '@/helper/burialPoint';
 import MenuLink from '@/constants/MenuLink';
 import Link from 'next/link';
+import Box from '../components/Box';
 
 interface HackathonInfoProp {
   hackathon: HackathonType;
@@ -36,8 +37,8 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
     };
   }, [hackathon]);
   return (
-    <div className="sticky right-0 top-0 flex flex-col gap-[24px] pb-[20px] text-neutral-off-black">
-      <div className="text-h3 font-next-book-bold">{hackathon.name}</div>
+    <Box className="sticky right-0 top-0 flex flex-col  gap-[24px] p-[24px] pb-[20px] text-neutral-off-black">
+      <h1 className="text-h3 ">{hackathon.name}</h1>
       <div>
         <div className="text-h4 mb-[4px] ">THEME</div>
         <pre className="body-m">{hackathon.theme}</pre>
@@ -103,7 +104,7 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
           </Link>
         </>
       )}
-    </div>
+    </Box>
   );
 };
 

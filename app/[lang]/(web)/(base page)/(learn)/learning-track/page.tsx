@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import LearningTrack from './components';
 import { Lang } from '@/i18n/config';
+import MenuLink from '@/constants/MenuLink';
 
 interface SearchParamsType {
   searchParams: {
@@ -20,11 +21,11 @@ export async function generateMetadata({ searchParams, params }: SearchParamsTyp
   const metadata: Metadata = {
     title: 'HackQuest Learning Track',
     alternates: {
-      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/learning-track${query}`,
+      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}${MenuLink.LEARNING_TRACK}${query}`,
       languages: {
-        'x-default': `https://www.hackquest.io/${Lang.EN}/learning-track${query}`,
-        en: `https://www.hackquest.io/${Lang.EN}/learning-track${query}`,
-        zh: `https://www.hackquest.io/${Lang.ZH}/learning-track${query}`
+        'x-default': `https://www.hackquest.io/${Lang.EN}${MenuLink.LEARNING_TRACK}${query}`,
+        en: `https://www.hackquest.io/${Lang.EN}${MenuLink.LEARNING_TRACK}${query}`,
+        zh: `https://www.hackquest.io/${Lang.ZH}${MenuLink.LEARNING_TRACK}${query}`
       }
     }
   };

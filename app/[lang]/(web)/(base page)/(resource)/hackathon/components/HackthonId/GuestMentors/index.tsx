@@ -1,25 +1,30 @@
 'use client';
 import { MentorType } from '@/service/webApi/resourceStation/type';
-import React, { useMemo, useState } from 'react';
-import Box from '../components/Box';
+import React, { useMemo, useState, useContext } from 'react';
 import Image from 'next/image';
 import { VscChevronDown } from 'react-icons/vsc';
-import { deepClone } from '@/helper/utils';
+import { useTranslation } from '@/i18n/client';
+import { LangContext } from '@/components/Provider/Lang';
+import { TransNs } from '@/i18n/config';
+import Title from '../components/Title';
+import { cloneDeep } from 'lodash-es';
 
 interface GuestMentorsProp {
   listData: MentorType[];
-  title: string;
 }
 
-const GuestMentors: React.FC<GuestMentorsProp> = ({ listData, title }) => {
+const GuestMentors: React.FC<GuestMentorsProp> = ({ listData }) => {
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.HACKATHON);
   const [showAll, setShowAll] = useState(false);
   const showList = useMemo(() => {
-    return showAll ? deepClone(listData) : listData?.slice(0, 6);
+    return showAll ? cloneDeep(listData) : listData?.slice(0, 6);
   }, [showAll, listData]);
-  return listData.length > 0 ? (
-    <Box>
-      <div className="text-h3 mb-[16px] text-neutral-off-black">{title}</div>
-      <div className="mb-[30px] flex flex-wrap gap-[20px]">
+  if (!listData.length) return null;
+  return (
+    <div>
+      <Title title={t('hackathonDetail.guestsMentors')} />
+      <div className="flex flex-wrap gap-[20px]">
         {showList.map((v: MentorType, i: number) => (
           <div
             key={i}
@@ -28,7 +33,7 @@ const GuestMentors: React.FC<GuestMentorsProp> = ({ listData, title }) => {
             <div className="relative h-[65px] w-[65px] overflow-hidden rounded-[50%]">
               <Image src={v.picture as string} alt="picture" fill className="object-cover"></Image>
             </div>
-            <div className="flex h-[65px] flex-1 flex-shrink-0 flex-col justify-center">
+            <div className="flex h-[65px] flex-1 flex-shrink-0 flex-col justify-center text-neutral-off-black">
               <p className="body-m-bold">{v.name}</p>
               <p className="body-xs line-clamp-2 pr-[40px]">{v.title}</p>
             </div>
@@ -36,15 +41,15 @@ const GuestMentors: React.FC<GuestMentorsProp> = ({ listData, title }) => {
         ))}
       </div>
       {listData.length > 6 && (
-        <div className="body-l flex justify-end">
-          <div className="flex cursor-pointer items-center" onClick={() => setShowAll(!showAll)}>
-            <span>Show {showAll ? 'Less' : 'All'}</span>
+        <div className="body-l mt-[20px] flex justify-end">
+          <div className="flex cursor-pointer items-center gap-[8px]" onClick={() => setShowAll(!showAll)}>
+            <span>{showAll ? t('showLess') : t('showAll')}</span>
             <VscChevronDown className={`body-xl transition ${showAll ? 'rotate-180' : ''}`} />
           </div>
         </div>
       )}
-    </Box>
-  ) : null;
+    </div>
+  );
 };
 
 export default GuestMentors;

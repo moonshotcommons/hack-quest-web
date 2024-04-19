@@ -148,5 +148,8 @@
     "claim": "领取",
     "certificationAvailable": "认证可用",
     "deviceAccess": "移动和桌面设备访问"
-  }
+  },
+  "resultsFor": "结果",
+  "showAll":"查看更多",
+  "showLess":"收起"
 }

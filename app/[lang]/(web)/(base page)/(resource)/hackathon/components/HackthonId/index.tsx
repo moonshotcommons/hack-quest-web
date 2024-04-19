@@ -1,10 +1,11 @@
 import React, { FC } from 'react';
 import { HackathonType } from '@/service/webApi/resourceStation/type';
-import About from '../HackDetailBox/About';
-import GuestMentors from '../HackDetailBox/GuestMentors';
-import MediaCommunity from '../HackDetailBox/components/MediaCommunity';
-import HackathonInfo from '../HackDetailBox/HackathonInfo';
+import GuestMentors from './GuestMentors';
+import MediaCommunity from './components/MediaCommunity';
+import HackathonInfo from './HackathonInfo';
 import PageRetentionTime from '@/components/Common/PageRetentionTime';
+import TimeLine from './TimeLine';
+import About from './About';
 
 interface HackDetailProps {
   hackathon: HackathonType;
@@ -17,11 +18,12 @@ const HackDetail: FC<HackDetailProps> = ({ hackathon }) => {
         {hackathon.id && (
           <>
             <div className="flex justify-between">
-              <div className="w-[58%]">
+              <div className="flex w-[58%] flex-col gap-[60px] [&>div]:w-full">
                 <About hackathon={hackathon} />
-                <GuestMentors listData={hackathon.guestsAndMentors} title="Guests and Mentors" />
-                <MediaCommunity listData={hackathon.mediaPartners} title="Media Partners" />
-                <MediaCommunity listData={hackathon.communityPartners} title="Community Partners" />
+                <TimeLine hackathon={hackathon} />
+                <GuestMentors listData={hackathon.guestsAndMentors} />
+                <MediaCommunity listData={hackathon.mediaPartners} title="mediaPartners" />
+                <MediaCommunity listData={hackathon.communityPartners} title="communityPartners" />
               </div>
               <div className="relative w-[39%]">
                 <HackathonInfo hackathon={hackathon} />

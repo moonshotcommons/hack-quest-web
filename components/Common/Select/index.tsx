@@ -7,6 +7,8 @@ import { AiFillCaretDown } from 'react-icons/ai';
 import { FiCheck } from 'react-icons/fi';
 import { OptionType } from './type';
 import { PiWarningCircleFill } from 'react-icons/pi';
+import { animateProps } from './data';
+import { motion } from 'framer-motion';
 
 interface SelectProps {
   name: string;
@@ -131,38 +133,44 @@ const Select = forwardRef<InputRef, SelectProps & InputHTMLAttributes<HTMLInputE
             </span>
           )}
         </span>
+
         {visibleOption && (
-          <div className="body-l absolute left-0 top-0 z-[1000] w-full overflow-hidden rounded-[24px] border border-neutral-dark-gray bg-neutral-white pb-[5px]">
-            <div
-              className="mx-[20px] flex h-[48px] cursor-pointer items-center justify-between border-b border-b-[#8C8C8C]"
-              onClick={() => {
-                setVisibleOption(false);
-              }}
-            >
-              <span>{selectLabel}</span>
-              <AiFillCaretDown className=" rotate-180 text-[20px] text-neutral-medium-gray" />
+          <motion.ul
+            {...animateProps}
+            className="body-l absolute left-0 top-0 z-[1000] w-full overflow-hidden rounded-[24px] border border-neutral-dark-gray bg-neutral-white pb-[5px]"
+          >
+            <div className="">
+              <div
+                className="mx-[20px] flex h-[48px] cursor-pointer items-center justify-between border-b border-b-[#8C8C8C]"
+                onClick={() => {
+                  setVisibleOption(false);
+                }}
+              >
+                <span>{selectLabel}</span>
+                <AiFillCaretDown className=" rotate-180 text-[20px] text-neutral-medium-gray" />
+              </div>
+              <ul className="max-h-[250px] w-full overflow-auto">
+                {options.map((v: OptionType) => (
+                  <li
+                    key={v.value}
+                    className={`mt-[5px] flex cursor-pointer items-center justify-between px-[20px] leading-[34px] ${
+                      value === v.value ? 'bg-neutral-off-white' : ''
+                    }`}
+                    onClick={() => {
+                      setValue(v.value);
+                      setErrorMessage('');
+                      setStatus('default');
+                      setVisibleOption(false);
+                      onChange?.(v.value);
+                    }}
+                  >
+                    <span>{v.label}</span>
+                    {value === v.value && <FiCheck size={20} className="text-neutral-rich-gray" />}
+                  </li>
+                ))}
+              </ul>
             </div>
-            <ul className="max-h-[250px] w-full overflow-auto">
-              {options.map((v: OptionType) => (
-                <li
-                  key={v.value}
-                  className={`mt-[5px] flex cursor-pointer items-center justify-between px-[20px] leading-[34px] ${
-                    value === v.value ? 'bg-neutral-off-white' : ''
-                  }`}
-                  onClick={() => {
-                    setValue(v.value);
-                    setErrorMessage('');
-                    setStatus('default');
-                    setVisibleOption(false);
-                    onChange?.(v.value);
-                  }}
-                >
-                  <span>{v.label}</span>
-                  {value === v.value && <FiCheck className="body-s text-neutral-rich-gray" />}
-                </li>
-              ))}
-            </ul>
-          </div>
+          </motion.ul>
         )}
       </div>
 
