@@ -29,7 +29,7 @@ const MediaCommunity: React.FC<MediaCommunityProp> = ({ listData, title }) => {
       <div className="mb-[20px] flex flex-wrap gap-[20px]">
         {showList.map((v: MentorType, i: number) => (
           <div key={i} className="w-[calc((100%-60px)/4)]">
-            <div className="relative h-0 w-full pt-[38%]">
+            <div className="relative h-0 w-full pt-[45%]">
               <Image src={v.picture as string} fill alt="picture" className="object-contain"></Image>
             </div>
           </div>
