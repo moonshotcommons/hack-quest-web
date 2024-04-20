@@ -56,7 +56,7 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({ miss
             }}
           >
             <div className="flex-col-center">
-              <div className="body-xl text-neutral-white ">{lang === Lang.EN ? `Day ${i + 1}` : `第${i}天`}</div>
+              <div className="body-xl text-neutral-white ">{lang === Lang.EN ? `Day ${i + 1}` : `第${i + 1}天`}</div>
               <div className="mt-[20px] flex w-[165px] justify-between">
                 <div>
                   <Image src={IconCoin} width={60} alt="iconCredits" />
@@ -127,7 +127,7 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({ miss
               border-neutral-medium-gray bg-[var(--neutral-off-black)] pb-[30px] pt-[30px] `}
         >
           <div className="flex-col-center">
-            <div className="body-l text-neutral-white ">{`Day ${i + 1}`}</div>
+            <div className="body-l text-neutral-white ">{lang === Lang.EN ? `Day ${i + 1}` : `第${i + 1}天`}</div>
             <div className="mt-[20px] flex w-[104px] justify-between">
               <div>
                 <Image src={IconCoin} width={40} alt="iconCredits" />
