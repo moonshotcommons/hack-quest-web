@@ -1,11 +1,16 @@
-import React, { useEffect, useRef, useState } from 'react';
+'use client';
+import React, { useContext } from 'react';
 import Image from 'next/image';
 import Button from '@/components/Common/Button';
 import { HackathonType } from '@/service/webApi/resourceStation/type';
-import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 import { BurialPoint } from '@/helper/burialPoint';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import MenuLink from '@/constants/MenuLink';
+import { separationNumber } from '@/helper/utils';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
+import CountDown from '@/components/Web/Business/CountDown';
 
 interface OnGoingHackathonCardProp {
   hackathon: HackathonType;
@@ -13,67 +18,55 @@ interface OnGoingHackathonCardProp {
 
 const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon }) => {
   const { redirectToUrl } = useRedirect();
-  const closeInTimeOut = useRef<NodeJS.Timeout | null>(null);
-  const [closeInTime, setCloseInTime] = useState('');
   const goHackathonDetail = () => {
     BurialPoint.track(`hackathon onGoingCard 点击`);
     redirectToUrl(`${MenuLink.HACKATHON}/${hackathon.alias}`);
   };
-  const { getRunFromTime, getCloseInTime } = useDealHackathonData();
-  const getCloseIn = () => {
-    setCloseInTime(getCloseInTime(hackathon.endTime));
-    closeInTimeOut.current = setTimeout(() => {
-      getCloseIn();
-    }, 60 * 1000);
-  };
-  useEffect(() => {
-    getCloseIn();
-    return () => {
-      if (closeInTimeOut.current) clearTimeout(closeInTimeOut.current);
-    };
-  }, [hackathon]);
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.HACKATHON);
   return (
-    <div className="overflow-hidden rounded-[16px] bg-neutral-white " onClick={goHackathonDetail}>
-      <div className="relative h-0 w-full bg-[#d9d9d9]/30 pt-[56.28%]">
-        <Image src={hackathon.image} fill alt={hackathon.alias} className="object-cover"></Image>
+    <div
+      className="card-hover flex  w-full flex-col overflow-hidden rounded-[.75rem] bg-neutral-white "
+      onClick={goHackathonDetail}
+    >
+      <div className="relative h-0 w-full rounded-t-[10px] bg-[#D9D9D9] pt-[43%]">
+        {<Image src={hackathon.image} fill alt={hackathon.alias} className="object-cover"></Image>}
       </div>
-      <div className="flex h-[15.75rem] flex-col justify-between p-[20px] text-neutral-off-black">
-        <div className="flex flex-col gap-[1rem]">
-          <div className="flex">
-            <h2 className="text-h3-mob line-clamp-2 font-next-book-bold ">{hackathon.name}</h2>
+      <div className="flex flex-col justify-between gap-[1rem] px-[1.5rem] py-[1.25rem]">
+        <h2 className="text-h3-mob line-clamp-1 text-neutral-off-black">{hackathon.name}</h2>
+        <div className="body-s-bold w-fit rounded-[.5rem] border-[.125rem] border-status-success px-[.75rem] py-[.25rem] uppercase text-status-success">
+          {t('liveNow')}
+        </div>
+        <div>
+          <p className="body-s mb-[.25rem] text-neutral-medium-gray">{t('submissionClosesIn')}</p>
+          <CountDown time={hackathon.endTime} />
+        </div>
+        <div className="body-s flex flex-col gap-[4px] text-neutral-medium-gray [&>div]:flex [&>div]:items-center [&>div]:justify-between">
+          <div>
+            <span className="">{t('participants')}</span>
+            <span className="body-m-bold text-neutral-off-black">{separationNumber(hackathon.totalPrice || 0)}</span>
           </div>
-          <div className="relative flex h-[3rem] flex-col justify-between pl-[20px] ">
-            <div className="absolute left-0 top-0 h-full w-[5px] rounded-[10px] bg-yellow-primary"></div>
-            <div className="flex items-center gap-[16px]">
-              <div className="body-xs text-neutral-medium-gray">RUNS FROM</div>
-              <div className="body-s">{getRunFromTime(hackathon.startTime, hackathon.endTime)}</div>
-            </div>
-            <div className="flex items-center gap-[16px]">
-              <div className="body-xs text-neutral-medium-gray">HAPPENING</div>
-              <div className="body-s w-0 flex-1 truncate underline">{hackathon.address}</div>
-            </div>
+          <div>
+            <span className="">{t('totalPrize')}</span>
+            <span className="body-m-bold text-neutral-off-black">{separationNumber(hackathon.totalPrice || 0)}</span>
           </div>
-          <div className="flex h-[2.375rem] items-center gap-[15px] rounded-[8px] bg-yellow-extra-light px-[20px]">
-            <div className="body-xs text-neutral-medium-gray">APPLICATIONS CLOSE IN</div>
-            <div className="body-s">{closeInTime}</div>
+          <div>
+            <span className="">{t('host')}</span>
+            <span className="body-m-bold text-neutral-off-black underline">{hackathon.hosts[0]?.name}</span>
           </div>
         </div>
-
         <div className="flex gap-[.75rem]">
           <Button
             className="button-text-s h-[2.125rem] flex-1 bg-yellow-primary uppercase"
-            onClick={() => {
-              BurialPoint.track(`hackathon onGoingCard Apply Now 按钮点击`);
-              window.open(hackathon.applyLink);
+            onClick={(e) => {
+              e.stopPropagation();
+              BurialPoint.track(`hackathon onGoingCard Submit Now 按钮点击`);
             }}
           >
-            Apply Now
+            {t('submitNow')}
           </Button>
-          <Button
-            className="button-text-s h-[2.125rem] flex-1 border border-neutral-black uppercase"
-            onClick={goHackathonDetail}
-          >
-            Learn More
+          <Button className="button-text-s h-[2.125rem] flex-1 border border-neutral-black uppercase">
+            {t('learnMore')}
           </Button>
         </div>
       </div>

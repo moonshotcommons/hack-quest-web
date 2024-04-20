@@ -2,12 +2,12 @@ import { HackathonStatusType } from '@/service/webApi/resourceStation/type';
 
 export const hackathonTab = [
   {
-    label: 'Ongoing Hackathons',
+    label: 'onGoingHackathon',
     value: HackathonStatusType.ON_GOING,
     type: 'tab'
   },
   {
-    label: 'Past Hackathons',
+    label: 'pastHackathon',
     value: HackathonStatusType.PAST,
     type: 'tab'
   }

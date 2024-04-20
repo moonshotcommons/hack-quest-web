@@ -22,11 +22,11 @@ export async function generateMetadata({ params }: EventsProp): Promise<Metadata
   const metadata: Metadata = {
     title: 'HackQuest Events',
     alternates: {
-      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/${MenuLink.EVENTS}`,
+      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}${MenuLink.EVENTS}`,
       languages: {
-        'x-default': `https://www.hackquest.io/${Lang.EN}/${MenuLink.EVENTS}`,
-        en: `https://www.hackquest.io/${Lang.EN}/${MenuLink.EVENTS}`,
-        zh: `https://www.hackquest.io/${Lang.ZH}/${MenuLink.EVENTS}`
+        'x-default': `https://www.hackquest.io/${Lang.EN}${MenuLink.EVENTS}`,
+        en: `https://www.hackquest.io/${Lang.EN}${MenuLink.EVENTS}`,
+        zh: `https://www.hackquest.io/${Lang.ZH}${MenuLink.EVENTS}`
       }
     }
   };

@@ -149,6 +149,11 @@
     "certificationAvailable": "Certification available",
     "deviceAccess": "Access on mobile and desktop"
   },
+  "resultsFor": "Results for",
+  "showAll":"Show All",
+  "showLess":"Show Less",
+  "ended":"Ended",
+  "address":"Address",
   "handleButtonText": {
     "save": "save",
     "exit": "exit"

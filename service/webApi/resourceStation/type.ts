@@ -27,6 +27,7 @@ export interface HackathonType {
   communityPartners: MentorType[];
   status: HackathonStatusType;
   alias: string;
+  totalPrice: number;
 }
 
 export interface HackathonDataType {
