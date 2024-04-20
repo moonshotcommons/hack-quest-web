@@ -153,5 +153,9 @@
   "showAll":"查看更多",
   "showLess":"收起",
   "ended":"已结束",
-  "address":"地址"
+  "address":"地址",
+  "handleButtonText": {
+    "save": "保存",
+    "exit": "退出"
+  }
 }

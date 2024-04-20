@@ -153,5 +153,9 @@
   "showAll":"Show All",
   "showLess":"Show Less",
   "ended":"Ended",
-  "address":"Address"
+  "address":"Address",
+  "handleButtonText": {
+    "save": "save",
+    "exit": "exit"
+  }
 }
