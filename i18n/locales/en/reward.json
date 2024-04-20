@@ -32,5 +32,6 @@
   "goToDashboard":"Go to Dashboard",
   "goToProfile":"Go to Profile",
   "youFoundSomethingHidden":"You found something hidden on your HackQuest Journey!",
-  "theTreasuresYouGotAre":"The treasures you’ve got are"
+  "theTreasuresYouGotAre":"The treasures you’ve got are",
+  "whichDay":"Day {{day}}"
 }

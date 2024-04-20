@@ -27,7 +27,7 @@ class ResourceStationApi {
   }
 
   /** 获取hackathon列表 */
-  getHackathonList(params: Record<string, string | number> | { page: number; limit: number } = {}) {
+  getHackathonList(params: object) {
     return this.service.get<HackathonDataType>(ResourceStationApiType.Hackathon, {
       params
     });

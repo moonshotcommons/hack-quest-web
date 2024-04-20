@@ -36,7 +36,6 @@ const Button: FC<ButtonProps> = (props) => {
     loading = false,
     disabled: propDisabled,
     htmlType,
-    onClick: propOnClick,
     ...rest
   } = props;
   // const classNames = ;
@@ -87,14 +86,11 @@ const Button: FC<ButtonProps> = (props) => {
         loading && type === 'primary' ? 'bg-[#FFF4CE] opacity-100 hover:bg-[#FFF4CE]' : '',
         ghost && 'border border-neutral-black bg-transparent',
         ghost && !disabled ? 'hover:bg-neutral-off-white' : '',
-        disabled ? 'cursor-not-allowed opacity-40' : '',
+        disabled ? '!cursor-not-allowed opacity-40' : '',
         className
       )}
       type={htmlType}
-      onClick={(e) => {
-        if (disabled) return;
-        propOnClick?.(e);
-      }}
+      disabled={disabled}
       {...rest}
     >
       {icon && iconPosition === 'left' && <span style={{ visibility: loading ? 'hidden' : 'visible' }}>{icon}</span>}

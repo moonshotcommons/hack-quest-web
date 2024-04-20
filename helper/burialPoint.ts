@@ -156,10 +156,13 @@ type HackathonBurialPointType =
   | 'hackathonDetail show all 按钮点击'
   | 'hackathon onGoingCard 点击'
   | 'hackathon onGoingCard Apply Now 按钮点击'
+  | 'hackathon onGoingCard Submit Now 按钮点击'
   | 'hackathon page tab 点击'
   | 'hackathon detail Apply Now 按钮点击'
   | 'hackathon detail View All Projects 按钮点击'
   | 'hackathon projectCard 点击';
+
+type HackathonProjectBurialPointType = 'hackathon-project 页面留存时间';
 
 type CampaignsBurialPointType =
   | 'campaigns-页面留存时间'
@@ -237,7 +240,8 @@ export type BurialPointType =
   | EcosystemProfileType
   | BlogType
   | GlossaryType
-  | ElectiveDetailBurialPointType;
+  | ElectiveDetailBurialPointType
+  | HackathonProjectBurialPointType;
 
 export class BurialPoint {
   static track(name: BurialPointType, properties?: Record<string, string | number | boolean | null> | undefined) {

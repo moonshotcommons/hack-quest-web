@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React, { useContext, useMemo } from 'react';
 import LaunchImg from '@/public/images/launch/launch_frame.png';
-import HackLogo from '@/public/images/logo/light-footer-logo.svg';
+import HackLogo from '@/public/images/logo/black-icon-text-logo.svg';
 import { separationNumber } from '@/helper/utils';
 import Button from '@/components/Common/Button';
 import { linkIcons } from '../../constants/data';

@@ -16,7 +16,7 @@ import ScrollControl from './ScrollControl';
 import { TabContentType } from '../../../constants/type';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
-import { Lang, TransNs } from '@/i18n/config';
+import { TransNs } from '@/i18n/config';
 
 const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({ missionData, missionClaim }) => {
   const { lang } = useContext(LangContext);
@@ -56,7 +56,11 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({ miss
             }}
           >
             <div className="flex-col-center">
-              <div className="body-xl text-neutral-white ">{lang === Lang.EN ? `Day ${i + 1}` : `第${i + 1}天`}</div>
+              <div className="body-xl text-neutral-white ">
+                {t('whichDay', {
+                  day: i + 1
+                })}
+              </div>
               <div className="mt-[20px] flex w-[165px] justify-between">
                 <div>
                   <Image src={IconCoin} width={60} alt="iconCredits" />
@@ -127,7 +131,11 @@ const DailyBonus: React.FC<Omit<TabContentType, 'unClaimMissionData'>> = ({ miss
               border-neutral-medium-gray bg-[var(--neutral-off-black)] pb-[30px] pt-[30px] `}
         >
           <div className="flex-col-center">
-            <div className="body-l text-neutral-white ">{lang === Lang.EN ? `Day ${i + 1}` : `第${i + 1}天`}</div>
+            <div className="body-l text-neutral-white ">
+              {t('whichDay', {
+                day: i + 1
+              })}
+            </div>
             <div className="mt-[20px] flex w-[104px] justify-between">
               <div>
                 <Image src={IconCoin} width={40} alt="iconCredits" />

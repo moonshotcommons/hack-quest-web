@@ -1,55 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PastHackathonCard from './PastHackathonCard';
-import { useRequest } from 'ahooks';
-import webApi from '@/service';
 
 import { FC } from 'react';
-import Loading from '@/components/Common/Loading';
 import Pagination from '@/components/Common/Pagination';
-import { HackathonStatusType, HackathonType } from '@/service/webApi/resourceStation/type';
-import { errorMessage } from '@/helper/ui';
+import { HackathonType } from '@/service/webApi/resourceStation/type';
 import MenuLink from '@/constants/MenuLink';
 
 interface PastProps {
   page: number;
+  hackathonList: HackathonType[];
+  total: number;
+  limit: number;
 }
 
-let PROJECTS_LIMIT = 12;
-
-const Past: FC<PastProps> = ({ page }) => {
-  // const [page, setPage] = useState(1);
-  const [totalPage, setTotalPage] = useState(1);
-  const [hackathonList, setHackathonList] = useState<HackathonType[]>([]);
-
-  const { run, loading } = useRequest(
-    async () => {
-      const res = await webApi.resourceStationApi.getHackathonList({
-        status: HackathonStatusType.PAST,
-        page: page,
-        limit: PROJECTS_LIMIT
-      });
-      return res;
-    },
-    {
-      manual: true,
-      onSuccess(res) {
-        const { data, total } = res;
-        setTotalPage(total);
-        setHackathonList(data);
-      },
-      onError(err: any) {
-        errorMessage(err);
-      }
-    }
-  );
-
-  useEffect(() => {
-    run();
-  }, [page, run]);
-
+const Past: FC<PastProps> = ({ page, hackathonList, total, limit }) => {
   return (
-    <Loading loading={loading} className="min-h-[80px] w-full">
-      {hackathonList.length > 0 && (
+    <div className="min-h-[80px] w-full">
+      {hackathonList?.length > 0 && (
         <>
           <div className="flex w-full flex-wrap gap-x-[20px] gap-y-[40px]">
             {hackathonList.map((hackathon) => {
@@ -61,17 +28,17 @@ const Past: FC<PastProps> = ({ page }) => {
             })}
           </div>
           <div className="flex w-full justify-center pt-[50px]">
-            {totalPage > PROJECTS_LIMIT && (
+            {total > limit && (
               <Pagination
                 page={page}
-                total={Math.ceil(totalPage / PROJECTS_LIMIT)}
+                total={Math.ceil(total / limit)}
                 urlPrefix={`${MenuLink.HACKATHON}/p/`}
               ></Pagination>
             )}
           </div>
         </>
       )}
-    </Loading>
+    </div>
   );
 };
 
