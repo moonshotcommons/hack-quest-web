@@ -32,5 +32,6 @@
   "goToDashboard":"前往学习页面",
   "gotoProfile":"前往个人信息页面",
   "youFoundSomethingHidden":"你在你的HackQuest旅程中发现了一些隐藏的东西!",
-  "theTreasuresYouGotAre":"你拥有的宝藏是"
+  "theTreasuresYouGotAre":"你拥有的宝藏是",
+  "whichDay":"第{{day}}天"
 }

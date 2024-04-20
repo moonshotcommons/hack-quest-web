@@ -9,8 +9,8 @@ import MenuLink from '@/constants/MenuLink';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
-import CountDown from './CountDown';
 import { separationNumber } from '@/helper/utils';
+import CountDown from '@/components/Web/Business/CountDown';
 
 interface OnGoingHackathonCardProp {
   hackathon: HackathonType;
@@ -29,7 +29,7 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon })
       className="card-hover flex h-[322px] overflow-hidden rounded-[16px] bg-neutral-white "
       onClick={goHackathonDetail}
     >
-      <div className="relative h-full w-[571px] bg-[#d9d9d9]/30">
+      <div className="relative h-full w-[571px] flex-shrink-0 bg-[#d9d9d9]/30">
         <Image src={hackathon.image} fill alt={hackathon.alias} className="object-cover"></Image>
       </div>
       <div className="flex h-full flex-1 flex-col justify-between px-[24px] py-[20px] text-neutral-off-black">
@@ -42,7 +42,7 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon })
         <div className="body-m flex items-center justify-between text-neutral-medium-gray">
           <div>
             <p className="mb-[8px]">{t('submissionClosesIn')}</p>
-            <CountDown hackathon={hackathon} />
+            <CountDown time={hackathon.endTime} />
           </div>
           <div>
             <p className="mb-[8px]">{t('participants')}</p>
@@ -52,9 +52,11 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon })
             <p className="mb-[8px]">{t('totalPrize')}</p>
             <p className="body-xl-bold text-neutral-off-black">{separationNumber(hackathon.totalPrice || 0)}</p>
           </div>
-          <div className="w-[33%]">
+          <div className="w-[25%]">
             <p className="mb-[8px]">{t('host')}</p>
-            <p className="body-xl-bold truncate text-neutral-off-black underline">{hackathon.hosts[0]?.name}</p>
+            <p className="body-xl-bold  relative h-[36px] text-neutral-off-black underline">
+              <p className="absolute left-0 top-0 w-full truncate">{hackathon.hosts[0]?.name}</p>
+            </p>
           </div>
         </div>
         <div className="flex gap-[16px]">

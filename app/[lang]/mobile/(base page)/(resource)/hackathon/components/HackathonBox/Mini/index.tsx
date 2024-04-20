@@ -31,7 +31,7 @@ const Mini: React.FC<MiniProp> = ({ miniHackathonList }) => {
           </div>
         ))}
       </div>
-      {listCount >= miniHackathonList.length && (
+      {listCount < miniHackathonList.length && miniHackathonList.length > 1 && (
         <div
           className="mt-[1.25rem] flex items-center justify-center gap-[.375rem]"
           onClick={() => setListCount((pre) => pre + 1)}

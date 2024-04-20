@@ -42,6 +42,12 @@
     "usersPartitipated":"users partitipated",
     "continueSubmission":"Continue Submission",
     "haveRegistered":"You have registered in this hackathon",
-    "haveSubmission":"You have an ongoing submission"
+    "haveSubmission":"You have an ongoing submission",
+    "firstPlace":"First Place",
+    "secondPlace":"Second Place",
+    "thirdPlace":"Third Place",
+    "trackTotalReward":"{{track}} Track Total Reward",
+    "orientation":"Orientation",
+    "openZoomMeeting":"Open Zoom meeting"
   }
 }

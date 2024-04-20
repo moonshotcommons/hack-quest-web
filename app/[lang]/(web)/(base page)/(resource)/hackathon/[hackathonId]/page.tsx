@@ -1,10 +1,11 @@
 import { FC } from 'react';
 import { Metadata } from 'next';
-import HackathonIdPage from '../components/HackthonId';
 import { getHackathonById } from '@/service/cach/resource/hackathon';
 import MenuLink from '@/constants/MenuLink';
 import { Lang } from '@/i18n/config';
-import { HackathonType } from '@/service/webApi/resourceStation/type';
+import { isUuid } from '@/helper/utils';
+import { permanentRedirect } from 'next/navigation';
+import HackDetail from './components';
 
 interface HackathonIdProps {
   params: {
@@ -31,14 +32,13 @@ export async function generateMetadata({ params }: HackathonIdProps): Promise<Me
 }
 
 const HackathonId: FC<HackathonIdProps> = async function ({ params }: HackathonIdProps) {
-  // const hackathon = await getHackathonById(params.hackathonId);
-  const hackathon = { id: '111' } as HackathonType;
-  // if (isUuid(params.hackathonId)) {
-  //   permanentRedirect(`${MenuLink.HACKATHON}/${hackathon.alias}`);
-  // }
+  const hackathon = await getHackathonById(params.hackathonId);
+  if (isUuid(params.hackathonId)) {
+    permanentRedirect(`${MenuLink.HACKATHON}/${hackathon.alias}`);
+  }
   return (
     <>
-      <HackathonIdPage hackathon={hackathon} />
+      <HackDetail hackathon={hackathon} />
     </>
   );
 };

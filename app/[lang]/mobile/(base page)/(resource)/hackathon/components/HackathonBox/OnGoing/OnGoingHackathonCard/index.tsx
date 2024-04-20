@@ -10,7 +10,7 @@ import { separationNumber } from '@/helper/utils';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
-import CountDown from './CountDown';
+import CountDown from '@/components/Web/Business/CountDown';
 
 interface OnGoingHackathonCardProp {
   hackathon: HackathonType;
@@ -39,7 +39,7 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon })
         </div>
         <div>
           <p className="body-s mb-[.25rem] text-neutral-medium-gray">{t('submissionClosesIn')}</p>
-          <CountDown hackathon={hackathon} />
+          <CountDown time={hackathon.endTime} />
         </div>
         <div className="body-s flex flex-col gap-[4px] text-neutral-medium-gray [&>div]:flex [&>div]:items-center [&>div]:justify-between">
           <div>
