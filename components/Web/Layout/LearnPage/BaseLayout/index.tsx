@@ -1,6 +1,7 @@
 'use client';
 import React, { ReactNode, useEffect } from 'react';
 import NavBar from '../Navbar';
+import AIFloatButton from '@/components/Web/AI/AIFloatButton';
 
 export interface V2LayoutProps {
   children: ReactNode;
@@ -15,13 +16,13 @@ const V2Layout: React.FC<V2LayoutProps> = ({ children }) => {
         <NavBar></NavBar>
       </div>
       <div id="content-scroll-wrap" className={`relative  w-full flex-1 bg-neutral-white`}>
-        {/* <AIFloatButton pageType="learn"> */}
-        <div className={`flex h-full w-full flex-col`}>
-          <div className="relative w-full flex-1">
-            <main className="absolute left-0 top-0 h-full w-full">{children}</main>
+        <AIFloatButton pageType="learn">
+          <div className={`flex h-full w-full flex-col`}>
+            <div className="relative w-full flex-1">
+              <main className="absolute left-0 top-0 h-full w-full">{children}</main>
+            </div>
           </div>
-        </div>
-        {/* </AIFloatButton> */}
+        </AIFloatButton>
       </div>
     </div>
   );

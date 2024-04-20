@@ -1,6 +1,7 @@
 'use client';
 import React, { ReactNode } from 'react';
 import NavBar from '../Navbar';
+import AIFloatButton from '@/components/Mobile/MobAI/AIFloatButton';
 
 export interface V2LayoutProps {
   children: ReactNode;
@@ -13,9 +14,7 @@ const V2Layout: React.FC<V2LayoutProps> = ({ children }) => {
         <NavBar></NavBar>
       </div>
       <div id="content-scroll-wrap" className={`m-auto w-full bg-white pt-[4rem]`}>
-        {/* <AIFloatButton pageType="learn"> */}
-        {children}
-        {/* </AIFloatButton> */}
+        <AIFloatButton pageType="learn">{children}</AIFloatButton>
       </div>
     </div>
   );

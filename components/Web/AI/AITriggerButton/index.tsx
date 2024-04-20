@@ -21,8 +21,6 @@ const AITriggerButton: FC<AITriggerButtonProps & ButtonProps> = (props) => {
     updateHelperType(triggerType);
   };
 
-  return null;
-
   return (
     <Button
       className={cn(
