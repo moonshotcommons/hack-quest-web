@@ -148,5 +148,9 @@
     "claim": "领取",
     "certificationAvailable": "认证可用",
     "deviceAccess": "移动和桌面设备访问"
+  },
+  "handleButtonText": {
+    "save": "保存",
+    "exit": "退出"
   }
 }

@@ -148,5 +148,9 @@
     "claim": "claim",
     "certificationAvailable": "Certification available",
     "deviceAccess": "Access on mobile and desktop"
+  },
+  "handleButtonText": {
+    "save": "save",
+    "exit": "exit"
   }
 }

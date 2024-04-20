@@ -11,7 +11,7 @@ import { useRedirect } from '@/hooks/router/useRedirect';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useMissionCenterStore } from '@/store/zustand/missionCenterStore';
 import { useCustomPathname } from '@/hooks/router/useCheckPathname';
-import HackLogo from '@/public/images/logo/light-footer-logo.svg';
+import HackLogo from '@/public/images/logo/black-icon-text-logo.svg';
 import { useGlobalStore } from '@/store/zustand/globalStore';
 import { LuChevronDown } from 'react-icons/lu';
 import { useDebounceFn } from 'ahooks';
