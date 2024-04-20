@@ -1,3 +1,4 @@
+import { cn } from '@/helper/utils';
 import { FC, ReactNode } from 'react';
 
 export interface StepItem {
@@ -20,11 +21,13 @@ export interface StepsProps {
   /** 当前 process 步骤显示的进度条进度 */
   percent?: number;
   status?: '';
+  connectNodeClassName?: string;
+  itemClassName?: string;
   // progressDot: boolean | (iconDot, {index, status, title, description}) => ReactNode;
 }
 
 const Steps: FC<StepsProps> = (props) => {
-  const { items, current } = props;
+  const { items, current, connectNodeClassName, itemClassName } = props;
 
   const getStatus = (index: number, status: 'finish' | 'wait' | 'progress' | undefined) => {
     if (status) return status;
@@ -39,7 +42,12 @@ const Steps: FC<StepsProps> = (props) => {
         const status = getStatus(index, item.status)!;
         return (
           <div key={index} className="flex min-h-[40px]">
-            <div className="caption-12pt min-h-10 flex min-w-[90px]  flex-col items-center justify-between">
+            <div
+              className={cn(
+                'caption-12pt min-h-10 flex min-w-[90px]  flex-col items-center justify-between',
+                itemClassName
+              )}
+            >
               <div>
                 {status === 'wait' && (
                   <div className="h-4 w-4 rounded-full border border-neutral-light-gray bg-neutral-off-white"></div>
@@ -73,7 +81,9 @@ const Steps: FC<StepsProps> = (props) => {
               <span>{item.title}</span>
             </div>
             {index < items.length - 1 && (
-              <div className="my-[7px] h-[3px] w-[69px] rounded-[16px] bg-neutral-off-white" />
+              <div
+                className={cn('my-[7px] h-[3px] w-[69px] rounded-[16px] bg-neutral-off-white', connectNodeClassName)}
+              />
             )}
           </div>
         );
