@@ -8,6 +8,7 @@ import { FormComponentProps } from '..';
 import Button from '@/components/Common/Button';
 import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/helper/utils';
+import { HackathonSubmitStateType } from '../../../type';
 
 const formSchema = z.object({
   bio: z
@@ -20,7 +21,9 @@ const formSchema = z.object({
     })
 });
 
-const BioForm: FC<Omit<FormComponentProps, 'type'>> = ({ onNext, onBack }) => {
+const BioForm: FC<
+  Omit<FormComponentProps, 'type' | 'formState' | 'setCurrentStep'> & { bio: HackathonSubmitStateType['bio'] }
+> = ({ onNext, onBack }) => {
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -30,7 +33,7 @@ const BioForm: FC<Omit<FormComponentProps, 'type'>> = ({ onNext, onBack }) => {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    onNext();
+    onNext({ bio: values.bio });
   }
 
   console.log(form);

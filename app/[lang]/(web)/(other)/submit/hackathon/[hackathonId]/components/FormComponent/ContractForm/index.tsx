@@ -6,9 +6,10 @@ import { z } from 'zod';
 import { Form } from '@/components/ui/form';
 import CustomFormField from '../../CustomFormField';
 import Button from '@/components/Common/Button';
-import { FC } from 'react';
+import { FC, memo } from 'react';
 import { FormComponentProps } from '..';
 import { cn } from '@/helper/utils';
+import { HackathonSubmitStateType } from '../../../type';
 
 const formSchema = z.object({
   weChat: z.string().min(2, {
@@ -19,7 +20,11 @@ const formSchema = z.object({
   })
 });
 
-const ContractForm: FC<Omit<FormComponentProps, 'type'>> = ({ onNext, onBack }) => {
+const ContractForm: FC<
+  Omit<FormComponentProps, 'type' | 'formState' | 'setCurrentStep'> & {
+    contractInfo: HackathonSubmitStateType['contractInfo'];
+  }
+> = ({ onNext, onBack }) => {
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -29,8 +34,16 @@ const ContractForm: FC<Omit<FormComponentProps, 'type'>> = ({ onNext, onBack }) 
     }
   });
 
+  // const setContractInfo = useHackathonSubmitStore((state) => state.setContractInfo);
+
   function onSubmit(values: z.infer<typeof formSchema>) {
-    onNext();
+    // setContractInfo();
+    onNext({
+      contractInfo: {
+        wechat: values.weChat,
+        telegram: values.telegram
+      }
+    });
   }
 
   return (
@@ -62,4 +75,4 @@ const ContractForm: FC<Omit<FormComponentProps, 'type'>> = ({ onNext, onBack }) 
   );
 };
 
-export default ContractForm;
+export default memo(ContractForm);

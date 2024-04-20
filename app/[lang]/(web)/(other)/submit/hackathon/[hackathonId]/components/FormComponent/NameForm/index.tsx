@@ -9,6 +9,8 @@ import Button from '@/components/Common/Button';
 import { FC } from 'react';
 import { FormComponentProps } from '..';
 import { cn } from '@/helper/utils';
+import { useHackathonSubmitStore } from '../../store';
+import { HackathonSubmitStateType } from '../../../type';
 
 const formSchema = z.object({
   firstName: z.string().min(2, {
@@ -24,7 +26,9 @@ interface NameFormProps {
   onBack: VoidFunction;
 }
 
-const NameForm: FC<Omit<FormComponentProps, 'type'>> = ({ onNext, onBack }) => {
+const NameForm: FC<
+  Omit<FormComponentProps, 'type' | 'formState' | 'setCurrentStep'> & { name: HackathonSubmitStateType['name'] }
+> = ({ onNext, onBack }) => {
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -34,8 +38,11 @@ const NameForm: FC<Omit<FormComponentProps, 'type'>> = ({ onNext, onBack }) => {
     }
   });
 
+  const setName = useHackathonSubmitStore((state) => state.setName);
+
   function onSubmit(values: z.infer<typeof formSchema>) {
-    onNext();
+    // setName(values.firstName + values.lastName);
+    onNext({ name: { firstName: values.firstName, lastName: values.lastName } });
   }
 
   const disable = !!form.watch(['firstName', 'lastName']).filter((item) => !item.trim()).length;

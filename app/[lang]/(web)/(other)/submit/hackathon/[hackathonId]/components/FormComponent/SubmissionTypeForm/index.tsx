@@ -16,6 +16,7 @@ import JoinGroupDetail from './JoinGroupDetail';
 import GroupActionConfirm, { GroupActionConfirmRef } from './GroupActionConfirm';
 import { ActionType } from './GroupActionConfirm/type';
 import { useGroupAction } from './GroupActionConfirm/useGroupAction';
+import { HackathonSubmitStateType } from '../../../type';
 
 const formSchema = z.object({
   type: z.enum(['Solo Project', 'Group Project'], {
@@ -32,7 +33,11 @@ interface SubmissionTypeFormProps {
 
 export type SubmissionTypeFormSchema = z.infer<typeof formSchema>;
 
-const SubmissionTypeForm: FC<Omit<FormComponentProps, 'type'>> = ({ onNext, onBack }) => {
+const SubmissionTypeForm: FC<
+  Omit<FormComponentProps, 'type' | 'formState' | 'setCurrentStep'> & {
+    submissionType: HackathonSubmitStateType['submissionType'];
+  }
+> = ({ onNext, onBack }) => {
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -57,7 +62,32 @@ const SubmissionTypeForm: FC<Omit<FormComponentProps, 'type'>> = ({ onNext, onBa
   const { deleteGroup, removeMember, leaveGroup } = useGroupAction();
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    onNext();
+    onNext({
+      submissionType: {
+        type: values.type,
+        groupType: groupType!,
+        members: [
+          {
+            role: 'Admin',
+            info: {
+              name: 'Peter Parker'
+            }
+          },
+          {
+            role: 'member',
+            info: {
+              name: 'Peter Parker2'
+            }
+          },
+          {
+            role: 'member',
+            info: {
+              name: 'Peter Parker3'
+            }
+          }
+        ]
+      }
+    });
   };
 
   const createTeam = () => {
