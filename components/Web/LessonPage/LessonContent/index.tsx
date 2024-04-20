@@ -11,6 +11,7 @@ import { CustomComponent, LessonContent, NotionComponent } from '@/components/Co
 import { ExpandDataType, PgcExpandDataType } from '@/components/ComponentRenderer/context';
 import AITriggerButton from '@/components/Web/AI/AITriggerButton';
 import { HelperType } from '@/service/webApi/helper/type';
+import FoundBugButton from '../../Business/FoundBugButton';
 
 interface LessonContentProps {
   lesson: Omit<CourseLessonType, 'content'> & { content: LessonContent };
@@ -92,6 +93,11 @@ const LessonContentComponent: FC<LessonContentProps> = (props) => {
               </div>
             );
           })}
+          <FoundBugButton
+            params={{
+              lessonId: lesson.id
+            }}
+          />
         </div>
       )}
     </div>
