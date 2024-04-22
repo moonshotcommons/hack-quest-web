@@ -53,7 +53,7 @@ const ElectiveCard: FC<ElectiveCardProps> = (props) => {
         }}
       >
         <div className={`relative h-0 w-full overflow-hidden rounded-t-2xl pt-[56%]`}>
-          <Image src={course.image || ''} fill alt="cover" className="object-cover"></Image>
+          <Image src={course.image || ''} fill alt="cover" className="object-contain"></Image>
         </div>
         <div className={`relative flex h-[216px]  flex-col justify-between p-[16px]`}>
           {from === 'dashboard' && !!course.progress && course.progress >= 1 ? (

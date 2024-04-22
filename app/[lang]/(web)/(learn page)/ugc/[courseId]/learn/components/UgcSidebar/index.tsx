@@ -27,8 +27,8 @@ const UgcSidebar: FC<UgcSidebarProps> = () => {
         defaultOpenKeys,
         items
       };
+    let prevLessonState = CompleteStateType.COMPLETED;
     items = course.units!.map((unit) => {
-      let prevLessonState = CompleteStateType.COMPLETED;
       return {
         key: unit.id,
         label: unit.title,

@@ -12,7 +12,6 @@ import { ThirdPartyAuthType } from '@/service/webApi/user/type';
 interface SignUpProps {}
 
 const SignUp: FC<SignUpProps> = (props) => {
-  const [emailCheckStatus, setEmailCheckStatus] = useState(false);
   const [showRegisterForm, setShowRegisterForm] = useState(false);
   const [email, setEmail] = useState('');
   const [inviteCode, setInviteCode] = useState('');
@@ -59,26 +58,23 @@ const SignUp: FC<SignUpProps> = (props) => {
             <VerifyEmail
               emailTitle={EmailTitle}
               validator={validator}
-              onStatusChange={(status) => setEmailCheckStatus(status)}
               type={AuthType.SIGN_UP}
               onNext={(email) => {
-                if (emailCheckStatus) {
-                  setEmail(email);
-                  // setInviteCode(inviteCode!);
-                  webApi.userApi.checkEmailExists(email).then((res) => {
-                    // if (res.inWhitelist) {
-                    // setShowRegisterForm(true);
-                    // } else {
-                    setAuthType({
-                      type: AuthType.INVITE_CODE,
-                      params: {
-                        email,
-                        registerType: ThirdPartyAuthType.EMAIL
-                      }
-                    });
-                    // }
+                setEmail(email);
+                // setInviteCode(inviteCode!);
+                webApi.userApi.checkEmailExists(email).then((res) => {
+                  // if (res.inWhitelist) {
+                  // setShowRegisterForm(true);
+                  // } else {
+                  setAuthType({
+                    type: AuthType.INVITE_CODE,
+                    params: {
+                      email,
+                      registerType: ThirdPartyAuthType.EMAIL
+                    }
                   });
-                }
+                  // }
+                });
               }}
             ></VerifyEmail>
             <ThreePartyLogin />
