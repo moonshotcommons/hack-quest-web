@@ -3,9 +3,9 @@ import React from 'react';
 import EventsCover from '@/public/images/resource/events_cover.png';
 import Image from 'next/image';
 import { eventsBannerData } from '@/app/[lang]/(web)/(base page)/(resource)/events/constants/data';
-import CountUp from '@/app/[lang]/(web)/(base page)/(resource)/events/components/EventsBanner/CountUp';
 import Link from 'next/link';
 import MenuLink from '@/constants/MenuLink';
+import CountUp from '@/components/Common/CountUp';
 
 interface EventsBannerProp {}
 

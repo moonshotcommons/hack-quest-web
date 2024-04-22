@@ -8,6 +8,7 @@ import DiscordIcon from '@/components/Common/Icon/Discord';
 import Image from 'next/image';
 import Link from 'next/link';
 import { HACKQUEST_DISCORD } from '@/constants/links';
+import TwitterIcon from '@/components/Common/Icon/Twitter';
 
 interface CentralBannerProp {}
 
@@ -21,22 +22,20 @@ const CentralBanner: React.FC<CentralBannerProp> = () => {
         backgroundPosition: 'center'
       }}
     >
-      <div
-        className="absolute right-0 top-0 h-[820px] w-[828px] "
-        style={{
-          backgroundImage: `url(${BannerCover.src})`,
-          backgroundSize: '100% 100%'
-        }}
-      ></div>
       <div className="container relative z-[2] mx-auto pb-[65px] pt-[120px]">
-        <h1 className="text-[72px] font-bold uppercase leading-[110%] text-neutral-white">
-          decentralized <br /> future hackathon
-        </h1>
-        <h2 className="mt-[12px] text-[28px] text-neutral-off-white">Web3 Programming for everyone</h2>
+        <Image
+          src={BannerCover}
+          width={660}
+          alt="central-dao-cover"
+          className="absolute right-[0] top-[62px] "
+          priority
+        ></Image>
+        <h1 className="text-[72px] font-bold uppercase leading-[110%] text-neutral-white">Hack DeGalaxy</h1>
+        <h2 className="mt-[12px] text-[28px] text-neutral-off-white">Start BUIDL, No Spacesuit Required</h2>
         <div className="my-[60px] flex gap-[40px] text-[24px] font-[500] text-neutral-white">
           <div>
             <p className="text-[16px] font-[300] uppercase text-neutral-light-gray">TIME</p>
-            <p>Apr 15 - May 10, 2024</p>
+            <p>May 25 - June 9, 2024</p>
           </div>
           <div>
             <p className="text-[16px] font-[300] uppercase text-neutral-light-gray">LOCATION</p>
@@ -44,32 +43,47 @@ const CentralBanner: React.FC<CentralBannerProp> = () => {
           </div>
           <div>
             <p className="text-[16px] font-[300] uppercase text-neutral-light-gray">APPLICATION CLOSES IN</p>
-            <p>Apr 1, 2024</p>
+            <p>June 1, 2024</p>
           </div>
         </div>
-        <div className="flex gap-[20px]">
-          <Link href={HACKQUEST_DISCORD} target="_blank">
-            <Button className="button-text-l h-[60px] w-[270px] bg-[#C418A8] uppercase text-neutral-white">
-              apply
-            </Button>
-          </Link>
-
+        <div className="flex w-[612px] flex-col gap-[20px]">
           <Link href={HACKQUEST_DISCORD} target="_blank">
             <Button
-              className="button-text-l h-[60px] w-[270px] border-[2px] border-[rgba(255,255,255,0.5)] p-0  uppercase text-neutral-white"
-              icon={<DiscordIcon color={'white'} />}
-              iconPosition="right"
+              className="button-text-l h-[60px] w-[612px]  uppercase text-neutral-white"
+              style={{
+                background: 'linear-gradient(90deg, #6A5DFF 0%, #9A9CFF 100%)'
+              }}
             >
-              Follow discord
+              Apply
             </Button>
           </Link>
+          <div className="flex justify-between">
+            <Link href={HACKQUEST_DISCORD} target="_blank">
+              <Button
+                className="button-text-l h-[60px] w-[296px] border-[2px] border-[rgba(255,255,255,0.5)] bg-[rgba(0,0,0,0.5)] p-0  uppercase text-neutral-white"
+                icon={<DiscordIcon color={'white'} />}
+                iconPosition="right"
+              >
+                Follow discord
+              </Button>
+            </Link>
+            <Link href={HACKQUEST_DISCORD} target="_blank">
+              <Button
+                className="button-text-l h-[60px] w-[296px] border-[2px] border-[rgba(255,255,255,0.5)] bg-[rgba(0,0,0,0.5)] p-0  uppercase text-neutral-white"
+                icon={<TwitterIcon color={'white'} />}
+                iconPosition="right"
+              >
+                Follow x
+              </Button>
+            </Link>
+          </div>
         </div>
         <div className="mt-[137px] flex items-center gap-[40px]">
           <div className="flex-center h-[37px] w-[126px] border border-neutral-white text-[18px] font-[500] text-neutral-white">
             CO-HOST
           </div>
           <Image src={HackLogo} width={139} alt="hackquest-logo" />
-          <Image src={DaoLogo} width={139} alt="central-logo" />
+          <Image src={DaoLogo} width={120} alt="central-logo" />
         </div>
       </div>
     </div>
