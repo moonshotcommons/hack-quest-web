@@ -13,6 +13,8 @@ import { useRedirect } from '@/hooks/router/useRedirect';
 import { motion } from 'framer-motion';
 import { useCustomPathname } from '@/hooks/router/useCheckPathname';
 import useGetHeight from '@/hooks/dom/useGetHeight';
+import { useGetPageInfo } from '@/hooks/dom/useGetPageInfo';
+import { MOBILE_NAVBAR_HEIGHT } from '../constant';
 interface AuthModalProps {
   changeNavState: VoidFunction;
 }
@@ -34,6 +36,7 @@ const Auth: FC<AuthModalProps> = ({ changeNavState }) => {
   );
 
   const { pageHeight } = useGetHeight();
+  const pageInfo = useGetPageInfo();
 
   const authComponent = useMemo(() => {
     if (queryState) {
@@ -64,7 +67,7 @@ const Auth: FC<AuthModalProps> = ({ changeNavState }) => {
           transition: { staggerChildren: 0.07, delayChildren: 0.2 },
           opacity: 1,
           pointerEvents: 'auto',
-          height: pageHeight
+          height: `${pageInfo.windowHeight - MOBILE_NAVBAR_HEIGHT}px`
         },
         closed: {
           transition: { staggerChildren: 0.05, staggerDirection: -1 },
