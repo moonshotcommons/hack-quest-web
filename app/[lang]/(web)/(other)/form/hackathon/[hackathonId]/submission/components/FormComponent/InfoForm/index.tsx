@@ -12,6 +12,9 @@ import CustomFormField from '@/components/Web/Business/CustomFormField';
 import { HackathonSubmitStateType } from '../../../type';
 
 import LogoUpload from './LogoUpload';
+import ProjectTrackRadio from './ProjectTrackRadio';
+import IntroName from './IntroName';
+import DetailIntroName from './DetailIntroName';
 
 const formSchema = z.object({
   projectLogo: z.string().min(10, {
@@ -51,7 +54,9 @@ const InfoForm: FC<
     resolver: zodResolver(formSchema),
     defaultValues: {
       projectLogo: '',
-      projectName: ''
+      projectName: '',
+      intro: '',
+      detailedIntro: ''
     }
   });
 
@@ -77,6 +82,9 @@ const InfoForm: FC<
               />
             </div>
           </div>
+          <ProjectTrackRadio form={form} />
+          <IntroName form={form} />
+          <DetailIntroName form={form} />
           <div className="flex justify-end gap-4">
             <Button ghost className="w-[165px] px-0 py-4 uppercase" onClick={onBack}>
               Back

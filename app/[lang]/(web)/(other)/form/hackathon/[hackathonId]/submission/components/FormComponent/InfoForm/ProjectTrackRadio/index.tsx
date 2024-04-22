@@ -8,8 +8,8 @@ interface ProjectTypeRadioProps {
 
 const ProjectTrackRadio = ({ form }: ProjectTypeRadioProps) => {
   return (
-    <div className="flex w-full flex-col gap-4">
-      <p className="body-l text-left text-neutral-off-black">Please choose the project type you want to submit</p>
+    <div className="flex w-full flex-col gap-3">
+      <p className="body-m text-left text-neutral-rich-gray">Which Hackathon Track Do You Belong To</p>
       <div className="flex w-full justify-between gap-5">
         <div
           onClick={() => {
@@ -17,8 +17,8 @@ const ProjectTrackRadio = ({ form }: ProjectTypeRadioProps) => {
             form.trigger('track');
           }}
           className={cn(
-            `body-m-bold flex h-[72px]  w-full cursor-pointer items-center justify-center gap-3 rounded-[8px] border-[3px] border-neutral-off-white p-5`,
-            form.watch('track') === 'Solo Project'
+            `body-m flex h-[50px]  w-full cursor-pointer items-center justify-center gap-3 rounded-[8px] border-[3px] border-neutral-off-white px-5 py-3`,
+            form.watch('track') === 'AI + Web3 Applications'
               ? 'border-yellow-dark bg-yellow-extra-light shadow-[0px_0px_8px_0px_rgba(249,216,28,0.30)]'
               : ''
           )}
@@ -31,8 +31,8 @@ const ProjectTrackRadio = ({ form }: ProjectTypeRadioProps) => {
             form.trigger('track');
           }}
           className={cn(
-            `body-m-bold flex h-[72px]  w-full cursor-pointer items-center justify-center gap-3 rounded-[8px] border-[3px] border-neutral-off-white p-5`,
-            form.watch('track') === 'Group Project'
+            `body-m flex h-[50px]  w-full cursor-pointer items-center justify-center gap-3 rounded-[8px] border-[3px] border-neutral-off-white px-5 py-3`,
+            form.watch('track') === 'Fully On-chain Game'
               ? 'border-yellow-dark bg-yellow-extra-light shadow-[0px_0px_8px_0px_rgba(249,216,28,0.30)]'
               : ''
           )}
