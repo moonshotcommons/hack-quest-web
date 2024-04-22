@@ -10,7 +10,6 @@ import { AuthType, useUserStore } from '@/store/zustand/userStore';
 interface LoginProps {}
 
 const Login: FC<LoginProps> = (props) => {
-  const [emailCheckStatus, setEmailCheckStatus] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [email, setEmail] = useState('');
   const { validator } = useValidator(['email']);
@@ -47,12 +46,9 @@ const Login: FC<LoginProps> = (props) => {
               emailTitle={EmailTitle}
               value={email}
               type={AuthType.LOGIN}
-              onStatusChange={(status) => setEmailCheckStatus(status)}
               onNext={(email: string) => {
-                if (emailCheckStatus) {
-                  setShowLogin(true);
-                  setEmail(email);
-                }
+                setShowLogin(true);
+                setEmail(email);
               }}
             ></VerifyEmail>
             <ThreePartyLogin />
