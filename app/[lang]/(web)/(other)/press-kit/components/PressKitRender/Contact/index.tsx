@@ -14,16 +14,16 @@ const Contact: React.FC<ContactProp> = async ({ lang }) => {
   return (
     <div>
       <h1 className="text-h2 mb-[40px]">{t('contact')}</h1>
-      <div className="flex flex-col gap-[40px]">
+      <div className="flex flex-col gap-[40px] text-neutral-black">
         {contactData.map((v) => (
           <div key={v.id}>
             <SubTitle title={v.title} />
             {v.content.map((c, j) => (
-              <p key={j} className="body-l text-neutral-black">
+              <p key={j} className="body-l ">
                 {c}
               </p>
             ))}
-            <Link href={v.path} className="underline-l text-ellipsis">
+            <Link href={v.path} className="underline-l">
               {v.path}
             </Link>
           </div>

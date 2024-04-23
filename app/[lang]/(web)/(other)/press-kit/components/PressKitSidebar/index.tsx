@@ -22,7 +22,7 @@ const PressKitSidebar: React.FC<PressKitSidebarProp> = () => {
       {pressKitNavData.map((nav) => (
         <Link key={nav.id} href={`${MenuLink.PRESS_KIT}/${nav.id}`}>
           <div
-            className={`flex h-[53px]  items-center gap-[8px] overflow-hidden rounded-l-[5px] border-l-[8px] pl-[40px] ${pId === nav.id ? 'border-yellow-dark bg-neutral-white text-neutral-black' : 'border-transparent text-neutral-medium-gray'}`}
+            className={`flex h-[53px]  items-center gap-[8px] overflow-hidden rounded-l-[5px] border-l-[8px] pl-[32px] ${pId === nav.id ? 'border-yellow-dark bg-neutral-white text-neutral-black' : 'border-transparent text-neutral-medium-gray'}`}
           >
             {nav.icon}
             <span>{t(nav.label)}</span>

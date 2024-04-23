@@ -1,22 +1,19 @@
+'use client';
 import { FC, ReactNode } from 'react';
 import Layout from '@/components/Mobile/MobLayout/PressKitPage';
+import PressKitSidebar from './components/PressKitSidebar';
+import useGetHeight from '@/hooks/dom/useGetHeight';
 interface WebLayoutProps {
   children: ReactNode;
-  params: {
-    pressKitId: string;
-  };
 }
 
-const PressKitLayout: FC<WebLayoutProps> = ({ params, children }) => {
+const PressKitLayout: FC<WebLayoutProps> = ({ children }) => {
+  const { pageHeight } = useGetHeight();
   return (
     <Layout>
-      <div className="flex h-full bg-neutral-white">
-        {/* <PressKitSidebar />
-        <div className="scroll-wrap-y relative flex h-full flex-1 justify-center  ">
-          <div className="w-[808px] ">
-            <div className="py-[40px]">{children}</div>
-          </div>
-        </div> */}
+      <div className="relative bg-neutral-white" style={{ height: pageHeight }}>
+        <PressKitSidebar />
+        <div className="scroll-wrap-y absolute left-0 top-0 h-full w-full p-[1.25rem]">{children}</div>
       </div>
     </Layout>
   );

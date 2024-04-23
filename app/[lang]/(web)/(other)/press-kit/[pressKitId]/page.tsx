@@ -6,7 +6,23 @@ import Links from '../components/PressKitRender/Links';
 import Logos from '../components/PressKitRender/Logos';
 import Contact from '../components/PressKitRender/Contact';
 import { Lang } from '@/i18n/config';
+import MenuLink from '@/constants/MenuLink';
+import { Metadata } from 'next';
 
+export async function generateMetadata(props: { params: { lang: string; pressKitId: string } }): Promise<Metadata> {
+  const { lang, pressKitId } = props.params;
+
+  return {
+    alternates: {
+      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}${MenuLink.PRESS_KIT}/${pressKitId}`,
+      languages: {
+        'x-default': `https://www.hackquest.io/${Lang.EN}${MenuLink.PRESS_KIT}/${pressKitId}`,
+        en: `https://www.hackquest.io/${Lang.EN}${MenuLink.PRESS_KIT}/${pressKitId}`,
+        zh: `https://www.hackquest.io/${Lang.ZH}${MenuLink.PRESS_KIT}/${pressKitId}`
+      }
+    }
+  };
+}
 interface PressKitProp {
   params: { pressKitId: string; lang: Lang };
 }

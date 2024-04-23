@@ -14,7 +14,7 @@ interface EventsCardProp {
 
 const EventsCard: React.FC<EventsCardProp> = ({ onClick, events }) => {
   return (
-    <div className="card-hover overflow-hidden rounded-[12px]" onClick={onClick}>
+    <div className="card-hover overflow-hidden rounded-[16px] bg-neutral-white" onClick={onClick}>
       <div className="relative h-0 w-full pt-[56%]">
         <Image src={events.medias?.[0] || CardCover} alt={events.name} fill className="object-cover" />
       </div>
