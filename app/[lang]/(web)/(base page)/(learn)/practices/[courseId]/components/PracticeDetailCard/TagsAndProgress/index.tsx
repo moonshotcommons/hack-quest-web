@@ -62,7 +62,11 @@ const TagsAndProgress: FC<TagsAndProgressProps> = ({ courseDetail: propCourseDet
       if (!certification?.claimed) {
         return <p className="body-m text-neutral-rich-gray">{t('learningTrackDetail.card.completedCourse')}</p>;
       } else {
-        return <p className="body-m text-neutral-rich-gray">{t('learningTrackDetail.card.claimed')}</p>;
+        return (
+          <p className="body-m text-neutral-rich-gray">
+            {t('learningTrackDetail.card.claimed', { chain: certification.name.replace(' Learning Track', '') })}
+          </p>
+        );
       }
   }
 };
