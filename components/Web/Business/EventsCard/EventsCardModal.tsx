@@ -48,7 +48,7 @@ const EventsCardModal: React.FC<EventsCardModalProp> = ({ onClose, open, events 
                 </SwiperContainer>
               ) : null}
             </div>
-            <p className="body-l-bold  text-neutral-black">{events.name}</p>
+            <p className="body-xl-bold  text-neutral-black">{events.name}</p>
             <div className="my-[16px] flex flex-wrap gap-[12px]">
               {events.tags?.map((v, i) => <TrackTag track={v} key={i} />)}
             </div>
