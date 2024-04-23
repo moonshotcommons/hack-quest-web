@@ -1,20 +1,19 @@
 import { errorMessage } from '@/helper/ui';
+import webApi from '@/service';
 import { useRequest } from 'ahooks';
 import { message } from 'antd';
 
 export const useGroupAction = () => {
   const { runAsync: deleteGroup } = useRequest(
-    () => {
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          resolve('');
-        }, 1000);
-      });
+    async (code: string, callback?: () => Promise<any>) => {
+      const res = await webApi.resourceStationApi.deleteTeam(code);
+      await callback?.();
+      return res;
     },
     {
       manual: true,
       onSuccess() {
-        message.success('删除队伍成功！');
+        message.success('Delete team success！');
       },
       onError(err) {
         errorMessage(err);
@@ -22,17 +21,15 @@ export const useGroupAction = () => {
     }
   );
   const { runAsync: removeMember } = useRequest(
-    () => {
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          resolve('');
-        }, 1000);
-      });
+    async (code: string, userId: string, onSuccess?: () => Promise<any>) => {
+      const res = await webApi.resourceStationApi.deleteMember(code, userId);
+      await onSuccess?.();
+      return res;
     },
     {
       manual: true,
       onSuccess() {
-        message.success('删除成员成功！');
+        message.success('Delete member success！');
       },
       onError(err) {
         errorMessage(err);
@@ -40,17 +37,15 @@ export const useGroupAction = () => {
     }
   );
   const { runAsync: leaveGroup } = useRequest(
-    () => {
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          resolve('');
-        }, 1000);
-      });
+    async (code: string, callback?: () => Promise<any>) => {
+      const res = await webApi.resourceStationApi.leaveTeam(code);
+      await callback?.();
+      return res;
     },
     {
       manual: true,
       onSuccess() {
-        message.success('离开队伍成功！');
+        message.success('Leave team success！');
       },
       onError(err) {
         errorMessage(err);

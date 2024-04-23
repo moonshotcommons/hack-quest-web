@@ -1,5 +1,5 @@
 'use client';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
@@ -9,6 +9,11 @@ import Button from '@/components/Common/Button';
 import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/helper/utils';
 import { HackathonRegisterStateType } from '../../../type';
+import { useRequest } from 'ahooks';
+import webApi from '@/service';
+import { errorMessage } from '@/helper/ui';
+import { HackathonRegisterStep } from '@/service/webApi/resourceStation/type';
+import { HACKATHON_SUBMIT_STEPS } from '../../constants';
 
 const formSchema = z.object({
   bio: z
@@ -22,21 +27,53 @@ const formSchema = z.object({
 });
 
 const BioForm: FC<
-  Omit<FormComponentProps, 'type' | 'formState' | 'setCurrentStep'> & { bio: HackathonRegisterStateType['bio'] }
-> = ({ onNext, onBack }) => {
+  Omit<FormComponentProps, 'type' | 'formState' | 'setCurrentStep'> & Pick<HackathonRegisterStateType, 'bio' | 'status'>
+> = ({ onNext, onBack, bio, simpleHackathonInfo, status }) => {
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      bio: ''
+      bio
     }
   });
 
+  const { run: submitRequest, loading } = useRequest(
+    async (values: z.infer<typeof formSchema>) => {
+      const newStatus =
+        HACKATHON_SUBMIT_STEPS.find((item) => item.type === status)!.stepNumber === 2
+          ? HackathonRegisterStep.SubmissionType
+          : status;
+      const res = await webApi.resourceStationApi.updateHackathonRegisterInfo(simpleHackathonInfo.id, {
+        bio: values.bio,
+        status: newStatus
+      });
+      return { res, values, status: newStatus };
+    },
+    {
+      manual: true,
+      onSuccess({ res, values, status }) {
+        onNext({ bio: values.bio, status });
+      },
+      onError(err) {
+        errorMessage(err);
+      }
+    }
+  );
+
   function onSubmit(values: z.infer<typeof formSchema>) {
-    onNext({ bio: values.bio });
+    // setContractInfo();
+    const isSame = values.bio === bio;
+    if (isSame) {
+      onNext({ bio: values.bio });
+      return;
+    }
+    submitRequest(values);
   }
 
-  console.log(form);
+  useEffect(() => {
+    form.setValue('bio', bio);
+    if (!!bio) form.trigger();
+  }, [bio]);
 
   return (
     <div>
@@ -61,6 +98,7 @@ const BioForm: FC<
                   </div>
                   <FormControl>
                     <Textarea
+                      authHeight={false}
                       placeholder={'Add a bio.'}
                       {...field}
                       className="body-m h-[128px] border-neutral-light-gray px-6 py-3 text-[16px] font-normal leading-[160%] text-neutral-medium-gray"
@@ -81,6 +119,7 @@ const BioForm: FC<
               htmlType="submit"
               className={cn('w-[165px] px-0 py-4 uppercase', !form.formState.isValid ? 'bg-neutral-light-gray' : '')}
               disabled={!form.formState.isValid}
+              loading={loading}
             >
               Next
             </Button>

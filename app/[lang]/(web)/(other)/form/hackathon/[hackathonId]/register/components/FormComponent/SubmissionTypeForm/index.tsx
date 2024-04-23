@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { Form } from '@/components/ui/form';
 import Button from '@/components/Common/Button';
-import { FC, useMemo, useRef, useState } from 'react';
+import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { FormComponentProps } from '..';
 import { cn } from '@/helper/utils';
 import ProjectTypeRadio from './ProjectTypeRadio';
@@ -17,6 +17,16 @@ import GroupActionConfirm, { GroupActionConfirmRef } from './GroupActionConfirm'
 import { ActionType } from './GroupActionConfirm/type';
 import { useGroupAction } from './GroupActionConfirm/useGroupAction';
 import { HackathonRegisterStateType } from '../../../type';
+import { useRequest } from 'ahooks';
+import webApi from '@/service';
+import {
+  HackathonRegisterStep,
+  HackathonTeam,
+  HackathonTeamDetail,
+  TeamMemberInfo
+} from '@/service/webApi/resourceStation/type';
+import { errorMessage } from '@/helper/ui';
+import { HACKATHON_SUBMIT_STEPS } from '../../constants';
 
 const formSchema = z.object({
   type: z.enum(['Solo Project', 'Group Project'], {
@@ -34,10 +44,9 @@ interface SubmissionTypeFormProps {
 export type SubmissionTypeFormSchema = z.infer<typeof formSchema>;
 
 const SubmissionTypeForm: FC<
-  Omit<FormComponentProps, 'type' | 'formState' | 'setCurrentStep'> & {
-    submissionType: HackathonRegisterStateType['submissionType'];
-  }
-> = ({ onNext, onBack }) => {
+  Omit<FormComponentProps, 'type' | 'formState' | 'setCurrentStep'> &
+    Pick<HackathonRegisterStateType, 'submissionType' | 'status'>
+> = ({ onNext, onBack, simpleHackathonInfo, status, refreshRegisterInfo, submissionType }) => {
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -48,7 +57,7 @@ const SubmissionTypeForm: FC<
     }
   });
 
-  const [groupType, setGroupType] = useState<'join' | 'owner' | null>(null);
+  const [groupType, setGroupType] = useState<'member' | 'owner' | null>(null);
 
   const type = form.getValues('type');
   const isValid = form.formState.isValid;
@@ -58,81 +67,112 @@ const SubmissionTypeForm: FC<
   }, [type, isValid, groupType]);
 
   const confirmRef = useRef<GroupActionConfirmRef>(null);
-
   const { deleteGroup, removeMember, leaveGroup } = useGroupAction();
 
+  const { run: submitRequest, loading } = useRequest(
+    async (values: z.infer<typeof formSchema>) => {
+      const res = await webApi.resourceStationApi.updateHackathonRegisterInfo(simpleHackathonInfo.id, {
+        status:
+          HACKATHON_SUBMIT_STEPS.find((item) => item.type === status)!.stepNumber === 3
+            ? HackathonRegisterStep.Review
+            : status
+      });
+      return { res, values };
+    },
+    {
+      manual: true,
+      onSuccess({ res, values }) {
+        onNext({ submissionType: { ...submissionType, type: values.type } });
+      },
+      onError(err) {
+        errorMessage(err);
+      }
+    }
+  );
+
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    onNext({
-      submissionType: {
-        type: values.type,
-        groupType: groupType!,
-        members: [
-          {
-            role: 'Admin',
-            info: {
-              name: 'Peter Parker'
-            }
-          },
-          {
-            role: 'member',
-            info: {
-              name: 'Peter Parker2'
-            }
-          },
-          {
-            role: 'member',
-            info: {
-              name: 'Peter Parker3'
-            }
-          }
-        ]
+    submitRequest(values);
+  };
+
+  const { runAsync: createTeam } = useRequest(
+    async (teamName: string) => {
+      const res = await webApi.resourceStationApi.addTeam(simpleHackathonInfo.id, teamName);
+      await refreshRegisterInfo();
+      return res;
+    },
+    {
+      manual: true,
+      onSuccess(res) {
+        console.log(res);
+      },
+      onError(err) {
+        errorMessage(err);
+      }
+    }
+  );
+
+  const { runAsync: joinTeam } = useRequest(
+    async (code: string) => {
+      const res = await webApi.resourceStationApi.joinTeam(code);
+      await refreshRegisterInfo();
+      return res;
+    },
+    {
+      manual: true,
+      onSuccess(res) {
+        console.log(res);
+      },
+      onError(err) {
+        errorMessage(err);
+      }
+    }
+  );
+
+  const onDeleteGroup = (team: HackathonTeam) => {
+    confirmRef.current?.open<ActionType.DeleteTeam>({
+      type: ActionType.DeleteTeam,
+      teamName: team.name!,
+      onConfirm: async () => {
+        await deleteGroup(team.code!, refreshRegisterInfo);
+      },
+      onConfirmCallback: () => setGroupType(null)
+    });
+  };
+
+  const onLeaveTeam = (team: HackathonTeam) => {
+    confirmRef.current?.open<ActionType.LeaveTeam>({
+      type: ActionType.LeaveTeam,
+      teamName: team.name!,
+      onConfirm: async () => {
+        await leaveGroup(simpleHackathonInfo.id, refreshRegisterInfo);
+      },
+      onConfirmCallback: () => setGroupType(null)
+    });
+  };
+
+  const onRemoveMember = (team: HackathonTeam, userInfo: TeamMemberInfo) => {
+    confirmRef.current?.open<ActionType.RemoveMember>({
+      type: ActionType.RemoveMember,
+      userInfo,
+      onConfirm: async () => {
+        await removeMember(team.code!, userInfo.userId, refreshRegisterInfo);
       }
     });
   };
 
-  const createTeam = () => {
-    const teamName = form.getValues('teamName');
-    if (!!teamName.trim()) setGroupType('owner');
-  };
-
-  const joinTeam = () => {
-    const teamCode = form.getValues('teamCode');
-    if (!!teamCode.trim()) setGroupType('join');
-  };
-
-  const onDeleteGroup = () => {
-    confirmRef.current?.open<ActionType.DeleteTeam>({
-      type: ActionType.DeleteTeam,
-      teamName: form.getValues('teamName'),
-      onConfirm: deleteGroup,
-      onConfirmCallback: () => setGroupType(null)
-    });
-  };
-
-  const onLeaveTeam = () => {
-    confirmRef.current?.open<ActionType.LeaveTeam>({
-      type: ActionType.LeaveTeam,
-      teamName: '测试战队',
-      onConfirm: leaveGroup,
-      onConfirmCallback: () => setGroupType(null)
-    });
-  };
-
-  const onRemoveMember = (id: string) => {
-    confirmRef.current?.open<ActionType.RemoveMember>({
-      type: ActionType.RemoveMember,
-      userInfo: {
-        username: '测试成员'
-      },
-      onConfirm: removeMember
-    });
-  };
+  useEffect(() => {
+    if (submissionType.type) {
+      form.setValue('type', submissionType.type);
+      form.trigger('type');
+      setGroupType(submissionType.groupType || null);
+    }
+  }, [submissionType]);
 
   return (
     <div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-6">
-          <ProjectTypeRadio form={form} />
+          <ProjectTypeRadio form={form} submissionType={submissionType} />
           <div className="caption-14pt flex justify-between text-neutral-off-black">
             <p>Are you looking for a teammate? Follow HackQuest Discord to find your dream team!</p>
             <LinkArrow direction="right" decorate>
@@ -142,18 +182,39 @@ const SubmissionTypeForm: FC<
           {type === 'Group Project' && groupType === null && (
             <div className="flex flex-col gap-3 text-left">
               <p>Create a new team or join an existing one.</p>
-              <GroupProjectForm form={form} onCreateTeam={createTeam} onJoinTeam={joinTeam} />
+              <GroupProjectForm
+                form={form}
+                onCreateTeam={async () => {
+                  const teamName = form.getValues('teamName');
+                  if (teamName.trim()) {
+                    await createTeam(teamName);
+                  }
+                }}
+                onJoinTeam={async () => {
+                  const teamCode = form.getValues('teamCode');
+                  if (teamCode.trim()) {
+                    await joinTeam(teamCode);
+                  }
+                }}
+              />
             </div>
           )}
           {type === 'Group Project' && groupType === 'owner' && (
             <OwnerGroupDetail
-              teamName={form.getValues('teamName')}
+              team={submissionType.team!}
               onDelete={onDeleteGroup}
               onRemoveMember={onRemoveMember}
+              teamDetail={submissionType.teamDetail as HackathonTeamDetail}
+              userId={submissionType.userId!}
             />
           )}
-          {type === 'Group Project' && groupType === 'join' && (
-            <JoinGroupDetail teamName={form.getValues('teamCode')} onLeaveTeam={onLeaveTeam} />
+          {type === 'Group Project' && groupType === 'member' && (
+            <JoinGroupDetail
+              team={submissionType.team!}
+              onLeaveTeam={onLeaveTeam}
+              userId={submissionType.userId!}
+              teamDetail={submissionType.teamDetail as HackathonTeamDetail}
+            />
           )}
           <div className="flex justify-end gap-4">
             <Button ghost className="button-text-m w-[165px] px-0 py-4 uppercase" onClick={onBack} htmlType="button">
@@ -164,6 +225,7 @@ const SubmissionTypeForm: FC<
               htmlType="submit"
               className={cn('w-[165px] px-0 py-4 uppercase', disabled ? 'bg-neutral-light-gray' : '')}
               disabled={disabled}
+              loading={loading}
             >
               Next
             </Button>

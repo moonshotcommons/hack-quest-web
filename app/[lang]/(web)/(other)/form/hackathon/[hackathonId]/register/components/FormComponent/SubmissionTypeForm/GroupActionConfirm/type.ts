@@ -1,3 +1,5 @@
+import { TeamMemberInfo } from '@/service/webApi/resourceStation/type';
+
 export enum ActionType {
   DeleteTeam = 'DeleteTeam',
   RemoveMember = 'RemoveMember',
@@ -11,7 +13,7 @@ interface DeleteAndLeaveTeamParams {
 
 interface RemoveMemberParams {
   type: ActionType.RemoveMember;
-  userInfo: Record<string, any>;
+  userInfo: TeamMemberInfo;
 }
 
 // type A = Omit

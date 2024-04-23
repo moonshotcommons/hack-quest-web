@@ -76,15 +76,15 @@ const GroupActionConfirm: ForwardRefRenderFunction<GroupActionConfirmRef, GroupA
           )}
           {option?.type === ActionType.RemoveMember && (
             <div className="body-m flex items-center gap-2 text-neutral-off-black">
-              <Image src={'/images/user/login_avatar.svg'} alt="avatar" width={36} height={36} />
-              <span>{option.userInfo.username || `Peter Parker 2`}</span>
+              <Image src={option.userInfo.avatar} alt="avatar" width={36} height={36} />
+              <span>{option.userInfo.firstName + ' ' + option.userInfo.lastName}</span>
             </div>
           )}
         </div>
         <div className="mt-9 flex justify-center gap-2">
           <Button
             ghost
-            className="button-text-m w-[165px] px-0 py-4 uppercase text-neutral-black"
+            className="button-text-m w-[165px] px-0 py-4 uppercase text-neutral-black outline-none"
             onClick={() => {
               setOpen(false);
               cancel();

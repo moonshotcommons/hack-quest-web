@@ -1,13 +1,17 @@
 import { FC } from 'react';
 import { FormComponentProps } from '..';
 import Image from 'next/image';
+import { HackathonTeamDetail } from '@/service/webApi/resourceStation/type';
+import Button from '@/components/Common/Button';
 
 interface SubmitReviewProps {}
 
-const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({ formState, setCurrentStep }) => {
+const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({ formState, setCurrentStep, onBack }) => {
   const gotoStep = (step: number) => {
     setCurrentStep(step);
   };
+
+  const { name, contractInfo, bio, submissionType } = formState;
 
   const NameBlock = (
     <div
@@ -15,7 +19,7 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({ formSta
       onClick={() => gotoStep(0)}
     >
       <span className="flex-1 text-left">Name</span>
-      <span className="flex-1 text-left">{formState.name.firstName + ' ' + formState.name.lastName}</span>
+      <span className="flex-1 text-left">{name.firstName + ' ' + name.lastName}</span>
       {arrowIcon}
     </div>
   );
@@ -31,13 +35,13 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({ formSta
       </div>
       <div className="body-xs flex items-center justify-between text-neutral-off-black">
         <span>WeChat</span>
-        {!!formState.contractInfo.wechat && <span>{formState.contractInfo.wechat}</span>}
-        {!formState.contractInfo.wechat && <span className="text-neutral-medium-gray">{'No Set'}</span>}
+        {!!contractInfo.weChat && <span>{contractInfo.weChat}</span>}
+        {!contractInfo.weChat && <span className="text-neutral-medium-gray">{'No Set'}</span>}
       </div>
       <div className="body-xs flex items-center justify-between text-neutral-off-black">
         <span>Telegram</span>
-        {!!formState.contractInfo.telegram && <span>{formState.contractInfo.telegram}</span>}
-        {!formState.contractInfo.telegram && <span className="text-neutral-medium-gray">{'No Set'}</span>}
+        {!!contractInfo.telegram && <span>{contractInfo.telegram}</span>}
+        {!contractInfo.telegram && <span className="text-neutral-medium-gray">{'No Set'}</span>}
       </div>
     </div>
   );
@@ -51,7 +55,7 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({ formSta
         <span>Bio</span>
         {arrowIcon}
       </div>
-      <p className="caption-12pt text-left text-neutral-off-black">{formState.bio}</p>
+      <p className="caption-12pt text-left text-neutral-off-black">{bio}</p>
     </div>
   );
 
@@ -82,37 +86,76 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({ formSta
           </svg>
           <span className="ml-1">{formState.submissionType.type}</span>
         </span>
-        <span className="body-xs text-neutral-medium-gray">1 member</span>
+        <span className="body-xs text-neutral-medium-gray">
+          {submissionType.type === 'Solo Project'
+            ? '1'
+            : !!Object.keys(submissionType.teamDetail || {}).length
+              ? (submissionType.teamDetail as HackathonTeamDetail).members.length
+              : 0}{' '}
+          member
+        </span>
       </div>
       <hr className="my-1" />
-      <div className="flex flex-col gap-4 py-1">
-        {formState.submissionType.members.map((member) => {
-          return (
-            <div key={member.info.name} className="flex items-center justify-between">
-              <div className="flex items-center gap-1">
-                <Image src={'/images/user/login_avatar.svg'} alt="测试" width={24} height={24} />
-                <span>{member.info.name}</span>
-              </div>
-              <span>{member.role}</span>
+      <div className="body-xs flex flex-col gap-4 py-1">
+        {submissionType.type === 'Solo Project' && (
+          <div key={name.firstName + ' ' + name.lastName} className="flex items-center justify-between">
+            <div className="flex items-center gap-1">
+              <Image src={submissionType.avatar || ''} alt="avatar" width={24} height={24} className="rounded-full" />
+              <span className="text-neutral-off-black">
+                {name.firstName + ' ' + name.lastName}
+                {' (You)'}
+              </span>
             </div>
-          );
-        })}
+            <span className="text-neutral-medium-gray">Admin</span>
+          </div>
+        )}
+        {Object.keys(submissionType.teamDetail || {}) &&
+          ((submissionType.teamDetail as HackathonTeamDetail).members || []).map((member) => {
+            return (
+              <div key={member.firstName + ' ' + member.lastName} className="flex items-center justify-between">
+                <div className="flex items-center gap-1">
+                  <Image src={member.avatar || ''} alt="测试" width={24} height={24} className="rounded-full" />
+                  <span className="text-neutral-off-black">
+                    {member.firstName + ' ' + member.lastName}
+                    {member.userId === submissionType.userId && ' (You)'}
+                  </span>
+                </div>
+                <span className="text-neutral-medium-gray">{member.isAdmin ? 'Admin' : 'Teammate'}</span>
+              </div>
+            );
+          })}
       </div>
     </div>
   );
 
   return (
-    <div className="">
-      <p className="body-l text-left text-neutral-off-black">
-        Please check all information before you submit the registration
-      </p>
-      <div className="mt-4 flex gap-6 [&>div]:w-[calc(50%-12px)]">
-        <div className="flex flex-col gap-6">
-          {NameBlock}
-          {ContractInfoBlock}
-          {BioBlock}
+    <div>
+      <div className="">
+        <p className="body-l text-left text-neutral-off-black">
+          Please check all information before you submit the registration
+        </p>
+        <div className="mt-4 flex gap-6 [&>div]:w-[calc(50%-12px)]">
+          <div className="flex flex-col gap-6">
+            {NameBlock}
+            {ContractInfoBlock}
+            {BioBlock}
+          </div>
+          {TeamBlock}
         </div>
-        {TeamBlock}
+      </div>
+      <div className="mt-6 flex justify-end gap-4">
+        <Button ghost className="button-text-m w-[165px] px-0 py-4 uppercase" onClick={onBack} htmlType="button">
+          Back
+        </Button>
+        {/* <Button
+          type="primary"
+          htmlType="submit"
+          className={cn('w-[165px] px-0 py-4 uppercase', disabled ? 'bg-neutral-light-gray' : '')}
+          disabled={disabled}
+          loading={loading}
+        >
+          Next
+        </Button> */}
       </div>
     </div>
   );
