@@ -19,7 +19,7 @@ const EventsCard: React.FC<EventsCardProp> = ({ onClick, events }) => {
         <Image src={events.medias?.[0] || CardCover} alt={events.name} fill className="object-cover" />
       </div>
       <div className="flex flex-col justify-between gap-[16px] px-[16px] py-[20px]">
-        <h2 className="bpdy-l-bold line-clamp-2 h-[58px] text-neutral-off-black">{events.name}</h2>
+        <h2 className="body-l-bold line-clamp-2 h-[58px] text-neutral-off-black">{events.name}</h2>
         <div className="flex flex-wrap gap-x-[8px] gap-y-[4px]">
           {events.tags?.map((v, i) => <TrackTag track={v} key={i} />)}
         </div>
