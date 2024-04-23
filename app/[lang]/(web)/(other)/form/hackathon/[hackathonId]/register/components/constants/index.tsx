@@ -1,32 +1,30 @@
 import { StepItem } from '@/components/Common/Steps';
+import { HackathonRegisterStep } from '@/service/webApi/resourceStation/type';
 
-export enum SubmitType {
-  Name = 'Name',
-  Contact = 'Contact',
-  Bio = 'Bio',
-  SubmissionType = 'Submission Type',
-  Review = 'Review'
-}
-
-export const HACKATHON_SUBMIT_STEPS: (StepItem & { type: SubmitType })[] = [
+export const HACKATHON_SUBMIT_STEPS: (StepItem & { type: HackathonRegisterStep; stepNumber: number })[] = [
   {
     title: 'Name',
-    type: SubmitType.Name
+    type: HackathonRegisterStep.Name,
+    stepNumber: 0
   },
   {
     title: 'Contact',
-    type: SubmitType.Contact
+    type: HackathonRegisterStep.Contact,
+    stepNumber: 1
   },
   {
     title: 'Bio',
-    type: SubmitType.Bio
+    type: HackathonRegisterStep.Bio,
+    stepNumber: 2
   },
   {
     title: 'Submission Type',
-    type: SubmitType.SubmissionType
+    type: HackathonRegisterStep.SubmissionType,
+    stepNumber: 3
   },
   {
     title: 'Review',
-    type: SubmitType.Review
+    type: HackathonRegisterStep.Review,
+    stepNumber: 4
   }
 ];

@@ -59,6 +59,7 @@ class LaunchPoolApi {
       data
     });
   }
+
   /* 取消质押 */
   unStake(projectId: string, stakeId: string) {
     const url = `${LaunchPoolApiType.LaunchPoolProjects}/${projectId}/unstake/${stakeId}`;

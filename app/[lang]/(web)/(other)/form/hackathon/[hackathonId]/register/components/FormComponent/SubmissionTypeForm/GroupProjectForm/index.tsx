@@ -4,17 +4,17 @@ import { UseFormReturn } from 'react-hook-form';
 import { SubmissionTypeFormSchema } from '..';
 import { cn } from '@/helper/utils';
 import CustomFormField from '@/components/Web/Business/CustomFormField';
+import { useRequest } from 'ahooks';
 
 interface GroupProjectFormProps {
   form: UseFormReturn<SubmissionTypeFormSchema, any, undefined>;
-  onCreateTeam: VoidFunction;
-  onJoinTeam: VoidFunction;
+  onCreateTeam: () => Promise<void>;
+  onJoinTeam: () => Promise<void>;
 }
 
 const GroupProjectForm: FC<GroupProjectFormProps> = ({ form, onCreateTeam, onJoinTeam }) => {
   const teamName = form.getValues('teamName').trim();
   const teamCode = form.getValues('teamCode').trim();
-  console.log(teamCode, teamName);
   const teamNameDisable = useMemo(() => {
     return !teamName;
   }, [teamName]);
@@ -22,6 +22,24 @@ const GroupProjectForm: FC<GroupProjectFormProps> = ({ form, onCreateTeam, onJoi
   const teamCodeDisable = useMemo(() => {
     return !teamCode;
   }, [teamCode]);
+
+  const { run: create, loading: createLoading } = useRequest(
+    () => {
+      return onCreateTeam();
+    },
+    {
+      manual: true
+    }
+  );
+
+  const { run: join, loading: joinLoading } = useRequest(
+    () => {
+      return onJoinTeam();
+    },
+    {
+      manual: true
+    }
+  );
 
   return (
     <>
@@ -42,7 +60,8 @@ const GroupProjectForm: FC<GroupProjectFormProps> = ({ form, onCreateTeam, onJoi
               teamNameDisable ? 'bg-neutral-light-gray' : ''
             )}
             disabled={teamNameDisable}
-            onClick={onCreateTeam}
+            loading={createLoading}
+            onClick={create}
           >
             create team
           </Button>
@@ -71,8 +90,10 @@ const GroupProjectForm: FC<GroupProjectFormProps> = ({ form, onCreateTeam, onJoi
               'button-text-s w-[140px] items-end px-0 py-2 uppercase',
               teamCodeDisable ? 'bg-neutral-light-gray' : ''
             )}
+            htmlType="button"
             disabled={teamCodeDisable}
-            onClick={onJoinTeam}
+            loading={joinLoading}
+            onClick={join}
           >
             join team
           </Button>

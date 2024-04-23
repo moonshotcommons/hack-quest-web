@@ -52,7 +52,8 @@ const Steps: FC<StepsProps> = (props) => {
                 {status === 'wait' && (
                   <div className="h-4 w-4 rounded-full border border-neutral-light-gray bg-neutral-off-white"></div>
                 )}
-                {status !== 'wait' && (
+                {status === 'finish' && <div className="h-4 w-4 rounded-full  bg-yellow-primary"></div>}
+                {status === 'progress' && (
                   <svg
                     width="26"
                     height="26"
@@ -80,10 +81,13 @@ const Steps: FC<StepsProps> = (props) => {
               </div>
               <span>{item.title}</span>
             </div>
-            {index < items.length - 1 && (
+            {index >= current && index < items.length - 1 && (
               <div
                 className={cn('my-[7px] h-[3px] w-[69px] rounded-[16px] bg-neutral-off-white', connectNodeClassName)}
               />
+            )}
+            {index < current && (
+              <div className={cn('my-[7px] h-[3px] w-[69px] rounded-[16px] bg-yellow-primary', connectNodeClassName)} />
             )}
           </div>
         );

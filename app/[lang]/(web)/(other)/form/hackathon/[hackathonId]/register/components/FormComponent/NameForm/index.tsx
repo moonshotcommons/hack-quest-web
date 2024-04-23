@@ -5,12 +5,16 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { Form } from '@/components/ui/form';
 import Button from '@/components/Common/Button';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { FormComponentProps } from '..';
 import { cn } from '@/helper/utils';
-import { useHackathonSubmitStore } from '../../store';
 import { HackathonRegisterStateType } from '../../../type';
 import CustomFormField from '@/components/Web/Business/CustomFormField';
+import { useRequest } from 'ahooks';
+import webApi from '@/service';
+import { errorMessage } from '@/helper/ui';
+import { HackathonRegisterStep } from '@/service/webApi/resourceStation/type';
+import { HACKATHON_SUBMIT_STEPS } from '../../constants';
 
 const formSchema = z.object({
   firstName: z.string().min(2, {
@@ -27,25 +31,54 @@ interface NameFormProps {
 }
 
 const NameForm: FC<
-  Omit<FormComponentProps, 'type' | 'formState' | 'setCurrentStep'> & { name: HackathonRegisterStateType['name'] }
-> = ({ onNext, onBack }) => {
+  Omit<FormComponentProps, 'type' | 'formState' | 'setCurrentStep'> &
+    Pick<HackathonRegisterStateType, 'name' | 'status'>
+> = ({ onNext, onBack, simpleHackathonInfo, name, status }) => {
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      firstName: '',
-      lastName: ''
-    }
+    defaultValues: name
   });
 
-  const setName = useHackathonSubmitStore((state) => state.setName);
+  const { run: submitRequest, loading } = useRequest(
+    async (values: z.infer<typeof formSchema>) => {
+      const newStatus =
+        HACKATHON_SUBMIT_STEPS.find((item) => item.type === status)!.stepNumber === 0
+          ? HackathonRegisterStep.Contact
+          : status;
+
+      const res = await webApi.resourceStationApi.updateHackathonRegisterInfo(simpleHackathonInfo.id, {
+        firstName: values.firstName,
+        lastName: values.lastName,
+        status: newStatus
+      });
+      return { res, values, status: newStatus };
+    },
+    {
+      manual: true,
+      onSuccess({ res, values, status }) {
+        onNext({ name: { firstName: values.firstName, lastName: values.lastName }, status });
+      },
+      onError(err) {
+        errorMessage(err);
+      }
+    }
+  );
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // setName(values.firstName + values.lastName);
-    onNext({ name: { firstName: values.firstName, lastName: values.lastName } });
+    const isSame = values.firstName === name.firstName && values.lastName === name.lastName;
+    if (isSame) {
+      onNext({ name: { firstName: values.firstName, lastName: values.lastName } });
+      return;
+    }
+    submitRequest(values);
   }
 
-  const disable = !!form.watch(['firstName', 'lastName']).filter((item) => !item.trim()).length;
+  useEffect(() => {
+    form.setValue('firstName', name.firstName);
+    form.setValue('lastName', name.lastName);
+    if (name.firstName && name.lastName) form.trigger();
+  }, [name]);
 
   return (
     <div>
@@ -61,6 +94,7 @@ const NameForm: FC<
             </Button>
             <Button
               type="primary"
+              loading={loading}
               htmlType="submit"
               className={cn('w-[165px] px-0 py-4 uppercase', !form.formState.isValid ? 'bg-neutral-light-gray' : '')}
               disabled={!form.formState.isValid}

@@ -5,46 +5,76 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { Form } from '@/components/ui/form';
 import Button from '@/components/Common/Button';
-import { FC, memo } from 'react';
+import { FC, memo, useEffect } from 'react';
 import { FormComponentProps } from '..';
 import { cn } from '@/helper/utils';
 import { HackathonRegisterStateType } from '../../../type';
 import CustomFormField from '@/components/Web/Business/CustomFormField';
+import { errorMessage } from '@/helper/ui';
+import { useRequest } from 'ahooks';
+import webApi from '@/service';
+import { HackathonRegisterStep } from '@/service/webApi/resourceStation/type';
+import { HACKATHON_SUBMIT_STEPS } from '../../constants';
 
-const formSchema = z.object({
-  weChat: z.string().min(2, {
-    message: 'WeChat must be at least 2 characters.'
-  }),
-  telegram: z.string().min(2, {
-    message: 'Telegram must be at least 2 characters.'
+const formSchema = z
+  .object({
+    weChat: z.string().optional(),
+    telegram: z.string().optional()
   })
-});
+  .refine((data) => data.weChat !== '' || data.telegram !== '', {
+    message: 'At least one input must be filled',
+    path: ['weChat', 'telegram']
+  });
 
 const ContractForm: FC<
-  Omit<FormComponentProps, 'type' | 'formState' | 'setCurrentStep'> & {
-    contractInfo: HackathonRegisterStateType['contractInfo'];
-  }
-> = ({ onNext, onBack }) => {
+  Omit<FormComponentProps, 'type' | 'formState' | 'setCurrentStep'> &
+    Pick<HackathonRegisterStateType, 'contractInfo' | 'status'>
+> = ({ onNext, onBack, contractInfo, simpleHackathonInfo, status }) => {
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      weChat: '',
-      telegram: ''
-    }
+    defaultValues: contractInfo
   });
 
-  // const setContractInfo = useHackathonSubmitStore((state) => state.setContractInfo);
+  const { run: submitRequest, loading } = useRequest(
+    async (values: z.infer<typeof formSchema>) => {
+      const newStatus =
+        HACKATHON_SUBMIT_STEPS.find((item) => item.type === status)!.stepNumber === 1
+          ? HackathonRegisterStep.Bio
+          : status;
+      const res = await webApi.resourceStationApi.updateHackathonRegisterInfo(simpleHackathonInfo.id, {
+        weChat: values.weChat,
+        telegram: values.telegram,
+        status: newStatus
+      });
+      return { res, values, status: newStatus };
+    },
+    {
+      manual: true,
+      onSuccess({ res, values, status }) {
+        onNext({ contractInfo: { weChat: values.weChat, telegram: values.telegram }, status });
+      },
+      onError(err) {
+        errorMessage(err);
+      }
+    }
+  );
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     // setContractInfo();
-    onNext({
-      contractInfo: {
-        wechat: values.weChat,
-        telegram: values.telegram
-      }
-    });
+    const isSame = values.weChat === contractInfo.weChat && values.telegram === contractInfo.telegram;
+    if (isSame) {
+      onNext({ contractInfo: { weChat: values.weChat, telegram: values.telegram } });
+      return;
+    }
+    submitRequest(values);
   }
+
+  useEffect(() => {
+    form.setValue('weChat', contractInfo.weChat);
+    form.setValue('telegram', contractInfo.telegram);
+    if (contractInfo.weChat && contractInfo.telegram) form.trigger();
+  }, [contractInfo]);
 
   return (
     <div>
@@ -65,6 +95,7 @@ const ContractForm: FC<
               htmlType="submit"
               className={cn('w-[165px] px-0 py-4 uppercase', !form.formState.isValid ? 'bg-neutral-light-gray' : '')}
               disabled={!form.formState.isValid}
+              loading={loading}
             >
               Next
             </Button>

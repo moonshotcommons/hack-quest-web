@@ -1,17 +1,17 @@
+import { HackathonRegisterStep, HackathonTeam, HackathonTeamDetail } from '@/service/webApi/resourceStation/type';
+
 export interface ContractInfo {
-  wechat: string;
-  telegram: string;
+  weChat?: string;
+  telegram?: string;
 }
 
 export interface SubmissionType {
   type: 'Solo Project' | 'Group Project' | null;
-  groupType: string;
-  members: {
-    role: string;
-    info: {
-      name: string;
-    };
-  }[];
+  groupType?: 'member' | 'owner';
+  team?: HackathonTeam;
+  userId?: string;
+  teamDetail?: HackathonTeamDetail | {};
+  avatar?: string;
 }
 
 export interface HackathonRegisterStateType {
@@ -22,6 +22,7 @@ export interface HackathonRegisterStateType {
   contractInfo: ContractInfo;
   bio: string;
   submissionType: SubmissionType;
+  status: HackathonRegisterStep;
   // setName: (name: string) => void;
   // setContractInfo: (contractInfo: ContractInfo) => void;
   // setBio: (bio: string) => void;
