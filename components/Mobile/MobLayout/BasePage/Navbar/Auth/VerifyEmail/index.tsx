@@ -8,7 +8,6 @@ import { useDebounceFn, useKeyPress } from 'ahooks';
 import Schema from 'async-validator';
 import { AuthType } from '@/store/zustand/userStore';
 interface VerifyEmailProps {
-  onStatusChange: (status: boolean) => void;
   onNext: (email: string, inviteCode?: string) => void;
   validator: Schema;
   emailTitle?: ReactNode;
@@ -17,7 +16,7 @@ interface VerifyEmailProps {
 }
 
 const VerifyEmail: FC<VerifyEmailProps> = (props) => {
-  const { onStatusChange, onNext, value, emailTitle: EmailTitle, validator, type } = props;
+  const { onNext, value, emailTitle: EmailTitle, validator, type } = props;
 
   const [formData, setFormData] = useState<{
     email: string;
@@ -64,7 +63,6 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
               message: errors?.[0].message || ''
             });
           }
-          setLoading(false);
         } else {
           if (type === AuthType.LOGIN) {
             BurialPoint.track('login-登录邮箱验证成功');
@@ -80,8 +78,8 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
             }
           });
           onNext(formData.email);
-          setLoading(false);
         }
+        setLoading(false);
       });
     },
     { wait: 500 }
@@ -130,14 +128,6 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
               email: {
                 status: 'default',
                 errorMessage: ''
-              }
-            });
-
-            validator.validate({ email: e.target.value }, (errors, fields) => {
-              if (errors?.[0]) {
-                onStatusChange(false);
-              } else {
-                onStatusChange(true);
               }
             });
           }}
