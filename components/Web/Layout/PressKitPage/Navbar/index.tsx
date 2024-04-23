@@ -15,7 +15,7 @@ export interface NavBarProps {}
 
 const NavBar: React.FC<NavBarProps> = () => {
   const { lang } = useContext(LangContext);
-  const { t } = useTranslation(lang, TransNs.BASIC);
+  const { t } = useTranslation(lang, TransNs.PRESS_KIT);
   const { redirectToUrl } = useRedirect();
 
   const goLanding = () => {
@@ -31,12 +31,12 @@ const NavBar: React.FC<NavBarProps> = () => {
               <Image src={HackLogo} width={133} alt="logo"></Image>
             </Link>
             <div className={`text-h4 ml-[4px] flex h-full cursor-pointer items-center text-neutral-black`}>
-              Press Kit
+              {t('pressKit')}
             </div>
           </nav>
           <div className="body-m flex cursor-pointer items-center gap-[7px] text-neutral-black" onClick={goLanding}>
             <div className="relative">
-              <span>Go to HackQuest </span>
+              <span>{t('goToHackQuest')}</span>
               <div className="absolute bottom-0 left-0 h-[2px] w-full rounded-[2px] bg-yellow-dark"></div>
             </div>
             <HiArrowLongRight size={20}></HiArrowLongRight>
