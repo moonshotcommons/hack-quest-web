@@ -11,6 +11,7 @@ import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import WarningIcon from '@/components/Common/Icon/Warning';
 import CountDown from '@/components/Web/Business/CountDown';
+import { useGlobalStore } from '@/store/zustand/globalStore';
 
 interface HackathonInfoProp {
   hackathon: HackathonType;
@@ -19,6 +20,7 @@ interface HackathonInfoProp {
 const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
+  const setTipsModalOpenState = useGlobalStore((state) => state.setTipsModalOpenState);
   return (
     <div className="flex flex-col  gap-[1.25rem]  text-neutral-off-black">
       <div className="body-s flex items-center gap-[.25rem] rounded-[1rem] border border-status-error bg-status-error-light p-[1rem] text-neutral-medium-gray ">
@@ -85,6 +87,7 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
           className="button-text-m h-[3rem] w-full bg-yellow-primary uppercase"
           onClick={() => {
             BurialPoint.track(`hackathon detail Apply Now 按钮点击`);
+             setTipsModalOpenState(true)
           }}
         >
           {t('submitNow')}
