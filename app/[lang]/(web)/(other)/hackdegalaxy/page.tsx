@@ -3,13 +3,6 @@ import { Lang } from '@/i18n/config';
 import { Metadata } from 'next';
 import React from 'react';
 import CentralBanner from './components/CentralBanner';
-import Introduction from './components/Introduction';
-import PrizeTrack from './components/PrizeTrack';
-import Schedule from './components/Schedule';
-import Judges from './components/Judges';
-import Partners from './components/Partners';
-import Count from './components/Count';
-import Degalaxy from './components/Degalaxy';
 
 export async function generateMetadata(props: { params: { lang: string } }): Promise<Metadata> {
   const { lang } = props.params;
@@ -30,9 +23,9 @@ interface CentralDaoProp {}
 
 const CentralDao: React.FC<CentralDaoProp> = () => {
   return (
-    <div className="bg-[#13121F] pb-[147px] font-Poppins text-[16px] text-neutral-off-white">
+    <div className="h-[100vh] font-Poppins text-[16px] text-neutral-off-white">
       <CentralBanner />
-      <div className="container mx-auto flex flex-col gap-[120px]">
+      {/* <div className="container mx-auto flex flex-col gap-[120px]">
         <Count />
         <Degalaxy />
       </div>
@@ -43,7 +36,7 @@ const CentralDao: React.FC<CentralDaoProp> = () => {
         <Schedule />
         <Judges />
         <Partners />
-      </div>
+      </div> */}
     </div>
   );
 };
