@@ -117,3 +117,63 @@ export interface EventsType {
   status: EventStatus;
   eventUrl?: string;
 }
+
+export enum HackathonRegisterStep {
+  Name = 'NAME',
+  Contact = 'CONTRACT',
+  Bio = 'BIO',
+  SubmissionType = 'SUBMISSION_TYPE',
+  Review = 'REVIEW'
+}
+
+export interface HackathonRegisterInfo {
+  id: string;
+  hackathonId: string;
+  userId: string;
+  firstName: string | null;
+  lastName: string | null;
+  weChat: string | null;
+  telegram: string | null;
+  team: HackathonTeam;
+  bio: string | null;
+  status: HackathonRegisterStep;
+  createdAt: string;
+  updatedAt: string;
+  avatar: string;
+}
+
+export interface RegisterInfoBody {
+  firstName?: string | null;
+  lastName?: string | null;
+  weChat?: string | null;
+  telegram?: string | null;
+  bio?: string | null;
+  status?: HackathonRegisterStep;
+}
+
+export interface HackathonTeam {
+  code?: string;
+  creatorId?: string;
+  id?: string;
+  name?: string;
+}
+
+export interface TeamMemberInfo {
+  userId: string;
+  firstName: string;
+  lastName: string;
+  weChat: string;
+  telegram: string;
+  bio: string;
+  isAdmin: boolean;
+  avatar: string;
+}
+
+export interface HackathonTeamDetail {
+  id: string;
+  name: string;
+  creatorId: string;
+  createdAt: string;
+  updatedAt: string;
+  members: TeamMemberInfo[];
+}

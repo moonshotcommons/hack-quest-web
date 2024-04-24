@@ -80,6 +80,26 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
         </div>
       </div>
 
+      <Link href={`/form/hackathon/${hackathon.id}/register`}>
+        <Button
+          className="button-text-l h-[60px] w-full bg-yellow-primary uppercase"
+          onClick={() => {
+            BurialPoint.track(`hackathon detail Apply Now 按钮点击`);
+          }}
+        >
+          {/* {t('submitNow')} */}
+          {t('register')}
+        </Button>
+      </Link>
+      <Button
+        className="button-text-l h-[60px] w-full bg-yellow-primary uppercase"
+        onClick={() => {
+          BurialPoint.track(`hackathon detail Apply Now 按钮点击`);
+        }}
+      >
+        {/* {t('submitNow')} */}
+        {t('continueSubmission')}
+      </Button>
       <Button
         className="button-text-l h-[60px] w-full bg-yellow-primary uppercase"
         onClick={() => {

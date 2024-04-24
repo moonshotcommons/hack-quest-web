@@ -1,6 +1,5 @@
 import React, { FC, ReactNode } from 'react';
-
-import SubmitLayoutNavbar from './components/Navbar';
+import SubmitLayoutNavbar from '../../components/Navbar';
 
 interface SubmitLayoutProps {
   children: ReactNode;

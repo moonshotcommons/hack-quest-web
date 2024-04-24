@@ -1,16 +1,27 @@
+import { HackathonTeam, HackathonTeamDetail } from '@/service/webApi/resourceStation/type';
 import Image from 'next/image';
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 
 interface JoinGroupDetailProps {
-  teamName: string;
-  onLeaveTeam: VoidFunction;
+  teamDetail: HackathonTeamDetail;
+  team: HackathonTeam;
+  onLeaveTeam: (team: HackathonTeam) => void;
+  userId: string;
 }
 
-const JoinGroupDetail: FC<JoinGroupDetailProps> = ({ teamName, onLeaveTeam }) => {
+const JoinGroupDetail: FC<JoinGroupDetailProps> = ({ team, onLeaveTeam, userId, teamDetail }) => {
+  const members = useMemo(() => {
+    return (teamDetail?.members || []).sort((a, b) => {
+      if (a.isAdmin) return -1;
+      return 1;
+    });
+  }, [teamDetail]);
+  console.log(members);
+
   return (
     <div className="flex w-full flex-col gap-3">
       <div className="flex w-full items-center justify-between">
-        <span className="body-xl-bold text-neutral-off-black">{teamName}</span>
+        <span className="body-xl-bold text-neutral-off-black">{team.name}</span>
         <span className="underline-s flex cursor-pointer items-center gap-1 text-neutral-rich-gray transition hover:text-status-error">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -20,49 +31,31 @@ const JoinGroupDetail: FC<JoinGroupDetailProps> = ({ teamName, onLeaveTeam }) =>
               fill="#3E3E3E"
             />
           </svg>
-          <span className="text-[14px] leading-[160%]" onClick={onLeaveTeam}>
+          <span className="text-[14px] leading-[160%]" onClick={() => onLeaveTeam(team)}>
             Leave Team
           </span>
         </span>
       </div>
-      {/* <div className="my-1 flex flex-col gap-1">
-        <p className="body-m text-left text-neutral-rich-gray">Team Code</p>
-        <div className="body-m flex items-center justify-between gap-1 rounded-[16px] bg-yellow-extra-light px-6 py-3 leading-[160%] text-neutral-off-black">
-          <span>HX56QSDFDSC</span>
-          <svg
-            width="17"
-            height="20"
-            viewBox="0 0 17 20"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="cursor-pointer"
-          >
-            <path
-              d="M2.58759 19.6453C2.05915 19.6453 1.60662 19.4562 1.23 19.078C0.85337 18.6999 0.665377 18.2458 0.666017 17.7159V5.17499C0.666017 4.90166 0.758253 4.67239 0.942723 4.48717C1.12719 4.30195 1.35522 4.20966 1.6268 4.21031C1.89902 4.21031 2.12737 4.30292 2.31184 4.48813C2.49631 4.67335 2.58823 4.90231 2.58759 5.17499V17.7159H12.1954C12.4676 17.7159 12.696 17.8085 12.8805 17.9937C13.0649 18.1789 13.1568 18.4079 13.1562 18.6806C13.1562 18.9539 13.064 19.1832 12.8795 19.3684C12.695 19.5536 12.467 19.6459 12.1954 19.6453H2.58759ZM6.43072 15.7865C5.90229 15.7865 5.44976 15.5975 5.07313 15.2193C4.69651 14.8411 4.50851 14.3871 4.50915 13.8572V2.28093C4.50915 1.75036 4.69747 1.29599 5.07409 0.917834C5.45072 0.539678 5.90293 0.350921 6.43072 0.351564H15.0778C15.6062 0.351564 16.0587 0.540642 16.4354 0.918799C16.812 1.29696 17 1.751 16.9993 2.28093V13.8572C16.9993 14.3877 16.811 14.8421 16.4344 15.2203C16.0578 15.5984 15.6056 15.7872 15.0778 15.7865H6.43072ZM6.43072 13.8572H15.0778V2.28093H6.43072V13.8572Z"
-              fill="#8C8C8C"
-            />
-          </svg>
-        </div>
-      </div> */}
       <div className="my-1 flex flex-col gap-1">
-        <p className="body-m text-left text-neutral-rich-gray">Team Members (1)</p>
+        <p className="body-m text-left text-neutral-rich-gray">Team Members ({teamDetail?.members.length || 0})</p>
         <div className="flex flex-col gap-2">
-          <div className="flex items-center justify-between py-2">
-            <span className="flex items-center gap-2">
-              <Image src={'/images/user/login_avatar.svg'} alt="测试" width={36} height={36} />
-              <span className="body-m">测试</span>
-            </span>
-            <span>Admin</span>
-          </div>
-          <div className="flex items-center justify-between py-2">
-            <span className="flex items-center gap-2">
-              <Image src={'/images/user/login_avatar.svg'} alt="测试" width={36} height={36} />
-              <span className="body-m">测试</span>
-            </span>
-            <span className="underline-s cursor-pointer leading-[160%] text-neutral-rich-gray transition hover:text-status-error">
-              Teammate
-            </span>
-          </div>
+          {(teamDetail?.members || []).map((member) => {
+            return (
+              <div className="flex items-center justify-between py-2" key={member.userId}>
+                <span className="flex  items-center gap-2 ">
+                  <span className="h-9 w-9 overflow-hidden rounded-full bg-neutral-light-gray text-xs">
+                    <Image src={member.avatar} alt="avatar" width={36} height={36} />
+                  </span>
+                  <span className="body-m">
+                    {member.firstName + ' ' + member.lastName}
+                    {userId === member.userId && ' (You)'}
+                  </span>
+                </span>
+                {member.isAdmin && <span>Admin</span>}
+                {!member.isAdmin && <span>Teammate</span>}
+              </div>
+            );
+          })}
         </div>
       </div>
       <div className="flex items-center gap-1 rounded-[16px] bg-neutral-off-white p-4">
