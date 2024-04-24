@@ -1,6 +1,13 @@
 import { MetadataRoute } from 'next';
 import { BlogType } from '@/service/webApi/resourceStation/type';
 
+type Link = {
+  url: string;
+  lastModified: Date;
+  changeFrequency: 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never';
+  priority: number;
+};
+
 async function getAllProjects(type = 'projects') {
   const response = await fetch('https://api.hackquest.io/v1/' + type);
   if (!response.ok) return [];
@@ -18,14 +25,14 @@ async function getAllProjects(type = 'projects') {
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  // read hackathons
   const projects = await getAllProjects();
   const hackathons = await getAllProjects('hackathons');
   const blogs = await getAllProjects('blogs');
   const glossaries = await getAllProjects('glossaries');
   const learningTracks = await getAllProjects('learning-tracks');
+  const courses = await getAllProjects('courses');
 
-  return [
+  const base: Link[] = [
     {
       url: 'https://www.hackquest.io/',
       lastModified: new Date(),
@@ -62,6 +69,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'weekly',
       priority: 0.9
     },
+    ...courses.map((course: BlogType) => ({
+      url: `https://www.hackquest.io/practices/${course.id}`,
+      changeFrequency: 'monthly',
+      priority: 0.8
+    })),
     {
       url: 'https://www.hackquest.io/blog',
       lastModified: new Date(),
@@ -109,6 +121,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.6
+    },
+    {
+      url: 'https://www.hackquest.io/events',
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.7
     }
   ];
+
+  const languages = ['en', 'zh'];
+  return languages.reduce((acc, lang) => {
+    acc.push(
+      ...base.map((item: Link) => {
+        return {
+          ...item,
+          url: item.url.replace('https://www.hackquest.io/', `https://www.hackquest.io/${lang}/`)
+        };
+      })
+    );
+    return acc;
+  }, [] as Link[]);
 }
