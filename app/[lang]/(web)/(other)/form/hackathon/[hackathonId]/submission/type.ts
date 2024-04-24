@@ -22,11 +22,11 @@ export interface HackathonSubmitStateType {
     intro: string;
     detailedIntro: string;
   };
-  contractInfo: ContractInfo;
-  bio: string;
-  submissionType: SubmissionType;
-  // setName: (name: string) => void;
-  // setContractInfo: (contractInfo: ContractInfo) => void;
-  // setBio: (bio: string) => void;
-  // setSubmissionType: (submissionType: SubmissionType) => void;
+  pickVideo: string;
+  projectDemo: string;
+  others: {
+    githubLink: string;
+    isPublic: boolean;
+  };
+  wallet: string;
 }

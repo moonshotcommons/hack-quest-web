@@ -2,8 +2,8 @@
 import { FC, useCallback, useEffect, useState } from 'react';
 import { HACKATHON_SUBMIT_STEPS } from '../constants';
 import FormComponent from '../FormComponent';
-import { HackathonRegisterStateType } from '../../type';
 import FormHeader from '../FormHeader';
+import { HackathonRegisterStateType } from '../../type';
 import { useRequest } from 'ahooks';
 import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';

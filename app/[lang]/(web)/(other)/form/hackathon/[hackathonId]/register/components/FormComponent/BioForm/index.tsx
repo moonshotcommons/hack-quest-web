@@ -110,14 +110,17 @@ const BioForm: FC<
             />
           </div>
           <div className="flex justify-end gap-4">
-            <Button ghost className="w-[165px] px-0 py-4 uppercase" onClick={onBack}>
+            <Button ghost className="button-text-m w-[165px] px-0 py-4 uppercase" onClick={onBack}>
               Back
             </Button>
 
             <Button
               type="primary"
               htmlType="submit"
-              className={cn('w-[165px] px-0 py-4 uppercase', !form.formState.isValid ? 'bg-neutral-light-gray' : '')}
+              className={cn(
+                'button-text-m w-[165px] px-0 py-4 uppercase',
+                !form.formState.isValid ? 'bg-neutral-light-gray' : ''
+              )}
               disabled={!form.formState.isValid}
               loading={loading}
             >

@@ -223,7 +223,7 @@ const SubmissionTypeForm: FC<
             <Button
               type="primary"
               htmlType="submit"
-              className={cn('w-[165px] px-0 py-4 uppercase', disabled ? 'bg-neutral-light-gray' : '')}
+              className={cn('button-text-m w-[165px] px-0 py-4 uppercase', disabled ? 'bg-neutral-light-gray' : '')}
               disabled={disabled}
               loading={loading}
             >

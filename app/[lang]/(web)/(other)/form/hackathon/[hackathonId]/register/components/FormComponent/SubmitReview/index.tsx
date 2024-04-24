@@ -150,7 +150,7 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({ formSta
         {/* <Button
           type="primary"
           htmlType="submit"
-          className={cn('w-[165px] px-0 py-4 uppercase', disabled ? 'bg-neutral-light-gray' : '')}
+          className={cn('w-[165px] button-text-m px-0 py-4 uppercase', disabled ? 'bg-neutral-light-gray' : '')}
           disabled={disabled}
           loading={loading}
         >

@@ -15,6 +15,7 @@ import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';
 import { HackathonRegisterStep } from '@/service/webApi/resourceStation/type';
 import { HACKATHON_SUBMIT_STEPS } from '../../constants';
+import { isEqual } from 'lodash-es';
 
 const formSchema = z.object({
   firstName: z.string().min(2, {
@@ -66,7 +67,7 @@ const NameForm: FC<
   );
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    const isSame = values.firstName === name.firstName && values.lastName === name.lastName;
+    const isSame = isEqual(values, name);
     if (isSame) {
       onNext({ name: { firstName: values.firstName, lastName: values.lastName } });
       return;
@@ -96,7 +97,10 @@ const NameForm: FC<
               type="primary"
               loading={loading}
               htmlType="submit"
-              className={cn('w-[165px] px-0 py-4 uppercase', !form.formState.isValid ? 'bg-neutral-light-gray' : '')}
+              className={cn(
+                'button-text-m w-[165px] px-0 py-4 uppercase',
+                !form.formState.isValid ? 'bg-neutral-light-gray' : ''
+              )}
               disabled={!form.formState.isValid}
             >
               Next
