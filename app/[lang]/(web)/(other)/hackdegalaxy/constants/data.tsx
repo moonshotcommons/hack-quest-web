@@ -5,6 +5,20 @@ import EngagingWorkshops from '@/public/images/hackathon/engaging_workshops.png'
 import MentorshipSessions from '@/public/images/hackathon/mentorship_sessions.png';
 import ExpandNetwork from '@/public/images/hackathon/expand_network.png';
 
+export const tagline = 'Start BUIDL, No Spacesuit Required';
+
+export const applyLink = 'https://hackdegalaxy.devfolio.co/';
+
+export const discordLink = 'https://discord.gg/YK7RRmmD';
+
+export const twitterLink = 'https://twitter.com/hackdegalaxy';
+
+export const startTime = '2024-5-25';
+
+export const endTime = '2024-6-9';
+
+export const closeInTime = '2024-6-1';
+
 export const countData = [
   {
     count: 1500,

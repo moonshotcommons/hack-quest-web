@@ -1,6 +1,6 @@
 import React from 'react';
 import CentralTitle from '../CentralTitle';
-import { scheduleData } from '@/app/[lang]/(web)/(other)/central-dao/constants/data';
+import { scheduleData } from '@/app/[lang]/(web)/(other)/hackdegalaxy/constants/data';
 
 interface ScheduleProp {}
 

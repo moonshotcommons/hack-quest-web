@@ -1,6 +1,6 @@
 import React from 'react';
 import CentralTitle from '../CentralTitle';
-import { introductionText } from '@/app/[lang]/(web)/(other)/central-dao/constants/data';
+import { introductionText } from '@/app/[lang]/(web)/(other)/hackdegalaxy/constants/data';
 
 interface IntroductionProp {}
 

@@ -7,8 +7,9 @@ import Button from '@/components/Common/Button';
 import DiscordIcon from '@/components/Common/Icon/Discord';
 import Image from 'next/image';
 import Link from 'next/link';
-import { HACKQUEST_DISCORD } from '@/constants/links';
 import TwitterIcon from '@/components/Common/Icon/Twitter';
+import { applyLink, closeInTime, discordLink, endTime, startTime, tagline, twitterLink } from '../../constants/data';
+import moment from 'moment';
 
 interface CentralBannerProp {}
 
@@ -31,11 +32,11 @@ const CentralBanner: React.FC<CentralBannerProp> = () => {
           priority
         ></Image>
         <h1 className="text-[72px] font-bold uppercase leading-[110%] text-neutral-white">Hack DeGalaxy</h1>
-        <h2 className="mt-[12px] text-[28px] text-neutral-off-white">Start BUIDL, No Spacesuit Required</h2>
+        <h2 className="mt-[12px] text-[28px] text-neutral-off-white">{tagline}</h2>
         <div className="my-[60px] flex gap-[40px] text-[24px] font-[500] text-neutral-white">
           <div>
             <p className="text-[16px] font-[300] uppercase text-neutral-light-gray">TIME</p>
-            <p>May 25 - June 9, 2024</p>
+            <p>{`${moment(startTime).format('ll')} - ${moment(endTime).format('ll')}`}</p>
           </div>
           <div>
             <p className="text-[16px] font-[300] uppercase text-neutral-light-gray">LOCATION</p>
@@ -43,11 +44,11 @@ const CentralBanner: React.FC<CentralBannerProp> = () => {
           </div>
           <div>
             <p className="text-[16px] font-[300] uppercase text-neutral-light-gray">APPLICATION CLOSES IN</p>
-            <p>June 1, 2024</p>
+            <p>{moment(closeInTime).format('ll')}</p>
           </div>
         </div>
         <div className="flex w-[612px] flex-col gap-[20px]">
-          <Link href={HACKQUEST_DISCORD} target="_blank">
+          <Link href={applyLink} target="_blank">
             <Button
               className="button-text-l h-[60px] w-[612px]  uppercase text-neutral-white"
               style={{
@@ -58,7 +59,7 @@ const CentralBanner: React.FC<CentralBannerProp> = () => {
             </Button>
           </Link>
           <div className="flex justify-between">
-            <Link href={HACKQUEST_DISCORD} target="_blank">
+            <Link href={discordLink} target="_blank">
               <Button
                 className="button-text-l h-[60px] w-[296px] border-[2px] border-[rgba(255,255,255,0.5)] bg-[rgba(0,0,0,0.5)] p-0  uppercase text-neutral-white"
                 icon={<DiscordIcon color={'white'} />}
@@ -67,7 +68,7 @@ const CentralBanner: React.FC<CentralBannerProp> = () => {
                 Follow discord
               </Button>
             </Link>
-            <Link href={HACKQUEST_DISCORD} target="_blank">
+            <Link href={twitterLink} target="_blank">
               <Button
                 className="button-text-l h-[60px] w-[296px] border-[2px] border-[rgba(255,255,255,0.5)] bg-[rgba(0,0,0,0.5)] p-0  uppercase text-neutral-white"
                 icon={<TwitterIcon color={'white'} />}

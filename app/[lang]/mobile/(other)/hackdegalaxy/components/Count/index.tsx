@@ -1,6 +1,6 @@
 import React from 'react';
 import CountUp from '@/components/Common/CountUp';
-import { countData } from '@/app/[lang]/(web)/(other)/central-dao/constants/data';
+import { countData } from '@/app/[lang]/(web)/(other)/hackdegalaxy/constants/data';
 
 interface CountProp {}
 

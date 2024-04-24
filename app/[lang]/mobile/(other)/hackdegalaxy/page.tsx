@@ -16,11 +16,11 @@ export async function generateMetadata(props: { params: { lang: string } }): Pro
 
   return {
     alternates: {
-      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}${MenuLink.CENTRAL_DAO}`,
+      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}${MenuLink.HACKDEGALAXY}`,
       languages: {
-        'x-default': `https://www.hackquest.io/${Lang.EN}${MenuLink.CENTRAL_DAO}`,
-        en: `https://www.hackquest.io/${Lang.EN}${MenuLink.CENTRAL_DAO}`,
-        zh: `https://www.hackquest.io/${Lang.ZH}${MenuLink.CENTRAL_DAO}`
+        'x-default': `https://www.hackquest.io/${Lang.EN}${MenuLink.HACKDEGALAXY}`,
+        en: `https://www.hackquest.io/${Lang.EN}${MenuLink.HACKDEGALAXY}`,
+        zh: `https://www.hackquest.io/${Lang.ZH}${MenuLink.HACKDEGALAXY}`
       }
     }
   };

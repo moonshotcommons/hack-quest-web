@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import CentralTitle from '../CentralTitle';
-import { partnersData } from '@/app/[lang]/(web)/(other)/central-dao/constants/data';
+import { partnersData } from '@/app/[lang]/(web)/(other)/hackdegalaxy/constants/data';
 interface PartnersProp {}
 
 const Partners: React.FC<PartnersProp> = () => {

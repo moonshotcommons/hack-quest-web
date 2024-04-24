@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
 import DegalaxyCover from '@/public/images/hackathon/degalaxy_cover.png';
-import { degalaxyData } from '@/app/[lang]/(web)/(other)/central-dao/constants/data';
+import { degalaxyData } from '@/app/[lang]/(web)/(other)/hackdegalaxy/constants/data';
 
 interface DegalaxyProp {}
 
