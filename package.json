@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@better-scroll/core": "^2.5.1",
+    "@floating-ui/react": "^0.26.12",
     "@formatjs/intl-localematcher": "^0.5.4",
     "@headlessui/react": "^1.7.15",
     "@hookform/resolvers": "^3.3.4",
@@ -43,6 +44,7 @@
     "i18next": "^23.10.1",
     "i18next-browser-languagedetector": "^7.2.0",
     "i18next-resources-to-backend": "^1.2.0",
+    "immutability-helper": "^3.1.1",
     "install": "^0.13.0",
     "js-confetti": "^0.11.0",
     "lodash-es": "^4.17.21",
@@ -61,6 +63,7 @@
     "react-device-detect": "^2.2.3",
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
+    "react-dnd-touch-backend": "^16.0.1",
     "react-dom": "^18.2.0",
     "react-easy-crop": "^5.0.2",
     "react-hook-form": "^7.45.1",

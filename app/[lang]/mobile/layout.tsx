@@ -1,7 +1,6 @@
 import { Lang } from '@/i18n/config';
 import { Metadata } from 'next';
 import { ReactNode } from 'react';
-
 export async function generateMetadata({ params }: { params: { lang: string } }): Promise<Metadata> {
   const { lang } = params;
   return {

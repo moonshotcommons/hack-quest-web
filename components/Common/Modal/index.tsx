@@ -16,6 +16,7 @@ interface ModalProps {
   className?: string;
   iconClassName?: string;
   block?: boolean;
+  zIndex?: number;
 }
 
 const IconClose: FC<{ icon?: ReactNode; className?: string }> = (props) => {
@@ -39,12 +40,20 @@ const Modal: React.FC<ModalProps> = (props) => {
     markBg = 'black',
     className,
     iconClassName,
-    block = false
+    block = false,
+    zIndex = 999
   } = props;
   // const closeIcon =
   return (
     <Transition show={open} appear as={Fragment}>
-      <Dialog as="div" className="relative z-[999]" onClose={onClose}>
+      <Dialog
+        as="div"
+        className="relative z-[999]"
+        style={{
+          zIndex: zIndex
+        }}
+        onClose={onClose}
+      >
         <div className={cn(`fixed bg-black bg-opacity-50`, block ? 'inset-x-0 bottom-0 top-[64px]' : 'inset-0')} />
         <div className={cn('fixed  overflow-y-auto', block ? 'inset-x-0 bottom-0 top-[64px]' : 'inset-0')}>
           <div className={cn('flex min-h-full items-center justify-center text-center', block ? '' : 'p-4')}>

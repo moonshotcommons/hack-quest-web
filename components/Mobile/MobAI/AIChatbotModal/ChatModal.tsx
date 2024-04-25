@@ -143,7 +143,7 @@ const AIChatbotModal: FC<AIChatbotModalProps> = ({ pageType }) => {
   }, [pendingTypeMessage]);
 
   return (
-    <Modal open={helperParams.open} onClose={() => {}} markBg="black" block>
+    <Modal open={helperParams.open} onClose={() => {}} markBg="black" block zIndex={1200}>
       <div
         className="flex w-screen flex-col justify-between overflow-auto bg-neutral-white"
         style={{

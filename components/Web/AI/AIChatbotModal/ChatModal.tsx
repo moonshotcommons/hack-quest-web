@@ -166,7 +166,7 @@ const AIChatbotModal: FC<AIChatbotModalProps> = ({ pageType }) => {
         transition={{ duration: 0.2 }}
         ref={containerElementRef}
         className={cn(
-          'absolute -bottom-[20px] right-16 flex h-[716px] w-[480px] scale-0 cursor-default flex-col justify-between rounded-[16px] bg-neutral-white shadow-[0px_0px_4px_0px_rgba(0,0,0,0.12)]'
+          'flex h-[716px] w-[480px] scale-0 cursor-default flex-col justify-between rounded-[16px] bg-neutral-white shadow-[0px_0px_4px_0px_rgba(0,0,0,0.12)]'
         )}
       >
         <ChatHeader close={close} />
