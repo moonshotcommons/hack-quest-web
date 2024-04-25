@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import CoursesTab from '../CoursesTab';
 import { CourseTab } from '../../constants/type';
 import CourseList from '../CourseList';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next-nprogress-bar';
 import { getSearchParamsUrl } from '@/helper/utils';
 import MenuLink from '@/constants/MenuLink';
 import { useRequest } from 'ahooks';

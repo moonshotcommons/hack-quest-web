@@ -3,15 +3,20 @@ import Layout from '@/components/Web/Layout/PressKitPage';
 import PressKitSidebar from './components/PressKitSidebar';
 interface WebLayoutProps {
   children: ReactNode;
+  params: {
+    pressKitId: string;
+  };
 }
 
-const PressKitLayout: FC<WebLayoutProps> = ({ children }) => {
+const PressKitLayout: FC<WebLayoutProps> = ({ params, children }) => {
   return (
     <Layout>
-      <div className="flex h-full">
+      <div className="flex h-full bg-neutral-white">
         <PressKitSidebar />
-        <div className="scroll-wrap-y flex h-full flex-1 justify-center py-[40px]">
-          <div className="w-[808px]">{children}</div>
+        <div className="scroll-wrap-y relative flex h-full flex-1 justify-center  ">
+          <div className="w-[808px] ">
+            <div className="py-[40px]">{children}</div>
+          </div>
         </div>
       </div>
     </Layout>

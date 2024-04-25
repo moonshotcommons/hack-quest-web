@@ -4,7 +4,7 @@ import SwiperContainer from '@/components/Common/SwiperContainer';
 import TrackTag from '@/components/Common/TrackTag';
 import useGetHeight from '@/hooks/dom/useGetHeight';
 import moment from 'moment';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next-nprogress-bar';
 import React from 'react';
 import { HiArrowLongLeft } from 'react-icons/hi2';
 import { PiCalendarBlank } from 'react-icons/pi';

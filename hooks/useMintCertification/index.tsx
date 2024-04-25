@@ -1,4 +1,4 @@
-import { ChainConfigContext } from '@/components/Provider/Config';
+import { ChainConfigContext } from '@/components/Provider/WagmiConfigProvider';
 import { ChainType } from '@/config/wagmi';
 import { useWriteSbtManagerSafeMint } from '@/lib/generated';
 import webApi from '@/service';

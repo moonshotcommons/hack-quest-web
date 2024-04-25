@@ -10,7 +10,7 @@ import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { BiUser, BiLockAlt, BiLogInCircle } from 'react-icons/bi';
 import { V2_LANDING_PATH, isNoNeedUserInfo } from '@/constants/nav';
 import { useCustomPathname } from '@/hooks/router/useCheckPathname';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next-nprogress-bar';
 import MenuLink from '@/constants/MenuLink';
 import ConnectButton from '../ConnectButton';
 import { LangContext } from '@/components/Provider/Lang';

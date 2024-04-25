@@ -80,9 +80,9 @@ const History: FC<HistoryProps> = ({ loading, chatHistory, scrollToBottomSwitch,
         <div className="scroll-wrap-child flex w-full flex-1 flex-col gap-3 pb-3">
           {chatHistory.map((item, index) => {
             return (
-              <MessageTemplate key={item.id} role={item.message.role} status={item.status}>
-                {item.message.role === ChatRole.Human && item.message.content}
-                {item.message.role === ChatRole.Assistant && <TypeMessageNode content={item.message.content} />}
+              <MessageTemplate key={item.id} role={item.message.type} status={item.status}>
+                {item.message.type === ChatRole.Human && item.message.content}
+                {item.message.type === ChatRole.Assistant && <TypeMessageNode content={item.message.content} />}
               </MessageTemplate>
             );
           })}

@@ -8,7 +8,7 @@ export enum HelperType {
 }
 
 export enum ChatRole {
-  Assistant = 'assistant',
+  Assistant = 'ai',
   Human = 'human'
 }
 
@@ -23,7 +23,7 @@ export interface CompletionsInput {
 export interface CompletionsRes {
   id: string;
   message: {
-    role: ChatRole;
+    type: ChatRole;
     content: string;
   };
 }

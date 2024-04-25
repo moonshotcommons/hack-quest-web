@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import { PiSortAscendingBold, PiSortDescendingBold } from 'react-icons/pi';
 import { BiSearch, BiCheck } from 'react-icons/bi';
 import { BlogSearchType } from '@/service/webApi/resourceStation/type';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next-nprogress-bar';
 import { cloneDeep } from 'lodash-es';
 import Link from 'next/link';
 import Select from '@/components/Common/Select';
