@@ -39,11 +39,11 @@ const Events: React.FC<EventsProp> = async ({ params: { lang } }) => {
   const list = res.data || [];
   return (
     <div>
-      <EventsBanner />
-      <UpcomingEvents list={list} />
-      <PastEvents list={list} />
-      <ExploreMore />
-      <Reach />
+      <EventsBanner lang={lang} />
+      <UpcomingEvents list={list} lang={lang} />
+      <PastEvents list={list} lang={lang} />
+      <ExploreMore lang={lang} />
+      <Reach lang={lang} />
       <div id="events-footer">
         <LandingFooter lang={lang} />
       </div>

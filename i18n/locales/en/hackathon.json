@@ -46,7 +46,7 @@
     "firstPlace":"First Place",
     "secondPlace":"Second Place",
     "thirdPlace":"Third Place",
-    "trackTotalReward":"{{track}} Track Total Reward",
+    "trackTotalReward":"{{track}} Total Reward",
     "orientation":"Orientation",
     "openZoomMeeting":"Open Zoom meeting"
   }

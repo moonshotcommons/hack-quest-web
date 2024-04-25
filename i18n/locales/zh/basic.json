@@ -159,5 +159,9 @@
   "handleButtonText": {
     "save": "保存",
     "exit": "退出"
-  }
+  },
+  "viewMore": "查看更多",
+  "continueSubmission":"继续提交",
+  "register":"注册",
+  "youHavesubmitted":"你已经提交"
 }

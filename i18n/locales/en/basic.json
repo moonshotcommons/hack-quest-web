@@ -159,5 +159,9 @@
   "handleButtonText": {
     "save": "save",
     "exit": "exit"
-  }
+  },
+  "viewMore": "View more",
+  "continueSubmission":"Continue Submission",
+  "register":"Register",
+  "youHavesubmitted":"You Have Submitted"
 }

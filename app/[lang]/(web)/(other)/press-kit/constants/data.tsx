@@ -31,53 +31,40 @@ export const pressKitNavData = [
   }
 ];
 
-export const aboutData = [
-  {
-    title: 'About HackQuest',
-    content: [
-      'At Moonshot Commons’ Web3 Fireside Chat #22, HashKey Demo Day AMA, we invited speakers from leading infrastructure and middleware projects: Zooey, Co-founder and CEO of Dataverse; Mathew Sweezey, Chief Strategy Officer at Smart Layer; Burnt Banksy, Founder of Burnt (XION); Nicolas Biagosch, Co-initiator of the Q protocol; Mark Rydon, CEO and Co-founder of Aethir, and Greg, Chief Product Officer at ChainSafe.',
-      'HashKey Capital is a leading institutional asset manager focused on blockchain technology and digital assets since 2015.'
-    ]
-  },
-  {
-    title: 'HackQuest',
-    content: ['Therefore, to setup a liquidity pool we just need to:'],
-    ul: [
-      'After we defined the basic contract, we will set up our liquidity pool.',
-      'Assign the token’s address when deploying the contract.',
-      'Keep track of the amount of the tokens.'
-    ]
-  }
-];
+export const aboutData = [];
 
 export const ArticlesData = [
   {
     id: 1,
-    title: 'Articles',
+    title: 'HackQuest co-hosts ETH Shanghai hackathon 2023 with Moonshot Commons and Mask Network',
     img: '',
     descrption:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed',
-    time: 'Jan 02, 2023'
+      'Taking place this summer, the ETH Shanghai hackathon will unite a diverse community of intellectuals and developers worldwide, showcasing their talents and groundbreaking innovations in the field of crypto technology. ',
+    time: 'June 24, 2023',
+    link: 'https://cointelegraph.com/press-releases/hackquest-co-hosts-eth-shanghai-hackathon-2023-with-moonshot-commons-and-mask-network'
   },
   {
     id: 2,
-    title: 'Articles',
+    title: 'Gen Z Web3 builder community Moonshot Commons launches winter hackathon',
     img: '',
     descrption:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed',
-    time: 'Jan 02, 2023'
+      'Following the success of hosting one of the largest Web3 hackathons six months ago, Moonshot Commons launched its winter hackathon themed “Rethink, Restate, and Recharge” on Dec. 17, 2022.',
+    time: 'December 19, 2022',
+    link: 'https://cointelegraph.com/press-releases/gen-z-web3-builder-community-moonshot-commons-launches-winter-hackathon'
   },
   {
     id: 3,
-    title: 'Articles',
+    title: 'Mantle Network Launches Mantle Learn With HackQuest to Onboard Web2 Developers to Web3',
     img: '',
     descrption:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed',
-    time: 'Jan 02, 2023'
+      "Combining Mantle Network’s technical prowess and HackQuest's interactive learning modules and built-in IDE, Mantle Learn is set to catapult the accessibility and quality of Web3 developer education.",
+    time: 'December 13, 2023',
+    link: 'https://decrypt.co/209615/mantle-network-launches-mantle-learn-with-hackquest-to-onboard-web2-developers-to-web3'
   },
   {
     id: 4,
-    title: 'Articles',
+    title:
+      'SevenX Ventures Launches Nitro Hackathon with HackQuest, MUD, DOJO, and Moonshot Commons, Focusing on Fully On-Chain Gaming and Web3+AI Applications',
     img: '',
     descrption:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed',
