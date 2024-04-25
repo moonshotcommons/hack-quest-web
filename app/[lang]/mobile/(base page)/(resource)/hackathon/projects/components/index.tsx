@@ -8,7 +8,7 @@ import { TransNs } from '@/i18n/config';
 import { PageInfoType, SearchParamsType } from '..';
 import ListBox from './ListBox';
 import MenuLink from '@/constants/MenuLink';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next-nprogress-bar';
 import { getSearchParamsUrl } from '@/helper/utils';
 import MobCourseListPageHeader from '@/components/Mobile/MobCourseListPageHeader';
 

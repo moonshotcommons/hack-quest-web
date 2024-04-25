@@ -3,15 +3,12 @@ import type { Metadata } from 'next';
 import '@/styles/globals.css';
 import InitializeUserProvider from '@/components/Provider/InitializeUser';
 import '@rainbow-me/rainbowkit/styles.css';
-import ThemeContextProvider from '@/store/context/theme';
 import Script from 'next/script';
-import ConfigProvider from '@/components/Provider/Config';
 
 import { Nunito, Space_Mono, Poppins } from 'next/font/google';
-import GlobalModal from '@/components/Web/GlobalModal';
-import LangProvider from '@/components/Provider/Lang';
 import { Lang } from '@/i18n/config';
 import 'github-markdown-css/github-markdown.css';
+import WebAppProvider from '@/components/Provider/WebAppProvider';
 const nunito = Nunito({
   subsets: ['latin'],
   display: 'swap',
@@ -67,18 +64,9 @@ export default function RootLayout({ children, params: { lang } }: RootLayoutPro
       className={`${nunito.variable} ${space_mono.variable}  ${poppins.variable}`}
     >
       <body className={`${nunito.className}`}>
-        <LangProvider lang={lang}>
-          <ThemeContextProvider>
-            {/* <MobileRedirect> */}
-            <ConfigProvider>
-              <InitializeUserProvider>
-                {children}
-                <GlobalModal />
-              </InitializeUserProvider>
-            </ConfigProvider>
-            {/* </MobileRedirect> */}
-          </ThemeContextProvider>
-        </LangProvider>
+        <WebAppProvider lang={lang}>
+          <InitializeUserProvider>{children}</InitializeUserProvider>
+        </WebAppProvider>
 
         <Script id="theme-script">
           {`const item = 'light';

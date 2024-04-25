@@ -16,7 +16,7 @@ import { useRedirect } from '@/hooks/router/useRedirect';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
 import { cn } from '@/helper/utils';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next-nprogress-bar';
 import { AuthContext } from '..';
 import { useCheckPathname, useCustomPathname } from '@/hooks/router/useCheckPathname';
 

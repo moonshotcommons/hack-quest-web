@@ -5,7 +5,7 @@ import Filter from '../Filter';
 import List from '../List';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import { SearchInfoType } from '../../constants/type';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next-nprogress-bar';
 import { Lang } from '@/i18n/config';
 
 interface RenderPageProp {

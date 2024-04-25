@@ -51,7 +51,7 @@ const AIChatbotModal: FC<AIChatbotModalProps> = ({ pageType }) => {
         const completion = {
           id: uuid(),
           message: {
-            role: ChatRole.Assistant,
+            type: ChatRole.Assistant,
             content: res.content
           }
         };
@@ -81,7 +81,7 @@ const AIChatbotModal: FC<AIChatbotModalProps> = ({ pageType }) => {
       chatHistory.concat({
         id: uuid(),
         message: {
-          role: ChatRole.Human,
+          type: ChatRole.Human,
           content: content
         }
       })
@@ -130,7 +130,7 @@ const AIChatbotModal: FC<AIChatbotModalProps> = ({ pageType }) => {
 
             if (pendingChat) {
               const connectChat = {
-                role: ChatRole.Assistant,
+                type: ChatRole.Assistant,
                 content: pendingChat.message.content + content[currentIndex]
               };
               return prevHistory.concat({

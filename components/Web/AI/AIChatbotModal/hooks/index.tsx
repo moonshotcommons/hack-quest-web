@@ -15,7 +15,7 @@ export const useChatHistory = () => {
         res.concat({
           id: uuid(),
           message: {
-            role: ChatRole.Assistant,
+            type: ChatRole.Assistant,
             content: 'Hi 👋 What can I help you with?'
           }
         })

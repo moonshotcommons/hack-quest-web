@@ -9,7 +9,7 @@ import webApi from '@/service';
 import { CourseDetailType, CourseType, CourseUnitType } from '@/service/webApi/course/type';
 import { ThemeContext } from '@/store/context/theme';
 import { Progress, Typography } from 'antd';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next-nprogress-bar';
 import { FC, useContext } from 'react';
 import styled from 'styled-components';
 import { LearningStatus } from '../type';
