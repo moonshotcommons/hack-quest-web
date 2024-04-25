@@ -23,7 +23,7 @@ export interface CompletionsInput {
 export interface CompletionsRes {
   id: string;
   message: {
-    role: ChatRole;
+    type: ChatRole;
     content: string;
   };
 }
