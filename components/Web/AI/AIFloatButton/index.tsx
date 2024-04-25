@@ -1,18 +1,17 @@
 'use client';
 import { FC, ReactNode, useCallback, useEffect, useRef, useState } from 'react';
-import { useMotionValue } from 'framer-motion';
 import { useClickAway, useRequest } from 'ahooks';
 import Options from './Options';
 import AIChatbotModal from '../AIChatbotModal/ChatModal';
 import webApi from '@/service';
 import ReportBugModal, { ReportBugModalInstance } from '../ReportBugModal';
 import { useGlobalStore } from '@/store/zustand/globalStore';
-import { useUpdateHelperParams } from '@/hooks/utils/useUpdateHelperParams';
 import { useDrag } from 'react-dnd';
 import type { XYCoord } from 'react-dnd';
 import { useDrop } from 'react-dnd';
 import update from 'immutability-helper';
 import { useInteractions, useFloating, useClick, offset, flip } from '@floating-ui/react';
+import { useUserStore } from '@/store/zustand/userStore';
 
 interface AIFloatButtonProps {
   children: ReactNode;
@@ -27,10 +26,6 @@ export interface DragItem {
 }
 
 const AIFloatButton: FC<AIFloatButtonProps> = ({ children, pageType = 'other' }) => {
-  const constraintsRef = useRef(null);
-  const y = useMotionValue(0);
-  const [pos, setPos] = useState([0, 0]);
-
   const [optionOpen, setOptionOpen] = useState(false);
   const reportBugRef = useRef<ReportBugModalInstance>(null);
   const { data: discordInfo, refresh: refreshDiscordInfo } = useRequest(() => {
@@ -38,7 +33,7 @@ const AIFloatButton: FC<AIFloatButtonProps> = ({ children, pageType = 'other' })
   });
 
   const { open: aiModalOpen } = useGlobalStore((state) => state.helperParams);
-  const { updateOpenState } = useUpdateHelperParams();
+  const userInfo = useUserStore((state) => state.userInfo);
 
   const ref = useRef<HTMLDivElement>();
 
@@ -72,8 +67,8 @@ const AIFloatButton: FC<AIFloatButtonProps> = ({ children, pageType = 'other' })
         let top = Math.round(item.top + delta.y);
         const windowWidth = document.body.clientWidth;
         const windowHeight = document.body.clientHeight;
-        const maxTop = windowHeight - 48 - 74;
-        const minTop = 0;
+        const maxTop = windowHeight - 48 - 8;
+        const minTop = 64;
         const minLeft = 0;
         const maxLeft = windowWidth - 48;
         if (top >= maxTop) top = maxTop;
@@ -126,48 +121,52 @@ const AIFloatButton: FC<AIFloatButtonProps> = ({ children, pageType = 'other' })
 
   return (
     <div
-      className="relative h-full w-full"
+      className="relative flex h-full w-full flex-col"
       ref={(el) => {
         drop(el);
       }}
     >
       {children}
-      {!isDragging && (
-        <div
-          ref={(el) => {
-            drag(el);
-            ref.current = el as HTMLDivElement;
-          }}
-          className="absolute z-[9999] h-12 w-12 cursor-pointer bg-[url('/images/icons/helper_bg_icon.svg')]"
-          style={{ top: position.top, left: position.left }}
-        >
-          <span
-            className="inline-block h-full w-full"
-            ref={refs.setReference}
-            {...getReferenceProps()}
-            onClick={() => {
-              setOptionOpen(true);
-            }}
-          ></span>
-          {optionOpen && (
-            <div ref={refs.setFloating} {...getFloatingProps()} style={floatingStyles}>
-              <Options
-                changeOpen={(open) => {
-                  setOptionOpen(open);
+      {userInfo && (
+        <>
+          {!isDragging && (
+            <div
+              ref={(el) => {
+                drag(el);
+                ref.current = el as HTMLDivElement;
+              }}
+              className="absolute z-[1100] h-12 w-12 cursor-pointer rounded-[8px] bg-[#d7c7fa] bg-[url('/images/icons/helper_bg_icon.svg')]"
+              style={{ top: position.top, left: position.left }}
+            >
+              <span
+                className="inline-block h-full w-full"
+                ref={refs.setReference}
+                {...getReferenceProps()}
+                onClick={() => {
+                  setOptionOpen(true);
                 }}
-                reportBugOption={{ reportBugRef: reportBugRef.current, discordInfo }}
-              />
+              ></span>
+              {optionOpen && (
+                <div ref={refs.setFloating} {...getFloatingProps()} style={floatingStyles}>
+                  <Options
+                    changeOpen={(open) => {
+                      setOptionOpen(open);
+                    }}
+                    reportBugOption={{ reportBugRef: reportBugRef.current, discordInfo }}
+                  />
+                </div>
+              )}
+              {aiModalOpen && (
+                <div ref={refs.setFloating} {...getFloatingProps()} style={floatingStyles}>
+                  <AIChatbotModal pageType={pageType} />
+                </div>
+              )}
+              <ReportBugModal refreshDiscordInfo={refreshDiscordInfo} ref={reportBugRef} />
             </div>
           )}
-          {aiModalOpen && (
-            <div ref={refs.setFloating} {...getFloatingProps()} style={floatingStyles}>
-              <AIChatbotModal pageType={pageType} />
-            </div>
-          )}
-          <ReportBugModal refreshDiscordInfo={refreshDiscordInfo} ref={reportBugRef} />
-        </div>
+          {isDragging && <div ref={drag}></div>}
+        </>
       )}
-      {isDragging && <div ref={drag}></div>}
     </div>
   );
 };

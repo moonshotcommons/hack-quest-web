@@ -9,7 +9,9 @@ import ThemeContextProvider from '@/store/context/theme';
 import { AppProgressBar as ProgressBar } from 'next-nprogress-bar';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { isMobile } from 'react-device-detect';
 
+import { TouchBackend } from 'react-dnd-touch-backend';
 interface WebAppProviderProps {
   lang: Lang;
 }
@@ -18,7 +20,7 @@ const WebAppProvider: FC<PropsWithChildren<WebAppProviderProps>> = ({ lang, chil
   return (
     <LangProvider lang={lang}>
       <ThemeContextProvider>
-        <DndProvider backend={HTML5Backend}>
+        <DndProvider backend={isMobile ? TouchBackend : HTML5Backend}>
           <WagmiConfigProvider>
             {children}
             <ProgressBar
