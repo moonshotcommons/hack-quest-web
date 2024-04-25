@@ -7,6 +7,8 @@ import WagmiConfigProvider from '../WagmiConfigProvider';
 import GlobalModal from '@/components/Web/GlobalModal';
 import ThemeContextProvider from '@/store/context/theme';
 import { AppProgressBar as ProgressBar } from 'next-nprogress-bar';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 interface WebAppProviderProps {
   lang: Lang;
@@ -16,17 +18,19 @@ const WebAppProvider: FC<PropsWithChildren<WebAppProviderProps>> = ({ lang, chil
   return (
     <LangProvider lang={lang}>
       <ThemeContextProvider>
-        <WagmiConfigProvider>
-          {children}
-          <ProgressBar
-            height="8px"
-            color="#FFE866"
-            options={{ showSpinner: false, positionUsing: '' }}
-            shallowRouting
-          />
-          <GlobalModal />
-          <Analytics mode="production" debug={false} />
-        </WagmiConfigProvider>
+        <DndProvider backend={HTML5Backend}>
+          <WagmiConfigProvider>
+            {children}
+            <ProgressBar
+              height="8px"
+              color="#FFE866"
+              options={{ showSpinner: false, positionUsing: '' }}
+              shallowRouting
+            />
+            <GlobalModal />
+            <Analytics mode="production" debug={false} />
+          </WagmiConfigProvider>
+        </DndProvider>
       </ThemeContextProvider>
     </LangProvider>
   );

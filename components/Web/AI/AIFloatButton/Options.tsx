@@ -22,9 +22,7 @@ const Options: FC<OptionsProps> = ({ changeOpen, reportBugOption }) => {
       initial={{ opacity: 0, scale: 0, x: 100, y: 60 }}
       animate={{ opacity: 1, scale: 1, x: 0, y: 0 }}
       transition={{ duration: 0.2 }}
-      className={cn(
-        'absolute bottom-0 right-16 w-fit scale-0 rounded-[16px] bg-neutral-white p-2 shadow-[0px_0px_4px_0px_rgba(0,0,0,0.12)]'
-      )}
+      className={cn('w-fit scale-0 rounded-[16px] bg-neutral-white p-2 shadow-[0px_0px_4px_0px_rgba(0,0,0,0.12)]')}
     >
       <div
         className="flex items-center gap-2 whitespace-nowrap rounded-[8px] px-2 py-3 hover:bg-neutral-off-white"
