@@ -35,7 +35,7 @@ const ChatFooter: ForwardRefRenderFunction<ChatFooterInstance, ChatFooterProps> 
       chatHistory.concat({
         id: uuid(),
         message: {
-          role: ChatRole.Human,
+          type: ChatRole.Human,
           content: pendingMessage
         }
       })
