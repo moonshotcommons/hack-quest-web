@@ -8,7 +8,7 @@ export enum HelperType {
 }
 
 export enum ChatRole {
-  Assistant = 'assistant',
+  Assistant = 'ai',
   Human = 'human'
 }
 

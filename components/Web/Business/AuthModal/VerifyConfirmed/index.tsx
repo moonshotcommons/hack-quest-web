@@ -4,7 +4,7 @@ import { setToken } from '@/helper/user-token';
 import webApi from '@/service';
 
 import { omit } from 'lodash-es';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next-nprogress-bar';
 import { FC, useEffect, useState } from 'react';
 import Google from '@/public/images/login/google.svg';
 import Github from '@/public/images/login/github.svg';

@@ -3,6 +3,7 @@ import { useUserStore } from '@/store/zustand/userStore';
 import { useRequest } from 'ahooks';
 import { useShallow } from 'zustand/react/shallow';
 import { useEffect, useState } from 'react';
+import { errorMessage } from '@/helper/ui';
 
 // export const useGetUserInfo = () => {
 //   const userInfo = useSelector((state: AppRootState) => {
@@ -38,8 +39,7 @@ export const useLoadUserInfo = () => {
         setUserInfo(user);
       },
       onError(error: any) {
-        console.log(error);
-        // message.error(error.msg);
+        errorMessage(error);
       },
       onFinally() {
         setWaitingLoadUserInfo(false);

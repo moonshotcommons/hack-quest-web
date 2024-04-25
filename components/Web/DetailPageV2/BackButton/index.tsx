@@ -1,6 +1,6 @@
 'use client';
 import { FC } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next-nprogress-bar';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import LinkArrow from '@/components/Common/LinkArrow';
 import { Lang, TransNs } from '@/i18n/config';
