@@ -6,7 +6,7 @@ import { SearchParamsType } from '../constant/type';
 import CourseList from './CourseList';
 import { getSearchParamsUrl } from '@/helper/utils';
 import MenuLink from '@/constants/MenuLink';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next-nprogress-bar';
 import { CourseMarketApiType } from '@/service/cach/learn/course-market';
 
 interface CourseMarketPageProp {

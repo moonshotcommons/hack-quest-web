@@ -9,7 +9,7 @@ import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import { BlogDetailType, ResourceFrom } from '@/service/webApi/resourceStation/type';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next-nprogress-bar';
 import React, { useContext, useMemo } from 'react';
 import { BsArrowLeft } from 'react-icons/bs';
 

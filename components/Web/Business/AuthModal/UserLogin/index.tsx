@@ -18,7 +18,7 @@ import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
 import { cn } from '@/helper/utils';
 import { V2_LANDING_PATH } from '@/constants/nav';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next-nprogress-bar';
 import { useCustomPathname } from '@/hooks/router/useCheckPathname';
 import { useGlobalStore } from '@/store/zustand/globalStore';
 interface UserLoginProps {

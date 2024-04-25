@@ -7,7 +7,7 @@ import React from 'react';
 import { LanguageTab, SearchInfoType } from '../../constants/type';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import Banner from '../Banner';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next-nprogress-bar';
 import { getSearchParamsUrl } from '@/helper/utils';
 import MenuLink from '@/constants/MenuLink';
 import { Lang } from '@/i18n/config';

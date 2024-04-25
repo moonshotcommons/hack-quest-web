@@ -6,7 +6,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { ALL, ParamType, FilterDataType, FilterType } from './type';
 import { deepClone } from '@/helper/utils';
 import { BiSearch } from 'react-icons/bi';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next-nprogress-bar';
 import { useRequest } from 'ahooks';
 import webApi from '@/service';
 

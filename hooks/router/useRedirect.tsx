@@ -1,5 +1,5 @@
 'use client';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next-nprogress-bar';
 import { useCallback } from 'react';
 import useGetDevice from '../utils/useGetDevice';
 
