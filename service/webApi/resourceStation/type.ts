@@ -140,6 +140,7 @@ export interface HackathonRegisterInfo {
   createdAt: string;
   updatedAt: string;
   avatar: string;
+  isRegister: boolean;
 }
 
 export interface RegisterInfoBody {

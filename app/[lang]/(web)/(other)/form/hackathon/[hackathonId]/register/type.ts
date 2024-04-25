@@ -23,6 +23,7 @@ export interface HackathonRegisterStateType {
   bio: string;
   submissionType: SubmissionType;
   status: HackathonRegisterStep;
+  isRegister: boolean;
   // setName: (name: string) => void;
   // setContractInfo: (contractInfo: ContractInfo) => void;
   // setBio: (bio: string) => void;

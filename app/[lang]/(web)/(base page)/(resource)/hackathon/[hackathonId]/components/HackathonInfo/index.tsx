@@ -91,24 +91,29 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
           {t('register')}
         </Button>
       </Link>
-      <Button
-        className="button-text-l h-[60px] w-full bg-yellow-primary uppercase"
-        onClick={() => {
-          BurialPoint.track(`hackathon detail Apply Now 按钮点击`);
-        }}
-      >
-        {/* {t('submitNow')} */}
-        {t('continueSubmission')}
-      </Button>
-      <Button
-        className="button-text-l h-[60px] w-full bg-yellow-primary uppercase"
-        onClick={() => {
-          BurialPoint.track(`hackathon detail Apply Now 按钮点击`);
-        }}
-      >
-        {t('submitNow')}
-        {/* {T('continueSubmission')} */}
-      </Button>
+      <Link href={`/form/hackathon/${hackathon.id}/register`}>
+        <Button
+          className="button-text-l h-[60px] w-full bg-yellow-primary uppercase"
+          onClick={() => {
+            BurialPoint.track(`hackathon detail Apply Now 按钮点击`);
+          }}
+        >
+          {/* {t('submitNow')} */}
+          {t('continueSubmission')}
+        </Button>
+      </Link>
+      <Link href={`/form/hackathon/${hackathon.id}/submission`}>
+        <Button
+          className="button-text-l h-[60px] w-full bg-yellow-primary uppercase"
+          onClick={() => {
+            BurialPoint.track(`hackathon detail Apply Now 按钮点击`);
+          }}
+        >
+          {t('submitNow')}
+          {/* {T('continueSubmission')} */}
+        </Button>
+      </Link>
+
       <Link
         onClick={() => {
           BurialPoint.track(`hackathon detail View All Projects 按钮点击`);

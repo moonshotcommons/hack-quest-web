@@ -56,7 +56,7 @@ const GroupProjectForm: FC<GroupProjectFormProps> = ({ form, onCreateTeam, onJoi
             type="primary"
             htmlType="button"
             className={cn(
-              'button-text-s w-[140px] items-end px-0 py-2 uppercase',
+              'button-text-s w-[140px] items-center px-0 py-2 uppercase',
               teamNameDisable ? 'bg-neutral-light-gray' : ''
             )}
             disabled={teamNameDisable}
@@ -87,7 +87,7 @@ const GroupProjectForm: FC<GroupProjectFormProps> = ({ form, onCreateTeam, onJoi
           <Button
             type="primary"
             className={cn(
-              'button-text-s w-[140px] items-end px-0 py-2 uppercase',
+              'button-text-s w-[140px] items-center px-0 py-2 uppercase',
               teamCodeDisable ? 'bg-neutral-light-gray' : ''
             )}
             htmlType="button"

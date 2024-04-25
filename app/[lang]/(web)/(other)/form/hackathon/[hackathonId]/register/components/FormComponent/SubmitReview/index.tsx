@@ -3,15 +3,57 @@ import { FormComponentProps } from '..';
 import Image from 'next/image';
 import { HackathonTeamDetail } from '@/service/webApi/resourceStation/type';
 import Button from '@/components/Common/Button';
+import { cn } from '@/helper/utils';
+import webApi from '@/service';
+import { useRequest } from 'ahooks';
+import { errorMessage } from '@/helper/ui';
+import { message } from 'antd';
 
 interface SubmitReviewProps {}
 
-const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({ formState, setCurrentStep, onBack }) => {
+const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({
+  formState,
+  setCurrentStep,
+  onBack,
+  simpleHackathonInfo
+}) => {
   const gotoStep = (step: number) => {
     setCurrentStep(step);
   };
 
-  const { name, contractInfo, bio, submissionType } = formState;
+  const { name, contractInfo, bio, submissionType, isRegister } = formState;
+
+  const { run: register, loading } = useRequest(
+    () => {
+      return webApi.resourceStationApi.registerHackathon(simpleHackathonInfo.id);
+    },
+    {
+      manual: true,
+      onSuccess() {
+        !isRegister && message.success(`Register ${simpleHackathonInfo.name} success!`);
+        isRegister && message.success(`Update register info success!`);
+      },
+      onError(err) {
+        errorMessage(err);
+      }
+    }
+  );
+
+  // const register = useCallback(
+  //   async ({ resolve, reject }: any) => {
+  //     try {
+  //       if (formState.status === HackathonRegisterStep.Review) {
+  //         await
+  //         resolve('');
+  //       } else {
+  //         reject('Please complete all registration information before saving!');
+  //       }
+  //     } catch (err: any) {
+  //       reject(err.msg || err.message);
+  //     }
+  //   },
+  //   [simpleHackathonInfo, formState.status]
+  // );
 
   const NameBlock = (
     <div
@@ -147,15 +189,19 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({ formSta
         <Button ghost className="button-text-m w-[165px] px-0 py-4 uppercase" onClick={onBack} htmlType="button">
           Back
         </Button>
-        {/* <Button
+        <Button
           type="primary"
           htmlType="submit"
-          className={cn('w-[165px] px-0 py-4 uppercase', disabled ? 'bg-neutral-light-gray' : '')}
-          disabled={disabled}
+          className={cn(
+            'button-text-m w-[165px] px-0 py-4 uppercase'
+            //  disabled ? 'bg-neutral-light-gray' : ''
+          )}
+          // disabled={disabled}
           loading={loading}
+          onClick={register}
         >
-          Next
-        </Button> */}
+          {isRegister ? 'update' : 'register'}
+        </Button>
       </div>
     </div>
   );

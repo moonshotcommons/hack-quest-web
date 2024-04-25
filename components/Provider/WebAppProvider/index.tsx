@@ -24,7 +24,7 @@ const WebAppProvider: FC<PropsWithChildren<WebAppProviderProps>> = ({ lang, chil
           <WagmiConfigProvider>
             {children}
             <ProgressBar
-              height="8px"
+              height="4px"
               color="#FFE866"
               options={{ showSpinner: false, positionUsing: '' }}
               shallowRouting

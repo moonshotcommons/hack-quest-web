@@ -1,6 +1,8 @@
 import { FC, useState } from 'react';
 import { Upload, message, type UploadProps } from 'antd';
 import LoadingIcon from '@/components/Common/LoadingIcon';
+import { InfoFormSchema } from '..';
+import { UseFormReturn } from 'react-hook-form';
 
 type GetProp<T, Key> = Key extends keyof T ? Exclude<T[Key], undefined> : never;
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
@@ -11,7 +13,9 @@ const getBase64 = (img: FileType, callback: (url: string) => void) => {
   reader.readAsDataURL(img);
 };
 
-interface LogoUploadProps {}
+interface LogoUploadProps {
+  form: UseFormReturn<InfoFormSchema, any, undefined>;
+}
 
 const LogoUpload: FC<LogoUploadProps> = (props) => {
   const [loading, setLoading] = useState(false);
@@ -73,7 +77,7 @@ const LogoUpload: FC<LogoUploadProps> = (props) => {
       <Upload
         name="avatar"
         listType="picture-card"
-        className="group my-[1px] mt-1 [&>div]:!h-12 [&>div]:!w-12 [&>div]:!border-neutral-medium-gray [&>div]:!bg-neutral-off-white [&>div]:hover:!border-yellow-primary"
+        className="group my-[1px] mt-1 [&>div]:flex [&>div]:!h-12 [&>div]:!w-12 [&>div]:items-center [&>div]:justify-center [&>div]:!rounded-[8px] [&>div]:border [&>div]:border-dashed [&>div]:!border-neutral-medium-gray [&>div]:!bg-neutral-off-white [&>div]:hover:!border-yellow-primary"
         showUploadList={false}
         action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
         beforeUpload={beforeUpload}

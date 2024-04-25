@@ -81,10 +81,8 @@ const History: FC<HistoryProps> = ({ loading, chatHistory, scrollToBottomSwitch,
           {chatHistory.map((item, index) => {
             return (
               <MessageTemplate key={item.id} role={item.message.type} status={item.status}>
-                {item.status !== 'pending' && item.message.content}
-                {item.message.type === ChatRole.Assistant && item.status === 'pending' && (
-                  <TypeMessageNode content={item.message.content} />
-                )}
+                {item.message.type === ChatRole.Human && item.message.content}
+                {item.message.type === ChatRole.Assistant && <TypeMessageNode content={item.message.content} />}
               </MessageTemplate>
             );
           })}
