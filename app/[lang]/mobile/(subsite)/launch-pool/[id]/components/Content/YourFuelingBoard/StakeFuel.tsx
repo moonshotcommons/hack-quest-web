@@ -12,10 +12,10 @@ import { LangContext } from '@/components/Provider/Lang';
 import StakeModal from './StakeModal';
 import UnstakeModal from './UnstakeModal';
 import { useAccount } from 'wagmi';
-import ConnectButton from '@/components/Web/Layout/LaunchPage/UserDropCard/ConnectButton';
 import { LaunchDetailContext, ModalName } from '@/app/[lang]/(web)/(subsite)/launch-pool/[id]/constants/type';
 import moment from 'moment';
 import { FuelInfo } from '@/service/webApi/launchPool/type';
+import ConnectButton from '@/components/Web/Business/ConnectButton';
 
 interface StakeFuelProp {}
 

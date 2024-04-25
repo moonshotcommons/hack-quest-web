@@ -40,7 +40,8 @@ const FormContent: FC<FormContentProps> = ({ simpleHackathonInfo }) => {
       teamDetail: {},
       avatar: ''
     },
-    status: HackathonRegisterStep.Name
+    status: HackathonRegisterStep.Name,
+    isRegister: false
   });
 
   const onNext = (state: Partial<HackathonRegisterStateType>) => {
@@ -57,7 +58,7 @@ const FormContent: FC<FormContentProps> = ({ simpleHackathonInfo }) => {
   };
 
   const init = (registerInfo: HackathonRegisterInfo, teamDetail: HackathonTeamDetail | {}) => {
-    const { firstName, lastName, bio, status, weChat, team, userId, telegram, avatar } = registerInfo;
+    const { firstName, lastName, bio, status, weChat, team, userId, telegram, avatar, isRegister } = registerInfo;
 
     const currentStep = HACKATHON_SUBMIT_STEPS.find((step) => step.type === status)!;
 
@@ -86,7 +87,8 @@ const FormContent: FC<FormContentProps> = ({ simpleHackathonInfo }) => {
         teamDetail: teamDetail || {},
         userId: userId || '',
         avatar: avatar || ''
-      }
+      },
+      isRegister
     });
   };
 
@@ -111,21 +113,21 @@ const FormContent: FC<FormContentProps> = ({ simpleHackathonInfo }) => {
     }
   );
 
-  const register = useCallback(
-    async ({ resolve, reject }: any) => {
-      try {
-        if (formState.status === HackathonRegisterStep.Review) {
-          await webApi.resourceStationApi.registerHackathon(simpleHackathonInfo.id);
-          resolve('');
-        } else {
-          reject('Please complete all registration information before saving!');
-        }
-      } catch (err: any) {
-        reject(err.msg || err.message);
-      }
-    },
-    [simpleHackathonInfo, formState.status]
-  );
+  // const register = useCallback(
+  //   async ({ resolve, reject }: any) => {
+  //     try {
+  //       if (formState.status === HackathonRegisterStep.Review) {
+  //         await webApi.resourceStationApi.registerHackathon(simpleHackathonInfo.id);
+  //         resolve('');
+  //       } else {
+  //         reject('Please complete all registration information before saving!');
+  //       }
+  //     } catch (err: any) {
+  //       reject(err.msg || err.message);
+  //     }
+  //   },
+  //   [simpleHackathonInfo, formState.status]
+  // );
 
   const { redirectToUrl } = useRedirect();
 
@@ -135,13 +137,13 @@ const FormContent: FC<FormContentProps> = ({ simpleHackathonInfo }) => {
 
   useEffect(() => {
     run();
-    emitter.on('submit-form-save', register);
+    // emitter.on('submit-form-save', register);
     emitter.on('submit-form-exit', edit);
     return () => {
-      emitter.off('submit-form-save', register);
+      // emitter.off('submit-form-save', register);
       emitter.off('submit-form-exit', edit);
     };
-  }, [register, edit]);
+  }, [edit]);
 
   return (
     <div className="flex w-full flex-col justify-center gap-6 text-center">

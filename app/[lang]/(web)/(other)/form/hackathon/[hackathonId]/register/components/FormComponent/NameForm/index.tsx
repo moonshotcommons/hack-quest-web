@@ -33,8 +33,8 @@ interface NameFormProps {
 
 const NameForm: FC<
   Omit<FormComponentProps, 'type' | 'formState' | 'setCurrentStep'> &
-    Pick<HackathonRegisterStateType, 'name' | 'status'>
-> = ({ onNext, onBack, simpleHackathonInfo, name, status }) => {
+    Pick<HackathonRegisterStateType, 'name' | 'status' | 'isRegister'>
+> = ({ onNext, onBack, simpleHackathonInfo, name, status, isRegister }) => {
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -90,7 +90,7 @@ const NameForm: FC<
             <CustomFormField form={form} placeholder="Enter your last name" label="Last Name" name="lastName" />
           </div>
           <div className="flex justify-end gap-4">
-            <Button ghost className="button-text-m w-[165px] px-0 py-4 uppercase" onClick={onBack}>
+            <Button htmlType="button" ghost className="button-text-m w-[165px] px-0 py-4 uppercase" onClick={onBack}>
               Back
             </Button>
             <Button
@@ -98,12 +98,12 @@ const NameForm: FC<
               loading={loading}
               htmlType="submit"
               className={cn(
-                'button-text-m w-[165px] px-0 py-4 uppercase',
+                'button-text-m min-w-[165px] px-0 py-4 uppercase',
                 !form.formState.isValid ? 'bg-neutral-light-gray' : ''
               )}
               disabled={!form.formState.isValid}
             >
-              Next
+              {isRegister ? 'update' : 'Save'} And Next
             </Button>
           </div>
         </form>

@@ -28,8 +28,8 @@ const formSchema = z
 
 const ContractForm: FC<
   Omit<FormComponentProps, 'type' | 'formState' | 'setCurrentStep'> &
-    Pick<HackathonRegisterStateType, 'contractInfo' | 'status'>
-> = ({ onNext, onBack, contractInfo, simpleHackathonInfo, status }) => {
+    Pick<HackathonRegisterStateType, 'contractInfo' | 'status' | 'isRegister'>
+> = ({ onNext, onBack, contractInfo, simpleHackathonInfo, status, isRegister }) => {
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -86,7 +86,7 @@ const ContractForm: FC<
             <CustomFormField form={form} placeholder="Enter your Telegram account" label="Telegram" name="telegram" />
           </div>
           <div className="flex justify-end gap-4">
-            <Button ghost className="button-text-m w-[165px] px-0 py-4 uppercase" onClick={onBack}>
+            <Button htmlType="button" ghost className="button-text-m w-[165px] px-0 py-4 uppercase" onClick={onBack}>
               Back
             </Button>
 
@@ -94,13 +94,13 @@ const ContractForm: FC<
               type="primary"
               htmlType="submit"
               className={cn(
-                'button-text-m w-[165px] px-0 py-4 uppercase',
+                'button-text-m min-w-[165px] px-0 py-4 uppercase',
                 !form.formState.isValid ? 'bg-neutral-light-gray' : ''
               )}
               disabled={!form.formState.isValid}
               loading={loading}
             >
-              Next
+              {isRegister ? 'update' : 'Save'} And Next
             </Button>
           </div>
         </form>

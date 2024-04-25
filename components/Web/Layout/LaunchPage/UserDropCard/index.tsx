@@ -14,9 +14,8 @@ import { useRouter } from 'next/navigation';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import { LangContext } from '@/components/Provider/Lang';
-
-import ConnectButton from './ConnectButton';
 import MenuLink from '@/constants/MenuLink';
+import ConnectButton from '@/components/Web/Business/ConnectButton';
 interface UserDropCardProps {
   // children: ReactNode;
   userInfo: LoginResponse;
