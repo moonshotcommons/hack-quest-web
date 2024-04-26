@@ -16,9 +16,9 @@ const getBase64 = (img: FileType, callback: (url: string) => void) => {
   reader.readAsDataURL(img);
 };
 
-const ProjectDemoUpload: FC<
-  Omit<FormComponentProps, 'type' | 'formState' | 'setCurrentStep'> & {
-    projectDemo: HackathonSubmitStateType['projectDemo'];
+const InfoForm: FC<
+  Omit<FormComponentProps, 'type' | 'formState' | 'setCurrentStep' | 'tracks'> & {
+    pickVideo: HackathonSubmitStateType['pickVideo'];
   }
 > = ({ onNext, onBack }) => {
   const [loading, setLoading] = useState(false);
@@ -50,12 +50,14 @@ const ProjectDemoUpload: FC<
     return isJpgOrPng && isLt2M;
   };
 
-  function onSubmit() {
-    // setContractInfo();
-    onNext({});
-  }
-
   const uploadButton = (
+    // <button style={{ border: 0, background: 'none' }} type="button">
+    //   {loading ? (
+    //     <LoadingIcon />
+    //   ) : (
+
+    //   )}
+    // </button>
     <div className="flex h-[410px] w-full items-center justify-center rounded-[32px] bg-neutral-off-white">
       <div className="flex h-[calc(100%-54px)] w-[calc(100%-54px)] items-center justify-center rounded-[24px] border border-dashed border-neutral-medium-gray">
         {loading && <LoadingIcon />}
@@ -76,9 +78,16 @@ const ProjectDemoUpload: FC<
     </div>
   );
 
+  function onSubmit() {
+    // setContractInfo();
+    onNext({});
+  }
+
   return (
     <div className="flex flex-col gap-6">
-      <p className="body-m text-left text-neutral-rich-gray">Please Upload Your Pitch Video, Max 4 mins (Optional)</p>
+      <p className="body-m text-left text-neutral-rich-gray">
+        Please Upload Your Video Demo Of Your Product (Optional)
+      </p>
       <Upload
         name="avatar"
         listType="picture-card"
@@ -119,4 +128,4 @@ const ProjectDemoUpload: FC<
   );
 };
 
-export default memo(ProjectDemoUpload);
+export default memo(InfoForm);

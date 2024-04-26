@@ -69,6 +69,7 @@ const AIChatbotModal: FC<AIChatbotModalProps> = ({ pageType }) => {
 
   const close = () => {
     updateOpenState(false);
+    updateChatStatus('leisure');
     setTimeout(() => {
       pageType === 'learn' && setShowTips(true);
     }, 300);
@@ -112,10 +113,8 @@ const AIChatbotModal: FC<AIChatbotModalProps> = ({ pageType }) => {
 
   useEffect(() => {
     let currentIndex = 0;
-
-    if (pendingTypeMessage && pendingTypeMessage.message.content) {
-      const content = pendingTypeMessage.message.content;
-
+    const content = pendingTypeMessage?.message.content;
+    if (pendingTypeMessage && content) {
       const interval = setInterval(() => {
         if (currentIndex < content.length - 1) {
           setChatHistory((prevHistory) => {
@@ -145,6 +144,7 @@ const AIChatbotModal: FC<AIChatbotModalProps> = ({ pageType }) => {
 
           currentIndex++;
         } else {
+          currentIndex = 0;
           updateChatStatus('leisure');
           clearInterval(interval);
           scrollToBottomSwitch.current = true;
@@ -152,11 +152,31 @@ const AIChatbotModal: FC<AIChatbotModalProps> = ({ pageType }) => {
         }
       }, 10);
       return () => {
+        if (chatStatus === 'chatting' && content && currentIndex < content.length - 1) {
+          setChatHistory((prevHistory) => {
+            const pendingChat = prevHistory.pop();
+            if (pendingChat) {
+              const connectChat = {
+                type: ChatRole.Assistant,
+                content: content
+              };
+              return prevHistory.concat({
+                ...pendingChat,
+                status: undefined,
+                message: connectChat
+              });
+            }
+            return prevHistory;
+          });
+          updateChatStatus('leisure');
+        }
+        currentIndex = 0;
+        setPendingTypeMessage(null);
         clearInterval(interval);
         scrollToBottomSwitch.current = true;
       };
     }
-  }, [pendingTypeMessage]);
+  }, [pendingTypeMessage, chatStatus]);
 
   return (
     helperParams.open && (

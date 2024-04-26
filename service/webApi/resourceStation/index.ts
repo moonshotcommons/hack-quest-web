@@ -11,6 +11,7 @@ import {
   HackathonType,
   PagedType,
   ProjectDataType,
+  ProjectSubmitBody,
   ProjectType,
   RegisterInfoBody
 } from './type';
@@ -172,6 +173,24 @@ class ResourceStationApi {
   /** 注册hackathon */
   registerHackathon(hackathonId: string) {
     return this.service.post(`${ResourceStationApiType.Hackathon}/${hackathonId}/members/register`);
+  }
+
+  getHackathonPrizeTracks(hackathonId: string) {
+    return this.service.get<string[]>(`${ResourceStationApiType.Hackathon}/${hackathonId}/prize-tracks`);
+  }
+
+  /** 提交project */
+  submitProject(data: ProjectSubmitBody) {
+    return this.service.post(ResourceStationApiType.Projects, {
+      data
+    });
+  }
+
+  /** 更新project */
+  updateProject(projectId: string, data: ProjectSubmitBody) {
+    return this.service.patch(`${ResourceStationApiType.Projects}/${projectId}`, {
+      data
+    });
   }
 }
 

@@ -30,7 +30,7 @@ const IntroName: FC<IntroNameProps> = ({ form }) => {
             <Textarea
               placeholder={'Enter your one line intro'}
               {...field}
-              className="body-m !mt-1 box-border flex h-[52px] min-h-[52px] items-center border-neutral-light-gray !py-[11px] px-6 text-[16px] font-normal leading-[160%] text-neutral-medium-gray"
+              className="body-m !mt-1 box-border flex h-[76px] min-h-[76px] items-center border-neutral-light-gray !py-[11px] px-6 text-[16px] font-normal leading-[160%] text-neutral-medium-gray"
               onChange={(e) => {
                 form.setValue('intro', e.target.value);
               }}

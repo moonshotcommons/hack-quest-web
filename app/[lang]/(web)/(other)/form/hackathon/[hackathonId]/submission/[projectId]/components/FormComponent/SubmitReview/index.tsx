@@ -6,7 +6,11 @@ import { cn } from '@/helper/utils';
 
 interface SubmitReviewProps {}
 
-const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({ formState, setCurrentStep, onBack }) => {
+const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext' | 'tracks'>> = ({
+  formState,
+  setCurrentStep,
+  onBack
+}) => {
   const gotoStep = (step: number) => {
     setCurrentStep(step);
   };

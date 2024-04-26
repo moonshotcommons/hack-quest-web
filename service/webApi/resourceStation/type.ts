@@ -178,3 +178,30 @@ export interface HackathonTeamDetail {
   updatedAt: string;
   members: TeamMemberInfo[];
 }
+
+export enum ProjectSubmitStepType {
+  INFO = 'INFO',
+  PITCH_VIDEO = 'PITCH_VIDEO',
+  DEMO = 'DEMO',
+  OTHERS = 'OTHERS',
+  WALLET = 'WALLET',
+  REVIEW = 'REVIEW'
+}
+
+export interface ProjectSubmitBody {
+  name?: string;
+  hackathonId: string;
+  prizeTrack?: string;
+  description?: string;
+  thumbnail?: string;
+  video?: string;
+  demo?: string;
+  introduction?: string;
+  githubLink?: string;
+  isOpenSource?: boolean;
+  wallet?: string;
+  status?: ProjectSubmitStepType;
+  team?: string;
+  tracks?: string[];
+  creatorId?: string;
+}
