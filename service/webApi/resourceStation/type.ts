@@ -50,6 +50,7 @@ export interface HackathonType {
   openTime: string;
   reviewTime: string;
   schedule: HackathonScheduleType[];
+  participation?: HackathonRegisterInfo;
 }
 
 export interface HackathonDataType {

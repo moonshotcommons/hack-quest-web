@@ -83,15 +83,15 @@ const ListBox: React.FC<ListBoxProp> = ({ list, searchParams, total, pageInfo, s
               onClick={() => {
                 searchList({
                   ...searchParams,
-                  apolloDay: !searchParams.apolloDay
+                  winner: !searchParams.winner
                 });
               }}
             >
               <Checkbox
-                checked={!!searchParams.apolloDay}
+                checked={!!searchParams.winner}
                 outClassNames="border-neutral-medium-gray w-[1.375rem] h-[1.375rem]"
               />
-              <div className="whitespace-nowrap">{t('projects.apolloDayonly')}</div>
+              <div className="whitespace-nowrap">{t('projects.winner')}</div>
             </div>
             <div
               tabIndex={0}
@@ -120,7 +120,7 @@ const ListBox: React.FC<ListBoxProp> = ({ list, searchParams, total, pageInfo, s
                         onClick={() => {}}
                       >
                         <span>{t(option.label)}</span>
-                        {option.value === searchParams.sort && (
+                        {option.value === searchParams.createdAt && (
                           <span>
                             <GoCheck size={20} />
                           </span>

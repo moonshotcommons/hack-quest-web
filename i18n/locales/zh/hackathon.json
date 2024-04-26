@@ -17,12 +17,15 @@
   "noGoingHackahton":"There is no ongoing hackathon",
   "checkPastHackathon":"Check Past Hackathon",
   "checkAllProjects":"Check All Projects",
+  "viewAllProjects":"View All Projects",
   "projects":{
     "projects":"Project Archive",
     "projectsDescription":"Welcome to the central repository for accessing all previous projects from our various hackathons.",
-    "apolloDayonly":"Apollo Day only",
+    "winner":"Winner",
     "sortby":"Sort by",
-    "searchResultFor":"Search result for",
+    "searchResultFor":"Search result for"
+  },
+  "hackathonDetail":{
     "timeline":"Timeline",
     "registrationOpen":"Registration Open",
     "submissionsClose":"Submissions Close",
@@ -32,6 +35,20 @@
     "mediaPartners":"Media Partners",
     "communityPartners":"Community Partners",
     "schedule":"Schedule",
-    "registration":"Registration"
+    "registration":"Registration",
+    "hostBy":"Host by",
+    "cohostBy":"Cohost by",
+    "submissionReview":"SUBMISSIONS REVIEW",
+    "usersPartitipated":"users partitipated",
+    "continueSubmission":"Continue Submission",
+    "haveRegistered":"You have registered in this hackathon",
+    "haveSubmission":"You have an ongoing submission",
+    "firstPlace":"First Place",
+    "secondPlace":"Second Place",
+    "thirdPlace":"Third Place",
+    "trackTotalReward":"{{track}} Total Reward",
+    "orientation":"Orientation",
+    "openZoomMeeting":"Open Zoom meeting",
+    "submitWarning":"You are not the team owner, please contact the administrator"
   }
 }
