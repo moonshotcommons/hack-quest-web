@@ -1,4 +1,4 @@
-import { NotionComponentType } from '@/components/ComponentRenderer/type';
+import { CustomType, NotionComponentType } from '@/components/ComponentRenderer/type';
 
 export const useLessonExpand = (lesson: any[]) => {
   const getLessonExpand = () => {
@@ -40,7 +40,10 @@ export const useLessonExpand = (lesson: any[]) => {
           NotionComponentType.H1,
           NotionComponentType.H2,
           NotionComponentType.H3,
-          NotionComponentType.NUMBERED_LIST_ITEM
+          NotionComponentType.NUMBERED_LIST_ITEM,
+          CustomType.QuizA,
+          CustomType.QuizB,
+          CustomType.QuizC
         ].indexOf(c.type)
       ) {
         expandIndex = j;
@@ -50,6 +53,7 @@ export const useLessonExpand = (lesson: any[]) => {
         }
       }
     });
+
     const newChildExpand = Array.from(new Set(childExpand.map((v: any) => JSON.stringify(v))))
       .map((v: any) => {
         if (v) {
@@ -58,6 +62,7 @@ export const useLessonExpand = (lesson: any[]) => {
         return {};
       })
       .filter((item: any) => item.id);
+
     if (newChildExpand.length) {
       lessonExpand.push(newChildExpand || []);
     }

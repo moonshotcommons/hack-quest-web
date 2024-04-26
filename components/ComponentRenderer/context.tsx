@@ -81,6 +81,8 @@ export interface GlobalContextType {
   isMobile?: boolean;
   expandData?: ExpandDataType[];
   updateExpandData?: (data: ExpandDataType[], index?: number) => void;
+  expandDataRight?: ExpandDataType[];
+  updateExpandDataRight?: (data: ExpandDataType[], index?: number) => void;
 }
 
 export const GlobalContextDefaultValue: GlobalContextType = {
@@ -89,6 +91,8 @@ export const GlobalContextDefaultValue: GlobalContextType = {
   pageType: null,
   expandData: [],
   updateExpandData: (data: ExpandDataType[], index?: number) => {},
+  expandDataRight: [],
+  updateExpandDataRight: (data: ExpandDataType[], index?: number) => {},
   isMobile: false
 };
 
