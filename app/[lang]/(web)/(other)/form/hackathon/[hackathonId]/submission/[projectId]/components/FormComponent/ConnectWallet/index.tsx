@@ -7,7 +7,7 @@ import { HackathonSubmitStateType } from '../../../type';
 import { ConnectButton } from './ConnectButton';
 
 const ConnectWallet: FC<
-  Omit<FormComponentProps, 'type' | 'formState' | 'setCurrentStep'> & {
+  Omit<FormComponentProps, 'type' | 'formState' | 'setCurrentStep' | 'tracks'> & {
     wallet: HackathonSubmitStateType['wallet'];
   }
 > = ({ onNext, onBack }) => {

@@ -161,6 +161,7 @@ const AIChatbotModal: FC<AIChatbotModalProps> = ({ pageType }) => {
       };
     }
   }, [pendingTypeMessage, chatStatus]);
+
   return (
     <Modal open={helperParams.open} onClose={() => {}} markBg="black" block zIndex={1200}>
       <div

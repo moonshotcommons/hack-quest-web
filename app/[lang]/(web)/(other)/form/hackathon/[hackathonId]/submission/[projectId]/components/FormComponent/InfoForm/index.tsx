@@ -17,15 +17,12 @@ import IntroName from './IntroName';
 import DetailIntroName from './DetailIntroName';
 
 const formSchema = z.object({
-  projectLogo: z.string(),
-  // .min(10, {
-  //   message: 'The project Logo must be uploaded.'
-  // })
+  projectLogo: z.string().url(),
   projectName: z.string().min(2, {
     message: 'Project Name must be at least 2 characters.'
   }),
-  track: z.enum(['AI + Web3 Applications', 'Fully On-chain Game'], {
-    required_error: 'You need to select a register type.'
+  track: z.string().min(2, {
+    message: 'You need to select a track.'
   }),
   intro: z
     .string()
@@ -44,14 +41,13 @@ const formSchema = z.object({
       message: 'The detailed intro field cannot exceed 600 characters'
     })
 });
-
 export type InfoFormSchema = z.infer<typeof formSchema>;
 
 const InfoForm: FC<
   Omit<FormComponentProps, 'type' | 'formState' | 'setCurrentStep'> & {
     info: HackathonSubmitStateType['info'];
   }
-> = ({ onNext, onBack, info }) => {
+> = ({ onNext, onBack, info, tracks }) => {
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -96,7 +92,7 @@ const InfoForm: FC<
               />
             </div>
           </div>
-          <ProjectTrackRadio form={form} />
+          <ProjectTrackRadio form={form} tracks={tracks} />
           <IntroName form={form} />
           <DetailIntroName form={form} />
           <div className="flex justify-end gap-4">

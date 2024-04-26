@@ -1,27 +1,28 @@
 'use client';
-import { FC, useCallback, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import { HACKATHON_SUBMIT_STEPS } from '../constants';
 import FormComponent from '../FormComponent';
 import FormHeader from '../FormHeader';
 import { HackathonSubmitStateType } from '../../type';
-import { useRequest } from 'ahooks';
-import webApi from '@/service';
-import { errorMessage } from '@/helper/ui';
 import { useRedirect } from '@/hooks/router/useRedirect';
+import { isUuid } from '@/helper/utils';
 
 interface HackathonSubmitPageProps {
   simpleHackathonInfo: { id: string; name: string; alias: string };
+  projectId: string | undefined;
+  tracks: string[];
 }
 
-const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo }) => {
+const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo, projectId, tracks }) => {
   const [current, setCurrent] = useState(5);
   const [formState, setFormState] = useState<HackathonSubmitStateType>({
+    projectId: '-1',
     info: {
-      projectLogo: 'dddddddddddddddddd',
-      projectName: '测试项目',
-      track: 'AI + Web3 Applications',
-      intro: 'ffffffffffffffffffffffffffff',
-      detailedIntro: 'ffffffffffffffffffffffffffffffffffff'
+      projectLogo: '',
+      projectName: '',
+      track: '',
+      intro: '',
+      detailedIntro: ''
     },
     pickVideo: '',
     projectDemo: '',
@@ -45,7 +46,10 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
     setCurrent(step);
   };
 
-  const init = (registerInfo: any, teamDetail: any | {}) => {
+  const init = () => {
+    // const { id, name, description, video, introduction, hackathonId, tracks,status } = projectInfo!;
+    // const currentStep = HACKATHON_SUBMIT_STEPS.find((step) => step.type === status)!;
+    // setCurrent(currentStep.stepNumber);
     // const { firstName, lastName, bio, status, weChat, team, userId, telegram, avatar } = registerInfo;
     // const currentStep = HACKATHON_SUBMIT_STEPS.find((step) => step.type === status)!;
     // setCurrent(currentStep.stepNumber);
@@ -75,26 +79,21 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
     // });
   };
 
-  const { run, refreshAsync: refreshRegisterInfo } = useRequest(
-    async () => {
-      const registerInfo = await webApi.resourceStationApi.getHackathonRegisterInfo(simpleHackathonInfo.id);
-      let teamDetail = {};
-      if (!!Object.keys(registerInfo.team || {}).length) {
-        teamDetail = await webApi.resourceStationApi.getHackathonTeamDetail(registerInfo.team.code!);
-      }
-      return { registerInfo, teamDetail };
-    },
-    {
-      manual: true,
-      onSuccess({ registerInfo, teamDetail }) {
-        if (registerInfo.status) init(registerInfo, teamDetail);
-        else setCurrent(0);
-      },
-      onError(err) {
-        errorMessage(err);
-      }
-    }
-  );
+  // const { run, refreshAsync: refreshRegisterInfo } = useRequest(
+  //   async () => {
+  //     return webApi.resourceStationApi.getProjectsDetail(projectId!);
+  //   },
+  //   {
+  //     manual: true,
+  //     onSuccess(res) {
+  //       // if (res.status) init(registerInfo, teamDetail);
+  //       // else setCurrent(0);
+  //     },
+  //     onError(err) {
+  //       errorMessage(err);
+  //     }
+  //   }
+  // );
 
   // const register = useCallback(
   //   async ({ resolve, reject }: any) => {
@@ -128,6 +127,11 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
   //   };
   // }, [register, edit]);
 
+  useEffect(() => {
+    if (projectId && isUuid(projectId)) init();
+    else setCurrent(0);
+  }, [projectId]);
+
   return (
     <div className="flex w-full flex-col justify-center gap-6 text-center">
       <FormHeader
@@ -140,6 +144,7 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
         type={HACKATHON_SUBMIT_STEPS[current].type}
         onNext={onNext}
         onBack={onBack}
+        tracks={tracks}
         setCurrentStep={setCurrentStep}
         formState={formState}
       />

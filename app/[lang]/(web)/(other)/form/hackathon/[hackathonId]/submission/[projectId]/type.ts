@@ -15,6 +15,7 @@ export interface SubmissionType {
 }
 
 export interface HackathonSubmitStateType {
+  projectId: string;
   info: {
     projectLogo: string;
     projectName: string;
