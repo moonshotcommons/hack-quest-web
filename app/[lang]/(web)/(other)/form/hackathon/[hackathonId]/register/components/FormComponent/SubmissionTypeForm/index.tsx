@@ -102,9 +102,7 @@ const SubmissionTypeForm: FC<
     },
     {
       manual: true,
-      onSuccess(res) {
-        console.log(res);
-      },
+      onSuccess(res) {},
       onError(err) {
         errorMessage(err);
       }
@@ -119,9 +117,7 @@ const SubmissionTypeForm: FC<
     },
     {
       manual: true,
-      onSuccess(res) {
-        console.log(res);
-      },
+      onSuccess(res) {},
       onError(err) {
         errorMessage(err);
       }
