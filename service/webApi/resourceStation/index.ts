@@ -193,6 +193,10 @@ class ResourceStationApi {
       data
     });
   }
+
+  projectSubmit(projectId: string) {
+    return this.service.post(`${ResourceStationApiType.Projects}/${projectId}/submit`);
+  }
 }
 
 export default ResourceStationApi;

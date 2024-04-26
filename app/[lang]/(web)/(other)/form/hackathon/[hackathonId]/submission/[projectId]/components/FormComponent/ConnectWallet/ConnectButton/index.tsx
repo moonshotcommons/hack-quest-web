@@ -17,9 +17,16 @@ export interface ConnectButtonProps {
   projectId: string | undefined;
   status: ProjectSubmitStepType;
   refreshProjectInfo: VoidFunction;
+  onDisconnect: VoidFunction;
 }
 
-export const ConnectButton: FC<ConnectButtonProps> = ({ wallet, projectId, status, refreshProjectInfo }) => {
+export const ConnectButton: FC<ConnectButtonProps> = ({
+  wallet,
+  projectId,
+  status,
+  refreshProjectInfo,
+  onDisconnect
+}) => {
   const [bindPending, setBindPending] = useState(false);
   const userInfo = useUserStore((state) => state.userInfo);
 
@@ -50,25 +57,6 @@ export const ConnectButton: FC<ConnectButtonProps> = ({ wallet, projectId, statu
       manual: true,
       onSuccess() {
         message.success(`Connect the wallet successfully`);
-      },
-      onError(err) {
-        errorMessage(err);
-      }
-    }
-  );
-
-  const { run: disconnect, loading: disConnectLoading } = useRequest(
-    async () => {
-      const formData = new FormData();
-      formData.append('wallet', '');
-      formData.append('status', ProjectSubmitStepType.WALLET);
-      await webApi.resourceStationApi.submitProject(formData, projectId);
-      await refreshProjectInfo();
-    },
-    {
-      manual: true,
-      onSuccess() {
-        message.success(`Disconnect the wallet successfully`);
       },
       onError(err) {
         errorMessage(err);
@@ -110,7 +98,7 @@ export const ConnectButton: FC<ConnectButtonProps> = ({ wallet, projectId, statu
                 return (
                   <Button
                     block
-                    className="px-0 py-0 [&>span]:flex [&>span]:w-full"
+                    className="px-0 py-0 hover:scale-[1.02] [&>span]:flex [&>span]:w-full"
                     loading={authenticationStatus === 'loading' || connectLoading}
                     disabled={authenticationStatus === 'loading' || connectLoading}
                     onClick={() => {
@@ -145,18 +133,24 @@ export const ConnectButton: FC<ConnectButtonProps> = ({ wallet, projectId, statu
 
               return (
                 <Button
-                  className="flex justify-center gap-2 rounded-[16px] border border-dashed border-neutral-light-gray p-5 text-neutral-medium-gray"
+                  block
+                  className="flex justify-center gap-2 rounded-[16px] border border-dashed border-neutral-light-gray p-5 text-neutral-medium-gray hover:scale-100 [&>span]:inline-block [&>span]:w-full"
                   loading={authenticationStatus === 'loading' || connectLoading}
                   disabled={authenticationStatus === 'loading' || connectLoading}
                   onClick={() => {
-                    disconnect();
+                    onDisconnect();
                   }}
                 >
-                  <span className="flex items-center gap-2">
-                    <Image src={'/images/login/metamask.svg'} alt="wallet" width={30} height={30} />
-                    <span>{wallet}</span>
-                  </span>
-                  <span>Disconnect</span>
+                  <div className="flex h-full w-full items-center justify-between">
+                    <span className="body-l flex items-center gap-2 text-neutral-off-black">
+                      <Image src={'/images/login/metamask.svg'} alt="wallet" width={30} height={30} />
+                      <span>{wallet?.toString()?.replace(/(.{15})(.*)(.{4})/, '$1...$3')}</span>
+                    </span>
+                    <span className="underline-m flex cursor-pointer items-center text-neutral-rich-gray">
+                      <Image src={'/images/icons/disconnect.svg'} alt="disconnect" width={24} height={24} />
+                      <span className="ml-1">Disconnect</span>
+                    </span>
+                  </div>
                 </Button>
               );
             })()}

@@ -74,6 +74,7 @@ export type ProjectType = {
   thumbnail: string;
   alias: string;
   demo: string;
+  wallet: string;
 };
 
 export interface ProjectDataType {

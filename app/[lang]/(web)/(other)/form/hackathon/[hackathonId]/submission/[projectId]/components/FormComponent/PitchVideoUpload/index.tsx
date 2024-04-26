@@ -25,7 +25,7 @@ const getBase64 = (img: FileType, callback: (url: string) => void) => {
 const InfoForm: FC<
   Omit<FormComponentProps, 'type' | 'formState' | 'setCurrentStep' | 'tracks'> &
     Pick<HackathonSubmitStateType, 'pitchVideo' | 'status' | 'isSubmit'>
-> = ({ onNext, onBack, pitchVideo, projectId, refreshProjectInfo, status }) => {
+> = ({ onNext, onBack, pitchVideo, projectId, refreshProjectInfo, status, isSubmit }) => {
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState<string>();
 
@@ -188,7 +188,7 @@ const InfoForm: FC<
           disabled={loading || submitLoading}
           loading={submitLoading}
         >
-          Next
+          {isSubmit ? 'update' : 'Save'} and Next
         </Button>
       </div>
     </div>

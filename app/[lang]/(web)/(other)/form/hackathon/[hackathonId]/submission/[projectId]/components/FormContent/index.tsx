@@ -55,8 +55,20 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
   };
 
   const init = (projectInfo: ProjectType) => {
-    const { id, name, description, video, introduction, demo, hackathonId, prizeTrack, tracks, status, thumbnail } =
-      projectInfo!;
+    const {
+      id,
+      name,
+      description,
+      video,
+      introduction,
+      demo,
+      hackathonId,
+      prizeTrack,
+      tracks,
+      status,
+      thumbnail,
+      wallet
+    } = projectInfo!;
     const currentStep = HACKATHON_SUBMIT_STEPS.find((step) => step.type === status)!;
     setCurrent(currentStep.stepNumber);
 
@@ -74,7 +86,8 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
       status,
       projectId: id,
       pitchVideo: video,
-      projectDemo: demo
+      projectDemo: demo,
+      wallet
     });
   };
 

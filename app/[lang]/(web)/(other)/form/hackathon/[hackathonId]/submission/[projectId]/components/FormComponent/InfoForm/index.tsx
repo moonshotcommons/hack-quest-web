@@ -56,7 +56,7 @@ export type InfoFormSchema = z.infer<typeof formSchema>;
 const InfoForm: FC<
   Omit<FormComponentProps, 'type' | 'formState' | 'setCurrentStep'> &
     Pick<HackathonSubmitStateType, 'info' | 'status' | 'isSubmit'>
-> = ({ onNext, onBack, info, tracks, simpleHackathonInfo, projectId, status }) => {
+> = ({ onNext, onBack, info, tracks, simpleHackathonInfo, projectId, status, isSubmit }) => {
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -170,7 +170,7 @@ const InfoForm: FC<
               disabled={!form.formState.isValid || (!logo && !form.getValues('projectLogo'))}
               loading={loading}
             >
-              Next
+              {isSubmit ? 'update' : 'Save'} and Next
             </Button>
           </div>
         </form>

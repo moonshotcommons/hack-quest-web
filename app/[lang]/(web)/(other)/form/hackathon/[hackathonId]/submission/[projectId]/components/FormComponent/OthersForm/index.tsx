@@ -27,7 +27,7 @@ export type OthersFormSchema = z.infer<typeof formSchema>;
 const OthersForm: FC<
   Omit<FormComponentProps, 'type' | 'formState' | 'setCurrentStep' | 'tracks'> &
     Pick<HackathonSubmitStateType, 'others' | 'status' | 'isSubmit'>
-> = ({ onNext, onBack, others, status, projectId, refreshProjectInfo }) => {
+> = ({ onNext, onBack, others, status, projectId, refreshProjectInfo, isSubmit }) => {
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -43,7 +43,6 @@ const OthersForm: FC<
         HACKATHON_SUBMIT_STEPS.find((item) => item.type === status)!.stepNumber === 3
           ? ProjectSubmitStepType.WALLET
           : status;
-
       const formData = new FormData();
       const { githubLink, isPublic } = values;
       formData.append('isOpenSource', isPublic ? 'true' : 'false');
@@ -51,6 +50,7 @@ const OthersForm: FC<
       formData.append('status', newStatus);
 
       const res = await webApi.resourceStationApi.submitProject(formData, projectId);
+      await refreshProjectInfo();
       return {
         res,
         status: newStatus,
@@ -118,7 +118,7 @@ const OthersForm: FC<
               disabled={disable}
               loading={loading}
             >
-              Next
+              {isSubmit ? 'update' : 'Save'} and Next
             </Button>
           </div>
         </form>

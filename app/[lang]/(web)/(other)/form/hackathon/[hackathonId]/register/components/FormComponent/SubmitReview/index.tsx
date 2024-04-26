@@ -8,6 +8,7 @@ import webApi from '@/service';
 import { useRequest } from 'ahooks';
 import { errorMessage } from '@/helper/ui';
 import { message } from 'antd';
+import { useRedirect } from '@/hooks/router/useRedirect';
 
 interface SubmitReviewProps {}
 
@@ -21,6 +22,7 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({
     setCurrentStep(step);
   };
 
+  const { redirectToUrl } = useRedirect();
   const { name, contractInfo, bio, submissionType, isRegister } = formState;
 
   const { run: register, loading } = useRequest(
@@ -32,6 +34,7 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({
       onSuccess() {
         !isRegister && message.success(`Register ${simpleHackathonInfo.name} success!`);
         isRegister && message.success(`Update register info success!`);
+        redirectToUrl(`/hackathon/${simpleHackathonInfo.alias}`);
       },
       onError(err) {
         errorMessage(err);
