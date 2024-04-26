@@ -1,20 +1,26 @@
 import Button from '@/components/Common/Button';
 import Modal from '@/components/Common/Modal';
 import { Theme } from '@/constants/enum';
+import { useJumpLeaningLesson } from '@/hooks/courses/useJumpLeaningLesson';
 import Congrats from '@/public/images/course/congrats.svg';
 import DarkMoonLeft from '@/public/images/other/dark-moon_left.svg';
 import DarkMoonRight from '@/public/images/other/dark-moon_right.png';
 import LightMoonLeft from '@/public/images/other/light-moon_left.svg';
 import LightMoonRight from '@/public/images/other/light-moon_right.png';
+import { ProjectCourseType } from '@/service/webApi/course/type';
 import { ThemeContext } from '@/store/context/theme';
 import Image from 'next/image';
 import Link from 'next/link';
 import { forwardRef, useContext, useImperativeHandle, useState } from 'react';
+import { Menu, QueryIdType } from '../Breadcrumb/type';
+import { useSearchParams } from 'next/navigation';
 interface CompleteModalProps {}
 
 interface OpenParams {
   type: 'course' | 'claim';
   title: string;
+  courseId?: string;
+  nextCourse: ProjectCourseType | null;
 }
 
 export interface CompleteModalInstance {
@@ -27,12 +33,26 @@ const CompleteModal = forwardRef<CompleteModalInstance, CompleteModalProps>((pro
   const { theme } = useContext(ThemeContext);
   const [type, setType] = useState<'course' | 'claim'>('course');
   const [title, setTitle] = useState('');
+  const [nextButtonInfo, setNextButtonInfo] = useState<{ open: boolean; nextCourse: ProjectCourseType | null }>({
+    open: false,
+    nextCourse: null
+  });
+
+  const query = useSearchParams();
+
+  const { jumpLearningLesson, loading } = useJumpLeaningLesson();
 
   useImperativeHandle(ref, () => {
     return {
       open(params) {
         setType(params.type);
         setTitle(params.title);
+        if (params.nextCourse) {
+          setNextButtonInfo({
+            open: true,
+            nextCourse: params.nextCourse
+          });
+        }
         setOpen(true);
       },
       close(closeCallback) {
@@ -41,6 +61,10 @@ const CompleteModal = forwardRef<CompleteModalInstance, CompleteModalProps>((pro
       }
     };
   });
+
+  // const {} = useRequest(() => {
+
+  // })
 
   return (
     <Modal
@@ -76,10 +100,27 @@ after:-bottom-[0px] after:left-0 after:h-[1px] after:w-full after:scale-y-[1] af
         {type === 'course' && (
           <div className="mt-[100px] flex gap-[1.25rem]">
             <Link href={'/dashboard'} onClick={() => setOpen(false)}>
-              <Button className="body-l border border-lesson-primary-button-border-color bg-lesson-primary-button-bg px-[3rem] py-[1rem] text-lesson-primary-button-text-color">
+              <Button ghost className="body-l w-[244px]  px-0 py-[1rem] text-lesson-primary-button-text-color">
                 Back to Homepage
               </Button>
             </Link>
+            {nextButtonInfo.open && !!nextButtonInfo.nextCourse && (
+              <Button
+                type="primary"
+                className="body-l w-[244px]  px-0 py-[1rem] capitalize text-lesson-primary-button-text-color"
+                loading={loading}
+                onClick={() => {
+                  setOpen(false);
+                  jumpLearningLesson(nextButtonInfo.nextCourse!, {
+                    menu: Menu.LEARNING_TRACK,
+                    idTypes: [QueryIdType.LEARNING_TRACK_ID, QueryIdType.MENU_COURSE_ID],
+                    ids: [query.get(QueryIdType.LEARNING_TRACK_ID) || '', nextButtonInfo.nextCourse!.id] as string[]
+                  });
+                }}
+              >
+                continue learning
+              </Button>
+            )}
           </div>
         )}
         {type === 'claim' && (

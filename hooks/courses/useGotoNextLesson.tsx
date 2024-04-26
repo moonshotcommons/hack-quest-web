@@ -7,7 +7,7 @@ import { message } from 'antd';
 import { useContext, useMemo, useRef, useState } from 'react';
 import { useGetLessonLink } from './useGetLessonLink';
 import { useRedirect } from '../router/useRedirect';
-import { useParams } from 'next/navigation';
+import { useParams, useSearchParams } from 'next/navigation';
 import { useCourseStore } from '@/store/zustand/courseStore';
 import { useShallow } from 'zustand/react/shallow';
 import { UgcContext } from '@/app/[lang]/(web)/(learn page)/ugc/[courseId]/learn/constants/type';
@@ -15,6 +15,8 @@ import { UgcContext } from '@/app/[lang]/(web)/(learn page)/ugc/[courseId]/learn
 export const useGotoNextLesson = (lesson: CourseLessonType, courseType: CourseType, completed = false) => {
   const { redirectToUrl } = useRedirect();
   const params = useParams();
+  const query = useSearchParams();
+  const learningTrackId = query.get('learningTrackId');
   // const { courseId: courseName } = params;
   // const [completeModalOpen, setCompleteModalOpen] = useState(false);
 
@@ -65,9 +67,34 @@ export const useGotoNextLesson = (lesson: CourseLessonType, courseType: CourseTy
       BurialPoint.track('lesson-课程完成', {
         courseName: courseId as string
       });
+      let nextCourse = null;
+      if (learningTrackId) {
+        try {
+          const learningTrackDetail = await webApi.learningTrackApi.getLearningTrackDetailAndCourses(learningTrackId);
+          for (let i = 0; i < learningTrackDetail.sections.length; i++) {
+            let section = learningTrackDetail.sections[i];
+            const currentLearningIndex = section.courses.findIndex((course) => course.title === courseName);
+            if (currentLearningIndex < 0) continue;
+            let nextIndex = currentLearningIndex + 1;
+            if (nextIndex >= section.courses.length) {
+              let nextSectionIndex = i + 1;
+              if (nextSectionIndex <= learningTrackDetail.sections.length) {
+                nextCourse = learningTrackDetail.sections[nextSectionIndex].courses[0];
+              }
+            } else {
+              nextCourse = section.courses[nextIndex];
+            }
+          }
+        } catch (e) {
+          console.log('获取learningTrack信息失败', e);
+        }
+      }
+
       completeModalRef.current?.open({
         type: 'course',
-        title: courseName as string
+        title: courseName as string,
+        courseId: courseId as string,
+        nextCourse
       });
       if (callbackProp?.completedCallback) {
         callbackProp?.completedCallback();
