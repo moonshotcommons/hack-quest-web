@@ -34,7 +34,7 @@ const Past: React.FC<PastProp> = async ({ params: { lang } }) => {
   const res = await webApi.resourceStationApi.getEvents({ status: EventStatus.PAST });
   const list = res.data || [];
 
-  return <PastPage list={list} />;
+  return <PastPage list={list} lang={lang} />;
 };
 
 export default Past;

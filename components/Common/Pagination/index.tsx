@@ -5,7 +5,7 @@ import { cn } from '@/helper/utils';
 import { useKeyPress } from 'ahooks';
 import { FC, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next-nprogress-bar';
 import { noop } from 'lodash-es';
 
 interface PaginationProps {

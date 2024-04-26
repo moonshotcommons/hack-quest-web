@@ -34,10 +34,7 @@ const LinkWrap: FC<LinkWrapProps> = ({ lesson: propLesson, courseDetail, childre
             {
               menu: query.get('menu') as string,
               idTypes: [QueryIdType.LEARNING_TRACK_ID, QueryIdType.MENU_COURSE_ID],
-              ids: [
-                query.get(QueryIdType.LEARNING_TRACK_ID) || '',
-                query.get(QueryIdType.MENU_COURSE_ID) || ''
-              ] as string[]
+              ids: [query.get(QueryIdType.LEARNING_TRACK_ID) || '', courseDetail.id] as string[]
             }
           )}`;
           redirectToUrl(link);

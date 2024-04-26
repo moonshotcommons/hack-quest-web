@@ -43,7 +43,9 @@ const LearningTrackCourseStatusButton: FC<LearningTrackCourseStatusButtonProps> 
 
   if (!enrolled) return null;
 
-  if (!!course.progress && course.progress <= 0) {
+  const progress = course.progress || 0;
+
+  if (!!progress && progress <= 0) {
     // 课程为当前section的第一个，判断上个section的最后一个的进度，如果没有完成，那么不显示按钮
     if (courseIndex === 0 && sectionIndex !== 0) {
       let prevCourses = sectionList[sectionIndex - 1].courses;
@@ -58,22 +60,22 @@ const LearningTrackCourseStatusButton: FC<LearningTrackCourseStatusButtonProps> 
     }
   }
 
-  if (!learningTrackDetail!.enrolled || !course.progress) return null;
+  if (!learningTrackDetail!.enrolled || !progress) return null;
 
   return (
     <div className="flex w-[322px] max-w-[322px] gap-8">
-      {course.progress < 1 && (
+      {progress < 1 && (
         <div className="flex w-full items-center justify-between gap-8">
           <div className="flex items-center gap-2">
             <div className="relative h-[6px] w-[120px] max-w-[7.5rem] rounded-[3px] bg-neutral-off-white">
               <div
                 className="absolute left-0 top-0 h-full rounded-[3px] bg-yellow-primary"
                 style={{
-                  width: `${course.progress * 100}%`
+                  width: `${progress * 100}%`
                 }}
               ></div>
             </div>
-            <span className="caption-10pt text-neutral-rich-gray">{Math.floor(course.progress * 100)}%</span>
+            <span className="caption-10pt text-neutral-rich-gray">{Math.floor(progress * 100)}%</span>
           </div>
           <Button
             loading={loading && clickIndex === courseIndex}
@@ -81,8 +83,8 @@ const LearningTrackCourseStatusButton: FC<LearningTrackCourseStatusButtonProps> 
             type="primary"
             className="
               button-text-s
-              w-[140px] py-[8px] uppercase
-              transition hover:-translate-y-[1px] hover:shadow-[rgba(0,0,0,0.15)_1.95px_1.95px_2.6px]"
+              h-fit w-[140px] py-[8px]
+              uppercase transition hover:-translate-y-[1px] hover:shadow-[rgba(0,0,0,0.15)_1.95px_1.95px_2.6px]"
             onClick={(e) => {
               e.stopPropagation();
               BurialPoint.track('learningTrackDetail-course学习按钮', {
@@ -93,15 +95,15 @@ const LearningTrackCourseStatusButton: FC<LearningTrackCourseStatusButtonProps> 
               jumpLearningLesson(course, {
                 menu: Menu.LEARNING_TRACK,
                 idTypes: [QueryIdType.LEARNING_TRACK_ID, QueryIdType.MENU_COURSE_ID],
-                ids: [query.get(QueryIdType.LEARNING_TRACK_ID) as string, course.id]
+                ids: [learningTrackDetail!.id, course.id]
               });
             }}
           >
-            {course.progress > 0 ? 'Continue' : 'Start'}
+            {progress > 0 ? 'Continue' : 'Start'}
           </Button>
         </div>
       )}
-      {course.progress >= 1 && (
+      {progress >= 1 && (
         <div className="flex items-center gap-3">
           <span className="body-xs text-neutral-black">{t('courses.completed')}</span>
           <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">

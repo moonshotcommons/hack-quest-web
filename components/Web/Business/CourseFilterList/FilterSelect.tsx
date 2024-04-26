@@ -8,7 +8,7 @@ import { cn } from '@/helper/utils';
 import { GoCheck } from 'react-icons/go';
 import { cloneDeep } from 'lodash-es';
 import { GoX } from 'react-icons/go';
-import { PiSortAscendingLight } from 'react-icons/pi';
+import { PiSortAscendingBold } from 'react-icons/pi';
 import { LangContext } from '@/components/Provider/Lang';
 import { TransNs } from '@/i18n/config';
 import { useTranslation } from '@/i18n/client';
@@ -165,7 +165,7 @@ const FilterSelect: FC<FilterSelectProps> = ({ filters, updateFilters, sort, upd
         >
           <div className="relative flex cursor-pointer items-center gap-[10px] px-3 py-[10px]">
             <span>
-              <PiSortAscendingLight size={20} />
+              <PiSortAscendingBold size={32} />
             </span>
             <span className="body-l text-neutral-off-black">{t('courses.sortBy')}</span>
           </div>

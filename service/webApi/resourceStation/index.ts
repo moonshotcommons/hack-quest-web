@@ -6,18 +6,23 @@ import {
   CoustomKeywordType,
   EventsType,
   HackathonDataType,
+  HackathonRegisterInfo,
+  HackathonTeamDetail,
   HackathonType,
   PagedType,
   ProjectDataType,
-  ProjectType
+  ProjectType,
+  RegisterInfoBody
 } from './type';
+import { isUuid } from '@/helper/utils';
 
 export enum ResourceStationApiType {
   Hackathon = '/hackathons',
   Projects = '/projects',
   Blogs = '/blogs',
   Glossary = '/glossaries',
-  Events = '/events'
+  Events = '/events',
+  Teams = '/hackathons/teams'
 }
 
 class ResourceStationApi {
@@ -27,7 +32,7 @@ class ResourceStationApi {
   }
 
   /** 获取hackathon列表 */
-  getHackathonList(params: Record<string, string | number> | { page: number; limit: number } = {}) {
+  getHackathonList(params: object) {
     return this.service.get<HackathonDataType>(ResourceStationApiType.Hackathon, {
       params
     });
@@ -102,8 +107,95 @@ class ResourceStationApi {
       params
     });
   }
+
   getEventsDetailById(id: string) {
     return this.service.get<EventsType>(`${ResourceStationApiType.Events}/${id}`);
+  }
+
+  /** 获取hackathon的简单信息 */
+  getSimpleHackathonInfo(hackathonId: string) {
+    return this.service.get<{ id: string; name: string; alias: string }>(
+      `${ResourceStationApiType.Hackathon}/${hackathonId}/simple`
+    );
+  }
+
+  /** 获取用户注册的hackathon信息 */
+  getHackathonRegisterInfo(hackathonId: string) {
+    return this.service.get<HackathonRegisterInfo>(`${ResourceStationApiType.Hackathon}/${hackathonId}/members/me`);
+  }
+
+  /** 更新注册信息 */
+  updateHackathonRegisterInfo(hackathonId: string, data: RegisterInfoBody) {
+    return this.service.post<{}>(`${ResourceStationApiType.Hackathon}/${hackathonId}/members`, {
+      data
+    });
+  }
+
+  /** 创建和更新队伍 */
+  addTeam(hackathonId: string, teamName: string) {
+    return this.service.post(`${ResourceStationApiType.Hackathon}/teams`, {
+      data: {
+        hackathonId,
+        name: teamName
+      }
+    });
+  }
+
+  /** 获取team详情信息 */
+  getHackathonTeamDetail(code: string) {
+    return this.service.get<HackathonTeamDetail>(`${ResourceStationApiType.Teams}/${code}/detail`);
+  }
+
+  /** 删除team */
+  deleteTeam(code: string) {
+    return this.service.delete(`${ResourceStationApiType.Teams}/${code}`);
+  }
+
+  /** 删除成员 */
+  deleteMember(code: string, userId: string) {
+    return this.service.post(`${ResourceStationApiType.Teams}/${code}/remove-member`, {
+      data: {
+        userId
+      }
+    });
+  }
+
+  /** 加入team */
+  joinTeam(code: string) {
+    return this.service.post(`${ResourceStationApiType.Teams}/${code}/join`);
+  }
+
+  /** 离开team */
+  leaveTeam(hackathonId: string) {
+    return this.service.delete(`${ResourceStationApiType.Hackathon}/${hackathonId}/members`);
+  }
+
+  /** 注册hackathon */
+  registerHackathon(hackathonId: string) {
+    return this.service.post(`${ResourceStationApiType.Hackathon}/${hackathonId}/members/register`);
+  }
+
+  getHackathonPrizeTracks(hackathonId: string) {
+    return this.service.get<string[]>(`${ResourceStationApiType.Hackathon}/${hackathonId}/prize-tracks`);
+  }
+
+  /** 提交project */
+  submitProject(data: FormData, projectId?: string) {
+    if (projectId && isUuid(projectId)) return this.updateProject(projectId, data);
+    return this.service.post<{ id: string }>(ResourceStationApiType.Projects, {
+      data
+    });
+  }
+
+  /** 更新project */
+  updateProject(projectId: string, data: FormData) {
+    return this.service.patch<{ id: string }>(`${ResourceStationApiType.Projects}/${projectId}`, {
+      data
+    });
+  }
+
+  projectSubmit(projectId: string) {
+    return this.service.post(`${ResourceStationApiType.Projects}/${projectId}/submit`);
   }
 }
 

@@ -167,6 +167,7 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
       </div>
     </div>
   );
+
   return (
     <>
       {start && (
@@ -178,13 +179,19 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
           {QuizHeader}
           <QuizContext.Provider value={{ onPass, currentQuizIndex, parentQuiz: quiz }}>
             <div className={`h-full overflow-hidden px-[20px]`}>
-              <ComponentRenderer
-                parent={quiz}
-                component={quiz.children[currentQuizIndex]}
-                prevComponent={null}
-                nextComponent={null}
-                position={0}
-              ></ComponentRenderer>
+              {quiz.children.map((item, index) => {
+                if (currentQuizIndex !== index) return null;
+                return (
+                  <ComponentRenderer
+                    parent={quiz}
+                    key={item.id}
+                    component={item}
+                    prevComponent={null}
+                    nextComponent={null}
+                    position={0}
+                  ></ComponentRenderer>
+                );
+              })}
             </div>
           </QuizContext.Provider>
         </div>

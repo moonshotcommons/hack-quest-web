@@ -3,30 +3,33 @@ import React from 'react';
 import EventsCover from '@/public/images/resource/events_cover.png';
 import Image from 'next/image';
 import { eventsBannerData } from '@/app/[lang]/(web)/(base page)/(resource)/events/constants/data';
-import CountUp from '@/app/[lang]/(web)/(base page)/(resource)/events/components/EventsBanner/CountUp';
 import Link from 'next/link';
 import MenuLink from '@/constants/MenuLink';
+import CountUp from '@/components/Common/CountUp';
+import { Lang, TransNs } from '@/i18n/config';
+import { useTranslation } from '@/i18n/server';
 
-interface EventsBannerProp {}
+interface EventsBannerProp {
+  lang: Lang;
+}
 
-const EventsBanner: React.FC<EventsBannerProp> = () => {
+const EventsBanner: React.FC<EventsBannerProp> = async ({ lang }) => {
+  const { t } = await useTranslation(lang, TransNs.RESOURCE);
   return (
     <div className="flex flex-col items-center">
       <div className="mb-[2.5rem] flex w-full flex-col items-center overflow-hidden bg-neutral-off-black pb-[4rem] pt-[80px]">
-        <h1 className="text-h1-mob mb-[4rem] text-center text-neutral-white">
-          Join HackQuest’s <br /> Exciting Web3 Events
-        </h1>
-        <div className="mb-[46px]">
+        <h1 className="text-h1-mob mb-[4rem] px-[3.125rem] text-center text-neutral-white">{t('events.title')}</h1>
+        <div className="mb-[5rem]">
           <Link href={`${MenuLink.EVENTS}#events-upcoming`}>
             <Button type="primary" className="button-text-m h-[3rem] w-[10.3125rem] p-0 uppercase text-neutral-black">
-              Upcoming events
+              {t('events.upcomingEvents')}
             </Button>
           </Link>
-          <Link href={`${MenuLink.EVENTS}#events-footer`}>
-            <Button className="button-text-m mt-[2rem] h-[3rem] w-[10.3125rem] border border-neutral-white p-0 uppercase text-neutral-white">
-              Partner With Us
-            </Button>
-          </Link>
+          {/* <Link href={`${MenuLink.PARTNERS}`}> */}
+          <Button className="button-text-m mt-[2rem] h-[3rem] w-[10.3125rem] border border-neutral-white p-0 uppercase text-neutral-white">
+            {t('events.partnerWithUs')}
+          </Button>
+          {/* </Link> */}
         </div>
         <Image
           src={EventsCover}
@@ -43,7 +46,7 @@ const EventsBanner: React.FC<EventsBannerProp> = () => {
                 <p className="text-h2-mob mb-[1rem] text-neutral-off-black">
                   <CountUp start={0} end={v.number} duration={3} />+
                 </p>
-                <p className="body-s text-neutral-medium-gray">{v.label}</p>
+                <p className="body-s text-neutral-medium-gray">{t(`events.${v.label}`)}</p>
               </div>
             ))}
           </div>

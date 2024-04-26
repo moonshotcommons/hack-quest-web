@@ -3,12 +3,16 @@ import EventsCard from '@/components/Web/Business/EventsCard';
 import EventsCardModal from '@/components/Web/Business/EventsCard/EventsCardModal';
 import { EventStatus, EventsType } from '@/service/webApi/resourceStation/type';
 import React, { useMemo, useState } from 'react';
+import { Lang, TransNs } from '@/i18n/config';
+import { useTranslation } from '@/i18n/client';
 
 interface UpcomingEventsProp {
   list: EventsType[];
+  lang: Lang;
 }
 
-const UpcomingEvents: React.FC<UpcomingEventsProp> = ({ list }) => {
+const UpcomingEvents: React.FC<UpcomingEventsProp> = ({ list, lang }) => {
+  const { t } = useTranslation(lang, TransNs.RESOURCE);
   const eventsList = useMemo(() => {
     return list
       .filter((v) => v.status !== EventStatus.PAST)
@@ -23,11 +27,8 @@ const UpcomingEvents: React.FC<UpcomingEventsProp> = ({ list }) => {
   return (
     <div className="container mx-auto mt-[100px]" id={'events-upcoming'}>
       <div className="mb-[60px] text-center">
-        <p className="text-h2 mb-[12px] text-neutral-off-black">Upcoming Events 🗓️</p>
-        <p className="body-m text-neutral-medium-gray">
-          Attend our events to engage with other Web 3 enthusiasts, network with leading voices in Web 3, and build the
-          future of Web 3 together with us!
-        </p>
+        <p className="text-h2 mb-[12px] text-neutral-off-black">{t('events.upcomingEvents')} 🗓️</p>
+        <p className="body-m text-neutral-medium-gray">{t('events.upComingDesc')}</p>
       </div>
       <div className="flex flex-wrap gap-[20px]">
         {eventsList.map((v) => (

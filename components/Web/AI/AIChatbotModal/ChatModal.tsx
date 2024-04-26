@@ -20,6 +20,7 @@ import webApi from '@/service';
 import History from './History';
 import ChatHeader from './ChatHeader';
 import ChatFooter from './ChatFooter';
+import CostCoinModal, { CostCoinModalRef } from './CostCoinModal';
 
 interface AIChatbotModalProps {
   pageType: 'learn' | 'other';
@@ -30,13 +31,15 @@ const AIChatbotModal: FC<AIChatbotModalProps> = ({ pageType }) => {
   const chatStatus = useGlobalStore((state) => state.chatStatus);
   const updateChatStatus = useGlobalStore((state) => state.updateChatStatus);
   const { updateHelperType, updateOpenState } = useUpdateHelperParams();
-  const { chatHistory, setChatHistory } = useChatHistory();
+  const { chatHistory, setChatHistory, freeCount } = useChatHistory();
 
   const [pendingTypeMessage, setPendingTypeMessage] = useState<CompletionsRes | null>(null);
   const [showTips, setShowTips] = useState(pageType === 'learn');
 
   const scrollToBottomSwitch = useRef(true);
   const containerElementRef = useRef(null);
+
+  const costCoinModalRef = useRef<CostCoinModalRef>(null);
 
   // 获取chatbot返回的消息
   const { runAsync: getChatbotMessage, loading } = useRequest(
@@ -51,7 +54,7 @@ const AIChatbotModal: FC<AIChatbotModalProps> = ({ pageType }) => {
         const completion = {
           id: uuid(),
           message: {
-            role: ChatRole.Assistant,
+            type: ChatRole.Assistant,
             content: res.content
           }
         };
@@ -69,6 +72,7 @@ const AIChatbotModal: FC<AIChatbotModalProps> = ({ pageType }) => {
 
   const close = () => {
     updateOpenState(false);
+    updateChatStatus('leisure');
     setTimeout(() => {
       pageType === 'learn' && setShowTips(true);
     }, 300);
@@ -81,7 +85,7 @@ const AIChatbotModal: FC<AIChatbotModalProps> = ({ pageType }) => {
       chatHistory.concat({
         id: uuid(),
         message: {
-          role: ChatRole.Human,
+          type: ChatRole.Human,
           content: content
         }
       })
@@ -106,16 +110,18 @@ const AIChatbotModal: FC<AIChatbotModalProps> = ({ pageType }) => {
     }
   }, [helperParams.type]);
 
-  useClickAway((event) => {
-    chatStatus !== 'chatting' && close();
-  }, containerElementRef);
+  useClickAway(
+    (event) => {
+      console.log(event);
+      chatStatus !== 'chatting' && close();
+    },
+    [containerElementRef, () => document.getElementById('cost-coin-modal')]
+  );
 
   useEffect(() => {
     let currentIndex = 0;
-
-    if (pendingTypeMessage && pendingTypeMessage.message.content) {
-      const content = pendingTypeMessage.message.content;
-
+    const content = pendingTypeMessage?.message.content;
+    if (pendingTypeMessage && content) {
       const interval = setInterval(() => {
         if (currentIndex < content.length - 1) {
           setChatHistory((prevHistory) => {
@@ -130,7 +136,7 @@ const AIChatbotModal: FC<AIChatbotModalProps> = ({ pageType }) => {
 
             if (pendingChat) {
               const connectChat = {
-                role: ChatRole.Assistant,
+                type: ChatRole.Assistant,
                 content: pendingChat.message.content + content[currentIndex]
               };
               return prevHistory.concat({
@@ -145,6 +151,7 @@ const AIChatbotModal: FC<AIChatbotModalProps> = ({ pageType }) => {
 
           currentIndex++;
         } else {
+          currentIndex = 0;
           updateChatStatus('leisure');
           clearInterval(interval);
           scrollToBottomSwitch.current = true;
@@ -152,11 +159,31 @@ const AIChatbotModal: FC<AIChatbotModalProps> = ({ pageType }) => {
         }
       }, 10);
       return () => {
+        if (chatStatus === 'chatting' && content && currentIndex < content.length - 1) {
+          setChatHistory((prevHistory) => {
+            const pendingChat = prevHistory.pop();
+            if (pendingChat) {
+              const connectChat = {
+                type: ChatRole.Assistant,
+                content: content
+              };
+              return prevHistory.concat({
+                ...pendingChat,
+                status: undefined,
+                message: connectChat
+              });
+            }
+            return prevHistory;
+          });
+          updateChatStatus('leisure');
+        }
+        currentIndex = 0;
+        setPendingTypeMessage(null);
         clearInterval(interval);
         scrollToBottomSwitch.current = true;
       };
     }
-  }, [pendingTypeMessage]);
+  }, [pendingTypeMessage, chatStatus]);
 
   return (
     helperParams.open && (
@@ -166,7 +193,7 @@ const AIChatbotModal: FC<AIChatbotModalProps> = ({ pageType }) => {
         transition={{ duration: 0.2 }}
         ref={containerElementRef}
         className={cn(
-          'absolute -bottom-[20px] right-16 flex h-[716px] w-[480px] scale-0 cursor-default flex-col justify-between rounded-[16px] bg-neutral-white shadow-[0px_0px_4px_0px_rgba(0,0,0,0.12)]'
+          'relative flex h-[716px] w-[480px] scale-0 cursor-default flex-col justify-between rounded-[16px] bg-neutral-white shadow-[0px_0px_4px_0px_rgba(0,0,0,0.12)]'
         )}
       >
         <ChatHeader close={close} />
@@ -183,10 +210,14 @@ const AIChatbotModal: FC<AIChatbotModalProps> = ({ pageType }) => {
             scrollToBottomSwitch.current = true;
             setShowTips(false);
           }}
+          freeCount={freeCount}
           getChatbotMessage={getChatbotMessage}
           updateChatHistory={setChatHistory}
           chatHistory={chatHistory}
+          costCoinModalRef={costCoinModalRef}
         />
+
+        <CostCoinModal ref={costCoinModalRef} />
       </motion.div>
     )
   );

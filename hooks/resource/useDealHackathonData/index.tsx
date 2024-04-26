@@ -1,5 +1,6 @@
 import moment from 'moment';
-import { HackathonStatusType } from '@/service/webApi/resourceStation/type';
+import { HackathonRewardType, HackathonStatusType, HackathonType } from '@/service/webApi/resourceStation/type';
+import dayjs from '@/components/Common/Dayjs';
 
 const useDealHackathonData = () => {
   const getRunFromTime = (startTime: string, endTime: string) => {
@@ -32,10 +33,28 @@ const useDealHackathonData = () => {
       return '';
     }
   };
+  const getTotalPrize = (rewards: HackathonRewardType[]) => {
+    let total = 0;
+    rewards?.forEach((r) => {
+      total += r.place.reduce((pre, next) => {
+        return pre + next;
+      }, 0);
+    });
+    return total;
+  };
+  const getStepIndex = (hackathon: HackathonType) => {
+    if (dayjs().tz().isBefore(hackathon.openTime)) return -1;
+    if (dayjs().tz().isAfter(hackathon.openTime) && dayjs().tz().isBefore(hackathon.reviewTime)) return 0;
+    if (dayjs().tz().isAfter(hackathon.reviewTime) && dayjs().tz().isBefore(hackathon.rewardTime)) return 1;
+    if (dayjs().tz().isAfter(hackathon.rewardTime)) return 2;
+    return -1;
+  };
   return {
     getRunFromTime,
     getCloseInTime,
-    getParticipantsStr
+    getParticipantsStr,
+    getTotalPrize,
+    getStepIndex
   };
 };
 

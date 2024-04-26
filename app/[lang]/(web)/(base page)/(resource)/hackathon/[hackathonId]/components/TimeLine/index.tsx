@@ -1,0 +1,80 @@
+'use client';
+import React, { useContext } from 'react';
+import Title from '../components/Title';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
+import { HackathonType } from '@/service/webApi/resourceStation/type';
+import Box from '../components/Box';
+import dayjs from '@/components/Common/Dayjs';
+import { hackathonDetailTimeLine } from '../../../constants/data';
+import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
+
+interface TimeLineProp {
+  hackathon: HackathonType;
+}
+
+const TimeLine: React.FC<TimeLineProp> = ({ hackathon }) => {
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.HACKATHON);
+  const { getStepIndex } = useDealHackathonData();
+  const stepIndex = getStepIndex(hackathon);
+  return (
+    <div>
+      <Title title={t('hackathonDetail.timeline')} />
+      <Box className="p-[24px] text-center ">
+        <div className="relative flex items-center justify-between ">
+          <div
+            className={`absolute bottom-[16px] left-[151px] h-[3px] w-[calc((100%-404px)/2)] rounded-[100px]  ${stepIndex > 0 ? 'bg-yellow-primary' : 'bg-neutral-light-gray'}`}
+          ></div>
+          <div
+            className={`absolute bottom-[16px] right-[151px] h-[3px] w-[calc((100%-404px)/2)] rounded-[100px] ${stepIndex > 1 ? 'bg-yellow-primary' : 'bg-neutral-light-gray'}`}
+          ></div>
+          {hackathonDetailTimeLine.map((v, i) => (
+            <div className="flex w-[200px] flex-col items-center" key={v.key}>
+              <p className={`body-l-bold ${i > stepIndex ? 'text-neutral-medium-gray' : 'text-neutral-black'}`}>
+                {t(`hackathonDetail.${v.key}`)}
+              </p>
+              <p className={`body-s ${i > stepIndex ? 'text-neutral-medium-gray' : 'text-neutral-off-black'}`}>
+                {dayjs(hackathon[v.time as 'openTime' | 'reviewTime' | 'rewardTime'])
+                  .tz()
+                  .format('MMM D,YY H:mm')}
+                (GMT+8)
+              </p>
+              <div
+                className={`flex-center mt-[10px] h-[34px] w-[34px] rounded-[50%] border border-dashed  ${i === stepIndex ? 'border-neutral-rich-gray' : 'border-transparent'}`}
+              >
+                <div
+                  className={`h-[24px] w-[24px] rounded-[50%] border  ${i > stepIndex ? 'border-neutral-medium-gray bg-neutral-off-white' : 'border-yellow-primary  bg-yellow-primary'}`}
+                ></div>
+              </div>
+            </div>
+          ))}
+          {/* <div className="flex w-[200px] flex-col items-center">
+            <p className="body-l-bold">{t('hackathonDetail.registrationOpen')}</p>
+            <p className="body-s text-neutral-off-black">{dayjs(hackathon.openTime).format('MMM D,YY H:mm')}</p>
+            <div className="flex-center mt-[10px] h-[34px] w-[34px] rounded-[50%] border border-dashed border-transparent">
+              <div className="h-[24px] w-[24px] rounded-[50%] border border-yellow-primary  bg-yellow-primary"></div>
+            </div>
+          </div>
+          <div className="flex w-[200px] flex-col items-center">
+            <p className="body-l-bold">{t('hackathonDetail.submissionsClose')}</p>
+            <p className="body-s text-neutral-off-black">{dayjs(hackathon.reviewTime).format('MMM D,YY H:mm')}</p>
+            <div className="flex-center mt-[10px] h-[34px] w-[34px] rounded-[50%] border border-dashed border-neutral-rich-gray">
+              <div className="h-[24px] w-[24px] rounded-[50%] border border-yellow-primary  bg-yellow-primary"></div>
+            </div>
+          </div>
+          <div className="flex w-[200px] flex-col items-center">
+            <p className="body-l-bold text-neutral-medium-gray">{t('hackathonDetail.rewardAnnouncement')}</p>
+            <p className="body-s text-neutral-medium-gray">{dayjs(hackathon.rewardTime).format('MMM D,YY H:mm')}</p>
+            <div className="flex-center mt-[10px] h-[34px] w-[34px] rounded-[50%] border border-dashed border-transparent">
+              <div className="h-[24px] w-[24px] rounded-[50%] border border-neutral-medium-gray  bg-neutral-off-white"></div>
+            </div>
+          </div> */}
+        </div>
+      </Box>
+    </div>
+  );
+};
+
+export default TimeLine;

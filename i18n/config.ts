@@ -9,7 +9,9 @@ export enum TransNs {
   REWARD = 'reward',
   LANDING = 'landing',
   LEARN = 'learn',
-  RESOURCE = 'resource'
+  RESOURCE = 'resource',
+  HACKATHON = 'hackathon',
+  PRESS_KIT = 'press-kit'
 }
 export const cookieName = 'i18next';
 export const locales = [Lang.ZH, Lang.EN];
@@ -19,7 +21,9 @@ export const transNs = [
   TransNs.LAUNCH_POOL,
   TransNs.LANDING,
   TransNs.RESOURCE,
-  TransNs.REWARD
+  TransNs.REWARD,
+  TransNs.HACKATHON,
+  TransNs.PRESS_KIT
 ];
 export const defaultLocale = Lang.EN;
 

@@ -38,8 +38,7 @@ export const useLoadUserInfo = () => {
         setUserInfo(user);
       },
       onError(error: any) {
-        console.log(error);
-        // message.error(error.msg);
+        // errorMessage(error);
       },
       onFinally() {
         setWaitingLoadUserInfo(false);
