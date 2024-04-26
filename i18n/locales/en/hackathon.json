@@ -48,6 +48,7 @@
     "thirdPlace":"Third Place",
     "trackTotalReward":"{{track}} Total Reward",
     "orientation":"Orientation",
-    "openZoomMeeting":"Open Zoom meeting"
+    "openZoomMeeting":"Open Zoom meeting",
+    "submitWarning":"You are not the team owner, please contact the administrator"
   }
 }

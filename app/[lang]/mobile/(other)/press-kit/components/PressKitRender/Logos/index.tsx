@@ -3,7 +3,7 @@ import { useTranslation } from '@/i18n/server';
 import React from 'react';
 import { logosData } from '@/app/[lang]/(web)/(other)/press-kit/constants/data';
 import Image from 'next/image';
-import { GrDownload } from 'react-icons/gr';
+import Download from '@/app/[lang]/(web)/(other)/press-kit/components/PressKitRender/Logos/Download';
 
 interface LogosProp {
   lang: Lang;
@@ -15,9 +15,9 @@ const Logos: React.FC<LogosProp> = async ({ lang }) => {
     <div>
       <h1 className="text-h2-mob mb-[1.25rem]">{t('logos')}</h1>
       <div className="flex flex-wrap gap-x-[.75rem] gap-y-[1rem]">
-        {logosData.map((v) => (
+        {logosData.map((v, i) => (
           <div
-            key={v.id}
+            key={i}
             className="card-hover w-[calc((100%-0.75rem)/2)] overflow-hidden  rounded-[1rem] bg-neutral-white"
           >
             <div className="relative h-0 w-full bg-neutral-light-gray pt-[56.25%] ">
@@ -25,10 +25,7 @@ const Logos: React.FC<LogosProp> = async ({ lang }) => {
             </div>
             <div className="flex h-[4.625rem] flex-col justify-between p-[.5rem]">
               <h2 className="body-xs  line-clamp-2 text-neutral-off-black">{v.name}</h2>
-              <div className="caption-12pt flex items-center gap-[.25rem] text-neutral-black">
-                <GrDownload size={10} />
-                <span>{t('download')}</span>
-              </div>
+              <Download fileName={v.fileName} className="caption-12pt gap-[.25rem]" size={10} />
             </div>
           </div>
         ))}
