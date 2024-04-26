@@ -10,6 +10,8 @@ import { CourseDetailContext } from '@/components/Web/DetailPageV2/Provider/Cour
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
+import { useSearchParams } from 'next/navigation';
+import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 
 interface UnitStatusButtonProps {
   courseDetail: CourseDetailType;
@@ -25,6 +27,9 @@ const UnitStatusButton: FC<
   const { courseDetail: contextCourseDetail } = useContext(CourseDetailContext);
   const courseDetail = (contextCourseDetail ?? propCourseDetail) as CourseDetailType;
   const unit = contextUnit ?? propUnit;
+
+  const query = useSearchParams();
+  const learningTrackId = query.get('learningTrackId');
 
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.BASIC);
@@ -47,7 +52,17 @@ const UnitStatusButton: FC<
       courseName: courseDetail?.title || '',
       unitName: unit.title
     });
-    courseDetail && jumpLearningLesson(courseDetail);
+
+    if (courseDetail) {
+      if (!learningTrackId) jumpLearningLesson(courseDetail);
+      else {
+        jumpLearningLesson(courseDetail, {
+          menu: Menu.LEARNING_TRACK,
+          idTypes: [QueryIdType.LEARNING_TRACK_ID, QueryIdType.MENU_COURSE_ID],
+          ids: [learningTrackId, courseDetail.id]
+        });
+      }
+    }
   };
 
   switch (status) {

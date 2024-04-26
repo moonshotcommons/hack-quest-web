@@ -39,7 +39,7 @@ const LearningTrackCatalogueItem: FC<LearningTrackCatalogueItemProps> = (props) 
                   {/* 课程标题 */}
                   <div className="flex w-full flex-col gap-4">
                     <Link
-                      href={`${getCoursePrefixByCourseType(course.type)}/${course.id}`}
+                      href={`${getCoursePrefixByCourseType(course.type)}/${course.id}?learningTrackId=${learningTrackDetail.id}`}
                       className="body-s inline-block flex-1 cursor-pointer text-neutral-black transition hover:opacity-70"
                     >
                       {course.title}

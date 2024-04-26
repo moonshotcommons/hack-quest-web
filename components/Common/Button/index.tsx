@@ -5,6 +5,7 @@ type ButtonType = 'default' | 'primary' | 'secondary' | 'text';
 type SizeType = 'default' | 'large' | 'medium-x' | 'medium-y' | 'small';
 import Loading from '@/public/images/other/loading.png';
 import Image from 'next/image';
+import { useIsClient } from '@/hooks/dom/useIsClient';
 
 interface BaseButtonProps {
   type?: ButtonType;
@@ -63,14 +64,17 @@ const Button: FC<ButtonProps> = (props) => {
 
   const [loadingSize, setLoadingSize] = useState([48, 48]);
 
+  const isClient = useIsClient();
+
   useEffect(() => {
     const button = buttonRef.current;
     if (button) {
       setLoadingSize([button.clientHeight * 0.88889, button.clientHeight * 0.88889]);
     }
-  }, [buttonRef]);
+  }, [children, isClient]);
 
   const disabled = propDisabled || loading;
+
   return (
     <button
       ref={buttonRef}
