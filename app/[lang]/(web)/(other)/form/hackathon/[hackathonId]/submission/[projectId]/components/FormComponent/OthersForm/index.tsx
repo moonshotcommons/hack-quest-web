@@ -22,7 +22,7 @@ const formSchema = z.object({
 export type OthersFormSchema = z.infer<typeof formSchema>;
 
 const OthersForm: FC<
-  Omit<FormComponentProps, 'type' | 'formState' | 'setCurrentStep'> & {
+  Omit<FormComponentProps, 'type' | 'formState' | 'setCurrentStep' | 'tracks'> & {
     others: HackathonSubmitStateType['others'];
   }
 > = ({ onNext, onBack, others }) => {
