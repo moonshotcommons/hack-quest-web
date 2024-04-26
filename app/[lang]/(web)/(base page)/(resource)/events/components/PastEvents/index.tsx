@@ -6,12 +6,16 @@ import MenuLink from '@/constants/MenuLink';
 import { EventStatus, EventsType } from '@/service/webApi/resourceStation/type';
 import Link from 'next/link';
 import React, { useMemo, useState } from 'react';
+import { Lang, TransNs } from '@/i18n/config';
+import { useTranslation } from '@/i18n/client';
 
 interface PastEventsProp {
   list: EventsType[];
+  lang: Lang;
 }
 
-const PastEvents: React.FC<PastEventsProp> = ({ list }) => {
+const PastEvents: React.FC<PastEventsProp> = ({ list, lang }) => {
+  const { t } = useTranslation(lang, TransNs.RESOURCE);
   const eventsList = useMemo(() => {
     return list
       .filter((v) => v.status === EventStatus.PAST)
@@ -25,7 +29,7 @@ const PastEvents: React.FC<PastEventsProp> = ({ list }) => {
   if (!eventsList.length) return null;
   return (
     <div className="container mx-auto mt-[60px]">
-      <p className="text-h3 text-neutral-off-black">Past Events</p>
+      <p className="text-h3 text-neutral-off-black">{t('events.pastEvents')}</p>
       <div className="my-[40px] flex flex-wrap gap-[20px]">
         {eventsList.slice(0, 8)?.map((v) => (
           <div key={v.id} className="w-[calc((100%-60px)/4)]">
@@ -43,7 +47,7 @@ const PastEvents: React.FC<PastEventsProp> = ({ list }) => {
         <div className="flex justify-center">
           <Link href={MenuLink.EVENTS_PAST}>
             <Button className="button-text-m h-[48px] w-[165px] border border-neutral-black uppercase text-neutral-black">
-              view more
+              {t('viewMore')}
             </Button>
           </Link>
         </div>

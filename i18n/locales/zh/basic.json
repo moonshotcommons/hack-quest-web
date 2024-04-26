@@ -93,7 +93,9 @@
       "advocate": "倡议",
       "advocateDesc": "加入我们快速发展的社区",
       "events": "事件",
-      "eventsDesc": "了解Web 3事件"
+      "eventsDesc": "了解Web 3事件",
+      "partners": "合作伙伴",
+      "partnersDesc": "成为我们的合作伙伴"
     },
     "launch": {
       "title": "发射台"
@@ -157,5 +159,11 @@
   "handleButtonText": {
     "save": "保存",
     "exit": "退出"
-  }
+  },
+  "viewMore": "查看更多",
+  "continueSubmission":"继续提交",
+  "register":"注册",
+  "continueRegister":"继续注册",
+  "youHavesubmitted":"你已经提交",
+  "yes":"好"
 }

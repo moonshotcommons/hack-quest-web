@@ -2,7 +2,7 @@ import Button from '@/components/Common/Button';
 import SwiperContainer from '@/components/Common/SwiperContainer';
 import TrackTag from '@/components/Common/TrackTag';
 import moment from 'moment';
-import React, { useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { PiCalendarBlank } from 'react-icons/pi';
 import { TfiLocationPin } from 'react-icons/tfi';
 import { SwiperSlide } from 'swiper/react';
@@ -14,6 +14,9 @@ import { animateProps } from './type';
 import { EventsType } from '@/service/webApi/resourceStation/type';
 import Link from 'next/link';
 import CardCover from '@/public/images/resource/events_card_cover.png';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 
 interface MobEventsCardModalProp {
   onClose: VoidFunction;
@@ -22,6 +25,8 @@ interface MobEventsCardModalProp {
 }
 
 const MobEventsCardModal: React.FC<MobEventsCardModalProp> = ({ onClose, open, events }) => {
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.RESOURCE);
   const medias = useMemo(() => {
     return events?.medias?.length ? events?.medias : [CardCover];
   }, [events]);
@@ -37,7 +42,7 @@ const MobEventsCardModal: React.FC<MobEventsCardModalProp> = ({ onClose, open, e
       >
         <div className="body-l flex items-center gap-[7px] text-neutral-black " onClick={onClose}>
           <HiArrowLongLeft size={20}></HiArrowLongLeft>
-          <span>Back</span>
+          <span>{t('back')}</span>
         </div>
         <div className="my-[1.25rem]">
           <SwiperContainer>

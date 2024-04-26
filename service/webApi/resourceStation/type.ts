@@ -10,6 +10,23 @@ export interface MentorType {
   title: string;
   picture: string;
 }
+
+export interface HackathonRewardType {
+  desc: string;
+  name: string;
+  place: number[];
+}
+export interface HackathonScheduleType {
+  desc: string;
+  time: string;
+  isExpand?: boolean;
+  children: {
+    desc: string;
+    link?: string;
+    time: string;
+    address?: string;
+  }[];
+}
 export interface HackathonType {
   id: string;
   name: string;
@@ -18,6 +35,7 @@ export interface HackathonType {
   theme: string;
   participants: string[];
   hosts: Omit<MentorType, 'title'>[];
+  coHosts: Omit<MentorType, 'title'>[];
   startTime: string;
   endTime: string;
   address: string;
@@ -27,7 +45,11 @@ export interface HackathonType {
   communityPartners: MentorType[];
   status: HackathonStatusType;
   alias: string;
-  totalPrice: number;
+  rewardTime: string;
+  rewards: HackathonRewardType[];
+  openTime: string;
+  reviewTime: string;
+  schedule: HackathonScheduleType[];
 }
 
 export interface HackathonDataType {
@@ -129,6 +151,11 @@ export enum HackathonRegisterStep {
   Review = 'REVIEW'
 }
 
+export interface HackathonRegisterProjectInfo {
+  id: string;
+  name: string;
+  status: ProjectSubmitStepType;
+}
 export interface HackathonRegisterInfo {
   id: string;
   hackathonId: string;
@@ -144,6 +171,8 @@ export interface HackathonRegisterInfo {
   updatedAt: string;
   avatar: string;
   isRegister: boolean;
+  isSubmit: boolean;
+  project?: HackathonRegisterProjectInfo;
 }
 
 export interface RegisterInfoBody {

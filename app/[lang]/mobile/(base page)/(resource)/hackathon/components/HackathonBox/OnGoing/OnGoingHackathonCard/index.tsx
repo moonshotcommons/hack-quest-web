@@ -11,6 +11,8 @@ import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import CountDown from '@/components/Web/Business/CountDown';
+import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
+import Link from 'next/link';
 
 interface OnGoingHackathonCardProp {
   hackathon: HackathonType;
@@ -24,6 +26,8 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon })
   };
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
+  const { getTotalPrize } = useDealHackathonData();
+  const totalPrize = getTotalPrize(hackathon.rewards);
   return (
     <div
       className="card-hover flex  w-full flex-col overflow-hidden rounded-[.75rem] bg-neutral-white "
@@ -39,16 +43,18 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon })
         </div>
         <div>
           <p className="body-s mb-[.25rem] text-neutral-medium-gray">{t('submissionClosesIn')}</p>
-          <CountDown time={hackathon.endTime} />
+          <CountDown time={hackathon.reviewTime} />
         </div>
         <div className="body-s flex flex-col gap-[4px] text-neutral-medium-gray [&>div]:flex [&>div]:items-center [&>div]:justify-between">
           <div>
             <span className="">{t('participants')}</span>
-            <span className="body-m-bold text-neutral-off-black">{separationNumber(hackathon.totalPrice || 0)}</span>
+            <span className="body-m-bold text-neutral-off-black">
+              {separationNumber(hackathon.participants?.length || 0)}
+            </span>
           </div>
           <div>
             <span className="">{t('totalPrize')}</span>
-            <span className="body-m-bold text-neutral-off-black">{separationNumber(hackathon.totalPrice || 0)}</span>
+            <span className="body-m-bold text-neutral-off-black">${separationNumber(totalPrize || 0)}</span>
           </div>
           <div>
             <span className="">{t('host')}</span>
@@ -56,16 +62,18 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon })
           </div>
         </div>
         <div className="flex gap-[.75rem]">
-          <Button
-            className="button-text-s h-[2.125rem] flex-1 bg-yellow-primary uppercase"
-            onClick={(e) => {
-              e.stopPropagation();
-              BurialPoint.track(`hackathon onGoingCard Submit Now 按钮点击`);
-            }}
-          >
-            {t('submitNow')}
-          </Button>
-          <Button className="button-text-s h-[2.125rem] flex-1 border border-neutral-black uppercase">
+          <Link href={`/form${MenuLink.HACKATHON}/${hackathon.id}/register`} className="w-[calc((100%-0.75rem)/2)]">
+            <Button
+              className="button-text-s h-[2.125rem] w-full bg-yellow-primary uppercase"
+              onClick={(e) => {
+                e.stopPropagation();
+                BurialPoint.track(`hackathon onGoingCard Submit Now 按钮点击`);
+              }}
+            >
+              {t('submitNow')}
+            </Button>
+          </Link>
+          <Button className="button-text-s h-[2.125rem] w-[calc((100%-0.75rem)/2)] border border-neutral-black uppercase">
             {t('learnMore')}
           </Button>
         </div>

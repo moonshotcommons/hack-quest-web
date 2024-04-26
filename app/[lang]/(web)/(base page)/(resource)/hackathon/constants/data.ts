@@ -32,3 +32,18 @@ export const animateProps: MotionProps = {
   transition: { duration: 0.5, type: 'spring' },
   style: { originY: 0 }
 };
+
+export const hackathonDetailTimeLine = [
+  {
+    key: 'registrationOpen',
+    time: 'openTime'
+  },
+  {
+    key: 'submissionsClose',
+    time: 'reviewTime'
+  },
+  {
+    key: 'rewardAnnouncement',
+    time: 'rewardTime'
+  }
+];

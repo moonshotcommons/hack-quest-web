@@ -11,6 +11,8 @@ import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import { separationNumber } from '@/helper/utils';
 import CountDown from '@/components/Web/Business/CountDown';
+import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
+import Link from 'next/link';
 
 interface OnGoingHackathonCardProp {
   hackathon: HackathonType;
@@ -24,6 +26,9 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon })
     BurialPoint.track(`hackathon onGoingCard 点击`);
     redirectToUrl(`${MenuLink.HACKATHON}/${hackathon.alias}`);
   };
+  const { getTotalPrize } = useDealHackathonData();
+  const totalPrize = getTotalPrize(hackathon.rewards);
+
   return (
     <div
       className="card-hover flex h-[322px] overflow-hidden rounded-[16px] bg-neutral-white "
@@ -42,15 +47,17 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon })
         <div className="body-m flex items-center justify-between text-neutral-medium-gray">
           <div>
             <p className="mb-[8px]">{t('submissionClosesIn')}</p>
-            <CountDown time={hackathon.endTime} />
+            <CountDown time={hackathon.reviewTime} />
           </div>
           <div>
             <p className="mb-[8px]">{t('participants')}</p>
-            <p className="body-xl-bold text-neutral-off-black">{separationNumber(hackathon.totalPrice || 0)}</p>
+            <p className="body-xl-bold text-neutral-off-black">
+              {separationNumber(hackathon.participants?.length || 0)}
+            </p>
           </div>
           <div>
             <p className="mb-[8px]">{t('totalPrize')}</p>
-            <p className="body-xl-bold text-neutral-off-black">{separationNumber(hackathon.totalPrice || 0)}</p>
+            <p className="body-xl-bold text-neutral-off-black">${separationNumber(totalPrize || 0)}</p>
           </div>
           <div className="w-[25%]">
             <p className="mb-[8px]">{t('host')}</p>
@@ -60,16 +67,18 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon })
           </div>
         </div>
         <div className="flex gap-[16px]">
-          <Button
-            className="button-text-l h-[60px] flex-1 bg-yellow-primary uppercase"
-            onClick={(e) => {
-              e.stopPropagation();
-              BurialPoint.track(`hackathon onGoingCard Submit Now 按钮点击`);
-            }}
-          >
-            {t('submitNow')}
-          </Button>
-          <Button className="button-text-l h-[60px] flex-1 border border-neutral-black uppercase">
+          <Link href={`/form${MenuLink.HACKATHON}/${hackathon.id}/register`} className="w-[calc((100%-16px)/2)] ">
+            <Button
+              className="button-text-l h-[60px] w-full bg-yellow-primary uppercase"
+              onClick={(e) => {
+                e.stopPropagation();
+                BurialPoint.track(`hackathon onGoingCard Submit Now 按钮点击`);
+              }}
+            >
+              {t('submitNow')}
+            </Button>
+          </Link>
+          <Button className="button-text-l h-[60px] w-[calc((100%-16px)/2)]  border border-neutral-black uppercase">
             {t('learnMore')}
           </Button>
         </div>

@@ -15,21 +15,18 @@ const Links: React.FC<LinksProp> = async ({ lang }) => {
     <div>
       <h1 className="text-h2-mob mb-[1.25rem]">{t('links')}</h1>
       <div className="flex flex-col gap-[20px]">
-        {linksData.map((v) => (
-          <div
-            key={v.id}
-            className="card-hover flex w-full items-center gap-[1rem] overflow-hidden rounded-[1rem] bg-neutral-white px-[1rem] py-[.75rem]"
-          >
-            <div className="relative h-[3rem] w-[3rem] overflow-hidden rounded-[.5rem] bg-neutral-light-gray">
-              {v.img && <Image src={v.img} alt={v.name} fill className="object-cover" />}
+        {linksData.map((v, i) => (
+          <Link className="w-full" key={i} href={v.link}>
+            <div className="card-hover flex w-full items-center gap-[1rem] overflow-hidden rounded-[1rem] bg-neutral-white px-[1rem] py-[.75rem]">
+              <div className="relative h-[3rem] w-[3rem] flex-shrink-0 overflow-hidden rounded-[.5rem] bg-neutral-light-gray">
+                {v.img && <Image src={v.img} alt={v.name} fill className="object-cover" />}
+              </div>
+              <div className="">
+                <p className="caption-10pt mb-[4px] line-clamp-1 w-full text-neutral-medium-gray">{v.link}</p>
+                <h2 className="body-l-bold text-neutral-off-black">{v.name}</h2>
+              </div>
             </div>
-            <div className="">
-              <Link href={v.path} className="caption-10pt mb-[4px] text-neutral-medium-gray">
-                {v.path}
-              </Link>
-              <h2 className="body-l-bold text-neutral-off-black">{v.name}</h2>
-            </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

@@ -13,6 +13,7 @@ export async function generateMetadata(props: { params: { lang: string; pressKit
   const { lang, pressKitId } = props.params;
 
   return {
+    title: 'HackQuest PreesKit',
     alternates: {
       canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}${MenuLink.PRESS_KIT}/${pressKitId}`,
       languages: {

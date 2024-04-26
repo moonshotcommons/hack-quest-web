@@ -36,7 +36,7 @@ const Events: React.FC<EventsProp> = async ({ params: { lang } }) => {
   const list = res.data || [];
   return (
     <div className="flex h-full flex-col pt-[48px]">
-      <PastPage list={list} />
+      <PastPage list={list} lang={lang} />
       <div className="flex-shrink-0">
         <LandingFooter lang={lang} />
       </div>

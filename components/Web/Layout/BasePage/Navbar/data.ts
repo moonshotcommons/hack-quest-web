@@ -115,6 +115,11 @@ export const navbarList: NavbarListType[] = [
         path: MenuLink.EVENTS,
         description: 'navbar.resources.eventsDesc'
       }
+      // {
+      //   label: 'navbar.resources.partners',
+      //   path: MenuLink.PARTNERS,
+      //   description: 'navbar.resources.partnersDesc'
+      // }
     ]
   },
   {
