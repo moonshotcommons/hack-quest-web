@@ -20,6 +20,7 @@ import webApi from '@/service';
 import History from './History';
 import ChatHeader from './ChatHeader';
 import ChatFooter from './ChatFooter';
+import CostCoinModal, { CostCoinModalRef } from './CostCoinModal';
 
 interface AIChatbotModalProps {
   pageType: 'learn' | 'other';
@@ -30,13 +31,15 @@ const AIChatbotModal: FC<AIChatbotModalProps> = ({ pageType }) => {
   const chatStatus = useGlobalStore((state) => state.chatStatus);
   const updateChatStatus = useGlobalStore((state) => state.updateChatStatus);
   const { updateHelperType, updateOpenState } = useUpdateHelperParams();
-  const { chatHistory, setChatHistory } = useChatHistory();
+  const { chatHistory, setChatHistory, freeCount } = useChatHistory();
 
   const [pendingTypeMessage, setPendingTypeMessage] = useState<CompletionsRes | null>(null);
   const [showTips, setShowTips] = useState(pageType === 'learn');
 
   const scrollToBottomSwitch = useRef(true);
   const containerElementRef = useRef(null);
+
+  const costCoinModalRef = useRef<CostCoinModalRef>(null);
 
   // 获取chatbot返回的消息
   const { runAsync: getChatbotMessage, loading } = useRequest(
@@ -107,9 +110,13 @@ const AIChatbotModal: FC<AIChatbotModalProps> = ({ pageType }) => {
     }
   }, [helperParams.type]);
 
-  useClickAway((event) => {
-    chatStatus !== 'chatting' && close();
-  }, containerElementRef);
+  useClickAway(
+    (event) => {
+      console.log(event);
+      chatStatus !== 'chatting' && close();
+    },
+    [containerElementRef, () => document.getElementById('cost-coin-modal')]
+  );
 
   useEffect(() => {
     let currentIndex = 0;
@@ -186,7 +193,7 @@ const AIChatbotModal: FC<AIChatbotModalProps> = ({ pageType }) => {
         transition={{ duration: 0.2 }}
         ref={containerElementRef}
         className={cn(
-          'flex h-[716px] w-[480px] scale-0 cursor-default flex-col justify-between rounded-[16px] bg-neutral-white shadow-[0px_0px_4px_0px_rgba(0,0,0,0.12)]'
+          'relative flex h-[716px] w-[480px] scale-0 cursor-default flex-col justify-between rounded-[16px] bg-neutral-white shadow-[0px_0px_4px_0px_rgba(0,0,0,0.12)]'
         )}
       >
         <ChatHeader close={close} />
@@ -203,10 +210,14 @@ const AIChatbotModal: FC<AIChatbotModalProps> = ({ pageType }) => {
             scrollToBottomSwitch.current = true;
             setShowTips(false);
           }}
+          freeCount={freeCount}
           getChatbotMessage={getChatbotMessage}
           updateChatHistory={setChatHistory}
           chatHistory={chatHistory}
+          costCoinModalRef={costCoinModalRef}
         />
+
+        <CostCoinModal ref={costCoinModalRef} />
       </motion.div>
     )
   );
