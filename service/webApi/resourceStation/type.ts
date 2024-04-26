@@ -35,7 +35,7 @@ export interface HackathonType {
   theme: string;
   participants: string[];
   hosts: Omit<MentorType, 'title'>[];
-  coHost: Omit<MentorType, 'title'>[];
+  coHosts: Omit<MentorType, 'title'>[];
   startTime: string;
   endTime: string;
   address: string;
@@ -151,6 +151,7 @@ export enum HackathonRegisterStep {
 export interface HackathonRegisterProjectInfo {
   id: string;
   name: string;
+  status: ProjectSubmitStepType;
 }
 export interface HackathonRegisterInfo {
   id: string;
@@ -166,8 +167,8 @@ export interface HackathonRegisterInfo {
   createdAt: string;
   updatedAt: string;
   avatar: string;
-  isRegister?: boolean;
-  isSubmit?: boolean;
+  isRegister: boolean;
+  isSubmit: boolean;
   project?: HackathonRegisterProjectInfo;
 }
 
@@ -205,4 +206,31 @@ export interface HackathonTeamDetail {
   createdAt: string;
   updatedAt: string;
   members: TeamMemberInfo[];
+}
+
+export enum ProjectSubmitStepType {
+  INFO = 'INFO',
+  PITCH_VIDEO = 'PITCH_VIDEO',
+  DEMO = 'DEMO',
+  OTHERS = 'OTHERS',
+  WALLET = 'WALLET',
+  REVIEW = 'REVIEW'
+}
+
+export interface ProjectSubmitBody {
+  name?: string;
+  hackathonId: string;
+  prizeTrack?: string;
+  description?: string;
+  thumbnail?: string;
+  video?: string;
+  demo?: string;
+  introduction?: string;
+  githubLink?: string;
+  isOpenSource?: boolean;
+  wallet?: string;
+  status?: ProjectSubmitStepType;
+  team?: string;
+  tracks?: string[];
+  creatorId?: string;
 }

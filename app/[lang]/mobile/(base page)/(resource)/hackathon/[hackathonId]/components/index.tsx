@@ -15,7 +15,7 @@ interface HackDetailProps {
 
 const HackDetail: FC<HackDetailProps> = ({ hackathon }) => {
   return (
-    <div className="px-[1.25rem] pb-[3.75rem] pt-[1.25rem]">
+    <div className="px-[1.25rem] pb-[6.25rem] pt-[1.25rem]">
       {hackathon.id && (
         <div className="flex flex-col gap-[3.75rem]">
           <div>

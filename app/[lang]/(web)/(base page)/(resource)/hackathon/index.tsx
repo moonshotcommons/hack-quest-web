@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import HackathonPage from './components';
-import { HackathonStatusType } from '@/service/webApi/resourceStation/type';
+import { HackathonStatusType, HackathonType } from '@/service/webApi/resourceStation/type';
 import { getFeaturedProjects } from '@/service/cach/resource/hackathon';
 import webApi from '@/service';
 
@@ -29,8 +29,13 @@ const Hackathon: FC<HackathonProps> = async ({ searchParams = {}, params: { slug
     getFeaturedProjects(),
     webApi.resourceStationApi.getHackathonList(hackListParam)
   ]);
-
-  const miniHackathonList: any[] = [];
+  let miniHackathonList: HackathonType[] = [];
+  if (status === HackathonStatusType.ON_GOING) {
+    miniHackathonList = hackathon.data;
+  } else {
+    let res = await webApi.resourceStationApi.getHackathonList({ status: HackathonStatusType.ON_GOING });
+    miniHackathonList = res.data;
+  }
 
   return (
     <>

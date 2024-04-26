@@ -45,8 +45,8 @@ export type SubmissionTypeFormSchema = z.infer<typeof formSchema>;
 
 const SubmissionTypeForm: FC<
   Omit<FormComponentProps, 'type' | 'formState' | 'setCurrentStep'> &
-    Pick<HackathonRegisterStateType, 'submissionType' | 'status'>
-> = ({ onNext, onBack, simpleHackathonInfo, status, refreshRegisterInfo, submissionType }) => {
+    Pick<HackathonRegisterStateType, 'submissionType' | 'status' | 'isRegister'>
+> = ({ onNext, onBack, simpleHackathonInfo, status, refreshRegisterInfo, submissionType, isRegister }) => {
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -223,11 +223,11 @@ const SubmissionTypeForm: FC<
             <Button
               type="primary"
               htmlType="submit"
-              className={cn('w-[165px] px-0 py-4 uppercase', disabled ? 'bg-neutral-light-gray' : '')}
+              className={cn('button-text-m min-w-[165px] px-0 py-4 uppercase', disabled ? 'bg-neutral-light-gray' : '')}
               disabled={disabled}
               loading={loading}
             >
-              Next
+              {isRegister ? 'update' : 'Save'} And Next
             </Button>
           </div>
         </form>

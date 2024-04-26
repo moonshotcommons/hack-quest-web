@@ -25,13 +25,27 @@ const FormComponent: FC<FormComponentProps> = (props) => {
   const { type, formState, setCurrentStep, ...rest } = props;
   switch (type) {
     case HackathonRegisterStep.Name:
-      return <NameForm {...rest} name={formState.name} status={formState.status} />;
+      return <NameForm {...rest} name={formState.name} status={formState.status} isRegister={formState.isRegister} />;
     case HackathonRegisterStep.Contact:
-      return <ContractForm {...rest} contractInfo={formState.contractInfo} status={formState.status} />;
+      return (
+        <ContractForm
+          {...rest}
+          contractInfo={formState.contractInfo}
+          status={formState.status}
+          isRegister={formState.isRegister}
+        />
+      );
     case HackathonRegisterStep.Bio:
-      return <BioForm {...rest} bio={formState.bio} status={formState.status} />;
+      return <BioForm {...rest} bio={formState.bio} status={formState.status} isRegister={formState.isRegister} />;
     case HackathonRegisterStep.SubmissionType:
-      return <SubmissionTypeForm {...rest} submissionType={formState.submissionType} status={formState.status} />;
+      return (
+        <SubmissionTypeForm
+          {...rest}
+          submissionType={formState.submissionType}
+          status={formState.status}
+          isRegister={formState.isRegister}
+        />
+      );
     case HackathonRegisterStep.Review:
       return <SubmitReview {...rest} formState={formState} setCurrentStep={setCurrentStep} />;
   }

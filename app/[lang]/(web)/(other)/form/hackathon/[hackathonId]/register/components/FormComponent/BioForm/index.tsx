@@ -27,8 +27,9 @@ const formSchema = z.object({
 });
 
 const BioForm: FC<
-  Omit<FormComponentProps, 'type' | 'formState' | 'setCurrentStep'> & Pick<HackathonRegisterStateType, 'bio' | 'status'>
-> = ({ onNext, onBack, bio, simpleHackathonInfo, status }) => {
+  Omit<FormComponentProps, 'type' | 'formState' | 'setCurrentStep'> &
+    Pick<HackathonRegisterStateType, 'bio' | 'status' | 'isRegister'>
+> = ({ onNext, onBack, bio, simpleHackathonInfo, status, isRegister }) => {
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -76,10 +77,10 @@ const BioForm: FC<
   }, [bio]);
 
   return (
-    <div>
+    <div className="">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-6">
-          <div className="flex flex-col gap-4 text-left">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="flex h-full w-full flex-col gap-6">
+          <div className="flex  flex-col gap-4 text-left">
             <FormField
               control={form.control}
               name={'bio'}
@@ -109,19 +110,23 @@ const BioForm: FC<
               )}
             />
           </div>
+
           <div className="flex justify-end gap-4">
-            <Button ghost className="w-[165px] px-0 py-4 uppercase" onClick={onBack}>
+            <Button htmlType="button" ghost className="button-text-m w-[165px] px-0 py-4 uppercase" onClick={onBack}>
               Back
             </Button>
 
             <Button
               type="primary"
               htmlType="submit"
-              className={cn('w-[165px] px-0 py-4 uppercase', !form.formState.isValid ? 'bg-neutral-light-gray' : '')}
+              className={cn(
+                'button-text-m min-w-[165px] px-0 py-4 uppercase',
+                !form.formState.isValid ? 'bg-neutral-light-gray' : ''
+              )}
               disabled={!form.formState.isValid}
               loading={loading}
             >
-              Next
+              {isRegister ? 'update' : 'Save'} And Next
             </Button>
           </div>
         </form>

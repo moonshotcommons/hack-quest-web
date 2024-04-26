@@ -23,12 +23,10 @@ interface HackathonInfoProp {
 }
 
 const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
-  // const router = useRouter();
+  console.info(hackathon);
   const { userInfo } = useUserStore(
     useShallow((state) => ({
       userInfo: state.userInfo
-      // setAuthType: state.setAuthType,
-      // setAuthModalOpen: state.setAuthModalOpen
     }))
   );
   const { lang } = useContext(LangContext);
@@ -50,19 +48,10 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
     }
   );
 
-  // const handleButton = (path: string) => {
-  //   if (!userInfo) {
-  //     setAuthType(AuthType.LOGIN);
-  //     setAuthModalOpen(true);
-  //     return;
-  //   }
-  //   router.push(path);
-  // };
-
   const renderButton = () => {
     if (userInfo) {
       if (!registerInfo?.isRegister) {
-        const buttonText = registerInfo?.status ? t('register') : t('continueRegister');
+        const buttonText = !registerInfo?.status ? t('register') : t('continueRegister');
         return (
           <Link href={`/form${MenuLink.HACKATHON}/${hackathon.id}/register`}>
             <Button className="button-text-l h-[60px] w-full bg-yellow-primary uppercase">{buttonText}</Button>
@@ -72,11 +61,11 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
       if (registerInfo?.isRegister) {
         if (!registerInfo.isSubmit) {
           return !registerInfo.project?.id ? (
-            <Link href={`/form${MenuLink.HACKATHON}/${hackathon.id}/register`}>
+            <Link href={`/form${MenuLink.HACKATHON}/${hackathon.id}/submission/-1`}>
               <Button className="button-text-l h-[60px] w-full bg-yellow-primary uppercase">{t('submitNow')}</Button>
             </Link>
           ) : (
-            <Link href={`/form${MenuLink.HACKATHON}/${hackathon.id}/register`}>
+            <Link href={`/form${MenuLink.HACKATHON}/${hackathon.id}/submission/${registerInfo.project.id}`}>
               <Button className="button-text-l h-[60px] w-full bg-yellow-primary uppercase">
                 {t('continueSubmission')}
               </Button>
@@ -161,7 +150,7 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
 
       <div>
         <div className="body-m mb-[4px] text-neutral-medium-gray">{t('hackathonDetail.hostBy')}</div>
-        {hackathon.hosts.map((v, i) => (
+        {hackathon.hosts?.map((v, i) => (
           <div key={i} className="flex-row-center mb-[10px] h-[30px]">
             <div className="relative h-[30px] w-[30px]">
               <Image src={v.picture} alt="hackathonHost" fill className="object-contain"></Image>
@@ -172,19 +161,19 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
       </div>
       <div>
         <div className="body-m mb-[4px] text-neutral-medium-gray">{t('hackathonDetail.cohostBy')}</div>
-        {/* {hackathon.coHost.map((v, i) => (
+        {hackathon.coHosts?.map((v, i) => (
           <div key={i} className="flex-row-center mb-[10px] h-[30px]">
             <div className="relative h-[30px] w-[30px]">
               <Image src={v.picture} alt="hackathonHost" fill className="object-contain"></Image>
             </div>
             <span className="body-m pl-[8px] uppercase">{v.name}</span>
           </div>
-        ))} */}
+        ))}
       </div>
       <div>
         <div className="body-m mb-[4px] text-neutral-medium-gray">{t('participants')}</div>
         <div className="flex items-center gap-[8px]">
-          <div className="flex pl-[10px]">
+          {/* <div className="flex pl-[10px]">
             {hackathon.hosts?.slice(0, 6)?.map((v, i) => (
               <div
                 key={i}
@@ -193,7 +182,7 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
                 <Image src={v.picture} alt="hackathonHost" fill className="object-contain"></Image>
               </div>
             ))}
-          </div>
+          </div> */}
           <p className="body-m">{`${hackathon.participants.length} ${t('hackathonDetail.usersPartitipated')}`}</p>
         </div>
       </div>
