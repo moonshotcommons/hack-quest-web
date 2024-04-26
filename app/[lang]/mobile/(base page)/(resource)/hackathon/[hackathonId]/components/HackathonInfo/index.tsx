@@ -151,28 +151,34 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
         </div>
       ) : null}
 
-      <div>
-        <div className="body-s mb-[.25rem] text-neutral-medium-gray">{t('hackathonDetail.hostBy')}</div>
-        {hackathon.hosts?.map((v, i) => (
-          <div key={i} className="flex-row-center mb-[.625rem] h-[1.5rem]">
-            <div className="relative h-[1.5rem] w-[1.5rem]">
-              <Image src={v.picture} alt="hackathonHost" fill className="object-contain"></Image>
+      {hackathon.hosts?.length > 0 && (
+        <div>
+          <div className="body-s mb-[.25rem] text-neutral-medium-gray">{t('hackathonDetail.hostBy')}</div>
+          {hackathon.hosts?.map((v, i) => (
+            <div key={i} className="flex-row-center mb-[.625rem] h-[1.5rem]">
+              <div className="relative h-[1.5rem] w-[1.5rem]">
+                <Image src={v.picture} alt="hackathonHost" fill className="object-contain"></Image>
+              </div>
+              <span className="body-s pl-[.5rem] uppercase">{v.name}</span>
             </div>
-            <span className="body-s pl-[.5rem] uppercase">{v.name}</span>
-          </div>
-        ))}
-      </div>
-      <div>
-        <div className="body-s mb-[.25rem] text-neutral-medium-gray">{t('hackathonDetail.cohostBy')}</div>
-        {hackathon.coHosts?.map((v, i) => (
-          <div key={i} className="flex-row-center mb-[.625rem] h-[1.5rem]">
-            <div className="relative h-[1.5rem] w-[1.5rem]">
-              <Image src={v.picture} alt="hackathonHost" fill className="object-contain"></Image>
+          ))}
+        </div>
+      )}
+
+      {hackathon.coHosts?.length > 0 && (
+        <div>
+          <div className="body-s mb-[.25rem] text-neutral-medium-gray">{t('hackathonDetail.cohostBy')}</div>
+          {hackathon.coHosts?.map((v, i) => (
+            <div key={i} className="flex-row-center mb-[.625rem] h-[1.5rem]">
+              <div className="relative h-[1.5rem] w-[1.5rem]">
+                <Image src={v.picture} alt="hackathonHost" fill className="object-contain"></Image>
+              </div>
+              <span className="body-s pl-[.5rem] uppercase">{v.name}</span>
             </div>
-            <span className="body-s pl-[.5rem] uppercase">{v.name}</span>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
+
       <div>
         <div className="body-s mb-[.25rem] text-neutral-medium-gray">{t('participants')}</div>
         <div className="flex items-center gap-[.5rem]">
