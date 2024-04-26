@@ -156,29 +156,34 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
           <CountDown time={hackathon.reviewTime} />
         </div>
       )}
+      {hackathon.hosts?.length > 0 && (
+        <div>
+          <div className="body-m mb-[4px] text-neutral-medium-gray">{t('hackathonDetail.hostBy')}</div>
+          {hackathon.hosts?.map((v, i) => (
+            <div key={i} className="flex-row-center mb-[10px] h-[30px]">
+              <div className="relative h-[30px] w-[30px]">
+                <Image src={v.picture} alt="hackathonHost" fill className="object-contain"></Image>
+              </div>
+              <span className="body-m pl-[8px] uppercase">{v.name}</span>
+            </div>
+          ))}
+        </div>
+      )}
 
-      <div>
-        <div className="body-m mb-[4px] text-neutral-medium-gray">{t('hackathonDetail.hostBy')}</div>
-        {hackathon.hosts?.map((v, i) => (
-          <div key={i} className="flex-row-center mb-[10px] h-[30px]">
-            <div className="relative h-[30px] w-[30px]">
-              <Image src={v.picture} alt="hackathonHost" fill className="object-contain"></Image>
+      {hackathon.coHosts?.length > 0 && (
+        <div>
+          <div className="body-m mb-[4px] text-neutral-medium-gray">{t('hackathonDetail.cohostBy')}</div>
+          {hackathon.coHosts?.map((v, i) => (
+            <div key={i} className="flex-row-center mb-[10px] h-[30px]">
+              <div className="relative h-[30px] w-[30px]">
+                <Image src={v.picture} alt="hackathonHost" fill className="object-contain"></Image>
+              </div>
+              <span className="body-m pl-[8px] uppercase">{v.name}</span>
             </div>
-            <span className="body-m pl-[8px] uppercase">{v.name}</span>
-          </div>
-        ))}
-      </div>
-      <div>
-        <div className="body-m mb-[4px] text-neutral-medium-gray">{t('hackathonDetail.cohostBy')}</div>
-        {hackathon.coHosts?.map((v, i) => (
-          <div key={i} className="flex-row-center mb-[10px] h-[30px]">
-            <div className="relative h-[30px] w-[30px]">
-              <Image src={v.picture} alt="hackathonHost" fill className="object-contain"></Image>
-            </div>
-            <span className="body-m pl-[8px] uppercase">{v.name}</span>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
+
       <div>
         <div className="body-m mb-[4px] text-neutral-medium-gray">{t('participants')}</div>
         <div className="flex items-center gap-[8px]">
