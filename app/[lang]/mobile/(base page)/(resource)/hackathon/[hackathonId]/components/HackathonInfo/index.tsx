@@ -37,55 +37,70 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
   const stepIndex = getStepIndex(hackathon);
 
   const renderButton = () => {
-    if (userInfo) {
-      if (!hackathon.participation?.isRegister) {
-        const buttonText = !hackathon.participation?.status ? t('register') : t('continueRegister');
-        return (
-          <Button
-            className="button-text-m h-[3rem] w-full bg-yellow-primary uppercase"
-            onClick={() => setTipsModalOpenState(true)}
-          >
-            {buttonText}
-          </Button>
-        );
-      }
-      if (hackathon.participation?.isRegister) {
-        if (!hackathon.participation.isSubmit) {
-          return !hackathon.participation.project?.id ? (
-            <Button
-              className="button-text-m h-[3rem] w-full bg-yellow-primary uppercase"
-              onClick={() => setTipsModalOpenState(true)}
-            >
-              {t('submitNow')}
-            </Button>
-          ) : (
-            <Button
-              className="button-text-m h-[3rem] w-full bg-yellow-primary uppercase"
-              onClick={() => setTipsModalOpenState(true)}
-            >
-              {t('continueSubmission')}
-            </Button>
-          );
-        } else {
+    if (stepIndex < 1) {
+      if (userInfo) {
+        if (!hackathon.participation?.isRegister) {
+          const buttonText = !hackathon.participation?.status ? t('register') : t('continueRegister');
           return (
-            <Button className="button-text-m h-[3rem] w-full bg-neutral-light-gray uppercase text-neutral-medium-gray">
-              {t('youHavesubmitted')}
+            <Button
+              className="button-text-m h-[3rem] w-full bg-yellow-primary uppercase"
+              onClick={() => setTipsModalOpenState(true)}
+            >
+              {buttonText}
             </Button>
           );
         }
+        if (hackathon.participation?.isRegister) {
+          if (!hackathon.participation.isSubmit) {
+            return !hackathon.participation.project?.id ? (
+              <Button
+                className="button-text-m h-[3rem] w-full bg-yellow-primary uppercase"
+                onClick={() => setTipsModalOpenState(true)}
+              >
+                {t('submitNow')}
+              </Button>
+            ) : (
+              <Button
+                className="button-text-m h-[3rem] w-full bg-yellow-primary uppercase"
+                onClick={() => setTipsModalOpenState(true)}
+              >
+                {t('continueSubmission')}
+              </Button>
+            );
+          } else {
+            return (
+              <Button className="button-text-m h-[3rem] w-full bg-neutral-light-gray uppercase text-neutral-medium-gray">
+                {t('youHavesubmitted')}
+              </Button>
+            );
+          }
+        }
+        return (
+          <Link
+            onClick={() => {
+              BurialPoint.track(`hackathon detail View All Projects 按钮点击`);
+            }}
+            href={`${MenuLink.PROJECTS}?keyword=${hackathon.name}`}
+          >
+            <Button ghost className="button-text-m h-[3rem] w-full bg-neutral-black uppercase text-neutral-white">
+              {t('viewAllProjects')}
+            </Button>
+          </Link>
+        );
+      } else {
+        return (
+          <Link
+            onClick={() => {
+              BurialPoint.track(`hackathon detail View All Projects 按钮点击`);
+            }}
+            href={`${MenuLink.PROJECTS}?keyword=${hackathon.name}`}
+          >
+            <Button ghost className="button-text-m h-[3rem] w-full bg-neutral-black uppercase text-neutral-white">
+              {t('viewAllProjects')}
+            </Button>
+          </Link>
+        );
       }
-      return (
-        <Link
-          onClick={() => {
-            BurialPoint.track(`hackathon detail View All Projects 按钮点击`);
-          }}
-          href={`${MenuLink.PROJECTS}?keyword=${hackathon.name}`}
-        >
-          <Button ghost className="button-text-m h-[3rem] w-full bg-neutral-black uppercase text-neutral-white">
-            {t('viewAllProjects')}
-          </Button>
-        </Link>
-      );
     } else {
       return (
         <Link
