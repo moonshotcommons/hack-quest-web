@@ -2,6 +2,11 @@ import { AiOutlineAppstore } from 'react-icons/ai';
 import { FiAlertCircle, FiFileText, FiLink } from 'react-icons/fi';
 import { RxChatBubble } from 'react-icons/rx';
 import { PressNav } from './type';
+import HackquestLogo from '@/public/images/press-kit/hackquest_log.png';
+import DiscordLogo from '@/public/images/press-kit/discord_log.png';
+import TwitterLogo from '@/public/images/press-kit/twitter_log.png';
+import TelegramLogo from '@/public/images/press-kit/telegram_logo.png';
+import { HACKQUEST_DISCORD, HACKQUEST_TWITTER, HACKQUEST_TELEGRAM } from '@/constants/links';
 
 export const pressKitNavData = [
   {
@@ -123,36 +128,31 @@ export const logosData = [
 
 export const linksData = [
   {
-    id: 1,
-    img: '',
-    path: 'http://hackquest.com',
+    img: HackquestLogo,
+    link: 'https://hackquest.io',
+    name: 'HackQuest'
+  },
+  {
+    img: DiscordLogo,
+    link: HACKQUEST_DISCORD,
     name: 'Discord'
   },
   {
-    id: 2,
-    img: '',
-    path: 'http://hackquest.com',
-    name: 'Discord'
+    img: TwitterLogo,
+    link: HACKQUEST_TWITTER,
+    name: 'Twitter'
   },
   {
-    id: 3,
-    img: '',
-    path: 'http://hackquest.com',
-    name: 'Discord'
+    img: TelegramLogo,
+    link: HACKQUEST_TELEGRAM,
+    name: 'Telegram'
   }
 ];
 
 export const contactData = [
   {
     id: 1,
-    title: 'Press Inquiries',
-    content: ['Robin Halpern', 'VP & Head of Investor Relations'],
-    path: 'abcd@hackquest.com'
-  },
-  {
-    id: 2,
-    title: 'Investor Relations',
-    content: ['Robin Halpern', 'VP & Head of Investor Relations'],
-    path: 'abcd@hackquest.com'
+    title: 'Emails',
+    content: ['founder@hackquest.io', 'founders@moonshotcommons.com']
   }
 ];

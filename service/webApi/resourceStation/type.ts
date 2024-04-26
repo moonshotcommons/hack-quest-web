@@ -148,6 +148,10 @@ export enum HackathonRegisterStep {
   Review = 'REVIEW'
 }
 
+export interface HackathonRegisterProjectInfo {
+  id: string;
+  name: string;
+}
 export interface HackathonRegisterInfo {
   id: string;
   hackathonId: string;
@@ -162,6 +166,9 @@ export interface HackathonRegisterInfo {
   createdAt: string;
   updatedAt: string;
   avatar: string;
+  isRegister?: boolean;
+  isSubmit?: boolean;
+  project?: HackathonRegisterProjectInfo;
 }
 
 export interface RegisterInfoBody {
