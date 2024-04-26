@@ -50,6 +50,8 @@ const DropAnswer: FC<DropAnswerProps> = (props) => {
         status: 'default'
       };
 
+      // setAnswers({});
+
       setAnswers((state) => {
         const newAnswers: any = {
           ...state,
@@ -60,7 +62,7 @@ const DropAnswer: FC<DropAnswerProps> = (props) => {
       setCurrentAnswer(newAnswer);
       renderState.current = true;
     }
-  }, [quiz]);
+  }, []);
 
   useEffect(() => {
     setClearVisible(false);
