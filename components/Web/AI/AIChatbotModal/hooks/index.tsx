@@ -2,7 +2,7 @@ import { errorMessage } from '@/helper/ui';
 import webApi from '@/service';
 import { ChatRole, CompletionsRes } from '@/service/webApi/helper/type';
 import { useRequest } from 'ahooks';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { v4 as uuid } from 'uuid';
 
@@ -31,5 +31,10 @@ export const useChatHistory = () => {
     getHistory();
   }, []);
 
-  return { chatHistory, setChatHistory };
+  const freeCount = useMemo(() => {
+    const humanMessages = chatHistory.filter((item) => item.message.type === ChatRole.Human);
+    return humanMessages.length >= 5 ? 0 : 5 - humanMessages.length;
+  }, [chatHistory]);
+
+  return { chatHistory, setChatHistory, freeCount };
 };

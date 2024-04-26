@@ -13,6 +13,7 @@ export interface HelperParams {
   content?: string;
   exampleNum?: number;
   quizNum?: number;
+  showCostCoinModal: boolean;
 }
 
 export interface GlobalStateType {
@@ -55,7 +56,8 @@ export const useGlobalStore = create<GlobalStateType>()((set) => ({
     type: HelperType.Chat,
     content: '',
     exampleNum: -1,
-    quizNum: -1
+    quizNum: -1,
+    showCostCoinModal: false
   },
 
   updateHelperParams: (params, key) => {
