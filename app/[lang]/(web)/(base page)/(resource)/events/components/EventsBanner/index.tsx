@@ -3,11 +3,10 @@ import React from 'react';
 import EventsCover from '@/public/images/resource/events_cover.png';
 import Image from 'next/image';
 import { eventsBannerData } from '../../constants/data';
-import MenuLink from '@/constants/MenuLink';
-import Link from 'next/link';
 import CountUp from '@/components/Common/CountUp';
 import { Lang, TransNs } from '@/i18n/config';
 import { useTranslation } from '@/i18n/server';
+import UpcomingButton from './UpcomingButton';
 
 interface EventsBannerProp {
   lang: Lang;
@@ -20,16 +19,12 @@ const EventsBanner: React.FC<EventsBannerProp> = async ({ lang }) => {
       <div className="flex w-full flex-col items-center bg-neutral-off-black pb-[57px] pt-[124px]">
         <h1 className="text-h2 mb-[60px] text-neutral-white">{t('events.title')}</h1>
         <div className="mb-[46px] flex gap-[32px]">
-          <Link href={`${MenuLink.EVENTS}#events-upcoming`}>
-            <Button type="primary" className="button-text-l h-[60px] w-[270px] uppercase text-neutral-black">
-              {t('events.upcomingEvents')}
-            </Button>
-          </Link>
-          <Link href={`${MenuLink.PARTNERS}`}>
-            <Button className="button-text-l h-[60px] w-[270px] border border-neutral-white uppercase text-neutral-white">
-              {t('events.partnerWithUs')}
-            </Button>
-          </Link>
+          <UpcomingButton lang={lang} />
+          {/* <Link href={`${MenuLink.PARTNERS}`}> */}
+          <Button className="button-text-l h-[60px] w-[270px] border border-neutral-white uppercase text-neutral-white">
+            {t('events.partnerWithUs')}
+          </Button>
+          {/* </Link> */}
         </div>
         <Image src={EventsCover} width={1037} alt="events-cover" priority />
       </div>

@@ -25,11 +25,11 @@ const EventsBanner: React.FC<EventsBannerProp> = async ({ lang }) => {
               {t('events.upcomingEvents')}
             </Button>
           </Link>
-          <Link href={`${MenuLink.PARTNERS}`}>
-            <Button className="button-text-m mt-[2rem] h-[3rem] w-[10.3125rem] border border-neutral-white p-0 uppercase text-neutral-white">
-              {t('events.partnerWithUs')}
-            </Button>
-          </Link>
+          {/* <Link href={`${MenuLink.PARTNERS}`}> */}
+          <Button className="button-text-m mt-[2rem] h-[3rem] w-[10.3125rem] border border-neutral-white p-0 uppercase text-neutral-white">
+            {t('events.partnerWithUs')}
+          </Button>
+          {/* </Link> */}
         </div>
         <Image
           src={EventsCover}
