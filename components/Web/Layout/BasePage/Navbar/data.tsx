@@ -128,10 +128,10 @@ export const navbarList: NavbarListType[] = [
     label: 'navbar.launch.title',
     id: 'launch',
     menu: [
-      {
-        label: 'navbar.launch.title',
-        path: MenuLink.LAUNCH
-      }
+      // {
+      //   label: 'navbar.launch.title',
+      //   path: MenuLink.LAUNCH
+      // }
     ]
   },
   {
