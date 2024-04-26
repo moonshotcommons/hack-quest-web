@@ -46,8 +46,8 @@ const ProjectCard: React.FC<ProjectCardProp> = ({ className = '', project }) => 
           <div className="body-s line-clamp-2 text-neutral-rich-gray">{project.introduction}</div>
         </div>
         <div className="caption-12pt flex items-center gap-[10px]  text-neutral-rich-gray">
-          <span className="flex-shrink-0">2022 Summer</span>
-          <span className="h-[16px] w-[1px] flex-shrink-0 bg-neutral-rich-gray"></span>
+          {/* <span className="flex-shrink-0">2022 Summer</span>
+          <span className="h-[16px] w-[1px] flex-shrink-0 bg-neutral-rich-gray"></span> */}
           <span className="flex-1 flex-shrink-0 truncate">{project.hackathonName}</span>
         </div>
       </div>
