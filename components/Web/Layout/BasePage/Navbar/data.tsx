@@ -2,6 +2,8 @@ import { MotionProps } from 'framer-motion';
 import { NavbarListType } from './type';
 import { HACKQUEST_DISCORD, HACKQUEST_TELEGRAM, HACKQUEST_TWITTER } from '@/constants/links';
 import MenuLink from '@/constants/MenuLink';
+import { FaDiscord, FaTelegram } from 'react-icons/fa6';
+import TwitterXIcon from '@/components/Common/Icon/TwitterX';
 
 export const animateProps: MotionProps = {
   initial: { scaleY: 0, opacity: 0, translateY: '95%' },
@@ -135,12 +137,22 @@ export const navbarList: NavbarListType[] = [
   {
     label: 'navbar.more.title',
     id: 'more',
-    type: 'outSide',
     menu: [
+      {
+        label: 'navbar.more.aboutUs',
+        id: 'aboutUs',
+        menu: [
+          {
+            id: 'pressKit',
+            label: 'navbar.more.pressKit',
+            link: `${MenuLink.PRESS_KIT}/about`
+          }
+        ]
+      },
       {
         label: 'navbar.more.tools',
         id: 'tools',
-        outSide: [
+        menu: [
           {
             label: 'navbar.more.playground',
             id: 'playground',
@@ -151,18 +163,27 @@ export const navbarList: NavbarListType[] = [
       {
         label: 'navbar.more.community',
         id: 'community',
-        outSide: [
+        menu: [
           {
+            id: 'Discord',
             label: 'navbar.more.Discord',
-            link: HACKQUEST_DISCORD
+            link: HACKQUEST_DISCORD,
+            icon: <FaDiscord />,
+            outSide: true
           },
           {
+            id: 'Twitter',
             label: 'navbar.more.Twitter',
-            link: HACKQUEST_TWITTER
+            link: HACKQUEST_TWITTER,
+            icon: <TwitterXIcon size={12} color="var(--neutral-rich-gray)" />,
+            outSide: true
           },
           {
+            id: 'Telegram',
             label: 'navbar.more.Telegram',
-            link: HACKQUEST_TELEGRAM
+            link: HACKQUEST_TELEGRAM,
+            icon: <FaTelegram />,
+            outSide: true
           }
         ]
       }

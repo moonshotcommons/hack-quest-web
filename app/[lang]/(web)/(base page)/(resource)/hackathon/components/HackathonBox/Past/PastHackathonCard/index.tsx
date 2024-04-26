@@ -45,7 +45,7 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon }) => {
             </div>
             <div>
               <span className="">{t('host')}</span>
-              <span className="body-m-bold text-neutral-off-black underline">{hackathon.hosts[0]?.name}</span>
+              <span className="body-m-bold text-neutral-off-black underline">{hackathon.hosts?.[0]?.name}</span>
             </div>
           </div>
         </div>

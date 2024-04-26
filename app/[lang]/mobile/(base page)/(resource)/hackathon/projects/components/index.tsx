@@ -11,6 +11,7 @@ import MenuLink from '@/constants/MenuLink';
 import { useRouter } from 'next-nprogress-bar';
 import { getSearchParamsUrl } from '@/helper/utils';
 import MobCourseListPageHeader from '@/components/Mobile/MobCourseListPageHeader';
+import { projectSort } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/data';
 
 interface ProjectsPageProp {
   list: ProjectType[];
@@ -25,8 +26,8 @@ const ProjectsPage: FC<ProjectsPageProp> = ({ list, searchParams, total, pageInf
   const searchList = (search: SearchParamsType) => {
     const searchInfo = {
       ...search,
-      sort: search.sort === '-featured' ? '' : search.sort,
-      apolloDay: !search.apolloDay ? '' : search.apolloDay
+      createdAt: search.createdAt === projectSort[0].value ? '' : search.createdAt,
+      winner: !search.winner ? '' : search.winner
     };
     const url = getSearchParamsUrl(searchInfo, MenuLink.PROJECTS);
     router.push(url);
@@ -41,8 +42,8 @@ const ProjectsPage: FC<ProjectsPageProp> = ({ list, searchParams, total, pageInf
         coverHeight={100}
         onSearch={(keyword) => {
           searchList({
-            sort: '-featured',
-            apolloDay: '',
+            createdAt: projectSort[0].value,
+            winner: '',
             tracks: '',
             keyword
           });

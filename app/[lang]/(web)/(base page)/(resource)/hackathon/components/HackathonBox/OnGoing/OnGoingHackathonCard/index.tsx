@@ -1,5 +1,5 @@
 'use client';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import Image from 'next/image';
 import Button from '@/components/Common/Button';
 import { HackathonType } from '@/service/webApi/resourceStation/type';
@@ -13,12 +13,20 @@ import { separationNumber } from '@/helper/utils';
 import CountDown from '@/components/Web/Business/CountDown';
 import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 import Link from 'next/link';
+import { useUserStore } from '@/store/zustand/userStore';
+import { useShallow } from 'zustand/react/shallow';
+import WarningModal from '../../../../[hackathonId]/components/HackathonInfo/WarningModal';
 
 interface OnGoingHackathonCardProp {
   hackathon: HackathonType;
 }
 
 const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon }) => {
+  const { userInfo } = useUserStore(
+    useShallow((state) => ({
+      userInfo: state.userInfo
+    }))
+  );
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const { redirectToUrl } = useRedirect();
@@ -28,7 +36,84 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon })
   };
   const { getTotalPrize } = useDealHackathonData();
   const totalPrize = getTotalPrize(hackathon.rewards);
-
+  const [warningOpen, setWarningOpen] = useState(false);
+  const handleSubmit = (id: string) => {
+    if (hackathon.participation?.team?.creatorId === hackathon.participation?.userId) {
+      redirectToUrl(`/form${MenuLink.HACKATHON}/${hackathon.id}/submission/${id}`);
+    } else {
+      setWarningOpen(true);
+    }
+  };
+  const renderButton = () => {
+    if (userInfo) {
+      if (!hackathon.participation?.isRegister) {
+        const buttonText = !hackathon.participation?.status ? t('register') : t('continueRegister');
+        return (
+          <Link
+            onClick={() => {
+              BurialPoint.track(`hackathon detail View All Projects 按钮点击`);
+            }}
+            href={`/form${MenuLink.HACKATHON}/${hackathon.id}/register`}
+            className="flex-1"
+          >
+            <Button className="button-text-l h-[60px] w-full  bg-yellow-primary p-0 uppercase">{buttonText}</Button>
+          </Link>
+        );
+      }
+      if (hackathon.participation?.isRegister) {
+        if (!hackathon.participation.isSubmit) {
+          return !hackathon.participation.project?.id ? (
+            <Button
+              className="button-text-l h-[60px] flex-1   bg-yellow-primary p-0 uppercase"
+              onClick={() => handleSubmit('-1')}
+            >
+              {t('submitNow')}
+            </Button>
+          ) : (
+            <Button
+              className="button-text-l h-[60px] flex-1   bg-yellow-primary p-0 uppercase"
+              onClick={() => handleSubmit(hackathon.participation?.project?.id as string)}
+            >
+              {t('continueSubmission')}
+            </Button>
+          );
+        } else {
+          return (
+            <Button className="button-text-l h-[60px] flex-1   cursor-not-allowed bg-neutral-light-gray p-0 uppercase text-neutral-medium-gray hover:scale-[1]">
+              {t('youHavesubmitted')}
+            </Button>
+          );
+        }
+      }
+      return (
+        <Link
+          onClick={() => {
+            BurialPoint.track(`hackathon detail View All Projects 按钮点击`);
+          }}
+          href={`${MenuLink.PROJECTS}?keyword=${hackathon.name}`}
+          className="flex-1"
+        >
+          <Button ghost className="button-text-l h-[60px] w-full border-neutral-black uppercase text-neutral-black">
+            {t('viewAllProjects')}
+          </Button>
+        </Link>
+      );
+    } else {
+      return (
+        <Link
+          onClick={() => {
+            BurialPoint.track(`hackathon detail View All Projects 按钮点击`);
+          }}
+          href={`${MenuLink.PROJECTS}?keyword=${hackathon.name}`}
+          className="flex-1"
+        >
+          <Button ghost className="button-text-l h-[60px] w-full border-neutral-black uppercase text-neutral-black">
+            {t('viewAllProjects')}
+          </Button>
+        </Link>
+      );
+    }
+  };
   return (
     <div
       className="card-hover flex h-[322px] overflow-hidden rounded-[16px] bg-neutral-white "
@@ -62,27 +147,18 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon })
           <div className="w-[25%]">
             <p className="mb-[8px]">{t('host')}</p>
             <p className="body-xl-bold  relative h-[36px] text-neutral-off-black underline">
-              <p className="absolute left-0 top-0 w-full truncate">{hackathon.hosts[0]?.name}</p>
+              <p className="absolute left-0 top-0 w-full truncate">{hackathon.hosts?.[0]?.name}</p>
             </p>
           </div>
         </div>
         <div className="flex gap-[16px]">
-          <Link href={`/form${MenuLink.HACKATHON}/${hackathon.id}/register`} className="w-[calc((100%-16px)/2)] ">
-            <Button
-              className="button-text-l h-[60px] w-full bg-yellow-primary uppercase"
-              onClick={(e) => {
-                e.stopPropagation();
-                BurialPoint.track(`hackathon onGoingCard Submit Now 按钮点击`);
-              }}
-            >
-              {t('submitNow')}
-            </Button>
-          </Link>
-          <Button className="button-text-l h-[60px] w-[calc((100%-16px)/2)]  border border-neutral-black uppercase">
+          {renderButton()}
+          <Button className="button-text-l h-[60px] flex-1 flex-shrink-0 border  border-neutral-black  p-0 uppercase">
             {t('learnMore')}
           </Button>
         </div>
       </div>
+      <WarningModal open={warningOpen} onClose={() => setWarningOpen(false)} />
     </div>
   );
 };
