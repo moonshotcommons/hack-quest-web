@@ -7,6 +7,10 @@ import DiscordLogo from '@/public/images/press-kit/discord_log.png';
 import TwitterLogo from '@/public/images/press-kit/twitter_log.png';
 import TelegramLogo from '@/public/images/press-kit/telegram_logo.png';
 import { HACKQUEST_DISCORD, HACKQUEST_TWITTER, HACKQUEST_TELEGRAM } from '@/constants/links';
+import DoubleLineLogo from '@/public/images/press-kit/DoubleLine_Logo.png';
+import EmblemLogo from '@/public/images/press-kit/Emblem_Logo.png';
+import SingleLineLogo from '@/public/images/press-kit/SingleLine_Logo.png';
+import SquareLogo from '@/public/images/press-kit/Square_Logo.png';
 
 export const pressKitNavData = [
   {
@@ -391,34 +395,24 @@ export const articlesData = [
 
 export const logosData = [
   {
-    id: 1,
-    name: 'Logo Name',
-    img: ''
+    name: 'DoubleLine Logo',
+    img: DoubleLineLogo,
+    fileName: 'DoubleLine_Logo.zip'
   },
   {
-    id: 2,
-    name: 'Logo Name',
-    img: ''
+    name: 'Emblem Logo',
+    img: EmblemLogo,
+    fileName: 'Emblem_Logo.zip'
   },
   {
-    id: 3,
-    name: 'Logo Name',
-    img: ''
+    name: 'SingleLine Logo',
+    img: SingleLineLogo,
+    fileName: 'SingleLine_Logo.zip'
   },
   {
-    id: 4,
-    name: 'Logo Name',
-    img: ''
-  },
-  {
-    id: 5,
-    name: 'Logo Name',
-    img: ''
-  },
-  {
-    id: 6,
-    name: 'Logo Name',
-    img: ''
+    name: 'Square Logo',
+    img: SquareLogo,
+    fileName: 'Square_Logo.zip'
   }
 ];
 

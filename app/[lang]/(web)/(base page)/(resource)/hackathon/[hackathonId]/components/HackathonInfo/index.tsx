@@ -17,6 +17,8 @@ import { useShallow } from 'zustand/react/shallow';
 import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 import { useRequest } from 'ahooks';
 import webApi from '@/service';
+import { useRouter } from 'next-nprogress-bar';
+import WarningModal from './WarningModal';
 
 interface HackathonInfoProp {
   hackathon: HackathonType;
@@ -29,11 +31,13 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
       userInfo: state.userInfo
     }))
   );
+  const router = useRouter();
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const { getStepIndex } = useDealHackathonData();
   const [registerInfo, setRegisterInfo] = useState<HackathonRegisterInfo>();
   const stepIndex = getStepIndex(hackathon);
+  const [warningOpen, setWarningOpen] = useState(false);
 
   const { run } = useRequest(
     async () => {
@@ -48,6 +52,14 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
     }
   );
 
+  const handleSubmit = (id: string) => {
+    if (registerInfo?.team?.creatorId === registerInfo?.userId) {
+      router.push(`/form${MenuLink.HACKATHON}/${hackathon.id}/submission/${id}`);
+    } else {
+      setWarningOpen(true);
+    }
+  };
+
   const renderButton = () => {
     if (userInfo) {
       if (!registerInfo?.isRegister) {
@@ -61,15 +73,19 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
       if (registerInfo?.isRegister) {
         if (!registerInfo.isSubmit) {
           return !registerInfo.project?.id ? (
-            <Link href={`/form${MenuLink.HACKATHON}/${hackathon.id}/submission/-1`}>
-              <Button className="button-text-l h-[60px] w-full bg-yellow-primary uppercase">{t('submitNow')}</Button>
-            </Link>
+            <Button
+              className="button-text-l h-[60px] w-full bg-yellow-primary uppercase"
+              onClick={() => handleSubmit('-1')}
+            >
+              {t('submitNow')}
+            </Button>
           ) : (
-            <Link href={`/form${MenuLink.HACKATHON}/${hackathon.id}/submission/${registerInfo.project.id}`}>
-              <Button className="button-text-l h-[60px] w-full bg-yellow-primary uppercase">
-                {t('continueSubmission')}
-              </Button>
-            </Link>
+            <Button
+              className="button-text-l h-[60px] w-full bg-yellow-primary uppercase"
+              onClick={() => handleSubmit(registerInfo?.project?.id as string)}
+            >
+              {t('continueSubmission')}
+            </Button>
           );
         } else {
           return (
@@ -187,6 +203,8 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
         </div>
       </div>
       {renderButton()}
+
+      <WarningModal open={warningOpen} onClose={() => setWarningOpen(false)} />
     </Box>
   );
 };
