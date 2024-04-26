@@ -1,11 +1,12 @@
 import { FC } from 'react';
 import ProjectsPage from './components';
 import webApi from '@/service';
+import { projectSort } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/data';
 
 export interface SearchParamsType {
   keyword: string;
-  sort: string;
-  apolloDay: boolean | string;
+  createdAt: string;
+  winner: boolean | string;
   tracks: string;
 }
 export interface PageInfoType {
@@ -25,15 +26,14 @@ const Projects: FC<ProjectsProps> = async ({ params: { slug = [] }, searchParams
     limit: PROJECTS_LIMIT
   };
   const params = {
-    sort: searchParams.sort || '',
-    apolloDay: searchParams.apolloDay || '',
+    createdAt: searchParams.createdAt || projectSort[0].value,
+    winner: searchParams.winner || '',
     tracks: searchParams.tracks || '',
     keyword: searchParams.keyword || ''
   };
   const project = await webApi.resourceStationApi.getProjectsList({
     ...pageInfo,
-    ...params,
-    sort: searchParams.sort || '-featured'
+    ...params
   });
   return (
     <ProjectsPage

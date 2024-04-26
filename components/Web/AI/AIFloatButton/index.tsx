@@ -98,7 +98,6 @@ const AIFloatButton: FC<AIFloatButtonProps> = ({ children, pageType = 'other' })
     if (typeof window !== 'undefined') {
       const windowWidth = document.body.clientWidth;
       const windowHeight = document.body.clientHeight;
-      console.log(windowWidth, windowHeight);
 
       setPosition({
         ...position,

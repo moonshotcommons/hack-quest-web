@@ -2,16 +2,12 @@ import { MotionProps } from 'framer-motion';
 
 export const projectSort = [
   {
-    label: 'Featured',
-    value: '-featured'
-  },
-  {
     label: 'Latest to oldest',
-    value: '-startTime'
+    value: '-openTime'
   },
   {
     label: 'Oldest to latest',
-    value: 'startTime'
+    value: 'openTime'
   }
 ];
 

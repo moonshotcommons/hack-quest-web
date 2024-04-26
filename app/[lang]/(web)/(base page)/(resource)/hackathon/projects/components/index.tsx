@@ -9,7 +9,9 @@ import { PageInfoType, SearchParamsType } from '..';
 import MenuLink from '@/constants/MenuLink';
 import { useRouter } from 'next-nprogress-bar';
 import { getSearchParamsUrl } from '@/helper/utils';
-import MobCourseListPageHeader from '@/components/Mobile/MobCourseListPageHeader';
+import CourseListPageHeader from '@/components/Web/Business/CourseListPageHeader';
+import ListBox from './ListBox';
+import { projectSort } from '../../constants/data';
 
 interface ProjectsPageProp {
   list: ProjectType[];
@@ -24,24 +26,24 @@ const ProjectsPage: FC<ProjectsPageProp> = ({ list, searchParams, total, pageInf
   const searchList = (search: SearchParamsType) => {
     const searchInfo = {
       ...search,
-      sort: search.sort === '-featured' ? '' : search.sort,
-      apolloDay: !search.apolloDay ? '' : search.apolloDay
+      createdAt: search.createdAt === projectSort[0].value ? '' : search.createdAt,
+      winner: !search.winner ? '' : search.winner
     };
     const url = getSearchParamsUrl(searchInfo, MenuLink.PROJECTS);
     router.push(url);
   };
   return (
-    <div className="px-[1.25rem]">
-      <MobCourseListPageHeader
+    <div className="container mx-auto pt-[40px]">
+      <CourseListPageHeader
         title={t('projects.projects')}
         description={t('projects.projectsDescription')}
-        coverImageUrl={'/images/hackathon/projects_cover_mob.png'}
-        coverWidth={125}
-        coverHeight={100}
+        coverImageUrl={'/images/hackathon/projects_cover.png'}
+        coverWidth={416}
+        coverHeight={331}
         onSearch={(keyword) => {
           searchList({
-            sort: '-featured',
-            apolloDay: '',
+            createdAt: projectSort[0].value,
+            winner: '',
             tracks: '',
             keyword
           });
@@ -50,7 +52,7 @@ const ProjectsPage: FC<ProjectsPageProp> = ({ list, searchParams, total, pageInf
         className="mb-[2.5rem] "
         coverImgClassName="absolute right-[0] top-[0]"
       />
-      {/* <ListBox list={list} searchParams={searchParams} total={total} pageInfo={pageInfo} searchList={searchList} /> */}
+      <ListBox list={list} searchParams={searchParams} total={total} pageInfo={pageInfo} searchList={searchList} />
       <PageRetentionTime trackName="hackathon-project 页面留存时间" />
     </div>
   );

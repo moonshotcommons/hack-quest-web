@@ -89,15 +89,12 @@ const ListBox: React.FC<ListBoxProp> = ({ list, searchParams, total, pageInfo, s
               onClick={() => {
                 searchList({
                   ...searchParams,
-                  apolloDay: !searchParams.apolloDay
+                  winner: !searchParams.winner
                 });
               }}
             >
-              <Checkbox
-                checked={!!searchParams.apolloDay}
-                outClassNames="border-neutral-medium-gray w-[26px] h-[26px]"
-              />
-              <div className="whitespace-nowrap">{t('projects.apolloDayonly')}</div>
+              <Checkbox checked={!!searchParams.winner} outClassNames="border-neutral-medium-gray w-[26px] h-[26px]" />
+              <div className="whitespace-nowrap">{t('projects.winner')}</div>
             </div>
           </div>
           <div
@@ -124,10 +121,15 @@ const ListBox: React.FC<ListBoxProp> = ({ list, searchParams, total, pageInfo, s
                     <li
                       key={option.value}
                       className="body-m flex cursor-pointer items-center justify-between px-3 py-2 text-neutral-black hover:bg-neutral-off-white"
-                      onClick={() => {}}
+                      onClick={() => {
+                        searchList({
+                          ...searchParams,
+                          createdAt: option.value
+                        });
+                      }}
                     >
                       <span>{t(option.label)}</span>
-                      {option.value === searchParams.sort && (
+                      {option.value === searchParams.createdAt && (
                         <span>
                           <GoCheck size={20} />
                         </span>

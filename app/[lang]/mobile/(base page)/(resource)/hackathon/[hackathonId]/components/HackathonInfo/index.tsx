@@ -1,8 +1,8 @@
 'use client';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import Image from 'next/image';
 import Button from '@/components/Common/Button';
-import { HackathonRegisterInfo, HackathonType } from '@/service/webApi/resourceStation/type';
+import { HackathonType } from '@/service/webApi/resourceStation/type';
 import { BurialPoint } from '@/helper/burialPoint';
 import MenuLink from '@/constants/MenuLink';
 import Link from 'next/link';
@@ -15,8 +15,6 @@ import { useGlobalStore } from '@/store/zustand/globalStore';
 import { useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
 import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
-import { useRequest } from 'ahooks';
-import webApi from '@/service';
 
 interface HackathonInfoProp {
   hackathon: HackathonType;
@@ -36,26 +34,12 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
     }))
   );
   const { getStepIndex } = useDealHackathonData();
-  const [registerInfo, setRegisterInfo] = useState<HackathonRegisterInfo>();
   const stepIndex = getStepIndex(hackathon);
-
-  const { run } = useRequest(
-    async () => {
-      const res = await webApi.resourceStationApi.getHackathonRegisterInfo(hackathon.id);
-      return res;
-    },
-    {
-      manual: true,
-      onSuccess(res) {
-        setRegisterInfo(res);
-      }
-    }
-  );
 
   const renderButton = () => {
     if (userInfo) {
-      if (!registerInfo?.isRegister) {
-        const buttonText = !registerInfo?.status ? t('register') : t('continueRegister');
+      if (!hackathon.participation?.isRegister) {
+        const buttonText = !hackathon.participation?.status ? t('register') : t('continueRegister');
         return (
           <Button
             className="button-text-m h-[3rem] w-full bg-yellow-primary uppercase"
@@ -65,9 +49,9 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
           </Button>
         );
       }
-      if (registerInfo?.isRegister) {
-        if (!registerInfo.isSubmit) {
-          return !registerInfo.project?.id ? (
+      if (hackathon.participation?.isRegister) {
+        if (!hackathon.participation.isSubmit) {
+          return !hackathon.participation.project?.id ? (
             <Button
               className="button-text-m h-[3rem] w-full bg-yellow-primary uppercase"
               onClick={() => setTipsModalOpenState(true)}
@@ -118,18 +102,13 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
     }
   };
 
-  useEffect(() => {
-    if (userInfo) {
-      run();
-    }
-  }, [hackathon]);
   return (
     <div className="flex flex-col  gap-[1.25rem]  text-neutral-off-black">
-      {registerInfo?.isRegister ||
-        (registerInfo?.isSubmit && (
+      {hackathon.participation?.isRegister ||
+        (hackathon.participation?.isSubmit && (
           <div className="body-s flex items-center gap-[.25rem] rounded-[1rem] border border-status-error bg-status-error-light p-[1rem] text-neutral-medium-gray ">
             <WarningIcon size={16} color="var(--status-error)" />
-            {registerInfo?.isSubmit ? (
+            {hackathon.participation?.isSubmit ? (
               <span>{t('hackathonDetail.haveSubmission')}</span>
             ) : (
               <span>{t('hackathonDetail.haveRegistered')}</span>
