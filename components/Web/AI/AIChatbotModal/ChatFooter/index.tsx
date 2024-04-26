@@ -47,7 +47,7 @@ const ChatFooter: ForwardRefRenderFunction<ChatFooterInstance, ChatFooterProps> 
       })
     );
     setPendingMessage('');
-    getChatbotMessage({
+    await getChatbotMessage({
       type: HelperType.Chat,
       content: pendingMessage,
       pageId: helperParams.pageId!,
