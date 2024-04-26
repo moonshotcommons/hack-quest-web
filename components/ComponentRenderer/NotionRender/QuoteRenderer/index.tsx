@@ -22,7 +22,7 @@ const QuoteRenderer: FC<QuoteRendererProps> = (props) => {
       case PageType.PGC:
         return `border-neutral-rich-gray text-neutral-rich-gray caption-14pt pl-[5px] border-l-[5px] my-[5px]`;
       case PageType.UGC:
-        return `border-neutral-rich-gray text-neutral-rich-gray caption-14pt pl-[5px] border-l-[5px] my-[5px]`;
+        return `border-neutral-rich-gray text-neutral-rich-gray caption-16pt pl-[5px] border-l-[5px] my-[5px]`;
       case PageType.MINI:
         return `border-neutral-rich-gray text-neutral-rich-gray caption-14pt pl-[5px] border-l-[5px] my-[5px]`;
       case PageType.GLOSSARY:
@@ -37,7 +37,7 @@ const QuoteRenderer: FC<QuoteRendererProps> = (props) => {
       case PageType.PGC:
         return `border-neutral-rich-gray text-neutral-rich-gray caption-14pt pl-[5px] border-l-[3px] my-2`;
       case PageType.UGC:
-        return `border-neutral-rich-gray text-neutral-rich-gray caption-14pt pl-[5px] border-l-[3px] my-2`;
+        return `border-neutral-rich-gray text-neutral-rich-gray caption-18pt pl-[5px] border-l-[3px] my-2`;
       case PageType.MINI:
         return `border-neutral-rich-gray text-neutral-rich-gray caption-14pt pl-[5px] border-l-[3px] my-2`;
       case PageType.GLOSSARY:

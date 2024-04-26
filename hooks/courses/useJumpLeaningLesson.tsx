@@ -22,6 +22,7 @@ export const useJumpLeaningLesson = () => {
   const setAuthModalOpen = useUserStore((state) => state.setAuthModalOpen);
   const mobileNavModalToggleOpenHandle = useGlobalStore((state) => state.mobileNavModalToggleOpenHandle);
   const { redirectToUrl } = useRedirect();
+
   const { run: jumpLearningLesson, loading } = useRequest(
     async (courseDetail: CourseDetailType | ProjectCourseType | ElectiveCourseType, lParam?: JumpLeaningLessonType) => {
       let lesson: any;
@@ -32,6 +33,7 @@ export const useJumpLeaningLesson = () => {
         default:
           lesson = await webApi.courseApi.getLearningLessonId(courseDetail?.id as string);
       }
+
       return {
         courseDetail,
         pageId: lesson?.pageId,
