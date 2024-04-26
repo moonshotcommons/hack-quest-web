@@ -3,7 +3,8 @@ import { BurialPoint } from '@/helper/burialPoint';
 import { setToken } from '@/helper/user-token';
 import useIsPc from '@/hooks/utils/useIsPc';
 import { useRedirect } from '@/hooks/router/useRedirect';
-import Metamask from '@/public/images/login/metamask.svg';
+// import Metamask from '@/public/images/login/metamask.svg';
+import Okx from '@/public/images/login/okx.png';
 import webApi from '@/service';
 import { LoginResponse, ThirdPartyAuthType } from '@/service/webApi/user/type';
 import { useRequest } from 'ahooks';
@@ -221,7 +222,7 @@ const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
                       }}
                       className="body-m cursor-pointer rounded-[.75rem] border border-neutral-light-gray p-3"
                     >
-                      <Image src={Metamask} width={24} height={24} alt="MetaMask"></Image>
+                      <Image src={Okx} width={24} height={24} alt="MetaMask"></Image>
                     </Button>
                   );
                 }

@@ -16,7 +16,6 @@ const JoinGroupDetail: FC<JoinGroupDetailProps> = ({ team, onLeaveTeam, userId, 
       return 1;
     });
   }, [teamDetail]);
-  console.log(members);
 
   return (
     <div className="flex w-full flex-col gap-3">

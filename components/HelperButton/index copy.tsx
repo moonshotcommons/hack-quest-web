@@ -55,9 +55,7 @@ const HelperButton: FC<HelperButtonProps> = (props) => {
   /**
    * 执行click方法
    */
-  const clickHandler = () => {
-    console.log('点击事件');
-  };
+  const clickHandler = () => {};
 
   /**
    * 移动中
