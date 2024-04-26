@@ -79,18 +79,16 @@ const Button: FC<ButtonProps> = (props) => {
     <button
       ref={buttonRef}
       className={cn(
-        `relative flex h-fit w-fit cursor-pointer items-center justify-center gap-[.625rem] text-neutral-black`,
+        `relative flex h-fit w-fit cursor-pointer items-center justify-center gap-[.625rem] text-neutral-black outline-none transition-all hover:scale-[1.05]`,
         type === 'primary' ? 'bg-yellow-primary' : '',
-        type === 'primary' && !disabled ? 'hover:bg-yellow-hover' : '',
         type === 'text' ? 'border-none bg-transparent' : '',
         block && 'w-full',
         mergeSize(),
         mergeRounded(),
         loading ? 'cursor-not-allowed opacity-70' : '',
-        loading && type === 'primary' ? 'bg-[#FFF4CE] opacity-100 hover:bg-[#FFF4CE]' : '',
+        loading && type === 'primary' ? 'bg-[#FFF4CE] opacity-100' : '',
         ghost && 'border border-neutral-black bg-transparent',
-        ghost && !disabled ? 'hover:bg-neutral-off-white' : '',
-        disabled ? '!cursor-not-allowed opacity-40' : '',
+        disabled ? '!cursor-not-allowed opacity-40 hover:scale-[1]' : '',
         className
       )}
       type={htmlType}

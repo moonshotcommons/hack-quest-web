@@ -54,7 +54,7 @@ const HackathonBox: React.FC<HackathonBoxProp> = ({ page, curTab, hackathonList,
         buttonNode={buttonNode()}
         className="pb-[40px]"
       />
-      <Mini miniHackathonList={hackathonList} />
+      <Mini miniHackathonList={miniHackathonList} />
       <div className="text-h3 mb-[12px] mt-[40px] text-neutral-black">{t('allHackathons')}</div>
       <Tab curTab={curTab} />
       <div className="mb-[40px]">{renderHackathon()}</div>

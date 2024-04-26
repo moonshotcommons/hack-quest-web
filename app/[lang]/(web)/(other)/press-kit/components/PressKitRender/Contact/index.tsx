@@ -2,7 +2,6 @@ import { Lang, TransNs } from '@/i18n/config';
 import { useTranslation } from '@/i18n/server';
 import React from 'react';
 import { contactData } from '../../../constants/data';
-import Link from 'next/link';
 import SubTitle from '../../SubTitle';
 
 interface ContactProp {
@@ -23,9 +22,6 @@ const Contact: React.FC<ContactProp> = async ({ lang }) => {
                 {c}
               </p>
             ))}
-            <Link href={v.path} className="underline-l">
-              {v.path}
-            </Link>
           </div>
         ))}
       </div>

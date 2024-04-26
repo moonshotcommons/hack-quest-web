@@ -3,7 +3,7 @@ import { useTranslation } from '@/i18n/server';
 import React from 'react';
 import { logosData } from '../../../constants/data';
 import Image from 'next/image';
-import { GrDownload } from 'react-icons/gr';
+import Download from './Download';
 
 interface LogosProp {
   lang: Lang;
@@ -25,10 +25,7 @@ const Logos: React.FC<LogosProp> = async ({ lang }) => {
             </div>
             <div className="flex h-[122px] flex-col justify-between p-[16px]">
               <h2 className="body-m  line-clamp-2 text-neutral-off-black">{v.name}</h2>
-              <div className="body-s flex items-center gap-[4px] text-neutral-black">
-                <GrDownload size={14} />
-                <span>{t('download')}</span>
-              </div>
+              <Download fileUrl="/public/images/press-kit/telegram_logo.png" fileName={v.name} />
             </div>
           </div>
         ))}

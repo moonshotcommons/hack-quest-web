@@ -2,6 +2,8 @@
 import EventsCard from '@/components/Web/Business/EventsCard';
 import EventsCardModal from '@/components/Web/Business/EventsCard/EventsCardModal';
 import MenuLink from '@/constants/MenuLink';
+import { useTranslation } from '@/i18n/client';
+import { Lang, TransNs } from '@/i18n/config';
 import { EventsType } from '@/service/webApi/resourceStation/type';
 import Link from 'next/link';
 import React, { useMemo, useState } from 'react';
@@ -9,9 +11,11 @@ import { HiArrowLongLeft } from 'react-icons/hi2';
 
 interface PastPageProp {
   list: EventsType[];
+  lang: Lang;
 }
 
-const PastPage: React.FC<PastPageProp> = ({ list }) => {
+const PastPage: React.FC<PastPageProp> = ({ list, lang }) => {
+  const { t } = useTranslation(lang, TransNs.RESOURCE);
   const [modalOpen, setModalOpen] = useState(false);
   const [events, setEvents] = useState({});
   const eventsList = useMemo(() => {
@@ -24,12 +28,12 @@ const PastPage: React.FC<PastPageProp> = ({ list }) => {
     <>
       <div className="container mx-auto mb-[100px] flex flex-1 flex-col">
         <div className="relative flex justify-center">
-          <p className="text-h2 text-neutral-off-black">Past Events</p>
+          <p className="text-h2 text-neutral-off-black">{t('events.pastEvents')}</p>
           <div className="absolute left-0 top-0 flex h-full w-full">
             <Link className="h-full" href={MenuLink.EVENTS}>
               <div className="body-m flex h-full items-center gap-[7px] text-neutral-black ">
                 <HiArrowLongLeft size={20}></HiArrowLongLeft>
-                <span>Back</span>
+                <span>{t('back')}</span>
               </div>
             </Link>
           </div>

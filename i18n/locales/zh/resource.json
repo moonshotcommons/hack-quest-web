@@ -116,5 +116,38 @@
         "answer": "这完全取决于你!大多数拥护者做额外的活动并保持活跃。然而，作为一个倡导者，基本需求应该每月花费大约3-5个小时。"
       }
     }
+  },
+  "partners":{
+    "title":"Meet Our Partners 🙌",
+    "subTitle":"HackQuest partners with 100 leading Web3 ecosystems and projects to provide high-quality courses, leading voices, and exclusive resources.",
+    "becomeOurPartner":"Become Our Partner",
+    "learnerNetwork":"Learner Network",
+    "onlinePrograms":"Online Programs",
+    "hackathonProjectsPartners":"Hackathon ProjectsPartners",
+    "ventureBackedProjects":"Venture-backed Projects",
+    "whoAreOurPartners":"Who Are Our Partners?",
+    "caseDesc1":"Like our mission? If you are interested in partnering with HackQuest to build the future of Web3 together, please visit XXX",
+    "caseTitle2":"Hold Events",
+    "caseDesc2":"Want to collaborate with us to hold events? Check out our events page.",
+    "caseButton2":"go to events page"
+  },
+  "events":{
+    "title":"Join HackQuest’s Exciting Web3 Events",
+    "upcomingEvents":"Upcoming Events",
+    "partnerWith Us":"Partner With Us",
+    "meetUpsOrganized":"Meet-ups Organized",
+    "colearningCampsInitiated":"Co-learning Camps Initiated",
+    "HackathonsHosted":"Hackathons Hosted",
+    "buildersAttended":"Builders Attended",
+    "upComingDesc":"Attend our events to engage with other Web 3 enthusiasts, network with leading voices in Web 3, and build the future of Web 3 together with us!",
+    "pastEvents":"Past Events",
+    "exploreMore":"Explore More 🔍",
+    "exploreMoreDesc":"Like our events and what we do? Check out more ways to engage with our Web3 community!",
+    "advocateCenter":"Advocate Center",
+    "hackathon":"Hackathon",
+    "blog":"Blog",
+    "reachOutToUs":"Reach Out To Us",
+    "reachOutToUsDesc":"Do you have any questions about our events? We’d love to hear your thoughts! You can also keep in touch with us by joining our Discord / Telegram!",
+    "submitInquiry":"Submit Inquiry"
   }
 }
