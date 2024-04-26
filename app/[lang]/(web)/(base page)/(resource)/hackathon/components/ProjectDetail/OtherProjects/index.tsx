@@ -41,7 +41,11 @@ const OtherProjects: FC<OtherProjectsProps> = ({ hackathonName, projects }) => {
       <div className="mt-[30px]">
         <div className="mb-[30px] flex flex-col gap-y-[30px]">
           {[...projects].splice((page - 1) * PROJECTS_LIMIT, PROJECTS_LIMIT).map((project) => {
-            return <ProjectCard key={project.id} project={project}></ProjectCard>;
+            return (
+              <div className="w-[325px]" key={project.id}>
+                <ProjectCard project={project}></ProjectCard>
+              </div>
+            );
           })}
         </div>
         {totalPage > PROJECTS_LIMIT && (
