@@ -226,7 +226,7 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
               key={parseComponent.id}
               parent={quiz}
               component={parseComponent}
-              prevComponent={null}
+              prevComponent={quiz}
               nextComponent={null}
               position={0}
             />

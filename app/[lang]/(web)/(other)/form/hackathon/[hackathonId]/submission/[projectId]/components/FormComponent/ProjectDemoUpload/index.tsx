@@ -6,7 +6,13 @@ import { cn } from '@/helper/utils';
 import { HackathonSubmitStateType } from '../../../type';
 import { Upload, message, type UploadProps } from 'antd';
 import LoadingIcon from '@/components/Common/LoadingIcon';
-import Image from 'next/image';
+import webApi from '@/service';
+import { RcFile } from 'antd/es/upload';
+import VideoReview from '../../VideoReview';
+import { HACKATHON_SUBMIT_STEPS } from '../../constants';
+import { useRequest } from 'ahooks';
+import { errorMessage } from '@/helper/ui';
+import { ProjectSubmitStepType } from '@/service/webApi/resourceStation/type';
 type GetProp<T, Key> = Key extends keyof T ? Exclude<T[Key], undefined> : never;
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 
@@ -17,10 +23,9 @@ const getBase64 = (img: FileType, callback: (url: string) => void) => {
 };
 
 const ProjectDemoUpload: FC<
-  Omit<FormComponentProps, 'type' | 'formState' | 'setCurrentStep' | 'tracks'> & {
-    projectDemo: HackathonSubmitStateType['projectDemo'];
-  }
-> = ({ onNext, onBack }) => {
+  Omit<FormComponentProps, 'type' | 'formState' | 'setCurrentStep' | 'tracks'> &
+    Pick<HackathonSubmitStateType, 'projectDemo' | 'status' | 'isSubmit'>
+> = ({ onNext, onBack, refreshProjectInfo, projectId, projectDemo, status, isSubmit }) => {
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState<string>();
 
@@ -38,22 +43,75 @@ const ProjectDemoUpload: FC<
     }
   };
 
-  const beforeUpload = (file: FileType) => {
-    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
-    if (!isJpgOrPng) {
-      message.error('You can only upload JPG/PNG file!');
+  const beforeUpload = async (file: FileType) => {
+    debugger;
+    const isMp4 = file.type === 'video/mp4';
+    if (!isMp4) {
+      message.error('You can only upload mp4 video!');
     }
-    const isLt2M = file.size / 1024 / 1024 < 2;
+    const isLt2M = file.size / 1024 / 1024 < 150;
+    // const maxDuration = 60 * 5;
     if (!isLt2M) {
-      message.error('Image must smaller than 2MB!');
+      message.error('Demo video must smaller than 150MB!');
     }
-    return isJpgOrPng && isLt2M;
+
+    // let isGt5M = false;
+
+    // try {
+    //   const duration = await getVideoDuration(file);
+    //   isGt5M = duration <= maxDuration;
+    //   if (!isGt5M) {
+    //     message.error('Patch video are often no longer than five minutes');
+    //   }
+    // } catch (err: any) {
+    //   message.error(err.message);
+    // }
+
+    return isMp4 && isLt2M;
   };
 
-  function onSubmit() {
-    // setContractInfo();
-    onNext({});
-  }
+  const { run: onDelete } = useRequest(
+    async () => {
+      setLoading(true);
+      const formData = new FormData();
+      formData.append('demo', '');
+      formData.append('status', ProjectSubmitStepType.DEMO);
+      await webApi.resourceStationApi.submitProject(formData, projectId);
+      await refreshProjectInfo();
+    },
+    {
+      manual: true,
+      onSuccess() {
+        message.success('Deleted demo video successfully');
+      },
+      onError(err) {
+        errorMessage(err);
+      },
+      onFinally() {
+        setLoading(false);
+      }
+    }
+  );
+
+  const { run: onSubmit, loading: submitLoading } = useRequest(
+    async () => {
+      const newStatus =
+        HACKATHON_SUBMIT_STEPS.find((item) => item.type === status)!.stepNumber === 2
+          ? ProjectSubmitStepType.OTHERS
+          : status;
+
+      const formData = new FormData();
+      formData.append('status', newStatus);
+      await webApi.resourceStationApi.submitProject(formData, projectId);
+      await refreshProjectInfo();
+    },
+    {
+      manual: true,
+      onSuccess() {
+        onNext({});
+      }
+    }
+  );
 
   const uploadButton = (
     <div className="flex h-[410px] w-full items-center justify-center rounded-[32px] bg-neutral-off-white">
@@ -78,28 +136,37 @@ const ProjectDemoUpload: FC<
 
   return (
     <div className="flex flex-col gap-6">
-      <p className="body-m text-left text-neutral-rich-gray">Please Upload Your Pitch Video, Max 4 mins (Optional)</p>
-      <Upload
-        name="avatar"
-        listType="picture-card"
-        className="group my-[1px] mt-1 !flex h-[410px] w-full items-center justify-center [&>div>span]:!relative [&>div>span]:!flex [&>div>span]:!h-full [&>div>span]:!w-full [&>div]:!h-full [&>div]:!w-full  [&>div]:!rounded-[32px] [&>div]:!border-none [&>div]:!bg-neutral-off-white"
-        showUploadList={false}
-        // action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
-        beforeUpload={beforeUpload}
-        onChange={handleChange}
-        previewFile={(file) => {
-          console.log('Your upload file:', file);
-          // Your process logic. Here we just mock to the same file
-          return fetch('https://next.json-generator.com/api/json/get/4ytyBoLK8', {
-            method: 'POST',
-            body: file
-          })
-            .then((res) => res.json())
-            .then(({ thumbnail }) => thumbnail);
-        }}
-      >
-        {imageUrl ? <Image src={imageUrl} alt="avatar" fill className="object-contain" /> : uploadButton}
-      </Upload>
+      <p className="body-m text-left text-neutral-rich-gray">
+        Please Upload Your Video Demo Of Your Product (Optional)
+      </p>
+      {projectDemo && <VideoReview url={projectDemo} onDelete={onDelete} />}
+      {!projectDemo && (
+        <Upload
+          name="avatar"
+          listType="picture-card"
+          className="group my-[1px] mt-1 !flex h-[410px] w-full items-center justify-center [&>div>span]:!relative [&>div>span]:!flex [&>div>span]:!h-full [&>div>span]:!w-full [&>div]:!h-full [&>div]:!w-full  [&>div]:!rounded-[32px] [&>div]:!border-none [&>div]:!bg-neutral-off-white"
+          showUploadList={false}
+          beforeUpload={beforeUpload}
+          onChange={handleChange}
+          customRequest={async (option) => {
+            setLoading(true);
+            const { onProgress, onSuccess, onError } = option;
+            const file = option.file as RcFile;
+            const formData = new FormData();
+            formData.append('demo', file);
+            try {
+              await webApi.resourceStationApi.submitProject(formData, projectId);
+              await refreshProjectInfo();
+              onSuccess?.({}, new XMLHttpRequest());
+            } catch (err: any) {
+              onError?.(err);
+            }
+            setLoading(false);
+          }}
+        >
+          {uploadButton}
+        </Upload>
+      )}
 
       <div className="flex justify-end gap-4">
         <Button ghost className="button-text-m w-[165px] px-0 py-4 uppercase" onClick={onBack}>
@@ -111,8 +178,10 @@ const ProjectDemoUpload: FC<
           htmlType="submit"
           className={cn('button-text-m w-[165px] px-0 py-4 uppercase', false ? 'bg-neutral-light-gray' : '')}
           onClick={onSubmit}
+          disabled={loading || submitLoading}
+          loading={submitLoading}
         >
-          Next
+          {isSubmit ? 'update' : 'Save'} and Next
         </Button>
       </div>
     </div>

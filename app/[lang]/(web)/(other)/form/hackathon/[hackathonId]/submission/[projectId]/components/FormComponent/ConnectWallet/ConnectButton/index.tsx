@@ -5,24 +5,30 @@ import { useShallow } from 'zustand/react/shallow';
 import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';
 import { useRequest } from 'ahooks';
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import Button from '@/components/Common/Button';
-import { ThirdPartyMediaType } from '@/helper/thirdPartyMedia';
 import { message } from 'antd';
 import Image from 'next/image';
+import { HACKATHON_SUBMIT_STEPS } from '../../../constants';
+import { ProjectSubmitStepType } from '@/service/webApi/resourceStation/type';
 
-export interface ConnectButtonProps {}
+export interface ConnectButtonProps {
+  wallet: string | undefined;
+  projectId: string | undefined;
+  status: ProjectSubmitStepType;
+  refreshProjectInfo: VoidFunction;
+  onDisconnect: VoidFunction;
+}
 
-export const ConnectButton = (props: ConnectButtonProps) => {
+export const ConnectButton: FC<ConnectButtonProps> = ({
+  wallet,
+  projectId,
+  status,
+  refreshProjectInfo,
+  onDisconnect
+}) => {
   const [bindPending, setBindPending] = useState(false);
   const userInfo = useUserStore((state) => state.userInfo);
-
-  const connectState = {
-    isConnect: false,
-    connectInfo: {
-      username: '0xdwqwef'
-    }
-  };
 
   const { setAuthType, setUserInfo, setAuthModalOpen } = useUserStore(
     useShallow((state) => ({
@@ -32,28 +38,25 @@ export const ConnectButton = (props: ConnectButtonProps) => {
     }))
   );
 
+  const submit = () => {};
+
   const { run: bindWallet, loading: connectLoading } = useRequest(
     async (address: `0x${string}`) => {
-      await webApi.userApi.connectWallet(address);
-      // await refreshConnectState();
+      const newStatus =
+        HACKATHON_SUBMIT_STEPS.find((item) => item.type === status)!.stepNumber === 0
+          ? ProjectSubmitStepType.REVIEW
+          : status;
+
+      const formData = new FormData();
+      formData.append('wallet', address);
+      // formData.append('status', newStatus!);
+      await webApi.resourceStationApi.submitProject(formData, projectId);
+      await refreshProjectInfo();
     },
     {
       manual: true,
       onSuccess() {
         message.success(`Connect the wallet successfully`);
-      }
-    }
-  );
-
-  const { run: disconnect, loading: disConnectLoading } = useRequest(
-    async () => {
-      await webApi.userApi.disconnect(ThirdPartyMediaType.WALLET);
-      // await refreshConnectState();
-    },
-    {
-      manual: true,
-      onSuccess() {
-        message.success(`Disconnect the wallet successfully`);
       },
       onError(err) {
         errorMessage(err);
@@ -87,7 +90,7 @@ export const ConnectButton = (props: ConnectButtonProps) => {
 
               // 未绑定钱包，钱包未连接
 
-              if (!connectState.isConnect) {
+              if (!wallet) {
                 if (bindPending && connected) {
                   bindWallet(account.address as `0x${string}`);
                   setBindPending(false);
@@ -95,7 +98,7 @@ export const ConnectButton = (props: ConnectButtonProps) => {
                 return (
                   <Button
                     block
-                    className="px-0 py-0 [&>span]:flex [&>span]:w-full"
+                    className="px-0 py-0 hover:scale-[1.02] [&>span]:flex [&>span]:w-full"
                     loading={authenticationStatus === 'loading' || connectLoading}
                     disabled={authenticationStatus === 'loading' || connectLoading}
                     onClick={() => {
@@ -130,18 +133,24 @@ export const ConnectButton = (props: ConnectButtonProps) => {
 
               return (
                 <Button
-                  className="flex justify-center gap-2 rounded-[16px] border border-dashed border-neutral-light-gray p-5 text-neutral-medium-gray"
+                  block
+                  className="flex justify-center gap-2 rounded-[16px] border border-dashed border-neutral-light-gray p-5 text-neutral-medium-gray hover:scale-100 [&>span]:inline-block [&>span]:w-full"
                   loading={authenticationStatus === 'loading' || connectLoading}
                   disabled={authenticationStatus === 'loading' || connectLoading}
                   onClick={() => {
-                    disconnect();
+                    onDisconnect();
                   }}
                 >
-                  <span className="flex items-center gap-2">
-                    <Image src={'/images/login/metamask.svg'} alt="wallet" width={30} height={30} />
-                    <span>{connectState.connectInfo.username}</span>
-                  </span>
-                  <span>Disconnect</span>
+                  <div className="flex h-full w-full items-center justify-between">
+                    <span className="body-l flex items-center gap-2 text-neutral-off-black">
+                      <Image src={'/images/login/metamask.svg'} alt="wallet" width={30} height={30} />
+                      <span>{wallet?.toString()?.replace(/(.{15})(.*)(.{4})/, '$1...$3')}</span>
+                    </span>
+                    <span className="underline-m flex cursor-pointer items-center text-neutral-rich-gray">
+                      <Image src={'/images/icons/disconnect.svg'} alt="disconnect" width={24} height={24} />
+                      <span className="ml-1">Disconnect</span>
+                    </span>
+                  </div>
                 </Button>
               );
             })()}

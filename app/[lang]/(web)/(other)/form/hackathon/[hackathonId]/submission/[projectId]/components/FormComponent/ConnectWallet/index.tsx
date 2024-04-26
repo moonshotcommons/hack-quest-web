@@ -1,20 +1,72 @@
 'use client';
 import Button from '@/components/Common/Button';
-import { FC, memo } from 'react';
+import { FC, memo, useRef } from 'react';
 import { FormComponentProps } from '..';
 import { cn } from '@/helper/utils';
 import { HackathonSubmitStateType } from '../../../type';
 import { ConnectButton } from './ConnectButton';
+import { HACKATHON_SUBMIT_STEPS } from '../../constants';
+import { useRequest } from 'ahooks';
+import { message } from 'antd';
+import webApi from '@/service';
+import { ProjectSubmitStepType } from '@/service/webApi/resourceStation/type';
+import { errorMessage } from '@/helper/ui';
+import DisconnectModal, { DisconnectModalRef } from './DisconnectModal';
 
 const ConnectWallet: FC<
-  Omit<FormComponentProps, 'type' | 'formState' | 'setCurrentStep' | 'tracks'> & {
-    wallet: HackathonSubmitStateType['wallet'];
-  }
-> = ({ onNext, onBack }) => {
-  function onSubmit() {
-    // setContractInfo();
-    onNext({});
-  }
+  Omit<FormComponentProps, 'type' | 'formState' | 'setCurrentStep' | 'tracks'> &
+    Pick<HackathonSubmitStateType, 'wallet' | 'status' | 'isSubmit'>
+> = ({ onNext, onBack, wallet, projectId, status, refreshProjectInfo, isSubmit }) => {
+  const disconnectModalRef = useRef<DisconnectModalRef>(null);
+
+  const { run: onSubmit, loading } = useRequest(
+    async () => {
+      debugger;
+      const newStatus =
+        HACKATHON_SUBMIT_STEPS.find((item) => item.type === status)!.stepNumber === 4
+          ? ProjectSubmitStepType.REVIEW
+          : status;
+
+      const formData = new FormData();
+      formData.append('status', newStatus);
+      await webApi.resourceStationApi.submitProject(formData, projectId);
+      await refreshProjectInfo();
+    },
+    {
+      manual: true,
+      onSuccess() {
+        onNext({});
+      },
+      onError(err) {
+        errorMessage(err);
+      }
+    }
+  );
+
+  const { runAsync: disconnect, loading: disConnectLoading } = useRequest(
+    async () => {
+      const formData = new FormData();
+      formData.append('wallet', '');
+      formData.append('status', ProjectSubmitStepType.WALLET);
+      await webApi.resourceStationApi.submitProject(formData, projectId);
+      await refreshProjectInfo();
+    },
+    {
+      manual: true,
+      onSuccess() {
+        message.success(`Disconnect the wallet successfully`);
+      },
+      onError(err) {
+        errorMessage(err);
+      }
+    }
+  );
+
+  const onDisconnect = () => {
+    disconnectModalRef.current?.open({
+      onConfirm: disconnect
+    });
+  };
 
   return (
     <div className="flex flex-col gap-6">
@@ -31,7 +83,13 @@ const ConnectWallet: FC<
           </svg>
           <span>Connect A New Wallet</span>
         </div> */}
-        <ConnectButton />
+        <ConnectButton
+          wallet={wallet}
+          projectId={projectId}
+          status={status!}
+          refreshProjectInfo={refreshProjectInfo}
+          onDisconnect={onDisconnect}
+        />
         <div className="flex items-center gap-1 rounded-[16px] bg-neutral-off-white p-4">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -55,12 +113,16 @@ const ConnectWallet: FC<
         <Button
           type="primary"
           htmlType="submit"
-          className={cn('button-text-m w-[165px] px-0 py-4 uppercase', false ? 'bg-neutral-light-gray' : '')}
+          className={cn('button-text-m w-[165px] px-0 py-4 uppercase', !wallet ? 'bg-neutral-light-gray' : '')}
           onClick={onSubmit}
+          disabled={!wallet}
+          loading={loading}
         >
-          Next
+          {isSubmit ? 'update' : 'Save'} and Next
         </Button>
       </div>
+
+      <DisconnectModal ref={disconnectModalRef} />
     </div>
   );
 };

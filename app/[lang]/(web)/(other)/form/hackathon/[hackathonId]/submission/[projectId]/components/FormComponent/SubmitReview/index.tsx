@@ -3,19 +3,45 @@ import { FormComponentProps } from '..';
 import Image from 'next/image';
 import Button from '@/components/Common/Button';
 import { cn } from '@/helper/utils';
+import { useRequest } from 'ahooks';
+import webApi from '@/service';
+import { message } from 'antd';
+import { errorMessage } from '@/helper/ui';
+import { useRedirect } from '@/hooks/router/useRedirect';
 
 interface SubmitReviewProps {}
 
 const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext' | 'tracks'>> = ({
   formState,
   setCurrentStep,
-  onBack
+  onBack,
+  projectId,
+  simpleHackathonInfo
 }) => {
   const gotoStep = (step: number) => {
     setCurrentStep(step);
   };
 
-  const { info, pickVideo, projectDemo, others, wallet } = formState;
+  const { redirectToUrl } = useRedirect();
+
+  const { info, projectDemo, others, wallet, isSubmit } = formState;
+
+  const { run: submit, loading } = useRequest(
+    () => {
+      return webApi.resourceStationApi.projectSubmit(projectId!);
+    },
+    {
+      manual: true,
+      onSuccess() {
+        !isSubmit && message.success(`Submit ${info.projectName} success!`);
+        isSubmit && message.success(`Update register info success!`);
+        redirectToUrl(`/hackathon/${simpleHackathonInfo.alias}`);
+      },
+      onError(err) {
+        errorMessage(err);
+      }
+    }
+  );
 
   return (
     <div>
@@ -28,7 +54,7 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext' | 'tracks'>> =
               <div className="flex flex-1">
                 <span className="body-s flex w-[130px] items-center text-neutral-rich-gray">Logo</span>
                 <Image
-                  src={'/images/login/metamask.svg'}
+                  src={formState.info.projectLogo}
                   alt="logo"
                   width={48}
                   height={48}
@@ -63,13 +89,15 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext' | 'tracks'>> =
             <div className="flex h-12 w-full cursor-pointer items-center justify-between" onClick={() => gotoStep(1)}>
               <div className="flex flex-1">
                 <span className="body-s flex w-[130px] items-center text-neutral-rich-gray">Pitch Video</span>
-                <Image
-                  src={'/images/login/metamask.svg'}
-                  alt="logo"
-                  width={48}
-                  height={48}
-                  className="rounded-[10px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.12)]"
-                />
+                {formState.pitchVideo && (
+                  <Image
+                    src={'/images/icons/video_icon.png'}
+                    alt="pitch video"
+                    width={48}
+                    height={48}
+                    className="rounded-[10px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.12)]"
+                  />
+                )}
               </div>
               {arrowIcon}
             </div>
@@ -79,13 +107,15 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext' | 'tracks'>> =
             <div className="flex h-12 w-full cursor-pointer items-center justify-between" onClick={() => gotoStep(2)}>
               <div className="flex flex-1">
                 <span className="body-s flex w-[130px] items-center text-neutral-rich-gray">Project Demo</span>
-                <Image
-                  src={'/images/login/metamask.svg'}
-                  alt="logo"
-                  width={48}
-                  height={48}
-                  className="rounded-[10px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.12)]"
-                />
+                {formState.projectDemo && (
+                  <Image
+                    src={'/images/icons/video_icon.png'}
+                    alt="demo video"
+                    width={48}
+                    height={48}
+                    className="rounded-[10px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.12)]"
+                  />
+                )}
               </div>
               {arrowIcon}
             </div>
@@ -95,7 +125,7 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext' | 'tracks'>> =
             <div className="flex w-full cursor-pointer items-center justify-between" onClick={() => gotoStep(3)}>
               <div className="flex flex-1 items-center">
                 <span className="body-s flex w-[130px] items-center text-neutral-rich-gray">Github</span>
-                <span className="body-s text-neutral-off-black">{others.githubLink || 'wfwefwef'}</span>
+                <span className="body-s text-neutral-off-black">{others.githubLink}</span>
               </div>
               {arrowIcon}
             </div>
@@ -142,7 +172,7 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext' | 'tracks'>> =
               </div>
               <p className="body-s flex gap-1 text-left text-neutral-off-black">
                 <Image src={'/images/login/metamask.svg'} alt="wallet" width={24} height={24} />
-                <span>{formState.wallet || '0x6a5cccccccccc...c102'}</span>
+                <span>{formState.wallet?.toString()?.replace(/(.{15})(.*)(.{4})/, '$1...$3')}</span>
               </p>
             </div>
           </div>
@@ -157,9 +187,10 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext' | 'tracks'>> =
           htmlType="submit"
           className={cn('button-text-m w-[165px] px-0 py-4 uppercase')}
           // disabled={disabled}
-          // loading={loading}
+          onClick={submit}
+          loading={loading}
         >
-          Submit
+          {isSubmit ? 'update' : 'submit'}
         </Button>
       </div>
     </div>

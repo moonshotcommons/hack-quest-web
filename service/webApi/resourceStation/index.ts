@@ -11,10 +11,10 @@ import {
   HackathonType,
   PagedType,
   ProjectDataType,
-  ProjectSubmitBody,
   ProjectType,
   RegisterInfoBody
 } from './type';
+import { isUuid } from '@/helper/utils';
 
 export enum ResourceStationApiType {
   Hackathon = '/hackathons',
@@ -180,17 +180,22 @@ class ResourceStationApi {
   }
 
   /** 提交project */
-  submitProject(data: ProjectSubmitBody) {
-    return this.service.post(ResourceStationApiType.Projects, {
+  submitProject(data: FormData, projectId?: string) {
+    if (projectId && isUuid(projectId)) return this.updateProject(projectId, data);
+    return this.service.post<{ id: string }>(ResourceStationApiType.Projects, {
       data
     });
   }
 
   /** 更新project */
-  updateProject(projectId: string, data: ProjectSubmitBody) {
-    return this.service.patch(`${ResourceStationApiType.Projects}/${projectId}`, {
+  updateProject(projectId: string, data: FormData) {
+    return this.service.patch<{ id: string }>(`${ResourceStationApiType.Projects}/${projectId}`, {
       data
     });
+  }
+
+  projectSubmit(projectId: string) {
+    return this.service.post(`${ResourceStationApiType.Projects}/${projectId}/submit`);
   }
 }
 

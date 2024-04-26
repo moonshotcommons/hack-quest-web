@@ -67,11 +67,15 @@ export type ProjectType = {
   team: string;
   hackathonId: string;
   hackathonName: string;
+  prizeTrack: string;
   tracks: string[];
+  status: ProjectSubmitStepType;
   featured: boolean;
   apolloDay: boolean;
   thumbnail: string;
   alias: string;
+  demo: string;
+  wallet: string;
 };
 
 export interface ProjectDataType {

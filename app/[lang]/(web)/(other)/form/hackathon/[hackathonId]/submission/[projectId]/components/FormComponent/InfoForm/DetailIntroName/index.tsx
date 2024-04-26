@@ -33,9 +33,6 @@ const DetailIntroName: FC<DetailIntroNameProps> = ({ form }) => {
               }
               {...field}
               className="body-m !mt-1 box-border flex h-[76px] min-h-[76px] items-center border-neutral-light-gray !py-[11px] px-6 text-[16px] font-normal leading-[160%] text-neutral-medium-gray"
-              onChange={(e) => {
-                form.setValue('detailedIntro', e.target.value);
-              }}
             />
           </FormControl>
           <FormMessage />

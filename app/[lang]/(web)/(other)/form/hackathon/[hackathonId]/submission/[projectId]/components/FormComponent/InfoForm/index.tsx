@@ -5,9 +5,9 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { Form } from '@/components/ui/form';
 import Button from '@/components/Common/Button';
-import { FC, memo, useEffect } from 'react';
+import { FC, memo, useContext, useEffect, useState } from 'react';
 import { FormComponentProps } from '..';
-import { cn } from '@/helper/utils';
+import { cn, isUuid } from '@/helper/utils';
 import CustomFormField from '@/components/Web/Business/CustomFormField';
 import { HackathonSubmitStateType } from '../../../type';
 
@@ -15,6 +15,16 @@ import LogoUpload from './LogoUpload';
 import ProjectTrackRadio from './ProjectTrackRadio';
 import IntroName from './IntroName';
 import DetailIntroName from './DetailIntroName';
+import { UploadFile } from 'antd';
+import { RcFile } from 'antd/es/upload';
+import { useRequest } from 'ahooks';
+import { errorMessage } from '@/helper/ui';
+import webApi from '@/service';
+import { useRedirect } from '@/hooks/router/useRedirect';
+import { HACKATHON_SUBMIT_STEPS } from '../../constants';
+import { ProjectSubmitStepType } from '@/service/webApi/resourceStation/type';
+import { LangContext } from '@/components/Provider/Lang';
+import { isEqual } from 'lodash-es';
 
 const formSchema = z.object({
   projectLogo: z.string().url(),
@@ -44,10 +54,9 @@ const formSchema = z.object({
 export type InfoFormSchema = z.infer<typeof formSchema>;
 
 const InfoForm: FC<
-  Omit<FormComponentProps, 'type' | 'formState' | 'setCurrentStep'> & {
-    info: HackathonSubmitStateType['info'];
-  }
-> = ({ onNext, onBack, info, tracks }) => {
+  Omit<FormComponentProps, 'type' | 'formState' | 'setCurrentStep'> &
+    Pick<HackathonSubmitStateType, 'info' | 'status' | 'isSubmit'>
+> = ({ onNext, onBack, info, tracks, simpleHackathonInfo, projectId, status, isSubmit }) => {
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -55,25 +64,76 @@ const InfoForm: FC<
       projectLogo: '',
       projectName: '',
       intro: '',
-      detailedIntro: ''
+      detailedIntro: '',
+      track: ''
     }
   });
+  const [logo, setLogo] = useState<UploadFile | null>(null);
 
-  // const setContractInfo = useHackathonSubmitStore((state) => state.setContractInfo);
+  const { redirectToUrl } = useRedirect();
+
+  const { lang } = useContext(LangContext);
+
+  const { run: submitRequest, loading } = useRequest(
+    async (values: z.infer<typeof formSchema>) => {
+      const newStatus =
+        HACKATHON_SUBMIT_STEPS.find((item) => item.type === status)!.stepNumber === 0
+          ? ProjectSubmitStepType.PITCH_VIDEO
+          : status;
+
+      const formData = new FormData();
+      const { projectName, track, detailedIntro, intro } = values;
+      formData.append('name', projectName);
+      formData.append('prizeTrack', track);
+      formData.append('description', detailedIntro);
+      formData.append('introduction', intro);
+      formData.append('hackathonId', simpleHackathonInfo.id);
+      formData.append('status', newStatus!);
+      logo && formData.append('thumbnail', logo?.originFileObj as RcFile);
+      const res = await webApi.resourceStationApi.submitProject(formData, projectId);
+      return {
+        res,
+        status: newStatus,
+        newInfo: {
+          ...values
+        }
+      };
+    },
+    {
+      manual: true,
+      onSuccess({ res, newInfo, status }) {
+        if (!projectId || !isUuid(projectId)) {
+          window.history.replaceState(
+            {},
+            window.location.host,
+            `/${lang}/form/hackathon/${simpleHackathonInfo.id}/submission/${res.id}`
+          );
+        }
+
+        onNext({ info: newInfo, status, projectId: projectId || res.id });
+      },
+      onError(err) {
+        errorMessage(err);
+      }
+    }
+  );
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // setContractInfo();
-    onNext({});
+    const isSame = isEqual(values, info);
+    if (isSame) {
+      onNext({ info: values });
+      return;
+    }
+    submitRequest(values);
   }
 
   useEffect(() => {
-    const { intro, detailedIntro, projectName, projectLogo, track } = info;
+    const { intro, detailedIntro, projectName, projectLogo, track } = info!;
     form.setValue('intro', intro);
     form.setValue('detailedIntro', detailedIntro);
     form.setValue('projectName', projectName);
     form.setValue('projectLogo', projectLogo);
-    form.setValue('track', track as any);
-
+    form.setValue('track', track as string);
     if (intro && detailedIntro && projectName && projectLogo && track) form.trigger();
   }, [info]);
 
@@ -82,7 +142,7 @@ const InfoForm: FC<
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-6">
           <div className="flex justify-between gap-4">
-            <LogoUpload form={form} />
+            <LogoUpload form={form} onFileChange={setLogo} />
             <div className="flex-1">
               <CustomFormField
                 name="projectName"
@@ -105,11 +165,12 @@ const InfoForm: FC<
               htmlType="submit"
               className={cn(
                 'button-text-m w-[165px] px-0 py-4 uppercase',
-                !form.formState.isValid ? 'bg-neutral-light-gray' : ''
+                !form.formState.isValid || (!logo && !form.getValues('projectLogo')) ? 'bg-neutral-light-gray' : ''
               )}
-              disabled={!form.formState.isValid}
+              disabled={!form.formState.isValid || (!logo && !form.getValues('projectLogo'))}
+              loading={loading}
             >
-              Next
+              {isSubmit ? 'update' : 'Save'} and Next
             </Button>
           </div>
         </form>
