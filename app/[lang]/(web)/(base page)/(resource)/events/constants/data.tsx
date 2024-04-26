@@ -5,22 +5,22 @@ import MenuLink from '@/constants/MenuLink';
 export const eventsBannerData = [
   {
     number: 10,
-    label: 'Meet-ups Organized',
+    label: 'meetUpsOrganized',
     id: 1
   },
   {
     number: 20,
-    label: 'Co-learning Camps Initiated',
+    label: 'colearningCampsInitiated',
     id: 2
   },
   {
     number: 30,
-    label: 'Hackathons Hosted',
+    label: 'HackathonsHosted',
     id: 3
   },
   {
     number: 8000,
-    label: 'Builders Attended',
+    label: 'buildersAttended',
     id: 4
   }
 ];
@@ -28,19 +28,19 @@ export const eventsBannerData = [
 export const eventsExploreLinkData = [
   {
     img: AdvocateImg,
-    label: 'Advocate Center',
+    label: 'advocateCenter',
     path: MenuLink.ADVOCATE,
     id: 1
   },
   {
     img: HackathonImg,
-    label: 'Hackathon',
+    label: 'hackathon',
     path: MenuLink.HACKATHON,
     id: 2
   },
   {
     img: BlogImg,
-    label: 'Blog',
+    label: 'blog',
     path: MenuLink.BLOG,
     id: 3
   }

@@ -13,7 +13,8 @@ import CheckInviteCode from './CheckInviteCode';
 import { LuX } from 'react-icons/lu';
 import { V2_LANDING_PATH } from '@/constants/nav';
 import { useRedirect } from '@/hooks/router/useRedirect';
-import { useCustomPathname } from '@/hooks/router/useCheckPathname';
+import { useCheckPathname, useCustomPathname } from '@/hooks/router/useCheckPathname';
+import { isMobile } from 'react-device-detect';
 interface AuthModalProps {}
 
 const logo = (
@@ -35,6 +36,7 @@ const logo = (
 const AuthModal: FC<AuthModalProps> = (props) => {
   const query = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
   const pathname = useCustomPathname();
+  const { isMobileLink } = useCheckPathname();
   const queryState = query.get('state');
   const type = query.get('type');
   const { redirectToUrl } = useRedirect();
@@ -48,7 +50,7 @@ const AuthModal: FC<AuthModalProps> = (props) => {
   );
 
   useEffect(() => {
-    if ((type || queryState) && pathname === V2_LANDING_PATH) {
+    if ((type || queryState) && pathname === V2_LANDING_PATH && !isMobile) {
       setAuthType(type as AuthType);
       setAuthModalOpen(true);
     }

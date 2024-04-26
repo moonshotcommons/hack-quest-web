@@ -1,3 +1,4 @@
+'use client';
 import { VariantProps, cva } from 'class-variance-authority';
 import { cn } from '@/helper/utils';
 import { useDebounceFn } from 'ahooks';
@@ -274,17 +275,19 @@ const Input = forwardRef<InputRef, InputProps>((props, ref) => {
         </span>
       </div>
       {description && <p className="body-m ml-[1.5rem]">{description}</p>}
-      <div className="flex items-center justify-between">
-        <p
-          className={`body-m flex flex-1 flex-row items-center gap-2 text-status-error-dark ${errorMessage ? '' : 'hidden'}`}
-        >
-          <PiWarningCircleFill size={20} />
-          {errorMessage}
-        </p>
-        <p className={`body-l flex flex-1 justify-end  text-neutral-medium-gray ${isShowCount ? '' : 'hidden'}`}>
-          {`${value.toString().length}/${rest.maxLength}`}
-        </p>
-      </div>
+      {(errorMessage || isShowCount) && (
+        <div className="flex items-center justify-between">
+          <p
+            className={`body-m flex flex-1 flex-row items-center gap-2 text-status-error-dark ${errorMessage ? '' : 'hidden'}`}
+          >
+            <PiWarningCircleFill size={20} />
+            {errorMessage}
+          </p>
+          <p className={`body-l flex flex-1 justify-end  text-neutral-medium-gray ${isShowCount ? '' : 'hidden'}`}>
+            {`${value.toString().length}/${rest.maxLength}`}
+          </p>
+        </div>
+      )}
     </div>
   );
 });

@@ -40,5 +40,5 @@ export const useGetMissionData = () => {
     updateTreasures();
   };
 
-  return { updateMissionDataAll: updateAll, updateMissionData };
+  return { updateMissionDataAll: updateAll, updateMissionData, updateUserCoin };
 };

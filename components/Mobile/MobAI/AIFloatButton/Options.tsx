@@ -35,7 +35,7 @@ const Options: FC<OptionsProps> = ({ changeOpen, pageType }) => {
       animate={{ opacity: 1, scale: 1, x: 0, y: 0 }}
       transition={{ duration: 0.2 }}
       className={cn(
-        'absolute bottom-0 right-16 w-[14.1875rem] scale-0 rounded-[16px] bg-neutral-white p-[10px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.12)]'
+        'w-[14.1875rem] scale-0 rounded-[16px] bg-neutral-white p-[10px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.12)]'
       )}
     >
       {pageType === 'learn' && (
@@ -47,7 +47,7 @@ const Options: FC<OptionsProps> = ({ changeOpen, pageType }) => {
                 className="body-m w-fit cursor-pointer rounded-full bg-[#EBE1FF] px-4 py-2 text-neutral-black hover:bg-[#BC9BFF]"
                 onClick={() => {
                   changeOpen(false);
-                  updateHelperParamsByKey('type', item.type);
+                  updateHelperType(item.type);
                 }}
               >
                 {item.label}

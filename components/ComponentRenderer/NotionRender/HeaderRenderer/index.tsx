@@ -2,7 +2,7 @@ import { cn } from '@/helper/utils';
 import { FC, useEffect, useMemo, useState } from 'react';
 import TextRenderer from '../TextRenderer';
 import { NotionComponent, NotionComponentType } from '../type';
-import { childRenderCallback, useGlobalRendererContext } from '../..';
+import { childRenderCallback, useGlobalRendererContext, useCodeRendererContext } from '../..';
 import { PgcExpandDataType } from '../../context';
 import { CustomComponent, PageType } from '../../type';
 
@@ -28,8 +28,18 @@ const HeaderRenderer: FC<HeaderRendererProps> = (props) => {
   const { component, isRenderChildren = true, nextComponent, prevComponent } = props;
   const type = component.type;
 
-  const { expandData: contextExpandData, updateExpandData, pageType, isMobile } = useGlobalRendererContext();
-  const expandData = contextExpandData as PgcExpandDataType[];
+  const {
+    expandData: contextExpandData,
+    updateExpandData,
+    pageType,
+    isMobile,
+    expandDataRight: contextExpandDataRight,
+    updateExpandDataRight
+  } = useGlobalRendererContext();
+  const { isPlayground } = useCodeRendererContext();
+  const expandData = isPlayground
+    ? (contextExpandDataRight as PgcExpandDataType[])
+    : (contextExpandData as PgcExpandDataType[]);
   const HeadingTag = ('h' + type.slice(-1)) as keyof JSX.IntrinsicElements;
   const [isExpandAll, setIsExpandAll] = useState(false);
 
@@ -38,6 +48,7 @@ const HeaderRenderer: FC<HeaderRendererProps> = (props) => {
   }, [component]);
 
   const changeExpandNum = () => {
+    const setExpandData = isPlayground ? updateExpandDataRight : updateExpandData;
     const newIsExpandAll = !isExpandAll;
     const newExpandData = [...expandData] as PgcExpandDataType[];
     for (let i = expandIndex + 1; i < newExpandData.length; i++) {
@@ -46,7 +57,7 @@ const HeaderRenderer: FC<HeaderRendererProps> = (props) => {
       } else if (newExpandData[i].isExpandAll) break;
     }
     setIsExpandAll(newIsExpandAll);
-    updateExpandData?.(newExpandData, newExpandData[0].index);
+    setExpandData?.(newExpandData, newExpandData[0].index);
   };
 
   const changeExpandAll = () => {

@@ -11,7 +11,7 @@ import { useRedirect } from '@/hooks/router/useRedirect';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useMissionCenterStore } from '@/store/zustand/missionCenterStore';
 import { useCustomPathname } from '@/hooks/router/useCheckPathname';
-import HackLogo from '@/public/images/logo/light-footer-logo.svg';
+import HackLogo from '@/public/images/logo/black-icon-text-logo.svg';
 import { useGlobalStore } from '@/store/zustand/globalStore';
 import { LuChevronDown } from 'react-icons/lu';
 import { useDebounceFn } from 'ahooks';
@@ -138,31 +138,33 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
                     isNav={true}
                     className=" left-0  rounded-[16px] border border-neutral-light-gray bg-neutral-white p-[12px] shadow-[0_2px_2px_0_rgba(19,19,19,0.15)]"
                   >
-                    {nav.type === 'outSide' ? (
+                    {nav.id === 'more' ? (
                       <div className="flex gap-[24px]">
                         {nav.menu.map((menu) => (
                           <div key={menu.id} className=" body-s-bold text-neutral-medium-gray">
-                            <p className="px-[12px] py-[8px]">{t(menu.label)}</p>
-                            {menu.outSide?.map((outside) =>
-                              outside.id === 'playground' ? (
+                            <p className="whitespace-nowrap px-[12px] py-[8px]">{t(menu.label)}</p>
+                            {menu.menu?.map((more) =>
+                              more.id === 'playground' ? (
                                 <div
-                                  key={outside.link}
+                                  key={more.id}
                                   className="mt-[8px] cursor-pointer whitespace-nowrap  rounded-[8px] px-[12px] py-[8px] text-neutral-rich-gray hover:bg-neutral-off-white"
                                   onClick={() => setPlaygroundSelectModalOpen(true)}
                                 >
-                                  {t(outside.label)}
+                                  {t(more.label)}
                                 </div>
                               ) : (
                                 <Link
-                                  key={outside.link}
-                                  href={outside.link!}
-                                  target="_blank"
+                                  key={more.id}
+                                  href={(more.link || more.path) as string}
+                                  target={more.outSide ? '_blank' : '_self'}
                                   onClick={(e) => {
+                                    setHoverNavId(null);
                                     e.stopPropagation();
                                   }}
                                 >
-                                  <p className="mt-[8px] cursor-pointer rounded-[8px] px-[12px]  py-[8px] text-neutral-rich-gray hover:bg-neutral-off-white">
-                                    {t(outside.label)}
+                                  <p className="mt-[8px] flex cursor-pointer items-center gap-[8px] whitespace-nowrap rounded-[8px] px-[12px]  py-[8px] text-neutral-rich-gray hover:bg-neutral-off-white">
+                                    {more.icon}
+                                    <span>{t(more.label)}</span>
                                   </p>
                                 </Link>
                               )
@@ -177,6 +179,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
                             key={menu.path}
                             href={menu.path!}
                             onClick={(e) => {
+                              setHoverNavId(null);
                               e.stopPropagation();
                             }}
                           >

@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/helper/utils';
 
-const LinkArrowVariants = cva('flex cursor-pointer items-center', {
+const LinkArrowVariants = cva('flex cursor-pointer items-center relative w-fit', {
   variants: {
     size: {
       sm: 'gap-[7px] body-s',
@@ -20,11 +20,21 @@ const LinkArrowVariants = cva('flex cursor-pointer items-center', {
   }
 });
 
-interface LinkArrowProps extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof LinkArrowVariants> {}
+interface LinkArrowProps extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof LinkArrowVariants> {
+  decorate?: boolean;
+}
 
-const LinkArrow: FC<LinkArrowProps> = ({ className, size, direction, children, ...props }) => {
+const LinkArrow: FC<LinkArrowProps> = ({ className, size, direction, children, decorate = false, ...props }) => {
   return (
-    <div className={cn(LinkArrowVariants({ size, direction, className }))} {...props}>
+    <div
+      className={cn(
+        LinkArrowVariants({ size, direction, className }),
+        decorate
+          ? 'after:absolute after:-bottom-[1px] after:left-0 after:h-[2px] after:w-full after:rounded-full after:bg-yellow-primary'
+          : ''
+      )}
+      {...props}
+    >
       {size !== 'sm' && (
         <svg
           width="14"

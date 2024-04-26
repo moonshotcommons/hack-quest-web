@@ -1,49 +1,61 @@
 'use client';
-import PageDescription from '@/components/Web/Business/PageDescription';
-import ProjectsPageBox from '../../components/ProjectsBox';
-import { BurialPoint } from '@/helper/burialPoint';
-import { useEffect, useRef, useState } from 'react';
+import { FC, useContext } from 'react';
+import { ProjectType } from '@/service/webApi/resourceStation/type';
+import PageRetentionTime from '@/components/Common/PageRetentionTime';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
+import { PageInfoType, SearchParamsType } from '..';
+import MenuLink from '@/constants/MenuLink';
+import { useRouter } from 'next-nprogress-bar';
+import { getSearchParamsUrl } from '@/helper/utils';
+import CourseListPageHeader from '@/components/Web/Business/CourseListPageHeader';
+import ListBox from './ListBox';
+import { projectSort } from '../../constants/data';
 
-function ProjectsPage() {
-  const ProjectsPageRef = useRef<HTMLDivElement | null>(null);
-
-  const [loadNum, setLoadNum] = useState(0);
-  const [apiStatus, setApiStatus] = useState('init');
-
-  const handleScroll = () => {
-    if (apiStatus !== 'init') return;
-    const clientHeight = ProjectsPageRef.current?.clientHeight || 0;
-    const scrollTop = ProjectsPageRef.current?.scrollTop || 0;
-    const scrollHeight = ProjectsPageRef.current?.scrollHeight || 0;
-    if (clientHeight + scrollTop >= scrollHeight - 5) {
-      setLoadNum((num) => num + 1);
-    }
-  };
-  useEffect(() => {
-    const startTime = new Date().getTime();
-    return () => {
-      const endTime = new Date().getTime();
-      const duration = endTime - startTime;
-      BurialPoint.track('hackathon-all-projects-页面留存时间', {
-        duration
-      });
+interface ProjectsPageProp {
+  list: ProjectType[];
+  searchParams: SearchParamsType;
+  total: number;
+  pageInfo: PageInfoType;
+}
+const ProjectsPage: FC<ProjectsPageProp> = ({ list, searchParams, total, pageInfo }) => {
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.HACKATHON);
+  const router = useRouter();
+  const searchList = (search: SearchParamsType) => {
+    const searchInfo = {
+      ...search,
+      createdAt: search.createdAt === projectSort[0].value ? '' : search.createdAt,
+      winner: !search.winner ? '' : search.winner
     };
-  }, []);
+    const url = getSearchParamsUrl(searchInfo, MenuLink.PROJECTS);
+    router.push(url);
+  };
   return (
-    <div className="h-full overflow-auto pt-[40px]" onScroll={handleScroll} ref={ProjectsPageRef}>
-      <div className="container mx-auto">
-        <PageDescription
-          title={'Project Archive'}
-          description={
-            'Welcome to the central repository for accessing all previous projects from our various hackathons.'
-          }
-          className="pt-0"
-        />
-
-        <ProjectsPageBox loadNum={loadNum} setApiStatus={(status) => setApiStatus(status)} apiStatus={apiStatus} />
-      </div>
+    <div className="container mx-auto pt-[40px]">
+      <CourseListPageHeader
+        title={t('projects.projects')}
+        description={t('projects.projectsDescription')}
+        coverImageUrl={'/images/hackathon/projects_cover.png'}
+        coverWidth={416}
+        coverHeight={331}
+        onSearch={(keyword) => {
+          searchList({
+            createdAt: projectSort[0].value,
+            winner: '',
+            tracks: '',
+            keyword
+          });
+        }}
+        defaultValue={searchParams.keyword || ''}
+        className="mb-[2.5rem] "
+        coverImgClassName="absolute right-[0] top-[0]"
+      />
+      <ListBox list={list} searchParams={searchParams} total={total} pageInfo={pageInfo} searchList={searchList} />
+      <PageRetentionTime trackName="hackathon-project 页面留存时间" />
     </div>
   );
-}
+};
 
 export default ProjectsPage;

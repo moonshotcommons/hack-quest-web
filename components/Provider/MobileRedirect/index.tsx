@@ -1,6 +1,6 @@
 'use client';
 import { useCustomPathname } from '@/hooks/router/useCheckPathname';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next-nprogress-bar';
 import { FC, ReactNode, useEffect } from 'react';
 import { isMobile } from 'react-device-detect';
 // import { isMobile } from 'react-device-detect';

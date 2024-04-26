@@ -93,12 +93,16 @@
       "advocate": "Advocate",
       "advocateDesc": "Join our rapidly growing community",
       "events": "Events",
-      "eventsDesc": "Learn about Web 3 events"
+      "eventsDesc": "Learn about Web 3 events",
+      "partners": "Partners",
+      "partnersDesc": "Become Our Partner"
     },
     "launch": {
       "title": "Launch pool"
     },
     "more": {
+      "aboutUs":"About Us",
+      "pressKit":"Press Kit",
       "title": "More",
       "tools": "TOOLS",
       "playground": "Playground",
@@ -148,5 +152,20 @@
     "claim": "claim",
     "certificationAvailable": "Certification available",
     "deviceAccess": "Access on mobile and desktop"
-  }
+  },
+  "resultsFor": "Results for",
+  "showAll":"Show All",
+  "showLess":"Show Less",
+  "ended":"Ended",
+  "address":"Address",
+  "handleButtonText": {
+    "save": "save",
+    "exit": "exit"
+  },
+  "viewMore": "View more",
+  "continueSubmission":"Continue Submission",
+  "register":"Register",
+  "continueRegister":"Continue Register",
+  "youHavesubmitted":"You Have Submitted",
+  "yes":"Yes"
 }

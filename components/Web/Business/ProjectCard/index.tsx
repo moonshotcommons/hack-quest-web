@@ -20,7 +20,7 @@ const ProjectCard: React.FC<ProjectCardProp> = ({ className = '', project }) => 
   return (
     <Link
       className={cn(
-        'card-hover relative  flex cursor-pointer flex-col overflow-hidden rounded-[10px] bg-neutral-white sm:w-[calc((640px-60px)/4)] md:w-[calc((768px-60px)/4)] lg:w-[calc((1024px-60px)/4)] xl:w-[calc((1280px-60px)/4)] 2xl:w-[calc((1360px-60px)/4)]',
+        'card-hover relative  flex w-full cursor-pointer flex-col overflow-hidden rounded-[10px] bg-neutral-white',
         className
       )}
       onClick={goProjectDetail}
@@ -42,11 +42,13 @@ const ProjectCard: React.FC<ProjectCardProp> = ({ className = '', project }) => 
               <TrackTag key={i} track={v} className="caption-12pt flex-shrink-0" />
             ))}
           </div>
-          <div className="body-m-bold truncate text-neutral-off-black">{project.name}</div>
+          <h2 className="body-m-bold truncate text-neutral-off-black">{project.name}</h2>
           <div className="body-s line-clamp-2 text-neutral-rich-gray">{project.introduction}</div>
         </div>
-        <div className="caption-12pt flex text-neutral-rich-gray">
-          <span>{project.hackathonName}</span>
+        <div className="caption-12pt flex items-center gap-[10px]  text-neutral-rich-gray">
+          <span className="flex-shrink-0">2022 Summer</span>
+          <span className="h-[16px] w-[1px] flex-shrink-0 bg-neutral-rich-gray"></span>
+          <span className="flex-1 flex-shrink-0 truncate">{project.hackathonName}</span>
         </div>
       </div>
     </Link>

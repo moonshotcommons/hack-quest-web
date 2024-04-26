@@ -5,13 +5,16 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useShallow } from 'zustand/react/shallow';
 
-import { FC } from 'react';
+import { FC, useContext } from 'react';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { BiUser, BiLockAlt, BiLogInCircle } from 'react-icons/bi';
 import { V2_LANDING_PATH, isNoNeedUserInfo } from '@/constants/nav';
 import { useCustomPathname } from '@/hooks/router/useCheckPathname';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next-nprogress-bar';
 import MenuLink from '@/constants/MenuLink';
+import ConnectButton from '../ConnectButton';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
 interface UserDropCardProps {
   // children: ReactNode;
   userInfo: LoginResponse;
@@ -41,6 +44,9 @@ const UserDropCard: FC<UserDropCardProps> = (props) => {
       setSettingsOpen: state.setSettingsOpen
     }))
   );
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang);
+
   const { redirectToUrl } = useRedirect();
   const signOut = () => {
     setAuthType(AuthType.LOGIN);
@@ -58,6 +64,7 @@ const UserDropCard: FC<UserDropCardProps> = (props) => {
     <div className="relative  rounded-[10px] bg-neutral-white py-[20px] shadow-[0_0px_4px_0_rgba(0,0,0,0.25)]">
       <div className="body-s flex min-w-[220px] flex-col text-neutral-black">
         <UserInfo userInfo={userInfo}></UserInfo>
+        <ConnectButton t={t} />
         <Link href={MenuLink.USER_PROFILE} className="w-full">
           <div
             className="mt-[8px] flex w-full cursor-pointer  items-center gap-[12px] px-[30px] py-[12px] hover:bg-neutral-off-white"

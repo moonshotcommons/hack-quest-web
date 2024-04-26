@@ -8,7 +8,7 @@ import { useDebounceFn, useKeyPress } from 'ahooks';
 import Schema from 'async-validator';
 import { AuthType } from '@/store/zustand/userStore';
 interface VerifyEmailProps {
-  onStatusChange: (status: boolean) => void;
+  // onStatusChange: (status: boolean) => void;
   onNext: (email: string, inviteCode?: string) => void;
   validator: Schema;
   emailTitle?: ReactNode;
@@ -17,7 +17,7 @@ interface VerifyEmailProps {
 }
 
 const VerifyEmail: FC<VerifyEmailProps> = (props) => {
-  const { onStatusChange, onNext, value, emailTitle: EmailTitle, validator, type } = props;
+  const { onNext, value, emailTitle: EmailTitle, validator, type } = props;
 
   const [formData, setFormData] = useState<{
     email: string;
@@ -64,7 +64,6 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
               message: errors?.[0].message || ''
             });
           }
-          setLoading(false);
         } else {
           if (type === AuthType.LOGIN) {
             BurialPoint.track('login-登录邮箱验证成功');
@@ -81,8 +80,8 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
           });
 
           onNext(formData.email);
-          setLoading(false);
         }
+        setLoading(false);
       });
     },
     { wait: 500 }
@@ -104,6 +103,19 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
       }
     };
   }, []);
+
+  // const { run: checkStatus } = useDebounceFn(
+  //   (e) => {
+  //     validator.validate({ email: e.target.value }, (errors, fields) => {
+  //       if (errors?.[0]) {
+  //         onStatusChange(false);
+  //       } else {
+  //         onStatusChange(true);
+  //       }
+  //     });
+  //   },
+  //   { wait: 500 }
+  // );
 
   return (
     <div className="flex h-full w-full flex-col items-center">
@@ -134,13 +146,15 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
               }
             });
 
-            validator.validate({ email: e.target.value }, (errors, fields) => {
-              if (errors?.[0]) {
-                onStatusChange(false);
-              } else {
-                onStatusChange(true);
-              }
-            });
+            // checkStatus(e);
+
+            // validator.validate({ email: e.target.value }, (errors, fields) => {
+            //   if (errors?.[0]) {
+            //     onStatusChange(false);
+            //   } else {
+            //     onStatusChange(true);
+            //   }
+            // });
           }}
           // onBlur={(e) => {
           //   validator.validate({ email: e.target.value }, (errors, fields) => {

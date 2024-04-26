@@ -3,7 +3,7 @@ import CourseListPageHeader from '@/components/Web/Business/CourseListPageHeader
 import MenuLink from '@/constants/MenuLink';
 import React, { useContext, useState } from 'react';
 import { HiArrowLongRight } from 'react-icons/hi2';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next-nprogress-bar';
 import SubmitWordModal from '../SubmitWordModal';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';

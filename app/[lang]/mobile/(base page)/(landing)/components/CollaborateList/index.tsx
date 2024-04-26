@@ -14,7 +14,7 @@ const CollaborateList: FC<CollaborateListProps> = async ({ lang }) => {
       <p className="body-l-bold body-xs px-[7rem] text-center text-neutral-medium-gray">
         {t('CollaborateList.ecosystemsAndProjects')}
       </p>
-      <div className="relative mt-[1.5rem] h-[516px] w-full">
+      <div className="relative mt-[1.5rem] h-[32.25rem] w-full">
         <Image
           src={'/images/landing/cooperation_list_mobile.png'}
           alt="cooperation"

@@ -1,4 +1,5 @@
 import MenuLink from '@/constants/MenuLink';
+import { ReactNode } from 'react';
 
 export interface OutSideType {
   label: string;
@@ -14,7 +15,9 @@ export interface MenuType {
   description?: string;
   needLogin?: boolean;
   needPC?: boolean;
-  outSide?: OutSideType[];
+  menu?: MenuType[];
+  icon?: ReactNode;
+  outSide?: boolean;
 }
 export interface NavbarListType {
   label: string;

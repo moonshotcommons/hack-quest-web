@@ -22,11 +22,11 @@ export async function generateMetadata({ params }: EventsProp): Promise<Metadata
   const metadata: Metadata = {
     title: 'HackQuest Events',
     alternates: {
-      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/${MenuLink.EVENTS}`,
+      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}${MenuLink.EVENTS}`,
       languages: {
-        'x-default': `https://www.hackquest.io/${Lang.EN}/${MenuLink.EVENTS}`,
-        en: `https://www.hackquest.io/${Lang.EN}/${MenuLink.EVENTS}`,
-        zh: `https://www.hackquest.io/${Lang.ZH}/${MenuLink.EVENTS}`
+        'x-default': `https://www.hackquest.io/${Lang.EN}${MenuLink.EVENTS}`,
+        en: `https://www.hackquest.io/${Lang.EN}${MenuLink.EVENTS}`,
+        zh: `https://www.hackquest.io/${Lang.ZH}${MenuLink.EVENTS}`
       }
     }
   };
@@ -39,11 +39,11 @@ const Events: React.FC<EventsProp> = async ({ params: { lang } }) => {
   const list = res.data || [];
   return (
     <div>
-      <EventsBanner />
-      <UpcomingEvents list={list} />
-      <PastEvents list={list} />
-      <ExploreMore />
-      <Reach />
+      <EventsBanner lang={lang} />
+      <UpcomingEvents list={list} lang={lang} />
+      <PastEvents list={list} lang={lang} />
+      <ExploreMore lang={lang} />
+      <Reach lang={lang} />
       <div id="events-footer">
         <LandingFooter lang={lang} />
       </div>

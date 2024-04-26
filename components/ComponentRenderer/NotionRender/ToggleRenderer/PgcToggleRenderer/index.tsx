@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from 'react';
 
 import { VscAdd, VscChromeMinimize } from 'react-icons/vsc';
 import { NotionComponent, CustomComponent, PageType, NotionComponentType } from '@/components/ComponentRenderer/type';
-import { childRenderCallback, useGlobalRendererContext } from '@/components/ComponentRenderer';
+import { childRenderCallback, useCodeRendererContext, useGlobalRendererContext } from '@/components/ComponentRenderer';
 import TextRenderer from '@/components/ComponentRenderer/NotionRender/TextRenderer';
 import { PgcExpandDataType } from '@/components/ComponentRenderer/context';
 import { cn } from '@/helper/utils';
@@ -20,18 +20,29 @@ interface PgcToggleRendererProps {
 const PgcToggleRenderer: FC<PgcToggleRendererProps> = (props) => {
   const { component, isRenderChildren = true, prevComponent, nextComponent } = props;
   const [showChild, setShowChild] = useState(true);
-  const { expandData: contextExpandData, updateExpandData, pageType, isMobile } = useGlobalRendererContext();
-  const expandData = contextExpandData as PgcExpandDataType[];
+  const {
+    expandData: contextExpandData,
+    updateExpandData,
+    pageType,
+    isMobile,
+    expandDataRight: contextExpandDataRight,
+    updateExpandDataRight
+  } = useGlobalRendererContext();
+  const { isPlayground } = useCodeRendererContext();
+  const expandData = isPlayground
+    ? (contextExpandDataRight as PgcExpandDataType[])
+    : (contextExpandData as PgcExpandDataType[]);
   const changeShowChild = (status: boolean) => {
     if (!expandData) {
       setShowChild(status);
       return;
     }
+    const setExpandData = isPlayground ? updateExpandDataRight : updateExpandData;
     const newExpandData = [...expandData] as PgcExpandDataType[];
     const index = newExpandData?.findIndex((v) => v.id === component.id);
     newExpandData[index].expandNum = status ? 1 : 0;
     setShowChild(status);
-    updateExpandData?.(newExpandData, expandData[0].index);
+    setExpandData?.(newExpandData, expandData[0].index);
   };
 
   useEffect(() => {

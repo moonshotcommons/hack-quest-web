@@ -7,7 +7,7 @@ import { searchTabData, sortData } from '../../constants/data';
 import { FiX } from 'react-icons/fi';
 import SlideHighlight from '@/components/Common/Navigation/SlideHighlight';
 import { BlogSearchType } from '@/service/webApi/resourceStation/type';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next-nprogress-bar';
 import { cloneDeep } from 'lodash-es';
 import Link from 'next/link';
 import MenuLink from '@/constants/MenuLink';

@@ -92,6 +92,11 @@ const LessonContentComponent: FC<LessonContentProps> = (props) => {
               </div>
             );
           })}
+          {/* <FoundBugButton
+            params={{
+              lessonId: lesson.id
+            }}
+          /> */}
         </div>
       )}
     </div>

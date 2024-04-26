@@ -1,15 +1,21 @@
 import Button from '@/components/Common/Button';
 import Modal from '@/components/Common/Modal';
+import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
+import { useJumpLeaningLesson } from '@/hooks/courses/useJumpLeaningLesson';
 import Congrats from '@/public/images/course/congrats.svg';
+import { ProjectCourseType } from '@/service/webApi/course/type';
 import { ThemeContext } from '@/store/context/theme';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { forwardRef, useContext, useImperativeHandle, useState } from 'react';
 interface MobCompleteModalProps {}
 
 interface OpenParams {
   type: 'course' | 'claim';
   title: string;
+  courseId?: string;
+  nextCourse: ProjectCourseType | null;
 }
 
 export interface MobCompleteModalInstance {
@@ -22,12 +28,26 @@ const MobCompleteModal = forwardRef<MobCompleteModalInstance, MobCompleteModalPr
   const { theme } = useContext(ThemeContext);
   const [type, setType] = useState<'course' | 'claim'>('course');
   const [title, setTitle] = useState('');
+  const [nextButtonInfo, setNextButtonInfo] = useState<{ open: boolean; nextCourse: ProjectCourseType | null }>({
+    open: false,
+    nextCourse: null
+  });
+
+  const query = useSearchParams();
+
+  const { jumpLearningLesson, loading } = useJumpLeaningLesson();
 
   useImperativeHandle(ref, () => {
     return {
       open(params) {
         setType(params.type);
         setTitle(params.title);
+        if (params.nextCourse) {
+          setNextButtonInfo({
+            open: true,
+            nextCourse: params.nextCourse
+          });
+        }
         setOpen(true);
       },
       close(closeCallback) {
@@ -61,12 +81,33 @@ after:-bottom-[0px] after:left-0 after:h-[1px] after:w-full after:scale-y-[1] af
         </h1>
         <p className="body-l mt-[20px] text-text-default-color">{decodeURIComponent(title)}</p>
         {type === 'course' && (
-          <div className="mt-[100px] flex gap-[1.25rem]">
+          <div className="mt-[100px] flex flex-col gap-[1.25rem]">
             <Link href={'/dashboard'} onClick={() => setOpen(false)}>
-              <Button className="body-l border border-lesson-primary-button-border-color bg-lesson-primary-button-bg px-[3rem] py-[1rem] text-lesson-primary-button-text-color">
+              <Button
+                block
+                className="body-l border border-lesson-primary-button-border-color bg-lesson-primary-button-bg px-[3rem] py-[1rem] text-lesson-primary-button-text-color"
+              >
                 Back to Homepage
               </Button>
             </Link>
+            {nextButtonInfo.open && !!nextButtonInfo.nextCourse && (
+              <Button
+                block
+                type="primary"
+                className="body-l px-0 py-[1rem] capitalize text-lesson-primary-button-text-color"
+                loading={loading}
+                onClick={() => {
+                  setOpen(false);
+                  jumpLearningLesson(nextButtonInfo.nextCourse!, {
+                    menu: Menu.LEARNING_TRACK,
+                    idTypes: [QueryIdType.LEARNING_TRACK_ID, QueryIdType.MENU_COURSE_ID],
+                    ids: [query.get(QueryIdType.LEARNING_TRACK_ID) || '', nextButtonInfo.nextCourse!.id] as string[]
+                  });
+                }}
+              >
+                continue learning
+              </Button>
+            )}
           </div>
         )}
         {type === 'claim' && (

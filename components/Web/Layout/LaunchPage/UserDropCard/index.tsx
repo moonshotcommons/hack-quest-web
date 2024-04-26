@@ -10,13 +10,12 @@ import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { BiUser, BiLockAlt, BiLogInCircle } from 'react-icons/bi';
 import { V2_LANDING_PATH, isNoNeedUserInfo } from '@/constants/nav';
 import { useCustomPathname } from '@/hooks/router/useCheckPathname';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next-nprogress-bar';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import { LangContext } from '@/components/Provider/Lang';
-
-import ConnectButton from './ConnectButton';
 import MenuLink from '@/constants/MenuLink';
+import ConnectButton from '@/components/Web/Business/ConnectButton';
 interface UserDropCardProps {
   // children: ReactNode;
   userInfo: LoginResponse;

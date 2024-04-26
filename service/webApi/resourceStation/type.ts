@@ -10,6 +10,23 @@ export interface MentorType {
   title: string;
   picture: string;
 }
+
+export interface HackathonRewardType {
+  desc: string;
+  name: string;
+  place: number[];
+}
+export interface HackathonScheduleType {
+  desc: string;
+  time: string;
+  isExpand?: boolean;
+  children: {
+    desc: string;
+    link?: string;
+    time: string;
+    address?: string;
+  }[];
+}
 export interface HackathonType {
   id: string;
   name: string;
@@ -18,6 +35,7 @@ export interface HackathonType {
   theme: string;
   participants: string[];
   hosts: Omit<MentorType, 'title'>[];
+  coHosts: Omit<MentorType, 'title'>[];
   startTime: string;
   endTime: string;
   address: string;
@@ -27,6 +45,12 @@ export interface HackathonType {
   communityPartners: MentorType[];
   status: HackathonStatusType;
   alias: string;
+  rewardTime: string;
+  rewards: HackathonRewardType[];
+  openTime: string;
+  reviewTime: string;
+  schedule: HackathonScheduleType[];
+  participation?: HackathonRegisterInfo;
 }
 
 export interface HackathonDataType {
@@ -43,11 +67,15 @@ export type ProjectType = {
   team: string;
   hackathonId: string;
   hackathonName: string;
+  prizeTrack: string;
   tracks: string[];
+  status: ProjectSubmitStepType;
   featured: boolean;
   apolloDay: boolean;
   thumbnail: string;
   alias: string;
+  demo: string;
+  wallet: string;
 };
 
 export interface ProjectDataType {
@@ -115,4 +143,99 @@ export interface EventsType {
   endTime: string;
   status: EventStatus;
   eventUrl?: string;
+}
+
+export enum HackathonRegisterStep {
+  Name = 'NAME',
+  Contact = 'CONTRACT',
+  Bio = 'BIO',
+  SubmissionType = 'SUBMISSION_TYPE',
+  Review = 'REVIEW'
+}
+
+export interface HackathonRegisterProjectInfo {
+  id: string;
+  name: string;
+  status: ProjectSubmitStepType;
+}
+export interface HackathonRegisterInfo {
+  id: string;
+  hackathonId: string;
+  userId: string;
+  firstName: string | null;
+  lastName: string | null;
+  weChat: string | null;
+  telegram: string | null;
+  team: HackathonTeam;
+  bio: string | null;
+  status: HackathonRegisterStep;
+  createdAt: string;
+  updatedAt: string;
+  avatar: string;
+  isRegister: boolean;
+  isSubmit: boolean;
+  project?: HackathonRegisterProjectInfo;
+}
+
+export interface RegisterInfoBody {
+  firstName?: string | null;
+  lastName?: string | null;
+  weChat?: string | null;
+  telegram?: string | null;
+  bio?: string | null;
+  status?: HackathonRegisterStep;
+}
+
+export interface HackathonTeam {
+  code?: string;
+  creatorId?: string;
+  id?: string;
+  name?: string;
+}
+
+export interface TeamMemberInfo {
+  userId: string;
+  firstName: string;
+  lastName: string;
+  weChat: string;
+  telegram: string;
+  bio: string;
+  isAdmin: boolean;
+  avatar: string;
+}
+
+export interface HackathonTeamDetail {
+  id: string;
+  name: string;
+  creatorId: string;
+  createdAt: string;
+  updatedAt: string;
+  members: TeamMemberInfo[];
+}
+
+export enum ProjectSubmitStepType {
+  INFO = 'INFO',
+  PITCH_VIDEO = 'PITCH_VIDEO',
+  DEMO = 'DEMO',
+  OTHERS = 'OTHERS',
+  WALLET = 'WALLET',
+  REVIEW = 'REVIEW'
+}
+
+export interface ProjectSubmitBody {
+  name?: string;
+  hackathonId: string;
+  prizeTrack?: string;
+  description?: string;
+  thumbnail?: string;
+  video?: string;
+  demo?: string;
+  introduction?: string;
+  githubLink?: string;
+  isOpenSource?: boolean;
+  wallet?: string;
+  status?: ProjectSubmitStepType;
+  team?: string;
+  tracks?: string[];
+  creatorId?: string;
 }

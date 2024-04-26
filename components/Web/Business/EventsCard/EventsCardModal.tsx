@@ -4,7 +4,7 @@ import Modal from '@/components/Common/Modal';
 import SwiperContainer from '@/components/Common/SwiperContainer';
 import TrackTag from '@/components/Common/TrackTag';
 import moment from 'moment';
-import React, { useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { FiX } from 'react-icons/fi';
 import { PiCalendarBlank } from 'react-icons/pi';
 import { TfiLocationPin } from 'react-icons/tfi';
@@ -13,6 +13,9 @@ import Image from 'next/image';
 import { EventsType } from '@/service/webApi/resourceStation/type';
 import Link from 'next/link';
 import CardCover from '@/public/images/resource/events_card_cover.png';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 
 interface EventsCardModalProp {
   onClose: VoidFunction;
@@ -21,6 +24,8 @@ interface EventsCardModalProp {
 }
 
 const EventsCardModal: React.FC<EventsCardModalProp> = ({ onClose, open, events }) => {
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.RESOURCE);
   const medias = useMemo(() => {
     return events?.medias?.length ? events?.medias : [CardCover];
   }, [events]);
@@ -48,7 +53,7 @@ const EventsCardModal: React.FC<EventsCardModalProp> = ({ onClose, open, events 
                 </SwiperContainer>
               ) : null}
             </div>
-            <p className="body-l-bold  text-neutral-black">{events.name}</p>
+            <p className="body-xl-bold  text-neutral-black">{events.name}</p>
             <div className="my-[16px] flex flex-wrap gap-[12px]">
               {events.tags?.map((v, i) => <TrackTag track={v} key={i} />)}
             </div>
@@ -73,7 +78,7 @@ const EventsCardModal: React.FC<EventsCardModalProp> = ({ onClose, open, events 
               <div className="flex justify-end pt-[20px]">
                 <Link href={events.eventUrl} className="outline-none">
                   <Button className="button-text-s h-[34px] w-[140px] border border-neutral-black p-0 uppercase text-neutral-black">
-                    learn more
+                    {t('learnMore')}
                   </Button>
                 </Link>
               </div>

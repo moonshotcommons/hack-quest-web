@@ -9,6 +9,8 @@ import { CourseDetailContext } from '@/components/Web/DetailPageV2/Provider/Cour
 import { LangContext } from '@/components/Provider/Lang';
 import { TransNs } from '@/i18n/config';
 import { useTranslation } from '@/i18n/client';
+import { useSearchParams } from 'next/navigation';
+import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
 
 interface CourseStatusButtonProps {
   courseDetail: CourseDetailType;
@@ -18,6 +20,9 @@ const CourseStatusButton: FC<CourseStatusButtonProps> = ({ courseDetail: propCou
   const { courseDetail: contextCourseDetail } = useContext(CourseDetailContext);
   const courseDetail = contextCourseDetail ?? propCourseDetail;
   const learningStatus = useGetCourseLearnStatus(courseDetail);
+
+  const query = useSearchParams();
+  const learningTrackId = query.get('learningTrackId');
 
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.BASIC);
@@ -32,7 +37,14 @@ const CourseStatusButton: FC<CourseStatusButtonProps> = ({ courseDetail: propCou
           type="primary"
           className="button-text-l py-4 uppercase"
           onClick={() => {
-            jumpLearningLesson(courseDetail);
+            if (!learningTrackId) jumpLearningLesson(courseDetail);
+            else {
+              jumpLearningLesson(courseDetail, {
+                menu: Menu.LEARNING_TRACK,
+                idTypes: [QueryIdType.LEARNING_TRACK_ID, QueryIdType.MENU_COURSE_ID],
+                ids: [learningTrackId, courseDetail.id]
+              });
+            }
           }}
         >
           {t('courses.startLearning')}
@@ -45,7 +57,14 @@ const CourseStatusButton: FC<CourseStatusButtonProps> = ({ courseDetail: propCou
           type="primary"
           className="button-text-l py-4 uppercase"
           onClick={() => {
-            jumpLearningLesson(courseDetail);
+            if (!learningTrackId) jumpLearningLesson(courseDetail);
+            else {
+              jumpLearningLesson(courseDetail, {
+                menu: Menu.LEARNING_TRACK,
+                idTypes: [QueryIdType.LEARNING_TRACK_ID, QueryIdType.MENU_COURSE_ID],
+                ids: [learningTrackId, courseDetail.id]
+              });
+            }
           }}
         >
           {t('courses.continue')}

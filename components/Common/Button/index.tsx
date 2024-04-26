@@ -5,6 +5,7 @@ type ButtonType = 'default' | 'primary' | 'secondary' | 'text';
 type SizeType = 'default' | 'large' | 'medium-x' | 'medium-y' | 'small';
 import Loading from '@/public/images/other/loading.png';
 import Image from 'next/image';
+import { useIsClient } from '@/hooks/dom/useIsClient';
 
 interface BaseButtonProps {
   type?: ButtonType;
@@ -36,7 +37,6 @@ const Button: FC<ButtonProps> = (props) => {
     loading = false,
     disabled: propDisabled,
     htmlType,
-    onClick: propOnClick,
     ...rest
   } = props;
   // const classNames = ;
@@ -64,37 +64,35 @@ const Button: FC<ButtonProps> = (props) => {
 
   const [loadingSize, setLoadingSize] = useState([48, 48]);
 
+  const isClient = useIsClient();
+
   useEffect(() => {
     const button = buttonRef.current;
     if (button) {
       setLoadingSize([button.clientHeight * 0.88889, button.clientHeight * 0.88889]);
     }
-  }, [buttonRef]);
+  }, [children, isClient]);
 
   const disabled = propDisabled || loading;
+
   return (
     <button
       ref={buttonRef}
       className={cn(
-        `relative flex h-fit w-fit cursor-pointer items-center justify-center gap-[.625rem] text-neutral-black`,
+        `relative flex h-fit w-fit cursor-pointer items-center justify-center gap-[.625rem] text-neutral-black outline-none transition-all hover:scale-[1.05]`,
         type === 'primary' ? 'bg-yellow-primary' : '',
-        type === 'primary' && !disabled ? 'hover:bg-yellow-hover' : '',
         type === 'text' ? 'border-none bg-transparent' : '',
         block && 'w-full',
         mergeSize(),
         mergeRounded(),
         loading ? 'cursor-not-allowed opacity-70' : '',
-        loading && type === 'primary' ? 'bg-[#FFF4CE] opacity-100 hover:bg-[#FFF4CE]' : '',
+        loading && type === 'primary' ? 'bg-[#FFF4CE] opacity-100' : '',
         ghost && 'border border-neutral-black bg-transparent',
-        ghost && !disabled ? 'hover:bg-neutral-off-white' : '',
-        disabled ? 'cursor-not-allowed opacity-40' : '',
+        disabled ? '!cursor-not-allowed opacity-40 hover:scale-[1]' : '',
         className
       )}
       type={htmlType}
-      onClick={(e) => {
-        if (disabled) return;
-        propOnClick?.(e);
-      }}
+      disabled={disabled}
       {...rest}
     >
       {icon && iconPosition === 'left' && <span style={{ visibility: loading ? 'hidden' : 'visible' }}>{icon}</span>}

@@ -95,7 +95,7 @@ const Navbar: FC<NavbarProps> = (props) => {
         )}
       </NavContainer>
       <div className="relative flex flex-1 items-center justify-center">
-        <Image src={'/images/logo/dark-footer-logo.svg'} alt="logo" width={184} height={22}></Image>
+        <Image src={'/images/logo/white-icon-text-logo.svg'} alt="logo" width={184} height={22}></Image>
       </div>
     </div>
   );
