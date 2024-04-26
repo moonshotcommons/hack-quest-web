@@ -47,7 +47,7 @@ const Options: FC<OptionsProps> = ({ changeOpen, pageType }) => {
                 className="body-m w-fit cursor-pointer rounded-full bg-[#EBE1FF] px-4 py-2 text-neutral-black hover:bg-[#BC9BFF]"
                 onClick={() => {
                   changeOpen(false);
-                  updateHelperParamsByKey('type', item.type);
+                  updateHelperType(item.type);
                 }}
               >
                 {item.label}

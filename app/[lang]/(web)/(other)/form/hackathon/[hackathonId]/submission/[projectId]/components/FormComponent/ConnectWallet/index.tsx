@@ -5,17 +5,35 @@ import { FormComponentProps } from '..';
 import { cn } from '@/helper/utils';
 import { HackathonSubmitStateType } from '../../../type';
 import { ConnectButton } from './ConnectButton';
+import { HACKATHON_SUBMIT_STEPS } from '../../constants';
+import { useRequest } from 'ahooks';
+import { message } from 'antd';
+import webApi from '@/service';
+import { ProjectSubmitStepType } from '@/service/webApi/resourceStation/type';
 
 const ConnectWallet: FC<
-  Omit<FormComponentProps, 'type' | 'formState' | 'setCurrentStep' | 'tracks'> & {
-    wallet: HackathonSubmitStateType['wallet'];
-  }
-> = ({ onNext, onBack }) => {
-  function onSubmit() {
-    // setContractInfo();
-    onNext({});
-  }
+  Omit<FormComponentProps, 'type' | 'formState' | 'setCurrentStep' | 'tracks'> &
+    Pick<HackathonSubmitStateType, 'wallet' | 'status' | 'isSubmit'>
+> = ({ onNext, onBack, wallet, projectId, status, refreshProjectInfo }) => {
+  const { run: onSubmit, loading } = useRequest(
+    async () => {
+      const newStatus =
+        HACKATHON_SUBMIT_STEPS.find((item) => item.type === status)!.stepNumber === 0
+          ? ProjectSubmitStepType.REVIEW
+          : status;
 
+      const formData = new FormData();
+      formData.append('status', newStatus);
+      await webApi.resourceStationApi.submitProject(formData, projectId);
+      await refreshProjectInfo();
+    },
+    {
+      manual: true,
+      onSuccess() {
+        message.success(`Connect the wallet successfully`);
+      }
+    }
+  );
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-4">
@@ -31,7 +49,7 @@ const ConnectWallet: FC<
           </svg>
           <span>Connect A New Wallet</span>
         </div> */}
-        <ConnectButton />
+        <ConnectButton wallet={wallet} projectId={projectId} status={status!} refreshProjectInfo={refreshProjectInfo} />
         <div className="flex items-center gap-1 rounded-[16px] bg-neutral-off-white p-4">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path

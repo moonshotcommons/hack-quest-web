@@ -3,7 +3,6 @@ import { BurialPoint } from '@/helper/burialPoint';
 import { FC, useContext, useState } from 'react';
 import { VscChevronDown } from 'react-icons/vsc';
 import { PlaygroundContext } from '@/components/Web/LessonPage/Playground/type';
-import TextRenderer from '@/components/ComponentRenderer/NotionRender/TextRenderer';
 import { OverrideRendererConfig, childRenderCallback } from '@/components/ComponentRenderer';
 import { CustomComponent } from '@/components/ComponentRenderer/type';
 
@@ -32,9 +31,9 @@ const ContentRenderer: FC<ContentRendererProps> = (props) => {
             setShowAll(!showAll);
           }}
         >
-          <span className="text-h4 mb-5">
+          {/* <span className="text-h4 mb-5">
             {component.title || <TextRenderer richTextArr={component.content.rich_text}></TextRenderer>}
-          </span>
+          </span> */}
           {leftLength > 1 ? (
             <span className={`${showAll ? 'rotate-180' : 'rotate-0'} transition-transform duration-150 ease-in-out`}>
               <VscChevronDown size={24} />

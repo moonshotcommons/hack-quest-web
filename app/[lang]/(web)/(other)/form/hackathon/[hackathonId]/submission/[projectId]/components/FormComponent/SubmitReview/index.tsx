@@ -15,7 +15,7 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext' | 'tracks'>> =
     setCurrentStep(step);
   };
 
-  const { info, pickVideo, projectDemo, others, wallet } = formState;
+  const { info, projectId, projectDemo, others, wallet } = formState;
 
   return (
     <div>

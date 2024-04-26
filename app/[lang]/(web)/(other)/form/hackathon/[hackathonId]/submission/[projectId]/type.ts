@@ -1,3 +1,5 @@
+import { ProjectSubmitStepType } from '@/service/webApi/resourceStation/type';
+
 export interface ContractInfo {
   wechat: string;
   telegram: string;
@@ -16,6 +18,7 @@ export interface SubmissionType {
 
 export interface HackathonSubmitStateType {
   projectId: string;
+  isSubmit: boolean;
   info: {
     projectLogo: string;
     projectName: string;
@@ -23,11 +26,12 @@ export interface HackathonSubmitStateType {
     intro: string;
     detailedIntro: string;
   };
-  pickVideo: string;
+  status: ProjectSubmitStepType;
+  pitchVideo: string;
   projectDemo: string;
   others: {
     githubLink: string;
-    isPublic: boolean;
+    isPublic: boolean | undefined;
   };
   wallet: string;
 }

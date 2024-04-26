@@ -6,6 +6,12 @@ import FormHeader from '../FormHeader';
 import { HackathonSubmitStateType } from '../../type';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import { isUuid } from '@/helper/utils';
+import LoadingIcon from '@/components/Common/LoadingIcon';
+import { useRequest } from 'ahooks';
+import webApi from '@/service';
+import emitter from '@/store/emitter';
+import { errorMessage } from '@/helper/ui';
+import { ProjectSubmitStepType, ProjectType } from '@/service/webApi/resourceStation/type';
 
 interface HackathonSubmitPageProps {
   simpleHackathonInfo: { id: string; name: string; alias: string };
@@ -14,9 +20,9 @@ interface HackathonSubmitPageProps {
 }
 
 const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo, projectId, tracks }) => {
-  const [current, setCurrent] = useState(5);
+  const [current, setCurrent] = useState(-1);
   const [formState, setFormState] = useState<HackathonSubmitStateType>({
-    projectId: '-1',
+    projectId: projectId || '',
     info: {
       projectLogo: '',
       projectName: '',
@@ -24,13 +30,15 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
       intro: '',
       detailedIntro: ''
     },
-    pickVideo: '',
+    pitchVideo: '',
     projectDemo: '',
     others: {
       githubLink: '',
-      isPublic: false
+      isPublic: undefined
     },
-    wallet: ''
+    status: ProjectSubmitStepType.INFO,
+    wallet: '',
+    isSubmit: false
   });
 
   const onNext = (state: Partial<HackathonSubmitStateType>) => {
@@ -46,54 +54,45 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
     setCurrent(step);
   };
 
-  const init = () => {
-    // const { id, name, description, video, introduction, hackathonId, tracks,status } = projectInfo!;
-    // const currentStep = HACKATHON_SUBMIT_STEPS.find((step) => step.type === status)!;
-    // setCurrent(currentStep.stepNumber);
-    // const { firstName, lastName, bio, status, weChat, team, userId, telegram, avatar } = registerInfo;
-    // const currentStep = HACKATHON_SUBMIT_STEPS.find((step) => step.type === status)!;
-    // setCurrent(currentStep.stepNumber);
-    // const name = { firstName: firstName || '', lastName: lastName || '' };
-    // const contractInfo = { weChat: weChat || '', telegram: telegram || '' };
-    // const isSoloRegister = status === ProjectSubmitStepType.Review && !Object.keys(team || {}).length;
-    // const isNullType = status === ProjectSubmitStepType.SubmissionType && !Object.keys(team || {}).length;
-    // setFormState({
-    //   ...formState,
-    //   status: status,
-    //   name,
-    //   bio: bio || '',
-    //   contractInfo,
-    //   submissionType: {
-    //     type: isNullType ? null : isSoloRegister ? 'Solo Project' : 'Group Project',
-    //     groupType:
-    //       !!Object.keys(team || {}).length && team.creatorId === userId
-    //         ? 'owner'
-    //         : !!Object.keys(team || {}).length
-    //           ? 'member'
-    //           : undefined,
-    //     team: team || {},
-    //     teamDetail: teamDetail || {},
-    //     userId: userId || '',
-    //     avatar: avatar || ''
-    //   }
-    // });
+  const init = (projectInfo: ProjectType) => {
+    const { id, name, description, video, introduction, demo, hackathonId, prizeTrack, tracks, status, thumbnail } =
+      projectInfo!;
+    const currentStep = HACKATHON_SUBMIT_STEPS.find((step) => step.type === status)!;
+    setCurrent(currentStep.stepNumber);
+
+    const info = {
+      projectLogo: thumbnail,
+      projectName: name,
+      track: prizeTrack,
+      intro: introduction,
+      detailedIntro: description
+    };
+
+    setFormState({
+      ...formState,
+      info,
+      status,
+      projectId: id,
+      pitchVideo: video,
+      projectDemo: demo
+    });
   };
 
-  // const { run, refreshAsync: refreshRegisterInfo } = useRequest(
-  //   async () => {
-  //     return webApi.resourceStationApi.getProjectsDetail(projectId!);
-  //   },
-  //   {
-  //     manual: true,
-  //     onSuccess(res) {
-  //       // if (res.status) init(registerInfo, teamDetail);
-  //       // else setCurrent(0);
-  //     },
-  //     onError(err) {
-  //       errorMessage(err);
-  //     }
-  //   }
-  // );
+  const { run, refreshAsync: refreshProjectInfo } = useRequest(
+    async () => {
+      return webApi.resourceStationApi.getProjectsDetail(formState.projectId!);
+    },
+    {
+      manual: true,
+      onSuccess(res) {
+        if (res.status) init(res);
+        else setCurrent(0);
+      },
+      onError(err) {
+        errorMessage(err);
+      }
+    }
+  );
 
   // const register = useCallback(
   //   async ({ resolve, reject }: any) => {
@@ -113,24 +112,21 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
 
   const { redirectToUrl } = useRedirect();
 
-  const edit = useCallback(() => {
+  const exit = useCallback(() => {
     redirectToUrl(`/hackathon/${simpleHackathonInfo.alias}`);
   }, [simpleHackathonInfo, redirectToUrl]);
 
-  // useEffect(() => {
-  //   run();
-  //   emitter.on('submit-form-save', register);
-  //   emitter.on('submit-form-exit', edit);
-  //   return () => {
-  //     emitter.off('submit-form-save', register);
-  //     emitter.off('submit-form-exit', edit);
-  //   };
-  // }, [register, edit]);
+  useEffect(() => {
+    emitter.on('submit-form-exit', exit);
+    return () => {
+      emitter.off('submit-form-exit', exit);
+    };
+  }, [exit]);
 
   useEffect(() => {
-    if (projectId && isUuid(projectId)) init();
+    if (formState.projectId && isUuid(formState.projectId)) run();
     else setCurrent(0);
-  }, [projectId]);
+  }, [formState.projectId]);
 
   return (
     <div className="flex w-full flex-col justify-center gap-6 text-center">
@@ -140,14 +136,24 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
         description="Hackathon Submission"
         title={simpleHackathonInfo?.name || ''}
       />
-      <FormComponent
-        type={HACKATHON_SUBMIT_STEPS[current].type}
-        onNext={onNext}
-        onBack={onBack}
-        tracks={tracks}
-        setCurrentStep={setCurrentStep}
-        formState={formState}
-      />
+      {current < 0 && (
+        <div className="flex h-[200px] min-h-[200px] w-full items-center justify-center">
+          <LoadingIcon width={64} height={64} />
+        </div>
+      )}
+      {current > -1 && (
+        <FormComponent
+          type={HACKATHON_SUBMIT_STEPS[current].type}
+          simpleHackathonInfo={simpleHackathonInfo}
+          onNext={onNext}
+          onBack={onBack}
+          tracks={tracks}
+          refreshProjectInfo={refreshProjectInfo}
+          projectId={formState.projectId}
+          setCurrentStep={setCurrentStep}
+          formState={formState}
+        />
+      )}
     </div>
   );
 };

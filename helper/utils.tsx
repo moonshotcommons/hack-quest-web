@@ -260,3 +260,19 @@ export const truncateMiddle = (str: any) => {
   const replaceStr = str?.toString()?.replace(/(.{6})(.*)(.{4})/, '$1...$3');
   return replaceStr;
 };
+
+export const isValidImageType = (type: string) => {
+  const validImageType = ['image/jpeg', 'image/png', 'image/gif', 'image/bmp', 'image/webp', 'image/svg+xml'];
+  return validImageType.includes(type);
+};
+
+export const getVideoDuration = (file: File): Promise<number> => {
+  return new Promise((resolve) => {
+    const url = URL.createObjectURL(file);
+    const audio = new Audio(url);
+    audio.addEventListener('loadedmetadata', function (_event) {
+      let duration = audio.duration; // 得到视频或音频的时长，单位秒
+      resolve(duration);
+    });
+  });
+};

@@ -11,21 +11,23 @@ import { cn } from '@/helper/utils';
 import CustomFormField from '@/components/Web/Business/CustomFormField';
 import { HackathonSubmitStateType } from '../../../type';
 import IsPublicRadio from './IsPublicRadio';
+import { useRequest } from 'ahooks';
+import { HACKATHON_SUBMIT_STEPS } from '../../constants';
+import { ProjectSubmitStepType } from '@/service/webApi/resourceStation/type';
+import webApi from '@/service';
+import { errorMessage } from '@/helper/ui';
 
 const formSchema = z.object({
-  githubLink: z.string().min(2, {
-    message: 'Github link must be at least 2 characters.'
-  }),
+  githubLink: z.string(),
   isPublic: z.boolean()
 });
 
 export type OthersFormSchema = z.infer<typeof formSchema>;
 
 const OthersForm: FC<
-  Omit<FormComponentProps, 'type' | 'formState' | 'setCurrentStep' | 'tracks'> & {
-    others: HackathonSubmitStateType['others'];
-  }
-> = ({ onNext, onBack, others }) => {
+  Omit<FormComponentProps, 'type' | 'formState' | 'setCurrentStep' | 'tracks'> &
+    Pick<HackathonSubmitStateType, 'others' | 'status' | 'isSubmit'>
+> = ({ onNext, onBack, others, status, projectId, refreshProjectInfo }) => {
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -35,20 +37,64 @@ const OthersForm: FC<
     }
   });
 
-  // const setContractInfo = useHackathonSubmitStore((state) => state.setContractInfo);
+  const { run: submitRequest, loading } = useRequest(
+    async (values: z.infer<typeof formSchema>) => {
+      const newStatus =
+        HACKATHON_SUBMIT_STEPS.find((item) => item.type === status)!.stepNumber === 3
+          ? ProjectSubmitStepType.WALLET
+          : status;
+
+      const formData = new FormData();
+      const { githubLink, isPublic } = values;
+      formData.append('isOpenSource', isPublic ? 'true' : 'false');
+      formData.append('githubLink', githubLink || '');
+      formData.append('status', newStatus);
+
+      const res = await webApi.resourceStationApi.submitProject(formData, projectId);
+      return {
+        res,
+        status: newStatus,
+        newOtherInfo: {
+          isPublic,
+          githubLink
+        }
+      };
+    },
+    {
+      manual: true,
+      onSuccess({ res, newOtherInfo, status }) {
+        onNext({ others: newOtherInfo, status, projectId: projectId || res.id });
+      },
+      onError(err) {
+        errorMessage(err);
+      }
+    }
+  );
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     // setContractInfo();
-    onNext({});
+    if (
+      form.getValues('isPublic') === true &&
+      !/^https?:\/\/(www\.)?github\.com\/[^/]+\/?$/.test(form.getValues('githubLink').trim())
+    ) {
+      form.setError('githubLink', {
+        message: 'Invalid GitHub URL'
+      });
+      return;
+    }
+    submitRequest(values);
   }
 
   useEffect(() => {
-    const { githubLink, isPublic } = others;
+    const { githubLink, isPublic } = others!;
     form.setValue('githubLink', githubLink);
-    // form.setValue('isPublic', 'No');
-
-    if (githubLink) form.trigger();
+    typeof isPublic === 'boolean' && form.setValue('isPublic', !!isPublic);
+    if (githubLink && typeof isPublic === 'boolean') form.trigger();
   }, [others]);
+
+  const disable =
+    typeof form.getValues('isPublic') !== 'boolean' ||
+    (form.getValues('isPublic') === true && !form.getValues('githubLink').trim());
 
   return (
     <div>
@@ -68,11 +114,9 @@ const OthersForm: FC<
             <Button
               type="primary"
               htmlType="submit"
-              className={cn(
-                'button-text-m w-[165px] px-0 py-4 uppercase',
-                !form.formState.isValid ? 'bg-neutral-light-gray' : ''
-              )}
-              disabled={!form.formState.isValid}
+              className={cn('button-text-m w-[165px] px-0 py-4 uppercase', disable ? 'bg-neutral-light-gray' : '')}
+              disabled={disable}
+              loading={loading}
             >
               Next
             </Button>

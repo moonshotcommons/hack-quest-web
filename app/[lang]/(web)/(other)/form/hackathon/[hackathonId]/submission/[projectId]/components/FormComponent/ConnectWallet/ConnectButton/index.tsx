@@ -5,24 +5,23 @@ import { useShallow } from 'zustand/react/shallow';
 import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';
 import { useRequest } from 'ahooks';
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import Button from '@/components/Common/Button';
-import { ThirdPartyMediaType } from '@/helper/thirdPartyMedia';
 import { message } from 'antd';
 import Image from 'next/image';
+import { HACKATHON_SUBMIT_STEPS } from '../../../constants';
+import { ProjectSubmitStepType } from '@/service/webApi/resourceStation/type';
 
-export interface ConnectButtonProps {}
+export interface ConnectButtonProps {
+  wallet: string | undefined;
+  projectId: string | undefined;
+  status: ProjectSubmitStepType;
+  refreshProjectInfo: VoidFunction;
+}
 
-export const ConnectButton = (props: ConnectButtonProps) => {
+export const ConnectButton: FC<ConnectButtonProps> = ({ wallet, projectId, status, refreshProjectInfo }) => {
   const [bindPending, setBindPending] = useState(false);
   const userInfo = useUserStore((state) => state.userInfo);
-
-  const connectState = {
-    isConnect: false,
-    connectInfo: {
-      username: '0xdwqwef'
-    }
-  };
 
   const { setAuthType, setUserInfo, setAuthModalOpen } = useUserStore(
     useShallow((state) => ({
@@ -32,23 +31,39 @@ export const ConnectButton = (props: ConnectButtonProps) => {
     }))
   );
 
+  const submit = () => {};
+
   const { run: bindWallet, loading: connectLoading } = useRequest(
     async (address: `0x${string}`) => {
-      await webApi.userApi.connectWallet(address);
-      // await refreshConnectState();
+      const newStatus =
+        HACKATHON_SUBMIT_STEPS.find((item) => item.type === status)!.stepNumber === 0
+          ? ProjectSubmitStepType.REVIEW
+          : status;
+
+      const formData = new FormData();
+      formData.append('wallet', address);
+      // formData.append('status', newStatus!);
+      await webApi.resourceStationApi.submitProject(formData, projectId);
+      await refreshProjectInfo();
     },
     {
       manual: true,
       onSuccess() {
         message.success(`Connect the wallet successfully`);
+      },
+      onError(err) {
+        errorMessage(err);
       }
     }
   );
 
   const { run: disconnect, loading: disConnectLoading } = useRequest(
     async () => {
-      await webApi.userApi.disconnect(ThirdPartyMediaType.WALLET);
-      // await refreshConnectState();
+      const formData = new FormData();
+      formData.append('wallet', '');
+      formData.append('status', ProjectSubmitStepType.WALLET);
+      await webApi.resourceStationApi.submitProject(formData, projectId);
+      await refreshProjectInfo();
     },
     {
       manual: true,
@@ -87,7 +102,7 @@ export const ConnectButton = (props: ConnectButtonProps) => {
 
               // 未绑定钱包，钱包未连接
 
-              if (!connectState.isConnect) {
+              if (!wallet) {
                 if (bindPending && connected) {
                   bindWallet(account.address as `0x${string}`);
                   setBindPending(false);
@@ -139,7 +154,7 @@ export const ConnectButton = (props: ConnectButtonProps) => {
                 >
                   <span className="flex items-center gap-2">
                     <Image src={'/images/login/metamask.svg'} alt="wallet" width={30} height={30} />
-                    <span>{connectState.connectInfo.username}</span>
+                    <span>{wallet}</span>
                   </span>
                   <span>Disconnect</span>
                 </Button>

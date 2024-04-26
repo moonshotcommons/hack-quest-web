@@ -14,7 +14,10 @@ export interface FormComponentProps {
   onBack: VoidFunction;
   formState: HackathonSubmitStateType;
   setCurrentStep: (step: number) => void;
+  simpleHackathonInfo: { id: string; name: string; alias: string };
   tracks: string[];
+  projectId: string | undefined;
+  refreshProjectInfo: VoidFunction;
 }
 
 const FormComponent: FC<FormComponentProps> = (props) => {
@@ -22,15 +25,39 @@ const FormComponent: FC<FormComponentProps> = (props) => {
 
   switch (type) {
     case ProjectSubmitStepType.INFO:
-      return <InfoForm {...rest} info={formState.info} tracks={tracks} />;
+      return (
+        <InfoForm
+          {...rest}
+          info={formState.info}
+          tracks={tracks}
+          status={formState.status}
+          isSubmit={formState.isSubmit}
+        />
+      );
     case ProjectSubmitStepType.PITCH_VIDEO:
-      return <PitchVideoUpload {...rest} pickVideo={formState.pickVideo} />;
+      return (
+        <PitchVideoUpload
+          {...rest}
+          pitchVideo={formState.pitchVideo}
+          status={formState.status}
+          isSubmit={formState.isSubmit}
+        />
+      );
     case ProjectSubmitStepType.DEMO:
-      return <ProjectDemoUpload {...rest} projectDemo={formState.projectDemo} />;
+      return (
+        <ProjectDemoUpload
+          {...rest}
+          projectDemo={formState.projectDemo}
+          status={formState.status}
+          isSubmit={formState.isSubmit}
+        />
+      );
     case ProjectSubmitStepType.OTHERS:
-      return <OthersForm {...rest} others={formState.others} />;
+      return <OthersForm {...rest} others={formState.others} status={formState.status} isSubmit={formState.isSubmit} />;
     case ProjectSubmitStepType.WALLET:
-      return <ConnectWallet {...rest} wallet={formState.wallet} />;
+      return (
+        <ConnectWallet {...rest} wallet={formState.wallet} status={formState.status} isSubmit={formState.isSubmit} />
+      );
     case ProjectSubmitStepType.REVIEW:
       return <SubmitReview {...rest} formState={formState} setCurrentStep={setCurrentStep} />;
   }
