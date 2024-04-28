@@ -171,7 +171,7 @@ const UgcToggleRenderer: FC<UgcToggleRendererProps> = (props) => {
         </div>
         {/* 正常渲染子对象 */}
         {isRenderChildren && groupExpands?.includes(currentIndex) && !!component.children?.length && (
-          <div className="pl-4">{component.children?.map(childRenderCallback(component))}</div>
+          <div className="ml-5 mt-3">{component.children?.map(childRenderCallback(component))}</div>
         )}
       </div>
     </div>

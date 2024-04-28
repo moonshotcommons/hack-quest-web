@@ -6,7 +6,6 @@ import { Dispatch, ForwardRefRenderFunction, RefObject, SetStateAction, forwardR
 
 import { v4 as uuid } from 'uuid';
 import { CostCoinModalRef } from '../CostCoinModal';
-import { useGetMissionData } from '@/hooks/mission/useGetMissionData';
 
 interface ChatFooterProps {
   onSubmit: VoidFunction;
@@ -32,8 +31,6 @@ const ChatFooter: ForwardRefRenderFunction<ChatFooterInstance, ChatFooterProps> 
   const helperParams = useGlobalStore((state) => state.helperParams);
   const chatStatus = useGlobalStore((state) => state.chatStatus);
 
-  const { updateUserCoin } = useGetMissionData();
-
   const submitAndUpdate = async () => {
     if (!pendingMessage.trim()) return;
     onSubmit();
@@ -47,19 +44,17 @@ const ChatFooter: ForwardRefRenderFunction<ChatFooterInstance, ChatFooterProps> 
       })
     );
     setPendingMessage('');
-    await getChatbotMessage({
+    getChatbotMessage({
       type: HelperType.Chat,
       content: pendingMessage,
       pageId: helperParams.pageId!,
       exampleNum: helperParams.exampleNum!,
       quizNum: helperParams.quizNum!
     });
-    updateUserCoin();
   };
 
   const submit = () => {
     if (typeof window !== 'object') return;
-    debugger;
     const showCostCoinModal = window.localStorage.getItem('showCostCoinModal');
     const show = !showCostCoinModal || showCostCoinModal === 'show';
     if (!freeCount && show) {

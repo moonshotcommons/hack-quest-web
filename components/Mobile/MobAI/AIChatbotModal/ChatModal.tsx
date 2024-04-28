@@ -7,12 +7,14 @@ import { ChatRole, CompletionsInput, CompletionsRes, HelperType } from '@/servic
 import ChatHeader from './ChatHeader';
 import ChatFooter, { ChatFooterInstance } from './ChatFooter';
 import { getContentByHelperType } from './constants';
-import { useChatHistory } from './hooks';
 import { errorMessage } from '@/helper/ui';
 import webApi from '@/service';
 import Modal from '@/components/Common/Modal';
 import useGetHeight from '@/hooks/dom/useGetHeight';
 import History from './History';
+import CostCoinModal, { CostCoinModalRef } from './CostCoinModal';
+import { useChatHistory } from '@/hooks/system/useChatHistory';
+import { useGetMissionData } from '@/hooks/mission/useGetMissionData';
 
 interface AIChatbotModalProps {
   pageType: 'learn' | 'other';
@@ -24,11 +26,16 @@ const AIChatbotModal: FC<AIChatbotModalProps> = ({ pageType }) => {
   const updateChatStatus = useGlobalStore((state) => state.updateChatStatus);
   const { updateHelperType } = useUpdateHelperParams();
   const { updateOpenState } = useUpdateHelperParams();
-  const { chatHistory, setChatHistory } = useChatHistory();
-  const chatFooterRef = useRef<ChatFooterInstance>(null);
+  const { chatHistory, setChatHistory, freeCount } = useChatHistory();
   const [pendingTypeMessage, setPendingTypeMessage] = useState<CompletionsRes | null>(null);
+
+  const { updateUserCoin } = useGetMissionData();
+
+  const chatFooterRef = useRef<ChatFooterInstance>(null);
   const scrollToBottomSwitch = useRef(true);
   const { pageHeight } = useGetHeight();
+
+  const costCoinModalRef = useRef<CostCoinModalRef>(null);
 
   // 获取chatbot返回的消息
   const { runAsync: getChatbotMessage, loading } = useRequest(
@@ -48,6 +55,7 @@ const AIChatbotModal: FC<AIChatbotModalProps> = ({ pageType }) => {
           }
         };
         setPendingTypeMessage(completion);
+        updateUserCoin();
       },
       onError(err) {
         errorMessage(err);
@@ -165,7 +173,7 @@ const AIChatbotModal: FC<AIChatbotModalProps> = ({ pageType }) => {
   return (
     <Modal open={helperParams.open} onClose={() => {}} markBg="black" block zIndex={1200}>
       <div
-        className="flex w-screen flex-col justify-between overflow-auto bg-neutral-white"
+        className="max-w-screen flex w-screen flex-col justify-between overflow-hidden bg-neutral-white"
         style={{
           height: pageHeight
         }}
@@ -181,7 +189,10 @@ const AIChatbotModal: FC<AIChatbotModalProps> = ({ pageType }) => {
           getChatbotMessage={getChatbotMessage}
           updateChatHistory={setChatHistory}
           chatHistory={chatHistory}
+          freeCount={freeCount}
+          costCoinModalRef={costCoinModalRef}
         />
+        <CostCoinModal ref={costCoinModalRef} />
       </div>
     </Modal>
   );
