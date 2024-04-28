@@ -110,13 +110,13 @@ const ListBox: React.FC<ListBoxProp> = ({ list, searchParams, total, pageInfo, s
               {hoverSort && (
                 <motion.ul
                   {...animateProps}
-                  className="absolute -bottom-[4px]  right-0 z-[99] w-fit min-w-[160px] rounded-[10px] border border-neutral-light-gray bg-neutral-white py-4 shadow-sm"
+                  className="absolute -bottom-[4px]  right-0 z-[99]  rounded-[.625rem] border border-neutral-light-gray bg-neutral-white py-4 shadow-sm"
                 >
                   {projectSort.map((option) => {
                     return (
                       <li
                         key={option.value}
-                        className="body-m flex cursor-pointer items-center justify-between px-3 py-2 text-neutral-black hover:bg-neutral-off-white"
+                        className={`body-m flex cursor-pointer items-center justify-between gap-[2.5rem] whitespace-nowrap px-3 py-2 text-neutral-black hover:bg-neutral-off-white ${option.value === searchParams.createdAt && 'bg-neutral-off-white'}`}
                         onClick={() => {}}
                       >
                         <span>{t(option.label)}</span>
