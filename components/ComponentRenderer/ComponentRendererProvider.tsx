@@ -1,3 +1,4 @@
+'use client';
 import { FC, ReactNode, useMemo } from 'react';
 import { RendererContext, RendererContextType, defaultRendererContext } from './context';
 import { PageType } from './type';

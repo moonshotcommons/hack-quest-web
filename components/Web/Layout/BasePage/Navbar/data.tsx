@@ -146,6 +146,11 @@ export const navbarList: NavbarListType[] = [
             id: 'pressKit',
             label: 'navbar.more.pressKit',
             link: `${MenuLink.PRESS_KIT}/about`
+          },
+          {
+            id: 'docs',
+            label: 'navbar.more.docs',
+            link: `${MenuLink.DOCS}`
           }
         ]
       },
