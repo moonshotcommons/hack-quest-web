@@ -2,9 +2,10 @@ import Button from '@/components/Common/Button';
 import { ChatRole, CompletionsInput, CompletionsRes, HelperType } from '@/service/webApi/helper/type';
 import { useGlobalStore } from '@/store/zustand/globalStore';
 import { useKeyPress } from 'ahooks';
-import { Dispatch, ForwardRefRenderFunction, SetStateAction, forwardRef, useState } from 'react';
+import { Dispatch, ForwardRefRenderFunction, RefObject, SetStateAction, forwardRef, useState } from 'react';
 
 import { v4 as uuid } from 'uuid';
+import { CostCoinModalRef } from '../CostCoinModal';
 
 interface ChatFooterProps {
   onSubmit: VoidFunction;
@@ -18,17 +19,19 @@ interface ChatFooterProps {
   >;
   loading: boolean;
   chatHistory: (CompletionsRes & { status?: 'pending' | 'error' })[];
+  freeCount: number;
+  costCoinModalRef: RefObject<CostCoinModalRef>;
 }
 
 export interface ChatFooterInstance {}
 
 const ChatFooter: ForwardRefRenderFunction<ChatFooterInstance, ChatFooterProps> = (props, ref) => {
-  const { onSubmit, getChatbotMessage, loading, chatHistory, updateChatHistory } = props;
+  const { onSubmit, getChatbotMessage, loading, chatHistory, updateChatHistory, freeCount, costCoinModalRef } = props;
   const [pendingMessage, setPendingMessage] = useState('');
   const helperParams = useGlobalStore((state) => state.helperParams);
   const chatStatus = useGlobalStore((state) => state.chatStatus);
 
-  const submit = () => {
+  const submitAndUpdate = async () => {
     if (!pendingMessage.trim()) return;
     onSubmit();
     updateChatHistory(
@@ -50,11 +53,25 @@ const ChatFooter: ForwardRefRenderFunction<ChatFooterInstance, ChatFooterProps> 
     });
   };
 
+  const submit = () => {
+    if (typeof window !== 'object') return;
+    debugger;
+    const showCostCoinModal = window.localStorage.getItem('showCostCoinModal');
+    const show = !showCostCoinModal || showCostCoinModal === 'show';
+    if (!freeCount && show) {
+      costCoinModalRef.current?.open({
+        onConfirm: submitAndUpdate
+      });
+      return;
+    }
+    submitAndUpdate();
+  };
+
   useKeyPress('enter', submit);
 
   return (
     <div className="flex flex-col gap-3 pb-2">
-      {/* <p className="body-xs text-center">You have 5 free trials left</p> */}
+      <p className="body-xs text-center">You have {freeCount} free trials left</p>
       <div className="p-3">
         <div className="flex h-[40px] items-center gap-3 rounded-full border border-neutral-light-gray px-3">
           <input

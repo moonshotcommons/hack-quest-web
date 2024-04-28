@@ -7,7 +7,6 @@ import { v4 as uuid } from 'uuid';
 import { useGlobalStore } from '@/store/zustand/globalStore';
 import { useClickAway, useRequest } from 'ahooks';
 import { useUpdateHelperParams } from '@/hooks/utils/useUpdateHelperParams';
-import { useChatHistory } from './hooks';
 
 // 工具方法和类型
 import { cn } from '@/helper/utils';
@@ -21,6 +20,8 @@ import History from './History';
 import ChatHeader from './ChatHeader';
 import ChatFooter from './ChatFooter';
 import CostCoinModal, { CostCoinModalRef } from './CostCoinModal';
+import { useGetMissionData } from '@/hooks/mission/useGetMissionData';
+import { useChatHistory } from '@/hooks/system/useChatHistory';
 
 interface AIChatbotModalProps {
   pageType: 'learn' | 'other';
@@ -32,8 +33,10 @@ const AIChatbotModal: FC<AIChatbotModalProps> = ({ pageType }) => {
   const updateChatStatus = useGlobalStore((state) => state.updateChatStatus);
   const { updateHelperType, updateOpenState } = useUpdateHelperParams();
   const { chatHistory, setChatHistory, freeCount } = useChatHistory();
-
   const [pendingTypeMessage, setPendingTypeMessage] = useState<CompletionsRes | null>(null);
+
+  const { updateUserCoin } = useGetMissionData();
+
   const [showTips, setShowTips] = useState(pageType === 'learn');
 
   const scrollToBottomSwitch = useRef(true);
@@ -59,6 +62,7 @@ const AIChatbotModal: FC<AIChatbotModalProps> = ({ pageType }) => {
           }
         };
         setPendingTypeMessage(completion);
+        updateUserCoin();
       },
       onError(err) {
         errorMessage(err);
@@ -106,6 +110,7 @@ const AIChatbotModal: FC<AIChatbotModalProps> = ({ pageType }) => {
   useEffect(() => {
     // 可以从外部触发的类型
     if (helperParams.type !== HelperType.Chat) {
+      setShowTips(false);
       triggerSubmit();
     }
   }, [helperParams.type]);
@@ -115,7 +120,7 @@ const AIChatbotModal: FC<AIChatbotModalProps> = ({ pageType }) => {
       console.log(event);
       chatStatus !== 'chatting' && close();
     },
-    [containerElementRef, () => document.getElementById('cost-coin-modal')]
+    [() => containerElementRef.current, () => document.getElementById('cost-coin-modal')]
   );
 
   useEffect(() => {
