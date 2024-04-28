@@ -97,7 +97,7 @@ const BulletedListItemRenderer: FC<BulletedListItemRendererProps> = (props) => {
         prevComponent === null ? 'mt-0' : ''
       )}
     >
-      <div className="flex">
+      <div className="flex items-center">
         <span className="pr-2">●</span>
         <span>
           <TextRenderer richTextArr={component.content.rich_text}></TextRenderer>

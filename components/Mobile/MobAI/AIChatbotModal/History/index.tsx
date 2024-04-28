@@ -74,7 +74,7 @@ const History: FC<HistoryProps> = ({ loading, chatHistory, scrollToBottomSwitch 
       }}
     >
       <div className="flex min-h-full w-full flex-col justify-between">
-        <div className="scroll-wrap-child flex w-full flex-1 flex-col gap-3 pb-3">
+        <div className="scroll-wrap-child max-w-screen flex w-full flex-1 flex-col gap-3 pb-3">
           {chatHistory.map((item, index) => {
             return (
               <MessageTemplate key={item.id} role={item.message.type} status={item.status}>
