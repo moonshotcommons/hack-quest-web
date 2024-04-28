@@ -124,7 +124,7 @@ const AIFloatButton: FC<AIFloatButtonProps> = ({ children, pageType = 'other' })
             drag(el);
             ref.current = el as HTMLDivElement;
           }}
-          className="absolute z-[1100] h-12 w-12 cursor-pointer rounded-[8px] bg-[#d7c7fa] bg-[url('/images/icons/helper_bg_icon.svg')]"
+          className="fixed z-[1100] h-12 w-12 cursor-pointer rounded-[8px] bg-[#d7c7fa] bg-[url('/images/icons/helper_bg_icon.svg')]"
           style={{ top: position.top, left: position.left }}
         >
           <span

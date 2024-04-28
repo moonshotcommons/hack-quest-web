@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { NavType } from '@/components/Mobile/MobLayout/constant';
-import { HelperType } from '@/service/webApi/helper/type';
+import { CompletionsRes, HelperType } from '@/service/webApi/helper/type';
+import { SetStateAction } from 'react';
 interface TipsModalOpenStateType {
   open: boolean;
   isRedirect: boolean;
@@ -35,6 +36,12 @@ export interface GlobalStateType {
   }) => void;
   helperParams: HelperParams;
   updateHelperParams: (params: HelperParams, key?: keyof HelperParams) => void;
+  chatHistory: (CompletionsRes & { status?: 'pending' | 'error' })[];
+  setChatHistory: (
+    payload:
+      | (CompletionsRes & { status?: 'pending' | 'error' })[]
+      | SetStateAction<(CompletionsRes & { status?: 'pending' | 'error' })[]>
+  ) => void;
   chatStatus: 'chatting' | 'leisure';
   updateChatStatus: (status: 'chatting' | 'leisure') => void;
   updateHelperParamsByKey: <Key extends keyof HelperParams, Value extends Required<HelperParams[Key]>>(
@@ -59,7 +66,7 @@ export const useGlobalStore = create<GlobalStateType>()((set) => ({
     quizNum: -1,
     showCostCoinModal: false
   },
-
+  chatHistory: [],
   updateHelperParams: (params, key) => {
     switch (params.type) {
       case HelperType.Chat:
@@ -118,5 +125,8 @@ export const useGlobalStore = create<GlobalStateType>()((set) => ({
   },
   updateChatStatus(payload) {
     set((state) => ({ chatStatus: payload }));
+  },
+  setChatHistory(payload) {
+    set((state) => ({ chatHistory: typeof payload === 'function' ? payload(state.chatHistory) : payload }));
   }
 }));
