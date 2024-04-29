@@ -32,15 +32,22 @@ class ResourceStationApi {
   }
 
   /** 获取hackathon列表 */
-  getHackathonList(params: object) {
+  getHackathonList(params: object, token?: string) {
     return this.service.get<HackathonDataType>(ResourceStationApiType.Hackathon, {
-      params
+      params,
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
     });
   }
 
   /** 获取hackathon详情数据 */
-  getHackathonDetail(id: string) {
-    return this.service.get<HackathonType>(`${ResourceStationApiType.Hackathon}/${id}`);
+  getHackathonDetail(id: string, token?: string) {
+    return this.service.get<HackathonType>(`${ResourceStationApiType.Hackathon}/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
   }
 
   /** 获取project列表 */

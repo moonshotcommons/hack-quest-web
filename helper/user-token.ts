@@ -1,13 +1,15 @@
 /**
  * @description 存储/获取 user token
  */
+import { setCookie, deleteCookie } from 'cookies-next';
 
-const TOKEN_KEY = 'token';
-const USER_KEY = 'user_info';
+export const TOKEN_KEY = 'token';
+export const USER_KEY = 'user_info';
 
 export function setToken(token: string) {
   if (typeof window === 'object') {
     localStorage.setItem(TOKEN_KEY, token);
+    setCookie(TOKEN_KEY, token);
   }
 }
 
@@ -15,12 +17,12 @@ export function getToken() {
   if (typeof window === 'object') {
     return localStorage.getItem(TOKEN_KEY) || '';
   }
-  return '';
 }
 
 export function removeToken() {
   if (typeof window === 'object') {
     localStorage.removeItem(TOKEN_KEY);
+    deleteCookie(TOKEN_KEY);
   }
 }
 

@@ -28,7 +28,7 @@ import { isEqual } from 'lodash-es';
 
 const formSchema = z.object({
   projectLogo: z.string().url(),
-  projectName: z.string().min(2, {
+  projectName: z.string().min(1, {
     message: 'Project Name must be at least 2 characters.'
   }),
   track: z.string().min(2, {
@@ -36,7 +36,7 @@ const formSchema = z.object({
   }),
   intro: z
     .string()
-    .min(2, {
+    .min(1, {
       message: 'Intro must be at least 2 characters.'
     })
     .max(120, {
@@ -44,7 +44,7 @@ const formSchema = z.object({
     }),
   detailedIntro: z
     .string()
-    .min(16, {
+    .min(1, {
       message: 'detailedIntro must be at least 16 characters.'
     })
     .max(600, {
@@ -110,7 +110,7 @@ const InfoForm: FC<
           );
         }
 
-        onNext({ info: newInfo, status, projectId: projectId || res.id });
+        onNext({ info: newInfo, status, projectId: res.id || projectId });
       },
       onError(err) {
         errorMessage(err);

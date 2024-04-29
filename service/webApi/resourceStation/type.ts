@@ -27,6 +27,17 @@ export interface HackathonScheduleType {
     address?: string;
   }[];
 }
+
+export interface HackathonMemberType {
+  userId: string;
+  avatar: string;
+  bio: string;
+  firstName: string;
+  lastName: string;
+  team: Record<string, any>;
+  telegram: string;
+  weChat: string;
+}
 export interface HackathonType {
   id: string;
   name: string;
@@ -51,6 +62,7 @@ export interface HackathonType {
   reviewTime: string;
   schedule: HackathonScheduleType[];
   participation?: HackathonRegisterInfo;
+  members: HackathonMemberType[];
 }
 
 export interface HackathonDataType {
@@ -76,6 +88,8 @@ export type ProjectType = {
   alias: string;
   demo: string;
   wallet: string;
+  isOpenSource: boolean;
+  githubLink: string;
 };
 
 export interface ProjectDataType {

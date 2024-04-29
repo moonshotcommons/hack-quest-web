@@ -1,7 +1,6 @@
 export interface PartnerType {
-  id: string;
   name: string;
   img: string;
-  tag: string;
+  tags: string[];
   description: string;
 }
