@@ -8,6 +8,7 @@ const USER_KEY = 'user_info';
 export function setToken(token: string) {
   if (typeof window === 'object') {
     localStorage.setItem(TOKEN_KEY, token);
+    // setCookie(cookieName, lng, { path: '/' });
   }
 }
 

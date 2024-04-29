@@ -3,7 +3,7 @@ import Image from 'next/image';
 import React, { useContext } from 'react';
 
 import { useRedirect } from '@/hooks/router/useRedirect';
-import HackLogo from '@/public/images/logo/black-icon-text-logo.svg';
+import HackLogo from '@/public/images/logo/hack_logo.png';
 import { TransNs } from '@/i18n/config';
 import { useTranslation } from '@/i18n/client';
 import { LangContext } from '@/components/Provider/Lang';

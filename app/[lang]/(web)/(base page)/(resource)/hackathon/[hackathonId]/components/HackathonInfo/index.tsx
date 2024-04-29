@@ -12,113 +12,96 @@ import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import WarningIcon from '@/components/Common/Icon/Warning';
 import CountDown from '@/components/Web/Business/CountDown';
-import { useUserStore } from '@/store/zustand/userStore';
+import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
 import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
-import { useRouter } from 'next-nprogress-bar';
 import WarningModal from './WarningModal';
+import { useRedirect } from '@/hooks/router/useRedirect';
 
 interface HackathonInfoProp {
   hackathon: HackathonType;
 }
 
 const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
-  const { userInfo } = useUserStore(
+  console.info(hackathon);
+  const { userInfo, setAuthModalOpen, setAuthType } = useUserStore(
     useShallow((state) => ({
-      userInfo: state.userInfo
+      userInfo: state.userInfo,
+      setAuthModalOpen: state.setAuthModalOpen,
+      setAuthType: state.setAuthType
     }))
   );
-  const router = useRouter();
+  const { redirectToUrl } = useRedirect();
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const { getStepIndex } = useDealHackathonData();
   const stepIndex = getStepIndex(hackathon);
   const [warningOpen, setWarningOpen] = useState(false);
-
   const handleSubmit = (id: string) => {
     if (hackathon.participation?.team?.creatorId === hackathon.participation?.userId) {
-      router.push(`/form${MenuLink.HACKATHON}/${hackathon.id}/submission/${id}`);
+      redirectToUrl(`/form${MenuLink.HACKATHON}/${hackathon.id}/submission/${id}`);
     } else {
       setWarningOpen(true);
     }
   };
 
+  const handleRegister = () => {
+    if (!userInfo) {
+      setAuthModalOpen(true);
+      setAuthType(AuthType.LOGIN);
+    } else {
+      redirectToUrl(`/form${MenuLink.HACKATHON}/${hackathon.id}/register`);
+    }
+  };
+
   const renderButton = () => {
     if (stepIndex < 1) {
-      if (userInfo) {
-        if (!hackathon.participation?.isRegister) {
-          const buttonText = !hackathon.participation?.status ? t('register') : t('continueRegister');
-          return (
-            <Link href={`/form${MenuLink.HACKATHON}/${hackathon.id}/register`}>
-              <Button className="button-text-l h-[60px] w-full bg-yellow-primary uppercase">{buttonText}</Button>
-            </Link>
-          );
-        }
-        if (hackathon.participation?.isRegister) {
-          if (!hackathon.participation.isSubmit) {
-            return !hackathon.participation.project?.id ? (
-              <Button
-                className="button-text-l h-[60px] w-full bg-yellow-primary uppercase"
-                onClick={() => handleSubmit('-1')}
-              >
-                {t('submitNow')}
-              </Button>
-            ) : (
-              <Button
-                className="button-text-l h-[60px] w-full bg-yellow-primary uppercase"
-                onClick={() => handleSubmit(hackathon.participation?.project?.id as string)}
-              >
-                {t('continueSubmission')}
-              </Button>
-            );
-          } else {
-            return (
-              <Button className="button-text-l h-[60px] w-full cursor-not-allowed bg-neutral-light-gray uppercase text-neutral-medium-gray hover:scale-[1]">
-                {t('youHavesubmitted')}
-              </Button>
-            );
-          }
-        }
+      if (!hackathon.participation?.isRegister) {
+        const buttonText = !hackathon.participation?.status ? t('register') : t('continueRegister');
         return (
-          <Link
-            onClick={() => {
-              BurialPoint.track(`hackathon detail View All Projects 按钮点击`);
-            }}
-            href={`${MenuLink.PROJECTS}?keyword=${hackathon.name}`}
-          >
-            <Button ghost className="button-text-l h-[60px] w-full border-neutral-black uppercase text-neutral-black">
-              {t('viewAllProjects')}
-            </Button>
-          </Link>
-        );
-      } else {
-        return (
-          <Link
-            onClick={() => {
-              BurialPoint.track(`hackathon detail View All Projects 按钮点击`);
-            }}
-            href={`${MenuLink.PROJECTS}?keyword=${hackathon.name}`}
-          >
-            <Button ghost className="button-text-l h-[60px] w-full border-neutral-black uppercase text-neutral-black">
-              {t('viewAllProjects')}
-            </Button>
-          </Link>
+          <Button className="button-text-l h-[60px] w-full bg-yellow-primary uppercase" onClick={handleRegister}>
+            {buttonText}
+          </Button>
         );
       }
-    } else {
-      return (
-        <Link
-          onClick={() => {
-            BurialPoint.track(`hackathon detail View All Projects 按钮点击`);
-          }}
-          href={`${MenuLink.PROJECTS}?keyword=${hackathon.name}`}
-        >
-          <Button ghost className="button-text-l h-[60px] w-full border-neutral-black uppercase text-neutral-black">
-            {t('viewAllProjects')}
-          </Button>
-        </Link>
-      );
+      if (hackathon.participation?.isRegister) {
+        if (!hackathon.participation.isSubmit) {
+          return !hackathon.participation.project?.id ? (
+            <Button
+              className="button-text-l h-[60px] w-full bg-yellow-primary uppercase"
+              onClick={() => handleSubmit('-1')}
+            >
+              {t('submitNow')}
+            </Button>
+          ) : (
+            <Button
+              className="button-text-l h-[60px] w-full bg-yellow-primary uppercase"
+              onClick={() => handleSubmit(hackathon.participation?.project?.id as string)}
+            >
+              {t('continueSubmission')}
+            </Button>
+          );
+        } else {
+          return (
+            <Button className="button-text-l h-[60px] w-full cursor-not-allowed bg-neutral-light-gray uppercase text-neutral-medium-gray hover:scale-[1]">
+              {t('youHavesubmitted')}
+            </Button>
+          );
+        }
+      }
     }
+    return (
+      <Link
+        onClick={() => {
+          BurialPoint.track(`hackathon detail View All Projects 按钮点击`);
+        }}
+        href={`${MenuLink.PROJECTS}?keyword=${hackathon.name}`}
+      >
+        <Button ghost className="button-text-l h-[60px] w-full border-neutral-black uppercase text-neutral-black">
+          {t('viewAllProjects')}
+        </Button>
+      </Link>
+    );
   };
 
   return (

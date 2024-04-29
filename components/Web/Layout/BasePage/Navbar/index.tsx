@@ -11,7 +11,7 @@ import { useRedirect } from '@/hooks/router/useRedirect';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useMissionCenterStore } from '@/store/zustand/missionCenterStore';
 import { useCustomPathname } from '@/hooks/router/useCheckPathname';
-import HackLogo from '@/public/images/logo/black-icon-text-logo.svg';
+import HackLogo from '@/public/images/logo/hackquest_logo.png';
 import { useGlobalStore } from '@/store/zustand/globalStore';
 import { LuChevronDown } from 'react-icons/lu';
 import { useDebounceFn } from 'ahooks';
@@ -56,6 +56,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
 
   useEffect(() => {
     for (let nav of navList) {
+      console.info(pathname, nav);
       const curNav = nav.menu.find((menu) => pathname.includes(menu.path as MenuLink));
       if (curNav) {
         setShowSecondNav?.(nav.menu.length > 1);

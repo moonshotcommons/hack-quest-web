@@ -18,16 +18,16 @@ const PartnerList: React.FC<PartnerListProp> = ({ lang }) => {
   const [curPartner, setCurPartner] = useState({});
   const list = useMemo(() => {
     if (!curTag) return partnerList;
-    return partnerList.filter((v) => v.tag.includes(curTag));
+    return partnerList.filter((v) => v.tags?.includes(curTag));
   }, [curTag]);
   return (
     <div className="container mx-auto flex flex-col items-center gap-[40px]">
       <p className="text-h2 text-neutral-off-black">{t('partners.whoAreOurPartners')}</p>
-      <div className="flex gap-[8px]">
+      <div className="no-scrollbar flex  w-full gap-[8px]  overflow-auto">
         {partnerTags.map((v) => (
           <div
             key={v.value}
-            className={`body-m flex-center h-[48px] w-[140px] cursor-pointer rounded-[24px] ${curTag === v.value ? 'bg-yellow-primary text-neutral-black' : 'bg-neutral-white text-neutral-medium-gray'}`}
+            className={`body-m flex-center h-[48px] w-[140px] flex-shrink-0 cursor-pointer rounded-[24px] ${curTag === v.value ? 'bg-yellow-primary text-neutral-black' : 'bg-neutral-white text-neutral-medium-gray'}`}
             onClick={() => setCurTag(v.value)}
           >
             {v.label}
@@ -35,9 +35,9 @@ const PartnerList: React.FC<PartnerListProp> = ({ lang }) => {
         ))}
       </div>
       <div className="flex w-full flex-wrap gap-x-[16px]  gap-y-[40px]">
-        {list.map((v) => (
+        {list.map((v, i) => (
           <div
-            key={v.id}
+            key={i}
             className="card-hover w-[calc((100%-64px)/5)] overflow-hidden rounded-[16px] bg-neutral-white"
             onClick={() => {
               setCurPartner(v);
