@@ -115,13 +115,14 @@ const AIChatbotModal: FC<AIChatbotModalProps> = ({ pageType }) => {
     }
   }, [helperParams.type]);
 
-  useClickAway(
-    (event) => {
-      console.log(event);
-      chatStatus !== 'chatting' && close();
-    },
-    [() => containerElementRef.current, () => document.getElementById('cost-coin-modal')]
-  );
+  const clickAwayDeps = document.getElementById('cost-coin-modal')
+    ? [containerElementRef, document.getElementById('cost-coin-modal')]
+    : containerElementRef;
+
+  useClickAway((event) => {
+    console.log(event);
+    chatStatus !== 'chatting' && close();
+  }, clickAwayDeps);
 
   useEffect(() => {
     let currentIndex = 0;

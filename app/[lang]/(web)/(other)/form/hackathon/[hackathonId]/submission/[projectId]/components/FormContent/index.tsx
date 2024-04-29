@@ -1,5 +1,5 @@
 'use client';
-import { FC, useCallback, useEffect, useState } from 'react';
+import { FC, useCallback, useEffect, useRef, useState } from 'react';
 import { HACKATHON_SUBMIT_STEPS } from '../constants';
 import FormComponent from '../FormComponent';
 import FormHeader from '../FormHeader';
@@ -12,6 +12,7 @@ import webApi from '@/service';
 import emitter from '@/store/emitter';
 import { errorMessage } from '@/helper/ui';
 import { ProjectSubmitStepType, ProjectType } from '@/service/webApi/resourceStation/type';
+import ConfirmModal, { ConfirmModalRef } from '@/components/Web/Business/ConfirmModal';
 
 interface HackathonSubmitPageProps {
   simpleHackathonInfo: { id: string; name: string; alias: string };
@@ -40,6 +41,8 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
     wallet: '',
     isSubmit: false
   });
+
+  const exitConfirmRef = useRef<ConfirmModalRef>(null);
 
   const onNext = (state: Partial<HackathonSubmitStateType>) => {
     setFormState({ ...formState, ...state });
@@ -107,27 +110,42 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
     }
   );
 
-  // const register = useCallback(
-  //   async ({ resolve, reject }: any) => {
-  //     try {
-  //       if (formState.status === ProjectSubmitStepType.Review) {
-  //         await webApi.resourceStationApi.registerHackathon(simpleHackathonInfo.id);
-  //         resolve('');
-  //       } else {
-  //         reject('Please complete all registration information before saving!');
-  //       }
-  //     } catch (err: any) {
-  //       reject(err.msg || err.message);
-  //     }
-  //   },
-  //   [simpleHackathonInfo, formState.status]
-  // );
-
   const { redirectToUrl } = useRedirect();
 
+  const { runAsync: editRequest } = useRequest(
+    () => {
+      const status = HACKATHON_SUBMIT_STEPS.find((item) => item.stepNumber === current)!.type;
+      const formData = new FormData();
+      formData.append('name', formState.info.projectName);
+      formData.append('hackathonId', simpleHackathonInfo.id);
+      formData.append('prizeTrack', formState.info.track);
+      formData.append('introduction', formState.info.intro);
+      formData.append('description', formState.info.detailedIntro);
+      formData.append('githubLink', formState.others.githubLink);
+      formData.append('isOpenSource', String(formState.others.isPublic));
+      formData.append('status', status);
+
+      return webApi.resourceStationApi.submitProject(
+        formData,
+        isUuid(formState.projectId) ? undefined : formState.projectId
+      );
+    },
+    {
+      manual: true,
+      onSuccess() {
+        redirectToUrl(`/hackathon/${simpleHackathonInfo.alias}`);
+      },
+      onError(err) {
+        errorMessage(err);
+      }
+    }
+  );
+
   const exit = useCallback(() => {
-    redirectToUrl(`/hackathon/${simpleHackathonInfo.alias}`);
-  }, [simpleHackathonInfo, redirectToUrl]);
+    exitConfirmRef.current?.open({
+      onConfirm: editRequest
+    });
+  }, [simpleHackathonInfo, redirectToUrl, editRequest, redirectToUrl]);
 
   useEffect(() => {
     emitter.on('submit-form-exit', exit);
@@ -167,6 +185,9 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
           formState={formState}
         />
       )}
+      <ConfirmModal ref={exitConfirmRef} confirmText={'Save & leave'}>
+        <h4 className="text-h4 text-center text-neutral-black">Do you want to save the submission process & leave?</h4>
+      </ConfirmModal>
     </div>
   );
 };

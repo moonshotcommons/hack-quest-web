@@ -18,8 +18,8 @@ import { HACKATHON_SUBMIT_STEPS } from '../../constants';
 const formSchema = z.object({
   bio: z
     .string()
-    .min(16, {
-      message: 'Bio must be at least 16 characters.'
+    .min(1, {
+      message: 'Bio is a required input.'
     })
     .max(360, {
       message: 'Bio cannot exceed 360 characters.'
