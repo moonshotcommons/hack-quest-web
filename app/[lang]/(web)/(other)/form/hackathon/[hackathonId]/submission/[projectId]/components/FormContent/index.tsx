@@ -45,6 +45,7 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
   const exitConfirmRef = useRef<ConfirmModalRef>(null);
 
   const onNext = (state: Partial<HackathonSubmitStateType>) => {
+    console.log(state);
     setFormState({ ...formState, ...state });
     if (current < HACKATHON_SUBMIT_STEPS.length - 1) setCurrent(current + 1);
   };
@@ -68,6 +69,8 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
       hackathonId,
       prizeTrack,
       tracks,
+      githubLink,
+      isOpenSource,
       status,
       thumbnail,
       wallet
@@ -90,6 +93,10 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
       projectId: id,
       pitchVideo: video,
       projectDemo: demo,
+      others: {
+        isPublic: isOpenSource,
+        githubLink
+      },
       wallet
     });
   };
@@ -127,7 +134,7 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
 
       return webApi.resourceStationApi.submitProject(
         formData,
-        isUuid(formState.projectId) ? undefined : formState.projectId
+        isUuid(formState.projectId) ? formState.projectId : undefined
       );
     },
     {

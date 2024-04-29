@@ -36,8 +36,12 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
   const { getStepIndex } = useDealHackathonData();
   const stepIndex = getStepIndex(hackathon);
   const [warningOpen, setWarningOpen] = useState(false);
+
   const handleSubmit = (id: string) => {
-    if (hackathon.participation?.team?.creatorId === hackathon.participation?.userId) {
+    if (
+      hackathon.participation?.team?.creatorId === hackathon.participation?.userId ||
+      !Object.keys(hackathon.participation?.team || {}).length
+    ) {
       redirectToUrl(`/form${MenuLink.HACKATHON}/${hackathon.id}/submission/${id}`);
     } else {
       setWarningOpen(true);

@@ -110,7 +110,7 @@ const InfoForm: FC<
           );
         }
 
-        onNext({ info: newInfo, status, projectId: projectId || res.id });
+        onNext({ info: newInfo, status, projectId: res.id || projectId });
       },
       onError(err) {
         errorMessage(err);
