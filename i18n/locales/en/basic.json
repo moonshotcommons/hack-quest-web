@@ -101,8 +101,9 @@
       "title": "Launch pool"
     },
     "more": {
-      "aboutUs":"About Us",
-      "pressKit":"Press Kit",
+      "aboutUs": "About Us",
+      "pressKit": "Press Kit",
+      "docs": "Docs",
       "title": "More",
       "tools": "TOOLS",
       "playground": "Playground",
@@ -154,18 +155,18 @@
     "deviceAccess": "Access on mobile and desktop"
   },
   "resultsFor": "Results for",
-  "showAll":"Show All",
-  "showLess":"Show Less",
-  "ended":"Ended",
-  "address":"Address",
+  "showAll": "Show All",
+  "showLess": "Show Less",
+  "ended": "Ended",
+  "address": "Address",
   "handleButtonText": {
     "save": "save",
     "exit": "exit"
   },
   "viewMore": "View more",
-  "continueSubmission":"Continue Submission",
-  "register":"Register",
-  "continueRegister":"Continue Register",
-  "youHavesubmitted":"You Have Submitted",
-  "yes":"Yes"
+  "continueSubmission": "Continue Submission",
+  "register": "Register",
+  "continueRegister": "Continue Register",
+  "youHavesubmitted": "You Have Submitted",
+  "yes": "Yes"
 }

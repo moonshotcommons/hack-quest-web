@@ -1,3 +1,4 @@
+'use client';
 import { cn } from '@/helper/utils';
 import { CSSProperties, ReactNode, createContext, useCallback, useEffect, useState } from 'react';
 import { LuChevronsRight } from 'react-icons/lu';
