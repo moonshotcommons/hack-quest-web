@@ -1,7 +1,7 @@
 /**
  * @description 存储/获取 user token
  */
-import { setCookie } from 'cookies-next';
+import { setCookie, deleteCookie } from 'cookies-next';
 
 const TOKEN_KEY = 'token';
 const USER_KEY = 'user_info';
@@ -22,6 +22,7 @@ export function getToken() {
 export function removeToken() {
   if (typeof window === 'object') {
     localStorage.removeItem(TOKEN_KEY);
+    deleteCookie(TOKEN_KEY);
   }
 }
 
