@@ -134,7 +134,7 @@ const FormContent: FC<FormContentProps> = ({ simpleHackathonInfo }) => {
 
   const { redirectToUrl } = useRedirect();
 
-  const { runAsync: editRequest } = useRequest(
+  const { runAsync: exitRequest } = useRequest(
     () => {
       const status = HACKATHON_SUBMIT_STEPS.find((item) => item.stepNumber === current)!.type;
 
@@ -158,21 +158,21 @@ const FormContent: FC<FormContentProps> = ({ simpleHackathonInfo }) => {
     }
   );
 
-  const edit = useCallback(() => {
+  const exit = useCallback(() => {
     exitConfirmRef.current?.open({
-      onConfirm: editRequest
+      onConfirm: exitRequest
     });
-  }, [simpleHackathonInfo, redirectToUrl, editRequest, redirectToUrl]);
+  }, [simpleHackathonInfo, redirectToUrl, exitRequest, redirectToUrl]);
 
   useEffect(() => {
     run();
     // emitter.on('submit-form-save', register);
-    emitter.on('submit-form-exit', edit);
+    emitter.on('submit-form-exit', exit);
     return () => {
       // emitter.off('submit-form-save', register);
-      emitter.off('submit-form-exit', edit);
+      emitter.off('submit-form-exit', exit);
     };
-  }, [edit]);
+  }, [exit]);
 
   return (
     <div className="flex w-full flex-col justify-center gap-6 text-center">
@@ -199,7 +199,7 @@ const FormContent: FC<FormContentProps> = ({ simpleHackathonInfo }) => {
         />
       )}
       <ConfirmModal ref={exitConfirmRef} confirmText={'Save & leave'}>
-        <h4 className="text-h4 text-neutral-black">Do you want to save the submission process & leave?</h4>
+        <h4 className="text-h4 text-center text-neutral-black">Do you want to save the submission process & leave?</h4>
       </ConfirmModal>
     </div>
   );

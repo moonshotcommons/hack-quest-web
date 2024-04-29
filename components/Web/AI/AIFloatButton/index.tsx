@@ -67,7 +67,6 @@ const AIFloatButton: FC<AIFloatButtonProps> = ({ children, pageType = 'other' })
         let top = Math.round(item.top + delta.y);
         const windowWidth = document.body.clientWidth;
         const windowHeight = document.body.clientHeight;
-
         const maxTop = windowHeight - 48 - 8;
         const minTop = 64;
         const minLeft = 0;
@@ -76,9 +75,6 @@ const AIFloatButton: FC<AIFloatButtonProps> = ({ children, pageType = 'other' })
         if (top <= minTop) top = minTop;
         if (left >= maxLeft) left = maxLeft;
         if (left <= minLeft) left = minLeft;
-
-        left = maxLeft - left < left ? maxLeft : minLeft;
-
         moveBox(item.id, left, top);
         return undefined;
       }
