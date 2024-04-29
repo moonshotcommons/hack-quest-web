@@ -132,7 +132,7 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon })
           <div>
             <span className="">{t('participants')}</span>
             <span className="body-m-bold text-neutral-off-black">
-              {separationNumber(hackathon.participants?.length || 0)}
+              {separationNumber(hackathon.members?.length || 0)}
             </span>
           </div>
           <div>

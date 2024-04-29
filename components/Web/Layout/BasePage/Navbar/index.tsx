@@ -6,7 +6,7 @@ import Badge from '@/components/Common/Badge';
 import { message } from 'antd';
 import Link from 'next/link';
 import { isBadgeIds, needLoginPath } from './data';
-import { MenuType, NavbarListType } from './type';
+import { NavbarListType } from './type';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useMissionCenterStore } from '@/store/zustand/missionCenterStore';
@@ -38,10 +38,8 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
   const { navList, children } = NavBarProps;
   const { redirectToUrl } = useRedirect();
   const pathname = useCustomPathname();
-  const [showSecondNav, setShowSecondNav] = useState(false);
-  const [secondNavData, setSecondNavData] = useState<MenuType[]>([]);
   const [curNavId, setCurNavId] = useState('');
-  const [secondNavIndex, setSecondNavIndex] = useState<number>(-1);
+  const [curMenuId, setCurMenuId] = useState('');
   const missionData = useMissionCenterStore((state) => state.missionData);
 
   const [hoverNavId, setHoverNavId] = useState<null | string>(null);
@@ -55,34 +53,33 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
   const setPlaygroundSelectModalOpen = useGlobalStore((state) => state.setPlaygroundSelectModalOpen);
 
   useEffect(() => {
+    let menuId = '';
     for (let nav of navList) {
-      console.info(pathname, nav);
-      const curNav = nav.menu.find((menu) => pathname.includes(menu.path as MenuLink));
+      const curNav = nav.menu.find((menu) => {
+        if (menu?.menu?.length) {
+          return menu.menu?.find((m) => {
+            if (pathname.includes(m.path as MenuLink)) {
+              menuId = m.id || '';
+              return true;
+            }
+          });
+        } else if (pathname.includes(menu.path as MenuLink)) {
+          menuId = menu.id || '';
+          return true;
+        }
+      });
       if (curNav) {
-        setShowSecondNav?.(nav.menu.length > 1);
-        setSecondNavData(nav.menu as []);
         setCurNavId(nav.id);
+        setCurMenuId(menuId);
         return;
       }
     }
-    setShowSecondNav?.(false);
-    setSecondNavData([]);
     setCurNavId('');
+    setCurMenuId('');
   }, [pathname, navList]);
 
-  // useEffect(() => {
-  //   const index = navList.findIndex((v) => v.id === curNavId);
-  //   setInSideNavIndex(index);
-  // }, [curNavId, navList]);
-
-  useEffect(() => {
-    if (!showSecondNav) return;
-    const index = secondNavData.findIndex((v) => pathname.includes(v.path as MenuLink));
-    setSecondNavIndex(index);
-  }, [pathname, showSecondNav, secondNavData, navList]);
-
   const handleClickNav = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, nav: NavbarListType) => {
-    if (nav.type === 'outSide') return;
+    if (nav.id === 'more') return;
     const path = nav.menu[0]?.path!;
     if (~needLoginPath.indexOf(path) && !userInfo) {
       message.warning('Please login first');
@@ -163,7 +160,9 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
                                     e.stopPropagation();
                                   }}
                                 >
-                                  <p className="mt-[8px] flex cursor-pointer items-center gap-[8px] whitespace-nowrap rounded-[8px] px-[12px]  py-[8px] text-neutral-rich-gray hover:bg-neutral-off-white">
+                                  <p
+                                    className={`mt-[8px] flex cursor-pointer items-center gap-[8px] whitespace-nowrap rounded-[8px] px-[12px]  py-[8px] text-neutral-rich-gray hover:bg-neutral-off-white ${curMenuId === more.id && curNavId === nav.id ? 'bg-neutral-off-white' : ''}`}
+                                  >
                                     {more.icon}
                                     <span>{t(more.label)}</span>
                                   </p>
@@ -175,7 +174,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
                       </div>
                     ) : (
                       <div className="flex w-full flex-col gap-[8px]">
-                        {nav.menu.map((menu, menuIndex) => (
+                        {nav.menu.map((menu) => (
                           <Link
                             key={menu.path}
                             href={menu.path!}
@@ -185,7 +184,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
                             }}
                           >
                             <div
-                              className={` whitespace-nowrap rounded-[8px] px-[12px] py-[8px] hover:bg-neutral-off-white ${secondNavIndex === menuIndex && curNavId === nav.id ? 'bg-neutral-off-white' : ''}`}
+                              className={` whitespace-nowrap rounded-[8px] px-[12px] py-[8px] hover:bg-neutral-off-white ${curMenuId === menu.id && curNavId === nav.id ? 'bg-neutral-off-white' : ''}`}
                             >
                               <p className="body-s-bold text-neutral-rich-gray">{t(menu.label)}</p>
                               <p className="body-xs text-neutral-medium-gray">{t(menu.description)}</p>

@@ -124,7 +124,7 @@ const User: FC<UserProps> = () => {
                   <div className="mx-[16px] h-[34px] w-[1px] bg-neutral-light-gray"></div>
                 </div>
                 <div
-                  className="relative flex h-[64px] w-[64px] items-center justify-end"
+                  className="relative flex h-[64px] w-[36px] items-center justify-end"
                   onMouseEnter={() => setShowUserDropCard(true)}
                   onMouseLeave={() => setShowUserDropCard(false)}
                 >

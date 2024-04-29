@@ -150,23 +150,24 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
           ))}
         </div>
       )}
-
-      <div>
-        <div className="body-s mb-[.25rem] text-neutral-medium-gray">{t('participants')}</div>
-        <div className="flex items-center gap-[.5rem]">
-          {/* <div className="flex pl-[10px]">
-            {hackathon.hosts?.slice(0, 6)?.map((v, i) => (
-              <div
-                key={i}
-                className="relative ml-[-0.625rem] h-[2.625rem] w-[2.625rem] overflow-hidden rounded-[50%] border border-neutral-white"
-              >
-                <Image src={v.picture} alt="hackathonHost" fill className="object-contain"></Image>
-              </div>
-            ))}
-          </div> */}
-          <p className="body-s">{`${hackathon.participants.length} ${t('usersPartitipated')}`}</p>
+      {hackathon.members?.length > 0 && (
+        <div>
+          <div className="body-s mb-[.25rem] text-neutral-medium-gray">{t('participants')}</div>
+          <div className="flex items-center gap-[.5rem]">
+            <div className="flex pl-[10px]">
+              {hackathon.members.slice(0, 6)?.map((v, i) => (
+                <div
+                  key={i}
+                  className="relative ml-[-0.625rem] h-[2.625rem] w-[2.625rem] overflow-hidden rounded-[50%] border border-neutral-white"
+                >
+                  <Image src={v.avatar} alt={v.firstName} fill className="object-contain"></Image>
+                </div>
+              ))}
+            </div>
+            <p className="body-s">{`${hackathon.members.length} ${t('usersPartitipated')}`}</p>
+          </div>
         </div>
-      </div>
+      )}
 
       <div className="fixed bottom-0 left-0 z-[10] w-full px-[1.25rem] pb-[1.25rem]">{renderButton()}</div>
     </div>
