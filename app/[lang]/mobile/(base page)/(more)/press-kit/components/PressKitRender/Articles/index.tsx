@@ -1,7 +1,7 @@
 import { Lang, TransNs } from '@/i18n/config';
 import { useTranslation } from '@/i18n/server';
 import React from 'react';
-import { articlesData } from '@/app/[lang]/(web)/(other)/press-kit/constants/data';
+import { articlesData } from '@/app/[lang]/(web)/(base page)/(more)/press-kit/constants/data';
 import Image from 'next/image';
 import moment from 'moment';
 import Link from 'next/link';

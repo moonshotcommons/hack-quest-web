@@ -10,7 +10,7 @@ import { motion } from 'framer-motion';
 import { usePressKitStore } from '@/store/zustand/pressKitStore';
 import { useShallow } from 'zustand/react/shallow';
 import { pressKitanimateProps } from '../../constants/type';
-import { pressKitNavData } from '@/app/[lang]/(web)/(other)/press-kit/constants/data';
+import { pressKitNavData } from '@/app/[lang]/(web)/(base page)/(more)/press-kit/constants/data';
 import { HiArrowLongRight } from 'react-icons/hi2';
 
 interface PressKitSidebarProp {}

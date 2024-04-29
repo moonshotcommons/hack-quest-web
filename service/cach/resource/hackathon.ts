@@ -1,9 +1,11 @@
 import { cache } from 'react';
 import { HackathonType, ProjectType } from '@/service/webApi/resourceStation/type';
 import webApi from '@/service/index';
+import { cookies } from 'next/headers';
 
 export const getHackathonById = cache(function (id: string): Promise<HackathonType> {
-  return webApi.resourceStationApi.getHackathonDetail(id as string);
+  const token = cookies().get('token')?.value || '';
+  return webApi.resourceStationApi.getHackathonDetail(id as string, token as string);
 });
 
 export const getHackathonProjectById = cache(function (projectId: string): Promise<ProjectType> {

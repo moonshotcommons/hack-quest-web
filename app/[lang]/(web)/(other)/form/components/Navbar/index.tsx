@@ -1,5 +1,5 @@
 'use client';
-import HackLogo from '@/public/images/logo/black-icon-text-logo.svg';
+import HackLogo from '@/public/images/logo/hackquest_logo.png';
 import Image from 'next/image';
 import React, { FC, useContext } from 'react';
 import { IoExitOutline } from 'react-icons/io5';
