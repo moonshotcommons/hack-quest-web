@@ -34,9 +34,7 @@ const PartnerCardModal: React.FC<PartnerCardModalProp> = ({ onClose, open, partn
         <div className="flex h-full flex-1 flex-col justify-between px-[20px] py-[40px]">
           <div className="flex flex-col gap-[8px]">
             <p className="body-l-bold text-neutral-off-black">{partner.name}</p>
-            <div className="flex gap-[8px]">
-              <TrackTag track={partner.tag} />
-            </div>
+            <div className="flex gap-[8px]">{partner.tags?.map((v) => <TrackTag track={v} key={v} />)}</div>
             <p className="body-s text-neutral-medium-gray">{partner.description}</p>
           </div>
           <Button type="primary" className="button-text-m h-[48px] w-full uppercase text-neutral-black">

@@ -5,9 +5,9 @@ import Links from '../components/PressKitRender/Links';
 import Logos from '../components/PressKitRender/Logos';
 import Contact from '../components/PressKitRender/Contact';
 import { Lang } from '@/i18n/config';
-import { PressNav } from '@/app/[lang]/(web)/(other)/press-kit/constants/type';
 import MenuLink from '@/constants/MenuLink';
 import { Metadata } from 'next';
+import { PressNav } from '@/app/[lang]/(web)/(base page)/(more)/press-kit/constants/type';
 
 export async function generateMetadata(props: { params: { lang: string; pressKitId: string } }): Promise<Metadata> {
   const { lang, pressKitId } = props.params;

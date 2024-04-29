@@ -68,6 +68,9 @@ dependencies:
   clsx:
     specifier: ^1.2.1
     version: 1.2.1
+  cookies-next:
+    specifier: ^4.1.1
+    version: 4.1.1
   dayjs:
     specifier: ^1.11.10
     version: 1.11.10
@@ -5912,7 +5915,7 @@ packages:
     dev: false
 
   /@types/cookie@0.6.0:
-    resolution: {integrity: sha512-4Kh9a6B2bQciAhf7FSuMRRkUWecJgJu9nPnx3yzpsfXX/c50REIqpHY4C82bXP90qrLtXtkDxTZosYO3UpOwlA==}
+    resolution: {integrity: sha512-4Kh9a6B2bQciAhf7FSuMRRkUWecJgJu9nPnx3yzpsfXX/c50REIqpHY4C82bXP90qrLtXtkDxTZosYO3UpOwlA==, tarball: https://registry.npmmirror.com/@types/cookie/-/cookie-0.6.0.tgz}
     dev: false
 
   /@types/debug@4.1.12:
@@ -6055,8 +6058,12 @@ packages:
     resolution: {integrity: sha512-JkXTOdKs5MF086b/pt8C3+yVp3iDUwG635L7oCH6HvJvvr6lSUU5oe/gLXnPEfYRROHjJIPgCV6cuAg8gGkntQ==}
     dev: true
 
+  /@types/node@16.18.96:
+    resolution: {integrity: sha512-84iSqGXoO+Ha16j8pRZ/L90vDMKX04QTYMTfYeE1WrjWaZXuchBehGUZEpNgx7JnmlrIHdnABmpjrQjhCnNldQ==, tarball: https://registry.npmmirror.com/@types/node/-/node-16.18.96.tgz}
+    dev: false
+
   /@types/node@18.19.3:
-    resolution: {integrity: sha512-k5fggr14DwAytoA/t8rPrIz++lXK7/DqckthCmoZOKNsEbJkId4Z//BqgApXBUGrGddrigYa1oqheo/7YmW4rg==}
+    resolution: {integrity: sha512-k5fggr14DwAytoA/t8rPrIz++lXK7/DqckthCmoZOKNsEbJkId4Z//BqgApXBUGrGddrigYa1oqheo/7YmW4rg==, tarball: https://registry.npmmirror.com/@types/node/-/node-18.19.3.tgz}
     requiresBuild: true
     dependencies:
       undici-types: 5.26.5
@@ -8262,8 +8269,16 @@ packages:
     dev: false
 
   /cookie@0.6.0:
-    resolution: {integrity: sha512-U71cyTamuh1CRNCfpGY6to28lxvNwPG4Guz/EVjgf3Jmzv0vlDp1atT9eS5dDjMYHucpHbWns6Lwf3BKz6svdw==}
+    resolution: {integrity: sha512-U71cyTamuh1CRNCfpGY6to28lxvNwPG4Guz/EVjgf3Jmzv0vlDp1atT9eS5dDjMYHucpHbWns6Lwf3BKz6svdw==, tarball: https://registry.npmmirror.com/cookie/-/cookie-0.6.0.tgz}
     engines: {node: '>= 0.6'}
+    dev: false
+
+  /cookies-next@4.1.1:
+    resolution: {integrity: sha512-20QaN0iQSz87Os0BhNg9M71eM++gylT3N5szTlhq2rK6QvXn1FYGPB4eAgU4qFTunbQKhD35zfQ95ZWgzUy3Cg==, tarball: https://registry.npmmirror.com/cookies-next/-/cookies-next-4.1.1.tgz}
+    dependencies:
+      '@types/cookie': 0.6.0
+      '@types/node': 16.18.96
+      cookie: 0.6.0
     dev: false
 
   /copy-anything@2.0.6:

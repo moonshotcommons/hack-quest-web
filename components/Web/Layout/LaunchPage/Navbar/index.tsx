@@ -4,7 +4,7 @@ import React, { ReactNode, Suspense, useContext, useEffect, useState } from 'rea
 
 import { useRedirect } from '@/hooks/router/useRedirect';
 import { useCustomPathname } from '@/hooks/router/useCheckPathname';
-import HackLogo from '@/public/images/logo/black-icon-text-logo.svg';
+import HackLogo from '@/public/images/logo/hackquest_logo.png';
 import { NavbarListType } from '../../BasePage/Navbar/type';
 import User from '../User';
 import Intl from '@/components/Web/Intl';
