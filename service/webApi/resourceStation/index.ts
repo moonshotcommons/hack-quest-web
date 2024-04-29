@@ -32,9 +32,12 @@ class ResourceStationApi {
   }
 
   /** 获取hackathon列表 */
-  getHackathonList(params: object) {
+  getHackathonList(params: object, token?: string) {
     return this.service.get<HackathonDataType>(ResourceStationApiType.Hackathon, {
-      params
+      params,
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
     });
   }
 
