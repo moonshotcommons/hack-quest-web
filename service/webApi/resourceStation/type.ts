@@ -88,6 +88,8 @@ export type ProjectType = {
   alias: string;
   demo: string;
   wallet: string;
+  isOpenSource: boolean;
+  githubLink: string;
 };
 
 export interface ProjectDataType {

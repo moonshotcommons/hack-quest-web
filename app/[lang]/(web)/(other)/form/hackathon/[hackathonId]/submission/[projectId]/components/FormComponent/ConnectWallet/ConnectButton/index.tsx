@@ -43,7 +43,7 @@ export const ConnectButton: FC<ConnectButtonProps> = ({
   const { run: bindWallet, loading: connectLoading } = useRequest(
     async (address: `0x${string}`) => {
       const newStatus =
-        HACKATHON_SUBMIT_STEPS.find((item) => item.type === status)!.stepNumber === 0
+        HACKATHON_SUBMIT_STEPS.find((item) => item.type === status)!.stepNumber === 4
           ? ProjectSubmitStepType.REVIEW
           : status;
 
