@@ -38,6 +38,7 @@
     "class-variance-authority": "^0.7.0",
     "classnames": "^2.3.2",
     "clsx": "^1.2.1",
+    "cookies-next": "^4.1.1",
     "dayjs": "^1.11.10",
     "echarts": "^5.4.3",
     "framer-motion": "^10.16.0",

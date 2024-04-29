@@ -1,9 +1,9 @@
 import { Lang, TransNs } from '@/i18n/config';
 import { useTranslation } from '@/i18n/server';
 import React from 'react';
-import { logosData } from '@/app/[lang]/(web)/(other)/press-kit/constants/data';
+import { logosData } from '@/app/[lang]/(web)/(base page)/(more)/press-kit/constants/data';
 import Image from 'next/image';
-import Download from '@/app/[lang]/(web)/(other)/press-kit/components/PressKitRender/Logos/Download';
+import Download from '@/app/[lang]/(web)/(base page)/(more)/press-kit/components/PressKitRender/Logos/Download';
 
 interface LogosProp {
   lang: Lang;

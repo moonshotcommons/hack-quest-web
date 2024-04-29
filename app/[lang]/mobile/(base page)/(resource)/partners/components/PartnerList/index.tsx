@@ -18,7 +18,7 @@ const PartnerList: React.FC<PartnerListProp> = ({ lang }) => {
   const [curPartner, setCurPartner] = useState({});
   const list = useMemo(() => {
     if (!curTag) return partnerList;
-    return partnerList.filter((v) => v.tag.includes(curTag));
+    return partnerList.filter((v) => v.tags?.includes(curTag));
   }, [curTag]);
   return (
     <div className="flex flex-col items-center gap-[1.25rem]">
@@ -35,9 +35,9 @@ const PartnerList: React.FC<PartnerListProp> = ({ lang }) => {
         ))}
       </div>
       <div className="flex w-full flex-wrap gap-x-[.75rem]  gap-y-[1.25rem]">
-        {list.map((v) => (
+        {list.map((v, i) => (
           <div
-            key={v.id}
+            key={i}
             className="card-hover w-[calc((100%-0.75rem)/2)] overflow-hidden rounded-[1rem] bg-neutral-white"
             onClick={() => {
               setCurPartner(v);

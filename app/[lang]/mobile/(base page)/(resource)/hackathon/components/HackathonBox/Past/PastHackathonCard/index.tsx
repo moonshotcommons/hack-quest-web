@@ -34,7 +34,7 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon }) => {
           <div className="caption-10pt flex items-center justify-between text-neutral-medium-gray">
             <div>
               <p className="mb-[.25rem]">{t('participants')}</p>
-              <p className=" text-neutral-off-black">{separationNumber(hackathon.participants?.length || 0)}</p>
+              <p className=" text-neutral-off-black">{separationNumber(hackathon.members?.length || 0)}</p>
             </div>
             <div>
               <p className="mb-[.25rem]">{t('totalPrize')}</p>
