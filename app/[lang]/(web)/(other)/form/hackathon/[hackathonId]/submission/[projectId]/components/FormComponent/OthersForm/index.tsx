@@ -88,6 +88,7 @@ const OthersForm: FC<
   useEffect(() => {
     const { githubLink, isPublic } = others!;
     form.setValue('githubLink', githubLink);
+    console.log(isPublic);
     typeof isPublic === 'boolean' && form.setValue('isPublic', !!isPublic);
     if (githubLink && typeof isPublic === 'boolean') form.trigger();
   }, [others]);
