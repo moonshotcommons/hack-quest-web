@@ -90,7 +90,13 @@ const NameForm: FC<
             <CustomFormField form={form} placeholder="Enter your last name" label="Last Name" name="lastName" />
           </div>
           <div className="flex justify-end gap-4">
-            <Button htmlType="button" ghost className="button-text-m w-[165px] px-0 py-4 uppercase" onClick={onBack}>
+            <Button
+              htmlType="button"
+              ghost
+              className="button-text-m w-[165px] px-0 py-4 uppercase"
+              disabled
+              onClick={onBack}
+            >
               Back
             </Button>
             <Button

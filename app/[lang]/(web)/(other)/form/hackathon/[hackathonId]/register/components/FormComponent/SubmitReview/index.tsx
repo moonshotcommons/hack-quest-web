@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useRef } from 'react';
 import { FormComponentProps } from '..';
 import Image from 'next/image';
 import { HackathonTeamDetail } from '@/service/webApi/resourceStation/type';
@@ -9,6 +9,7 @@ import { useRequest } from 'ahooks';
 import { errorMessage } from '@/helper/ui';
 import { message } from 'antd';
 import { useRedirect } from '@/hooks/router/useRedirect';
+import ConfirmModal, { ConfirmModalRef } from '@/components/Web/Business/ConfirmModal';
 
 interface SubmitReviewProps {}
 
@@ -24,8 +25,8 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({
 
   const { redirectToUrl } = useRedirect();
   const { name, contractInfo, bio, submissionType, isRegister } = formState;
-
-  const { run: register, loading } = useRequest(
+  const confirmModalRef = useRef<ConfirmModalRef>(null);
+  const { runAsync, loading } = useRequest(
     () => {
       return webApi.resourceStationApi.registerHackathon(simpleHackathonInfo.id);
     },
@@ -41,6 +42,12 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({
       }
     }
   );
+
+  const register = () => {
+    confirmModalRef.current?.open({
+      onConfirm: runAsync
+    });
+  };
 
   // const register = useCallback(
   //   async ({ resolve, reject }: any) => {
@@ -206,6 +213,9 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({
           {isRegister ? 'update' : 'register'}
         </Button>
       </div>
+      <ConfirmModal ref={confirmModalRef}>
+        <h4 className="text-h4 mb-9 text-center text-neutral-black">Do you want to register this hackathon?</h4>
+      </ConfirmModal>
     </div>
   );
 };
