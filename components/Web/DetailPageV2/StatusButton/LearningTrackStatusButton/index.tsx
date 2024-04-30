@@ -160,7 +160,7 @@ const LearningTrackStatusButton: FC<LearningTrackStatusButtonProps> = ({
                 }
               }}
             >
-              {t('courses.certification')}
+              {t('courses.claimCertification')}
             </Button>
             {certification && (
               <CertificationModal
