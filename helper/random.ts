@@ -1,3 +1,4 @@
+import { v4 as uuid } from 'uuid';
 const starAvatars = [
   '/images/user/star_avatar/maskgroup-0.png',
   '/images/user/star_avatar/maskgroup-1.png',
@@ -30,7 +31,7 @@ export function getRandomAvatars(count: number = 4) {
 
     [starAvatars[currentIndex], starAvatars[randomIndex]] = [starAvatars[randomIndex], starAvatars[currentIndex]];
 
-    result.push({ id: result.length + '', url: starAvatars[currentIndex] });
+    result.push({ id: uuid(), url: starAvatars[currentIndex] });
   }
 
   return result;
