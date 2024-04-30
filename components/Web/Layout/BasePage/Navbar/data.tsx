@@ -64,6 +64,12 @@ export const navbarList: NavbarListType[] = [
         label: 'navbar.learn.projects',
         path: MenuLink.PRACTICES,
         description: 'navbar.learn.projectsDesc'
+      },
+      {
+        id: 'ntu',
+        label: 'navbar.learn.ntuCourse',
+        path: MenuLink.NTU_COURSE,
+        description: 'navbar.learn.ntuCourseDesc'
       }
       // {
       // id:'courseMarket',

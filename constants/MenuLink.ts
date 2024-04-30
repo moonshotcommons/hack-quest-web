@@ -23,7 +23,8 @@ enum MenuLink {
   PRESS_KIT = '/press-kit',
   DOCS = '/docs',
   HACKDEGALAXY = '/hackdegalaxy',
-  PARTNERS = '/partners'
+  PARTNERS = '/partners',
+  NTU_COURSE = '/ntu-course'
 }
 
 export default MenuLink;

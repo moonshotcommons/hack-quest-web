@@ -73,7 +73,9 @@
       "projects": "项目课",
       "projectsDesc": "了解如何一步一步地构建项目",
       "courseMarket": "课程市场",
-      "courseMarketDesc": "课程市场"
+      "courseMarketDesc": "课程市场",
+      "ntuCourse":"Ntu 课程",
+      "ntuCourseDesc":"Ntu 课程描述"
     },
     "reward": {
       "title": "奖励",
@@ -155,10 +157,13 @@
     "deviceAccess": "移动和桌面设备访问"
   },
   "resultsFor": "结果",
-  "showAll": "查看更多",
-  "showLess": "收起",
-  "ended": "已结束",
-  "address": "地址",
+  "showAll":"查看更多",
+  "showMore":"查看更多",
+  "readMore":"查看更多",
+  "readLess":"收起",
+  "showLess":"收起",
+  "ended":"已结束",
+  "address":"地址",
   "handleButtonText": {
     "save": "保存",
     "exit": "退出"
