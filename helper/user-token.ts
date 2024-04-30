@@ -3,8 +3,8 @@
  */
 import { setCookie, deleteCookie } from 'cookies-next';
 
-const TOKEN_KEY = 'token';
-const USER_KEY = 'user_info';
+export const TOKEN_KEY = 'token';
+export const USER_KEY = 'user_info';
 
 export function setToken(token: string) {
   if (typeof window === 'object') {

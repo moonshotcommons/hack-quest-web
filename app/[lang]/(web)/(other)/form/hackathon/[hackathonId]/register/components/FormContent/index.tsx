@@ -1,5 +1,5 @@
 'use client';
-import { FC, useCallback, useEffect, useState } from 'react';
+import { FC, useCallback, useEffect, useRef, useState } from 'react';
 import { HACKATHON_SUBMIT_STEPS } from '../constants';
 import FormComponent from '../FormComponent';
 import FormHeader from '../FormHeader';
@@ -15,6 +15,7 @@ import {
 import LoadingIcon from '@/components/Common/LoadingIcon';
 import emitter from '@/store/emitter';
 import { useRedirect } from '@/hooks/router/useRedirect';
+import ConfirmModal, { ConfirmModalRef } from '@/components/Web/Business/ConfirmModal';
 
 interface FormContentProps {
   simpleHackathonInfo: { id: string; name: string; alias: string };
@@ -43,6 +44,8 @@ const FormContent: FC<FormContentProps> = ({ simpleHackathonInfo }) => {
     status: HackathonRegisterStep.Name,
     isRegister: false
   });
+
+  const exitConfirmRef = useRef<ConfirmModalRef>(null);
 
   const onNext = (state: Partial<HackathonRegisterStateType>) => {
     setFormState({ ...formState, ...state });
@@ -131,19 +134,45 @@ const FormContent: FC<FormContentProps> = ({ simpleHackathonInfo }) => {
 
   const { redirectToUrl } = useRedirect();
 
-  const edit = useCallback(() => {
-    redirectToUrl(`/hackathon/${simpleHackathonInfo.alias}`);
-  }, [simpleHackathonInfo, redirectToUrl]);
+  const { runAsync: exitRequest } = useRequest(
+    () => {
+      const status = HACKATHON_SUBMIT_STEPS.find((item) => item.stepNumber === current)!.type;
+
+      return webApi.resourceStationApi.updateHackathonRegisterInfo(simpleHackathonInfo.id, {
+        firstName: formState.name.firstName,
+        lastName: formState.name.lastName,
+        bio: formState.bio,
+        telegram: formState.contractInfo.weChat,
+        weChat: formState.contractInfo.telegram,
+        status
+      });
+    },
+    {
+      manual: true,
+      onSuccess() {
+        redirectToUrl(`/hackathon/${simpleHackathonInfo.alias}`);
+      },
+      onError(err) {
+        errorMessage(err);
+      }
+    }
+  );
+
+  const exit = useCallback(() => {
+    exitConfirmRef.current?.open({
+      onConfirm: exitRequest
+    });
+  }, [simpleHackathonInfo, redirectToUrl, exitRequest, redirectToUrl]);
 
   useEffect(() => {
     run();
     // emitter.on('submit-form-save', register);
-    emitter.on('submit-form-exit', edit);
+    emitter.on('submit-form-exit', exit);
     return () => {
       // emitter.off('submit-form-save', register);
-      emitter.off('submit-form-exit', edit);
+      emitter.off('submit-form-exit', exit);
     };
-  }, [edit]);
+  }, [exit]);
 
   return (
     <div className="flex w-full flex-col justify-center gap-6 text-center">
@@ -169,6 +198,9 @@ const FormContent: FC<FormContentProps> = ({ simpleHackathonInfo }) => {
           formState={formState}
         />
       )}
+      <ConfirmModal ref={exitConfirmRef} confirmText={'Save & leave'}>
+        <h4 className="text-h4 text-center text-neutral-black">Do you want to save the submission process & leave?</h4>
+      </ConfirmModal>
     </div>
   );
 };

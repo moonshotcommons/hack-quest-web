@@ -21,6 +21,7 @@ enum MenuLink {
   EVENTS = '/events',
   EVENTS_PAST = '/events/past',
   PRESS_KIT = '/press-kit',
+  DOCS = '/docs',
   HACKDEGALAXY = '/hackdegalaxy',
   PARTNERS = '/partners',
   NTU_COURSE = '/ntu-course'

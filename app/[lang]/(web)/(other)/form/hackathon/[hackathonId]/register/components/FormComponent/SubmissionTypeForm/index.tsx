@@ -27,6 +27,8 @@ import {
 } from '@/service/webApi/resourceStation/type';
 import { errorMessage } from '@/helper/ui';
 import { HACKATHON_SUBMIT_STEPS } from '../../constants';
+import Link from 'next/link';
+import { HACKQUEST_DISCORD } from '@/constants/links';
 
 const formSchema = z.object({
   type: z.enum(['Solo Project', 'Group Project'], {
@@ -171,9 +173,11 @@ const SubmissionTypeForm: FC<
           <ProjectTypeRadio form={form} submissionType={submissionType} />
           <div className="caption-14pt flex justify-between text-neutral-off-black">
             <p>Are you looking for a teammate? Follow HackQuest Discord to find your dream team!</p>
-            <LinkArrow direction="right" decorate>
-              Go to Discord
-            </LinkArrow>
+            <Link href={HACKQUEST_DISCORD} target="_blank">
+              <LinkArrow direction="right" decorate>
+                Go to Discord
+              </LinkArrow>
+            </Link>
           </div>
           {type === 'Group Project' && groupType === null && (
             <div className="flex flex-col gap-3 text-left">

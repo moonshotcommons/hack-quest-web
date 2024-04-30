@@ -27,3 +27,14 @@ export interface CompletionsRes {
     content: string;
   };
 }
+
+export interface DocsItem {
+  id: string;
+  title: string;
+  alias: string;
+  content: [];
+  parentId: string;
+  createdAt: string;
+  updatedAt: string;
+  children: DocsItem[];
+}

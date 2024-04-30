@@ -103,8 +103,9 @@
       "title": "发射台"
     },
     "more": {
-      "aboutUs":"关于我们",
-      "pressKit":"媒体工具包",
+      "aboutUs": "关于我们",
+      "pressKit": "媒体工具包",
+      "docs": "文档",
       "title": "更多",
       "tools": "工具",
       "playground": "开发环境",
@@ -168,9 +169,9 @@
     "exit": "退出"
   },
   "viewMore": "查看更多",
-  "continueSubmission":"继续提交",
-  "register":"注册",
-  "continueRegister":"继续注册",
-  "youHavesubmitted":"你已经提交",
-  "yes":"好"
+  "continueSubmission": "继续提交",
+  "register": "注册",
+  "continueRegister": "继续注册",
+  "youHavesubmitted": "你已经提交",
+  "yes": "好"
 }

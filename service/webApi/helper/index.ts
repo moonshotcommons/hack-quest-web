@@ -1,9 +1,11 @@
 import WebService from '@/service/webService/webService';
-import { CompletionsInput, CompletionsRes } from './type';
+import { CompletionsInput, CompletionsRes, DocsItem } from './type';
+import { cache } from 'react';
 
 export enum HelperApiType {
   Completions = '/chat/completions',
-  History = '/chat/histories'
+  History = '/chat/histories',
+  Docs = '/docs'
 }
 
 class HelperApi {
@@ -20,6 +22,30 @@ class HelperApi {
 
   getHistory() {
     return this.service.get<CompletionsRes[]>(HelperApiType.History);
+  }
+
+  getDocs() {
+    return this.service.get<DocsItem[]>(HelperApiType.Docs);
+  }
+
+  fetchGetDocs() {
+    const cacheFn = cache(async () => {
+      return this.getDocs();
+    });
+
+    return cacheFn();
+  }
+
+  getDocsById(id: string) {
+    return this.service.get<DocsItem>(`${HelperApiType.Docs}/${id}`);
+  }
+
+  fetchGetDocsById(id: string) {
+    const cacheFn = cache(async () => {
+      return this.getDocsById(id);
+    });
+
+    return cacheFn();
   }
 }
 
