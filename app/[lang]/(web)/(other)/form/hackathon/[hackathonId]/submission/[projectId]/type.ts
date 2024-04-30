@@ -24,6 +24,8 @@ export interface HackathonSubmitStateType {
     projectName: string;
     track: string;
     intro: string;
+    prizeTrack: string;
+    location: string;
     detailedIntro: string;
   };
   status: ProjectSubmitStepType;

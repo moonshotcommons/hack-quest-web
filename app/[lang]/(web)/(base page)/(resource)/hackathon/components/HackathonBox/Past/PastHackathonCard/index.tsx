@@ -21,6 +21,7 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon }) => {
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const { getTotalPrize } = useDealHackathonData();
   const totalPrize = getTotalPrize(hackathon.rewards);
+
   return (
     <Link href={`${MenuLink.HACKATHON}/${hackathon.alias}`}>
       <div className="card-hover flex  w-full flex-col overflow-hidden rounded-[16px] bg-neutral-white ">
@@ -36,7 +37,9 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon }) => {
             <div>
               <span className="">{t('participants')}</span>
               <span className="body-m-bold text-neutral-off-black">
-                {separationNumber(hackathon.members?.length || 0)}
+                {hackathon.version === 'old'
+                  ? hackathon.participants
+                  : separationNumber(hackathon.members?.length || 0)}
               </span>
             </div>
             <div>

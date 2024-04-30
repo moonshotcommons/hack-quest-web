@@ -8,6 +8,8 @@ import webApi from '@/service';
 import { message } from 'antd';
 import { errorMessage } from '@/helper/ui';
 import { useRedirect } from '@/hooks/router/useRedirect';
+import { LOCATIONS_SHORT } from '../../constants';
+import { ProjectLocation } from '@/service/webApi/resourceStation/type';
 
 interface SubmitReviewProps {}
 
@@ -48,45 +50,67 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext' | 'tracks'>> =
       <div className="">
         <p className="body-l text-left text-neutral-off-black">Please check your project information</p>
         <div className="mt-4 flex gap-6 [&>div]:w-[calc(50%-12px)]">
-          <div className="flex flex-col  gap-4 rounded-[8px] border border-neutral-light-gray p-6 text-left">
+          <div className="flex h-[450px] flex-col rounded-[8px] border border-neutral-light-gray px-6 py-3 text-left">
+            <div
+              className="body-s flex cursor-pointer items-center justify-between text-neutral-rich-gray"
+              onClick={() => gotoStep(0)}
+            >
+              <span>Basic Info</span>
+              {arrowIcon}
+            </div>
             {/* Logo */}
-            <div className="flex h-12 w-full cursor-pointer items-center justify-between" onClick={() => gotoStep(0)}>
-              <div className="flex flex-1">
-                <span className="body-s flex w-[130px] items-center text-neutral-rich-gray">Logo</span>
+            <div className=" mt-2 flex flex-col gap-2">
+              <div className="flex flex-1 justify-between">
+                <span className="body-xs flex items-center text-neutral-rich-gray">Logo</span>
                 <Image
                   src={formState.info.projectLogo}
                   alt="logo"
-                  width={48}
-                  height={48}
-                  className="rounded-[10px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.12)]"
+                  width={24}
+                  height={24}
+                  className="rounded-[4px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.12)]"
                 />
               </div>
-              {arrowIcon}
-            </div>
-
-            {/*Project  Name */}
-            <hr className="h-[1px] scale-y-50 border-none bg-neutral-medium-gray" />
-            <div className="flex w-full cursor-pointer items-center justify-between" onClick={() => gotoStep(0)}>
-              <div className="flex flex-1 items-center">
-                <span className="body-s flex w-[130px] items-center text-neutral-rich-gray">Name</span>
-                <span className="body-s text-neutral-off-black">{info.projectName}</span>
+              <div className="flex flex-1 items-center justify-between">
+                <span className="body-xs flex items-center  text-neutral-rich-gray">Name</span>
+                <span className="body-xs text-neutral-off-black">{info.projectName}</span>
               </div>
-              {arrowIcon}
+              <div className="flex flex-1 items-center justify-between">
+                <span className="body-xs flex items-center  text-neutral-rich-gray">Location</span>
+                <span className="body-xs text-neutral-off-black">
+                  {LOCATIONS_SHORT[info.location as ProjectLocation]}
+                </span>
+              </div>
+              <div className="flex flex-1 items-center justify-between">
+                <span className="body-xs flex items-center  text-neutral-rich-gray">Prize Track</span>
+                <span className="body-xs text-neutral-off-black">{info.prizeTrack}</span>
+              </div>
+              <div className="flex flex-1 items-center justify-between">
+                <span className="body-xs flex items-center  text-neutral-rich-gray">Hackathon Track</span>
+                <span className="body-xs text-neutral-off-black">{info.track}</span>
+              </div>
             </div>
-
             {/* Track */}
-            <hr className="h-[1px] scale-y-50 border-none bg-neutral-medium-gray" />
-            <div className="flex w-full cursor-pointer items-center justify-between" onClick={() => gotoStep(0)}>
+            <div className="my-4 h-[1px] w-full scale-y-50 border-none bg-neutral-medium-gray" />
+            <div className="body-xs flex flex-col gap-1  text-neutral-off-black">
+              <span>One Line Introduction</span>
+              <div className="caption-12pt line-clamp-2 h-[32px] w-full leading-normal">{info.intro}</div>
+            </div>
+            <div className="my-4 h-[1px] w-full scale-y-50 border-none bg-neutral-medium-gray" />
+            <div className="body-xs flex flex-col gap-1 text-neutral-off-black">
+              <span>Detailed Introduction</span>
+              <p className="caption-12pt line-clamp-[7] h-[112px] w-full leading-normal">{info.detailedIntro}</p>
+            </div>
+            {/* <div className="flex w-full cursor-pointer items-center justify-between" onClick={() => gotoStep(0)}>
               <div className="flex flex-1 items-center">
                 <span className="body-s flex w-[130px] items-center text-neutral-rich-gray">Track</span>
                 <span className="body-s text-neutral-off-black">{info.track}</span>
               </div>
               {arrowIcon}
-            </div>
+            </div> */}
 
             {/* Patch Video */}
-            <hr className="h-[1px] scale-y-50 border-none bg-neutral-medium-gray" />
-            <div className="flex h-12 w-full cursor-pointer items-center justify-between" onClick={() => gotoStep(1)}>
+            {/* <hr className="my-4 h-[1px] scale-y-50 border-none bg-neutral-medium-gray" /> */}
+            {/* <div className="flex h-12 w-full cursor-pointer items-center justify-between" onClick={() => gotoStep(1)}>
               <div className="flex flex-1">
                 <span className="body-s flex w-[130px] items-center text-neutral-rich-gray">Pitch Video</span>
                 {formState.pitchVideo && (
@@ -100,10 +124,10 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext' | 'tracks'>> =
                 )}
               </div>
               {arrowIcon}
-            </div>
+            </div> */}
 
             {/* Project Demo */}
-            <hr className="h-[1px] scale-y-50 border-none bg-neutral-medium-gray" />
+            {/* <hr className="h-[1px] scale-y-50 border-none bg-neutral-medium-gray" />
             <div className="flex h-12 w-full cursor-pointer items-center justify-between" onClick={() => gotoStep(2)}>
               <div className="flex flex-1">
                 <span className="body-s flex w-[130px] items-center text-neutral-rich-gray">Project Demo</span>
@@ -118,51 +142,83 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext' | 'tracks'>> =
                 )}
               </div>
               {arrowIcon}
-            </div>
+            </div> */}
 
             {/* Github Link */}
-            <hr className="h-[1px] scale-y-50 border-none bg-neutral-medium-gray" />
+            {/* <hr className="h-[1px] scale-y-50 border-none bg-neutral-medium-gray" />
             <div className="flex w-full cursor-pointer items-center justify-between" onClick={() => gotoStep(3)}>
               <div className="flex flex-1 items-center">
                 <span className="body-s flex w-[130px] items-center text-neutral-rich-gray">Github</span>
                 <span className="body-s text-neutral-off-black">{others.githubLink}</span>
               </div>
               {arrowIcon}
-            </div>
+            </div> */}
 
             {/* Open Source */}
-            <hr className="h-[1px] scale-y-50 border-none bg-neutral-medium-gray" />
+            {/* <hr className="h-[1px] scale-y-50 border-none bg-neutral-medium-gray" />
             <div className="flex w-full cursor-pointer items-center justify-between" onClick={() => gotoStep(3)}>
               <div className="flex flex-1 items-center">
                 <span className="body-s flex w-[130px] items-center text-neutral-rich-gray">Open Source</span>
                 <span className="body-s text-neutral-off-black">{others.isPublic ? 'Yes' : 'No'}</span>
               </div>
               {arrowIcon}
-            </div>
+            </div> */}
           </div>
-
           <div className="flex flex-col  gap-6 text-left">
-            <div className="flex min-h-[102px]  flex-col gap-2 rounded-[8px] border border-neutral-light-gray px-6 py-3">
+            <div
+              className="flex h-[96px] items-center justify-between rounded-[8px] border border-neutral-light-gray p-6"
+              onClick={() => gotoStep(3)}
+            >
+              <div className="flex flex-1 items-center">
+                <span className="body-s flex w-[130px] items-center text-neutral-rich-gray">Pitch Video</span>
+                {formState.projectDemo && (
+                  <Image
+                    src={'/images/icons/video_icon.png'}
+                    alt="demo video"
+                    width={48}
+                    height={48}
+                    className="rounded-[10px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.12)]"
+                  />
+                )}
+              </div>
+              {arrowIcon}
+            </div>
+            <div
+              className="flex h-[96px] items-center justify-between rounded-[8px] border border-neutral-light-gray p-6"
+              onClick={() => gotoStep(3)}
+            >
+              <div className="flex flex-1 items-center">
+                <span className="body-s flex w-[130px] items-center text-neutral-rich-gray">Pitch Video</span>
+                {formState.projectDemo && (
+                  <Image
+                    src={'/images/icons/video_icon.png'}
+                    alt="demo video"
+                    width={48}
+                    height={48}
+                    className="rounded-[10px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.12)]"
+                  />
+                )}
+              </div>
+              {arrowIcon}
+            </div>
+            <div className="flex h-[100px]  flex-col gap-2 rounded-[8px] border border-neutral-light-gray px-6 py-3">
               <div
                 className="body-s flex cursor-pointer items-center justify-between text-neutral-rich-gray"
                 onClick={() => gotoStep(0)}
               >
-                <span>One Line Introduction</span>
+                <span>Other Info</span>
                 {arrowIcon}
               </div>
-              <p className="caption-12pt text-left text-neutral-off-black">{formState.info.intro}</p>
-            </div>
-            <div className="flex min-h-[236px]  flex-col gap-2 rounded-[8px] border border-neutral-light-gray px-6 py-3">
-              <div
-                className="body-s flex cursor-pointer items-center justify-between text-neutral-rich-gray"
-                onClick={() => gotoStep(0)}
-              >
-                <span>Detailed Introduction</span>
-                {arrowIcon}
+              <div className="flex flex-1 items-center justify-between">
+                <span className="body-xs flex items-center  text-neutral-rich-gray">Github</span>
+                <span className="body-xs text-neutral-off-black">{others.githubLink}</span>
               </div>
-              <p className="caption-12pt text-left text-neutral-off-black">{formState.info.detailedIntro}</p>
+              <div className="flex flex-1 items-center justify-between">
+                <span className="body-xs flex items-center  text-neutral-rich-gray">Open Source</span>
+                <span className="body-xs text-neutral-off-black">{others.isPublic ? 'Yes' : 'No'}</span>
+              </div>
             </div>
-            <div className="flex min-h-[102px]  flex-col gap-4 rounded-[8px] border border-neutral-light-gray px-6 py-3">
+            <div className="flex h-[86px]  flex-col gap-4 rounded-[8px] border border-neutral-light-gray px-6 py-3">
               <div
                 className="body-s flex cursor-pointer items-center justify-between text-neutral-rich-gray"
                 onClick={() => gotoStep(4)}

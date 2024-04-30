@@ -44,7 +44,7 @@ export interface HackathonType {
   image: string;
   about: string;
   theme: string;
-  participants: string[];
+  participants: number;
   hosts: Omit<MentorType, 'title'>[];
   coHosts: Omit<MentorType, 'title'>[];
   startTime: string;
@@ -63,6 +63,7 @@ export interface HackathonType {
   schedule: HackathonScheduleType[];
   participation?: HackathonRegisterInfo;
   members: HackathonMemberType[];
+  version: string;
 }
 
 export interface HackathonDataType {
@@ -78,6 +79,7 @@ export type ProjectType = {
   introduction: string;
   team: string;
   hackathonId: string;
+  location: string;
   hackathonName: string;
   prizeTrack: string;
   tracks: string[];
@@ -247,6 +249,7 @@ export interface ProjectSubmitBody {
   video?: string;
   demo?: string;
   introduction?: string;
+  location?: ProjectLocation;
   githubLink?: string;
   isOpenSource?: boolean;
   wallet?: string;
@@ -254,4 +257,12 @@ export interface ProjectSubmitBody {
   team?: string;
   tracks?: string[];
   creatorId?: string;
+}
+
+export enum ProjectLocation {
+  AMERICAS = 'AMERICAS',
+  ASIA_PACIFIC = 'ASIA_PACIFIC',
+  EUROPE = 'EUROPE',
+  MIDDLE_EAST_AFRICA = 'MIDDLE_EAST_AFRICA',
+  OTHER = 'OTHER'
 }

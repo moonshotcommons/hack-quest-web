@@ -3,7 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Form } from '@/components/ui/form';
 import Button from '@/components/Common/Button';
 import { FC, memo, useContext, useEffect, useState } from 'react';
 import { FormComponentProps } from '..';
@@ -20,20 +20,23 @@ import { useRequest } from 'ahooks';
 import { errorMessage } from '@/helper/ui';
 import webApi from '@/service';
 import { useRedirect } from '@/hooks/router/useRedirect';
-import { HACKATHON_SUBMIT_STEPS } from '../../constants';
+import { HACKATHON_SUBMIT_STEPS, LOCATIONS } from '../../constants';
 import { ProjectSubmitStepType } from '@/service/webApi/resourceStation/type';
 import { LangContext } from '@/components/Provider/Lang';
 import { isEqual } from 'lodash-es';
-import { SelectContent, SelectItem, SelectTrigger, SelectValue, Select } from '@/components/ui/select';
+import CustomSelectField from '@/components/Web/Business/CustomSelectField';
 
 const formSchema = z.object({
   projectLogo: z.string().url(),
   projectName: z.string().min(1, {
     message: 'Project Name must be at least 2 characters.'
   }),
-  track: z.string().min(2, {
-    message: 'You need to select a track.'
-  }),
+  location: z.string().min(1),
+  prizeTrack: z.string().min(1),
+  track: z.string().min(1),
+  // track: z.string().min(2, {
+  //   message: 'You need to select a track.'
+  // }),
   intro: z
     .string()
     .min(1, {
@@ -64,8 +67,10 @@ const InfoForm: FC<
       projectLogo: '',
       projectName: '',
       intro: '',
+      location: info.location,
+      prizeTrack: info.prizeTrack,
       detailedIntro: '',
-      track: ''
+      track: info.track
     }
   });
   const [logo, setLogo] = useState<UploadFile | null>(null);
@@ -82,9 +87,11 @@ const InfoForm: FC<
           : status;
 
       const formData = new FormData();
-      const { projectName, track, detailedIntro, intro } = values;
+      const { projectName, track, detailedIntro, intro, prizeTrack, location } = values;
       formData.append('name', projectName);
-      formData.append('prizeTrack', track);
+      formData.append('prizeTrack', prizeTrack);
+      formData.append('tracks[]', track);
+      formData.append('location', location);
       formData.append('description', detailedIntro);
       formData.append('introduction', intro);
       formData.append('hackathonId', simpleHackathonInfo.id);
@@ -128,19 +135,21 @@ const InfoForm: FC<
   }
 
   useEffect(() => {
-    const { intro, detailedIntro, projectName, projectLogo, track } = info!;
+    const { intro, detailedIntro, projectName, projectLogo, track, prizeTrack, location } = info!;
     form.setValue('intro', intro);
     form.setValue('detailedIntro', detailedIntro);
     form.setValue('projectName', projectName);
     form.setValue('projectLogo', projectLogo);
     form.setValue('track', track as string);
-    if (intro && detailedIntro && projectName && projectLogo && track) form.trigger();
+    form.setValue('location', location as string);
+    form.setValue('prizeTrack', prizeTrack as string);
+    if (intro && detailedIntro && projectName && projectLogo && track && location && prizeTrack) form.trigger();
   }, [info]);
 
   return (
     <div>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-6">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="flex w-full flex-col gap-6">
           <div className="flex justify-between gap-4">
             <LogoUpload form={form} onFileChange={setLogo} />
             <div className="flex-1">
@@ -152,31 +161,60 @@ const InfoForm: FC<
               />
             </div>
           </div>
-          {/* <ProjectTrackRadio form={form} tracks={tracks} /> */}
-          <FormField
-            control={form.control}
-            name="track"
-            render={({ field }) => (
-              <FormItem onChange={() => {}}>
-                <FormLabel className="body-m text-[16px] font-normal leading-[160%] text-neutral-rich-gray">
-                  Email
-                </FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
-                  <FormControl>
-                    <SelectTrigger className="!body-m h-[50px] px-3">
-                      <SelectValue placeholder="Select a verified email to display" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    <SelectItem value="m@example.com">m@example.com</SelectItem>
-                    <SelectItem value="m@google.com">m@google.com</SelectItem>
-                    <SelectItem value="m@support.com">m@support.com</SelectItem>
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          <CustomSelectField
+            form={form}
+            label="Where are you located?"
+            name="location"
+            placeholder="Please select"
+            items={LOCATIONS}
+          ></CustomSelectField>
+
+          <div className="flex w-full justify-between gap-4">
+            <div className="flex-1">
+              <CustomSelectField
+                form={form}
+                label="Which Prize Track Do You Belong To"
+                name="track"
+                placeholder="Please select"
+                items={[
+                  {
+                    label: 'Defi',
+                    value: 'Defi'
+                  },
+                  {
+                    label: 'NFT',
+                    value: 'NFT'
+                  },
+                  {
+                    label: 'GameFi',
+                    value: 'GameFi'
+                  },
+                  {
+                    label: 'SociFi',
+                    value: 'SociFi'
+                  },
+                  {
+                    label: 'Infra',
+                    value: 'Infra'
+                  }
+                ]}
+              />
+            </div>
+            <div className="flex-1">
+              <CustomSelectField
+                form={form}
+                label="Which Hackathon Track Do You Belong To"
+                name="prizeTrack"
+                placeholder="Please select"
+                items={tracks.map((track) => {
+                  return {
+                    label: track,
+                    value: track
+                  };
+                })}
+              />
+            </div>
+          </div>
 
           <IntroName form={form} />
           <DetailIntroName form={form} />
