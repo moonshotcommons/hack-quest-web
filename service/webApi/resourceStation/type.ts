@@ -174,6 +174,7 @@ export interface HackathonRegisterProjectInfo {
 }
 export interface HackathonRegisterInfo {
   id: string;
+  email: string;
   hackathonId: string;
   userId: string;
   firstName: string | null;
@@ -196,6 +197,7 @@ export interface RegisterInfoBody {
   lastName?: string | null;
   weChat?: string | null;
   telegram?: string | null;
+  email?: string;
   bio?: string | null;
   status?: HackathonRegisterStep;
 }

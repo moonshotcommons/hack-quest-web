@@ -3,7 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { Form } from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import Button from '@/components/Common/Button';
 import { FC, memo, useContext, useEffect, useState } from 'react';
 import { FormComponentProps } from '..';
@@ -12,7 +12,6 @@ import CustomFormField from '@/components/Web/Business/CustomFormField';
 import { HackathonSubmitStateType } from '../../../type';
 
 import LogoUpload from './LogoUpload';
-import ProjectTrackRadio from './ProjectTrackRadio';
 import IntroName from './IntroName';
 import DetailIntroName from './DetailIntroName';
 import { UploadFile } from 'antd';
@@ -25,6 +24,7 @@ import { HACKATHON_SUBMIT_STEPS } from '../../constants';
 import { ProjectSubmitStepType } from '@/service/webApi/resourceStation/type';
 import { LangContext } from '@/components/Provider/Lang';
 import { isEqual } from 'lodash-es';
+import { SelectContent, SelectItem, SelectTrigger, SelectValue, Select } from '@/components/ui/select';
 
 const formSchema = z.object({
   projectLogo: z.string().url(),
@@ -152,7 +152,32 @@ const InfoForm: FC<
               />
             </div>
           </div>
-          <ProjectTrackRadio form={form} tracks={tracks} />
+          {/* <ProjectTrackRadio form={form} tracks={tracks} /> */}
+          <FormField
+            control={form.control}
+            name="track"
+            render={({ field }) => (
+              <FormItem onChange={() => {}}>
+                <FormLabel className="body-m text-[16px] font-normal leading-[160%] text-neutral-rich-gray">
+                  Email
+                </FormLabel>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <FormControl>
+                    <SelectTrigger className="!body-m h-[50px] px-3">
+                      <SelectValue placeholder="Select a verified email to display" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="m@example.com">m@example.com</SelectItem>
+                    <SelectItem value="m@google.com">m@google.com</SelectItem>
+                    <SelectItem value="m@support.com">m@support.com</SelectItem>
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
           <IntroName form={form} />
           <DetailIntroName form={form} />
           <div className="flex justify-end gap-4">

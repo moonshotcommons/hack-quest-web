@@ -1,6 +1,7 @@
 import { HackathonRegisterStep, HackathonTeam, HackathonTeamDetail } from '@/service/webApi/resourceStation/type';
 
 export interface ContractInfo {
+  email?: string;
   weChat?: string;
   telegram?: string;
 }
