@@ -35,6 +35,7 @@ const isNoNeedUserInfoDetail = (pathname: string) => {
     MenuLink.HACKDEGALAXY,
     MenuLink.PARTNERS,
     MenuLink.PRESS_KIT,
+    MenuLink.NTU_COURSE,
     '/hackquest/'
   ].some((menu) => pathname.includes(menu));
 };

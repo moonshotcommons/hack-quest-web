@@ -73,7 +73,9 @@
       "projects": "Projects",
       "projectsDesc": "Learn how to build a project step by step",
       "courseMarket": "Course Market",
-      "courseMarketDesc": ""
+      "courseMarketDesc": "",
+      "ntuCourse":"Ntu Course",
+      "ntuCourseDesc":"Ntu course desc"
     },
     "reward": {
       "title": "Reward",
@@ -155,7 +157,10 @@
   },
   "resultsFor": "Results for",
   "showAll":"Show All",
+  "showMore":"Show More",
   "showLess":"Show Less",
+  "readMore":"Read more",
+  "readLess":"Read less",
   "ended":"Ended",
   "address":"Address",
   "handleButtonText": {
