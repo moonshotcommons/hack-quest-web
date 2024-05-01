@@ -74,8 +74,8 @@
       "projectsDesc": "Learn how to build a project step by step",
       "courseMarket": "Course Market",
       "courseMarketDesc": "",
-      "ntuCourse":"Ntu Course",
-      "ntuCourseDesc":"Ntu course desc"
+      "ntuCourse": "Web3MOOC",
+      "ntuCourseDesc": "Web3MOOC"
     },
     "reward": {
       "title": "Reward",
@@ -157,11 +157,11 @@
     "deviceAccess": "Access on mobile and desktop"
   },
   "resultsFor": "Results for",
-  "showMore":"Show More",
-  "showLess":"Show Less",
-  "readMore":"Read more",
-  "readLess":"Read less",
-  "ended":"Ended",
+  "showMore": "Show More",
+  "showLess": "Show Less",
+  "readMore": "Read more",
+  "readLess": "Read less",
+  "ended": "Ended",
   "showAll": "Show All",
   "address": "Address",
   "handleButtonText": {
