@@ -1,9 +1,7 @@
+import speakersAvatar0 from '@/public/images/learn/speaker_avatar0.jpg';
 import speakersAvatar1 from '@/public/images/learn/speaker_avatar1.png';
 import speakersAvatar2 from '@/public/images/learn/speaker_avatar2.png';
-import speakersAvatar3 from '@/public/images/learn/speaker_avatar3.png';
 import speakersAvatar4 from '@/public/images/learn/speaker_avatar4.png';
-import speakersAvatar5 from '@/public/images/learn/speaker_avatar5.png';
-import speakersAvatar6 from '@/public/images/learn/speaker_avatar6.png';
 import speakersAvatar7 from '@/public/images/learn/speaker_avatar7.png';
 import speakersAvatar8 from '@/public/images/learn/speaker_avatar8.png';
 import speakersAvatar9 from '@/public/images/learn/speaker_avatar9.png';
@@ -12,13 +10,15 @@ import speakersAvatar11 from '@/public/images/learn/speaker_avatar11.png';
 import speakersAvatar12 from '@/public/images/learn/speaker_avatar12.png';
 import speakersAvatar13 from '@/public/images/learn/speaker_avatar13.png';
 import speakersAvatar14 from '@/public/images/learn/speaker_avatar14.png';
+import speakersAvatar15 from '@/public/images/learn/speaker_avatar15.png';
 import MorphLogo from '@/public/images/learn/Morph_logo.png';
 import OpenCampusLogo from '@/public/images/learn/Open_Campus_logo.png';
 import ByteTradeLabLogo from '@/public/images/learn/ByteTrade_Lab_logo.png';
 import SolanaFoundationLogo from '@/public/images/learn/Solana_Foundation_logo.png';
 import MaskNetworkLogo from '@/public/images/learn/Mask_Network_logo.png';
 import MoonshotCommonsLogo from '@/public/images/learn/Moonshot_Commons_logo.png';
-import { FaDiscord, FaTelegram, FaWhatsapp } from 'react-icons/fa6';
+import { FaDiscord, FaTelegram } from 'react-icons/fa6';
+import { HACKQUEST_DISCORD, HACKQUEST_TELEGRAM } from '@/constants/links';
 
 export const titleTxtData = [
   'ntuCourse.title.overview',
@@ -31,48 +31,40 @@ export const titleTxtData = [
 ];
 
 export const overviewData = {
-  name: 'Ideating and Building in Web3 MOOC',
+  name: 'ntuCourse.overview.title',
   time: '6.5/21/2024 - 8/6/2024 (12 sessions)',
   format: 'Hybrid (In-person at NTU and Online on Zoom link)',
   discussionGroups: [
     {
       name: 'Discord',
       icon: (size = 24) => <FaDiscord color="#5865F2" size={size} />,
-      link: ''
+      link: HACKQUEST_DISCORD
     },
     {
       name: 'Telegram',
       icon: (size = 24) => <FaTelegram color="#2AABEE" size={size} />,
-      link: ''
-    },
-    {
-      name: 'WhatsApp',
-      icon: (size = 24) => <FaWhatsapp color="#25D366" size={size} />,
-      link: ''
+      link: HACKQUEST_TELEGRAM
     }
+    // {
+    //   name: 'WhatsApp',
+    //   icon: (size = 24) => <FaWhatsapp color="#25D366" size={size} />,
+    //   link: ''
+    // }
   ],
   registerLink: ''
 };
 
 export const classTimeData = {
-  class: '9:30-11 am SGT / 8:30-10 pm EST Every Tuesday from 5/21-8/13/2024',
-  discussionMentorship: '11:00-11:30 am SGT / 10-10:30 pm EST'
+  class: '9-10 am SGT Tuesday / 9-10 pm EST Monday from 5/27-8/27/2024',
+  discussionMentorship: '10-10:30 am SGT / 10-10:30 pm EST'
 };
 
 export const syllabusData = [
   {
-    name: 'Web3 Fundamentals',
-    time: '',
-    description: '',
-    speaker: '',
-    video: '',
-    slide: '',
-    expand: false
-  },
-  {
-    name: 'Introduction to Blockchain and Smart Contracts - A Technical Perspective',
-    time: '',
-    description: '',
+    name: 'Introduction to Blockchain and Smart Contracts: A Technical Perspective',
+    time: '5.28.2024 SGT / 5.27.2024 EST',
+    description:
+      'Blockchain technology promises to disrupt the current business landscape through consensus-driven decentralization of the traditional computing fabric. In this session, we will go through the core technical aspects of blockchain and smart contracts, introduce basic concepts such as cryptographic hash function, hash pointers, consensus protocols, and how the Bitcoin blockchain is constructed with these building blocks. We will also discuss and explain smart contracts and how they are powering decentralized applications in various domains.',
     speaker: 'Dr. Li Yi, School of Computer Science and Engineering, NTU',
     video: '',
     slide: '',
@@ -80,98 +72,106 @@ export const syllabusData = [
   },
   {
     name: 'Web2 to Web3: A Developer’s Guide',
-    time: '',
-    description: '',
-    speaker: '',
+    time: '6.4.2024 SGT / 6.3.2024 EST',
+    description:
+      'This introductory session is dedicated to bridging the gap between Web2 and Web3. In this session, students will review key Web3 concepts, learn key differences between Web2 and Web3, explore the Ethereum ecosystem, and discover how to begin building in this transformative new space as a Web3 developer.',
+    speaker: 'Austin Griffith, Ethereum Foundation',
     video: '',
     slide: '',
     expand: false
   },
   {
     name: 'Web3 Landscape (I): Infrastructure',
-    time: '',
-    description: '',
-    speaker: '',
+    time: '6.11.2024 SGT / 6.10.2024 EST',
+    description:
+      'Gain a comprehensive understanding of the current Web3 ecosystem. Explore different blockchain ecosystems and key protocols and standards, with an emphasis on infrastructure.',
+    speaker: 'Dr. Michael Yuan, Gaianet',
     video: '',
     slide: '',
     expand: false
   },
   {
     name: 'Web3 Landscape (II): DeFi',
-    time: '',
-    description: '',
-    speaker: '',
-    video: '',
-    slide: '',
-    expand: false
-  },
-  {
-    name: 'Web3 Landscape (III): NFT, GameFi',
-    time: '',
-    description: '',
-    speaker: '',
-    video: '',
-    slide: '',
-    expand: false
-  },
-  {
-    name: 'How to Find a Good Idea',
-    time: '',
-    description: '',
-    speaker: '',
-    video: '',
-    slide: '',
-    expand: false
-  },
-  {
-    name: 'Protocol and Product Design',
-    time: '',
-    description: '',
-    speaker: '',
+    time: '6.18.2024 SGT / 6.17.2024 EST',
+    description:
+      'Gain a comprehensive understanding of the current Web3 ecosystem. Explore different blockchain ecosystems and key protocols and standards, with an emphasis on DeFi.',
+    speaker: 'Anna Yuan, Solana Foundation',
     video: '',
     slide: '',
     expand: false
   },
   {
     name: 'Cross-Chain Future: Smart Contract and Interoperability',
-    time: '',
-    description: '',
-    speaker: '',
+    time: '6.25.2024 SGT / 6.24.2024 EST',
+    description:
+      'This session will focus on the future of blockchains and how smart contracts can interact with each other across different blockchain ecosystems to solve the challenges of blockchain scaling and interoperability. ',
+    speaker: 'Dr. Sergey Gorbunov, Axelar',
     video: '',
     slide: '',
     expand: false
   },
   {
-    name: 'AI in Web3',
-    time: '',
-    description: '',
-    speaker: '',
+    name: `Blockchain Beyond the Basics: Reimagine What's Possible`,
+    time: '7.2.2024 SGT / 7.1.2024 EST',
+    description: `This session will dive deep into the various cool projects and functionalities that shatter Web2's limitations and go beyond what's possible today through the power of decentralized technology.`,
+    speaker: 'Gloria Kimbwala, Morph',
+    video: '',
+    slide: '',
+    expand: false
+  },
+  {
+    name: 'How to Find a Good Idea',
+    time: '7.9.2024 SGT / 7.8.2024 EST',
+    description:
+      'Want to build a Web3 project but don’t have an idea in mind yet? This session will equip aspiring founders with the knowledge, frameworks, tools, and techniques to identify the most groundbreaking ideas in Web3 and ideate on what’s most interesting and relevant to them.',
+    speaker: 'Scott Moore, Gitcoin',
+    video: '',
+    slide: '',
+    expand: false
+  },
+  {
+    name: 'Pitching and Fundraising in Web3',
+    time: '7.16.2024 SGT / 7.15.2024 EST',
+    description: `	
+    Learn how to effectively communicate the value proposition of a Web3 project to potential investors and the broader community. Dive into crafting a compelling narrative, structuring a winning pitch deck, and navigating the fundraising process with confidence. Explore popular fundraising mechanisms like Initial Coin Offerings (ICOs), Initial DEX Offerings (IDOs), Initial Exchange Offerings (IEOs), and venture capital funding.`,
+    speaker: 'Jaime Burke, Outlier Ventures',
     video: '',
     slide: '',
     expand: false
   },
   {
     name: 'Fintech in Web3',
+    time: '7.30.2024 SGT / 7.29.2024 EST',
+    description:
+      'An overview of the different areas of finance and their Web3 equivalents, such as payment, wealth management, and financing. We will discuss how Web3 is being applied across finance by startups as well as banks.',
+    speaker: 'Dr. Ernie Teo, College of Business, NTU',
+    video: '',
+    slide: '',
+    expand: false
+  },
+  {
+    name: 'Protocol and Product Design and Management',
     time: '',
-    description: '',
+    description: `Focus on crafting a user-centric and engaging experience for the Web3 project. Discuss user interface (UI) and user experience (UX) design principles specific to Web3 applications. Develop wireframes and prototypes to visualize the Web3 app's user flow. Design a user-friendly interface that interacts seamlessly with blockchain features.`,
     speaker: '',
     video: '',
     slide: '',
     expand: false
   },
   {
-    name: 'Pitching and Fundraising',
+    name: 'How to Build an Investable Web3 Project',
     time: '',
-    description: '',
-    speaker: '',
+    description: `Have a vision but don’t know how to turn it into reality? This session guides you to turn an idea into an investable Web3 project, from crafting a compelling narrative that investors can’t say no to developing a winning tokenomics model to structuring win-win terms and deals.`,
+    speaker: 'Abhishek Saxena, Polygon Ventures',
     video: '',
     slide: '',
     expand: false
   },
   {
-    name: 'User Research, Discovery, and Validation',
+    name: 'Decentralized AI',
     time: '',
-    description: '',
+    description:
+      'AI has been one of the hottest trends and narratives over the last few years. The revolutionary technology carries immense potential but also significant centralization risks in the meantime. This session focuses on the intersection of AI and Blockchain, introducing users to how DAI fosters transparency, reduces bias, and paves the way for a future of shared intelligence.',
     speaker: '',
     video: '',
     slide: '',
@@ -180,7 +180,17 @@ export const syllabusData = [
   {
     name: 'Incentive Design and Tokenomics',
     time: '',
-    description: '',
+    description: `Dive into the core concepts of incentive design and tokenomics within Web3. We'll explore how to create a system of incentives that aligns with the goals of the project and motivates stakeholders to participate in a way that benefits the overall ecosystem. Learn about different token types (utility, security), token distribution models, and the economic forces influencing token value.`,
+    speaker: '',
+    video: '',
+    slide: '',
+    expand: false
+  },
+  {
+    name: 'User Research, Discovery, and Validation',
+    time: '',
+    description:
+      'Learn how to transform a Web3 idea into a validated project. Dive into user research strategies, including prototyping, user testing, and gathering community feedback to refine the concept and ensure that it meets user needs.',
     speaker: '',
     video: '',
     slide: '',
@@ -189,7 +199,8 @@ export const syllabusData = [
   {
     name: 'Web3 Pricing and Business Models',
     time: '',
-    description: '',
+    description:
+      'Dive into various pricing and business models and assess the best fit through research and experimentation. Examples to consider: user-based, usage-based, feature-based, value-based, transaction-based, revenue-share, services-based, dynamic, and subscription.',
     speaker: '',
     video: '',
     slide: '',
@@ -198,7 +209,8 @@ export const syllabusData = [
   {
     name: 'Go-to-Market / Go-to-Community Strategies',
     time: '',
-    description: '',
+    description:
+      'Learn to develop a comprehensive marketing and community-building strategy targeting an identified user base. Craft a go-to-market plan that outlines the launch timeline, marketing channels, and community engagement activities.',
     speaker: '',
     video: '',
     slide: '',
@@ -207,7 +219,8 @@ export const syllabusData = [
   {
     name: 'Legal and Regulatory',
     time: '',
-    description: '',
+    description:
+      'Address the legal and regulatory landscape surrounding Web3. Discuss topics such as token classification, security regulations, and DAO governance.',
     speaker: '',
     video: '',
     slide: '',
@@ -216,6 +229,13 @@ export const syllabusData = [
 ];
 
 export const guestSpeakersData = [
+  {
+    showMore: false,
+    name: 'Dr. Edward W. Felten',
+    img: speakersAvatar0,
+    description:
+      "Edward is the Co-Founder and Chief Scientist at Offchain Labs, the team building Arbitrum. He is also the Robert E. Kahn Professor of Computer Science and Public Affairs and the founding director of Princeton's Center for Information Technology Policy. Previously, he served as the first Chief Technologist for the Federal Trade Commission in 2011-12 and Deputy U.S. Chief Technology Officer at the White House in 2015. His research interests include computer security and privacy, especially relating to media and consumer products; and technology law and policy. He has published about 80 papers in the research literature and two books. His research on topics such as web security, copyright and copy protection, and electronic voting has been covered extensively in the popular press. His weblog, at freedom-to-tinker.com, is widely read for its commentary on technology, law and policy. Professor Felten is a member of the National Academy of Engineering and the American Academy of Arts and Sciences, and is a fellow of the ACM. He has testified at House and Senate committee hearings on privacy, electronic voting and digital television. In 2004, Scientific American magazine named him to its list of 50 worldwide science and technology leaders."
+  },
   {
     showMore: false,
     name: 'Scott Moore',
@@ -230,53 +250,59 @@ export const guestSpeakersData = [
     description:
       'Sergey is the Co-Founder and Chief Executive Officer of Axelar and an Assistant Professor at the University of Waterloo. He was previously a founding team member at Algorand. He received his Ph.D. from MIT, where he was a Microsoft Ph.D. fellow. His Ph.D. dissertation was on designing cryptographic tools for the cloud using lattice-based cryptography.'
   },
-  {
-    showMore: false,
-    name: 'Harry Kalodner',
-    img: speakersAvatar3,
-    description:
-      'Harry Kalodner is the Co-Founder and Chief Technology Officer at Offchain Labs where he leads the engineering team. Before the company he attended Princeton as a PhD candidate where his research explored economics, anonymity, and incentive compatibility of cryptocurrencies. When not up at 3:00am writing code, Harry occasionally sleeps.'
-  },
+  // {
+  //   showMore: false,
+  //   name: 'Harry Kalodner',
+  //   img: speakersAvatar3,
+  //   description:
+  //     'Harry Kalodner is the Co-Founder and Chief Technology Officer at Offchain Labs where he leads the engineering team. Before the company he attended Princeton as a PhD candidate where his research explored economics, anonymity, and incentive compatibility of cryptocurrencies. When not up at 3:00am writing code, Harry occasionally sleeps.'
+  // },
   {
     showMore: false,
     name: 'Yat Siu',
     img: speakersAvatar4,
     description:
-      'Yat is the Co-founder and Executive Chairman of Animoca Brands, a global leader in blockchain and gaming, behind the games The Sandbox, Crazy Kings and Crazy Defense Heroes. Yat Siu is also the founder and CEO of Outblaze, a tech conglomerate specialising in cloud, gaming, and smartphone software.'
+      'Yat is the Co-founder and Executive Chairman of Animoca Brands, a global leader in blockchain and gaming, behind the games The Sandbox, Crazy Kings and Crazy Defense Heroes. Yat is also the founder and CEO of Outblaze, a tech conglomerate specializing in cloud, gaming, and smartphone software.'
   },
-  {
-    showMore: false,
-    name: 'Jonah Lau',
-    img: speakersAvatar5,
-    description:
-      'Jonah is the Head of Product at Animoca Brands and Open Campus, a community-led protocol building a decentralized education ecosystem with products such as Open Campus ID, Publisher NFTs, OC Accelerator, and OC Alliance. Previously, Jonah served as the Product Lead at Magic Eden, SVP of Product at Crypto.com, and co-founder of Clickful (exited in 2019). He attended The London School of Economics and Political Science (LSE).'
-  },
-  {
-    showMore: false,
-    name: 'Mohamed Ezeldin',
-    img: speakersAvatar6,
-    description:
-      "Mo is the Head of Tokenomics at Animoca Brands. A mathematician by training, Mo's passion is building tomorrow's economies today, through tokenisation and developing new economical and governance based frameworks and has been working deep in tokenomics space since 2018 and founded the tokenomics department at Animoca Brands on early 2021. Mo leads a global team that has driven dozens of projects for Animoca Brands and their portfolio companies including ApeCoin, Open Campus, Life Beyond, Grapes, and OMA3."
-  },
+  // {
+  //   showMore: false,
+  //   name: 'Jonah Lau',
+  //   img: speakersAvatar5,
+  //   description:
+  //     'Jonah is the Head of Product at Animoca Brands and Open Campus, a community-led protocol building a decentralized education ecosystem with products such as Open Campus ID, Publisher NFTs, OC Accelerator, and OC Alliance. Previously, Jonah served as the Product Lead at Magic Eden, SVP of Product at Crypto.com, and co-founder of Clickful (exited in 2019). He attended The London School of Economics and Political Science (LSE).'
+  // },
+  // {
+  //   showMore: false,
+  //   name: 'Mohamed Ezeldin',
+  //   img: speakersAvatar6,
+  //   description:
+  //     "Mo is the Head of Tokenomics at Animoca Brands. A mathematician by training, Mo's passion is building tomorrow's economies today, through tokenisation and developing new economical and governance based frameworks and has been working deep in tokenomics space since 2018 and founded the tokenomics department at Animoca Brands on early 2021. Mo leads a global team that has driven dozens of projects for Animoca Brands and their portfolio companies including ApeCoin, Open Campus, Life Beyond, Grapes, and OMA3."
+  // },
   {
     showMore: false,
     id: '7',
     name: 'Austin Griffith',
     img: speakersAvatar7,
-    description: `Austin works for the Ethereum Foundation focusing on developer onboarding, mentoring, and tooling. Dubbed by Vitalik "The Quadratic Freelancer,” Austin funds his own personal income by founding BuidlGuidl, Scaffold-ETH, SpeedRunEthereum, eth.build, and many other cool projects.`
+    description: `Austin works for the Ethereum Foundation focusing on developer onboarding, mentoring, and tooling. Dubbed by Vitalik "The Quadratic Freelancer,” Austin funds his own personal income by founding BuidlGuidl, Scaffold-ETH, SpeedRunEthereum, eth.build, and many other cool projects. Previously, Austin led Research at Gitcoin.`
   },
   {
     showMore: false,
-    name: 'Azeem Khan',
+    name: 'Gloria Kimbwala',
     img: speakersAvatar8,
-    description: `Azeem is the Co-founder of the Ethereum Layer 2, Morph. Celebrated as one of the "2023 Faces of Crypto Philanthropy" by The Giving Block, Azeem's contributions to philanthropy in the crypto sector are widely acknowledged. He's also a consultant to the UNICEF Crypto Fund and is working closely with Mercy Corps on Gaza relief efforts.`
+    description: `Gloria is the Director of Global Events of the Ethereum Layer 2, Morph. Previously, Gloria led Builder Relations and Global Events at Gitcoin. Gloria has dedicated the last 15 years of her career to creating an inclusive culture in technology around the globe. She believes that the best innovation happens when people can be their most authentic self and bring their unique perspective to technology.`
   },
+  // {
+  //   showMore: false,
+  //   name: 'Azeem Khan',
+  //   img: speakersAvatar8,
+  //   description: `Azeem is the Co-founder of the Ethereum Layer 2, Morph. Celebrated as one of the "2023 Faces of Crypto Philanthropy" by The Giving Block, Azeem's contributions to philanthropy in the crypto sector are widely acknowledged. He's also a consultant to the UNICEF Crypto Fund and is working closely with Mercy Corps on Gaza relief efforts.`
+  // },
   {
     showMore: false,
     name: 'Anna Yuan',
     img: speakersAvatar9,
     description:
-      'Anna is the Growth Lead, Stablecoins and International Markets of Solana Foundation, where she focuses on stablecoins and international markets and works with centralized exchanges, market makers, fiat ramps, and issuers to increase stablecoin accessibility and liquidity. Previously, Anna was the Chief of Staff at Sino-Canada School and a McKinsey consultant. She holds an MBA from Harvard Business School and a BA from the University of Chicago.'
+      'Anna is the Growth Lead, Stablecoins and International Markets of Solana Foundation, where she focuses on stablecoins and international markets and works with centralized exchanges, market makers, fiat ramps, and issuers to increase stablecoin accessibility and liquidity. Previously, Anna was the Chief of Staff at Sino-Canada School and a McKinsey Consultant. She holds an MBA from Harvard Business School and a BA from the University of Chicago.'
   },
   {
     showMore: false,
@@ -284,6 +310,13 @@ export const guestSpeakersData = [
     img: speakersAvatar10,
     description:
       'As an early investor in Bitcoin and Ether, Jamie went ‘all in’ during 2013 founding Outlier Ventures, Europe’s 1st venture fund and platform dedicated to blockchain and Web 3. Since then, he has grown OV to the leading global Web3 accelerator and founder community (by volume) and most active Web3 investor globally by volume of investments. The team has built a portfolio including industry-defining projects such as Brave Browser, Fetch.ai, Ocean Protocol, DIA Data, Enigma / Secret Network.'
+  },
+  {
+    showMore: false,
+    name: 'Abhishek Saxena',
+    img: speakersAvatar15,
+    description:
+      'Abhishek is the Investment Lead and Principal of P2 Ventures, a blockchain-focused venture capital firm spun out from Polygon Labs. Previously, Abhishek was a Product Manager at Apple and InMobi and part of the core team at OneDirect, a B2B SaaS solution backed by Sequoia. He holds an MBA from Harvard Business School and a BT in Mechanical Engineering from Indian Institute of Technology, Kanpur.'
   },
   {
     showMore: false,
@@ -297,7 +330,7 @@ export const guestSpeakersData = [
     name: 'Dr. Michael Yuan',
     img: speakersAvatar12,
     description:
-      'Dr. Michael Yuan is the Founder of Gaianet, a decentralized GenAI agents network, and an advisor at ByteTrade. A astrophysicist (with a PhD focused on blackhole research from the University of Texas) by training, Dr. Yuan has always been a scientist at heart. In recent years, his research has focused on digital health, incorporating lifestyle, behavioral, and genomic insights to improve clinical practices. His research is funded by prestigious organizations including the National Institutes of Health and the Center for Medicare and Medicaid Innovation. Aside from research and academic papers, Dr. Yuan is also the author of 6 books and over 40 published articles. Previously, Dr. Yuan was the founder of a digital health research firm called Ringful Health, whose pioneering work has received national media acclaim from the Wall Street Journal, New York Times, and Los Angeles Times.'
+      'Dr. Michael Yuan is the Founder of Gaianet, a decentralized GenAI agents network, and an advisor at ByteTrade. A astrophysicist (with a PhD focused on blackhole research from the University of Texas) by training, Dr. Yuan has always been a scientist at heart. In recent years, his research has focused on digital health, incorporating lifestyle, behavioral, and genomic insights to improve clinical practices. His research is funded by prestigious organizations including the National Institutes of Health and the Center for Medicare and Medicaid Innovation. Aside from research and academic papers, Dr. Yuan is also the author of 6 books and over 40 published articles. Previously, Dr. Yuan was the founder of a digital health research firm called Ringful Health, whose pioneering work has received national media acclaim from the Wall Street Journal, New York Times, and Los Angeles Times. '
   },
   {
     showMore: false,
