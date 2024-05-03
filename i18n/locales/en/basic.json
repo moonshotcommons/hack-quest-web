@@ -73,7 +73,9 @@
       "projects": "Projects",
       "projectsDesc": "Learn how to build a project step by step",
       "courseMarket": "Course Market",
-      "courseMarketDesc": ""
+      "courseMarketDesc": "",
+      "ntuCourse": "NTU Web3MOOC",
+      "ntuCourseDesc": "Ideating and Building in Web3"
     },
     "reward": {
       "title": "Reward",
@@ -101,8 +103,9 @@
       "title": "Launch pool"
     },
     "more": {
-      "aboutUs":"About Us",
-      "pressKit":"Press Kit",
+      "aboutUs": "About Us",
+      "pressKit": "Press Kit",
+      "docs": "Docs",
       "title": "More",
       "tools": "TOOLS",
       "playground": "Playground",
@@ -154,18 +157,21 @@
     "deviceAccess": "Access on mobile and desktop"
   },
   "resultsFor": "Results for",
-  "showAll":"Show All",
-  "showLess":"Show Less",
-  "ended":"Ended",
-  "address":"Address",
+  "showMore": "Show More",
+  "showLess": "Show Less",
+  "readMore": "Read more",
+  "readLess": "Read less",
+  "ended": "Ended",
+  "showAll": "Show All",
+  "address": "Address",
   "handleButtonText": {
     "save": "save",
     "exit": "exit"
   },
   "viewMore": "View more",
-  "continueSubmission":"Continue Submission",
-  "register":"Register",
-  "continueRegister":"Continue Register",
-  "youHavesubmitted":"You Have Submitted",
-  "yes":"Yes"
+  "continueSubmission": "Continue Submission",
+  "register": "Register",
+  "continueRegister": "Continue Register",
+  "youHavesubmitted": "You Have Submitted",
+  "yes": "Yes"
 }

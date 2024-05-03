@@ -64,6 +64,12 @@ export const navbarList: NavbarListType[] = [
         label: 'navbar.learn.projects',
         path: MenuLink.PRACTICES,
         description: 'navbar.learn.projectsDesc'
+      },
+      {
+        id: 'ntu',
+        label: 'navbar.learn.ntuCourse',
+        path: MenuLink.NTU_COURSE,
+        description: 'navbar.learn.ntuCourseDesc'
       }
       // {
       // id:'courseMarket',
@@ -142,11 +148,11 @@ export const navbarList: NavbarListType[] = [
     label: 'navbar.launch.title',
     id: 'launch',
     menu: [
-      // {
-      //id:'lanuch-pool',
-      //   label: 'navbar.launch.title',
-      //   path: MenuLink.LAUNCH
-      // }
+      {
+        id: 'lanuch-pool',
+        label: 'navbar.launch.title',
+        path: MenuLink.LAUNCH
+      }
     ]
   },
   {
@@ -161,6 +167,11 @@ export const navbarList: NavbarListType[] = [
             id: 'pressKit',
             label: 'navbar.more.pressKit',
             path: MenuLink.PRESS_KIT
+          },
+          {
+            id: 'docs',
+            label: 'navbar.more.docs',
+            link: `${MenuLink.DOCS}`
           }
         ]
       },

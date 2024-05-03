@@ -18,7 +18,7 @@ import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';
 
 const formSchema = z.object({
-  githubLink: z.string(),
+  githubLink: z.string().min(0).optional(),
   isPublic: z.boolean()
 });
 
@@ -56,7 +56,7 @@ const OthersForm: FC<
         status: newStatus,
         newOtherInfo: {
           isPublic,
-          githubLink
+          githubLink: githubLink || ''
         }
       };
     },
@@ -75,7 +75,7 @@ const OthersForm: FC<
     // setContractInfo();
     if (
       form.getValues('isPublic') === true &&
-      !/^https?:\/\/(www\.)?github\.com\/[^/]+\/?$/.test(form.getValues('githubLink').trim())
+      !/^https?:\/\/(www\.)?github\.com\/[^/]+\/?$/.test((form.getValues('githubLink') || '').trim())
     ) {
       form.setError('githubLink', {
         message: 'Invalid GitHub URL'
@@ -87,15 +87,14 @@ const OthersForm: FC<
 
   useEffect(() => {
     const { githubLink, isPublic } = others!;
-    form.setValue('githubLink', githubLink);
-    console.log(isPublic);
+    githubLink && form.setValue('githubLink', githubLink);
     typeof isPublic === 'boolean' && form.setValue('isPublic', !!isPublic);
     if (githubLink && typeof isPublic === 'boolean') form.trigger();
   }, [others]);
 
   const disable =
     typeof form.getValues('isPublic') !== 'boolean' ||
-    (form.getValues('isPublic') === true && !form.getValues('githubLink').trim());
+    (form.getValues('isPublic') === true && !(form.getValues('githubLink') || '').trim());
 
   return (
     <div>

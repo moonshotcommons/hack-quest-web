@@ -15,9 +15,11 @@ import { useRequest } from 'ahooks';
 import webApi from '@/service';
 import { HackathonRegisterStep } from '@/service/webApi/resourceStation/type';
 import { HACKATHON_SUBMIT_STEPS } from '../../constants';
+import { isEqual } from 'lodash-es';
 
 const formSchema = z
   .object({
+    email: z.string().email(),
     weChat: z.string().optional(),
     telegram: z.string().optional()
   })
@@ -43,6 +45,7 @@ const ContractForm: FC<
           ? HackathonRegisterStep.Bio
           : status;
       const res = await webApi.resourceStationApi.updateHackathonRegisterInfo(simpleHackathonInfo.id, {
+        email: values.email,
         weChat: values.weChat,
         telegram: values.telegram,
         status: newStatus
@@ -52,7 +55,7 @@ const ContractForm: FC<
     {
       manual: true,
       onSuccess({ res, values, status }) {
-        onNext({ contractInfo: { weChat: values.weChat, telegram: values.telegram }, status });
+        onNext({ contractInfo: { weChat: values.weChat, telegram: values.telegram, email: values.email }, status });
       },
       onError(err) {
         errorMessage(err);
@@ -62,9 +65,9 @@ const ContractForm: FC<
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     // setContractInfo();
-    const isSame = values.weChat === contractInfo.weChat && values.telegram === contractInfo.telegram;
-    if (isSame) {
-      onNext({ contractInfo: { weChat: values.weChat, telegram: values.telegram } });
+
+    if (isEqual(values, contractInfo)) {
+      onNext({ contractInfo: values });
       return;
     }
     submitRequest(values);
@@ -82,6 +85,15 @@ const ContractForm: FC<
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-6">
           <div className="flex flex-col gap-4 text-left">
             <p className="body-l text-neutral-off-black">Please provide at least one contact information</p>
+            <CustomFormField
+              form={form}
+              placeholder="Enter your Email address"
+              label="Email*"
+              name={'email'}
+              onBlur={() => {
+                if (!!form.getValues('email')?.trim()) form.trigger('email');
+              }}
+            />
             <CustomFormField form={form} placeholder="Enter your WeChat account" label="WeChat" name={'weChat'} />
             <CustomFormField form={form} placeholder="Enter your Telegram account" label="Telegram" name="telegram" />
           </div>
