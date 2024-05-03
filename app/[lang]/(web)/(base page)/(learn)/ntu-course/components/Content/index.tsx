@@ -17,6 +17,7 @@ const Content: React.FC<ContentProp> = ({ setOffsetTop }) => {
   const boxRef = useRef<HTMLDivElement>(null);
 
   const getOffsetTops = () => {
+    console.info('rebuild');
     const offsetTops = [];
     const childNodes = boxRef.current?.childNodes || [];
     for (let i = 0; i < childNodes?.length; i++) {
