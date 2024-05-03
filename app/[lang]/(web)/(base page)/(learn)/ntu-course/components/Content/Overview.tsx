@@ -3,8 +3,7 @@ import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import React, { useContext } from 'react';
 import OverviewCover from '@/public/images/learn/overview_cover.png';
-import NtuLogo from '@/public/images/learn/ntu_logo.png';
-import NtuLogoText from '@/public/images/learn/ntu_logo_text.png';
+import NtuLogoText from '@/public/images/learn/ntu_logo_text.svg';
 import HackLogo from '@/public/images/learn/hack_logo.png';
 import Image from 'next/image';
 import { overviewData } from '../../constants/data';
@@ -24,7 +23,7 @@ const Overview: React.FC<OverviewProp> = () => {
       </div>
 
       <div className="flex h-[498px] flex-col justify-between">
-        <h1 className="text-h2">{overviewData.name}</h1>
+        <h1 className="text-h2">{t(overviewData.name)}</h1>
         <div className="body-m">
           <p className="mb-[4px] text-neutral-medium-gray">{t('ntuCourse.time')}</p>
           <p>{overviewData.time}</p>
@@ -38,8 +37,7 @@ const Overview: React.FC<OverviewProp> = () => {
           <div className="flex items-center gap-[20px]">
             <Image src={HackLogo} width={90} alt="hack_logo" />
             <div className="flex items-center gap-[2px]">
-              <Image src={NtuLogo} width={61} alt="htu_logo" />
-              <Image src={NtuLogoText} width={81} alt="htu_logo" />
+              <Image src={NtuLogoText} width={132} alt="htu_logo" />
             </div>
           </div>
         </div>

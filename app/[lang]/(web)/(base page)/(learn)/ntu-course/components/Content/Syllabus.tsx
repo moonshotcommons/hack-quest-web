@@ -62,8 +62,8 @@ const Syllabus: React.FC<SyllabusProp> = () => {
             </p>
             {v.expand && (
               <>
-                <div className="body-m flex justify-between">
-                  <div className="w-[22%]">
+                <div className="body-m flex gap-9">
+                  <div className="w-[24%]">
                     <p className="text-neutral-medium-gray">{t('ntuCourse.time')}</p>
                     <p>{v.time || '-'}</p>
                   </div>

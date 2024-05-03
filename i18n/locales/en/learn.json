@@ -68,45 +68,46 @@
       "courses": "courses"
     }
   },
-  "ntuCourse":{
-    "time":"Time",
-    "title":{
-      "overview":"Overview",
-      "classTime":"Class Time",
-      "enrollment":"Enrollment",
-      "syllabus":"Syllabus",
-      "meetTheGuestSpeakers":"(Tentative) Guest Speakers",
-      "meetTheSponsors":"Current Sponsors",
-      "courseDescription":"Course Description"
+  "ntuCourse": {
+    "time": "Time",
+    "title": {
+      "overview": "Overview",
+      "classTime": "Class Time",
+      "enrollment": "Enrollment",
+      "syllabus": "Syllabus",
+      "meetTheGuestSpeakers": "(Tentative) Guest Speakers",
+      "meetTheSponsors": "Current Sponsors",
+      "courseDescription": "Course Description"
     },
-    "overview":{
-      "format":"Format",
-      "hosts":"Hosts",
-      "discussionGroups":"Discussion Groups",
-      "registerNow":"Register Now"
+    "overview": {
+      "title": "Ideating and Building in Web3 MOOC",
+      "format": "Format",
+      "hosts": "Hosts",
+      "discussionGroups": "Discussion Groups",
+      "registerNow": "Register Now"
     },
-    "classTime":{
-      "class":"Class",
-      "discussionMentorship":"Discussion & Mentorship",
-      "location":"*The exact time of each session is TBD based on the speakers’ location"
+    "classTime": {
+      "class": "Class",
+      "discussionMentorship": "Discussion & Mentorship",
+      "location": "*The exact time of each session is TBD based on the speakers’ location"
     },
-    "enrollment":{
-      "text1":"This MOOC is available for anyone, anywhere, anytime. You don’t have to be an enrolled NTU student to access the course materials and synchronous sessions and be eligible for proof of completion. However, to attend the sessions in person on the NTU campus, you have to be currently enrolled at NTU.",
-      "text2":"This MOOC is also designed to prepare students in Singapore for the Port63 Challenge Web3 Track that will take place shortly after the end of the MOOC, starting in mid-August of 2024. Together, this program seeks to equip students to understand the challenges and opportunities of ideating and building a startup in web3 and getting hands-on experience,",
-      "text3":"There are NO attendance requirements, meaning that students can choose to attend sessions synchronously or watch the recordings afterward.",
-      "text4":"However, to be eligible for the proof of completion certificate, each participating team should have at least one representative attend 75% of the sessions."
+    "enrollment": {
+      "text1": "This MOOC is available for anyone, anywhere, anytime. You don’t have to be an enrolled NTU student to access the course materials and synchronous sessions and be eligible for proof of completion. However, to attend the sessions in person on the NTU campus, you have to be currently enrolled at NTU.",
+      "text2": "This MOOC is also designed to prepare students in Singapore for the Port63 Challenge Web3 Track that will take place shortly after the end of the MOOC, starting in mid-August of 2024 and matriculating in mid-March of 2025. Together, this program seeks to equip students to understand the challenges and opportunities of ideating and building a startup in web3 and getting hands-on experience.",
+      "text3": "There are NO attendance requirements, meaning that students can choose to attend sessions synchronously or watch the recordings afterward.",
+      "text4": "However, to be eligible for the proof of completion certificate, each participating team should have at least one representative attend 75% of the sessions."
     },
-    "syllabus":{
-      "desc":"*Please note that the dates, order, topics, and descriptions are still TBD; details will be updated upon confirmation with speakers.",
-      "topic":"Topic",
-      "speaker":"Speaker",
-      "resources":"Resources",
-      "video":"Video",
-      "slide":"Slide"
+    "syllabus": {
+      "desc": "*Please note that the dates, order, topics, and descriptions are still TBD; details will be updated upon confirmation with speakers.",
+      "topic": "Topic",
+      "speaker": "Speaker",
+      "resources": "Resources",
+      "video": "Video",
+      "slide": "Slide"
     },
-    "courseDescription":{
-      "text1":"Web3 has evolved explosively from a nascent concept to an irresistible frontier of entrepreneurship. As decentralized technologies mature into the building blocks for open metaverse economies, smart contract platforms raised over $50 billion in 2022 alone. New unicorn projects now launch monthly across NFTs, digital identity, tokenized fan engagement, governance design, and composable DeFi.",
-      "text2":" With web3 inhabiting the cutting edge, immense opportunities await those armed with the right applied blockchain skillsets and community-centric mindsets. Through exposure to successful entrepreneurs, and venture capitalists, as well as an overview of open challenges in the industry, we hope to equip those seeking to conceive and actualize ventures natively built for user ownership."
+    "courseDescription": {
+      "text1": "Web3 has evolved explosively from a nascent concept to an irresistible frontier of entrepreneurship. As decentralized technologies mature into the building blocks for open metaverse economies, smart contract platforms raised over $50 billion in 2022 alone. New unicorn projects now launch monthly across NFTs, digital identity, tokenized fan engagement, governance design, and composable DeFi.",
+      "text2": " With web3 inhabiting the cutting edge, immense opportunities await those armed with the right applied blockchain skillsets and community-centric mindsets. Through exposure to successful entrepreneurs, and venture capitalists, as well as an overview of open challenges in the industry, we hope to equip those seeking to conceive and actualize ventures natively built for user ownership."
     }
   }
 }
