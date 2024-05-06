@@ -33,7 +33,7 @@ export const titleTxtData = [
 
 export const overviewData = {
   name: 'ntuCourse.overview.title',
-  time: '6.5/21/2024 - 8/6/2024 (12 sessions)',
+  time: '5/27/2024 - 9/17/2024 (*exact times are TBD)',
   format: 'Hybrid (In-person at NTU and Online on Zoom link)',
   discussionGroups: [
     {
@@ -56,7 +56,7 @@ export const overviewData = {
 };
 
 export const classTimeData = {
-  class: '9-10 am SGT Tuesday / 9-10 pm EST Monday from 5/27-8/27/2024',
+  class: '9-10 am SGT Tuesday / 9-10 pm EST Monday from 5/27-9/17/2024',
   discussionMentorship: '10-10:30 am SGT / 10-10:30 pm EST'
 };
 
