@@ -26,7 +26,7 @@
   "h": "h",
   "claim": "Claim",
   "claimed": "Claimed",
-  "claimAll": "Claime All",
+  "claimAll": "Claim All",
   "targetsToAchieve": "Targets to Achieve",
   "learnMore": "Learn More",
   "checkLater": "Check Later",
@@ -74,7 +74,7 @@
       "projectsDesc": "Learn how to build a project step by step",
       "courseMarket": "Course Market",
       "courseMarketDesc": "",
-      "ntuCourse": "NTU Web3MOOC",
+      "ntuCourse": "NTU Web3 MOOC",
       "ntuCourseDesc": "Ideating and Building in Web3"
     },
     "reward": {

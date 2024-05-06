@@ -17,14 +17,13 @@ const Content: React.FC<ContentProp> = ({ setOffsetTop }) => {
   const boxRef = useRef<HTMLDivElement>(null);
 
   const getOffsetTops = () => {
-    console.info('rebuild');
     const offsetTops = [];
     const childNodes = boxRef.current?.childNodes || [];
     for (let i = 0; i < childNodes?.length; i++) {
       const offsetTop = (childNodes[i] as HTMLDivElement).offsetTop || 0;
       offsetTops.push({
         title: `${titleTxtData[i]}`,
-        offsetTop: offsetTop
+        offsetTop: offsetTop - 40
       });
     }
     setOffsetTop(offsetTops);
@@ -40,8 +39,8 @@ const Content: React.FC<ContentProp> = ({ setOffsetTop }) => {
       </div>
       <Enrollment />
       <Syllabus />
-      <Speakers />
-      <Sponsors />
+      <Speakers refreshOffsetTop={getOffsetTops} />
+      <Sponsors refreshOffsetTop={getOffsetTops} />
       <CourseDesc />
     </div>
   );
