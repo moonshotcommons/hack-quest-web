@@ -2,7 +2,6 @@ import speakersAvatar0 from '@/public/images/learn/speaker_avatar0.jpg';
 import speakersAvatar1 from '@/public/images/learn/speaker_avatar1.png';
 import speakersAvatar2 from '@/public/images/learn/speaker_avatar2.png';
 import speakersAvatar4 from '@/public/images/learn/speaker_avatar4.png';
-import speakersAvatar5 from '@/public/images/learn/speaker_avatar5.webp';
 import speakersAvatar6 from '@/public/images/learn/speaker_avatar6.png';
 import speakersAvatar7 from '@/public/images/learn/speaker_avatar7.png';
 import speakersAvatar8 from '@/public/images/learn/speaker_avatar8.png';
@@ -34,7 +33,7 @@ export const titleTxtData = [
 
 export const overviewData = {
   name: 'ntuCourse.overview.title',
-  time: '6.5/21/2024 - 8/6/2024 (12 sessions)',
+  time: '5/27/2024 - 9/17/2024 (*exact times are TBD)',
   format: 'Hybrid (In-person at NTU and Online on Zoom link)',
   discussionGroups: [
     {
@@ -57,7 +56,7 @@ export const overviewData = {
 };
 
 export const classTimeData = {
-  class: '9-10 am SGT Tuesday / 9-10 pm EST Monday from 5/27-8/27/2024',
+  class: '9-10 am SGT Tuesday / 9-10 pm EST Monday from 5/27-9/17/2024',
   discussionMentorship: '10-10:30 am SGT / 10-10:30 pm EST'
 };
 
@@ -269,7 +268,7 @@ export const guestSpeakersData = [
   {
     showMore: false,
     name: 'Alan Lau',
-    img: speakersAvatar5,
+    img: '/images/learn/speaker_avatar5.webp',
     description:
       'Alan is the Chief Business Officer of Animoca Brands, overseeing and providing support to Animoca Brands’ more than 340 portfolio companies and lead M&A and business development. Before joining Animoca Brands, Alan was chairman and CEO of Tencent WeSure, a fintech company that he co-founded to offer disruptive, affordable Internet insurance to WeChat users. WeSure insured over 100 million families in China, and is ranked the #1 insurtech platform by Hurun Institute. Prior to Tencent, he was Asia head for McKinsey Digital, supporting both Big Tech companies and sector incumbents to execute their digital strategy. Before entering the tech space, Alan was in corporate finance, first at Citibank and then at McKinsey where he was the Greater China head for the Corporate Finance Practice, in charge of M&A and deal structuring support. Alan is a recognized leader in the art space, sitting on multiple museum boards including being the vice-chair of M+ in Hong Kong and co-chair of the Asia committees at both Tate and The Guggenheim. Alan obtained his master’s degree in Engineering from Oxford University.'
   },
