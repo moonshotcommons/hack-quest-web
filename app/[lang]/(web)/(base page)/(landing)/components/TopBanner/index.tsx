@@ -5,6 +5,7 @@ import Button from '@/components/Common/Button';
 import Link from 'next/link';
 import { Lang, TransNs } from '@/i18n/config';
 import { useTranslation } from '@/i18n/server';
+import MenuLink from '@/constants/MenuLink';
 
 interface TopBannerProps {
   lang: Lang;
@@ -52,10 +53,7 @@ const TopBanner: FC<TopBannerProps> = async ({ lang }) => {
             <div className="body-m body-xs-bold w-fit rounded-[.5rem] border border-yellow-primary px-2 py-1 capitalize text-yellow-primary">
               {t('TopBanner.hackathon')}
             </div>
-            <Link
-              href={'/learning-track?track=Basic&language=RUST'}
-              className="body-m-bold mt-2 flex items-center gap-2"
-            >
+            <Link href={MenuLink.HACKDEGALAXY} className="body-m-bold mt-2 flex items-center gap-2">
               <span className="relative capitalize after:absolute after:-bottom-[1px] after:left-0 after:h-[2px] after:w-full after:rounded-full after:bg-yellow-primary">
                 {t('TopBanner.goTo')} Hack Degalaxy
               </span>
