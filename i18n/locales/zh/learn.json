@@ -85,7 +85,8 @@
       "format": "授课形式",
       "hosts": "组织者",
       "discussionGroups": "讨论组",
-      "registerNow": "立即注册"
+      "registerNow": "立即注册",
+      "openSoon": "即将开放"
     },
     "classTime": {
       "class": "Class",

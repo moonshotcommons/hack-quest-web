@@ -61,7 +61,7 @@ const Overview: React.FC<OverviewProp> = () => {
         <div className="w-full pt-[20px]">
           <Link href={overviewData.registerLink} target="_blank">
             <Button type="primary" className="button-text-l h-[60px] w-full uppercase text-neutral-off-black">
-              {t('ntuCourse.overview.registerNow')}
+              {t('ntuCourse.overview.openSoon')}
             </Button>
           </Link>
         </div>

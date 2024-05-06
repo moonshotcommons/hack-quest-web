@@ -84,7 +84,8 @@
       "format": "Format",
       "hosts": "Hosts",
       "discussionGroups": "Discussion Groups",
-      "registerNow": "Register Now"
+      "registerNow": "Register Now",
+      "openSoon": "open soon"
     },
     "classTime": {
       "class": "Class",
