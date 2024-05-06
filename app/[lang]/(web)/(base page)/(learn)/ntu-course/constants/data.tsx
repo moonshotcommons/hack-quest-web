@@ -2,6 +2,8 @@ import speakersAvatar0 from '@/public/images/learn/speaker_avatar0.jpg';
 import speakersAvatar1 from '@/public/images/learn/speaker_avatar1.png';
 import speakersAvatar2 from '@/public/images/learn/speaker_avatar2.png';
 import speakersAvatar4 from '@/public/images/learn/speaker_avatar4.png';
+import speakersAvatar5 from '@/public/images/learn/speaker_avatar5.webp';
+import speakersAvatar6 from '@/public/images/learn/speaker_avatar6.png';
 import speakersAvatar7 from '@/public/images/learn/speaker_avatar7.png';
 import speakersAvatar8 from '@/public/images/learn/speaker_avatar8.png';
 import speakersAvatar9 from '@/public/images/learn/speaker_avatar9.png';
@@ -245,7 +247,7 @@ export const guestSpeakersData = [
   },
   {
     showMore: false,
-    name: 'Sergey Gorbunov',
+    name: 'Dr. Sergey Gorbunov',
     img: speakersAvatar2,
     description:
       'Sergey is the Co-Founder and Chief Executive Officer of Axelar and an Assistant Professor at the University of Waterloo. He was previously a founding team member at Algorand. He received his Ph.D. from MIT, where he was a Microsoft Ph.D. fellow. His Ph.D. dissertation was on designing cryptographic tools for the cloud using lattice-based cryptography.'
@@ -264,20 +266,20 @@ export const guestSpeakersData = [
     description:
       'Yat is the Co-founder and Executive Chairman of Animoca Brands, a global leader in blockchain and gaming, behind the games The Sandbox, Crazy Kings and Crazy Defense Heroes. Yat is also the founder and CEO of Outblaze, a tech conglomerate specializing in cloud, gaming, and smartphone software.'
   },
-  // {
-  //   showMore: false,
-  //   name: 'Jonah Lau',
-  //   img: speakersAvatar5,
-  //   description:
-  //     'Jonah is the Head of Product at Animoca Brands and Open Campus, a community-led protocol building a decentralized education ecosystem with products such as Open Campus ID, Publisher NFTs, OC Accelerator, and OC Alliance. Previously, Jonah served as the Product Lead at Magic Eden, SVP of Product at Crypto.com, and co-founder of Clickful (exited in 2019). He attended The London School of Economics and Political Science (LSE).'
-  // },
-  // {
-  //   showMore: false,
-  //   name: 'Mohamed Ezeldin',
-  //   img: speakersAvatar6,
-  //   description:
-  //     "Mo is the Head of Tokenomics at Animoca Brands. A mathematician by training, Mo's passion is building tomorrow's economies today, through tokenisation and developing new economical and governance based frameworks and has been working deep in tokenomics space since 2018 and founded the tokenomics department at Animoca Brands on early 2021. Mo leads a global team that has driven dozens of projects for Animoca Brands and their portfolio companies including ApeCoin, Open Campus, Life Beyond, Grapes, and OMA3."
-  // },
+  {
+    showMore: false,
+    name: 'Alan Lau',
+    img: speakersAvatar5,
+    description:
+      'Alan is the Chief Business Officer of Animoca Brands, overseeing and providing support to Animoca Brands’ more than 340 portfolio companies and lead M&A and business development. Before joining Animoca Brands, Alan was chairman and CEO of Tencent WeSure, a fintech company that he co-founded to offer disruptive, affordable Internet insurance to WeChat users. WeSure insured over 100 million families in China, and is ranked the #1 insurtech platform by Hurun Institute. Prior to Tencent, he was Asia head for McKinsey Digital, supporting both Big Tech companies and sector incumbents to execute their digital strategy. Before entering the tech space, Alan was in corporate finance, first at Citibank and then at McKinsey where he was the Greater China head for the Corporate Finance Practice, in charge of M&A and deal structuring support. Alan is a recognized leader in the art space, sitting on multiple museum boards including being the vice-chair of M+ in Hong Kong and co-chair of the Asia committees at both Tate and The Guggenheim. Alan obtained his master’s degree in Engineering from Oxford University.'
+  },
+  {
+    showMore: false,
+    name: 'Mohamed Ezeldin',
+    img: speakersAvatar6,
+    description:
+      "Mo is the Head of Tokenomics of Animoca Brands. A mathematician by training, Mo's passion is building tomorrow's economies today, through tokenisation and developing new economical and governance based frameworks and has been working deep in tokenomics space since 2018 and founded the tokenomics department at Animoca Brands on early 2021. Mo leads a global team that has driven dozens of projects for Animoca Brands and their portfolio companies including ApeCoin, Open Campus, Life Beyond, Grapes, and OMA3."
+  },
   {
     showMore: false,
     id: '7',
@@ -330,7 +332,7 @@ export const guestSpeakersData = [
     name: 'Dr. Michael Yuan',
     img: speakersAvatar12,
     description:
-      'Dr. Michael Yuan is the Founder of Gaianet, a decentralized GenAI agents network, and an advisor at ByteTrade. A astrophysicist (with a PhD focused on blackhole research from the University of Texas) by training, Dr. Yuan has always been a scientist at heart. In recent years, his research has focused on digital health, incorporating lifestyle, behavioral, and genomic insights to improve clinical practices. His research is funded by prestigious organizations including the National Institutes of Health and the Center for Medicare and Medicaid Innovation. Aside from research and academic papers, Dr. Yuan is also the author of 6 books and over 40 published articles. Previously, Dr. Yuan was the founder of a digital health research firm called Ringful Health, whose pioneering work has received national media acclaim from the Wall Street Journal, New York Times, and Los Angeles Times. '
+      'Dr. Michael Yuan is the Founder of Gaianet, a decentralized GenAI agents network, and an advisor at ByteTrade. A astrophysicist (with a PhD focused on blackhole research from the University of Texas) by training, Dr. Yuan has always been a scientist at heart. In recent years, his research has focused on digital health, incorporating lifestyle, behavioral, and genomic insights to improve clinical practices. His research is funded by prestigious organizations including the National Institutes of Health and the Center for Medicare and Medicaid Innovation. Aside from research and academic papers, Dr. Yuan is also the author of 6 books and over 40 published articles. Previously, Dr. Yuan was the founder of a digital health research firm called Ringful Health, whose pioneering work has received national media acclaim from the Wall Street Journal, New York Times, and Los Angeles Times.'
   },
   {
     showMore: false,
