@@ -15,10 +15,10 @@ import speakersAvatar14 from '@/public/images/learn/speaker_avatar14.png';
 import speakersAvatar15 from '@/public/images/learn/speaker_avatar15.png';
 import MorphLogo from '@/public/images/learn/Morph_logo.png';
 import OpenCampusLogo from '@/public/images/learn/Open_Campus_logo.png';
-import ByteTradeLabLogo from '@/public/images/learn/ByteTrade_Lab_logo.png';
 import SolanaFoundationLogo from '@/public/images/learn/Solana_Foundation_logo.png';
 import MaskNetworkLogo from '@/public/images/learn/Mask_Network_logo.png';
 import MoonshotCommonsLogo from '@/public/images/learn/Moonshot_Commons_logo.png';
+import GaianetAILogo from '@/public/images/learn/GaianetAI.png';
 import { FaDiscord, FaTelegram } from 'react-icons/fa6';
 import { HACKQUEST_DISCORD, HACKQUEST_TELEGRAM } from '@/constants/links';
 
@@ -332,7 +332,7 @@ export const guestSpeakersData = [
     name: 'Dr. Michael Yuan',
     img: speakersAvatar12,
     description:
-      'Dr. Michael Yuan is the Founder of Gaianet, a decentralized GenAI agents network, and an advisor at ByteTrade. A astrophysicist (with a PhD focused on blackhole research from the University of Texas) by training, Dr. Yuan has always been a scientist at heart. In recent years, his research has focused on digital health, incorporating lifestyle, behavioral, and genomic insights to improve clinical practices. His research is funded by prestigious organizations including the National Institutes of Health and the Center for Medicare and Medicaid Innovation. Aside from research and academic papers, Dr. Yuan is also the author of 6 books and over 40 published articles. Previously, Dr. Yuan was the founder of a digital health research firm called Ringful Health, whose pioneering work has received national media acclaim from the Wall Street Journal, New York Times, and Los Angeles Times.'
+      'Dr. Michael Yuan is an advisor at Gaianet.AI, a decentralized GenAI agents network, and an advisor at ByteTrade & SIG Asia. A astrophysicist (with a PhD focused on blackhole research from the University of Texas) by training, Dr. Yuan has always been a scientist at heart. In recent years, his research has focused on digital health, incorporating lifestyle, behavioral, and genomic insights to improve clinical practices. His research is funded by prestigious organizations including the National Institutes of Health and the Center for Medicare and Medicaid Innovation. Aside from research and academic papers, Dr. Yuan is also the author of 6 books and over 40 published articles. Previously, Dr. Yuan was the founder of a digital health research firm called Ringful Health, whose pioneering work has received national media acclaim from the Wall Street Journal, New York Times, and Los Angeles Times.'
   },
   {
     showMore: false,
@@ -367,11 +367,18 @@ export const sponsorsData = [
   },
   {
     showMore: false,
-    name: 'ByteTrade Lab',
-    img: ByteTradeLabLogo,
+    name: 'Gaianet.AI',
+    img: GaianetAILogo,
     description:
-      'ByteTrade Lab, headquartered in Singapore, is backed by Susquehanna International Group (SIG) Asia Venture Capital Fund and some other leading institutional investors including INCE Capital, BAI Capital, Sky9 Capital and NGC Ventures with a recent 50 Million USD Series-A fundraising in June 2022. At ByteTrade, we are actively building our Web3.0Operating System (OS) based on an open Blockchain-EdgeNode-Client (BEC) architecture, a decentralized version of the original full stack internet protocols, that would massively adopt users and decentralized internet applications to Web 3.0 and ultimately return data ownership back to users. Apart from being a Web3.0 OS builder, ByteTrade is also actively involved in incubating and early stage investing of Web 3.0 projects to build our Web3 OS Ecosystem. We aim to enable the builders of Web 3.0 by providing a variety of resources to them including but not limited to: technology expertise, product definition, business planning, GTM strategies and funding.'
+      'GaiaNet is a decentralized computing infrastructure that enables everyone to create, deploy, scale, and monetize their own AI agents that reflect their styles, values, knowledge, and expertise.'
   },
+  // {
+  //   showMore: false,
+  //   name: 'ByteTrade Lab',
+  //   img: ByteTradeLabLogo,
+  //   description:
+  //     'ByteTrade Lab, headquartered in Singapore, is backed by Susquehanna International Group (SIG) Asia Venture Capital Fund and some other leading institutional investors including INCE Capital, BAI Capital, Sky9 Capital and NGC Ventures with a recent 50 Million USD Series-A fundraising in June 2022. At ByteTrade, we are actively building our Web3.0Operating System (OS) based on an open Blockchain-EdgeNode-Client (BEC) architecture, a decentralized version of the original full stack internet protocols, that would massively adopt users and decentralized internet applications to Web 3.0 and ultimately return data ownership back to users. Apart from being a Web3.0 OS builder, ByteTrade is also actively involved in incubating and early stage investing of Web 3.0 projects to build our Web3 OS Ecosystem. We aim to enable the builders of Web 3.0 by providing a variety of resources to them including but not limited to: technology expertise, product definition, business planning, GTM strategies and funding.'
+  // },
   {
     showMore: false,
     name: 'Solana Foundation',
