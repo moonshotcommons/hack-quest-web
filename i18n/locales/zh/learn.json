@@ -76,7 +76,7 @@
       "classTime": "上课时间",
       "enrollment": "报名须知",
       "syllabus": "课程安排",
-      "meetTheGuestSpeakers": "(暂定) 客座讲师",
+      "meetTheGuestSpeakers": "客座讲师",
       "meetTheSponsors": "赞助商",
       "courseDescription": "课程描述"
     },
@@ -85,7 +85,8 @@
       "format": "授课形式",
       "hosts": "组织者",
       "discussionGroups": "讨论组",
-      "registerNow": "立即注册"
+      "registerNow": "立即注册",
+      "openSoon": "即将开放"
     },
     "classTime": {
       "class": "Class",
