@@ -4,7 +4,9 @@
     "certified": "certified",
     "learningTrack": "learning track",
     "learnAndBuildAlongside": "Learn and build alongside",
-    "developers": "developers"
+    "developers": "developers",
+    "goTo": "Go to",
+    "hackathon": "Hackathon"
   },
   "CollaborateList": {
     "ecosystemsAndProjects": "We collaborate with 100+ leading Web3 ecosystems and projects"

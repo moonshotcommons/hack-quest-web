@@ -47,17 +47,17 @@ const TopBanner: FC<TopBannerProps> = async ({ lang }) => {
         </Link>
 
         <BubbleCard direction="right" className="-mt-[13px] translate-x-[calc(50%+134px+84px)]">
-          <Image src="/images/landing/solana_icon.png" alt="solana" width={60} height={60}></Image>
+          <Image src="/images/landing/central_dao_logo.png" alt="central dao logo" width={60} height={60}></Image>
           <div className="text-neutral-off-white">
             <div className="body-m body-xs-bold w-fit rounded-[.5rem] border border-yellow-primary px-2 py-1 capitalize text-yellow-primary">
-              {t('TopBanner.certified')}
+              {t('TopBanner.hackathon')}
             </div>
             <Link
               href={'/learning-track?track=Basic&language=RUST'}
               className="body-m-bold mt-2 flex items-center gap-2"
             >
               <span className="relative capitalize after:absolute after:-bottom-[1px] after:left-0 after:h-[2px] after:w-full after:rounded-full after:bg-yellow-primary">
-                Solana {t('TopBanner.learningTrack')}
+                {t('TopBanner.goTo')} Hack Degalaxy
               </span>
               <svg width="13" height="18" viewBox="0 0 13 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
