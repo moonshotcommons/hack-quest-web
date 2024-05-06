@@ -7,9 +7,11 @@ import Title from '../Title';
 import Spcard from '../Spcard';
 import { cloneDeep } from 'lodash-es';
 
-interface SpeakersProp {}
+interface SpeakersProp {
+  refreshOffsetTop: VoidFunction;
+}
 
-const Speakers: React.FC<SpeakersProp> = () => {
+const Speakers: React.FC<SpeakersProp> = ({ refreshOffsetTop }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.LEARN);
   const [list, setList] = useState(guestSpeakersData);
@@ -17,6 +19,7 @@ const Speakers: React.FC<SpeakersProp> = () => {
     const newList = cloneDeep(list);
     newList[i].showMore = !newList[i].showMore;
     setList(newList);
+    refreshOffsetTop();
   };
   return (
     <div>

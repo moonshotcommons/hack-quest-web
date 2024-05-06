@@ -28,10 +28,10 @@ const NtuCoursePage: React.FC<NtuCoursePageProp> = () => {
     timeOut.current = setTimeout(() => {
       timeOut.current = null;
       for (let i = 0; i < offsetTops.length; i++) {
-        if (scrollTop >= offsetTops[offsetTops.length - 1].offsetTop - 40) {
+        if (scrollTop >= offsetTops[offsetTops.length - 1].offsetTop) {
           setCurAnchorIndex(offsetTops.length - 1);
           break;
-        } else if (scrollTop >= offsetTops[i].offsetTop - 40 && scrollTop < offsetTops[i + 1].offsetTop - 40) {
+        } else if (scrollTop >= offsetTops[i].offsetTop && scrollTop < offsetTops[i + 1].offsetTop) {
           setCurAnchorIndex(i);
           break;
         }
