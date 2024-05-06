@@ -27,6 +27,8 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
     info: {
       projectLogo: '',
       projectName: '',
+      prizeTrack: '',
+      location: '',
       track: '',
       intro: '',
       detailedIntro: ''
@@ -45,7 +47,6 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
   const exitConfirmRef = useRef<ConfirmModalRef>(null);
 
   const onNext = (state: Partial<HackathonSubmitStateType>) => {
-    console.log(state);
     setFormState({ ...formState, ...state });
     if (current < HACKATHON_SUBMIT_STEPS.length - 1) setCurrent(current + 1);
   };
@@ -69,6 +70,7 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
       hackathonId,
       prizeTrack,
       tracks,
+      location,
       githubLink,
       isOpenSource,
       status,
@@ -81,7 +83,9 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
     const info = {
       projectLogo: thumbnail,
       projectName: name,
-      track: prizeTrack,
+      prizeTrack: prizeTrack,
+      track: tracks[0],
+      location: location,
       intro: introduction,
       detailedIntro: description
     };

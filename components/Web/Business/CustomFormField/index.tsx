@@ -12,6 +12,7 @@ interface FormFieldProps<TFieldValues extends FieldValues = FieldValues> {
   placeholder: string;
   name: Path<TFieldValues>;
   className?: string;
+  onBlur?: () => void;
 }
 
 const CustomFormField = <TFieldValues extends FieldValues = FieldValues>({
@@ -19,14 +20,15 @@ const CustomFormField = <TFieldValues extends FieldValues = FieldValues>({
   label,
   name,
   placeholder,
-  className
+  className,
+  onBlur
 }: FormFieldProps<TFieldValues>) => {
   return (
     <FormField
       control={form.control}
       name={name}
       render={({ field }) => (
-        <FormItem className="w-full text-left">
+        <FormItem className="w-full text-left" onBlur={onBlur}>
           <FormLabel className="body-m text-[16px] font-normal leading-[160%] text-neutral-rich-gray">
             {label}
           </FormLabel>

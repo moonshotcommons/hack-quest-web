@@ -10,7 +10,7 @@ import { errorMessage } from '@/helper/ui';
 import { message } from 'antd';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import ConfirmModal, { ConfirmModalRef } from '@/components/Web/Business/ConfirmModal';
-
+import { isEmpty } from 'lodash-es';
 interface SubmitReviewProps {}
 
 const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({
@@ -70,8 +70,10 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({
       className="body-s flex cursor-pointer items-center rounded-[8px] border border-neutral-light-gray bg-neutral-white p-6 text-neutral-off-black"
       onClick={() => gotoStep(0)}
     >
-      <span className="flex-1 text-left">Name</span>
-      <span className="flex-1 text-left">{name.firstName + ' ' + name.lastName}</span>
+      <span className="flex-1 text-left">{isEmpty(submissionType.team) ? 'Name' : 'Team Name'}</span>
+      <span className="flex-1 text-left">
+        {isEmpty(submissionType.team) ? name.firstName + ' ' + name.lastName : submissionType.team?.name}
+      </span>
       {arrowIcon}
     </div>
   );
@@ -84,6 +86,11 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({
       >
         <span>Contact Info</span>
         {arrowIcon}
+      </div>
+      <div className="body-xs flex items-center justify-between text-neutral-off-black">
+        <span>Email</span>
+        {!!contractInfo.weChat && <span>{contractInfo.weChat}</span>}
+        {!contractInfo.weChat && <span className="text-neutral-medium-gray">{'No Set'}</span>}
       </div>
       <div className="body-xs flex items-center justify-between text-neutral-off-black">
         <span>WeChat</span>

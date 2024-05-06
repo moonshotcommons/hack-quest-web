@@ -8,6 +8,7 @@ const useDealHackathonData = () => {
     endTime = moment(endTime).format('ll');
     return `${startTime} - ${endTime}`;
   };
+
   const getCloseInTime = (endTime: string) => {
     const start = +new Date();
     const end = +new Date(endTime);
@@ -23,9 +24,11 @@ const useDealHackathonData = () => {
     const m = Math.floor((gapTime - dTime * d - HTime * h) / mTime);
     return `${isShowTime(d, 'd')}${isShowTime(h, 'h')}${isShowTime(m, 'm')}`;
   };
+
   const getParticipantsStr = (participants: string[]) => {
     return participants.join('/');
   };
+
   const isShowTime = (t: number, s: string) => {
     if (t > 0) {
       return `${t}${s}${s !== 'm' ? ':' : ''}`;
@@ -33,6 +36,7 @@ const useDealHackathonData = () => {
       return '';
     }
   };
+
   const getTotalPrize = (rewards: HackathonRewardType[]) => {
     let total = 0;
     rewards?.forEach((r) => {
@@ -42,6 +46,7 @@ const useDealHackathonData = () => {
     });
     return total;
   };
+
   const getStepIndex = (hackathon: HackathonType) => {
     if (dayjs().tz().isBefore(hackathon.openTime)) return -1;
     if (dayjs().tz().isAfter(hackathon.openTime) && dayjs().tz().isBefore(hackathon.reviewTime)) return 0;
@@ -49,6 +54,7 @@ const useDealHackathonData = () => {
     if (dayjs().tz().isAfter(hackathon.rewardTime)) return 2;
     return -1;
   };
+
   return {
     getRunFromTime,
     getCloseInTime,

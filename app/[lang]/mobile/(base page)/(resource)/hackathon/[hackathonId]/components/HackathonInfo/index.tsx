@@ -15,6 +15,7 @@ import { useGlobalStore } from '@/store/zustand/globalStore';
 import { useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
 import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
+import { getRandomAvatars } from '@/helper/random';
 
 interface HackathonInfoProp {
   hackathon: HackathonType;
@@ -150,21 +151,33 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
           ))}
         </div>
       )}
-      {hackathon.members?.length > 0 && (
+      {(hackathon.members?.length > 0 || (hackathon.version === 'old' && hackathon.participants > 0)) && (
         <div>
           <div className="body-s mb-[.25rem] text-neutral-medium-gray">{t('participants')}</div>
           <div className="flex items-center gap-[.5rem]">
             <div className="flex pl-[10px]">
-              {hackathon.members.slice(0, 6)?.map((v, i) => (
-                <div
-                  key={i}
-                  className="relative ml-[-0.625rem] h-[2.625rem] w-[2.625rem] overflow-hidden rounded-[50%] border border-neutral-white"
-                >
-                  <Image src={v.avatar} alt={v.firstName} fill className="object-contain"></Image>
-                </div>
-              ))}
+              {hackathon.version !== 'old' &&
+                hackathon.members.slice(0, 6)?.map((v, i) => (
+                  <div
+                    key={i}
+                    className="relative ml-[-0.625rem] h-[2.625rem] w-[2.625rem] overflow-hidden rounded-[50%] border border-neutral-white"
+                  >
+                    <Image src={v.avatar} alt={v.firstName} fill className="object-contain"></Image>
+                  </div>
+                ))}
+              {hackathon.version === 'old' &&
+                getRandomAvatars(hackathon.participants < 6 ? hackathon.participants : 6).map((v, i) => (
+                  <div
+                    key={i}
+                    className="relative ml-[-0.625rem] h-[2.625rem] w-[2.625rem] overflow-hidden rounded-[50%] border border-neutral-white"
+                  >
+                    <Image src={v.url} alt={'avatar'} fill className="object-contain"></Image>
+                  </div>
+                ))}
             </div>
-            <p className="body-s">{`${hackathon.members.length} ${t('usersPartitipated')}`}</p>
+            <p className="body-s">{`${
+              hackathon.version === 'old' ? hackathon.participants : hackathon.members?.length || 0
+            } ${t('usersPartitipated')}`}</p>
           </div>
         </div>
       )}
