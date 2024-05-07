@@ -77,7 +77,8 @@ export function middleware(request: NextRequest) {
     if (isRedirect) return NextResponse.redirect(request.nextUrl);
     else NextResponse.next();
   }
-  // 不带语言的url 重定向到带语言的url  else return NextResponse.redirect(request.nextUrl);
+  // 不带语言的url 重定向到带语言的url
+  else return NextResponse.redirect(request.nextUrl);
 }
 
 export const config = {

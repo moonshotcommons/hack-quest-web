@@ -149,5 +149,32 @@
     "reachOutToUs":"Reach Out To Us",
     "reachOutToUsDesc":"Do you have any questions about our events? We’d love to hear your thoughts! You can also keep in touch with us by joining our Discord / Telegram!",
     "submitInquiry":"Submit Inquiry"
+  },
+  "faucets":{
+    "title":"Free Testnet Faucets",
+    "desc":"Access complimentary testnet funds across various blockchains for developing your upcoming project.",
+    "wantToDonate":"Want to donate to our faucet?",
+    "drippedSuccessfully":"token dripped successfully",
+    "waithours":"You must wait 24 hours between faucet requests for the same network.",
+    "FAQS":{
+      "title": "FAQs",
+      "description": "Can’t find what you’re looking for? Reach out to us!",
+      "question1": {
+        "problem": "How many hours of learning are needed for beginners to earn a certificate?",
+        "answer": "Depending on the learning paths, most students spend between eight to twenty hours to finish all the course materials and earn the certificate."
+      },
+      "question2": {
+        "problem": "Is it possible to enroll in a course if I have no prior coding knowledge?",
+        "answer": "Depending on the learning paths, most students spend between eight to twenty hours to finish all the course materials and earn the certificate."
+      },
+      "question3": {
+        "problem": "Are all courses and post-learning support free?",
+        "answer": "Depending on the learning paths, most students spend between eight to twenty hours to finish all the course materials and earn the certificate."
+      },
+      "question4": {
+        "problem": "Where do I ask for help?",
+        "answer": "Depending on the learning paths, most students spend between eight to twenty hours to finish all the course materials and earn the certificate."
+      }
+    }
   }
 }
