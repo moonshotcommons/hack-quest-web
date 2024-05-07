@@ -14,38 +14,34 @@ import { TransNs } from '@/i18n/config';
 
 interface FeaturedProjectsProps {
   projectList: ProjectType[];
+  title?: string;
+  project?: ProjectType;
 }
 
-const FeaturedProjectsHeader = () => {
+const FeaturedProjects: FC<FeaturedProjectsProps> = ({ projectList, title, project }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
-  return (
-    <div className="flex justify-between">
-      <div className="flex flex-col gap-[15px]">
-        <h2 className="text-h3 font-next-book-bold text-neutral-black">{t('featuredProjects')}</h2>
-      </div>
-      <Link
-        href={`${MenuLink.PROJECTS}`}
-        className="body-l flex items-center gap-x-[7px] text-neutral-off-black hover:opacity-70"
-        onClick={() => {
-          BurialPoint.track('home-view all点击');
-        }}
-      >
-        <span>{t('viewAll')}</span>
-        <BsArrowRight size={16}></BsArrowRight>
-      </Link>
-    </div>
-  );
-};
-
-const FeaturedProjects: FC<FeaturedProjectsProps> = ({ projectList }) => {
   const [scrollContainerState, setScrollContainerState] = useState<ChangeState>();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   return (
     <div className="w-full bg-[#FFF4CE] py-[60px]">
       <div className="container mx-auto" ref={containerRef}>
-        <FeaturedProjectsHeader></FeaturedProjectsHeader>
+        <div className="flex justify-between">
+          <div className="flex flex-col gap-[15px]">
+            <h2 className="text-h3 font-next-book-bold text-neutral-black">{t(title || 'featuredProjects')}</h2>
+          </div>
+          <Link
+            href={project?.id ? `${MenuLink.PROJECTS}?keyword=${project.hackathonName}` : `${MenuLink.PROJECTS}`}
+            className="body-l flex items-center gap-x-[7px] text-neutral-off-black hover:opacity-70"
+            onClick={() => {
+              BurialPoint.track('home-view all点击');
+            }}
+          >
+            <span>{t('viewAll')}</span>
+            <BsArrowRight size={16}></BsArrowRight>
+          </Link>
+        </div>
         <div>
           <ScrollContainer ref={scrollContainerRef} gap={20} onChange={(state: any) => setScrollContainerState(state)}>
             <div className="mt-[30px] flex gap-[20px]">

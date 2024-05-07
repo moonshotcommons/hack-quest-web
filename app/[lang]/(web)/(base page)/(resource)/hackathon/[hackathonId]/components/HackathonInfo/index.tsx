@@ -107,20 +107,18 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
       </Link>
     );
   };
-
   return (
     <Box className="sticky right-0 top-0 flex flex-col  gap-[24px] p-[24px] pb-[20px] text-neutral-off-black">
-      {hackathon.participation?.isRegister ||
-        (hackathon.participation?.isSubmit && (
-          <div className="body-s flex items-center gap-[4px] rounded-[16px] border border-status-error bg-status-error-light p-[16px] text-neutral-medium-gray ">
-            <WarningIcon size={16} color="var(--status-error)" />
-            {hackathon.participation?.isSubmit ? (
-              <span>{t('hackathonDetail.haveSubmission')}</span>
-            ) : (
-              <span>{t('hackathonDetail.haveRegistered')}</span>
-            )}
-          </div>
-        ))}
+      {(hackathon.participation?.isRegister || hackathon.participation?.isSubmit) && (
+        <div className="body-s flex items-center gap-[4px] rounded-[16px] border border-status-error bg-status-error-light p-[16px] text-neutral-medium-gray ">
+          <WarningIcon size={16} color="var(--status-error)" />
+          {hackathon.participation?.isSubmit ? (
+            <span>{t('hackathonDetail.haveSubmission')}</span>
+          ) : (
+            <span>{t('hackathonDetail.haveRegistered')}</span>
+          )}
+        </div>
+      )}
 
       <h1 className="text-h3 ">{hackathon.name}</h1>
       {stepIndex === 0 ? (

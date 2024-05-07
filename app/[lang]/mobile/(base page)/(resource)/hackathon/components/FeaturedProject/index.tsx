@@ -14,9 +14,11 @@ import { TransNs } from '@/i18n/config';
 
 interface FeaturedProjectsProps {
   projectList: ProjectType[];
+  title?: string;
+  project?: ProjectType;
 }
 
-const FeaturedProjects: FC<FeaturedProjectsProps> = ({ projectList }) => {
+const FeaturedProjects: FC<FeaturedProjectsProps> = ({ projectList, title, project }) => {
   const [scrollContainerState, setScrollContainerState] = useState<ChangeState>();
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
@@ -28,10 +30,10 @@ const FeaturedProjects: FC<FeaturedProjectsProps> = ({ projectList }) => {
       <div>
         <div className="flex justify-between">
           <div className="flex flex-col gap-[15px]">
-            <h2 className="text-h3-mob text-neutral-off-black">{t('featuredProjects')}</h2>
+            <h2 className="text-h3-mob text-neutral-off-black">{t(title || 'featuredProjects')}</h2>
           </div>
           <Link
-            href={`${MenuLink.PROJECTS}`}
+            href={project?.id ? `${MenuLink.PROJECTS}?keyword=${project.hackathonName}` : `${MenuLink.PROJECTS}`}
             className="body-s flex items-center gap-x-[7px] text-neutral-black"
             onClick={() => {
               BurialPoint.track('home-view all点击');

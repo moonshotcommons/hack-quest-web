@@ -71,13 +71,32 @@ export interface HackathonDataType {
   total: number;
 }
 
+export interface ProjectTeamType {
+  code: string;
+  creatorId: string;
+  hackathonId: string;
+  id: string;
+  name: string;
+}
+export interface ProjectMemberType {
+  avatar: string;
+  bio: string;
+  firstName: string;
+  lastName: string;
+  telegram: string;
+  email: string;
+  userId: string;
+  weChat: string;
+  isAdmin: boolean;
+}
+
 export type ProjectType = {
   id: string;
   name: string;
   description: string;
   video: string;
   introduction: string;
-  team: string;
+  team: ProjectTeamType;
   hackathonId: string;
   location: string;
   hackathonName: string;
@@ -92,6 +111,7 @@ export type ProjectType = {
   wallet: string;
   isOpenSource: boolean;
   githubLink: string;
+  members: ProjectMemberType[];
 };
 
 export interface ProjectDataType {
