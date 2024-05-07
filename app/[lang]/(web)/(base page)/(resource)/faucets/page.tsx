@@ -4,8 +4,13 @@ import React from 'react';
 import { Lang } from '@/i18n/config';
 import FaucetsPage from './components';
 
+export interface SearchParamsType {
+  track: string;
+}
 interface FaucetsProp {
-  searchParams: {};
+  searchParams: {
+    track: string;
+  };
   params: {
     lang: Lang;
   };
