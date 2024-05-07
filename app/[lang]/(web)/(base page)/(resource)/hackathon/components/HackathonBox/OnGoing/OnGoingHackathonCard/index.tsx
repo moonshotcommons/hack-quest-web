@@ -38,7 +38,7 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon })
   };
   const { getTotalPrize, getStepIndex } = useDealHackathonData();
   const stepIndex = getStepIndex(hackathon);
-
+  console.log(hackathon);
   const totalPrize = getTotalPrize(hackathon.rewards);
   const [warningOpen, setWarningOpen] = useState(false);
   const handleSubmit = (id: string) => {
