@@ -5,7 +5,9 @@ import {
   CourseLessonType,
   CourseUnitStateType,
   CourseUnitType,
+  NtuRegisterInfo,
   ProjectCourseType,
+  RegisterInfoBody,
   UGCCourseType,
   UnitPagesListType
 } from './type';
@@ -23,7 +25,8 @@ export enum CourseApiType {
   GetTopCourses = '/courses/featured',
   LessonDetail = '/pages',
   Support = '/support/suggest',
-  EcosystemProfile = '/eco-system-profiles'
+  EcosystemProfile = '/eco-system-profiles',
+  NtuCourse = '/ntu/members'
 }
 
 class CourseApi {
@@ -191,6 +194,18 @@ class CourseApi {
     });
 
     return cacheFn();
+  }
+
+  /** 获取用户注册的hackathon信息 */
+  getNtuRegisterInfo() {
+    return this.service.get<NtuRegisterInfo>(`${CourseApiType.NtuCourse}/me`);
+  }
+
+  /** 更新注册信息 */
+  updateNtuRegisterInfo(data: RegisterInfoBody) {
+    return this.service.post<{}>(`${CourseApiType.NtuCourse}`, {
+      data
+    });
   }
 }
 

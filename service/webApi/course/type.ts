@@ -1,5 +1,6 @@
 import { CourseTab } from '@/app/[lang]/(web)/(base page)/(home)/instructor/constants/type';
 import { ElectiveCourseType, PageType } from '../elective/type';
+import { HackathonRegisterStep } from '../resourceStation/type';
 
 export interface Response {
   id: string;
@@ -223,4 +224,32 @@ export interface SuggestCommitParams {
   // file: FormData;
   lessonId: string;
   link: string;
+}
+
+export interface NtuRegisterInfo {
+  id: string;
+  email: string;
+  hackathonId: string;
+  userId: string;
+  firstName: string | null;
+  lastName: string | null;
+  weChat: string | null;
+  telegram: string | null;
+  bio: string | null;
+  status: HackathonRegisterStep;
+  createdAt: string;
+  updatedAt: string;
+  avatar: string;
+  isRegister: boolean;
+  isSubmit: boolean;
+}
+
+export interface RegisterInfoBody {
+  firstName?: string | null;
+  lastName?: string | null;
+  weChat?: string | null;
+  telegram?: string | null;
+  email?: string;
+  bio?: string | null;
+  status?: HackathonRegisterStep;
 }
