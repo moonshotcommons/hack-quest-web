@@ -135,6 +135,12 @@ export const navbarList: NavbarListType[] = [
         label: 'navbar.resources.events',
         path: MenuLink.EVENTS,
         description: 'navbar.resources.eventsDesc'
+      },
+      {
+        id: 'faucets',
+        label: 'navbar.resources.faucets',
+        path: MenuLink.FAUCETS,
+        description: 'navbar.resources.faucetsDesc'
       }
       // {
       //id:'partners',
