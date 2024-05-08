@@ -9,6 +9,8 @@ import { FiSave } from 'react-icons/fi';
 import { useShallow } from 'zustand/react/shallow';
 import { CreationHandle, useUgcCreationStore } from '@/store/zustand/ugcCreationStore';
 import MenuLink from '@/constants/MenuLink';
+import { DocumentIcon } from '@/components/Common/Icon/Document';
+import { useDocumentation } from '@/store/zustand/documentationStore';
 
 export interface NavBarProps {}
 
@@ -27,6 +29,9 @@ const NavBar: React.FC<NavBarProps> = () => {
       handle: state.handle
     }))
   );
+
+  const { onOpen } = useDocumentation();
+
   const logoClick = () => {
     redirectToUrl(MenuLink.DASHBOARD);
   };
@@ -51,9 +56,20 @@ const NavBar: React.FC<NavBarProps> = () => {
         );
       default:
         return (
-          <div className="flex w-[123px] cursor-pointer items-center justify-end" onClick={logoClick}>
-            <IoExitOutline size={24} />
-            <span className="body-l ml-[7px]">Exit</span>
+          <div className="flex items-center gap-6">
+            <button
+              className="flex items-center gap-2 outline-none"
+              onClick={() => {
+                onOpen({ placement: 'bottom-right' });
+              }}
+            >
+              <DocumentIcon />
+              <span className="body-l">Documentation</span>
+            </button>
+            <div className="flex cursor-pointer items-center" onClick={logoClick}>
+              <IoExitOutline size={24} />
+              <span className="body-l ml-[7px]">Exit</span>
+            </div>
           </div>
         );
     }

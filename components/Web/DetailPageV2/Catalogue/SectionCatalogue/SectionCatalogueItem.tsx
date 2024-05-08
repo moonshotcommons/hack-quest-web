@@ -10,6 +10,7 @@ import SectionWrap from './SectionWrap';
 import LearningTrackCourseStatusButton from './LearningTrackCourseStatusButton';
 import Link from 'next/link';
 import { CourseType } from '@/service/webApi/course/type';
+import { ViewButton } from '@/components/Web/Documentation/view-button';
 
 interface LearningTrackCatalogueItemProps {
   section: SectionType;
@@ -34,12 +35,15 @@ const LearningTrackCatalogueItem: FC<LearningTrackCatalogueItemProps> = (props) 
                     {tagFormate(course.type !== CourseType.UGC ? course.type : CourseType.CONCEPT)}
                   </div>
                 </div>
-                <Link
-                  href={`${getCoursePrefixByCourseType(course.type)}/${course.id}?learningTrackId=${learningTrackDetail.id}`}
-                  className="body-s ml-[10%] w-[36%] flex-1 cursor-pointer text-neutral-black transition hover:opacity-70"
-                >
-                  {course.title}
-                </Link>
+                <div className="ml-[10%] flex w-[36%] flex-1 items-center gap-2">
+                  <Link
+                    href={`${getCoursePrefixByCourseType(course.type)}/${course.id}?learningTrackId=${learningTrackDetail.id}`}
+                    className="body-s cursor-pointer text-neutral-black transition hover:opacity-70"
+                  >
+                    {course.title}
+                  </Link>
+                  <ViewButton showText={false} iconClassName="w-4 h-4" id={course.id} placement="center" />
+                </div>
                 <LearningTrackCourseStatusButton course={course} />
               </li>
             );

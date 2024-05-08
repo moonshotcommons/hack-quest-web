@@ -10,6 +10,7 @@ import SectionWrap from './SectionWrap';
 import LearningTrackCourseStatusButton from '../../StatusButton/LearningTrackCourseStatusButton';
 import Link from 'next/link';
 import { CourseType } from '@/service/webApi/course/type';
+import { ViewButton } from '@/components/Web/Documentation/view-button';
 
 interface LearningTrackCatalogueItemProps {
   section: SectionType;
@@ -37,13 +38,14 @@ const LearningTrackCatalogueItem: FC<LearningTrackCatalogueItemProps> = (props) 
                     </div>
                   </div>
                   {/* 课程标题 */}
-                  <div className="flex w-full flex-col gap-4">
+                  <div className="flex w-full gap-2">
                     <Link
                       href={`${getCoursePrefixByCourseType(course.type)}/${course.id}?learningTrackId=${learningTrackDetail.id}`}
-                      className="body-s inline-block flex-1 cursor-pointer text-neutral-black transition hover:opacity-70"
+                      className="body-s cursor-pointer text-neutral-black transition hover:opacity-70"
                     >
                       {course.title}
                     </Link>
+                    <ViewButton placement="center" id={course.id} showText={false} iconClassName="w-4 h-4" />
                   </div>
                 </div>
                 {/* 进度条 */}

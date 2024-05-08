@@ -14,6 +14,7 @@ import { CourseDetailType } from '@/service/webApi/course/type';
 import HeaderBg from '@/components/Web/DetailPageV2/HeaderBg';
 import { Lang, TransNs } from '@/i18n/config';
 import { useTranslation } from '@/i18n/server';
+import { ViewButton } from '@/components/Web/Documentation/view-button';
 
 interface PracticePageProps {
   params: {
@@ -87,7 +88,7 @@ const PracticePage: FC<PracticePageProps> = async (props) => {
               </div>
             </div>
 
-            <div className="mt-20  flex flex-col gap-20">
+            <div className="mt-20 flex flex-col gap-20">
               {/* <CertificationCard  /> */}
               {courseDetail.intendedLearners && (
                 <IntendedLearners intendedLearners={courseDetail.intendedLearners} lang={lang} />
@@ -107,9 +108,12 @@ const PracticePage: FC<PracticePageProps> = async (props) => {
   function Syllabus() {
     return (
       <div className="flex flex-col gap-8">
-        <div className="flex h-fit items-center gap-4">
-          <div className="h-[34px] w-[5px] rounded-full bg-yellow-dark"></div>
-          <h3 className="text-h3 text-neutral-black">{t('courses.syllabus')}</h3>
+        <div className="flex items-center justify-between">
+          <div className="flex h-fit items-center gap-4">
+            <div className="h-[34px] w-[5px] rounded-full bg-yellow-dark"></div>
+            <h3 className="text-h3 text-neutral-black">{t('courses.syllabus')}</h3>
+          </div>
+          <ViewButton placement="center" id={courseId} />
         </div>
         <UnitCatalogue courseDetail={courseDetail} />
       </div>
