@@ -207,6 +207,11 @@ class CourseApi {
       data
     });
   }
+
+  /** 注册hackathon */
+  registerNtu() {
+    return this.service.post(`${CourseApiType.NtuCourse}/register`);
+  }
 }
 
 export default CourseApi;

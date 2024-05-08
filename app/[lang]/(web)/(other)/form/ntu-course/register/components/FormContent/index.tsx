@@ -156,7 +156,7 @@ const FormContent: FC<FormContentProps> = () => {
       <FormHeader
         steps={HACKATHON_SUBMIT_STEPS}
         current={current}
-        description="NTU Registration"
+        description="NTU Course Registration"
         title={'Ideating and Building in Web3 MOOC'}
       />
       {current < 0 && (
