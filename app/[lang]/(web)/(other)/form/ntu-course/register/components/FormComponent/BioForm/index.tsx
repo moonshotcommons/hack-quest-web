@@ -1,5 +1,5 @@
 'use client';
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useRef } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
@@ -12,8 +12,10 @@ import { HackathonRegisterStateType } from '../../../type';
 import { useRequest } from 'ahooks';
 import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';
-import { HackathonRegisterStep } from '@/service/webApi/resourceStation/type';
-import { HACKATHON_SUBMIT_STEPS } from '../../constants';
+import ConfirmModal, { ConfirmModalRef } from '@/components/Web/Business/ConfirmModal';
+import { message } from 'antd';
+import { useRedirect } from '@/hooks/router/useRedirect';
+import MenuLink from '@/constants/MenuLink';
 
 const formSchema = z.object({
   bio: z
@@ -38,22 +40,18 @@ const BioForm: FC<
     }
   });
 
-  const { run: submitRequest, loading } = useRequest(
-    async (values: z.infer<typeof formSchema>) => {
-      const newStatus =
-        HACKATHON_SUBMIT_STEPS.find((item) => item.type === status)!.stepNumber === 2
-          ? HackathonRegisterStep.SubmissionType
-          : status;
-      const res = await webApi.resourceStationApi.updateHackathonRegisterInfo('', {
-        bio: values.bio,
-        status: newStatus
-      });
-      return { res, values, status: newStatus };
+  const { redirectToUrl } = useRedirect();
+  const confirmModalRef = useRef<ConfirmModalRef>(null);
+  const { runAsync: register } = useRequest(
+    () => {
+      return webApi.courseApi.registerNtu();
     },
     {
       manual: true,
-      onSuccess({ res, values, status }) {
-        onNext({ bio: values.bio, status });
+      onSuccess() {
+        !isRegister && message.success(`Register success!`);
+        isRegister && message.success(`Update register info success!`);
+        redirectToUrl(`${MenuLink.NTU_COURSE}?isRegister=true`);
       },
       onError(err) {
         errorMessage(err);
@@ -61,14 +59,39 @@ const BioForm: FC<
     }
   );
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  const { runAsync: submitRequest, loading } = useRequest(
+    async (values: z.infer<typeof formSchema>) => {
+      // const newStatus =
+      //   HACKATHON_SUBMIT_STEPS.find((item) => item.type === status)!.stepNumber === 2
+      //     ? HackathonRegisterStep.SubmissionType
+      //     : status;
+      const res = await webApi.courseApi.updateNtuRegisterInfo({
+        bio: values.bio
+      });
+      return { res, values };
+    },
+    {
+      manual: true,
+      onSuccess({ res, values }) {
+        onNext({ bio: values.bio });
+      },
+      onError(err) {
+        errorMessage(err);
+      }
+    }
+  );
+
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     // setContractInfo();
     const isSame = values.bio === bio;
-    if (isSame) {
+    if (isSame && isRegister) {
       onNext({ bio: values.bio });
       return;
     }
-    submitRequest(values);
+    await submitRequest(values);
+    confirmModalRef.current?.open({
+      onConfirm: register
+    });
   }
 
   useEffect(() => {
@@ -126,11 +149,16 @@ const BioForm: FC<
               disabled={!form.formState.isValid}
               loading={loading}
             >
-              {isRegister ? 'update' : 'Save'} And Next
+              {isRegister ? 'update' : 'Save'} And Register
             </Button>
           </div>
         </form>
       </Form>
+      <ConfirmModal ref={confirmModalRef}>
+        <h4 className="text-h4 mb-9 text-center text-neutral-black">
+          Do you want to {isRegister ? 'update' : 'register'} in this course?
+        </h4>
+      </ConfirmModal>
     </div>
   );
 };
