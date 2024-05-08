@@ -59,7 +59,7 @@ const TopBanner: FC<TopBannerProps> = async ({ lang }) => {
             <div className="body-m body-xs-bold w-fit rounded-[.5rem] border border-yellow-primary px-2 py-1 capitalize text-yellow-primary">
               {t('TopBanner.universityMOOC')}
             </div>
-            <Link href={MenuLink.HACKDEGALAXY} className="body-m-bold mt-2 flex items-center gap-2">
+            <Link href={MenuLink.NTU_COURSE} className="body-m-bold mt-2 flex items-center gap-2">
               <span className="relative capitalize after:absolute after:-bottom-[1px] after:left-0 after:h-[2px] after:w-full after:rounded-full after:bg-yellow-primary">
                 {t('TopBanner.universityMOOCDesc')}
               </span>
