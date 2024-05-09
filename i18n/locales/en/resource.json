@@ -154,6 +154,7 @@
     "title":"Free Testnet Faucets",
     "desc":"Access complimentary testnet funds across various blockchains for developing your upcoming project.",
     "wantToDonate":"Want to donate to our faucet?",
+    "donate":"Send {{symbol}} to {{address}}",
     "drippedSuccessfully":"token dripped successfully",
     "waithours":"You must wait 24 hours between faucet requests for the same network.",
     "FAQS":{

@@ -39,7 +39,7 @@ export async function generateMetadata({ params, searchParams }: FaucetsProp): P
 const Faucets: React.FC<FaucetsProp> = async ({ params: { lang }, searchParams }) => {
   // const res = await webApi.resourceStationApi.getEvents();
   // const list = res.data || [];
-  return <FaucetsPage searchParams={searchParams} lang={lang} />;
+  return <FaucetsPage searchParams={searchParams} lang={lang} list={[]} />;
 };
 
 export default Faucets;
