@@ -20,8 +20,10 @@ const ToggleRenderer: FC<ToggleRendererProps> = (props) => {
     case PageType.PGC:
       return <PgcToggleRenderer {...props} />;
     case PageType.UGC:
-    default:
       return <UgcToggleRenderer {...props} />;
+    default:
+      // return <UgcToggleRenderer {...props} />;
+      return null;
   }
 };
 

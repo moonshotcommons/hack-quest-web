@@ -76,6 +76,19 @@ const BulletedListItemRenderer: FC<BulletedListItemRendererProps> = (props) => {
           nextComponent?.type !== NotionComponentType.BULLETED_LIST_ITEM ? 'mb-2' : '',
           HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : ''
         );
+      case PageType.DOCUMENTATION:
+        return cn(
+          'text-xs',
+          prevComponent?.type !== NotionComponentType.BULLETED_LIST_ITEM ? 'mt-2' : '',
+          nextComponent?.type !== NotionComponentType.BULLETED_LIST_ITEM ? 'mb-2' : '',
+          HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : ''
+        );
+      case PageType.DOCUMENTATION_FULL:
+        return cn(
+          'text-sm',
+          prevComponent?.type !== NotionComponentType.BULLETED_LIST_ITEM ? 'mt-2' : '',
+          nextComponent?.type !== NotionComponentType.BULLETED_LIST_ITEM ? 'mb-2' : ''
+        );
       case PageType.GLOSSARY:
       case PageType.BLOG:
       default:

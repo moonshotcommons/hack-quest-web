@@ -42,7 +42,7 @@ const LearningTrackCatalogueItem: FC<LearningTrackCatalogueItemProps> = (props) 
                   >
                     {course.title}
                   </Link>
-                  <ViewButton showText={false} iconClassName="w-4 h-4" id={course.id} placement="center" />
+                  <ViewButton showText={false} iconClassName="w-4 h-4" id={course.documentationId} placement="center" />
                 </div>
                 <LearningTrackCourseStatusButton course={course} />
               </li>

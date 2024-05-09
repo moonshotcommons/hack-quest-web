@@ -8,15 +8,17 @@ import { ZoomInIcon } from '@/components/Common/Icon/ZoomIn';
 import { ZoomOutIcon } from '@/components/Common/Icon/ZoomOut';
 import { XIcon } from '@/components/Common/Icon/X';
 import { cn } from '@/helper/utils';
+import { useQuery } from '@tanstack/react-query';
+import webApi from '@/service';
+import { IconChevron } from '@/components/Common/Icon/Chevron';
+import { ComponentRenderer, ComponentRendererProvider } from '@/components/ComponentRenderer';
+import { PageType } from '@/components/ComponentRenderer/type';
 
 export function Documentation() {
   const { open, data, onClose } = useDocumentation();
   const [isFullscreen, setIsFullscreen] = React.useState(false);
   const lastPositionRef = React.useRef({ x: 0, y: 0 });
-  const [position, setPosition] = React.useState({
-    x: 0,
-    y: 0
-  });
+  const [position, setPosition] = React.useState({ x: 0, y: 0 });
 
   function toggleFullscreen() {
     if (isFullscreen) {
@@ -38,12 +40,28 @@ export function Documentation() {
     setPosition({ x: 0, y: 0 });
   }
 
-  React.useEffect(() => {
-    if (open) {
-      console.log(data);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [open]);
+  const query = useQuery({
+    queryKey: ['documentation', data.id],
+    enabled: open && !!data.id,
+    staleTime: Infinity,
+    queryFn: () => webApi.courseApi.getDocumentationTreeById(data.id as string)
+  });
+
+  const parent = React.useMemo(() => {
+    return {
+      ...query.data,
+      isRoot: true
+    };
+  }, [query.data]);
+
+  const [expanded, setExpanded] = React.useState<{ [id: string]: boolean }>({});
+
+  function toggleExpand(id: string) {
+    setExpanded((prevState) => ({
+      ...prevState,
+      [id]: !prevState[id]
+    }));
+  }
 
   return (
     <>
@@ -63,7 +81,7 @@ export function Documentation() {
                 {
                   'inset-0 h-screen max-h-full w-screen': isFullscreen,
                   'right-8 top-28': data.placement === 'bottom-right' && !isFullscreen,
-                  'left-0 top-0 h-screen max-h-full w-full sm:left-[40%] sm:top-[20%]':
+                  'left-[40%] top-[20%] wap:left-0 wap:top-0 wap:h-screen wap:max-h-full wap:w-full':
                     data.placement === 'center' && !isFullscreen
                 }
               )}
@@ -82,10 +100,10 @@ export function Documentation() {
                     'absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-lg': isFullscreen
                   })}
                 >
-                  Documentation | Solidity 101
+                  Documentation | {query?.data?.title}
                 </h2>
                 <div className="flex items-center gap-3">
-                  <button className="hidden outline-none sm:block" onClick={toggleFullscreen}>
+                  <button className="outline-none wap:hidden" onClick={toggleFullscreen}>
                     {isFullscreen ? <ZoomOutIcon /> : <ZoomInIcon className="h-4 w-4" />}
                   </button>
                   <button id="close" onClick={handleClose}>
@@ -93,12 +111,45 @@ export function Documentation() {
                   </button>
                 </div>
               </div>
-              <div
-                className={cn('documentation-scrollbar h-full flex-1 scroll-m-1 overflow-y-auto p-5', {
-                  'mx-auto max-w-[808px] px-0': isFullscreen
-                })}
-              >
-                hello world
+              <div className="documentation-scrollbar flex-1">
+                <div
+                  className={cn('flex flex-col gap-5 p-5', {
+                    'mx-auto w-[808px] px-0': isFullscreen
+                  })}
+                >
+                  {query.data?.children?.map((item) => (
+                    <section key={item.id}>
+                      <h1
+                        className={cn('inline-flex cursor-pointer items-center gap-2 text-base font-bold', {
+                          'text-lg': isFullscreen
+                        })}
+                        onClick={() => toggleExpand(item.id)}
+                      >
+                        <IconChevron direction={expanded[item.id] ? 'down' : 'right'} />
+                        <span>{item.title}</span>
+                      </h1>
+                      {expanded[item.id] && (
+                        <div className="ml-6 mt-2">
+                          <ComponentRendererProvider
+                            type={isFullscreen ? PageType.DOCUMENTATION_FULL : PageType.DOCUMENTATION}
+                            CustomComponentRenderer={() => null}
+                          >
+                            {item.content?.map((child: any, index: number) => (
+                              <ComponentRenderer
+                                key={child.id}
+                                component={child}
+                                parent={parent}
+                                position={index}
+                                prevComponent={null}
+                                nextComponent={null}
+                              />
+                            ))}
+                          </ComponentRendererProvider>
+                        </div>
+                      )}
+                    </section>
+                  ))}
+                </div>
               </div>
             </div>
           </Draggable>,

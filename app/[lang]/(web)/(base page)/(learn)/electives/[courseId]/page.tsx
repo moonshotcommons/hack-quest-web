@@ -59,6 +59,8 @@ const ElectivePage: FC<ElectivePageProps> = async (props) => {
 
   const courseDetail = await webApi.courseApi.fetchCourseDetail<ElectiveCourseDetailType>(courseId, false, true);
 
+  console.log('courseDetail', courseDetail);
+
   return (
     <CourseDetailProvider courseId={courseId} includePages>
       <div className="relative min-h-[100%] w-full bg-neutral-white">
@@ -126,7 +128,7 @@ const ElectivePage: FC<ElectivePageProps> = async (props) => {
             <div className="h-[34px] w-[5px] rounded-full bg-yellow-dark"></div>
             <h3 className="text-h3 text-neutral-black">{t('courses.syllabus')}</h3>
           </div>
-          <ViewButton placement="center" id={courseId} />
+          <ViewButton placement="center" id={courseDetail.documentationId} />
         </div>
         <LessonCatalogue courseDetail={courseDetail} />
       </div>

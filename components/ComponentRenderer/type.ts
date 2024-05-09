@@ -87,5 +87,7 @@ export enum PageType {
   UGC = 'ugc',
   BLOG = 'blog',
   GLOSSARY = 'glossary',
-  MINI = 'mini'
+  MINI = 'mini',
+  DOCUMENTATION = 'documentation',
+  DOCUMENTATION_FULL = 'documentation_full'
 }

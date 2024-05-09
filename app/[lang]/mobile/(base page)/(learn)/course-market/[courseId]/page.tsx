@@ -124,7 +124,7 @@ const PracticeDetailPage: FC<PracticeDetailPageProps> = async (props) => {
             <div className="h-[22px] w-[5px] rounded-full bg-yellow-dark"></div>
             <h2 className="text-h3-mob text-neutral-black">{`Syllabus`}</h2>
           </div>
-          <ViewButton placement="center" id={courseId} />
+          <ViewButton placement="center" id={courseDetail.documentationId} />
         </div>
         <PracticeCatalogue courseDetail={courseDetail} />
       </div>

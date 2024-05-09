@@ -23,6 +23,7 @@ interface NotionRendererProps {
   parent: any;
   component: NotionComponent;
   isRenderChildren?: boolean;
+  isFullscreen?: boolean;
 }
 
 export const NOTION_RENDERER_TYPES = [

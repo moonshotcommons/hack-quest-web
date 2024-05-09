@@ -25,7 +25,7 @@ const PracticeDetailCard: FC<PracticeDetailCardProps> = ({ courseDetail }) => {
           <TagsAndProgress courseDetail={courseDetail} />
         </div>
         <div className="h-px w-full bg-neutral-light-gray" />
-        <ViewButton placement="center" id={courseDetail.id} />
+        <ViewButton placement="center" id={courseDetail.documentationId} />
         <CourseStatusButton courseDetail={courseDetail} />
       </div>
     </div>

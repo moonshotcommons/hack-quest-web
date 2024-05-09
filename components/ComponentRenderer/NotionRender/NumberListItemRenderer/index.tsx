@@ -74,6 +74,20 @@ const NumberListItemRenderer: FC<NumberListItemRendererProps> = (props) => {
           nextComponent?.type !== NotionComponentType.NUMBERED_LIST_ITEM ? 'mb-2' : '',
           HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : ''
         );
+      case PageType.DOCUMENTATION:
+        return cn(
+          'text-xs',
+          prevComponent?.type !== NotionComponentType.NUMBERED_LIST_ITEM ? 'mt-1' : '',
+          nextComponent?.type !== NotionComponentType.NUMBERED_LIST_ITEM ? 'mb-1' : '',
+          HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : ''
+        );
+      case PageType.DOCUMENTATION_FULL:
+        return cn(
+          'text-sm',
+          prevComponent?.type !== NotionComponentType.NUMBERED_LIST_ITEM ? 'mt-1' : '',
+          nextComponent?.type !== NotionComponentType.NUMBERED_LIST_ITEM ? 'mb-1' : '',
+          HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : ''
+        );
       case PageType.MINI:
       case PageType.GLOSSARY:
       case PageType.BLOG:

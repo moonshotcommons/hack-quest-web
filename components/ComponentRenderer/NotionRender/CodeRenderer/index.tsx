@@ -1,4 +1,3 @@
-import CopyIcon from '@/components/Common/Icon/Copy';
 import { Theme } from '@/constants/enum';
 import { BurialPoint } from '@/helper/burialPoint';
 import { ThemeContext } from '@/store/context/theme';
@@ -11,6 +10,7 @@ import { NotionComponent } from '../type';
 import { CustomComponent, PageType } from '../../type';
 import { HEADING_TYPES } from '../HeaderRenderer';
 import { cn } from '@/helper/utils';
+import { CopyIcon } from '@/components/Common/Icon/CopyV2';
 
 interface CodeSourceType {
   type: string;
@@ -27,6 +27,7 @@ interface CodeRendererProps {
   position: number;
   component: CodeSourceType;
   parent: any;
+  isFullscreen?: boolean;
 }
 
 const CodeRenderer: FC<CodeRendererProps> = (props) => {
@@ -70,6 +71,8 @@ const CodeRenderer: FC<CodeRendererProps> = (props) => {
         return cn('my-2 body-l', HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : '');
       case PageType.MINI:
         return cn('my-2 body-l', HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : '');
+      case PageType.DOCUMENTATION:
+        return cn('my-1 text-xs', HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : '');
       case PageType.GLOSSARY:
       case PageType.BLOG:
       default:
@@ -103,8 +106,11 @@ const CodeRenderer: FC<CodeRendererProps> = (props) => {
             }
           }}
         >
-          <CopyIcon width={17} height={21} color={'currentColor'}></CopyIcon>
-          {/* <span>Copy</span> */}
+          <CopyIcon
+            className={
+              pageType === PageType.DOCUMENTATION ? 'h-3 w-[10px] text-neutral-medium-gray' : 'h-[21px] w-[17px]'
+            }
+          />
         </div>
       </div>
       {isPlayground ? (
@@ -124,14 +130,18 @@ const CodeRenderer: FC<CodeRendererProps> = (props) => {
         <SyntaxHighlighter
           style={theme === Theme.Dark ? oneDark : oneLight}
           language={language}
-          className="scroll-wrap-x scroll-wrap-y code-l mt-[0!important] h-[calc(100%-20px)] rounded-t-[0!important]"
+          className={cn(
+            'scroll-wrap-x scroll-wrap-y code-l mt-[0!important] h-[calc(100%-20px)] rounded-t-[0!important]',
+            {
+              'text-xs [&_>code]:text-xs': pageType === PageType.DOCUMENTATION,
+              'text-sm [&_>code]:text-sm': pageType === PageType.DOCUMENTATION_FULL
+            }
+          )}
           showLineNumbers
         >
           {codeContent}
         </SyntaxHighlighter>
       )}
-
-      {/* <textarea className="hidden" ref={codeRef} value={}></textarea> */}
     </div>
   );
 };

@@ -21,6 +21,7 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
     //     Try again
     //   </button>
     // </div>
-    <div className="h-screen w-full bg-white"></div>
+    // <div className="w-full h-screen bg-white"></div>
+    null
   );
 }

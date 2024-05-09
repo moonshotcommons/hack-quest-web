@@ -11,6 +11,7 @@ interface QuoteRendererProps {
   position: number;
   component: NotionComponent;
   parent: NotionComponent | CustomComponent;
+  isFullscreen?: boolean;
 }
 
 const QuoteRenderer: FC<QuoteRendererProps> = (props) => {

@@ -5,6 +5,7 @@ import {
   CourseLessonType,
   CourseUnitStateType,
   CourseUnitType,
+  Documentation,
   ProjectCourseType,
   UGCCourseType,
   UnitPagesListType
@@ -18,12 +19,14 @@ import {
 } from '../elective/type';
 import { PageResult } from '../type';
 import { cache } from 'react';
+
 export enum CourseApiType {
   Course_List = '/courses',
   GetTopCourses = '/courses/featured',
   LessonDetail = '/pages',
   Support = '/support/suggest',
-  EcosystemProfile = '/eco-system-profiles'
+  EcosystemProfile = '/eco-system-profiles',
+  Documentation = '/documentations'
 }
 
 class CourseApi {
@@ -191,6 +194,27 @@ class CourseApi {
     });
 
     return cacheFn();
+  }
+
+  /**
+   * Get all documentations
+   */
+  getDocumentations() {
+    return this.service.get<Documentation[]>(CourseApiType.Documentation);
+  }
+
+  /**
+   * Get documentation by id
+   */
+  getDocumentationById(id: string) {
+    return this.service.get<Documentation>(`${CourseApiType.Documentation}/${id}`);
+  }
+
+  /**
+   * Get documentation tree by id
+   */
+  getDocumentationTreeById(id: string) {
+    return this.service.get<Documentation>(`${CourseApiType.Documentation}/${id}/full`);
   }
 }
 
