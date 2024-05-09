@@ -149,5 +149,33 @@
     "reachOutToUs":"Reach Out To Us",
     "reachOutToUsDesc":"Do you have any questions about our events? We’d love to hear your thoughts! You can also keep in touch with us by joining our Discord / Telegram!",
     "submitInquiry":"Submit Inquiry"
+  },
+  "faucets":{
+    "title":"免费测试网络水龙头",
+    "desc":"访问各种区块链上的免费测试网络资金，为您即将开发的项目进行测试。",
+    "wantToDonate":"想要向我们的水龙头捐赠吗？",
+    "donate":"将 {{symbol}} 发送至 {{address}} 即可",
+    "drippedSuccessfully":"令牌滴入成功",
+    "waithours":"同一网络的水龙头请求之间必须等待24小时。",
+    "FAQS":{
+      "title": "常见问题解答",
+      "description": "找不到你想要的？联系我们！",
+      "question1": {
+        "problem": "初学者需要学习多少小时才能获得证书?",
+        "answer": "根据学习途径的不同，大多数学生花8到20个小时完成所有课程材料并获得证书。"
+      },
+      "question2": {
+        "problem": "如果我之前没有编码知识，是否可以报名参加课程?",
+        "answer": "根据学习途径的不同，大多数学生花8到20个小时完成所有课程材料并获得证书。"
+      },
+      "question3": {
+        "problem": "所有课程和学习后支持都是免费的吗?",
+        "answer": "根据学习途径的不同，大多数学生花8到20个小时完成所有课程材料并获得证书。"
+      },
+      "question4": {
+        "problem": "我该在哪里寻求帮助?",
+        "answer": "根据学习途径的不同，大多数学生花8到20个小时完成所有课程材料并获得证书。"
+      }
+    }
   }
 }

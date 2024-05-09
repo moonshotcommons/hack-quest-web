@@ -7,7 +7,7 @@ export async function generateMetadata(props: { params: { lang: string } }): Pro
   const { lang } = props.params;
 
   return {
-    title: 'HackQuest Ntu course',
+    title: lang === Lang.EN ? 'Ideating and Building in Web3 MOOC' : 'Web3 MOOC 中的构思与建设',
     alternates: {
       canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}${MenuLink.NTU_COURSE}`,
       languages: {

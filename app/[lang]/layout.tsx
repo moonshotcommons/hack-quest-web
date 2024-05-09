@@ -32,9 +32,14 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: 'HackQuest',
   description: 'Learn and Grow Careers in Web3.',
-  // alternates: {
-  //   canonical: 'https://www.hackquest.io'
-  // },
+  robots: {
+    index: process.env.RUNTIME_ENV === 'production',
+    follow: process.env.RUNTIME_ENV === 'production',
+    googleBot: {
+      index: process.env.RUNTIME_ENV === 'production',
+      follow: process.env.RUNTIME_ENV === 'production'
+    }
+  },
   icons: {
     icon: [
       {
