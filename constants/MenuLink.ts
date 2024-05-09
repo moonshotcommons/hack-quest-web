@@ -24,7 +24,8 @@ enum MenuLink {
   DOCS = '/docs',
   HACKDEGALAXY = '/hackdegalaxy',
   PARTNERS = '/partners',
-  NTU_COURSE = '/ntu-course'
+  NTU_COURSE = '/ntu-course',
+  FAUCETS = '/faucets'
 }
 
 export default MenuLink;

@@ -1,7 +1,7 @@
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import OverviewCover from '@/public/images/learn/overview_cover.png';
 import NtuLogoText from '@/public/images/learn/ntu_logo_text.svg';
 import HackLogo from '@/public/images/learn/hack_logo.png';
@@ -10,12 +10,37 @@ import { overviewData } from '../../constants/data';
 import Link from 'next/link';
 import { IoIosArrowForward } from 'react-icons/io';
 import Button from '@/components/Common/Button';
+import RegisterSuccessModal from './RegisterSuccessModal';
+import { usePathname, useSearchParams } from 'next/navigation';
+import { useRequest } from 'ahooks';
+import webApi from '@/service';
 
 interface OverviewProp {}
 
 const Overview: React.FC<OverviewProp> = () => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.LEARN);
+  const ref = useRef<{ open: VoidFunction }>(null);
+  const query = useSearchParams();
+  const pathname = usePathname();
+  const isRegisterQuery = query.get('isRegister');
+  const { data, run, loading } = useRequest(
+    () => {
+      return webApi.courseApi.getNtuRegisterInfo();
+    },
+    {
+      manual: true
+    }
+  );
+
+  useEffect(() => {
+    run();
+    if (isRegisterQuery === 'true') {
+      ref.current?.open();
+      window.history.replaceState({}, '', pathname);
+    }
+  }, []);
+
   return (
     <div className="flex gap-[40px]">
       <div className="relative h-[498px] w-[498px] flex-shrink-0">
@@ -60,12 +85,18 @@ const Overview: React.FC<OverviewProp> = () => {
         </div>
         <div className="w-full pt-[20px]">
           <Link href={overviewData.registerLink} target="_blank">
-            <Button type="primary" disabled className="button-text-l h-[60px] w-full uppercase text-neutral-off-black">
-              {t('ntuCourse.overview.openSoon')}
+            <Button
+              type="primary"
+              className="button-text-l h-[60px] w-full uppercase text-neutral-off-black"
+              disabled={loading || data?.isRegister}
+              loading={loading}
+            >
+              {data?.isRegister ? t('ntuCourse.overview.registered') : t('ntuCourse.overview.openSoon')}
             </Button>
           </Link>
         </div>
       </div>
+      <RegisterSuccessModal ref={ref} />
     </div>
   );
 };

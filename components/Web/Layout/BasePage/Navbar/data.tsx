@@ -137,6 +137,12 @@ export const navbarList: NavbarListType[] = [
         description: 'navbar.resources.eventsDesc'
       }
       // {
+      //   id: 'faucets',
+      //   label: 'navbar.resources.faucets',
+      //   path: MenuLink.FAUCETS,
+      //   description: 'navbar.resources.faucetsDesc'
+      // }
+      // {
       //id:'partners',
       //   label: 'navbar.resources.partners',
       //   path: MenuLink.PARTNERS,

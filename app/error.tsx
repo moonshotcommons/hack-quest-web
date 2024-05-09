@@ -9,19 +9,19 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
     errorMessage(error);
   }, [error]);
 
-  return (
-    // <div className="text-white">
-    //   <h2>{error.message}!</h2>
-    //   <button
-    //     onClick={
-    //       // Attempt to recover by trying to re-render the segment
-    //       () => reset()
-    //     }
-    //   >
-    //     Try again
-    //   </button>
-    // </div>
-    // <div className="w-full h-screen bg-white"></div>
-    null
-  );
+  // return (
+  // <div className="text-white">
+  //   <h2>{error.message}!</h2>
+  //   <button
+  //     onClick={
+  //       // Attempt to recover by trying to re-render the segment
+  //       () => reset()
+  //     }
+  //   >
+  //     Try again
+  //   </button>
+  // </div>
+
+  // );
+  return null;
 }

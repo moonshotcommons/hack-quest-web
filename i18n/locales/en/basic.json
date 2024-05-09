@@ -97,7 +97,9 @@
       "events": "Events",
       "eventsDesc": "Learn about Web 3 events",
       "partners": "Partners",
-      "partnersDesc": "Become Our Partner"
+      "partnersDesc": "Become Our Partner",
+      "faucets":"Faucets",
+      "faucetsDesc":"Faucets description"
     },
     "launch": {
       "title": "Launch pool"

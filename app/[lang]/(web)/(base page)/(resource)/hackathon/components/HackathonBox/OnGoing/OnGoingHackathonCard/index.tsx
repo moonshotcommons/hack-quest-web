@@ -38,7 +38,7 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon })
   };
   const { getTotalPrize, getStepIndex } = useDealHackathonData();
   const stepIndex = getStepIndex(hackathon);
-
+  console.log(hackathon);
   const totalPrize = getTotalPrize(hackathon.rewards);
   const [warningOpen, setWarningOpen] = useState(false);
   const handleSubmit = (id: string) => {
@@ -152,9 +152,9 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon })
           </div>
           <div className="w-[25%]">
             <p className="mb-[8px]">{t('host')}</p>
-            <p className="body-xl-bold  relative h-[36px] text-neutral-off-black underline">
+            <div className="body-xl-bold  relative h-[36px] text-neutral-off-black underline">
               <p className="absolute left-0 top-0 w-full truncate">{hackathon.hosts?.[0]?.name}</p>
-            </p>
+            </div>
           </div>
         </div>
         <div className="flex gap-[16px]">

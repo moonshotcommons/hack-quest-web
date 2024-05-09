@@ -33,7 +33,7 @@
     "tag": "Learning Track · {{track}}",
     "card": {
       "completedCourse": "Congratulation! You’ve completed all the courses. Claim your Web3 certification 🎉",
-      "claimed": " You are a certified {{chain} Builder 🎉",
+      "claimed": " You are a certified {{chain}} Builder 🎉",
       "lessons": "lessons",
       "courses": "courses"
     }
@@ -84,6 +84,7 @@
       "format": "Format",
       "hosts": "Hosts",
       "discussionGroups": "Discussion Groups",
+      "registered": "You have registered",
       "registerNow": "Register Now",
       "openSoon": "open soon"
     },
